@@ -21,8 +21,14 @@ const Index = () => {
       <Navbar />
 
       {/* HERO */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] min-h-[calc(100vh-62px)] animate-fade-in">
-        {/* LEFT: Visual */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] lg:min-h-[calc(100vh-62px)] animate-fade-in">
+        {/* MOBILE: Hero image */}
+        <div className="relative lg:hidden h-[320px] overflow-hidden bg-surface">
+          <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="w-full h-full object-cover object-top" />
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 40%, hsl(var(--background)) 100%)" }} />
+        </div>
+
+        {/* LEFT: Visual (desktop) */}
         <div className="relative overflow-hidden bg-surface border-r hidden lg:block"
           style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
           <div className="absolute inset-0 flex items-end overflow-hidden">
