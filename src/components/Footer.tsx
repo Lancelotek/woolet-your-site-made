@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
+import wooletLogo from "@/assets/woolet-logo.png";
 
 const Footer = () => {
   return (
     <footer className="px-5 md:px-12 py-5 border-t flex flex-col md:flex-row items-center justify-between gap-3 animate-fade-up"
       style={{ borderTopColor: 'hsl(0 0% 100% / 0.055)' }}>
-      <span className="text-cream-dim opacity-40 tracking-wider" style={{ fontSize: '0.57rem' }}>
-        © 2025 JAY23 LLC — woolet.co — Eyewear for Wide Faces
-      </span>
+      <div className="flex items-center gap-3">
+        <img src={wooletLogo} alt="Woolet" className="h-6" />
+        <span className="text-cream-dim opacity-40 tracking-wider" style={{ fontSize: '0.57rem' }}>
+          © 2025 JAY23 LLC — woolet.co — Eyewear for Wide Faces
+        </span>
+      </div>
       <div className="flex gap-5 flex-wrap justify-center">
         {[
           { label: "Instagram", href: "#" },
