@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logoImg from "@/assets/logo.png";
 
 const Navbar = () => {
   return (
@@ -6,6 +7,7 @@ const Navbar = () => {
       style={{ borderBottomColor: 'hsl(0 0% 100% / 0.055)' }}>
       <div className="flex items-center gap-5">
         <Link to="/" className="flex items-center gap-2 no-underline">
+          <img src={logoImg} alt="Woolet" className="h-7 w-auto" />
           <span className="font-display text-2xl text-woolet-white tracking-wide">Woolet</span>
         </Link>
         <span className="hidden md:block text-cream-dim uppercase tracking-[0.22em] border-l pl-5"
