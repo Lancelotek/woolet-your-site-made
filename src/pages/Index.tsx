@@ -22,7 +22,12 @@ const Index = () => {
 
       {/* HERO */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] min-h-[calc(100vh-62px)] animate-fade-in">
-        {/* LEFT: Visual */}
+        {/* MOBILE-ONLY hero image */}
+        <div className="block lg:hidden w-full aspect-[3/4] overflow-hidden">
+          <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
+        </div>
+
+        {/* LEFT: Visual (desktop only) */}
         <div className="relative overflow-hidden bg-surface border-r hidden lg:block"
           style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
           <div className="absolute inset-0 flex items-end overflow-hidden">
