@@ -1,4 +1,5 @@
 import heroManImg from "@/assets/hero-man.jpg";
+import heroMobileImg from "@/assets/hero-mobile.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Countdown from "@/components/Countdown";
@@ -24,7 +25,7 @@ const Index = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] lg:min-h-[calc(100vh-62px)] animate-fade-in">
         {/* MOBILE: Hero image */}
         <div className="relative lg:hidden h-[320px] overflow-hidden bg-surface">
-          <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="w-full h-full object-cover object-top" />
+          <img src={heroMobileImg} alt="Man wearing Woolet wide-face eyewear" className="w-full h-full object-cover object-top" />
           <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 40%, hsl(var(--background)) 100%)" }} />
         </div>
 
