@@ -7,6 +7,7 @@ import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
 import BeforeAfter from "@/components/BeforeAfter";
+import SpecSheet from "@/components/SpecSheet";
 
 const Index = () => {
   return (
@@ -57,21 +58,20 @@ const Index = () => {
           </div>
 
           <Countdown />
+
+          <BenefitsBar />
+
           <WaitlistForm />
+
+          <div className="woolet-divider" />
+
           <Testimonials />
 
           <div className="woolet-divider" />
 
           <ModelPills />
 
-          {/* Benefits */}
-          <div>
-            <div className="flex flex-col gap-1 mb-4">
-              <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>Waitlist Benefits</div>
-              <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>Reserved exclusively for early supporters</div>
-            </div>
-            <BenefitsBar />
-          </div>
+          <SpecSheet />
         </div>
       </div>
 
