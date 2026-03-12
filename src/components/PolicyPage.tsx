@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import logoImg from "@/assets/logo.png";
 
 interface Section {
   num: string;
