@@ -1,5 +1,4 @@
 import heroManImg from "@/assets/hero-man.jpg";
-import heroMobileImg from "@/assets/hero-mobile.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Countdown from "@/components/Countdown";
@@ -8,7 +7,6 @@ import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
 import BeforeAfter from "@/components/BeforeAfter";
-import SpecSheet from "@/components/SpecSheet";
 
 const Index = () => {
   return (
@@ -22,14 +20,8 @@ const Index = () => {
       <Navbar />
 
       {/* HERO */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] lg:min-h-[calc(100vh-62px)] animate-fade-in">
-        {/* MOBILE: Hero image */}
-        <div className="relative lg:hidden h-[320px] overflow-hidden bg-surface">
-          <img src={heroMobileImg} alt="Man wearing Woolet wide-face eyewear" className="w-full h-full object-cover object-top" />
-          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 40%, hsl(var(--background)) 100%)" }} />
-        </div>
-
-        {/* LEFT: Visual (desktop) */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] min-h-[calc(100vh-62px)] animate-fade-in">
+        {/* LEFT: Visual */}
         <div className="relative overflow-hidden bg-surface border-r hidden lg:block"
           style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
           <div className="absolute inset-0 flex items-end overflow-hidden">
@@ -65,20 +57,21 @@ const Index = () => {
           </div>
 
           <Countdown />
-
-          <BenefitsBar />
-
           <WaitlistForm />
-
-          <div className="woolet-divider" />
-
           <Testimonials />
 
           <div className="woolet-divider" />
 
           <ModelPills />
 
-          <SpecSheet />
+          {/* Benefits */}
+          <div>
+            <div className="flex flex-col gap-1 mb-4">
+              <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>Waitlist Benefits</div>
+              <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>Reserved exclusively for early supporters</div>
+            </div>
+            <BenefitsBar />
+          </div>
         </div>
       </div>
 
