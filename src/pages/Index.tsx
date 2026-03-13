@@ -46,7 +46,7 @@ const Index = () => {
         </div>
 
         {/* RIGHT: Form panel */}
-        <div className="flex flex-col p-6 lg:p-10 overflow-y-auto gap-8 lg:border-l"
+        <div className="flex flex-col px-4 py-6 sm:p-6 lg:p-10 overflow-y-auto gap-6 sm:gap-8 lg:border-l"
           style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
           {/* Eyebrow + Headline */}
           <div>
