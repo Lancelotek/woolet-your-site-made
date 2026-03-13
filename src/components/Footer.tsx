@@ -3,7 +3,7 @@ import wooletLogo from "@/assets/woolet-logo.png";
 
 const Footer = () => {
   return (
-    <footer className="px-5 md:px-12 py-5 border-t flex flex-col md:flex-row items-center justify-between gap-3 animate-fade-up"
+    <footer className="px-4 sm:px-5 md:px-12 py-4 sm:py-5 border-t flex flex-col md:flex-row items-center justify-between gap-3 animate-fade-up"
       style={{ borderTopColor: 'hsl(0 0% 100% / 0.055)' }}>
       <div className="flex items-center gap-3">
         <img src={wooletLogo} alt="Woolet" className="h-6" />

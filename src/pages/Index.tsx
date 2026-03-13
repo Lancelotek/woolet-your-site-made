@@ -23,7 +23,7 @@ const Index = () => {
       {/* HERO */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] min-h-[calc(100vh-62px)] animate-fade-in">
         {/* MOBILE-ONLY hero image */}
-        <div className="block lg:hidden w-full aspect-[3/4] overflow-hidden">
+        <div className="block lg:hidden w-full max-h-[60vh] overflow-hidden">
           <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
         </div>
 

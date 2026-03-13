@@ -33,11 +33,11 @@ const Countdown = () => {
       <span className="text-cream-dim uppercase tracking-[0.24em]" style={{ fontSize: "0.56rem" }}>
         Launch countdown
       </span>
-      <div className="flex items-end gap-4">
+      <div className="flex items-end gap-2 sm:gap-4">
         {units.map((u, i) => (
-          <div key={u.label} className="flex items-end gap-4">
+          <div key={u.label} className="flex items-end gap-2 sm:gap-4">
             <div className="text-center">
-              <span className="font-display text-woolet-white block leading-none" style={{ fontSize: "2.8rem" }}>
+              <span className="font-display text-woolet-white block leading-none text-[2rem] sm:text-[2.8rem]">
                 {u.val}
               </span>
               <span className="text-cream-dim uppercase tracking-[0.22em] block mt-1" style={{ fontSize: "0.48rem" }}>
@@ -45,7 +45,7 @@ const Countdown = () => {
               </span>
             </div>
             {i < units.length - 1 && (
-              <span className="font-display text-gold-dim leading-none pb-0.5" style={{ fontSize: "2.8rem" }}>:</span>
+              <span className="font-display text-gold-dim leading-none pb-0.5 text-[2rem] sm:text-[2.8rem]">:</span>
             )}
           </div>
         ))}
