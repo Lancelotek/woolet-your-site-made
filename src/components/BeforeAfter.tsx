@@ -29,7 +29,7 @@ const BeforeAfter = () => {
           <span className="uppercase tracking-[0.22em] text-cream-dim" style={{ fontSize: "0.55rem" }}>After — Woolet</span>
         </div>
         <div className="h-[90px] flex flex-col items-center justify-center gap-2 pt-2">
-          <div className="flex gap-5 justify-center">
+          <div className="flex gap-3 sm:gap-5 justify-center">
             {[
               { val: "158mm", label: "Width" },
               { val: "52mm", label: "Bridge" },

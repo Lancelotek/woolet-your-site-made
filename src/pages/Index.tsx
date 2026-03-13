@@ -23,7 +23,7 @@ const Index = () => {
       {/* HERO */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] min-h-[calc(100vh-62px)] animate-fade-in">
         {/* MOBILE-ONLY hero image */}
-        <div className="block lg:hidden w-full aspect-[3/4] overflow-hidden">
+        <div className="block lg:hidden w-full max-h-[60vh] overflow-hidden">
           <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
         </div>
 
@@ -46,7 +46,7 @@ const Index = () => {
         </div>
 
         {/* RIGHT: Form panel */}
-        <div className="flex flex-col p-6 lg:p-10 overflow-y-auto gap-8 lg:border-l"
+        <div className="flex flex-col px-4 py-6 sm:p-6 lg:p-10 overflow-y-auto gap-6 sm:gap-8 lg:border-l"
           style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
           {/* Eyebrow + Headline */}
           <div>
