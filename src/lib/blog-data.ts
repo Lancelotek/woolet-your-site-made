@@ -533,32 +533,136 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "why-glasses-dont-fit-155mm-problem",
-    title: "Why Most Glasses Don't Fit: The 155mm Problem",
-    excerpt: "The eyewear industry designs for an average face. If yours is above 155mm, you've been systematically excluded. Here's why — and what's changing.",
+    title: "Why Your Glasses Don't Fit: The 155mm Problem",
+    excerpt: "If glasses always pinch your temples, it's not your head — it's the industry. Learn why most frames stop at 148mm and what 'the 155mm problem' means for wider faces.",
     date: "2026-03-01",
-    readTime: 5,
-    tags: ["Industry", "Wide Face", "Problem"],
+    readTime: 9,
+    tags: ["Industry", "Wide Face", "155mm"],
     content: `
-<p>Walk into any eyewear store and you'll find hundreds of frames — almost none of which fit a face wider than 150mm. This isn't an accident. It's a systemic design choice.</p>
+<p>There's a number the eyewear industry doesn't talk about: <strong>155mm</strong>.</p>
 
-<h2>The Industry Standard</h2>
-<p>Most major eyewear brands design frames for face widths between <strong>128–142mm</strong>. That covers approximately 70% of men. But it leaves out <strong>roughly 30%</strong> — millions of men who either squeeze into too-small frames or give up entirely.</p>
+<p>It's the threshold at which most glasses stop working for most faces. Below it, the market serves you reasonably well. Above it, you're largely on your own — choosing between frames that technically fit on your head but compress your temples, frames that are wide enough but look like something from a sporting goods catalog, or no frames at all that you'd actually want to wear.</p>
 
-<h2>Why Brands Ignore Wide Faces</h2>
-<p>It comes down to economics. Wider frames require:</p>
+<p>If you've been cycling through pairs of glasses that squeeze, hurt, leave marks on your temples, or look disproportionately small on your face — this is the explanation.</p>
+
+<p>And it starts not with your head, but with how the eyewear industry was built.</p>
+
+<h2>How Eyewear Sizing Became Standardized Around the Wrong Number</h2>
+
+<p>Modern eyewear manufacturing scaled up through the 20th century around a set of assumptions about human face dimensions. Those assumptions were based on the populations most accessible to European and American manufacturers at the time — populations with average face widths clustering between 130mm and 145mm.</p>
+
+<p>The industrial infrastructure — the molds, the tooling, the supply chains — was built around these dimensions. "Standard" became 135mm. "Wide" became 140–148mm. And those definitions, embedded in decades of manufacturing and retail convention, have barely moved.</p>
+
+<p>The problem is that human face widths don't stop at 148mm. They continue in a normal distribution, with meaningful proportions of the population — particularly among men, and disproportionately among people of certain ethnic backgrounds — measuring 155mm, 160mm, 165mm or more.</p>
+
+<p>For these faces, the entire standard eyewear market was built around numbers that simply don't apply.</p>
+
+<h2>The Deceptive Math of "Wide" Frames</h2>
+
+<p>When you see a frame labeled "wide" or "XL," the natural assumption is that it's wide enough for wide faces. This assumption is almost always wrong.</p>
+
+<p>A brand like Warby Parker makes glasses in multiple widths. Their standard frames run approximately 130–138mm. Their "wide" frames run approximately 138–148mm. When they label something "Wide," they mean wide relative to their standard range — not wide relative to what wide-faced customers actually need.</p>
+
+<p>This is not dishonesty. It's a categorization system that works perfectly for the range of customers it was designed for. It just wasn't designed with 155mm+ faces in mind.</p>
+
+<p>The same pattern repeats across the market:</p>
 <ul>
-<li>Different hinge mechanics</li>
-<li>Longer temples</li>
-<li>Wider lenses (more expensive to produce)</li>
-<li>Separate manufacturing runs</li>
+<li><strong>Zenni "Extended Fit":</strong> approximately 138–142mm</li>
+<li><strong>EyeBuyDirect "Large":</strong> approximately 140–148mm</li>
+<li><strong>Most optical chains "XL":</strong> approximately 144–150mm</li>
 </ul>
-<p>For mass-market brands optimising for volume, it's cheaper to sell one-size-fits-most.</p>
 
-<h2>The Cost of Poor Fit</h2>
-<p>Wearing frames that are too narrow causes more than discomfort. Pressure headaches. Red marks on temples. Frames that bow outward and break at the hinges. And — arguably worst — looking like you're wearing glasses two sizes too small.</p>
+<p>For someone measuring 158mm temple to temple, even the largest "wide" frames from mainstream brands are still 8–18mm too narrow. That might not sound like much. But on either side of your skull, it means 4–9mm of constant compression — equivalent to wearing a headband that's slightly too tight, for 10–12 hours a day.</p>
 
-<h2>The Woolet Solution</h2>
-<p>We started Woolet because we lived this problem. Our frames begin at 155mm and use reinforced 5-barrel hinges, extended 150mm temples, and a 22mm bridge. Not adapted. Not stretched. Engineered from zero.</p>
+<h2>What Compression Actually Does to Your Head</h2>
+
+<p>The temporal region — where glasses frames make contact with your skull — is not an inert surface. The temporal muscles run through this area, and several significant blood vessels and nerves pass through and beneath the temporal fascia.</p>
+
+<p>When glasses are too narrow:</p>
+
+<p><strong>The temporal muscles are constantly compressed.</strong> Every time you chew, speak, or change your facial expression, these muscles contract against the pressure of the temple arm. This creates intermittent sharp discomfort layered on top of the constant background pressure.</p>
+
+<p><strong>Blood flow to the surrounding tissue is reduced.</strong> The sustained pressure from tight temple arms restricts circulation in the soft tissue. This is the mechanism behind the "tight hat" feeling — a gradually increasing sense of pressure and warmth that builds over hours.</p>
+
+<p><strong>The trigeminal nerve can be irritated.</strong> The trigeminal nerve branches through the temporal region. Sustained pressure on these branches contributes to the tension-type headaches that many wide-faced glasses wearers experience specifically on days they wear their glasses.</p>
+
+<p>The result compounds over time. The first hour in tight glasses is tolerable. The fourth hour is uncomfortable. The eighth hour is a headache. Many people with wide faces have simply learned to live with headaches on working days and assumed it was screen fatigue, stress, or something intrinsic to them. Often, it's the glasses.</p>
+
+<h2>Why Wider Frames Were Never Built for the Premium Market</h2>
+
+<p>For most of eyewear's history, the people who needed wider frames had one option: compromise.</p>
+
+<p>The specialist wide-face brands that exist — Fatheadz, Faded Days, SizeGlasses, BXL Eyewear — all entered the market solving one problem: physical fit. They built frames wide enough. But the economics of serving a smaller market segment with specialized manufacturing pushed them firmly into the budget tier. The materials are injection-molded plastic or TR90 nylon. The designs are functional, not refined.</p>
+
+<p>On the other side, premium heritage brands — MOSCOT, Cubitts, independent Italian ateliers — invested their craft in producing exceptional frames in premium Italian acetate with sophisticated design sensibilities. Their "wide" options are wider than standard. But their manufacturing was never recalibrated for genuinely wide faces. "Wide" at MOSCOT means something like 142mm. Still not 155mm.</p>
+
+<p>The result is a hard market gap: <strong>no premium Italian acetate brand has ever properly served faces above 155mm.</strong></p>
+
+<p>Until now.</p>
+
+<h2>The 155mm Threshold in Numbers</h2>
+
+<p>To understand why 155mm specifically matters, consider what happens at the borders of existing products on a 158mm face:</p>
+
+<ul>
+<li><strong>140mm ("wide" mainstream):</strong> 9mm compression per side — constant headache territory</li>
+<li><strong>148mm ("XL" mainstream):</strong> 5mm compression per side — uncomfortable after 2–3 hours</li>
+<li><strong>150mm (specialist budget):</strong> 4mm compression per side — manageable but not ideal</li>
+<li><strong>155mm (specialist):</strong> 1.5mm compression per side — most people tolerate this</li>
+<li><strong>158mm (Woolet):</strong> Perfect fit on most 155–161mm faces</li>
+<li><strong>162mm+:</strong> Slightly loose — frames may slide without adjustment</li>
+</ul>
+
+<p>The 155mm threshold is where standard sizing definitively fails and specialist engineering begins. Below it, the mainstream market can serve you with varying levels of compromise. Above it, you need frames that were designed with your face width as the primary parameter — not as an afterthought.</p>
+
+<h2>The Style Problem No One Mentions</h2>
+
+<p>The fit problem gets most of the attention. But there's a parallel style problem that's equally real.</p>
+
+<p>When you wear frames that are too narrow for your face, the visual effect is disproportionate. Your face appears wider than your glasses. The glasses look too small — not because they're stylistically small, but because they're physically undersized relative to your features.</p>
+
+<p>This effect is independent of frame style. Rectangular frames, round frames, aviators — if they're 15mm too narrow for your face, they'll look wrong regardless of how well they were designed.</p>
+
+<p><strong>Proportional eyewear</strong> — where the frame width approximately matches the face width — looks intentional. The face and the glasses read as a coordinated whole. This is why fashion designers spec their runway eyewear so carefully: proportion is the difference between glasses that elevate a face and glasses that fight it.</p>
+
+<p>For 155mm+ faces, proportional eyewear means 155mm+ frames. The style problem is, at its root, also a sizing problem.</p>
+
+<h2>What the Solution Actually Looks Like</h2>
+
+<p>Solving the 155mm problem requires engineering for it from first principles — not adapting a standard frame to be slightly wider.</p>
+
+<p>This means:</p>
+<ul>
+<li><strong>158mm total width</strong> — matched to the core range of wide faces (155–161mm), where the frame rests on the face with zero lateral pressure.</li>
+<li><strong>150mm temple length</strong> — long enough to wrap properly around a larger skull without the hinge becoming a secondary pressure point.</li>
+<li><strong>Proportional lens sizing</strong> — 52mm lens width on the 007, 54mm on the 009, ensuring that eyes sit at the optical center of each lens on a 155mm+ face.</li>
+<li><strong>Italian acetate construction</strong> — the only material that maintains structural integrity and dimensional stability across a 158mm span over years of daily wear.</li>
+<li><strong>Premium design sensibility</strong> — because the people who need wider frames also deserve options that don't look like they came from a sporting goods store.</li>
+</ul>
+
+<p>Woolet was built to answer exactly one question: why doesn't a brand exist that does all of this? The 155mm problem has a solution. It just took building it.</p>
+
+<h2>FAQ: Why Glasses Don't Fit Wide Faces</h2>
+
+<h3>Why do glasses always hurt my temples?</h3>
+<p>Temple pain from glasses is almost always caused by frames that are too narrow for your face. When the total frame width is less than your face width, the temple arms press against your skull with constant lateral force. The solution is frames engineered to your actual face width — for 155mm+ faces, this means frames of at least 155mm total width.</p>
+
+<h3>Is it normal for glasses to leave marks on my temples?</h3>
+<p>No. Properly fitted glasses should rest on your face without creating pressure marks. Marks behind the ears are normal (the ear hooks support the frame's weight), but marks or indentations at the temples indicate that the frames are compressing your skull. This is a sizing problem, not a normal part of wearing glasses.</p>
+
+<h3>Can an optician adjust my glasses to fit a wide face?</h3>
+<p>An optician can bend the temple arms outward to widen the fit by approximately 5–8mm. This is a legitimate short-term solution for mild tightness. However, forcing a frame significantly beyond its designed width stresses the material and hinges, shortening the frame's lifespan. For faces 155mm+, frames designed at that width from the outset are a far better long-term solution.</p>
+
+<h3>Why do my glasses slide down my nose if they feel tight at the temples?</h3>
+<p>These two problems have the same root cause. When a frame is too narrow, it bows outward at the front (the temples push the sides while the front of the frame flexes). This bowing causes the nose bridge to ride upward, pushing the front of the frame off the nose. The frame is both compressing your temples and sliding off your nose simultaneously — a direct consequence of wrong sizing.</p>
+
+<h2>The Problem Had a Name. Now It Has a Solution.</h2>
+
+<p>The 155mm problem isn't unique to you. It affects a significant and underserved portion of the population — people who've spent years in glasses that hurt, in glasses that look wrong, or both.</p>
+
+<p>Woolet was built to close that gap: premium Italian acetate frames, precisely engineered at 158mm, designed for the faces that the rest of the industry forgot to include.</p>
+
+<p><em>Woolet 007 and Woolet 009 — Italian acetate frames at 158mm, built for faces the industry left behind. Join the waitlist at woolet.co.</em></p>
 `,
   },
   {
