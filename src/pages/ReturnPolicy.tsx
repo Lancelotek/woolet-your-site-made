@@ -139,7 +139,20 @@ const ReturnPolicy = () => {
     },
   ];
 
-  return <PolicyPage title="Return Policy" meta="JAY23 LLC · Last updated: March 2025" sections={sections} />;
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+
+  return (
+    <>
+      <SEO
+        title="Return Policy"
+        description="Woolet return and exchange policy — 30-day returns, fit guarantee, and hassle-free refunds. JAY23 LLC."
+        lang={lang}
+        path="/return-policy"
+      />
+      <PolicyPage title="Return Policy" meta="JAY23 LLC · Last updated: March 2025" sections={sections} />
+    </>
+  );
 };
 
 export default ReturnPolicy;
