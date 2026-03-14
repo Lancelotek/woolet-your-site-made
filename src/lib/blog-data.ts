@@ -667,30 +667,135 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "round-vs-square-glasses-wide-face",
-    title: "Round vs. Square Glasses for Wide Faces: Which Style Suits You?",
-    excerpt: "Choosing between round and square frames when you have a wide face? Here's how face shape interacts with frame geometry — and how to pick your best look.",
+    title: "Round vs Square Glasses for Wide Faces: Which Shape Suits You?",
+    excerpt: "Round or square glasses for a wide face? This guide breaks down the visual logic of each shape, who each suits, and how Woolet 007 and 009 were designed for 155mm+ faces.",
     date: "2026-02-25",
-    readTime: 5,
-    tags: ["Style", "Face Shape", "Guide"],
+    readTime: 7,
+    tags: ["Style", "Face Shape", "007 vs 009"],
     content: `
-<p>Frame shape matters — especially when you have a wide face. The right geometry can sharpen your look; the wrong one can make your face appear even wider.</p>
+<p>The debate between round and square eyewear is one of the oldest in optical fashion. Both shapes have ardent defenders. Both have looked extraordinary on the right person.</p>
 
-<h2>Understanding Face Shapes</h2>
-<p>Wide faces come in different shapes:</p>
+<p>But for faces measuring 155mm and above, the question has an additional dimension: it's not just about aesthetics. It's about proportion, balance, and how each shape interacts with the specific geometry of a wide face.</p>
+
+<p>This guide will walk through both shapes honestly — what each does visually, who each suits, and how the two models in the Woolet collection — the 007 (round) and the 009 (square) — were designed around these principles.</p>
+
+<h2>The Visual Logic of Frame Shapes</h2>
+
+<p>Before getting to specific shapes, it helps to understand the underlying principle that governs how glasses interact with faces: <strong>contrast and complement</strong>.</p>
+
+<p>Glasses that <strong>contrast</strong> with your face shape create definition and balance. Glasses that <strong>complement</strong> your face shape tend to blend in — not in a bad way, but in a way that feels harmonious rather than dramatic.</p>
+
+<p>A round face and round glasses is a complement: both soft, both curved. A round face and square glasses is a contrast: the angular frames add structure to a curved face.</p>
+
+<p>For wide faces, this principle plays out in a specific way. Wide faces tend to have prominent cheekbones and broad temples. The right frames acknowledge this proportionally: they're wide enough to span the face (155mm+), and their shape either adds visual height to counterbalance the breadth, or mirrors the face's natural roundness in a way that feels cohesive.</p>
+
+<h2>Square and Rectangular Frames on Wide Faces</h2>
+
+<h3>Why square frames work</h3>
+
+<p>Square and rectangular frames are characterized by strong horizontal lines and right-angle corners. On a wide face, these do several things:</p>
+
+<p><strong>They add vertical emphasis.</strong> The straight top and bottom edges of a square frame create a vertical visual element that counterbalances horizontal breadth. A wide face with square frames reads as broader and taller — more balanced overall.</p>
+
+<p><strong>They project structure and authority.</strong> Angular corners communicate decisiveness. This is part of why rectangular frames have been the dominant professional eyewear shape for decades. On a wide face with strong bone structure, square frames look intentional and commanding.</p>
+
+<p><strong>They suit defined jawlines.</strong> Wide faces with square or strong jawlines pair naturally with square frames — the shapes echo each other in a way that creates visual consistency.</p>
+
+<h3>Who square frames suit on wide faces</h3>
 <ul>
-<li><strong>Round-wide:</strong> Full cheeks, soft jawline, minimal angles.</li>
-<li><strong>Square-wide:</strong> Strong jaw, angular features, prominent brow.</li>
-<li><strong>Oval-wide:</strong> Balanced proportions, slightly longer than wide.</li>
+<li>Wide faces with rounded features (square adds contrast)</li>
+<li>Faces with strong, defined jawlines</li>
+<li>Those seeking a professional, authoritative aesthetic</li>
+<li>Classic dressers who want eyewear that commands the room without demanding attention</li>
 </ul>
 
+<h3>The Woolet 009</h3>
+<p>The 009 is Woolet's square model: a bold wayfarer silhouette at 158mm total width with 54mm lenses. The design draws from the classic wayfarer geometry — strong horizontal lines, defined corners — but scaled and proportioned specifically for 155mm+ faces. On a wide face, the 009 sits with visual authority. The frame doesn't look like a smaller pair of glasses stretched to fit. It looks like it was designed for exactly this face, because it was.</p>
+
 <h2>Round Frames on Wide Faces</h2>
-<p>Round frames work best on <strong>square or angular</strong> wide faces. They soften harsh lines and add balance. However, on a round-wide face, circular frames can amplify roundness — making your face look wider.</p>
 
-<h2>Square & Rectangular Frames</h2>
-<p>Angular frames add structure and definition. They're ideal for <strong>round-wide</strong> faces because they introduce contrast. On square faces, they reinforce existing geometry — which can work if you want a strong, assertive look.</p>
+<h3>Why round frames work</h3>
 
-<h2>The Woolet Approach</h2>
-<p>The Woolet 007 features a refined rectangular silhouette — universally flattering on wide faces. The Woolet 009 has softer, rounded corners for those who want a touch of warmth without going full circle.</p>
+<p>Round frames have a reputation as a "soft" or "artistic" choice, but their relationship with wide faces is more nuanced than that.</p>
+
+<p><strong>They soften strong angular faces.</strong> Wide faces with prominent, square jawlines can be visually intense. Round frames introduce curves that counterbalance angular bone structure, creating a face that reads as broad but approachable.</p>
+
+<p><strong>They emphasize the eyes.</strong> Round lenses frame the eyes in a way that draws the viewer's gaze upward and inward, rather than emphasizing the horizontal breadth of the face. This creates a sense of focus and presence.</p>
+
+<p><strong>They have timeless intellectual credibility.</strong> Round frames carry decades of cultural association with thoughtfulness and considered style. From Le Corbusier to Steve Jobs, round frames project a specific kind of quiet confidence. On a wide face, properly proportioned round frames achieve this effect without looking borrowed from a narrower aesthetic.</p>
+
+<h3>The critical condition: size must match face</h3>
+<p>Round frames on wide faces only work when the frames are genuinely proportional to the face. A small round frame (50mm lens, 140mm total width) on a 160mm face looks like an accident — two tiny circles perched on a broad canvas.</p>
+
+<p>For wide faces, round frames need lens diameters of 50mm or above and total frame widths of 155mm+. At this scale, the roundness reads as intentional and proportional.</p>
+
+<h3>Who round frames suit on wide faces</h3>
+<ul>
+<li>Wide faces with soft, rounded features (the harmony of complementary shapes)</li>
+<li>Wide, angular faces that need softening</li>
+<li>Faces with high cheekbones and defined features</li>
+<li>Those with a more considered, intellectual aesthetic sensibility</li>
+<li>Anyone who wants presence without aggression</li>
+</ul>
+
+<h3>The Woolet 007</h3>
+<p>The 007 is Woolet's round model: a keyhole-bridge silhouette at 158mm total width with 52mm lenses. The keyhole bridge — a teardrop-shaped nose piece characteristic of classic European eyewear — adds an element of refined detail that distinguishes the 007 from generic "round glasses." At 52mm lens diameter, the circles are large enough to maintain proportion on a 155mm+ face while retaining the clean, uncluttered geometry of true round eyewear.</p>
+
+<h2>How to Choose: A Decision Framework</h2>
+
+<p>If you're deciding between round and square glasses for a wide face, work through these questions:</p>
+
+<h3>1. What shape is your face?</h3>
+
+<p><strong>Rounder face</strong> (soft features, less defined jawline): Square frames add the angular definition your face naturally lacks. The 009 is typically the stronger choice.</p>
+
+<p><strong>Squarer or more angular face</strong> (strong jawline, prominent cheekbones): Both shapes work. Round frames (007) soften the angles and create interesting contrast. Square frames (009) create bold consonance — strong face, strong frame.</p>
+
+<p><strong>Oval wide face</strong> (balanced proportions, slightly longer than wide): Both shapes work well. Choose based on the aesthetic impression you want to create.</p>
+
+<h3>2. What context are these glasses for?</h3>
+
+<p><strong>Professional / boardroom / formal:</strong> Square frames (009) tend to project authority and formality. The straight horizontal lines read as decisive and structured.</p>
+
+<p><strong>Creative / intellectual / versatile:</strong> Round frames (007) have broader cultural range — they work in professional settings while also translating to creative and casual contexts.</p>
+
+<p><strong>Weekend / casual:</strong> Both work. Consider which silhouette you naturally gravitate toward — structured vs. softer choices.</p>
+
+<h3>3. What impression do you want to create?</h3>
+<ul>
+<li><strong>Commanding, authoritative, direct</strong> → Square (009)</li>
+<li><strong>Thoughtful, considered, approachable</strong> → Round (007)</li>
+<li><strong>Classic, timeless, versatile</strong> → Round (007)</li>
+<li><strong>Bold, structured, professional</strong> → Square (009)</li>
+<li><strong>Softened angles, refined contrast</strong> → Round (007)</li>
+<li><strong>Echoed strength, visual coherence</strong> → Square (009)</li>
+</ul>
+
+<h2>What Both Shapes Have in Common</h2>
+
+<p>For all their visual differences, the 007 and 009 share the fundamentals that matter most for wide-faced wearers:</p>
+
+<ul>
+<li><strong>158mm total width</strong> — engineered for faces 155mm and above. Both frames sit on wider faces without lateral compression, without the headaches, without the marks behind the temples.</li>
+<li><strong>Italian Mazzucchelli acetate</strong> — the same material in both frames. Dense, dimensionally stable, plant-based, and produced by the manufacturer that has defined premium eyewear for over 175 years.</li>
+<li><strong>150mm temples</strong> — long enough to wrap properly around larger skulls, distributing any residual pressure across a wider arc.</li>
+<li><strong>Proportional lens sizing</strong> — 52mm (007) and 54mm (009), scaled to maintain visual balance on 155mm+ faces.</li>
+</ul>
+
+<p>The choice between round and square is a genuine aesthetic decision. But it's a decision you can make on purely stylistic grounds, because both options have already solved the fit problem.</p>
+
+<h2>FAQ: Frame Shapes for Wide Faces</h2>
+
+<h3>Do round glasses make a wide face look rounder?</h3>
+<p>Not if they're properly sized. A small round frame on a wide face can emphasize the face's breadth. But a proportional round frame (52mm+ lens, 155mm+ total width) frames the eyes in a way that draws focus inward, creating balance rather than amplifying width.</p>
+
+<h3>What face shape should wear square glasses?</h3>
+<p>Square frames are particularly effective on oval, round, and heart-shaped faces, where the angular structure adds definition. They work on square faces too, creating bold visual consonance. For wide faces specifically, square frames add vertical emphasis that counterbalances horizontal breadth.</p>
+
+<h3>Can you wear both styles depending on the occasion?</h3>
+<p>Absolutely. Many wearers maintain two pairs for different contexts — a round pair for creative and intellectual environments, a square pair for formal professional settings. With both the 007 and 009 available in the same Italian acetate at 158mm, this is a natural pairing.</p>
+
+<p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm) — Italian acetate frames designed for 155mm+ faces. Join the waitlist at woolet.co.</em></p>
 `,
   },
   {
