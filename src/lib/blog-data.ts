@@ -13,31 +13,210 @@ export interface BlogPost {
 const blogPostsEN: BlogPost[] = [
   {
     slug: "glasses-for-wide-faces-guide",
-    title: "The Complete Guide to Glasses for Wide Faces",
-    excerpt: "Finding glasses that fit a wide face can be frustrating. Here's everything you need to know about frame widths, temple lengths, and bridge sizes to get the perfect fit.",
+    title: "The Definitive Guide to Glasses for Wide Faces (2026)",
+    excerpt: "Struggling to find glasses for a wide face? This is the only guide you need — how to measure, which frames fit 155mm+ faces, and where to buy premium wide eyewear in 2026.",
     date: "2026-03-10",
-    readTime: 8,
-    tags: ["Guide", "Wide Face", "Fit"],
+    readTime: 14,
+    tags: ["Guide", "Wide Face", "2026"],
     content: `
-<p>If you've ever walked into an optical store and left empty-handed because nothing fit, you're not alone. <strong>Millions of men</strong> have face widths above 145mm — and the standard eyewear industry largely ignores them.</p>
+<p>You already know the problem. You've walked into an optical store, tried on frame after frame, and felt the creeping frustration as every single pair pinches your temples before it even reaches your ears. You've ordered online, hoped for the best, and returned the glasses three times. You've been told to "try metal frames" or to "maybe go custom" — as if finding glasses that simply fit should require a bespoke tailor.</p>
 
-<h2>What Makes a Face "Wide"?</h2>
-<p>A wide face typically measures <strong>145mm or more</strong> across the temples. For context, most standard frames are designed for faces between 130–142mm. That leaves a significant gap for anyone above that range.</p>
-<p>At Woolet, we engineer frames starting at <strong>155mm</strong> — because "wide" shouldn't mean "out of options."</p>
+<p>It shouldn't. And this guide is here to fix that.</p>
 
-<h2>Key Measurements to Look For</h2>
-<p>When shopping for wide-face glasses, pay attention to three critical numbers:</p>
+<p>Wide faces — defined as faces measuring <strong>155mm or more</strong> from temple to temple — represent a significant portion of the population. The problem isn't your face. The problem is that the eyewear industry was designed around a bell curve that cuts off precisely where you begin.</p>
+
+<p>In this guide, you'll learn exactly how to measure your face width, understand frame sizing, find frames that genuinely fit 155mm+ faces, and discover what separates a $30 plastic frame from a premium Italian acetate designed to last a decade.</p>
+
+<h2>What Is a "Wide Face" in Eyewear Terms?</h2>
+
+<p>In the eyewear industry, "wide" is one of the most misused terms on the market. Warby Parker, Zenni, and EyeBuyDirect all offer "wide" frames. But their "wide" typically means 138–148mm — a measurement that's still too narrow for a genuinely broad face.</p>
+
+<p>Here's the actual size breakdown:</p>
+
 <ul>
-<li><strong>Frame width:</strong> The total width across the front. Look for 148mm+ for a comfortable fit.</li>
-<li><strong>Temple length:</strong> Standard temples are 140mm. If frames feel tight behind your ears, you need 145–155mm.</li>
-<li><strong>Bridge width:</strong> A wider bridge (20mm+) prevents the nose pads from digging in.</li>
+<li><strong>130–137mm</strong> — Standard. Virtually all mainstream brands work.</li>
+<li><strong>138–144mm</strong> — Wide. Warby Parker Wide, Zenni Extended Fit.</li>
+<li><strong>145–154mm</strong> — Extra-Wide. EyeBuyDirect Large, Fatheadz.</li>
+<li><strong>155mm+</strong> — XL / Specialty Wide. Woolet (158mm), BXL Eyewear, Faded Days.</li>
 </ul>
 
-<h2>Common Mistakes</h2>
-<p>The biggest mistake is settling for frames that "almost fit." Frames that are too narrow cause pressure headaches, leave red marks on your temples, and look disproportionately small on your face.</p>
+<p>If your face measures 155mm or more, mainstream "wide" frames are still too small. You need frames engineered specifically for this range — with wider fronts, longer temples, and proportionally scaled bridges.</p>
 
-<h2>Why Woolet Is Different</h2>
-<p>Woolet 007 and 009 are engineered from the ground up for wide faces. Italian acetate. Extended 150mm temples. A 22mm bridge. No compromises — just frames that actually fit.</p>
+<h2>How to Measure Your Face Width for Glasses</h2>
+
+<p>Before you buy a single frame, you need one number: your face width.</p>
+
+<p><strong>You'll need:</strong> A flexible measuring tape or a ruler (in millimeters), and a mirror.</p>
+
+<p><strong>Step 1:</strong> Stand in front of a mirror in good lighting.</p>
+<p><strong>Step 2:</strong> Hold your ruler or measuring tape horizontally, just below eye level, level with your cheekbones.</p>
+<p><strong>Step 3:</strong> Measure from the outermost edge of your left temple to the outermost edge of your right temple.</p>
+<p><strong>Step 4:</strong> Note this measurement in millimeters. This is your face width.</p>
+
+<p><strong>What the number means:</strong></p>
+<ul>
+<li><strong>Under 138mm</strong> → Standard frames work for you</li>
+<li><strong>138–148mm</strong> → Look for "wide" or "extended fit" options</li>
+<li><strong>149–154mm</strong> → Seek "extra-wide" specialist brands</li>
+<li><strong>155mm+</strong> → You need XL specialty eyewear like Woolet</li>
+</ul>
+
+<p><strong>Pro tip:</strong> If you wear hats, your hat size is a reliable shortcut. A hat size of 7½ (US) or 60cm circumference typically corresponds to a face width of approximately 155–158mm.</p>
+
+<h2>Understanding Frame Measurements: The Three Numbers on Every Pair of Glasses</h2>
+
+<p>Every pair of glasses comes with three measurements stamped on the inside of the temple arm, usually looking something like: <strong>52▢16—145</strong></p>
+
+<h3>52 — Lens Width</h3>
+<p>The horizontal width of each individual lens, measured in millimeters. For wide faces, you generally need 52mm or above. Woolet's frames use 52mm lens width on the 007 and 54mm on the 009.</p>
+
+<h3>16 — Bridge Width</h3>
+<p>The distance between the two lenses, measured across the nose bridge. Wider faces often benefit from a wider bridge (17–19mm) to prevent the frames from sitting too high or pinching the nose.</p>
+
+<h3>145 — Temple Length</h3>
+<p>The length of the arm from hinge to tip. Standard temples are 140–145mm. For wider faces, 148–150mm temples provide a more comfortable, proportional fit.</p>
+
+<p><strong>Total frame width</strong> = Lens Width × 2 + Bridge Width + hinge allowance (~10mm per side)</p>
+
+<p>For a frame measuring 52-16-145: total width ≈ 52+52+16+20 = 140mm — still too narrow for a 155mm+ face.</p>
+
+<p>Woolet's 158mm total width accommodates faces measuring 155mm and above without the temple pressure that causes the headaches, indentations, and end-of-day pain most wide-faced professionals know well.</p>
+
+<h2>Why Most "Wide" Glasses Still Don't Fit Wide Faces</h2>
+
+<p>This is the industry's dirty secret: almost every brand that offers a "wide" category has defined "wide" based on what their existing manufacturing can accommodate, not what wide-faced customers actually need.</p>
+
+<p>Warby Parker's Extra Wide frames max out at approximately 148mm. That's only 7mm wider than their standard frames. For someone with a 160mm face, it's still a compression device.</p>
+
+<p>The reasons are partly economic. Designing, tooling, and stocking frames in genuine XL widths (155mm+) requires separate molds, additional SKUs, and smaller production runs — which reduces margins for high-volume DTC brands built on efficiency.</p>
+
+<p>The result is a market where the majority of "wide" options are:</p>
+<ul>
+<li>Budget-oriented plastic frames with limited style options</li>
+<li>Sporty/athletic designs that look out of place in professional settings</li>
+<li>Genuine specialty brands that skew heavily casual or lack premium materials</li>
+</ul>
+
+<p>This is the gap Woolet was built to fill.</p>
+
+<h2>The 5 Most Common Fit Problems for Wide Faces</h2>
+
+<h3>1. Temple Pressure and Headaches</h3>
+<p>The most common complaint. When frames are too narrow, the temples press against the sides of the skull with constant, low-grade force. After an hour or two, this becomes a persistent headache. After a full workday, it becomes intolerable.</p>
+
+<h3>2. Frames Riding Up the Nose</h3>
+<p>When a frame is too narrow, it bows outward at the front, causing the nose pads or bridge to press upward. This creates red marks on the nose bridge and causes the frames to sit too high on the face.</p>
+
+<h3>3. Eyes Not Centered in the Lenses</h3>
+<p>Properly fitted glasses should position your pupils at the optical center of each lens. When frames are too narrow, your eyes end up toward the outer edge of each lens, degrading optical performance and causing eye strain.</p>
+
+<h3>4. The "Clownish" Effect</h3>
+<p>Frames that are too small for a face create a visual imbalance — the face appears wider than the glasses, creating an unflattering, disproportionate look. A 155mm+ face needs a frame of proportional width to appear balanced.</p>
+
+<h3>5. Constant Adjustment</h3>
+<p>Narrow frames on wide faces don't stay put. They slide, tilt, and require constant adjustment — especially during active movement. This is the body's mechanical response to an object under tension.</p>
+
+<h2>Best Glasses for Wide Faces: What to Look For</h2>
+
+<p>When evaluating frames for a 155mm+ face, apply this checklist:</p>
+
+<p><strong>✓ Total frame width: 155mm minimum</strong></p>
+<p>This is non-negotiable. Anything below 155mm will compress your temples. Look for the total width specification in the product details, not just the lens width.</p>
+
+<p><strong>✓ Temple length: 148mm or longer</strong></p>
+<p>Standard temples are 140–145mm. Longer temples reach further around the head, distributing pressure across a wider arc and reducing pinching at the skull.</p>
+
+<p><strong>✓ Bridge width: 17–20mm for wider noses</strong></p>
+<p>A proportional bridge keeps the frame centered on the face. Narrow bridges on wide faces cause the lenses to crowd toward the center, creating the "tiny glasses" effect.</p>
+
+<p><strong>✓ Material: Acetate over plastic for durability and comfort</strong></p>
+<p>Italian acetate maintains structural integrity at wider spans (155mm+) without warping or flexing excessively. Cheap injection-molded plastic loses its shape faster, meaning the frame that fit you at purchase may not fit you three months later.</p>
+
+<p><strong>✓ Spring hinges for long-term comfort</strong></p>
+<p>Spring hinges add flex at the hinge point, accommodating minor variation in head width and preventing the hinge from becoming a secondary pressure point. Essential for all-day wear.</p>
+
+<h2>Frame Shapes for Wide Faces: A Style Guide</h2>
+
+<h3>Rectangle and Square Frames</h3>
+<p>The most versatile choice for wide faces. The horizontal emphasis of rectangular frames echoes the face's natural proportions, while the structured corners add definition. Woolet's 009 model — a bold square wayfarer at 158mm — is engineered precisely for this effect.</p>
+
+<h3>Round Frames</h3>
+<p>Soften angular or square face shapes. On a wide, rounded face, circular frames create visual harmony. The key is proportion: the circle must be large enough (52mm+ lens diameter) to avoid the "too small" effect. Woolet's 007 — a round keyhole frame at 158mm — maintains this balance.</p>
+
+<h3>Avoid: Narrow rectangular frames</h3>
+<p>Narrow lenses on wide faces emphasize the face's breadth without providing visual counterbalance. The result is a face that looks disproportionately wide relative to the glasses.</p>
+
+<h3>Avoid: Rimless or semi-rimless frames</h3>
+<p>Without a solid frame providing visual structure, rimless styles on wide faces can look unanchored and fragile. Premium full-rim acetate frames provide the visual weight that wide faces need.</p>
+
+<h2>Premium vs. Budget: Why Material Matters at 155mm+</h2>
+
+<p>At standard widths (130–140mm), a budget plastic frame can be functional. The shorter span means less structural stress on the material. But at 155mm+, the physics change.</p>
+
+<p>A 158mm acetate frame spans a significantly wider arc. Over time, budget plastic deforms under this span, meaning:</p>
+<ul>
+<li>The frame loses its shape and no longer fits the way it did at purchase</li>
+<li>The temples begin to splay outward, reducing grip</li>
+<li>The front bows, misaligning the optical centers</li>
+</ul>
+
+<p><strong>Italian acetate</strong> — the material used in Woolet's frames — is cut from solid cast sheets, not injection-molded. The Mazzucchelli process (the gold standard of acetate manufacturing since 1849) produces a material with:</p>
+<ul>
+<li><strong>Higher structural density:</strong> resists deformation under wider spans</li>
+<li><strong>Natural flexibility:</strong> absorbs minor stress without cracking</li>
+<li><strong>Dimensional stability:</strong> maintains its exact shape over years of wear</li>
+<li><strong>Hypoallergenic properties:</strong> no skin reactions from extended temple contact</li>
+</ul>
+
+<p>For someone wearing glasses 10–12 hours a day, this isn't a luxury distinction. It's an engineering requirement.</p>
+
+<h2>Where to Buy Glasses for Wide Faces Online</h2>
+
+<p>Here's an honest overview of the current market:</p>
+
+<h3>Woolet (woolet.co) — Best for: Premium 155mm+ prescription eyewear</h3>
+<p>158mm total width. Italian Mazzucchelli acetate. Two models (007 round, 009 square). Designed exclusively for 155mm+ faces. Pre-launch with waitlist currently open.</p>
+
+<h3>Faded Days Sunglasses — Best for: Wide-face casual sunglasses</h3>
+<p>155–165mm range. Founder has a wide face himself. Good value, TR90 plastic, primarily casual/lifestyle. No prescription option.</p>
+
+<h3>BXL Eyewear — Best for: Budget-to-mid prescription frames</h3>
+<p>145–165mm range across categories. More affordable. Good option if budget is the priority, but lacks premium materials.</p>
+
+<h3>SizeGlasses — Best for: Ultra-budget wide Rx frames</h3>
+<p>140–165mm range with free standard lenses. Lowest price point. Functional, not fashionable.</p>
+
+<h3>MOSCOT — Best for: Heritage acetate (with limitations)</h3>
+<p>Offers "wide" frames but doesn't specify mm widths. New York heritage. Premium acetate. But their "wide" may still fall below 155mm — check individual frame specs before ordering.</p>
+
+<h2>FAQ: Glasses for Wide Faces</h2>
+
+<h3>What mm frame width do I need for a wide face?</h3>
+<p>If your face measures 155mm or more from temple to temple, you need a total frame width of at least 155mm. Standard "wide" frames from mainstream brands typically max out at 148mm, which is still too narrow for genuinely broad faces.</p>
+
+<h3>Can I just have my glasses adjusted to fit a wide face?</h3>
+<p>Frames can be adjusted up to approximately 5–10mm. If a frame is 145mm and your face is 160mm, adjustment won't solve the problem — it may weaken the frame's structure. You need frames designed for your width from the outset.</p>
+
+<h3>Do wider glasses make a wide face look bigger?</h3>
+<p>No — the opposite is true. Proportionally fitted frames (where frame width matches face width) create visual balance. Frames that are too narrow actually emphasize a wide face by contrast. A properly fitted 158mm frame on a 158mm face looks balanced and intentional.</p>
+
+<h3>What is the best frame shape for a wide face?</h3>
+<p>Rectangular and square frames work best for most wide faces, as they add structure and vertical emphasis. Round frames work well for rounded wide faces. The most important factor is proportional width — the frame should span the full width of your face.</p>
+
+<h3>Are prescription lenses available in wide frames?</h3>
+<p>Yes. Woolet's frames are designed to accept standard prescription lenses. The wider frame width doesn't affect lens compatibility — any optician can fit Rx lenses into Woolet frames.</p>
+
+<h2>The Bottom Line</h2>
+
+<p>Finding glasses for a wide face in 2026 is no longer about choosing between frames that fit and frames that look good. The gap in the premium market — where Italian acetate craftsmanship meets 155mm+ engineering — is finally being addressed.</p>
+
+<p>The number you need to know is <strong>155mm</strong>. That's the threshold where standard sizing fails and specialty engineering begins. Every frame on the market below that threshold — regardless of what the label says — is not designed for you.</p>
+
+<p>Woolet exists precisely because that gap exists. Premium Italian acetate. 158mm precision. Two silhouettes designed for faces that have never been properly served by the eyewear industry.</p>
+
+<p><strong>Your face isn't the problem. The frames were.</strong></p>
+
+<p><em>Woolet makes Italian acetate eyewear engineered for faces 155mm and wider. Join the waitlist at woolet.co for priority access and 15% off your first pair.</em></p>
 `,
   },
   {
