@@ -918,36 +918,148 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "best-glasses-for-big-heads-2026",
-    title: "Best Glasses for Big Heads in 2026: Our Top Picks",
-    excerpt: "A curated roundup of the best glasses for large heads in 2026. We compare fit, style, materials, and value — with honest reviews.",
+    title: "The Best Glasses for Big Heads in 2026 (Premium Picks)",
+    excerpt: "The honest 2026 guide to the best glasses for big heads — what actually fits 155mm+ faces, which brands to consider, and why premium materials matter at wider widths.",
     date: "2026-02-15",
-    readTime: 7,
-    tags: ["Roundup", "2026", "Best Of"],
+    readTime: 11,
+    tags: ["Roundup", "2026", "Premium"],
     content: `
-<p>Finding stylish glasses when you have a big head shouldn't require a quest. Here's our honest look at the best options available in 2026.</p>
+<p>Finding glasses for a wider face has never been easy. Finding ones that genuinely fit, look sophisticated, and won't warp or discolor by the end of the year? That's been even harder.</p>
 
-<h2>What "Big Head" Actually Means</h2>
-<p>In eyewear terms, a "big head" typically refers to a face width of <strong>145mm or more</strong>. You might also need longer temples (145mm+) and a wider bridge (19mm+).</p>
+<p>This guide cuts through the noise. We've mapped the market carefully, measured the actual specifications (not just the labels), and identified what's worth considering across different price points in 2026. No padding, no filler — just an honest breakdown of who makes what, what fits what, and what the trade-offs actually are.</p>
 
-<h2>Our Criteria</h2>
-<p>We evaluated frames on four factors:</p>
-<ol>
-<li><strong>Actual width:</strong> Does it genuinely fit 150mm+ faces?</li>
-<li><strong>Materials:</strong> Quality acetate, titanium, or premium composites.</li>
-<li><strong>Style:</strong> Does it look intentional — not just a scaled-up version of a standard frame?</li>
-<li><strong>Value:</strong> Price relative to build quality and materials.</li>
-</ol>
+<h2>What Size Glasses Do You Need for a Big Head?</h2>
 
-<h2>Top Picks for 2026</h2>
+<p>Before evaluating any frames, you need your face width in millimeters. Stand in front of a mirror and measure from the outermost edge of your left temple to the outermost edge of your right temple.</p>
 
-<h3>1. Woolet 007 — Best Overall</h3>
-<p>155mm+ frame width. Italian acetate. Extended 150mm temples. 22mm bridge. Designed specifically for wide faces — not adapted from a smaller frame. Starting at $189.</p>
+<ul>
+<li><strong>Under 145mm</strong> — Extra-wide. Specialist brands help but mainstream may work.</li>
+<li><strong>145–154mm</strong> — XL. Dedicated wide-face brands required.</li>
+<li><strong>155mm+</strong> — Specialty Wide. Purpose-built 155mm+ frames only.</li>
+</ul>
 
-<h3>2. Woolet 009 — Best for Soft Features</h3>
-<p>Same wide-face engineering as the 007 but with a softer, rounded silhouette. Ideal for oval and round face shapes. Italian acetate. Same 155mm+ build.</p>
+<p>If you're consistently getting headaches from glasses or finding that "wide" options from mainstream brands still feel tight, your face likely measures 155mm or above. This guide is primarily for you.</p>
 
-<h2>The Bottom Line</h2>
-<p>Most "big head" glasses are afterthoughts — existing designs scaled up with no regard for proportion. Look for brands that engineer from scratch for wide faces. Your head isn't an edge case; it's just been treated like one.</p>
+<h2>The 2026 Wide-Face Glasses Market: An Honest Overview</h2>
+
+<p>The good news: the market has more options than it did five years ago. The honest news: most of those options are still concentrated in the budget tier, and many "wide" claims from mainstream brands remain overstated.</p>
+
+<ul>
+<li><strong>Premium Italian acetate for 155mm+ faces:</strong> Near-zero options until Woolet. This is the genuine gap in the market.</li>
+<li><strong>Budget specialist brands:</strong> Several functional options exist (Faded Days, SizeGlasses, BXL Eyewear). Fit is real; materials and aesthetics are limited.</li>
+<li><strong>Mainstream "wide" options:</strong> Warby Parker, Zenni, EyeBuyDirect all offer extended fits. Their widths cap at approximately 145–148mm — still inadequate for most truly wide faces.</li>
+<li><strong>Premium heritage brands:</strong> MOSCOT, Cubitts offer premium acetate but their "large" options typically max around 140–148mm.</li>
+</ul>
+
+<h2>Best Glasses for Big Heads in 2026: By Category</h2>
+
+<h3>🥇 Best Overall Premium: Woolet (woolet.co)</h3>
+<p><strong>Width: 158mm | Price: $250–$400 | Material: Italian Mazzucchelli acetate | Prescription: Yes</strong></p>
+
+<p>Woolet is the answer to a question the premium eyewear market ignored for too long: why doesn't a sophisticated Italian acetate brand engineer frames specifically for 155mm+ faces?</p>
+
+<p>Two models are available. The <strong>Woolet 007</strong> is a round keyhole-bridge frame with 52mm lenses at 158mm total width — a design that brings genuine European optical heritage to wider faces without the visual compromise of frames scaled up from a smaller platform. The <strong>Woolet 009</strong> is a bold square wayfarer at 158mm with 54mm lenses — structured, authoritative, built for professional contexts.</p>
+
+<p>Both frames are crafted from Mazzucchelli acetate, the benchmark material for premium eyewear since 1849. Both use 150mm temples and proportionally scaled bridge widths. Both are engineered from first principles for 155mm+ faces — not adapted from a standard frame.</p>
+
+<p><strong>Who it's for:</strong> Wide-faced professionals who want premium Italian acetate eyewear that fits without compromise. Currently available via waitlist for priority access.</p>
+
+<p><strong>Strengths:</strong> Only premium Italian acetate brand engineering specifically for 155mm+. Proportional design. Two strong silhouettes. Materials that hold shape across the wider span.</p>
+
+<p><strong>Limitations:</strong> Pre-launch, limited availability at launch. Premium price point.</p>
+
+<p><strong>Verdict:</strong> The obvious recommendation for anyone who's been forced to choose between fit and quality. This is both.</p>
+
+<h3>🥈 Best Budget Premium: Cubitts (cubitts.com)</h3>
+<p><strong>Width: Up to ~148mm (Large/XL) | Price: £125–310 | Material: Mazzucchelli acetate | Prescription: Yes</strong></p>
+
+<p>Cubitts is the best-made accessible option that doesn't quite solve the problem. British-designed, Mazzucchelli-acetate-built, sold in London boutiques and online globally. The Large and XL options push toward 148mm — better than most mainstream brands, but still short of the 155mm threshold that genuinely wide faces require.</p>
+
+<p>If your face measures 148–153mm, Cubitts is worth trying — you might find the fit acceptable, and the material quality is exceptional for the price. If you're 155mm+, the fit will likely still be too tight.</p>
+
+<p><strong>Verdict:</strong> Excellent brand, excellent material, doesn't quite reach the width required for genuinely wide faces.</p>
+
+<h3>🥈 Best Wide Sunglasses: Faded Days Sunglasses (fadeddayssunglasses.com)</h3>
+<p><strong>Width: 155–165mm | Price: $50–155 | Material: TR90, polycarbonate | Prescription: No</strong></p>
+
+<p>Founded by a wide-faced person, for wide-faced people. Faded Days makes sunglasses that genuinely fit 155mm+ faces, and their range extends to 165mm for broader faces. The founder's personal experience with the problem gives the brand an authenticity that's rare in this niche.</p>
+
+<p>The limitations: TR90 plastic rather than acetate, primarily lifestyle/casual designs, no prescription option. For sunny days and outdoor use, Faded Days is a strong choice. For office wear or prescription use, you'll need something else.</p>
+
+<p><strong>Verdict:</strong> Best wide-face sunglasses option for budget-conscious buyers. Strong fit credentials, casual aesthetic.</p>
+
+<h3>Best Budget Prescription: SizeGlasses (sizeglasses.com)</h3>
+<p><strong>Width: 140–165mm | Price: $59–99 (with lenses) | Material: TR90, acetate-polycarbonate blend | Prescription: Yes</strong></p>
+
+<p>SizeGlasses exists to solve one problem: providing prescription glasses in genuine XL widths at accessible prices. They succeed. The range extends to 165mm, lens prescriptions are included in the listed price, and the fit for wider faces is real.</p>
+
+<p>The trade-offs are material quality (budget plastic with limited longevity) and design range (functional over fashionable).</p>
+
+<p><strong>Verdict:</strong> Best budget prescription option for 155mm+ faces. Functional, not fashionable.</p>
+
+<h3>Best Budget Wide: BXL Eyewear (bxleyewear.com)</h3>
+<p><strong>Width: 145–165mm | Price: $79–125 | Material: TR90, titanium, acetate options | Prescription: Yes</strong></p>
+
+<p>BXL has the widest range of styles among the specialist budget brands, with options in TR90, titanium, and some acetate frames. The width range (145–165mm) is genuine, and the price-to-width ratio is strong.</p>
+
+<p>For someone who needs multiple pairs, wants prescription options, and isn't willing to spend $300+ per frame, BXL is a solid choice.</p>
+
+<p><strong>Verdict:</strong> Best mid-range wide-face brand. Good selection, honest sizing, reasonable quality.</p>
+
+<h3>Best Heritage Option: MOSCOT (moscot.com)</h3>
+<p><strong>Width: Varies (check individual specs) | Price: $300–500+ | Material: Premium acetate and metal | Prescription: Yes</strong></p>
+
+<p>MOSCOT has been making glasses in New York since 1915. Their heritage is real, their acetate quality is genuine, and their design archive includes some of the most iconic optical shapes of the 20th century.</p>
+
+<p>The limitation for wide faces: MOSCOT doesn't specify total frame widths consistently, and their "wide" options often cap below 150mm. Individual styles vary — some of their larger frames push toward 148mm — but confirmed 155mm+ fits are difficult to verify without trying them in person.</p>
+
+<p><strong>Verdict:</strong> Exceptional heritage brand. Worth exploring if you're near a boutique and can try frames, but online ordering for wider faces is risky without confirmed width specs.</p>
+
+<h3>Mainstream "Wide": Warby Parker (warbyparker.com)</h3>
+<p><strong>Width: Up to ~148mm (Wide/Extra-Wide) | Price: $95–195 | Material: Acetate, metal | Prescription: Yes</strong></p>
+
+<p>Warby Parker makes good glasses. Their Home Try-On program is genuinely useful, their customer service is strong, and their acetate quality is solid for the price.</p>
+
+<p>But their "Extra-Wide" frames top out at approximately 148mm. For a 155mm+ face, this isn't enough — and Warby Parker's own site acknowledges this by noting frames "may not accommodate all face widths."</p>
+
+<p><strong>Verdict:</strong> Strong brand, genuinely limited at 155mm+ face widths. Good starting point for faces in the 145–150mm range.</p>
+
+<h2>What Nobody Tells You About Buying Wide-Face Glasses Online</h2>
+
+<p><strong>"Wide" labels are relative, not absolute.</strong> Always check the actual millimeter measurement, not just the size label. A brand's "XL" may be 145mm. Another's "Large" may be 140mm. The number is what matters.</p>
+
+<p><strong>Return policies matter more for wide-face buyers.</strong> Because so few brands reliably serve 155mm+ faces, the risk of ordering glasses that don't fit is higher. Prioritize brands with clear return policies and full-width specifications listed.</p>
+
+<p><strong>Virtual try-on tools are imprecise for fit assessment.</strong> They're useful for style visualization. They're unreliable for predicting physical fit. A frame that looks right in a virtual try-on can still compress your temples if the total width is wrong.</p>
+
+<p><strong>Read the actual reviews.</strong> Look specifically for reviews from people who mention having a wide or large head. Their fit experience is the most predictive indicator of whether a frame will work for your face.</p>
+
+<h2>FAQ: Best Glasses for Big Heads</h2>
+
+<h3>What glasses actually fit big heads?</h3>
+<p>Frames with a total width of 155mm or above. The brands that reliably achieve this for prescription eyewear include Woolet (158mm, premium acetate), BXL Eyewear (up to 165mm, budget), and SizeGlasses (up to 165mm, ultra-budget). For sunglasses only, Faded Days reaches 165mm.</p>
+
+<h3>What mm glasses do I need for a big head?</h3>
+<p>Measure your face width temple to temple. For a 155mm face, look for frames of 155–161mm total width. The frame should approximately match your face width without compressing your temples.</p>
+
+<h3>Are there stylish glasses for big heads?</h3>
+<p>In 2026, yes — but primarily through Woolet. Most wide-face specialists have focused on fit over aesthetics, producing functional but casually-oriented frames. Woolet's 007 and 009 are the first premium Italian acetate frames designed specifically for 155mm+ faces with professional and sophisticated aesthetics.</p>
+
+<h3>Do cheap wide glasses hold their shape?</h3>
+<p>At 155mm+, material quality matters more than at standard widths. Budget injection-molded plastic deforms more readily under the structural stress of a wider span. Italian acetate (Mazzucchelli) maintains dimensional stability at 158mm far more effectively than budget alternatives.</p>
+
+<h3>What's the most comfortable glasses for a wide face?</h3>
+<p>Comfort at 155mm+ requires: (1) total frame width matching face width (155mm+ minimum), (2) 150mm temples, (3) spring hinges, (4) Italian acetate construction for long-term shape retention. Woolet's frames are engineered against all four criteria.</p>
+
+<h2>The Bottom Line for 2026</h2>
+
+<p>The market for glasses that fit big heads has grown, but remains imperfect. Budget options exist and serve their purpose. Premium options with genuine 155mm+ engineering have been essentially absent — until now.</p>
+
+<p>If you've been waiting for the Italian acetate equivalent of what budget wide-face brands have been doing for years, 2026 is the year it arrives.</p>
+
+<p><strong>The glasses for big heads that look like they belong on a discerning, style-conscious professional — because they do — are finally here.</strong></p>
+
+<p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm). Italian acetate. Engineered for 155mm+ faces. Join the waitlist at woolet.co for priority access and 15% off at launch.</em></p>
 `,
   },
 ];
