@@ -1,22 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.png";
+import { t, isValidLang, type Lang } from "@/lib/i18n";
 
 const Footer = () => {
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+
   return (
     <footer className="px-4 sm:px-5 md:px-12 py-4 sm:py-5 border-t flex flex-col md:flex-row items-center justify-between gap-3 animate-fade-up"
       style={{ borderTopColor: 'hsl(0 0% 100% / 0.055)' }}>
       <div className="flex items-center gap-3">
         <img src={wooletLogo} alt="Woolet" className="h-6" />
         <span className="text-cream-dim opacity-40 tracking-wider" style={{ fontSize: '0.57rem' }}>
-          © 2025 JAY23 LLC — woolet.co — Eyewear for Wide Faces
+          {t(lang, "footer.rights")}
         </span>
       </div>
       <div className="flex gap-5 flex-wrap justify-center">
         {[
           { label: "Instagram", href: "#" },
           { label: "Facebook", href: "#" },
-          { label: "Privacy Policy", href: "/privacy-policy" },
-          { label: "Return Policy", href: "/return-policy" },
+          { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
+          { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
           { label: "support@woolet.co", href: "mailto:support@woolet.co" },
         ].map((link) => (
           <FooterLink key={link.label} {...link} />
