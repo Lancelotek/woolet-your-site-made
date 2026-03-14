@@ -406,29 +406,129 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "what-is-italian-acetate-premium-eyewear",
     title: "What Is Italian Acetate? The Material Behind Premium Eyewear",
-    excerpt: "Italian acetate is the gold standard in luxury eyewear. Learn what makes it superior to regular plastic frames and why Woolet uses it exclusively.",
+    excerpt: "Italian acetate is the gold standard of premium eyewear. Learn what it is, how Mazzucchelli makes it, and why it's the only material that holds its shape in wide frames (155mm+).",
     date: "2026-03-05",
-    readTime: 6,
-    tags: ["Materials", "Craftsmanship", "Premium"],
+    readTime: 8,
+    tags: ["Materials", "Mazzucchelli", "Premium"],
     content: `
-<p>When you hear "Italian acetate," you're hearing about the material that defines luxury eyewear. But what actually makes it so special?</p>
+<p>Not all glasses are made equal. Walk into any luxury optical boutique and pick up two pairs of frames — one premium, one budget. The difference in your hands is immediate: one feels dense, rich, alive. The other feels hollow, light, disposable.</p>
 
-<h2>Acetate vs. Plastic</h2>
-<p>Standard plastic frames (injection-moulded polycarbonate) are cheap, lightweight, and look it. Acetate is a <strong>plant-based material</strong> derived from cotton fibres and wood pulp. It's cut from solid blocks, hand-polished, and finished with a depth and richness that plastic can't replicate.</p>
+<p>That difference is, in most cases, <strong>Italian acetate</strong>.</p>
 
-<h2>Why "Italian"?</h2>
-<p>Italy — specifically the Cadore region near Belluno — has been the epicentre of acetate production for decades. Manufacturers like <strong>Mazzucchelli</strong> produce sheets with unmatched colour depth, pattern complexity, and structural integrity.</p>
+<p>It's the material that defines the upper tier of the eyewear market. It's what Cubitts uses. What independent Italian ateliers cut by hand. What separates a $300 pair of frames that will outlast a decade from a $30 pair that warps by the third month.</p>
 
-<h2>Benefits of Italian Acetate</h2>
+<p>And for those of us with faces that measure 155mm or wider, it's not just a luxury preference. It's a structural requirement.</p>
+
+<h2>What Is Acetate?</h2>
+
+<p>Acetate — more precisely, cellulose acetate — is a bioplastic derived from natural plant-based sources: primarily cotton fibers and wood pulp.</p>
+
+<p>The raw process involves treating cellulose with acetic acid to create cellulose acetate flakes, which are then mixed with plasticizers to create a workable material. This material is cast into thick sheets and blocks, then cut, shaped, and polished into eyewear frames.</p>
+
+<p>Acetate is not the same as the injection-molded plastic used in budget frames, though they're both loosely described as "plastic." The differences are significant.</p>
+
+<h2>Italian Acetate vs. Standard Injection-Molded Plastic</h2>
+
 <ul>
-<li><strong>Hypoallergenic:</strong> Gentle on skin, no nickel or harsh chemicals.</li>
-<li><strong>Adjustable:</strong> Can be heated and shaped for a custom fit.</li>
-<li><strong>Durable:</strong> Resists warping and holds its shape over years.</li>
-<li><strong>Beautiful:</strong> Rich colour layers that reveal depth when light hits them.</li>
+<li><strong>Origin:</strong> Italian acetate is natural (cotton/wood pulp). Injection-molded plastic uses petroleum-based polymers.</li>
+<li><strong>Manufacturing:</strong> Acetate is cast in sheets and hand-cut. Plastic is melted and injected into molds.</li>
+<li><strong>Color depth:</strong> Acetate is rich, layered, translucent. Plastic is flat and surface-level.</li>
+<li><strong>Structural integrity:</strong> Acetate resists deformation. Plastic warps under stress.</li>
+<li><strong>Flexibility:</strong> Acetate has natural flex and returns to shape. Plastic is brittle or permanently deformed.</li>
+<li><strong>Hypoallergenic:</strong> Acetate is plant-based and gentle. Plastic depends on additives.</li>
+<li><strong>Longevity:</strong> Acetate lasts 10+ years with care. Plastic typically 2–5 years.</li>
+<li><strong>Width stability at 155mm+:</strong> Acetate is excellent. Plastic is poor to moderate.</li>
 </ul>
 
-<h2>Woolet's Commitment</h2>
-<p>Every Woolet frame is crafted from premium Italian acetate — hand-finished, never injection-moulded. Because if you're going to make glasses for wide faces, they should be uncompromisingly beautiful too.</p>
+<h2>Who Is Mazzucchelli?</h2>
+
+<p>When eyewear professionals say "Italian acetate," they usually mean one specific manufacturer: <strong>Mazzucchelli 1849</strong>.</p>
+
+<p>Founded in the province of Varese in northern Italy, Mazzucchelli has been producing cellulose acetate for eyewear for over 175 years. They are the oldest and most respected acetate manufacturer in the world, and their material is used by virtually every premium eyewear brand that matters: from independent Italian ateliers to heritage British opticians.</p>
+
+<p>What makes Mazzucchelli acetate different is the casting process. The material is poured into large blocks and sheets, then allowed to cure slowly. This slow-cure process produces a material with exceptional homogeneity — consistent density and composition throughout. There are no weak points, no air pockets, no inconsistencies in the material structure.</p>
+
+<p>The color possibilities are effectively infinite. Because the coloring is integral to the material — not a surface coating or print — Mazzucchelli acetate develops richer color depth with exposure to light, aging gracefully rather than fading.</p>
+
+<h2>Why Italian Acetate Matters Specifically at 155mm+</h2>
+
+<p>For standard frame widths (130–140mm), material quality is primarily about aesthetics and longevity. A standard-width frame in cheap plastic will hold its shape reasonably well because the span is short and the structural stress is limited.</p>
+
+<p>At 155mm and above, the physics change.</p>
+
+<p>A 158mm acetate frame spans a significantly wider arc than a 140mm standard frame. This wider span creates greater structural stress across the front of the frame, particularly at the bridge and the upper rim. Under this stress, inferior materials behave differently:</p>
+
+<p><strong>Budget plastic (injection-molded):</strong> Gradually deforms under the sustained stress of a wide span. The bridge bows, the front warps, and the frame that fit correctly at purchase no longer holds its shape after several months of wear. The optical centers shift. The fit degrades.</p>
+
+<p><strong>Italian acetate (Mazzucchelli):</strong> The dense, homogeneous structure resists deformation. The material has natural flexibility — it absorbs minor stress without cracking — but returns to its original geometry. A properly constructed 158mm Italian acetate frame will hold its exact shape for years.</p>
+
+<p>For a premium frame worn 10–12 hours a day, 365 days a year, this dimensional stability is the difference between a frame that continues to fit precisely and one that progressively misaligns.</p>
+
+<h2>The Manufacturing Process: How Italian Acetate Frames Are Made</h2>
+
+<p>Creating an acetate frame is not a fast process. This is part of why it costs more — and why it's worth more.</p>
+
+<h3>1. Sheet cutting</h3>
+<p>Mazzucchelli acetate arrives at the frame workshop as thick cast sheets, typically 5–8mm deep. CNC cutting machines — guided by precision digital templates — cut the rough frame shapes from these sheets.</p>
+
+<h3>2. Barrel tumbling</h3>
+<p>Rough-cut frames are placed in rotating barrels with abrasive media for hours or days. This rounds all the edges and creates the initial smooth surface that acetate is known for.</p>
+
+<h3>3. Hand shaping</h3>
+<p>Skilled craftspeople heat specific areas of the frame — acetate becomes temporarily pliable when heated — and shape the curves, temple angles, and bridge geometry by hand. This is the step that can't be automated and where decades of skill make a tangible difference.</p>
+
+<h3>4. Hinge fitting</h3>
+<p>Metal hinges are mechanically fitted or inlaid into the acetate. Premium frames use solid metal screws and precisely machined hinge barrels. The quality of the hinge fitting determines how long the frame will open and close smoothly.</p>
+
+<h3>5. Final polishing</h3>
+<p>The finished frame goes through multiple polishing stages — often including hand polishing with cotton wheels — to achieve the signature depth and gloss of premium acetate. This can take up to two hours per frame.</p>
+
+<p>The total process, from raw sheet to finished frame, typically involves <strong>40–50 individual steps</strong>. This is not a product that can be rushed.</p>
+
+<h2>How to Identify Italian Acetate Quality</h2>
+
+<p>When handling acetate frames, several physical properties indicate quality:</p>
+
+<ul>
+<li><strong>Weight:</strong> Italian acetate has a distinctly satisfying heft compared to hollow injection-molded plastic. Pick up the frame — it should feel solid and dense.</li>
+<li><strong>Color depth:</strong> Hold the frame up to light. Italian acetate has a translucent quality — light passes through the material, revealing layered color. Cheap plastic looks flat and opaque.</li>
+<li><strong>Surface temperature:</strong> Acetate feels warmer to the touch than metallic frames and room-temperature plastic. Because it's plant-derived, it conducts heat differently.</li>
+<li><strong>Edge quality:</strong> Look at the cut edges, particularly at the hinge area. Premium acetate has clean, precise edges. Budget plastic often shows minor tool marks, flash lines, or inconsistencies.</li>
+<li><strong>Hinge movement:</strong> Open and close the temples. Premium hinges have smooth, controlled movement with consistent resistance. Loose, rattly hinges or hinges that snap rather than swing are a quality indicator.</li>
+</ul>
+
+<h2>Caring for Italian Acetate Frames</h2>
+
+<p>Premium acetate repays proper care with exceptional longevity.</p>
+
+<ul>
+<li><strong>Cleaning:</strong> Use the microfiber cloth that comes with your frames, or lukewarm water with a drop of dish soap. Avoid alcohol-based cleaners, solvents, or anything with ammonia — these can cloud acetate surfaces.</li>
+<li><strong>Storage:</strong> Keep frames in their case when not wearing them. Leaving acetate frames on a hot car dashboard or in direct sunlight for extended periods can warp the material.</li>
+<li><strong>Adjustments:</strong> Acetate is heat-adjustable. An optician or eyewear professional can heat specific areas and adjust the fit. Do not attempt this yourself without proper tools — overheating damages the material.</li>
+<li><strong>Scratches:</strong> Minor surface scratches can be buffed out with a soft cloth and a small amount of carnauba-based polish. Deep scratches require professional attention.</li>
+</ul>
+
+<h2>FAQ: Italian Acetate</h2>
+
+<h3>Is Italian acetate better than TR90 or titanium?</h3>
+<p>Different materials excel in different contexts. TR90 (a flexible nylon) is excellent for athletic frames where impact resistance and flex are priorities. Titanium is the lightest option and exceptionally durable. Italian acetate excels in aesthetic depth, structural stability for wider spans, and the quality of the wearing experience. For premium dress eyewear, acetate is the material of choice.</p>
+
+<h3>Why does Italian acetate cost more?</h3>
+<p>Because making it well takes time, skilled labor, and premium raw material. The Mazzucchelli casting process, hand shaping, multiple tumbling and polishing stages, and precision hinge fitting all contribute to cost. A properly made Italian acetate frame represents 40–50 manufacturing steps. An injection-molded plastic frame represents a machine cycle of a few seconds.</p>
+
+<h3>Do Italian acetate frames work for prescription lenses?</h3>
+<p>Yes. Acetate frames are fully compatible with all standard prescription lenses, including high-index lenses for strong prescriptions. The acetate rim provides a secure grip for lens edging.</p>
+
+<h3>How long do Italian acetate frames last?</h3>
+<p>With proper care, 10 years or more. Acetate doesn't fatigue or corrode the way metal frames can. The material ages gracefully — developing a subtle patina rather than degrading.</p>
+
+<h2>The Material Standard for Wide Frames</h2>
+
+<p>For faces measuring 155mm and above, Italian acetate isn't a nice-to-have. It's the material that maintains structural integrity across a wider span, holds its optical geometry over years of wear, and delivers the tactile and visual quality that matches the premium you're paying.</p>
+
+<p>Woolet uses Mazzucchelli acetate in both the 007 and 009 models. Not because it's fashionable to say so — but because at 158mm, it's the right engineering decision.</p>
+
+<p><em>Woolet 007 and Woolet 009 are crafted from Mazzucchelli Italian acetate, engineered for 155mm+ face widths. Join the waitlist at woolet.co.</em></p>
 `,
   },
   {
