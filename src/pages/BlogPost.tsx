@@ -23,6 +23,7 @@ const BlogPost = () => {
         path={`/blog/${post.slug}`}
         type="article"
         publishedTime={post.date}
+        article={{ readTime: post.readTime, tags: post.tags }}
       />
 
       <div className="fixed pointer-events-none z-0 rounded-full w-[700px] h-[700px] -top-[250px] -right-[200px]"
