@@ -800,30 +800,120 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "wide-frame-glasses-professionals",
-    title: "Wide-Frame Glasses for Professionals: Looking Sharp in the Office",
-    excerpt: "Professional eyewear for wide faces doesn't have to mean boring. Here's how to find frames that are office-appropriate, well-fitting, and stylish.",
+    title: "Wide Frame Glasses for Professionals: Office-Ready Eyewear for 155mm+ Faces",
+    excerpt: "Wide-faced professionals deserve eyewear that fits AND commands respect. Here's what to look for in office-ready glasses for 155mm+ faces — and why most 'wide' options fall short.",
     date: "2026-02-20",
-    readTime: 5,
-    tags: ["Professional", "Style", "Office"],
+    readTime: 8,
+    tags: ["Professional", "Office", "155mm+"],
     content: `
-<p>In a professional setting, your glasses are part of your first impression. But when standard frames don't fit, you're left choosing between comfort and looking polished.</p>
+<p>Glasses are the one accessory most professionals wear every single day. They're on your face in every meeting, every Zoom call, every presentation. They're the first thing people see when they look at you, and they form part of the immediate impression you make before you've said a word.</p>
 
-<h2>The Professional Eyewear Dilemma</h2>
-<p>Most "professional" frames — think black rectangles, metal half-rims — are designed for average face widths. If you have a wide face, these frames pinch, bow outward at the temples, and look undersized.</p>
+<p>For most professionals, this is unremarkable. They have their frames, the frames fit, and they move on.</p>
 
-<h2>What to Look For</h2>
-<ul>
-<li><strong>Understated colours:</strong> Black, tortoiseshell, dark navy, or charcoal.</li>
-<li><strong>Clean lines:</strong> Rectangular or soft-square shapes read as professional.</li>
-<li><strong>Proper fit:</strong> Frames should sit flush with your temples — no gaps, no pinching.</li>
-<li><strong>Quality materials:</strong> Acetate or titanium signal intentionality. Cheap plastic doesn't.</li>
-</ul>
+<p>For professionals with wide faces — faces measuring 155mm or more — it's rarely that simple. The options available at the intersection of "fits a wide face" and "looks premium and professional" have historically been either non-existent or hidden behind the kind of exhaustive searching that most people don't have time for.</p>
 
-<h2>Why Fit Matters More Than Style</h2>
-<p>A perfectly fitting simple frame will always look more professional than an expensive designer pair that's too small. Fit communicates attention to detail — exactly what you want in a work environment.</p>
+<p>This guide is for those professionals. Here's what to look for, what to avoid, and what's actually available.</p>
 
-<h2>Woolet for the Office</h2>
-<p>The Woolet 007 in Matte Black is our most popular professional choice. Clean rectangular silhouette. Italian acetate. 155mm+ width. Designed to make a quiet, confident statement.</p>
+<h2>Why the Professional Context Specifically Matters</h2>
+
+<p>Glasses worn casually can get away with imperfect fit. If you're wearing slightly-too-tight sunglasses for two hours at the weekend, the discomfort is manageable.</p>
+
+<p>Glasses worn in a professional context are different:</p>
+
+<p><strong>Duration:</strong> Most professionals wear their glasses for 8–12 hours on workdays. At this duration, even moderate temple pressure becomes significant. The tension headache that begins at hour four doesn't just affect your comfort — it affects your cognitive performance, your patience in meetings, your presence on calls.</p>
+
+<p><strong>Visual scrutiny:</strong> In professional settings, people look at you. Glasses that are visibly too small for your face — with the telltale tension bow in the front and eyes pushed to the outer lens edges — read as ill-fitting in the same way that a suit jacket with stretched shoulders reads as ill-fitting.</p>
+
+<p><strong>Zoom and video:</strong> The camera flattens and broadens faces. On a video call, the proportional relationship between your face and your glasses is more visible than in person. Glasses that are already slightly too narrow for your face look definitively too small on camera.</p>
+
+<p><strong>First impressions and authority:</strong> Research on first impressions consistently shows that glasses influence perceived intelligence, competence, and trustworthiness. But this effect depends partly on the glasses fitting proportionally. Frames that appear undersized can inadvertently undermine the authority premium that well-fitting eyewear provides.</p>
+
+<h2>What "Professional" Means in Eyewear</h2>
+
+<p><strong>Material quality signals competence.</strong> Premium Italian acetate reads differently to the eye — and to the hand when someone picks up your glasses — than budget plastic. In rooms where details matter, material quality registers, even subliminally.</p>
+
+<p><strong>Fit signals intentionality.</strong> Glasses that fit well look chosen. They look like part of a considered presentation of self. Glasses that are too tight, bowing at the front or compressing visibly at the temples, look like the best option available rather than the right option.</p>
+
+<p><strong>Simplicity signals sophistication.</strong> The most credible professional eyewear tends toward clean lines and restrained detail. Not bland — there's a difference between minimal and generic — but without fussy embellishments that would look dated in five years.</p>
+
+<p><strong>Timelessness over trend.</strong> Professional eyewear should still look appropriate in a decade. Round and square acetate frames in classic proportions have the longest aesthetic longevity of any eyewear category.</p>
+
+<h2>The Specific Challenges for Wide-Faced Professionals</h2>
+
+<h3>The narrow frame problem at scale</h3>
+<p>A 10mm-too-narrow frame worn for 10 hours creates cumulative physical stress. Many wide-faced professionals have normalized end-of-day headaches without connecting them to their glasses. The connection becomes clear the first time they wear frames that genuinely fit.</p>
+
+<h3>The casual-only wide-frame market</h3>
+<p>Most glasses specifically designed for wide faces are designed for casual contexts: outdoor use, sport, lifestyle. The Fatheadzes and Faded Days of the world produce frames that work for weekend wear but would look out of place at a board meeting or a client presentation. The materials are too casual, the designs too sporty.</p>
+
+<h3>The premium-but-too-narrow gap</h3>
+<p>The brands that produce genuinely premium acetate eyewear suitable for professional contexts — MOSCOT, Cubitts, independent Italian brands — generally cap their "wide" options around 140–148mm. For someone with a 158mm face, this doesn't solve the problem.</p>
+
+<h2>What to Look for in Professional Wide-Face Glasses</h2>
+
+<p>Apply this checklist when evaluating any frame for professional daily wear:</p>
+
+<p><strong>✓ Total frame width: 155mm minimum</strong></p>
+<p>This is the baseline for any face measuring 155mm or above. Below this number, the frame will compress your temples. No amount of material quality or design sophistication compensates for a frame that physically hurts.</p>
+
+<p><strong>✓ Italian acetate or premium metal</strong></p>
+<p>For professional contexts, material communicates. Italian acetate — particularly from Mazzucchelli — has the color depth, surface quality, and tactile premium that registers in professional environments. Brushed titanium or gold-filled metal frames are the other premium option. Avoid injection-molded plastic in any professional context where first impressions matter.</p>
+
+<p><strong>✓ Proportional lens width (52mm+)</strong></p>
+<p>Lens width determines visual balance. On a 155mm+ face, lenses of at least 52mm maintain proportion. Narrower lenses create the undersized effect that undermines professional presence.</p>
+
+<p><strong>✓ Neutral to dark colorways</strong></p>
+<p>For professional contexts, dark tortoiseshell, matte black, deep navy, and classic horn work in virtually all settings. Bright or transparent frames narrow the range of contexts where the glasses work appropriately.</p>
+
+<p><strong>✓ Full rim construction</strong></p>
+<p>Full-rim acetate frames provide more visual structure and authority than semi-rimless or rimless designs. On wide faces, full rims also provide the visual weight needed to balance broad features.</p>
+
+<p><strong>✓ Spring hinges</strong></p>
+<p>For 8–12 hours of daily wear, spring hinges eliminate the minor temple pressure that accumulates from fixed hinges. Small difference in the short term, meaningful difference over a year of daily wear.</p>
+
+<h2>Frame Shape for Professional Wide Faces</h2>
+
+<p><strong>Square and rectangular frames</strong> are the conventional professional choice. The clean horizontal lines project structure and authority. In most traditional business environments, rectangular acetate frames in dark or tortoiseshell colorways represent the highest credibility-per-dollar ratio in eyewear.</p>
+
+<p><strong>Round frames</strong> work exceptionally well in professional contexts where intellectual credibility and considered style matter: consulting, academia, creative leadership, legal and advisory roles. Round frames signal thoughtfulness rather than authority — which is often exactly the right signal.</p>
+
+<p><strong>Avoid:</strong> Strong geometric shapes with unusual angles, half-rim designs that look fragile on wide faces, anything with visible branding or fashion-forward details that will look dated. Professional glasses should outlast trends.</p>
+
+<h2>The Woolet 009 and 007 for Professional Wear</h2>
+
+<h3>Woolet 009 — The Authority Frame</h3>
+<p>The 009's square wayfarer silhouette is calibrated for professional contexts. Dark Italian acetate. Strong horizontal lines. Clean construction without embellishment. At 158mm and 54mm lenses, the 009 sits on a wide face with the proportional balance that conventional "wide" frames can't achieve. The result is eyewear that reads as intentional and authoritative — not "the widest thing I could find."</p>
+<p><strong>Context:</strong> Boardroom, client presentations, legal and financial settings, video calls.</p>
+
+<h3>Woolet 007 — The Considered Frame</h3>
+<p>The 007's round keyhole-bridge design occupies the space between classic and contemporary. The keyhole bridge adds a point of distinction that separates the 007 from generic round frames. At 158mm and 52mm lenses, the circles are large enough to sit proportionally on wide faces without the "borrowed from a smaller face" quality that plagues most round eyewear for broader features.</p>
+<p><strong>Context:</strong> Creative direction, consulting, advisory roles, any environment where intellectual presence and style matter equally.</p>
+
+<h2>The Zoom Factor: Wide-Face Glasses on Camera</h2>
+
+<p>Video calls have changed the professional eyewear equation. A significant proportion of professional interactions now happen on camera, where different dynamics apply.</p>
+
+<p><strong>Cameras broaden faces.</strong> The lens compression in typical webcam and laptop cameras tends to flatten and widen faces. A face that measures 158mm in person can appear even broader on camera. This amplifies the disproportionate effect of frames that are already too narrow.</p>
+
+<p><strong>Light reflection matters more on camera.</strong> High-gloss acetate surfaces can create distracting reflections under desk lighting during video calls. Matte or satin-finish acetate, or frames with a slight texture, reduce this effect.</p>
+
+<p><strong>Frame width is more visible on camera.</strong> The contrast between frame width and face width is more perceptible at the flattened depth of a video call than in person. Properly proportioned frames (158mm on a 158mm face) look composed and intentional on camera in a way that undersized frames don't.</p>
+
+<h2>FAQ: Professional Glasses for Wide Faces</h2>
+
+<h3>What are the best glasses for wide-faced professionals?</h3>
+<p>Frames combining total width of 155mm+, Italian acetate construction, and classic professional silhouettes (square or round) in dark or tortoiseshell colorways. Woolet's 007 and 009 are designed specifically for this combination.</p>
+
+<h3>Do glasses affect how you're perceived professionally?</h3>
+<p>Yes. Glasses influence perceived intelligence, competence, and authority. But this effect is contingent on the glasses fitting proportionally. Frames that are visibly too small for the wearer's face can undermine the credibility premium that well-fitting eyewear provides.</p>
+
+<h3>Should I get prescription lenses in premium frames?</h3>
+<p>Yes. Premium acetate frames are fully compatible with all standard prescription lenses, including high-index lenses for stronger prescriptions. Your optician can fit lenses into any Woolet frame.</p>
+
+<h3>How long should professional glasses last?</h3>
+<p>Italian acetate frames with proper care should last 8–12 years, significantly outlasting budget plastic alternatives. The per-year cost of a $300 frame worn daily for 10 years is $30/year — less than the cost of most professional accessories that receive far less use.</p>
+
+<p><em>Woolet makes premium Italian acetate eyewear engineered for professionals with 155mm+ face widths. Two models: 007 (round, 158mm) and 009 (square, 158mm). Join the waitlist at woolet.co.</em></p>
 `,
   },
   {
