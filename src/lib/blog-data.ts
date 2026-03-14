@@ -221,37 +221,186 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "how-to-measure-face-width-for-glasses",
-    title: "How to Measure Your Face Width for Glasses",
-    excerpt: "A simple step-by-step guide to measuring your face width at home. All you need is a ruler or measuring tape — takes under 2 minutes.",
+    title: "How to Measure Your Face Width for Glasses (The Right Way)",
+    excerpt: "Learn exactly how to measure your face width for glasses in 3 steps. Understand mm sizing, bridge width, and why most "wide" frames stop at 148mm — and what to do if your face is 155mm+.",
     date: "2026-03-08",
-    readTime: 4,
+    readTime: 9,
     tags: ["How-to", "Measurement", "Fit"],
     content: `
-<p>Getting the right frame size starts with knowing your face width. Here's a quick, accurate method you can do at home.</p>
+<p>Most people who struggle to find fitting glasses have never measured their face. They rely on vague labels like "wide" or "large" without understanding what those terms actually mean in millimeters — or why the "wide" option at their local optician might still be 15mm too narrow.</p>
+
+<p>This guide will fix that. In under 10 minutes, you'll have the one number that changes how you shop for glasses forever: your face width in millimeters.</p>
 
 <h2>What You'll Need</h2>
+
 <ul>
-<li>A flexible measuring tape or a ruler</li>
+<li>A flexible measuring tape (the kind used in tailoring) or a rigid ruler graduated in millimeters</li>
 <li>A mirror</li>
+<li>Good lighting</li>
+<li>A pen to note down your measurement</li>
 </ul>
 
-<h2>Step-by-Step</h2>
-<ol>
-<li><strong>Stand in front of a mirror</strong> and look straight ahead.</li>
-<li><strong>Place the tape</strong> at the widest point of your face — typically from temple to temple, just above your ears.</li>
-<li><strong>Read the measurement.</strong> This is your face width in millimetres.</li>
-</ol>
+<p>If you don't have a flexible tape measure, a standard school ruler works perfectly. Digital calipers give the most precise result, but a ruler is accurate enough for eyewear shopping.</p>
+
+<h2>Step-by-Step: How to Measure Face Width for Glasses</h2>
+
+<h3>Step 1: Position yourself in front of a mirror</h3>
+<p>Stand facing the mirror directly. Keep your head level — don't tilt up or down, as this changes the apparent width of your face.</p>
+
+<h3>Step 2: Locate your measurement points</h3>
+<p>You're measuring the widest point of your face, which is typically at the temples — the bony protrusions just above and beside the outer corners of your eyes. Place your fingertips lightly on both temples to feel where they are before measuring.</p>
+
+<h3>Step 3: Measure temple to temple</h3>
+<p>Hold your ruler or measuring tape horizontally at this level. Measure from the outermost edge of your left temple to the outermost edge of your right temple. Read the measurement in millimeters.</p>
+
+<p><strong>Record this number. This is your face width.</strong></p>
 
 <h2>What Your Measurement Means</h2>
+
 <ul>
-<li><strong>Under 135mm:</strong> Standard/narrow frames</li>
-<li><strong>135–145mm:</strong> Standard/medium frames</li>
-<li><strong>145–155mm:</strong> Wide frames</li>
-<li><strong>155mm+:</strong> Extra-wide frames (like Woolet)</li>
+<li><strong>Under 130mm</strong> — Narrow. Petite or XS frames recommended.</li>
+<li><strong>130–137mm</strong> — Standard. All mainstream brands fit.</li>
+<li><strong>138–144mm</strong> — Wide. "Wide" options at Warby Parker, Zenni work.</li>
+<li><strong>145–154mm</strong> — Extra-Wide. Specialist brands like Fatheadz or BXL recommended.</li>
+<li><strong>155mm+</strong> — XL / Specialty. Requires purpose-built frames like Woolet (158mm).</li>
 </ul>
 
-<h2>Pro Tip</h2>
-<p>If you already own a pair of glasses that fit reasonably well, measure the total frame width (hinge to hinge). That gives you a reliable baseline for comparison.</p>
+<p>If your face measures 155mm or more, the standard eyewear market — including the "wide" sections of mainstream brands — is not designed for you. Warby Parker's widest frames top out at approximately 148mm. Zenni's "Extended Fit" category stops around 140mm. These brands aren't being dishonest — they simply define "wide" relative to their standard range, not relative to genuinely broad faces.</p>
+
+<h2>The Alternative Method: Using Your Hat Size</h2>
+
+<p>If you wear hats, your hat size is a useful cross-reference for frame width. Here's the approximate conversion:</p>
+
+<ul>
+<li><strong>Hat size 7 (56cm)</strong> — Face width approx. 145–148mm</li>
+<li><strong>Hat size 7¼ (58cm)</strong> — Face width approx. 149–152mm</li>
+<li><strong>Hat size 7½ (60cm)</strong> — Face width approx. 153–157mm</li>
+<li><strong>Hat size 7¾ (61cm)</strong> — Face width approx. 157–162mm</li>
+<li><strong>Hat size 8 (63cm)</strong> — Face width approx. 162mm+</li>
+</ul>
+
+<p>This is a rough guide only — actual face width depends on the shape of your skull and the position of your temples. Use the direct measurement for the most accurate result.</p>
+
+<h2>Understanding All Three Frame Measurements</h2>
+
+<p>Once you know your face width, you need to understand the three numbers stamped on every pair of glasses. Look inside the temple arm — you'll see something like: <strong>52▢18—148</strong></p>
+
+<h3>Lens Width (the first number)</h3>
+<p>The horizontal width of each individual lens in mm. For wide faces, you want 52mm or above. Narrow lenses on a wide face create visual imbalance — the face appears disproportionately wide relative to the glasses.</p>
+
+<h3>Bridge Width (the middle number)</h3>
+<p>The distance between the two lenses across the nose bridge. For wider faces, a bridge of 17–20mm prevents the frames from sitting too high or pressing into the nose bridge. Low bridge fit frames (15mm or wider bridge) are essential for flat or wide nose bridges.</p>
+
+<h3>Temple Length (the last number)</h3>
+<p>The length of the temple arm from hinge to tip. Standard temples are 140–145mm. For wider faces and larger heads, 148–150mm temples wrap further around the skull, reducing pressure at the hinge point.</p>
+
+<h2>How to Calculate Total Frame Width</h2>
+
+<p><strong>Total width = (Lens Width × 2) + Bridge Width + (~10mm per hinge)</strong></p>
+
+<p>Example: 52-18-148 frame<br/>
+= (52 × 2) + 18 + 20<br/>
+= 142mm total width</p>
+
+<p>This is still too narrow for a 155mm face. You'd need a frame with total width of 155mm or more.</p>
+
+<p>For reference, Woolet's frames measure 158mm total width, with a 52mm lens width (007) or 54mm (009), 20mm bridge, and 150mm temples.</p>
+
+<h2>Why Does Lens Width Matter Beyond Total Frame Width?</h2>
+
+<p>Total frame width tells you whether the glasses will physically fit on your head without compression. But lens width determines something equally important: whether your eyes sit at the optical center of the lenses.</p>
+
+<p>Prescription lenses are ground with a specific optical center — the point of maximum optical precision. When you wear glasses, your pupils should align with these centers. If the lenses are too narrow for your face, your pupils end up positioned toward the outer edge of each lens, away from the optical center.</p>
+
+<p>The result is:</p>
+<ul>
+<li>Reduced visual clarity, especially at the periphery</li>
+<li>Increased eye strain after prolonged wear</li>
+<li>In some prescriptions, mild prismatic distortion</li>
+</ul>
+
+<p>For anyone wearing prescription glasses during an 8–10 hour workday, this is not an abstract concern. Proper lens-width-to-pupil alignment is part of why Woolet uses a 52–54mm lens width — large enough to center most pupils correctly in frames designed for 155mm+ faces.</p>
+
+<h2>The Pupillary Distance (PD) Connection</h2>
+
+<p>Related to lens centering is your Pupillary Distance (PD) — the measurement in millimeters between the centers of your two pupils.</p>
+
+<ul>
+<li><strong>Average PD for adults:</strong> 60–65mm</li>
+<li><strong>For wider faces:</strong> often 65–70mm or higher</li>
+</ul>
+
+<p>A wider face frequently comes with a wider PD. When ordering prescription glasses online, you'll need your PD from your optician. If your PD is toward the higher end (67mm+), this is another signal that standard frames with narrow lens widths may place your pupils outside the optimal zone.</p>
+
+<p>Most opticians can measure your PD for free during an eye exam. You can also self-measure using a mirror and ruler, though professional measurement is more accurate.</p>
+
+<h2>Common Measurement Mistakes to Avoid</h2>
+
+<h3>Measuring cheekbones instead of temples</h3>
+<p>The cheekbones are below and slightly in front of the temples. Measuring at cheekbone level gives you a narrower reading than your actual widest face point. Measure at the temples.</p>
+
+<h3>Compressing the tape measure</h3>
+<p>A flexible measuring tape pressed firmly against the skull gives a smaller reading than actual. Hold the tape measure just touching the skin without pressing in.</p>
+
+<h3>Measuring across the forehead</h3>
+<p>The forehead is typically narrower than the temples. Frame width is calibrated to temple width, not forehead width.</p>
+
+<h3>Using a cloth tape measure stretched with age</h3>
+<p>Old cloth tapes stretch and give inaccurate readings. Use a metal ruler or a new tape for accuracy.</p>
+
+<h2>How Frame Width Relates to Comfort Over Time</h2>
+
+<p>The relationship between frame width and comfort is not linear. A frame that's 5mm too narrow doesn't cause "a little" discomfort — it causes constant low-level compression equivalent to a tight headband. Over 8 hours, this accumulates.</p>
+
+<p>Here's what happens physiologically:</p>
+<ul>
+<li>The temporal muscles — the muscles you use for chewing — run along the sides of the skull precisely where tight frames press.</li>
+<li>Compression of these muscles during contraction (eating, speaking, expressions) creates sharp, intermittent pain.</li>
+<li>The sustained pressure from tight temple arms reduces blood flow to the surrounding tissue, contributing to the "tight hat" sensation that builds over the course of a workday.</li>
+</ul>
+
+<p>Properly fitted frames — where total frame width matches or slightly exceeds face width — rest on the face with zero lateral pressure. They are held in place by the geometry of the frame resting on the ears and nose, not by squeezing the skull.</p>
+
+<h2>Your Checklist Before Buying Wide-Face Glasses Online</h2>
+
+<p>Before clicking "buy" on any pair of glasses marketed for wide faces:</p>
+
+<ul>
+<li><strong>Confirm total frame width is 155mm or above</strong> (not just "wide" label)</li>
+<li><strong>Check lens width is 52mm or greater</strong> for visual balance on a 155mm+ face</li>
+<li><strong>Confirm bridge width suits your nose</strong> (17–20mm for wider bridges)</li>
+<li><strong>Verify temple length is 148mm+</strong> for wrap-around comfort</li>
+<li><strong>Check material</strong> (acetate holds shape better than plastic at wider spans)</li>
+<li><strong>Look for a return or fit guarantee</strong> in case the fit isn't right</li>
+<li><strong>Have your PD ready</strong> for prescription lens ordering</li>
+</ul>
+
+<h2>FAQ: Measuring Face Width for Glasses</h2>
+
+<h3>How do I measure my face width without a measuring tape?</h3>
+<p>Use a standard ruler in millimeters. Hold it horizontally at temple level in front of a mirror and read the distance between the outermost edges of your two temples. Alternatively, mark two points on a sheet of paper by touching your temples while pressing the paper flat, then measure between the marks.</p>
+
+<h3>What is the average face width for glasses?</h3>
+<p>The average face width for adult males in the US is approximately 140–148mm. For adult females, approximately 132–140mm. Faces measuring 155mm or above fall outside the range accommodated by most standard and "wide" eyewear.</p>
+
+<h3>Should glasses be the same width as my face?</h3>
+<p>Yes, as a general rule. Total frame width should closely match face width. A frame that matches or is within 5mm of your face width will sit naturally on your face without lateral pressure. Frames 10mm or more narrower than your face will compress your temples.</p>
+
+<h3>My glasses are marked 'XL' but still feel tight — why?</h3>
+<p>Because "XL" is a relative label, not a standardized measurement. A brand's "XL" might be 145mm — larger than their standard 135mm, but still inadequate for a 160mm face. Always check the actual millimeter width, not the size label.</p>
+
+<h3>Does face width change with age?</h3>
+<p>Bone structure is largely fixed after adulthood. However, weight changes can affect facial soft tissue width. If your measurement has changed significantly since your last pair, re-measure before purchasing new frames.</p>
+
+<h2>Now You Have the Number. Use It.</h2>
+
+<p>Your face width in millimeters is the single most important piece of information for buying glasses that fit. Everything else — style, material, price — is secondary to the frame physically fitting on your head.</p>
+
+<p>If your measurement is 155mm or above, you now know why every mainstream brand has let you down, and you know exactly what to look for. A frame width of 155mm minimum. Preferably 158mm, like Woolet.</p>
+
+<p><strong>Because the right measurement, matched to the right frame, means never adjusting your glasses again.</strong></p>
+
+<p><em>Woolet makes premium Italian acetate frames engineered for 155mm+ face widths. Woolet 007 and 009 — both at 158mm — are available for pre-order via waitlist at woolet.co.</em></p>
 `,
   },
   {
