@@ -5,10 +5,14 @@ interface SEOProps {
   title: string;
   description: string;
   lang?: Lang;
-  path?: string; // path without lang prefix, e.g. "/blog/some-slug"
+  path?: string;
   type?: "website" | "article";
   publishedTime?: string;
   noindex?: boolean;
+  article?: {
+    readTime: number;
+    tags: string[];
+  };
 }
 
 const SITE_URL = "https://woolet.co";
