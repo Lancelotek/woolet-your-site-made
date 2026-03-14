@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import heroManImg from "@/assets/hero-man.jpg";
 import heroMobileImg from "@/assets/hero-mobile.png";
 import Navbar from "@/components/Navbar";
@@ -8,8 +9,18 @@ import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
 import BeforeAfter from "@/components/BeforeAfter";
+import { t, isValidLang, type Lang } from "@/lib/i18n";
+import { Navigate } from "react-router-dom";
 
 const Index = () => {
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+
+  // If invalid lang, redirect to /en
+  if (paramLang && !isValidLang(paramLang)) {
+    return <Navigate to="/en" replace />;
+  }
+
   return (
     <div className="relative z-[1] flex flex-col min-h-screen">
       {/* Ambient glows */}
@@ -52,13 +63,14 @@ const Index = () => {
           <div>
             <div className="woolet-eyebrow mb-4">
               <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text animate-pulse-gold">15% Off + Free Shipping — Waitlist Only</span>
+              <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "hero.eyebrow")}</span>
             </div>
             <h1 className="font-display text-woolet-white leading-none mb-3" style={{ fontSize: "clamp(2rem, 3.2vw, 3.2rem)" }}>
-              Finally frames<br />that fit a <em className="italic text-gold-light">wide face.</em>
+              {t(lang, "hero.title_1")}<br />
+              {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
             </h1>
             <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
-              Woolet 007 &amp; 009 — Italian acetate, precision-engineered for 155mm+ face widths. Extended temples. Wider bridge. Zero compromise on style.
+              {t(lang, "hero.desc")}
             </p>
           </div>
 
@@ -73,8 +85,8 @@ const Index = () => {
           {/* Benefits */}
           <div>
             <div className="flex flex-col gap-1 mb-4">
-              <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>Waitlist Benefits</div>
-              <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>Reserved exclusively for early supporters</div>
+              <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>{t(lang, "benefits.title")}</div>
+              <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>{t(lang, "benefits.subtitle")}</div>
             </div>
             <BenefitsBar />
           </div>

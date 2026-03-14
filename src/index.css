@@ -134,6 +134,48 @@
   .woolet-contact-line a:hover {
     text-decoration: underline;
   }
+
+  /* Blog content */
+  .woolet-blog-content h2 {
+    @apply font-display text-woolet-white leading-snug mt-8 mb-3;
+    font-size: 1.35rem;
+    font-weight: 400;
+  }
+  .woolet-blog-content h3 {
+    @apply font-display text-woolet-white leading-snug mt-6 mb-2;
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  .woolet-blog-content p {
+    @apply text-cream-dim leading-relaxed tracking-wider;
+    font-size: 0.88rem;
+  }
+  .woolet-blog-content strong {
+    @apply text-foreground font-normal;
+  }
+  .woolet-blog-content ul,
+  .woolet-blog-content ol {
+    @apply flex flex-col gap-2 pl-5 my-3;
+  }
+  .woolet-blog-content li {
+    @apply text-cream-dim leading-relaxed tracking-wider;
+    font-size: 0.85rem;
+  }
+  .woolet-blog-content ul li {
+    list-style-type: none;
+    position: relative;
+    padding-left: 1rem;
+  }
+  .woolet-blog-content ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: hsl(var(--gold-dim));
+  }
+  .woolet-blog-content ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
 }
 
 @layer utilities {
