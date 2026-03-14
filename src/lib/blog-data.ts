@@ -222,7 +222,7 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "how-to-measure-face-width-for-glasses",
     title: "How to Measure Your Face Width for Glasses (The Right Way)",
-    excerpt: "Learn exactly how to measure your face width for glasses in 3 steps. Understand mm sizing, bridge width, and why most "wide" frames stop at 148mm — and what to do if your face is 155mm+.",
+    excerpt: "Learn exactly how to measure your face width for glasses in 3 steps. Understand mm sizing, bridge width, and why most 'wide' frames stop at 148mm — and what to do if your face is 155mm+.",
     date: "2026-03-08",
     readTime: 9,
     tags: ["How-to", "Measurement", "Fit"],
