@@ -1,36 +1,47 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { getBlogPost } from "@/lib/blog-data";
-import { t, type Lang } from "@/lib/i18n";
+import { t, isValidLang, type Lang } from "@/lib/i18n";
 
 const BlogPost = () => {
   const { lang = "en", slug = "" } = useParams<{ lang: string; slug: string }>();
-  const post = getBlogPost(lang as Lang, slug);
+  const currentLang: Lang = isValidLang(lang) ? lang : "en";
+  const post = getBlogPost(currentLang, slug);
 
   if (!post) {
-    return <Navigate to={`/${lang}/blog`} replace />;
+    return <Navigate to={`/${currentLang}/blog`} replace />;
   }
 
   return (
     <div className="relative z-[1] flex flex-col min-h-screen">
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        lang={currentLang}
+        path={`/blog/${post.slug}`}
+        type="article"
+        publishedTime={post.date}
+      />
+
       <div className="fixed pointer-events-none z-0 rounded-full w-[700px] h-[700px] -top-[250px] -right-[200px]"
         style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.05) 0%, transparent 65%)" }} />
 
       <Navbar />
 
       <article className="relative z-[1] max-w-[760px] mx-auto px-4 sm:px-8 py-12 sm:py-20 w-full">
-        <Link to={`/${lang}/blog`} className="text-cream-dim no-underline uppercase tracking-[0.22em] hover:text-primary transition-colors mb-8 inline-block" style={{ fontSize: "0.58rem" }}>
-          {t(lang as Lang, "blog.back")}
+        <Link to={`/${currentLang}/blog`} className="text-cream-dim no-underline uppercase tracking-[0.22em] hover:text-primary transition-colors mb-8 inline-block" style={{ fontSize: "0.58rem" }}>
+          {t(currentLang, "blog.back")}
         </Link>
 
         <div className="flex items-center gap-3 flex-wrap mb-5">
           <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.6rem" }}>
-            {new Date(post.date).toLocaleDateString(lang, { year: "numeric", month: "long", day: "numeric" })}
+            {new Date(post.date).toLocaleDateString(currentLang, { year: "numeric", month: "long", day: "numeric" })}
           </span>
           <span className="text-cream-dim opacity-30" style={{ fontSize: "0.5rem" }}>•</span>
           <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.6rem" }}>
-            {post.readTime} {t(lang as Lang, "blog.min_read")}
+            {post.readTime} {t(currentLang, "blog.min_read")}
           </span>
           {post.tags.map((tag) => (
             <span key={tag} className="text-primary/70 uppercase tracking-[0.2em] border border-primary/15 px-2 py-0.5"
@@ -54,8 +65,8 @@ const BlogPost = () => {
 
         <div className="woolet-divider my-12" />
 
-        <Link to={`/${lang}/blog`} className="text-primary no-underline uppercase tracking-[0.22em] hover:tracking-[0.28em] transition-all" style={{ fontSize: "0.58rem" }}>
-          {t(lang as Lang, "blog.back")}
+        <Link to={`/${currentLang}/blog`} className="text-primary no-underline uppercase tracking-[0.22em] hover:tracking-[0.28em] transition-all" style={{ fontSize: "0.58rem" }}>
+          {t(currentLang, "blog.back")}
         </Link>
       </article>
 

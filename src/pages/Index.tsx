@@ -9,20 +9,43 @@ import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
 import BeforeAfter from "@/components/BeforeAfter";
+import SEO from "@/components/SEO";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { Navigate } from "react-router-dom";
+
+const seoData: Record<Lang, { title: string; description: string }> = {
+  en: {
+    title: "Woolet — Premium Eyewear for Wide Faces (155mm+)",
+    description: "Italian acetate glasses engineered for faces 155mm and wider. Woolet 007 & 009 — extended temples, wider bridge, zero compromise on style. Join the waitlist.",
+  },
+  pl: {
+    title: "Woolet — Okulary premium na szeroką twarz (155mm+)",
+    description: "Okulary z włoskiego octanu zaprojektowane na twarze 155mm+. Woolet 007 i 009 — wydłużone zauszniki, szerszy mostek, zero kompromisów. Dołącz do listy.",
+  },
+  fr: {
+    title: "Woolet — Lunettes premium pour visages larges (155mm+)",
+    description: "Lunettes en acétate italien pour visages de 155mm+. Woolet 007 & 009 — branches allongées, pont élargi, aucun compromis. Rejoignez la liste d'attente.",
+  },
+  es: {
+    title: "Woolet — Gafas premium para caras anchas (155mm+)",
+    description: "Gafas de acetato italiano para caras de 155mm+. Woolet 007 y 009 — patillas alargadas, puente más ancho, sin compromisos. Únete a la lista de espera.",
+  },
+};
 
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
 
-  // If invalid lang, redirect to /en
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
   }
 
+  const seo = seoData[lang];
+
   return (
     <div className="relative z-[1] flex flex-col min-h-screen">
+      <SEO title={seo.title} description={seo.description} lang={lang} />
+
       {/* Ambient glows */}
       <div className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
         style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.055) 0%, transparent 60%)" }} />
@@ -33,33 +56,25 @@ const Index = () => {
 
       {/* HERO */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] min-h-[calc(100vh-62px)] animate-fade-in">
-        {/* MOBILE-ONLY hero image */}
         <div className="block lg:hidden w-full max-h-[60vh] overflow-hidden">
           <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
         </div>
 
-        {/* LEFT: Visual (desktop only) */}
         <div className="relative overflow-hidden bg-surface border-r hidden lg:block"
           style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
           <div className="absolute inset-0 flex items-end overflow-hidden">
             <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="w-full h-full object-cover object-top" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 50%, hsl(var(--background) / 0.4) 100%)" }} />
           </div>
-
-          {/* Before / After strip */}
           <div className="absolute bottom-0 left-0 right-0 z-[2]">
             <BeforeAfter />
           </div>
-
-          {/* Overlay gradient */}
           <div className="absolute inset-0 pointer-events-none"
             style={{ background: "linear-gradient(90deg, transparent 60%, hsl(var(--background) / 0.35) 100%)" }} />
         </div>
 
-        {/* RIGHT: Form panel */}
         <div className="flex flex-col px-4 py-6 sm:p-6 lg:p-10 overflow-y-auto gap-6 sm:gap-8 lg:border-l"
           style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
-          {/* Eyebrow + Headline */}
           <div>
             <div className="woolet-eyebrow mb-4">
               <div className="woolet-eyebrow-line" />
@@ -82,7 +97,6 @@ const Index = () => {
 
           <ModelPills />
 
-          {/* Benefits */}
           <div>
             <div className="flex flex-col gap-1 mb-4">
               <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>{t(lang, "benefits.title")}</div>

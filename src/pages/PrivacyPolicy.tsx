@@ -1,5 +1,7 @@
+import { useParams } from "react-router-dom";
 import PolicyPage from "@/components/PolicyPage";
-
+import SEO from "@/components/SEO";
+import { isValidLang, type Lang } from "@/lib/i18n";
 const BulletList = ({ items }: { items: string[] }) => (
   <ul className="flex flex-col gap-2 pl-0 list-none">
     {items.map((item, i) => (
@@ -218,7 +220,20 @@ const PrivacyPolicy = () => {
     },
   ];
 
-  return <PolicyPage title="Privacy Policy" meta="JAY23 LLC · Last updated: March 2025" sections={sections} />;
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+
+  return (
+    <>
+      <SEO
+        title="Privacy Policy"
+        description="Woolet privacy policy — how we collect, use and protect your personal information. JAY23 LLC."
+        lang={lang}
+        path="/privacy-policy"
+      />
+      <PolicyPage title="Privacy Policy" meta="JAY23 LLC · Last updated: March 2025" sections={sections} />
+    </>
+  );
 };
 
 export default PrivacyPolicy;
