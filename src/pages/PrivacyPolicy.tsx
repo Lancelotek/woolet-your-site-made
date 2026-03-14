@@ -1,5 +1,7 @@
+import { useParams } from "react-router-dom";
 import PolicyPage from "@/components/PolicyPage";
-
+import SEO from "@/components/SEO";
+import { isValidLang, type Lang } from "@/lib/i18n";
 const BulletList = ({ items }: { items: string[] }) => (
   <ul className="flex flex-col gap-2 pl-0 list-none">
     {items.map((item, i) => (
