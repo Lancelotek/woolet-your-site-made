@@ -9,7 +9,7 @@ import {
 
 const ModelPills = () => {
   const [open007, setOpen007] = useState(false);
-
+  const [open009, setOpen009] = useState(false);
   return (
     <div>
       <div className="text-cream-dim uppercase tracking-[0.24em] mb-3" style={{ fontSize: "0.56rem" }}>
