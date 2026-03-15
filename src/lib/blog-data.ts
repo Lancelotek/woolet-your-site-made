@@ -974,6 +974,8 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Two models are available. The <strong>Woolet 007</strong> is a round keyhole-bridge frame with 52mm lenses at 158mm total width — a design that brings genuine European optical heritage to wider faces without the visual compromise of frames scaled up from a smaller platform. The <strong>Woolet 009</strong> is a bold square wayfarer at 158mm with 54mm lenses — structured, authoritative, built for professional contexts.</p>
 
+<figure style="display:flex;gap:1rem;flex-wrap:wrap"><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round glasses for big heads — best premium wide face eyewear 2026, Italian acetate, 158mm, 52mm lens" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 square glasses for big heads — best premium wide face eyewear 2026, Italian acetate, 158mm, 54mm lens" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /></figure>
+
 <p>Both frames are crafted from Mazzucchelli acetate, the benchmark material for premium eyewear since 1849. Both use 150mm temples and proportionally scaled bridge widths. Both are engineered from first principles for 155mm+ faces — not adapted from a standard frame.</p>
 
 <p><strong>Who it's for:</strong> Wide-faced professionals who want premium Italian acetate eyewear that fits without compromise. Currently available via waitlist for priority access.</p>
