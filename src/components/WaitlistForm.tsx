@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { t, type Lang } from "@/lib/i18n";
 
-const WaitlistForm = () => {
+const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [count, setCount] = useState(23);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const fillRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
