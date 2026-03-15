@@ -6,7 +6,36 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-const MAILERLITE_API_URL = "https://connect.mailerlite.com/api";
+const MAILERLITE_API = "https://connect.mailerlite.com/api";
+
+async function mlFetch(apiKey: string, path: string, method: string, body?: unknown) {
+  const res = await fetch(`${MAILERLITE_API}${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    ...(body ? { body: JSON.stringify(body) } : {}),
+  });
+  return { status: res.status, data: await res.json() };
+}
+
+async function ensureCustomFields(apiKey: string) {
+  // Try to create fields — MailerLite returns 422 if they already exist, which is fine
+  const fields = [
+    { name: "face_width", type: "text" },
+    { name: "interested_models", type: "text" },
+  ];
+
+  for (const field of fields) {
+    const { status } = await mlFetch(apiKey, "/fields", "POST", field);
+    if (status === 200) {
+      console.log(`Created custom field: ${field.name}`);
+    } else {
+      console.log(`Field ${field.name} already exists or skipped (status: ${status})`);
+    }
+  }
+}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -28,50 +57,31 @@ serve(async (req) => {
       );
     }
 
-    // Subscribe to MailerLite
-    const response = await fetch(`${MAILERLITE_API_URL}/subscribers`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+    // Ensure custom fields exist in MailerLite (idempotent)
+    await ensureCustomFields(apiKey);
+
+    // Subscribe with all fields
+    const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
+      email,
+      fields: {
+        name: name || "",
+        face_width: face_width || "",
+        interested_models: models || "",
       },
-      body: JSON.stringify({
-        email,
-        fields: {
-          name: name || "",
-          last_name: "",
-        },
-        // Custom fields — these need to exist in MailerLite dashboard
-        // face_width and models will be stored if the fields exist
-        ...(face_width || models
-          ? {
-              fields: {
-                name: name || "",
-                ...(face_width ? { face_width } : {}),
-                ...(models ? { interested_models: models } : {}),
-              },
-            }
-          : {}),
-      }),
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
+    if (status >= 400) {
       console.error("MailerLite API error:", JSON.stringify(data));
       return new Response(
         JSON.stringify({
           success: false,
-          error: data.message || `MailerLite API error [${response.status}]`,
+          error: data.message || `MailerLite API error [${status}]`,
         }),
-        {
-          status: response.status,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
+        { status, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    console.log("Subscriber added successfully:", email);
+    console.log("Subscriber added:", email, "| face_width:", face_width, "| models:", models);
 
     return new Response(
       JSON.stringify({ success: true, subscriber: { email: data.data?.email } }),
