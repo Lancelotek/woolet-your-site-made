@@ -747,6 +747,8 @@ const blogPostsEN: BlogPost[] = [
 <h3>The Woolet 007</h3>
 <p>The 007 is Woolet's round model: a keyhole-bridge silhouette at 158mm total width with 52mm lenses. The keyhole bridge — a teardrop-shaped nose piece characteristic of classic European eyewear — adds an element of refined detail that distinguishes the 007 from generic "round glasses." At 52mm lens diameter, the circles are large enough to maintain proportion on a 155mm+ face while retaining the clean, uncluttered geometry of true round eyewear.</p>
 
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round keyhole bridge glasses for wide faces 155mm+ — Italian Mazzucchelli acetate, tortoiseshell, 158mm width, 52mm lens, keyhole bridge detail" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Round keyhole bridge, 158mm, Mazzucchelli acetate</figcaption></figure>
+
 <h2>How to Choose: A Decision Framework</h2>
 
 <p>If you're deciding between round and square glasses for a wide face, work through these questions:</p>
