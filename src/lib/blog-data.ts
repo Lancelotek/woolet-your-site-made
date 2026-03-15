@@ -1246,6 +1246,8 @@ const blogPostsPL: BlogPost[] = [
 
 <h2>Woolet w biurze</h2>
 <p>Woolet 007 w matowej czerni to nasz najpopularniejszy wybór profesjonalny. Czysty prostokątny kształt. Włoski octan. 155mm+. Cichy, pewny siebie styl.</p>
+
+<figure style="display:flex;gap:1rem;flex-wrap:wrap"><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 profesjonalne okulary na szeroką twarz — włoski octan, 158mm, okulary do biura na twarze 155mm+" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 profesjonalne kwadratowe okulary na szeroką twarz — włoski octan, 158mm, biurowe oprawki 155mm+" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /></figure>
 `,
   },
   {
