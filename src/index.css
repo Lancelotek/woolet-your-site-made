@@ -176,6 +176,17 @@
     list-style: decimal;
     padding-left: 1.5rem;
   }
+  .woolet-blog-content figure {
+    @apply my-6;
+  }
+  .woolet-blog-content figcaption {
+    @apply text-cream-dim text-center mt-2;
+    font-size: 0.7rem;
+    opacity: 0.5;
+  }
+  .woolet-blog-content img {
+    @apply w-full rounded-md;
+  }
 }
 
 @layer utilities {
