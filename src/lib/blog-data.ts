@@ -140,8 +140,12 @@ const blogPostsEN: BlogPost[] = [
 <h3>Rectangle and Square Frames</h3>
 <p>The most versatile choice for wide faces. The horizontal emphasis of rectangular frames echoes the face's natural proportions, while the structured corners add definition. Woolet's 009 model — a bold square wayfarer at 158mm — is engineered precisely for this effect.</p>
 
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 square acetate glasses for wide faces — 158mm frame width, Italian Mazzucchelli acetate, 54mm lens, tortoiseshell colorway, front and detail views" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Square frame, 158mm, Italian acetate</figcaption></figure>
+
 <h3>Round Frames</h3>
 <p>Soften angular or square face shapes. On a wide, rounded face, circular frames create visual harmony. The key is proportion: the circle must be large enough (52mm+ lens diameter) to avoid the "too small" effect. Woolet's 007 — a round keyhole frame at 158mm — maintains this balance.</p>
+
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round acetate glasses for wide faces — 158mm frame width, Italian Mazzucchelli acetate, 52mm lens, tortoiseshell, keyhole bridge detail" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Round frame, 158mm, Italian acetate</figcaption></figure>
 
 <h3>Avoid: Narrow rectangular frames</h3>
 <p>Narrow lenses on wide faces emphasize the face's breadth without providing visual counterbalance. The result is a face that looks disproportionately wide relative to the glasses.</p>
