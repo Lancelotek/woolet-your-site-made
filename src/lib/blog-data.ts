@@ -1212,8 +1212,12 @@ const blogPostsPL: BlogPost[] = [
 <h2>Okrągłe oprawki</h2>
 <p>Najlepiej sprawdzają się na <strong>kwadratowych lub kątowych</strong> szerokich twarzach. Łagodzą ostre linie. Na okrągłej twarzy mogą jednak podkreślić okrągłość.</p>
 
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 okrągłe okulary na szeroką twarz — włoski octan Mazzucchelli, 158mm szerokości, mostek keyhole, oprawki premium na twarze 155mm+" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Okrągłe oprawki, 158mm, włoski octan</figcaption></figure>
+
 <h2>Kwadratowe oprawki</h2>
 <p>Kątowe oprawki dodają struktury. Idealne dla <strong>okrągłych</strong> szerokich twarzy, bo wprowadzają kontrast.</p>
+
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 kwadratowe okulary na szeroką twarz — włoski octan Mazzucchelli, 158mm szerokości, oprawki premium typu wayfarer na twarze 155mm+" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Kwadratowe oprawki, 158mm, włoski octan</figcaption></figure>
 
 <h2>Podejście Woolet</h2>
 <p>Woolet 007 to wyrafinowany prostokątny kształt — uniwersalnie korzystny na szerokich twarzach. Woolet 009 ma łagodniejsze, zaokrąglone rogi dla tych, którzy wolą cieplejszy wygląd.</p>
