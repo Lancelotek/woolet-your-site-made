@@ -140,8 +140,12 @@ const blogPostsEN: BlogPost[] = [
 <h3>Rectangle and Square Frames</h3>
 <p>The most versatile choice for wide faces. The horizontal emphasis of rectangular frames echoes the face's natural proportions, while the structured corners add definition. Woolet's 009 model — a bold square wayfarer at 158mm — is engineered precisely for this effect.</p>
 
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 square acetate glasses for wide faces — 158mm frame width, Italian Mazzucchelli acetate, 54mm lens, tortoiseshell colorway, front and detail views" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Square frame, 158mm, Italian acetate</figcaption></figure>
+
 <h3>Round Frames</h3>
 <p>Soften angular or square face shapes. On a wide, rounded face, circular frames create visual harmony. The key is proportion: the circle must be large enough (52mm+ lens diameter) to avoid the "too small" effect. Woolet's 007 — a round keyhole frame at 158mm — maintains this balance.</p>
+
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round acetate glasses for wide faces — 158mm frame width, Italian Mazzucchelli acetate, 52mm lens, tortoiseshell, keyhole bridge detail" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Round frame, 158mm, Italian acetate</figcaption></figure>
 
 <h3>Avoid: Narrow rectangular frames</h3>
 <p>Narrow lenses on wide faces emphasize the face's breadth without providing visual counterbalance. The result is a face that looks disproportionately wide relative to the glasses.</p>
@@ -526,6 +530,8 @@ const blogPostsEN: BlogPost[] = [
 
 <p>For faces measuring 155mm and above, Italian acetate isn't a nice-to-have. It's the material that maintains structural integrity across a wider span, holds its optical geometry over years of wear, and delivers the tactile and visual quality that matches the premium you're paying.</p>
 
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 Italian Mazzucchelli acetate eyewear close-up — 5-barrel hinge, frame width 158mm, bridge 21mm, acetate material detail and tortoiseshell pattern" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Mazzucchelli acetate detail, 5-barrel hinge, 158mm</figcaption></figure>
+
 <p>Woolet uses Mazzucchelli acetate in both the 007 and 009 models. Not because it's fashionable to say so — but because at 158mm, it's the right engineering decision.</p>
 
 <p><em>Woolet 007 and Woolet 009 are crafted from Mazzucchelli Italian acetate, engineered for 155mm+ face widths. Join the waitlist at woolet.co.</em></p>
@@ -712,6 +718,8 @@ const blogPostsEN: BlogPost[] = [
 <h3>The Woolet 009</h3>
 <p>The 009 is Woolet's square model: a bold wayfarer silhouette at 158mm total width with 54mm lenses. The design draws from the classic wayfarer geometry — strong horizontal lines, defined corners — but scaled and proportioned specifically for 155mm+ faces. On a wide face, the 009 sits with visual authority. The frame doesn't look like a smaller pair of glasses stretched to fit. It looks like it was designed for exactly this face, because it was.</p>
 
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 square wayfarer glasses for wide faces 155mm+ — Italian Mazzucchelli acetate, tortoiseshell, 158mm total width, 54mm lens, 5-barrel hinge detail" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Square wayfarer, 158mm, Mazzucchelli acetate</figcaption></figure>
+
 <h2>Round Frames on Wide Faces</h2>
 
 <h3>Why round frames work</h3>
@@ -740,6 +748,8 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>The Woolet 007</h3>
 <p>The 007 is Woolet's round model: a keyhole-bridge silhouette at 158mm total width with 52mm lenses. The keyhole bridge — a teardrop-shaped nose piece characteristic of classic European eyewear — adds an element of refined detail that distinguishes the 007 from generic "round glasses." At 52mm lens diameter, the circles are large enough to maintain proportion on a 155mm+ face while retaining the clean, uncluttered geometry of true round eyewear.</p>
+
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round keyhole bridge glasses for wide faces 155mm+ — Italian Mazzucchelli acetate, tortoiseshell, 158mm width, 52mm lens, keyhole bridge detail" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Round keyhole bridge, 158mm, Mazzucchelli acetate</figcaption></figure>
 
 <h2>How to Choose: A Decision Framework</h2>
 
@@ -885,9 +895,13 @@ const blogPostsEN: BlogPost[] = [
 <p>The 009's square wayfarer silhouette is calibrated for professional contexts. Dark Italian acetate. Strong horizontal lines. Clean construction without embellishment. At 158mm and 54mm lenses, the 009 sits on a wide face with the proportional balance that conventional "wide" frames can't achieve. The result is eyewear that reads as intentional and authoritative — not "the widest thing I could find."</p>
 <p><strong>Context:</strong> Boardroom, client presentations, legal and financial settings, video calls.</p>
 
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 professional square glasses for wide faces — Italian acetate, 158mm frame, office-ready tortoiseshell eyewear for 155mm+ faces" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Professional square frame, 158mm</figcaption></figure>
+
 <h3>Woolet 007 — The Considered Frame</h3>
 <p>The 007's round keyhole-bridge design occupies the space between classic and contemporary. The keyhole bridge adds a point of distinction that separates the 007 from generic round frames. At 158mm and 52mm lenses, the circles are large enough to sit proportionally on wide faces without the "borrowed from a smaller face" quality that plagues most round eyewear for broader features.</p>
 <p><strong>Context:</strong> Creative direction, consulting, advisory roles, any environment where intellectual presence and style matter equally.</p>
+
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round professional glasses for wide faces — Italian acetate, 158mm frame, keyhole bridge, premium eyewear for creative professionals with 155mm+ faces" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Round keyhole bridge, 158mm</figcaption></figure>
 
 <h2>The Zoom Factor: Wide-Face Glasses on Camera</h2>
 
@@ -959,6 +973,8 @@ const blogPostsEN: BlogPost[] = [
 <p>Woolet is the answer to a question the premium eyewear market ignored for too long: why doesn't a sophisticated Italian acetate brand engineer frames specifically for 155mm+ faces?</p>
 
 <p>Two models are available. The <strong>Woolet 007</strong> is a round keyhole-bridge frame with 52mm lenses at 158mm total width — a design that brings genuine European optical heritage to wider faces without the visual compromise of frames scaled up from a smaller platform. The <strong>Woolet 009</strong> is a bold square wayfarer at 158mm with 54mm lenses — structured, authoritative, built for professional contexts.</p>
+
+<figure style="display:flex;gap:1rem;flex-wrap:wrap"><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round glasses for big heads — best premium wide face eyewear 2026, Italian acetate, 158mm, 52mm lens" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 square glasses for big heads — best premium wide face eyewear 2026, Italian acetate, 158mm, 54mm lens" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /></figure>
 
 <p>Both frames are crafted from Mazzucchelli acetate, the benchmark material for premium eyewear since 1849. Both use 150mm temples and proportionally scaled bridge widths. Both are engineered from first principles for 155mm+ faces — not adapted from a standard frame.</p>
 
@@ -1196,8 +1212,12 @@ const blogPostsPL: BlogPost[] = [
 <h2>Okrągłe oprawki</h2>
 <p>Najlepiej sprawdzają się na <strong>kwadratowych lub kątowych</strong> szerokich twarzach. Łagodzą ostre linie. Na okrągłej twarzy mogą jednak podkreślić okrągłość.</p>
 
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 okrągłe okulary na szeroką twarz — włoski octan Mazzucchelli, 158mm szerokości, mostek keyhole, oprawki premium na twarze 155mm+" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Okrągłe oprawki, 158mm, włoski octan</figcaption></figure>
+
 <h2>Kwadratowe oprawki</h2>
 <p>Kątowe oprawki dodają struktury. Idealne dla <strong>okrągłych</strong> szerokich twarzy, bo wprowadzają kontrast.</p>
+
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 kwadratowe okulary na szeroką twarz — włoski octan Mazzucchelli, 158mm szerokości, oprawki premium typu wayfarer na twarze 155mm+" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Kwadratowe oprawki, 158mm, włoski octan</figcaption></figure>
 
 <h2>Podejście Woolet</h2>
 <p>Woolet 007 to wyrafinowany prostokątny kształt — uniwersalnie korzystny na szerokich twarzach. Woolet 009 ma łagodniejsze, zaokrąglone rogi dla tych, którzy wolą cieplejszy wygląd.</p>
@@ -1226,6 +1246,8 @@ const blogPostsPL: BlogPost[] = [
 
 <h2>Woolet w biurze</h2>
 <p>Woolet 007 w matowej czerni to nasz najpopularniejszy wybór profesjonalny. Czysty prostokątny kształt. Włoski octan. 155mm+. Cichy, pewny siebie styl.</p>
+
+<figure style="display:flex;gap:1rem;flex-wrap:wrap"><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 profesjonalne okulary na szeroką twarz — włoski octan, 158mm, okulary do biura na twarze 155mm+" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 profesjonalne kwadratowe okulary na szeroką twarz — włoski octan, 158mm, biurowe oprawki 155mm+" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /></figure>
 `,
   },
   {
