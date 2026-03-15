@@ -895,9 +895,13 @@ const blogPostsEN: BlogPost[] = [
 <p>The 009's square wayfarer silhouette is calibrated for professional contexts. Dark Italian acetate. Strong horizontal lines. Clean construction without embellishment. At 158mm and 54mm lenses, the 009 sits on a wide face with the proportional balance that conventional "wide" frames can't achieve. The result is eyewear that reads as intentional and authoritative — not "the widest thing I could find."</p>
 <p><strong>Context:</strong> Boardroom, client presentations, legal and financial settings, video calls.</p>
 
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 professional square glasses for wide faces — Italian acetate, 158mm frame, office-ready tortoiseshell eyewear for 155mm+ faces" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Professional square frame, 158mm</figcaption></figure>
+
 <h3>Woolet 007 — The Considered Frame</h3>
 <p>The 007's round keyhole-bridge design occupies the space between classic and contemporary. The keyhole bridge adds a point of distinction that separates the 007 from generic round frames. At 158mm and 52mm lenses, the circles are large enough to sit proportionally on wide faces without the "borrowed from a smaller face" quality that plagues most round eyewear for broader features.</p>
 <p><strong>Context:</strong> Creative direction, consulting, advisory roles, any environment where intellectual presence and style matter equally.</p>
+
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round professional glasses for wide faces — Italian acetate, 158mm frame, keyhole bridge, premium eyewear for creative professionals with 155mm+ faces" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Round keyhole bridge, 158mm</figcaption></figure>
 
 <h2>The Zoom Factor: Wide-Face Glasses on Camera</h2>
 
