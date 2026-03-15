@@ -50,6 +50,14 @@ const ModelPills = () => {
           <img src={woolet007Img} alt="Woolet 007 — round acetate glasses for wide faces" className="w-full rounded" />
         </DialogContent>
       </Dialog>
+
+      {/* 009 Popup */}
+      <Dialog open={open009} onOpenChange={setOpen009}>
+        <DialogContent className="max-w-2xl bg-surface border-primary/10 p-2">
+          <DialogTitle className="sr-only">Woolet 009</DialogTitle>
+          <img src={woolet009Img} alt="Woolet 009 — square acetate glasses for wide faces" className="w-full rounded" />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
