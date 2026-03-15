@@ -716,6 +716,8 @@ const blogPostsEN: BlogPost[] = [
 <h3>The Woolet 009</h3>
 <p>The 009 is Woolet's square model: a bold wayfarer silhouette at 158mm total width with 54mm lenses. The design draws from the classic wayfarer geometry — strong horizontal lines, defined corners — but scaled and proportioned specifically for 155mm+ faces. On a wide face, the 009 sits with visual authority. The frame doesn't look like a smaller pair of glasses stretched to fit. It looks like it was designed for exactly this face, because it was.</p>
 
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 square wayfarer glasses for wide faces 155mm+ — Italian Mazzucchelli acetate, tortoiseshell, 158mm total width, 54mm lens, 5-barrel hinge detail" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Square wayfarer, 158mm, Mazzucchelli acetate</figcaption></figure>
+
 <h2>Round Frames on Wide Faces</h2>
 
 <h3>Why round frames work</h3>
