@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { t, type Lang } from "@/lib/i18n";
 
-const WaitlistForm = () => {
+const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [count, setCount] = useState(23);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const fillRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
@@ -154,6 +157,35 @@ const WaitlistForm = () => {
             </div>
           </div>
 
+          {/* Privacy policy checkbox */}
+          <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1" style={{ fontSize: "0.68rem" }}>
+            <input
+              type="checkbox"
+              checked={privacyAccepted}
+              onChange={() => setPrivacyAccepted((v) => !v)}
+              className="hidden"
+            />
+            <div
+              className={`w-3.5 h-3.5 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px] ${
+                privacyAccepted ? "bg-primary border-primary" : "border-border-sub"
+              }`}
+              style={{ borderColor: privacyAccepted ? undefined : "hsl(0 0% 100% / 0.055)" }}
+            >
+              {privacyAccepted && (
+                <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
+                  <path d="M1 3L3 5L7 1" stroke="hsl(var(--background))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
+            <span>
+              {t(lang, "waitlist.privacy").split("{link}")[0]}
+              <Link to={`/${lang}/privacy-policy`} className="text-primary underline underline-offset-2 hover:text-gold-light transition-colors">
+                {t(lang, "waitlist.privacy").split("{link}")[1]?.split("{/link}")[0]}
+              </Link>
+              {t(lang, "waitlist.privacy").split("{/link}")[1] || ""}
+            </span>
+          </label>
+
           {error && (
             <p className="text-red-400 text-center" style={{ fontSize: "0.68rem" }}>
               {error}
@@ -162,7 +194,7 @@ const WaitlistForm = () => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !privacyAccepted}
             className="relative overflow-hidden bg-primary text-primary-foreground border-none py-4 px-8 font-body font-semibold uppercase tracking-[0.28em] w-full transition-all hover:bg-gold-light active:scale-[0.99] group disabled:opacity-60"
             style={{ fontSize: "0.66rem" }}
           >
