@@ -157,6 +157,35 @@ const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
             </div>
           </div>
 
+          {/* Privacy policy checkbox */}
+          <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1" style={{ fontSize: "0.68rem" }}>
+            <input
+              type="checkbox"
+              checked={privacyAccepted}
+              onChange={() => setPrivacyAccepted((v) => !v)}
+              className="hidden"
+            />
+            <div
+              className={`w-3.5 h-3.5 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px] ${
+                privacyAccepted ? "bg-primary border-primary" : "border-border-sub"
+              }`}
+              style={{ borderColor: privacyAccepted ? undefined : "hsl(0 0% 100% / 0.055)" }}
+            >
+              {privacyAccepted && (
+                <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
+                  <path d="M1 3L3 5L7 1" stroke="hsl(var(--background))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
+            <span>
+              {t(lang, "waitlist.privacy").split("{link}")[0]}
+              <Link to={`/${lang}/privacy-policy`} className="text-primary underline underline-offset-2 hover:text-gold-light transition-colors">
+                {t(lang, "waitlist.privacy").split("{link}")[1]?.split("{/link}")[0]}
+              </Link>
+              {t(lang, "waitlist.privacy").split("{/link}")[1] || ""}
+            </span>
+          </label>
+
           {error && (
             <p className="text-red-400 text-center" style={{ fontSize: "0.68rem" }}>
               {error}
