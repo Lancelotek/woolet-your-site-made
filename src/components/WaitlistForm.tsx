@@ -194,7 +194,7 @@ const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !privacyAccepted}
             className="relative overflow-hidden bg-primary text-primary-foreground border-none py-4 px-8 font-body font-semibold uppercase tracking-[0.28em] w-full transition-all hover:bg-gold-light active:scale-[0.99] group disabled:opacity-60"
             style={{ fontSize: "0.66rem" }}
           >

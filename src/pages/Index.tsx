@@ -90,7 +90,7 @@ const Index = () => {
           </div>
 
           <Countdown />
-          <WaitlistForm />
+          <WaitlistForm lang={lang} />
           <Testimonials />
 
           <div className="woolet-divider" />
