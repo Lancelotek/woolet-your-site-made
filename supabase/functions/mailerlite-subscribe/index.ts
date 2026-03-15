@@ -60,7 +60,7 @@ serve(async (req) => {
     // Ensure custom fields exist in MailerLite (idempotent)
     await ensureCustomFields(apiKey);
 
-    // Subscribe with all fields
+    // Subscribe with all fields + group
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
       fields: {
@@ -68,6 +68,7 @@ serve(async (req) => {
         face_width: face_width || "",
         interested_models: models || "",
       },
+      groups: ["181841182994728358"],
     });
 
     if (status >= 400) {
