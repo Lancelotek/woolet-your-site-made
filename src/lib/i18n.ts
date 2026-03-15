@@ -96,6 +96,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "waitlist.not_sure": "Je ne sais pas — je vais mesurer",
     "waitlist.interested": "Intéressé par",
     "waitlist.cta": "Réserver ma place — 15% + livraison gratuite",
+    "waitlist.privacy": "J'accepte la {link}Politique de confidentialité{/link}",
     "waitlist.disclaimer": "Pas de carte bancaire. Pas de spam. Désinscription à tout moment.",
     "waitlist.success_title": "Vous êtes sur la liste — avantages verrouillés.",
     "waitlist.success_desc": "Vérifiez votre boîte mail. Vos avantages exclusifs au lancement :",
