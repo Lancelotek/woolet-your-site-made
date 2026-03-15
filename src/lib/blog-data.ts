@@ -530,6 +530,8 @@ const blogPostsEN: BlogPost[] = [
 
 <p>For faces measuring 155mm and above, Italian acetate isn't a nice-to-have. It's the material that maintains structural integrity across a wider span, holds its optical geometry over years of wear, and delivers the tactile and visual quality that matches the premium you're paying.</p>
 
+<figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 Italian Mazzucchelli acetate eyewear close-up — 5-barrel hinge, frame width 158mm, bridge 21mm, acetate material detail and tortoiseshell pattern" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Mazzucchelli acetate detail, 5-barrel hinge, 158mm</figcaption></figure>
+
 <p>Woolet uses Mazzucchelli acetate in both the 007 and 009 models. Not because it's fashionable to say so — but because at 158mm, it's the right engineering decision.</p>
 
 <p><em>Woolet 007 and Woolet 009 are crafted from Mazzucchelli Italian acetate, engineered for 155mm+ face widths. Join the waitlist at woolet.co.</em></p>
