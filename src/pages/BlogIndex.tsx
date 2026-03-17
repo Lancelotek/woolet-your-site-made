@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { getBlogPosts } from "@/lib/blog-data";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const blogSeo: Record<string, { title: string; description: string }> = {
   en: {
