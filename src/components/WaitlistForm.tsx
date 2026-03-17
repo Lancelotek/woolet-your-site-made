@@ -55,16 +55,15 @@ const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
       if (fnError) throw fnError;
       if (data && !data.success) throw new Error(data.error || "Subscription failed");
 
-      // GTM: push waitlist conversion event
-      if (typeof window !== "undefined" && (window as any).dataLayer) {
-        (window as any).dataLayer.push({
-          event: "waitlist_signup",
-          waitlist_name: formData.name,
-          waitlist_email: formData.email,
-          waitlist_face_width: formData.faceWidth,
-          waitlist_models: models,
-        });
-      }
+      pushGtmEvent("waitlist_signup", {
+        waitlist_name: formData.name,
+        waitlist_email: formData.email,
+        waitlist_face_width: formData.faceWidth,
+        waitlist_models: models,
+      });
+
+      setSubmitted(true);
+      setCount((c) => c + 1);
 
       setSubmitted(true);
       setCount((c) => c + 1);
