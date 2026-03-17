@@ -57,7 +57,7 @@ const Index = () => {
       {/* HERO — full height below navbar, no page scroll */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_580px] flex-1 min-h-0 animate-fade-in">
         {/* Mobile hero image — scrolls with right panel on mobile */}
-        <div className="block lg:hidden w-full max-h-[50vh] overflow-hidden flex-shrink-0">
+        <div className="block lg:hidden w-full max-h-[42vh] overflow-hidden flex-shrink-0">
           <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
         </div>
 
