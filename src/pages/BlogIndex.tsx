@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { getBlogPosts } from "@/lib/blog-data";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const blogSeo: Record<string, { title: string; description: string }> = {
   en: {
@@ -61,6 +62,7 @@ const BlogIndex = () => {
               <Link
                 key={post.slug}
                 to={`/${currentLang}/blog/${post.slug}`}
+                onClick={() => pushGtmEvent("blog_click", { blog_slug: post.slug, blog_title: post.title, blog_lang: currentLang })}
                 className="group no-underline block py-7 sm:py-9 transition-colors hover:bg-surface/40"
                 style={i < posts.length - 1 ? { borderBottom: "1px solid hsl(0 0% 100% / 0.055)" } : undefined}
               >

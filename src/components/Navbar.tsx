@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.png";
 import { SUPPORTED_LANGS, langNames, t, isValidLang, type Lang } from "@/lib/i18n";
 import { useState } from "react";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const Navbar = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
@@ -22,7 +23,8 @@ const Navbar = () => {
       </div>
       <div className="flex items-center gap-3 sm:gap-5">
         <Link to={`/${lang}/blog`} className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-          style={{ fontSize: '0.55rem' }}>
+          style={{ fontSize: '0.55rem' }}
+          onClick={() => pushGtmEvent("nav_click", { nav_item: "blog", nav_lang: lang })}>
           {t(lang, "nav.blog")}
         </Link>
         <div className="relative">
@@ -40,7 +42,7 @@ const Navbar = () => {
                 <Link
                   key={l}
                   to={`/${l}`}
-                  onClick={() => setLangOpen(false)}
+                  onClick={() => { setLangOpen(false); pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l }); }}
                   className={`no-underline px-4 py-2.5 tracking-wider hover:bg-surface-2 transition-colors ${l === lang ? 'text-primary' : 'text-cream-dim hover:text-foreground'}`}
                   style={{ fontSize: '0.65rem' }}
                 >

@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.png";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const Footer = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
@@ -35,10 +36,12 @@ const FooterLink = ({ label, href }: { label: string; href: string }) => {
   const className = "text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors";
   const style = { fontSize: '0.55rem' };
 
+  const handleClick = () => pushGtmEvent("footer_click", { footer_item: label });
+
   if (isInternal) {
-    return <Link to={href} className={className} style={style}>{label}</Link>;
+    return <Link to={href} className={className} style={style} onClick={handleClick}>{label}</Link>;
   }
-  return <a href={href} className={className} style={style}>{label}</a>;
+  return <a href={href} className={className} style={style} onClick={handleClick}>{label}</a>;
 };
 
 export default Footer;
