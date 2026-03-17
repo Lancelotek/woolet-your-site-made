@@ -42,7 +42,7 @@ const Navbar = () => {
                 <Link
                   key={l}
                   to={`/${l}`}
-                  onClick={() => setLangOpen(false)}
+                  onClick={() => { setLangOpen(false); pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l }); }}
                   className={`no-underline px-4 py-2.5 tracking-wider hover:bg-surface-2 transition-colors ${l === lang ? 'text-primary' : 'text-cream-dim hover:text-foreground'}`}
                   style={{ fontSize: '0.65rem' }}
                 >

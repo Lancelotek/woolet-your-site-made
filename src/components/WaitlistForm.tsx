@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { t, type Lang } from "@/lib/i18n";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
   const [submitted, setSubmitted] = useState(false);
