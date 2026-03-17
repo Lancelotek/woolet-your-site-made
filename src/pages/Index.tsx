@@ -93,7 +93,7 @@ const Index = () => {
               </p>
             </div>
 
-            <Countdown />
+            
             <WaitlistForm lang={lang} />
             <Testimonials />
 
