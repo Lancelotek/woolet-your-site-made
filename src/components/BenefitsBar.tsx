@@ -6,7 +6,8 @@ const BenefitsBar = () => {
   ];
 
   return (
-    <div className="flex flex-col border border-primary/20 overflow-hidden mb-1">
+    <div className="flex flex-col border border-primary/20 overflow-hidden mb-1 md:bg-transparent"
+      style={{ background: "hsl(var(--gold) / 0.08)", borderTopColor: "hsl(var(--gold) / 0.3)", borderBottomColor: "hsl(var(--gold) / 0.3)" }}>
       {benefits.map((b, i) => (
         <div
           key={i}
@@ -17,8 +18,8 @@ const BenefitsBar = () => {
             {b.icon}
           </div>
           <div className="flex flex-col gap-0.5 flex-1">
-            <span className="text-woolet-white tracking-wider" style={{ fontSize: "0.72rem" }}>{b.title}</span>
-            <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.6rem" }}>{b.sub}</span>
+            <span className="text-woolet-white tracking-wider text-[11px] md:text-[0.72rem]">{b.title}</span>
+            <span className="text-cream-dim tracking-wider text-[10px] md:text-[0.6rem]">{b.sub}</span>
           </div>
           {b.tag && (
             <span className="bg-primary text-primary-foreground px-2 py-0.5 flex-shrink-0 font-semibold uppercase tracking-[0.2em]" style={{ fontSize: "0.48rem" }}>

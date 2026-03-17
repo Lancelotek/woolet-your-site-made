@@ -76,9 +76,10 @@ const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
   };
 
   return (
-    <>
-      {/* Progress */}
-      <div className="flex flex-col gap-2">
+    <div id="waitlist-form">
+      {/* Progress — desktop: line style, mobile: pill progress bar */}
+      {/* Desktop progress */}
+      <div className="hidden md:flex flex-col gap-2">
         <div className="flex justify-between items-center">
           <span className="text-cream-dim uppercase tracking-[0.24em]" style={{ fontSize: "0.56rem" }}>
             Waitlist
@@ -93,6 +94,19 @@ const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
             className="h-full transition-all duration-[1.8s] ease-out"
             style={{ width: "0%", background: "linear-gradient(90deg, hsl(var(--gold-dim)), hsl(var(--gold-light)))" }}
           />
+        </div>
+      </div>
+
+      {/* Mobile progress pill */}
+      <div className="md:hidden flex flex-col gap-1.5 mb-1">
+        <div className="relative w-full h-7 rounded-full overflow-hidden" style={{ background: "hsl(0 0% 12%)" }}>
+          <div
+            className="h-full rounded-full transition-all duration-[1.8s] ease-out"
+            style={{ width: `${count}%`, background: "linear-gradient(90deg, hsl(var(--gold-dim)), hsl(var(--gold-light)))" }}
+          />
+          <span className="absolute inset-0 flex items-center justify-center text-woolet-white font-semibold tracking-wider" style={{ fontSize: "0.62rem" }}>
+            {count} of 100 founding member spots remaining
+          </span>
         </div>
       </div>
 
@@ -238,7 +252,7 @@ const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
