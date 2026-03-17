@@ -19,7 +19,7 @@ const Footer = () => {
       <div className="flex gap-5 flex-wrap justify-center">
         {[
           { label: "Instagram", href: "#" },
-          { label: "Facebook", href: "#" },
+          { label: "Facebook", href: "https://www.facebook.com/WooletWideFit/" },
           { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
           { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
           { label: "support@woolet.co", href: "mailto:support@woolet.co" },
