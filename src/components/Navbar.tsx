@@ -26,14 +26,19 @@ const Navbar = () => {
         <div className="relative">
           <button
             onClick={() => setLangOpen(!langOpen)}
-            className="text-cream-dim uppercase tracking-[0.2em] border border-border-sub px-2.5 py-1 hover:text-primary hover:border-primary/30 transition-colors bg-transparent cursor-pointer"
-            style={{ fontSize: '0.55rem', borderColor: 'hsl(0 0% 100% / 0.055)' }}
+            className="text-cream-dim uppercase tracking-[0.2em] bg-transparent cursor-pointer transition-colors hover:text-primary hover:border-primary/40"
+            style={{
+              fontSize: '0.55rem',
+              border: '1px solid hsl(var(--border-sub))',
+              borderRadius: '20px',
+              padding: '4px 12px',
+            }}
           >
             {lang.toUpperCase()}
           </button>
           {langOpen && (
-            <div className="absolute right-0 top-full mt-1 bg-surface border border-border-sub flex flex-col min-w-[120px] z-50"
-              style={{ borderColor: 'hsl(0 0% 100% / 0.055)' }}>
+            <div className="absolute right-0 top-full mt-1 bg-surface border flex flex-col min-w-[120px] z-50"
+              style={{ borderColor: 'hsl(0 0% 100% / 0.055)', borderRadius: '4px' }}>
               {SUPPORTED_LANGS.map((l) => (
                 <Link
                   key={l}
