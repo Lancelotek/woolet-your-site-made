@@ -8,7 +8,7 @@ import WaitlistForm from "@/components/WaitlistForm";
 import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
-import BeforeAfter from "@/components/BeforeAfter";
+
 import SEO from "@/components/SEO";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { Navigate } from "react-router-dom";
@@ -43,7 +43,7 @@ const Index = () => {
   const seo = seoData[lang];
 
   return (
-    <div className="relative z-[1] flex flex-col min-h-screen">
+    <div className="relative z-[1] flex flex-col h-screen overflow-hidden">
       <SEO title={seo.title} description={seo.description} lang={lang} />
 
       {/* Ambient glows */}
@@ -54,63 +54,65 @@ const Index = () => {
 
       <Navbar />
 
-      {/* HERO */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] min-h-[calc(100vh-62px)] animate-fade-in">
-        <div className="block lg:hidden w-full max-h-[60vh] overflow-hidden">
+      {/* HERO — full height below navbar, no page scroll */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_580px] flex-1 min-h-0 animate-fade-in">
+        {/* Mobile hero image — scrolls with right panel on mobile */}
+        <div className="block lg:hidden w-full max-h-[50vh] overflow-hidden flex-shrink-0">
           <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
         </div>
 
+        {/* Desktop left image — fixed, no scroll */}
         <div className="relative overflow-hidden bg-surface border-r hidden lg:block"
           style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
           <div className="absolute inset-0 flex items-end overflow-hidden">
             <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="w-full h-full object-cover object-top" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 50%, hsl(var(--background) / 0.4) 100%)" }} />
           </div>
-          <div className="absolute bottom-0 left-0 right-0 z-[2]">
-            <BeforeAfter />
-          </div>
           <div className="absolute inset-0 pointer-events-none"
             style={{ background: "linear-gradient(90deg, transparent 60%, hsl(var(--background) / 0.35) 100%)" }} />
         </div>
 
-        <div className="flex flex-col px-4 py-6 sm:p-6 lg:p-10 overflow-y-auto gap-6 sm:gap-8 lg:border-l"
+        {/* Right panel — this is the ONLY scrollable area */}
+        <div className="flex flex-col overflow-y-auto lg:border-l"
           style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
-          <div>
-            <div className="woolet-eyebrow mb-4">
-              <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "hero.eyebrow")}</span>
+          <div className="flex flex-col px-5 py-8 sm:p-8 lg:px-10 lg:py-10 gap-8 sm:gap-10">
+            <div>
+              <div className="woolet-eyebrow mb-5">
+                <div className="woolet-eyebrow-line" />
+                <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "hero.eyebrow")}</span>
+              </div>
+              <h1 className="font-display text-woolet-white leading-none mb-4" style={{ fontSize: "clamp(2rem, 3.2vw, 3.2rem)" }}>
+                {t(lang, "hero.title_1")}<br />
+                {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
+              </h1>
+              <p className="sr-only">
+                Woolet — Premium Glasses for Wide Faces 155mm+ | Italian Acetate Eyewear
+              </p>
+              <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
+                {t(lang, "hero.desc")}
+              </p>
             </div>
-            <h1 className="font-display text-woolet-white leading-none mb-3" style={{ fontSize: "clamp(2rem, 3.2vw, 3.2rem)" }}>
-              {t(lang, "hero.title_1")}<br />
-              {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
-            </h1>
-            <p className="sr-only">
-              Woolet — Premium Glasses for Wide Faces 155mm+ | Italian Acetate Eyewear
-            </p>
-            <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
-              {t(lang, "hero.desc")}
-            </p>
+
+            <Countdown />
+            <WaitlistForm lang={lang} />
+            <Testimonials />
+
+            <div className="woolet-divider" />
+
+            <ModelPills />
+
+            <div>
+              <div className="flex flex-col gap-1.5 mb-5">
+                <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>{t(lang, "benefits.title")}</div>
+                <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>{t(lang, "benefits.subtitle")}</div>
+              </div>
+              <BenefitsBar />
+            </div>
           </div>
 
-          <Countdown />
-          <WaitlistForm lang={lang} />
-          <Testimonials />
-
-          <div className="woolet-divider" />
-
-          <ModelPills />
-
-          <div>
-            <div className="flex flex-col gap-1 mb-4">
-              <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>{t(lang, "benefits.title")}</div>
-              <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>{t(lang, "benefits.subtitle")}</div>
-            </div>
-            <BenefitsBar />
-          </div>
+          <Footer />
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };
