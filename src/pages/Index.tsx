@@ -84,6 +84,9 @@ const Index = () => {
               {t(lang, "hero.title_1")}<br />
               {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
             </h1>
+            <p className="sr-only">
+              Woolet — Premium Glasses for Wide Faces 155mm+ | Italian Acetate Eyewear
+            </p>
             <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
               {t(lang, "hero.desc")}
             </p>
