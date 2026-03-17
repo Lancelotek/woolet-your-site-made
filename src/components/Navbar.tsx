@@ -12,14 +12,10 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 px-4 sm:px-5 md:px-12 py-4 sm:py-5 flex items-center justify-between bg-background/92 backdrop-blur-xl border-b border-border-sub animate-fade-down"
       style={{ borderBottomColor: 'hsl(0 0% 100% / 0.055)' }}>
-      <div className="flex items-center gap-5">
-        <Link to={`/${lang}`} className="flex items-center gap-2 no-underline">
+      <div className="flex items-center">
+        <Link to={`/${lang}`} className="flex items-center no-underline">
           <img src={wooletLogo} alt="Woolet" className="h-8" />
         </Link>
-        <span className="hidden md:block text-cream-dim uppercase tracking-[0.22em] border-l pl-5"
-          style={{ fontSize: '0.58rem', borderLeftColor: 'hsl(0 0% 100% / 0.055)' }}>
-          woolet.co
-        </span>
       </div>
       <div className="flex items-center gap-3 sm:gap-5">
         <Link to={`/${lang}/blog`} className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
