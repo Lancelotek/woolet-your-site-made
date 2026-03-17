@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.png";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const Footer = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
