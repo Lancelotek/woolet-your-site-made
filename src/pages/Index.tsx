@@ -3,7 +3,7 @@ import heroManImg from "@/assets/hero-man.jpg";
 import heroMobileImg from "@/assets/hero-mobile.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Countdown from "@/components/Countdown";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
 import WaitlistForm from "@/components/WaitlistForm";
 import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
