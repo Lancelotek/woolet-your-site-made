@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 
-const Countdown = () => {
-  const [target] = useState(() => new Date(Date.now() + 30 * 864e5));
+/** Fixed launch date — change this to your actual launch date */
+const LAUNCH_DATE = new Date("2025-09-15T00:00:00Z");
 
+const Countdown = () => {
   const calc = useCallback(() => {
-    const d = target.getTime() - Date.now();
+    const d = LAUNCH_DATE.getTime() - Date.now();
     if (d <= 0) return { days: "00", hrs: "00", min: "00", sec: "00" };
     return {
       days: String(Math.floor(d / 864e5)).padStart(2, "0"),
@@ -12,7 +13,7 @@ const Countdown = () => {
       min: String(Math.floor((d % 36e5) / 6e4)).padStart(2, "0"),
       sec: String(Math.floor((d % 6e4) / 1e3)).padStart(2, "0"),
     };
-  }, [target]);
+  }, []);
 
   const [time, setTime] = useState(calc);
 
