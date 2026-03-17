@@ -252,7 +252,7 @@ const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -48,7 +48,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        <span className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-1"
+        <span className="hidden md:inline-block text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-1"
           style={{ fontSize: '0.55rem' }}>
           {t(lang, "nav.coming_soon")}
         </span>
