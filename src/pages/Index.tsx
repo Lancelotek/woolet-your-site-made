@@ -1,7 +1,5 @@
-import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import heroManImg from "@/assets/hero-man.jpg";
-import heroMobileImg from "@/assets/hero-mobile.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -36,52 +34,6 @@ const seoData: Record<Lang, { title: string; description: string }> = {
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
-  const [heroVisible, setHeroVisible] = useState(true);
-  const lastScrollYRef = useRef(0);
-  const rafIdRef = useRef<number | null>(null);
-  const isIPhone = typeof navigator !== "undefined" && /iPhone/i.test(navigator.userAgent);
-
-  useEffect(() => {
-    const readScrollTop = () =>
-      window.scrollY ||
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-
-    const updateHeroVisibility = () => {
-      const currentY = readScrollTop();
-
-      if (currentY <= 1) {
-        setHeroVisible(true);
-      } else if (currentY > lastScrollYRef.current) {
-        setHeroVisible(false);
-      }
-
-      lastScrollYRef.current = currentY;
-      rafIdRef.current = null;
-    };
-
-    const onScroll = () => {
-      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
-      rafIdRef.current = requestAnimationFrame(updateHeroVisibility);
-    };
-
-    updateHeroVisibility();
-
-    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
-    window.addEventListener("touchmove", onScroll, { passive: true, capture: true });
-    window.visualViewport?.addEventListener("scroll", onScroll);
-    window.visualViewport?.addEventListener("resize", onScroll);
-
-    return () => {
-      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
-      window.removeEventListener("scroll", onScroll, true);
-      window.removeEventListener("touchmove", onScroll, true);
-      window.visualViewport?.removeEventListener("scroll", onScroll);
-      window.visualViewport?.removeEventListener("resize", onScroll);
-    };
-  }, []);
 
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
@@ -93,7 +45,7 @@ const Index = () => {
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} />
 
-      {/* ===== MOBILE LAYOUT — plain document flow, no flex/grid tricks ===== */}
+      {/* ===== MOBILE LAYOUT — no hero image, straight to content ===== */}
       <div className="relative z-[1] lg:hidden">
         {/* Ambient glows */}
         <div className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
@@ -102,21 +54,6 @@ const Index = () => {
           style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.04) 0%, transparent 60%)" }} />
 
         <Navbar />
-
-        {/* Hero image — hidden entirely on iPhone */}
-        {!isIPhone && (
-          <div
-            className="w-full overflow-hidden transition-[height,opacity] duration-300 ease-out"
-            style={{
-              height: heroVisible ? "56vw" : "0px",
-              maxHeight: heroVisible ? "260px" : "0px",
-              opacity: heroVisible ? 1 : 0,
-            }}
-            aria-hidden={!heroVisible}
-          >
-            <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
-          </div>
-        )}
 
         <div className="px-5 py-8 sm:p-8 flex flex-col gap-8 sm:gap-10">
           <div>
