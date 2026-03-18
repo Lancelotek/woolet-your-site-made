@@ -43,7 +43,7 @@ const Index = () => {
   const seo = seoData[lang];
 
   return (
-    <div className="relative z-[1] flex flex-col h-screen overflow-hidden">
+    <div className="relative z-[1] flex flex-col min-h-screen lg:h-screen lg:overflow-hidden">
       <SEO title={seo.title} description={seo.description} lang={lang} />
 
       {/* Ambient glows */}
@@ -54,22 +54,15 @@ const Index = () => {
 
       <Navbar />
 
-      {/* HERO — full height below navbar, no page scroll */}
+      {/* HERO — desktop keeps split layout, mobile uses native page scroll (better on iOS) */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_580px] flex-1 min-h-0 animate-fade-in">
 
         {/* Desktop left image — fixed, no scroll */}
         <div className="relative overflow-hidden bg-surface border-r hidden lg:block"
           style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
-          <div className="absolute inset-0 flex items-end overflow-hidden">
-            <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="w-full h-full object-cover object-top" />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 50%, hsl(var(--background) / 0.4) 100%)" }} />
-          </div>
-          <div className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(90deg, transparent 60%, hsl(var(--background) / 0.35) 100%)" }} />
-        </div>
-
-        {/* Right panel — this is the ONLY scrollable area */}
-        <div className="flex flex-col overflow-y-auto lg:border-l"
+...
+        {/* Right panel — desktop scroll container, mobile uses normal page flow */}
+        <div className="flex flex-col overflow-visible lg:overflow-y-auto lg:border-l"
           style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
 
           {/* Mobile hero image — INSIDE scroll so it scrolls away */}
