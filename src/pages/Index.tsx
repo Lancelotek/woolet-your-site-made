@@ -36,6 +36,13 @@ const seoData: Record<Lang, { title: string; description: string }> = {
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+  const [heroVisible, setHeroVisible] = useState(true);
+
+  useEffect(() => {
+    const onScroll = () => setHeroVisible(window.scrollY < 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
