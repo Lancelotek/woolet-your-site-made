@@ -38,7 +38,10 @@ const seoData: Record<Lang, { title: string; description: string }> = {
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
-  const isIPhone = typeof navigator !== "undefined" && /iPhone/i.test(navigator.userAgent);
+  const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+  const isIOS =
+    /iPhone|iPad|iPod/i.test(ua) ||
+    (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
