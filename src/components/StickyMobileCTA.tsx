@@ -15,7 +15,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
     return () => observer.disconnect();
   }, []);
 
-  if (!visible) return null;
+  
 
   const scrollToForm = () => {
     document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
