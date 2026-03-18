@@ -38,7 +38,10 @@ const seoData: Record<Lang, { title: string; description: string }> = {
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
-  const isIPhone = typeof navigator !== "undefined" && /iPhone/i.test(navigator.userAgent);
+  const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+  const isIOS =
+    /iPhone|iPad|iPod/i.test(ua) ||
+    (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
@@ -51,7 +54,7 @@ const Index = () => {
       <SEO title={seo.title} description={seo.description} lang={lang} />
 
       {/* ===== MOBILE LAYOUT — no hero image, straight to content ===== */}
-      <div className={`relative z-[1] ${isIPhone ? "" : "lg:hidden"}`}>
+      <div className={`relative z-[1] ${isIOS ? "" : "lg:hidden"}`}>
         {/* Ambient glows */}
         <div
           className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
@@ -106,7 +109,7 @@ const Index = () => {
       </div>
 
       {/* ===== DESKTOP LAYOUT — split panel with locked scroll ===== */}
-      <div className={`relative z-[1] ${isIPhone ? "hidden" : "hidden lg:flex"} flex-col h-screen overflow-hidden`}>
+      <div className={`relative z-[1] ${isIOS ? "hidden" : "hidden lg:flex"} flex-col h-screen overflow-hidden`}>
         {/* Ambient glows */}
         <div
           className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
@@ -123,7 +126,7 @@ const Index = () => {
           {/* Left image — fixed, no scroll */}
           <div className="relative overflow-hidden bg-surface border-r" style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
             <div className="absolute inset-0 flex items-end overflow-hidden">
-              <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="w-full h-full object-cover object-top" />
+              <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="woolet-desktop-hero-image w-full h-full object-cover object-top" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 50%, hsl(var(--background) / 0.4) 100%)" }} />
             </div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, transparent 60%, hsl(var(--background) / 0.35) 100%)" }} />
