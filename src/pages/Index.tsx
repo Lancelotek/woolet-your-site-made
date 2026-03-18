@@ -64,8 +64,14 @@ const Index = () => {
 
         <Navbar />
 
-        {/* Hero image — normal block element, scrolls with page */}
-        <div className="w-full overflow-hidden" style={{ height: "56vw", maxHeight: "260px" }}>
+        {/* Hero image — hides on scroll */}
+        <div
+          className="w-full overflow-hidden transition-all duration-300 ease-out"
+          style={{
+            height: heroVisible ? "min(56vw, 260px)" : "0px",
+            opacity: heroVisible ? 1 : 0,
+          }}
+        >
           <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
         </div>
 
