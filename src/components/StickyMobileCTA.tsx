@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
   const [visible, setVisible] = useState(true);
@@ -7,19 +7,22 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
     const form = document.getElementById("waitlist-form");
     if (!form) return;
 
+    // rootMargin adds 80px buffer so CTA hides before form is fully visible
+    // — prevents flickering on iOS Safari
     const observer = new IntersectionObserver(
       ([entry]) => setVisible(!entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0, rootMargin: "80px 0px 80px 0px" }
     );
     observer.observe(form);
     return () => observer.disconnect();
   }, []);
 
-  
-
-  const scrollToForm = () => {
-    document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollToForm = useCallback(() => {
+    const form = document.getElementById("waitlist-form");
+    if (!form) return;
+    // block: "center" works more reliably on iOS Safari
+    form.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
 
   return (
     <div
