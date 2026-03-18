@@ -39,6 +39,7 @@ const Index = () => {
   const [heroVisible, setHeroVisible] = useState(true);
   const lastScrollYRef = useRef(0);
   const rafIdRef = useRef<number | null>(null);
+  const isIPhone = typeof navigator !== "undefined" && /iPhone/i.test(navigator.userAgent);
 
   useEffect(() => {
     const readScrollTop = () =>
@@ -102,18 +103,20 @@ const Index = () => {
 
         <Navbar />
 
-        {/* Hero image — hides instantly on downward scroll */}
-        <div
-          className="w-full overflow-hidden transition-[height,opacity] duration-300 ease-out"
-          style={{
-            height: heroVisible ? "56vw" : "0px",
-            maxHeight: heroVisible ? "260px" : "0px",
-            opacity: heroVisible ? 1 : 0,
-          }}
-          aria-hidden={!heroVisible}
-        >
-          <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
-        </div>
+        {/* Hero image — hidden entirely on iPhone */}
+        {!isIPhone && (
+          <div
+            className="w-full overflow-hidden transition-[height,opacity] duration-300 ease-out"
+            style={{
+              height: heroVisible ? "56vw" : "0px",
+              maxHeight: heroVisible ? "260px" : "0px",
+              opacity: heroVisible ? 1 : 0,
+            }}
+            aria-hidden={!heroVisible}
+          >
+            <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
+          </div>
+        )}
 
         <div className="px-5 py-8 sm:p-8 flex flex-col gap-8 sm:gap-10">
           <div>
