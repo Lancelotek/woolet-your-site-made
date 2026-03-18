@@ -110,6 +110,8 @@ const Index = () => {
             </div>
           </div>
 
+          {/* Spacer for sticky mobile CTA */}
+          <div className="h-16 md:hidden" />
           <Footer />
         </div>
       </div>
