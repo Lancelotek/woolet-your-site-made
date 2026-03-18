@@ -412,3 +412,9 @@
   0%, 100% { letter-spacing: 28px; }
   50% { letter-spacing: 16px; }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .woolet-desktop-hero-image {
+    display: none;
+  }
+}
