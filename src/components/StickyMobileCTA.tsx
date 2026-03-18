@@ -15,7 +15,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
     return () => observer.disconnect();
   }, []);
 
-  if (!visible) return null;
+  
 
   const scrollToForm = () => {
     document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
@@ -23,7 +23,9 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 md:hidden"
+      className={`fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 md:hidden transition-all duration-500 ease-out ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+      }`}
       style={{
         background: "hsl(0 0% 10%)",
         borderTop: "1px solid hsl(var(--gold))",
