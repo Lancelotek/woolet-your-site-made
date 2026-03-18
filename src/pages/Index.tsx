@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import heroManImg from "@/assets/hero-man.jpg";
 import heroMobileImg from "@/assets/hero-mobile.png";
