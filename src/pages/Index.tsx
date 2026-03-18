@@ -109,7 +109,7 @@ const Index = () => {
       </div>
 
       {/* ===== DESKTOP LAYOUT — split panel with locked scroll ===== */}
-      <div className={`relative z-[1] ${isIPhone ? "hidden" : "hidden lg:flex"} flex-col h-screen overflow-hidden`}>
+      <div className={`relative z-[1] ${isIOS ? "hidden" : "hidden lg:flex"} flex-col h-screen overflow-hidden`}>
         {/* Ambient glows */}
         <div
           className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
