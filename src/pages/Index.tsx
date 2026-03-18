@@ -34,6 +34,7 @@ const seoData: Record<Lang, { title: string; description: string }> = {
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+  const isIPhone = typeof navigator !== "undefined" && /iPhone/i.test(navigator.userAgent);
 
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
@@ -46,53 +47,10 @@ const Index = () => {
       <SEO title={seo.title} description={seo.description} lang={lang} />
 
       {/* ===== MOBILE LAYOUT — no hero image, straight to content ===== */}
-      <div className="relative z-[1] lg:hidden">
-        {/* Ambient glows */}
-        <div className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
-          style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.055) 0%, transparent 60%)" }} />
-        <div className="fixed pointer-events-none z-0 rounded-full w-[600px] h-[600px] -bottom-[100px] -left-[200px]"
-          style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.04) 0%, transparent 60%)" }} />
-
-        <Navbar />
-
-        <div className="px-5 py-8 sm:p-8 flex flex-col gap-8 sm:gap-10">
-          <div>
-            <div className="woolet-eyebrow mb-5">
-              <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "hero.eyebrow")}</span>
-            </div>
-            <h1 className="font-display text-woolet-white leading-none mb-4" style={{ fontSize: "clamp(2rem, 3.2vw, 3.2rem)" }}>
-              {t(lang, "hero.title_1")}<br />
-              {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
-            </h1>
-            <p className="sr-only">Woolet — Premium Glasses for Wide Faces 155mm+ | Italian Acetate Eyewear</p>
-            <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
-              {t(lang, "hero.desc")}
-            </p>
-          </div>
-
-          <WaitlistForm lang={lang} />
-          <Testimonials />
-          <div className="woolet-divider" />
-          <ModelPills />
-
-          <div>
-            <div className="flex flex-col gap-1.5 mb-5">
-              <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>{t(lang, "benefits.title")}</div>
-              <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>{t(lang, "benefits.subtitle")}</div>
-            </div>
-            <BenefitsBar />
-          </div>
-        </div>
-
-        {/* Spacer for sticky mobile CTA */}
-        <div className="h-16" />
-        <Footer />
-        <StickyMobileCTA />
-      </div>
-
+      <div className={`relative z-[1] ${isIPhone ? "" : "lg:hidden"}`}>
+...
       {/* ===== DESKTOP LAYOUT — split panel with locked scroll ===== */}
-      <div className="relative z-[1] hidden lg:flex flex-col h-screen overflow-hidden">
+      <div className={`relative z-[1] ${isIPhone ? "hidden" : "hidden lg:flex"} flex-col h-screen overflow-hidden`}>
         {/* Ambient glows */}
         <div className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
           style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.055) 0%, transparent 60%)" }} />
