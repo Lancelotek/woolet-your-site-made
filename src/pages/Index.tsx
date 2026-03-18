@@ -102,13 +102,15 @@ const Index = () => {
 
         <Navbar />
 
-        {/* Hero image — hides on scroll */}
+        {/* Hero image — hides instantly on downward scroll */}
         <div
-          className="w-full overflow-hidden transition-all duration-300 ease-out"
+          className="w-full overflow-hidden transition-[height,opacity] duration-300 ease-out"
           style={{
-            height: heroVisible ? "min(56vw, 260px)" : "0px",
+            height: heroVisible ? "56vw" : "0px",
+            maxHeight: heroVisible ? "260px" : "0px",
             opacity: heroVisible ? 1 : 0,
           }}
+          aria-hidden={!heroVisible}
         >
           <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
         </div>
