@@ -54,7 +54,7 @@ const Index = () => {
       <SEO title={seo.title} description={seo.description} lang={lang} />
 
       {/* ===== MOBILE LAYOUT — no hero image, straight to content ===== */}
-      <div className={`relative z-[1] ${isIPhone ? "" : "lg:hidden"}`}>
+      <div className={`relative z-[1] ${isIOS ? "" : "lg:hidden"}`}>
         {/* Ambient glows */}
         <div
           className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
