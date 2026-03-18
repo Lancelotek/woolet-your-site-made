@@ -37,11 +37,49 @@ const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [heroVisible, setHeroVisible] = useState(true);
+  const lastScrollYRef = useRef(0);
+  const rafIdRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setHeroVisible(window.scrollY < 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const readScrollTop = () =>
+      window.scrollY ||
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+
+    const updateHeroVisibility = () => {
+      const currentY = readScrollTop();
+
+      if (currentY <= 1) {
+        setHeroVisible(true);
+      } else if (currentY > lastScrollYRef.current) {
+        setHeroVisible(false);
+      }
+
+      lastScrollYRef.current = currentY;
+      rafIdRef.current = null;
+    };
+
+    const onScroll = () => {
+      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = requestAnimationFrame(updateHeroVisibility);
+    };
+
+    updateHeroVisibility();
+
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    window.addEventListener("touchmove", onScroll, { passive: true, capture: true });
+    window.visualViewport?.addEventListener("scroll", onScroll);
+    window.visualViewport?.addEventListener("resize", onScroll);
+
+    return () => {
+      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("touchmove", onScroll, true);
+      window.visualViewport?.removeEventListener("scroll", onScroll);
+      window.visualViewport?.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   if (paramLang && !isValidLang(paramLang)) {
