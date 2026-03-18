@@ -56,10 +56,6 @@ const Index = () => {
 
       {/* HERO — full height below navbar, no page scroll */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_580px] flex-1 min-h-0 animate-fade-in">
-        {/* Mobile hero image — scrolls with right panel on mobile */}
-        <div className="block lg:hidden w-full max-h-[42vh] overflow-hidden flex-shrink-0">
-          <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
-        </div>
 
         {/* Desktop left image — fixed, no scroll */}
         <div className="relative overflow-hidden bg-surface border-r hidden lg:block"
@@ -75,6 +71,12 @@ const Index = () => {
         {/* Right panel — this is the ONLY scrollable area */}
         <div className="flex flex-col overflow-y-auto lg:border-l"
           style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
+
+          {/* Mobile hero image — INSIDE scroll so it scrolls away */}
+          <div className="block lg:hidden w-full overflow-hidden flex-shrink-0" style={{ height: "56vw", maxHeight: "260px" }}>
+            <img src={heroMobileImg} alt="Man wearing Woolet eyewear" className="w-full h-full object-cover object-top" />
+          </div>
+
           <div className="flex flex-col px-5 py-8 sm:p-8 lg:px-10 lg:py-10 gap-8 sm:gap-10">
             <div>
               <div className="woolet-eyebrow mb-5">
