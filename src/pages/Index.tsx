@@ -85,6 +85,26 @@ const Index = () => {
           </div>
 
           <WaitlistForm lang={lang} />
+          <a
+            href={`/${lang}/fit`}
+            onClick={(e) => { e.preventDefault(); window.location.href = `/${lang}/fit`; }}
+            style={{
+              display: "block",
+              textAlign: "center",
+              marginTop: 10,
+              fontSize: 13,
+              color: "rgba(245,241,235,0.45)",
+              textDecoration: "none",
+              border: "none",
+              background: "none",
+              transition: "color 150ms",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(245,241,235,0.7)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,241,235,0.45)")}
+          >
+            Not sure if you need wide frames? Check your fit →
+          </a>
           <Testimonials />
           <div className="woolet-divider" />
           <ModelPills />
