@@ -23,7 +23,7 @@ const labelStyle: React.CSSProperties = {
   marginBottom: "8px",
 };
 
-const WaitlistForm = ({ lang = "en" as Lang }: { lang?: Lang }) => {
+const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; prefilledWidth?: string }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
