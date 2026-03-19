@@ -85,7 +85,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; pr
   };
 
   return (
-    <div id="waitlist-form" style={{ paddingBottom: "40px" }}>
+    <div id="waitlist-form" style={{ paddingBottom: "8px" }}>
       {/* Desktop progress */}
       <div className="hidden md:flex flex-col gap-2">
         <div className="flex justify-between items-center">
