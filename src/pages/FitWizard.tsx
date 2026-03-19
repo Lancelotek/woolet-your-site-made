@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import WaitlistForm from "@/components/WaitlistForm";
+import wooletLogo from "@/assets/woolet-logo.png";
 import type { Lang } from "@/lib/i18n";
 
 /* ─── types ─── */
@@ -408,15 +409,9 @@ export default function FitWizard() {
         }}
         className="wiz-topbar"
       >
-        <span
-          style={{
-            fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 300,
-            color: T.paper, letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer",
-          }}
-          onClick={() => navigate(`/${lang}`)}
-        >
-          Woolet
-        </span>
+        <Link to={`/${lang}`}>
+          <img src={wooletLogo} alt="Woolet" className="h-8" />
+        </Link>
         <span
           className="wiz-right-label"
           style={{

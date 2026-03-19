@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams, Link } from "react-router-dom";
+import wooletLogo from "@/assets/woolet-logo.png";
 
 const T = {
   ink: "#141210",
@@ -86,15 +87,9 @@ export default function ThankYou() {
           padding: "0 40px", borderBottom: `0.5px solid ${T.bd}`, position: "relative", zIndex: 1,
         }}
       >
-        <span
-          style={{
-            fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 300,
-            color: T.paper, letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer",
-          }}
-          onClick={() => navigate(`/${lang}`)}
-        >
-          Woolet
-        </span>
+        <Link to={`/${lang}`}>
+          <img src={wooletLogo} alt="Woolet" className="h-8" />
+        </Link>
         <span
           className="ty-right-label"
           style={{
