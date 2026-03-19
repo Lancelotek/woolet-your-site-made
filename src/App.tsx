@@ -28,6 +28,8 @@ const App = () => (
           <Route path="/:lang" element={<Index />} />
           <Route path="/:lang/blog" element={<BlogIndex />} />
           <Route path="/:lang/blog/:slug" element={<BlogPost />} />
+          <Route path="/:lang/fit" element={<FitWizard />} />
+          <Route path="/:lang/thank-you" element={<ThankYou />} />
 
           {/* Legacy routes redirect */}
           <Route path="/privacy-policy" element={<Navigate to="/en/privacy-policy" replace />} />
