@@ -35,8 +35,6 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; pr
     name: "",
     email: "",
     faceWidth: prefilledWidth || "",
-    model007: true,
-    model009: true,
   });
 
   useEffect(() => {
@@ -52,12 +50,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; pr
     setError(null);
 
     try {
-      const models = [
-        formData.model007 && "Woolet 007",
-        formData.model009 && "Woolet 009",
-      ]
-        .filter(Boolean)
-        .join(", ");
+      const models = "Woolet 007, Woolet 009";
 
       const { data, error: fnError } = await supabase.functions.invoke(
         "mailerlite-subscribe",
@@ -186,22 +179,6 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; pr
               <div
                 className="absolute right-0 top-1/2 -translate-y-[80%] rotate-45 pointer-events-none"
                 style={{ width: "6px", height: "6px", borderRight: "1px solid #c9a84c", borderBottom: "1px solid #c9a84c" }}
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col">
-            <label style={labelStyle}>Interested in</label>
-            <div className="flex gap-5 flex-wrap">
-              <CheckboxLabel
-                label="Woolet 007"
-                checked={formData.model007}
-                onChange={(v) => setFormData((f) => ({ ...f, model007: v }))}
-              />
-              <CheckboxLabel
-                label="Woolet 009"
-                checked={formData.model009}
-                onChange={(v) => setFormData((f) => ({ ...f, model009: v }))}
               />
             </div>
           </div>
