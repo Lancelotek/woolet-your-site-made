@@ -170,20 +170,15 @@ const Index = () => {
               <a
                 href={`/${lang}/fit`}
                 onClick={(e) => { e.preventDefault(); window.location.href = `/${lang}/fit`; }}
+                className="block text-center w-full mt-3 py-2.5 px-5 rounded-md text-[13px] tracking-[0.04em] transition-colors duration-150 cursor-pointer"
                 style={{
-                  display: "block",
-                  textAlign: "center",
-                  marginTop: 10,
-                  fontSize: 13,
-                  color: "rgba(245,241,235,0.45)",
-                  textDecoration: "none",
-                  border: "none",
+                  border: "0.5px solid rgba(184,151,90,0.4)",
+                  color: "rgba(184,151,90,0.8)",
                   background: "none",
-                  transition: "color 150ms",
-                  cursor: "pointer",
+                  textDecoration: "none",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(245,241,235,0.7)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,241,235,0.45)")}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(184,151,90,0.7)"; e.currentTarget.style.color = "rgba(212,176,122,1)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(184,151,90,0.4)"; e.currentTarget.style.color = "rgba(184,151,90,0.8)"; }}
               >
                 Not sure if you need wide frames? Check your fit →
               </a>

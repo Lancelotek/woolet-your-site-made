@@ -190,22 +190,6 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; pr
             </div>
           </div>
 
-          <div className="flex flex-col">
-            <label style={labelStyle}>Interested in</label>
-            <div className="flex gap-5 flex-wrap">
-              <CheckboxLabel
-                label="Woolet 007"
-                checked={formData.model007}
-                onChange={(v) => setFormData((f) => ({ ...f, model007: v }))}
-              />
-              <CheckboxLabel
-                label="Woolet 009"
-                checked={formData.model009}
-                onChange={(v) => setFormData((f) => ({ ...f, model009: v }))}
-              />
-            </div>
-          </div>
-
           {/* Privacy policy checkbox */}
           <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1" style={{ fontSize: "0.68rem" }}>
             <input
