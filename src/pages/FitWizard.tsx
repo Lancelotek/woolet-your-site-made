@@ -409,15 +409,9 @@ export default function FitWizard() {
         }}
         className="wiz-topbar"
       >
-        <span
-          style={{
-            fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 300,
-            color: T.paper, letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer",
-          }}
-          onClick={() => navigate(`/${lang}`)}
-        >
-          Woolet
-        </span>
+        <Link to={`/${lang}`}>
+          <img src={wooletLogo} alt="Woolet" className="h-8" />
+        </Link>
         <span
           className="wiz-right-label"
           style={{
