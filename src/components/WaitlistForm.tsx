@@ -50,12 +50,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; pr
     setError(null);
 
     try {
-      const models = [
-        formData.model007 && "Woolet 007",
-        formData.model009 && "Woolet 009",
-      ]
-        .filter(Boolean)
-        .join(", ");
+      const models = "Woolet 007, Woolet 009";
 
       const { data, error: fnError } = await supabase.functions.invoke(
         "mailerlite-subscribe",
