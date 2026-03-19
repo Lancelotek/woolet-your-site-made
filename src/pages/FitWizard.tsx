@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import WaitlistForm from "@/components/WaitlistForm";
+import wooletLogo from "@/assets/woolet-logo.png";
 import type { Lang } from "@/lib/i18n";
 
 /* ─── types ─── */
