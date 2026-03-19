@@ -34,7 +34,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; pr
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    faceWidth: "",
+    faceWidth: prefilledWidth || "",
     model007: true,
     model009: true,
   });
