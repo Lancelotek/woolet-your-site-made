@@ -90,13 +90,13 @@ const Index = () => {
             onClick={(e) => { e.preventDefault(); window.location.href = `/${lang}/fit`; }}
             className="block text-center w-full mt-3 py-2.5 px-5 rounded-md text-[13px] tracking-[0.04em] transition-colors duration-150 cursor-pointer"
             style={{
-              border: "0.5px solid rgba(184,151,90,0.4)",
-              color: "rgba(184,151,90,0.8)",
-              background: "none",
+              border: "0.5px solid rgba(184,151,90,0.5)",
+              color: "rgba(212,176,122,0.85)",
+              background: "transparent",
               textDecoration: "none",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(184,151,90,0.7)"; e.currentTarget.style.color = "rgba(212,176,122,1)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(184,151,90,0.4)"; e.currentTarget.style.color = "rgba(184,151,90,0.8)"; }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(184,151,90,0.8)"; e.currentTarget.style.color = "rgba(212,176,122,1)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(184,151,90,0.5)"; e.currentTarget.style.color = "rgba(212,176,122,0.85)"; }}
           >
             Not sure if you need wide frames? Check your fit →
           </a>
