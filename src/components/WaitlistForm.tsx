@@ -23,7 +23,7 @@ const labelStyle: React.CSSProperties = {
   marginBottom: "8px",
 };
 
-const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; prefilledWidth?: string }) => {
+const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink }: { lang?: Lang; prefilledWidth?: string; fitLink?: string }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -239,6 +239,23 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth }: { lang?: Lang; pr
           <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5" style={{ fontSize: "0.57rem" }}>
             No credit card. No spam. Unsubscribe anytime.
           </p>
+          {fitLink && (
+            <a
+              href={fitLink}
+              onClick={(e) => { e.preventDefault(); window.location.href = fitLink; }}
+              className="block text-center w-full mt-3 py-2.5 px-5 rounded-md text-[13px] tracking-[0.04em] transition-colors duration-150 cursor-pointer"
+              style={{
+                border: "0.5px solid rgba(184,151,90,0.5)",
+                color: "rgba(212,176,122,0.85)",
+                background: "transparent",
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(184,151,90,0.8)"; e.currentTarget.style.color = "rgba(212,176,122,1)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(184,151,90,0.5)"; e.currentTarget.style.color = "rgba(212,176,122,0.85)"; }}
+            >
+              Not sure if you need wide frames? Check your fit →
+            </a>
+          )}
         </form>
       ) : (
         <div className="flex flex-col gap-3 p-6 border animate-fade-in" style={{ background: "hsl(var(--gold) / 0.06)", borderColor: "hsl(var(--gold) / 0.2)" }}>
