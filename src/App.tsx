@@ -8,6 +8,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import ReturnPolicy from "./pages/ReturnPolicy.tsx";
 import BlogIndex from "./pages/BlogIndex.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
+import FitWizard from "./pages/FitWizard.tsx";
+import ThankYou from "./pages/ThankYou.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -26,6 +28,8 @@ const App = () => (
           <Route path="/:lang" element={<Index />} />
           <Route path="/:lang/blog" element={<BlogIndex />} />
           <Route path="/:lang/blog/:slug" element={<BlogPost />} />
+          <Route path="/:lang/fit" element={<FitWizard />} />
+          <Route path="/:lang/thank-you" element={<ThankYou />} />
 
           {/* Legacy routes redirect */}
           <Route path="/privacy-policy" element={<Navigate to="/en/privacy-policy" replace />} />
