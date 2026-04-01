@@ -23,7 +23,7 @@ const labelStyle: React.CSSProperties = {
   marginBottom: "8px",
 };
 
-const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink }: { lang?: Lang; prefilledWidth?: string; fitLink?: string }) => {
+const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource = "direct" }: { lang?: Lang; prefilledWidth?: string; fitLink?: string; utmSource?: string }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -72,6 +72,11 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink }: { lang?:
         waitlist_email: formData.email,
         waitlist_face_width: formData.faceWidth,
         waitlist_models: models,
+      });
+
+      pushGtmEvent("generate_lead", {
+        awareness_stage: "solution_aware",
+        source: utmSource,
       });
 
       setSubmitted(true);

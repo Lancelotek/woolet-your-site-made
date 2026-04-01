@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import heroManImg from "@/assets/hero-man.jpg";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -37,17 +38,48 @@ const seoData: Record<Lang, { title: string; description: string }> = {
 
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
+  const [searchParams] = useSearchParams();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+  const utmCampaign = searchParams.get("utm_campaign") || "";
+  const utmSource = searchParams.get("utm_source") || "direct";
+  const isUtmVariant = /meta|lp/i.test(utmCampaign);
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const isIOS =
     /iPhone|iPad|iPod/i.test(ua) ||
     (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  // Auto-scroll to #waitlist
+  useEffect(() => {
+    if (window.location.hash === "#waitlist") {
+      setTimeout(() => {
+        document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  }, []);
 
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
   }
 
   const seo = seoData[lang];
+
+  const renderH1 = () => {
+    if (isUtmVariant) {
+      return (
+        <>
+          Szukałeś okularów na szeroką twarz?{" "}
+          <em className="italic" style={{ color: "#DBC184" }}>Właśnie je znalazłeś.</em>
+        </>
+      );
+    }
+    return (
+      <>
+        {t(lang, "hero.title_1")}
+        <br />
+        {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
+      </>
+    );
+  };
 
   return (
     <>
@@ -74,9 +106,7 @@ const Index = () => {
               <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "hero.eyebrow")}</span>
             </div>
             <h1 className="font-display text-woolet-white leading-none mb-4" style={{ fontSize: "clamp(2rem, 3.2vw, 3.2rem)" }}>
-              {t(lang, "hero.title_1")}
-              <br />
-              {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
+              {renderH1()}
             </h1>
             <p className="sr-only">Woolet — Premium Glasses for Wide Faces 155mm+ | Italian Acetate Eyewear</p>
             <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
@@ -84,7 +114,7 @@ const Index = () => {
             </p>
           </div>
 
-          <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} />
+          <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} utmSource={utmSource} />
           <Testimonials />
           <div className="woolet-divider" />
           <ModelPills />
@@ -141,9 +171,7 @@ const Index = () => {
                   <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "hero.eyebrow")}</span>
                 </div>
                 <h1 className="font-display text-woolet-white leading-none mb-4" style={{ fontSize: "clamp(2rem, 3.2vw, 3.2rem)" }}>
-                  {t(lang, "hero.title_1")}
-                  <br />
-                  {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
+                  {renderH1()}
                 </h1>
                 <p className="sr-only">Woolet — Premium Glasses for Wide Faces 155mm+ | Italian Acetate Eyewear</p>
                 <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
@@ -151,7 +179,7 @@ const Index = () => {
                 </p>
               </div>
 
-              <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} />
+              <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} utmSource={utmSource} />
               <Testimonials />
               <div className="woolet-divider" />
               <ModelPills />
