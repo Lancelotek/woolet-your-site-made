@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
+import wooletLogo from "@/assets/woolet-logo.png";
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
