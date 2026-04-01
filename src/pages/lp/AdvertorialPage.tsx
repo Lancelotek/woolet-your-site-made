@@ -7,9 +7,7 @@ const AdvertorialPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "page_view",
+    pushGtmEvent("page_view", {
       page_type: "advertorial",
       awareness_stage: "unaware",
     });
