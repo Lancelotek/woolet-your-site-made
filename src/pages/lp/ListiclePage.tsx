@@ -33,7 +33,7 @@ const CARDS = [
     num: "05",
     tag: "RYNEK",
     title: "Premium + 158mm nie istniało przed Woolet",
-    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: plastik sportowy. Woolet = jedyna marka łącząca 158mm z octanem Mazzucchelli w segmencie €180–240.",
+    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: plastik sportowy. Woolet = jedyna marka łącząca 158mm z octanem Mazzucchelli w segmencie premium. Founding Member: 499 zł (standard: 589 zł).",
   },
 ];
 
