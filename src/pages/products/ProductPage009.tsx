@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
+import TrustGuarantee from "@/components/TrustGuarantee";
 
 const colors009 = [
   { name: "Black", dot: "#141414", img: "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=700&q=80&auto=format&fit=crop" },
