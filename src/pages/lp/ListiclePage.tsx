@@ -53,7 +53,7 @@ const ListiclePage = () => {
         <title>5 powodów dlaczego standardowe okulary nie pasują na szeroką twarz | Woolet</title>
         <meta
           name="description"
-          content="Geometria, materiał, zawiasy, mostek i rynek — 5 konkretnych powodów dla których potrzebujesz oprawek 158mm+."
+          content="5 technicznych powodów dlaczego okulary 130–148mm nie pasują na twarz 155mm+. Geometria, octan Mazzucchelli, zawiasy 5-baryłkowe, mostek keyhole 21mm."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/5-reasons" />
         <link
