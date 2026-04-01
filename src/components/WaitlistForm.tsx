@@ -121,10 +121,10 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
       {/* Trust strip */}
       <div ref={trustStripRef} style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", padding: "8px 0", marginBottom: 12 }}>
         {[
-          { icon: "✅", text: "30-dniowy zwrot" },
+          { icon: "✅", text: "30-Day Returns" },
           { icon: "📏", text: "Fit Guarantee" },
-          { icon: "🇮🇹", text: "Włoski octan Mazzucchelli" },
-          { icon: "📦", text: "Darmowa dostawa" },
+          { icon: "🇮🇹", text: "Italian Mazzucchelli Acetate" },
+          { icon: "📦", text: "Free Shipping" },
         ].map((item, i) => (
           <span key={i} style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#9A8E7E", display: "flex", alignItems: "center", gap: 4 }}>
             {item.icon} <span>{item.text}</span>
@@ -284,14 +284,14 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           {/* Social proof */}
           <div ref={socialProofRef} style={{ textAlign: "center", paddingTop: 8 }}>
             <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: 0 }}>
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, color: "#CAA449" }}>4,900+</span> osób już czeka na Woolet
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, color: "#CAA449" }}>4,900+</span> people already waiting for Woolet
             </p>
           </div>
 
           {/* Urgency micro-copy for BoF/retarget */}
           {(utmCampaign.includes('bof') || utmCampaign.includes('retarget')) && (
             <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#A07A2A", textAlign: "center", marginTop: 6 }}>
-              Founding Member: 499 zł zamiast 589 zł — tylko dla osób z listy oczekujących
+              Founding Member: €189 instead of €239 — waitlist exclusive
             </p>
           )}
 

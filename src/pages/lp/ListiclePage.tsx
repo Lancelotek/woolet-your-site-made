@@ -7,33 +7,33 @@ import wooletLogo from "@/assets/woolet-logo.png";
 const CARDS = [
   {
     num: "01",
-    tag: "GEOMETRIA",
-    title: "Zbyt wąska oprawka optycznie POSZERZA twarz",
-    body: "To fizyka. Kiedy oprawka kończy się przed skronią, mózg interpretuje odsłoniętą skórę jako dodatkową szerokość. Standard 130–148mm → efekt odwrotny do zamierzonego.",
+    tag: "GEOMETRY",
+    title: "Too-narrow frames optically WIDEN your face",
+    body: "It's physics. When the frame ends before the temple, the brain interprets exposed skin as extra width. Standard 130–148mm → the opposite of the intended effect.",
   },
   {
     num: "02",
-    tag: "MATERIAŁ",
-    title: "Plastik pod napięciem odkształca się w tygodnie",
-    body: "TR90 i tanie acetaty deformują się pod napięciem szerszych twarzy. Włoski octan Mazzucchelli zachowuje kształt — bawołna i celuloida, nie petrochemia.",
+    tag: "MATERIAL",
+    title: "Stressed plastic deforms within weeks",
+    body: "TR90 and cheap acetates deform under the tension of wider faces. Italian Mazzucchelli acetate holds its shape — cotton and cellulose, not petrochemicals.",
   },
   {
     num: "03",
-    tag: "ZAWIASY",
-    title: "5-baryłkowe zawiasy vs. standardowe 3-baryłkowe",
-    body: "Standardowe zawiasy pękają w pierwszym miesiącu przy 158mm. Woolet stosuje 5-baryłkowe PVD Gunmetal, projektowane pod kąt rozwarcia 11°.",
+    tag: "HINGES",
+    title: "5-barrel hinges vs. standard 3-barrel",
+    body: "Standard hinges snap within the first month at 158mm. Woolet uses 5-barrel PVD Gunmetal hinges, engineered for an 11° opening angle.",
   },
   {
     num: "04",
-    tag: "MOSTEK",
-    title: "Mostek keyhole 21mm eliminuje ześlizgiwanie",
-    body: "Zbyt wąski mostek = poprawianie okularów co 20 minut. Mostek keyhole 21mm dopasowany do szerszego rozstawu oczu. Zero ześlizgu.",
+    tag: "BRIDGE",
+    title: "21mm keyhole bridge eliminates slipping",
+    body: "Too-narrow bridge = adjusting your glasses every 20 minutes. The 21mm keyhole bridge is matched to wider-set eyes. Zero slip.",
   },
   {
     num: "05",
-    tag: "RYNEK",
-    title: "Premium + 158mm nie istniało przed Woolet",
-    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: plastik sportowy. Woolet = jedyna marka łącząca 158mm z octanem Mazzucchelli w segmencie premium. Founding Member: 499 zł (standard: 589 zł).",
+    tag: "MARKET",
+    title: "Premium + 158mm didn't exist before Woolet",
+    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: sporty plastic. Woolet = the only brand combining 158mm with Mazzucchelli acetate in the premium segment. Founding Member: €189 (standard: €239).",
   },
 ];
 
@@ -50,10 +50,10 @@ const ListiclePage = () => {
   return (
     <>
       <Helmet>
-        <title>5 powodów dlaczego standardowe okulary nie pasują na szeroką twarz | Woolet</title>
+        <title>5 Reasons Why Standard Glasses Don't Fit Wide Faces | Woolet</title>
         <meta
           name="description"
-          content="5 technicznych powodów dlaczego okulary 130–148mm nie pasują na twarz 155mm+. Geometria, octan Mazzucchelli, zawiasy 5-baryłkowe, mostek keyhole 21mm."
+          content="5 technical reasons why 130–148mm glasses don't fit 155mm+ faces. Geometry, Mazzucchelli acetate, 5-barrel hinges, 21mm keyhole bridge."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/5-reasons" />
         <link
@@ -107,7 +107,7 @@ const ListiclePage = () => {
                   marginLeft: 6,
                 }}
               >
-                4.9 · 4,900+ recenzji
+                4.9 · 4,900+ reviews
               </span>
             </div>
 
@@ -122,9 +122,9 @@ const ListiclePage = () => {
                 margin: 0,
               }}
             >
-              5 powodów, dla których standardowe okulary{" "}
+              5 reasons why standard glasses{" "}
               <em style={{ color: "#DBC184", fontStyle: "italic" }}>
-                psują proporcje Twojej twarzy
+                ruin your face proportions
               </em>
             </h1>
 
@@ -138,7 +138,7 @@ const ListiclePage = () => {
                 marginBottom: 4,
               }}
             >
-              (i dlaczego to nie Twoja twarz jest problemem)
+              (and why it's not your face that's the problem)
             </p>
           </div>
 
@@ -162,7 +162,7 @@ const ListiclePage = () => {
           >
             <img
               src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80&auto=format&fit=crop"
-              alt="Mężczyzna w okularach"
+              alt="Man wearing glasses"
               style={{
                 flex: 1.5,
                 objectFit: "cover",
@@ -173,7 +173,7 @@ const ListiclePage = () => {
             />
             <img
               src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop"
-              alt="Detale oprawek"
+              alt="Frame details"
               style={{
                 flex: 1,
                 objectFit: "cover",
@@ -332,7 +332,7 @@ const ListiclePage = () => {
                   marginTop: 0,
                 }}
               >
-                Pierwsze premium okulary stworzone dla szerszych twarzy
+                The first premium eyewear built for wider faces
               </p>
 
               {/* Button */}
@@ -353,7 +353,7 @@ const ListiclePage = () => {
                   cursor: "pointer",
                 }}
               >
-                SPRAWDŹ DOPASOWANIE →
+                CHECK YOUR FIT →
               </button>
 
               {/* Subtext */}
@@ -368,7 +368,7 @@ const ListiclePage = () => {
                   marginBottom: 0,
                 }}
               >
-                Włoski octan Mazzucchelli · PVD Gunmetal · 158mm
+                Italian Mazzucchelli Acetate · PVD Gunmetal · 158mm
               </p>
             </div>
           </div>
@@ -376,7 +376,7 @@ const ListiclePage = () => {
           {/* Internal links — product recommendations */}
           <div style={{ padding: "14px 20px 24px" }}>
             <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>
-              POLECANE
+              RECOMMENDED
             </div>
             <div style={{ display: "flex", gap: 10 }}>
               <Link to="/en/products/007" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", padding: 12, textDecoration: "none", display: "flex", gap: 10, alignItems: "center" }}>
@@ -384,8 +384,8 @@ const ListiclePage = () => {
                   <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>007</span>
                 </div>
                 <div>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Okrągła</p>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · od 499 zł</p>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Round</p>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from €189</p>
                 </div>
               </Link>
               <Link to="/en/products/009" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", padding: 12, textDecoration: "none", display: "flex", gap: 10, alignItems: "center" }}>
@@ -393,8 +393,8 @@ const ListiclePage = () => {
                   <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>009</span>
                 </div>
                 <div>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Kwadratowa</p>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · od 499 zł</p>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Square</p>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from €189</p>
                 </div>
               </Link>
             </div>

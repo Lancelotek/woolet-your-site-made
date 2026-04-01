@@ -21,11 +21,11 @@ const AdvertorialPage = () => {
     const articleSchema = {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "Przez lata szukałem okularów które pasują do mojej twarzy. Oto co odkryłem.",
+      headline: "For years I searched for glasses that fit my face. Here's what I discovered.",
       author: { "@type": "Person", name: "Marek K.", url: "https://woolet.co/en/pages/about" },
       publisher: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
       datePublished: "2026-04-01",
-      description: "Dlaczego standardowe okulary optycznie poszerzają szerokie twarze i jak oprawki 158mm rozwiązują ten problem.",
+      description: "Why standard glasses optically widen broad faces and how 158mm frames solve the problem.",
       mainEntityOfPage: "https://woolet.co/en/lp/why-glasses-fail",
     };
     const script = document.createElement("script");
@@ -38,10 +38,10 @@ const AdvertorialPage = () => {
   return (
     <>
       <Helmet>
-        <title>Dlaczego okulary poszerzają twarz? Przewodnik | Woolet</title>
+        <title>Why Do Glasses Widen Your Face? A Guide | Woolet</title>
         <meta
           name="description"
-          content="Broad-Faced Professionals: co naprawdę działa przy szukaniu okularów 155mm+. Geometria, materiał, i dlaczego standardowe optyki zawodzą."
+          content="Broad-Faced Professionals: what actually works when searching for 155mm+ glasses. Geometry, material, and why standard opticians fail."
         />
         <link
           rel="canonical"
@@ -89,7 +89,7 @@ const AdvertorialPage = () => {
                 textTransform: "uppercase",
               }}
             >
-              Okulary
+              Eyewear
             </span>
             <span
               style={{
@@ -130,9 +130,9 @@ const AdvertorialPage = () => {
               margin: "0 0 0 0",
             }}
           >
-            Przez lata szukałem okularów które pasują do mojej twarzy.{" "}
+            For years I searched for glasses that fit my face.{" "}
             <em style={{ color: "#A07A2A", fontStyle: "italic" }}>
-              Oto co odkryłem.
+              Here's what I discovered.
             </em>
           </h1>
 
@@ -191,7 +191,7 @@ const AdvertorialPage = () => {
                   color: "#888",
                 }}
               >
-                Opublikowano 2 dni temu
+                Published 2 days ago
               </span>
             </div>
 
@@ -224,7 +224,7 @@ const AdvertorialPage = () => {
                   textTransform: "uppercase",
                 }}
               >
-                WYŚWIETLEŃ
+                VIEWS
               </span>
             </div>
           </div>
@@ -233,7 +233,7 @@ const AdvertorialPage = () => {
           <div style={{ padding: "14px 20px 0" }}>
             <img
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80&auto=format&fit=crop"
-              alt="Mężczyzna w okularach — problem dopasowania do szerokiej twarzy"
+              alt="Man wearing glasses — wide face fitting problem"
               style={{
                 width: "100%",
                 height: "clamp(220px, 30vw, 300px)",
@@ -258,7 +258,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              Zaczęło się od jednego zdjęcia ze spotkania firmowego.
+              It started with one photo from a company meeting.
             </h2>
 
             <p
@@ -271,10 +271,9 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              Moje okulary wyglądały drogo. Pasowały do dłoni sprzedawcy,
-              wyglądały fenomenalnie w opakowaniu. Na mojej twarzy? Coś było
-              nie tak. Zbyt wąskie szkła optycznie poszerzały twarz zamiast ją
-              kadrować.
+              My glasses looked expensive. They fit the salesman's hands,
+              looked phenomenal in the case. On my face? Something was off.
+              Too-narrow lenses optically widened my face instead of framing it.
             </p>
 
             {/* Pull quote */}
@@ -297,8 +296,8 @@ const AdvertorialPage = () => {
                   margin: 0,
                 }}
               >
-                „Przez lata myślałem, że to problem z moją twarzą. Okazało
-                się, że problem tkwił w geometrii okularów."
+                "For years I thought it was a problem with my face. Turns out
+                the problem was in the geometry of the glasses."
               </p>
             </blockquote>
 
@@ -312,16 +311,16 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              Kiedy oprawka kończy się przed skronią — mózg odczytuje
-              odsłoniętą skórę jako dodatkową szerokość. Standardowe okulary
-              (130–148mm) są fizycznie za wąskie dla twarzy powyżej 155mm. To
-              nie opinia — to geometria.
+              When the frame ends before the temple — the brain reads the
+              exposed skin as extra width. Standard glasses (130–148mm) are
+              physically too narrow for faces above 155mm. That's not an
+              opinion — it's geometry.
             </p>
 
             {/* Inline image */}
             <img
               src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&q=80&auto=format&fit=crop"
-              alt="Okulary na tle — geometria oprawek"
+              alt="Glasses on background — frame geometry"
               style={{
                 width: "100%",
                 height: 130,
@@ -344,7 +343,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              Rynek premium nie istniał.
+              The premium market didn't exist.
             </h2>
 
             <p
@@ -357,23 +356,23 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              BXL Eyewear: plastik TR90. Fatheadz: casual sportswear. Żaden
-              producent nie łączył szerokości 158mm+ z włoskim octanem
-              Mazzucchelli. Nie istniała marka pozycjonowana jak Moscot czy
-              Oliver Peoples — ale zbudowana wyłącznie dla szerokich twarzy.
-              Dlatego powstał Woolet.
+              BXL Eyewear: TR90 plastic. Fatheadz: casual sportswear. No
+              manufacturer combined 158mm+ width with Italian Mazzucchelli
+              acetate. There was no brand positioned like Moscot or Oliver
+              Peoples — but built exclusively for wide faces. That's why
+              Woolet was created.
             </p>
 
             {/* Internal links */}
             <div style={{ margin: "18px 0 0", padding: "14px 0", borderTop: "1px solid #E8E4DC" }}>
               <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
-                CZYTAJ DALEJ
+                READ MORE
               </div>
               <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>
-                5 powodów, dla których standardowe okulary psują proporcje Twojej twarzy →
+                5 reasons why standard glasses ruin your face proportions →
               </Link>
               <Link to="/en/fit" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", lineHeight: 1.5 }}>
-                Zmierz swoją twarz → Quiz dopasowania
+                Measure your face → Fit Quiz
               </Link>
             </div>
           </div>
@@ -419,7 +418,7 @@ const AdvertorialPage = () => {
                     letterSpacing: "3px",
                   }}
                 >
-                  BEZPŁATNY QUIZ
+                  FREE QUIZ
                 </span>
               </div>
 
@@ -435,7 +434,7 @@ const AdvertorialPage = () => {
                   marginTop: 0,
                 }}
               >
-                Sprawdź czy Twoja twarz potrzebuje szerszych oprawek
+                Check if your face needs wider frames
               </p>
 
               {/* CTA button */}
@@ -456,7 +455,7 @@ const AdvertorialPage = () => {
                   cursor: "pointer",
                 }}
               >
-                ZMIERZ SZEROKOŚĆ TWARZY →
+                MEASURE YOUR FACE WIDTH →
               </button>
             </div>
           </div>
