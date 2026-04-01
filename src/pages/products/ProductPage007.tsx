@@ -44,6 +44,37 @@ const ProductPage007 = () => {
     });
   }, [selectedColor]);
 
+  useEffect(() => {
+    const productSchema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "Woolet 007 — Wide Fit Round Panto Eyeglasses",
+      description: "Premium wide-fit round panto eyeglasses crafted from Italian Mazzucchelli acetate. 158mm frame width designed for faces 155mm and wider. 5-barrel PVD Gunmetal hinges, 21mm keyhole bridge.",
+      brand: { "@type": "Brand", name: "Woolet" },
+      sku: "WOOLET-007",
+      material: "Italian Mazzucchelli Acetate",
+      width: { "@type": "QuantitativeValue", value: 158, unitCode: "MMT", name: "Frame width (hinge to hinge)" },
+      offers: { "@type": "Offer", price: "499", priceCurrency: "PLN", availability: "https://schema.org/PreOrder", priceValidUntil: "2026-12-31", itemCondition: "https://schema.org/NewCondition" },
+      aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "4900" },
+      image: "https://woolet.co/images/woolet-007-dark-tortoise.jpg",
+      url: "https://woolet.co/en/products/007",
+      additionalProperty: [
+        { "@type": "PropertyValue", name: "Lens Width", value: "52mm" },
+        { "@type": "PropertyValue", name: "Lens Height", value: "52mm" },
+        { "@type": "PropertyValue", name: "Bridge", value: "21mm keyhole" },
+        { "@type": "PropertyValue", name: "Temple Length", value: "148mm" },
+        { "@type": "PropertyValue", name: "Hinge", value: "5-barrel PVD Gunmetal" },
+        { "@type": "PropertyValue", name: "Frame Shape", value: "Round Panto" },
+        { "@type": "PropertyValue", name: "Fit", value: "Wide Fit (155mm+ faces)" },
+      ],
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(productSchema);
+    document.head.appendChild(script);
+    return () => { document.head.removeChild(script); };
+  }, []);
+
   const handleCTA = () => {
     pushGtmEvent("add_to_cart", { item_name: "Woolet 007" });
     navigate("/en#waitlist");
