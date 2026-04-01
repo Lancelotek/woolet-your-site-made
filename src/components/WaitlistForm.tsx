@@ -23,7 +23,7 @@ const labelStyle: React.CSSProperties = {
   marginBottom: "8px",
 };
 
-const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource = "direct" }: { lang?: Lang; prefilledWidth?: string; fitLink?: string; utmSource?: string }) => {
+const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource = "direct", utmCampaign = "" }: { lang?: Lang; prefilledWidth?: string; fitLink?: string; utmSource?: string; utmCampaign?: string }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -89,8 +89,48 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
     }
   };
 
+  const trustStripRef = useRef<HTMLDivElement>(null);
+  const socialProofRef = useRef<HTMLDivElement>(null);
+  const trustStripFired = useRef(false);
+  const socialProofFired = useRef(false);
+
+  useEffect(() => {
+    const obs1 = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !trustStripFired.current) {
+        trustStripFired.current = true;
+        pushGtmEvent("view_trust_strip", { page_type: "homepage" });
+        obs1.disconnect();
+      }
+    }, { threshold: 0.5 });
+    if (trustStripRef.current) obs1.observe(trustStripRef.current);
+
+    const obs2 = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !socialProofFired.current) {
+        socialProofFired.current = true;
+        pushGtmEvent("view_social_proof", { count: 4900 });
+        obs2.disconnect();
+      }
+    }, { threshold: 0.5 });
+    if (socialProofRef.current) obs2.observe(socialProofRef.current);
+
+    return () => { obs1.disconnect(); obs2.disconnect(); };
+  }, []);
+
   return (
     <div id="waitlist-form" style={{ paddingBottom: "8px" }}>
+      {/* Trust strip */}
+      <div ref={trustStripRef} style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", padding: "8px 0", marginBottom: 12 }}>
+        {[
+          { icon: "✅", text: "30-dniowy zwrot" },
+          { icon: "📏", text: "Fit Guarantee" },
+          { icon: "🇮🇹", text: "Włoski octan Mazzucchelli" },
+          { icon: "📦", text: "Darmowa dostawa" },
+        ].map((item, i) => (
+          <span key={i} style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#9A8E7E", display: "flex", alignItems: "center", gap: 4 }}>
+            {item.icon} <span>{item.text}</span>
+          </span>
+        ))}
+      </div>
       {/* Desktop progress */}
       <div className="hidden md:flex flex-col gap-2">
         <div className="flex justify-between items-center">
@@ -238,8 +278,22 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
                 15% Off + Free Shipping
               </span>
             )}
-            <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
+           <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
           </button>
+
+          {/* Social proof */}
+          <div ref={socialProofRef} style={{ textAlign: "center", paddingTop: 8 }}>
+            <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: 0 }}>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, color: "#CAA449" }}>4,900+</span> osób już czeka na Woolet
+            </p>
+          </div>
+
+          {/* Urgency micro-copy for BoF/retarget */}
+          {(utmCampaign.includes('bof') || utmCampaign.includes('retarget')) && (
+            <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#A07A2A", textAlign: "center", marginTop: 6 }}>
+              Founding Member: 499 zł zamiast 589 zł — tylko dla osób z listy oczekujących
+            </p>
+          )}
 
           <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5" style={{ fontSize: "0.57rem" }}>
             No credit card. No spam. Unsubscribe anytime.
