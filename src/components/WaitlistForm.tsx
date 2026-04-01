@@ -74,6 +74,11 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         waitlist_models: models,
       });
 
+      pushGtmEvent("generate_lead", {
+        awareness_stage: "solution_aware",
+        source: utmSource,
+      });
+
       setSubmitted(true);
       setCount((c) => c + 1);
     } catch (err: unknown) {
