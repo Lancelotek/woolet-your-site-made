@@ -67,8 +67,8 @@ const Index = () => {
     if (isUtmVariant) {
       return (
         <>
-          Szukałeś okularów na szeroką twarz?{" "}
-          <em className="italic" style={{ color: "#DBC184" }}>Właśnie je znalazłeś.</em>
+          Looking for glasses that fit a wide face?{" "}
+          <em className="italic" style={{ color: "#DBC184" }}>You just found them.</em>
         </>
       );
     }
