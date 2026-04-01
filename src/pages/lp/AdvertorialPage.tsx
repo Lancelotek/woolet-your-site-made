@@ -17,6 +17,24 @@ const AdvertorialPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: "Przez lata szukałem okularów które pasują do mojej twarzy. Oto co odkryłem.",
+      author: { "@type": "Person", name: "Marek K.", url: "https://woolet.co/en/pages/about" },
+      publisher: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
+      datePublished: "2026-04-01",
+      description: "Dlaczego standardowe okulary optycznie poszerzają szerokie twarze i jak oprawki 158mm rozwiązują ten problem.",
+      mainEntityOfPage: "https://woolet.co/en/lp/why-glasses-fail",
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(articleSchema);
+    document.head.appendChild(script);
+    return () => { document.head.removeChild(script); };
+  }, []);
+
   return (
     <>
       <Helmet>
