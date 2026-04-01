@@ -142,6 +142,9 @@ const ProductPage009 = () => {
             ))}
           </div>
 
+          {/* Trust & Guarantee */}
+          <TrustGuarantee productId="009" />
+
           {/* Primary CTA */}
           <button onClick={handleCTA} style={{ width: "100%", background: "#CAA449", color: "#080807", border: "none", padding: "15px 0", borderRadius: 5, fontWeight: 500, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8 }}>
             JOIN AS FOUNDING MEMBER →

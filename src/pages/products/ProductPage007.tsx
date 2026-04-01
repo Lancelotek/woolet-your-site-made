@@ -173,6 +173,9 @@ const ProductPage007 = () => {
             ))}
           </div>
 
+          {/* Trust & Guarantee */}
+          <TrustGuarantee productId="007" />
+
           {/* Primary CTA */}
           <button
             onClick={handleCTA}
