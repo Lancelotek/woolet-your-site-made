@@ -231,7 +231,6 @@ const ProductPage007 = () => {
             ))}
           </div>
         </div>
-      </div>
 
         {/* 4. FAQ */}
         <ProductFAQ productId="007" />
