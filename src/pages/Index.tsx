@@ -179,7 +179,7 @@ const Index = () => {
                 </p>
               </div>
 
-              <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} />
+              <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} utmSource={utmSource} />
               <Testimonials />
               <div className="woolet-divider" />
               <ModelPills />
