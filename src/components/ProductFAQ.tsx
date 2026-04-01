@@ -3,24 +3,24 @@ import { pushGtmEvent } from "@/lib/gtm";
 
 const faqItems = [
   {
-    q: "Skąd będę wiedzieć, że oprawki pasują na moją twarz?",
-    a: "Zmierz szerokość twarzy od skroni do skroni. Jeśli wynik to 155mm lub więcej — Woolet jest zaprojektowany specjalnie dla Ciebie. Nasz quiz dopasowania na stronie /en/fit pomoże Ci potwierdzić rozmiar w 60 sekund. Jeśli oprawki mimo to nie pasują — wymienimy je za darmo w ramach Fit Guarantee.",
+    q: "How will I know if the frames fit my face?",
+    a: "Measure your face width from temple to temple. If the result is 155mm or more — Woolet is designed specifically for you. Our fit quiz at /en/fit will help you confirm your size in 60 seconds. If the frames still don't fit — we'll exchange them for free under our Fit Guarantee.",
   },
   {
-    q: "Czy mogę zwrócić okulary jeśli mi nie odpowiadają?",
-    a: "Tak. Masz 30 dni na zwrot bez podawania przyczyny. Zwracamy pełną kwotę na oryginalną metodę płatności. Wystarczy wysłać oprawki w oryginalnym opakowaniu.",
+    q: "Can I return the glasses if they don't suit me?",
+    a: "Yes. You have 30 days to return them with no questions asked. We'll refund the full amount to your original payment method. Just send the frames back in the original packaging.",
   },
   {
-    q: "Czym różni się Woolet od tańszych okularów na szerokie twarze?",
-    a: "Większość marek oferujących szerokie oprawki (Fatheadz, BXL, Zenni) używa plastiku TR90 lub taniego octanu. Woolet używa włoskiego octanu Mazzucchelli — tego samego materiału co w oprawkach za $500+. Dodajemy 5-baryłkowe zawiasy PVD Gunmetal, mostek keyhole 21mm i ręczne polerowanie. To premium jakość w cenie Founding Member 499 zł.",
+    q: "How is Woolet different from cheaper wide-face glasses?",
+    a: "Most brands offering wide frames (Fatheadz, BXL, Zenni) use TR90 plastic or cheap acetate. Woolet uses Italian Mazzucchelli acetate — the same material found in $500+ frames. We add 5-barrel PVD Gunmetal hinges, a 21mm keyhole bridge, and hand polishing. Premium quality at the Founding Member price of €189.",
   },
   {
-    q: "Kiedy otrzymam zamówienie?",
-    a: "Jako Founding Member otrzymasz oprawki w pierwszej partii produkcyjnej. Wysyłka kurierem z pełnym ubezpieczeniem i śledzeniem. Szacowany czas dostawy: 5–7 dni roboczych (EU), 7–12 dni (reszta świata).",
+    q: "When will I receive my order?",
+    a: "As a Founding Member, you'll receive your frames in the first production batch. Shipped via courier with full insurance and tracking. Estimated delivery: 5–7 business days (EU), 7–12 days (rest of world).",
   },
   {
-    q: "Czy Woolet oferuje okulary korekcyjne (Rx)?",
-    a: "Tak, oprawki Woolet są przystosowane do soczewek korekcyjnych. Możesz zamontować soczewki u dowolnego optyka. Bazowa krzywa 4 jest kompatybilna z większością korekt. Planujemy również wbudowaną usługę Rx w przyszłości.",
+    q: "Does Woolet offer prescription lenses (Rx)?",
+    a: "Yes, Woolet frames are prescription-ready. You can have lenses fitted at any optician. The base curve 4 is compatible with most corrections. We're also planning a built-in Rx service in the future.",
   },
 ];
 
