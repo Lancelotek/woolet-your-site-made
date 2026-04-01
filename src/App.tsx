@@ -13,7 +13,8 @@ import ThankYou from "./pages/ThankYou.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import AdvertorialPage from "./pages/lp/AdvertorialPage.tsx";
 import ListiclePage from "./pages/lp/ListiclePage.tsx";
-import ProductPage007 from "./pages/ProductPage007.tsx";
+import ProductPage007 from "./pages/products/ProductPage007.tsx";
+import ProductPage009 from "./pages/products/ProductPage009.tsx";
 
 const queryClient = new QueryClient();
 
