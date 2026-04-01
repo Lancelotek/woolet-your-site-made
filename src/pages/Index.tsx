@@ -52,7 +52,34 @@ const Index = () => {
     return <Navigate to="/en" replace />;
   }
 
+  // Auto-scroll to #waitlist
+  useEffect(() => {
+    if (window.location.hash === "#waitlist") {
+      setTimeout(() => {
+        document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  }, []);
+
   const seo = seoData[lang];
+
+  const renderH1 = () => {
+    if (isUtmVariant) {
+      return (
+        <>
+          Szukałeś okularów na szeroką twarz?{" "}
+          <em className="italic" style={{ color: "#DBC184" }}>Właśnie je znalazłeś.</em>
+        </>
+      );
+    }
+    return (
+      <>
+        {t(lang, "hero.title_1")}
+        <br />
+        {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
+      </>
+    );
+  };
 
   return (
     <>
