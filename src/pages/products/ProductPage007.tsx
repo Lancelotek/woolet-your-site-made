@@ -12,21 +12,21 @@ const colors007 = [
 ];
 
 const specs = [
-  ["Materiał", "Włoski octan Mazzucchelli"],
-  ["Szerokość oprawki", "158mm (hinge to hinge)"],
-  ["Soczewka", "52 × 52mm (okrągła panto)"],
-  ["Mostek", "Keyhole 21mm"],
-  ["Zauszniki", "148mm, kąt 11°"],
-  ["Zawiasy", "5-baryłkowe PVD Gunmetal"],
-  ["Nity", "Podwójne, mosiądz PVD"],
+  ["Material", "Italian Mazzucchelli Acetate"],
+  ["Frame Width", "158mm (hinge to hinge)"],
+  ["Lens", "52 × 52mm (round panto)"],
+  ["Bridge", "Keyhole 21mm"],
+  ["Temples", "148mm, 11° angle"],
+  ["Hinges", "5-barrel PVD Gunmetal"],
+  ["Rivets", "Double, PVD brass"],
 ];
 
 const benefits = [
-  "Włoski octan Mazzucchelli — bawełna, nie plastik",
-  "158mm — projektowane dla twarzy 155mm+",
-  "5-baryłkowe zawiasy PVD Gunmetal — trwałość 12+ miesięcy",
-  "Mostek keyhole 21mm — zero ześlizgiwania",
-  "Hand polish + bevel cut — nie machine polish",
+  "Italian Mazzucchelli acetate — cotton, not plastic",
+  "158mm — engineered for 155mm+ faces",
+  "5-barrel PVD Gunmetal hinges — 12+ month durability",
+  "Keyhole bridge 21mm — zero slipping",
+  "Hand polish + bevel cut — not machine polish",
 ];
 
 const ProductPage007 = () => {
@@ -51,7 +51,7 @@ const ProductPage007 = () => {
     <>
       <Helmet>
         <title>Woolet 007 — Premium Wide-Fit Acetate Eyewear (158mm) | Woolet</title>
-        <meta name="description" content="Woolet 007 — okrągłe oprawki z włoskiego octanu Mazzucchelli dla twarzy 158mm+. PVD Gunmetal zawiasy, mostek keyhole 21mm. Founding Member: 499 zł." />
+        <meta name="description" content="Woolet 007 — round panto frames in Italian Mazzucchelli acetate for 158mm+ faces. PVD Gunmetal hinges, 21mm keyhole bridge. Founding Member: €189." />
         <link rel="canonical" href="https://woolet.co/en/products/007" />
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
       </Helmet>
@@ -73,7 +73,6 @@ const ProductPage007 = () => {
           />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,8,7,0.5), transparent 55%)" }} />
 
-          {/* Bottom labels */}
           <span style={{ position: "absolute", bottom: 12, left: 16, fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 14, color: "#CAA449", letterSpacing: "3px" }}>
             WOOLET
           </span>
@@ -103,7 +102,7 @@ const ProductPage007 = () => {
         <div style={{ padding: "14px 16px 24px" }}>
           {/* Trust badges */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
-            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Sprzedaje się szybko</span>
+            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Selling Fast</span>
             <span style={{ background: "#E8F5E9", color: "#1B5E20", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Mazzucchelli</span>
             <span style={{ background: "rgba(202,164,73,0.1)", color: "#A07A2A", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>PVD Gunmetal</span>
           </div>
@@ -111,19 +110,19 @@ const ProductPage007 = () => {
           {/* Stars */}
           <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
             {[...Array(5)].map((_, i) => (<span key={i} style={{ color: "#CAA449", fontSize: 11 }}>★</span>))}
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", marginLeft: 5 }}>4.9 · 4,900+</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", marginLeft: 5 }}>4.9 · 4,900+ reviews</span>
           </div>
 
           {/* Product name */}
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#111", marginBottom: 4, marginTop: 0 }}>
-            Woolet 007 <em style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "#888" }}>— Panto / Okrągła</em>
+            Woolet 007 <em style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "#888" }}>— Panto / Round</em>
           </h1>
 
           {/* Price */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "8px 0 14px" }}>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>499 zł</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>589 zł</span>
-            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING -90 ZŁ</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>€189</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>€239</span>
+            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −€50</span>
           </div>
 
           {/* Model selector */}
@@ -137,7 +136,7 @@ const ProductPage007 = () => {
                 onClick={() => navigate("/en/products/009")}
                 style={{ border: "2px solid #DDD", background: "#FFF", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}
               >
-                009 Kwadratowa
+                009 Square
               </button>
             </div>
           </div>
@@ -145,7 +144,7 @@ const ProductPage007 = () => {
           {/* Color selector */}
           <div style={{ marginBottom: 14 }}>
             <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>
-              KOLOR: <span style={{ color: "#111" }}>{selectedColor}</span>
+              COLOR: <span style={{ color: "#111" }}>{selectedColor}</span>
             </div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {colors007.map((c) => (
@@ -182,7 +181,7 @@ const ProductPage007 = () => {
               fontWeight: 500, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8,
             }}
           >
-            DOŁĄCZ JAKO FOUNDING MEMBER →
+            JOIN AS FOUNDING MEMBER →
           </button>
 
           {/* Secondary CTA */}
@@ -194,12 +193,12 @@ const ProductPage007 = () => {
               fontWeight: 300, fontSize: 12, cursor: "pointer", marginBottom: 14,
             }}
           >
-            Sprawdź dopasowanie (quiz)
+            Check your fit (quiz)
           </button>
 
           {/* Trust footer */}
           <div style={{ display: "flex" }}>
-            {["Bezpieczna płatność", "30-dniowy zwrot", "Made in Italy"].map((t, i) => (
+            {["Secure Payment", "30-Day Returns", "Made in Italy"].map((t, i) => (
               <div key={i} style={{ flex: 1, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 9, color: "#AAA", textAlign: "center", padding: "0 4px", lineHeight: 1.4 }}>
                 {t}
               </div>
@@ -211,7 +210,7 @@ const ProductPage007 = () => {
         <div style={{ background: "#1A1612", padding: "16px 20px" }}>
           <div style={{ maxWidth: 680, margin: "0 auto" }}>
             <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>
-              Specyfikacja
+              Specifications
             </div>
             {specs.map(([key, val], i) => (
               <div
