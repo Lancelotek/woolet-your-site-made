@@ -154,7 +154,7 @@ const TrustGuarantee = ({ productId }: TrustGuaranteeProps) => {
             color: "#7A7570",
           }}
         >
-          4,900+ osób na liście oczekujących
+          4,900+ people on the waitlist
         </span>
         <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
           {[...Array(5)].map((_, i) => (

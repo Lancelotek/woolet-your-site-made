@@ -291,7 +291,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           {/* Urgency micro-copy for BoF/retarget */}
           {(utmCampaign.includes('bof') || utmCampaign.includes('retarget')) && (
             <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#A07A2A", textAlign: "center", marginTop: 6 }}>
-              Founding Member: 499 zł zamiast 589 zł — tylko dla osób z listy oczekujących
+              Founding Member: €189 instead of €239 — waitlist exclusive
             </p>
           )}
 

@@ -86,7 +86,7 @@ const ProductFAQ = ({ productId }: ProductFAQProps) => {
             marginBottom: 14,
           }}
         >
-          CZĘSTE PYTANIA
+          FAQ
         </div>
 
         {faqItems.map((item, i) => {
