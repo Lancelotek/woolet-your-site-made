@@ -38,7 +38,11 @@ const seoData: Record<Lang, { title: string; description: string }> = {
 
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
+  const [searchParams] = useSearchParams();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+  const utmCampaign = searchParams.get("utm_campaign") || "";
+  const utmSource = searchParams.get("utm_source") || "direct";
+  const isUtmVariant = /meta|lp/i.test(utmCampaign);
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const isIOS =
     /iPhone|iPad|iPod/i.test(ua) ||
