@@ -43,6 +43,12 @@ const AdvertorialPage = () => {
         }}
       >
         <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          {/* Logo */}
+          <div style={{ padding: "16px 20px 0", display: "flex", alignItems: "center" }}>
+            <Link to="/en">
+              <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} />
+            </Link>
+          </div>
           {/* 1. Tag bar */}
           <div
             style={{
