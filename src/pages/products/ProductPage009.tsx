@@ -44,6 +44,37 @@ const ProductPage009 = () => {
     });
   }, [selectedColor]);
 
+  useEffect(() => {
+    const productSchema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "Woolet 009 — Wide Fit Square Eyeglasses",
+      description: "Premium wide-fit square eyeglasses crafted from Italian Mazzucchelli acetate. 158mm frame width designed for faces 155mm and wider. 5-barrel PVD Gunmetal hinges, 21mm keyhole bridge.",
+      brand: { "@type": "Brand", name: "Woolet" },
+      sku: "WOOLET-009",
+      material: "Italian Mazzucchelli Acetate",
+      width: { "@type": "QuantitativeValue", value: 158, unitCode: "MMT", name: "Frame width (hinge to hinge)" },
+      offers: { "@type": "Offer", price: "499", priceCurrency: "PLN", availability: "https://schema.org/PreOrder", priceValidUntil: "2026-12-31", itemCondition: "https://schema.org/NewCondition" },
+      aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "4900" },
+      image: "https://woolet.co/images/woolet-009-black.jpg",
+      url: "https://woolet.co/en/products/009",
+      additionalProperty: [
+        { "@type": "PropertyValue", name: "Lens Width", value: "54mm" },
+        { "@type": "PropertyValue", name: "Lens Height", value: "50mm" },
+        { "@type": "PropertyValue", name: "Bridge", value: "21mm keyhole" },
+        { "@type": "PropertyValue", name: "Temple Length", value: "148mm" },
+        { "@type": "PropertyValue", name: "Hinge", value: "5-barrel PVD Gunmetal" },
+        { "@type": "PropertyValue", name: "Frame Shape", value: "Square / Soft Square" },
+        { "@type": "PropertyValue", name: "Fit", value: "Wide Fit (155mm+ faces)" },
+      ],
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(productSchema);
+    document.head.appendChild(script);
+    return () => { document.head.removeChild(script); };
+  }, []);
+
   const handleCTA = () => {
     pushGtmEvent("add_to_cart", { item_name: "Woolet 009" });
     navigate("/en#waitlist");
