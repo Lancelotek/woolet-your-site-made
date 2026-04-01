@@ -83,7 +83,7 @@ const TrustGuarantee = ({ productId }: TrustGuaranteeProps) => {
             textTransform: "uppercase",
           }}
         >
-          GWARANCJA WOOLET
+          WOOLET GUARANTEE
         </span>
       </div>
 
