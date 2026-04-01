@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { RotateCcw, Ruler, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { t, type Lang } from "@/lib/i18n";
@@ -121,10 +122,10 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
       {/* Trust strip */}
       <div ref={trustStripRef} style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", padding: "8px 0", marginBottom: 12 }}>
         {[
-          { icon: "✅", text: "30-Day Returns" },
-          { icon: "📏", text: "Fit Guarantee" },
-          { icon: "🇮🇹", text: "Italian Mazzucchelli Acetate" },
-          { icon: "📦", text: "Free Shipping" },
+          { icon: <RotateCcw size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "30-Day Returns" },
+          { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Fit Guarantee" },
+          { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇮🇹</span>, text: "Italian Mazzucchelli Acetate" },
+          { icon: <Package size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Free Shipping" },
         ].map((item, i) => (
           <span key={i} style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#9A8E7E", display: "flex", alignItems: "center", gap: 4 }}>
             {item.icon} <span>{item.text}</span>
