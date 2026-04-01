@@ -363,6 +363,19 @@ const AdvertorialPage = () => {
               Oliver Peoples — ale zbudowana wyłącznie dla szerokich twarzy.
               Dlatego powstał Woolet.
             </p>
+
+            {/* Internal links */}
+            <div style={{ margin: "18px 0 0", padding: "14px 0", borderTop: "1px solid #E8E4DC" }}>
+              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
+                CZYTAJ DALEJ
+              </div>
+              <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>
+                5 powodów, dla których standardowe okulary psują proporcje Twojej twarzy →
+              </Link>
+              <Link to="/en/fit" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", lineHeight: 1.5 }}>
+                Zmierz swoją twarz → Quiz dopasowania
+              </Link>
+            </div>
           </div>
 
           {/* 6. CTA block */}
