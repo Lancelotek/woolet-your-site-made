@@ -11,6 +11,9 @@ import BlogPost from "./pages/BlogPost.tsx";
 import FitWizard from "./pages/FitWizard.tsx";
 import ThankYou from "./pages/ThankYou.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import AdvertorialPage from "./pages/lp/AdvertorialPage.tsx";
+import ListiclePage from "./pages/lp/ListiclePage.tsx";
+import ProductPage007 from "./pages/ProductPage007.tsx";
 
 const queryClient = new QueryClient();
 
