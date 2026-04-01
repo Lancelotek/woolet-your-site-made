@@ -278,8 +278,22 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
                 15% Off + Free Shipping
               </span>
             )}
-            <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
+           <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
           </button>
+
+          {/* Social proof */}
+          <div ref={socialProofRef} style={{ textAlign: "center", paddingTop: 8 }}>
+            <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: 0 }}>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, color: "#CAA449" }}>4,900+</span> osób już czeka na Woolet
+            </p>
+          </div>
+
+          {/* Urgency micro-copy for BoF/retarget */}
+          {(utmCampaign.includes('bof') || utmCampaign.includes('retarget')) && (
+            <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#A07A2A", textAlign: "center", marginTop: 6 }}>
+              Founding Member: 499 zł zamiast 589 zł — tylko dla osób z listy oczekujących
+            </p>
+          )}
 
           <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5" style={{ fontSize: "0.57rem" }}>
             No credit card. No spam. Unsubscribe anytime.
