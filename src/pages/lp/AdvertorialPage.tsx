@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
+import wooletLogo from "@/assets/woolet-logo.png";
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
@@ -42,6 +43,12 @@ const AdvertorialPage = () => {
         }}
       >
         <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          {/* Logo */}
+          <div style={{ padding: "16px 20px 0", display: "flex", alignItems: "center" }}>
+            <Link to="/en">
+              <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} />
+            </Link>
+          </div>
           {/* 1. Tag bar */}
           <div
             style={{
