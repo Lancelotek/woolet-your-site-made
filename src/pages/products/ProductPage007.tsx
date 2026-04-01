@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
+import ProductFAQ from "@/components/ProductFAQ";
 
 const colors007 = [
   { name: "Dark Tortoise", dot: "#5C3317", img: "https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop" },
