@@ -17,13 +17,31 @@ const AdvertorialPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: "Przez lata szukałem okularów które pasują do mojej twarzy. Oto co odkryłem.",
+      author: { "@type": "Person", name: "Marek K.", url: "https://woolet.co/en/pages/about" },
+      publisher: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
+      datePublished: "2026-04-01",
+      description: "Dlaczego standardowe okulary optycznie poszerzają szerokie twarze i jak oprawki 158mm rozwiązują ten problem.",
+      mainEntityOfPage: "https://woolet.co/en/lp/why-glasses-fail",
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(articleSchema);
+    document.head.appendChild(script);
+    return () => { document.head.removeChild(script); };
+  }, []);
+
   return (
     <>
       <Helmet>
         <title>Dlaczego okulary poszerzają twarz? Przewodnik | Woolet</title>
         <meta
           name="description"
-          content="Geometryczny powód dla którego standardowe okulary optycznie poszerzają twarz — i jak 158mm+ oprawki rozwiązują ten problem."
+          content="Broad-Faced Professionals: co naprawdę działa przy szukaniu okularów 155mm+. Geometria, materiał, i dlaczego standardowe optyki zawodzą."
         />
         <link
           rel="canonical"
@@ -345,6 +363,19 @@ const AdvertorialPage = () => {
               Oliver Peoples — ale zbudowana wyłącznie dla szerokich twarzy.
               Dlatego powstał Woolet.
             </p>
+
+            {/* Internal links */}
+            <div style={{ margin: "18px 0 0", padding: "14px 0", borderTop: "1px solid #E8E4DC" }}>
+              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
+                CZYTAJ DALEJ
+              </div>
+              <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>
+                5 powodów, dla których standardowe okulary psują proporcje Twojej twarzy →
+              </Link>
+              <Link to="/en/fit" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", lineHeight: 1.5 }}>
+                Zmierz swoją twarz → Quiz dopasowania
+              </Link>
+            </div>
           </div>
 
           {/* 6. CTA block */}

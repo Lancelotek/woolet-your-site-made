@@ -33,7 +33,7 @@ const CARDS = [
     num: "05",
     tag: "RYNEK",
     title: "Premium + 158mm nie istniało przed Woolet",
-    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: plastik sportowy. Woolet = jedyna marka łącząca 158mm z octanem Mazzucchelli w segmencie €180–240.",
+    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: plastik sportowy. Woolet = jedyna marka łącząca 158mm z octanem Mazzucchelli w segmencie premium. Founding Member: 499 zł (standard: 589 zł).",
   },
 ];
 
@@ -53,7 +53,7 @@ const ListiclePage = () => {
         <title>5 powodów dlaczego standardowe okulary nie pasują na szeroką twarz | Woolet</title>
         <meta
           name="description"
-          content="Geometria, materiał, zawiasy, mostek i rynek — 5 konkretnych powodów dla których potrzebujesz oprawek 158mm+."
+          content="5 technicznych powodów dlaczego okulary 130–148mm nie pasują na twarz 155mm+. Geometria, octan Mazzucchelli, zawiasy 5-baryłkowe, mostek keyhole 21mm."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/5-reasons" />
         <link
@@ -370,6 +370,33 @@ const ListiclePage = () => {
               >
                 Włoski octan Mazzucchelli · PVD Gunmetal · 158mm
               </p>
+            </div>
+          </div>
+
+          {/* Internal links — product recommendations */}
+          <div style={{ padding: "14px 20px 24px" }}>
+            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>
+              POLECANE
+            </div>
+            <div style={{ display: "flex", gap: 10 }}>
+              <Link to="/en/products/007" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", padding: 12, textDecoration: "none", display: "flex", gap: 10, alignItems: "center" }}>
+                <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>007</span>
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Okrągła</p>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · od 499 zł</p>
+                </div>
+              </Link>
+              <Link to="/en/products/009" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", padding: 12, textDecoration: "none", display: "flex", gap: 10, alignItems: "center" }}>
+                <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>009</span>
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Kwadratowa</p>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · od 499 zł</p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
