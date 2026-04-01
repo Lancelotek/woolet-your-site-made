@@ -48,10 +48,6 @@ const Index = () => {
     /iPhone|iPad|iPod/i.test(ua) ||
     (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-  if (paramLang && !isValidLang(paramLang)) {
-    return <Navigate to="/en" replace />;
-  }
-
   // Auto-scroll to #waitlist
   useEffect(() => {
     if (window.location.hash === "#waitlist") {
@@ -60,6 +56,10 @@ const Index = () => {
       }, 300);
     }
   }, []);
+
+  if (paramLang && !isValidLang(paramLang)) {
+    return <Navigate to="/en" replace />;
+  }
 
   const seo = seoData[lang];
 
