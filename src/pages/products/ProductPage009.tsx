@@ -176,6 +176,10 @@ const ProductPage009 = () => {
           </div>
         </div>
       </div>
+
+        {/* 4. FAQ */}
+        <ProductFAQ productId="009" />
+      </div>
     </>
   );
 };
