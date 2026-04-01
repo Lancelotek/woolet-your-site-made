@@ -23,7 +23,7 @@ const AdvertorialPage = () => {
         <title>Dlaczego okulary poszerzają twarz? Przewodnik | Woolet</title>
         <meta
           name="description"
-          content="Geometryczny powód dla którego standardowe okulary optycznie poszerzają twarz — i jak 158mm+ oprawki rozwiązują ten problem."
+          content="Broad-Faced Professionals: co naprawdę działa przy szukaniu okularów 155mm+. Geometria, materiał, i dlaczego standardowe optyki zawodzą."
         />
         <link
           rel="canonical"
