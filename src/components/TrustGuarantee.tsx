@@ -4,23 +4,23 @@ import { pushGtmEvent } from "@/lib/gtm";
 const guaranteeItems = [
   {
     icon: "🔄",
-    title: "30 dni na zwrot — bez pytań",
-    description: "Jeśli oprawki nie spełnią Twoich oczekiwań, zwracamy pieniądze. Bez komplikacji.",
+    title: "30-Day Returns — No Questions Asked",
+    description: "If the frames don't meet your expectations, we'll refund your money. No hassle.",
   },
   {
     icon: "📏",
-    title: "Fit Guarantee — gwarancja dopasowania",
-    description: "Skorzystaj z naszego quizu dopasowania. Jeśli wynik wskaże Twój rozmiar, a oprawki nie pasują — wymienimy za darmo.",
+    title: "Fit Guarantee",
+    description: "Take our fit quiz. If the result indicates your size but the frames don't fit — we'll exchange them for free.",
   },
   {
     icon: "🏆",
-    title: "Mazzucchelli od 1849 roku",
-    description: "Każda oprawka jest wycięta z włoskiego octanu Mazzucchelli — tego samego materiału co Tom Ford i Oliver Peoples.",
+    title: "Mazzucchelli Since 1849",
+    description: "Every frame is cut from Italian Mazzucchelli acetate — the same material used by Tom Ford and Oliver Peoples.",
   },
   {
     icon: "📦",
-    title: "Darmowa dostawa + ubezpieczenie",
-    description: "Wysyłka kurierem z pełnym ubezpieczeniem. Śledzenie przesyłki w czasie rzeczywistym.",
+    title: "Free Shipping + Insurance",
+    description: "Courier delivery with full insurance. Real-time shipment tracking.",
   },
 ];
 
