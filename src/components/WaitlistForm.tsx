@@ -284,7 +284,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           {/* Social proof */}
           <div ref={socialProofRef} style={{ textAlign: "center", paddingTop: 8 }}>
             <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: 0 }}>
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, color: "#CAA449" }}>4,900+</span> osób już czeka na Woolet
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, color: "#CAA449" }}>4,900+</span> people already waiting for Woolet
             </p>
           </div>
 
