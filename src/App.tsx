@@ -27,6 +27,11 @@ const App = () => (
           {/* Root redirects to /en */}
           <Route path="/" element={<Navigate to="/en" replace />} />
 
+          {/* Landing pages */}
+          <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
+          <Route path="/en/lp/5-reasons" element={<ListiclePage />} />
+          <Route path="/en/products/007" element={<ProductPage007 />} />
+
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
           <Route path="/:lang/blog" element={<BlogIndex />} />
