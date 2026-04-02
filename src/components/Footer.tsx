@@ -10,10 +10,15 @@ const Footer = () => {
   return (
     <footer className="px-4 sm:px-5 md:px-12 py-4 sm:py-5 border-t flex flex-col md:flex-row items-center justify-between gap-3 animate-fade-up"
       style={{ borderTopColor: 'hsl(0 0% 100% / 0.055)' }}>
-      <div className="flex items-center gap-3">
-        <img src={wooletLogo} alt="Woolet" className="h-6" />
-        <span className="text-cream-dim opacity-40 tracking-wider" style={{ fontSize: '0.57rem' }}>
-          {t(lang, "footer.rights")}
+      <div className="flex flex-col items-center md:items-start gap-1.5">
+        <div className="flex items-center gap-3">
+          <img src={wooletLogo} alt="Woolet" className="h-6" />
+          <span className="text-cream-dim opacity-40 tracking-wider" style={{ fontSize: '0.57rem' }}>
+            {t(lang, "footer.rights")}
+          </span>
+        </div>
+        <span className="text-cream-dim opacity-30 tracking-wider text-center md:text-left" style={{ fontSize: '0.5rem', lineHeight: 1.5 }}>
+          Woolet by JAY23 LLC · 412 N. Main Street, STE 100 · Buffalo, Wyoming 82834
         </span>
       </div>
       <div className="flex gap-5 flex-wrap justify-center">
