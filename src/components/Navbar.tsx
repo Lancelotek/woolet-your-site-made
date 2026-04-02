@@ -109,6 +109,30 @@ const Navbar = () => {
         >
           <div className="flex flex-col gap-6 px-6 py-8">
             <Link
+              to={`/${lang}#collection`}
+              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              style={{ fontSize: "0.75rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang });
+              }}
+            >
+              {t(lang, "nav.collection")}
+            </Link>
+
+            <Link
+              to={`/${lang}/fit`}
+              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              style={{ fontSize: "0.75rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang });
+              }}
+            >
+              {t(lang, "nav.fit_quiz")}
+            </Link>
+
+            <Link
               to={`/${lang}/blog`}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
