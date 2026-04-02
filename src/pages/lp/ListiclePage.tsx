@@ -450,11 +450,11 @@ const ListiclePage = () => {
             </div>
             <div style={{ display: "flex", gap: 10 }}>
               <Link to="/en/products/007" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", textDecoration: "none", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                <div style={{ padding: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "#141210", borderRadius: "6px 6px 0 0" }}>
+                <div style={{ height: 120, padding: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "#141210", borderRadius: "6px 6px 0 0" }}>
                   <img
                     src={woolet007Img}
                     alt="Woolet 007 — Panto / Round"
-                    style={{ width: "70%", height: "auto", objectFit: "contain", display: "block" }}
+                    style={{ maxWidth: "80%", maxHeight: "100%", objectFit: "contain", display: "block" }}
                     loading="lazy"
                   />
                 </div>
@@ -469,11 +469,11 @@ const ListiclePage = () => {
                 </div>
               </Link>
               <Link to="/en/products/009" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", textDecoration: "none", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                <div style={{ padding: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "#141210", borderRadius: "6px 6px 0 0" }}>
+                <div style={{ height: 120, padding: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "#141210", borderRadius: "6px 6px 0 0" }}>
                   <img
                     src={woolet009Img}
                     alt="Woolet 009 — Square"
-                    style={{ width: "70%", height: "auto", objectFit: "contain", display: "block" }}
+                    style={{ maxWidth: "80%", maxHeight: "100%", objectFit: "contain", display: "block" }}
                     loading="lazy"
                   />
                 </div>
