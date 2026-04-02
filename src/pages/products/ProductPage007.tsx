@@ -135,7 +135,7 @@ const ProductPage007 = () => {
         <div style={{ padding: "14px 16px 24px" }}>
           {/* Trust badges */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
-            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Selling Fast</span>
+            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Coming Soon</span>
             <span style={{ background: "#E8F5E9", color: "#1B5E20", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Mazzucchelli</span>
             <span style={{ background: "rgba(202,164,73,0.1)", color: "#A07A2A", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>PVD Gunmetal</span>
           </div>
