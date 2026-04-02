@@ -115,7 +115,7 @@ const AdvertorialPage = () => {
                 fontFamily: "'Barlow', sans-serif",
               }}
             >
-              5 min
+              8 min
             </span>
           </div>
 
@@ -318,8 +318,8 @@ const AdvertorialPage = () => {
 
             {/* Inline image */}
             <img
-              src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&q=80&auto=format&fit=crop"
-              alt="Glasses on background — frame geometry"
+              src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop"
+              alt="Dark tortoise acetate eyeglass frames — Woolet wide-fit collection"
               style={{
                 width: "100%",
                 height: 130,
@@ -361,6 +361,335 @@ const AdvertorialPage = () => {
               Peoples — but built exclusively for wide faces. That's why
               Woolet was created.
             </p>
+
+            {/* Section A */}
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 400,
+                fontSize: 18,
+                color: "#111",
+                margin: "16px 0 8px",
+                lineHeight: 1.3,
+              }}
+            >
+              The geometry nobody explained to you.
+            </h2>
+
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              Picture two rectangles drawn on a piece of paper. One narrow, one wide. Each surrounds the same centre point. The narrow rectangle makes the space on either side of that centre look larger — because it's exposed.
+            </p>
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              That's exactly what a narrow frame does to your face. It ends before your temple. It exposes the sides of your face. Your brain sees the contrast — frame against skin — and reads the skin as extra width.
+            </p>
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              You are not too wide. The frame is too narrow.
+            </p>
+
+            {/* Stat strip */}
+            <div
+              style={{
+                background: "#F0EDE6",
+                border: "1px solid #E0D9CF",
+                borderRadius: 8,
+                padding: "14px 16px",
+                margin: "14px 0",
+                display: "flex",
+                gap: 12,
+                textAlign: "center",
+              }}
+            >
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#A07A2A" }}>130–148mm</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>standard market</div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#A07A2A" }}>155–165mm</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#CAA449" }}>158mm</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet minimum</div>
+              </div>
+            </div>
+
+            {/* Section B */}
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 400,
+                fontSize: 18,
+                color: "#111",
+                margin: "16px 0 8px",
+                lineHeight: 1.3,
+              }}
+            >
+              What "premium" actually means in eyewear.
+            </h2>
+
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              I visited three optical shops with a budget that should have bought me anything. In each one I heard the same line: "We have wide options." What I received were sporty TR90 frames or metal bridges that belonged on a pilot's face.
+            </p>
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              Premium doesn't mean expensive. Premium means the right material for you.
+            </p>
+
+            <blockquote
+              style={{
+                borderLeft: "3px solid #A07A2A",
+                padding: "10px 14px",
+                background: "rgba(160,122,42,0.06)",
+                margin: "14px 0",
+                borderRadius: 0,
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontStyle: "italic",
+                  fontSize: 15,
+                  color: "#2A1A00",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                "Premium doesn't mean expensive. It means the right material for you."
+              </p>
+            </blockquote>
+
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              Italian Mazzucchelli acetate has been produced since 1849. It is not injection-moulded plastic — it's hand-cut from sheets pressed from cotton fibre and cellulose. The colour depth is different. The weight is different. It holds its shape differently.
+            </p>
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              For wider faces this has practical significance: TR90 plastic under the tension of a 158mm spread deforms within weeks. Mazzucchelli acetate does not.
+            </p>
+
+            {/* Section C */}
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 400,
+                fontSize: 18,
+                color: "#111",
+                margin: "16px 0 8px",
+                lineHeight: 1.3,
+              }}
+            >
+              Three weeks with the Woolet 007.
+            </h2>
+
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              I received a prototype pair. Model 007 — round panto, Dark Tortoise, 158mm. Wide temples. Keyhole bridge 21mm — the wider keyhole-shaped bridge that doesn't slide off your nose every twenty minutes.
+            </p>
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              First reaction when I put them on: surprised that nothing was squeezing.
+            </p>
+
+            <img
+              src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=700&q=80&auto=format&fit=crop"
+              alt="Woolet 007 acetate frames detail — keyhole bridge and 5-barrel hinge"
+              style={{
+                width: "100%",
+                height: 150,
+                objectFit: "cover",
+                objectPosition: "center",
+                borderRadius: 6,
+                margin: "12px 0",
+                display: "block",
+              }}
+              loading="lazy"
+            />
+
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              After three weeks: no headaches after a full day at the computer. No slipping during Zoom calls. No questions of "are those glasses slightly too small?"
+            </p>
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              Instead — twice someone asked: "Where did you get those glasses?"
+            </p>
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              It was the first time in my life anyone had asked me that.
+            </p>
+
+            {/* Section D — Testimonials */}
+            <blockquote
+              style={{
+                borderLeft: "3px solid #A07A2A",
+                padding: "10px 14px",
+                background: "rgba(160,122,42,0.06)",
+                margin: "14px 0",
+                borderRadius: 0,
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontStyle: "italic",
+                  fontSize: 15,
+                  color: "#2A1A00",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                "I've been searching for frames this wide for years. Woolet is the first brand that actually gets it."
+              </p>
+              <div
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 9,
+                  letterSpacing: "2px",
+                  color: "#888",
+                  textTransform: "uppercase",
+                  marginTop: 6,
+                }}
+              >
+                MAREK W. · 161MM · WARSAW
+              </div>
+            </blockquote>
+
+            <blockquote
+              style={{
+                borderLeft: "3px solid #A07A2A",
+                padding: "10px 14px",
+                background: "rgba(160,122,42,0.06)",
+                margin: "14px 0",
+                borderRadius: 0,
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontStyle: "italic",
+                  fontSize: 15,
+                  color: "#2A1A00",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                "Finally no more marks on my temples at the end of the day. I didn't know glasses could be this comfortable."
+              </p>
+              <div
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 9,
+                  letterSpacing: "2px",
+                  color: "#888",
+                  textTransform: "uppercase",
+                  marginTop: 6,
+                }}
+              >
+                JAMES R. · 158MM · LONDON
+              </div>
+            </blockquote>
 
             {/* Internal links */}
             <div style={{ margin: "18px 0 0", padding: "14px 0", borderTop: "1px solid #E8E4DC" }}>
