@@ -74,7 +74,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "blog.read_more": "Czytaj więcej",
     "blog.back": "← Powrót do bloga",
     "blog.min_read": "min czytania",
-    "footer.rights": "© 2025 JAY23 LLC — woolet.co — Okulary na szeroką twarz",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — Okulary na szeroką twarz",
     "footer.privacy": "Polityka prywatności",
     "footer.return": "Polityka zwrotów",
   },
