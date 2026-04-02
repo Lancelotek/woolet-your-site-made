@@ -169,7 +169,7 @@ const ListiclePage = () => {
             style={{
               display: "flex",
               gap: 2,
-              height: 140,
+              height: 240,
               padding: "8px 20px 0",
             }}
           >
