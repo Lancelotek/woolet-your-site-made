@@ -22,6 +22,8 @@ const Footer = () => {
           { label: "Facebook", href: "https://www.facebook.com/WooletWideFit/" },
           { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
           { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
+          { label: "Why Glasses Fail", href: `/${lang}/lp/why-glasses-fail` },
+          { label: "5 Reasons", href: `/${lang}/lp/5-reasons` },
           { label: "support@woolet.co", href: "mailto:support@woolet.co" },
         ].map((link) => (
           <FooterLink key={link.label} {...link} />
