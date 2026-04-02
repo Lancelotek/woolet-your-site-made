@@ -10,6 +10,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.coming_soon": "Coming Soon",
     "nav.back": "← Back to Home",
     "nav.blog": "Blog",
+    "nav.collection": "Collection",
+    "nav.fit_quiz": "Fit Quiz",
     "hero.eyebrow": "15% Off + Free Shipping — Waitlist Only",
     "hero.title_1": "Finally frames ",
     "hero.title_2": "that fit a ",
