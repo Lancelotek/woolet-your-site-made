@@ -6,6 +6,7 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import woolet009Img from "@/assets/woolet-009.png";
 import woolet007Img from "@/assets/woolet-007.png";
 import wooletModelImg from "@/assets/woolet-model.png";
+import listicleHeroLeft from "@/assets/listicle-hero-left.png";
 
 const CARDS = [
   {
