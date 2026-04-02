@@ -20,7 +20,7 @@ const specs = [
   ["Bridge", "Keyhole 21mm"],
   ["Temples", "148mm, 11° angle"],
   ["Hinges", "5-barrel PVD Gunmetal"],
-  ["Rivets", "Double, PVD brass"],
+  ["Rivets", "Double, PVD Gunmetal"],
 ];
 
 const benefits = [
