@@ -6,6 +6,7 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import woolet009Img from "@/assets/woolet-009.png";
 import woolet007Img from "@/assets/woolet-007.png";
 import wooletModelImg from "@/assets/woolet-model.png";
+import listicleHeroLeft from "@/assets/listicle-hero-left.png";
 
 const CARDS = [
   {
@@ -174,8 +175,8 @@ const ListiclePage = () => {
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80&auto=format&fit=crop&crop=faces"
-              alt="Man wearing glasses"
+              src={listicleHeroLeft}
+              alt="Man wearing wide-fit tortoise acetate glasses"
               style={{
                 flex: 1.5,
                 objectFit: "cover",
