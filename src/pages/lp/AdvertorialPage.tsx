@@ -150,28 +150,17 @@ const AdvertorialPage = () => {
             }}
           >
             {/* Avatar */}
-            <div
+            <img
+              src={authorMarek}
+              alt="Marek K. — autor artykułu"
               style={{
                 width: 36,
                 height: 36,
                 borderRadius: "50%",
-                background: "#1A1612",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                objectFit: "cover",
                 flexShrink: 0,
               }}
-            >
-              <span
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 14,
-                  color: "#CAA449",
-                }}
-              >
-                W
-              </span>
-            </div>
+            />
 
             {/* Name + date */}
             <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
