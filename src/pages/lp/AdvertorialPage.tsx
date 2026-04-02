@@ -172,7 +172,7 @@ const AdvertorialPage = () => {
                   color: "#111",
                 }}
               >
-                Marek K.{" "}
+                Marco C.{" "}
                 <span style={{ color: "#CAA449" }}>✓</span>
               </span>
               <span
