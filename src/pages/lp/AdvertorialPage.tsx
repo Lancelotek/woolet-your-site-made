@@ -309,8 +309,8 @@ const AdvertorialPage = () => {
 
             {/* Inline image */}
             <img
-              src="https://images.unsplash.com/photo-1577803645773-f96470509666?w=700&q=80&auto=format&fit=crop"
-              alt="Man wearing wide-fit acetate glasses — proper frame-to-face proportion"
+              src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop"
+              alt="Dark tortoise acetate optical frames — Woolet 158mm wide fit"
               style={{
                 width: "100%",
                 height: 130,

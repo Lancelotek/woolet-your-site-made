@@ -62,24 +62,41 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 md:hidden transition-all duration-500 ease-out ${
+      className={`fixed bottom-0 left-0 right-0 flex items-center justify-between md:hidden transition-all duration-500 ease-out ${
         visible
           ? "translate-y-0 opacity-100 pointer-events-auto"
           : "translate-y-full opacity-0 pointer-events-none"
       }`}
       style={{
-        background: "hsl(0 0% 10%)",
-        borderTop: "1px solid hsl(var(--gold))",
-        paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom, 0px))",
+        background: "#CAA449",
+        padding: "14px 20px",
+        paddingBottom: "calc(14px + env(safe-area-inset-bottom, 0px))",
+        zIndex: 100,
       }}
     >
-      <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.72rem" }}>
-        🔥 {count} / 100 spots left
+      <span
+        style={{
+          fontFamily: "'Barlow', sans-serif",
+          fontWeight: 300,
+          fontSize: 11,
+          color: "rgba(0,0,0,0.7)",
+        }}
+      >
+        {count} / 100 founding spots
       </span>
       <button
         onClick={scrollToForm}
-        className="bg-primary text-primary-foreground font-semibold uppercase tracking-[0.2em] px-4 py-2 border-none cursor-pointer hover:bg-gold-light transition-colors"
-        style={{ fontSize: "0.62rem" }}
+        style={{
+          fontFamily: "'Barlow', sans-serif",
+          fontWeight: 500,
+          fontSize: 13,
+          color: "#080807",
+          background: "transparent",
+          border: "none",
+          letterSpacing: "1px",
+          cursor: "pointer",
+          padding: 0,
+        }}
       >
         Join Waitlist →
       </button>

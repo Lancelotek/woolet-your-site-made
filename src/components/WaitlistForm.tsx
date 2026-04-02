@@ -272,13 +272,8 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             style={{ minHeight: "56px", padding: "12px 24px" }}
           >
             <span className="relative z-10 font-semibold uppercase tracking-[0.28em]" style={{ fontSize: "0.72rem" }}>
-              {loading ? "Sending..." : "Claim My Spot"}
+              {loading ? "Sending..." : "Claim My Spot — 15% Off + Free Shipping"}
             </span>
-            {!loading && (
-              <span className="relative z-10 uppercase tracking-[0.2em]" style={{ fontSize: "11px", color: "#a07a2a" }}>
-                15% Off + Free Shipping
-              </span>
-            )}
            <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
           </button>
 
