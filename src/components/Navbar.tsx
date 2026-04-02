@@ -26,6 +26,22 @@ const Navbar = () => {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-5">
           <Link
+            to={`/${lang}#collection`}
+            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            style={{ fontSize: "0.55rem" }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang })}
+          >
+            {t(lang, "nav.collection")}
+          </Link>
+          <Link
+            to={`/${lang}/fit`}
+            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            style={{ fontSize: "0.55rem" }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang })}
+          >
+            {t(lang, "nav.fit_quiz")}
+          </Link>
+          <Link
             to={`/${lang}/blog`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.55rem" }}
@@ -72,7 +88,7 @@ const Navbar = () => {
             className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-1"
             style={{ fontSize: "0.55rem" }}
           >
-            {t(lang, "nav.coming_soon")}
+            Shop — {t(lang, "nav.coming_soon")}
           </span>
         </div>
 
