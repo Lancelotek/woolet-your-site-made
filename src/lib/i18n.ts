@@ -110,7 +110,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "blog.read_more": "Lire la suite",
     "blog.back": "← Retour au blog",
     "blog.min_read": "min de lecture",
-    "footer.rights": "© 2025 JAY23 LLC — woolet.co — Lunettes pour visages larges",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — Lunettes pour visages larges",
     "footer.privacy": "Politique de confidentialité",
     "footer.return": "Politique de retour",
   },
