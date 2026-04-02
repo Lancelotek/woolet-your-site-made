@@ -186,7 +186,7 @@ const ListiclePage = () => {
               loading="eager"
             />
             <img
-              src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop"
+              src={wooletModelImg}
               alt="Dark tortoise acetate wide-fit frames — Woolet 158mm"
               style={{
                 flex: 1,
