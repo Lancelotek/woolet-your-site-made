@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
+import beforeAfterImg from "@/assets/before-after-fit.png";
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
