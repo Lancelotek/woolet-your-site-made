@@ -207,7 +207,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           </div>
 
           <div className="flex flex-col">
-            <label style={labelStyle}>Preferred frame width</label>
+            <label style={labelStyle}>Preferred frame width <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
             <div className="relative">
               <select
                 value={formData.faceWidth}
