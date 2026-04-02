@@ -568,8 +568,8 @@ const AdvertorialPage = () => {
             </p>
 
             <img
-              src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=700&q=80&auto=format&fit=crop"
-              alt="Woolet 007 acetate frames detail — keyhole bridge and 5-barrel hinge"
+              src={woolet007Detail}
+              alt="Woolet 007 Dark Tortoise acetate frames — front view showing wide 158mm fit, gold rivet details, and keyhole bridge"
               style={{
                 width: "100%",
                 height: 150,
