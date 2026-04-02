@@ -20,13 +20,13 @@ const specs = [
   ["Bridge", "Keyhole 21mm"],
   ["Temples", "148mm, 11° angle"],
   ["Hinges", "5-barrel PVD Gunmetal"],
-  ["Rivets", "Double, PVD brass"],
+  ["Rivets", "Double, PVD Gunmetal"],
 ];
 
 const benefits = [
   "Italian Mazzucchelli acetate — cotton, not plastic",
   "158mm — engineered for 155mm+ faces",
-  "5-barrel PVD Gunmetal hinges — 12+ month durability",
+  "5-barrel PVD Gunmetal hinges — engineered for years of daily wear",
   "Keyhole bridge 21mm — zero slipping",
   "Hand polish + bevel cut — not machine polish",
 ];
@@ -55,7 +55,7 @@ const ProductPage007 = () => {
       material: "Italian Mazzucchelli Acetate",
       width: { "@type": "QuantitativeValue", value: 158, unitCode: "MMT", name: "Frame width (hinge to hinge)" },
       offers: { "@type": "Offer", price: "499", priceCurrency: "PLN", availability: "https://schema.org/PreOrder", priceValidUntil: "2026-12-31", itemCondition: "https://schema.org/NewCondition" },
-      aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "4900" },
+      /* aggregateRating removed — no real reviews yet */
       image: "https://woolet.co/images/woolet-007-dark-tortoise.jpg",
       url: "https://woolet.co/en/products/007",
       additionalProperty: [
@@ -135,15 +135,14 @@ const ProductPage007 = () => {
         <div style={{ padding: "14px 16px 24px" }}>
           {/* Trust badges */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
-            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Selling Fast</span>
+            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Coming Soon</span>
             <span style={{ background: "#E8F5E9", color: "#1B5E20", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Mazzucchelli</span>
             <span style={{ background: "rgba(202,164,73,0.1)", color: "#A07A2A", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>PVD Gunmetal</span>
           </div>
 
           {/* Stars */}
           <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
-            {[...Array(5)].map((_, i) => (<span key={i} style={{ color: "#CAA449", fontSize: 11 }}>★</span>))}
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", marginLeft: 5 }}>4.9 · 4,900+ reviews</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888" }}>4,900+ on the waitlist</span>
           </div>
 
           {/* Product name */}

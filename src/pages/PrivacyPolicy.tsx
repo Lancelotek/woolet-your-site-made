@@ -231,7 +231,7 @@ const PrivacyPolicy = () => {
         lang={lang}
         path="/privacy-policy"
       />
-      <PolicyPage title="Privacy Policy" meta="JAY23 LLC · Last updated: March 2025" sections={sections} />
+      <PolicyPage title="Privacy Policy" meta="JAY23 LLC · Last updated: April 2026" sections={sections} />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import WaitlistForm from "@/components/WaitlistForm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import type { Lang } from "@/lib/i18n";
@@ -385,6 +386,10 @@ export default function FitWizard() {
 
   return (
     <div style={{ minHeight: "100vh", background: T.ink, color: T.paper, position: "relative" }}>
+      <Helmet>
+        <title>Woolet — Find Your Fit | Fit Quiz</title>
+        <meta name="description" content="Find out if your face needs wider frames. Answer 4 quick questions to get a personalized frame recommendation." />
+      </Helmet>
       <style>{`
         @keyframes wizFadeIn {
           from { opacity: 0; transform: translateY(12px); }

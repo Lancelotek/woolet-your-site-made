@@ -38,7 +38,7 @@ const CARDS = [
     num: "05",
     tag: "MARKET",
     title: "Premium + 158mm didn't exist before Woolet",
-    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: sporty plastic. Woolet = the only brand combining 158mm with Mazzucchelli acetate in the premium segment. Founding Member: 499 zł (standard: 589 zł).",
+    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: sporty plastic. Woolet = the only brand combining 158mm with Mazzucchelli acetate in the premium segment. Founding Member: €189 (standard: €239).",
   },
 ];
 
@@ -125,11 +125,8 @@ const ListiclePage = () => {
           >
             {/* Stars */}
             <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
-              {[...Array(5)].map((_, i) => (
-                <span key={i} style={{ color: "#CAA449", fontSize: 11 }}>★</span>
-              ))}
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", marginLeft: 6 }}>
-                4.9 · 4,900+ reviews
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570" }}>
+                4,900+ on the waitlist
               </span>
             </div>
 
@@ -544,7 +541,7 @@ const ListiclePage = () => {
                   </div>
                   <div>
                     <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Round</p>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from 499 zł</p>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from €189</p>
                   </div>
                 </div>
               </Link>
@@ -563,7 +560,7 @@ const ListiclePage = () => {
                   </div>
                   <div>
                     <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Square</p>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from 499 zł</p>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from €189</p>
                   </div>
                 </div>
               </Link>

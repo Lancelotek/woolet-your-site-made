@@ -26,6 +26,22 @@ const Navbar = () => {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-5">
           <Link
+            to={`/${lang}#collection`}
+            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            style={{ fontSize: "0.55rem" }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang })}
+          >
+            {t(lang, "nav.collection")}
+          </Link>
+          <Link
+            to={`/${lang}/fit`}
+            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            style={{ fontSize: "0.55rem" }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang })}
+          >
+            {t(lang, "nav.fit_quiz")}
+          </Link>
+          <Link
             to={`/${lang}/blog`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.55rem" }}
@@ -72,7 +88,7 @@ const Navbar = () => {
             className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-1"
             style={{ fontSize: "0.55rem" }}
           >
-            {t(lang, "nav.coming_soon")}
+            Shop — {t(lang, "nav.coming_soon")}
           </span>
         </div>
 
@@ -92,6 +108,30 @@ const Navbar = () => {
           className="fixed inset-0 z-40 md:hidden flex flex-col pt-[72px] bg-background/98 backdrop-blur-xl animate-fade-in"
         >
           <div className="flex flex-col gap-6 px-6 py-8">
+            <Link
+              to={`/${lang}#collection`}
+              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              style={{ fontSize: "0.75rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang });
+              }}
+            >
+              {t(lang, "nav.collection")}
+            </Link>
+
+            <Link
+              to={`/${lang}/fit`}
+              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              style={{ fontSize: "0.75rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang });
+              }}
+            >
+              {t(lang, "nav.fit_quiz")}
+            </Link>
+
             <Link
               to={`/${lang}/blog`}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
@@ -141,7 +181,7 @@ const Navbar = () => {
               className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-2 text-center"
               style={{ fontSize: "0.6rem" }}
             >
-              {t(lang, "nav.coming_soon")}
+              Shop — {t(lang, "nav.coming_soon")}
             </span>
           </div>
         </div>

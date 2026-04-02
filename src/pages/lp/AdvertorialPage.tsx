@@ -26,7 +26,7 @@ const AdvertorialPage = () => {
       "@context": "https://schema.org",
       "@type": "Article",
       headline: "For years I searched for glasses that fit my face. Here's what I discovered.",
-      author: { "@type": "Person", name: "Marco C.", url: "https://woolet.co/en/pages/about" },
+      author: { "@type": "Person", name: "Marek W.", url: "https://woolet.co/en/pages/about" },
       publisher: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
       datePublished: "2026-04-01",
       description: "Why standard glasses optically widen broad faces and how 158mm frames solve the problem.",
@@ -173,7 +173,7 @@ const AdvertorialPage = () => {
                   color: "#111",
                 }}
               >
-                Marco C.{" "}
+                Marek W.{" "}
                 <span style={{ color: "#CAA449" }}>✓</span>
               </span>
               <span
@@ -184,7 +184,7 @@ const AdvertorialPage = () => {
                   color: "#888",
                 }}
               >
-                Published 2 days ago
+                Published March 31, 2026
               </span>
             </div>
 
