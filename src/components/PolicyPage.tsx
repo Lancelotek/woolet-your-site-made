@@ -16,10 +16,10 @@ const PolicyPage = ({ title, meta, sections }: { title: string; meta: string; se
 
       <nav className="sticky top-0 z-50 px-5 md:px-12 py-5 flex items-center justify-between bg-background/92 backdrop-blur-xl"
         style={{ borderBottom: "1px solid hsl(0 0% 100% / 0.055)" }}>
-        <Link to="/" className="flex items-center gap-2 no-underline">
+        <Link to="/en" className="flex items-center gap-2 no-underline">
           <span className="font-display text-2xl text-woolet-white tracking-wide">Woolet</span>
         </Link>
-        <Link to="/" className="flex items-center gap-2 no-underline text-cream-dim hover:text-primary transition-colors uppercase tracking-[0.22em]" style={{ fontSize: "0.58rem" }}>
+        <Link to="/en" className="flex items-center gap-2 no-underline text-cream-dim hover:text-primary transition-colors uppercase tracking-[0.22em]" style={{ fontSize: "0.58rem" }}>
           <span>←</span> Back to Home
         </Link>
       </nav>
