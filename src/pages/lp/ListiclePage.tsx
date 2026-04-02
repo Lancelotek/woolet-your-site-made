@@ -56,6 +56,27 @@ const TESTIMONIALS = [
 const ListiclePage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleEmailSubmit = async () => {
+    if (!email) return;
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("mailerlite-subscribe", {
+        body: { email, name: "", face_width: "", models: "Woolet 007, Woolet 009" },
+      });
+      if (error) throw error;
+      if (data && !data.success) throw new Error(data.error);
+      pushGtmEvent("waitlist_signup", { waitlist_email: email, waitlist_models: "Woolet 007, Woolet 009" });
+      pushGtmEvent("generate_lead", { awareness_stage: "solution_aware", source: "listicle" });
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Listicle subscribe error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     pushGtmEvent("page_view", {
