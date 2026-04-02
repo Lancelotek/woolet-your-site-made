@@ -6,6 +6,7 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import beforeAfterImg from "@/assets/before-after-fit.png";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import authorMarek from "@/assets/author-marek.png";
+import wooletModelImg from "@/assets/woolet-model.png";
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
@@ -309,12 +310,13 @@ const AdvertorialPage = () => {
 
             {/* Inline image */}
             <img
-              src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop"
-              alt="Dark tortoise acetate optical frames — Woolet 158mm wide fit"
+              src={wooletModelImg}
+              alt="Man wearing Woolet wide-fit acetate glasses — 158mm frame"
               style={{
                 width: "100%",
-                height: 130,
+                height: 220,
                 objectFit: "cover",
+                objectPosition: "center top",
                 borderRadius: 6,
                 margin: "12px 0",
                 display: "block",
