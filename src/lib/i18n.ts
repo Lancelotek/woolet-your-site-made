@@ -38,7 +38,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "blog.read_more": "Read more",
     "blog.back": "← Back to Blog",
     "blog.min_read": "min read",
-    "footer.rights": "© 2025 JAY23 LLC — woolet.co — Eyewear for Wide Faces",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — Eyewear for Wide Faces",
     "footer.privacy": "Privacy Policy",
     "footer.return": "Return Policy",
   },
