@@ -48,6 +48,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.coming_soon": "Wkrótce",
     "nav.back": "← Powrót",
     "nav.blog": "Blog",
+    "nav.collection": "Kolekcja",
+    "nav.fit_quiz": "Quiz dopasowania",
     "hero.eyebrow": "15% zniżki + darmowa wysyłka — tylko lista",
     "hero.title_1": "Wreszcie oprawki",
     "hero.title_2": "pasujące na",
