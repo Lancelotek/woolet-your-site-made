@@ -181,7 +181,7 @@ const Navbar = () => {
               className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-2 text-center"
               style={{ fontSize: "0.6rem" }}
             >
-              {t(lang, "nav.coming_soon")}
+              Shop — {t(lang, "nav.coming_soon")}
             </span>
           </div>
         </div>
