@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
@@ -33,12 +33,24 @@ const CARDS = [
     num: "05",
     tag: "MARKET",
     title: "Premium + 158mm didn't exist before Woolet",
-    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: sporty plastic. Woolet = the only brand combining 158mm with Mazzucchelli acetate in the premium segment. Founding Member: €189 (standard: €239).",
+    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: sporty plastic. Woolet = the only brand combining 158mm with Mazzucchelli acetate in the premium segment. Founding Member: 499 zł (standard: 589 zł).",
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    quote: "I've been searching for frames this wide for years. Woolet is the first brand that actually gets it.",
+    attribution: "MAREK W. · 161MM · WARSAW",
+  },
+  {
+    quote: "Finally no more marks on my temples at the end of the day.",
+    attribution: "JAMES R. · 158MM · LONDON",
   },
 ];
 
 const ListiclePage = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     pushGtmEvent("page_view", {
@@ -77,7 +89,7 @@ const ListiclePage = () => {
             </Link>
           </div>
 
-          {/* 1. Hero */}
+          {/* Hero */}
           <div
             style={{
               background: "linear-gradient(180deg, #1A1000 0%, #080807 100%)",
@@ -85,28 +97,11 @@ const ListiclePage = () => {
             }}
           >
             {/* Stars */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                marginBottom: 8,
-              }}
-            >
+            <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
               {[...Array(5)].map((_, i) => (
-                <span key={i} style={{ color: "#CAA449", fontSize: 11 }}>
-                  ★
-                </span>
+                <span key={i} style={{ color: "#CAA449", fontSize: 11 }}>★</span>
               ))}
-              <span
-                style={{
-                  fontFamily: "'Barlow', sans-serif",
-                  fontWeight: 300,
-                  fontSize: 10,
-                  color: "#7A7570",
-                  marginLeft: 6,
-                }}
-              >
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", marginLeft: 6 }}>
                 4.9 · 4,900+ reviews
               </span>
             </div>
@@ -142,30 +137,46 @@ const ListiclePage = () => {
             </p>
           </div>
 
-          {/* 2. Gold separator */}
+          {/* CHANGE 3 — Intro paragraph */}
+          <p
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 300,
+              fontSize: 13,
+              color: "#9A8E7E",
+              lineHeight: 1.7,
+              padding: "8px 20px 4px",
+              fontStyle: "italic",
+              margin: 0,
+            }}
+          >
+            You've tried. Frames that looked great in the display case were squeezing your temples by noon. Stylish options stopped at 148mm. Here's the engineering explanation — and what actually fits.
+          </p>
+
+          {/* Gold separator */}
           <div
             style={{
               height: 1,
-              background:
-                "linear-gradient(90deg, transparent, #A07A2A, transparent)",
+              background: "linear-gradient(90deg, transparent, #A07A2A, transparent)",
             }}
           />
 
-          {/* 3. Photo strip */}
+          {/* Photo strip — CHANGE 1 & 2 */}
           <div
             style={{
               display: "flex",
               gap: 2,
-              height: 80,
+              height: 140,
               padding: "8px 20px 0",
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80&auto=format&fit=crop&crop=faces"
               alt="Man wearing glasses"
               style={{
                 flex: 1.5,
                 objectFit: "cover",
+                objectPosition: "top center",
                 borderRadius: "6px 0 0 6px",
                 minWidth: 0,
               }}
@@ -173,7 +184,7 @@ const ListiclePage = () => {
             />
             <img
               src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop"
-              alt="Frame details"
+              alt="Dark tortoise acetate wide-fit frames — Woolet 158mm"
               style={{
                 flex: 1,
                 objectFit: "cover",
@@ -185,7 +196,7 @@ const ListiclePage = () => {
             />
           </div>
 
-          {/* 4. Issue cards */}
+          {/* Issue cards */}
           <div style={{ padding: "10px 20px 0" }}>
             {CARDS.map((card) => (
               <div
@@ -200,7 +211,6 @@ const ListiclePage = () => {
                   overflow: "hidden",
                 }}
               >
-                {/* Left accent */}
                 <div
                   style={{
                     position: "absolute",
@@ -211,23 +221,9 @@ const ListiclePage = () => {
                     background: "#CAA449",
                   }}
                 />
-
                 <div style={{ paddingLeft: 10 }}>
-                  {/* Header row */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "monospace",
-                        fontSize: 11,
-                        fontWeight: 500,
-                        color: "#CAA449",
-                      }}
-                    >
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <span style={{ fontFamily: "monospace", fontSize: 11, fontWeight: 500, color: "#CAA449" }}>
                       {card.num}
                     </span>
                     <span
@@ -245,8 +241,6 @@ const ListiclePage = () => {
                       {card.tag}
                     </span>
                   </div>
-
-                  {/* Title */}
                   <p
                     style={{
                       fontFamily: "'Cormorant Garamond', serif",
@@ -259,8 +253,6 @@ const ListiclePage = () => {
                   >
                     {card.title}
                   </p>
-
-                  {/* Body */}
                   <p
                     style={{
                       fontFamily: "'Barlow', sans-serif",
@@ -278,7 +270,51 @@ const ListiclePage = () => {
             ))}
           </div>
 
-          {/* 5. CTA block */}
+          {/* CHANGE 5 — Testimonials */}
+          <div style={{ padding: "4px 20px 10px" }}>
+            {TESTIMONIALS.map((t, i) => (
+              <div
+                key={i}
+                style={{
+                  borderLeft: "2px solid #A07A2A",
+                  background: "rgba(160,122,42,0.06)",
+                  padding: "10px 14px",
+                  marginBottom: 10,
+                  borderRadius: "0 6px 6px 0",
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "'Barlow', sans-serif",
+                    fontWeight: 300,
+                    fontSize: 12,
+                    color: "#BBBBBB",
+                    lineHeight: 1.7,
+                    margin: 0,
+                    fontStyle: "italic",
+                  }}
+                >
+                  "{t.quote}"
+                </p>
+                <p
+                  style={{
+                    fontFamily: "'Barlow', sans-serif",
+                    fontWeight: 300,
+                    fontSize: 9,
+                    letterSpacing: "2px",
+                    color: "#888",
+                    textTransform: "uppercase",
+                    marginTop: 6,
+                    marginBottom: 0,
+                  }}
+                >
+                  {t.attribution}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* CHANGE 4 — CTA block */}
           <div style={{ margin: "14px 20px 24px" }}>
             <div
               style={{
@@ -287,15 +323,7 @@ const ListiclePage = () => {
                 padding: 20,
               }}
             >
-              {/* Brand row */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  marginBottom: 8,
-                }}
-              >
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                 <span
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
@@ -320,7 +348,6 @@ const ListiclePage = () => {
                 </span>
               </div>
 
-              {/* Headline */}
               <p
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
@@ -332,12 +359,34 @@ const ListiclePage = () => {
                   marginTop: 0,
                 }}
               >
-                The first premium eyewear built for wider faces
+                Join 4,900+ people already waiting for Woolet.
               </p>
+
+              {/* Email input */}
+              <input
+                type="email"
+                placeholder="Your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "12px 14px",
+                  background: "#1A1612",
+                  border: "1px solid #2A2520",
+                  color: "#F8F8F6",
+                  borderRadius: 4,
+                  fontFamily: "'Barlow', sans-serif",
+                  fontSize: 13,
+                  fontWeight: 300,
+                  outline: "none",
+                  marginBottom: 8,
+                  boxSizing: "border-box",
+                }}
+              />
 
               {/* Button */}
               <button
-                onClick={() => navigate("/en")}
+                onClick={() => navigate("/en#waitlist")}
                 style={{
                   width: "100%",
                   background: "#080807",
@@ -353,7 +402,7 @@ const ListiclePage = () => {
                   cursor: "pointer",
                 }}
               >
-                CHECK YOUR FIT →
+                CLAIM MY FOUNDING SPOT →
               </button>
 
               {/* Subtext */}
@@ -370,31 +419,64 @@ const ListiclePage = () => {
               >
                 Italian Mazzucchelli Acetate · PVD Gunmetal · 158mm
               </p>
+
+              {/* Secondary link */}
+              <span
+                onClick={() => navigate("/en/fit")}
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 11,
+                  color: "#9A8E7E",
+                  textAlign: "center",
+                  display: "block",
+                  marginTop: 10,
+                  cursor: "pointer",
+                }}
+              >
+                Not sure about your size? Check your fit first →
+              </span>
             </div>
           </div>
 
-          {/* Internal links — product recommendations */}
+          {/* CHANGE 6 — Recommended with images */}
           <div style={{ padding: "14px 20px 24px" }}>
             <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>
               RECOMMENDED
             </div>
             <div style={{ display: "flex", gap: 10 }}>
-              <Link to="/en/products/007" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", padding: 12, textDecoration: "none", display: "flex", gap: 10, alignItems: "center" }}>
-                <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>007</span>
-                </div>
-                <div>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Round</p>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from €189</p>
+              <Link to="/en/products/007" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", textDecoration: "none", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                <img
+                  src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=400&q=80&auto=format&fit=crop"
+                  alt="Woolet 007 — Panto / Round"
+                  style={{ width: "100%", height: 80, objectFit: "cover", borderRadius: "6px 6px 0 0", display: "block" }}
+                  loading="lazy"
+                />
+                <div style={{ padding: 12, display: "flex", gap: 10, alignItems: "center" }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>007</span>
+                  </div>
+                  <div>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Round</p>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from 499 zł</p>
+                  </div>
                 </div>
               </Link>
-              <Link to="/en/products/009" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", padding: 12, textDecoration: "none", display: "flex", gap: 10, alignItems: "center" }}>
-                <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>009</span>
-                </div>
-                <div>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Square</p>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from €189</p>
+              <Link to="/en/products/009" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", textDecoration: "none", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                <img
+                  src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&q=80&auto=format&fit=crop"
+                  alt="Woolet 009 — Square"
+                  style={{ width: "100%", height: 80, objectFit: "cover", borderRadius: "6px 6px 0 0", display: "block" }}
+                  loading="lazy"
+                />
+                <div style={{ padding: 12, display: "flex", gap: 10, alignItems: "center" }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>009</span>
+                  </div>
+                  <div>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Square</p>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from 499 zł</p>
+                  </div>
                 </div>
               </Link>
             </div>
