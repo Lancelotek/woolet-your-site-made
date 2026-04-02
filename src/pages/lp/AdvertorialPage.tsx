@@ -5,6 +5,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import beforeAfterImg from "@/assets/before-after-fit.png";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
+import authorMarek from "@/assets/author-marek.png";
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
