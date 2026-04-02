@@ -142,8 +142,7 @@ const ProductPage007 = () => {
 
           {/* Stars */}
           <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
-            {[...Array(5)].map((_, i) => (<span key={i} style={{ color: "#CAA449", fontSize: 11 }}>★</span>))}
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", marginLeft: 5 }}>4.9 · 4,900+ reviews</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888" }}>4,900+ on the waitlist</span>
           </div>
 
           {/* Product name */}
