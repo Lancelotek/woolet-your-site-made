@@ -26,7 +26,7 @@ const specs = [
 const benefits = [
   "Italian Mazzucchelli acetate — cotton, not plastic",
   "158mm — engineered for 155mm+ faces",
-  "5-barrel PVD Gunmetal hinges — 12+ month durability",
+  "5-barrel PVD Gunmetal hinges — engineered for years of daily wear",
   "Keyhole bridge 21mm — zero slipping",
   "Hand polish + bevel cut — not machine polish",
 ];
