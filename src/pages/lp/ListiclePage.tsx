@@ -58,6 +58,7 @@ const ListiclePage = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const handleEmailSubmit = async () => {
     if (!email) return;
