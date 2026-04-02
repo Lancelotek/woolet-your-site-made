@@ -55,7 +55,7 @@ const ProductPage009 = () => {
       material: "Italian Mazzucchelli Acetate",
       width: { "@type": "QuantitativeValue", value: 158, unitCode: "MMT", name: "Frame width (hinge to hinge)" },
       offers: { "@type": "Offer", price: "499", priceCurrency: "PLN", availability: "https://schema.org/PreOrder", priceValidUntil: "2026-12-31", itemCondition: "https://schema.org/NewCondition" },
-      aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "4900" },
+      /* aggregateRating removed — no real reviews yet */
       image: "https://woolet.co/images/woolet-009-black.jpg",
       url: "https://woolet.co/en/products/009",
       additionalProperty: [

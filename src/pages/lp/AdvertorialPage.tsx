@@ -184,7 +184,7 @@ const AdvertorialPage = () => {
                   color: "#888",
                 }}
               >
-                Published 2 days ago
+                Published March 31, 2026
               </span>
             </div>
 

@@ -150,7 +150,7 @@ const ReturnPolicy = () => {
         lang={lang}
         path="/return-policy"
       />
-      <PolicyPage title="Return Policy" meta="JAY23 LLC · Last updated: March 2025" sections={sections} />
+      <PolicyPage title="Return Policy" meta="JAY23 LLC · Last updated: April 2026" sections={sections} />
     </>
   );
 };
