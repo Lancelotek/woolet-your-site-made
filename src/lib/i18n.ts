@@ -124,6 +124,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.coming_soon": "Próximamente",
     "nav.back": "← Volver",
     "nav.blog": "Blog",
+    "nav.collection": "Colección",
+    "nav.fit_quiz": "Quiz de talla",
     "hero.eyebrow": "15% de descuento + envío gratis — solo lista de espera",
     "hero.title_1": "Por fin monturas",
     "hero.title_2": "que se ajustan a",
