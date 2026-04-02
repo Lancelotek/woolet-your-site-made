@@ -388,63 +388,80 @@ const ListiclePage = () => {
                 Join 4,900+ people already waiting for Woolet.
               </p>
 
-              {/* Email input */}
-              <input
-                type="email"
-                placeholder="Your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "12px 14px",
-                  background: "#1A1612",
-                  border: "1px solid #2A2520",
-                  color: "#F8F8F6",
-                  borderRadius: 4,
-                  fontFamily: "'Barlow', sans-serif",
-                  fontSize: 13,
-                  fontWeight: 300,
-                  outline: "none",
-                  marginBottom: 8,
-                  boxSizing: "border-box",
-                }}
-              />
+              {!submitted ? (
+                <>
+                  {/* Email input */}
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()}
+                    style={{
+                      width: "100%",
+                      padding: "12px 14px",
+                      background: "#1A1612",
+                      border: "1px solid #2A2520",
+                      color: "#F8F8F6",
+                      borderRadius: 4,
+                      fontFamily: "'Barlow', sans-serif",
+                      fontSize: 13,
+                      fontWeight: 300,
+                      outline: "none",
+                      marginBottom: 8,
+                      boxSizing: "border-box",
+                    }}
+                  />
 
-              {/* Button */}
-              <button
-                onClick={() => navigate("/en#waitlist")}
-                style={{
-                  width: "100%",
-                  background: "#080807",
-                  color: "#CAA449",
-                  border: "none",
-                  padding: "13px 0",
-                  borderRadius: 5,
-                  fontFamily: "'Barlow', sans-serif",
-                  fontWeight: 500,
-                  fontSize: 10,
-                  letterSpacing: "2px",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                }}
-              >
-                CLAIM MY FOUNDING SPOT →
-              </button>
+                  {/* Button */}
+                  <button
+                    onClick={handleEmailSubmit}
+                    disabled={loading || !email}
+                    style={{
+                      width: "100%",
+                      background: "#080807",
+                      color: "#CAA449",
+                      border: "none",
+                      padding: "13px 0",
+                      borderRadius: 5,
+                      fontFamily: "'Barlow', sans-serif",
+                      fontWeight: 500,
+                      fontSize: 10,
+                      letterSpacing: "2px",
+                      textTransform: "uppercase",
+                      cursor: loading ? "wait" : "pointer",
+                      opacity: !email ? 0.5 : 1,
+                    }}
+                  >
+                    {loading ? "SENDING..." : "CLAIM MY FOUNDING SPOT →"}
+                  </button>
 
-              {/* Subtext */}
-              <p
-                style={{
-                  fontFamily: "'Barlow', sans-serif",
-                  fontWeight: 300,
-                  fontSize: 10,
-                  color: "rgba(8,8,7,0.55)",
-                  textAlign: "center",
-                  marginTop: 8,
-                  marginBottom: 0,
-                }}
-              >
-                Italian Mazzucchelli Acetate · PVD Gunmetal · 158mm
-              </p>
+                  {/* Subtext */}
+                  <p
+                    style={{
+                      fontFamily: "'Barlow', sans-serif",
+                      fontWeight: 300,
+                      fontSize: 10,
+                      color: "rgba(8,8,7,0.55)",
+                      textAlign: "center",
+                      marginTop: 8,
+                      marginBottom: 0,
+                    }}
+                  >
+                    Italian Mazzucchelli Acetate · PVD Gunmetal · 158mm
+                  </p>
+                </>
+              ) : (
+                <div style={{ textAlign: "center", padding: "12px 0" }}>
+                  <div style={{ fontSize: 18, color: "#CAA449", marginBottom: 6 }}>✓</div>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 13, color: "#080807", margin: 0 }}>
+                    You're on the list — check your inbox.
+                  </p>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "rgba(8,8,7,0.55)", marginTop: 6, marginBottom: 0 }}>
+                    15% off + free shipping locked in.
+                  </p>
+                </div>
+              )}
 
               {/* Secondary link */}
               <span
