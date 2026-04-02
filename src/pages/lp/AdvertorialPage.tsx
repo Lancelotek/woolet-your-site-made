@@ -562,9 +562,7 @@ const AdvertorialPage = () => {
               alt="Woolet 007 Dark Tortoise acetate frames — front view showing wide 158mm fit, gold rivet details, and keyhole bridge"
               style={{
                 width: "100%",
-                height: 150,
-                objectFit: "cover",
-                objectPosition: "center",
+                objectFit: "contain",
                 borderRadius: 6,
                 margin: "12px 0",
                 display: "block",
