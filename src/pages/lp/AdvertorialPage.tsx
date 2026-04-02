@@ -115,7 +115,7 @@ const AdvertorialPage = () => {
                 fontFamily: "'Barlow', sans-serif",
               }}
             >
-              5 min
+              8 min
             </span>
           </div>
 
