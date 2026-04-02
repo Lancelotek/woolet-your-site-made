@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import beforeAfterImg from "@/assets/before-after-fit.png";
+import woolet007Detail from "@/assets/woolet-007-detail.png";
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
