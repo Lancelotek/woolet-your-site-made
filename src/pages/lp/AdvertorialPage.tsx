@@ -318,8 +318,8 @@ const AdvertorialPage = () => {
 
             {/* Inline image */}
             <img
-              src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&q=80&auto=format&fit=crop"
-              alt="Glasses on background — frame geometry"
+              src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop"
+              alt="Dark tortoise acetate eyeglass frames — Woolet wide-fit collection"
               style={{
                 width: "100%",
                 height: 130,
