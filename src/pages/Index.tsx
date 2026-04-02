@@ -182,7 +182,7 @@ const Index = () => {
               <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} utmSource={utmSource} utmCampaign={utmCampaign} />
               <Testimonials />
               <div className="woolet-divider" />
-              <ModelPills />
+              <div id="collection-desktop"><ModelPills /></div>
 
               <div>
                 <div className="flex flex-col gap-1.5 mb-5">
