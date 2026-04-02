@@ -86,6 +86,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.coming_soon": "Bientôt",
     "nav.back": "← Retour",
     "nav.blog": "Blog",
+    "nav.collection": "Collection",
+    "nav.fit_quiz": "Quiz taille",
     "hero.eyebrow": "15% de réduction + livraison gratuite — liste d'attente",
     "hero.title_1": "Enfin des montures",
     "hero.title_2": "adaptées aux",
