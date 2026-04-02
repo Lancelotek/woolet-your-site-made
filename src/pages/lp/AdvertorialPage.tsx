@@ -314,7 +314,7 @@ const AdvertorialPage = () => {
               alt="Man wearing Woolet wide-fit acetate glasses — 158mm frame"
               style={{
                 width: "100%",
-                height: 460,
+                height: 580,
                 objectFit: "cover",
                 objectPosition: "center top",
                 borderRadius: 6,
