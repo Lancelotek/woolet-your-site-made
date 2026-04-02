@@ -175,8 +175,8 @@ const ListiclePage = () => {
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80&auto=format&fit=crop&crop=faces"
-              alt="Man wearing glasses"
+              src={listicleHeroLeft}
+              alt="Man wearing wide-fit tortoise acetate glasses"
               style={{
                 flex: 1.5,
                 objectFit: "cover",
