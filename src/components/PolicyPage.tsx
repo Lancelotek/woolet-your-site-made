@@ -57,11 +57,11 @@ const PolicyPage = ({ title, meta, sections }: { title: string; meta: string; se
       <footer className="mt-20 px-5 md:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-3"
         style={{ borderTop: "1px solid hsl(0 0% 100% / 0.055)" }}>
         <span className="text-cream-dim opacity-45 tracking-wider" style={{ fontSize: "0.58rem" }}>
-          © 2025 JAY23 LLC · woolet.co · All rights reserved.
+          © 2026 JAY23 LLC · woolet.co · All rights reserved.
         </span>
         <div className="flex gap-5">
-          <Link to="/privacy-policy" className="text-cream-dim no-underline uppercase tracking-[0.18em] hover:text-primary transition-colors" style={{ fontSize: "0.56rem" }}>Privacy Policy</Link>
-          <Link to="/return-policy" className="text-cream-dim no-underline uppercase tracking-[0.18em] hover:text-primary transition-colors" style={{ fontSize: "0.56rem" }}>Return Policy</Link>
+          <Link to="/en/privacy-policy" className="text-cream-dim no-underline uppercase tracking-[0.18em] hover:text-primary transition-colors" style={{ fontSize: "0.56rem" }}>Privacy Policy</Link>
+          <Link to="/en/return-policy" className="text-cream-dim no-underline uppercase tracking-[0.18em] hover:text-primary transition-colors" style={{ fontSize: "0.56rem" }}>Return Policy</Link>
           <a href="mailto:support@woolet.co" className="text-cream-dim no-underline uppercase tracking-[0.18em] hover:text-primary transition-colors" style={{ fontSize: "0.56rem" }}>support@woolet.co</a>
         </div>
       </footer>
