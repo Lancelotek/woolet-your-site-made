@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
+import beforeAfterImg from "@/assets/before-after-fit.png";
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
@@ -232,12 +233,10 @@ const AdvertorialPage = () => {
           {/* 4. Hero image */}
           <div style={{ padding: "14px 20px 0" }}>
             <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80&auto=format&fit=crop"
-              alt="Man wearing glasses — wide face fitting problem"
+              src={beforeAfterImg}
+              alt="Comparison: glasses too small vs perfect fit on a wide face"
               style={{
                 width: "100%",
-                height: "clamp(220px, 30vw, 300px)",
-                objectFit: "cover",
                 borderRadius: 8,
                 display: "block",
               }}
