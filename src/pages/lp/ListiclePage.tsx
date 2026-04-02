@@ -58,6 +58,7 @@ const ListiclePage = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const handleEmailSubmit = async () => {
     if (!email) return;
@@ -413,10 +414,50 @@ const ListiclePage = () => {
                     }}
                   />
 
+                  {/* Privacy checkbox */}
+                  <label
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 8,
+                      cursor: "pointer",
+                      fontFamily: "'Barlow', sans-serif",
+                      fontWeight: 300,
+                      fontSize: 10,
+                      color: "rgba(8,8,7,0.65)",
+                      marginBottom: 8,
+                    }}
+                  >
+                    <input type="checkbox" checked={privacyAccepted} onChange={() => setPrivacyAccepted(v => !v)} style={{ display: "none" }} />
+                    <div
+                      style={{
+                        width: 14,
+                        height: 14,
+                        border: `1px solid ${privacyAccepted ? "#CAA449" : "#ccc"}`,
+                        backgroundColor: privacyAccepted ? "#CAA449" : "transparent",
+                        borderRadius: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                        marginTop: 1,
+                        transition: "all 0.15s",
+                      }}
+                    >
+                      {privacyAccepted && (
+                        <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      )}
+                    </div>
+                    <span>
+                      I agree to the{" "}
+                      <Link to="/en/privacy-policy" style={{ color: "#CAA449", textDecoration: "underline" }}>Privacy Policy</Link>
+                    </span>
+                  </label>
+
                   {/* Button */}
                   <button
                     onClick={handleEmailSubmit}
-                    disabled={loading || !email}
+                    disabled={loading || !email || !privacyAccepted}
                     style={{
                       width: "100%",
                       background: "#080807",
@@ -430,7 +471,7 @@ const ListiclePage = () => {
                       letterSpacing: "2px",
                       textTransform: "uppercase",
                       cursor: loading ? "wait" : "pointer",
-                      opacity: !email ? 0.5 : 1,
+                      opacity: (!email || !privacyAccepted) ? 0.5 : 1,
                     }}
                   >
                     {loading ? "SENDING..." : "CLAIM MY FOUNDING SPOT →"}
