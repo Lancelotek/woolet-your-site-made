@@ -450,7 +450,7 @@ const ListiclePage = () => {
             <div style={{ display: "flex", gap: 10 }}>
               <Link to="/en/products/007" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", textDecoration: "none", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                 <img
-                  src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=400&q=80&auto=format&fit=crop"
+                  src={woolet007Img}
                   alt="Woolet 007 — Panto / Round"
                   style={{ width: "100%", height: 80, objectFit: "cover", borderRadius: "6px 6px 0 0", display: "block" }}
                   loading="lazy"
