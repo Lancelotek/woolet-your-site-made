@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import woolet009Img from "@/assets/woolet-009.png";
+import woolet007Img from "@/assets/woolet-007.png";
+import wooletModelImg from "@/assets/woolet-model.png";
 
 const CARDS = [
   {
@@ -184,7 +186,7 @@ const ListiclePage = () => {
               loading="eager"
             />
             <img
-              src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop"
+              src={wooletModelImg}
               alt="Dark tortoise acetate wide-fit frames — Woolet 158mm"
               style={{
                 flex: 1,
@@ -448,7 +450,7 @@ const ListiclePage = () => {
             <div style={{ display: "flex", gap: 10 }}>
               <Link to="/en/products/007" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", textDecoration: "none", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                 <img
-                  src="https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=400&q=80&auto=format&fit=crop"
+                  src={woolet007Img}
                   alt="Woolet 007 — Panto / Round"
                   style={{ width: "100%", height: 80, objectFit: "cover", borderRadius: "6px 6px 0 0", display: "block" }}
                   loading="lazy"
