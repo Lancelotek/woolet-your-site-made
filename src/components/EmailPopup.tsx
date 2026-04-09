@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { X, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
 import {
