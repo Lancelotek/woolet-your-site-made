@@ -97,11 +97,26 @@ const EmailPopup = () => {
             />
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !privacyAccepted}
               className="w-full py-2.5 rounded-sm text-sm font-medium tracking-wider uppercase bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {loading ? "..." : "Notify Me"}
             </button>
+
+            <label className="flex items-start gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={privacyAccepted}
+                onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                className="mt-0.5 accent-primary"
+              />
+              <span className="text-muted-foreground" style={{ fontSize: "0.65rem", lineHeight: 1.4 }}>
+                I accept the{" "}
+                <Link to="/en/privacy-policy" target="_blank" className="underline text-primary hover:opacity-80">
+                  Privacy Policy
+                </Link>
+              </span>
+            </label>
           </form>
 
           <p className="text-muted-foreground text-center" style={{ fontSize: "0.6rem" }}>
