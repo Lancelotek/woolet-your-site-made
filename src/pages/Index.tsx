@@ -85,6 +85,7 @@ const Index = () => {
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} />
+      <EmailPopup />
 
       {/* ===== MOBILE LAYOUT — no hero image, straight to content ===== */}
       <div className={`relative z-[1] ${isIOS ? "" : "lg:hidden"}`}>
