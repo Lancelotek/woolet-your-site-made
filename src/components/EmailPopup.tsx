@@ -16,6 +16,7 @@ const EmailPopup = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(true);
 
   useEffect(() => {
     if (sessionStorage.getItem(STORAGE_KEY)) return;
