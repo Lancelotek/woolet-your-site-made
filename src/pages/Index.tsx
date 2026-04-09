@@ -8,6 +8,7 @@ import WaitlistForm from "@/components/WaitlistForm";
 import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
+import EmailPopup from "@/components/EmailPopup";
 
 import SEO from "@/components/SEO";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
@@ -84,6 +85,7 @@ const Index = () => {
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} />
+      <EmailPopup />
 
       {/* ===== MOBILE LAYOUT — no hero image, straight to content ===== */}
       <div className={`relative z-[1] ${isIOS ? "" : "lg:hidden"}`}>
