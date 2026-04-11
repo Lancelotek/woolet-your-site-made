@@ -15,6 +15,7 @@ import AdvertorialPage from "./pages/lp/AdvertorialPage.tsx";
 import ListiclePage from "./pages/lp/ListiclePage.tsx";
 import ProductPage007 from "./pages/products/ProductPage007.tsx";
 import ProductPage009 from "./pages/products/ProductPage009.tsx";
+import About from "./pages/About.tsx";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/en/lp/5-reasons" element={<ListiclePage />} />
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
+          <Route path="/en/about" element={<About />} />
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
