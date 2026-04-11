@@ -48,7 +48,7 @@ const FooterLink = ({ label, href }: { label: string; href: string }) => {
   if (isInternal) {
     return <Link to={href} className={className} style={style} onClick={handleClick}>{label}</Link>;
   }
-  return <a href={href} className={className} style={style} onClick={handleClick}>{label}</a>;
+  return <a href={href} className={className} style={style} onClick={handleClick} target="_blank" rel="noopener noreferrer">{label}</a>;
 };
 
 export default Footer;

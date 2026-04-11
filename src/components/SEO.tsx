@@ -9,6 +9,7 @@ interface SEOProps {
   type?: "website" | "article";
   publishedTime?: string;
   noindex?: boolean;
+  robots?: string;
   article?: {
     readTime: number;
     tags: string[];
@@ -16,7 +17,7 @@ interface SEOProps {
 }
 
 const SITE_URL = "https://woolet.co";
-const OG_IMAGE = "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2fc83e0d-dae0-45c7-9556-41dea78535f7/id-preview-09959508--db6d8b13-643f-4791-aab7-db9fbd5ea35d.lovable.app-1773304979945.png";
+const OG_IMAGE = "https://woolet.co/og-image.png";
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -75,12 +76,16 @@ const SEO = ({
   type = "website",
   publishedTime,
   noindex = false,
+  robots,
   article,
 }: SEOProps) => {
   const fullTitle = title.includes("Woolet") ? title : `${title} | Woolet`;
   const canonical = `${SITE_URL}/${lang}${path}`;
   const isHomepage = path === "" || path === "/";
   const geo = geoMeta[lang] || geoMeta.en;
+
+  // Determine robots content
+  const robotsContent = robots || (noindex ? "noindex, follow" : "index, follow");
 
   const articleJsonLd = type === "article" && publishedTime ? {
     "@context": "https://schema.org",
@@ -109,6 +114,7 @@ const SEO = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
+      <meta name="robots" content={robotsContent} />
 
       {/* GEO meta tags */}
       <meta name="geo.region" content={geo.region} />
@@ -134,8 +140,7 @@ const SEO = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={OG_IMAGE} />
-
-      {noindex && <meta name="robots" content="noindex,nofollow" />}
+      <meta name="twitter:site" content="@WooletEyewear" />
 
       {/* Structured Data — Organization on every page */}
       <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
