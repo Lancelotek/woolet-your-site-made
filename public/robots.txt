@@ -1,14 +1,28 @@
-User-agent: Googlebot
+User-agent: GPTBot
 Allow: /
 
-User-agent: Bingbot
+User-agent: ClaudeBot
 Allow: /
 
-User-agent: Twitterbot
+User-agent: PerplexityBot
 Allow: /
 
-User-agent: facebookexternalhit
+User-agent: GoogleBot
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
 Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://woolet.co/sitemap.xml

@@ -6,8 +6,8 @@ const About = () => {
   return (
     <>
       <SEO
-        title="About Woolet — Italian Acetate Eyewear for Wide Faces"
-        description="Woolet is an eyewear brand specializing in Italian Mazzucchelli acetate frames precision-engineered for face widths of 155mm and above. Learn about our mission, materials, and fit philosophy."
+        title="About Woolet | Italian Eyewear for 155mm+ Wide Faces"
+        description="Woolet is an eyewear brand from Poland making Italian acetate frames for faces 155mm and wider. Distinct from the 2015 Woolet smart wallet — different product, different brand."
         lang="en"
         path="/about"
       />

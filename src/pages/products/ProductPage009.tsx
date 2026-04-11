@@ -83,8 +83,8 @@ const ProductPage009 = () => {
   return (
     <>
       <Helmet>
-        <title>Woolet 009 — Premium Wide-Fit Square Acetate Eyewear (158mm) | Woolet</title>
-        <meta name="description" content="Woolet 009 — square frames in Italian Mazzucchelli acetate for 158mm+ faces. PVD Gunmetal hinges, 21mm keyhole bridge. Founding Member: €189." />
+        <title>Woolet 009 — Square Acetate Frame, 158mm Wide Face</title>
+        <meta name="description" content="Woolet 009 square acetate frame. 158mm width, 19mm bridge, 148mm temples. Mazzucchelli acetate from Italy. Precision-engineered for 155mm+ face widths." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
       </Helmet>
