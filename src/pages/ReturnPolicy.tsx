@@ -149,6 +149,7 @@ const ReturnPolicy = () => {
         description="Woolet return and exchange policy — 30-day returns, fit guarantee, and hassle-free refunds. JAY23 LLC."
         lang={lang}
         path="/return-policy"
+        noindex
       />
       <PolicyPage title="Return Policy" meta="JAY23 LLC · Last updated: April 2026" sections={sections} />
     </>

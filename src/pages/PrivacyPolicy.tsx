@@ -230,6 +230,7 @@ const PrivacyPolicy = () => {
         description="Woolet privacy policy — how we collect, use and protect your personal information. JAY23 LLC."
         lang={lang}
         path="/privacy-policy"
+        noindex
       />
       <PolicyPage title="Privacy Policy" meta="JAY23 LLC · Last updated: April 2026" sections={sections} />
     </>
