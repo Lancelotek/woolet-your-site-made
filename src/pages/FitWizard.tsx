@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEO from "@/components/SEO";
+import { isValidLang, type Lang as LangType } from "@/lib/i18n";
 import WaitlistForm from "@/components/WaitlistForm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import type { Lang } from "@/lib/i18n";
