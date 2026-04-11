@@ -390,7 +390,7 @@ export default function FitWizard() {
       <SEO
         title="Woolet — Find Your Fit | Fit Quiz"
         description="Find out if your face needs wider frames. Answer 4 quick questions to get a personalized frame recommendation."
-        lang={paramLang && isValidLang(paramLang) ? paramLang as LangType : "en"}
+        lang={isValidLang(lang) ? lang as LangType : "en"}
         path="/fit"
       />
       <style>{`
