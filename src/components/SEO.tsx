@@ -23,10 +23,16 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "Woolet",
   url: SITE_URL,
-  logo: `${SITE_URL}/favicon.ico`,
-  description: "Premium eyewear engineered for wide faces (155mm+). Italian Mazzucchelli acetate frames.",
-  brand: { "@type": "Brand", name: "Woolet" },
-  sameAs: [],
+  description: "Italian acetate eyewear precision-engineered for face widths of 155mm and above.",
+  foundingLocation: "Poland",
+  sameAs: [
+    "https://www.instagram.com/woolet.eyewear",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "hello@woolet.co",
+    contactType: "customer service",
+  },
 };
 
 const websiteJsonLd = {
@@ -131,10 +137,8 @@ const SEO = ({
 
       {noindex && <meta name="robots" content="noindex,nofollow" />}
 
-      {/* Structured Data */}
-      {isHomepage && (
-        <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
-      )}
+      {/* Structured Data — Organization on every page */}
+      <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
       {isHomepage && (
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
       )}
