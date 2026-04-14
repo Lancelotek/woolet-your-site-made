@@ -217,7 +217,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
               >
                 <option value="" style={{ background: "#1a1612", color: "#f0ece4" }}>Select your frame width</option>
                 <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know yet — help me measure</option>
-                <option value="138" style={{ background: "#1a1612", color: "#f0ece4" }}>138–144 mm (Wide)</option>
+                <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (Extra-Wide)</option>
                 <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (Extra-Wide)</option>
                 <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL)</option>
                 <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (XXL)</option>
