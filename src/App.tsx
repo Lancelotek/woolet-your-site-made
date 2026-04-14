@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -5,18 +6,19 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index.tsx";
-import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
-import ReturnPolicy from "./pages/ReturnPolicy.tsx";
-import BlogIndex from "./pages/BlogIndex.tsx";
-import BlogPost from "./pages/BlogPost.tsx";
-import FitWizard from "./pages/FitWizard.tsx";
-import ThankYou from "./pages/ThankYou.tsx";
-import NotFound from "./pages/NotFound.tsx";
-import AdvertorialPage from "./pages/lp/AdvertorialPage.tsx";
-import ListiclePage from "./pages/lp/ListiclePage.tsx";
-import ProductPage007 from "./pages/products/ProductPage007.tsx";
-import ProductPage009 from "./pages/products/ProductPage009.tsx";
-import About from "./pages/About.tsx";
+
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
+const ReturnPolicy = lazy(() => import("./pages/ReturnPolicy.tsx"));
+const BlogIndex = lazy(() => import("./pages/BlogIndex.tsx"));
+const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
+const FitWizard = lazy(() => import("./pages/FitWizard.tsx"));
+const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
+const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const AdvertorialPage = lazy(() => import("./pages/lp/AdvertorialPage.tsx"));
+const ListiclePage = lazy(() => import("./pages/lp/ListiclePage.tsx"));
+const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"));
+const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
+const About = lazy(() => import("./pages/About.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
           {/* Root redirects to /en */}
           <Route path="/" element={<Navigate to="/en" replace />} />
@@ -55,6 +58,7 @@ const App = () => (
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
       </BrowserRouter>
       </ErrorBoundary>
     </TooltipProvider>
