@@ -54,8 +54,11 @@ const productJsonLd = {
   image: OG_IMAGE,
   offers: {
     "@type": "AggregateOffer",
+    lowPrice: "189",
+    highPrice: "239",
+    offerCount: 2,
+    priceCurrency: "EUR",
     availability: "https://schema.org/PreOrder",
-    priceCurrency: "USD",
   },
   material: "Italian Mazzucchelli Acetate",
   audience: { "@type": "PeopleAudience", suggestedGender: "unisex" },
