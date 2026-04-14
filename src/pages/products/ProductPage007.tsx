@@ -54,8 +54,15 @@ const ProductPage007 = () => {
       sku: "WOOLET-007",
       material: "Italian Mazzucchelli Acetate",
       width: { "@type": "QuantitativeValue", value: 158, unitCode: "MMT", name: "Frame width (hinge to hinge)" },
-      offers: { "@type": "Offer", price: "499", priceCurrency: "PLN", availability: "https://schema.org/PreOrder", priceValidUntil: "2026-12-31", itemCondition: "https://schema.org/NewCondition" },
-      /* aggregateRating removed — no real reviews yet */
+      offers: {
+        "@type": "AggregateOffer",
+        lowPrice: "189",
+        highPrice: "239",
+        priceCurrency: "EUR",
+        offerCount: 4,
+        availability: "https://schema.org/PreOrder",
+        url: "https://woolet.co/en/products/007",
+      },
       image: "https://woolet.co/images/woolet-007-dark-tortoise.jpg",
       url: "https://woolet.co/en/products/007",
       additionalProperty: [
