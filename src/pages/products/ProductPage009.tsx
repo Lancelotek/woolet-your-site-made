@@ -93,7 +93,7 @@ const ProductPage009 = () => {
         <title>Woolet 009 — Square Acetate Frame, 158mm Wide Face</title>
         <meta name="description" content="Woolet 009 square acetate frame. 158mm width, 19mm bridge, 148mm temples. Mazzucchelli acetate from Italy. Precision-engineered for 155mm+ face widths." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        
       </Helmet>
 
       <div style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif" }}>

@@ -88,7 +88,7 @@ const Index = () => {
       <EmailPopup />
 
       {/* ===== MOBILE LAYOUT — no hero image, straight to content ===== */}
-      <div className={`relative z-[1] ${isIOS ? "" : "lg:hidden"}`}>
+      <main className={`relative z-[1] ${isIOS ? "" : "lg:hidden"}`}>
         {/* Ambient glows */}
         <div
           className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
@@ -138,10 +138,10 @@ const Index = () => {
         <div className="h-16" />
         <Footer />
         <StickyMobileCTA />
-      </div>
+      </main>
 
       {/* ===== DESKTOP LAYOUT — split panel with locked scroll ===== */}
-      <div className={`relative z-[1] ${isIOS ? "hidden" : "hidden lg:flex"} flex-col h-screen overflow-hidden`}>
+      <main className={`relative z-[1] ${isIOS ? "hidden" : "hidden lg:flex"} flex-col h-screen overflow-hidden`}>
         {/* Ambient glows */}
         <div
           className="fixed pointer-events-none z-0 rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
@@ -158,7 +158,7 @@ const Index = () => {
           {/* Left image — fixed, no scroll */}
           <div className="relative overflow-hidden bg-surface border-r" style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
             <div className="absolute inset-0 flex items-end overflow-hidden">
-              <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="woolet-desktop-hero-image w-full h-full object-cover object-top" />
+              <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="woolet-desktop-hero-image w-full h-full object-cover object-top" loading="eager" fetchPriority="high" width={800} height={1000} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 50%, hsl(var(--background) / 0.4) 100%)" }} />
             </div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, transparent 60%, hsl(var(--background) / 0.35) 100%)" }} />
@@ -201,7 +201,7 @@ const Index = () => {
             <Footer />
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 };

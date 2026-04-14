@@ -95,10 +95,6 @@ const ListiclePage = () => {
           content="5 technical reasons why 130–148mm glasses don't fit 155mm+ faces. Geometry, Mazzucchelli acetate, 5-barrel hinges, 21mm keyhole bridge."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/5-reasons" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow:wght@300;400;500;600&display=swap"
-          rel="stylesheet"
-        />
       </Helmet>
 
       <div
