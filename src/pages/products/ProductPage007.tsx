@@ -8,6 +8,8 @@ import ProductFAQ from "@/components/ProductFAQ";
 import imgTortoise from "@/assets/woolet-007-dark-tortoise.png";
 import imgBlack from "@/assets/woolet-007-black.png";
 import imgHoney from "@/assets/woolet-007-honey.png";
+import faceBefore from "@/assets/face-before-007.jpg";
+import faceAfter from "@/assets/face-after-007.jpg";
 
 const colors007 = [
   { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
