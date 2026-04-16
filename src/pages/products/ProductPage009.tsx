@@ -5,12 +5,14 @@ import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
+import imgBlack from "@/assets/woolet-009-black.png";
+import imgTortoise from "@/assets/woolet-009-dark-tortoise.png";
+import imgSmoke from "@/assets/woolet-009-smoke-grey.png";
 
 const colors009 = [
-  { name: "Black", dot: "#141414", img: "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=700&q=80&auto=format&fit=crop" },
-  { name: "Dark Tortoise", dot: "#5C3317", img: "https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop" },
-  { name: "Smoke Grey", dot: "#6B6B6B", img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=700&q=80&auto=format&fit=crop" },
-  { name: "Bottle Green", dot: "#2E4A3E", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&q=80&auto=format&fit=crop" },
+  { name: "Black", dot: "#141414", img: imgBlack },
+  { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
+  { name: "Smoke Grey", dot: "#6B6B6B", img: imgSmoke },
 ];
 
 const specs = [
@@ -59,7 +61,7 @@ const ProductPage009 = () => {
         lowPrice: "189",
         highPrice: "239",
         priceCurrency: "EUR",
-        offerCount: 4,
+        offerCount: 3,
         availability: "https://schema.org/PreOrder",
         url: "https://woolet.co/en/products/009",
       },
@@ -91,81 +93,103 @@ const ProductPage009 = () => {
     <>
       <Helmet>
         <title>Woolet 009 — Square Acetate Frame, 158mm Wide Face</title>
-        <meta name="description" content="Woolet 009 square acetate frame. 158mm width, 19mm bridge, 148mm temples. Mazzucchelli acetate from Italy. Precision-engineered for 155mm+ face widths." />
+        <meta name="description" content="Woolet 009 square acetate frame. 158mm width, 21mm bridge, 148mm temples. Mazzucchelli acetate from Italy. Precision-engineered for 155mm+ face widths." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
-        
       </Helmet>
 
-      <div style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif" }}>
+      <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif" }}>
         {/* Logo */}
         <div style={{ padding: "12px 16px", background: "#F8F6F1" }}>
           <Link to="/en">
-            <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} />
+            <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} width={80} height={22} />
           </Link>
         </div>
 
-        {/* 1. Main image */}
-        <div style={{ position: "relative", overflow: "hidden", height: 240 }}>
-          <img src={selectedColorObj.img} alt={`Woolet 009 — ${selectedColor}`} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,8,7,0.5), transparent 55%)" }} />
-          <span style={{ position: "absolute", bottom: 12, left: 16, fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 14, color: "#CAA449", letterSpacing: "3px" }}>WOOLET</span>
-          <span style={{ position: "absolute", bottom: 14, right: 16, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 9, color: "rgba(255,255,255,0.6)", letterSpacing: "1.5px" }}>009 · {selectedColor.toUpperCase()}</span>
+        {/* 1. Main product image */}
+        <div style={{ position: "relative", background: "#F8F6F1", padding: "20px 16px 0", display: "flex", justifyContent: "center" }}>
+          <img
+            src={selectedColorObj.img}
+            alt={`Woolet 009 — ${selectedColor}`}
+            width={800}
+            height={600}
+            fetchPriority="high"
+            style={{ width: "100%", maxWidth: 520, height: "auto", objectFit: "contain", display: "block" }}
+          />
+        </div>
 
-          {/* Thumbnails */}
-          <div style={{ position: "absolute", top: 8, right: 8, display: "flex", flexDirection: "column", gap: 4 }}>
-            {colors009.map((c) => (
-              <button
-                key={c.name}
-                onClick={() => setSelectedColor(c.name)}
-                style={{ width: 28, height: 28, padding: 0, borderRadius: 4, overflow: "hidden", cursor: "pointer", border: selectedColor === c.name ? "2px solid #CAA449" : "2px solid rgba(255,255,255,0.3)", background: "none" }}
-              >
-                <img src={c.img} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </button>
-            ))}
-          </div>
+        {/* Thumbnail strip */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 10, padding: "12px 16px 8px" }}>
+          {colors009.map((c) => (
+            <button
+              key={c.name}
+              onClick={() => setSelectedColor(c.name)}
+              style={{
+                width: 56, height: 42, padding: 0, borderRadius: 6, overflow: "hidden", cursor: "pointer",
+                border: selectedColor === c.name ? "2px solid #CAA449" : "2px solid #DDD",
+                background: "#FFF",
+              }}
+            >
+              <img src={c.img} alt={c.name} width={56} height={42} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+            </button>
+          ))}
         </div>
 
         {/* 2. Product info */}
         <div style={{ padding: "14px 16px 24px" }}>
           {/* Trust badges */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
-            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500 }}>Coming Soon</span>
-            <span style={{ background: "#E8F5E9", color: "#1B5E20", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500 }}>Mazzucchelli</span>
-            <span style={{ background: "rgba(202,164,73,0.1)", color: "#A07A2A", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500 }}>PVD Gunmetal</span>
+            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Coming Soon</span>
+            <span style={{ background: "#E8F5E9", color: "#1B5E20", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Mazzucchelli</span>
+            <span style={{ background: "rgba(202,164,73,0.1)", color: "#A07A2A", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>PVD Gunmetal</span>
           </div>
 
-          {/* Stars */}
+          {/* Waitlist count */}
           <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
-            <span style={{ fontWeight: 300, fontSize: 10, color: "#888" }}>4,900+ on the waitlist</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888" }}>4,900+ on the waitlist</span>
           </div>
 
           {/* Product name */}
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#111", marginBottom: 4, marginTop: 0 }}>
-            Woolet 009 <em style={{ fontStyle: "italic", fontSize: 15, color: "#888" }}>— Square</em>
+            Woolet 009 <em style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "#888" }}>— Square</em>
           </h1>
 
           {/* Price */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "8px 0 14px" }}>
-            <span style={{ fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>€189</span>
-            <span style={{ fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>€239</span>
-            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontWeight: 500, fontSize: 9 }}>FOUNDING −€50</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>€189</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>€239</span>
+            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −€50</span>
           </div>
 
           {/* Model selector */}
           <div style={{ marginBottom: 14 }}>
-            <div style={{ fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>MODEL</div>
+            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>MODEL</div>
             <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={() => navigate("/en/products/007")} style={{ border: "2px solid #DDD", background: "#FFF", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}>007 Panto</button>
-              <button style={{ border: "2px solid #A07A2A", background: "#FDF6EB", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}>009 Square</button>
+              <button onClick={() => navigate("/en/products/007")} style={{ border: "2px solid #DDD", background: "#FFF", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}>
+                007 Panto
+              </button>
+              <button style={{ border: "2px solid #A07A2A", background: "#FDF6EB", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}>
+                009 Square
+              </button>
             </div>
           </div>
 
           {/* Color selector */}
           <div style={{ marginBottom: 14 }}>
-            <div style={{ fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>COLOR: <span style={{ color: "#111" }}>{selectedColor}</span></div>
+            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>
+              COLOR: <span style={{ color: "#111" }}>{selectedColor}</span>
+            </div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {colors009.map((c) => (
-                <button key={c.name} onClick={() => setSelectedColor(c.name)} style={{ width: 26, height: 26, borderRadius: "50%", background: c.dot, cursor: "pointer", padding: 0, border: selectedColor === c.name ? "3px solid #A07A2A" : "3px solid transparent", boxShadow: "0 2px 6px rgba(0,0,0,0.15)" }} aria-label={c.name} />
+                <button
+                  key={c.name}
+                  onClick={() => setSelectedColor(c.name)}
+                  style={{
+                    width: 26, height: 26, borderRadius: "50%", background: c.dot, cursor: "pointer", padding: 0,
+                    border: selectedColor === c.name ? "3px solid #A07A2A" : "3px solid transparent",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+                  }}
+                  aria-label={c.name}
+                />
               ))}
             </div>
           </div>
@@ -175,7 +199,7 @@ const ProductPage009 = () => {
             {benefits.map((b, i) => (
               <div key={i} style={{ display: "flex", gap: 8, marginBottom: i < benefits.length - 1 ? 6 : 0 }}>
                 <span style={{ color: "#CAA449", fontSize: 12, flexShrink: 0 }}>✓</span>
-                <span style={{ fontWeight: 300, fontSize: 12, color: "#CCC", lineHeight: 1.5 }}>{b}</span>
+                <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#CCC", lineHeight: 1.5 }}>{b}</span>
               </div>
             ))}
           </div>
@@ -184,19 +208,19 @@ const ProductPage009 = () => {
           <TrustGuarantee productId="009" />
 
           {/* Primary CTA */}
-          <button onClick={handleCTA} style={{ width: "100%", background: "#CAA449", color: "#080807", border: "none", padding: "15px 0", borderRadius: 5, fontWeight: 500, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8 }}>
+          <button onClick={handleCTA} style={{ width: "100%", background: "#CAA449", color: "#080807", border: "none", padding: "15px 0", borderRadius: 5, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8 }}>
             JOIN AS FOUNDING MEMBER →
           </button>
 
           {/* Secondary CTA */}
-          <button onClick={() => navigate("/en/fit")} style={{ width: "100%", background: "transparent", color: "#444", border: "2px solid #DDD", padding: "12px 0", borderRadius: 5, fontWeight: 300, fontSize: 12, cursor: "pointer", marginBottom: 14 }}>
+          <button onClick={() => navigate("/en/fit")} style={{ width: "100%", background: "transparent", color: "#444", border: "2px solid #DDD", padding: "12px 0", borderRadius: 5, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, cursor: "pointer", marginBottom: 14 }}>
             Check your fit (quiz)
           </button>
 
           {/* Trust footer */}
           <div style={{ display: "flex" }}>
             {["Secure Payment", "30-Day Returns", "Made in Italy"].map((t, i) => (
-              <div key={i} style={{ flex: 1, fontWeight: 300, fontSize: 9, color: "#AAA", textAlign: "center", padding: "0 4px", lineHeight: 1.4 }}>{t}</div>
+              <div key={i} style={{ flex: 1, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 9, color: "#AAA", textAlign: "center", padding: "0 4px", lineHeight: 1.4 }}>{t}</div>
             ))}
           </div>
         </div>
@@ -204,11 +228,11 @@ const ProductPage009 = () => {
         {/* 3. Spec table */}
         <div style={{ background: "#1A1612", padding: "16px 20px" }}>
           <div style={{ maxWidth: 680, margin: "0 auto" }}>
-            <div style={{ fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>Specifications</div>
+            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>Specifications</div>
             {specs.map(([key, val], i) => (
               <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: i < specs.length - 1 ? "1px solid #2A2520" : "none", fontSize: 11 }}>
-                <span style={{ fontWeight: 300, color: "#7A7570" }}>{key}</span>
-                <span style={{ fontWeight: 400, color: "#F8F8F6", textAlign: "right" }}>{val}</span>
+                <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, color: "#7A7570" }}>{key}</span>
+                <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, color: "#F8F8F6", textAlign: "right" }}>{val}</span>
               </div>
             ))}
           </div>
@@ -216,7 +240,7 @@ const ProductPage009 = () => {
 
         {/* 4. FAQ */}
         <ProductFAQ productId="009" />
-      </div>
+      </main>
     </>
   );
 };
