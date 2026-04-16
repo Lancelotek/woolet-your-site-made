@@ -5,12 +5,14 @@ import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
+import imgTortoise from "@/assets/woolet-007-dark-tortoise.png";
+import imgBlack from "@/assets/woolet-007-black.png";
+import imgHoney from "@/assets/woolet-007-honey.png";
 
 const colors007 = [
-  { name: "Dark Tortoise", dot: "#5C3317", img: "https://images.unsplash.com/photo-1574258495973-c54d73bfec77?w=700&q=80&auto=format&fit=crop" },
-  { name: "Black", dot: "#141414", img: "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=700&q=80&auto=format&fit=crop" },
-  { name: "Honey", dot: "#C8832A", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&q=80&auto=format&fit=crop" },
-  { name: "Crystal", dot: "#D8D8DE", img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=700&q=80&auto=format&fit=crop" },
+  { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
+  { name: "Black", dot: "#141414", img: imgBlack },
+  { name: "Honey", dot: "#C8832A", img: imgHoney },
 ];
 
 const specs = [
@@ -59,7 +61,7 @@ const ProductPage007 = () => {
         lowPrice: "189",
         highPrice: "239",
         priceCurrency: "EUR",
-        offerCount: 4,
+        offerCount: 3,
         availability: "https://schema.org/PreOrder",
         url: "https://woolet.co/en/products/007",
       },
@@ -91,51 +93,45 @@ const ProductPage007 = () => {
     <>
       <Helmet>
         <title>Woolet 007 — Round Acetate Frame, 158mm Wide Face</title>
-        <meta name="description" content="Woolet 007 round acetate frame. 158mm width, 19mm bridge, 148mm temples. Mazzucchelli acetate from Italy. Built for wide faces that standard frames cannot fit." />
+        <meta name="description" content="Woolet 007 round acetate frame. 158mm width, 21mm bridge, 148mm temples. Mazzucchelli acetate from Italy. Built for wide faces that standard frames cannot fit." />
         <link rel="canonical" href="https://woolet.co/en/products/007" />
-        
       </Helmet>
 
-      <div style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif" }}>
+      <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif" }}>
         {/* Logo */}
         <div style={{ padding: "12px 16px", background: "#F8F6F1" }}>
           <Link to="/en">
-            <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} />
+            <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} width={80} height={22} />
           </Link>
         </div>
 
-        {/* 1. Main image */}
-        <div style={{ position: "relative", overflow: "hidden", height: 240 }}>
+        {/* 1. Main product image */}
+        <div style={{ position: "relative", background: "#F8F6F1", padding: "20px 16px 0", display: "flex", justifyContent: "center" }}>
           <img
             src={selectedColorObj.img}
             alt={`Woolet 007 — ${selectedColor}`}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            width={800}
+            height={600}
+            fetchPriority="high"
+            style={{ width: "100%", maxWidth: 520, height: "auto", objectFit: "contain", display: "block" }}
           />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,8,7,0.5), transparent 55%)" }} />
+        </div>
 
-          <span style={{ position: "absolute", bottom: 12, left: 16, fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 14, color: "#CAA449", letterSpacing: "3px" }}>
-            WOOLET
-          </span>
-          <span style={{ position: "absolute", bottom: 14, right: 16, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 9, color: "rgba(255,255,255,0.6)", letterSpacing: "1.5px" }}>
-            007 · {selectedColor.toUpperCase()}
-          </span>
-
-          {/* Thumbnail strip */}
-          <div style={{ position: "absolute", top: 8, right: 8, display: "flex", flexDirection: "column", gap: 4 }}>
-            {colors007.map((c) => (
-              <button
-                key={c.name}
-                onClick={() => setSelectedColor(c.name)}
-                style={{
-                  width: 28, height: 28, padding: 0, borderRadius: 4, overflow: "hidden", cursor: "pointer",
-                  border: selectedColor === c.name ? "2px solid #CAA449" : "2px solid rgba(255,255,255,0.3)",
-                  background: "none",
-                }}
-              >
-                <img src={c.img} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </button>
-            ))}
-          </div>
+        {/* Thumbnail strip */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 10, padding: "12px 16px 8px" }}>
+          {colors007.map((c) => (
+            <button
+              key={c.name}
+              onClick={() => setSelectedColor(c.name)}
+              style={{
+                width: 56, height: 42, padding: 0, borderRadius: 6, overflow: "hidden", cursor: "pointer",
+                border: selectedColor === c.name ? "2px solid #CAA449" : "2px solid #DDD",
+                background: "#FFF",
+              }}
+            >
+              <img src={c.img} alt={c.name} width={56} height={42} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+            </button>
+          ))}
         </div>
 
         {/* 2. Product info */}
@@ -147,7 +143,7 @@ const ProductPage007 = () => {
             <span style={{ background: "rgba(202,164,73,0.1)", color: "#A07A2A", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>PVD Gunmetal</span>
           </div>
 
-          {/* Stars */}
+          {/* Waitlist count */}
           <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
             <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888" }}>4,900+ on the waitlist</span>
           </div>
@@ -271,7 +267,7 @@ const ProductPage007 = () => {
 
         {/* 4. FAQ */}
         <ProductFAQ productId="007" />
-      </div>
+      </main>
     </>
   );
 };
