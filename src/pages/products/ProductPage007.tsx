@@ -8,6 +8,8 @@ import ProductFAQ from "@/components/ProductFAQ";
 import imgTortoise from "@/assets/woolet-007-dark-tortoise.png";
 import imgBlack from "@/assets/woolet-007-black.png";
 import imgHoney from "@/assets/woolet-007-honey.png";
+import faceBefore from "@/assets/face-before-007.jpg";
+import faceAfter from "@/assets/face-after-007.jpg";
 
 const colors007 = [
   { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
@@ -132,6 +134,35 @@ const ProductPage007 = () => {
               <img src={c.img} alt={c.name} width={56} height={42} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
             </button>
           ))}
+        </div>
+
+        {/* Before / After */}
+        <div style={{ padding: "0 16px 8px" }}>
+          <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10, textAlign: "center" }}>
+            Standard Frames vs Woolet 007
+          </div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <div style={{ flex: 1, position: "relative", borderRadius: 8, overflow: "hidden", border: "2px solid #E0D5C5" }}>
+              <img src={faceBefore} alt="Standard narrow frames on wide face" width={400} height={400} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+              <div style={{
+                position: "absolute", bottom: 0, left: 0, right: 0, padding: "6px 0",
+                background: "rgba(0,0,0,0.6)", textAlign: "center",
+                fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 10, letterSpacing: "1.5px", color: "#E8D5BD", textTransform: "uppercase",
+              }}>
+                Standard 140mm
+              </div>
+            </div>
+            <div style={{ flex: 1, position: "relative", borderRadius: 8, overflow: "hidden", border: "2px solid #CAA449" }}>
+              <img src={faceAfter} alt="Woolet 007 wide fit on face" width={400} height={400} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+              <div style={{
+                position: "absolute", bottom: 0, left: 0, right: 0, padding: "6px 0",
+                background: "rgba(0,0,0,0.6)", textAlign: "center",
+                fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 10, letterSpacing: "1.5px", color: "#CAA449", textTransform: "uppercase",
+              }}>
+                Woolet 158mm ✓
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 2. Product info */}
