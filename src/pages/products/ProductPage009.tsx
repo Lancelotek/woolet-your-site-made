@@ -101,7 +101,7 @@ const ProductPage009 = () => {
         {/* Logo */}
         <div style={{ padding: "12px 16px", background: "#F8F6F1" }}>
           <Link to="/en">
-            <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} width={80} height={22} />
+            <img src={wooletLogo} alt="Woolet" style={{ height: 22, width: "auto" }} height={22} />
           </Link>
         </div>
 
