@@ -29,8 +29,8 @@ const App = () => (
       <ErrorBoundary>
       <Toaster />
       <Sonner />
-      <CookieConsent />
       <BrowserRouter>
+        <CookieConsent />
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
           {/* Root redirects to /en */}
