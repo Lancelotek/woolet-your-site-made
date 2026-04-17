@@ -155,9 +155,9 @@ const ProductPage009 = () => {
 
           {/* Price */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "8px 0 14px" }}>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>€189</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>€239</span>
-            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −€50</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>$133</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>$190</span>
+            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −$57</span>
           </div>
 
           {/* Model selector */}
