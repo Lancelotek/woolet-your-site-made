@@ -345,8 +345,35 @@ export default function FitWizard() {
 
   const next = useCallback(() => {
     if (step < 3) setStep((s) => s + 1);
-    else setShowResult(true);
-  }, [step]);
+    else {
+      setShowResult(true);
+      // GTM: fit wizard completion — track recommended frame width
+      if (typeof window !== "undefined") {
+        const looksWider = state.look === "wider" || state.look === "proportion";
+        const needsWide = state.temples || state.lenses || (state.frameWidth !== null && state.frameWidth < 148) || looksWider;
+        let recommendedWidth: string;
+        if (state.frameWidth) {
+          if (state.frameWidth >= 162) recommendedWidth = "162";
+          else if (state.frameWidth >= 155) recommendedWidth = "155";
+          else if (state.frameWidth >= 145) recommendedWidth = "145";
+          else if (state.frameWidth >= 138) recommendedWidth = "138";
+          else recommendedWidth = "unknown";
+        } else {
+          recommendedWidth = needsWide ? "155" : "standard";
+        }
+        const needsNose = state.nose !== null && state.nose !== "nose-ok";
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "fit_wizard_complete",
+          recommended_width: recommendedWidth,
+          needs_wide: needsWide,
+          needs_bridge: needsNose,
+          look_answer: state.look,
+          nose_answer: state.nose,
+        });
+      }
+    }
+  }, [step, state]);
 
   const back = useCallback(() => {
     if (showResult) { setShowResult(false); setShowForm(false); }
