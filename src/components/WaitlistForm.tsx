@@ -68,12 +68,17 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
       if (fnError) throw fnError;
       if (data && !data.success) throw new Error(data.error || "Subscription failed");
 
-      pushGtmEvent("waitlist_signup", {
-        waitlist_name: formData.name,
-        waitlist_email: formData.email,
-        waitlist_face_width: formData.faceWidth,
-        waitlist_models: models,
-      });
+      // GTM Enhanced Conversions — exact key names required by GTM container
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "waitlist_signup",
+          user_email: formData.email,
+          user_first_name: formData.name,
+          frame_width_preference: formData.faceWidth || null,
+          waitlist_models: models,
+        });
+      }
 
       pushGtmEvent("generate_lead", {
         awareness_stage: "solution_aware",
