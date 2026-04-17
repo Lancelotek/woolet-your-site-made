@@ -40,6 +40,18 @@ const EmailPopup = () => {
       await supabase.functions.invoke("mailerlite-subscribe", {
         body: { email, name: "", width: "", source: "popup", utm_source: "popup", utm_campaign: "" },
       });
+
+      // GTM Enhanced Conversions — same key names as waitlist form
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "email_popup_signup",
+          user_email: email,
+          user_first_name: null,
+          frame_width_preference: null,
+        });
+      }
+
       pushGtmEvent("popup_email_submitted", { email });
       setSubmitted(true);
       setTimeout(() => handleDismiss(), 3000);
