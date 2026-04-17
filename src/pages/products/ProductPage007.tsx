@@ -59,13 +59,13 @@ const ProductPage007 = () => {
       material: "Italian Mazzucchelli Acetate",
       width: { "@type": "QuantitativeValue", value: 158, unitCode: "MMT", name: "Frame width (hinge to hinge)" },
       offers: {
-        "@type": "AggregateOffer",
-        lowPrice: "189",
-        highPrice: "239",
-        priceCurrency: "EUR",
-        offerCount: 3,
+        "@type": "Offer",
         availability: "https://schema.org/PreOrder",
+        priceCurrency: "USD",
+        price: "133",
+        priceValidUntil: "2026-12-31",
         url: "https://woolet.co/en/products/007",
+        seller: { "@type": "Organization", name: "Woolet" },
       },
       image: "https://woolet.co/images/woolet-007-dark-tortoise.jpg",
       url: "https://woolet.co/en/products/007",
@@ -186,9 +186,9 @@ const ProductPage007 = () => {
 
           {/* Price */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "8px 0 14px" }}>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>€189</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>€239</span>
-            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −€50</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>$133</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>$190</span>
+            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −$57</span>
           </div>
 
           {/* Model selector */}
