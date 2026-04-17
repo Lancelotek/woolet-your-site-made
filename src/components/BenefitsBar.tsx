@@ -1,6 +1,6 @@
 const BenefitsBar = () => {
   const benefits = [
-    { icon: "%", title: "15% off launch price", sub: "Exclusive discount applied automatically at checkout", tag: "EXCLUSIVE" },
+    { icon: "%", title: "30% off launch price — save $57", sub: "Pre-order $133 instead of $190 — applied automatically at checkout", tag: "EXCLUSIVE" },
     { icon: "→", title: "Free shipping on your first order", sub: "Worldwide — no minimum order value" },
     { icon: "◈", title: "48h priority access before public", sub: "First pick of colours and models at launch" },
   ];
