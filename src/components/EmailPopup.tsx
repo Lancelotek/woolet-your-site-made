@@ -13,6 +13,7 @@ const STORAGE_KEY = "woolet_popup_dismissed";
 
 const EmailPopup = () => {
   const [open, setOpen] = useState(false);
+  const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -37,8 +38,9 @@ const EmailPopup = () => {
     if (!email || loading) return;
     setLoading(true);
     try {
+      const trimmedName = firstName.trim();
       await supabase.functions.invoke("mailerlite-subscribe", {
-        body: { email, name: "", width: "", source: "popup", utm_source: "popup", utm_campaign: "" },
+        body: { email, name: trimmedName, width: "", source: "popup", utm_source: "popup", utm_campaign: "" },
       });
 
       // GTM Enhanced Conversions — same key names as waitlist form
@@ -47,7 +49,7 @@ const EmailPopup = () => {
         window.dataLayer.push({
           event: "email_popup_signup",
           user_email: email,
-          user_first_name: null,
+          user_first_name: trimmedName || null,
           frame_width_preference: null,
         });
       }
@@ -100,8 +102,17 @@ const EmailPopup = () => {
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <input
+              type="text"
+              autoComplete="given-name"
+              placeholder="First name (optional)"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full px-3 py-2.5 rounded-sm text-sm bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+            <input
               type="email"
               required
+              autoComplete="email"
               placeholder="your@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
