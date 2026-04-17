@@ -5,7 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import CookieConsent from "@/components/CookieConsent";
+
 import Index from "./pages/Index.tsx";
 
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
@@ -30,7 +30,6 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <CookieConsent />
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
           {/* Root redirects to /en */}
