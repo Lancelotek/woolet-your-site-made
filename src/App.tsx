@@ -51,6 +51,7 @@ const App = () => (
           {/* Legacy routes redirect */}
           <Route path="/privacy-policy" element={<Navigate to="/en/privacy-policy" replace />} />
           <Route path="/return-policy" element={<Navigate to="/en/return-policy" replace />} />
+          <Route path="/privacy" element={<Navigate to="/en/privacy-policy" replace />} />
 
           {/* Policy pages with lang */}
           <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
