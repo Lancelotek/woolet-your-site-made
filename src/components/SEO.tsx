@@ -60,47 +60,6 @@ const productJsonLd = {
     priceValidUntil: "2026-12-31",
     url: "https://woolet.co/en",
     seller: { "@type": "Organization", name: "Woolet" },
-    hasMerchantReturnPolicy: {
-      "@type": "MerchantReturnPolicy",
-      applicableCountry: ["US", "PL", "FR", "ES", "DE", "GB", "IT", "NL", "BE", "AT", "SE", "DK", "FI", "IE", "PT"],
-      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-      merchantReturnDays: 30,
-      returnMethod: "https://schema.org/ReturnByMail",
-      returnFees: "https://schema.org/ReturnShippingFees",
-      refundType: "https://schema.org/FullRefund",
-      merchantReturnLink: "https://woolet.co/en/return-policy",
-    },
-    shippingDetails: {
-      "@type": "OfferShippingDetails",
-      shippingRate: {
-        "@type": "MonetaryAmount",
-        value: "0",
-        currency: "USD",
-      },
-      shippingDestination: {
-        "@type": "DefinedRegion",
-        geoMidpoint: {
-          "@type": "GeoCoordinates",
-          latitude: 0,
-          longitude: 0,
-        },
-      },
-      deliveryTime: {
-        "@type": "ShippingDeliveryTime",
-        handlingTime: {
-          "@type": "QuantitativeValue",
-          minValue: 1,
-          maxValue: 3,
-          unitCode: "DAY",
-        },
-        transitTime: {
-          "@type": "QuantitativeValue",
-          minValue: 3,
-          maxValue: 7,
-          unitCode: "DAY",
-        },
-      },
-    },
   },
   material: "Italian Mazzucchelli Acetate",
   audience: { "@type": "PeopleAudience", suggestedGender: "unisex" },
