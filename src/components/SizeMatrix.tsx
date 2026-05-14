@@ -156,7 +156,7 @@ const SizeMatrix = ({ fitHref = "/en/fit", semantic = true }: { fitHref?: string
             onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
           >
-            Scan your face → Reserve for $1
+            Scan your face · Reserve for $1
           </Link>
         </div>
       </div>
