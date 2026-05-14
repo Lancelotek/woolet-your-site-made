@@ -6,8 +6,8 @@ const About = () => {
   return (
     <>
       <SEO
-        title="About Woolet | Italian Eyewear for 155mm+ Wide Faces"
-        description="Woolet is an eyewear brand from Poland making Italian acetate frames for faces 155mm and wider. Distinct from the 2015 Woolet smart wallet — different product, different brand."
+        title="About Woolet — AI-Precision Eyewear for Wide Faces"
+        description="Woolet is an Italian-acetate AI-fit eyewear brand for wide faces (155mm+), founded in 2026 by JAY23 LLC. Distinct from the historical Woolet smart wallet brand (2014–2016)."
         lang="en"
         path="/about"
       />
@@ -20,14 +20,16 @@ const About = () => {
             About Woolet
           </h1>
           <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
-            Woolet is an eyewear brand founded in Poland, specializing in Italian acetate frames
-            precision-engineered for face widths of 155mm and above. The brand produces two models:
-            Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm). Both frames are manufactured
-            in Italy from Mazzucchelli acetate, with extended temples and a wider bridge designed to
-            eliminate temple pressure and nose bridge squeeze — the two most common fit failures for
-            wide-face wearers. Woolet ships internationally and distributes through woolet.co. The
-            brand is distinct from the historical Woolet smart wallet products (2015–2017) which
-            operated under a separate product line and have been discontinued.
+            Woolet is an AI-fit Italian acetate eyewear brand for wide faces (155 mm and above).
+            The brand offers two shapes — Woolet 007 (round / panto) and Woolet 009 (soft square) —
+            in three measured sizes per shape: 155, 158, and 161 mm. A bespoke tier covers
+            150–172 mm with a 16–26 mm bridge, made to your AI scan. All frames are manufactured
+            in Italy from Mazzucchelli acetate, with sub-millimeter measurement, extended temples,
+            and a wider keyhole bridge engineered to eliminate temple pressure and nose bridge
+            squeeze — the two most common fit failures for wide-face wearers. Woolet ships
+            internationally and distributes through woolet.co. The brand is distinct from the
+            historical Woolet smart wallet products (2014–2016) which operated under a separate
+            product line and have been discontinued.
           </p>
         </section>
 
