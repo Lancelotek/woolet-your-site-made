@@ -36,16 +36,11 @@ if (!existsSync(DIST)) {
 async function getEnBlogSlugs() {
   try {
     const src = await readFile(resolve(ROOT, "src/lib/blog-data.ts"), "utf8");
-    // Match `en: [...]` block, then pull slugs from inside it.
-    // Easier: scan for `slug: "..."` occurrences before the `pl:` key.
-    const enStart = src.indexOf("export const blogPostsEn");
-    const plStart = src.indexOf("export const blogPostsPl");
-    const slice = src.slice(
-      enStart >= 0 ? enStart : 0,
-      plStart > 0 ? plStart : src.indexOf("export const blogPosts"),
-    );
+    const enStart = src.indexOf("blogPostsEN");
+    const plStart = src.indexOf("blogPostsPL");
+    if (enStart < 0) return [];
+    const slice = src.slice(enStart, plStart > enStart ? plStart : src.length);
     const matches = [...slice.matchAll(/slug:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
-    // Dedup and keep only English-looking slugs (no Polish letters anyway).
     return [...new Set(matches)];
   } catch (err) {
     console.warn("[prerender] could not read blog-data.ts:", err.message);
