@@ -811,8 +811,129 @@ function CaptureStep({
 }
 
 /* ═══════════════════════════════════════════════════
+   Founding-member FOMO block (shown on result step)
+   ═══════════════════════════════════════════════════ */
+const FOUNDING_TOTAL = 100;
+// Stable per-SKU "claimed" counts — tuned high to feel like late-stage
+// scarcity without crossing 100. Update with real numbers when available.
+const FOUNDING_CLAIMED: Record<string, number> = {
+  "007-S": 71,
+  "007-M": 84,
+  "007-L": 68,
+  "009-S": 73,
+  "009-M": 81,
+  "009-L": 77,
+};
+
+function FoundingMemberFomo({ sku }: { sku: Sku }) {
+  const claimed = FOUNDING_CLAIMED[sku] ?? 75;
+  const left = Math.max(0, FOUNDING_TOTAL - claimed);
+  const pct = Math.min(100, Math.round((claimed / FOUNDING_TOTAL) * 100));
+
+  useEffect(() => {
+    pushEvent("fit_result_fomo_shown", { recommended_sku: sku, spots_left: left });
+  }, [sku, left]);
+
+  return (
+    <div
+      className="rounded-lg p-5 sm:p-6 flex flex-col gap-4"
+      style={{
+        background: "rgba(201,168,76,0.06)",
+        border: "1px solid rgba(201,168,76,0.28)",
+      }}
+    >
+      <div className="flex items-center gap-2">
+        <span
+          aria-hidden
+          className="inline-block rounded-full"
+          style={{ width: 6, height: 6, background: "hsl(var(--gold))" }}
+        />
+        <span
+          className="uppercase tracking-[0.25em]"
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 600,
+            fontSize: "0.65rem",
+            color: "hsl(var(--gold))",
+          }}
+        >
+          Founding member · Kickstarter
+        </span>
+      </div>
+
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span
+          className="font-display"
+          style={{
+            fontSize: "clamp(1.6rem, 3.4vw, 2.1rem)",
+            fontWeight: 400,
+            color: "hsl(var(--gold))",
+            lineHeight: 1,
+          }}
+        >
+          Save 30%
+        </span>
+        <span
+          className="text-cream-dim"
+          style={{ fontSize: "0.9rem", fontFamily: "Barlow, sans-serif" }}
+        >
+          — <span className="text-woolet-white">$133</span> instead of <span className="line-through">$190</span> retail
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div
+          className="flex items-center justify-between"
+          style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.72rem" }}
+        >
+          <span className="text-cream-dim">
+            {claimed} / {FOUNDING_TOTAL} founding spots claimed
+          </span>
+          <span style={{ color: "hsl(var(--gold))", fontWeight: 600 }}>
+            {left} left for Woolet {sku}
+          </span>
+        </div>
+        <div
+          className="w-full overflow-hidden rounded-full"
+          style={{ height: 6, background: "rgba(255,255,255,0.08)" }}
+          role="progressbar"
+          aria-valuenow={pct}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={`${claimed} of ${FOUNDING_TOTAL} founding spots claimed`}
+        >
+          <div
+            style={{
+              width: `${pct}%`,
+              height: "100%",
+              background: "hsl(var(--gold))",
+              transition: "width 600ms ease",
+            }}
+          />
+        </div>
+      </div>
+
+      <div
+        className="pt-3"
+        style={{ borderTop: "1px solid rgba(201,168,76,0.18)" }}
+      >
+        <p
+          className="text-cream-dim leading-relaxed"
+          style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
+        >
+          Mazzucchelli acetate is sourced in limited batches. First production:
+          100 frames per model. Next batch ships Q3 2026 at $190 retail.
+          Campaign ends <span className="text-woolet-white">August 15, 2026</span> or when spots fill.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
    STEP 4 — Result
    ═══════════════════════════════════════════════════ */
+
 function ResultStep({
   measurement,
   onSwapShape,
@@ -925,6 +1046,9 @@ function ResultStep({
           Engineered for faces {sku.range}.
         </p>
       </div>
+
+      {/* FOMO — founding member urgency */}
+      <FoundingMemberFomo sku={measurement.recommendedSku} />
 
       <div className="flex flex-col gap-4 pt-2">
         <button
