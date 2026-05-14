@@ -1679,18 +1679,24 @@ export default function FitWizard() {
               onFounderCall={onFounderCall}
             />
           )}
-          {step === "result" && measurement && !showReserve && (
+          {step === "result" && measurement && (
             <ResultStep
               measurement={measurement}
               onSwapShape={swapShape}
-              onReserve={() => setShowReserve(true)}
+              onSavedEmail={(email) => {
+                setSavedEmail(email);
+                setStep("saved");
+              }}
               onBespoke={() => {}}
             />
           )}
-          {step === "result" && measurement && showReserve && (
-            <div className="max-w-2xl mx-auto flex flex-col gap-8 animate-fade-in">
-              <ReserveForm measurement={measurement} onSuccess={() => setStep("reserved")} />
-            </div>
+          {step === "saved" && measurement && (
+            <SavedUpsellStep
+              measurement={measurement}
+              email={savedEmail}
+              onReserved={() => setStep("reserved")}
+              onMaybeLater={() => setStep("reserved")}
+            />
           )}
           {step === "reserved" && measurement && <ReservedStep measurement={measurement} />}
         </div>
