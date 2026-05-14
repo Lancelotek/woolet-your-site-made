@@ -1208,9 +1208,17 @@ function ResultStep({
 }
 
 /* ═══════════════════════════════════════════════════
-   Reserve form
+   Email capture (free) — runs on the result page
    ═══════════════════════════════════════════════════ */
-function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onSuccess: () => void }) {
+function EmailCaptureForm({
+  measurement,
+  fomoVariant,
+  onSuccess,
+}: {
+  measurement: Measurement;
+  fomoVariant: FomoVariant;
+  onSuccess: (email: string) => void;
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [agree, setAgree] = useState(true);
@@ -1223,11 +1231,11 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
     pushEvent("fit_form_submit_attempt", {
       recommended_sku: measurement.recommendedSku,
       face_width_mm: measurement.faceWidthMm,
+      step: "email_capture",
     });
     setSubmitting(true);
     setError(null);
     try {
-      // TODO: Stripe Payment Element in Phase 4
       const { error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           email,
@@ -1237,36 +1245,52 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
         },
       });
       if (fnError) throw fnError;
-      pushEvent("deposit_completed", {
+      pushEvent("fit_email_captured", {
         recommended_sku: measurement.recommendedSku,
-        amount: 1,
-        source: "fit_reserve",
+        face_width_mm: measurement.faceWidthMm,
+        fomo_variant: fomoVariant,
       });
-      onSuccess();
+      onSuccess(email);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong. Try again.";
       setError(msg);
-      pushEvent("fit_form_submit_error", { reason: msg.slice(0, 80) });
+      pushEvent("fit_form_submit_error", { reason: msg.slice(0, 80), step: "email_capture" });
     } finally {
       setSubmitting(false);
     }
   };
 
   const trackFocus = (field: string) => () =>
-    pushEvent("fit_form_field_focus", { field });
+    pushEvent("fit_form_field_focus", { field, step: "email_capture" });
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-5 max-w-md">
-      <div className="woolet-eyebrow">
-        <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">RESERVE · $1 DEPOSIT</span>
+    <form
+      onSubmit={submit}
+      className="flex flex-col gap-5"
+      data-clarity-region="fit-email-capture"
+    >
+      {/* Light gold-tinted teaser */}
+      <div
+        className="rounded-lg p-4 sm:p-5"
+        style={{
+          background: "rgba(201,168,76,0.05)",
+          border: "1px solid rgba(201,168,76,0.22)",
+        }}
+      >
+        <p
+          className="text-woolet-white"
+          style={{ fontSize: "0.9rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
+        >
+          Get your fit details by email — free.
+        </p>
+        <p
+          className="text-cream-dim mt-1.5 leading-relaxed"
+          style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
+        >
+          Plus first access to founding member pricing (40% off) when Kickstarter
+          launches in October.
+        </p>
       </div>
-      <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>
-        Your $1 deposit locks in the <span className="text-woolet-white">40% Kickstarter discount</span>,
-        <span className="text-woolet-white"> first-shipment priority</span>, and a
-        <span className="text-woolet-white"> free lens cleaning kit</span>. Hard commit — payment
-        processes when the Kickstarter launches in October 2026.
-      </p>
 
       <label className="flex flex-col gap-1.5">
         <span className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.55rem", fontFamily: "Barlow, sans-serif" }}>
@@ -1275,7 +1299,7 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
         <input
           type="text"
           required
-          data-clarity-region="reserve-form-name"
+          data-clarity-region="capture-form-name"
           onFocus={trackFocus("name")}
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -1300,7 +1324,7 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
         <input
           type="email"
           required
-          data-clarity-region="reserve-form-email"
+          data-clarity-region="capture-form-email"
           onFocus={trackFocus("email")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -1326,7 +1350,7 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
           onFocus={trackFocus("privacy_consent")}
           required
           style={{ marginTop: 4 }}
-          data-clarity-region="reserve-form-consent"
+          data-clarity-region="capture-form-consent"
         />
         <span className="text-cream-dim" style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}>
           I accept the <Link to="/en/privacy-policy" className="text-gold-light underline">Privacy Policy</Link>.
@@ -1335,10 +1359,147 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
 
       {error && <p style={{ color: "hsl(var(--woolet-red))", fontSize: "0.8rem" }}>{error}</p>}
 
-      <button type="submit" disabled={submitting || !agree || !name || !email} style={{ ...goldButtonStyle, opacity: submitting || !agree ? 0.6 : 1 }}>
-        {submitting ? "Reserving…" : "Lock in my fit"}
+      <button
+        type="submit"
+        disabled={submitting || !agree || !name || !email}
+        style={{ ...goldButtonStyle, opacity: submitting || !agree ? 0.6 : 1 }}
+      >
+        {submitting ? "Sending…" : "Send me my fit"}
       </button>
+
+      <p
+        className="text-center text-cream-dim"
+        style={{ fontSize: "0.72rem", fontFamily: "Barlow, sans-serif" }}
+      >
+        No payment now · unsubscribe anytime
+      </p>
     </form>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   Saved + $1 founding-spot upsell
+   ═══════════════════════════════════════════════════ */
+function SavedUpsellStep({
+  measurement,
+  email,
+  onReserved,
+  onMaybeLater,
+}: {
+  measurement: Measurement;
+  email: string;
+  onReserved: () => void;
+  onMaybeLater: () => void;
+}) {
+  const fomoVariant = useMemo(() => getFomoVariant(), []);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    pushEvent("fit_saved_upsell_shown", {
+      recommended_sku: measurement.recommendedSku,
+      fomo_variant: fomoVariant,
+    });
+  }, [measurement, fomoVariant]);
+
+  const reserve = () => {
+    pushEvent("deposit_clicked", {
+      recommended_sku: measurement.recommendedSku,
+      source_page: "fit_saved_upsell",
+      fomo_variant: fomoVariant,
+    });
+    setSubmitting(true);
+    // TODO: Stripe Payment Element in Phase 4 — for now mark complete
+    pushEvent("deposit_completed", {
+      recommended_sku: measurement.recommendedSku,
+      amount: 1,
+      source: "fit_saved_upsell",
+    });
+    onReserved();
+  };
+
+  const maybeLater = () => {
+    pushEvent("fit_upsell_declined", {
+      recommended_sku: measurement.recommendedSku,
+      fomo_variant: fomoVariant,
+    });
+    onMaybeLater();
+  };
+
+  return (
+    <div className="max-w-2xl mx-auto flex flex-col gap-8 animate-fade-in text-center">
+      {/* fit saved badge */}
+      <div className="flex justify-center">
+        <span
+          className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+          style={{
+            border: "1px solid rgba(74,222,128,0.45)",
+            background: "rgba(74,222,128,0.06)",
+            color: "rgb(134,239,172)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.7rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            fontWeight: 500,
+          }}
+        >
+          ✓ Fit saved · {email}
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <h2
+          className="font-display text-woolet-white"
+          style={{ fontSize: "clamp(2.2rem, 5vw, 3rem)", fontWeight: 300, lineHeight: 1.05 }}
+        >
+          Your fit is <em className="italic text-gold-light">locked in</em>.
+        </h2>
+        <p
+          className="text-cream-dim leading-relaxed mx-auto"
+          style={{ fontSize: "0.95rem", maxWidth: "32rem" }}
+        >
+          We'll email you when Kickstarter launches. Or — secure your founding
+          spot now for $1.
+        </p>
+      </div>
+
+      {/* Founding member upsell */}
+      <div className="text-left">
+        <FoundingMemberFomo sku={measurement.recommendedSku} variant={fomoVariant} />
+      </div>
+
+      <div className="flex flex-col gap-4 pt-1">
+        <button
+          onClick={reserve}
+          disabled={submitting}
+          style={{ ...goldButtonStyle, opacity: submitting ? 0.6 : 1 }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
+        >
+          {submitting ? "Reserving…" : "Reserve my founding spot · $1"}
+        </button>
+        <button
+          onClick={maybeLater}
+          className="text-cream-dim underline mx-auto bg-transparent border-none cursor-pointer"
+          style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif" }}
+        >
+          Maybe later — just email me at launch
+        </button>
+      </div>
+
+      <div
+        className="pt-5 mt-2"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <p
+          className="text-cream-dim leading-relaxed"
+          style={{ fontSize: "0.72rem", fontFamily: "Barlow, sans-serif" }}
+        >
+          $1 refundable any time before Kickstarter launches · October 2026
+          <br />
+          Stripe secured · no auto-charge later
+        </p>
+      </div>
+    </div>
   );
 }
 
