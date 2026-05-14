@@ -7,38 +7,52 @@ import Footer from "@/components/Footer";
 import { isValidLang, type Lang } from "@/lib/i18n";
 
 /* ─────────────────────────────────────────────
-   Woolet AI Fit — 5-step wizard (Brand v2, Phase 2)
+   Woolet AI Fit — v2.1 Cheek-Card Method
    intro → consent → capture → result → reserved
-   Capture step uses light "fit" palette; all
-   others stay in dark luxury palette.
+   Phase 2 mock: real camera + real lighting histogram +
+   mock card detection (4s) + DeviceOrientation tilt (mobile).
+   Auglio SDK swap-in is Phase 4 — component contracts stable.
    ───────────────────────────────────────────── */
 
 type Step = "intro" | "consent" | "capture" | "result" | "reserved";
+type CardType = "credit" | "library" | "id" | "cardless" | "unknown";
+type Sku =
+  | "007-S" | "007-M" | "007-L"
+  | "009-S" | "009-M" | "009-L"
+  | "bespoke";
 
 interface Measurement {
-  faceWidth: number;
-  bridge: number;
-  pd: number;
-  recommendedSku: string;
-  shape: string;
-  width: number;
+  faceWidthMm: number;
   bridgeMm: number;
+  pdMm: number;
+  cardType: CardType;
+  recommendedSku: Sku;
+  confidence: number;
 }
 
-const MOCK_MEASUREMENT: Measurement = {
-  faceWidth: 162,
-  bridge: 22,
-  pd: 66,
-  recommendedSku: "Woolet 009 · L",
-  shape: "Soft Square",
-  width: 161,
-  bridgeMm: 23,
+const TRUST_COPY: Record<CardType, string> = {
+  credit: "Captured with a credit card. Verified to ±1.5 mm via Woolet AI Fit.",
+  library: "Captured with a library / membership card. Verified to ±1.5 mm via Woolet AI Fit.",
+  id: "Captured with an ID card. Verified to ±1.5 mm via Woolet AI Fit.",
+  cardless: "Captured cardless via iris reference. Verified to ±2 mm via Woolet AI Fit.",
+  unknown: "Captured with a credit-card-sized reference. Verified to ±1.5 mm via Woolet AI Fit.",
 };
 
-const ALT_007: Record<string, string> = {
-  "Woolet 009 · S": "Woolet 007 · S",
-  "Woolet 009 · M": "Woolet 007 · M",
-  "Woolet 009 · L": "Woolet 007 · L",
+const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: number; bridgeMm: number; range: string }> = {
+  "007-S": { shape: "Round / Panto", widthMm: 155, bridgeMm: 21, range: "152–155 mm" },
+  "007-M": { shape: "Round / Panto", widthMm: 158, bridgeMm: 22, range: "155–161 mm" },
+  "007-L": { shape: "Round / Panto", widthMm: 161, bridgeMm: 23, range: "161–168 mm" },
+  "009-S": { shape: "Soft Square",   widthMm: 155, bridgeMm: 21, range: "152–155 mm" },
+  "009-M": { shape: "Soft Square",   widthMm: 158, bridgeMm: 22, range: "155–161 mm" },
+  "009-L": { shape: "Soft Square",   widthMm: 161, bridgeMm: 23, range: "161–168 mm" },
+};
+
+const recommendSku = (faceWidthMm: number): Sku => {
+  if (faceWidthMm < 152) return "bespoke";
+  if (faceWidthMm < 155) return "009-S";
+  if (faceWidthMm < 161) return "009-M";
+  if (faceWidthMm <= 168) return "009-L";
+  return "bespoke";
 };
 
 const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
@@ -106,26 +120,17 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
 
       <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "1rem" }}>
         Three numbers. One frame. No more guessing.<br />
-        Your face width, your bridge, your pupillary distance — captured by your phone camera and matched to your size in the Woolet matrix. Sub-millimeter accuracy. No app to install.
+        Your face width, your bridge, your pupillary distance — captured by your phone camera against the scale of a credit-card-sized object you already have. Sub-millimeter accuracy. No app to install.
       </p>
 
       <ul className="flex flex-col gap-3 my-2">
         {[
-          "Measured to ±1 mm",
+          "Measured to ±1.5 mm",
           "Your scan stays on your device",
           "Reserve your size for $1 — refundable any time",
         ].map((p) => (
           <li key={p} className="flex items-start gap-3 text-foreground" style={{ fontSize: "0.9rem", fontFamily: "Barlow, sans-serif", fontWeight: 400 }}>
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "hsl(var(--gold))",
-                marginTop: 9,
-                flexShrink: 0,
-              }}
-            />
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "hsl(var(--gold))", marginTop: 9, flexShrink: 0 }} />
             {p}
           </li>
         ))}
@@ -144,7 +149,7 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
           Begin the scan
         </button>
         <Link to="/en#size-matrix" style={ghostButtonStyle}>
-          See the sizes
+          See the size matrix
         </Link>
       </div>
     </div>
@@ -152,9 +157,55 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
 }
 
 /* ═══════════════════════════════════════════════════
-   STEP 2 — Consent
+   STEP 2 — Consent (with lighting pre-check)
    ═══════════════════════════════════════════════════ */
 function ConsentStep({ onAllow, onManual }: { onAllow: () => void; onManual: () => void }) {
+  const [checking, setChecking] = useState(false);
+  const [warning, setWarning] = useState<string | null>(null);
+
+  const requestCamera = async () => {
+    setChecking(true);
+    setWarning(null);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+      // Lighting pre-check: sample a few frames
+      const video = document.createElement("video");
+      video.srcObject = stream;
+      video.muted = true;
+      video.playsInline = true;
+      await video.play();
+      const canvas = document.createElement("canvas");
+      canvas.width = 160;
+      canvas.height = 120;
+      const ctx = canvas.getContext("2d");
+      let total = 0;
+      let samples = 0;
+      for (let i = 0; i < 6; i++) {
+        await new Promise((r) => setTimeout(r, 80));
+        if (!ctx) break;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        let sum = 0;
+        for (let p = 0; p < data.length; p += 4) {
+          sum += (data[p] + data[p + 1] + data[p + 2]) / 3;
+        }
+        total += sum / (data.length / 4);
+        samples++;
+      }
+      stream.getTracks().forEach((t) => t.stop());
+      const avg = samples ? total / samples : 0;
+      if (avg < 60) setWarning("It's quite dim. Try a different room or turn on a light for the cleanest scan.");
+      else if (avg > 220) setWarning("It's very bright. Try moving away from a direct window.");
+      pushEvent("fit_consent_granted", { lighting_avg: Math.round(avg) });
+      onAllow();
+    } catch {
+      pushEvent("fit_consent_denied");
+      onManual();
+    } finally {
+      setChecking(false);
+    }
+  };
+
   return (
     <div className="max-w-xl mx-auto flex flex-col gap-6 animate-fade-in">
       <div className="woolet-eyebrow">
@@ -171,8 +222,8 @@ function ConsentStep({ onAllow, onManual }: { onAllow: () => void; onManual: () 
       </h2>
 
       <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-        The scan happens entirely in your browser. Nothing is uploaded, nothing is stored beyond the
-        three measurements you choose to save. We don't see your face — we see three numbers.
+        The scan runs entirely in your browser. Nothing is uploaded, nothing is stored beyond the
+        three numbers you choose to save. We don't see your face — we see three numbers.
       </p>
 
       <Link
@@ -183,17 +234,21 @@ function ConsentStep({ onAllow, onManual }: { onAllow: () => void; onManual: () 
         Read the privacy detail →
       </Link>
 
+      {warning && (
+        <p style={{ fontSize: "0.8rem", color: "hsl(var(--gold-light))", fontFamily: "Barlow, sans-serif" }}>
+          {warning}
+        </p>
+      )}
+
       <div className="flex flex-col gap-4 pt-3">
         <button
-          onClick={() => {
-            pushEvent("fit_consent_granted", { step: "consent" });
-            onAllow();
-          }}
-          style={goldButtonStyle}
+          onClick={requestCamera}
+          disabled={checking}
+          style={{ ...goldButtonStyle, opacity: checking ? 0.7 : 1 }}
           onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
         >
-          Allow camera · Continue
+          {checking ? "Checking light…" : "Allow camera · Continue"}
         </button>
         <button
           onClick={onManual}
@@ -208,38 +263,229 @@ function ConsentStep({ onAllow, onManual }: { onAllow: () => void; onManual: () 
 }
 
 /* ═══════════════════════════════════════════════════
-   STEP 3 — Capture (LIGHT palette)
+   STEP 3 — Capture (LIGHT palette, cheek-card method)
    ═══════════════════════════════════════════════════ */
 const CAPTURE_STEPS = [
-  "Hold a standard credit card up to your cheek",
-  "Look directly at the camera",
-  "Tilt left, then right",
-  "Hold still for three seconds",
+  "STEP 1 OF 5 — GRAB A CARD (CREDIT, LIBRARY, GYM, ANY ID-1 SIZE)",
+  "STEP 2 OF 5 — HOLD CARD VERTICALLY AGAINST YOUR RIGHT CHEEK",
+  "STEP 3 OF 5 — TOP OF CARD JUST BELOW YOUR OUTER EYEBROW",
+  "STEP 4 OF 5 — KEEP CARD FLAT · LOOK DIRECTLY AT CAMERA",
+  "STEP 5 OF 5 — HOLD STILL · MEASURING",
 ];
 
-function CaptureStep({ onComplete }: { onComplete: () => void }) {
+type CheckKey = "card" | "tilt" | "distance" | "lighting";
+const REMEDIATIONS: Record<CheckKey, string> = {
+  card: "Hold your card flat against your cheek — make sure all four corners are visible.",
+  tilt: "Your head is tilted. Level your chin and look straight at the camera.",
+  distance: "Hold the phone at arm's length — about 50–70 cm away.",
+  lighting: "The light is uneven. Face a window or turn on a second light.",
+};
+
+function CaptureStep({
+  onComplete,
+  onCardlessFallback,
+  onFounderCall,
+}: {
+  onComplete: (m: Measurement) => void;
+  onCardlessFallback: () => void;
+  onFounderCall: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+
   const [stepIdx, setStepIdx] = useState(0);
-  const startTime = useRef(Date.now());
+  const [overlayVisible, setOverlayVisible] = useState(true);
+  const [checks, setChecks] = useState<Record<CheckKey, boolean>>({
+    card: false, tilt: true, distance: true, lighting: true,
+  });
+  const [activeRemediation, setActiveRemediation] = useState<string | null>(null);
+  const [allGreen, setAllGreen] = useState(false);
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [showFallback, setShowFallback] = useState(false);
+  const allGreenSinceRef = useRef<number | null>(null);
+  const tiltGammaRef = useRef(0);
+  const startedAtRef = useRef(Date.now());
+  const cardDetectedAtRef = useRef<number | null>(null);
+  const completedRef = useRef(false);
 
-  // Cycle steps every 3s; auto-complete after 12s (Phase 2 mock)
+  /* boot camera */
   useEffect(() => {
-    const stepTimer = setInterval(() => {
-      setStepIdx((i) => Math.min(i + 1, CAPTURE_STEPS.length - 1));
-    }, 3000);
-
-    const completeTimer = setTimeout(() => {
-      pushEvent("fit_capture_complete", { step: "capture", mock: true });
-      onComplete();
-    }, 12000);
-
+    let cancelled = false;
+    (async () => {
+      try {
+        const s = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user", width: { ideal: 720 }, height: { ideal: 960 } },
+          audio: false,
+        });
+        if (cancelled) {
+          s.getTracks().forEach((t) => t.stop());
+          return;
+        }
+        streamRef.current = s;
+        if (videoRef.current) {
+          videoRef.current.srcObject = s;
+          await videoRef.current.play();
+        }
+      } catch {
+        // permission revoked mid-flow — bail to manual
+        window.location.href = "/en/fit/manual";
+      }
+    })();
     return () => {
-      clearInterval(stepTimer);
-      clearTimeout(completeTimer);
+      cancelled = true;
+      streamRef.current?.getTracks().forEach((t) => t.stop());
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const elapsed = Math.min(100, ((Date.now() - startTime.current) / 12000) * 100);
+  /* fade overlay after 4s */
+  useEffect(() => {
+    const t = setTimeout(() => setOverlayVisible(false), 4000);
+    return () => clearTimeout(t);
+  }, []);
+
+  /* cycle micro-copy steps every 3s */
+  useEffect(() => {
+    const t = setInterval(() => {
+      setStepIdx((i) => Math.min(i + 1, CAPTURE_STEPS.length - 1));
+    }, 3000);
+    return () => clearInterval(t);
+  }, []);
+
+  /* mock card detection — flips true 4s after camera mount */
+  useEffect(() => {
+    const t = setTimeout(() => {
+      cardDetectedAtRef.current = Date.now();
+      setChecks((c) => ({ ...c, card: true }));
+      pushEvent("fit_card_detected", { card_orientation: "vertical", card_type: "credit" });
+    }, 4000);
+    return () => clearTimeout(t);
+  }, []);
+
+  /* device orientation — head tilt proxy on mobile */
+  useEffect(() => {
+    const handler = (e: DeviceOrientationEvent) => {
+      tiltGammaRef.current = Math.abs(e.gamma ?? 0);
+    };
+    window.addEventListener("deviceorientation", handler);
+    return () => window.removeEventListener("deviceorientation", handler);
+  }, []);
+
+  /* validation loop — runs at ~5 fps */
+  useEffect(() => {
+    if (!canvasRef.current) {
+      canvasRef.current = document.createElement("canvas");
+      canvasRef.current.width = 160;
+      canvasRef.current.height = 120;
+    }
+    const interval = setInterval(() => {
+      if (completedRef.current) return;
+      const v = videoRef.current;
+      const c = canvasRef.current;
+      if (!v || !c || v.readyState < 2) return;
+      const ctx = c.getContext("2d");
+      if (!ctx) return;
+      ctx.drawImage(v, 0, 0, c.width, c.height);
+      const data = ctx.getImageData(0, 0, c.width, c.height).data;
+
+      // lighting: average + half-frame skew
+      let leftSum = 0, rightSum = 0;
+      for (let y = 0; y < c.height; y++) {
+        for (let x = 0; x < c.width; x++) {
+          const i = (y * c.width + x) * 4;
+          const lum = (data[i] + data[i + 1] + data[i + 2]) / 3;
+          if (x < c.width / 2) leftSum += lum;
+          else rightSum += lum;
+        }
+      }
+      const total = leftSum + rightSum;
+      const skew = total > 0 ? Math.max(leftSum, rightSum) / total : 0.5;
+      const avg = total / (c.width * c.height);
+      const lightingOk = avg > 50 && avg < 230 && skew < 0.7;
+
+      // tilt: gamma > 5° on mobile counts as tilted; on desktop gamma stays 0 → always level
+      const tiltOk = tiltGammaRef.current < 8;
+
+      // distance: proxy via mid-frame brightness variance (face fills frame). Phase 4: real face bbox.
+      // Assume OK after 1.5s of camera activity.
+      const distanceOk = Date.now() - startedAtRef.current > 1500;
+
+      setChecks((prev) => {
+        const next = {
+          ...prev,
+          lighting: lightingOk,
+          tilt: tiltOk,
+          distance: distanceOk,
+        };
+        return next;
+      });
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
+
+  /* derive remediation message + green state */
+  useEffect(() => {
+    const order: CheckKey[] = ["card", "tilt", "lighting", "distance"];
+    const failing = order.find((k) => !checks[k]);
+    if (failing) {
+      setActiveRemediation(REMEDIATIONS[failing]);
+      setAllGreen(false);
+      allGreenSinceRef.current = null;
+      return;
+    }
+    setActiveRemediation(null);
+    if (allGreenSinceRef.current === null) {
+      allGreenSinceRef.current = Date.now();
+      pushEvent("fit_capture_check_passed", { time_to_pass_ms: Date.now() - startedAtRef.current });
+    }
+    setAllGreen(true);
+  }, [checks]);
+
+  /* fire capture once all-green held 500ms, then 2s mock averaging */
+  useEffect(() => {
+    if (!allGreen || completedRef.current) return;
+    const since = allGreenSinceRef.current;
+    if (!since) return;
+    const t = setTimeout(() => {
+      if (!allGreen || completedRef.current) return;
+      completedRef.current = true;
+      // mock measurement (Phase 2 — same every time per spec §11)
+      setTimeout(() => {
+        const m: Measurement = {
+          faceWidthMm: 162,
+          bridgeMm: 22,
+          pdMm: 66,
+          cardType: "credit",
+          recommendedSku: recommendSku(162),
+          confidence: 0.96,
+        };
+        onComplete(m);
+      }, 2000);
+    }, 500);
+    return () => clearTimeout(t);
+  }, [allGreen, onComplete]);
+
+  /* three-strikes — count failed 30s windows */
+  useEffect(() => {
+    const t = setInterval(() => {
+      if (completedRef.current || allGreenSinceRef.current) return;
+      if (Date.now() - startedAtRef.current > 30_000) {
+        const next = failedAttempts + 1;
+        setFailedAttempts(next);
+        pushEvent("fit_capture_rejected", {
+          rejection_reason: !checks.card ? "card_skew" : !checks.tilt ? "head_tilt" : !checks.lighting ? "lighting" : "distance",
+        });
+        startedAtRef.current = Date.now();
+        if (next >= 3 && !showFallback) setShowFallback(true);
+      }
+    }, 1000);
+    return () => clearInterval(t);
+  }, [checks, failedAttempts, showFallback]);
+
+  useEffect(() => {
+    if (showFallback) pushEvent("fit_cardless_fallback_offered", { failed_attempts: failedAttempts });
+  }, [showFallback, failedAttempts]);
 
   return (
     <div
@@ -252,117 +498,200 @@ function CaptureStep({ onComplete }: { onComplete: () => void }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "space-between",
-        padding: "40px 20px",
+        padding: "24px 16px",
       }}
     >
-      {/* Top — step counter */}
-      <div className="text-center" style={{ width: "100%", maxWidth: 420 }}>
-        <div
-          style={{
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 500,
-            fontSize: "0.65rem",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "var(--woolet-fit-text)",
-            opacity: 0.6,
-            marginBottom: 14,
-          }}
-        >
-          STEP {stepIdx + 1} OF {CAPTURE_STEPS.length}
-        </div>
-        <div
-          key={stepIdx}
-          style={{
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 500,
-            fontSize: "0.95rem",
-            letterSpacing: "0.04em",
-            color: "var(--woolet-fit-text)",
-            animation: "wizFadeIn 200ms ease both",
-            minHeight: 50,
-          }}
-        >
-          {CAPTURE_STEPS[stepIdx]}
-        </div>
+      {/* TOP — micro-copy step */}
+      <div style={{ width: "100%", maxWidth: 520, textAlign: "center", minHeight: 56 }}>
+        {activeRemediation ? (
+          <div
+            key={activeRemediation}
+            style={{
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 400,
+              fontSize: "0.875rem",
+              color: "#A07A2A",
+              animation: "wizFadeIn 200ms ease both",
+              padding: "8px 12px",
+            }}
+          >
+            {activeRemediation}
+          </div>
+        ) : (
+          <div
+            key={stepIdx}
+            style={{
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 500,
+              fontSize: "0.75rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--woolet-fit-text)",
+              animation: "wizFadeIn 200ms ease both",
+              padding: "8px 12px",
+            }}
+          >
+            {CAPTURE_STEPS[stepIdx]}
+          </div>
+        )}
       </div>
 
-      {/* Center — animated face frame */}
+      {/* CENTER — camera with bounding box + overlay */}
       <div
         style={{
           position: "relative",
-          width: "min(72vw, 320px)",
-          aspectRatio: "3 / 4",
-          border: `2px solid var(--woolet-fit-frame)`,
-          borderRadius: "44% 44% 38% 38%",
-          boxShadow: "0 0 0 0 var(--woolet-fit-pulse)",
-          animation: "fitPulse 2s ease-in-out infinite",
+          flex: 1,
+          width: "100%",
+          maxWidth: 520,
+          marginTop: 14,
+          marginBottom: 14,
+          borderRadius: 8,
+          overflow: "hidden",
+          background: "#000",
+          minHeight: 320,
         }}
       >
-        {/* Corner ticks */}
-        {(["tl", "tr", "bl", "br"] as const).map((p) => (
-          <span
-            key={p}
-            style={{
-              position: "absolute",
-              width: 18,
-              height: 18,
-              border: "2px solid var(--woolet-fit-frame)",
-              borderRadius: 2,
-              ...(p.includes("t") ? { top: -10 } : { bottom: -10 }),
-              ...(p.includes("l") ? { left: -10 } : { right: -10 }),
-              ...(p === "tl" ? { borderRight: "none", borderBottom: "none" } : {}),
-              ...(p === "tr" ? { borderLeft: "none", borderBottom: "none" } : {}),
-              ...(p === "bl" ? { borderRight: "none", borderTop: "none" } : {}),
-              ...(p === "br" ? { borderLeft: "none", borderTop: "none" } : {}),
-            }}
-          />
-        ))}
+        <video
+          ref={videoRef}
+          playsInline
+          muted
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transform: "scaleX(-1)", // mirror selfie
+          }}
+        />
+
+        {/* combined face + card bounding box */}
         <div
+          style={{
+            position: "absolute",
+            top: "12%",
+            left: "16%",
+            right: "16%",
+            bottom: "14%",
+            border: `2px solid ${allGreen ? "var(--woolet-fit-success)" : "var(--woolet-fit-frame)"}`,
+            borderRadius: 6,
+            boxShadow: allGreen
+              ? "0 0 0 8px rgba(42,95,58,0.25)"
+              : "0 0 0 0 var(--woolet-fit-pulse)",
+            animation: allGreen ? "none" : "fitPulse 2s ease-in-out infinite",
+            transition: "border-color 200ms, box-shadow 200ms",
+            pointerEvents: "none",
+          }}
+        />
+
+        {/* SVG instruction overlay (first 4s) */}
+        <div
+          ref={overlayRef}
           style={{
             position: "absolute",
             inset: 0,
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            fontFamily: "Barlow, sans-serif",
-            fontSize: "0.6rem",
-            letterSpacing: "0.3em",
-            color: "var(--woolet-fit-text)",
-            opacity: 0.35,
-            textTransform: "uppercase",
+            background: "rgba(248,246,241,0.55)",
+            opacity: overlayVisible ? 1 : 0,
+            transition: "opacity 600ms ease",
+            pointerEvents: "none",
+            padding: "0 24px",
           }}
         >
-          Preview mode
+          <svg width="180" height="220" viewBox="0 0 180 220" fill="none">
+            {/* face oval */}
+            <ellipse cx="90" cy="110" rx="52" ry="72" stroke="#1F1B16" strokeWidth="1.5" opacity="0.55" />
+            {/* eyes */}
+            <circle cx="72" cy="98" r="3" fill="#1F1B16" opacity="0.55" />
+            <circle cx="108" cy="98" r="3" fill="#1F1B16" opacity="0.55" />
+            {/* eyebrow line */}
+            <path d="M 64 86 L 80 84" stroke="#1F1B16" strokeWidth="1.5" opacity="0.55" />
+            <path d="M 100 84 L 116 86" stroke="#1F1B16" strokeWidth="1.5" opacity="0.55" />
+            {/* card on right cheek (vertical) */}
+            <rect x="124" y="88" width="22" height="36" fill="var(--woolet-fit-frame)" opacity="0.85" rx="2" />
+            <rect x="127" y="100" width="6" height="4" fill="#F8F6F1" opacity="0.6" rx="1" />
+          </svg>
+          <p
+            style={{
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 400,
+              fontSize: "0.875rem",
+              color: "var(--woolet-fit-text)",
+              textAlign: "center",
+              maxWidth: 320,
+              marginTop: 14,
+              lineHeight: 1.45,
+            }}
+          >
+            Hold any credit-card-sized card flat against your right cheek. Top edge just below your eyebrow.
+          </p>
         </div>
       </div>
 
-      {/* Bottom — progress + tip */}
-      <div style={{ width: "100%", maxWidth: 420 }}>
-        <div style={{ height: 2, background: "rgba(31,27,22,0.12)", borderRadius: 1, overflow: "hidden", marginBottom: 16 }}>
-          <div
-            style={{
-              height: "100%",
-              width: `${elapsed}%`,
-              background: "var(--woolet-fit-frame)",
-              transition: "width 200ms linear",
-            }}
-          />
+      {/* BOTTOM — confidence strip */}
+      <div style={{ width: "100%", maxWidth: 520 }}>
+        <div style={{ display: "flex", gap: 6 }}>
+          {(["card", "tilt", "lighting", "distance"] as CheckKey[]).map((k) => (
+            <div
+              key={k}
+              style={{
+                flex: 1,
+                height: 3,
+                borderRadius: 2,
+                background: checks[k]
+                  ? "var(--woolet-fit-success)"
+                  : "rgba(31,27,22,0.18)",
+                transition: "background 200ms",
+              }}
+            />
+          ))}
         </div>
-        <div
-          style={{
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 300,
-            fontSize: "0.7rem",
-            color: "var(--woolet-fit-text)",
-            opacity: 0.55,
-            textAlign: "center",
-            letterSpacing: "0.02em",
-          }}
-        >
-          Sub-millimeter measurement · scan stays on device
-        </div>
+
+        {showFallback && (
+          <div style={{ marginTop: 18, animation: "wizFadeIn 300ms ease both" }}>
+            <div
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 500,
+                fontSize: "0.625rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "#A07A2A",
+                marginBottom: 10,
+                textAlign: "center",
+              }}
+            >
+              Having trouble?
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <button
+                onClick={() => {
+                  pushEvent("fit_cardless_fallback_taken");
+                  onCardlessFallback();
+                }}
+                style={{ ...goldButtonStyle, padding: "12px 18px", fontSize: "0.65rem" }}
+              >
+                Skip the card · Use cardless mode
+              </button>
+              <button
+                onClick={() => {
+                  pushEvent("fit_founder_call_booked");
+                  onFounderCall();
+                }}
+                style={{
+                  ...ghostButtonStyle,
+                  padding: "12px 18px",
+                  fontSize: "0.65rem",
+                  color: "var(--woolet-fit-text)",
+                  borderColor: "rgba(31,27,22,0.3)",
+                }}
+              >
+                Book a 5-minute call with the founder
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -375,19 +704,48 @@ function ResultStep({
   measurement,
   onSwapShape,
   onReserve,
+  onBespoke,
 }: {
   measurement: Measurement;
   onSwapShape: () => void;
   onReserve: () => void;
+  onBespoke: () => void;
 }) {
   useEffect(() => {
     pushEvent("fit_result_shown", {
-      face_width_mm: measurement.faceWidth,
-      bridge_mm: measurement.bridge,
-      pd_mm: measurement.pd,
+      face_width_mm: measurement.faceWidthMm,
+      bridge_mm: measurement.bridgeMm,
+      pd_mm: measurement.pdMm,
       recommended_sku: measurement.recommendedSku,
+      confidence: measurement.confidence,
     });
   }, [measurement]);
+
+  if (measurement.recommendedSku === "bespoke") {
+    return (
+      <div className="max-w-xl mx-auto flex flex-col gap-7 animate-fade-in">
+        <div className="woolet-eyebrow">
+          <div className="woolet-eyebrow-line" />
+          <span className="woolet-eyebrow-text">YOUR MEASUREMENT</span>
+        </div>
+        <h2 className="font-display text-woolet-white" style={{ fontSize: "clamp(2rem, 4vw, 2.6rem)", fontWeight: 300 }}>
+          Your face is <em className="italic text-gold-light">beyond standard</em>.
+        </h2>
+        <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+          We measured a face width of {measurement.faceWidthMm} mm. That's outside our standard 152–168 mm range —
+          which is exactly what Bespoke is built for.
+        </p>
+        <Link to="/en/fit/bespoke" style={goldButtonStyle} onClick={onBespoke}>
+          Explore Bespoke
+        </Link>
+      </div>
+    );
+  }
+
+  const sku = SKU_DETAIL[measurement.recommendedSku];
+  const altLabel = measurement.recommendedSku.startsWith("009")
+    ? "Show me the other shape (007 round) →"
+    : "Show me the other shape (009 soft square) →";
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-8 animate-fade-in">
@@ -396,45 +754,28 @@ function ResultStep({
         <span className="woolet-eyebrow-text">YOUR MEASUREMENT</span>
       </div>
 
-      {/* Three numbers — the visual hero */}
+      {/* three numbers */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4">
         {[
-          { label: "Face width", val: measurement.faceWidth },
-          { label: "Bridge", val: measurement.bridge },
-          { label: "PD", val: measurement.pd },
+          { label: "Face width", val: measurement.faceWidthMm },
+          { label: "Bridge", val: measurement.bridgeMm },
+          { label: "PD", val: measurement.pdMm },
         ].map((n) => (
           <div key={n.label} className="flex flex-col">
             <span
               className="uppercase tracking-[0.25em] mb-2"
-              style={{
-                fontFamily: "Barlow, sans-serif",
-                fontWeight: 500,
-                fontSize: "0.55rem",
-                color: "hsl(var(--gold-dim))",
-              }}
+              style={{ fontFamily: "Barlow, sans-serif", fontWeight: 500, fontSize: "0.55rem", color: "hsl(var(--gold-dim))" }}
             >
               {n.label}
             </span>
             <div className="flex items-baseline gap-2">
               <span
                 className="font-display"
-                style={{
-                  fontSize: "clamp(2.8rem, 6vw, 3.6rem)",
-                  fontWeight: 300,
-                  color: "hsl(var(--gold))",
-                  lineHeight: 1,
-                }}
+                style={{ fontSize: "clamp(2.8rem, 6vw, 3.6rem)", fontWeight: 300, color: "hsl(var(--gold))", lineHeight: 1 }}
               >
                 {n.val}
               </span>
-              <span
-                className="font-display"
-                style={{
-                  fontSize: "1.3rem",
-                  fontWeight: 300,
-                  color: "hsl(var(--gold-light))",
-                }}
-              >
+              <span className="font-display" style={{ fontSize: "1.3rem", fontWeight: 300, color: "hsl(var(--gold-light))" }}>
                 mm
               </span>
             </div>
@@ -442,34 +783,33 @@ function ResultStep({
         ))}
       </div>
 
+      <p
+        className="italic text-center"
+        style={{ fontSize: "0.8rem", color: "hsl(var(--cream-dim))", fontFamily: "Barlow, sans-serif", fontWeight: 300 }}
+      >
+        {TRUST_COPY[measurement.cardType]}
+      </p>
+
       <div className="woolet-divider" />
 
-      {/* Recommendation */}
+      {/* recommendation */}
       <div className="flex flex-col gap-3">
         <div className="woolet-eyebrow">
           <div className="woolet-eyebrow-line" />
           <span className="woolet-eyebrow-text">YOUR RECOMMENDED FIT</span>
         </div>
-        <h2
-          className="font-display text-woolet-white"
-          style={{ fontSize: "clamp(1.8rem, 4vw, 2.4rem)", fontWeight: 300, lineHeight: 1.05 }}
-        >
-          {measurement.recommendedSku}
+        <h2 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.8rem, 4vw, 2.4rem)", fontWeight: 300, lineHeight: 1.05 }}>
+          Woolet {measurement.recommendedSku}
         </h2>
         <span
           className="uppercase tracking-[0.25em]"
-          style={{
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 500,
-            fontSize: "0.7rem",
-            color: "hsl(var(--cream))",
-          }}
+          style={{ fontFamily: "Barlow, sans-serif", fontWeight: 500, fontSize: "0.7rem", color: "hsl(var(--cream))" }}
         >
-          {measurement.shape} · {measurement.width} mm
+          {sku.shape} · {sku.widthMm} mm
         </span>
         <p className="text-cream-dim leading-relaxed mt-2" style={{ fontSize: "0.85rem" }}>
-          Italian Mazzucchelli acetate. {measurement.bridgeMm} mm keyhole bridge.
-          Engineered for faces {measurement.faceWidth - 1}–{measurement.faceWidth + 6} mm.
+          Italian Mazzucchelli acetate. {sku.bridgeMm} mm keyhole bridge.
+          Engineered for faces {sku.range}.
         </p>
       </div>
 
@@ -489,16 +829,20 @@ function ResultStep({
           Reserve your fit · $1
         </button>
         <button
-          onClick={onSwapShape}
+          onClick={() => {
+            const from = measurement.recommendedSku;
+            const to = (from.startsWith("009") ? from.replace("009", "007") : from.replace("007", "009")) as Sku;
+            pushEvent("fit_result_sku_swapped", { from_sku: from, to_sku: to });
+            onSwapShape();
+          }}
           className="text-cream-dim underline self-start bg-transparent border-none cursor-pointer text-left"
           style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif" }}
         >
-          {measurement.recommendedSku.includes("009")
-            ? "Show me the other shape (007 round) →"
-            : "Show me the other shape (009 square) →"}
+          {altLabel}
         </button>
         <Link
           to="/en/fit/bespoke"
+          onClick={() => pushEvent("fit_result_bespoke_clicked", { measured_face_width: measurement.faceWidthMm })}
           className="text-cream-dim underline self-start"
           style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif" }}
         >
@@ -510,15 +854,9 @@ function ResultStep({
 }
 
 /* ═══════════════════════════════════════════════════
-   STEP 4.5 — Reserve form (modal-style inline)
+   Reserve form
    ═══════════════════════════════════════════════════ */
-function ReserveForm({
-  measurement,
-  onSuccess,
-}: {
-  measurement: Measurement;
-  onSuccess: () => void;
-}) {
+function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onSuccess: () => void }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [agree, setAgree] = useState(true);
@@ -531,12 +869,13 @@ function ReserveForm({
     setSubmitting(true);
     setError(null);
     try {
+      // TODO: Stripe Payment Element in Phase 4
       const { error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           email,
           name,
-          face_width: String(measurement.faceWidth),
-          models: measurement.recommendedSku,
+          face_width: String(measurement.faceWidthMm),
+          models: `Woolet ${measurement.recommendedSku}`,
         },
       });
       if (fnError) throw fnError;
@@ -611,27 +950,15 @@ function ReserveForm({
       </label>
 
       <label className="flex items-start gap-2 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={agree}
-          onChange={(e) => setAgree(e.target.checked)}
-          required
-          style={{ marginTop: 4 }}
-        />
+        <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} required style={{ marginTop: 4 }} />
         <span className="text-cream-dim" style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}>
           I accept the <Link to="/en/privacy-policy" className="text-gold-light underline">Privacy Policy</Link>.
         </span>
       </label>
 
-      {error && (
-        <p style={{ color: "hsl(var(--woolet-red))", fontSize: "0.8rem" }}>{error}</p>
-      )}
+      {error && <p style={{ color: "hsl(var(--woolet-red))", fontSize: "0.8rem" }}>{error}</p>}
 
-      <button
-        type="submit"
-        disabled={submitting || !agree || !name || !email}
-        style={{ ...goldButtonStyle, opacity: submitting || !agree ? 0.6 : 1 }}
-      >
+      <button type="submit" disabled={submitting || !agree || !name || !email} style={{ ...goldButtonStyle, opacity: submitting || !agree ? 0.6 : 1 }}>
         {submitting ? "Reserving…" : "Lock in my fit"}
       </button>
     </form>
@@ -639,9 +966,36 @@ function ReserveForm({
 }
 
 /* ═══════════════════════════════════════════════════
-   STEP 5 — Reserved
+   STEP 5 — Reserved (with .ics download)
    ═══════════════════════════════════════════════════ */
 function ReservedStep({ measurement }: { measurement: Measurement }) {
+  const sku = measurement.recommendedSku !== "bespoke" ? SKU_DETAIL[measurement.recommendedSku] : null;
+
+  const downloadIcs = useCallback(() => {
+    const ics = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Woolet//AI Fit//EN",
+      "BEGIN:VEVENT",
+      "UID:woolet-kickstarter-2026@woolet.co",
+      "DTSTAMP:20260514T000000Z",
+      "DTSTART:20261013T140000Z",
+      "DTEND:20261013T150000Z",
+      "SUMMARY:Woolet Kickstarter Launch",
+      "DESCRIPTION:Your Woolet fit is reserved. Back the campaign to lock in 40% off.",
+      "LOCATION:https://kickstarter.com/woolet",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
+    const blob = new Blob([ics], { type: "text/calendar" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "woolet-kickstarter-2026.ics";
+    a.click();
+    URL.revokeObjectURL(url);
+  }, []);
+
   return (
     <div className="max-w-xl mx-auto flex flex-col gap-7 animate-fade-in">
       <div className="woolet-eyebrow">
@@ -649,27 +1003,19 @@ function ReservedStep({ measurement }: { measurement: Measurement }) {
         <span className="woolet-eyebrow-text">RESERVATION CONFIRMED</span>
       </div>
 
-      <h2
-        className="font-display text-woolet-white leading-[0.95]"
-        style={{ fontSize: "clamp(2.6rem, 5vw, 3.4rem)", fontWeight: 300 }}
-      >
-        Your <em className="italic text-gold-light">fit</em> is locked.
+      <h2 className="font-display text-woolet-white leading-[0.95]" style={{ fontSize: "clamp(2.6rem, 5vw, 3.4rem)", fontWeight: 300 }}>
+        Your fit is <em className="italic text-gold-light">locked</em>.
       </h2>
 
       <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-        We've reserved your <span className="text-foreground">{measurement.recommendedSku}</span>{" "}
-        ({measurement.width} mm) for $99 — a 40% discount on the $149 retail. We'll email you 24 hours
-        before the Kickstarter launches in October 2026.
+        We've reserved your <span className="text-foreground">Woolet {measurement.recommendedSku}</span>
+        {sku ? ` (${sku.widthMm} mm)` : ""} for $99 — a 40% discount on the $149 retail.
+        We'll email you 24 hours before the Kickstarter launches in October 2026.
       </p>
 
-      <a
-        href="https://calendar.google.com/calendar/r/eventedit?text=Woolet+Kickstarter+launches&dates=20261013T140000Z/20261013T150000Z&details=Your+Woolet+fit+is+reserved.+Back+the+campaign+to+lock+in+40%25+off."
-        target="_blank"
-        rel="noopener noreferrer"
-        style={ghostButtonStyle}
-      >
+      <button onClick={downloadIcs} style={ghostButtonStyle}>
         Add to calendar · Oct 13, 2026
-      </a>
+      </button>
 
       <p className="text-cream-dim italic" style={{ fontSize: "0.8rem" }}>
         Want to refer a friend with a wide face? Get a free lens-cleaning subscription when three
@@ -687,30 +1033,57 @@ export default function FitWizard() {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
 
   const [step, setStep] = useState<Step>("intro");
-  const [measurement, setMeasurement] = useState<Measurement>(MOCK_MEASUREMENT);
+  const [measurement, setMeasurement] = useState<Measurement | null>(null);
+
   const [showReserve, setShowReserve] = useState(false);
 
-  const goCapture = useCallback(() => setStep("capture"), []);
+  // Toggle body class for capture-mode background guard
+  useEffect(() => {
+    if (step === "capture") document.body.classList.add("fit-capture-mode");
+    else document.body.classList.remove("fit-capture-mode");
+    return () => document.body.classList.remove("fit-capture-mode");
+  }, [step]);
+
   const goManual = useCallback(() => {
     window.location.href = "/en/fit/manual";
   }, []);
-  const onCaptureDone = useCallback(() => {
-    setMeasurement(MOCK_MEASUREMENT);
-    setStep("result");
+
+  const onCaptureDone = useCallback((m: Measurement) => {
+    setMeasurement(m);
+    if (m.recommendedSku === "bespoke") {
+      // auto-route bespoke per §6.2 edge cases
+      setStep("result");
+    } else {
+      setStep("result");
+    }
   }, []);
+
   const swapShape = useCallback(() => {
     setMeasurement((m) => {
-      const isNine = m.recommendedSku.includes("009");
-      if (isNine) {
-        return {
-          ...m,
-          recommendedSku: ALT_007[m.recommendedSku] || "Woolet 007 · L",
-          shape: "Round / Panto",
-        };
-      }
-      const flipped = m.recommendedSku.replace("007", "009");
-      return { ...m, recommendedSku: flipped, shape: "Soft Square" };
+      if (!m || m.recommendedSku === "bespoke") return m;
+      const swapped = (m.recommendedSku.startsWith("009")
+        ? m.recommendedSku.replace("009", "007")
+        : m.recommendedSku.replace("007", "009")) as Sku;
+      return { ...m, recommendedSku: swapped };
     });
+  }, []);
+
+  const onCardlessFallback = useCallback(() => {
+    // TODO: Phase 4 Auglio cardless integration
+    const m: Measurement = {
+      faceWidthMm: 162,
+      bridgeMm: 22,
+      pdMm: 66,
+      cardType: "cardless",
+      recommendedSku: recommendSku(162),
+      confidence: 0.88,
+    };
+    setMeasurement(m);
+    setStep("result");
+  }, []);
+
+  const onFounderCall = useCallback(() => {
+    window.open("https://calendly.com/woolet-founder/5min", "_blank", "noopener,noreferrer");
   }, []);
 
   return (
@@ -725,10 +1098,10 @@ export default function FitWizard() {
       <style>{`
         @keyframes fitPulse {
           0%, 100% { box-shadow: 0 0 0 0 var(--woolet-fit-pulse); }
-          50% { box-shadow: 0 0 0 18px transparent; }
+          50% { box-shadow: 0 0 0 14px transparent; }
         }
         @keyframes wizFadeIn {
-          from { opacity: 0; transform: translateY(6px); }
+          from { opacity: 0; transform: translateY(4px); }
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
@@ -738,21 +1111,30 @@ export default function FitWizard() {
       <main className="bg-background text-foreground" style={{ minHeight: "100vh" }}>
         <div className="px-5 sm:px-8 lg:px-16 py-16 sm:py-24">
           {step === "intro" && <IntroStep onBegin={() => setStep("consent")} />}
-          {step === "consent" && <ConsentStep onAllow={goCapture} onManual={goManual} />}
-          {step === "capture" && <CaptureStep onComplete={onCaptureDone} />}
-          {step === "result" && !showReserve && (
+          {step === "consent" && (
+            <ConsentStep onAllow={() => setStep("capture")} onManual={goManual} />
+          )}
+          {step === "capture" && (
+            <CaptureStep
+              onComplete={onCaptureDone}
+              onCardlessFallback={onCardlessFallback}
+              onFounderCall={onFounderCall}
+            />
+          )}
+          {step === "result" && measurement && !showReserve && (
             <ResultStep
               measurement={measurement}
               onSwapShape={swapShape}
               onReserve={() => setShowReserve(true)}
+              onBespoke={() => {}}
             />
           )}
-          {step === "result" && showReserve && (
+          {step === "result" && measurement && showReserve && (
             <div className="max-w-2xl mx-auto flex flex-col gap-8 animate-fade-in">
               <ReserveForm measurement={measurement} onSuccess={() => setStep("reserved")} />
             </div>
           )}
-          {step === "reserved" && <ReservedStep measurement={measurement} />}
+          {step === "reserved" && measurement && <ReservedStep measurement={measurement} />}
         </div>
       </main>
 
