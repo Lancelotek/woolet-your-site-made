@@ -16,9 +16,9 @@ import { Navigate } from "react-router-dom";
 
 const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
-    title: "Woolet — Italian Acetate Eyewear for Wide Faces (155mm+)",
+    title: "Woolet — AI-Fit Italian Acetate Eyewear for Wide Faces (155mm+)",
     description:
-      "Woolet 007 & 009 — Italian Mazzucchelli acetate frames precision-engineered for 155mm+ face widths. Extended temples, wider bridge. Join the waitlist.",
+      "Premium eyewear measured for your face. Three sizes per shape (155 / 158 / 161 mm) plus bespoke. Italian Mazzucchelli acetate. AI-fit measurement in 30 seconds.",
   },
   pl: {
     title: "Woolet — Okulary premium na szeroką twarz (155mm+)",
