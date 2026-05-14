@@ -15,7 +15,7 @@ const SizeMatrix = ({ fitHref = "/en/fit", semantic = true }: { fitHref?: string
   const HeadingTag = semantic ? "h2" : "div";
   return (
     <section
-      id="size-matrix"
+      id={semantic ? "size-matrix" : undefined}
       className="relative z-[2] w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-28"
       style={{ borderTop: "1px solid hsl(0 0% 100% / 0.055)" }}
     >
