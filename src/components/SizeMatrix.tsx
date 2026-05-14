@@ -24,7 +24,7 @@ const SizeMatrix = ({ fitHref = "/en/fit", semantic = true }: { fitHref?: string
           <div className="woolet-eyebrow-line" />
           <span className="woolet-eyebrow-text">THE FIT MATRIX</span>
         </div>
-        <HeadingTag className="font-display text-woolet-white leading-tight mb-4" style={{ fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 300 }} {...(!semantic && { "aria-hidden": "true" })}>
+        <HeadingTag className="font-display text-woolet-white leading-tight mb-4" style={{ fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 300 }} aria-hidden={!semantic || undefined}>
           Two shapes. <em className="italic text-gold-light">Three sizes.</em> One bespoke.
         </HeadingTag>
         <p className="text-cream-dim leading-relaxed tracking-wider max-w-2xl mb-10" style={{ fontSize: "0.95rem" }}>
