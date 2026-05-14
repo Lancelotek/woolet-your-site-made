@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
@@ -825,14 +825,61 @@ const FOUNDING_CLAIMED: Record<string, number> = {
   "009-L": 77,
 };
 
-function FoundingMemberFomo({ sku }: { sku: Sku }) {
+type FomoVariant = "A" | "B";
+
+const FOMO_VARIANT_KEY = "woolet_fomo_variant";
+
+function getFomoVariant(): FomoVariant {
+  if (typeof window === "undefined") return "A";
+  try {
+    const stored = window.localStorage.getItem(FOMO_VARIANT_KEY);
+    if (stored === "A" || stored === "B") return stored;
+    const assigned: FomoVariant = Math.random() < 0.5 ? "A" : "B";
+    window.localStorage.setItem(FOMO_VARIANT_KEY, assigned);
+    pushEvent("fit_fomo_variant_assigned", { variant: assigned });
+    return assigned;
+  } catch {
+    return "A";
+  }
+}
+
+const FOMO_COPY: Record<FomoVariant, {
+  badge: string;
+  headline: string;
+  priceLine: (sku: Sku) => React.ReactNode;
+  footnote: React.ReactNode;
+}> = {
+  A: {
+    badge: "Founding member · Kickstarter",
+    headline: "Save 30%",
+    priceLine: () => (
+      <>— <span className="text-woolet-white">$133</span> instead of <span className="line-through">$190</span> retail</>
+    ),
+    footnote: (
+      <>Mazzucchelli acetate is sourced in limited batches. First production: 100 frames per model. Next batch ships Q3 2026 at $190 retail. Campaign ends <span className="text-woolet-white">August 15, 2026</span> or when spots fill.</>
+    ),
+  },
+  B: {
+    badge: "Last founding batch · 100 frames",
+    headline: "$57 off — founders only",
+    priceLine: () => (
+      <>Lock in <span className="text-woolet-white">$133</span> today. Retail goes to <span className="line-through">$190</span> in Q3 2026.</>
+    ),
+    footnote: (
+      <>Only 100 frames per model in this Mazzucchelli acetate run. Once founding spots are gone, the next batch ships at full retail. Reserve before <span className="text-woolet-white">August 15, 2026</span>.</>
+    ),
+  },
+};
+
+function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }) {
   const claimed = FOUNDING_CLAIMED[sku] ?? 75;
   const left = Math.max(0, FOUNDING_TOTAL - claimed);
   const pct = Math.min(100, Math.round((claimed / FOUNDING_TOTAL) * 100));
+  const copy = FOMO_COPY[variant];
 
   useEffect(() => {
-    pushEvent("fit_result_fomo_shown", { recommended_sku: sku, spots_left: left });
-  }, [sku, left]);
+    pushEvent("fit_result_fomo_shown", { recommended_sku: sku, spots_left: left, variant });
+  }, [sku, left, variant]);
 
   return (
     <div
@@ -857,7 +904,7 @@ function FoundingMemberFomo({ sku }: { sku: Sku }) {
             color: "hsl(var(--gold))",
           }}
         >
-          Founding member · Kickstarter
+          {copy.badge}
         </span>
       </div>
 
@@ -871,13 +918,13 @@ function FoundingMemberFomo({ sku }: { sku: Sku }) {
             lineHeight: 1,
           }}
         >
-          Save 30%
+          {copy.headline}
         </span>
         <span
           className="text-cream-dim"
           style={{ fontSize: "0.9rem", fontFamily: "Barlow, sans-serif" }}
         >
-          — <span className="text-woolet-white">$133</span> instead of <span className="line-through">$190</span> retail
+          {copy.priceLine(sku)}
         </span>
       </div>
 
@@ -921,9 +968,7 @@ function FoundingMemberFomo({ sku }: { sku: Sku }) {
           className="text-cream-dim leading-relaxed"
           style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
         >
-          Mazzucchelli acetate is sourced in limited batches. First production:
-          100 frames per model. Next batch ships Q3 2026 at $190 retail.
-          Campaign ends <span className="text-woolet-white">August 15, 2026</span> or when spots fill.
+          {copy.footnote}
         </p>
       </div>
     </div>
@@ -945,6 +990,8 @@ function ResultStep({
   onReserve: () => void;
   onBespoke: () => void;
 }) {
+  const fomoVariant = useMemo(() => getFomoVariant(), []);
+
   useEffect(() => {
     pushEvent("fit_result_shown", {
       face_width_mm: measurement.faceWidthMm,
@@ -952,8 +999,9 @@ function ResultStep({
       pd_mm: measurement.pdMm,
       recommended_sku: measurement.recommendedSku,
       confidence: measurement.confidence,
+      fomo_variant: fomoVariant,
     });
-  }, [measurement]);
+  }, [measurement, fomoVariant]);
 
   if (measurement.recommendedSku === "bespoke") {
     return (
@@ -1048,7 +1096,7 @@ function ResultStep({
       </div>
 
       {/* FOMO — founding member urgency */}
-      <FoundingMemberFomo sku={measurement.recommendedSku} />
+      <FoundingMemberFomo sku={measurement.recommendedSku} variant={fomoVariant} />
 
       <div className="flex flex-col gap-4 pt-2">
         <button
@@ -1056,6 +1104,7 @@ function ResultStep({
             pushEvent("deposit_clicked", {
               recommended_sku: measurement.recommendedSku,
               source_page: "fit_result",
+              fomo_variant: fomoVariant,
             });
             onReserve();
           }}
