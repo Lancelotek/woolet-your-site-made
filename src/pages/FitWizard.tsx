@@ -165,10 +165,17 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
         >
           Scan your face · Reserve for $1
         </button>
-        <Link to="/en#size-matrix" style={ghostButtonStyle}>
-          See the size matrix
+        <Link to="/en/fit/scan" style={ghostButtonStyle} onClick={() => pushEvent("fit_scan_link_clicked", { from: "intro" })}>
+          No card? Try cardless scan →
         </Link>
       </div>
+      <Link
+        to="/en#size-matrix"
+        className="text-cream-dim"
+        style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif", textAlign: "center", textDecoration: "underline", textUnderlineOffset: 4 }}
+      >
+        See the size matrix
+      </Link>
     </div>
   );
 }
@@ -1329,6 +1336,26 @@ export default function FitWizard() {
     else document.body.classList.remove("fit-capture-mode");
     return () => document.body.classList.remove("fit-capture-mode");
   }, [step]);
+
+  // Shortcut: ?face_width=NNN&source=scan jumps straight to result
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const fw = Number(params.get("face_width"));
+    if (!fw || fw < 130 || fw > 200) return;
+    const source = params.get("source") || "scan";
+    const m: Measurement = {
+      faceWidthMm: fw,
+      bridgeMm: fw < 155 ? 21 : fw < 161 ? 22 : 23,
+      pdMm: Math.round(fw * 0.41),
+      cardType: "cardless",
+      recommendedSku: recommendSku(fw),
+      confidence: 0.9,
+    };
+    setMeasurement(m);
+    setStep("result");
+    pushEvent("fit_result_from_scan", { face_width_mm: fw, source });
+  }, []);
 
   const goManual = useCallback(() => {
     window.location.href = "/en/fit/manual";

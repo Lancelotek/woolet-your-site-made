@@ -15,6 +15,7 @@ const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
 const FitWizard = lazy(() => import("./pages/FitWizard.tsx"));
 const FitManual = lazy(() => import("./pages/FitManual.tsx"));
 const FitBespoke = lazy(() => import("./pages/FitBespoke.tsx"));
+const FitScan = lazy(() => import("./pages/FitScan.tsx"));
 const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const AdvertorialPage = lazy(() => import("./pages/lp/AdvertorialPage.tsx"));
@@ -51,6 +52,7 @@ const App = () => (
           <Route path="/:lang/fit" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
           <Route path="/en/fit/bespoke" element={<FitBespoke />} />
+          <Route path="/:lang/fit/scan" element={<FitScan />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
 
           {/* Legacy routes redirect */}
