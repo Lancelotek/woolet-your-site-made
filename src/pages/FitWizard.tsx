@@ -1066,6 +1066,12 @@ function ResultStep({
       confidence: measurement.confidence,
       fomo_variant: fomoVariant,
     });
+    pushEvent("fit_fomo_variant_assigned", {
+      variant: fomoVariant,
+      recommended_sku: measurement.recommendedSku,
+      price_pre_order: 133,
+      price_msrp: 190,
+    });
   }, [measurement, fomoVariant]);
 
   if (measurement.recommendedSku === "bespoke") {
