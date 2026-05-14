@@ -15,7 +15,7 @@ import { isValidLang, type Lang } from "@/lib/i18n";
    Auglio SDK swap-in is Phase 4 — component contracts stable.
    ───────────────────────────────────────────── */
 
-type Step = "intro" | "consent" | "capture" | "result" | "reserved";
+type Step = "intro" | "consent" | "capture" | "result" | "saved" | "reserved";
 type CardType = "credit" | "library" | "id" | "cardless" | "unknown";
 type Sku =
   | "007-S" | "007-M" | "007-L"
