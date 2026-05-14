@@ -81,14 +81,25 @@ const WIDTH_OPTIONS = [
    MODAL A — Reservation ($1)
    3 steps: Scan / measure → Email + name → Payment (mock)
    ═══════════════════════════════════════════════════ */
-export function ReserveModal({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+export function ReserveModal({
+  open,
+  onOpenChange,
+  onSwitchToWaitlist,
+}: {
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+  onSwitchToWaitlist?: () => void;
+}) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [width, setWidth] = useState("158");
+  const [adjustOpen, setAdjustOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [agree, setAgree] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const sizeLabel = width === "155" ? "S" : width === "161" ? "L" : "M";
 
   // Reset on close
   useEffect(() => {
@@ -149,16 +160,16 @@ export function ReserveModal({ open, onOpenChange }: { open: boolean; onOpenChan
             </div>
           </div>
 
-          {/* Step 1 — Measure */}
+          {/* Step 1 — Measure (AI scan only) */}
           {step === 1 && (
-            <div className="flex flex-col gap-5 animate-fade-in">
+            <div className="flex flex-col gap-6 animate-fade-in">
               <DialogTitle asChild>
                 <h2 className="font-display text-woolet-white" style={{ fontSize: "1.7rem", fontWeight: 300, lineHeight: 1.1 }}>
                   First — your <em className="italic text-gold-light">measurement</em>.
                 </h2>
               </DialogTitle>
-              <DialogDescription className="text-cream-dim leading-relaxed" style={{ fontSize: "0.85rem" }}>
-                Run the 30-second AI scan for sub-millimeter accuracy, or pick the width that matches your current frames.
+              <DialogDescription className="text-cream-dim leading-relaxed" style={{ fontSize: "0.88rem", lineHeight: 1.6 }}>
+                30 seconds. Your phone or laptop camera. AI maps your face for sub-millimeter accuracy — this is the whole point. No camera access, no measurement, no $1 reserve.
               </DialogDescription>
 
               <Link
@@ -167,51 +178,69 @@ export function ReserveModal({ open, onOpenChange }: { open: boolean; onOpenChan
                   pushGtmEvent("reservation_open_full_scan");
                   onOpenChange(false);
                 }}
-                style={{ ...goldBtn, textAlign: "center", textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                style={{
+                  ...goldBtn,
+                  minHeight: 64,
+                  padding: "20px 24px",
+                  fontSize: "0.72rem",
+                  textAlign: "center",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                Open the full AI scan
+                Open the full AI scan — 30 seconds
               </Link>
 
-              <div className="flex items-center gap-3 my-1">
-                <div className="flex-1 h-px bg-[hsl(0_0%_100%/0.08)]" />
-                <span style={{ fontSize: "0.6rem", letterSpacing: "0.2em", color: "hsl(var(--cream-dim))", textTransform: "uppercase" }}>or</span>
-                <div className="flex-1 h-px bg-[hsl(0_0%_100%/0.08)]" />
-              </div>
+              <ul className="flex flex-col gap-1.5" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                {[
+                  "We never store the photo",
+                  "Works on phone or laptop camera",
+                  "You can retake until it's right",
+                ].map((line) => (
+                  <li
+                    key={line}
+                    style={{
+                      fontFamily: "Barlow, sans-serif",
+                      fontSize: "0.75rem",
+                      color: "hsl(var(--cream-dim))",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    · {line}
+                  </li>
+                ))}
+              </ul>
 
-              <div>
-                <label style={labelStyle}>Pick your frame width</label>
-                <div className="flex flex-col gap-2">
-                  {WIDTH_OPTIONS.map((opt) => (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      onClick={() => setWidth(opt.value)}
-                      style={{
-                        textAlign: "left",
-                        padding: "12px 14px",
-                        background: width === opt.value ? "hsl(var(--gold) / 0.08)" : "transparent",
-                        border: `1px solid ${width === opt.value ? "hsl(var(--gold))" : "hsl(0 0% 100% / 0.1)"}`,
-                        color: "hsl(var(--cream))",
-                        fontFamily: "Barlow, sans-serif",
-                        fontSize: "0.85rem",
-                        cursor: "pointer",
-                        transition: "all 150ms",
-                        borderRadius: 2,
-                      }}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <div style={{ height: 1, background: "hsl(0 0% 100% / 0.06)", marginTop: 4 }} />
 
-              <button onClick={() => setStep(2)} style={{ ...goldBtn }}>
-                Continue →
+              <button
+                type="button"
+                onClick={() => {
+                  pushGtmEvent("reservation_switch_to_waitlist");
+                  onSwitchToWaitlist?.();
+                }}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.8rem",
+                  color: "hsl(var(--cream-dim))",
+                  textAlign: "center",
+                  padding: 0,
+                }}
+              >
+                Can't scan right now?{" "}
+                <span style={{ color: "hsl(var(--gold-light, var(--gold)))", textDecoration: "underline" }}>
+                  Join the waitlist instead →
+                </span>
               </button>
             </div>
           )}
 
-          {/* Step 2 — Identity */}
+          {/* Step 2 — Confirm measurement + identity */}
           {step === 2 && (
             <form
               onSubmit={(e) => {
@@ -220,24 +249,51 @@ export function ReserveModal({ open, onOpenChange }: { open: boolean; onOpenChan
               }}
               className="flex flex-col gap-5 animate-fade-in"
             >
-              <DialogTitle asChild>
-                <h2 className="font-display text-woolet-white" style={{ fontSize: "1.7rem", fontWeight: 300, lineHeight: 1.1 }}>
-                  Where do we send the <em className="italic text-gold-light">confirmation</em>?
-                </h2>
-              </DialogTitle>
-              <DialogDescription className="text-cream-dim" style={{ fontSize: "0.82rem" }}>
-                Reserved width:{" "}
-                <span className="text-foreground">
-                  {width === "unsure" ? "We'll help you decide" : `${width} mm`}
-                </span>
-                {" · "}
+              <div className="flex flex-col gap-1">
+                <span style={{ ...eyebrowText, color: "hsl(var(--cream-dim))" }}>Your measurement</span>
+                <DialogTitle asChild>
+                  <h2 className="font-display text-woolet-white" style={{ fontSize: "1.7rem", fontWeight: 300, lineHeight: 1.1 }}>
+                    <em className="italic text-gold-light">{width} mm</em> — {sizeLabel}
+                  </h2>
+                </DialogTitle>
+              </div>
+
+              <div>
                 <button
                   type="button"
-                  onClick={() => setStep(1)}
+                  onClick={() => setAdjustOpen((v) => !v)}
                   style={{ ...ghostLink, fontSize: "0.78rem" }}
                 >
-                  change
+                  {adjustOpen ? "Close adjust ↑" : "Doesn't feel right? Adjust →"}
                 </button>
+                {adjustOpen && (
+                  <div className="flex flex-col gap-2 mt-3 animate-fade-in">
+                    {WIDTH_OPTIONS.filter((o) => o.value !== "unsure").map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setWidth(opt.value)}
+                        style={{
+                          textAlign: "left",
+                          padding: "10px 14px",
+                          background: width === opt.value ? "hsl(var(--gold) / 0.08)" : "transparent",
+                          border: `1px solid ${width === opt.value ? "hsl(var(--gold))" : "hsl(0 0% 100% / 0.1)"}`,
+                          color: "hsl(var(--cream))",
+                          fontFamily: "Barlow, sans-serif",
+                          fontSize: "0.82rem",
+                          cursor: "pointer",
+                          borderRadius: 2,
+                        }}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <DialogDescription className="text-cream-dim" style={{ fontSize: "0.82rem" }}>
+                Where do we send the confirmation?
               </DialogDescription>
 
               <div>
