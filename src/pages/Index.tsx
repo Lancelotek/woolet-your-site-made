@@ -328,7 +328,7 @@ const Index = () => {
           </div>
         </div>
 
-        {isEn && <SizeMatrix fitHref={`/${lang}/fit`} />}
+        {isEn && <SizeMatrix fitHref={`/${lang}/fit`} sectionId="size-matrix-mobile" />}
 
         {/* Spacer for sticky mobile CTA */}
         <div className="h-16" />
