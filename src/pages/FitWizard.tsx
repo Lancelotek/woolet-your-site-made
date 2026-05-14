@@ -871,7 +871,6 @@ function getFomoVariant(): FomoVariant {
     if (stored === "A" || stored === "B") return stored;
     const assigned: FomoVariant = Math.random() < 0.5 ? "A" : "B";
     window.localStorage.setItem(FOMO_VARIANT_KEY, assigned);
-    pushEvent("fit_fomo_variant_assigned", { variant: assigned });
     return assigned;
   } catch {
     return "A";
@@ -1066,6 +1065,12 @@ function ResultStep({
       recommended_sku: measurement.recommendedSku,
       confidence: measurement.confidence,
       fomo_variant: fomoVariant,
+    });
+    pushEvent("fit_fomo_variant_assigned", {
+      variant: fomoVariant,
+      recommended_sku: measurement.recommendedSku,
+      price_pre_order: 133,
+      price_msrp: 190,
     });
   }, [measurement, fomoVariant]);
 
