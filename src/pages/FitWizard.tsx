@@ -43,10 +43,9 @@ const ALT_007: Record<string, string> = {
 
 const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   if (typeof window === "undefined") return;
-  // @ts-expect-error dataLayer is global
-  window.dataLayer = window.dataLayer || [];
-  // @ts-expect-error
-  window.dataLayer.push({ event, ...params });
+  const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({ event, ...params });
 };
 
 /* ───────── Shared button styles ───────── */
