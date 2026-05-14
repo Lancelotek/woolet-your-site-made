@@ -871,7 +871,6 @@ function getFomoVariant(): FomoVariant {
     if (stored === "A" || stored === "B") return stored;
     const assigned: FomoVariant = Math.random() < 0.5 ? "A" : "B";
     window.localStorage.setItem(FOMO_VARIANT_KEY, assigned);
-    pushEvent("fit_fomo_variant_assigned", { variant: assigned });
     return assigned;
   } catch {
     return "A";
