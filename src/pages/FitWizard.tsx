@@ -1284,7 +1284,15 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
       </label>
 
       <label className="flex items-start gap-2 cursor-pointer">
-        <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} required style={{ marginTop: 4 }} />
+        <input
+          type="checkbox"
+          checked={agree}
+          onChange={(e) => setAgree(e.target.checked)}
+          onFocus={trackFocus("privacy_consent")}
+          required
+          style={{ marginTop: 4 }}
+          data-clarity-region="reserve-form-consent"
+        />
         <span className="text-cream-dim" style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}>
           I accept the <Link to="/en/privacy-policy" className="text-gold-light underline">Privacy Policy</Link>.
         </span>
