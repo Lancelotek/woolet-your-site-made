@@ -386,7 +386,14 @@ const Index = () => {
         </div>
       </main>
 
-      <ReserveModal open={reserveOpen} onOpenChange={setReserveOpen} />
+      <ReserveModal
+        open={reserveOpen}
+        onOpenChange={setReserveOpen}
+        onSwitchToWaitlist={() => {
+          setReserveOpen(false);
+          setTimeout(() => setWaitlistOpen(true), 200);
+        }}
+      />
       <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </>
   );
