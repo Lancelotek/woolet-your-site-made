@@ -2,18 +2,24 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 
+const PAGE_TITLE = "404 — Page Not Found | Woolet";
+
 const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    // Imperative fallback in case Helmet hasn't flushed yet (e.g. analytics fires before commit)
+    document.title = PAGE_TITLE;
   }, [location.pathname]);
 
   return (
     <>
-      <Helmet>
-        <title>404 — Page Not Found | Woolet</title>
-        <meta name="robots" content="noindex,follow" />
+      <Helmet prioritizeSeoTags>
+        <title>{PAGE_TITLE}</title>
+        <meta name="robots" content="noindex, follow" />
+        <meta property="og:title" content={PAGE_TITLE} />
+        <meta name="twitter:title" content={PAGE_TITLE} />
       </Helmet>
       <div className="flex min-h-screen items-center justify-center bg-muted">
         <div className="text-center">
