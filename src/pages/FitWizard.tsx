@@ -1680,6 +1680,8 @@ export default function FitWizard() {
     const cleanUrl = window.location.origin + window.location.pathname;
     window.history.replaceState({}, "", cleanUrl);
   }, []);
+
+  const goManual = useCallback(() => {
     window.location.href = "/en/fit/manual";
   }, []);
 
