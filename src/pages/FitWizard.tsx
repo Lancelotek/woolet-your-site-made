@@ -629,23 +629,43 @@ function CaptureStep({
         </div>
       </div>
 
-      {/* BOTTOM — confidence strip */}
+      {/* BOTTOM — confidence strip with per-check labels */}
       <div style={{ width: "100%", maxWidth: 520 }}>
-        <div style={{ display: "flex", gap: 6 }}>
-          {(["card", "tilt", "lighting", "distance"] as CheckKey[]).map((k) => (
-            <div
-              key={k}
-              style={{
-                flex: 1,
-                height: 3,
-                borderRadius: 2,
-                background: checks[k]
-                  ? "var(--woolet-fit-success)"
-                  : "rgba(31,27,22,0.18)",
-                transition: "background 200ms",
-              }}
-            />
-          ))}
+        <div style={{ display: "flex", gap: 8 }}>
+          {([
+            { k: "card", label: "Card" },
+            { k: "tilt", label: "Tilt" },
+            { k: "lighting", label: "Light" },
+            { k: "distance", label: "Distance" },
+          ] as { k: CheckKey; label: string }[]).map(({ k, label }) => {
+            const ok = checks[k];
+            return (
+              <div key={k} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6, alignItems: "center" }}>
+                <div
+                  style={{
+                    width: "100%",
+                    height: 3,
+                    borderRadius: 2,
+                    background: ok ? "var(--woolet-fit-success)" : "rgba(31,27,22,0.18)",
+                    transition: "background 200ms",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.55rem",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: ok ? "var(--woolet-fit-success)" : "rgba(31,27,22,0.45)",
+                    transition: "color 200ms",
+                  }}
+                >
+                  {label}
+                </span>
+              </div>
+            );
+          })}
         </div>
 
         {showFallback && (
