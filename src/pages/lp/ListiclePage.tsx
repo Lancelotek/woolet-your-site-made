@@ -467,7 +467,7 @@ const ListiclePage = () => {
                       opacity: (!email || !privacyAccepted) ? 0.5 : 1,
                     }}
                   >
-                    {loading ? "SENDING..." : "CLAIM MY FOUNDING SPOT →"}
+                    {loading ? "SENDING..." : "JOIN THE WAITLIST · 30% OFF AT LAUNCH"}
                   </button>
 
                   {/* Subtext */}
