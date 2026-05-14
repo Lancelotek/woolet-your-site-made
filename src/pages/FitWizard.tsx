@@ -323,6 +323,8 @@ function CaptureStep({
   const [showFallback, setShowFallback] = useState(false);
   const allGreenSinceRef = useRef<number | null>(null);
   const tiltGammaRef = useRef(0);
+  const faceDistanceRef = useRef(0); // face width / video width (0..1)
+  const faceDetectedRef = useRef(false);
   const startedAtRef = useRef(Date.now());
   const cardDetectedAtRef = useRef<number | null>(null);
   const completedRef = useRef(false);
