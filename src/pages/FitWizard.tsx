@@ -6,7 +6,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CardPositionIllustration from "@/components/CardPositionIllustration";
 import SocialProofToast from "@/components/SocialProofToast";
+import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { isValidLang, type Lang } from "@/lib/i18n";
+
+const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
+const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
 
 /* ─────────────────────────────────────────────
    Woolet AI Fit — v2.1 Cheek-Card Method
@@ -1402,6 +1406,8 @@ function SavedUpsellStep({
     });
   }, [measurement, fomoVariant]);
 
+  const [showCheckout, setShowCheckout] = useState(false);
+
   const reserve = () => {
     pushEvent("deposit_clicked", {
       recommended_sku: measurement.recommendedSku,
@@ -1413,20 +1419,29 @@ function SavedUpsellStep({
         recommended_sku: measurement.recommendedSku,
       });
     }
-    setSubmitting(true);
-    // TODO: Stripe Payment Element in Phase 4 — for now mark complete
-    pushEvent("deposit_completed", {
-      recommended_sku: measurement.recommendedSku,
-      amount: 1,
-      source: "fit_saved_upsell",
-    });
+    // Persist measurement so we can restore the wizard state after Stripe redirects back.
     try {
-      window.localStorage.setItem("reservation_completed", "true");
+      window.sessionStorage.setItem(
+        RESERVATION_STORAGE_KEY,
+        JSON.stringify({ measurement, email, fomoVariant }),
+      );
     } catch {
       /* noop */
     }
-    onReserved();
+    setShowCheckout(true);
   };
+
+  const closeCheckout = () => {
+    setShowCheckout(false);
+    setSubmitting(false);
+    pushEvent("deposit_modal_closed", {
+      recommended_sku: measurement.recommendedSku,
+    });
+  };
+
+  const returnUrl = typeof window !== "undefined"
+    ? `${window.location.origin}${window.location.pathname}?checkout=success&session_id={CHECKOUT_SESSION_ID}`
+    : "";
 
   const maybeLater = () => {
     pushEvent("fit_upsell_declined", {
