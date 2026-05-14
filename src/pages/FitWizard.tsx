@@ -68,10 +68,15 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   // Mirror key conversion + experiment events to Microsoft Clarity
   const CLARITY_EVENTS = new Set([
     "deposit_clicked",
+    "deposit_completed",
     "fit_result_fomo_shown",
     "fit_fomo_variant_assigned",
     "fit_result_shown",
     "fit_scan_completed",
+    "fit_pricing_viewed",
+    "fit_form_field_focus",
+    "fit_form_submit_attempt",
+    "fit_form_submit_error",
   ]);
   if (typeof w.clarity === "function" && CLARITY_EVENTS.has(event)) {
     try {
@@ -906,13 +911,44 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
   const left = Math.max(0, FOUNDING_TOTAL - claimed);
   const pct = Math.min(100, Math.round((claimed / FOUNDING_TOTAL) * 100));
   const copy = FOMO_COPY[variant];
+  const blockRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     pushEvent("fit_result_fomo_shown", { recommended_sku: sku, spots_left: left, variant });
   }, [sku, left, variant]);
 
+  // 50%-visible IntersectionObserver → fires "pricing viewed" once per mount
+  useEffect(() => {
+    const el = blockRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    let fired = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!fired && e.isIntersecting && e.intersectionRatio >= 0.5) {
+            fired = true;
+            pushEvent("fit_pricing_viewed", {
+              recommended_sku: sku,
+              variant,
+              price_pre_order: 133,
+              price_msrp: 190,
+            });
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: [0, 0.5, 1] },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [sku, variant]);
+
   return (
     <div
+      ref={blockRef}
+      data-clarity-region="fit-pricing-fomo"
+      data-fomo-variant={variant}
+      data-recommended-sku={sku}
       className="rounded-lg p-5 sm:p-6 flex flex-col gap-4"
       style={{
         background: "rgba(201,168,76,0.06)",
@@ -1182,6 +1218,10 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!agree || !email || !name) return;
+    pushEvent("fit_form_submit_attempt", {
+      recommended_sku: measurement.recommendedSku,
+      face_width_mm: measurement.faceWidthMm,
+    });
     setSubmitting(true);
     setError(null);
     try {
@@ -1202,11 +1242,16 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
       });
       onSuccess();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
+      const msg = err instanceof Error ? err.message : "Something went wrong. Try again.";
+      setError(msg);
+      pushEvent("fit_form_submit_error", { reason: msg.slice(0, 80) });
     } finally {
       setSubmitting(false);
     }
   };
+
+  const trackFocus = (field: string) => () =>
+    pushEvent("fit_form_field_focus", { field });
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-5 max-w-md">
@@ -1226,6 +1271,8 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
         <input
           type="text"
           required
+          data-clarity-region="reserve-form-name"
+          onFocus={trackFocus("name")}
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="woolet-input"
@@ -1249,6 +1296,8 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
         <input
           type="email"
           required
+          data-clarity-region="reserve-form-email"
+          onFocus={trackFocus("email")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="woolet-input"
@@ -1266,7 +1315,15 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
       </label>
 
       <label className="flex items-start gap-2 cursor-pointer">
-        <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} required style={{ marginTop: 4 }} />
+        <input
+          type="checkbox"
+          checked={agree}
+          onChange={(e) => setAgree(e.target.checked)}
+          onFocus={trackFocus("privacy_consent")}
+          required
+          style={{ marginTop: 4 }}
+          data-clarity-region="reserve-form-consent"
+        />
         <span className="text-cream-dim" style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}>
           I accept the <Link to="/en/privacy-policy" className="text-gold-light underline">Privacy Policy</Link>.
         </span>
