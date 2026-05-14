@@ -1337,6 +1337,26 @@ export default function FitWizard() {
     return () => document.body.classList.remove("fit-capture-mode");
   }, [step]);
 
+  // Shortcut: ?face_width=NNN&source=scan jumps straight to result
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const fw = Number(params.get("face_width"));
+    if (!fw || fw < 130 || fw > 200) return;
+    const source = params.get("source") || "scan";
+    const m: Measurement = {
+      faceWidthMm: fw,
+      bridgeMm: fw < 155 ? 21 : fw < 161 ? 22 : 23,
+      pdMm: Math.round(fw * 0.41),
+      cardType: "cardless",
+      recommendedSku: recommendSku(fw),
+      confidence: 0.9,
+    };
+    setMeasurement(m);
+    setStep("result");
+    pushEvent("fit_result_from_scan", { face_width_mm: fw, source });
+  }, []);
+
   const goManual = useCallback(() => {
     window.location.href = "/en/fit/manual";
   }, []);
