@@ -926,6 +926,9 @@ function ResultStep({
         </p>
       </div>
 
+      {/* FOMO — founding member urgency */}
+      <FoundingMemberFomo sku={measurement.recommendedSku} />
+
       <div className="flex flex-col gap-4 pt-2">
         <button
           onClick={() => {
