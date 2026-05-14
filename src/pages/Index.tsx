@@ -1,18 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import { RotateCcw, Ruler, Package } from "lucide-react";
 import heroManImg from "@/assets/hero-man.jpg";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
-import WaitlistForm from "@/components/WaitlistForm";
 import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
 import EmailPopup from "@/components/EmailPopup";
 import SizeMatrix from "@/components/SizeMatrix";
 import SEO from "@/components/SEO";
+import { ReserveModal, WaitlistModal } from "@/components/HeroModals";
+import { pushGtmEvent } from "@/lib/gtm";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { Navigate } from "react-router-dom";
+
 
 const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
