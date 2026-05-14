@@ -71,13 +71,22 @@ const Index = () => {
   };
 
 
-  // Auto-scroll to #waitlist
+  // Auto-scroll to hash anchors (handles duplicate desktop/mobile ids)
   useEffect(() => {
-    if (window.location.hash === "#waitlist") {
-      setTimeout(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    setTimeout(() => {
+      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+      if (hash === "#waitlist") {
         document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
-      }, 300);
-    }
+      } else if (hash === "#size-matrix") {
+        const id = isDesktop ? "size-matrix-desktop" : "size-matrix-mobile";
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (hash === "#collection") {
+        const id = isDesktop ? "collection-desktop" : "collection";
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 300);
   }, []);
 
   if (paramLang && !isValidLang(paramLang)) {
@@ -319,7 +328,7 @@ const Index = () => {
           </div>
         </div>
 
-        {isEn && <SizeMatrix fitHref={`/${lang}/fit`} />}
+        {isEn && <SizeMatrix fitHref={`/${lang}/fit`} sectionId="size-matrix-mobile" />}
 
         {/* Spacer for sticky mobile CTA */}
         <div className="h-16" />
@@ -389,7 +398,7 @@ const Index = () => {
                 <BenefitsBar />
               </div>
             </div>
-            {isEn && <SizeMatrix fitHref={`/${lang}/fit`} semantic={false} />}
+            {isEn && <SizeMatrix fitHref={`/${lang}/fit`} semantic={false} sectionId="size-matrix-desktop" />}
             <Footer />
           </div>
         </div>

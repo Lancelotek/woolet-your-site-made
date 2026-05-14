@@ -11,11 +11,11 @@ const ROWS: { sku: string; shape: string; width: string; bridge: string; lens: s
   { sku: "Bespoke", shape: "Either", width: "150–172 mm", bridge: "16–26 mm", lens: "Custom", face: "Any 150 mm+", bespoke: true },
 ];
 
-const SizeMatrix = ({ fitHref = "/en/fit", semantic = true }: { fitHref?: string; semantic?: boolean }) => {
+const SizeMatrix = ({ fitHref = "/en/fit", semantic = true, sectionId }: { fitHref?: string; semantic?: boolean; sectionId?: string }) => {
   const HeadingTag = semantic ? "h2" : "div";
   return (
     <section
-      id="size-matrix"
+      id={sectionId ?? "size-matrix"}
       className="relative z-[2] w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-28"
       style={{ borderTop: "1px solid hsl(0 0% 100% / 0.055)" }}
     >
