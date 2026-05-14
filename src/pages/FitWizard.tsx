@@ -68,10 +68,15 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   // Mirror key conversion + experiment events to Microsoft Clarity
   const CLARITY_EVENTS = new Set([
     "deposit_clicked",
+    "deposit_completed",
     "fit_result_fomo_shown",
     "fit_fomo_variant_assigned",
     "fit_result_shown",
     "fit_scan_completed",
+    "fit_pricing_viewed",
+    "fit_form_field_focus",
+    "fit_form_submit_attempt",
+    "fit_form_submit_error",
   ]);
   if (typeof w.clarity === "function" && CLARITY_EVENTS.has(event)) {
     try {
