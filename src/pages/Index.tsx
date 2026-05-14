@@ -1,18 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import { RotateCcw, Ruler, Package } from "lucide-react";
 import heroManImg from "@/assets/hero-man.jpg";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
-import WaitlistForm from "@/components/WaitlistForm";
 import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
 import EmailPopup from "@/components/EmailPopup";
 import SizeMatrix from "@/components/SizeMatrix";
 import SEO from "@/components/SEO";
+import { ReserveModal, WaitlistModal } from "@/components/HeroModals";
+import { pushGtmEvent } from "@/lib/gtm";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { Navigate } from "react-router-dom";
+
 
 const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
@@ -43,11 +46,30 @@ const Index = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const utmCampaign = searchParams.get("utm_campaign") || "";
   const utmSource = searchParams.get("utm_source") || "direct";
+  void utmSource;
   const isUtmVariant = /meta|lp/i.test(utmCampaign);
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const isIOS =
     /iPhone|iPad|iPod/i.test(ua) ||
     (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  const [reserveOpen, setReserveOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+
+  const openReserve = () => {
+    pushGtmEvent("hero_cta_reserve_click", { source: "hero" });
+    setReserveOpen(true);
+  };
+  const openWaitlist = () => {
+    pushGtmEvent("hero_link_waitlist_click", { source: "hero" });
+    setWaitlistOpen(true);
+  };
+  const scrollToCollection = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const id = window.matchMedia("(min-width: 1024px)").matches ? "collection-desktop" : "collection";
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
 
   // Auto-scroll to #waitlist
   useEffect(() => {
@@ -112,47 +134,122 @@ const Index = () => {
         (<span className="text-foreground">155 / 158 / 161 mm</span>), one bespoke. For faces 155 mm and above.
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-3 pt-2">
-        <a
-          href="/en/fit"
-          className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+      {/* SINGLE primary CTA */}
+      <div className="flex flex-col gap-3 pt-2">
+        <button
+          type="button"
+          onClick={openReserve}
+          className="inline-flex items-center justify-center uppercase tracking-[0.22em] transition-all"
           style={{
             background: "hsl(var(--gold))",
             color: "hsl(var(--background))",
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
-            fontSize: "0.7rem",
-            padding: "16px 24px",
+            fontSize: "0.72rem",
+            padding: "17px 24px",
+            border: "none",
+            cursor: "pointer",
+            width: "100%",
           }}
           onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
         >
           Scan your face · Reserve for $1
-        </a>
-        <a
-          href="#size-matrix"
-          className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+        </button>
+
+        {/* Tiny waitlist alternative — muted gold underlined link */}
+        <button
+          type="button"
+          onClick={openWaitlist}
+          className="self-start"
           style={{
-            border: "1px solid hsl(var(--gold) / 0.4)",
-            color: "hsl(var(--gold-light))",
+            background: "transparent",
+            border: "none",
+            padding: "2px 0",
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
-            fontSize: "0.7rem",
-            padding: "16px 24px",
-            background: "transparent",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "hsl(var(--gold))";
-            e.currentTarget.style.background = "hsl(var(--gold) / 0.06)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "hsl(var(--gold) / 0.4)";
-            e.currentTarget.style.background = "transparent";
+            fontSize: "0.875rem",
+            color: "hsl(var(--gold-dim))",
+            textDecoration: "underline",
+            textUnderlineOffset: "3px",
+            cursor: "pointer",
           }}
         >
-          See the sizes
-        </a>
+          Not ready? Join the waitlist for 30% off →
+        </button>
       </div>
+
+      {/* Trust badges row */}
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap", paddingTop: 6 }}>
+        {[
+          { icon: <RotateCcw size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "30-Day Returns" },
+          { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Fit Guarantee" },
+          { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇮🇹</span>, text: "Italian Mazzucchelli Acetate" },
+          { icon: <Package size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Free Shipping" },
+        ].map((item, i) => (
+          <span
+            key={i}
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 300,
+              fontSize: 10,
+              color: "#9A8E7E",
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+              letterSpacing: "0.04em",
+            }}
+          >
+            {item.icon} <span>{item.text}</span>
+          </span>
+        ))}
+      </div>
+
+      {/* Social proof line */}
+      <p
+        style={{
+          fontFamily: "'Barlow', sans-serif",
+          fontWeight: 300,
+          fontSize: "0.8125rem",
+          color: "#7a7570",
+          margin: 0,
+          marginTop: -10,
+        }}
+      >
+        4,900+ on waitlist · only 23/100 reservation spots left
+      </p>
+
+      {/* Price hint — plain text, $1 bold */}
+      <p
+        style={{
+          fontFamily: "'Barlow', sans-serif",
+          fontWeight: 300,
+          fontSize: "0.8125rem",
+          color: "#7a7570",
+          margin: 0,
+          marginTop: -14,
+        }}
+      >
+        Reserve for <strong style={{ fontWeight: 600, color: "#9A8E7E" }}>$1</strong> today · final pre-order price <span style={{ color: "#9A8E7E" }}>$133</span> (was $190)
+      </p>
+
+      {/* See all sizes — text link */}
+      <a
+        href="#collection"
+        onClick={scrollToCollection}
+        style={{
+          fontFamily: "'Barlow', sans-serif",
+          fontWeight: 300,
+          fontSize: "0.8125rem",
+          color: "hsl(var(--gold-dim))",
+          textDecoration: "underline",
+          textUnderlineOffset: "3px",
+          alignSelf: "flex-start",
+          marginTop: -10,
+        }}
+      >
+        See all sizes →
+      </a>
     </div>
   );
 
@@ -196,7 +293,6 @@ const Index = () => {
             </div>
           )}
 
-          <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} utmSource={utmSource} utmCampaign={utmCampaign} />
           <Testimonials />
           <div className="woolet-divider" />
           <div id="collection"><ModelPills /></div>
@@ -267,7 +363,7 @@ const Index = () => {
                 </div>
               )}
 
-              <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} utmSource={utmSource} utmCampaign={utmCampaign} />
+              
               <Testimonials />
               <div className="woolet-divider" />
               <div id="collection-desktop"><ModelPills /></div>
@@ -289,6 +385,9 @@ const Index = () => {
           </div>
         </div>
       </main>
+
+      <ReserveModal open={reserveOpen} onOpenChange={setReserveOpen} />
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </>
   );
 };
