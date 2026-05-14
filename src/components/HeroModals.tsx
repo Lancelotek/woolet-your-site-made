@@ -81,7 +81,15 @@ const WIDTH_OPTIONS = [
    MODAL A — Reservation ($1)
    3 steps: Scan / measure → Email + name → Payment (mock)
    ═══════════════════════════════════════════════════ */
-export function ReserveModal({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+export function ReserveModal({
+  open,
+  onOpenChange,
+  onSwitchToWaitlist,
+}: {
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+  onSwitchToWaitlist?: () => void;
+}) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [width, setWidth] = useState("158");
   const [name, setName] = useState("");
