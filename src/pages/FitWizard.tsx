@@ -1055,12 +1055,12 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
 function ResultStep({
   measurement,
   onSwapShape,
-  onReserve,
+  onSavedEmail,
   onBespoke,
 }: {
   measurement: Measurement;
   onSwapShape: () => void;
-  onReserve: () => void;
+  onSavedEmail: (email: string) => void;
   onBespoke: () => void;
 }) {
   const fomoVariant = useMemo(() => getFomoVariant(), []);
@@ -1174,25 +1174,14 @@ function ResultStep({
         </p>
       </div>
 
-      {/* FOMO — founding member urgency */}
-      <FoundingMemberFomo sku={measurement.recommendedSku} variant={fomoVariant} />
+      {/* Light teaser + email capture (no payment) */}
+      <EmailCaptureForm
+        measurement={measurement}
+        fomoVariant={fomoVariant}
+        onSuccess={onSavedEmail}
+      />
 
       <div className="flex flex-col gap-4 pt-2">
-        <button
-          onClick={() => {
-            pushEvent("deposit_clicked", {
-              recommended_sku: measurement.recommendedSku,
-              source_page: "fit_result",
-              fomo_variant: fomoVariant,
-            });
-            onReserve();
-          }}
-          style={goldButtonStyle}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
-        >
-          Reserve your fit · $1
-        </button>
         <button
           onClick={() => {
             const from = measurement.recommendedSku;
