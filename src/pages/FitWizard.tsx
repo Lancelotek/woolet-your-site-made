@@ -990,6 +990,8 @@ function ResultStep({
   onReserve: () => void;
   onBespoke: () => void;
 }) {
+  const fomoVariant = useMemo(() => getFomoVariant(), []);
+
   useEffect(() => {
     pushEvent("fit_result_shown", {
       face_width_mm: measurement.faceWidthMm,
@@ -997,8 +999,9 @@ function ResultStep({
       pd_mm: measurement.pdMm,
       recommended_sku: measurement.recommendedSku,
       confidence: measurement.confidence,
+      fomo_variant: fomoVariant,
     });
-  }, [measurement]);
+  }, [measurement, fomoVariant]);
 
   if (measurement.recommendedSku === "bespoke") {
     return (
@@ -1093,7 +1096,7 @@ function ResultStep({
       </div>
 
       {/* FOMO — founding member urgency */}
-      <FoundingMemberFomo sku={measurement.recommendedSku} />
+      <FoundingMemberFomo sku={measurement.recommendedSku} variant={fomoVariant} />
 
       <div className="flex flex-col gap-4 pt-2">
         <button
@@ -1101,6 +1104,7 @@ function ResultStep({
             pushEvent("deposit_clicked", {
               recommended_sku: measurement.recommendedSku,
               source_page: "fit_result",
+              fomo_variant: fomoVariant,
             });
             onReserve();
           }}
