@@ -363,7 +363,7 @@ const Index = () => {
                 </div>
               )}
 
-              <WaitlistForm lang={lang} fitLink={`/${lang}/fit`} utmSource={utmSource} utmCampaign={utmCampaign} />
+              
               <Testimonials />
               <div className="woolet-divider" />
               <div id="collection-desktop"><ModelPills /></div>
