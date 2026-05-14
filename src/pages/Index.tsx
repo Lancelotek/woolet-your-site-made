@@ -355,7 +355,7 @@ const Index = () => {
           <div className="flex flex-col overflow-y-auto border-l" style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
             <div className="flex flex-col px-10 py-10 gap-10">
               {isEn ? (
-                <EnHero />
+                <EnHero semantic={false} />
               ) : (
                 <div>
                   <div className="woolet-eyebrow mb-5">
