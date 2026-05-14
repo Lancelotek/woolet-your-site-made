@@ -6,7 +6,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CardPositionIllustration from "@/components/CardPositionIllustration";
 import SocialProofToast from "@/components/SocialProofToast";
+import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { isValidLang, type Lang } from "@/lib/i18n";
+
+const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
+const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
 
 /* ─────────────────────────────────────────────
    Woolet AI Fit — v2.1 Cheek-Card Method
@@ -1402,6 +1406,8 @@ function SavedUpsellStep({
     });
   }, [measurement, fomoVariant]);
 
+  const [showCheckout, setShowCheckout] = useState(false);
+
   const reserve = () => {
     pushEvent("deposit_clicked", {
       recommended_sku: measurement.recommendedSku,
@@ -1413,20 +1419,29 @@ function SavedUpsellStep({
         recommended_sku: measurement.recommendedSku,
       });
     }
-    setSubmitting(true);
-    // TODO: Stripe Payment Element in Phase 4 — for now mark complete
-    pushEvent("deposit_completed", {
-      recommended_sku: measurement.recommendedSku,
-      amount: 1,
-      source: "fit_saved_upsell",
-    });
+    // Persist measurement so we can restore the wizard state after Stripe redirects back.
     try {
-      window.localStorage.setItem("reservation_completed", "true");
+      window.sessionStorage.setItem(
+        RESERVATION_STORAGE_KEY,
+        JSON.stringify({ measurement, email, fomoVariant }),
+      );
     } catch {
       /* noop */
     }
-    onReserved();
+    setShowCheckout(true);
   };
+
+  const closeCheckout = () => {
+    setShowCheckout(false);
+    setSubmitting(false);
+    pushEvent("deposit_modal_closed", {
+      recommended_sku: measurement.recommendedSku,
+    });
+  };
+
+  const returnUrl = typeof window !== "undefined"
+    ? `${window.location.origin}${window.location.pathname}?checkout=success&session_id={CHECKOUT_SESSION_ID}`
+    : "";
 
   const maybeLater = () => {
     pushEvent("fit_upsell_declined", {
@@ -1513,6 +1528,19 @@ function SavedUpsellStep({
       </div>
     </div>
     <SocialProofToast />
+    {showCheckout && (
+      <StripeCheckoutModal
+        priceId={FOUNDING_DEPOSIT_PRICE_ID}
+        customerEmail={email}
+        returnUrl={returnUrl}
+        metadata={{
+          recommended_sku: measurement.recommendedSku,
+          source: "fit_saved_upsell",
+          fomo_variant: fomoVariant,
+        }}
+        onClose={closeCheckout}
+      />
+    )}
     </>
   );
 }
@@ -1614,6 +1642,43 @@ export default function FitWizard() {
     setMeasurement(m);
     setStep("result");
     pushEvent("fit_result_from_scan", { face_width_mm: fw, source });
+  }, []);
+
+  // Stripe Embedded Checkout return: ?checkout=success&session_id=…
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("checkout") !== "success") return;
+    const sessionId = params.get("session_id") || "";
+    let restored: { measurement: Measurement; email: string; fomoVariant?: string } | null = null;
+    try {
+      const raw = window.sessionStorage.getItem(RESERVATION_STORAGE_KEY);
+      if (raw) restored = JSON.parse(raw);
+    } catch {
+      /* noop */
+    }
+    if (restored?.measurement) {
+      setMeasurement(restored.measurement);
+      setSavedEmail(restored.email || "");
+      setStep("reserved");
+      pushEvent("deposit_completed", {
+        recommended_sku: restored.measurement.recommendedSku,
+        amount: 1,
+        currency: "usd",
+        source: "fit_saved_upsell",
+        session_id: sessionId,
+        fomo_variant: restored.fomoVariant,
+      });
+      try {
+        window.localStorage.setItem("reservation_completed", "true");
+        window.sessionStorage.removeItem(RESERVATION_STORAGE_KEY);
+      } catch {
+        /* noop */
+      }
+    }
+    // Clean the URL so a refresh doesn't re-fire.
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, "", cleanUrl);
   }, []);
 
   const goManual = useCallback(() => {
