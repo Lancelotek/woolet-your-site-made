@@ -1644,7 +1644,42 @@ export default function FitWizard() {
     pushEvent("fit_result_from_scan", { face_width_mm: fw, source });
   }, []);
 
-  const goManual = useCallback(() => {
+  // Stripe Embedded Checkout return: ?checkout=success&session_id=…
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("checkout") !== "success") return;
+    const sessionId = params.get("session_id") || "";
+    let restored: { measurement: Measurement; email: string; fomoVariant?: string } | null = null;
+    try {
+      const raw = window.sessionStorage.getItem(RESERVATION_STORAGE_KEY);
+      if (raw) restored = JSON.parse(raw);
+    } catch {
+      /* noop */
+    }
+    if (restored?.measurement) {
+      setMeasurement(restored.measurement);
+      setSavedEmail(restored.email || "");
+      setStep("reserved");
+      pushEvent("deposit_completed", {
+        recommended_sku: restored.measurement.recommendedSku,
+        amount: 1,
+        currency: "usd",
+        source: "fit_saved_upsell",
+        session_id: sessionId,
+        fomo_variant: restored.fomoVariant,
+      });
+      try {
+        window.localStorage.setItem("reservation_completed", "true");
+        window.sessionStorage.removeItem(RESERVATION_STORAGE_KEY);
+      } catch {
+        /* noop */
+      }
+    }
+    // Clean the URL so a refresh doesn't re-fire.
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, "", cleanUrl);
+  }, []);
     window.location.href = "/en/fit/manual";
   }, []);
 
