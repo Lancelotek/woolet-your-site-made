@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CardPositionIllustration from "@/components/CardPositionIllustration";
 import { isValidLang, type Lang } from "@/lib/i18n";
 
 /* ─────────────────────────────────────────────
@@ -135,6 +136,16 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
           </li>
         ))}
       </ul>
+
+      <div className="mx-auto w-full max-w-[380px] max-sm:max-w-[280px] my-8">
+        <CardPositionIllustration />
+        <p
+          className="text-center text-cream-dim mt-3"
+          style={{ fontSize: "0.8125rem", fontFamily: "Barlow, sans-serif" }}
+        >
+          Any standard credit, debit or ID card works — we use the long edge (85.6 mm) as scale reference.
+        </p>
+      </div>
 
       <div className="flex flex-col sm:flex-row gap-3 pt-2">
         <button
