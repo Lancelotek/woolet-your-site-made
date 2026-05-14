@@ -1407,6 +1407,11 @@ function SavedUpsellStep({
       source_page: "fit_saved_upsell",
       fomo_variant: fomoVariant,
     });
+    if (typeof window !== "undefined" && window.sessionStorage.getItem("social_proof_seen_in_session") === "true") {
+      pushEvent("social_proof_clicked_cta", {
+        recommended_sku: measurement.recommendedSku,
+      });
+    }
     setSubmitting(true);
     // TODO: Stripe Payment Element in Phase 4 — for now mark complete
     pushEvent("deposit_completed", {
@@ -1414,6 +1419,11 @@ function SavedUpsellStep({
       amount: 1,
       source: "fit_saved_upsell",
     });
+    try {
+      window.localStorage.setItem("reservation_completed", "true");
+    } catch {
+      /* noop */
+    }
     onReserved();
   };
 
