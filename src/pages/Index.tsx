@@ -8,7 +8,7 @@ import StickyMobileCTA from "@/components/StickyMobileCTA";
 import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
-import EmailPopup from "@/components/EmailPopup";
+
 import SizeMatrix from "@/components/SizeMatrix";
 import SEO from "@/components/SEO";
 import { ReserveModal, WaitlistModal } from "@/components/HeroModals";
