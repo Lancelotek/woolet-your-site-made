@@ -398,7 +398,7 @@ const Index = () => {
                 <BenefitsBar />
               </div>
             </div>
-            {isEn && <SizeMatrix fitHref={`/${lang}/fit`} semantic={false} />}
+            {isEn && <SizeMatrix fitHref={`/${lang}/fit`} semantic={false} sectionId="size-matrix-desktop" />}
             <Footer />
           </div>
         </div>
