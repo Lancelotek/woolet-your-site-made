@@ -92,11 +92,14 @@ export function ReserveModal({
 }) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [width, setWidth] = useState("158");
+  const [adjustOpen, setAdjustOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [agree, setAgree] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const sizeLabel = width === "155" ? "S" : width === "161" ? "L" : "M";
 
   // Reset on close
   useEffect(() => {
