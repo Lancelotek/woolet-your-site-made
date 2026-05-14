@@ -14,13 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      founding_members: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          currency: string
+          email: string
+          environment: string
+          id: string
+          metadata: Json | null
+          recommended_sku: string | null
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string
+        }
+        Insert: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          email: string
+          environment?: string
+          id?: string
+          metadata?: Json | null
+          recommended_sku?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          email?: string
+          environment?: string
+          id?: string
+          metadata?: Json | null
+          recommended_sku?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      founding_members_count: { Args: { check_env?: string }; Returns: number }
     }
     Enums: {
       [_ in never]: never

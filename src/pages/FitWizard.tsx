@@ -1537,6 +1537,7 @@ function SavedUpsellStep({
           recommended_sku: measurement.recommendedSku,
           source: "fit_saved_upsell",
           fomo_variant: fomoVariant,
+          email,
         }}
         onClose={closeCheckout}
       />
