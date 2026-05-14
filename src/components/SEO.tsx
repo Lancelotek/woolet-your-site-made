@@ -24,7 +24,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "Woolet",
   url: SITE_URL,
-  description: "Italian acetate eyewear precision-engineered for face widths of 155mm and above.",
+  description: "AI-fit Italian Mazzucchelli acetate eyewear measured for wide faces (155 mm and above). Three sizes per shape (155 / 158 / 161 mm) plus bespoke (150–172 mm).",
   foundingLocation: "Poland",
   sameAs: [
     "https://www.instagram.com/woolet.eyewear",
@@ -41,22 +41,22 @@ const websiteJsonLd = {
   "@type": "WebSite",
   name: "Woolet",
   url: SITE_URL,
-  description: "Premium eyewear for wide faces",
+  description: "AI-fit eyewear for wide faces — three sizes per shape, plus bespoke",
   publisher: { "@type": "Organization", name: "Woolet", url: SITE_URL },
 };
 
 const productJsonLd = {
   "@context": "https://schema.org",
   "@type": "Product",
-  name: "Woolet Eyewear for Wide Faces",
-  description: "Italian Mazzucchelli acetate glasses precision-engineered for 155mm+ face widths. Models 007 (round) & 009 (square).",
+  name: "Woolet Eyewear for Wide Faces — AI-Fit",
+  description: "Italian Mazzucchelli acetate glasses measured for wide faces (155 mm+). Two shapes (007 round, 009 square) in three sizes — 155 / 158 / 161 mm — plus a bespoke tier from 150 to 172 mm.",
   brand: { "@type": "Brand", name: "Woolet" },
   image: OG_IMAGE,
   offers: {
     "@type": "Offer",
     availability: "https://schema.org/PreOrder",
     priceCurrency: "USD",
-    price: "133",
+    price: "99",
     priceValidUntil: "2026-12-31",
     url: "https://woolet.co/en",
     seller: { "@type": "Organization", name: "Woolet" },

@@ -83,6 +83,13 @@
     --sidebar-accent-foreground: 42 30% 90%;
     --sidebar-border: 42 55% 54% / 0.18;
     --sidebar-ring: 42 55% 54%;
+
+    /* Brand v2 — AI Fit screen palette (only used in capture step) */
+    --woolet-fit-bg: #F8F6F1;
+    --woolet-fit-frame: #CAA449;
+    --woolet-fit-pulse: rgba(202, 164, 73, 0.30);
+    --woolet-fit-text: #1F1B16;
+    --woolet-fit-success: #2A5F3A;
   }
 }
 
