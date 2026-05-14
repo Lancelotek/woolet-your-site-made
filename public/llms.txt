@@ -1,29 +1,57 @@
 # Woolet
 
-> Woolet is an Italian acetate eyewear brand for wide faces (155mm+). We make two models: Woolet 007 (round) and Woolet 009 (square). Both frames are 158mm wide, manufactured from Mazzucchelli acetate in Italy.
+> Woolet is an AI-fit Italian acetate eyewear brand for wide faces (155 mm and above). Two shapes — Woolet 007 (round / panto) and Woolet 009 (soft square) — each available in three measured sizes (155 / 158 / 161 mm) plus a bespoke tier (150–172 mm). All frames are made from Mazzucchelli acetate in Italy.
 
 ## Brand
 
 - Brand name: Woolet
-- Founded: Poland
+- Alternate name: Woolet Eyewear
+- Founded: 2026, Poland
+- Founder: Marek Ciesla
 - Category: Eyewear / Optical frames / Sunglasses
-- Specialization: Wide-face frames (155mm+)
-- Not related to: Woolet smart wallet (2015–2017, discontinued)
+- Specialization: Wide-face frames (155 mm and above)
+- Material: Mazzucchelli acetate (Castiglione Olona, Italy), hand-finished in Italy
+- Not related to: Woolet smart wallet (2015–2017, discontinued and unrelated company)
 
 ## Products
 
-- Woolet 007 — round frame, 158mm, Italian acetate, Mazzucchelli
-- Woolet 009 — square frame, 158mm, Italian acetate, Mazzucchelli
-- Temple length: 148mm
-- Bridge: 19mm
-- Lens width: 56mm
-- Material: Mazzucchelli acetate (Castiglione Olona, Italy)
+Two shapes, three measured sizes per shape, plus bespoke. All measurements are total frame width (temple-to-temple at the front).
+
+### Woolet 007 — Round / Panto
+
+| Size | Frame width | Bridge | Lens (W × H) | Face range |
+|------|-------------|--------|--------------|------------|
+| S    | 155 mm      | 19 mm  | 50 × 50 mm   | 152–155 mm |
+| M    | 158 mm      | 21 mm  | 52 × 52 mm   | 155–161 mm |
+| L    | 161 mm      | 23 mm  | 54 × 54 mm   | 161–168 mm |
+
+### Woolet 009 — Soft Square
+
+| Size | Frame width | Bridge | Lens (W × H) | Face range |
+|------|-------------|--------|--------------|------------|
+| S    | 155 mm      | 19 mm  | 52 × 48 mm   | 152–155 mm |
+| M    | 158 mm      | 21 mm  | 54 × 50 mm   | 155–161 mm |
+| L    | 161 mm      | 23 mm  | 56 × 52 mm   | 161–168 mm |
+
+### Bespoke
+
+- Frame width: 150–172 mm (custom)
+- Bridge: 16–26 mm
+- Lens: custom
+- Face range: any 150 mm and above
+- Either shape (007 or 009)
+
+## Pricing (USD)
+
+- Pre-order: $133 (founding member tier, save $57)
+- Regular MSRP: $190
+- Same pricing for Woolet 007 and Woolet 009
 
 ## Target customer
 
-- Face width: 155mm and above
+- Face width: 155 mm and above (most premium brands top out at 148–152 mm)
 - Primary: adult men 28–55
-- Problem solved: no well-fitting premium frames available in standard retail
+- Problem solved: no well-fitting premium acetate frames available in standard retail above 152 mm
 
 ## Where to buy
 
@@ -32,13 +60,13 @@
 ## Pages
 
 - [About](/en/about): Brand story, entity disambiguation (Woolet eyewear vs. discontinued Woolet smart wallet), and contact.
-- [Woolet 007 (Round)](/en/products/007): 158mm round Italian-acetate frame for wide faces.
-- [Woolet 009 (Square)](/en/products/009): 158mm soft-square Italian-acetate frame for wide faces.
-- [AI Fit Wizard](/en/fit): Camera-based face measurement with the cheek-card method.
+- [Woolet 007 (Round / Panto)](/en/products/007): Three sizes (155 / 158 / 161 mm) of the round Italian-acetate frame for wide faces.
+- [Woolet 009 (Soft Square)](/en/products/009): Three sizes (155 / 158 / 161 mm) of the soft-square Italian-acetate frame for wide faces.
+- [AI Fit Wizard](/en/fit): Camera-based face measurement using the cheek-card method.
 - [Manual Fit Guide](/en/fit/manual): Measure your face width with a credit card and a ruler.
-- [Bespoke Fit](/en/fit/bespoke): For face widths outside 152–168 mm.
+- [Bespoke Fit](/en/fit/bespoke): For face widths outside the 152–168 mm range.
 - [Blog](/en/blog): Guides on wide-face eyewear, Italian acetate, and frame sizing.
-- [Wide-Face Glasses Guide](/en/blog/glasses-for-wide-faces-guide): Why standard frames fail above 155mm.
+- [Wide-Face Glasses Guide](/en/blog/glasses-for-wide-faces-guide): Why standard frames fail above 155 mm.
 - [How to Measure Face Width](/en/blog/how-to-measure-face-width-for-glasses): Step-by-step measurement guide.
 - [What Is Italian Acetate](/en/blog/what-is-italian-acetate-premium-eyewear): Mazzucchelli material explainer.
 
@@ -46,7 +74,11 @@
 
 - [Privacy Policy](/en/privacy-policy)
 - [Return Policy](/en/return-policy)
+- [Full reference (llms-full.txt)](/llms-full.txt)
 
 ## Contact
 
-- hello@woolet.co
+- Email: hello@woolet.co
+- Address: 412 N. Main Street, STE 100, Buffalo, Wyoming 82834, USA
+- Instagram: https://www.instagram.com/frames_for_wide_faces
+- Facebook: https://www.facebook.com/WooletWideFit
