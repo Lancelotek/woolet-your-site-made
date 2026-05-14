@@ -5,6 +5,7 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CardPositionIllustration from "@/components/CardPositionIllustration";
+import SocialProofToast from "@/components/SocialProofToast";
 import { isValidLang, type Lang } from "@/lib/i18n";
 
 /* ─────────────────────────────────────────────
