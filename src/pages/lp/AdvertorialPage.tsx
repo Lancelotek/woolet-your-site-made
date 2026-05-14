@@ -758,7 +758,7 @@ const AdvertorialPage = () => {
                   cursor: "pointer",
                 }}
               >
-                MEASURE YOUR FACE WIDTH →
+                SCAN YOUR FACE · RESERVE FOR $1
               </button>
             </div>
           </div>
