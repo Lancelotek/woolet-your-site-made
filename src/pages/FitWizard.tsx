@@ -1240,6 +1240,8 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
         <input
           type="text"
           required
+          data-clarity-region="reserve-form-name"
+          onFocus={trackFocus("name")}
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="woolet-input"
