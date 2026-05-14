@@ -137,6 +137,12 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
         ))}
       </ul>
 
+      <h2
+        className="font-display text-woolet-white mt-4"
+        style={{ fontSize: "1.1rem", fontWeight: 300, fontStyle: "italic", textAlign: "center" }}
+      >
+        How to position the card
+      </h2>
       <div className="mx-auto w-full max-w-[380px] max-sm:max-w-[280px] my-8">
         <CardPositionIllustration />
         <p
@@ -157,7 +163,7 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
           onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
         >
-          Begin the scan
+          Scan your face · Reserve for $1
         </button>
         <Link to="/en#size-matrix" style={ghostButtonStyle}>
           See the size matrix

@@ -8,7 +8,7 @@ import StickyMobileCTA from "@/components/StickyMobileCTA";
 import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
-import EmailPopup from "@/components/EmailPopup";
+
 import SizeMatrix from "@/components/SizeMatrix";
 import SEO from "@/components/SEO";
 import { ReserveModal, WaitlistModal } from "@/components/HeroModals";
@@ -105,7 +105,7 @@ const Index = () => {
   };
 
   /** EN-only AI-Fit dual-claim hero block (Brand v2). */
-  const EnHero = () => (
+  const EnHero = ({ semantic = true }: { semantic?: boolean }) => (
     <div className="flex flex-col gap-6">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
@@ -121,13 +121,23 @@ const Index = () => {
         and that’s not your problem to solve. It’s ours.”
       </p>
 
-      {/* Product claim — main H1 */}
-      <h1
-        className="font-display text-woolet-white leading-[0.95]"
-        style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
-      >
-        <em className="italic text-gold-light">Measured</em> for you.
-      </h1>
+      {/* Product claim — main H1 (only on the visible/semantic instance) */}
+      {semantic ? (
+        <h1
+          className="font-display text-woolet-white leading-[0.95]"
+          style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
+        >
+          <em className="italic text-gold-light">Measured</em> for you.
+        </h1>
+      ) : (
+        <div
+          aria-hidden="true"
+          className="font-display text-woolet-white leading-[0.95]"
+          style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
+        >
+          <em className="italic text-gold-light">Measured</em> for you.
+        </div>
+      )}
 
       <p className="text-cream-dim leading-relaxed tracking-wider max-w-xl" style={{ fontSize: "0.88rem" }}>
         Italian Mazzucchelli acetate. AI-fit precision. Three sizes per shape
@@ -258,7 +268,6 @@ const Index = () => {
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} />
-      <EmailPopup />
 
       {/* ===== MOBILE LAYOUT — no hero image, straight to content ===== */}
       <main className={`relative z-[1] ${isIOS ? "" : "lg:hidden"}`}>
@@ -346,7 +355,7 @@ const Index = () => {
           <div className="flex flex-col overflow-y-auto border-l" style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
             <div className="flex flex-col px-10 py-10 gap-10">
               {isEn ? (
-                <EnHero />
+                <EnHero semantic={false} />
               ) : (
                 <div>
                   <div className="woolet-eyebrow mb-5">
@@ -380,7 +389,7 @@ const Index = () => {
                 <BenefitsBar />
               </div>
             </div>
-            {isEn && <SizeMatrix fitHref={`/${lang}/fit`} />}
+            {isEn && <SizeMatrix fitHref={`/${lang}/fit`} semantic={false} />}
             <Footer />
           </div>
         </div>

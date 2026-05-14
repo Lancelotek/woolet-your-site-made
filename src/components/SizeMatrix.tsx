@@ -11,7 +11,8 @@ const ROWS: { sku: string; shape: string; width: string; bridge: string; lens: s
   { sku: "Bespoke", shape: "Either", width: "150–172 mm", bridge: "16–26 mm", lens: "Custom", face: "Any 150 mm+", bespoke: true },
 ];
 
-const SizeMatrix = ({ fitHref = "/en/fit" }: { fitHref?: string }) => {
+const SizeMatrix = ({ fitHref = "/en/fit", semantic = true }: { fitHref?: string; semantic?: boolean }) => {
+  const HeadingTag = semantic ? "h2" : "div";
   return (
     <section
       id="size-matrix"
@@ -23,9 +24,9 @@ const SizeMatrix = ({ fitHref = "/en/fit" }: { fitHref?: string }) => {
           <div className="woolet-eyebrow-line" />
           <span className="woolet-eyebrow-text">THE FIT MATRIX</span>
         </div>
-        <h2 className="font-display text-woolet-white leading-tight mb-4" style={{ fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 300 }}>
+        <HeadingTag className="font-display text-woolet-white leading-tight mb-4" style={{ fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 300 }} aria-hidden={!semantic || undefined}>
           Two shapes. <em className="italic text-gold-light">Three sizes.</em> One bespoke.
-        </h2>
+        </HeadingTag>
         <p className="text-cream-dim leading-relaxed tracking-wider max-w-2xl mb-10" style={{ fontSize: "0.95rem" }}>
           Every frame measured against your AI scan. If you fall outside the six standard fits,
           bespoke covers <span className="text-foreground">150 to 172 mm</span> with a <span className="text-foreground">16–26 mm bridge</span> — made to your scan.
@@ -155,7 +156,7 @@ const SizeMatrix = ({ fitHref = "/en/fit" }: { fitHref?: string }) => {
             onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
           >
-            Scan your face → Reserve for $1
+            Scan your face · Reserve for $1
           </Link>
         </div>
       </div>
