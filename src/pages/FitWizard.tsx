@@ -885,22 +885,30 @@ const FOMO_COPY: Record<FomoVariant, {
 }> = {
   A: {
     badge: "Founding member · Kickstarter",
-    headline: "Save 30%",
+    headline: "$1 deposit · 40% Kickstarter discount",
     priceLine: () => (
-      <>— <span className="text-woolet-white">$133</span> instead of <span className="line-through">$190</span> retail</>
+      <>
+        Locks in <span className="text-woolet-white">40% off</span> at Kickstarter launch,
+        <span className="text-woolet-white"> first-shipment priority</span>, and a
+        <span className="text-woolet-white"> free lens cleaning kit</span>.
+      </>
     ),
     footnote: (
-      <>Mazzucchelli acetate is sourced in limited batches. First production: 100 frames per model. Next batch ships Q3 2026 at $190 retail. Campaign ends <span className="text-woolet-white">August 15, 2026</span> or when spots fill.</>
+      <>Hard commit: your $1 deposit secures all three perks. Mazzucchelli acetate runs in 100-frame batches per model — once founding spots fill, retail returns to <span className="line-through">$190</span>.</>
     ),
   },
   B: {
     badge: "Last founding batch · 100 frames",
-    headline: "$57 off — founders only",
+    headline: "$1 holds 40% off + priority shipping + free lens kit",
     priceLine: () => (
-      <>Lock in <span className="text-woolet-white">$133</span> today. Retail goes to <span className="line-through">$190</span> in Q3 2026.</>
+      <>
+        One dollar today locks in the <span className="text-woolet-white">40% Kickstarter discount</span>,
+        <span className="text-woolet-white"> first-shipment priority</span>, and a
+        <span className="text-woolet-white"> complimentary lens cleaning kit</span>.
+      </>
     ),
     footnote: (
-      <>Only 100 frames per model in this Mazzucchelli acetate run. Once founding spots are gone, the next batch ships at full retail. Reserve before <span className="text-woolet-white">August 15, 2026</span>.</>
+      <>Hard commit — refundable any time, but the three perks disappear when founding spots fill. Only 100 frames per model in this Mazzucchelli run before retail returns to <span className="line-through">$190</span>.</>
     ),
   },
 };
