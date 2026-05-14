@@ -1187,6 +1187,10 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!agree || !email || !name) return;
+    pushEvent("fit_form_submit_attempt", {
+      recommended_sku: measurement.recommendedSku,
+      face_width_mm: measurement.faceWidthMm,
+    });
     setSubmitting(true);
     setError(null);
     try {
@@ -1207,11 +1211,16 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
       });
       onSuccess();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
+      const msg = err instanceof Error ? err.message : "Something went wrong. Try again.";
+      setError(msg);
+      pushEvent("fit_form_submit_error", { reason: msg.slice(0, 80) });
     } finally {
       setSubmitting(false);
     }
   };
+
+  const trackFocus = (field: string) => () =>
+    pushEvent("fit_form_field_focus", { field });
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-5 max-w-md">
