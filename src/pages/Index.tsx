@@ -9,7 +9,7 @@ import Testimonials from "@/components/Testimonials";
 import ModelPills from "@/components/ModelPills";
 import BenefitsBar from "@/components/BenefitsBar";
 import EmailPopup from "@/components/EmailPopup";
-
+import SizeMatrix from "@/components/SizeMatrix";
 import SEO from "@/components/SEO";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { Navigate } from "react-router-dom";
