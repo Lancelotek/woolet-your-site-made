@@ -1512,6 +1512,8 @@ function SavedUpsellStep({
         </p>
       </div>
     </div>
+    <SocialProofToast />
+    </>
   );
 }
 
