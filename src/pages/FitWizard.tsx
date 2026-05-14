@@ -1273,8 +1273,10 @@ function ReserveForm({ measurement, onSuccess }: { measurement: Measurement; onS
         <span className="woolet-eyebrow-text">RESERVE · $1 DEPOSIT</span>
       </div>
       <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>
-        Confirm your details below. Payment processing goes live closer to the Kickstarter launch in
-        October 2026 — your reservation is held with email only for now.
+        Your $1 deposit locks in the <span className="text-woolet-white">40% Kickstarter discount</span>,
+        <span className="text-woolet-white"> first-shipment priority</span>, and a
+        <span className="text-woolet-white"> free lens cleaning kit</span>. Hard commit — payment
+        processes when the Kickstarter launches in October 2026.
       </p>
 
       <label className="flex flex-col gap-1.5">
