@@ -911,13 +911,44 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
   const left = Math.max(0, FOUNDING_TOTAL - claimed);
   const pct = Math.min(100, Math.round((claimed / FOUNDING_TOTAL) * 100));
   const copy = FOMO_COPY[variant];
+  const blockRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     pushEvent("fit_result_fomo_shown", { recommended_sku: sku, spots_left: left, variant });
   }, [sku, left, variant]);
 
+  // 50%-visible IntersectionObserver → fires "pricing viewed" once per mount
+  useEffect(() => {
+    const el = blockRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    let fired = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!fired && e.isIntersecting && e.intersectionRatio >= 0.5) {
+            fired = true;
+            pushEvent("fit_pricing_viewed", {
+              recommended_sku: sku,
+              variant,
+              price_pre_order: 133,
+              price_msrp: 190,
+            });
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: [0, 0.5, 1] },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [sku, variant]);
+
   return (
     <div
+      ref={blockRef}
+      data-clarity-region="fit-pricing-fomo"
+      data-fomo-variant={variant}
+      data-recommended-sku={sku}
       className="rounded-lg p-5 sm:p-6 flex flex-col gap-4"
       style={{
         background: "rgba(201,168,76,0.06)",
