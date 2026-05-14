@@ -165,10 +165,17 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
         >
           Scan your face · Reserve for $1
         </button>
-        <Link to="/en#size-matrix" style={ghostButtonStyle}>
-          See the size matrix
+        <Link to="/en/fit/scan" style={ghostButtonStyle} onClick={() => pushEvent("fit_scan_link_clicked", { from: "intro" })}>
+          No card? Try cardless scan →
         </Link>
       </div>
+      <Link
+        to="/en#size-matrix"
+        className="text-cream-dim"
+        style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif", textAlign: "center", textDecoration: "underline", textUnderlineOffset: 4 }}
+      >
+        See the size matrix
+      </Link>
     </div>
   );
 }
