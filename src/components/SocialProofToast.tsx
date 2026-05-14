@@ -227,6 +227,11 @@ export default function SocialProofToast() {
     requestAnimationFrame(() => setVisible(true));
 
     pushGa("social_proof_shown", { model: next.model, region: next.region });
+    try {
+      window.sessionStorage.setItem("social_proof_seen_in_session", "true");
+    } catch {
+      /* noop */
+    }
 
     hideTimeout.current = setTimeout(() => {
       hide();
