@@ -392,7 +392,8 @@ function CaptureStep({
     (async () => {
       try {
         // Load tasks-vision from CDN to avoid bundling ~4MB of wasm
-        const vision: any = await import(/* @vite-ignore */ "https://esm.sh/@mediapipe/tasks-vision@0.10.14");
+        const cdn = "https://esm.sh/@mediapipe/tasks-vision@0.10.14";
+        const vision: any = await import(/* @vite-ignore */ /* webpackIgnore: true */ cdn);
         const fileset = await vision.FilesetResolver.forVisionTasks(
           "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
         );
