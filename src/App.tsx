@@ -49,6 +49,8 @@ const App = () => (
           <Route path="/:lang/blog" element={<BlogIndex />} />
           <Route path="/:lang/blog/:slug" element={<BlogPost />} />
           <Route path="/:lang/fit" element={<FitWizard />} />
+          <Route path="/en/fit/manual" element={<FitManual />} />
+          <Route path="/en/fit/bespoke" element={<FitBespoke />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
 
           {/* Legacy routes redirect */}
