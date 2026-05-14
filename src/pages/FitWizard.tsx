@@ -493,12 +493,16 @@ function CaptureStep({
       const avg = total / (c.width * c.height);
       const lightingOk = avg > 50 && avg < 230 && skew < 0.7;
 
-      // tilt: gamma > 5° on mobile counts as tilted; on desktop gamma stays 0 → always level
+      // tilt: real head-roll from MediaPipe eye-line angle. <8° = level.
       const tiltOk = tiltGammaRef.current < 8;
 
-      // distance: proxy via mid-frame brightness variance (face fills frame). Phase 4: real face bbox.
-      // Assume OK after 1.5s of camera activity.
-      const distanceOk = Date.now() - startedAtRef.current > 1500;
+      // distance: real face-width fraction from MediaPipe.
+      // Target ~0.28–0.48 of frame width (≈ arm's length on a 720×960 selfie).
+      // If face mesh hasn't loaded yet, fall back to time-based proxy so we don't block.
+      const fw = faceDistanceRef.current;
+      const distanceOk = faceDetectedRef.current
+        ? fw >= 0.28 && fw <= 0.5
+        : Date.now() - startedAtRef.current > 1500;
 
       setChecks((prev) => {
         const next = {
