@@ -1528,6 +1528,19 @@ function SavedUpsellStep({
       </div>
     </div>
     <SocialProofToast />
+    {showCheckout && (
+      <StripeCheckoutModal
+        priceId={FOUNDING_DEPOSIT_PRICE_ID}
+        customerEmail={email}
+        returnUrl={returnUrl}
+        metadata={{
+          recommended_sku: measurement.recommendedSku,
+          source: "fit_saved_upsell",
+          fomo_variant: fomoVariant,
+        }}
+        onClose={closeCheckout}
+      />
+    )}
     </>
   );
 }
