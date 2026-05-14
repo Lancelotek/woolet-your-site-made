@@ -98,7 +98,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
           padding: 0,
         }}
       >
-        Join Waitlist →
+        Join the waitlist · 30% off at launch
       </button>
     </div>
   );
