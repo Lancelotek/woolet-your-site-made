@@ -105,7 +105,7 @@ const Index = () => {
   };
 
   /** EN-only AI-Fit dual-claim hero block (Brand v2). */
-  const EnHero = () => (
+  const EnHero = ({ semantic = true }: { semantic?: boolean }) => (
     <div className="flex flex-col gap-6">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
@@ -121,13 +121,23 @@ const Index = () => {
         and that’s not your problem to solve. It’s ours.”
       </p>
 
-      {/* Product claim — main H1 */}
-      <h1
-        className="font-display text-woolet-white leading-[0.95]"
-        style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
-      >
-        <em className="italic text-gold-light">Measured</em> for you.
-      </h1>
+      {/* Product claim — main H1 (only on the visible/semantic instance) */}
+      {semantic ? (
+        <h1
+          className="font-display text-woolet-white leading-[0.95]"
+          style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
+        >
+          <em className="italic text-gold-light">Measured</em> for you.
+        </h1>
+      ) : (
+        <div
+          aria-hidden="true"
+          className="font-display text-woolet-white leading-[0.95]"
+          style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
+        >
+          <em className="italic text-gold-light">Measured</em> for you.
+        </div>
+      )}
 
       <p className="text-cream-dim leading-relaxed tracking-wider max-w-xl" style={{ fontSize: "0.88rem" }}>
         Italian Mazzucchelli acetate. AI-fit precision. Three sizes per shape
