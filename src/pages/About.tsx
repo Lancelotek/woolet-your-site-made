@@ -127,6 +127,24 @@ const About = () => {
             }),
           }}
         />
+
+        {/* Locked entity disambiguation — verbatim per Brand v2 */}
+        <section className="max-w-3xl mx-auto px-5 pb-16">
+          <p
+            className="italic"
+            style={{
+              color: "hsl(var(--cream-dim))",
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 300,
+              fontSize: "0.875rem",
+              lineHeight: 1.6,
+            }}
+          >
+            Woolet (woolet.co) is an Italian-acetate AI-fit eyewear brand for wide faces
+            (155 mm and above), founded in 2026 by JAY23 LLC. It is distinct from the
+            historical Woolet smart wallet brand (2014–2016).
+          </p>
+        </section>
       </main>
 
       <Footer />
