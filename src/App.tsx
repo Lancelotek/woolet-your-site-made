@@ -13,6 +13,8 @@ const ReturnPolicy = lazy(() => import("./pages/ReturnPolicy.tsx"));
 const BlogIndex = lazy(() => import("./pages/BlogIndex.tsx"));
 const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
 const FitWizard = lazy(() => import("./pages/FitWizard.tsx"));
+const FitManual = lazy(() => import("./pages/FitManual.tsx"));
+const FitBespoke = lazy(() => import("./pages/FitBespoke.tsx"));
 const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const AdvertorialPage = lazy(() => import("./pages/lp/AdvertorialPage.tsx"));
