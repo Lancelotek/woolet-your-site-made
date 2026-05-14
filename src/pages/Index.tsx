@@ -82,6 +82,82 @@ const Index = () => {
     );
   };
 
+  /** EN-only AI-Fit dual-claim hero block (Brand v2). */
+  const EnHero = () => (
+    <div className="flex flex-col gap-6">
+      <div className="woolet-eyebrow">
+        <div className="woolet-eyebrow-line" />
+        <span className="woolet-eyebrow-text animate-pulse-gold">AI-FIT · MEASURED FOR YOU</span>
+      </div>
+
+      {/* Brand claim — italic gold */}
+      <p
+        className="font-display italic leading-tight"
+        style={{ fontSize: "clamp(1.4rem, 2vw, 1.9rem)", color: "#DBC184", fontWeight: 300 }}
+      >
+        “Standard frames weren’t built for you —<br />
+        and that’s not your problem to solve. It’s ours.”
+      </p>
+
+      {/* Product claim — main H1 */}
+      <h1
+        className="font-display text-woolet-white leading-[0.95]"
+        style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
+      >
+        <em className="italic text-gold-light">Measured</em> for you.
+      </h1>
+
+      <p className="text-cream-dim leading-relaxed tracking-wider max-w-xl" style={{ fontSize: "0.88rem" }}>
+        Italian Mazzucchelli acetate. AI-fit precision. Three sizes per shape
+        (<span className="text-foreground">155 / 158 / 161 mm</span>), one bespoke. For faces 155 mm and above.
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-3 pt-2">
+        <a
+          href="/en/fit"
+          className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+          style={{
+            background: "hsl(var(--gold))",
+            color: "hsl(var(--background))",
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.7rem",
+            padding: "16px 24px",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
+        >
+          Scan your face · Reserve for $1
+        </a>
+        <a
+          href="#size-matrix"
+          className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+          style={{
+            border: "1px solid hsl(var(--gold) / 0.4)",
+            color: "hsl(var(--gold-light))",
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 300,
+            fontSize: "0.7rem",
+            padding: "16px 24px",
+            background: "transparent",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "hsl(var(--gold))";
+            e.currentTarget.style.background = "hsl(var(--gold) / 0.06)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "hsl(var(--gold) / 0.4)";
+            e.currentTarget.style.background = "transparent";
+          }}
+        >
+          See the sizes
+        </a>
+      </div>
+    </div>
+  );
+
+  const isEn = lang === "en";
+
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} />
