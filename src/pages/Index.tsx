@@ -46,11 +46,30 @@ const Index = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const utmCampaign = searchParams.get("utm_campaign") || "";
   const utmSource = searchParams.get("utm_source") || "direct";
+  void utmSource;
   const isUtmVariant = /meta|lp/i.test(utmCampaign);
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const isIOS =
     /iPhone|iPad|iPod/i.test(ua) ||
     (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  const [reserveOpen, setReserveOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+
+  const openReserve = () => {
+    pushGtmEvent("hero_cta_reserve_click", { source: "hero" });
+    setReserveOpen(true);
+  };
+  const openWaitlist = () => {
+    pushGtmEvent("hero_link_waitlist_click", { source: "hero" });
+    setWaitlistOpen(true);
+  };
+  const scrollToCollection = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const id = window.matchMedia("(min-width: 1024px)").matches ? "collection-desktop" : "collection";
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
 
   // Auto-scroll to #waitlist
   useEffect(() => {
