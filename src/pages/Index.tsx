@@ -385,6 +385,9 @@ const Index = () => {
           </div>
         </div>
       </main>
+
+      <ReserveModal open={reserveOpen} onOpenChange={setReserveOpen} />
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </>
   );
 };
