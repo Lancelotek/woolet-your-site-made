@@ -904,7 +904,7 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
             color: "hsl(var(--gold))",
           }}
         >
-          Founding member · Kickstarter
+          {copy.badge}
         </span>
       </div>
 
@@ -918,13 +918,13 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
             lineHeight: 1,
           }}
         >
-          Save 30%
+          {copy.headline}
         </span>
         <span
           className="text-cream-dim"
           style={{ fontSize: "0.9rem", fontFamily: "Barlow, sans-serif" }}
         >
-          — <span className="text-woolet-white">$133</span> instead of <span className="line-through">$190</span> retail
+          {copy.priceLine(sku)}
         </span>
       </div>
 
@@ -968,9 +968,7 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
           className="text-cream-dim leading-relaxed"
           style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
         >
-          Mazzucchelli acetate is sourced in limited batches. First production:
-          100 frames per model. Next batch ships Q3 2026 at $190 retail.
-          Campaign ends <span className="text-woolet-white">August 15, 2026</span> or when spots fill.
+          {copy.footnote}
         </p>
       </div>
     </div>
