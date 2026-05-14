@@ -58,10 +58,33 @@ const recommendSku = (faceWidthMm: number): Sku => {
 
 const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   if (typeof window === "undefined") return;
-  const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+  const w = window as unknown as {
+    dataLayer?: Record<string, unknown>[];
+    clarity?: (...args: unknown[]) => void;
+  };
   w.dataLayer = w.dataLayer || [];
   w.dataLayer.push({ event, ...params });
+
+  // Mirror key conversion + experiment events to Microsoft Clarity
+  const CLARITY_EVENTS = new Set([
+    "deposit_clicked",
+    "fit_result_fomo_shown",
+    "fit_fomo_variant_assigned",
+    "fit_result_shown",
+    "fit_scan_completed",
+  ]);
+  if (typeof w.clarity === "function" && CLARITY_EVENTS.has(event)) {
+    try {
+      w.clarity("event", event);
+      const variant = params.fomo_variant ?? params.variant;
+      if (variant) w.clarity("set", "fomo_variant", String(variant));
+      if (params.recommended_sku) w.clarity("set", "recommended_sku", String(params.recommended_sku));
+    } catch {
+      /* noop */
+    }
+  }
 };
+
 
 /* ───────── Shared button styles ───────── */
 const goldButtonStyle: React.CSSProperties = {
