@@ -323,6 +323,8 @@ function CaptureStep({
   const [showFallback, setShowFallback] = useState(false);
   const allGreenSinceRef = useRef<number | null>(null);
   const tiltGammaRef = useRef(0);
+  const faceDistanceRef = useRef(0); // face width / video width (0..1)
+  const faceDetectedRef = useRef(false);
   const startedAtRef = useRef(Date.now());
   const cardDetectedAtRef = useRef<number | null>(null);
   const completedRef = useRef(false);
@@ -380,13 +382,83 @@ function CaptureStep({
     return () => clearTimeout(t);
   }, []);
 
-  /* device orientation — head tilt proxy on mobile */
+  /* MediaPipe Face Mesh — real head-tilt + face-distance detection */
   useEffect(() => {
-    const handler = (e: DeviceOrientationEvent) => {
-      tiltGammaRef.current = Math.abs(e.gamma ?? 0);
+    let cancelled = false;
+    let rafId = 0;
+    let landmarker: { detectForVideo: (v: HTMLVideoElement, t: number) => { faceLandmarks: { x: number; y: number; z: number }[][] }; close?: () => void } | null = null;
+    let lastTs = -1;
+
+    (async () => {
+      try {
+        // Load tasks-vision from CDN to avoid bundling ~4MB of wasm
+        const cdn = "https://esm.sh/@mediapipe/tasks-vision@0.10.14";
+        const vision: any = await import(/* @vite-ignore */ /* webpackIgnore: true */ cdn);
+        const fileset = await vision.FilesetResolver.forVisionTasks(
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+        );
+        if (cancelled) return;
+        landmarker = await vision.FaceLandmarker.createFromOptions(fileset, {
+          baseOptions: {
+            modelAssetPath:
+              "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+            delegate: "GPU",
+          },
+          runningMode: "VIDEO",
+          numFaces: 1,
+          outputFaceBlendshapes: false,
+          outputFacialTransformationMatrixes: false,
+        });
+      } catch (err) {
+        // Fail-soft: leave tilt at 0 (always level) so capture isn't blocked
+        console.warn("[FitWizard] MediaPipe FaceLandmarker failed to load", err);
+        return;
+      }
+
+      const tick = () => {
+        if (cancelled) return;
+        const v = videoRef.current;
+        if (v && v.readyState >= 2 && landmarker) {
+          const ts = performance.now();
+          if (ts !== lastTs) {
+            lastTs = ts;
+            try {
+              const res = landmarker.detectForVideo(v, ts);
+              const lm = res.faceLandmarks?.[0];
+              if (lm && lm.length > 263) {
+                faceDetectedRef.current = true;
+                // Eye outer corners: 33 (right eye outer in image), 263 (left eye outer)
+                const a = lm[33];
+                const b = lm[263];
+                const dx = (b.x - a.x);
+                const dy = (b.y - a.y);
+                // Roll angle of eye line from horizontal — proxy for head tilt
+                const rollDeg = Math.abs((Math.atan2(dy, dx) * 180) / Math.PI);
+                tiltGammaRef.current = rollDeg;
+
+                // Face width as fraction of frame: landmarks 234 (right) and 454 (left) cheek
+                if (lm.length > 454) {
+                  const faceW = Math.abs(lm[454].x - lm[234].x);
+                  faceDistanceRef.current = faceW; // ~0.25–0.45 at arm's length
+                }
+              } else {
+                faceDetectedRef.current = false;
+              }
+            } catch {
+              /* transient — keep last known values */
+            }
+          }
+        }
+        rafId = requestAnimationFrame(tick);
+      };
+      rafId = requestAnimationFrame(tick);
+    })();
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(rafId);
+      try { landmarker?.close?.(); } catch { /* noop */ }
     };
-    window.addEventListener("deviceorientation", handler);
-    return () => window.removeEventListener("deviceorientation", handler);
   }, []);
 
   /* validation loop — runs at ~5 fps */
@@ -421,12 +493,16 @@ function CaptureStep({
       const avg = total / (c.width * c.height);
       const lightingOk = avg > 50 && avg < 230 && skew < 0.7;
 
-      // tilt: gamma > 5° on mobile counts as tilted; on desktop gamma stays 0 → always level
+      // tilt: real head-roll from MediaPipe eye-line angle. <8° = level.
       const tiltOk = tiltGammaRef.current < 8;
 
-      // distance: proxy via mid-frame brightness variance (face fills frame). Phase 4: real face bbox.
-      // Assume OK after 1.5s of camera activity.
-      const distanceOk = Date.now() - startedAtRef.current > 1500;
+      // distance: real face-width fraction from MediaPipe.
+      // Target ~0.28–0.48 of frame width (≈ arm's length on a 720×960 selfie).
+      // If face mesh hasn't loaded yet, fall back to time-based proxy so we don't block.
+      const fw = faceDistanceRef.current;
+      const distanceOk = faceDetectedRef.current
+        ? fw >= 0.28 && fw <= 0.5
+        : Date.now() - startedAtRef.current > 1500;
 
       setChecks((prev) => {
         const next = {
