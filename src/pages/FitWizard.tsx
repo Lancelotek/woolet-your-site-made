@@ -1573,7 +1573,7 @@ export default function FitWizard() {
   const [step, setStep] = useState<Step>("intro");
   const [measurement, setMeasurement] = useState<Measurement | null>(null);
 
-  const [showReserve, setShowReserve] = useState(false);
+  const [savedEmail, setSavedEmail] = useState<string>("");
 
   // Toggle body class for capture-mode background guard
   useEffect(() => {
