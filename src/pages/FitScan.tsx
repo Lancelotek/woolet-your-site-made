@@ -77,8 +77,9 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
       <div className="flex flex-col gap-3 pt-2">
         <button
           onClick={onStart}
+          disabled={disabled}
           style={{
-            background: GOLD,
+            background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
@@ -87,11 +88,11 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             border: "none",
-            cursor: "pointer",
+            cursor: disabled ? "not-allowed" : "pointer",
             height: 48,
           }}
         >
-          Start scan
+          {disabled ? "Scan unavailable" : "Start scan"}
         </button>
         <Link
           to={`/${lang}/fit`}
