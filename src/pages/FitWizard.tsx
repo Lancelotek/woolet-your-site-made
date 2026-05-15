@@ -1059,11 +1059,13 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
 
 function ResultStep({
   measurement,
+  scanInfo,
   onSwapShape,
   onSavedEmail,
   onBespoke,
 }: {
   measurement: Measurement;
+  scanInfo?: { faceWidthMm: number; noseWidthMm: number | null } | null;
   onSwapShape: () => void;
   onSavedEmail: (email: string) => void;
   onBespoke: () => void;
