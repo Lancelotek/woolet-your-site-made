@@ -23,6 +23,7 @@ const ListiclePage = lazy(() => import("./pages/lp/ListiclePage.tsx"));
 const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"));
 const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
+const Gone = lazy(() => import("./pages/Gone.tsx"));
 
 const queryClient = new QueryClient();
 
