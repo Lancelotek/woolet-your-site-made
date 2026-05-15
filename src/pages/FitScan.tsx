@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { isValidLang, type Lang } from "@/lib/i18n";
-import { getImageLandmarker, getVideoLandmarker } from "@/lib/face-landmarker";
+import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import {
   calculateMeasurements,
   getRecommendation,
