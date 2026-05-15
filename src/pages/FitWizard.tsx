@@ -1647,6 +1647,7 @@ export default function FitWizard() {
       confidence: 0.9,
     };
     setMeasurement(m);
+    setScanInfo({ faceWidthMm: fw, noseWidthMm: noseValid });
     setStep("result");
     pushEvent("fit_result_from_scan", {
       face_width_mm: fw,
