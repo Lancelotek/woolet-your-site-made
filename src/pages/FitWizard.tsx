@@ -1059,11 +1059,13 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
 
 function ResultStep({
   measurement,
+  scanInfo,
   onSwapShape,
   onSavedEmail,
   onBespoke,
 }: {
   measurement: Measurement;
+  scanInfo?: { faceWidthMm: number; noseWidthMm: number | null } | null;
   onSwapShape: () => void;
   onSavedEmail: (email: string) => void;
   onBespoke: () => void;
@@ -1115,6 +1117,76 @@ function ResultStep({
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-8 animate-fade-in">
+      {scanInfo && (
+        <div
+          role="status"
+          aria-label="Scan results applied"
+          style={{
+            border: "1px solid hsl(var(--gold) / 0.55)",
+            background: "hsl(var(--gold) / 0.08)",
+            borderRadius: 8,
+            padding: "16px 18px",
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: 14,
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden style={{ flexShrink: 0 }}>
+            <circle cx="10" cy="10" r="9" fill="none" stroke="hsl(var(--gold))" strokeWidth="1.4" />
+            <path d="M5.5 10.2l3 3 6-6" fill="none" stroke="hsl(var(--gold))" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0, flex: "1 1 auto" }}>
+            <span
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 500,
+                fontSize: "0.62rem",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "hsl(var(--gold))",
+              }}
+            >
+              Face scan applied
+            </span>
+            <span
+              className="text-cream-dim"
+              style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300, fontSize: "0.92rem" }}
+            >
+              Recommendation prefilled from your scan: face width{" "}
+              <strong style={{ color: "hsl(var(--woolet-white))", fontWeight: 500 }}>
+                {scanInfo.faceWidthMm} mm
+              </strong>
+              {scanInfo.noseWidthMm != null && (
+                <>
+                  {" · "}nose width{" "}
+                  <strong style={{ color: "hsl(var(--woolet-white))", fontWeight: 500 }}>
+                    {scanInfo.noseWidthMm} mm
+                  </strong>
+                </>
+              )}
+              .
+            </span>
+          </div>
+          <Link
+            to="/en/fit/scan"
+            style={{
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.7rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "hsl(var(--gold))",
+              textDecoration: "none",
+              borderBottom: "1px solid hsl(var(--gold) / 0.5)",
+              paddingBottom: 2,
+              flexShrink: 0,
+            }}
+          >
+            Re-scan
+          </Link>
+        </div>
+      )}
+
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
         <span className="woolet-eyebrow-text">YOUR MEASUREMENT</span>
@@ -1615,6 +1687,7 @@ export default function FitWizard() {
 
   const [step, setStep] = useState<Step>("intro");
   const [measurement, setMeasurement] = useState<Measurement | null>(null);
+  const [scanInfo, setScanInfo] = useState<{ faceWidthMm: number; noseWidthMm: number | null } | null>(null);
 
   const [savedEmail, setSavedEmail] = useState<string>("");
 
@@ -1646,6 +1719,7 @@ export default function FitWizard() {
       confidence: 0.9,
     };
     setMeasurement(m);
+    setScanInfo({ faceWidthMm: fw, noseWidthMm: noseValid });
     setStep("result");
     pushEvent("fit_result_from_scan", {
       face_width_mm: fw,
@@ -1771,6 +1845,7 @@ export default function FitWizard() {
           {step === "result" && measurement && (
             <ResultStep
               measurement={measurement}
+              scanInfo={scanInfo}
               onSwapShape={swapShape}
               onSavedEmail={(email) => {
                 setSavedEmail(email);
