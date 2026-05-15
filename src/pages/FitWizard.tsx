@@ -1615,6 +1615,7 @@ export default function FitWizard() {
 
   const [step, setStep] = useState<Step>("intro");
   const [measurement, setMeasurement] = useState<Measurement | null>(null);
+  const [scanInfo, setScanInfo] = useState<{ faceWidthMm: number; noseWidthMm: number | null } | null>(null);
 
   const [savedEmail, setSavedEmail] = useState<string>("");
 
