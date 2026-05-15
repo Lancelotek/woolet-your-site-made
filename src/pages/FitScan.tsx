@@ -4,17 +4,19 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { getImageLandmarker, getVideoLandmarker } from "@/lib/face-landmarker";
+import {
+  calculateMeasurements,
+  getRecommendation,
+  type Measurements,
+  type NormalizedLandmark,
+  type Point,
+  type Recommendation,
+} from "@/lib/face-measurements";
 
-/* ─────────────────────────────────────────────
-   Woolet AI Fit — Cardless Scanner (iris-calibrated)
-   No credit card needed. Uses MediaPipe FaceLandmarker
-   with iris landmarks; iris diameter ≈ 11.7 mm is the
-   clinical reference for px → mm conversion.
-   Result is forwarded to /en/fit?face_width=NNN.
-   ───────────────────────────────────────────── */
-
-const IRIS_MM = 11.7; // clinical mean horizontal iris diameter (adults)
-const FACE_WIDTH_CORRECTION = 1.06; // landmarks 234↔454 underestimate bizygomatic; calibrated
+const GOLD = "#CAA449";
+const BG = "#080807";
+const MUTED = "#888888";
 
 const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   if (typeof window === "undefined") return;
@@ -23,239 +25,875 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   w.dataLayer.push({ event, ...params });
 };
 
-type Phase = "intro" | "permission" | "scanning" | "captured" | "error";
+type Step = "welcome" | "camera" | "annotate" | "result";
 
-interface Sample {
-  faceWidthMm: number;
-  irisPx: number;
-  facePx: number;
-  yaw: number;
-  rollDeg: number;
+interface CapturedFrame {
+  dataUrl: string;
+  width: number;
+  height: number;
+  landmarks: NormalizedLandmark[];
 }
 
-const median = (arr: number[]) => {
-  if (!arr.length) return 0;
-  const s = [...arr].sort((a, b) => a - b);
-  return s[Math.floor(s.length / 2)];
-};
+/* ─────────────── Welcome ─────────────── */
+
+function WelcomeStep({ lang, onStart }: { lang: Lang; onStart: () => void }) {
+  return (
+    <div className="flex flex-col gap-7">
+      <div className="woolet-eyebrow">
+        <div className="woolet-eyebrow-line" />
+        <span className="woolet-eyebrow-text">CARDLESS · 30 SECONDS</span>
+      </div>
+      <h1
+        className="font-display text-woolet-white"
+        style={{ fontSize: "clamp(2.25rem, 5vw, 3.5rem)", fontWeight: 300, lineHeight: 1 }}
+      >
+        Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
+      </h1>
+      <p className="text-cream-dim leading-relaxed" style={{ fontSize: "1.05rem", fontWeight: 300 }}>
+        Hold any credit card to your forehead. We'll calculate your face width and nose width with
+        surgical precision — no app, no signup.
+      </p>
+
+      <ul className="flex flex-col gap-3 pt-1" style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300 }}>
+        {[
+          "Works on any phone or laptop with a camera",
+          "Accurate to about 2mm using card-scale protocol",
+          "Photo never leaves your device",
+        ].map((b) => (
+          <li key={b} className="flex items-start gap-3 text-cream-dim" style={{ fontSize: "0.95rem" }}>
+            <svg width="18" height="18" viewBox="0 0 18 18" style={{ marginTop: 2, flexShrink: 0 }}>
+              <path d="M3 9l4 4 8-8" fill="none" stroke={GOLD} strokeWidth="1.5" />
+            </svg>
+            {b}
+          </li>
+        ))}
+      </ul>
+
+      <p style={{ color: MUTED, fontSize: "0.8rem", fontFamily: "Barlow, sans-serif", fontWeight: 300, lineHeight: 1.5 }}>
+        Your photo never leaves this device. We use Google's MediaPipe Face Mesh running locally in
+        your browser — no upload, no storage, no third-party servers.
+      </p>
+
+      <div className="flex flex-col gap-3 pt-2">
+        <button
+          onClick={onStart}
+          style={{
+            background: GOLD,
+            color: BG,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.72rem",
+            padding: "16px 28px",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            border: "none",
+            cursor: "pointer",
+            height: 48,
+          }}
+        >
+          Start scan
+        </button>
+        <Link
+          to={`/${lang}/fit`}
+          style={{
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 300,
+            fontSize: "0.78rem",
+            textAlign: "center",
+            textDecoration: "none",
+          }}
+        >
+          Prefer manual measurement? Use the wizard →
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────── Camera ─────────────── */
+
+interface CameraStepProps {
+  lang: Lang;
+  onCaptured: (frame: CapturedFrame) => void;
+  onError: (msg: string) => void;
+}
+
+function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const overlayRef = useRef<HTMLCanvasElement | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const rafRef = useRef<number>(0);
+  const lastTsRef = useRef<number>(-1);
+  const allGreenSinceRef = useRef<number | null>(null);
+  const capturedRef = useRef(false);
+
+  const [hint, setHint] = useState("Allow camera access");
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
+  const [tipsOpen, setTipsOpen] = useState(false);
+
+  const stopAll = useCallback(() => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+  }, []);
+
+  const captureFrame = useCallback(async () => {
+    if (capturedRef.current) return;
+    const v = videoRef.current;
+    if (!v) return;
+    capturedRef.current = true;
+
+    const w = v.videoWidth;
+    const h = v.videoHeight;
+    const c = document.createElement("canvas");
+    c.width = w;
+    c.height = h;
+    const ctx = c.getContext("2d");
+    if (!ctx) return;
+    ctx.drawImage(v, 0, 0, w, h);
+    const dataUrl = c.toDataURL("image/jpeg", 0.92);
+
+    try {
+      const lm = await getImageLandmarker();
+      const res = lm.detect(c);
+      if (!res.faceLandmarks?.length) {
+        onError("We can't see your face. Try better lighting or face the camera directly.");
+        capturedRef.current = false;
+        return;
+      }
+      if (res.faceLandmarks.length > 1) {
+        onError("Only one face at a time, please.");
+        capturedRef.current = false;
+        return;
+      }
+      stopAll();
+      pushEvent("scan_captured");
+      onCaptured({ dataUrl, width: w, height: h, landmarks: res.faceLandmarks[0] });
+    } catch (err) {
+      console.warn("[scan] capture detect failed", err);
+      onError("Couldn't process the captured frame. Try again.");
+      capturedRef.current = false;
+    }
+  }, [onCaptured, onError, stopAll]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const start = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+          audio: false,
+        });
+        if (cancelled) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+        streamRef.current = stream;
+        const v = videoRef.current;
+        if (!v) return;
+        v.srcObject = stream;
+        await v.play();
+        pushEvent("scan_camera_active");
+      } catch (err) {
+        const reason = err instanceof Error && err.name === "NotAllowedError" ? "permission_denied" : "camera_error";
+        pushEvent("scan_error", { error_type: reason });
+        onError(
+          reason === "permission_denied"
+            ? "We need camera access to scan. Allow it in your browser, or use the manual wizard."
+            : "Couldn't start the camera. Try a different browser or device.",
+        );
+        return;
+      }
+
+      let lm;
+      try {
+        lm = await getVideoLandmarker();
+      } catch (err) {
+        console.warn("[scan] model load", err);
+        pushEvent("scan_error", { error_type: "model_load" });
+        onError("Couldn't load face detection. Check your connection and try again.");
+        return;
+      }
+      if (cancelled) return;
+
+      const tick = () => {
+        const v = videoRef.current;
+        const overlay = overlayRef.current;
+        if (!v || !overlay || v.readyState < 2) {
+          rafRef.current = requestAnimationFrame(tick);
+          return;
+        }
+        const ts = performance.now();
+        if (ts === lastTsRef.current) {
+          rafRef.current = requestAnimationFrame(tick);
+          return;
+        }
+        lastTsRef.current = ts;
+
+        const vw = v.videoWidth;
+        const vh = v.videoHeight;
+        if (overlay.width !== vw || overlay.height !== vh) {
+          overlay.width = vw;
+          overlay.height = vh;
+        }
+        const ctx = overlay.getContext("2d");
+        if (!ctx) {
+          rafRef.current = requestAnimationFrame(tick);
+          return;
+        }
+        ctx.clearRect(0, 0, vw, vh);
+
+        // Luminance sample
+        const sample = document.createElement("canvas");
+        sample.width = 32;
+        sample.height = 32;
+        const sctx = sample.getContext("2d");
+        let lum = 128;
+        if (sctx) {
+          sctx.drawImage(v, 0, 0, 32, 32);
+          const d = sctx.getImageData(0, 0, 32, 32).data;
+          let sum = 0;
+          for (let i = 0; i < d.length; i += 4) sum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+          lum = sum / (d.length / 4);
+        }
+        const lumState: "green" | "yellow" | "red" = lum > 100 ? "green" : lum > 70 ? "yellow" : "red";
+        setLighting(lumState);
+
+        let res;
+        try {
+          res = lm.detectForVideo(v, ts);
+        } catch {
+          rafRef.current = requestAnimationFrame(tick);
+          return;
+        }
+
+        const face = res.faceLandmarks?.[0];
+        let nextHint = "Position your face in the frame";
+        let allGreen = false;
+
+        if (!face) {
+          allGreenSinceRef.current = null;
+        } else {
+          let minX = 1, minY = 1, maxX = 0, maxY = 0;
+          for (const p of face) {
+            if (p.x < minX) minX = p.x;
+            if (p.x > maxX) maxX = p.x;
+            if (p.y < minY) minY = p.y;
+            if (p.y > maxY) maxY = p.y;
+          }
+          const boxH = maxY - minY;
+          const bx = minX * vw;
+          const by = minY * vh;
+          const bw = (maxX - minX) * vw;
+          const bh = (maxY - minY) * vh;
+          ctx.strokeStyle = GOLD;
+          ctx.lineWidth = 2;
+          ctx.strokeRect(bx, by, bw, bh);
+
+          // Card guide rectangle (above eyebrows)
+          const guideW = bw * 0.6;
+          const guideH = guideW * (54 / 85.6);
+          const guideX = bx + (bw - guideW) / 2;
+          const guideY = by - guideH * 0.2;
+          ctx.fillStyle = "rgba(202, 164, 73, 0.18)";
+          ctx.fillRect(guideX, Math.max(0, guideY), guideW, guideH);
+          ctx.strokeStyle = "rgba(202, 164, 73, 0.6)";
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([6, 6]);
+          ctx.strokeRect(guideX, Math.max(0, guideY), guideW, guideH);
+          ctx.setLineDash([]);
+
+          // Tilt
+          const f = face[10];
+          const c = face[152];
+          const tilt = Math.abs((Math.atan2((c.x - f.x) * vw, (c.y - f.y) * vh) * 180) / Math.PI);
+
+          if (boxH < 0.3) nextHint = "Move closer";
+          else if (boxH > 0.7) nextHint = "Move further back";
+          else if (lumState === "red") nextHint = "Improve lighting";
+          else if (tilt > 5) nextHint = "Keep your head straight";
+          else {
+            nextHint = "Place card on your forehead, magnetic stripe down";
+            allGreen = true;
+          }
+        }
+
+        if (allGreen) {
+          if (allGreenSinceRef.current == null) allGreenSinceRef.current = ts;
+          const elapsed = (ts - allGreenSinceRef.current) / 1000;
+          const remaining = Math.max(0, 3 - elapsed);
+          const cd = Math.ceil(remaining);
+          setCountdown(cd);
+          nextHint = `Hold still — capturing in ${cd}…`;
+          if (elapsed >= 3) {
+            captureFrame();
+            return;
+          }
+        } else {
+          allGreenSinceRef.current = null;
+          setCountdown(null);
+        }
+
+        setHint(nextHint);
+        rafRef.current = requestAnimationFrame(tick);
+      };
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    start();
+    return () => {
+      cancelled = true;
+      stopAll();
+    };
+  }, [captureFrame, onError, stopAll]);
+
+  const lightingColor = lighting === "green" ? "#4ade80" : lighting === "yellow" ? "#facc15" : "#ef4444";
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+        {[1, 2, 3, 4].map((n) => (
+          <span
+            key={n}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: n <= 2 ? GOLD : "rgba(255,255,255,0.18)",
+              display: "inline-block",
+            }}
+          />
+        ))}
+        <span
+          style={{
+            marginLeft: 10,
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.7rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+          }}
+        >
+          Step 2 of 4 — Position yourself
+        </span>
+      </div>
+
+      <div
+        className="scan-camera"
+        style={{
+          position: "relative",
+          width: "100%",
+          aspectRatio: "4/3",
+          background: "#000",
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
+      >
+        <video
+          ref={videoRef}
+          playsInline
+          muted
+          style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)" }}
+        />
+        <canvas
+          ref={overlayRef}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+            transform: "scaleX(-1)",
+          }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: 12,
+            right: 12,
+            width: 12,
+            height: 12,
+            borderRadius: "50%",
+            background: lightingColor,
+            boxShadow: `0 0 8px ${lightingColor}`,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: 16,
+            left: 16,
+            right: 16,
+            background: "rgba(0,0,0,0.55)",
+            backdropFilter: "blur(6px)",
+            padding: "12px 16px",
+            borderRadius: 6,
+            color: GOLD,
+            fontFamily: "Cormorant Garamond, serif",
+            fontWeight: 300,
+            fontSize: "1.4rem",
+            textAlign: "center",
+          }}
+        >
+          {hint}
+        </div>
+      </div>
+
+      <button
+        onClick={() => captureFrame()}
+        style={{
+          background: "transparent",
+          border: "none",
+          color: MUTED,
+          fontFamily: "Barlow, sans-serif",
+          fontSize: "0.78rem",
+          padding: "8px 0",
+          cursor: "pointer",
+          textDecoration: "underline",
+        }}
+      >
+        Capture now
+      </button>
+
+      <details
+        className="scan-tips-accordion"
+        open={tipsOpen}
+        onToggle={(e) => setTipsOpen((e.target as HTMLDetailsElement).open)}
+        style={{
+          border: "1px solid hsl(var(--border))",
+          borderRadius: 6,
+          padding: "12px 14px",
+          color: "hsl(var(--cream-dim))",
+          fontFamily: "Barlow, sans-serif",
+          fontSize: "0.85rem",
+        }}
+      >
+        <summary style={{ cursor: "pointer", color: GOLD, letterSpacing: "0.1em", textTransform: "uppercase", fontSize: "0.72rem" }}>
+          Tips for accuracy
+        </summary>
+        <p style={{ marginTop: 10, lineHeight: 1.6 }}>
+          Don't tilt the card or angle the camera. Even a small tilt creates 3–6mm of measurement
+          error. Hold the card flat against your skin, look straight at the camera, and stand about
+          50–70cm away.
+        </p>
+      </details>
+
+      <Link
+        to={`/${lang}/fit`}
+        style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.75rem", textAlign: "center", textDecoration: "none" }}
+      >
+        Use the manual wizard →
+      </Link>
+      {countdown == null ? null : <span style={{ display: "none" }}>{countdown}</span>}
+    </div>
+  );
+}
+
+/* ─────────────── Annotate ─────────────── */
+
+interface AnnotateStepProps {
+  frame: CapturedFrame;
+  onCalculate: (corners: [Point, Point]) => void;
+  onRetake: () => void;
+}
+
+function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [corners, setCorners] = useState<Point[]>([]);
+  const [displaySize, setDisplaySize] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    const update = () => {
+      const el = wrapperRef.current;
+      if (!el) return;
+      setDisplaySize({ w: el.clientWidth, h: el.clientHeight });
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (corners.length >= 2) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const xDisplay = e.clientX - rect.left;
+    const yDisplay = e.clientY - rect.top;
+    // Convert to native frame coords
+    const xNative = (xDisplay / rect.width) * frame.width;
+    const yNative = (yDisplay / rect.height) * frame.height;
+    setCorners((c) => [...c, { x: xNative, y: yNative }]);
+  };
+
+  const reset = () => setCorners([]);
+
+  const cardPxNative =
+    corners.length === 2 ? Math.hypot(corners[1].x - corners[0].x, corners[1].y - corners[0].y) : 0;
+
+  const scaleX = displaySize.w ? displaySize.w / frame.width : 1;
+  const scaleY = displaySize.h ? displaySize.h / frame.height : 1;
+
+  return (
+    <div className="flex flex-col gap-5">
+      <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+        {[1, 2, 3, 4].map((n) => (
+          <span
+            key={n}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: n <= 3 ? GOLD : "rgba(255,255,255,0.18)",
+              display: "inline-block",
+            }}
+          />
+        ))}
+        <span
+          style={{ marginLeft: 10, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}
+        >
+          Step 3 of 4 — Mark the card
+        </span>
+      </div>
+
+      <h2 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", fontWeight: 300 }}>
+        Tap the two bottom corners of your card
+      </h2>
+      <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300 }}>
+        We need to know exactly where the card edges are. Tap the bottom-left corner, then the bottom-right corner.
+      </p>
+
+      <div
+        ref={wrapperRef}
+        onClick={handleClick}
+        style={{
+          position: "relative",
+          width: "100%",
+          aspectRatio: `${frame.width} / ${frame.height}`,
+          borderRadius: 8,
+          overflow: "hidden",
+          cursor: corners.length < 2 ? "crosshair" : "default",
+          background: "#000",
+        }}
+      >
+        <img
+          src={frame.dataUrl}
+          alt="Captured frame for measurement"
+          style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)", display: "block" }}
+        />
+        {corners.length === 2 && (
+          <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+            <line
+              x1={(frame.width - corners[0].x) * scaleX}
+              y1={corners[0].y * scaleY}
+              x2={(frame.width - corners[1].x) * scaleX}
+              y2={corners[1].y * scaleY}
+              stroke={GOLD}
+              strokeWidth={2}
+            />
+          </svg>
+        )}
+        {corners.map((c, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: (frame.width - c.x) * scaleX - 6,
+              top: c.y * scaleY - 6,
+              width: 12,
+              height: 12,
+              borderRadius: "50%",
+              background: GOLD,
+              boxShadow: `0 0 0 4px rgba(202,164,73,0.25)`,
+              animation: "pulse 1.4s ease-in-out infinite",
+              pointerEvents: "none",
+            }}
+          />
+        ))}
+        <style>{`@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25); } }`}</style>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
+        <span>{corners.length} of 2 ✓</span>
+        {corners.length === 2 && <span>Card detected: {Math.round(cardPxNative)}px wide</span>}
+        {corners.length > 0 && (
+          <button onClick={reset} style={{ background: "none", border: "none", color: GOLD, cursor: "pointer", textDecoration: "underline", fontSize: "0.78rem" }}>
+            Reset corners
+          </button>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2 pt-2">
+        <button
+          disabled={corners.length < 2}
+          onClick={() => onCalculate([corners[0], corners[1]])}
+          style={{
+            background: corners.length < 2 ? "rgba(202,164,73,0.3)" : GOLD,
+            color: BG,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.72rem",
+            padding: "16px 28px",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            border: "none",
+            cursor: corners.length < 2 ? "not-allowed" : "pointer",
+            height: 48,
+          }}
+        >
+          Calculate my measurements
+        </button>
+        <button
+          onClick={onRetake}
+          style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "8px 0", cursor: "pointer", textDecoration: "underline" }}
+        >
+          Retake photo
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────── Result ─────────────── */
+
+interface ResultStepProps {
+  measurements: Measurements;
+  recommendation: Recommendation;
+  onRetake: () => void;
+  lang: Lang;
+}
+
+function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStepProps) {
+  const handleCta = () => {
+    pushEvent("scan_cta_clicked", {
+      cta_label: recommendation.primaryCta.toLowerCase().replace(/[^a-z]+/g, "_"),
+      recommendation_type: recommendation.type,
+    });
+  };
+
+  const downloadCard = () => {
+    const c = document.createElement("canvas");
+    c.width = 800;
+    c.height = 500;
+    const ctx = c.getContext("2d");
+    if (!ctx) return;
+    ctx.fillStyle = BG;
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.fillStyle = GOLD;
+    ctx.font = "300 36px 'Cormorant Garamond', serif";
+    ctx.fillText("Woolet AI Fit", 60, 80);
+    ctx.fillStyle = "#888";
+    ctx.font = "300 14px Barlow, sans-serif";
+    ctx.fillText("FACE WIDTH", 60, 160);
+    ctx.fillText("NOSE WIDTH", 420, 160);
+    ctx.fillStyle = GOLD;
+    ctx.font = "300 96px 'Cormorant Garamond', serif";
+    ctx.fillText(`${measurements.faceWidthMm} mm`, 60, 250);
+    ctx.fillText(`${measurements.noseWidthMm} mm`, 420, 250);
+    ctx.fillStyle = "#888";
+    ctx.font = "300 14px Barlow, sans-serif";
+    ctx.fillText(`Confidence: ${measurements.confidence}`, 60, 300);
+    ctx.fillText("woolet.co/en/fit/scan", 60, 460);
+
+    const link = document.createElement("a");
+    link.download = "woolet-fit.png";
+    link.href = c.toDataURL("image/png");
+    link.click();
+  };
+
+  return (
+    <div className="flex flex-col gap-7">
+      <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+        {[1, 2, 3, 4].map((n) => (
+          <span key={n} style={{ width: 8, height: 8, borderRadius: "50%", background: GOLD, display: "inline-block" }} />
+        ))}
+        <span style={{ marginLeft: 10, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+          Step 4 of 4 — Your measurements
+        </span>
+      </div>
+
+      <div
+        style={{
+          border: "1px solid hsl(var(--border))",
+          borderRadius: 8,
+          padding: "28px 26px",
+          background: "hsl(var(--card))",
+          display: "flex",
+          flexDirection: "column",
+          gap: 24,
+        }}
+      >
+        <div>
+          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+            Your face width
+          </div>
+          <div
+            className="scan-result-number font-display"
+            style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3rem, 8vw, 4.5rem)", lineHeight: 1 }}
+          >
+            {measurements.faceWidthMm} mm
+          </div>
+        </div>
+        <div>
+          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+            Your nose width
+          </div>
+          <div
+            className="scan-result-number font-display"
+            style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3rem, 8vw, 4.5rem)", lineHeight: 1 }}
+          >
+            {measurements.noseWidthMm} mm
+          </div>
+        </div>
+        <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
+          Confidence: {measurements.confidence}
+        </div>
+      </div>
+
+      <div
+        style={{
+          border: `1px solid ${recommendation.badgeColor}`,
+          borderRadius: 8,
+          padding: "24px 22px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 14,
+        }}
+      >
+        <span
+          style={{
+            alignSelf: "flex-start",
+            background: recommendation.badgeColor,
+            color: BG,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.65rem",
+            padding: "5px 10px",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+          }}
+        >
+          {recommendation.badgeLabel}
+        </span>
+        <h3 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.4rem, 2.6vw, 1.8rem)", fontWeight: 300, lineHeight: 1.2 }}>
+          {recommendation.title}
+        </h3>
+        <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300, lineHeight: 1.6 }}>
+          {recommendation.body}
+        </p>
+      </div>
+
+      <div className="scan-cta-primary flex flex-col gap-2">
+        <Link
+          to={recommendation.primaryHref}
+          onClick={handleCta}
+          style={{
+            background: GOLD,
+            color: BG,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.72rem",
+            padding: "16px 28px",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            textAlign: "center",
+            height: 48,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {recommendation.primaryCta}
+        </Link>
+        <button
+          onClick={downloadCard}
+          style={{ background: "transparent", border: "1px solid hsl(var(--border))", color: "hsl(var(--cream-dim))", fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", padding: "12px 0", letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}
+        >
+          Save my measurements
+        </button>
+        <button
+          onClick={onRetake}
+          style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "8px 0", cursor: "pointer", textDecoration: "underline" }}
+        >
+          Re-scan
+        </button>
+        <Link
+          to={`/${lang}/fit`}
+          style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.75rem", textAlign: "center", textDecoration: "none" }}
+        >
+          Use the manual wizard →
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────── Page shell ─────────────── */
 
 export default function FitScan() {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const navigate = useNavigate();
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const landmarkerRef = useRef<{
-    detectForVideo: (v: HTMLVideoElement, t: number) => {
-      faceLandmarks: { x: number; y: number; z: number }[][];
-    };
-    close?: () => void;
-  } | null>(null);
-  const samplesRef = useRef<Sample[]>([]);
-  const rafRef = useRef<number>(0);
-  const streamRef = useRef<MediaStream | null>(null);
+  const [step, setStep] = useState<Step>("welcome");
+  const [frame, setFrame] = useState<CapturedFrame | null>(null);
+  const [measurements, setMeasurements] = useState<Measurements | null>(null);
+  const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const [phase, setPhase] = useState<Phase>("intro");
-  const [hint, setHint] = useState<string>("Look straight at the camera");
-  const [samplesCount, setSamplesCount] = useState(0);
-  const [result, setResult] = useState<{ faceWidthMm: number; confidence: number } | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string>("");
-
-  const SAMPLES_NEEDED = 30;
-
-  const stopAll = useCallback(() => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((t) => t.stop());
-      streamRef.current = null;
-    }
-    try {
-      landmarkerRef.current?.close?.();
-    } catch {
-      /* noop */
-    }
-    landmarkerRef.current = null;
-  }, []);
-
-  useEffect(() => () => stopAll(), [stopAll]);
-
-  const beginScan = useCallback(async () => {
-    setPhase("permission");
+  const goWelcome = () => {
+    setFrame(null);
+    setMeasurements(null);
+    setRecommendation(null);
     setErrorMsg("");
-    samplesRef.current = [];
-    setSamplesCount(0);
+    setStep("welcome");
+  };
 
+  const startScan = () => {
+    pushEvent("scan_started");
+    setErrorMsg("");
+    setStep("camera");
+  };
+
+  const handleCaptured = (f: CapturedFrame) => {
+    setFrame(f);
+    setStep("annotate");
+  };
+
+  const handleCalculate = ([c1, c2]: [Point, Point]) => {
+    if (!frame) return;
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
-        audio: false,
+      const m = calculateMeasurements(frame.landmarks, frame.width, c1, c2);
+      const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
+      setMeasurements(m);
+      setRecommendation(r);
+      pushEvent("scan_completed", {
+        face_width_mm: m.faceWidthMm,
+        nose_width_mm: m.noseWidthMm,
+        recommendation_type: r.type,
+        confidence: m.confidence,
       });
-      streamRef.current = stream;
-      const v = videoRef.current;
-      if (!v) throw new Error("Video element missing");
-      v.srcObject = stream;
-      await v.play();
+      setStep("result");
     } catch (err) {
-      setErrorMsg(
-        err instanceof Error && err.name === "NotAllowedError"
-          ? "Camera permission denied. Please allow access in your browser settings."
-          : "Couldn't start the camera. Try a different browser or device.",
-      );
-      setPhase("error");
-      pushEvent("fit_scan_error", { reason: "camera" });
-      return;
+      const msg = err instanceof Error ? err.message : "Calculation failed.";
+      setErrorMsg(msg);
+      pushEvent("scan_error", { error_type: "calculation" });
     }
+  };
 
-    try {
-      const cdn = "https://esm.sh/@mediapipe/tasks-vision@0.10.14";
-      const vision: {
-        FilesetResolver: { forVisionTasks: (p: string) => Promise<unknown> };
-        FaceLandmarker: { createFromOptions: (f: unknown, o: unknown) => Promise<typeof landmarkerRef.current> };
-      } = await import(/* @vite-ignore */ cdn);
-      const fileset = await vision.FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm",
-      );
-      landmarkerRef.current = await vision.FaceLandmarker.createFromOptions(fileset, {
-        baseOptions: {
-          modelAssetPath:
-            "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
-          delegate: "GPU",
-        },
-        runningMode: "VIDEO",
-        numFaces: 1,
-        outputFaceBlendshapes: false,
-        outputFacialTransformationMatrixes: false,
-      });
-    } catch (err) {
-      console.warn("[FitScan] MediaPipe load failed", err);
-      setErrorMsg("Failed to load face detection. Check your connection and retry.");
-      setPhase("error");
-      pushEvent("fit_scan_error", { reason: "model" });
-      return;
-    }
-
-    setPhase("scanning");
-    pushEvent("fit_scan_started", {});
-
-    let lastTs = -1;
-    const tick = () => {
-      const v = videoRef.current;
-      const lm = landmarkerRef.current;
-      if (!v || !lm || v.readyState < 2) {
-        rafRef.current = requestAnimationFrame(tick);
-        return;
-      }
-      const ts = performance.now();
-      if (ts === lastTs) {
-        rafRef.current = requestAnimationFrame(tick);
-        return;
-      }
-      lastTs = ts;
-
-      try {
-        const res = lm.detectForVideo(v, ts);
-        const face = res.faceLandmarks?.[0];
-        // refined model returns 478 points (last 10 are iris)
-        if (!face || face.length < 478) {
-          setHint("Center your face in the oval");
-          rafRef.current = requestAnimationFrame(tick);
-          return;
-        }
-
-        const w = v.videoWidth || 1280;
-        const h = v.videoHeight || 720;
-
-        // Right iris extremes: 469 (right side), 471 (left side)
-        const irisR_a = face[469];
-        const irisR_b = face[471];
-        const irisRpx = Math.hypot((irisR_a.x - irisR_b.x) * w, (irisR_a.y - irisR_b.y) * h);
-
-        // Left iris extremes: 474, 476
-        const irisL_a = face[474];
-        const irisL_b = face[476];
-        const irisLpx = Math.hypot((irisL_a.x - irisL_b.x) * w, (irisL_a.y - irisL_b.y) * h);
-
-        const irisPx = (irisRpx + irisLpx) / 2;
-
-        // Face width: temple-to-temple proxy (127 ↔ 356)
-        const tL = face[127];
-        const tR = face[356];
-        const facePx = Math.hypot((tL.x - tR.x) * w, (tL.y - tR.y) * h);
-
-        // Roll (head tilt) from eye corners 33 ↔ 263
-        const eL = face[33];
-        const eR = face[263];
-        const rollDeg = Math.abs((Math.atan2((eR.y - eL.y) * h, (eR.x - eL.x) * w) * 180) / Math.PI);
-
-        // Yaw proxy: iris size asymmetry
-        const yaw = Math.abs(irisRpx - irisLpx) / Math.max(irisRpx, irisLpx);
-
-        // Quality gates
-        if (irisPx < 12) {
-          setHint("Move closer to the camera");
-        } else if (irisPx > 80) {
-          setHint("Move slightly further away");
-        } else if (rollDeg > 6) {
-          setHint("Keep your head level");
-        } else if (yaw > 0.12) {
-          setHint("Look directly at the camera");
-        } else {
-          const mmPerPx = IRIS_MM / irisPx;
-          const faceWidthMm = facePx * mmPerPx * FACE_WIDTH_CORRECTION;
-
-          // sanity bounds
-          if (faceWidthMm > 130 && faceWidthMm < 200) {
-            samplesRef.current.push({ faceWidthMm, irisPx, facePx, yaw, rollDeg });
-            setSamplesCount(samplesRef.current.length);
-            setHint("Hold steady…");
-
-            if (samplesRef.current.length >= SAMPLES_NEEDED) {
-              const arr = samplesRef.current.map((s) => s.faceWidthMm);
-              const med = median(arr);
-              // confidence: tighter spread = higher
-              const dev = Math.sqrt(arr.reduce((a, x) => a + (x - med) ** 2, 0) / arr.length);
-              const confidence = Math.max(0.7, Math.min(0.97, 1 - dev / 12));
-              setResult({ faceWidthMm: Math.round(med * 10) / 10, confidence });
-              setPhase("captured");
-              pushEvent("fit_scan_completed", {
-                face_width_mm: Math.round(med),
-                confidence: Math.round(confidence * 100) / 100,
-                samples: arr.length,
-              });
-              stopAll();
-              return;
-            }
-          }
-        }
-      } catch {
-        /* transient */
-      }
-
-      rafRef.current = requestAnimationFrame(tick);
-    };
-    rafRef.current = requestAnimationFrame(tick);
-  }, [stopAll]);
-
-  const useResult = useCallback(() => {
-    if (!result) return;
-    pushEvent("fit_scan_use_result", { face_width_mm: Math.round(result.faceWidthMm) });
-    navigate(`/${lang}/fit?face_width=${Math.round(result.faceWidthMm)}&source=scan`);
-  }, [result, navigate, lang]);
-
-  const retry = useCallback(() => {
-    stopAll();
-    setResult(null);
-    setPhase("intro");
-  }, [stopAll]);
-
-  const progress = Math.min(100, (samplesCount / SAMPLES_NEEDED) * 100);
+  const handleError = (msg: string) => {
+    setErrorMsg(msg);
+    setStep("welcome");
+  };
 
   return (
     <>
       <SEO
-        title="Cardless Face Scan — Woolet AI Fit"
-        description="Measure your face width with just your camera. No credit card needed. Iris-calibrated AI scan in under 15 seconds."
+        title="Face Scan — Woolet AI Fit"
+        description="Measure your face width and nose width with your camera and a credit card. Local, private, and accurate to about 2mm. Find out if Woolet's wide-face frames fit you."
         lang={lang}
         path="/fit/scan"
         noindex
@@ -264,255 +902,49 @@ export default function FitScan() {
       <Navbar />
 
       <main className="bg-background text-foreground" style={{ minHeight: "100vh" }}>
+        <style>{`
+          @media (max-width: 767px) {
+            .scan-camera { aspect-ratio: 3/4; }
+            .scan-result-number { font-size: 48px; }
+            .scan-cta-primary > a:first-child { position: sticky; bottom: 16px; z-index: 10; }
+            .scan-tips-accordion { font-size: 13px; }
+          }
+        `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
-          <div className="max-w-xl mx-auto flex flex-col gap-8">
-            <div className="woolet-eyebrow">
-              <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">CARDLESS SCAN · BETA</span>
-            </div>
-
-            <h1
-              className="font-display text-woolet-white leading-[0.95]"
-              style={{ fontSize: "clamp(2.2rem, 4.6vw, 3rem)", fontWeight: 300 }}
-            >
-              <em className="italic text-gold-light">No card.</em> Just your face.
-            </h1>
-
-            <p className="text-cream-dim leading-relaxed" style={{ fontSize: "1rem" }}>
-              We use the natural width of your iris (≈11.7 mm) as the scale reference. Hold steady
-              for ten seconds. Your video never leaves this device.
-            </p>
-
-            {phase === "intro" && (
-              <div className="flex flex-col gap-3 pt-2">
-                <button
-                  onClick={beginScan}
-                  style={{
-                    background: "hsl(var(--gold))",
-                    color: "hsl(var(--background))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontWeight: 500,
-                    fontSize: "0.7rem",
-                    padding: "16px 28px",
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Start cardless scan
-                </button>
-                <Link
-                  to={`/${lang}/fit`}
-                  style={{
-                    color: "hsl(var(--gold-light))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontWeight: 300,
-                    fontSize: "0.7rem",
-                    padding: "12px 0",
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    textAlign: "center",
-                    textDecoration: "none",
-                  }}
-                >
-                  Use the card method instead →
-                </Link>
-              </div>
-            )}
-
-            {(phase === "permission" || phase === "scanning") && (
-              <div className="flex flex-col gap-4">
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    aspectRatio: "3 / 4",
-                    background: "#000",
-                    borderRadius: 8,
-                    overflow: "hidden",
-                  }}
-                >
-                  <video
-                    ref={videoRef}
-                    playsInline
-                    muted
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      transform: "scaleX(-1)",
-                    }}
-                  />
-                  {/* face oval guide */}
-                  <svg
-                    viewBox="0 0 300 400"
-                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
-                  >
-                    <ellipse
-                      cx="150"
-                      cy="190"
-                      rx="105"
-                      ry="140"
-                      fill="none"
-                      stroke="hsl(var(--gold))"
-                      strokeWidth="1.5"
-                      strokeDasharray="4 6"
-                      opacity="0.7"
-                    />
-                  </svg>
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 12,
-                      left: 12,
-                      right: 12,
-                      background: "rgba(0,0,0,0.55)",
-                      backdropFilter: "blur(6px)",
-                      padding: "10px 14px",
-                      borderRadius: 6,
-                      color: "#fff",
-                      fontFamily: "Barlow, sans-serif",
-                      fontSize: "0.8rem",
-                      textAlign: "center",
-                    }}
-                  >
-                    {phase === "permission" ? "Allow camera access…" : hint}
-                  </div>
-                </div>
-
-                <div style={{ height: 4, background: "hsl(var(--border))", borderRadius: 2, overflow: "hidden" }}>
-                  <div
-                    style={{
-                      width: `${progress}%`,
-                      height: "100%",
-                      background: "hsl(var(--gold))",
-                      transition: "width 200ms",
-                    }}
-                  />
-                </div>
-                <p className="text-cream-dim text-center" style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}>
-                  {samplesCount} / {SAMPLES_NEEDED} valid frames
-                </p>
-
-                <button
-                  onClick={retry}
-                  style={{
-                    background: "transparent",
-                    border: "1px solid hsl(var(--border))",
-                    color: "hsl(var(--cream-dim))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.7rem",
-                    padding: "12px 0",
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    cursor: "pointer",
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
-
-            {phase === "captured" && result && (
+          <div className="max-w-xl mx-auto">
+            {errorMsg && step === "welcome" && (
               <div
-                className="flex flex-col gap-5 animate-fade-in"
+                role="alert"
                 style={{
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: 8,
-                  padding: "24px 22px",
-                  background: "hsl(var(--card))",
+                  marginBottom: 24,
+                  padding: "14px 16px",
+                  border: "1px solid rgba(239,68,68,0.4)",
+                  borderRadius: 6,
+                  color: "#fca5a5",
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.85rem",
                 }}
               >
-                <div className="text-cream-dim" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase" }}>
-                  Your face width
-                </div>
-                <div
-                  className="font-display text-woolet-white"
-                  style={{ fontSize: "3.4rem", fontWeight: 300, lineHeight: 1 }}
-                >
-                  {result.faceWidthMm.toFixed(1)}
-                  <span className="text-gold-light" style={{ fontSize: "1.4rem", marginLeft: 8 }}>mm</span>
-                </div>
-                <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>
-                  Confidence {Math.round(result.confidence * 100)}%. Iris-calibrated, ±2 mm.
-                </p>
-
-                <div className="flex flex-col gap-2 pt-2">
+                {errorMsg}
+                <div style={{ marginTop: 8 }}>
                   <button
-                    onClick={useResult}
-                    style={{
-                      background: "hsl(var(--gold))",
-                      color: "hsl(var(--background))",
-                      fontFamily: "Barlow, sans-serif",
-                      fontWeight: 500,
-                      fontSize: "0.7rem",
-                      padding: "16px 28px",
-                      letterSpacing: "0.22em",
-                      textTransform: "uppercase",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
+                    onClick={() => navigate(`/${lang}/fit`)}
+                    style={{ background: "none", border: "none", color: GOLD, cursor: "pointer", textDecoration: "underline", padding: 0, fontSize: "0.8rem" }}
                   >
-                    See my recommended fit →
-                  </button>
-                  <button
-                    onClick={retry}
-                    style={{
-                      background: "transparent",
-                      border: "1px solid hsl(var(--border))",
-                      color: "hsl(var(--cream-dim))",
-                      fontFamily: "Barlow, sans-serif",
-                      fontSize: "0.7rem",
-                      padding: "12px 0",
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Re-scan
+                    Use the manual wizard →
                   </button>
                 </div>
               </div>
             )}
 
-            {phase === "error" && (
-              <div className="flex flex-col gap-4">
-                <p className="text-cream-dim" style={{ fontSize: "0.9rem" }}>{errorMsg}</p>
-                <button
-                  onClick={retry}
-                  style={{
-                    background: "hsl(var(--gold))",
-                    color: "hsl(var(--background))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.7rem",
-                    padding: "14px 24px",
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Try again
-                </button>
-                <Link
-                  to={`/${lang}/fit`}
-                  style={{
-                    color: "hsl(var(--gold-light))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    textAlign: "center",
-                    textDecoration: "none",
-                  }}
-                >
-                  Use the card method →
-                </Link>
-              </div>
+            {step === "welcome" && <WelcomeStep lang={lang} onStart={startScan} />}
+            {step === "camera" && <CameraStep lang={lang} onCaptured={handleCaptured} onError={handleError} />}
+            {step === "annotate" && frame && (
+              <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} />
             )}
-
-            <canvas ref={canvasRef} style={{ display: "none" }} />
+            {step === "result" && measurements && recommendation && (
+              <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
+            )}
           </div>
         </div>
       </main>
