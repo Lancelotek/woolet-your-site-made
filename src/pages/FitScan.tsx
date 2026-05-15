@@ -788,7 +788,7 @@ function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStep
 
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
-          to={recommendation.primaryHref}
+          to={`/${lang}/fit?face_width=${measurements.faceWidthMm}&nose_width=${measurements.noseWidthMm}&source=scan`}
           onClick={handleCta}
           style={{
             background: GOLD,
@@ -807,26 +807,38 @@ function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStep
             justifyContent: "center",
           }}
         >
+          See my prefilled fit →
+        </Link>
+        <Link
+          to={recommendation.primaryHref}
+          onClick={handleCta}
+          style={{
+            background: "transparent",
+            border: "1px solid hsl(var(--border))",
+            color: "hsl(var(--cream-dim))",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            padding: "12px 0",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            textAlign: "center",
+          }}
+        >
           {recommendation.primaryCta}
         </Link>
         <button
           onClick={downloadCard}
-          style={{ background: "transparent", border: "1px solid hsl(var(--border))", color: "hsl(var(--cream-dim))", fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", padding: "12px 0", letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}
+          style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "8px 0", cursor: "pointer", textDecoration: "underline" }}
         >
           Save my measurements
         </button>
         <button
           onClick={onRetake}
-          style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "8px 0", cursor: "pointer", textDecoration: "underline" }}
+          style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "4px 0", cursor: "pointer", textDecoration: "underline" }}
         >
           Re-scan
         </button>
-        <Link
-          to={`/${lang}/fit`}
-          style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.75rem", textAlign: "center", textDecoration: "none" }}
-        >
-          Use the manual wizard →
-        </Link>
       </div>
     </div>
   );
