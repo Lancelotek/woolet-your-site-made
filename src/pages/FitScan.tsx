@@ -843,19 +843,45 @@ export default function FitScan() {
   const [measurements, setMeasurements] = useState<Measurements | null>(null);
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
+  const [supported, setSupported] = useState<boolean>(true);
+  const [secureCtx, setSecureCtx] = useState<boolean>(true);
+  const [retryCount, setRetryCount] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const isSecure = window.isSecureContext || window.location.hostname === "localhost";
+    const hasGetUserMedia = !!navigator.mediaDevices?.getUserMedia;
+    const webgl = hasWebGL();
+    setSecureCtx(isSecure);
+    // CPU fallback exists, so WebGL is not strictly required — but we still need camera + secure context.
+    setSupported(isSecure && hasGetUserMedia);
+    if (!webgl) {
+      // We'll still try (CPU delegate). Surface as info, not blocker.
+      console.info("[scan] WebGL unavailable — will try CPU inference");
+    }
+  }, []);
 
   const goWelcome = () => {
     setFrame(null);
     setMeasurements(null);
     setRecommendation(null);
     setErrorMsg("");
+    setErrorKind(null);
     setStep("welcome");
   };
 
   const startScan = () => {
     pushEvent("scan_started");
     setErrorMsg("");
+    setErrorKind(null);
     setStep("camera");
+  };
+
+  const retryScan = () => {
+    resetLandmarkers();
+    setRetryCount((n) => n + 1);
+    startScan();
   };
 
   const handleCaptured = (f: CapturedFrame) => {
@@ -880,14 +906,22 @@ export default function FitScan() {
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Calculation failed.";
       setErrorMsg(msg);
+      setErrorKind("recoverable");
       pushEvent("scan_error", { error_type: "calculation" });
     }
   };
 
-  const handleError = (msg: string) => {
+  const handleError = (msg: string, kind: "recoverable" | "unsupported" = "recoverable") => {
     setErrorMsg(msg);
+    setErrorKind(kind);
     setStep("welcome");
   };
+
+  const blockingMessage = !secureCtx
+    ? "Face scan needs a secure (HTTPS) connection. Open this page on the live site, or use the manual wizard."
+    : !supported
+      ? "Your browser doesn't expose camera access. Try Chrome, Safari, or Firefox — or use the manual wizard."
+      : null;
 
   return (
     <>
@@ -912,33 +946,87 @@ export default function FitScan() {
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
-            {errorMsg && step === "welcome" && (
+            {step === "welcome" && (blockingMessage || errorMsg) && (
               <div
                 role="alert"
                 style={{
-                  marginBottom: 24,
-                  padding: "14px 16px",
-                  border: "1px solid rgba(239,68,68,0.4)",
-                  borderRadius: 6,
-                  color: "#fca5a5",
+                  marginBottom: 28,
+                  padding: "20px 22px",
+                  border: `1px solid ${blockingMessage ? "rgba(255,255,255,0.14)" : "rgba(239,68,68,0.45)"}`,
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
                   fontFamily: "Barlow, sans-serif",
-                  fontSize: "0.85rem",
                 }}
               >
-                {errorMsg}
-                <div style={{ marginTop: 8 }}>
+                <div
+                  style={{
+                    color: blockingMessage ? GOLD : "#fca5a5",
+                    fontSize: "0.7rem",
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    marginBottom: 8,
+                  }}
+                >
+                  {blockingMessage ? "Scan unavailable" : "Scan didn't complete"}
+                </div>
+                <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
+                  {blockingMessage || errorMsg}
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
+                  {!blockingMessage && errorKind === "recoverable" && (
+                    <button
+                      onClick={retryScan}
+                      style={{
+                        background: GOLD,
+                        color: BG,
+                        fontFamily: "Barlow, sans-serif",
+                        fontWeight: 500,
+                        fontSize: "0.7rem",
+                        padding: "12px 20px",
+                        letterSpacing: "0.2em",
+                        textTransform: "uppercase",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Try again
+                    </button>
+                  )}
                   <button
                     onClick={() => navigate(`/${lang}/fit`)}
-                    style={{ background: "none", border: "none", color: GOLD, cursor: "pointer", textDecoration: "underline", padding: 0, fontSize: "0.8rem" }}
+                    style={{
+                      background: "transparent",
+                      border: "1px solid hsl(var(--border))",
+                      color: "hsl(var(--cream-dim))",
+                      fontFamily: "Barlow, sans-serif",
+                      fontSize: "0.7rem",
+                      padding: "12px 20px",
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                    }}
                   >
-                    Use the manual wizard →
+                    Use manual scan
                   </button>
                 </div>
               </div>
             )}
 
-            {step === "welcome" && <WelcomeStep lang={lang} onStart={startScan} />}
-            {step === "camera" && <CameraStep lang={lang} onCaptured={handleCaptured} onError={handleError} />}
+            {step === "welcome" && (
+              <WelcomeStep
+                lang={lang}
+                onStart={startScan}
+                disabled={!!blockingMessage}
+              />
+            )}
+            {step === "camera" && (
+              <CameraStep
+                key={retryCount}
+                lang={lang}
+                onCaptured={handleCaptured}
+                onError={handleError}
+              />
+            )}
             {step === "annotate" && frame && (
               <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} />
             )}
@@ -953,3 +1041,4 @@ export default function FitScan() {
     </>
   );
 }
+
