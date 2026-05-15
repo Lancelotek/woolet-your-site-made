@@ -1773,6 +1773,7 @@ export default function FitWizard() {
           {step === "result" && measurement && (
             <ResultStep
               measurement={measurement}
+              scanInfo={scanInfo}
               onSwapShape={swapShape}
               onSavedEmail={(email) => {
                 setSavedEmail(email);
