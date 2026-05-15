@@ -36,7 +36,7 @@ interface CapturedFrame {
 
 /* ─────────────── Welcome ─────────────── */
 
-function WelcomeStep({ lang, onStart }: { lang: Lang; onStart: () => void }) {
+function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart: () => void; disabled?: boolean }) {
   return (
     <div className="flex flex-col gap-7">
       <div className="woolet-eyebrow">
