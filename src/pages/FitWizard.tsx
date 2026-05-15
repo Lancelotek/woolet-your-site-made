@@ -1625,16 +1625,21 @@ export default function FitWizard() {
     return () => document.body.classList.remove("fit-capture-mode");
   }, [step]);
 
-  // Shortcut: ?face_width=NNN&source=scan jumps straight to result
+  // Shortcut: ?face_width=NNN[&nose_width=NN]&source=scan jumps straight to result
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     const fw = Number(params.get("face_width"));
     if (!fw || fw < 130 || fw > 200) return;
     const source = params.get("source") || "scan";
+    const noseRaw = Number(params.get("nose_width"));
+    const noseValid = noseRaw >= 28 && noseRaw <= 60 ? noseRaw : null;
+    const baseBridge = fw < 155 ? 21 : fw < 161 ? 22 : 23;
+    // Wider bridge for wider noses (alar ≥ 40mm) — keyhole bridge can scale up by 1mm.
+    const bridgeMm = noseValid && noseValid >= 40 ? Math.min(23, baseBridge + 1) : baseBridge;
     const m: Measurement = {
       faceWidthMm: fw,
-      bridgeMm: fw < 155 ? 21 : fw < 161 ? 22 : 23,
+      bridgeMm,
       pdMm: Math.round(fw * 0.41),
       cardType: "cardless",
       recommendedSku: recommendSku(fw),
@@ -1642,7 +1647,11 @@ export default function FitWizard() {
     };
     setMeasurement(m);
     setStep("result");
-    pushEvent("fit_result_from_scan", { face_width_mm: fw, source });
+    pushEvent("fit_result_from_scan", {
+      face_width_mm: fw,
+      nose_width_mm: noseValid ?? undefined,
+      source,
+    });
   }, []);
 
   // Stripe Embedded Checkout return: ?checkout=success&session_id=…
