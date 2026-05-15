@@ -23,6 +23,7 @@ const ListiclePage = lazy(() => import("./pages/lp/ListiclePage.tsx"));
 const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"));
 const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
+const Gone = lazy(() => import("./pages/Gone.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,28 @@ const App = () => (
         <Routes>
           {/* Root redirects to /en */}
           <Route path="/" element={<Navigate to="/en" replace />} />
+
+          {/* === Legacy Shopify smart-wallet 301-equivalent redirects === */}
+          {/* Old product URLs that map cleanly to new eyewear models */}
+          <Route path="/products/smart-and-slim-leather-wallet" element={<Navigate to="/en/products/009" replace />} />
+          <Route path="/products/smart-and-slim-travel-wallet-hand-crafted-leather" element={<Navigate to="/en/products/007" replace />} />
+          {/* Old product URLs with no eyewear counterpart → home */}
+          <Route path="/products/smart-wallet-howl" element={<Navigate to="/en" replace />} />
+          <Route path="/products/woolet-classic-charging-pad-special-offer" element={<Navigate to="/en" replace />} />
+          <Route path="/products/woolet-tracker" element={<Navigate to="/en" replace />} />
+          <Route path="/products/black-leather-cable-microusb-to-usb" element={<Navigate to="/en" replace />} />
+          <Route path="/products/flash-sale-woolet-travel-xl-2-0-black" element={<Navigate to="/en" replace />} />
+          <Route path="/products/smart-anti-theft-black-italian-leather-wallet" element={<Navigate to="/en" replace />} />
+          {/* Old blog/collection URLs */}
+          <Route path="/blogs/news" element={<Navigate to="/en/blog" replace />} />
+          <Route path="/blogs/news/*" element={<Navigate to="/en/blog" replace />} />
+          <Route path="/blog/woolet-howl-3-0-gps-manual-how-setup-gps-wallet" element={<Navigate to="/en" replace />} />
+          <Route path="/collections/*" element={<Navigate to="/en" replace />} />
+
+          {/* === 410-equivalent: any other legacy Shopify path returns noindex Gone page === */}
+          <Route path="/products/*" element={<Gone />} />
+          <Route path="/blogs/*" element={<Gone />} />
+          <Route path="/pages/*" element={<Gone />} />
 
           {/* Landing pages */}
           <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
