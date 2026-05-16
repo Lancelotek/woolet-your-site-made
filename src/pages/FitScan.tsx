@@ -132,7 +132,14 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [hint, setHint] = useState("Allow camera access");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
+  const [cardOk, setCardOk] = useState(false);
   const [tipsOpen, setTipsOpen] = useState(false);
+
+  const isCoarsePointer =
+    typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches;
+  const deviceTip = isCoarsePointer
+    ? "Hold the phone at arm's length, camera at eye level."
+    : "Sit ~50–70 cm from the webcam, eyes level with the camera.";
 
   const stopAll = useCallback(() => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
