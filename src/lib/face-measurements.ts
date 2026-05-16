@@ -21,6 +21,21 @@ export interface Point {
   y: number;
 }
 
+function assertPoint(point: Point | undefined, label: string) {
+  if (
+    !point ||
+    typeof point.x !== "number" ||
+    typeof point.y !== "number" ||
+    !Number.isFinite(point.x) ||
+    !Number.isFinite(point.y)
+  ) {
+    throw new MeasurementError(
+      "invalid_landmarks",
+      `${label} is missing. Re-scan and mark the requested points again.`,
+    );
+  }
+}
+
 export interface Measurements {
   faceWidthMm: number;
   noseWidthMm: number;
@@ -78,6 +93,8 @@ export function calculateMeasurements(
   canvasWidth: number,
   cardCorner1: Point,
   cardCorner2: Point,
+  faceEdge1?: Point,
+  faceEdge2?: Point,
 ): Measurements {
   if (!Number.isFinite(canvasWidth) || canvasWidth < 100) {
     throw new MeasurementError("invalid_canvas", "Capture frame is invalid. Re-scan.");
@@ -106,9 +123,23 @@ export function calculateMeasurements(
   }
   const mmPerPx = CARD_WIDTH_MM / cardPixelWidth;
 
-  const faceLeftPx = landmarks[LANDMARKS.faceLeftTemple].x * canvasWidth;
-  const faceRightPx = landmarks[LANDMARKS.faceRightTemple].x * canvasWidth;
-  const facePixelWidth = Math.abs(faceRightPx - faceLeftPx);
+  let facePixelWidth: number;
+  if (faceEdge1 && faceEdge2) {
+    assertPoint(faceEdge1, "Left face edge point");
+    assertPoint(faceEdge2, "Right face edge point");
+    facePixelWidth = Math.abs(faceEdge2.x - faceEdge1.x);
+    if (!Number.isFinite(facePixelWidth) || facePixelWidth < 80) {
+      throw new MeasurementError(
+        "face_out_of_range",
+        "Face edge points are too close together. Mark the outermost visible left and right contour of your face.",
+        { facePixelWidth },
+      );
+    }
+  } else {
+    const faceLeftPx = landmarks[LANDMARKS.faceLeftTemple].x * canvasWidth;
+    const faceRightPx = landmarks[LANDMARKS.faceRightTemple].x * canvasWidth;
+    facePixelWidth = Math.abs(faceRightPx - faceLeftPx);
+  }
   const faceWidthMmRaw = facePixelWidth * mmPerPx;
 
   const noseLeftPx = landmarks[LANDMARKS.noseLeftAlar].x * canvasWidth;
@@ -122,7 +153,7 @@ export function calculateMeasurements(
   if (faceWidthMm < FACE_WIDTH_RANGE_MM.min || faceWidthMm > FACE_WIDTH_RANGE_MM.max) {
     throw new MeasurementError(
       "face_out_of_range",
-      `Face width came out as ${faceWidthMm} mm, which is outside the plausible ${FACE_WIDTH_RANGE_MM.min}–${FACE_WIDTH_RANGE_MM.max} mm range. Re-scan and tap the exact card corners.`,
+      `Face width came out as ${faceWidthMm} mm, which is outside the plausible ${FACE_WIDTH_RANGE_MM.min}–${FACE_WIDTH_RANGE_MM.max} mm range. Re-scan and tap the exact card corners plus the outer face edges.`,
       { faceWidthMm },
     );
   }

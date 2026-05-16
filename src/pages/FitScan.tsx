@@ -823,13 +823,14 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
 
 interface AnnotateStepProps {
   frame: CapturedFrame;
-  onCalculate: (corners: [Point, Point]) => void;
+  onCalculate: (cardCorners: [Point, Point], faceEdges: [Point, Point]) => void;
   onRetake: () => void;
 }
 
 function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const [corners, setCorners] = useState<Point[]>([]);
+  const [cardCorners, setCardCorners] = useState<Point[]>([]);
+  const [faceEdges, setFaceEdges] = useState<Point[]>([]);
   const [displaySize, setDisplaySize] = useState({ w: 0, h: 0 });
   const draggingRef = useRef<number | null>(null);
   const HINT_KEY = "woolet_scan_drag_hint_seen";
@@ -844,20 +845,20 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
 
   // Show one-time hint the moment both corners are placed
   useEffect(() => {
-    if (corners.length !== 2 || hintDismissed) return;
+    if (cardCorners.length !== 2 || hintDismissed) return;
     let seen = false;
     try { seen = localStorage.getItem(HINT_KEY) === "1"; } catch { /* noop */ }
     if (seen) return;
     setShowDragHint(true);
     const t = window.setTimeout(() => setShowDragHint(false), 4500);
     return () => window.clearTimeout(t);
-  }, [corners.length, hintDismissed]);
+  }, [cardCorners.length, hintDismissed]);
 
   // Auto-dismiss as soon as the user actually drags
   useEffect(() => {
     if (!showDragHint) return;
     if (draggingRef.current !== null) dismissHint();
-  }, [showDragHint, dismissHint, corners]);
+  }, [showDragHint, dismissHint, cardCorners]);
 
   useEffect(() => {
     const update = () => {
@@ -885,10 +886,15 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (draggingRef.current !== null) return;
-    if (corners.length >= 2) return;
     const p = eventToNative(e.clientX, e.clientY);
     if (!p) return;
-    setCorners((c) => [...c, p]);
+    if (cardCorners.length < 2) {
+      setCardCorners((c) => [...c, p]);
+      return;
+    }
+    if (faceEdges.length < 2) {
+      setFaceEdges((c) => [...c, p]);
+    }
   };
 
   const startDrag = (idx: number) => (e: React.PointerEvent<HTMLDivElement>) => {
@@ -904,7 +910,11 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
     e.stopPropagation();
     const p = eventToNative(e.clientX, e.clientY);
     if (!p) return;
-    setCorners((cs) => cs.map((c, i) => (i === idx ? p : c)));
+    if (idx < 2) {
+      setCardCorners((cs) => cs.map((c, i) => (i === idx ? p : c)));
+      return;
+    }
+    setFaceEdges((cs) => cs.map((c, i) => (i === idx - 2 ? p : c)));
   };
 
   const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -914,13 +924,18 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
     draggingRef.current = null;
   };
 
-  const reset = () => setCorners([]);
+  const reset = () => {
+    setCardCorners([]);
+    setFaceEdges([]);
+  };
 
   const cardPxNative =
-    corners.length === 2 ? Math.hypot(corners[1].x - corners[0].x, corners[1].y - corners[0].y) : 0;
+    cardCorners.length === 2 ? Math.hypot(cardCorners[1].x - cardCorners[0].x, cardCorners[1].y - cardCorners[0].y) : 0;
 
   const scaleX = displaySize.w ? displaySize.w / frame.width : 1;
   const scaleY = displaySize.h ? displaySize.h / frame.height : 1;
+  const totalPoints = cardCorners.length + faceEdges.length;
+  const allPoints = [...cardCorners, ...faceEdges];
 
   return (
     <div className="flex flex-col gap-5">
@@ -940,15 +955,15 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
         <span
           style={{ marginLeft: 10, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}
         >
-          Step 3 of 4 — Mark the card
+          Step 3 of 4 — Mark card and face
         </span>
       </div>
 
       <h2 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", fontWeight: 300 }}>
-        Tap the two bottom corners of your card
+        Mark 4 points: card first, then face edges
       </h2>
       <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300 }}>
-        Tap the bottom-left, then the bottom-right corner of the card. You can drag either dot to fine-tune its position before calculating.
+        First tap the bottom-left and bottom-right corners of the card. Then tap the outermost visible left and right edges of your face at temple level. You can drag any dot to fine-tune before calculating.
       </p>
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: -8 }}>
         <svg viewBox="0 0 48 32" width="40" height="27" fill="none" aria-hidden="true">
@@ -975,7 +990,7 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
           aspectRatio: `${frame.width} / ${frame.height}`,
           borderRadius: 8,
           overflow: "hidden",
-          cursor: corners.length < 2 ? "crosshair" : "default",
+          cursor: totalPoints < 4 ? "crosshair" : "default",
           background: "#000",
           touchAction: "none",
         }}
@@ -985,54 +1000,71 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
           alt="Captured frame for measurement"
           style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)", display: "block", pointerEvents: "none" }}
         />
-        {corners.length === 2 && (
+        {cardCorners.length === 2 && (
           <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
             <line
-              x1={(frame.width - corners[0].x) * scaleX}
-              y1={corners[0].y * scaleY}
-              x2={(frame.width - corners[1].x) * scaleX}
-              y2={corners[1].y * scaleY}
+              x1={(frame.width - cardCorners[0].x) * scaleX}
+              y1={cardCorners[0].y * scaleY}
+              x2={(frame.width - cardCorners[1].x) * scaleX}
+              y2={cardCorners[1].y * scaleY}
               stroke={GOLD}
               strokeWidth={2}
             />
+            {faceEdges.length === 2 && (
+              <line
+                x1={(frame.width - faceEdges[0].x) * scaleX}
+                y1={faceEdges[0].y * scaleY}
+                x2={(frame.width - faceEdges[1].x) * scaleX}
+                y2={faceEdges[1].y * scaleY}
+                stroke="rgba(240,236,228,0.85)"
+                strokeWidth={2}
+                strokeDasharray="6 6"
+              />
+            )}
           </svg>
         )}
-        {corners.map((c, i) => (
-          <div
-            key={i}
-            onPointerDown={startDrag(i)}
-            onPointerMove={handleDotMove}
-            onPointerUp={endDrag}
-            onPointerCancel={endDrag}
-            role="slider"
-            aria-label={`Card corner ${i + 1} — drag to adjust`}
-            style={{
-              position: "absolute",
-              left: (frame.width - c.x) * scaleX - 14,
-              top: c.y * scaleY - 14,
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              background: "transparent",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "grab",
-              touchAction: "none",
-            }}
-          >
-            <span
+        {allPoints.map((c, i) => {
+          const isCardPoint = i < 2;
+          const label = isCardPoint ? `Card corner ${i + 1}` : `Face edge ${i - 1}`;
+          return (
+            <div
+              key={i}
+              onPointerDown={startDrag(i)}
+              onPointerMove={handleDotMove}
+              onPointerUp={endDrag}
+              onPointerCancel={endDrag}
+              role="slider"
+              aria-label={`${label} — drag to adjust`}
               style={{
-                width: 14,
-                height: 14,
+                position: "absolute",
+                left: (frame.width - c.x) * scaleX - 14,
+                top: c.y * scaleY - 14,
+                width: 28,
+                height: 28,
                 borderRadius: "50%",
-                background: GOLD,
-                boxShadow: `0 0 0 5px rgba(202,164,73,0.22), 0 0 0 1px rgba(0,0,0,0.4)`,
-                display: "block",
+                background: "transparent",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "grab",
+                touchAction: "none",
               }}
-            />
-          </div>
-        ))}
+            >
+              <span
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: "50%",
+                  background: isCardPoint ? GOLD : "#f0ece4",
+                  boxShadow: isCardPoint
+                    ? `0 0 0 5px rgba(202,164,73,0.22), 0 0 0 1px rgba(0,0,0,0.4)`
+                    : `0 0 0 5px rgba(240,236,228,0.18), 0 0 0 1px rgba(0,0,0,0.4)`,
+                  display: "block",
+                }}
+              />
+            </div>
+          );
+        })}
         {showDragHint && (
           <div
             onPointerDown={(e) => { e.stopPropagation(); dismissHint(); }}
@@ -1063,28 +1095,37 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M9 11V6a2 2 0 1 1 4 0v5M13 11V4.5a2 2 0 1 1 4 0V11M17 11V7.5a2 2 0 1 1 4 0V14a7 7 0 0 1-7 7h-1.5a6 6 0 0 1-5.2-3l-3.1-5.4a2 2 0 0 1 3.4-2L9 13V6a2 2 0 1 1 4 0v5" stroke={GOLD} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span>Drag a dot to fine-tune the card edge</span>
+            <span>Drag a point to fine-tune its position</span>
           </div>
         )}
         <style>{`@keyframes wooletHintIn { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }`}</style>
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
-        <span>{corners.length} of 2 ✓</span>
-        {corners.length === 2 && <span>Card detected: {Math.round(cardPxNative)}px wide</span>}
-        {corners.length > 0 && (
+        <span>{totalPoints} of 4 ✓</span>
+        {cardCorners.length === 2 && <span>Card detected: {Math.round(cardPxNative)}px wide</span>}
+        {totalPoints > 0 && (
           <button onClick={reset} style={{ background: "none", border: "none", color: GOLD, cursor: "pointer", textDecoration: "underline", fontSize: "0.78rem" }}>
-            Reset corners
+            Reset points
           </button>
         )}
       </div>
 
+      <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: -4, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
+        <span style={{ color: cardCorners.length < 2 ? "hsl(var(--cream-dim))" : MUTED }}>
+          1. Card: bottom-left + bottom-right corners
+        </span>
+        <span style={{ color: cardCorners.length === 2 && faceEdges.length < 2 ? "hsl(var(--cream-dim))" : MUTED }}>
+          2. Face: outermost left + right contour at temple level
+        </span>
+      </div>
+
       <div className="flex flex-col gap-2 pt-2">
         <button
-          disabled={corners.length < 2}
-          onClick={() => onCalculate([corners[0], corners[1]])}
+          disabled={cardCorners.length < 2 || faceEdges.length < 2}
+          onClick={() => onCalculate([cardCorners[0], cardCorners[1]], [faceEdges[0], faceEdges[1]])}
           style={{
-            background: corners.length < 2 ? "rgba(202,164,73,0.3)" : GOLD,
+            background: cardCorners.length < 2 || faceEdges.length < 2 ? "rgba(202,164,73,0.3)" : GOLD,
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
@@ -1093,7 +1134,7 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             border: "none",
-            cursor: corners.length < 2 ? "not-allowed" : "pointer",
+            cursor: cardCorners.length < 2 || faceEdges.length < 2 ? "not-allowed" : "pointer",
             height: 48,
           }}
         >
@@ -1409,10 +1450,10 @@ export default function FitScan() {
     setStep("annotate");
   };
 
-  const handleCalculate = ([c1, c2]: [Point, Point]) => {
+  const handleCalculate = ([c1, c2]: [Point, Point], [f1, f2]: [Point, Point]) => {
     if (!frame) return;
     try {
-      const m = calculateMeasurements(frame.landmarks, frame.width, c1, c2);
+      const m = calculateMeasurements(frame.landmarks, frame.width, c1, c2, f1, f2);
       const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
       setMeasurements(m);
       setRecommendation(r);
