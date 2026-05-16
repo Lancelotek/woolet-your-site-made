@@ -139,6 +139,8 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardOk, setCardOk] = useState(false);
+  const [cardInZone, setCardInZone] = useState(false);
+  const [cardHorizontal, setCardHorizontal] = useState(false);
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [cardConfidence, setCardConfidence] = useState(0);
   const [okFlash, setOkFlash] = useState(0);
@@ -394,6 +396,8 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const confidence = Math.round(strength * (0.45 + 0.55 * dom) * 100);
           setCardConfidence(confidence);
 
+          setCardInZone(cardPresent);
+          setCardHorizontal(cardPresent && vGrad > hGrad * 1.35 && vGrad > 7);
           setCardOk(cardAligned);
           setCardState(nextState);
 
@@ -717,6 +721,57 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       >
         {deviceTip}
       </p>
+
+      <div
+        role="status"
+        aria-live="polite"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 6,
+          padding: "10px 12px",
+          border: `1px solid ${cardOk ? "rgba(74,222,128,0.5)" : "rgba(202,164,73,0.25)"}`,
+          background: cardOk ? "rgba(74,222,128,0.08)" : "rgba(0,0,0,0.25)",
+          borderRadius: 6,
+          fontFamily: "Barlow, sans-serif",
+          fontSize: "0.78rem",
+          color: "rgba(255,255,255,0.85)",
+        }}
+      >
+        <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>
+          Pre-measurement checks
+        </div>
+        {[
+          { ok: cardInZone, label: "Card detected on forehead area" },
+          { ok: cardHorizontal, label: "Card laid horizontally (long edge across)" },
+        ].map((check) => (
+          <div key={check.label} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span
+              aria-hidden
+              style={{
+                width: 14,
+                height: 14,
+                borderRadius: "50%",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: check.ok ? "rgba(74,222,128,0.9)" : "rgba(255,255,255,0.12)",
+                color: check.ok ? "#0f0f0f" : "rgba(255,255,255,0.5)",
+                fontSize: 10,
+                fontWeight: 700,
+              }}
+            >
+              {check.ok ? "✓" : "•"}
+            </span>
+            <span style={{ opacity: check.ok ? 1 : 0.7 }}>{check.label}</span>
+          </div>
+        ))}
+        {!cardOk && (
+          <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.5)", marginTop: 2 }}>
+            Capture stays locked until both checks pass.
+          </div>
+        )}
+      </div>
 
       <button
         onClick={() => {
