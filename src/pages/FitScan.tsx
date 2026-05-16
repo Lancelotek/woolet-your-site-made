@@ -410,6 +410,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             bottom: ((vh - (activeRegion.y + activeRegion.h)) / vh) * 100,
             width: (activeRegion.w / vw) * 100,
           });
+          setCardExpect(activeRegion.expect);
 
           const nextState: "none" | "ok" | "misaligned" = !cardPresent
             ? "none"
