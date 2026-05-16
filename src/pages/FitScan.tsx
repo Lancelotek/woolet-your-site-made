@@ -526,6 +526,53 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             transform: "scaleX(-1)",
           }}
         />
+        {guideRect && cardState === "misaligned" && (
+          <div
+            role="status"
+            className="scan-rotate-hint"
+            style={{
+              position: "absolute",
+              left: `${guideRect.left}%`,
+              bottom: `calc(${guideRect.bottom}% - 10px)`,
+              width: `${guideRect.width}%`,
+              transform: "translateY(100%)",
+              display: "flex",
+              justifyContent: "center",
+              pointerEvents: "none",
+              zIndex: 3,
+            }}
+          >
+            <span
+              style={{
+                background: "rgba(250, 204, 21, 0.95)",
+                color: BG,
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 600,
+                fontSize: "0.7rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                padding: "6px 10px",
+                borderRadius: 4,
+                boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                whiteSpace: "nowrap",
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M3 12a9 9 0 0 1 15.5-6.2M21 4v5h-5M21 12a9 9 0 0 1-15.5 6.2M3 20v-5h5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Rotate card — lay it horizontally
+            </span>
+          </div>
+        )}
         <div
           aria-hidden
           style={{
