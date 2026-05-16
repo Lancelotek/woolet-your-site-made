@@ -856,8 +856,8 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
 
   const nudge = (idx: number, dx: number, dy: number) => {
     setCorners((cs) => cs.map((c, i) => (i === idx ? { x: Math.max(0, Math.min(frame.width, c.x - dx)), y: Math.max(0, Math.min(frame.height, c.y + dy)) } : c)));
-    // Note: dx is in display space; subtract because image is mirrored.
   };
+  void nudge;
 
   const reset = () => setCorners([]);
 
