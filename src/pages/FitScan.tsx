@@ -60,6 +60,8 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
         {[
           "Works on phone (front camera) or laptop (webcam)",
           "Requires a credit/debit/ID card as physical scale reference",
+          "Take off your glasses — frames hide your temples and skew the measurement",
+          "Hold the card by its top edge so your fingers don't cover the bottom corners",
           "Accurate to about 2 mm — photo never leaves your device",
         ].map((b) => (
           <li key={b} className="flex items-start gap-3 text-cream-dim" style={{ fontSize: "0.95rem" }}>
