@@ -133,6 +133,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardOk, setCardOk] = useState(false);
+  const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [tipsOpen, setTipsOpen] = useState(false);
 
   const isCoarsePointer =
@@ -285,6 +286,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         if (!face) {
           allGreenSinceRef.current = null;
           setCardOk(false);
+          setCardState("none");
         } else {
           let minX = 1, minY = 1, maxX = 0, maxY = 0;
           for (const p of face) {
@@ -313,7 +315,9 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           // Sample the guide region and look for strong horizontal edges
           // (a card has hard top/bottom edges; bare skin does not).
           let cardPresent = false;
-          let cardScore = 0;
+          let cardAligned = false;
+          let vGrad = 0;
+          let hGrad = 0;
           if (safeGY + guideH <= vh && guideX + guideW <= vw && guideW > 30 && guideH > 12) {
             const SW = 48;
             const SH = 32;
@@ -330,28 +334,57 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
                   const o = i * 4;
                   lumArr[i] = 0.299 * data[o] + 0.587 * data[o + 1] + 0.114 * data[o + 2];
                 }
-                // Vertical gradient = sensitivity to horizontal edges (card top/bottom)
-                let edgeSum = 0;
+                // Vertical gradient → sensitive to HORIZONTAL edges (card lying flat)
+                let vSum = 0;
                 for (let y = 0; y < SH - 1; y++) {
                   for (let x = 0; x < SW; x++) {
-                    edgeSum += Math.abs(lumArr[(y + 1) * SW + x] - lumArr[y * SW + x]);
+                    vSum += Math.abs(lumArr[(y + 1) * SW + x] - lumArr[y * SW + x]);
                   }
                 }
-                cardScore = edgeSum / ((SH - 1) * SW);
-                cardPresent = cardScore > 7;
+                vGrad = vSum / ((SH - 1) * SW);
+                // Horizontal gradient → sensitive to VERTICAL edges (card rotated)
+                let hSum = 0;
+                for (let y = 0; y < SH; y++) {
+                  for (let x = 0; x < SW - 1; x++) {
+                    hSum += Math.abs(lumArr[y * SW + x + 1] - lumArr[y * SW + x]);
+                  }
+                }
+                hGrad = hSum / (SH * (SW - 1));
+                const maxGrad = Math.max(vGrad, hGrad);
+                cardPresent = maxGrad > 7;
+                // Aligned = horizontal edges clearly dominate vertical ones
+                cardAligned = cardPresent && vGrad > hGrad * 1.35 && vGrad > 7;
               } catch {
                 /* CORS or paint error — skip */
               }
             }
           }
-          setCardOk(cardPresent);
+          const nextState: "none" | "ok" | "misaligned" = !cardPresent
+            ? "none"
+            : cardAligned
+              ? "ok"
+              : "misaligned";
+          setCardOk(cardAligned);
+          setCardState(nextState);
 
-          // Draw guide — green tint when card detected, gold dashed otherwise
-          ctx.fillStyle = cardPresent ? "rgba(74, 222, 128, 0.22)" : "rgba(202, 164, 73, 0.18)";
+          // Draw guide — green when aligned, amber when misaligned, gold dashed when absent
+          const guideFill =
+            nextState === "ok"
+              ? "rgba(74, 222, 128, 0.22)"
+              : nextState === "misaligned"
+                ? "rgba(250, 204, 21, 0.20)"
+                : "rgba(202, 164, 73, 0.18)";
+          const guideStroke =
+            nextState === "ok"
+              ? "rgba(74, 222, 128, 0.85)"
+              : nextState === "misaligned"
+                ? "rgba(250, 204, 21, 0.85)"
+                : "rgba(202, 164, 73, 0.6)";
+          ctx.fillStyle = guideFill;
           ctx.fillRect(guideX, safeGY, guideW, guideH);
-          ctx.strokeStyle = cardPresent ? "rgba(74, 222, 128, 0.85)" : "rgba(202, 164, 73, 0.6)";
-          ctx.lineWidth = cardPresent ? 2 : 1.5;
-          ctx.setLineDash(cardPresent ? [] : [6, 6]);
+          ctx.strokeStyle = guideStroke;
+          ctx.lineWidth = nextState === "ok" ? 2 : 1.5;
+          ctx.setLineDash(nextState === "ok" ? [] : [6, 6]);
           ctx.strokeRect(guideX, safeGY, guideW, guideH);
           ctx.setLineDash([]);
 
@@ -364,9 +397,12 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           else if (boxH > 0.7) nextHint = "Move further back";
           else if (lumState === "red") nextHint = "Improve lighting";
           else if (tilt > 5) nextHint = "Keep your head straight";
-          else if (!cardPresent) nextHint = "Hold a card flat against your forehead — long edge horizontal";
+          else if (nextState === "none")
+            nextHint = "Hold a card flat against your forehead — long edge horizontal";
+          else if (nextState === "misaligned")
+            nextHint = "Rotate the card — long edge across forehead, not vertical";
           else {
-            nextHint = "Card detected — hold still";
+            nextHint = "Card aligned — hold still";
             allGreen = true;
           }
         }
@@ -470,21 +506,39 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             gap: 8,
           }}
         >
-          <span
-            style={{
-              padding: "4px 8px",
-              borderRadius: 4,
-              background: cardOk ? "rgba(74,222,128,0.18)" : "rgba(0,0,0,0.55)",
-              border: `1px solid ${cardOk ? "rgba(74,222,128,0.6)" : "rgba(255,255,255,0.15)"}`,
-              color: cardOk ? "#86efac" : MUTED,
-              fontFamily: "Barlow, sans-serif",
-              fontSize: "0.65rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-            }}
-          >
-            {cardOk ? "Card ✓" : "No card"}
-          </span>
+          {(() => {
+            const isOk = cardState === "ok";
+            const isMis = cardState === "misaligned";
+            const bg = isOk
+              ? "rgba(74,222,128,0.18)"
+              : isMis
+                ? "rgba(250,204,21,0.20)"
+                : "rgba(0,0,0,0.55)";
+            const border = isOk
+              ? "rgba(74,222,128,0.6)"
+              : isMis
+                ? "rgba(250,204,21,0.7)"
+                : "rgba(255,255,255,0.15)";
+            const fg = isOk ? "#86efac" : isMis ? "#fde68a" : MUTED;
+            const label = isOk ? "Card ✓" : isMis ? "Card rotated" : "No card";
+            return (
+              <span
+                style={{
+                  padding: "4px 8px",
+                  borderRadius: 4,
+                  background: bg,
+                  border: `1px solid ${border}`,
+                  color: fg,
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {label}
+              </span>
+            );
+          })()}
           <span
             style={{
               width: 12,
