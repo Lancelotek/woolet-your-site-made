@@ -1364,7 +1364,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
             This result looks low — likely a scan issue
           </div>
           <p style={{ color: "hsl(var(--cream-dim))", fontFamily: "Barlow, sans-serif", fontSize: "0.88rem", lineHeight: 1.55, margin: 0 }}>
-            {measurements.faceWidthMm} mm is below the typical adult range. The most common cause is the card not being pressed flat against the forehead — even a 2 cm gap underestimates face width by 5–10 mm. Re-scan with the card flush to your skin for an accurate result.
+            {adjustedFace} mm is below the typical adult range. The most common cause is the card not being pressed flat against the forehead — even a 2 cm gap underestimates face width by 5–10 mm. Re-scan with the card flush to your skin for an accurate result.
           </p>
           <button
             type="button"
