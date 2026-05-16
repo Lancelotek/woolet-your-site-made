@@ -139,6 +139,8 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardOk, setCardOk] = useState(false);
+  const [cardInZone, setCardInZone] = useState(false);
+  const [cardHorizontal, setCardHorizontal] = useState(false);
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [cardConfidence, setCardConfidence] = useState(0);
   const [okFlash, setOkFlash] = useState(0);
