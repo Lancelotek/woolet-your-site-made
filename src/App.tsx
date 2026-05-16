@@ -36,6 +36,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <PageViewTracker />
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
           {/* Root redirects to /en */}
