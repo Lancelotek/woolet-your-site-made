@@ -5,6 +5,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import CookieBanner from "@/components/CookieBanner";
+import PageViewTracker from "@/components/PageViewTracker";
 
 import Index from "./pages/Index.tsx";
 
