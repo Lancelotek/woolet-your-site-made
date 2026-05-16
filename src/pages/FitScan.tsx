@@ -137,6 +137,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [cardConfidence, setCardConfidence] = useState(0);
   const [okFlash, setOkFlash] = useState(0);
+  const [guideRect, setGuideRect] = useState<{ left: number; bottom: number; width: number } | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
   const isCoarsePointer =
@@ -291,6 +292,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           setCardOk(false);
           setCardState("none");
           setCardConfidence(0);
+          setGuideRect(null);
           wasOkRef.current = false;
         } else {
           let minX = 1, minY = 1, maxX = 0, maxY = 0;
@@ -315,6 +317,14 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const guideX = bx + (bw - guideW) / 2;
           const guideY = by - guideH * 0.2;
           const safeGY = Math.max(0, guideY);
+
+          // Publish guide rect to React state for HTML overlay. Video is mirrored via
+          // CSS scaleX(-1), so mirror X when converting native → display percentages.
+          setGuideRect({
+            left: ((vw - (guideX + guideW)) / vw) * 100,
+            bottom: ((vh - (safeGY + guideH)) / vh) * 100,
+            width: (guideW / vw) * 100,
+          });
 
           // ─── Card presence detection ───
           // Sample the guide region and look for strong horizontal edges
@@ -516,6 +526,53 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             transform: "scaleX(-1)",
           }}
         />
+        {guideRect && cardState === "misaligned" && (
+          <div
+            role="status"
+            className="scan-rotate-hint"
+            style={{
+              position: "absolute",
+              left: `${guideRect.left}%`,
+              bottom: `calc(${guideRect.bottom}% - 10px)`,
+              width: `${guideRect.width}%`,
+              transform: "translateY(100%)",
+              display: "flex",
+              justifyContent: "center",
+              pointerEvents: "none",
+              zIndex: 3,
+            }}
+          >
+            <span
+              style={{
+                background: "rgba(250, 204, 21, 0.95)",
+                color: BG,
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 600,
+                fontSize: "0.7rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                padding: "6px 10px",
+                borderRadius: 4,
+                boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                whiteSpace: "nowrap",
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M3 12a9 9 0 0 1 15.5-6.2M21 4v5h-5M21 12a9 9 0 0 1-15.5 6.2M3 20v-5h5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Rotate card — lay it horizontally
+            </span>
+          </div>
+        )}
         <div
           aria-hidden
           style={{
@@ -1161,6 +1218,11 @@ export default function FitScan() {
             100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0); }
           }
           .scan-card-badge-flash { animation: scanCardBadgeFlash 520ms ease-out; }
+          @keyframes scanRotateHintIn {
+            from { opacity: 0; transform: translateY(calc(100% - 6px)); }
+            to   { opacity: 1; transform: translateY(100%); }
+          }
+          .scan-rotate-hint { animation: scanRotateHintIn 220ms ease-out; }
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
