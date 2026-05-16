@@ -374,11 +374,8 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           };
 
           const { vGrad, hGrad } = sampleRegion(region);
-          const maxGrad = Math.max(vGrad, hGrad);
-          const cardPresent = maxGrad > 7;
-          // Card laid flat with long edge horizontal → strong vertical gradient
-          // (top/bottom edges of the card) dominating over horizontal.
-          const cardAligned = cardPresent && vGrad > hGrad * 1.35 && vGrad > 7;
+          const { cardPresent, cardHorizontal, cardAligned, nextState, confidence } =
+            classifyCardSample(vGrad, hGrad);
 
           // Publish guide rect to React state (mirrored X for display).
           setGuideRect({
@@ -387,19 +384,9 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             width: (region.w / vw) * 100,
           });
 
-          const nextState: "none" | "ok" | "misaligned" = !cardPresent
-            ? "none"
-            : cardAligned ? "ok" : "misaligned";
-
-          const strength = Math.max(0, Math.min(1, (maxGrad - 2) / 12));
-          const dom = vGrad + hGrad > 0
-            ? Math.max(0, (maxGrad / (vGrad + hGrad) - 0.5) * 2)
-            : 0;
-          const confidence = Math.round(strength * (0.45 + 0.55 * dom) * 100);
           setCardConfidence(confidence);
-
           setCardInZone(cardPresent);
-          setCardHorizontal(cardPresent && vGrad > hGrad * 1.35 && vGrad > 7);
+          setCardHorizontal(cardHorizontal);
           setCardOk(cardAligned);
           setCardState(nextState);
 
