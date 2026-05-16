@@ -290,6 +290,8 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           allGreenSinceRef.current = null;
           setCardOk(false);
           setCardState("none");
+          setCardConfidence(0);
+          wasOkRef.current = false;
         } else {
           let minX = 1, minY = 1, maxX = 0, maxY = 0;
           for (const p of face) {
