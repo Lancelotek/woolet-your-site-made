@@ -797,6 +797,7 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [corners, setCorners] = useState<Point[]>([]);
   const [displaySize, setDisplaySize] = useState({ w: 0, h: 0 });
+  const draggingRef = useRef<number | null>(null);
 
   useEffect(() => {
     const update = () => {
@@ -809,15 +810,53 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (corners.length >= 2) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const xDisplay = e.clientX - rect.left;
-    const yDisplay = e.clientY - rect.top;
-    // Convert to native frame coords
-    const xNative = (xDisplay / rect.width) * frame.width;
+  const eventToNative = (clientX: number, clientY: number) => {
+    const el = wrapperRef.current;
+    if (!el) return null;
+    const rect = el.getBoundingClientRect();
+    const xDisplay = Math.max(0, Math.min(rect.width, clientX - rect.left));
+    const yDisplay = Math.max(0, Math.min(rect.height, clientY - rect.top));
+    // Image is mirrored (scaleX(-1)) so flip X back to native frame coords
+    const xNativeMirrored = (xDisplay / rect.width) * frame.width;
+    const xNative = frame.width - xNativeMirrored;
     const yNative = (yDisplay / rect.height) * frame.height;
-    setCorners((c) => [...c, { x: xNative, y: yNative }]);
+    return { x: xNative, y: yNative };
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (draggingRef.current !== null) return;
+    if (corners.length >= 2) return;
+    const p = eventToNative(e.clientX, e.clientY);
+    if (!p) return;
+    setCorners((c) => [...c, p]);
+  };
+
+  const startDrag = (idx: number) => (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    draggingRef.current = idx;
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+  };
+
+  const handleDotMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const idx = draggingRef.current;
+    if (idx === null) return;
+    e.stopPropagation();
+    const p = eventToNative(e.clientX, e.clientY);
+    if (!p) return;
+    setCorners((cs) => cs.map((c, i) => (i === idx ? p : c)));
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (draggingRef.current === null) return;
+    e.stopPropagation();
+    try { (e.target as Element).releasePointerCapture?.(e.pointerId); } catch { /* noop */ }
+    draggingRef.current = null;
+  };
+
+  const nudge = (idx: number, dx: number, dy: number) => {
+    setCorners((cs) => cs.map((c, i) => (i === idx ? { x: Math.max(0, Math.min(frame.width, c.x - dx)), y: Math.max(0, Math.min(frame.height, c.y + dy)) } : c)));
+    // Note: dx is in display space; subtract because image is mirrored.
   };
 
   const reset = () => setCorners([]);
