@@ -137,6 +137,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [cardConfidence, setCardConfidence] = useState(0);
   const [okFlash, setOkFlash] = useState(0);
+  const [guideRect, setGuideRect] = useState<{ left: number; bottom: number; width: number } | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
   const isCoarsePointer =
