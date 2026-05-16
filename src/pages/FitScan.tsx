@@ -926,6 +926,9 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
       <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300 }}>
         Tap the bottom-left, then the bottom-right corner of the card. You can drag either dot to fine-tune its position before calculating.
       </p>
+      <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.8rem", fontWeight: 300, marginTop: -8 }}>
+        Tip: holding the card by its top edge keeps the bottom corners visible — easier to tap precisely.
+      </p>
 
       <div
         ref={wrapperRef}
