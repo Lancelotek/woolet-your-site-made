@@ -317,15 +317,16 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           ctx.lineWidth = 2;
           ctx.strokeRect(bx, by, bw, bh);
 
-          // ─── Card guide regions ───
-          // The user can hold the card EITHER flat above the forehead (long edge
-          // horizontal) OR against either cheek (long edge vertical). We sample
-          // all three regions and accept whichever shows a card with a
-          // dominant edge in the orientation expected for that region.
+          // ─── Card guide region ───
+          // Single supported placement: card laid FLAT on the forehead, long
+          // edge horizontal. This is the only orientation we measure from —
+          // it keeps the card in the same focal plane as the face and avoids
+          // the systematic under-measurement that the side/cheek placement
+          // caused (card depth ≠ face depth).
           const cardLongMm = 85.6;
           const cardShortMm = 54;
 
-          // Top region — horizontal card above forehead
+          // Top region — horizontal card on forehead
           const topW = bw * 0.6;
           const topH = topW * (cardShortMm / cardLongMm);
           const topX = bx + (bw - topW) / 2;
