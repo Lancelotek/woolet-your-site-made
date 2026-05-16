@@ -60,6 +60,8 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
         {[
           "Works on phone (front camera) or laptop (webcam)",
           "Requires a credit/debit/ID card as physical scale reference",
+          "Take off your glasses — frames hide your temples and skew the measurement",
+          "Hold the card by its top edge so your fingers don't cover the bottom corners",
           "Accurate to about 2 mm — photo never leaves your device",
         ].map((b) => (
           <li key={b} className="flex items-start gap-3 text-cream-dim" style={{ fontSize: "0.95rem" }}>
@@ -767,11 +769,19 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         <summary style={{ cursor: "pointer", color: GOLD, letterSpacing: "0.1em", textTransform: "uppercase", fontSize: "0.72rem" }}>
           Tips for accuracy
         </summary>
-        <p style={{ marginTop: 10, lineHeight: 1.6 }}>
-          Don't tilt the card or angle the camera. Even a small tilt creates 3–6mm of measurement
-          error. Hold the card flat against your skin, look straight at the camera, and stand about
-          50–70cm away.
-        </p>
+        <ul style={{ marginTop: 10, lineHeight: 1.6, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+          {[
+            "Take off your glasses before scanning.",
+            "Hold the card by its top edge — keep fingers off the bottom corners.",
+            "Don't tilt the card or camera; even a small tilt = 3–6 mm error.",
+            "Stand 50–70 cm away and look straight at the lens.",
+          ].map((t) => (
+            <li key={t} style={{ display: "flex", gap: 8 }}>
+              <span style={{ color: GOLD, flexShrink: 0 }}>•</span>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
       </details>
 
       <Link
@@ -915,6 +925,9 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
       </h2>
       <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300 }}>
         Tap the bottom-left, then the bottom-right corner of the card. You can drag either dot to fine-tune its position before calculating.
+      </p>
+      <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.8rem", fontWeight: 300, marginTop: -8 }}>
+        Tip: holding the card by its top edge keeps the bottom corners visible — easier to tap precisely.
       </p>
 
       <div
