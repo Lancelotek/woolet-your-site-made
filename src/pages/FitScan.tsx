@@ -1160,11 +1160,44 @@ interface ResultStepProps {
   lang: Lang;
 }
 
-function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStepProps) {
+function ResultStep({ measurements, recommendation: baseRecommendation, onRetake, lang }: ResultStepProps) {
+  // Depth correction: if the card was held in front of the face (not flush to skin),
+  // it appears larger in pixels → face width is underestimated. Assuming a typical
+  // capture distance of ~60 cm, a gap g (cm) scales the result by 60 / (60 - g).
+  const [cardOffset, setCardOffset] = useState(false);
+  const [gapCm, setGapCm] = useState(2);
+  const CAPTURE_DIST_CM = 60;
+  const correctionFactor = cardOffset
+    ? CAPTURE_DIST_CM / Math.max(1, CAPTURE_DIST_CM - gapCm)
+    : 1;
+  const adjustedFace = Math.round(measurements.faceWidthMm * correctionFactor);
+  const adjustedNose = Math.round(measurements.noseWidthMm * correctionFactor);
+  const recommendation = cardOffset
+    ? getRecommendation(adjustedFace, adjustedNose)
+    : baseRecommendation;
+
+  // Confidence rating: combines scanner confidence with depth-correction state.
+  const confidenceRating: "high" | "medium" | "low" =
+    cardOffset && gapCm >= 2
+      ? "low"
+      : adjustedFace < 140 || adjustedFace > 170
+        ? "medium"
+        : measurements.confidence === "high"
+          ? "high"
+          : "medium";
+  const confidenceCopy = {
+    high: { label: "High confidence", color: "hsl(var(--cream))", body: "Landmarks and card edges aligned cleanly." },
+    medium: { label: "Medium confidence", color: GOLD, body: "Usable result — verify against a known-fitting frame if possible." },
+    low: { label: "Low confidence", color: "#c47a4a", body: "Depth correction applied. For best accuracy, re-scan with the card flush to your skin." },
+  }[confidenceRating];
+
   const handleCta = () => {
     pushEvent("scan_cta_clicked", {
       cta_label: recommendation.primaryCta.toLowerCase().replace(/[^a-z]+/g, "_"),
       recommendation_type: recommendation.type,
+      card_offset: cardOffset,
+      gap_cm: cardOffset ? gapCm : 0,
+      adjusted_face_width_mm: adjustedFace,
     });
   };
 
@@ -1185,8 +1218,8 @@ function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStep
     ctx.fillText("NOSE WIDTH", 420, 160);
     ctx.fillStyle = GOLD;
     ctx.font = "300 96px 'Cormorant Garamond', serif";
-    ctx.fillText(`${measurements.faceWidthMm} mm`, 60, 250);
-    ctx.fillText(`${measurements.noseWidthMm} mm`, 420, 250);
+    ctx.fillText(`${adjustedFace} mm`, 60, 250);
+    ctx.fillText(`${adjustedNose} mm`, 420, 250);
     ctx.fillStyle = "#888";
     ctx.font = "300 14px Barlow, sans-serif";
     ctx.fillText(`Confidence: ${measurements.confidence}`, 60, 300);
@@ -1228,7 +1261,12 @@ function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStep
             className="scan-result-number font-display"
             style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3rem, 8vw, 4.5rem)", lineHeight: 1 }}
           >
-            {measurements.faceWidthMm} mm
+            {adjustedFace} mm
+            {cardOffset && (
+              <span style={{ marginLeft: 10, fontSize: "0.9rem", color: MUTED, fontFamily: "Barlow, sans-serif", letterSpacing: "0.08em" }}>
+                (raw {measurements.faceWidthMm} mm)
+              </span>
+            )}
           </div>
         </div>
         <div>
@@ -1239,15 +1277,68 @@ function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStep
             className="scan-result-number font-display"
             style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3rem, 8vw, 4.5rem)", lineHeight: 1 }}
           >
-            {measurements.noseWidthMm} mm
+            {adjustedNose} mm
           </div>
         </div>
-        <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
-          Confidence: {measurements.confidence}
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: confidenceCopy.color, display: "inline-block" }} />
+            <span style={{ color: confidenceCopy.color, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 500 }}>
+              {confidenceCopy.label}
+            </span>
+          </div>
+          <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", lineHeight: 1.5, margin: 0 }}>
+            {confidenceCopy.body}
+          </p>
+        </div>
+
+        <div style={{ borderTop: "1px solid hsl(var(--border))", paddingTop: 18, display: "flex", flexDirection: "column", gap: 12 }}>
+          <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+            <input
+              type="checkbox"
+              checked={cardOffset}
+              onChange={(e) => {
+                setCardOffset(e.target.checked);
+                pushEvent("scan_card_offset_toggled", { enabled: e.target.checked });
+              }}
+              style={{ marginTop: 3, accentColor: GOLD, width: 16, height: 16 }}
+            />
+            <span style={{ color: "hsl(var(--cream))", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", lineHeight: 1.45 }}>
+              The card was a bit in front of my face (not flush to my skin)
+            </span>
+          </label>
+          {cardOffset && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingLeft: 26 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <span style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                  Approx. gap
+                </span>
+                <span style={{ color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", fontWeight: 500 }}>
+                  {gapCm.toFixed(1)} cm
+                </span>
+              </div>
+              <input
+                type="range"
+                min={0.5}
+                max={5}
+                step={0.5}
+                value={gapCm}
+                onChange={(e) => setGapCm(parseFloat(e.target.value))}
+                style={{ accentColor: GOLD, width: "100%" }}
+              />
+              <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                <span>Touching</span>
+                <span>Held out</span>
+              </div>
+              <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.74rem", lineHeight: 1.5, margin: "4px 0 0" }}>
+                Correction +{Math.round((correctionFactor - 1) * 1000) / 10}% — face width adjusted from {measurements.faceWidthMm} mm to {adjustedFace} mm.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
-      {measurements.faceWidthMm < 145 && (
+      {adjustedFace < 145 && (
         <div
           role="alert"
           style={{
@@ -1273,7 +1364,7 @@ function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStep
             This result looks low — likely a scan issue
           </div>
           <p style={{ color: "hsl(var(--cream-dim))", fontFamily: "Barlow, sans-serif", fontSize: "0.88rem", lineHeight: 1.55, margin: 0 }}>
-            {measurements.faceWidthMm} mm is below the typical adult range. The most common cause is the card not being pressed flat against the forehead — even a 2 cm gap underestimates face width by 5–10 mm. Re-scan with the card flush to your skin for an accurate result.
+            {adjustedFace} mm is below the typical adult range. The most common cause is the card not being pressed flat against the forehead — even a 2 cm gap underestimates face width by 5–10 mm. Re-scan with the card flush to your skin for an accurate result.
           </p>
           <button
             type="button"
@@ -1336,7 +1427,7 @@ function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStep
 
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
-          to={`/${lang}/fit?face_width=${measurements.faceWidthMm}&nose_width=${measurements.noseWidthMm}&source=scan`}
+          to={`/${lang}/fit?face_width=${adjustedFace}&nose_width=${adjustedNose}&source=scan${cardOffset ? `&gap_cm=${gapCm}` : ""}`}
           onClick={handleCta}
           style={{
             background: GOLD,
