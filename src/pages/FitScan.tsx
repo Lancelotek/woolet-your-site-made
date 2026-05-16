@@ -41,7 +41,7 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
     <div className="flex flex-col gap-7">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">CARDLESS · 30 SECONDS</span>
+        <span className="woolet-eyebrow-text">CARD-SCALED · 30 SECONDS</span>
       </div>
       <h1
         className="font-display text-woolet-white"
@@ -50,8 +50,8 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
         Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
       </h1>
       <p className="text-cream-dim leading-relaxed" style={{ fontSize: "1.05rem", fontWeight: 300 }}>
-        Hold any credit card to your forehead. We'll calculate your face width and nose width with
-        surgical precision — no app, no signup.
+        Hold any credit card flat against your forehead — its 85.6 mm long edge is our scale
+        reference. We won't capture until both your face <em>and</em> the card are clearly visible.
       </p>
 
       <ul className="flex flex-col gap-3 pt-1" style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300 }}>
