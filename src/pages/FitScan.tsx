@@ -1277,11 +1277,64 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
             className="scan-result-number font-display"
             style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3rem, 8vw, 4.5rem)", lineHeight: 1 }}
           >
-            {measurements.noseWidthMm} mm
+            {adjustedNose} mm
           </div>
         </div>
-        <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
-          Confidence: {measurements.confidence}
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: confidenceCopy.color, display: "inline-block" }} />
+            <span style={{ color: confidenceCopy.color, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 500 }}>
+              {confidenceCopy.label}
+            </span>
+          </div>
+          <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", lineHeight: 1.5, margin: 0 }}>
+            {confidenceCopy.body}
+          </p>
+        </div>
+
+        <div style={{ borderTop: "1px solid hsl(var(--border))", paddingTop: 18, display: "flex", flexDirection: "column", gap: 12 }}>
+          <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+            <input
+              type="checkbox"
+              checked={cardOffset}
+              onChange={(e) => {
+                setCardOffset(e.target.checked);
+                pushEvent("scan_card_offset_toggled", { enabled: e.target.checked });
+              }}
+              style={{ marginTop: 3, accentColor: GOLD, width: 16, height: 16 }}
+            />
+            <span style={{ color: "hsl(var(--cream))", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", lineHeight: 1.45 }}>
+              The card was a bit in front of my face (not flush to my skin)
+            </span>
+          </label>
+          {cardOffset && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingLeft: 26 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <span style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                  Approx. gap
+                </span>
+                <span style={{ color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", fontWeight: 500 }}>
+                  {gapCm.toFixed(1)} cm
+                </span>
+              </div>
+              <input
+                type="range"
+                min={0.5}
+                max={5}
+                step={0.5}
+                value={gapCm}
+                onChange={(e) => setGapCm(parseFloat(e.target.value))}
+                style={{ accentColor: GOLD, width: "100%" }}
+              />
+              <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                <span>Touching</span>
+                <span>Held out</span>
+              </div>
+              <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.74rem", lineHeight: 1.5, margin: "4px 0 0" }}>
+                Correction +{Math.round((correctionFactor - 1) * 1000) / 10}% — face width adjusted from {measurements.faceWidthMm} mm to {adjustedFace} mm.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
