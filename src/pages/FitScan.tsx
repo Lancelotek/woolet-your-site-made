@@ -128,12 +128,15 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const lastTsRef = useRef<number>(-1);
   const allGreenSinceRef = useRef<number | null>(null);
   const capturedRef = useRef(false);
+  const wasOkRef = useRef(false);
 
   const [hint, setHint] = useState("Allow camera access");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardOk, setCardOk] = useState(false);
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
+  const [cardConfidence, setCardConfidence] = useState(0);
+  const [okFlash, setOkFlash] = useState(0);
   const [tipsOpen, setTipsOpen] = useState(false);
 
   const isCoarsePointer =
