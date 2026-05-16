@@ -56,9 +56,9 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
 
       <ul className="flex flex-col gap-3 pt-1" style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300 }}>
         {[
-          "Works on any phone or laptop with a camera",
-          "Accurate to about 2mm using card-scale protocol",
-          "Photo never leaves your device",
+          "Works on phone (front camera) or laptop (webcam)",
+          "Requires a credit/debit/ID card as physical scale reference",
+          "Accurate to about 2 mm — photo never leaves your device",
         ].map((b) => (
           <li key={b} className="flex items-start gap-3 text-cream-dim" style={{ fontSize: "0.95rem" }}>
             <svg width="18" height="18" viewBox="0 0 18 18" style={{ marginTop: 2, flexShrink: 0 }}>
