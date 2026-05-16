@@ -506,21 +506,39 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             gap: 8,
           }}
         >
-          <span
-            style={{
-              padding: "4px 8px",
-              borderRadius: 4,
-              background: cardOk ? "rgba(74,222,128,0.18)" : "rgba(0,0,0,0.55)",
-              border: `1px solid ${cardOk ? "rgba(74,222,128,0.6)" : "rgba(255,255,255,0.15)"}`,
-              color: cardOk ? "#86efac" : MUTED,
-              fontFamily: "Barlow, sans-serif",
-              fontSize: "0.65rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-            }}
-          >
-            {cardOk ? "Card ✓" : "No card"}
-          </span>
+          {(() => {
+            const isOk = cardState === "ok";
+            const isMis = cardState === "misaligned";
+            const bg = isOk
+              ? "rgba(74,222,128,0.18)"
+              : isMis
+                ? "rgba(250,204,21,0.20)"
+                : "rgba(0,0,0,0.55)";
+            const border = isOk
+              ? "rgba(74,222,128,0.6)"
+              : isMis
+                ? "rgba(250,204,21,0.7)"
+                : "rgba(255,255,255,0.15)";
+            const fg = isOk ? "#86efac" : isMis ? "#fde68a" : MUTED;
+            const label = isOk ? "Card ✓" : isMis ? "Card rotated" : "No card";
+            return (
+              <span
+                style={{
+                  padding: "4px 8px",
+                  borderRadius: 4,
+                  background: bg,
+                  border: `1px solid ${border}`,
+                  color: fg,
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {label}
+              </span>
+            );
+          })()}
           <span
             style={{
               width: 12,
