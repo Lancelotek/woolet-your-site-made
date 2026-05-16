@@ -465,13 +465,36 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             position: "absolute",
             top: 12,
             right: 12,
-            width: 12,
-            height: 12,
-            borderRadius: "50%",
-            background: lightingColor,
-            boxShadow: `0 0 8px ${lightingColor}`,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
           }}
-        />
+        >
+          <span
+            style={{
+              padding: "4px 8px",
+              borderRadius: 4,
+              background: cardOk ? "rgba(74,222,128,0.18)" : "rgba(0,0,0,0.55)",
+              border: `1px solid ${cardOk ? "rgba(74,222,128,0.6)" : "rgba(255,255,255,0.15)"}`,
+              color: cardOk ? "#86efac" : MUTED,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.65rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+            }}
+          >
+            {cardOk ? "Card ✓" : "No card"}
+          </span>
+          <span
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: "50%",
+              background: lightingColor,
+              boxShadow: `0 0 8px ${lightingColor}`,
+            }}
+          />
+        </div>
         <div
           style={{
             position: "absolute",
@@ -493,20 +516,37 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         </div>
       </div>
 
-      <button
-        onClick={() => captureFrame()}
+      <p
         style={{
-          background: "transparent",
-          border: "none",
           color: MUTED,
           fontFamily: "Barlow, sans-serif",
           fontSize: "0.78rem",
+          textAlign: "center",
+          margin: 0,
+        }}
+      >
+        {deviceTip}
+      </p>
+
+      <button
+        onClick={() => {
+          if (!cardOk) return;
+          captureFrame();
+        }}
+        disabled={!cardOk}
+        title={cardOk ? "Capture now" : "Hold the card to your forehead first"}
+        style={{
+          background: "transparent",
+          border: "none",
+          color: cardOk ? GOLD : "rgba(255,255,255,0.25)",
+          fontFamily: "Barlow, sans-serif",
+          fontSize: "0.78rem",
           padding: "8px 0",
-          cursor: "pointer",
+          cursor: cardOk ? "pointer" : "not-allowed",
           textDecoration: "underline",
         }}
       >
-        Capture now
+        {cardOk ? "Capture now" : "Capture locked — card not detected"}
       </button>
 
       <details
