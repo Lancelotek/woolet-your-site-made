@@ -10,6 +10,12 @@ export const LANDMARKS = {
   chin: 152,
 } as const;
 
+const FACE_OVAL_INDICES = [
+  10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378,
+  400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21,
+  54, 103, 67, 109,
+] as const;
+
 export interface NormalizedLandmark {
   x: number;
   y: number;
@@ -88,6 +94,21 @@ function assertLandmark(landmarks: NormalizedLandmark[], idx: number) {
   }
 }
 
+function getFaceOvalPixelWidth(landmarks: NormalizedLandmark[], canvasWidth: number) {
+  const xs = FACE_OVAL_INDICES
+    .map((idx) => landmarks[idx]?.x)
+    .filter((x): x is number => typeof x === "number" && Number.isFinite(x) && x >= -0.05 && x <= 1.05);
+
+  if (xs.length < FACE_OVAL_INDICES.length * 0.8) {
+    throw new MeasurementError(
+      "invalid_landmarks",
+      "Face outline is incomplete. Re-scan with your whole face visible and clear side contours.",
+    );
+  }
+
+  return (Math.max(...xs) - Math.min(...xs)) * canvasWidth;
+}
+
 export function calculateMeasurements(
   landmarks: NormalizedLandmark[],
   canvasWidth: number,
@@ -122,23 +143,23 @@ export function calculateMeasurements(
     );
   }
   const mmPerPx = CARD_WIDTH_MM / cardPixelWidth;
+  const faceOvalPixelWidth = getFaceOvalPixelWidth(landmarks, canvasWidth);
 
   let facePixelWidth: number;
   if (faceEdge1 && faceEdge2) {
     assertPoint(faceEdge1, "Left face edge point");
     assertPoint(faceEdge2, "Right face edge point");
-    facePixelWidth = Math.abs(faceEdge2.x - faceEdge1.x);
-    if (!Number.isFinite(facePixelWidth) || facePixelWidth < 80) {
+    const annotatedFacePixelWidth = Math.hypot(faceEdge2.x - faceEdge1.x, faceEdge2.y - faceEdge1.y);
+    if (!Number.isFinite(annotatedFacePixelWidth) || annotatedFacePixelWidth < 80) {
       throw new MeasurementError(
         "face_out_of_range",
-        "Face edge points are too close together. Mark the outermost visible left and right contour of your face.",
-        { facePixelWidth },
+        "Face edge points are too close together. Mark the widest visible left and right outline of your face.",
+        { facePixelWidth: annotatedFacePixelWidth },
       );
     }
+    facePixelWidth = Math.max(annotatedFacePixelWidth, faceOvalPixelWidth);
   } else {
-    const faceLeftPx = landmarks[LANDMARKS.faceLeftTemple].x * canvasWidth;
-    const faceRightPx = landmarks[LANDMARKS.faceRightTemple].x * canvasWidth;
-    facePixelWidth = Math.abs(faceRightPx - faceLeftPx);
+    facePixelWidth = faceOvalPixelWidth;
   }
   const faceWidthMmRaw = facePixelWidth * mmPerPx;
 
@@ -165,8 +186,14 @@ export function calculateMeasurements(
     );
   }
 
+  const annotationAgreement = faceEdge1 && faceEdge2 ? Math.abs(facePixelWidth - faceOvalPixelWidth) / facePixelWidth : 0;
+
   const confidence: Measurements["confidence"] =
-    cardPixelWidth > 200 ? "high" : cardPixelWidth > 100 ? "medium" : "low";
+    cardPixelWidth > 200 && annotationAgreement <= 0.08
+      ? "high"
+      : cardPixelWidth > 120 && annotationAgreement <= 0.18
+        ? "medium"
+        : "low";
 
   return {
     faceWidthMm,
