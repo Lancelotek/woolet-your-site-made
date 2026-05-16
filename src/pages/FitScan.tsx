@@ -926,9 +926,18 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
       <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300 }}>
         Tap the bottom-left, then the bottom-right corner of the card. You can drag either dot to fine-tune its position before calculating.
       </p>
-      <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.8rem", fontWeight: 300, marginTop: -8 }}>
-        Tip: holding the card by its top edge keeps the bottom corners visible — easier to tap precisely.
-      </p>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: -8 }}>
+        <svg viewBox="0 0 48 32" width="40" height="27" fill="none" aria-hidden="true">
+          <rect x="6" y="6" width="36" height="22" rx="2.5" stroke={GOLD} strokeWidth="1.2" fill="none" opacity="0.6" />
+          <line x1="16" y1="6" x2="16" y2="2" stroke={GOLD} strokeWidth="1.2" strokeLinecap="round" opacity="0.85" />
+          <line x1="32" y1="6" x2="32" y2="2" stroke={GOLD} strokeWidth="1.2" strokeLinecap="round" opacity="0.85" />
+          <circle cx="9.5" cy="27" r="1.8" fill={GOLD} opacity="0.85" />
+          <circle cx="38.5" cy="27" r="1.8" fill={GOLD} opacity="0.85" />
+        </svg>
+        <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.8rem", fontWeight: 300, margin: 0 }}>
+          Tip: holding the card by its top edge keeps the bottom corners visible — easier to tap precisely.
+        </p>
+      </div>
 
       <div
         ref={wrapperRef}
