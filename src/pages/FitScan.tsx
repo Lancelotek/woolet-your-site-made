@@ -592,7 +592,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
                   strokeLinejoin="round"
                 />
               </svg>
-              {cardExpect === "h" ? "Rotate card — lay it horizontally" : "Rotate card — hold it vertically"}
+              Rotate card — lay it horizontally on your forehead
             </span>
           </div>
         )}
