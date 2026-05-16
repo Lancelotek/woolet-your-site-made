@@ -1027,43 +1027,44 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
           const isCardPoint = i < 2;
           const label = isCardPoint ? `Card corner ${i + 1}` : `Face edge ${i - 1}`;
           return (
-          <div
-            key={i}
-            onPointerDown={startDrag(i)}
-            onPointerMove={handleDotMove}
-            onPointerUp={endDrag}
-            onPointerCancel={endDrag}
-            role="slider"
-            aria-label={`${label} — drag to adjust`}
-            style={{
-              position: "absolute",
-              left: (frame.width - c.x) * scaleX - 14,
-              top: c.y * scaleY - 14,
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              background: "transparent",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "grab",
-              touchAction: "none",
-            }}
-          >
-            <span
+            <div
+              key={i}
+              onPointerDown={startDrag(i)}
+              onPointerMove={handleDotMove}
+              onPointerUp={endDrag}
+              onPointerCancel={endDrag}
+              role="slider"
+              aria-label={`${label} — drag to adjust`}
               style={{
-                width: 14,
-                height: 14,
+                position: "absolute",
+                left: (frame.width - c.x) * scaleX - 14,
+                top: c.y * scaleY - 14,
+                width: 28,
+                height: 28,
                 borderRadius: "50%",
-                background: isCardPoint ? GOLD : "#f0ece4",
-                boxShadow: isCardPoint
-                  ? `0 0 0 5px rgba(202,164,73,0.22), 0 0 0 1px rgba(0,0,0,0.4)`
-                  : `0 0 0 5px rgba(240,236,228,0.18), 0 0 0 1px rgba(0,0,0,0.4)`,
-                display: "block",
+                background: "transparent",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "grab",
+                touchAction: "none",
               }}
-            />
-          </div>
-        )})}
+            >
+              <span
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: "50%",
+                  background: isCardPoint ? GOLD : "#f0ece4",
+                  boxShadow: isCardPoint
+                    ? `0 0 0 5px rgba(202,164,73,0.22), 0 0 0 1px rgba(0,0,0,0.4)`
+                    : `0 0 0 5px rgba(240,236,228,0.18), 0 0 0 1px rgba(0,0,0,0.4)`,
+                  display: "block",
+                }}
+              />
+            </div>
+          );
+        })}
         {showDragHint && (
           <div
             onPointerDown={(e) => { e.stopPropagation(); dismissHint(); }}
