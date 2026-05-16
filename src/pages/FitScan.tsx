@@ -793,7 +793,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           textDecoration: "underline",
         }}
       >
-        {cardOk ? "Capture now" : "Capture locked — card not detected"}
+        {cardOk ? "Capture now" : "Capture locked — lay card horizontally on forehead"}
       </button>
 
       <details
