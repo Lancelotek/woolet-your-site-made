@@ -854,11 +854,6 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
     draggingRef.current = null;
   };
 
-  const nudge = (idx: number, dx: number, dy: number) => {
-    setCorners((cs) => cs.map((c, i) => (i === idx ? { x: Math.max(0, Math.min(frame.width, c.x - dx)), y: Math.max(0, Math.min(frame.height, c.y + dy)) } : c)));
-  };
-  void nudge;
-
   const reset = () => setCorners([]);
 
   const cardPxNative =
