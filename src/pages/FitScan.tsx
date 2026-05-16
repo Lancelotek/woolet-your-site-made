@@ -128,12 +128,15 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const lastTsRef = useRef<number>(-1);
   const allGreenSinceRef = useRef<number | null>(null);
   const capturedRef = useRef(false);
+  const wasOkRef = useRef(false);
 
   const [hint, setHint] = useState("Allow camera access");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardOk, setCardOk] = useState(false);
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
+  const [cardConfidence, setCardConfidence] = useState(0);
+  const [okFlash, setOkFlash] = useState(0);
   const [tipsOpen, setTipsOpen] = useState(false);
 
   const isCoarsePointer =
@@ -287,6 +290,8 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           allGreenSinceRef.current = null;
           setCardOk(false);
           setCardState("none");
+          setCardConfidence(0);
+          wasOkRef.current = false;
         } else {
           let minX = 1, minY = 1, maxX = 0, maxY = 0;
           for (const p of face) {
@@ -364,8 +369,24 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             : cardAligned
               ? "ok"
               : "misaligned";
+
+          // Confidence 0–100: combines edge strength + how much horizontal edges dominate.
+          // vGrad ≥ 14 → strength saturates at 100. Orientation ratio (vGrad / (vGrad+hGrad))
+          // penalises rotated cards.
+          const strength = Math.max(0, Math.min(1, (Math.max(vGrad, hGrad) - 2) / 12));
+          const orientation =
+            vGrad + hGrad > 0 ? Math.max(0, (vGrad / (vGrad + hGrad) - 0.5) * 2) : 0;
+          const confidence = Math.round(strength * (0.45 + 0.55 * orientation) * 100);
+          setCardConfidence(confidence);
+
           setCardOk(cardAligned);
           setCardState(nextState);
+
+          // Trigger one-shot flash animation when crossing into "ok"
+          if (cardAligned && !wasOkRef.current) {
+            setOkFlash((n) => n + 1);
+          }
+          wasOkRef.current = cardAligned;
 
           // Draw guide — green when aligned, amber when misaligned, gold dashed when absent
           const guideFill =
@@ -521,8 +542,11 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
                 : "rgba(255,255,255,0.15)";
             const fg = isOk ? "#86efac" : isMis ? "#fde68a" : MUTED;
             const label = isOk ? "Card ✓" : isMis ? "Card rotated" : "No card";
+            const barColor = isOk ? "#4ade80" : isMis ? "#facc15" : GOLD;
             return (
               <span
+                key={`flash-${okFlash}`}
+                className={isOk ? "scan-card-badge scan-card-badge-flash" : "scan-card-badge"}
                 style={{
                   padding: "4px 8px",
                   borderRadius: 4,
@@ -533,9 +557,41 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
                   fontSize: "0.65rem",
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  transition:
+                    "background 220ms ease, border-color 220ms ease, color 220ms ease",
                 }}
               >
-                {label}
+                <span>{label}</span>
+                <span
+                  aria-hidden
+                  style={{
+                    width: 36,
+                    height: 4,
+                    borderRadius: 2,
+                    background: "rgba(255,255,255,0.12)",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "block",
+                      height: "100%",
+                      width: `${cardConfidence}%`,
+                      background: barColor,
+                      transition: "width 240ms ease, background 220ms ease",
+                    }}
+                  />
+                </span>
+                <span
+                  aria-label={`Detection confidence ${cardConfidence}%`}
+                  style={{ minWidth: 28, textAlign: "right", fontVariantNumeric: "tabular-nums" }}
+                >
+                  {cardConfidence}%
+                </span>
               </span>
             );
           })()}
@@ -1099,6 +1155,12 @@ export default function FitScan() {
             .scan-cta-primary > a:first-child { position: sticky; bottom: 16px; z-index: 10; }
             .scan-tips-accordion { font-size: 13px; }
           }
+          @keyframes scanCardBadgeFlash {
+            0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
+            40%  { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+            100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+          }
+          .scan-card-badge-flash { animation: scanCardBadgeFlash 520ms ease-out; }
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
