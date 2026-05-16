@@ -1206,6 +1206,60 @@ function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStep
         </div>
       </div>
 
+      {measurements.faceWidthMm < 145 && (
+        <div
+          role="alert"
+          style={{
+            border: `1px solid ${GOLD}`,
+            background: "rgba(201,168,76,0.10)",
+            borderRadius: 8,
+            padding: "16px 18px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}
+        >
+          <div
+            style={{
+              color: GOLD,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              fontWeight: 500,
+            }}
+          >
+            This result looks low — likely a scan issue
+          </div>
+          <p style={{ color: "hsl(var(--cream-dim))", fontFamily: "Barlow, sans-serif", fontSize: "0.88rem", lineHeight: 1.55, margin: 0 }}>
+            {measurements.faceWidthMm} mm is below the typical adult range. The most common cause is the card not being pressed flat against the forehead — even a 2 cm gap underestimates face width by 5–10 mm. Re-scan with the card flush to your skin for an accurate result.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              pushEvent("scan_sanity_check_rescan", { face_width_mm: measurements.faceWidthMm });
+              onRetake();
+            }}
+            style={{
+              alignSelf: "flex-start",
+              background: GOLD,
+              color: BG,
+              border: "none",
+              borderRadius: 4,
+              padding: "10px 18px",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.78rem",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              fontWeight: 500,
+              cursor: "pointer",
+            }}
+          >
+            Re-scan with card flat →
+          </button>
+        </div>
+      )}
+
       <div
         style={{
           border: `1px solid ${recommendation.badgeColor}`,
