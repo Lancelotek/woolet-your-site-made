@@ -798,6 +798,32 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
   const [corners, setCorners] = useState<Point[]>([]);
   const [displaySize, setDisplaySize] = useState({ w: 0, h: 0 });
   const draggingRef = useRef<number | null>(null);
+  const HINT_KEY = "woolet_scan_drag_hint_seen";
+  const [showDragHint, setShowDragHint] = useState(false);
+  const [hintDismissed, setHintDismissed] = useState(false);
+
+  const dismissHint = useCallback(() => {
+    setShowDragHint(false);
+    setHintDismissed(true);
+    try { localStorage.setItem(HINT_KEY, "1"); } catch { /* noop */ }
+  }, []);
+
+  // Show one-time hint the moment both corners are placed
+  useEffect(() => {
+    if (corners.length !== 2 || hintDismissed) return;
+    let seen = false;
+    try { seen = localStorage.getItem(HINT_KEY) === "1"; } catch { /* noop */ }
+    if (seen) return;
+    setShowDragHint(true);
+    const t = window.setTimeout(() => setShowDragHint(false), 4500);
+    return () => window.clearTimeout(t);
+  }, [corners.length, hintDismissed]);
+
+  // Auto-dismiss as soon as the user actually drags
+  useEffect(() => {
+    if (!showDragHint) return;
+    if (draggingRef.current !== null) dismissHint();
+  }, [showDragHint, dismissHint, corners]);
 
   useEffect(() => {
     const update = () => {
