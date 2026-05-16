@@ -292,6 +292,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           setCardOk(false);
           setCardState("none");
           setCardConfidence(0);
+          setGuideRect(null);
           wasOkRef.current = false;
         } else {
           let minX = 1, minY = 1, maxX = 0, maxY = 0;
