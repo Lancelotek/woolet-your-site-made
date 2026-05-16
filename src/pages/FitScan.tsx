@@ -133,6 +133,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardOk, setCardOk] = useState(false);
+  const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [tipsOpen, setTipsOpen] = useState(false);
 
   const isCoarsePointer =
