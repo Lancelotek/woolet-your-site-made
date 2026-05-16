@@ -963,7 +963,7 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
         Mark 4 points: card first, then face edges
       </h2>
       <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300 }}>
-        First tap the bottom-left and bottom-right corners of the card. Then tap the outermost visible left and right edges of your face at temple level. You can drag any dot to fine-tune before calculating.
+        First tap the bottom-left and bottom-right corners of the card. Then tap the widest visible left and right outline of your face — not necessarily at temple level. If your face is widest a bit lower, place the dots there. You can drag any dot to fine-tune before calculating.
       </p>
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: -8 }}>
         <svg viewBox="0 0 48 32" width="40" height="27" fill="none" aria-hidden="true">
@@ -1116,7 +1116,7 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
           1. Card: bottom-left + bottom-right corners
         </span>
         <span style={{ color: cardCorners.length === 2 && faceEdges.length < 2 ? "hsl(var(--cream-dim))" : MUTED }}>
-          2. Face: outermost left + right contour at temple level
+          2. Face: widest left + right contour of the visible face
         </span>
       </div>
 
