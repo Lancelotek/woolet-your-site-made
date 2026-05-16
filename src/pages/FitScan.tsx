@@ -1160,11 +1160,44 @@ interface ResultStepProps {
   lang: Lang;
 }
 
-function ResultStep({ measurements, recommendation, onRetake, lang }: ResultStepProps) {
+function ResultStep({ measurements, recommendation: baseRecommendation, onRetake, lang }: ResultStepProps) {
+  // Depth correction: if the card was held in front of the face (not flush to skin),
+  // it appears larger in pixels → face width is underestimated. Assuming a typical
+  // capture distance of ~60 cm, a gap g (cm) scales the result by 60 / (60 - g).
+  const [cardOffset, setCardOffset] = useState(false);
+  const [gapCm, setGapCm] = useState(2);
+  const CAPTURE_DIST_CM = 60;
+  const correctionFactor = cardOffset
+    ? CAPTURE_DIST_CM / Math.max(1, CAPTURE_DIST_CM - gapCm)
+    : 1;
+  const adjustedFace = Math.round(measurements.faceWidthMm * correctionFactor);
+  const adjustedNose = Math.round(measurements.noseWidthMm * correctionFactor);
+  const recommendation = cardOffset
+    ? getRecommendation(adjustedFace, adjustedNose)
+    : baseRecommendation;
+
+  // Confidence rating: combines scanner confidence with depth-correction state.
+  const confidenceRating: "high" | "medium" | "low" =
+    cardOffset && gapCm >= 2
+      ? "low"
+      : adjustedFace < 140 || adjustedFace > 170
+        ? "medium"
+        : measurements.confidence === "high"
+          ? "high"
+          : "medium";
+  const confidenceCopy = {
+    high: { label: "High confidence", color: "hsl(var(--cream))", body: "Landmarks and card edges aligned cleanly." },
+    medium: { label: "Medium confidence", color: GOLD, body: "Usable result — verify against a known-fitting frame if possible." },
+    low: { label: "Low confidence", color: "#c47a4a", body: "Depth correction applied. For best accuracy, re-scan with the card flush to your skin." },
+  }[confidenceRating];
+
   const handleCta = () => {
     pushEvent("scan_cta_clicked", {
       cta_label: recommendation.primaryCta.toLowerCase().replace(/[^a-z]+/g, "_"),
       recommendation_type: recommendation.type,
+      card_offset: cardOffset,
+      gap_cm: cardOffset ? gapCm : 0,
+      adjusted_face_width_mm: adjustedFace,
     });
   };
 
