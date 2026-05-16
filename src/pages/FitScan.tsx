@@ -1427,7 +1427,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
 
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
-          to={`/${lang}/fit?face_width=${measurements.faceWidthMm}&nose_width=${measurements.noseWidthMm}&source=scan`}
+          to={`/${lang}/fit?face_width=${adjustedFace}&nose_width=${adjustedNose}&source=scan${cardOffset ? `&gap_cm=${gapCm}` : ""}`}
           onClick={handleCta}
           style={{
             background: GOLD,
