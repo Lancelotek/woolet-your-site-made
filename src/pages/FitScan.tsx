@@ -797,6 +797,7 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [corners, setCorners] = useState<Point[]>([]);
   const [displaySize, setDisplaySize] = useState({ w: 0, h: 0 });
+  const draggingRef = useRef<number | null>(null);
 
   useEffect(() => {
     const update = () => {
@@ -809,15 +810,48 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (corners.length >= 2) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const xDisplay = e.clientX - rect.left;
-    const yDisplay = e.clientY - rect.top;
-    // Convert to native frame coords
-    const xNative = (xDisplay / rect.width) * frame.width;
+  const eventToNative = (clientX: number, clientY: number) => {
+    const el = wrapperRef.current;
+    if (!el) return null;
+    const rect = el.getBoundingClientRect();
+    const xDisplay = Math.max(0, Math.min(rect.width, clientX - rect.left));
+    const yDisplay = Math.max(0, Math.min(rect.height, clientY - rect.top));
+    // Image is mirrored (scaleX(-1)) so flip X back to native frame coords
+    const xNativeMirrored = (xDisplay / rect.width) * frame.width;
+    const xNative = frame.width - xNativeMirrored;
     const yNative = (yDisplay / rect.height) * frame.height;
-    setCorners((c) => [...c, { x: xNative, y: yNative }]);
+    return { x: xNative, y: yNative };
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (draggingRef.current !== null) return;
+    if (corners.length >= 2) return;
+    const p = eventToNative(e.clientX, e.clientY);
+    if (!p) return;
+    setCorners((c) => [...c, p]);
+  };
+
+  const startDrag = (idx: number) => (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    draggingRef.current = idx;
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+  };
+
+  const handleDotMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const idx = draggingRef.current;
+    if (idx === null) return;
+    e.stopPropagation();
+    const p = eventToNative(e.clientX, e.clientY);
+    if (!p) return;
+    setCorners((cs) => cs.map((c, i) => (i === idx ? p : c)));
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (draggingRef.current === null) return;
+    e.stopPropagation();
+    try { (e.target as Element).releasePointerCapture?.(e.pointerId); } catch { /* noop */ }
+    draggingRef.current = null;
   };
 
   const reset = () => setCorners([]);
@@ -854,12 +888,15 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
         Tap the two bottom corners of your card
       </h2>
       <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300 }}>
-        We need to know exactly where the card edges are. Tap the bottom-left corner, then the bottom-right corner.
+        Tap the bottom-left, then the bottom-right corner of the card. You can drag either dot to fine-tune its position before calculating.
       </p>
 
       <div
         ref={wrapperRef}
-        onClick={handleClick}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handleDotMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
         style={{
           position: "relative",
           width: "100%",
@@ -868,12 +905,13 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
           overflow: "hidden",
           cursor: corners.length < 2 ? "crosshair" : "default",
           background: "#000",
+          touchAction: "none",
         }}
       >
         <img
           src={frame.dataUrl}
           alt="Captured frame for measurement"
-          style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)", display: "block" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)", display: "block", pointerEvents: "none" }}
         />
         {corners.length === 2 && (
           <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
@@ -890,21 +928,39 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
         {corners.map((c, i) => (
           <div
             key={i}
+            onPointerDown={startDrag(i)}
+            onPointerMove={handleDotMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            role="slider"
+            aria-label={`Card corner ${i + 1} — drag to adjust`}
             style={{
               position: "absolute",
-              left: (frame.width - c.x) * scaleX - 6,
-              top: c.y * scaleY - 6,
-              width: 12,
-              height: 12,
+              left: (frame.width - c.x) * scaleX - 14,
+              top: c.y * scaleY - 14,
+              width: 28,
+              height: 28,
               borderRadius: "50%",
-              background: GOLD,
-              boxShadow: `0 0 0 4px rgba(202,164,73,0.25)`,
-              animation: "pulse 1.4s ease-in-out infinite",
-              pointerEvents: "none",
+              background: "transparent",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "grab",
+              touchAction: "none",
             }}
-          />
+          >
+            <span
+              style={{
+                width: 14,
+                height: 14,
+                borderRadius: "50%",
+                background: GOLD,
+                boxShadow: `0 0 0 5px rgba(202,164,73,0.22), 0 0 0 1px rgba(0,0,0,0.4)`,
+                display: "block",
+              }}
+            />
+          </div>
         ))}
-        <style>{`@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25); } }`}</style>
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
