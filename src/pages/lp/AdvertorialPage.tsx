@@ -742,7 +742,7 @@ const AdvertorialPage = () => {
 
               {/* CTA button */}
               <button
-                onClick={() => navigate("/en/fit")}
+                onClick={() => navigate("/en/fit/scan")}
                 style={{
                   width: "100%",
                   background: "#CAA449",
