@@ -1338,7 +1338,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
         </div>
       </div>
 
-      {measurements.faceWidthMm < 145 && (
+      {adjustedFace < 145 && (
         <div
           role="alert"
           style={{
