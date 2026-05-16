@@ -1155,6 +1155,12 @@ export default function FitScan() {
             .scan-cta-primary > a:first-child { position: sticky; bottom: 16px; z-index: 10; }
             .scan-tips-accordion { font-size: 13px; }
           }
+          @keyframes scanCardBadgeFlash {
+            0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
+            40%  { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+            100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+          }
+          .scan-card-badge-flash { animation: scanCardBadgeFlash 520ms ease-out; }
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
