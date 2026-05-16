@@ -1218,8 +1218,8 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
     ctx.fillText("NOSE WIDTH", 420, 160);
     ctx.fillStyle = GOLD;
     ctx.font = "300 96px 'Cormorant Garamond', serif";
-    ctx.fillText(`${measurements.faceWidthMm} mm`, 60, 250);
-    ctx.fillText(`${measurements.noseWidthMm} mm`, 420, 250);
+    ctx.fillText(`${adjustedFace} mm`, 60, 250);
+    ctx.fillText(`${adjustedNose} mm`, 420, 250);
     ctx.fillStyle = "#888";
     ctx.font = "300 14px Barlow, sans-serif";
     ctx.fillText(`Confidence: ${measurements.confidence}`, 60, 300);
