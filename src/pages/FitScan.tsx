@@ -1261,7 +1261,12 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
             className="scan-result-number font-display"
             style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3rem, 8vw, 4.5rem)", lineHeight: 1 }}
           >
-            {measurements.faceWidthMm} mm
+            {adjustedFace} mm
+            {cardOffset && (
+              <span style={{ marginLeft: 10, fontSize: "0.9rem", color: MUTED, fontFamily: "Barlow, sans-serif", letterSpacing: "0.08em" }}>
+                (raw {measurements.faceWidthMm} mm)
+              </span>
+            )}
           </div>
         </div>
         <div>
