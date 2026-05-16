@@ -815,6 +815,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         <ul style={{ marginTop: 10, lineHeight: 1.6, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
           {[
             "Take off your glasses before scanning.",
+            "Lay the card flat on your forehead, long edge horizontal — both long edges must touch skin.",
             "Hold the card by its top edge — keep fingers off the bottom corners.",
             "Don't tilt the card or camera; even a small tilt = 3–6 mm error.",
             "Stand 50–70 cm away and look straight at the lens.",
