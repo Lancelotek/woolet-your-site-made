@@ -367,8 +367,24 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             : cardAligned
               ? "ok"
               : "misaligned";
+
+          // Confidence 0–100: combines edge strength + how much horizontal edges dominate.
+          // vGrad ≥ 14 → strength saturates at 100. Orientation ratio (vGrad / (vGrad+hGrad))
+          // penalises rotated cards.
+          const strength = Math.max(0, Math.min(1, (Math.max(vGrad, hGrad) - 2) / 12));
+          const orientation =
+            vGrad + hGrad > 0 ? Math.max(0, (vGrad / (vGrad + hGrad) - 0.5) * 2) : 0;
+          const confidence = Math.round(strength * (0.45 + 0.55 * orientation) * 100);
+          setCardConfidence(confidence);
+
           setCardOk(cardAligned);
           setCardState(nextState);
+
+          // Trigger one-shot flash animation when crossing into "ok"
+          if (cardAligned && !wasOkRef.current) {
+            setOkFlash((n) => n + 1);
+          }
+          wasOkRef.current = cardAligned;
 
           // Draw guide — green when aligned, amber when misaligned, gold dashed when absent
           const guideFill =
