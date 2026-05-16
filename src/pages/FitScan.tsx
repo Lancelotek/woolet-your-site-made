@@ -781,7 +781,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           captureFrame();
         }}
         disabled={!cardOk}
-        title={cardOk ? "Capture now" : "Hold the card to your forehead first"}
+        title={cardOk ? "Capture now" : "Lay the card flat on your forehead, long edge horizontal"}
         style={{
           background: "transparent",
           border: "none",
