@@ -155,10 +155,10 @@ const Index = () => {
 
       {/* SINGLE primary CTA */}
       <div className="flex flex-col gap-3 pt-2">
-        <button
-          type="button"
-          onClick={openReserve}
-          className="inline-flex items-center justify-center uppercase tracking-[0.22em] transition-all"
+        <a
+          href={`/${lang}/fit/scan`}
+          onClick={() => pushGtmEvent("cta_scan_click", { location: "hero_primary" })}
+          className="inline-flex items-center justify-center uppercase tracking-[0.22em] transition-all no-underline"
           style={{
             background: "hsl(var(--gold))",
             color: "hsl(var(--background))",
@@ -174,7 +174,7 @@ const Index = () => {
           onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
         >
           Scan your face · Reserve for $1
-        </button>
+        </a>
 
         {/* Tiny waitlist alternative — muted gold underlined link */}
         <button
