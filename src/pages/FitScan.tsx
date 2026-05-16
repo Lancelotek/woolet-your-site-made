@@ -536,6 +536,35 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       </div>
 
       <div
+        role="note"
+        style={{
+          display: "flex",
+          gap: 12,
+          alignItems: "flex-start",
+          border: `1px solid ${GOLD}`,
+          background: "rgba(201,168,76,0.08)",
+          borderRadius: 6,
+          padding: "10px 12px",
+        }}
+      >
+        <svg viewBox="0 0 48 40" width="40" height="34" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
+          {/* head silhouette */}
+          <ellipse cx="24" cy="22" rx="11" ry="14" stroke={GOLD} strokeWidth="1.2" opacity="0.55" fill="none" />
+          {/* card pressed flat against forehead */}
+          <rect x="11" y="10" width="26" height="7" rx="1" fill={GOLD} opacity="0.9" />
+          {/* arrows showing contact */}
+          <path d="M 8 13 L 11 13" stroke={GOLD} strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M 40 13 L 37 13" stroke={GOLD} strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+        <div style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.82rem", lineHeight: 1.5, color: "hsl(var(--cream-dim))" }}>
+          <strong style={{ color: GOLD, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase", fontSize: "0.72rem", display: "block", marginBottom: 2 }}>
+            Press the card flat to your forehead
+          </strong>
+          Both long edges must touch your skin. If the card sticks out even 2 cm in front of your face, the result comes out 5–10 mm too narrow.
+        </div>
+      </div>
+
+      <div
         className="scan-camera"
         style={{
           position: "relative",
