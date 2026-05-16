@@ -306,12 +306,52 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const guideH = guideW * (54 / 85.6);
           const guideX = bx + (bw - guideW) / 2;
           const guideY = by - guideH * 0.2;
-          ctx.fillStyle = "rgba(202, 164, 73, 0.18)";
-          ctx.fillRect(guideX, Math.max(0, guideY), guideW, guideH);
-          ctx.strokeStyle = "rgba(202, 164, 73, 0.6)";
-          ctx.lineWidth = 1.5;
-          ctx.setLineDash([6, 6]);
-          ctx.strokeRect(guideX, Math.max(0, guideY), guideW, guideH);
+          const safeGY = Math.max(0, guideY);
+
+          // ─── Card presence detection ───
+          // Sample the guide region and look for strong horizontal edges
+          // (a card has hard top/bottom edges; bare skin does not).
+          let cardPresent = false;
+          let cardScore = 0;
+          if (safeGY + guideH <= vh && guideX + guideW <= vw && guideW > 30 && guideH > 12) {
+            const SW = 48;
+            const SH = 32;
+            const cardCanvas = document.createElement("canvas");
+            cardCanvas.width = SW;
+            cardCanvas.height = SH;
+            const cctx = cardCanvas.getContext("2d");
+            if (cctx) {
+              try {
+                cctx.drawImage(v, guideX, safeGY, guideW, guideH, 0, 0, SW, SH);
+                const data = cctx.getImageData(0, 0, SW, SH).data;
+                const lumArr = new Float32Array(SW * SH);
+                for (let i = 0; i < SW * SH; i++) {
+                  const o = i * 4;
+                  lumArr[i] = 0.299 * data[o] + 0.587 * data[o + 1] + 0.114 * data[o + 2];
+                }
+                // Vertical gradient = sensitivity to horizontal edges (card top/bottom)
+                let edgeSum = 0;
+                for (let y = 0; y < SH - 1; y++) {
+                  for (let x = 0; x < SW; x++) {
+                    edgeSum += Math.abs(lumArr[(y + 1) * SW + x] - lumArr[y * SW + x]);
+                  }
+                }
+                cardScore = edgeSum / ((SH - 1) * SW);
+                cardPresent = cardScore > 7;
+              } catch {
+                /* CORS or paint error — skip */
+              }
+            }
+          }
+          setCardOk(cardPresent);
+
+          // Draw guide — green tint when card detected, gold dashed otherwise
+          ctx.fillStyle = cardPresent ? "rgba(74, 222, 128, 0.22)" : "rgba(202, 164, 73, 0.18)";
+          ctx.fillRect(guideX, safeGY, guideW, guideH);
+          ctx.strokeStyle = cardPresent ? "rgba(74, 222, 128, 0.85)" : "rgba(202, 164, 73, 0.6)";
+          ctx.lineWidth = cardPresent ? 2 : 1.5;
+          ctx.setLineDash(cardPresent ? [] : [6, 6]);
+          ctx.strokeRect(guideX, safeGY, guideW, guideH);
           ctx.setLineDash([]);
 
           // Tilt
@@ -323,8 +363,9 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           else if (boxH > 0.7) nextHint = "Move further back";
           else if (lumState === "red") nextHint = "Improve lighting";
           else if (tilt > 5) nextHint = "Keep your head straight";
+          else if (!cardPresent) nextHint = "Hold a card flat against your forehead — long edge horizontal";
           else {
-            nextHint = "Place card on your forehead, magnetic stripe down";
+            nextHint = "Card detected — hold still";
             allGreen = true;
           }
         }
