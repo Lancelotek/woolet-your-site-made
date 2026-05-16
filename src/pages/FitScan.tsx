@@ -1449,10 +1449,10 @@ export default function FitScan() {
     setStep("annotate");
   };
 
-  const handleCalculate = ([c1, c2]: [Point, Point]) => {
+  const handleCalculate = ([c1, c2]: [Point, Point], [f1, f2]: [Point, Point]) => {
     if (!frame) return;
     try {
-      const m = calculateMeasurements(frame.landmarks, frame.width, c1, c2);
+      const m = calculateMeasurements(frame.landmarks, frame.width, c1, c2, f1, f2);
       const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
       setMeasurements(m);
       setRecommendation(r);
