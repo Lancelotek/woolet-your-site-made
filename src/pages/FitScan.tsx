@@ -1175,10 +1175,18 @@ export default function FitScan() {
       });
       setStep("result");
     } catch (err) {
+      const isMeasurement = err instanceof MeasurementError;
       const msg = err instanceof Error ? err.message : "Calculation failed.";
+      const kind = isMeasurement ? err.kind : "unknown";
+      // Block URL save: do NOT setMeasurements / setRecommendation / setStep("result").
+      setMeasurements(null);
+      setRecommendation(null);
       setErrorMsg(msg);
       setErrorKind("recoverable");
-      pushEvent("scan_error", { error_type: "calculation" });
+      toast.error("Measurement rejected", {
+        description: msg,
+      });
+      pushEvent("scan_error", { error_type: "calculation", reason: kind });
     }
   };
 
