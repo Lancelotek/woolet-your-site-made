@@ -53,8 +53,9 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
         Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
       </h1>
       <p className="text-cream-dim leading-relaxed" style={{ fontSize: "1.05rem", fontWeight: 300 }}>
-        Hold any credit card flat against your forehead — its 85.6 mm long edge is our scale
-        reference. We won't capture until both your face <em>and</em> the card are clearly visible.
+        Lay any credit card <strong>flat on your forehead, long edge horizontal</strong> — its
+        85.6 mm long edge is our scale reference. We won't capture until the card is detected
+        flat and horizontal on your forehead.
       </p>
 
       <ul className="flex flex-col gap-3 pt-1" style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300 }}>
@@ -62,6 +63,7 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
           "Works on phone (front camera) or laptop (webcam)",
           "Requires a credit/debit/ID card as physical scale reference",
           "Take off your glasses — frames hide your temples and skew the measurement",
+          "Lay the card horizontally on your forehead — both long edges touching skin, no tilt",
           "Hold the card by its top edge so your fingers don't cover the bottom corners",
           "Accurate to about 2 mm — photo never leaves your device",
         ].map((b) => (
@@ -625,7 +627,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
                 ? "rgba(250,204,21,0.7)"
                 : "rgba(255,255,255,0.15)";
             const fg = isOk ? "#86efac" : isMis ? "#fde68a" : MUTED;
-            const label = isOk ? "Card ✓" : isMis ? "Card rotated" : "No card";
+            const label = isOk ? "Card ✓ horizontal" : isMis ? "Lay card flat & horizontal" : "No card on forehead";
             const barColor = isOk ? "#4ade80" : isMis ? "#facc15" : GOLD;
             return (
               <span
@@ -779,7 +781,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           captureFrame();
         }}
         disabled={!cardOk}
-        title={cardOk ? "Capture now" : "Hold the card to your forehead first"}
+        title={cardOk ? "Capture now" : "Lay the card flat on your forehead, long edge horizontal"}
         style={{
           background: "transparent",
           border: "none",
@@ -791,7 +793,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           textDecoration: "underline",
         }}
       >
-        {cardOk ? "Capture now" : "Capture locked — card not detected"}
+        {cardOk ? "Capture now" : "Capture locked — lay card horizontally on forehead"}
       </button>
 
       <details
@@ -813,6 +815,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         <ul style={{ marginTop: 10, lineHeight: 1.6, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
           {[
             "Take off your glasses before scanning.",
+            "Lay the card flat on your forehead, long edge horizontal — both long edges must touch skin.",
             "Hold the card by its top edge — keep fingers off the bottom corners.",
             "Don't tilt the card or camera; even a small tilt = 3–6 mm error.",
             "Stand 50–70 cm away and look straight at the lens.",
