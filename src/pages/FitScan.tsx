@@ -1094,7 +1094,7 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M9 11V6a2 2 0 1 1 4 0v5M13 11V4.5a2 2 0 1 1 4 0V11M17 11V7.5a2 2 0 1 1 4 0V14a7 7 0 0 1-7 7h-1.5a6 6 0 0 1-5.2-3l-3.1-5.4a2 2 0 0 1 3.4-2L9 13V6a2 2 0 1 1 4 0v5" stroke={GOLD} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span>Drag a dot to fine-tune the card edge</span>
+            <span>Drag a point to fine-tune its position</span>
           </div>
         )}
         <style>{`@keyframes wooletHintIn { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }`}</style>
