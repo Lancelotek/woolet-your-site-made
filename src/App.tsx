@@ -94,6 +94,7 @@ const App = () => (
         </Routes>
         </Suspense>
       </BrowserRouter>
+      <CookieBanner />
       </ErrorBoundary>
     </TooltipProvider>
   </QueryClientProvider>
