@@ -41,7 +41,7 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
     <div className="flex flex-col gap-7">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">CARDLESS · 30 SECONDS</span>
+        <span className="woolet-eyebrow-text">CARD-SCALED · 30 SECONDS</span>
       </div>
       <h1
         className="font-display text-woolet-white"
@@ -50,15 +50,15 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
         Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
       </h1>
       <p className="text-cream-dim leading-relaxed" style={{ fontSize: "1.05rem", fontWeight: 300 }}>
-        Hold any credit card to your forehead. We'll calculate your face width and nose width with
-        surgical precision — no app, no signup.
+        Hold any credit card flat against your forehead — its 85.6 mm long edge is our scale
+        reference. We won't capture until both your face <em>and</em> the card are clearly visible.
       </p>
 
       <ul className="flex flex-col gap-3 pt-1" style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300 }}>
         {[
-          "Works on any phone or laptop with a camera",
-          "Accurate to about 2mm using card-scale protocol",
-          "Photo never leaves your device",
+          "Works on phone (front camera) or laptop (webcam)",
+          "Requires a credit/debit/ID card as physical scale reference",
+          "Accurate to about 2 mm — photo never leaves your device",
         ].map((b) => (
           <li key={b} className="flex items-start gap-3 text-cream-dim" style={{ fontSize: "0.95rem" }}>
             <svg width="18" height="18" viewBox="0 0 18 18" style={{ marginTop: 2, flexShrink: 0 }}>
@@ -132,7 +132,14 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [hint, setHint] = useState("Allow camera access");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
+  const [cardOk, setCardOk] = useState(false);
   const [tipsOpen, setTipsOpen] = useState(false);
+
+  const isCoarsePointer =
+    typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches;
+  const deviceTip = isCoarsePointer
+    ? "Hold the phone at arm's length, camera at eye level."
+    : "Sit ~50–70 cm from the webcam, eyes level with the camera.";
 
   const stopAll = useCallback(() => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -277,6 +284,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
 
         if (!face) {
           allGreenSinceRef.current = null;
+          setCardOk(false);
         } else {
           let minX = 1, minY = 1, maxX = 0, maxY = 0;
           for (const p of face) {
@@ -299,12 +307,52 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const guideH = guideW * (54 / 85.6);
           const guideX = bx + (bw - guideW) / 2;
           const guideY = by - guideH * 0.2;
-          ctx.fillStyle = "rgba(202, 164, 73, 0.18)";
-          ctx.fillRect(guideX, Math.max(0, guideY), guideW, guideH);
-          ctx.strokeStyle = "rgba(202, 164, 73, 0.6)";
-          ctx.lineWidth = 1.5;
-          ctx.setLineDash([6, 6]);
-          ctx.strokeRect(guideX, Math.max(0, guideY), guideW, guideH);
+          const safeGY = Math.max(0, guideY);
+
+          // ─── Card presence detection ───
+          // Sample the guide region and look for strong horizontal edges
+          // (a card has hard top/bottom edges; bare skin does not).
+          let cardPresent = false;
+          let cardScore = 0;
+          if (safeGY + guideH <= vh && guideX + guideW <= vw && guideW > 30 && guideH > 12) {
+            const SW = 48;
+            const SH = 32;
+            const cardCanvas = document.createElement("canvas");
+            cardCanvas.width = SW;
+            cardCanvas.height = SH;
+            const cctx = cardCanvas.getContext("2d");
+            if (cctx) {
+              try {
+                cctx.drawImage(v, guideX, safeGY, guideW, guideH, 0, 0, SW, SH);
+                const data = cctx.getImageData(0, 0, SW, SH).data;
+                const lumArr = new Float32Array(SW * SH);
+                for (let i = 0; i < SW * SH; i++) {
+                  const o = i * 4;
+                  lumArr[i] = 0.299 * data[o] + 0.587 * data[o + 1] + 0.114 * data[o + 2];
+                }
+                // Vertical gradient = sensitivity to horizontal edges (card top/bottom)
+                let edgeSum = 0;
+                for (let y = 0; y < SH - 1; y++) {
+                  for (let x = 0; x < SW; x++) {
+                    edgeSum += Math.abs(lumArr[(y + 1) * SW + x] - lumArr[y * SW + x]);
+                  }
+                }
+                cardScore = edgeSum / ((SH - 1) * SW);
+                cardPresent = cardScore > 7;
+              } catch {
+                /* CORS or paint error — skip */
+              }
+            }
+          }
+          setCardOk(cardPresent);
+
+          // Draw guide — green tint when card detected, gold dashed otherwise
+          ctx.fillStyle = cardPresent ? "rgba(74, 222, 128, 0.22)" : "rgba(202, 164, 73, 0.18)";
+          ctx.fillRect(guideX, safeGY, guideW, guideH);
+          ctx.strokeStyle = cardPresent ? "rgba(74, 222, 128, 0.85)" : "rgba(202, 164, 73, 0.6)";
+          ctx.lineWidth = cardPresent ? 2 : 1.5;
+          ctx.setLineDash(cardPresent ? [] : [6, 6]);
+          ctx.strokeRect(guideX, safeGY, guideW, guideH);
           ctx.setLineDash([]);
 
           // Tilt
@@ -316,8 +364,9 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           else if (boxH > 0.7) nextHint = "Move further back";
           else if (lumState === "red") nextHint = "Improve lighting";
           else if (tilt > 5) nextHint = "Keep your head straight";
+          else if (!cardPresent) nextHint = "Hold a card flat against your forehead — long edge horizontal";
           else {
-            nextHint = "Place card on your forehead, magnetic stripe down";
+            nextHint = "Card detected — hold still";
             allGreen = true;
           }
         }
@@ -416,13 +465,36 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             position: "absolute",
             top: 12,
             right: 12,
-            width: 12,
-            height: 12,
-            borderRadius: "50%",
-            background: lightingColor,
-            boxShadow: `0 0 8px ${lightingColor}`,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
           }}
-        />
+        >
+          <span
+            style={{
+              padding: "4px 8px",
+              borderRadius: 4,
+              background: cardOk ? "rgba(74,222,128,0.18)" : "rgba(0,0,0,0.55)",
+              border: `1px solid ${cardOk ? "rgba(74,222,128,0.6)" : "rgba(255,255,255,0.15)"}`,
+              color: cardOk ? "#86efac" : MUTED,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.65rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+            }}
+          >
+            {cardOk ? "Card ✓" : "No card"}
+          </span>
+          <span
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: "50%",
+              background: lightingColor,
+              boxShadow: `0 0 8px ${lightingColor}`,
+            }}
+          />
+        </div>
         <div
           style={{
             position: "absolute",
@@ -444,20 +516,37 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         </div>
       </div>
 
-      <button
-        onClick={() => captureFrame()}
+      <p
         style={{
-          background: "transparent",
-          border: "none",
           color: MUTED,
           fontFamily: "Barlow, sans-serif",
           fontSize: "0.78rem",
+          textAlign: "center",
+          margin: 0,
+        }}
+      >
+        {deviceTip}
+      </p>
+
+      <button
+        onClick={() => {
+          if (!cardOk) return;
+          captureFrame();
+        }}
+        disabled={!cardOk}
+        title={cardOk ? "Capture now" : "Hold the card to your forehead first"}
+        style={{
+          background: "transparent",
+          border: "none",
+          color: cardOk ? GOLD : "rgba(255,255,255,0.25)",
+          fontFamily: "Barlow, sans-serif",
+          fontSize: "0.78rem",
           padding: "8px 0",
-          cursor: "pointer",
+          cursor: cardOk ? "pointer" : "not-allowed",
           textDecoration: "underline",
         }}
       >
-        Capture now
+        {cardOk ? "Capture now" : "Capture locked — card not detected"}
       </button>
 
       <details
