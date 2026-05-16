@@ -542,8 +542,11 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
                 : "rgba(255,255,255,0.15)";
             const fg = isOk ? "#86efac" : isMis ? "#fde68a" : MUTED;
             const label = isOk ? "Card ✓" : isMis ? "Card rotated" : "No card";
+            const barColor = isOk ? "#4ade80" : isMis ? "#facc15" : GOLD;
             return (
               <span
+                key={`flash-${okFlash}`}
+                className={isOk ? "scan-card-badge scan-card-badge-flash" : "scan-card-badge"}
                 style={{
                   padding: "4px 8px",
                   borderRadius: 4,
@@ -554,9 +557,41 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
                   fontSize: "0.65rem",
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  transition:
+                    "background 220ms ease, border-color 220ms ease, color 220ms ease",
                 }}
               >
-                {label}
+                <span>{label}</span>
+                <span
+                  aria-hidden
+                  style={{
+                    width: 36,
+                    height: 4,
+                    borderRadius: 2,
+                    background: "rgba(255,255,255,0.12)",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "block",
+                      height: "100%",
+                      width: `${cardConfidence}%`,
+                      background: barColor,
+                      transition: "width 240ms ease, background 220ms ease",
+                    }}
+                  />
+                </span>
+                <span
+                  aria-label={`Detection confidence ${cardConfidence}%`}
+                  style={{ minWidth: 28, textAlign: "right", fontVariantNumeric: "tabular-nums" }}
+                >
+                  {cardConfidence}%
+                </span>
               </span>
             );
           })()}
