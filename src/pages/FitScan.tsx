@@ -627,7 +627,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
                 ? "rgba(250,204,21,0.7)"
                 : "rgba(255,255,255,0.15)";
             const fg = isOk ? "#86efac" : isMis ? "#fde68a" : MUTED;
-            const label = isOk ? "Card ✓" : isMis ? "Card rotated" : "No card";
+            const label = isOk ? "Card ✓ horizontal" : isMis ? "Lay card flat & horizontal" : "No card on forehead";
             const barColor = isOk ? "#4ade80" : isMis ? "#facc15" : GOLD;
             return (
               <span
