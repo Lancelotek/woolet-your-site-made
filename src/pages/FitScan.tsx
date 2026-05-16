@@ -318,6 +318,14 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const guideY = by - guideH * 0.2;
           const safeGY = Math.max(0, guideY);
 
+          // Publish guide rect to React state for HTML overlay. Video is mirrored via
+          // CSS scaleX(-1), so mirror X when converting native → display percentages.
+          setGuideRect({
+            left: ((vw - (guideX + guideW)) / vw) * 100,
+            bottom: ((vh - (safeGY + guideH)) / vh) * 100,
+            width: (guideW / vw) * 100,
+          });
+
           // ─── Card presence detection ───
           // Sample the guide region and look for strong horizontal edges
           // (a card has hard top/bottom edges; bare skin does not).
