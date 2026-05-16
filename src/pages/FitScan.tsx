@@ -394,6 +394,8 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const confidence = Math.round(strength * (0.45 + 0.55 * dom) * 100);
           setCardConfidence(confidence);
 
+          setCardInZone(cardPresent);
+          setCardHorizontal(cardPresent && vGrad > hGrad * 1.35 && vGrad > 7);
           setCardOk(cardAligned);
           setCardState(nextState);
 
