@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import CardPositionIllustration from "@/components/CardPositionIllustration";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
+import { classifyCardSample } from "@/lib/card-detection";
 import {
   calculateMeasurements,
   getRecommendation,
