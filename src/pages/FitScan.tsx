@@ -143,7 +143,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const [cardConfidence, setCardConfidence] = useState(0);
   const [okFlash, setOkFlash] = useState(0);
   const [guideRect, setGuideRect] = useState<{ left: number; bottom: number; width: number } | null>(null);
-  const [cardExpect, setCardExpect] = useState<"h" | "v">("h");
+  
   const [tipsOpen, setTipsOpen] = useState(false);
 
   const isCoarsePointer =
