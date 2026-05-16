@@ -313,113 +313,142 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           ctx.lineWidth = 2;
           ctx.strokeRect(bx, by, bw, bh);
 
-          // Card guide rectangle (above eyebrows)
-          const guideW = bw * 0.6;
-          const guideH = guideW * (54 / 85.6);
-          const guideX = bx + (bw - guideW) / 2;
-          const guideY = by - guideH * 0.2;
-          const safeGY = Math.max(0, guideY);
+          // ─── Card guide regions ───
+          // The user can hold the card EITHER flat above the forehead (long edge
+          // horizontal) OR against either cheek (long edge vertical). We sample
+          // all three regions and accept whichever shows a card with a
+          // dominant edge in the orientation expected for that region.
+          const cardLongMm = 85.6;
+          const cardShortMm = 54;
 
-          // Publish guide rect to React state for HTML overlay. Video is mirrored via
-          // CSS scaleX(-1), so mirror X when converting native → display percentages.
-          setGuideRect({
-            left: ((vw - (guideX + guideW)) / vw) * 100,
-            bottom: ((vh - (safeGY + guideH)) / vh) * 100,
-            width: (guideW / vw) * 100,
-          });
+          // Top region — horizontal card above forehead
+          const topW = bw * 0.6;
+          const topH = topW * (cardShortMm / cardLongMm);
+          const topX = bx + (bw - topW) / 2;
+          const topY = Math.max(0, by - topH * 0.2);
 
-          // ─── Card presence detection ───
-          // Sample the guide region and look for strong horizontal edges
-          // (a card has hard top/bottom edges; bare skin does not).
-          let cardPresent = false;
-          let cardAligned = false;
-          let vGrad = 0;
-          let hGrad = 0;
-          if (safeGY + guideH <= vh && guideX + guideW <= vw && guideW > 30 && guideH > 12) {
-            const SW = 48;
-            const SH = 32;
-            const cardCanvas = document.createElement("canvas");
-            cardCanvas.width = SW;
-            cardCanvas.height = SH;
-            const cctx = cardCanvas.getContext("2d");
-            if (cctx) {
-              try {
-                cctx.drawImage(v, guideX, safeGY, guideW, guideH, 0, 0, SW, SH);
-                const data = cctx.getImageData(0, 0, SW, SH).data;
-                const lumArr = new Float32Array(SW * SH);
-                for (let i = 0; i < SW * SH; i++) {
-                  const o = i * 4;
-                  lumArr[i] = 0.299 * data[o] + 0.587 * data[o + 1] + 0.114 * data[o + 2];
-                }
-                // Vertical gradient → sensitive to HORIZONTAL edges (card lying flat)
-                let vSum = 0;
-                for (let y = 0; y < SH - 1; y++) {
-                  for (let x = 0; x < SW; x++) {
-                    vSum += Math.abs(lumArr[(y + 1) * SW + x] - lumArr[y * SW + x]);
-                  }
-                }
-                vGrad = vSum / ((SH - 1) * SW);
-                // Horizontal gradient → sensitive to VERTICAL edges (card rotated)
-                let hSum = 0;
-                for (let y = 0; y < SH; y++) {
-                  for (let x = 0; x < SW - 1; x++) {
-                    hSum += Math.abs(lumArr[y * SW + x + 1] - lumArr[y * SW + x]);
-                  }
-                }
-                hGrad = hSum / (SH * (SW - 1));
-                const maxGrad = Math.max(vGrad, hGrad);
-                cardPresent = maxGrad > 7;
-                // Aligned = horizontal edges clearly dominate vertical ones
-                cardAligned = cardPresent && vGrad > hGrad * 1.35 && vGrad > 7;
-              } catch {
-                /* CORS or paint error — skip */
+          // Side regions — vertical card next to either cheek
+          const sideH = bh * 0.55;
+          const sideW = sideH * (cardShortMm / cardLongMm);
+          const sideY = by + bh * 0.25;
+          const gap = bw * 0.06;
+          const leftX = Math.max(0, bx - gap - sideW); // user's right cheek (mirrored)
+          const rightX = Math.min(vw - sideW, bx + bw + gap); // user's left cheek (mirrored)
+
+          type Region = {
+            kind: "top" | "left" | "right";
+            x: number; y: number; w: number; h: number;
+            // expected dominant orientation: "h" = horizontal long edge → high vGrad
+            expect: "h" | "v";
+          };
+          const regions: Region[] = [
+            { kind: "top", x: topX, y: topY, w: topW, h: topH, expect: "h" },
+            { kind: "left", x: leftX, y: sideY, w: sideW, h: sideH, expect: "v" },
+            { kind: "right", x: rightX, y: sideY, w: sideW, h: sideH, expect: "v" },
+          ];
+
+          const sampleRegion = (r: Region) => {
+            let vGrad = 0, hGrad = 0;
+            if (
+              r.y + r.h > vh || r.x + r.w > vw || r.x < 0 || r.y < 0 ||
+              r.w < 20 || r.h < 20
+            ) {
+              return { vGrad, hGrad };
+            }
+            const SW = 32, SH = 32;
+            const cv = document.createElement("canvas");
+            cv.width = SW; cv.height = SH;
+            const cctx = cv.getContext("2d");
+            if (!cctx) return { vGrad, hGrad };
+            try {
+              cctx.drawImage(v, r.x, r.y, r.w, r.h, 0, 0, SW, SH);
+              const data = cctx.getImageData(0, 0, SW, SH).data;
+              const lum = new Float32Array(SW * SH);
+              for (let i = 0; i < SW * SH; i++) {
+                const o = i * 4;
+                lum[i] = 0.299 * data[o] + 0.587 * data[o + 1] + 0.114 * data[o + 2];
               }
+              let vSum = 0;
+              for (let y = 0; y < SH - 1; y++)
+                for (let x = 0; x < SW; x++)
+                  vSum += Math.abs(lum[(y + 1) * SW + x] - lum[y * SW + x]);
+              vGrad = vSum / ((SH - 1) * SW);
+              let hSum = 0;
+              for (let y = 0; y < SH; y++)
+                for (let x = 0; x < SW - 1; x++)
+                  hSum += Math.abs(lum[y * SW + x + 1] - lum[y * SW + x]);
+              hGrad = hSum / (SH * (SW - 1));
+            } catch { /* CORS */ }
+            return { vGrad, hGrad };
+          };
+
+          let bestActive: { region: Region; vGrad: number; hGrad: number; aligned: boolean; present: boolean; score: number } | null = null;
+          for (const r of regions) {
+            const { vGrad, hGrad } = sampleRegion(r);
+            const maxGrad = Math.max(vGrad, hGrad);
+            const present = maxGrad > 7;
+            const aligned = r.expect === "h"
+              ? present && vGrad > hGrad * 1.35 && vGrad > 7
+              : present && hGrad > vGrad * 1.35 && hGrad > 7;
+            // Score prefers aligned regions, then by edge strength.
+            const score = (aligned ? 1000 : present ? 100 : 0) + maxGrad;
+            if (!bestActive || score > bestActive.score) {
+              bestActive = { region: r, vGrad, hGrad, aligned, present, score };
             }
           }
+
+          const cardPresent = !!bestActive?.present;
+          const cardAligned = !!bestActive?.aligned;
+          const activeRegion = bestActive?.region ?? regions[0];
+          const aVGrad = bestActive?.vGrad ?? 0;
+          const aHGrad = bestActive?.hGrad ?? 0;
+
+          // Publish active guide rect to React state (mirrored X for display).
+          setGuideRect({
+            left: ((vw - (activeRegion.x + activeRegion.w)) / vw) * 100,
+            bottom: ((vh - (activeRegion.y + activeRegion.h)) / vh) * 100,
+            width: (activeRegion.w / vw) * 100,
+          });
+
           const nextState: "none" | "ok" | "misaligned" = !cardPresent
             ? "none"
-            : cardAligned
-              ? "ok"
-              : "misaligned";
+            : cardAligned ? "ok" : "misaligned";
 
-          // Confidence 0–100: combines edge strength + how much horizontal edges dominate.
-          // vGrad ≥ 14 → strength saturates at 100. Orientation ratio (vGrad / (vGrad+hGrad))
-          // penalises rotated cards.
-          const strength = Math.max(0, Math.min(1, (Math.max(vGrad, hGrad) - 2) / 12));
-          const orientation =
-            vGrad + hGrad > 0 ? Math.max(0, (vGrad / (vGrad + hGrad) - 0.5) * 2) : 0;
-          const confidence = Math.round(strength * (0.45 + 0.55 * orientation) * 100);
+          // Confidence based on active region.
+          const strength = Math.max(0, Math.min(1, (Math.max(aVGrad, aHGrad) - 2) / 12));
+          const dom = aVGrad + aHGrad > 0
+            ? Math.max(0, (Math.max(aVGrad, aHGrad) / (aVGrad + aHGrad) - 0.5) * 2)
+            : 0;
+          const confidence = Math.round(strength * (0.45 + 0.55 * dom) * 100);
           setCardConfidence(confidence);
 
           setCardOk(cardAligned);
           setCardState(nextState);
 
-          // Trigger one-shot flash animation when crossing into "ok"
-          if (cardAligned && !wasOkRef.current) {
-            setOkFlash((n) => n + 1);
-          }
+          if (cardAligned && !wasOkRef.current) setOkFlash((n) => n + 1);
           wasOkRef.current = cardAligned;
 
-          // Draw guide — green when aligned, amber when misaligned, gold dashed when absent
-          const guideFill =
-            nextState === "ok"
+          // Draw all guide rectangles; active one styled by state, others dim dashed.
+          for (const r of regions) {
+            const isActive = r === activeRegion;
+            const fill = isActive && nextState === "ok"
               ? "rgba(74, 222, 128, 0.22)"
-              : nextState === "misaligned"
+              : isActive && nextState === "misaligned"
                 ? "rgba(250, 204, 21, 0.20)"
-                : "rgba(202, 164, 73, 0.18)";
-          const guideStroke =
-            nextState === "ok"
+                : "rgba(202, 164, 73, 0.10)";
+            const stroke = isActive && nextState === "ok"
               ? "rgba(74, 222, 128, 0.85)"
-              : nextState === "misaligned"
+              : isActive && nextState === "misaligned"
                 ? "rgba(250, 204, 21, 0.85)"
-                : "rgba(202, 164, 73, 0.6)";
-          ctx.fillStyle = guideFill;
-          ctx.fillRect(guideX, safeGY, guideW, guideH);
-          ctx.strokeStyle = guideStroke;
-          ctx.lineWidth = nextState === "ok" ? 2 : 1.5;
-          ctx.setLineDash(nextState === "ok" ? [] : [6, 6]);
-          ctx.strokeRect(guideX, safeGY, guideW, guideH);
-          ctx.setLineDash([]);
+                : "rgba(202, 164, 73, 0.45)";
+            ctx.fillStyle = fill;
+            ctx.fillRect(r.x, r.y, r.w, r.h);
+            ctx.strokeStyle = stroke;
+            ctx.lineWidth = isActive && nextState === "ok" ? 2 : 1.5;
+            ctx.setLineDash(isActive && nextState === "ok" ? [] : [6, 6]);
+            ctx.strokeRect(r.x, r.y, r.w, r.h);
+            ctx.setLineDash([]);
+          }
 
           // Tilt
           const f = face[10];
@@ -431,9 +460,11 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           else if (lumState === "red") nextHint = "Improve lighting";
           else if (tilt > 5) nextHint = "Keep your head straight";
           else if (nextState === "none")
-            nextHint = "Hold a card flat against your forehead — long edge horizontal";
+            nextHint = "Hold a card flat — above your forehead or against a cheek";
           else if (nextState === "misaligned")
-            nextHint = "Rotate the card — long edge across forehead, not vertical";
+            nextHint = activeRegion.expect === "h"
+              ? "Lay card horizontally — long edge across forehead"
+              : "Hold card vertically — long edge along the cheek";
           else {
             nextHint = "Card aligned — hold still";
             allGreen = true;
