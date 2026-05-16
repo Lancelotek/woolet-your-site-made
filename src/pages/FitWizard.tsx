@@ -198,9 +198,6 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
         >
           Scan your face · Reserve for $1
         </button>
-        <Link to="/en/fit/scan" style={ghostButtonStyle} onClick={() => pushEvent("fit_scan_link_clicked", { from: "intro" })}>
-          Or scan your face instantly with your camera →
-        </Link>
       </div>
       <Link
         to="/en#size-matrix"
