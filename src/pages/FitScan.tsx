@@ -53,8 +53,9 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
         Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
       </h1>
       <p className="text-cream-dim leading-relaxed" style={{ fontSize: "1.05rem", fontWeight: 300 }}>
-        Hold any credit card flat against your forehead — its 85.6 mm long edge is our scale
-        reference. We won't capture until both your face <em>and</em> the card are clearly visible.
+        Lay any credit card <strong>flat on your forehead, long edge horizontal</strong> — its
+        85.6 mm long edge is our scale reference. We won't capture until the card is detected
+        flat and horizontal on your forehead.
       </p>
 
       <ul className="flex flex-col gap-3 pt-1" style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300 }}>
