@@ -1218,6 +1218,11 @@ export default function FitScan() {
             100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0); }
           }
           .scan-card-badge-flash { animation: scanCardBadgeFlash 520ms ease-out; }
+          @keyframes scanRotateHintIn {
+            from { opacity: 0; transform: translateY(calc(100% - 6px)); }
+            to   { opacity: 1; transform: translateY(100%); }
+          }
+          .scan-rotate-hint { animation: scanRotateHintIn 220ms ease-out; }
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
