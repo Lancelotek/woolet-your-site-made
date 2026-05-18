@@ -159,8 +159,12 @@ async function setupDomGlobals() {
   assign("getComputedStyle", dom.window.getComputedStyle);
   assign("requestAnimationFrame", (cb) => setTimeout(cb, 0));
   assign("cancelAnimationFrame", (id) => clearTimeout(id));
-  g.matchMedia =
-    g.matchMedia ||
+  assign("matchMedia", g.matchMedia || (() => ({
+    matches: false, media: "", addEventListener: () => {}, removeEventListener: () => {},
+    addListener: () => {}, removeListener: () => {}, dispatchEvent: () => false,
+  })));
+  assign("localStorage", dom.window.localStorage);
+  assign("sessionStorage", dom.window.sessionStorage);
     (() => ({
       matches: false,
       media: "",
