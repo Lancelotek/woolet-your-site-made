@@ -26,6 +26,9 @@ const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"))
 const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Gone = lazy(() => import("./pages/Gone.tsx"));
+const WideFaceGlasses = lazy(() => import("./pages/collections/WideFaceGlasses.tsx"));
+const ItalianAcetateSunglasses = lazy(() => import("./pages/collections/ItalianAcetateSunglasses.tsx"));
+const OversizedSunglassesMen = lazy(() => import("./pages/collections/OversizedSunglassesMen.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -70,6 +73,11 @@ const App = () => (
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/about" element={<About />} />
+
+          {/* SEO collection pages */}
+          <Route path="/en/collections/wide-face-glasses" element={<WideFaceGlasses />} />
+          <Route path="/en/collections/italian-acetate-sunglasses" element={<ItalianAcetateSunglasses />} />
+          <Route path="/en/collections/oversized-sunglasses-men" element={<OversizedSunglassesMen />} />
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />

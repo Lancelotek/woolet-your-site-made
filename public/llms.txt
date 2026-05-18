@@ -65,9 +65,13 @@ Two shapes, three measured sizes per shape, plus bespoke. All measurements are t
 - [AI Fit Wizard](/en/fit): Camera-based face measurement using the cheek-card method.
 - [Manual Fit Guide](/en/fit/manual): Measure your face width with a credit card and a ruler.
 - [Bespoke Fit](/en/fit/bespoke): For face widths outside the 152–168 mm range.
+- [Wide-Face Glasses Collection](/en/collections/wide-face-glasses): Both shapes engineered for 155 mm+ faces.
+- [Italian Acetate Sunglasses Collection](/en/collections/italian-acetate-sunglasses): Mazzucchelli acetate, hand-finished in Italy.
+- [Oversized Sunglasses for Men Collection](/en/collections/oversized-sunglasses-men): 155 / 158 / 161 mm fronts, polarised option.
 - [Blog](/en/blog): Guides on wide-face eyewear, Italian acetate, and frame sizing.
 - [Wide-Face Glasses Guide](/en/blog/glasses-for-wide-faces-guide): Why standard frames fail above 155 mm.
 - [How to Measure Face Width](/en/blog/how-to-measure-face-width-for-glasses): Step-by-step measurement guide.
+- [Best Glasses for Oval Face (Wide)](/en/blog/best-glasses-for-oval-face): Oval-face fit when your face is also 155 mm+.
 - [What Is Italian Acetate](/en/blog/what-is-italian-acetate-premium-eyewear): Mazzucchelli material explainer.
 
 ## Optional
