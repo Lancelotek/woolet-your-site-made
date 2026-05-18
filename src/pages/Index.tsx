@@ -66,6 +66,7 @@ const Index = () => {
   };
   const scrollToCollection = (e: React.MouseEvent) => {
     e.preventDefault();
+    pushGtmEvent("hero_see_sizes_click", { source: "hero" });
     const id = window.matchMedia("(min-width: 1024px)").matches ? "collection-desktop" : "collection";
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
