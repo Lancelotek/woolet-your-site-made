@@ -4,6 +4,7 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CardPositionIllustration from "@/components/CardPositionIllustration";
+import fitScanTip from "@/assets/fit-scan-tip.png";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { classifyCardSample } from "@/lib/card-detection";
@@ -699,6 +700,56 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           {hint}
         </div>
       </div>
+
+      <figure
+        style={{
+          display: "flex",
+          gap: 14,
+          alignItems: "stretch",
+          margin: 0,
+          padding: 12,
+          border: `1px solid rgba(202,164,73,0.35)`,
+          background: "rgba(201,168,76,0.06)",
+          borderRadius: 6,
+        }}
+      >
+        <img
+          src={fitScanTip}
+          alt="Example: credit card laid flat and horizontal on the forehead, fingers gripping the top edge"
+          loading="lazy"
+          style={{
+            width: 96,
+            height: 144,
+            objectFit: "cover",
+            borderRadius: 4,
+            flexShrink: 0,
+            background: "#000",
+          }}
+        />
+        <figcaption
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.82rem",
+            lineHeight: 1.5,
+            color: "rgba(255,255,255,0.78)",
+          }}
+        >
+          <strong
+            style={{
+              display: "block",
+              color: GOLD,
+              fontWeight: 500,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              fontSize: "0.7rem",
+              marginBottom: 4,
+            }}
+          >
+            Like this
+          </strong>
+          Card flat against the forehead, long edge horizontal across the brow. Hold by the top edge so your fingers don't cover the bottom corners.
+        </figcaption>
+      </figure>
 
       <p
         style={{
