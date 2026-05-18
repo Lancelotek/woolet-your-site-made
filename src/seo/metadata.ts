@@ -302,6 +302,17 @@ export function getMetadata(route: string): RouteMeta {
         "Oversized sunglasses for men, engineered above 155 mm. Italian Mazzucchelli acetate, three measured sizes plus bespoke. From $133 pre-order.",
     });
   }
+  if (path === "/collections/sunglasses-for-big-heads") {
+    return base(route, lang, {
+      title: "Sunglasses for Big Heads — 155 / 158 / 161 mm Italian Acetate | Woolet",
+      description:
+        "Sunglasses for big heads, measured at the front: 155, 158 and 161 mm. Italian Mazzucchelli acetate, two shapes, plus bespoke to 172 mm. From $133 pre-order.",
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Sunglasses for Big Heads", url: `${SITE_URL}${route}` },
+    ])]);
+  }
 
   // ----- Landing pages
   if (path === "/lp/why-glasses-fail") {
