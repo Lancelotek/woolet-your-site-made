@@ -165,32 +165,9 @@ async function setupDomGlobals() {
   })));
   assign("localStorage", dom.window.localStorage);
   assign("sessionStorage", dom.window.sessionStorage);
-    (() => ({
-      matches: false,
-      media: "",
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      addListener: () => {},
-      removeListener: () => {},
-      dispatchEvent: () => false,
-    }));
-  // Stub Worker / IntersectionObserver / ResizeObserver
-  g.Worker = class {
-    addEventListener() {}
-    removeEventListener() {}
-    postMessage() {}
-    terminate() {}
-  };
-  g.IntersectionObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
-  g.ResizeObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
+  assign("Worker", class { addEventListener(){} removeEventListener(){} postMessage(){} terminate(){} });
+  assign("IntersectionObserver", class { observe(){} unobserve(){} disconnect(){} takeRecords(){return [];} });
+  assign("ResizeObserver", class { observe(){} unobserve(){} disconnect(){} });
 }
 
 // --------------------------------------------------------------------
