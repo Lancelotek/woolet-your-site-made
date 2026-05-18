@@ -142,16 +142,23 @@ async function setupDomGlobals() {
     pretendToBeVisual: true,
   });
   const g = globalThis;
-  g.window = dom.window;
-  g.document = dom.window.document;
-  g.navigator = dom.window.navigator;
-  g.location = dom.window.location;
-  g.HTMLElement = dom.window.HTMLElement;
-  g.Element = dom.window.Element;
-  g.Node = dom.window.Node;
-  g.getComputedStyle = dom.window.getComputedStyle;
-  g.requestAnimationFrame = (cb) => setTimeout(cb, 0);
-  g.cancelAnimationFrame = (id) => clearTimeout(id);
+  const assign = (key, value) => {
+    try {
+      Object.defineProperty(g, key, { value, writable: true, configurable: true });
+    } catch {
+      try { g[key] = value; } catch {}
+    }
+  };
+  assign("window", dom.window);
+  assign("document", dom.window.document);
+  assign("navigator", dom.window.navigator);
+  assign("location", dom.window.location);
+  assign("HTMLElement", dom.window.HTMLElement);
+  assign("Element", dom.window.Element);
+  assign("Node", dom.window.Node);
+  assign("getComputedStyle", dom.window.getComputedStyle);
+  assign("requestAnimationFrame", (cb) => setTimeout(cb, 0));
+  assign("cancelAnimationFrame", (id) => clearTimeout(id));
   g.matchMedia =
     g.matchMedia ||
     (() => ({
