@@ -1,50 +1,71 @@
 #!/usr/bin/env node
 /**
- * Build-time prerender for crawler-visible HTML.
+ * Build-time prerender for crawler-visible <head> metadata.
  *
  * After `vite build`, this script:
- *   1. Boots `vite preview` on a free port.
- *   2. For each target route, opens it in headless Chromium (Playwright),
- *      waits for React to hydrate + react-helmet-async to flush, and
- *      snapshots `document.documentElement.outerHTML`.
- *   3. Writes the snapshot to `dist/<route>/index.html` so static hosting
- *      serves it before falling back to the SPA shell.
+ *   1. Builds an SSR bundle of src/entry-server.tsx.
+ *   2. Sets up a minimal jsdom-backed `window` / `document` so client
+ *      components that touch DOM APIs at module load don't crash on
+ *      import.
+ *   3. For each target route, calls renderHelmet(url) to capture the
+ *      per-route <title>, <meta>, <link rel="canonical">, hreflang,
+ *      og:*, twitter:*, and JSON-LD that react-helmet-async produces.
+ *   4. Injects those tags into the dist/index.html template and writes
+ *      dist/<route>/index.html. Static hosting then serves the
+ *      per-route HTML to bots and falls back to SPA hydration for
+ *      users.
  *
- * Safe to fail: if Playwright's chromium binary isn't installed (e.g. in
- * a CI environment that doesn't cache it), this script logs a warning
- * and exits 0. The build still succeeds — crawlers just see the SPA
- * shell as before.
+ * No browser binary required — runs in pure Node + jsdom, so it works
+ * on Lovable's build sandbox (where the previous Playwright-based
+ * implementation silently no-op'd because chromium couldn't be
+ * downloaded with its OS dependencies).
+ *
+ * Safe to fail: any per-route error is logged and the build keeps
+ * going. Worst case the route ships as the generic SPA shell, same as
+ * before this script existed.
  */
 
 import { spawn } from "node:child_process";
-import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile, rm } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import net from "node:net";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const DIST = resolve(ROOT, "dist");
+const SSR_OUT = resolve(ROOT, "dist-ssr");
 
 if (!existsSync(DIST)) {
   console.warn("[prerender] dist/ not found — skipping (run after `vite build`).");
   process.exit(0);
 }
 
-// Extract EN blog slugs from src/lib/blog-data.ts without importing the TS file.
-async function getEnBlogSlugs() {
+// --------------------------------------------------------------------
+// Route list
+// --------------------------------------------------------------------
+
+async function getBlogSlugsByLang() {
   try {
     const src = await readFile(resolve(ROOT, "src/lib/blog-data.ts"), "utf8");
-    const enStart = src.indexOf("blogPostsEN");
-    const plStart = src.indexOf("blogPostsPL");
-    if (enStart < 0) return [];
-    const slice = src.slice(enStart, plStart > enStart ? plStart : src.length);
-    const matches = [...slice.matchAll(/slug:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
-    return [...new Set(matches)];
+    const result = { en: [], pl: [] };
+    for (const lang of ["EN", "PL"]) {
+      const start = src.indexOf(`blogPosts${lang}`);
+      if (start < 0) continue;
+      const nextLangs = ["EN", "PL", "FR", "ES"].filter((l) => l !== lang);
+      let end = src.length;
+      for (const l of nextLangs) {
+        const idx = src.indexOf(`blogPosts${l}`, start + 1);
+        if (idx > start && idx < end) end = idx;
+      }
+      const slice = src.slice(start, end);
+      const matches = [...slice.matchAll(/slug:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
+      result[lang.toLowerCase()] = [...new Set(matches)];
+    }
+    return result;
   } catch (err) {
     console.warn("[prerender] could not read blog-data.ts:", err.message);
-    return [];
+    return { en: [], pl: [] };
   }
 }
 
@@ -53,135 +74,202 @@ const BASE_ROUTES = [
   "/en/about",
   "/en/products/007",
   "/en/products/009",
+  "/en/fit",
+  "/en/fit/manual",
+  "/en/fit/bespoke",
+  "/en/fit/scan",
   "/en/collections/wide-face-glasses",
   "/en/collections/italian-acetate-sunglasses",
   "/en/collections/oversized-sunglasses-men",
+  "/en/lp/why-glasses-fail",
+  "/en/lp/5-reasons",
+  "/en/privacy-policy",
+  "/en/return-policy",
+  "/pl",
+  "/pl/privacy-policy",
+  "/pl/return-policy",
+  "/fr",
+  "/es",
 ];
 
 async function getRoutes() {
-  const slugs = await getEnBlogSlugs();
-  const blogRoutes = ["/en/blog", ...slugs.map((s) => `/en/blog/${s}`)];
-  return [...BASE_ROUTES, ...blogRoutes];
+  const slugs = await getBlogSlugsByLang();
+  return [
+    ...BASE_ROUTES,
+    "/en/blog",
+    ...slugs.en.map((s) => `/en/blog/${s}`),
+    "/pl/blog",
+    ...slugs.pl.map((s) => `/pl/blog/${s}`),
+  ];
 }
 
-function getFreePort() {
+// --------------------------------------------------------------------
+// SSR build
+// --------------------------------------------------------------------
+
+function run(cmd, args, opts = {}) {
   return new Promise((res, rej) => {
-    const srv = net.createServer();
-    srv.unref();
-    srv.on("error", rej);
-    srv.listen(0, () => {
-      const { port } = srv.address();
-      srv.close(() => res(port));
-    });
+    const p = spawn(cmd, args, { cwd: ROOT, stdio: "inherit", ...opts });
+    p.on("exit", (code) => (code === 0 ? res() : rej(new Error(`${cmd} exited ${code}`))));
+    p.on("error", rej);
   });
 }
 
-function waitForServer(url, timeoutMs = 15000) {
-  return new Promise((res, rej) => {
-    const start = Date.now();
-    const tick = async () => {
-      try {
-        const r = await fetch(url);
-        if (r.ok || r.status === 304) return res();
-      } catch {}
-      if (Date.now() - start > timeoutMs) return rej(new Error(`server didn't start: ${url}`));
-      setTimeout(tick, 200);
-    };
-    tick();
-  });
+async function buildSsrBundle() {
+  console.log("[prerender] building SSR bundle…");
+  await rm(SSR_OUT, { recursive: true, force: true });
+  await run("npx", [
+    "vite",
+    "build",
+    "--ssr",
+    "src/entry-server.tsx",
+    "--outDir",
+    "dist-ssr",
+    "--logLevel",
+    "warn",
+  ]);
 }
+
+// --------------------------------------------------------------------
+// jsdom globals — let component modules that reach for window/document
+// at import time load without crashing on the server.
+// --------------------------------------------------------------------
+
+async function setupDomGlobals() {
+  const { JSDOM } = await import("jsdom");
+  const dom = new JSDOM("<!doctype html><html><head></head><body></body></html>", {
+    url: "https://woolet.co/",
+    pretendToBeVisual: true,
+  });
+  const g = globalThis;
+  const assign = (key, value) => {
+    try {
+      Object.defineProperty(g, key, { value, writable: true, configurable: true });
+    } catch {
+      try { g[key] = value; } catch {}
+    }
+  };
+  assign("window", dom.window);
+  assign("document", dom.window.document);
+  assign("navigator", dom.window.navigator);
+  assign("location", dom.window.location);
+  assign("HTMLElement", dom.window.HTMLElement);
+  assign("Element", dom.window.Element);
+  assign("Node", dom.window.Node);
+  assign("getComputedStyle", dom.window.getComputedStyle);
+  assign("requestAnimationFrame", (cb) => setTimeout(cb, 0));
+  assign("cancelAnimationFrame", (id) => clearTimeout(id));
+  assign("matchMedia", g.matchMedia || (() => ({
+    matches: false, media: "", addEventListener: () => {}, removeEventListener: () => {},
+    addListener: () => {}, removeListener: () => {}, dispatchEvent: () => false,
+  })));
+  assign("localStorage", dom.window.localStorage);
+  assign("sessionStorage", dom.window.sessionStorage);
+  assign("Worker", class { addEventListener(){} removeEventListener(){} postMessage(){} terminate(){} });
+  assign("IntersectionObserver", class { observe(){} unobserve(){} disconnect(){} takeRecords(){return [];} });
+  assign("ResizeObserver", class { observe(){} unobserve(){} disconnect(){} });
+}
+
+// --------------------------------------------------------------------
+// HTML injection
+// --------------------------------------------------------------------
+
+function injectHelmet(template, helmet, route) {
+  let html = template;
+
+  // Strip the static <title> and <meta name="description"> that ship in
+  // dist/index.html so Helmet's per-route values don't render as
+  // duplicates alongside them.
+  html = html.replace(/<title>[\s\S]*?<\/title>/i, "");
+  html = html.replace(/<meta\s+name=["']description["'][^>]*>/gi, "");
+  // Remove sitewide canonical from template — Helmet writes the
+  // per-route one (and <link> tags don't dedupe by rel).
+  html = html.replace(/<link\s+rel=["']canonical["'][^>]*>/gi, "");
+
+  const headInjection = [
+    helmet.title,
+    helmet.meta,
+    helmet.link,
+    helmet.script,
+  ]
+    .filter(Boolean)
+    .join("\n    ");
+
+  html = html.replace("</head>", `    ${headInjection}\n    <!-- prerendered: ${route} -->\n  </head>`);
+
+  // Patch <html lang> if Helmet set htmlAttributes (e.g. lang="pl").
+  if (helmet.htmlAttributes) {
+    html = html.replace(/<html[^>]*>/i, `<html ${helmet.htmlAttributes}>`);
+  }
+
+  return html;
+}
+
+// --------------------------------------------------------------------
+// Main
+// --------------------------------------------------------------------
 
 async function main() {
-  // Lazy-load Playwright so missing chromium fails gracefully.
-  let chromium;
+  await setupDomGlobals();
+
   try {
-    ({ chromium } = await import("playwright"));
+    await buildSsrBundle();
   } catch (err) {
-    console.warn("[prerender] playwright not installed — skipping prerender.");
+    console.warn("[prerender] SSR build failed — skipping prerender.");
     console.warn("[prerender]", err.message);
     process.exit(0);
   }
 
-  const routes = await getRoutes();
-  console.log(`[prerender] target routes: ${routes.length}`);
-
-  const port = await getFreePort();
-  const baseUrl = `http://127.0.0.1:${port}`;
-
-  // Spawn `vite preview` against the freshly built dist/.
-  const preview = spawn(
-    "npx",
-    ["vite", "preview", "--port", String(port), "--strictPort", "--host", "127.0.0.1"],
-    { cwd: ROOT, stdio: ["ignore", "pipe", "pipe"] },
-  );
-  let previewExited = false;
-  preview.on("exit", () => {
-    previewExited = true;
-  });
-  preview.stderr.on("data", (b) => process.stderr.write(`[vite preview] ${b}`));
-
-  let browser;
-  try {
-    await waitForServer(baseUrl + "/");
-
-    try {
-      browser = await chromium.launch({ args: ["--no-sandbox"] });
-    } catch (err) {
-      console.warn("[prerender] chromium binary missing — skipping prerender.");
-      console.warn("[prerender]", err.message);
-      preview.kill();
-      process.exit(0);
-    }
-
-    const ctx = await browser.newContext({
-      userAgent:
-        "Mozilla/5.0 (compatible; WooletPrerender/1.0; +https://woolet.co)",
-    });
-
-    let written = 0;
-    for (const route of routes) {
-      if (previewExited) throw new Error("vite preview exited unexpectedly");
-      const url = baseUrl + route;
-      const page = await ctx.newPage();
-      try {
-        await page.goto(url, { waitUntil: "networkidle", timeout: 20000 });
-        // Wait for React to hydrate + Helmet to flush a real <title>.
-        await page
-          .waitForFunction(
-            () => {
-              const t = document.title || "";
-              const root = document.getElementById("root");
-              return t.length > 0 && !!root && root.children.length > 0;
-            },
-            { timeout: 10000 },
-          )
-          .catch(() => {
-            console.warn(`[prerender] ${route} — hydration check timed out, snapshotting anyway`);
-          });
-
-        // Strip Vite preview's HMR / dev injections (none in preview, but be safe).
-        const html = await page.evaluate(() => "<!doctype html>\n" + document.documentElement.outerHTML);
-        const outDir = resolve(DIST, "." + route);
-        await mkdir(outDir, { recursive: true });
-        await writeFile(resolve(outDir, "index.html"), html, "utf8");
-        written += 1;
-        console.log(`[prerender] ✓ ${route}`);
-      } catch (err) {
-        console.warn(`[prerender] ✗ ${route} — ${err.message}`);
-      } finally {
-        await page.close();
-      }
-    }
-
-    console.log(`[prerender] wrote ${written} / ${routes.length} routes`);
-  } finally {
-    if (browser) await browser.close().catch(() => {});
-    preview.kill();
+  const entryPath = resolve(SSR_OUT, "entry-server.js");
+  if (!existsSync(entryPath)) {
+    console.warn(`[prerender] SSR entry not found at ${entryPath} — skipping.`);
+    process.exit(0);
   }
+
+  let renderHelmet;
+  try {
+    ({ renderHelmet } = await import(pathToFileURL(entryPath).href));
+  } catch (err) {
+    console.warn("[prerender] could not import SSR bundle — skipping.");
+    console.warn("[prerender]", err.message);
+    process.exit(0);
+  }
+
+  const template = await readFile(resolve(DIST, "index.html"), "utf8");
+  const routes = await getRoutes();
+  console.log(`[prerender] rendering ${routes.length} routes…`);
+
+  let ok = 0;
+  let fail = 0;
+  for (const route of routes) {
+    try {
+      const { ok: rendered, helmet, error } = renderHelmet(route);
+      if (!rendered || !helmet) {
+        console.warn(`[prerender] ✗ ${route} — ${error || "no helmet"}`);
+        fail += 1;
+        continue;
+      }
+      const html = injectHelmet(template, helmet, route);
+      const outDir = resolve(DIST, "." + route);
+      await mkdir(outDir, { recursive: true });
+      await writeFile(resolve(outDir, "index.html"), html, "utf8");
+      ok += 1;
+      const titleMatch = helmet.title.match(/<title[^>]*>([^<]*)<\/title>/i);
+      console.log(`[prerender] ✓ ${route}  →  ${titleMatch ? titleMatch[1].slice(0, 70) : "(no title)"}`);
+    } catch (err) {
+      fail += 1;
+      console.warn(`[prerender] ✗ ${route} — ${err.message}`);
+    }
+  }
+
+  console.log(`[prerender] done: ${ok} ok, ${fail} failed, ${routes.length} total`);
+
+  // Cleanup SSR bundle — not needed at runtime.
+  await rm(SSR_OUT, { recursive: true, force: true }).catch(() => {});
 }
 
 main().catch((err) => {
   console.error("[prerender] fatal:", err);
-  // Don't fail the build — the SPA shell still works.
+  // Never break the build over a prerender failure.
   process.exit(0);
 });
