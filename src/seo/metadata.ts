@@ -304,9 +304,9 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/sunglasses-for-big-heads") {
     return base(route, lang, {
-      title: "Sunglasses for Big Heads — 155 / 158 / 161 mm Italian Acetate | Woolet",
+      title: "Sunglasses for Big Heads - 155mm to 161mm | Woolet",
       description:
-        "Sunglasses for big heads, measured at the front: 155, 158 and 161 mm. Italian Mazzucchelli acetate, two shapes, plus bespoke to 172 mm. From $133 pre-order.",
+        "Sunglasses for big heads and huge heads. Handmade Italian Mazzucchelli acetate in 155, 158, 161mm plus bespoke. Pre-order from $133 (30% off $190).",
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
