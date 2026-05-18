@@ -32,36 +32,84 @@ if (!existsSync(DIST)) {
   process.exit(0);
 }
 
-// Extract EN blog slugs from src/lib/blog-data.ts without importing the TS file.
-async function getEnBlogSlugs() {
+// Extract blog slugs per language from src/lib/blog-data.ts without importing the TS file.
+async function getBlogSlugsByLang() {
   try {
     const src = await readFile(resolve(ROOT, "src/lib/blog-data.ts"), "utf8");
-    const enStart = src.indexOf("blogPostsEN");
-    const plStart = src.indexOf("blogPostsPL");
-    if (enStart < 0) return [];
-    const slice = src.slice(enStart, plStart > enStart ? plStart : src.length);
-    const matches = [...slice.matchAll(/slug:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
-    return [...new Set(matches)];
+    const result = { en: [], pl: [] };
+    for (const lang of ["EN", "PL"]) {
+      const start = src.indexOf(`blogPosts${lang}`);
+      if (start < 0) continue;
+      // slice until the next blogPosts<X> declaration or end of file
+      const nextLangs = ["EN", "PL", "FR", "ES"].filter((l) => l !== lang);
+      let end = src.length;
+      for (const l of nextLangs) {
+        const idx = src.indexOf(`blogPosts${l}`, start + 1);
+        if (idx > start && idx < end) end = idx;
+      }
+      const slice = src.slice(start, end);
+      const matches = [...slice.matchAll(/slug:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
+      result[lang.toLowerCase()] = [...new Set(matches)];
+    }
+    return result;
   } catch (err) {
     console.warn("[prerender] could not read blog-data.ts:", err.message);
-    return [];
+    return { en: [], pl: [] };
   }
 }
 
 const BASE_ROUTES = [
+  // EN
   "/en",
   "/en/about",
   "/en/products/007",
   "/en/products/009",
+  "/en/fit",
+  "/en/fit/manual",
+  "/en/fit/bespoke",
+  "/en/fit/scan",
   "/en/collections/wide-face-glasses",
   "/en/collections/italian-acetate-sunglasses",
   "/en/collections/oversized-sunglasses-men",
+  "/en/lp/why-glasses-fail",
+  "/en/lp/5-reasons",
+  "/en/privacy-policy",
+  "/en/return-policy",
+  // Other language homes (hreflang anchors)
+  "/pl",
+  "/fr",
+  "/es",
+  "/pl/privacy-policy",
+  "/pl/return-policy",
 ];
 
 async function getRoutes() {
-  const slugs = await getEnBlogSlugs();
-  const blogRoutes = ["/en/blog", ...slugs.map((s) => `/en/blog/${s}`)];
+  const slugs = await getBlogSlugsByLang();
+  const blogRoutes = [
+    "/en/blog",
+    ...slugs.en.map((s) => `/en/blog/${s}`),
+    "/pl/blog",
+    ...slugs.pl.map((s) => `/pl/blog/${s}`),
+  ];
   return [...BASE_ROUTES, ...blogRoutes];
+}
+
+// Ensure Playwright's chromium binary is available; download on-demand if missing.
+async function ensureChromium() {
+  return new Promise((res) => {
+    const proc = spawn("npx", ["playwright", "install", "chromium"], {
+      cwd: ROOT,
+      stdio: "inherit",
+    });
+    proc.on("exit", (code) => {
+      if (code !== 0) console.warn(`[prerender] playwright install chromium exited ${code}`);
+      res();
+    });
+    proc.on("error", (err) => {
+      console.warn("[prerender] playwright install failed:", err.message);
+      res();
+    });
+  });
 }
 
 function getFreePort() {
