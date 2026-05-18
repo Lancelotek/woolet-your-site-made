@@ -425,6 +425,7 @@ const STATIC_ROUTES = [
   "/en/collections/wide-face-glasses",
   "/en/collections/italian-acetate-sunglasses",
   "/en/collections/oversized-sunglasses-men",
+  "/en/collections/sunglasses-for-big-heads",
   "/en/lp/why-glasses-fail",
   "/en/lp/5-reasons",
   "/en/privacy-policy",
