@@ -126,6 +126,14 @@ async function main() {
       const outDir = resolve(DIST, "." + route);
       await mkdir(outDir, { recursive: true });
       await writeFile(resolve(outDir, "index.html"), html, "utf8");
+      // Also write a flat .html alongside the folder so hosts that don't
+      // resolve directory indexes (Lovable SPA fallback eats /foo before
+      // /foo/index.html lookup) still find the per-route file.
+      if (route !== "/") {
+        const flatPath = resolve(DIST, "." + route + ".html");
+        await mkdir(dirname(flatPath), { recursive: true });
+        await writeFile(flatPath, html, "utf8");
+      }
       ok += 1;
       console.log(`[prerender] ✓ ${route}  →  ${meta.title.slice(0, 70)}`);
     } catch (err) {
