@@ -109,6 +109,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://woolet.co/en/collections/sunglasses-for-big-heads</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/sunglasses-for-big-heads"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/sunglasses-for-big-heads"/>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
   <!-- Fit Wizard -->
   <url>
