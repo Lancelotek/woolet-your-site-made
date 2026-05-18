@@ -175,10 +175,17 @@ async function main() {
     try {
       browser = await chromium.launch({ args: ["--no-sandbox"] });
     } catch (err) {
-      console.warn("[prerender] chromium binary missing — skipping prerender.");
+      console.warn("[prerender] chromium launch failed — attempting `playwright install chromium`...");
       console.warn("[prerender]", err.message);
-      preview.kill();
-      process.exit(0);
+      await ensureChromium();
+      try {
+        browser = await chromium.launch({ args: ["--no-sandbox"] });
+      } catch (err2) {
+        console.warn("[prerender] chromium still unavailable after install — skipping prerender.");
+        console.warn("[prerender]", err2.message);
+        preview.kill();
+        process.exit(0);
+      }
     }
 
     const ctx = await browser.newContext({
