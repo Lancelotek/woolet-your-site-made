@@ -26,6 +26,9 @@ const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"))
 const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Gone = lazy(() => import("./pages/Gone.tsx"));
+const WideFaceGlasses = lazy(() => import("./pages/collections/WideFaceGlasses.tsx"));
+const ItalianAcetateSunglasses = lazy(() => import("./pages/collections/ItalianAcetateSunglasses.tsx"));
+const OversizedSunglassesMen = lazy(() => import("./pages/collections/OversizedSunglassesMen.tsx"));
 
 const queryClient = new QueryClient();
 

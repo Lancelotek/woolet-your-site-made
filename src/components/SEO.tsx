@@ -14,6 +14,7 @@ interface SEOProps {
     readTime: number;
     tags: string[];
   };
+  jsonLd?: object | object[];
 }
 
 const SITE_URL = "https://woolet.co";
@@ -82,6 +83,7 @@ const SEO = ({
   noindex = false,
   robots,
   article,
+  jsonLd,
 }: SEOProps) => {
   const fullTitle = title.includes("Woolet") ? title : `${title} | Woolet`;
   const canonical = `${SITE_URL}/${lang}${path}`;
@@ -157,6 +159,9 @@ const SEO = ({
       {articleJsonLd && (
         <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
       )}
+      {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((obj, i) => (
+        <script key={i} type="application/ld+json">{JSON.stringify(obj)}</script>
+      ))}
     </Helmet>
   );
 };
