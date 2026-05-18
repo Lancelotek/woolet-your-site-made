@@ -1,0 +1,14 @@
+{
+  "name": "woolet-route-server",
+  "private": true,
+  "scripts": {
+    "prebuild": "cd ../.. && npm run build",
+    "build": "node ./build-bundle.mjs",
+    "deploy": "npm run build && wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^3.80.0",
+    "@cloudflare/workers-types": "^4.20240419.0"
+  }
+}
