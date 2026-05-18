@@ -493,28 +493,6 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         </span>
       </div>
 
-      <div
-        role="note"
-        style={{
-          display: "flex",
-          gap: 12,
-          alignItems: "flex-start",
-          border: `1px solid ${GOLD}`,
-          background: "rgba(201,168,76,0.08)",
-          borderRadius: 6,
-          padding: "10px 12px",
-        }}
-      >
-        <div style={{ flexShrink: 0, width: 84, height: 84, marginTop: 2 }} aria-hidden="true">
-          <CardPositionIllustration />
-        </div>
-        <div style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.82rem", lineHeight: 1.5, color: "hsl(var(--cream-dim))" }}>
-          <strong style={{ color: GOLD, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase", fontSize: "0.72rem", display: "block", marginBottom: 2 }}>
-            Press the card flat to your forehead
-          </strong>
-          Both long edges must touch your skin, fingers on the top edge only. If the card sticks out even 2 cm in front of your face, the result comes out 5–10 mm too narrow.
-        </div>
-      </div>
 
       <div
         className="scan-camera"
