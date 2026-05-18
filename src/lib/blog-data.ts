@@ -1078,6 +1078,66 @@ const blogPostsEN: BlogPost[] = [
 <p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm). Italian acetate. Engineered for 155mm+ faces. Join the waitlist at woolet.co for priority access and 15% off at launch.</em></p>
 `,
   },
+  {
+    slug: "best-glasses-for-oval-face",
+    title: "Best Glasses for an Oval Face (When Your Face Is Also Wide)",
+    excerpt: "Oval-face fit advice usually assumes a 140mm standard frame. Here's how to choose shapes when your face is oval and 155mm+ wide — what works, what doesn't, and why.",
+    date: "2026-05-17",
+    readTime: 10,
+    tags: ["Guide", "Face shape", "Oval"],
+    content: `
+<p>The standard advice for an oval face is simple: almost any frame shape works. That advice is correct — for the standard 140 mm frame on a standard 140 mm face. It breaks down quickly once you add a second variable that mainstream eyewear advice rarely covers: face width.</p>
+
+<p>If your face is oval and 155 mm+ wide, the usual shape rules still apply, but the size question dominates. A perfectly proportioned round frame at 145 mm will still pinch your temples. A bold square at 148 mm will still slide forward by mid-afternoon. This guide is for the overlap — oval-faced adults who also need genuine 155 mm+ engineering.</p>
+
+<h2>What an oval face actually means</h2>
+
+<p>An oval face is defined by smooth, balanced proportions: forehead, cheekbones and jaw track roughly the same width, and the face is slightly longer than it is wide. There are no dominant angles, no extreme width-to-length ratios, and no single feature that needs softening or balancing.</p>
+
+<p>This is why <em>any frame works</em> is the default oval advice. It is mostly true at standard sizes, where almost any shape lands inside the face's clean outline.</p>
+
+<h2>Why width changes the rules</h2>
+
+<p>At 155 mm+, the question shifts from <em>what shape suits an oval face</em> to <em>what shape suits an oval face that is also genuinely wide</em>. The answer narrows.</p>
+
+<ul>
+<li>Round frames remain flattering, but the lens needs to be large enough to match the wider front. A 50 mm lens on a 158 mm frame reads as balanced; a 46 mm lens on the same front reads as bug-eye small.</li>
+<li>Soft square frames work especially well, because the structured corners add definition that wider faces can carry.</li>
+<li>Aviators and narrow rectangles, which oval-face guides often recommend, become harder to justify above 155 mm. The lens height drops too low and emphasises the wider front.</li>
+</ul>
+
+<h2>How Woolet sizes apply to an oval face</h2>
+
+<p>Woolet ships each shape in three measured sizes — 155, 158 and 161 mm — with a bespoke tier from 150 to 172 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the <a href="/en/fit">AI Fit Wizard</a> or the <a href="/en/fit/manual">credit-card method</a>, pick the size, then choose between shapes on aesthetic preference.</p>
+
+<h3>Woolet 007 round / panto</h3>
+
+<p>The classic oval-face round. At 155, 158 or 161 mm, the round shape softens the face without dominating it. The keyhole bridge keeps the lens sitting at the right height even on faces with a higher cheekbone line.</p>
+
+<h3>Woolet 009 soft square</h3>
+
+<p>The more architectural choice. At wider sizes the soft-square shape reads as intentional and current rather than retro. Often a better daily-driver than the round for professional contexts.</p>
+
+<h2>Mistakes to avoid</h2>
+
+<ul>
+<li><strong>Buying a small frame because oval faces "suit anything":</strong> the rule assumes standard width. Above 155 mm, a small frame creates the wrong proportion regardless of shape.</li>
+<li><strong>Buying a frame with bridge width that does not scale:</strong> a 19 mm bridge on a 161 mm frame leaves a wide gap above the nose. Bridges should scale with the frame — 19 / 21 / 23 mm in the Woolet line.</li>
+<li><strong>Choosing material on price alone:</strong> at 155 mm+ the front spans a wider arc, and budget plastic deforms over time. <a href="/en/blog/what-is-italian-acetate-premium-eyewear">Italian Mazzucchelli acetate</a> holds the shape it was cut at.</li>
+</ul>
+
+<h2>A short decision tree</h2>
+
+<ol>
+<li>Measure temple to temple. Under 155 mm, mainstream brands work and oval-face shape rules apply unchanged.</li>
+<li>At 155 mm+, use the AI Fit Wizard to pick a Woolet size (155 / 158 / 161 mm) or move to bespoke if you are outside 152–168 mm.</li>
+<li>Choose shape on preference: 007 round for softer features, 009 soft square for more structure.</li>
+<li>Confirm with the 30-day return window. If the size feels off in person, exchange for the next size up or down.</li>
+</ol>
+
+<p>The combination of an oval face and a wider front is one of the easiest to fit once you stop trying to make 140 mm frames work. Start with the size, finish with the shape.</p>
+`,
+  },
 ];
 
 const blogPostsPL: BlogPost[] = [

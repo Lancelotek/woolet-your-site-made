@@ -53,6 +53,9 @@ const BASE_ROUTES = [
   "/en/about",
   "/en/products/007",
   "/en/products/009",
+  "/en/collections/wide-face-glasses",
+  "/en/collections/italian-acetate-sunglasses",
+  "/en/collections/oversized-sunglasses-men",
 ];
 
 async function getRoutes() {
