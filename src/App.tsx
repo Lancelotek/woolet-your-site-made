@@ -79,6 +79,7 @@ const App = () => (
           <Route path="/en/collections/wide-face-glasses" element={<WideFaceGlasses />} />
           <Route path="/en/collections/italian-acetate-sunglasses" element={<ItalianAcetateSunglasses />} />
           <Route path="/en/collections/oversized-sunglasses-men" element={<OversizedSunglassesMen />} />
+          <Route path="/en/collections/sunglasses-for-big-heads" element={<SunglassesForBigHeads />} />
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
