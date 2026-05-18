@@ -1,0 +1,11 @@
+name = "woolet-route-server"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+
+[[routes]]
+pattern = "woolet.co/*"
+zone_name = "woolet.co"
+
+[[routes]]
+pattern = "www.woolet.co/*"
+zone_name = "woolet.co"
