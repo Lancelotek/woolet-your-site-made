@@ -11,11 +11,11 @@ test.describe("FitScan — horizontal-on-forehead flow", () => {
     await page.goto("/en/fit/scan");
 
     await expect(
-      page.getByText(/flat on your forehead, long edge horizontal/i),
+      page.getByText(/Hold to forehead/i),
     ).toBeVisible();
 
     await expect(
-      page.getByText(/Lay the card horizontally on your forehead/i),
+      page.getByText(/Lay it flat across your brow, long edge horizontal/i),
     ).toBeVisible();
 
     // Vertical / cheek wording must not appear anywhere on the welcome step.
