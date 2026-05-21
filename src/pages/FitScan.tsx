@@ -743,6 +743,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       </div>
 
       <figure
+        className="scan-like-this"
         style={{
           display: "flex",
           gap: 14,
@@ -1734,7 +1735,7 @@ export default function FitScan() {
       <main className="bg-background text-foreground" style={{ minHeight: "100vh" }}>
         <style>{`
           @media (max-width: 767px) {
-            .scan-camera { aspect-ratio: 3/4; }
+            .scan-camera { aspect-ratio: 3/4; max-height: calc(100svh - 220px); }
             .scan-result-number { font-size: 48px; }
             .scan-cta-primary > a:first-child { position: sticky; bottom: 16px; z-index: 10; }
             .scan-tips-accordion { font-size: 13px; }
@@ -1743,6 +1744,9 @@ export default function FitScan() {
           }
           @media (max-width: 480px) {
             .scan-camera { aspect-ratio: 3/4; }
+          }
+          @media (max-width: 767px) {
+            .scan-like-this { display: none !important; }
           }
           @keyframes scanCardBadgeFlash {
             0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
