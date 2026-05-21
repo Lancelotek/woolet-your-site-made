@@ -42,46 +42,79 @@ interface CapturedFrame {
 /* ─────────────── Welcome ─────────────── */
 
 function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart: () => void; disabled?: boolean }) {
+  const steps = [
+    {
+      n: "01",
+      title: "Grab a card",
+      body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale.",
+    },
+    {
+      n: "02",
+      title: "Hold to forehead",
+      body: "Lay it flat across your brow, long edge horizontal.",
+    },
+    {
+      n: "03",
+      title: "Stay still",
+      body: "We capture automatically when the card is aligned.",
+    },
+  ];
+
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-8">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">CARD-SCALED · 30 SECONDS</span>
+        <span className="woolet-eyebrow-text">30-SECOND FIT SCAN</span>
       </div>
       <h1
         className="font-display text-woolet-white"
-        style={{ fontSize: "clamp(2.25rem, 5vw, 3.5rem)", fontWeight: 300, lineHeight: 1 }}
+        style={{ fontSize: "clamp(2.5rem, 5.5vw, 3.75rem)", fontWeight: 300, lineHeight: 1 }}
       >
         Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
       </h1>
-      <p className="text-cream-dim leading-relaxed" style={{ fontSize: "1.05rem", fontWeight: 300 }}>
-        Lay any credit card <strong>flat on your forehead, long edge horizontal</strong> — its
-        85.6 mm long edge is our scale reference. We won't capture until the card is detected
-        flat and horizontal on your forehead.
+      <p className="text-cream-dim" style={{ fontSize: "1.1rem", fontWeight: 300, lineHeight: 1.5 }}>
+        Three steps. No upload. Nothing leaves your device.
       </p>
 
-      <ul className="flex flex-col gap-3 pt-1" style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300 }}>
-        {[
-          "Works on phone (front camera) or laptop (webcam)",
-          "Requires a credit/debit/ID card as physical scale reference",
-          "Take off your glasses — frames hide your temples and skew the measurement",
-          "Lay the card horizontally on your forehead — both long edges touching skin, no tilt",
-          "Hold the card by its top edge so your fingers don't cover the bottom corners",
-          "Accurate to about 2 mm — photo never leaves your device",
-        ].map((b) => (
-          <li key={b} className="flex items-start gap-3 text-cream-dim" style={{ fontSize: "0.95rem" }}>
-            <svg width="18" height="18" viewBox="0 0 18 18" style={{ marginTop: 2, flexShrink: 0 }}>
-              <path d="M3 9l4 4 8-8" fill="none" stroke={GOLD} strokeWidth="1.5" />
-            </svg>
-            {b}
+      <ol
+        className="flex flex-col gap-5 pt-2 m-0 p-0"
+        style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
+      >
+        {steps.map((s) => (
+          <li key={s.n} className="flex items-start gap-4">
+            <span
+              aria-hidden
+              style={{
+                color: GOLD,
+                fontFamily: "Cormorant Garamond, serif",
+                fontSize: "1.5rem",
+                fontWeight: 300,
+                fontStyle: "italic",
+                minWidth: 36,
+                lineHeight: 1,
+                paddingTop: 2,
+              }}
+            >
+              {s.n}
+            </span>
+            <div className="flex flex-col gap-1">
+              <span
+                style={{
+                  color: "rgba(255,255,255,0.95)",
+                  fontSize: "1.05rem",
+                  fontWeight: 500,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                {s.title}
+              </span>
+              <span style={{ color: MUTED, fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.5 }}>
+                {s.body}
+              </span>
+            </div>
           </li>
         ))}
-      </ul>
-
-      <p style={{ color: MUTED, fontSize: "0.8rem", fontFamily: "Barlow, sans-serif", fontWeight: 300, lineHeight: 1.5 }}>
-        Your photo never leaves this device. We use Google's MediaPipe Face Mesh running locally in
-        your browser — no upload, no storage, no third-party servers.
-      </p>
+      </ol>
 
       <div className="flex flex-col gap-3 pt-2">
         <button
@@ -92,26 +125,39 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
-            fontSize: "0.72rem",
-            padding: "16px 28px",
+            fontSize: "0.78rem",
+            padding: "18px 28px",
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             border: "none",
             cursor: disabled ? "not-allowed" : "pointer",
-            height: 48,
+            height: 52,
           }}
         >
           {disabled ? "Scan unavailable" : "Start scan"}
         </button>
+        <p
+          style={{
+            color: MUTED,
+            fontSize: "0.72rem",
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 300,
+            textAlign: "center",
+            margin: 0,
+          }}
+        >
+          Take off your glasses first. Photo never leaves your device.
+        </p>
         <Link
           to={`/${lang}/fit`}
           style={{
             color: MUTED,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
-            fontSize: "0.78rem",
+            fontSize: "0.75rem",
             textAlign: "center",
             textDecoration: "none",
+            paddingTop: 4,
           }}
         >
           Prefer manual measurement? Use the wizard →
