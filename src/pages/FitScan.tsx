@@ -247,7 +247,14 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       }
       stopAll();
       pushEvent("scan_captured");
-      onCaptured({ dataUrl, width: w, height: h, landmarks: res.faceLandmarks[0] });
+      onCaptured({
+        dataUrl,
+        width: w,
+        height: h,
+        landmarks: res.faceLandmarks[0],
+        cardRoi: lastRegionRef.current ?? undefined,
+        canvas: c,
+      });
     } catch (err) {
       console.warn("[scan] capture detect failed", err);
       onError("Couldn't process the captured frame. Try again.");
