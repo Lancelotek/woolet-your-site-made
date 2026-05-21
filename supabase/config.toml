@@ -1,5 +1,8 @@
 project_id = "wmefczrhnsqicikveuhz"
 
+[functions.fit-scan-detect]
+verify_jwt = false
+
 [functions.mailerlite-subscribe]
 verify_jwt = false
 
