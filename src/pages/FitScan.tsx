@@ -189,6 +189,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const allGreenSinceRef = useRef<number | null>(null);
   const capturedRef = useRef(false);
   const wasOkRef = useRef(false);
+  const lastRegionRef = useRef<CardRoi | null>(null);
 
   const [hint, setHint] = useState("Allow camera access");
   const [countdown, setCountdown] = useState<number | null>(null);
