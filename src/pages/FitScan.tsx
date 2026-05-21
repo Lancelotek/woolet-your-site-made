@@ -1707,6 +1707,11 @@ export default function FitScan() {
             .scan-result-number { font-size: 48px; }
             .scan-cta-primary > a:first-child { position: sticky; bottom: 16px; z-index: 10; }
             .scan-tips-accordion { font-size: 13px; }
+            .scan-fallback-banner { padding: 16px 18px !important; }
+            .scan-fallback-banner span:last-child { font-size: 1rem !important; }
+          }
+          @media (max-width: 480px) {
+            .scan-camera { aspect-ratio: 3/4; }
           }
           @keyframes scanCardBadgeFlash {
             0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
