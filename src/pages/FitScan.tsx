@@ -509,22 +509,15 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         } else {
           allGreenSinceRef.current = null;
           setCountdown(null);
-          if (face) {
-            nextTone =
-              lumState === "red" || boxH < 0.3 || boxH > 0.7 || (face && Math.abs(0) > 0)
-                ? "warn"
-                : "neutral";
-            // Refine: framing/lighting/tilt issues are warn; card prompts are neutral.
-            if (
-              nextHint === "Move closer" ||
-              nextHint === "Move back a little" ||
-              nextHint === "Find brighter light" ||
-              nextHint === "Straighten your head"
-            ) {
-              nextTone = "warn";
-            } else {
-              nextTone = "neutral";
-            }
+          if (
+            nextHint === "Move closer" ||
+            nextHint === "Move back a little" ||
+            nextHint === "Find brighter light" ||
+            nextHint === "Straighten your head"
+          ) {
+            nextTone = "warn";
+          } else {
+            nextTone = "neutral";
           }
         }
 
