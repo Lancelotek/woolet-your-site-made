@@ -1735,7 +1735,7 @@ export default function FitScan() {
       <main className="bg-background text-foreground" style={{ minHeight: "100vh" }}>
         <style>{`
           @media (max-width: 767px) {
-            .scan-camera { aspect-ratio: 3/4; }
+            .scan-camera { aspect-ratio: 3/4; max-height: calc(100svh - 220px); }
             .scan-result-number { font-size: 48px; }
             .scan-cta-primary > a:first-child { position: sticky; bottom: 16px; z-index: 10; }
             .scan-tips-accordion { font-size: 13px; }
