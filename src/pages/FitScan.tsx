@@ -871,9 +871,10 @@ interface AnnotateStepProps {
   frame: CapturedFrame;
   onCalculate: (cardCorners: [Point, Point], faceEdges: [Point, Point]) => void;
   onRetake: () => void;
+  fallbackReason?: "no_edge" | "validation" | null;
 }
 
-function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
+function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [cardCorners, setCardCorners] = useState<Point[]>([]);
   const [faceEdges, setFaceEdges] = useState<Point[]>([]);
@@ -1004,6 +1005,33 @@ function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
           Step 3 of 4 — Mark card and face
         </span>
       </div>
+
+      {fallbackReason && (
+        <div
+          role="status"
+          className="scan-fallback-banner"
+          style={{
+            display: "flex",
+            gap: 12,
+            alignItems: "flex-start",
+            padding: "14px 16px",
+            border: "1px solid rgba(250,204,21,0.45)",
+            background: "rgba(56, 38, 0, 0.35)",
+            borderRadius: 8,
+            fontFamily: "Barlow, sans-serif",
+          }}
+        >
+          <span aria-hidden style={{ fontSize: "1.1rem", lineHeight: 1, paddingTop: 2 }}>👆</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <strong style={{ color: "#ffe9b8", fontSize: "0.78rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>
+              {fallbackReason === "validation" ? "Almost — needs a small tweak" : "We couldn't auto-detect the card"}
+            </strong>
+            <span style={{ color: "rgba(255,255,255,0.82)", fontSize: "0.92rem", lineHeight: 1.5 }}>
+              Tap the two top corners of your card, then the outer edges of your face. Drag any dot to fine-tune.
+            </span>
+          </div>
+        </div>
+      )}
 
       <h2 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", fontWeight: 300 }}>
         Mark 4 points: card first, then face edges
@@ -1545,6 +1573,7 @@ export default function FitScan() {
   const [supported, setSupported] = useState<boolean>(true);
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
+  const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -1618,6 +1647,7 @@ export default function FitScan() {
 
   const handleCaptured = (f: CapturedFrame) => {
     setFrame(f);
+    setAutoFallback(null);
     // Try fully automatic corner detection. Falls back to AnnotateStep on
     // weak / ambiguous edges or if the auto-measurement fails validation.
     if (f.canvas && f.cardRoi) {
@@ -1628,9 +1658,13 @@ export default function FitScan() {
         if (runCalculate(f, c1, c2)) return;
         // Auto path produced an out-of-range value — fall through to manual.
         pushEvent("scan_auto_fallback", { reason: "validation" });
+        setAutoFallback("validation");
       } else {
         pushEvent("scan_auto_fallback", { reason: "no_edge" });
+        setAutoFallback("no_edge");
       }
+    } else {
+      setAutoFallback("no_edge");
     }
     setStep("annotate");
   };
@@ -1673,6 +1707,11 @@ export default function FitScan() {
             .scan-result-number { font-size: 48px; }
             .scan-cta-primary > a:first-child { position: sticky; bottom: 16px; z-index: 10; }
             .scan-tips-accordion { font-size: 13px; }
+            .scan-fallback-banner { padding: 16px 18px !important; }
+            .scan-fallback-banner span:last-child { font-size: 1rem !important; }
+          }
+          @media (max-width: 480px) {
+            .scan-camera { aspect-ratio: 3/4; }
           }
           @keyframes scanCardBadgeFlash {
             0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
@@ -1770,7 +1809,7 @@ export default function FitScan() {
               />
             )}
             {step === "annotate" && frame && (
-              <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} />
+              <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
             )}
             {step === "result" && measurements && recommendation && (
               <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
