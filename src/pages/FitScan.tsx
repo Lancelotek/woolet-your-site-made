@@ -1647,6 +1647,7 @@ export default function FitScan() {
 
   const handleCaptured = (f: CapturedFrame) => {
     setFrame(f);
+    setAutoFallback(null);
     // Try fully automatic corner detection. Falls back to AnnotateStep on
     // weak / ambiguous edges or if the auto-measurement fails validation.
     if (f.canvas && f.cardRoi) {
@@ -1657,9 +1658,13 @@ export default function FitScan() {
         if (runCalculate(f, c1, c2)) return;
         // Auto path produced an out-of-range value — fall through to manual.
         pushEvent("scan_auto_fallback", { reason: "validation" });
+        setAutoFallback("validation");
       } else {
         pushEvent("scan_auto_fallback", { reason: "no_edge" });
+        setAutoFallback("no_edge");
       }
+    } else {
+      setAutoFallback("no_edge");
     }
     setStep("annotate");
   };
