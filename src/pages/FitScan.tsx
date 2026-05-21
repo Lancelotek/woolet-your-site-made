@@ -732,21 +732,10 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           />
         </div>
         <div
-          style={{
-            position: "absolute",
-            bottom: 16,
-            left: 16,
-            right: 16,
-            background: "rgba(0,0,0,0.55)",
-            backdropFilter: "blur(6px)",
-            padding: "12px 16px",
-            borderRadius: 6,
-            color: GOLD,
-            fontFamily: "Cormorant Garamond, serif",
-            fontWeight: 300,
-            fontSize: "1.4rem",
-            textAlign: "center",
-          }}
+          role="status"
+          aria-live="polite"
+          className="fit-coach-pill"
+          data-tone={coachTone}
         >
           {hint}
         </div>
