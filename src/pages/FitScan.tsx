@@ -19,6 +19,7 @@ import {
   type Recommendation,
 } from "@/lib/face-measurements";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const GOLD = "#CAA449";
 const BG = "#080807";
