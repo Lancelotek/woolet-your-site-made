@@ -1745,6 +1745,9 @@ export default function FitScan() {
           @media (max-width: 480px) {
             .scan-camera { aspect-ratio: 3/4; }
           }
+          @media (max-width: 767px) {
+            .scan-like-this { display: none !important; }
+          }
           @keyframes scanCardBadgeFlash {
             0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
             40%  { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(74,222,128,0); }
