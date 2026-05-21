@@ -1025,10 +1025,12 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
           <span aria-hidden style={{ fontSize: "1.1rem", lineHeight: 1, paddingTop: 2 }}>👆</span>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <strong style={{ color: "#ffe9b8", fontSize: "0.78rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>
-              {fallbackReason === "validation" ? "Almost — needs a small tweak" : "We couldn't auto-detect the card"}
+              {fallbackReason === "validation" ? "Almost — needs a small tweak" : "Card not detected — adjust & retake"}
             </strong>
             <span style={{ color: "rgba(255,255,255,0.82)", fontSize: "0.92rem", lineHeight: 1.5 }}>
-              Tap the two top corners of your card, then the outer edges of your face. Drag any dot to fine-tune.
+              {fallbackReason === "validation"
+                ? "Tap the two top corners of your card, then the outer edges of your face. Drag any dot to fine-tune."
+                : "Move the card closer to the camera, hold it flat against your forehead, and make sure the scene is well-lit. Tap Retake above for another try, or mark the points manually."}
             </span>
           </div>
         </div>
