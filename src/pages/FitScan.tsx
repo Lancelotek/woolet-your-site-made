@@ -192,6 +192,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
   const lastRegionRef = useRef<CardRoi | null>(null);
 
   const [hint, setHint] = useState("Allow camera access");
+  const [coachTone, setCoachTone] = useState<"neutral" | "warn" | "ok" | "capturing">("neutral");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardOk, setCardOk] = useState(false);
@@ -480,18 +481,18 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const tilt = Math.abs((Math.atan2((c.x - f.x) * vw, (c.y - f.y) * vh) * 180) / Math.PI);
 
           if (boxH < 0.3) nextHint = "Move closer";
-          else if (boxH > 0.7) nextHint = "Move further back";
-          else if (lumState === "red") nextHint = "Improve lighting";
-          else if (tilt > 5) nextHint = "Keep your head straight";
-          else if (nextState === "none")
-            nextHint = "Lay a card flat on your forehead — long edge horizontal";
-          else if (nextState === "misaligned")
-            nextHint = "Lay card horizontally — long edge across forehead";
+          else if (boxH > 0.7) nextHint = "Move back a little";
+          else if (lumState === "red") nextHint = "Find brighter light";
+          else if (tilt > 5) nextHint = "Straighten your head";
+          else if (nextState === "none") nextHint = "Hold a card flat to your forehead";
+          else if (nextState === "misaligned") nextHint = "Turn the card horizontal";
           else {
-            nextHint = "Card aligned — hold still";
+            nextHint = "Hold still";
             allGreen = true;
           }
         }
+
+        let nextTone: "neutral" | "warn" | "ok" | "capturing" = "neutral";
 
         if (allGreen) {
           if (allGreenSinceRef.current == null) allGreenSinceRef.current = ts;
@@ -499,7 +500,8 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const remaining = Math.max(0, 3 - elapsed);
           const cd = Math.ceil(remaining);
           setCountdown(cd);
-          nextHint = `Hold still — capturing in ${cd}…`;
+          nextHint = `Hold still — ${cd}`;
+          nextTone = "capturing";
           if (elapsed >= 3) {
             captureFrame();
             return;
@@ -507,9 +509,20 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         } else {
           allGreenSinceRef.current = null;
           setCountdown(null);
+          if (
+            nextHint === "Move closer" ||
+            nextHint === "Move back a little" ||
+            nextHint === "Find brighter light" ||
+            nextHint === "Straighten your head"
+          ) {
+            nextTone = "warn";
+          } else {
+            nextTone = "neutral";
+          }
         }
 
         setHint(nextHint);
+        setCoachTone(nextTone);
         rafRef.current = requestAnimationFrame(tick);
       };
       rafRef.current = requestAnimationFrame(tick);
@@ -719,21 +732,10 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           />
         </div>
         <div
-          style={{
-            position: "absolute",
-            bottom: 16,
-            left: 16,
-            right: 16,
-            background: "rgba(0,0,0,0.55)",
-            backdropFilter: "blur(6px)",
-            padding: "12px 16px",
-            borderRadius: 6,
-            color: GOLD,
-            fontFamily: "Cormorant Garamond, serif",
-            fontWeight: 300,
-            fontSize: "1.4rem",
-            textAlign: "center",
-          }}
+          role="status"
+          aria-live="polite"
+          className="fit-coach-pill"
+          data-tone={coachTone}
         >
           {hint}
         </div>

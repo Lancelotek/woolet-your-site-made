@@ -451,3 +451,46 @@
     display: none;
   }
 }
+
+/* FitScan live-coach pill — single visible hint, tone-driven color. */
+.fit-coach-pill {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  max-width: min(92%, 460px);
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-align: center;
+  font-family: "Barlow", "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: #f0ece4;
+  background: rgba(15, 15, 15, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(240, 236, 228, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
+  pointer-events: none;
+}
+.fit-coach-pill[data-tone="warn"] {
+  color: #ffe9b8;
+  border-color: rgba(250, 204, 21, 0.55);
+  background: rgba(56, 38, 0, 0.78);
+}
+.fit-coach-pill[data-tone="ok"],
+.fit-coach-pill[data-tone="capturing"] {
+  color: #d6f5dd;
+  border-color: rgba(74, 222, 128, 0.6);
+  background: rgba(8, 48, 24, 0.82);
+}
+@media (max-width: 480px) {
+  .fit-coach-pill {
+    font-size: 1.15rem;
+    padding: 14px 22px;
+    bottom: 16px;
+  }
+}
