@@ -398,6 +398,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           const topY = Math.max(0, by - topH * 0.2);
 
           const region = { x: topX, y: topY, w: topW, h: topH };
+          lastRegionRef.current = region;
 
           const sampleRegion = (r: { x: number; y: number; w: number; h: number }) => {
             let vGrad = 0, hGrad = 0;
