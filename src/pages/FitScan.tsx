@@ -8,6 +8,7 @@ import fitScanTip from "@/assets/fit-scan-tip.png";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { classifyCardSample } from "@/lib/card-detection";
+import { detectCardCornersInRegion, type CardRoi } from "@/lib/card-corner-detection";
 import {
   calculateMeasurements,
   getRecommendation,
