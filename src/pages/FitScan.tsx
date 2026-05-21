@@ -1006,6 +1006,33 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
         </span>
       </div>
 
+      {fallbackReason && (
+        <div
+          role="status"
+          className="scan-fallback-banner"
+          style={{
+            display: "flex",
+            gap: 12,
+            alignItems: "flex-start",
+            padding: "14px 16px",
+            border: "1px solid rgba(250,204,21,0.45)",
+            background: "rgba(56, 38, 0, 0.35)",
+            borderRadius: 8,
+            fontFamily: "Barlow, sans-serif",
+          }}
+        >
+          <span aria-hidden style={{ fontSize: "1.1rem", lineHeight: 1, paddingTop: 2 }}>👆</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <strong style={{ color: "#ffe9b8", fontSize: "0.78rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>
+              {fallbackReason === "validation" ? "Almost — needs a small tweak" : "We couldn't auto-detect the card"}
+            </strong>
+            <span style={{ color: "rgba(255,255,255,0.82)", fontSize: "0.92rem", lineHeight: 1.5 }}>
+              Tap the two top corners of your card, then the outer edges of your face. Drag any dot to fine-tune.
+            </span>
+          </div>
+        </div>
+      )}
+
       <h2 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", fontWeight: 300 }}>
         Mark 4 points: card first, then face edges
       </h2>
