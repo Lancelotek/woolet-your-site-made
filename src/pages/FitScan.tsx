@@ -1580,15 +1580,15 @@ export default function FitScan() {
     startScan();
   };
 
-  const handleCaptured = (f: CapturedFrame) => {
-    setFrame(f);
-    setStep("annotate");
-  };
-
-  const handleCalculate = ([c1, c2]: [Point, Point], [f1, f2]: [Point, Point]) => {
-    if (!frame) return;
+  const runCalculate = (
+    f: CapturedFrame,
+    c1: Point,
+    c2: Point,
+    f1?: Point,
+    f2?: Point,
+  ): boolean => {
     try {
-      const m = calculateMeasurements(frame.landmarks, frame.width, c1, c2, f1, f2);
+      const m = calculateMeasurements(f.landmarks, f.width, c1, c2, f1, f2);
       const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
       setMeasurements(m);
       setRecommendation(r);
@@ -1597,21 +1597,46 @@ export default function FitScan() {
         nose_width_mm: m.noseWidthMm,
         recommendation_type: r.type,
         confidence: m.confidence,
+        auto_corners: !f1 && !f2,
       });
       setStep("result");
+      return true;
     } catch (err) {
       const isMeasurement = err instanceof MeasurementError;
       const msg = err instanceof Error ? err.message : "Calculation failed.";
       const kind = isMeasurement ? err.kind : "unknown";
-      // Block URL save: do NOT setMeasurements / setRecommendation / setStep("result").
       setMeasurements(null);
       setRecommendation(null);
       setErrorMsg(msg);
       setErrorKind("recoverable");
-      toast.error("Measurement rejected", {
-        description: msg,
-      });
       pushEvent("scan_error", { error_type: "calculation", reason: kind });
+      return false;
+    }
+  };
+
+  const handleCaptured = (f: CapturedFrame) => {
+    setFrame(f);
+    // Try fully automatic corner detection. Falls back to AnnotateStep on
+    // weak / ambiguous edges or if the auto-measurement fails validation.
+    if (f.canvas && f.cardRoi) {
+      const det = detectCardCornersInRegion(f.canvas, f.cardRoi, f.width, f.height);
+      if (det && det.confidence >= 0.45) {
+        const [c1, c2] = det.corners;
+        pushEvent("scan_auto_corners", { confidence: det.confidence, width_px: det.widthPx });
+        if (runCalculate(f, c1, c2)) return;
+        // Auto path produced an out-of-range value — fall through to manual.
+        pushEvent("scan_auto_fallback", { reason: "validation" });
+      } else {
+        pushEvent("scan_auto_fallback", { reason: "no_edge" });
+      }
+    }
+    setStep("annotate");
+  };
+
+  const handleCalculate = ([c1, c2]: [Point, Point], [f1, f2]: [Point, Point]) => {
+    if (!frame) return;
+    if (!runCalculate(frame, c1, c2, f1, f2)) {
+      toast.error("Measurement rejected", { description: errorMsg || "Calculation failed." });
     }
   };
 
