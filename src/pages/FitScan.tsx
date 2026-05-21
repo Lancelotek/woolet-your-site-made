@@ -1573,6 +1573,7 @@ export default function FitScan() {
   const [supported, setSupported] = useState<boolean>(true);
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
+  const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
