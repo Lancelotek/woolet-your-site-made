@@ -1645,18 +1645,46 @@ export default function FitScan() {
     }
   };
 
-  const handleCaptured = (f: CapturedFrame) => {
+  const handleCaptured = async (f: CapturedFrame) => {
     setFrame(f);
     setAutoFallback(null);
-    // Try fully automatic corner detection. Falls back to AnnotateStep on
-    // weak / ambiguous edges or if the auto-measurement fails validation.
+
+    // Primary path: server-side detection via Gemini 2.5 Pro Vision.
+    // We send the captured JPEG + native dims; server returns pixel coords
+    // for card corners and face edges, which we feed into calculateMeasurements.
+    try {
+      const { data, error } = await supabase.functions.invoke("fit-scan-detect", {
+        body: { image: f.dataUrl, width: f.width, height: f.height },
+      });
+      if (error) throw error;
+      if (data?.card?.left && data?.card?.right && data?.face?.left && data?.face?.right) {
+        const conf = typeof data.confidence === "number" ? data.confidence : 0.5;
+        pushEvent("scan_server_detected", { confidence: conf, model: data.model });
+        const c1: Point = { x: data.card.left.x, y: data.card.left.y };
+        const c2: Point = { x: data.card.right.x, y: data.card.right.y };
+        const f1: Point = { x: data.face.left.x, y: data.face.left.y };
+        const f2: Point = { x: data.face.right.x, y: data.face.right.y };
+        if (runCalculate(f, c1, c2, f1, f2)) return;
+        // Server points failed plausibility check — go to manual annotate.
+        pushEvent("scan_server_fallback", { reason: "validation" });
+        setAutoFallback("validation");
+        setStep("annotate");
+        return;
+      }
+      pushEvent("scan_server_fallback", { reason: "empty_response" });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn("fit-scan-detect failed, falling back to client", msg);
+      pushEvent("scan_server_fallback", { reason: "network_or_error" });
+    }
+
+    // Fallback A: client-side heuristic corner detection.
     if (f.canvas && f.cardRoi) {
       const det = detectCardCornersInRegion(f.canvas, f.cardRoi, f.width, f.height);
       if (det && det.confidence >= 0.45) {
         const [c1, c2] = det.corners;
         pushEvent("scan_auto_corners", { confidence: det.confidence, width_px: det.widthPx });
         if (runCalculate(f, c1, c2)) return;
-        // Auto path produced an out-of-range value — fall through to manual.
         pushEvent("scan_auto_fallback", { reason: "validation" });
         setAutoFallback("validation");
       } else {
