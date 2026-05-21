@@ -743,6 +743,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       </div>
 
       <figure
+        className="scan-like-this"
         style={{
           display: "flex",
           gap: 14,
