@@ -871,9 +871,10 @@ interface AnnotateStepProps {
   frame: CapturedFrame;
   onCalculate: (cardCorners: [Point, Point], faceEdges: [Point, Point]) => void;
   onRetake: () => void;
+  fallbackReason?: "no_edge" | "validation" | null;
 }
 
-function AnnotateStep({ frame, onCalculate, onRetake }: AnnotateStepProps) {
+function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [cardCorners, setCardCorners] = useState<Point[]>([]);
   const [faceEdges, setFaceEdges] = useState<Point[]>([]);
