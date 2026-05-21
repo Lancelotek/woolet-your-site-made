@@ -1804,7 +1804,7 @@ export default function FitScan() {
               />
             )}
             {step === "annotate" && frame && (
-              <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} />
+              <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
             )}
             {step === "result" && measurements && recommendation && (
               <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
