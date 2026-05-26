@@ -846,12 +846,8 @@ const FOUNDING_TOTAL = 100;
 // Stable per-SKU "claimed" counts — tuned high to feel like late-stage
 // scarcity without crossing 100. Update with real numbers when available.
 const FOUNDING_CLAIMED: Record<string, number> = {
-  "007-S": 71,
-  "007-M": 84,
-  "007-L": 68,
-  "009-S": 73,
-  "009-M": 81,
-  "009-L": 77,
+  "007": 78,
+  "009": 81,
 };
 
 type FomoVariant = "A" | "B";
