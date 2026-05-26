@@ -138,19 +138,19 @@ const SunglassesForBigHeads = () => {
         {/* Product grid */}
         <section aria-label="Featured frames" style={{ ...wrap, padding: "28px 20px" }}>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 26, margin: "0 0 14px" }}>
-            Two shapes, three sizes
+            Two shapes, one precise size
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
             {[
-              { id: "007", name: "Woolet 007 - Round", href: "/en/products/007", alt: "Woolet 007 round sunglasses for big heads - 155 to 161mm" },
-              { id: "009", name: "Woolet 009 - Soft Square", href: "/en/products/009", alt: "Woolet 009 square sunglasses for big heads - 155 to 161mm" },
+              { id: "007", name: "Woolet 007 - Round", href: "/en/products/007", alt: "Woolet 007 round sunglasses for big heads - 158 mm" },
+              { id: "009", name: "Woolet 009 - Soft Square", href: "/en/products/009", alt: "Woolet 009 square sunglasses for big heads - 158 mm" },
             ].map((p) => (
               <Link key={p.id} to={p.href} aria-label={p.alt} style={{ display: "block", padding: "18px 16px", background: "#FFF", border: "1px solid #E0D5C5", borderRadius: 6, textDecoration: "none", color: "#111" }}>
                 <div style={{ fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", color: "#A07A2A", marginBottom: 6 }}>
                   Sun variant available
                 </div>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 20, marginBottom: 6 }}>{p.name}</div>
-                <div style={{ fontSize: 12, color: "#666", marginBottom: 12 }}>155 / 158 / 161 mm</div>
+                <div style={{ fontSize: 12, color: "#666", marginBottom: 12 }}>158 mm · 21 mm bridge</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                   <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 17 }}>$133</span>
                   <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
