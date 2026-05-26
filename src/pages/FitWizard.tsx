@@ -576,7 +576,7 @@ function CaptureStep({
       setTimeout(() => {
         const m: Measurement = {
           faceWidthMm: 162,
-          bridgeMm: 22,
+          bridgeMm: 21,
           pdMm: 66,
           cardType: "credit",
           recommendedSku: recommendSku(162),
@@ -1779,7 +1779,7 @@ export default function FitWizard() {
     // TODO: Phase 4 Auglio cardless integration
     const m: Measurement = {
       faceWidthMm: 162,
-      bridgeMm: 22,
+      bridgeMm: 21,
       pdMm: 66,
       cardType: "cardless",
       recommendedSku: recommendSku(162),
