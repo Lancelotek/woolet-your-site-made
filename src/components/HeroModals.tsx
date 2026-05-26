@@ -71,10 +71,9 @@ const eyebrowText: React.CSSProperties = {
 };
 
 const WIDTH_OPTIONS = [
-  { value: "155", label: "155 mm — S" },
-  { value: "158", label: "158 mm — M (most popular)" },
-  { value: "161", label: "161 mm — L" },
-  { value: "unsure", label: "Not sure — help me decide" },
+  { value: "158", label: "158 mm - standard fit (155-161 mm faces)" },
+  { value: "bespoke", label: "Bespoke - 150-172 mm" },
+  { value: "unsure", label: "Not sure - help me decide" },
 ];
 
 /* ═══════════════════════════════════════════════════
@@ -99,7 +98,7 @@ export function ReserveModal({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const sizeLabel = width === "155" ? "S" : width === "161" ? "L" : "M";
+  const sizeLabel = width === "bespoke" ? "Bespoke" : "Standard fit";
 
   // Reset on close
   useEffect(() => {

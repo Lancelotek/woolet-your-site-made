@@ -21,15 +21,16 @@ const About = () => {
           </h1>
           <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
             Woolet is an AI-fit Italian acetate eyewear brand for wide faces (155 mm and above).
-            The brand offers two shapes — Woolet 007 (round / panto) and Woolet 009 (soft square) —
-            in three measured sizes per shape: 155, 158, and 161 mm. A bespoke tier covers
-            150–172 mm with a 16–26 mm bridge, made to your AI scan. All frames are manufactured
-            in Italy from Mazzucchelli acetate, with sub-millimeter measurement, extended temples,
-            and a wider keyhole bridge engineered to eliminate temple pressure and nose bridge
-            squeeze — the two most common fit failures for wide-face wearers. Woolet ships
-            internationally and distributes through woolet.co. The brand is distinct from the
-            historical Woolet smart wallet products (2014–2016) which operated under a separate
-            product line and have been discontinued.
+            The brand offers two shapes - Woolet 007 (round / panto) and Woolet 009 (soft square) -
+            both in one precise size: 158 mm wide with a 21 mm keyhole bridge, engineered for
+            faces in the 155-161 mm range. A bespoke tier covers 150-172 mm, same 21 mm bridge,
+            made to your AI scan. All frames are manufactured in Italy from Mazzucchelli acetate,
+            with sub-millimeter measurement, extended temples, and a wider keyhole bridge
+            engineered to eliminate temple pressure and nose bridge squeeze - the two most common
+            fit failures for wide-face wearers. Woolet ships internationally and distributes
+            through woolet.co. The brand is distinct from the historical Woolet smart wallet
+            products (2014-2016) which operated under a separate product line and have been
+            discontinued.
           </p>
         </section>
 

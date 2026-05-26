@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
 
-/** Size matrix table — EN copy. Renders the 6 SKUs + bespoke per Brand v2. */
-const ROWS: { sku: string; shape: string; width: string; bridge: string; lens: string; face: string; hero?: boolean; bespoke?: boolean }[] = [
-  { sku: "007 · S", shape: "Round / Panto", width: "155 mm", bridge: "19 mm", lens: "50 × 50", face: "152–155 mm" },
-  { sku: "007 · M", shape: "Round / Panto", width: "158 mm", bridge: "21 mm", lens: "52 × 52", face: "155–161 mm", hero: true },
-  { sku: "007 · L", shape: "Round / Panto", width: "161 mm", bridge: "23 mm", lens: "54 × 54", face: "161–168 mm" },
-  { sku: "009 · S", shape: "Soft Square", width: "155 mm", bridge: "19 mm", lens: "52 × 48", face: "152–155 mm" },
-  { sku: "009 · M", shape: "Soft Square", width: "158 mm", bridge: "21 mm", lens: "54 × 50", face: "155–161 mm", hero: true },
-  { sku: "009 · L", shape: "Soft Square", width: "161 mm", bridge: "23 mm", lens: "56 × 52", face: "161–168 mm" },
-  { sku: "Bespoke", shape: "Either", width: "150–172 mm", bridge: "16–26 mm", lens: "Custom", face: "Any 150 mm+", bespoke: true },
+/** Size matrix — single-size catalog (158 mm / 21 mm bridge for both shapes) + bespoke. */
+const ROWS: { sku: string; shape: string; width: string; bridge: string; lens: string; face: string; bespoke?: boolean }[] = [
+  { sku: "Woolet 007", shape: "Round / Panto", width: "158 mm", bridge: "21 mm", lens: "52 x 52", face: "155-161 mm" },
+  { sku: "Woolet 009", shape: "Soft Square",   width: "158 mm", bridge: "21 mm", lens: "54 x 50", face: "155-161 mm" },
+  { sku: "Bespoke",    shape: "Either",        width: "150-172 mm", bridge: "21 mm", lens: "Custom", face: "Any 150 mm+", bespoke: true },
 ];
 
 const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { fitHref?: string; semantic?: boolean; sectionId?: string }) => {
@@ -25,11 +21,10 @@ const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { 
           <span className="woolet-eyebrow-text">THE FIT MATRIX</span>
         </div>
         <HeadingTag className="font-display text-woolet-white leading-tight mb-4" style={{ fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 300 }} aria-hidden={!semantic || undefined}>
-          Two shapes. <em className="italic text-gold-light">Three sizes.</em> One bespoke.
+          Two shapes. <em className="italic text-gold-light">One precise size.</em> One bespoke.
         </HeadingTag>
         <p className="text-cream-dim leading-relaxed tracking-wider max-w-2xl mb-10" style={{ fontSize: "0.95rem" }}>
-          Every frame measured against your AI scan. If you fall outside the six standard fits,
-          bespoke covers <span className="text-foreground">150 to 172 mm</span> with a <span className="text-foreground">16–26 mm bridge</span> — made to your scan.
+          Both the 007 round and the 009 soft square ship at <span className="text-foreground">158 mm wide</span> with a <span className="text-foreground">21 mm keyhole bridge</span> - engineered for faces in the 155-161 mm range. Outside that, bespoke covers <span className="text-foreground">150 to 172 mm</span>, same 21 mm bridge, made to your AI scan.
         </p>
 
         {/* Desktop table */}
@@ -37,13 +32,13 @@ const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { 
           <div
             className="grid items-center px-5 py-3 uppercase tracking-[0.2em]"
             style={{
-              gridTemplateColumns: "1.1fr 1.4fr 1fr 0.9fr 0.9fr 1.1fr",
+              gridTemplateColumns: "1.3fr 1.4fr 1fr 0.9fr 0.9fr 1.1fr",
               fontSize: "0.55rem",
               color: "hsl(var(--gold-dim))",
               borderBottom: "1px solid hsl(var(--gold) / 0.25)",
             }}
           >
-            <span>SKU</span>
+            <span>Model</span>
             <span>Shape</span>
             <span>Frame width</span>
             <span>Bridge</span>
@@ -55,28 +50,13 @@ const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { 
               key={r.sku}
               className="grid items-center px-5 py-4 transition-colors"
               style={{
-                gridTemplateColumns: "1.1fr 1.4fr 1fr 0.9fr 0.9fr 1.1fr",
+                gridTemplateColumns: "1.3fr 1.4fr 1fr 0.9fr 0.9fr 1.1fr",
                 borderBottom: "1px solid hsl(0 0% 100% / 0.055)",
-                background: r.hero ? "hsl(var(--gold) / 0.05)" : r.bespoke ? "hsl(var(--gold) / 0.025)" : "transparent",
+                background: r.bespoke ? "hsl(var(--gold) / 0.025)" : "transparent",
               }}
             >
               <span className="font-display flex items-center gap-2" style={{ fontSize: "1rem", color: "hsl(var(--gold))" }}>
                 {r.sku}
-                {r.hero && (
-                  <span
-                    className="uppercase tracking-[0.18em]"
-                    style={{
-                      fontSize: "0.5rem",
-                      background: "hsl(var(--gold))",
-                      color: "hsl(var(--background))",
-                      padding: "2px 6px",
-                      fontFamily: "Barlow, sans-serif",
-                      fontWeight: 500,
-                    }}
-                  >
-                    HERO
-                  </span>
-                )}
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"
@@ -96,33 +76,25 @@ const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { 
               <span className="text-cream-dim" style={{ fontSize: "0.85rem" }}>{r.shape}</span>
               <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.width}</span>
               <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.bridge}</span>
-              <span className="text-cream-dim" style={{ fontSize: "0.85rem" }}>{r.lens}</span>
-              <span className="text-cream-dim" style={{ fontSize: "0.8rem" }}>{r.face}</span>
+              <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.lens}</span>
+              <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.face}</span>
             </div>
           ))}
         </div>
 
-        {/* Mobile stacked */}
-        <div className="md:hidden flex flex-col gap-3">
+        {/* Mobile cards */}
+        <div className="md:hidden grid gap-3">
           {ROWS.map((r) => (
             <div
               key={r.sku}
               className="p-4"
               style={{
-                border: r.hero
-                  ? "1px solid hsl(var(--gold) / 0.5)"
-                  : "1px solid hsl(0 0% 100% / 0.08)",
-                background: r.hero ? "hsl(var(--gold) / 0.05)" : "transparent",
+                border: "1px solid hsl(0 0% 100% / 0.08)",
+                background: r.bespoke ? "hsl(var(--gold) / 0.03)" : "transparent",
               }}
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="font-display" style={{ fontSize: "1.15rem", color: "hsl(var(--gold))" }}>{r.sku}</span>
-                {r.hero && (
-                  <span
-                    className="uppercase tracking-[0.18em]"
-                    style={{ fontSize: "0.5rem", background: "hsl(var(--gold))", color: "hsl(var(--background))", padding: "2px 6px", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
-                  >HERO</span>
-                )}
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"
