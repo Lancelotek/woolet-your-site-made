@@ -150,8 +150,8 @@ const Index = () => {
       )}
 
       <p className="text-cream-dim leading-relaxed tracking-wider max-w-xl" style={{ fontSize: "0.88rem" }}>
-        Italian Mazzucchelli acetate. AI-fit precision. Three sizes per shape
-        (<span className="text-foreground">155 / 158 / 161 mm</span>), one bespoke. For faces 155 mm and above.
+        Italian Mazzucchelli acetate. AI-fit precision. Two shapes - both
+        <span className="text-foreground"> 158 mm wide</span> with a 21 mm bridge, plus bespoke from 150 mm. For faces 155 mm and above.
       </p>
 
       {/* SINGLE primary CTA */}
