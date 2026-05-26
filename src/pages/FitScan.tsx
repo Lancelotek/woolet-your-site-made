@@ -1591,6 +1591,7 @@ export default function FitScan() {
                 lang={lang}
                 onStart={startScan}
                 disabled={!!blockingMessage}
+                isMobile={isMobile}
               />
             )}
             {step === "camera" && (
@@ -1599,6 +1600,7 @@ export default function FitScan() {
                 lang={lang}
                 onCaptured={handleCaptured}
                 onError={handleError}
+                isMobile={isMobile}
               />
             )}
             {step === "annotate" && frame && (
