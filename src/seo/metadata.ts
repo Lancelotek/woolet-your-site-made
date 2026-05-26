@@ -292,7 +292,7 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Italian Acetate Sunglasses — Mazzucchelli, Made in Italy | Woolet",
       description:
-        "Italian acetate sunglasses cut from Mazzucchelli sheet and hand-finished in Italy. Wide-face sizing from 155 to 161 mm, plus bespoke. From $133 pre-order.",
+        "Italian acetate sunglasses cut from Mazzucchelli sheet and hand-finished in Italy. One precise size (158 mm) per shape for wide faces, plus bespoke 150–172 mm. From $133 pre-order.",
     });
   }
   if (path === "/collections/oversized-sunglasses-men") {
