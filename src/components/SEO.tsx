@@ -42,7 +42,17 @@ const websiteJsonLd = {
   "@type": "WebSite",
   name: "Woolet",
   url: SITE_URL,
-  description: "AI-fit eyewear for wide faces — three sizes per shape, plus bespoke",
+  description: "AI-fit eyewear for wide faces — one precise size (158 mm) per shape, plus bespoke",
+  image: SITE_URL + "/og-home.png",
+  type: "website",
+};
+
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Woolet",
+  url: SITE_URL,
+  description: "Italian Mazzucchelli acetate glasses measured for wide faces (155 mm+). Two shapes (007 round, 009 square), both 158 mm wide with a 21 mm bridge. Bespoke from 150 to 172 mm.",
   publisher: { "@type": "Organization", name: "Woolet", url: SITE_URL },
 };
 
