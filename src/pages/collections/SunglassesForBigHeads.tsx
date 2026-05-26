@@ -167,20 +167,19 @@ const SunglassesForBigHeads = () => {
         <section id="size-finder" style={{ background: "#1A1612", color: "#F8F6F1", padding: "32px 20px" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 28, margin: "0 0 16px", color: "#F8F6F1" }}>
-              Find your size in 3 steps
+              Find your fit in 2 steps
             </h2>
             <ol style={{ paddingLeft: 18, margin: "0 0 18px", color: "#DCD3C0", fontSize: 14, lineHeight: 1.7 }}>
-              <li>Measure your head circumference at the widest point, just above the ears.</li>
-              <li>Match the measurement to the chart below.</li>
-              <li>If you are above 64 cm, choose bespoke.</li>
+              <li>Measure your face width temple to temple (or use the AI Fit scan).</li>
+              <li>If your face is 155–161 mm, the standard 158 mm fits. Outside that range, choose bespoke.</li>
             </ol>
 
             <div style={{ overflowX: "auto", marginBottom: 16 }}>
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, color: "#F8F6F1", minWidth: 320 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #3A3530" }}>
-                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Head circumference</th>
-                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Frame width</th>
+                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Your measurement</th>
+                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Recommended frame</th>
                   </tr>
                 </thead>
                 <tbody>
