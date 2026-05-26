@@ -96,13 +96,13 @@ const SunglassesForBigHeads = () => {
         {/* Hero */}
         <header style={{ ...wrap, padding: "24px 20px 8px" }}>
           <div style={{ display: "inline-block", fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", color: "#A07A2A", border: "1px solid #D9C9A8", padding: "4px 10px", borderRadius: 2, marginBottom: 14 }}>
-            155 / 158 / 161 mm + Bespoke
+            158 mm + Bespoke
           </div>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 38, lineHeight: 1.1, margin: "0 0 14px" }}>
-            Sunglasses for Big Heads - 155mm, 158mm, 161mm + Bespoke
+            Sunglasses for Big Heads - 158 mm + Bespoke
           </h1>
           <p style={{ fontSize: 15, lineHeight: 1.65, color: "#333", margin: "0 0 18px" }}>
-            Built from the ground up for head circumference 58 to 64 cm and above, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes, three measured fronts plus bespoke to 172 mm.
+            Built from the ground up for wide faces (155 mm+) and head circumference 58 to 62 cm, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes, one precise 158 mm front plus bespoke up to 172 mm.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <a href="#size-finder" style={{ background: "#111", color: "#F8F6F1", padding: "11px 20px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2 }}>
