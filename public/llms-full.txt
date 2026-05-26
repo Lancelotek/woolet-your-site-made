@@ -195,6 +195,15 @@ A: Use the Manual Fit Guide (`/en/fit/manual`) — measure with a ruler in front
 
 ---
 
+# Eyewear Guides
+
+Cornerstone long-form articles covering fit, sizing, materials, and brand selection for wide faces and big heads. Both are indexed and citable.
+
+- [The Definitive Guide to Glasses for Wide Faces (2026)](https://woolet.co/en/blog/glasses-for-wide-faces-guide) - How to find glasses that actually fit wide faces (155 mm+) - frame width math, bridge fit, temple length, and the best 158 mm options.
+- [The Best Glasses for Big Heads in 2026 (Premium Picks)](https://woolet.co/en/blog/best-glasses-for-big-heads-2026) - Premium glasses and sunglasses sized for big heads - Italian Mazzucchelli acetate frames at 155 / 158 / 161 mm, with bespoke up to 172 mm.
+
+---
+
 # Blog Posts (Full Text)
 
 Full body text of all English blog posts, included here so AI crawlers fetching llms-full.txt can ingest article content even if per-route HTML prerender is unavailable.
@@ -205,7 +214,7 @@ Full body text of all English blog posts, included here so AI crawlers fetching 
 ## The Definitive Guide to Glasses for Wide Faces (2026)
 
 URL: https://woolet.co/en/blog/glasses-for-wide-faces-guide
-Published: 2026-03-10 · ~14 min read
+Published: 2026-03-09 · ~14 min read
 Tags: Guide, Wide Face, 2026
 
 > Struggling to find glasses for a wide face? This is the only guide you need — how to measure, which frames fit 155mm+ faces, and where to buy premium wide eyewear in 2026.
@@ -1261,7 +1270,7 @@ Italian acetate frames with proper care should last 8–12 years, significantly 
 ## The Best Glasses for Big Heads in 2026 (Premium Picks)
 
 URL: https://woolet.co/en/blog/best-glasses-for-big-heads-2026
-Published: 2026-02-15 · ~11 min read
+Published: 2026-02-14 · ~11 min read
 Tags: Roundup, 2026, Premium
 
 > The honest 2026 guide to the best glasses for big heads — what actually fits 155mm+ faces, which brands to consider, and why premium materials matter at wider widths.

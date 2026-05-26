@@ -8,8 +8,11 @@ interface SEOProps {
   path?: string;
   type?: "website" | "article";
   publishedTime?: string;
+  modifiedTime?: string;
   noindex?: boolean;
   robots?: string;
+  /** Absolute URL OR site-relative path (e.g. "/og-foo.png") for the social preview image. Falls back to brand OG. */
+  image?: string;
   article?: {
     readTime: number;
     tags: string[];
@@ -79,8 +82,10 @@ const SEO = ({
   path = "",
   type = "website",
   publishedTime,
+  modifiedTime,
   noindex = false,
   robots,
+  image,
   article,
   jsonLd,
 }: SEOProps) => {
@@ -88,6 +93,9 @@ const SEO = ({
   const canonical = `${SITE_URL}/${lang}${path}`;
   const isHomepage = path === "" || path === "/";
   const geo = geoMeta[lang] || geoMeta.en;
+  const ogImage = image
+    ? (image.startsWith("http") ? image : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`)
+    : OG_IMAGE;
 
   // Determine robots content
   const robotsContent = robots || (noindex ? "noindex, follow" : "index, follow");
@@ -97,9 +105,10 @@ const SEO = ({
     "@type": "Article",
     headline: title,
     description,
+    image: ogImage,
     url: canonical,
     datePublished: publishedTime,
-    dateModified: publishedTime,
+    dateModified: modifiedTime || publishedTime,
     author: { "@type": "Organization", name: "Woolet", url: SITE_URL },
     publisher: {
       "@type": "Organization",
@@ -136,15 +145,16 @@ const SEO = ({
       <meta property="og:url" content={canonical} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content="Woolet" />
-      <meta property="og:image" content={OG_IMAGE} />
+      <meta property="og:image" content={ogImage} />
       <meta property="og:locale" content={lang === "pl" ? "pl_PL" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : "en_US"} />
 
       {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+      {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={OG_IMAGE} />
+      <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:site" content="@WooletEyewear" />
 
       {/* Structured Data — Organization on every page */}

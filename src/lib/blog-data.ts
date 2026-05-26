@@ -8,14 +8,16 @@ export interface BlogPost {
   date: string;
   readTime: number;
   tags: string[];
+  /** Optional override for the social preview image. Falls back to /og-[slug].png. */
+  image?: string;
 }
 
 const blogPostsEN: BlogPost[] = [
   {
     slug: "glasses-for-wide-faces-guide",
     title: "The Definitive Guide to Glasses for Wide Faces (2026)",
-    excerpt: "Struggling to find glasses for a wide face? This is the only guide you need — how to measure, which frames fit 155mm+ faces, and where to buy premium wide eyewear in 2026.",
-    date: "2026-03-10",
+    excerpt: "How to find glasses that actually fit wide faces (155 mm+). Frame width math, bridge fit, temple length, and the best 158 mm options.",
+    date: "2026-03-09",
     readTime: 14,
     tags: ["Guide", "Wide Face", "2026"],
     content: `
@@ -933,8 +935,8 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "best-glasses-for-big-heads-2026",
     title: "The Best Glasses for Big Heads in 2026 (Premium Picks)",
-    excerpt: "The honest 2026 guide to the best glasses for big heads — what actually fits 155mm+ faces, which brands to consider, and why premium materials matter at wider widths.",
-    date: "2026-02-15",
+    excerpt: "Premium glasses and sunglasses sized for big heads. Italian Mazzucchelli acetate frames at 155 / 158 / 161 mm, with bespoke up to 172 mm.",
+    date: "2026-02-14",
     readTime: 11,
     tags: ["Roundup", "2026", "Premium"],
     content: `
