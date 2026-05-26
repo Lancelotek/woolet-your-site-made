@@ -38,8 +38,6 @@ interface CapturedFrame {
   width: number;
   height: number;
   landmarks: NormalizedLandmark[];
-  /** Forehead band used during live scanning, in native frame coords. */
-  cardRoi?: CardRoi;
   /** In-memory canvas of the captured frame; used for auto corner detection. */
   canvas?: HTMLCanvasElement;
 }
