@@ -98,7 +98,7 @@ export function ReserveModal({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const sizeLabel = width === "155" ? "S" : width === "161" ? "L" : "M";
+  const sizeLabel = width === "bespoke" ? "Bespoke" : "Standard fit";
 
   // Reset on close
   useEffect(() => {
