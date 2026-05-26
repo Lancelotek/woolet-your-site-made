@@ -1453,22 +1453,8 @@ export default function FitScan() {
       pushEvent("scan_server_fallback", { reason: "network_or_error" });
     }
 
-    // Fallback A: client-side heuristic corner detection.
-    if (f.canvas && f.cardRoi) {
-      const det = detectCardCornersInRegion(f.canvas, f.cardRoi, f.width, f.height);
-      if (det && det.confidence >= 0.45) {
-        const [c1, c2] = det.corners;
-        pushEvent("scan_auto_corners", { confidence: det.confidence, width_px: det.widthPx });
-        if (runCalculate(f, c1, c2)) return;
-        pushEvent("scan_auto_fallback", { reason: "validation" });
-        setAutoFallback("validation");
-      } else {
-        pushEvent("scan_auto_fallback", { reason: "no_edge" });
-        setAutoFallback("no_edge");
-      }
-    } else {
-      setAutoFallback("no_edge");
-    }
+    // Server detection failed — fall through to manual annotate.
+    setAutoFallback("no_edge");
     setStep("annotate");
   };
 
