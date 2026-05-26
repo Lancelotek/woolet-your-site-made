@@ -10,15 +10,15 @@ const CANONICAL = `${SITE}/en${PATH}`;
 const faqs = [
   {
     q: "How many mm is considered wide for sunglasses?",
-    a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet starts at 155 mm and runs to 161 mm in standard sizes, with bespoke up to 172 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
+    a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm front width with a 21 mm bridge, and bespoke covers 150 to 172 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
   },
   {
     q: "What head circumference is considered big?",
-    a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet sizes map to these ranges: 155 mm front for 58 to 60 cm, 158 mm for 60 to 62 cm, 161 mm for 62 to 64 cm, and bespoke above 64 cm.",
+    a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm fits most XL heads (face width 155 to 161 mm). Outside that range, bespoke handles XS-wide and XXL faces from 150 to 172 mm.",
   },
   {
     q: "Where do you buy sunglasses for big heads?",
-    a: "Specialist makers like Woolet design from 155 mm front width upward. Mass-market brands mostly cap at 145 to 148 mm even on their oversized models, so the lenses are larger but the front is the same. If your temples pinch, you need a larger front, not a larger lens.",
+    a: "Specialist makers like Woolet design at 158 mm front width with bespoke above. Mass-market brands mostly cap at 145 to 148 mm even on their oversized models, so the lenses are larger but the front is the same. If your temples pinch, you need a larger front, not a larger lens.",
   },
   {
     q: "Can I get sunglasses custom-made for my head size?",
@@ -35,10 +35,8 @@ const faqs = [
 ];
 
 const sizeRows = [
-  { hc: "58 to 60 cm", w: "155 mm" },
-  { hc: "60 to 62 cm", w: "158 mm" },
-  { hc: "62 to 64 cm", w: "161 mm" },
-  { hc: "above 64 cm", w: "Bespoke (up to 172 mm)" },
+  { hc: "Face width 155 to 161 mm (head 58 to 62 cm)", w: "Woolet 158 mm (standard)" },
+  { hc: "Face width 150 to 154 mm or 162 to 172 mm", w: "Bespoke (made to measure)" },
 ];
 
 const SunglassesForBigHeads = () => {
