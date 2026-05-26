@@ -3,12 +3,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CardPositionIllustration from "@/components/CardPositionIllustration";
 import fitScanTip from "@/assets/fit-scan-tip.png";
 import { isValidLang, type Lang } from "@/lib/i18n";
-import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
-import { classifyCardSample } from "@/lib/card-detection";
-import { detectCardCornersInRegion, type CardRoi } from "@/lib/card-corner-detection";
+import { getImageLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
+import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
 import {
   calculateMeasurements,
   getRecommendation,
@@ -18,6 +16,7 @@ import {
   type Point,
   type Recommendation,
 } from "@/lib/face-measurements";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
