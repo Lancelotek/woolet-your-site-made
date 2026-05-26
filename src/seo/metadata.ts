@@ -192,11 +192,11 @@ export function getMetadata(route: string): RouteMeta {
       route,
       lang,
       {
-        title: "Woolet 007 — Round Italian Acetate Eyewear (155 / 158 / 161 mm)",
+        title: "Woolet 007 — Round Italian Acetate Eyewear (158 mm)",
         description:
-          "The 007 round in Italian Mazzucchelli acetate. Three measured sizes — 155, 158 and 161 mm — engineered for wide faces. From $133 pre-order.",
-        noscriptHtml: `<h1>Woolet 007 — Round, 155 / 158 / 161 mm</h1>
-<p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. Front widths 155, 158 and 161 mm with bridges scaling 19 / 21 / 23 mm. Lens 52 × 52 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
+          "The 007 round in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm bridge — engineered for wide faces. From $133 pre-order.",
+        noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
+<p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Dark Tortoise, Black, Honey. Pre-order $133 for founding members; $190 at full launch. Bespoke 150–172 mm available.</p>`,
       },
       { image: `${SITE_URL}/og-007.png`, type: "product" },
