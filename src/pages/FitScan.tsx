@@ -1499,24 +1499,113 @@ export default function FitScan() {
             .scan-tips-accordion { font-size: 13px; }
             .scan-fallback-banner { padding: 16px 18px !important; }
             .scan-fallback-banner span:last-child { font-size: 1rem !important; }
-          }
-          @media (max-width: 480px) {
-            .scan-camera { aspect-ratio: 3/4; }
-          }
-          @media (max-width: 767px) {
             .scan-like-this { display: none !important; }
           }
-          @keyframes scanCardBadgeFlash {
-            0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
-            40%  { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(74,222,128,0); }
-            100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+          /* Mobile full-bleed camera shell */
+          .scan-mobile-shell {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 80;
+            display: flex;
+            flex-direction: column;
           }
-          .scan-card-badge-flash { animation: scanCardBadgeFlash 520ms ease-out; }
-          @keyframes scanRotateHintIn {
-            from { opacity: 0; transform: translateY(calc(100% - 6px)); }
-            to   { opacity: 1; transform: translateY(100%); }
+          .scan-mobile-camera {
+            position: relative;
+            flex: 1 1 auto;
+            overflow: hidden;
           }
-          .scan-rotate-hint { animation: scanRotateHintIn 220ms ease-out; }
+          .scan-mobile-topbar {
+            position: absolute;
+            top: calc(12px + env(safe-area-inset-top, 0px));
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            pointer-events: none;
+            z-index: 2;
+          }
+          .scan-mobile-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.55);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.9);
+            font-family: 'Barlow', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+          }
+          .scan-mobile-pill-muted { color: ${MUTED}; }
+          .scan-mobile-countdown {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 9rem;
+            font-weight: 300;
+            color: ${GOLD};
+            text-shadow: 0 4px 32px rgba(0,0,0,0.7);
+            pointer-events: none;
+            z-index: 3;
+          }
+          .scan-mobile-controls {
+            flex: 0 0 auto;
+            padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px));
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 30%, #000 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+          }
+          .scan-shutter {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: transparent;
+            border: 3px solid ${GOLD};
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 120ms ease;
+          }
+          .scan-shutter:active { transform: scale(0.94); }
+          .scan-shutter:disabled { opacity: 0.45; cursor: not-allowed; }
+          .scan-shutter-inner {
+            display: block;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: ${GOLD};
+          }
+          .scan-mobile-secondary {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-family: 'Barlow', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+          }
+          .scan-mobile-secondary button,
+          .scan-mobile-secondary a {
+            background: transparent;
+            border: none;
+            color: ${MUTED};
+            text-decoration: none;
+            cursor: pointer;
+            padding: 6px 4px;
+          }
+          .scan-mobile-secondary button:disabled { opacity: 0.4; cursor: not-allowed; }
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
