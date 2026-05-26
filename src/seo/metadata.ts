@@ -279,9 +279,9 @@ export function getMetadata(route: string): RouteMeta {
   // ----- Collections
   if (path === "/collections/wide-face-glasses") {
     return base(route, lang, {
-      title: "Wide-Face Glasses — Italian Acetate, 155 / 158 / 161 mm | Woolet",
+      title: "Wide-Face Glasses — Italian Acetate, 158 mm | Woolet",
       description:
-        "Wide-face glasses engineered above 155 mm. Italian Mazzucchelli acetate, three measured sizes per shape, plus bespoke. From $133 pre-order.",
+        "Wide-face glasses engineered for 155 mm+. Italian Mazzucchelli acetate, one precise size (158 mm) per shape, plus bespoke. From $133 pre-order.",
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
