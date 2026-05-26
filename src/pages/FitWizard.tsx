@@ -22,10 +22,7 @@ const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
 
 type Step = "intro" | "consent" | "capture" | "result" | "saved" | "reserved";
 type CardType = "credit" | "library" | "id" | "cardless" | "unknown";
-type Sku =
-  | "007-S" | "007-M" | "007-L"
-  | "009-S" | "009-M" | "009-L"
-  | "bespoke";
+type Sku = "007" | "009" | "bespoke";
 
 interface Measurement {
   faceWidthMm: number;
@@ -45,20 +42,15 @@ const TRUST_COPY: Record<CardType, string> = {
 };
 
 const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: number; bridgeMm: number; range: string }> = {
-  "007-S": { shape: "Round / Panto", widthMm: 155, bridgeMm: 21, range: "152–155 mm" },
-  "007-M": { shape: "Round / Panto", widthMm: 158, bridgeMm: 22, range: "155–161 mm" },
-  "007-L": { shape: "Round / Panto", widthMm: 161, bridgeMm: 23, range: "161–168 mm" },
-  "009-S": { shape: "Soft Square",   widthMm: 155, bridgeMm: 21, range: "152–155 mm" },
-  "009-M": { shape: "Soft Square",   widthMm: 158, bridgeMm: 22, range: "155–161 mm" },
-  "009-L": { shape: "Soft Square",   widthMm: 161, bridgeMm: 23, range: "161–168 mm" },
+  "007": { shape: "Round / Panto", widthMm: 158, bridgeMm: 21, range: "155–161 mm" },
+  "009": { shape: "Soft Square",   widthMm: 158, bridgeMm: 21, range: "155–161 mm" },
 };
 
+// Single-size catalog: one 158 mm width with a 21 mm bridge.
+// Faces outside the 155–161 mm sweet spot are routed to Bespoke (150–172 mm).
 const recommendSku = (faceWidthMm: number): Sku => {
-  if (faceWidthMm < 152) return "bespoke";
-  if (faceWidthMm < 155) return "009-S";
-  if (faceWidthMm < 161) return "009-M";
-  if (faceWidthMm <= 168) return "009-L";
-  return "bespoke";
+  if (faceWidthMm < 155 || faceWidthMm > 161) return "bespoke";
+  return "009";
 };
 
 const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
