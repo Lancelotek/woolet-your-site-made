@@ -1251,7 +1251,7 @@ function ResultStep({
         <button
           onClick={() => {
             const from = measurement.recommendedSku;
-            const to = (from.startsWith("009") ? from.replace("009", "007") : from.replace("007", "009")) as Sku;
+            const to: Sku = from === "009" ? "007" : "009";
             pushEvent("fit_result_sku_swapped", { from_sku: from, to_sku: to });
             onSwapShape();
           }}
