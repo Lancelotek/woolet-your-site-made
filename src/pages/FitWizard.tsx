@@ -582,9 +582,22 @@ function CaptureStep({
                 if (lm.length > 454) {
                   const faceW = Math.abs(lm[454].x - lm[234].x);
                   faceDistanceRef.current = faceW; // ~0.25–0.45 at arm's length
+
+                  // Face bounding box in IMAGE pixels — consumed by the
+                  // temple/cheek card detector to locate the ROI.
+                  const vw = v.videoWidth;
+                  const vh = v.videoHeight;
+                  if (vw && vh) {
+                    const left = Math.min(lm[234].x, lm[454].x) * vw;
+                    const right = Math.max(lm[234].x, lm[454].x) * vw;
+                    const top = (lm[10]?.y ?? Math.min(a.y, b.y)) * vh;
+                    const bottom = (lm[152]?.y ?? Math.max(a.y, b.y) + 0.25) * vh;
+                    faceBoxRef.current = { left, right, top, bottom };
+                  }
                 }
               } else {
                 faceDetectedRef.current = false;
+                faceBoxRef.current = null;
               }
             } catch {
               /* transient — keep last known values */
