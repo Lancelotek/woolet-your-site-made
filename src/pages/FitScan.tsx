@@ -1338,6 +1338,7 @@ export default function FitScan() {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   const [step, setStep] = useState<Step>("welcome");
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
