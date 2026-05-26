@@ -575,11 +575,11 @@ function CaptureStep({
       // mock measurement (Phase 2 — same every time per spec §11)
       setTimeout(() => {
         const m: Measurement = {
-          faceWidthMm: 162,
+          faceWidthMm: 158,
           bridgeMm: 21,
           pdMm: 66,
           cardType: "credit",
-          recommendedSku: recommendSku(162),
+          recommendedSku: recommendSku(158),
           confidence: 0.96,
         };
         onComplete(m);
@@ -1778,11 +1778,11 @@ export default function FitWizard() {
   const onCardlessFallback = useCallback(() => {
     // TODO: Phase 4 Auglio cardless integration
     const m: Measurement = {
-      faceWidthMm: 162,
+      faceWidthMm: 158,
       bridgeMm: 21,
       pdMm: 66,
       cardType: "cardless",
-      recommendedSku: recommendSku(162),
+      recommendedSku: recommendSku(158),
       confidence: 0.88,
     };
     setMeasurement(m);
