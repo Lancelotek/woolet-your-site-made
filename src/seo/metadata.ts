@@ -297,9 +297,9 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/oversized-sunglasses-men") {
     return base(route, lang, {
-      title: "Oversized Sunglasses for Men — 155 / 158 / 161 mm Italian Acetate | Woolet",
+      title: "Oversized Sunglasses for Men — 158 mm Italian Acetate | Woolet",
       description:
-        "Oversized sunglasses for men, engineered above 155 mm. Italian Mazzucchelli acetate, three measured sizes plus bespoke. From $133 pre-order.",
+        "Oversized sunglasses for men, engineered for 155 mm+ faces. Italian Mazzucchelli acetate, one precise size (158 mm) per shape, plus bespoke. From $133 pre-order.",
     });
   }
   if (path === "/collections/sunglasses-for-big-heads") {
