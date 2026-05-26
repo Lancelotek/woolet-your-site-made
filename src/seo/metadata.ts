@@ -61,7 +61,7 @@ const websiteJsonLd = {
   "@type": "WebSite",
   name: "Woolet",
   url: SITE_URL,
-  description: "AI-fit eyewear for wide faces — three sizes per shape, plus bespoke",
+  description: "AI-fit eyewear for wide faces — one precise size (158 mm) per shape, plus bespoke",
   publisher: { "@type": "Organization", name: "Woolet", url: SITE_URL },
 };
 
