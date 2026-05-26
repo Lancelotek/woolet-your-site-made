@@ -158,11 +158,11 @@ const CollectionPage = ({
         <section style={{ background: "#1A1612", color: "#F8F6F1", padding: "20px 20px" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 24, margin: "0 0 12px", color: "#F8F6F1" }}>
-              Three measured sizes — plus bespoke
+              One precise size - or go bespoke
             </h2>
             <p style={{ fontSize: 13, lineHeight: 1.6, color: "#CCC", margin: "0 0 14px" }}>
-              Each shape ships in 155 mm, 158 mm and 161 mm — and a bespoke tier covers anything from 150 mm to 172 mm.
-              Use our AI Fit Wizard to find the right size for your face.
+              Both shapes ship at 158 mm wide with a 21 mm bridge, engineered for faces in the 155-161 mm range. Outside that, bespoke covers 150 to 172 mm with the same 21 mm bridge.
+              Use our AI Fit Wizard to confirm the right fit for your face.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <Link to="/en/fit" style={{ background: "#CAA449", color: "#080807", padding: "10px 18px", borderRadius: 4, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", fontWeight: 500 }}>
