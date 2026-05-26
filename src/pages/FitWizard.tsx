@@ -1770,9 +1770,7 @@ export default function FitWizard() {
   const swapShape = useCallback(() => {
     setMeasurement((m) => {
       if (!m || m.recommendedSku === "bespoke") return m;
-      const swapped = (m.recommendedSku.startsWith("009")
-        ? m.recommendedSku.replace("009", "007")
-        : m.recommendedSku.replace("007", "009")) as Sku;
+      const swapped: Sku = m.recommendedSku === "009" ? "007" : "009";
       return { ...m, recommendedSku: swapped };
     });
   }, []);
