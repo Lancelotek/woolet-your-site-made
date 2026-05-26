@@ -304,35 +304,33 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/sunglasses-for-big-heads") {
     return base(route, lang, {
-      title: "Sunglasses for Big Heads - 155mm to 161mm | Woolet",
+      title: "Sunglasses for Big Heads - 158 mm + Bespoke | Woolet",
       description:
-        "Sunglasses for big heads and huge heads. Handmade Italian Mazzucchelli acetate in 155, 158, 161mm plus bespoke. Pre-order from $133 (30% off $190).",
-      noscriptHtml: `<h1>Sunglasses for Big Heads - 155mm, 158mm, 161mm + Bespoke</h1>
-<p>Built from the ground up for head circumference 58 to 64 cm and above, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes (Woolet 007 round and 009 soft square), three measured front widths plus bespoke to 172 mm. Pre-order $133 for founding members, $190 at full launch.</p>
+        "Sunglasses for big heads and wide faces. Handmade Italian Mazzucchelli acetate in a precise 158 mm size, plus bespoke 150–172 mm. Pre-order from $133 (30% off $190).",
+      noscriptHtml: `<h1>Sunglasses for Big Heads - 158 mm + Bespoke</h1>
+<p>Built from the ground up for wide faces (155 mm+) and head circumference 58 to 64 cm, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes (Woolet 007 round and 009 soft square), one precise 158 mm width plus bespoke up to 172 mm. Pre-order $133 for founding members, $190 at full launch.</p>
 <h2>The problem with standard sunglasses</h2>
 <ul>
   <li>Frames pinch at the temples within an hour.</li>
   <li>Arms too short to reach behind the ears.</li>
   <li>Lenses sit too close to the eyes and look undersized.</li>
 </ul>
-<p>Standard eyewear maxes out around 145 to 148 mm of front width. Woolet starts at 155 mm and runs to 161 mm, with bespoke covering anything up to 172 mm. Bridge scales with each size: 19, 21, 23 mm. Temples 150 mm standard, up to 155 mm bespoke.</p>
-<h2>Size chart</h2>
+<p>Standard eyewear maxes out around 145 to 148 mm of front width. Woolet starts at 158 mm with a 21 mm bridge, and bespoke covers anything from 150 to 172 mm. Temples 150 mm standard, up to 155 mm bespoke.</p>
+<h2>Size guide</h2>
 <table>
-  <thead><tr><th>Head circumference</th><th>Recommended frame width</th></tr></thead>
+  <thead><tr><th>Face / head measurement</th><th>Recommended frame</th></tr></thead>
   <tbody>
-    <tr><td>58 to 60 cm</td><td>155 mm</td></tr>
-    <tr><td>60 to 62 cm</td><td>158 mm</td></tr>
-    <tr><td>62 to 64 cm</td><td>161 mm</td></tr>
-    <tr><td>above 64 cm</td><td>Bespoke (up to 172 mm)</td></tr>
+    <tr><td>Face width 155–161 mm (head 58–62 cm)</td><td>Woolet 158 mm</td></tr>
+    <tr><td>Face width 150–154 mm or 162–172 mm (head 56–58 cm or 62 cm+)</td><td>Bespoke</td></tr>
   </tbody>
 </table>
 <h2>Frequently asked</h2>
 <h3>How many mm is considered wide for sunglasses?</h3>
-<p>Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet starts at 155 mm and runs to 161 mm, with bespoke up to 172 mm. The first number printed inside the temple is lens width, not front width.</p>
+<p>Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm, with bespoke up to 172 mm. The first number printed inside the temple is lens width, not front width.</p>
 <h3>What head circumference is considered big?</h3>
-<p>Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet sizes map directly to these ranges.</p>
+<p>Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm covers most XL heads; bespoke handles XXL.</p>
 <h3>Where do you buy sunglasses for big heads?</h3>
-<p>Specialist makers like Woolet design from 155 mm front width upward. Mass-market brands mostly cap at 145 to 148 mm even on oversized models, so the lenses are larger but the front is the same.</p>
+<p>Specialist makers like Woolet design at 158 mm front width with bespoke above. Mass-market brands mostly cap at 145 to 148 mm even on oversized models, so the lenses are larger but the front is the same.</p>
 <h3>Can I get sunglasses custom-made for my head size?</h3>
 <p>Yes. Bespoke covers 150 to 172 mm of front width in either shape, with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.</p>
 <h3>Are Woolet sunglasses polarized?</h3>
