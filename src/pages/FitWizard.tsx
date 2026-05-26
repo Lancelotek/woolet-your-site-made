@@ -1100,7 +1100,7 @@ function ResultStep({
   }
 
   const sku = SKU_DETAIL[measurement.recommendedSku];
-  const altLabel = measurement.recommendedSku.startsWith("009")
+  const altLabel = measurement.recommendedSku === "009"
     ? "Show me the other shape (007 round) →"
     : "Show me the other shape (009 soft square) →";
 
