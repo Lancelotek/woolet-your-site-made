@@ -76,8 +76,8 @@ const SunglassesForBigHeads = () => {
   return (
     <>
       <SEO
-        title="Sunglasses for Big Heads - 155mm to 161mm | Woolet"
-        description="Sunglasses for big heads and huge heads. Handmade Italian Mazzucchelli acetate in 155, 158, 161mm plus bespoke. Pre-order from $133 (30% off $190)."
+        title="Sunglasses for Big Heads - 158 mm + Bespoke | Woolet"
+        description="Sunglasses for big heads and wide faces. Handmade Italian Mazzucchelli acetate in a precise 158 mm size, plus bespoke 150–172 mm. Pre-order from $133 (30% off $190)."
         lang="en"
         path={PATH}
         jsonLd={[collectionLd, breadcrumbLd, faqLd]}
