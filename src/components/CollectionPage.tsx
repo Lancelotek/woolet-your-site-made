@@ -25,13 +25,13 @@ const productCards = [
   {
     id: "007",
     name: "Woolet 007 — Round / Panto",
-    blurb: "Round Italian acetate frames in 155 / 158 / 161 mm. Bespoke from 150 to 172 mm.",
+    blurb: "Round Italian acetate frame, 158 mm wide with a 21 mm bridge. Bespoke from 150 to 172 mm.",
     href: "/en/products/007",
   },
   {
     id: "009",
     name: "Woolet 009 — Soft Square",
-    blurb: "Soft-square Italian acetate frames in 155 / 158 / 161 mm. Bespoke from 150 to 172 mm.",
+    blurb: "Soft-square Italian acetate frame, 158 mm wide with a 21 mm bridge. Bespoke from 150 to 172 mm.",
     href: "/en/products/009",
   },
 ];
