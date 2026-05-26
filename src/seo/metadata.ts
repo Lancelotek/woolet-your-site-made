@@ -70,7 +70,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear`,
-    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. Front widths 155 / 158 / 161 mm for wide faces, plus bespoke 150–172 mm. ${lensSize}.`,
+    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm bridge — engineered for wide faces (155–161 mm). Bespoke 150–172 mm available. ${lensSize}.`,
     brand: { "@type": "Brand", name: "Woolet" },
     image: `${SITE_URL}/og-${model}.png`,
     sku: `WOOLET-${model}`,
