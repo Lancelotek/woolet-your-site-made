@@ -44,24 +44,28 @@ interface CapturedFrame {
 
 /* ─────────────── Welcome ─────────────── */
 
-function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart: () => void; disabled?: boolean }) {
-  const steps = [
-    {
-      n: "01",
-      title: "Grab a card",
-      body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale.",
-    },
-    {
-      n: "02",
-      title: "Hold to forehead",
-      body: "Lay it flat across your brow, long edge horizontal.",
-    },
-    {
-      n: "03",
-      title: "Stay still",
-      body: "We capture automatically when the card is aligned.",
-    },
-  ];
+function WelcomeStep({
+  lang,
+  onStart,
+  disabled = false,
+  isMobile,
+}: {
+  lang: Lang;
+  onStart: () => void;
+  disabled?: boolean;
+  isMobile: boolean;
+}) {
+  const steps = isMobile
+    ? [
+        { n: "01", title: "Grab a card", body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale." },
+        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal." },
+        { n: "03", title: "Hold phone at arm's length", body: "Front camera, face the lens. Tap capture when ready." },
+      ]
+    : [
+        { n: "01", title: "Grab a card", body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale." },
+        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal." },
+        { n: "03", title: "Sit 50–70 cm back", body: "Eyes level with the webcam, then tap capture or use the 3-second timer." },
+      ];
 
   return (
     <div className="flex flex-col gap-8">
@@ -76,7 +80,7 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
         Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
       </h1>
       <p className="text-cream-dim" style={{ fontSize: "1.1rem", fontWeight: 300, lineHeight: 1.5 }}>
-        Three steps. No upload. Nothing leaves your device.
+        Three steps. Photo never leaves your device until you capture.
       </p>
 
       <ol
@@ -149,7 +153,7 @@ function WelcomeStep({ lang, onStart, disabled = false }: { lang: Lang; onStart:
             margin: 0,
           }}
         >
-          Take off your glasses first. Photo never leaves your device.
+          Take off your glasses first. Detection runs after you tap capture.
         </p>
         <Link
           to={`/${lang}/fit`}
