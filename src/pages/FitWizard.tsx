@@ -1696,9 +1696,8 @@ export default function FitWizard() {
     const source = params.get("source") || "scan";
     const noseRaw = Number(params.get("nose_width"));
     const noseValid = noseRaw >= 28 && noseRaw <= 60 ? noseRaw : null;
-    const baseBridge = fw < 155 ? 21 : fw < 161 ? 22 : 23;
-    // Wider bridge for wider noses (alar ≥ 40mm) — keyhole bridge can scale up by 1mm.
-    const bridgeMm = noseValid && noseValid >= 40 ? Math.min(23, baseBridge + 1) : baseBridge;
+    // Single-size catalog: bridge is fixed at 21 mm (keyhole geometry doesn't scale with this run).
+    const bridgeMm = 21;
     const m: Measurement = {
       faceWidthMm: fw,
       bridgeMm,
