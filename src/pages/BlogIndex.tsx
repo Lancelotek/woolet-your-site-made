@@ -8,8 +8,8 @@ import { pushGtmEvent } from "@/lib/gtm";
 
 const blogSeo: Record<string, { title: string; description: string }> = {
   en: {
-    title: "Blog — Woolet | Wide-Face Eyewear Insights",
-    description: "Expert guides on glasses for wide faces, Italian acetate, frame sizing, and finding the perfect fit for 155mm+ face widths.",
+    title: "Blog - Woolet | Wide-Face Eyewear Insights",
+    description: "Guides on glasses and sunglasses for wide faces and big heads. Italian Mazzucchelli acetate eyewear sized 155 / 158 / 161 mm.",
   },
   pl: {
     title: "Blog — Woolet | Wiedza o okularach na szeroką twarz",

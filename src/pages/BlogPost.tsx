@@ -151,6 +151,7 @@ const BlogPost = () => {
         path={`/blog/${post.slug}`}
         type="article"
         publishedTime={post.date}
+        image={post.image || `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
       />
 
