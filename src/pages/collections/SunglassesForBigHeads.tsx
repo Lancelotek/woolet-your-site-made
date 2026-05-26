@@ -212,8 +212,8 @@ const SunglassesForBigHeads = () => {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14 }}>
             {[
               { t: "Italian Mazzucchelli acetate", b: "Cellulose acetate sheet from the same Italian supplier used by major luxury houses. Holds its set under heat, unlike injection-moulded TR-90." },
-              { t: "Sized for big heads from day one", b: "Three measured fronts at 155, 158 and 161 mm. Bridge scales with each size: 19, 21, 23 mm. Temples 150 mm standard, up to 155 mm bespoke." },
-              { t: "Bespoke above 161 mm", b: "Custom fronts from 150 to 172 mm in either shape. Same material, same finishing, made to your measurement." },
+              { t: "Sized for big heads from day one", b: "One precise front at 158 mm with a 21 mm bridge — engineered, not retrofitted. Temples 150 mm standard, up to 155 mm bespoke." },
+              { t: "Bespoke outside 155–161 mm", b: "Custom fronts from 150 to 172 mm in either shape. Same material, same finishing, made to your measurement." },
             ].map((c) => (
               <div key={c.t} style={{ background: "#FFF", border: "1px solid #E0D5C5", padding: "16px 14px", borderRadius: 4 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, marginBottom: 8 }}>{c.t}</div>
