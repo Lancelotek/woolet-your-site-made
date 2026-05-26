@@ -233,10 +233,10 @@ const SunglassesForBigHeads = () => {
               <strong>Oversized.</strong> Larger lenses on a standard 138 to 148 mm front. Looks bigger, fits the same.
             </p>
             <p style={{ margin: "0 0 8px" }}>
-              <strong>Big-head specific.</strong> Larger front and bridge, not just larger lenses. Woolet 161 mm has a 23 mm bridge; most oversized frames stay at 18 to 20 mm.
+              <strong>Big-head specific.</strong> Larger front and bridge, not just larger lenses. Woolet's 158 mm front pairs with a 21 mm keyhole bridge; most oversized frames stay at 18 to 20 mm.
             </p>
             <p style={{ margin: 0 }}>
-              <strong>Volume options.</strong> Fatheadz and similar specialists focus on plastic injection at one or two widths. Woolet is acetate, three widths, plus bespoke.
+              <strong>Bespoke option.</strong> Fatheadz and similar specialists focus on plastic injection at one or two widths. Woolet is acetate at 158 mm, with bespoke from 150 to 172 mm.
             </p>
           </div>
         </section>
