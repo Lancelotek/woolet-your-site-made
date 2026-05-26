@@ -16,7 +16,7 @@ const ItalianAcetateSunglasses = () => (
     ]}
     faqs={[
       { question: "What is Italian acetate?", answer: "Cellulose acetate is a plant-based plastic made from cotton fibres. Italian acetate specifically refers to sheet stock produced by Italian mills — Mazzucchelli in Castiglione Olona is the largest and most established. The sheets are cut, milled and hand-polished into frames." },
-      { question: "Why Mazzucchelli specifically?", answer: "Mazzucchelli has been making acetate since 1849 and supplies most premium eyewear houses. Its batch-cured sheet is denser and more dimensionally stable than the injection-moulded plastic used in budget frames, which matters more on wider 155 mm+ frames that span a longer arc." },
+      { question: "Why Mazzucchelli specifically?", answer: "Mazzucchelli has been making acetate since 1849 and supplies most premium eyewear houses. Its batch-cured sheet is denser and more dimensionally stable than the injection-moulded plastic used in budget frames, which matters more on a wider 158 mm frame that spans a longer arc." },
       { question: "Are the sunglasses prescription-compatible?", answer: "Yes. Take the frame and your Rx to a qualified optician. Both shapes accept single-vision and progressive prescription tinted lenses." },
       { question: "What lens tint and UV protection do you offer?", answer: "Default lenses are CR-39 tinted to category 3, with 100% UVA/UVB protection. Polarised upgrade is available on both shapes." },
       { question: "How do I clean Italian acetate frames?", answer: "Lukewarm water and a drop of dish soap, then dry with the microfiber pouch the frame ships in. Avoid alcohol wipes — they dry out acetate over time and dull the polish." },
