@@ -131,7 +131,7 @@ const SunglassesForBigHeads = () => {
             ))}
           </div>
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "#444", margin: 0 }}>
-            Standard eyewear maxes out around 145 to 148 mm of front width. Woolet starts at 155 mm and runs to 161 mm, with bespoke covering anything up to 172 mm.
+            Standard eyewear maxes out around 145 to 148 mm of front width. Woolet's standard is 158 mm with a 21 mm keyhole bridge, and bespoke covers anything from 150 to 172 mm.
           </p>
         </section>
 
