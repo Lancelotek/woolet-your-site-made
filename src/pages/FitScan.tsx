@@ -180,49 +180,41 @@ interface CameraStepProps {
   lang: Lang;
   onCaptured: (frame: CapturedFrame) => void;
   onError: (msg: string) => void;
+  isMobile: boolean;
 }
 
-function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
+function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const overlayRef = useRef<HTMLCanvasElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-  const rafRef = useRef<number>(0);
-  const lastTsRef = useRef<number>(-1);
-  const allGreenSinceRef = useRef<number | null>(null);
+  const lumRafRef = useRef<number>(0);
   const capturedRef = useRef(false);
-  const wasOkRef = useRef(false);
-  const lastRegionRef = useRef<CardRoi | null>(null);
+  const timerRef = useRef<number | null>(null);
 
-  const [hint, setHint] = useState("Allow camera access");
-  const [coachTone, setCoachTone] = useState<"neutral" | "warn" | "ok" | "capturing">("neutral");
-  const [countdown, setCountdown] = useState<number | null>(null);
+  const [ready, setReady] = useState(false);
+  const [busy, setBusy] = useState(false);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
-  const [cardOk, setCardOk] = useState(false);
-  const [cardInZone, setCardInZone] = useState(false);
-  const [cardHorizontal, setCardHorizontal] = useState(false);
-  const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
-  const [cardConfidence, setCardConfidence] = useState(0);
-  const [okFlash, setOkFlash] = useState(0);
-  const [guideRect, setGuideRect] = useState<{ left: number; bottom: number; width: number } | null>(null);
-  
+  const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
-  const isCoarsePointer =
-    typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches;
-  const deviceTip = isCoarsePointer
+  const deviceTip = isMobile
     ? "Hold the phone at arm's length, camera at eye level."
-    : "Sit ~50–70 cm from the webcam, eyes level with the camera.";
+    : "Sit ~50–70 cm from the webcam, eyes level with the lens.";
 
   const stopAll = useCallback(() => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    if (lumRafRef.current) cancelAnimationFrame(lumRafRef.current);
+    if (timerRef.current) { window.clearInterval(timerRef.current); timerRef.current = null; }
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
   }, []);
 
-  const captureFrame = useCallback(async () => {
-    if (capturedRef.current) return;
+  const performCapture = useCallback(async () => {
+    if (capturedRef.current || busy) return;
     const v = videoRef.current;
-    if (!v) return;
+    if (!v || v.readyState < 2) {
+      onError("Camera isn't ready yet — give it a second and tap capture again.");
+      return;
+    }
+    setBusy(true);
     capturedRef.current = true;
 
     const w = v.videoWidth;
@@ -231,7 +223,11 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
     c.width = w;
     c.height = h;
     const ctx = c.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      setBusy(false);
+      capturedRef.current = false;
+      return;
+    }
     ctx.drawImage(v, 0, 0, w, h);
     const dataUrl = c.toDataURL("image/jpeg", 0.92);
 
@@ -239,13 +235,15 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       const lm = await getImageLandmarker();
       const res = lm.detect(c);
       if (!res.faceLandmarks?.length) {
-        onError("We can't see your face. Try better lighting or face the camera directly.");
         capturedRef.current = false;
+        setBusy(false);
+        onError("We can't see your face in the photo. Try better lighting and face the camera directly.");
         return;
       }
       if (res.faceLandmarks.length > 1) {
-        onError("Only one face at a time, please.");
         capturedRef.current = false;
+        setBusy(false);
+        onError("Only one face at a time, please.");
         return;
       }
       stopAll();
@@ -255,15 +253,36 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         width: w,
         height: h,
         landmarks: res.faceLandmarks[0],
-        cardRoi: lastRegionRef.current ?? undefined,
         canvas: c,
       });
     } catch (err) {
       console.warn("[scan] capture detect failed", err);
-      onError("Couldn't process the captured frame. Try again.");
       capturedRef.current = false;
+      setBusy(false);
+      onError("Couldn't process the captured frame. Try again.");
     }
-  }, [onCaptured, onError, stopAll]);
+  }, [busy, onCaptured, onError, stopAll]);
+
+  const startTimer = useCallback(() => {
+    if (busy || countdown !== null) return;
+    setCountdown(3);
+    timerRef.current = window.setInterval(() => {
+      setCountdown((n) => {
+        if (n === null) return null;
+        if (n <= 1) {
+          if (timerRef.current) { window.clearInterval(timerRef.current); timerRef.current = null; }
+          performCapture();
+          return null;
+        }
+        return n - 1;
+      });
+    }, 1000);
+  }, [busy, countdown, performCapture]);
+
+  const cancelTimer = useCallback(() => {
+    if (timerRef.current) { window.clearInterval(timerRef.current); timerRef.current = null; }
+    setCountdown(null);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -283,6 +302,7 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         if (!v) return;
         v.srcObject = stream;
         await v.play();
+        setReady(true);
         pushEvent("scan_camera_active");
       } catch (err) {
         const reason = err instanceof Error && err.name === "NotAllowedError" ? "permission_denied" : "camera_error";
@@ -295,239 +315,31 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         return;
       }
 
-      let lm;
-      try {
-        lm = await getVideoLandmarker();
-      } catch (err) {
-        console.warn("[scan] model load", err);
-        pushEvent("scan_error", { error_type: "model_load" });
-        onError("Couldn't load face detection. Check your connection and try again.");
-        return;
-      }
-      if (cancelled) return;
-
-      const tick = () => {
+      // Cheap luminance loop — just to warn about low light. Throttled.
+      const sample = document.createElement("canvas");
+      sample.width = 24; sample.height = 24;
+      const sctx = sample.getContext("2d");
+      let last = 0;
+      const tick = (ts: number) => {
         const v = videoRef.current;
-        const overlay = overlayRef.current;
-        if (!v || !overlay || v.readyState < 2) {
-          rafRef.current = requestAnimationFrame(tick);
+        if (!v || v.readyState < 2) {
+          lumRafRef.current = requestAnimationFrame(tick);
           return;
         }
-        const ts = performance.now();
-        if (ts === lastTsRef.current) {
-          rafRef.current = requestAnimationFrame(tick);
-          return;
+        if (ts - last > 400 && sctx) {
+          last = ts;
+          try {
+            sctx.drawImage(v, 0, 0, 24, 24);
+            const d = sctx.getImageData(0, 0, 24, 24).data;
+            let sum = 0;
+            for (let i = 0; i < d.length; i += 4) sum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+            const lum = sum / (d.length / 4);
+            setLighting(lum > 100 ? "green" : lum > 70 ? "yellow" : "red");
+          } catch { /* CORS */ }
         }
-        lastTsRef.current = ts;
-
-        const vw = v.videoWidth;
-        const vh = v.videoHeight;
-        if (overlay.width !== vw || overlay.height !== vh) {
-          overlay.width = vw;
-          overlay.height = vh;
-        }
-        const ctx = overlay.getContext("2d");
-        if (!ctx) {
-          rafRef.current = requestAnimationFrame(tick);
-          return;
-        }
-        ctx.clearRect(0, 0, vw, vh);
-
-        // Luminance sample
-        const sample = document.createElement("canvas");
-        sample.width = 32;
-        sample.height = 32;
-        const sctx = sample.getContext("2d");
-        let lum = 128;
-        if (sctx) {
-          sctx.drawImage(v, 0, 0, 32, 32);
-          const d = sctx.getImageData(0, 0, 32, 32).data;
-          let sum = 0;
-          for (let i = 0; i < d.length; i += 4) sum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-          lum = sum / (d.length / 4);
-        }
-        const lumState: "green" | "yellow" | "red" = lum > 100 ? "green" : lum > 70 ? "yellow" : "red";
-        setLighting(lumState);
-
-        let res;
-        try {
-          res = lm.detectForVideo(v, ts);
-        } catch {
-          rafRef.current = requestAnimationFrame(tick);
-          return;
-        }
-
-        const face = res.faceLandmarks?.[0];
-        let nextHint = "Position your face in the frame";
-        let allGreen = false;
-
-        if (!face) {
-          allGreenSinceRef.current = null;
-          setCardOk(false);
-          setCardState("none");
-          setCardConfidence(0);
-          setGuideRect(null);
-          wasOkRef.current = false;
-        } else {
-          let minX = 1, minY = 1, maxX = 0, maxY = 0;
-          for (const p of face) {
-            if (p.x < minX) minX = p.x;
-            if (p.x > maxX) maxX = p.x;
-            if (p.y < minY) minY = p.y;
-            if (p.y > maxY) maxY = p.y;
-          }
-          const boxH = maxY - minY;
-          const bx = minX * vw;
-          const by = minY * vh;
-          const bw = (maxX - minX) * vw;
-          const bh = (maxY - minY) * vh;
-          ctx.strokeStyle = GOLD;
-          ctx.lineWidth = 2;
-          ctx.strokeRect(bx, by, bw, bh);
-
-          // ─── Card guide region ───
-          // Single supported placement: card laid FLAT on the forehead, long
-          // edge horizontal. This is the only orientation we measure from —
-          // it keeps the card in the same focal plane as the face and avoids
-          // the systematic under-measurement that the side/cheek placement
-          // caused (card depth ≠ face depth).
-          const cardLongMm = 85.6;
-          const cardShortMm = 54;
-
-          // Top region — horizontal card on forehead
-          const topW = bw * 0.6;
-          const topH = topW * (cardShortMm / cardLongMm);
-          const topX = bx + (bw - topW) / 2;
-          const topY = Math.max(0, by - topH * 0.2);
-
-          const region = { x: topX, y: topY, w: topW, h: topH };
-          lastRegionRef.current = region;
-
-          const sampleRegion = (r: { x: number; y: number; w: number; h: number }) => {
-            let vGrad = 0, hGrad = 0;
-            if (
-              r.y + r.h > vh || r.x + r.w > vw || r.x < 0 || r.y < 0 ||
-              r.w < 20 || r.h < 20
-            ) {
-              return { vGrad, hGrad };
-            }
-            const SW = 32, SH = 32;
-            const cv = document.createElement("canvas");
-            cv.width = SW; cv.height = SH;
-            const cctx = cv.getContext("2d");
-            if (!cctx) return { vGrad, hGrad };
-            try {
-              cctx.drawImage(v, r.x, r.y, r.w, r.h, 0, 0, SW, SH);
-              const data = cctx.getImageData(0, 0, SW, SH).data;
-              const lum = new Float32Array(SW * SH);
-              for (let i = 0; i < SW * SH; i++) {
-                const o = i * 4;
-                lum[i] = 0.299 * data[o] + 0.587 * data[o + 1] + 0.114 * data[o + 2];
-              }
-              let vSum = 0;
-              for (let y = 0; y < SH - 1; y++)
-                for (let x = 0; x < SW; x++)
-                  vSum += Math.abs(lum[(y + 1) * SW + x] - lum[y * SW + x]);
-              vGrad = vSum / ((SH - 1) * SW);
-              let hSum = 0;
-              for (let y = 0; y < SH; y++)
-                for (let x = 0; x < SW - 1; x++)
-                  hSum += Math.abs(lum[y * SW + x + 1] - lum[y * SW + x]);
-              hGrad = hSum / (SH * (SW - 1));
-            } catch { /* CORS */ }
-            return { vGrad, hGrad };
-          };
-
-          const { vGrad, hGrad } = sampleRegion(region);
-          const { cardPresent, cardHorizontal, cardAligned, nextState, confidence } =
-            classifyCardSample(vGrad, hGrad);
-
-          // Publish guide rect to React state (mirrored X for display).
-          setGuideRect({
-            left: ((vw - (region.x + region.w)) / vw) * 100,
-            bottom: ((vh - (region.y + region.h)) / vh) * 100,
-            width: (region.w / vw) * 100,
-          });
-
-          setCardConfidence(confidence);
-          setCardInZone(cardPresent);
-          setCardHorizontal(cardHorizontal);
-          setCardOk(cardAligned);
-          setCardState(nextState);
-
-          if (cardAligned && !wasOkRef.current) setOkFlash((n) => n + 1);
-          wasOkRef.current = cardAligned;
-
-          // Draw the single guide rectangle.
-          const fill = nextState === "ok"
-            ? "rgba(74, 222, 128, 0.22)"
-            : nextState === "misaligned"
-              ? "rgba(250, 204, 21, 0.20)"
-              : "rgba(202, 164, 73, 0.10)";
-          const stroke = nextState === "ok"
-            ? "rgba(74, 222, 128, 0.85)"
-            : nextState === "misaligned"
-              ? "rgba(250, 204, 21, 0.85)"
-              : "rgba(202, 164, 73, 0.55)";
-          ctx.fillStyle = fill;
-          ctx.fillRect(region.x, region.y, region.w, region.h);
-          ctx.strokeStyle = stroke;
-          ctx.lineWidth = nextState === "ok" ? 2 : 1.5;
-          ctx.setLineDash(nextState === "ok" ? [] : [6, 6]);
-          ctx.strokeRect(region.x, region.y, region.w, region.h);
-          ctx.setLineDash([]);
-
-          // Tilt
-          const f = face[10];
-          const c = face[152];
-          const tilt = Math.abs((Math.atan2((c.x - f.x) * vw, (c.y - f.y) * vh) * 180) / Math.PI);
-
-          if (boxH < 0.3) nextHint = "Move closer";
-          else if (boxH > 0.7) nextHint = "Move back a little";
-          else if (lumState === "red") nextHint = "Find brighter light";
-          else if (tilt > 5) nextHint = "Straighten your head";
-          else if (nextState === "none") nextHint = "Hold a card flat to your forehead";
-          else if (nextState === "misaligned") nextHint = "Turn the card horizontal";
-          else {
-            nextHint = "Hold still";
-            allGreen = true;
-          }
-        }
-
-        let nextTone: "neutral" | "warn" | "ok" | "capturing" = "neutral";
-
-        if (allGreen) {
-          if (allGreenSinceRef.current == null) allGreenSinceRef.current = ts;
-          const elapsed = (ts - allGreenSinceRef.current) / 1000;
-          const remaining = Math.max(0, 3 - elapsed);
-          const cd = Math.ceil(remaining);
-          setCountdown(cd);
-          nextHint = `Hold still — ${cd}`;
-          nextTone = "capturing";
-          if (elapsed >= 3) {
-            captureFrame();
-            return;
-          }
-        } else {
-          allGreenSinceRef.current = null;
-          setCountdown(null);
-          if (
-            nextHint === "Move closer" ||
-            nextHint === "Move back a little" ||
-            nextHint === "Find brighter light" ||
-            nextHint === "Straighten your head"
-          ) {
-            nextTone = "warn";
-          } else {
-            nextTone = "neutral";
-          }
-        }
-
-        setHint(nextHint);
-        setCoachTone(nextTone);
-        rafRef.current = requestAnimationFrame(tick);
+        lumRafRef.current = requestAnimationFrame(tick);
       };
-      rafRef.current = requestAnimationFrame(tick);
+      lumRafRef.current = requestAnimationFrame(tick);
     };
 
     start();
@@ -535,12 +347,85 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       cancelled = true;
       stopAll();
     };
-  }, [captureFrame, onError, stopAll]);
+  }, [onError, stopAll]);
 
   const lightingColor = lighting === "green" ? "#4ade80" : lighting === "yellow" ? "#facc15" : "#ef4444";
+  const lightingLabel = lighting === "green" ? "Good light" : lighting === "yellow" ? "OK light" : "Too dark";
 
+  // ─── MOBILE: full-bleed camera with floating controls ───
+  if (isMobile) {
+    return (
+      <div className="scan-mobile-shell">
+        <div className="scan-mobile-camera">
+          <video
+            ref={videoRef}
+            playsInline
+            muted
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transform: "scaleX(-1)",
+              background: "#000",
+            }}
+          />
+          {/* Face oval guide */}
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+          >
+            <defs>
+              <mask id="ovalMask">
+                <rect width="100" height="100" fill="white" />
+                <ellipse cx="50" cy="48" rx="28" ry="38" fill="black" />
+              </mask>
+            </defs>
+            <rect width="100" height="100" fill="rgba(0,0,0,0.35)" mask="url(#ovalMask)" />
+            <ellipse cx="50" cy="48" rx="28" ry="38" fill="none" stroke={GOLD} strokeWidth="0.4" strokeDasharray="1.5 1.5" opacity="0.9" />
+          </svg>
+
+          {/* Lighting + tip pill */}
+          <div className="scan-mobile-topbar">
+            <span className="scan-mobile-pill">
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: lightingColor, boxShadow: `0 0 6px ${lightingColor}` }} />
+              {lightingLabel}
+            </span>
+            <span className="scan-mobile-pill scan-mobile-pill-muted">Card flat · horizontal</span>
+          </div>
+
+          {countdown !== null && (
+            <div className="scan-mobile-countdown" aria-live="assertive">{countdown}</div>
+          )}
+        </div>
+
+        <div className="scan-mobile-controls">
+          <button
+            type="button"
+            className="scan-shutter"
+            aria-label="Capture photo"
+            onClick={performCapture}
+            disabled={!ready || busy || countdown !== null}
+          >
+            <span className="scan-shutter-inner" />
+          </button>
+          <div className="scan-mobile-secondary">
+            <button type="button" onClick={countdown !== null ? cancelTimer : startTimer} disabled={!ready || busy}>
+              {countdown !== null ? "Cancel timer" : "3-second timer"}
+            </button>
+            <Link to={`/${lang}/fit`}>Manual wizard →</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── DESKTOP: contained 4/3 viewport ───
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
       <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
         {[1, 2, 3, 4].map((n) => (
           <span
@@ -554,20 +439,10 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
             }}
           />
         ))}
-        <span
-          style={{
-            marginLeft: 10,
-            color: MUTED,
-            fontFamily: "Barlow, sans-serif",
-            fontSize: "0.7rem",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-          }}
-        >
-          Step 2 of 4 — Position yourself
+        <span style={{ marginLeft: 10, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+          Step 2 of 4 — Capture photo
         </span>
       </div>
-
 
       <div
         className="scan-camera"
@@ -586,161 +461,67 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
           muted
           style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)" }}
         />
-        <canvas
-          ref={overlayRef}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            pointerEvents: "none",
-            transform: "scaleX(-1)",
-          }}
-        />
-        {guideRect && cardState === "misaligned" && (
-          <div
-            role="status"
-            className="scan-rotate-hint"
-            style={{
-              position: "absolute",
-              left: `${guideRect.left}%`,
-              bottom: `calc(${guideRect.bottom}% - 10px)`,
-              width: `${guideRect.width}%`,
-              transform: "translateY(100%)",
-              display: "flex",
-              justifyContent: "center",
-              pointerEvents: "none",
-              zIndex: 3,
-            }}
-          >
-            <span
-              style={{
-                background: "rgba(250, 204, 21, 0.95)",
-                color: BG,
-                fontFamily: "Barlow, sans-serif",
-                fontWeight: 600,
-                fontSize: "0.7rem",
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                padding: "6px 10px",
-                borderRadius: 4,
-                boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                whiteSpace: "nowrap",
-              }}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path
-                  d="M3 12a9 9 0 0 1 15.5-6.2M21 4v5h-5M21 12a9 9 0 0 1-15.5 6.2M3 20v-5h5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Rotate card — lay it horizontally on your forehead
-            </span>
-          </div>
-        )}
+        {/* Oval guide */}
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+        >
+          <defs>
+            <mask id="ovalMaskDesk">
+              <rect width="100" height="100" fill="white" />
+              <ellipse cx="50" cy="50" rx="26" ry="40" fill="black" />
+            </mask>
+          </defs>
+          <rect width="100" height="100" fill="rgba(0,0,0,0.35)" mask="url(#ovalMaskDesk)" />
+          <ellipse cx="50" cy="50" rx="26" ry="40" fill="none" stroke={GOLD} strokeWidth="0.3" strokeDasharray="1.5 1.5" opacity="0.85" />
+        </svg>
+
         <div
           aria-hidden
           style={{
             position: "absolute",
             top: 12,
             right: 12,
-            display: "flex",
+            display: "inline-flex",
             alignItems: "center",
             gap: 8,
+            padding: "5px 10px",
+            borderRadius: 999,
+            background: "rgba(0,0,0,0.55)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            color: "rgba(255,255,255,0.85)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.7rem",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
           }}
         >
-          {(() => {
-            const isOk = cardState === "ok";
-            const isMis = cardState === "misaligned";
-            const bg = isOk
-              ? "rgba(74,222,128,0.18)"
-              : isMis
-                ? "rgba(250,204,21,0.20)"
-                : "rgba(0,0,0,0.55)";
-            const border = isOk
-              ? "rgba(74,222,128,0.6)"
-              : isMis
-                ? "rgba(250,204,21,0.7)"
-                : "rgba(255,255,255,0.15)";
-            const fg = isOk ? "#86efac" : isMis ? "#fde68a" : MUTED;
-            const label = isOk ? "Card ✓ horizontal" : isMis ? "Lay card flat & horizontal" : "No card on forehead";
-            const barColor = isOk ? "#4ade80" : isMis ? "#facc15" : GOLD;
-            return (
-              <span
-                key={`flash-${okFlash}`}
-                className={isOk ? "scan-card-badge scan-card-badge-flash" : "scan-card-badge"}
-                style={{
-                  padding: "4px 8px",
-                  borderRadius: 4,
-                  background: bg,
-                  border: `1px solid ${border}`,
-                  color: fg,
-                  fontFamily: "Barlow, sans-serif",
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  transition:
-                    "background 220ms ease, border-color 220ms ease, color 220ms ease",
-                }}
-              >
-                <span>{label}</span>
-                <span
-                  aria-hidden
-                  style={{
-                    width: 36,
-                    height: 4,
-                    borderRadius: 2,
-                    background: "rgba(255,255,255,0.12)",
-                    overflow: "hidden",
-                    position: "relative",
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "block",
-                      height: "100%",
-                      width: `${cardConfidence}%`,
-                      background: barColor,
-                      transition: "width 240ms ease, background 220ms ease",
-                    }}
-                  />
-                </span>
-                <span
-                  aria-label={`Detection confidence ${cardConfidence}%`}
-                  style={{ minWidth: 28, textAlign: "right", fontVariantNumeric: "tabular-nums" }}
-                >
-                  {cardConfidence}%
-                </span>
-              </span>
-            );
-          })()}
-          <span
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: lightingColor, boxShadow: `0 0 6px ${lightingColor}` }} />
+          {lightingLabel}
+        </div>
+
+        {countdown !== null && (
+          <div
+            aria-live="assertive"
             style={{
-              width: 12,
-              height: 12,
-              borderRadius: "50%",
-              background: lightingColor,
-              boxShadow: `0 0 8px ${lightingColor}`,
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontFamily: "Cormorant Garamond, serif",
+              fontSize: "8rem",
+              fontWeight: 300,
+              color: GOLD,
+              textShadow: "0 4px 24px rgba(0,0,0,0.6)",
+              pointerEvents: "none",
             }}
-          />
-        </div>
-        <div
-          role="status"
-          aria-live="polite"
-          className="fit-coach-pill"
-          data-tone={coachTone}
-        >
-          {hint}
-        </div>
+          >
+            {countdown}
+          </div>
+        )}
       </div>
 
       <figure
@@ -758,72 +539,62 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       >
         <img
           src={fitScanTip}
-          alt="Example: credit card laid flat and horizontal on the forehead, fingers gripping the top edge"
+          alt="Example: credit card laid flat and horizontal on the forehead"
           loading="lazy"
-          style={{
-            width: 96,
-            height: 144,
-            objectFit: "cover",
-            borderRadius: 4,
-            flexShrink: 0,
-            background: "#000",
-          }}
+          style={{ width: 96, height: 144, objectFit: "cover", borderRadius: 4, flexShrink: 0, background: "#000" }}
         />
-        <figcaption
-          style={{
-            fontFamily: "Barlow, sans-serif",
-            fontSize: "0.82rem",
-            lineHeight: 1.5,
-            color: "rgba(255,255,255,0.78)",
-          }}
-        >
-          <strong
-            style={{
-              display: "block",
-              color: GOLD,
-              fontWeight: 500,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              fontSize: "0.7rem",
-              marginBottom: 4,
-            }}
-          >
+        <figcaption style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.82rem", lineHeight: 1.5, color: "rgba(255,255,255,0.78)" }}>
+          <strong style={{ display: "block", color: GOLD, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", fontSize: "0.7rem", marginBottom: 4 }}>
             Like this
           </strong>
           Card flat against the forehead, long edge horizontal across the brow. Hold by the top edge so your fingers don't cover the bottom corners.
         </figcaption>
       </figure>
 
-      <p
-        style={{
-          color: MUTED,
-          fontFamily: "Barlow, sans-serif",
-          fontSize: "0.78rem",
-          textAlign: "center",
-          margin: 0,
-        }}
-      >
+      <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", textAlign: "center", margin: 0 }}>
         {deviceTip}
       </p>
 
-      {cardOk && (
+      <div className="flex flex-col gap-3">
         <button
-          onClick={() => captureFrame()}
+          type="button"
+          onClick={performCapture}
+          disabled={!ready || busy || countdown !== null}
           style={{
-            background: "transparent",
-            border: "none",
-            color: GOLD,
+            background: !ready || busy || countdown !== null ? "rgba(202,164,73,0.3)" : GOLD,
+            color: BG,
             fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
             fontSize: "0.78rem",
-            padding: "8px 0",
-            cursor: "pointer",
-            textDecoration: "underline",
-            alignSelf: "center",
+            padding: "18px 28px",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            border: "none",
+            cursor: !ready || busy || countdown !== null ? "not-allowed" : "pointer",
+            height: 52,
           }}
         >
-          Capture now
+          {busy ? "Analyzing…" : countdown !== null ? `Capturing in ${countdown}…` : "Capture now"}
         </button>
-      )}
+        <button
+          type="button"
+          onClick={countdown !== null ? cancelTimer : startTimer}
+          disabled={!ready || busy}
+          style={{
+            background: "transparent",
+            border: "1px solid hsl(var(--border))",
+            color: "hsl(var(--cream-dim))",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            padding: "12px 0",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            cursor: !ready || busy ? "not-allowed" : "pointer",
+          }}
+        >
+          {countdown !== null ? "Cancel timer" : "Use 3-second timer"}
+        </button>
+      </div>
 
       <details
         className="scan-tips-accordion"
@@ -844,10 +615,10 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
         <ul style={{ marginTop: 10, lineHeight: 1.6, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
           {[
             "Take off your glasses before scanning.",
-            "Lay the card flat on your forehead, long edge horizontal — both long edges must touch skin.",
+            "Lay the card flat on your forehead, long edge horizontal.",
             "Hold the card by its top edge — keep fingers off the bottom corners.",
             "Don't tilt the card or camera; even a small tilt = 3–6 mm error.",
-            "Stand 50–70 cm away and look straight at the lens.",
+            "Look straight at the lens.",
           ].map((t) => (
             <li key={t} style={{ display: "flex", gap: 8 }}>
               <span style={{ color: GOLD, flexShrink: 0 }}>•</span>
@@ -863,7 +634,6 @@ function CameraStep({ lang, onCaptured, onError }: CameraStepProps) {
       >
         Use the manual wizard →
       </Link>
-      {countdown == null ? null : <span style={{ display: "none" }}>{countdown}</span>}
     </div>
   );
 }
