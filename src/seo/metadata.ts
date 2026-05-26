@@ -46,7 +46,7 @@ const organizationJsonLd = {
   name: "Woolet",
   url: SITE_URL,
   description:
-    "AI-fit Italian Mazzucchelli acetate eyewear measured for wide faces (155 mm and above). Three sizes per shape (155 / 158 / 161 mm) plus bespoke (150–172 mm).",
+    "AI-fit Italian Mazzucchelli acetate eyewear measured for wide faces (155 mm+). Two shapes (007 round, 009 square), both 158 mm wide with a 21 mm bridge, plus bespoke (150–172 mm).",
   foundingLocation: "Poland",
   sameAs: ["https://www.instagram.com/woolet.eyewear"],
   contactPoint: {
@@ -61,7 +61,7 @@ const websiteJsonLd = {
   "@type": "WebSite",
   name: "Woolet",
   url: SITE_URL,
-  description: "AI-fit eyewear for wide faces — three sizes per shape, plus bespoke",
+  description: "AI-fit eyewear for wide faces — one precise size (158 mm) per shape, plus bespoke",
   publisher: { "@type": "Organization", name: "Woolet", url: SITE_URL },
 };
 
@@ -70,7 +70,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear`,
-    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. Front widths 155 / 158 / 161 mm for wide faces, plus bespoke 150–172 mm. ${lensSize}.`,
+    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm bridge — engineered for wide faces (155–161 mm). Bespoke 150–172 mm available. ${lensSize}.`,
     brand: { "@type": "Brand", name: "Woolet" },
     image: `${SITE_URL}/og-${model}.png`,
     sku: `WOOLET-${model}`,
@@ -131,9 +131,9 @@ const homeCopy: Record<Lang, Copy> = {
   en: {
     title: "Woolet — AI-Fit Italian Acetate Eyewear for Wide Faces",
     description:
-      "Premium eyewear engineered for wide faces (155 mm+). Italian Mazzucchelli acetate, three measured sizes per shape plus bespoke. From $133 pre-order.",
+      "Premium eyewear engineered for wide faces (155 mm+). Italian Mazzucchelli acetate, one precise size (158 mm) per shape plus bespoke. From $133 pre-order.",
     noscriptHtml: `<h1>Woolet — AI-Fit Eyewear for Wide Faces</h1>
-<p>Woolet makes premium Italian-acetate eyewear engineered for wide faces — temple-to-temple measurements of 155 mm and above. Two shapes (007 round, 009 soft square), each in three measured sizes (155 / 158 / 161 mm), plus a bespoke tier covering 150–172 mm.</p>
+<p>Woolet makes premium Italian-acetate eyewear engineered for wide faces — temple-to-temple measurements of 155 mm and above. Two shapes (007 round, 009 soft square), both built in one precise size: 158 mm front width with a 21 mm keyhole bridge. A bespoke tier covers 150–172 mm.</p>
 <p>Frames are cut from Italian Mazzucchelli cellulose acetate, hand-finished in Italy, with 5-barrel PVD Gunmetal hinges and a 21 mm keyhole bridge engineered for wider noses.</p>
 <p>Pricing: $133 for founding members at pre-order, $190 at full launch. <a href="/en/fit">Run the AI Fit Wizard</a> or measure manually with a <a href="/en/fit/manual">credit card</a>.</p>`,
   },
@@ -192,11 +192,11 @@ export function getMetadata(route: string): RouteMeta {
       route,
       lang,
       {
-        title: "Woolet 007 — Round Italian Acetate Eyewear (155 / 158 / 161 mm)",
+        title: "Woolet 007 — Round Italian Acetate Eyewear (158 mm)",
         description:
-          "The 007 round in Italian Mazzucchelli acetate. Three measured sizes — 155, 158 and 161 mm — engineered for wide faces. From $133 pre-order.",
-        noscriptHtml: `<h1>Woolet 007 — Round, 155 / 158 / 161 mm</h1>
-<p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. Front widths 155, 158 and 161 mm with bridges scaling 19 / 21 / 23 mm. Lens 52 × 52 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
+          "The 007 round in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm bridge — engineered for wide faces. From $133 pre-order.",
+        noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
+<p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Dark Tortoise, Black, Honey. Pre-order $133 for founding members; $190 at full launch. Bespoke 150–172 mm available.</p>`,
       },
       { image: `${SITE_URL}/og-007.png`, type: "product" },
@@ -216,11 +216,11 @@ export function getMetadata(route: string): RouteMeta {
       route,
       lang,
       {
-        title: "Woolet 009 — Soft-Square Italian Acetate (155 / 158 / 161 mm)",
+        title: "Woolet 009 — Soft-Square Italian Acetate (158 mm)",
         description:
-          "The 009 soft-square in Italian Mazzucchelli acetate. Three measured sizes — 155, 158 and 161 mm — engineered for wide faces. From $133 pre-order.",
-        noscriptHtml: `<h1>Woolet 009 — Soft Square, 155 / 158 / 161 mm</h1>
-<p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. Front widths 155, 158 and 161 mm with bridges scaling 19 / 21 / 23 mm. Lens 54 × 50 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
+          "The 009 soft-square in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm bridge — engineered for wide faces. From $133 pre-order.",
+        noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
+<p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 54 × 50 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $133 for founding members; $190 at full launch. Bespoke 150–172 mm available.</p>`,
       },
       { image: `${SITE_URL}/og-009.png`, type: "product" },
@@ -279,9 +279,9 @@ export function getMetadata(route: string): RouteMeta {
   // ----- Collections
   if (path === "/collections/wide-face-glasses") {
     return base(route, lang, {
-      title: "Wide-Face Glasses — Italian Acetate, 155 / 158 / 161 mm | Woolet",
+      title: "Wide-Face Glasses — Italian Acetate, 158 mm | Woolet",
       description:
-        "Wide-face glasses engineered above 155 mm. Italian Mazzucchelli acetate, three measured sizes per shape, plus bespoke. From $133 pre-order.",
+        "Wide-face glasses engineered for 155 mm+. Italian Mazzucchelli acetate, one precise size (158 mm) per shape, plus bespoke. From $133 pre-order.",
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -292,47 +292,45 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Italian Acetate Sunglasses — Mazzucchelli, Made in Italy | Woolet",
       description:
-        "Italian acetate sunglasses cut from Mazzucchelli sheet and hand-finished in Italy. Wide-face sizing from 155 to 161 mm, plus bespoke. From $133 pre-order.",
+        "Italian acetate sunglasses cut from Mazzucchelli sheet and hand-finished in Italy. One precise size (158 mm) per shape for wide faces, plus bespoke 150–172 mm. From $133 pre-order.",
     });
   }
   if (path === "/collections/oversized-sunglasses-men") {
     return base(route, lang, {
-      title: "Oversized Sunglasses for Men — 155 / 158 / 161 mm Italian Acetate | Woolet",
+      title: "Oversized Sunglasses for Men — 158 mm Italian Acetate | Woolet",
       description:
-        "Oversized sunglasses for men, engineered above 155 mm. Italian Mazzucchelli acetate, three measured sizes plus bespoke. From $133 pre-order.",
+        "Oversized sunglasses for men, engineered for 155 mm+ faces. Italian Mazzucchelli acetate, one precise size (158 mm) per shape, plus bespoke. From $133 pre-order.",
     });
   }
   if (path === "/collections/sunglasses-for-big-heads") {
     return base(route, lang, {
-      title: "Sunglasses for Big Heads - 155mm to 161mm | Woolet",
+      title: "Sunglasses for Big Heads - 158 mm + Bespoke | Woolet",
       description:
-        "Sunglasses for big heads and huge heads. Handmade Italian Mazzucchelli acetate in 155, 158, 161mm plus bespoke. Pre-order from $133 (30% off $190).",
-      noscriptHtml: `<h1>Sunglasses for Big Heads - 155mm, 158mm, 161mm + Bespoke</h1>
-<p>Built from the ground up for head circumference 58 to 64 cm and above, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes (Woolet 007 round and 009 soft square), three measured front widths plus bespoke to 172 mm. Pre-order $133 for founding members, $190 at full launch.</p>
+        "Sunglasses for big heads and wide faces. Handmade Italian Mazzucchelli acetate in a precise 158 mm size, plus bespoke 150–172 mm. Pre-order from $133 (30% off $190).",
+      noscriptHtml: `<h1>Sunglasses for Big Heads - 158 mm + Bespoke</h1>
+<p>Built from the ground up for wide faces (155 mm+) and head circumference 58 to 64 cm, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes (Woolet 007 round and 009 soft square), one precise 158 mm width plus bespoke up to 172 mm. Pre-order $133 for founding members, $190 at full launch.</p>
 <h2>The problem with standard sunglasses</h2>
 <ul>
   <li>Frames pinch at the temples within an hour.</li>
   <li>Arms too short to reach behind the ears.</li>
   <li>Lenses sit too close to the eyes and look undersized.</li>
 </ul>
-<p>Standard eyewear maxes out around 145 to 148 mm of front width. Woolet starts at 155 mm and runs to 161 mm, with bespoke covering anything up to 172 mm. Bridge scales with each size: 19, 21, 23 mm. Temples 150 mm standard, up to 155 mm bespoke.</p>
-<h2>Size chart</h2>
+<p>Standard eyewear maxes out around 145 to 148 mm of front width. Woolet starts at 158 mm with a 21 mm bridge, and bespoke covers anything from 150 to 172 mm. Temples 150 mm standard, up to 155 mm bespoke.</p>
+<h2>Size guide</h2>
 <table>
-  <thead><tr><th>Head circumference</th><th>Recommended frame width</th></tr></thead>
+  <thead><tr><th>Face / head measurement</th><th>Recommended frame</th></tr></thead>
   <tbody>
-    <tr><td>58 to 60 cm</td><td>155 mm</td></tr>
-    <tr><td>60 to 62 cm</td><td>158 mm</td></tr>
-    <tr><td>62 to 64 cm</td><td>161 mm</td></tr>
-    <tr><td>above 64 cm</td><td>Bespoke (up to 172 mm)</td></tr>
+    <tr><td>Face width 155–161 mm (head 58–62 cm)</td><td>Woolet 158 mm</td></tr>
+    <tr><td>Face width 150–154 mm or 162–172 mm (head 56–58 cm or 62 cm+)</td><td>Bespoke</td></tr>
   </tbody>
 </table>
 <h2>Frequently asked</h2>
 <h3>How many mm is considered wide for sunglasses?</h3>
-<p>Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet starts at 155 mm and runs to 161 mm, with bespoke up to 172 mm. The first number printed inside the temple is lens width, not front width.</p>
+<p>Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm, with bespoke up to 172 mm. The first number printed inside the temple is lens width, not front width.</p>
 <h3>What head circumference is considered big?</h3>
-<p>Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet sizes map directly to these ranges.</p>
+<p>Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm covers most XL heads; bespoke handles XXL.</p>
 <h3>Where do you buy sunglasses for big heads?</h3>
-<p>Specialist makers like Woolet design from 155 mm front width upward. Mass-market brands mostly cap at 145 to 148 mm even on oversized models, so the lenses are larger but the front is the same.</p>
+<p>Specialist makers like Woolet design at 158 mm front width with bespoke above. Mass-market brands mostly cap at 145 to 148 mm even on oversized models, so the lenses are larger but the front is the same.</p>
 <h3>Can I get sunglasses custom-made for my head size?</h3>
 <p>Yes. Bespoke covers 150 to 172 mm of front width in either shape, with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.</p>
 <h3>Are Woolet sunglasses polarized?</h3>

@@ -1108,11 +1108,11 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>How Woolet sizes apply to an oval face</h2>
 
-<p>Woolet ships each shape in three measured sizes — 155, 158 and 161 mm — with a bespoke tier from 150 to 172 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the <a href="/en/fit">AI Fit Wizard</a> or the <a href="/en/fit/manual">credit-card method</a>, pick the size, then choose between shapes on aesthetic preference.</p>
+<p>Woolet ships each shape in one precise size — 158 mm front width with a 21 mm keyhole bridge — and a bespoke tier from 150 to 172 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the <a href="/en/fit">AI Fit Wizard</a> or the <a href="/en/fit/manual">credit-card method</a> to confirm 158 mm is right for you, then choose between shapes on aesthetic preference.</p>
 
 <h3>Woolet 007 round / panto</h3>
 
-<p>The classic oval-face round. At 155, 158 or 161 mm, the round shape softens the face without dominating it. The keyhole bridge keeps the lens sitting at the right height even on faces with a higher cheekbone line.</p>
+<p>The classic oval-face round. At 158 mm with a 21 mm keyhole bridge, the round shape softens the face without dominating it. The keyhole bridge keeps the lens sitting at the right height even on faces with a higher cheekbone line.</p>
 
 <h3>Woolet 009 soft square</h3>
 

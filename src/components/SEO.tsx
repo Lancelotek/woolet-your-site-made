@@ -25,7 +25,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "Woolet",
   url: SITE_URL,
-  description: "AI-fit Italian Mazzucchelli acetate eyewear measured for wide faces (155 mm and above). Three sizes per shape (155 / 158 / 161 mm) plus bespoke (150–172 mm).",
+  description: "AI-fit Italian Mazzucchelli acetate eyewear measured for wide faces (155 mm+). Two shapes (007 round, 009 square), both 158 mm wide with a 21 mm bridge, plus a bespoke tier from 150 to 172 mm.",
   foundingLocation: "Poland",
   sameAs: [
     "https://www.instagram.com/woolet.eyewear",

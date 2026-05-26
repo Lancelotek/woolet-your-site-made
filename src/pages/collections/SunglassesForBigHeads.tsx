@@ -10,15 +10,15 @@ const CANONICAL = `${SITE}/en${PATH}`;
 const faqs = [
   {
     q: "How many mm is considered wide for sunglasses?",
-    a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet starts at 155 mm and runs to 161 mm in standard sizes, with bespoke up to 172 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
+    a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm front width with a 21 mm bridge, and bespoke covers 150 to 172 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
   },
   {
     q: "What head circumference is considered big?",
-    a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet sizes map to these ranges: 155 mm front for 58 to 60 cm, 158 mm for 60 to 62 cm, 161 mm for 62 to 64 cm, and bespoke above 64 cm.",
+    a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm fits most XL heads (face width 155 to 161 mm). Outside that range, bespoke handles XS-wide and XXL faces from 150 to 172 mm.",
   },
   {
     q: "Where do you buy sunglasses for big heads?",
-    a: "Specialist makers like Woolet design from 155 mm front width upward. Mass-market brands mostly cap at 145 to 148 mm even on their oversized models, so the lenses are larger but the front is the same. If your temples pinch, you need a larger front, not a larger lens.",
+    a: "Specialist makers like Woolet design at 158 mm front width with bespoke above. Mass-market brands mostly cap at 145 to 148 mm even on their oversized models, so the lenses are larger but the front is the same. If your temples pinch, you need a larger front, not a larger lens.",
   },
   {
     q: "Can I get sunglasses custom-made for my head size?",
@@ -35,10 +35,8 @@ const faqs = [
 ];
 
 const sizeRows = [
-  { hc: "58 to 60 cm", w: "155 mm" },
-  { hc: "60 to 62 cm", w: "158 mm" },
-  { hc: "62 to 64 cm", w: "161 mm" },
-  { hc: "above 64 cm", w: "Bespoke (up to 172 mm)" },
+  { hc: "Face width 155 to 161 mm (head 58 to 62 cm)", w: "Woolet 158 mm (standard)" },
+  { hc: "Face width 150 to 154 mm or 162 to 172 mm", w: "Bespoke (made to measure)" },
 ];
 
 const SunglassesForBigHeads = () => {
@@ -57,7 +55,7 @@ const SunglassesForBigHeads = () => {
     "@type": "CollectionPage",
     name: "Sunglasses for Big Heads",
     description:
-      "Sunglasses for big heads in 155, 158 and 161 mm front width, plus bespoke to 172 mm. Italian Mazzucchelli acetate, handmade, from $133 pre-order.",
+      "Sunglasses for big heads in one precise 158 mm front width, plus bespoke from 150 to 172 mm. Italian Mazzucchelli acetate, handmade, from $133 pre-order.",
     url: CANONICAL,
     inLanguage: "en",
     isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE },
@@ -78,8 +76,8 @@ const SunglassesForBigHeads = () => {
   return (
     <>
       <SEO
-        title="Sunglasses for Big Heads - 155mm to 161mm | Woolet"
-        description="Sunglasses for big heads and huge heads. Handmade Italian Mazzucchelli acetate in 155, 158, 161mm plus bespoke. Pre-order from $133 (30% off $190)."
+        title="Sunglasses for Big Heads - 158 mm + Bespoke | Woolet"
+        description="Sunglasses for big heads and wide faces. Handmade Italian Mazzucchelli acetate in a precise 158 mm size, plus bespoke 150–172 mm. Pre-order from $133 (30% off $190)."
         lang="en"
         path={PATH}
         jsonLd={[collectionLd, breadcrumbLd, faqLd]}
@@ -98,13 +96,13 @@ const SunglassesForBigHeads = () => {
         {/* Hero */}
         <header style={{ ...wrap, padding: "24px 20px 8px" }}>
           <div style={{ display: "inline-block", fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", color: "#A07A2A", border: "1px solid #D9C9A8", padding: "4px 10px", borderRadius: 2, marginBottom: 14 }}>
-            155 / 158 / 161 mm + Bespoke
+            158 mm + Bespoke
           </div>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 38, lineHeight: 1.1, margin: "0 0 14px" }}>
-            Sunglasses for Big Heads - 155mm, 158mm, 161mm + Bespoke
+            Sunglasses for Big Heads - 158 mm + Bespoke
           </h1>
           <p style={{ fontSize: 15, lineHeight: 1.65, color: "#333", margin: "0 0 18px" }}>
-            Built from the ground up for head circumference 58 to 64 cm and above, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes, three measured fronts plus bespoke to 172 mm.
+            Built from the ground up for wide faces (155 mm+) and head circumference 58 to 62 cm, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes, one precise 158 mm front plus bespoke up to 172 mm.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <a href="#size-finder" style={{ background: "#111", color: "#F8F6F1", padding: "11px 20px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2 }}>
@@ -133,26 +131,26 @@ const SunglassesForBigHeads = () => {
             ))}
           </div>
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "#444", margin: 0 }}>
-            Standard eyewear maxes out around 145 to 148 mm of front width. Woolet starts at 155 mm and runs to 161 mm, with bespoke covering anything up to 172 mm.
+            Standard eyewear maxes out around 145 to 148 mm of front width. Woolet's standard is 158 mm with a 21 mm keyhole bridge, and bespoke covers anything from 150 to 172 mm.
           </p>
         </section>
 
         {/* Product grid */}
         <section aria-label="Featured frames" style={{ ...wrap, padding: "28px 20px" }}>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 26, margin: "0 0 14px" }}>
-            Two shapes, three sizes
+            Two shapes, one precise size
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
             {[
-              { id: "007", name: "Woolet 007 - Round", href: "/en/products/007", alt: "Woolet 007 round sunglasses for big heads - 155 to 161mm" },
-              { id: "009", name: "Woolet 009 - Soft Square", href: "/en/products/009", alt: "Woolet 009 square sunglasses for big heads - 155 to 161mm" },
+              { id: "007", name: "Woolet 007 - Round", href: "/en/products/007", alt: "Woolet 007 round sunglasses for big heads - 158 mm" },
+              { id: "009", name: "Woolet 009 - Soft Square", href: "/en/products/009", alt: "Woolet 009 square sunglasses for big heads - 158 mm" },
             ].map((p) => (
               <Link key={p.id} to={p.href} aria-label={p.alt} style={{ display: "block", padding: "18px 16px", background: "#FFF", border: "1px solid #E0D5C5", borderRadius: 6, textDecoration: "none", color: "#111" }}>
                 <div style={{ fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", color: "#A07A2A", marginBottom: 6 }}>
                   Sun variant available
                 </div>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 20, marginBottom: 6 }}>{p.name}</div>
-                <div style={{ fontSize: 12, color: "#666", marginBottom: 12 }}>155 / 158 / 161 mm</div>
+                <div style={{ fontSize: 12, color: "#666", marginBottom: 12 }}>158 mm · 21 mm bridge</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                   <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 17 }}>$133</span>
                   <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
@@ -169,20 +167,19 @@ const SunglassesForBigHeads = () => {
         <section id="size-finder" style={{ background: "#1A1612", color: "#F8F6F1", padding: "32px 20px" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 28, margin: "0 0 16px", color: "#F8F6F1" }}>
-              Find your size in 3 steps
+              Find your fit in 2 steps
             </h2>
             <ol style={{ paddingLeft: 18, margin: "0 0 18px", color: "#DCD3C0", fontSize: 14, lineHeight: 1.7 }}>
-              <li>Measure your head circumference at the widest point, just above the ears.</li>
-              <li>Match the measurement to the chart below.</li>
-              <li>If you are above 64 cm, choose bespoke.</li>
+              <li>Measure your face width temple to temple (or use the AI Fit scan).</li>
+              <li>If your face is 155–161 mm, the standard 158 mm fits. Outside that range, choose bespoke.</li>
             </ol>
 
             <div style={{ overflowX: "auto", marginBottom: 16 }}>
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, color: "#F8F6F1", minWidth: 320 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #3A3530" }}>
-                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Head circumference</th>
-                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Frame width</th>
+                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Your measurement</th>
+                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Recommended frame</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -215,8 +212,8 @@ const SunglassesForBigHeads = () => {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14 }}>
             {[
               { t: "Italian Mazzucchelli acetate", b: "Cellulose acetate sheet from the same Italian supplier used by major luxury houses. Holds its set under heat, unlike injection-moulded TR-90." },
-              { t: "Sized for big heads from day one", b: "Three measured fronts at 155, 158 and 161 mm. Bridge scales with each size: 19, 21, 23 mm. Temples 150 mm standard, up to 155 mm bespoke." },
-              { t: "Bespoke above 161 mm", b: "Custom fronts from 150 to 172 mm in either shape. Same material, same finishing, made to your measurement." },
+              { t: "Sized for big heads from day one", b: "One precise front at 158 mm with a 21 mm bridge — engineered, not retrofitted. Temples 150 mm standard, up to 155 mm bespoke." },
+              { t: "Bespoke outside 155–161 mm", b: "Custom fronts from 150 to 172 mm in either shape. Same material, same finishing, made to your measurement." },
             ].map((c) => (
               <div key={c.t} style={{ background: "#FFF", border: "1px solid #E0D5C5", padding: "16px 14px", borderRadius: 4 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, marginBottom: 8 }}>{c.t}</div>
@@ -236,10 +233,10 @@ const SunglassesForBigHeads = () => {
               <strong>Oversized.</strong> Larger lenses on a standard 138 to 148 mm front. Looks bigger, fits the same.
             </p>
             <p style={{ margin: "0 0 8px" }}>
-              <strong>Big-head specific.</strong> Larger front and bridge, not just larger lenses. Woolet 161 mm has a 23 mm bridge; most oversized frames stay at 18 to 20 mm.
+              <strong>Big-head specific.</strong> Larger front and bridge, not just larger lenses. Woolet's 158 mm front pairs with a 21 mm keyhole bridge; most oversized frames stay at 18 to 20 mm.
             </p>
             <p style={{ margin: 0 }}>
-              <strong>Volume options.</strong> Fatheadz and similar specialists focus on plastic injection at one or two widths. Woolet is acetate, three widths, plus bespoke.
+              <strong>Bespoke option.</strong> Fatheadz and similar specialists focus on plastic injection at one or two widths. Woolet is acetate at 158 mm, with bespoke from 150 to 172 mm.
             </p>
           </div>
         </section>

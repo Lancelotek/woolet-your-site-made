@@ -22,10 +22,7 @@ const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
 
 type Step = "intro" | "consent" | "capture" | "result" | "saved" | "reserved";
 type CardType = "credit" | "library" | "id" | "cardless" | "unknown";
-type Sku =
-  | "007-S" | "007-M" | "007-L"
-  | "009-S" | "009-M" | "009-L"
-  | "bespoke";
+type Sku = "007" | "009" | "bespoke";
 
 interface Measurement {
   faceWidthMm: number;
@@ -45,20 +42,15 @@ const TRUST_COPY: Record<CardType, string> = {
 };
 
 const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: number; bridgeMm: number; range: string }> = {
-  "007-S": { shape: "Round / Panto", widthMm: 155, bridgeMm: 21, range: "152–155 mm" },
-  "007-M": { shape: "Round / Panto", widthMm: 158, bridgeMm: 22, range: "155–161 mm" },
-  "007-L": { shape: "Round / Panto", widthMm: 161, bridgeMm: 23, range: "161–168 mm" },
-  "009-S": { shape: "Soft Square",   widthMm: 155, bridgeMm: 21, range: "152–155 mm" },
-  "009-M": { shape: "Soft Square",   widthMm: 158, bridgeMm: 22, range: "155–161 mm" },
-  "009-L": { shape: "Soft Square",   widthMm: 161, bridgeMm: 23, range: "161–168 mm" },
+  "007": { shape: "Round / Panto", widthMm: 158, bridgeMm: 21, range: "155–161 mm" },
+  "009": { shape: "Soft Square",   widthMm: 158, bridgeMm: 21, range: "155–161 mm" },
 };
 
+// Single-size catalog: one 158 mm width with a 21 mm bridge.
+// Faces outside the 155–161 mm sweet spot are routed to Bespoke (150–172 mm).
 const recommendSku = (faceWidthMm: number): Sku => {
-  if (faceWidthMm < 152) return "bespoke";
-  if (faceWidthMm < 155) return "009-S";
-  if (faceWidthMm < 161) return "009-M";
-  if (faceWidthMm <= 168) return "009-L";
-  return "bespoke";
+  if (faceWidthMm < 155 || faceWidthMm > 161) return "bespoke";
+  return "009";
 };
 
 const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
@@ -583,11 +575,11 @@ function CaptureStep({
       // mock measurement (Phase 2 — same every time per spec §11)
       setTimeout(() => {
         const m: Measurement = {
-          faceWidthMm: 162,
-          bridgeMm: 22,
+          faceWidthMm: 158,
+          bridgeMm: 21,
           pdMm: 66,
           cardType: "credit",
-          recommendedSku: recommendSku(162),
+          recommendedSku: recommendSku(158),
           confidence: 0.96,
         };
         onComplete(m);
@@ -854,12 +846,8 @@ const FOUNDING_TOTAL = 100;
 // Stable per-SKU "claimed" counts — tuned high to feel like late-stage
 // scarcity without crossing 100. Update with real numbers when available.
 const FOUNDING_CLAIMED: Record<string, number> = {
-  "007-S": 71,
-  "007-M": 84,
-  "007-L": 68,
-  "009-S": 73,
-  "009-M": 81,
-  "009-L": 77,
+  "007": 78,
+  "009": 81,
 };
 
 type FomoVariant = "A" | "B";
@@ -1108,7 +1096,7 @@ function ResultStep({
   }
 
   const sku = SKU_DETAIL[measurement.recommendedSku];
-  const altLabel = measurement.recommendedSku.startsWith("009")
+  const altLabel = measurement.recommendedSku === "009"
     ? "Show me the other shape (007 round) →"
     : "Show me the other shape (009 soft square) →";
 
@@ -1259,7 +1247,7 @@ function ResultStep({
         <button
           onClick={() => {
             const from = measurement.recommendedSku;
-            const to = (from.startsWith("009") ? from.replace("009", "007") : from.replace("007", "009")) as Sku;
+            const to: Sku = from === "009" ? "007" : "009";
             pushEvent("fit_result_sku_swapped", { from_sku: from, to_sku: to });
             onSwapShape();
           }}
@@ -1704,9 +1692,8 @@ export default function FitWizard() {
     const source = params.get("source") || "scan";
     const noseRaw = Number(params.get("nose_width"));
     const noseValid = noseRaw >= 28 && noseRaw <= 60 ? noseRaw : null;
-    const baseBridge = fw < 155 ? 21 : fw < 161 ? 22 : 23;
-    // Wider bridge for wider noses (alar ≥ 40mm) — keyhole bridge can scale up by 1mm.
-    const bridgeMm = noseValid && noseValid >= 40 ? Math.min(23, baseBridge + 1) : baseBridge;
+    // Single-size catalog: bridge is fixed at 21 mm (keyhole geometry doesn't scale with this run).
+    const bridgeMm = 21;
     const m: Measurement = {
       faceWidthMm: fw,
       bridgeMm,
@@ -1779,9 +1766,7 @@ export default function FitWizard() {
   const swapShape = useCallback(() => {
     setMeasurement((m) => {
       if (!m || m.recommendedSku === "bespoke") return m;
-      const swapped = (m.recommendedSku.startsWith("009")
-        ? m.recommendedSku.replace("009", "007")
-        : m.recommendedSku.replace("007", "009")) as Sku;
+      const swapped: Sku = m.recommendedSku === "009" ? "007" : "009";
       return { ...m, recommendedSku: swapped };
     });
   }, []);
@@ -1789,11 +1774,11 @@ export default function FitWizard() {
   const onCardlessFallback = useCallback(() => {
     // TODO: Phase 4 Auglio cardless integration
     const m: Measurement = {
-      faceWidthMm: 162,
-      bridgeMm: 22,
+      faceWidthMm: 158,
+      bridgeMm: 21,
       pdMm: 66,
       cardType: "cardless",
-      recommendedSku: recommendSku(162),
+      recommendedSku: recommendSku(158),
       confidence: 0.88,
     };
     setMeasurement(m);
