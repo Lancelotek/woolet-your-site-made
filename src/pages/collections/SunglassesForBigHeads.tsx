@@ -55,7 +55,7 @@ const SunglassesForBigHeads = () => {
     "@type": "CollectionPage",
     name: "Sunglasses for Big Heads",
     description:
-      "Sunglasses for big heads in 155, 158 and 161 mm front width, plus bespoke to 172 mm. Italian Mazzucchelli acetate, handmade, from $133 pre-order.",
+      "Sunglasses for big heads in one precise 158 mm front width, plus bespoke from 150 to 172 mm. Italian Mazzucchelli acetate, handmade, from $133 pre-order.",
     url: CANONICAL,
     inLanguage: "en",
     isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE },
