@@ -1112,7 +1112,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>Woolet 007 round / panto</h3>
 
-<p>The classic oval-face round. At 155, 158 or 161 mm, the round shape softens the face without dominating it. The keyhole bridge keeps the lens sitting at the right height even on faces with a higher cheekbone line.</p>
+<p>The classic oval-face round. At 158 mm with a 21 mm keyhole bridge, the round shape softens the face without dominating it. The keyhole bridge keeps the lens sitting at the right height even on faces with a higher cheekbone line.</p>
 
 <h3>Woolet 009 soft square</h3>
 
