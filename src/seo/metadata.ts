@@ -216,11 +216,11 @@ export function getMetadata(route: string): RouteMeta {
       route,
       lang,
       {
-        title: "Woolet 009 — Soft-Square Italian Acetate (155 / 158 / 161 mm)",
+        title: "Woolet 009 — Soft-Square Italian Acetate (158 mm)",
         description:
-          "The 009 soft-square in Italian Mazzucchelli acetate. Three measured sizes — 155, 158 and 161 mm — engineered for wide faces. From $133 pre-order.",
-        noscriptHtml: `<h1>Woolet 009 — Soft Square, 155 / 158 / 161 mm</h1>
-<p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. Front widths 155, 158 and 161 mm with bridges scaling 19 / 21 / 23 mm. Lens 54 × 50 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
+          "The 009 soft-square in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm bridge — engineered for wide faces. From $133 pre-order.",
+        noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
+<p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 54 × 50 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $133 for founding members; $190 at full launch. Bespoke 150–172 mm available.</p>`,
       },
       { image: `${SITE_URL}/og-009.png`, type: "product" },
