@@ -354,6 +354,8 @@ function CaptureStep({
   const tiltGammaRef = useRef(0);
   const faceDistanceRef = useRef(0); // face width / video width (0..1)
   const faceDetectedRef = useRef(false);
+  /** Image-space bounding box of the face from MediaPipe — used to locate temple/cheek ROIs. */
+  const faceBoxRef = useRef<{ left: number; right: number; top: number; bottom: number } | null>(null);
   const startedAtRef = useRef(Date.now());
   const cardDetectedAtRef = useRef<number | null>(null);
   const completedRef = useRef(false);
@@ -401,14 +403,125 @@ function CaptureStep({
     return () => clearInterval(t);
   }, []);
 
-  /* mock card detection — flips true 4s after camera mount */
+  /* real card detection — scans the temple/cheek regions for a vertical card edge */
   useEffect(() => {
-    const t = setTimeout(() => {
-      cardDetectedAtRef.current = Date.now();
-      setChecks((c) => ({ ...c, card: true }));
-      pushEvent("fit_card_detected", { card_orientation: "vertical", card_type: "credit" });
-    }, 4000);
-    return () => clearTimeout(t);
+    let cancelled = false;
+    let intervalId: number | null = null;
+
+    const SAMPLE_W = 96;
+    const SAMPLE_H = 128;
+    const sample = document.createElement("canvas");
+    sample.width = SAMPLE_W;
+    sample.height = SAMPLE_H;
+    const sctx = sample.getContext("2d", { willReadFrequently: true });
+
+    // Hold-to-confirm: card must be present for ~600 ms before we flip the check.
+    let firstSeenAt: number | null = null;
+    let lastSeenAt = 0;
+
+    const scanSide = (
+      v: HTMLVideoElement,
+      side: "left" | "right",
+      face: { left: number; right: number; top: number; bottom: number },
+    ): boolean => {
+      if (!sctx) return false;
+      const vw = v.videoWidth;
+      const vh = v.videoHeight;
+      if (!vw || !vh) return false;
+
+      const faceW = face.right - face.left;
+      const faceH = face.bottom - face.top;
+      if (faceW < 40 || faceH < 60) return false;
+
+      // ROI: a vertical band just outside the temple, ~40% of face width wide,
+      // covering eyebrow → mid-cheek vertically. The card lives here when held
+      // flat against the cheek per the instructions.
+      const roiW = Math.min(vw * 0.5, faceW * 0.55);
+      const roiH = Math.min(vh * 0.9, faceH * 0.75);
+      const roiY = Math.max(0, face.top + faceH * 0.05);
+      const roiX = side === "left"
+        ? Math.max(0, face.left - roiW * 0.95)
+        : Math.min(vw - roiW, face.right - roiW * 0.05);
+      const ew = Math.min(roiW, vw - roiX);
+      const eh = Math.min(roiH, vh - roiY);
+      if (ew < 40 || eh < 60) return false;
+
+      try {
+        sctx.drawImage(v, roiX, roiY, ew, eh, 0, 0, SAMPLE_W, SAMPLE_H);
+      } catch {
+        return false;
+      }
+      let data: Uint8ClampedArray;
+      try {
+        data = sctx.getImageData(0, 0, SAMPLE_W, SAMPLE_H).data;
+      } catch {
+        return false;
+      }
+
+      const lum = new Float32Array(SAMPLE_W * SAMPLE_H);
+      for (let i = 0; i < SAMPLE_W * SAMPLE_H; i++) {
+        const o = i * 4;
+        lum[i] = 0.299 * data[o] + 0.587 * data[o + 1] + 0.114 * data[o + 2];
+      }
+
+      // For each column, accumulate |dL/dx| with neighbour pixels — strong
+      // contiguous vertical edge = card's long edge against skin/background.
+      let bestColScore = 0;
+      let bestColCount = 0;
+      for (let x = 1; x < SAMPLE_W - 1; x++) {
+        let strong = 0;
+        let sum = 0;
+        for (let y = 0; y < SAMPLE_H; y++) {
+          const g = Math.abs(lum[y * SAMPLE_W + (x + 1)] - lum[y * SAMPLE_W + (x - 1)]);
+          sum += g;
+          if (g > 18) strong++;
+        }
+        const score = sum / SAMPLE_H;
+        if (score > bestColScore) {
+          bestColScore = score;
+          bestColCount = strong;
+        }
+      }
+
+      // Also require that the strongest column spans most of the ROI height
+      // (a continuous vertical edge), not just a few specular pixels.
+      const spanOk = bestColCount >= SAMPLE_H * 0.55;
+      const strengthOk = bestColScore >= 10;
+      return spanOk && strengthOk;
+    };
+
+    intervalId = window.setInterval(() => {
+      if (cancelled || completedRef.current) return;
+      const v = videoRef.current;
+      const face = faceBoxRef.current;
+      if (!v || v.readyState < 2 || !face) return;
+
+      const detected = scanSide(v, "left", face) || scanSide(v, "right", face);
+      const now = Date.now();
+      if (detected) {
+        if (firstSeenAt === null) firstSeenAt = now;
+        lastSeenAt = now;
+        if (now - firstSeenAt >= 600 && cardDetectedAtRef.current === null) {
+          cardDetectedAtRef.current = now;
+          setChecks((c) => (c.card ? c : { ...c, card: true }));
+          pushEvent("fit_card_detected", { card_orientation: "vertical", card_type: "credit" });
+        }
+      } else {
+        // Allow short dropouts (≤700 ms) before we mark the card as gone.
+        if (cardDetectedAtRef.current !== null && now - lastSeenAt > 700) {
+          cardDetectedAtRef.current = null;
+          firstSeenAt = null;
+          setChecks((c) => (c.card ? { ...c, card: false } : c));
+        } else if (cardDetectedAtRef.current === null) {
+          firstSeenAt = null;
+        }
+      }
+    }, 220) as unknown as number;
+
+    return () => {
+      cancelled = true;
+      if (intervalId !== null) window.clearInterval(intervalId);
+    };
   }, []);
 
   /* MediaPipe Face Mesh — real head-tilt + face-distance detection */
@@ -469,9 +582,22 @@ function CaptureStep({
                 if (lm.length > 454) {
                   const faceW = Math.abs(lm[454].x - lm[234].x);
                   faceDistanceRef.current = faceW; // ~0.25–0.45 at arm's length
+
+                  // Face bounding box in IMAGE pixels — consumed by the
+                  // temple/cheek card detector to locate the ROI.
+                  const vw = v.videoWidth;
+                  const vh = v.videoHeight;
+                  if (vw && vh) {
+                    const left = Math.min(lm[234].x, lm[454].x) * vw;
+                    const right = Math.max(lm[234].x, lm[454].x) * vw;
+                    const top = (lm[10]?.y ?? Math.min(a.y, b.y)) * vh;
+                    const bottom = (lm[152]?.y ?? Math.max(a.y, b.y) + 0.25) * vh;
+                    faceBoxRef.current = { left, right, top, bottom };
+                  }
                 }
               } else {
                 faceDetectedRef.current = false;
+                faceBoxRef.current = null;
               }
             } catch {
               /* transient — keep last known values */
