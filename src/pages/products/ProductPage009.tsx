@@ -92,8 +92,8 @@ const ProductPage009 = () => {
   return (
     <>
       <Helmet>
-        <title>Woolet 009 — Square Acetate Frame, 158mm Wide Face</title>
-        <meta name="description" content="Woolet 009 square acetate frame. 158mm width, 21mm bridge, 148mm temples. Mazzucchelli acetate from Italy. Precision-engineered for 155mm+ face widths." />
+        <title>Woolet 009 — Square Acetate Glasses, 158 mm Wide</title>
+        <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $133 pre-order, $190 retail." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
       </Helmet>
 
