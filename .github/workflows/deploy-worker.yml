@@ -34,3 +34,4 @@ jobs:
         working-directory: workers/route-server
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 6e2377e85905f57eaf81dedc95c49020
