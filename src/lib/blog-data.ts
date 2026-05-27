@@ -15,8 +15,8 @@ export interface BlogPost {
 const blogPostsEN: BlogPost[] = [
   {
     slug: "glasses-for-wide-faces-guide",
-    title: "The Definitive Guide to Glasses for Wide Faces (2026)",
-    excerpt: "How to find glasses that actually fit wide faces (155 mm+). Frame width math, bridge fit, temple length, and the best 158 mm options.",
+    title: "Glasses for Wide Faces (2026) — Sizing & Fit Guide",
+    excerpt: "What counts as a wide face, how to measure, and which frame widths actually fit. 155 mm+ buyer's guide.",
     date: "2026-03-09",
     readTime: 14,
     tags: ["Guide", "Wide Face", "2026"],
@@ -227,8 +227,8 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "how-to-measure-face-width-for-glasses",
-    title: "How to Measure Your Face Width for Glasses (The Right Way)",
-    excerpt: "Learn exactly how to measure your face width for glasses in 3 steps. Understand mm sizing, bridge width, and why most 'wide' frames stop at 148mm — and what to do if your face is 155mm+.",
+    title: "How to Measure Face Width for Glasses (Step-by-Step)",
+    excerpt: "Measure your face width at home with a credit card or ruler. Find your correct frame size in under a minute.",
     date: "2026-03-08",
     readTime: 9,
     tags: ["How-to", "Measurement", "Fit"],

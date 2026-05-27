@@ -94,8 +94,8 @@ const ProductPage007 = () => {
   return (
     <>
       <Helmet>
-        <title>Woolet 007 — Round Acetate Frame, 158mm Wide Face</title>
-        <meta name="description" content="Woolet 007 round acetate frame. 158mm width, 21mm bridge, 148mm temples. Mazzucchelli acetate from Italy. Built for wide faces that standard frames cannot fit." />
+        <title>Woolet 007 — Round Panto Acetate Glasses, 158 mm</title>
+        <meta name="description" content="Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $133 pre-order." />
         <link rel="canonical" href="https://woolet.co/en/products/007" />
       </Helmet>
 

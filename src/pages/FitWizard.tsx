@@ -1918,8 +1918,8 @@ export default function FitWizard() {
   return (
     <>
       <SEO
-        title="Find Your Fit — Woolet AI Face Measurement"
-        description="Scan your face. See your size. Reserve your fit for $1. Sub-millimeter AI measurement of face width, nose bridge, and PD. For wide faces 152–168 mm."
+        title="AI Face-Width Scanner — Find Your Glasses Size | Woolet"
+        description="Measure your face width in 30 seconds with a credit card and your camera. Confirms whether 158 mm fits."
         lang={lang}
         path="/fit"
       />
