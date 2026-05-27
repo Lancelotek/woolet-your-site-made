@@ -129,9 +129,9 @@ type Copy = { title: string; description: string; noscriptHtml?: string };
 
 const homeCopy: Record<Lang, Copy> = {
   en: {
-    title: "Woolet — AI-Fit Italian Acetate Eyewear for Wide Faces",
+    title: "Woolet — Italian Acetate Eyewear for Wide Faces",
     description:
-      "Premium eyewear engineered for wide faces (155 mm+). Italian Mazzucchelli acetate, one precise size (158 mm) per shape plus bespoke. From $133 pre-order.",
+      "AI-fit Mazzucchelli acetate glasses for 155 mm+ faces. 158 mm front, 21 mm bridge. From $133 pre-order.",
     noscriptHtml: `<h1>Woolet — AI-Fit Eyewear for Wide Faces</h1>
 <p>Woolet makes premium Italian-acetate eyewear engineered for wide faces — temple-to-temple measurements of 155 mm and above. Two shapes (007 round, 009 soft square), both built in one precise size: 158 mm front width with a 21 mm keyhole bridge. A bespoke tier covers 150–172 mm.</p>
 <p>Frames are cut from Italian Mazzucchelli cellulose acetate, hand-finished in Italy, with 5-barrel PVD Gunmetal hinges and a 21 mm keyhole bridge engineered for wider noses.</p>
