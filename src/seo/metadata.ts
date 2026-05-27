@@ -297,16 +297,16 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/oversized-sunglasses-men") {
     return base(route, lang, {
-      title: "Oversized Sunglasses for Men — 158 mm Italian Acetate | Woolet",
+      title: "Oversized Sunglasses for Men — 158 mm Wide Fit | Woolet",
       description:
-        "Oversized sunglasses for men, engineered for 155 mm+ faces. Italian Mazzucchelli acetate, one precise size (158 mm) per shape, plus bespoke. From $133 pre-order.",
+        "Properly oversized men's sunglasses: 158 mm front, 21 mm bridge, Italian acetate. Built for 155 mm+ faces.",
     });
   }
   if (path === "/collections/sunglasses-for-big-heads") {
     return base(route, lang, {
-      title: "Sunglasses for Big Heads - 158 mm + Bespoke | Woolet",
+      title: "Sunglasses for Big Heads — 158 mm, Italian Acetate | Woolet",
       description:
-        "Sunglasses for big heads and wide faces. Handmade Italian Mazzucchelli acetate in a precise 158 mm size, plus bespoke 150–172 mm. Pre-order from $133 (30% off $190).",
+        "Sunglasses that actually fit big heads. 158 mm front, 21 mm bridge, hand-finished Mazzucchelli acetate.",
       noscriptHtml: `<h1>Sunglasses for Big Heads - 158 mm + Bespoke</h1>
 <p>Built from the ground up for wide faces (155 mm+) and head circumference 58 to 64 cm, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes (Woolet 007 round and 009 soft square), one precise 158 mm width plus bespoke up to 172 mm. Pre-order $133 for founding members, $190 at full launch.</p>
 <h2>The problem with standard sunglasses</h2>
