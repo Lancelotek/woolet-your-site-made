@@ -62,3 +62,4 @@ curl -sI https://woolet.co/en/products/009 | grep x-route-source
 curl -sI https://www.woolet.co/ | grep -E "^HTTP|^location"
 curl -s https://woolet.co/ | grep -c "lovable.app"   # expect 0
 ```
+
