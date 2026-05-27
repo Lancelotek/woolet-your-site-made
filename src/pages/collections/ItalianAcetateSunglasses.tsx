@@ -5,8 +5,8 @@ const ItalianAcetateSunglasses = () => (
     slug="italian-acetate-sunglasses"
     h1="Italian Acetate Sunglasses — Mazzucchelli, Hand-Finished"
     breadcrumbName="Italian Acetate Sunglasses"
-    metaTitle="Italian Acetate Sunglasses — Mazzucchelli, Made in Italy | Woolet"
-    metaDescription="Italian acetate sunglasses cut from Mazzucchelli sheet and hand-finished in Italy. One precise size (158 mm) per shape for wide faces, plus bespoke 150–172 mm. From $133 pre-order."
+    metaTitle="Italian Acetate Sunglasses — Mazzucchelli, 158 mm | Woolet"
+    metaDescription="Handmade Italian Mazzucchelli acetate sunglasses for wide faces. Round and square. UV400. From $133."
     intro="Mazzucchelli has been producing cellulose acetate in Castiglione Olona since 1849. Its sheet stock is the material most luxury eyewear houses cut from — denser, more colour-stable and easier to hand-finish than the injection-moulded plastic that dominates the rest of the market. Woolet's sunglasses are cut from that stock and finished in Italy, in one precise 158 mm size per shape."
     whyThisFits={[
       "There is a real difference between <em>acetate-look</em> plastic and cellulose acetate from a named Italian mill. Mazzucchelli sheet is made in batches, cured for weeks, and produces a frame that holds its shape across hot car interiors and cold mornings without flexing into the temples.",
