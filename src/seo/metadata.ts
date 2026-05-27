@@ -279,9 +279,9 @@ export function getMetadata(route: string): RouteMeta {
   // ----- Collections
   if (path === "/collections/wide-face-glasses") {
     return base(route, lang, {
-      title: "Wide-Face Glasses — Italian Acetate, 158 mm | Woolet",
+      title: "Wide-Face Glasses — 158 mm Italian Acetate Frames | Woolet",
       description:
-        "Wide-face glasses engineered for 155 mm+. Italian Mazzucchelli acetate, one precise size (158 mm) per shape, plus bespoke. From $133 pre-order.",
+        "Glasses engineered for 155 mm+ faces. Two shapes, 158 mm front, 21 mm bridge. Hand-finished Mazzucchelli acetate.",
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -290,9 +290,9 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/italian-acetate-sunglasses") {
     return base(route, lang, {
-      title: "Italian Acetate Sunglasses — Mazzucchelli, Made in Italy | Woolet",
+      title: "Italian Acetate Sunglasses — Mazzucchelli, 158 mm | Woolet",
       description:
-        "Italian acetate sunglasses cut from Mazzucchelli sheet and hand-finished in Italy. One precise size (158 mm) per shape for wide faces, plus bespoke 150–172 mm. From $133 pre-order.",
+        "Handmade Italian Mazzucchelli acetate sunglasses for wide faces. Round and square. UV400. From $133.",
     });
   }
   if (path === "/collections/oversized-sunglasses-men") {
