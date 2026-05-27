@@ -4,8 +4,8 @@ compatibility_date = "2026-05-01"
 
 [[routes]]
 pattern = "woolet.co/*"
-zone_name = "woolet.co"
+zone_id = "e4ce380390bd8003062fd0a55cb9e62d"
 
 [[routes]]
 pattern = "www.woolet.co/*"
-zone_name = "woolet.co"
+zone_id = "e4ce380390bd8003062fd0a55cb9e62d"
