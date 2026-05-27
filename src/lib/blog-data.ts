@@ -15,8 +15,8 @@ export interface BlogPost {
 const blogPostsEN: BlogPost[] = [
   {
     slug: "glasses-for-wide-faces-guide",
-    title: "The Definitive Guide to Glasses for Wide Faces (2026)",
-    excerpt: "How to find glasses that actually fit wide faces (155 mm+). Frame width math, bridge fit, temple length, and the best 158 mm options.",
+    title: "Glasses for Wide Faces (2026) — Sizing & Fit Guide",
+    excerpt: "What counts as a wide face, how to measure, and which frame widths actually fit. 155 mm+ buyer's guide.",
     date: "2026-03-09",
     readTime: 14,
     tags: ["Guide", "Wide Face", "2026"],
