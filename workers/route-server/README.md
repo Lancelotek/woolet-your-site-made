@@ -55,6 +55,7 @@ needed).
 
 ## Verify (after deploy)
 
+
 ```bash
 curl -s https://woolet.co/en/products/009 | grep "<title>"
 curl -s https://woolet.co/en/products/009 | grep -o '"@type":"Product"'
