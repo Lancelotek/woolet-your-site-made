@@ -392,21 +392,33 @@ export function getMetadata(route: string): RouteMeta {
     const slug = blogMatch[1];
     const post = getBlogPosts(lang).find((p) => p.slug === slug);
     if (post) {
+      const ogImage = post.image
+        ? (post.image.startsWith("http") ? post.image : `${SITE_URL}${post.image.startsWith("/") ? post.image : `/${post.image}`}`)
+        : `${SITE_URL}/og-${post.slug}.png`;
       return base(
         route,
         lang,
         {
           title: `${post.title} | Woolet`,
           description: post.excerpt,
-          noscriptHtml: `<h1>${escapeHtml(post.title)}</h1><p>${escapeHtml(post.excerpt)}</p>`,
+          // Inject the full article body so Googlebot / ChatGPT-User / no-JS
+          // crawlers receive real content in the first response, not the SPA
+          // shell. Helmet on the client hydrates the same head on top.
+          noscriptHtml: `<article>
+<h1>${escapeHtml(post.title)}</h1>
+<p><em>${escapeHtml(post.excerpt)}</em></p>
+<p><small>Published ${escapeHtml(post.date)} · ${post.readTime} min read</small></p>
+${post.content}
+</article>`,
         },
-        { type: "article" },
+        { type: "article", image: ogImage },
         [
           {
             "@context": "https://schema.org",
             "@type": "Article",
             headline: post.title,
             description: post.excerpt,
+            image: ogImage,
             url: `${SITE_URL}${route}`,
             datePublished: post.date,
             dateModified: post.date,
