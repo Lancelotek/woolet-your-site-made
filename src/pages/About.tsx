@@ -6,8 +6,8 @@ const About = () => {
   return (
     <>
       <SEO
-        title="About Woolet — AI-Precision Eyewear for Wide Faces"
-        description="Italian-acetate AI-fit eyewear for wide faces (155mm+). Founded 2026 by JAY23 LLC. Not the discontinued Woolet smart wallet (2014–2016)."
+        title="About Woolet — Eyewear Built for Wide Faces"
+        description="Why we make one precise size (158 mm) in Italian Mazzucchelli acetate. Founder story, factory, fit philosophy."
         lang="en"
         path="/about"
       />
