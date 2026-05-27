@@ -238,9 +238,9 @@ export function getMetadata(route: string): RouteMeta {
   // ----- About
   if (path === "/about") {
     return base(route, lang, {
-      title: "About Woolet — AI-Precision Eyewear for Wide Faces",
+      title: "About Woolet — Eyewear Built for Wide Faces",
       description:
-        "Italian-acetate AI-fit eyewear for wide faces (155 mm+). Founded 2026 by JAY23 LLC. Not the discontinued Woolet smart wallet (2014–2016).",
+        "Why we make one precise size (158 mm) in Italian Mazzucchelli acetate. Founder story, factory, fit philosophy.",
       noscriptHtml: `<h1>About Woolet</h1>
 <p>Woolet is an eyewear brand founded in 2026 by JAY23 LLC. We design and manufacture Italian-acetate frames engineered specifically for wide faces (155 mm and above). The brand is unrelated to the discontinued Woolet smart wallet (2014–2016).</p>`,
     });
