@@ -63,3 +63,4 @@ curl -sI https://www.woolet.co/ | grep -E "^HTTP|^location"
 curl -s https://woolet.co/ | grep -c "lovable.app"   # expect 0
 ```
 
+
