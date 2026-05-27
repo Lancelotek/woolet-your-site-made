@@ -5,8 +5,8 @@ const WideFaceGlasses = () => (
     slug="wide-face-glasses"
     h1="Wide-Face Glasses Built for 155 mm+ Temples"
     breadcrumbName="Wide-Face Glasses"
-    metaTitle="Wide-Face Glasses — Italian Acetate, 158 mm | Woolet"
-    metaDescription="Wide-face glasses engineered for 155 mm+ faces. Italian Mazzucchelli acetate, one precise size (158 mm) per shape, plus bespoke. From $133 pre-order."
+    metaTitle="Wide-Face Glasses — 158 mm Italian Acetate Frames | Woolet"
+    metaDescription="Glasses engineered for 155 mm+ faces. Two shapes, 158 mm front, 21 mm bridge. Hand-finished Mazzucchelli acetate."
     intro="Most premium eyewear stops at 148 mm. Woolet starts at 158 mm. Each shape — the 007 round and the 009 soft square — is offered in one precise off-the-shelf size (158 mm front with a 21 mm bridge), plus a bespoke tier from 150 to 172 mm. All cut from Italian Mazzucchelli acetate and hand-finished in Italy."
     whyThisFits={[
       "The eyewear industry runs on a 130–148 mm bell curve. If your temples sit at 155 mm or above, mainstream <em>wide</em> frames are still narrow — they pinch, leave marks, and slide forward through the day. The fix is not adjustment. The fix is a frame engineered for your width from the first sketch.",
