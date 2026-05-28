@@ -23,50 +23,7 @@ interface SEOProps {
 const SITE_URL = "https://woolet.co";
 const OG_IMAGE = "https://woolet.co/og-image.png";
 
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Woolet",
-  url: SITE_URL,
-  description: "AI-fit Italian Mazzucchelli acetate eyewear measured for wide faces (155 mm+). Two shapes (007 round, 009 square), both 158 mm wide with a 21 mm bridge, plus a bespoke tier from 150 to 172 mm.",
-  foundingLocation: "Poland",
-  sameAs: [
-    "https://www.instagram.com/woolet.eyewear",
-  ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "hello@woolet.co",
-    contactType: "customer service",
-  },
-};
-
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Woolet",
-  url: SITE_URL,
-  description: "AI-fit eyewear for wide faces - one precise size (158 mm) per shape, plus bespoke",
-};
-
-const productJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: "Woolet Eyewear for Wide Faces — AI-Fit",
-  description: "Italian Mazzucchelli acetate glasses measured for wide faces (155 mm+). Two shapes (007 round, 009 square), both 158 mm wide with a 21 mm bridge, plus a bespoke tier from 150 to 172 mm.",
-  brand: { "@type": "Brand", name: "Woolet" },
-  image: OG_IMAGE,
-  offers: {
-    "@type": "Offer",
-    availability: "https://schema.org/PreOrder",
-    priceCurrency: "USD",
-    price: "99",
-    priceValidUntil: "2026-12-31",
-    url: "https://woolet.co/en",
-    seller: { "@type": "Organization", name: "Woolet" },
-  },
-  material: "Italian Mazzucchelli Acetate",
-  audience: { "@type": "PeopleAudience", suggestedGender: "unisex" },
-};
+// Organization, WebSite, and Product JSON-LD live in index.html as the single source.
 
 const geoMeta: Record<string, { region: string; placename: string }> = {
   en: { region: "US", placename: "United States" },
@@ -91,7 +48,7 @@ const SEO = ({
 }: SEOProps) => {
   const fullTitle = title.includes("Woolet") ? title : `${title} | Woolet`;
   const canonical = `${SITE_URL}/${lang}${path}`;
-  const isHomepage = path === "" || path === "/";
+  const geo = geoMeta[lang] || geoMeta.en;
   const geo = geoMeta[lang] || geoMeta.en;
   const ogImage = image
     ? (image.startsWith("http") ? image : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`)
