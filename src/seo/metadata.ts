@@ -344,6 +344,39 @@ export function getMetadata(route: string): RouteMeta {
       { name: "Sunglasses for Big Heads", url: `${SITE_URL}${route}` },
     ])]);
   }
+  if (path === "/collections/glasses-for-big-heads") {
+    return base(route, lang, {
+      title: "Glasses for Big Heads — 158 mm Italian Acetate | Woolet",
+      description:
+        "Prescription-ready optical frames for big heads. 158 mm front, 21 mm bridge, Italian Mazzucchelli acetate. Bespoke 150–172 mm.",
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Glasses for Big Heads", url: `${SITE_URL}${route}` },
+    ])]);
+  }
+  if (path === "/collections/extra-wide-glasses") {
+    return base(route, lang, {
+      title: "Extra Wide Glasses — 158 mm Italian Acetate Frames | Woolet",
+      description:
+        "Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21 mm bridge, Italian Mazzucchelli acetate. Bespoke 150–172 mm.",
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Extra Wide Glasses", url: `${SITE_URL}${route}` },
+    ])]);
+  }
+  if (path === "/collections/wide-bridge-glasses") {
+    return base(route, lang, {
+      title: "Wide Bridge Glasses — 21 mm Keyhole Bridge, Acetate | Woolet",
+      description:
+        "Wide bridge glasses for wider noses: 21 mm keyhole bridge, 158 mm front, Italian Mazzucchelli acetate. Bespoke bridge 16–26 mm.",
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Wide Bridge Glasses", url: `${SITE_URL}${route}` },
+    ])]);
+  }
 
   // ----- Landing pages
   if (path === "/lp/why-glasses-fail") {
@@ -469,6 +502,9 @@ const STATIC_ROUTES = [
   "/en/collections/italian-acetate-sunglasses",
   "/en/collections/oversized-sunglasses-men",
   "/en/collections/sunglasses-for-big-heads",
+  "/en/collections/glasses-for-big-heads",
+  "/en/collections/extra-wide-glasses",
+  "/en/collections/wide-bridge-glasses",
   "/en/lp/why-glasses-fail",
   "/en/lp/5-reasons",
   "/en/privacy-policy",

@@ -30,6 +30,9 @@ const WideFaceGlasses = lazy(() => import("./pages/collections/WideFaceGlasses.t
 const ItalianAcetateSunglasses = lazy(() => import("./pages/collections/ItalianAcetateSunglasses.tsx"));
 const OversizedSunglassesMen = lazy(() => import("./pages/collections/OversizedSunglassesMen.tsx"));
 const SunglassesForBigHeads = lazy(() => import("./pages/collections/SunglassesForBigHeads.tsx"));
+const GlassesForBigHeads = lazy(() => import("./pages/collections/GlassesForBigHeads.tsx"));
+const ExtraWideGlasses = lazy(() => import("./pages/collections/ExtraWideGlasses.tsx"));
+const WideBridgeGlasses = lazy(() => import("./pages/collections/WideBridgeGlasses.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -80,6 +83,9 @@ const App = () => (
           <Route path="/en/collections/italian-acetate-sunglasses" element={<ItalianAcetateSunglasses />} />
           <Route path="/en/collections/oversized-sunglasses-men" element={<OversizedSunglassesMen />} />
           <Route path="/en/collections/sunglasses-for-big-heads" element={<SunglassesForBigHeads />} />
+          <Route path="/en/collections/glasses-for-big-heads" element={<GlassesForBigHeads />} />
+          <Route path="/en/collections/extra-wide-glasses" element={<ExtraWideGlasses />} />
+          <Route path="/en/collections/wide-bridge-glasses" element={<WideBridgeGlasses />} />
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
