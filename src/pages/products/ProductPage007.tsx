@@ -97,6 +97,15 @@ const ProductPage007 = () => {
         <title>Woolet 007 — Round Panto Acetate Glasses, 158 mm</title>
         <meta name="description" content="Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $133 pre-order." />
         <link rel="canonical" href="https://woolet.co/en/products/007" />
+        <meta property="og:type" content="product" />
+        <meta property="og:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
+        <meta property="og:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for 155 mm+ faces. From $133 pre-order." />
+        <meta property="og:url" content="https://woolet.co/en/products/007" />
+        <meta property="og:image" content="https://woolet.co/og-007.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
+        <meta name="twitter:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide. From $133 pre-order." />
+        <meta name="twitter:image" content="https://woolet.co/og-007.png" />
       </Helmet>
 
       <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif" }}>
@@ -278,9 +287,9 @@ const ProductPage007 = () => {
         {/* 3. Spec table */}
         <div style={{ background: "#1A1612", padding: "16px 20px" }}>
           <div style={{ maxWidth: 680, margin: "0 auto" }}>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>
+            <h2 style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10, marginTop: 0 }}>
               Specifications
-            </div>
+            </h2>
             {specs.map(([key, val], i) => (
               <div
                 key={i}

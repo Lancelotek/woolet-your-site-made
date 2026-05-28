@@ -290,14 +290,14 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/italian-acetate-sunglasses") {
     return base(route, lang, {
-      title: "Italian Acetate Sunglasses — Mazzucchelli, 158 mm | Woolet",
+      title: "Italian Acetate Sunglasses — 158 mm | Woolet",
       description:
         "Handmade Italian Mazzucchelli acetate sunglasses for wide faces. Round and square. UV400. From $133.",
     });
   }
   if (path === "/collections/oversized-sunglasses-men") {
     return base(route, lang, {
-      title: "Oversized Sunglasses for Men — 158 mm Wide Fit | Woolet",
+      title: "Oversized Men's Sunglasses — 158 mm Wide | Woolet",
       description:
         "Properly oversized men's sunglasses: 158 mm front, 21 mm bridge, Italian acetate. Built for 155 mm+ faces.",
     });

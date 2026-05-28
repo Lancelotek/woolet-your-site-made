@@ -12,7 +12,7 @@ const Footer = () => {
       style={{ borderTopColor: 'hsl(0 0% 100% / 0.055)' }}>
       <div className="flex flex-col items-center md:items-start gap-1.5">
         <div className="flex items-center gap-3">
-          <img src={wooletLogo} alt="Woolet" className="h-6" />
+          <img src={wooletLogo} alt="Woolet eyewear logo" className="h-6" />
           <span className="text-cream-dim opacity-40 tracking-wider" style={{ fontSize: '0.57rem' }}>
             {t(lang, "footer.rights")}
           </span>
