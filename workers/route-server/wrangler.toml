@@ -1,3 +1,14 @@
 name = "woolet-route-server"
 main = "src/index.ts"
 compatibility_date = "2026-05-01"
+
+# Bind Worker to the apex + www zones so all traffic hits the edge
+# route-server before the Lovable origin. Both routes must exist in the
+# Cloudflare zone for woolet.co (zone is auto-resolved from the hostname).
+[[routes]]
+pattern = "woolet.co/*"
+zone_name = "woolet.co"
+
+[[routes]]
+pattern = "www.woolet.co/*"
+zone_name = "woolet.co"
