@@ -40,21 +40,7 @@ export type RouteMeta = {
 // Shared JSON-LD blocks
 // ---------------------------------------------------------------------------
 
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Woolet",
-  url: SITE_URL,
-  description:
-    "AI-fit Italian Mazzucchelli acetate eyewear measured for wide faces (155 mm+). Two shapes (007 round, 009 square), both 158 mm wide with a 21 mm bridge, plus bespoke (150–172 mm).",
-  foundingLocation: "Poland",
-  sameAs: ["https://www.instagram.com/woolet.eyewear"],
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "hello@woolet.co",
-    contactType: "customer service",
-  },
-};
+// Organization JSON-LD lives in index.html (single source) — do not duplicate here.
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
