@@ -95,6 +95,15 @@ const ProductPage009 = () => {
         <title>Woolet 009 — Square Acetate Glasses, 158 mm Wide</title>
         <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $133 pre-order, $190 retail." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
+        <meta property="og:type" content="product" />
+        <meta property="og:title" content="Woolet 009 — Square Acetate Glasses, 158 mm Wide" />
+        <meta property="og:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $133 pre-order, $190 retail." />
+        <meta property="og:url" content="https://woolet.co/en/products/009" />
+        <meta property="og:image" content="https://woolet.co/og-009.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Woolet 009 — Square Acetate Glasses, 158 mm Wide" />
+        <meta name="twitter:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, $133 pre-order." />
+        <meta name="twitter:image" content="https://woolet.co/og-009.png" />
       </Helmet>
 
       <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif" }}>
@@ -228,7 +237,7 @@ const ProductPage009 = () => {
         {/* 3. Spec table */}
         <div style={{ background: "#1A1612", padding: "16px 20px" }}>
           <div style={{ maxWidth: 680, margin: "0 auto" }}>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>Specifications</div>
+            <h2 style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10, marginTop: 0 }}>Specifications</h2>
             {specs.map(([key, val], i) => (
               <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: i < specs.length - 1 ? "1px solid #2A2520" : "none", fontSize: 11 }}>
                 <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, color: "#7A7570" }}>{key}</span>

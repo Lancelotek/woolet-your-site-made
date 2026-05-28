@@ -137,7 +137,7 @@ const Index = () => {
           className="font-display text-woolet-white leading-[0.95]"
           style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
         >
-          <em className="italic text-gold-light">Measured</em> for you.
+          <em className="italic text-gold-light">Measured</em> for you — AI-Fit Eyewear for Wide Faces
         </h1>
       ) : (
         <div
@@ -145,7 +145,7 @@ const Index = () => {
           className="font-display text-woolet-white leading-[0.95]"
           style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
         >
-          <em className="italic text-gold-light">Measured</em> for you.
+          <em className="italic text-gold-light">Measured</em> for you — AI-Fit Eyewear for Wide Faces
         </div>
       )}
 

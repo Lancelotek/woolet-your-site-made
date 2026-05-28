@@ -19,7 +19,7 @@ const Navbar = () => {
       >
         <div className="flex items-center">
           <Link to={`/${lang}`} className="flex items-center no-underline">
-            <img src={wooletLogo} alt="Woolet" className="h-8" />
+            <img src={wooletLogo} alt="Woolet eyewear logo" className="h-8" />
           </Link>
         </div>
 

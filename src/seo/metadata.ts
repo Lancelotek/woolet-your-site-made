@@ -40,21 +40,7 @@ export type RouteMeta = {
 // Shared JSON-LD blocks
 // ---------------------------------------------------------------------------
 
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Woolet",
-  url: SITE_URL,
-  description:
-    "AI-fit Italian Mazzucchelli acetate eyewear measured for wide faces (155 mm+). Two shapes (007 round, 009 square), both 158 mm wide with a 21 mm bridge, plus bespoke (150–172 mm).",
-  foundingLocation: "Poland",
-  sameAs: ["https://www.instagram.com/woolet.eyewear"],
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "hello@woolet.co",
-    contactType: "customer service",
-  },
-};
+// Organization JSON-LD lives in index.html (single source) — do not duplicate here.
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -172,7 +158,7 @@ function base(route: string, lang: Lang, copy: Copy, og: Partial<RouteMeta["og"]
       type: og.type || "website",
       locale: ogLocale(lang),
     },
-    jsonLd: [organizationJsonLd, ...jsonLd],
+    jsonLd: jsonLd,
     noscriptHtml: copy.noscriptHtml,
   };
 }
@@ -290,14 +276,14 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/italian-acetate-sunglasses") {
     return base(route, lang, {
-      title: "Italian Acetate Sunglasses — Mazzucchelli, 158 mm | Woolet",
+      title: "Italian Acetate Sunglasses — 158 mm | Woolet",
       description:
         "Handmade Italian Mazzucchelli acetate sunglasses for wide faces. Round and square. UV400. From $133.",
     });
   }
   if (path === "/collections/oversized-sunglasses-men") {
     return base(route, lang, {
-      title: "Oversized Sunglasses for Men — 158 mm Wide Fit | Woolet",
+      title: "Oversized Men's Sunglasses — 158 mm Wide | Woolet",
       description:
         "Properly oversized men's sunglasses: 158 mm front, 21 mm bridge, Italian acetate. Built for 155 mm+ faces.",
     });

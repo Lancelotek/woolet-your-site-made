@@ -75,7 +75,7 @@ const ProductFAQ = ({ productId }: ProductFAQProps) => {
   return (
     <div style={{ background: "#F8F6F1", padding: 20, marginTop: 0 }}>
       <div style={{ maxWidth: 680, margin: "0 auto" }}>
-        <div
+        <h2
           style={{
             fontFamily: "'Barlow', sans-serif",
             fontWeight: 500,
@@ -84,10 +84,11 @@ const ProductFAQ = ({ productId }: ProductFAQProps) => {
             color: "#888888",
             textTransform: "uppercase",
             marginBottom: 14,
+            marginTop: 0,
           }}
         >
-          FAQ
-        </div>
+          Frequently Asked Questions
+        </h2>
 
         {faqItems.map((item, i) => {
           const isOpen = openIndices.includes(i);
