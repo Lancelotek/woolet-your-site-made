@@ -218,6 +218,9 @@ const ListiclePage = () => {
 
           {/* Issue cards */}
           <div style={{ padding: "10px 20px 0" }}>
+            <h2 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
+              5 reasons standard glasses fail on wide faces
+            </h2>
             {CARDS.map((card) => (
               <div
                 key={card.num}
@@ -292,6 +295,9 @@ const ListiclePage = () => {
 
           {/* CHANGE 5 — Testimonials */}
           <div style={{ padding: "4px 20px 10px" }}>
+            <h2 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
+              What customers say
+            </h2>
             {TESTIMONIALS.map((t, i) => (
               <div
                 key={i}

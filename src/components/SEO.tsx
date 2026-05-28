@@ -157,14 +157,7 @@ const SEO = ({
       <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:site" content="@WooletEyewear" />
 
-      {/* Structured Data — Organization on every page */}
-      <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
-      {isHomepage && (
-        <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
-      )}
-      {isHomepage && (
-        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
-      )}
+      {/* Organization, WebSite, and Product schemas live in index.html (single source) */}
       {articleJsonLd && (
         <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
       )}

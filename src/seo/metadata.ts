@@ -172,7 +172,7 @@ function base(route: string, lang: Lang, copy: Copy, og: Partial<RouteMeta["og"]
       type: og.type || "website",
       locale: ogLocale(lang),
     },
-    jsonLd: [organizationJsonLd, ...jsonLd],
+    jsonLd: jsonLd,
     noscriptHtml: copy.noscriptHtml,
   };
 }
