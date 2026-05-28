@@ -49,7 +49,6 @@ const SEO = ({
   const fullTitle = title.includes("Woolet") ? title : `${title} | Woolet`;
   const canonical = `${SITE_URL}/${lang}${path}`;
   const geo = geoMeta[lang] || geoMeta.en;
-  const geo = geoMeta[lang] || geoMeta.en;
   const ogImage = image
     ? (image.startsWith("http") ? image : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`)
     : OG_IMAGE;
