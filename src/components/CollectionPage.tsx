@@ -189,6 +189,36 @@ const CollectionPage = ({
             </details>
           ))}
         </section>
+
+        {/* Related collections — internal linking for SEO discovery */}
+        <section aria-label="Related collections" style={{ maxWidth: 760, margin: "0 auto", padding: "8px 20px 40px" }}>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, margin: "0 0 12px", color: "#111" }}>
+            Explore related collections
+          </h2>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {[
+              { slug: "wide-face-glasses", label: "Wide-Face Glasses" },
+              { slug: "glasses-for-big-heads", label: "Glasses for Big Heads" },
+              { slug: "extra-wide-glasses", label: "Extra Wide Glasses" },
+              { slug: "wide-bridge-glasses", label: "Wide Bridge Glasses" },
+              { slug: "italian-acetate-sunglasses", label: "Italian Acetate Sunglasses" },
+              { slug: "oversized-sunglasses-men", label: "Oversized Sunglasses for Men" },
+              { slug: "sunglasses-for-big-heads", label: "Sunglasses for Big Heads" },
+            ].filter((c) => c.slug !== slug).map((c) => (
+              <Link
+                key={c.slug}
+                to={`/en/collections/${c.slug}`}
+                style={{
+                  fontSize: 12, color: "#222", padding: "6px 12px",
+                  border: "1px solid #D6CBB6", borderRadius: 999, textDecoration: "none",
+                  background: "#FFF", letterSpacing: "0.3px",
+                }}
+              >
+                {c.label}
+              </Link>
+            ))}
+          </div>
+        </section>
       </main>
       <Footer />
     </>
