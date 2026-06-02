@@ -167,19 +167,6 @@ const Index = () => {
         >
           Scan your face · Reserve for $1
         </a>
-        <p
-          style={{
-            fontFamily: "'Barlow', sans-serif",
-            fontWeight: 300,
-            fontSize: "0.75rem",
-            color: "#7a7570",
-            margin: 0,
-            textAlign: "center",
-          }}
-        >
-          $1 today secures <strong style={{ fontWeight: 600, color: "#9A8E7E" }}>$114</strong> pre-order price <span style={{ textDecoration: "line-through" }}>$190</span>
-        </p>
-
         {/* Tiny waitlist alternative — link to product 007 */}
         <a
           href={`/${lang}/products/007`}
