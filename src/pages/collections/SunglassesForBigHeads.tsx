@@ -286,7 +286,7 @@ const SunglassesForBigHeads = () => {
               Join 4,900+ on the waitlist
             </h2>
             <p style={{ fontSize: 14, color: "#CCC", margin: "0 0 18px" }}>
-              30% off at launch. Pre-order $114 instead of $190.
+              40% off at launch. Pre-order $114 instead of $190.
             </p>
             <Link to="/en#waitlist" style={{ background: "#CAA449", color: "#080807", padding: "12px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 500, display: "inline-block" }}>
               Reserve my pair

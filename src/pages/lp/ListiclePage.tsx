@@ -473,7 +473,7 @@ const ListiclePage = () => {
                       opacity: (!email || !privacyAccepted) ? 0.5 : 1,
                     }}
                   >
-                    {loading ? "SENDING..." : "JOIN THE WAITLIST · 30% OFF AT LAUNCH"}
+                    {loading ? "SENDING..." : "JOIN THE WAITLIST · 40% OFF AT LAUNCH"}
                   </button>
 
                   {/* Subtext */}
@@ -498,7 +498,7 @@ const ListiclePage = () => {
                     You're on the list — check your inbox.
                   </p>
                   <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "rgba(8,8,7,0.55)", marginTop: 6, marginBottom: 0 }}>
-                    30% off + free shipping locked in.
+                    40% off + free shipping locked in.
                   </p>
                 </div>
               )}
