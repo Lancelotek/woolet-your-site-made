@@ -5,6 +5,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
+import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import imgBlack from "@/assets/woolet-009-black.png";
 import imgTortoise from "@/assets/woolet-009-dark-tortoise.png";
 import imgSmoke from "@/assets/woolet-009-smoke-grey.png";
@@ -36,6 +37,8 @@ const benefits = [
 const ProductPage009 = () => {
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState("Black");
+  const [lens, setLens] = useState<LensOption>("clear");
+  const [total, setTotal] = useState(133);
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
 
   useEffect(() => {
@@ -85,8 +88,13 @@ const ProductPage009 = () => {
   }, []);
 
   const handleCTA = () => {
-    pushGtmEvent("add_to_cart", { item_name: "Woolet 009" });
-    navigate("/en#waitlist");
+    pushGtmEvent("add_to_cart", {
+      item_name: "Woolet 009",
+      lens_option: lens,
+      total_price: total,
+    });
+    try { sessionStorage.setItem("woolet_lens_pref", lens); } catch { /* noop */ }
+    navigate(`/en?lens=${lens}#waitlist`);
   };
 
   return (
@@ -169,6 +177,15 @@ const ProductPage009 = () => {
             <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −$57</span>
           </div>
 
+          {total > 133 && (
+            <div style={{ display: "flex", alignItems: "baseline", gap: 8, margin: "-4px 0 14px", fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "#444" }}>
+              <span style={{ letterSpacing: "1.5px", textTransform: "uppercase", fontSize: 9, color: "#888" }}>Your total</span>
+              <span style={{ fontWeight: 600, color: "#A07A2A", fontSize: 15 }}>${total}</span>
+              <span style={{ color: "#888" }}>· {lensLabelFor(lens)}</span>
+            </div>
+          )}
+
+
           {/* Model selector */}
           <div style={{ marginBottom: 14 }}>
             <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>MODEL</div>
@@ -202,6 +219,13 @@ const ProductPage009 = () => {
               ))}
             </div>
           </div>
+
+          {/* Lens upgrade selector */}
+          <LensUpgradeSelector
+            productId="009"
+            basePrice={133}
+            onChange={(opt, t) => { setLens(opt); setTotal(t); }}
+          />
 
           {/* Benefits */}
           <div style={{ background: "#1A1612", borderRadius: 10, padding: "14px 16px", marginBottom: 14 }}>
