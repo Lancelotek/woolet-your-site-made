@@ -333,7 +333,7 @@ export function ReserveModal({
                 </h2>
               </DialogTitle>
               <DialogDescription className="text-cream-dim leading-relaxed" style={{ fontSize: "0.85rem" }}>
-                Refundable any time. Final pre-order price <span className="text-foreground">$133</span> (was $190) — paid only when the Kickstarter launches in October 2026.
+                Refundable any time. Final pre-order price <span className="text-foreground">$114</span> (was $190) — paid only when the Kickstarter launches in October 2026.
               </DialogDescription>
 
               <div
@@ -375,7 +375,7 @@ export function ReserveModal({
                 </h2>
               </DialogTitle>
               <DialogDescription className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>
-                Final pre-order $133 (was $190) ships when the Kickstarter wraps — first deliveries November 2026.
+                Final pre-order $114 (was $190) ships when the Kickstarter wraps — first deliveries November 2026.
                 Check <span className="text-foreground">{email}</span> for confirmation.
               </DialogDescription>
               <button onClick={() => onOpenChange(false)} style={goldBtn}>

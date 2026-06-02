@@ -38,7 +38,7 @@ const CARDS = [
     num: "05",
     tag: "MARKET",
     title: "Premium + 158mm didn't exist before Woolet",
-    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: sporty plastic. Woolet = the only brand combining 158mm with Mazzucchelli acetate in the premium segment. Founding Member: $133 (standard: $190).",
+    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: sporty plastic. Woolet = the only brand combining 158mm with Mazzucchelli acetate in the premium segment. Founding Member: $114 (standard: $190).",
   },
 ];
 
@@ -543,7 +543,7 @@ const ListiclePage = () => {
                   </div>
                   <div>
                     <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Round</p>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from $133</p>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from $114</p>
                   </div>
                 </div>
               </Link>
@@ -562,7 +562,7 @@ const ListiclePage = () => {
                   </div>
                   <div>
                     <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Square</p>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from $133</p>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from $114</p>
                   </div>
                 </div>
               </Link>

@@ -1053,7 +1053,7 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
             pushEvent("fit_pricing_viewed", {
               recommended_sku: sku,
               variant,
-              price_pre_order: 133,
+              price_pre_order: 114,
               price_msrp: 190,
             });
             io.disconnect();
@@ -1195,7 +1195,7 @@ function ResultStep({
     pushEvent("fit_fomo_variant_assigned", {
       variant: fomoVariant,
       recommended_sku: measurement.recommendedSku,
-      price_pre_order: 133,
+      price_pre_order: 114,
       price_msrp: 190,
     });
   }, [measurement, fomoVariant]);

@@ -38,7 +38,7 @@ const ProductPage009 = () => {
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState("Black");
   const [lens, setLens] = useState<LensOption>("clear");
-  const [total, setTotal] = useState(133);
+  const [total, setTotal] = useState(114);
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
 
   useEffect(() => {
@@ -101,16 +101,16 @@ const ProductPage009 = () => {
     <>
       <Helmet>
         <title>Woolet 009 — Square Acetate Glasses, 158 mm Wide</title>
-        <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $133 pre-order, $190 retail." />
+        <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $114 pre-order, $190 retail." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet 009 — Square Acetate Glasses, 158 mm Wide" />
-        <meta property="og:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $133 pre-order, $190 retail." />
+        <meta property="og:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $114 pre-order, $190 retail." />
         <meta property="og:url" content="https://woolet.co/en/products/009" />
         <meta property="og:image" content="https://woolet.co/og-009.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Woolet 009 — Square Acetate Glasses, 158 mm Wide" />
-        <meta name="twitter:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, $133 pre-order." />
+        <meta name="twitter:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, $114 pre-order." />
         <meta name="twitter:image" content="https://woolet.co/og-009.png" />
       </Helmet>
 
@@ -186,9 +186,9 @@ const ProductPage009 = () => {
 
           {/* Price */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "8px 0 14px" }}>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>$133</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>$114</span>
             <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>$190</span>
-            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −$57</span>
+            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −$76</span>
           </div>
 
           {total > 133 && (
@@ -237,7 +237,7 @@ const ProductPage009 = () => {
           {/* Lens upgrade selector */}
           <LensUpgradeSelector
             productId="009"
-            basePrice={133}
+            basePrice={114}
             onChange={(opt, t) => { setLens(opt); setTotal(t); }}
           />
 
@@ -256,7 +256,7 @@ const ProductPage009 = () => {
 
           {/* Primary CTA */}
           <button onClick={handleCTA} style={{ width: "100%", background: "#CAA449", color: "#080807", border: "none", padding: "15px 0", borderRadius: 5, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8 }}>
-            RESERVE FOR $1 — $133 PRE-ORDER →
+            RESERVE FOR $1 — $114 PRE-ORDER →
           </button>
 
           {/* Secondary CTA */}

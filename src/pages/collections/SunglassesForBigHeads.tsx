@@ -55,7 +55,7 @@ const SunglassesForBigHeads = () => {
     "@type": "CollectionPage",
     name: "Sunglasses for Big Heads",
     description:
-      "Sunglasses for big heads in one precise 158 mm front width, plus bespoke from 150 to 172 mm. Italian Mazzucchelli acetate, handmade, from $133 pre-order.",
+      "Sunglasses for big heads in one precise 158 mm front width, plus bespoke from 150 to 172 mm. Italian Mazzucchelli acetate, handmade, from $114 pre-order.",
     url: CANONICAL,
     inLanguage: "en",
     isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE },
@@ -152,7 +152,7 @@ const SunglassesForBigHeads = () => {
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 20, marginBottom: 6 }}>{p.name}</div>
                 <div style={{ fontSize: 12, color: "#666", marginBottom: 12 }}>158 mm · 21 mm bridge</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 17 }}>$133</span>
+                  <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 17 }}>$114</span>
                   <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
                   <span style={{ marginLeft: "auto", fontSize: 10, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>
                     Shop {p.id === "007" ? "Round" : "Square"} →
@@ -286,7 +286,7 @@ const SunglassesForBigHeads = () => {
               Join 4,900+ on the waitlist
             </h2>
             <p style={{ fontSize: 14, color: "#CCC", margin: "0 0 18px" }}>
-              30% off at launch. Pre-order $133 instead of $190.
+              30% off at launch. Pre-order $114 instead of $190.
             </p>
             <Link to="/en#waitlist" style={{ background: "#CAA449", color: "#080807", padding: "12px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 500, display: "inline-block" }}>
               Reserve my pair
