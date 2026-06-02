@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { RotateCcw, Ruler, Package } from "lucide-react";
+import { Ruler } from "lucide-react";
 import heroManImg from "@/assets/hero-man.jpg";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -122,16 +122,7 @@ const Index = () => {
         <span className="woolet-eyebrow-text animate-pulse-gold">AI-FIT · MEASURED FOR YOU</span>
       </div>
 
-      {/* Brand claim — italic gold */}
-      <p
-        className="font-display italic leading-tight"
-        style={{ fontSize: "clamp(1.4rem, 2vw, 1.9rem)", color: "#DBC184", fontWeight: 300 }}
-      >
-        “Standard frames weren’t built for you —<br />
-        and that’s not your problem to solve. It’s ours.”
-      </p>
-
-      {/* Product claim — main H1 (only on the visible/semantic instance) */}
+      {/* Product claim — main H1 */}
       {semantic ? (
         <h1
           className="font-display text-woolet-white leading-[0.95]"
@@ -150,12 +141,12 @@ const Index = () => {
       )}
 
       <p className="text-cream-dim leading-relaxed tracking-wider max-w-xl" style={{ fontSize: "0.88rem" }}>
-        Italian Mazzucchelli acetate. AI-fit precision. Two shapes - both
+        Italian Mazzucchelli acetate. AI-fit precision. Two shapes — both
         <span className="text-foreground"> 158 mm wide</span> with a 21 mm bridge, plus bespoke from 150 mm. For faces 155 mm and above.
       </p>
 
-      {/* SINGLE primary CTA */}
-      <div className="flex flex-col gap-3 pt-2">
+      {/* SINGLE primary CTA + price subline */}
+      <div className="flex flex-col gap-2 pt-2">
         <a
           href={`/${lang}/fit/scan`}
           onClick={() => pushGtmEvent("cta_scan_click", { location: "hero_primary" })}
@@ -176,8 +167,20 @@ const Index = () => {
         >
           Scan your face · Reserve for $1
         </a>
+        <p
+          style={{
+            fontFamily: "'Barlow', sans-serif",
+            fontWeight: 300,
+            fontSize: "0.75rem",
+            color: "#7a7570",
+            margin: 0,
+            textAlign: "center",
+          }}
+        >
+          $1 today secures <strong style={{ fontWeight: 600, color: "#9A8E7E" }}>$114</strong> pre-order price <span style={{ textDecoration: "line-through" }}>$190</span>
+        </p>
 
-        {/* Tiny waitlist alternative — muted gold underlined link */}
+        {/* Tiny waitlist alternative — link to product 007 */}
         <a
           href={`/${lang}/products/007`}
           onClick={() => pushGtmEvent("hero_link_waitlist_click", { source: "hero", dest: "product_007" })}
@@ -199,13 +202,11 @@ const Index = () => {
         </a>
       </div>
 
-      {/* Trust badges row */}
+      {/* Trust badges row — 2 only */}
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap", paddingTop: 6 }}>
         {[
-          { icon: <RotateCcw size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "30-Day Returns" },
           { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Fit Guarantee" },
           { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇮🇹</span>, text: "Italian Mazzucchelli Acetate" },
-          { icon: <Package size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Free Shipping" },
         ].map((item, i) => (
           <span
             key={i}
@@ -224,52 +225,6 @@ const Index = () => {
           </span>
         ))}
       </div>
-
-      {/* Social proof line */}
-      <p
-        style={{
-          fontFamily: "'Barlow', sans-serif",
-          fontWeight: 300,
-          fontSize: "0.8125rem",
-          color: "#7a7570",
-          margin: 0,
-          marginTop: -10,
-        }}
-      >
-        4,900+ on waitlist · only 23/100 reservation spots left
-      </p>
-
-      {/* Price hint — plain text, $1 bold */}
-      <p
-        style={{
-          fontFamily: "'Barlow', sans-serif",
-          fontWeight: 300,
-          fontSize: "0.8125rem",
-          color: "#7a7570",
-          margin: 0,
-          marginTop: -14,
-        }}
-      >
-        Reserve for <strong style={{ fontWeight: 600, color: "#9A8E7E" }}>$1</strong> today · final pre-order price <span style={{ color: "#9A8E7E" }}>$114</span> (was $190)
-      </p>
-
-      {/* See all sizes — text link */}
-      <a
-        href="#collection"
-        onClick={scrollToCollection}
-        style={{
-          fontFamily: "'Barlow', sans-serif",
-          fontWeight: 300,
-          fontSize: "0.8125rem",
-          color: "hsl(var(--gold-dim))",
-          textDecoration: "underline",
-          textUnderlineOffset: "3px",
-          alignSelf: "flex-start",
-          marginTop: -10,
-        }}
-      >
-        See all sizes →
-      </a>
     </div>
   );
 
