@@ -296,7 +296,7 @@ const ProductPage007 = () => {
               fontWeight: 500, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8,
             }}
           >
-            RESERVE FOR $1 — $114 PRE-ORDER →
+            RESERVE FOR $1 — LOCK $114 (−40%) →
           </button>
 
           {/* Secondary CTA */}
