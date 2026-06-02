@@ -178,9 +178,9 @@ const Index = () => {
         </a>
 
         {/* Tiny waitlist alternative — muted gold underlined link */}
-        <button
-          type="button"
-          onClick={openWaitlist}
+        <a
+          href={`/${lang}/products/007`}
+          onClick={() => pushGtmEvent("hero_link_waitlist_click", { source: "hero", dest: "product_007" })}
           className="self-start"
           style={{
             background: "transparent",
@@ -196,7 +196,7 @@ const Index = () => {
           }}
         >
           Not ready? Join the waitlist for 40% off →
-        </button>
+        </a>
       </div>
 
       {/* Trust badges row */}
