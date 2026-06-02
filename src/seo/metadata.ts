@@ -375,6 +375,32 @@ export function getMetadata(route: string): RouteMeta {
       { name: "Wide Bridge Glasses", url: `${SITE_URL}${route}` },
     ])]);
   }
+  if (path === "/collections/oversized-blue-light-glasses") {
+    return base(route, lang, {
+      title: "Oversized Blue Light Glasses — 158 mm Italian Acetate | Woolet",
+      description:
+        "Truly oversized blue light glasses for wide faces (155 mm+). 158 mm front, 21 mm bridge, Italian acetate. HEV 380–460 nm filter lens upgrade.",
+      noscriptHtml: `<h1>Oversized Blue Light Glasses for Wide Faces — 158 mm</h1>
+<p>Truly oversized blue-light glasses for wide faces (155 mm+). Woolet 007 (round) and 009 (soft square) ship at 158 mm front width with a 21 mm keyhole bridge, Italian Mazzucchelli acetate. The HEV 380–460 nm filter is an in-line lens upgrade (+$40), compatible with prescription or plano lenses. Bespoke 150–172 mm available.</p>`,
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Oversized Blue Light Glasses", url: `${SITE_URL}${route}` },
+    ])]);
+  }
+  if (path === "/collections/blue-light-glasses-for-wide-faces") {
+    return base(route, lang, {
+      title: "Blue Light Glasses for Wide Faces — 158 mm | Woolet",
+      description:
+        "Blue light filter glasses for wide faces 155 mm+. 158 mm Italian acetate front, 21 mm bridge. HEV 380–460 nm coating upgrade on 007 / 009.",
+      noscriptHtml: `<h1>Blue Light Glasses for Wide Faces — 158 mm Acetate</h1>
+<p>Blue-light filter glasses designed for wide faces 155 mm+. 158 mm front width, 21 mm keyhole bridge, Italian Mazzucchelli acetate. HEV 380–460 nm filter is a lens upgrade (+$40) on both Woolet 007 and 009. Pairs with prescription or plano lenses. Bespoke 150–172 mm available.</p>`,
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Blue Light Glasses for Wide Faces", url: `${SITE_URL}${route}` },
+    ])]);
+  }
 
   // ----- Landing pages
   if (path === "/lp/why-glasses-fail") {
@@ -503,6 +529,8 @@ const STATIC_ROUTES = [
   "/en/collections/glasses-for-big-heads",
   "/en/collections/extra-wide-glasses",
   "/en/collections/wide-bridge-glasses",
+  "/en/collections/oversized-blue-light-glasses",
+  "/en/collections/blue-light-glasses-for-wide-faces",
   "/en/lp/why-glasses-fail",
   "/en/lp/5-reasons",
   "/en/privacy-policy",

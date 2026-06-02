@@ -1140,6 +1140,147 @@ const blogPostsEN: BlogPost[] = [
 <p>The combination of an oval face and a wider front is one of the easiest to fit once you stop trying to make 140 mm frames work. Start with the size, finish with the shape.</p>
 `,
   },
+  {
+    slug: "do-blue-light-glasses-work-wide-face",
+    title: "Do Blue Light Glasses Actually Work? (Plus What to Do If Your Face Is Wide)",
+    excerpt: "Independent reviews on blue-light lenses, when they help, when they don't, and why the frame width matters more than the coating for 155 mm+ faces.",
+    date: "2026-06-02",
+    readTime: 10,
+    tags: ["Lenses", "Blue Light", "Wide Face"],
+    content: `
+<p>Blue-light glasses have been one of the loudest eyewear trends of the last five years. Search interest for "do blue light glasses work" sits at roughly <strong>18,000 monthly searches</strong> in the US alone. The honest answer is more nuanced than either side of the marketing fight admits — and if your face measures 155 mm or more, there is a second question that gets ignored entirely: <em>can you even get a blue-light frame that fits you?</em></p>
+
+<h2>What blue-light lenses actually do</h2>
+
+<p>Blue-light filter lenses apply a coating (or use a tinted base material) that absorbs a portion of the high-energy visible light spectrum, typically in the <strong>380–460 nm</strong> range. Screens, LED bulbs and daylight all emit blue light in this band. Coatings reduce — they don't eliminate — the amount reaching the retina.</p>
+
+<p>Two things are commonly conflated:</p>
+<ul>
+<li><strong>Glare reduction.</strong> Most blue-light coatings also reduce surface reflections from the lens, so the wearer sees fewer reflections of their own screen and ambient lighting. This is real and easy to notice.</li>
+<li><strong>HEV filtering itself.</strong> This is the claim the marketing is built on: reduced eye strain, better sleep, less retinal stress.</li>
+</ul>
+
+<h2>What the evidence says</h2>
+
+<p>The most cited independent review is the <strong>Cochrane systematic review (2023)</strong>, which pooled 17 randomized trials on blue-light filtering lenses. The headline finding: <em>limited evidence that blue-light blocking lenses provide short-term relief of digital eye strain</em>, and no convincing evidence for long-term retinal protection or sleep improvement at the wavelengths blocked by typical consumer coatings.</p>
+
+<p>That is not the same as "they do nothing." Many users consistently report:</p>
+<ul>
+<li>Less perceived glare during long screen sessions</li>
+<li>More comfortable evening computer or TV use</li>
+<li>Easier transition from work-from-home screens to bedtime</li>
+</ul>
+
+<p>What we can say with confidence: blue-light coatings are <strong>not a placebo for everyone</strong>, but they are also not a medical-grade intervention. They are a comfort feature, similar to an anti-reflective coating, with a marketing layer attached.</p>
+
+<h2>Where the wide-face question comes in</h2>
+
+<p>If you have a face wider than 155 mm, almost every blue-light frame on the market is <em>technically inaccessible to you</em>. Warby Parker's "Wide" tops out around 145 mm. Felix Gray, the most-recognised blue-light specialist brand, sits at 140–148 mm across most models. Pair Eyewear's wide fit lands around 144 mm.</p>
+
+<p>This is the same structural problem Woolet was built to solve for optical and sun lenses: mainstream eyewear caps at 145–148 mm of front width, and "wide" frames simply enlarge the lens cut-out, not the front. The result is the same temple pinch, the same all-day discomfort — only with a blue-light coating on top.</p>
+
+<h2>What we did about it</h2>
+
+<p>Woolet 007 (round) and 009 (soft square) ship at a <strong>158 mm front width with a 21 mm keyhole bridge</strong>. The blue-light filter is available as a <strong>lens upgrade (+$40)</strong> on either model, alongside polarized sunglass lenses (+$60) and a combined polarized + blue-light option (+$80). The same Italian Mazzucchelli acetate frame works for all of them — you choose the lens, not the frame.</p>
+
+<p>For a 155 mm+ face, this collapses two problems (fit and coating) into one purchase, and gets the geometry right before layering on the lens. <a href="/en/collections/oversized-blue-light-glasses">Oversized blue-light glasses for wide faces</a> walks through the size logic in more detail.</p>
+
+<h2>Should you buy a blue-light frame?</h2>
+
+<p>A short decision tree:</p>
+<ol>
+<li><strong>If you work in front of a screen for 8+ hours daily and have noticed eye comfort issues in the evening:</strong> a blue-light coating is a low-risk add-on worth trying. Pair it with a 20-20-20 break habit and a properly-fitted frame.</li>
+<li><strong>If you are looking for medical-grade protection against retinal damage:</strong> the evidence does not support that claim. Discuss with your optometrist instead.</li>
+<li><strong>If your face is 155 mm or wider:</strong> fix the frame first. The most expensive premium blue-light coating on a frame that pinches your temples is the wrong purchase. Start with a frame that fits, then add the coating.</li>
+</ol>
+
+<h2>What to ask a brand before you buy</h2>
+
+<ul>
+<li><strong>What wavelength range is filtered?</strong> A clear lens with HEV filter that filters mostly in the 380–420 nm range is closer to UV-protection than what people picture as a "blue-light" lens.</li>
+<li><strong>Is it a coating or an in-lens tint?</strong> Coatings can scratch off over time on cheap lenses. CR-39 in-lens treatments are more durable.</li>
+<li><strong>What is the total front width of the frame?</strong> The first number on the temple is lens width, not front width. Ask for the hinge-to-hinge measurement. Anything below 150 mm is too narrow for a genuinely wide face.</li>
+<li><strong>Does it pair with my prescription?</strong> Single-vision, progressive and plano lenses should all accept the upgrade.</li>
+</ul>
+
+<h2>The bottom line</h2>
+
+<p>Blue-light glasses are a useful comfort feature with modest, mostly evening-and-glare-related benefits. They are not a medical product. The biggest mistake wide-faced buyers make is not in choosing the wrong coating — it is in buying a frame that doesn't fit, and then blaming the lens when their head still hurts. Get the 158 mm frame first. Then choose the lens.</p>
+
+<p><a href="/en/collections/oversized-blue-light-glasses">Oversized blue-light glasses (158 mm)</a> | <a href="/en/collections/blue-light-glasses-for-wide-faces">Blue-light glasses for wide faces</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+`,
+  },
+  {
+    slug: "best-oversized-sunglasses-big-heads-2026",
+    title: "The Best Oversized Sunglasses for Big Heads (2026 Buyer's Guide)",
+    excerpt: "Real 155 mm+ oversized sunglasses, ranked by fit and material. Polarized options, Cat 3 UV400, and which brands actually scale the front — not just the lens.",
+    date: "2026-06-02",
+    readTime: 11,
+    tags: ["Roundup", "Sunglasses", "Big Heads", "2026"],
+    content: `
+<p>"Oversized" is the most over-used word in the sunglass market. Almost every major brand has an "oversized" line. Almost none of them are actually built for big heads — they enlarge the lens cut-out, keep the front at 138–148 mm, and call it a day. If you've ever bought an "oversized" pair from a mainstream brand and still felt the temples pinch by lunch, you already know.</p>
+
+<p>This guide is for the people who measure 155 mm or more across the temples and want sunglasses that look <em>genuinely</em> proportional — and stay on your head past 3 pm.</p>
+
+<h2>What "oversized for big heads" actually means</h2>
+
+<p>Three measurements decide whether a sunglass frame fits a big head:</p>
+<ul>
+<li><strong>Front width (hinge to hinge).</strong> The headline number. For a 155 mm+ face you want 155 mm or more here. Mainstream "oversized" caps around 145–148 mm.</li>
+<li><strong>Bridge.</strong> 17–19 mm fits a standard nose; 20–22 mm fits the wider noses that usually go with wider faces. A bridge that doesn't scale leaves the lens sitting too high on your cheekbones.</li>
+<li><strong>Temple length.</strong> Standard temples are 140–145 mm. For a big head you want 148–155 mm so the arm reaches behind your ear with room to bend down, not straight out.</li>
+</ul>
+
+<h2>The 2026 shortlist</h2>
+
+<h3>Woolet 007 / 009 — best overall for 155 mm+ faces</h3>
+<p><strong>Front: 158 mm · Bridge: 21 mm · Temples: 150 mm · Material: Italian Mazzucchelli acetate · Lens: CR-39 Cat 3 polarized upgrade ($60), or polarized + blue-light combo ($80) · Price: $133 pre-order, $190 launch</strong></p>
+
+<p>Woolet's 007 (round) and 009 (soft square) are the only premium Italian-acetate sunglasses we know of that are <em>engineered from the front out</em> for 155 mm+ faces — not retrofitted from a standard frame. Both models start at 158 mm with a 21 mm keyhole bridge as standard, and a bespoke tier extends 150–172 mm in either shape. Polarized lenses are a lens-level upgrade selected on the product page, so you pick the geometry first and the lens second.</p>
+
+<p>For most buyers in the 155–161 mm face range, this is the obvious recommendation. For 161 mm+ faces, the bespoke route covers the rest. <a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads (158 mm)</a> has the full size logic.</p>
+
+<h3>Faded Days — best for casual / lifestyle use</h3>
+<p><strong>Front: 155–165 mm · Material: TR-90 · Prescription: no · Price: $50–155</strong></p>
+<p>The original wide-face sunglass specialist, founded by a wide-faced person. Faded Days does the fit honestly — 155 to 165 mm of real front width — and the price is right for a single-season pair. The trade-offs are TR-90 plastic (not acetate, lower long-term shape retention) and a casual/lifestyle aesthetic that does not always work in professional contexts. Strong pick if you want a wide pair for weekends and the beach without spending premium.</p>
+
+<h3>BXL Eyewear — broadest range</h3>
+<p><strong>Front: 145–165 mm · Material: TR-90, titanium, some acetate · Prescription: yes · Price: $79–125</strong></p>
+<p>BXL has the widest range of shapes and materials in the specialist budget tier. The TR-90 lifestyle frames hit at $79–95; the titanium and acetate options go higher. The sizing claims are honest, the fit for 155 mm+ is real. Worth checking if you want multiple pairs at different price points and are willing to compromise on material quality.</p>
+
+<h3>SizeGlasses — budget prescription oversized</h3>
+<p><strong>Front: 140–165 mm · Material: TR-90, acetate-poly blends · Price: $59–99 with lenses</strong></p>
+<p>Functional, not fashionable. Best price point if you need wide-fit sunglasses with prescription lenses included and you don't care that the frame is recognisably budget plastic. Fit is genuine; longevity is limited.</p>
+
+<h3>What about mainstream "oversized"?</h3>
+<p>Ray-Ban "Oversized", Warby Parker "Wide Fit", Quay "Oversized", Oakley XL — almost all of these cap at 140–148 mm of front width. For a face below 155 mm, they work. For a 155 mm+ face, they do not, regardless of how big the lens looks in the photo.</p>
+
+<h2>Polarized or not?</h2>
+
+<p>For sunglasses, the answer is usually yes. Polarized lenses block horizontal light reflections — water, wet roads, car hoods — and dramatically reduce glare during driving and outdoor sport. The only downsides are slightly reduced screen visibility (LCDs can show rainbow patterns) and a higher price.</p>
+
+<p>On Woolet 007 and 009, the polarized lens is a $60 upgrade selected on the product page (Cat 3, 100% UVA/UVB). If you also want HEV filtering for outdoor screen use, the $80 combo upgrade layers blue-light filtering on top of the polarized base.</p>
+
+<h2>FAQ</h2>
+
+<h3>What size sunglasses do I need for a big head?</h3>
+<p>Measure across the temples. If your face is 155 mm or more, you need a sunglass frame with a front width of 155 mm or more, a 20–22 mm bridge, and 148+ mm temples. Anything narrower will pinch within an hour.</p>
+
+<h3>Are oversized sunglasses for big heads polarized?</h3>
+<p>It depends on the brand. Woolet's polarized lens is a $60 upgrade across both 007 and 009; Faded Days offers polarized as a standard option on most models; BXL and SizeGlasses offer polarized as an upgrade on selected SKUs.</p>
+
+<h3>Where do you buy oversized sunglasses for big heads?</h3>
+<p>Specialist wide-face brands like Woolet (premium acetate, 158 mm + bespoke), Faded Days (TR-90, 155–165 mm), BXL Eyewear (mixed materials, 145–165 mm) and SizeGlasses (budget, 140–165 mm). Mainstream "oversized" lines from Ray-Ban, Warby Parker and Oakley generally cap below 150 mm front width and are not built for big heads.</p>
+
+<h3>Are oversized sunglasses still in style in 2026?</h3>
+<p>Yes — but the silhouette has shifted. Cleaner, more architectural shapes (Woolet 009 soft square) and refined round panto designs (Woolet 007) are dominant, and the bug-eye plastic of the 2010s is largely out. Oversized in 2026 means proportional to a wide face, not theatrically large.</p>
+
+<h3>Can I get prescription oversized sunglasses for big heads?</h3>
+<p>Yes. Woolet 007 and 009 both accept prescription lenses, with the polarized or combo upgrade applied on top. SizeGlasses and BXL also offer prescription in their wide ranges; Faded Days does not at the time of writing.</p>
+
+<p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+`,
+  },
 ];
 
 const blogPostsPL: BlogPost[] = [
