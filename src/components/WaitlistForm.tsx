@@ -277,7 +277,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             style={{ minHeight: "56px", padding: "12px 24px" }}
           >
             <span className="relative z-10 font-semibold uppercase tracking-[0.28em]" style={{ fontSize: "0.72rem" }}>
-              {loading ? "Sending..." : "Claim My Spot — 30% Off + Free Shipping"}
+              {loading ? "Sending..." : "Claim My Spot — 40% Off + Free Shipping"}
             </span>
            <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
           </button>
@@ -285,8 +285,8 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           {/* Visible price for Google Merchant / Search Console compliance */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, paddingTop: 6, flexWrap: "wrap" }}>
             <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570", textDecoration: "line-through" }}>$190</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 14, color: "#C8A968" }}>$133 USD</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 10, color: "#9A8E7E", letterSpacing: "0.08em", textTransform: "uppercase" }}>pre-order · save 30%</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 14, color: "#C8A968" }}>$114 USD</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 10, color: "#9A8E7E", letterSpacing: "0.08em", textTransform: "uppercase" }}>pre-order · save 40%</span>
           </div>
 
           {/* Social proof */}
@@ -299,7 +299,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           {/* Urgency micro-copy for BoF/retarget */}
           {(utmCampaign.includes('bof') || utmCampaign.includes('retarget')) && (
             <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#A07A2A", textAlign: "center", marginTop: 6 }}>
-              Founding Member: $133 instead of $190 — waitlist exclusive
+              Founding Member: $114 instead of $190 — waitlist exclusive
             </p>
           )}
 
@@ -331,7 +331,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           <div className="text-cream-dim leading-relaxed" style={{ fontSize: "0.74rem" }}>Check your inbox for confirmation. Your exclusive benefits at launch:</div>
           <div className="flex flex-col gap-1.5 mt-1">
             {[
-              "30% off your first Woolet order — $133 instead of $190",
+              "40% off your first Woolet order — $114 instead of $190",
               "Free worldwide shipping — no minimum",
               "48h early access before the public launch",
             ].map((perk) => (

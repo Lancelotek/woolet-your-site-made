@@ -11,7 +11,7 @@ const OversizedSunglassesMen = () => (
     whyThisFits={[
       "The two failure modes of oversized eyewear on men are equally common. Either the lens is large but the front is still narrow, so the frame pinches the temples and only looks oversized in photos. Or the front is wide but the lens is tiny, which produces the unflattering <em>too-small face</em> effect. Woolet scales both axes together at 158 mm.",
       "If you have ever bought sunglasses that fit your face but felt loose at the temples after an hour, the cause is almost always plastic rather than acetate. Cellulose acetate holds its set; cheap TR-90 and injection-moulded plastic loosen under heat. At 158 mm of front width, that effect is amplified.",
-      "Pricing matches the optical line: $133 for founding members at pre-order, $190 at full launch. Polarised lens upgrade available on both shapes. The <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> confirms 158 mm is right for you, or run the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a> if you prefer not to use the camera.",
+      "Pricing matches the optical line: $114 for founding members at pre-order, $190 at full launch. Polarised lens upgrade available on both shapes. The <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> confirms 158 mm is right for you, or run the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a> if you prefer not to use the camera.",
       "Bespoke is available for face widths from 150 to 172 mm, in either shape. Same Italian acetate, same hand-finishing, made to your measurement.",
     ]}
     faqs={[

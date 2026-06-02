@@ -40,7 +40,7 @@ const ProductPage007 = () => {
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState("Dark Tortoise");
   const [lens, setLens] = useState<LensOption>("clear");
-  const [total, setTotal] = useState(133);
+  const [total, setTotal] = useState(114);
   const selectedColorObj = colors007.find((c) => c.name === selectedColor) || colors007[0];
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const ProductPage007 = () => {
         "@type": "Offer",
         availability: "https://schema.org/PreOrder",
         priceCurrency: "USD",
-        price: "133",
+        price: "114",
         priceValidUntil: "2026-12-31",
         url: "https://woolet.co/en/products/007",
         seller: { "@type": "Organization", name: "Woolet" },
@@ -103,16 +103,16 @@ const ProductPage007 = () => {
     <>
       <Helmet>
         <title>Woolet 007 — Round Panto Acetate Glasses, 158 mm</title>
-        <meta name="description" content="Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $133 pre-order." />
+        <meta name="description" content="Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order." />
         <link rel="canonical" href="https://woolet.co/en/products/007" />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
-        <meta property="og:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for 155 mm+ faces. From $133 pre-order." />
+        <meta property="og:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for 155 mm+ faces. From $114 pre-order." />
         <meta property="og:url" content="https://woolet.co/en/products/007" />
         <meta property="og:image" content="https://woolet.co/og-007.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
-        <meta name="twitter:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide. From $133 pre-order." />
+        <meta name="twitter:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide. From $114 pre-order." />
         <meta name="twitter:image" content="https://woolet.co/og-007.png" />
       </Helmet>
 
@@ -215,16 +215,26 @@ const ProductPage007 = () => {
             Woolet 007 <em style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "#888" }}>— Panto / Round</em>
           </h1>
 
-          {/* Price */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "8px 0 14px" }}>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 22, color: "#A07A2A" }}>$133</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 14, color: "#BBB", textDecoration: "line-through" }}>$190</span>
-            <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9 }}>FOUNDING −$57</span>
+          {/* Price — $1 deposit today, $114 guaranteed at Kickstarter */}
+          <div style={{ margin: "8px 0 14px" }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6 }}>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 28, color: "#111", lineHeight: 1 }}>$1</span>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: "1px" }}>today · refundable deposit</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", background: "#FDF6EB", border: "1px solid #EFE2C8", borderRadius: 6 }}>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", color: "#A07A2A", textTransform: "uppercase" }}>Locks in</span>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 13, color: "#BBB", textDecoration: "line-through" }}>$190</span>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 18, color: "#A07A2A" }}>$114</span>
+              <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1px" }}>−40%</span>
+            </div>
+            <div style={{ marginTop: 6, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", lineHeight: 1.5 }}>
+              Early-bird price guaranteed at Kickstarter launch. SRP $190 after.
+            </div>
           </div>
 
-          {total > 133 && (
+          {total > 114 && (
             <div style={{ display: "flex", alignItems: "baseline", gap: 8, margin: "-4px 0 14px", fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "#444" }}>
-              <span style={{ letterSpacing: "1.5px", textTransform: "uppercase", fontSize: 9, color: "#888" }}>Your total</span>
+              <span style={{ letterSpacing: "1.5px", textTransform: "uppercase", fontSize: 9, color: "#888" }}>Your locked-in total</span>
               <span style={{ fontWeight: 600, color: "#A07A2A", fontSize: 15 }}>${total}</span>
               <span style={{ color: "#888" }}>· {lensLabelFor(lens)}</span>
             </div>
@@ -270,7 +280,7 @@ const ProductPage007 = () => {
           {/* Lens upgrade selector */}
           <LensUpgradeSelector
             productId="007"
-            basePrice={133}
+            basePrice={114}
             onChange={(opt, t) => { setLens(opt); setTotal(t); }}
           />
 
@@ -296,7 +306,7 @@ const ProductPage007 = () => {
               fontWeight: 500, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8,
             }}
           >
-            RESERVE FOR $1 — $133 PRE-ORDER →
+            RESERVE FOR $1 — LOCK $114 (−40%) →
           </button>
 
           {/* Secondary CTA */}

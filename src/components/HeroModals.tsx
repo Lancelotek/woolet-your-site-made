@@ -333,7 +333,7 @@ export function ReserveModal({
                 </h2>
               </DialogTitle>
               <DialogDescription className="text-cream-dim leading-relaxed" style={{ fontSize: "0.85rem" }}>
-                Refundable any time. Final pre-order price <span className="text-foreground">$133</span> (was $190) — paid only when the Kickstarter launches in October 2026.
+                Refundable any time. Final pre-order price <span className="text-foreground">$114</span> (was $190) — paid only when the Kickstarter launches in October 2026.
               </DialogDescription>
 
               <div
@@ -375,7 +375,7 @@ export function ReserveModal({
                 </h2>
               </DialogTitle>
               <DialogDescription className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>
-                Final pre-order $133 (was $190) ships when the Kickstarter wraps — first deliveries November 2026.
+                Final pre-order $114 (was $190) ships when the Kickstarter wraps — first deliveries November 2026.
                 Check <span className="text-foreground">{email}</span> for confirmation.
               </DialogDescription>
               <button onClick={() => onOpenChange(false)} style={goldBtn}>
@@ -435,14 +435,14 @@ export function WaitlistModal({ open, onOpenChange }: { open: boolean; onOpenCha
         <div className="p-7 sm:p-8 flex flex-col gap-6 max-sm:h-full max-sm:overflow-y-auto">
           {!submitted ? (
             <form onSubmit={submit} className="flex flex-col gap-5 animate-fade-in">
-              <span style={eyebrowText}>Waitlist · 30% off at launch</span>
+              <span style={eyebrowText}>Waitlist · 40% off at launch</span>
               <DialogTitle asChild>
                 <h2 className="font-display text-woolet-white" style={{ fontSize: "1.7rem", fontWeight: 300, lineHeight: 1.1 }}>
                   Get the launch <em className="italic text-gold-light">first</em>.
                 </h2>
               </DialogTitle>
               <DialogDescription className="text-cream-dim" style={{ fontSize: "0.85rem" }}>
-                We'll email you 24 hours before the Kickstarter opens — and you keep the founding-member 30% discount.
+                We'll email you 24 hours before the Kickstarter opens — and you keep the founding-member 40% discount.
               </DialogDescription>
 
               <div>
@@ -494,7 +494,7 @@ export function WaitlistModal({ open, onOpenChange }: { open: boolean; onOpenCha
               {error && <p style={{ color: "hsl(var(--woolet-red))", fontSize: "0.8rem" }}>{error}</p>}
 
               <button type="submit" disabled={submitting || !agree || !email} style={{ ...goldBtn, opacity: submitting || !agree || !email ? 0.55 : 1 }}>
-                {submitting ? "Adding…" : "Add me to the waitlist (30% off when launched)"}
+                {submitting ? "Adding…" : "Add me to the waitlist (40% off when launched)"}
               </button>
             </form>
           ) : (

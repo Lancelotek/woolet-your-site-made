@@ -195,7 +195,7 @@ const Index = () => {
             cursor: "pointer",
           }}
         >
-          Not ready? Join the waitlist for 30% off →
+          Not ready? Join the waitlist for 40% off →
         </button>
       </div>
 
@@ -250,7 +250,7 @@ const Index = () => {
           marginTop: -14,
         }}
       >
-        Reserve for <strong style={{ fontWeight: 600, color: "#9A8E7E" }}>$1</strong> today · final pre-order price <span style={{ color: "#9A8E7E" }}>$133</span> (was $190)
+        Reserve for <strong style={{ fontWeight: 600, color: "#9A8E7E" }}>$1</strong> today · final pre-order price <span style={{ color: "#9A8E7E" }}>$114</span> (was $190)
       </p>
 
       {/* See all sizes — text link */}

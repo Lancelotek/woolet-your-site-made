@@ -135,7 +135,7 @@ const CollectionPage = ({
                 </div>
                 <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5, marginBottom: 10 }}>{p.blurb}</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 16 }}>$133</span>
+                  <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 16 }}>$114</span>
                   <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
                   <span style={{ marginLeft: "auto", fontSize: 10, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
                 </div>
