@@ -180,7 +180,7 @@ const TrustGuarantee = ({ productId }: TrustGuaranteeProps) => {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "center",
           alignItems: "center",
           paddingTop: 12,
           marginTop: 14,
@@ -197,22 +197,6 @@ const TrustGuarantee = ({ productId }: TrustGuaranteeProps) => {
         >
           4,900+ people on the waitlist
         </span>
-        <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
-          {[...Array(5)].map((_, i) => (
-            <span key={i} style={{ color: "#CAA449", fontSize: 11 }}>★</span>
-          ))}
-          <span
-            style={{
-              fontFamily: "'Barlow', sans-serif",
-              fontWeight: 300,
-              fontSize: 10,
-              color: "#CAA449",
-              marginLeft: 2,
-            }}
-          >
-            4.9
-          </span>
-        </div>
       </div>
     </div>
   );
