@@ -164,12 +164,12 @@ const ProductPage009 = () => {
           {/* Pre-order widget header */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, paddingBottom: 10, borderBottom: "1px dashed #E6DFD2" }}>
             <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#A07A2A", textTransform: "uppercase" }}>Pre-order · Founding Run</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", color: "#888", textTransform: "uppercase" }}>Ships Q1 2026</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", color: "#888", textTransform: "uppercase" }}>Ships Q3 2026</span>
           </div>
 
           {/* Trust badges */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
-            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Coming Soon</span>
+            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Early Bird Batch</span>
             <span style={{ background: "#E8F5E9", color: "#1B5E20", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Mazzucchelli</span>
             <span style={{ background: "rgba(202,164,73,0.1)", color: "#A07A2A", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>PVD Gunmetal</span>
           </div>
