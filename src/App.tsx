@@ -33,6 +33,8 @@ const SunglassesForBigHeads = lazy(() => import("./pages/collections/SunglassesF
 const GlassesForBigHeads = lazy(() => import("./pages/collections/GlassesForBigHeads.tsx"));
 const ExtraWideGlasses = lazy(() => import("./pages/collections/ExtraWideGlasses.tsx"));
 const WideBridgeGlasses = lazy(() => import("./pages/collections/WideBridgeGlasses.tsx"));
+const OversizedBlueLightGlasses = lazy(() => import("./pages/collections/OversizedBlueLightGlasses.tsx"));
+const BlueLightGlassesForWideFaces = lazy(() => import("./pages/collections/BlueLightGlassesForWideFaces.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -86,6 +88,8 @@ const App = () => (
           <Route path="/en/collections/glasses-for-big-heads" element={<GlassesForBigHeads />} />
           <Route path="/en/collections/extra-wide-glasses" element={<ExtraWideGlasses />} />
           <Route path="/en/collections/wide-bridge-glasses" element={<WideBridgeGlasses />} />
+          <Route path="/en/collections/oversized-blue-light-glasses" element={<OversizedBlueLightGlasses />} />
+          <Route path="/en/collections/blue-light-glasses-for-wide-faces" element={<BlueLightGlassesForWideFaces />} />
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
