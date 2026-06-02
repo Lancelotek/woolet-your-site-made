@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { RotateCcw, Ruler, Package } from "lucide-react";
+import { Ruler } from "lucide-react";
 import heroManImg from "@/assets/hero-man.jpg";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
