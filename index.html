@@ -12,7 +12,11 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <title>Woolet — AI-Fit Italian Acetate Eyewear for Wide Faces</title>
-    <meta name="description" content="Italian Mazzucchelli acetate eyewear for wide faces (155 mm+). Two shapes - Round and Square - both 158 mm wide. Bespoke from 150 mm. AI-fit measurement.">
+    <!-- meta name="description" is set per-route by the prerender (scripts/prerender.mjs)
+         and by react-helmet-async at runtime. Do NOT add a static one here — it would
+         duplicate with Helmet's runtime tag and trigger Bing's "More than one Meta
+         Description tag" warning. -->
+
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Woolet">
     <meta property="og:locale" content="en_US">
