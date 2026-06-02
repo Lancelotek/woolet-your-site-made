@@ -296,7 +296,7 @@ const ProductPage007 = () => {
               fontWeight: 500, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8,
             }}
           >
-            JOIN AS FOUNDING MEMBER →
+            RESERVE FOR $1 — $133 PRE-ORDER →
           </button>
 
           {/* Secondary CTA */}
