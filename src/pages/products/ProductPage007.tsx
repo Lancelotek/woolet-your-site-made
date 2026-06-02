@@ -183,7 +183,21 @@ const ProductPage007 = () => {
         </div>
 
         {/* 2. Product info */}
-        <div style={{ padding: "14px 16px 24px" }}>
+        <div style={{
+          maxWidth: 480,
+          margin: "16px auto 24px",
+          padding: "18px 18px 20px",
+          background: "#FFFFFF",
+          border: "1px solid #E6DFD2",
+          borderRadius: 12,
+          boxShadow: "0 8px 24px -12px rgba(20,16,8,0.18), 0 2px 6px -2px rgba(20,16,8,0.08)",
+        }}>
+          {/* Pre-order widget header */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, paddingBottom: 10, borderBottom: "1px dashed #E6DFD2" }}>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#A07A2A", textTransform: "uppercase" }}>Pre-order · Founding Run</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", color: "#888", textTransform: "uppercase" }}>Ships Q1 2026</span>
+          </div>
+
           {/* Trust badges */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
             <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Coming Soon</span>
