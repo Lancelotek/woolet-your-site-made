@@ -10,6 +10,8 @@ export interface BlogPost {
   tags: string[];
   /** Optional override for the social preview image. Falls back to /og-[slug].png. */
   image?: string;
+  /** Optional FAQ items — emitted as FAQPage JSON-LD on the post page. */
+  faq?: { q: string; a: string }[];
 }
 
 const blogPostsEN: BlogPost[] = [
