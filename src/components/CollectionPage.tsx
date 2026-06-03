@@ -51,6 +51,7 @@ const CollectionPage = ({
   whyThisFits,
   faqs,
   breadcrumbName,
+  extraSections,
 }: CollectionPageProps) => {
   const path = `/collections/${slug}`;
   const canonical = `${SITE}/en${path}`;
