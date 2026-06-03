@@ -10,6 +10,8 @@ export interface BlogPost {
   tags: string[];
   /** Optional override for the social preview image. Falls back to /og-[slug].png. */
   image?: string;
+  /** Optional FAQ items — emitted as FAQPage JSON-LD on the post page. */
+  faq?: { q: string; a: string }[];
 }
 
 const blogPostsEN: BlogPost[] = [
@@ -1288,6 +1290,28 @@ const blogPostsEN: BlogPost[] = [
     date: "2026-06-03",
     readTime: 7,
     tags: ["Sizing", "Sunglasses", "Wide Face"],
+    faq: [
+      {
+        q: "What size sunglasses are best for a wide face?",
+        a: "155 mm or more in front width (hinge to hinge), a 20–22 mm bridge, and temples of at least 148 mm. Below 155 mm front width, the frame will pinch — regardless of how big the lens looks.",
+      },
+      {
+        q: "How do I measure my face width for sunglasses?",
+        a: "Find the widest point of your face across the cheekbones. Use a credit card (85.6 mm) as a reference, or use the Woolet AI Fit Wizard for a precise measurement.",
+      },
+      {
+        q: "What does 52□19 145 mean on sunglasses?",
+        a: "Lens width — bridge — temple length, in millimetres. It does not tell you the front width (hinge to hinge), which is the number that actually decides whether a frame will fit a wide face. Ask the seller for hinge-to-hinge directly.",
+      },
+      {
+        q: "Are oversized sunglasses the same as wide-face sunglasses?",
+        a: "No. Oversized usually means a larger lens on a standard 140 mm front. Wide-face sunglasses scale the front width itself to 155 mm or more.",
+      },
+      {
+        q: "Where do I buy sunglasses that actually fit a wide face?",
+        a: "Specialist brands. Woolet 007 and 009 are 158 mm Italian-acetate sunglasses with bespoke up to 172 mm.",
+      },
+    ],
     content: `
 <p>The single most common question we get from wide-faced buyers is also the simplest: <em>what size sunglasses do I actually need?</em> The short answer fits in one line — a front width of 155 mm or more, a 20–22 mm bridge, and temples of at least 148 mm. The long answer is what this guide is for: how to read the three numbers on a sunglass frame, how to measure your own face in under a minute, and how to avoid the most common sizing mistake.</p>
 
