@@ -5,9 +5,9 @@ const OversizedSunglassesMen = () => (
     slug="oversized-sunglasses-men"
     h1="Oversized Sunglasses for Men — Wide-Face Fit, 158 mm"
     breadcrumbName="Oversized Sunglasses for Men"
-    metaTitle="Oversized Sunglasses for Men — 158 mm Wide Fit | Woolet"
-    metaDescription="Properly oversized men's sunglasses: 158 mm front, 21 mm bridge, Italian acetate. Built for 155 mm+ faces."
-    intro="<em>Oversized</em> at most brands means a slightly larger lens on the same 140 mm front. Woolet's oversized sunglasses are properly oversized: the front itself is 158 mm wide, with a 21 mm keyhole bridge and lens area sized to match. Two shapes — round 007 and soft-square 009 — both in Italian Mazzucchelli acetate."
+    metaTitle="Oversized Polarized Sunglasses for Big Heads — 158 mm | Woolet"
+    metaDescription="Polarized sunglasses for big heads: 158 mm front, 21 mm bridge, Italian acetate. Polarized vs standard lenses explained. Built for 155 mm+ faces."
+    intro="<em>Oversized</em> at most brands means a slightly larger lens on the same 140 mm front. Woolet's oversized sunglasses are properly oversized: the front itself is 158 mm wide, with a 21 mm keyhole bridge and lens area sized to match. Two shapes — round 007 and soft-square 009 — both in Italian Mazzucchelli acetate, available with polarized lenses."
     whyThisFits={[
       "The two failure modes of oversized eyewear on men are equally common. Either the lens is large but the front is still narrow, so the frame pinches the temples and only looks oversized in photos. Or the front is wide but the lens is tiny, which produces the unflattering <em>too-small face</em> effect. Woolet scales both axes together at 158 mm.",
       "If you have ever bought sunglasses that fit your face but felt loose at the temples after an hour, the cause is almost always plastic rather than acetate. Cellulose acetate holds its set; cheap TR-90 and injection-moulded plastic loosen under heat. At 158 mm of front width, that effect is amplified.",
