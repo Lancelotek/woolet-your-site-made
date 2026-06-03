@@ -233,6 +233,10 @@ const CollectionPage = ({
               { slug: "oversized-prescription-glasses", label: "Oversized Prescription Glasses" },
               { slug: "extra-large-oversized-eyeglasses", label: "Extra Large Oversized Eyeglasses" },
               { slug: "big-glasses-frames", label: "Big Glasses Frames" },
+              { slug: "wide-frame-reading-glasses", label: "Wide Frame Reading Glasses" },
+              { slug: "oversized-square-glasses", label: "Oversized Square Glasses" },
+              { slug: "oversized-round-glasses", label: "Oversized Round Glasses" },
+              { slug: "oversized-black-glasses", label: "Oversized Black Glasses" },
             ].filter((c) => c.slug !== slug).map((c) => (
               <Link
                 key={c.slug}
