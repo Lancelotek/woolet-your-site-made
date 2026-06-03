@@ -8,6 +8,11 @@ export interface CollectionFAQ {
   answer: string;
 }
 
+export interface CollectionExtraSection {
+  heading: string;
+  paragraphs: string[];
+}
+
 export interface CollectionPageProps {
   slug: string;
   h1: string;
@@ -17,6 +22,7 @@ export interface CollectionPageProps {
   whyThisFits: string[];
   faqs: CollectionFAQ[];
   breadcrumbName: string;
+  extraSections?: CollectionExtraSection[];
 }
 
 const SITE = "https://woolet.co";
@@ -45,6 +51,7 @@ const CollectionPage = ({
   whyThisFits,
   faqs,
   breadcrumbName,
+  extraSections,
 }: CollectionPageProps) => {
   const path = `/collections/${slug}`;
   const canonical = `${SITE}/en${path}`;
@@ -153,6 +160,23 @@ const CollectionPage = ({
             <p key={i} style={{ fontSize: 14, lineHeight: 1.7, color: "#222", margin: "0 0 14px" }} dangerouslySetInnerHTML={{ __html: p }} />
           ))}
         </section>
+
+        {/* Extra sections (e.g. Polarized vs standard lenses) */}
+        {extraSections && extraSections.length > 0 && (
+          <section style={{ maxWidth: 760, margin: "0 auto", padding: "0 20px 24px" }}>
+            {extraSections.map((s, i) => (
+              <div key={i} style={{ marginBottom: 24 }}>
+                <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 26, margin: "0 0 14px" }}>
+                  {s.heading}
+                </h2>
+                {s.paragraphs.map((p, j) => (
+                  <p key={j} style={{ fontSize: 14, lineHeight: 1.7, color: "#222", margin: "0 0 14px" }} dangerouslySetInnerHTML={{ __html: p }} />
+                ))}
+              </div>
+            ))}
+          </section>
+        )}
+
 
         {/* Sizes */}
         <section style={{ background: "#1A1612", color: "#F8F6F1", padding: "20px 20px" }}>

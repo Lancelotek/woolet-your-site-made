@@ -1281,6 +1281,83 @@ const blogPostsEN: BlogPost[] = [
 <p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 `,
   },
+  {
+    slug: "what-size-sunglasses-for-wide-faces",
+    title: "What Size Sunglasses for Wide Faces? (Quick Sizing Guide)",
+    excerpt: "How to pick the right sunglass size for a wide face: front width, bridge and temple numbers explained, plus a simple test using your current glasses.",
+    date: "2026-06-03",
+    readTime: 7,
+    tags: ["Sizing", "Sunglasses", "Wide Face"],
+    content: `
+<p>The single most common question we get from wide-faced buyers is also the simplest: <em>what size sunglasses do I actually need?</em> The short answer fits in one line — a front width of 155 mm or more, a 20–22 mm bridge, and temples of at least 148 mm. The long answer is what this guide is for: how to read the three numbers on a sunglass frame, how to measure your own face in under a minute, and how to avoid the most common sizing mistake.</p>
+
+<h2>The one-line answer</h2>
+
+<p>If your face measures 155 mm or more across the temples, you want a sunglass frame with:</p>
+<ul>
+<li><strong>Front width (hinge to hinge):</strong> 155 mm or more</li>
+<li><strong>Bridge:</strong> 20–22 mm</li>
+<li><strong>Temples:</strong> 148 mm or more</li>
+</ul>
+
+<p>Anything narrower will pinch within an hour, leave marks behind your ears, and slide forward on your nose when you sweat. This is not a styling preference — it is mechanics. A 140 mm frame on a 158 mm face has nowhere for the temples to go but outward, and the hinges take all the load.</p>
+
+<h2>How to read the three numbers on a sunglass frame</h2>
+
+<p>Most frames print a string like <code>52□19 145</code> on the inside of the temple. That is <strong>lens width — bridge — temple length</strong>, all in millimetres. It tells you almost nothing useful for wide-face sizing, because the number that actually matters is missing: <strong>front width</strong> (hinge to hinge).</p>
+
+<p>You can estimate front width as: <em>(lens width × 2) + bridge + ~6 mm for the hinge area</em>. So <code>52□19</code> means roughly <code>52 + 52 + 19 + 6 = 129 mm</code> of front width — far too narrow for a 155 mm+ face. Or just ask the seller for the hinge-to-hinge measurement directly. Specialist wide-face brands publish it; mainstream brands usually do not.</p>
+
+<h2>How to measure your face in under a minute</h2>
+
+<p>You need one tool: a credit card (85.6 × 53.98 mm — same size globally) or a soft tape measure.</p>
+
+<ol>
+<li>Stand in front of a mirror in good light, looking straight ahead.</li>
+<li>Find the widest point of your face — usually across the cheekbones, just below your eyes.</li>
+<li>Hold the credit card horizontally against one cheekbone. Note where the other end falls relative to your other cheekbone.</li>
+<li>Roughly: card fully across face = ~85 mm half-width, so total face width ≈ 145–150 mm. Card plus an inch of overlap on either side = 165 mm+ territory.</li>
+</ol>
+
+<p>For a precise number, our <a href="/en/fit">AI Fit Wizard</a> uses your phone camera and a credit card to give you a measurement accurate to within 2 mm. Or use the <a href="/en/fit/manual">manual credit-card method</a> if you prefer not to use the camera.</p>
+
+<h2>Wide-face sunglass size brackets</h2>
+
+<ul>
+<li><strong>Face width 150–154 mm — medium-wide.</strong> A standard-large sunglass at 148–152 mm front width will work. Most mainstream "wide fit" lines (Ray-Ban Justin XL, Warby Parker Wide) hit this range.</li>
+<li><strong>Face width 155–161 mm — wide.</strong> Standard mainstream sunglasses won't fit. You need a specialist wide-face brand. Woolet's 007 and 009 ship at 158 mm with a 21 mm bridge and 150 mm temples, designed exactly for this range.</li>
+<li><strong>Face width 161–172 mm — extra wide.</strong> Off-the-shelf options are very limited. Bespoke is usually the only honest answer. Woolet's bespoke tier covers 150 to 172 mm of front width in either shape.</li>
+<li><strong>Face width 172 mm+ — XXL.</strong> Custom only. Most bespoke programs stop at 172 mm.</li>
+</ul>
+
+<h2>The most common sizing mistake</h2>
+
+<p>The biggest mistake wide-faced buyers make is sizing up the <em>lens</em> instead of the <em>frame</em>. "Oversized" at most mainstream brands means a larger lens cut-out on the same 140 mm front. The lens looks big in product photos, but the frame still pinches your temples. Always ask for the front width (hinge to hinge). If the brand can't or won't tell you, that is the answer — it is not built for a wide face.</p>
+
+<h2>Bridge size matters more than you think</h2>
+
+<p>Bridge is the gap between the two lenses. Mainstream sunglasses use a 17–19 mm bridge, designed for a standard nose. Wider faces almost always come with wider noses — a 20–22 mm bridge sits the frame correctly on your nose pads, distributes weight evenly, and stops the frame riding up onto your cheekbones when you smile. Woolet uses a 21 mm keyhole bridge as standard, with bespoke options between 16 and 26 mm.</p>
+
+<h2>Quick FAQ</h2>
+
+<h3>What size sunglasses are best for a wide face?</h3>
+<p>155 mm or more in front width (hinge to hinge), a 20–22 mm bridge, and temples of at least 148 mm. Below 155 mm front width, the frame will pinch — regardless of how big the lens looks.</p>
+
+<h3>How do I measure my face width for sunglasses?</h3>
+<p>Find the widest point of your face across the cheekbones. Use a credit card (85.6 mm) as a reference, or use the <a href="/en/fit">AI Fit Wizard</a> for a precise measurement.</p>
+
+<h3>What does 52□19 145 mean on sunglasses?</h3>
+<p>Lens width — bridge — temple length, in millimetres. It does not tell you the front width (hinge to hinge), which is the number that actually decides whether a frame will fit a wide face. Ask the seller for hinge-to-hinge directly.</p>
+
+<h3>Are oversized sunglasses the same as wide-face sunglasses?</h3>
+<p>No. "Oversized" usually means a larger lens on a standard 140 mm front. Wide-face sunglasses scale the front width itself to 155 mm or more. See our <a href="/en/blog/best-oversized-sunglasses-big-heads-2026">2026 oversized sunglasses guide</a> for the difference in detail.</p>
+
+<h3>Where do I buy sunglasses that actually fit a wide face?</h3>
+<p>Specialist brands. Woolet 007 and 009 are 158 mm Italian-acetate sunglasses with bespoke up to 172 mm. <a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads (158 mm)</a> has the full collection.</p>
+
+<p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+`,
+  },
 ];
 
 const blogPostsPL: BlogPost[] = [
