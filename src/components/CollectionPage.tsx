@@ -230,6 +230,9 @@ const CollectionPage = ({
               { slug: "sunglasses-for-big-heads", label: "Sunglasses for Big Heads" },
               { slug: "oversized-blue-light-glasses", label: "Oversized Blue Light Glasses" },
               { slug: "blue-light-glasses-for-wide-faces", label: "Blue Light Glasses for Wide Faces" },
+              { slug: "oversized-prescription-glasses", label: "Oversized Prescription Glasses" },
+              { slug: "extra-large-oversized-eyeglasses", label: "Extra Large Oversized Eyeglasses" },
+              { slug: "big-glasses-frames", label: "Big Glasses Frames" },
             ].filter((c) => c.slug !== slug).map((c) => (
               <Link
                 key={c.slug}
