@@ -22,6 +22,18 @@ const OversizedSunglassesMen = () => (
       { question: "How do they sit on a wide nose?", answer: "The 21 mm keyhole bridge is engineered specifically for wider noses — slightly wider than the 18–20 mm bridges typical of mainstream oversized frames — so the frame distributes weight without riding up." },
       { question: "What is the shipping timeline for pre-orders?", answer: "Founding-member pre-orders ship in waves through 2026. The exact wave is shown on the order confirmation. Bespoke orders ship 8–10 weeks from order confirmation." },
     ]}
+    extraSections={[
+      {
+        heading: "Polarized vs standard lenses",
+        paragraphs: [
+          "Polarization is a lens-level decision, not a frame-level one — but on oversized sunglasses for big heads, the choice matters more than on a standard-width pair. A 158 mm front exposes more lens surface to side glare and reflected light from car hoods, water and wet roads, so the perceived difference between polarized and standard tint is larger than on a 140 mm frame.",
+          "<strong>Standard CR-39 tint (included).</strong> Category 3 grey or brown tint, 100% UVA/UVB protection. Cuts brightness across the full visible spectrum evenly. Best if you spend most of your time in cities, switch between indoor and outdoor often, or read digital screens outside — polarization can interfere with LCD readability.",
+          "<strong>Polarized CR-39 (+$60 upgrade).</strong> Same Category 3 base, with a polarization film that blocks horizontally-reflected light. Cuts glare from water, wet asphalt, snow and car hoods specifically — not just brightness. Best for driving, beach, boating, fishing, skiing, and any outdoor sport. The only real trade-off is reduced visibility of some LCD screens (you may see rainbow patterns on dashboards or smartphone screens at certain angles).",
+          "<strong>Polarized + blue-light combo (+$80 upgrade).</strong> The polarized base plus an HEV filter in the 380–420 nm range, useful if you read screens outside in bright light — outdoor patios, beachside laptop work, or driving with carplay-heavy dashboards.",
+          "For a wide-face buyer choosing oversized sunglasses for the first time, the honest recommendation is: <strong>polarized if you drive more than 30 minutes a day or spend weekends outdoors</strong>; standard tint if your use is mostly urban. You can pick the lens on either the <a href=\"/en/products/007\" style=\"color:#A07A2A;\">007 round</a> or <a href=\"/en/products/009\" style=\"color:#A07A2A;\">009 soft square</a> product page — the 158 mm geometry is identical.",
+        ],
+      },
+    ]}
   />
 );
 
