@@ -153,6 +153,15 @@ const BlogPost = () => {
         publishedTime={post.date}
         image={post.image || `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
+        jsonLd={post.faq && post.faq.length > 0 ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.faq.map(item => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
+        } : undefined}
       />
 
       <ReadingProgress />
