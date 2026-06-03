@@ -75,6 +75,8 @@ Two shapes, three measured sizes per shape, plus bespoke. All measurements are t
 - [Sunglasses for Big Heads Collection](/en/collections/sunglasses-for-big-heads): 158 mm front for 58–64 cm head circumference.
 - [Glasses for Big Heads Collection](/en/collections/glasses-for-big-heads): Prescription-ready optical frames at 158 mm for big heads.
 - [Extra Wide Glasses Collection](/en/collections/extra-wide-glasses): 158 mm front for 155 mm+ faces, bespoke to 172 mm.
+- [Extra Large Oversized Eyeglasses](/en/collections/extra-large-oversized-eyeglasses): 158 mm front, prescription-ready, Italian acetate.
+- [Big Glasses Frames](/en/collections/big-glasses-frames): 158 mm front for 58 cm+ head circumferences, bespoke to 172 mm.
 - [Wide Bridge Glasses Collection](/en/collections/wide-bridge-glasses): 21 mm keyhole bridge for wider noses, bespoke 16–26 mm.
 - [Blog](/en/blog): Guides on wide-face eyewear, Italian acetate, and frame sizing.
 - [Wide-Face Glasses Guide](/en/blog/glasses-for-wide-faces-guide): Why standard frames fail above 155 mm.
@@ -90,6 +92,8 @@ Two shapes, three measured sizes per shape, plus bespoke. All measurements are t
 - [Sunglasses for big heads](https://woolet.co/en/collections/sunglasses-for-big-heads) - Frames sized for head circumference 58cm+.
 - [Glasses for big heads](https://woolet.co/en/collections/glasses-for-big-heads) - Prescription-ready optical frames at 158 mm for big heads (58–64 cm).
 - [Extra wide glasses](https://woolet.co/en/collections/extra-wide-glasses) - Properly extra-wide frames at 158 mm front for 155 mm+ faces.
+- [Extra large oversized eyeglasses](https://woolet.co/en/collections/extra-large-oversized-eyeglasses) - Prescription-ready 158 mm oversized frames in Italian acetate.
+- [Big glasses frames](https://woolet.co/en/collections/big-glasses-frames) - 158 mm Italian acetate frames for head circumferences 58 cm and above.
 - [Wide bridge glasses](https://woolet.co/en/collections/wide-bridge-glasses) - 21 mm keyhole bridge for wider noses, bespoke 16–26 mm.
 
 
