@@ -161,6 +161,23 @@ const CollectionPage = ({
           ))}
         </section>
 
+        {/* Extra sections (e.g. Polarized vs standard lenses) */}
+        {extraSections && extraSections.length > 0 && (
+          <section style={{ maxWidth: 760, margin: "0 auto", padding: "0 20px 24px" }}>
+            {extraSections.map((s, i) => (
+              <div key={i} style={{ marginBottom: 24 }}>
+                <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 26, margin: "0 0 14px" }}>
+                  {s.heading}
+                </h2>
+                {s.paragraphs.map((p, j) => (
+                  <p key={j} style={{ fontSize: 14, lineHeight: 1.7, color: "#222", margin: "0 0 14px" }} dangerouslySetInnerHTML={{ __html: p }} />
+                ))}
+              </div>
+            ))}
+          </section>
+        )}
+
+
         {/* Sizes */}
         <section style={{ background: "#1A1612", color: "#F8F6F1", padding: "20px 20px" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
