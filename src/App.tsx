@@ -39,6 +39,9 @@ const ExtraLargeOversizedEyeglasses = lazy(() => import("./pages/collections/Ext
 const BigGlassesFrames = lazy(() => import("./pages/collections/BigGlassesFrames.tsx"));
 const OversizedPrescriptionGlasses = lazy(() => import("./pages/collections/OversizedPrescriptionGlasses.tsx"));
 const WideFrameReadingGlasses = lazy(() => import("./pages/collections/WideFrameReadingGlasses.tsx"));
+const OversizedSquareGlasses = lazy(() => import("./pages/collections/OversizedSquareGlasses.tsx"));
+const OversizedRoundGlasses = lazy(() => import("./pages/collections/OversizedRoundGlasses.tsx"));
+const OversizedBlackGlasses = lazy(() => import("./pages/collections/OversizedBlackGlasses.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -98,6 +101,9 @@ const App = () => (
           <Route path="/en/collections/big-glasses-frames" element={<BigGlassesFrames />} />
           <Route path="/en/collections/oversized-prescription-glasses" element={<OversizedPrescriptionGlasses />} />
           <Route path="/en/collections/wide-frame-reading-glasses" element={<WideFrameReadingGlasses />} />
+          <Route path="/en/collections/oversized-square-glasses" element={<OversizedSquareGlasses />} />
+          <Route path="/en/collections/oversized-round-glasses" element={<OversizedRoundGlasses />} />
+          <Route path="/en/collections/oversized-black-glasses" element={<OversizedBlackGlasses />} />
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
