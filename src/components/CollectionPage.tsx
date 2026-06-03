@@ -8,6 +8,11 @@ export interface CollectionFAQ {
   answer: string;
 }
 
+export interface CollectionExtraSection {
+  heading: string;
+  paragraphs: string[];
+}
+
 export interface CollectionPageProps {
   slug: string;
   h1: string;
@@ -17,6 +22,7 @@ export interface CollectionPageProps {
   whyThisFits: string[];
   faqs: CollectionFAQ[];
   breadcrumbName: string;
+  extraSections?: CollectionExtraSection[];
 }
 
 const SITE = "https://woolet.co";
