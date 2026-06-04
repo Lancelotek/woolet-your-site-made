@@ -117,7 +117,7 @@ const Index = () => {
     runScroll();
     window.addEventListener("hashchange", runScroll);
     return () => window.removeEventListener("hashchange", runScroll);
-  }, []);
+  }, [location.hash]);
 
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
