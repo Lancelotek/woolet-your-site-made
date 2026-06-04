@@ -85,7 +85,7 @@ function auditFile(file: string): Violation[] {
       file: relative(process.cwd(), file),
       line: i + 1,
       label,
-      reason: "Scan CTA has no detectable /fit/scan destination",
+      reason: "Scan CTA has no detectable /fit destination",
       snippet: ctx.split("\n").slice(-6).join("\n"),
     });
   }
