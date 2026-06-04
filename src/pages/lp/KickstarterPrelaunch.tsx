@@ -11,7 +11,9 @@ import w009 from "@/assets/woolet-009.png";
 import marek from "@/assets/author-marek.png";
 import beforeAfter from "@/assets/before-after-fit.png";
 
-const LAUNCH_DATE_LABEL = "September 15, 2025";
+const KS_LAUNCH_DATE = new Date("2026-07-15T16:00:00+02:00");
+const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
+const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
 const inputStyle: React.CSSProperties = {
   fontSize: "0.85rem",
@@ -206,6 +208,18 @@ const VipForm = ({
   );
 };
 
+const KickstarterNotifyButton = ({ location }: { location: "hero" | "footer" }) => (
+  <a
+    href={KICKSTARTER_URL}
+    target="_blank"
+    rel="noopener"
+    onClick={() => pushGtmEvent("click_kickstarter_notify", { location })}
+    className="inline-flex items-center justify-center w-full border border-primary/60 text-primary font-body uppercase tracking-[0.24em] text-xs py-3 px-4 rounded-sm hover:bg-primary/10 transition-colors"
+  >
+    Also tap "Notify me on launch" on Kickstarter →
+  </a>
+);
+
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
   const utmSource = params.get("utm_source") || "direct";
@@ -217,6 +231,8 @@ const KickstarterPrelaunch = () => {
     });
   }, []);
 
+  const isLaunchPast = useMemo(() => !KS_LAUNCH_DATE || KS_LAUNCH_DATE.getTime() <= Date.now(), []);
+
   const scrollToForm = () => {
     document.getElementById("vip-form-hero")?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
@@ -227,7 +243,7 @@ const KickstarterPrelaunch = () => {
         <title>Woolet on Kickstarter — VIP Early Access | Wide-Face Eyewear</title>
         <meta
           name="description"
-          content="Join the Woolet VIP list for the Kickstarter launch. Get notified the moment we go live, plus 48-hour early access and the biggest founding-backer reward — limited to the first 100."
+          content="Join the Woolet VIP list for the Kickstarter launch. Get notified the moment we go live, plus 48-hour early access and founding-backer rewards."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/kickstarter" />
         <meta property="og:title" content="Woolet on Kickstarter — VIP Early Access" />
@@ -258,12 +274,18 @@ const KickstarterPrelaunch = () => {
             </h1>
             <p className="text-cream-dim mt-5 text-base sm:text-lg leading-relaxed">
               Woolet launches on Kickstarter on <span className="text-woolet-white">{LAUNCH_DATE_LABEL}</span>.
-              Join the VIP list for <span className="text-primary">up to 48% off retail</span> — limited to the first 100 backers
-              — and 48-hour early access before the public.
+              Join the VIP list to lock <span className="text-primary">30% off the $190 retail price</span> (founding-backer spots, limited) and 48-hour early access before the public.
             </p>
 
             <div id="vip-form-hero" className="mt-6">
               <VipForm utmSource={utmSource} idSuffix="-hero" />
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3">
+              <p className="text-cream-dim/70 text-xs text-center">
+                Two taps = guaranteed you won't miss launch: join our VIP list above, and let Kickstarter remind you too.
+              </p>
+              <KickstarterNotifyButton location="hero" />
             </div>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-cream-dim/80">
@@ -287,11 +309,24 @@ const KickstarterPrelaunch = () => {
       {/* COUNTDOWN */}
       <section className="border-y border-[#1a1612] bg-[#0a0908]">
         <div className="max-w-3xl mx-auto px-5 py-10 flex flex-col items-center text-center gap-4">
-          <p className="text-cream-dim uppercase tracking-[0.28em] text-[10px]">
-            Kickstarter launches in
-          </p>
-          <Countdown />
-          <p className="text-cream-dim text-sm mt-2">Target launch: {LAUNCH_DATE_LABEL}</p>
+          {isLaunchPast ? (
+            <>
+              <p className="text-cream-dim uppercase tracking-[0.28em] text-[10px]">
+                Launch status
+              </p>
+              <p className="font-display text-woolet-white text-xl sm:text-2xl">
+                Launching soon on Kickstarter — exact date announced to the VIP list.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-cream-dim uppercase tracking-[0.28em] text-[10px]">
+                Kickstarter launches in
+              </p>
+              <Countdown targetDate={KS_LAUNCH_DATE} />
+              <p className="text-cream-dim text-sm mt-2">Target launch: {LAUNCH_DATE_LABEL}</p>
+            </>
+          )}
         </div>
       </section>
 
@@ -303,8 +338,8 @@ const KickstarterPrelaunch = () => {
         <div className="grid sm:grid-cols-3 gap-6">
           {[
             {
-              t: "Biggest early-bird reward",
-              d: "First 100 VIPs unlock our deepest founding-backer discount — gone the moment they sell out.",
+              t: "Founding-backer price",
+              d: "Lock 30% off the $190 retail price — 300 founding spots, only on Kickstarter. Gone the moment they sell out.",
             },
             {
               t: "48-hour early access",
@@ -354,7 +389,7 @@ const KickstarterPrelaunch = () => {
           You're not too wide — the frame is too narrow.
         </h2>
         <p className="text-cream-dim text-base leading-relaxed mb-4">
-          Standard eyewear is built between 130–148 mm. If your face is 155 mm or wider, every off-the-shelf frame pinches your temples, slides down your nose, or sits like a child's pair of glasses.
+          Standard frames are built for a ~137 mm face. A wide face runs 155–161 mm.
         </p>
         <p className="text-cream-dim text-base leading-relaxed">
           Woolet starts at 155 mm and goes up to 161 mm + bespoke — designed from day one for the faces the industry forgot.
@@ -374,8 +409,8 @@ const KickstarterPrelaunch = () => {
           <div>
             <p className="text-primary uppercase tracking-[0.22em] text-[10px] mb-2">A note from the founder</p>
             <p className="text-cream-dim text-base leading-relaxed">
-              "I'm 158 mm across. For 20 years I gave up on glasses that actually fit. So I built the brand I wanted to buy from —
-              Italian acetate, made wide from the first millimeter. Kickstarter is how I get the first 100 pairs into the hands of people who need them most."
+              "I'm 161 mm across. For 20 years I gave up on glasses that actually fit. So I built the brand I wanted to buy from —
+              Italian acetate, made wide from the first millimeter. Kickstarter is how we get the first pairs into the hands of people who need them most."
             </p>
             <p className="text-woolet-white font-display text-lg mt-3">— Marek Ciesla</p>
           </div>
@@ -389,7 +424,7 @@ const KickstarterPrelaunch = () => {
           {[
             { n: "01", t: "Join the VIP list", d: "Drop your email — no payment, no commitment." },
             { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
-            { n: "03", t: "Pledge & lock the reward", d: "Back on Kickstarter to secure the early-bird founding-backer tier." },
+            { n: "03", t: "Pledge & lock the reward", d: "Back on Kickstarter to secure the founding-backer tier." },
           ].map((s) => (
             <div key={s.n} className="border border-[#1a1612] p-6 rounded-sm">
               <div className="font-display text-primary text-3xl mb-3">{s.n}</div>
@@ -411,7 +446,7 @@ const KickstarterPrelaunch = () => {
             {[
               { q: "When does it launch?", a: `Kickstarter goes live on ${LAUNCH_DATE_LABEL}. VIPs get a launch-day email.` },
               { q: "Do I pay now?", a: "No. This page only joins you to the VIP list. You pledge on Kickstarter on launch day if you want a pair." },
-              { q: "What's the VIP discount?", a: "Up to 48% off retail for the first 100 backers, plus founding-backer extras you won't see on the public page." },
+              { q: "What's the VIP discount?", a: "30% off the $190 retail price for 300 founding-backer spots, plus extras you won't see on the public page." },
               { q: "Which faces is this for?", a: "Faces measuring 155 mm or wider, temple-to-temple. Frames come in 155 / 158 / 161 mm — plus bespoke for 162 mm+." },
             ].map((f) => (
               <details key={f.q} className="py-5 group">
@@ -435,6 +470,12 @@ const KickstarterPrelaunch = () => {
           Only VIPs get the launch-day email and the founding-backer tier.
         </p>
         <VipForm utmSource={utmSource} idSuffix="-final" />
+        <div className="mt-4 flex flex-col gap-3">
+          <p className="text-cream-dim/70 text-xs text-center">
+            Two taps = guaranteed you won't miss launch: join our VIP list above, and let Kickstarter remind you too.
+          </p>
+          <KickstarterNotifyButton location="footer" />
+        </div>
       </section>
 
       <footer className="border-t border-[#1a1612] py-8 text-center">
