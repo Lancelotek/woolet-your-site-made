@@ -84,12 +84,16 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <span
-            className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-1"
+          <a
+            href="https://shop.woolet.co/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-1 no-underline hover:bg-primary/10 transition-colors"
             style={{ fontSize: "0.55rem" }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang })}
           >
             Shop — {t(lang, "nav.coming_soon")}
-          </span>
+          </a>
         </div>
 
         {/* Mobile hamburger button */}
@@ -177,12 +181,19 @@ const Navbar = () => {
 
             <div className="woolet-divider" />
 
-            <span
-              className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-2 text-center"
+            <a
+              href="https://shop.woolet.co/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-2 text-center no-underline hover:bg-primary/10 transition-colors"
               style={{ fontSize: "0.6rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang });
+              }}
             >
               Shop — {t(lang, "nav.coming_soon")}
-            </span>
+            </a>
           </div>
         </div>
       )}
