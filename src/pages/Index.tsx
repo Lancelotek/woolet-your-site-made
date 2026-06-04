@@ -177,7 +177,7 @@ const Index = () => {
       {/* SINGLE primary CTA + price subline */}
       <div className="flex flex-col gap-2 pt-2">
         <a
-          href={`/${lang}/fit/scan`}
+          href={`/${lang}/fit`}
           onClick={() => pushGtmEvent("cta_scan_click", { location: "hero_primary" })}
           className="inline-flex items-center justify-center uppercase tracking-[0.22em] transition-all no-underline"
           style={{
