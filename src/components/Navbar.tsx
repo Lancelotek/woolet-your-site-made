@@ -42,6 +42,14 @@ const Navbar = () => {
             {t(lang, "nav.fit_quiz")}
           </Link>
           <Link
+            to={`/${lang}/bespoke`}
+            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            style={{ fontSize: "0.55rem" }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang })}
+          >
+            {t(lang, "nav.bespoke")}
+          </Link>
+          <Link
             to={`/${lang}/blog`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.55rem" }}
@@ -134,6 +142,18 @@ const Navbar = () => {
               }}
             >
               {t(lang, "nav.fit_quiz")}
+            </Link>
+
+            <Link
+              to={`/${lang}/bespoke`}
+              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              style={{ fontSize: "0.75rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang });
+              }}
+            >
+              {t(lang, "nav.bespoke")}
             </Link>
 
             <Link
