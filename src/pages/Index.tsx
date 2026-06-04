@@ -53,6 +53,7 @@ const Index = () => {
     /iPhone|iPad|iPod/i.test(ua) ||
     (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
+  const location = useLocation();
   const [reserveOpen, setReserveOpen] = useState(false);
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
