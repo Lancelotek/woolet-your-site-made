@@ -133,7 +133,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to={`/${lang}/fit`}
+              to={`/${lang}/fit/scan`}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
