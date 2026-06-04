@@ -94,7 +94,7 @@ const SizeMatrix = ({ fitHref = "/en/fit/scan", bespokeHref = "/en/bespoke", sem
               }}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="font-display" style={{ fontSize: "1.15rem", color: "hsl(var(--gold))" }}>{r.sku}</span>
+                <span className="font-display" style={{ fontSize: "1.15rem", color: "hsl(var(--gold))" }}>{r.bespoke ? <Link to={bespokeHref} className="hover:underline">{r.sku}</Link> : r.sku}</span>
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"
