@@ -37,7 +37,7 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
   const scanUrl = useMemo(() => {
     if (!sessionId) return "";
     if (typeof window === "undefined") return "";
-    return `${window.location.origin}/${lang}/fit/scan?s=${sessionId}`;
+    return `${window.location.origin}/${lang}/fit?s=${sessionId}`;
   }, [lang, sessionId]);
 
   // Realtime: listen for the phone to write its result back to this row.

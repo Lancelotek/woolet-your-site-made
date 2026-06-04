@@ -172,7 +172,7 @@ export function ReserveModal({
               </DialogDescription>
 
               <Link
-                to="/en/fit/scan"
+                to="/en/fit"
                 onClick={() => {
                   pushGtmEvent("reservation_open_full_scan");
                   onOpenChange(false);

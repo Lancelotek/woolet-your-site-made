@@ -33,7 +33,7 @@ export default function DesktopScanGate({ lang }: Props) {
 
   const scanUrl = useMemo(() => {
     if (!sid || typeof window === "undefined") return "";
-    return `${window.location.origin}/${lang}/fit/scan?sid=${sid}`;
+    return `${window.location.origin}/${lang}/fit?sid=${sid}`;
   }, [lang, sid]);
 
   const handleSubmit = async (e: React.FormEvent) => {
