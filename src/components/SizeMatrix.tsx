@@ -7,7 +7,7 @@ const ROWS: { sku: string; shape: string; width: string; bridge: string; lens: s
   { sku: "Bespoke",    shape: "Either",        width: "150-172 mm", bridge: "21 mm", lens: "Custom", face: "Any 150 mm+", bespoke: true },
 ];
 
-const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { fitHref?: string; semantic?: boolean; sectionId?: string }) => {
+const SizeMatrix = ({ fitHref = "/en/fit/scan", bespokeHref = "/en/bespoke", semantic = true, sectionId }: { fitHref?: string; bespokeHref?: string; semantic?: boolean; sectionId?: string }) => {
   const HeadingTag = semantic ? "h2" : "div";
   return (
     <section
