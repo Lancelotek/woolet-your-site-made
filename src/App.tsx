@@ -125,7 +125,7 @@ const App = () => (
           <Route path="/:lang/fit/wizard" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
           <Route path="/en/fit/bespoke" element={<FitBespoke />} />
-          <Route path="/:lang/fit/scan" element={<Navigate to={`/:lang/fit`} replace />} />
+          <Route path="/:lang/fit/scan" element={<FitScanRedirect />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
 
           {/* Legacy routes redirect */}
