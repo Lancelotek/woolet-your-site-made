@@ -6,12 +6,12 @@ import { join, relative } from "node:path";
  * CTA audit
  * ---------
  * Any CTA whose visible copy contains "Scan your face" (or "SCAN YOUR FACE")
- * MUST navigate to `/{lang}/fit/scan` — never to `/fit`, `/fit/manual`,
+ * MUST navigate to `/{lang}/fit` — never to `/fit/scan`, `/fit/manual`,
  * `/fit/bespoke` or to a modal trigger like `openReserve`.
  *
  * Also checks for forgotten direct calls to `openReserve` / `setReserveOpen(true)`
- * sitting next to scan-style CTAs, and surfaces any remaining `/en/fit"` href
- * (without `/scan`) inside a button/link whose label mentions "scan".
+ * sitting next to scan-style CTAs, and surfaces any remaining `/en/fit/scan"` href
+ * (with `/scan`) inside a button/link whose label mentions "scan".
  */
 
 const SRC_DIR = join(process.cwd(), "src");
