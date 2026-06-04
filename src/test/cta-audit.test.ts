@@ -93,7 +93,7 @@ function auditFile(file: string): Violation[] {
   return violations;
 }
 
-describe("CTA audit — scan CTAs must point to /{lang}/fit/scan", () => {
+describe("CTA audit — scan CTAs must point to /{lang}/fit", () => {
   const files = walk(SRC_DIR).filter((f) => !f.includes("/test/"));
   const allViolations = files.flatMap(auditFile);
 
