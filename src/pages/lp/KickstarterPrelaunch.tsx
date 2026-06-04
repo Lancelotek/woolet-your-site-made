@@ -11,7 +11,7 @@ import w009 from "@/assets/woolet-009.png";
 import marek from "@/assets/author-marek.png";
 import beforeAfter from "@/assets/before-after-fit.png";
 
-const KS_LAUNCH_DATE = new Date("2026-07-15T16:00:00+02:00");
+const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
 const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
 const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
