@@ -130,6 +130,12 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           { icon: <RotateCcw size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "30-Day Returns" },
           { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Fit Guarantee" },
           { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇮🇹</span>, text: "Italian Mazzucchelli Acetate" },
+          { icon: (
+            <svg width="9" height="11" viewBox="0 0 9 11" aria-hidden="true">
+              <path d="M0.5 0.5 H8.5 V8 Q8.5 10 4.5 10.5 Q0.5 10 0.5 8 Z" fill="#fff" stroke="#9A8E7E" strokeWidth="0.5" />
+              <path d="M3.6 0.5 H5.4 V4.2 H8.5 V5.8 H5.4 V10.3 H3.6 V5.8 H0.5 V4.2 H3.6 Z" fill="#D02030" />
+            </svg>
+          ), text: "Made in Milano" },
           { icon: <Package size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Free Shipping" },
         ].map((item, i) => (
           <span key={i} style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#9A8E7E", display: "flex", alignItems: "center", gap: 4 }}>
