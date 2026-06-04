@@ -39,8 +39,8 @@ const Footer = () => {
   );
 };
 
-const FooterLink = ({ label, href }: { label: string; href: string }) => {
-  const isInternal = href.startsWith("/");
+const FooterLink = ({ label, href, newTab }: { label: string; href: string; newTab?: boolean }) => {
+  const isInternal = href.startsWith("/") && !newTab;
   const className = "text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors";
   const style = { fontSize: '0.55rem' };
 
