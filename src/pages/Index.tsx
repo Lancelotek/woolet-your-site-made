@@ -259,17 +259,6 @@ const Index = () => {
           <div className="woolet-divider" />
           <div id="collection"><ModelPills /></div>
 
-          <div>
-            <div className="flex flex-col gap-1.5 mb-5">
-              <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>
-                {t(lang, "benefits.title")}
-              </div>
-              <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>
-                {t(lang, "benefits.subtitle")}
-              </div>
-            </div>
-            <BenefitsBar />
-          </div>
         </div>
 
         {isEn && <SizeMatrix fitHref={`/${lang}/fit/scan`} sectionId="size-matrix-mobile" />}
@@ -330,17 +319,6 @@ const Index = () => {
               <div className="woolet-divider" />
               <div id="collection-desktop"><ModelPills /></div>
 
-              <div>
-                <div className="flex flex-col gap-1.5 mb-5">
-                  <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>
-                    {t(lang, "benefits.title")}
-                  </div>
-                  <div className="text-cream-dim tracking-wider" style={{ fontSize: "0.62rem" }}>
-                    {t(lang, "benefits.subtitle")}
-                  </div>
-                </div>
-                <BenefitsBar />
-              </div>
             </div>
             {isEn && <SizeMatrix fitHref={`/${lang}/fit/scan`} semantic={false} sectionId="size-matrix-desktop" />}
             <Footer />
