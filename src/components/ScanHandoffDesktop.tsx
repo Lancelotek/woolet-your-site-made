@@ -109,6 +109,15 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
       if (insertErr || !data) throw insertErr ?? new Error("insert_failed");
       setSessionId(data.id);
       setPhase("waiting");
+
+      // Fire-and-forget MailerLite subscribe → Fit Scan group.
+      supabase.functions
+        .invoke("mailerlite-subscribe", {
+          body: { email: parsed.data, source: "fit_scan" },
+        })
+        .then(({ error: mlErr }) => {
+          if (mlErr) console.warn("[scan-handoff] mailerlite subscribe failed", mlErr);
+        });
     } catch (err) {
       console.error("[scan-handoff] create session failed", err);
       toast.error("Couldn't start the handoff. Try again.");
