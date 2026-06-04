@@ -167,11 +167,11 @@ const ProductPage009 = () => {
             <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", color: "#888", textTransform: "uppercase" }}>Ships Q3 2026</span>
           </div>
 
-          {/* Trust badges */}
+          {/* Lens options available */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
-            <span style={{ background: "#FFF3E0", color: "#7A3800", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Early Bird Batch</span>
-            <span style={{ background: "#E8F5E9", color: "#1B5E20", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Mazzucchelli</span>
-            <span style={{ background: "rgba(202,164,73,0.1)", color: "#A07A2A", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>PVD Gunmetal</span>
+            <span style={{ background: "#F1ECE1", color: "#3A2E15", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Rx / Progressive</span>
+            <span style={{ background: "#E8EEF6", color: "#1F3A66", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Blue Light</span>
+            <span style={{ background: "#1A1612", color: "#CAA449", padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Polarized Sun</span>
           </div>
 
           {/* Waitlist count */}
