@@ -74,10 +74,7 @@ const Index = () => {
 
   // Auto-scroll to hash anchors (handles duplicate desktop/mobile ids + nested scroll containers)
   useEffect(() => {
-    const hash = window.location.hash;
-    if (!hash) return;
-
-    const resolveTargetId = () => {
+    const resolveTargetId = (hash: string) => {
       const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
       if (hash === "#waitlist") return "waitlist-form";
       if (hash === "#size-matrix") return isDesktop ? "size-matrix-desktop" : "size-matrix-mobile";
@@ -86,7 +83,6 @@ const Index = () => {
     };
 
     const scrollToTarget = (el: HTMLElement) => {
-      // Find nearest scrollable ancestor (right-panel on desktop, window on mobile)
       let parent: HTMLElement | null = el.parentElement;
       while (parent && parent !== document.body) {
         const style = getComputedStyle(parent);
@@ -101,17 +97,25 @@ const Index = () => {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     };
 
-    let tries = 0;
-    const tick = () => {
-      const id = resolveTargetId();
-      const el = document.getElementById(id);
-      if (el) {
-        scrollToTarget(el);
-        return;
-      }
-      if (tries++ < 20) setTimeout(tick, 150);
+    const runScroll = () => {
+      const hash = window.location.hash;
+      if (!hash) return;
+      let tries = 0;
+      const tick = () => {
+        const id = resolveTargetId(hash);
+        const el = document.getElementById(id);
+        if (el) {
+          scrollToTarget(el);
+          return;
+        }
+        if (tries++ < 20) setTimeout(tick, 150);
+      };
+      setTimeout(tick, 100);
     };
-    setTimeout(tick, 100);
+
+    runScroll();
+    window.addEventListener("hashchange", runScroll);
+    return () => window.removeEventListener("hashchange", runScroll);
   }, []);
 
   if (paramLang && !isValidLang(paramLang)) {
