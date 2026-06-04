@@ -26,6 +26,7 @@ const KickstarterPrelaunch = lazy(() => import("./pages/lp/KickstarterPrelaunch.
 const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"));
 const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
+const Bespoke = lazy(() => import("./pages/Bespoke.tsx"));
 const Gone = lazy(() => import("./pages/Gone.tsx"));
 const WideFaceGlasses = lazy(() => import("./pages/collections/WideFaceGlasses.tsx"));
 const ItalianAcetateSunglasses = lazy(() => import("./pages/collections/ItalianAcetateSunglasses.tsx"));
@@ -88,6 +89,7 @@ const App = () => (
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/about" element={<About />} />
+          <Route path="/en/bespoke" element={<Bespoke />} />
 
           {/* SEO collection pages */}
           <Route path="/en/collections/wide-face-glasses" element={<WideFaceGlasses />} />
