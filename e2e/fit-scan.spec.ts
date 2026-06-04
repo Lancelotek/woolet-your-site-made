@@ -11,7 +11,7 @@ test.describe("FitScan — horizontal-on-forehead flow", () => {
     // Scan is mobile-only on desktop visitors a QR handoff is shown instead,
     // so we explicitly emulate a mobile viewport to assert the welcome copy.
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/en/fit/scan");
+    await page.goto("/en/fit");
 
     await expect(
       page.getByText(/Hold to forehead/i),
