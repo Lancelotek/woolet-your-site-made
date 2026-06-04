@@ -295,12 +295,6 @@ const KickstarterPrelaunch = () => {
               <VipForm utmSource={utmSource} idSuffix="-hero" />
             </div>
 
-            <div className="mt-4 flex flex-col gap-3">
-              <p className="text-cream-dim/70 text-xs text-center">
-                Two taps = guaranteed you won't miss launch: join our VIP list above, and let Kickstarter remind you too.
-              </p>
-              <KickstarterNotifyButton location="hero" />
-            </div>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-cream-dim/80">
               <span>🇮🇹 Italian Mazzucchelli Acetate</span>
