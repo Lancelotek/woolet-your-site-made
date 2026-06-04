@@ -1645,15 +1645,8 @@ export default function FitScan() {
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
-            {requiresHandoff && step !== "result" ? (
-              <ScanHandoffDesktop
-                lang={lang}
-                onSessionComplete={(m, r) => {
-                  setMeasurements(m);
-                  setRecommendation(r);
-                  setStep("result");
-                }}
-              />
+            {requiresHandoff ? (
+              <DesktopScanGate lang={lang} />
             ) : (
               <>
                 {step === "welcome" && (blockingMessage || errorMsg) && (
