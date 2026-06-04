@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { Ruler } from "lucide-react";
 import heroManImg from "@/assets/hero-man.jpg";
 import Navbar from "@/components/Navbar";
