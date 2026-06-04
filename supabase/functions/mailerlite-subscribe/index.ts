@@ -61,10 +61,10 @@ serve(async (req) => {
     await ensureCustomFields(apiKey);
 
     // Default group + optional Kickstarter VIP / Fit Scan groups
-    const KICKSTARTER_VIP_GROUP_ID = "182000000000000000"; // TODO: replace with real MailerLite group ID once created
+    const KICKSTARTER_VIP_GROUP_ID = ""; // TODO: replace with real MailerLite group ID once created
     const FIT_SCAN_GROUP_ID = "189356132351870087";
     const groups: string[] = ["181841182994728358"];
-    if (source === "kickstarter") {
+    if (source === "kickstarter" && KICKSTARTER_VIP_GROUP_ID) {
       groups.push(KICKSTARTER_VIP_GROUP_ID);
     }
     if (source === "fit_scan") {
