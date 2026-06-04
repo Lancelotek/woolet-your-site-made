@@ -7,7 +7,7 @@ const ROWS: { sku: string; shape: string; width: string; bridge: string; lens: s
   { sku: "Bespoke",    shape: "Either",        width: "150-172 mm", bridge: "21 mm", lens: "Custom", face: "Any 150 mm+", bespoke: true },
 ];
 
-const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { fitHref?: string; semantic?: boolean; sectionId?: string }) => {
+const SizeMatrix = ({ fitHref = "/en/fit/scan", bespokeHref = "/en/bespoke", semantic = true, sectionId }: { fitHref?: string; bespokeHref?: string; semantic?: boolean; sectionId?: string }) => {
   const HeadingTag = semantic ? "h2" : "div";
   return (
     <section
@@ -56,7 +56,7 @@ const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { 
               }}
             >
               <span className="font-display flex items-center gap-2" style={{ fontSize: "1rem", color: "hsl(var(--gold))" }}>
-                {r.sku}
+                {r.bespoke ? <Link to={bespokeHref} className="hover:underline">{r.sku}</Link> : r.sku}
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"
@@ -94,7 +94,7 @@ const SizeMatrix = ({ fitHref = "/en/fit/scan", semantic = true, sectionId }: { 
               }}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="font-display" style={{ fontSize: "1.15rem", color: "hsl(var(--gold))" }}>{r.sku}</span>
+                <span className="font-display" style={{ fontSize: "1.15rem", color: "hsl(var(--gold))" }}>{r.bespoke ? <Link to={bespokeHref} className="hover:underline">{r.sku}</Link> : r.sku}</span>
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"

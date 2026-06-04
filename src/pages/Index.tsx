@@ -267,7 +267,7 @@ const Index = () => {
 
         </div>
 
-        {isEn && <SizeMatrix fitHref={`/${lang}/fit/scan`} sectionId="size-matrix-mobile" />}
+        {isEn && <SizeMatrix fitHref={`/${lang}/fit/scan`} bespokeHref={`/${lang}/bespoke`} sectionId="size-matrix-mobile" />}
 
         {/* Spacer for sticky mobile CTA */}
         <div className="h-16" />
@@ -326,7 +326,7 @@ const Index = () => {
               <div id="collection-desktop"><ModelPills /></div>
 
             </div>
-            {isEn && <SizeMatrix fitHref={`/${lang}/fit/scan`} semantic={false} sectionId="size-matrix-desktop" />}
+            {isEn && <SizeMatrix fitHref={`/${lang}/fit/scan`} bespokeHref={`/${lang}/bespoke`} semantic={false} sectionId="size-matrix-desktop" />}
             <Footer />
           </div>
         </div>
