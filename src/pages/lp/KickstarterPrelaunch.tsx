@@ -103,9 +103,9 @@ const VipForm = ({
         <p className="text-cream-dim text-sm leading-relaxed">
           We'll email you the moment we go live on Kickstarter — and you'll get first access to the founding-backer reward.
         </p>
-        <div className="flex flex-col gap-2 pt-1">
+        <div className="flex flex-col gap-3 pt-1">
           <p className="text-cream-dim/80 text-xs leading-relaxed">
-            One more tap = double-guaranteed. Let Kickstarter remind you too:
+            Two taps = guaranteed you won't miss launch: you're on our VIP list, now let Kickstarter remind you too.
           </p>
           <a
             href={KICKSTARTER_URL}
