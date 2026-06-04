@@ -186,7 +186,7 @@ const Index = () => {
             cursor: "pointer",
           }}
         >
-          Not ready? Join the waitlist for 40% off →
+          Not ready? Join the waitlist for up to 40% off →
         </a>
       </div>
 
