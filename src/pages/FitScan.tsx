@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import ScanHandoffDesktop from "@/components/ScanHandoffDesktop";
+import { z } from "zod";
+import DesktopScanGate from "@/components/DesktopScanGate";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
