@@ -1336,7 +1336,142 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
   );
 }
 
+/* ─────────────── Email gate (mobile) ─────────────── */
+
+function EmailGateStep({
+  faceWidthMm,
+  device,
+  onSubmitted,
+}: {
+  faceWidthMm: number;
+  device: "mobile" | "desktop";
+  onSubmitted: () => void;
+}) {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    const parsed = emailSchema.safeParse(email);
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Invalid email");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const { error: mlErr } = await supabase.functions.invoke("mailerlite-subscribe", {
+        body: {
+          email: parsed.data,
+          face_width: String(Math.round(faceWidthMm)),
+          source: "scan",
+          device,
+        },
+      });
+      if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
+      pushEvent("scan_lead", { device, face_width: Math.round(faceWidthMm) });
+      pushEvent("fit_email_captured", { device, face_width: Math.round(faceWidthMm) });
+      onSubmitted();
+    } catch (err) {
+      console.error("[scan email gate] submit failed", err);
+      toast.error("Couldn't save your email. Try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-7">
+      <div className="woolet-eyebrow">
+        <div className="woolet-eyebrow-line" />
+        <span className="woolet-eyebrow-text">ONE MORE STEP</span>
+      </div>
+      <h1
+        className="font-display text-woolet-white"
+        style={{ fontSize: "clamp(2rem, 5vw, 2.75rem)", fontWeight: 300, lineHeight: 1.05 }}
+      >
+        Unlock your <em className="italic" style={{ color: GOLD }}>exact frame size</em>
+      </h1>
+      <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.55 }}>
+        Enter your email to see your size + lock your $1 founding reserve.
+      </p>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
+        <label
+          htmlFor="scan-result-email"
+          style={{
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+          }}
+        >
+          Your email
+        </label>
+        <input
+          id="scan-result-email"
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.16)",
+            color: "white",
+            padding: "14px 16px",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "1rem",
+            borderRadius: 4,
+          }}
+        />
+        {error && (
+          <span style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}>
+            {error}
+          </span>
+        )}
+        <button
+          type="submit"
+          disabled={submitting}
+          style={{
+            marginTop: 8,
+            background: submitting ? "rgba(202,164,73,0.4)" : GOLD,
+            color: BG,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.78rem",
+            padding: "18px 28px",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            border: "none",
+            cursor: submitting ? "wait" : "pointer",
+            height: 52,
+          }}
+        >
+          {submitting ? "Unlocking…" : "Show my size →"}
+        </button>
+        <p
+          style={{
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            margin: 0,
+            lineHeight: 1.5,
+          }}
+        >
+          No spam. Unsubscribe anytime.
+        </p>
+      </form>
+    </div>
+  );
+}
+
 /* ─────────────── Page shell ─────────────── */
+
 
 export default function FitScan() {
   const { lang: paramLang } = useParams<{ lang: string }>();
