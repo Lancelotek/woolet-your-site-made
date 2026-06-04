@@ -17,8 +17,8 @@ import { join, relative } from "node:path";
 const SRC_DIR = join(process.cwd(), "src");
 
 const SCAN_LABEL = /(scan your face|SCAN YOUR FACE)/;
-const FORBIDDEN_HREF = /["'`](\/[a-z]{2})?\/fit(\/(manual|bespoke))?["'`]/;
-const ALLOWED_HREF = /\/fit\/scan/;
+const FORBIDDEN_HREF = /["'`](\/[a-z]{2})?\/fit\/(scan|manual|bespoke)["'`]/;
+const ALLOWED_HREF = /\/fit[\"\'`]/;
 const FORBIDDEN_HANDLERS = /(openReserve|setReserveOpen\s*\(\s*true)/;
 
 function walk(dir: string, acc: string[] = []): string[] {
