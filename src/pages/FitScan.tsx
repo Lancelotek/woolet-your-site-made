@@ -1413,7 +1413,26 @@ export default function FitScan() {
         recommendation_type: r.type,
         confidence: m.confidence,
         auto_corners: !f1 && !f2,
+        has_session: !!sessionId,
       });
+      // If this scan was opened via QR handoff, sync the result so the
+      // originating desktop session can render it in real time.
+      if (sessionId) {
+        supabase
+          .from("scan_sessions")
+          .update({
+            status: "completed",
+            face_width_mm: m.faceWidthMm,
+            nose_width_mm: m.noseWidthMm,
+            recommendation_type: r.type,
+            confidence: m.confidence,
+            user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+          })
+          .eq("id", sessionId)
+          .then(({ error: updErr }) => {
+            if (updErr) console.warn("[scan] session sync failed", updErr);
+          });
+      }
       setStep("result");
       return true;
     } catch (err) {
