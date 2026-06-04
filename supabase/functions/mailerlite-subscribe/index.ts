@@ -48,7 +48,7 @@ serve(async (req) => {
       throw new Error("MAILERLITE_API_KEY is not configured");
     }
 
-    const { email, name, face_width, models } = await req.json();
+    const { email, name, face_width, models, source } = await req.json();
 
     if (!email) {
       return new Response(
