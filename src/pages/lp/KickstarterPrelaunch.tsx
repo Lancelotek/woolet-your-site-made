@@ -478,12 +478,6 @@ const KickstarterPrelaunch = () => {
           Only VIPs get the launch-day email and the founding-backer tier.
         </p>
         <VipForm utmSource={utmSource} idSuffix="-final" />
-        <div className="mt-4 flex flex-col gap-3">
-          <p className="text-cream-dim/70 text-xs text-center">
-            Two taps = guaranteed you won't miss launch: join our VIP list above, and let Kickstarter remind you too.
-          </p>
-          <KickstarterNotifyButton location="footer" />
-        </div>
       </section>
 
       <footer className="border-t border-[#1a1612] py-8 text-center">
