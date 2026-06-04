@@ -169,9 +169,10 @@ const Index = () => {
         </a>
         {/* Tiny waitlist alternative — link to product 007 */}
         <a
-          href={`/${lang}/products/007`}
-          onClick={() => pushGtmEvent("hero_link_waitlist_click", { source: "hero", dest: "product_007" })}
+          href={`/${lang}/lp/kickstarter`}
+          onClick={() => pushGtmEvent("hero_link_waitlist_click", { source: "hero", dest: "lp_kickstarter" })}
           className="self-start"
+
           style={{
             background: "transparent",
             border: "none",
