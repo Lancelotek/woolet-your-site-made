@@ -214,11 +214,10 @@ export function ReserveModal({
 
               <div style={{ height: 1, background: "hsl(0 0% 100% / 0.06)", marginTop: 4 }} />
 
-              <button
-                type="button"
+              <a
+                href="/en/lp/kickstarter"
                 onClick={() => {
-                  pushGtmEvent("reservation_switch_to_waitlist");
-                  onSwitchToWaitlist?.();
+                  pushGtmEvent("reservation_switch_to_waitlist", { dest: "lp_kickstarter" });
                 }}
                 style={{
                   background: "transparent",
@@ -229,13 +228,14 @@ export function ReserveModal({
                   color: "hsl(var(--cream-dim))",
                   textAlign: "center",
                   padding: 0,
+                  textDecoration: "none",
                 }}
               >
                 Can't scan right now?{" "}
                 <span style={{ color: "hsl(var(--gold-light, var(--gold)))", textDecoration: "underline" }}>
                   Join the waitlist instead →
                 </span>
-              </button>
+              </a>
             </div>
           )}
 

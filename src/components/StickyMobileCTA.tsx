@@ -55,9 +55,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
   }, []);
 
   const scrollToForm = useCallback(() => {
-    const form = document.getElementById("waitlist-form");
-    if (!form) return;
-    form.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.location.href = "/en/lp/kickstarter";
   }, []);
 
   return (
