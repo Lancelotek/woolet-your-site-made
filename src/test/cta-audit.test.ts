@@ -74,7 +74,7 @@ function auditFile(file: string): Violation[] {
         file: relative(process.cwd(), file),
         line: i + 1,
         label,
-        reason: "Scan CTA points to /fit instead of /fit/scan",
+        reason: "Scan CTA points to /fit/scan instead of /fit",
         snippet: ctx.split("\n").slice(-6).join("\n"),
       });
       continue;
