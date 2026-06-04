@@ -1636,95 +1636,109 @@ export default function FitScan() {
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
-            {step === "welcome" && (blockingMessage || errorMsg) && (
-              <div
-                role="alert"
-                style={{
-                  marginBottom: 28,
-                  padding: "20px 22px",
-                  border: `1px solid ${blockingMessage ? "rgba(255,255,255,0.14)" : "rgba(239,68,68,0.45)"}`,
-                  borderRadius: 8,
-                  background: "rgba(255,255,255,0.02)",
-                  fontFamily: "Barlow, sans-serif",
+            {requiresHandoff && step !== "result" ? (
+              <ScanHandoffDesktop
+                lang={lang}
+                onSessionComplete={(m, r) => {
+                  setMeasurements(m);
+                  setRecommendation(r);
+                  setStep("result");
                 }}
-              >
-                <div
-                  style={{
-                    color: blockingMessage ? GOLD : "#fca5a5",
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    marginBottom: 8,
-                  }}
-                >
-                  {blockingMessage ? "Scan unavailable" : "Scan didn't complete"}
-                </div>
-                <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
-                  {blockingMessage || errorMsg}
-                </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
-                  {!blockingMessage && errorKind === "recoverable" && (
-                    <button
-                      onClick={retryScan}
-                      style={{
-                        background: GOLD,
-                        color: BG,
-                        fontFamily: "Barlow, sans-serif",
-                        fontWeight: 500,
-                        fontSize: "0.7rem",
-                        padding: "12px 20px",
-                        letterSpacing: "0.2em",
-                        textTransform: "uppercase",
-                        border: "none",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Try again
-                    </button>
-                  )}
-                  <button
-                    onClick={() => navigate(`/${lang}/fit`)}
+              />
+            ) : (
+              <>
+                {step === "welcome" && (blockingMessage || errorMsg) && (
+                  <div
+                    role="alert"
                     style={{
-                      background: "transparent",
-                      border: "1px solid hsl(var(--border))",
-                      color: "hsl(var(--cream-dim))",
+                      marginBottom: 28,
+                      padding: "20px 22px",
+                      border: `1px solid ${blockingMessage ? "rgba(255,255,255,0.14)" : "rgba(239,68,68,0.45)"}`,
+                      borderRadius: 8,
+                      background: "rgba(255,255,255,0.02)",
                       fontFamily: "Barlow, sans-serif",
-                      fontSize: "0.7rem",
-                      padding: "12px 20px",
-                      letterSpacing: "0.2em",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
                     }}
                   >
-                    Use manual scan
-                  </button>
-                </div>
-              </div>
+                    <div
+                      style={{
+                        color: blockingMessage ? GOLD : "#fca5a5",
+                        fontSize: "0.7rem",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        marginBottom: 8,
+                      }}
+                    >
+                      {blockingMessage ? "Scan unavailable" : "Scan didn't complete"}
+                    </div>
+                    <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
+                      {blockingMessage || errorMsg}
+                    </p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
+                      {!blockingMessage && errorKind === "recoverable" && (
+                        <button
+                          onClick={retryScan}
+                          style={{
+                            background: GOLD,
+                            color: BG,
+                            fontFamily: "Barlow, sans-serif",
+                            fontWeight: 500,
+                            fontSize: "0.7rem",
+                            padding: "12px 20px",
+                            letterSpacing: "0.2em",
+                            textTransform: "uppercase",
+                            border: "none",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Try again
+                        </button>
+                      )}
+                      <button
+                        onClick={() => navigate(`/${lang}/fit`)}
+                        style={{
+                          background: "transparent",
+                          border: "1px solid hsl(var(--border))",
+                          color: "hsl(var(--cream-dim))",
+                          fontFamily: "Barlow, sans-serif",
+                          fontSize: "0.7rem",
+                          padding: "12px 20px",
+                          letterSpacing: "0.2em",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Use manual scan
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {step === "welcome" && (
+                  <WelcomeStep
+                    lang={lang}
+                    onStart={startScan}
+                    disabled={!!blockingMessage}
+                    isMobile={isMobile}
+                  />
+                )}
+                {step === "camera" && (
+                  <CameraStep
+                    key={retryCount}
+                    lang={lang}
+                    onCaptured={handleCaptured}
+                    onError={handleError}
+                    isMobile={isMobile}
+                  />
+                )}
+                {step === "annotate" && frame && (
+                  <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
+                )}
+                {step === "result" && measurements && recommendation && (
+                  <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
+                )}
+              </>
             )}
 
-            {step === "welcome" && (
-              <WelcomeStep
-                lang={lang}
-                onStart={startScan}
-                disabled={!!blockingMessage}
-                isMobile={isMobile}
-              />
-            )}
-            {step === "camera" && (
-              <CameraStep
-                key={retryCount}
-                lang={lang}
-                onCaptured={handleCaptured}
-                onError={handleError}
-                isMobile={isMobile}
-              />
-            )}
-            {step === "annotate" && frame && (
-              <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
-            )}
-            {step === "result" && measurements && recommendation && (
-              <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
-            )}
           </div>
         </div>
       </main>
