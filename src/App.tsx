@@ -48,6 +48,11 @@ const OversizedBlackGlasses = lazy(() => import("./pages/collections/OversizedBl
 
 const queryClient = new QueryClient();
 
+const FitScanRedirect = () => {
+  const { lang } = useParams();
+  return <Navigate to={`/${lang}/fit`} replace />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
