@@ -1344,7 +1344,12 @@ export default function FitScan() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [searchParams] = useSearchParams();
+  // `sid` = new "lead already captured on the other device" flag (random UUID).
+  // `s`   = legacy supabase scan-session id (kept for back-compat).
+  const sidParam = searchParams.get("sid");
   const sessionId = searchParams.get("s");
+  // If the visitor arrived via the desktop→phone QR, skip the email gate.
+  const emailAlreadyCaptured = !!sidParam || !!sessionId;
 
   const [step, setStep] = useState<Step>("welcome");
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
@@ -1356,10 +1361,11 @@ export default function FitScan() {
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
+  const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
 
   // Desktop visitors without a session id must hand off to a phone via QR.
-  // Mobile visitors, or anyone who already has ?s=<id>, run the scan inline.
-  const requiresHandoff = !isMobile && !sessionId;
+  // Mobile visitors, or anyone who already has ?sid= / ?s=, run the scan inline.
+  const requiresHandoff = !isMobile && !emailAlreadyCaptured;
 
 
   useEffect(() => {
