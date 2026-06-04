@@ -1228,6 +1228,40 @@ function ResultStep({
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-8 animate-fade-in">
+      {/* Mobile-only: nudge the user back to desktop to read the full result */}
+      <div
+        className="sm:hidden"
+        role="note"
+        style={{
+          border: "1px solid hsl(var(--gold) / 0.55)",
+          background: "hsl(var(--gold) / 0.08)",
+          borderRadius: 8,
+          padding: "14px 16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 6,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.62rem",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "hsl(var(--gold))",
+          }}
+        >
+          Scan complete
+        </span>
+        <span
+          className="text-cream-dim"
+          style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300, fontSize: "0.88rem", lineHeight: 1.5 }}
+        >
+          For the best view of your measurements and recommended fit, switch back to your desktop and reopen this page — the full breakdown is easier to read on a larger screen.
+        </span>
+      </div>
+
       {scanInfo && (
         <div
           role="status"
@@ -1362,12 +1396,43 @@ function ResultStep({
         </p>
       </div>
 
-      {/* Light teaser + email capture (no payment) */}
-      <EmailCaptureForm
-        measurement={measurement}
-        fomoVariant={fomoVariant}
-        onSuccess={onSavedEmail}
-      />
+      {/* Kickstarter waiting list CTA — no email capture here */}
+      <div
+        className="rounded-lg p-5 sm:p-6 flex flex-col gap-4"
+        style={{
+          background: "rgba(201,168,76,0.05)",
+          border: "1px solid rgba(201,168,76,0.22)",
+        }}
+      >
+        <p
+          className="text-woolet-white"
+          style={{ fontSize: "1rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
+        >
+          Join the Kickstarter waiting list.
+        </p>
+        <p
+          className="text-cream-dim leading-relaxed"
+          style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif" }}
+        >
+          Be first in line for founding member pricing (30% off) when Woolet launches on Kickstarter — September 19, 2026.
+        </p>
+        <a
+          href="https://woolet.co/en/lp/kickstarter"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() =>
+            pushEvent("fit_kickstarter_cta_clicked", {
+              recommended_sku: measurement.recommendedSku,
+              face_width_mm: measurement.faceWidthMm,
+              fomo_variant: fomoVariant,
+            })
+          }
+          style={goldButtonStyle}
+        >
+          Join the Kickstarter waiting list
+        </a>
+      </div>
+
 
       <div className="flex flex-col gap-4 pt-2">
         <button
