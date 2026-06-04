@@ -48,7 +48,7 @@ serve(async (req) => {
       throw new Error("MAILERLITE_API_KEY is not configured");
     }
 
-    const { email, name, face_width, models } = await req.json();
+    const { email, name, face_width, models, source } = await req.json();
 
     if (!email) {
       return new Response(
@@ -60,6 +60,13 @@ serve(async (req) => {
     // Ensure custom fields exist in MailerLite (idempotent)
     await ensureCustomFields(apiKey);
 
+    // Default group + optional Kickstarter VIP group
+    const KICKSTARTER_VIP_GROUP_ID = "182000000000000000"; // TODO: replace with real MailerLite group ID once created
+    const groups: string[] = ["181841182994728358"];
+    if (source === "kickstarter") {
+      groups.push(KICKSTARTER_VIP_GROUP_ID);
+    }
+
     // Subscribe with all fields + group
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
@@ -68,7 +75,7 @@ serve(async (req) => {
         face_width: face_width || "",
         interested_models: models || "",
       },
-      groups: ["181841182994728358"],
+      groups,
     });
 
     if (status >= 400) {

@@ -22,6 +22,7 @@ const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const AdvertorialPage = lazy(() => import("./pages/lp/AdvertorialPage.tsx"));
 const ListiclePage = lazy(() => import("./pages/lp/ListiclePage.tsx"));
+const KickstarterPrelaunch = lazy(() => import("./pages/lp/KickstarterPrelaunch.tsx"));
 const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"));
 const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
@@ -83,6 +84,7 @@ const App = () => (
           {/* Landing pages */}
           <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
           <Route path="/en/lp/5-reasons" element={<ListiclePage />} />
+          <Route path="/en/lp/kickstarter" element={<KickstarterPrelaunch />} />
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/about" element={<About />} />
