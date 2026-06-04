@@ -72,22 +72,46 @@ const Index = () => {
   };
 
 
-  // Auto-scroll to hash anchors (handles duplicate desktop/mobile ids)
+  // Auto-scroll to hash anchors (handles duplicate desktop/mobile ids + nested scroll containers)
   useEffect(() => {
     const hash = window.location.hash;
     if (!hash) return;
-    setTimeout(() => {
+
+    const resolveTargetId = () => {
       const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-      if (hash === "#waitlist") {
-        document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
-      } else if (hash === "#size-matrix") {
-        const id = isDesktop ? "size-matrix-desktop" : "size-matrix-mobile";
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else if (hash === "#collection") {
-        const id = isDesktop ? "collection-desktop" : "collection";
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (hash === "#waitlist") return "waitlist-form";
+      if (hash === "#size-matrix") return isDesktop ? "size-matrix-desktop" : "size-matrix-mobile";
+      if (hash === "#collection") return isDesktop ? "collection-desktop" : "collection";
+      return hash.slice(1);
+    };
+
+    const scrollToTarget = (el: HTMLElement) => {
+      // Find nearest scrollable ancestor (right-panel on desktop, window on mobile)
+      let parent: HTMLElement | null = el.parentElement;
+      while (parent && parent !== document.body) {
+        const style = getComputedStyle(parent);
+        const oy = style.overflowY;
+        if ((oy === "auto" || oy === "scroll") && parent.scrollHeight > parent.clientHeight) {
+          const top = el.getBoundingClientRect().top - parent.getBoundingClientRect().top + parent.scrollTop;
+          parent.scrollTo({ top, behavior: "smooth" });
+          return;
+        }
+        parent = parent.parentElement;
       }
-    }, 300);
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    let tries = 0;
+    const tick = () => {
+      const id = resolveTargetId();
+      const el = document.getElementById(id);
+      if (el) {
+        scrollToTarget(el);
+        return;
+      }
+      if (tries++ < 20) setTimeout(tick, 150);
+    };
+    setTimeout(tick, 100);
   }, []);
 
   if (paramLang && !isValidLang(paramLang)) {
