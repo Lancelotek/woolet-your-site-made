@@ -1314,7 +1314,7 @@ function ResultStep({
             </span>
           </div>
           <Link
-            to="/en/fit/scan"
+            to="/en/fit"
             style={{
               fontFamily: "Barlow, sans-serif",
               fontSize: "0.7rem",
