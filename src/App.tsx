@@ -90,6 +90,7 @@ const App = () => (
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/about" element={<About />} />
           <Route path="/en/bespoke" element={<Bespoke />} />
+          <Route path="/:lang/bespoke" element={<Bespoke />} />
 
           {/* SEO collection pages */}
           <Route path="/en/collections/wide-face-glasses" element={<WideFaceGlasses />} />
