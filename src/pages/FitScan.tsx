@@ -1442,7 +1442,7 @@ export default function FitScan() {
             if (updErr) console.warn("[scan] session sync failed", updErr);
           });
       }
-      setStep("result");
+      setStep(emailCaptured ? "result" : "email-gate");
       return true;
     } catch (err) {
       const isMeasurement = err instanceof MeasurementError;
