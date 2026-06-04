@@ -29,7 +29,7 @@ const Footer = () => {
           { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
           { label: "Why Glasses Fail", href: `/${lang}/lp/why-glasses-fail` },
           { label: "5 Reasons", href: `/${lang}/lp/5-reasons` },
-          { label: "Kickstarter", href: `/${lang}/lp/kickstarter` },
+          { label: "Kickstarter", href: `/${lang}/lp/kickstarter`, newTab: true },
           { label: "support@woolet.co", href: "mailto:support@woolet.co" },
         ].map((link) => (
           <FooterLink key={link.label} {...link} />
