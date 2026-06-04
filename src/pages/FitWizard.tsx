@@ -1228,6 +1228,40 @@ function ResultStep({
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-8 animate-fade-in">
+      {/* Mobile-only: nudge the user back to desktop to read the full result */}
+      <div
+        className="sm:hidden"
+        role="note"
+        style={{
+          border: "1px solid hsl(var(--gold) / 0.55)",
+          background: "hsl(var(--gold) / 0.08)",
+          borderRadius: 8,
+          padding: "14px 16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 6,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.62rem",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "hsl(var(--gold))",
+          }}
+        >
+          Scan complete
+        </span>
+        <span
+          className="text-cream-dim"
+          style={{ fontFamily: "Barlow, sans-serif", fontWeight: 300, fontSize: "0.88rem", lineHeight: 1.5 }}
+        >
+          For the best view of your measurements and recommended fit, switch back to your desktop and reopen this page — the full breakdown is easier to read on a larger screen.
+        </span>
+      </div>
+
       {scanInfo && (
         <div
           role="status"
