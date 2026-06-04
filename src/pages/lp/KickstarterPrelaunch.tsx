@@ -95,7 +95,7 @@ const VipForm = ({
     return (
       <div
         id={`vip-form${idSuffix}`}
-        className="flex flex-col gap-3 p-6 border animate-fade-in"
+        className="flex flex-col gap-4 p-6 border animate-fade-in"
         style={{ background: "hsl(var(--gold) / 0.06)", borderColor: "hsl(var(--gold) / 0.2)" }}
       >
         <div className="w-7 h-7 border border-primary rounded-full flex items-center justify-center text-primary text-sm">✓</div>
@@ -103,6 +103,20 @@ const VipForm = ({
         <p className="text-cream-dim text-sm leading-relaxed">
           We'll email you the moment we go live on Kickstarter — and you'll get first access to the founding-backer reward.
         </p>
+        <div className="flex flex-col gap-2 pt-1">
+          <p className="text-cream-dim/80 text-xs leading-relaxed">
+            One more tap = double-guaranteed. Let Kickstarter remind you too:
+          </p>
+          <a
+            href={KICKSTARTER_URL}
+            target="_blank"
+            rel="noopener"
+            onClick={() => pushGtmEvent("click_kickstarter_notify", { location: "thank_you" })}
+            className="inline-flex items-center justify-center w-full border border-primary/60 text-primary font-body uppercase tracking-[0.24em] text-xs py-3 px-4 rounded-sm hover:bg-primary/10 transition-colors"
+          >
+            Also tap "Notify me on launch" on Kickstarter →
+          </a>
+        </div>
       </div>
     );
   }
@@ -281,12 +295,6 @@ const KickstarterPrelaunch = () => {
               <VipForm utmSource={utmSource} idSuffix="-hero" />
             </div>
 
-            <div className="mt-4 flex flex-col gap-3">
-              <p className="text-cream-dim/70 text-xs text-center">
-                Two taps = guaranteed you won't miss launch: join our VIP list above, and let Kickstarter remind you too.
-              </p>
-              <KickstarterNotifyButton location="hero" />
-            </div>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-cream-dim/80">
               <span>🇮🇹 Italian Mazzucchelli Acetate</span>
