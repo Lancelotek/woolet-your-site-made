@@ -33,7 +33,9 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   w.dataLayer.push({ event, ...params });
 };
 
-type Step = "welcome" | "camera" | "annotate" | "result";
+type Step = "welcome" | "camera" | "annotate" | "email-gate" | "result";
+
+const emailSchema = z.string().trim().email("Enter a valid email address").max(255);
 
 interface CapturedFrame {
   dataUrl: string;
