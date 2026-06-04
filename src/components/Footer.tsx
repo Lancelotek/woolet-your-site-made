@@ -29,7 +29,7 @@ const Footer = () => {
           { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
           { label: "Why Glasses Fail", href: `/${lang}/lp/why-glasses-fail` },
           { label: "5 Reasons", href: `/${lang}/lp/5-reasons` },
-          { label: "Kickstarter", href: `/${lang}/lp/kickstarter` },
+          { label: "Kickstarter", href: `/${lang}/lp/kickstarter`, newTab: true },
           { label: "support@woolet.co", href: "mailto:support@woolet.co" },
         ].map((link) => (
           <FooterLink key={link.label} {...link} />
@@ -39,8 +39,8 @@ const Footer = () => {
   );
 };
 
-const FooterLink = ({ label, href }: { label: string; href: string }) => {
-  const isInternal = href.startsWith("/");
+const FooterLink = ({ label, href, newTab }: { label: string; href: string; newTab?: boolean }) => {
+  const isInternal = href.startsWith("/") && !newTab;
   const className = "text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors";
   const style = { fontSize: '0.55rem' };
 
