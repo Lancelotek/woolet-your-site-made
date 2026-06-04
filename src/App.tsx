@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useParams } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -47,6 +47,11 @@ const OversizedRoundGlasses = lazy(() => import("./pages/collections/OversizedRo
 const OversizedBlackGlasses = lazy(() => import("./pages/collections/OversizedBlackGlasses.tsx"));
 
 const queryClient = new QueryClient();
+
+const FitScanRedirect = () => {
+  const { lang } = useParams();
+  return <Navigate to={`/${lang}/fit`} replace />;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -116,10 +121,11 @@ const App = () => (
           <Route path="/:lang" element={<Index />} />
           <Route path="/:lang/blog" element={<BlogIndex />} />
           <Route path="/:lang/blog/:slug" element={<BlogPost />} />
-          <Route path="/:lang/fit" element={<FitWizard />} />
+          <Route path="/:lang/fit" element={<FitScan />} />
+          <Route path="/:lang/fit/wizard" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
           <Route path="/en/fit/bespoke" element={<FitBespoke />} />
-          <Route path="/:lang/fit/scan" element={<FitScan />} />
+          <Route path="/:lang/fit/scan" element={<FitScanRedirect />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
 
           {/* Legacy routes redirect */}

@@ -1076,7 +1076,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
     ctx.fillStyle = "#888";
     ctx.font = "300 14px Barlow, sans-serif";
     ctx.fillText(`Confidence: ${measurements.confidence}`, 60, 300);
-    ctx.fillText("woolet.co/en/fit/scan", 60, 460);
+    ctx.fillText("woolet.co/en/fit", 60, 460);
 
     const link = document.createElement("a");
     link.download = "woolet-fit.png";
@@ -1655,7 +1655,7 @@ export default function FitScan() {
         title="Face Scan — Woolet AI Fit"
         description="Measure your face width and nose width with your camera and a credit card. Local, private, and accurate to about 2mm. Find out if Woolet's wide-face frames fit you."
         lang={lang}
-        path="/fit/scan"
+        path="/fit"
         noindex
       />
 

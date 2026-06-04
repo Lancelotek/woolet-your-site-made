@@ -247,13 +247,7 @@ export function getMetadata(route: string): RouteMeta {
         "Measure your face width, bridge and PD with a ruler and a credit card. Manual fallback for the Woolet AI Fit scan.",
     });
   }
-  if (path === "/fit/scan") {
-    return base(route, lang, {
-      title: "Face Scan — Woolet AI Fit",
-      description:
-        "Measure your face width and nose width with your camera and a credit card. Local, private and accurate to about 2 mm.",
-    });
-  }
+  // /fit/scan now redirects to /fit — metadata handled by /fit block above
   if (path === "/fit/bespoke") {
     return base(route, lang, {
       title: "Bespoke Fit — Woolet (150–172 mm)",
@@ -519,9 +513,9 @@ const STATIC_ROUTES = [
   "/en/products/007",
   "/en/products/009",
   "/en/fit",
+  "/en/fit",
   "/en/fit/manual",
   "/en/fit/bespoke",
-  "/en/fit/scan",
   "/en/collections/wide-face-glasses",
   "/en/collections/italian-acetate-sunglasses",
   "/en/collections/oversized-sunglasses-men",

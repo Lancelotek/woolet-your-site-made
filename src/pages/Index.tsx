@@ -177,7 +177,7 @@ const Index = () => {
       {/* SINGLE primary CTA + price subline */}
       <div className="flex flex-col gap-2 pt-2">
         <a
-          href={`/${lang}/fit/scan`}
+          href={`/${lang}/fit`}
           onClick={() => pushGtmEvent("cta_scan_click", { location: "hero_primary" })}
           className="inline-flex items-center justify-center uppercase tracking-[0.22em] transition-all no-underline"
           style={{
@@ -296,7 +296,7 @@ const Index = () => {
 
         </div>
 
-        {isEn && <SizeMatrix fitHref={`/${lang}/fit/scan`} bespokeHref={`/${lang}/bespoke`} sectionId="size-matrix-mobile" />}
+        {isEn && <SizeMatrix fitHref={`/${lang}/fit`} bespokeHref={`/${lang}/bespoke`} sectionId="size-matrix-mobile" />}
 
         {/* Spacer for sticky mobile CTA */}
         <div className="h-16" />
@@ -355,7 +355,7 @@ const Index = () => {
               <div id="collection-desktop"><ModelPills /></div>
 
             </div>
-            {isEn && <SizeMatrix fitHref={`/${lang}/fit/scan`} bespokeHref={`/${lang}/bespoke`} semantic={false} sectionId="size-matrix-desktop" />}
+            {isEn && <SizeMatrix fitHref={`/${lang}/fit`} bespokeHref={`/${lang}/bespoke`} semantic={false} sectionId="size-matrix-desktop" />}
             <Footer />
           </div>
         </div>

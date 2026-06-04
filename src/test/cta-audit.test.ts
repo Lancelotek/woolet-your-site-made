@@ -6,19 +6,19 @@ import { join, relative } from "node:path";
  * CTA audit
  * ---------
  * Any CTA whose visible copy contains "Scan your face" (or "SCAN YOUR FACE")
- * MUST navigate to `/{lang}/fit/scan` — never to `/fit`, `/fit/manual`,
+ * MUST navigate to `/{lang}/fit` — never to `/fit/scan`, `/fit/manual`,
  * `/fit/bespoke` or to a modal trigger like `openReserve`.
  *
  * Also checks for forgotten direct calls to `openReserve` / `setReserveOpen(true)`
- * sitting next to scan-style CTAs, and surfaces any remaining `/en/fit"` href
- * (without `/scan`) inside a button/link whose label mentions "scan".
+ * sitting next to scan-style CTAs, and surfaces any remaining `/en/fit/scan"` href
+ * (with `/scan`) inside a button/link whose label mentions "scan".
  */
 
 const SRC_DIR = join(process.cwd(), "src");
 
 const SCAN_LABEL = /(scan your face|SCAN YOUR FACE)/;
-const FORBIDDEN_HREF = /["'`](\/[a-z]{2})?\/fit(\/(manual|bespoke))?["'`]/;
-const ALLOWED_HREF = /\/fit\/scan/;
+const FORBIDDEN_HREF = /["'`](\/[a-z]{2})?\/fit\/(scan|manual|bespoke)["'`]/;
+const ALLOWED_HREF = /\/fit[\"\'`]/;
 const FORBIDDEN_HANDLERS = /(openReserve|setReserveOpen\s*\(\s*true)/;
 
 function walk(dir: string, acc: string[] = []): string[] {
@@ -74,7 +74,7 @@ function auditFile(file: string): Violation[] {
         file: relative(process.cwd(), file),
         line: i + 1,
         label,
-        reason: "Scan CTA points to /fit instead of /fit/scan",
+        reason: "Scan CTA points to /fit/scan instead of /fit",
         snippet: ctx.split("\n").slice(-6).join("\n"),
       });
       continue;
@@ -85,7 +85,7 @@ function auditFile(file: string): Violation[] {
       file: relative(process.cwd(), file),
       line: i + 1,
       label,
-      reason: "Scan CTA has no detectable /fit/scan destination",
+      reason: "Scan CTA has no detectable /fit destination",
       snippet: ctx.split("\n").slice(-6).join("\n"),
     });
   }
@@ -93,7 +93,7 @@ function auditFile(file: string): Violation[] {
   return violations;
 }
 
-describe("CTA audit — scan CTAs must point to /{lang}/fit/scan", () => {
+describe("CTA audit — scan CTAs must point to /{lang}/fit", () => {
   const files = walk(SRC_DIR).filter((f) => !f.includes("/test/"));
   const allViolations = files.flatMap(auditFile);
 
