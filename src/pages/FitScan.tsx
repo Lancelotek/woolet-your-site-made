@@ -1340,6 +1340,8 @@ export default function FitScan() {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get("s");
 
   const [step, setStep] = useState<Step>("welcome");
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
@@ -1351,6 +1353,11 @@ export default function FitScan() {
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
+
+  // Desktop visitors without a session id must hand off to a phone via QR.
+  // Mobile visitors, or anyone who already has ?s=<id>, run the scan inline.
+  const requiresHandoff = !isMobile && !sessionId;
+
 
   useEffect(() => {
     if (typeof window === "undefined") return;
