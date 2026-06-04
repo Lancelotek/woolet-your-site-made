@@ -34,7 +34,7 @@ const Navbar = () => {
             {t(lang, "nav.collection")}
           </Link>
           <Link
-            to={`/${lang}/fit`}
+            to={`/${lang}/fit/scan`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.55rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang })}
