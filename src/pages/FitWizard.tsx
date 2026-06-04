@@ -1396,12 +1396,43 @@ function ResultStep({
         </p>
       </div>
 
-      {/* Light teaser + email capture (no payment) */}
-      <EmailCaptureForm
-        measurement={measurement}
-        fomoVariant={fomoVariant}
-        onSuccess={onSavedEmail}
-      />
+      {/* Kickstarter waiting list CTA — no email capture here */}
+      <div
+        className="rounded-lg p-5 sm:p-6 flex flex-col gap-4"
+        style={{
+          background: "rgba(201,168,76,0.05)",
+          border: "1px solid rgba(201,168,76,0.22)",
+        }}
+      >
+        <p
+          className="text-woolet-white"
+          style={{ fontSize: "1rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
+        >
+          Join the Kickstarter waiting list.
+        </p>
+        <p
+          className="text-cream-dim leading-relaxed"
+          style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif" }}
+        >
+          Be first in line for founding member pricing (30% off) when Woolet launches on Kickstarter — September 19, 2026.
+        </p>
+        <a
+          href="https://woolet.co/en/lp/kickstarter"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() =>
+            pushEvent("fit_kickstarter_cta_clicked", {
+              recommended_sku: measurement.recommendedSku,
+              face_width_mm: measurement.faceWidthMm,
+              fomo_variant: fomoVariant,
+            })
+          }
+          style={goldButtonStyle}
+        >
+          Join the Kickstarter waiting list
+        </a>
+      </div>
+
 
       <div className="flex flex-col gap-4 pt-2">
         <button
