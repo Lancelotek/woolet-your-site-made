@@ -8,6 +8,9 @@ import { test, expect } from "../playwright-fixture";
 // src/lib/card-detection.test.ts (the pure classifyCardSample helper).
 test.describe("FitScan — horizontal-on-forehead flow", () => {
   test("welcome step explains horizontal placement", async ({ page }) => {
+    // Scan is mobile-only on desktop visitors a QR handoff is shown instead,
+    // so we explicitly emulate a mobile viewport to assert the welcome copy.
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/en/fit/scan");
 
     await expect(

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import ScanHandoffDesktop from "@/components/ScanHandoffDesktop";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -1339,6 +1340,8 @@ export default function FitScan() {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get("s");
 
   const [step, setStep] = useState<Step>("welcome");
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
@@ -1350,6 +1353,11 @@ export default function FitScan() {
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
+
+  // Desktop visitors without a session id must hand off to a phone via QR.
+  // Mobile visitors, or anyone who already has ?s=<id>, run the scan inline.
+  const requiresHandoff = !isMobile && !sessionId;
+
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -1405,7 +1413,26 @@ export default function FitScan() {
         recommendation_type: r.type,
         confidence: m.confidence,
         auto_corners: !f1 && !f2,
+        has_session: !!sessionId,
       });
+      // If this scan was opened via QR handoff, sync the result so the
+      // originating desktop session can render it in real time.
+      if (sessionId) {
+        supabase
+          .from("scan_sessions")
+          .update({
+            status: "completed",
+            face_width_mm: m.faceWidthMm,
+            nose_width_mm: m.noseWidthMm,
+            recommendation_type: r.type,
+            confidence: m.confidence,
+            user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+          })
+          .eq("id", sessionId)
+          .then(({ error: updErr }) => {
+            if (updErr) console.warn("[scan] session sync failed", updErr);
+          });
+      }
       setStep("result");
       return true;
     } catch (err) {
@@ -1609,95 +1636,109 @@ export default function FitScan() {
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
-            {step === "welcome" && (blockingMessage || errorMsg) && (
-              <div
-                role="alert"
-                style={{
-                  marginBottom: 28,
-                  padding: "20px 22px",
-                  border: `1px solid ${blockingMessage ? "rgba(255,255,255,0.14)" : "rgba(239,68,68,0.45)"}`,
-                  borderRadius: 8,
-                  background: "rgba(255,255,255,0.02)",
-                  fontFamily: "Barlow, sans-serif",
+            {requiresHandoff && step !== "result" ? (
+              <ScanHandoffDesktop
+                lang={lang}
+                onSessionComplete={(m, r) => {
+                  setMeasurements(m);
+                  setRecommendation(r);
+                  setStep("result");
                 }}
-              >
-                <div
-                  style={{
-                    color: blockingMessage ? GOLD : "#fca5a5",
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    marginBottom: 8,
-                  }}
-                >
-                  {blockingMessage ? "Scan unavailable" : "Scan didn't complete"}
-                </div>
-                <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
-                  {blockingMessage || errorMsg}
-                </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
-                  {!blockingMessage && errorKind === "recoverable" && (
-                    <button
-                      onClick={retryScan}
-                      style={{
-                        background: GOLD,
-                        color: BG,
-                        fontFamily: "Barlow, sans-serif",
-                        fontWeight: 500,
-                        fontSize: "0.7rem",
-                        padding: "12px 20px",
-                        letterSpacing: "0.2em",
-                        textTransform: "uppercase",
-                        border: "none",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Try again
-                    </button>
-                  )}
-                  <button
-                    onClick={() => navigate(`/${lang}/fit`)}
+              />
+            ) : (
+              <>
+                {step === "welcome" && (blockingMessage || errorMsg) && (
+                  <div
+                    role="alert"
                     style={{
-                      background: "transparent",
-                      border: "1px solid hsl(var(--border))",
-                      color: "hsl(var(--cream-dim))",
+                      marginBottom: 28,
+                      padding: "20px 22px",
+                      border: `1px solid ${blockingMessage ? "rgba(255,255,255,0.14)" : "rgba(239,68,68,0.45)"}`,
+                      borderRadius: 8,
+                      background: "rgba(255,255,255,0.02)",
                       fontFamily: "Barlow, sans-serif",
-                      fontSize: "0.7rem",
-                      padding: "12px 20px",
-                      letterSpacing: "0.2em",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
                     }}
                   >
-                    Use manual scan
-                  </button>
-                </div>
-              </div>
+                    <div
+                      style={{
+                        color: blockingMessage ? GOLD : "#fca5a5",
+                        fontSize: "0.7rem",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        marginBottom: 8,
+                      }}
+                    >
+                      {blockingMessage ? "Scan unavailable" : "Scan didn't complete"}
+                    </div>
+                    <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
+                      {blockingMessage || errorMsg}
+                    </p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
+                      {!blockingMessage && errorKind === "recoverable" && (
+                        <button
+                          onClick={retryScan}
+                          style={{
+                            background: GOLD,
+                            color: BG,
+                            fontFamily: "Barlow, sans-serif",
+                            fontWeight: 500,
+                            fontSize: "0.7rem",
+                            padding: "12px 20px",
+                            letterSpacing: "0.2em",
+                            textTransform: "uppercase",
+                            border: "none",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Try again
+                        </button>
+                      )}
+                      <button
+                        onClick={() => navigate(`/${lang}/fit`)}
+                        style={{
+                          background: "transparent",
+                          border: "1px solid hsl(var(--border))",
+                          color: "hsl(var(--cream-dim))",
+                          fontFamily: "Barlow, sans-serif",
+                          fontSize: "0.7rem",
+                          padding: "12px 20px",
+                          letterSpacing: "0.2em",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Use manual scan
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {step === "welcome" && (
+                  <WelcomeStep
+                    lang={lang}
+                    onStart={startScan}
+                    disabled={!!blockingMessage}
+                    isMobile={isMobile}
+                  />
+                )}
+                {step === "camera" && (
+                  <CameraStep
+                    key={retryCount}
+                    lang={lang}
+                    onCaptured={handleCaptured}
+                    onError={handleError}
+                    isMobile={isMobile}
+                  />
+                )}
+                {step === "annotate" && frame && (
+                  <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
+                )}
+                {step === "result" && measurements && recommendation && (
+                  <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
+                )}
+              </>
             )}
 
-            {step === "welcome" && (
-              <WelcomeStep
-                lang={lang}
-                onStart={startScan}
-                disabled={!!blockingMessage}
-                isMobile={isMobile}
-              />
-            )}
-            {step === "camera" && (
-              <CameraStep
-                key={retryCount}
-                lang={lang}
-                onCaptured={handleCaptured}
-                onError={handleError}
-                isMobile={isMobile}
-              />
-            )}
-            {step === "annotate" && frame && (
-              <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
-            )}
-            {step === "result" && measurements && recommendation && (
-              <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
-            )}
           </div>
         </div>
       </main>

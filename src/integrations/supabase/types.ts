@@ -53,6 +53,45 @@ export type Database = {
         }
         Relationships: []
       }
+      scan_sessions: {
+        Row: {
+          confidence: string | null
+          created_at: string
+          email: string
+          face_width_mm: number | null
+          id: string
+          nose_width_mm: number | null
+          recommendation_type: string | null
+          status: string
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          confidence?: string | null
+          created_at?: string
+          email: string
+          face_width_mm?: number | null
+          id?: string
+          nose_width_mm?: number | null
+          recommendation_type?: string | null
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          confidence?: string | null
+          created_at?: string
+          email?: string
+          face_width_mm?: number | null
+          id?: string
+          nose_width_mm?: number | null
+          recommendation_type?: string | null
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
