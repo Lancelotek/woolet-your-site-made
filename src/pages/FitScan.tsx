@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import ScanHandoffDesktop from "@/components/ScanHandoffDesktop";
+import { z } from "zod";
+import DesktopScanGate from "@/components/DesktopScanGate";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -32,7 +33,9 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   w.dataLayer.push({ event, ...params });
 };
 
-type Step = "welcome" | "camera" | "annotate" | "result";
+type Step = "welcome" | "camera" | "annotate" | "email-gate" | "result";
+
+const emailSchema = z.string().trim().email("Enter a valid email address").max(255);
 
 interface CapturedFrame {
   dataUrl: string;
@@ -1333,7 +1336,142 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
   );
 }
 
+/* ─────────────── Email gate (mobile) ─────────────── */
+
+function EmailGateStep({
+  faceWidthMm,
+  device,
+  onSubmitted,
+}: {
+  faceWidthMm: number;
+  device: "mobile" | "desktop";
+  onSubmitted: () => void;
+}) {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    const parsed = emailSchema.safeParse(email);
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Invalid email");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const { error: mlErr } = await supabase.functions.invoke("mailerlite-subscribe", {
+        body: {
+          email: parsed.data,
+          face_width: String(Math.round(faceWidthMm)),
+          source: "scan",
+          device,
+        },
+      });
+      if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
+      pushEvent("scan_lead", { device, face_width: Math.round(faceWidthMm) });
+      pushEvent("fit_email_captured", { device, face_width: Math.round(faceWidthMm) });
+      onSubmitted();
+    } catch (err) {
+      console.error("[scan email gate] submit failed", err);
+      toast.error("Couldn't save your email. Try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-7">
+      <div className="woolet-eyebrow">
+        <div className="woolet-eyebrow-line" />
+        <span className="woolet-eyebrow-text">ONE MORE STEP</span>
+      </div>
+      <h1
+        className="font-display text-woolet-white"
+        style={{ fontSize: "clamp(2rem, 5vw, 2.75rem)", fontWeight: 300, lineHeight: 1.05 }}
+      >
+        Unlock your <em className="italic" style={{ color: GOLD }}>exact frame size</em>
+      </h1>
+      <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.55 }}>
+        Enter your email to see your size + lock your $1 founding reserve.
+      </p>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
+        <label
+          htmlFor="scan-result-email"
+          style={{
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+          }}
+        >
+          Your email
+        </label>
+        <input
+          id="scan-result-email"
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.16)",
+            color: "white",
+            padding: "14px 16px",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "1rem",
+            borderRadius: 4,
+          }}
+        />
+        {error && (
+          <span style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}>
+            {error}
+          </span>
+        )}
+        <button
+          type="submit"
+          disabled={submitting}
+          style={{
+            marginTop: 8,
+            background: submitting ? "rgba(202,164,73,0.4)" : GOLD,
+            color: BG,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.78rem",
+            padding: "18px 28px",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            border: "none",
+            cursor: submitting ? "wait" : "pointer",
+            height: 52,
+          }}
+        >
+          {submitting ? "Unlocking…" : "Show my size →"}
+        </button>
+        <p
+          style={{
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            margin: 0,
+            lineHeight: 1.5,
+          }}
+        >
+          No spam. Unsubscribe anytime.
+        </p>
+      </form>
+    </div>
+  );
+}
+
 /* ─────────────── Page shell ─────────────── */
+
 
 export default function FitScan() {
   const { lang: paramLang } = useParams<{ lang: string }>();
@@ -1341,7 +1479,12 @@ export default function FitScan() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [searchParams] = useSearchParams();
+  // `sid` = new "lead already captured on the other device" flag (random UUID).
+  // `s`   = legacy supabase scan-session id (kept for back-compat).
+  const sidParam = searchParams.get("sid");
   const sessionId = searchParams.get("s");
+  // If the visitor arrived via the desktop→phone QR, skip the email gate.
+  const emailAlreadyCaptured = !!sidParam || !!sessionId;
 
   const [step, setStep] = useState<Step>("welcome");
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
@@ -1353,10 +1496,11 @@ export default function FitScan() {
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
+  const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
 
   // Desktop visitors without a session id must hand off to a phone via QR.
-  // Mobile visitors, or anyone who already has ?s=<id>, run the scan inline.
-  const requiresHandoff = !isMobile && !sessionId;
+  // Mobile visitors, or anyone who already has ?sid= / ?s=, run the scan inline.
+  const requiresHandoff = !isMobile && !emailAlreadyCaptured;
 
 
   useEffect(() => {
@@ -1433,7 +1577,7 @@ export default function FitScan() {
             if (updErr) console.warn("[scan] session sync failed", updErr);
           });
       }
-      setStep("result");
+      setStep(emailCaptured ? "result" : "email-gate");
       return true;
     } catch (err) {
       const isMeasurement = err instanceof MeasurementError;
@@ -1636,15 +1780,8 @@ export default function FitScan() {
         `}</style>
         <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
-            {requiresHandoff && step !== "result" ? (
-              <ScanHandoffDesktop
-                lang={lang}
-                onSessionComplete={(m, r) => {
-                  setMeasurements(m);
-                  setRecommendation(r);
-                  setStep("result");
-                }}
-              />
+            {requiresHandoff ? (
+              <DesktopScanGate lang={lang} />
             ) : (
               <>
                 {step === "welcome" && (blockingMessage || errorMsg) && (
@@ -1732,6 +1869,16 @@ export default function FitScan() {
                 )}
                 {step === "annotate" && frame && (
                   <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
+                )}
+                {step === "email-gate" && measurements && (
+                  <EmailGateStep
+                    faceWidthMm={measurements.faceWidthMm}
+                    device={isMobile ? "mobile" : "desktop"}
+                    onSubmitted={() => {
+                      setEmailCaptured(true);
+                      setStep("result");
+                    }}
+                  />
                 )}
                 {step === "result" && measurements && recommendation && (
                   <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
