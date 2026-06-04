@@ -8,6 +8,10 @@ const corsHeaders = {
 
 const MAILERLITE_API = "https://connect.mailerlite.com/api";
 
+// MailerLite group IDs
+const VIP_GROUP_ID = "181841182994728358";          // Kickstarter VIP (default)
+const AI_SCAN_GROUP_ID = "189356132351870087";      // AI Scan leads
+
 async function mlFetch(apiKey: string, path: string, method: string, body?: unknown) {
   const res = await fetch(`${MAILERLITE_API}${path}`, {
     method,
@@ -21,10 +25,11 @@ async function mlFetch(apiKey: string, path: string, method: string, body?: unkn
 }
 
 async function ensureCustomFields(apiKey: string) {
-  // Try to create fields — MailerLite returns 422 if they already exist, which is fine
+  // Idempotent: MailerLite returns 422 if a field already exists.
   const fields = [
     { name: "face_width", type: "text" },
     { name: "interested_models", type: "text" },
+    { name: "scan_device", type: "text" },
   ];
 
   for (const field of fields) {
@@ -32,7 +37,7 @@ async function ensureCustomFields(apiKey: string) {
     if (status === 200) {
       console.log(`Created custom field: ${field.name}`);
     } else {
-      console.log(`Field ${field.name} already exists or skipped (status: ${status})`);
+      console.log(`Field ${field.name} skipped (status: ${status})`);
     }
   }
 }
@@ -48,7 +53,7 @@ serve(async (req) => {
       throw new Error("MAILERLITE_API_KEY is not configured");
     }
 
-    const { email, name, face_width, models, source } = await req.json();
+    const { email, name, face_width, models, source, device } = await req.json();
 
     if (!email) {
       return new Response(
@@ -57,27 +62,26 @@ serve(async (req) => {
       );
     }
 
-    // Ensure custom fields exist in MailerLite (idempotent)
     await ensureCustomFields(apiKey);
 
-    // Default group + optional Kickstarter VIP / Fit Scan groups
-    const KICKSTARTER_VIP_GROUP_ID = "181841182994728358";
-    const FIT_SCAN_GROUP_ID = "189356132351870087";
-    const groups: string[] = ["181841182994728358"];
-    if (source === "kickstarter" && KICKSTARTER_VIP_GROUP_ID) {
-      groups.push(KICKSTARTER_VIP_GROUP_ID);
-    }
-    if (source === "fit_scan") {
-      groups.push(FIT_SCAN_GROUP_ID);
+    // Route by source
+    const groups: string[] = [];
+    if (source === "scan") {
+      groups.push(AI_SCAN_GROUP_ID);
+    } else if (source === "kickstarter") {
+      groups.push(VIP_GROUP_ID);
+    } else {
+      // Default/missing — keep current behavior (VIP)
+      groups.push(VIP_GROUP_ID);
     }
 
-    // Subscribe with all fields + group
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
       fields: {
         name: name || "",
         face_width: face_width || "",
         interested_models: models || "",
+        scan_device: device || "",
       },
       groups,
     });
@@ -93,7 +97,13 @@ serve(async (req) => {
       );
     }
 
-    console.log("Subscriber added:", email, "| face_width:", face_width, "| models:", models);
+    console.log(
+      "Subscriber added:", email,
+      "| source:", source || "default",
+      "| device:", device || "-",
+      "| face_width:", face_width || "-",
+      "| models:", models || "-",
+    );
 
     return new Response(
       JSON.stringify({ success: true, subscriber: { email: data.data?.email } }),
