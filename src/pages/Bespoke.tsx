@@ -104,7 +104,7 @@ const BespokePage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                to="/en/fit/scan"
+                to="/en/fit"
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   background: "hsl(var(--gold))",
@@ -322,7 +322,7 @@ const BespokePage = () => {
               100 spots at $299. Reservation costs $1 and is fully refundable.
             </p>
             <Link
-              to="/en/fit/scan"
+              to="/en/fit"
               className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
               style={{
                 background: "hsl(var(--gold))",
