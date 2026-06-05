@@ -37,7 +37,114 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   w.dataLayer.push({ event, ...params });
 };
 
-type Step = "welcome" | "camera" | "annotate" | "email-gate" | "result";
+type Step = "welcome" | "camera" | "analyzing" | "annotate" | "email-gate" | "result";
+
+/* ─────────────── Analyzing (progress) ─────────────── */
+
+function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
+  // Estimated duration ~12s for Gemini round-trip. We animate towards 92% and
+  // hold there until the parent transitions to the next step.
+  const ESTIMATE_MS = 12000;
+  const [progress, setProgress] = useState(4);
+  const [stageIdx, setStageIdx] = useState(0);
+
+  const stages = [
+    "Uploading your photo securely…",
+    "Detecting the credit card on your forehead…",
+    "Locating face landmarks (478 points)…",
+    "Calculating face width and bridge size…",
+    "Almost done — preparing your recommendation…",
+  ];
+
+  useEffect(() => {
+    const started = Date.now();
+    const id = window.setInterval(() => {
+      const elapsed = Date.now() - started;
+      const pct = Math.min(92, Math.round((elapsed / ESTIMATE_MS) * 92));
+      setProgress(pct);
+      const s = Math.min(stages.length - 1, Math.floor(pct / 20));
+      setStageIdx(s);
+    }, 200);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 24,
+        padding: "32px 20px",
+        textAlign: "center",
+        color: "#f0ece4",
+      }}
+    >
+      {previewUrl && (
+        <div
+          style={{
+            width: 140,
+            height: 140,
+            borderRadius: "50%",
+            overflow: "hidden",
+            border: `2px solid ${GOLD}`,
+            boxShadow: `0 0 0 6px rgba(202,164,73,0.12)`,
+            position: "relative",
+          }}
+        >
+          <img
+            src={previewUrl}
+            alt="Captured frame"
+            style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.75)" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "conic-gradient(from 0deg, transparent 0deg, rgba(202,164,73,0.55) 90deg, transparent 180deg)",
+              animation: "fitscan-spin 1.4s linear infinite",
+            }}
+          />
+        </div>
+      )}
+
+      <style>{`@keyframes fitscan-spin { to { transform: rotate(360deg); } }`}</style>
+
+      <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 26, lineHeight: 1.2 }}>
+        Analyzing your measurements
+      </div>
+
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 360,
+          height: 6,
+          background: "rgba(255,255,255,0.08)",
+          borderRadius: 999,
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            width: `${progress}%`,
+            height: "100%",
+            background: `linear-gradient(90deg, ${GOLD}, #e6c779)`,
+            transition: "width 200ms linear",
+          }}
+        />
+      </div>
+
+      <div style={{ fontSize: 13, color: MUTED, minHeight: 18 }}>
+        {stages[stageIdx]} <span style={{ color: GOLD, marginLeft: 6 }}>{progress}%</span>
+      </div>
+
+      <div style={{ fontSize: 11, color: MUTED, maxWidth: 320 }}>
+        This usually takes 8–15 seconds. Please keep this page open.
+      </div>
+    </div>
+  );
+}
 
 const emailSchema = z.string().trim().email("Enter a valid email address").max(255);
 
