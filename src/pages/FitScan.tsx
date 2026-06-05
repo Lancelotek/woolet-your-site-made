@@ -1900,6 +1900,7 @@ export default function FitScan() {
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
+  const [prefillPoints, setPrefillPoints] = useState<{ card: [Point, Point]; face: [Point, Point] } | null>(null);
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
 
   // Desktop visitors without a session id must hand off to a phone via QR.
