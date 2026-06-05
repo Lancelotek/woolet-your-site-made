@@ -432,6 +432,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
   const lightingColor = lighting === "green" ? "#4ade80" : lighting === "yellow" ? "#facc15" : "#ef4444";
   const lightingLabel = lighting === "green" ? "Good light" : lighting === "yellow" ? "OK light" : "Too dark";
+  const cardColor = cardState === "ok" ? "#4ade80" : cardState === "misaligned" ? "#facc15" : "#ef4444";
+  const cardLabel =
+    cardState === "ok"
+      ? "Card detected"
+      : cardState === "misaligned"
+        ? "Rotate card flat & horizontal"
+        : "Place card on forehead";
+  const captureBlocked = !ready || busy || countdown !== null || cardState !== "ok";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
   if (isMobile) {
