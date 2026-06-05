@@ -12,6 +12,7 @@ import fitStepPhone from "@/assets/fit-step-phone.jpg";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getImageLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
+import { classifyCardSample } from "@/lib/card-detection";
 import {
   calculateMeasurements,
   getRecommendation,
@@ -221,6 +222,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
+  const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
@@ -240,6 +242,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     const v = videoRef.current;
     if (!v || v.readyState < 2) {
       onError("Camera isn't ready yet — give it a second and tap capture again.");
+      return;
+    }
+    if (cardState !== "ok") {
+      onError(
+        cardState === "misaligned"
+          ? "Hold the card flat against your forehead with the long edge horizontal."
+          : "Place a credit card flat on your forehead so we can measure — we can't see it yet.",
+      );
       return;
     }
     setBusy(true);
@@ -289,7 +299,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       setBusy(false);
       onError("Couldn't process the captured frame. Try again.");
     }
-  }, [busy, onCaptured, onError, stopAll]);
+  }, [busy, cardState, onCaptured, onError, stopAll]);
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
@@ -343,11 +353,18 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         return;
       }
 
-      // Cheap luminance loop — just to warn about low light. Throttled.
+      // Cheap luminance loop — warn about low light + live-detect the card on forehead.
       const sample = document.createElement("canvas");
       sample.width = 24; sample.height = 24;
       const sctx = sample.getContext("2d");
+      // Forehead band sampler for card-on-forehead detection.
+      const CARD_W = 80;
+      const CARD_H = 32;
+      const cardCv = document.createElement("canvas");
+      cardCv.width = CARD_W; cardCv.height = CARD_H;
+      const cctx = cardCv.getContext("2d", { willReadFrequently: true });
       let last = 0;
+      let lastCard = 0;
       const tick = (ts: number) => {
         const v = videoRef.current;
         if (!v || v.readyState < 2) {
@@ -365,6 +382,42 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             setLighting(lum > 100 ? "green" : lum > 70 ? "yellow" : "red");
           } catch { /* CORS */ }
         }
+        // Card-on-forehead detection ~3x/sec: sample the upper-forehead band
+        // inside the oval guide and compute mean vertical vs horizontal gradients.
+        if (ts - lastCard > 300 && cctx) {
+          lastCard = ts;
+          try {
+            const vw = v.videoWidth;
+            const vh = v.videoHeight;
+            if (vw > 0 && vh > 0) {
+              // Forehead band: roughly center 50% horizontally, y between 15% and 32%
+              const sxF = vw * 0.25;
+              const syF = vh * 0.15;
+              const swF = vw * 0.5;
+              const shF = vh * 0.17;
+              cctx.drawImage(v, sxF, syF, swF, shF, 0, 0, CARD_W, CARD_H);
+              const img = cctx.getImageData(0, 0, CARD_W, CARD_H).data;
+              const lumBuf = new Float32Array(CARD_W * CARD_H);
+              for (let i = 0; i < CARD_W * CARD_H; i++) {
+                const o = i * 4;
+                lumBuf[i] = 0.299 * img[o] + 0.587 * img[o + 1] + 0.114 * img[o + 2];
+              }
+              let vSum = 0, hSum = 0, n = 0;
+              for (let y = 1; y < CARD_H - 1; y++) {
+                for (let x = 1; x < CARD_W - 1; x++) {
+                  const i = y * CARD_W + x;
+                  vSum += Math.abs(lumBuf[i + CARD_W] - lumBuf[i - CARD_W]);
+                  hSum += Math.abs(lumBuf[i + 1] - lumBuf[i - 1]);
+                  n++;
+                }
+              }
+              const vGrad = n > 0 ? vSum / n : 0;
+              const hGrad = n > 0 ? hSum / n : 0;
+              const cls = classifyCardSample(vGrad, hGrad);
+              setCardState((prev) => (prev === cls.nextState ? prev : cls.nextState));
+            }
+          } catch { /* CORS */ }
+        }
         lumRafRef.current = requestAnimationFrame(tick);
       };
       lumRafRef.current = requestAnimationFrame(tick);
@@ -379,6 +432,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
   const lightingColor = lighting === "green" ? "#4ade80" : lighting === "yellow" ? "#facc15" : "#ef4444";
   const lightingLabel = lighting === "green" ? "Good light" : lighting === "yellow" ? "OK light" : "Too dark";
+  const cardColor = cardState === "ok" ? "#4ade80" : cardState === "misaligned" ? "#facc15" : "#ef4444";
+  const cardLabel =
+    cardState === "ok"
+      ? "Card detected"
+      : cardState === "misaligned"
+        ? "Rotate card flat & horizontal"
+        : "Place card on forehead";
+  const captureBlocked = !ready || busy || countdown !== null || cardState !== "ok";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
   if (isMobile) {
@@ -422,7 +483,10 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: lightingColor, boxShadow: `0 0 6px ${lightingColor}` }} />
               {lightingLabel}
             </span>
-            <span className="scan-mobile-pill scan-mobile-pill-muted">Card flat · horizontal</span>
+            <span className="scan-mobile-pill" style={{ borderColor: cardColor }}>
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: cardColor, boxShadow: `0 0 6px ${cardColor}` }} />
+              {cardLabel}
+            </span>
           </div>
 
           {countdown !== null && (
@@ -436,7 +500,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             className="scan-shutter"
             aria-label="Capture photo"
             onClick={performCapture}
-            disabled={!ready || busy || countdown !== null}
+            disabled={captureBlocked}
           >
             <span className="scan-shutter-inner" />
           </button>
@@ -530,6 +594,30 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           {lightingLabel}
         </div>
 
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: 12,
+            left: 12,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "5px 10px",
+            borderRadius: 999,
+            background: "rgba(0,0,0,0.55)",
+            border: `1px solid ${cardColor}`,
+            color: "rgba(255,255,255,0.9)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.7rem",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+          }}
+        >
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: cardColor, boxShadow: `0 0 6px ${cardColor}` }} />
+          {cardLabel}
+        </div>
+
         {countdown !== null && (
           <div
             aria-live="assertive"
@@ -587,9 +675,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         <button
           type="button"
           onClick={performCapture}
-          disabled={!ready || busy || countdown !== null}
+          disabled={captureBlocked}
           style={{
-            background: !ready || busy || countdown !== null ? "rgba(202,164,73,0.3)" : GOLD,
+            background: captureBlocked ? "rgba(202,164,73,0.3)" : GOLD,
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
@@ -598,11 +686,17 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             border: "none",
-            cursor: !ready || busy || countdown !== null ? "not-allowed" : "pointer",
+            cursor: captureBlocked ? "not-allowed" : "pointer",
             height: 52,
           }}
         >
-          {busy ? "Analyzing…" : countdown !== null ? `Capturing in ${countdown}…` : "Capture now"}
+          {busy
+            ? "Analyzing…"
+            : countdown !== null
+              ? `Capturing in ${countdown}…`
+              : cardState !== "ok"
+                ? cardLabel
+                : "Capture now"}
         </button>
         <button
           type="button"
