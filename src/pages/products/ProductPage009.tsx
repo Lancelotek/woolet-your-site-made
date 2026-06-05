@@ -97,7 +97,7 @@ const ProductPage009 = () => {
       currency: "USD",
     });
     try { sessionStorage.setItem("woolet_lens_pref", lens); } catch { /* noop */ }
-    setShowCheckout(true);
+    window.open("https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n", "_blank");
   };
 
   return (
