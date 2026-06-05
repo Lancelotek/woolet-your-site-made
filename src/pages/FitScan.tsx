@@ -2233,7 +2233,7 @@ export default function FitScan() {
                   />
                 )}
                 {step === "result" && measurements && recommendation && (
-                  <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
+                  <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} />
                 )}
               </>
             )}
