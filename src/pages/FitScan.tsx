@@ -1279,8 +1279,25 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
         </span>
       </div>
 
-      <div className="flex flex-col gap-2 pt-2">
+      <div
+        className="flex flex-col gap-2 pt-2"
+        style={{
+          position: "sticky",
+          bottom: 0,
+          background: "linear-gradient(to top, rgba(8,8,7,0.96) 70%, rgba(8,8,7,0))",
+          padding: "12px 0 calc(env(safe-area-inset-bottom, 0px) + 12px)",
+          marginTop: 8,
+          zIndex: 10,
+        }}
+      >
         <button
+          ref={(el) => {
+            // Auto-scroll the action into view the moment all 4 points are placed,
+            // so users on mobile never miss the Calculate CTA below the photo.
+            if (el && cardCorners.length === 2 && faceEdges.length === 2) {
+              try { el.scrollIntoView({ behavior: "smooth", block: "center" }); } catch { /* noop */ }
+            }
+          }}
           disabled={cardCorners.length < 2 || faceEdges.length < 2}
           onClick={() => onCalculate([cardCorners[0], cardCorners[1]], [faceEdges[0], faceEdges[1]])}
           style={{
@@ -1295,9 +1312,12 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
             border: "none",
             cursor: cardCorners.length < 2 || faceEdges.length < 2 ? "not-allowed" : "pointer",
             height: 48,
+            width: "100%",
           }}
         >
-          Calculate my measurements
+          {cardCorners.length < 2 || faceEdges.length < 2
+            ? `Tap ${4 - (cardCorners.length + faceEdges.length)} more point${4 - (cardCorners.length + faceEdges.length) === 1 ? "" : "s"} to continue`
+            : "Calculate my measurements"}
         </button>
         <button
           onClick={onRetake}
