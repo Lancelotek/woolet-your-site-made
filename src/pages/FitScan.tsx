@@ -473,6 +473,10 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       const cctx = cardCv.getContext("2d", { willReadFrequently: true });
       let last = 0;
       let lastCard = 0;
+      let lastFace = 0;
+      let faceBusy = false;
+      let videoLm: Awaited<ReturnType<typeof getVideoLandmarker>> | null = null;
+      getVideoLandmarker().then((lm) => { if (!cancelled) videoLm = lm; }).catch(() => { /* noop */ });
       const tick = (ts: number) => {
         const v = videoRef.current;
         if (!v || v.readyState < 2) {
