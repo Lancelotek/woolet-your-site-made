@@ -2093,6 +2093,9 @@ export default function FitScan() {
                     isMobile={isMobile}
                   />
                 )}
+                {step === "analyzing" && (
+                  <AnalyzingStep previewUrl={frame?.dataUrl} />
+                )}
                 {step === "annotate" && frame && (
                   <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
                 )}
