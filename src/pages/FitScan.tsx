@@ -594,6 +594,30 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           {lightingLabel}
         </div>
 
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: 12,
+            left: 12,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "5px 10px",
+            borderRadius: 999,
+            background: "rgba(0,0,0,0.55)",
+            border: `1px solid ${cardColor}`,
+            color: "rgba(255,255,255,0.9)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.7rem",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+          }}
+        >
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: cardColor, boxShadow: `0 0 6px ${cardColor}` }} />
+          {cardLabel}
+        </div>
+
         {countdown !== null && (
           <div
             aria-live="assertive"
