@@ -222,6 +222,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
+  const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
