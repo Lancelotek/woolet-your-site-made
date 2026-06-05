@@ -244,6 +244,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       onError("Camera isn't ready yet — give it a second and tap capture again.");
       return;
     }
+    if (cardState !== "ok") {
+      onError(
+        cardState === "misaligned"
+          ? "Hold the card flat against your forehead with the long edge horizontal."
+          : "Place a credit card flat on your forehead so we can measure — we can't see it yet.",
+      );
+      return;
+    }
     setBusy(true);
     capturedRef.current = true;
 
