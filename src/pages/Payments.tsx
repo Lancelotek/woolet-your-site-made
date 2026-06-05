@@ -1,28 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useSearchParams } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.png";
 
-const STRIPE_URL = "https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n";
+const BUY_BUTTON_ID = "buy_btn_1Tf0naLEPUSL9e9mbcfVXmQb";
+const PUBLISHABLE_KEY = "pk_live_51IZBv9LEPUSL9e9m7dWKqimMZLNFxfjVfjAlLlXaSVqJ3emyB9v12FRo2ytUn9WszI84SRDb3kQxJmzKy7Qcoeih00lUJL9roa";
+const STRIPE_FALLBACK_URL = "https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n";
 
 export default function Payments() {
   const [params] = useSearchParams();
   const product = params.get("product") || "";
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [blocked, setBlocked] = useState(false);
 
   useEffect(() => {
-    // Stripe Payment Links send X-Frame-Options: DENY. The iframe will fail
-    // silently — detect by checking that it never loads within 2.5s.
-    const timer = setTimeout(() => {
-      try {
-        const doc = iframeRef.current?.contentDocument;
-        if (!doc || doc.location.href === "about:blank") setBlocked(true);
-      } catch {
-        // Cross-origin — that's actually fine, it loaded
-      }
-    }, 2500);
-    return () => clearTimeout(timer);
+    if (document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) return;
+    const s = document.createElement("script");
+    s.src = "https://js.stripe.com/v3/buy-button.js";
+    s.async = true;
+    document.head.appendChild(s);
   }, []);
 
   return (
@@ -33,7 +27,6 @@ export default function Payments() {
       </Helmet>
 
       <div style={{ minHeight: "100vh", background: "#f0ece4", color: "#0f0f0f", display: "flex", flexDirection: "column" }}>
-        {/* Brand header */}
         <header style={{ borderBottom: "1px solid rgba(15,15,15,0.08)", background: "#f0ece4" }}>
           <div style={{ maxWidth: 960, margin: "0 auto", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <Link to="/en" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
@@ -49,10 +42,9 @@ export default function Payments() {
           </div>
         </header>
 
-        {/* Main */}
         <main style={{ flex: 1, padding: "32px 16px" }}>
-          <div style={{ maxWidth: 760, margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: 24 }}>
+          <div style={{ maxWidth: 560, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 28 }}>
               <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 500, margin: "0 0 8px", color: "#0f0f0f" }}>
                 Secure checkout
               </h1>
@@ -61,33 +53,30 @@ export default function Payments() {
               </p>
             </div>
 
-            {!blocked && (
-              <div style={{ position: "relative", background: "#fff", borderRadius: 8, border: "1px solid rgba(15,15,15,0.08)", overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                <iframe
-                  ref={iframeRef}
-                  src={STRIPE_URL}
-                  title="Stripe checkout"
-                  style={{ width: "100%", height: "min(820px, 80vh)", border: "none", display: "block" }}
-                  allow="payment *"
-                />
-              </div>
-            )}
+            <div style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(15,15,15,0.08)", padding: "32px 24px", textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", margin: "0 0 18px" }}>
+                Woolet {product || "007 / 009"} — Reserve for $1
+              </p>
 
-            {blocked && (
-              <div style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(15,15,15,0.08)", padding: "40px 24px", textAlign: "center" }}>
-                <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 13, color: "rgba(15,15,15,0.7)", margin: "0 0 20px", lineHeight: 1.6 }}>
-                  For your security, Stripe opens the payment form on its own page.
-                  Your card details are never seen by Woolet.
+              {/* @ts-expect-error - Stripe web component */}
+              <stripe-buy-button
+                buy-button-id={BUY_BUTTON_ID}
+                publishable-key={PUBLISHABLE_KEY}
+              />
+
+              <div style={{ marginTop: 22, paddingTop: 18, borderTop: "1px dashed rgba(15,15,15,0.1)" }}>
+                <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, color: "rgba(15,15,15,0.55)", margin: "0 0 10px" }}>
+                  Button not loading?
                 </p>
                 <a
-                  href={STRIPE_URL}
+                  href={STRIPE_FALLBACK_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     display: "inline-block",
                     background: "#c9a84c",
                     color: "#0f0f0f",
-                    padding: "14px 32px",
+                    padding: "12px 26px",
                     borderRadius: 5,
                     fontFamily: "'Barlow', sans-serif",
                     fontWeight: 500,
@@ -97,12 +86,11 @@ export default function Payments() {
                     textDecoration: "none",
                   }}
                 >
-                  Continue to secure checkout →
+                  Continue to Stripe →
                 </a>
               </div>
-            )}
+            </div>
 
-            {/* Trust strip */}
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
               <span>256-bit SSL</span>
               <span>·</span>
