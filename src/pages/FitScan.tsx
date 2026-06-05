@@ -500,7 +500,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             className="scan-shutter"
             aria-label="Capture photo"
             onClick={performCapture}
-            disabled={!ready || busy || countdown !== null}
+            disabled={captureBlocked}
           >
             <span className="scan-shutter-inner" />
           </button>
