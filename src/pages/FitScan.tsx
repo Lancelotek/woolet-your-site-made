@@ -778,6 +778,34 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           {cardLabel}
         </div>
 
+        {showDistanceHint && (
+          <div
+            aria-live="polite"
+            style={{
+              position: "absolute",
+              bottom: 12,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 12px",
+              borderRadius: 999,
+              background: "rgba(0,0,0,0.7)",
+              border: `1px solid ${distanceColor}`,
+              color: "rgba(255,255,255,0.95)",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              zIndex: 4,
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: distanceColor, boxShadow: `0 0 6px ${distanceColor}` }} />
+            {distanceLabel}
+          </div>
+        )}
+
         {countdown !== null && (
           <div
             aria-live="assertive"
