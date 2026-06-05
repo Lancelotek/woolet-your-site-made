@@ -1865,6 +1865,7 @@ export default function FitScan() {
     setFrame(null);
     setMeasurements(null);
     setRecommendation(null);
+    setFaceShape(null);
     setErrorMsg("");
     setErrorKind(null);
     setStep("welcome");
