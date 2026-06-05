@@ -6,14 +6,11 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
-import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import imgTortoise from "@/assets/woolet-007-dark-tortoise.png";
 import imgBlack from "@/assets/woolet-007-black.png";
 import imgHoney from "@/assets/woolet-007-honey.png";
 import faceBefore from "@/assets/face-before-007.jpg";
 import faceAfter from "@/assets/face-after-007.jpg";
-
-const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
 
 const colors007 = [
   { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
