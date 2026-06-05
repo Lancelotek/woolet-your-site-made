@@ -305,6 +305,21 @@ const ProductPage009 = () => {
         {/* 4. FAQ */}
         <ProductFAQ productId="009" />
       </main>
+
+      {showCheckout && (
+        <StripeCheckoutModal
+          priceId={FOUNDING_DEPOSIT_PRICE_ID}
+          returnUrl={`${window.location.origin}/en/thank-you?sku=WOOLET-009`}
+          metadata={{
+            recommended_sku: "WOOLET-009",
+            source: "product_page_009",
+            color: selectedColor,
+            lens_option: lens,
+            locked_total: String(total),
+          }}
+          onClose={() => setShowCheckout(false)}
+        />
+      )}
     </>
   );
 };
