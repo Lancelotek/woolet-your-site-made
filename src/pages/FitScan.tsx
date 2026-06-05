@@ -1001,6 +1001,18 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
     return () => window.removeEventListener("resize", update);
   }, []);
 
+  // Lock page scroll while annotating so dragging dots on mobile does not move the page.
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    const prevOverscroll = document.body.style.overscrollBehavior;
+    document.body.style.overflow = "hidden";
+    document.body.style.overscrollBehavior = "none";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.body.style.overscrollBehavior = prevOverscroll;
+    };
+  }, []);
+
   const eventToNative = (clientX: number, clientY: number) => {
     const el = wrapperRef.current;
     if (!el) return null;
