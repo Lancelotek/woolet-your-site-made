@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useSearchParams } from "react-router-dom";
+import wooletLogo from "@/assets/woolet-logo.png";
 
 const STRIPE_URL = "https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n";
 
@@ -35,8 +36,8 @@ export default function Payments() {
         {/* Brand header */}
         <header style={{ borderBottom: "1px solid rgba(15,15,15,0.08)", background: "#f0ece4" }}>
           <div style={{ maxWidth: 960, margin: "0 auto", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <Link to="/en" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, letterSpacing: "0.04em", color: "#0f0f0f", textDecoration: "none" }}>
-              WOOLET
+            <Link to="/en" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
+              <img src={wooletLogo} alt="Woolet" style={{ height: 26, width: "auto", display: "block" }} />
             </Link>
             <div style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "#0f0f0f" }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -121,7 +122,7 @@ export default function Payments() {
         </main>
 
         <footer style={{ padding: "20px 16px", borderTop: "1px solid rgba(15,15,15,0.06)", textAlign: "center", fontFamily: "'Barlow', sans-serif", fontSize: 10, color: "rgba(15,15,15,0.45)" }}>
-          © Woolet · woolet.co
+          © 2024 JAY23 LLC — Woolet.co — Eyewear for Wide Faces
         </footer>
       </div>
     </>
