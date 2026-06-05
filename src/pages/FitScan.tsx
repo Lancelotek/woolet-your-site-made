@@ -1080,236 +1080,246 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
   const allPoints = [...cardCorners, ...faceEdges];
 
   return (
-    <div className="flex flex-col gap-5">
-      <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-        {[1, 2, 3, 4].map((n) => (
-          <span
-            key={n}
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
-              background: n <= 3 ? GOLD : "rgba(255,255,255,0.18)",
-              display: "inline-block",
-            }}
-          />
-        ))}
-        <span
-          style={{ marginLeft: 10, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}
-        >
-          Step 3 of 4 — Mark card and face
-        </span>
-      </div>
-
-      {fallbackReason && (
-        <div
-          role="status"
-          className="scan-fallback-banner"
-          style={{
-            display: "flex",
-            gap: 12,
-            alignItems: "flex-start",
-            padding: "14px 16px",
-            border: "1px solid rgba(250,204,21,0.45)",
-            background: "rgba(56, 38, 0, 0.35)",
-            borderRadius: 8,
-            fontFamily: "Barlow, sans-serif",
-          }}
-        >
-          <span aria-hidden style={{ fontSize: "1.1rem", lineHeight: 1, paddingTop: 2 }}>👆</span>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <strong style={{ color: "#ffe9b8", fontSize: "0.78rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>
-              {fallbackReason === "validation" ? "Almost — needs a small tweak" : "Card not detected — adjust & retake"}
-            </strong>
-            <span style={{ color: "rgba(255,255,255,0.82)", fontSize: "0.92rem", lineHeight: 1.5 }}>
-              {fallbackReason === "validation"
-                ? "Tap the two top corners of your card, then the outer edges of your face. Drag any dot to fine-tune."
-                : "Move the card closer to the camera, hold it flat against your forehead, and make sure the scene is well-lit. Tap Retake above for another try, or mark the points manually."}
-            </span>
-          </div>
-        </div>
-      )}
-
-      <h2 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", fontWeight: 300 }}>
-        Mark 4 points: card first, then face edges
-      </h2>
-      <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300 }}>
-        First tap the bottom-left and bottom-right corners of the card. Then tap the widest visible left and right outline of your face — not necessarily at temple level. If your face is widest a bit lower, place the dots there. You can drag any dot to fine-tune before calculating.
-      </p>
-      <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: -8 }}>
-        <svg viewBox="0 0 48 32" width="40" height="27" fill="none" aria-hidden="true">
-          <rect x="6" y="6" width="36" height="22" rx="2.5" stroke={GOLD} strokeWidth="1.2" fill="none" opacity="0.6" />
-          <line x1="16" y1="6" x2="16" y2="2" stroke={GOLD} strokeWidth="1.2" strokeLinecap="round" opacity="0.85" />
-          <line x1="32" y1="6" x2="32" y2="2" stroke={GOLD} strokeWidth="1.2" strokeLinecap="round" opacity="0.85" />
-          <circle cx="9.5" cy="27" r="1.8" fill={GOLD} opacity="0.85" />
-          <circle cx="38.5" cy="27" r="1.8" fill={GOLD} opacity="0.85" />
-        </svg>
-        <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.8rem", fontWeight: 300, margin: 0 }}>
-          Tip: holding the card by its top edge keeps the bottom corners visible — easier to tap precisely.
-        </p>
-      </div>
-
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: BG,
+        zIndex: 50,
+        display: "flex",
+        flexDirection: "column",
+        overscrollBehavior: "none",
+      }}
+    >
+      {/* Minimal top bar */}
       <div
-        ref={wrapperRef}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handleDotMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
         style={{
-          position: "relative",
-          width: "100%",
-          aspectRatio: `${frame.width} / ${frame.height}`,
-          borderRadius: 8,
-          overflow: "hidden",
-          cursor: totalPoints < 4 ? "crosshair" : "default",
-          background: "#000",
-          touchAction: "none",
-        }}
-      >
-        <img
-          src={frame.dataUrl}
-          alt="Captured frame for measurement"
-          style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)", display: "block", pointerEvents: "none" }}
-        />
-        {cardCorners.length === 2 && (
-          <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
-            <line
-              x1={(frame.width - cardCorners[0].x) * scaleX}
-              y1={cardCorners[0].y * scaleY}
-              x2={(frame.width - cardCorners[1].x) * scaleX}
-              y2={cardCorners[1].y * scaleY}
-              stroke={GOLD}
-              strokeWidth={2}
-            />
-            {faceEdges.length === 2 && (
-              <line
-                x1={(frame.width - faceEdges[0].x) * scaleX}
-                y1={faceEdges[0].y * scaleY}
-                x2={(frame.width - faceEdges[1].x) * scaleX}
-                y2={faceEdges[1].y * scaleY}
-                stroke="rgba(240,236,228,0.85)"
-                strokeWidth={2}
-                strokeDasharray="6 6"
-              />
-            )}
-          </svg>
-        )}
-        {allPoints.map((c, i) => {
-          const isCardPoint = i < 2;
-          const label = isCardPoint ? `Card corner ${i + 1}` : `Face edge ${i - 1}`;
-          return (
-            <div
-              key={i}
-              onPointerDown={startDrag(i)}
-              onPointerMove={handleDotMove}
-              onPointerUp={endDrag}
-              onPointerCancel={endDrag}
-              role="slider"
-              aria-label={`${label} — drag to adjust`}
-              style={{
-                position: "absolute",
-                left: (frame.width - c.x) * scaleX - 14,
-                top: c.y * scaleY - 14,
-                width: 28,
-                height: 28,
-                borderRadius: "50%",
-                background: "transparent",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "grab",
-                touchAction: "none",
-              }}
-            >
-              <span
-                style={{
-                  width: 14,
-                  height: 14,
-                  borderRadius: "50%",
-                  background: isCardPoint ? GOLD : "#f0ece4",
-                  boxShadow: isCardPoint
-                    ? `0 0 0 5px rgba(202,164,73,0.22), 0 0 0 1px rgba(0,0,0,0.4)`
-                    : `0 0 0 5px rgba(240,236,228,0.18), 0 0 0 1px rgba(0,0,0,0.4)`,
-                  display: "block",
-                }}
-              />
-            </div>
-          );
-        })}
-        {showDragHint && (
-          <div
-            onPointerDown={(e) => { e.stopPropagation(); dismissHint(); }}
-            style={{
-              position: "absolute",
-              left: "50%",
-              bottom: 16,
-              transform: "translateX(-50%)",
-              background: "rgba(8,8,7,0.92)",
-              color: "#f0ece4",
-              border: `1px solid ${GOLD}`,
-              padding: "10px 14px",
-              borderRadius: 999,
-              fontFamily: "Barlow, sans-serif",
-              fontSize: "0.78rem",
-              fontWeight: 400,
-              letterSpacing: "0.04em",
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              boxShadow: "0 8px 24px rgba(0,0,0,0.45)",
-              animation: "wooletHintIn 220ms ease-out",
-              maxWidth: "90%",
-              cursor: "pointer",
-              zIndex: 5,
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M9 11V6a2 2 0 1 1 4 0v5M13 11V4.5a2 2 0 1 1 4 0V11M17 11V7.5a2 2 0 1 1 4 0V14a7 7 0 0 1-7 7h-1.5a6 6 0 0 1-5.2-3l-3.1-5.4a2 2 0 0 1 3.4-2L9 13V6a2 2 0 1 1 4 0v5" stroke={GOLD} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span>Drag a point to fine-tune its position</span>
-          </div>
-        )}
-        <style>{`@keyframes wooletHintIn { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }`}</style>
-      </div>
-
-      <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
-        <span>{totalPoints} of 4 ✓</span>
-        {cardCorners.length === 2 && <span>Card detected: {Math.round(cardPxNative)}px wide</span>}
-        {totalPoints > 0 && (
-          <button onClick={reset} style={{ background: "none", border: "none", color: GOLD, cursor: "pointer", textDecoration: "underline", fontSize: "0.78rem" }}>
-            Reset points
-          </button>
-        )}
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: -4, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem" }}>
-        <span style={{ color: cardCorners.length < 2 ? "hsl(var(--cream-dim))" : MUTED }}>
-          1. Card: bottom-left + bottom-right corners
-        </span>
-        <span style={{ color: cardCorners.length === 2 && faceEdges.length < 2 ? "hsl(var(--cream-dim))" : MUTED }}>
-          2. Face: widest left + right contour of the visible face
-        </span>
-      </div>
-
-      <div
-        className="flex flex-col gap-2 pt-2"
-        style={{
-          position: "sticky",
-          bottom: 0,
-          background: "linear-gradient(to top, rgba(8,8,7,0.96) 70%, rgba(8,8,7,0))",
-          padding: "12px 0 calc(env(safe-area-inset-bottom, 0px) + 12px)",
-          marginTop: 8,
-          zIndex: 10,
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "calc(env(safe-area-inset-top, 0px) + 10px) 14px 10px",
+          background: "rgba(8,8,7,0.92)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
         <button
-          ref={(el) => {
-            // Auto-scroll the action into view the moment all 4 points are placed,
-            // so users on mobile never miss the Calculate CTA below the photo.
-            if (el && cardCorners.length === 2 && faceEdges.length === 2) {
-              try { el.scrollIntoView({ behavior: "smooth", block: "center" }); } catch { /* noop */ }
-            }
+          onClick={onRetake}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            cursor: "pointer",
+            padding: "6px 8px",
           }}
+        >
+          ← Retake
+        </button>
+        <span
+          style={{
+            color: "#f0ece4",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+          }}
+        >
+          {cardCorners.length < 2
+            ? `Tap card corners (${cardCorners.length}/2)`
+            : faceEdges.length < 2
+              ? `Tap face edges (${faceEdges.length}/2)`
+              : "All 4 points placed ✓"}
+        </span>
+        {totalPoints > 0 ? (
+          <button
+            onClick={reset}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: GOLD,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              padding: "6px 8px",
+            }}
+          >
+            Reset
+          </button>
+        ) : (
+          <span style={{ width: 56 }} />
+        )}
+      </div>
+
+      {fallbackReason && totalPoints === 0 && (
+        <div
+          role="status"
+          style={{
+            flexShrink: 0,
+            padding: "10px 14px",
+            background: "rgba(56, 38, 0, 0.55)",
+            borderBottom: "1px solid rgba(250,204,21,0.45)",
+            color: "rgba(255,255,255,0.86)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.82rem",
+            lineHeight: 1.4,
+          }}
+        >
+          Tap the two bottom corners of the card, then the widest left & right outline of your face. Drag any dot to fine-tune.
+        </div>
+      )}
+
+      {/* Frozen image area */}
+      <div
+        style={{
+          flex: 1,
+          minHeight: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#000",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        <div
+          ref={wrapperRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handleDotMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          style={{
+            position: "relative",
+            maxWidth: "100%",
+            maxHeight: "100%",
+            aspectRatio: `${frame.width} / ${frame.height}`,
+            width: displaySize.h
+              ? `min(100%, ${(frame.width / frame.height) * 100}vh)`
+              : "100%",
+            height: "auto",
+            cursor: totalPoints < 4 ? "crosshair" : "default",
+            background: "#000",
+            touchAction: "none",
+            overflow: "hidden",
+          }}
+        >
+          <img
+            src={frame.dataUrl}
+            alt="Captured frame for measurement"
+            style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)", display: "block", pointerEvents: "none" }}
+          />
+          {cardCorners.length === 2 && (
+            <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+              <line
+                x1={(frame.width - cardCorners[0].x) * scaleX}
+                y1={cardCorners[0].y * scaleY}
+                x2={(frame.width - cardCorners[1].x) * scaleX}
+                y2={cardCorners[1].y * scaleY}
+                stroke={GOLD}
+                strokeWidth={2}
+              />
+              {faceEdges.length === 2 && (
+                <line
+                  x1={(frame.width - faceEdges[0].x) * scaleX}
+                  y1={faceEdges[0].y * scaleY}
+                  x2={(frame.width - faceEdges[1].x) * scaleX}
+                  y2={faceEdges[1].y * scaleY}
+                  stroke="rgba(240,236,228,0.85)"
+                  strokeWidth={2}
+                  strokeDasharray="6 6"
+                />
+              )}
+            </svg>
+          )}
+          {allPoints.map((c, i) => {
+            const isCardPoint = i < 2;
+            const label = isCardPoint ? `Card corner ${i + 1}` : `Face edge ${i - 1}`;
+            return (
+              <div
+                key={i}
+                onPointerDown={startDrag(i)}
+                onPointerMove={handleDotMove}
+                onPointerUp={endDrag}
+                onPointerCancel={endDrag}
+                role="slider"
+                aria-label={`${label} — drag to adjust`}
+                style={{
+                  position: "absolute",
+                  left: (frame.width - c.x) * scaleX - 14,
+                  top: c.y * scaleY - 14,
+                  width: 28,
+                  height: 28,
+                  borderRadius: "50%",
+                  background: "transparent",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "grab",
+                  touchAction: "none",
+                }}
+              >
+                <span
+                  style={{
+                    width: 14,
+                    height: 14,
+                    borderRadius: "50%",
+                    background: isCardPoint ? GOLD : "#f0ece4",
+                    boxShadow: isCardPoint
+                      ? `0 0 0 5px rgba(202,164,73,0.22), 0 0 0 1px rgba(0,0,0,0.4)`
+                      : `0 0 0 5px rgba(240,236,228,0.18), 0 0 0 1px rgba(0,0,0,0.4)`,
+                    display: "block",
+                  }}
+                />
+              </div>
+            );
+          })}
+          {showDragHint && (
+            <div
+              onPointerDown={(e) => { e.stopPropagation(); dismissHint(); }}
+              style={{
+                position: "absolute",
+                left: "50%",
+                bottom: 16,
+                transform: "translateX(-50%)",
+                background: "rgba(8,8,7,0.92)",
+                color: "#f0ece4",
+                border: `1px solid ${GOLD}`,
+                padding: "10px 14px",
+                borderRadius: 999,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.78rem",
+                fontWeight: 400,
+                letterSpacing: "0.04em",
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                boxShadow: "0 8px 24px rgba(0,0,0,0.45)",
+                maxWidth: "90%",
+                cursor: "pointer",
+                zIndex: 5,
+              }}
+            >
+              <span>Drag a point to fine-tune</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Sticky action bar */}
+      <div
+        style={{
+          flexShrink: 0,
+          padding: "12px 14px calc(env(safe-area-inset-bottom, 0px) + 12px)",
+          background: "rgba(8,8,7,0.96)",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <button
           disabled={cardCorners.length < 2 || faceEdges.length < 2}
           onClick={() => onCalculate([cardCorners[0], cardCorners[1]], [faceEdges[0], faceEdges[1]])}
           style={{
@@ -1317,25 +1327,19 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
-            fontSize: "0.72rem",
-            padding: "16px 28px",
+            fontSize: "0.78rem",
+            padding: "16px 24px",
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             border: "none",
             cursor: cardCorners.length < 2 || faceEdges.length < 2 ? "not-allowed" : "pointer",
-            height: 48,
+            height: 52,
             width: "100%",
           }}
         >
           {cardCorners.length < 2 || faceEdges.length < 2
-            ? `Tap ${4 - (cardCorners.length + faceEdges.length)} more point${4 - (cardCorners.length + faceEdges.length) === 1 ? "" : "s"} to continue`
+            ? `Tap ${4 - totalPoints} more point${4 - totalPoints === 1 ? "" : "s"}`
             : "Calculate my measurements"}
-        </button>
-        <button
-          onClick={onRetake}
-          style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "8px 0", cursor: "pointer", textDecoration: "underline" }}
-        >
-          Retake photo
         </button>
       </div>
     </div>
