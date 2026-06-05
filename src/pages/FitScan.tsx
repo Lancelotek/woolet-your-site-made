@@ -675,9 +675,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         <button
           type="button"
           onClick={performCapture}
-          disabled={!ready || busy || countdown !== null}
+          disabled={captureBlocked}
           style={{
-            background: !ready || busy || countdown !== null ? "rgba(202,164,73,0.3)" : GOLD,
+            background: captureBlocked ? "rgba(202,164,73,0.3)" : GOLD,
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
@@ -686,11 +686,17 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             border: "none",
-            cursor: !ready || busy || countdown !== null ? "not-allowed" : "pointer",
+            cursor: captureBlocked ? "not-allowed" : "pointer",
             height: 52,
           }}
         >
-          {busy ? "Analyzing…" : countdown !== null ? `Capturing in ${countdown}…` : "Capture now"}
+          {busy
+            ? "Analyzing…"
+            : countdown !== null
+              ? `Capturing in ${countdown}…`
+              : cardState !== "ok"
+                ? cardLabel
+                : "Capture now"}
         </button>
         <button
           type="button"
