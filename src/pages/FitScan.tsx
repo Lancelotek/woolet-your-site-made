@@ -1894,8 +1894,10 @@ export default function FitScan() {
     try {
       const m = calculateMeasurements(f.landmarks, f.width, c1, c2, f1, f2);
       const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
+      const shape = detectFaceShape(f.landmarks, f.width, f.height);
       setMeasurements(m);
       setRecommendation(r);
+      setFaceShape(shape);
       pushEvent("scan_completed", {
         face_width_mm: m.faceWidthMm,
         nose_width_mm: m.noseWidthMm,
