@@ -39,7 +39,6 @@ const ProductPage009 = () => {
   const [selectedColor, setSelectedColor] = useState("Black");
   const [lens, setLens] = useState<LensOption>("clear");
   const [total, setTotal] = useState(114);
-  const [showCheckout, setShowCheckout] = useState(false);
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
 
   useEffect(() => {
