@@ -353,11 +353,18 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         return;
       }
 
-      // Cheap luminance loop — just to warn about low light. Throttled.
+      // Cheap luminance loop — warn about low light + live-detect the card on forehead.
       const sample = document.createElement("canvas");
       sample.width = 24; sample.height = 24;
       const sctx = sample.getContext("2d");
+      // Forehead band sampler for card-on-forehead detection.
+      const CARD_W = 80;
+      const CARD_H = 32;
+      const cardCv = document.createElement("canvas");
+      cardCv.width = CARD_W; cardCv.height = CARD_H;
+      const cctx = cardCv.getContext("2d", { willReadFrequently: true });
       let last = 0;
+      let lastCard = 0;
       const tick = (ts: number) => {
         const v = videoRef.current;
         if (!v || v.readyState < 2) {
@@ -373,6 +380,42 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             for (let i = 0; i < d.length; i += 4) sum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
             const lum = sum / (d.length / 4);
             setLighting(lum > 100 ? "green" : lum > 70 ? "yellow" : "red");
+          } catch { /* CORS */ }
+        }
+        // Card-on-forehead detection ~3x/sec: sample the upper-forehead band
+        // inside the oval guide and compute mean vertical vs horizontal gradients.
+        if (ts - lastCard > 300 && cctx) {
+          lastCard = ts;
+          try {
+            const vw = v.videoWidth;
+            const vh = v.videoHeight;
+            if (vw > 0 && vh > 0) {
+              // Forehead band: roughly center 50% horizontally, y between 15% and 32%
+              const sxF = vw * 0.25;
+              const syF = vh * 0.15;
+              const swF = vw * 0.5;
+              const shF = vh * 0.17;
+              cctx.drawImage(v, sxF, syF, swF, shF, 0, 0, CARD_W, CARD_H);
+              const img = cctx.getImageData(0, 0, CARD_W, CARD_H).data;
+              const lumBuf = new Float32Array(CARD_W * CARD_H);
+              for (let i = 0; i < CARD_W * CARD_H; i++) {
+                const o = i * 4;
+                lumBuf[i] = 0.299 * img[o] + 0.587 * img[o + 1] + 0.114 * img[o + 2];
+              }
+              let vSum = 0, hSum = 0, n = 0;
+              for (let y = 1; y < CARD_H - 1; y++) {
+                for (let x = 1; x < CARD_W - 1; x++) {
+                  const i = y * CARD_W + x;
+                  vSum += Math.abs(lumBuf[i + CARD_W] - lumBuf[i - CARD_W]);
+                  hSum += Math.abs(lumBuf[i + 1] - lumBuf[i - 1]);
+                  n++;
+                }
+              }
+              const vGrad = n > 0 ? vSum / n : 0;
+              const hGrad = n > 0 ? hSum / n : 0;
+              const cls = classifyCardSample(vGrad, hGrad);
+              setCardState((prev) => (prev === cls.nextState ? prev : cls.nextState));
+            }
           } catch { /* CORS */ }
         }
         lumRafRef.current = requestAnimationFrame(tick);
