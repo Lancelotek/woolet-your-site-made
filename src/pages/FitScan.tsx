@@ -22,6 +22,7 @@ import {
   type Point,
   type Recommendation,
 } from "@/lib/face-measurements";
+import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -1351,11 +1352,12 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
 interface ResultStepProps {
   measurements: Measurements;
   recommendation: Recommendation;
+  faceShape: FaceShapeResult | null;
   onRetake: () => void;
   lang: Lang;
 }
 
-function ResultStep({ measurements, recommendation: baseRecommendation, onRetake, lang }: ResultStepProps) {
+function ResultStep({ measurements, recommendation: baseRecommendation, faceShape, onRetake, lang }: ResultStepProps) {
   // Depth correction: if the card was held in front of the face (not flush to skin),
   // it appears larger in pixels → face width is underestimated. Assuming a typical
   // capture distance of ~60 cm, a gap g (cm) scales the result by 60 / (60 - g).
@@ -1586,6 +1588,65 @@ function ResultStep({ measurements, recommendation: baseRecommendation, onRetake
           </button>
         </div>
       )}
+
+      {faceShape && (
+        <div
+          style={{
+            border: `1px solid ${GOLD}`,
+            borderRadius: 8,
+            padding: "22px 22px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+            background: "rgba(202,164,73,0.06)",
+          }}
+        >
+          <span
+            style={{
+              alignSelf: "flex-start",
+              color: GOLD,
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 500,
+              fontSize: "0.65rem",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+            }}
+          >
+            Face shape · {faceShape.label}
+          </span>
+          <h3 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.55rem)", fontWeight: 300, lineHeight: 1.25, margin: 0 }}>
+            Best frame for your face: <em style={{ fontStyle: "italic", color: GOLD }}>{faceShape.modelName}</em>
+          </h3>
+          <p className="text-cream-dim" style={{ fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
+            {faceShape.reason}
+          </p>
+          {adjustedFace >= 160 && (
+            <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", lineHeight: 1.5, margin: 0 }}>
+              Your face width is {adjustedFace} mm — you almost certainly need a wide frame (160 mm+). Both Woolet 007 and 009 are built at 158 mm+.
+            </p>
+          )}
+          <Link
+            to={`/${lang}${faceShape.modelHref.replace(/^\/en/, "")}`}
+            style={{
+              alignSelf: "flex-start",
+              marginTop: 4,
+              background: GOLD,
+              color: BG,
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 500,
+              fontSize: "0.7rem",
+              padding: "12px 22px",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+            }}
+          >
+            See Woolet {faceShape.recommendedModel} →
+          </Link>
+        </div>
+      )}
+
+
 
       <div
         style={{
@@ -1832,6 +1893,7 @@ export default function FitScan() {
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
   const [measurements, setMeasurements] = useState<Measurements | null>(null);
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
+  const [faceShape, setFaceShape] = useState<FaceShapeResult | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
@@ -1863,6 +1925,7 @@ export default function FitScan() {
     setFrame(null);
     setMeasurements(null);
     setRecommendation(null);
+    setFaceShape(null);
     setErrorMsg("");
     setErrorKind(null);
     setStep("welcome");
@@ -1891,8 +1954,10 @@ export default function FitScan() {
     try {
       const m = calculateMeasurements(f.landmarks, f.width, c1, c2, f1, f2);
       const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
+      const shape = detectFaceShape(f.landmarks, f.width, f.height);
       setMeasurements(m);
       setRecommendation(r);
+      setFaceShape(shape);
       pushEvent("scan_completed", {
         face_width_mm: m.faceWidthMm,
         nose_width_mm: m.noseWidthMm,
@@ -1927,6 +1992,7 @@ export default function FitScan() {
       const kind = isMeasurement ? err.kind : "unknown";
       setMeasurements(null);
       setRecommendation(null);
+      setFaceShape(null);
       setErrorMsg(msg);
       setErrorKind("recoverable");
       pushEvent("scan_error", { error_type: "calculation", reason: kind });
@@ -2227,7 +2293,7 @@ export default function FitScan() {
                   />
                 )}
                 {step === "result" && measurements && recommendation && (
-                  <ResultStep measurements={measurements} recommendation={recommendation} onRetake={goWelcome} lang={lang} />
+                  <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} />
                 )}
               </>
             )}
