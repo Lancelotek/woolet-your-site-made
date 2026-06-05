@@ -64,32 +64,19 @@ export default function Payments() {
                 publishable-key={PUBLISHABLE_KEY}
               />
 
-              <div style={{ marginTop: 22, paddingTop: 18, borderTop: "1px dashed rgba(15,15,15,0.1)" }}>
-                <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, color: "rgba(15,15,15,0.55)", margin: "0 0 10px" }}>
-                  Button not loading?
-                </p>
+              <div style={{ marginTop: 18, fontFamily: "'Barlow', sans-serif", fontSize: 11, color: "rgba(15,15,15,0.55)" }}>
+                Button not loading?{" "}
                 <a
                   href={STRIPE_FALLBACK_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    display: "inline-block",
-                    background: "#c9a84c",
-                    color: "#0f0f0f",
-                    padding: "12px 26px",
-                    borderRadius: 5,
-                    fontFamily: "'Barlow', sans-serif",
-                    fontWeight: 500,
-                    fontSize: 11,
-                    letterSpacing: "2px",
-                    textTransform: "uppercase",
-                    textDecoration: "none",
-                  }}
+                  style={{ color: "#0f0f0f", textDecoration: "underline" }}
                 >
                   Continue to Stripe →
                 </a>
               </div>
             </div>
+
 
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
               <span>256-bit SSL</span>
