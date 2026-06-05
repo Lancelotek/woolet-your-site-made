@@ -122,7 +122,7 @@ export default function Payments() {
         </main>
 
         <footer style={{ padding: "20px 16px", borderTop: "1px solid rgba(15,15,15,0.06)", textAlign: "center", fontFamily: "'Barlow', sans-serif", fontSize: 10, color: "rgba(15,15,15,0.45)" }}>
-          © Woolet · woolet.co
+          © 2024 JAY23 LLC — Woolet.co — Eyewear for Wide Faces
         </footer>
       </div>
     </>
