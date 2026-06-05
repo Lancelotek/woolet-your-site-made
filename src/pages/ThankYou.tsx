@@ -38,6 +38,9 @@ export default function ThankYou() {
 
   useEffect(() => {
     const t = setTimeout(() => setBarWidth(pct), 100);
+    // Google Ads conversion
+    const w = window as unknown as { gtag_report_conversion?: () => void };
+    if (typeof w.gtag_report_conversion === "function") w.gtag_report_conversion();
     return () => clearTimeout(t);
   }, [pct]);
 
