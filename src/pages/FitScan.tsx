@@ -956,12 +956,14 @@ interface AnnotateStepProps {
   onCalculate: (cardCorners: [Point, Point], faceEdges: [Point, Point]) => void;
   onRetake: () => void;
   fallbackReason?: "no_edge" | "validation" | null;
+  initialCard?: [Point, Point] | null;
+  initialFace?: [Point, Point] | null;
 }
 
-function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: AnnotateStepProps) {
+function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, initialCard = null, initialFace = null }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const [cardCorners, setCardCorners] = useState<Point[]>([]);
-  const [faceEdges, setFaceEdges] = useState<Point[]>([]);
+  const [cardCorners, setCardCorners] = useState<Point[]>(initialCard ? [initialCard[0], initialCard[1]] : []);
+  const [faceEdges, setFaceEdges] = useState<Point[]>(initialFace ? [initialFace[0], initialFace[1]] : []);
   const [displaySize, setDisplaySize] = useState({ w: 0, h: 0 });
   const draggingRef = useRef<number | null>(null);
   const HINT_KEY = "woolet_scan_drag_hint_seen";
@@ -1900,6 +1902,7 @@ export default function FitScan() {
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
+  const [prefillPoints, setPrefillPoints] = useState<{ card: [Point, Point]; face: [Point, Point] } | null>(null);
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
 
   // Desktop visitors without a session id must hand off to a phone via QR.
@@ -2003,11 +2006,13 @@ export default function FitScan() {
   const handleCaptured = async (f: CapturedFrame) => {
     setFrame(f);
     setAutoFallback(null);
+    setPrefillPoints(null);
     setStep("analyzing");
 
     // Primary path: server-side detection via Gemini 2.5 Pro Vision.
     // We send the captured JPEG + native dims; server returns pixel coords
-    // for card corners and face edges, which we feed into calculateMeasurements.
+    // for card corners and face edges. We pre-fill the annotate step so the
+    // user can verify/fine-tune the dots before we compute the measurement.
     try {
       const { data, error } = await supabase.functions.invoke("fit-scan-detect", {
         body: { image: f.dataUrl, width: f.width, height: f.height },
@@ -2020,10 +2025,7 @@ export default function FitScan() {
         const c2: Point = { x: data.card.right.x, y: data.card.right.y };
         const f1: Point = { x: data.face.left.x, y: data.face.left.y };
         const f2: Point = { x: data.face.right.x, y: data.face.right.y };
-        if (runCalculate(f, c1, c2, f1, f2)) return;
-        // Server points failed plausibility check — go to manual annotate.
-        pushEvent("scan_server_fallback", { reason: "validation" });
-        setAutoFallback("validation");
+        setPrefillPoints({ card: [c1, c2], face: [f1, f2] });
         setStep("annotate");
         return;
       }
@@ -2034,7 +2036,7 @@ export default function FitScan() {
       pushEvent("scan_server_fallback", { reason: "network_or_error" });
     }
 
-    // Server detection failed — fall through to manual annotate.
+    // Server detection failed — go to manual annotate with no prefill.
     setAutoFallback("no_edge");
     setStep("annotate");
   };
@@ -2280,7 +2282,7 @@ export default function FitScan() {
                   <AnalyzingStep previewUrl={frame?.dataUrl} />
                 )}
                 {step === "annotate" && frame && (
-                  <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
+                  <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} initialCard={prefillPoints?.card ?? null} initialFace={prefillPoints?.face ?? null} />
                 )}
                 {step === "email-gate" && measurements && (
                   <EmailGateStep
