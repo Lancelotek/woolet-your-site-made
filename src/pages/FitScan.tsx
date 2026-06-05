@@ -1820,6 +1820,7 @@ export default function FitScan() {
   const handleCaptured = async (f: CapturedFrame) => {
     setFrame(f);
     setAutoFallback(null);
+    setStep("analyzing");
 
     // Primary path: server-side detection via Gemini 2.5 Pro Vision.
     // We send the captured JPEG + native dims; server returns pixel coords
