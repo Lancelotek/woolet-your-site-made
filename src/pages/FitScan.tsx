@@ -956,12 +956,14 @@ interface AnnotateStepProps {
   onCalculate: (cardCorners: [Point, Point], faceEdges: [Point, Point]) => void;
   onRetake: () => void;
   fallbackReason?: "no_edge" | "validation" | null;
+  initialCard?: [Point, Point] | null;
+  initialFace?: [Point, Point] | null;
 }
 
-function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: AnnotateStepProps) {
+function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, initialCard = null, initialFace = null }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const [cardCorners, setCardCorners] = useState<Point[]>([]);
-  const [faceEdges, setFaceEdges] = useState<Point[]>([]);
+  const [cardCorners, setCardCorners] = useState<Point[]>(initialCard ? [initialCard[0], initialCard[1]] : []);
+  const [faceEdges, setFaceEdges] = useState<Point[]>(initialFace ? [initialFace[0], initialFace[1]] : []);
   const [displaySize, setDisplaySize] = useState({ w: 0, h: 0 });
   const draggingRef = useRef<number | null>(null);
   const HINT_KEY = "woolet_scan_drag_hint_seen";
