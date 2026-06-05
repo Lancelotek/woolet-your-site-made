@@ -88,6 +88,15 @@ const ProductPage009 = () => {
   }, []);
 
   const handleCTA = () => {
+    pushGtmEvent("click_reserve", {
+      product_id: "009",
+      item_name: "Woolet 009",
+      item_variant: selectedColor,
+      lens_option: lens,
+      total_price: total,
+      value: 1,
+      currency: "USD",
+    });
     pushGtmEvent("begin_checkout", {
       item_name: "Woolet 009",
       item_variant: selectedColor,
