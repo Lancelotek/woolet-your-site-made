@@ -1932,6 +1932,7 @@ export default function FitScan() {
       const kind = isMeasurement ? err.kind : "unknown";
       setMeasurements(null);
       setRecommendation(null);
+      setFaceShape(null);
       setErrorMsg(msg);
       setErrorKind("recoverable");
       pushEvent("scan_error", { error_type: "calculation", reason: kind });
