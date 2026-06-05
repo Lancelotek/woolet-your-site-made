@@ -1589,6 +1589,65 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
         </div>
       )}
 
+      {faceShape && (
+        <div
+          style={{
+            border: `1px solid ${GOLD}`,
+            borderRadius: 8,
+            padding: "22px 22px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+            background: "rgba(202,164,73,0.06)",
+          }}
+        >
+          <span
+            style={{
+              alignSelf: "flex-start",
+              color: GOLD,
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 500,
+              fontSize: "0.65rem",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+            }}
+          >
+            Face shape · {faceShape.label}
+          </span>
+          <h3 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.55rem)", fontWeight: 300, lineHeight: 1.25, margin: 0 }}>
+            Best frame for your face: <em style={{ fontStyle: "italic", color: GOLD }}>{faceShape.modelName}</em>
+          </h3>
+          <p className="text-cream-dim" style={{ fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
+            {faceShape.reason}
+          </p>
+          {adjustedFace >= 160 && (
+            <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", lineHeight: 1.5, margin: 0 }}>
+              Your face width is {adjustedFace} mm — you almost certainly need a wide frame (160 mm+). Both Woolet 007 and 009 are built at 158 mm+.
+            </p>
+          )}
+          <Link
+            to={`/${lang}${faceShape.modelHref.replace(/^\/en/, "")}`}
+            style={{
+              alignSelf: "flex-start",
+              marginTop: 4,
+              background: GOLD,
+              color: BG,
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 500,
+              fontSize: "0.7rem",
+              padding: "12px 22px",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+            }}
+          >
+            See Woolet {faceShape.recommendedModel} →
+          </Link>
+        </div>
+      )}
+
+
+
       <div
         style={{
           border: `1px solid ${recommendation.badgeColor}`,
