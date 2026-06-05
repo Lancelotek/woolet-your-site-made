@@ -132,6 +132,22 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-18213714775');
+
+      // Google Ads conversion event snippet — call gtag_report_conversion(url)
+      // on conversion clicks (form submits, CTAs). Safe to call without a url.
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18213714775/nHCBCLW8rbkcENf2_OxD',
+          'event_callback': callback
+        });
+        return false;
+      }
+      window.gtag_report_conversion = gtag_report_conversion;
     </script>
 
 
