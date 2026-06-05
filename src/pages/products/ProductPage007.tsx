@@ -41,7 +41,6 @@ const ProductPage007 = () => {
   const [selectedColor, setSelectedColor] = useState("Dark Tortoise");
   const [lens, setLens] = useState<LensOption>("clear");
   const [total, setTotal] = useState(114);
-  const [showCheckout, setShowCheckout] = useState(false);
   const selectedColorObj = colors007.find((c) => c.name === selectedColor) || colors007[0];
 
   useEffect(() => {
