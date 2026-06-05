@@ -2282,7 +2282,7 @@ export default function FitScan() {
                   <AnalyzingStep previewUrl={frame?.dataUrl} />
                 )}
                 {step === "annotate" && frame && (
-                  <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} />
+                  <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} initialCard={prefillPoints?.card ?? null} initialFace={prefillPoints?.face ?? null} />
                 )}
                 {step === "email-gate" && measurements && (
                   <EmailGateStep
