@@ -6,12 +6,9 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
-import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import imgBlack from "@/assets/woolet-009-black.png";
 import imgTortoise from "@/assets/woolet-009-dark-tortoise.png";
 import imgSmoke from "@/assets/woolet-009-smoke-grey.png";
-
-const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
 
 const colors009 = [
   { name: "Black", dot: "#141414", img: imgBlack },
@@ -42,7 +39,6 @@ const ProductPage009 = () => {
   const [selectedColor, setSelectedColor] = useState("Black");
   const [lens, setLens] = useState<LensOption>("clear");
   const [total, setTotal] = useState(114);
-  const [showCheckout, setShowCheckout] = useState(false);
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
 
   useEffect(() => {
@@ -101,7 +97,7 @@ const ProductPage009 = () => {
       currency: "USD",
     });
     try { sessionStorage.setItem("woolet_lens_pref", lens); } catch { /* noop */ }
-    setShowCheckout(true);
+    window.open("https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n", "_blank");
   };
 
   return (
@@ -306,20 +302,6 @@ const ProductPage009 = () => {
         <ProductFAQ productId="009" />
       </main>
 
-      {showCheckout && (
-        <StripeCheckoutModal
-          priceId={FOUNDING_DEPOSIT_PRICE_ID}
-          returnUrl={`${window.location.origin}/en/thank-you?sku=WOOLET-009`}
-          metadata={{
-            recommended_sku: "WOOLET-009",
-            source: "product_page_009",
-            color: selectedColor,
-            lens_option: lens,
-            locked_total: String(total),
-          }}
-          onClose={() => setShowCheckout(false)}
-        />
-      )}
     </>
   );
 };
