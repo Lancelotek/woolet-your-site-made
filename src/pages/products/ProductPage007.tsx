@@ -94,13 +94,16 @@ const ProductPage007 = () => {
   }, []);
 
   const handleCTA = () => {
-    pushGtmEvent("add_to_cart", {
+    pushGtmEvent("begin_checkout", {
       item_name: "Woolet 007",
+      item_variant: selectedColor,
       lens_option: lens,
       total_price: total,
+      value: 1,
+      currency: "USD",
     });
     try { sessionStorage.setItem("woolet_lens_pref", lens); } catch { /* noop */ }
-    navigate(`/en?lens=${lens}#waitlist`);
+    setShowCheckout(true);
   };
 
   return (
