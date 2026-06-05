@@ -330,6 +330,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [busy, setBusy] = useState(false);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
+  const [distanceState, setDistanceState] = useState<"unknown" | "ok" | "too_close" | "too_far">("unknown");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
