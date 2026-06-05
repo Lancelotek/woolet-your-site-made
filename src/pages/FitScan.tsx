@@ -10,7 +10,7 @@ import fitStepCard from "@/assets/fit-step-card.jpg";
 import fitStepForehead from "@/assets/fit-step-forehead.jpg";
 import fitStepPhone from "@/assets/fit-step-phone.jpg";
 import { isValidLang, type Lang } from "@/lib/i18n";
-import { getImageLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
+import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
 import { classifyCardSample } from "@/lib/card-detection";
 import {
@@ -330,6 +330,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [busy, setBusy] = useState(false);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
+  const [distanceState, setDistanceState] = useState<"unknown" | "ok" | "too_close" | "too_far">("unknown");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
@@ -472,6 +473,10 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       const cctx = cardCv.getContext("2d", { willReadFrequently: true });
       let last = 0;
       let lastCard = 0;
+      let lastFace = 0;
+      let faceBusy = false;
+      let videoLm: Awaited<ReturnType<typeof getVideoLandmarker>> | null = null;
+      getVideoLandmarker().then((lm) => { if (!cancelled) videoLm = lm; }).catch(() => { /* noop */ });
       const tick = (ts: number) => {
         const v = videoRef.current;
         if (!v || v.readyState < 2) {
@@ -525,6 +530,37 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             }
           } catch { /* CORS */ }
         }
+        // Face distance: run video landmarker ~1.4x/sec; compute face oval
+        // pixel width vs frame width and warn if the face is too close/far.
+        if (ts - lastFace > 700 && videoLm && !faceBusy) {
+          lastFace = ts;
+          faceBusy = true;
+          try {
+            const vw = v.videoWidth;
+            const vh = v.videoHeight;
+            if (vw > 0 && vh > 0) {
+              const res = videoLm.detectForVideo(v, ts);
+              const lms = res.faceLandmarks?.[0];
+              if (lms && lms.length >= 478) {
+                let minX = 1, maxX = 0;
+                for (let i = 0; i < lms.length; i++) {
+                  const x = lms[i].x;
+                  if (x < minX) minX = x;
+                  if (x > maxX) maxX = x;
+                }
+                const facePctW = Math.max(0, Math.min(1, maxX - minX));
+                // Mobile camera frame is portrait — relative width ~0.50–0.65 is ideal.
+                // Above ~0.72 the face crowds the oval and the card edge gets clipped.
+                const next: typeof distanceState =
+                  facePctW > 0.72 ? "too_close" : facePctW < 0.32 ? "too_far" : "ok";
+                setDistanceState((prev) => (prev === next ? prev : next));
+              } else {
+                setDistanceState((prev) => (prev === "unknown" ? prev : "unknown"));
+              }
+            }
+          } catch { /* noop */ }
+          faceBusy = false;
+        }
         lumRafRef.current = requestAnimationFrame(tick);
       };
       lumRafRef.current = requestAnimationFrame(tick);
@@ -546,6 +582,17 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       : cardState === "misaligned"
         ? "Rotate card flat & horizontal"
         : "Place card on forehead";
+  const distanceColor =
+    distanceState === "ok" ? "#4ade80" : distanceState === "unknown" ? "#facc15" : "#ef4444";
+  const distanceLabel =
+    distanceState === "too_close"
+      ? "Move farther from the camera"
+      : distanceState === "too_far"
+        ? "Move closer to the camera"
+        : distanceState === "ok"
+          ? "Good distance"
+          : "Center your face in the oval";
+  const showDistanceHint = distanceState === "too_close" || distanceState === "too_far";
   const captureBlocked = !ready || busy || countdown !== null || cardState !== "ok";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
@@ -594,6 +641,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: cardColor, boxShadow: `0 0 6px ${cardColor}` }} />
               {cardLabel}
             </span>
+            {showDistanceHint && (
+              <span className="scan-mobile-pill" style={{ borderColor: distanceColor }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: distanceColor, boxShadow: `0 0 6px ${distanceColor}` }} />
+                {distanceLabel}
+              </span>
+            )}
           </div>
 
           {countdown !== null && (
@@ -724,6 +777,34 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           <span style={{ width: 8, height: 8, borderRadius: "50%", background: cardColor, boxShadow: `0 0 6px ${cardColor}` }} />
           {cardLabel}
         </div>
+
+        {showDistanceHint && (
+          <div
+            aria-live="polite"
+            style={{
+              position: "absolute",
+              bottom: 12,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 12px",
+              borderRadius: 999,
+              background: "rgba(0,0,0,0.7)",
+              border: `1px solid ${distanceColor}`,
+              color: "rgba(255,255,255,0.95)",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              zIndex: 4,
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: distanceColor, boxShadow: `0 0 6px ${distanceColor}` }} />
+            {distanceLabel}
+          </div>
+        )}
 
         {countdown !== null && (
           <div
@@ -1198,8 +1279,25 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
         </span>
       </div>
 
-      <div className="flex flex-col gap-2 pt-2">
+      <div
+        className="flex flex-col gap-2 pt-2"
+        style={{
+          position: "sticky",
+          bottom: 0,
+          background: "linear-gradient(to top, rgba(8,8,7,0.96) 70%, rgba(8,8,7,0))",
+          padding: "12px 0 calc(env(safe-area-inset-bottom, 0px) + 12px)",
+          marginTop: 8,
+          zIndex: 10,
+        }}
+      >
         <button
+          ref={(el) => {
+            // Auto-scroll the action into view the moment all 4 points are placed,
+            // so users on mobile never miss the Calculate CTA below the photo.
+            if (el && cardCorners.length === 2 && faceEdges.length === 2) {
+              try { el.scrollIntoView({ behavior: "smooth", block: "center" }); } catch { /* noop */ }
+            }
+          }}
           disabled={cardCorners.length < 2 || faceEdges.length < 2}
           onClick={() => onCalculate([cardCorners[0], cardCorners[1]], [faceEdges[0], faceEdges[1]])}
           style={{
@@ -1214,9 +1312,12 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null }: A
             border: "none",
             cursor: cardCorners.length < 2 || faceEdges.length < 2 ? "not-allowed" : "pointer",
             height: 48,
+            width: "100%",
           }}
         >
-          Calculate my measurements
+          {cardCorners.length < 2 || faceEdges.length < 2
+            ? `Tap ${4 - (cardCorners.length + faceEdges.length)} more point${4 - (cardCorners.length + faceEdges.length) === 1 ? "" : "s"} to continue`
+            : "Calculate my measurements"}
         </button>
         <button
           onClick={onRetake}
