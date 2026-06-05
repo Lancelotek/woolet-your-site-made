@@ -582,6 +582,17 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       : cardState === "misaligned"
         ? "Rotate card flat & horizontal"
         : "Place card on forehead";
+  const distanceColor =
+    distanceState === "ok" ? "#4ade80" : distanceState === "unknown" ? "#facc15" : "#ef4444";
+  const distanceLabel =
+    distanceState === "too_close"
+      ? "Move farther from the camera"
+      : distanceState === "too_far"
+        ? "Move closer to the camera"
+        : distanceState === "ok"
+          ? "Good distance"
+          : "Center your face in the oval";
+  const showDistanceHint = distanceState === "too_close" || distanceState === "too_far";
   const captureBlocked = !ready || busy || countdown !== null || cardState !== "ok";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
