@@ -641,6 +641,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: cardColor, boxShadow: `0 0 6px ${cardColor}` }} />
               {cardLabel}
             </span>
+            {showDistanceHint && (
+              <span className="scan-mobile-pill" style={{ borderColor: distanceColor }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: distanceColor, boxShadow: `0 0 6px ${distanceColor}` }} />
+                {distanceLabel}
+              </span>
+            )}
           </div>
 
           {countdown !== null && (
