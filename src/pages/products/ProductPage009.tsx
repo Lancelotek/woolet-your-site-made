@@ -6,9 +6,12 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
+import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import imgBlack from "@/assets/woolet-009-black.png";
 import imgTortoise from "@/assets/woolet-009-dark-tortoise.png";
 import imgSmoke from "@/assets/woolet-009-smoke-grey.png";
+
+const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
 
 const colors009 = [
   { name: "Black", dot: "#141414", img: imgBlack },
