@@ -12,6 +12,7 @@ import fitStepPhone from "@/assets/fit-step-phone.jpg";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getImageLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
+import { classifyCardSample } from "@/lib/card-detection";
 import {
   calculateMeasurements,
   getRecommendation,
