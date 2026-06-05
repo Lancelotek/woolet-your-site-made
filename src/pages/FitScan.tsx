@@ -1833,6 +1833,7 @@ export default function FitScan() {
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
   const [measurements, setMeasurements] = useState<Measurements | null>(null);
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
+  const [faceShape, setFaceShape] = useState<FaceShapeResult | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
