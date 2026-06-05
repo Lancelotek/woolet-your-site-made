@@ -75,9 +75,8 @@ export default function Payments() {
                   Continue to Stripe →
                 </a>
               </div>
-
-              </div>
             </div>
+
 
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
               <span>256-bit SSL</span>
