@@ -22,6 +22,7 @@ import {
   type Point,
   type Recommendation,
 } from "@/lib/face-measurements";
+import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
