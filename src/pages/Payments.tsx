@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useSearchParams } from "react-router-dom";
+import wooletLogo from "@/assets/woolet-logo.png";
 
 const STRIPE_URL = "https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n";
 
