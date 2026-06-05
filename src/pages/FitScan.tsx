@@ -2004,11 +2004,13 @@ export default function FitScan() {
   const handleCaptured = async (f: CapturedFrame) => {
     setFrame(f);
     setAutoFallback(null);
+    setPrefillPoints(null);
     setStep("analyzing");
 
     // Primary path: server-side detection via Gemini 2.5 Pro Vision.
     // We send the captured JPEG + native dims; server returns pixel coords
-    // for card corners and face edges, which we feed into calculateMeasurements.
+    // for card corners and face edges. We pre-fill the annotate step so the
+    // user can verify/fine-tune the dots before we compute the measurement.
     try {
       const { data, error } = await supabase.functions.invoke("fit-scan-detect", {
         body: { image: f.dataUrl, width: f.width, height: f.height },
@@ -2021,10 +2023,7 @@ export default function FitScan() {
         const c2: Point = { x: data.card.right.x, y: data.card.right.y };
         const f1: Point = { x: data.face.left.x, y: data.face.left.y };
         const f2: Point = { x: data.face.right.x, y: data.face.right.y };
-        if (runCalculate(f, c1, c2, f1, f2)) return;
-        // Server points failed plausibility check — go to manual annotate.
-        pushEvent("scan_server_fallback", { reason: "validation" });
-        setAutoFallback("validation");
+        setPrefillPoints({ card: [c1, c2], face: [f1, f2] });
         setStep("annotate");
         return;
       }
@@ -2035,7 +2034,7 @@ export default function FitScan() {
       pushEvent("scan_server_fallback", { reason: "network_or_error" });
     }
 
-    // Server detection failed — fall through to manual annotate.
+    // Server detection failed — go to manual annotate with no prefill.
     setAutoFallback("no_edge");
     setStep("annotate");
   };
