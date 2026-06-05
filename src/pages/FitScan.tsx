@@ -530,6 +530,37 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             }
           } catch { /* CORS */ }
         }
+        // Face distance: run video landmarker ~1.4x/sec; compute face oval
+        // pixel width vs frame width and warn if the face is too close/far.
+        if (ts - lastFace > 700 && videoLm && !faceBusy) {
+          lastFace = ts;
+          faceBusy = true;
+          try {
+            const vw = v.videoWidth;
+            const vh = v.videoHeight;
+            if (vw > 0 && vh > 0) {
+              const res = videoLm.detectForVideo(v, ts);
+              const lms = res.faceLandmarks?.[0];
+              if (lms && lms.length >= 478) {
+                let minX = 1, maxX = 0;
+                for (let i = 0; i < lms.length; i++) {
+                  const x = lms[i].x;
+                  if (x < minX) minX = x;
+                  if (x > maxX) maxX = x;
+                }
+                const facePctW = Math.max(0, Math.min(1, maxX - minX));
+                // Mobile camera frame is portrait — relative width ~0.50–0.65 is ideal.
+                // Above ~0.72 the face crowds the oval and the card edge gets clipped.
+                const next: typeof distanceState =
+                  facePctW > 0.72 ? "too_close" : facePctW < 0.32 ? "too_far" : "ok";
+                setDistanceState((prev) => (prev === next ? prev : next));
+              } else {
+                setDistanceState((prev) => (prev === "unknown" ? prev : "unknown"));
+              }
+            }
+          } catch { /* noop */ }
+          faceBusy = false;
+        }
         lumRafRef.current = requestAnimationFrame(tick);
       };
       lumRafRef.current = requestAnimationFrame(tick);
