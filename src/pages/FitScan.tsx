@@ -201,6 +201,38 @@ function WelcomeStep({
         Three steps. Photo never leaves your device until you capture.
       </p>
 
+      <figure
+        style={{
+          margin: 0,
+          borderRadius: 12,
+          overflow: "hidden",
+          background: "#0f0f0e",
+          border: "1px solid rgba(202,164,73,0.25)",
+        }}
+      >
+        <img
+          src={fitScanReference.url}
+          alt="Reference photo: person holding a credit card flat across the forehead with the long edge horizontal, both edges touching the skin, facing the camera."
+          width={896}
+          height={1152}
+          loading="lazy"
+          style={{ width: "100%", height: "auto", display: "block" }}
+        />
+        <figcaption
+          style={{
+            color: GOLD,
+            fontFamily: "Cormorant Garamond, serif",
+            fontStyle: "italic",
+            fontSize: "0.95rem",
+            textAlign: "center",
+            padding: "10px 14px 12px",
+            background: "#0f0f0e",
+          }}
+        >
+          Hold the card flat on your forehead — long edge horizontal, both edges touching the skin.
+        </figcaption>
+      </figure>
+
       <ol
         className="flex flex-col gap-6 pt-2 m-0 p-0"
         style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
