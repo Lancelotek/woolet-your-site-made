@@ -16,6 +16,7 @@ import { classifyCardSample } from "@/lib/card-detection";
 import {
   calculateMeasurements,
   getRecommendation,
+  LANDMARKS,
   MeasurementError,
   type Measurements,
   type NormalizedLandmark,
