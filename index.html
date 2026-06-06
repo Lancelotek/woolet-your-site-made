@@ -116,39 +116,44 @@
       gtag('set', 'url_passthrough', true);
     </script>
 
-    <!-- Google Tag Manager -->
     <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WTJLN2KX');
-    </script>
-    <!-- End Google Tag Manager -->
+      (function () {
+        var host = window.location.hostname;
+        var isProd = host === 'woolet.co' || host === 'www.woolet.co';
 
-    <!-- Google tag (gtag.js) — Google Ads AW-18213714775 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18213714775"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-18213714775');
+        if (isProd) {
+          // Google Tag Manager
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-WTJLN2KX');
 
-      // Google Ads conversion event snippet — call gtag_report_conversion(url)
-      // on conversion clicks (form submits, CTAs). Safe to call without a url.
-      function gtag_report_conversion(url) {
-        var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
-          }
-        };
-        gtag('event', 'conversion', {
-          'send_to': 'AW-18213714775/nHCBCLW8rbkcENf2_OxD',
-          'event_callback': callback
-        });
-        return false;
-      }
-      window.gtag_report_conversion = gtag_report_conversion;
+          // Google Ads gtag
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18213714775';
+          document.head.appendChild(s);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-18213714775');
+
+          window.gtag_report_conversion = function (url) {
+            var callback = function () {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
+              }
+            };
+            gtag('event', 'conversion', {
+              'send_to': 'AW-18213714775/nHCBCLW8rbkcENf2_OxD',
+              'event_callback': callback
+            });
+            return false;
+          };
+        }
+      })();
     </script>
 
 
