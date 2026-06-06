@@ -9,6 +9,7 @@ import fitScanTip from "@/assets/fit-scan-tip.png";
 import fitStepCard from "@/assets/fit-step-card.jpg";
 import fitStepForehead from "@/assets/fit-step-forehead.jpg";
 import fitStepPhone from "@/assets/fit-step-phone.jpg";
+import fitScanReference from "@/assets/fit-scan-reference.jpg.asset.json";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
