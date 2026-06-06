@@ -9,6 +9,7 @@ import fitScanTip from "@/assets/fit-scan-tip.png";
 import fitStepCard from "@/assets/fit-step-card.jpg";
 import fitStepForehead from "@/assets/fit-step-forehead.jpg";
 import fitStepPhone from "@/assets/fit-step-phone.jpg";
+import fitScanReference from "@/assets/fit-scan-reference.jpg.asset.json";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
@@ -199,6 +200,38 @@ function WelcomeStep({
       <p className="text-cream-dim" style={{ fontSize: "1.1rem", fontWeight: 300, lineHeight: 1.5 }}>
         Three steps. Photo never leaves your device until you capture.
       </p>
+
+      <figure
+        style={{
+          margin: 0,
+          borderRadius: 12,
+          overflow: "hidden",
+          background: "#0f0f0e",
+          border: "1px solid rgba(202,164,73,0.25)",
+        }}
+      >
+        <img
+          src={fitScanReference.url}
+          alt="Reference photo: person holding a credit card flat across the forehead with the long edge horizontal, both edges touching the skin, facing the camera."
+          width={896}
+          height={1152}
+          loading="lazy"
+          style={{ width: "100%", height: "auto", display: "block" }}
+        />
+        <figcaption
+          style={{
+            color: GOLD,
+            fontFamily: "Cormorant Garamond, serif",
+            fontStyle: "italic",
+            fontSize: "0.95rem",
+            textAlign: "center",
+            padding: "10px 14px 12px",
+            background: "#0f0f0e",
+          }}
+        >
+          Hold the card flat on your forehead — long edge horizontal, both edges touching the skin.
+        </figcaption>
+      </figure>
 
       <ol
         className="flex flex-col gap-6 pt-2 m-0 p-0"
@@ -517,17 +550,28 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 lumBuf[i] = 0.299 * img[o] + 0.587 * img[o + 1] + 0.114 * img[o + 2];
               }
               let vSum = 0, hSum = 0, n = 0;
+              const rowV = new Float32Array(CARD_H);
               for (let y = 1; y < CARD_H - 1; y++) {
+                let rowVSum = 0;
                 for (let x = 1; x < CARD_W - 1; x++) {
                   const i = y * CARD_W + x;
-                  vSum += Math.abs(lumBuf[i + CARD_W] - lumBuf[i - CARD_W]);
-                  hSum += Math.abs(lumBuf[i + 1] - lumBuf[i - 1]);
+                  const dv = Math.abs(lumBuf[i + CARD_W] - lumBuf[i - CARD_W]);
+                  const dh = Math.abs(lumBuf[i + 1] - lumBuf[i - 1]);
+                  vSum += dv;
+                  hSum += dh;
+                  rowVSum += dv;
                   n++;
                 }
+                rowV[y] = rowVSum / Math.max(1, CARD_W - 2);
               }
               const vGrad = n > 0 ? vSum / n : 0;
               const hGrad = n > 0 ? hSum / n : 0;
-              const cls = classifyCardSample(vGrad, hGrad);
+              // Peak + median row-vertical-gradient → structural check that
+              // rejects noisy backgrounds without a single dominant edge.
+              const rowVals = Array.from(rowV.subarray(1, CARD_H - 1)).sort((a, b) => a - b);
+              const peakRowV = rowVals.length ? rowVals[rowVals.length - 1] : 0;
+              const medianRowV = rowVals.length ? rowVals[Math.floor(rowVals.length / 2)] : 0;
+              const cls = classifyCardSample(vGrad, hGrad, { peakRowV, medianRowV });
               setCardState((prev) => (prev === cls.nextState ? prev : cls.nextState));
             }
           } catch { /* CORS */ }
