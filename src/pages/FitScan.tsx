@@ -517,17 +517,28 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 lumBuf[i] = 0.299 * img[o] + 0.587 * img[o + 1] + 0.114 * img[o + 2];
               }
               let vSum = 0, hSum = 0, n = 0;
+              const rowV = new Float32Array(CARD_H);
               for (let y = 1; y < CARD_H - 1; y++) {
+                let rowVSum = 0;
                 for (let x = 1; x < CARD_W - 1; x++) {
                   const i = y * CARD_W + x;
-                  vSum += Math.abs(lumBuf[i + CARD_W] - lumBuf[i - CARD_W]);
-                  hSum += Math.abs(lumBuf[i + 1] - lumBuf[i - 1]);
+                  const dv = Math.abs(lumBuf[i + CARD_W] - lumBuf[i - CARD_W]);
+                  const dh = Math.abs(lumBuf[i + 1] - lumBuf[i - 1]);
+                  vSum += dv;
+                  hSum += dh;
+                  rowVSum += dv;
                   n++;
                 }
+                rowV[y] = rowVSum / Math.max(1, CARD_W - 2);
               }
               const vGrad = n > 0 ? vSum / n : 0;
               const hGrad = n > 0 ? hSum / n : 0;
-              const cls = classifyCardSample(vGrad, hGrad);
+              // Peak + median row-vertical-gradient → structural check that
+              // rejects noisy backgrounds without a single dominant edge.
+              const rowVals = Array.from(rowV.subarray(1, CARD_H - 1)).sort((a, b) => a - b);
+              const peakRowV = rowVals.length ? rowVals[rowVals.length - 1] : 0;
+              const medianRowV = rowVals.length ? rowVals[Math.floor(rowVals.length / 2)] : 0;
+              const cls = classifyCardSample(vGrad, hGrad, { peakRowV, medianRowV });
               setCardState((prev) => (prev === cls.nextState ? prev : cls.nextState));
             }
           } catch { /* CORS */ }
