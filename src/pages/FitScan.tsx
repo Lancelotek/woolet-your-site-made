@@ -16,6 +16,7 @@ import { classifyCardSample } from "@/lib/card-detection";
 import {
   calculateMeasurements,
   getRecommendation,
+  LANDMARKS,
   MeasurementError,
   type Measurements,
   type NormalizedLandmark,
@@ -2036,7 +2037,65 @@ export default function FitScan() {
       pushEvent("scan_server_fallback", { reason: "network_or_error" });
     }
 
-    // Server detection failed — go to manual annotate with no prefill.
+    // Server detection failed — fall back to client-side prefill so the user
+    // still sees suggested dot positions on face edges (and, when possible,
+    // card corners) and only needs to fine-tune.
+    try {
+      const faceLeft = f.landmarks?.[LANDMARKS.faceLeftTemple];
+      const faceRight = f.landmarks?.[LANDMARKS.faceRightTemple];
+      const forehead = f.landmarks?.[LANDMARKS.forehead];
+      let faceEdges: [Point, Point] | null = null;
+      if (faceLeft && faceRight) {
+        faceEdges = [
+          { x: faceLeft.x * f.width, y: faceLeft.y * f.height },
+          { x: faceRight.x * f.width, y: faceRight.y * f.height },
+        ];
+      }
+
+      let cardCorners: [Point, Point] | null = null;
+      if (f.canvas && forehead && faceLeft && faceRight) {
+        // Forehead band ROI: a horizontal strip above the brow, wider than the face.
+        const faceWpx = Math.abs((faceRight.x - faceLeft.x) * f.width);
+        const cx = ((faceLeft.x + faceRight.x) / 2) * f.width;
+        const roiW = Math.min(f.width, faceWpx * 1.6);
+        const roiH = Math.max(60, faceWpx * 0.45);
+        const foreheadY = forehead.y * f.height;
+        const roi = {
+          x: Math.max(0, cx - roiW / 2),
+          y: Math.max(0, foreheadY - roiH * 1.1),
+          w: roiW,
+          h: roiH,
+        };
+        const det = detectCardCornersInRegion(f.canvas, roi, f.width, f.height);
+        if (det && det.confidence >= 0.3) {
+          cardCorners = det.corners;
+        }
+      }
+
+      if (faceEdges) {
+        // If card not auto-detected, seed corners near the top of the forehead band
+        // so user only needs to drag them onto the actual card edges.
+        if (!cardCorners && forehead) {
+          const faceWpx = Math.abs((faceRight!.x - faceLeft!.x) * f.width);
+          const cx = ((faceLeft!.x + faceRight!.x) / 2) * f.width;
+          const yGuess = Math.max(0, forehead.y * f.height - faceWpx * 0.35);
+          cardCorners = [
+            { x: cx - faceWpx * 0.45, y: yGuess },
+            { x: cx + faceWpx * 0.45, y: yGuess },
+          ];
+        }
+        if (cardCorners) {
+          pushEvent("scan_client_prefilled", { auto_card: cardCorners ? 1 : 0 });
+          setPrefillPoints({ card: cardCorners, face: faceEdges });
+          setAutoFallback("no_edge");
+          setStep("annotate");
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("[scan] client prefill failed", err);
+    }
+
     setAutoFallback("no_edge");
     setStep("annotate");
   };
