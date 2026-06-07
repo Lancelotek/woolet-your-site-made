@@ -22,21 +22,23 @@ interface DetectResponse {
   notes?: string;
 }
 
-const SYSTEM_PROMPT = `You are a precise computer-vision annotator for a face-measurement tool.
+const SYSTEM_PROMPT = `You are a precise computer-vision annotator for an EYEWEAR frame-width measurement tool.
 
 The user shows their face to a webcam with a credit/ID card held FLAT against the forehead, long edge HORIZONTAL.
 
 Your job: return pixel-accurate coordinates for FOUR points on the supplied image:
 1. card.left  — leftmost visible corner of the card's long (horizontal) edge
 2. card.right — rightmost visible corner of the SAME card edge (same y as card.left)
-3. face.left  — outermost left edge of the face at the cheekbone / temple level (widest point of the face contour)
-4. face.right — outermost right edge of the face at the SAME y as face.left
+3. face.left  — outermost LEFT edge of the HEAD silhouette at temple height (just above the ear, roughly level with the eyebrows / top of the ear). This must be the WIDEST point of the head/skull including hair — NOT the cheekbone and NOT the inner face contour. Picture where the temple tip of a pair of eyeglasses would rest against the skull; that is the point you must mark.
+4. face.right — outermost RIGHT edge of the head at the SAME y as face.left
+
+Critical: face.left and face.right define where eyewear frames sit. Marking the cheekbone or jawline gives a too-narrow result and is WRONG. Always pick the widest visible head outline at temple height, including hair.
 
 Coordinates are normalized integers 0..1000 (x=0 is left edge of image, y=0 is top).
 
 Rules:
 - card.left.y MUST equal card.right.y (±5). Pick the most prominent horizontal card edge.
-- face.left.y MUST equal face.right.y (±5). Pick the widest horizontal slice of the face.
+- face.left.y MUST equal face.right.y (±5). Pick the widest horizontal slice at temple height.
 - If no card is visible or the face is not centred / clear, set confidence < 0.4 and still return best-guess points.
 - Never refuse. Never add commentary outside the JSON.`;
 

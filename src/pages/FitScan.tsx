@@ -2090,9 +2090,17 @@ export default function FitScan() {
       const forehead = f.landmarks?.[LANDMARKS.forehead];
       let faceEdges: [Point, Point] | null = null;
       if (faceLeft && faceRight) {
+        // MediaPipe temple landmarks sit on the visible face contour, which is
+        // ~10–12% narrower than the actual head/skull silhouette where eyewear
+        // temple tips rest. Expand outward so the prefill matches the widest
+        // point at temple height (what the user expects for frame width).
+        const cx = ((faceLeft.x + faceRight.x) / 2) * f.width;
+        const halfW = Math.abs((faceRight.x - faceLeft.x) * f.width) / 2;
+        const expanded = halfW * 1.12;
+        const yMid = ((faceLeft.y + faceRight.y) / 2) * f.height;
         faceEdges = [
-          { x: faceLeft.x * f.width, y: faceLeft.y * f.height },
-          { x: faceRight.x * f.width, y: faceRight.y * f.height },
+          { x: Math.max(0, cx - expanded), y: yMid },
+          { x: Math.min(f.width, cx + expanded), y: yMid },
         ];
       }
 
