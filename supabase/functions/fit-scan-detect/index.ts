@@ -124,7 +124,17 @@ Deno.serve(async (req) => {
         {
           role: "user",
           content: [
-            { type: "text", text: "Annotate this image. Return JSON only." },
+            {
+              type: "text",
+              text: "CALIBRATION EXAMPLE. The image below is the GOLD-STANDARD reference: a credit card flat on the forehead, long edge horizontal. The correct annotation for this image is:\n{\"card\":{\"left\":{\"x\":355,\"y\":505},\"right\":{\"x\":637,\"y\":505}},\"face\":{\"left\":{\"x\":293,\"y\":458},\"right\":{\"x\":733,\"y\":458}},\"confidence\":0.95}\nNotice how face.left/face.right sit at the OUTER head silhouette at temple height (including hair), well outside the cheekbone. Use this same pattern when annotating the next image.",
+            },
+            { type: "image_url", image_url: { url: "https://woolet.co/__l5e/assets-v1/eb18c256-5733-4347-a94c-156105f6f42a/fit-scan-calibration.png" } },
+          ],
+        },
+        {
+          role: "user",
+          content: [
+            { type: "text", text: "Now annotate THIS image using the same rules as the calibration example. Return JSON only." },
             { type: "image_url", image_url: { url: imageUrl } },
           ],
         },
