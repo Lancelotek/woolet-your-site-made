@@ -98,6 +98,8 @@ const App = () => (
           <Route path="/en/about" element={<About />} />
           <Route path="/en/bespoke" element={<Bespoke />} />
           <Route path="/:lang/bespoke" element={<Bespoke />} />
+          {/* Legacy /:lang/pages/bespoke -> /:lang/bespoke */}
+          <Route path="/:lang/pages/bespoke" element={<Navigate to="/en/bespoke" replace />} />
           <Route path="/:lang/vip-join" element={<VipJoin />} />
 
           {/* SEO collection pages */}
