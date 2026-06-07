@@ -31,6 +31,11 @@ const blogPostsEN: BlogPost[] = [
 
 <p>In this guide, you'll learn exactly how to measure your face width, understand frame sizing, find frames that genuinely fit 155mm+ faces, and discover what separates a $30 plastic frame from a premium Italian acetate designed to last a decade.</p>
 
+<figure>
+<img src="/__l5e/assets-v1/32dc41d3-9028-48b5-b614-f465ea2e9477/wide-face-fit-comparison.png" alt="Side-by-side comparison: standard 140mm frames pinching the temples vs Woolet 158mm frames sitting flush on a wide face" loading="lazy" />
+<figcaption>The difference is in the fit. Standard 140mm frames (left) pinch the temples; Woolet 158mm frames (right) sit flush. Engineered for wide faces, 155mm+.</figcaption>
+</figure>
+
 <h2>What Is a "Wide Face" in Eyewear Terms?</h2>
 
 <p>In the eyewear industry, "wide" is one of the most misused terms on the market. Warby Parker, Zenni, and EyeBuyDirect all offer "wide" frames. But their "wide" typically means 138–148mm — a measurement that's still too narrow for a genuinely broad face.</p>
