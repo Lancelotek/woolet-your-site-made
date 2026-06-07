@@ -32,7 +32,7 @@ const blogPostsEN: BlogPost[] = [
 <p>In this guide, you'll learn exactly how to measure your face width, understand frame sizing, find frames that genuinely fit 155mm+ faces, and discover what separates a $30 plastic frame from a premium Italian acetate designed to last a decade.</p>
 
 <figure>
-<img src="/__l5e/assets-v1/32dc41d3-9028-48b5-b614-f465ea2e9477/wide-face-fit-comparison.png" alt="Side-by-side comparison: standard 140mm frames pinching the temples vs Woolet 158mm frames sitting flush on a wide face" loading="lazy" />
+<img src="/__l5e/assets-v1/32dc41d3-9028-48b5-b614-f465ea2e9477/wide-face-fit-comparison.png" alt="Glasses for wide faces: visual comparison showing how standard 140 mm frames pinch temples on a wide face while 158 mm extra-wide frames sit flush and comfortable at 155 mm+ face width" loading="lazy" />
 <figcaption>The difference is in the fit. Standard 140mm frames (left) pinch the temples; Woolet 158mm frames (right) sit flush. Engineered for wide faces, 155mm+.</figcaption>
 </figure>
 
