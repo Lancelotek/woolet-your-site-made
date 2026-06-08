@@ -646,12 +646,26 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   next = "none";
                 }
               }
-              setCardState((prev) => (prev === next ? prev : next));
+              setCardState((prev) => {
+                if (prev === next) return prev;
+                return next;
+              });
+              // Track how long the card has been missing → after 5s offer a
+              // manual override (some cards/skin tones fail local detection
+              // even when the card is correctly placed — Gemini will still
+              // validate post-capture).
+              if (next === "none") {
+                if (cardMissingSinceRef.current === null) cardMissingSinceRef.current = ts;
+                else if (ts - cardMissingSinceRef.current > 5000) setShowCardOverride(true);
+              } else {
+                cardMissingSinceRef.current = null;
+                setShowCardOverride(false);
+                setCardOverride(false);
+              }
             }
           } catch { /* CORS */ }
         }
-        // Face distance: run video landmarker ~1.4x/sec; compute face oval
-        // pixel width vs frame width and warn if the face is too close/far.
+        // Face distance + pose: run video landmarker ~1.4x/sec.
         if (ts - lastFace > 700 && videoLm && !faceBusy) {
           lastFace = ts;
           faceBusy = true;
