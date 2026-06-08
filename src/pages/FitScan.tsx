@@ -2044,7 +2044,7 @@ function EmailGateStep({
             height: 52,
           }}
         >
-          {submitting ? "Unlocking…" : "Show my size →"}
+          {submitting ? "Sending…" : "Email my measurements →"}
         </button>
         <p
           style={{
