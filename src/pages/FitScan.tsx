@@ -1426,6 +1426,77 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
             </div>
           )}
         </div>
+        {/* Zoom controls (screen-space; outside transformed wrapper) */}
+        <div
+          style={{
+            position: "absolute",
+            right: 12,
+            bottom: 12,
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            zIndex: 6,
+          }}
+        >
+          <button
+            type="button"
+            aria-label="Zoom in"
+            onPointerDown={(e) => { e.stopPropagation(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              const i = ZOOM_STEPS.findIndex((z) => z >= zoom);
+              const next = ZOOM_STEPS[Math.min(ZOOM_STEPS.length - 1, (i < 0 ? 0 : i) + 1)];
+              changeZoom(next);
+            }}
+            disabled={zoom >= 4}
+            style={{
+              width: 44, height: 44, borderRadius: 22,
+              background: "rgba(8,8,7,0.85)",
+              color: "#f0ece4",
+              border: `1px solid ${GOLD}`,
+              fontSize: 22, fontFamily: "Barlow, sans-serif",
+              cursor: zoom >= 4 ? "not-allowed" : "pointer",
+              opacity: zoom >= 4 ? 0.5 : 1,
+              lineHeight: 1,
+            }}
+          >+</button>
+          <div
+            style={{
+              minWidth: 44, height: 26, borderRadius: 13,
+              background: "rgba(8,8,7,0.85)",
+              color: "#f0ece4",
+              border: "1px solid rgba(255,255,255,0.15)",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.7rem",
+              letterSpacing: "0.06em",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              padding: "0 6px",
+            }}
+            aria-live="polite"
+          >{Math.round(zoom * 100)}%</div>
+          <button
+            type="button"
+            aria-label="Zoom out"
+            onPointerDown={(e) => { e.stopPropagation(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              const i = ZOOM_STEPS.findIndex((z) => z >= zoom);
+              const idx = Math.max(0, (i < 0 ? ZOOM_STEPS.length - 1 : i) - 1);
+              changeZoom(ZOOM_STEPS[idx]);
+            }}
+            disabled={zoom <= 1}
+            style={{
+              width: 44, height: 44, borderRadius: 22,
+              background: "rgba(8,8,7,0.85)",
+              color: "#f0ece4",
+              border: `1px solid ${GOLD}`,
+              fontSize: 22, fontFamily: "Barlow, sans-serif",
+              cursor: zoom <= 1 ? "not-allowed" : "pointer",
+              opacity: zoom <= 1 ? 0.5 : 1,
+              lineHeight: 1,
+            }}
+          >−</button>
+        </div>
       </div>
 
       {/* Sticky action bar */}
