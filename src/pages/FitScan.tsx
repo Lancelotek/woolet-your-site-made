@@ -1901,6 +1901,7 @@ interface ResultStepProps {
 }
 
 function ResultStep({ measurements, recommendation: baseRecommendation, faceShape, onRetake, lang }: ResultStepProps) {
+  const { user: authedUser } = useAuth();
   // Depth correction: if the card was held in front of the face (not flush to skin),
   // it appears larger in pixels → face width is underestimated. Assuming a typical
   // capture distance of ~60 cm, a gap g (cm) scales the result by 60 / (60 - g).
@@ -2328,7 +2329,11 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
-          to={`/${lang}/fit?face_width=${adjustedFace}&nose_width=${adjustedNose}&source=scan${cardOffset ? `&gap_cm=${gapCm}` : ""}`}
+          to={
+            authedUser
+              ? `/${lang}/account`
+              : `/${lang}/fit?face_width=${adjustedFace}&nose_width=${adjustedNose}&source=scan${cardOffset ? `&gap_cm=${gapCm}` : ""}`
+          }
           onClick={handleCta}
           style={{
             background: GOLD,
@@ -2347,7 +2352,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             justifyContent: "center",
           }}
         >
-          See my prefilled fit →
+          {authedUser ? "Go to my account →" : "See my prefilled fit →"}
         </Link>
         <Link
           to={recommendation.primaryHref}
