@@ -147,9 +147,15 @@ const App = () => (
           <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/:lang/return-policy" element={<ReturnPolicy />} />
 
+          {/* Account */}
+          <Route path="/:lang/account/sign-in" element={<SignIn />} />
+          <Route path="/:lang/account/callback" element={<AuthCallback />} />
+          <Route path="/:lang/account" element={<Account />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
         </Suspense>
+        </AuthProvider>
       </BrowserRouter>
       <CookieBanner />
       </ErrorBoundary>
