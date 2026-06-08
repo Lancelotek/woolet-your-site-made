@@ -148,16 +148,16 @@ export default function Account() {
             <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
               Your recommendation
             </h2>
-            {rec ? (
+            {recModel ? (
               <div className="p-6" style={{ background: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.25)" }}>
                 <p className="font-display text-foreground" style={{ fontSize: "1.6rem", fontWeight: 300 }}>
-                  Model <em className="italic" style={{ color: GOLD }}>{rec.type === "007" ? "007" : "009"}</em>
+                  Model <em className="italic" style={{ color: GOLD }}>{recModel}</em>
                 </p>
                 <p className="text-cream-dim mt-2" style={{ fontSize: "0.9rem", lineHeight: 1.55 }}>
                   Based on your latest scan: face {latestCompleted!.face_width_mm} mm, nose {latestCompleted!.nose_width_mm} mm.
                 </p>
                 <Link
-                  to={`/${lang}/products/${rec.type === "007" ? "007" : "009"}`}
+                  to={`/${lang}/products/${recModel}`}
                   className="inline-block mt-4 uppercase tracking-[0.22em] no-underline"
                   style={{
                     background: GOLD,
@@ -168,7 +168,7 @@ export default function Account() {
                     padding: "12px 22px",
                   }}
                 >
-                  View model {rec.type === "007" ? "007" : "009"}
+                  View model {recModel}
                 </Link>
               </div>
             ) : (
