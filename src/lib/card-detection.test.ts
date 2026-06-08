@@ -26,8 +26,9 @@ describe("classifyCardSample", () => {
   });
 
   it("returns nextState='misaligned' when an edge exists but the card is vertical/tilted", () => {
-    // horizontal gradient dominates → card held vertically
-    const r = classifyCardSample(5, 14);
+    // horizontal gradient dominates → card held vertically. Keep h below the
+    // band-texture cap so the structural texture gate doesn't reject the sample.
+    const r = classifyCardSample(5, 10);
     expect(r.cardPresent).toBe(true);
     expect(r.cardHorizontal).toBe(false);
     expect(r.cardAligned).toBe(false);
@@ -35,12 +36,20 @@ describe("classifyCardSample", () => {
   });
 
   it("requires vGrad to dominate hGrad by the configured ratio", () => {
-    const { horizontalDominanceRatio, presenceMinGrad } = CARD_DETECT_THRESHOLDS;
-    const h = presenceMinGrad + 1; // 8
+    const { horizontalDominanceRatio } = CARD_DETECT_THRESHOLDS;
+    const h = 5; // keep below maxBandTexture
     const justBelow = h * horizontalDominanceRatio - 0.01;
     const justAbove = h * horizontalDominanceRatio + 0.01;
     expect(classifyCardSample(justBelow, h).nextState).toBe("misaligned");
     expect(classifyCardSample(justAbove, h).nextState).toBe("ok");
+  });
+
+  it("rejects high-texture bands (hair/eyebrows) even with strong vertical gradient", () => {
+    // Mimics hairline-against-wall: strong vGrad but the surrounding band is
+    // textured (high hGrad) → must NOT be treated as a card.
+    const r = classifyCardSample(30, 15);
+    expect(r.cardPresent).toBe(false);
+    expect(r.nextState).toBe("none");
   });
 
   it("clamps and handles invalid inputs safely", () => {
