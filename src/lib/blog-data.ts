@@ -413,7 +413,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p><strong>Because the right measurement, matched to the right frame, means never adjusting your glasses again.</strong></p>
 
-<p><em>Woolet makes premium Italian acetate frames engineered for 155mm+ face widths. Woolet 007 and 009 — both at 158mm — are available for pre-order via waitlist at woolet.co.</em></p>
+<p><em>Woolet makes <a href="/en/collections/italian-mazzucchelli-acetate">premium Italian Mazzucchelli acetate frames</a> engineered for 155mm+ face widths. Woolet 007 and 009 — both at 158mm — are available for pre-order via waitlist at woolet.co.</em></p>
 `,
   },
   {
