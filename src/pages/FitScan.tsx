@@ -40,7 +40,7 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   w.dataLayer.push({ event, ...params });
 };
 
-type Step = "welcome" | "camera" | "analyzing" | "annotate" | "email-gate" | "result";
+type Step = "welcome" | "camera" | "analyzing" | "annotate" | "email-gate" | "result" | "result-sent";
 
 /* ─────────────── Analyzing (progress) ─────────────── */
 
