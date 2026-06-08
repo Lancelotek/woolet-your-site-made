@@ -5,7 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import CookieBanner from "@/components/CookieBanner";
+// CookieBanner removed — consent handled by GTM-injected CMP on production
 import PageViewTracker from "@/components/PageViewTracker";
 import { AuthProvider } from "@/lib/auth-context";
 
@@ -159,7 +159,7 @@ const App = () => (
         </Suspense>
         </AuthProvider>
       </BrowserRouter>
-      <CookieBanner />
+      
       </ErrorBoundary>
     </TooltipProvider>
   </QueryClientProvider>
