@@ -25,7 +25,7 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
     <Body style={main}>
       <Container style={container}>
         <Section style={{ textAlign: 'center', padding: '8px 0 24px' }}>
-          <Img src="https://wmefczrhnsqicikveuhz.supabase.co/storage/v1/object/public/email-assets/woolet-logo.png" width="120" height="auto" alt="Woolet" style={{ display: 'inline-block', margin: '0 auto' }} />
+          <Img src="https://woolet.co/woolet-logo.png" width="120" height="auto" alt="Woolet" style={{ display: 'inline-block', margin: '0 auto' }} />
         </Section>
         <Heading style={h1}>Confirm reauthentication</Heading>
         <Text style={text}>Use the code below to confirm your identity:</Text>
