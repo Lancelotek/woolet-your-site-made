@@ -204,7 +204,25 @@ export default function Account() {
             {dataLoading ? (
               <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>Loading…</p>
             ) : scans.length === 0 ? (
-              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>No scans linked yet.</p>
+              <div className="flex flex-col gap-3" style={{ border: "1px solid rgba(255,255,255,0.12)", padding: "1.25rem" }}>
+                <p className="text-cream-dim" style={{ fontSize: "0.85rem", lineHeight: 1.55 }}>
+                  No scans linked yet. Run the 30‑second fit scan and we'll save it here.
+                </p>
+                <Link
+                  to={`/${lang}/fit`}
+                  className="inline-block self-start uppercase tracking-[0.22em] no-underline"
+                  style={{
+                    background: GOLD,
+                    color: "#0f0f0f",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.7rem",
+                    padding: "12px 22px",
+                  }}
+                >
+                  Take the fit scan
+                </Link>
+              </div>
             ) : (
               <ul className="flex flex-col gap-0 m-0 p-0" style={{ listStyle: "none" }}>
                 {scans.map((s) => (
@@ -222,14 +240,38 @@ export default function Account() {
                         {s.confidence ? ` · ${s.confidence} confidence` : ""}
                       </p>
                     </div>
-                    {s.recommendation_type && (
-                      <span
-                        className="uppercase tracking-[0.18em]"
-                        style={{ color: GOLD, fontSize: "0.65rem", border: `1px solid ${GOLD}`, padding: "4px 10px" }}
+                    <div className="flex items-center gap-3">
+                      {s.recommendation_type && (
+                        <span
+                          className="uppercase tracking-[0.18em]"
+                          style={{ color: GOLD, fontSize: "0.65rem", border: `1px solid ${GOLD}`, padding: "4px 10px" }}
+                        >
+                          {s.recommendation_type}
+                        </span>
+                      )}
+                      <button
+                        onClick={async () => {
+                          if (!confirm("Delete this scan result? You can run a new scan afterwards.")) return;
+                          const { error } = await supabase.from("scan_sessions").delete().eq("id", s.id);
+                          if (error) {
+                            toast.error("Couldn't delete this scan.");
+                            return;
+                          }
+                          setScans((prev) => prev.filter((x) => x.id !== s.id));
+                          toast.success("Scan deleted");
+                        }}
+                        className="uppercase tracking-[0.18em] bg-transparent text-cream-dim hover:text-foreground"
+                        style={{
+                          fontSize: "0.6rem",
+                          border: "1px solid rgba(255,255,255,0.16)",
+                          padding: "6px 10px",
+                          cursor: "pointer",
+                        }}
+                        aria-label="Delete scan"
                       >
-                        {s.recommendation_type}
-                      </span>
-                    )}
+                        Delete
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>

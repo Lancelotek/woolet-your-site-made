@@ -2251,6 +2251,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 function EmailGateStep({
   faceWidthMm,
   noseWidthMm,
+  confidence,
   recommendation,
   device,
   lang,
@@ -2258,6 +2259,7 @@ function EmailGateStep({
 }: {
   faceWidthMm: number;
   noseWidthMm: number;
+  confidence?: string | null;
   recommendation: Recommendation;
   device: "mobile" | "desktop";
   lang: Lang;
@@ -2282,6 +2284,23 @@ function EmailGateStep({
     }
     setSubmitting(true);
     try {
+      // Persist the scan to scan_sessions with the captured email so it can be
+      // linked to the user's account on sign-in (via link_user_data_by_email).
+      supabase
+        .from("scan_sessions")
+        .insert({
+          email: parsed.data,
+          status: "completed",
+          face_width_mm: faceWidthMm,
+          nose_width_mm: noseWidthMm,
+          recommendation_type: recommendation.type,
+          confidence: confidence ?? null,
+          user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+        })
+        .then(({ error: insErr }) => {
+          if (insErr) console.warn("[scan email gate] scan_sessions insert failed", insErr);
+        });
+
       const { error: mlErr } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           email: parsed.data,
@@ -3237,6 +3256,7 @@ export default function FitScan() {
                                 <EmailGateStep
                                   faceWidthMm={measurements.faceWidthMm}
                                   noseWidthMm={measurements.noseWidthMm}
+                                  confidence={measurements.confidence}
                                   recommendation={recommendation}
                                   device={isMobile ? "mobile" : "desktop"}
                                   lang={lang}
