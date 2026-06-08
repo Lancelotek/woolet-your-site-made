@@ -47,7 +47,7 @@ describe("classifyCardSample", () => {
   it("rejects high-texture bands (hair/eyebrows) even with strong vertical gradient", () => {
     // Mimics hairline-against-wall: strong vGrad but the surrounding band is
     // textured (high hGrad) → must NOT be treated as a card.
-    const r = classifyCardSample(30, 15);
+    const r = classifyCardSample(30, 25);
     expect(r.cardPresent).toBe(false);
     expect(r.nextState).toBe("none");
   });
