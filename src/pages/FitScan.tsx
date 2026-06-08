@@ -2587,8 +2587,26 @@ export default function FitScan() {
           .then(({ error: updErr }) => {
             if (updErr) console.warn("[scan] session sync failed", updErr);
           });
+      } else if (user?.email) {
+        // Logged-in user without an existing session row: persist the scan
+        // directly to their account so it shows up in /account immediately.
+        supabase
+          .from("scan_sessions")
+          .insert({
+            email: user.email,
+            user_id: user.id,
+            status: "completed",
+            face_width_mm: m.faceWidthMm,
+            nose_width_mm: m.noseWidthMm,
+            recommendation_type: r.type,
+            confidence: m.confidence,
+            user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+          })
+          .then(({ error: insErr }) => {
+            if (insErr) console.warn("[scan] account scan save failed", insErr);
+          });
       }
-      setStep("result");
+      setStep(user ? "result-sent" : "result");
       return true;
     } catch (err) {
       const isMeasurement = err instanceof MeasurementError;
