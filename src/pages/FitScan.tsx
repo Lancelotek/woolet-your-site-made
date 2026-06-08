@@ -28,6 +28,7 @@ import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/lib/auth-context";
 
 const GOLD = "#CAA449";
 const BG = "#080807";
