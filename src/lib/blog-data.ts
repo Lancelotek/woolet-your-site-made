@@ -455,7 +455,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Who Is Mazzucchelli?</h2>
 
-<p>When eyewear professionals say "Italian acetate," they usually mean one specific manufacturer: <strong>Mazzucchelli 1849</strong>.</p>
+<p>When eyewear professionals say "Italian acetate," they usually mean one specific manufacturer: <strong><a href="/en/collections/italian-mazzucchelli-acetate">Mazzucchelli 1849</a></strong>.</p>
 
 <p>Founded in the province of Varese in northern Italy, Mazzucchelli has been producing cellulose acetate for eyewear for over 175 years. They are the oldest and most respected acetate manufacturer in the world, and their material is used by virtually every premium eyewear brand that matters: from independent Italian ateliers to heritage British opticians.</p>
 
