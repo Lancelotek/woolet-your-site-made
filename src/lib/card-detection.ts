@@ -69,6 +69,14 @@ export function classifyCardSample(
   let cardHorizontal =
     cardPresent && v > h * horizontalDominanceRatio && v > presenceMinGrad;
 
+  // Texture gate: a card surface is smooth, so the band's mean horizontal
+  // gradient (proxy for texture) must be low. Hair / eyebrows / busy
+  // backgrounds have high texture and are rejected here.
+  if (h > CARD_DETECT_THRESHOLDS.maxBandTexture) {
+    cardPresent = false;
+    cardHorizontal = false;
+  }
+
   // Structural gate (when provided): a true card top edge produces ONE
   // dominant row of vertical gradient. Without that, we treat the signal as
   // background noise and refuse to flip to "ok"/"misaligned".
