@@ -2820,20 +2820,53 @@ export default function FitScan() {
                 {step === "annotate" && frame && (
                   <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} initialCard={prefillPoints?.card ?? null} initialFace={prefillPoints?.face ?? null} />
                 )}
-                {step === "email-gate" && measurements && recommendation && (
-                  <EmailGateStep
-                    faceWidthMm={measurements.faceWidthMm}
-                    noseWidthMm={measurements.noseWidthMm}
-                    recommendation={recommendation}
-                    device={isMobile ? "mobile" : "desktop"}
-                    onSubmitted={() => {
-                      setEmailCaptured(true);
-                      setStep("result");
-                    }}
-                  />
-                )}
-                {step === "result" && measurements && recommendation && (
-                  <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} />
+                {(step === "result" || step === "result-sent") && measurements && recommendation && (
+                  <>
+                    {step === "result-sent" ? (
+                      <ResultSentStep email={capturedEmail} lang={lang} />
+                    ) : (
+                      <div style={{ position: "relative" }}>
+                        <div
+                          aria-hidden={!emailCaptured}
+                          style={{
+                            filter: emailCaptured ? "none" : "blur(14px)",
+                            pointerEvents: emailCaptured ? "auto" : "none",
+                            userSelect: emailCaptured ? "auto" : "none",
+                            transition: "filter 250ms ease",
+                          }}
+                        >
+                          <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} />
+                        </div>
+                        {!emailCaptured && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              display: "flex",
+                              alignItems: "flex-start",
+                              justifyContent: "center",
+                              padding: "2.5rem 0.25rem 1rem",
+                              pointerEvents: "none",
+                            }}
+                          >
+                            <div style={{ width: "100%", maxWidth: 460, pointerEvents: "auto" }}>
+                              <EmailGateStep
+                                faceWidthMm={measurements.faceWidthMm}
+                                noseWidthMm={measurements.noseWidthMm}
+                                recommendation={recommendation}
+                                device={isMobile ? "mobile" : "desktop"}
+                                onSubmitted={(submittedEmail) => {
+                                  setCapturedEmail(submittedEmail);
+                                  setEmailCaptured(true);
+                                  setStep("result-sent");
+                                }}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </>
                 )}
               </>
             )}
