@@ -1016,6 +1016,48 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
   const HINT_KEY = "woolet_scan_drag_hint_seen";
   const [showDragHint, setShowDragHint] = useState(false);
   const [hintDismissed, setHintDismissed] = useState(false);
+  // Zoom & pan for precise dot adjustment after capture.
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const panStartRef = useRef<{ x: number; y: number; px: number; py: number } | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const ZOOM_STEPS = [1, 1.5, 2, 3, 4] as const;
+
+  const clampPan = useCallback((p: { x: number; y: number }, z: number) => {
+    const vp = viewportRef.current;
+    const wrap = wrapperRef.current;
+    if (!vp || !wrap) return p;
+    const vRect = vp.getBoundingClientRect();
+    // Wrapper's untransformed size matches its layout (object-fit: cover fills it)
+    const w = wrap.clientWidth * z;
+    const h = wrap.clientHeight * z;
+    // Allowed pan range so the scaled wrapper still covers the viewport (no empty space)
+    const baseLeft = (vRect.width - wrap.clientWidth) / 2;
+    const baseTop = (vRect.height - wrap.clientHeight) / 2;
+    // With transformOrigin 0 0 and translate-then-scale, painted left = baseLeft + pan.x
+    // and painted right = baseLeft + pan.x + w. We want painted left <= 0 and painted right >= vRect.width
+    // when z>1; when z===1, lock pan to 0.
+    if (z <= 1) return { x: 0, y: 0 };
+    const minX = vRect.width - baseLeft - w;
+    const maxX = -baseLeft;
+    const minY = vRect.height - baseTop - h;
+    const maxY = -baseTop;
+    return {
+      x: Math.min(maxX, Math.max(minX, p.x)),
+      y: Math.min(maxY, Math.max(minY, p.y)),
+    };
+  }, []);
+
+  const changeZoom = useCallback((next: number) => {
+    setZoom((cur) => {
+      const z = Math.max(1, Math.min(4, next));
+      if (z === cur) return cur;
+      // Re-center around the bounding box of placed points so user immediately
+      // sees what they're adjusting.
+      setPan((p) => clampPan(p, z));
+      return z;
+    });
+  }, [clampPan]);
 
   const dismissHint = useCallback(() => {
     setShowDragHint(false);
