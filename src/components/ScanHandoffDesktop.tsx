@@ -220,6 +220,59 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
     );
   }
 
+  if (phase === "connected") {
+    return (
+      <div className="flex flex-col gap-7">
+        <div className="woolet-eyebrow">
+          <div className="woolet-eyebrow-line" />
+          <span className="woolet-eyebrow-text">SCAN ON YOUR PHONE</span>
+        </div>
+        <h1
+          className="font-display text-woolet-white"
+          style={{ fontSize: "clamp(2rem, 4.2vw, 2.75rem)", fontWeight: 300, lineHeight: 1.1 }}
+        >
+          Phone <em className="italic" style={{ color: GOLD }}>connected</em>
+        </h1>
+        <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.55 }}>
+          Your phone has linked to this session. Follow the steps on your phone — hold a credit card to your forehead and take the photo. Your result will appear here automatically.
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.78rem",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+          }}
+        >
+          <span
+            aria-hidden
+            style={{
+              width: 10,
+              height: 10,
+              borderRadius: "50%",
+              background: "#4ade80",
+              boxShadow: "0 0 8px #4ade80",
+              animation: "scanHandoffPulse 1.6s ease-in-out infinite",
+            }}
+          />
+          Waiting for scan result…
+        </div>
+
+        <style>{`
+          @keyframes scanHandoffPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-7">
       <div className="woolet-eyebrow">
