@@ -913,7 +913,62 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 {poseLabel}
               </span>
             )}
+            {levelState !== "unsupported" && (
+              <button
+                type="button"
+                onClick={levelState === "needs-permission" ? requestLevelPermission : undefined}
+                className="scan-mobile-pill"
+                style={{
+                  borderColor: levelColor,
+                  background: "rgba(0,0,0,0.55)",
+                  cursor: levelState === "needs-permission" ? "pointer" : "default",
+                }}
+                aria-live="polite"
+              >
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: levelColor, boxShadow: `0 0 6px ${levelColor}` }} />
+                {levelLabel}
+              </button>
+            )}
           </div>
+
+          {/* Bubble level: horizontal line with a dot that slides as the phone rolls.
+              Only render when we have a live reading. */}
+          {levelState !== "unsupported" && levelState !== "needs-permission" && levelRoll !== null && (
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "55%",
+                maxWidth: 260,
+                pointerEvents: "none",
+                zIndex: 4,
+              }}
+            >
+              <div style={{ position: "relative", height: 2, background: "rgba(255,255,255,0.35)", borderRadius: 2 }}>
+                {/* centre tick */}
+                <span style={{ position: "absolute", left: "50%", top: -6, width: 2, height: 14, background: "rgba(255,255,255,0.55)", transform: "translateX(-50%)" }} />
+                {/* bubble — clamp to ±25° for display */}
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: `${50 + Math.max(-25, Math.min(25, levelRoll)) * 2}%`,
+                    width: 14,
+                    height: 14,
+                    borderRadius: "50%",
+                    background: levelColor,
+                    border: "2px solid rgba(0,0,0,0.55)",
+                    boxShadow: `0 0 8px ${levelColor}`,
+                    transform: "translate(-50%, -50%)",
+                    transition: "left 80ms linear, background 200ms ease",
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
           {showCardOverride && !cardOverride && (
             <button
