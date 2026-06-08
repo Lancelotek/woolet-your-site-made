@@ -2251,6 +2251,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 function EmailGateStep({
   faceWidthMm,
   noseWidthMm,
+  confidence,
   recommendation,
   device,
   lang,
@@ -2258,6 +2259,7 @@ function EmailGateStep({
 }: {
   faceWidthMm: number;
   noseWidthMm: number;
+  confidence?: string | null;
   recommendation: Recommendation;
   device: "mobile" | "desktop";
   lang: Lang;
