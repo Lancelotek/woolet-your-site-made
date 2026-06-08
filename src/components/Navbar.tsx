@@ -94,6 +94,14 @@ const Navbar = () => {
               </div>
             )}
           </div>
+          <Link
+            to={`/${lang}/account${session ? "" : "/sign-in"}`}
+            aria-label={session ? "Your account" : "Sign in"}
+            className="text-cream-dim hover:text-primary transition-colors flex items-center"
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session })}
+          >
+            <User size={15} strokeWidth={1.5} />
+          </Link>
           <a
             href="https://shop.woolet.co/"
             target="_blank"
