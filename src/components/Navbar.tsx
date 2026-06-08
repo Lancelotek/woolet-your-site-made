@@ -178,6 +178,18 @@ const Navbar = () => {
               {t(lang, "nav.blog")}
             </Link>
 
+            <Link
+              to={`/${lang}/account${session ? "" : "/sign-in"}`}
+              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              style={{ fontSize: "0.75rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session });
+              }}
+            >
+              {session ? "Account" : "Sign in"}
+            </Link>
+
             <div className="woolet-divider" />
 
             <div className="flex flex-col gap-3">
