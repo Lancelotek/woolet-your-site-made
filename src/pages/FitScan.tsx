@@ -1982,11 +1982,12 @@ function EmailGateStep({
         className="font-display text-woolet-white"
         style={{ fontSize: "clamp(2rem, 5vw, 2.75rem)", fontWeight: 300, lineHeight: 1.05 }}
       >
-        Unlock your <em className="italic" style={{ color: GOLD }}>exact frame size</em>
+        Get your <em className="italic" style={{ color: GOLD }}>measurements by email</em>
       </h1>
       <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.55 }}>
-        Enter your email to see your size + lock your $1 founding reserve.
+        Drop your email and we'll send your face width, recommended size, and best‑fit models — plus help us match you to better frames as our collection grows.
       </p>
+
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
         <label
