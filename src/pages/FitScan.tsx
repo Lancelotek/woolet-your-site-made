@@ -2374,6 +2374,7 @@ export default function FitScan() {
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
   const [prefillPoints, setPrefillPoints] = useState<{ card: [Point, Point]; face: [Point, Point] } | null>(null);
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
+  const [capturedEmail, setCapturedEmail] = useState<string>("");
 
   // Desktop visitors without a session id must hand off to a phone via QR.
   // Mobile visitors, or anyone who already has ?sid= / ?s=, run the scan inline.
