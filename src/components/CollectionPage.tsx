@@ -13,6 +13,14 @@ export interface CollectionExtraSection {
   paragraphs: string[];
 }
 
+export interface CollectionImage {
+  src: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
 export interface CollectionPageProps {
   slug: string;
   h1: string;
@@ -23,6 +31,8 @@ export interface CollectionPageProps {
   faqs: CollectionFAQ[];
   breadcrumbName: string;
   extraSections?: CollectionExtraSection[];
+  heroImage?: CollectionImage;
+  inlineImage?: CollectionImage;
 }
 
 const SITE = "https://woolet.co";
@@ -52,9 +62,12 @@ const CollectionPage = ({
   faqs,
   breadcrumbName,
   extraSections,
+  heroImage,
+  inlineImage,
 }: CollectionPageProps) => {
   const path = `/collections/${slug}`;
   const canonical = `${SITE}/en${path}`;
+  const absUrl = (u: string) => (u.startsWith("http") ? u : `${SITE}${u.startsWith("/") ? u : `/${u}`}`);
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -97,6 +110,18 @@ const CollectionPage = ({
     })),
   };
 
+  const imageLd = [heroImage, inlineImage]
+    .filter((i): i is CollectionImage => !!i)
+    .map((i) => ({
+      "@context": "https://schema.org",
+      "@type": "ImageObject",
+      contentUrl: absUrl(i.src),
+      url: absUrl(i.src),
+      description: i.alt,
+      ...(i.width ? { width: i.width } : {}),
+      ...(i.height ? { height: i.height } : {}),
+    }));
+
   return (
     <>
       <SEO
@@ -104,7 +129,8 @@ const CollectionPage = ({
         description={metaDescription}
         lang="en"
         path={path}
-        jsonLd={[collectionLd, breadcrumbLd, faqLd]}
+        image={heroImage?.src}
+        jsonLd={[collectionLd, breadcrumbLd, faqLd, ...imageLd]}
       />
       <Navbar />
       <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif", color: "#111" }}>
