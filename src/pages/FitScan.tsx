@@ -1669,101 +1669,203 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
         </span>
       </div>
 
+      {/* Headline metric: face width */}
+      <div
+        style={{
+          border: `1px solid ${GOLD}`,
+          borderRadius: 10,
+          padding: "32px 26px 28px",
+          background: "rgba(201,168,76,0.04)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 14,
+          textAlign: "center",
+        }}
+      >
+        <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase" }}>
+          Head width (frame size)
+        </div>
+        <div
+          className="scan-result-number font-display"
+          style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3.75rem, 13vw, 6rem)", lineHeight: 1, display: "flex", alignItems: "baseline", gap: 8, justifyContent: "center" }}
+        >
+          <span>{adjustedFace}</span>
+          <span style={{ fontSize: "0.32em", color: MUTED, letterSpacing: "0.05em" }}>mm</span>
+        </div>
+        {cardOffset && (
+          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.08em" }}>
+            (raw {measurements.faceWidthMm} mm)
+          </div>
+        )}
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "6px 14px",
+            borderRadius: 999,
+            background: `${confidenceCopy.color}22`,
+            border: `1px solid ${confidenceCopy.color}55`,
+          }}
+        >
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: confidenceCopy.color, display: "inline-block" }} />
+          <span style={{ color: confidenceCopy.color, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 500 }}>
+            ~ {confidenceCopy.label}
+          </span>
+        </div>
+      </div>
+
+      {/* Where you fall — gradient scale */}
+      {(() => {
+        const SCALE_MIN = 120;
+        const SCALE_MAX = 180;
+        const clamp = (n: number) => Math.max(SCALE_MIN, Math.min(SCALE_MAX, n));
+        const pct = (n: number) => ((clamp(n) - SCALE_MIN) / (SCALE_MAX - SCALE_MIN)) * 100;
+        const userPct = pct(adjustedFace);
+        const thresholdPct = pct(155);
+        return (
+          <div
+            style={{
+              border: "1px solid hsl(var(--border))",
+              borderRadius: 10,
+              padding: "22px 22px 26px",
+              background: "hsl(var(--card))",
+              display: "flex",
+              flexDirection: "column",
+              gap: 18,
+            }}
+          >
+            <div style={{ color: "hsl(var(--cream))", fontFamily: "Barlow, sans-serif", fontSize: "0.95rem", fontWeight: 500 }}>
+              Where you fall
+            </div>
+            <div style={{ position: "relative", height: 10, marginTop: 18 }}>
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  borderRadius: 999,
+                  background: "linear-gradient(90deg, #3ec79a 0%, #4aa6d6 45%, #7a6cf0 75%, #2a2638 100%)",
+                  opacity: 0.85,
+                }}
+              />
+              {/* Threshold marker at 155mm */}
+              <div style={{ position: "absolute", left: `${thresholdPct}%`, top: -10, bottom: -10, width: 2, background: GOLD, transform: "translateX(-1px)" }} />
+              <div style={{ position: "absolute", left: `${thresholdPct}%`, top: 14, transform: "translateX(-50%)", color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.05em", whiteSpace: "nowrap" }}>
+                155 mm
+              </div>
+              {/* User marker */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: `${userPct}%`,
+                  top: "50%",
+                  width: 18,
+                  height: 18,
+                  borderRadius: "50%",
+                  background: "hsl(var(--cream))",
+                  border: `2px solid ${GOLD}`,
+                  transform: "translate(-50%, -50%)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  left: `${userPct}%`,
+                  top: 14,
+                  transform: `translateX(${userPct > 85 ? "-100%" : userPct < 15 ? "0%" : "-50%"})`,
+                  color: "hsl(var(--cream))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.78rem",
+                  fontWeight: 600,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {adjustedFace} mm
+              </div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", marginTop: 18 }}>
+              <span>Narrow (120)</span>
+              <span>Wide (180+)</span>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Nose width — secondary */}
       <div
         style={{
           border: "1px solid hsl(var(--border))",
-          borderRadius: 8,
-          padding: "28px 26px",
+          borderRadius: 10,
+          padding: "20px 22px",
           background: "hsl(var(--card))",
           display: "flex",
-          flexDirection: "column",
-          gap: 24,
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 16,
         }}
       >
-        <div>
-          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            Your face width
-          </div>
-          <div
-            className="scan-result-number font-display"
-            style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3rem, 8vw, 4.5rem)", lineHeight: 1 }}
-          >
-            {adjustedFace} mm
-            {cardOffset && (
-              <span style={{ marginLeft: 10, fontSize: "0.9rem", color: MUTED, fontFamily: "Barlow, sans-serif", letterSpacing: "0.08em" }}>
-                (raw {measurements.faceWidthMm} mm)
-              </span>
-            )}
-          </div>
+        <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+          Nose width
         </div>
-        <div>
-          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            Your nose width
-          </div>
-          <div
-            className="scan-result-number font-display"
-            style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(3rem, 8vw, 4.5rem)", lineHeight: 1 }}
-          >
-            {adjustedNose} mm
-          </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ width: 8, height: 8, borderRadius: "50%", background: confidenceCopy.color, display: "inline-block" }} />
-            <span style={{ color: confidenceCopy.color, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 500 }}>
-              {confidenceCopy.label}
-            </span>
-          </div>
-          <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", lineHeight: 1.5, margin: 0 }}>
-            {confidenceCopy.body}
-          </p>
-        </div>
-
-        <div style={{ borderTop: "1px solid hsl(var(--border))", paddingTop: 18, display: "flex", flexDirection: "column", gap: 12 }}>
-          <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
-            <input
-              type="checkbox"
-              checked={cardOffset}
-              onChange={(e) => {
-                setCardOffset(e.target.checked);
-                pushEvent("scan_card_offset_toggled", { enabled: e.target.checked });
-              }}
-              style={{ marginTop: 3, accentColor: GOLD, width: 16, height: 16 }}
-            />
-            <span style={{ color: "hsl(var(--cream))", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", lineHeight: 1.45 }}>
-              The card was a bit in front of my face (not flush to my skin)
-            </span>
-          </label>
-          {cardOffset && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingLeft: 26 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                <span style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-                  Approx. gap
-                </span>
-                <span style={{ color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", fontWeight: 500 }}>
-                  {gapCm.toFixed(1)} cm
-                </span>
-              </div>
-              <input
-                type="range"
-                min={0.5}
-                max={5}
-                step={0.5}
-                value={gapCm}
-                onChange={(e) => setGapCm(parseFloat(e.target.value))}
-                style={{ accentColor: GOLD, width: "100%" }}
-              />
-              <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                <span>Touching</span>
-                <span>Held out</span>
-              </div>
-              <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.74rem", lineHeight: 1.5, margin: "4px 0 0" }}>
-                Correction +{Math.round((correctionFactor - 1) * 1000) / 10}% — face width adjusted from {measurements.faceWidthMm} mm to {adjustedFace} mm.
-              </p>
-            </div>
-          )}
+        <div className="font-display" style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(1.6rem, 4vw, 2.1rem)", lineHeight: 1 }}>
+          {adjustedNose} <span style={{ fontSize: "0.55em", color: MUTED }}>mm</span>
         </div>
       </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", lineHeight: 1.5, margin: 0 }}>
+          {confidenceCopy.body}
+        </p>
+      </div>
+
+      {/* Card-offset correction */}
+      <div style={{ border: "1px solid hsl(var(--border))", borderRadius: 8, padding: "16px 18px", display: "flex", flexDirection: "column", gap: 12 }}>
+        <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+          <input
+            type="checkbox"
+            checked={cardOffset}
+            onChange={(e) => {
+              setCardOffset(e.target.checked);
+              pushEvent("scan_card_offset_toggled", { enabled: e.target.checked });
+            }}
+            style={{ marginTop: 3, accentColor: GOLD, width: 16, height: 16 }}
+          />
+          <span style={{ color: "hsl(var(--cream))", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", lineHeight: 1.45 }}>
+            The card was a bit in front of my face (not flush to my skin)
+          </span>
+        </label>
+        {cardOffset && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingLeft: 26 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+              <span style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                Approx. gap
+              </span>
+              <span style={{ color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", fontWeight: 500 }}>
+                {gapCm.toFixed(1)} cm
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0.5}
+              max={5}
+              step={0.5}
+              value={gapCm}
+              onChange={(e) => setGapCm(parseFloat(e.target.value))}
+              style={{ accentColor: GOLD, width: "100%" }}
+            />
+            <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              <span>Touching</span>
+              <span>Held out</span>
+            </div>
+            <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.74rem", lineHeight: 1.5, margin: "4px 0 0" }}>
+              Correction +{Math.round((correctionFactor - 1) * 1000) / 10}% — face width adjusted from {measurements.faceWidthMm} mm to {adjustedFace} mm.
+            </p>
+          </div>
+        )}
+      </div>
+
 
       {adjustedFace < 145 && (
         <div
