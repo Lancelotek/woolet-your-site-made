@@ -28,20 +28,24 @@ export type CardClassification = {
 
 export const CARD_DETECT_THRESHOLDS = {
   /** Minimum max-gradient required to consider any card-like edge present. */
-  presenceMinGrad: 9,
+  presenceMinGrad: 11,
   /** Vertical gradient must exceed horizontal by this multiplier to count as horizontal. */
-  horizontalDominanceRatio: 1.4,
-  /** Min peak-row vertical gradient (structural) to accept a true card edge. */
-  peakRowMinV: 20,
+  horizontalDominanceRatio: 1.6,
+  /**
+   * Min peak-row vertical gradient (structural) to accept a true card edge.
+   * A real card top edge is razor-sharp and produces a very strong single-row
+   * gradient; hair/hairline gradients are softer. Tightened to reduce
+   * false positives on bushy / textured hair.
+   */
+  peakRowMinV: 36,
   /** Peak row must exceed band-median row by this ratio (structural). */
-  peakRowDominanceRatio: 2.4,
+  peakRowDominanceRatio: 3.2,
   /**
    * Max mean horizontal-gradient (texture) allowed in the band. A real card
-   * surface is smooth (low texture); hair/eyebrows have higher texture. We
-   * keep this generous because the sampling band intentionally overlaps
-   * hair so we still see the card top edge across varied hairlines.
+   * surface is smooth (low texture); hair/eyebrows have higher texture.
+   * Tightened so a forehead with visible hair strands across it is rejected.
    */
-  maxBandTexture: 20,
+  maxBandTexture: 14,
 } as const;
 
 export interface StructuralSample {
