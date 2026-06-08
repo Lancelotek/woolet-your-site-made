@@ -2837,8 +2837,11 @@ export default function FitScan() {
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
   const [capturedEmail, setCapturedEmail] = useState<string>(user?.email ?? "");
 
-  // Desktop visitors without a session id and not logged in must hand off to a phone via QR.
-  const requiresHandoff = !isMobile && !sidParam && !sessionId && !user;
+  // Desktop/tablet visitors must always hand off to a phone via QR — the scan
+  // requires holding the device against the forehead. Only mobile runs the
+  // camera flow directly. `sid`/`s` mean the visitor already arrived from a
+  // phone handoff, so we let them through.
+  const requiresHandoff = !isMobile && !sidParam && !sessionId;
 
 
   useEffect(() => {
