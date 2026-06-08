@@ -560,7 +560,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       setBusy(false);
       onError("Couldn't process the captured frame. Try again.");
     }
-  }, [busy, cardState, cardOverride, poseState, onCaptured, onError, stopAll]);
+  }, [busy, cardState, cardOverride, poseState, levelState, isMobile, onCaptured, onError, stopAll]);
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
