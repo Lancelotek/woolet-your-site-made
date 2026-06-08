@@ -26,6 +26,7 @@ export type Database = {
           recommended_sku: string | null
           stripe_payment_intent_id: string | null
           stripe_session_id: string
+          user_id: string | null
         }
         Insert: {
           amount_cents?: number
@@ -38,6 +39,7 @@ export type Database = {
           recommended_sku?: string | null
           stripe_payment_intent_id?: string | null
           stripe_session_id: string
+          user_id?: string | null
         }
         Update: {
           amount_cents?: number
@@ -50,6 +52,37 @@ export type Database = {
           recommended_sku?: string | null
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          locale: string | null
+          marketing_opt_in: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id: string
+          locale?: string | null
+          marketing_opt_in?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          locale?: string | null
+          marketing_opt_in?: boolean
+          updated_at?: string
         }
         Relationships: []
       }
@@ -65,6 +98,7 @@ export type Database = {
           status: string
           updated_at: string
           user_agent: string | null
+          user_id: string | null
         }
         Insert: {
           confidence?: string | null
@@ -77,6 +111,7 @@ export type Database = {
           status?: string
           updated_at?: string
           user_agent?: string | null
+          user_id?: string | null
         }
         Update: {
           confidence?: string | null
@@ -89,6 +124,7 @@ export type Database = {
           status?: string
           updated_at?: string
           user_agent?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -98,6 +134,7 @@ export type Database = {
     }
     Functions: {
       founding_members_count: { Args: { check_env?: string }; Returns: number }
+      link_user_data_by_email: { Args: never; Returns: Json }
     }
     Enums: {
       [_ in never]: never
