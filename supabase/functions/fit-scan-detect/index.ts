@@ -19,6 +19,7 @@ interface DetectResponse {
   card: { left: NormPoint; right: NormPoint };
   face: { left: NormPoint; right: NormPoint };
   confidence: number; // 0..1
+  glassesDetected?: boolean;
   notes?: string;
 }
 
@@ -31,6 +32,8 @@ Your job: return pixel-accurate coordinates for FOUR points on the supplied imag
 2. card.right — rightmost visible corner of the SAME card edge (same y as card.left)
 3. face.left  — outermost LEFT edge of the HEAD silhouette at temple height (just above the ear, roughly level with the eyebrows / top of the ear). This must be the WIDEST point of the head/skull including hair — NOT the cheekbone and NOT the inner face contour. Picture where the temple tip of a pair of eyeglasses would rest against the skull; that is the point you must mark.
 4. face.right — outermost RIGHT edge of the head at the SAME y as face.left
+
+Additionally, set glassesDetected=true if the subject is wearing eyeglasses or sunglasses (rims, lenses, or temple arms visible on the face). Eyewear obscures the temple landmarks and the measurement must be redone without glasses. Set it to false only when the eye region is completely clear.
 
 Critical: face.left and face.right define where eyewear frames sit. Marking the cheekbone or jawline gives a too-narrow result and is WRONG. Always pick the widest visible head outline at temple height, including hair.
 
@@ -62,6 +65,7 @@ const SCHEMA = {
       required: ["left", "right"],
     },
     confidence: { type: "number" },
+    glassesDetected: { type: "boolean" },
     notes: { type: "string" },
   },
   required: ["card", "face", "confidence"],
@@ -195,6 +199,7 @@ Deno.serve(async (req) => {
     card: { left: px(parsed.card.left), right: px(parsed.card.right) },
     face: { left: px(parsed.face.left), right: px(parsed.face.right) },
     confidence: typeof parsed.confidence === "number" ? parsed.confidence : 0.5,
+    glassesDetected: parsed.glassesDetected === true,
     notes: parsed.notes ?? null,
     width,
     height,

@@ -408,7 +408,11 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [busy, setBusy] = useState(false);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
+  const [cardOverride, setCardOverride] = useState(false);
+  const [showCardOverride, setShowCardOverride] = useState(false);
+  const cardMissingSinceRef = useRef<number | null>(null);
   const [distanceState, setDistanceState] = useState<"unknown" | "ok" | "too_close" | "too_far">("unknown");
+  const [poseState, setPoseState] = useState<"unknown" | "ok" | "off">("unknown");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
@@ -430,12 +434,16 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       onError("Camera isn't ready yet — give it a second and tap capture again.");
       return;
     }
-    if (cardState !== "ok") {
+    if (cardState !== "ok" && !cardOverride) {
       onError(
         cardState === "misaligned"
           ? "Hold the card flat against your forehead with the long edge horizontal."
           : "Place a credit card flat on your forehead so we can measure — we can't see it yet.",
       );
+      return;
+    }
+    if (poseState === "off") {
+      onError("Face the camera straight on — keep your head level and look directly at the lens.");
       return;
     }
     setBusy(true);
@@ -485,7 +493,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       setBusy(false);
       onError("Couldn't process the captured frame. Try again.");
     }
-  }, [busy, cardState, onCaptured, onError, stopAll]);
+  }, [busy, cardState, cardOverride, poseState, onCaptured, onError, stopAll]);
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
@@ -638,12 +646,26 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   next = "none";
                 }
               }
-              setCardState((prev) => (prev === next ? prev : next));
+              setCardState((prev) => {
+                if (prev === next) return prev;
+                return next;
+              });
+              // Track how long the card has been missing → after 5s offer a
+              // manual override (some cards/skin tones fail local detection
+              // even when the card is correctly placed — Gemini will still
+              // validate post-capture).
+              if (next === "none") {
+                if (cardMissingSinceRef.current === null) cardMissingSinceRef.current = ts;
+                else if (ts - cardMissingSinceRef.current > 5000) setShowCardOverride(true);
+              } else {
+                cardMissingSinceRef.current = null;
+                setShowCardOverride(false);
+                setCardOverride(false);
+              }
             }
           } catch { /* CORS */ }
         }
-        // Face distance: run video landmarker ~1.4x/sec; compute face oval
-        // pixel width vs frame width and warn if the face is too close/far.
+        // Face distance + pose: run video landmarker ~1.4x/sec.
         if (ts - lastFace > 700 && videoLm && !faceBusy) {
           lastFace = ts;
           faceBusy = true;
@@ -663,11 +685,41 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 const facePctW = Math.max(0, Math.min(1, maxX - minX));
                 // Mobile camera frame is portrait — relative width ~0.50–0.65 is ideal.
                 // Above ~0.72 the face crowds the oval and the card edge gets clipped.
-                const next: typeof distanceState =
+                const nextDist: typeof distanceState =
                   facePctW > 0.72 ? "too_close" : facePctW < 0.32 ? "too_far" : "ok";
-                setDistanceState((prev) => (prev === next ? prev : next));
+                setDistanceState((prev) => (prev === nextDist ? prev : nextDist));
+
+                // Pose lock: compute proxies for roll / yaw / pitch from
+                // MediaPipe canonical landmarks. Capture is gated until the
+                // user is facing the camera dead-on.
+                //   33   = left eye outer corner
+                //   263  = right eye outer corner
+                //   1    = nose tip
+                //   10   = forehead top center
+                //   152  = chin tip
+                const lEye = lms[33], rEye = lms[263], nose = lms[1];
+                const fHead = lms[10], chin = lms[152];
+                if (lEye && rEye && nose && fHead && chin) {
+                  const dx = (rEye.x - lEye.x);
+                  const dy = (rEye.y - lEye.y);
+                  // Roll: tilt of the eye line vs horizontal (deg).
+                  const rollDeg = Math.abs(Math.atan2(dy, dx) * 180 / Math.PI);
+                  // Yaw proxy: nose tip x position relative to the midpoint
+                  // between the eye outers, normalized by eye width. 0 = dead
+                  // on; |0.18| ≈ ~15° head turn.
+                  const midX = (lEye.x + rEye.x) / 2;
+                  const eyeW = Math.max(1e-4, Math.abs(rEye.x - lEye.x));
+                  const yawRatio = Math.abs((nose.x - midX) / eyeW);
+                  // Pitch proxy: nose y between forehead and chin. 0.5 = level.
+                  const faceH = Math.max(1e-4, chin.y - fHead.y);
+                  const pitchRatio = Math.abs(((nose.y - fHead.y) / faceH) - 0.55);
+                  const facing = rollDeg < 6 && yawRatio < 0.12 && pitchRatio < 0.10;
+                  const nextPose: typeof poseState = facing ? "ok" : "off";
+                  setPoseState((prev) => (prev === nextPose ? prev : nextPose));
+                }
               } else {
                 setDistanceState((prev) => (prev === "unknown" ? prev : "unknown"));
+                setPoseState((prev) => (prev === "unknown" ? prev : "unknown"));
               }
             }
           } catch { /* noop */ }
@@ -687,13 +739,20 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
   const lightingColor = lighting === "green" ? "#4ade80" : lighting === "yellow" ? "#facc15" : "#ef4444";
   const lightingLabel = lighting === "green" ? "Good light" : lighting === "yellow" ? "OK light" : "Too dark";
-  const cardColor = cardState === "ok" ? "#4ade80" : cardState === "misaligned" ? "#facc15" : "#ef4444";
-  const cardLabel =
-    cardState === "ok"
-      ? "Card detected"
+  const cardColor =
+    cardState === "ok" || cardOverride
+      ? "#4ade80"
       : cardState === "misaligned"
-        ? "Rotate card flat & horizontal"
-        : "Place card on forehead";
+        ? "#facc15"
+        : "#ef4444";
+  const cardLabel =
+    cardOverride
+      ? "Card confirmed (manual)"
+      : cardState === "ok"
+        ? "Card detected"
+        : cardState === "misaligned"
+          ? "Rotate card flat & horizontal"
+          : "Place card on forehead";
   const distanceColor =
     distanceState === "ok" ? "#4ade80" : distanceState === "unknown" ? "#facc15" : "#ef4444";
   const distanceLabel =
@@ -705,7 +764,13 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           ? "Good distance"
           : "Center your face in the oval";
   const showDistanceHint = distanceState === "too_close" || distanceState === "too_far";
-  const captureBlocked = !ready || busy || countdown !== null || cardState !== "ok";
+  const poseColor = poseState === "ok" ? "#4ade80" : poseState === "off" ? "#ef4444" : "#facc15";
+  const poseLabel = poseState === "ok" ? "Facing camera" : poseState === "off" ? "Look straight ahead" : "Center your face";
+  const showPoseHint = poseState === "off";
+  const captureBlocked =
+    !ready || busy || countdown !== null ||
+    (cardState !== "ok" && !cardOverride) ||
+    poseState === "off";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
   if (isMobile) {
@@ -759,7 +824,38 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 {distanceLabel}
               </span>
             )}
+            {showPoseHint && (
+              <span className="scan-mobile-pill" style={{ borderColor: poseColor }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: poseColor, boxShadow: `0 0 6px ${poseColor}` }} />
+                {poseLabel}
+              </span>
+            )}
           </div>
+
+          {showCardOverride && !cardOverride && (
+            <button
+              type="button"
+              onClick={() => { setCardOverride(true); setShowCardOverride(false); }}
+              style={{
+                position: "absolute",
+                bottom: 24,
+                left: "50%",
+                transform: "translateX(-50%)",
+                padding: "10px 16px",
+                borderRadius: 999,
+                background: "rgba(0,0,0,0.78)",
+                color: "#fff",
+                border: `1px solid ${GOLD}`,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.72rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                zIndex: 5,
+              }}
+            >
+              Card is on my forehead — continue
+            </button>
+          )}
 
           {countdown !== null && (
             <div className="scan-mobile-countdown" aria-live="assertive">{countdown}</div>
@@ -918,6 +1014,60 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           </div>
         )}
 
+        {showPoseHint && (
+          <div
+            aria-live="polite"
+            style={{
+              position: "absolute",
+              bottom: showDistanceHint ? 48 : 12,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 12px",
+              borderRadius: 999,
+              background: "rgba(0,0,0,0.7)",
+              border: `1px solid ${poseColor}`,
+              color: "rgba(255,255,255,0.95)",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              zIndex: 4,
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: poseColor, boxShadow: `0 0 6px ${poseColor}` }} />
+            {poseLabel}
+          </div>
+        )}
+
+        {showCardOverride && !cardOverride && (
+          <button
+            type="button"
+            onClick={() => { setCardOverride(true); setShowCardOverride(false); }}
+            style={{
+              position: "absolute",
+              top: 50,
+              left: 12,
+              padding: "8px 12px",
+              borderRadius: 6,
+              background: "rgba(0,0,0,0.78)",
+              color: "#fff",
+              border: `1px solid ${GOLD}`,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.7rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              zIndex: 5,
+            }}
+          >
+            Card is on my forehead
+          </button>
+        )}
+
+
         {countdown !== null && (
           <div
             aria-live="assertive"
@@ -994,9 +1144,11 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             ? "Analyzing…"
             : countdown !== null
               ? `Capturing in ${countdown}…`
-              : cardState !== "ok"
-                ? cardLabel
-                : "Capture now"}
+              : poseState === "off"
+                ? "Look straight at the camera"
+                : cardState !== "ok" && !cardOverride
+                  ? cardLabel
+                  : "Capture now"}
         </button>
         <button
           type="button"
@@ -2658,6 +2810,13 @@ export default function FitScan() {
         body: { image: f.dataUrl, width: f.width, height: f.height },
       });
       if (error) throw error;
+      if (data?.glassesDetected === true) {
+        pushEvent("scan_error", { error_type: "glasses_detected" });
+        setErrorMsg("Please remove your eyeglasses — they cover the temple landmarks we need to measure. Then retake the photo.");
+        setErrorKind("recoverable");
+        setStep("welcome");
+        return;
+      }
       if (data?.card?.left && data?.card?.right && data?.face?.left && data?.face?.right) {
         const conf = typeof data.confidence === "number" ? data.confidence : 0.5;
         pushEvent("scan_server_detected", { confidence: conf, model: data.model });
