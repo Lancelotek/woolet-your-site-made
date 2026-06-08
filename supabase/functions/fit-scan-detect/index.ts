@@ -33,6 +33,8 @@ Your job: return pixel-accurate coordinates for FOUR points on the supplied imag
 3. face.left  — outermost LEFT edge of the HEAD silhouette at temple height (just above the ear, roughly level with the eyebrows / top of the ear). This must be the WIDEST point of the head/skull including hair — NOT the cheekbone and NOT the inner face contour. Picture where the temple tip of a pair of eyeglasses would rest against the skull; that is the point you must mark.
 4. face.right — outermost RIGHT edge of the head at the SAME y as face.left
 
+Additionally, set glassesDetected=true if the subject is wearing eyeglasses or sunglasses (rims, lenses, or temple arms visible on the face). Eyewear obscures the temple landmarks and the measurement must be redone without glasses. Set it to false only when the eye region is completely clear.
+
 Critical: face.left and face.right define where eyewear frames sit. Marking the cheekbone or jawline gives a too-narrow result and is WRONG. Always pick the widest visible head outline at temple height, including hair.
 
 Coordinates are normalized integers 0..1000 (x=0 is left edge of image, y=0 is top).
