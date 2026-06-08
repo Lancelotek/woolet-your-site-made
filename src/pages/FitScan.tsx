@@ -28,6 +28,7 @@ import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/lib/auth-context";
 
 const GOLD = "#CAA449";
 const BG = "#080807";
@@ -2481,13 +2482,15 @@ export default function FitScan() {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const { user } = useAuth();
   const [searchParams] = useSearchParams();
   // `sid` = new "lead already captured on the other device" flag (random UUID).
   // `s`   = legacy supabase scan-session id (kept for back-compat).
   const sidParam = searchParams.get("sid");
   const sessionId = searchParams.get("s");
-  // If the visitor arrived via the desktop→phone QR, skip the email gate.
-  const emailAlreadyCaptured = !!sidParam || !!sessionId;
+  // If the visitor arrived via the desktop→QR handoff OR is already logged in,
+  // skip the email gate — we already have a verified address for them.
+  const emailAlreadyCaptured = !!sidParam || !!sessionId || !!user;
 
   const [step, setStep] = useState<Step>("welcome");
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
@@ -2502,11 +2505,10 @@ export default function FitScan() {
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
   const [prefillPoints, setPrefillPoints] = useState<{ card: [Point, Point]; face: [Point, Point] } | null>(null);
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
-  const [capturedEmail, setCapturedEmail] = useState<string>("");
+  const [capturedEmail, setCapturedEmail] = useState<string>(user?.email ?? "");
 
-  // Desktop visitors without a session id must hand off to a phone via QR.
-  // Mobile visitors, or anyone who already has ?sid= / ?s=, run the scan inline.
-  const requiresHandoff = !isMobile && !emailAlreadyCaptured;
+  // Desktop visitors without a session id and not logged in must hand off to a phone via QR.
+  const requiresHandoff = !isMobile && !sidParam && !sessionId && !user;
 
 
   useEffect(() => {
@@ -2585,8 +2587,26 @@ export default function FitScan() {
           .then(({ error: updErr }) => {
             if (updErr) console.warn("[scan] session sync failed", updErr);
           });
+      } else if (user?.email) {
+        // Logged-in user without an existing session row: persist the scan
+        // directly to their account so it shows up in /account immediately.
+        supabase
+          .from("scan_sessions")
+          .insert({
+            email: user.email,
+            user_id: user.id,
+            status: "completed",
+            face_width_mm: m.faceWidthMm,
+            nose_width_mm: m.noseWidthMm,
+            recommendation_type: r.type,
+            confidence: m.confidence,
+            user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+          })
+          .then(({ error: insErr }) => {
+            if (insErr) console.warn("[scan] account scan save failed", insErr);
+          });
       }
-      setStep("result");
+      setStep(user ? "result-sent" : "result");
       return true;
     } catch (err) {
       const isMeasurement = err instanceof MeasurementError;

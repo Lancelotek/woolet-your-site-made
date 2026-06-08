@@ -172,12 +172,26 @@ export default function Account() {
                 </Link>
               </div>
             ) : (
-              <div className="p-6 text-cream-dim" style={{ border: "1px solid rgba(255,255,255,0.12)", fontSize: "0.9rem" }}>
-                No completed scan yet.{" "}
-                <Link to={`/${lang}/fit`} style={{ color: GOLD }}>
+              <div className="p-6 flex flex-col gap-4" style={{ border: "1px solid rgba(255,255,255,0.12)" }}>
+                <p className="text-cream-dim" style={{ fontSize: "0.9rem", lineHeight: 1.55 }}>
+                  No fit scan on file yet. Run a 30-second scan and we'll save
+                  your measurements to this account so you always get the right
+                  recommendation.
+                </p>
+                <Link
+                  to={`/${lang}/fit`}
+                  className="inline-block self-start uppercase tracking-[0.22em] no-underline"
+                  style={{
+                    background: GOLD,
+                    color: "#0f0f0f",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.7rem",
+                    padding: "12px 22px",
+                  }}
+                >
                   Take the fit scan
                 </Link>
-                .
               </div>
             )}
           </section>
