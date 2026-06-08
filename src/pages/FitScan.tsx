@@ -617,7 +617,28 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               const peakRowV = rowVals.length ? rowVals[rowVals.length - 1] : 0;
               const medianRowV = rowVals.length ? rowVals[Math.floor(rowVals.length / 2)] : 0;
               const cls = classifyCardSample(vGrad, hGrad, { peakRowV, medianRowV });
-              setCardState((prev) => (prev === cls.nextState ? prev : cls.nextState));
+              // Second-stage validation: when the gradient classifier says
+              // "ok", confirm with the stricter corner detector that requires
+              // a long contiguous straight horizontal edge spanning >=40% of
+              // the ROI. This rejects hairlines, eyebrows, shirt collars,
+              // and other near-horizontal but jagged/curved edges that fool
+              // the row-gradient heuristic.
+              let next = cls.nextState;
+              if (next === "ok") {
+                const corner = detectCardCornersInRegion(
+                  v,
+                  { x: sxF, y: syF, w: swF, h: shF },
+                  vw,
+                  vh,
+                );
+                if (!corner || corner.confidence < 0.55) {
+                  // Edge looks card-ish in gradient stats but no straight
+                  // continuous line found → likely hair/skin contour. Keep
+                  // the user in "place card" rather than green-light.
+                  next = "none";
+                }
+              }
+              setCardState((prev) => (prev === next ? prev : next));
             }
           } catch { /* CORS */ }
         }
