@@ -2079,16 +2079,18 @@ function EmailGateStep({
   noseWidthMm,
   recommendation,
   device,
+  lang,
   onSubmitted,
 }: {
   faceWidthMm: number;
   noseWidthMm: number;
   recommendation: Recommendation;
   device: "mobile" | "desktop";
+  lang: Lang;
   onSubmitted: (email: string) => void;
 }) {
   const [email, setEmail] = useState("");
-  const [agree, setAgree] = useState(true);
+  const [agree, setAgree] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -2117,18 +2119,20 @@ function EmailGateStep({
       if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
 
       // Fire-and-forget: send measurements + fit recommendation by email.
-      const modelUrl = recommendation.primaryHref?.startsWith("http")
-        ? recommendation.primaryHref
-        : `https://woolet.co${recommendation.primaryHref || "/en/products/007"}`;
-      const recommendedModel = recommendation.primaryHref?.includes("009")
-        ? "Woolet 009"
-        : "Woolet 007";
+      // Use primaryHref so the CTA points to the actually recommended model (007 or 009).
+      const primaryHref = recommendation.primaryHref || `/${lang}/products/007`;
+      const modelUrl = primaryHref.startsWith("http")
+        ? primaryHref
+        : `https://woolet.co${primaryHref}`;
+      const recommendedModel = primaryHref.includes("009") ? "Woolet 009" : "Woolet 007";
+      // Include a per-session nonce so re-scans for the same email still send.
+      const scanNonce = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
       supabase.functions
         .invoke("send-transactional-email", {
           body: {
             templateName: "fit-scan-result",
             recipientEmail: parsed.data,
-            idempotencyKey: `fit-scan-${parsed.data}-${Math.round(faceWidthMm)}-${Math.round(noseWidthMm)}`,
+            idempotencyKey: `fit-scan-${parsed.data}-${Math.round(faceWidthMm)}-${Math.round(noseWidthMm)}-${scanNonce}`,
             templateData: {
               faceWidthMm: Math.round(faceWidthMm),
               noseWidthMm: Math.round(noseWidthMm),
@@ -2145,17 +2149,18 @@ function EmailGateStep({
         });
 
       // Create a Woolet account (passwordless) so we can remember the measurements
-      // for next time. User receives a magic link to log in.
+      // for next time. User receives a magic link to log in. Respect locale prefix.
       supabase.auth
         .signInWithOtp({
           email: parsed.data,
           options: {
             shouldCreateUser: true,
-            emailRedirectTo: `${window.location.origin}/account`,
+            emailRedirectTo: `${window.location.origin}/${lang}/account`,
             data: {
               face_width_mm: Math.round(faceWidthMm),
               nose_width_mm: Math.round(noseWidthMm),
               source: "fit-scan",
+              locale: lang,
             },
           },
         })
@@ -2163,7 +2168,6 @@ function EmailGateStep({
           if (otpErr) console.warn("[scan email gate] account signup failed", otpErr);
         });
 
-      pushEvent("scan_lead", { device, face_width: Math.round(faceWidthMm) });
       pushEvent("fit_email_captured", { device, face_width: Math.round(faceWidthMm) });
       onSubmitted(parsed.data);
     } catch (err) {
@@ -2177,36 +2181,51 @@ function EmailGateStep({
   return (
     <div
       style={{
-        background: "rgba(8,8,7,0.92)",
+        background: "rgba(8,8,7,0.97)",
         border: `1px solid ${GOLD}`,
         borderRadius: 8,
         padding: "28px 24px",
-        boxShadow: "0 30px 60px rgba(0,0,0,0.55)",
-        backdropFilter: "blur(2px)",
-        WebkitBackdropFilter: "blur(2px)",
+        boxShadow: "0 30px 60px rgba(0,0,0,0.7)",
       }}
       className="flex flex-col gap-5"
     >
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">YOUR RESULTS ARE READY</span>
+        <span className="woolet-eyebrow-text">LAST STEP · UNLOCK YOUR RESULTS</span>
       </div>
       <h2
         className="font-display text-woolet-white"
         style={{ fontSize: "clamp(1.5rem, 4vw, 2rem)", fontWeight: 300, lineHeight: 1.1, margin: 0 }}
       >
-        Unlock & <em className="italic" style={{ color: GOLD }}>email me my measurements</em>
+        Where should we send your <em className="italic" style={{ color: GOLD }}>measurements?</em>
       </h2>
       <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300, lineHeight: 1.5, margin: 0 }}>
-        Drop your email to reveal your face width, recommended size and best‑fit models. We'll also save them to your Woolet account so you don't lose them.
+        We'll reveal your face width, recommended size and best‑fit models — and email you a copy plus a magic‑link to save them to a Woolet account.
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
+        <label
+          htmlFor="scan-result-email"
+          style={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            padding: 0,
+            margin: -1,
+            overflow: "hidden",
+            clip: "rect(0,0,0,0)",
+            whiteSpace: "nowrap",
+            border: 0,
+          }}
+        >
+          Your email address
+        </label>
         <input
           id="scan-result-email"
           type="email"
           inputMode="email"
           autoComplete="email"
+          aria-label="Your email address"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -2277,8 +2296,19 @@ function EmailGateStep({
             height: 52,
           }}
         >
-          {submitting ? "Sending…" : "Send it to my email →"}
+          {submitting ? "Sending…" : "Reveal my results →"}
         </button>
+        <p
+          style={{
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.72rem",
+            margin: "2px 0 0",
+            textAlign: "center",
+          }}
+        >
+          No spam · We never share your email.
+        </p>
       </form>
     </div>
   );
@@ -2286,45 +2316,142 @@ function EmailGateStep({
 
 /* ─────────────── Thank you (after email captured) ─────────────── */
 
-function ResultSentStep({ email, lang }: { email: string; lang: Lang }) {
+function ResultSentStep({
+  email,
+  lang,
+  faceWidthMm,
+  noseWidthMm,
+  recommendation,
+}: {
+  email: string;
+  lang: Lang;
+  faceWidthMm: number;
+  noseWidthMm: number;
+  recommendation: Recommendation;
+}) {
+  const primaryHref = recommendation.primaryHref?.startsWith("/")
+    ? recommendation.primaryHref
+    : `/${lang}/products/007`;
   return (
-    <div className="flex flex-col gap-7" style={{ paddingTop: "1rem" }}>
+    <div className="flex flex-col gap-6" style={{ paddingTop: "1rem" }}>
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">CHECK YOUR INBOX</span>
+        <span className="woolet-eyebrow-text">YOUR MEASUREMENTS</span>
       </div>
       <h1
         className="font-display text-woolet-white"
-        style={{ fontSize: "clamp(2rem, 5vw, 2.75rem)", fontWeight: 300, lineHeight: 1.05, margin: 0 }}
+        style={{ fontSize: "clamp(1.75rem, 4.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.05, margin: 0 }}
       >
-        Your measurements are <em className="italic" style={{ color: GOLD }}>on their way</em>
+        You're a <em className="italic" style={{ color: GOLD }}>{Math.round(faceWidthMm)} mm</em> face
       </h1>
-      <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.6, margin: 0 }}>
-        We've sent your face width, nose width and recommended Woolet fit to{" "}
-        <strong style={{ color: "white" }}>{email}</strong>. It usually lands in under a minute — check spam if you don't see it.
-      </p>
+
       <div
         style={{
-          background: "rgba(202,164,73,0.08)",
+          background: "rgba(202,164,73,0.06)",
           border: `1px solid ${GOLD}`,
           borderRadius: 6,
-          padding: "18px 20px",
+          padding: "20px 22px",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 16,
         }}
       >
-        <p
+        <div>
+          <div
+            style={{
+              color: "white",
+              fontFamily: "Cormorant Garamond, serif",
+              fontSize: "2rem",
+              fontWeight: 400,
+              lineHeight: 1,
+            }}
+          >
+            {Math.round(faceWidthMm)} <span style={{ fontSize: "0.85rem", color: MUTED }}>mm</span>
+          </div>
+          <div
+            style={{
+              color: MUTED,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              marginTop: 6,
+            }}
+          >
+            Face width
+          </div>
+        </div>
+        <div>
+          <div
+            style={{
+              color: "white",
+              fontFamily: "Cormorant Garamond, serif",
+              fontSize: "2rem",
+              fontWeight: 400,
+              lineHeight: 1,
+            }}
+          >
+            {Math.round(noseWidthMm)} <span style={{ fontSize: "0.85rem", color: MUTED }}>mm</span>
+          </div>
+          <div
+            style={{
+              color: MUTED,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              marginTop: 6,
+            }}
+          >
+            Bridge width
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div
           style={{
-            color: "white",
+            color: GOLD,
             fontFamily: "Barlow, sans-serif",
-            fontSize: "0.95rem",
-            margin: 0,
-            lineHeight: 1.55,
+            fontSize: "0.7rem",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            marginBottom: 6,
           }}
         >
-          We also started a <strong style={{ color: GOLD }}>Woolet account</strong> for you with these measurements saved. A magic sign‑in link is in the same inbox — click it to access them anytime.
-        </p>
+          {recommendation.badgeLabel}
+        </div>
+        <div
+          className="font-display text-woolet-white"
+          style={{ fontSize: "1.4rem", fontWeight: 300, lineHeight: 1.2 }}
+        >
+          {recommendation.title}
+        </div>
+        {recommendation.body && (
+          <p
+            className="text-cream-dim"
+            style={{
+              fontSize: "0.95rem",
+              fontWeight: 300,
+              lineHeight: 1.55,
+              margin: "8px 0 0",
+            }}
+          >
+            {recommendation.body}
+          </p>
+        )}
       </div>
+
+      <p
+        className="text-cream-dim"
+        style={{ fontSize: "0.85rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}
+      >
+        A full copy was sent to <strong style={{ color: "white" }}>{email}</strong> with a magic
+        sign‑in link to save it to your Woolet account. Check spam if it doesn't arrive in a minute.
+      </p>
+
       <Link
-        to={`/${lang}/products/007`}
+        to={primaryHref}
         style={{
           display: "inline-block",
           textAlign: "center",
@@ -2340,7 +2467,7 @@ function ResultSentStep({ email, lang }: { email: string; lang: Lang }) {
           borderRadius: 4,
         }}
       >
-        Browse recommended frames →
+        See your recommended frame →
       </Link>
     </div>
   );
@@ -2861,46 +2988,67 @@ export default function FitScan() {
                 {(step === "result" || step === "result-sent") && measurements && recommendation && (
                   <>
                     {step === "result-sent" ? (
-                      <ResultSentStep email={capturedEmail} lang={lang} />
+                      <ResultSentStep
+                        email={capturedEmail}
+                        lang={lang}
+                        faceWidthMm={measurements.faceWidthMm}
+                        noseWidthMm={measurements.noseWidthMm}
+                        recommendation={recommendation}
+                      />
                     ) : (
-                      <div style={{ position: "relative" }}>
+                      <div style={{ position: "relative", overflow: "hidden" }}>
                         <div
                           aria-hidden={!emailCaptured}
                           style={{
-                            filter: emailCaptured ? "none" : "blur(14px)",
+                            filter: emailCaptured ? "none" : "blur(28px) saturate(0.6)",
                             pointerEvents: emailCaptured ? "auto" : "none",
                             userSelect: emailCaptured ? "auto" : "none",
                             transition: "filter 250ms ease",
+                            transform: emailCaptured ? "none" : "scale(1.04)",
                           }}
                         >
                           <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} />
                         </div>
                         {!emailCaptured && (
-                          <div
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              display: "flex",
-                              alignItems: "flex-start",
-                              justifyContent: "center",
-                              padding: "2.5rem 0.25rem 1rem",
-                              pointerEvents: "none",
-                            }}
-                          >
-                            <div style={{ width: "100%", maxWidth: 460, pointerEvents: "auto" }}>
-                              <EmailGateStep
-                                faceWidthMm={measurements.faceWidthMm}
-                                noseWidthMm={measurements.noseWidthMm}
-                                recommendation={recommendation}
-                                device={isMobile ? "mobile" : "desktop"}
-                                onSubmitted={(submittedEmail) => {
-                                  setCapturedEmail(submittedEmail);
-                                  setEmailCaptured(true);
-                                  setStep("result-sent");
-                                }}
-                              />
+                          <>
+                            {/* Opaque scrim so the rendered numbers cannot be read even on high-DPR screens. */}
+                            <div
+                              aria-hidden
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                background:
+                                  "linear-gradient(180deg, rgba(8,8,7,0.85) 0%, rgba(8,8,7,0.95) 40%, rgba(8,8,7,0.98) 100%)",
+                                pointerEvents: "none",
+                              }}
+                            />
+                            <div
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                display: "flex",
+                                alignItems: "flex-start",
+                                justifyContent: "center",
+                                padding: "2.5rem 0.25rem 1rem",
+                                pointerEvents: "none",
+                              }}
+                            >
+                              <div style={{ width: "100%", maxWidth: 460, pointerEvents: "auto" }}>
+                                <EmailGateStep
+                                  faceWidthMm={measurements.faceWidthMm}
+                                  noseWidthMm={measurements.noseWidthMm}
+                                  recommendation={recommendation}
+                                  device={isMobile ? "mobile" : "desktop"}
+                                  lang={lang}
+                                  onSubmitted={(submittedEmail) => {
+                                    setCapturedEmail(submittedEmail);
+                                    setEmailCaptured(true);
+                                    setStep("result-sent");
+                                  }}
+                                />
+                              </div>
                             </div>
-                          </div>
+                          </>
                         )}
                       </div>
                     )}
