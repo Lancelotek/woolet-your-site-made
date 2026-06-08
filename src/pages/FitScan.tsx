@@ -2810,6 +2810,13 @@ export default function FitScan() {
         body: { image: f.dataUrl, width: f.width, height: f.height },
       });
       if (error) throw error;
+      if (data?.glassesDetected === true) {
+        pushEvent("scan_error", { error_type: "glasses_detected" });
+        setErrorMsg("Please remove your eyeglasses — they cover the temple landmarks we need to measure. Then retake the photo.");
+        setErrorKind("recoverable");
+        setStep("welcome");
+        return;
+      }
       if (data?.card?.left && data?.card?.right && data?.face?.left && data?.face?.right) {
         const conf = typeof data.confidence === "number" ? data.confidence : 0.5;
         pushEvent("scan_server_detected", { confidence: conf, model: data.model });
