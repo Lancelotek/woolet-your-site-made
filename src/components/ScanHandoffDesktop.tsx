@@ -25,7 +25,7 @@ interface Props {
   onSessionComplete: (m: Measurements, r: Recommendation) => void;
 }
 
-type Phase = "email" | "waiting";
+type Phase = "email" | "waiting" | "connected";
 
 export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
   const [phase, setPhase] = useState<Phase>("email");
