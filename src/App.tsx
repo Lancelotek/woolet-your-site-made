@@ -7,8 +7,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import CookieBanner from "@/components/CookieBanner";
 import PageViewTracker from "@/components/PageViewTracker";
+import { AuthProvider } from "@/lib/auth-context";
 
 import Index from "./pages/Index.tsx";
+
+const SignIn = lazy(() => import("./pages/account/SignIn.tsx"));
+const AuthCallback = lazy(() => import("./pages/account/Callback.tsx"));
+const Account = lazy(() => import("./pages/account/Account.tsx"));
 
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
 const ReturnPolicy = lazy(() => import("./pages/ReturnPolicy.tsx"));
@@ -61,6 +66,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AuthProvider>
         <PageViewTracker />
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
@@ -141,9 +147,15 @@ const App = () => (
           <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/:lang/return-policy" element={<ReturnPolicy />} />
 
+          {/* Account */}
+          <Route path="/:lang/account/sign-in" element={<SignIn />} />
+          <Route path="/:lang/account/callback" element={<AuthCallback />} />
+          <Route path="/:lang/account" element={<Account />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
         </Suspense>
+        </AuthProvider>
       </BrowserRouter>
       <CookieBanner />
       </ErrorBoundary>

@@ -3,13 +3,15 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import { SUPPORTED_LANGS, langNames, t, isValidLang, type Lang } from "@/lib/i18n";
 import { useState } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
 
 const Navbar = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { session } = useAuth();
 
   return (
     <>
@@ -92,6 +94,14 @@ const Navbar = () => {
               </div>
             )}
           </div>
+          <Link
+            to={`/${lang}/account${session ? "" : "/sign-in"}`}
+            aria-label={session ? "Your account" : "Sign in"}
+            className="text-cream-dim hover:text-primary transition-colors flex items-center"
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session })}
+          >
+            <User size={15} strokeWidth={1.5} />
+          </Link>
           <a
             href="https://shop.woolet.co/"
             target="_blank"
@@ -166,6 +176,18 @@ const Navbar = () => {
               }}
             >
               {t(lang, "nav.blog")}
+            </Link>
+
+            <Link
+              to={`/${lang}/account${session ? "" : "/sign-in"}`}
+              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              style={{ fontSize: "0.75rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session });
+              }}
+            >
+              {session ? "Account" : "Sign in"}
             </Link>
 
             <div className="woolet-divider" />
