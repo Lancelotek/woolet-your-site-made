@@ -19,6 +19,7 @@ interface DetectResponse {
   card: { left: NormPoint; right: NormPoint };
   face: { left: NormPoint; right: NormPoint };
   confidence: number; // 0..1
+  glassesDetected?: boolean;
   notes?: string;
 }
 
