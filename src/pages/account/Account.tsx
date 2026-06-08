@@ -94,8 +94,8 @@ export default function Account() {
   const latestCompleted = scans.find(
     (s) => s.status === "completed" && s.face_width_mm && s.nose_width_mm,
   );
-  const rec = latestCompleted
-    ? getRecommendation(latestCompleted.face_width_mm!, latestCompleted.nose_width_mm!)
+  const recModel = latestCompleted
+    ? pickModel(latestCompleted.face_width_mm!, latestCompleted.nose_width_mm!)
     : null;
 
   const saveProfile = async (patch: Partial<Profile>) => {
