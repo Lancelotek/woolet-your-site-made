@@ -13,6 +13,14 @@ export interface CollectionExtraSection {
   paragraphs: string[];
 }
 
+export interface CollectionImage {
+  src: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
 export interface CollectionPageProps {
   slug: string;
   h1: string;
@@ -23,6 +31,8 @@ export interface CollectionPageProps {
   faqs: CollectionFAQ[];
   breadcrumbName: string;
   extraSections?: CollectionExtraSection[];
+  heroImage?: CollectionImage;
+  inlineImage?: CollectionImage;
 }
 
 const SITE = "https://woolet.co";
@@ -52,9 +62,12 @@ const CollectionPage = ({
   faqs,
   breadcrumbName,
   extraSections,
+  heroImage,
+  inlineImage,
 }: CollectionPageProps) => {
   const path = `/collections/${slug}`;
   const canonical = `${SITE}/en${path}`;
+  const absUrl = (u: string) => (u.startsWith("http") ? u : `${SITE}${u.startsWith("/") ? u : `/${u}`}`);
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -97,6 +110,18 @@ const CollectionPage = ({
     })),
   };
 
+  const imageLd = [heroImage, inlineImage]
+    .filter((i): i is CollectionImage => !!i)
+    .map((i) => ({
+      "@context": "https://schema.org",
+      "@type": "ImageObject",
+      contentUrl: absUrl(i.src),
+      url: absUrl(i.src),
+      description: i.alt,
+      ...(i.width ? { width: i.width } : {}),
+      ...(i.height ? { height: i.height } : {}),
+    }));
+
   return (
     <>
       <SEO
@@ -104,7 +129,8 @@ const CollectionPage = ({
         description={metaDescription}
         lang="en"
         path={path}
-        jsonLd={[collectionLd, breadcrumbLd, faqLd]}
+        image={heroImage?.src}
+        jsonLd={[collectionLd, breadcrumbLd, faqLd, ...imageLd]}
       />
       <Navbar />
       <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif", color: "#111" }}>
@@ -122,6 +148,24 @@ const CollectionPage = ({
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 36, lineHeight: 1.15, margin: "0 0 16px" }}>
             {h1}
           </h1>
+          {heroImage && (
+            <figure style={{ margin: "0 0 18px" }}>
+              <img
+                src={heroImage.src}
+                alt={heroImage.alt}
+                width={heroImage.width}
+                height={heroImage.height}
+                loading="eager"
+                fetchPriority="high"
+                style={{ width: "100%", height: "auto", display: "block", borderRadius: 8, background: "#1A1612" }}
+              />
+              {heroImage.caption && (
+                <figcaption style={{ fontSize: 11, color: "#888", marginTop: 6, textAlign: "center", letterSpacing: "0.3px" }}>
+                  {heroImage.caption}
+                </figcaption>
+              )}
+            </figure>
+          )}
           <p style={{ fontSize: 15, lineHeight: 1.65, color: "#333", margin: 0 }}>{intro}</p>
         </header>
 
@@ -159,6 +203,23 @@ const CollectionPage = ({
           {whyThisFits.map((p, i) => (
             <p key={i} style={{ fontSize: 14, lineHeight: 1.7, color: "#222", margin: "0 0 14px" }} dangerouslySetInnerHTML={{ __html: p }} />
           ))}
+          {inlineImage && (
+            <figure style={{ margin: "20px 0 0" }}>
+              <img
+                src={inlineImage.src}
+                alt={inlineImage.alt}
+                width={inlineImage.width}
+                height={inlineImage.height}
+                loading="lazy"
+                style={{ width: "100%", maxWidth: 520, height: "auto", display: "block", margin: "0 auto", borderRadius: 8 }}
+              />
+              {inlineImage.caption && (
+                <figcaption style={{ fontSize: 11, color: "#888", marginTop: 6, textAlign: "center", letterSpacing: "0.3px" }}>
+                  {inlineImage.caption}
+                </figcaption>
+              )}
+            </figure>
+          )}
         </section>
 
         {/* Extra sections (e.g. Polarized vs standard lenses) */}
