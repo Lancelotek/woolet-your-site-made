@@ -1928,6 +1928,55 @@ export default function FitWizard() {
         session_id: sessionId,
         fomo_variant: restored.fomoVariant,
       });
+      const sku = restored.measurement.recommendedSku;
+
+      // GA4 conversion tracking — fire once per Stripe checkout session.
+      // Guard against double-firing on back-navigation or a restored URL.
+      let alreadyTracked = false;
+      try {
+        const key = `purchase_tracked_${sessionId}`;
+        alreadyTracked = !!sessionId && window.localStorage.getItem(key) === "1";
+        if (sessionId) window.localStorage.setItem(key, "1");
+      } catch {
+        /* noop */
+      }
+      if (!alreadyTracked) {
+        try {
+          window.dataLayer = window.dataLayer || [];
+          // Clear any previous ecommerce object first (GA4 best practice).
+          window.dataLayer.push({ ecommerce: null });
+          // Standard GA4 ecommerce purchase ($1 refundable founding deposit).
+          window.dataLayer.push({
+            event: "purchase",
+            ecommerce: {
+              transaction_id: sessionId,
+              value: 1,
+              currency: "USD",
+              items: [
+                {
+                  item_id: sku,
+                  item_name: `Woolet Founding Deposit - ${sku}`,
+                  item_category: "founding_deposit",
+                  price: 1,
+                  quantity: 1,
+                },
+              ],
+            },
+          });
+          // Separate custom conversion event so $1 deposits can be analysed
+          // apart from future real pre-orders.
+          window.dataLayer.push({
+            event: "deposit",
+            transaction_id: sessionId,
+            value: 1,
+            currency: "USD",
+            recommended_sku: sku,
+            source: "fit_saved_upsell",
+          });
+        } catch {
+          /* noop */
+        }
+      }
       try {
         window.localStorage.setItem("reservation_completed", "true");
         window.sessionStorage.removeItem(RESERVATION_STORAGE_KEY);
