@@ -201,6 +201,48 @@ function WelcomeStep({
         Three steps. Photo never leaves your device until you capture.
       </p>
 
+      <div
+        style={{
+          borderRadius: 12,
+          border: `1.5px solid ${GOLD}`,
+          background: "rgba(202,164,73,0.08)",
+          padding: "16px 18px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 6,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="2" y="6" width="20" height="12" rx="2" stroke={GOLD} strokeWidth="1.5" />
+            <line x1="2" y1="10" x2="22" y2="10" stroke={GOLD} strokeWidth="1" />
+          </svg>
+          <span
+            style={{
+              color: GOLD,
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 600,
+              fontSize: "0.9rem",
+              letterSpacing: "0.02em",
+            }}
+          >
+            You need a card for this scan
+          </span>
+        </div>
+        <p
+          style={{
+            color: "rgba(240,236,228,0.85)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.85rem",
+            fontWeight: 300,
+            lineHeight: 1.55,
+            margin: 0,
+          }}
+        >
+          Grab any credit card, debit card, or ID card. The long edge must measure <strong style={{ color: "#fff", fontWeight: 500 }}>85.60 mm</strong> and the short edge <strong style={{ color: "#fff", fontWeight: 500 }}>53.98 mm</strong> — this is the ISO/IEC 7810 ID-1 standard used by most payment and ID cards worldwide.
+        </p>
+      </div>
+
       <figure
         style={{
           margin: 0,
