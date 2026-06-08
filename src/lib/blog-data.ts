@@ -173,7 +173,7 @@ const blogPostsEN: BlogPost[] = [
 <li>The front bows, misaligning the optical centers</li>
 </ul>
 
-<p><strong>Italian acetate</strong> — the material used in Woolet's frames — is cut from solid cast sheets, not injection-molded. The Mazzucchelli process (the gold standard of acetate manufacturing since 1849) produces a material with:</p>
+<p><strong>Italian acetate</strong> — the material used in Woolet's frames — is cut from solid cast sheets, not injection-molded. The <a href="/en/collections/italian-mazzucchelli-acetate">Mazzucchelli process</a> (the gold standard of acetate manufacturing since 1849) produces a material with:</p>
 <ul>
 <li><strong>Higher structural density:</strong> resists deformation under wider spans</li>
 <li><strong>Natural flexibility:</strong> absorbs minor stress without cracking</li>
