@@ -62,6 +62,24 @@ const CookieBanner = () => {
     setVisible(true);
   }, []);
 
+  useEffect(() => {
+    const handleOpenSettings = () => {
+      const saved = readSavedConsent();
+      if (saved) {
+        setAnalytics(saved.analytics_storage === "granted");
+        setAds(saved.ad_storage === "granted");
+      } else {
+        setAnalytics(true);
+        setAds(true);
+      }
+      setCustomizing(true);
+      setVisible(true);
+    };
+    window.addEventListener("open-cookie-settings", handleOpenSettings);
+    return () =>
+      window.removeEventListener("open-cookie-settings", handleOpenSettings);
+  }, []);
+
   const acceptAll = () => {
     updateConsent({
       ad_storage: "granted",

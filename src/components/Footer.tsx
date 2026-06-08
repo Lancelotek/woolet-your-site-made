@@ -61,6 +61,14 @@ const Footer = () => {
         ].map((link) => (
           <FooterLink key={link.label} {...link} />
         ))}
+        <div className="w-px h-4 bg-cream-dim/20" />
+        <button
+          onClick={() => window.dispatchEvent(new Event("open-cookie-settings"))}
+          className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+          style={{ fontSize: '0.55rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+        >
+          {t(lang, "footer.cookie_settings")}
+        </button>
       </div>
     </footer>
   );

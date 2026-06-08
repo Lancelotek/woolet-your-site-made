@@ -78,6 +78,16 @@ const PrivacyPolicy = () => {
             "Marketing and retargeting cookies to show you relevant advertisements",
           ]} />
           <p>You can control cookies through your browser settings. If you disable cookies, some features of our website may not function correctly. We honour "Do Not Track" browser signals where technically feasible.</p>
+          <p>
+            <button
+              onClick={() => window.dispatchEvent(new Event("open-cookie-settings"))}
+              className="text-gold-dim hover:text-gold transition-colors underline underline-offset-2"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontSize: '0.83rem' }}
+            >
+              Cookie settings
+            </button>{" "}
+            — manage or withdraw your consent at any time.
+          </p>
         </>
       ),
     },

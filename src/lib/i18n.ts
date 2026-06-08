@@ -44,6 +44,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "footer.rights": "© 2026 JAY23 LLC — woolet.co — Eyewear for Wide Faces",
     "footer.privacy": "Privacy Policy",
     "footer.return": "Return Policy",
+    "footer.cookie_settings": "Cookie settings",
   },
   pl: {
     "nav.coming_soon": "Wkrótce",
@@ -83,6 +84,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "footer.rights": "© 2026 JAY23 LLC — woolet.co — Okulary na szeroką twarz",
     "footer.privacy": "Polityka prywatności",
     "footer.return": "Polityka zwrotów",
+    "footer.cookie_settings": "Ustawienia ciasteczek",
   },
   fr: {
     "nav.coming_soon": "Bientôt",
@@ -122,6 +124,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "footer.rights": "© 2026 JAY23 LLC — woolet.co — Lunettes pour visages larges",
     "footer.privacy": "Politique de confidentialité",
     "footer.return": "Politique de retour",
+    "footer.cookie_settings": "Paramètres des cookies",
   },
   es: {
     "nav.coming_soon": "Próximamente",
@@ -161,6 +164,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "footer.rights": "© 2026 JAY23 LLC — woolet.co — Gafas para caras anchas",
     "footer.privacy": "Política de privacidad",
     "footer.return": "Política de devolución",
+    "footer.cookie_settings": "Configuración de cookies",
   },
 };
 
