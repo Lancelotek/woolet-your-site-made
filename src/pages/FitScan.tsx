@@ -2329,7 +2329,11 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
-          to={`/${lang}/fit?face_width=${adjustedFace}&nose_width=${adjustedNose}&source=scan${cardOffset ? `&gap_cm=${gapCm}` : ""}`}
+          to={
+            authedUser
+              ? `/${lang}/account`
+              : `/${lang}/fit?face_width=${adjustedFace}&nose_width=${adjustedNose}&source=scan${cardOffset ? `&gap_cm=${gapCm}` : ""}`
+          }
           onClick={handleCta}
           style={{
             background: GOLD,
@@ -2348,7 +2352,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             justifyContent: "center",
           }}
         >
-          See my prefilled fit →
+          {authedUser ? "Go to my account →" : "See my prefilled fit →"}
         </Link>
         <Link
           to={recommendation.primaryHref}
