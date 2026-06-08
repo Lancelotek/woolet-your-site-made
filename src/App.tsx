@@ -66,6 +66,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AuthProvider>
         <PageViewTracker />
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
