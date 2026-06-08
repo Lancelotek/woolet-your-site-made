@@ -1014,6 +1014,60 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           </div>
         )}
 
+        {showPoseHint && (
+          <div
+            aria-live="polite"
+            style={{
+              position: "absolute",
+              bottom: showDistanceHint ? 48 : 12,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 12px",
+              borderRadius: 999,
+              background: "rgba(0,0,0,0.7)",
+              border: `1px solid ${poseColor}`,
+              color: "rgba(255,255,255,0.95)",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              zIndex: 4,
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: poseColor, boxShadow: `0 0 6px ${poseColor}` }} />
+            {poseLabel}
+          </div>
+        )}
+
+        {showCardOverride && !cardOverride && (
+          <button
+            type="button"
+            onClick={() => { setCardOverride(true); setShowCardOverride(false); }}
+            style={{
+              position: "absolute",
+              top: 50,
+              left: 12,
+              padding: "8px 12px",
+              borderRadius: 6,
+              background: "rgba(0,0,0,0.78)",
+              color: "#fff",
+              border: `1px solid ${GOLD}`,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.7rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              zIndex: 5,
+            }}
+          >
+            Card is on my forehead
+          </button>
+        )}
+
+
         {countdown !== null && (
           <div
             aria-live="assertive"
