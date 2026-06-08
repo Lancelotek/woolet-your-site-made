@@ -415,6 +415,69 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [poseState, setPoseState] = useState<"unknown" | "ok" | "off">("unknown");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
+  // Device-orientation level (mobile only). roll = side-to-side tilt in degrees.
+  // levelState: "unknown" before first reading or unsupported, "ok" when within
+  // tolerance, "off" when phone is tilted. "needs-permission" on iOS 13+ until
+  // the user taps the enable button (gesture-required by Safari).
+  const [levelRoll, setLevelRoll] = useState<number | null>(null);
+  const [levelState, setLevelState] = useState<"unknown" | "ok" | "off" | "needs-permission" | "unsupported">("unknown");
+  const orientationHandlerRef = useRef<((e: DeviceOrientationEvent) => void) | null>(null);
+
+  const attachOrientation = useCallback(() => {
+    if (orientationHandlerRef.current) return;
+    const handler = (e: DeviceOrientationEvent) => {
+      const gamma = typeof e.gamma === "number" ? e.gamma : null;
+      const beta = typeof e.beta === "number" ? e.beta : null;
+      if (gamma === null || beta === null) return;
+      // Roll = side-to-side tilt (gamma). Phone held upright in portrait selfie
+      // posture has beta ≈ 60–100° and gamma ≈ 0°. Level when |gamma| < 4°.
+      setLevelRoll(gamma);
+      const usable = beta > 40 && beta < 120;
+      setLevelState(usable && Math.abs(gamma) < 4 ? "ok" : "off");
+    };
+    orientationHandlerRef.current = handler;
+    window.addEventListener("deviceorientation", handler, true);
+  }, []);
+
+  const requestLevelPermission = useCallback(async () => {
+    type IOSOrientation = typeof DeviceOrientationEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
+    const Ctor = (typeof DeviceOrientationEvent !== "undefined" ? DeviceOrientationEvent : null) as IOSOrientation | null;
+    if (Ctor?.requestPermission) {
+      try {
+        const res = await Ctor.requestPermission();
+        if (res === "granted") {
+          attachOrientation();
+        } else {
+          setLevelState("unsupported");
+        }
+      } catch {
+        setLevelState("unsupported");
+      }
+    } else {
+      attachOrientation();
+    }
+  }, [attachOrientation]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    if (typeof window === "undefined" || typeof DeviceOrientationEvent === "undefined") {
+      setLevelState("unsupported");
+      return;
+    }
+    type IOSOrientation = typeof DeviceOrientationEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
+    const Ctor = DeviceOrientationEvent as IOSOrientation;
+    if (typeof Ctor.requestPermission === "function") {
+      setLevelState("needs-permission");
+    } else {
+      attachOrientation();
+    }
+    return () => {
+      if (orientationHandlerRef.current) {
+        window.removeEventListener("deviceorientation", orientationHandlerRef.current, true);
+        orientationHandlerRef.current = null;
+      }
+    };
+  }, [isMobile, attachOrientation]);
 
   const deviceTip = isMobile
     ? "Hold the phone at arm's length, camera at eye level."
