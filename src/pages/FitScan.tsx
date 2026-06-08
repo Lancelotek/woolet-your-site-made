@@ -408,7 +408,11 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [busy, setBusy] = useState(false);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
+  const [cardOverride, setCardOverride] = useState(false);
+  const [showCardOverride, setShowCardOverride] = useState(false);
+  const cardMissingSinceRef = useRef<number | null>(null);
   const [distanceState, setDistanceState] = useState<"unknown" | "ok" | "too_close" | "too_far">("unknown");
+  const [poseState, setPoseState] = useState<"unknown" | "ok" | "off">("unknown");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
 
