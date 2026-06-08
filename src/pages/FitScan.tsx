@@ -537,11 +537,13 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             const vw = v.videoWidth;
             const vh = v.videoHeight;
             if (vw > 0 && vh > 0) {
-              // Forehead band: roughly center 50% horizontally, y between 15% and 32%
-              const sxF = vw * 0.25;
-              const syF = vh * 0.15;
-              const swF = vw * 0.5;
-              const shF = vh * 0.17;
+              // Forehead band: widened to y 12%–45% to tolerate variable
+              // head position and card placement (users often hold the card
+              // lower on the forehead than the reference photo suggests).
+              const sxF = vw * 0.2;
+              const syF = vh * 0.12;
+              const swF = vw * 0.6;
+              const shF = vh * 0.33;
               cctx.drawImage(v, sxF, syF, swF, shF, 0, 0, CARD_W, CARD_H);
               const img = cctx.getImageData(0, 0, CARD_W, CARD_H).data;
               const lumBuf = new Float32Array(CARD_W * CARD_H);
