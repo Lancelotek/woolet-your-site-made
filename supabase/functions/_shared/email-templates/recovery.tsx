@@ -7,6 +7,8 @@ import {
   Button,
   Container,
   Head,
+  Section,
+  Img,
   Heading,
   Html,
   Preview,
@@ -27,6 +29,9 @@ export const RecoveryEmail = ({
     <Preview>Reset your password for {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
+        <Section style={{ textAlign: 'center', padding: '8px 0 24px' }}>
+          <Img src="https://wmefczrhnsqicikveuhz.supabase.co/storage/v1/object/public/email-assets/woolet-logo.png" width="120" height="auto" alt="Woolet" style={{ display: 'inline-block', margin: '0 auto' }} />
+        </Section>
         <Heading style={h1}>Reset your password</Heading>
         <Text style={text}>
           We received a request to reset your password for {siteName}. Click

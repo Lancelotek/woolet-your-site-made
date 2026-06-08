@@ -7,6 +7,8 @@ import {
   Button,
   Container,
   Head,
+  Section,
+  Img,
   Heading,
   Html,
   Link,
@@ -32,6 +34,9 @@ export const SignupEmail = ({
     <Preview>Confirm your email for {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
+        <Section style={{ textAlign: 'center', padding: '8px 0 24px' }}>
+          <Img src="https://wmefczrhnsqicikveuhz.supabase.co/storage/v1/object/public/email-assets/woolet-logo.png" width="120" height="auto" alt="Woolet" style={{ display: 'inline-block', margin: '0 auto' }} />
+        </Section>
         <Heading style={h1}>Confirm your email</Heading>
         <Text style={text}>
           Thanks for signing up for{' '}
