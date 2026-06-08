@@ -685,11 +685,41 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 const facePctW = Math.max(0, Math.min(1, maxX - minX));
                 // Mobile camera frame is portrait — relative width ~0.50–0.65 is ideal.
                 // Above ~0.72 the face crowds the oval and the card edge gets clipped.
-                const next: typeof distanceState =
+                const nextDist: typeof distanceState =
                   facePctW > 0.72 ? "too_close" : facePctW < 0.32 ? "too_far" : "ok";
-                setDistanceState((prev) => (prev === next ? prev : next));
+                setDistanceState((prev) => (prev === nextDist ? prev : nextDist));
+
+                // Pose lock: compute proxies for roll / yaw / pitch from
+                // MediaPipe canonical landmarks. Capture is gated until the
+                // user is facing the camera dead-on.
+                //   33   = left eye outer corner
+                //   263  = right eye outer corner
+                //   1    = nose tip
+                //   10   = forehead top center
+                //   152  = chin tip
+                const lEye = lms[33], rEye = lms[263], nose = lms[1];
+                const fHead = lms[10], chin = lms[152];
+                if (lEye && rEye && nose && fHead && chin) {
+                  const dx = (rEye.x - lEye.x);
+                  const dy = (rEye.y - lEye.y);
+                  // Roll: tilt of the eye line vs horizontal (deg).
+                  const rollDeg = Math.abs(Math.atan2(dy, dx) * 180 / Math.PI);
+                  // Yaw proxy: nose tip x position relative to the midpoint
+                  // between the eye outers, normalized by eye width. 0 = dead
+                  // on; |0.18| ≈ ~15° head turn.
+                  const midX = (lEye.x + rEye.x) / 2;
+                  const eyeW = Math.max(1e-4, Math.abs(rEye.x - lEye.x));
+                  const yawRatio = Math.abs((nose.x - midX) / eyeW);
+                  // Pitch proxy: nose y between forehead and chin. 0.5 = level.
+                  const faceH = Math.max(1e-4, chin.y - fHead.y);
+                  const pitchRatio = Math.abs(((nose.y - fHead.y) / faceH) - 0.55);
+                  const facing = rollDeg < 6 && yawRatio < 0.12 && pitchRatio < 0.10;
+                  const nextPose: typeof poseState = facing ? "ok" : "off";
+                  setPoseState((prev) => (prev === nextPose ? prev : nextPose));
+                }
               } else {
                 setDistanceState((prev) => (prev === "unknown" ? prev : "unknown"));
+                setPoseState((prev) => (prev === "unknown" ? prev : "unknown"));
               }
             }
           } catch { /* noop */ }
