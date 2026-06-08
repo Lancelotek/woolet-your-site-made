@@ -837,7 +837,23 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const captureBlocked =
     !ready || busy || countdown !== null ||
     (cardState !== "ok" && !cardOverride) ||
-    poseState === "off";
+    poseState === "off" ||
+    (isMobile && levelState === "off");
+
+  const levelColor =
+    levelState === "ok"
+      ? "#4ade80"
+      : levelState === "off"
+        ? "#ef4444"
+        : "#facc15";
+  const levelLabel =
+    levelState === "ok"
+      ? "Phone level"
+      : levelState === "off"
+        ? "Hold phone level"
+        : levelState === "needs-permission"
+          ? "Tap to enable level"
+          : "Level unavailable";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
   if (isMobile) {
