@@ -1016,6 +1016,48 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
   const HINT_KEY = "woolet_scan_drag_hint_seen";
   const [showDragHint, setShowDragHint] = useState(false);
   const [hintDismissed, setHintDismissed] = useState(false);
+  // Zoom & pan for precise dot adjustment after capture.
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const panStartRef = useRef<{ x: number; y: number; px: number; py: number } | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const ZOOM_STEPS = [1, 1.5, 2, 3, 4] as const;
+
+  const clampPan = useCallback((p: { x: number; y: number }, z: number) => {
+    const vp = viewportRef.current;
+    const wrap = wrapperRef.current;
+    if (!vp || !wrap) return p;
+    const vRect = vp.getBoundingClientRect();
+    // Wrapper's untransformed size matches its layout (object-fit: cover fills it)
+    const w = wrap.clientWidth * z;
+    const h = wrap.clientHeight * z;
+    // Allowed pan range so the scaled wrapper still covers the viewport (no empty space)
+    const baseLeft = (vRect.width - wrap.clientWidth) / 2;
+    const baseTop = (vRect.height - wrap.clientHeight) / 2;
+    // With transformOrigin 0 0 and translate-then-scale, painted left = baseLeft + pan.x
+    // and painted right = baseLeft + pan.x + w. We want painted left <= 0 and painted right >= vRect.width
+    // when z>1; when z===1, lock pan to 0.
+    if (z <= 1) return { x: 0, y: 0 };
+    const minX = vRect.width - baseLeft - w;
+    const maxX = -baseLeft;
+    const minY = vRect.height - baseTop - h;
+    const maxY = -baseTop;
+    return {
+      x: Math.min(maxX, Math.max(minX, p.x)),
+      y: Math.min(maxY, Math.max(minY, p.y)),
+    };
+  }, []);
+
+  const changeZoom = useCallback((next: number) => {
+    setZoom((cur) => {
+      const z = Math.max(1, Math.min(4, next));
+      if (z === cur) return cur;
+      // Re-center around the bounding box of placed points so user immediately
+      // sees what they're adjusting.
+      setPan((p) => clampPan(p, z));
+      return z;
+    });
+  }, [clampPan]);
 
   const dismissHint = useCallback(() => {
     setShowDragHint(false);
@@ -1078,6 +1120,13 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (draggingRef.current !== null) return;
+    // When zoomed in, dragging the background pans the image instead of
+    // placing a new point. Lets the user fine-tune dots that are already placed.
+    if (zoom > 1) {
+      panStartRef.current = { x: e.clientX, y: e.clientY, px: pan.x, py: pan.y };
+      (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
+      return;
+    }
     const p = eventToNative(e.clientX, e.clientY);
     if (!p) return;
     if (cardCorners.length < 2) {
@@ -1097,6 +1146,13 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
   };
 
   const handleDotMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Panning takes priority over dot dragging
+    if (panStartRef.current) {
+      const ps = panStartRef.current;
+      const next = clampPan({ x: ps.px + (e.clientX - ps.x), y: ps.py + (e.clientY - ps.y) }, zoom);
+      setPan(next);
+      return;
+    }
     const idx = draggingRef.current;
     if (idx === null) return;
     e.stopPropagation();
@@ -1110,6 +1166,11 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
   };
 
   const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (panStartRef.current) {
+      panStartRef.current = null;
+      try { (e.currentTarget as Element).releasePointerCapture?.(e.pointerId); } catch { /* noop */ }
+      return;
+    }
     if (draggingRef.current === null) return;
     e.stopPropagation();
     try { (e.target as Element).releasePointerCapture?.(e.pointerId); } catch { /* noop */ }
@@ -1119,10 +1180,13 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
   const reset = () => {
     setCardCorners([]);
     setFaceEdges([]);
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
   };
 
   const cardPxNative =
     cardCorners.length === 2 ? Math.hypot(cardCorners[1].x - cardCorners[0].x, cardCorners[1].y - cardCorners[0].y) : 0;
+
 
   const scaleX = displaySize.w ? displaySize.w / frame.width : 1;
   const scaleY = displaySize.h ? displaySize.h / frame.height : 1;
@@ -1226,6 +1290,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
 
       {/* Frozen image area */}
       <div
+        ref={viewportRef}
         style={{
           flex: 1,
           minHeight: 0,
@@ -1252,10 +1317,13 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
               ? `min(100%, ${(frame.width / frame.height) * 100}vh)`
               : "100%",
             height: "auto",
-            cursor: totalPoints < 4 ? "crosshair" : "default",
+            cursor: zoom > 1 ? "grab" : totalPoints < 4 ? "crosshair" : "default",
             background: "#000",
             touchAction: "none",
             overflow: "hidden",
+            transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+            transformOrigin: "0 0",
+            willChange: "transform",
           }}
         >
           <img
@@ -1357,6 +1425,77 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
               <span>Drag a point to fine-tune</span>
             </div>
           )}
+        </div>
+        {/* Zoom controls (screen-space; outside transformed wrapper) */}
+        <div
+          style={{
+            position: "absolute",
+            right: 12,
+            bottom: 12,
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            zIndex: 6,
+          }}
+        >
+          <button
+            type="button"
+            aria-label="Zoom in"
+            onPointerDown={(e) => { e.stopPropagation(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              const i = ZOOM_STEPS.findIndex((z) => z >= zoom);
+              const next = ZOOM_STEPS[Math.min(ZOOM_STEPS.length - 1, (i < 0 ? 0 : i) + 1)];
+              changeZoom(next);
+            }}
+            disabled={zoom >= 4}
+            style={{
+              width: 44, height: 44, borderRadius: 22,
+              background: "rgba(8,8,7,0.85)",
+              color: "#f0ece4",
+              border: `1px solid ${GOLD}`,
+              fontSize: 22, fontFamily: "Barlow, sans-serif",
+              cursor: zoom >= 4 ? "not-allowed" : "pointer",
+              opacity: zoom >= 4 ? 0.5 : 1,
+              lineHeight: 1,
+            }}
+          >+</button>
+          <div
+            style={{
+              minWidth: 44, height: 26, borderRadius: 13,
+              background: "rgba(8,8,7,0.85)",
+              color: "#f0ece4",
+              border: "1px solid rgba(255,255,255,0.15)",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.7rem",
+              letterSpacing: "0.06em",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              padding: "0 6px",
+            }}
+            aria-live="polite"
+          >{Math.round(zoom * 100)}%</div>
+          <button
+            type="button"
+            aria-label="Zoom out"
+            onPointerDown={(e) => { e.stopPropagation(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              const i = ZOOM_STEPS.findIndex((z) => z >= zoom);
+              const idx = Math.max(0, (i < 0 ? ZOOM_STEPS.length - 1 : i) - 1);
+              changeZoom(ZOOM_STEPS[idx]);
+            }}
+            disabled={zoom <= 1}
+            style={{
+              width: 44, height: 44, borderRadius: 22,
+              background: "rgba(8,8,7,0.85)",
+              color: "#f0ece4",
+              border: `1px solid ${GOLD}`,
+              fontSize: 22, fontFamily: "Barlow, sans-serif",
+              cursor: zoom <= 1 ? "not-allowed" : "pointer",
+              opacity: zoom <= 1 ? 0.5 : 1,
+              lineHeight: 1,
+            }}
+          >−</button>
         </div>
       </div>
 
