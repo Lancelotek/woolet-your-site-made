@@ -1290,6 +1290,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
 
       {/* Frozen image area */}
       <div
+        ref={viewportRef}
         style={{
           flex: 1,
           minHeight: 0,
@@ -1316,10 +1317,13 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
               ? `min(100%, ${(frame.width / frame.height) * 100}vh)`
               : "100%",
             height: "auto",
-            cursor: totalPoints < 4 ? "crosshair" : "default",
+            cursor: zoom > 1 ? "grab" : totalPoints < 4 ? "crosshair" : "default",
             background: "#000",
             touchAction: "none",
             overflow: "hidden",
+            transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+            transformOrigin: "0 0",
+            willChange: "transform",
           }}
         >
           <img
