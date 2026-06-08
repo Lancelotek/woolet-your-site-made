@@ -1931,10 +1931,14 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 
 function EmailGateStep({
   faceWidthMm,
+  noseWidthMm,
+  recommendation,
   device,
   onSubmitted,
 }: {
   faceWidthMm: number;
+  noseWidthMm: number;
+  recommendation: Recommendation;
   device: "mobile" | "desktop";
   onSubmitted: () => void;
 }) {
@@ -1961,6 +1965,35 @@ function EmailGateStep({
         },
       });
       if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
+
+      // Fire-and-forget: send measurements + fit recommendation by email.
+      const modelUrl = recommendation.primaryHref?.startsWith("http")
+        ? recommendation.primaryHref
+        : `https://woolet.co${recommendation.primaryHref || "/en/products/007"}`;
+      const recommendedModel = recommendation.primaryHref?.includes("009")
+        ? "Woolet 009"
+        : "Woolet 007";
+      supabase.functions
+        .invoke("send-transactional-email", {
+          body: {
+            templateName: "fit-scan-result",
+            recipientEmail: parsed.data,
+            idempotencyKey: `fit-scan-${parsed.data}-${Math.round(faceWidthMm)}-${Math.round(noseWidthMm)}`,
+            templateData: {
+              faceWidthMm: Math.round(faceWidthMm),
+              noseWidthMm: Math.round(noseWidthMm),
+              recommendationTitle: recommendation.title,
+              recommendationBody: recommendation.body,
+              recommendedModel,
+              modelUrl,
+              badgeLabel: recommendation.badgeLabel,
+            },
+          },
+        })
+        .then(({ error: emailErr }) => {
+          if (emailErr) console.warn("[scan email gate] send-transactional-email failed", emailErr);
+        });
+
       pushEvent("scan_lead", { device, face_width: Math.round(faceWidthMm) });
       pushEvent("fit_email_captured", { device, face_width: Math.round(faceWidthMm) });
       onSubmitted();
@@ -2537,9 +2570,11 @@ export default function FitScan() {
                 {step === "annotate" && frame && (
                   <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} initialCard={prefillPoints?.card ?? null} initialFace={prefillPoints?.face ?? null} />
                 )}
-                {step === "email-gate" && measurements && (
+                {step === "email-gate" && measurements && recommendation && (
                   <EmailGateStep
                     faceWidthMm={measurements.faceWidthMm}
+                    noseWidthMm={measurements.noseWidthMm}
+                    recommendation={recommendation}
                     device={isMobile ? "mobile" : "desktop"}
                     onSubmitted={() => {
                       setEmailCaptured(true);

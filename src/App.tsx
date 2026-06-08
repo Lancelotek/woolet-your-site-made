@@ -51,6 +51,7 @@ const WideFrameReadingGlasses = lazy(() => import("./pages/collections/WideFrame
 const OversizedSquareGlasses = lazy(() => import("./pages/collections/OversizedSquareGlasses.tsx"));
 const OversizedRoundGlasses = lazy(() => import("./pages/collections/OversizedRoundGlasses.tsx"));
 const OversizedBlackGlasses = lazy(() => import("./pages/collections/OversizedBlackGlasses.tsx"));
+const Unsubscribe = lazy(() => import("./pages/Unsubscribe.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -152,7 +153,8 @@ const App = () => (
           <Route path="/:lang/account/callback" element={<AuthCallback />} />
           <Route path="/:lang/account" element={<Account />} />
 
-          <Route path="*" element={<NotFound />} />
+         <Route path="/unsubscribe" element={<Unsubscribe />} />
+         <Route path="*" element={<NotFound />} />
         </Routes>
         </Suspense>
         </AuthProvider>
