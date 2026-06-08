@@ -79,4 +79,17 @@ const FooterLink = ({ label, href, newTab }: { label: string; href: string; newT
   return <a href={href} className={className} style={style} onClick={handleClick} target="_blank" rel="noopener noreferrer">{label}</a>;
 };
 
+const SocialIconLink = ({ label, href }: { label: string; href: string }) => {
+  const handleClick = () => pushGtmEvent("footer_click", { footer_item: label });
+  const iconClass = "w-5 h-5 text-cream-dim hover:text-primary transition-colors";
+
+  return (
+    <a href={href} onClick={handleClick} target="_blank" rel="noopener noreferrer" aria-label={label}>
+      {label === "Instagram" && <InstagramIcon className={iconClass} />}
+      {label === "Facebook" && <FacebookIcon className={iconClass} />}
+      {label === "YouTube" && <YouTubeIcon className={iconClass} />}
+    </a>
+  );
+};
+
 export default Footer;
