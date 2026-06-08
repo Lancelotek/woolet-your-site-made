@@ -853,7 +853,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 zIndex: 5,
               }}
             >
-              Card is on my forehead — continue
+              Card is on my forehead — press to confirm
             </button>
           )}
 
