@@ -509,6 +509,10 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       onError("Face the camera straight on — keep your head level and look directly at the lens.");
       return;
     }
+    if (isMobile && levelState === "off") {
+      onError("Hold the phone level — match the bubble to the centre line so the measurement isn't skewed.");
+      return;
+    }
     setBusy(true);
     capturedRef.current = true;
 
