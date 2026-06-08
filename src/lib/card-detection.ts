@@ -28,13 +28,19 @@ export type CardClassification = {
 
 export const CARD_DETECT_THRESHOLDS = {
   /** Minimum max-gradient required to consider any card-like edge present. */
-  presenceMinGrad: 7,
+  presenceMinGrad: 12,
   /** Vertical gradient must exceed horizontal by this multiplier to count as horizontal. */
-  horizontalDominanceRatio: 1.35,
+  horizontalDominanceRatio: 1.7,
   /** Min peak-row vertical gradient (structural) to accept a true card edge. */
-  peakRowMinV: 14,
+  peakRowMinV: 28,
   /** Peak row must exceed band-median row by this ratio (structural). */
-  peakRowDominanceRatio: 2.2,
+  peakRowDominanceRatio: 3.5,
+  /**
+   * Max mean horizontal-gradient (texture) allowed in the band. A real card
+   * surface is smooth (low texture); hair, eyebrows and busy backgrounds
+   * have high horizontal texture and must be rejected as false positives.
+   */
+  maxBandTexture: 11,
 } as const;
 
 export interface StructuralSample {
