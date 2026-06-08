@@ -42,10 +42,16 @@ const Footer = () => {
           Woolet by JAY23 LLC · 412 N. Main Street, STE 100 · Buffalo, Wyoming 82834
         </span>
       </div>
-      <div className="flex gap-5 flex-wrap justify-center">
+      <div className="flex gap-5 flex-wrap justify-center items-center">
         {[
           { label: "Instagram", href: "https://www.instagram.com/frames_for_wide_faces" },
           { label: "Facebook", href: "https://www.facebook.com/WooletWideFit/" },
+          { label: "YouTube", href: "https://www.youtube.com/@wooleteyewear" },
+        ].map((link) => (
+          <SocialIconLink key={link.label} {...link} />
+        ))}
+        <div className="w-px h-4 bg-cream-dim/20" />
+        {[
           { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
           { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
           { label: "Why Glasses Fail", href: `/${lang}/lp/why-glasses-fail` },
