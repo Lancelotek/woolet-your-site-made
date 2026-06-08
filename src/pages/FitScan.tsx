@@ -824,7 +824,38 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 {distanceLabel}
               </span>
             )}
+            {showPoseHint && (
+              <span className="scan-mobile-pill" style={{ borderColor: poseColor }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: poseColor, boxShadow: `0 0 6px ${poseColor}` }} />
+                {poseLabel}
+              </span>
+            )}
           </div>
+
+          {showCardOverride && !cardOverride && (
+            <button
+              type="button"
+              onClick={() => { setCardOverride(true); setShowCardOverride(false); }}
+              style={{
+                position: "absolute",
+                bottom: 24,
+                left: "50%",
+                transform: "translateX(-50%)",
+                padding: "10px 16px",
+                borderRadius: 999,
+                background: "rgba(0,0,0,0.78)",
+                color: "#fff",
+                border: `1px solid ${GOLD}`,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.72rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                zIndex: 5,
+              }}
+            >
+              Card is on my forehead — continue
+            </button>
+          )}
 
           {countdown !== null && (
             <div className="scan-mobile-countdown" aria-live="assertive">{countdown}</div>
