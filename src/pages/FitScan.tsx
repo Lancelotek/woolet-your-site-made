@@ -2858,6 +2858,19 @@ export default function FitScan() {
     }
   }, []);
 
+  // Handoff: when the phone opens a scan via QR (s=sessionId), mark it connected
+  // so the originating desktop sees the "Phone connected" status immediately.
+  useEffect(() => {
+    if (!sessionId) return;
+    supabase
+      .from("scan_sessions")
+      .update({ status: "connected" })
+      .eq("id", sessionId)
+      .then(({ error }) => {
+        if (error) console.warn("[scan] connect status update failed", error);
+      });
+  }, [sessionId]);
+
   const goWelcome = () => {
     setFrame(null);
     setMeasurements(null);

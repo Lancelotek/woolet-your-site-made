@@ -25,7 +25,7 @@ interface Props {
   onSessionComplete: (m: Measurements, r: Recommendation) => void;
 }
 
-type Phase = "email" | "waiting";
+type Phase = "email" | "waiting" | "connected";
 
 export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
   const [phase, setPhase] = useState<Phase>("email");
@@ -40,12 +40,16 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
     return `${window.location.origin}/${lang}/fit?s=${sessionId}`;
   }, [lang, sessionId]);
 
-  // Realtime: listen for the phone to write its result back to this row.
+  // Realtime: listen for the phone to connect and to write its result back.
   useEffect(() => {
     if (!sessionId) return;
 
-    const finalize = (row: Record<string, unknown>) => {
+    const handleRow = (row: Record<string, unknown>) => {
       const status = String(row.status ?? "");
+      if (status === "connected") {
+        setPhase("connected");
+        return;
+      }
       if (status !== "completed") return;
       const faceWidthMm = Number(row.face_width_mm);
       const noseWidthMm = Number(row.nose_width_mm);
@@ -71,18 +75,18 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
           table: "scan_sessions",
           filter: `id=eq.${sessionId}`,
         },
-        (payload) => finalize(payload.new as Record<string, unknown>),
+        (payload) => handleRow(payload.new as Record<string, unknown>),
       )
       .subscribe();
 
-    // Also poll once on mount in case the phone finished before we subscribed.
+    // Poll on mount to catch states that arrived before we subscribed.
     const poll = window.setInterval(async () => {
       const { data } = await supabase
         .from("scan_sessions")
         .select("*")
         .eq("id", sessionId)
         .maybeSingle();
-      if (data) finalize(data as unknown as Record<string, unknown>);
+      if (data) handleRow(data as unknown as Record<string, unknown>);
     }, 4000);
 
     return () => {
@@ -212,6 +216,59 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
             We use your email only to link this scan to you across devices. No marketing without consent.
           </p>
         </form>
+      </div>
+    );
+  }
+
+  if (phase === "connected") {
+    return (
+      <div className="flex flex-col gap-7">
+        <div className="woolet-eyebrow">
+          <div className="woolet-eyebrow-line" />
+          <span className="woolet-eyebrow-text">SCAN ON YOUR PHONE</span>
+        </div>
+        <h1
+          className="font-display text-woolet-white"
+          style={{ fontSize: "clamp(2rem, 4.2vw, 2.75rem)", fontWeight: 300, lineHeight: 1.1 }}
+        >
+          Phone <em className="italic" style={{ color: GOLD }}>connected</em>
+        </h1>
+        <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.55 }}>
+          Your phone has linked to this session. Follow the steps on your phone — hold a credit card to your forehead and take the photo. Your result will appear here automatically.
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.78rem",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+          }}
+        >
+          <span
+            aria-hidden
+            style={{
+              width: 10,
+              height: 10,
+              borderRadius: "50%",
+              background: "#4ade80",
+              boxShadow: "0 0 8px #4ade80",
+              animation: "scanHandoffPulse 1.6s ease-in-out infinite",
+            }}
+          />
+          Waiting for scan result…
+        </div>
+
+        <style>{`
+          @keyframes scanHandoffPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+          }
+        `}</style>
       </div>
     );
   }
