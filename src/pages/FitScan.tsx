@@ -1120,6 +1120,13 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (draggingRef.current !== null) return;
+    // When zoomed in, dragging the background pans the image instead of
+    // placing a new point. Lets the user fine-tune dots that are already placed.
+    if (zoom > 1) {
+      panStartRef.current = { x: e.clientX, y: e.clientY, px: pan.x, py: pan.y };
+      (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
+      return;
+    }
     const p = eventToNative(e.clientX, e.clientY);
     if (!p) return;
     if (cardCorners.length < 2) {
@@ -1130,6 +1137,55 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
       setFaceEdges((c) => [...c, p]);
     }
   };
+
+  const startDrag = (idx: number) => (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    draggingRef.current = idx;
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+  };
+
+  const handleDotMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Panning takes priority over dot dragging
+    if (panStartRef.current) {
+      const ps = panStartRef.current;
+      const next = clampPan({ x: ps.px + (e.clientX - ps.x), y: ps.py + (e.clientY - ps.y) }, zoom);
+      setPan(next);
+      return;
+    }
+    const idx = draggingRef.current;
+    if (idx === null) return;
+    e.stopPropagation();
+    const p = eventToNative(e.clientX, e.clientY);
+    if (!p) return;
+    if (idx < 2) {
+      setCardCorners((cs) => cs.map((c, i) => (i === idx ? p : c)));
+      return;
+    }
+    setFaceEdges((cs) => cs.map((c, i) => (i === idx - 2 ? p : c)));
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (panStartRef.current) {
+      panStartRef.current = null;
+      try { (e.currentTarget as Element).releasePointerCapture?.(e.pointerId); } catch { /* noop */ }
+      return;
+    }
+    if (draggingRef.current === null) return;
+    e.stopPropagation();
+    try { (e.target as Element).releasePointerCapture?.(e.pointerId); } catch { /* noop */ }
+    draggingRef.current = null;
+  };
+
+  const reset = () => {
+    setCardCorners([]);
+    setFaceEdges([]);
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  };
+
+  const cardPxNative =
+    cardCorners.length === 2 ? Math.hypot(cardCorners[1].x - cardCorners[0].x, cardCorners[1].y - cardCorners[0].y) : 0;
 
   const startDrag = (idx: number) => (e: React.PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
