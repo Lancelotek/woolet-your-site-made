@@ -415,6 +415,69 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [poseState, setPoseState] = useState<"unknown" | "ok" | "off">("unknown");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
+  // Device-orientation level (mobile only). roll = side-to-side tilt in degrees.
+  // levelState: "unknown" before first reading or unsupported, "ok" when within
+  // tolerance, "off" when phone is tilted. "needs-permission" on iOS 13+ until
+  // the user taps the enable button (gesture-required by Safari).
+  const [levelRoll, setLevelRoll] = useState<number | null>(null);
+  const [levelState, setLevelState] = useState<"unknown" | "ok" | "off" | "needs-permission" | "unsupported">("unknown");
+  const orientationHandlerRef = useRef<((e: DeviceOrientationEvent) => void) | null>(null);
+
+  const attachOrientation = useCallback(() => {
+    if (orientationHandlerRef.current) return;
+    const handler = (e: DeviceOrientationEvent) => {
+      const gamma = typeof e.gamma === "number" ? e.gamma : null;
+      const beta = typeof e.beta === "number" ? e.beta : null;
+      if (gamma === null || beta === null) return;
+      // Roll = side-to-side tilt (gamma). Phone held upright in portrait selfie
+      // posture has beta ≈ 60–100° and gamma ≈ 0°. Level when |gamma| < 4°.
+      setLevelRoll(gamma);
+      const usable = beta > 40 && beta < 120;
+      setLevelState(usable && Math.abs(gamma) < 4 ? "ok" : "off");
+    };
+    orientationHandlerRef.current = handler;
+    window.addEventListener("deviceorientation", handler, true);
+  }, []);
+
+  const requestLevelPermission = useCallback(async () => {
+    type IOSOrientation = typeof DeviceOrientationEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
+    const Ctor = (typeof DeviceOrientationEvent !== "undefined" ? DeviceOrientationEvent : null) as IOSOrientation | null;
+    if (Ctor?.requestPermission) {
+      try {
+        const res = await Ctor.requestPermission();
+        if (res === "granted") {
+          attachOrientation();
+        } else {
+          setLevelState("unsupported");
+        }
+      } catch {
+        setLevelState("unsupported");
+      }
+    } else {
+      attachOrientation();
+    }
+  }, [attachOrientation]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    if (typeof window === "undefined" || typeof DeviceOrientationEvent === "undefined") {
+      setLevelState("unsupported");
+      return;
+    }
+    type IOSOrientation = typeof DeviceOrientationEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
+    const Ctor = DeviceOrientationEvent as IOSOrientation;
+    if (typeof Ctor.requestPermission === "function") {
+      setLevelState("needs-permission");
+    } else {
+      attachOrientation();
+    }
+    return () => {
+      if (orientationHandlerRef.current) {
+        window.removeEventListener("deviceorientation", orientationHandlerRef.current, true);
+        orientationHandlerRef.current = null;
+      }
+    };
+  }, [isMobile, attachOrientation]);
 
   const deviceTip = isMobile
     ? "Hold the phone at arm's length, camera at eye level."
@@ -444,6 +507,10 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     }
     if (poseState === "off") {
       onError("Face the camera straight on — keep your head level and look directly at the lens.");
+      return;
+    }
+    if (isMobile && levelState === "off") {
+      onError("Hold the phone level — match the bubble to the centre line so the measurement isn't skewed.");
       return;
     }
     setBusy(true);
@@ -493,7 +560,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       setBusy(false);
       onError("Couldn't process the captured frame. Try again.");
     }
-  }, [busy, cardState, cardOverride, poseState, onCaptured, onError, stopAll]);
+  }, [busy, cardState, cardOverride, poseState, levelState, isMobile, onCaptured, onError, stopAll]);
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
@@ -770,7 +837,23 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const captureBlocked =
     !ready || busy || countdown !== null ||
     (cardState !== "ok" && !cardOverride) ||
-    poseState === "off";
+    poseState === "off" ||
+    (isMobile && levelState === "off");
+
+  const levelColor =
+    levelState === "ok"
+      ? "#4ade80"
+      : levelState === "off"
+        ? "#ef4444"
+        : "#facc15";
+  const levelLabel =
+    levelState === "ok"
+      ? "Phone level"
+      : levelState === "off"
+        ? "Hold phone level"
+        : levelState === "needs-permission"
+          ? "Tap to enable level"
+          : "Level unavailable";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
   if (isMobile) {
@@ -830,7 +913,62 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 {poseLabel}
               </span>
             )}
+            {levelState !== "unsupported" && (
+              <button
+                type="button"
+                onClick={levelState === "needs-permission" ? requestLevelPermission : undefined}
+                className="scan-mobile-pill"
+                style={{
+                  borderColor: levelColor,
+                  background: "rgba(0,0,0,0.55)",
+                  cursor: levelState === "needs-permission" ? "pointer" : "default",
+                }}
+                aria-live="polite"
+              >
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: levelColor, boxShadow: `0 0 6px ${levelColor}` }} />
+                {levelLabel}
+              </button>
+            )}
           </div>
+
+          {/* Bubble level: horizontal line with a dot that slides as the phone rolls.
+              Only render when we have a live reading. */}
+          {levelState !== "unsupported" && levelState !== "needs-permission" && levelRoll !== null && (
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "55%",
+                maxWidth: 260,
+                pointerEvents: "none",
+                zIndex: 4,
+              }}
+            >
+              <div style={{ position: "relative", height: 2, background: "rgba(255,255,255,0.35)", borderRadius: 2 }}>
+                {/* centre tick */}
+                <span style={{ position: "absolute", left: "50%", top: -6, width: 2, height: 14, background: "rgba(255,255,255,0.55)", transform: "translateX(-50%)" }} />
+                {/* bubble — clamp to ±25° for display */}
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: `${50 + Math.max(-25, Math.min(25, levelRoll)) * 2}%`,
+                    width: 14,
+                    height: 14,
+                    borderRadius: "50%",
+                    background: levelColor,
+                    border: "2px solid rgba(0,0,0,0.55)",
+                    boxShadow: `0 0 8px ${levelColor}`,
+                    transform: "translate(-50%, -50%)",
+                    transition: "left 80ms linear, background 200ms ease",
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
           {showCardOverride && !cardOverride && (
             <button
@@ -2843,6 +2981,13 @@ export default function FitScan() {
         const c2: Point = { x: data.card.right.x, y: data.card.right.y };
         const f1: Point = { x: data.face.left.x, y: data.face.left.y };
         const f2: Point = { x: data.face.right.x, y: data.face.right.y };
+        // When the model is highly confident in the temple/ear landmarks,
+        // skip the manual annotate step and compute the measurement directly.
+        // The user can still retake the scan if the result looks wrong.
+        if (conf >= 0.85 && runCalculate(f, c1, c2, f1, f2)) {
+          pushEvent("scan_auto_skipped_annotate", { confidence: conf });
+          return;
+        }
         setPrefillPoints({ card: [c1, c2], face: [f1, f2] });
         setStep("annotate");
         return;
