@@ -739,13 +739,20 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
   const lightingColor = lighting === "green" ? "#4ade80" : lighting === "yellow" ? "#facc15" : "#ef4444";
   const lightingLabel = lighting === "green" ? "Good light" : lighting === "yellow" ? "OK light" : "Too dark";
-  const cardColor = cardState === "ok" ? "#4ade80" : cardState === "misaligned" ? "#facc15" : "#ef4444";
-  const cardLabel =
-    cardState === "ok"
-      ? "Card detected"
+  const cardColor =
+    cardState === "ok" || cardOverride
+      ? "#4ade80"
       : cardState === "misaligned"
-        ? "Rotate card flat & horizontal"
-        : "Place card on forehead";
+        ? "#facc15"
+        : "#ef4444";
+  const cardLabel =
+    cardOverride
+      ? "Card confirmed (manual)"
+      : cardState === "ok"
+        ? "Card detected"
+        : cardState === "misaligned"
+          ? "Rotate card flat & horizontal"
+          : "Place card on forehead";
   const distanceColor =
     distanceState === "ok" ? "#4ade80" : distanceState === "unknown" ? "#facc15" : "#ef4444";
   const distanceLabel =
@@ -757,7 +764,13 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           ? "Good distance"
           : "Center your face in the oval";
   const showDistanceHint = distanceState === "too_close" || distanceState === "too_far";
-  const captureBlocked = !ready || busy || countdown !== null || cardState !== "ok";
+  const poseColor = poseState === "ok" ? "#4ade80" : poseState === "off" ? "#ef4444" : "#facc15";
+  const poseLabel = poseState === "ok" ? "Facing camera" : poseState === "off" ? "Look straight ahead" : "Center your face";
+  const showPoseHint = poseState === "off";
+  const captureBlocked =
+    !ready || busy || countdown !== null ||
+    (cardState !== "ok" && !cardOverride) ||
+    poseState === "off";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
   if (isMobile) {
