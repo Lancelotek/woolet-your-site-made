@@ -1,15 +1,9 @@
 import { useMemo, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 import type { Lang } from "@/lib/i18n";
 
 const GOLD = "#CAA449";
-const BG = "#080807";
 const MUTED = "#888888";
-
-const emailSchema = z.string().trim().email("Enter a valid email address").max(255);
 
 const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   if (typeof window === "undefined") return;
@@ -22,147 +16,25 @@ interface Props {
   lang: Lang;
 }
 
-type Phase = "email" | "qr";
-
 export default function DesktopScanGate({ lang }: Props) {
-  const [phase, setPhase] = useState<Phase>("email");
-  const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [sid, setSid] = useState<string | null>(null);
+  // Generate a stable, non-PII session flag for the QR URL on first render.
+  const sid = useState(() => {
+    if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
+    return Math.random().toString(36).slice(2) + Date.now().toString(36);
+  })[0];
 
   const scanUrl = useMemo(() => {
-    if (!sid || typeof window === "undefined") return "";
-    return `${window.location.origin}/${lang}/fit?sid=${sid}`;
+    if (typeof window === "undefined") return "";
+    const url = `${window.location.origin}/${lang}/fit?sid=${sid}`;
+    pushEvent("scan_qr_shown", { device: "desktop" });
+    return url;
   }, [lang, sid]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    const parsed = emailSchema.safeParse(email);
-    if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Invalid email");
-      return;
-    }
-    setSubmitting(true);
-    try {
-      const { error: mlErr } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: { email: parsed.data, source: "scan", device: "desktop" },
-      });
-      if (mlErr) {
-        console.warn("[scan-gate desktop] mailerlite failed", mlErr);
-      }
-      pushEvent("scan_lead", { device: "desktop" });
-      // Generate a random, non-PII session flag for the QR URL.
-      const newSid =
-        typeof crypto !== "undefined" && "randomUUID" in crypto
-          ? crypto.randomUUID()
-          : Math.random().toString(36).slice(2) + Date.now().toString(36);
-      setSid(newSid);
-      setPhase("qr");
-    } catch (err) {
-      console.error("[scan-gate desktop] submit failed", err);
-      toast.error("Couldn't continue. Try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  if (phase === "email") {
-    return (
-      <div className="flex flex-col gap-8">
-        <div className="woolet-eyebrow">
-          <div className="woolet-eyebrow-line" />
-          <span className="woolet-eyebrow-text">FIT SCAN — PHONE ONLY</span>
-        </div>
-        <h1
-          className="font-display text-woolet-white"
-          style={{ fontSize: "clamp(2.25rem, 4.8vw, 3.25rem)", fontWeight: 300, lineHeight: 1.05 }}
-        >
-          Finish the scan on your <em className="italic" style={{ color: GOLD }}>phone</em>
-        </h1>
-        <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.55 }}>
-          Enter your email — we'll show a QR code to do the 30-second scan on your phone.
-        </p>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
-          <label
-            htmlFor="scan-gate-email"
-            style={{
-              color: MUTED,
-              fontFamily: "Barlow, sans-serif",
-              fontSize: "0.72rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-            }}
-          >
-            Your email
-          </label>
-          <input
-            id="scan-gate-email"
-            type="email"
-            inputMode="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
-            style={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.16)",
-              color: "white",
-              padding: "14px 16px",
-              fontFamily: "Barlow, sans-serif",
-              fontSize: "1rem",
-              borderRadius: 4,
-            }}
-          />
-          {error && (
-            <span style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}>
-              {error}
-            </span>
-          )}
-          <button
-            type="submit"
-            disabled={submitting}
-            style={{
-              marginTop: 8,
-              background: submitting ? "rgba(202,164,73,0.4)" : GOLD,
-              color: BG,
-              fontFamily: "Barlow, sans-serif",
-              fontWeight: 500,
-              fontSize: "0.78rem",
-              padding: "18px 28px",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              border: "none",
-              cursor: submitting ? "wait" : "pointer",
-              height: 52,
-            }}
-          >
-            {submitting ? "Generating QR…" : "Show me the QR code"}
-          </button>
-          <p
-            style={{
-              color: MUTED,
-              fontFamily: "Barlow, sans-serif",
-              fontSize: "0.72rem",
-              margin: 0,
-              lineHeight: 1.5,
-            }}
-          >
-            No marketing without consent. The QR code never carries your email.
-          </p>
-        </form>
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col gap-7">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">SCAN ON YOUR PHONE</span>
+        <span className="woolet-eyebrow-text">FIT SCAN — PHONE ONLY</span>
       </div>
       <h1
         className="font-display text-woolet-white"
@@ -170,6 +42,9 @@ export default function DesktopScanGate({ lang }: Props) {
       >
         Point your phone camera at the <em className="italic" style={{ color: GOLD }}>QR code</em>
       </h1>
+      <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.55 }}>
+        The 30-second scan needs a phone camera — we'll ask for your email on the phone, after the measurement.
+      </p>
 
       <div
         style={{
