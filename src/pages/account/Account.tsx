@@ -59,6 +59,13 @@ export default function Account() {
     let cancelled = false;
     const load = async () => {
       setDataLoading(true);
+      // Link any guest scans/orders previously made with the same email to
+      // this account. Idempotent — safe to call on every Account mount.
+      try {
+        await supabase.rpc("link_user_data_by_email");
+      } catch (err) {
+        console.warn("[account] link_user_data_by_email failed", err);
+      }
       const [{ data: p }, { data: s }, { data: o }] = await Promise.all([
         supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
         supabase
