@@ -173,7 +173,7 @@ const blogPostsEN: BlogPost[] = [
 <li>The front bows, misaligning the optical centers</li>
 </ul>
 
-<p><strong>Italian acetate</strong> — the material used in Woolet's frames — is cut from solid cast sheets, not injection-molded. The Mazzucchelli process (the gold standard of acetate manufacturing since 1849) produces a material with:</p>
+<p><strong>Italian acetate</strong> — the material used in Woolet's frames — is cut from solid cast sheets, not injection-molded. The <a href="/en/collections/italian-mazzucchelli-acetate">Mazzucchelli process</a> (the gold standard of acetate manufacturing since 1849) produces a material with:</p>
 <ul>
 <li><strong>Higher structural density:</strong> resists deformation under wider spans</li>
 <li><strong>Natural flexibility:</strong> absorbs minor stress without cracking</li>
@@ -188,7 +188,7 @@ const blogPostsEN: BlogPost[] = [
 <p>Here's an honest overview of the current market:</p>
 
 <h3>Woolet (woolet.co) — Best for: Premium 155mm+ prescription eyewear</h3>
-<p>158mm total width. Italian Mazzucchelli acetate. Two models (007 round, 009 square). Designed exclusively for 155mm+ faces. Pre-launch with waitlist currently open.</p>
+<p>158mm total width. <a href="/en/collections/italian-mazzucchelli-acetate">Italian Mazzucchelli acetate</a>. Two models (007 round, 009 square). Designed exclusively for 155mm+ faces. Pre-launch with waitlist currently open.</p>
 
 <h3>Faded Days Sunglasses — Best for: Wide-face casual sunglasses</h3>
 <p>155–165mm range. Founder has a wide face himself. Good value, TR90 plastic, primarily casual/lifestyle. No prescription option.</p>
@@ -413,7 +413,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p><strong>Because the right measurement, matched to the right frame, means never adjusting your glasses again.</strong></p>
 
-<p><em>Woolet makes premium Italian acetate frames engineered for 155mm+ face widths. Woolet 007 and 009 — both at 158mm — are available for pre-order via waitlist at woolet.co.</em></p>
+<p><em>Woolet makes <a href="/en/collections/italian-mazzucchelli-acetate">premium Italian Mazzucchelli acetate frames</a> engineered for 155mm+ face widths. Woolet 007 and 009 — both at 158mm — are available for pre-order via waitlist at woolet.co.</em></p>
 `,
   },
   {
@@ -455,7 +455,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Who Is Mazzucchelli?</h2>
 
-<p>When eyewear professionals say "Italian acetate," they usually mean one specific manufacturer: <strong>Mazzucchelli 1849</strong>.</p>
+<p>When eyewear professionals say "Italian acetate," they usually mean one specific manufacturer: <strong><a href="/en/collections/italian-mazzucchelli-acetate">Mazzucchelli 1849</a></strong>.</p>
 
 <p>Founded in the province of Varese in northern Italy, Mazzucchelli has been producing cellulose acetate for eyewear for over 175 years. They are the oldest and most respected acetate manufacturer in the world, and their material is used by virtually every premium eyewear brand that matters: from independent Italian ateliers to heritage British opticians.</p>
 
@@ -543,7 +543,9 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Woolet uses Mazzucchelli acetate in both the 007 and 009 models. Not because it's fashionable to say so — but because at 158mm, it's the right engineering decision.</p>
 
-<p><em>Woolet 007 and Woolet 009 are crafted from Mazzucchelli Italian acetate, engineered for 155mm+ face widths. Join the waitlist at woolet.co.</em></p>
+<p><a href="/en/collections/italian-mazzucchelli-acetate">Shop the Italian Mazzucchelli acetate collection (158 mm)</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+
+<p><em>Woolet 007 and Woolet 009 are crafted from <a href="/en/collections/italian-mazzucchelli-acetate">Mazzucchelli Italian acetate</a>, engineered for 155mm+ face widths. Join the waitlist at woolet.co.</em></p>
 `,
   },
   {
