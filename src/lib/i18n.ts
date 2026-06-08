@@ -44,6 +44,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "footer.rights": "© 2026 JAY23 LLC — woolet.co — Eyewear for Wide Faces",
     "footer.privacy": "Privacy Policy",
     "footer.return": "Return Policy",
+    "footer.cookie_settings": "Cookie settings",
   },
   pl: {
     "nav.coming_soon": "Wkrótce",
