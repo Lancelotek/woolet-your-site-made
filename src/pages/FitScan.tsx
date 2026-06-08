@@ -1014,6 +1014,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         </summary>
         <ul style={{ marginTop: 10, lineHeight: 1.6, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
           {[
+            "Push your hair back off your forehead before scanning.",
             "Take off your glasses before scanning.",
             "Lay the card flat on your forehead, long edge horizontal.",
             "Hold the card by its top edge — keep fingers off the bottom corners.",
