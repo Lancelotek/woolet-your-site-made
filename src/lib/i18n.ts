@@ -84,6 +84,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "footer.rights": "© 2026 JAY23 LLC — woolet.co — Okulary na szeroką twarz",
     "footer.privacy": "Polityka prywatności",
     "footer.return": "Polityka zwrotów",
+    "footer.cookie_settings": "Ustawienia ciasteczek",
   },
   fr: {
     "nav.coming_soon": "Bientôt",
