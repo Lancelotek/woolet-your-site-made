@@ -2981,6 +2981,13 @@ export default function FitScan() {
         const c2: Point = { x: data.card.right.x, y: data.card.right.y };
         const f1: Point = { x: data.face.left.x, y: data.face.left.y };
         const f2: Point = { x: data.face.right.x, y: data.face.right.y };
+        // When the model is highly confident in the temple/ear landmarks,
+        // skip the manual annotate step and compute the measurement directly.
+        // The user can still retake the scan if the result looks wrong.
+        if (conf >= 0.85 && runCalculate(f, c1, c2, f1, f2)) {
+          pushEvent("scan_auto_skipped_annotate", { confidence: conf });
+          return;
+        }
         setPrefillPoints({ card: [c1, c2], face: [f1, f2] });
         setStep("annotate");
         return;
