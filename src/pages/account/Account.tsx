@@ -6,8 +6,12 @@ import { isValidLang, type Lang } from "@/lib/i18n";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { getRecommendation } from "@/lib/face-measurements";
 import { toast } from "sonner";
+
+function pickModel(faceWidthMm: number, noseWidthMm: number): "007" | "009" {
+  // 009 has the wider keyhole bridge; recommend it when the nose is wider.
+  return noseWidthMm >= 40 ? "009" : "007";
+}
 
 const GOLD = "#c9a84c";
 
