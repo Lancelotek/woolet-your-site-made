@@ -543,7 +543,9 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Woolet uses Mazzucchelli acetate in both the 007 and 009 models. Not because it's fashionable to say so — but because at 158mm, it's the right engineering decision.</p>
 
-<p><em>Woolet 007 and Woolet 009 are crafted from Mazzucchelli Italian acetate, engineered for 155mm+ face widths. Join the waitlist at woolet.co.</em></p>
+<p><a href="/en/collections/italian-mazzucchelli-acetate">Shop the Italian Mazzucchelli acetate collection (158 mm)</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+
+<p><em>Woolet 007 and Woolet 009 are crafted from <a href="/en/collections/italian-mazzucchelli-acetate">Mazzucchelli Italian acetate</a>, engineered for 155mm+ face widths. Join the waitlist at woolet.co.</em></p>
 `,
   },
   {
