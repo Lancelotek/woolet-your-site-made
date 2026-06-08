@@ -3,7 +3,8 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import { SUPPORTED_LANGS, langNames, t, isValidLang, type Lang } from "@/lib/i18n";
 import { useState } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
 
 const Navbar = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
