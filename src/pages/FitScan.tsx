@@ -1144,9 +1144,11 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             ? "Analyzing…"
             : countdown !== null
               ? `Capturing in ${countdown}…`
-              : cardState !== "ok"
-                ? cardLabel
-                : "Capture now"}
+              : poseState === "off"
+                ? "Look straight at the camera"
+                : cardState !== "ok" && !cardOverride
+                  ? cardLabel
+                  : "Capture now"}
         </button>
         <button
           type="button"
