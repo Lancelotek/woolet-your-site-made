@@ -11,6 +11,7 @@ const Navbar = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { session } = useAuth();
 
   return (
     <>
