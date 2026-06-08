@@ -10,6 +10,20 @@ const ItalianMazzucchelliAcetate = () => (
     breadcrumbName="Italian Mazzucchelli Acetate"
     metaTitle="Italian Mazzucchelli Acetate Glasses — 158 mm, Hand-Finished | Woolet"
     metaDescription="Glasses and sunglasses cut from Mazzucchelli 1849 Italian cellulose acetate. Wide 158 mm front, 21 mm bridge, hand-polished in Italy. From $133."
+    heroImage={{
+      src: heroAsset.url,
+      alt: "Woolet Havana wide-face glasses in Mazzucchelli 1849 Italian acetate, shown beside a tortoise acetate block — Founder Acetate limited edition",
+      caption: "Havana — Founder Acetate, cut from Mazzucchelli 1849 sheet.",
+      width: 1920,
+      height: 1080,
+    }}
+    inlineImage={{
+      src: stackAsset.url,
+      alt: "Black wide-face Woolet acetate frame resting on a stack of Mazzucchelli 1849 acetate colour blocks — tortoise, clear, blue, olive, amber — with a Bespoke tag",
+      caption: "Mazzucchelli 1849 colour blocks — the sheet our 158 mm frames are cut from.",
+      width: 1080,
+      height: 1440,
+    }}
     intro="Mazzucchelli has been producing cellulose acetate sheet in Castiglione Olona, near Milan, since 1849. It is the material most luxury eyewear houses cut their frames from — batch-cured for weeks, denser and more dimensionally stable than the injection-moulded plastic that fills the rest of the market. Woolet's wide-face frames are cut from that exact sheet and hand-finished in Italy, in one precise 158 mm size per shape, with bespoke covering 150–172 mm."
     whyThisFits={[
       "<strong>What Mazzucchelli acetate actually is.</strong> Cellulose acetate is a plant-based plastic spun from cotton and wood-pulp fibres, plasticised and cured into sheet stock. Mazzucchelli 1849 is the Italian mill that defined the modern process: pigment is layered into a block, the block is cured for several weeks, then sliced into sheets. The result is colour that runs through the material rather than sitting on top, and a polymer that holds its bevel across hot cars and cold mornings.",
