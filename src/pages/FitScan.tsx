@@ -2482,13 +2482,15 @@ export default function FitScan() {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const { user } = useAuth();
   const [searchParams] = useSearchParams();
   // `sid` = new "lead already captured on the other device" flag (random UUID).
   // `s`   = legacy supabase scan-session id (kept for back-compat).
   const sidParam = searchParams.get("sid");
   const sessionId = searchParams.get("s");
-  // If the visitor arrived via the desktop→phone QR, skip the email gate.
-  const emailAlreadyCaptured = !!sidParam || !!sessionId;
+  // If the visitor arrived via the desktop→QR handoff OR is already logged in,
+  // skip the email gate — we already have a verified address for them.
+  const emailAlreadyCaptured = !!sidParam || !!sessionId || !!user;
 
   const [step, setStep] = useState<Step>("welcome");
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
@@ -2503,11 +2505,10 @@ export default function FitScan() {
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
   const [prefillPoints, setPrefillPoints] = useState<{ card: [Point, Point]; face: [Point, Point] } | null>(null);
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
-  const [capturedEmail, setCapturedEmail] = useState<string>("");
+  const [capturedEmail, setCapturedEmail] = useState<string>(user?.email ?? "");
 
-  // Desktop visitors without a session id must hand off to a phone via QR.
-  // Mobile visitors, or anyone who already has ?sid= / ?s=, run the scan inline.
-  const requiresHandoff = !isMobile && !emailAlreadyCaptured;
+  // Desktop visitors without a session id and not logged in must hand off to a phone via QR.
+  const requiresHandoff = !isMobile && !sidParam && !sessionId && !user;
 
 
   useEffect(() => {
