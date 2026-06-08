@@ -148,6 +148,24 @@ const CollectionPage = ({
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 36, lineHeight: 1.15, margin: "0 0 16px" }}>
             {h1}
           </h1>
+          {heroImage && (
+            <figure style={{ margin: "0 0 18px" }}>
+              <img
+                src={heroImage.src}
+                alt={heroImage.alt}
+                width={heroImage.width}
+                height={heroImage.height}
+                loading="eager"
+                fetchPriority="high"
+                style={{ width: "100%", height: "auto", display: "block", borderRadius: 8, background: "#1A1612" }}
+              />
+              {heroImage.caption && (
+                <figcaption style={{ fontSize: 11, color: "#888", marginTop: 6, textAlign: "center", letterSpacing: "0.3px" }}>
+                  {heroImage.caption}
+                </figcaption>
+              )}
+            </figure>
+          )}
           <p style={{ fontSize: 15, lineHeight: 1.65, color: "#333", margin: 0 }}>{intro}</p>
         </header>
 
@@ -185,6 +203,23 @@ const CollectionPage = ({
           {whyThisFits.map((p, i) => (
             <p key={i} style={{ fontSize: 14, lineHeight: 1.7, color: "#222", margin: "0 0 14px" }} dangerouslySetInnerHTML={{ __html: p }} />
           ))}
+          {inlineImage && (
+            <figure style={{ margin: "20px 0 0" }}>
+              <img
+                src={inlineImage.src}
+                alt={inlineImage.alt}
+                width={inlineImage.width}
+                height={inlineImage.height}
+                loading="lazy"
+                style={{ width: "100%", maxWidth: 520, height: "auto", display: "block", margin: "0 auto", borderRadius: 8 }}
+              />
+              {inlineImage.caption && (
+                <figcaption style={{ fontSize: 11, color: "#888", marginTop: 6, textAlign: "center", letterSpacing: "0.3px" }}>
+                  {inlineImage.caption}
+                </figcaption>
+              )}
+            </figure>
+          )}
         </section>
 
         {/* Extra sections (e.g. Polarized vs standard lenses) */}

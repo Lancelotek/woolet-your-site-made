@@ -1,4 +1,7 @@
 import CollectionPage from "@/components/CollectionPage";
+import heroAsset from "@/assets/woolet-havana-mazzucchelli-1849.png.asset.json";
+import stackAsset from "@/assets/woolet-mazzucchelli-acetate-stack.png.asset.json";
+
 
 const ItalianMazzucchelliAcetate = () => (
   <CollectionPage
