@@ -176,12 +176,12 @@ function WelcomeStep({
   const steps = isMobile
     ? [
         { n: "01", title: "Grab a card", body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale.", img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal.", img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
+        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal. Push your hair back and hold the card by its top edge so your fingers don't cover the corners.", img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
         { n: "03", title: "Hold phone at arm's length", body: "Front camera, face the lens. Tap capture when ready.", img: fitStepPhone, alt: "Hand holding a smartphone at arm's length for a selfie" },
       ]
     : [
         { n: "01", title: "Grab a card", body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale.", img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal.", img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
+        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal. Push your hair back and hold the card by its top edge so your fingers don't cover the corners.", img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
         { n: "03", title: "Sit 50–70 cm back", body: "Eyes level with the webcam, then tap capture or use the 3-second timer.", img: fitStepPhone, alt: "Person facing a camera at eye level" },
       ];
 
