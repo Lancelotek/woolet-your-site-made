@@ -26,9 +26,9 @@ describe("classifyCardSample", () => {
   });
 
   it("returns nextState='misaligned' when an edge exists but the card is vertical/tilted", () => {
-    // horizontal gradient dominates → card held vertically. Keep h below the
-    // band-texture cap so the structural texture gate doesn't reject the sample.
-    const r = classifyCardSample(5, 10);
+    // Both gradients above presence floor, h below texture cap, but v does
+    // not dominate h enough → card present but not horizontal.
+    const r = classifyCardSample(13, 10);
     expect(r.cardPresent).toBe(true);
     expect(r.cardHorizontal).toBe(false);
     expect(r.cardAligned).toBe(false);
@@ -37,7 +37,7 @@ describe("classifyCardSample", () => {
 
   it("requires vGrad to dominate hGrad by the configured ratio", () => {
     const { horizontalDominanceRatio } = CARD_DETECT_THRESHOLDS;
-    const h = 5; // keep below maxBandTexture
+    const h = 8; // below maxBandTexture
     const justBelow = h * horizontalDominanceRatio - 0.01;
     const justAbove = h * horizontalDominanceRatio + 0.01;
     expect(classifyCardSample(justBelow, h).nextState).toBe("misaligned");
