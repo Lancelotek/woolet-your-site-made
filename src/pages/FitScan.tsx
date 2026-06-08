@@ -2988,46 +2988,67 @@ export default function FitScan() {
                 {(step === "result" || step === "result-sent") && measurements && recommendation && (
                   <>
                     {step === "result-sent" ? (
-                      <ResultSentStep email={capturedEmail} lang={lang} />
+                      <ResultSentStep
+                        email={capturedEmail}
+                        lang={lang}
+                        faceWidthMm={measurements.faceWidthMm}
+                        noseWidthMm={measurements.noseWidthMm}
+                        recommendation={recommendation}
+                      />
                     ) : (
-                      <div style={{ position: "relative" }}>
+                      <div style={{ position: "relative", overflow: "hidden" }}>
                         <div
                           aria-hidden={!emailCaptured}
                           style={{
-                            filter: emailCaptured ? "none" : "blur(14px)",
+                            filter: emailCaptured ? "none" : "blur(28px) saturate(0.6)",
                             pointerEvents: emailCaptured ? "auto" : "none",
                             userSelect: emailCaptured ? "auto" : "none",
                             transition: "filter 250ms ease",
+                            transform: emailCaptured ? "none" : "scale(1.04)",
                           }}
                         >
                           <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} />
                         </div>
                         {!emailCaptured && (
-                          <div
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              display: "flex",
-                              alignItems: "flex-start",
-                              justifyContent: "center",
-                              padding: "2.5rem 0.25rem 1rem",
-                              pointerEvents: "none",
-                            }}
-                          >
-                            <div style={{ width: "100%", maxWidth: 460, pointerEvents: "auto" }}>
-                              <EmailGateStep
-                                faceWidthMm={measurements.faceWidthMm}
-                                noseWidthMm={measurements.noseWidthMm}
-                                recommendation={recommendation}
-                                device={isMobile ? "mobile" : "desktop"}
-                                onSubmitted={(submittedEmail) => {
-                                  setCapturedEmail(submittedEmail);
-                                  setEmailCaptured(true);
-                                  setStep("result-sent");
-                                }}
-                              />
+                          <>
+                            {/* Opaque scrim so the rendered numbers cannot be read even on high-DPR screens. */}
+                            <div
+                              aria-hidden
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                background:
+                                  "linear-gradient(180deg, rgba(8,8,7,0.85) 0%, rgba(8,8,7,0.95) 40%, rgba(8,8,7,0.98) 100%)",
+                                pointerEvents: "none",
+                              }}
+                            />
+                            <div
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                display: "flex",
+                                alignItems: "flex-start",
+                                justifyContent: "center",
+                                padding: "2.5rem 0.25rem 1rem",
+                                pointerEvents: "none",
+                              }}
+                            >
+                              <div style={{ width: "100%", maxWidth: 460, pointerEvents: "auto" }}>
+                                <EmailGateStep
+                                  faceWidthMm={measurements.faceWidthMm}
+                                  noseWidthMm={measurements.noseWidthMm}
+                                  recommendation={recommendation}
+                                  device={isMobile ? "mobile" : "desktop"}
+                                  lang={lang}
+                                  onSubmitted={(submittedEmail) => {
+                                    setCapturedEmail(submittedEmail);
+                                    setEmailCaptured(true);
+                                    setStep("result-sent");
+                                  }}
+                                />
+                              </div>
                             </div>
-                          </div>
+                          </>
                         )}
                       </div>
                     )}
