@@ -199,6 +199,7 @@ Deno.serve(async (req) => {
     card: { left: px(parsed.card.left), right: px(parsed.card.right) },
     face: { left: px(parsed.face.left), right: px(parsed.face.right) },
     confidence: typeof parsed.confidence === "number" ? parsed.confidence : 0.5,
+    glassesDetected: parsed.glassesDetected === true,
     notes: parsed.notes ?? null,
     width,
     height,
