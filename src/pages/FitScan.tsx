@@ -434,12 +434,16 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       onError("Camera isn't ready yet — give it a second and tap capture again.");
       return;
     }
-    if (cardState !== "ok") {
+    if (cardState !== "ok" && !cardOverride) {
       onError(
         cardState === "misaligned"
           ? "Hold the card flat against your forehead with the long edge horizontal."
           : "Place a credit card flat on your forehead so we can measure — we can't see it yet.",
       );
+      return;
+    }
+    if (poseState === "off") {
+      onError("Face the camera straight on — keep your head level and look directly at the lens.");
       return;
     }
     setBusy(true);
