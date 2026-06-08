@@ -2759,6 +2759,42 @@ export default function FitScan() {
                     <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
                       {blockingMessage || errorMsg}
                     </p>
+                    {!blockingMessage && errorMsg && (
+                      <div
+                        style={{
+                          marginTop: 14,
+                          padding: "12px 16px",
+                          borderRadius: 6,
+                          background: "rgba(202,164,73,0.06)",
+                          border: `1px solid rgba(202,164,73,0.25)`,
+                        }}
+                      >
+                        <div
+                          style={{
+                            color: GOLD,
+                            fontSize: "0.7rem",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            marginBottom: 8,
+                          }}
+                        >
+                          Before you retry
+                        </div>
+                        <ul
+                          style={{
+                            margin: 0,
+                            paddingLeft: 16,
+                            color: "hsl(var(--cream-dim))",
+                            fontSize: "0.85rem",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          <li>Push your hair back off your forehead</li>
+                          <li>Hold the card by its top edge — don't cover the corners</li>
+                          <li>Lay the card flat, long edge horizontal</li>
+                        </ul>
+                      </div>
+                    )}
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
                       {!blockingMessage && errorKind === "recoverable" && (
                         <button
