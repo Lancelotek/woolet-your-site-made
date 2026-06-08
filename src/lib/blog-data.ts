@@ -188,7 +188,7 @@ const blogPostsEN: BlogPost[] = [
 <p>Here's an honest overview of the current market:</p>
 
 <h3>Woolet (woolet.co) — Best for: Premium 155mm+ prescription eyewear</h3>
-<p>158mm total width. Italian Mazzucchelli acetate. Two models (007 round, 009 square). Designed exclusively for 155mm+ faces. Pre-launch with waitlist currently open.</p>
+<p>158mm total width. <a href="/en/collections/italian-mazzucchelli-acetate">Italian Mazzucchelli acetate</a>. Two models (007 round, 009 square). Designed exclusively for 155mm+ faces. Pre-launch with waitlist currently open.</p>
 
 <h3>Faded Days Sunglasses — Best for: Wide-face casual sunglasses</h3>
 <p>155–165mm range. Founder has a wide face himself. Good value, TR90 plastic, primarily casual/lifestyle. No prescription option.</p>
