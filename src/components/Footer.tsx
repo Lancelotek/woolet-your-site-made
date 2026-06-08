@@ -53,6 +53,7 @@ const Footer = () => {
           { label: "Instagram", href: "https://www.instagram.com/frames_for_wide_faces" },
           { label: "Facebook", href: "https://www.facebook.com/WooletWideFit/" },
           { label: "YouTube", href: "https://www.youtube.com/@wooleteyewear" },
+          { label: "TikTok", href: "https://www.tiktok.com/@wooletai" },
         ].map((link) => (
           <SocialIconLink key={link.label} {...link} />
         ))}
