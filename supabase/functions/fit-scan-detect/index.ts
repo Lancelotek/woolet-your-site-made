@@ -65,6 +65,7 @@ const SCHEMA = {
       required: ["left", "right"],
     },
     confidence: { type: "number" },
+    glassesDetected: { type: "boolean" },
     notes: { type: "string" },
   },
   required: ["card", "face", "confidence"],
