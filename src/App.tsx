@@ -159,7 +159,7 @@ const App = () => (
         </Suspense>
         </AuthProvider>
       </BrowserRouter>
-      
+      <CookieBanner />
       </ErrorBoundary>
     </TooltipProvider>
   </QueryClientProvider>
