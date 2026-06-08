@@ -3256,6 +3256,7 @@ export default function FitScan() {
                                 <EmailGateStep
                                   faceWidthMm={measurements.faceWidthMm}
                                   noseWidthMm={measurements.noseWidthMm}
+                                  confidence={measurements.confidence}
                                   recommendation={recommendation}
                                   device={isMobile ? "mobile" : "desktop"}
                                   lang={lang}
