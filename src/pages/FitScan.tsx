@@ -1187,40 +1187,6 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
   const cardPxNative =
     cardCorners.length === 2 ? Math.hypot(cardCorners[1].x - cardCorners[0].x, cardCorners[1].y - cardCorners[0].y) : 0;
 
-  const startDrag = (idx: number) => (e: React.PointerEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    draggingRef.current = idx;
-    (e.target as Element).setPointerCapture?.(e.pointerId);
-  };
-
-  const handleDotMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const idx = draggingRef.current;
-    if (idx === null) return;
-    e.stopPropagation();
-    const p = eventToNative(e.clientX, e.clientY);
-    if (!p) return;
-    if (idx < 2) {
-      setCardCorners((cs) => cs.map((c, i) => (i === idx ? p : c)));
-      return;
-    }
-    setFaceEdges((cs) => cs.map((c, i) => (i === idx - 2 ? p : c)));
-  };
-
-  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (draggingRef.current === null) return;
-    e.stopPropagation();
-    try { (e.target as Element).releasePointerCapture?.(e.pointerId); } catch { /* noop */ }
-    draggingRef.current = null;
-  };
-
-  const reset = () => {
-    setCardCorners([]);
-    setFaceEdges([]);
-  };
-
-  const cardPxNative =
-    cardCorners.length === 2 ? Math.hypot(cardCorners[1].x - cardCorners[0].x, cardCorners[1].y - cardCorners[0].y) : 0;
 
   const scaleX = displaySize.w ? displaySize.w / frame.width : 1;
   const scaleY = displaySize.h ? displaySize.h / frame.height : 1;
