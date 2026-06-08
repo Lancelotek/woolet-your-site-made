@@ -37,6 +37,7 @@ const VipJoin = lazy(() => import("./pages/VipJoin.tsx"));
 const Gone = lazy(() => import("./pages/Gone.tsx"));
 const WideFaceGlasses = lazy(() => import("./pages/collections/WideFaceGlasses.tsx"));
 const ItalianAcetateSunglasses = lazy(() => import("./pages/collections/ItalianAcetateSunglasses.tsx"));
+const ItalianMazzucchelliAcetate = lazy(() => import("./pages/collections/ItalianMazzucchelliAcetate.tsx"));
 const OversizedSunglassesMen = lazy(() => import("./pages/collections/OversizedSunglassesMen.tsx"));
 const SunglassesForBigHeads = lazy(() => import("./pages/collections/SunglassesForBigHeads.tsx"));
 const GlassesForBigHeads = lazy(() => import("./pages/collections/GlassesForBigHeads.tsx"));
@@ -112,6 +113,7 @@ const App = () => (
           {/* SEO collection pages */}
           <Route path="/en/collections/wide-face-glasses" element={<WideFaceGlasses />} />
           <Route path="/en/collections/italian-acetate-sunglasses" element={<ItalianAcetateSunglasses />} />
+          <Route path="/en/collections/italian-mazzucchelli-acetate" element={<ItalianMazzucchelliAcetate />} />
           <Route path="/en/collections/oversized-sunglasses-men" element={<OversizedSunglassesMen />} />
           <Route path="/en/collections/sunglasses-for-big-heads" element={<SunglassesForBigHeads />} />
           <Route path="/en/collections/glasses-for-big-heads" element={<GlassesForBigHeads />} />

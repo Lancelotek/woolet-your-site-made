@@ -279,6 +279,21 @@ export function getMetadata(route: string): RouteMeta {
 <p>Sunglasses cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. Two shapes (Woolet 007 round, 009 soft square), 158 mm front with a 21 mm keyhole bridge. UV400, optional polarised lenses. From $114 pre-order.</p>`,
     });
   }
+  if (path === "/collections/italian-mazzucchelli-acetate") {
+    return base(route, lang, {
+      title: "Italian Mazzucchelli Acetate Glasses — 158 mm, Hand-Finished | Woolet",
+      description:
+        "Glasses and sunglasses cut from Mazzucchelli 1849 Italian cellulose acetate. Wide 158 mm front, 21 mm bridge, hand-polished in Italy. From $133.",
+      noscriptHtml: `<h1>Italian Mazzucchelli Acetate Glasses</h1>
+<p>Wide-face frames cut from Mazzucchelli 1849 cellulose-acetate sheet (Castiglione Olona, Italy) and hand-finished in Italy. Two shapes (Woolet 007 round, 009 soft square), one precise 158 mm front with a 21 mm keyhole bridge. Bespoke 150–172 mm. Optical, blue-light, prescription and polarised sunglass options share the same geometry. From $133 pre-order.</p>
+<h2>What is Mazzucchelli acetate?</h2>
+<p>Cellulose-acetate sheet made by Mazzucchelli 1849, the Italian mill that has produced acetate in Castiglione Olona since 1849. Pigment is layered into a block, batch-cured for weeks and sliced into sheets — denser, more colour-stable and easier to hand-finish than injection-moulded plastic.</p>`,
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Italian Mazzucchelli Acetate", url: `${SITE_URL}${route}` },
+    ])]);
+  }
   if (path === "/collections/oversized-sunglasses-men") {
     return base(route, lang, {
       title: "Oversized Men's Sunglasses — 158 mm Wide | Woolet",
@@ -518,6 +533,7 @@ const STATIC_ROUTES = [
   "/en/fit/bespoke",
   "/en/collections/wide-face-glasses",
   "/en/collections/italian-acetate-sunglasses",
+  "/en/collections/italian-mazzucchelli-acetate",
   "/en/collections/oversized-sunglasses-men",
   "/en/collections/sunglasses-for-big-heads",
   "/en/collections/glasses-for-big-heads",
