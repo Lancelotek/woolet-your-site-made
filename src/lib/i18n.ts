@@ -164,6 +164,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "footer.rights": "© 2026 JAY23 LLC — woolet.co — Gafas para caras anchas",
     "footer.privacy": "Política de privacidad",
     "footer.return": "Política de devolución",
+    "footer.cookie_settings": "Configuración de cookies",
   },
 };
 
