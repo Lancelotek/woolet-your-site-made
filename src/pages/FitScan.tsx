@@ -691,6 +691,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                     faceWidthMm: m.faceWidthMm,
                   });
                   setStabilizeValid(samples.length);
+                  if (samples.length === MIN_VALID) {
+                    haptic([30, 60, 30]);
+                  }
                 } catch {
                   // out-of-range / measurement error — discard this frame
                 }
