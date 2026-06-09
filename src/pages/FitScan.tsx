@@ -568,8 +568,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         setBusy(false);
         pushEvent("scan_stabilize_failed", { valid_frames: samples.length, min_required: MIN_VALID });
         onError(
-          `Nie udało się zebrać wystarczającej liczby stabilnych klatek (${samples.length}/${MIN_VALID}). ` +
-          "Trzymaj głowę i kartę nieruchomo, patrz prosto w obiektyw i spróbuj ponownie.",
+          `Couldn't collect enough stable frames (${samples.length}/${MIN_VALID}). ` +
+          "Hold your head and the card still, look straight at the lens, and try again.",
         );
         return;
       }
@@ -700,6 +700,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
+    // Piggy-back the iOS DeviceOrientation permission prompt on the capture
+    // tap — the user already has their thumb on this button, so no separate
+    // one-handed "tap to enable level" interaction is required.
+    if (levelState === "needs-permission") {
+      void requestLevelPermission();
+    }
     setCountdown(3);
     timerRef.current = window.setInterval(() => {
       setCountdown((n) => {
@@ -712,7 +718,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         return n - 1;
       });
     }, 1000);
-  }, [busy, countdown, performCapture]);
+  }, [busy, countdown, performCapture, levelState, requestLevelPermission]);
 
   const cancelTimer = useCallback(() => {
     if (timerRef.current) { window.clearInterval(timerRef.current); timerRef.current = null; }
@@ -988,7 +994,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       : levelState === "off"
         ? "Hold phone level"
         : levelState === "needs-permission"
-          ? "Tap to enable level"
+          ? "Level enables on capture"
           : "Level unavailable";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
@@ -1049,21 +1055,18 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 {poseLabel}
               </span>
             )}
-            {levelState !== "unsupported" && (
-              <button
-                type="button"
-                onClick={levelState === "needs-permission" ? requestLevelPermission : undefined}
+            {levelState !== "unsupported" && levelState !== "needs-permission" && (
+              <span
                 className="scan-mobile-pill"
                 style={{
                   borderColor: levelColor,
                   background: "rgba(0,0,0,0.55)",
-                  cursor: levelState === "needs-permission" ? "pointer" : "default",
                 }}
                 aria-live="polite"
               >
                 <span style={{ width: 8, height: 8, borderRadius: "50%", background: levelColor, boxShadow: `0 0 6px ${levelColor}` }} />
                 {levelLabel}
-              </button>
+              </span>
             )}
           </div>
 
@@ -1157,7 +1160,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.78rem" }}>
-                <span>Pomiar… trzymaj nieruchomo</span>
+                <span>Measuring… hold still</span>
                 <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/30</span>
               </div>
               <div style={{ width: "100%", height: 5, borderRadius: 999, background: "rgba(255,255,255,0.18)", overflow: "hidden" }}>
@@ -1452,7 +1455,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 letterSpacing: "0.04em",
               }}
             >
-              <span>Pomiar… trzymaj nieruchomo</span>
+              <span>Measuring… hold still</span>
               <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>
                 {stabilizeValid}/30
               </span>
