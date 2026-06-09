@@ -994,7 +994,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       : levelState === "off"
         ? "Hold phone level"
         : levelState === "needs-permission"
-          ? "Tap to enable level"
+          ? "Level enables on capture"
           : "Level unavailable";
 
   // ─── MOBILE: full-bleed camera with floating controls ───
