@@ -46,13 +46,32 @@ const readSavedConsent = (): ConsentState | null => {
   }
 };
 
+const SINGLETON_ATTR = "data-woolet-cookie-banner";
+
 const CookieBanner = () => {
   const [visible, setVisible] = useState(false);
   const [customizing, setCustomizing] = useState(false);
   const [analytics, setAnalytics] = useState(true);
   const [ads, setAds] = useState(true);
+  const [isPrimary, setIsPrimary] = useState(false);
 
   useEffect(() => {
+    // Singleton guard — only one banner instance may render, ever.
+    // Defends against SSG/hydration duplication, StrictMode double-mount,
+    // and any stale DOM left from previous renders.
+    if (typeof document === "undefined") return;
+    const existing = document.querySelectorAll(`[${SINGLETON_ATTR}]`);
+    // Remove any orphan/static markup left by prerender or previous mounts
+    existing.forEach((n) => n.remove());
+    document.documentElement.setAttribute(SINGLETON_ATTR + "-owner", "1");
+    setIsPrimary(true);
+    return () => {
+      document.documentElement.removeAttribute(SINGLETON_ATTR + "-owner");
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isPrimary) return;
     const saved = readSavedConsent();
     if (saved) {
       // Re-apply on every load so GTM gets the right state in this session
@@ -60,7 +79,8 @@ const CookieBanner = () => {
       return;
     }
     setVisible(true);
-  }, []);
+  }, [isPrimary]);
+
 
   useEffect(() => {
     const handleOpenSettings = () => {
