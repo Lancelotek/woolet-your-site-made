@@ -1033,42 +1033,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             <ellipse cx="50" cy="48" rx="28" ry="38" fill="none" stroke={GOLD} strokeWidth="0.4" strokeDasharray="1.5 1.5" opacity="0.9" />
           </svg>
 
-          {/* Lighting + tip pill */}
-          <div className="scan-mobile-topbar">
-            <span className="scan-mobile-pill">
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: lightingColor, boxShadow: `0 0 6px ${lightingColor}` }} />
-              {lightingLabel}
-            </span>
-            <span className="scan-mobile-pill" style={{ borderColor: cardColor }}>
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: cardColor, boxShadow: `0 0 6px ${cardColor}` }} />
-              {cardLabel}
-            </span>
-            {showDistanceHint && (
-              <span className="scan-mobile-pill" style={{ borderColor: distanceColor }}>
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: distanceColor, boxShadow: `0 0 6px ${distanceColor}` }} />
-                {distanceLabel}
-              </span>
-            )}
-            {showPoseHint && (
-              <span className="scan-mobile-pill" style={{ borderColor: poseColor }}>
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: poseColor, boxShadow: `0 0 6px ${poseColor}` }} />
-                {poseLabel}
-              </span>
-            )}
-            {levelState !== "unsupported" && levelState !== "needs-permission" && (
-              <span
-                className="scan-mobile-pill"
-                style={{
-                  borderColor: levelColor,
-                  background: "rgba(0,0,0,0.55)",
-                }}
-                aria-live="polite"
-              >
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: levelColor, boxShadow: `0 0 6px ${levelColor}` }} />
-                {levelLabel}
-              </span>
-            )}
-          </div>
+          {/* Status pills moved to thumb zone above the shutter for one-handed use. */}
 
           {/* Bubble level: horizontal line with a dot that slides as the phone rolls.
               Only render when we have a live reading. */}
