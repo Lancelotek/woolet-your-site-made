@@ -1036,6 +1036,22 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const showPoseHint = poseState === "off";
   const captureBlocked = !ready || busy || countdown !== null;
 
+  // Haptic ping when all gates flip to "good" — tells the user "now" before
+  // they have to read the screen. Only fires on the rising edge, mobile only.
+  const allReady =
+    (cardState === "ok" || cardOverride) &&
+    distanceState === "ok" &&
+    poseState === "ok" &&
+    lighting !== "red";
+  const allReadyPrevRef = useRef(false);
+  useEffect(() => {
+    if (!isMobile) return;
+    if (allReady && !allReadyPrevRef.current) {
+      try { navigator.vibrate?.(50); } catch { /* noop */ }
+    }
+    allReadyPrevRef.current = allReady;
+  }, [allReady, isMobile]);
+
   const levelColor =
     levelState === "ok"
       ? "#4ade80"
