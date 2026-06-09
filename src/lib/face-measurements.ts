@@ -120,16 +120,28 @@ export function calculateMeasurements(
   if (!Number.isFinite(canvasWidth) || canvasWidth < 100) {
     throw new MeasurementError("invalid_canvas", "Capture frame is invalid. Re-scan.");
   }
-  if (!Array.isArray(landmarks) || landmarks.length < 478) {
+
+  // Manual-annotation mode: user placed all 4 points (card + face edges).
+  // We don't need MediaPipe landmarks in that case — face width comes from
+  // the annotated edges, and nose width is approximated from face width
+  // using a typical anthropometric ratio (alar width ≈ 0.28 × face width,
+  // Farkas norms). This unblocks scans where the still-frame landmarker
+  // failed (low light, motion blur, partial occlusion by the card/hand).
+  const hasManualFace = !!(faceEdge1 && faceEdge2);
+  const hasLandmarks = Array.isArray(landmarks) && landmarks.length >= 478;
+
+  if (!hasLandmarks && !hasManualFace) {
     throw new MeasurementError(
       "invalid_landmarks",
       "Face wasn't fully detected. Re-scan with steady lighting.",
     );
   }
-  assertLandmark(landmarks, LANDMARKS.faceLeftTemple);
-  assertLandmark(landmarks, LANDMARKS.faceRightTemple);
-  assertLandmark(landmarks, LANDMARKS.noseLeftAlar);
-  assertLandmark(landmarks, LANDMARKS.noseRightAlar);
+  if (hasLandmarks) {
+    assertLandmark(landmarks, LANDMARKS.faceLeftTemple);
+    assertLandmark(landmarks, LANDMARKS.faceRightTemple);
+    assertLandmark(landmarks, LANDMARKS.noseLeftAlar);
+    assertLandmark(landmarks, LANDMARKS.noseRightAlar);
+  }
 
   const cardPixelWidth = Math.hypot(
     cardCorner2.x - cardCorner1.x,
@@ -143,13 +155,13 @@ export function calculateMeasurements(
     );
   }
   const mmPerPx = CARD_WIDTH_MM / cardPixelWidth;
-  const faceOvalPixelWidth = getFaceOvalPixelWidth(landmarks, canvasWidth);
+  const faceOvalPixelWidth = hasLandmarks ? getFaceOvalPixelWidth(landmarks, canvasWidth) : 0;
 
   let facePixelWidth: number;
-  if (faceEdge1 && faceEdge2) {
+  if (hasManualFace) {
     assertPoint(faceEdge1, "Left face edge point");
     assertPoint(faceEdge2, "Right face edge point");
-    const annotatedFacePixelWidth = Math.hypot(faceEdge2.x - faceEdge1.x, faceEdge2.y - faceEdge1.y);
+    const annotatedFacePixelWidth = Math.hypot(faceEdge2!.x - faceEdge1!.x, faceEdge2!.y - faceEdge1!.y);
     if (!Number.isFinite(annotatedFacePixelWidth) || annotatedFacePixelWidth < 80) {
       throw new MeasurementError(
         "face_out_of_range",
@@ -163,10 +175,18 @@ export function calculateMeasurements(
   }
   const faceWidthMmRaw = facePixelWidth * mmPerPx;
 
-  const noseLeftPx = landmarks[LANDMARKS.noseLeftAlar].x * canvasWidth;
-  const noseRightPx = landmarks[LANDMARKS.noseRightAlar].x * canvasWidth;
-  const nosePixelWidth = Math.abs(noseRightPx - noseLeftPx);
-  const noseWidthMmRaw = nosePixelWidth * mmPerPx;
+  let nosePixelWidth: number;
+  let noseWidthMmRaw: number;
+  if (hasLandmarks) {
+    const noseLeftPx = landmarks[LANDMARKS.noseLeftAlar].x * canvasWidth;
+    const noseRightPx = landmarks[LANDMARKS.noseRightAlar].x * canvasWidth;
+    nosePixelWidth = Math.abs(noseRightPx - noseLeftPx);
+    noseWidthMmRaw = nosePixelWidth * mmPerPx;
+  } else {
+    // Anthropometric approximation when landmarks are unavailable.
+    noseWidthMmRaw = faceWidthMmRaw * 0.28;
+    nosePixelWidth = noseWidthMmRaw / mmPerPx;
+  }
 
   const faceWidthMm = Math.round(faceWidthMmRaw);
   const noseWidthMm = Math.round(noseWidthMmRaw);
