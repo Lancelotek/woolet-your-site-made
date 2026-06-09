@@ -159,6 +159,18 @@ interface CapturedFrame {
   landmarks: NormalizedLandmark[];
   /** In-memory canvas of the captured frame; used for auto corner detection. */
   canvas?: HTMLCanvasElement;
+  /**
+   * When set, the capture was produced by the multi-frame stabilizer:
+   * 3 s of MediaPipe video frames, pose- and card-gated, with median
+   * face-width-mm chosen as the canonical sample. Callers can skip the
+   * server-side detection roundtrip and use these coordinates directly.
+   */
+  stabilized?: {
+    cardCorners: [Point, Point];
+    faceEdges: [Point, Point];
+    medianFaceWidthMm: number;
+    frameCount: number;
+  };
 }
 
 /* ─────────────── Welcome ─────────────── */
