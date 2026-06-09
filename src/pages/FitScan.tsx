@@ -1103,43 +1103,56 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             <div className="scan-mobile-countdown" aria-live="assertive">{countdown}</div>
           )}
 
-          {stabilizing && (
-            <div
-              role="status"
-              aria-live="polite"
-              style={{
-                position: "absolute",
-                left: 12,
-                right: 12,
-                bottom: 12,
-                padding: "10px 12px",
-                borderRadius: 10,
-                background: "rgba(8,8,7,0.78)",
-                border: `1px solid ${GOLD}`,
-                color: "#fff",
-                fontFamily: "Barlow, sans-serif",
-                display: "flex",
-                flexDirection: "column",
-                gap: 6,
-                zIndex: 5,
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.78rem" }}>
-                <span>Measuring… hold still</span>
-                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/30</span>
-              </div>
-              <div style={{ width: "100%", height: 5, borderRadius: 999, background: "rgba(255,255,255,0.18)", overflow: "hidden" }}>
-                <div style={{ width: `${Math.round(stabilizeProgress)}%`, height: "100%", background: GOLD, transition: "width 120ms linear" }} />
-              </div>
-            </div>
-          )}
         </div>
 
         <div className="scan-mobile-controls">
+          {/* Status row sits in the thumb zone right above the shutter so
+              the user can read it without reaching the top of the screen. */}
+          <div className="scan-status-row" aria-live="polite">
+            <span className="scan-status-chip">
+              <span className="scan-status-dot" style={{ background: lightingColor, boxShadow: `0 0 6px ${lightingColor}` }} />
+              {lightingLabel}
+            </span>
+            <span className="scan-status-chip" style={{ borderColor: cardColor }}>
+              <span className="scan-status-dot" style={{ background: cardColor, boxShadow: `0 0 6px ${cardColor}` }} />
+              {cardLabel}
+            </span>
+            {showDistanceHint && (
+              <span className="scan-status-chip" style={{ borderColor: distanceColor }}>
+                <span className="scan-status-dot" style={{ background: distanceColor, boxShadow: `0 0 6px ${distanceColor}` }} />
+                {distanceLabel}
+              </span>
+            )}
+            {showPoseHint && (
+              <span className="scan-status-chip" style={{ borderColor: poseColor }}>
+                <span className="scan-status-dot" style={{ background: poseColor, boxShadow: `0 0 6px ${poseColor}` }} />
+                {poseLabel}
+              </span>
+            )}
+            {levelState !== "unsupported" && levelState !== "needs-permission" && (
+              <span className="scan-status-chip" style={{ borderColor: levelColor }}>
+                <span className="scan-status-dot" style={{ background: levelColor, boxShadow: `0 0 6px ${levelColor}` }} />
+                {levelLabel}
+              </span>
+            )}
+          </div>
+
+          {stabilizing && (
+            <div className="scan-stabilize-bar" role="status" aria-live="polite">
+              <div className="scan-stabilize-head">
+                <span>Measuring… hold still</span>
+                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/30</span>
+              </div>
+              <div className="scan-stabilize-track">
+                <div className="scan-stabilize-fill" style={{ width: `${Math.round(stabilizeProgress)}%` }} />
+              </div>
+            </div>
+          )}
+
           <button
             type="button"
             className="scan-shutter"
-            aria-label="Capture photo"
+            aria-label={countdown !== null ? `Capturing in ${countdown}` : "Capture photo"}
             onClick={performCapture}
             disabled={captureBlocked}
           >
