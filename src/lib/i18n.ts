@@ -141,6 +141,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "hero.title_2": "que se ajustan a",
     "hero.title_3": "caras anchas.",
     "hero.desc": "Woolet 007 y 009 — acetato italiano, diseñadas para caras de 155mm+. Patillas alargadas. Puente más ancho. Sin compromisos de estilo.",
+    "cta.scan_face_free": "Escanea tu cara — gratis",
     "waitlist.label": "Lista de espera",
     "waitlist.spots": "plazas",
     "waitlist.first_name": "Nombre",
