@@ -591,10 +591,13 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
       capturedRef.current = true;
       stopAll();
+      const rejectedPct = totalTicks > 0 ? Math.round(((totalTicks - samples.length) / totalTicks) * 100) : 0;
       pushEvent("scan_captured", {
         stabilized: true,
         valid_frames: samples.length,
+        total_frames_attempted: totalTicks,
         median_face_width_mm: median.faceWidthMm,
+        rejected_pct: rejectedPct,
       });
       onCaptured({
         dataUrl,
