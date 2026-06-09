@@ -668,7 +668,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 w,
                 h,
               );
-              if (corner && corner.confidence >= 0.55) {
+              if (corner && corner.confidence >= 0.4) {
                 const halfW = faceWpx / 2;
                 const expanded = halfW * 1.12;
                 const yMid = ((faceLeft.y + faceRight.y) / 2) * h;
