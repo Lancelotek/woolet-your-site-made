@@ -18,6 +18,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "hero.title_2": "that fit a ",
     "hero.title_3": "wide face.",
     "hero.desc": "Woolet 007 & 009 — Italian acetate, precision-engineered for 155mm+ face widths. Extended temples. Wider bridge. Zero compromise on style.",
+    "cta.scan_face_free": "Scan your face — free",
     "waitlist.label": "Waitlist",
     "waitlist.spots": "spots",
     "waitlist.first_name": "First name",
