@@ -3589,6 +3589,7 @@ export default function FitScan() {
           .scan-diag-grid b {
             color: #fff;
             font-weight: 600;
+          }
           .scan-shutter {
             width: 88px;
             height: 88px;
@@ -3596,10 +3597,13 @@ export default function FitScan() {
             background: transparent;
             border: 3px solid ${GOLD};
             padding: 0;
+            appearance: none;
+            -webkit-appearance: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex: 0 0 auto;
             transition: transform 120ms ease;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
