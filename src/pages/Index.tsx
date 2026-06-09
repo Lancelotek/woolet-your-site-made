@@ -194,7 +194,7 @@ const Index = () => {
           onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
         >
-          Scan your face — free
+          {t(lang, "cta.scan_face_free")}
         </a>
         {/* Tiny waitlist alternative — link to product 007 */}
         <a
