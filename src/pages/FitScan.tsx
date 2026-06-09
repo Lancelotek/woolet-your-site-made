@@ -706,7 +706,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         // landmarker hiccup — keep collecting
       }
 
-      if (elapsed < TARGET_MS) {
+      // Keep going past TARGET_MS up to MAX_MS if we still don't have enough valid frames.
+      const needMore = samples.length < MIN_VALID;
+      if (elapsed < TARGET_MS || (needMore && elapsed < MAX_MS)) {
         stabilizeRafRef.current = requestAnimationFrame(tick);
       } else {
         finalize();
