@@ -462,6 +462,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [levelRoll, setLevelRoll] = useState<number | null>(null);
   const [levelState, setLevelState] = useState<"unknown" | "ok" | "off" | "needs-permission" | "unsupported">("unknown");
   const orientationHandlerRef = useRef<((e: DeviceOrientationEvent) => void) | null>(null);
+  const STABILIZE_TARGET_MS = 3000;
+  const STABILIZE_MAX_MS = 8000;
+  const STABILIZE_MIN_VALID = 8;
 
   const attachOrientation = useCallback(() => {
     if (orientationHandlerRef.current) return;
@@ -546,22 +549,6 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       onError("Camera isn't ready yet — give it a second and tap capture again.");
       return;
     }
-    if (cardState !== "ok" && !cardOverride) {
-      onError(
-        cardState === "misaligned"
-          ? "Hold the card flat against your forehead with the long edge horizontal."
-          : "Place a credit card flat on your forehead so we can measure — we can't see it yet.",
-      );
-      return;
-    }
-    if (poseState === "off") {
-      onError("Face the camera straight on — keep your head level and look directly at the lens.");
-      return;
-    }
-    if (isMobile && levelState === "off") {
-      onError("Hold the phone level — match the bubble to the centre line so the measurement isn't skewed.");
-      return;
-    }
 
     setBusy(true);
     setStabilizing(true);
@@ -591,25 +578,13 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     }
     const samples: ValidSample[] = [];
     let totalTicks = 0;
-    const TARGET_MS = 3000;
-    const MAX_MS = 6000; // keep collecting up to 6s if we don't have enough samples
-    const MIN_VALID = 15;
     const startTs = performance.now();
 
     const finalize = () => {
       setStabilizing(false);
-      if (samples.length < MIN_VALID) {
-        setBusy(false);
-        pushEvent("scan_stabilize_failed", { valid_frames: samples.length, min_required: MIN_VALID });
-        onError(
-          `Couldn't collect enough stable frames (${samples.length}/${MIN_VALID}). ` +
-          "Hold your head and the card still, look straight at the lens, and try again.",
-        );
-        return;
-      }
+      const partialSample = samples.length > 0 ? [...samples].sort((a, b) => a.faceWidthMm - b.faceWidthMm)[Math.floor(samples.length / 2)] : null;
 
-      const sorted = [...samples].sort((a, b) => a.faceWidthMm - b.faceWidthMm);
-      const median = sorted[Math.floor(sorted.length / 2)];
+      const median = partialSample;
 
       const cv = document.createElement("canvas");
       cv.width = w;
@@ -625,26 +600,29 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
       capturedRef.current = true;
       stopAll();
-      const rejectedPct = totalTicks > 0 ? Math.round(((totalTicks - samples.length) / totalTicks) * 100) : 0;
+      const validFrames = samples.length;
+      const rejectedPct = totalTicks > 0 ? Math.round(((totalTicks - validFrames) / totalTicks) * 100) : 0;
       pushEvent("scan_captured", {
-        stabilized: true,
-        valid_frames: samples.length,
+        stabilized: validFrames >= STABILIZE_MIN_VALID,
+        valid_frames: validFrames,
         total_frames_attempted: totalTicks,
-        median_face_width_mm: median.faceWidthMm,
+        median_face_width_mm: median?.faceWidthMm ?? null,
         rejected_pct: rejectedPct,
       });
       onCaptured({
         dataUrl,
         width: w,
         height: h,
-        landmarks: median.landmarks,
+        landmarks: median?.landmarks ?? [],
         canvas: cv,
-        stabilized: {
-          cardCorners: median.corners,
-          faceEdges: median.faceEdges,
-          medianFaceWidthMm: median.faceWidthMm,
-          frameCount: samples.length,
-        },
+        stabilized: median
+          ? {
+              cardCorners: median.corners,
+              faceEdges: median.faceEdges,
+              medianFaceWidthMm: median.faceWidthMm,
+              frameCount: validFrames,
+            }
+          : undefined,
       });
     };
 
@@ -663,7 +641,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       diag.total = totalTicks;
       const now = performance.now();
       const elapsed = now - startTs;
-      setStabilizeProgress(Math.min(100, (elapsed / TARGET_MS) * 100));
+      setStabilizeProgress(Math.min(100, (elapsed / STABILIZE_TARGET_MS) * 100));
 
       let reason = "—";
       try {
@@ -695,14 +673,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             diag.lastYawDeg = yawDeg;
             diag.lastPitchDeg = pitchDeg;
             diag.lastRollDeg = rollDeg;
-            const faceFrontal = rollDeg < 8 && yawRatio < 0.16 && pitchRatio < 0.18;
+            const faceFrontal = rollDeg < 12 && yawRatio < 0.24 && pitchRatio < 0.24;
 
             if (!faceFrontal) {
               diag.poseOff++;
               const parts: string[] = [];
-              if (rollDeg >= 8) parts.push(`roll ${rollDeg.toFixed(0)}°`);
-              if (yawRatio >= 0.16) parts.push(`yaw ${yawDeg.toFixed(0)}°`);
-              if (pitchRatio >= 0.18) parts.push(`pitch ${pitchDeg.toFixed(0)}°`);
+              if (rollDeg >= 12) parts.push(`roll ${rollDeg.toFixed(0)}°`);
+              if (yawRatio >= 0.24) parts.push(`yaw ${yawDeg.toFixed(0)}°`);
+              if (pitchRatio >= 0.24) parts.push(`pitch ${pitchDeg.toFixed(0)}°`);
               reason = `Pose off (${parts.join(", ")})`;
             } else {
               const cx = ((faceLeft.x + faceRight.x) / 2) * w;
@@ -718,7 +696,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 h,
               );
               diag.lastCardConf = corner ? corner.confidence : 0;
-              if (!corner || corner.confidence < 0.4) {
+              if (!corner || corner.confidence < 0.22) {
                 diag.cardLow++;
                 reason = corner
                   ? `Card confidence low (${Math.round(corner.confidence * 100)}%)`
@@ -746,7 +724,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   diag.valid = samples.length;
                   setStabilizeValid(samples.length);
                   reason = `Valid frame (${m.faceWidthMm} mm)`;
-                  if (samples.length === MIN_VALID) {
+                  if (samples.length === STABILIZE_MIN_VALID) {
                     haptic([30, 60, 30]);
                   }
                 } catch (e) {
@@ -766,8 +744,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       flushDiag();
 
       // Keep going past TARGET_MS up to MAX_MS if we still don't have enough valid frames.
-      const needMore = samples.length < MIN_VALID;
-      if (elapsed < TARGET_MS || (needMore && elapsed < MAX_MS)) {
+      const needMore = samples.length < STABILIZE_MIN_VALID;
+      if (elapsed < STABILIZE_TARGET_MS || (needMore && elapsed < STABILIZE_MAX_MS)) {
         stabilizeRafRef.current = requestAnimationFrame(tick);
       } else {
         flushDiag(true);
