@@ -1036,6 +1036,22 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const showPoseHint = poseState === "off";
   const captureBlocked = !ready || busy || countdown !== null;
 
+  // Haptic ping when all gates flip to "good" — tells the user "now" before
+  // they have to read the screen. Only fires on the rising edge, mobile only.
+  const allReady =
+    (cardState === "ok" || cardOverride) &&
+    distanceState === "ok" &&
+    poseState === "ok" &&
+    lighting !== "red";
+  const allReadyPrevRef = useRef(false);
+  useEffect(() => {
+    if (!isMobile) return;
+    if (allReady && !allReadyPrevRef.current) {
+      try { navigator.vibrate?.(50); } catch { /* noop */ }
+    }
+    allReadyPrevRef.current = allReady;
+  }, [allReady, isMobile]);
+
   const levelColor =
     levelState === "ok"
       ? "#4ade80"
@@ -1085,7 +1101,70 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             </defs>
             <rect width="100" height="100" fill="rgba(0,0,0,0.35)" mask="url(#ovalMask)" />
             <ellipse cx="50" cy="48" rx="28" ry="38" fill="none" stroke={GOLD} strokeWidth="0.4" strokeDasharray="1.5 1.5" opacity="0.9" />
+
+            {/* Card-on-forehead frame: rectangle in the upper forehead band.
+                Stroke color reflects live card-detection state (green/yellow/red). */}
+            <rect
+              x="36" y="14" width="28" height="9"
+              rx="1.2" ry="1.2"
+              fill="none"
+              stroke={cardColor}
+              strokeWidth="0.5"
+              strokeDasharray="2 1.2"
+              opacity="0.85"
+            />
+
+            {/* Ear-height guide lines: dashed gold ticks at temple height
+                (roughly the eye/ear line of the oval guide). Helps users
+                center the face vertically so eyes sit on the eye-line. */}
+            <line x1="14" y1="46" x2="22.5" y2="46" stroke={GOLD} strokeWidth="0.35" strokeDasharray="1 1" opacity="0.7" />
+            <line x1="77.5" y1="46" x2="86" y2="46" stroke={GOLD} strokeWidth="0.35" strokeDasharray="1 1" opacity="0.7" />
           </svg>
+
+          {/* Hot/cold distance strip: vertical pill on the right edge.
+              Three zones — too close (top, red), ideal (middle, green),
+              too far (bottom, blue). Indicator dot slides to match state. */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              right: 12,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 10,
+              height: 140,
+              borderRadius: 999,
+              background: "linear-gradient(to bottom, rgba(239,68,68,0.55) 0%, rgba(239,68,68,0.55) 28%, rgba(74,222,128,0.6) 38%, rgba(74,222,128,0.6) 62%, rgba(96,165,250,0.55) 72%, rgba(96,165,250,0.55) 100%)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.35)",
+              pointerEvents: "none",
+              zIndex: 4,
+            }}
+          >
+            <span
+              style={{
+                position: "absolute",
+                left: "50%",
+                top:
+                  distanceState === "too_close"
+                    ? "14%"
+                    : distanceState === "too_far"
+                      ? "86%"
+                      : distanceState === "ok"
+                        ? "50%"
+                        : "50%",
+                width: 16,
+                height: 16,
+                borderRadius: "50%",
+                background: distanceColor,
+                border: "2px solid rgba(0,0,0,0.6)",
+                boxShadow: `0 0 8px ${distanceColor}`,
+                transform: "translate(-50%, -50%)",
+                transition: "top 160ms ease, background 200ms ease",
+                opacity: distanceState === "unknown" ? 0.45 : 1,
+              }}
+            />
+          </div>
 
           {/* Status pills moved to thumb zone above the shutter for one-handed use. */}
 
