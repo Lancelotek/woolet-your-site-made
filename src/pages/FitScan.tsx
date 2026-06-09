@@ -41,6 +41,12 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   w.dataLayer.push({ event, ...params });
 };
 
+const haptic = (pattern: number | number[]) => {
+  if (typeof navigator !== "undefined" && navigator.vibrate) {
+    navigator.vibrate(pattern);
+  }
+};
+
 type Step = "welcome" | "camera" | "analyzing" | "annotate" | "email-gate" | "result" | "result-sent";
 
 /* ─────────────── Analyzing (progress) ─────────────── */
