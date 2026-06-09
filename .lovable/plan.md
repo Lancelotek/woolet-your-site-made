@@ -1,51 +1,53 @@
 ## Cel
-Po skanie zostawiony email zamienia się w konto (magic link). Użytkownik loguje się jednym kliknięciem i widzi swój panel: historię pomiarów, rekomendowany model, zamówienia i edycję profilu.
 
-## Architektura
+Przetłumaczyć wszystkie widoczne dla użytkownika teksty na stronie `/:lang/fit` (skan twarzy) na polski, francuski i hiszpański. Obecnie cała strona — 3974 linii, ~200+ stringów UI — jest twardo zakodowana po angielsku, mimo że route `/:lang/fit` istnieje dla wszystkich języków.
 
-### Backend (Lovable Cloud)
-1. **Auth: magic link (OTP email)** — bez hasła. Wykorzystamy Lovable Auth email templates (brandowane wiadomości w stylu Woolet, EN/PL/FR/ES).
-2. **Nowe tabele:**
-   - `profiles` (id → auth.users, email, full_name, locale, marketing_opt_in, created_at) + trigger `handle_new_user` auto-tworzący wiersz na sygnał z `auth.users`.
-3. **Modyfikacja `scan_sessions`:** dodanie `user_id uuid references auth.users(id)`. Backfill: edge function `link-scans-to-user` przy logowaniu dopina wszystkie sesje o tym samym mailu do `user_id`.
-4. **Modyfikacja `founding_members`:** analogicznie kolumna `user_id` + backfill po mailu.
-5. **RLS przebudowane:**
-   - `scan_sessions`: SELECT/UPDATE tylko dla `auth.uid() = user_id`; anon insert zostaje (skan z telefonu bez logowania).
-   - `founding_members`: SELECT tylko dla właściciela, service_role zachowuje pełen dostęp.
-   - `profiles`: właściciel czyta/edytuje siebie.
-6. **GRANTy** dla każdej nowej tabeli/kolumny zgodnie ze standardem.
+## Zakres
 
-### Frontend
-1. **Strony pod każdym `/{lang}/`:**
-   - `/account/sign-in` — formularz „wyślij mi link" (jeden input email + checkbox prywatności).
-   - `/account/callback` — odbiera token z linku, robi `verifyOtp`, woła backfill, redirect do `/account`.
-   - `/account` — dashboard z 4 sekcjami: Pomiary, Rekomendacja, Zamówienia, Profil.
-2. **`AuthProvider`** (kontekst React + `onAuthStateChange`, `getUser` do walidacji).
-3. **Po zakończonym skanie** (FitScan ekran wyniku): dodajemy panel „Zapisz wyniki na koncie — wyślemy link na {email}", jeden klik → magic link. Email z wynikiem jest już w `scan_sessions`, więc backfill automatycznie dopnie historię.
-4. **Navbar:** dyskretny link „Account" (ikona) — zalogowany widzi awatar/inicjał, niezalogowany „Sign in".
+**W zakresie (UI strony FitScan):**
+- `WelcomeStep` — eyebrow, H1, opis, 3 kroki z ikonami, "card requirement" box, CTA "Start scan", link do wizard, disclaimers
+- `DesktopScanGate` (QR dla desktopu) — H1, opis, 4 punkty instrukcji, fallback "Can't scan the QR code?"
+- `CameraStep` — overlay z instrukcjami, status oświetlenia, status karty (none/ok/misaligned), countdown, "tilt your phone", przycisk capture, przycisk timer, przycisk override karty
+- `AnalyzingStep` — 5 etapów progress, "Analyzing your measurements", "This usually takes 8–15 seconds…"
+- `AnnotateStep` — instrukcje ręcznego zaznaczania kart/krawędzi twarzy
+- `EmailGateStep` — H1, opis, pola formularza, privacy checkbox, CTA, disclaimer
+- `ResultStep` / `ResultSentStep` — rekomendacja modelu (007/009), pomiary mm, kształt twarzy, CTA do produktu, link "Send again"
+- Wszystkie toasty błędów (camera permission denied, no face detected, card not found, network error, invalid email, etc.)
+- SEO `<title>` i `<meta description>` per język
 
-### Styling
-Trzymamy istniejący język: Ink (#0f0f0f), Gold (#c9a84c), Cormorant Garamond nagłówki, Barlow body. Dashboard w wąskiej kolumnie zgodnej z layoutem (`max-w-[680px]`).
+**Poza zakresem:**
+- Logika scanu, MediaPipe, detekcja karty, edge functions — żadnych zmian
+- Pliki obrazów (alt text zostaje w EN, bo te same assets)
+- Strony `/fit/wizard`, `/fit/manual`, `/fit/bespoke` — osobne pliki, nie są częścią tego zadania (mogą zostać zgłoszone osobno)
 
-## Detale techniczne
+## Podejście techniczne
 
-- `supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: `${origin}/{lang}/account/callback` } })`
-- Brak haseł, brak rejestracji „klasycznej". `disable_signup=false`, `auto_confirm_email=false` (i tak magic link weryfikuje).
-- Edge function `link-scans-to-user` (verify_jwt=true): bierze `auth.uid()` i email z JWT, UPDATE `scan_sessions SET user_id=$uid WHERE email=$mail AND user_id IS NULL` oraz analogicznie `founding_members`.
-- Auth email templates: 1 szablon `magic-link` w brandzie Woolet, czarne tło, gold CTA, EN copy (potem PL/FR/ES).
-- Walidacja Zod na froncie i w edge function.
-- Wszystkie linki uwzględniają prefix locale (zgodnie z core memory).
+1. **Audyt stringów** — przeczytać cały `FitScan.tsx` i wypisać każdy widoczny tekst → zebrać ~120–180 kluczy w jednym pliku roboczym.
+2. **Nowy plik `src/lib/i18n-fitscan.ts`** — osobny obiekt translacji tylko dla FitScan (żeby nie rozdmuchać głównego `i18n.ts` o setki kluczy). Eksportuje funkcję `tFit(lang, key)`.
+   - Klucze grupowane prefiksami: `welcome.*`, `desktop.*`, `camera.*`, `analyzing.*`, `annotate.*`, `email.*`, `result.*`, `error.*`, `seo.*`.
+3. **Refactor `FitScan.tsx`** — zamienić każdy widoczny string na `tFit(lang, "...")`. `lang` jest już w komponencie z `useParams`. Sub-komponenty (WelcomeStep, CameraStep itd.) dostaną `lang` jako prop (większość już dostaje).
+4. **Tłumaczenia PL / FR / ES** — pełne, profesjonalne tłumaczenia. Brand voice spójny z istniejącym `i18n.ts` (krótkie, eleganckie, "wide faces only").
+5. **Polskie znaki, francuskie akcenty, hiszpańska ñ** — UTF-8, zgodnie z resztą projektu.
+6. **Smoke test** — po refactorze: `tsc --noEmit`, sprawdzić render `/pl/fit`, `/fr/fit`, `/es/fit` w przeglądarce (welcome step).
 
-## Migracje (kolejność)
-1. `profiles` + trigger + RLS + GRANTy.
-2. `scan_sessions.user_id` + nowe policy.
-3. `founding_members.user_id` + nowe policy.
+## Ryzyka
 
-## Czego NIE robię
-- Bez logowania Google (możemy dodać później).
-- Bez hasła (czysty magic link).
-- Bez zmian w fluxie skanu poza dodaniem CTA „zapisz na koncie" na ekranie wyniku.
-- Bez Stripe Customer Portal w tej iteracji — sekcja Zamówienia pokazuje listę z `founding_members`.
+- **Rozmiar zmiany** — ~3974 linii pliku, kilkaset edycji. Wykonane przez wiele równoległych `line_replace` w jednym pliku zwiększa ryzyko konfliktów. Zrobię to sekwencyjnie sekcjami (jedna sekcja = jeden komponent).
+- **Regresja logiki scanu** — niedawno (3 wiadomości temu) naprawialiśmy `face-measurements.ts`. Ten refactor dotyka **tylko prezentacji** (stringi), nie logiki, ale każde dotknięcie 4000-liniowego pliku to ryzyko literówki w JSX. Po każdej sekcji weryfikuję build.
+- **Długość tłumaczeń** — niektóre layouty (np. przycisk capture) mają sztywne `height/padding`. Francuskie i hiszpańskie tłumaczenia bywają 20–30% dłuższe — może wymagać drobnych korekt CSS (font-size, white-space).
+- **Czas** — to nie jest "szybka zmiana". Realnie ~4–6 dużych tour edytów. Jeśli wolisz, mogę zacząć od **fazy 1** (Welcome + Desktop + Email + Result — najbardziej widoczne ekrany) i fazę 2 (Camera + Annotate + błędy) zrobić w kolejnej iteracji.
 
-## Rezultat
-Użytkownik po skanie dostaje opcję „zachowaj wynik" → email → klik → zalogowany na `/account` z historią pomiarów (z mailowych dopasowań), rekomendacją (007/009 z najnowszej sesji), listą zamówień pre-order i edycją profilu.
+## Plan wykonania (proponowana kolejność)
+
+1. Stworzyć `src/lib/i18n-fitscan.ts` z kompletem kluczy PL/FR/ES/EN.
+2. Refactor `WelcomeStep` (pierwszy widok użytkownika).
+3. Refactor `DesktopScanGate` (desktop QR).
+4. Refactor `EmailGateStep` + `ResultStep` + `ResultSentStep`.
+5. Refactor `AnalyzingStep` + `AnnotateStep`.
+6. Refactor `CameraStep` + wszystkie toasty błędów.
+7. Refactor SEO meta tags per język.
+8. `tsc --noEmit` + ręczny smoke test PL/FR/ES.
+
+## Pytanie do potwierdzenia
+
+Czy mam zrobić **wszystko w jednej dużej iteracji** (długa odpowiedź, ale skończone), czy podzielić na **fazę 1 (najważniejsze ekrany — Welcome/Email/Result)** teraz, a Camera/Annotate/błędy w kolejnej turze (szybciej dostarczone, łatwiejsze do zweryfikowania)?
