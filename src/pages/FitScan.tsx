@@ -52,7 +52,7 @@ type Step = "welcome" | "camera" | "analyzing" | "annotate" | "email-gate" | "re
 
 /* ─────────────── Analyzing (progress) ─────────────── */
 
-function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
+function AnalyzingStep({ previewUrl, lang }: { previewUrl?: string; lang: Lang }) {
   // Estimated duration ~12s for Gemini round-trip. We animate towards 92% and
   // hold there until the parent transitions to the next step.
   const ESTIMATE_MS = 12000;
@@ -60,11 +60,11 @@ function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
   const [stageIdx, setStageIdx] = useState(0);
 
   const stages = [
-    "Uploading your photo securely…",
-    "Detecting the credit card on your forehead…",
-    "Locating face landmarks (478 points)…",
-    "Calculating face width and bridge size…",
-    "Almost done — preparing your recommendation…",
+    tFit(lang, "analyzing.stage1"),
+    tFit(lang, "analyzing.stage2"),
+    tFit(lang, "analyzing.stage3"),
+    tFit(lang, "analyzing.stage4"),
+    tFit(lang, "analyzing.stage5"),
   ];
 
   useEffect(() => {
@@ -123,7 +123,7 @@ function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
       <style>{`@keyframes fitscan-spin { to { transform: rotate(360deg); } }`}</style>
 
       <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 26, lineHeight: 1.2 }}>
-        Analyzing your measurements
+        {tFit(lang, "analyzing.title")}
       </div>
 
       <div
@@ -151,7 +151,7 @@ function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
       </div>
 
       <div style={{ fontSize: 11, color: MUTED, maxWidth: 320 }}>
-        This usually takes 8–15 seconds. Please keep this page open.
+        {tFit(lang, "analyzing.footnote")}
       </div>
     </div>
   );
@@ -195,30 +195,30 @@ function WelcomeStep({
 }) {
   const steps = isMobile
     ? [
-        { n: "01", title: "Grab a card", body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale.", img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal. Push your hair back and hold the card by its top edge so your fingers don't cover the corners.", img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
-        { n: "03", title: "Hold phone at arm's length", body: "Front camera, face the lens. Tap capture when ready.", img: fitStepPhone, alt: "Hand holding a smartphone at arm's length for a selfie" },
+        { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
+        { n: "02", title: tFit(lang, "welcome.step2_title"), body: tFit(lang, "welcome.step2_body"), img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
+        { n: "03", title: tFit(lang, "welcome.step3_mobile_title"), body: tFit(lang, "welcome.step3_mobile_body"), img: fitStepPhone, alt: "Hand holding a smartphone at arm's length for a selfie" },
       ]
     : [
-        { n: "01", title: "Grab a card", body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale.", img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal. Push your hair back and hold the card by its top edge so your fingers don't cover the corners.", img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
-        { n: "03", title: "Sit 50–70 cm back", body: "Eyes level with the webcam, then tap capture or use the 3-second timer.", img: fitStepPhone, alt: "Person facing a camera at eye level" },
+        { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
+        { n: "02", title: tFit(lang, "welcome.step2_title"), body: tFit(lang, "welcome.step2_body"), img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
+        { n: "03", title: tFit(lang, "welcome.step3_desktop_title"), body: tFit(lang, "welcome.step3_desktop_body"), img: fitStepPhone, alt: "Person facing a camera at eye level" },
       ];
 
   return (
     <div className="flex flex-col gap-8">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">30-SECOND FIT SCAN</span>
+        <span className="woolet-eyebrow-text">{tFit(lang, "welcome.eyebrow")}</span>
       </div>
       <h1
         className="font-display text-woolet-white"
         style={{ fontSize: "clamp(2.5rem, 5.5vw, 3.75rem)", fontWeight: 300, lineHeight: 1 }}
       >
-        Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
+        {tFit(lang, "welcome.h1_pre")} <em className="italic" style={{ color: GOLD }}>{tFit(lang, "welcome.h1_em")}</em>
       </h1>
       <p className="text-cream-dim" style={{ fontSize: "1.1rem", fontWeight: 300, lineHeight: 1.5 }}>
-        Three steps. Photo never leaves your device until you capture.
+        {tFit(lang, "welcome.subtitle")}
       </p>
 
       <div
@@ -246,7 +246,7 @@ function WelcomeStep({
               letterSpacing: "0.02em",
             }}
           >
-            You need a card for this scan
+            {tFit(lang, "welcome.need_card_title")}
           </span>
         </div>
         <p
@@ -259,7 +259,7 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          Grab any credit card, debit card, or ID card. The long edge must measure <strong style={{ color: "#fff", fontWeight: 500 }}>85.60 mm</strong> and the short edge <strong style={{ color: "#fff", fontWeight: 500 }}>53.98 mm</strong> — this is the ISO/IEC 7810 ID-1 standard used by most payment and ID cards worldwide.
+          {tFit(lang, "welcome.need_card_body_a")} <strong style={{ color: "#fff", fontWeight: 500 }}>{tFit(lang, "welcome.need_card_body_long")}</strong> {tFit(lang, "welcome.need_card_body_b")} <strong style={{ color: "#fff", fontWeight: 500 }}>{tFit(lang, "welcome.need_card_body_short")}</strong> {tFit(lang, "welcome.need_card_body_c")}
         </p>
       </div>
 
@@ -291,7 +291,7 @@ function WelcomeStep({
             background: "#0f0f0e",
           }}
         >
-          Hold the card flat on your forehead — long edge horizontal, both edges touching the skin.
+          {tFit(lang, "welcome.ref_caption")}
         </figcaption>
       </figure>
 
@@ -374,7 +374,7 @@ function WelcomeStep({
             height: 52,
           }}
         >
-          {disabled ? "Scan unavailable" : "Start scan"}
+          {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_start")}
         </button>
         <p
           style={{
@@ -386,7 +386,7 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          Take off your glasses first. Detection runs after you tap capture.
+          {tFit(lang, "welcome.cta_note")}
         </p>
         <Link
           to={`/${lang}/fit`}
@@ -400,7 +400,7 @@ function WelcomeStep({
             paddingTop: 4,
           }}
         >
-          Prefer manual measurement? Use the wizard →
+          {tFit(lang, "welcome.manual_link")}
         </Link>
       </div>
     </div>
