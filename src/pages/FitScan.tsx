@@ -1055,21 +1055,18 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 {poseLabel}
               </span>
             )}
-            {levelState !== "unsupported" && (
-              <button
-                type="button"
-                onClick={levelState === "needs-permission" ? requestLevelPermission : undefined}
+            {levelState !== "unsupported" && levelState !== "needs-permission" && (
+              <span
                 className="scan-mobile-pill"
                 style={{
                   borderColor: levelColor,
                   background: "rgba(0,0,0,0.55)",
-                  cursor: levelState === "needs-permission" ? "pointer" : "default",
                 }}
                 aria-live="polite"
               >
                 <span style={{ width: 8, height: 8, borderRadius: "50%", background: levelColor, boxShadow: `0 0 6px ${levelColor}` }} />
                 {levelLabel}
-              </button>
+              </span>
             )}
           </div>
 
