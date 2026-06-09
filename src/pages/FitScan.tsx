@@ -573,7 +573,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     const samples: ValidSample[] = [];
     let totalTicks = 0;
     const TARGET_MS = 3000;
-    const MIN_VALID = 30;
+    const MAX_MS = 6000; // keep collecting up to 6s if we don't have enough samples
+    const MIN_VALID = 15;
     const startTs = performance.now();
 
     const finalize = () => {
@@ -651,8 +652,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             const yawRatio = Math.abs((nose.x - midX) / eyeW);
             const faceH = Math.max(1e-4, chin.y - fHead.y);
             const pitchRatio = Math.abs(((nose.y - fHead.y) / faceH) - 0.55);
-            // Strict ~5° pose gate (sin 5° ≈ 0.087).
-            const faceFrontal = rollDeg < 5 && yawRatio < 0.09 && pitchRatio < 0.09;
+            // Pose gate ~8° — strict enough to keep skewed shots out, loose enough for handheld.
+            const faceFrontal = rollDeg < 8 && yawRatio < 0.16 && pitchRatio < 0.18;
 
             if (faceFrontal) {
               const cx = ((faceLeft.x + faceRight.x) / 2) * w;
@@ -667,7 +668,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 w,
                 h,
               );
-              if (corner && corner.confidence >= 0.55) {
+              if (corner && corner.confidence >= 0.4) {
                 const halfW = faceWpx / 2;
                 const expanded = halfW * 1.12;
                 const yMid = ((faceLeft.y + faceRight.y) / 2) * h;
@@ -705,7 +706,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         // landmarker hiccup — keep collecting
       }
 
-      if (elapsed < TARGET_MS) {
+      // Keep going past TARGET_MS up to MAX_MS if we still don't have enough valid frames.
+      const needMore = samples.length < MIN_VALID;
+      if (elapsed < TARGET_MS || (needMore && elapsed < MAX_MS)) {
         stabilizeRafRef.current = requestAnimationFrame(tick);
       } else {
         finalize();
@@ -1158,7 +1161,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             <div className="scan-stabilize-bar" role="status" aria-live="polite">
               <div className="scan-stabilize-head">
                 <span>Measuring… hold still</span>
-                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/30</span>
+                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/15</span>
               </div>
               <div className="scan-stabilize-track">
                 <div className="scan-stabilize-fill" style={{ width: `${Math.round(stabilizeProgress)}%` }} />
@@ -1452,7 +1455,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             >
               <span>Measuring… hold still</span>
               <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>
-                {stabilizeValid}/30
+                {stabilizeValid}/15
               </span>
             </div>
             <div
