@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import type { Lang } from "@/lib/i18n";
+import { tFit } from "@/lib/i18n-fitscan";
 
 const GOLD = "#CAA449";
 const MUTED = "#888888";
@@ -17,7 +18,6 @@ interface Props {
 }
 
 export default function DesktopScanGate({ lang }: Props) {
-  // Generate a stable, non-PII session flag for the QR URL on first render.
   const sid = useState(() => {
     if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
     return Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -30,20 +30,27 @@ export default function DesktopScanGate({ lang }: Props) {
     return url;
   }, [lang, sid]);
 
+  const steps = [
+    tFit(lang, "desktop.step1"),
+    tFit(lang, "desktop.step2"),
+    tFit(lang, "desktop.step3"),
+    tFit(lang, "desktop.step4"),
+  ];
+
   return (
     <div className="flex flex-col gap-7">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">FIT SCAN — PHONE ONLY</span>
+        <span className="woolet-eyebrow-text">{tFit(lang, "desktop.eyebrow")}</span>
       </div>
       <h1
         className="font-display text-woolet-white"
         style={{ fontSize: "clamp(2rem, 4.2vw, 2.75rem)", fontWeight: 300, lineHeight: 1.1 }}
       >
-        Point your phone camera at the <em className="italic" style={{ color: GOLD }}>QR code</em>
+        {tFit(lang, "desktop.h1_pre")} <em className="italic" style={{ color: GOLD }}>{tFit(lang, "desktop.h1_em")}</em>
       </h1>
       <p className="text-cream-dim" style={{ fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.55 }}>
-        The 30-second scan needs a phone camera — we'll ask for your email on the phone, after the measurement.
+        {tFit(lang, "desktop.desc")}
       </p>
 
       <div
@@ -65,12 +72,7 @@ export default function DesktopScanGate({ lang }: Props) {
         className="flex flex-col gap-3 m-0 p-0"
         style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
       >
-        {[
-          "Open the camera app on your phone and aim it at the QR code.",
-          "Tap the link that appears — the scan opens in your phone's browser.",
-          "Hold a credit card flat on your forehead and follow the on-screen steps.",
-          "Your result appears on your phone in about 30 seconds.",
-        ].map((line, i) => (
+        {steps.map((line, i) => (
           <li key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
             <span style={{ color: GOLD, fontFamily: "Cormorant Garamond, serif", fontStyle: "italic", minWidth: 24 }}>
               {String(i + 1).padStart(2, "0")}
@@ -83,9 +85,9 @@ export default function DesktopScanGate({ lang }: Props) {
       </ol>
 
       <details style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.82rem" }}>
-        <summary style={{ cursor: "pointer" }}>Can't scan the QR code?</summary>
+        <summary style={{ cursor: "pointer" }}>{tFit(lang, "desktop.fallback_summary")}</summary>
         <p style={{ marginTop: 8, lineHeight: 1.55, wordBreak: "break-all" }}>
-          Open this link on your phone: <span style={{ color: GOLD }}>{scanUrl}</span>
+          {tFit(lang, "desktop.fallback_text")} <span style={{ color: GOLD }}>{scanUrl}</span>
         </p>
       </details>
     </div>
