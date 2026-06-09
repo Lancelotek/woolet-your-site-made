@@ -700,6 +700,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
+    // Piggy-back the iOS DeviceOrientation permission prompt on the capture
+    // tap — the user already has their thumb on this button, so no separate
+    // one-handed "tap to enable level" interaction is required.
+    if (levelState === "needs-permission") {
+      void requestLevelPermission();
+    }
     setCountdown(3);
     timerRef.current = window.setInterval(() => {
       setCountdown((n) => {
@@ -712,7 +718,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         return n - 1;
       });
     }, 1000);
-  }, [busy, countdown, performCapture]);
+  }, [busy, countdown, performCapture, levelState, requestLevelPermission]);
 
   const cancelTimer = useCallback(() => {
     if (timerRef.current) { window.clearInterval(timerRef.current); timerRef.current = null; }
