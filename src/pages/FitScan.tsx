@@ -508,7 +508,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   }, []);
 
   const performCapture = useCallback(async () => {
-    if (capturedRef.current || busy) return;
+    if (capturedRef.current || busy || stabilizing) return;
     const v = videoRef.current;
     if (!v || v.readyState < 2) {
       onError("Camera isn't ready yet — give it a second and tap capture again.");
@@ -530,54 +530,168 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       onError("Hold the phone level — match the bubble to the centre line so the measurement isn't skewed.");
       return;
     }
+
     setBusy(true);
-    capturedRef.current = true;
+    setStabilizing(true);
+    setStabilizeProgress(0);
+    setStabilizeValid(0);
 
     const w = v.videoWidth;
     const h = v.videoHeight;
-    const c = document.createElement("canvas");
-    c.width = w;
-    c.height = h;
-    const ctx = c.getContext("2d");
-    if (!ctx) {
+
+    let videoLm: Awaited<ReturnType<typeof getVideoLandmarker>>;
+    try {
+      videoLm = await getVideoLandmarker();
+    } catch (err) {
+      console.warn("[scan] landmarker init failed", err);
       setBusy(false);
-      capturedRef.current = false;
+      setStabilizing(false);
+      onError("Couldn't initialise the face tracker. Try again.");
       return;
     }
-    ctx.drawImage(v, 0, 0, w, h);
-    const dataUrl = c.toDataURL("image/jpeg", 0.92);
 
-    try {
-      const lm = await getImageLandmarker();
-      const res = lm.detect(c);
-      if (!res.faceLandmarks?.length) {
-        capturedRef.current = false;
+    interface ValidSample {
+      landmarks: NormalizedLandmark[];
+      corners: [Point, Point];
+      faceEdges: [Point, Point];
+      faceWidthMm: number;
+    }
+    const samples: ValidSample[] = [];
+    const TARGET_MS = 3000;
+    const MIN_VALID = 30;
+    const startTs = performance.now();
+
+    const finalize = () => {
+      setStabilizing(false);
+      if (samples.length < MIN_VALID) {
         setBusy(false);
-        onError("We can't see your face in the photo. Try better lighting and face the camera directly.");
+        pushEvent("scan_stabilize_failed", { valid_frames: samples.length, min_required: MIN_VALID });
+        onError(
+          `Nie udało się zebrać wystarczającej liczby stabilnych klatek (${samples.length}/${MIN_VALID}). ` +
+          "Trzymaj głowę i kartę nieruchomo, patrz prosto w obiektyw i spróbuj ponownie.",
+        );
         return;
       }
-      if (res.faceLandmarks.length > 1) {
-        capturedRef.current = false;
+
+      const sorted = [...samples].sort((a, b) => a.faceWidthMm - b.faceWidthMm);
+      const median = sorted[Math.floor(sorted.length / 2)];
+
+      const cv = document.createElement("canvas");
+      cv.width = w;
+      cv.height = h;
+      const ctx = cv.getContext("2d");
+      if (!ctx) {
         setBusy(false);
-        onError("Only one face at a time, please.");
+        onError("Capture failed — please try again.");
         return;
       }
+      ctx.drawImage(v, 0, 0, w, h);
+      const dataUrl = cv.toDataURL("image/jpeg", 0.92);
+
+      capturedRef.current = true;
       stopAll();
-      pushEvent("scan_captured");
+      pushEvent("scan_captured", {
+        stabilized: true,
+        valid_frames: samples.length,
+        median_face_width_mm: median.faceWidthMm,
+      });
       onCaptured({
         dataUrl,
         width: w,
         height: h,
-        landmarks: res.faceLandmarks[0],
-        canvas: c,
+        landmarks: median.landmarks,
+        canvas: cv,
+        stabilized: {
+          cardCorners: median.corners,
+          faceEdges: median.faceEdges,
+          medianFaceWidthMm: median.faceWidthMm,
+          frameCount: samples.length,
+        },
       });
-    } catch (err) {
-      console.warn("[scan] capture detect failed", err);
-      capturedRef.current = false;
-      setBusy(false);
-      onError("Couldn't process the captured frame. Try again.");
-    }
-  }, [busy, cardState, cardOverride, poseState, levelState, isMobile, onCaptured, onError, stopAll]);
+    };
+
+    const tick = () => {
+      const now = performance.now();
+      const elapsed = now - startTs;
+      setStabilizeProgress(Math.min(100, (elapsed / TARGET_MS) * 100));
+
+      try {
+        const res = videoLm.detectForVideo(v, now);
+        const lms = res.faceLandmarks?.[0];
+        if (lms && lms.length >= 478) {
+          const lEye = lms[33], rEye = lms[263], nose = lms[1];
+          const fHead = lms[LANDMARKS.forehead], chin = lms[LANDMARKS.chin];
+          const faceLeft = lms[LANDMARKS.faceLeftTemple];
+          const faceRight = lms[LANDMARKS.faceRightTemple];
+          if (lEye && rEye && nose && fHead && chin && faceLeft && faceRight) {
+            const dx = rEye.x - lEye.x;
+            const dy = rEye.y - lEye.y;
+            const rollDeg = Math.abs(Math.atan2(dy, dx) * 180 / Math.PI);
+            const midX = (lEye.x + rEye.x) / 2;
+            const eyeW = Math.max(1e-4, Math.abs(rEye.x - lEye.x));
+            const yawRatio = Math.abs((nose.x - midX) / eyeW);
+            const faceH = Math.max(1e-4, chin.y - fHead.y);
+            const pitchRatio = Math.abs(((nose.y - fHead.y) / faceH) - 0.55);
+            // Strict ~5° pose gate (sin 5° ≈ 0.087).
+            const faceFrontal = rollDeg < 5 && yawRatio < 0.09 && pitchRatio < 0.09;
+
+            if (faceFrontal) {
+              const cx = ((faceLeft.x + faceRight.x) / 2) * w;
+              const faceWpx = Math.abs((faceRight.x - faceLeft.x) * w);
+              const bandW = Math.min(w, faceWpx * 1.5);
+              const bandH = Math.max(40, faceWpx * 0.45);
+              const bandX = Math.max(0, cx - bandW / 2);
+              const bandY = Math.max(0, fHead.y * h - bandH);
+              const corner = detectCardCornersInRegion(
+                v,
+                { x: bandX, y: bandY, w: bandW, h: bandH },
+                w,
+                h,
+              );
+              if (corner && corner.confidence >= 0.55) {
+                const halfW = faceWpx / 2;
+                const expanded = halfW * 1.12;
+                const yMid = ((faceLeft.y + faceRight.y) / 2) * h;
+                const faceEdges: [Point, Point] = [
+                  { x: Math.max(0, cx - expanded), y: yMid },
+                  { x: Math.min(w, cx + expanded), y: yMid },
+                ];
+                try {
+                  const m = calculateMeasurements(
+                    lms,
+                    w,
+                    corner.corners[0],
+                    corner.corners[1],
+                    faceEdges[0],
+                    faceEdges[1],
+                  );
+                  samples.push({
+                    landmarks: lms,
+                    corners: corner.corners,
+                    faceEdges,
+                    faceWidthMm: m.faceWidthMm,
+                  });
+                  setStabilizeValid(samples.length);
+                } catch {
+                  // out-of-range / measurement error — discard this frame
+                }
+              }
+            }
+          }
+        }
+      } catch {
+        // landmarker hiccup — keep collecting
+      }
+
+      if (elapsed < TARGET_MS) {
+        stabilizeRafRef.current = requestAnimationFrame(tick);
+      } else {
+        finalize();
+      }
+    };
+
+    stabilizeRafRef.current = requestAnimationFrame(tick);
+  }, [busy, stabilizing, cardState, cardOverride, poseState, levelState, isMobile, onCaptured, onError, stopAll]);
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
