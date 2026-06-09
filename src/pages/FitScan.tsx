@@ -3405,16 +3405,76 @@ export default function FitScan() {
           }
           .scan-mobile-controls {
             flex: 0 0 auto;
-            padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px));
-            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 30%, #000 100%);
+            padding: 14px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.88) 35%, #000 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 14px;
           }
+          .scan-status-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 8px;
+            width: 100%;
+            max-width: 460px;
+          }
+          .scan-status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            min-height: 28px;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: rgba(255,255,255,0.92);
+            font-family: 'Barlow', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+          }
+          .scan-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+          }
+          .scan-stabilize-bar {
+            width: 100%;
+            max-width: 460px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(8,8,7,0.78);
+            border: 1px solid ${GOLD};
+            color: #fff;
+            font-family: 'Barlow', sans-serif;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+          }
+          .scan-stabilize-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+          }
+          .scan-stabilize-track {
+            width: 100%;
+            height: 5px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.18);
+            overflow: hidden;
+          }
+          .scan-stabilize-fill {
+            height: 100%;
+            background: ${GOLD};
+            transition: width 120ms linear;
+          }
           .scan-shutter {
-            width: 72px;
-            height: 72px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
             background: transparent;
             border: 3px solid ${GOLD};
@@ -3424,20 +3484,22 @@ export default function FitScan() {
             align-items: center;
             justify-content: center;
             transition: transform 120ms ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
           }
           .scan-shutter:active { transform: scale(0.94); }
           .scan-shutter:disabled { opacity: 0.45; cursor: not-allowed; }
           .scan-shutter-inner {
             display: block;
-            width: 54px;
-            height: 54px;
+            width: 68px;
+            height: 68px;
             border-radius: 50%;
             background: ${GOLD};
           }
           .scan-mobile-secondary {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 8px;
             font-family: 'Barlow', sans-serif;
             font-size: 12px;
             letter-spacing: 0.16em;
@@ -3446,11 +3508,17 @@ export default function FitScan() {
           .scan-mobile-secondary button,
           .scan-mobile-secondary a {
             background: transparent;
-            border: none;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 999px;
             color: ${MUTED};
             text-decoration: none;
             cursor: pointer;
-            padding: 6px 4px;
+            padding: 12px 18px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
           }
           .scan-mobile-secondary button:disabled { opacity: 0.4; cursor: not-allowed; }
         `}</style>
