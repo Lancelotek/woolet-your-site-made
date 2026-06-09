@@ -501,6 +501,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
   const stopAll = useCallback(() => {
     if (lumRafRef.current) cancelAnimationFrame(lumRafRef.current);
+    if (stabilizeRafRef.current) cancelAnimationFrame(stabilizeRafRef.current);
     if (timerRef.current) { window.clearInterval(timerRef.current); timerRef.current = null; }
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
