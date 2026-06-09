@@ -3595,6 +3595,30 @@ export default function FitScan() {
             background: ${GOLD};
             transition: width 120ms linear;
           }
+          .scan-diag {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            font-family: Barlow, sans-serif;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.85);
+          }
+          .scan-diag-reason {
+            color: ${GOLD};
+            font-weight: 600;
+          }
+          .scan-diag-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+            font-variant-numeric: tabular-nums;
+          }
+          .scan-diag-grid b {
+            color: #fff;
+            font-weight: 600;
           .scan-shutter {
             width: 88px;
             height: 88px;
