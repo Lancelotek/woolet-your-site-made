@@ -41,6 +41,12 @@ const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
   w.dataLayer.push({ event, ...params });
 };
 
+const haptic = (pattern: number | number[]) => {
+  if (typeof navigator !== "undefined" && navigator.vibrate) {
+    navigator.vibrate(pattern);
+  }
+};
+
 type Step = "welcome" | "camera" | "analyzing" | "annotate" | "email-gate" | "result" | "result-sent";
 
 /* ─────────────── Analyzing (progress) ─────────────── */
@@ -495,6 +501,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     };
   }, [isMobile, attachOrientation]);
 
+  const prevLevelStateRef = useRef(levelState);
+  useEffect(() => {
+    if (levelState === "ok" && prevLevelStateRef.current !== "ok") {
+      haptic(40);
+    }
+    prevLevelStateRef.current = levelState;
+  }, [levelState]);
+
   const deviceTip = isMobile
     ? "Hold the phone at arm's length, camera at eye level."
     : "Sit ~50–70 cm from the webcam, eyes level with the lens.";
@@ -677,6 +691,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                     faceWidthMm: m.faceWidthMm,
                   });
                   setStabilizeValid(samples.length);
+                  if (samples.length === MIN_VALID) {
+                    haptic([30, 60, 30]);
+                  }
                 } catch {
                   // out-of-range / measurement error — discard this frame
                 }
