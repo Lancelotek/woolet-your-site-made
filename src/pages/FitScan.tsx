@@ -1226,8 +1226,37 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             aria-label={countdown !== null ? `Capturing in ${countdown}` : "Capture photo"}
             onClick={performCapture}
             disabled={captureBlocked}
+            style={{
+              width: 96,
+              height: 96,
+              minWidth: 96,
+              minHeight: 96,
+              borderRadius: "50%",
+              border: `3px solid ${GOLD}`,
+              background: "rgba(0,0,0,0.42)",
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 12px 28px rgba(0,0,0,0.42)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              alignSelf: "center",
+              position: "relative",
+              zIndex: 6,
+              flex: "0 0 auto",
+              visibility: "visible",
+              opacity: captureBlocked ? 0.45 : 1,
+            }}
           >
-            <span className="scan-shutter-inner" />
+            <span
+              className="scan-shutter-inner"
+              style={{
+                display: "block",
+                width: 72,
+                height: 72,
+                borderRadius: "50%",
+                background: GOLD,
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.35), 0 0 18px rgba(202,164,73,0.38)",
+              }}
+            />
           </button>
           <div className="scan-mobile-secondary">
             <button type="button" onClick={countdown !== null ? cancelTimer : startTimer} disabled={!ready || busy}>
@@ -3591,10 +3620,12 @@ export default function FitScan() {
             font-weight: 600;
           }
           .scan-shutter {
-            width: 88px;
-            height: 88px;
+            width: 96px;
+            height: 96px;
+            min-width: 96px;
+            min-height: 96px;
             border-radius: 50%;
-            background: transparent;
+            background: rgba(0,0,0,0.42);
             border: 3px solid ${GOLD};
             padding: 0;
             appearance: none;
@@ -3604,18 +3635,24 @@ export default function FitScan() {
             align-items: center;
             justify-content: center;
             flex: 0 0 auto;
+            align-self: center;
             transition: transform 120ms ease;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 12px 28px rgba(0,0,0,0.42);
+            position: relative;
+            z-index: 6;
+            visibility: visible;
           }
           .scan-shutter:active { transform: scale(0.94); }
           .scan-shutter:disabled { opacity: 0.45; cursor: not-allowed; }
           .scan-shutter-inner {
             display: block;
-            width: 68px;
-            height: 68px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             background: ${GOLD};
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 0 18px rgba(202,164,73,0.38);
           }
           .scan-mobile-secondary {
             display: flex;
