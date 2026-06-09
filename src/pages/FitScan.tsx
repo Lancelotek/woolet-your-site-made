@@ -428,6 +428,24 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [stabilizing, setStabilizing] = useState(false);
   const [stabilizeProgress, setStabilizeProgress] = useState(0);
   const [stabilizeValid, setStabilizeValid] = useState(0);
+  type ScanDiag = {
+    total: number;
+    valid: number;
+    noFace: number;
+    poseOff: number;
+    cardLow: number;
+    measErr: number;
+    lastYawDeg: number | null;
+    lastPitchDeg: number | null;
+    lastRollDeg: number | null;
+    lastCardConf: number | null;
+    lastReason: string;
+  };
+  const emptyDiag: ScanDiag = {
+    total: 0, valid: 0, noFace: 0, poseOff: 0, cardLow: 0, measErr: 0,
+    lastYawDeg: null, lastPitchDeg: null, lastRollDeg: null, lastCardConf: null, lastReason: "—",
+  };
+  const [scanDiag, setScanDiag] = useState<ScanDiag>(emptyDiag);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [cardOverride, setCardOverride] = useState(false);
@@ -549,6 +567,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     setStabilizing(true);
     setStabilizeProgress(0);
     setStabilizeValid(0);
+    setScanDiag(emptyDiag);
 
     const w = v.videoWidth;
     const h = v.videoHeight;
@@ -629,21 +648,39 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       });
     };
 
+    // Live diagnostic accumulators (mutated each tick, flushed to state ~6x/s).
+    const diag = { ...emptyDiag };
+    let lastDiagFlush = 0;
+    const flushDiag = (force = false) => {
+      const t = performance.now();
+      if (!force && t - lastDiagFlush < 160) return;
+      lastDiagFlush = t;
+      setScanDiag({ ...diag });
+    };
+
     const tick = () => {
       totalTicks++;
+      diag.total = totalTicks;
       const now = performance.now();
       const elapsed = now - startTs;
       setStabilizeProgress(Math.min(100, (elapsed / TARGET_MS) * 100));
 
+      let reason = "—";
       try {
         const res = videoLm.detectForVideo(v, now);
         const lms = res.faceLandmarks?.[0];
-        if (lms && lms.length >= 478) {
+        if (!lms || lms.length < 478) {
+          diag.noFace++;
+          reason = "No face detected";
+        } else {
           const lEye = lms[33], rEye = lms[263], nose = lms[1];
           const fHead = lms[LANDMARKS.forehead], chin = lms[LANDMARKS.chin];
           const faceLeft = lms[LANDMARKS.faceLeftTemple];
           const faceRight = lms[LANDMARKS.faceRightTemple];
-          if (lEye && rEye && nose && fHead && chin && faceLeft && faceRight) {
+          if (!(lEye && rEye && nose && fHead && chin && faceLeft && faceRight)) {
+            diag.noFace++;
+            reason = "Face landmarks incomplete";
+          } else {
             const dx = rEye.x - lEye.x;
             const dy = rEye.y - lEye.y;
             const rollDeg = Math.abs(Math.atan2(dy, dx) * 180 / Math.PI);
@@ -652,10 +689,22 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             const yawRatio = Math.abs((nose.x - midX) / eyeW);
             const faceH = Math.max(1e-4, chin.y - fHead.y);
             const pitchRatio = Math.abs(((nose.y - fHead.y) / faceH) - 0.55);
-            // Pose gate ~8° — strict enough to keep skewed shots out, loose enough for handheld.
+            // Approx degrees for display (rough mapping from ratios).
+            const yawDeg = yawRatio * 50;
+            const pitchDeg = pitchRatio * 50;
+            diag.lastYawDeg = yawDeg;
+            diag.lastPitchDeg = pitchDeg;
+            diag.lastRollDeg = rollDeg;
             const faceFrontal = rollDeg < 8 && yawRatio < 0.16 && pitchRatio < 0.18;
 
-            if (faceFrontal) {
+            if (!faceFrontal) {
+              diag.poseOff++;
+              const parts: string[] = [];
+              if (rollDeg >= 8) parts.push(`roll ${rollDeg.toFixed(0)}°`);
+              if (yawRatio >= 0.16) parts.push(`yaw ${yawDeg.toFixed(0)}°`);
+              if (pitchRatio >= 0.18) parts.push(`pitch ${pitchDeg.toFixed(0)}°`);
+              reason = `Pose off (${parts.join(", ")})`;
+            } else {
               const cx = ((faceLeft.x + faceRight.x) / 2) * w;
               const faceWpx = Math.abs((faceRight.x - faceLeft.x) * w);
               const bandW = Math.min(w, faceWpx * 1.5);
@@ -668,7 +717,13 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 w,
                 h,
               );
-              if (corner && corner.confidence >= 0.4) {
+              diag.lastCardConf = corner ? corner.confidence : 0;
+              if (!corner || corner.confidence < 0.4) {
+                diag.cardLow++;
+                reason = corner
+                  ? `Card confidence low (${Math.round(corner.confidence * 100)}%)`
+                  : "Card not detected on forehead";
+              } else {
                 const halfW = faceWpx / 2;
                 const expanded = halfW * 1.12;
                 const yMid = ((faceLeft.y + faceRight.y) / 2) * h;
@@ -678,12 +733,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 ];
                 try {
                   const m = calculateMeasurements(
-                    lms,
-                    w,
-                    corner.corners[0],
-                    corner.corners[1],
-                    faceEdges[0],
-                    faceEdges[1],
+                    lms, w,
+                    corner.corners[0], corner.corners[1],
+                    faceEdges[0], faceEdges[1],
                   );
                   samples.push({
                     landmarks: lms,
@@ -691,26 +743,34 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                     faceEdges,
                     faceWidthMm: m.faceWidthMm,
                   });
+                  diag.valid = samples.length;
                   setStabilizeValid(samples.length);
+                  reason = `Valid frame (${m.faceWidthMm} mm)`;
                   if (samples.length === MIN_VALID) {
                     haptic([30, 60, 30]);
                   }
-                } catch {
-                  // out-of-range / measurement error — discard this frame
+                } catch (e) {
+                  diag.measErr++;
+                  const msg = e instanceof Error ? e.message : "Measurement out of range";
+                  reason = `Measurement rejected: ${msg.split(".")[0]}`;
                 }
               }
             }
           }
         }
       } catch {
-        // landmarker hiccup — keep collecting
+        reason = "Landmarker error";
       }
+
+      diag.lastReason = reason;
+      flushDiag();
 
       // Keep going past TARGET_MS up to MAX_MS if we still don't have enough valid frames.
       const needMore = samples.length < MIN_VALID;
       if (elapsed < TARGET_MS || (needMore && elapsed < MAX_MS)) {
         stabilizeRafRef.current = requestAnimationFrame(tick);
       } else {
+        flushDiag(true);
         finalize();
       }
     };
@@ -1166,6 +1226,23 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               <div className="scan-stabilize-track">
                 <div className="scan-stabilize-fill" style={{ width: `${Math.round(stabilizeProgress)}%` }} />
               </div>
+              <div className="scan-diag" aria-live="polite">
+                <div className="scan-diag-reason">{scanDiag.lastReason}</div>
+                <div className="scan-diag-grid">
+                  <span>Yaw <b>{scanDiag.lastYawDeg !== null ? `${scanDiag.lastYawDeg.toFixed(0)}°` : "—"}</b></span>
+                  <span>Pitch <b>{scanDiag.lastPitchDeg !== null ? `${scanDiag.lastPitchDeg.toFixed(0)}°` : "—"}</b></span>
+                  <span>Roll <b>{scanDiag.lastRollDeg !== null ? `${scanDiag.lastRollDeg.toFixed(0)}°` : "—"}</b></span>
+                  <span>Card <b>{scanDiag.lastCardConf !== null ? `${Math.round(scanDiag.lastCardConf * 100)}%` : "—"}</b></span>
+                </div>
+                <div className="scan-diag-grid">
+                  <span>Frames <b>{scanDiag.total}</b></span>
+                  <span style={{ color: "#7CFFB2" }}>OK <b>{scanDiag.valid}</b></span>
+                  <span>No face <b>{scanDiag.noFace}</b></span>
+                  <span>Pose <b>{scanDiag.poseOff}</b></span>
+                  <span>Card <b>{scanDiag.cardLow}</b></span>
+                  <span>Range <b>{scanDiag.measErr}</b></span>
+                </div>
+              </div>
             </div>
           )}
 
@@ -1476,6 +1553,32 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   transition: "width 120ms linear",
                 }}
               />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.72rem",
+                color: "rgba(255,255,255,0.85)",
+              }}
+            >
+              <div style={{ color: GOLD }}>{scanDiag.lastReason}</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 12px" }}>
+                <span>Yaw <b>{scanDiag.lastYawDeg !== null ? `${scanDiag.lastYawDeg.toFixed(0)}°` : "—"}</b></span>
+                <span>Pitch <b>{scanDiag.lastPitchDeg !== null ? `${scanDiag.lastPitchDeg.toFixed(0)}°` : "—"}</b></span>
+                <span>Roll <b>{scanDiag.lastRollDeg !== null ? `${scanDiag.lastRollDeg.toFixed(0)}°` : "—"}</b></span>
+                <span>Card <b>{scanDiag.lastCardConf !== null ? `${Math.round(scanDiag.lastCardConf * 100)}%` : "—"}</b></span>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 12px", opacity: 0.85 }}>
+                <span>Frames <b>{scanDiag.total}</b></span>
+                <span style={{ color: "#7CFFB2" }}>OK <b>{scanDiag.valid}</b></span>
+                <span>No face <b>{scanDiag.noFace}</b></span>
+                <span>Pose <b>{scanDiag.poseOff}</b></span>
+                <span>Card <b>{scanDiag.cardLow}</b></span>
+                <span>Range <b>{scanDiag.measErr}</b></span>
+              </div>
             </div>
           </div>
         )}
@@ -3492,6 +3595,30 @@ export default function FitScan() {
             background: ${GOLD};
             transition: width 120ms linear;
           }
+          .scan-diag {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            font-family: Barlow, sans-serif;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.85);
+          }
+          .scan-diag-reason {
+            color: ${GOLD};
+            font-weight: 600;
+          }
+          .scan-diag-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+            font-variant-numeric: tabular-nums;
+          }
+          .scan-diag-grid b {
+            color: #fff;
+            font-weight: 600;
           .scan-shutter {
             width: 88px;
             height: 88px;
