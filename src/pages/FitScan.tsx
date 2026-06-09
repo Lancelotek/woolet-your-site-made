@@ -568,8 +568,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         setBusy(false);
         pushEvent("scan_stabilize_failed", { valid_frames: samples.length, min_required: MIN_VALID });
         onError(
-          `Nie udało się zebrać wystarczającej liczby stabilnych klatek (${samples.length}/${MIN_VALID}). ` +
-          "Trzymaj głowę i kartę nieruchomo, patrz prosto w obiektyw i spróbuj ponownie.",
+          `Couldn't collect enough stable frames (${samples.length}/${MIN_VALID}). ` +
+          "Hold your head and the card still, look straight at the lens, and try again.",
         );
         return;
       }
