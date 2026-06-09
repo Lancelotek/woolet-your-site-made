@@ -1161,7 +1161,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             <div className="scan-stabilize-bar" role="status" aria-live="polite">
               <div className="scan-stabilize-head">
                 <span>Measuring… hold still</span>
-                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/30</span>
+                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/15</span>
               </div>
               <div className="scan-stabilize-track">
                 <div className="scan-stabilize-fill" style={{ width: `${Math.round(stabilizeProgress)}%` }} />
@@ -1455,7 +1455,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             >
               <span>Measuring… hold still</span>
               <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>
-                {stabilizeValid}/30
+                {stabilizeValid}/15
               </span>
             </div>
             <div
