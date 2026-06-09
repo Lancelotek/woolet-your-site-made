@@ -59,6 +59,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "hero.title_2": "pasujące na",
     "hero.title_3": "szeroką twarz.",
     "hero.desc": "Woolet 007 i 009 — włoski octan, precyzyjnie zaprojektowane dla twarzy 155mm+. Wydłużone zauszniki. Szerszy mostek. Zero kompromisów w stylu.",
+    "cta.scan_face_free": "Skanuj twarz — za darmo",
     "waitlist.label": "Lista oczekujących",
     "waitlist.spots": "miejsc",
     "waitlist.first_name": "Imię",
