@@ -557,6 +557,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       faceWidthMm: number;
     }
     const samples: ValidSample[] = [];
+    let totalTicks = 0;
     const TARGET_MS = 3000;
     const MIN_VALID = 30;
     const startTs = performance.now();
