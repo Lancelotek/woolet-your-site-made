@@ -428,6 +428,24 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [stabilizing, setStabilizing] = useState(false);
   const [stabilizeProgress, setStabilizeProgress] = useState(0);
   const [stabilizeValid, setStabilizeValid] = useState(0);
+  type ScanDiag = {
+    total: number;
+    valid: number;
+    noFace: number;
+    poseOff: number;
+    cardLow: number;
+    measErr: number;
+    lastYawDeg: number | null;
+    lastPitchDeg: number | null;
+    lastRollDeg: number | null;
+    lastCardConf: number | null;
+    lastReason: string;
+  };
+  const emptyDiag: ScanDiag = {
+    total: 0, valid: 0, noFace: 0, poseOff: 0, cardLow: 0, measErr: 0,
+    lastYawDeg: null, lastPitchDeg: null, lastRollDeg: null, lastCardConf: null, lastReason: "—",
+  };
+  const [scanDiag, setScanDiag] = useState<ScanDiag>(emptyDiag);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [cardOverride, setCardOverride] = useState(false);
