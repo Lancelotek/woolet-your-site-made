@@ -567,6 +567,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     setStabilizing(true);
     setStabilizeProgress(0);
     setStabilizeValid(0);
+    setScanDiag(emptyDiag);
 
     const w = v.videoWidth;
     const h = v.videoHeight;
