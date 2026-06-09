@@ -11,6 +11,7 @@ import fitStepForehead from "@/assets/fit-step-forehead.jpg";
 import fitStepPhone from "@/assets/fit-step-phone.jpg";
 import fitScanReference from "@/assets/fit-scan-reference.jpg.asset.json";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { tFit } from "@/lib/i18n-fitscan";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
 import { classifyCardSample } from "@/lib/card-detection";
