@@ -1129,6 +1129,37 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           {countdown !== null && (
             <div className="scan-mobile-countdown" aria-live="assertive">{countdown}</div>
           )}
+
+          {stabilizing && (
+            <div
+              role="status"
+              aria-live="polite"
+              style={{
+                position: "absolute",
+                left: 12,
+                right: 12,
+                bottom: 12,
+                padding: "10px 12px",
+                borderRadius: 10,
+                background: "rgba(8,8,7,0.78)",
+                border: `1px solid ${GOLD}`,
+                color: "#fff",
+                fontFamily: "Barlow, sans-serif",
+                display: "flex",
+                flexDirection: "column",
+                gap: 6,
+                zIndex: 5,
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.78rem" }}>
+                <span>Pomiar… trzymaj nieruchomo</span>
+                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/30</span>
+              </div>
+              <div style={{ width: "100%", height: 5, borderRadius: 999, background: "rgba(255,255,255,0.18)", overflow: "hidden" }}>
+                <div style={{ width: `${Math.round(stabilizeProgress)}%`, height: "100%", background: GOLD, transition: "width 120ms linear" }} />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="scan-mobile-controls">
