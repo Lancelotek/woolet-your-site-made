@@ -3194,6 +3194,20 @@ export default function FitScan() {
     setPrefillPoints(null);
     setStep("analyzing");
 
+    // Stabilized capture path: the camera step already collected 30+ pose-
+    // and card-gated frames over 3 s and selected the median sample. Skip
+    // the server roundtrip and the manual annotate step entirely.
+    if (f.stabilized) {
+      const { cardCorners, faceEdges, frameCount } = f.stabilized;
+      pushEvent("scan_stabilized_used", { frame_count: frameCount });
+      if (runCalculate(f, cardCorners[0], cardCorners[1], faceEdges[0], faceEdges[1])) {
+        return;
+      }
+      // Fall through to server detection if median sample failed validation.
+    }
+
+
+
     // Primary path: server-side detection via Gemini 2.5 Pro Vision.
     // We send the captured JPEG + native dims; server returns pixel coords
     // for card corners and face edges. We pre-fill the annotate step so the
