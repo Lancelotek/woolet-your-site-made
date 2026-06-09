@@ -906,7 +906,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   vw,
                   vh,
                 );
-                if (!corner || corner.confidence < 0.55) {
+                if (!corner || corner.confidence < 0.28) {
                   // Edge looks card-ish in gradient stats but no straight
                   // continuous line found → likely hair/skin contour. Keep
                   // the user in "place card" rather than green-light.
@@ -980,7 +980,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   // Pitch proxy: nose y between forehead and chin. 0.5 = level.
                   const faceH = Math.max(1e-4, chin.y - fHead.y);
                   const pitchRatio = Math.abs(((nose.y - fHead.y) / faceH) - 0.55);
-                  const facing = rollDeg < 6 && yawRatio < 0.12 && pitchRatio < 0.10;
+                  const facing = rollDeg < 10 && yawRatio < 0.2 && pitchRatio < 0.18;
                   const nextPose: typeof poseState = facing ? "ok" : "off";
                   setPoseState((prev) => (prev === nextPose ? prev : nextPose));
                 }
@@ -1034,11 +1034,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const poseColor = poseState === "ok" ? "#4ade80" : poseState === "off" ? "#ef4444" : "#facc15";
   const poseLabel = poseState === "ok" ? "Facing camera" : poseState === "off" ? "Look straight ahead" : "Center your face";
   const showPoseHint = poseState === "off";
-  const captureBlocked =
-    !ready || busy || countdown !== null ||
-    (cardState !== "ok" && !cardOverride) ||
-    poseState === "off" ||
-    (isMobile && levelState === "off");
+  const captureBlocked = !ready || busy || countdown !== null;
 
   const levelColor =
     levelState === "ok"
@@ -1199,7 +1195,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             <div className="scan-stabilize-bar" role="status" aria-live="polite">
               <div className="scan-stabilize-head">
                 <span>Measuring… hold still</span>
-                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/15</span>
+                <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/{STABILIZE_MIN_VALID}</span>
               </div>
               <div className="scan-stabilize-track">
                 <div className="scan-stabilize-fill" style={{ width: `${Math.round(stabilizeProgress)}%` }} />
@@ -1510,7 +1506,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             >
               <span>Measuring… hold still</span>
               <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>
-                {stabilizeValid}/15
+                {stabilizeValid}/{STABILIZE_MIN_VALID}
               </span>
             </div>
             <div
@@ -1582,13 +1578,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             ? `Measuring… ${Math.round(stabilizeProgress)}%`
             : busy
               ? "Analyzing…"
-              : countdown !== null
-                ? `Capturing in ${countdown}…`
-                : poseState === "off"
-                  ? "Look straight at the camera"
-                  : cardState !== "ok" && !cardOverride
-                    ? cardLabel
-                    : "Capture now"}
+                : countdown !== null
+                  ? `Capturing in ${countdown}…`
+                  : "Capture now"}
         </button>
         <button
           type="button"
