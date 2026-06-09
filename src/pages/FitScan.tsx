@@ -573,7 +573,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     const samples: ValidSample[] = [];
     let totalTicks = 0;
     const TARGET_MS = 3000;
-    const MIN_VALID = 30;
+    const MAX_MS = 6000; // keep collecting up to 6s if we don't have enough samples
+    const MIN_VALID = 15;
     const startTs = performance.now();
 
     const finalize = () => {
