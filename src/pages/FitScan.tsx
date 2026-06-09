@@ -612,6 +612,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     };
 
     const tick = () => {
+      totalTicks++;
       const now = performance.now();
       const elapsed = now - startTs;
       setStabilizeProgress(Math.min(100, (elapsed / TARGET_MS) * 100));
