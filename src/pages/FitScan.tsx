@@ -11,6 +11,7 @@ import fitStepForehead from "@/assets/fit-step-forehead.jpg";
 import fitStepPhone from "@/assets/fit-step-phone.jpg";
 import fitScanReference from "@/assets/fit-scan-reference.jpg.asset.json";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { tFit } from "@/lib/i18n-fitscan";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
 import { classifyCardSample } from "@/lib/card-detection";
@@ -51,7 +52,7 @@ type Step = "welcome" | "camera" | "analyzing" | "annotate" | "email-gate" | "re
 
 /* ─────────────── Analyzing (progress) ─────────────── */
 
-function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
+function AnalyzingStep({ previewUrl, lang }: { previewUrl?: string; lang: Lang }) {
   // Estimated duration ~12s for Gemini round-trip. We animate towards 92% and
   // hold there until the parent transitions to the next step.
   const ESTIMATE_MS = 12000;
@@ -59,11 +60,11 @@ function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
   const [stageIdx, setStageIdx] = useState(0);
 
   const stages = [
-    "Uploading your photo securely…",
-    "Detecting the credit card on your forehead…",
-    "Locating face landmarks (478 points)…",
-    "Calculating face width and bridge size…",
-    "Almost done — preparing your recommendation…",
+    tFit(lang, "analyzing.stage1"),
+    tFit(lang, "analyzing.stage2"),
+    tFit(lang, "analyzing.stage3"),
+    tFit(lang, "analyzing.stage4"),
+    tFit(lang, "analyzing.stage5"),
   ];
 
   useEffect(() => {
@@ -122,7 +123,7 @@ function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
       <style>{`@keyframes fitscan-spin { to { transform: rotate(360deg); } }`}</style>
 
       <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 26, lineHeight: 1.2 }}>
-        Analyzing your measurements
+        {tFit(lang, "analyzing.title")}
       </div>
 
       <div
@@ -150,7 +151,7 @@ function AnalyzingStep({ previewUrl }: { previewUrl?: string }) {
       </div>
 
       <div style={{ fontSize: 11, color: MUTED, maxWidth: 320 }}>
-        This usually takes 8–15 seconds. Please keep this page open.
+        {tFit(lang, "analyzing.footnote")}
       </div>
     </div>
   );
@@ -194,30 +195,30 @@ function WelcomeStep({
 }) {
   const steps = isMobile
     ? [
-        { n: "01", title: "Grab a card", body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale.", img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal. Push your hair back and hold the card by its top edge so your fingers don't cover the corners.", img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
-        { n: "03", title: "Hold phone at arm's length", body: "Front camera, face the lens. Tap capture when ready.", img: fitStepPhone, alt: "Hand holding a smartphone at arm's length for a selfie" },
+        { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
+        { n: "02", title: tFit(lang, "welcome.step2_title"), body: tFit(lang, "welcome.step2_body"), img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
+        { n: "03", title: tFit(lang, "welcome.step3_mobile_title"), body: tFit(lang, "welcome.step3_mobile_body"), img: fitStepPhone, alt: "Hand holding a smartphone at arm's length for a selfie" },
       ]
     : [
-        { n: "01", title: "Grab a card", body: "Any credit, debit or ID card. We use its 85.6 mm edge as scale.", img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: "Hold to forehead", body: "Lay it flat across your brow, long edge horizontal. Push your hair back and hold the card by its top edge so your fingers don't cover the corners.", img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
-        { n: "03", title: "Sit 50–70 cm back", body: "Eyes level with the webcam, then tap capture or use the 3-second timer.", img: fitStepPhone, alt: "Person facing a camera at eye level" },
+        { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
+        { n: "02", title: tFit(lang, "welcome.step2_title"), body: tFit(lang, "welcome.step2_body"), img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
+        { n: "03", title: tFit(lang, "welcome.step3_desktop_title"), body: tFit(lang, "welcome.step3_desktop_body"), img: fitStepPhone, alt: "Person facing a camera at eye level" },
       ];
 
   return (
     <div className="flex flex-col gap-8">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">30-SECOND FIT SCAN</span>
+        <span className="woolet-eyebrow-text">{tFit(lang, "welcome.eyebrow")}</span>
       </div>
       <h1
         className="font-display text-woolet-white"
         style={{ fontSize: "clamp(2.5rem, 5.5vw, 3.75rem)", fontWeight: 300, lineHeight: 1 }}
       >
-        Measure your face in <em className="italic" style={{ color: GOLD }}>30 seconds</em>
+        {tFit(lang, "welcome.h1_pre")} <em className="italic" style={{ color: GOLD }}>{tFit(lang, "welcome.h1_em")}</em>
       </h1>
       <p className="text-cream-dim" style={{ fontSize: "1.1rem", fontWeight: 300, lineHeight: 1.5 }}>
-        Three steps. Photo never leaves your device until you capture.
+        {tFit(lang, "welcome.subtitle")}
       </p>
 
       <div
@@ -245,7 +246,7 @@ function WelcomeStep({
               letterSpacing: "0.02em",
             }}
           >
-            You need a card for this scan
+            {tFit(lang, "welcome.need_card_title")}
           </span>
         </div>
         <p
@@ -258,7 +259,7 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          Grab any credit card, debit card, or ID card. The long edge must measure <strong style={{ color: "#fff", fontWeight: 500 }}>85.60 mm</strong> and the short edge <strong style={{ color: "#fff", fontWeight: 500 }}>53.98 mm</strong> — this is the ISO/IEC 7810 ID-1 standard used by most payment and ID cards worldwide.
+          {tFit(lang, "welcome.need_card_body_a")} <strong style={{ color: "#fff", fontWeight: 500 }}>{tFit(lang, "welcome.need_card_body_long")}</strong> {tFit(lang, "welcome.need_card_body_b")} <strong style={{ color: "#fff", fontWeight: 500 }}>{tFit(lang, "welcome.need_card_body_short")}</strong> {tFit(lang, "welcome.need_card_body_c")}
         </p>
       </div>
 
@@ -290,7 +291,7 @@ function WelcomeStep({
             background: "#0f0f0e",
           }}
         >
-          Hold the card flat on your forehead — long edge horizontal, both edges touching the skin.
+          {tFit(lang, "welcome.ref_caption")}
         </figcaption>
       </figure>
 
@@ -373,7 +374,7 @@ function WelcomeStep({
             height: 52,
           }}
         >
-          {disabled ? "Scan unavailable" : "Start scan"}
+          {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_start")}
         </button>
         <p
           style={{
@@ -385,7 +386,7 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          Take off your glasses first. Detection runs after you tap capture.
+          {tFit(lang, "welcome.cta_note")}
         </p>
         <Link
           to={`/${lang}/fit`}
@@ -399,7 +400,7 @@ function WelcomeStep({
             paddingTop: 4,
           }}
         >
-          Prefer manual measurement? Use the wizard →
+          {tFit(lang, "welcome.manual_link")}
         </Link>
       </div>
     </div>
@@ -531,8 +532,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   }, [levelState]);
 
   const deviceTip = isMobile
-    ? "Hold the phone at arm's length, camera at eye level."
-    : "Sit ~50–70 cm from the webcam, eyes level with the lens.";
+    ? tFit(lang, "camera.device_tip_mobile")
+    : tFit(lang, "camera.device_tip_desktop");
 
   const stopAll = useCallback(() => {
     if (lumRafRef.current) cancelAnimationFrame(lumRafRef.current);
@@ -546,7 +547,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     if (capturedRef.current || busy || stabilizing) return;
     const v = videoRef.current;
     if (!v || v.readyState < 2) {
-      onError("Camera isn't ready yet — give it a second and tap capture again.");
+      onError(tFit(lang, "camera.err_not_ready"));
       return;
     }
 
@@ -566,7 +567,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       console.warn("[scan] landmarker init failed", err);
       setBusy(false);
       setStabilizing(false);
-      onError("Couldn't initialise the face tracker. Try again.");
+      onError(tFit(lang, "camera.err_init"));
       return;
     }
 
@@ -592,7 +593,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       const ctx = cv.getContext("2d");
       if (!ctx) {
         setBusy(false);
-        onError("Capture failed — please try again.");
+        onError(tFit(lang, "camera.err_capture_failed"));
         return;
       }
       ctx.drawImage(v, 0, 0, w, h);
@@ -808,8 +809,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         pushEvent("scan_error", { error_type: reason });
         onError(
           reason === "permission_denied"
-            ? "We need camera access to scan. Allow it in your browser, or use the manual wizard."
-            : "Couldn't start the camera. Try a different browser or device.",
+            ? tFit(lang, "camera.err_permission")
+            : tFit(lang, "camera.err_generic"),
         );
         return;
       }
@@ -1005,7 +1006,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   }, [onError, stopAll]);
 
   const lightingColor = lighting === "green" ? "#4ade80" : lighting === "yellow" ? "#facc15" : "#ef4444";
-  const lightingLabel = lighting === "green" ? "Good light" : lighting === "yellow" ? "OK light" : "Too dark";
+  const lightingLabel = lighting === "green" ? tFit(lang, "camera.lighting_good") : lighting === "yellow" ? tFit(lang, "camera.lighting_ok") : tFit(lang, "camera.lighting_dark");
   const cardColor =
     cardState === "ok" || cardOverride
       ? "#4ade80"
@@ -1014,25 +1015,25 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         : "#ef4444";
   const cardLabel =
     cardOverride
-      ? "Card confirmed (manual)"
+      ? tFit(lang, "camera.card_confirmed")
       : cardState === "ok"
-        ? "Card detected"
+        ? tFit(lang, "camera.card_detected")
         : cardState === "misaligned"
-          ? "Rotate card flat & horizontal"
-          : "Place card on forehead";
+          ? tFit(lang, "camera.card_rotate")
+          : tFit(lang, "camera.card_place");
   const distanceColor =
     distanceState === "ok" ? "#4ade80" : distanceState === "unknown" ? "#facc15" : "#ef4444";
   const distanceLabel =
     distanceState === "too_close"
-      ? "Move farther from the camera"
+      ? tFit(lang, "camera.distance_too_close")
       : distanceState === "too_far"
-        ? "Move closer to the camera"
+        ? tFit(lang, "camera.distance_too_far")
         : distanceState === "ok"
-          ? "Good distance"
-          : "Center your face in the oval";
+          ? tFit(lang, "camera.distance_ok")
+          : tFit(lang, "camera.distance_center");
   const showDistanceHint = distanceState === "too_close" || distanceState === "too_far";
   const poseColor = poseState === "ok" ? "#4ade80" : poseState === "off" ? "#ef4444" : "#facc15";
-  const poseLabel = poseState === "ok" ? "Facing camera" : poseState === "off" ? "Look straight ahead" : "Center your face";
+  const poseLabel = poseState === "ok" ? tFit(lang, "camera.pose_ok") : poseState === "off" ? tFit(lang, "camera.pose_off") : tFit(lang, "camera.pose_center");
   const showPoseHint = poseState === "off";
   const captureBlocked = !ready || busy || countdown !== null;
 
@@ -1060,12 +1061,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         : "#facc15";
   const levelLabel =
     levelState === "ok"
-      ? "Phone level"
+      ? tFit(lang, "camera.level_ok")
       : levelState === "off"
-        ? "Hold phone level"
+        ? tFit(lang, "camera.level_off")
         : levelState === "needs-permission"
-          ? "Level enables on capture"
-          : "Level unavailable";
+          ? tFit(lang, "camera.level_enable")
+          : tFit(lang, "camera.level_unavailable");
 
   // ─── MOBILE: full-bleed camera with floating controls ───
   if (isMobile) {
@@ -1228,7 +1229,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 zIndex: 5,
               }}
             >
-              Card is on my forehead — press to confirm
+              {tFit(lang, "camera.card_override_mobile")}
             </button>
           )}
 
@@ -1273,7 +1274,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           {stabilizing && (
             <div className="scan-stabilize-bar" role="status" aria-live="polite">
               <div className="scan-stabilize-head">
-                <span>Measuring… hold still</span>
+                <span>{tFit(lang, "camera.measuring")}</span>
                 <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/{STABILIZE_MIN_VALID}</span>
               </div>
               <div className="scan-stabilize-track">
@@ -1302,7 +1303,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           <button
             type="button"
             className="scan-shutter"
-            aria-label={countdown !== null ? `Capturing in ${countdown}` : "Capture photo"}
+            aria-label={countdown !== null ? tFit(lang, "camera.aria_capturing", { n: countdown }) : tFit(lang, "camera.aria_capture")}
             onClick={performCapture}
             disabled={captureBlocked}
             style={{
@@ -1339,9 +1340,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           </button>
           <div className="scan-mobile-secondary">
             <button type="button" onClick={countdown !== null ? cancelTimer : startTimer} disabled={!ready || busy}>
-              {countdown !== null ? "Cancel timer" : "3-second timer"}
+              {countdown !== null ? tFit(lang, "camera.timer_cancel") : tFit(lang, "camera.timer_start_mobile")}
             </button>
-            <Link to={`/${lang}/fit`}>Manual wizard →</Link>
+            <Link to={`/${lang}/fit`}>{tFit(lang, "camera.manual_link")}</Link>
           </div>
         </div>
       </div>
@@ -1365,7 +1366,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           />
         ))}
         <span style={{ marginLeft: 10, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
-          Step 2 of 4 — Capture photo
+          {tFit(lang, "camera.step_label")}
         </span>
       </div>
 
@@ -1528,7 +1529,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               zIndex: 5,
             }}
           >
-            Card is on my forehead
+            {tFit(lang, "camera.card_override_desktop")}
           </button>
         )}
 
@@ -1576,9 +1577,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         />
         <figcaption style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.82rem", lineHeight: 1.5, color: "rgba(255,255,255,0.78)" }}>
           <strong style={{ display: "block", color: GOLD, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", fontSize: "0.7rem", marginBottom: 4 }}>
-            Like this
+            {tFit(lang, "camera.like_this")}
           </strong>
-          Card flat against the forehead, long edge horizontal across the brow. Hold by the top edge so your fingers don't cover the bottom corners.
+          {tFit(lang, "camera.like_this_body")}
         </figcaption>
       </figure>
 
@@ -1612,7 +1613,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 letterSpacing: "0.04em",
               }}
             >
-              <span>Measuring… hold still</span>
+              <span>{tFit(lang, "camera.measuring")}</span>
               <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>
                 {stabilizeValid}/{STABILIZE_MIN_VALID}
               </span>
@@ -1683,12 +1684,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           }}
         >
           {stabilizing
-            ? `Measuring… ${Math.round(stabilizeProgress)}%`
+            ? tFit(lang, "camera.btn_measuring", { pct: Math.round(stabilizeProgress) })
             : busy
-              ? "Analyzing…"
+              ? tFit(lang, "camera.btn_analyzing")
                 : countdown !== null
-                  ? `Capturing in ${countdown}…`
-                  : "Capture now"}
+                  ? tFit(lang, "camera.btn_capturing", { n: countdown })
+                  : tFit(lang, "camera.btn_capture")}
         </button>
         <button
           type="button"
@@ -1706,7 +1707,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             cursor: !ready || busy ? "not-allowed" : "pointer",
           }}
         >
-          {countdown !== null ? "Cancel timer" : "Use 3-second timer"}
+          {countdown !== null ? tFit(lang, "camera.timer_cancel") : tFit(lang, "camera.timer_start_desktop")}
         </button>
       </div>
 
@@ -1724,16 +1725,16 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         }}
       >
         <summary style={{ cursor: "pointer", color: GOLD, letterSpacing: "0.1em", textTransform: "uppercase", fontSize: "0.72rem" }}>
-          Tips for accuracy
+          {tFit(lang, "camera.tips_heading")}
         </summary>
         <ul style={{ marginTop: 10, lineHeight: 1.6, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
           {[
-            "Push your hair back off your forehead before scanning.",
-            "Take off your glasses before scanning.",
-            "Lay the card flat on your forehead, long edge horizontal.",
-            "Hold the card by its top edge — keep fingers off the bottom corners.",
-            "Don't tilt the card or camera; even a small tilt = 3–6 mm error.",
-            "Look straight at the lens.",
+            tFit(lang, "camera.tip1"),
+            tFit(lang, "camera.tip2"),
+            tFit(lang, "camera.tip3"),
+            tFit(lang, "camera.tip4"),
+            tFit(lang, "camera.tip5"),
+            tFit(lang, "camera.tip6"),
           ].map((t) => (
             <li key={t} style={{ display: "flex", gap: 8 }}>
               <span style={{ color: GOLD, flexShrink: 0 }}>•</span>
@@ -1747,7 +1748,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         to={`/${lang}/fit`}
         style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.75rem", textAlign: "center", textDecoration: "none" }}
       >
-        Use the manual wizard →
+        {tFit(lang, "camera.manual_link")}
       </Link>
     </div>
   );
@@ -1762,9 +1763,10 @@ interface AnnotateStepProps {
   fallbackReason?: "no_edge" | "validation" | null;
   initialCard?: [Point, Point] | null;
   initialFace?: [Point, Point] | null;
+  lang: Lang;
 }
 
-function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, initialCard = null, initialFace = null }: AnnotateStepProps) {
+function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, initialCard = null, initialFace = null, lang }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [cardCorners, setCardCorners] = useState<Point[]>(initialCard ? [initialCard[0], initialCard[1]] : []);
   const [faceEdges, setFaceEdges] = useState<Point[]>(initialFace ? [initialFace[0], initialFace[1]] : []);
@@ -1988,7 +1990,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
             padding: "6px 8px",
           }}
         >
-          ← Retake
+          {tFit(lang, "annotate.retake")}
         </button>
         <span
           style={{
@@ -2000,10 +2002,10 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
           }}
         >
           {cardCorners.length < 2
-            ? `Tap card corners (${cardCorners.length}/2)`
+            ? tFit(lang, "annotate.step_card", { n: cardCorners.length })
             : faceEdges.length < 2
-              ? `Tap face edges (${faceEdges.length}/2)`
-              : "All 4 points placed ✓"}
+              ? tFit(lang, "annotate.step_face", { n: faceEdges.length })
+              : tFit(lang, "annotate.all_placed")}
         </span>
         {totalPoints > 0 ? (
           <button
@@ -2020,7 +2022,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
               padding: "6px 8px",
             }}
           >
-            Reset
+            {tFit(lang, "annotate.reset")}
           </button>
         ) : (
           <span style={{ width: 56 }} />
@@ -2041,7 +2043,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
             lineHeight: 1.4,
           }}
         >
-          Tap the two bottom corners of the card, then the widest left & right outline of your face. Drag any dot to fine-tune.
+          {tFit(lang, "annotate.fallback_hint")}
         </div>
       )}
 
@@ -2085,7 +2087,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
         >
           <img
             src={frame.dataUrl}
-            alt="Captured frame for measurement"
+            alt={tFit(lang, "annotate.alt_captured")}
             style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)", display: "block", pointerEvents: "none" }}
           />
           {cardCorners.length === 2 && (
@@ -2113,7 +2115,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
           )}
           {allPoints.map((c, i) => {
             const isCardPoint = i < 2;
-            const label = isCardPoint ? `Card corner ${i + 1}` : `Face edge ${i - 1}`;
+            const label = isCardPoint ? `${tFit(lang, "annotate.card_corner")} ${i + 1}` : `${tFit(lang, "annotate.face_edge")} ${i - 1}`;
             return (
               <div
                 key={i}
@@ -2122,7 +2124,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
                 onPointerUp={endDrag}
                 onPointerCancel={endDrag}
                 role="slider"
-                aria-label={`${label} — drag to adjust`}
+                aria-label={`${label} — ${tFit(lang, "annotate.aria_adjust")}`}
                 style={{
                   position: "absolute",
                   left: (frame.width - c.x) * scaleX - 14,
@@ -2179,7 +2181,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
                 zIndex: 5,
               }}
             >
-              <span>Drag a point to fine-tune</span>
+              <span>{tFit(lang, "annotate.drag_hint")}</span>
             </div>
           )}
         </div>
@@ -2197,7 +2199,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
         >
           <button
             type="button"
-            aria-label="Zoom in"
+            aria-label={tFit(lang, "annotate.zoom_in")}
             onPointerDown={(e) => { e.stopPropagation(); }}
             onClick={(e) => {
               e.stopPropagation();
@@ -2233,7 +2235,7 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
           >{Math.round(zoom * 100)}%</div>
           <button
             type="button"
-            aria-label="Zoom out"
+            aria-label={tFit(lang, "annotate.zoom_out")}
             onPointerDown={(e) => { e.stopPropagation(); }}
             onClick={(e) => {
               e.stopPropagation();
@@ -2284,8 +2286,8 @@ function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, ini
           }}
         >
           {cardCorners.length < 2 || faceEdges.length < 2
-            ? `Tap ${4 - totalPoints} more point${4 - totalPoints === 1 ? "" : "s"}`
-            : "Calculate my measurements"}
+            ? (4 - totalPoints === 1 ? tFit(lang, "annotate.calc_pending_one", { n: 4 - totalPoints }) : tFit(lang, "annotate.calc_pending_many", { n: 4 - totalPoints }))
+            : tFit(lang, "annotate.calc_ready")}
         </button>
       </div>
     </div>
@@ -2329,9 +2331,9 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           ? "high"
           : "medium";
   const confidenceCopy = {
-    high: { label: "High confidence", color: "hsl(var(--cream))", body: "Landmarks and card edges aligned cleanly." },
-    medium: { label: "Medium confidence", color: GOLD, body: "Usable result — verify against a known-fitting frame if possible." },
-    low: { label: "Low confidence", color: "#c47a4a", body: "Depth correction applied. For best accuracy, re-scan with the card flush to your skin." },
+    high: { label: tFit(lang, "result.conf_high"), color: "hsl(var(--cream))", body: tFit(lang, "result.conf_high_body") },
+    medium: { label: tFit(lang, "result.conf_medium"), color: GOLD, body: tFit(lang, "result.conf_medium_body") },
+    low: { label: tFit(lang, "result.conf_low"), color: "#c47a4a", body: tFit(lang, "result.conf_low_body") },
   }[confidenceRating];
 
   const handleCta = () => {
@@ -2381,7 +2383,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           <span key={n} style={{ width: 8, height: 8, borderRadius: "50%", background: GOLD, display: "inline-block" }} />
         ))}
         <span style={{ marginLeft: 10, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
-          Step 4 of 4 — Your measurements
+          {tFit(lang, "result.step_label")}
         </span>
       </div>
 
@@ -2400,7 +2402,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
         }}
       >
         <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase" }}>
-          Head width (frame size)
+          {tFit(lang, "result.head_width")}
         </div>
         <div
           className="scan-result-number font-display"
@@ -2411,7 +2413,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
         </div>
         {cardOffset && (
           <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.08em" }}>
-            (raw {measurements.faceWidthMm} mm)
+            {tFit(lang, "result.raw", { n: measurements.faceWidthMm })}
           </div>
         )}
         <div
@@ -2453,7 +2455,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             }}
           >
             <div style={{ color: "hsl(var(--cream))", fontFamily: "Barlow, sans-serif", fontSize: "0.95rem", fontWeight: 500 }}>
-              Where you fall
+              {tFit(lang, "result.where_you_fall")}
             </div>
             <div style={{ position: "relative", height: 10, marginTop: 18 }}>
               <div
@@ -2502,8 +2504,8 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
               </div>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", marginTop: 18 }}>
-              <span>Narrow (120)</span>
-              <span>Wide (180+)</span>
+              <span>{tFit(lang, "result.narrow")}</span>
+              <span>{tFit(lang, "result.wide")}</span>
             </div>
           </div>
         );
@@ -2523,7 +2525,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
         }}
       >
         <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
-          Nose width
+          {tFit(lang, "result.nose_width")}
         </div>
         <div className="font-display" style={{ color: GOLD, fontWeight: 300, fontSize: "clamp(1.6rem, 4vw, 2.1rem)", lineHeight: 1 }}>
           {adjustedNose} <span style={{ fontSize: "0.55em", color: MUTED }}>mm</span>
@@ -2549,14 +2551,14 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             style={{ marginTop: 3, accentColor: GOLD, width: 16, height: 16 }}
           />
           <span style={{ color: "hsl(var(--cream))", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", lineHeight: 1.45 }}>
-            The card was a bit in front of my face (not flush to my skin)
+            {tFit(lang, "result.card_offset_label")}
           </span>
         </label>
         {cardOffset && (
           <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingLeft: 26 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
               <span style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-                Approx. gap
+                {tFit(lang, "result.approx_gap")}
               </span>
               <span style={{ color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.85rem", fontWeight: 500 }}>
                 {gapCm.toFixed(1)} cm
@@ -2572,11 +2574,11 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
               style={{ accentColor: GOLD, width: "100%" }}
             />
             <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-              <span>Touching</span>
-              <span>Held out</span>
+              <span>{tFit(lang, "result.touching")}</span>
+              <span>{tFit(lang, "result.held_out")}</span>
             </div>
             <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.74rem", lineHeight: 1.5, margin: "4px 0 0" }}>
-              Correction +{Math.round((correctionFactor - 1) * 1000) / 10}% — face width adjusted from {measurements.faceWidthMm} mm to {adjustedFace} mm.
+              {tFit(lang, "result.correction_note", { pct: Math.round((correctionFactor - 1) * 1000) / 10, raw: measurements.faceWidthMm, adj: adjustedFace })}
             </p>
           </div>
         )}
@@ -2606,10 +2608,10 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
               fontWeight: 500,
             }}
           >
-            This result looks low — likely a scan issue
+            {tFit(lang, "result.low_title")}
           </div>
           <p style={{ color: "hsl(var(--cream-dim))", fontFamily: "Barlow, sans-serif", fontSize: "0.88rem", lineHeight: 1.55, margin: 0 }}>
-            {adjustedFace} mm is below the typical adult range. The most common cause is the card not being pressed flat against the forehead — even a 2 cm gap underestimates face width by 5–10 mm. Re-scan with the card flush to your skin for an accurate result.
+            {tFit(lang, "result.low_body", { n: adjustedFace })}
           </p>
           <button
             type="button"
@@ -2632,7 +2634,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
               cursor: "pointer",
             }}
           >
-            Re-scan with card flat →
+            {tFit(lang, "result.rescan_flat")}
           </button>
         </div>
       )}
@@ -2660,17 +2662,17 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
               textTransform: "uppercase",
             }}
           >
-            Face shape · {faceShape.label}
+            {tFit(lang, "result.face_shape_label")} {faceShape.label}
           </span>
           <h3 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.55rem)", fontWeight: 300, lineHeight: 1.25, margin: 0 }}>
-            Best frame for your face: <em style={{ fontStyle: "italic", color: GOLD }}>{faceShape.modelName}</em>
+            {tFit(lang, "result.face_shape_h_pre")} <em style={{ fontStyle: "italic", color: GOLD }}>{faceShape.modelName}</em>
           </h3>
           <p className="text-cream-dim" style={{ fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
             {faceShape.reason}
           </p>
           {adjustedFace >= 160 && (
             <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", lineHeight: 1.5, margin: 0 }}>
-              Your face width is {adjustedFace} mm — you almost certainly need a wide frame (160 mm+). Both Woolet 007 and 009 are built at 158 mm+.
+              {tFit(lang, "result.face_shape_extra", { n: adjustedFace })}
             </p>
           )}
           <Link
@@ -2689,7 +2691,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
               textDecoration: "none",
             }}
           >
-            See Woolet {faceShape.recommendedModel} →
+            {tFit(lang, "result.see_woolet", { model: faceShape.recommendedModel })}
           </Link>
         </div>
       )}
@@ -2754,7 +2756,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             justifyContent: "center",
           }}
         >
-          {authedUser ? "Go to my account →" : "See my prefilled fit →"}
+          {authedUser ? tFit(lang, "result.cta_account") : tFit(lang, "result.cta_prefill")}
         </Link>
         <Link
           to={recommendation.primaryHref}
@@ -2778,13 +2780,13 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           onClick={downloadCard}
           style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "8px 0", cursor: "pointer", textDecoration: "underline" }}
         >
-          Save my measurements
+          {tFit(lang, "result.save")}
         </button>
         <button
           onClick={onRetake}
           style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "4px 0", cursor: "pointer", textDecoration: "underline" }}
         >
-          Re-scan
+          {tFit(lang, "result.rescan")}
         </button>
       </div>
     </div>
@@ -2820,11 +2822,11 @@ function EmailGateStep({
     setError(null);
     const parsed = emailSchema.safeParse(email);
     if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Invalid email");
+      setError(parsed.error.issues[0]?.message ?? tFit(lang, "email.err_invalid"));
       return;
     }
     if (!agree) {
-      setError("Please accept to receive your measurements by email.");
+      setError(tFit(lang, "email.err_accept"));
       return;
     }
     setSubmitting(true);
@@ -2910,7 +2912,7 @@ function EmailGateStep({
       onSubmitted(parsed.data);
     } catch (err) {
       console.error("[scan email gate] submit failed", err);
-      toast.error("Couldn't save your email. Try again.");
+      toast.error(tFit(lang, "email.toast_save_failed"));
     } finally {
       setSubmitting(false);
     }
@@ -2929,16 +2931,16 @@ function EmailGateStep({
     >
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">LAST STEP · UNLOCK YOUR RESULTS</span>
+        <span className="woolet-eyebrow-text">{tFit(lang, "email.eyebrow")}</span>
       </div>
       <h2
         className="font-display text-woolet-white"
         style={{ fontSize: "clamp(1.5rem, 4vw, 2rem)", fontWeight: 300, lineHeight: 1.1, margin: 0 }}
       >
-        Where should we send your <em className="italic" style={{ color: GOLD }}>measurements?</em>
+        {tFit(lang, "email.h2_pre")} <em className="italic" style={{ color: GOLD }}>{tFit(lang, "email.h2_em")}</em>
       </h2>
       <p className="text-cream-dim" style={{ fontSize: "0.95rem", fontWeight: 300, lineHeight: 1.5, margin: 0 }}>
-        We'll reveal your face width, recommended size and best‑fit models — and email you a copy plus a magic‑link to save them to a Woolet account.
+        {tFit(lang, "email.desc")}
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
@@ -2956,18 +2958,18 @@ function EmailGateStep({
             border: 0,
           }}
         >
-          Your email address
+          {tFit(lang, "email.aria_label")}
         </label>
         <input
           id="scan-result-email"
           type="email"
           inputMode="email"
           autoComplete="email"
-          aria-label="Your email address"
+          aria-label={tFit(lang, "email.aria_label")}
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
+          placeholder={tFit(lang, "email.placeholder")}
           style={{
             background: "rgba(255,255,255,0.05)",
             border: "1px solid rgba(255,255,255,0.18)",
@@ -3007,7 +3009,7 @@ function EmailGateStep({
             }}
           />
           <span>
-            Email me my measurements and create a Woolet account so I can find them later. I can unsubscribe anytime.
+            {tFit(lang, "email.agree")}
           </span>
         </label>
 
@@ -3034,7 +3036,7 @@ function EmailGateStep({
             height: 52,
           }}
         >
-          {submitting ? "Sending…" : "Reveal my results →"}
+          {submitting ? tFit(lang, "email.submitting") : tFit(lang, "email.submit")}
         </button>
         <p
           style={{
@@ -3045,7 +3047,7 @@ function EmailGateStep({
             textAlign: "center",
           }}
         >
-          No spam · We never share your email.
+          {tFit(lang, "email.footer")}
         </p>
       </form>
     </div>
@@ -3074,13 +3076,13 @@ function ResultSentStep({
     <div className="flex flex-col gap-6" style={{ paddingTop: "1rem" }}>
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">YOUR MEASUREMENTS</span>
+        <span className="woolet-eyebrow-text">{tFit(lang, "sent.eyebrow")}</span>
       </div>
       <h1
         className="font-display text-woolet-white"
         style={{ fontSize: "clamp(1.75rem, 4.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.05, margin: 0 }}
       >
-        You're a <em className="italic" style={{ color: GOLD }}>{Math.round(faceWidthMm)} mm</em> face
+        {tFit(lang, "sent.h1_pre")} <em className="italic" style={{ color: GOLD }}>{Math.round(faceWidthMm)} mm</em> {tFit(lang, "sent.h1_post")}
       </h1>
 
       <div
@@ -3116,7 +3118,7 @@ function ResultSentStep({
               marginTop: 6,
             }}
           >
-            Face width
+            {tFit(lang, "sent.face_width")}
           </div>
         </div>
         <div>
@@ -3141,7 +3143,7 @@ function ResultSentStep({
               marginTop: 6,
             }}
           >
-            Bridge width
+            {tFit(lang, "sent.bridge_width")}
           </div>
         </div>
       </div>
@@ -3184,8 +3186,7 @@ function ResultSentStep({
         className="text-cream-dim"
         style={{ fontSize: "0.85rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}
       >
-        A full copy was sent to <strong style={{ color: "white" }}>{email}</strong> with a magic
-        sign‑in link to save it to your Woolet account. Check spam if it doesn't arrive in a minute.
+        {tFit(lang, "sent.copy_sent", { email })}
       </p>
 
       <Link
@@ -3205,7 +3206,7 @@ function ResultSentStep({
           borderRadius: 4,
         }}
       >
-        See your recommended frame →
+        {tFit(lang, "sent.see_frame")}
       </Link>
     </div>
   );
@@ -3406,7 +3407,7 @@ export default function FitScan() {
       if (error) throw error;
       if (data?.glassesDetected === true) {
         pushEvent("scan_error", { error_type: "glasses_detected" });
-        setErrorMsg("Please remove your eyeglasses — they cover the temple landmarks we need to measure. Then retake the photo.");
+        setErrorMsg(tFit(lang, "page.err_glasses"));
         setErrorKind("recoverable");
         setStep("welcome");
         return;
@@ -3510,7 +3511,7 @@ export default function FitScan() {
   const handleCalculate = ([c1, c2]: [Point, Point], [f1, f2]: [Point, Point]) => {
     if (!frame) return;
     if (!runCalculate(frame, c1, c2, f1, f2)) {
-      toast.error("Measurement rejected", { description: errorMsg || "Calculation failed." });
+      toast.error(tFit(lang, "email.toast_meas_rejected"), { description: errorMsg || tFit(lang, "email.toast_meas_failed") });
     }
   };
 
@@ -3521,16 +3522,16 @@ export default function FitScan() {
   };
 
   const blockingMessage = !secureCtx
-    ? "Face scan needs a secure (HTTPS) connection. Open this page on the live site, or use the manual wizard."
+    ? tFit(lang, "page.err_insecure")
     : !supported
-      ? "Your browser doesn't expose camera access. Try Chrome, Safari, or Firefox — or use the manual wizard."
+      ? tFit(lang, "page.err_no_camera")
       : null;
 
   return (
     <>
       <SEO
-        title="Face Scan — Woolet AI Fit"
-        description="Measure your face width and nose width with your camera and a credit card. Local, private, and accurate to about 2mm. Find out if Woolet's wide-face frames fit you."
+        title={tFit(lang, "seo.title")}
+        description={tFit(lang, "seo.desc")}
         lang={lang}
         path="/fit"
         noindex
@@ -3786,7 +3787,7 @@ export default function FitScan() {
                         marginBottom: 8,
                       }}
                     >
-                      {blockingMessage ? "Scan unavailable" : "Scan didn't complete"}
+                      {blockingMessage ? tFit(lang, "page.err_unavailable") : tFit(lang, "page.err_didnt_complete")}
                     </div>
                     <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
                       {blockingMessage || errorMsg}
@@ -3810,7 +3811,7 @@ export default function FitScan() {
                             marginBottom: 8,
                           }}
                         >
-                          Before you retry
+                          {tFit(lang, "page.err_before_retry")}
                         </div>
                         <ul
                           style={{
@@ -3821,9 +3822,9 @@ export default function FitScan() {
                             lineHeight: 1.6,
                           }}
                         >
-                          <li>Push your hair back off your forehead</li>
-                          <li>Hold the card by its top edge — don't cover the corners</li>
-                          <li>Lay the card flat, long edge horizontal</li>
+                          <li>{tFit(lang, "page.err_tip1")}</li>
+                          <li>{tFit(lang, "page.err_tip2")}</li>
+                          <li>{tFit(lang, "page.err_tip3")}</li>
                         </ul>
                       </div>
                     )}
@@ -3844,7 +3845,7 @@ export default function FitScan() {
                             cursor: "pointer",
                           }}
                         >
-                          Try again
+                          {tFit(lang, "page.err_try_again")}
                         </button>
                       )}
                       <button
@@ -3861,7 +3862,7 @@ export default function FitScan() {
                           cursor: "pointer",
                         }}
                       >
-                        Use manual scan
+                        {tFit(lang, "page.err_use_manual")}
                       </button>
                     </div>
                   </div>
@@ -3885,10 +3886,10 @@ export default function FitScan() {
                   />
                 )}
                 {step === "analyzing" && (
-                  <AnalyzingStep previewUrl={frame?.dataUrl} />
+                  <AnalyzingStep previewUrl={frame?.dataUrl} lang={lang} />
                 )}
                 {step === "annotate" && frame && (
-                  <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} initialCard={prefillPoints?.card ?? null} initialFace={prefillPoints?.face ?? null} />
+                  <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} initialCard={prefillPoints?.card ?? null} initialFace={prefillPoints?.face ?? null} lang={lang} />
                 )}
                 {(step === "result" || step === "result-sent") && measurements && recommendation && (
                   <>
