@@ -1554,6 +1554,32 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 }}
               />
             </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.72rem",
+                color: "rgba(255,255,255,0.85)",
+              }}
+            >
+              <div style={{ color: GOLD }}>{scanDiag.lastReason}</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 12px" }}>
+                <span>Yaw <b>{scanDiag.lastYawDeg !== null ? `${scanDiag.lastYawDeg.toFixed(0)}°` : "—"}</b></span>
+                <span>Pitch <b>{scanDiag.lastPitchDeg !== null ? `${scanDiag.lastPitchDeg.toFixed(0)}°` : "—"}</b></span>
+                <span>Roll <b>{scanDiag.lastRollDeg !== null ? `${scanDiag.lastRollDeg.toFixed(0)}°` : "—"}</b></span>
+                <span>Card <b>{scanDiag.lastCardConf !== null ? `${Math.round(scanDiag.lastCardConf * 100)}%` : "—"}</b></span>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 12px", opacity: 0.85 }}>
+                <span>Frames <b>{scanDiag.total}</b></span>
+                <span style={{ color: "#7CFFB2" }}>OK <b>{scanDiag.valid}</b></span>
+                <span>No face <b>{scanDiag.noFace}</b></span>
+                <span>Pose <b>{scanDiag.poseOff}</b></span>
+                <span>Card <b>{scanDiag.cardLow}</b></span>
+                <span>Range <b>{scanDiag.measErr}</b></span>
+              </div>
+            </div>
           </div>
         )}
         <button
