@@ -130,12 +130,14 @@ const CookieBanner = () => {
     setVisible(false);
   };
 
-  if (!visible) return null;
+  if (!isPrimary || !visible) return null;
 
   return (
     <div
       role="dialog"
       aria-label="Cookie preferences"
+      {...{ [SINGLETON_ATTR]: "1" }}
+
       style={{
         position: "fixed",
         left: 16,
