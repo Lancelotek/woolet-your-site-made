@@ -1391,6 +1391,57 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       </p>
 
       <div className="flex flex-col gap-3">
+        {stabilizing && (
+          <div
+            role="status"
+            aria-live="polite"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              padding: "12px 14px",
+              border: `1px solid ${GOLD}`,
+              borderRadius: 8,
+              background: "rgba(202,164,73,0.08)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "baseline",
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.78rem",
+                color: "#fff",
+                letterSpacing: "0.04em",
+              }}
+            >
+              <span>Pomiar… trzymaj nieruchomo</span>
+              <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>
+                {stabilizeValid}/30
+              </span>
+            </div>
+            <div
+              aria-hidden
+              style={{
+                width: "100%",
+                height: 6,
+                borderRadius: 999,
+                background: "rgba(255,255,255,0.12)",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  width: `${Math.round(stabilizeProgress)}%`,
+                  height: "100%",
+                  background: GOLD,
+                  transition: "width 120ms linear",
+                }}
+              />
+            </div>
+          </div>
+        )}
         <button
           type="button"
           onClick={performCapture}
@@ -1409,15 +1460,17 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             height: 52,
           }}
         >
-          {busy
-            ? "Analyzing…"
-            : countdown !== null
-              ? `Capturing in ${countdown}…`
-              : poseState === "off"
-                ? "Look straight at the camera"
-                : cardState !== "ok" && !cardOverride
-                  ? cardLabel
-                  : "Capture now"}
+          {stabilizing
+            ? `Measuring… ${Math.round(stabilizeProgress)}%`
+            : busy
+              ? "Analyzing…"
+              : countdown !== null
+                ? `Capturing in ${countdown}…`
+                : poseState === "off"
+                  ? "Look straight at the camera"
+                  : cardState !== "ok" && !cardOverride
+                    ? cardLabel
+                    : "Capture now"}
         </button>
         <button
           type="button"
