@@ -557,6 +557,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       faceWidthMm: number;
     }
     const samples: ValidSample[] = [];
+    let totalTicks = 0;
     const TARGET_MS = 3000;
     const MIN_VALID = 30;
     const startTs = performance.now();
@@ -590,10 +591,13 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
       capturedRef.current = true;
       stopAll();
+      const rejectedPct = totalTicks > 0 ? Math.round(((totalTicks - samples.length) / totalTicks) * 100) : 0;
       pushEvent("scan_captured", {
         stabilized: true,
         valid_frames: samples.length,
+        total_frames_attempted: totalTicks,
         median_face_width_mm: median.faceWidthMm,
+        rejected_pct: rejectedPct,
       });
       onCaptured({
         dataUrl,
@@ -611,6 +615,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     };
 
     const tick = () => {
+      totalTicks++;
       const now = performance.now();
       const elapsed = now - startTs;
       setStabilizeProgress(Math.min(100, (elapsed / TARGET_MS) * 100));
