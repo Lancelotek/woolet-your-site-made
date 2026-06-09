@@ -413,11 +413,15 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const lumRafRef = useRef<number>(0);
+  const stabilizeRafRef = useRef<number>(0);
   const capturedRef = useRef(false);
   const timerRef = useRef<number | null>(null);
 
   const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [stabilizing, setStabilizing] = useState(false);
+  const [stabilizeProgress, setStabilizeProgress] = useState(0);
+  const [stabilizeValid, setStabilizeValid] = useState(0);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
   const [cardOverride, setCardOverride] = useState(false);
