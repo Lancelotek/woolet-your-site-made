@@ -501,6 +501,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     };
   }, [isMobile, attachOrientation]);
 
+  const prevLevelStateRef = useRef(levelState);
+  useEffect(() => {
+    if (levelState === "ok" && prevLevelStateRef.current !== "ok") {
+      haptic(40);
+    }
+    prevLevelStateRef.current = levelState;
+  }, [levelState]);
+
   const deviceTip = isMobile
     ? "Hold the phone at arm's length, camera at eye level."
     : "Sit ~50–70 cm from the webcam, eyes level with the lens.";
