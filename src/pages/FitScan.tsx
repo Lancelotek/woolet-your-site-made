@@ -1763,9 +1763,10 @@ interface AnnotateStepProps {
   fallbackReason?: "no_edge" | "validation" | null;
   initialCard?: [Point, Point] | null;
   initialFace?: [Point, Point] | null;
+  lang: Lang;
 }
 
-function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, initialCard = null, initialFace = null }: AnnotateStepProps) {
+function AnnotateStep({ frame, onCalculate, onRetake, fallbackReason = null, initialCard = null, initialFace = null, lang }: AnnotateStepProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [cardCorners, setCardCorners] = useState<Point[]>(initialCard ? [initialCard[0], initialCard[1]] : []);
   const [faceEdges, setFaceEdges] = useState<Point[]>(initialFace ? [initialFace[0], initialFace[1]] : []);
