@@ -652,8 +652,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             const yawRatio = Math.abs((nose.x - midX) / eyeW);
             const faceH = Math.max(1e-4, chin.y - fHead.y);
             const pitchRatio = Math.abs(((nose.y - fHead.y) / faceH) - 0.55);
-            // Strict ~5° pose gate (sin 5° ≈ 0.087).
-            const faceFrontal = rollDeg < 5 && yawRatio < 0.09 && pitchRatio < 0.09;
+            // Pose gate ~8° — strict enough to keep skewed shots out, loose enough for handheld.
+            const faceFrontal = rollDeg < 8 && yawRatio < 0.16 && pitchRatio < 0.18;
 
             if (faceFrontal) {
               const cx = ((faceLeft.x + faceRight.x) / 2) * w;
