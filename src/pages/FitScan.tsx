@@ -532,8 +532,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   }, [levelState]);
 
   const deviceTip = isMobile
-    ? "Hold the phone at arm's length, camera at eye level."
-    : "Sit ~50–70 cm from the webcam, eyes level with the lens.";
+    ? tFit(lang, "camera.device_tip_mobile")
+    : tFit(lang, "camera.device_tip_desktop");
 
   const stopAll = useCallback(() => {
     if (lumRafRef.current) cancelAnimationFrame(lumRafRef.current);
@@ -547,7 +547,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     if (capturedRef.current || busy || stabilizing) return;
     const v = videoRef.current;
     if (!v || v.readyState < 2) {
-      onError("Camera isn't ready yet — give it a second and tap capture again.");
+      onError(tFit(lang, "camera.err_not_ready"));
       return;
     }
 
@@ -567,7 +567,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       console.warn("[scan] landmarker init failed", err);
       setBusy(false);
       setStabilizing(false);
-      onError("Couldn't initialise the face tracker. Try again.");
+      onError(tFit(lang, "camera.err_init"));
       return;
     }
 
@@ -593,7 +593,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       const ctx = cv.getContext("2d");
       if (!ctx) {
         setBusy(false);
-        onError("Capture failed — please try again.");
+        onError(tFit(lang, "camera.err_capture_failed"));
         return;
       }
       ctx.drawImage(v, 0, 0, w, h);
@@ -809,8 +809,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         pushEvent("scan_error", { error_type: reason });
         onError(
           reason === "permission_denied"
-            ? "We need camera access to scan. Allow it in your browser, or use the manual wizard."
-            : "Couldn't start the camera. Try a different browser or device.",
+            ? tFit(lang, "camera.err_permission")
+            : tFit(lang, "camera.err_generic"),
         );
         return;
       }
@@ -1006,7 +1006,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   }, [onError, stopAll]);
 
   const lightingColor = lighting === "green" ? "#4ade80" : lighting === "yellow" ? "#facc15" : "#ef4444";
-  const lightingLabel = lighting === "green" ? "Good light" : lighting === "yellow" ? "OK light" : "Too dark";
+  const lightingLabel = lighting === "green" ? tFit(lang, "camera.lighting_good") : lighting === "yellow" ? tFit(lang, "camera.lighting_ok") : tFit(lang, "camera.lighting_dark");
   const cardColor =
     cardState === "ok" || cardOverride
       ? "#4ade80"
@@ -1015,25 +1015,25 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         : "#ef4444";
   const cardLabel =
     cardOverride
-      ? "Card confirmed (manual)"
+      ? tFit(lang, "camera.card_confirmed")
       : cardState === "ok"
-        ? "Card detected"
+        ? tFit(lang, "camera.card_detected")
         : cardState === "misaligned"
-          ? "Rotate card flat & horizontal"
-          : "Place card on forehead";
+          ? tFit(lang, "camera.card_rotate")
+          : tFit(lang, "camera.card_place");
   const distanceColor =
     distanceState === "ok" ? "#4ade80" : distanceState === "unknown" ? "#facc15" : "#ef4444";
   const distanceLabel =
     distanceState === "too_close"
-      ? "Move farther from the camera"
+      ? tFit(lang, "camera.distance_too_close")
       : distanceState === "too_far"
-        ? "Move closer to the camera"
+        ? tFit(lang, "camera.distance_too_far")
         : distanceState === "ok"
-          ? "Good distance"
-          : "Center your face in the oval";
+          ? tFit(lang, "camera.distance_ok")
+          : tFit(lang, "camera.distance_center");
   const showDistanceHint = distanceState === "too_close" || distanceState === "too_far";
   const poseColor = poseState === "ok" ? "#4ade80" : poseState === "off" ? "#ef4444" : "#facc15";
-  const poseLabel = poseState === "ok" ? "Facing camera" : poseState === "off" ? "Look straight ahead" : "Center your face";
+  const poseLabel = poseState === "ok" ? tFit(lang, "camera.pose_ok") : poseState === "off" ? tFit(lang, "camera.pose_off") : tFit(lang, "camera.pose_center");
   const showPoseHint = poseState === "off";
   const captureBlocked = !ready || busy || countdown !== null;
 
@@ -1061,12 +1061,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         : "#facc15";
   const levelLabel =
     levelState === "ok"
-      ? "Phone level"
+      ? tFit(lang, "camera.level_ok")
       : levelState === "off"
-        ? "Hold phone level"
+        ? tFit(lang, "camera.level_off")
         : levelState === "needs-permission"
-          ? "Level enables on capture"
-          : "Level unavailable";
+          ? tFit(lang, "camera.level_enable")
+          : tFit(lang, "camera.level_unavailable");
 
   // ─── MOBILE: full-bleed camera with floating controls ───
   if (isMobile) {
@@ -1229,7 +1229,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 zIndex: 5,
               }}
             >
-              Card is on my forehead — press to confirm
+              {tFit(lang, "camera.card_override_mobile")}
             </button>
           )}
 
@@ -1274,7 +1274,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           {stabilizing && (
             <div className="scan-stabilize-bar" role="status" aria-live="polite">
               <div className="scan-stabilize-head">
-                <span>Measuring… hold still</span>
+                <span>{tFit(lang, "camera.measuring")}</span>
                 <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>{stabilizeValid}/{STABILIZE_MIN_VALID}</span>
               </div>
               <div className="scan-stabilize-track">
@@ -1303,7 +1303,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           <button
             type="button"
             className="scan-shutter"
-            aria-label={countdown !== null ? `Capturing in ${countdown}` : "Capture photo"}
+            aria-label={countdown !== null ? tFit(lang, "camera.aria_capturing", { n: countdown }) : tFit(lang, "camera.aria_capture")}
             onClick={performCapture}
             disabled={captureBlocked}
             style={{
@@ -1340,9 +1340,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           </button>
           <div className="scan-mobile-secondary">
             <button type="button" onClick={countdown !== null ? cancelTimer : startTimer} disabled={!ready || busy}>
-              {countdown !== null ? "Cancel timer" : "3-second timer"}
+              {countdown !== null ? tFit(lang, "camera.timer_cancel") : tFit(lang, "camera.timer_start_mobile")}
             </button>
-            <Link to={`/${lang}/fit`}>Manual wizard →</Link>
+            <Link to={`/${lang}/fit`}>{tFit(lang, "camera.manual_link")}</Link>
           </div>
         </div>
       </div>
@@ -1366,7 +1366,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           />
         ))}
         <span style={{ marginLeft: 10, color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
-          Step 2 of 4 — Capture photo
+          {tFit(lang, "camera.step_label")}
         </span>
       </div>
 
@@ -1529,7 +1529,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               zIndex: 5,
             }}
           >
-            Card is on my forehead
+            {tFit(lang, "camera.card_override_desktop")}
           </button>
         )}
 
@@ -1577,9 +1577,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         />
         <figcaption style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.82rem", lineHeight: 1.5, color: "rgba(255,255,255,0.78)" }}>
           <strong style={{ display: "block", color: GOLD, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", fontSize: "0.7rem", marginBottom: 4 }}>
-            Like this
+            {tFit(lang, "camera.like_this")}
           </strong>
-          Card flat against the forehead, long edge horizontal across the brow. Hold by the top edge so your fingers don't cover the bottom corners.
+          {tFit(lang, "camera.like_this_body")}
         </figcaption>
       </figure>
 
@@ -1613,7 +1613,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 letterSpacing: "0.04em",
               }}
             >
-              <span>Measuring… hold still</span>
+              <span>{tFit(lang, "camera.measuring")}</span>
               <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>
                 {stabilizeValid}/{STABILIZE_MIN_VALID}
               </span>
@@ -1684,12 +1684,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           }}
         >
           {stabilizing
-            ? `Measuring… ${Math.round(stabilizeProgress)}%`
+            ? tFit(lang, "camera.btn_measuring", { pct: Math.round(stabilizeProgress) })
             : busy
-              ? "Analyzing…"
+              ? tFit(lang, "camera.btn_analyzing")
                 : countdown !== null
-                  ? `Capturing in ${countdown}…`
-                  : "Capture now"}
+                  ? tFit(lang, "camera.btn_capturing", { n: countdown })
+                  : tFit(lang, "camera.btn_capture")}
         </button>
         <button
           type="button"
@@ -1707,7 +1707,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             cursor: !ready || busy ? "not-allowed" : "pointer",
           }}
         >
-          {countdown !== null ? "Cancel timer" : "Use 3-second timer"}
+          {countdown !== null ? tFit(lang, "camera.timer_cancel") : tFit(lang, "camera.timer_start_desktop")}
         </button>
       </div>
 
@@ -1725,16 +1725,16 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         }}
       >
         <summary style={{ cursor: "pointer", color: GOLD, letterSpacing: "0.1em", textTransform: "uppercase", fontSize: "0.72rem" }}>
-          Tips for accuracy
+          {tFit(lang, "camera.tips_heading")}
         </summary>
         <ul style={{ marginTop: 10, lineHeight: 1.6, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
           {[
-            "Push your hair back off your forehead before scanning.",
-            "Take off your glasses before scanning.",
-            "Lay the card flat on your forehead, long edge horizontal.",
-            "Hold the card by its top edge — keep fingers off the bottom corners.",
-            "Don't tilt the card or camera; even a small tilt = 3–6 mm error.",
-            "Look straight at the lens.",
+            tFit(lang, "camera.tip1"),
+            tFit(lang, "camera.tip2"),
+            tFit(lang, "camera.tip3"),
+            tFit(lang, "camera.tip4"),
+            tFit(lang, "camera.tip5"),
+            tFit(lang, "camera.tip6"),
           ].map((t) => (
             <li key={t} style={{ display: "flex", gap: 8 }}>
               <span style={{ color: GOLD, flexShrink: 0 }}>•</span>
@@ -1748,7 +1748,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         to={`/${lang}/fit`}
         style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.75rem", textAlign: "center", textDecoration: "none" }}
       >
-        Use the manual wizard →
+        {tFit(lang, "camera.manual_link")}
       </Link>
     </div>
   );
