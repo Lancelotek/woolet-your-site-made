@@ -100,6 +100,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "hero.title_2": "adaptées aux",
     "hero.title_3": "visages larges.",
     "hero.desc": "Woolet 007 & 009 — acétate italien, conçues pour les visages de 155mm+. Branches allongées. Pont élargi. Aucun compromis sur le style.",
+    "cta.scan_face_free": "Scannez votre visage — gratuit",
     "waitlist.label": "Liste d'attente",
     "waitlist.spots": "places",
     "waitlist.first_name": "Prénom",
