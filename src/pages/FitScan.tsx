@@ -1226,6 +1226,23 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               <div className="scan-stabilize-track">
                 <div className="scan-stabilize-fill" style={{ width: `${Math.round(stabilizeProgress)}%` }} />
               </div>
+              <div className="scan-diag" aria-live="polite">
+                <div className="scan-diag-reason">{scanDiag.lastReason}</div>
+                <div className="scan-diag-grid">
+                  <span>Yaw <b>{scanDiag.lastYawDeg !== null ? `${scanDiag.lastYawDeg.toFixed(0)}°` : "—"}</b></span>
+                  <span>Pitch <b>{scanDiag.lastPitchDeg !== null ? `${scanDiag.lastPitchDeg.toFixed(0)}°` : "—"}</b></span>
+                  <span>Roll <b>{scanDiag.lastRollDeg !== null ? `${scanDiag.lastRollDeg.toFixed(0)}°` : "—"}</b></span>
+                  <span>Card <b>{scanDiag.lastCardConf !== null ? `${Math.round(scanDiag.lastCardConf * 100)}%` : "—"}</b></span>
+                </div>
+                <div className="scan-diag-grid">
+                  <span>Frames <b>{scanDiag.total}</b></span>
+                  <span style={{ color: "#7CFFB2" }}>OK <b>{scanDiag.valid}</b></span>
+                  <span>No face <b>{scanDiag.noFace}</b></span>
+                  <span>Pose <b>{scanDiag.poseOff}</b></span>
+                  <span>Card <b>{scanDiag.cardLow}</b></span>
+                  <span>Range <b>{scanDiag.measErr}</b></span>
+                </div>
+              </div>
             </div>
           )}
 
