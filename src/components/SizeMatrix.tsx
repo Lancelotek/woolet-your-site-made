@@ -1,14 +1,38 @@
 import { Link } from "react-router-dom";
+import { t, type Lang } from "@/lib/i18n";
 
 /** Size matrix — single-size catalog (158 mm / 21 mm bridge for both shapes) + bespoke. */
-const ROWS: { sku: string; shape: string; width: string; bridge: string; lens: string; face: string; bespoke?: boolean }[] = [
-  { sku: "Woolet 007", shape: "Round / Panto", width: "158 mm", bridge: "21 mm", lens: "52 x 52", face: "155-161 mm" },
-  { sku: "Woolet 009", shape: "Soft Square",   width: "158 mm", bridge: "21 mm", lens: "54 x 50", face: "155-161 mm" },
-  { sku: "Bespoke",    shape: "Either",        width: "150-172 mm", bridge: "21 mm", lens: "Custom", face: "Any 150 mm+", bespoke: true },
-];
+type Row = {
+  sku: string;
+  shapeKey: string;
+  width: string;
+  bridge: string;
+  lens: string;
+  face: string;
+  bespoke?: boolean;
+};
 
-const SizeMatrix = ({ fitHref = "/en/fit", bespokeHref = "/en/bespoke", semantic = true, sectionId }: { fitHref?: string; bespokeHref?: string; semantic?: boolean; sectionId?: string }) => {
+const SizeMatrix = ({
+  fitHref = "/en/fit",
+  bespokeHref = "/en/bespoke",
+  semantic = true,
+  sectionId,
+  lang = "en",
+}: {
+  fitHref?: string;
+  bespokeHref?: string;
+  semantic?: boolean;
+  sectionId?: string;
+  lang?: Lang;
+}) => {
   const HeadingTag = semantic ? "h2" : "div";
+
+  const rows: Row[] = [
+    { sku: "Woolet 007", shapeKey: "matrix.shape_round", width: "158 mm", bridge: "21 mm", lens: "52 x 52", face: "155-161 mm" },
+    { sku: "Woolet 009", shapeKey: "matrix.shape_square", width: "158 mm", bridge: "21 mm", lens: "54 x 50", face: "155-161 mm" },
+    { sku: t(lang, "matrix.sku_bespoke"), shapeKey: "matrix.shape_either", width: t(lang, "matrix.width_bespoke"), bridge: "21 mm", lens: t(lang, "matrix.lens_custom"), face: t(lang, "matrix.face_any"), bespoke: true },
+  ];
+
   return (
     <section
       id={sectionId ?? "size-matrix"}
@@ -18,13 +42,13 @@ const SizeMatrix = ({ fitHref = "/en/fit", bespokeHref = "/en/bespoke", semantic
       <div className="max-w-5xl mx-auto">
         <div className="woolet-eyebrow mb-5">
           <div className="woolet-eyebrow-line" />
-          <span className="woolet-eyebrow-text">THE FIT MATRIX</span>
+          <span className="woolet-eyebrow-text">{t(lang, "matrix.eyebrow")}</span>
         </div>
         <HeadingTag className="font-display text-woolet-white leading-tight mb-4" style={{ fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 300 }} aria-hidden={!semantic || undefined}>
-          Two shapes. <em className="italic text-gold-light">One precise size.</em> One bespoke.
+          {t(lang, "matrix.h2_pre")}<em className="italic text-gold-light">{t(lang, "matrix.h2_em")}</em>{t(lang, "matrix.h2_post")}
         </HeadingTag>
         <p className="text-cream-dim leading-relaxed tracking-wider max-w-2xl mb-10" style={{ fontSize: "0.95rem" }}>
-          Both the 007 round and the 009 soft square ship at <span className="text-foreground">158 mm wide</span> with a <span className="text-foreground">21 mm keyhole bridge</span> - engineered for faces in the 155-161 mm range. Outside that, bespoke covers <span className="text-foreground">150 to 172 mm</span>, same 21 mm bridge, made to your AI scan.
+          {t(lang, "matrix.intro_1")}<span className="text-foreground">{t(lang, "matrix.intro_b1")}</span>{t(lang, "matrix.intro_2")}<span className="text-foreground">{t(lang, "matrix.intro_b2")}</span>{t(lang, "matrix.intro_3")}<span className="text-foreground">{t(lang, "matrix.intro_b3")}</span>{t(lang, "matrix.intro_4")}
         </p>
 
         {/* Desktop table */}
@@ -38,14 +62,14 @@ const SizeMatrix = ({ fitHref = "/en/fit", bespokeHref = "/en/bespoke", semantic
               borderBottom: "1px solid hsl(var(--gold) / 0.25)",
             }}
           >
-            <span>Model</span>
-            <span>Shape</span>
-            <span>Frame width</span>
-            <span>Bridge</span>
-            <span>Lens</span>
-            <span>Target face</span>
+            <span>{t(lang, "matrix.col_model")}</span>
+            <span>{t(lang, "matrix.col_shape")}</span>
+            <span>{t(lang, "matrix.col_width")}</span>
+            <span>{t(lang, "matrix.col_bridge")}</span>
+            <span>{t(lang, "matrix.col_lens")}</span>
+            <span>{t(lang, "matrix.col_face")}</span>
           </div>
-          {ROWS.map((r) => (
+          {rows.map((r) => (
             <div
               key={r.sku}
               className="grid items-center px-5 py-4 transition-colors"
@@ -69,11 +93,11 @@ const SizeMatrix = ({ fitHref = "/en/fit", bespokeHref = "/en/bespoke", semantic
                       fontWeight: 500,
                     }}
                   >
-                    CUSTOM
+                    {t(lang, "matrix.custom_badge")}
                   </span>
                 )}
               </span>
-              <span className="text-cream-dim" style={{ fontSize: "0.85rem" }}>{r.shape}</span>
+              <span className="text-cream-dim" style={{ fontSize: "0.85rem" }}>{t(lang, r.shapeKey)}</span>
               <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.width}</span>
               <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.bridge}</span>
               <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.lens}</span>
@@ -84,7 +108,7 @@ const SizeMatrix = ({ fitHref = "/en/fit", bespokeHref = "/en/bespoke", semantic
 
         {/* Mobile cards */}
         <div className="md:hidden grid gap-3">
-          {ROWS.map((r) => (
+          {rows.map((r) => (
             <div
               key={r.sku}
               className="p-4"
@@ -99,15 +123,15 @@ const SizeMatrix = ({ fitHref = "/en/fit", bespokeHref = "/en/bespoke", semantic
                   <span
                     className="uppercase tracking-[0.18em]"
                     style={{ fontSize: "0.5rem", border: "1px solid hsl(var(--gold) / 0.5)", color: "hsl(var(--gold-light))", padding: "2px 6px", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
-                  >CUSTOM</span>
+                  >{t(lang, "matrix.custom_badge")}</span>
                 )}
               </div>
-              <div className="text-cream-dim mb-3" style={{ fontSize: "0.78rem" }}>{r.shape}</div>
+              <div className="text-cream-dim mb-3" style={{ fontSize: "0.78rem" }}>{t(lang, r.shapeKey)}</div>
               <div className="grid grid-cols-2 gap-y-2 gap-x-4" style={{ fontSize: "0.75rem" }}>
-                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>Width</span><div className="text-foreground">{r.width}</div></div>
-                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>Bridge</span><div className="text-foreground">{r.bridge}</div></div>
-                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>Lens</span><div className="text-foreground">{r.lens}</div></div>
-                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>Face</span><div className="text-foreground">{r.face}</div></div>
+                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>{t(lang, "matrix.m_width")}</span><div className="text-foreground">{r.width}</div></div>
+                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>{t(lang, "matrix.m_bridge")}</span><div className="text-foreground">{r.bridge}</div></div>
+                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>{t(lang, "matrix.m_lens")}</span><div className="text-foreground">{r.lens}</div></div>
+                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>{t(lang, "matrix.m_face")}</span><div className="text-foreground">{r.face}</div></div>
               </div>
             </div>
           ))}
@@ -128,7 +152,7 @@ const SizeMatrix = ({ fitHref = "/en/fit", bespokeHref = "/en/bespoke", semantic
             onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
           >
-            Scan your face — free
+            {t(lang, "cta.scan_face_free")}
           </Link>
         </div>
       </div>
