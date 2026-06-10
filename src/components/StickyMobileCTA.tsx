@@ -1,9 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { t, isValidLang, type Lang } from "@/lib/i18n";
 
 const TOP_BUFFER_PX = 110;
 const BOTTOM_BUFFER_PX = 140;
 
 const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -16,7 +20,6 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
       const rect = form.getBoundingClientRect();
       const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
 
-      // Hide CTA when form overlaps the active viewport area with iOS-safe buffers
       const formInActiveViewport =
         rect.top <= viewportHeight - BOTTOM_BUFFER_PX &&
         rect.bottom >= TOP_BUFFER_PX;
@@ -41,7 +44,6 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
     window.visualViewport?.addEventListener("resize", scheduleUpdate);
     window.visualViewport?.addEventListener("scroll", scheduleUpdate);
 
-    // Initial state
     scheduleUpdate();
 
     return () => {
@@ -55,8 +57,11 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
   }, []);
 
   const scrollToForm = useCallback(() => {
-    window.location.href = "/en/lp/kickstarter";
-  }, []);
+    window.location.href = `/${lang}/lp/kickstarter`;
+  }, [lang]);
+
+  const spotsText = t(lang, "sticky.spots").replace("{count}", String(count));
+  const ctaText = t(lang, "sticky.cta");
 
   return (
     <div
@@ -80,7 +85,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
           color: "rgba(0,0,0,0.7)",
         }}
       >
-        {count} / 100 founding spots
+        {spotsText}
       </span>
       <button
         onClick={scrollToForm}
@@ -96,7 +101,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
           padding: 0,
         }}
       >
-        Join the waitlist · 40% off at launch
+        {ctaText}
       </button>
     </div>
   );
