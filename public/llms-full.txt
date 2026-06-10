@@ -212,7 +212,7 @@ A: Use the Manual Fit Guide (`/en/fit/manual`) — measure with a ruler in front
 Cornerstone long-form articles covering fit, sizing, materials, and brand selection for wide faces and big heads. Both are indexed and citable.
 
 - [The Definitive Guide to Glasses for Wide Faces (2026)](https://woolet.co/en/blog/glasses-for-wide-faces-guide) - How to find glasses that actually fit wide faces (155 mm+) - frame width math, bridge fit, temple length, and the best 158 mm options.
-- [The Best Glasses for Big Heads in 2026 (Premium Picks)](https://woolet.co/en/blog/best-glasses-for-big-heads-2026) - Premium glasses and sunglasses sized for big heads - Italian Mazzucchelli acetate frames at 155 / 158 / 161 mm, with bespoke up to 172 mm.
+- [The Best Glasses for Big Heads in 2026 (Premium Picks)](https://woolet.co/en/blog/best-glasses-for-big-heads-2026) - Premium glasses and sunglasses sized for big heads - Italian Mazzucchelli acetate frames at 158 mm, with bespoke 150–172 mm.
 - [What Size Sunglasses for Wide Faces? (Quick Sizing Guide)](https://woolet.co/en/blog/what-size-sunglasses-for-wide-faces) - How to read frame size numbers and pick the right sunglass front width, bridge and temple length for a 155 mm+ face.
 
 ---
@@ -1471,11 +1471,11 @@ At 155 mm+, the question shifts from *what shape suits an oval face* to *what sh
 
 ## How Woolet sizes apply to an oval face
 
-Woolet ships each shape in three measured sizes — 155, 158 and 161 mm — with a bespoke tier from 150 to 172 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the [AI Fit Wizard](/en/fit) or the [credit-card method](/en/fit/manual), pick the size, then choose between shapes on aesthetic preference.
+Woolet ships each shape in one precise measured size — 158 mm front width — with a bespoke tier from 150 to 172 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the [AI Fit Wizard](/en/fit) or the [credit-card method](/en/fit/manual), confirm 158 mm fits, then choose between shapes on aesthetic preference; go bespoke if you are outside 155–161 mm.
 
 ### Woolet 007 round / panto
 
-The classic oval-face round. At 155, 158 or 161 mm, the round shape softens the face without dominating it. The keyhole bridge keeps the lens sitting at the right height even on faces with a higher cheekbone line.
+The classic oval-face round. At 158 mm front width, the round shape softens the face without dominating it. The 21 mm keyhole bridge keeps the lens sitting at the right height even on faces with a higher cheekbone line.
 
 ### Woolet 009 soft square
 
@@ -1485,7 +1485,7 @@ The more architectural choice. At wider sizes the soft-square shape reads as int
 
 - **Buying a small frame because oval faces "suit anything":** the rule assumes standard width. Above 155 mm, a small frame creates the wrong proportion regardless of shape.
 
-- **Buying a frame with bridge width that does not scale:** a 19 mm bridge on a 161 mm frame leaves a wide gap above the nose. Bridges should scale with the frame — 19 / 21 / 23 mm in the Woolet line.
+- **Choosing a bridge that doesn't match your nose:** a 17–19 mm bridge on a wider nose leaves the frame riding too high on the cheekbones. Woolet ships a 21 mm keyhole bridge as standard, with bespoke 16–26 mm for outliers.
 
 - **Choosing material on price alone:** at 155 mm+ the front spans a wider arc, and budget plastic deforms over time. [Italian Mazzucchelli acetate](/en/blog/what-is-italian-acetate-premium-eyewear) holds the shape it was cut at.
 
@@ -1493,7 +1493,7 @@ The more architectural choice. At wider sizes the soft-square shape reads as int
 
 - Measure temple to temple. Under 155 mm, mainstream brands work and oval-face shape rules apply unchanged.
 
-- At 155 mm+, use the AI Fit Wizard to pick a Woolet size (155 / 158 / 161 mm) or move to bespoke if you are outside 152–168 mm.
+- At 155 mm+, use the AI Fit Wizard to confirm a standard Woolet 158 mm fits, or move to bespoke (150–172 mm) if you are outside the 155–161 mm core range.
 
 - Choose shape on preference: 007 round for softer features, 009 soft square for more structure.
 
