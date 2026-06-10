@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import type { Lang } from "@/lib/i18n";
 import { tFit } from "@/lib/i18n-fitscan";
+import { clarityEvent } from "@/lib/clarity";
 
 const GOLD = "#CAA449";
 const MUTED = "#888888";
