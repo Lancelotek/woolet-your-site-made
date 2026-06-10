@@ -3267,6 +3267,18 @@ export default function FitScan() {
     }
   }, []);
 
+  // CLARITY EVENT: scan_mobile_opened — fired once when /fit loads on a phone
+  // OR with a ?sid= param (the QR handoff target). Guarded by a ref so it
+  // doesn't re-fire on re-renders.
+  const mobileOpenedFiredRef = useRef(false);
+  useEffect(() => {
+    if (mobileOpenedFiredRef.current) return;
+    if (isMobile || !!sidParam) {
+      mobileOpenedFiredRef.current = true;
+      clarityEvent("scan_mobile_opened");
+    }
+  }, [isMobile, sidParam]);
+
   // Handoff: when the phone opens a scan via QR (s=sessionId), mark it connected
   // so the originating desktop sees the "Phone connected" status immediately.
   useEffect(() => {
