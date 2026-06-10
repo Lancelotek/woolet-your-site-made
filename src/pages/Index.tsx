@@ -289,7 +289,7 @@ const Index = () => {
 
         <Navbar />
 
-        <div className={`grid ${lang === "fr" ? "grid-cols-[1fr_720px]" : "grid-cols-[1fr_580px]"} flex-1 min-h-0 animate-fade-in`}>
+        <div className={`grid ${lang === "en" ? "grid-cols-[1fr_580px]" : "grid-cols-[1fr_720px]"} flex-1 min-h-0 animate-fade-in`}>
           {/* Left image — fixed, no scroll */}
           <div className="relative overflow-hidden bg-surface border-r" style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
             <div className="absolute inset-0 flex items-end overflow-hidden">
