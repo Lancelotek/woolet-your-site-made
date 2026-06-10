@@ -7,7 +7,7 @@ Woolet (https://woolet.co) is an Italian Mazzucchelli acetate eyewear brand for 
 # Woolet — Full Reference
 
 
-> AI-fit Italian Mazzucchelli acetate eyewear for wide faces (155 mm and above). Two shapes (Woolet 007 round / panto and Woolet 009 soft square), three measured sizes per shape (155 / 158 / 161 mm), plus a bespoke tier (150–172 mm). Hand-finished in Italy.
+> AI-fit Italian Mazzucchelli acetate eyewear for wide faces (155 mm and above). Two shapes (Woolet 007 round / panto and Woolet 009 soft square), ONE precise size per shape (158 mm front width, 21 mm keyhole bridge), plus a bespoke tier (150–172 mm). Hand-finished in Italy.
 
 This document is the canonical full-content reference for LLM crawlers. It contains brand, product specifications, sizing system, fit methodology, pricing, and content from the public site, all in one file.
 
@@ -37,17 +37,21 @@ Woolet (eyewear) is **not related** to the Woolet smart wallet (2015–2017), wh
 
 ## 2. Products
 
-Woolet sells two frame shapes. Each shape is offered in three measured sizes plus a bespoke tier. All measurements are in millimetres. Frame width is measured temple-to-temple at the front of the frame.
+Woolet sells two frame shapes. Each shape is built in ONE precise size — 158 mm front width with a 21 mm keyhole bridge — plus a bespoke tier. All measurements are in millimetres. Frame width is measured temple-to-temple at the front of the frame.
 
 ### 2.1 Woolet 007 — Round / Panto
 
 Italian Mazzucchelli acetate, round / panto silhouette, hand-finished in Italy.
 
-| Size | Frame width | Bridge | Lens (W × H) | Face range |
-|------|-------------|--------|--------------|------------|
-| S    | 155 mm      | 19 mm  | 50 × 50 mm   | 152–155 mm |
-| M    | 158 mm      | 21 mm  | 52 × 52 mm   | 155–161 mm |
-| L    | 161 mm      | 23 mm  | 54 × 54 mm   | 161–168 mm |
+| Spec          | Value                          |
+|---------------|--------------------------------|
+| Frame width   | 158 mm                         |
+| Bridge        | 21 mm (keyhole)                |
+| Lens (W × H)  | 52 × 52 mm                     |
+| Temples       | 148 mm at 11°                  |
+| Hinges        | 5-barrel PVD Gunmetal          |
+| Face range    | 155–161 mm core (bespoke for outliers) |
+| Colours       | Dark Tortoise, Black, Honey    |
 
 URL: https://woolet.co/en/products/007
 
@@ -55,17 +59,21 @@ URL: https://woolet.co/en/products/007
 
 Italian Mazzucchelli acetate, soft-square silhouette, hand-finished in Italy.
 
-| Size | Frame width | Bridge | Lens (W × H) | Face range |
-|------|-------------|--------|--------------|------------|
-| S    | 155 mm      | 19 mm  | 52 × 48 mm   | 152–155 mm |
-| M    | 158 mm      | 21 mm  | 54 × 50 mm   | 155–161 mm |
-| L    | 161 mm      | 23 mm  | 56 × 52 mm   | 161–168 mm |
+| Spec          | Value                          |
+|---------------|--------------------------------|
+| Frame width   | 158 mm                         |
+| Bridge        | 21 mm (keyhole)                |
+| Lens (W × H)  | 54 × 50 mm                     |
+| Temples       | 148 mm at 11°                  |
+| Hinges        | 5-barrel PVD Gunmetal          |
+| Face range    | 155–161 mm core (bespoke for outliers) |
+| Colours       | Black, Dark Tortoise, Smoke Grey |
 
 URL: https://woolet.co/en/products/009
 
 ### 2.3 Bespoke
 
-For face widths outside the 152–168 mm range, or for buyers who want a custom build.
+For face widths outside the 155–161 mm core range, or for buyers who want a custom build.
 
 - Frame width: 150–172 mm (custom)
 - Bridge: 16–26 mm
@@ -81,7 +89,7 @@ URL: https://woolet.co/en/fit/bespoke
 
 | Tier | Price | Notes |
 |------|-------|-------|
-| Pre-order (founding member) | $133 | 30% off MSRP, save $57 |
+| Pre-order (founding member) | $114 | $1 deposit locks the price; 40% off MSRP |
 | Regular MSRP | $190 | Same for Woolet 007 and Woolet 009 |
 
 Pricing is identical between Woolet 007 and Woolet 009. Bespoke pricing is quoted per build.
@@ -160,20 +168,23 @@ Both methods recommend a frame width that is approximately equal to your face wi
 
 ## 8. FAQ
 
-**Q: What's the smallest Woolet frame?**
-A: 155 mm total frame width (size S in either Woolet 007 or 009). This fits face widths 152–155 mm.
+**Q: What's the frame width of a standard Woolet?**
+A: 158 mm front width — measured temple-to-temple at the hinges. Same for both shapes (007 and 009).
 
-**Q: What's the largest Woolet frame?**
-A: 161 mm total frame width as a standard size (size L). For wider faces, the bespoke tier supports up to 172 mm.
+**Q: What if my face is wider than 161 mm?**
+A: Use the bespoke tier. Bespoke covers 150–172 mm of front width in either shape.
+
+**Q: What if my face is between 150 and 155 mm?**
+A: A standard 158 mm Woolet may sit slightly wide. Bespoke at 152–155 mm front width is the closer fit. Run the AI Fit Wizard for a recommendation.
 
 **Q: How is the bridge sized?**
-A: Bridges scale with frame size. 19 mm on size S, 21 mm on size M, 23 mm on size L. Bespoke ranges from 16 to 26 mm.
+A: 21 mm keyhole bridge as standard. Bespoke ranges from 16 to 26 mm for wider or narrower noses.
 
 **Q: Are the lenses round or square?**
-A: Woolet 007 has round / panto lenses (50 / 52 / 54 mm in diameter, depending on size). Woolet 009 has soft-square lenses (52 × 48, 54 × 50, or 56 × 52 mm).
+A: Woolet 007 has round / panto lenses (52 × 52 mm). Woolet 009 has soft-square lenses (54 × 50 mm).
 
 **Q: Do you ship internationally?**
-A: Yes, woolet.co ships internationally.
+A: Yes, woolet.co ships internationally from US fulfilment.
 
 **Q: Is the AI fit wizard accurate?**
 A: The AI Fit Wizard uses a standard credit card (85.60 mm wide, ISO/IEC 7810 ID-1) as a known-size reference. Accuracy is typically within ±2 mm when the card is held flat against the cheekbone and the user faces the camera squarely.
@@ -190,7 +201,7 @@ A: Use the Manual Fit Guide (`/en/fit/manual`) — measure with a ruler in front
 
 - All marketing claims about fit, materials, and sizing are based on Woolet's published specifications.
 - Woolet does not publish fabricated reviews, fake star ratings, or unverifiable "Made in Italy" claims. The Italian acetate (Mazzucchelli) and Italian hand-finishing are documented and verifiable through the supplier.
-- Pre-order pricing ($133) is honoured for founding members. Regular MSRP ($190) applies after pre-order ends.
+- Pre-order pricing ($114) is honoured for founding members. Regular MSRP ($190) applies after pre-order ends.
 - See https://woolet.co/en/privacy-policy and https://woolet.co/en/return-policy for legal details.
 
 
