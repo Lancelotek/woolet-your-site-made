@@ -1,7 +1,13 @@
+import { useParams } from "react-router-dom";
+import { t, isValidLang, type Lang } from "@/lib/i18n";
+
 const Testimonials = () => {
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+
   const items = [
-    { quote: '"I\'ve been searching for frames this wide for years. Woolet is the first brand that gets it."', meta: "Marek W.  ·  161mm  ·  Warsaw" },
-    { quote: '"Finally no more marks on my temples at the end of the day."', meta: "James R.  ·  158mm  ·  London" },
+    { quote: t(lang, "testimonial.1_quote"), meta: t(lang, "testimonial.1_meta") },
+    { quote: t(lang, "testimonial.2_quote"), meta: t(lang, "testimonial.2_meta") },
   ];
 
   return (
