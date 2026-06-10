@@ -3338,6 +3338,9 @@ export default function FitScan() {
         auto_corners: !f1 && !f2,
         has_session: !!sessionId,
       });
+      // CLARITY EVENT: scan_completed + tag session with the measured width bucket.
+      clarityEvent("scan_completed");
+      claritySet("scan_result", String(m.faceWidthMm));
       // If this scan was opened via QR handoff, sync the result so the
       // originating desktop session can render it in real time.
       if (sessionId) {
