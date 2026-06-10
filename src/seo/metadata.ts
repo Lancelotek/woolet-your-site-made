@@ -55,22 +55,51 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `Woolet ${model} — ${shape} Italian Acetate Eyewear`,
-    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm bridge — engineered for wide faces (155–161 mm). Bespoke 150–172 mm available. ${lensSize}.`,
+    name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
+    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 150–172 mm. Lens ${lensSize}, temples 148 mm, 5-barrel PVD Gunmetal hinges.`,
     brand: { "@type": "Brand", name: "Woolet" },
     image: `${SITE_URL}/og-${model}.png`,
     sku: `WOOLET-${model}`,
+    mpn: `WOOLET-${model}-158`,
     material: "Italian Mazzucchelli Acetate",
+    category: "Eyewear > Optical frames",
+    width: { "@type": "QuantitativeValue", value: 158, unitCode: "MMT", name: "Frame width (hinge to hinge)" },
+    audience: { "@type": "PeopleAudience", suggestedGender: "unisex" },
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Frame width", value: "158 mm" },
+      { "@type": "PropertyValue", name: "Bridge", value: "21 mm keyhole" },
+      { "@type": "PropertyValue", name: "Lens", value: lensSize },
+      { "@type": "PropertyValue", name: "Temple length", value: "148 mm" },
+      { "@type": "PropertyValue", name: "Hinge", value: "5-barrel PVD Gunmetal" },
+      { "@type": "PropertyValue", name: "Frame shape", value: shape },
+      { "@type": "PropertyValue", name: "Fit", value: "Wide fit (155 mm+ faces)" },
+      { "@type": "PropertyValue", name: "Bespoke range", value: "150–172 mm" },
+      { "@type": "PropertyValue", name: "Country of assembly", value: "Italy" },
+    ],
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/PreOrder",
       priceCurrency: "USD",
-      price: "114",
+      price: "133",
       priceValidUntil: "2026-12-31",
       url: `${SITE_URL}/en/products/${model}`,
-      seller: { "@type": "Organization", name: "Woolet" },
+      seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: "133",
+        priceCurrency: "USD",
+        valueAddedTaxIncluded: false,
+      },
+      eligibleRegion: { "@type": "Place", name: "Worldwide" },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "US",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 30,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/FreeReturn",
+      },
     },
-    audience: { "@type": "PeopleAudience", suggestedGender: "unisex" },
   };
 }
 
@@ -180,10 +209,10 @@ export function getMetadata(route: string): RouteMeta {
       {
         title: "Woolet 007 — Round Panto Acetate Glasses, 158 mm",
         description:
-          "Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order.",
+          "Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $133 pre-order ($190 MSRP).",
         noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
 <p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
-<p>Colours: Dark Tortoise, Black, Honey. Pre-order $114 for founding members; $190 at full launch. Bespoke 150–172 mm available.</p>`,
+<p>Colours: Dark Tortoise, Black, Honey. Pre-order $133 for founding members; $190 MSRP at full launch. Bespoke 150–172 mm available.</p>`,
       },
       { image: `${SITE_URL}/og-007.png`, type: "product" },
       [
@@ -204,10 +233,10 @@ export function getMetadata(route: string): RouteMeta {
       {
         title: "Woolet 009 — Square Acetate Glasses, 158 mm Wide",
         description:
-          "Soft-square Italian acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $114 pre-order, $190 retail.",
+          "Soft-square Italian acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $133 pre-order, $190 MSRP.",
         noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 54 × 50 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
-<p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $114 for founding members; $190 at full launch. Bespoke 150–172 mm available.</p>`,
+<p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $133 for founding members; $190 MSRP at full launch. Bespoke 150–172 mm available.</p>`,
       },
       { image: `${SITE_URL}/og-009.png`, type: "product" },
       [
