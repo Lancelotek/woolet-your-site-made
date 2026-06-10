@@ -273,23 +273,7 @@ const Index = () => {
         <Navbar />
 
         <div className="px-5 py-8 sm:p-8 flex flex-col gap-8 sm:gap-10">
-          {isEn ? (
-            <EnHero />
-          ) : (
-            <div>
-              <div className="woolet-eyebrow mb-5">
-                <div className="woolet-eyebrow-line" />
-                <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "hero.eyebrow")}</span>
-              </div>
-              <h1 className="font-display text-woolet-white leading-none mb-4" style={{ fontSize: "clamp(2rem, 3.2vw, 3.2rem)" }}>
-                {renderH1()}
-              </h1>
-              <p className="sr-only">Woolet — Premium Glasses for Wide Faces 155mm+ | Italian Acetate Eyewear</p>
-              <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
-                {t(lang, "hero.desc")}
-              </p>
-            </div>
-          )}
+          <EnHero />
 
           <Testimonials />
           <div className="woolet-divider" />
@@ -297,7 +281,8 @@ const Index = () => {
 
         </div>
 
-        {isEn && <SizeMatrix fitHref={`/${lang}/fit`} bespokeHref={`/${lang}/bespoke`} sectionId="size-matrix-mobile" />}
+        <SizeMatrix fitHref={`/${lang}/fit`} bespokeHref={`/${lang}/bespoke`} sectionId="size-matrix-mobile" lang={lang} />
+
 
         {/* Spacer for sticky mobile CTA */}
         <div className="h-16" />
