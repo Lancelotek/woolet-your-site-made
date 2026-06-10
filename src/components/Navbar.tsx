@@ -250,7 +250,7 @@ const Navbar = () => {
                 pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang });
               }}
             >
-              Shop — {t(lang, "nav.coming_soon")}
+              {t(lang, "nav.shop_label")} — {t(lang, "nav.coming_soon")}
             </a>
           </div>
         </div>
