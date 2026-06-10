@@ -12,6 +12,15 @@ export interface BlogPost {
   image?: string;
   /** Optional FAQ items — emitted as FAQPage JSON-LD on the post page. */
   faq?: { q: string; a: string }[];
+  /** Optional HowTo structured data — emitted as HowTo JSON-LD on the post page. */
+  howTo?: {
+    name: string;
+    description: string;
+    totalTime?: string; // ISO 8601 duration, e.g. "PT2M"
+    supply?: string[];
+    tool?: string[];
+    step: { name: string; text: string }[];
+  };
 }
 
 const blogPostsEN: BlogPost[] = [
@@ -239,6 +248,61 @@ const blogPostsEN: BlogPost[] = [
     date: "2026-03-08",
     readTime: 9,
     tags: ["How-to", "Measurement", "Fit"],
+    faq: [
+      {
+        q: "What is considered a wide face for glasses?",
+        a: "Anything 155 mm or wider across the temples (hinge-to-hinge distance) is considered wide. Most mainstream brands top out at 145–148 mm front width, which is why standard frames pinch wide-faced buyers. 155–161 mm is wide, 161–172 mm is extra wide, and 172 mm+ is bespoke-only territory.",
+      },
+      {
+        q: "What size glasses do I need for a wide face?",
+        a: "Match your face width (in mm) to the frame's front width (hinge-to-hinge) within 5 mm. For a 158 mm face, choose a 155–161 mm frame. A 21 mm bridge and temples of 145 mm or longer complete the fit. Woolet 007 and 009 ship at 158 mm front width with a 21 mm keyhole bridge as standard.",
+      },
+      {
+        q: "How many mm is a wide face for glasses?",
+        a: "155 mm and above is wide. The average adult male face measures 140–148 mm; women average 135–142 mm. If your measurement is 155 mm or more, mainstream frames will not fit — you need a specialist wide-face brand or bespoke.",
+      },
+      {
+        q: "How do I measure face width without a ruler?",
+        a: "Use a credit card — every credit card is 85.6 mm wide globally. Hold it horizontally against one cheekbone and note where the other edge lands relative to your other cheekbone. Card fully across face ≈ 145–150 mm. Card plus ~10 mm overlap each side ≈ 165 mm+. For a precise measurement, the Woolet AI Fit Wizard uses your phone camera and a credit card reference.",
+      },
+      {
+        q: "Are my glasses too wide for my face?",
+        a: "If the frame extends more than 5 mm past your temples on either side, or if the temples bow outward instead of running parallel to your head, the frame is too wide. If they pinch behind your ears or leave marks within an hour, the frame is too narrow. The temples should run parallel to your head with no lateral pressure.",
+      },
+      {
+        q: "What does 52□19 145 mean on glasses?",
+        a: "Lens width — bridge — temple length, all in millimetres. It does not include the front width (hinge-to-hinge), which is the number that decides if a frame fits a wide face. Estimate front width as (lens width × 2) + bridge + ~6 mm for the hinge area.",
+      },
+    ],
+    howTo: {
+      name: "How to Measure Face Width for Glasses",
+      description: "Measure your face width at home in under a minute using a credit card or ruler. The single most important number for buying glasses that actually fit.",
+      totalTime: "PT2M",
+      supply: ["Credit card (85.6 mm wide) or millimetre ruler", "Mirror", "Pen and paper"],
+      tool: ["Mirror", "Smartphone camera (optional — for the AI Fit Wizard)"],
+      step: [
+        {
+          name: "Position yourself in front of a mirror",
+          text: "Stand in good light, facing the mirror straight on. Keep your head level — no tilt — and look directly at your own eyes.",
+        },
+        {
+          name: "Find the widest point of your face",
+          text: "Run your fingers along the sides of your face. The widest point is usually across the cheekbones, just below the eyes — not the jaw or forehead.",
+        },
+        {
+          name: "Hold a credit card against one cheekbone",
+          text: "A credit card is 85.6 mm wide everywhere in the world. Hold it horizontally with one short edge flush against your cheekbone and note where the opposite edge lands relative to your other cheekbone.",
+        },
+        {
+          name: "Read your face width in millimetres",
+          text: "Card fully across face with no overlap ≈ 145–150 mm. Card with ~10 mm of face visible on each side ≈ 165 mm+. For a millimetre-accurate number, use a flexible tape measure or the Woolet AI Fit Wizard.",
+        },
+        {
+          name: "Match your measurement to a frame width",
+          text: "Choose a frame whose front width (hinge-to-hinge) is within 5 mm of your face width. 155–161 mm face → 158 mm frame. 161–172 mm face → bespoke. Below 155 mm, mainstream brands will fit.",
+        },
+      ],
+    },
     content: `
 <p>Most people who struggle to find fitting glasses have never measured their face. They rely on vague labels like "wide" or "large" without understanding what those terms actually mean in millimeters — or why the "wide" option at their local optician might still be 15mm too narrow.</p>
 
