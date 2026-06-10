@@ -128,6 +128,7 @@ const App = () => (
           <Route path="/en/bespoke" element={<Bespoke />} />
           <Route path="/:lang/bespoke" element={<Bespoke />} />
           {/* Legacy /:lang/pages/bespoke -> /:lang/bespoke */}
+          <Route path="/en/pages/bespoke" element={<Navigate to="/en/bespoke" replace />} />
           <Route path="/:lang/pages/bespoke" element={<Navigate to="/en/bespoke" replace />} />
           <Route path="/:lang/vip-join" element={<VipJoin />} />
 
