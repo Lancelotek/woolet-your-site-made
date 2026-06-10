@@ -143,12 +143,12 @@ const Index = () => {
     );
   };
 
-  /** EN-only AI-Fit dual-claim hero block (Brand v2). */
+  /** AI-Fit dual-claim hero block (Brand v2) — localized for all languages. */
   const EnHero = ({ semantic = true }: { semantic?: boolean }) => (
     <div className="flex flex-col gap-6">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text animate-pulse-gold">AI-FIT · MEASURED FOR YOU</span>
+        <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "aifit.eyebrow")}</span>
       </div>
 
       {/* Product claim — main H1 */}
@@ -157,7 +157,7 @@ const Index = () => {
           className="font-display text-woolet-white leading-[0.95]"
           style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
         >
-          <em className="italic text-gold-light">Measured</em> for you — AI-Fit Eyewear for Wide Faces
+          <em className="italic text-gold-light">{t(lang, "aifit.h1_em")}</em>{t(lang, "aifit.h1_rest")}
         </h1>
       ) : (
         <div
@@ -165,13 +165,14 @@ const Index = () => {
           className="font-display text-woolet-white leading-[0.95]"
           style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 300 }}
         >
-          <em className="italic text-gold-light">Measured</em> for you — AI-Fit Eyewear for Wide Faces
+          <em className="italic text-gold-light">{t(lang, "aifit.h1_em")}</em>{t(lang, "aifit.h1_rest")}
         </div>
       )}
 
       <p className="text-cream-dim leading-relaxed tracking-wider max-w-xl" style={{ fontSize: "0.88rem" }}>
-        Italian Mazzucchelli acetate. AI-fit precision. Two shapes — both
-        <span className="text-foreground"> 158 mm wide</span> with a 21 mm bridge, plus bespoke from 150 mm. For faces 155 mm and above.
+        {t(lang, "aifit.desc_before")}
+        <span className="text-foreground">{t(lang, "aifit.desc_bold")}</span>
+        {t(lang, "aifit.desc_after")}
       </p>
 
       {/* SINGLE primary CTA + price subline */}
@@ -201,7 +202,6 @@ const Index = () => {
           href={`/${lang}/lp/kickstarter`}
           onClick={() => pushGtmEvent("hero_link_waitlist_click", { source: "hero", dest: "lp_kickstarter" })}
           className="self-start"
-
           style={{
             background: "transparent",
             border: "none",
@@ -215,21 +215,21 @@ const Index = () => {
             cursor: "pointer",
           }}
         >
-          Not ready? Join the waitlist for exclusive perks →
+          {t(lang, "aifit.waitlist_link")}
         </a>
       </div>
 
       {/* Trust badges row — 2 only */}
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap", paddingTop: 6 }}>
         {[
-          { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Fit Guarantee" },
-          { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇮🇹</span>, text: "Italian Mazzucchelli Acetate" },
+          { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: t(lang, "aifit.badge_fit") },
+          { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇮🇹</span>, text: t(lang, "aifit.badge_acetate") },
           { icon: (
             <svg width="9" height="11" viewBox="0 0 9 11" aria-hidden="true">
               <path d="M0.5 0.5 H8.5 V8 Q8.5 10 4.5 10.5 Q0.5 10 0.5 8 Z" fill="#fff" stroke="#9A8E7E" strokeWidth="0.5" />
               <path d="M3.6 0.5 H5.4 V4.2 H8.5 V5.8 H5.4 V10.3 H3.6 V5.8 H0.5 V4.2 H3.6 Z" fill="#D02030" />
             </svg>
-          ), text: "Made in Milano" },
+          ), text: t(lang, "aifit.badge_milano") },
         ].map((item, i) => (
           <span
             key={i}
@@ -250,6 +250,7 @@ const Index = () => {
       </div>
     </div>
   );
+
 
   const isEn = lang === "en";
 
