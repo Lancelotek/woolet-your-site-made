@@ -338,7 +338,7 @@ export function getMetadata(route: string): RouteMeta {
 <p>Polarised lenses are available as an upgrade on both 007 and 009. Standard lenses are CR-39 with UV400 protection.</p>
 <h3>How long is the bespoke wait time?</h3>
 <p>Bespoke ships approximately 6 to 8 weeks after the standard pre-order batch.</p>
-<p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (square)</a> | <a href="/en/how-to-measure-face-width">How to measure your face width</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a></p>`,
+<p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (square)</a> | <a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },

@@ -194,7 +194,7 @@ const SunglassesForBigHeads = () => {
             </div>
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <Link to="/en/how-to-measure-face-width" style={{ background: "#CAA449", color: "#080807", padding: "10px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", fontWeight: 500 }}>
+              <Link to="/en/blog/how-to-measure-face-width-for-glasses" style={{ background: "#CAA449", color: "#080807", padding: "10px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", fontWeight: 500 }}>
                 Measurement guide
               </Link>
               <Link to="/en/fit/bespoke" style={{ background: "transparent", color: "#F8F6F1", padding: "10px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #555" }}>
@@ -265,8 +265,8 @@ const SunglassesForBigHeads = () => {
             {[
               { href: "/en/collections/oversized-sunglasses-men", label: "Oversized sunglasses for men" },
               { href: "/en/blog/best-glasses-for-big-heads-2026", label: "Best glasses for big heads (2026)" },
-              { href: "/en/blog/glasses-for-wide-faces", label: "Glasses for wide faces - guide" },
-              { href: "/en/how-to-measure-face-width", label: "How to measure your face width" },
+              { href: "/en/blog/glasses-for-wide-faces-guide", label: "Glasses for wide faces - guide" },
+              { href: "/en/blog/how-to-measure-face-width-for-glasses", label: "How to measure your face width" },
               { href: "/en/products/007", label: "Woolet 007 - Round" },
               { href: "/en/products/009", label: "Woolet 009 - Soft Square" },
             ].map((l) => (

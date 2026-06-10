@@ -175,6 +175,10 @@ const App = () => (
           <Route path="/return-policy" element={<Navigate to="/en/return-policy" replace />} />
           <Route path="/privacy" element={<Navigate to="/en/privacy-policy" replace />} />
 
+          {/* Legacy broken internal URLs */}
+          <Route path="/en/how-to-measure-face-width" element={<Navigate to="/en/blog/how-to-measure-face-width-for-glasses" replace />} />
+          <Route path="/en/blog/glasses-for-wide-faces" element={<Navigate to="/en/blog/glasses-for-wide-faces-guide" replace />} />
+
           {/* Policy pages with lang */}
           <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/:lang/return-policy" element={<ReturnPolicy />} />
