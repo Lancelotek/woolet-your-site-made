@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import woolet007Img from "@/assets/woolet-007.png";
 import woolet009Img from "@/assets/woolet-009.png";
+import { t, isValidLang, type Lang } from "@/lib/i18n";
 import {
   Dialog,
   DialogContent,
@@ -8,12 +10,14 @@ import {
 } from "@/components/ui/dialog";
 
 const ModelPills = () => {
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [open007, setOpen007] = useState(false);
   const [open009, setOpen009] = useState(false);
   return (
     <div>
       <div className="text-cream-dim uppercase tracking-[0.24em] mb-3" style={{ fontSize: "0.56rem" }}>
-        The Collection
+        {t(lang, "collection.title")}
       </div>
       <div className="flex gap-3 flex-col sm:flex-row">
         {/* Woolet 007 */}
