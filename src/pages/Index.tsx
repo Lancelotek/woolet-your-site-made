@@ -317,31 +317,15 @@ const Index = () => {
           {/* Right panel — scrollable */}
           <div className="flex flex-col overflow-y-auto border-l" style={{ borderLeftColor: "hsl(0 0% 100% / 0.055)" }}>
             <div className="flex flex-col px-10 py-10 gap-10">
-              {isEn ? (
-                <EnHero semantic={false} />
-              ) : (
-                <div>
-                  <div className="woolet-eyebrow mb-5">
-                    <div className="woolet-eyebrow-line" />
-                    <span className="woolet-eyebrow-text animate-pulse-gold">{t(lang, "hero.eyebrow")}</span>
-                  </div>
-                  <div role="presentation" aria-hidden="true" className="font-display text-woolet-white leading-none mb-4" style={{ fontSize: "clamp(2rem, 3.2vw, 3.2rem)" }}>
-                    {renderH1()}
-                  </div>
-                  <p className="sr-only">Woolet — Premium Glasses for Wide Faces 155mm+ | Italian Acetate Eyewear</p>
-                  <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
-                    {t(lang, "hero.desc")}
-                  </p>
-                </div>
-              )}
+              <EnHero semantic={false} />
 
-              
               <Testimonials />
               <div className="woolet-divider" />
               <div id="collection-desktop"><ModelPills /></div>
 
             </div>
-            {isEn && <SizeMatrix fitHref={`/${lang}/fit`} bespokeHref={`/${lang}/bespoke`} semantic={false} sectionId="size-matrix-desktop" />}
+            <SizeMatrix fitHref={`/${lang}/fit`} bespokeHref={`/${lang}/bespoke`} semantic={false} sectionId="size-matrix-desktop" lang={lang} />
+
             <Footer />
           </div>
         </div>
