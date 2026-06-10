@@ -2910,6 +2910,8 @@ function EmailGateStep({
         });
 
       pushEvent("fit_email_captured", { device, face_width: Math.round(faceWidthMm) });
+      // CLARITY EVENT: scan_email_submitted — fired after successful submit.
+      clarityEvent("scan_email_submitted");
       onSubmitted(parsed.data);
     } catch (err) {
       console.error("[scan email gate] submit failed", err);
