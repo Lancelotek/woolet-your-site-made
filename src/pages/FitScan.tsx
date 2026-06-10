@@ -30,6 +30,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { clarityEvent, claritySet } from "@/lib/clarity";
 
 const GOLD = "#CAA449";
 const BG = "#080807";
