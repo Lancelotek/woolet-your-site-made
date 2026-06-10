@@ -494,3 +494,8 @@
     bottom: 16px;
   }
 }
+
+/* FR locale: lift body/subcopy contrast on dark backgrounds to meet WCAG AA */
+html[lang="fr"] {
+  --cream-dim: 33 22% 74%;
+}

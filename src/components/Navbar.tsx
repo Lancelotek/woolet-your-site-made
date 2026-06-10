@@ -106,12 +106,28 @@ const Navbar = () => {
             href="https://shop.woolet.co/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-1 no-underline hover:bg-primary/10 transition-colors"
+            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.55rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang })}
           >
-            Shop — {t(lang, "nav.coming_soon")}
+            {t(lang, "nav.shop_label")} — {t(lang, "nav.coming_soon")}
           </a>
+          <Link
+            to={`/${lang}/fit`}
+            className="uppercase tracking-[0.2em] no-underline transition-colors"
+            style={{
+              fontSize: "0.55rem",
+              background: "hsl(var(--gold))",
+              color: "hsl(var(--background))",
+              padding: "6px 14px",
+              fontWeight: 500,
+            }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "scan_face", nav_lang: lang })}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
+          >
+            {t(lang, "nav.scan_cta")}
+          </Link>
         </div>
 
         {/* Mobile hamburger button */}
@@ -234,7 +250,7 @@ const Navbar = () => {
                 pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang });
               }}
             >
-              Shop — {t(lang, "nav.coming_soon")}
+              {t(lang, "nav.shop_label")} — {t(lang, "nav.coming_soon")}
             </a>
           </div>
         </div>
