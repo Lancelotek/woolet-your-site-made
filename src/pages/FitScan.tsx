@@ -2824,10 +2824,12 @@ function EmailGateStep({
     const parsed = emailSchema.safeParse(email);
     if (!parsed.success) {
       setError(parsed.error.issues[0]?.message ?? tFit(lang, "email.err_invalid"));
+      clarityEvent("scan_email_failed");
       return;
     }
     if (!agree) {
       setError(tFit(lang, "email.err_accept"));
+      clarityEvent("scan_email_failed");
       return;
     }
     setSubmitting(true);
