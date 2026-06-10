@@ -43,7 +43,7 @@ const ModelPills = () => {
           </div>
           <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.5rem" }}>009</div>
           <div className="font-display text-woolet-white" style={{ fontSize: "1.1rem" }}>Woolet 009</div>
-          <div className="text-cream-dim" style={{ fontSize: "0.6rem" }}>Square · 158mm · 54mm lens</div>
+          <div className="text-cream-dim" style={{ fontSize: "0.6rem" }}>{t(lang, "collection.009_specs")}</div>
         </div>
       </div>
 
