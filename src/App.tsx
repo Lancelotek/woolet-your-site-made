@@ -61,6 +61,27 @@ const FitScanRedirect = () => {
   return <Navigate to={`/${lang}/fit`} replace />;
 };
 
+/** Redirect non-EN locales of EN-only pages to their /en/... equivalent. */
+const RedirectToEn = ({ to }: { to: string }) => {
+  const { lang } = useParams();
+  if (lang === "en") return <Navigate to={`/en${to}`} replace />;
+  return <Navigate to={`/en${to}`} replace />;
+};
+
+const RedirectCollectionToEn = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/en/collections/${slug}`} replace />;
+};
+const RedirectProductToEn = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/en/products/${slug}`} replace />;
+};
+const RedirectLpToEn = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/en/lp/${slug}`} replace />;
+};
+
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -137,6 +158,14 @@ const App = () => (
           <Route path="/:lang/fit/wizard" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
           <Route path="/en/fit/bespoke" element={<FitBespoke />} />
+          {/* Non-EN locales of EN-only pages → redirect to /en equivalent */}
+          <Route path="/:lang/fit/manual" element={<RedirectToEn to="/fit/manual" />} />
+          <Route path="/:lang/fit/bespoke" element={<RedirectToEn to="/fit/bespoke" />} />
+          <Route path="/:lang/about" element={<RedirectToEn to="/about" />} />
+          <Route path="/:lang/lp/:slug" element={<RedirectLpToEn />} />
+          <Route path="/:lang/products/:slug" element={<RedirectProductToEn />} />
+          <Route path="/:lang/collections/:slug" element={<RedirectCollectionToEn />} />
+
           <Route path="/:lang/fit/scan" element={<FitScanRedirect />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
           <Route path="/:lang/payments" element={<Payments />} />
