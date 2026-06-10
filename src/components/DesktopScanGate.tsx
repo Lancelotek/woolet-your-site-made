@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import type { Lang } from "@/lib/i18n";
 import { tFit } from "@/lib/i18n-fitscan";
+import { clarityEvent } from "@/lib/clarity";
 
 const GOLD = "#CAA449";
 const MUTED = "#888888";
@@ -25,10 +26,14 @@ export default function DesktopScanGate({ lang }: Props) {
 
   const scanUrl = useMemo(() => {
     if (typeof window === "undefined") return "";
-    const url = `${window.location.origin}/${lang}/fit?sid=${sid}`;
-    pushEvent("scan_qr_shown", { device: "desktop" });
-    return url;
+    return `${window.location.origin}/${lang}/fit?sid=${sid}`;
   }, [lang, sid]);
+
+  // CLARITY EVENT: desktop QR handoff shown — fire once per mount.
+  useEffect(() => {
+    pushEvent("scan_qr_shown", { device: "desktop" });
+    clarityEvent("scan_qr_shown");
+  }, []);
 
   const steps = [
     tFit(lang, "desktop.step1"),

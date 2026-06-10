@@ -30,6 +30,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { clarityEvent, claritySet } from "@/lib/clarity";
 
 const GOLD = "#CAA449";
 const BG = "#080807";
@@ -2909,6 +2910,8 @@ function EmailGateStep({
         });
 
       pushEvent("fit_email_captured", { device, face_width: Math.round(faceWidthMm) });
+      // CLARITY EVENT: scan_email_submitted — fired after successful submit.
+      clarityEvent("scan_email_submitted");
       onSubmitted(parsed.data);
     } catch (err) {
       console.error("[scan email gate] submit failed", err);
@@ -3266,6 +3269,18 @@ export default function FitScan() {
     }
   }, []);
 
+  // CLARITY EVENT: scan_mobile_opened — fired once when /fit loads on a phone
+  // OR with a ?sid= param (the QR handoff target). Guarded by a ref so it
+  // doesn't re-fire on re-renders.
+  const mobileOpenedFiredRef = useRef(false);
+  useEffect(() => {
+    if (mobileOpenedFiredRef.current) return;
+    if (isMobile || !!sidParam) {
+      mobileOpenedFiredRef.current = true;
+      clarityEvent("scan_mobile_opened");
+    }
+  }, [isMobile, sidParam]);
+
   // Handoff: when the phone opens a scan via QR (s=sessionId), mark it connected
   // so the originating desktop sees the "Phone connected" status immediately.
   useEffect(() => {
@@ -3291,6 +3306,7 @@ export default function FitScan() {
 
   const startScan = () => {
     pushEvent("scan_started");
+    clarityEvent("scan_started");
     setErrorMsg("");
     setErrorKind(null);
     setStep("camera");
@@ -3324,6 +3340,9 @@ export default function FitScan() {
         auto_corners: !f1 && !f2,
         has_session: !!sessionId,
       });
+      // CLARITY EVENT: scan_completed + tag session with the measured width bucket.
+      clarityEvent("scan_completed");
+      claritySet("scan_result", String(m.faceWidthMm));
       // If this scan was opened via QR handoff, sync the result so the
       // originating desktop session can render it in real time.
       if (sessionId) {
