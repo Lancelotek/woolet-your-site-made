@@ -2917,6 +2917,7 @@ function EmailGateStep({
       onSubmitted(parsed.data);
     } catch (err) {
       console.error("[scan email gate] submit failed", err);
+      clarityEvent("scan_email_failed");
       toast.error(tFit(lang, "email.toast_save_failed"));
     } finally {
       setSubmitting(false);
