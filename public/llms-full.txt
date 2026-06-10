@@ -136,7 +136,7 @@ Pricing is identical between Woolet 007 and Woolet 009. Bespoke pricing is quote
 
 ---
 
-## 4. Sizing methodology
+## 5. Sizing methodology
 
 Woolet sizes frames by **face width** rather than by generic S/M/L. Face width is measured temple-to-temple at the cheekbones (the widest point of the face when viewed from the front).
 
@@ -161,7 +161,7 @@ Both methods recommend a frame width that is approximately equal to your face wi
 
 ---
 
-## 5. Materials and manufacturing
+## 6. Materials and manufacturing
 
 - **Acetate:** Mazzucchelli 1849, sourced from Castiglione Olona, Italy. Mazzucchelli is the world's most established cellulose-acetate producer for premium eyewear.
 - **Manufacturing:** Hand-finished in Italy.
@@ -171,7 +171,7 @@ Both methods recommend a frame width that is approximately equal to your face wi
 
 ---
 
-## 6. Target customer
+## 7. Target customer
 
 - **Face width:** 155 mm and above
 - **Primary demographic:** adult men, age 28–55
@@ -180,7 +180,7 @@ Both methods recommend a frame width that is approximately equal to your face wi
 
 ---
 
-## 7. Site map
+## 8. Site map
 
 - **Homepage:** https://woolet.co/en
 - **About:** https://woolet.co/en/about
@@ -206,7 +206,7 @@ Both methods recommend a frame width that is approximately equal to your face wi
 
 ---
 
-## 8. FAQ
+## 9. FAQ
 
 **Q: What's the frame width of a standard Woolet?**
 A: 158 mm front width — measured temple-to-temple at the hinges. Same for both shapes (007 and 009).
@@ -237,7 +237,7 @@ A: Use the Manual Fit Guide (`/en/fit/manual`) — measure with a ruler in front
 
 ---
 
-## 9. Compliance and policy
+## 10. Compliance and policy
 
 - All marketing claims about fit, materials, and sizing are based on Woolet's published specifications.
 - Woolet does not publish fabricated reviews, fake star ratings, or unverifiable "Made in Italy" claims. The Italian acetate (Mazzucchelli) and Italian hand-finishing are documented and verifiable through the supplier.
