@@ -49,11 +49,11 @@ const ProductPage009 = () => {
     });
   }, [selectedColor]);
 
-  useEffect(() => {
-    const productSchema = {
   // Product JSON-LD lives in src/seo/metadata.ts (prerendered into <head>)
   // — single source of truth, visible to crawlers without JS execution.
   // Do not duplicate it here.
+
+
 
 
   const handleCTA = () => {
