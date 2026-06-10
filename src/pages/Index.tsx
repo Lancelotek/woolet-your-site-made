@@ -237,7 +237,7 @@ const Index = () => {
   );
 
 
-  const isEn = lang === "en";
+  
 
   return (
     <>
