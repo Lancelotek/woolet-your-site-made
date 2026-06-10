@@ -3304,6 +3304,7 @@ export default function FitScan() {
 
   const startScan = () => {
     pushEvent("scan_started");
+    clarityEvent("scan_started");
     setErrorMsg("");
     setErrorKind(null);
     setStep("camera");
