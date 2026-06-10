@@ -125,23 +125,8 @@ const Index = () => {
 
   const seo = seoData[lang];
 
-  const renderH1 = () => {
-    if (isUtmVariant) {
-      return (
-        <>
-          Looking for glasses that fit a wide face?{" "}
-          <em className="italic" style={{ color: "#DBC184" }}>You just found them.</em>
-        </>
-      );
-    }
-    return (
-      <>
-        {t(lang, "hero.title_1")}
-        <br />
-        {t(lang, "hero.title_2")} <em className="italic text-gold-light">{t(lang, "hero.title_3")}</em>
-      </>
-    );
-  };
+  void isUtmVariant;
+
 
   /** AI-Fit dual-claim hero block (Brand v2) — localized for all languages. */
   const EnHero = ({ semantic = true }: { semantic?: boolean }) => (
