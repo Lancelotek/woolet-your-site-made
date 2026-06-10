@@ -153,15 +153,42 @@ const BlogPost = () => {
         publishedTime={post.date}
         image={post.image || `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
-        jsonLd={post.faq && post.faq.length > 0 ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: post.faq.map(item => ({
-            "@type": "Question",
-            name: item.q,
-            acceptedAnswer: { "@type": "Answer", text: item.a },
-          })),
-        } : undefined}
+        jsonLd={(() => {
+          const schemas: object[] = [];
+          if (post.faq && post.faq.length > 0) {
+            schemas.push({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: post.faq.map(item => ({
+                "@type": "Question",
+                name: item.q,
+                acceptedAnswer: { "@type": "Answer", text: item.a },
+              })),
+            });
+          }
+          if (post.howTo) {
+            schemas.push({
+              "@context": "https://schema.org",
+              "@type": "HowTo",
+              name: post.howTo.name,
+              description: post.howTo.description,
+              ...(post.howTo.totalTime ? { totalTime: post.howTo.totalTime } : {}),
+              ...(post.howTo.supply
+                ? { supply: post.howTo.supply.map(s => ({ "@type": "HowToSupply", name: s })) }
+                : {}),
+              ...(post.howTo.tool
+                ? { tool: post.howTo.tool.map(t => ({ "@type": "HowToTool", name: t })) }
+                : {}),
+              step: post.howTo.step.map((s, i) => ({
+                "@type": "HowToStep",
+                position: i + 1,
+                name: s.name,
+                text: s.text,
+              })),
+            });
+          }
+          return schemas.length > 0 ? schemas : undefined;
+        })()}
       />
 
       <ReadingProgress />
