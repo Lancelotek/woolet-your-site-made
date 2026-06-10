@@ -1,0 +1,32 @@
+# Google Search Console — Disavow file for woolet.co
+# Upload at: https://search.google.com/search-console/disavow-links
+# Format: one domain or URL per line. `domain:` disavows the whole host.
+#
+# Rationale: legacy spam/auto-generated profiles inherited from the
+# discontinued Woolet smart wallet (2015–2017). All listed domains
+# have AS <10 and zero topical relevance to eyewear. Disavowing
+# them removes their negative signal from Google's link graph
+# without affecting any organic editorial link.
+#
+# Generated: 2026-06-10
+# Source: Semrush backlink audit (top referring domains by volume)
+
+# ---- High-volume spam / scraper directories ----
+domain:subdomainfinder.io
+domain:sitelike.org
+domain:dnbolt.com
+domain:goooogla.com
+domain:mailora.ai
+domain:factmags.com
+
+# ---- Legacy auto-generated blogspot / weebly properties ----
+domain:usfcrmc.blogspot.com
+domain:wooletonline.weebly.com
+
+# ---- Notes ----
+# KEEP (do NOT disavow) — legitimate even if low AS:
+#   slant.co            (real product-comparison site, editorial value)
+#   hotbook.mx          (Mexican lifestyle magazine, real editorial)
+#
+# After upload, expect 4–8 weeks for Google to reprocess.
+# Re-audit referring domains quarterly; add new spam patterns as they appear.
