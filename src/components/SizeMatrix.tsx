@@ -29,7 +29,7 @@ const SizeMatrix = ({
 
   const rows: Row[] = [
     { sku: "Woolet 007", shapeKey: "matrix.shape_round", width: "158 mm", bridge: "21 mm", lens: "52 x 52", face: "155-161 mm" },
-    { sku: "Woolet 009", shapeKey: "matrix.shape_square", width: "158 mm", bridge: "21 mm", lens: "54 x 50", face: "155-161 mm" },
+    { sku: "Woolet 009", shapeKey: "matrix.shape_square", width: "158 mm", bridge: "22 mm", lens: "54 x 50", face: "155-161 mm" },
     { sku: t(lang, "matrix.sku_bespoke"), shapeKey: "matrix.shape_either", width: t(lang, "matrix.width_bespoke"), bridge: "21 mm", lens: t(lang, "matrix.lens_custom"), face: t(lang, "matrix.face_any"), bespoke: true },
   ];
 
