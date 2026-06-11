@@ -2783,6 +2783,44 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 
 
 
+      {/* Recommended frame width — the headline takeaway for shoppers */}
+      <div
+        style={{
+          borderRadius: 10,
+          border: `1.5px solid ${GOLD}`,
+          background: "linear-gradient(180deg, rgba(202,164,73,0.14), rgba(202,164,73,0.04))",
+          padding: "20px 22px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+        }}
+      >
+        <span
+          style={{
+            color: GOLD,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 600,
+            fontSize: "0.68rem",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+          }}
+        >
+          {tFit(lang, "result.frame_reco_label")}
+        </span>
+        <div
+          className="font-display text-woolet-white"
+          style={{ fontSize: "clamp(1.8rem, 4vw, 2.4rem)", fontWeight: 300, lineHeight: 1.05 }}
+        >
+          {adjustedFace}<span style={{ color: GOLD }}>–</span>{adjustedFace + 6}<span style={{ color: "rgba(240,236,228,0.6)", fontSize: "0.6em", marginLeft: 6 }}>mm</span>
+        </div>
+        <p
+          className="text-cream-dim"
+          style={{ fontSize: "0.9rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}
+        >
+          {tFit(lang, "result.frame_reco_body", { min: adjustedFace, max: adjustedFace + 6 })}
+        </p>
+      </div>
+
       <div
         style={{
           border: `1px solid ${recommendation.badgeColor}`,
