@@ -129,6 +129,8 @@ const en: Dict = {
 
   // Result
   "result.step_label": "Step 4 of 4 — Your measurements",
+  "result.frame_reco_label": "Your recommended frame width",
+  "result.frame_reco_body": "When shopping for glasses, look for a total frame width between {min} and {max} mm (often printed as the third number on the temple, e.g. \"54□18-{max}\"). Anything narrower will pinch your temples; much wider will slide down your nose.",
   "result.head_width": "Head width (frame size)",
   "result.raw": "(raw {n} mm)",
   "result.conf_high": "High confidence",
