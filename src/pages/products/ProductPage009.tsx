@@ -20,7 +20,7 @@ const specs = [
   ["Material", "Italian Mazzucchelli Acetate"],
   ["Frame Width", "158mm (hinge to hinge)"],
   ["Lens", "54 × 50mm (square)"],
-  ["Bridge", "Keyhole 21mm"],
+  ["Bridge", "Keyhole 22mm"],
   ["Temples", "148mm, 11° angle"],
   ["Hinges", "5-barrel PVD Gunmetal"],
   ["Rivets", "Double, PVD Gunmetal"],
@@ -30,7 +30,7 @@ const benefits = [
   "Italian Mazzucchelli acetate — cotton, not plastic",
   "158mm — engineered for 155mm+ faces",
   "5-barrel PVD Gunmetal hinges — engineered for years of daily wear",
-  "Keyhole bridge 21mm — zero slipping",
+  "Keyhole bridge 22mm — zero slipping",
   "Hand polish + bevel cut — not machine polish",
 ];
 
@@ -82,11 +82,11 @@ const ProductPage009 = () => {
     <>
       <Helmet>
         <title>Woolet 009 — Square Acetate Glasses, 158 mm Wide</title>
-        <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $114 pre-order, $190 retail." />
+        <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 retail." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet 009 — Square Acetate Glasses, 158 mm Wide" />
-        <meta property="og:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, 21 mm keyhole bridge. $114 pre-order, $190 retail." />
+        <meta property="og:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 retail." />
         <meta property="og:url" content="https://woolet.co/en/products/009" />
         <meta property="og:image" content="https://woolet.co/og-009.png" />
         <meta name="twitter:card" content="summary_large_image" />
