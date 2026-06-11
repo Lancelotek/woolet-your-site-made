@@ -62,7 +62,7 @@ Italian Mazzucchelli acetate, soft-square silhouette, hand-finished in Italy.
 | Spec          | Value                          |
 |---------------|--------------------------------|
 | Frame width   | 158 mm                         |
-| Bridge        | 21 mm (keyhole)                |
+| Bridge        | 22 mm (keyhole)                |
 | Lens (W × H)  | 54 × 50 mm                     |
 | Temples       | 148 mm at 11°                  |
 | Hinges        | 5-barrel PVD Gunmetal          |
