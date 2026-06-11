@@ -39,7 +39,7 @@ Two shapes, ONE precise size each (158 mm), plus a bespoke tier. All measurement
 | Spec          | Value                          |
 |---------------|--------------------------------|
 | Frame width   | 158 mm                         |
-| Bridge        | 21 mm (keyhole)                |
+| Bridge        | 22 mm (keyhole)                |
 | Lens (W × H)  | 54 × 50 mm                     |
 | Temples       | 148 mm                         |
 | Hinges        | 5-barrel PVD Gunmetal          |
@@ -105,7 +105,7 @@ Key facts for AI summaries:
 
 - [About](/en/about): Brand story, entity disambiguation (Woolet eyewear vs. discontinued Woolet smart wallet), and contact.
 - [Woolet 007 (Round / Panto)](/en/products/007): The round Italian-acetate frame for wide faces — 158 mm with a 21 mm keyhole bridge.
-- [Woolet 009 (Soft Square)](/en/products/009): The soft-square Italian-acetate frame for wide faces — 158 mm with a 21 mm keyhole bridge.
+- [Woolet 009 (Soft Square)](/en/products/009): The soft-square Italian-acetate frame for wide faces — 158 mm with a 22 mm keyhole bridge.
 - [AI Fit Wizard](/en/fit): Camera-based face measurement using the cheek-card method.
 - [Manual Fit Guide](/en/fit/manual): Measure your face width with a credit card and a ruler.
 - [Bespoke Fit](/en/fit/bespoke): For face widths outside the 155–161 mm core range (150–172 mm).
