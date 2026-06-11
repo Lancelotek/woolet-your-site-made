@@ -52,11 +52,12 @@ const websiteJsonLd = {
 };
 
 function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
+  const bridge = model === "009" ? "22 mm" : "21 mm";
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
-    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a 21 mm keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 150–172 mm. Lens ${lensSize}, temples 148 mm, 5-barrel PVD Gunmetal hinges.`,
+    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 150–172 mm. Lens ${lensSize}, temples 148 mm, 5-barrel PVD Gunmetal hinges.`,
     brand: { "@type": "Brand", name: "Woolet" },
     image: `${SITE_URL}/og-${model}.png`,
     sku: `WOOLET-${model}`,
@@ -67,7 +68,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
     audience: { "@type": "PeopleAudience", suggestedGender: "unisex" },
     additionalProperty: [
       { "@type": "PropertyValue", name: "Frame width", value: "158 mm" },
-      { "@type": "PropertyValue", name: "Bridge", value: "21 mm keyhole" },
+      { "@type": "PropertyValue", name: "Bridge", value: `${bridge} keyhole` },
       { "@type": "PropertyValue", name: "Lens", value: lensSize },
       { "@type": "PropertyValue", name: "Temple length", value: "148 mm" },
       { "@type": "PropertyValue", name: "Hinge", value: "5-barrel PVD Gunmetal" },
