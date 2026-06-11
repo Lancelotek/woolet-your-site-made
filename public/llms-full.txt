@@ -37,7 +37,7 @@ Woolet (eyewear) is **not related** to the Woolet smart wallet (2015–2017), wh
 
 ## 2. Products
 
-Woolet sells two frame shapes. Each shape is built in ONE precise size — 158 mm front width with a 21 mm keyhole bridge — plus a bespoke tier. All measurements are in millimetres. Frame width is measured temple-to-temple at the front of the frame.
+Woolet sells two frame shapes. Each shape is built in ONE precise size — 158 mm front width with a 21–22 mm keyhole bridge — plus a bespoke tier. All measurements are in millimetres. Frame width is measured temple-to-temple at the front of the frame.
 
 ### 2.1 Woolet 007 — Round / Panto
 
@@ -218,7 +218,7 @@ A: Use the bespoke tier. Bespoke covers 150–172 mm of front width in either sh
 A: A standard 158 mm Woolet may sit slightly wide. Bespoke at 152–155 mm front width is the closer fit. Run the AI Fit Wizard for a recommendation.
 
 **Q: How is the bridge sized?**
-A: 21 mm keyhole bridge as standard. Bespoke ranges from 16 to 26 mm for wider or narrower noses.
+A: 21–22 mm keyhole bridge as standard. Bespoke ranges from 16 to 26 mm for wider or narrower noses.
 
 **Q: Are the lenses round or square?**
 A: Woolet 007 has round / panto lenses (52 × 52 mm). Woolet 009 has soft-square lenses (54 × 50 mm).
@@ -1525,7 +1525,7 @@ The more architectural choice. At wider sizes the soft-square shape reads as int
 
 - **Buying a small frame because oval faces "suit anything":** the rule assumes standard width. Above 155 mm, a small frame creates the wrong proportion regardless of shape.
 
-- **Choosing a bridge that doesn't match your nose:** a 17–19 mm bridge on a wider nose leaves the frame riding too high on the cheekbones. Woolet ships a 21 mm keyhole bridge as standard, with bespoke 16–26 mm for outliers.
+- **Choosing a bridge that doesn't match your nose:** a 17–19 mm bridge on a wider nose leaves the frame riding too high on the cheekbones. Woolet ships a 21–22 mm keyhole bridge as standard, with bespoke 16–26 mm for outliers.
 
 - **Choosing material on price alone:** at 155 mm+ the front spans a wider arc, and budget plastic deforms over time. [Italian Mazzucchelli acetate](/en/blog/what-is-italian-acetate-premium-eyewear) holds the shape it was cut at.
 

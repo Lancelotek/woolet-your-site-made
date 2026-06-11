@@ -148,10 +148,10 @@ const homeCopy: Record<Lang, Copy> = {
   en: {
     title: "Woolet — Italian Acetate Eyewear for Wide Faces",
     description:
-      "AI-fit Mazzucchelli acetate glasses for 155 mm+ faces. 158 mm front, 21 mm bridge. From $114 pre-order.",
+      "AI-fit Mazzucchelli acetate glasses for 155 mm+ faces. 158 mm front, 21–22 mm bridge. From $114 pre-order.",
     noscriptHtml: `<h1>Woolet — AI-Fit Eyewear for Wide Faces</h1>
 <p>Woolet makes premium Italian-acetate eyewear engineered for wide faces — temple-to-temple measurements of 155 mm and above. Two shapes (007 round, 009 soft square), both built in one precise size: 158 mm front width with a 21–22 mm keyhole bridge. A bespoke tier covers 150–172 mm.</p>
-<p>Frames are cut from Italian Mazzucchelli cellulose acetate, hand-finished in Italy, with 5-barrel PVD Gunmetal hinges and a 21 mm keyhole bridge engineered for wider noses.</p>
+<p>Frames are cut from Italian Mazzucchelli cellulose acetate, hand-finished in Italy, with 5-barrel PVD Gunmetal hinges and a 21–22 mm keyhole bridge engineered for wider noses.</p>
 <p>Pricing: $114 for founding members at pre-order, $190 at full launch. <a href="/en/fit">Run the AI Fit Wizard</a> or measure manually with a <a href="/en/fit/manual">credit card</a>.</p>`,
   },
   pl: {
@@ -292,7 +292,7 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Wide-Face Glasses — 158 mm Italian Acetate Frames | Woolet",
       description:
-        "Glasses engineered for 155 mm+ faces. Two shapes, 158 mm front, 21 mm bridge. Hand-finished Mazzucchelli acetate.",
+        "Glasses engineered for 155 mm+ faces. Two shapes, 158 mm front, 21–22 mm bridge. Hand-finished Mazzucchelli acetate.",
       noscriptHtml: `<h1>Wide Face Glasses</h1>
 <p>Italian Mazzucchelli acetate eyewear built for face widths of 155 mm and above. Two shapes (007 round, 009 soft square), one precise 158 mm front width with a 21–22 mm keyhole bridge. Bespoke 150–172 mm. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
@@ -314,7 +314,7 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Italian Mazzucchelli Acetate Glasses — 158 mm, Hand-Finished | Woolet",
       description:
-        "Glasses and sunglasses cut from Mazzucchelli 1849 Italian cellulose acetate. Wide 158 mm front, 21 mm bridge, hand-polished in Italy. From $133.",
+        "Glasses and sunglasses cut from Mazzucchelli 1849 Italian cellulose acetate. Wide 158 mm front, 21–22 mm bridge, hand-polished in Italy. From $133.",
       noscriptHtml: `<h1>Italian Mazzucchelli Acetate Glasses</h1>
 <p>Wide-face frames cut from Mazzucchelli 1849 cellulose-acetate sheet (Castiglione Olona, Italy) and hand-finished in Italy. Two shapes (Woolet 007 round, 009 soft square), one precise 158 mm front with a 21–22 mm keyhole bridge. Bespoke 150–172 mm. Optical, blue-light, prescription and polarised sunglass options share the same geometry. From $133 pre-order.</p>
 <h2>What is Mazzucchelli acetate?</h2>
@@ -329,7 +329,7 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Oversized Men's Sunglasses — 158 mm Wide | Woolet",
       description:
-        "Properly oversized men's sunglasses: 158 mm front, 21 mm bridge, Italian acetate. Built for 155 mm+ faces.",
+        "Properly oversized men's sunglasses: 158 mm front, 21–22 mm bridge, Italian acetate. Built for 155 mm+ faces.",
       noscriptHtml: `<h1>Oversized Sunglasses for Men</h1>
 <p>Properly oversized men's sunglasses for wide faces (155 mm+). 158 mm front width, 21–22 mm keyhole bridge, Italian Mazzucchelli acetate. Two shapes (Woolet 007 round, 009 soft square). Bespoke 150–172 mm. From $114 pre-order.</p>`,
     });
@@ -338,7 +338,7 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Sunglasses for Big Heads — 158 mm, Italian Acetate | Woolet",
       description:
-        "Sunglasses that actually fit big heads. 158 mm front, 21 mm bridge, hand-finished Mazzucchelli acetate.",
+        "Sunglasses that actually fit big heads. 158 mm front, 21–22 mm bridge, hand-finished Mazzucchelli acetate.",
       noscriptHtml: `<h1>Sunglasses for Big Heads - 158 mm + Bespoke</h1>
 <p>Built from the ground up for wide faces (155 mm+) and head circumference 58 to 64 cm, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes (Woolet 007 round and 009 soft square), one precise 158 mm width plus bespoke up to 172 mm. Pre-order $114 for founding members, $190 at full launch.</p>
 <h2>The problem with standard sunglasses</h2>
@@ -347,7 +347,7 @@ export function getMetadata(route: string): RouteMeta {
   <li>Arms too short to reach behind the ears.</li>
   <li>Lenses sit too close to the eyes and look undersized.</li>
 </ul>
-<p>Standard eyewear maxes out around 145 to 148 mm of front width. Woolet starts at 158 mm with a 21 mm bridge, and bespoke covers anything from 150 to 172 mm. Temples 150 mm standard, up to 155 mm bespoke.</p>
+<p>Standard eyewear maxes out around 145 to 148 mm of front width. Woolet starts at 158 mm with a 21–22 mm bridge, and bespoke covers anything from 150 to 172 mm. Temples 150 mm standard, up to 155 mm bespoke.</p>
 <h2>Size guide</h2>
 <table>
   <thead><tr><th>Face / head measurement</th><th>Recommended frame</th></tr></thead>
@@ -380,9 +380,9 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Glasses for Big Heads — 158 mm Italian Acetate | Woolet",
       description:
-        "Prescription-ready optical frames for big heads. 158 mm front, 21 mm bridge, Italian Mazzucchelli acetate. Bespoke 150–172 mm.",
+        "Prescription-ready optical frames for big heads. 158 mm front, 21–22 mm bridge, Italian Mazzucchelli acetate. Bespoke 150–172 mm.",
       noscriptHtml: `<h1>Glasses for Big Heads</h1>
-<p>Prescription-ready optical frames for big heads (head circumference 58–64 cm). 158 mm front width, 21 mm keyhole bridge, Italian Mazzucchelli acetate hand-finished in Italy. Bespoke 150–172 mm. From $114 pre-order.</p>`,
+<p>Prescription-ready optical frames for big heads (head circumference 58–64 cm). 158 mm front width, 21–22 mm keyhole bridge, Italian Mazzucchelli acetate hand-finished in Italy. Bespoke 150–172 mm. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -393,9 +393,9 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Extra Wide Glasses — 158 mm Italian Acetate Frames | Woolet",
       description:
-        "Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21 mm bridge, Italian Mazzucchelli acetate. Bespoke 150–172 mm.",
+        "Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21–22 mm bridge, Italian Mazzucchelli acetate. Bespoke 150–172 mm.",
       noscriptHtml: `<h1>Extra Wide Glasses</h1>
-<p>Extra wide optical frames built at 158 mm front width with a 21 mm keyhole bridge — properly extra wide, not a stretched standard size. Italian Mazzucchelli acetate, hand-finished in Italy. Bespoke 150–172 mm available. From $114 pre-order.</p>`,
+<p>Extra wide optical frames built at 158 mm front width with a 21–22 mm keyhole bridge — properly extra wide, not a stretched standard size. Italian Mazzucchelli acetate, hand-finished in Italy. Bespoke 150–172 mm available. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -404,11 +404,11 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/wide-bridge-glasses") {
     return base(route, lang, {
-      title: "Wide Bridge Glasses — 21 mm Keyhole Bridge, Acetate | Woolet",
+      title: "Wide Bridge Glasses — 21–22 mm Keyhole Bridge, Acetate | Woolet",
       description:
-        "Wide bridge glasses for wider noses: 21 mm keyhole bridge, 158 mm front, Italian Mazzucchelli acetate. Bespoke bridge 16–26 mm.",
+        "Wide bridge glasses for wider noses: 21–22 mm keyhole bridge, 158 mm front, Italian Mazzucchelli acetate. Bespoke bridge 16–26 mm.",
       noscriptHtml: `<h1>Wide Bridge Glasses</h1>
-<p>Glasses with a 21 mm keyhole bridge as standard — engineered for wider noses where mainstream 17–19 mm bridges pinch or slide. 158 mm front width, Italian Mazzucchelli acetate. Bespoke bridge 16–26 mm available. From $114 pre-order.</p>`,
+<p>Glasses with a 21–22 mm keyhole bridge as standard — engineered for wider noses where mainstream 17–19 mm bridges pinch or slide. 158 mm front width, Italian Mazzucchelli acetate. Bespoke bridge 16–26 mm available. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -419,7 +419,7 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Oversized Blue Light Glasses — 158 mm Italian Acetate | Woolet",
       description:
-        "Truly oversized blue light glasses for wide faces (155 mm+). 158 mm front, 21 mm bridge, Italian acetate. HEV 380–460 nm filter lens upgrade.",
+        "Truly oversized blue light glasses for wide faces (155 mm+). 158 mm front, 21–22 mm bridge, Italian acetate. HEV 380–460 nm filter lens upgrade.",
       noscriptHtml: `<h1>Oversized Blue Light Glasses for Wide Faces — 158 mm</h1>
 <p>Truly oversized blue-light glasses for wide faces (155 mm+). Woolet 007 (round) and 009 (soft square) ship at 158 mm front width with a 21–22 mm keyhole bridge, Italian Mazzucchelli acetate. The HEV 380–460 nm filter is an in-line lens upgrade (+$40), compatible with prescription or plano lenses. Bespoke 150–172 mm available.</p>`,
     }, {}, [breadcrumbJsonLd([
