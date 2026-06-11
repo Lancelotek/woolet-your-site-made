@@ -227,10 +227,10 @@ function WelcomeStep({
           borderRadius: 12,
           border: `1.5px solid ${GOLD}`,
           background: "rgba(202,164,73,0.08)",
-          padding: "16px 18px",
+          padding: "18px 18px 16px",
           display: "flex",
           flexDirection: "column",
-          gap: 6,
+          gap: 12,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -257,6 +257,90 @@ function WelcomeStep({
             fontSize: "0.85rem",
             fontWeight: 300,
             lineHeight: 1.55,
+            margin: 0,
+          }}
+        >
+          {tFit(lang, "welcome.need_card_why")}
+        </p>
+
+        {/* Visual: good vs bad card placement */}
+        <div
+          aria-hidden
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 8,
+            marginTop: 2,
+          }}
+        >
+          {[
+            { ok: true, label: tFit(lang, "welcome.placement_good"), card: { rotate: 0, y: 22 } },
+            { ok: false, label: tFit(lang, "welcome.placement_tilted"), card: { rotate: -18, y: 26 } },
+            { ok: false, label: tFit(lang, "welcome.placement_low"), card: { rotate: 0, y: 50 } },
+          ].map((variant, i) => {
+            const accent = variant.ok ? "#7ec77a" : "#d97f6b";
+            return (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 6,
+                  background: "rgba(15,15,14,0.55)",
+                  border: `1px solid ${variant.ok ? "rgba(126,199,122,0.4)" : "rgba(217,127,107,0.35)"}`,
+                  borderRadius: 8,
+                  padding: "10px 6px 8px",
+                }}
+              >
+                <svg width="78" height="78" viewBox="0 0 80 80" fill="none">
+                  {/* face */}
+                  <ellipse cx="40" cy="46" rx="22" ry="28" stroke="rgba(240,236,228,0.55)" strokeWidth="1.5" fill="none" />
+                  {/* eyes */}
+                  <circle cx="32" cy="44" r="1.6" fill="rgba(240,236,228,0.7)" />
+                  <circle cx="48" cy="44" r="1.6" fill="rgba(240,236,228,0.7)" />
+                  {/* card */}
+                  <g transform={`translate(40 ${variant.card.y}) rotate(${variant.card.rotate})`}>
+                    <rect x="-22" y="-4" width="44" height="8" rx="1" fill={accent} opacity="0.9" />
+                  </g>
+                  {/* status icon */}
+                  <g transform="translate(60 12)">
+                    <circle cx="0" cy="0" r="8" fill={accent} />
+                    {variant.ok ? (
+                      <path d="M -3 0 L -1 2 L 3 -2" stroke={BG} strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    ) : (
+                      <>
+                        <line x1="-3" y1="-3" x2="3" y2="3" stroke={BG} strokeWidth="1.6" strokeLinecap="round" />
+                        <line x1="3" y1="-3" x2="-3" y2="3" stroke={BG} strokeWidth="1.6" strokeLinecap="round" />
+                      </>
+                    )}
+                  </g>
+                </svg>
+                <span
+                  style={{
+                    color: accent,
+                    fontFamily: "Barlow, sans-serif",
+                    fontSize: "0.7rem",
+                    fontWeight: 500,
+                    letterSpacing: "0.04em",
+                    textAlign: "center",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {variant.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        <p
+          style={{
+            color: "rgba(240,236,228,0.65)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.75rem",
+            fontWeight: 300,
+            lineHeight: 1.5,
             margin: 0,
           }}
         >
@@ -2698,6 +2782,44 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
       )}
 
 
+
+      {/* Recommended frame width — the headline takeaway for shoppers */}
+      <div
+        style={{
+          borderRadius: 10,
+          border: `1.5px solid ${GOLD}`,
+          background: "linear-gradient(180deg, rgba(202,164,73,0.14), rgba(202,164,73,0.04))",
+          padding: "20px 22px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+        }}
+      >
+        <span
+          style={{
+            color: GOLD,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 600,
+            fontSize: "0.68rem",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+          }}
+        >
+          {tFit(lang, "result.frame_reco_label")}
+        </span>
+        <div
+          className="font-display text-woolet-white"
+          style={{ fontSize: "clamp(1.8rem, 4vw, 2.4rem)", fontWeight: 300, lineHeight: 1.05 }}
+        >
+          {adjustedFace}<span style={{ color: GOLD }}>–</span>{adjustedFace + 6}<span style={{ color: "rgba(240,236,228,0.6)", fontSize: "0.6em", marginLeft: 6 }}>mm</span>
+        </div>
+        <p
+          className="text-cream-dim"
+          style={{ fontSize: "0.9rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}
+        >
+          {tFit(lang, "result.frame_reco_body", { min: adjustedFace, max: adjustedFace + 6 })}
+        </p>
+      </div>
 
       <div
         style={{

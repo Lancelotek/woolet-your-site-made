@@ -13,6 +13,10 @@ const en: Dict = {
   "welcome.h1_em": "30 seconds",
   "welcome.subtitle": "Three steps. Photo never leaves your device until you capture.",
   "welcome.need_card_title": "You need a card for this scan",
+  "welcome.need_card_why": "A standard payment card is an exact 85.60 mm ruler. We use its long edge to convert pixels in the photo into millimeters on your face — that's how a single selfie gives you a real frame width.",
+  "welcome.placement_good": "Good — flat & level",
+  "welcome.placement_tilted": "Bad — tilted",
+  "welcome.placement_low": "Bad — too low",
   "welcome.need_card_body_a": "Grab any credit card, debit card, or ID card. The long edge must measure",
   "welcome.need_card_body_long": "85.60 mm",
   "welcome.need_card_body_b": "and the short edge",
@@ -125,6 +129,8 @@ const en: Dict = {
 
   // Result
   "result.step_label": "Step 4 of 4 — Your measurements",
+  "result.frame_reco_label": "Your recommended frame width",
+  "result.frame_reco_body": "When shopping for glasses, look for a total frame width between {min} and {max} mm (often printed as the third number on the temple, e.g. \"54□18-{max}\"). Anything narrower will pinch your temples; much wider will slide down your nose.",
   "result.head_width": "Head width (frame size)",
   "result.raw": "(raw {n} mm)",
   "result.conf_high": "High confidence",
