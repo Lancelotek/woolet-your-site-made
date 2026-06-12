@@ -28,6 +28,7 @@ const KeyholeBridgeGlasses = () => (
         paragraphs: [
           "Most heritage keyhole frames — from Persol, Moscot, Oliver Peoples — use 18 to 20 mm bridges. That's standard because their front widths are 48 to 52 mm, sized for average faces. Woolet's front width is 158 mm, sized for faces 155 mm and above, and wider faces typically come with wider noses. The 21 mm bridge on the 007 and 22 mm on the 009 scale with the rest of the frame.",
           "If you've tried vintage Persol 649s or Moscot Lemtosh and the frame slides or the bridge pinches, the keyhole shape is right but the width is wrong. Woolet's 21–22 mm or a bespoke 23–26 mm bridge is the next step up.",
+          "Deeper reading: the <a href=\"/en/blog/category/nose-bridge-fit\" style=\"color:#A07A2A;\"><strong>Nose-Bridge Fit hub</strong></a> covers what bridge numbers mean, keyhole vs saddle, and how to measure your own bridge at home.",
         ],
       },
     ]}

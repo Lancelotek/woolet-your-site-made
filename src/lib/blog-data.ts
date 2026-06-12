@@ -339,6 +339,8 @@ const blogPostsEN: BlogPost[] = [
 <p>If your glasses have always slid down, pinched, or sat crooked, the chances that your face is the problem are almost zero. The chances that the bridge spec is the problem are very high. 21–22 mm in a keyhole shape solves it for most wider and higher noses. Bespoke 23–26 mm solves it for the rest.</p>
 
 <p>Your nose isn't the outlier. The bridge range was.</p>
+
+<p style="margin-top:1.5rem;padding:1rem 1.2rem;border:1px solid rgba(202,164,73,0.25);background:rgba(202,164,73,0.04);border-radius:6px;font-size:0.9rem;">More on this topic — see the <a href="/en/blog/category/nose-bridge-fit"><strong>Nose-Bridge Fit hub</strong></a> for every guide we've written on bridge width, keyhole geometry, and how to measure.</p>
 `,
   },
   {

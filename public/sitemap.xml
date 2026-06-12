@@ -298,6 +298,14 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- EN Blog Category Hubs -->
+  <url>
+    <loc>https://woolet.co/en/blog/category/nose-bridge-fit</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- EN Blog Posts -->
   <url>
     <loc>https://woolet.co/en/blog/glasses-for-wide-nose-bridge-21-22mm-explained</loc>
