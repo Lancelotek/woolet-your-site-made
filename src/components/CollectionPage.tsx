@@ -286,6 +286,7 @@ const CollectionPage = ({
               { slug: "glasses-for-big-heads", label: "Glasses for Big Heads" },
               { slug: "extra-wide-glasses", label: "Extra Wide Glasses" },
               { slug: "wide-bridge-glasses", label: "Wide Bridge Glasses" },
+              { slug: "keyhole-bridge-glasses", label: "Keyhole Bridge Glasses" },
               { slug: "italian-acetate-sunglasses", label: "Italian Acetate Sunglasses" },
               { slug: "italian-mazzucchelli-acetate", label: "Italian Mazzucchelli Acetate" },
               { slug: "oversized-sunglasses-men", label: "Oversized Sunglasses for Men" },
