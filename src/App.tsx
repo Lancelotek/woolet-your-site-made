@@ -142,6 +142,7 @@ const App = () => (
           <Route path="/en/collections/glasses-for-big-heads" element={<GlassesForBigHeads />} />
           <Route path="/en/collections/extra-wide-glasses" element={<ExtraWideGlasses />} />
           <Route path="/en/collections/wide-bridge-glasses" element={<WideBridgeGlasses />} />
+          <Route path="/en/collections/keyhole-bridge-glasses" element={<KeyholeBridgeGlasses />} />
           <Route path="/en/collections/oversized-blue-light-glasses" element={<OversizedBlueLightGlasses />} />
           <Route path="/en/collections/blue-light-glasses-for-wide-faces" element={<BlueLightGlassesForWideFaces />} />
           <Route path="/en/collections/extra-large-oversized-eyeglasses" element={<ExtraLargeOversizedEyeglasses />} />
