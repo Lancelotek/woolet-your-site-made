@@ -242,6 +242,106 @@ const blogPostsEN: BlogPost[] = [
 `,
   },
   {
+    slug: "glasses-for-wide-nose-bridge-21-22mm-explained",
+    title: "Glasses for a Wide Nose Bridge: What 21–22 mm Actually Means",
+    excerpt: "Most brands cap the bridge at 18 mm. Here's what 21–22 mm changes for wide nose bridges, big noses, and keyhole vs saddle fit.",
+    date: "2026-06-12",
+    readTime: 11,
+    tags: ["Guide", "Wide Nose Bridge", "Fit"],
+    faq: [
+      { q: "What counts as a wide nose bridge in glasses?", a: "Bridge widths under 17 mm are narrow, 17–20 mm is the mainstream range, and 21 mm and above is wide. Most brands top out at 18 mm. Anyone with a wider or higher nose typically needs 21 mm or more for the frame to sit on the bone instead of pinching cartilage." },
+      { q: "What does the bridge measurement actually mean?", a: "It's the distance in millimeters between the two lenses, measured at the narrowest point of the bridge. It's the second number on the inside of the temple — e.g. 52□18 means a 52 mm lens and an 18 mm bridge. Bridge width determines where the frame sits on the nose and how evenly weight is distributed." },
+      { q: "What's the widest standard bridge Woolet makes?", a: "21 mm on the round Woolet 007 and 22 mm on the soft-square Woolet 009. Bespoke covers 16 to 26 mm in 1 mm increments, paired with any front width from 150 to 172 mm." },
+      { q: "Are glasses for big noses the same as wide nose bridge glasses?", a: "Almost always, yes. A big nose usually means a wider bridge, a higher bridge, or both — and the fit fix is the same: more bridge width and a keyhole shape so the frame rests on the top ridge instead of pressing the sides." },
+      { q: "Will a 21–22 mm bridge fit a higher nose too?", a: "Yes. The keyhole geometry lifts the frame off the sides of the nose, which solves the height problem as well as the width problem. A bespoke 23–26 mm bridge with extra crest height is the next step up for the largest noses." },
+      { q: "How do I measure my own bridge width at home?", a: "Pinch a credit card flat across the top of your nose where glasses normally sit, mark the contact width with a pen, then measure it with a ruler in millimeters. Add 1–2 mm for breathing room. The AI Fit Wizard does this from a single photo." },
+      { q: "Why don't mainstream brands offer wider bridges?", a: "Inventory economics. Running a tight 17/18/19 mm bridge range covers the statistical median and keeps SKUs low. Wider bridges mean slower-moving stock, so most brands ignore the category — which is the gap Woolet was built to fill." },
+    ],
+    content: `
+<p>If your glasses slide down within an hour, leave deep red marks on the sides of your nose, or sit visibly crooked, the cause is almost never the lens size or the temple length. It's the bridge — the small piece of acetate or metal between the two lenses — and specifically, that the bridge is too narrow for your nose.</p>
+
+<p>This is the most common fit problem in eyewear, and it's also the one mainstream brands solve worst. Walk into almost any optical store and the wide-bridge glasses cap around 17 or 18 mm. If your nose needs more, you've been quietly ignored by the industry.</p>
+
+<p>This guide covers what bridge width actually means, what counts as wide, what 21–22 mm changes, and how keyhole geometry fits into all of it.</p>
+
+<h2>The bridge number — and why it matters more than people think</h2>
+
+<p>Every frame is stamped with three numbers on the inside of the temple, usually like <strong>52□18-145</strong>. The first is lens width. The middle one — the one between the small square symbol — is the <strong>bridge width</strong> in millimeters. The third is temple length.</p>
+
+<p>Bridge width controls two things: where the frame sits on your nose, and how the weight of the frame is distributed. A bridge that's too narrow pinches the sides of the nose and concentrates pressure on cartilage. A bridge that's correct rides on bone, distributes weight evenly, and stops the slide.</p>
+
+<p>It's also the single hardest number to fix after purchase. Lens width can be tolerated. Temples can be heat-bent. A wrong bridge can only be replaced.</p>
+
+<h2>What counts as a wide nose bridge?</h2>
+
+<p>Industry conventions break out roughly like this:</p>
+
+<ul>
+<li><strong>14–16 mm</strong> — narrow bridges. Common in "low bridge" and Asian-fit lines.</li>
+<li><strong>17–20 mm</strong> — the mainstream range. Engineered for the statistical median nose.</li>
+<li><strong>21–22 mm</strong> — wide. What Woolet 007 and 009 ship as standard.</li>
+<li><strong>23–26 mm</strong> — extra wide. Bespoke territory.</li>
+</ul>
+
+<p>If you've measured the bridge on your existing glasses and it reads 17, 18, or 19 mm, and they slide or pinch, moving to 21–22 mm is usually the single biggest fit upgrade you can make.</p>
+
+<h2>What 21–22 mm actually changes</h2>
+
+<p>Going from an 18 mm to a 21 mm bridge is only 3 millimeters on paper. In practice it changes three things at once.</p>
+
+<p><strong>The frame stops sliding.</strong> A wider bridge has more contact area on the top of the nose, which means the frame doesn't need gravity to stay in place — it sits where you put it. People who push their glasses up dozens of times a day generally stop within the first week.</p>
+
+<p><strong>The red marks disappear.</strong> The pressure that produces those marks comes from a too-narrow bridge clamping onto cartilage. With 21–22 mm, the frame rides on the top ridge of the nose, which is bone. Bone distributes load better than cartilage and doesn't bruise.</p>
+
+<p><strong>The lenses end up in the right place.</strong> A frame that's too narrow at the bridge sits too high; you end up looking through the bottom of the lens. A correct bridge places the optical center exactly where your pupil is, which matters more for progressives and high prescriptions than most people realize.</p>
+
+<h2>Keyhole vs saddle — the second variable</h2>
+
+<p>Bridge width is half the story. The other half is bridge <em>shape</em>.</p>
+
+<p><strong>Saddle bridge</strong> is the default in most modern frames. It's a continuous curve that wraps the sides of the nose like a saddle on a horse. It works fine on average and lower nose bridges and looks clean — but on wider or higher noses, the saddle pinches sides and slides.</p>
+
+<p><strong>Keyhole bridge</strong> is cut with a small inverted-keyhole opening at the center. The frame doesn't touch the sides of the nose at all — it sits across the top, like a bridge spanning a gap. Historically the bridge style of choice for mid-century American eyewear (Wayfarer, Persol 649, Moscot Lemtosh) and still standard in heritage frames today.</p>
+
+<p>For a wider or higher nose, the combination you want is <strong>wide + keyhole</strong>: 21 mm or more, cut with a keyhole opening. That's the spec on both Woolet 007 (21 mm round) and Woolet 009 (22 mm soft-square). See the full breakdown on the <a href="/en/collections/keyhole-bridge-glasses">keyhole bridge collection</a>.</p>
+
+<h2>Are glasses for big noses the same problem?</h2>
+
+<p>Almost always, yes. A "big nose" in eyewear terms usually means one or more of: wider at the bridge, taller at the crest, or higher up the brow line. All three are fixed by the same two levers — more bridge width and keyhole geometry — sometimes with a small amount of extra crest height in bespoke.</p>
+
+<p>If you've spent years buying frames that look right on the rack but feel wrong on your face, the search term you've been using ("glasses for big noses", "wide nose bridge glasses", "glasses for wide nose bridge") all point to the same fit fix. See the <a href="/en/collections/wide-bridge-glasses">wide bridge glasses collection</a> for the comparison against mainstream specs.</p>
+
+<h2>The 18 mm ceiling — why mainstream brands stop where they do</h2>
+
+<p>It's not a manufacturing limit. It's inventory economics. Running a tight 17/18/19 mm bridge range covers the statistical median nose, keeps SKU counts low, and moves stock predictably. Going wider means cutting more variants and risking slower-moving inventory.</p>
+
+<p>This is why "wide bridge" sections on mainstream sites top out at 18 mm. Not because 18 mm is the natural ceiling for human noses, but because it's the natural ceiling for inventory planning around a bell curve. Anyone whose nose is on the long tail gets quietly ignored.</p>
+
+<h2>Which model — 007 or 009?</h2>
+
+<p>Both are 158 mm front width in Italian Mazzucchelli acetate, hand-finished in Italy. The difference is shape and bridge.</p>
+
+<ul>
+<li><strong><a href="/en/products/woolet-007">Woolet 007</a></strong> — round panto, 21 mm keyhole bridge. The vintage-round silhouette done at wide-bridge scale. For anyone who's tried Persol 649 or Moscot Lemtosh and found the bridge too narrow.</li>
+<li><strong><a href="/en/products/woolet-009">Woolet 009</a></strong> — soft square, 22 mm keyhole bridge. Slightly more architectural, slightly wider bridge. For broader noses or anyone who prefers a squared silhouette.</li>
+</ul>
+
+<p>Bespoke covers any bridge from 16 to 26 mm in 1 mm increments, paired with any front width from 150 to 172 mm.</p>
+
+<h2>How to know before you buy</h2>
+
+<p>Two paths. Measure your existing frames — the middle number stamped inside the temple is your current bridge. If it reads 17, 18, or 19 and the frame slides or pinches, you want 21 mm or 22 mm.</p>
+
+<p>Or use the <a href="/en/fit">AI Fit Wizard</a> — it measures both face width and bridge width from a single photo, so we can confirm 21 mm, 22 mm, or bespoke before you order. No ruler, no guesswork, no return shipping.</p>
+
+<h2>The takeaway</h2>
+
+<p>If your glasses have always slid down, pinched, or sat crooked, the chances that your face is the problem are almost zero. The chances that the bridge spec is the problem are very high. 21–22 mm in a keyhole shape solves it for most wider and higher noses. Bespoke 23–26 mm solves it for the rest.</p>
+
+<p>Your nose isn't the outlier. The bridge range was.</p>
+`,
+  },
+  {
     slug: "how-to-measure-face-width-for-glasses",
     title: "How to Measure Face Width for Glasses (Step-by-Step)",
     excerpt: "Measure your face width at home with a credit card or ruler. Find your correct frame size in under a minute.",
