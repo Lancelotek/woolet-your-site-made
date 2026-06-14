@@ -245,22 +245,24 @@ const blogPostsEN: BlogPost[] = [
       <th style="padding:10px 12px;text-align:left;font-weight:500;">Brand</th>
       <th style="padding:10px 12px;text-align:left;font-weight:500;">Frame width</th>
       <th style="padding:10px 12px;text-align:left;font-weight:500;">Material</th>
-      <th style="padding:10px 12px;text-align:left;font-weight:500;">Prescription</th>
-      <th style="padding:10px 12px;text-align:left;font-weight:500;">Price from</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Bridge</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Rx available</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Starting price</th>
     </tr>
   </thead>
   <tbody>
     <tr style="background:#FBF7EC;border-left:3px solid #c9a84c;">
       <td style="padding:10px 12px;font-weight:600;">Woolet</td>
-      <td style="padding:10px 12px;">158 mm (bespoke: 150–172 mm)</td>
-      <td style="padding:10px 12px;">Mazzucchelli acetate, hand-finished in Italy</td>
-      <td style="padding:10px 12px;">Yes</td>
-      <td style="padding:10px 12px;">$133 (pre-order)</td>
+      <td style="padding:10px 12px;font-weight:600;">158 mm (bespoke 150–172 mm)</td>
+      <td style="padding:10px 12px;font-weight:600;">Mazzucchelli acetate, Italy</td>
+      <td style="padding:10px 12px;font-weight:600;">21 mm keyhole</td>
+      <td style="padding:10px 12px;font-weight:600;">Yes</td>
+      <td style="padding:10px 12px;font-weight:600;">$133 pre-order</td>
     </tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">SizeGlasses</td><td style="padding:10px 12px;">155–165 mm</td><td style="padding:10px 12px;">TR90 / acetate</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$89</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">BXL Eyewear</td><td style="padding:10px 12px;">145–165 mm</td><td style="padding:10px 12px;">TR90 / titanium / acetate</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$49</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">Zenni Extended Fit</td><td style="padding:10px 12px;">138 mm+</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$6.95</td></tr>
-    <tr><td style="padding:10px 12px;">Warby Parker Wide</td><td style="padding:10px 12px;">~138 mm</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$95</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">SizeGlasses</td><td style="padding:10px 12px;">155–165 mm</td><td style="padding:10px 12px;">TR90</td><td style="padding:10px 12px;">up to 20 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$99</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">BXL Eyewear</td><td style="padding:10px 12px;">145–165 mm</td><td style="padding:10px 12px;">TR90</td><td style="padding:10px 12px;">up to 20 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$105</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">Zenni Extended Fit</td><td style="padding:10px 12px;">~138–148 mm</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">up to 18 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$6.95</td></tr>
+    <tr><td style="padding:10px 12px;">Warby Parker Wide</td><td style="padding:10px 12px;">~138–148 mm</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">up to 18 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$95</td></tr>
   </tbody>
 </table>
 </div>
