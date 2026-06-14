@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
+import { persistRef, resolveReferredBy } from "@/lib/referral";
 import Countdown from "@/components/Countdown";
 import heroMan from "@/assets/hero-man.jpg";
 import logo from "@/assets/woolet-logo.png";
