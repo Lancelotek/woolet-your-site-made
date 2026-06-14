@@ -200,15 +200,16 @@ const VipForm = ({
         </span>
       </button>
 
-      <p className="text-center mt-1" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.04em" }}>
-        <span style={{ color: "#c9a84c", fontWeight: 600 }}>{EARLY_BIRD_LEFT}</span> / {EARLY_BIRD_TOTAL} Early Bird spots left
+      <p className="text-center mt-1" style={{ fontSize: "12px", color: "#C8C3B8", letterSpacing: "0.04em" }}>
+        <span style={{ color: "#D4B07A", fontWeight: 600 }}>{EARLY_BIRD_LEFT}</span> / {EARLY_BIRD_TOTAL} Early Bird spots left
         <span style={{ color: "#8A857B" }}> · </span>
-        <span style={{ color: "#D8D4CC" }}>{FOUNDERS_EDITION_TOTAL} Founders Edition Havana (numbered)</span>
+        <span style={{ color: "#E8E2D6" }}>{FOUNDERS_EDITION_TOTAL} Founders Edition Havana (numbered)</span>
       </p>
 
-      <p className="text-center mt-0.5" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.02em" }}>
+      <p className="text-center mt-0.5" style={{ fontSize: "12px", color: "#C8C3B8", letterSpacing: "0.02em" }}>
         No payment now · No spam · Unsubscribe anytime
       </p>
+
     </form>
   );
 };
