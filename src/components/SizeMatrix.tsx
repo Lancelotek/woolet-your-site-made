@@ -137,10 +137,10 @@ const SizeMatrix = ({
           ))}
         </div>
 
-        <div className="mt-12 flex">
+        <div className="mt-12 flex flex-col gap-2">
           <Link
-            to={fitHref}
-            className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+            to={`/${lang}/lp/kickstarter`}
+            className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all self-start"
             style={{
               background: "hsl(var(--gold))",
               color: "hsl(var(--background))",
@@ -152,9 +152,21 @@ const SizeMatrix = ({
             onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
           >
-            {t(lang, "cta.scan_face_free")}
+            Join the waitlist — save 40%
           </Link>
+          <span
+            style={{
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 300,
+              fontSize: "0.78rem",
+              color: "hsl(var(--gold-dim))",
+              letterSpacing: "0.02em",
+            }}
+          >
+            Founding price $133 (reg. $190) · no payment now · limited spots
+          </span>
         </div>
+
       </div>
     </section>
   );
