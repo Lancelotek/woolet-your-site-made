@@ -486,7 +486,7 @@ const KickstarterPrelaunch = () => {
               { q: "When does it launch?", a: `Kickstarter goes live on ${LAUNCH_DATE_LABEL}. VIPs get a launch-day email.` },
               { q: "Do I pay now?", a: "No. This page only joins you to the VIP list. You pledge on Kickstarter on launch day if you want a pair." },
               { q: "What do VIPs actually get?", a: "A hidden pledge invisible to the public during the Kickstarter campaign, with two reward tiers only VIPs can access: 100 numbered Founders Edition Havana pairs (limited edition), then 300 Early Bird spots at 40% off the $190 retail price. The access link arrives by email on launch day." },
-              { q: "Which faces is this for?", a: "Faces measuring 155 mm or wider, temple-to-temple. Frames come in 155 / 158 / 161 mm in 3 colors per shape — plus bespoke for 162 mm+." },
+              { q: "Which faces is this for?", a: "Built for faces around 155 mm and above (temple-to-temple). Stock comes in three frame widths — 155 / 158 / 161 mm — in 3 colors per shape, with a 21–22 mm keyhole bridge. Anything outside the stock range is covered by bespoke from 150 to 172 mm." },
             ].map((f) => (
               <details key={f.q} className="py-5 group">
                 <summary className="flex justify-between items-center cursor-pointer list-none">
