@@ -405,7 +405,9 @@ const KickstarterPrelaunch = () => {
               { img: w009, name: "Woolet 009", shape: "Soft Square" },
             ].map((m) => (
               <div key={m.name} className="text-center">
-                <img src={m.img} alt={m.name} className="w-full max-w-sm mx-auto h-auto" loading="lazy" />
+                <div className="w-full max-w-sm mx-auto" style={{ background: "#0a0908", borderRadius: "4px" }}>
+                  <img src={m.img} alt={m.name} className="w-full h-auto" loading="lazy" />
+                </div>
                 <h3 className="font-display text-2xl text-woolet-white mt-4">{m.name}</h3>
                 <p className="text-cream-dim text-xs uppercase tracking-[0.24em] mt-1">{m.shape}</p>
               </div>
