@@ -160,11 +160,11 @@ const Index = () => {
         {t(lang, "aifit.desc_after")}
       </p>
 
-      {/* SINGLE primary CTA + price subline */}
+      {/* SINGLE primary CTA — waitlist */}
       <div className="flex flex-col gap-2 pt-2">
         <a
-          href={`/${lang}/fit`}
-          onClick={() => pushGtmEvent("cta_scan_click", { location: "hero_primary" })}
+          href={`/${lang}/lp/kickstarter`}
+          onClick={() => pushGtmEvent("cta_waitlist_click", { location: "hero_primary", dest: "lp_kickstarter" })}
           className="inline-flex items-center justify-center uppercase tracking-[0.22em] transition-all no-underline"
           style={{
             background: "hsl(var(--gold))",
@@ -180,28 +180,19 @@ const Index = () => {
           onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
         >
-          {t(lang, "cta.scan_face_free")}
+          Join the waitlist — save 30%
         </a>
-        {/* Tiny waitlist alternative — link to product 007 */}
-        <a
-          href={`/${lang}/lp/kickstarter`}
-          onClick={() => pushGtmEvent("hero_link_waitlist_click", { source: "hero", dest: "lp_kickstarter" })}
-          className="self-start"
+        <span
           style={{
-            background: "transparent",
-            border: "none",
-            padding: "2px 0",
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
-            fontSize: "0.875rem",
+            fontSize: "0.78rem",
             color: "hsl(var(--gold-dim))",
-            textDecoration: "underline",
-            textUnderlineOffset: "3px",
-            cursor: "pointer",
+            letterSpacing: "0.02em",
           }}
         >
-          {t(lang, "aifit.waitlist_link")}
-        </a>
+          Founding price $133 (reg. $190) · no payment now · limited spots
+        </span>
       </div>
 
       {/* Trust badges row — 2 only */}
