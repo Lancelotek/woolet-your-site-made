@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
+import { persistRef, resolveReferredBy } from "@/lib/referral";
 import Countdown from "@/components/Countdown";
 import heroMan from "@/assets/hero-man.jpg";
 import logo from "@/assets/woolet-logo.png";
@@ -65,6 +66,7 @@ const VipForm = ({
     setError(null);
     try {
       const models = "Kickstarter VIP";
+      const resolvedRef = resolveReferredBy(form.email, referredBy);
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           email: form.email,
@@ -72,7 +74,7 @@ const VipForm = ({
           face_width: form.faceWidth,
           models,
           source: "kickstarter",
-          referred_by: referredBy || null,
+          referred_by: resolvedRef,
         },
       });
       if (fnError) throw fnError;
@@ -86,7 +88,7 @@ const VipForm = ({
           user_first_name: form.name,
           frame_width_preference: form.faceWidth || null,
           waitlist_models: models,
-          referred_by: referredBy || null,
+          referred_by: resolvedRef,
         });
       }
       pushGtmEvent("generate_lead", {
@@ -224,7 +226,7 @@ const KickstarterPrelaunch = () => {
 
   useEffect(() => {
     if (referredBy) {
-      try { sessionStorage.setItem("woolet_ref", referredBy); } catch { /* ignore */ }
+      persistRef(referredBy);
       pushGtmEvent("vip_referral_visit", { ref: referredBy });
     }
   }, [referredBy]);
