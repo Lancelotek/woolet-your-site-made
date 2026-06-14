@@ -484,7 +484,7 @@ const KickstarterPrelaunch = () => {
             {[
               { q: "When does it launch?", a: `Kickstarter goes live on ${LAUNCH_DATE_LABEL}. VIPs get a launch-day email.` },
               { q: "Do I pay now?", a: "No. This page only joins you to the VIP list. You pledge on Kickstarter on launch day if you want a pair." },
-              { q: "What do VIPs actually get?", a: "Two reward tiers, only on Kickstarter: 100 numbered Founders Edition Havana pairs (limited edition), then 300 Early Bird spots at 40% off the $190 retail price. VIPs get a 48-hour head start before the public page opens." },
+              { q: "What do VIPs actually get?", a: "A hidden pledge invisible to the public during the Kickstarter campaign, with two reward tiers only VIPs can access: 100 numbered Founders Edition Havana pairs (limited edition), then 300 Early Bird spots at 40% off the $190 retail price. The access link arrives by email on launch day." },
               { q: "Which faces is this for?", a: "Faces measuring 155 mm or wider, temple-to-temple. Frames come in 155 / 158 / 161 mm in 3 colors per shape — plus bespoke for 162 mm+." },
             ].map((f) => (
               <details key={f.q} className="py-5 group">
