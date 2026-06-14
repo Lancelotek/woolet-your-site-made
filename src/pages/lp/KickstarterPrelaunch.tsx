@@ -15,21 +15,25 @@ const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
 const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
 const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
+const FOUNDING_SPOTS_TOTAL = 300;
+const FOUNDING_SPOTS_LEFT = 247;
+
 const inputStyle: React.CSSProperties = {
-  fontSize: "0.85rem",
-  backgroundColor: "transparent",
+  fontSize: "0.95rem",
+  backgroundColor: "rgba(255,255,255,0.06)",
   color: "#f0ece4",
-  borderTop: "none",
-  borderLeft: "none",
-  borderRight: "none",
-  borderBottom: "1px solid #2a2520",
+  border: "1px solid rgba(216,212,204,0.35)",
+  borderRadius: "4px",
+  padding: "12px 14px",
   outline: "none",
+  transition: "border-color 0.2s",
 };
 
 const labelStyle: React.CSSProperties = {
-  fontSize: "10px",
+  fontSize: "11px",
+  fontWeight: 500,
   letterSpacing: "0.15em",
-  color: "#7a7570",
+  color: "#D8D4CC",
   textTransform: "uppercase",
   marginBottom: "8px",
 };
