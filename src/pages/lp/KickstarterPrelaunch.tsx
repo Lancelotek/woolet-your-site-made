@@ -292,16 +292,16 @@ const KickstarterPrelaunch = () => {
             </p>
 
             <div id="vip-form-hero" className="mt-6">
-              <VipForm utmSource={utmSource} idSuffix="-hero" />
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} />
             </div>
 
 
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2" style={{ fontSize: "12px", color: "#D8D4CC" }}>
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2" style={{ fontSize: "12.5px", color: "#E8E2D6" }}>
               <span>🇮🇹 Italian Mazzucchelli Acetate</span>
               <span style={{ color: "#8A857B" }}>·</span>
               <span>155mm+ wide fit</span>
               <span style={{ color: "#8A857B" }}>·</span>
-              <span><span style={{ color: "#c9a84c", fontWeight: 600 }}>4,900+</span> on the waitlist</span>
+              <span><span style={{ color: "#D4B07A", fontWeight: 600 }}>4,900+</span> on the waitlist</span>
             </div>
 
             {/* Testimonials */}
@@ -312,13 +312,13 @@ const KickstarterPrelaunch = () => {
               ].map((t) => (
                 <div key={t.a} className="border-l-2 border-primary/40 pl-3">
                   <p className="text-woolet-white italic leading-relaxed" style={{ fontSize: "13px" }}>"{t.q}"</p>
-                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "10px", color: "#8A857B" }}>{t.a}</p>
+                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "10px", color: "#A8A39A" }}>{t.a}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="order-first md:order-last">
+          <div className="md:order-last">
             <img
               src={heroMan}
               alt="Man wearing Woolet wide-face eyewear"
@@ -326,6 +326,7 @@ const KickstarterPrelaunch = () => {
               loading="eager"
             />
           </div>
+
         </div>
       </section>
 
