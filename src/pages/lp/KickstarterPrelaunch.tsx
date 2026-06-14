@@ -88,7 +88,7 @@ const VipForm = ({
           user_first_name: form.name,
           frame_width_preference: form.faceWidth || null,
           waitlist_models: models,
-          referred_by: referredBy || null,
+          referred_by: resolvedRef,
         });
       }
       pushGtmEvent("generate_lead", {
