@@ -32,6 +32,15 @@ const blogPostsEN: BlogPost[] = [
     readTime: 14,
     tags: ["Guide", "Wide Face", "2026"],
     content: `
+<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
+    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: June 2025</div>
+  </div>
+</div>
+
 <p>You already know the problem. You've walked into an optical store, tried on frame after frame, and felt the creeping frustration as every single pair pinches your temples before it even reaches your ears. You've ordered online, hoped for the best, and returned the glasses three times. You've been told to "try metal frames" or to "maybe go custom" — as if finding glasses that simply fit should require a bespoke tailor.</p>
 
 <p>It shouldn't. And this guide is here to fix that.</p>
