@@ -15,8 +15,11 @@ const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
 const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
 const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
-const FOUNDING_SPOTS_TOTAL = 300;
-const FOUNDING_SPOTS_LEFT = 247;
+// Tier 1 — limited Founders Edition (Havana colorway, numbered)
+const FOUNDERS_EDITION_TOTAL = 100;
+// Tier 2 — Early Bird (40% off retail)
+const EARLY_BIRD_TOTAL = 300;
+const EARLY_BIRD_LEFT = 247;
 
 const inputStyle: React.CSSProperties = {
   fontSize: "0.95rem",
@@ -220,7 +223,9 @@ const VipForm = ({
       </button>
 
       <p className="text-center mt-1" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.04em" }}>
-        Only <span style={{ color: "#c9a84c", fontWeight: 600 }}>{FOUNDING_SPOTS_LEFT}</span> of {FOUNDING_SPOTS_TOTAL} founding-backer spots left
+        <span style={{ color: "#c9a84c", fontWeight: 600 }}>{EARLY_BIRD_LEFT}</span> / {EARLY_BIRD_TOTAL} Early Bird spots left
+        <span style={{ color: "#8A857B" }}> · </span>
+        <span style={{ color: "#D8D4CC" }}>{FOUNDERS_EDITION_TOTAL} Founders Edition Havana (numbered)</span>
       </p>
 
       <p className="text-center mt-0.5" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.02em" }}>
@@ -296,7 +301,7 @@ const KickstarterPrelaunch = () => {
             </h1>
             <p className="text-cream-dim mt-5 text-base sm:text-lg leading-relaxed">
               Woolet launches on Kickstarter on <span className="text-woolet-white">{LAUNCH_DATE_LABEL}</span>.
-              Join the VIP list to lock <span className="text-primary">40% off the $190 retail price</span> (founding-backer spots, limited) and 48-hour early access before the public.
+              VIPs get 48-hour early access — first crack at the <span className="text-primary">100 numbered Founders Edition Havana</span> pairs, then <span className="text-primary">40% off retail</span> on 300 Early Bird spots before the public sees the page.
             </p>
 
             <div id="vip-form-hero" className="mt-6">
@@ -369,16 +374,16 @@ const KickstarterPrelaunch = () => {
         <div className="grid sm:grid-cols-3 gap-6">
           {[
             {
-              t: "Founding-backer price",
-              d: "Lock 40% off the $190 retail price — 300 founding spots, only on Kickstarter. Gone the moment they sell out.",
+              t: "Founders Edition Havana",
+              d: `100 numbered pairs in our signature Havana acetate — limited edition, only on Kickstarter. Goes first.`,
+            },
+            {
+              t: "Early Bird — 40% off",
+              d: `300 spots at 40% off the $190 retail price. ${EARLY_BIRD_LEFT} left when the campaign opens.`,
             },
             {
               t: "48-hour early access",
-              d: "Pledge two full days before the public sees the campaign. No fighting for limited tiers.",
-            },
-            {
-              t: "Founding-backer extras",
-              d: "Exclusive perks reserved for the people who back us first — only the VIP list will hear about them.",
+              d: "VIPs pledge two full days before the public sees the campaign — first pick of every tier.",
             },
           ].map((p) => (
             <div key={p.t} className="border border-[#1a1612] p-6 rounded-sm bg-[#0a0908]">
@@ -397,7 +402,7 @@ const KickstarterPrelaunch = () => {
             Two frames. Built wide from the start.
           </h2>
           <p className="text-cream-dim text-center max-w-xl mx-auto text-sm">
-            Italian acetate, sizes 155 / 158 / 161 mm + bespoke.
+            Italian acetate · 155 / 158 / 161 mm + bespoke · 3 colors per shape.
           </p>
           <div className="grid sm:grid-cols-2 gap-8 mt-10">
             {[
@@ -479,8 +484,8 @@ const KickstarterPrelaunch = () => {
             {[
               { q: "When does it launch?", a: `Kickstarter goes live on ${LAUNCH_DATE_LABEL}. VIPs get a launch-day email.` },
               { q: "Do I pay now?", a: "No. This page only joins you to the VIP list. You pledge on Kickstarter on launch day if you want a pair." },
-              { q: "What's the VIP discount?", a: "40% off the $190 retail price for 300 founding-backer spots, plus extras you won't see on the public page." },
-              { q: "Which faces is this for?", a: "Faces measuring 155 mm or wider, temple-to-temple. Frames come in 155 / 158 / 161 mm — plus bespoke for 162 mm+." },
+              { q: "What do VIPs actually get?", a: "Two reward tiers, only on Kickstarter: 100 numbered Founders Edition Havana pairs (limited edition), then 300 Early Bird spots at 40% off the $190 retail price. VIPs get a 48-hour head start before the public page opens." },
+              { q: "Which faces is this for?", a: "Faces measuring 155 mm or wider, temple-to-temple. Frames come in 155 / 158 / 161 mm in 3 colors per shape — plus bespoke for 162 mm+." },
             ].map((f) => (
               <details key={f.q} className="py-5 group">
                 <summary className="flex justify-between items-center cursor-pointer list-none">
@@ -500,7 +505,7 @@ const KickstarterPrelaunch = () => {
           Be first when the campaign goes live.
         </h2>
         <p className="text-cream-dim text-center text-sm mb-6">
-          Only VIPs get the launch-day email and the founding-backer tier.
+          VIPs get the launch-day email, the 100 Founders Edition Havana pairs, and 40% off Early Bird before anyone else.
         </p>
         <VipForm utmSource={utmSource} idSuffix="-final" />
       </section>
