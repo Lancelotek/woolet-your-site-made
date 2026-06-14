@@ -154,17 +154,6 @@ const SizeMatrix = ({
           >
             Join the waitlist — save 40%
           </Link>
-          <span
-            style={{
-              fontFamily: "Barlow, sans-serif",
-              fontWeight: 300,
-              fontSize: "0.78rem",
-              color: "hsl(var(--gold-dim))",
-              letterSpacing: "0.02em",
-            }}
-          >
-            Founding price $133 (reg. $190) · no payment now · limited spots
-          </span>
         </div>
 
       </div>
