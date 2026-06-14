@@ -382,8 +382,8 @@ const KickstarterPrelaunch = () => {
               d: `300 spots at 40% off the $190 retail price. ${EARLY_BIRD_LEFT} left when the campaign opens.`,
             },
             {
-              t: "48-hour early access",
-              d: "VIPs pledge two full days before the public sees the campaign — first pick of every tier.",
+              t: "Hidden VIP pledge",
+              d: "A secret reward tier only VIPs can see — invisible to the public during the Kickstarter campaign. Access link goes out by email on launch day.",
             },
           ].map((p) => (
             <div key={p.t} className="border border-[#1a1612] p-6 rounded-sm bg-[#0a0908]">
