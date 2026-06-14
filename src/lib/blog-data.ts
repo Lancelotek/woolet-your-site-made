@@ -32,6 +32,15 @@ const blogPostsEN: BlogPost[] = [
     readTime: 14,
     tags: ["Guide", "Wide Face", "2026"],
     content: `
+<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
+    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: June 2025</div>
+  </div>
+</div>
+
 <p>You already know the problem. You've walked into an optical store, tried on frame after frame, and felt the creeping frustration as every single pair pinches your temples before it even reaches your ears. You've ordered online, hoped for the best, and returned the glasses three times. You've been told to "try metal frames" or to "maybe go custom" — as if finding glasses that simply fit should require a bespoke tailor.</p>
 
 <p>It shouldn't. And this guide is here to fix that.</p>
@@ -42,6 +51,15 @@ const blogPostsEN: BlogPost[] = [
 </div>
 
 <p>Wide faces — defined as faces measuring <strong>155mm or more</strong> from temple to temple — represent a significant portion of the population. The problem isn't your face. The problem is that the eyewear industry was designed around a bell curve that cuts off precisely where you begin.</p>
+
+<div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:28px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">By the numbers</div>
+  <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;">
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">The average adult male face measures <strong style="color:#fff;">141.9 mm in width</strong> (±5.1 mm standard deviation), per peer-reviewed anthropometric research published in the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">Cleft Palate and Craniofacial Journal</a> (PMC4496583, Gordon et al.).</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Standard adult eyewear frames range from <strong style="color:#fff;">125–145 mm in total width</strong>, as defined by the <a href="https://www.iso.org/standard/31811.html" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ISO 8624</a> spectacle frame measuring system. Woolet starts at 158 mm — <strong style="color:#fff;">13 mm beyond</strong> where the mainstream market ends.</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Face widths between <strong style="color:#fff;">131–165 mm</strong> have been recorded in anthropometric studies of adult populations (<a href="https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ANSUR II, US Army, 2012</a>).</li>
+  </ul>
+</div>
 
 <p>In this guide, you'll learn exactly how to measure your face width, understand frame sizing, find frames that genuinely fit 155mm+ faces, and discover what separates a $30 plastic frame from a premium Italian acetate designed to last a decade.</p>
 
@@ -197,6 +215,8 @@ const blogPostsEN: BlogPost[] = [
 
 <p>For someone wearing glasses 10–12 hours a day, this isn't a luxury distinction. It's an engineering requirement.</p>
 
+<p>Woolet frames are made from <a href="https://www.mazzucchelli1849.it/" target="_blank" rel="noopener"><strong>Mazzucchelli 1849</strong></a> cellulose acetate — sourced from a sixth-generation Italian family business founded in Castiglione Olona in 1849. Mazzucchelli is the world's leading manufacturer of cellulose acetate for eyewear and supplies material to brands including Ray-Ban, Oliver Peoples, and DITA. Unlike the TR90 plastic used by most wide-face specialty brands, Mazzucchelli acetate is derived from cotton and wood pulp — not petroleum — and undergoes a weeks-long layering and curing process to achieve color depth and structural integrity. At 158 mm frame width, material rigidity is not a detail: acetate holds its shape at wider dimensions where TR90 loses tension at the temples over time.</p>
+
 <h2>Where to Buy Glasses for Wide Faces Online</h2>
 
 <p>Here's an honest overview of the current market:</p>
@@ -298,7 +318,16 @@ const blogPostsEN: BlogPost[] = [
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What face width do I need for Woolet glasses?","acceptedAnswer":{"@type":"Answer","text":"Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones."}},{"@type":"Question","name":"Do Woolet frames work with progressive lenses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require."}},{"@type":"Question","name":"Why don't standard glasses fit wide faces?","acceptedAnswer":{"@type":"Answer","text":"Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement."}},{"@type":"Question","name":"How is Woolet different from Zenni Extended Fit or Warby Parker Wide?","acceptedAnswer":{"@type":"Answer","text":"Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate hand-finished in Italy. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement."}},{"@type":"Question","name":"What is Mazzucchelli acetate and why does it matter for wide-face eyewear?","acceptedAnswer":{"@type":"Answer","text":"Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm."}},{"@type":"Question","name":"Is Woolet the same as the Woolet smart wallet?","acceptedAnswer":{"@type":"Answer","text":"No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company."}}]}</script>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, and why standard glasses fail wide faces.","author":{"@type":"Organization","name":"Woolet","url":"https://woolet.co"},"publisher":{"@type":"Organization","name":"Woolet","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2026-03-09","dateModified":"2026-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"}}</script>
+<div style="background:#F8F6F1;border:1px solid #E8E4DC;border-radius:8px;padding:28px;margin:40px 0 12px;display:flex;gap:20px;align-items:flex-start;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:56px;height:56px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:#0f0f0f;line-height:1.2;">Marek Cieśla</div>
+    <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c9a84c;margin-top:6px;font-weight:500;">Founder, Woolet Eyewear</div>
+    <p style="margin:14px 0 0;font-size:14px;line-height:1.7;color:#3a3a3a;">Marek Cieśla is a serial entrepreneur and the founder of Woolet. He previously raised $330,000 in crowdfunding for the original Woolet smart wallet — a Bluetooth-enabled leather wallet that shipped to backers across 40 countries. The wide-face fit problem came from personal experience: standard frames consistently failed to fit his own face. Woolet eyewear is the product he could not find anywhere else.</p>
+  </div>
+</div>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2025-03-09","dateModified":"2025-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Castiglione Olona, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}</script>
 `,
   },
   {
