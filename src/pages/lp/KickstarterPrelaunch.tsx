@@ -15,8 +15,11 @@ const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
 const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
 const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
-const FOUNDING_SPOTS_TOTAL = 300;
-const FOUNDING_SPOTS_LEFT = 247;
+// Tier 1 — limited Founders Edition (Havana colorway, numbered)
+const FOUNDERS_EDITION_TOTAL = 100;
+// Tier 2 — Early Bird (40% off retail)
+const EARLY_BIRD_TOTAL = 300;
+const EARLY_BIRD_LEFT = 247;
 
 const inputStyle: React.CSSProperties = {
   fontSize: "0.95rem",
