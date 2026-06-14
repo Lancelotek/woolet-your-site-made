@@ -374,16 +374,16 @@ const KickstarterPrelaunch = () => {
         <div className="grid sm:grid-cols-3 gap-6">
           {[
             {
-              t: "Founding-backer price",
-              d: "Lock 40% off the $190 retail price — 300 founding spots, only on Kickstarter. Gone the moment they sell out.",
+              t: "Founders Edition Havana",
+              d: `100 numbered pairs in our signature Havana acetate — limited edition, only on Kickstarter. Goes first.`,
+            },
+            {
+              t: "Early Bird — 40% off",
+              d: `300 spots at 40% off the $190 retail price. ${EARLY_BIRD_LEFT} left when the campaign opens.`,
             },
             {
               t: "48-hour early access",
-              d: "Pledge two full days before the public sees the campaign. No fighting for limited tiers.",
-            },
-            {
-              t: "Founding-backer extras",
-              d: "Exclusive perks reserved for the people who back us first — only the VIP list will hear about them.",
+              d: "VIPs pledge two full days before the public sees the campaign — first pick of every tier.",
             },
           ].map((p) => (
             <div key={p.t} className="border border-[#1a1612] p-6 rounded-sm bg-[#0a0908]">
