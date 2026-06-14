@@ -402,7 +402,7 @@ const KickstarterPrelaunch = () => {
             Two frames. Built wide from the start.
           </h2>
           <p className="text-cream-dim text-center max-w-xl mx-auto text-sm">
-            Italian acetate, sizes 155 / 158 / 161 mm + bespoke.
+            Italian acetate · 155 / 158 / 161 mm + bespoke · 3 colors per shape.
           </p>
           <div className="grid sm:grid-cols-2 gap-8 mt-10">
             {[
