@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { t, type Lang } from "@/lib/i18n";
 
-/** Size matrix — single-size catalog (158 mm / 21 mm bridge for both shapes) + bespoke. */
+/** Size matrix — three stock widths (155 / 158 / 161 mm) with a 21–22 mm keyhole bridge for both shapes + bespoke (150–172 mm). */
 type Row = {
   sku: string;
   shapeKey: string;
