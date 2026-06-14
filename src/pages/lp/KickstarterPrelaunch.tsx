@@ -229,6 +229,14 @@ const KickstarterNotifyButton = ({ location }: { location: "hero" | "footer" }) 
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
   const utmSource = params.get("utm_source") || "direct";
+  const referredBy = params.get("ref");
+
+  useEffect(() => {
+    if (referredBy) {
+      try { sessionStorage.setItem("woolet_ref", referredBy); } catch { /* ignore */ }
+      pushGtmEvent("vip_referral_visit", { ref: referredBy });
+    }
+  }, [referredBy]);
 
   useEffect(() => {
     pushGtmEvent("page_view", {
