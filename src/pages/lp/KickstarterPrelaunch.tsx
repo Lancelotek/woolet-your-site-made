@@ -176,8 +176,8 @@ const VipForm = ({
           <option value="" style={{ background: "#1a1612", color: "#f0ece4" }}>Select your frame width</option>
           <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know yet</option>
           <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (bespoke only)</option>
-          <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL)</option>
-          <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (XXL)</option>
+          <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL — stock)</option>
+          <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (bespoke only)</option>
         </select>
       </div>
 
@@ -403,7 +403,7 @@ const KickstarterPrelaunch = () => {
             Two frames. Built wide from the start.
           </h2>
           <p className="text-cream-dim text-center max-w-xl mx-auto text-sm">
-            Italian acetate · 155 / 158 / 161 mm + bespoke · 3 colors per shape.
+            Italian acetate · three stock widths — 155 / 158 / 161 mm — plus bespoke from 150 to 172 mm · 21–22 mm keyhole bridge · 3 colors per shape.
           </p>
           <div className="grid sm:grid-cols-2 gap-8 mt-10">
             {[
@@ -428,10 +428,10 @@ const KickstarterPrelaunch = () => {
           You're not too wide — the frame is too narrow.
         </h2>
         <p className="text-cream-dim text-base leading-relaxed mb-4">
-          Standard frames are built for a ~137 mm face. A wide face runs 155–161 mm.
+          Standard frames are built for a face around 137 mm wide. Wide faces typically measure ~155 mm and above.
         </p>
         <p className="text-cream-dim text-base leading-relaxed">
-          Woolet starts at 155 mm and goes up to 161 mm + bespoke — designed from day one for the faces the industry forgot.
+          Woolet comes in three stock frame widths — 155 / 158 / 161 mm — plus bespoke from 150 to 172 mm, with a 21–22 mm keyhole bridge. Designed from day one for the faces the industry forgot.
         </p>
         <img
           src={beforeAfter}
@@ -486,7 +486,7 @@ const KickstarterPrelaunch = () => {
               { q: "When does it launch?", a: `Kickstarter goes live on ${LAUNCH_DATE_LABEL}. VIPs get a launch-day email.` },
               { q: "Do I pay now?", a: "No. This page only joins you to the VIP list. You pledge on Kickstarter on launch day if you want a pair." },
               { q: "What do VIPs actually get?", a: "A hidden pledge invisible to the public during the Kickstarter campaign, with two reward tiers only VIPs can access: 100 numbered Founders Edition Havana pairs (limited edition), then 300 Early Bird spots at 40% off the $190 retail price. The access link arrives by email on launch day." },
-              { q: "Which faces is this for?", a: "Faces measuring 155 mm or wider, temple-to-temple. Frames come in 155 / 158 / 161 mm in 3 colors per shape — plus bespoke for 162 mm+." },
+              { q: "Which faces is this for?", a: "Built for faces around 155 mm and above (temple-to-temple). Stock comes in three frame widths — 155 / 158 / 161 mm — in 3 colors per shape, with a 21–22 mm keyhole bridge. Anything outside the stock range is covered by bespoke from 150 to 172 mm." },
             ].map((f) => (
               <details key={f.q} className="py-5 group">
                 <summary className="flex justify-between items-center cursor-pointer list-none">
