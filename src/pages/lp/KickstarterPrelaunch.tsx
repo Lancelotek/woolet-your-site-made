@@ -176,8 +176,8 @@ const VipForm = ({
           <option value="" style={{ background: "#1a1612", color: "#f0ece4" }}>Select your frame width</option>
           <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know yet</option>
           <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (bespoke only)</option>
-          <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL)</option>
-          <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (XXL)</option>
+          <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL — stock)</option>
+          <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (bespoke only)</option>
         </select>
       </div>
 
