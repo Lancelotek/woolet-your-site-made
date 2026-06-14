@@ -403,7 +403,7 @@ const KickstarterPrelaunch = () => {
             Two frames. Built wide from the start.
           </h2>
           <p className="text-cream-dim text-center max-w-xl mx-auto text-sm">
-            Italian acetate · 155 / 158 / 161 mm + bespoke · 3 colors per shape.
+            Italian acetate · three stock widths — 155 / 158 / 161 mm — plus bespoke from 150 to 172 mm · 21–22 mm keyhole bridge · 3 colors per shape.
           </p>
           <div className="grid sm:grid-cols-2 gap-8 mt-10">
             {[
