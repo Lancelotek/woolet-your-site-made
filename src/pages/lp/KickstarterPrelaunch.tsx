@@ -214,17 +214,8 @@ const VipForm = ({
   );
 };
 
-const KickstarterNotifyButton = ({ location }: { location: "hero" | "footer" }) => (
-  <a
-    href={KICKSTARTER_URL}
-    target="_blank"
-    rel="noopener"
-    onClick={() => pushGtmEvent("click_kickstarter_notify", { location })}
-    className="inline-flex items-center justify-center w-full border border-primary/60 text-primary font-body uppercase tracking-[0.24em] text-xs py-3 px-4 rounded-sm hover:bg-primary/10 transition-colors"
-  >
-    Also tap "Notify me on launch" on Kickstarter →
-  </a>
-);
+
+
 
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
