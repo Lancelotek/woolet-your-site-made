@@ -194,6 +194,12 @@ const BlogPost = () => {
 
       <ReadingProgress />
 
+      <Helmet>
+        <meta name="author" content="Woolet Editorial Team" />
+        <meta name="last-modified" content={post.date} />
+      </Helmet>
+
+
       <div className="fixed pointer-events-none z-0 rounded-full w-[700px] h-[700px] -top-[250px] -right-[200px]"
         style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.05) 0%, transparent 65%)" }} />
 
