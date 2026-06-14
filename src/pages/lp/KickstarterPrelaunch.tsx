@@ -9,7 +9,8 @@ import logo from "@/assets/woolet-logo.png";
 import w007 from "@/assets/woolet-007.png";
 import w009 from "@/assets/woolet-009.png";
 import marek from "@/assets/author-marek.png";
-import beforeAfter from "@/assets/before-after-fit.png";
+import beforeAfterAsset from "@/assets/woolet-fit-comparison.png.asset.json";
+const beforeAfter = beforeAfterAsset.url;
 
 const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
 const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
