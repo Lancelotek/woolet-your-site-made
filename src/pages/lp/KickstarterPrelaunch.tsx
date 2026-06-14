@@ -428,10 +428,10 @@ const KickstarterPrelaunch = () => {
           You're not too wide — the frame is too narrow.
         </h2>
         <p className="text-cream-dim text-base leading-relaxed mb-4">
-          Standard frames are built for a ~137 mm face. A wide face runs 155–161 mm.
+          Standard frames are built for a face around 137 mm wide. Wide faces typically measure ~155 mm and above.
         </p>
         <p className="text-cream-dim text-base leading-relaxed">
-          Woolet starts at 155 mm and goes up to 161 mm + bespoke — designed from day one for the faces the industry forgot.
+          Woolet comes in three stock frame widths — 155 / 158 / 161 mm — plus bespoke from 150 to 172 mm, with a 21–22 mm keyhole bridge. Designed from day one for the faces the industry forgot.
         </p>
         <img
           src={beforeAfter}
