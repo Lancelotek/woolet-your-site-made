@@ -47,13 +47,15 @@ type FormState = { name: string; email: string; faceWidth: string };
 const VipForm = ({
   utmSource,
   idSuffix = "",
+  referredBy,
 }: {
   utmSource: string;
   idSuffix?: string;
+  referredBy?: string | null;
 }) => {
+  const navigate = useNavigate();
   const [form, setForm] = useState<FormState>({ name: "", email: "", faceWidth: "" });
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
@@ -70,6 +72,7 @@ const VipForm = ({
           face_width: form.faceWidth,
           models,
           source: "kickstarter",
+          referred_by: referredBy || null,
         },
       });
       if (fnError) throw fnError;
@@ -83,6 +86,7 @@ const VipForm = ({
           user_first_name: form.name,
           frame_width_preference: form.faceWidth || null,
           waitlist_models: models,
+          referred_by: referredBy || null,
         });
       }
       pushGtmEvent("generate_lead", {
@@ -90,44 +94,16 @@ const VipForm = ({
         source: utmSource,
       });
 
-      setSubmitted(true);
+      navigate("/en/lp/kickstarter/vip-confirmed", {
+        state: { email: form.email, name: form.name },
+      });
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
-    } finally {
       setLoading(false);
     }
   };
 
-  if (submitted) {
-    return (
-      <div
-        id={`vip-form${idSuffix}`}
-        className="flex flex-col gap-4 p-6 border animate-fade-in"
-        style={{ background: "hsl(var(--gold) / 0.06)", borderColor: "hsl(var(--gold) / 0.2)" }}
-      >
-        <div className="w-7 h-7 border border-primary rounded-full flex items-center justify-center text-primary text-sm">✓</div>
-        <div className="font-display text-woolet-white text-xl">You're on the VIP list.</div>
-        <p className="text-cream-dim text-sm leading-relaxed">
-          We'll email you the moment we go live on Kickstarter — and you'll get first access to the founding-backer reward.
-        </p>
-        <div className="flex flex-col gap-3 pt-1">
-          <p className="text-cream-dim/80 text-xs leading-relaxed">
-            Two taps = guaranteed you won't miss launch: you're on our VIP list, now let Kickstarter remind you too.
-          </p>
-          <a
-            href={KICKSTARTER_URL}
-            target="_blank"
-            rel="noopener"
-            onClick={() => pushGtmEvent("click_kickstarter_notify", { location: "thank_you" })}
-            className="inline-flex items-center justify-center w-full border border-primary/60 text-primary font-body uppercase tracking-[0.24em] text-xs py-3 px-4 rounded-sm hover:bg-primary/10 transition-colors"
-          >
-            Also tap "Notify me on launch" on Kickstarter →
-          </a>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <form
