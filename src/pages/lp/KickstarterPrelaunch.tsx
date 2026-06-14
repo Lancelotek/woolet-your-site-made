@@ -13,7 +13,7 @@ import beforeAfterAsset from "@/assets/woolet-fit-comparison.png.asset.json";
 const beforeAfter = beforeAfterAsset.url;
 
 const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
-const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
+
 const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
 // Tier 1 — limited Founders Edition (Havana colorway, numbered)
