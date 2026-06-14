@@ -1414,7 +1414,7 @@ function ResultStep({
           className="text-cream-dim leading-relaxed"
           style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif" }}
         >
-          Be first in line for founding member pricing (30% off) when Woolet launches on Kickstarter — September 19, 2026.
+          Be first in line for founding member pricing (40% off) when Woolet launches on Kickstarter — September 19, 2026.
         </p>
         <a
           href="https://woolet.co/en/lp/kickstarter"

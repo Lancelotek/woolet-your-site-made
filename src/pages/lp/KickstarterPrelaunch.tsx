@@ -288,7 +288,7 @@ const KickstarterPrelaunch = () => {
             </h1>
             <p className="text-cream-dim mt-5 text-base sm:text-lg leading-relaxed">
               Woolet launches on Kickstarter on <span className="text-woolet-white">{LAUNCH_DATE_LABEL}</span>.
-              Join the VIP list to lock <span className="text-primary">30% off the $190 retail price</span> (founding-backer spots, limited) and 48-hour early access before the public.
+              Join the VIP list to lock <span className="text-primary">40% off the $190 retail price</span> (founding-backer spots, limited) and 48-hour early access before the public.
             </p>
 
             <div id="vip-form-hero" className="mt-6">
@@ -347,7 +347,7 @@ const KickstarterPrelaunch = () => {
           {[
             {
               t: "Founding-backer price",
-              d: "Lock 30% off the $190 retail price — 300 founding spots, only on Kickstarter. Gone the moment they sell out.",
+              d: "Lock 40% off the $190 retail price — 300 founding spots, only on Kickstarter. Gone the moment they sell out.",
             },
             {
               t: "48-hour early access",
@@ -454,7 +454,7 @@ const KickstarterPrelaunch = () => {
             {[
               { q: "When does it launch?", a: `Kickstarter goes live on ${LAUNCH_DATE_LABEL}. VIPs get a launch-day email.` },
               { q: "Do I pay now?", a: "No. This page only joins you to the VIP list. You pledge on Kickstarter on launch day if you want a pair." },
-              { q: "What's the VIP discount?", a: "30% off the $190 retail price for 300 founding-backer spots, plus extras you won't see on the public page." },
+              { q: "What's the VIP discount?", a: "40% off the $190 retail price for 300 founding-backer spots, plus extras you won't see on the public page." },
               { q: "Which faces is this for?", a: "Faces measuring 155 mm or wider, temple-to-temple. Frames come in 155 / 158 / 161 mm — plus bespoke for 162 mm+." },
             ].map((f) => (
               <details key={f.q} className="py-5 group">

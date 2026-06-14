@@ -180,7 +180,7 @@ const Index = () => {
           onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
         >
-          Join the waitlist — save 30%
+          Join the waitlist — save 40%
         </a>
         <span
           style={{
