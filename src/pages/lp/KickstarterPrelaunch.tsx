@@ -140,8 +140,8 @@ const VipForm = ({
             required
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-            className="py-3 font-body placeholder:text-cream-dim/30 focus:border-b-primary transition-colors"
-            style={inputStyle}
+            className="font-body focus:border-primary transition-colors"
+            style={{ ...inputStyle }}
           />
         </div>
         <div className="flex-1 flex flex-col">
@@ -152,8 +152,8 @@ const VipForm = ({
             required
             value={form.email}
             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-            className="py-3 font-body placeholder:text-cream-dim/30 focus:border-b-primary transition-colors"
-            style={inputStyle}
+            className="font-body focus:border-primary transition-colors"
+            style={{ ...inputStyle }}
           />
         </div>
       </div>
@@ -161,23 +161,23 @@ const VipForm = ({
       <div className="flex flex-col">
         <label style={labelStyle}>
           Preferred frame width{" "}
-          <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span>
+          <span style={{ fontWeight: 400, textTransform: "none", letterSpacing: "0.05em", color: "#B8B3A8" }}>(optional)</span>
         </label>
         <select
           value={form.faceWidth}
           onChange={(e) => setForm((f) => ({ ...f, faceWidth: e.target.value }))}
-          className="w-full py-3 pr-8 font-body appearance-none focus:border-b-primary transition-colors"
-          style={{ ...inputStyle, fontSize: "max(0.85rem, 16px)" }}
+          className="w-full font-body appearance-none focus:border-primary transition-colors"
+          style={{ ...inputStyle, fontSize: "max(0.95rem, 16px)", paddingRight: "32px" }}
         >
           <option value="" style={{ background: "#1a1612", color: "#f0ece4" }}>Select your frame width</option>
           <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know yet</option>
-          <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (Extra-Wide)</option>
+          <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (bespoke only)</option>
           <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL)</option>
           <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (XXL)</option>
         </select>
       </div>
 
-      <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1 text-xs">
+      <label className="flex items-start gap-2.5 cursor-pointer hover:text-woolet-white transition-colors mt-1" style={{ fontSize: "12px", color: "#B8B3A8" }}>
         <input
           type="checkbox"
           checked={privacyAccepted}
@@ -185,10 +185,10 @@ const VipForm = ({
           className="hidden"
         />
         <div
-          className="w-3.5 h-3.5 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
+          className="w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
           style={{
             backgroundColor: privacyAccepted ? "#c9a84c" : "transparent",
-            borderColor: privacyAccepted ? "#c9a84c" : "#2a2520",
+            borderColor: privacyAccepted ? "#c9a84c" : "#8A857B",
           }}
         >
           {privacyAccepted && (
@@ -214,12 +214,16 @@ const VipForm = ({
         className="relative overflow-hidden bg-primary text-primary-foreground border-none font-body w-full transition-all hover:bg-gold-light active:scale-[0.99] disabled:opacity-60 flex items-center justify-center"
         style={{ minHeight: "56px", padding: "12px 24px" }}
       >
-        <span className="font-semibold uppercase tracking-[0.28em] text-xs">
-          {loading ? "Sending..." : "Join the VIP list"}
+        <span className="font-semibold uppercase tracking-[0.24em] text-xs">
+          {loading ? "Sending..." : "Join the VIP list — lock 40% off"}
         </span>
       </button>
 
-      <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5 text-[0.6rem]">
+      <p className="text-center mt-1" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.04em" }}>
+        Only <span style={{ color: "#c9a84c", fontWeight: 600 }}>{FOUNDING_SPOTS_LEFT}</span> of {FOUNDING_SPOTS_TOTAL} founding-backer spots left
+      </p>
+
+      <p className="text-center mt-0.5" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.02em" }}>
         No payment now · No spam · Unsubscribe anytime
       </p>
     </form>
