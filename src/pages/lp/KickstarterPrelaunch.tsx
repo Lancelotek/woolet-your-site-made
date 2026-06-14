@@ -495,7 +495,7 @@ const KickstarterPrelaunch = () => {
         <p className="text-cream-dim text-center text-sm mb-6">
           VIPs get the launch-day email, the 100 Founders Edition Havana pairs, and 40% off Early Bird before anyone else.
         </p>
-        <VipForm utmSource={utmSource} idSuffix="-final" />
+        <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} />
       </section>
 
       <footer className="border-t border-[#1a1612] py-8 text-center">
