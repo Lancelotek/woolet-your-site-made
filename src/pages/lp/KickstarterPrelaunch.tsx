@@ -66,6 +66,7 @@ const VipForm = ({
     setError(null);
     try {
       const models = "Kickstarter VIP";
+      const resolvedRef = resolveReferredBy(form.email, referredBy);
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           email: form.email,
@@ -73,7 +74,7 @@ const VipForm = ({
           face_width: form.faceWidth,
           models,
           source: "kickstarter",
-          referred_by: referredBy || null,
+          referred_by: resolvedRef,
         },
       });
       if (fnError) throw fnError;
