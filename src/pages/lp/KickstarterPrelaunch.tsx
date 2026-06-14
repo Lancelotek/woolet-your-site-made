@@ -270,7 +270,7 @@ const KickstarterPrelaunch = () => {
         <title>Woolet on Kickstarter — VIP Early Access | Wide-Face Eyewear</title>
         <meta
           name="description"
-          content="Join the Woolet VIP list for the Kickstarter launch. Get notified the moment we go live, plus 48-hour early access and founding-backer rewards."
+          content="Join the Woolet VIP list for the Kickstarter launch. Get a hidden VIP pledge invisible to the public, plus first access to the 100 Founders Edition Havana and 40% off Early Bird rewards."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/kickstarter" />
         <meta property="og:title" content="Woolet on Kickstarter — VIP Early Access" />
@@ -301,7 +301,7 @@ const KickstarterPrelaunch = () => {
             </h1>
             <p className="text-cream-dim mt-5 text-base sm:text-lg leading-relaxed">
               Woolet launches on Kickstarter on <span className="text-woolet-white">{LAUNCH_DATE_LABEL}</span>.
-              VIPs get 48-hour early access — first crack at the <span className="text-primary">100 numbered Founders Edition Havana</span> pairs, then <span className="text-primary">40% off retail</span> on 300 Early Bird spots before the public sees the page.
+              VIPs get a <span className="text-primary">hidden pledge</span> invisible to the public during the campaign — first crack at the <span className="text-primary">100 numbered Founders Edition Havana</span> pairs, then <span className="text-primary">40% off retail</span> on 300 Early Bird spots.
             </p>
 
             <div id="vip-form-hero" className="mt-6">
@@ -382,8 +382,8 @@ const KickstarterPrelaunch = () => {
               d: `300 spots at 40% off the $190 retail price. ${EARLY_BIRD_LEFT} left when the campaign opens.`,
             },
             {
-              t: "48-hour early access",
-              d: "VIPs pledge two full days before the public sees the campaign — first pick of every tier.",
+              t: "Hidden VIP pledge",
+              d: "A secret reward tier only VIPs can see — invisible to the public during the Kickstarter campaign. Access link goes out by email on launch day.",
             },
           ].map((p) => (
             <div key={p.t} className="border border-[#1a1612] p-6 rounded-sm bg-[#0a0908]">
@@ -484,7 +484,7 @@ const KickstarterPrelaunch = () => {
             {[
               { q: "When does it launch?", a: `Kickstarter goes live on ${LAUNCH_DATE_LABEL}. VIPs get a launch-day email.` },
               { q: "Do I pay now?", a: "No. This page only joins you to the VIP list. You pledge on Kickstarter on launch day if you want a pair." },
-              { q: "What do VIPs actually get?", a: "Two reward tiers, only on Kickstarter: 100 numbered Founders Edition Havana pairs (limited edition), then 300 Early Bird spots at 40% off the $190 retail price. VIPs get a 48-hour head start before the public page opens." },
+              { q: "What do VIPs actually get?", a: "A hidden pledge invisible to the public during the Kickstarter campaign, with two reward tiers only VIPs can access: 100 numbered Founders Edition Havana pairs (limited edition), then 300 Early Bird spots at 40% off the $190 retail price. The access link arrives by email on launch day." },
               { q: "Which faces is this for?", a: "Faces measuring 155 mm or wider, temple-to-temple. Frames come in 155 / 158 / 161 mm in 3 colors per shape — plus bespoke for 162 mm+." },
             ].map((f) => (
               <details key={f.q} className="py-5 group">
