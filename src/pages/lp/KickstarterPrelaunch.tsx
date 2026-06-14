@@ -270,7 +270,7 @@ const KickstarterPrelaunch = () => {
         <title>Woolet on Kickstarter — VIP Early Access | Wide-Face Eyewear</title>
         <meta
           name="description"
-          content="Join the Woolet VIP list for the Kickstarter launch. Get notified the moment we go live, plus 48-hour early access and founding-backer rewards."
+          content="Join the Woolet VIP list for the Kickstarter launch. Get a hidden VIP pledge invisible to the public, plus first access to the 100 Founders Edition Havana and 40% off Early Bird rewards."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/kickstarter" />
         <meta property="og:title" content="Woolet on Kickstarter — VIP Early Access" />
