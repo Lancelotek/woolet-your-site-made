@@ -17,8 +17,8 @@ const FAQS = [
     a: "Yes. We use an AI face scan (taken from your phone) that captures face width, bridge width, temple-to-temple distance, and ear position. The atelier translates those measurements into a frame cut from a single block of Italian acetate. Total lead time is roughly 8–10 weeks.",
   },
   {
-    q: "Who should choose bespoke over the standard 158 mm Woolet?",
-    a: "If your face measures under 155 mm or over 161 mm, the standard size will not fit correctly. Bespoke is built for faces from 150 mm to 172 mm. The /en/fit scan tells you which path applies in 90 seconds.",
+    q: "Who should choose bespoke over the stock Woolet widths?",
+    a: "Stock Woolet comes in three frame widths — 155 / 158 / 161 mm — with a 21–22 mm keyhole bridge. If your ideal frame width falls outside that stock range (below 155 mm or above 161 mm), bespoke covers the full 150–172 mm spectrum. The /en/fit scan tells you which path applies in 90 seconds.",
   },
   {
     q: "Where are Woolet bespoke frames made?",
