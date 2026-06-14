@@ -223,7 +223,9 @@ const VipForm = ({
       </button>
 
       <p className="text-center mt-1" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.04em" }}>
-        Only <span style={{ color: "#c9a84c", fontWeight: 600 }}>{FOUNDING_SPOTS_LEFT}</span> of {FOUNDING_SPOTS_TOTAL} founding-backer spots left
+        <span style={{ color: "#c9a84c", fontWeight: 600 }}>{EARLY_BIRD_LEFT}</span> / {EARLY_BIRD_TOTAL} Early Bird spots left
+        <span style={{ color: "#8A857B" }}> · </span>
+        <span style={{ color: "#D8D4CC" }}>{FOUNDERS_EDITION_TOTAL} Founders Edition Havana (numbered)</span>
       </p>
 
       <p className="text-center mt-0.5" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.02em" }}>
