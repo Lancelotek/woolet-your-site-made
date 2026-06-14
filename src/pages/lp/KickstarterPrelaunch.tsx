@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
@@ -13,7 +13,7 @@ import beforeAfterAsset from "@/assets/woolet-fit-comparison.png.asset.json";
 const beforeAfter = beforeAfterAsset.url;
 
 const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
-const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
+
 const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
 // Tier 1 — limited Founders Edition (Havana colorway, numbered)
@@ -47,13 +47,15 @@ type FormState = { name: string; email: string; faceWidth: string };
 const VipForm = ({
   utmSource,
   idSuffix = "",
+  referredBy,
 }: {
   utmSource: string;
   idSuffix?: string;
+  referredBy?: string | null;
 }) => {
+  const navigate = useNavigate();
   const [form, setForm] = useState<FormState>({ name: "", email: "", faceWidth: "" });
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
@@ -70,6 +72,7 @@ const VipForm = ({
           face_width: form.faceWidth,
           models,
           source: "kickstarter",
+          referred_by: referredBy || null,
         },
       });
       if (fnError) throw fnError;
@@ -83,6 +86,7 @@ const VipForm = ({
           user_first_name: form.name,
           frame_width_preference: form.faceWidth || null,
           waitlist_models: models,
+          referred_by: referredBy || null,
         });
       }
       pushGtmEvent("generate_lead", {
@@ -90,44 +94,16 @@ const VipForm = ({
         source: utmSource,
       });
 
-      setSubmitted(true);
+      navigate("/en/lp/kickstarter/vip-confirmed", {
+        state: { email: form.email, name: form.name },
+      });
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
-    } finally {
       setLoading(false);
     }
   };
 
-  if (submitted) {
-    return (
-      <div
-        id={`vip-form${idSuffix}`}
-        className="flex flex-col gap-4 p-6 border animate-fade-in"
-        style={{ background: "hsl(var(--gold) / 0.06)", borderColor: "hsl(var(--gold) / 0.2)" }}
-      >
-        <div className="w-7 h-7 border border-primary rounded-full flex items-center justify-center text-primary text-sm">✓</div>
-        <div className="font-display text-woolet-white text-xl">You're on the VIP list.</div>
-        <p className="text-cream-dim text-sm leading-relaxed">
-          We'll email you the moment we go live on Kickstarter — and you'll get first access to the founding-backer reward.
-        </p>
-        <div className="flex flex-col gap-3 pt-1">
-          <p className="text-cream-dim/80 text-xs leading-relaxed">
-            Two taps = guaranteed you won't miss launch: you're on our VIP list, now let Kickstarter remind you too.
-          </p>
-          <a
-            href={KICKSTARTER_URL}
-            target="_blank"
-            rel="noopener"
-            onClick={() => pushGtmEvent("click_kickstarter_notify", { location: "thank_you" })}
-            className="inline-flex items-center justify-center w-full border border-primary/60 text-primary font-body uppercase tracking-[0.24em] text-xs py-3 px-4 rounded-sm hover:bg-primary/10 transition-colors"
-          >
-            Also tap "Notify me on launch" on Kickstarter →
-          </a>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <form
@@ -181,22 +157,22 @@ const VipForm = ({
         </select>
       </div>
 
-      <label className="flex items-start gap-2.5 cursor-pointer hover:text-woolet-white transition-colors mt-1" style={{ fontSize: "12px", color: "#B8B3A8" }}>
+      <label className="flex items-start gap-3 cursor-pointer hover:text-woolet-white transition-colors mt-1 py-2 -my-2" style={{ fontSize: "13px", color: "#C8C3B8", minHeight: 44 }}>
         <input
           type="checkbox"
           checked={privacyAccepted}
           onChange={() => setPrivacyAccepted((v) => !v)}
-          className="hidden"
+          className="sr-only"
         />
         <div
-          className="w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
+          className="w-5 h-5 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
           style={{
             backgroundColor: privacyAccepted ? "#c9a84c" : "transparent",
-            borderColor: privacyAccepted ? "#c9a84c" : "#8A857B",
+            borderColor: privacyAccepted ? "#c9a84c" : "#A8A39A",
           }}
         >
           {privacyAccepted && (
-            <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
+            <svg width="10" height="8" viewBox="0 0 8 6" fill="none">
               <path d="M1 3L3 5L7 1" stroke="#0f0f0f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           )}
@@ -209,6 +185,7 @@ const VipForm = ({
           .
         </span>
       </label>
+
 
       {error && <p className="text-center text-xs" style={{ color: "#e25555" }}>{error}</p>}
 
@@ -223,34 +200,34 @@ const VipForm = ({
         </span>
       </button>
 
-      <p className="text-center mt-1" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.04em" }}>
-        <span style={{ color: "#c9a84c", fontWeight: 600 }}>{EARLY_BIRD_LEFT}</span> / {EARLY_BIRD_TOTAL} Early Bird spots left
+      <p className="text-center mt-1" style={{ fontSize: "12px", color: "#C8C3B8", letterSpacing: "0.04em" }}>
+        <span style={{ color: "#D4B07A", fontWeight: 600 }}>{EARLY_BIRD_LEFT}</span> / {EARLY_BIRD_TOTAL} Early Bird spots left
         <span style={{ color: "#8A857B" }}> · </span>
-        <span style={{ color: "#D8D4CC" }}>{FOUNDERS_EDITION_TOTAL} Founders Edition Havana (numbered)</span>
+        <span style={{ color: "#E8E2D6" }}>{FOUNDERS_EDITION_TOTAL} Founders Edition Havana (numbered)</span>
       </p>
 
-      <p className="text-center mt-0.5" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.02em" }}>
+      <p className="text-center mt-0.5" style={{ fontSize: "12px", color: "#C8C3B8", letterSpacing: "0.02em" }}>
         No payment now · No spam · Unsubscribe anytime
       </p>
+
     </form>
   );
 };
 
-const KickstarterNotifyButton = ({ location }: { location: "hero" | "footer" }) => (
-  <a
-    href={KICKSTARTER_URL}
-    target="_blank"
-    rel="noopener"
-    onClick={() => pushGtmEvent("click_kickstarter_notify", { location })}
-    className="inline-flex items-center justify-center w-full border border-primary/60 text-primary font-body uppercase tracking-[0.24em] text-xs py-3 px-4 rounded-sm hover:bg-primary/10 transition-colors"
-  >
-    Also tap "Notify me on launch" on Kickstarter →
-  </a>
-);
+
+
 
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
   const utmSource = params.get("utm_source") || "direct";
+  const referredBy = params.get("ref");
+
+  useEffect(() => {
+    if (referredBy) {
+      try { sessionStorage.setItem("woolet_ref", referredBy); } catch { /* ignore */ }
+      pushGtmEvent("vip_referral_visit", { ref: referredBy });
+    }
+  }, [referredBy]);
 
   useEffect(() => {
     pushGtmEvent("page_view", {
@@ -306,16 +283,16 @@ const KickstarterPrelaunch = () => {
             </p>
 
             <div id="vip-form-hero" className="mt-6">
-              <VipForm utmSource={utmSource} idSuffix="-hero" />
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} />
             </div>
 
 
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2" style={{ fontSize: "12px", color: "#D8D4CC" }}>
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2" style={{ fontSize: "12.5px", color: "#E8E2D6" }}>
               <span>🇮🇹 Italian Mazzucchelli Acetate</span>
               <span style={{ color: "#8A857B" }}>·</span>
               <span>155mm+ wide fit</span>
               <span style={{ color: "#8A857B" }}>·</span>
-              <span><span style={{ color: "#c9a84c", fontWeight: 600 }}>4,900+</span> on the waitlist</span>
+              <span><span style={{ color: "#D4B07A", fontWeight: 600 }}>4,900+</span> on the waitlist</span>
             </div>
 
             {/* Testimonials */}
@@ -326,13 +303,13 @@ const KickstarterPrelaunch = () => {
               ].map((t) => (
                 <div key={t.a} className="border-l-2 border-primary/40 pl-3">
                   <p className="text-woolet-white italic leading-relaxed" style={{ fontSize: "13px" }}>"{t.q}"</p>
-                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "10px", color: "#8A857B" }}>{t.a}</p>
+                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "10px", color: "#A8A39A" }}>{t.a}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="order-first md:order-last">
+          <div className="md:order-last">
             <img
               src={heroMan}
               alt="Man wearing Woolet wide-face eyewear"
@@ -340,6 +317,7 @@ const KickstarterPrelaunch = () => {
               loading="eager"
             />
           </div>
+
         </div>
       </section>
 
@@ -508,7 +486,7 @@ const KickstarterPrelaunch = () => {
         <p className="text-cream-dim text-center text-sm mb-6">
           VIPs get the launch-day email, the 100 Founders Edition Havana pairs, and 40% off Early Bird before anyone else.
         </p>
-        <VipForm utmSource={utmSource} idSuffix="-final" />
+        <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} />
       </section>
 
       <footer className="border-t border-[#1a1612] py-8 text-center">
