@@ -112,22 +112,8 @@ const Navbar = () => {
           >
             {t(lang, "nav.shop_label")} — {t(lang, "nav.coming_soon")}
           </a>
-          <Link
-            to={`/${lang}/fit`}
-            className="uppercase tracking-[0.2em] no-underline transition-colors"
-            style={{
-              fontSize: "0.55rem",
-              background: "hsl(var(--gold))",
-              color: "hsl(var(--background))",
-              padding: "6px 14px",
-              fontWeight: 500,
-            }}
-            onClick={() => pushGtmEvent("nav_click", { nav_item: "scan_face", nav_lang: lang })}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
-          >
-            {t(lang, "nav.scan_cta")}
-          </Link>
+          {/* Top "Scan your face" CTA hidden — primary CTA is now waitlist */}
+
         </div>
 
         {/* Mobile hamburger button */}
