@@ -226,7 +226,7 @@ const KickstarterPrelaunch = () => {
 
   useEffect(() => {
     if (referredBy) {
-      try { sessionStorage.setItem("woolet_ref", referredBy); } catch { /* ignore */ }
+      persistRef(referredBy);
       pushGtmEvent("vip_referral_visit", { ref: referredBy });
     }
   }, [referredBy]);
