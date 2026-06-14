@@ -216,6 +216,37 @@ const blogPostsEN: BlogPost[] = [
 <h3>MOSCOT — Best for: Heritage acetate (with limitations)</h3>
 <p>Offers "wide" frames but doesn't specify mm widths. New York heritage. Premium acetate. But their "wide" may still fall below 155mm — check individual frame specs before ordering.</p>
 
+<h2>How Woolet compares to other wide-face eyewear brands</h2>
+
+<div style="overflow-x:auto;margin:20px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:13px;">
+  <thead>
+    <tr style="background:#0f0f0f;color:#f0ece4;">
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Brand</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Frame width</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Material</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Prescription</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Price from</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#FBF7EC;border-left:3px solid #c9a84c;">
+      <td style="padding:10px 12px;font-weight:600;">Woolet</td>
+      <td style="padding:10px 12px;">158 mm (bespoke: 150–172 mm)</td>
+      <td style="padding:10px 12px;">Mazzucchelli acetate, hand-finished in Italy</td>
+      <td style="padding:10px 12px;">Yes</td>
+      <td style="padding:10px 12px;">$133 (pre-order)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">SizeGlasses</td><td style="padding:10px 12px;">155–165 mm</td><td style="padding:10px 12px;">TR90 / acetate</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$89</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">BXL Eyewear</td><td style="padding:10px 12px;">145–165 mm</td><td style="padding:10px 12px;">TR90 / titanium / acetate</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$49</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">Zenni Extended Fit</td><td style="padding:10px 12px;">138 mm+</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$6.95</td></tr>
+    <tr><td style="padding:10px 12px;">Warby Parker Wide</td><td style="padding:10px 12px;">~138 mm</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$95</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p style="font-size:13px;color:#888;">Woolet is the only brand in this comparison built exclusively for wide faces — every frame starts at 158 mm. Other brands offer wide options as a size filter within a broader catalog.</p>
+
 <h2>FAQ: Glasses for Wide Faces</h2>
 
 <h3>What mm frame width do I need for a wide face?</h3>
