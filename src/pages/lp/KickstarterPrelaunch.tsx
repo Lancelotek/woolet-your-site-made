@@ -304,10 +304,25 @@ const KickstarterPrelaunch = () => {
             </div>
 
 
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-cream-dim/80">
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2" style={{ fontSize: "12px", color: "#D8D4CC" }}>
               <span>🇮🇹 Italian Mazzucchelli Acetate</span>
-              <span>· 155mm+ wide fit</span>
-              <span>· 4,900+ on the waitlist</span>
+              <span style={{ color: "#8A857B" }}>·</span>
+              <span>155mm+ wide fit</span>
+              <span style={{ color: "#8A857B" }}>·</span>
+              <span><span style={{ color: "#c9a84c", fontWeight: 600 }}>4,900+</span> on the waitlist</span>
+            </div>
+
+            {/* Testimonials */}
+            <div className="mt-8 grid sm:grid-cols-2 gap-4">
+              {[
+                { q: "I've been searching for frames this wide for years. Woolet is the first brand that gets it.", a: "Marek W. · 161mm · Warsaw" },
+                { q: "Finally no more marks on my temples at the end of the day.", a: "James R. · 158mm · London" },
+              ].map((t) => (
+                <div key={t.a} className="border-l-2 border-primary/40 pl-3">
+                  <p className="text-woolet-white italic leading-relaxed" style={{ fontSize: "13px" }}>"{t.q}"</p>
+                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "10px", color: "#8A857B" }}>{t.a}</p>
+                </div>
+              ))}
             </div>
           </div>
 
