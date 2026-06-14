@@ -516,7 +516,7 @@ const KickstarterPrelaunch = () => {
         onClick={scrollToForm}
         className="md:hidden fixed bottom-4 left-4 right-4 bg-primary text-primary-foreground py-4 font-semibold uppercase tracking-[0.24em] text-xs shadow-xl z-50 rounded-sm"
       >
-        Join the VIP list
+        Join the VIP list — lock 40% off
       </button>
     </div>
   );
