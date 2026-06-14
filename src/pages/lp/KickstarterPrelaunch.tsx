@@ -505,7 +505,7 @@ const KickstarterPrelaunch = () => {
           Be first when the campaign goes live.
         </h2>
         <p className="text-cream-dim text-center text-sm mb-6">
-          Only VIPs get the launch-day email and the founding-backer tier.
+          VIPs get the launch-day email, the 100 Founders Edition Havana pairs, and 40% off Early Bird before anyone else.
         </p>
         <VipForm utmSource={utmSource} idSuffix="-final" />
       </section>
