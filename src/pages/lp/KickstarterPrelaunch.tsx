@@ -157,22 +157,22 @@ const VipForm = ({
         </select>
       </div>
 
-      <label className="flex items-start gap-2.5 cursor-pointer hover:text-woolet-white transition-colors mt-1" style={{ fontSize: "12px", color: "#B8B3A8" }}>
+      <label className="flex items-start gap-3 cursor-pointer hover:text-woolet-white transition-colors mt-1 py-2 -my-2" style={{ fontSize: "13px", color: "#C8C3B8", minHeight: 44 }}>
         <input
           type="checkbox"
           checked={privacyAccepted}
           onChange={() => setPrivacyAccepted((v) => !v)}
-          className="hidden"
+          className="sr-only"
         />
         <div
-          className="w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
+          className="w-5 h-5 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
           style={{
             backgroundColor: privacyAccepted ? "#c9a84c" : "transparent",
-            borderColor: privacyAccepted ? "#c9a84c" : "#8A857B",
+            borderColor: privacyAccepted ? "#c9a84c" : "#A8A39A",
           }}
         >
           {privacyAccepted && (
-            <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
+            <svg width="10" height="8" viewBox="0 0 8 6" fill="none">
               <path d="M1 3L3 5L7 1" stroke="#0f0f0f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           )}
@@ -185,6 +185,7 @@ const VipForm = ({
           .
         </span>
       </label>
+
 
       {error && <p className="text-center text-xs" style={{ color: "#e25555" }}>{error}</p>}
 
