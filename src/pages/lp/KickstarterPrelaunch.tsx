@@ -15,21 +15,25 @@ const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
 const KICKSTARTER_URL = "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
 const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
+const FOUNDING_SPOTS_TOTAL = 300;
+const FOUNDING_SPOTS_LEFT = 247;
+
 const inputStyle: React.CSSProperties = {
-  fontSize: "0.85rem",
-  backgroundColor: "transparent",
+  fontSize: "0.95rem",
+  backgroundColor: "rgba(255,255,255,0.06)",
   color: "#f0ece4",
-  borderTop: "none",
-  borderLeft: "none",
-  borderRight: "none",
-  borderBottom: "1px solid #2a2520",
+  border: "1px solid rgba(216,212,204,0.35)",
+  borderRadius: "4px",
+  padding: "12px 14px",
   outline: "none",
+  transition: "border-color 0.2s",
 };
 
 const labelStyle: React.CSSProperties = {
-  fontSize: "10px",
+  fontSize: "11px",
+  fontWeight: 500,
   letterSpacing: "0.15em",
-  color: "#7a7570",
+  color: "#D8D4CC",
   textTransform: "uppercase",
   marginBottom: "8px",
 };
@@ -136,8 +140,8 @@ const VipForm = ({
             required
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-            className="py-3 font-body placeholder:text-cream-dim/30 focus:border-b-primary transition-colors"
-            style={inputStyle}
+            className="font-body focus:border-primary transition-colors"
+            style={{ ...inputStyle }}
           />
         </div>
         <div className="flex-1 flex flex-col">
@@ -148,8 +152,8 @@ const VipForm = ({
             required
             value={form.email}
             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-            className="py-3 font-body placeholder:text-cream-dim/30 focus:border-b-primary transition-colors"
-            style={inputStyle}
+            className="font-body focus:border-primary transition-colors"
+            style={{ ...inputStyle }}
           />
         </div>
       </div>
@@ -157,23 +161,23 @@ const VipForm = ({
       <div className="flex flex-col">
         <label style={labelStyle}>
           Preferred frame width{" "}
-          <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span>
+          <span style={{ fontWeight: 400, textTransform: "none", letterSpacing: "0.05em", color: "#B8B3A8" }}>(optional)</span>
         </label>
         <select
           value={form.faceWidth}
           onChange={(e) => setForm((f) => ({ ...f, faceWidth: e.target.value }))}
-          className="w-full py-3 pr-8 font-body appearance-none focus:border-b-primary transition-colors"
-          style={{ ...inputStyle, fontSize: "max(0.85rem, 16px)" }}
+          className="w-full font-body appearance-none focus:border-primary transition-colors"
+          style={{ ...inputStyle, fontSize: "max(0.95rem, 16px)", paddingRight: "32px" }}
         >
           <option value="" style={{ background: "#1a1612", color: "#f0ece4" }}>Select your frame width</option>
           <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know yet</option>
-          <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (Extra-Wide)</option>
+          <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (bespoke only)</option>
           <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL)</option>
           <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (XXL)</option>
         </select>
       </div>
 
-      <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1 text-xs">
+      <label className="flex items-start gap-2.5 cursor-pointer hover:text-woolet-white transition-colors mt-1" style={{ fontSize: "12px", color: "#B8B3A8" }}>
         <input
           type="checkbox"
           checked={privacyAccepted}
@@ -181,10 +185,10 @@ const VipForm = ({
           className="hidden"
         />
         <div
-          className="w-3.5 h-3.5 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
+          className="w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
           style={{
             backgroundColor: privacyAccepted ? "#c9a84c" : "transparent",
-            borderColor: privacyAccepted ? "#c9a84c" : "#2a2520",
+            borderColor: privacyAccepted ? "#c9a84c" : "#8A857B",
           }}
         >
           {privacyAccepted && (
@@ -210,12 +214,16 @@ const VipForm = ({
         className="relative overflow-hidden bg-primary text-primary-foreground border-none font-body w-full transition-all hover:bg-gold-light active:scale-[0.99] disabled:opacity-60 flex items-center justify-center"
         style={{ minHeight: "56px", padding: "12px 24px" }}
       >
-        <span className="font-semibold uppercase tracking-[0.28em] text-xs">
-          {loading ? "Sending..." : "Join the VIP list"}
+        <span className="font-semibold uppercase tracking-[0.24em] text-xs">
+          {loading ? "Sending..." : "Join the VIP list — lock 40% off"}
         </span>
       </button>
 
-      <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5 text-[0.6rem]">
+      <p className="text-center mt-1" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.04em" }}>
+        Only <span style={{ color: "#c9a84c", fontWeight: 600 }}>{FOUNDING_SPOTS_LEFT}</span> of {FOUNDING_SPOTS_TOTAL} founding-backer spots left
+      </p>
+
+      <p className="text-center mt-0.5" style={{ fontSize: "11px", color: "#B8B3A8", letterSpacing: "0.02em" }}>
         No payment now · No spam · Unsubscribe anytime
       </p>
     </form>
@@ -296,10 +304,25 @@ const KickstarterPrelaunch = () => {
             </div>
 
 
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-cream-dim/80">
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2" style={{ fontSize: "12px", color: "#D8D4CC" }}>
               <span>🇮🇹 Italian Mazzucchelli Acetate</span>
-              <span>· 155mm+ wide fit</span>
-              <span>· 4,900+ on the waitlist</span>
+              <span style={{ color: "#8A857B" }}>·</span>
+              <span>155mm+ wide fit</span>
+              <span style={{ color: "#8A857B" }}>·</span>
+              <span><span style={{ color: "#c9a84c", fontWeight: 600 }}>4,900+</span> on the waitlist</span>
+            </div>
+
+            {/* Testimonials */}
+            <div className="mt-8 grid sm:grid-cols-2 gap-4">
+              {[
+                { q: "I've been searching for frames this wide for years. Woolet is the first brand that gets it.", a: "Marek W. · 161mm · Warsaw" },
+                { q: "Finally no more marks on my temples at the end of the day.", a: "James R. · 158mm · London" },
+              ].map((t) => (
+                <div key={t.a} className="border-l-2 border-primary/40 pl-3">
+                  <p className="text-woolet-white italic leading-relaxed" style={{ fontSize: "13px" }}>"{t.q}"</p>
+                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "10px", color: "#8A857B" }}>{t.a}</p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -382,7 +405,9 @@ const KickstarterPrelaunch = () => {
               { img: w009, name: "Woolet 009", shape: "Soft Square" },
             ].map((m) => (
               <div key={m.name} className="text-center">
-                <img src={m.img} alt={m.name} className="w-full max-w-sm mx-auto h-auto" loading="lazy" />
+                <div className="w-full max-w-sm mx-auto" style={{ background: "#0a0908", borderRadius: "4px" }}>
+                  <img src={m.img} alt={m.name} className="w-full h-auto" loading="lazy" />
+                </div>
                 <h3 className="font-display text-2xl text-woolet-white mt-4">{m.name}</h3>
                 <p className="text-cream-dim text-xs uppercase tracking-[0.24em] mt-1">{m.shape}</p>
               </div>
@@ -491,7 +516,7 @@ const KickstarterPrelaunch = () => {
         onClick={scrollToForm}
         className="md:hidden fixed bottom-4 left-4 right-4 bg-primary text-primary-foreground py-4 font-semibold uppercase tracking-[0.24em] text-xs shadow-xl z-50 rounded-sm"
       >
-        Join the VIP list
+        Join the VIP list — lock 40% off
       </button>
     </div>
   );
