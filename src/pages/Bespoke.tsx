@@ -147,11 +147,11 @@ const BespokePage = () => {
               Who bespoke is <em className="italic text-gold-light">actually for</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.95rem" }}>
-              Most wide-face wearers fit the standard Woolet 158 mm frame — engineered for faces in the 155–161 mm range. Bespoke exists for the people the standard size cannot serve: faces narrower than 155 mm or wider than 161 mm, who have spent years finding nothing on the high street that fits without pinching, sliding, or sitting visually undersized.
+              Most wide-face wearers fit the stock Woolet range — three frame widths (155 / 158 / 161 mm) with a 21–22 mm keyhole bridge, engineered for faces around 155 mm and above. Bespoke exists for the people the stock range cannot serve: anyone whose ideal frame width sits below 155 mm or above 161 mm, covering 150–172 mm in total.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
               {[
-                "Face width 150–172 mm (outside the standard 155–161 range)",
+                "Frame width 150–172 mm (outside the stock 155 / 158 / 161 mm widths)",
                 "Asymmetric ears or significant pantoscopic-tilt needs",
                 "Very high or very low nose bridge — beyond what acetate reshaping can correct",
                 "Wearers who simply want a one-of-one frame, cut to their face",
