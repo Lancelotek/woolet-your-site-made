@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useState, useEffect, useRef, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -192,6 +193,12 @@ const BlogPost = () => {
       />
 
       <ReadingProgress />
+
+      <Helmet>
+        <meta name="author" content="Woolet Editorial Team" />
+        <meta name="last-modified" content={post.date} />
+      </Helmet>
+
 
       <div className="fixed pointer-events-none z-0 rounded-full w-[700px] h-[700px] -top-[250px] -right-[200px]"
         style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.05) 0%, transparent 65%)" }} />

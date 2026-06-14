@@ -36,6 +36,11 @@ const blogPostsEN: BlogPost[] = [
 
 <p>It shouldn't. And this guide is here to fix that.</p>
 
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Definition</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A wide face in eyewear terms means a face width above 145 mm measured temple-to-temple. Standard eyewear frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Woolet frames start at 158 mm — built for the faces that standard sizing cannot accommodate.</p>
+</div>
+
 <p>Wide faces — defined as faces measuring <strong>155mm or more</strong> from temple to temple — represent a significant portion of the population. The problem isn't your face. The problem is that the eyewear industry was designed around a bell curve that cuts off precisely where you begin.</p>
 
 <p>In this guide, you'll learn exactly how to measure your face width, understand frame sizing, find frames that genuinely fit 155mm+ faces, and discover what separates a $30 plastic frame from a premium Italian acetate designed to last a decade.</p>
@@ -211,6 +216,37 @@ const blogPostsEN: BlogPost[] = [
 <h3>MOSCOT — Best for: Heritage acetate (with limitations)</h3>
 <p>Offers "wide" frames but doesn't specify mm widths. New York heritage. Premium acetate. But their "wide" may still fall below 155mm — check individual frame specs before ordering.</p>
 
+<h2>How Woolet compares to other wide-face eyewear brands</h2>
+
+<div style="overflow-x:auto;margin:20px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:13px;">
+  <thead>
+    <tr style="background:#0f0f0f;color:#f0ece4;">
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Brand</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Frame width</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Material</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Prescription</th>
+      <th style="padding:10px 12px;text-align:left;font-weight:500;">Price from</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#FBF7EC;border-left:3px solid #c9a84c;">
+      <td style="padding:10px 12px;font-weight:600;">Woolet</td>
+      <td style="padding:10px 12px;">158 mm (bespoke: 150–172 mm)</td>
+      <td style="padding:10px 12px;">Mazzucchelli acetate, hand-finished in Italy</td>
+      <td style="padding:10px 12px;">Yes</td>
+      <td style="padding:10px 12px;">$133 (pre-order)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">SizeGlasses</td><td style="padding:10px 12px;">155–165 mm</td><td style="padding:10px 12px;">TR90 / acetate</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$89</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">BXL Eyewear</td><td style="padding:10px 12px;">145–165 mm</td><td style="padding:10px 12px;">TR90 / titanium / acetate</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$49</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">Zenni Extended Fit</td><td style="padding:10px 12px;">138 mm+</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$6.95</td></tr>
+    <tr><td style="padding:10px 12px;">Warby Parker Wide</td><td style="padding:10px 12px;">~138 mm</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$95</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p style="font-size:13px;color:#888;">Woolet is the only brand in this comparison built exclusively for wide faces — every frame starts at 158 mm. Other brands offer wide options as a size filter within a broader catalog.</p>
+
 <h2>FAQ: Glasses for Wide Faces</h2>
 
 <h3>What mm frame width do I need for a wide face?</h3>
@@ -239,6 +275,30 @@ const blogPostsEN: BlogPost[] = [
 <p><strong>Your face isn't the problem. The frames were.</strong></p>
 
 <p><em>Woolet makes Italian acetate eyewear engineered for faces 155mm and wider. Join the waitlist at woolet.co for priority access and 15% off your first pair.</em></p>
+
+<h2>Frequently asked questions</h2>
+
+<h3>What face width do I need for Woolet glasses?</h3>
+<p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
+
+<h3>Do Woolet frames work with progressive lenses?</h3>
+<p>Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require.</p>
+
+<h3>Why don't standard glasses fit wide faces?</h3>
+<p>Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement.</p>
+
+<h3>How is Woolet different from Zenni Extended Fit or Warby Parker Wide?</h3>
+<p>Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm — categories that cover slightly broader faces within their standard range. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate hand-finished in Italy. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement.</p>
+
+<h3>What is Mazzucchelli acetate and why does it matter for wide-face eyewear?</h3>
+<p>Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate is more flexible, more color-rich, and more durable than the TR90 plastic used by most wide-face specialty brands. For frames at 158 mm, material rigidity matters: acetate holds its shape at larger widths without warping or losing tension at the temples.</p>
+
+<h3>Is Woolet the same as the Woolet smart wallet?</h3>
+<p>No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company.</p>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What face width do I need for Woolet glasses?","acceptedAnswer":{"@type":"Answer","text":"Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones."}},{"@type":"Question","name":"Do Woolet frames work with progressive lenses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require."}},{"@type":"Question","name":"Why don't standard glasses fit wide faces?","acceptedAnswer":{"@type":"Answer","text":"Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement."}},{"@type":"Question","name":"How is Woolet different from Zenni Extended Fit or Warby Parker Wide?","acceptedAnswer":{"@type":"Answer","text":"Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate hand-finished in Italy. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement."}},{"@type":"Question","name":"What is Mazzucchelli acetate and why does it matter for wide-face eyewear?","acceptedAnswer":{"@type":"Answer","text":"Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm."}},{"@type":"Question","name":"Is Woolet the same as the Woolet smart wallet?","acceptedAnswer":{"@type":"Answer","text":"No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company."}}]}</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, and why standard glasses fail wide faces.","author":{"@type":"Organization","name":"Woolet","url":"https://woolet.co"},"publisher":{"@type":"Organization","name":"Woolet","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2026-03-09","dateModified":"2026-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"}}</script>
 `,
   },
   {
