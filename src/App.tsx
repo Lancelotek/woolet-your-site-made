@@ -125,6 +125,7 @@ const App = () => (
           <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
           <Route path="/en/lp/5-reasons" element={<ListiclePage />} />
           <Route path="/en/lp/kickstarter" element={<KickstarterPrelaunch />} />
+          <Route path="/en/lp/kickstarter/vip-confirmed" element={<KickstarterVipConfirmed />} />
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/about" element={<About />} />
