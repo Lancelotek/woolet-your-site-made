@@ -301,7 +301,7 @@ const KickstarterPrelaunch = () => {
             </h1>
             <p className="text-cream-dim mt-5 text-base sm:text-lg leading-relaxed">
               Woolet launches on Kickstarter on <span className="text-woolet-white">{LAUNCH_DATE_LABEL}</span>.
-              VIPs get 48-hour early access — first crack at the <span className="text-primary">100 numbered Founders Edition Havana</span> pairs, then <span className="text-primary">40% off retail</span> on 300 Early Bird spots before the public sees the page.
+              VIPs get a <span className="text-primary">hidden pledge</span> invisible to the public during the campaign — first crack at the <span className="text-primary">100 numbered Founders Edition Havana</span> pairs, then <span className="text-primary">40% off retail</span> on 300 Early Bird spots.
             </p>
 
             <div id="vip-form-hero" className="mt-6">
