@@ -112,7 +112,13 @@ export default function DesktopScanGate({ lang }: Props) {
         </span>
         <a
           href={`/${lang}/fit/manual`}
-          onClick={() => pushEvent("scan_manual_fallback_click", { device: "desktop" })}
+          onClick={() =>
+            pushEvent("scan_manual_fallback_click", {
+              device: "desktop",
+              lang,
+              cta_label: tFit(lang, "welcome.manual_link"),
+            })
+          }
           style={{
             color: GOLD,
             fontFamily: "Barlow, sans-serif",
@@ -124,7 +130,7 @@ export default function DesktopScanGate({ lang }: Props) {
             alignSelf: "flex-start",
           }}
         >
-          Enter your measurements manually →
+          {tFit(lang, "welcome.manual_link")}
         </a>
       </div>
 
