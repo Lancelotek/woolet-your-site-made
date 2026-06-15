@@ -89,6 +89,45 @@ export default function DesktopScanGate({ lang }: Props) {
         ))}
       </ol>
 
+      {/* No phone handy? — explicit manual fallback link */}
+      <div
+        style={{
+          marginTop: 4,
+          paddingTop: 18,
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+        }}
+      >
+        <span
+          style={{
+            color: "rgba(255,255,255,0.65)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.85rem",
+            letterSpacing: "0.02em",
+          }}
+        >
+          No phone handy?
+        </span>
+        <a
+          href={`/${lang}/fit/manual`}
+          onClick={() => pushEvent("scan_manual_fallback_click", { device: "desktop" })}
+          style={{
+            color: GOLD,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.9rem",
+            fontWeight: 500,
+            letterSpacing: "0.04em",
+            textDecoration: "underline",
+            textUnderlineOffset: "4px",
+            alignSelf: "flex-start",
+          }}
+        >
+          Enter your measurements manually →
+        </a>
+      </div>
+
       <details style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.82rem" }}>
         <summary style={{ cursor: "pointer" }}>{tFit(lang, "desktop.fallback_summary")}</summary>
         <p style={{ marginTop: 8, lineHeight: 1.55, wordBreak: "break-all" }}>
