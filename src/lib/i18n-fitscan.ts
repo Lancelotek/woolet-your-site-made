@@ -34,7 +34,7 @@ const en: Dict = {
   "welcome.cta_start": "Start scan",
   "welcome.cta_unavailable": "Scan unavailable",
   "welcome.cta_note": "Take off your glasses first. Detection runs after you tap capture.",
-  "welcome.manual_link": "Prefer manual measurement? Use the wizard →",
+  "welcome.manual_link": "Enter your measurements manually →",
 
   // Desktop QR gate
   "desktop.eyebrow": "FIT SCAN — PHONE ONLY",
@@ -226,7 +226,7 @@ const pl: Dict = {
   "welcome.cta_start": "Rozpocznij skan",
   "welcome.cta_unavailable": "Skan niedostępny",
   "welcome.cta_note": "Zdejmij najpierw okulary. Detekcja działa po naciśnięciu migawki.",
-  "welcome.manual_link": "Wolisz pomiar ręczny? Użyj kreatora →",
+  "welcome.manual_link": "Wpisz wymiary ręcznie →",
 
   "desktop.eyebrow": "SKAN DOPASOWANIA — TYLKO TELEFON",
   "desktop.h1_pre": "Skieruj aparat telefonu na",
@@ -406,7 +406,7 @@ const fr: Dict = {
   "welcome.cta_start": "Démarrer le scan",
   "welcome.cta_unavailable": "Scan indisponible",
   "welcome.cta_note": "Retirez d'abord vos lunettes. La détection démarre après la capture.",
-  "welcome.manual_link": "Préférez une mesure manuelle ? Utilisez l'assistant →",
+  "welcome.manual_link": "Saisir vos mesures manuellement →",
 
   "desktop.eyebrow": "SCAN DE TAILLE — MOBILE UNIQUEMENT",
   "desktop.h1_pre": "Pointez la caméra de votre téléphone vers le",
@@ -586,7 +586,7 @@ const es: Dict = {
   "welcome.cta_start": "Iniciar escaneo",
   "welcome.cta_unavailable": "Escaneo no disponible",
   "welcome.cta_note": "Quítate las gafas primero. La detección empieza tras pulsar capturar.",
-  "welcome.manual_link": "¿Prefieres medida manual? Usa el asistente →",
+  "welcome.manual_link": "Introduce tus medidas manualmente →",
 
   "desktop.eyebrow": "ESCANEO — SOLO MÓVIL",
   "desktop.h1_pre": "Apunta la cámara del móvil al",
