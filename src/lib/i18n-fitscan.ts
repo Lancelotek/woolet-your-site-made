@@ -34,7 +34,7 @@ const en: Dict = {
   "welcome.cta_start": "Start scan",
   "welcome.cta_unavailable": "Scan unavailable",
   "welcome.cta_note": "Take off your glasses first. Detection runs after you tap capture.",
-  "welcome.manual_link": "Prefer manual measurement? Use the wizard →",
+  "welcome.manual_link": "Enter your measurements manually →",
 
   // Desktop QR gate
   "desktop.eyebrow": "FIT SCAN — PHONE ONLY",
