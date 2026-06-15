@@ -337,7 +337,7 @@ const ProductPage009 = () => {
                     aria-label={`View image ${i + 1}`}
                     style={{ width: 56, height: 42, padding: 0, borderRadius: 6, overflow: "hidden", cursor: "pointer", border: activeImg === src ? "2px solid #CAA449" : "2px solid rgba(255,255,255,0.25)", background: "#FFF" }}
                   >
-                    <img src={src} alt="" width={56} height={42} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                    <img src={src} alt="" width={56} height={42} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                   </button>
                 ))}
               </div>
