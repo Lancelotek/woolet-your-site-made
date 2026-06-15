@@ -7,11 +7,9 @@ import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import havanaFoundersAsset from "@/assets/woolet-009-havana-founders.png.asset.json";
-import havanaClassicAsset from "@/assets/woolet-009-havana-classic.jpeg.asset.json";
 
 const colors009 = [
   { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, limited: true },
-  { name: "Havana — Classic", dot: "#C8893F", img: havanaClassicAsset.url, limited: false },
 ] as const;
 
 const specs = [
