@@ -7,9 +7,10 @@ import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import havanaFoundersAsset from "@/assets/woolet-009-havana-founders.png.asset.json";
+import havanaFoundersAltAsset from "@/assets/woolet-009-havana-founders-alt.jpeg.asset.json";
 
 const colors009 = [
-  { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, limited: true },
+  { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, gallery: [havanaFoundersAsset.url, havanaFoundersAltAsset.url], limited: true },
 ] as const;
 
 const specs = [
@@ -36,6 +37,9 @@ const ProductPage009 = () => {
   const [lens, setLens] = useState<LensOption>("clear");
   const [total, setTotal] = useState(114);
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
+  const gallery = selectedColorObj.gallery ?? [selectedColorObj.img];
+  const [activeImg, setActiveImg] = useState<string>(gallery[0]);
+  useEffect(() => { setActiveImg(gallery[0]); }, [selectedColor]);
 
   useEffect(() => {
     pushGtmEvent("view_item", {
@@ -102,7 +106,7 @@ const ProductPage009 = () => {
         {/* 1. Main product image */}
         <div style={{ position: "relative", background: "#F8F6F1", padding: "20px 16px 0", display: "flex", justifyContent: "center" }}>
           <img
-            src={selectedColorObj.img}
+            src={activeImg}
             alt={`Woolet 009 — ${selectedColor}`}
             width={800}
             height={600}
@@ -113,17 +117,18 @@ const ProductPage009 = () => {
 
         {/* Thumbnail strip */}
         <div style={{ display: "flex", justifyContent: "center", gap: 10, padding: "12px 16px 8px" }}>
-          {colors009.map((c) => (
+          {gallery.map((src, i) => (
             <button
-              key={c.name}
-              onClick={() => setSelectedColor(c.name)}
+              key={src}
+              onClick={() => setActiveImg(src)}
               style={{
                 width: 56, height: 42, padding: 0, borderRadius: 6, overflow: "hidden", cursor: "pointer",
-                border: selectedColor === c.name ? "2px solid #CAA449" : "2px solid #DDD",
+                border: activeImg === src ? "2px solid #CAA449" : "2px solid #DDD",
                 background: "#FFF",
               }}
+              aria-label={`View ${selectedColor} angle ${i + 1}`}
             >
-              <img src={c.img} alt={c.name} width={56} height={42} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+              <img src={src} alt={`${selectedColor} ${i + 1}`} width={56} height={42} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
             </button>
           ))}
         </div>
