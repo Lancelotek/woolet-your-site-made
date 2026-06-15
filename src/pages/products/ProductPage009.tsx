@@ -307,6 +307,45 @@ const ProductPage009 = () => {
 
         {/* 4. FAQ */}
         <ProductFAQ productId="009" />
+
+        {/* Lightbox */}
+        {lightboxOpen && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Product image zoom"
+            onClick={() => setLightboxOpen(false)}
+            style={{ position: "fixed", inset: 0, background: "rgba(10,8,6,0.94)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: 24, cursor: "zoom-out" }}
+          >
+            <button
+              onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
+              aria-label="Close zoom"
+              style={{ position: "absolute", top: 16, right: 16, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)", color: "#F0ECE4", width: 40, height: 40, borderRadius: "50%", cursor: "pointer", fontSize: 18, lineHeight: 1, fontFamily: "'Barlow', sans-serif" }}
+            >
+              ×
+            </button>
+            {gallery.length > 1 && (
+              <div onClick={(e) => e.stopPropagation()} style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 8 }}>
+                {gallery.map((src, i) => (
+                  <button
+                    key={src}
+                    onClick={() => setActiveImg(src)}
+                    aria-label={`View image ${i + 1}`}
+                    style={{ width: 56, height: 42, padding: 0, borderRadius: 6, overflow: "hidden", cursor: "pointer", border: activeImg === src ? "2px solid #CAA449" : "2px solid rgba(255,255,255,0.25)", background: "#FFF" }}
+                  >
+                    <img src={src} alt="" width={56} height={42} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                  </button>
+                ))}
+              </div>
+            )}
+            <img
+              src={activeImg}
+              alt={`Woolet 009 — ${selectedColor} (zoomed)`}
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: "min(1200px, 96vw)", maxHeight: "88vh", width: "auto", height: "auto", objectFit: "contain", display: "block", cursor: "default", boxShadow: "0 20px 60px rgba(0,0,0,0.5)" }}
+            />
+          </div>
+        )}
       </main>
 
     </>
