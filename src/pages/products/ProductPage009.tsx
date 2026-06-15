@@ -39,7 +39,16 @@ const ProductPage009 = () => {
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
   const gallery = selectedColorObj.gallery ?? [selectedColorObj.img];
   const [activeImg, setActiveImg] = useState<string>(gallery[0]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   useEffect(() => { setActiveImg(gallery[0]); }, [selectedColor]);
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightboxOpen(false); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
+  }, [lightboxOpen]);
 
   useEffect(() => {
     pushGtmEvent("view_item", {
@@ -105,14 +114,21 @@ const ProductPage009 = () => {
 
         {/* 1. Main product image */}
         <div style={{ position: "relative", background: "#F8F6F1", padding: "20px 16px 0", display: "flex", justifyContent: "center" }}>
-          <img
-            src={activeImg}
-            alt={`Woolet 009 — ${selectedColor}`}
-            width={800}
-            height={600}
-            fetchPriority="high"
-            style={{ width: "100%", maxWidth: 520, height: "auto", objectFit: "contain", display: "block" }}
-          />
+          <button
+            onClick={() => { setLightboxOpen(true); pushGtmEvent("zoom_product_image", { item_name: "Woolet 009", item_variant: selectedColor }); }}
+            aria-label="Zoom image"
+            style={{ background: "transparent", border: "none", padding: 0, cursor: "zoom-in", display: "block", width: "100%", maxWidth: 520, position: "relative" }}
+          >
+            <img
+              src={activeImg}
+              alt={`Woolet 009 — ${selectedColor}`}
+              width={800}
+              height={600}
+              fetchPriority="high"
+              style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }}
+            />
+            <span style={{ position: "absolute", top: 10, right: 10, background: "rgba(26,22,18,0.78)", color: "#F0ECE4", fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", padding: "5px 9px", borderRadius: 999, textTransform: "uppercase", backdropFilter: "blur(6px)" }}>⤢ Zoom</span>
+          </button>
         </div>
 
         {/* Thumbnail strip */}
@@ -256,6 +272,13 @@ const ProductPage009 = () => {
             RESERVE FOR $1 — LOCK $114 (−40%) →
           </button>
 
+          {/* Free shipping line */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 10, padding: "6px 10px", background: "#FDF6EB", border: "1px solid #EFE2C8", borderRadius: 5 }}>
+            <span aria-hidden style={{ fontSize: 12, color: "#A07A2A" }}>✈</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 10, letterSpacing: "1.5px", color: "#A07A2A", textTransform: "uppercase" }}>Free worldwide shipping</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A6A45" }}>· tracked & insured</span>
+          </div>
+
           {/* Secondary CTA */}
           <button onClick={() => navigate("/en/fit")} style={{ width: "100%", background: "transparent", color: "#444", border: "2px solid #DDD", padding: "12px 0", borderRadius: 5, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, cursor: "pointer", marginBottom: 14 }}>
             Check your fit (quiz)
@@ -263,7 +286,7 @@ const ProductPage009 = () => {
 
           {/* Trust footer */}
           <div style={{ display: "flex" }}>
-            {["Secure Payment", "30-Day Returns", "Made in Italy"].map((t, i) => (
+            {["Secure Payment", "Free Shipping", "30-Day Returns"].map((t, i) => (
               <div key={i} style={{ flex: 1, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 9, color: "#AAA", textAlign: "center", padding: "0 4px", lineHeight: 1.4 }}>{t}</div>
             ))}
           </div>
@@ -284,6 +307,45 @@ const ProductPage009 = () => {
 
         {/* 4. FAQ */}
         <ProductFAQ productId="009" />
+
+        {/* Lightbox */}
+        {lightboxOpen && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Product image zoom"
+            onClick={() => setLightboxOpen(false)}
+            style={{ position: "fixed", inset: 0, background: "rgba(10,8,6,0.94)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: 24, cursor: "zoom-out" }}
+          >
+            <button
+              onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
+              aria-label="Close zoom"
+              style={{ position: "absolute", top: 16, right: 16, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)", color: "#F0ECE4", width: 40, height: 40, borderRadius: "50%", cursor: "pointer", fontSize: 18, lineHeight: 1, fontFamily: "'Barlow', sans-serif" }}
+            >
+              ×
+            </button>
+            {gallery.length > 1 && (
+              <div onClick={(e) => e.stopPropagation()} style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 8 }}>
+                {gallery.map((src, i) => (
+                  <button
+                    key={src}
+                    onClick={() => setActiveImg(src)}
+                    aria-label={`View image ${i + 1}`}
+                    style={{ width: 56, height: 42, padding: 0, borderRadius: 6, overflow: "hidden", cursor: "pointer", border: activeImg === src ? "2px solid #CAA449" : "2px solid rgba(255,255,255,0.25)", background: "#FFF" }}
+                  >
+                    <img src={src} alt="" width={56} height={42} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                  </button>
+                ))}
+              </div>
+            )}
+            <img
+              src={activeImg}
+              alt={`Woolet 009 — ${selectedColor} (zoomed)`}
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: "min(1200px, 96vw)", maxHeight: "88vh", width: "auto", height: "auto", objectFit: "contain", display: "block", cursor: "default", boxShadow: "0 20px 60px rgba(0,0,0,0.5)" }}
+            />
+          </div>
+        )}
       </main>
 
     </>
