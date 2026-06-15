@@ -39,7 +39,16 @@ const ProductPage009 = () => {
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
   const gallery = selectedColorObj.gallery ?? [selectedColorObj.img];
   const [activeImg, setActiveImg] = useState<string>(gallery[0]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   useEffect(() => { setActiveImg(gallery[0]); }, [selectedColor]);
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightboxOpen(false); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
+  }, [lightboxOpen]);
 
   useEffect(() => {
     pushGtmEvent("view_item", {
