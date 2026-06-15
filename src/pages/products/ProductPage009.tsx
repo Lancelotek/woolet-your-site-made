@@ -93,6 +93,8 @@ const ProductPage009 = () => {
         <title>Woolet 009 — Square Acetate Glasses, 158 mm Wide</title>
         <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 retail." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
+        <link rel="preload" as="image" href={havanaFoundersAsset.url} fetchpriority="high" />
+        <link rel="prefetch" as="image" href={havanaFoundersAltAsset.url} />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet 009 — Square Acetate Glasses, 158 mm Wide" />
         <meta property="og:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 retail." />
