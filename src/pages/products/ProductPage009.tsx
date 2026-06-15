@@ -272,6 +272,13 @@ const ProductPage009 = () => {
             RESERVE FOR $1 — LOCK $114 (−40%) →
           </button>
 
+          {/* Free shipping line */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 10, padding: "6px 10px", background: "#FDF6EB", border: "1px solid #EFE2C8", borderRadius: 5 }}>
+            <span aria-hidden style={{ fontSize: 12, color: "#A07A2A" }}>✈</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 10, letterSpacing: "1.5px", color: "#A07A2A", textTransform: "uppercase" }}>Free worldwide shipping</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A6A45" }}>· tracked & insured</span>
+          </div>
+
           {/* Secondary CTA */}
           <button onClick={() => navigate("/en/fit")} style={{ width: "100%", background: "transparent", color: "#444", border: "2px solid #DDD", padding: "12px 0", borderRadius: 5, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, cursor: "pointer", marginBottom: 14 }}>
             Check your fit (quiz)
@@ -279,7 +286,7 @@ const ProductPage009 = () => {
 
           {/* Trust footer */}
           <div style={{ display: "flex" }}>
-            {["Secure Payment", "30-Day Returns", "Made in Italy"].map((t, i) => (
+            {["Secure Payment", "Free Shipping", "30-Day Returns"].map((t, i) => (
               <div key={i} style={{ flex: 1, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 9, color: "#AAA", textAlign: "center", padding: "0 4px", lineHeight: 1.4 }}>{t}</div>
             ))}
           </div>
