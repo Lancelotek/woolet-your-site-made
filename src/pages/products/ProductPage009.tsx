@@ -6,16 +6,12 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
-import imgBlack from "@/assets/woolet-009-black.png";
-import imgTortoise from "@/assets/woolet-009-dark-tortoise.png";
-import imgSmoke from "@/assets/woolet-009-smoke-grey.png";
 import havanaFoundersAsset from "@/assets/woolet-009-havana-founders.png.asset.json";
+import havanaClassicAsset from "@/assets/woolet-009-havana-classic.jpeg.asset.json";
 
 const colors009 = [
   { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, limited: true },
-  { name: "Black", dot: "#141414", img: imgBlack },
-  { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
-  { name: "Smoke Grey", dot: "#6B6B6B", img: imgSmoke },
+  { name: "Havana — Classic", dot: "#C8893F", img: havanaClassicAsset.url, limited: false },
 ] as const;
 
 const specs = [
@@ -205,9 +201,6 @@ const ProductPage009 = () => {
           <div style={{ marginBottom: 14 }}>
             <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>MODEL</div>
             <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={() => navigate("/en/products/007")} style={{ border: "2px solid #DDD", background: "#FFF", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}>
-                007 Panto
-              </button>
               <button style={{ border: "2px solid #A07A2A", background: "#FDF6EB", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}>
                 009 Square
               </button>
