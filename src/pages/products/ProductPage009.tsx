@@ -345,6 +345,7 @@ const ProductPage009 = () => {
             <img
               src={activeImg}
               alt={`Woolet 009 — ${selectedColor} (zoomed)`}
+              decoding="async"
               onClick={(e) => e.stopPropagation()}
               style={{ maxWidth: "min(1200px, 96vw)", maxHeight: "88vh", width: "auto", height: "auto", objectFit: "contain", display: "block", cursor: "default", boxShadow: "0 20px 60px rgba(0,0,0,0.5)" }}
             />
