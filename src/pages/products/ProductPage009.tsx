@@ -37,6 +37,9 @@ const ProductPage009 = () => {
   const [lens, setLens] = useState<LensOption>("clear");
   const [total, setTotal] = useState(114);
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
+  const gallery = selectedColorObj.gallery ?? [selectedColorObj.img];
+  const [activeImg, setActiveImg] = useState<string>(gallery[0]);
+  useEffect(() => { setActiveImg(gallery[0]); }, [selectedColor]);
 
   useEffect(() => {
     pushGtmEvent("view_item", {
