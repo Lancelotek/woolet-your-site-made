@@ -586,7 +586,7 @@ const es: Dict = {
   "welcome.cta_start": "Iniciar escaneo",
   "welcome.cta_unavailable": "Escaneo no disponible",
   "welcome.cta_note": "Quítate las gafas primero. La detección empieza tras pulsar capturar.",
-  "welcome.manual_link": "¿Prefieres medida manual? Usa el asistente →",
+  "welcome.manual_link": "Introduce tus medidas manualmente →",
 
   "desktop.eyebrow": "ESCANEO — SOLO MÓVIL",
   "desktop.h1_pre": "Apunta la cámara del móvil al",
