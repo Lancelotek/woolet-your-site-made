@@ -226,7 +226,7 @@ const pl: Dict = {
   "welcome.cta_start": "Rozpocznij skan",
   "welcome.cta_unavailable": "Skan niedostępny",
   "welcome.cta_note": "Zdejmij najpierw okulary. Detekcja działa po naciśnięciu migawki.",
-  "welcome.manual_link": "Wolisz pomiar ręczny? Użyj kreatora →",
+  "welcome.manual_link": "Wpisz wymiary ręcznie →",
 
   "desktop.eyebrow": "SKAN DOPASOWANIA — TYLKO TELEFON",
   "desktop.h1_pre": "Skieruj aparat telefonu na",
