@@ -146,7 +146,7 @@ const ProductPage009 = () => {
               }}
               aria-label={`View ${selectedColor} angle ${i + 1}`}
             >
-              <img src={src} alt={`${selectedColor} ${i + 1}`} width={56} height={42} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+              <img src={src} alt={`${selectedColor} ${i + 1}`} width={56} height={42} loading="lazy" decoding="async" fetchPriority="low" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
             </button>
           ))}
         </div>
