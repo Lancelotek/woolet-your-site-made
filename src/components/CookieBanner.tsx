@@ -78,7 +78,18 @@ const CookieBanner = () => {
       gtag("consent", "update", saved);
       return;
     }
-    setVisible(true);
+    // Defer banner reveal until the browser is idle so it can never block FCP/LCP
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number };
+    const show = () => setVisible(true);
+    if (typeof w.requestIdleCallback === "function") {
+      const id = w.requestIdleCallback(show, { timeout: 2000 });
+      return () => {
+        const cancel = (window as unknown as { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
+        if (typeof cancel === "function") cancel(id);
+      };
+    }
+    const t = window.setTimeout(show, 800);
+    return () => window.clearTimeout(t);
   }, [isPrimary]);
 
 

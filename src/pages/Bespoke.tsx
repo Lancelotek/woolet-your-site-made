@@ -252,33 +252,66 @@ const BespokePage = () => {
               <div className="woolet-eyebrow-line" />
               <span className="woolet-eyebrow-text">PRICING · LIMITED TO 100 BACKERS</span>
             </div>
-            <div
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-8"
-              style={{ border: "1px solid hsl(var(--gold) / 0.25)", background: "hsl(var(--gold) / 0.03)" }}
+            <Link
+              to="/en/fit"
+              className="group block no-underline transition-all hover:-translate-y-0.5"
+              style={{
+                border: "1px solid hsl(var(--gold) / 0.55)",
+                background: "linear-gradient(180deg, hsl(var(--gold) / 0.07) 0%, hsl(var(--gold) / 0.02) 100%)",
+                boxShadow: "0 0 0 1px hsl(var(--gold) / 0.08) inset",
+              }}
             >
-              <div>
-                <div className="text-cream-dim uppercase tracking-[0.2em] mb-2" style={{ fontSize: "0.6rem" }}>
-                  Kickstarter price
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-8">
+                <div>
+                  <div className="text-cream-dim uppercase tracking-[0.2em] mb-2" style={{ fontSize: "0.6rem" }}>
+                    Kickstarter price
+                  </div>
+                  <div className="font-display text-gold-light" style={{ fontSize: "3rem", fontWeight: 300, lineHeight: 1 }}>
+                    $299
+                  </div>
+                  <div className="text-cream-dim mt-2" style={{ fontSize: "0.8rem" }}>
+                    First 100 backers · frame only
+                  </div>
                 </div>
-                <div className="font-display text-gold-light" style={{ fontSize: "2.4rem", fontWeight: 300, lineHeight: 1 }}>
-                  $299
-                </div>
-                <div className="text-cream-dim mt-2" style={{ fontSize: "0.8rem" }}>
-                  First 100 backers · frame only
+                <div>
+                  <div className="text-cream-dim uppercase tracking-[0.2em] mb-2" style={{ fontSize: "0.6rem" }}>
+                    Comparable atelier-made
+                  </div>
+                  <div className="font-display" style={{ fontSize: "3rem", fontWeight: 300, lineHeight: 1, color: "hsl(var(--cream-dim))", textDecoration: "line-through" }}>
+                    $900+
+                  </div>
+                  <div className="text-cream-dim mt-2" style={{ fontSize: "0.8rem" }}>
+                    Typical bespoke acetate retail
+                  </div>
                 </div>
               </div>
-              <div>
-                <div className="text-cream-dim uppercase tracking-[0.2em] mb-2" style={{ fontSize: "0.6rem" }}>
-                  Comparable atelier-made
-                </div>
-                <div className="font-display" style={{ fontSize: "2.4rem", fontWeight: 300, lineHeight: 1, color: "hsl(var(--cream-dim))", textDecoration: "line-through" }}>
-                  $900+
-                </div>
-                <div className="text-cream-dim mt-2" style={{ fontSize: "0.8rem" }}>
-                  Typical bespoke acetate retail
-                </div>
+              <div
+                className="flex items-center justify-between gap-4 px-8 py-5 border-t transition-colors group-hover:bg-[hsl(var(--gold)/0.08)]"
+                style={{ borderTopColor: "hsl(var(--gold) / 0.2)" }}
+              >
+                <span
+                  className="uppercase tracking-[0.22em]"
+                  style={{
+                    color: "hsl(var(--gold-light))",
+                    fontFamily: "Barlow, sans-serif",
+                    fontSize: "0.72rem",
+                    fontWeight: 500,
+                  }}
+                >
+                  Reserve your $299 spot — $1 hold
+                </span>
+                <span
+                  style={{
+                    color: "hsl(var(--gold-light))",
+                    fontFamily: "Barlow, sans-serif",
+                    fontSize: "1rem",
+                  }}
+                  className="transition-transform group-hover:translate-x-1"
+                >
+                  →
+                </span>
               </div>
-            </div>
+            </Link>
             <p className="text-cream-dim leading-relaxed mt-6" style={{ fontSize: "0.85rem" }}>
               Reservation is $1 to hold your spot. Full $299 charged when production starts. Prescription lenses are ordered separately at your local optician.
             </p>

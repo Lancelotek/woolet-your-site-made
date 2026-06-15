@@ -271,20 +271,19 @@ const KickstarterPrelaunch = () => {
         </div>
       </header>
 
-      {/* HERO */}
+      {/* HERO — mobile fold: H1 + 1-line subhead + form + scarcity above the fold */}
       <section className="bg-[#080807]">
-        <div className="max-w-6xl mx-auto px-5 py-10 sm:py-16 grid md:grid-cols-2 gap-10 items-center">
+        <div className="max-w-6xl mx-auto px-5 pt-5 pb-10 sm:py-16 grid md:grid-cols-2 gap-6 md:gap-10 md:items-center">
           <div>
-            <p className="text-primary uppercase tracking-[0.28em] text-[10px] mb-4">VIP Early Access</p>
-            <h1 className="font-display text-woolet-white leading-[1.05] text-[2.1rem] sm:text-[3rem]">
+            <p className="text-primary uppercase tracking-[0.28em] text-[10px] mb-2 sm:mb-4">VIP Early Access</p>
+            <h1 className="font-display text-woolet-white leading-[1.02] text-[1.7rem] sm:text-[3rem]">
               Eyewear built for wide faces — coming to Kickstarter
             </h1>
-            <p className="text-cream-dim mt-5 text-base sm:text-lg leading-relaxed">
-              Woolet launches on Kickstarter on <span className="text-woolet-white">{LAUNCH_DATE_LABEL}</span>.
-              VIPs get a <span className="text-primary">hidden pledge</span> invisible to the public during the campaign — first crack at the <span className="text-primary">100 numbered Founders Edition Havana</span> pairs, then <span className="text-primary">40% off retail</span> on 300 Early Bird spots.
+            <p className="text-cream-dim mt-3 sm:mt-5 text-sm sm:text-lg leading-snug sm:leading-relaxed">
+              Launches <span className="text-woolet-white">{LAUNCH_DATE_LABEL}</span>. VIPs lock <span className="text-primary">40% off</span> + a <span className="text-primary">hidden pledge</span>.
             </p>
 
-            <div id="vip-form-hero" className="mt-6">
+            <div id="vip-form-hero" className="mt-4 sm:mt-6">
               <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} />
             </div>
 
@@ -311,12 +310,15 @@ const KickstarterPrelaunch = () => {
             </div>
           </div>
 
-          <div className="md:order-last">
+          {/* Hero image — hidden on mobile to keep form above the fold; shown md+ */}
+          <div className="hidden md:block md:order-last">
             <img
               src={heroMan}
               alt="Man wearing Woolet wide-face eyewear"
               className="w-full h-auto object-cover rounded-sm"
               loading="eager"
+              width={800}
+              height={1000}
             />
           </div>
 
