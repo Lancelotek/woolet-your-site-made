@@ -406,7 +406,7 @@ const fr: Dict = {
   "welcome.cta_start": "Démarrer le scan",
   "welcome.cta_unavailable": "Scan indisponible",
   "welcome.cta_note": "Retirez d'abord vos lunettes. La détection démarre après la capture.",
-  "welcome.manual_link": "Préférez une mesure manuelle ? Utilisez l'assistant →",
+  "welcome.manual_link": "Saisir vos mesures manuellement →",
 
   "desktop.eyebrow": "SCAN DE TAILLE — MOBILE UNIQUEMENT",
   "desktop.h1_pre": "Pointez la caméra de votre téléphone vers le",
