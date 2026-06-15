@@ -6,16 +6,12 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
-import imgBlack from "@/assets/woolet-009-black.png";
-import imgTortoise from "@/assets/woolet-009-dark-tortoise.png";
-import imgSmoke from "@/assets/woolet-009-smoke-grey.png";
 import havanaFoundersAsset from "@/assets/woolet-009-havana-founders.png.asset.json";
+import havanaClassicAsset from "@/assets/woolet-009-havana-classic.jpeg.asset.json";
 
 const colors009 = [
   { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, limited: true },
-  { name: "Black", dot: "#141414", img: imgBlack },
-  { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
-  { name: "Smoke Grey", dot: "#6B6B6B", img: imgSmoke },
+  { name: "Havana — Classic", dot: "#C8893F", img: havanaClassicAsset.url, limited: false },
 ] as const;
 
 const specs = [
