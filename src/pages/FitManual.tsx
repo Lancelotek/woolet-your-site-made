@@ -125,7 +125,7 @@ export default function FitManual() {
             className="font-display text-woolet-white mb-4"
             style={{ fontSize: "clamp(2.2rem, 4.4vw, 3.2rem)", fontWeight: 300, lineHeight: 1.02 }}
           >
-            Measure your face <em className="italic" style={{ color: GOLD }}>by hand</em>.
+            Enter your measurements <em className="italic" style={{ color: GOLD }}>manually</em> →
           </h1>
           <p className="text-cream-dim max-w-2xl mb-12" style={{ fontSize: "1rem", lineHeight: 1.6, fontWeight: 300 }}>
             No phone, no scan. Grab a soft tape measure (or a piece of string and a ruler) and enter the number below —
