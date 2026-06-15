@@ -114,14 +114,21 @@ const ProductPage009 = () => {
 
         {/* 1. Main product image */}
         <div style={{ position: "relative", background: "#F8F6F1", padding: "20px 16px 0", display: "flex", justifyContent: "center" }}>
-          <img
-            src={activeImg}
-            alt={`Woolet 009 — ${selectedColor}`}
-            width={800}
-            height={600}
-            fetchPriority="high"
-            style={{ width: "100%", maxWidth: 520, height: "auto", objectFit: "contain", display: "block" }}
-          />
+          <button
+            onClick={() => { setLightboxOpen(true); pushGtmEvent("zoom_product_image", { item_name: "Woolet 009", item_variant: selectedColor }); }}
+            aria-label="Zoom image"
+            style={{ background: "transparent", border: "none", padding: 0, cursor: "zoom-in", display: "block", width: "100%", maxWidth: 520, position: "relative" }}
+          >
+            <img
+              src={activeImg}
+              alt={`Woolet 009 — ${selectedColor}`}
+              width={800}
+              height={600}
+              fetchPriority="high"
+              style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }}
+            />
+            <span style={{ position: "absolute", top: 10, right: 10, background: "rgba(26,22,18,0.78)", color: "#F0ECE4", fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", padding: "5px 9px", borderRadius: 999, textTransform: "uppercase", backdropFilter: "blur(6px)" }}>⤢ Zoom</span>
+          </button>
         </div>
 
         {/* Thumbnail strip */}
