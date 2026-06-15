@@ -125,7 +125,9 @@ const ProductPage009 = () => {
               width={800}
               height={600}
               fetchPriority="high"
-              style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }}
+              decoding="async"
+              sizes="(max-width: 560px) 100vw, 520px"
+              style={{ width: "100%", height: "auto", aspectRatio: "4 / 3", objectFit: "contain", display: "block", contentVisibility: "auto" }}
             />
             <span style={{ position: "absolute", top: 10, right: 10, background: "rgba(26,22,18,0.78)", color: "#F0ECE4", fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", padding: "5px 9px", borderRadius: 999, textTransform: "uppercase", backdropFilter: "blur(6px)" }}>⤢ Zoom</span>
           </button>
