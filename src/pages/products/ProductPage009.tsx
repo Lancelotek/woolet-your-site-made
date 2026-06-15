@@ -93,6 +93,8 @@ const ProductPage009 = () => {
         <title>Woolet 009 — Square Acetate Glasses, 158 mm Wide</title>
         <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 retail." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
+        <link rel="preload" as="image" href={havanaFoundersAsset.url} fetchPriority="high" />
+        <link rel="prefetch" as="image" href={havanaFoundersAltAsset.url} />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet 009 — Square Acetate Glasses, 158 mm Wide" />
         <meta property="og:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 retail." />
@@ -125,7 +127,9 @@ const ProductPage009 = () => {
               width={800}
               height={600}
               fetchPriority="high"
-              style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }}
+              decoding="async"
+              sizes="(max-width: 560px) 100vw, 520px"
+              style={{ width: "100%", height: "auto", aspectRatio: "4 / 3", objectFit: "contain", display: "block", contentVisibility: "auto" }}
             />
             <span style={{ position: "absolute", top: 10, right: 10, background: "rgba(26,22,18,0.78)", color: "#F0ECE4", fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "1.5px", padding: "5px 9px", borderRadius: 999, textTransform: "uppercase", backdropFilter: "blur(6px)" }}>⤢ Zoom</span>
           </button>
@@ -144,7 +148,7 @@ const ProductPage009 = () => {
               }}
               aria-label={`View ${selectedColor} angle ${i + 1}`}
             >
-              <img src={src} alt={`${selectedColor} ${i + 1}`} width={56} height={42} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+              <img src={src} alt={`${selectedColor} ${i + 1}`} width={56} height={42} loading="lazy" decoding="async" fetchPriority="low" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
             </button>
           ))}
         </div>
@@ -333,7 +337,7 @@ const ProductPage009 = () => {
                     aria-label={`View image ${i + 1}`}
                     style={{ width: 56, height: 42, padding: 0, borderRadius: 6, overflow: "hidden", cursor: "pointer", border: activeImg === src ? "2px solid #CAA449" : "2px solid rgba(255,255,255,0.25)", background: "#FFF" }}
                   >
-                    <img src={src} alt="" width={56} height={42} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                    <img src={src} alt="" width={56} height={42} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                   </button>
                 ))}
               </div>
@@ -341,6 +345,7 @@ const ProductPage009 = () => {
             <img
               src={activeImg}
               alt={`Woolet 009 — ${selectedColor} (zoomed)`}
+              decoding="async"
               onClick={(e) => e.stopPropagation()}
               style={{ maxWidth: "min(1200px, 96vw)", maxHeight: "88vh", width: "auto", height: "auto", objectFit: "contain", display: "block", cursor: "default", boxShadow: "0 20px 60px rgba(0,0,0,0.5)" }}
             />
