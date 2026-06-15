@@ -7,9 +7,10 @@ import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import havanaFoundersAsset from "@/assets/woolet-009-havana-founders.png.asset.json";
+import havanaFoundersAltAsset from "@/assets/woolet-009-havana-founders-alt.jpeg.asset.json";
 
 const colors009 = [
-  { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, limited: true },
+  { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, gallery: [havanaFoundersAsset.url, havanaFoundersAltAsset.url], limited: true },
 ] as const;
 
 const specs = [
