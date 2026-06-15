@@ -162,9 +162,17 @@ const ProductPage009 = () => {
             <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888" }}>4,900+ on the waitlist</span>
           </div>
 
+          {/* Founders Edition badge */}
+          {selectedColorObj.name === "Havana — Founders" && (
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 6, padding: "4px 10px", background: "linear-gradient(135deg, #1A1612 0%, #2A2218 100%)", border: "1px solid #CAA449", borderRadius: 4 }}>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 9, letterSpacing: "2px", color: "#CAA449", textTransform: "uppercase" }}>★ Founders Edition</span>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 9, letterSpacing: "1px", color: "#E8DCC0", textTransform: "uppercase" }}>· Limited · 100 units only</span>
+            </div>
+          )}
+
           {/* Product name */}
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#111", marginBottom: 4, marginTop: 0 }}>
-            Woolet 009 <em style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "#888" }}>— Square</em>
+            Woolet 009 <em style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "#888" }}>— {selectedColorObj.name === "Havana — Founders" ? "Havana" : "Square"}</em>
           </h1>
 
           {/* Price — $1 deposit today, $114 guaranteed at Kickstarter */}
