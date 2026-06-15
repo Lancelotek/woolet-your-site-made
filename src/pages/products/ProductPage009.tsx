@@ -38,7 +38,7 @@ const benefits = [
 
 const ProductPage009 = () => {
   const navigate = useNavigate();
-  const [selectedColor, setSelectedColor] = useState("Black");
+  const [selectedColor, setSelectedColor] = useState<string>("Havana — Founders");
   const [lens, setLens] = useState<LensOption>("clear");
   const [total, setTotal] = useState(114);
   const selectedColorObj = colors009.find((c) => c.name === selectedColor) || colors009[0];
