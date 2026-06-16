@@ -244,6 +244,24 @@ const KickstarterPrelaunch = () => {
     document.getElementById("vip-form-hero")?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  useEffect(() => {
+    const hero = document.getElementById("vip-form-hero");
+    const finalForm = document.getElementById("vip-form-final");
+    if (!hero) return;
+    let heroVisible = true;
+    let finalVisible = false;
+    const update = () => setShowStickyCta(!heroVisible && !finalVisible);
+    const heroObs = new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; update(); }, { threshold: 0 });
+    heroObs.observe(hero);
+    let finalObs: IntersectionObserver | null = null;
+    if (finalForm) {
+      finalObs = new IntersectionObserver(([e]) => { finalVisible = e.isIntersecting; update(); }, { threshold: 0 });
+      finalObs.observe(finalForm);
+    }
+    return () => { heroObs.disconnect(); finalObs?.disconnect(); };
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
@@ -499,10 +517,14 @@ const KickstarterPrelaunch = () => {
         </p>
       </footer>
 
-      {/* Sticky mobile CTA */}
+      {/* Sticky mobile CTA — only after hero form scrolls off-screen */}
       <button
         onClick={scrollToForm}
-        className="md:hidden fixed bottom-4 left-4 right-4 bg-primary text-primary-foreground py-4 font-semibold uppercase tracking-[0.24em] text-xs shadow-xl z-50 rounded-sm"
+        aria-hidden={!showStickyCta}
+        tabIndex={showStickyCta ? 0 : -1}
+        className={`md:hidden fixed bottom-4 left-4 right-4 bg-primary text-primary-foreground py-4 font-semibold uppercase tracking-[0.24em] text-xs shadow-xl z-50 rounded-sm transition-all duration-300 ${
+          showStickyCta ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
+        }`}
       >
         Join the VIP list — lock 40% off
       </button>
