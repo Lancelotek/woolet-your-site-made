@@ -3190,12 +3190,14 @@ function ResultSentStep({
   lang,
   faceWidthMm,
   noseWidthMm,
+  pdMm,
   recommendation,
 }: {
   email: string;
   lang: Lang;
   faceWidthMm: number;
   noseWidthMm: number;
+  pdMm?: number;
   recommendation: Recommendation;
 }) {
   const primaryHref = recommendation.primaryHref?.startsWith("/")
@@ -3221,7 +3223,7 @@ function ResultSentStep({
           borderRadius: 6,
           padding: "20px 22px",
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns: pdMm ? "1fr 1fr 1fr" : "1fr 1fr",
           gap: 16,
         }}
       >
@@ -3275,6 +3277,34 @@ function ResultSentStep({
             {tFit(lang, "sent.bridge_width")}
           </div>
         </div>
+        {pdMm ? (
+          <div>
+            <div
+              style={{
+                color: "white",
+                fontFamily: "Cormorant Garamond, serif",
+                fontSize: "2rem",
+                fontWeight: 400,
+                lineHeight: 1,
+              }}
+            >
+              {Math.round(pdMm)} <span style={{ fontSize: "0.85rem", color: MUTED }}>mm</span>
+            </div>
+            <div
+              style={{
+                color: MUTED,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.72rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                marginTop: 6,
+              }}
+              title="Pupillary distance — useful when ordering prescription lenses."
+            >
+              PD
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div>
@@ -4047,8 +4077,10 @@ export default function FitScan() {
                         lang={lang}
                         faceWidthMm={measurements.faceWidthMm}
                         noseWidthMm={measurements.noseWidthMm}
+                        pdMm={measurements.pdMm}
                         recommendation={recommendation}
                       />
+
                     ) : (
                       <div style={{ position: "relative", overflow: "hidden" }}>
                         <div

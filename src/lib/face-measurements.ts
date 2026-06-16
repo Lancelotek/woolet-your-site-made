@@ -8,6 +8,11 @@ export const LANDMARKS = {
   noseRightAlar: 279,
   forehead: 10,
   chin: 152,
+  // Iris centers (refined face-landmarker output, indices 468–477).
+  // 468 = left iris center, 473 = right iris center. Used to compute
+  // pupillary distance (PD) in mm using the same card-derived scale.
+  leftIrisCenter: 468,
+  rightIrisCenter: 473,
 } as const;
 
 const FACE_OVAL_INDICES = [
@@ -45,12 +50,19 @@ function assertPoint(point: Point | undefined, label: string) {
 export interface Measurements {
   faceWidthMm: number;
   noseWidthMm: number;
+  /**
+   * Pupillary distance (mm) between iris centers (landmarks 468/473).
+   * Optional: only set when iris landmarks are available AND the value
+   * is within a plausible adult range. PD is supplementary — never throws.
+   */
+  pdMm?: number;
   confidence: "high" | "medium" | "low";
   debug: {
     cardPixelWidth: number;
     mmPerPx: number;
     facePixelWidth: number;
     nosePixelWidth: number;
+    pdPixelWidth?: number;
   };
 }
 
@@ -58,6 +70,9 @@ export interface Measurements {
 // almost certainly a bad card placement or a misdetected landmark.
 export const FACE_WIDTH_RANGE_MM = { min: 125, max: 175 } as const;
 export const NOSE_WIDTH_RANGE_MM = { min: 25, max: 50 } as const;
+// Adult PD typically 54–74 mm (Dodgson 2004); allow a slightly wider window
+// to avoid silently dropping edge cases (children/large male skulls).
+export const PD_RANGE_MM = { min: 50, max: 80 } as const;
 
 export type MeasurementErrorKind =
   | "card_too_small"
@@ -206,6 +221,27 @@ export function calculateMeasurements(
     );
   }
 
+  // Pupillary distance — supplementary, only when iris landmarks are present.
+  // We deliberately do NOT throw on out-of-range values: PD is a bonus
+  // metric, not a fitting gate. If iris detection is unreliable for this
+  // frame, we simply omit pdMm from the result.
+  let pdMm: number | undefined;
+  let pdPixelWidth: number | undefined;
+  if (hasLandmarks) {
+    const leftIris = landmarks[LANDMARKS.leftIrisCenter];
+    const rightIris = landmarks[LANDMARKS.rightIrisCenter];
+    const irisOk = (p?: NormalizedLandmark) =>
+      !!p && Number.isFinite(p.x) && Number.isFinite(p.y) && p.x >= -0.05 && p.x <= 1.05;
+    if (irisOk(leftIris) && irisOk(rightIris)) {
+      const dxPx = Math.abs(rightIris.x - leftIris.x) * canvasWidth;
+      const candidate = Math.round(dxPx * mmPerPx);
+      if (candidate >= PD_RANGE_MM.min && candidate <= PD_RANGE_MM.max) {
+        pdMm = candidate;
+        pdPixelWidth = dxPx;
+      }
+    }
+  }
+
   const annotationAgreement = faceEdge1 && faceEdge2 ? Math.abs(facePixelWidth - faceOvalPixelWidth) / facePixelWidth : 0;
 
   const confidence: Measurements["confidence"] =
@@ -218,8 +254,9 @@ export function calculateMeasurements(
   return {
     faceWidthMm,
     noseWidthMm,
+    pdMm,
     confidence,
-    debug: { cardPixelWidth, mmPerPx, facePixelWidth, nosePixelWidth },
+    debug: { cardPixelWidth, mmPerPx, facePixelWidth, nosePixelWidth, pdPixelWidth },
   };
 }
 
