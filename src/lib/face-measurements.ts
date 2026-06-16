@@ -8,6 +8,11 @@ export const LANDMARKS = {
   noseRightAlar: 279,
   forehead: 10,
   chin: 152,
+  // Iris centers (refined face-landmarker output, indices 468–477).
+  // 468 = left iris center, 473 = right iris center. Used to compute
+  // pupillary distance (PD) in mm using the same card-derived scale.
+  leftIrisCenter: 468,
+  rightIrisCenter: 473,
 } as const;
 
 const FACE_OVAL_INDICES = [
