@@ -3063,11 +3063,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
-          to={
-            authedUser
-              ? `/${lang}/account`
-              : `/${lang}/fit?face_width=${adjustedFace}&nose_width=${adjustedNose}&source=scan${cardOffset ? `&gap_cm=${gapCm}` : ""}`
-          }
+          to={`/${lang}/products/009`}
           onClick={handleCta}
           style={{
             background: GOLD,
@@ -3089,7 +3085,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           {authedUser ? tFit(lang, "result.cta_account") : tFit(lang, "result.cta_prefill")}
         </Link>
         <Link
-          to={recommendation.primaryHref}
+          to={`/${lang}/products/009`}
           onClick={handleCta}
           style={{
             background: "transparent",
@@ -3106,6 +3102,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
         >
           {recommendation.primaryCta}
         </Link>
+
         <button
           onClick={downloadCard}
           style={{ background: "transparent", border: "none", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", padding: "8px 0", cursor: "pointer", textDecoration: "underline" }}
