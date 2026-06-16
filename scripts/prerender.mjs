@@ -236,11 +236,18 @@ async function main() {
   }
 
   console.log(`[prerender] done: ${ok} ok, ${fail} failed, ${routes.length} total`);
+  console.log(`[prerender] wrote ${ok} route files to dist/`);
 
   await rm(SSR_OUT, { recursive: true, force: true }).catch(() => {});
+
+  if (ok === 0 && isProd) {
+    console.error("[prerender] FAILED — no per-route files generated");
+    process.exit(1);
+  }
 }
 
 main().catch((err) => {
   console.error("[prerender] fatal:", err);
-  process.exit(0);
+  const isProd = process.env.CI === "true" || process.env.NODE_ENV === "production";
+  process.exit(isProd ? 1 : 0);
 });
