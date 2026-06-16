@@ -1,28 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
-
-const faqItems = [
-  {
-    q: "How will I know if the frames fit my face?",
-    a: "Measure your face width from temple to temple. If the result is 155mm or more — Woolet is designed specifically for you. Our fit quiz at /en/fit will help you confirm your size in 60 seconds. If the frames still don't fit — we'll exchange them for free under our Fit Guarantee.",
-  },
-  {
-    q: "Can I return the glasses if they don't suit me?",
-    a: "Yes. You have 30 days to return them with no questions asked. We'll refund the full amount to your original payment method. Just send the frames back in the original packaging.",
-  },
-  {
-    q: "How is Woolet different from cheaper wide-face glasses?",
-    a: "Most brands offering wide frames (Fatheadz, BXL, Zenni) use TR90 plastic or cheap acetate. Woolet uses Italian Mazzucchelli acetate — the same material found in $500+ frames. We add 5-barrel PVD Gunmetal hinges, a 21mm keyhole bridge, and hand polishing. Premium quality at the Founding Member price of $114 (regular $190).",
-  },
-  {
-    q: "When will I receive my order?",
-    a: "As a Founding Member, you'll receive your frames in the first production batch. Shipped via courier with full insurance and tracking. Estimated delivery: 5–7 business days (EU), 7–12 days (rest of world).",
-  },
-  {
-    q: "Does Woolet offer prescription lenses (Rx)?",
-    a: "Yes, Woolet frames are prescription-ready. You can have lenses fitted at any optician. The base curve 4 is compatible with most corrections. We're also planning a built-in Rx service in the future.",
-  },
-];
+import { PRODUCT_FAQ as faqItems } from "@/seo/faq-data";
 
 interface ProductFAQProps {
   productId: string;
@@ -30,7 +8,6 @@ interface ProductFAQProps {
 
 const ProductFAQ = ({ productId }: ProductFAQProps) => {
   const [openIndices, setOpenIndices] = useState<number[]>([]);
-  const schemaAdded = useRef(false);
 
   const toggle = (index: number) => {
     setOpenIndices((prev) => {
@@ -45,32 +22,8 @@ const ProductFAQ = ({ productId }: ProductFAQProps) => {
       return [...prev, index];
     });
   };
-
-  useEffect(() => {
-    if (schemaAdded.current) return;
-    schemaAdded.current = true;
-
-    const faqSchema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqItems.map((item) => ({
-        "@type": "Question",
-        name: item.q,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.a,
-        },
-      })),
-    };
-
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.text = JSON.stringify(faqSchema);
-    document.head.appendChild(script);
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  // FAQPage JSON-LD is now emitted server-side via scripts/prerender.mjs
+  // (see src/seo/metadata.ts) so AI crawlers see it without executing JS.
 
   return (
     <div style={{ background: "#F8F6F1", padding: 20, marginTop: 0 }}>
