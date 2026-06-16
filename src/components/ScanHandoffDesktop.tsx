@@ -33,16 +33,18 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [sessionToken, setSessionToken] = useState<string | null>(null);
 
   const scanUrl = useMemo(() => {
-    if (!sessionId) return "";
+    if (!sessionId || !sessionToken) return "";
     if (typeof window === "undefined") return "";
-    return `${window.location.origin}/${lang}/fit?s=${sessionId}`;
-  }, [lang, sessionId]);
+    return `${window.location.origin}/${lang}/fit?s=${sessionId}&t=${sessionToken}`;
+  }, [lang, sessionId, sessionToken]);
 
-  // Realtime: listen for the phone to connect and to write its result back.
+  // Poll the tokenized edge function for status/result. Replaces realtime,
+  // which was removed for security (no anon read on scan_sessions).
   useEffect(() => {
-    if (!sessionId) return;
+    if (!sessionId || !sessionToken) return;
 
     const handleRow = (row: Record<string, unknown>) => {
       const status = String(row.status ?? "");
@@ -65,35 +67,46 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
       onSessionComplete(m, r);
     };
 
-    const channel = supabase
-      .channel(`scan_session_${sessionId}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "scan_sessions",
-          filter: `id=eq.${sessionId}`,
-        },
-        (payload) => handleRow(payload.new as Record<string, unknown>),
-      )
-      .subscribe();
+    let cancelled = false;
+    const poll = async () => {
+      try {
+        const { data, error: fnErr } = await supabase.functions.invoke("scan-session-get", {
+          method: "GET",
+          body: undefined,
+          // pass id+token via query string
+          headers: {},
+        } as never);
+        // supabase-js doesn't support query params on invoke; use fetch instead.
+        if (fnErr) console.warn("[scan-handoff] poll fn err", fnErr);
+        if (data?.session && !cancelled) handleRow(data.session as Record<string, unknown>);
+      } catch (err) {
+        console.warn("[scan-handoff] poll error", err);
+      }
+    };
 
-    // Poll on mount to catch states that arrived before we subscribed.
-    const poll = window.setInterval(async () => {
-      const { data } = await supabase
-        .from("scan_sessions")
-        .select("*")
-        .eq("id", sessionId)
-        .maybeSingle();
-      if (data) handleRow(data as unknown as Record<string, unknown>);
-    }, 4000);
+    const baseUrl = `https://wmefczrhnsqicikveuhz.supabase.co/functions/v1/scan-session-get?id=${encodeURIComponent(sessionId)}&token=${encodeURIComponent(sessionToken)}`;
+    const anonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZWZjenJobnNxaWNpa3ZldWh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTY2MDgsImV4cCI6MjA4OTA5MjYwOH0.KKtAqcgaaSs1h-2XFqDB_hhJaAaQnlvp95JC-75IOls";
+
+    const tick = async () => {
+      try {
+        const res = await fetch(baseUrl, { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } });
+        if (!res.ok) return;
+        const json = await res.json();
+        if (!cancelled && json?.session) handleRow(json.session as Record<string, unknown>);
+      } catch (err) {
+        console.warn("[scan-handoff] poll error", err);
+      }
+    };
+
+    void tick();
+    const id = window.setInterval(tick, 3000);
+    void poll; // silence unused
 
     return () => {
-      supabase.removeChannel(channel);
-      window.clearInterval(poll);
+      cancelled = true;
+      window.clearInterval(id);
     };
-  }, [sessionId, onSessionComplete]);
+  }, [sessionId, sessionToken, onSessionComplete]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,13 +118,12 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
     }
     setSubmitting(true);
     try {
-      const { data, error: insertErr } = await supabase
-        .from("scan_sessions")
-        .insert({ email: parsed.data })
-        .select("id")
-        .single();
-      if (insertErr || !data) throw insertErr ?? new Error("insert_failed");
-      setSessionId(data.id);
+      const { data, error: fnErr } = await supabase.functions.invoke("scan-session-create", {
+        body: { email: parsed.data },
+      });
+      if (fnErr || !data?.id || !data?.token) throw fnErr ?? new Error("create_failed");
+      setSessionId(data.id as string);
+      setSessionToken(data.token as string);
       setPhase("waiting");
 
       // Fire-and-forget MailerLite subscribe → Fit Scan group.
