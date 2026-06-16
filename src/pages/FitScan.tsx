@@ -678,7 +678,6 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     let roundIndex = 0;
 
     const finalize = () => {
-      setStabilizing(false);
       // MAD-based outlier trim before median selection.
       // 1. Sort by faceWidthMm, take rough median.
       // 2. Compute MAD (median absolute deviation).
@@ -686,6 +685,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       // 4. Final median = middle element of trimmed set.
       // This removes 1-2 bad frames that would otherwise swing the result by ~10mm.
       let median: ValidSample | null = null;
+      let spread = 0;
+      let poolSize = 0;
       if (samples.length > 0) {
         const sorted = [...samples].sort((a, b) => a.faceWidthMm - b.faceWidthMm);
         const roughMed = sorted[Math.floor(sorted.length / 2)].faceWidthMm;
@@ -695,8 +696,10 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         const trimmed = sorted.filter((s) => Math.abs(s.faceWidthMm - roughMed) <= threshold);
         const pool = trimmed.length >= 3 ? trimmed : sorted;
         median = pool[Math.floor(pool.length / 2)];
-        const spread = pool[pool.length - 1].faceWidthMm - pool[0].faceWidthMm;
+        spread = pool[pool.length - 1].faceWidthMm - pool[0].faceWidthMm;
+        poolSize = pool.length;
         console.info("[FitScan] capture stats", {
+          round: roundIndex,
           rawSamples: samples.length,
           trimmedSamples: pool.length,
           rawMin: sorted[0].faceWidthMm,
@@ -706,6 +709,26 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           madMm: mad,
         });
       }
+
+      // Auto-retry guard: if spread is above threshold and we have retries
+      // left, silently restart the round instead of committing a noisy result.
+      // We require enough samples to trust the spread reading.
+      const noisy = poolSize >= 3 && spread > SPREAD_THRESHOLD_MM;
+      const tooFewSamples = samples.length < STABILIZE_MIN_VALID;
+      if ((noisy || tooFewSamples) && roundIndex < MAX_AUTO_RETRIES) {
+        roundIndex++;
+        setAutoRetryAttempt(roundIndex);
+        pushEvent("scan_auto_retry", {
+          attempt: roundIndex,
+          reason: noisy ? "spread_exceeded" : "too_few_samples",
+          spread_mm: spread,
+          valid_frames: samples.length,
+        });
+        beginRound();
+        return;
+      }
+
+      setStabilizing(false);
 
       const cv = document.createElement("canvas");
       cv.width = w;
@@ -729,6 +752,8 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         total_frames_attempted: totalTicks,
         median_face_width_mm: median?.faceWidthMm ?? null,
         rejected_pct: rejectedPct,
+        auto_retries: roundIndex,
+        final_spread_mm: spread,
       });
       onCaptured({
         dataUrl,
@@ -748,7 +773,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     };
 
     // Live diagnostic accumulators (mutated each tick, flushed to state ~6x/s).
-    const diag = { ...emptyDiag };
+    let diag = { ...emptyDiag };
     let lastDiagFlush = 0;
     const flushDiag = (force = false) => {
       const t = performance.now();
@@ -756,6 +781,20 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       lastDiagFlush = t;
       setScanDiag({ ...diag });
     };
+
+    const beginRound = () => {
+      samples = [];
+      totalTicks = 0;
+      startTs = performance.now();
+      diag = { ...emptyDiag };
+      setScanDiag(emptyDiag);
+      setStabilizeProgress(0);
+      setStabilizeValid(0);
+      if (stabilizeRafRef.current) cancelAnimationFrame(stabilizeRafRef.current);
+      stabilizeRafRef.current = requestAnimationFrame(tick);
+    };
+
+
 
     const tick = () => {
       totalTicks++;
