@@ -1307,6 +1307,66 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             </div>
           )}
 
+          {/* Card bubble level: small horizontal track positioned just below
+              the card-on-forehead frame (rect at ~14-23% Y of the overlay).
+              The dot reflects the live tilt of the detected card top-edge
+              (not the phone gyroscope). Goes green within ±2°, amber 2–6°,
+              red beyond. Dim placeholder when no card edge detected yet. */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "26%",
+              transform: "translate(-50%, 0)",
+              width: "28%",
+              maxWidth: 160,
+              pointerEvents: "none",
+              zIndex: 4,
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                height: 2,
+                background: "rgba(255,255,255,0.28)",
+                borderRadius: 2,
+              }}
+            >
+              <span style={{ position: "absolute", left: "50%", top: -5, width: 2, height: 12, background: "rgba(255,255,255,0.55)", transform: "translateX(-50%)" }} />
+              {(() => {
+                const tilt = cardTiltDeg;
+                const hasTilt = tilt !== null && Number.isFinite(tilt);
+                const abs = hasTilt ? Math.abs(tilt as number) : 0;
+                const color = !hasTilt
+                  ? "rgba(255,255,255,0.5)"
+                  : abs < 2 ? "#4ade80" : abs < 6 ? "#facc15" : "#ef4444";
+                const left = hasTilt
+                  ? 50 + Math.max(-15, Math.min(15, tilt as number)) * (50 / 15)
+                  : 50;
+                return (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: `${left}%`,
+                      width: 12,
+                      height: 12,
+                      borderRadius: "50%",
+                      background: color,
+                      border: "2px solid rgba(0,0,0,0.55)",
+                      boxShadow: hasTilt ? `0 0 6px ${color}` : "none",
+                      transform: "translate(-50%, -50%)",
+                      transition: "left 100ms linear, background 200ms ease",
+                      opacity: hasTilt ? 1 : 0.6,
+                    }}
+                  />
+                );
+              })()}
+            </div>
+          </div>
+
+
           {showCardOverride && !cardOverride && (
             <button
               type="button"
