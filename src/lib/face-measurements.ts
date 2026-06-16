@@ -50,12 +50,19 @@ function assertPoint(point: Point | undefined, label: string) {
 export interface Measurements {
   faceWidthMm: number;
   noseWidthMm: number;
+  /**
+   * Pupillary distance (mm) between iris centers (landmarks 468/473).
+   * Optional: only set when iris landmarks are available AND the value
+   * is within a plausible adult range. PD is supplementary — never throws.
+   */
+  pdMm?: number;
   confidence: "high" | "medium" | "low";
   debug: {
     cardPixelWidth: number;
     mmPerPx: number;
     facePixelWidth: number;
     nosePixelWidth: number;
+    pdPixelWidth?: number;
   };
 }
 
@@ -63,6 +70,9 @@ export interface Measurements {
 // almost certainly a bad card placement or a misdetected landmark.
 export const FACE_WIDTH_RANGE_MM = { min: 125, max: 175 } as const;
 export const NOSE_WIDTH_RANGE_MM = { min: 25, max: 50 } as const;
+// Adult PD typically 54–74 mm (Dodgson 2004); allow a slightly wider window
+// to avoid silently dropping edge cases (children/large male skulls).
+export const PD_RANGE_MM = { min: 50, max: 80 } as const;
 
 export type MeasurementErrorKind =
   | "card_too_small"
