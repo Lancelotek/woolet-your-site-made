@@ -68,28 +68,15 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
     };
 
     let cancelled = false;
-    const poll = async () => {
-      try {
-        const { data, error: fnErr } = await supabase.functions.invoke("scan-session-get", {
-          method: "GET",
-          body: undefined,
-          // pass id+token via query string
-          headers: {},
-        } as never);
-        // supabase-js doesn't support query params on invoke; use fetch instead.
-        if (fnErr) console.warn("[scan-handoff] poll fn err", fnErr);
-        if (data?.session && !cancelled) handleRow(data.session as Record<string, unknown>);
-      } catch (err) {
-        console.warn("[scan-handoff] poll error", err);
-      }
-    };
-
-    const baseUrl = `https://wmefczrhnsqicikveuhz.supabase.co/functions/v1/scan-session-get?id=${encodeURIComponent(sessionId)}&token=${encodeURIComponent(sessionToken)}`;
-    const anonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZWZjenJobnNxaWNpa3ZldWh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTY2MDgsImV4cCI6MjA4OTA5MjYwOH0.KKtAqcgaaSs1h-2XFqDB_hhJaAaQnlvp95JC-75IOls";
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+    const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+    const url = `${supabaseUrl}/functions/v1/scan-session-get?id=${encodeURIComponent(sessionId)}&token=${encodeURIComponent(sessionToken)}`;
 
     const tick = async () => {
       try {
-        const res = await fetch(baseUrl, { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } });
+        const res = await fetch(url, {
+          headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` },
+        });
         if (!res.ok) return;
         const json = await res.json();
         if (!cancelled && json?.session) handleRow(json.session as Record<string, unknown>);
@@ -99,12 +86,11 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
     };
 
     void tick();
-    const id = window.setInterval(tick, 3000);
-    void poll; // silence unused
+    const intervalId = window.setInterval(tick, 3000);
 
     return () => {
       cancelled = true;
-      window.clearInterval(id);
+      window.clearInterval(intervalId);
     };
   }, [sessionId, sessionToken, onSessionComplete]);
 
