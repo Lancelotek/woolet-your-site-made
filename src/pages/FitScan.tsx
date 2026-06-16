@@ -1012,6 +1012,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 }
               } else {
                 setCardTiltDeg(null);
+              }
               setCardState((prev) => {
                 if (prev === next) return prev;
                 return next;
