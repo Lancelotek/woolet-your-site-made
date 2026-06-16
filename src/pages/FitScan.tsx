@@ -554,6 +554,13 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const STABILIZE_TARGET_MS = 3000;
   const STABILIZE_MAX_MS = 8000;
   const STABILIZE_MIN_VALID = 8;
+  // Auto-retry: if the trimmed-sample spread (max-min faceWidthMm) exceeds
+  // SPREAD_THRESHOLD_MM, the measurement is too noisy to commit. We silently
+  // restart the round up to MAX_AUTO_RETRIES times before accepting the
+  // best-effort result. Surfaces to the user via `autoRetryAttempt`.
+  const MAX_AUTO_RETRIES = 2;
+  const SPREAD_THRESHOLD_MM = 6;
+  const [autoRetryAttempt, setAutoRetryAttempt] = useState(0);
 
   const attachOrientation = useCallback(() => {
     if (orientationHandlerRef.current) return;
