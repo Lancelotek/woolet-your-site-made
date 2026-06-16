@@ -795,35 +795,49 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   ? `Card confidence low (${Math.round(corner.confidence * 100)}%)`
                   : "Card not detected on forehead";
               } else {
-                const halfW = faceWpx / 2;
-                const expanded = halfW * 1.12;
-                const yMid = ((faceLeft.y + faceRight.y) / 2) * h;
-                const faceEdges: [Point, Point] = [
-                  { x: Math.max(0, cx - expanded), y: yMid },
-                  { x: Math.min(w, cx + expanded), y: yMid },
-                ];
-                try {
-                  const m = calculateMeasurements(
-                    lms, w,
-                    corner.corners[0], corner.corners[1],
-                    faceEdges[0], faceEdges[1],
-                  );
-                  samples.push({
-                    landmarks: lms,
-                    corners: corner.corners,
-                    faceEdges,
-                    faceWidthMm: m.faceWidthMm,
-                  });
-                  diag.valid = samples.length;
-                  setStabilizeValid(samples.length);
-                  reason = `Valid frame (${m.faceWidthMm} mm)`;
-                  if (samples.length === STABILIZE_MIN_VALID) {
-                    haptic([30, 60, 30]);
+                // Card-tilt gate: tilt > 2.5° distorts mmPerPx scale and
+                // is the single largest source of measurement variance.
+                // The on-screen bubble is gold/green at <2°; we allow a
+                // touch of slack here to keep capture moving.
+                const [cA, cB] = corner.corners;
+                const tiltDeg = Math.abs(
+                  Math.atan2(cB.y - cA.y, cB.x - cA.x) * 180 / Math.PI,
+                );
+                const tiltNorm = tiltDeg > 90 ? 180 - tiltDeg : tiltDeg;
+                if (tiltNorm > 2.5) {
+                  diag.cardLow++;
+                  reason = `Card tilted ${tiltNorm.toFixed(1)}° — hold level`;
+                } else {
+                  const halfW = faceWpx / 2;
+                  const expanded = halfW * 1.12;
+                  const yMid = ((faceLeft.y + faceRight.y) / 2) * h;
+                  const faceEdges: [Point, Point] = [
+                    { x: Math.max(0, cx - expanded), y: yMid },
+                    { x: Math.min(w, cx + expanded), y: yMid },
+                  ];
+                  try {
+                    const m = calculateMeasurements(
+                      lms, w,
+                      corner.corners[0], corner.corners[1],
+                      faceEdges[0], faceEdges[1],
+                    );
+                    samples.push({
+                      landmarks: lms,
+                      corners: corner.corners,
+                      faceEdges,
+                      faceWidthMm: m.faceWidthMm,
+                    });
+                    diag.valid = samples.length;
+                    setStabilizeValid(samples.length);
+                    reason = `Valid frame (${m.faceWidthMm} mm)`;
+                    if (samples.length === STABILIZE_MIN_VALID) {
+                      haptic([30, 60, 30]);
+                    }
+                  } catch (e) {
+                    diag.measErr++;
+                    const msg = e instanceof Error ? e.message : "Measurement out of range";
+                    reason = `Measurement rejected: ${msg.split(".")[0]}`;
                   }
-                } catch (e) {
-                  diag.measErr++;
-                  const msg = e instanceof Error ? e.message : "Measurement out of range";
-                  reason = `Measurement rejected: ${msg.split(".")[0]}`;
                 }
               }
             }
