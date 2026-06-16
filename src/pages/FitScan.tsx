@@ -671,9 +671,33 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
     const finalize = () => {
       setStabilizing(false);
-      const partialSample = samples.length > 0 ? [...samples].sort((a, b) => a.faceWidthMm - b.faceWidthMm)[Math.floor(samples.length / 2)] : null;
-
-      const median = partialSample;
+      // MAD-based outlier trim before median selection.
+      // 1. Sort by faceWidthMm, take rough median.
+      // 2. Compute MAD (median absolute deviation).
+      // 3. Keep only samples within 2.5 * MAD of rough median (Hampel filter).
+      // 4. Final median = middle element of trimmed set.
+      // This removes 1-2 bad frames that would otherwise swing the result by ~10mm.
+      let median: ValidSample | null = null;
+      if (samples.length > 0) {
+        const sorted = [...samples].sort((a, b) => a.faceWidthMm - b.faceWidthMm);
+        const roughMed = sorted[Math.floor(sorted.length / 2)].faceWidthMm;
+        const devs = sorted.map((s) => Math.abs(s.faceWidthMm - roughMed)).sort((a, b) => a - b);
+        const mad = devs[Math.floor(devs.length / 2)] || 1;
+        const threshold = Math.max(2, 2.5 * mad); // mm; floor of 2mm so we don't over-trim tight clusters
+        const trimmed = sorted.filter((s) => Math.abs(s.faceWidthMm - roughMed) <= threshold);
+        const pool = trimmed.length >= 3 ? trimmed : sorted;
+        median = pool[Math.floor(pool.length / 2)];
+        const spread = pool[pool.length - 1].faceWidthMm - pool[0].faceWidthMm;
+        console.info("[FitScan] capture stats", {
+          rawSamples: samples.length,
+          trimmedSamples: pool.length,
+          rawMin: sorted[0].faceWidthMm,
+          rawMax: sorted[sorted.length - 1].faceWidthMm,
+          medianMm: median.faceWidthMm,
+          trimmedSpreadMm: spread,
+          madMm: mad,
+        });
+      }
 
       const cv = document.createElement("canvas");
       cv.width = w;
