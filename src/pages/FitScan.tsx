@@ -1000,8 +1000,18 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   // continuous line found → likely hair/skin contour. Keep
                   // the user in "place card" rather than green-light.
                   next = "none";
+                  setCardTiltDeg(null);
+                } else {
+                  const dx = corner.corners[1].x - corner.corners[0].x;
+                  const dy = corner.corners[1].y - corner.corners[0].y;
+                  const deg = (Math.atan2(dy, dx) * 180) / Math.PI;
+                  // Normalise into [-90, 90] so a card rotated either way
+                  // reads as a signed deviation from horizontal.
+                  const norm = deg > 90 ? deg - 180 : deg < -90 ? deg + 180 : deg;
+                  setCardTiltDeg(norm);
                 }
-              }
+              } else {
+                setCardTiltDeg(null);
               setCardState((prev) => {
                 if (prev === next) return prev;
                 return next;
