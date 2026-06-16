@@ -313,7 +313,7 @@ const BespokePage = () => {
                   →
                 </span>
               </div>
-            </Link>
+            </a>
             <p className="text-cream-dim leading-relaxed mt-6" style={{ fontSize: "0.85rem" }}>
               Reservation is $1 to hold your spot. Full $299 charged when production starts. Prescription lenses are ordered separately at your local optician.
             </p>
