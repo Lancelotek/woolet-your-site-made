@@ -517,10 +517,14 @@ const KickstarterPrelaunch = () => {
         </p>
       </footer>
 
-      {/* Sticky mobile CTA */}
+      {/* Sticky mobile CTA — only after hero form scrolls off-screen */}
       <button
         onClick={scrollToForm}
-        className="md:hidden fixed bottom-4 left-4 right-4 bg-primary text-primary-foreground py-4 font-semibold uppercase tracking-[0.24em] text-xs shadow-xl z-50 rounded-sm"
+        aria-hidden={!showStickyCta}
+        tabIndex={showStickyCta ? 0 : -1}
+        className={`md:hidden fixed bottom-4 left-4 right-4 bg-primary text-primary-foreground py-4 font-semibold uppercase tracking-[0.24em] text-xs shadow-xl z-50 rounded-sm transition-all duration-300 ${
+          showStickyCta ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
+        }`}
       >
         Join the VIP list — lock 40% off
       </button>
