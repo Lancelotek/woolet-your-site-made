@@ -4077,8 +4077,10 @@ export default function FitScan() {
                         lang={lang}
                         faceWidthMm={measurements.faceWidthMm}
                         noseWidthMm={measurements.noseWidthMm}
+                        pdMm={measurements.pdMm}
                         recommendation={recommendation}
                       />
+
                     ) : (
                       <div style={{ position: "relative", overflow: "hidden" }}>
                         <div
