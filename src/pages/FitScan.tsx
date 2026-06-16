@@ -762,14 +762,18 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             diag.lastYawDeg = yawDeg;
             diag.lastPitchDeg = pitchDeg;
             diag.lastRollDeg = rollDeg;
-            const faceFrontal = rollDeg < 12 && yawRatio < 0.24 && pitchRatio < 0.24;
+            // Tighter pose gates for measurement accuracy:
+            // - 5° yaw → ~0.4% projection error (~0.6mm). 12° → 2.2% (~3.5mm).
+            // - Pitch affects face oval height/width ratio similarly.
+            // Loose preview gate stays at 12°; sample acceptance uses strict.
+            const faceFrontal = rollDeg < 5 && yawRatio < 0.10 && pitchRatio < 0.12;
 
             if (!faceFrontal) {
               diag.poseOff++;
               const parts: string[] = [];
-              if (rollDeg >= 12) parts.push(`roll ${rollDeg.toFixed(0)}°`);
-              if (yawRatio >= 0.24) parts.push(`yaw ${yawDeg.toFixed(0)}°`);
-              if (pitchRatio >= 0.24) parts.push(`pitch ${pitchDeg.toFixed(0)}°`);
+              if (rollDeg >= 5) parts.push(`roll ${rollDeg.toFixed(0)}°`);
+              if (yawRatio >= 0.10) parts.push(`yaw ${yawDeg.toFixed(0)}°`);
+              if (pitchRatio >= 0.12) parts.push(`pitch ${pitchDeg.toFixed(0)}°`);
               reason = `Pose off (${parts.join(", ")})`;
             } else {
               const cx = ((faceLeft.x + faceRight.x) / 2) * w;
