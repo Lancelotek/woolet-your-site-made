@@ -221,6 +221,27 @@ export function calculateMeasurements(
     );
   }
 
+  // Pupillary distance — supplementary, only when iris landmarks are present.
+  // We deliberately do NOT throw on out-of-range values: PD is a bonus
+  // metric, not a fitting gate. If iris detection is unreliable for this
+  // frame, we simply omit pdMm from the result.
+  let pdMm: number | undefined;
+  let pdPixelWidth: number | undefined;
+  if (hasLandmarks) {
+    const leftIris = landmarks[LANDMARKS.leftIrisCenter];
+    const rightIris = landmarks[LANDMARKS.rightIrisCenter];
+    const irisOk = (p?: NormalizedLandmark) =>
+      !!p && Number.isFinite(p.x) && Number.isFinite(p.y) && p.x >= -0.05 && p.x <= 1.05;
+    if (irisOk(leftIris) && irisOk(rightIris)) {
+      const dxPx = Math.abs(rightIris.x - leftIris.x) * canvasWidth;
+      const candidate = Math.round(dxPx * mmPerPx);
+      if (candidate >= PD_RANGE_MM.min && candidate <= PD_RANGE_MM.max) {
+        pdMm = candidate;
+        pdPixelWidth = dxPx;
+      }
+    }
+  }
+
   const annotationAgreement = faceEdge1 && faceEdge2 ? Math.abs(facePixelWidth - faceOvalPixelWidth) / facePixelWidth : 0;
 
   const confidence: Measurements["confidence"] =
@@ -233,8 +254,9 @@ export function calculateMeasurements(
   return {
     faceWidthMm,
     noseWidthMm,
+    pdMm,
     confidence,
-    debug: { cardPixelWidth, mmPerPx, facePixelWidth, nosePixelWidth },
+    debug: { cardPixelWidth, mmPerPx, facePixelWidth, nosePixelWidth, pdPixelWidth },
   };
 }
 
