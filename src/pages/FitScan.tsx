@@ -3190,12 +3190,14 @@ function ResultSentStep({
   lang,
   faceWidthMm,
   noseWidthMm,
+  pdMm,
   recommendation,
 }: {
   email: string;
   lang: Lang;
   faceWidthMm: number;
   noseWidthMm: number;
+  pdMm?: number;
   recommendation: Recommendation;
 }) {
   const primaryHref = recommendation.primaryHref?.startsWith("/")
