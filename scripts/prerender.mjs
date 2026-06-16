@@ -169,33 +169,40 @@ function injectHead(template, headHtml, noscriptHtml, route) {
 
 
 async function main() {
+  const isProd = process.env.CI === "true" || process.env.NODE_ENV === "production";
+  const failExit = isProd ? 1 : 0;
+
   try {
     await buildMetadataBundle();
   } catch (err) {
-    console.warn("[prerender] metadata SSR build failed — skipping prerender.");
+    console.warn("[prerender] metadata SSR build failed.");
     console.warn("[prerender]", err.message);
-    process.exit(0);
+    if (isProd) console.error("[prerender] FAILED — no per-route files generated");
+    process.exit(failExit);
   }
 
   const entryPath = resolve(SSR_OUT, "metadata.js");
   if (!existsSync(entryPath)) {
-    console.warn(`[prerender] metadata bundle not found at ${entryPath} — skipping.`);
-    process.exit(0);
+    console.warn(`[prerender] metadata bundle not found at ${entryPath}.`);
+    if (isProd) console.error("[prerender] FAILED — no per-route files generated");
+    process.exit(failExit);
   }
 
   let mod;
   try {
     mod = await import(pathToFileURL(entryPath).href);
   } catch (err) {
-    console.warn("[prerender] could not import metadata bundle — skipping.");
+    console.warn("[prerender] could not import metadata bundle.");
     console.warn("[prerender]", err.message);
-    process.exit(0);
+    if (isProd) console.error("[prerender] FAILED — no per-route files generated");
+    process.exit(failExit);
   }
 
   const { getAllRoutes, getMetadata, renderHeadHtml } = mod;
   if (!getAllRoutes || !getMetadata || !renderHeadHtml) {
-    console.warn("[prerender] metadata bundle missing expected exports — skipping.");
-    process.exit(0);
+    console.warn("[prerender] metadata bundle missing expected exports.");
+    if (isProd) console.error("[prerender] FAILED — no per-route files generated");
+    process.exit(failExit);
   }
 
   const template = await readFile(resolve(DIST, "index.html"), "utf8");
