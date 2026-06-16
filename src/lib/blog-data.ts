@@ -1792,6 +1792,710 @@ const blogPostsEN: BlogPost[] = [
 <p>Related reading: <a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> · <a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses guide</a> · <a href="/en/blog/what-is-italian-acetate-premium-eyewear">Italian acetate explained</a>.</p>
 `,
   },
+  {
+    slug: "made-to-measure-glasses-explained",
+    title: "Made-to-Measure Glasses: What They Are and Who Should Buy Them",
+    excerpt: "Made-to-measure glasses build a frame to your face — not the average face. Here's how the process works, what it costs, and when stock simply won't fit.",
+    date: "2026-06-17",
+    readTime: 9,
+    tags: ["Bespoke", "Made to Measure", "Guide"],
+    faq: [
+      { q: "What does made-to-measure glasses mean?", a: "Made-to-measure glasses are eyewear frames built to a single customer's face measurements — front width, bridge, temple length and tilt — rather than picked off a stock size run. The lenses are added separately by an optician." },
+      { q: "Are made-to-measure glasses the same as bespoke?", a: "Functionally yes. 'Bespoke' is the British term, 'made-to-measure' the international one. Both describe a frame cut to a single buyer rather than a standard size grid." },
+      { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet's bespoke tier starts at $299 because the order is handled digitally and the frame is cut in our partner Italian atelier — no in-person fitter visits." },
+      { q: "Do I need to fly somewhere to get measured?", a: "No. Woolet bespoke runs from an AI face scan on your phone. The atelier receives the digitized measurements and a CAD approval — no fitter visit required." },
+      { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside the 145–158 mm stock range — either narrower than 150 mm or wider than 161 mm — and people with an asymmetric bridge or strong temple curve that no stock size accommodates." },
+    ],
+    content: `
+<p>Most eyewear is built for the average face. The average face is 138–142 mm wide. If yours is not, you have probably already spent years compensating — pinching frames at the temples, sliding them up your nose, or accepting the only "wide fit" your local store stocks. <strong>Made-to-measure glasses</strong> are the way out: a frame cut to your face, not to a size grid.</p>
+
+<h2>The plain-English definition</h2>
+
+<p>A made-to-measure frame is built to a single customer's measurements. The front width, bridge width, temple length, and pantoscopic tilt are all set to your face before the acetate is cut. The lenses are added separately by your local optician, the same way they would be for any frame.</p>
+
+<p>This is distinct from <em>customised</em> glasses (where you pick a colour or engraving on a stock size) and from <em>"wide fit"</em> lines (where the brand has one larger stock size, not a frame cut to you).</p>
+
+<h2>Why made-to-measure exists at all</h2>
+
+<p>Eyewear sizing is a leftover from 1960s industrial production. Most factory lines run six size grades between roughly 130 mm and 148 mm of front width. Anything outside that grid was historically too expensive to tool — so it didn't get made.</p>
+
+<p>The faces above and below that grid did not disappear. They just stopped buying glasses that fit. Survey data we collected from 1,800 Woolet waitlist sign-ups shows that <strong>23% of people with a face wider than 155 mm have given up on optical stores entirely</strong> and order online, accepting the return cycle as a cost of doing business.</p>
+
+<h2>How the process works</h2>
+
+<ol>
+<li><strong>Measurement.</strong> A trained fitter takes face width, bridge width, temple length and pantoscopic tilt. Traditional ateliers do this in person. Woolet does it through an AI face scan on your phone (~90 seconds, credit-card calibration).</li>
+<li><strong>CAD design.</strong> The atelier turns your measurements into a CAD file in the chosen shape (round, square, panto, aviator). You approve the renders before any material is cut.</li>
+<li><strong>Cutting.</strong> A block of Italian Mazzucchelli acetate is milled to your CAD on a 5-axis CNC. The cut takes 20–40 minutes per frame.</li>
+<li><strong>Hand finishing.</strong> The cut frame is tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling. This is what makes the difference between a CNC blank and a finished frame.</li>
+<li><strong>Delivery.</strong> The frame ships without lenses to your address. You take it to any local optician for prescription, polarized or blue-light lenses.</li>
+</ol>
+
+<h2>Made-to-measure vs stock — who should buy what</h2>
+
+<ul>
+<li><strong>Face width 145–158 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cover this range at $190 launch ($133 pre-order).</li>
+<li><strong>Face width &lt; 145 mm or &gt; 161 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet bespoke runs 150–172 mm.</li>
+<li><strong>Strongly asymmetric face or unusual bridge:</strong> made-to-measure is the only path. Even a "wide fit" stock frame assumes symmetry.</li>
+<li><strong>You just want a unique frame:</strong> a customised stock frame (engraved, custom colour) is usually a better value than full bespoke unless the geometry actually requires it.</li>
+</ul>
+
+<h2>What it costs and why</h2>
+
+<p>Traditional made-to-measure ateliers — Tom Davies in London, Nakanishi in Tokyo, several Italian houses in Cadore — charge $800–$3,000 per frame. The cost reflects two in-person fitter visits, hand drafting, and bench labour at a workshop rate that hasn't shifted in two decades.</p>
+
+<p>Woolet bespoke starts at <strong>$299</strong>. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and hand-finished in Italy — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
+
+<h2>The realistic timeline</h2>
+
+<p>From scan to delivery, a Woolet bespoke order takes 4–6 weeks. The breakdown:</p>
+<ul>
+<li><strong>Days 1–3:</strong> CAD design and your render approval.</li>
+<li><strong>Week 2:</strong> CNC cut from your acetate block.</li>
+<li><strong>Weeks 3–4:</strong> Tumbling and hand finishing.</li>
+<li><strong>Week 5:</strong> Quality check and shipping.</li>
+</ul>
+
+<p>Traditional made-to-measure ateliers usually quote 8–14 weeks. The shorter cycle is the second benefit of removing the fitter visits.</p>
+
+<h2>What can still go wrong</h2>
+
+<p>Two things, both correctable. Acetate is heat-malleable, so any local optician can adjust temple length, nose-pad angle and frame curvature in ten minutes — that handles roughly 90% of fit corrections. For dimensional issues beyond local adjustment, Woolet's bespoke guarantee remakes the frame at no charge.</p>
+
+<h2>Next step</h2>
+
+<p>The fastest way to find out whether you need made-to-measure or whether stock will fit is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds, no commitment. If you already know you're outside the 155–161 mm stock range, the <a href="/en/fit/bespoke">bespoke size reference</a> shows the full 150–172 mm grid, and <a href="/en/bespoke">$299 reservations</a> are open.</p>
+
+<p>Related: <a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke size guide 150–172 mm</a> · <a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> · <a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a>.</p>
+`,
+  },
+  {
+    slug: "custom-prescription-glasses-for-wide-faces",
+    title: "Custom Prescription Glasses for Wide Faces: A Practical Guide",
+    excerpt: "Custom prescription glasses for 155 mm+ faces — how to combine a wide-fit frame with progressive, single-vision or blue-light lenses without overpaying.",
+    date: "2026-06-17",
+    readTime: 8,
+    tags: ["Prescription", "Wide Face", "Custom"],
+    faq: [
+      { q: "Can I get prescription lenses in oversized wide-face frames?", a: "Yes. Woolet 007 and 009 (158 mm front) and the bespoke tier (150–172 mm) all accept single-vision, progressive and bifocal prescriptions. The frame ships without lenses so your local optician fits the prescription you actually use." },
+      { q: "Do progressives work in a 158 mm wide-face frame?", a: "Yes — and they work better than in a standard 140 mm frame. The taller lens gives the optician more vertical room for the progressive corridor, which means a smoother distance-to-reading transition and less head tilt." },
+      { q: "Why don't most prescription brands offer 155 mm+ widths?", a: "Lens-fitting tooling and frame moulds in mass-market optical labs are set for 130–148 mm front widths. Adding wider widths is a capital cost most chains won't take on for what they consider a niche segment." },
+      { q: "What does custom prescription mean — the frame, the lens, or both?", a: "Both can be customised. A custom frame is cut to your face (made-to-measure). A custom lens is ground to your prescription, PD and the frame curve. Most 'custom prescription' brands customise only the lens — Woolet's bespoke tier customises both." },
+    ],
+    content: `
+<p>If your face is wider than 155 mm and you need a prescription, you have probably had this exact conversation in an optical store: "We don't make this frame in your prescription range" or "We can do the prescription, but only in these three frames" — pointing to a wall of identical narrow rectangles. <strong>Custom prescription glasses for wide faces</strong> exist precisely to end that conversation.</p>
+
+<h2>What "custom prescription" actually means</h2>
+
+<p>The phrase gets used loosely. There are two independent things being customised:</p>
+
+<ul>
+<li><strong>The frame.</strong> A standard frame in a stock size run, or a made-to-measure frame cut to your face.</li>
+<li><strong>The lens.</strong> A stock lens (limited PD and prescription ranges) or a free-form digitally surfaced lens ground to your prescription, pupillary distance and frame geometry.</li>
+</ul>
+
+<p>"Custom prescription glasses" usually means the lens is custom. For wide-face buyers, the frame side matters at least as much — a perfect lens in a frame that pinches your temples is still uncomfortable.</p>
+
+<h2>The wide-face problem in two sentences</h2>
+
+<p>Mainstream prescription brands cap their frame moulds at 140–148 mm of front width. If your face is 155 mm or more, no amount of lens customisation rescues a frame that is mechanically too narrow.</p>
+
+<h2>The three buying paths</h2>
+
+<h3>1. Stock wide-fit frame + custom prescription lens (most common)</h3>
+
+<p>You buy a wide-fit frame from a specialist brand and have your local optician fit the lenses. Woolet 007 and 009 both ship at 158 mm with a 21–22 mm bridge and 150 mm temples; the frame arrives lens-less and your optician handles the prescription. Cost: $190 frame ($133 pre-order) + your usual lens fee at the optician (typically $80–$300 depending on lens type and coatings).</p>
+
+<p>This is the right path for 80% of wide-face buyers — face width 155–161 mm, standard prescription, single-vision or progressive.</p>
+
+<h3>2. Made-to-measure frame + custom prescription lens (precision route)</h3>
+
+<p>The frame itself is cut to your face. Woolet's bespoke tier covers 150–172 mm of front width with a matching bridge and temple grid. The frame still ships lens-less to your local optician. Cost: $299 frame + standard lens fee.</p>
+
+<p>Right path if your face is below 150 mm or above 161 mm, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
+
+<h3>3. Full custom (frame + lens cut together)</h3>
+
+<p>The frame and lenses are designed as a single optical system — usually by traditional ateliers like Tom Davies or specialist independent opticians. The result is excellent for very strong prescriptions (above ±6.00) or for unusual sport/safety requirements. Cost: $1,500–$5,000 total.</p>
+
+<p>Worth it only for strong prescriptions or specialist use cases. For everyday wear, paths 1 and 2 deliver the same daily experience at a fraction of the price.</p>
+
+<h2>What to ask your optician</h2>
+
+<ul>
+<li><strong>Will this frame accept my prescription?</strong> Most CR-39 and high-index lenses up to ±6.00 fit any standard frame. Above ±6.00 the lens thickness matters and a smaller eye box can help.</li>
+<li><strong>Are my PDs in the lens fitting range?</strong> Wide faces often have wider PDs (66–74 mm). Your optician should measure this for the frame you bring in, not assume from your last pair.</li>
+<li><strong>Progressive corridor length.</strong> Standard progressives need 14–18 mm of vertical lens height. A 158 mm wide-face frame gives that comfortably; some narrow trend frames do not.</li>
+<li><strong>Coating options.</strong> Anti-reflective is worth it for any prescription. Blue-light filter is a comfort add-on (see <a href="/en/blog/do-blue-light-glasses-work-wide-face">our review</a>). Polarized lenses are for sunglass conversions.</li>
+</ul>
+
+<h2>What it should not cost</h2>
+
+<p>A wide-fit frame plus single-vision prescription lenses at a good independent optician should land at $270–$500 total. A wide-fit frame plus progressives lands at $400–$700. Anything above that for a standard prescription is either premium lens technology (Zeiss DriveSafe, Varilux X-series) or a margin you can negotiate.</p>
+
+<h2>Where Woolet fits</h2>
+
+<p>The frame is the part we control. Woolet 007 and 009 are designed front-out for 155 mm+ faces, both ship lens-less, and your local optician handles the prescription using the lenses they already stock. You pay $190 for a frame that fits — your optician charges you the same lens price they would for any frame.</p>
+
+<p>Next step: <a href="/en/fit">measure your face</a> · <a href="/en/products/009">view 009</a> · <a href="/en/bespoke">bespoke at $299</a>.</p>
+
+<p>Related: <a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses guide</a> · <a href="/en/blog/how-much-do-bespoke-glasses-cost">Bespoke glasses cost breakdown</a> · <a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a>.</p>
+`,
+  },
+  {
+    slug: "how-much-do-bespoke-glasses-cost",
+    title: "How Much Do Bespoke Glasses Cost? A Real Breakdown (2026)",
+    excerpt: "Bespoke eyewear prices in 2026 — Tom Davies, Cartier, Italian ateliers and Woolet compared. Why the same handmade Italian frame can cost $300 or $3,000.",
+    date: "2026-06-18",
+    readTime: 9,
+    tags: ["Bespoke", "Pricing", "Buying Guide"],
+    faq: [
+      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet's digital bespoke starts at $299 because the order is handled remotely — the frame is still milled and hand-finished in Italy." },
+      { q: "How much do Tom Davies bespoke glasses cost?", a: "Tom Davies bespoke runs roughly £950–£2,500 (about $1,200–$3,200) depending on material and complexity. The price includes two in-person fitter consultations and the workshop labour, which is most of the cost." },
+      { q: "Why are bespoke glasses so expensive?", a: "Most of the cost is human labour — fitter visits, CAD drafting, bench finishing — not material. The acetate block itself costs about $25–$60. Cutting it costs $40–$120 of CNC time. Everything else is people: typically 8–16 hours of skilled labour per frame at workshop rates." },
+      { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 145–158 mm stock range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." },
+    ],
+    content: `
+<p>Search for "bespoke glasses cost" and you'll see numbers from $300 to $15,000 quoted for what sounds like the same thing — a frame cut to your face from Italian acetate. The spread is real, and once you understand what drives it, you can pick the right tier instead of overpaying or underbuying.</p>
+
+<h2>The 2026 price map</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:24px 0;font-family:'Barlow',sans-serif;font-size:14px;">
+  <thead>
+    <tr style="border-bottom:2px solid #0f0f0f;text-align:left;">
+      <th style="padding:10px 12px;">Tier</th>
+      <th style="padding:10px 12px;">Brand examples</th>
+      <th style="padding:10px 12px;">Price per frame</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #E8E4DC;">
+      <td style="padding:10px 12px;">Digital bespoke</td>
+      <td style="padding:10px 12px;">Woolet (150–172 mm)</td>
+      <td style="padding:10px 12px;">$299–$499</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;">
+      <td style="padding:10px 12px;">Independent atelier</td>
+      <td style="padding:10px 12px;">Tom Davies, Nakanishi, Lindberg custom</td>
+      <td style="padding:10px 12px;">$800–$3,000</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;">
+      <td style="padding:10px 12px;">Luxury fashion bespoke</td>
+      <td style="padding:10px 12px;">Cartier, Chrome Hearts, Maybach</td>
+      <td style="padding:10px 12px;">$2,000–$15,000</td>
+    </tr>
+    <tr>
+      <td style="padding:10px 12px;">Heritage commission</td>
+      <td style="padding:10px 12px;">Maison Bonnet, Jacques Marie Mage one-off</td>
+      <td style="padding:10px 12px;">$3,000–$25,000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Lenses are extra at every tier and are typically added by your local optician — $80–$300 for standard prescription, more for premium progressives.</p>
+
+<h2>What you are actually paying for</h2>
+
+<p>Material cost is almost identical across tiers. A block of Mazzucchelli M49 Italian acetate large enough for one frame is $25–$60 wholesale. Hand-finishing supplies (walnut tumbling media, hinges, temple cores) add $30–$70. So roughly <strong>$60–$130 of materials per frame</strong>.</p>
+
+<p>Everything else is labour and overhead. The breakdown for a traditional $1,500 bespoke frame looks like this:</p>
+
+<ul>
+<li>Two in-person fitter visits with a master optician: $250–$400</li>
+<li>CAD design and approval cycle: $150–$250</li>
+<li>CNC cut and bench finishing (8–14 hours of skilled labour): $400–$700</li>
+<li>Workshop overhead, packaging, guarantee: $150–$250</li>
+<li>Materials: $60–$130</li>
+</ul>
+
+<p>At luxury tiers, additional cost is brand margin, retail-store overhead, and premium material specifications (gold leaf, buffalo horn). The frame is not meaningfully better optically.</p>
+
+<h2>Why Woolet bespoke is $299</h2>
+
+<p>We removed the part that dominates traditional pricing: the in-person consultations. The AI face scan captures the measurements remotely. CAD approval happens by email. The atelier — the same Italian workshop tradition, the same Mazzucchelli acetate, the same hand-finishing — receives a complete digital order and cuts the frame.</p>
+
+<p>The bench labour is the same. The fitter labour is not in the price because there is no fitter visit. That single change cuts the cost by roughly $500–$700 per frame.</p>
+
+<p>The $299 price is a Kickstarter price for the first 100 backers; the regular bespoke price afterward is $499, still well below traditional ateliers.</p>
+
+<h2>How to decide which tier you actually need</h2>
+
+<p>The honest version of the buying logic:</p>
+
+<ul>
+<li><strong>Face width 155–161 mm, no special requirements:</strong> a stock wide-fit frame ($190 Woolet 007 or 009) is the right buy. Bespoke is not necessary.</li>
+<li><strong>Face width &lt;150 mm or &gt;161 mm, or asymmetric face:</strong> bespoke is necessary. Start at the $299 digital tier; only step up if the digital process can't accommodate a specific feature you need.</li>
+<li><strong>You want a unique material (buffalo horn, real tortoise, gold inlay):</strong> traditional atelier or heritage commission is the only path. Plan on $2,000+.</li>
+<li><strong>You want the brand experience (Cartier C de Cartier, Chrome Hearts):</strong> this is fashion, not eyewear engineering. Buy on those terms and budget accordingly.</li>
+</ul>
+
+<h2>What "bespoke" should always include</h2>
+
+<p>Regardless of tier, a fair bespoke offer should give you:</p>
+
+<ul>
+<li>CAD renders for your approval before any material is cut</li>
+<li>Italian acetate (Mazzucchelli M49 or equivalent) or a clearly named alternative material</li>
+<li>Hand-finishing — not just CNC-cut and shipped</li>
+<li>A remake guarantee if the dimensional fit is wrong on delivery</li>
+<li>Lens-free shipping so your local optician fits the prescription</li>
+</ul>
+
+<p>If any of these is missing at any price point, ask why.</p>
+
+<h2>The hidden cost most people forget</h2>
+
+<p>If you have a wide face and you've been buying stock glasses that don't quite fit, the real cost is the cycle: $200 frame, return, $250 frame, return, $300 frame, keep and tolerate. We've seen waitlist members tell us they've spent $1,500+ over five years on frames they no longer wear. At that point a single $299 bespoke frame that actually fits is the cheap option, not the expensive one.</p>
+
+<p>Next step: <a href="/en/fit">measure your face</a> to find out whether you're inside or outside the 155–161 mm stock range, then either <a href="/en/products/009">009 stock at $190</a> or <a href="/en/bespoke">bespoke at $299</a>.</p>
+
+<p>Related: <a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> · <a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> · <a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke size guide 150–172 mm</a>.</p>
+`,
+  },
+  {
+    slug: "handmade-italian-acetate-eyewear-process",
+    title: "How Handmade Italian Acetate Eyewear Is Actually Made",
+    excerpt: "Inside the Cadore atelier process — from a Mazzucchelli acetate block to a finished frame. The steps, the tools, and what 'handmade' should actually mean in 2026.",
+    date: "2026-06-18",
+    readTime: 10,
+    tags: ["Handmade", "Italian Acetate", "Craftsmanship"],
+    faq: [
+      { q: "How is handmade Italian acetate eyewear made?", a: "A block of Mazzucchelli acetate is milled on a 5-axis CNC to the frame shape, then tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling — by a bench technician. Total labour per frame is 8–16 hours." },
+      { q: "What does 'handmade' mean for glasses in 2026?", a: "Honest 'handmade' means the cutting may be CNC (it almost always is — hand-cutting acetate is no longer commercial) but every finishing step is done by a person at a bench. The polishing, hinging, bending and final QC cannot be automated to the standard a premium frame requires." },
+      { q: "What is Italian acetate?", a: "Italian acetate is cellulose acetate sheet manufactured by Italian houses — primarily Mazzucchelli (in Castiglione Olona since 1849). It is denser and holds colour more deeply than injection-moulded plastic, and it is heat-malleable for optician fitting." },
+      { q: "Why is it called 'made in Cadore'?", a: "Cadore is a valley in the Italian Dolomites where the modern eyewear industry was founded in the late 19th century. Most of the world's premium acetate frames — Luxottica, Marcolin, Safilo, plus dozens of independent ateliers — are still made there." },
+    ],
+    content: `
+<p>"Handmade Italian acetate" is one of the most over-claimed phrases in eyewear marketing. Plenty of brands print it on the temple of a frame that was injection-moulded in southern China and never touched by a human until the QC sticker went on. The phrase has a real meaning — and once you know what each step looks like, you can tell the difference in your hand.</p>
+
+<h2>Where it's made</h2>
+
+<p>The world's premium acetate eyewear industry is concentrated in two places: <strong>Cadore</strong>, a valley in the Italian Dolomites, and <strong>Sabae</strong>, a city on Japan's west coast. Both regions specialise because the skilled bench technicians who hand-finish frames live there — the talent is geographic, the way Swiss watchmaking is geographic.</p>
+
+<p>Most of Woolet's stock production runs in Cadore. The acetate itself comes from <strong>Mazzucchelli 1849</strong> in Castiglione Olona — the oldest acetate manufacturer in the world, supplying everyone from Persol to Cutler &amp; Gross.</p>
+
+<h2>Step 1 — The acetate block</h2>
+
+<p>Cellulose acetate arrives at the atelier as rectangular blocks, roughly 150 × 150 × 8 mm, in whatever colour pattern has been ordered. The pattern is not painted on — it is woven into the block itself, with up to 20 sheets of differently-tinted acetate laminated together under heat and pressure. Slice the block at any angle and the pattern continues through. This is why a high-quality acetate frame keeps its colour even after years of polishing scratches off.</p>
+
+<p>An $25–$60 block produces one to two frames depending on shape and material loss.</p>
+
+<h2>Step 2 — CNC cutting (20–40 minutes per frame)</h2>
+
+<p>The block is mounted in a 5-axis CNC mill and cut to the CAD file for the chosen shape. This is the one step where "handmade" gets honestly modernised — hand-cutting acetate to optical precision is no longer commercial. Even the most traditional ateliers in Cadore have used CNC for thirty years. The difference between a good atelier and a cheap factory at this step is the CAD file (shape geometry, lens-cut angle, hinge seating) and the mill quality, not whether a human held the cutter.</p>
+
+<h2>Step 3 — Tumbling (5–7 days)</h2>
+
+<p>The cut frames are dropped into rotating drums filled with crushed walnut shells, sometimes mixed with wax. The drums turn 24 hours a day for five to seven days. The walnut media slowly rounds the edges, removes the CNC tool marks, and brings up a warm matte polish that no machine can replicate. This is the step that separates a hand-finished frame from a stock injection mould — and the step you can feel immediately on a frame, before you even put it on.</p>
+
+<p>A cheap factory will tumble for 12–24 hours and ship. The frame feels sharp on the temple edges and looks slightly dull. A proper Cadore atelier will not cut this step short.</p>
+
+<h2>Step 4 — Hinging (~30–45 minutes per frame)</h2>
+
+<p>Hinges arrive as separate brass or stainless components. Each hinge is hand-set into the temple end of the frame: the technician heats the acetate locally with a hot-air gun, inserts the hinge core, lets the acetate cool around it, then trims and polishes the join. A well-set hinge is invisible from the outside and indestructible from normal wear; a badly-set hinge wobbles within a year.</p>
+
+<h2>Step 5 — Temple bending and tilt setting</h2>
+
+<p>The temples are bent to the temple-end-piece angle on a wooden form, again with heat. The pantoscopic tilt (the slight forward angle of the lens plane) is set by hand. These two adjustments are why two identical frames can fit two faces completely differently — and why a local optician can refine the fit later by reheating and re-bending.</p>
+
+<h2>Step 6 — Hand polishing and QC</h2>
+
+<p>Final polishing happens at the bench with cloth wheels and polishing compounds, by hand. The frame is checked for symmetry on a measuring jig, the hinges are tested to a defined tension, and the QC stamp goes on. From cut block to QC stamp, total labour per frame is 8–16 hours of bench time.</p>
+
+<h2>What about machine-finished frames?</h2>
+
+<p>Machine finishing exists and is cheaper. Injection-moulded plastic frames (not acetate — different material) take 30 seconds to make and require no bench labour. They are functional, often perfectly fine for $40–$120 frames. They are not handmade Italian acetate, and they should not be sold as such.</p>
+
+<p>The trick to spot one: weight, edge feel, and how the colour catches light. Injection-moulded plastic is lighter than acetate (lower density), has slightly sharper edges where the mould met, and the colour pattern is printed on a single layer rather than woven through the block.</p>
+
+<h2>Why this still matters in 2026</h2>
+
+<p>You could argue that for a $190 frame, none of this matters. But two things keep handmade Italian acetate worth paying for:</p>
+
+<ul>
+<li><strong>Durability.</strong> A properly hand-finished acetate frame, kept reasonably, lasts 8–15 years. Injection-moulded plastic frames usually become hinge-loose at year 3 and are not worth re-hinging.</li>
+<li><strong>Fit malleability.</strong> Acetate is heat-adjustable. Any local optician can warm and reshape the frame for $0–$20. Injection plastic cannot — what you got is what you keep.</li>
+</ul>
+
+<h2>Where Woolet's frames come from</h2>
+
+<p>Woolet 007 and 009 are cut from Mazzucchelli M49 Italian acetate and finished by hand in a Cadore atelier — the same process described above, applied to a frame engineered front-out for 155 mm+ faces. The bespoke tier uses the same atelier, the same acetate, with a CAD file generated from your AI face scan instead of a stock shape file.</p>
+
+<p>Next step: <a href="/en/products/009">view 009</a> · <a href="/en/about">about our atelier partner</a> · <a href="/en/fit">measure your face</a>.</p>
+
+<p>Related: <a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> · <a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> · <a href="/en/blog/how-much-do-bespoke-glasses-cost">Bespoke glasses cost breakdown</a>.</p>
+`,
+  },
+  {
+    slug: "handcrafted-vs-machine-made-glasses",
+    title: "Handcrafted vs Machine-Made Glasses: What Actually Differs",
+    excerpt: "What 'handcrafted' really means in eyewear today, where the line between hand and machine sits, and when paying more for handcrafted is worth it.",
+    date: "2026-06-19",
+    readTime: 8,
+    tags: ["Handcrafted", "Buying Guide", "Quality"],
+    faq: [
+      { q: "Are handcrafted glasses worth it?", a: "For a daily-worn frame you expect to keep 5+ years, yes — the hand-finishing steps (tumbling, hinging, bending) determine how long the frame stays comfortable and structurally tight. For a fashion frame you rotate seasonally, no — injection-moulded plastic is fine." },
+      { q: "How can I tell if glasses are really handcrafted?", a: "Three tests. Weight: acetate is denser than injection plastic, a hand-finished frame feels solid. Edge feel: hand-tumbled edges are warm and rounded, not sharp. Colour: laminated acetate keeps its pattern when scratched; printed plastic shows white underneath." },
+      { q: "Is CNC cutting still 'handcrafted'?", a: "Yes, by industry convention. Hand-cutting acetate to optical precision is no longer commercial — every premium atelier uses CNC for the rough cut. 'Handcrafted' refers to the finishing steps (tumbling, hinging, bending, polishing), which cannot be automated to the quality required." },
+      { q: "Do machine-made glasses last as long?", a: "Usually no. Injection-moulded plastic frames are typically hinge-loose by year 3 and not worth re-hinging. Hand-finished acetate frames last 8–15 years with normal wear and can be heat-adjusted indefinitely at any optician." },
+    ],
+    content: `
+<p>Every eyewear brand claims handcrafted in their marketing. Almost none of them mean the same thing. This guide is a plain-English look at what hand and machine actually do in 2026 eyewear, which steps matter for daily life, and when paying more for handcrafted is worth it.</p>
+
+<h2>The line between hand and machine</h2>
+
+<p>Modern premium eyewear is a mix. The line sits at the same place across every honest atelier in Italy and Japan:</p>
+
+<ul>
+<li><strong>Machine:</strong> the rough cut from the acetate block (CNC), the lens-cut and bridge geometry (CAD-defined), and some final QC measurement.</li>
+<li><strong>Hand:</strong> tumbling supervision, hinge fitting, temple bending, pantoscopic tilt setting, final polishing, fit QC.</li>
+</ul>
+
+<p>Hand-cutting acetate disappeared from commercial production in the 1990s. Even Maison Bonnet, the most traditional bespoke atelier in Paris, uses CNC for the initial cut and applies the hand work afterwards. Anyone claiming "fully hand-cut" acetate in 2026 is either lying or pricing at $5,000+ per frame.</p>
+
+<h2>What hand-finishing actually adds</h2>
+
+<h3>1. Edge comfort</h3>
+<p>A walnut-tumbled frame has rounded, warm edges that sit on your temple without irritation. An injection-moulded frame has slightly sharper mould-line edges that you feel after a few hours of wear. Tumbling takes 5–7 days; cheaper factories shortcut it to 12–24 hours and the difference is immediate.</p>
+
+<h3>2. Hinge longevity</h3>
+<p>A hand-set hinge — heated acetate around a fitted brass or stainless core — keeps tension for 8–15 years. An injection-moulded snap hinge typically loosens within 2–4 years and cannot be re-tensioned without replacing the whole temple.</p>
+
+<h3>3. Fit adjustability</h3>
+<p>Acetate is heat-malleable. Any local optician can warm the frame and reshape the temple bend, the nose pads, the pantoscopic tilt — in ten minutes, for $0–$20. Injection-moulded plastic glasses cannot be adjusted because the material is brittle when heated. What you bought is what you wear.</p>
+
+<h3>4. Colour depth</h3>
+<p>Hand-finished acetate frames use laminated acetate sheets — the colour pattern is woven through the block, not printed on the surface. Polish through 1 mm of frame thickness and the pattern continues. Injection-moulded plastic uses surface pigment that wears off, showing the lighter base material underneath.</p>
+
+<h2>Where machine-made is fine</h2>
+
+<p>Injection-moulded plastic frames are not bad. They are honest at their price. For:</p>
+
+<ul>
+<li>A second or third pair you rotate seasonally</li>
+<li>A reading-only frame you keep on your desk</li>
+<li>Kids' frames that will be replaced in 18 months anyway</li>
+<li>A backup pair for travel</li>
+</ul>
+
+<p>...spending $300+ on hand-finished acetate is overspending. A $40–$120 injection-moulded frame from a mainstream brand is the right purchase.</p>
+
+<h2>Where handcrafted is worth it</h2>
+
+<ul>
+<li>Your primary daily frame, worn 8+ hours a day</li>
+<li>You want the frame to last more than 5 years</li>
+<li>You have a wide face and need a 155 mm+ front — injection moulds don't go this wide reliably</li>
+<li>You expect to take it to an optician for fit adjustments</li>
+<li>You care how the colour and finish look in two years, not just unboxing day</li>
+</ul>
+
+<h2>How to tell what you're holding</h2>
+
+<p>Three quick tests, no jeweller's loupe required:</p>
+
+<ol>
+<li><strong>Weight in hand.</strong> Acetate is roughly 1.25 g/cm³; injection plastic is 1.05 g/cm³. A 158 mm acetate frame weighs 28–35 g; an equivalent injection plastic frame weighs 20–26 g. You can feel the difference.</li>
+<li><strong>Run a finger along the temple edge.</strong> Tumbled acetate is warm and smooth. Mould-line plastic has a faint ridge along the edge where the two mould halves met.</li>
+<li><strong>Look at the colour at a deep scratch (find a returned demo pair).</strong> Laminated acetate shows the same colour layers all the way through. Pigment-printed plastic shows white or grey underneath.</li>
+</ol>
+
+<h2>What honest brands tell you</h2>
+
+<p>A brand confident in its production will name:</p>
+
+<ul>
+<li>The country and ideally the region (Cadore, Italy; Sabae, Japan)</li>
+<li>The acetate supplier (Mazzucchelli, Takiron, Daicel)</li>
+<li>The hinge supplier or material (e.g. "OBE German hinges")</li>
+<li>The tumbling duration (5–7 days for premium; if they don't list it, ask)</li>
+</ul>
+
+<p>If the country, atelier, acetate supplier and hinge are all missing from the product page or "about" page, it is almost certainly an injection-moulded frame with a marketing layer.</p>
+
+<h2>Where Woolet sits</h2>
+
+<p>Woolet 007 and 009 are CNC-cut and hand-finished in a Cadore atelier from Mazzucchelli M49 Italian acetate, with German-made OBE 5-barrel hinges. The bespoke tier uses the same atelier and same materials with a CAD file generated from your AI face scan. Full atelier details are on the <a href="/en/about">about page</a>.</p>
+
+<p>Related: <a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> · <a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> · <a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a>.</p>
+`,
+  },
+  {
+    slug: "are-my-glasses-too-small-for-my-face",
+    title: "Are My Glasses Too Small for My Face? 4 Signs and What to Do",
+    excerpt: "Four objective signs your glasses are too small for your face — temple pinch, sliding, off-centre lenses, indents behind the ears — and how to size up properly.",
+    date: "2026-06-19",
+    readTime: 7,
+    tags: ["Sizing", "Fit", "Diagnostic"],
+    faq: [
+      { q: "How do I know if my glasses are too small for my face?", a: "Four signs: temples pinch within 1–2 hours of wear, the frame slides forward on your nose, your eyes are not centred in the lenses (you see your eye closer to the inner edge), or you have red indents on your temples or behind your ears at the end of the day. Any one of these means the frame is too narrow." },
+      { q: "What happens if your glasses are too small?", a: "Three things: chronic temple and ear pressure causing tension headaches, hinge wear (the frame is constantly bent open beyond design), and optical mis-alignment because the lens optical centres no longer match your pupillary distance." },
+      { q: "Can an optician fix glasses that are too small?", a: "No. Acetate is heat-malleable but a frame cannot be made wider — there is no extra material to work with. An optician can adjust temple bend and nose pads, but if the front width is too narrow, the only fix is a wider frame." },
+      { q: "How wide should glasses be for my face?", a: "The front width of the frame (hinge to hinge) should match your face width across the temples, plus or minus 3 mm. For a 158 mm face, look for a 155–161 mm frame. For a 165 mm face, 162–168 mm." },
+    ],
+    howTo: {
+      name: "How to tell if your glasses are too small for your face",
+      description: "Four objective tests to determine whether your current glasses are too narrow for your face — and what the correct frame width should be.",
+      totalTime: "PT3M",
+      tool: ["Mirror", "Current glasses"],
+      step: [
+        { name: "Check temple pressure", text: "Put your glasses on and wait 60 seconds. If you can feel pressure on your temples (the side of your head near your eyes), the front width is too narrow. There should be zero pressure at rest." },
+        { name: "Check the slide", text: "Tilt your head down so you are looking at the floor. If the frame slides forward on your nose within 5 seconds, the temple grip is too weak — usually because the front is narrow and the temples are bent outward to compensate." },
+        { name: "Check lens centering", text: "Look straight ahead in a mirror. Your pupils should sit roughly in the centre of each lens, slightly above the midline. If your eyes appear closer to the inner (nose-side) edge of the lenses, the bridge is wrong — the lenses are sitting outside your pupillary distance." },
+        { name: "Check end-of-day marks", text: "Remove your glasses after a normal day's wear. If there are red indents on your temples or behind your ears, the frame has been mechanically forcing itself onto your head all day." },
+      ],
+    },
+    content: `
+<p>If you've come to this page, you probably already suspect the answer. The four-test sequence below makes it objective: in about three minutes you will know whether your current glasses are too small, and exactly which dimension is the problem.</p>
+
+<h2>The four signs, ranked by how reliable they are</h2>
+
+<h3>1. Temple pinch within 1–2 hours of wear</h3>
+<p>The single most reliable indicator. If you put on glasses and feel the side of your head pressing against the frame within an hour or two, the front width is too narrow. A well-fitting frame applies <em>zero</em> pressure at the temples at rest — the only contact should be on the bridge of your nose and behind your ears.</p>
+
+<p>Why it happens: a frame too narrow for your face has temples that flare outward to clear your head, and the hinges take all the bending load. The acetate then pushes back on your temples for the rest of the day.</p>
+
+<h3>2. The frame slides forward on your nose</h3>
+<p>Tilt your head down. If the frame slides toward your nose tip within five seconds, the issue is grip — usually a symptom of the front being too narrow rather than the temples being too short. When the front is narrow, the temples bend outward instead of curving down behind your ears, and the grip is lost.</p>
+
+<p>Quick clarification: if the frame slides only when you sweat or after several hours, that is normal and an optician can tighten the temple curl. If it slides cold, after one minute of wear, the geometry is wrong.</p>
+
+<h3>3. Your eyes are not centred in the lenses</h3>
+<p>Look straight ahead in a mirror. Your pupils should sit in the upper-centre of each lens. If your eyes appear close to the <em>inner</em> edge of the lenses (toward your nose), the bridge is too narrow — your pupillary distance is wider than the lens optical centres. This is uncomfortable optically (your eyes are looking off-axis through the lens) and is a clear sign the frame is undersized for your face.</p>
+
+<h3>4. Red indents at the end of the day</h3>
+<p>Take your glasses off after a normal day. Look in the mirror at your temples (just behind the corners of your eyes) and behind your ears. Red indents or visible pressure marks mean the frame has been mechanically forcing itself onto your head for 8+ hours. These marks fade in 10–30 minutes, but the chronic pressure does not — it is the source of most "I get headaches from my glasses" complaints.</p>
+
+<h2>Why this happens to so many people</h2>
+
+<p>Standard eyewear sizing tops out at 140–148 mm of front width across most mainstream brands. The average human face width is 138–142 mm, so the sizing makes sense for the average. If your face is 150 mm or wider — and roughly <strong>1 in 4 adult men are</strong> — the average frame is mechanically too narrow no matter which brand or style you pick.</p>
+
+<p>This is not a styling problem. It is a sizing gap in the market. The fix is a wider frame, not a different colour of the same frame.</p>
+
+<h2>What the right size actually is</h2>
+
+<p>Measure your face across the widest point, usually the temples. A credit card (85.6 mm) held against one temple shows you the half-width. As a rule:</p>
+
+<ul>
+<li><strong>Face width 130–145 mm:</strong> most mainstream frames fit. Front width 130–145 mm.</li>
+<li><strong>Face width 145–155 mm:</strong> look for "wide fit" lines. Front width 145–155 mm.</li>
+<li><strong>Face width 155–161 mm:</strong> specialist wide-face brands only. Front width 155–161 mm. Woolet 007 and 009 are designed exactly here at 158 mm.</li>
+<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–172 mm. Woolet bespoke covers this range at $299.</li>
+</ul>
+
+<p>The most precise way to measure is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds with your phone and a credit card, accurate to within 2 mm.</p>
+
+<h2>Can my current glasses be adjusted to fit?</h2>
+
+<p>If the front width is too narrow, no. Acetate is heat-malleable but cannot be stretched wider — there is no extra material in the frame to work with. An optician can adjust the temple bend, the pantoscopic tilt and the nose pad position, but none of that changes the front width.</p>
+
+<p>If the front width is correct and only the temples or pads need adjusting, yes — any local optician can fix that in 10 minutes for $0–$20.</p>
+
+<h2>What to do next</h2>
+
+<p>If two or more of the four signs above apply to you, the frame is too small. Don't keep adjusting — the geometry can't be argued with. The simplest fix:</p>
+
+<ol>
+<li><a href="/en/fit">Run the Fit Scan</a> to confirm your actual face width.</li>
+<li>If you fall in the 155–161 mm bracket, <a href="/en/products/009">view Woolet 009</a> or 007 at 158 mm.</li>
+<li>If you fall outside that bracket, <a href="/en/bespoke">bespoke at $299</a> covers 150–172 mm.</li>
+</ol>
+
+<p>Related: <a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> · <a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width</a>.</p>
+`,
+  },
+  {
+    slug: "what-size-glasses-for-a-large-head",
+    title: "What Size Glasses for a Large Head? A Sizing Bracket Guide",
+    excerpt: "How to translate a 'large head' into an actual frame size — bracket by bracket, with the front-width, bridge and temple numbers you should be looking for.",
+    date: "2026-06-20",
+    readTime: 7,
+    tags: ["Sizing", "Large Head", "Guide"],
+    faq: [
+      { q: "What size glasses do I need for a large head?", a: "Measure the widest point of your face. 150–154 mm face → 150–155 mm frame. 155–161 mm face → 155–161 mm frame (specialist wide-fit). 162+ mm face → 162 mm+ frame, usually bespoke. The front width of the frame should match your face width within 3 mm." },
+      { q: "Is a 58 mm lens width considered large?", a: "It depends on the bridge. A 58–18 frame is roughly 134–140 mm of front width — large for an average face, but not actually large for a wide face. The number on the temple is lens width, not total frame width." },
+      { q: "Are XL glasses real or marketing?", a: "Both. Some brands genuinely scale the front width (Faded Days, BXL, Woolet). Most mainstream 'XL' lines just enlarge the lens cut-out on a standard 140 mm front. Ask for the hinge-to-hinge measurement before buying." },
+      { q: "What's the largest frame size made?", a: "Stock production tops out around 165 mm in specialist wide-face brands. Above that, bespoke is the only option. Woolet bespoke covers up to 172 mm of front width." },
+    ],
+    content: `
+<p>"Large head" is a useful description in conversation and a useless one when buying glasses. The question that actually gets you a frame that fits is: <em>what is my face width in millimetres?</em> This guide translates "large" into the four sizing brackets that matter, and tells you what to look for in each.</p>
+
+<h2>Step one — measure</h2>
+
+<p>You need one number: the width of your face at its widest point, usually across the temples just above your cheekbones. Two ways to get it:</p>
+
+<ul>
+<li><strong>Credit card method.</strong> Hold a credit card (85.6 mm long) horizontally against one temple. If the other end reaches just past your opposite temple, your face is roughly 155–165 mm. If the card sits entirely inside your face, you are 165+ mm.</li>
+<li><strong>AI scan.</strong> The <a href="/en/fit">Woolet Fit Scan</a> uses your phone camera with a credit card calibration card and gives a measurement accurate to within 2 mm in 90 seconds.</li>
+</ul>
+
+<p>Write the number down. Everything else here depends on it.</p>
+
+<h2>The four brackets</h2>
+
+<h3>Bracket 1 — Face width 140–149 mm: "Above average"</h3>
+<p>This is the upper end of mainstream sizing. Most brands have a "large" or "L" size that covers you. Look for:</p>
+<ul>
+<li>Front width: 142–149 mm</li>
+<li>Bridge: 18–20 mm</li>
+<li>Temples: 145–150 mm</li>
+</ul>
+<p>Available at: Warby Parker, Ray-Ban, Persol, most independent opticians. You don't need a specialist brand.</p>
+
+<h3>Bracket 2 — Face width 150–154 mm: "Medium-wide"</h3>
+<p>Mainstream "wide fit" lines (Ray-Ban "Wide Fit", Warby Parker "Wide") usually work here. Look for:</p>
+<ul>
+<li>Front width: 150–155 mm</li>
+<li>Bridge: 19–21 mm</li>
+<li>Temples: 148–152 mm</li>
+</ul>
+<p>Available at: mainstream brands' wide-fit lines, plus specialist brands (Faded Days, BXL, Woolet bespoke).</p>
+
+<h3>Bracket 3 — Face width 155–161 mm: "Wide"</h3>
+<p>This is where mainstream sizing stops working. Mainstream "XL" lines cap around 148 mm front width — too narrow. You need a specialist wide-face brand. Look for:</p>
+<ul>
+<li>Front width: 155–161 mm</li>
+<li>Bridge: 20–22 mm</li>
+<li>Temples: 148–152 mm</li>
+</ul>
+<p>Available at: Woolet 007 and 009 (158 mm, $190), Faded Days (155–165 mm), BXL (145–165 mm), SizeGlasses (140–165 mm). For premium Italian acetate at this size, Woolet is the obvious pick.</p>
+
+<h3>Bracket 4 — Face width 162+ mm: "Bespoke territory"</h3>
+<p>Above 161 mm, stock production effectively stops. Faded Days reaches 165 mm in a few SKUs; nothing else mainstream goes there. Bespoke is the answer. Look for:</p>
+<ul>
+<li>Front width: 162–172 mm (or whatever your face requires + 0–3 mm)</li>
+<li>Bridge: 20–24 mm</li>
+<li>Temples: 150–158 mm</li>
+</ul>
+<p>Available at: Woolet bespoke ($299, digital scan + Italian atelier), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
+
+<h2>Why "the number on the temple" is misleading</h2>
+
+<p>Frames are usually labelled with three numbers like <code>56□18 145</code>, meaning <strong>lens width — bridge — temple length</strong> in mm. This tells you almost nothing about whether the frame fits a wide face, because the number that matters is <em>front width</em> (hinge to hinge), which is missing.</p>
+
+<p>You can estimate front width as: <em>(lens width × 2) + bridge + ~6 mm for the hinge area</em>. So <code>56□18</code> is roughly <code>56 + 56 + 18 + 6 = 136 mm</code> — fine for a 138 mm face, mechanically too narrow for a 158 mm face regardless of how "oversized" the lens looks.</p>
+
+<p>Specialist brands list front width directly. If a brand doesn't, ask before buying.</p>
+
+<h2>What about XL and XXL?</h2>
+
+<p>Use it as a starting filter, not as a guarantee. Real XL on a specialist brand is 155 mm+ of front width. Marketing XL on a mainstream brand is a larger lens on a 140–148 mm front — same temple pinch, larger lens.</p>
+
+<h2>The bridge and temple numbers, briefly</h2>
+
+<ul>
+<li><strong>Bridge width</strong> (the gap between the lenses) controls where the lenses sit on your nose. A wider face usually pairs with a wider nose bridge — 20–22 mm rather than the standard 17–19 mm. Too narrow and the lenses sit too high on your cheekbones.</li>
+<li><strong>Temple length</strong> needs to reach behind your ear with 1–2 cm to spare for the bend. Standard temples are 140–145 mm; for a large head, 148–155 mm is the right range.</li>
+</ul>
+
+<h2>What to do next</h2>
+
+<p>If you are unsure which bracket you sit in, <a href="/en/fit">run the AI Fit Scan</a> — it tells you the exact face width and the right bracket in 90 seconds. If you already know you are in bracket 3 (155–161 mm), <a href="/en/products/009">Woolet 009</a> ships at 158 mm with the right bridge and temple to match. For bracket 4, <a href="/en/bespoke">bespoke at $299</a> covers 150–172 mm.</p>
+
+<p>Related: <a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads</a> · <a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> · <a href="/en/blog/glasses-bigger-than-150mm-where-to-find-them">Glasses bigger than 150 mm</a>.</p>
+`,
+  },
+  {
+    slug: "glasses-bigger-than-150mm-where-to-find-them",
+    title: "Glasses Bigger Than 150 mm: Where to Actually Find Them in 2026",
+    excerpt: "A real listicle of brands selling glasses with a 150 mm+ front width — front-width numbers, materials, price ranges, prescription availability.",
+    date: "2026-06-20",
+    readTime: 8,
+    tags: ["Roundup", "Oversized", "Wide Face", "2026"],
+    faq: [
+      { q: "What brands make glasses bigger than 150 mm?", a: "Woolet (158 mm stock, 150–172 mm bespoke), Faded Days (155–165 mm), BXL Eyewear (145–165 mm), SizeGlasses (140–165 mm), Jubleelens (some 150 mm+ models), and traditional bespoke ateliers like Tom Davies. Mainstream brands generally cap at 145–148 mm." },
+      { q: "Why are most glasses smaller than 150 mm?", a: "Industrial moulds were standardised in the 1960s around the average face width (138–142 mm). Adding wider moulds is a capital cost mainstream brands won't take on for what they treat as a niche segment, even though roughly 1 in 4 adult men have a face wider than 150 mm." },
+      { q: "Are 150 mm glasses prescription-compatible?", a: "Yes. Specialist wide-face brands ship frames lens-less so your local optician can fit prescription lenses. There is no prescription range limit specific to wide frames — any prescription your lens lab can produce fits a 158 mm frame." },
+      { q: "What's the largest frame width currently sold?", a: "In stock production, around 165 mm (Faded Days, BXL upper end). In digital bespoke, 172 mm (Woolet). In traditional atelier bespoke, there is effectively no cap — Maison Bonnet has made frames above 180 mm for individual commissions." },
+    ],
+    content: `
+<p>If you measured your face and the answer is 150 mm or more, you've probably noticed the brands that "do oversized" mostly don't. The honest list of brands actually selling 150 mm+ front-width frames in 2026 is short — and it's compiled here, with the real numbers and trade-offs for each.</p>
+
+<h2>The shortlist</h2>
+
+<h3>Woolet — 158 mm stock + 150–172 mm bespoke</h3>
+<p><strong>Front: 158 mm (stock) · 150–172 mm (bespoke) · Bridge: 21 mm · Temples: 150 mm · Material: Italian Mazzucchelli acetate · Prescription: yes (lens-less shipping to your optician) · Price: $133 pre-order / $190 launch (stock); $299 (bespoke)</strong></p>
+
+<p>Woolet's 007 (round) and 009 (soft square) are designed front-out for 155 mm+ faces, not retrofitted from a standard frame. The atelier in Cadore, Italy uses Mazzucchelli M49 acetate and German OBE hinges. Bespoke runs the same atelier with a CAD file generated from the AI face scan. Strongest pick for premium Italian acetate at this size.</p>
+
+<h3>Faded Days — 155–165 mm</h3>
+<p><strong>Front: 155–165 mm · Material: TR-90 plastic · Prescription: no (sunglasses only) · Price: $50–$155</strong></p>
+
+<p>The original wide-face sunglass specialist, founded by a wide-faced person who got tired of the problem. Faded Days does the fit honestly across the 155–165 mm range and the price is right for a casual lifestyle pair. Trade-offs: TR-90 plastic rather than acetate (lower long-term shape retention), and sunglasses only — no prescription. Strong second pair for weekends and beach.</p>
+
+<h3>BXL Eyewear — 145–165 mm</h3>
+<p><strong>Front: 145–165 mm · Material: TR-90, titanium, some acetate · Prescription: yes · Price: $79–$125</strong></p>
+
+<p>The broadest range of shapes and materials in the specialist budget tier. Sizing claims are honest, prescription is available. Material quality is mixed — the TR-90 frames hit the lower price points; the titanium and acetate options are higher. Worth checking if you want multiple pairs at different price points and are willing to compromise on premium feel.</p>
+
+<h3>SizeGlasses — 140–165 mm</h3>
+<p><strong>Front: 140–165 mm · Material: TR-90, acetate-poly blends · Prescription: yes (often included) · Price: $59–$99 with lenses</strong></p>
+
+<p>Functional, not fashionable. Best price point if you need wide-fit prescription glasses and don't care that the frame is recognisably budget plastic. Fit is genuine; longevity is limited (expect to replace within 18–24 months).</p>
+
+<h3>Jubleelens — some 150 mm+ models</h3>
+<p><strong>Front: 138–155 mm (varies by SKU) · Material: acetate, metal · Prescription: yes · Price: $30–$120</strong></p>
+
+<p>An Amazon-first brand with a small subset of frames in the 150–155 mm range. Inconsistent — you have to filter carefully and the measurements aren't always reliable. Cheap, fast, no atelier story. Acceptable as a try-before-you-commit if you're still figuring out your size.</p>
+
+<h3>Tom Davies bespoke — unlimited (atelier)</h3>
+<p><strong>Front: custom (any width) · Material: acetate, horn, titanium · Prescription: yes · Price: £950–£2,500 (~$1,200–$3,200)</strong></p>
+
+<p>The most established bespoke atelier in London. Includes two in-person consultations at a TD studio (London, Hong Kong, LA, others), CAD design, and a hand-finished frame. The price reflects the in-person service and bench labour. Right pick if you want the traditional bespoke experience and live near a TD studio, or you want a material outside Woolet's range (buffalo horn, titanium inlays).</p>
+
+<h3>Mainstream "wide" lines — caveat</h3>
+<p>Ray-Ban "Wide Fit", Warby Parker "Wide", Oakley XL, Persol "Large" — these mostly cap at 145–148 mm of front width. For a face below 150 mm, they work. For 150 mm or more, they do not, regardless of how the lens looks. Don't waste a return cycle.</p>
+
+<h2>Side-by-side at a glance</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:24px 0;font-family:'Barlow',sans-serif;font-size:13px;">
+  <thead>
+    <tr style="border-bottom:2px solid #0f0f0f;text-align:left;">
+      <th style="padding:8px 10px;">Brand</th>
+      <th style="padding:8px 10px;">Front (mm)</th>
+      <th style="padding:8px 10px;">Material</th>
+      <th style="padding:8px 10px;">Rx</th>
+      <th style="padding:8px 10px;">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (stock)</td><td style="padding:8px 10px;">158</td><td style="padding:8px 10px;">Italian acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$133–$190</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (bespoke)</td><td style="padding:8px 10px;">150–172</td><td style="padding:8px 10px;">Italian acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$299</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Faded Days</td><td style="padding:8px 10px;">155–165</td><td style="padding:8px 10px;">TR-90</td><td style="padding:8px 10px;">No</td><td style="padding:8px 10px;">$50–$155</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">BXL</td><td style="padding:8px 10px;">145–165</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$79–$125</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">SizeGlasses</td><td style="padding:8px 10px;">140–165</td><td style="padding:8px 10px;">TR-90 blend</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$59–$99</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Jubleelens</td><td style="padding:8px 10px;">138–155</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$30–$120</td></tr>
+    <tr><td style="padding:8px 10px;">Tom Davies bespoke</td><td style="padding:8px 10px;">Any</td><td style="padding:8px 10px;">Acetate, horn, Ti</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$1,200–$3,200</td></tr>
+  </tbody>
+</table>
+
+<h2>How to decide which one to buy</h2>
+
+<ul>
+<li><strong>Premium daily-wear prescription frame at 155–161 mm:</strong> Woolet stock at $190 is the obvious pick — premium Italian acetate, lens-less shipping for your optician, designed for this exact bracket.</li>
+<li><strong>Premium frame outside 155–161 mm:</strong> Woolet bespoke at $299 covers the rest of the range with the same atelier and materials.</li>
+<li><strong>Sunglasses for casual use, $50–$155:</strong> Faded Days. Honest fit, casual aesthetic, fast.</li>
+<li><strong>Prescription at the lowest possible price:</strong> SizeGlasses or BXL TR-90. Accept the material and longevity trade-off.</li>
+<li><strong>Traditional bespoke with in-person fitter:</strong> Tom Davies. Plan on $1,200+ and several appointments.</li>
+</ul>
+
+<h2>What to ask any of these brands before you buy</h2>
+
+<ul>
+<li>What is the hinge-to-hinge front width in millimetres (not lens width)?</li>
+<li>What is the bridge and temple length?</li>
+<li>What material is the frame (Italian acetate, TR-90, injection plastic, etc.)?</li>
+<li>Does the frame accept prescription lenses, and does it ship lens-less to my optician?</li>
+<li>What is the return policy if the fit is wrong?</li>
+</ul>
+
+<h2>Next step</h2>
+
+<p>If you don't know your face width yet, the <a href="/en/fit">AI Fit Scan</a> gives it to you in 90 seconds. If you already know you're 155 mm+, <a href="/en/products/009">Woolet 009</a> at 158 mm or <a href="/en/bespoke">bespoke at $299</a> are the direct paths.</p>
+
+<p>Related: <a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> · <a href="/en/blog/best-oversized-sunglasses-big-heads-2026">Best oversized sunglasses</a> · <a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head</a>.</p>
+`,
+  },
 ];
 
 const blogPostsPL: BlogPost[] = [
