@@ -671,9 +671,33 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
     const finalize = () => {
       setStabilizing(false);
-      const partialSample = samples.length > 0 ? [...samples].sort((a, b) => a.faceWidthMm - b.faceWidthMm)[Math.floor(samples.length / 2)] : null;
-
-      const median = partialSample;
+      // MAD-based outlier trim before median selection.
+      // 1. Sort by faceWidthMm, take rough median.
+      // 2. Compute MAD (median absolute deviation).
+      // 3. Keep only samples within 2.5 * MAD of rough median (Hampel filter).
+      // 4. Final median = middle element of trimmed set.
+      // This removes 1-2 bad frames that would otherwise swing the result by ~10mm.
+      let median: ValidSample | null = null;
+      if (samples.length > 0) {
+        const sorted = [...samples].sort((a, b) => a.faceWidthMm - b.faceWidthMm);
+        const roughMed = sorted[Math.floor(sorted.length / 2)].faceWidthMm;
+        const devs = sorted.map((s) => Math.abs(s.faceWidthMm - roughMed)).sort((a, b) => a - b);
+        const mad = devs[Math.floor(devs.length / 2)] || 1;
+        const threshold = Math.max(2, 2.5 * mad); // mm; floor of 2mm so we don't over-trim tight clusters
+        const trimmed = sorted.filter((s) => Math.abs(s.faceWidthMm - roughMed) <= threshold);
+        const pool = trimmed.length >= 3 ? trimmed : sorted;
+        median = pool[Math.floor(pool.length / 2)];
+        const spread = pool[pool.length - 1].faceWidthMm - pool[0].faceWidthMm;
+        console.info("[FitScan] capture stats", {
+          rawSamples: samples.length,
+          trimmedSamples: pool.length,
+          rawMin: sorted[0].faceWidthMm,
+          rawMax: sorted[sorted.length - 1].faceWidthMm,
+          medianMm: median.faceWidthMm,
+          trimmedSpreadMm: spread,
+          madMm: mad,
+        });
+      }
 
       const cv = document.createElement("canvas");
       cv.width = w;
@@ -762,14 +786,18 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             diag.lastYawDeg = yawDeg;
             diag.lastPitchDeg = pitchDeg;
             diag.lastRollDeg = rollDeg;
-            const faceFrontal = rollDeg < 12 && yawRatio < 0.24 && pitchRatio < 0.24;
+            // Tighter pose gates for measurement accuracy:
+            // - 5° yaw → ~0.4% projection error (~0.6mm). 12° → 2.2% (~3.5mm).
+            // - Pitch affects face oval height/width ratio similarly.
+            // Loose preview gate stays at 12°; sample acceptance uses strict.
+            const faceFrontal = rollDeg < 5 && yawRatio < 0.10 && pitchRatio < 0.12;
 
             if (!faceFrontal) {
               diag.poseOff++;
               const parts: string[] = [];
-              if (rollDeg >= 12) parts.push(`roll ${rollDeg.toFixed(0)}°`);
-              if (yawRatio >= 0.24) parts.push(`yaw ${yawDeg.toFixed(0)}°`);
-              if (pitchRatio >= 0.24) parts.push(`pitch ${pitchDeg.toFixed(0)}°`);
+              if (rollDeg >= 5) parts.push(`roll ${rollDeg.toFixed(0)}°`);
+              if (yawRatio >= 0.10) parts.push(`yaw ${yawDeg.toFixed(0)}°`);
+              if (pitchRatio >= 0.12) parts.push(`pitch ${pitchDeg.toFixed(0)}°`);
               reason = `Pose off (${parts.join(", ")})`;
             } else {
               const cx = ((faceLeft.x + faceRight.x) / 2) * w;
@@ -791,35 +819,49 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   ? `Card confidence low (${Math.round(corner.confidence * 100)}%)`
                   : "Card not detected on forehead";
               } else {
-                const halfW = faceWpx / 2;
-                const expanded = halfW * 1.12;
-                const yMid = ((faceLeft.y + faceRight.y) / 2) * h;
-                const faceEdges: [Point, Point] = [
-                  { x: Math.max(0, cx - expanded), y: yMid },
-                  { x: Math.min(w, cx + expanded), y: yMid },
-                ];
-                try {
-                  const m = calculateMeasurements(
-                    lms, w,
-                    corner.corners[0], corner.corners[1],
-                    faceEdges[0], faceEdges[1],
-                  );
-                  samples.push({
-                    landmarks: lms,
-                    corners: corner.corners,
-                    faceEdges,
-                    faceWidthMm: m.faceWidthMm,
-                  });
-                  diag.valid = samples.length;
-                  setStabilizeValid(samples.length);
-                  reason = `Valid frame (${m.faceWidthMm} mm)`;
-                  if (samples.length === STABILIZE_MIN_VALID) {
-                    haptic([30, 60, 30]);
+                // Card-tilt gate: tilt > 2.5° distorts mmPerPx scale and
+                // is the single largest source of measurement variance.
+                // The on-screen bubble is gold/green at <2°; we allow a
+                // touch of slack here to keep capture moving.
+                const [cA, cB] = corner.corners;
+                const tiltDeg = Math.abs(
+                  Math.atan2(cB.y - cA.y, cB.x - cA.x) * 180 / Math.PI,
+                );
+                const tiltNorm = tiltDeg > 90 ? 180 - tiltDeg : tiltDeg;
+                if (tiltNorm > 2.5) {
+                  diag.cardLow++;
+                  reason = `Card tilted ${tiltNorm.toFixed(1)}° — hold level`;
+                } else {
+                  const halfW = faceWpx / 2;
+                  const expanded = halfW * 1.12;
+                  const yMid = ((faceLeft.y + faceRight.y) / 2) * h;
+                  const faceEdges: [Point, Point] = [
+                    { x: Math.max(0, cx - expanded), y: yMid },
+                    { x: Math.min(w, cx + expanded), y: yMid },
+                  ];
+                  try {
+                    const m = calculateMeasurements(
+                      lms, w,
+                      corner.corners[0], corner.corners[1],
+                      faceEdges[0], faceEdges[1],
+                    );
+                    samples.push({
+                      landmarks: lms,
+                      corners: corner.corners,
+                      faceEdges,
+                      faceWidthMm: m.faceWidthMm,
+                    });
+                    diag.valid = samples.length;
+                    setStabilizeValid(samples.length);
+                    reason = `Valid frame (${m.faceWidthMm} mm)`;
+                    if (samples.length === STABILIZE_MIN_VALID) {
+                      haptic([30, 60, 30]);
+                    }
+                  } catch (e) {
+                    diag.measErr++;
+                    const msg = e instanceof Error ? e.message : "Measurement out of range";
+                    reason = `Measurement rejected: ${msg.split(".")[0]}`;
                   }
-                } catch (e) {
-                  diag.measErr++;
-                  const msg = e instanceof Error ? e.message : "Measurement out of range";
-                  reason = `Measurement rejected: ${msg.split(".")[0]}`;
                 }
               }
             }
