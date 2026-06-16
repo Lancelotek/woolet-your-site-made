@@ -534,6 +534,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const [scanDiag, setScanDiag] = useState<ScanDiag>(emptyDiag);
   const [lighting, setLighting] = useState<"green" | "yellow" | "red">("yellow");
   const [cardState, setCardState] = useState<"none" | "ok" | "misaligned">("none");
+  // Live card-edge tilt (deg) from detected top-edge corners. Null when no
+  // card edge is detected yet. Drives the bubble-level under the card frame.
+  const [cardTiltDeg, setCardTiltDeg] = useState<number | null>(null);
   const [cardOverride, setCardOverride] = useState(false);
   const [showCardOverride, setShowCardOverride] = useState(false);
   const cardMissingSinceRef = useRef<number | null>(null);
