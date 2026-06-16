@@ -650,7 +650,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     setStabilizing(true);
     setStabilizeProgress(0);
     setStabilizeValid(0);
-    setScanDiag(emptyDiag);
+    setAutoRetryAttempt(0);
 
     const w = v.videoWidth;
     const h = v.videoHeight;
@@ -672,9 +672,10 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       faceEdges: [Point, Point];
       faceWidthMm: number;
     }
-    const samples: ValidSample[] = [];
+    let samples: ValidSample[] = [];
     let totalTicks = 0;
-    const startTs = performance.now();
+    let startTs = performance.now();
+    let roundIndex = 0;
 
     const finalize = () => {
       setStabilizing(false);
