@@ -244,6 +244,24 @@ const KickstarterPrelaunch = () => {
     document.getElementById("vip-form-hero")?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  useEffect(() => {
+    const hero = document.getElementById("vip-form-hero");
+    const finalForm = document.getElementById("vip-form-final");
+    if (!hero) return;
+    let heroVisible = true;
+    let finalVisible = false;
+    const update = () => setShowStickyCta(!heroVisible && !finalVisible);
+    const heroObs = new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; update(); }, { threshold: 0 });
+    heroObs.observe(hero);
+    let finalObs: IntersectionObserver | null = null;
+    if (finalForm) {
+      finalObs = new IntersectionObserver(([e]) => { finalVisible = e.isIntersecting; update(); }, { threshold: 0 });
+      finalObs.observe(finalForm);
+    }
+    return () => { heroObs.disconnect(); finalObs?.disconnect(); };
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
