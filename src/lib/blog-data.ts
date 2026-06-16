@@ -1789,7 +1789,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Start with the <a href="/en/fit">AI Fit Scan</a> — it tells you in 90 seconds whether you're in stock territory (155–161 mm) or bespoke (150–154 mm or 162–172 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">reserve a $299 spot</a>.</p>
 
-<p>Related reading: <a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> · <a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses guide</a> · <a href="/en/blog/what-is-italian-acetate-premium-eyewear">Italian acetate explained</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — what bespoke actually means and who needs it.</li>
+<li><a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> — the industry sizing gap, in plain numbers.</li>
+<li><a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses: the complete guide</a> — stock options before you commit to bespoke.</li>
+<li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — the material every bespoke frame is cut from.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — 90-second check whether you're in stock or bespoke territory.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 150–172 mm.</li>
+</ul>
 `,
   },
   {
@@ -1866,7 +1874,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>The fastest way to find out whether you need made-to-measure or whether stock will fit is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds, no commitment. If you already know you're outside the 155–161 mm stock range, the <a href="/en/fit/bespoke">bespoke size reference</a> shows the full 150–172 mm grid, and <a href="/en/bespoke">$299 reservations</a> are open.</p>
 
-<p>Related: <a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke size guide 150–172 mm</a> · <a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> · <a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — line-by-line price breakdown.</li>
+<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> — what your $299 actually buys.</li>
+<li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — where the difference is real.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — 90-second check before you go bespoke.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 150–172 mm.</li>
+</ul>
 `,
   },
   {
@@ -1939,7 +1955,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Next step: <a href="/en/fit">measure your face</a> · <a href="/en/products/009">view 009</a> · <a href="/en/bespoke">bespoke at $299</a>.</p>
 
-<p>Related: <a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses guide</a> · <a href="/en/blog/how-much-do-bespoke-glasses-cost">Bespoke glasses cost breakdown</a> · <a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses: the complete guide</a> — stock-frame options first.</li>
+<li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — get the input right before ordering.</li>
+<li><a href="/en/blog/glasses-for-wide-nose-bridge-21-22mm-explained">Wide nose-bridge glasses (21–22 mm)</a> — the second axis after face width.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — your measurements in 90 seconds.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — for prescriptions outside the stock grid.</li>
+</ul>
 `,
   },
   {
@@ -2049,7 +2073,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Next step: <a href="/en/fit">measure your face</a> to find out whether you're inside or outside the 155–161 mm stock range, then either <a href="/en/products/009">009 stock at $190</a> or <a href="/en/bespoke">bespoke at $299</a>.</p>
 
-<p>Related: <a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> · <a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> · <a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke size guide 150–172 mm</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — definitions and who actually needs it.</li>
+<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> — where the cost comes from.</li>
+<li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — which premium is worth paying.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — confirm stock vs bespoke in 90 seconds.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 150–172 mm.</li>
+</ul>
 `,
   },
   {
@@ -2123,7 +2155,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Next step: <a href="/en/products/009">view 009</a> · <a href="/en/about">about our atelier partner</a> · <a href="/en/fit">measure your face</a>.</p>
 
-<p>Related: <a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> · <a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> · <a href="/en/blog/how-much-do-bespoke-glasses-cost">Bespoke glasses cost breakdown</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — the material the atelier starts from.</li>
+<li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — what handwork actually changes.</li>
+<li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — how bespoke fits into the wider market.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — start the bespoke flow from your phone.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 150–172 mm.</li>
+</ul>
 `,
   },
   {
@@ -2217,7 +2257,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Woolet 007 and 009 are CNC-cut and hand-finished in a Cadore atelier from Mazzucchelli M49 Italian acetate, with German-made OBE 5-barrel hinges. The bespoke tier uses the same atelier and same materials with a CAD file generated from your AI face scan. Full atelier details are on the <a href="/en/about">about page</a>.</p>
 
-<p>Related: <a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> · <a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> · <a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> — step-by-step inside the atelier.</li>
+<li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — why the material matters before the method.</li>
+<li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — the price of handwork, line by line.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — see whether handmade bespoke is right for your face.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — handmade in Italy, pre-launch pricing.</li>
+</ul>
 `,
   },
   {
@@ -2301,7 +2349,15 @@ const blogPostsEN: BlogPost[] = [
 <li>If you fall outside that bracket, <a href="/en/bespoke">bespoke at $299</a> covers 150–172 mm.</li>
 </ol>
 
-<p>Related: <a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> · <a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — what to do if stock won't fit.</li>
+<li><a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> — the industry sizing gap.</li>
+<li><a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head?</a> — the size grid you actually need.</li>
+<li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — diagnose it yourself in 60 seconds.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — confirm your real face width in 90 seconds.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — when stock is genuinely too small.</li>
+</ul>
 `,
   },
   {
@@ -2392,7 +2448,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>If you are unsure which bracket you sit in, <a href="/en/fit">run the AI Fit Scan</a> — it tells you the exact face width and the right bracket in 90 seconds. If you already know you are in bracket 3 (155–161 mm), <a href="/en/products/009">Woolet 009</a> ships at 158 mm with the right bridge and temple to match. For bracket 4, <a href="/en/bespoke">bespoke at $299</a> covers 150–172 mm.</p>
 
-<p>Related: <a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads</a> · <a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> · <a href="/en/blog/glasses-bigger-than-150mm-where-to-find-them">Glasses bigger than 150 mm</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — curated wide-fit picks.</li>
+<li><a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> — diagnose it before reordering.</li>
+<li><a href="/en/blog/glasses-bigger-than-150mm-where-to-find-them">Where to find glasses bigger than 150 mm</a> — brands that actually ship the size.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — your real face width in 90 seconds.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — built for 150–172 mm faces.</li>
+</ul>
 `,
   },
   {
@@ -2493,7 +2557,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>If you don't know your face width yet, the <a href="/en/fit">AI Fit Scan</a> gives it to you in 90 seconds. If you already know you're 155 mm+, <a href="/en/products/009">Woolet 009</a> at 158 mm or <a href="/en/bespoke">bespoke at $299</a> are the direct paths.</p>
 
-<p>Related: <a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> · <a href="/en/blog/best-oversized-sunglasses-big-heads-2026">Best oversized sunglasses</a> · <a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head</a>.</p>
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — curated wide-fit picks.</li>
+<li><a href="/en/blog/best-oversized-sunglasses-big-heads-2026">Best oversized sunglasses for big heads</a> — the sunglasses counterpart.</li>
+<li><a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head?</a> — the size grid behind the picks.</li>
+<li><a href="/en/fit">AI Fit Scan</a> — confirm whether you're stock or bespoke.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — when "bigger than 150 mm" still isn't enough.</li>
+</ul>
 `,
   },
 ];
