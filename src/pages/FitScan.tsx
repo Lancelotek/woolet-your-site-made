@@ -966,8 +966,19 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
     const start = async () => {
       try {
+        // Force a consistent 1280x720 stream across browsers. Without these
+        // constraints Chrome iOS often falls back to 640x480 while Safari
+        // gives 1280x720 — different pixel counts → different mmPerPx →
+        // different face widths. `aspectRatio: 16/9` + `frameRate` lock the
+        // tor optyczny so the same physical camera is selected on both.
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+          video: {
+            facingMode: "user",
+            width: { ideal: 1280, min: 1280 },
+            height: { ideal: 720, min: 720 },
+            aspectRatio: { ideal: 16 / 9 },
+            frameRate: { ideal: 30 },
+          },
           audio: false,
         });
         if (cancelled) {
@@ -979,6 +990,24 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         if (!v) return;
         v.srcObject = stream;
         await v.play();
+        // Log actual stream settings — different browsers/devices may pick
+        // different focal length, FOV, or crop. This is the single most
+        // useful diagnostic when face-width disagrees across browsers.
+        try {
+          const track = stream.getVideoTracks()[0];
+          const settings = track?.getSettings?.();
+          const capabilities = (track as MediaStreamTrack & { getCapabilities?: () => MediaTrackCapabilities })?.getCapabilities?.();
+          console.info("[FitScan] camera stream", {
+            ua: navigator.userAgent,
+            videoWidth: v.videoWidth,
+            videoHeight: v.videoHeight,
+            settings,
+            capabilities,
+            devicePixelRatio: window.devicePixelRatio,
+          });
+        } catch (e) {
+          console.warn("[FitScan] camera stream introspection failed", e);
+        }
         setReady(true);
         pushEvent("scan_camera_active");
       } catch (err) {
