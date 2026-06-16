@@ -14,6 +14,7 @@
 
 import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
 import { getBlogPosts } from "@/lib/blog-data";
+import { PRODUCT_FAQ, faqPageJsonLd } from "./faq-data";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
@@ -85,6 +86,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
       priceValidUntil: "2026-12-31",
       url: `${SITE_URL}/en/products/${model}`,
       seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+      itemCondition: "https://schema.org/NewCondition",
       priceSpecification: {
         "@type": "PriceSpecification",
         price: "114",
@@ -95,11 +97,20 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
       eligibleRegion: { "@type": "Place", name: "Worldwide" },
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
-        applicableCountry: "US",
+        applicableCountry: ["US", "PL", "GB", "DE", "FR", "ES"],
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
         merchantReturnDays: 30,
         returnMethod: "https://schema.org/ReturnByMail",
         returnFees: "https://schema.org/FreeReturn",
+      },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 2, unitCode: "DAY" },
+          transitTime: { "@type": "QuantitativeValue", minValue: 5, maxValue: 12, unitCode: "DAY" },
+        },
       },
     },
   };
@@ -224,6 +235,7 @@ export function getMetadata(route: string): RouteMeta {
           { name: "Products", url: `${SITE_URL}/en` },
           { name: "Woolet 007", url: `${SITE_URL}/en/products/007` },
         ]),
+        faqPageJsonLd(PRODUCT_FAQ),
       ],
     );
   }
@@ -248,6 +260,7 @@ export function getMetadata(route: string): RouteMeta {
           { name: "Products", url: `${SITE_URL}/en` },
           { name: "Woolet 009", url: `${SITE_URL}/en/products/009` },
         ]),
+        faqPageJsonLd(PRODUCT_FAQ),
       ],
     );
   }

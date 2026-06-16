@@ -135,6 +135,7 @@ Key facts for AI summaries:
 
 - [Privacy Policy](/en/privacy-policy)
 - [Return Policy](/en/return-policy)
+- [Pricing (machine-readable)](/pricing.txt)
 - [Full reference (llms-full.txt)](/llms-full.txt)
 
 ## Contact
