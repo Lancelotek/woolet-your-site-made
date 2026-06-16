@@ -931,7 +931,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       }
     };
 
-    stabilizeRafRef.current = requestAnimationFrame(tick);
+    beginRound();
   }, [busy, stabilizing, cardState, cardOverride, poseState, levelState, isMobile, onCaptured, onError, stopAll]);
 
   const startTimer = useCallback(() => {
