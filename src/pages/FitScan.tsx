@@ -1873,7 +1873,10 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 letterSpacing: "0.04em",
               }}
             >
-              <span>{tFit(lang, "camera.measuring")}</span>
+              <span>
+                {tFit(lang, "camera.measuring")}
+                {autoRetryAttempt > 0 ? ` · retry ${autoRetryAttempt}/${MAX_AUTO_RETRIES}` : ""}
+              </span>
               <span style={{ color: GOLD, fontVariantNumeric: "tabular-nums" }}>
                 {stabilizeValid}/{STABILIZE_MIN_VALID}
               </span>
