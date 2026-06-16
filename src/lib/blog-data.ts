@@ -1646,6 +1646,152 @@ const blogPostsEN: BlogPost[] = [
 <p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 `,
   },
+  {
+    slug: "bespoke-eyewear-size-range-150-172mm-guide",
+    title: "Bespoke Eyewear 150–172 mm — The Complete Size Guide (2026)",
+    excerpt: "Why bespoke exists between 150 and 172 mm, how the sizing actually works, and how to know whether a stock 155–161 mm Woolet or a made-to-measure frame is the right call.",
+    date: "2026-06-16",
+    readTime: 12,
+    tags: ["Bespoke", "Sizing", "Wide Face", "2026"],
+    faq: [
+      {
+        q: "What is bespoke eyewear?",
+        a: "Bespoke eyewear is a frame cut and finished to one person's measurements rather than picked from a fixed size catalog. The frame width, bridge, temple length, and lens shape are all set from the wearer's face — typically captured with a scan or in-person measurement.",
+      },
+      {
+        q: "What face width counts as bespoke territory?",
+        a: "Most mainstream brands cap at 145–148 mm. Specialist wide-face brands cover roughly 155–161 mm with stock sizes. Anything below 150 mm or above 161 mm is bespoke territory — the size range where stock catalogs no longer carry an option that fits.",
+      },
+      {
+        q: "How much do bespoke glasses cost?",
+        a: "Atelier-made bespoke acetate frames typically retail at $900–$2,500. Woolet bespoke is $299 for the first 100 Kickstarter backers (frame only); prescription lenses are ordered separately at a local optician.",
+      },
+      {
+        q: "How long does bespoke production take?",
+        a: "About 8–10 weeks from approved measurements to delivery: scan and CAD approval in week 1, hand-finishing at the Italian atelier over 6–8 weeks, shipping in the final week.",
+      },
+      {
+        q: "Bespoke vs stock — how do I decide?",
+        a: "Run the AI Fit Scan first. If your face width lands between 155 and 161 mm with a 21–22 mm bridge, stock Woolet 007 or 009 will fit. If you're below 155 mm, above 161 mm, or your bridge falls outside 21–22 mm, bespoke is the only path that gets you a frame that actually fits.",
+      },
+    ],
+    content: `
+<p>Bespoke eyewear is one of the most misused words in the optical industry. Most brands that call themselves "bespoke" simply let you pick a color, swap a lens, or add an engraving on a frame whose underlying dimensions never change. That's customization. <strong>Bespoke means the dimensions themselves are made to one person.</strong></p>
+
+<p>This guide explains where bespoke actually starts (it's not at 155 mm), why the 150–172 mm range exists, and how to know whether a stock Woolet 155–161 mm frame will work for you — or whether you need a made-to-measure pair.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">In one line</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces stock catalogs can't fit — below 150 mm, above 161 mm, or with a bridge outside the 21–22 mm keyhole standard. Woolet bespoke covers 150–172 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
+</div>
+
+<h2>Why bespoke starts at 150 mm and ends at 172 mm</h2>
+
+<p>The mainstream eyewear industry tops out at roughly 148 mm total frame width — that's Persol, Ray-Ban, Tom Ford, and almost every brand sold in mall opticals. Specialist wide-face brands extend that ceiling to around 155–161 mm with stock sizes. Above 161 mm, the catalog options collapse to almost zero.</p>
+
+<p>The lower bound matters too. Faces measuring 150–154 mm are often <em>too wide for mainstream and too narrow for wide-face specialists</em>. They sit in a gap where no stock frame fits cleanly.</p>
+
+<p>172 mm is the practical upper limit of a single-block acetate cut — beyond that, the frame's structural integrity drops and the temples need a metal core to stay rigid. Below 150 mm, mainstream "wide" frames already cover the range, so bespoke isn't economically justified.</p>
+
+<h2>The complete 150–172 mm size table</h2>
+
+<p>Use the table below to find your size band. Measurements are total frame width (lens + bridge + lens + hinge allowance), not just lens width.</p>
+
+<div style="overflow-x:auto;margin:28px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
+<thead>
+<tr style="background:#0f0f0f;color:#f0ece4;">
+<th style="padding:14px 16px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">Face width</th>
+<th style="padding:14px 16px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">Bridge</th>
+<th style="padding:14px 16px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">Path</th>
+<th style="padding:14px 16px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">Where it fits</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>150–154 mm</strong></td><td style="padding:14px 16px;">16–20 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
+<tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">21 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 (S)</td><td style="padding:14px 16px;color:#555;">Round/panto, narrow stock size</td></tr>
+<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>158 mm</strong></td><td style="padding:14px 16px;">21–22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 / 009 (M)</td><td style="padding:14px 16px;color:#555;">Core size, covers most 155 mm+ buyers</td></tr>
+<tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 009 (L)</td><td style="padding:14px 16px;color:#555;">Square, top of stock range</td></tr>
+<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>162–166 mm</strong></td><td style="padding:14px 16px;">22–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Above stock ceiling</td></tr>
+<tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>167–172 mm</strong></td><td style="padding:14px 16px;">23–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The pattern is clean: <strong>three stock sizes</strong> (155 / 158 / 161 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 150–154 mm gap below and the 162–172 mm range above.</p>
+
+<h2>What "bespoke" actually controls (and what it doesn't)</h2>
+
+<p>Bespoke dimensions cover four things:</p>
+
+<ul>
+<li><strong>Frame width</strong> — total horizontal width, set to your temple-to-temple measurement plus a 4–6 mm clearance.</li>
+<li><strong>Bridge width</strong> — distance between the lenses, sized to sit on the bone ridge rather than pinch the cartilage.</li>
+<li><strong>Temple length</strong> — hinge to tip, matched to your ear position (not a default 145 mm).</li>
+<li><strong>Pantoscopic tilt</strong> — the forward angle of the lens plane, useful if you have asymmetric ear height.</li>
+</ul>
+
+<p>Bespoke does <em>not</em> change the lens shape catalog. You still choose between the 007 round/panto silhouette and the 009 soft-square. The shape is the design language; bespoke just scales it precisely to your face.</p>
+
+<h2>How the AI scan translates to bespoke dimensions</h2>
+
+<p>The <a href="/en/fit">AI Fit Scan</a> captures four measurements from a 90-second phone scan: face width, bridge width, temple-to-temple distance, and ear position. Those four numbers map directly to the four bespoke dimensions above.</p>
+
+<p>If the scan returns a face width inside 155–161 mm with a 21–22 mm bridge, you get a stock recommendation (007 or 009) and your bespoke decision is over. If any measurement falls outside that window, the scan routes you to the bespoke path with your numbers pre-filled — no re-measuring, no guesswork at the atelier.</p>
+
+<h2>Stock vs bespoke — the honest comparison</h2>
+
+<div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:28px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">Decision matrix</div>
+  <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;">
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Stock wins when</strong> your face is 155–161 mm with a 21–22 mm bridge. You get the same Mazzucchelli acetate at $133–$190, with a 2–3 week lead time instead of 8–10.</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Bespoke wins when</strong> stock can't physically fit — face width outside 155–161 mm, bridge outside 21–22 mm, asymmetric ears, or unusual pantoscopic-tilt needs.</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Neither wins when</strong> you're inside the stock range but want a one-of-one piece for aesthetic reasons. That's a legitimate use of bespoke, but the fit gain is zero.</li>
+  </ul>
+</div>
+
+<h2>Why Italian Mazzucchelli acetate matters for bespoke</h2>
+
+<p>Bespoke only works on a material that can be hand-shaped after the initial cut. Mazzucchelli acetate (from Castiglione Olona, northern Italy) is denser than TR90 thermoplastic and can be heat-adjusted by any optician for ongoing fit corrections — even years after delivery. CNC-finished TR90 frames cannot be reshaped the same way.</p>
+
+<p>That adjustability is the difference between a frame that fits for a week and one that fits for a decade. For deeper background, see <a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate</a>.</p>
+
+<h2>The bespoke process — week by week</h2>
+
+<ol>
+<li><strong>Week 1:</strong> Take the AI Fit Scan. CAD drawing is generated from your measurements and sent for approval.</li>
+<li><strong>Weeks 2–7:</strong> The atelier cuts the frame from a single block of Mazzucchelli acetate, mills the lens slots, and hand-polishes the surface. No CNC finishing.</li>
+<li><strong>Week 8:</strong> QC and final fitting check. Frame ships ready for lenses.</li>
+<li><strong>Week 9–10:</strong> You take the frame to your local optician with your prescription, PD, and lens preference (clear, blue-light, polarized, or progressive).</li>
+</ol>
+
+<h2>Pricing — bespoke vs the market</h2>
+
+<p>Comparable atelier-made bespoke acetate frames retail at $900–$2,500. Tom Davies bespoke starts around $1,800. Lindberg semi-custom titanium runs $1,200–$2,000. Cubitts bespoke is roughly $1,500.</p>
+
+<p>Woolet bespoke is <strong>$299 for the first 100 Kickstarter backers</strong> (frame only; lenses ordered separately). The $1 reservation holds your spot; full charge happens when production starts.</p>
+
+<h2>FAQ</h2>
+
+<h3>What's the difference between custom and bespoke glasses?</h3>
+<p>Custom usually means choosing options from a fixed menu — color, lens type, engraving — while the underlying frame dimensions stay the same. Bespoke means the dimensions themselves (frame width, bridge, temples) are made to one person's face. Most "custom" eyewear is not bespoke.</p>
+
+<h3>Can bespoke frames be remade if my prescription changes?</h3>
+<p>Yes. The frame is delivered without lenses, so any future prescription change is a lens swap at your optician — the frame itself stays. Acetate also reshapes with heat, so minor fit corrections happen at the optician too.</p>
+
+<h3>Do I need to fly to Italy or visit a fitter?</h3>
+<p>No. The entire process runs from the AI scan on your phone. The atelier receives the digitized measurements and a CAD approval — no in-person fitting needed.</p>
+
+<h3>What if the bespoke frame doesn't fit when it arrives?</h3>
+<p>Acetate is heat-adjustable at any local optician for free, which handles ~90% of fit issues. For dimensional problems beyond optician adjustment, the frame is remade — covered under the bespoke guarantee.</p>
+
+<h2>Next steps</h2>
+
+<p>Start with the <a href="/en/fit">AI Fit Scan</a> — it tells you in 90 seconds whether you're in stock territory (155–161 mm) or bespoke (150–154 mm or 162–172 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">reserve a $299 spot</a>.</p>
+
+<p>Related reading: <a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> · <a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses guide</a> · <a href="/en/blog/what-is-italian-acetate-premium-eyewear">Italian acetate explained</a>.</p>
+`,
+  },
 ];
 
 const blogPostsPL: BlogPost[] = [
