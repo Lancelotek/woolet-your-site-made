@@ -1152,6 +1152,18 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     allReadyPrevRef.current = allReady;
   }, [allReady, isMobile]);
 
+  // Short haptic ping when the card tilt enters the green zone (<2°).
+  // Rising edge only — fires once per crossing, not continuously while level.
+  const cardLevelOkPrevRef = useRef(false);
+  useEffect(() => {
+    if (!isMobile) return;
+    const isLevel = cardTiltDeg !== null && Math.abs(cardTiltDeg) < 2;
+    if (isLevel && !cardLevelOkPrevRef.current) {
+      try { navigator.vibrate?.(25); } catch { /* noop */ }
+    }
+    cardLevelOkPrevRef.current = isLevel;
+  }, [cardTiltDeg, isMobile]);
+
   const levelColor =
     levelState === "ok"
       ? "#4ade80"
