@@ -252,8 +252,10 @@ const BespokePage = () => {
               <div className="woolet-eyebrow-line" />
               <span className="woolet-eyebrow-text">PRICING · LIMITED TO 100 BACKERS</span>
             </div>
-            <Link
-              to="/en/fit"
+            <a
+              href="https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group block no-underline transition-all hover:-translate-y-0.5"
               style={{
                 border: "1px solid hsl(var(--gold) / 0.55)",
@@ -311,7 +313,7 @@ const BespokePage = () => {
                   →
                 </span>
               </div>
-            </Link>
+            </a>
             <p className="text-cream-dim leading-relaxed mt-6" style={{ fontSize: "0.85rem" }}>
               Reservation is $1 to hold your spot. Full $299 charged when production starts. Prescription lenses are ordered separately at your local optician.
             </p>
