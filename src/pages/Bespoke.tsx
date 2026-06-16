@@ -253,7 +253,7 @@ const BespokePage = () => {
               <span className="woolet-eyebrow-text">PRICING · LIMITED TO 100 BACKERS</span>
             </div>
             <a
-              href="https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url"
+              href="https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url?ref=woolet&utm_source=woolet&utm_medium=referral&utm_campaign=bespoke_prelaunch&utm_content=reserve_299_spot"
               target="_blank"
               rel="noopener noreferrer"
               className="group block no-underline transition-all hover:-translate-y-0.5"
