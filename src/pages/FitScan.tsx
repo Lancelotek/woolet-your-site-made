@@ -2958,16 +2958,17 @@ function EmailGateStep({
     try {
       // Persist the scan to scan_sessions with the captured email so it can be
       // linked to the user's account on sign-in (via link_user_data_by_email).
-      supabase
-        .from("scan_sessions")
-        .insert({
-          email: parsed.data,
-          status: "completed",
-          face_width_mm: faceWidthMm,
-          nose_width_mm: noseWidthMm,
-          recommendation_type: recommendation.type,
-          confidence: confidence ?? null,
-          user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+      supabase.functions
+        .invoke("scan-session-create", {
+          body: {
+            email: parsed.data,
+            status: "completed",
+            face_width_mm: faceWidthMm,
+            nose_width_mm: noseWidthMm,
+            recommendation_type: recommendation.type,
+            confidence: confidence ?? null,
+            user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+          },
         })
         .then(({ error: insErr }) => {
           if (insErr) console.warn("[scan email gate] scan_sessions insert failed", insErr);
@@ -3354,6 +3355,7 @@ export default function FitScan() {
   // `s`   = legacy supabase scan-session id (kept for back-compat).
   const sidParam = searchParams.get("sid");
   const sessionId = searchParams.get("s");
+  const sessionToken = searchParams.get("t");
   // If the visitor arrived via the desktop→QR handoff OR is already logged in,
   // skip the email gate — we already have a verified address for them.
   const emailAlreadyCaptured = !!sidParam || !!sessionId || !!user;
@@ -3409,15 +3411,15 @@ export default function FitScan() {
   // Handoff: when the phone opens a scan via QR (s=sessionId), mark it connected
   // so the originating desktop sees the "Phone connected" status immediately.
   useEffect(() => {
-    if (!sessionId) return;
-    supabase
-      .from("scan_sessions")
-      .update({ status: "connected" })
-      .eq("id", sessionId)
+    if (!sessionId || !sessionToken) return;
+    supabase.functions
+      .invoke("scan-session-update", {
+        body: { id: sessionId, token: sessionToken, status: "connected" },
+      })
       .then(({ error }) => {
         if (error) console.warn("[scan] connect status update failed", error);
       });
-  }, [sessionId]);
+  }, [sessionId, sessionToken]);
 
   const goWelcome = () => {
     setFrame(null);
@@ -3470,18 +3472,20 @@ export default function FitScan() {
       claritySet("scan_result", String(m.faceWidthMm));
       // If this scan was opened via QR handoff, sync the result so the
       // originating desktop session can render it in real time.
-      if (sessionId) {
-        supabase
-          .from("scan_sessions")
-          .update({
-            status: "completed",
-            face_width_mm: m.faceWidthMm,
-            nose_width_mm: m.noseWidthMm,
-            recommendation_type: r.type,
-            confidence: m.confidence,
-            user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+      if (sessionId && sessionToken) {
+        supabase.functions
+          .invoke("scan-session-update", {
+            body: {
+              id: sessionId,
+              token: sessionToken,
+              status: "completed",
+              face_width_mm: m.faceWidthMm,
+              nose_width_mm: m.noseWidthMm,
+              recommendation_type: r.type,
+              confidence: m.confidence,
+              user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+            },
           })
-          .eq("id", sessionId)
           .then(({ error: updErr }) => {
             if (updErr) console.warn("[scan] session sync failed", updErr);
           });
