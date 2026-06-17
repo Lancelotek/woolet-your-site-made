@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import bespokeHero from "@/assets/bespoke-hero.png.asset.json";
 
 const FAQS = [
   {
@@ -86,68 +87,90 @@ const BespokePage = () => {
       <main className="bg-background text-foreground min-h-screen">
         {/* Hero */}
         <section className="relative w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-28">
-          <div className="max-w-4xl mx-auto">
-            <div className="woolet-eyebrow mb-5">
-              <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">BESPOKE · 150–172 MM</span>
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
+            <div>
+              <div className="woolet-eyebrow mb-5">
+                <div className="woolet-eyebrow-line" />
+                <span className="woolet-eyebrow-text">BESPOKE · 150–172 MM</span>
+              </div>
+              <h1
+                className="font-display text-woolet-white leading-[0.95] mb-6"
+                style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", fontWeight: 300 }}
+              >
+                Bespoke eyewear. <em className="italic text-gold-light">Made to your face.</em>
+              </h1>
+              <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "1.05rem" }}>
+                Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted by a small atelier in northern Italy from your AI face scan.
+                Frame widths from <span className="text-foreground">150 mm to 172 mm</span>, 21 mm keyhole bridge,
+                ready for any lens — prescription, progressive, blue-light, or polarized sun.
+              </p>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                <Link
+                  to="/en/fit"
+                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                  style={{
+                    background: "hsl(var(--gold))",
+                    color: "hsl(var(--background))",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.72rem",
+                    padding: "18px 32px",
+                  }}
+                >
+                  Scan your face · Reserve $299 spot
+                </Link>
+                <Link
+                  to="/en/bespoke/configurator"
+                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                  style={{
+                    background: "hsl(var(--gold))",
+                    color: "hsl(var(--background))",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.72rem",
+                    padding: "18px 32px",
+                  }}
+                >
+                  Start your build →
+                </Link>
+                <Link
+                  to="/en/fit/bespoke"
+                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                  style={{
+                    border: "1px solid hsl(var(--gold) / 0.5)",
+                    color: "hsl(var(--gold-light))",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.72rem",
+                    padding: "18px 32px",
+                  }}
+                >
+                  Learn about the process
+                </Link>
+              </div>
             </div>
-            <h1
-              className="font-display text-woolet-white leading-[0.95] mb-6"
-              style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", fontWeight: 300 }}
-            >
-              Bespoke eyewear. <em className="italic text-gold-light">Made to your face.</em>
-            </h1>
-            <p className="text-cream-dim leading-relaxed max-w-2xl mb-10" style={{ fontSize: "1.05rem" }}>
-              Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted by a small atelier in northern Italy from your AI face scan.
-              Frame widths from <span className="text-foreground">150 mm to 172 mm</span>, 21 mm keyhole bridge,
-              ready for any lens — prescription, progressive, blue-light, or polarized sun.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/en/fit"
-                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+
+            <div className="relative">
+              <div
+                className="relative overflow-hidden"
                 style={{
-                  background: "hsl(var(--gold))",
-                  color: "hsl(var(--background))",
-                  fontFamily: "Barlow, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.72rem",
-                  padding: "18px 32px",
+                  aspectRatio: "4 / 5",
+                  background: "hsl(var(--background))",
+                  boxShadow: "0 30px 80px -30px hsl(0 0% 0% / 0.6)",
                 }}
               >
-                Scan your face · Reserve $299 spot
-              </Link>
-              <Link
-                to="/en/bespoke/configurator"
-                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
-                style={{
-                  background: "hsl(var(--gold))",
-                  color: "hsl(var(--background))",
-                  fontFamily: "Barlow, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.72rem",
-                  padding: "18px 32px",
-                }}
-              >
-                Start your build →
-              </Link>
-              <Link
-                to="/en/fit/bespoke"
-                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
-                style={{
-                  border: "1px solid hsl(var(--gold) / 0.5)",
-                  color: "hsl(var(--gold-light))",
-                  fontFamily: "Barlow, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.72rem",
-                  padding: "18px 32px",
-                }}
-              >
-                Learn about the process
-              </Link>
+                <img
+                  src={bespokeHero.url}
+                  alt="Woolet Bespoke — portrait of a man wearing custom-made round acetate glasses engineered to his exact face measurements."
+                  loading="eager"
+                  fetchPriority="high"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </section>
+
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
