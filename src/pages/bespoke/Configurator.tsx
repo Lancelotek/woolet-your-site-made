@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Check } from "lucide-react";
+import { Check, Cloud, CloudOff, Loader2 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { COLORS, FINISHES, LENS_TYPES } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, formatEur, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
 import {
   StepColor,
   StepEngraving,
@@ -18,9 +19,10 @@ import {
 } from "./steps";
 
 const ConfiguratorPage = () => {
-  const { config, update, pricing, reset } = useBespokeConfig();
+  const { config, update, pricing, reset, replace } = useBespokeConfig();
   const [step, setStep] = useState<StepId>(1);
   const [saved, setSaved] = useState(false);
+  const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace });
 
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
