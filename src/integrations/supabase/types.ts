@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      bespoke_configs: {
+        Row: {
+          config: Json
+          created_at: string
+          id: string
+          is_current: boolean
+          name: string | null
+          pricing_total_eur: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          config: Json
+          created_at?: string
+          id?: string
+          is_current?: boolean
+          name?: string | null
+          pricing_total_eur?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          config?: Json
+          created_at?: string
+          id?: string
+          is_current?: boolean
+          name?: string | null
+          pricing_total_eur?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
