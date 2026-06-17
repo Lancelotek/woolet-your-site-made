@@ -315,7 +315,7 @@ const BespokePage = () => {
                     SRP after launch
                   </div>
                   <div className="font-display" style={{ fontSize: "3rem", fontWeight: 300, lineHeight: 1, color: "hsl(var(--cream-dim))", textDecoration: "line-through" }}>
-                    $399
+                    $480
                   </div>
                   <div className="text-cream-dim mt-2" style={{ fontSize: "0.8rem" }}>
                     Standard retail price
