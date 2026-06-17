@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getMetadata } from "@/seo/metadata";
 
 type Step = {
   day: number;
