@@ -118,6 +118,20 @@ const BespokePage = () => {
                 Scan your face · Reserve $299 spot
               </Link>
               <Link
+                to="/en/bespoke/configurator"
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                style={{
+                  background: "hsl(var(--gold))",
+                  color: "hsl(var(--ink))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.72rem",
+                  padding: "18px 32px",
+                }}
+              >
+                Start your build →
+              </Link>
+              <Link
                 to="/en/fit/bespoke"
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
