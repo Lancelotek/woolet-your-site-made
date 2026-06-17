@@ -278,43 +278,102 @@ export function getMetadata(route: string): RouteMeta {
 
   // ----- Process
   if (path === "/process") {
-    const steps = [
-      ["Digital engineering & CAD", "We build the linear design on the computer, tailored to the exact measurements of your frame, not a generic mould. This is where your face data becomes geometry."],
-      ["Precision cutting", "The front and the temples are cut: CNC precision where it counts, by hand where it shows."],
-      ["Component integration", "Rivets, hinges (charnières) and every metal functional element are placed and stabilised by hand."],
-      ["Lens grooving (beveling)", "The internal rims are precision-beveled to create the exact groove profile, so the lenses sit seamlessly."],
-      ["Front base curve shaping", "The front is thermally heated under control to lock in the precise optical base curve the lenses need."],
-      ["Hand-shaping & filing", "The purely handmade stage begins. Files, sandpapers and specialised tools work each frame individually into its exact shape and contours."],
-      ["Anatomical bridge sculpting", "The nose bridge is hand-sculpted for balanced weight distribution and all-day comfort — the detail that makes a wider frame disappear on your face."],
-      ["Organic sanding (tumbling)", "The frames go into the first tumbling barrel for surface smoothing and leveling. 14–17 hours."],
-      ["Frame & temple alignment", "Front and temples are hand-assembled and balanced for perfect symmetry and zero gaps at the joints."],
-      ["First polishing (tumbling)", "Into the second barrel for the primary polishing stage. 24–27 hours."],
-      ["Final hand-buffing & finishing", "Finished by hand on specialised wheels with custom waxes — the source of that signature acetate luster."],
-      ["Anatomical tailoring, engraving & QC", "Final anatomical adjustments (cold-bending), custom engraving of the Woolet logo and your name, then a rigorous final quality control inspection."],
-      ["Ultrasonic cleaning", "A deep ultrasonic-wave clean removes every trace of polishing compound and micro-dust before the frame is packed."],
-    ] as const;
+    const isPL = lang === "pl";
+    const stepsEN: ReadonlyArray<readonly [string, string, string?]> = [
+      ["Digital engineering & CAD", "Your face data becomes a CAD design built for one frame, tailored to your exact measurements rather than a generic mould.", "PT8H"],
+      ["Precision cutting", "Front and temples cut from a single Italian Mazzucchelli acetate block — CNC where it counts, by hand where it shows.", "PT6H"],
+      ["Component integration", "Rivets, hinges (charnières) and every metal functional element placed and stabilised by hand.", "PT5H"],
+      ["Lens grooving (beveling)", "Internal rims precision-beveled to create the exact groove profile, so lenses sit seamlessly inside the frame.", "PT3H"],
+      ["Front base curve shaping", "The front is thermally heated under controlled conditions to lock in the precise optical base curve the lenses need.", "PT2H"],
+      ["Hand-shaping & filing", "Files, sandpapers and specialised tools work each frame individually into its exact shape and contours.", "PT10H"],
+      ["Anatomical bridge sculpting", "Nose bridge hand-sculpted for balanced weight distribution and all-day comfort — the detail that makes a wider frame disappear on your face.", "PT4H"],
+      ["Organic sanding (tumbling)", "First tumbling barrel — organic surface smoothing and leveling.", "PT17H"],
+      ["Frame & temple alignment", "Front and temples hand-assembled and balanced for perfect symmetry and zero gaps at the joints.", "PT3H"],
+      ["First polishing (tumbling)", "Second barrel for the primary polishing stage — the source of the deep base shine.", "PT27H"],
+      ["Final hand-buffing", "Hand-finished on specialised wheels with custom waxes — the source of that signature acetate luster.", "PT5H"],
+      ["Anatomical tailoring, engraving & QC", "Cold-bend fit adjustment, custom Woolet logo and personal-name engraving, then a rigorous final QC inspection.", "PT3H"],
+      ["Ultrasonic cleaning & ship", "Deep ultrasonic-wave clean removes every trace of polishing compound and micro-dust before the frame is packed and shipped.", "PT2H"],
+    ];
+    const stepsPL: ReadonlyArray<readonly [string, string, string?]> = [
+      ["Inżynieria cyfrowa i CAD", "Dane Twojej twarzy zamieniamy w projekt CAD pod jedną oprawę — dopasowany do Twoich wymiarów, a nie do uniwersalnej formy.", "PT8H"],
+      ["Precyzyjne cięcie", "Front i zauszniki wycinane z bloku włoskiego octanu Mazzucchelli — CNC tam, gdzie liczy się dokładność, ręcznie tam, gdzie liczy się detal.", "PT6H"],
+      ["Integracja komponentów", "Nity, zawiasy (charnières) i każdy metalowy element funkcjonalny osadzany i stabilizowany ręcznie.", "PT5H"],
+      ["Frezowanie rowka soczewek", "Wewnętrzne krawędzie precyzyjnie frezowane pod profil soczewki — tak, by soczewka wpadała w oprawę bez śladu szczeliny.", "PT3H"],
+      ["Formowanie krzywizny frontu", "Front podgrzewany w kontrolowanych warunkach, by utrwalić dokładną krzywiznę optyczną pod soczewki.", "PT2H"],
+      ["Ręczne szlifowanie i pilnikowanie", "Pilniki, papiery ścierne i specjalistyczne narzędzia indywidualnie kształtują każdą oprawę.", "PT10H"],
+      ["Anatomiczna rzeźba mostka", "Mostek wyrzeźbiony ręcznie pod równomierne rozłożenie ciężaru — detal, dzięki któremu szersza oprawa znika z twarzy.", "PT4H"],
+      ["Bębnowanie organiczne", "Pierwsza beczka bębnująca — organiczne wygładzenie i wyrównanie powierzchni.", "PT17H"],
+      ["Składanie i alignment", "Front i zauszniki składane ręcznie i wyważane pod idealną symetrię i zero szczelin na połączeniach.", "PT3H"],
+      ["Pierwsze polerowanie", "Druga beczka — pierwszy etap polerowania, źródło głębokiego, bazowego połysku.", "PT27H"],
+      ["Finalne polerowanie ręczne", "Wykończenie ręczne na specjalistycznych tarczach z autorskimi woskami — źródło sygnaturowego blasku octanu.", "PT5H"],
+      ["Tailoring, grawer i QC", "Anatomiczne korekty na zimno, grawer logo Woolet i Twojego imienia, a następnie rygorystyczna kontrola jakości.", "PT3H"],
+      ["Czyszczenie ultradźwiękowe i wysyłka", "Głęboka kąpiel ultradźwiękowa usuwa pozostałości past polerskich i mikropyłu — dopiero potem oprawa trafia do pakowania.", "PT2H"],
+    ];
+    const steps = isPL ? stepsPL : stepsEN;
+    const enCanonical = `${SITE_URL}/en/process`;
+    const processImage = `${SITE_URL}/og-image.png`;
     const howTo = {
       "@context": "https://schema.org",
       "@type": "HowTo",
-      name: "How a Woolet frame is made",
-      description: "The 13-stage process behind every Woolet frame — from CAD engineering on your face measurements to the final ultrasonic clean. Hand-finished in Italy from Mazzucchelli acetate.",
-      totalTime: "P21D",
-      step: steps.map(([name, text], i) => ({
+      name: isPL ? "Jak powstaje oprawa Woolet" : "How a Woolet frame is made",
+      description: isPL
+        ? "13-etapowy, ok. 14-dniowy proces produkcji oprawy Woolet — od inżynierii CAD na bazie pomiarów Twojej twarzy po czyszczenie ultradźwiękowe. Wykończona ręcznie we Włoszech z octanu Mazzucchelli."
+        : "The 13-stage, ~14-day process behind every Woolet frame — from CAD engineering on your face measurements to the final ultrasonic clean. Hand-finished in Italy from Mazzucchelli acetate.",
+      image: processImage,
+      totalTime: "P14D",
+      estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "299" },
+      supply: [
+        { "@type": "HowToSupply", name: isPL ? "Włoski octan Mazzucchelli" : "Italian Mazzucchelli acetate" },
+        { "@type": "HowToSupply", name: isPL ? "Zawiasy 5-barrel PVD Gunmetal" : "5-barrel PVD Gunmetal hinges" },
+        { "@type": "HowToSupply", name: isPL ? "Autorskie woski polerskie" : "Custom polishing waxes" },
+      ],
+      tool: [
+        { "@type": "HowToTool", name: isPL ? "Frezarka CNC" : "CNC milling machine" },
+        { "@type": "HowToTool", name: isPL ? "Beczka bębnująca" : "Tumbling barrel" },
+        { "@type": "HowToTool", name: isPL ? "Tarcze polerskie" : "Buffing wheels" },
+        { "@type": "HowToTool", name: isPL ? "Myjka ultradźwiękowa" : "Ultrasonic cleaner" },
+      ],
+      step: steps.map(([name, text, timeRequired], i) => ({
         "@type": "HowToStep",
         position: i + 1,
         name,
         text,
-        url: `${SITE_URL}/en/process#step-${i + 1}`,
+        url: `${enCanonical}#day-${i + 1}`,
+        image: processImage,
+        ...(timeRequired ? { timeRequired } : {}),
       })),
     };
-    return base(route, lang, {
-      title: "The Woolet Process — How Our Italian Acetate Eyewear Is Made",
-      description: "How a Woolet frame is made: 13 stages from CAD to ultrasonic cleaning, hand-finished in Italy from Mazzucchelli acetate and tailored for wider faces.",
-      noscriptHtml: `<h1>The Woolet Process</h1>
-<p>Every Woolet frame is built around one face — yours. From the first digital sketch to the final ultrasonic rinse, it passes through hand and machine more than a dozen times. 13 stages. Mostly by hand. Italian Mazzucchelli acetate.</p>
-<ol>${steps.map(([n, t]) => `<li><strong>${n}</strong> — ${t}</li>`).join("")}</ol>
+    const meta = base(
+      route,
+      lang,
+      isPL
+        ? {
+            title: "Proces Woolet — jak powstają nasze oprawy z włoskiego octanu",
+            description:
+              "Jak powstaje oprawa Woolet: 13 etapów w ok. 14 dni — od CAD po czyszczenie ultradźwiękowe. Ręcznie wykończona we Włoszech z octanu Mazzucchelli, dopasowana do szerszych twarzy.",
+            noscriptHtml: `<h1>Proces Woolet</h1>
+<p>Każda oprawa Woolet powstaje wokół jednej twarzy — Twojej. Od pierwszego cyfrowego szkicu po końcowe płukanie ultradźwiękowe przechodzi przez ręce i maszyny kilkanaście razy. 13 etapów. W większości ręcznie. Włoski octan Mazzucchelli.</p>
+<ol>${steps.map(([n, t]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t)}</li>`).join("")}</ol>
+<p>Wykonane z włoskiego octanu Mazzucchelli. Wykończone ręcznie we Włoszech. <a href="/en/fit">Dobierz rozmiar</a> · <a href="/en/bespoke">Poznaj bespoke</a>.</p>`,
+          }
+        : {
+            title: "The Woolet Process — How Our Italian Acetate Eyewear Is Made",
+            description:
+              "How a Woolet frame is made: 13 stages across ~14 days, from CAD to ultrasonic cleaning. Hand-finished in Italy from Mazzucchelli acetate, tailored for wider faces.",
+            noscriptHtml: `<h1>The Woolet Process</h1>
+<p>Every Woolet frame is built around one face — yours. From the first digital sketch to the final ultrasonic rinse, it passes through hand and machine more than a dozen times. 13 stages, ~14 days, mostly by hand. Italian Mazzucchelli acetate.</p>
+<ol>${steps.map(([n, t]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t)}</li>`).join("")}</ol>
 <p>Made from Italian Mazzucchelli acetate. Hand-finished in Italy. <a href="/en/fit">Find your fit</a> · <a href="/en/bespoke">Explore bespoke</a>.</p>`,
-    }, {}, [howTo]);
+          },
+      { image: processImage, type: "website" },
+      [howTo],
+    );
+    if (isPL) {
+      // /pl/process redirects to /en/process in the SPA — canonicalise to EN and noindex the PL shell.
+      meta.canonical = enCanonical;
+      meta.robots = "noindex, follow";
+    }
+    return meta;
   }
 
   // ----- Fit
