@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getMetadata } from "@/seo/metadata";
 
 type Step = {
   day: number;
@@ -45,30 +46,18 @@ const WEEKS: Week[] = [
   },
 ];
 
-const ALL_STEPS = WEEKS.flatMap((w) => w.steps);
 
-const HOW_TO_JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  name: "How a Woolet frame is made",
-  description:
-    "The 13-stage, ~14-day process behind every Woolet frame — from CAD engineering on your face measurements to the final ultrasonic clean. Hand-finished in Italy from Mazzucchelli acetate.",
-  totalTime: "P14D",
-  step: ALL_STEPS.map((s) => ({
-    "@type": "HowToStep",
-    position: s.day,
-    name: s.title,
-    text: s.body,
-    url: `https://woolet.co/en/process#day-${s.day}`,
-  })),
-};
+
+
+const PROCESS_META = getMetadata("/en/process");
+const HOW_TO_JSON_LD = PROCESS_META.jsonLd;
 
 const Process = () => {
   return (
     <>
       <SEO
-        title="The Woolet Process — How Our Italian Acetate Eyewear Is Made"
-        description="How a Woolet frame is made: 13 stages across ~14 days, from CAD to ultrasonic cleaning. Hand-finished in Italy from Mazzucchelli acetate, tailored for wider faces."
+        title={PROCESS_META.title}
+        description={PROCESS_META.description}
         lang="en"
         path="/process"
         jsonLd={HOW_TO_JSON_LD}
