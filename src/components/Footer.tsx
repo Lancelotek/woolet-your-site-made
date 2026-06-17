@@ -61,6 +61,7 @@ const Footer = () => {
         {[
           { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
           { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
+          { label: "Process", href: `/${lang}/process` },
           { label: t(lang, "footer.why_fail"), href: `/${lang}/lp/why-glasses-fail` },
           { label: t(lang, "footer.5_reasons"), href: `/${lang}/lp/5-reasons` },
           { label: "Kickstarter", href: `/${lang}/lp/kickstarter`, newTab: true },
