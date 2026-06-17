@@ -72,9 +72,12 @@ const ConfiguratorPage = () => {
             <Link to="/en/bespoke" className="text-cream-dim text-[0.7rem] uppercase tracking-[0.22em] hover:text-cream transition">
               ← Back to Bespoke
             </Link>
-            <h1 className="font-display text-cream text-3xl sm:text-4xl font-light mt-3 mb-6">
-              Bespoke configurator
-            </h1>
+            <div className="mt-3 mb-6 flex flex-wrap items-end justify-between gap-3">
+              <h1 className="font-display text-cream text-3xl sm:text-4xl font-light">
+                Bespoke configurator
+              </h1>
+              <SyncBadge status={status} isSignedIn={isSignedIn} lastSavedAt={lastSavedAt} />
+            </div>
             <ol className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-2 -mx-1 px-1">
               {STEPS.map((s, i) => {
                 const isCurrent = s.id === step;
