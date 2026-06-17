@@ -130,6 +130,8 @@ const App = () => (
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/about" element={<About />} />
+          <Route path="/en/process" element={<Process />} />
+          <Route path="/:lang/process" element={<RedirectToEn to="/process" />} />
           <Route path="/en/bespoke" element={<Bespoke />} />
           <Route path="/:lang/bespoke" element={<Bespoke />} />
           {/* Legacy /:lang/pages/bespoke -> /:lang/bespoke */}
