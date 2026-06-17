@@ -265,16 +265,77 @@ const KickstarterPrelaunch = () => {
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
-        <title>Woolet on Kickstarter — VIP Early Access | Wide-Face Eyewear</title>
+        <title>Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear</title>
         <meta
           name="description"
-          content="Join the Woolet VIP list for the Kickstarter launch. Get a hidden VIP pledge invisible to the public, plus first access to the 100 Founders Edition Havana and 40% off Early Bird rewards."
+          content="Join the Woolet Kickstarter VIP list. Lock 40% off Early Bird pricing, a hidden pledge invisible to the public, and first access to 100 numbered Founders Edition Havana frames built for wide faces (155 mm+)."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/kickstarter" />
-        <meta property="og:title" content="Woolet on Kickstarter — VIP Early Access" />
-        <meta property="og:description" content="Italian acetate eyewear built for wide faces (155mm+). Coming to Kickstarter." />
+        <meta property="og:title" content="Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear" />
+        <meta property="og:description" content="Italian Mazzucchelli acetate eyewear built for wide faces (155 mm+). VIPs lock 40% off and a hidden pledge before public launch." />
         <meta property="og:url" content="https://woolet.co/en/lp/kickstarter" />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear" />
+        <meta name="twitter:description" content="VIP early access for the Woolet Kickstarter. 40% off + hidden pledge for wide faces (155 mm+)." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear",
+          url: "https://woolet.co/en/lp/kickstarter",
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "Woolet", url: "https://woolet.co/" },
+          primaryImageOfPage: { "@type": "ImageObject", url: "https://woolet.co/og-image.jpg" },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
+              { "@type": "ListItem", position: 2, name: "Kickstarter VIP", item: "https://woolet.co/en/lp/kickstarter" },
+            ],
+          },
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: "Woolet Founders Edition — Italian Acetate Eyewear for Wide Faces",
+          brand: { "@type": "Brand", name: "Woolet" },
+          description: "Italian Mazzucchelli acetate eyewear for faces 155 mm+. Two shapes (007 Round, 009 Square) in 155 / 158 / 161 mm. Kickstarter VIP pricing: 40% off Early Bird, plus 100 numbered Founders Edition Havana frames.",
+          image: ["https://woolet.co/og-image.jpg"],
+          material: "Italian Mazzucchelli acetate",
+          countryOfOrigin: "IT",
+          audience: { "@type": "PeopleAudience", suggestedMeasurement: "Face width 155 mm and above" },
+          offers: {
+            "@type": "Offer",
+            url: "https://woolet.co/en/lp/kickstarter",
+            priceCurrency: "USD",
+            price: "133",
+            priceValidUntil: "2026-12-31",
+            availability: "https://schema.org/PreOrder",
+            availabilityStarts: KS_LAUNCH_DATE.toISOString(),
+            itemCondition: "https://schema.org/NewCondition",
+            seller: { "@type": "Organization", name: "Woolet", url: "https://woolet.co/" },
+          },
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: "Woolet Kickstarter Launch",
+          description: "Public launch of the Woolet eyewear campaign on Kickstarter. VIPs receive 40% off Early Bird and access to a hidden pledge.",
+          startDate: KS_LAUNCH_DATE.toISOString(),
+          eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+          eventStatus: "https://schema.org/EventScheduled",
+          location: { "@type": "VirtualLocation", url: "https://woolet.co/en/lp/kickstarter" },
+          image: ["https://woolet.co/og-image.jpg"],
+          organizer: { "@type": "Organization", name: "Woolet", url: "https://woolet.co/" },
+          offers: {
+            "@type": "Offer",
+            url: "https://woolet.co/en/lp/kickstarter",
+            price: "0",
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+            validFrom: new Date().toISOString(),
+          },
+        })}</script>
       </Helmet>
 
       {/* Top bar */}
