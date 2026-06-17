@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Check } from "lucide-react";
+import { Check, Cloud, CloudOff, Loader2 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { COLORS, FINISHES, LENS_TYPES } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, formatEur, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
 import {
   StepColor,
   StepEngraving,
@@ -18,9 +19,10 @@ import {
 } from "./steps";
 
 const ConfiguratorPage = () => {
-  const { config, update, pricing, reset } = useBespokeConfig();
+  const { config, update, pricing, reset, replace } = useBespokeConfig();
   const [step, setStep] = useState<StepId>(1);
   const [saved, setSaved] = useState(false);
+  const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace });
 
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
@@ -70,9 +72,12 @@ const ConfiguratorPage = () => {
             <Link to="/en/bespoke" className="text-cream-dim text-[0.7rem] uppercase tracking-[0.22em] hover:text-cream transition">
               ← Back to Bespoke
             </Link>
-            <h1 className="font-display text-cream text-3xl sm:text-4xl font-light mt-3 mb-6">
-              Bespoke configurator
-            </h1>
+            <div className="mt-3 mb-6 flex flex-wrap items-end justify-between gap-3">
+              <h1 className="font-display text-cream text-3xl sm:text-4xl font-light">
+                Bespoke configurator
+              </h1>
+              <SyncBadge status={status} isSignedIn={isSignedIn} lastSavedAt={lastSavedAt} />
+            </div>
             <ol className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-2 -mx-1 px-1">
               {STEPS.map((s, i) => {
                 const isCurrent = s.id === step;
@@ -218,5 +223,40 @@ const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode })
     <dd className="text-cream text-xs text-right">{value}</dd>
   </div>
 );
+
+const SyncBadge = ({
+  status,
+  isSignedIn,
+  lastSavedAt,
+}: {
+  status: ReturnType<typeof useBespokeCloudSync>["status"];
+  isSignedIn: boolean;
+  lastSavedAt: string | null;
+}) => {
+  if (!isSignedIn) {
+    return (
+      <Link
+        to="/en/account/signin?next=/en/bespoke/configurator"
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/15 text-cream-dim hover:text-cream hover:border-cream/30 text-[0.62rem] uppercase tracking-[0.18em] transition"
+      >
+        <CloudOff size={12} />
+        Sign in to save across devices
+      </Link>
+    );
+  }
+  const label =
+    status === "loading" ? "Loading your build…" :
+    status === "saving"  ? "Saving…" :
+    status === "error"   ? "Sync error — retrying" :
+    lastSavedAt          ? `Saved · ${new Date(lastSavedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` :
+                           "Synced to your account";
+  const Icon = status === "loading" || status === "saving" ? Loader2 : Cloud;
+  return (
+    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/10 bg-cream/[0.03] text-cream-dim text-[0.62rem] uppercase tracking-[0.18em]">
+      <Icon size={12} className={status === "loading" || status === "saving" ? "animate-spin" : ""} />
+      {label}
+    </span>
+  );
+};
 
 export default ConfiguratorPage;
