@@ -106,7 +106,7 @@ const Process = () => {
             {WEEKS.map((week, wi) => (
               <div key={week.label} className={wi === 0 ? "" : "mt-16 sm:mt-20"}>
                 {/* Week header */}
-                <div className="pl-[68px] sm:pl-[120px] mb-8 sm:mb-10">
+                <div className="pl-[72px] sm:pl-[128px] mb-8 sm:mb-10">
                   <p
                     className="uppercase text-gold-light mb-2"
                     style={{
