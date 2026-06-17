@@ -134,8 +134,8 @@ const Process = () => {
                 <ol
                   className="relative list-none p-0 m-0"
                   style={{
-                    // Rail x-position = numeral column width + clear gutter to rail
-                    ["--rail-x" as string]: "112px",
+                    // Mobile keeps rail away from day numerals; desktop uses editorial number column.
+                    ["--rail-x" as string]: "24px",
                   } as React.CSSProperties}
                 >
                   {/* Single vertical rail */}
@@ -153,13 +153,13 @@ const Process = () => {
                     <li
                       key={step.day}
                       id={`day-${step.day}`}
-                      className="relative grid grid-cols-[92px_1fr] sm:grid-cols-[148px_1fr] items-stretch scroll-mt-24 sm:[--rail-x:168px]"
+                      className="relative grid grid-cols-[48px_1fr] sm:grid-cols-[148px_1fr] items-stretch scroll-mt-24 sm:[--rail-x:168px]"
                       style={{
-                        ["--rail-x" as string]: "112px",
+                        ["--rail-x" as string]: "24px",
                       } as React.CSSProperties}
                     >
                       {/* Day number column */}
-                      <div className="relative pr-6 sm:pr-8 py-4 text-right">
+                      <div className="relative col-start-2 sm:col-start-1 pr-0 sm:pr-8 pt-4 sm:py-4 pb-1 text-left sm:text-right">
                         <span
                           className="block uppercase text-cream-dim/55"
                           style={{
@@ -174,7 +174,7 @@ const Process = () => {
                         <span
                           className="font-display text-gold-light block mt-1"
                           style={{
-                            fontSize: "clamp(1.85rem, 3vw, 2.4rem)",
+                            fontSize: "clamp(1.55rem, 3vw, 2.4rem)",
                             fontWeight: 600,
                             lineHeight: 1,
                             letterSpacing: "-0.01em",
@@ -187,10 +187,10 @@ const Process = () => {
                       {/* Connector from rail to card */}
                       <div
                         aria-hidden
-                        className="absolute top-1/2 -translate-y-1/2"
+                        className="absolute top-[4.85rem] sm:top-1/2 sm:-translate-y-1/2"
                         style={{
                           left: "var(--rail-x)",
-                          width: "14px",
+                          width: "18px",
                           height: "2px",
                           background: "hsl(var(--gold) / 0.45)",
                         }}
@@ -198,7 +198,7 @@ const Process = () => {
                       {/* Node circle on the rail */}
                       <span
                         aria-hidden
-                        className="absolute top-1/2 -translate-y-1/2 rounded-full"
+                        className="absolute top-[4.85rem] sm:top-1/2 sm:-translate-y-1/2 rounded-full"
                         style={{
                           left: "calc(var(--rail-x) - 8px)",
                           width: "16px",
@@ -209,7 +209,7 @@ const Process = () => {
                       />
 
                       {/* Card */}
-                      <div className="pl-10 sm:pl-12 py-3">
+                      <div className="col-start-2 sm:col-start-2 pl-0 sm:pl-12 pt-2 pb-6 sm:py-3">
                         <div
                           className="px-5 sm:px-7 py-5 sm:py-6 transition-colors"
                           style={{
