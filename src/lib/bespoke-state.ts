@@ -75,9 +75,13 @@ export function useBespokeConfig() {
     setConfig({ ...INITIAL_CONFIG, updatedAt: new Date().toISOString() });
   }, []);
 
+  const replace = useCallback((next: BespokeConfig) => {
+    setConfig({ ...next, updatedAt: new Date().toISOString() });
+  }, []);
+
   const pricing = useMemo(() => computePricing(config), [config]);
 
-  return { config, update, reset, pricing };
+  return { config, update, reset, replace, pricing };
 }
 
 export interface Pricing {
