@@ -122,7 +122,7 @@ const BespokePage = () => {
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   background: "hsl(var(--gold))",
-                  color: "hsl(var(--ink))",
+                  color: "hsl(var(--background))",
                   fontFamily: "Barlow, sans-serif",
                   fontWeight: 500,
                   fontSize: "0.72rem",
