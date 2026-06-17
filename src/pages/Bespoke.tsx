@@ -370,6 +370,15 @@ const BespokePage = () => {
             >
               Start AI face scan
             </Link>
+            <div className="mt-6">
+              <Link
+                to="/en/process"
+                className="text-gold-light/80 no-underline uppercase tracking-[0.22em] hover:text-gold-light transition-colors border-b border-gold-light/30 hover:border-gold-light pb-1"
+                style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem", fontWeight: 500 }}
+              >
+                See how it's made →
+              </Link>
+            </div>
           </div>
         </section>
       </main>

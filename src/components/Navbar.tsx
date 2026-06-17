@@ -52,6 +52,14 @@ const Navbar = () => {
             {t(lang, "nav.bespoke")}
           </Link>
           <Link
+            to={`/${lang}/process`}
+            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            style={{ fontSize: "0.55rem" }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "process", nav_lang: lang })}
+          >
+            Process
+          </Link>
+          <Link
             to={`/${lang}/blog`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.55rem" }}
@@ -166,6 +174,18 @@ const Navbar = () => {
               }}
             >
               {t(lang, "nav.bespoke")}
+            </Link>
+
+            <Link
+              to={`/${lang}/process`}
+              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              style={{ fontSize: "0.75rem" }}
+              onClick={() => {
+                setMenuOpen(false);
+                pushGtmEvent("nav_click", { nav_item: "process", nav_lang: lang });
+              }}
+            >
+              Process
             </Link>
 
             <Link

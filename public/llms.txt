@@ -104,6 +104,7 @@ Key facts for AI summaries:
 ## Pages
 
 - [About](/en/about): Brand story, entity disambiguation (Woolet eyewear vs. discontinued Woolet smart wallet), and contact.
+- [The Woolet Process](/en/process): How a Woolet frame is made — 13 stages from CAD engineering to ultrasonic cleaning, hand-finished in Italy from Mazzucchelli acetate.
 - [Woolet 007 (Round / Panto)](/en/products/007): The round Italian-acetate frame for wide faces — 158 mm with a 21 mm keyhole bridge.
 - [Woolet 009 (Soft Square)](/en/products/009): The soft-square Italian-acetate frame for wide faces — 158 mm with a 22 mm keyhole bridge.
 - [AI Fit Wizard](/en/fit): Camera-based face measurement using the cheek-card method.
