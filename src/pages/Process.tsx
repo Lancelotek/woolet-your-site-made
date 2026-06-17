@@ -222,7 +222,7 @@ const Process = () => {
 
                     {/* Text column */}
                     <div
-                      className={`md:col-span-${step.withVisual ? "5" : "10"} ${
+                      className={`${step.withVisual ? "md:col-span-5" : "md:col-span-10"} ${
                         reverse ? "md:order-1" : "md:order-2"
                       }`}
                     >
