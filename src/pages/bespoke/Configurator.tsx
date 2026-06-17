@@ -54,7 +54,7 @@ const ConfiguratorPage = () => {
                  <StepReview config={config} onSave={handleSave} saved={saved} />;
 
   return (
-    <div className="min-h-screen bg-ink text-cream">
+    <div className="min-h-screen bg-background text-cream">
       <SEO
         title="Bespoke Configurator — Woolet"
         description="Design your made-to-order bio-acetate eyewear: choose silhouette, compose colour, measure your fit, engrave, pick lenses. Hand-made in Italy from Mazzucchelli acetate."
@@ -92,7 +92,7 @@ const ConfiguratorPage = () => {
                       <span
                         className={`w-5 h-5 rounded-full inline-flex items-center justify-center text-[0.6rem] ${
                           isCurrent
-                            ? "bg-gold text-ink"
+                            ? "bg-gold text-background"
                             : isDone
                             ? "bg-cream/15 text-cream"
                             : "bg-cream/[0.04] text-cream-dim"
@@ -125,7 +125,7 @@ const ConfiguratorPage = () => {
 
             {/* Desktop summary sidebar */}
             <aside className="hidden lg:block">
-              <div className="sticky top-24 rounded-[14px] border border-cream/10 bg-ink/40 p-5">
+              <div className="sticky top-24 rounded-[14px] border border-cream/10 bg-background/40 p-5">
                 <div className="uppercase tracking-[0.2em] text-[0.62rem] text-gold-light/80 mb-3">Your build</div>
 
                 {frame ? (
@@ -193,7 +193,7 @@ const ConfiguratorPage = () => {
       </main>
 
       {/* Mobile sticky summary */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-ink/95 backdrop-blur border-t border-cream/15 px-4 py-3 flex items-center justify-between gap-3">
+      <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-background/95 backdrop-blur border-t border-cream/15 px-4 py-3 flex items-center justify-between gap-3">
         <div>
           <div className="text-[0.6rem] uppercase tracking-[0.18em] text-cream-dim">Total · {frame ? frame.name : "no frame"}</div>
           <div className="font-display text-cream text-xl font-light leading-none">{formatEur(pricing.totalEur)}</div>
@@ -201,7 +201,7 @@ const ConfiguratorPage = () => {
         <button
           onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
           disabled={!isStepComplete(step, config) || step === STEPS.length}
-          className="px-5 py-2.5 rounded-full bg-gold text-ink text-[0.68rem] uppercase tracking-[0.2em] font-medium disabled:opacity-40 transition"
+          className="px-5 py-2.5 rounded-full bg-gold text-background text-[0.68rem] uppercase tracking-[0.2em] font-medium disabled:opacity-40 transition"
         >
           {step === STEPS.length ? "Done" : "Next step"}
         </button>

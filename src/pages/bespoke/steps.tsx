@@ -26,7 +26,7 @@ const sectionTitle = "font-display text-cream text-2xl sm:text-3xl font-light";
 const sectionKicker = "uppercase tracking-[0.22em] text-[0.62rem] text-gold-light/80 mb-2";
 const labelClass = "uppercase tracking-[0.18em] text-[0.62rem] text-cream-dim";
 
-const cardOuter = "rounded-[14px] border border-cream/10 bg-ink/40 transition-all";
+const cardOuter = "rounded-[14px] border border-cream/10 bg-background/40 transition-all";
 const cardActive = "border-gold/60 bg-gold/[0.04] ring-1 ring-gold/30";
 
 /* ───── Step 1 ───── */
@@ -192,8 +192,8 @@ export function StepColor({ config, update }: StepProps) {
 /* ───── Step 3 ───── */
 function ConsentModal({ onAccept, onDecline }: { onAccept: () => void; onDecline: () => void }) {
   return (
-    <div className="fixed inset-0 z-50 bg-ink/90 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="max-w-lg w-full rounded-[14px] border border-gold/30 bg-ink p-6 sm:p-8">
+    <div className="fixed inset-0 z-50 bg-background/90 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="max-w-lg w-full rounded-[14px] border border-gold/30 bg-background p-6 sm:p-8">
         <div className={sectionKicker}>Biometric data consent</div>
         <h3 className="font-display text-cream text-2xl font-light mb-4">Before we open your camera</h3>
         <ul className="text-cream-dim text-sm leading-relaxed space-y-2 mb-6 list-disc list-inside">
@@ -204,7 +204,7 @@ function ConsentModal({ onAccept, onDecline }: { onAccept: () => void; onDecline
         </ul>
         <p className="text-cream-dim text-xs mb-6">By proceeding you consent to processing of biometric data under GDPR Art. 9(2)(a). You may decline and use the tape measure path instead.</p>
         <div className="flex gap-3 flex-col sm:flex-row">
-          <button onClick={onAccept} className="flex-1 px-6 py-3 rounded-full bg-gold text-ink text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition">
+          <button onClick={onAccept} className="flex-1 px-6 py-3 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition">
             I consent — start scan
           </button>
           <button onClick={onDecline} className="flex-1 px-6 py-3 rounded-full border border-cream/20 text-cream-dim text-xs uppercase tracking-[0.18em] hover:border-cream/40 transition">
@@ -252,7 +252,7 @@ export function StepMeasure({ config, update }: StepProps) {
           </p>
           <button
             onClick={() => setShowConsent(true)}
-            className="px-5 py-2.5 rounded-full bg-gold text-ink text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition"
+            className="px-5 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition"
           >
             {config.measurementMethod === "scan" ? "Re-scan" : "Start AI scan"}
           </button>
@@ -276,7 +276,7 @@ export function StepMeasure({ config, update }: StepProps) {
       </div>
 
       {(config.measurementMethod === "tape" || config.measurementMethod === "scan") && (
-        <div className="rounded-[14px] border border-cream/10 bg-ink/40 p-5">
+        <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5">
           <div className={labelClass}>Measurements (mm)</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
             {(Object.keys(MEASUREMENT_RANGES) as MeasurementKey[]).map((k) => {
@@ -292,7 +292,7 @@ export function StepMeasure({ config, update }: StepProps) {
                       value={config.measurements[k] ?? ""}
                       onChange={(e) => handleTapeChange(k, e.target.value)}
                       placeholder={`${range.min}–${range.max}`}
-                      className={`w-full px-4 py-2.5 rounded-[10px] bg-ink border text-cream text-sm focus:outline-none focus:ring-1 transition pr-12 ${
+                      className={`w-full px-4 py-2.5 rounded-[10px] bg-background border text-cream text-sm focus:outline-none focus:ring-1 transition pr-12 ${
                         bad ? "border-[hsl(0_60%_55%)] focus:ring-[hsl(0_60%_55%)]" : "border-cream/15 focus:border-gold focus:ring-gold/40"
                       }`}
                     />
@@ -378,7 +378,7 @@ export function StepEngraving({ config, update }: StepProps) {
               onChange={(e) => update("engravingText", e.target.value.slice(0, ENGRAVING_MAX_CHARS))}
               maxLength={ENGRAVING_MAX_CHARS}
               placeholder="Your initials, a date, a word…"
-              className="mt-2 w-full px-4 py-3 rounded-[10px] bg-ink border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
+              className="mt-2 w-full px-4 py-3 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
             />
             <div className="text-cream-dim text-[0.7rem] mt-1.5">{remaining} characters left</div>
           </div>
@@ -525,7 +525,7 @@ export function StepLenses({ config, update }: StepProps) {
       )}
 
       {needsRx && (
-        <div className="rounded-[14px] border border-cream/10 bg-ink/40 p-5">
+        <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5">
           <div className={labelClass}>Prescription</div>
           <label className="mt-3 flex items-center gap-3 px-4 py-3 rounded-[10px] border border-dashed border-cream/20 text-cream-dim text-sm hover:border-cream/40 transition cursor-pointer">
             <Upload size={16} />
@@ -585,7 +585,7 @@ export function StepReview({
       </header>
 
       {frame && (
-        <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-ink/40">
+        <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-background/40">
           <div className="aspect-[16/9] bg-cream/[0.03] flex items-center justify-center">
             <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
           </div>
@@ -596,7 +596,7 @@ export function StepReview({
         </div>
       )}
 
-      <div className="rounded-[14px] border border-cream/10 bg-ink/40 px-5">
+      <div className="rounded-[14px] border border-cream/10 bg-background/40 px-5">
         <Row label="Frame" value={frame ? `${frame.name} (${frame.id})` : null} />
         <Row label="Front colour" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
         <Row label="Temple colour" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
@@ -617,7 +617,7 @@ export function StepReview({
       <button
         onClick={onSave}
         disabled={saved}
-        className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-ink text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light disabled:opacity-50 disabled:cursor-not-allowed transition"
+        className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light disabled:opacity-50 disabled:cursor-not-allowed transition"
       >
         {saved ? "Build saved ✓" : "Save my build"}
       </button>
@@ -662,7 +662,7 @@ export function StepNav({
         <button
           onClick={onNext}
           disabled={!canNext}
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold text-ink text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
           Next <ChevronRight size={14} />
         </button>
