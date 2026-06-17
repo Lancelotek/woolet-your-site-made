@@ -106,7 +106,7 @@ const Process = () => {
             {WEEKS.map((week, wi) => (
               <div key={week.label} className={wi === 0 ? "" : "mt-16 sm:mt-20"}>
                 {/* Week header */}
-                <div className="pl-[68px] sm:pl-[120px] mb-8 sm:mb-10">
+                <div className="pl-[72px] sm:pl-[128px] mb-8 sm:mb-10">
                   <p
                     className="uppercase text-gold-light mb-2"
                     style={{
@@ -131,22 +131,19 @@ const Process = () => {
                 </div>
 
                 {/* Days */}
-                <ol className="relative list-none p-0 m-0">
-                  {/* Vertical rail */}
+                <ol
+                  className="relative list-none p-0 m-0"
+                  style={{
+                    // Rail x-position = numeral column width + gutter to rail
+                    ["--rail-x" as string]: "92px",
+                  } as React.CSSProperties}
+                >
+                  {/* Single vertical rail */}
                   <div
                     aria-hidden
-                    className="absolute top-0 bottom-0"
+                    className="absolute top-0 bottom-0 sm:[--rail-x:148px]"
                     style={{
-                      left: "calc(68px - 1px)",
-                      width: "2px",
-                      background: "hsl(var(--gold) / 0.32)",
-                    }}
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute top-0 bottom-0 hidden sm:block"
-                    style={{
-                      left: "calc(120px - 1px)",
+                      left: "calc(var(--rail-x) - 1px)",
                       width: "2px",
                       background: "hsl(var(--gold) / 0.32)",
                     }}
@@ -156,10 +153,13 @@ const Process = () => {
                     <li
                       key={step.day}
                       id={`day-${step.day}`}
-                      className="relative grid grid-cols-[68px_1fr] sm:grid-cols-[120px_1fr] items-stretch scroll-mt-24"
+                      className="relative grid grid-cols-[72px_1fr] sm:grid-cols-[128px_1fr] items-stretch scroll-mt-24 sm:[--rail-x:148px]"
+                      style={{
+                        ["--rail-x" as string]: "92px",
+                      } as React.CSSProperties}
                     >
                       {/* Day number column */}
-                      <div className="relative pr-5 sm:pr-8 py-4 text-right">
+                      <div className="relative pr-4 sm:pr-6 py-4 text-right">
                         <span
                           className="block uppercase text-cream-dim/55"
                           style={{
@@ -174,7 +174,7 @@ const Process = () => {
                         <span
                           className="font-display text-gold-light block mt-1"
                           style={{
-                            fontSize: "clamp(2rem, 3.2vw, 2.6rem)",
+                            fontSize: "clamp(1.85rem, 3vw, 2.4rem)",
                             fontWeight: 600,
                             lineHeight: 1,
                             letterSpacing: "-0.01em",
@@ -184,43 +184,23 @@ const Process = () => {
                         </span>
                       </div>
 
-                      {/* Node + connector */}
+                      {/* Connector from rail to card */}
                       <div
                         aria-hidden
-                        className="absolute top-1/2 -translate-y-1/2 hidden sm:block"
+                        className="absolute top-1/2 -translate-y-1/2"
                         style={{
-                          left: "calc(120px - 21px)",
-                          width: "21px",
+                          left: "var(--rail-x)",
+                          width: "18px",
                           height: "2px",
                           background: "hsl(var(--gold) / 0.45)",
                         }}
                       />
-                      <div
-                        aria-hidden
-                        className="absolute top-1/2 -translate-y-1/2 sm:hidden"
-                        style={{
-                          left: "calc(68px - 9px)",
-                          width: "9px",
-                          height: "2px",
-                          background: "hsl(var(--gold) / 0.45)",
-                        }}
-                      />
+                      {/* Node circle on the rail */}
                       <span
                         aria-hidden
                         className="absolute top-1/2 -translate-y-1/2 rounded-full"
                         style={{
-                          left: "calc(68px - 8px)",
-                          width: "16px",
-                          height: "16px",
-                          background: "hsl(var(--background))",
-                          border: "2px solid hsl(var(--gold))",
-                        }}
-                      />
-                      <span
-                        aria-hidden
-                        className="absolute top-1/2 -translate-y-1/2 rounded-full hidden sm:block"
-                        style={{
-                          left: "calc(120px - 8px)",
+                          left: "calc(var(--rail-x) - 8px)",
                           width: "16px",
                           height: "16px",
                           background: "hsl(var(--background))",
@@ -229,7 +209,7 @@ const Process = () => {
                       />
 
                       {/* Card */}
-                      <div className="pl-5 sm:pl-8 py-3">
+                      <div className="pl-8 sm:pl-10 py-3">
                         <div
                           className="px-5 sm:px-7 py-5 sm:py-6 transition-colors"
                           style={{
