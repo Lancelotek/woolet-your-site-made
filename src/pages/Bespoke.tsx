@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import bespokeHero from "@/assets/bespoke-hero.png.asset.json";
 
 const FAQS = [
   {
