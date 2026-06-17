@@ -85,7 +85,7 @@ export function useBespokeCloudSync({ config, setConfig }: Options) {
       setStatus("saving");
       const payload = {
         user_id: user.id,
-        config: config as unknown as Record<string, unknown>,
+        config: JSON.parse(JSON.stringify(config)),
         pricing_total_eur: computePricing(config).totalEur,
         is_current: true,
       };
