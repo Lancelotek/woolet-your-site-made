@@ -692,6 +692,7 @@ const STATIC_ROUTES = [
   "/en/return-policy",
   "/en/blog",
   "/pl",
+  "/pl/process",
   "/pl/blog",
   "/pl/privacy-policy",
   "/pl/return-policy",
