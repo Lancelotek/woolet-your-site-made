@@ -36,6 +36,7 @@ const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"))
 const About = lazy(() => import("./pages/About.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
 const Bespoke = lazy(() => import("./pages/Bespoke.tsx"));
+const BespokeConfigurator = lazy(() => import("./pages/bespoke/Configurator.tsx"));
 const VipJoin = lazy(() => import("./pages/VipJoin.tsx"));
 const Gone = lazy(() => import("./pages/Gone.tsx"));
 const WideFaceGlasses = lazy(() => import("./pages/collections/WideFaceGlasses.tsx"));
@@ -133,6 +134,8 @@ const App = () => (
           <Route path="/en/process" element={<Process />} />
           <Route path="/:lang/process" element={<RedirectToEn to="/process" />} />
           <Route path="/en/bespoke" element={<Bespoke />} />
+          <Route path="/en/bespoke/configurator" element={<BespokeConfigurator />} />
+          <Route path="/:lang/bespoke/configurator" element={<Navigate to="/en/bespoke/configurator" replace />} />
           <Route path="/:lang/bespoke" element={<Bespoke />} />
           {/* Legacy /:lang/pages/bespoke -> /:lang/bespoke */}
           <Route path="/en/pages/bespoke" element={<Navigate to="/en/bespoke" replace />} />
