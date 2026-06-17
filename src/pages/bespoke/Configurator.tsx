@@ -58,8 +58,7 @@ const ConfiguratorPage = () => {
       <SEO
         title="Bespoke Configurator — Woolet"
         description="Design your made-to-order bio-acetate eyewear: choose silhouette, compose colour, measure your fit, engrave, pick lenses. Hand-made in Italy from Mazzucchelli acetate."
-        canonical="https://woolet.co/en/bespoke/configurator"
-        ogUrl="https://woolet.co/en/bespoke/configurator"
+        path="/bespoke/configurator"
         noindex
       />
       <Navbar />
