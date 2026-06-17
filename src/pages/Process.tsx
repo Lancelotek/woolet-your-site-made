@@ -4,117 +4,62 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 type Step = {
-  n: number;
+  day: number;
   title: string;
   body: string;
-  /** When true, render a paired visual placeholder block. */
-  withVisual?: boolean;
-  /** Alt text describing what photo will go in the placeholder, for future drop-in. */
-  visualAlt?: string;
+  duration?: string;
 };
 
-const STEPS: Step[] = [
+type Week = {
+  label: string;
+  title: string;
+  steps: Step[];
+};
+
+const WEEKS: Week[] = [
   {
-    n: 1,
-    title: "Digital engineering & CAD",
-    body:
-      "We build the linear design on the computer, tailored to the exact measurements of your frame — not a generic mould. This is where your face data becomes geometry.",
-    withVisual: true,
-    visualAlt: "CAD wireframe of a Woolet acetate frame being engineered from face-scan measurements",
+    label: "Week One",
+    title: "Design & Build",
+    steps: [
+      { day: 1, title: "Digital Engineering & CAD", body: "Your face data becomes a CAD design built for one frame." },
+      { day: 2, title: "Precision Cutting", body: "Front and temples cut — CNC where it counts, by hand where it shows." },
+      { day: 3, title: "Component Integration", body: "Rivets, hinges and metal elements set and stabilised by hand." },
+      { day: 4, title: "Lens Grooving", body: "Internal rims precision-beveled for a seamless lens groove." },
+      { day: 5, title: "Front Base Curve Shaping", body: "Controlled thermal heating locks in the optical base curve." },
+      { day: 6, title: "Hand-Shaping & Filing", body: "Files and tools work each frame individually into shape." },
+      { day: 7, title: "Anatomical Bridge Sculpting", body: "Bridge hand-sculpted for balance on a wider face." },
+    ],
   },
   {
-    n: 2,
-    title: "Precision cutting",
-    body:
-      "The front and the temples are cut: CNC precision where it counts, by hand where it shows.",
-  },
-  {
-    n: 3,
-    title: "Component integration",
-    body:
-      "Rivets, hinges (charnières) and every metal functional element are placed and stabilised by hand.",
-  },
-  {
-    n: 4,
-    title: "Lens grooving (beveling)",
-    body:
-      "The internal rims are precision-beveled to create the exact groove profile, so the lenses sit seamlessly.",
-  },
-  {
-    n: 5,
-    title: "Front base curve shaping",
-    body:
-      "The front is thermally heated under control to lock in the precise optical base curve the lenses need.",
-  },
-  {
-    n: 6,
-    title: "Hand-shaping & filing",
-    body:
-      "The purely handmade stage begins. Files, sandpapers and specialised tools work each frame individually into its exact shape and contours.",
-    withVisual: true,
-    visualAlt: "Artisan hand-filing a Woolet acetate frame at the Italian atelier",
-  },
-  {
-    n: 7,
-    title: "Anatomical bridge sculpting",
-    body:
-      "The nose bridge is hand-sculpted for balanced weight distribution and all-day comfort — the detail that makes a wider frame disappear on your face.",
-  },
-  {
-    n: 8,
-    title: "Organic sanding (tumbling)",
-    body:
-      "The frames go into the first tumbling barrel for surface smoothing and leveling. 14–17 hours.",
-    withVisual: true,
-    visualAlt: "Wooden tumbling barrel rotating acetate frames during the organic sanding stage",
-  },
-  {
-    n: 9,
-    title: "Frame & temple alignment",
-    body:
-      "Front and temples are hand-assembled and balanced for perfect symmetry and zero gaps at the joints.",
-  },
-  {
-    n: 10,
-    title: "First polishing (tumbling)",
-    body:
-      "Into the second barrel for the primary polishing stage. 24–27 hours.",
-  },
-  {
-    n: 11,
-    title: "Final hand-buffing & finishing",
-    body:
-      "Finished by hand on specialised wheels with custom waxes — the source of that signature acetate luster.",
-  },
-  {
-    n: 12,
-    title: "Anatomical tailoring, engraving & QC",
-    body:
-      "Final anatomical adjustments (cold-bending), custom engraving of the Woolet logo and your name, then a rigorous final quality control inspection.",
-    withVisual: true,
-    visualAlt: "Close-up of a Woolet acetate temple being engraved with the wearer's name",
-  },
-  {
-    n: 13,
-    title: "Ultrasonic cleaning",
-    body:
-      "A deep ultrasonic-wave clean removes every trace of polishing compound and micro-dust before the frame is packed.",
+    label: "Week Two",
+    title: "Finish & Ship",
+    steps: [
+      { day: 8, title: "Organic Sanding", body: "First tumbling barrel — surface smoothing and leveling.", duration: "14–17 hours" },
+      { day: 9, title: "Frame & Temple Alignment", body: "Front and temples hand-balanced for zero gaps at the joints." },
+      { day: 10, title: "First Polishing — begins", body: "Second tumbling barrel for the primary polishing stage.", duration: "24–27 hours" },
+      { day: 11, title: "First Polishing — completes", body: "Frames come out of the barrel with their deep base shine." },
+      { day: 12, title: "Final Hand-Buffing", body: "Hand-finished on wheels with custom waxes for signature luster." },
+      { day: 13, title: "Tailoring, Engraving & QC", body: "Cold-bend fit, your name engraved, then rigorous QC." },
+      { day: 14, title: "Ultrasonic Cleaning & Ship", body: "Deep ultrasonic clean removes all residue before it ships." },
+    ],
   },
 ];
+
+const ALL_STEPS = WEEKS.flatMap((w) => w.steps);
 
 const HOW_TO_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "HowTo",
   name: "How a Woolet frame is made",
   description:
-    "The 13-stage process behind every Woolet frame — from CAD engineering on your face measurements to the final ultrasonic clean. Hand-finished in Italy from Mazzucchelli acetate.",
-  totalTime: "P21D",
-  step: STEPS.map((s) => ({
+    "The 13-stage, ~14-day process behind every Woolet frame — from CAD engineering on your face measurements to the final ultrasonic clean. Hand-finished in Italy from Mazzucchelli acetate.",
+  totalTime: "P14D",
+  step: ALL_STEPS.map((s) => ({
     "@type": "HowToStep",
-    position: s.n,
+    position: s.day,
     name: s.title,
     text: s.body,
-    url: `https://woolet.co/en/process#step-${s.n}`,
+    url: `https://woolet.co/en/process#day-${s.day}`,
   })),
 };
 
@@ -123,7 +68,7 @@ const Process = () => {
     <>
       <SEO
         title="The Woolet Process — How Our Italian Acetate Eyewear Is Made"
-        description="How a Woolet frame is made: 13 stages from CAD to ultrasonic cleaning, hand-finished in Italy from Mazzucchelli acetate and tailored for wider faces."
+        description="How a Woolet frame is made: 13 stages across ~14 days, from CAD to ultrasonic cleaning. Hand-finished in Italy from Mazzucchelli acetate, tailored for wider faces."
         lang="en"
         path="/process"
         jsonLd={HOW_TO_JSON_LD}
@@ -132,150 +77,220 @@ const Process = () => {
 
       <main className="min-h-screen bg-background text-foreground">
         {/* Hero */}
-        <section className="w-full px-5 sm:px-8 lg:px-16 pt-20 sm:pt-28 pb-16 sm:pb-20">
+        <section className="w-full px-5 sm:px-8 lg:px-16 pt-20 sm:pt-28 pb-14 sm:pb-20">
           <div className="max-w-3xl mx-auto text-center">
             <p
-              className="uppercase tracking-[0.28em] text-gold-light mb-6"
-              style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem", fontWeight: 500 }}
+              className="uppercase text-gold-light mb-6"
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.7rem",
+                fontWeight: 600,
+                letterSpacing: "0.24em",
+              }}
             >
-              The Process
+              Made in Italy · 13 stages · ~14 days per frame
             </p>
             <h1
-              className="font-display text-woolet-white mb-8"
+              className="font-display text-woolet-white mb-7"
               style={{
-                fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
-                fontWeight: 300,
-                lineHeight: 1.05,
-                letterSpacing: "-0.01em",
+                fontSize: "clamp(2.4rem, 5.8vw, 4.2rem)",
+                fontWeight: 500,
+                lineHeight: 1.04,
+                letterSpacing: "-0.012em",
               }}
             >
               The Woolet <em className="italic text-gold-light">Process</em>
             </h1>
             <p
-              className="text-cream-dim mx-auto mb-10"
-              style={{ fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "38rem" }}
+              className="text-cream-dim mx-auto"
+              style={{ fontSize: "1.05rem", lineHeight: 1.7, maxWidth: "38rem" }}
             >
-              Every Woolet frame is built around one face — yours. From the first
-              digital sketch to the final ultrasonic rinse, it passes through hand
-              and machine more than a dozen times.
+              A made-to-order frame takes about two weeks — from your measurements
+              to the final clean. Here is the build, day by day.
             </p>
-            <div
-              className="inline-flex items-center gap-3 px-4 py-2"
-              style={{
-                border: "1px solid hsl(var(--gold) / 0.32)",
-                background: "hsl(var(--gold) / 0.05)",
-                borderRadius: "999px",
-              }}
-            >
-              <span
-                className="uppercase tracking-[0.22em] text-gold-light"
-                style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.6rem", fontWeight: 500 }}
-              >
-                13 stages · Mostly by hand · Italian Mazzucchelli acetate
-              </span>
-            </div>
           </div>
         </section>
 
-        <div className="woolet-divider max-w-3xl mx-auto" />
-
-        {/* Steps */}
-        <section className="w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-28">
+        {/* Timeline */}
+        <section className="w-full px-5 sm:px-8 lg:px-16 pb-20 sm:pb-28">
           <div className="max-w-5xl mx-auto">
-            <ol className="flex flex-col gap-16 sm:gap-20 list-none p-0 m-0">
-              {STEPS.map((step, i) => {
-                const reverse = i % 2 === 1;
-                return (
-                  <li
-                    key={step.n}
-                    id={`step-${step.n}`}
-                    className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start scroll-mt-24"
+            {WEEKS.map((week, wi) => (
+              <div key={week.label} className={wi === 0 ? "" : "mt-16 sm:mt-20"}>
+                {/* Week header */}
+                <div className="pl-[68px] sm:pl-[120px] mb-8 sm:mb-10">
+                  <p
+                    className="uppercase text-gold-light mb-2"
+                    style={{
+                      fontFamily: "Barlow, sans-serif",
+                      fontSize: "0.68rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.22em",
+                    }}
                   >
-                    {/* Number column */}
-                    <div
-                      className={`md:col-span-2 ${
-                        reverse ? "md:order-2 md:text-right" : "md:order-1"
-                      }`}
-                    >
-                      <span
-                        className="font-display text-gold-light/70 block"
-                        style={{
-                          fontSize: "clamp(2.6rem, 4.5vw, 3.6rem)",
-                          fontWeight: 300,
-                          lineHeight: 1,
-                          letterSpacing: "-0.02em",
-                        }}
-                      >
-                        {String(step.n).padStart(2, "0")}
-                      </span>
-                      <span
-                        className="block mt-3 uppercase tracking-[0.24em] text-cream-dim/50"
-                        style={{
-                          fontFamily: "Barlow, sans-serif",
-                          fontSize: "0.55rem",
-                          fontWeight: 500,
-                        }}
-                      >
-                        Stage {step.n} / 13
-                      </span>
-                    </div>
+                    {week.label}
+                  </p>
+                  <h2
+                    className="font-display text-woolet-white"
+                    style={{
+                      fontSize: "clamp(1.4rem, 2.4vw, 1.85rem)",
+                      fontWeight: 500,
+                      letterSpacing: "-0.005em",
+                    }}
+                  >
+                    {week.title}
+                  </h2>
+                </div>
 
-                    {/* Text column */}
-                    <div
-                      className={`${step.withVisual ? "md:col-span-5" : "md:col-span-10"} ${
-                        reverse ? "md:order-1" : "md:order-2"
-                      }`}
-                    >
-                      <h2
-                        className="font-display text-woolet-white mb-4"
-                        style={{
-                          fontSize: "clamp(1.35rem, 2.2vw, 1.75rem)",
-                          fontWeight: 400,
-                          lineHeight: 1.2,
-                          letterSpacing: "-0.005em",
-                        }}
-                      >
-                        {step.title}
-                      </h2>
-                      <p
-                        className="text-cream-dim"
-                        style={{ fontSize: "0.98rem", lineHeight: 1.75, maxWidth: "36rem" }}
-                      >
-                        {step.body}
-                      </p>
-                    </div>
+                {/* Days */}
+                <ol className="relative list-none p-0 m-0">
+                  {/* Vertical rail */}
+                  <div
+                    aria-hidden
+                    className="absolute top-0 bottom-0"
+                    style={{
+                      left: "calc(68px - 1px)",
+                      width: "2px",
+                      background: "hsl(var(--gold) / 0.32)",
+                    }}
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute top-0 bottom-0 hidden sm:block"
+                    style={{
+                      left: "calc(120px - 1px)",
+                      width: "2px",
+                      background: "hsl(var(--gold) / 0.32)",
+                    }}
+                  />
 
-                    {/* Visual placeholder column */}
-                    {step.withVisual && (
-                      <div className={`md:col-span-5 ${reverse ? "md:order-3" : "md:order-3"}`}>
-                        <div
-                          role="img"
-                          aria-label={step.visualAlt}
-                          className="w-full flex items-center justify-center"
+                  {week.steps.map((step) => (
+                    <li
+                      key={step.day}
+                      id={`day-${step.day}`}
+                      className="relative grid grid-cols-[68px_1fr] sm:grid-cols-[120px_1fr] items-stretch scroll-mt-24"
+                    >
+                      {/* Day number column */}
+                      <div className="relative pr-5 sm:pr-8 py-4 text-right">
+                        <span
+                          className="block uppercase text-cream-dim/55"
                           style={{
-                            aspectRatio: "4 / 3",
-                            background:
-                              "linear-gradient(135deg, hsl(var(--gold) / 0.06), hsl(var(--gold) / 0.015))",
-                            border: "1px solid hsl(var(--gold) / 0.18)",
+                            fontFamily: "Barlow, sans-serif",
+                            fontSize: "0.6rem",
+                            fontWeight: 600,
+                            letterSpacing: "0.28em",
                           }}
                         >
-                          <span
-                            className="uppercase tracking-[0.28em] text-cream-dim/40 px-6 text-center"
-                            style={{
-                              fontFamily: "Barlow, sans-serif",
-                              fontSize: "0.55rem",
-                              fontWeight: 500,
-                            }}
+                          Day
+                        </span>
+                        <span
+                          className="font-display text-gold-light block mt-1"
+                          style={{
+                            fontSize: "clamp(2rem, 3.2vw, 2.6rem)",
+                            fontWeight: 600,
+                            lineHeight: 1,
+                            letterSpacing: "-0.01em",
+                          }}
+                        >
+                          {String(step.day).padStart(2, "0")}
+                        </span>
+                      </div>
+
+                      {/* Node + connector */}
+                      <div
+                        aria-hidden
+                        className="absolute top-1/2 -translate-y-1/2 hidden sm:block"
+                        style={{
+                          left: "calc(120px - 21px)",
+                          width: "21px",
+                          height: "2px",
+                          background: "hsl(var(--gold) / 0.45)",
+                        }}
+                      />
+                      <div
+                        aria-hidden
+                        className="absolute top-1/2 -translate-y-1/2 sm:hidden"
+                        style={{
+                          left: "calc(68px - 9px)",
+                          width: "9px",
+                          height: "2px",
+                          background: "hsl(var(--gold) / 0.45)",
+                        }}
+                      />
+                      <span
+                        aria-hidden
+                        className="absolute top-1/2 -translate-y-1/2 rounded-full"
+                        style={{
+                          left: "calc(68px - 8px)",
+                          width: "16px",
+                          height: "16px",
+                          background: "hsl(var(--background))",
+                          border: "2px solid hsl(var(--gold))",
+                        }}
+                      />
+                      <span
+                        aria-hidden
+                        className="absolute top-1/2 -translate-y-1/2 rounded-full hidden sm:block"
+                        style={{
+                          left: "calc(120px - 8px)",
+                          width: "16px",
+                          height: "16px",
+                          background: "hsl(var(--background))",
+                          border: "2px solid hsl(var(--gold))",
+                        }}
+                      />
+
+                      {/* Card */}
+                      <div className="pl-5 sm:pl-8 py-3">
+                        <div
+                          className="px-5 sm:px-7 py-5 sm:py-6 transition-colors"
+                          style={{
+                            background: "hsl(var(--gold) / 0.04)",
+                            border: "1px solid hsl(var(--gold) / 0.22)",
+                            borderRadius: "12px",
+                          }}
+                        >
+                          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-2">
+                            <h3
+                              className="text-woolet-white"
+                              style={{
+                                fontFamily: "Barlow, sans-serif",
+                                fontSize: "1.05rem",
+                                fontWeight: 600,
+                                letterSpacing: "-0.002em",
+                              }}
+                            >
+                              {step.title}
+                            </h3>
+                            {step.duration && (
+                              <span
+                                className="uppercase text-gold-light"
+                                style={{
+                                  fontFamily: "Barlow, sans-serif",
+                                  fontSize: "0.6rem",
+                                  fontWeight: 600,
+                                  letterSpacing: "0.18em",
+                                  border: "1px solid hsl(var(--gold) / 0.55)",
+                                  borderRadius: "999px",
+                                  padding: "3px 10px",
+                                }}
+                              >
+                                {step.duration}
+                              </span>
+                            )}
+                          </div>
+                          <p
+                            className="text-cream-dim"
+                            style={{ fontSize: "0.95rem", lineHeight: 1.65 }}
                           >
-                            Photo · {step.title}
-                          </span>
+                            {step.body}
+                          </p>
                         </div>
                       </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -287,17 +302,23 @@ const Process = () => {
           style={{ background: "hsl(var(--gold) / 0.04)" }}
         >
           <div className="max-w-3xl mx-auto text-center">
-            <p
-              className="font-display text-woolet-white mb-10"
+            <h2
+              className="font-display text-woolet-white mb-4"
               style={{
-                fontSize: "clamp(1.4rem, 2.6vw, 2rem)",
-                fontWeight: 300,
-                lineHeight: 1.3,
+                fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                fontWeight: 500,
+                lineHeight: 1.2,
                 letterSpacing: "-0.005em",
               }}
             >
+              Measured for you.
+            </h2>
+            <p
+              className="text-cream-dim mb-10"
+              style={{ fontSize: "1rem", lineHeight: 1.7 }}
+            >
               Made from <em className="italic text-gold-light">Italian Mazzucchelli</em> acetate.
-              <br className="hidden sm:block" /> Hand-finished in Italy.
+              Hand-finished in Italy.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center">
               <Link
