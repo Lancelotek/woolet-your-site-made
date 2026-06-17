@@ -275,13 +275,13 @@ const BespokePage = () => {
                 </div>
                 <div>
                   <div className="text-cream-dim uppercase tracking-[0.2em] mb-2" style={{ fontSize: "0.6rem" }}>
-                    Comparable atelier-made
+                    SRP after launch
                   </div>
                   <div className="font-display" style={{ fontSize: "3rem", fontWeight: 300, lineHeight: 1, color: "hsl(var(--cream-dim))", textDecoration: "line-through" }}>
-                    $900+
+                    $399
                   </div>
                   <div className="text-cream-dim mt-2" style={{ fontSize: "0.8rem" }}>
-                    Typical bespoke acetate retail
+                    Standard retail price
                   </div>
                 </div>
               </div>
