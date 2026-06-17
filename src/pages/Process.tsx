@@ -46,7 +46,8 @@ const WEEKS: Week[] = [
   },
 ];
 
-const ALL_STEPS = WEEKS.flatMap((w) => w.steps);
+
+
 
 const PROCESS_META = getMetadata("/en/process");
 const HOW_TO_JSON_LD = PROCESS_META.jsonLd;
