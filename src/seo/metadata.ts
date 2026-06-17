@@ -610,6 +610,7 @@ function escapeHtml(s: string): string {
 const STATIC_ROUTES = [
   "/en",
   "/en/about",
+  "/en/process",
   "/en/products/007",
   "/en/products/009",
   "/en/fit",
