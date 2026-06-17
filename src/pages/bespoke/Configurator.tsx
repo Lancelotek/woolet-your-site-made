@@ -224,4 +224,39 @@ const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode })
   </div>
 );
 
+const SyncBadge = ({
+  status,
+  isSignedIn,
+  lastSavedAt,
+}: {
+  status: ReturnType<typeof useBespokeCloudSync>["status"];
+  isSignedIn: boolean;
+  lastSavedAt: string | null;
+}) => {
+  if (!isSignedIn) {
+    return (
+      <Link
+        to="/en/account/signin?next=/en/bespoke/configurator"
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/15 text-cream-dim hover:text-cream hover:border-cream/30 text-[0.62rem] uppercase tracking-[0.18em] transition"
+      >
+        <CloudOff size={12} />
+        Sign in to save across devices
+      </Link>
+    );
+  }
+  const label =
+    status === "loading" ? "Loading your build…" :
+    status === "saving"  ? "Saving…" :
+    status === "error"   ? "Sync error — retrying" :
+    lastSavedAt          ? `Saved · ${new Date(lastSavedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` :
+                           "Synced to your account";
+  const Icon = status === "loading" || status === "saving" ? Loader2 : Cloud;
+  return (
+    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/10 bg-cream/[0.03] text-cream-dim text-[0.62rem] uppercase tracking-[0.18em]">
+      <Icon size={12} className={status === "loading" || status === "saving" ? "animate-spin" : ""} />
+      {label}
+    </span>
+  );
+};
+
 export default ConfiguratorPage;
