@@ -134,14 +134,14 @@ const Process = () => {
                 <ol
                   className="relative list-none p-0 m-0"
                   style={{
-                    // Rail x-position = numeral column width + gutter to rail
-                    ["--rail-x" as string]: "92px",
+                    // Rail x-position = numeral column width + clear gutter to rail
+                    ["--rail-x" as string]: "112px",
                   } as React.CSSProperties}
                 >
                   {/* Single vertical rail */}
                   <div
                     aria-hidden
-                    className="absolute top-0 bottom-0 sm:[--rail-x:148px]"
+                    className="absolute top-0 bottom-0 sm:[--rail-x:168px]"
                     style={{
                       left: "calc(var(--rail-x) - 1px)",
                       width: "2px",
@@ -153,13 +153,13 @@ const Process = () => {
                     <li
                       key={step.day}
                       id={`day-${step.day}`}
-                      className="relative grid grid-cols-[72px_1fr] sm:grid-cols-[128px_1fr] items-stretch scroll-mt-24 sm:[--rail-x:148px]"
+                      className="relative grid grid-cols-[92px_1fr] sm:grid-cols-[148px_1fr] items-stretch scroll-mt-24 sm:[--rail-x:168px]"
                       style={{
-                        ["--rail-x" as string]: "92px",
+                        ["--rail-x" as string]: "112px",
                       } as React.CSSProperties}
                     >
                       {/* Day number column */}
-                      <div className="relative pr-4 sm:pr-6 py-4 text-right">
+                      <div className="relative pr-6 sm:pr-8 py-4 text-right">
                         <span
                           className="block uppercase text-cream-dim/55"
                           style={{
@@ -190,7 +190,7 @@ const Process = () => {
                         className="absolute top-1/2 -translate-y-1/2"
                         style={{
                           left: "var(--rail-x)",
-                          width: "18px",
+                          width: "14px",
                           height: "2px",
                           background: "hsl(var(--gold) / 0.45)",
                         }}
@@ -209,7 +209,7 @@ const Process = () => {
                       />
 
                       {/* Card */}
-                      <div className="pl-8 sm:pl-10 py-3">
+                      <div className="pl-10 sm:pl-12 py-3">
                         <div
                           className="px-5 sm:px-7 py-5 sm:py-6 transition-colors"
                           style={{
