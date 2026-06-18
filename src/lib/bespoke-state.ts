@@ -15,6 +15,10 @@ export interface BespokeConfig {
   scanContactEmail: string | null;
   scanContactPhone: string | null;
   scanRequestedAt: string | null;
+  scanSessionId: string | null;
+  scanSessionToken: string | null;
+  scanCompletedAt: string | null;
+  scanMeasurementsUnlocked: boolean;
   engravingEnabled: boolean;
   engravingText: string;
   engravingPositionId: string | null;
@@ -38,6 +42,11 @@ export const INITIAL_CONFIG: BespokeConfig = {
   scanContactEmail: null,
   scanContactPhone: null,
   scanRequestedAt: null,
+  scanSessionId: null,
+  scanSessionToken: null,
+  scanCompletedAt: null,
+  scanMeasurementsUnlocked: false,
+
   engravingEnabled: false,
   engravingText: "",
   engravingPositionId: null,

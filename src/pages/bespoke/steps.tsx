@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Upload } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
 import {
   COLORS,
   ENGRAVING_FEE_EUR,
@@ -193,14 +195,19 @@ export function StepColor({ config, update }: StepProps) {
 function ScanContactModal({
   initialEmail,
   initialPhone,
+  submitting = false,
+  error = null,
   onCancel,
   onConfirm,
 }: {
   initialEmail: string;
   initialPhone: string;
+  submitting?: boolean;
+  error?: string | null;
   onCancel: () => void;
   onConfirm: (email: string, phone: string) => void;
 }) {
+
   const [email, setEmail] = useState(initialEmail);
   const [phone, setPhone] = useState(initialPhone);
   const [touched, setTouched] = useState(false);
@@ -245,18 +252,22 @@ function ScanContactModal({
         <p className="text-cream-dim text-[0.7rem] mb-5 leading-relaxed">
           By proceeding you consent to processing of biometric data under GDPR Art. 9(2)(a). Facial landmarks are stored encrypted in the EU and auto-deleted within 30 days. You can withdraw consent at any time.
         </p>
+        {error && (
+          <p className="text-[hsl(0_60%_65%)] text-xs mb-4">{error}</p>
+        )}
         <div className="flex gap-3 flex-col sm:flex-row">
           <button
-            onClick={() => emailValid && onConfirm(email.trim(), phone.trim())}
-            disabled={!emailValid}
+            onClick={() => emailValid && !submitting && onConfirm(email.trim(), phone.trim())}
+            disabled={!emailValid || submitting}
             className="flex-1 px-6 py-3 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Save & start scan
+            {submitting ? "Opening scan…" : "Save & start scan"}
           </button>
-          <button onClick={onCancel} className="flex-1 px-6 py-3 rounded-full border border-cream/20 text-cream-dim text-xs uppercase tracking-[0.18em] hover:border-cream/40 transition">
+          <button onClick={onCancel} disabled={submitting} className="flex-1 px-6 py-3 rounded-full border border-cream/20 text-cream-dim text-xs uppercase tracking-[0.18em] hover:border-cream/40 transition disabled:opacity-40">
             Cancel
           </button>
         </div>
+
       </div>
     </div>
   );
@@ -264,8 +275,16 @@ function ScanContactModal({
 
 export function StepMeasure({ config, update }: StepProps) {
   const [showScanModal, setShowScanModal] = useState(false);
+  const [scanError, setScanError] = useState<string | null>(null);
+  const [creatingSession, setCreatingSession] = useState(false);
+
+  const scanLocked =
+    config.measurementMethod === "scan" &&
+    !!config.scanCompletedAt &&
+    !config.scanMeasurementsUnlocked;
 
   const handleTapeChange = (key: MeasurementKey, raw: string) => {
+    if (scanLocked) return;
     const num = raw === "" ? undefined : Number(raw);
     update("measurements", { ...config.measurements, [key]: num });
   };
@@ -277,8 +296,79 @@ export function StepMeasure({ config, update }: StepProps) {
     return v < r.min || v > r.max;
   };
 
-  const launchScan = () => {
-    window.open("/en/fit", "_blank", "noopener,noreferrer");
+  const launchScan = (id?: string | null, token?: string | null) => {
+    const sid = id ?? config.scanSessionId;
+    const tok = token ?? config.scanSessionToken;
+    const qs = sid && tok ? `?s=${encodeURIComponent(sid)}&t=${encodeURIComponent(tok)}` : "";
+    window.open(`/en/fit${qs}`, "_blank", "noopener,noreferrer");
+  };
+
+  // Poll scan-session-get until completed → autofill measurements + lock
+  useEffect(() => {
+    if (config.measurementMethod !== "scan") return;
+    if (!config.scanSessionId || !config.scanSessionToken) return;
+    if (config.scanCompletedAt) return;
+
+    let cancelled = false;
+    const poll = async () => {
+      try {
+        const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/scan-session-get?id=${encodeURIComponent(
+          config.scanSessionId!,
+        )}&token=${encodeURIComponent(config.scanSessionToken!)}`;
+        const res = await fetch(url, {
+          headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? "" },
+        });
+        if (!res.ok) return;
+        const json = await res.json();
+        const s = json?.session;
+        if (cancelled || !s) return;
+        if (s.status === "completed" && (s.face_width_mm || s.nose_width_mm)) {
+          const next: typeof config.measurements = { ...config.measurements };
+          if (Number.isFinite(s.face_width_mm)) next.faceWidth = s.face_width_mm;
+          if (Number.isFinite(s.nose_width_mm)) next.bridge = s.nose_width_mm;
+          update("measurements", next);
+          update("scanCompletedAt", new Date(s.updated_at ?? Date.now()).toISOString());
+          update("scanMeasurementsUnlocked", false);
+        }
+      } catch {
+        /* silent — keep polling */
+      }
+    };
+    poll();
+    const iv = window.setInterval(poll, 4000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(iv);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config.measurementMethod, config.scanSessionId, config.scanSessionToken, config.scanCompletedAt]);
+
+  const startScanSession = async (email: string, phone: string) => {
+    setCreatingSession(true);
+    setScanError(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("scan-session-create", {
+        body: { email },
+      });
+      if (error || !data?.id || !data?.token) {
+        throw new Error(error?.message ?? "session_failed");
+      }
+      update("measurementMethod", "scan");
+      update("scanContactEmail", email);
+      update("scanContactPhone", phone || null);
+      update("consentTimestamp", new Date().toISOString());
+      update("scanRequestedAt", new Date().toISOString());
+      update("scanSessionId", data.id);
+      update("scanSessionToken", data.token);
+      update("scanCompletedAt", null);
+      update("scanMeasurementsUnlocked", false);
+      setShowScanModal(false);
+      launchScan(data.id, data.token);
+    } catch (e) {
+      setScanError("Couldn't start a secure scan session. Please try again.");
+    } finally {
+      setCreatingSession(false);
+    }
   };
 
   return (
@@ -296,7 +386,7 @@ export function StepMeasure({ config, update }: StepProps) {
           <div className={labelClass}>Method A · recommended</div>
           <h3 className="font-display text-cream text-xl font-light mt-1">AI face scan</h3>
           <p className="text-cream-dim text-sm leading-relaxed mt-2 mb-4">
-            Your phone camera captures PD, bridge and temple width automatically. We email the results once our optician validates them — typically within 24 hours. ~90 seconds.
+            Your phone camera captures face and bridge width automatically. Results stream back into this configurator the moment the scan completes — no typing required. ~90 seconds.
           </p>
           <button
             onClick={() => setShowScanModal(true)}
@@ -321,31 +411,124 @@ export function StepMeasure({ config, update }: StepProps) {
         </div>
       </div>
 
-      {config.measurementMethod === "scan" && (
+      {/* Scan: waiting state */}
+      {config.measurementMethod === "scan" && !config.scanCompletedAt && (
         <div className="rounded-[14px] border border-gold/25 bg-gold/[0.04] p-5 space-y-3">
-          <div className={labelClass}>Scan in progress</div>
+          <div className={labelClass}>
+            <span className="inline-flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-60" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-gold" />
+              </span>
+              Waiting for scan…
+            </span>
+          </div>
           <p className="text-cream text-sm">
             Results will be sent to <span className="text-gold-light">{config.scanContactEmail}</span>
             {config.scanContactPhone && <> · {config.scanContactPhone}</>}.
           </p>
           <p className="text-cream-dim text-xs leading-relaxed">
-            Once the scan completes on your phone, your millimetre measurements appear here automatically and your bespoke order moves into optician review. You don't need to type anything.
+            Open the scan on your phone. The moment it completes, your millimetre measurements appear here automatically and lock to prevent accidental edits.
           </p>
           <div className="flex gap-3 flex-wrap pt-1">
             <button
-              onClick={launchScan}
+              onClick={() => launchScan()}
               className="px-4 py-2 rounded-full border border-gold/50 text-gold-light text-[0.7rem] uppercase tracking-[0.18em] hover:bg-gold/10 transition"
             >
               Re-open scan on this device
             </button>
             <button
-              onClick={() => {
-                update("measurementMethod", "tape");
-              }}
+              onClick={() => update("measurementMethod", "tape")}
               className="px-4 py-2 rounded-full border border-cream/15 text-cream-dim text-[0.7rem] uppercase tracking-[0.18em] hover:border-cream/30 transition"
             >
               Switch to tape measure
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Scan: completed state — locked autofilled values */}
+      {config.measurementMethod === "scan" && config.scanCompletedAt && (
+        <div className="rounded-[14px] border border-gold/40 bg-gold/[0.05] p-5">
+          <div className="flex items-start justify-between gap-3 mb-4">
+            <div>
+              <div className={labelClass}>
+                <span className="inline-flex items-center gap-1.5 text-gold-light">
+                  <Check size={12} /> Scan received
+                </span>
+              </div>
+              <p className="text-cream text-sm mt-1">
+                Auto-filled from your face scan. Values are locked until you confirm or unlock to edit.
+              </p>
+            </div>
+            <button
+              onClick={() => update("scanMeasurementsUnlocked", !config.scanMeasurementsUnlocked)}
+              className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-cream/20 text-cream-dim text-[0.65rem] uppercase tracking-[0.16em] hover:text-cream hover:border-cream/40 transition"
+            >
+              {config.scanMeasurementsUnlocked ? <Unlock size={11} /> : <Lock size={11} />}
+              {config.scanMeasurementsUnlocked ? "Lock values" : "Unlock to edit"}
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {(Object.keys(MEASUREMENT_RANGES) as MeasurementKey[]).map((k) => {
+              const range = MEASUREMENT_RANGES[k];
+              const bad = outOfRange(k);
+              const fromScan = (k === "faceWidth" || k === "bridge") && config.measurements[k] !== undefined;
+              return (
+                <label key={k} className="block">
+                  <span className="text-cream text-xs flex items-center gap-1.5">
+                    {range.label}
+                    {fromScan && (
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-gold/15 text-gold-light text-[0.55rem] uppercase tracking-[0.14em]">
+                        <Check size={9} /> scan
+                      </span>
+                    )}
+                  </span>
+                  <div className="mt-1.5 relative">
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      disabled={scanLocked}
+                      value={config.measurements[k] ?? ""}
+                      onChange={(e) => handleTapeChange(k, e.target.value)}
+                      placeholder={`${range.min}–${range.max}`}
+                      className={`w-full px-4 py-2.5 rounded-[10px] border text-sm focus:outline-none focus:ring-1 transition pr-12 ${
+                        scanLocked
+                          ? "bg-cream/[0.03] border-cream/10 text-cream-dim cursor-not-allowed"
+                          : bad
+                          ? "bg-background border-[hsl(0_60%_55%)] text-cream focus:ring-[hsl(0_60%_55%)]"
+                          : "bg-background border-cream/15 text-cream focus:border-gold focus:ring-gold/40"
+                      }`}
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-cream-dim text-xs flex items-center gap-1">
+                      mm {scanLocked && <Lock size={10} />}
+                    </span>
+                  </div>
+                  {bad && !scanLocked && (
+                    <span className="text-[hsl(0_60%_60%)] text-[0.7rem] mt-1 block">
+                      Outside plausible range ({range.min}–{range.max} mm). Please re-measure.
+                    </span>
+                  )}
+                </label>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-wrap gap-3 mt-5 pt-4 border-t border-cream/10">
+            <button
+              onClick={() => {
+                update("scanCompletedAt", null);
+                update("scanMeasurementsUnlocked", false);
+                launchScan();
+              }}
+              className="px-4 py-2 rounded-full border border-cream/20 text-cream-dim text-[0.7rem] uppercase tracking-[0.18em] hover:border-cream/40 hover:text-cream transition"
+            >
+              Re-scan
+            </button>
+            <p className="text-cream-dim text-[0.7rem] self-center">
+              Our optician verifies every value before production begins.
+            </p>
           </div>
         </div>
       )}
@@ -392,20 +575,15 @@ export function StepMeasure({ config, update }: StepProps) {
         <ScanContactModal
           initialEmail={config.scanContactEmail ?? ""}
           initialPhone={config.scanContactPhone ?? ""}
-          onCancel={() => setShowScanModal(false)}
-          onConfirm={(email, phone) => {
-            update("measurementMethod", "scan");
-            update("scanContactEmail", email);
-            update("scanContactPhone", phone || null);
-            update("consentTimestamp", new Date().toISOString());
-            update("scanRequestedAt", new Date().toISOString());
-            setShowScanModal(false);
-            launchScan();
-          }}
+          submitting={creatingSession}
+          error={scanError}
+          onCancel={() => { setShowScanModal(false); setScanError(null); }}
+          onConfirm={(email, phone) => startScanSession(email, phone)}
         />
       )}
     </div>
   );
+
 }
 
 
