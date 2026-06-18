@@ -370,6 +370,13 @@ export function StepEngraving({ config, update }: StepProps) {
 
       {config.engravingEnabled && (
         <div className="space-y-6">
+          {/* Live SVG preview on temple */}
+          <EngravingPreview
+            text={config.engravingText}
+            fontId={config.engravingFontId}
+            position={ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name}
+          />
+
           <div>
             <div className={labelClass}>Text · max {ENGRAVING_MAX_CHARS} characters</div>
             <input
