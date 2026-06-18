@@ -32,6 +32,11 @@ const updateConsent = (state: ConsentState) => {
   } catch {
     // ignore
   }
+  try {
+    window.dispatchEvent(new CustomEvent("woolet-consent-updated", { detail: state }));
+  } catch {
+    // ignore
+  }
 };
 
 const readSavedConsent = (): ConsentState | null => {
@@ -76,6 +81,11 @@ const CookieBanner = () => {
     if (saved) {
       // Re-apply on every load so GTM gets the right state in this session
       gtag("consent", "update", saved);
+      try {
+        window.dispatchEvent(new CustomEvent("woolet-consent-updated", { detail: saved }));
+      } catch {
+        // ignore
+      }
       return;
     }
     // Defer banner reveal until the browser is idle so it can never block FCP/LCP

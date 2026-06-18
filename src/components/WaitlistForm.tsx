@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { t, type Lang } from "@/lib/i18n";
 import { pushGtmEvent } from "@/lib/gtm";
+import { rdtLead } from "@/lib/reddit-pixel";
 
 const inputStyle: React.CSSProperties = {
   fontSize: "0.82rem",
@@ -84,6 +85,8 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         awareness_stage: "solution_aware",
         source: utmSource,
       });
+
+      rdtLead({ value: 133, currency: "USD" });
 
       setSubmitted(true);
       setCount((c) => c + 1);

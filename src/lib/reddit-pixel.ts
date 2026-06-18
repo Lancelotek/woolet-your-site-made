@@ -38,24 +38,19 @@ export const loadRedditPixel = (): void => {
   if (!hasMarketingConsent()) return;
 
   // Official Reddit pixel loader
-  !(function (w: Window, d: Document) {
-    const win = w as Window & {
-      rdt?: RdtFn & { sendEvent?: RdtFn; callQueue?: unknown[][] };
-    };
-    if (!win.rdt) {
-      const p = function (...args: unknown[]) {
-        if (p.sendEvent) p.sendEvent.apply(p, args);
-        else p.callQueue!.push(args);
-      } as RdtFn & { sendEvent?: RdtFn; callQueue?: unknown[][] };
-      p.callQueue = [];
-      win.rdt = p;
-      const t = d.createElement("script");
-      t.src = "https://www.redditstatic.com/ads/pixel.js";
-      t.async = true;
-      const s = d.getElementsByTagName("script")[0];
-      s.parentNode!.insertBefore(t, s);
-    }
-  })(window, document);
+  if (!window.rdt) {
+    const p = function (...args: unknown[]) {
+      if (p.sendEvent) p.sendEvent.apply(p, args);
+      else p.callQueue!.push(args);
+    } as RdtFn & { sendEvent?: RdtFn; callQueue?: unknown[][] };
+    p.callQueue = [];
+    window.rdt = p;
+    const t = document.createElement("script");
+    t.src = "https://www.redditstatic.com/ads/pixel.js";
+    t.async = true;
+    const s = document.getElementsByTagName("script")[0];
+    s.parentNode!.insertBefore(t, s);
+  }
 
   window.rdt?.("init", PIXEL_ID);
   window.rdt?.("track", "PageVisit");

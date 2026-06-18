@@ -3,6 +3,7 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "./PaymentTestModeBanner";
+import { rdtAddToCart } from "@/lib/reddit-pixel";
 
 interface Props {
   priceId: string;
@@ -30,6 +31,7 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
   }, [priceId, customerEmail, returnUrl, metadata]);
 
   useEffect(() => {
+    rdtAddToCart({ value: 133, currency: "USD", itemCount: 1 });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
