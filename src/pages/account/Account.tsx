@@ -7,11 +7,21 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { toast } from "sonner";
+import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
+import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options";
 
 function pickModel(faceWidthMm: number, noseWidthMm: number): "007" | "009" {
   // 009 has the wider keyhole bridge; recommend it when the nose is wider.
   return noseWidthMm >= 40 ? "009" : "007";
 }
+
+type BespokeConfigRow = {
+  id: string;
+  name: string | null;
+  is_current: boolean;
+  updated_at: string;
+  config: { measurements?: Partial<Record<MeasurementKey, number>> } & Record<string, unknown>;
+};
 
 const GOLD = "#c9a84c";
 
@@ -51,6 +61,7 @@ export default function Account() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [scans, setScans] = useState<Scan[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [bespoke, setBespoke] = useState<BespokeConfigRow[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [savingProfile, setSavingProfile] = useState(false);
 
@@ -66,7 +77,7 @@ export default function Account() {
       } catch (err) {
         console.warn("[account] link_user_data_by_email failed", err);
       }
-      const [{ data: p }, { data: s }, { data: o }] = await Promise.all([
+      const [{ data: p }, { data: s }, { data: o }, { data: b }] = await Promise.all([
         supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
         supabase
           .from("scan_sessions")
@@ -78,11 +89,24 @@ export default function Account() {
           .select("id, created_at, amount_cents, currency, recommended_sku, environment, stripe_session_id")
           .eq("user_id", session.user.id)
           .order("created_at", { ascending: false }),
+        supabase
+          .from("bespoke_configs")
+          .select("id, name, is_current, updated_at, config")
+          .eq("user_id", session.user.id)
+          .order("updated_at", { ascending: false }),
       ]);
       if (cancelled) return;
       setProfile(p as Profile | null);
-      setScans((s as Scan[] | null) ?? []);
+      // Clamp implausible scan output for display (e.g. 175 mm face → 161 mm,
+      // 49 mm nose → 42 mm). The raw row is preserved in the DB.
+      const clampedScans = ((s as Scan[] | null) ?? []).map((row) => ({
+        ...row,
+        face_width_mm: clampFaceMm(row.face_width_mm),
+        nose_width_mm: clampNoseMm(row.nose_width_mm),
+      }));
+      setScans(clampedScans);
       setOrders((o as Order[] | null) ?? []);
+      setBespoke((b as BespokeConfigRow[] | null) ?? []);
       setDataLoading(false);
     };
     load();
@@ -317,6 +341,50 @@ export default function Account() {
             )}
           </section>
 
+          {/* Bespoke measurements */}
+          <section className="flex flex-col gap-3">
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+              Bespoke measurements
+            </h2>
+            {dataLoading ? (
+              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>Loading…</p>
+            ) : bespoke.length === 0 ? (
+              <div className="flex flex-col gap-3" style={{ border: "1px solid rgba(255,255,255,0.12)", padding: "1.25rem" }}>
+                <p className="text-cream-dim" style={{ fontSize: "0.85rem", lineHeight: 1.55 }}>
+                  No bespoke configurations saved yet. Start a configurator to record your measurements here.
+                </p>
+                <Link
+                  to={`/${lang}/bespoke`}
+                  className="inline-block self-start uppercase tracking-[0.22em] no-underline"
+                  style={{
+                    background: GOLD,
+                    color: "#0f0f0f",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.7rem",
+                    padding: "12px 22px",
+                  }}
+                >
+                  Start bespoke
+                </Link>
+              </div>
+            ) : (
+              <ul className="flex flex-col gap-4 m-0 p-0" style={{ listStyle: "none" }}>
+                {bespoke.map((row) => (
+                  <BespokeMeasurementsCard
+                    key={row.id}
+                    row={row}
+                    onSaved={(updated) =>
+                      setBespoke((prev) => prev.map((r) => (r.id === updated.id ? updated : r)))
+                    }
+                  />
+                ))}
+              </ul>
+            )}
+          </section>
+
+
+
           {/* Profile */}
           <section className="flex flex-col gap-4">
             <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
@@ -428,3 +496,195 @@ function ProfileEditor({
     </div>
   );
 }
+
+function BespokeMeasurementsCard({
+  row,
+  onSaved,
+}: {
+  row: BespokeConfigRow;
+  onSaved: (next: BespokeConfigRow) => void;
+}) {
+  const initial = (row.config?.measurements ?? {}) as Partial<Record<MeasurementKey, number>>;
+  // Clamp face/nose-derived values to anatomically plausible maxes for display.
+  const sanitized: Partial<Record<MeasurementKey, number>> = {
+    ...initial,
+    faceWidth: initial.faceWidth != null ? clampFaceMm(initial.faceWidth) ?? undefined : undefined,
+    bridge: initial.bridge != null ? clampNoseMm(initial.bridge) ?? undefined : undefined,
+  };
+  const [values, setValues] = useState<Partial<Record<MeasurementKey, string>>>(() => {
+    const out: Partial<Record<MeasurementKey, string>> = {};
+    (Object.keys(MEASUREMENT_RANGES) as MeasurementKey[]).forEach((k) => {
+      const v = sanitized[k];
+      out[k] = v != null ? String(v) : "";
+    });
+    return out;
+  });
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  const keys = Object.keys(MEASUREMENT_RANGES) as MeasurementKey[];
+
+  const save = async () => {
+    setSaving(true);
+    const next: Partial<Record<MeasurementKey, number>> = {};
+    for (const k of keys) {
+      const raw = values[k]?.trim();
+      if (!raw) continue;
+      const n = Number(raw);
+      const range = MEASUREMENT_RANGES[k];
+      if (!Number.isFinite(n)) {
+        toast.error(`${range.label}: enter a number.`);
+        setSaving(false);
+        return;
+      }
+      if (n < range.min || n > range.max) {
+        toast.error(`${range.label} must be ${range.min}–${range.max} mm.`);
+        setSaving(false);
+        return;
+      }
+      next[k] = Math.round(n);
+    }
+    const newConfig = { ...row.config, measurements: next };
+    const { data, error } = await supabase
+      .from("bespoke_configs")
+      .update({ config: newConfig })
+      .eq("id", row.id)
+      .select("id, name, is_current, updated_at, config")
+      .maybeSingle();
+    setSaving(false);
+    if (error || !data) {
+      toast.error("Couldn't save measurements.");
+      return;
+    }
+    onSaved(data as BespokeConfigRow);
+    setEditing(false);
+    toast.success("Measurements updated");
+  };
+
+  return (
+    <li
+      className="flex flex-col gap-4 p-5"
+      style={{ border: "1px solid rgba(255,255,255,0.12)" }}
+    >
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <p className="text-foreground" style={{ fontSize: "0.95rem" }}>
+            {row.name || "Bespoke configuration"}
+            {row.is_current && (
+              <span
+                className="ml-3 uppercase tracking-[0.18em]"
+                style={{ color: GOLD, fontSize: "0.6rem", border: `1px solid ${GOLD}`, padding: "2px 8px" }}
+              >
+                Current
+              </span>
+            )}
+          </p>
+          <p className="text-cream-dim mt-1" style={{ fontSize: "0.72rem" }}>
+            Updated {new Date(row.updated_at).toLocaleDateString()}
+          </p>
+        </div>
+        {!editing ? (
+          <button
+            onClick={() => setEditing(true)}
+            className="uppercase tracking-[0.2em] bg-transparent text-cream-dim hover:text-foreground"
+            style={{
+              fontSize: "0.6rem",
+              border: "1px solid rgba(255,255,255,0.16)",
+              padding: "8px 14px",
+              cursor: "pointer",
+            }}
+          >
+            Edit
+          </button>
+        ) : (
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                const out: Partial<Record<MeasurementKey, string>> = {};
+                keys.forEach((k) => {
+                  const v = sanitized[k];
+                  out[k] = v != null ? String(v) : "";
+                });
+                setValues(out);
+                setEditing(false);
+              }}
+              className="uppercase tracking-[0.2em] bg-transparent text-cream-dim hover:text-foreground"
+              style={{
+                fontSize: "0.6rem",
+                border: "1px solid rgba(255,255,255,0.16)",
+                padding: "8px 14px",
+                cursor: "pointer",
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              disabled={saving}
+              onClick={save}
+              className="uppercase tracking-[0.2em]"
+              style={{
+                fontSize: "0.6rem",
+                background: saving ? "rgba(201,168,76,0.4)" : GOLD,
+                color: "#0f0f0f",
+                border: "none",
+                padding: "8px 14px",
+                cursor: saving ? "default" : "pointer",
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 500,
+              }}
+            >
+              {saving ? "Saving…" : "Save"}
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div
+        className="grid gap-3"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}
+      >
+        {keys.map((k) => {
+          const range = MEASUREMENT_RANGES[k];
+          const display = values[k];
+          return (
+            <div key={k} className="flex flex-col gap-1">
+              <label
+                className="text-cream-dim uppercase tracking-[0.16em]"
+                style={{ fontSize: "0.6rem" }}
+              >
+                {range.label}
+              </label>
+              {editing ? (
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min={range.min}
+                  max={range.max}
+                  value={display ?? ""}
+                  onChange={(e) =>
+                    setValues((prev) => ({ ...prev, [k]: e.target.value }))
+                  }
+                  placeholder={`${range.min}–${range.max}`}
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    color: "white",
+                    padding: "10px 12px",
+                    fontFamily: "Barlow, sans-serif",
+                    fontSize: "0.9rem",
+                    borderRadius: 4,
+                  }}
+                />
+              ) : (
+                <p className="text-foreground" style={{ fontSize: "0.95rem" }}>
+                  {display ? `${display} mm` : <span className="text-cream-dim">—</span>}
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </li>
+  );
+}
+
