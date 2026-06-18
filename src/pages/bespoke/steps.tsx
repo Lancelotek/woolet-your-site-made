@@ -531,6 +531,8 @@ export function StepEngraving({ config, update }: StepProps) {
             text={config.engravingText}
             fontId={config.engravingFontId}
             position={ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name}
+            offset={config.engravingOffset}
+            onOffsetChange={(next) => update("engravingOffset", next)}
           />
 
           <div>
