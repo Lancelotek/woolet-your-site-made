@@ -18,6 +18,7 @@ import {
 } from "@/data/bespoke-options";
 import { FRAMES, FRAME_SHAPES, findFrame, type Frame } from "@/data/frames";
 import { type BespokeConfig, formatEur } from "@/lib/bespoke-state";
+import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 
 interface StepProps {
   config: BespokeConfig;
