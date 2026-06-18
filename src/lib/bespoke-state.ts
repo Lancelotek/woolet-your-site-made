@@ -36,6 +36,7 @@ export const INITIAL_CONFIG: BespokeConfig = {
   engravingText: "",
   engravingPositionId: null,
   engravingFontId: null,
+  engravingOffset: { x: 0, y: 0 },
   lensTypeId: "plano",
   lensMaterialId: null,
   lensCoatingId: "none",
