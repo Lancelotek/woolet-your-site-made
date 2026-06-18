@@ -119,9 +119,9 @@ export interface StepMeta {
 export const STEPS: StepMeta[] = [
   { id: 1, label: "Choose frame",          shortLabel: "Frame" },
   { id: 2, label: "Compose colour",        shortLabel: "Colour" },
-  { id: 3, label: "Measure your fit",      shortLabel: "Fit" },
-  { id: 4, label: "Engraving",             shortLabel: "Engraving" },
-  { id: 5, label: "Lenses & prescription", shortLabel: "Lenses" },
+  { id: 3, label: "Engraving",             shortLabel: "Engraving" },
+  { id: 4, label: "Lenses & prescription", shortLabel: "Lenses" },
+  { id: 5, label: "Measure your fit",      shortLabel: "Fit" },
   { id: 6, label: "Review",                shortLabel: "Review" },
 ];
 
@@ -129,9 +129,9 @@ export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
   switch (step) {
     case 1: return Boolean(config.frameId);
     case 2: return Boolean(config.frontColorId && config.templeColorId && config.finishId);
-    case 3: return Boolean(config.measurements.pd && config.consentTimestamp !== null || config.measurementMethod === "tape" && config.measurements.pd);
-    case 4: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
-    case 5: return Boolean(config.lensTypeId);
+    case 3: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
+    case 4: return Boolean(config.lensTypeId);
+    case 5: return Boolean(config.measurements.pd && (config.consentTimestamp !== null || config.measurementMethod === "tape"));
     case 6: return true;
   }
 }

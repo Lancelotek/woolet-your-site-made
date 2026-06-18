@@ -50,9 +50,9 @@ const ConfiguratorPage = () => {
   const StepBody =
     step === 1 ? <StepFrame config={config} update={update} /> :
     step === 2 ? <StepColor config={config} update={update} /> :
-    step === 3 ? <StepMeasure config={config} update={update} /> :
-    step === 4 ? <StepEngraving config={config} update={update} /> :
-    step === 5 ? <StepLenses config={config} update={update} /> :
+    step === 3 ? <StepEngraving config={config} update={update} /> :
+    step === 4 ? <StepLenses config={config} update={update} /> :
+    step === 5 ? <StepMeasure config={config} update={update} /> :
                  <StepReview config={config} onSave={handleSave} saved={saved} />;
 
   return (
