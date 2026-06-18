@@ -472,7 +472,7 @@ export function StepMeasure({ config, update }: StepProps) {
                     {range.label}
                     {fromScan && (
                       <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-gold/15 text-gold-light text-[0.55rem] uppercase tracking-[0.14em]">
-                        <CheckIcon size={9} /> scan
+                        <Check size={9} /> scan
                       </span>
                     )}
                   </span>
