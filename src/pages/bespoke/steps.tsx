@@ -195,14 +195,19 @@ export function StepColor({ config, update }: StepProps) {
 function ScanContactModal({
   initialEmail,
   initialPhone,
+  submitting = false,
+  error = null,
   onCancel,
   onConfirm,
 }: {
   initialEmail: string;
   initialPhone: string;
+  submitting?: boolean;
+  error?: string | null;
   onCancel: () => void;
   onConfirm: (email: string, phone: string) => void;
 }) {
+
   const [email, setEmail] = useState(initialEmail);
   const [phone, setPhone] = useState(initialPhone);
   const [touched, setTouched] = useState(false);
