@@ -139,7 +139,11 @@ export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
     case 2: return Boolean(config.frontColorId && config.templeColorId && config.finishId);
     case 3: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
     case 4: return Boolean(config.lensTypeId);
-    case 5: return Boolean(config.measurements.pd && (config.consentTimestamp !== null || config.measurementMethod === "tape"));
+    case 5: {
+      if (config.measurementMethod === "tape") return Boolean(config.measurements.pd);
+      if (config.measurementMethod === "scan") return Boolean(config.consentTimestamp && config.scanContactEmail);
+      return false;
+    }
     case 6: return true;
   }
 }
