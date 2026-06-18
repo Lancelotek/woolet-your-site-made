@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Upload } from "lucide-react";
 import {
