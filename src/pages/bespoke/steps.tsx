@@ -333,6 +333,57 @@ export function StepMeasure({ config, update }: StepProps) {
 }
 
 /* ───── Step 4 ───── */
+function EngravingPreview({ text, fontId, position }: { text: string; fontId: string | null; position?: string }) {
+  const display = (text || "Your text").slice(0, ENGRAVING_MAX_CHARS);
+  const fontFamily =
+    fontId === "serif"  ? "'Cormorant Garamond', serif" :
+    fontId === "script" ? "'Cormorant Garamond', cursive" :
+    fontId === "mono"   ? "ui-monospace, SFMono-Regular, monospace" :
+                          "Barlow, sans-serif";
+  const fontStyle = fontId === "script" ? "italic" : "normal";
+  const empty = !text;
+  return (
+    <div className="rounded-[14px] border border-cream/10 bg-background/40 p-4 sm:p-5">
+      <div className="flex items-baseline justify-between mb-3">
+        <div className={labelClass}>Live preview</div>
+        {position && <div className="text-cream-dim text-[0.62rem] uppercase tracking-[0.16em]">{position}</div>}
+      </div>
+      <div className="rounded-[10px] bg-gradient-to-br from-[#1a1814] to-[#0e0d0a] p-4 sm:p-6 flex items-center justify-center overflow-hidden">
+        <svg viewBox="0 0 400 90" className="w-full max-w-md h-auto" aria-label={`Engraving preview: ${display}`}>
+          {/* Temple shape */}
+          <defs>
+            <linearGradient id="acetate" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="#2a2520" />
+              <stop offset="50%" stopColor="#16130f" />
+              <stop offset="100%" stopColor="#0a0907" />
+            </linearGradient>
+            <linearGradient id="engrave" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="#c9a84c" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#8c6f28" stopOpacity="0.85" />
+            </linearGradient>
+          </defs>
+          <rect x="10" y="25" width="380" height="40" rx="20" fill="url(#acetate)" stroke="#3a342c" strokeWidth="0.5" />
+          {/* Highlight */}
+          <rect x="14" y="29" width="372" height="6" rx="3" fill="#ffffff" opacity="0.04" />
+          <text
+            x="200"
+            y="50"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill={empty ? "#6b6258" : "url(#engrave)"}
+            style={{ fontFamily, fontStyle, fontSize: 18, letterSpacing: "0.06em" }}
+            opacity={empty ? 0.5 : 1}
+          >
+            {display}
+          </text>
+        </svg>
+      </div>
+      <p className="text-cream-dim/70 text-[0.66rem] mt-2 text-center">Indicative · final depth and kerning set by the laser operator.</p>
+    </div>
+  );
+}
+
+
 export function StepEngraving({ config, update }: StepProps) {
   const remaining = ENGRAVING_MAX_CHARS - config.engravingText.length;
   return (
