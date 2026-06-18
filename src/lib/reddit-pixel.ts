@@ -37,6 +37,11 @@ export const loadRedditPixel = (): void => {
   if (typeof window === "undefined" || typeof document === "undefined") return;
   if (!hasMarketingConsent()) return;
 
+  // Mark initialized BEFORE any rdt() call so that re-entrant invocations
+  // (consent-update event firing during/after init) cannot trigger a second
+  // init() or duplicate PageVisit.
+  initialized = true;
+
   // Official Reddit pixel loader
   if (!window.rdt) {
     const p = function (...args: unknown[]) {
@@ -54,16 +59,22 @@ export const loadRedditPixel = (): void => {
 
   window.rdt?.("init", PIXEL_ID);
   window.rdt?.("track", "PageVisit");
-  initialized = true;
 };
 
 export const initRedditPixel = (): void => {
   if (typeof window === "undefined") return;
-  if (hasMarketingConsent()) loadRedditPixel();
-  window.addEventListener("woolet-consent-updated", (e: Event) => {
+  if (hasMarketingConsent()) {
+    loadRedditPixel();
+    return;
+  }
+  const onConsent = (e: Event) => {
     const detail = (e as CustomEvent<{ ad_storage?: string }>).detail;
-    if (detail?.ad_storage === "granted") loadRedditPixel();
-  });
+    if (detail?.ad_storage === "granted") {
+      loadRedditPixel();
+      window.removeEventListener("woolet-consent-updated", onConsent);
+    }
+  };
+  window.addEventListener("woolet-consent-updated", onConsent);
 };
 
 const fire = (event: string, params?: Record<string, unknown>) => {
