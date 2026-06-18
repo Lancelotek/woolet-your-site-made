@@ -61,6 +61,7 @@ export default function Account() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [scans, setScans] = useState<Scan[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [bespoke, setBespoke] = useState<BespokeConfigRow[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [savingProfile, setSavingProfile] = useState(false);
 
@@ -76,7 +77,7 @@ export default function Account() {
       } catch (err) {
         console.warn("[account] link_user_data_by_email failed", err);
       }
-      const [{ data: p }, { data: s }, { data: o }] = await Promise.all([
+      const [{ data: p }, { data: s }, { data: o }, { data: b }] = await Promise.all([
         supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
         supabase
           .from("scan_sessions")
@@ -88,11 +89,24 @@ export default function Account() {
           .select("id, created_at, amount_cents, currency, recommended_sku, environment, stripe_session_id")
           .eq("user_id", session.user.id)
           .order("created_at", { ascending: false }),
+        supabase
+          .from("bespoke_configs")
+          .select("id, name, is_current, updated_at, config")
+          .eq("user_id", session.user.id)
+          .order("updated_at", { ascending: false }),
       ]);
       if (cancelled) return;
       setProfile(p as Profile | null);
-      setScans((s as Scan[] | null) ?? []);
+      // Clamp implausible scan output for display (e.g. 175 mm face → 161 mm,
+      // 49 mm nose → 42 mm). The raw row is preserved in the DB.
+      const clampedScans = ((s as Scan[] | null) ?? []).map((row) => ({
+        ...row,
+        face_width_mm: clampFaceMm(row.face_width_mm),
+        nose_width_mm: clampNoseMm(row.nose_width_mm),
+      }));
+      setScans(clampedScans);
       setOrders((o as Order[] | null) ?? []);
+      setBespoke((b as BespokeConfigRow[] | null) ?? []);
       setDataLoading(false);
     };
     load();
