@@ -38,9 +38,6 @@ export default function VipJoin() {
       /* sessionStorage unavailable — fire anyway */
     }
     pushEvent("vip_signup", { source: "scan_sequence" });
-    // Google Ads conversion
-    const w = window as unknown as { gtag_report_conversion?: () => void };
-    if (typeof w.gtag_report_conversion === "function") w.gtag_report_conversion();
   }, []);
 
   return (
