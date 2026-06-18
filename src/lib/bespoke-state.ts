@@ -16,6 +16,7 @@ export interface BespokeConfig {
   engravingText: string;
   engravingPositionId: string | null;
   engravingFontId: string | null;
+  engravingOffset: { x: number; y: number };
   lensTypeId: string | null;
   lensMaterialId: string | null;
   lensCoatingId: string | null;
@@ -35,6 +36,7 @@ export const INITIAL_CONFIG: BespokeConfig = {
   engravingText: "",
   engravingPositionId: null,
   engravingFontId: null,
+  engravingOffset: { x: 0, y: 0 },
   lensTypeId: "plano",
   lensMaterialId: null,
   lensCoatingId: "none",
