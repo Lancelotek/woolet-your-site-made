@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useSearchParams, Link } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.png";
 import { rdtPurchase } from "@/lib/reddit-pixel";
@@ -37,12 +37,16 @@ export default function ThankYou() {
   const [copied, setCopied] = useState(false);
   const [barWidth, setBarWidth] = useState(0);
 
+  const conversionFired = useRef(false);
   useEffect(() => {
     const t = setTimeout(() => setBarWidth(pct), 100);
-    // Google Ads conversion
-    const w = window as unknown as { gtag_report_conversion?: () => void };
-    if (typeof w.gtag_report_conversion === "function") w.gtag_report_conversion();
-    rdtPurchase({ value: 133, currency: "USD" });
+    if (!conversionFired.current) {
+      conversionFired.current = true;
+      // Google Ads conversion
+      const w = window as unknown as { gtag_report_conversion?: () => void };
+      if (typeof w.gtag_report_conversion === "function") w.gtag_report_conversion();
+      rdtPurchase({ value: 133, currency: "USD" });
+    }
     return () => clearTimeout(t);
   }, [pct]);
 

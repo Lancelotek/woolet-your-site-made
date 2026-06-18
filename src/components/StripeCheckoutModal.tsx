@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
@@ -30,8 +30,12 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
     return data.clientSecret as string;
   }, [priceId, customerEmail, returnUrl, metadata]);
 
+  const addToCartFired = useRef(false);
   useEffect(() => {
-    rdtAddToCart({ value: 133, currency: "USD", itemCount: 1 });
+    if (!addToCartFired.current) {
+      addToCartFired.current = true;
+      rdtAddToCart({ value: 133, currency: "USD", itemCount: 1 });
+    }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
