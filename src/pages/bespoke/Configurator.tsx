@@ -198,17 +198,34 @@ const ConfiguratorPage = () => {
       </main>
 
       {/* Mobile sticky summary */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-background/95 backdrop-blur border-t border-cream/15 px-4 py-3 flex items-center justify-between gap-3">
-        <div>
-          <div className="text-[0.6rem] uppercase tracking-[0.18em] text-cream-dim">Total · {frame ? frame.name : "no frame"}</div>
-          <div className="font-display text-cream text-xl font-light leading-none">{formatEur(pricing.totalEur)}</div>
+      <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-background/95 backdrop-blur border-t border-cream/15 px-4 py-3 flex items-center gap-3">
+        {/* Frame thumb */}
+        <div className="w-12 h-12 rounded-[8px] bg-cream/[0.04] border border-cream/10 shrink-0 flex items-center justify-center overflow-hidden">
+          {frame ? (
+            <img src={frame.url} alt="" className="max-h-full max-w-full object-contain p-1" />
+          ) : (
+            <span className="text-cream-dim text-[0.55rem] uppercase tracking-[0.16em]">Frame</span>
+          )}
+        </div>
+        {/* Meta + swatches */}
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5">
+            <span className="text-cream text-[0.72rem] truncate">{frame ? frame.name : "Pick a frame"}</span>
+            {(front || temple) && (
+              <span className="flex items-center gap-0.5 shrink-0">
+                {front && <span className="w-2.5 h-2.5 rounded-full border border-cream/25" style={{ background: front.hex }} />}
+                {temple && <span className="w-2.5 h-2.5 rounded-full border border-cream/25" style={{ background: temple.hex }} />}
+              </span>
+            )}
+          </div>
+          <div className="font-display text-cream text-lg font-light leading-none mt-1">{formatEur(pricing.totalEur)}</div>
         </div>
         <button
           onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
           disabled={!isStepComplete(step, config) || step === STEPS.length}
-          className="px-5 py-2.5 rounded-full bg-gold text-background text-[0.68rem] uppercase tracking-[0.2em] font-medium disabled:opacity-40 transition"
+          className="px-4 py-2.5 rounded-full bg-gold text-background text-[0.66rem] uppercase tracking-[0.2em] font-medium disabled:opacity-40 transition shrink-0"
         >
-          {step === STEPS.length ? "Done" : "Next step"}
+          {step === STEPS.length ? "Done" : "Next"}
         </button>
       </div>
 
