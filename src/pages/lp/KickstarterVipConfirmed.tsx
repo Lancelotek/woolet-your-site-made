@@ -50,8 +50,6 @@ const KickstarterVipConfirmed = () => {
       /* ignore */
     }
     pushGtmEvent("vip_confirmed", { source: "kickstarter_lp" });
-    const w = window as unknown as { gtag_report_conversion?: () => void };
-    if (typeof w.gtag_report_conversion === "function") w.gtag_report_conversion();
   }, [email, name, navigate]);
 
   const refCode = useMemo(() => (email ? hashCode(email.toLowerCase()) : ""), [email]);
