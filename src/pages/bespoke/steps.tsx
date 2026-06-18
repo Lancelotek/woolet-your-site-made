@@ -333,24 +333,106 @@ export function StepMeasure({ config, update }: StepProps) {
 }
 
 /* ───── Step 4 ───── */
-function EngravingPreview({ text, fontId, position }: { text: string; fontId: string | null; position?: string }) {
+const SVG_W = 400;
+const SVG_H = 90;
+const TEMPLE = { x: 10, y: 25, w: 380, h: 40 };
+
+function EngravingPreview({
+  text,
+  fontId,
+  position,
+  offset,
+  onOffsetChange,
+}: {
+  text: string;
+  fontId: string | null;
+  position?: string;
+  offset: { x: number; y: number };
+  onOffsetChange: (next: { x: number; y: number }) => void;
+}) {
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const dragRef = useRef<{ pointerId: number; startX: number; startY: number; baseX: number; baseY: number } | null>(null);
+  const [dragging, setDragging] = useState(false);
+
   const display = (text || "Your text").slice(0, ENGRAVING_MAX_CHARS);
+  const empty = !text;
   const fontFamily =
     fontId === "serif"  ? "'Cormorant Garamond', serif" :
     fontId === "script" ? "'Cormorant Garamond', cursive" :
     fontId === "mono"   ? "ui-monospace, SFMono-Regular, monospace" :
                           "Barlow, sans-serif";
   const fontStyle = fontId === "script" ? "italic" : "normal";
-  const empty = !text;
+
+  // Convert client px delta to SVG units (viewBox-aware)
+  const pxToSvg = (dxClient: number, dyClient: number) => {
+    const rect = svgRef.current?.getBoundingClientRect();
+    if (!rect) return { dx: 0, dy: 0 };
+    return { dx: (dxClient / rect.width) * SVG_W, dy: (dyClient / rect.height) * SVG_H };
+  };
+
+  const clamp = (x: number, y: number) => {
+    const padX = 30;
+    const padY = 8;
+    const maxX = TEMPLE.w / 2 - padX;
+    const maxY = TEMPLE.h / 2 - padY;
+    return {
+      x: Math.max(-maxX, Math.min(maxX, x)),
+      y: Math.max(-maxY, Math.min(maxY, y)),
+    };
+  };
+
+  const onPointerDown = (e: React.PointerEvent<SVGGElement>) => {
+    e.preventDefault();
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+    dragRef.current = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      baseX: offset.x,
+      baseY: offset.y,
+    };
+    setDragging(true);
+  };
+  const onPointerMove = (e: React.PointerEvent<SVGGElement>) => {
+    const d = dragRef.current;
+    if (!d || d.pointerId !== e.pointerId) return;
+    const { dx, dy } = pxToSvg(e.clientX - d.startX, e.clientY - d.startY);
+    onOffsetChange(clamp(d.baseX + dx, d.baseY + dy));
+  };
+  const onPointerUp = (e: React.PointerEvent<SVGGElement>) => {
+    if (dragRef.current?.pointerId === e.pointerId) {
+      dragRef.current = null;
+      setDragging(false);
+    }
+  };
+
+  const cx = 200 + offset.x;
+  const cy = 45 + offset.y;
+
   return (
     <div className="rounded-[14px] border border-cream/10 bg-background/40 p-4 sm:p-5">
-      <div className="flex items-baseline justify-between mb-3">
-        <div className={labelClass}>Live preview</div>
-        {position && <div className="text-cream-dim text-[0.62rem] uppercase tracking-[0.16em]">{position}</div>}
+      <div className="flex items-baseline justify-between mb-3 gap-3">
+        <div className={labelClass}>Live preview · drag to position</div>
+        <div className="flex items-center gap-2">
+          {position && <div className="text-cream-dim text-[0.62rem] uppercase tracking-[0.16em]">{position}</div>}
+          {(offset.x !== 0 || offset.y !== 0) && (
+            <button
+              type="button"
+              onClick={() => onOffsetChange({ x: 0, y: 0 })}
+              className="text-gold-light/90 hover:text-gold-light text-[0.62rem] uppercase tracking-[0.16em] underline-offset-4 hover:underline"
+            >
+              Reset
+            </button>
+          )}
+        </div>
       </div>
-      <div className="rounded-[10px] bg-gradient-to-br from-[#1a1814] to-[#0e0d0a] p-4 sm:p-6 flex items-center justify-center overflow-hidden">
-        <svg viewBox="0 0 400 90" className="w-full max-w-md h-auto" aria-label={`Engraving preview: ${display}`}>
-          {/* Temple shape */}
+      <div className="rounded-[10px] bg-gradient-to-br from-[#1a1814] to-[#0e0d0a] p-4 sm:p-6 flex items-center justify-center overflow-hidden select-none">
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${SVG_W} ${SVG_H}`}
+          className="w-full max-w-md h-auto touch-none"
+          aria-label={`Engraving preview: ${display}. Drag to reposition.`}
+        >
           <defs>
             <linearGradient id="acetate" x1="0" x2="0" y1="0" y2="1">
               <stop offset="0%" stopColor="#2a2520" />
@@ -361,27 +443,50 @@ function EngravingPreview({ text, fontId, position }: { text: string; fontId: st
               <stop offset="0%" stopColor="#c9a84c" stopOpacity="0.95" />
               <stop offset="100%" stopColor="#8c6f28" stopOpacity="0.85" />
             </linearGradient>
+            <clipPath id="templeClip">
+              <rect x={TEMPLE.x} y={TEMPLE.y} width={TEMPLE.w} height={TEMPLE.h} rx="20" />
+            </clipPath>
           </defs>
-          <rect x="10" y="25" width="380" height="40" rx="20" fill="url(#acetate)" stroke="#3a342c" strokeWidth="0.5" />
-          {/* Highlight */}
+          <rect x={TEMPLE.x} y={TEMPLE.y} width={TEMPLE.w} height={TEMPLE.h} rx="20" fill="url(#acetate)" stroke="#3a342c" strokeWidth="0.5" />
           <rect x="14" y="29" width="372" height="6" rx="3" fill="#ffffff" opacity="0.04" />
-          <text
-            x="200"
-            y="50"
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={empty ? "#6b6258" : "url(#engrave)"}
-            style={{ fontFamily, fontStyle, fontSize: 18, letterSpacing: "0.06em" }}
-            opacity={empty ? 0.5 : 1}
+          <g
+            clipPath="url(#templeClip)"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+            style={{ cursor: dragging ? "grabbing" : "grab", touchAction: "none" }}
           >
-            {display}
-          </text>
+            {/* Larger transparent hit area for easy touch dragging */}
+            <rect x={TEMPLE.x} y={TEMPLE.y} width={TEMPLE.w} height={TEMPLE.h} fill="transparent" />
+            <text
+              x={cx}
+              y={cy}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill={empty ? "#6b6258" : "url(#engrave)"}
+              style={{ fontFamily, fontStyle, fontSize: 18, letterSpacing: "0.06em", pointerEvents: "none" }}
+              opacity={empty ? 0.5 : 1}
+            >
+              {display}
+            </text>
+            {dragging && (
+              <>
+                <line x1={cx} y1={TEMPLE.y + 2} x2={cx} y2={TEMPLE.y + TEMPLE.h - 2} stroke="#c9a84c" strokeWidth="0.4" strokeDasharray="2 2" opacity="0.5" />
+                <line x1={TEMPLE.x + 2} y1={cy} x2={TEMPLE.x + TEMPLE.w - 2} y2={cy} stroke="#c9a84c" strokeWidth="0.4" strokeDasharray="2 2" opacity="0.5" />
+              </>
+            )}
+          </g>
         </svg>
       </div>
-      <p className="text-cream-dim/70 text-[0.66rem] mt-2 text-center">Indicative · final depth and kerning set by the laser operator.</p>
+      <p className="text-cream-dim/70 text-[0.66rem] mt-2 text-center">
+        Indicative · final depth and kerning set by the laser operator.
+      </p>
     </div>
   );
 }
+
+
 
 
 export function StepEngraving({ config, update }: StepProps) {
