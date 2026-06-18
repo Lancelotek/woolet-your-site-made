@@ -324,8 +324,10 @@ export function StepMeasure({ config, update }: StepProps) {
         if (cancelled || !s) return;
         if (s.status === "completed" && (s.face_width_mm || s.nose_width_mm)) {
           const next: typeof config.measurements = { ...config.measurements };
-          if (Number.isFinite(s.face_width_mm)) next.faceWidth = s.face_width_mm;
-          if (Number.isFinite(s.nose_width_mm)) next.bridge = s.nose_width_mm;
+          const face = clampFaceMm(s.face_width_mm);
+          const nose = clampNoseMm(s.nose_width_mm);
+          if (face != null) next.faceWidth = face;
+          if (nose != null) next.bridge = nose;
           update("measurements", next);
           update("scanCompletedAt", new Date(s.updated_at ?? Date.now()).toISOString());
           update("scanMeasurementsUnlocked", false);
