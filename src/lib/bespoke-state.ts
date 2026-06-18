@@ -16,6 +16,7 @@ export interface BespokeConfig {
   engravingText: string;
   engravingPositionId: string | null;
   engravingFontId: string | null;
+  engravingOffset: { x: number; y: number };
   lensTypeId: string | null;
   lensMaterialId: string | null;
   lensCoatingId: string | null;
