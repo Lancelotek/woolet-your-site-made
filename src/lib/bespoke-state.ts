@@ -12,6 +12,9 @@ export interface BespokeConfig {
   measurementMethod: "scan" | "tape" | null;
   measurements: Measurements;
   consentTimestamp: string | null;
+  scanContactEmail: string | null;
+  scanContactPhone: string | null;
+  scanRequestedAt: string | null;
   engravingEnabled: boolean;
   engravingText: string;
   engravingPositionId: string | null;
