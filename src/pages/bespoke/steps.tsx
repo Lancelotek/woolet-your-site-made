@@ -498,29 +498,34 @@ export function StepLenses({ config, update }: StepProps) {
                 );
               })}
             </div>
+            {!config.lensMaterialId && (
+              <p className="text-cream-dim/70 text-[0.68rem] mt-2">Pick a material to unlock coatings.</p>
+            )}
           </div>
 
-          <div>
-            <div className={labelClass}>Coating</div>
-            <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {LENS_COATINGS.map((c) => {
-                const active = config.lensCoatingId === c.id;
-                return (
-                  <button
-                    key={c.id}
-                    onClick={() => update("lensCoatingId", c.id)}
-                    className={`px-3 py-2.5 rounded-[10px] text-xs border transition ${
-                      active
-                        ? "border-gold text-gold-light bg-gold/10"
-                        : "border-cream/15 text-cream-dim hover:border-cream/30"
-                    }`}
-                  >
-                    {c.name}
-                  </button>
-                );
-              })}
+          {config.lensMaterialId && (
+            <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className={labelClass}>Coating</div>
+              <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {LENS_COATINGS.map((c) => {
+                  const active = config.lensCoatingId === c.id;
+                  return (
+                    <button
+                      key={c.id}
+                      onClick={() => update("lensCoatingId", c.id)}
+                      className={`px-3 py-2.5 rounded-[10px] text-xs border transition ${
+                        active
+                          ? "border-gold text-gold-light bg-gold/10"
+                          : "border-cream/15 text-cream-dim hover:border-cream/30"
+                      }`}
+                    >
+                      {c.name}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
 
