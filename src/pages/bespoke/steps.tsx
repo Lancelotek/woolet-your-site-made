@@ -252,18 +252,22 @@ function ScanContactModal({
         <p className="text-cream-dim text-[0.7rem] mb-5 leading-relaxed">
           By proceeding you consent to processing of biometric data under GDPR Art. 9(2)(a). Facial landmarks are stored encrypted in the EU and auto-deleted within 30 days. You can withdraw consent at any time.
         </p>
+        {error && (
+          <p className="text-[hsl(0_60%_65%)] text-xs mb-4">{error}</p>
+        )}
         <div className="flex gap-3 flex-col sm:flex-row">
           <button
-            onClick={() => emailValid && onConfirm(email.trim(), phone.trim())}
-            disabled={!emailValid}
+            onClick={() => emailValid && !submitting && onConfirm(email.trim(), phone.trim())}
+            disabled={!emailValid || submitting}
             className="flex-1 px-6 py-3 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Save & start scan
+            {submitting ? "Opening scan…" : "Save & start scan"}
           </button>
-          <button onClick={onCancel} className="flex-1 px-6 py-3 rounded-full border border-cream/20 text-cream-dim text-xs uppercase tracking-[0.18em] hover:border-cream/40 transition">
+          <button onClick={onCancel} disabled={submitting} className="flex-1 px-6 py-3 rounded-full border border-cream/20 text-cream-dim text-xs uppercase tracking-[0.18em] hover:border-cream/40 transition disabled:opacity-40">
             Cancel
           </button>
         </div>
+
       </div>
     </div>
   );
