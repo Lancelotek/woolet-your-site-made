@@ -341,6 +341,50 @@ export default function Account() {
             )}
           </section>
 
+          {/* Bespoke measurements */}
+          <section className="flex flex-col gap-3">
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+              Bespoke measurements
+            </h2>
+            {dataLoading ? (
+              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>Loading…</p>
+            ) : bespoke.length === 0 ? (
+              <div className="flex flex-col gap-3" style={{ border: "1px solid rgba(255,255,255,0.12)", padding: "1.25rem" }}>
+                <p className="text-cream-dim" style={{ fontSize: "0.85rem", lineHeight: 1.55 }}>
+                  No bespoke configurations saved yet. Start a configurator to record your measurements here.
+                </p>
+                <Link
+                  to={`/${lang}/bespoke`}
+                  className="inline-block self-start uppercase tracking-[0.22em] no-underline"
+                  style={{
+                    background: GOLD,
+                    color: "#0f0f0f",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.7rem",
+                    padding: "12px 22px",
+                  }}
+                >
+                  Start bespoke
+                </Link>
+              </div>
+            ) : (
+              <ul className="flex flex-col gap-4 m-0 p-0" style={{ listStyle: "none" }}>
+                {bespoke.map((row) => (
+                  <BespokeMeasurementsCard
+                    key={row.id}
+                    row={row}
+                    onSaved={(updated) =>
+                      setBespoke((prev) => prev.map((r) => (r.id === updated.id ? updated : r)))
+                    }
+                  />
+                ))}
+              </ul>
+            )}
+          </section>
+
+
+
           {/* Profile */}
           <section className="flex flex-col gap-4">
             <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
