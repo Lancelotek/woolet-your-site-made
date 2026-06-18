@@ -190,25 +190,71 @@ export function StepColor({ config, update }: StepProps) {
 }
 
 /* ───── Step 3 ───── */
-function ConsentModal({ onAccept, onDecline }: { onAccept: () => void; onDecline: () => void }) {
+function ScanContactModal({
+  initialEmail,
+  initialPhone,
+  onCancel,
+  onConfirm,
+}: {
+  initialEmail: string;
+  initialPhone: string;
+  onCancel: () => void;
+  onConfirm: (email: string, phone: string) => void;
+}) {
+  const [email, setEmail] = useState(initialEmail);
+  const [phone, setPhone] = useState(initialPhone);
+  const [touched, setTouched] = useState(false);
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+
   return (
     <div className="fixed inset-0 z-50 bg-background/90 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="max-w-lg w-full rounded-[14px] border border-gold/30 bg-background p-6 sm:p-8">
-        <div className={sectionKicker}>Biometric data consent</div>
-        <h3 className="font-display text-cream text-2xl font-light mb-4">Before we open your camera</h3>
-        <ul className="text-cream-dim text-sm leading-relaxed space-y-2 mb-6 list-disc list-inside">
-          <li>We capture facial landmarks (pupillary distance, bridge, temple width).</li>
-          <li>Used <em>only</em> to manufacture your bespoke frame.</li>
-          <li>Stored encrypted in the EU. Raw scans auto-deleted after measurements are confirmed (max 30 days).</li>
-          <li>You can delete scan data at any time from your account.</li>
-        </ul>
-        <p className="text-cream-dim text-xs mb-6">By proceeding you consent to processing of biometric data under GDPR Art. 9(2)(a). You may decline and use the tape measure path instead.</p>
+        <div className={sectionKicker}>Before we open your camera</div>
+        <h3 className="font-display text-cream text-2xl font-light mb-3">Where should we send your scan results?</h3>
+        <p className="text-cream-dim text-sm leading-relaxed mb-5">
+          The AI scan happens on your phone. We'll email you the moment your measurements are verified by our optician and your frame goes into production.
+        </p>
+        <div className="space-y-4 mb-6">
+          <label className="block">
+            <span className="text-cream text-xs">Email <span className="text-gold-light">*</span></span>
+            <input
+              type="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={() => setTouched(true)}
+              placeholder="you@domain.com"
+              className="mt-1.5 w-full px-4 py-2.5 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:ring-1 focus:border-gold focus:ring-gold/40"
+            />
+            {touched && !emailValid && (
+              <span className="text-[hsl(0_60%_60%)] text-[0.7rem] mt-1 block">Enter a valid email address.</span>
+            )}
+          </label>
+          <label className="block">
+            <span className="text-cream text-xs">Phone <span className="text-cream-dim">(optional)</span></span>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="+48 600 000 000"
+              className="mt-1.5 w-full px-4 py-2.5 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:ring-1 focus:border-gold focus:ring-gold/40"
+            />
+            <span className="text-cream-dim text-[0.7rem] mt-1 block">For production updates and delivery coordination only.</span>
+          </label>
+        </div>
+        <p className="text-cream-dim text-[0.7rem] mb-5 leading-relaxed">
+          By proceeding you consent to processing of biometric data under GDPR Art. 9(2)(a). Facial landmarks are stored encrypted in the EU and auto-deleted within 30 days. You can withdraw consent at any time.
+        </p>
         <div className="flex gap-3 flex-col sm:flex-row">
-          <button onClick={onAccept} className="flex-1 px-6 py-3 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition">
-            I consent — start scan
+          <button
+            onClick={() => emailValid && onConfirm(email.trim(), phone.trim())}
+            disabled={!emailValid}
+            className="flex-1 px-6 py-3 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Save & start scan
           </button>
-          <button onClick={onDecline} className="flex-1 px-6 py-3 rounded-full border border-cream/20 text-cream-dim text-xs uppercase tracking-[0.18em] hover:border-cream/40 transition">
-            Decline — use tape
+          <button onClick={onCancel} className="flex-1 px-6 py-3 rounded-full border border-cream/20 text-cream-dim text-xs uppercase tracking-[0.18em] hover:border-cream/40 transition">
+            Cancel
           </button>
         </div>
       </div>
@@ -217,7 +263,7 @@ function ConsentModal({ onAccept, onDecline }: { onAccept: () => void; onDecline
 }
 
 export function StepMeasure({ config, update }: StepProps) {
-  const [showConsent, setShowConsent] = useState(false);
+  const [showScanModal, setShowScanModal] = useState(false);
 
   const handleTapeChange = (key: MeasurementKey, raw: string) => {
     const num = raw === "" ? undefined : Number(raw);
@@ -231,51 +277,80 @@ export function StepMeasure({ config, update }: StepProps) {
     return v < r.min || v > r.max;
   };
 
+  const launchScan = () => {
+    window.open("/en/fit", "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="space-y-8">
       <header>
-        <div className={sectionKicker}>Step 3</div>
+        <div className={sectionKicker}>Step 5</div>
         <h2 className={sectionTitle}>Measure your fit</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Bespoke depends on accuracy. Pick either method — measurements are reviewed by a human before production starts.
+          Bespoke depends on accuracy. Pick one method — every measurement is reviewed by our optician before production starts.
         </p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div
-          className={`${cardOuter} ${config.measurementMethod === "scan" ? cardActive : ""} p-5`}
-        >
-          <div className={labelClass}>Method A</div>
+        <div className={`${cardOuter} ${config.measurementMethod === "scan" ? cardActive : ""} p-5`}>
+          <div className={labelClass}>Method A · recommended</div>
           <h3 className="font-display text-cream text-xl font-light mt-1">AI face scan</h3>
           <p className="text-cream-dim text-sm leading-relaxed mt-2 mb-4">
-            Uses your phone camera + our existing fit scan. Captures PD automatically. ~90 seconds.
+            Your phone camera captures PD, bridge and temple width automatically. We email the results once our optician validates them — typically within 24 hours. ~90 seconds.
           </p>
           <button
-            onClick={() => setShowConsent(true)}
+            onClick={() => setShowScanModal(true)}
             className="px-5 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition"
           >
-            {config.measurementMethod === "scan" ? "Re-scan" : "Start AI scan"}
+            {config.measurementMethod === "scan" ? "Update contact / re-scan" : "Start AI scan"}
           </button>
         </div>
 
-        <div
-          className={`${cardOuter} ${config.measurementMethod === "tape" ? cardActive : ""} p-5`}
-        >
+        <div className={`${cardOuter} ${config.measurementMethod === "tape" ? cardActive : ""} p-5`}>
           <div className={labelClass}>Method B</div>
           <h3 className="font-display text-cream text-xl font-light mt-1">Tape measure</h3>
           <p className="text-cream-dim text-sm leading-relaxed mt-2 mb-4">
-            Manual entry from our mailed measuring kit or your own ruler. All values in millimetres.
+            Enter values yourself using our mailed measuring kit or any millimetre ruler. Best if you already know your PD.
           </p>
           <button
             onClick={() => update("measurementMethod", "tape")}
             className="px-5 py-2.5 rounded-full border border-cream/25 text-cream text-xs uppercase tracking-[0.18em] hover:border-cream/50 transition"
           >
-            {config.measurementMethod === "tape" ? "Editing tape values" : "Use tape measure"}
+            {config.measurementMethod === "tape" ? "Entering values below" : "Enter manually"}
           </button>
         </div>
       </div>
 
-      {(config.measurementMethod === "tape" || config.measurementMethod === "scan") && (
+      {config.measurementMethod === "scan" && (
+        <div className="rounded-[14px] border border-gold/25 bg-gold/[0.04] p-5 space-y-3">
+          <div className={labelClass}>Scan in progress</div>
+          <p className="text-cream text-sm">
+            Results will be sent to <span className="text-gold-light">{config.scanContactEmail}</span>
+            {config.scanContactPhone && <> · {config.scanContactPhone}</>}.
+          </p>
+          <p className="text-cream-dim text-xs leading-relaxed">
+            Once the scan completes on your phone, your millimetre measurements appear here automatically and your bespoke order moves into optician review. You don't need to type anything.
+          </p>
+          <div className="flex gap-3 flex-wrap pt-1">
+            <button
+              onClick={launchScan}
+              className="px-4 py-2 rounded-full border border-gold/50 text-gold-light text-[0.7rem] uppercase tracking-[0.18em] hover:bg-gold/10 transition"
+            >
+              Re-open scan on this device
+            </button>
+            <button
+              onClick={() => {
+                update("measurementMethod", "tape");
+              }}
+              className="px-4 py-2 rounded-full border border-cream/15 text-cream-dim text-[0.7rem] uppercase tracking-[0.18em] hover:border-cream/30 transition"
+            >
+              Switch to tape measure
+            </button>
+          </div>
+        </div>
+      )}
+
+      {config.measurementMethod === "tape" && (
         <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5">
           <div className={labelClass}>Measurements (mm)</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -313,24 +388,26 @@ export function StepMeasure({ config, update }: StepProps) {
         </div>
       )}
 
-      {showConsent && (
-        <ConsentModal
-          onAccept={() => {
+      {showScanModal && (
+        <ScanContactModal
+          initialEmail={config.scanContactEmail ?? ""}
+          initialPhone={config.scanContactPhone ?? ""}
+          onCancel={() => setShowScanModal(false)}
+          onConfirm={(email, phone) => {
             update("measurementMethod", "scan");
+            update("scanContactEmail", email);
+            update("scanContactPhone", phone || null);
             update("consentTimestamp", new Date().toISOString());
-            setShowConsent(false);
-            // Hand off to existing fit scan; results flow back via a future integration.
-            window.open("/en/fit", "_blank", "noopener,noreferrer");
-          }}
-          onDecline={() => {
-            update("measurementMethod", "tape");
-            setShowConsent(false);
+            update("scanRequestedAt", new Date().toISOString());
+            setShowScanModal(false);
+            launchScan();
           }}
         />
       )}
     </div>
   );
 }
+
 
 /* ───── Step 4 ───── */
 const SVG_W = 400;
