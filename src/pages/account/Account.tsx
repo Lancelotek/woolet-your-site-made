@@ -7,11 +7,21 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { toast } from "sonner";
+import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
+import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options";
 
 function pickModel(faceWidthMm: number, noseWidthMm: number): "007" | "009" {
   // 009 has the wider keyhole bridge; recommend it when the nose is wider.
   return noseWidthMm >= 40 ? "009" : "007";
 }
+
+type BespokeConfigRow = {
+  id: string;
+  name: string | null;
+  is_current: boolean;
+  updated_at: string;
+  config: { measurements?: Partial<Record<MeasurementKey, number>> } & Record<string, unknown>;
+};
 
 const GOLD = "#c9a84c";
 
