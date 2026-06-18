@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams, Link } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.png";
+import { rdtPurchase } from "@/lib/reddit-pixel";
 
 const T = {
   ink: "#141210",
@@ -41,6 +42,7 @@ export default function ThankYou() {
     // Google Ads conversion
     const w = window as unknown as { gtag_report_conversion?: () => void };
     if (typeof w.gtag_report_conversion === "function") w.gtag_report_conversion();
+    rdtPurchase({ value: 133, currency: "USD" });
     return () => clearTimeout(t);
   }, [pct]);
 
