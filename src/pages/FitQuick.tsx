@@ -345,15 +345,30 @@ export default function FitQuick() {
                   </div>
                 </div>
                 <input
-                  type="number"
+                  type="text"
                   inputMode="decimal"
-                  placeholder={unit === "mm" ? "e.g. 152" : unit === "cm" ? "e.g. 15.2" : "e.g. 6.0"}
+                  autoComplete="off"
+                  placeholder={`e.g. ${UNIT_RANGES[unit].example}`}
                   value={frameInput}
-                  onChange={(e) => setFrameInput(e.target.value)}
-                  step={unit === "in" ? 0.1 : unit === "cm" ? 0.1 : 1}
+                  aria-invalid={!!validationError}
+                  aria-describedby="frame-width-hint frame-width-error"
+                  maxLength={6}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    // Allow only digits + one optional dot/comma; silently drop other chars.
+                    const cleaned = raw.replace(/[^\d.,]/g, "").replace(/([.,].*)[.,]/g, "$1");
+                    setFrameInput(cleaned);
+                  }}
+                  onBlur={() => {
+                    // Normalize: comma → dot, trim trailing dot, round to sensible precision.
+                    if (validation.kind === "ok") {
+                      const v = validation.mm / UNIT_TO_MM[unit];
+                      setFrameInput(unit === "mm" ? String(Math.round(v)) : v.toFixed(unit === "in" ? 2 : 1));
+                    }
+                  }}
                   style={{
                     background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(240,236,228,0.18)",
+                    border: `1px solid ${validationError ? "rgba(232,93,93,0.55)" : "rgba(240,236,228,0.18)"}`,
                     color: PAPER,
                     fontFamily: "Barlow, sans-serif",
                     fontSize: "1.1rem",
@@ -362,14 +377,39 @@ export default function FitQuick() {
                     outline: "none",
                   }}
                 />
+                <div
+                  id="frame-width-hint"
+                  style={{
+                    color: MUTED, fontFamily: "Barlow, sans-serif",
+                    fontSize: "0.75rem", fontWeight: 300,
+                  }}
+                >
+                  Range: {UNIT_RANGES[unit].min}–{UNIT_RANGES[unit].max} {unit}. Measure across both lenses, hinge to hinge.
+                </div>
+                {validationError && (
+                  <div
+                    id="frame-width-error"
+                    role="alert"
+                    style={{
+                      color: "#e85d5d", fontFamily: "Barlow, sans-serif",
+                      fontSize: "0.8rem", fontWeight: 400, lineHeight: 1.4,
+                    }}
+                  >
+                    {validationError}
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={finish}
+                  disabled={!canSubmit}
                   style={{
-                    background: GOLD, color: INK, border: "none",
+                    background: canSubmit ? GOLD : "rgba(202,164,73,0.3)",
+                    color: INK, border: "none",
                     fontFamily: "Barlow, sans-serif", fontWeight: 500,
                     fontSize: "0.78rem", letterSpacing: "0.22em", textTransform: "uppercase",
-                    padding: "16px 20px", cursor: "pointer", marginTop: 4,
+                    padding: "16px 20px",
+                    cursor: canSubmit ? "pointer" : "not-allowed",
+                    marginTop: 4,
                   }}
                 >
                   Get my recommendation
