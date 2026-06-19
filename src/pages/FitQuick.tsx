@@ -453,7 +453,7 @@ export default function FitQuick() {
           )}
 
           {/* Step 4 — Result */}
-          {step === 4 && rec && <ResultCard rec={rec} onRestart={() => { setStep(1); setState({ hat: null, nose: null, currentFrameMm: null }); setFrameInput(""); }} />}
+          {step === 4 && rec && <ResultCard rec={rec} onRestart={() => { setStep(1); setState({ hat: null, nose: null, currentFrameMm: null, currentBridgeMm: null }); setFrameInput(""); setBridgeInput(""); }} />}
         </main>
         <Footer />
       </div>
