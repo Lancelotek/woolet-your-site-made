@@ -250,20 +250,59 @@ export default function FitQuick() {
               hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm. Skip if you don't have it."
             >
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <label style={{
-                  fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
-                  color: MUTED, letterSpacing: "0.05em",
-                }}>
-                  Total frame width (mm)
-                </label>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 12 }}>
+                  <label style={{
+                    fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
+                    color: MUTED, letterSpacing: "0.05em",
+                  }}>
+                    Total frame width ({unit})
+                  </label>
+                  <div role="tablist" aria-label="Unit" style={{ display: "flex", gap: 0, border: "1px solid rgba(240,236,228,0.18)", borderRadius: 3 }}>
+                    {(["mm", "cm", "in"] as Unit[]).map((u) => {
+                      const active = unit === u;
+                      return (
+                        <button
+                          key={u}
+                          type="button"
+                          role="tab"
+                          aria-selected={active}
+                          onClick={() => {
+                            // Convert existing input on switch so user doesn't lose it.
+                            const v = Number(frameInput.replace(",", "."));
+                            if (Number.isFinite(v) && v > 0) {
+                              const mm = v * UNIT_TO_MM[unit];
+                              const next = mm / UNIT_TO_MM[u];
+                              setFrameInput(u === "in" ? next.toFixed(2) : next.toFixed(1));
+                            }
+                            setUnit(u);
+                            pushEvent("fit_quick_unit_change", { unit: u });
+                          }}
+                          style={{
+                            background: active ? GOLD : "transparent",
+                            color: active ? INK : PAPER,
+                            border: "none",
+                            fontFamily: "Barlow, sans-serif",
+                            fontSize: "0.68rem",
+                            letterSpacing: "0.18em",
+                            textTransform: "uppercase",
+                            padding: "6px 12px",
+                            cursor: "pointer",
+                            fontWeight: active ? 600 : 400,
+                          }}
+                        >
+                          {u}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
                 <input
                   type="number"
                   inputMode="decimal"
-                  placeholder="e.g. 152"
+                  placeholder={unit === "mm" ? "e.g. 152" : unit === "cm" ? "e.g. 15.2" : "e.g. 6.0"}
                   value={frameInput}
                   onChange={(e) => setFrameInput(e.target.value)}
-                  min={120}
-                  max={200}
+                  step={unit === "in" ? 0.1 : unit === "cm" ? 0.1 : 1}
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(240,236,228,0.18)",
