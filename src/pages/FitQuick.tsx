@@ -128,12 +128,53 @@ type Unit = "mm" | "cm" | "in";
 
 const UNIT_TO_MM: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
 
-function toMm(value: string, unit: Unit): number | null {
-  const v = Number(value.replace(",", "."));
-  if (!Number.isFinite(v)) return null;
+// Plausible total frame width: 120–180 mm covers everything from
+// children's frames up to bespoke XL (172 mm). Anything outside is
+// almost certainly a typo or wrong measurement (e.g. lens width).
+const MIN_MM = 120;
+const MAX_MM = 180;
+
+const UNIT_RANGES: Record<Unit, { min: string; max: string; example: string }> = {
+  mm: { min: "120", max: "180", example: "152" },
+  cm: { min: "12.0", max: "18.0", example: "15.2" },
+  in: { min: "4.7", max: "7.1", example: "6.0" },
+};
+
+type Validation =
+  | { kind: "empty" }
+  | { kind: "ok"; mm: number }
+  | { kind: "not_a_number" }
+  | { kind: "too_small"; mm: number }
+  | { kind: "too_large"; mm: number };
+
+// Accept only digits, one optional decimal separator, max 5 chars before / 2 after.
+const NUMERIC_RE = /^\d{0,3}([.,]\d{0,2})?$/;
+
+function validate(value: string, unit: Unit): Validation {
+  const trimmed = value.trim();
+  if (trimmed === "") return { kind: "empty" };
+  if (!NUMERIC_RE.test(trimmed)) return { kind: "not_a_number" };
+  const v = Number(trimmed.replace(",", "."));
+  if (!Number.isFinite(v) || v <= 0) return { kind: "not_a_number" };
   const mm = v * UNIT_TO_MM[unit];
-  if (mm < 120 || mm > 200) return null;
-  return mm;
+  if (mm < MIN_MM) return { kind: "too_small", mm };
+  if (mm > MAX_MM) return { kind: "too_large", mm };
+  return { kind: "ok", mm };
+}
+
+function errorMessage(v: Validation, unit: Unit): string | null {
+  const r = UNIT_RANGES[unit];
+  switch (v.kind) {
+    case "empty":
+    case "ok":
+      return null;
+    case "not_a_number":
+      return `Enter a number (e.g. ${r.example} ${unit}).`;
+    case "too_small":
+      return `Too small. Eyewear frames are at least ${r.min} ${unit} — check you measured total width, not lens width.`;
+    case "too_large":
+      return `Too large. Even bespoke XL maxes at ${r.max} ${unit} — check you measured total width, not head circumference.`;
+  }
 }
 
 export default function FitQuick() {
@@ -141,6 +182,10 @@ export default function FitQuick() {
   const [state, setState] = useState<QuizState>({ hat: null, nose: null, currentFrameMm: null });
   const [frameInput, setFrameInput] = useState<string>("");
   const [unit, setUnit] = useState<Unit>("mm");
+
+  const validation = useMemo(() => validate(frameInput, unit), [frameInput, unit]);
+  const validationError = errorMessage(validation, unit);
+  const canSubmit = validation.kind === "ok";
 
   const next = (patch: Partial<QuizState>) => {
     setState((s) => ({ ...s, ...patch }));
@@ -154,14 +199,17 @@ export default function FitQuick() {
   };
 
   const finish = () => {
-    const mm = toMm(frameInput, unit);
+    const mm = validation.kind === "ok" ? validation.mm : null;
     const patch = { currentFrameMm: mm };
     setState((s) => ({ ...s, ...patch }));
-    pushEvent("fit_quick_complete", { hat: state.hat, nose: state.nose, frame_mm: mm, unit });
-    // Persist as prior so the AI scan can reconcile against it.
+    pushEvent("fit_quick_complete", {
+      hat: state.hat, nose: state.nose, frame_mm: mm, unit,
+      validation: validation.kind,
+    });
     saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: mm });
     setStep(4);
   };
+
 
   const rec = useMemo(() => (step === 4 ? recommend(state) : null), [step, state]);
 
