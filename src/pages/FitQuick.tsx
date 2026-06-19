@@ -25,7 +25,8 @@ type NoseWidth = "narrow" | "average" | "wide" | "unknown";
 interface QuizState {
   hat: HatSize | null;
   nose: NoseWidth | null;
-  currentFrameMm: number | null; // optional, 130–170
+  currentFrameMm: number | null; // optional, 120–180
+  currentBridgeMm: number | null; // optional, 14–26
 }
 
 const HAT_OPTIONS: { value: HatSize; label: string; sub: string }[] = [
