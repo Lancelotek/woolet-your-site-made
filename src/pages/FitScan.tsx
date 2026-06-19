@@ -2906,6 +2906,17 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
     low: { label: tFit(lang, "result.conf_low"), color: "#c47a4a", body: tFit(lang, "result.conf_low_body") },
   }[confidenceRating];
 
+  // Persist the latest scan so other parts of the app (bespoke configurator,
+  // manual fit page) can prefill measurements without re-scanning.
+  useEffect(() => {
+    saveScanResult({
+      faceWidthMm: adjustedFace,
+      noseWidthMm: adjustedNose,
+      confidence: confidenceRating,
+    });
+  }, [adjustedFace, adjustedNose, confidenceRating]);
+
+
   const handleCta = () => {
     pushEvent("scan_cta_clicked", {
       cta_label: recommendation.primaryCta.toLowerCase().replace(/[^a-z]+/g, "_"),
