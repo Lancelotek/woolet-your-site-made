@@ -3882,6 +3882,7 @@ export default function FitScan() {
   const [retryCount, setRetryCount] = useState(0);
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
   const [prefillPoints, setPrefillPoints] = useState<{ card: [Point, Point]; face: [Point, Point] } | null>(null);
+  const [quizReconcileNote, setQuizReconcileNote] = useState<{ reason: string; warn: boolean } | null>(null);
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
   const [capturedEmail, setCapturedEmail] = useState<string>(user?.email ?? "");
 
