@@ -19,6 +19,8 @@ import {
 import { FRAMES, FRAME_SHAPES, findFrame, type Frame } from "@/data/frames";
 import { type BespokeConfig, formatEur } from "@/lib/bespoke-state";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
+import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
+import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
 
 interface StepProps {
   config: BespokeConfig;
