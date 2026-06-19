@@ -67,6 +67,58 @@ export default function Account() {
   const [bespoke, setBespoke] = useState<BespokeConfigRow[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [savingProfile, setSavingProfile] = useState(false);
+  const [resendState, setResendState] = useState<"idle" | "sending" | "sent">("idle");
+  const [resendError, setResendError] = useState<string | null>(null);
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const t = setTimeout(() => setResendCooldown((s) => Math.max(0, s - 1)), 1000);
+    return () => clearTimeout(t);
+  }, [resendCooldown]);
+
+  const handleResendVerification = async () => {
+    if (!user?.email || resendState === "sending" || resendCooldown > 0) return;
+    setResendState("sending");
+    setResendError(null);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: user.email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/${lang}/account/callback`,
+          shouldCreateUser: false,
+        },
+      });
+      if (error) {
+        const msg = (error.message || "").toLowerCase();
+        let friendly = error.message || "Couldn't send the link. Please try again.";
+        if (msg.includes("rate") || msg.includes("too many") || (error as { status?: number }).status === 429) {
+          friendly = "Too many requests. Please wait a minute before trying again.";
+          setResendCooldown(60);
+        } else if (msg.includes("invalid") && msg.includes("email")) {
+          friendly = "This email looks invalid. Contact support if it's correct.";
+        } else if (msg.includes("not found") || msg.includes("user not found")) {
+          friendly = "We couldn't find that account. Try signing in fresh.";
+        } else if (msg.includes("network") || msg.includes("fetch")) {
+          friendly = "Network error. Check your connection and try again.";
+        }
+        setResendError(friendly);
+        setResendState("idle");
+        toast.error(friendly);
+        return;
+      }
+      setResendState("sent");
+      setResendCooldown(30);
+      toast.success("Verification link sent. Check your inbox (and spam).");
+      setTimeout(() => setResendState("idle"), 4000);
+    } catch (err) {
+      const friendly = "Something went wrong. Please try again.";
+      setResendError(friendly);
+      setResendState("idle");
+      toast.error(friendly);
+      console.error("[account] resend verification failed", err);
+    }
+  };
 
   useEffect(() => {
     if (!session) return;
@@ -197,7 +249,7 @@ export default function Account() {
 
           {!emailVerified && (
             <div
-              className="flex flex-col gap-2"
+              className="flex flex-col gap-3"
               style={{
                 background: "rgba(252,165,165,0.06)",
                 border: "1px solid rgba(252,165,165,0.35)",
@@ -209,25 +261,43 @@ export default function Account() {
                 Verify your email before checkout
               </p>
               <p className="text-cream-dim" style={{ fontSize: "0.8rem", lineHeight: 1.55 }}>
-                We need to confirm <strong style={{ color: "white" }}>{user?.email}</strong> owns this account before you can place a paid order. Tap the latest sign-in link we emailed you — or
-                {" "}
-                <button
-                  onClick={async () => {
-                    if (!user?.email) return;
-                    const { error } = await supabase.auth.signInWithOtp({
-                      email: user.email,
-                      options: { emailRedirectTo: `${window.location.origin}/${lang}/account` },
-                    });
-                    if (error) toast.error(error.message);
-                    else toast.success("Verification link sent. Check your inbox.");
-                  }}
-                  className="underline bg-transparent border-none p-0 cursor-pointer"
-                  style={{ color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.8rem" }}
-                >
-                  resend it
-                </button>
-                .
+                We need to confirm <strong style={{ color: "white" }}>{user?.email}</strong> owns this account before you can place a paid order. Open the latest sign-in link we emailed you. If it expired or didn't arrive, request a new one below.
               </p>
+              <div className="flex items-center gap-3 flex-wrap">
+                <button
+                  onClick={handleResendVerification}
+                  disabled={resendState === "sending" || resendCooldown > 0}
+                  className="uppercase tracking-[0.22em]"
+                  style={{
+                    background: resendState === "sending" || resendCooldown > 0 ? "rgba(201,168,76,0.4)" : GOLD,
+                    color: "#0f0f0f",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.7rem",
+                    padding: "10px 18px",
+                    border: "none",
+                    cursor: resendState === "sending" || resendCooldown > 0 ? "wait" : "pointer",
+                  }}
+                >
+                  {resendState === "sending"
+                    ? "Sending…"
+                    : resendState === "sent"
+                    ? "Link sent ✓"
+                    : resendCooldown > 0
+                    ? `Resend in ${resendCooldown}s`
+                    : "Resend verification link"}
+                </button>
+                {resendState === "sent" && (
+                  <span className="text-cream-dim" style={{ fontSize: "0.75rem" }}>
+                    Sent to {user?.email}. Check spam too.
+                  </span>
+                )}
+              </div>
+              {resendError && (
+                <p style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", margin: 0 }}>
+                  {resendError}
+                </p>
+              )}
             </div>
           )}
 
