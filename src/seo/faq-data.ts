@@ -13,7 +13,7 @@ export const PRODUCT_FAQ: FaqItem[] = [
   },
   {
     q: "How is Woolet different from cheaper wide-face glasses?",
-    a: "Most brands offering wide frames (Fatheadz, BXL, Zenni) use TR90 plastic or cheap acetate. Woolet uses Italian Mazzucchelli acetate — the same material found in $500+ frames. We add 5-barrel PVD Gunmetal hinges, a 21mm keyhole bridge, and hand polishing. Premium quality at the Founding Member price of $114 (regular $190).",
+    a: "Most brands offering wide frames (Fatheadz, BXL, Zenni) use TR90 plastic or cheap acetate. Woolet uses Italian Mazzucchelli acetate — the same material found in $500+ frames. We add 5-barrel PVD Gunmetal hinges, a 21mm keyhole bridge, and hand polishing. Premium quality at the Founding Member price of $133 (regular $190, save 30%).",
   },
   {
     q: "When will I receive my order?",
