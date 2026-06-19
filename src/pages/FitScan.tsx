@@ -2870,9 +2870,10 @@ interface ResultStepProps {
   faceShape: FaceShapeResult | null;
   onRetake: () => void;
   lang: Lang;
+  quizNote?: { reason: string; warn: boolean } | null;
 }
 
-function ResultStep({ measurements, recommendation: baseRecommendation, faceShape, onRetake, lang }: ResultStepProps) {
+function ResultStep({ measurements, recommendation: baseRecommendation, faceShape, onRetake, lang, quizNote }: ResultStepProps) {
   const { user: authedUser } = useAuth();
   // Depth correction: if the card was held in front of the face (not flush to skin),
   // it appears larger in pixels → face width is underestimated. Assuming a typical
