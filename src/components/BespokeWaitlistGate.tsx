@@ -1,0 +1,130 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Loader2, Check, Lock } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const BespokeWaitlistGate = () => {
+  const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  const valid = EMAIL_RE.test(email.trim()) && consent;
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!valid || status === "loading") return;
+    setStatus("loading");
+    setError(null);
+    try {
+      const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
+        body: { email: email.trim(), source: "scan" },
+      });
+      if (fnError || !data?.success) {
+        throw new Error(data?.error || fnError?.message || "Something went wrong");
+      }
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 pt-20 pb-10">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-background/70"
+        style={{ backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)" }}
+        aria-hidden
+      />
+
+      {/* Card */}
+      <div className="relative w-full max-w-md rounded-[18px] border border-cream/15 bg-background/95 p-7 sm:p-9 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
+        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-gold/40 bg-gold/10 text-gold-light text-[0.6rem] uppercase tracking-[0.22em] mb-5">
+          <Lock size={11} />
+          Private preview
+        </div>
+
+        <h2 className="font-display text-cream text-2xl sm:text-[1.75rem] font-light leading-tight">
+          The Bespoke configurator is by invitation.
+        </h2>
+        <p className="mt-3 text-cream-dim text-sm leading-relaxed">
+          Leave your email and we'll send you early access — together with your AI face scan results, so the configurator opens pre-measured.
+        </p>
+
+        {status === "success" ? (
+          <div className="mt-6 flex items-start gap-3 rounded-[12px] border border-gold/30 bg-gold/[0.06] p-4">
+            <Check size={18} className="text-gold mt-0.5 shrink-0" />
+            <div>
+              <div className="text-cream text-sm">You're on the list.</div>
+              <div className="text-cream-dim text-xs mt-1">
+                We'll be in touch from <span className="text-cream">hello@woolet.co</span>.
+              </div>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={submit} className="mt-6 space-y-4">
+            <div>
+              <label htmlFor="bespoke-gate-email" className="sr-only">Email</label>
+              <input
+                id="bespoke-gate-email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                required
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-[10px] bg-cream/[0.04] border border-cream/15 text-cream placeholder:text-cream-dim/60 text-sm focus:outline-none focus:border-gold/60 transition"
+              />
+            </div>
+
+            <label className="flex items-start gap-2.5 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                className="mt-0.5 h-4 w-4 rounded border-cream/30 bg-transparent accent-gold cursor-pointer shrink-0"
+                required
+              />
+              <span className="text-[0.72rem] leading-relaxed text-cream-dim">
+                I agree to the{" "}
+                <Link to="/en/privacy" target="_blank" className="text-cream underline underline-offset-2 hover:text-gold-light">
+                  Privacy Policy
+                </Link>{" "}
+                and to receiving updates about Woolet Bespoke.
+              </span>
+            </label>
+
+            {error && (
+              <div className="text-[0.72rem] text-red-300 bg-red-500/10 border border-red-500/30 rounded-[8px] px-3 py-2">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={!valid || status === "loading"}
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-gold text-background text-[0.72rem] uppercase tracking-[0.22em] font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gold-light transition"
+            >
+              {status === "loading" ? (
+                <><Loader2 size={14} className="animate-spin" /> Sending…</>
+              ) : (
+                "Request access"
+              )}
+            </button>
+
+            <p className="text-[0.62rem] uppercase tracking-[0.18em] text-cream-dim/70 text-center">
+              No spam. Unsubscribe anytime.
+            </p>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default BespokeWaitlistGate;
