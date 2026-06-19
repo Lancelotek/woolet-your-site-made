@@ -235,6 +235,7 @@ const ConfiguratorPage = () => {
       </div>
 
       <Footer />
+      </div>
     </div>
   );
 };
