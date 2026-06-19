@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { isValidLang, type Lang } from "@/lib/i18n";
@@ -57,6 +57,9 @@ export default function Account() {
   const { lang: paramLang } = useParams();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const { session, user, loading, signOut } = useAuth();
+  const [searchParams] = useSearchParams();
+  const cameFromFit = searchParams.get("from") === "fit";
+  const emailVerified = !!user?.email_confirmed_at;
 
   const [profile, setProfile] = useState<Profile | null>(null);
   const [scans, setScans] = useState<Scan[]>([]);
@@ -173,6 +176,62 @@ export default function Account() {
               Sign out
             </button>
           </header>
+
+          {cameFromFit && (
+            <div
+              className="flex flex-col gap-2"
+              style={{
+                background: "rgba(201,168,76,0.06)",
+                border: "1px solid rgba(201,168,76,0.25)",
+                padding: "16px 18px",
+              }}
+            >
+              <p className="text-foreground" style={{ fontSize: "0.95rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}>
+                Welcome back. Your fit scan is loaded.
+              </p>
+              <p className="text-cream-dim" style={{ fontSize: "0.8rem", lineHeight: 1.55 }}>
+                Your measurements are pre-filled below under Bespoke measurements and Measurement history. Review them, then reserve your spot when you're ready.
+              </p>
+            </div>
+          )}
+
+          {!emailVerified && (
+            <div
+              className="flex flex-col gap-2"
+              style={{
+                background: "rgba(252,165,165,0.06)",
+                border: "1px solid rgba(252,165,165,0.35)",
+                padding: "16px 18px",
+              }}
+              role="alert"
+            >
+              <p className="text-foreground" style={{ fontSize: "0.9rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}>
+                Verify your email before checkout
+              </p>
+              <p className="text-cream-dim" style={{ fontSize: "0.8rem", lineHeight: 1.55 }}>
+                We need to confirm <strong style={{ color: "white" }}>{user?.email}</strong> owns this account before you can place a paid order. Tap the latest sign-in link we emailed you — or
+                {" "}
+                <button
+                  onClick={async () => {
+                    if (!user?.email) return;
+                    const { error } = await supabase.auth.signInWithOtp({
+                      email: user.email,
+                      options: { emailRedirectTo: `${window.location.origin}/${lang}/account` },
+                    });
+                    if (error) toast.error(error.message);
+                    else toast.success("Verification link sent. Check your inbox.");
+                  }}
+                  className="underline bg-transparent border-none p-0 cursor-pointer"
+                  style={{ color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.8rem" }}
+                >
+                  resend it
+                </button>
+                .
+              </p>
+            </div>
+          )}
+
+
 
           {/* Recommendation */}
           <section className="flex flex-col gap-3">

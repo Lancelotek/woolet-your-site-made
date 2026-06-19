@@ -1472,6 +1472,8 @@ function EmailCaptureForm({
   fomoVariant: FomoVariant;
   onSuccess: (email: string) => void;
 }) {
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [agree, setAgree] = useState(true);
@@ -1498,6 +1500,33 @@ function EmailCaptureForm({
         },
       });
       if (fnError) throw fnError;
+
+      // Best-effort: persist the scan so it can be linked to the account
+      // later via link_user_data_by_email() once the user signs in.
+      supabase.functions
+        .invoke("scan-session-create", {
+          body: {
+            email,
+            status: "completed",
+            face_width_mm: measurement.faceWidthMm,
+            user_agent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+          },
+        })
+        .catch((err) => console.warn("[fit] scan-session-create failed", err));
+
+      // Best-effort: send a one-tap magic link to the user's inbox. Works
+      // whether the email is new or already registered. Clicking the link
+      // verifies the email — required before any purchase.
+      supabase.auth
+        .signInWithOtp({
+          email,
+          options: {
+            emailRedirectTo: `${window.location.origin}/${lang}/account?from=fit`,
+            data: { locale: lang, full_name: name },
+          },
+        })
+        .catch((err) => console.warn("[fit] signInWithOtp failed", err));
+
       pushEvent("fit_email_captured", {
         recommended_sku: measurement.recommendedSku,
         face_width_mm: measurement.faceWidthMm,
@@ -1732,10 +1761,25 @@ function SavedUpsellStep({
           className="text-cream-dim leading-relaxed mx-auto"
           style={{ fontSize: "0.95rem", maxWidth: "32rem" }}
         >
-          We'll email you when Kickstarter launches. Or — secure your founding
-          spot now for $1.
+          We just sent a one-tap sign-in link to <span className="text-foreground">{email}</span> — open it to access your Woolet account with your measurements already saved. Email verification is required before any purchase.
         </p>
       </div>
+
+      {/* Account-access notice */}
+      <div
+        className="mx-auto text-left"
+        style={{
+          maxWidth: "32rem",
+          background: "rgba(201,168,76,0.06)",
+          border: "1px solid rgba(201,168,76,0.25)",
+          padding: "14px 18px",
+        }}
+      >
+        <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.8rem", fontFamily: "Barlow, sans-serif" }}>
+          <span className="text-foreground" style={{ fontWeight: 500 }}>Open your account</span> from the email we just sent — your face width, bridge and PD will be pre-loaded into your bespoke profile. The link verifies your email so you can checkout safely.
+        </p>
+      </div>
+
 
       {/* Founding member upsell */}
       <div className="text-left">
