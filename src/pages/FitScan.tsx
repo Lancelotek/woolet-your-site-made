@@ -3964,7 +3964,23 @@ export default function FitScan() {
     f2?: Point,
   ): boolean => {
     try {
-      const m = calculateMeasurements(f.landmarks, f.width, c1, c2, f1, f2);
+      const mRaw = calculateMeasurements(f.landmarks, f.width, c1, c2, f1, f2);
+
+      // Reconcile against quiz prior (if user took /fit/quick earlier).
+      const prior = loadQuizPrior();
+      const rec = reconcileScan({
+        scanFaceMm: mRaw.faceWidthMm,
+        scanNoseMm: mRaw.noseWidthMm,
+        scanConfidence: mRaw.confidence,
+        prior,
+      });
+      const m: Measurements = {
+        ...mRaw,
+        faceWidthMm: rec.faceWidthMm,
+        noseWidthMm: rec.noseWidthMm,
+      };
+      setQuizReconcileNote(rec.reason ? { reason: rec.reason, warn: rec.warn } : null);
+
       const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
       const shape = detectFaceShape(f.landmarks, f.width, f.height);
       setMeasurements(m);
@@ -3977,6 +3993,10 @@ export default function FitScan() {
         confidence: m.confidence,
         auto_corners: !f1 && !f2,
         has_session: !!sessionId,
+        quiz_prior_used: !!prior,
+        quiz_adjusted: rec.adjusted,
+        quiz_delta_mm: rec.deltaMm,
+        scan_raw_face_mm: mRaw.faceWidthMm,
       });
       // CLARITY EVENT: scan_completed + tag session with the measured width bucket.
       clarityEvent("scan_completed");
