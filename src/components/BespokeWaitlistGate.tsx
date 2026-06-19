@@ -46,7 +46,7 @@ const BespokeWaitlistGate = () => {
     setError(null);
     try {
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: { email: email.trim(), source: "scan" },
+        body: { email: email.trim(), source: "bespoke" },
       });
       if (fnError || !data?.success) {
         throw new Error(data?.error || fnError?.message || "Something went wrong");

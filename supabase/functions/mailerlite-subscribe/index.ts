@@ -11,6 +11,7 @@ const MAILERLITE_API = "https://connect.mailerlite.com/api";
 // MailerLite group IDs
 const VIP_GROUP_ID = "181841182994728358";          // Kickstarter VIP (default)
 const AI_SCAN_GROUP_ID = "189356132351870087";      // AI Scan leads
+const BESPOKE_GROUP_ID = "189449279680546761";      // Bespoke configurator waitlist
 
 async function mlFetch(apiKey: string, path: string, method: string, body?: unknown) {
   const res = await fetch(`${MAILERLITE_API}${path}`, {
@@ -68,6 +69,8 @@ serve(async (req) => {
     const groups: string[] = [];
     if (source === "scan") {
       groups.push(AI_SCAN_GROUP_ID);
+    } else if (source === "bespoke") {
+      groups.push(BESPOKE_GROUP_ID);
     } else if (source === "kickstarter") {
       groups.push(VIP_GROUP_ID);
     } else {
