@@ -3,18 +3,44 @@ import { Link } from "react-router-dom";
 import { Loader2, Check, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// RFC 5322-inspired pragmatic email pattern.
+const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$/;
+
+function validateEmail(raw: string): string | null {
+  const value = raw.trim();
+  if (!value) return "Please enter your email.";
+  if (value.length > 254) return "Email is too long.";
+  if (/\s/.test(value)) return "Email can't contain spaces.";
+  if ((value.match(/@/g) ?? []).length !== 1) return "Email must contain exactly one “@”.";
+  const [local, domain] = value.split("@");
+  if (!local) return "Add the part before the “@”.";
+  if (!domain) return "Add the domain after the “@”.";
+  if (!domain.includes(".")) return "Domain must include a dot (e.g. gmail.com).";
+  if (domain.startsWith(".") || domain.endsWith(".")) return "Domain can't start or end with a dot.";
+  if (domain.endsWith("-") || domain.startsWith("-")) return "Domain can't start or end with a hyphen.";
+  const tld = domain.split(".").pop() ?? "";
+  if (tld.length < 2) return "Domain ending looks too short.";
+  if (!EMAIL_RE.test(value)) return "That doesn't look like a valid email.";
+  return null;
+}
 
 const BespokeWaitlistGate = () => {
   const [email, setEmail] = useState("");
+  const [emailTouched, setEmailTouched] = useState(false);
   const [consent, setConsent] = useState(false);
+  const [consentTouched, setConsentTouched] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
-  const valid = EMAIL_RE.test(email.trim()) && consent;
+  const emailError = validateEmail(email);
+  const showEmailError = emailTouched && !!emailError;
+  const showConsentError = consentTouched && !consent;
+  const valid = !emailError && consent;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setEmailTouched(true);
+    setConsentTouched(true);
     if (!valid || status === "loading") return;
     setStatus("loading");
     setError(null);
