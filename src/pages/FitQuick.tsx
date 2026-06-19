@@ -124,10 +124,23 @@ function mk(
 
 type Step = 1 | 2 | 3 | 4;
 
+type Unit = "mm" | "cm" | "in";
+
+const UNIT_TO_MM: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
+
+function toMm(value: string, unit: Unit): number | null {
+  const v = Number(value.replace(",", "."));
+  if (!Number.isFinite(v)) return null;
+  const mm = v * UNIT_TO_MM[unit];
+  if (mm < 120 || mm > 200) return null;
+  return mm;
+}
+
 export default function FitQuick() {
   const [step, setStep] = useState<Step>(1);
   const [state, setState] = useState<QuizState>({ hat: null, nose: null, currentFrameMm: null });
   const [frameInput, setFrameInput] = useState<string>("");
+  const [unit, setUnit] = useState<Unit>("mm");
 
   const next = (patch: Partial<QuizState>) => {
     setState((s) => ({ ...s, ...patch }));
@@ -141,13 +154,12 @@ export default function FitQuick() {
   };
 
   const finish = () => {
-    const mm = Number(frameInput.replace(",", "."));
-    const valid = Number.isFinite(mm) && mm >= 120 && mm <= 200;
-    const patch = { currentFrameMm: valid ? mm : null };
+    const mm = toMm(frameInput, unit);
+    const patch = { currentFrameMm: mm };
     setState((s) => ({ ...s, ...patch }));
-    pushEvent("fit_quick_complete", { hat: state.hat, nose: state.nose, frame_mm: valid ? mm : null });
+    pushEvent("fit_quick_complete", { hat: state.hat, nose: state.nose, frame_mm: mm, unit });
     // Persist as prior so the AI scan can reconcile against it.
-    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: valid ? mm : null });
+    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: mm });
     setStep(4);
   };
 
@@ -235,23 +247,62 @@ export default function FitQuick() {
             <QuestionBlock
               eyebrow="Question 3 of 3 · optional"
               title="Do you know your current frame width?"
-              hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm. Skip if you don't have it."
+              hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm (13–15.5 cm / 5.1–6.1 in). Skip if you don't have it."
             >
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <label style={{
-                  fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
-                  color: MUTED, letterSpacing: "0.05em",
-                }}>
-                  Total frame width (mm)
-                </label>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 12 }}>
+                  <label style={{
+                    fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
+                    color: MUTED, letterSpacing: "0.05em",
+                  }}>
+                    Total frame width ({unit})
+                  </label>
+                  <div role="tablist" aria-label="Unit" style={{ display: "flex", gap: 0, border: "1px solid rgba(240,236,228,0.18)", borderRadius: 3 }}>
+                    {(["mm", "cm", "in"] as Unit[]).map((u) => {
+                      const active = unit === u;
+                      return (
+                        <button
+                          key={u}
+                          type="button"
+                          role="tab"
+                          aria-selected={active}
+                          onClick={() => {
+                            // Convert existing input on switch so user doesn't lose it.
+                            const v = Number(frameInput.replace(",", "."));
+                            if (Number.isFinite(v) && v > 0) {
+                              const mm = v * UNIT_TO_MM[unit];
+                              const next = mm / UNIT_TO_MM[u];
+                              setFrameInput(u === "in" ? next.toFixed(2) : next.toFixed(1));
+                            }
+                            setUnit(u);
+                            pushEvent("fit_quick_unit_change", { unit: u });
+                          }}
+                          style={{
+                            background: active ? GOLD : "transparent",
+                            color: active ? INK : PAPER,
+                            border: "none",
+                            fontFamily: "Barlow, sans-serif",
+                            fontSize: "0.68rem",
+                            letterSpacing: "0.18em",
+                            textTransform: "uppercase",
+                            padding: "6px 12px",
+                            cursor: "pointer",
+                            fontWeight: active ? 600 : 400,
+                          }}
+                        >
+                          {u}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
                 <input
                   type="number"
                   inputMode="decimal"
-                  placeholder="e.g. 152"
+                  placeholder={unit === "mm" ? "e.g. 152" : unit === "cm" ? "e.g. 15.2" : "e.g. 6.0"}
                   value={frameInput}
                   onChange={(e) => setFrameInput(e.target.value)}
-                  min={120}
-                  max={200}
+                  step={unit === "in" ? 0.1 : unit === "cm" ? 0.1 : 1}
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(240,236,228,0.18)",
@@ -418,6 +469,9 @@ function ResultCard({ rec, onRestart }: { rec: Recommendation; onRestart: () => 
           <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "1.8rem", color: PAPER, marginTop: 4 }}>
             ~{rec.faceWidthMm} mm
           </div>
+          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", marginTop: 2 }}>
+            {(rec.faceWidthMm / 10).toFixed(1)} cm · {(rec.faceWidthMm / 25.4).toFixed(2)} in
+          </div>
         </div>
         <div>
           <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
@@ -425,6 +479,9 @@ function ResultCard({ rec, onRestart }: { rec: Recommendation; onRestart: () => 
           </div>
           <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "1.8rem", color: PAPER, marginTop: 4 }}>
             {rec.bridgeMm} mm
+          </div>
+          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", marginTop: 2 }}>
+            {(rec.bridgeMm / 25.4).toFixed(2)} in
           </div>
         </div>
       </div>
