@@ -25,7 +25,8 @@ type NoseWidth = "narrow" | "average" | "wide" | "unknown";
 interface QuizState {
   hat: HatSize | null;
   nose: NoseWidth | null;
-  currentFrameMm: number | null; // optional, 130–170
+  currentFrameMm: number | null; // optional, 120–180
+  currentBridgeMm: number | null; // optional, 14–26
 }
 
 const HAT_OPTIONS: { value: HatSize; label: string; sub: string }[] = [
@@ -58,7 +59,7 @@ function recommend(state: QuizState): Recommendation {
   // If user typed their current frame width, that overrides everything.
   if (state.currentFrameMm && state.currentFrameMm >= 130 && state.currentFrameMm <= 175) {
     const w = state.currentFrameMm;
-    const bridge = state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22;
+    const bridge = state.currentBridgeMm ?? (state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22);
     if (w >= 165) return mk(w, bridge, "bespoke", "high",
       "You need bespoke (165–172 mm).",
       "Off-the-shelf wide frames top out around 158–161 mm. We make bespoke up to 172 mm with the same Italian acetate.");
@@ -79,7 +80,7 @@ function recommend(state: QuizState): Recommendation {
     s: 138, m: 146, l: 154, xl: 159, xxl: 164, unknown: 152,
   };
   const w = faceEstimate[hat];
-  const bridge = state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22;
+  const bridge = state.currentBridgeMm ?? (state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22);
   const conf: "low" | "medium" | "high" = hat === "unknown" ? "low" : state.nose === "unknown" ? "medium" : "medium";
 
   if (hat === "xxl") return mk(w, bridge, "bespoke", conf,
@@ -128,16 +129,44 @@ type Unit = "mm" | "cm" | "in";
 
 const UNIT_TO_MM: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
 
-// Plausible total frame width: 120–180 mm covers everything from
-// children's frames up to bespoke XL (172 mm). Anything outside is
-// almost certainly a typo or wrong measurement (e.g. lens width).
-const MIN_MM = 120;
-const MAX_MM = 180;
+// Plausible ranges per field (total frame width vs nose bridge).
+type Field = "frame" | "bridge";
 
-const UNIT_RANGES: Record<Unit, { min: string; max: string; example: string }> = {
-  mm: { min: "120", max: "180", example: "152" },
-  cm: { min: "12.0", max: "18.0", example: "15.2" },
-  in: { min: "4.7", max: "7.1", example: "6.0" },
+interface FieldSpec {
+  minMm: number;
+  maxMm: number;
+  ranges: Record<Unit, { min: string; max: string; example: string }>;
+  label: string;
+  tooSmallHint: string;
+  tooLargeHint: string;
+}
+
+const FIELD: Record<Field, FieldSpec> = {
+  frame: {
+    minMm: 120,
+    maxMm: 180,
+    ranges: {
+      mm: { min: "120", max: "180", example: "152" },
+      cm: { min: "12.0", max: "18.0", example: "15.2" },
+      in: { min: "4.7", max: "7.1", example: "6.0" },
+    },
+    label: "Total frame width",
+    tooSmallHint: "check you measured total width, not lens width",
+    tooLargeHint: "check you measured total width, not head circumference",
+  },
+  bridge: {
+    // Eyewear nose bridges sit 14–26 mm (keyhole 18–24, standard 16–22).
+    minMm: 14,
+    maxMm: 26,
+    ranges: {
+      mm: { min: "14", max: "26", example: "22" },
+      cm: { min: "1.4", max: "2.6", example: "2.2" },
+      in: { min: "0.55", max: "1.02", example: "0.87" },
+    },
+    label: "Bridge width",
+    tooSmallHint: "the bridge is the gap between the two lenses — usually 18–24 mm",
+    tooLargeHint: "the bridge is just the gap between lenses, not the whole frame",
+  },
 };
 
 type Validation =
@@ -147,23 +176,24 @@ type Validation =
   | { kind: "too_small"; mm: number }
   | { kind: "too_large"; mm: number };
 
-// Accept only digits, one optional decimal separator, max 5 chars before / 2 after.
+// Accept only digits, one optional decimal separator, max 3 chars before / 2 after.
 const NUMERIC_RE = /^\d{0,3}([.,]\d{0,2})?$/;
 
-function validate(value: string, unit: Unit): Validation {
+function validate(value: string, unit: Unit, field: Field): Validation {
   const trimmed = value.trim();
   if (trimmed === "") return { kind: "empty" };
   if (!NUMERIC_RE.test(trimmed)) return { kind: "not_a_number" };
   const v = Number(trimmed.replace(",", "."));
   if (!Number.isFinite(v) || v <= 0) return { kind: "not_a_number" };
   const mm = v * UNIT_TO_MM[unit];
-  if (mm < MIN_MM) return { kind: "too_small", mm };
-  if (mm > MAX_MM) return { kind: "too_large", mm };
+  if (mm < FIELD[field].minMm) return { kind: "too_small", mm };
+  if (mm > FIELD[field].maxMm) return { kind: "too_large", mm };
   return { kind: "ok", mm };
 }
 
-function errorMessage(v: Validation, unit: Unit): string | null {
-  const r = UNIT_RANGES[unit];
+function errorMessage(v: Validation, unit: Unit, field: Field): string | null {
+  const spec = FIELD[field];
+  const r = spec.ranges[unit];
   switch (v.kind) {
     case "empty":
     case "ok":
@@ -171,21 +201,25 @@ function errorMessage(v: Validation, unit: Unit): string | null {
     case "not_a_number":
       return `Enter a number (e.g. ${r.example} ${unit}).`;
     case "too_small":
-      return `Too small. Eyewear frames are at least ${r.min} ${unit} — check you measured total width, not lens width.`;
+      return `Too small. ${spec.label} is at least ${r.min} ${unit} — ${spec.tooSmallHint}.`;
     case "too_large":
-      return `Too large. Even bespoke XL maxes at ${r.max} ${unit} — check you measured total width, not head circumference.`;
+      return `Too large. ${spec.label} maxes at ${r.max} ${unit} — ${spec.tooLargeHint}.`;
   }
 }
 
 export default function FitQuick() {
   const [step, setStep] = useState<Step>(1);
-  const [state, setState] = useState<QuizState>({ hat: null, nose: null, currentFrameMm: null });
+  const [state, setState] = useState<QuizState>({ hat: null, nose: null, currentFrameMm: null, currentBridgeMm: null });
   const [frameInput, setFrameInput] = useState<string>("");
+  const [bridgeInput, setBridgeInput] = useState<string>("");
   const [unit, setUnit] = useState<Unit>("mm");
 
-  const validation = useMemo(() => validate(frameInput, unit), [frameInput, unit]);
-  const validationError = errorMessage(validation, unit);
-  const canSubmit = validation.kind === "ok";
+  const frameValidation = useMemo(() => validate(frameInput, unit, "frame"), [frameInput, unit]);
+  const frameError = errorMessage(frameValidation, unit, "frame");
+  const bridgeValidation = useMemo(() => validate(bridgeInput, unit, "bridge"), [bridgeInput, unit]);
+  const bridgeError = errorMessage(bridgeValidation, unit, "bridge");
+  // Submit requires a valid frame width; bridge is optional but if filled must be valid.
+  const canSubmit = frameValidation.kind === "ok" && bridgeValidation.kind !== "not_a_number" && bridgeValidation.kind !== "too_small" && bridgeValidation.kind !== "too_large";
 
   const next = (patch: Partial<QuizState>) => {
     setState((s) => ({ ...s, ...patch }));
@@ -199,14 +233,17 @@ export default function FitQuick() {
   };
 
   const finish = () => {
-    const mm = validation.kind === "ok" ? validation.mm : null;
-    const patch = { currentFrameMm: mm };
+    const frameMm = frameValidation.kind === "ok" ? frameValidation.mm : null;
+    const bridgeMm = bridgeValidation.kind === "ok" ? bridgeValidation.mm : null;
+    const patch = { currentFrameMm: frameMm, currentBridgeMm: bridgeMm };
     setState((s) => ({ ...s, ...patch }));
     pushEvent("fit_quick_complete", {
-      hat: state.hat, nose: state.nose, frame_mm: mm, unit,
-      validation: validation.kind,
+      hat: state.hat, nose: state.nose,
+      frame_mm: frameMm, bridge_mm: bridgeMm, unit,
+      frame_validation: frameValidation.kind,
+      bridge_validation: bridgeValidation.kind,
     });
-    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: mm });
+    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: frameMm });
     setStep(4);
   };
 
@@ -290,21 +327,16 @@ export default function FitQuick() {
             </QuestionBlock>
           )}
 
-          {/* Step 3 — Optional current frame width */}
+          {/* Step 3 — Optional current frame & bridge width */}
           {step === 3 && (
             <QuestionBlock
               eyebrow="Question 3 of 3 · optional"
-              title="Do you know your current frame width?"
-              hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm (13–15.5 cm / 5.1–6.1 in). Skip if you don't have it."
+              title="Do you know your current frame size?"
+              hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm; bridge is the gap between the lenses (18–24 mm). Skip if you don't have it."
             >
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 12 }}>
-                  <label style={{
-                    fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
-                    color: MUTED, letterSpacing: "0.05em",
-                  }}>
-                    Total frame width ({unit})
-                  </label>
+              <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+                {/* Shared unit switcher */}
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <div role="tablist" aria-label="Unit" style={{ display: "flex", gap: 0, border: "1px solid rgba(240,236,228,0.18)", borderRadius: 3 }}>
                     {(["mm", "cm", "in"] as Unit[]).map((u) => {
                       const active = unit === u;
@@ -315,13 +347,16 @@ export default function FitQuick() {
                           role="tab"
                           aria-selected={active}
                           onClick={() => {
-                            // Convert existing input on switch so user doesn't lose it.
-                            const v = Number(frameInput.replace(",", "."));
-                            if (Number.isFinite(v) && v > 0) {
+                            // Convert both inputs on switch so user doesn't lose them.
+                            const convert = (s: string): string => {
+                              const v = Number(s.replace(",", "."));
+                              if (!Number.isFinite(v) || v <= 0) return s;
                               const mm = v * UNIT_TO_MM[unit];
                               const next = mm / UNIT_TO_MM[u];
-                              setFrameInput(u === "in" ? next.toFixed(2) : next.toFixed(1));
-                            }
+                              return u === "in" ? next.toFixed(2) : u === "cm" ? next.toFixed(1) : String(Math.round(next));
+                            };
+                            if (frameInput) setFrameInput(convert(frameInput));
+                            if (bridgeInput) setBridgeInput(convert(bridgeInput));
                             setUnit(u);
                             pushEvent("fit_quick_unit_change", { unit: u });
                           }}
@@ -344,60 +379,31 @@ export default function FitQuick() {
                     })}
                   </div>
                 </div>
-                <input
-                  type="text"
-                  inputMode="decimal"
-                  autoComplete="off"
-                  placeholder={`e.g. ${UNIT_RANGES[unit].example}`}
+
+                <MeasurementInput
+                  id="frame-width"
+                  label="Total frame width"
+                  unit={unit}
+                  field="frame"
                   value={frameInput}
-                  aria-invalid={!!validationError}
-                  aria-describedby="frame-width-hint frame-width-error"
-                  maxLength={6}
-                  onChange={(e) => {
-                    const raw = e.target.value;
-                    // Allow only digits + one optional dot/comma; silently drop other chars.
-                    const cleaned = raw.replace(/[^\d.,]/g, "").replace(/([.,].*)[.,]/g, "$1");
-                    setFrameInput(cleaned);
-                  }}
-                  onBlur={() => {
-                    // Normalize: comma → dot, trim trailing dot, round to sensible precision.
-                    if (validation.kind === "ok") {
-                      const v = validation.mm / UNIT_TO_MM[unit];
-                      setFrameInput(unit === "mm" ? String(Math.round(v)) : v.toFixed(unit === "in" ? 2 : 1));
-                    }
-                  }}
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: `1px solid ${validationError ? "rgba(232,93,93,0.55)" : "rgba(240,236,228,0.18)"}`,
-                    color: PAPER,
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "1.1rem",
-                    padding: "16px 18px",
-                    borderRadius: 4,
-                    outline: "none",
-                  }}
+                  onChange={setFrameInput}
+                  validation={frameValidation}
+                  error={frameError}
+                  hint="Measure across both lenses, hinge to hinge."
                 />
-                <div
-                  id="frame-width-hint"
-                  style={{
-                    color: MUTED, fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.75rem", fontWeight: 300,
-                  }}
-                >
-                  Range: {UNIT_RANGES[unit].min}–{UNIT_RANGES[unit].max} {unit}. Measure across both lenses, hinge to hinge.
-                </div>
-                {validationError && (
-                  <div
-                    id="frame-width-error"
-                    role="alert"
-                    style={{
-                      color: "#e85d5d", fontFamily: "Barlow, sans-serif",
-                      fontSize: "0.8rem", fontWeight: 400, lineHeight: 1.4,
-                    }}
-                  >
-                    {validationError}
-                  </div>
-                )}
+
+                <MeasurementInput
+                  id="bridge-width"
+                  label="Bridge width"
+                  unit={unit}
+                  field="bridge"
+                  value={bridgeInput}
+                  onChange={setBridgeInput}
+                  validation={bridgeValidation}
+                  error={bridgeError}
+                  hint="The gap between the two lenses, measured at the nose."
+                />
+
                 <button
                   type="button"
                   onClick={finish}
@@ -416,7 +422,7 @@ export default function FitQuick() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setFrameInput(""); finish(); }}
+                  onClick={() => { setFrameInput(""); setBridgeInput(""); finish(); }}
                   style={{
                     background: "transparent", color: MUTED, border: "none",
                     fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
@@ -447,7 +453,7 @@ export default function FitQuick() {
           )}
 
           {/* Step 4 — Result */}
-          {step === 4 && rec && <ResultCard rec={rec} onRestart={() => { setStep(1); setState({ hat: null, nose: null, currentFrameMm: null }); setFrameInput(""); }} />}
+          {step === 4 && rec && <ResultCard rec={rec} onRestart={() => { setStep(1); setState({ hat: null, nose: null, currentFrameMm: null, currentBridgeMm: null }); setFrameInput(""); setBridgeInput(""); }} />}
         </main>
         <Footer />
       </div>
@@ -622,5 +628,89 @@ function ResultCard({ rec, onRestart }: { rec: Recommendation; onRestart: () => 
         </div>
       </div>
     </section>
+  );
+}
+
+function MeasurementInput({
+  id, label, unit, field, value, onChange, validation, error, hint,
+}: {
+  id: string;
+  label: string;
+  unit: Unit;
+  field: Field;
+  value: string;
+  onChange: (v: string) => void;
+  validation: Validation;
+  error: string | null;
+  hint: string;
+}) {
+  const range = FIELD[field].ranges[unit];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <label
+        htmlFor={id}
+        style={{
+          fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
+          color: MUTED, letterSpacing: "0.05em",
+        }}
+      >
+        {label} ({unit})
+      </label>
+      <input
+        id={id}
+        type="text"
+        inputMode="decimal"
+        autoComplete="off"
+        placeholder={`e.g. ${range.example}`}
+        value={value}
+        aria-invalid={!!error}
+        aria-describedby={`${id}-hint ${id}-error`}
+        maxLength={6}
+        onChange={(e) => {
+          const raw = e.target.value;
+          // Allow only digits + one optional dot/comma; silently drop other chars.
+          const cleaned = raw.replace(/[^\d.,]/g, "").replace(/([.,].*)[.,]/g, "$1");
+          onChange(cleaned);
+        }}
+        onBlur={() => {
+          // Normalize on blur if value is valid.
+          if (validation.kind === "ok") {
+            const v = validation.mm / UNIT_TO_MM[unit];
+            onChange(unit === "mm" ? String(Math.round(v)) : v.toFixed(unit === "in" ? 2 : 1));
+          }
+        }}
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: `1px solid ${error ? "rgba(232,93,93,0.55)" : "rgba(240,236,228,0.18)"}`,
+          color: PAPER,
+          fontFamily: "Barlow, sans-serif",
+          fontSize: "1.1rem",
+          padding: "16px 18px",
+          borderRadius: 4,
+          outline: "none",
+        }}
+      />
+      <div
+        id={`${id}-hint`}
+        style={{
+          color: MUTED, fontFamily: "Barlow, sans-serif",
+          fontSize: "0.75rem", fontWeight: 300,
+        }}
+      >
+        Range: {range.min}–{range.max} {unit}. {hint}
+      </div>
+      {error && (
+        <div
+          id={`${id}-error`}
+          role="alert"
+          style={{
+            color: "#e85d5d", fontFamily: "Barlow, sans-serif",
+            fontSize: "0.8rem", fontWeight: 400, lineHeight: 1.4,
+          }}
+        >
+          {error}
+        </div>
+      )}
+    </div>
   );
 }
