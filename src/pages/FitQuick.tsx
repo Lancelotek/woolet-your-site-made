@@ -129,16 +129,44 @@ type Unit = "mm" | "cm" | "in";
 
 const UNIT_TO_MM: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
 
-// Plausible total frame width: 120–180 mm covers everything from
-// children's frames up to bespoke XL (172 mm). Anything outside is
-// almost certainly a typo or wrong measurement (e.g. lens width).
-const MIN_MM = 120;
-const MAX_MM = 180;
+// Plausible ranges per field (total frame width vs nose bridge).
+type Field = "frame" | "bridge";
 
-const UNIT_RANGES: Record<Unit, { min: string; max: string; example: string }> = {
-  mm: { min: "120", max: "180", example: "152" },
-  cm: { min: "12.0", max: "18.0", example: "15.2" },
-  in: { min: "4.7", max: "7.1", example: "6.0" },
+interface FieldSpec {
+  minMm: number;
+  maxMm: number;
+  ranges: Record<Unit, { min: string; max: string; example: string }>;
+  label: string;
+  tooSmallHint: string;
+  tooLargeHint: string;
+}
+
+const FIELD: Record<Field, FieldSpec> = {
+  frame: {
+    minMm: 120,
+    maxMm: 180,
+    ranges: {
+      mm: { min: "120", max: "180", example: "152" },
+      cm: { min: "12.0", max: "18.0", example: "15.2" },
+      in: { min: "4.7", max: "7.1", example: "6.0" },
+    },
+    label: "Total frame width",
+    tooSmallHint: "check you measured total width, not lens width",
+    tooLargeHint: "check you measured total width, not head circumference",
+  },
+  bridge: {
+    // Eyewear nose bridges sit 14–26 mm (keyhole 18–24, standard 16–22).
+    minMm: 14,
+    maxMm: 26,
+    ranges: {
+      mm: { min: "14", max: "26", example: "22" },
+      cm: { min: "1.4", max: "2.6", example: "2.2" },
+      in: { min: "0.55", max: "1.02", example: "0.87" },
+    },
+    label: "Bridge width",
+    tooSmallHint: "the bridge is the gap between the two lenses — usually 18–24 mm",
+    tooLargeHint: "the bridge is just the gap between lenses, not the whole frame",
+  },
 };
 
 type Validation =
@@ -148,23 +176,24 @@ type Validation =
   | { kind: "too_small"; mm: number }
   | { kind: "too_large"; mm: number };
 
-// Accept only digits, one optional decimal separator, max 5 chars before / 2 after.
+// Accept only digits, one optional decimal separator, max 3 chars before / 2 after.
 const NUMERIC_RE = /^\d{0,3}([.,]\d{0,2})?$/;
 
-function validate(value: string, unit: Unit): Validation {
+function validate(value: string, unit: Unit, field: Field): Validation {
   const trimmed = value.trim();
   if (trimmed === "") return { kind: "empty" };
   if (!NUMERIC_RE.test(trimmed)) return { kind: "not_a_number" };
   const v = Number(trimmed.replace(",", "."));
   if (!Number.isFinite(v) || v <= 0) return { kind: "not_a_number" };
   const mm = v * UNIT_TO_MM[unit];
-  if (mm < MIN_MM) return { kind: "too_small", mm };
-  if (mm > MAX_MM) return { kind: "too_large", mm };
+  if (mm < FIELD[field].minMm) return { kind: "too_small", mm };
+  if (mm > FIELD[field].maxMm) return { kind: "too_large", mm };
   return { kind: "ok", mm };
 }
 
-function errorMessage(v: Validation, unit: Unit): string | null {
-  const r = UNIT_RANGES[unit];
+function errorMessage(v: Validation, unit: Unit, field: Field): string | null {
+  const spec = FIELD[field];
+  const r = spec.ranges[unit];
   switch (v.kind) {
     case "empty":
     case "ok":
@@ -172,9 +201,9 @@ function errorMessage(v: Validation, unit: Unit): string | null {
     case "not_a_number":
       return `Enter a number (e.g. ${r.example} ${unit}).`;
     case "too_small":
-      return `Too small. Eyewear frames are at least ${r.min} ${unit} — check you measured total width, not lens width.`;
+      return `Too small. ${spec.label} is at least ${r.min} ${unit} — ${spec.tooSmallHint}.`;
     case "too_large":
-      return `Too large. Even bespoke XL maxes at ${r.max} ${unit} — check you measured total width, not head circumference.`;
+      return `Too large. ${spec.label} maxes at ${r.max} ${unit} — ${spec.tooLargeHint}.`;
   }
 }
 
