@@ -3338,6 +3338,45 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
         </p>
       </div>
 
+      {quizNote && (
+        <div
+          role="note"
+          style={{
+            border: `1px solid ${quizNote.warn ? "rgba(232,93,93,0.45)" : "rgba(202,164,73,0.45)"}`,
+            background: quizNote.warn ? "rgba(232,93,93,0.06)" : "rgba(202,164,73,0.06)",
+            padding: "12px 14px",
+            borderRadius: 6,
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
+          }}
+        >
+          <span
+            style={{
+              color: quizNote.warn ? "#e85d5d" : GOLD,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.65rem",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              fontWeight: 500,
+            }}
+          >
+            {quizNote.warn ? "Scan and quiz disagree" : "Combined with your quiz answers"}
+          </span>
+          <span
+            style={{
+              color: "rgba(240,236,228,0.88)",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.85rem",
+              lineHeight: 1.5,
+              fontWeight: 300,
+            }}
+          >
+            {quizNote.reason}
+          </span>
+        </div>
+      )}
+
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
           to={`/${lang}/products/009`}
