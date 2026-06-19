@@ -222,6 +222,200 @@ function WelcomeStep({
         {tFit(lang, "welcome.subtitle")}
       </p>
 
+      {/* Why scan + manual alternative — two paths on the same page */}
+      <section
+        aria-label="Two ways to measure"
+        className="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-1"
+      >
+        {/* Scan — recommended */}
+        <div
+          style={{
+            position: "relative",
+            border: `1.5px solid ${GOLD}`,
+            background: "rgba(202,164,73,0.06)",
+            borderRadius: 12,
+            padding: "22px 20px 18px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: -10,
+              left: 16,
+              background: GOLD,
+              color: BG,
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 600,
+              fontSize: "0.6rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              padding: "3px 10px",
+              borderRadius: 2,
+            }}
+          >
+            Recommended
+          </div>
+          <h3
+            style={{
+              fontFamily: "Cormorant Garamond, serif",
+              fontWeight: 400,
+              fontSize: "1.5rem",
+              color: "#f0ece4",
+              lineHeight: 1.1,
+              margin: 0,
+            }}
+          >
+            AI scan <em style={{ color: GOLD }}>· 30 seconds</em>
+          </h3>
+          <ul
+            style={{
+              listStyle: "none",
+              margin: 0,
+              padding: 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              fontFamily: "Barlow, sans-serif",
+            }}
+          >
+            {[
+              "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
+              "Captures face width, bridge and PD in one shot",
+              "Auto-routes to 007, 009 or bespoke (150–172 mm)",
+              "Runs in your browser. Nothing uploaded.",
+            ].map((b) => (
+              <li
+                key={b}
+                style={{
+                  display: "flex",
+                  gap: 10,
+                  alignItems: "flex-start",
+                  fontSize: "0.85rem",
+                  color: "rgba(240,236,228,0.85)",
+                  fontWeight: 300,
+                  lineHeight: 1.45,
+                }}
+              >
+                <span
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    background: GOLD,
+                    marginTop: 8,
+                    flexShrink: 0,
+                  }}
+                />
+                {b}
+              </li>
+            ))}
+          </ul>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.75rem",
+              color: MUTED,
+              fontWeight: 300,
+            }}
+          >
+            Needs a phone camera and any credit-card-sized object as scale. Follow the steps below to start.
+          </p>
+        </div>
+
+        {/* Manual — alternative */}
+        <div
+          style={{
+            border: "1px solid rgba(240,236,228,0.14)",
+            background: "rgba(255,255,255,0.02)",
+            borderRadius: 12,
+            padding: "22px 20px 18px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: "Cormorant Garamond, serif",
+              fontWeight: 400,
+              fontSize: "1.5rem",
+              color: "#f0ece4",
+              lineHeight: 1.1,
+              margin: 0,
+            }}
+          >
+            Tape measure <em style={{ color: GOLD }}>· 1 minute</em>
+          </h3>
+          <ul
+            style={{
+              listStyle: "none",
+              margin: 0,
+              padding: 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              fontFamily: "Barlow, sans-serif",
+            }}
+          >
+            {[
+              "No camera, no permissions",
+              "Works on any device, in any light",
+              "Enter cm or inches — we map it to the right size",
+              "Best for privacy-first or a quick double-check",
+            ].map((b) => (
+              <li
+                key={b}
+                style={{
+                  display: "flex",
+                  gap: 10,
+                  alignItems: "flex-start",
+                  fontSize: "0.85rem",
+                  color: "rgba(240,236,228,0.78)",
+                  fontWeight: 300,
+                  lineHeight: 1.45,
+                }}
+              >
+                <span
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    background: "rgba(240,236,228,0.5)",
+                    marginTop: 8,
+                    flexShrink: 0,
+                  }}
+                />
+                {b}
+              </li>
+            ))}
+          </ul>
+          <Link
+            to="/en/fit/manual"
+            onClick={() => pushEvent("fit_manual_alt_click", { source: "welcome_compare" })}
+            style={{
+              alignSelf: "flex-start",
+              marginTop: "auto",
+              color: GOLD,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.7rem",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              fontWeight: 500,
+              textDecoration: "none",
+              padding: "12px 18px",
+              border: `1px solid ${GOLD}`,
+              borderRadius: 2,
+            }}
+          >
+            Measure with a tape →
+          </Link>
+        </div>
+      </section>
+
       <div
         style={{
           borderRadius: 12,
