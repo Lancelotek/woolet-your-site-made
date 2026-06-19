@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { saveQuizPrior } from "@/lib/fit-quiz-prior";
 
 const GOLD = "#CAA449";
 const INK = "#0f0f0f";
@@ -145,6 +146,8 @@ export default function FitQuick() {
     const patch = { currentFrameMm: valid ? mm : null };
     setState((s) => ({ ...s, ...patch }));
     pushEvent("fit_quick_complete", { hat: state.hat, nose: state.nose, frame_mm: valid ? mm : null });
+    // Persist as prior so the AI scan can reconcile against it.
+    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: valid ? mm : null });
     setStep(4);
   };
 

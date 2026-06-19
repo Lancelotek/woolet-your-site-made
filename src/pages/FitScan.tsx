@@ -26,6 +26,7 @@ import {
   type Recommendation,
 } from "@/lib/face-measurements";
 import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
+import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -2869,9 +2870,10 @@ interface ResultStepProps {
   faceShape: FaceShapeResult | null;
   onRetake: () => void;
   lang: Lang;
+  quizNote?: { reason: string; warn: boolean } | null;
 }
 
-function ResultStep({ measurements, recommendation: baseRecommendation, faceShape, onRetake, lang }: ResultStepProps) {
+function ResultStep({ measurements, recommendation: baseRecommendation, faceShape, onRetake, lang, quizNote }: ResultStepProps) {
   const { user: authedUser } = useAuth();
   // Depth correction: if the card was held in front of the face (not flush to skin),
   // it appears larger in pixels → face width is underestimated. Assuming a typical
@@ -3335,6 +3337,45 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           {recommendation.body}
         </p>
       </div>
+
+      {quizNote && (
+        <div
+          role="note"
+          style={{
+            border: `1px solid ${quizNote.warn ? "rgba(232,93,93,0.45)" : "rgba(202,164,73,0.45)"}`,
+            background: quizNote.warn ? "rgba(232,93,93,0.06)" : "rgba(202,164,73,0.06)",
+            padding: "12px 14px",
+            borderRadius: 6,
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
+          }}
+        >
+          <span
+            style={{
+              color: quizNote.warn ? "#e85d5d" : GOLD,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.65rem",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              fontWeight: 500,
+            }}
+          >
+            {quizNote.warn ? "Scan and quiz disagree" : "Combined with your quiz answers"}
+          </span>
+          <span
+            style={{
+              color: "rgba(240,236,228,0.88)",
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.85rem",
+              lineHeight: 1.5,
+              fontWeight: 300,
+            }}
+          >
+            {quizNote.reason}
+          </span>
+        </div>
+      )}
 
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
@@ -3881,6 +3922,7 @@ export default function FitScan() {
   const [retryCount, setRetryCount] = useState(0);
   const [autoFallback, setAutoFallback] = useState<"no_edge" | "validation" | null>(null);
   const [prefillPoints, setPrefillPoints] = useState<{ card: [Point, Point]; face: [Point, Point] } | null>(null);
+  const [quizReconcileNote, setQuizReconcileNote] = useState<{ reason: string; warn: boolean } | null>(null);
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
   const [capturedEmail, setCapturedEmail] = useState<string>(user?.email ?? "");
 
@@ -3962,7 +4004,23 @@ export default function FitScan() {
     f2?: Point,
   ): boolean => {
     try {
-      const m = calculateMeasurements(f.landmarks, f.width, c1, c2, f1, f2);
+      const mRaw = calculateMeasurements(f.landmarks, f.width, c1, c2, f1, f2);
+
+      // Reconcile against quiz prior (if user took /fit/quick earlier).
+      const prior = loadQuizPrior();
+      const rec = reconcileScan({
+        scanFaceMm: mRaw.faceWidthMm,
+        scanNoseMm: mRaw.noseWidthMm,
+        scanConfidence: mRaw.confidence,
+        prior,
+      });
+      const m: Measurements = {
+        ...mRaw,
+        faceWidthMm: rec.faceWidthMm,
+        noseWidthMm: rec.noseWidthMm,
+      };
+      setQuizReconcileNote(rec.reason ? { reason: rec.reason, warn: rec.warn } : null);
+
       const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
       const shape = detectFaceShape(f.landmarks, f.width, f.height);
       setMeasurements(m);
@@ -3975,6 +4033,10 @@ export default function FitScan() {
         confidence: m.confidence,
         auto_corners: !f1 && !f2,
         has_session: !!sessionId,
+        quiz_prior_used: !!prior,
+        quiz_adjusted: rec.adjusted,
+        quiz_delta_mm: rec.deltaMm,
+        scan_raw_face_mm: mRaw.faceWidthMm,
       });
       // CLARITY EVENT: scan_completed + tag session with the measured width bucket.
       clarityEvent("scan_completed");
@@ -4620,7 +4682,7 @@ export default function FitScan() {
                             transform: emailCaptured ? "none" : "scale(1.04)",
                           }}
                         >
-                          <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} />
+                          <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} quizNote={quizReconcileNote} />
                         </div>
                         {!emailCaptured && (
                           <>
