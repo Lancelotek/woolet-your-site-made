@@ -57,6 +57,9 @@ export default function Account() {
   const { lang: paramLang } = useParams();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const { session, user, loading, signOut } = useAuth();
+  const [searchParams] = useSearchParams();
+  const cameFromFit = searchParams.get("from") === "fit";
+  const emailVerified = !!user?.email_confirmed_at;
 
   const [profile, setProfile] = useState<Profile | null>(null);
   const [scans, setScans] = useState<Scan[]>([]);
