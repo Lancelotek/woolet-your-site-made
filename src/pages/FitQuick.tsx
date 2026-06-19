@@ -469,6 +469,9 @@ function ResultCard({ rec, onRestart }: { rec: Recommendation; onRestart: () => 
           <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "1.8rem", color: PAPER, marginTop: 4 }}>
             ~{rec.faceWidthMm} mm
           </div>
+          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", marginTop: 2 }}>
+            {(rec.faceWidthMm / 10).toFixed(1)} cm · {(rec.faceWidthMm / 25.4).toFixed(2)} in
+          </div>
         </div>
         <div>
           <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
@@ -476,6 +479,9 @@ function ResultCard({ rec, onRestart }: { rec: Recommendation; onRestart: () => 
           </div>
           <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "1.8rem", color: PAPER, marginTop: 4 }}>
             {rec.bridgeMm} mm
+          </div>
+          <div style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.72rem", marginTop: 2 }}>
+            {(rec.bridgeMm / 25.4).toFixed(2)} in
           </div>
         </div>
       </div>
