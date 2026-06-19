@@ -249,7 +249,7 @@ export default function Account() {
 
           {!emailVerified && (
             <div
-              className="flex flex-col gap-2"
+              className="flex flex-col gap-3"
               style={{
                 background: "rgba(252,165,165,0.06)",
                 border: "1px solid rgba(252,165,165,0.35)",
@@ -261,25 +261,43 @@ export default function Account() {
                 Verify your email before checkout
               </p>
               <p className="text-cream-dim" style={{ fontSize: "0.8rem", lineHeight: 1.55 }}>
-                We need to confirm <strong style={{ color: "white" }}>{user?.email}</strong> owns this account before you can place a paid order. Tap the latest sign-in link we emailed you — or
-                {" "}
-                <button
-                  onClick={async () => {
-                    if (!user?.email) return;
-                    const { error } = await supabase.auth.signInWithOtp({
-                      email: user.email,
-                      options: { emailRedirectTo: `${window.location.origin}/${lang}/account` },
-                    });
-                    if (error) toast.error(error.message);
-                    else toast.success("Verification link sent. Check your inbox.");
-                  }}
-                  className="underline bg-transparent border-none p-0 cursor-pointer"
-                  style={{ color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.8rem" }}
-                >
-                  resend it
-                </button>
-                .
+                We need to confirm <strong style={{ color: "white" }}>{user?.email}</strong> owns this account before you can place a paid order. Open the latest sign-in link we emailed you. If it expired or didn't arrive, request a new one below.
               </p>
+              <div className="flex items-center gap-3 flex-wrap">
+                <button
+                  onClick={handleResendVerification}
+                  disabled={resendState === "sending" || resendCooldown > 0}
+                  className="uppercase tracking-[0.22em]"
+                  style={{
+                    background: resendState === "sending" || resendCooldown > 0 ? "rgba(201,168,76,0.4)" : GOLD,
+                    color: "#0f0f0f",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.7rem",
+                    padding: "10px 18px",
+                    border: "none",
+                    cursor: resendState === "sending" || resendCooldown > 0 ? "wait" : "pointer",
+                  }}
+                >
+                  {resendState === "sending"
+                    ? "Sending…"
+                    : resendState === "sent"
+                    ? "Link sent ✓"
+                    : resendCooldown > 0
+                    ? `Resend in ${resendCooldown}s`
+                    : "Resend verification link"}
+                </button>
+                {resendState === "sent" && (
+                  <span className="text-cream-dim" style={{ fontSize: "0.75rem" }}>
+                    Sent to {user?.email}. Check spam too.
+                  </span>
+                )}
+              </div>
+              {resendError && (
+                <p style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", margin: 0 }}>
+                  {resendError}
+                </p>
+              )}
             </div>
           )}
 
