@@ -209,13 +209,17 @@ function errorMessage(v: Validation, unit: Unit, field: Field): string | null {
 
 export default function FitQuick() {
   const [step, setStep] = useState<Step>(1);
-  const [state, setState] = useState<QuizState>({ hat: null, nose: null, currentFrameMm: null });
+  const [state, setState] = useState<QuizState>({ hat: null, nose: null, currentFrameMm: null, currentBridgeMm: null });
   const [frameInput, setFrameInput] = useState<string>("");
+  const [bridgeInput, setBridgeInput] = useState<string>("");
   const [unit, setUnit] = useState<Unit>("mm");
 
-  const validation = useMemo(() => validate(frameInput, unit), [frameInput, unit]);
-  const validationError = errorMessage(validation, unit);
-  const canSubmit = validation.kind === "ok";
+  const frameValidation = useMemo(() => validate(frameInput, unit, "frame"), [frameInput, unit]);
+  const frameError = errorMessage(frameValidation, unit, "frame");
+  const bridgeValidation = useMemo(() => validate(bridgeInput, unit, "bridge"), [bridgeInput, unit]);
+  const bridgeError = errorMessage(bridgeValidation, unit, "bridge");
+  // Submit requires a valid frame width; bridge is optional but if filled must be valid.
+  const canSubmit = frameValidation.kind === "ok" && bridgeValidation.kind !== "not_a_number" && bridgeValidation.kind !== "too_small" && bridgeValidation.kind !== "too_large";
 
   const next = (patch: Partial<QuizState>) => {
     setState((s) => ({ ...s, ...patch }));
@@ -229,14 +233,17 @@ export default function FitQuick() {
   };
 
   const finish = () => {
-    const mm = validation.kind === "ok" ? validation.mm : null;
-    const patch = { currentFrameMm: mm };
+    const frameMm = frameValidation.kind === "ok" ? frameValidation.mm : null;
+    const bridgeMm = bridgeValidation.kind === "ok" ? bridgeValidation.mm : null;
+    const patch = { currentFrameMm: frameMm, currentBridgeMm: bridgeMm };
     setState((s) => ({ ...s, ...patch }));
     pushEvent("fit_quick_complete", {
-      hat: state.hat, nose: state.nose, frame_mm: mm, unit,
-      validation: validation.kind,
+      hat: state.hat, nose: state.nose,
+      frame_mm: frameMm, bridge_mm: bridgeMm, unit,
+      frame_validation: frameValidation.kind,
+      bridge_validation: bridgeValidation.kind,
     });
-    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: mm });
+    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: frameMm });
     setStep(4);
   };
 
