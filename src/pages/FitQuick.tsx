@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { saveQuizPrior, type HatSize as PriorHatSize, type NoseWidth as PriorNoseWidth } from "@/lib/fit-quiz-prior";
+import { saveQuizPrior } from "@/lib/fit-quiz-prior";
 
 const GOLD = "#CAA449";
 const INK = "#0f0f0f";
