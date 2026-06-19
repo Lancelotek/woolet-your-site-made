@@ -155,8 +155,8 @@ export default function FitQuick() {
       <SEO
         title="Quick fit quiz — find your eyewear size in 30 seconds | Woolet"
         description="No camera, no measuring. Answer 3 quick questions about hat size and nose width to get a starting recommendation for wide-face eyewear."
-        canonical="https://woolet.co/en/fit/quick"
-        noIndex
+        path="/fit/quick"
+        noindex
       />
       <div style={{ background: INK, color: PAPER, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <Navbar />
