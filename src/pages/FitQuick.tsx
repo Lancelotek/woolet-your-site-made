@@ -124,10 +124,23 @@ function mk(
 
 type Step = 1 | 2 | 3 | 4;
 
+type Unit = "mm" | "cm" | "in";
+
+const UNIT_TO_MM: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
+
+function toMm(value: string, unit: Unit): number | null {
+  const v = Number(value.replace(",", "."));
+  if (!Number.isFinite(v)) return null;
+  const mm = v * UNIT_TO_MM[unit];
+  if (mm < 120 || mm > 200) return null;
+  return mm;
+}
+
 export default function FitQuick() {
   const [step, setStep] = useState<Step>(1);
   const [state, setState] = useState<QuizState>({ hat: null, nose: null, currentFrameMm: null });
   const [frameInput, setFrameInput] = useState<string>("");
+  const [unit, setUnit] = useState<Unit>("mm");
 
   const next = (patch: Partial<QuizState>) => {
     setState((s) => ({ ...s, ...patch }));
@@ -141,13 +154,12 @@ export default function FitQuick() {
   };
 
   const finish = () => {
-    const mm = Number(frameInput.replace(",", "."));
-    const valid = Number.isFinite(mm) && mm >= 120 && mm <= 200;
-    const patch = { currentFrameMm: valid ? mm : null };
+    const mm = toMm(frameInput, unit);
+    const patch = { currentFrameMm: mm };
     setState((s) => ({ ...s, ...patch }));
-    pushEvent("fit_quick_complete", { hat: state.hat, nose: state.nose, frame_mm: valid ? mm : null });
+    pushEvent("fit_quick_complete", { hat: state.hat, nose: state.nose, frame_mm: mm, unit });
     // Persist as prior so the AI scan can reconcile against it.
-    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: valid ? mm : null });
+    saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: mm });
     setStep(4);
   };
 
