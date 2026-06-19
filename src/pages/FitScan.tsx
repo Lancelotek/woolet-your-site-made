@@ -27,6 +27,7 @@ import {
 } from "@/lib/face-measurements";
 import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
 import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
+import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -2904,6 +2905,17 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
     medium: { label: tFit(lang, "result.conf_medium"), color: GOLD, body: tFit(lang, "result.conf_medium_body") },
     low: { label: tFit(lang, "result.conf_low"), color: "#c47a4a", body: tFit(lang, "result.conf_low_body") },
   }[confidenceRating];
+
+  // Persist the latest scan so other parts of the app (bespoke configurator,
+  // manual fit page) can prefill measurements without re-scanning.
+  useEffect(() => {
+    saveScanResult({
+      faceWidthMm: adjustedFace,
+      noseWidthMm: adjustedNose,
+      confidence: confidenceRating,
+    });
+  }, [adjustedFace, adjustedNose, confidenceRating]);
+
 
   const handleCta = () => {
     pushEvent("scan_cta_clicked", {
