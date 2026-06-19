@@ -4,6 +4,7 @@ import { Check, Cloud, CloudOff, Loader2 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BespokeWaitlistGate from "@/components/BespokeWaitlistGate";
 import { COLORS, FINISHES, LENS_TYPES } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, formatEur, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
@@ -64,6 +65,10 @@ const ConfiguratorPage = () => {
         noindex
       />
       <Navbar />
+      <BespokeWaitlistGate />
+
+      <div aria-hidden className="pointer-events-none select-none" style={{ filter: "blur(8px)" }}>
+
 
       <main className="pt-24 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -230,6 +235,7 @@ const ConfiguratorPage = () => {
       </div>
 
       <Footer />
+      </div>
     </div>
   );
 };
