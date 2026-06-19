@@ -8,6 +8,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import CookieBanner from "@/components/CookieBanner";
 import PageViewTracker from "@/components/PageViewTracker";
 import { AuthProvider } from "@/lib/auth-context";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 import Index from "./pages/Index.tsx";
 
@@ -208,6 +209,7 @@ const App = () => (
         </Suspense>
         </AuthProvider>
       </BrowserRouter>
+      <WhatsAppButton />
       <CookieBanner />
       </ErrorBoundary>
     </TooltipProvider>
