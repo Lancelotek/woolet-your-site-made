@@ -101,40 +101,69 @@ const BespokeWaitlistGate = () => {
                 inputMode="email"
                 autoComplete="email"
                 required
+                noValidate
                 placeholder="you@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-[10px] bg-cream/[0.04] border border-cream/15 text-cream placeholder:text-cream-dim/60 text-sm focus:outline-none focus:border-gold/60 transition"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (status === "error") {
+                    setStatus("idle");
+                    setError(null);
+                  }
+                }}
+                onBlur={() => setEmailTouched(true)}
+                aria-invalid={showEmailError}
+                aria-describedby={showEmailError ? "bespoke-gate-email-error" : undefined}
+                className={`w-full px-4 py-3 rounded-[10px] bg-cream/[0.04] border text-cream placeholder:text-cream-dim/60 text-sm focus:outline-none transition ${
+                  showEmailError
+                    ? "border-red-400/60 focus:border-red-400"
+                    : "border-cream/15 focus:border-gold/60"
+                }`}
               />
+              {showEmailError && (
+                <p id="bespoke-gate-email-error" role="alert" className="mt-2 text-[0.7rem] text-red-300">
+                  {emailError}
+                </p>
+              )}
             </div>
 
-            <label className="flex items-start gap-2.5 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(e) => setConsent(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-cream/30 bg-transparent accent-gold cursor-pointer shrink-0"
-                required
-              />
-              <span className="text-[0.72rem] leading-relaxed text-cream-dim">
-                I agree to the{" "}
-                <Link to="/en/privacy" target="_blank" className="text-cream underline underline-offset-2 hover:text-gold-light">
-                  Privacy Policy
-                </Link>{" "}
-                and to receiving updates about Woolet Bespoke.
-              </span>
-            </label>
+            <div>
+              <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => {
+                    setConsent(e.target.checked);
+                    setConsentTouched(true);
+                  }}
+                  className="mt-0.5 h-4 w-4 rounded border-cream/30 bg-transparent accent-gold cursor-pointer shrink-0"
+                />
+                <span className="text-[0.72rem] leading-relaxed text-cream-dim">
+                  I agree to the{" "}
+                  <Link to="/en/privacy" target="_blank" className="text-cream underline underline-offset-2 hover:text-gold-light">
+                    Privacy Policy
+                  </Link>{" "}
+                  and to receiving updates about Woolet Bespoke.
+                </span>
+              </label>
+              {showConsentError && (
+                <p role="alert" className="mt-2 text-[0.7rem] text-red-300">
+                  Please accept the Privacy Policy to continue.
+                </p>
+              )}
+            </div>
 
             {error && (
-              <div className="text-[0.72rem] text-red-300 bg-red-500/10 border border-red-500/30 rounded-[8px] px-3 py-2">
+              <div role="alert" className="text-[0.72rem] text-red-300 bg-red-500/10 border border-red-500/30 rounded-[8px] px-3 py-2">
                 {error}
               </div>
             )}
 
             <button
               type="submit"
-              disabled={!valid || status === "loading"}
-              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-gold text-background text-[0.72rem] uppercase tracking-[0.22em] font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gold-light transition"
+              disabled={status === "loading"}
+              aria-disabled={!valid || status === "loading"}
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-gold text-background text-[0.72rem] uppercase tracking-[0.22em] font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gold-light transition aria-disabled:opacity-40 aria-disabled:cursor-not-allowed"
             >
               {status === "loading" ? (
                 <><Loader2 size={14} className="animate-spin" /> Sending…</>
