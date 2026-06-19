@@ -26,6 +26,7 @@ import {
   type Recommendation,
 } from "@/lib/face-measurements";
 import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
+import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
