@@ -101,7 +101,7 @@ const BespokeWaitlistGate = () => {
                 inputMode="email"
                 autoComplete="email"
                 required
-                noValidate
+                
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => {
