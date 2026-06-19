@@ -4536,6 +4536,7 @@ export default function FitScan() {
                   <WelcomeStep
                     lang={lang}
                     onStart={startScan}
+                    onUpload={handleUpload}
                     disabled={!!blockingMessage}
                     isMobile={isMobile}
                   />
