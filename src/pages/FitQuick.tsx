@@ -247,7 +247,7 @@ export default function FitQuick() {
             <QuestionBlock
               eyebrow="Question 3 of 3 · optional"
               title="Do you know your current frame width?"
-              hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm. Skip if you don't have it."
+              hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm (13–15.5 cm / 5.1–6.1 in). Skip if you don't have it."
             >
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 12 }}>
