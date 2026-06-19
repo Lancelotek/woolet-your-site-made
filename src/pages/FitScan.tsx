@@ -433,7 +433,7 @@ function WelcomeStep({
           background: "rgba(255,255,255,0.015)",
           borderRadius: 8,
           textDecoration: "none",
-          color: PAPER,
+          color: "#f0ece4",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
