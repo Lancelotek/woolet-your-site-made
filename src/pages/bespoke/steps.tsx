@@ -571,11 +571,66 @@ export function StepMeasure({ config, update }: StepProps) {
       {config.measurementMethod === "tape" && (
         <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5">
           <div className={labelClass}>Measurements (mm)</div>
+
+          {(storedScan || quizPrior) && (
+            <div className="mt-4 rounded-[10px] border border-gold/30 bg-gold/[0.04] p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+              <div className="flex-1 min-w-0">
+                <div className="text-cream text-xs font-medium flex items-center gap-1.5">
+                  <Check size={12} className="text-gold-light shrink-0" />
+                  {storedScan ? "We found your last AI fit scan" : "We found your fit quiz answers"}
+                </div>
+                <div className="text-cream-dim text-[0.72rem] leading-relaxed mt-1">
+                  {storedScan ? (
+                    <>
+                      Face <span className="text-cream">{storedScan.faceWidthMm} mm</span>
+                      {" · "}Nose <span className="text-cream">{storedScan.noseWidthMm} mm</span>
+                      {" · "}Confidence <span className="text-cream">{storedScan.confidence}</span>. Values stay editable after import.
+                    </>
+                  ) : (
+                    <>
+                      Estimated face width{" "}
+                      <span className="text-cream">
+                        {quizPrior?.currentFrameMm ?? quizPrior?.faceEstimateMm} mm
+                      </span>
+                      . Less accurate than a scan — adjust after import.
+                    </>
+                  )}
+                </div>
+                {importedFrom && (
+                  <div className="text-gold-light text-[0.7rem] mt-1.5 inline-flex items-center gap-1">
+                    <Check size={10} /> Imported from your {importedFrom === "scan" ? "scan" : "quiz"} — edit any value below.
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-2 shrink-0">
+                {storedScan && (
+                  <button
+                    type="button"
+                    onClick={importFromScan}
+                    className="px-3.5 py-2 rounded-full bg-gold text-background text-[0.68rem] uppercase tracking-[0.16em] font-medium hover:bg-gold-light transition"
+                  >
+                    Use scan values
+                  </button>
+                )}
+                {!storedScan && quizPrior && (
+                  <button
+                    type="button"
+                    onClick={importFromQuiz}
+                    className="px-3.5 py-2 rounded-full border border-gold/50 text-gold-light text-[0.68rem] uppercase tracking-[0.16em] hover:bg-gold/10 transition"
+                  >
+                    Use quiz estimate
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
             {(Object.keys(MEASUREMENT_RANGES) as MeasurementKey[]).map((k) => {
               const range = MEASUREMENT_RANGES[k];
               const bad = outOfRange(k);
               return (
+
                 <label key={k} className="block">
                   <span className="text-cream text-xs">{range.label}{k === "pd" && <span className="text-gold-light"> *</span>}</span>
                   <div className="mt-1.5 relative">
