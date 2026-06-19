@@ -82,12 +82,20 @@ const BespokeWaitlistGate = () => {
         </p>
 
         {status === "success" ? (
-          <div className="mt-6 flex items-start gap-3 rounded-[12px] border border-gold/30 bg-gold/[0.06] p-4">
-            <Check size={18} className="text-gold mt-0.5 shrink-0" />
-            <div>
-              <div className="text-cream text-sm">You're on the list.</div>
-              <div className="text-cream-dim text-xs mt-1">
-                We'll be in touch from <span className="text-cream">hello@woolet.co</span>.
+          <div role="status" aria-live="polite" className="mt-6 rounded-[14px] border border-gold/40 bg-gold/[0.08] p-5">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center shrink-0">
+                <Check size={16} className="text-gold" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-cream text-[0.95rem] font-medium">You're on the Bespoke list.</div>
+                <div className="text-cream-dim text-xs mt-1.5 leading-relaxed">
+                  We've added <span className="text-cream break-all">{email.trim()}</span> to the waitlist.
+                  Look out for an email from <span className="text-cream">hello@woolet.co</span> with your early-access invite — usually within 48 hours.
+                </div>
+                <div className="text-cream-dim/70 text-[0.65rem] uppercase tracking-[0.18em] mt-3">
+                  Tip: check Promotions / Spam just in case.
+                </div>
               </div>
             </div>
           </div>
