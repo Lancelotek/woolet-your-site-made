@@ -1761,10 +1761,25 @@ function SavedUpsellStep({
           className="text-cream-dim leading-relaxed mx-auto"
           style={{ fontSize: "0.95rem", maxWidth: "32rem" }}
         >
-          We'll email you when Kickstarter launches. Or — secure your founding
-          spot now for $1.
+          We just sent a one-tap sign-in link to <span className="text-foreground">{email}</span> — open it to access your Woolet account with your measurements already saved. Email verification is required before any purchase.
         </p>
       </div>
+
+      {/* Account-access notice */}
+      <div
+        className="mx-auto text-left"
+        style={{
+          maxWidth: "32rem",
+          background: "rgba(201,168,76,0.06)",
+          border: "1px solid rgba(201,168,76,0.25)",
+          padding: "14px 18px",
+        }}
+      >
+        <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.8rem", fontFamily: "Barlow, sans-serif" }}>
+          <span className="text-foreground" style={{ fontWeight: 500 }}>Open your account</span> from the email we just sent — your face width, bridge and PD will be pre-loaded into your bespoke profile. The link verifies your email so you can checkout safely.
+        </p>
+      </div>
+
 
       {/* Founding member upsell */}
       <div className="text-left">
