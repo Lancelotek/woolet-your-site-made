@@ -59,7 +59,7 @@ function recommend(state: QuizState): Recommendation {
   // If user typed their current frame width, that overrides everything.
   if (state.currentFrameMm && state.currentFrameMm >= 130 && state.currentFrameMm <= 175) {
     const w = state.currentFrameMm;
-    const bridge = state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22;
+    const bridge = state.currentBridgeMm ?? (state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22);
     if (w >= 165) return mk(w, bridge, "bespoke", "high",
       "You need bespoke (165–172 mm).",
       "Off-the-shelf wide frames top out around 158–161 mm. We make bespoke up to 172 mm with the same Italian acetate.");
@@ -80,7 +80,7 @@ function recommend(state: QuizState): Recommendation {
     s: 138, m: 146, l: 154, xl: 159, xxl: 164, unknown: 152,
   };
   const w = faceEstimate[hat];
-  const bridge = state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22;
+  const bridge = state.currentBridgeMm ?? (state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22);
   const conf: "low" | "medium" | "high" = hat === "unknown" ? "low" : state.nose === "unknown" ? "medium" : "medium";
 
   if (hat === "xxl") return mk(w, bridge, "bespoke", conf,
