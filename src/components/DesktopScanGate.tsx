@@ -3,6 +3,15 @@ import { QRCodeSVG } from "qrcode.react";
 import type { Lang } from "@/lib/i18n";
 import { tFit } from "@/lib/i18n-fitscan";
 import { clarityEvent } from "@/lib/clarity";
+import fitStep6 from "@/assets/fit-steps/step-6.png.asset.json";
+import fitStep7 from "@/assets/fit-steps/step-7.png.asset.json";
+import fitStep8 from "@/assets/fit-steps/step-8.png.asset.json";
+
+const FLOW_STEPS = [
+  { src: fitStep6.url, title: "Tap Scan", desc: "Start FitLens from the Woolet product page with one tap." },
+  { src: fitStep7.url, title: "Guided face scan", desc: "In-browser guidance captures your face width in 15 seconds." },
+  { src: fitStep8.url, title: "Your fit, confirmed", desc: "See your exact width and the matching Woolet model — measured, not guessed." },
+];
 
 const GOLD = "#CAA449";
 const MUTED = "#888888";
@@ -88,6 +97,59 @@ export default function DesktopScanGate({ lang }: Props) {
           </li>
         ))}
       </ol>
+
+      {/* Visual flow: 3 phone shots showing the actual experience */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 16,
+          marginTop: 8,
+        }}
+      >
+        {FLOW_STEPS.map((s, i) => (
+          <figure key={i} style={{ margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+            <div
+              style={{
+                position: "relative",
+                borderRadius: 10,
+                overflow: "hidden",
+                border: "1px solid rgba(255,255,255,0.08)",
+                aspectRatio: "4 / 5",
+                background: "#0d0d0c",
+              }}
+            >
+              <img
+                src={s.src}
+                alt={s.title}
+                loading="lazy"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  left: 10,
+                  color: GOLD,
+                  fontFamily: "Cormorant Garamond, serif",
+                  fontStyle: "italic",
+                  fontSize: "0.85rem",
+                  background: "rgba(0,0,0,0.55)",
+                  padding: "2px 8px",
+                  borderRadius: 999,
+                }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+            <figcaption style={{ fontFamily: "Barlow, sans-serif" }}>
+              <div style={{ color: "#fff", fontSize: "0.9rem", fontWeight: 500, marginBottom: 2 }}>{s.title}</div>
+              <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", lineHeight: 1.5 }}>{s.desc}</div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
 
       {/* No phone handy? — explicit manual fallback link */}
       <div
