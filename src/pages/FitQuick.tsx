@@ -327,21 +327,16 @@ export default function FitQuick() {
             </QuestionBlock>
           )}
 
-          {/* Step 3 — Optional current frame width */}
+          {/* Step 3 — Optional current frame & bridge width */}
           {step === 3 && (
             <QuestionBlock
               eyebrow="Question 3 of 3 · optional"
-              title="Do you know your current frame width?"
-              hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm (13–15.5 cm / 5.1–6.1 in). Skip if you don't have it."
+              title="Do you know your current frame size?"
+              hint="Look inside the temple of glasses that fit. Total width is usually 130–155 mm; bridge is the gap between the lenses (18–24 mm). Skip if you don't have it."
             >
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 12 }}>
-                  <label style={{
-                    fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
-                    color: MUTED, letterSpacing: "0.05em",
-                  }}>
-                    Total frame width ({unit})
-                  </label>
+              <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+                {/* Shared unit switcher */}
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <div role="tablist" aria-label="Unit" style={{ display: "flex", gap: 0, border: "1px solid rgba(240,236,228,0.18)", borderRadius: 3 }}>
                     {(["mm", "cm", "in"] as Unit[]).map((u) => {
                       const active = unit === u;
@@ -352,13 +347,16 @@ export default function FitQuick() {
                           role="tab"
                           aria-selected={active}
                           onClick={() => {
-                            // Convert existing input on switch so user doesn't lose it.
-                            const v = Number(frameInput.replace(",", "."));
-                            if (Number.isFinite(v) && v > 0) {
+                            // Convert both inputs on switch so user doesn't lose them.
+                            const convert = (s: string): string => {
+                              const v = Number(s.replace(",", "."));
+                              if (!Number.isFinite(v) || v <= 0) return s;
                               const mm = v * UNIT_TO_MM[unit];
                               const next = mm / UNIT_TO_MM[u];
-                              setFrameInput(u === "in" ? next.toFixed(2) : next.toFixed(1));
-                            }
+                              return u === "in" ? next.toFixed(2) : u === "cm" ? next.toFixed(1) : String(Math.round(next));
+                            };
+                            if (frameInput) setFrameInput(convert(frameInput));
+                            if (bridgeInput) setBridgeInput(convert(bridgeInput));
                             setUnit(u);
                             pushEvent("fit_quick_unit_change", { unit: u });
                           }}
@@ -381,60 +379,31 @@ export default function FitQuick() {
                     })}
                   </div>
                 </div>
-                <input
-                  type="text"
-                  inputMode="decimal"
-                  autoComplete="off"
-                  placeholder={`e.g. ${UNIT_RANGES[unit].example}`}
+
+                <MeasurementInput
+                  id="frame-width"
+                  label="Total frame width"
+                  unit={unit}
+                  field="frame"
                   value={frameInput}
-                  aria-invalid={!!validationError}
-                  aria-describedby="frame-width-hint frame-width-error"
-                  maxLength={6}
-                  onChange={(e) => {
-                    const raw = e.target.value;
-                    // Allow only digits + one optional dot/comma; silently drop other chars.
-                    const cleaned = raw.replace(/[^\d.,]/g, "").replace(/([.,].*)[.,]/g, "$1");
-                    setFrameInput(cleaned);
-                  }}
-                  onBlur={() => {
-                    // Normalize: comma → dot, trim trailing dot, round to sensible precision.
-                    if (validation.kind === "ok") {
-                      const v = validation.mm / UNIT_TO_MM[unit];
-                      setFrameInput(unit === "mm" ? String(Math.round(v)) : v.toFixed(unit === "in" ? 2 : 1));
-                    }
-                  }}
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: `1px solid ${validationError ? "rgba(232,93,93,0.55)" : "rgba(240,236,228,0.18)"}`,
-                    color: PAPER,
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "1.1rem",
-                    padding: "16px 18px",
-                    borderRadius: 4,
-                    outline: "none",
-                  }}
+                  onChange={setFrameInput}
+                  validation={frameValidation}
+                  error={frameError}
+                  hint="Measure across both lenses, hinge to hinge."
                 />
-                <div
-                  id="frame-width-hint"
-                  style={{
-                    color: MUTED, fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.75rem", fontWeight: 300,
-                  }}
-                >
-                  Range: {UNIT_RANGES[unit].min}–{UNIT_RANGES[unit].max} {unit}. Measure across both lenses, hinge to hinge.
-                </div>
-                {validationError && (
-                  <div
-                    id="frame-width-error"
-                    role="alert"
-                    style={{
-                      color: "#e85d5d", fontFamily: "Barlow, sans-serif",
-                      fontSize: "0.8rem", fontWeight: 400, lineHeight: 1.4,
-                    }}
-                  >
-                    {validationError}
-                  </div>
-                )}
+
+                <MeasurementInput
+                  id="bridge-width"
+                  label="Bridge width"
+                  unit={unit}
+                  field="bridge"
+                  value={bridgeInput}
+                  onChange={setBridgeInput}
+                  validation={bridgeValidation}
+                  error={bridgeError}
+                  hint="The gap between the two lenses, measured at the nose."
+                />
+
                 <button
                   type="button"
                   onClick={finish}
@@ -453,7 +422,7 @@ export default function FitQuick() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setFrameInput(""); finish(); }}
+                  onClick={() => { setFrameInput(""); setBridgeInput(""); finish(); }}
                   style={{
                     background: "transparent", color: MUTED, border: "none",
                     fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
