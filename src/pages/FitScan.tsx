@@ -4132,6 +4132,53 @@ export default function FitScan() {
     }
   };
 
+  const handleUpload = async (file: File) => {
+    pushEvent("fit_scan_upload_start", { size: file.size });
+    setErrorMsg(null);
+    setErrorKind(null);
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(new Error("read_failed"));
+        reader.readAsDataURL(file);
+      });
+      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const im = new Image();
+        im.onload = () => resolve(im);
+        im.onerror = () => reject(new Error("decode_failed"));
+        im.src = dataUrl;
+      });
+      // Cap the long edge at 1600 px to keep upload payload reasonable for
+      // the Gemini detect call and to match the live-capture frame size.
+      const MAX_EDGE = 1600;
+      const scale = Math.min(1, MAX_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+      const w = Math.round(img.naturalWidth * scale);
+      const h = Math.round(img.naturalHeight * scale);
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("canvas_unavailable");
+      ctx.drawImage(img, 0, 0, w, h);
+      const outUrl = canvas.toDataURL("image/jpeg", 0.9);
+      handleCaptured({
+        dataUrl: outUrl,
+        width: w,
+        height: h,
+        landmarks: [],
+        canvas,
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn("[fit-scan] upload failed", msg);
+      pushEvent("fit_scan_upload_error", { reason: msg });
+      setErrorMsg("We couldn't read that image. Try a different photo (JPG or PNG, face front-on).");
+      setErrorKind("recoverable");
+      setStep("welcome");
+    }
+  };
+
   const handleError = (msg: string, kind: "recoverable" | "unsupported" = "recoverable") => {
     setErrorMsg(msg);
     setErrorKind(kind);
