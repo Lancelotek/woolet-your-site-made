@@ -4682,7 +4682,7 @@ export default function FitScan() {
                             transform: emailCaptured ? "none" : "scale(1.04)",
                           }}
                         >
-                          <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} />
+                          <ResultStep measurements={measurements} recommendation={recommendation} faceShape={faceShape} onRetake={goWelcome} lang={lang} quizNote={quizReconcileNote} />
                         </div>
                         {!emailCaptured && (
                           <>
