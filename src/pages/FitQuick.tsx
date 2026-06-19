@@ -630,3 +630,87 @@ function ResultCard({ rec, onRestart }: { rec: Recommendation; onRestart: () => 
     </section>
   );
 }
+
+function MeasurementInput({
+  id, label, unit, field, value, onChange, validation, error, hint,
+}: {
+  id: string;
+  label: string;
+  unit: Unit;
+  field: Field;
+  value: string;
+  onChange: (v: string) => void;
+  validation: Validation;
+  error: string | null;
+  hint: string;
+}) {
+  const range = FIELD[field].ranges[unit];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <label
+        htmlFor={id}
+        style={{
+          fontFamily: "Barlow, sans-serif", fontSize: "0.78rem",
+          color: MUTED, letterSpacing: "0.05em",
+        }}
+      >
+        {label} ({unit})
+      </label>
+      <input
+        id={id}
+        type="text"
+        inputMode="decimal"
+        autoComplete="off"
+        placeholder={`e.g. ${range.example}`}
+        value={value}
+        aria-invalid={!!error}
+        aria-describedby={`${id}-hint ${id}-error`}
+        maxLength={6}
+        onChange={(e) => {
+          const raw = e.target.value;
+          // Allow only digits + one optional dot/comma; silently drop other chars.
+          const cleaned = raw.replace(/[^\d.,]/g, "").replace(/([.,].*)[.,]/g, "$1");
+          onChange(cleaned);
+        }}
+        onBlur={() => {
+          // Normalize on blur if value is valid.
+          if (validation.kind === "ok") {
+            const v = validation.mm / UNIT_TO_MM[unit];
+            onChange(unit === "mm" ? String(Math.round(v)) : v.toFixed(unit === "in" ? 2 : 1));
+          }
+        }}
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: `1px solid ${error ? "rgba(232,93,93,0.55)" : "rgba(240,236,228,0.18)"}`,
+          color: PAPER,
+          fontFamily: "Barlow, sans-serif",
+          fontSize: "1.1rem",
+          padding: "16px 18px",
+          borderRadius: 4,
+          outline: "none",
+        }}
+      />
+      <div
+        id={`${id}-hint`}
+        style={{
+          color: MUTED, fontFamily: "Barlow, sans-serif",
+          fontSize: "0.75rem", fontWeight: 300,
+        }}
+      >
+        Range: {range.min}–{range.max} {unit}. {hint}
+      </div>
+      {error && (
+        <div
+          id={`${id}-error`}
+          role="alert"
+          style={{
+            color: "#e85d5d", fontFamily: "Barlow, sans-serif",
+            fontSize: "0.8rem", fontWeight: 400, lineHeight: 1.4,
+          }}
+        >
+          {error}
+        </div>
+      )}
+    </div>
+  );
+}
