@@ -23,6 +23,7 @@ const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
 const NoseBridgeFitHub = lazy(() => import("./pages/blog/NoseBridgeFitHub.tsx"));
 const FitWizard = lazy(() => import("./pages/FitWizard.tsx"));
 const FitManual = lazy(() => import("./pages/FitManual.tsx"));
+const FitQuick = lazy(() => import("./pages/FitQuick.tsx"));
 const FitBespoke = lazy(() => import("./pages/FitBespoke.tsx"));
 const FitScan = lazy(() => import("./pages/FitScan.tsx"));
 const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
