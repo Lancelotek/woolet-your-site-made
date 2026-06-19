@@ -1472,6 +1472,8 @@ function EmailCaptureForm({
   fomoVariant: FomoVariant;
   onSuccess: (email: string) => void;
 }) {
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [agree, setAgree] = useState(true);
@@ -1498,6 +1500,33 @@ function EmailCaptureForm({
         },
       });
       if (fnError) throw fnError;
+
+      // Best-effort: persist the scan so it can be linked to the account
+      // later via link_user_data_by_email() once the user signs in.
+      supabase.functions
+        .invoke("scan-session-create", {
+          body: {
+            email,
+            status: "completed",
+            face_width_mm: measurement.faceWidthMm,
+            user_agent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+          },
+        })
+        .catch((err) => console.warn("[fit] scan-session-create failed", err));
+
+      // Best-effort: send a one-tap magic link to the user's inbox. Works
+      // whether the email is new or already registered. Clicking the link
+      // verifies the email — required before any purchase.
+      supabase.auth
+        .signInWithOtp({
+          email,
+          options: {
+            emailRedirectTo: `${window.location.origin}/${lang}/account?from=fit`,
+            data: { locale: lang, full_name: name },
+          },
+        })
+        .catch((err) => console.warn("[fit] signInWithOtp failed", err));
+
       pushEvent("fit_email_captured", {
         recommended_sku: measurement.recommendedSku,
         face_width_mm: measurement.faceWidthMm,
