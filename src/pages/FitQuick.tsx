@@ -128,12 +128,53 @@ type Unit = "mm" | "cm" | "in";
 
 const UNIT_TO_MM: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
 
-function toMm(value: string, unit: Unit): number | null {
-  const v = Number(value.replace(",", "."));
-  if (!Number.isFinite(v)) return null;
+// Plausible total frame width: 120–180 mm covers everything from
+// children's frames up to bespoke XL (172 mm). Anything outside is
+// almost certainly a typo or wrong measurement (e.g. lens width).
+const MIN_MM = 120;
+const MAX_MM = 180;
+
+const UNIT_RANGES: Record<Unit, { min: string; max: string; example: string }> = {
+  mm: { min: "120", max: "180", example: "152" },
+  cm: { min: "12.0", max: "18.0", example: "15.2" },
+  in: { min: "4.7", max: "7.1", example: "6.0" },
+};
+
+type Validation =
+  | { kind: "empty" }
+  | { kind: "ok"; mm: number }
+  | { kind: "not_a_number" }
+  | { kind: "too_small"; mm: number }
+  | { kind: "too_large"; mm: number };
+
+// Accept only digits, one optional decimal separator, max 5 chars before / 2 after.
+const NUMERIC_RE = /^\d{0,3}([.,]\d{0,2})?$/;
+
+function validate(value: string, unit: Unit): Validation {
+  const trimmed = value.trim();
+  if (trimmed === "") return { kind: "empty" };
+  if (!NUMERIC_RE.test(trimmed)) return { kind: "not_a_number" };
+  const v = Number(trimmed.replace(",", "."));
+  if (!Number.isFinite(v) || v <= 0) return { kind: "not_a_number" };
   const mm = v * UNIT_TO_MM[unit];
-  if (mm < 120 || mm > 200) return null;
-  return mm;
+  if (mm < MIN_MM) return { kind: "too_small", mm };
+  if (mm > MAX_MM) return { kind: "too_large", mm };
+  return { kind: "ok", mm };
+}
+
+function errorMessage(v: Validation, unit: Unit): string | null {
+  const r = UNIT_RANGES[unit];
+  switch (v.kind) {
+    case "empty":
+    case "ok":
+      return null;
+    case "not_a_number":
+      return `Enter a number (e.g. ${r.example} ${unit}).`;
+    case "too_small":
+      return `Too small. Eyewear frames are at least ${r.min} ${unit} — check you measured total width, not lens width.`;
+    case "too_large":
+      return `Too large. Even bespoke XL maxes at ${r.max} ${unit} — check you measured total width, not head circumference.`;
+  }
 }
 
 export default function FitQuick() {
@@ -141,6 +182,10 @@ export default function FitQuick() {
   const [state, setState] = useState<QuizState>({ hat: null, nose: null, currentFrameMm: null });
   const [frameInput, setFrameInput] = useState<string>("");
   const [unit, setUnit] = useState<Unit>("mm");
+
+  const validation = useMemo(() => validate(frameInput, unit), [frameInput, unit]);
+  const validationError = errorMessage(validation, unit);
+  const canSubmit = validation.kind === "ok";
 
   const next = (patch: Partial<QuizState>) => {
     setState((s) => ({ ...s, ...patch }));
@@ -154,14 +199,17 @@ export default function FitQuick() {
   };
 
   const finish = () => {
-    const mm = toMm(frameInput, unit);
+    const mm = validation.kind === "ok" ? validation.mm : null;
     const patch = { currentFrameMm: mm };
     setState((s) => ({ ...s, ...patch }));
-    pushEvent("fit_quick_complete", { hat: state.hat, nose: state.nose, frame_mm: mm, unit });
-    // Persist as prior so the AI scan can reconcile against it.
+    pushEvent("fit_quick_complete", {
+      hat: state.hat, nose: state.nose, frame_mm: mm, unit,
+      validation: validation.kind,
+    });
     saveQuizPrior({ hat: state.hat, nose: state.nose, currentFrameMm: mm });
     setStep(4);
   };
+
 
   const rec = useMemo(() => (step === 4 ? recommend(state) : null), [step, state]);
 
@@ -297,15 +345,30 @@ export default function FitQuick() {
                   </div>
                 </div>
                 <input
-                  type="number"
+                  type="text"
                   inputMode="decimal"
-                  placeholder={unit === "mm" ? "e.g. 152" : unit === "cm" ? "e.g. 15.2" : "e.g. 6.0"}
+                  autoComplete="off"
+                  placeholder={`e.g. ${UNIT_RANGES[unit].example}`}
                   value={frameInput}
-                  onChange={(e) => setFrameInput(e.target.value)}
-                  step={unit === "in" ? 0.1 : unit === "cm" ? 0.1 : 1}
+                  aria-invalid={!!validationError}
+                  aria-describedby="frame-width-hint frame-width-error"
+                  maxLength={6}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    // Allow only digits + one optional dot/comma; silently drop other chars.
+                    const cleaned = raw.replace(/[^\d.,]/g, "").replace(/([.,].*)[.,]/g, "$1");
+                    setFrameInput(cleaned);
+                  }}
+                  onBlur={() => {
+                    // Normalize: comma → dot, trim trailing dot, round to sensible precision.
+                    if (validation.kind === "ok") {
+                      const v = validation.mm / UNIT_TO_MM[unit];
+                      setFrameInput(unit === "mm" ? String(Math.round(v)) : v.toFixed(unit === "in" ? 2 : 1));
+                    }
+                  }}
                   style={{
                     background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(240,236,228,0.18)",
+                    border: `1px solid ${validationError ? "rgba(232,93,93,0.55)" : "rgba(240,236,228,0.18)"}`,
                     color: PAPER,
                     fontFamily: "Barlow, sans-serif",
                     fontSize: "1.1rem",
@@ -314,14 +377,39 @@ export default function FitQuick() {
                     outline: "none",
                   }}
                 />
+                <div
+                  id="frame-width-hint"
+                  style={{
+                    color: MUTED, fontFamily: "Barlow, sans-serif",
+                    fontSize: "0.75rem", fontWeight: 300,
+                  }}
+                >
+                  Range: {UNIT_RANGES[unit].min}–{UNIT_RANGES[unit].max} {unit}. Measure across both lenses, hinge to hinge.
+                </div>
+                {validationError && (
+                  <div
+                    id="frame-width-error"
+                    role="alert"
+                    style={{
+                      color: "#e85d5d", fontFamily: "Barlow, sans-serif",
+                      fontSize: "0.8rem", fontWeight: 400, lineHeight: 1.4,
+                    }}
+                  >
+                    {validationError}
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={finish}
+                  disabled={!canSubmit}
                   style={{
-                    background: GOLD, color: INK, border: "none",
+                    background: canSubmit ? GOLD : "rgba(202,164,73,0.3)",
+                    color: INK, border: "none",
                     fontFamily: "Barlow, sans-serif", fontWeight: 500,
                     fontSize: "0.78rem", letterSpacing: "0.22em", textTransform: "uppercase",
-                    padding: "16px 20px", cursor: "pointer", marginTop: 4,
+                    padding: "16px 20px",
+                    cursor: canSubmit ? "pointer" : "not-allowed",
+                    marginTop: 4,
                   }}
                 >
                   Get my recommendation
