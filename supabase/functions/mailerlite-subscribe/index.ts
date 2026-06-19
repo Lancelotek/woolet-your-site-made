@@ -69,6 +69,8 @@ serve(async (req) => {
     const groups: string[] = [];
     if (source === "scan") {
       groups.push(AI_SCAN_GROUP_ID);
+    } else if (source === "bespoke") {
+      groups.push(BESPOKE_GROUP_ID);
     } else if (source === "kickstarter") {
       groups.push(VIP_GROUP_ID);
     } else {
