@@ -554,6 +554,20 @@ export function getMetadata(route: string): RouteMeta {
       { name: "Blue Light Glasses for Wide Faces", url: `${SITE_URL}${route}` },
     ])]);
   }
+  if (path === "/collections/thick-frame-glasses") {
+    return base(route, lang, {
+      title: "Thick Frame Glasses — 7 mm Italian Acetate | Woolet",
+      description:
+        "Thick frame glasses in 7 mm Italian Mazzucchelli acetate. Two shapes, prescription-ready, 158 mm front for wide faces. Bespoke to 172 mm. From $114.",
+      noscriptHtml: `<h1>Thick Frame Glasses — 7 mm Italian Acetate</h1>
+<p>Thick frame glasses cut from 7 mm Italian Mazzucchelli acetate — not injection-moulded plastic. Two shapes: round 007 and soft-square 009, both at 158 mm front width with a 21–22 mm keyhole bridge. Hand-finished in Italy, prescription-ready, bespoke 150–172 mm. From $114 pre-order.</p>
+<p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (soft-square)</a> | <a href="/en/fit">Find my size</a></p>`,
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Thick Frame Glasses", url: `${SITE_URL}${route}` },
+    ])]);
+  }
 
   // ----- Landing pages
   if (path === "/lp/why-glasses-fail") {
@@ -686,6 +700,7 @@ const STATIC_ROUTES = [
   "/en/collections/wide-bridge-glasses",
   "/en/collections/oversized-blue-light-glasses",
   "/en/collections/blue-light-glasses-for-wide-faces",
+  "/en/collections/thick-frame-glasses",
   "/en/lp/why-glasses-fail",
   "/en/lp/5-reasons",
   "/en/privacy-policy",

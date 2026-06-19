@@ -300,6 +300,7 @@ const CollectionPage = ({
               { slug: "oversized-square-glasses", label: "Oversized Square Glasses" },
               { slug: "oversized-round-glasses", label: "Oversized Round Glasses" },
               { slug: "oversized-black-glasses", label: "Oversized Black Glasses" },
+              { slug: "thick-frame-glasses", label: "Thick Frame Glasses" },
             ].filter((c) => c.slug !== slug).map((c) => (
               <Link
                 key={c.slug}
