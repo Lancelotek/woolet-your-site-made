@@ -280,6 +280,36 @@ export function StepMeasure({ config, update }: StepProps) {
   const [showScanModal, setShowScanModal] = useState(false);
   const [scanError, setScanError] = useState<string | null>(null);
   const [creatingSession, setCreatingSession] = useState(false);
+  const [storedScan, setStoredScan] = useState<StoredScanResult | null>(null);
+  const [quizPrior, setQuizPrior] = useState<QuizPrior | null>(null);
+  const [importedFrom, setImportedFrom] = useState<"scan" | "quiz" | null>(null);
+
+  useEffect(() => {
+    setStoredScan(loadScanResult());
+    setQuizPrior(loadQuizPrior());
+  }, []);
+
+  const importFromScan = () => {
+    if (!storedScan) return;
+    const next = { ...config.measurements };
+    const face = clampFaceMm(storedScan.faceWidthMm);
+    const nose = clampNoseMm(storedScan.noseWidthMm);
+    if (face != null) next.faceWidth = face;
+    // Map nose width → bridge field (matches existing scan-poll behaviour).
+    if (nose != null) next.bridge = nose;
+    update("measurements", next);
+    setImportedFrom("scan");
+  };
+
+  const importFromQuiz = () => {
+    if (!quizPrior) return;
+    const next = { ...config.measurements };
+    const face = quizPrior.currentFrameMm ?? quizPrior.faceEstimateMm;
+    if (face != null) next.faceWidth = Math.round(face);
+    update("measurements", next);
+    setImportedFrom("quiz");
+  };
+
 
   const scanLocked =
     config.measurementMethod === "scan" &&
