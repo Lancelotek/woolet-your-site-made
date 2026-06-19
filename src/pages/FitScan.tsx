@@ -419,6 +419,46 @@ function WelcomeStep({
         </div>
       </section>
 
+      {/* Third path — no measurement, just a quick quiz */}
+      <Link
+        to={`/${lang}/fit/quick`}
+        onClick={() => pushEvent("fit_quick_open", { source: "welcome_compare" })}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+          padding: "14px 18px",
+          border: "1px dashed rgba(240,236,228,0.18)",
+          background: "rgba(255,255,255,0.015)",
+          borderRadius: 8,
+          textDecoration: "none",
+          color: PAPER,
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+          <span style={{
+            fontFamily: "Barlow, sans-serif", fontSize: "0.95rem",
+            fontWeight: 500, color: "#f0ece4",
+          }}>
+            Not ready to measure?
+          </span>
+          <span style={{
+            color: MUTED, fontFamily: "Barlow, sans-serif",
+            fontSize: "0.82rem", fontWeight: 300,
+          }}>
+            Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec.
+          </span>
+        </div>
+        <span style={{
+          color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem",
+          letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500,
+          whiteSpace: "nowrap",
+        }}>
+          Take quiz →
+        </span>
+      </Link>
+
       <div
         style={{
           borderRadius: 12,
