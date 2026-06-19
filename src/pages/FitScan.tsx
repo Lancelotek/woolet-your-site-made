@@ -186,14 +186,17 @@ interface CapturedFrame {
 function WelcomeStep({
   lang,
   onStart,
+  onUpload,
   disabled = false,
   isMobile,
 }: {
   lang: Lang;
   onStart: () => void;
+  onUpload: (file: File) => void;
   disabled?: boolean;
   isMobile: boolean;
 }) {
+  const uploadInputRef = useRef<HTMLInputElement | null>(null);
   const steps = isMobile
     ? [
         { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
@@ -415,6 +418,46 @@ function WelcomeStep({
           </Link>
         </div>
       </section>
+
+      {/* Third path — no measurement, just a quick quiz */}
+      <Link
+        to={`/${lang}/fit/quick`}
+        onClick={() => pushEvent("fit_quick_open", { source: "welcome_compare" })}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+          padding: "14px 18px",
+          border: "1px dashed rgba(240,236,228,0.18)",
+          background: "rgba(255,255,255,0.015)",
+          borderRadius: 8,
+          textDecoration: "none",
+          color: "#f0ece4",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+          <span style={{
+            fontFamily: "Barlow, sans-serif", fontSize: "0.95rem",
+            fontWeight: 500, color: "#f0ece4",
+          }}>
+            Not ready to measure?
+          </span>
+          <span style={{
+            color: MUTED, fontFamily: "Barlow, sans-serif",
+            fontSize: "0.82rem", fontWeight: 300,
+          }}>
+            Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec.
+          </span>
+        </div>
+        <span style={{
+          color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem",
+          letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500,
+          whiteSpace: "nowrap",
+        }}>
+          Take quiz →
+        </span>
+      </Link>
 
       <div
         style={{
@@ -655,6 +698,44 @@ function WelcomeStep({
         >
           {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_start")}
         </button>
+
+        <input
+          ref={uploadInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              pushEvent("fit_scan_upload_picked", { size: file.size, type: file.type });
+              onUpload(file);
+            }
+            // Reset so re-selecting the same file re-triggers onChange
+            if (uploadInputRef.current) uploadInputRef.current.value = "";
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            pushEvent("fit_scan_upload_open", {});
+            uploadInputRef.current?.click();
+          }}
+          style={{
+            background: "transparent",
+            color: "#f0ece4",
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 400,
+            fontSize: "0.72rem",
+            padding: "14px 20px",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            border: "1px solid rgba(240,236,228,0.22)",
+            cursor: "pointer",
+            height: 48,
+          }}
+        >
+          Upload a photo instead
+        </button>
         <p
           style={{
             color: MUTED,
@@ -665,7 +746,7 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          {tFit(lang, "welcome.cta_note")}
+          {tFit(lang, "welcome.cta_note")} · For upload: face front-on, credit card flat on forehead, no glasses.
         </p>
         <Link
           to={`/${lang}/fit`}
@@ -4091,6 +4172,53 @@ export default function FitScan() {
     }
   };
 
+  const handleUpload = async (file: File) => {
+    pushEvent("fit_scan_upload_start", { size: file.size });
+    setErrorMsg(null);
+    setErrorKind(null);
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(new Error("read_failed"));
+        reader.readAsDataURL(file);
+      });
+      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const im = new Image();
+        im.onload = () => resolve(im);
+        im.onerror = () => reject(new Error("decode_failed"));
+        im.src = dataUrl;
+      });
+      // Cap the long edge at 1600 px to keep upload payload reasonable for
+      // the Gemini detect call and to match the live-capture frame size.
+      const MAX_EDGE = 1600;
+      const scale = Math.min(1, MAX_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+      const w = Math.round(img.naturalWidth * scale);
+      const h = Math.round(img.naturalHeight * scale);
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("canvas_unavailable");
+      ctx.drawImage(img, 0, 0, w, h);
+      const outUrl = canvas.toDataURL("image/jpeg", 0.9);
+      handleCaptured({
+        dataUrl: outUrl,
+        width: w,
+        height: h,
+        landmarks: [],
+        canvas,
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn("[fit-scan] upload failed", msg);
+      pushEvent("fit_scan_upload_error", { reason: msg });
+      setErrorMsg("We couldn't read that image. Try a different photo (JPG or PNG, face front-on).");
+      setErrorKind("recoverable");
+      setStep("welcome");
+    }
+  };
+
   const handleError = (msg: string, kind: "recoverable" | "unsupported" = "recoverable") => {
     setErrorMsg(msg);
     setErrorKind(kind);
@@ -4448,6 +4576,7 @@ export default function FitScan() {
                   <WelcomeStep
                     lang={lang}
                     onStart={startScan}
+                    onUpload={handleUpload}
                     disabled={!!blockingMessage}
                     isMobile={isMobile}
                   />

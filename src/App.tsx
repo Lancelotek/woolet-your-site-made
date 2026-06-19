@@ -23,6 +23,7 @@ const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
 const NoseBridgeFitHub = lazy(() => import("./pages/blog/NoseBridgeFitHub.tsx"));
 const FitWizard = lazy(() => import("./pages/FitWizard.tsx"));
 const FitManual = lazy(() => import("./pages/FitManual.tsx"));
+const FitQuick = lazy(() => import("./pages/FitQuick.tsx"));
 const FitBespoke = lazy(() => import("./pages/FitBespoke.tsx"));
 const FitScan = lazy(() => import("./pages/FitScan.tsx"));
 const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
@@ -174,9 +175,11 @@ const App = () => (
           <Route path="/:lang/fit" element={<FitScan />} />
           <Route path="/:lang/fit/wizard" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
+          <Route path="/en/fit/quick" element={<FitQuick />} />
           <Route path="/en/fit/bespoke" element={<FitBespoke />} />
           {/* Non-EN locales of EN-only pages → redirect to /en equivalent */}
           <Route path="/:lang/fit/manual" element={<RedirectToEn to="/fit/manual" />} />
+          <Route path="/:lang/fit/quick" element={<RedirectToEn to="/fit/quick" />} />
           <Route path="/:lang/fit/bespoke" element={<RedirectToEn to="/fit/bespoke" />} />
           <Route path="/:lang/about" element={<RedirectToEn to="/about" />} />
           <Route path="/:lang/lp/:slug" element={<RedirectLpToEn />} />
