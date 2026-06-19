@@ -92,7 +92,7 @@ const BespokeWaitlistGate = () => {
             </div>
           </div>
         ) : (
-          <form onSubmit={submit} className="mt-6 space-y-4">
+          <form onSubmit={submit} noValidate className="mt-6 space-y-4">
             <div>
               <label htmlFor="bespoke-gate-email" className="sr-only">Email</label>
               <input
