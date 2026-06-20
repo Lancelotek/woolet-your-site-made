@@ -7,8 +7,16 @@ import { persistRef, resolveReferredBy } from "@/lib/referral";
 import Countdown from "@/components/Countdown";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
 import logo from "@/assets/woolet-logo.png";
-import w007 from "@/assets/woolet-007.png";
-import w009 from "@/assets/woolet-009.png";
+import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
+import w007BlackAsset from "@/assets/woolet-007-black.png.asset.json";
+import w007GreyAsset from "@/assets/woolet-007-grey.png.asset.json";
+import w007TaupeAsset from "@/assets/woolet-007-taupe.png.asset.json";
+import w009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
+import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
+import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
+
+const slides007Lp = [w007BlackFrontAsset.url, w007BlackAsset.url, w007GreyAsset.url, w007TaupeAsset.url];
+const slides009Lp = [w009BlackAsset.url, w009GreyAsset.url, w009TaupeAsset.url];
 import marek from "@/assets/author-marek.png";
 import beforeAfterAsset from "@/assets/woolet-fit-comparison.png.asset.json";
 const beforeAfter = beforeAfterAsset.url;
@@ -223,6 +231,15 @@ const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
   const utmSource = params.get("utm_source") || "direct";
   const referredBy = params.get("ref");
+
+  const [idx007Lp, setIdx007Lp] = useState(0);
+  const [idx009Lp, setIdx009Lp] = useState(0);
+  useEffect(() => {
+    const a = window.setInterval(() => setIdx007Lp((i) => (i + 1) % slides007Lp.length), 3500);
+    const b = window.setInterval(() => setIdx009Lp((i) => (i + 1) % slides009Lp.length), 3500);
+    return () => { window.clearInterval(a); window.clearInterval(b); };
+  }, []);
+
 
   useEffect(() => {
     if (referredBy) {
@@ -468,12 +485,21 @@ const KickstarterPrelaunch = () => {
           </p>
           <div className="grid sm:grid-cols-2 gap-8 mt-10">
             {[
-              { img: w007, name: "Woolet 007", shape: "Round / Panto" },
-              { img: w009, name: "Woolet 009", shape: "Soft Square" },
+              { slides: slides007Lp, name: "Woolet 007", shape: "Round / Panto" },
+              { slides: slides009Lp, name: "Woolet 009", shape: "Soft Square" },
             ].map((m) => (
               <div key={m.name} className="text-center">
-                <div className="w-full max-w-sm mx-auto" style={{ background: "#0a0908", borderRadius: "4px" }}>
-                  <img src={m.img} alt={m.name} className="w-full h-auto" loading="lazy" />
+                <div className="relative w-full max-w-sm mx-auto aspect-square overflow-hidden bg-woolet-white" style={{ borderRadius: "4px" }}>
+                  {m.slides.map((src, i) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt={m.name}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
+                      style={{ opacity: i === (m.name === "Woolet 007" ? idx007Lp : idx009Lp) ? 1 : 0 }}
+                    />
+                  ))}
                 </div>
                 <h3 className="font-display text-2xl text-woolet-white mt-4">{m.name}</h3>
                 <p className="text-cream-dim text-xs uppercase tracking-[0.24em] mt-1">{m.shape}</p>
