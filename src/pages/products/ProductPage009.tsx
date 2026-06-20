@@ -6,11 +6,14 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
-import havanaFoundersAsset from "@/assets/woolet-009-havana-founders.png.asset.json";
-import havanaFoundersAltAsset from "@/assets/woolet-009-havana-founders-alt.jpeg.asset.json";
+import wooletBlackAsset from "@/assets/woolet-009-black.png.asset.json";
+import wooletGreyAsset from "@/assets/woolet-009-grey.png.asset.json";
+import wooletTaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
+
+const gallery009 = [wooletBlackAsset.url, wooletGreyAsset.url, wooletTaupeAsset.url];
 
 const colors009 = [
-  { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, gallery: [havanaFoundersAsset.url, havanaFoundersAltAsset.url], limited: true },
+  { name: "Havana — Founders", dot: "#1A1612", img: wooletBlackAsset.url, gallery: gallery009, limited: true },
 ] as const;
 
 const specs = [
@@ -41,6 +44,16 @@ const ProductPage009 = () => {
   const [activeImg, setActiveImg] = useState<string>(gallery[0]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   useEffect(() => { setActiveImg(gallery[0]); }, [selectedColor]);
+  useEffect(() => {
+    if (gallery.length <= 1 || lightboxOpen) return;
+    const id = window.setInterval(() => {
+      setActiveImg((cur) => {
+        const i = gallery.indexOf(cur);
+        return gallery[(i + 1) % gallery.length];
+      });
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, [gallery, lightboxOpen]);
   useEffect(() => {
     if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightboxOpen(false); };
@@ -93,8 +106,9 @@ const ProductPage009 = () => {
         <title>Woolet 009 — Square Acetate Glasses, 158 mm Wide</title>
         <meta name="description" content="Soft-square Italian acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 retail." />
         <link rel="canonical" href="https://woolet.co/en/products/009" />
-        <link rel="preload" as="image" href={havanaFoundersAsset.url} fetchPriority="high" />
-        <link rel="prefetch" as="image" href={havanaFoundersAltAsset.url} />
+        <link rel="preload" as="image" href={wooletBlackAsset.url} fetchPriority="high" />
+        <link rel="prefetch" as="image" href={wooletGreyAsset.url} />
+        <link rel="prefetch" as="image" href={wooletTaupeAsset.url} />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet 009 — Square Acetate Glasses, 158 mm Wide" />
         <meta property="og:description" content="Soft-square Italian Mazzucchelli acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 retail." />

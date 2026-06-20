@@ -1,13 +1,22 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import woolet007Img from "@/assets/woolet-007.png";
-import woolet009Img from "@/assets/woolet-009.png";
+import woolet009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
+import woolet009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
+import woolet009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+
+const slides009 = [
+  { src: woolet009BlackAsset.url, alt: "Woolet 009 — Black acetate" },
+  { src: woolet009GreyAsset.url, alt: "Woolet 009 — Smoke Grey acetate" },
+  { src: woolet009TaupeAsset.url, alt: "Woolet 009 — Taupe acetate" },
+];
 
 const ModelPills = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
@@ -38,8 +47,8 @@ const ModelPills = () => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={() => setOpen009(true)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm">
-            <img src={woolet009Img} alt="Woolet 009 square glasses" className="w-full h-full object-cover opacity-75 group-hover:opacity-90 transition-opacity" />
+          <div className="w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+            <HeroSlideshow slides={slides009} intervalMs={3500} className="opacity-90 group-hover:opacity-100 transition-opacity" />
           </div>
           <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.5rem" }}>009</div>
           <div className="font-display text-woolet-white" style={{ fontSize: "1.1rem" }}>Woolet 009</div>
@@ -57,9 +66,11 @@ const ModelPills = () => {
 
       {/* 009 Popup */}
       <Dialog open={open009} onOpenChange={setOpen009}>
-        <DialogContent className="max-w-2xl bg-surface border-primary/10 p-2">
+        <DialogContent className="max-w-2xl bg-woolet-white border-primary/10 p-2">
           <DialogTitle className="sr-only">Woolet 009</DialogTitle>
-          <img src={woolet009Img} alt="Woolet 009 — square acetate glasses for wide faces" className="w-full rounded" />
+          <div className="w-full aspect-square">
+            <HeroSlideshow slides={slides009} intervalMs={3500} />
+          </div>
         </DialogContent>
       </Dialog>
     </div>
