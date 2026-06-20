@@ -241,6 +241,12 @@ const ProductPage009 = () => {
               <button style={{ border: "2px solid #A07A2A", background: "#FDF6EB", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}>
                 009 Square
               </button>
+              <button
+                onClick={() => navigate("/en/products/007")}
+                style={{ border: "2px solid #DDD", background: "#FFF", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}
+              >
+                007 Round
+              </button>
             </div>
           </div>
 
