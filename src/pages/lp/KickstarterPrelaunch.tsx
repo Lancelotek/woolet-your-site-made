@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import Countdown from "@/components/Countdown";
-import heroMan from "@/assets/hero-man.jpg";
+import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
 import logo from "@/assets/woolet-logo.png";
 import w007 from "@/assets/woolet-007.png";
 import w009 from "@/assets/woolet-009.png";
@@ -392,7 +392,7 @@ const KickstarterPrelaunch = () => {
           {/* Hero image — hidden on mobile to keep form above the fold; shown md+ */}
           <div className="hidden md:block md:order-last">
             <img
-              src={heroMan}
+              src={heroManAsset.url}
               alt="Man wearing Woolet wide-face eyewear"
               className="w-full h-auto object-cover rounded-sm"
               loading="eager"
