@@ -6,11 +6,14 @@ import wooletLogo from "@/assets/woolet-logo.png";
 import TrustGuarantee from "@/components/TrustGuarantee";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
-import havanaFoundersAsset from "@/assets/woolet-009-havana-founders.png.asset.json";
-import havanaFoundersAltAsset from "@/assets/woolet-009-havana-founders-alt.jpeg.asset.json";
+import wooletBlackAsset from "@/assets/woolet-009-black.png.asset.json";
+import wooletGreyAsset from "@/assets/woolet-009-grey.png.asset.json";
+import wooletTaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
+
+const gallery009 = [wooletBlackAsset.url, wooletGreyAsset.url, wooletTaupeAsset.url];
 
 const colors009 = [
-  { name: "Havana — Founders", dot: "#A56A2E", img: havanaFoundersAsset.url, gallery: [havanaFoundersAsset.url, havanaFoundersAltAsset.url], limited: true },
+  { name: "Havana — Founders", dot: "#1A1612", img: wooletBlackAsset.url, gallery: gallery009, limited: true },
 ] as const;
 
 const specs = [
