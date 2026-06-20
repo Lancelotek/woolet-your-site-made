@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import woolet007Img from "@/assets/woolet-007.png";
+import woolet007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
+import woolet007BlackAsset from "@/assets/woolet-007-black.png.asset.json";
+import woolet007GreyAsset from "@/assets/woolet-007-grey.png.asset.json";
+import woolet007TaupeAsset from "@/assets/woolet-007-taupe.png.asset.json";
 import woolet009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
 import woolet009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
 import woolet009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
-import HeroSlideshow from "@/components/HeroSlideshow";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+
+const slides007 = [
+  { src: woolet007BlackFrontAsset.url, alt: "Woolet 007 — Black acetate, front" },
+  { src: woolet007BlackAsset.url, alt: "Woolet 007 — Black acetate" },
+  { src: woolet007GreyAsset.url, alt: "Woolet 007 — Smoke Grey acetate" },
+  { src: woolet007TaupeAsset.url, alt: "Woolet 007 — Taupe acetate" },
+];
 
 const slides009 = [
   { src: woolet009BlackAsset.url, alt: "Woolet 009 — Black acetate" },
@@ -23,10 +32,12 @@ const ModelPills = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [open007, setOpen007] = useState(false);
   const [open009, setOpen009] = useState(false);
+  const [idx007, setIdx007] = useState(0);
   const [idx009, setIdx009] = useState(0);
   useEffect(() => {
-    const id = window.setInterval(() => setIdx009((i) => (i + 1) % slides009.length), 3500);
-    return () => window.clearInterval(id);
+    const a = window.setInterval(() => setIdx007((i) => (i + 1) % slides007.length), 3500);
+    const b = window.setInterval(() => setIdx009((i) => (i + 1) % slides009.length), 3500);
+    return () => { window.clearInterval(a); window.clearInterval(b); };
   }, []);
   return (
     <div>
@@ -39,8 +50,17 @@ const ModelPills = () => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={() => setOpen007(true)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm">
-            <img src={woolet007Img} alt="Woolet 007 round glasses" className="w-full h-full object-cover opacity-75 group-hover:opacity-90 transition-opacity" />
+          <div className="relative w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+            {slides007.map((s, i) => (
+              <img
+                key={s.src}
+                src={s.src}
+                alt={s.alt}
+                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
+                style={{ opacity: i === idx007 ? 1 : 0, transform: "scale(2.4)" }}
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            ))}
           </div>
           <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.5rem" }}>007</div>
           <div className="font-display text-woolet-white" style={{ fontSize: "1.1rem" }}>Woolet 007</div>
@@ -72,9 +92,13 @@ const ModelPills = () => {
 
       {/* 007 Popup */}
       <Dialog open={open007} onOpenChange={setOpen007}>
-        <DialogContent className="max-w-2xl bg-surface border-primary/10 p-2">
+        <DialogContent className="max-w-2xl bg-woolet-white border-primary/10 p-2">
           <DialogTitle className="sr-only">Woolet 007</DialogTitle>
-          <img src={woolet007Img} alt="Woolet 007 — round acetate glasses for wide faces" className="w-full rounded" />
+          <div className="relative w-full aspect-square bg-woolet-white rounded overflow-hidden">
+            {slides007.map((s, i) => (
+              <img key={s.src} src={s.src} alt={s.alt} className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms]" style={{ opacity: i === idx007 ? 1 : 0 }} />
+            ))}
+          </div>
         </DialogContent>
       </Dialog>
 
