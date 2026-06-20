@@ -23,6 +23,11 @@ const ModelPills = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [open007, setOpen007] = useState(false);
   const [open009, setOpen009] = useState(false);
+  const [idx009, setIdx009] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => setIdx009((i) => (i + 1) % slides009.length), 3500);
+    return () => window.clearInterval(id);
+  }, []);
   return (
     <div>
       <div className="text-cream-dim uppercase tracking-[0.24em] mb-3" style={{ fontSize: "0.56rem" }}>
