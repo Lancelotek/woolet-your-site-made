@@ -47,6 +47,66 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_scan_profiles: {
+        Row: {
+          asymmetry_mm: number | null
+          capture_method: string
+          confidence: Json
+          created_at: string
+          email: string | null
+          face_width_mm: number | null
+          id: string
+          nose_bridge_height_mm: number | null
+          nose_bridge_width_mm: number | null
+          pantoscopic_angle_deg: number | null
+          pd_mm: number | null
+          raw_frames: Json
+          status: string
+          temple_length_left_mm: number | null
+          temple_length_right_mm: number | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          asymmetry_mm?: number | null
+          capture_method?: string
+          confidence?: Json
+          created_at?: string
+          email?: string | null
+          face_width_mm?: number | null
+          id?: string
+          nose_bridge_height_mm?: number | null
+          nose_bridge_width_mm?: number | null
+          pantoscopic_angle_deg?: number | null
+          pd_mm?: number | null
+          raw_frames?: Json
+          status?: string
+          temple_length_left_mm?: number | null
+          temple_length_right_mm?: number | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          asymmetry_mm?: number | null
+          capture_method?: string
+          confidence?: Json
+          created_at?: string
+          email?: string | null
+          face_width_mm?: number | null
+          id?: string
+          nose_bridge_height_mm?: number | null
+          nose_bridge_width_mm?: number | null
+          pantoscopic_angle_deg?: number | null
+          pd_mm?: number | null
+          raw_frames?: Json
+          status?: string
+          temple_length_left_mm?: number | null
+          temple_length_right_mm?: number | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
