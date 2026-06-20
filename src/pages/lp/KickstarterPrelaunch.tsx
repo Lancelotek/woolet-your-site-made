@@ -7,8 +7,16 @@ import { persistRef, resolveReferredBy } from "@/lib/referral";
 import Countdown from "@/components/Countdown";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
 import logo from "@/assets/woolet-logo.png";
-import w007 from "@/assets/woolet-007.png";
-import w009 from "@/assets/woolet-009.png";
+import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
+import w007BlackAsset from "@/assets/woolet-007-black.png.asset.json";
+import w007GreyAsset from "@/assets/woolet-007-grey.png.asset.json";
+import w007TaupeAsset from "@/assets/woolet-007-taupe.png.asset.json";
+import w009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
+import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
+import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
+
+const slides007Lp = [w007BlackFrontAsset.url, w007BlackAsset.url, w007GreyAsset.url, w007TaupeAsset.url];
+const slides009Lp = [w009BlackAsset.url, w009GreyAsset.url, w009TaupeAsset.url];
 import marek from "@/assets/author-marek.png";
 import beforeAfterAsset from "@/assets/woolet-fit-comparison.png.asset.json";
 const beforeAfter = beforeAfterAsset.url;
