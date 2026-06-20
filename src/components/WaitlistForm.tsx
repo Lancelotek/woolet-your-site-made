@@ -132,13 +132,13 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         {[
           { icon: <RotateCcw size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "30-Day Returns" },
           { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Fit Guarantee" },
-          { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇮🇹</span>, text: "Italian Mazzucchelli Acetate" },
+          { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇪🇺</span>, text: "Mazzucchelli acetate" },
           { icon: (
-            <svg width="9" height="11" viewBox="0 0 9 11" aria-hidden="true">
-              <path d="M0.5 0.5 H8.5 V8 Q8.5 10 4.5 10.5 Q0.5 10 0.5 8 Z" fill="#fff" stroke="#9A8E7E" strokeWidth="0.5" />
-              <path d="M3.6 0.5 H5.4 V4.2 H8.5 V5.8 H5.4 V10.3 H3.6 V5.8 H0.5 V4.2 H3.6 Z" fill="#D02030" />
+            <svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true">
+              <circle cx="5.5" cy="5.5" r="5" fill="none" stroke="#9A8E7E" strokeWidth="0.6" />
+              <path d="M3 6.2 Q4 7 5.5 7 T8 6.2" fill="none" stroke="#9A8E7E" strokeWidth="0.6" strokeLinecap="round" />
             </svg>
-          ), text: "Made in Milano" },
+          ), text: "Hand-crafted in EU" },
           { icon: <Package size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Free Shipping" },
         ].map((item, i) => (
           <span key={i} style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#9A8E7E", display: "flex", alignItems: "center", gap: 4 }}>
