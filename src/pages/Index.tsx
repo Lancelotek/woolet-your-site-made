@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { Ruler } from "lucide-react";
 import heroManImg from "@/assets/hero-man.jpg";
+import heroWomanAsset from "@/assets/hero-woman.png.asset.json";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -272,9 +274,14 @@ const Index = () => {
         <div className="grid grid-cols-[1fr_720px] flex-1 min-h-0 animate-fade-in">
           {/* Left image — fixed, no scroll */}
           <div className="relative overflow-hidden bg-surface border-r" style={{ borderRightColor: "hsl(0 0% 100% / 0.055)" }}>
-            <div className="absolute inset-0 flex items-end overflow-hidden">
-              <img src={heroManImg} alt="Man wearing Woolet wide-face eyewear" className="woolet-desktop-hero-image w-full h-full object-cover object-top" loading="eager" fetchPriority="high" width={800} height={1000} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 50%, hsl(var(--background) / 0.4) 100%)" }} />
+            <div className="absolute inset-0 overflow-hidden">
+              <HeroSlideshow
+                slides={[
+                  { src: heroManImg, alt: "Man wearing Woolet wide-face eyewear" },
+                  { src: heroWomanAsset.url, alt: "Woman wearing Woolet Italian acetate eyewear" },
+                ]}
+              />
+              <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, transparent 50%, hsl(var(--background) / 0.4) 100%)" }} />
             </div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, transparent 60%, hsl(var(--background) / 0.35) 100%)" }} />
           </div>
