@@ -82,8 +82,10 @@ const ModelPills = () => {
       <Dialog open={open009} onOpenChange={setOpen009}>
         <DialogContent className="max-w-2xl bg-woolet-white border-primary/10 p-2">
           <DialogTitle className="sr-only">Woolet 009</DialogTitle>
-          <div className="w-full aspect-square">
-            <HeroSlideshow slides={slides009} intervalMs={3500} />
+          <div className="relative w-full aspect-square bg-woolet-white rounded overflow-hidden">
+            {slides009.map((s, i) => (
+              <img key={s.src} src={s.src} alt={s.alt} className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms]" style={{ opacity: i === idx009 ? 1 : 0 }} />
+            ))}
           </div>
         </DialogContent>
       </Dialog>
