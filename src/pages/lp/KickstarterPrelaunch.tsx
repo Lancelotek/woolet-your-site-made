@@ -232,6 +232,15 @@ const KickstarterPrelaunch = () => {
   const utmSource = params.get("utm_source") || "direct";
   const referredBy = params.get("ref");
 
+  const [idx007Lp, setIdx007Lp] = useState(0);
+  const [idx009Lp, setIdx009Lp] = useState(0);
+  useEffect(() => {
+    const a = window.setInterval(() => setIdx007Lp((i) => (i + 1) % slides007Lp.length), 3500);
+    const b = window.setInterval(() => setIdx009Lp((i) => (i + 1) % slides009Lp.length), 3500);
+    return () => { window.clearInterval(a); window.clearInterval(b); };
+  }, []);
+
+
   useEffect(() => {
     if (referredBy) {
       persistRef(referredBy);
