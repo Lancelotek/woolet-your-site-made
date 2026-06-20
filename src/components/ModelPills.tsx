@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import woolet007Img from "@/assets/woolet-007.png";
 import woolet009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
