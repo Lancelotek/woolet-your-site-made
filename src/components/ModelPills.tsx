@@ -59,7 +59,7 @@ const ModelPills = () => {
                 src={s.src}
                 alt={s.alt}
                 className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
-                style={{ opacity: i === idx009 ? 1 : 0 }}
+                style={{ opacity: i === idx009 ? 1 : 0, transform: "scale(2.4)" }}
                 loading={i === 0 ? "eager" : "lazy"}
               />
             ))}
