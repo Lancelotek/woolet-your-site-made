@@ -47,8 +47,17 @@ const ModelPills = () => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={() => setOpen009(true)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
-            <HeroSlideshow slides={slides009} intervalMs={3500} className="opacity-90 group-hover:opacity-100 transition-opacity" />
+          <div className="relative w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+            {slides009.map((s, i) => (
+              <img
+                key={s.src}
+                src={s.src}
+                alt={s.alt}
+                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
+                style={{ opacity: i === idx009 ? 1 : 0 }}
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            ))}
           </div>
           <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.5rem" }}>009</div>
           <div className="font-display text-woolet-white" style={{ fontSize: "1.1rem" }}>Woolet 009</div>
