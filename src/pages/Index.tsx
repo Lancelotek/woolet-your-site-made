@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { Ruler } from "lucide-react";
 import heroManImg from "@/assets/hero-man.jpg";
-import heroWomanAsset from "@/assets/hero-woman.png.asset.json";
+import heroWomanAsset from "@/assets/hero-woman.jpeg.asset.json";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
