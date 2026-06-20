@@ -230,11 +230,10 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
                 style={{ ...inputStyle, fontSize: "max(0.82rem, 16px)" }}
               >
                 <option value="" style={{ background: "#1a1612", color: "#f0ece4" }}>Select your frame width</option>
-                <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know yet — help me measure</option>
-                <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (Extra-Wide)</option>
-                <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (Extra-Wide)</option>
-                <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL)</option>
-                <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (XXL)</option>
+                <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know, will measure it</option>
+                <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145 mm to 155 mm</option>
+                <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155 mm to 161 mm</option>
+                <option value="bespoke" style={{ background: "#1a1612", color: "#f0ece4" }}>Bespoke — any size</option>
               </select>
               <div
                 className="absolute right-0 top-1/2 -translate-y-[80%] rotate-45 pointer-events-none"

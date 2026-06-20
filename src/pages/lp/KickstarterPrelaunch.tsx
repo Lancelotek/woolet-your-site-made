@@ -152,10 +152,10 @@ const VipForm = ({
           style={{ ...inputStyle, fontSize: "max(0.95rem, 16px)", paddingRight: "32px" }}
         >
           <option value="" style={{ background: "#1a1612", color: "#f0ece4" }}>Select your frame width</option>
-          <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know yet</option>
-          <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145–154 mm (bespoke only)</option>
-          <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155–161 mm (XL — stock)</option>
-          <option value="162" style={{ background: "#1a1612", color: "#f0ece4" }}>162 mm+ (bespoke only)</option>
+          <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know, will measure it</option>
+          <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145 mm to 155 mm</option>
+          <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155 mm to 161 mm</option>
+          <option value="bespoke" style={{ background: "#1a1612", color: "#f0ece4" }}>Bespoke — any size</option>
         </select>
       </div>
 
