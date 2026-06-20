@@ -45,6 +45,16 @@ const ProductPage009 = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   useEffect(() => { setActiveImg(gallery[0]); }, [selectedColor]);
   useEffect(() => {
+    if (gallery.length <= 1 || lightboxOpen) return;
+    const id = window.setInterval(() => {
+      setActiveImg((cur) => {
+        const i = gallery.indexOf(cur);
+        return gallery[(i + 1) % gallery.length];
+      });
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, [gallery, lightboxOpen]);
+  useEffect(() => {
     if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightboxOpen(false); };
     window.addEventListener("keydown", onKey);
