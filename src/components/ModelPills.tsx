@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import woolet007Img from "@/assets/woolet-007.png";
 import woolet009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
@@ -23,6 +23,11 @@ const ModelPills = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [open007, setOpen007] = useState(false);
   const [open009, setOpen009] = useState(false);
+  const [idx009, setIdx009] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => setIdx009((i) => (i + 1) % slides009.length), 3500);
+    return () => window.clearInterval(id);
+  }, []);
   return (
     <div>
       <div className="text-cream-dim uppercase tracking-[0.24em] mb-3" style={{ fontSize: "0.56rem" }}>
@@ -47,8 +52,17 @@ const ModelPills = () => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={() => setOpen009(true)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
-            <HeroSlideshow slides={slides009} intervalMs={3500} className="opacity-90 group-hover:opacity-100 transition-opacity" />
+          <div className="relative w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+            {slides009.map((s, i) => (
+              <img
+                key={s.src}
+                src={s.src}
+                alt={s.alt}
+                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
+                style={{ opacity: i === idx009 ? 1 : 0 }}
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            ))}
           </div>
           <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.5rem" }}>009</div>
           <div className="font-display text-woolet-white" style={{ fontSize: "1.1rem" }}>Woolet 009</div>
@@ -68,8 +82,10 @@ const ModelPills = () => {
       <Dialog open={open009} onOpenChange={setOpen009}>
         <DialogContent className="max-w-2xl bg-woolet-white border-primary/10 p-2">
           <DialogTitle className="sr-only">Woolet 009</DialogTitle>
-          <div className="w-full aspect-square">
-            <HeroSlideshow slides={slides009} intervalMs={3500} />
+          <div className="relative w-full aspect-square bg-woolet-white rounded overflow-hidden">
+            {slides009.map((s, i) => (
+              <img key={s.src} src={s.src} alt={s.alt} className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms]" style={{ opacity: i === idx009 ? 1 : 0 }} />
+            ))}
           </div>
         </DialogContent>
       </Dialog>
