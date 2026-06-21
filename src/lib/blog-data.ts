@@ -2568,6 +2568,126 @@ const blogPostsEN: BlogPost[] = [
 </ul>
 `,
   },
+  {
+    slug: "how-wide-should-glasses-be",
+    title: "How Wide Should Glasses Be on Your Face?",
+    excerpt: "Frames pinching your temples or sitting too narrow? Here's the exact width a wide face needs — 155 mm and up — and how to measure yours in 30 seconds.",
+    date: "2026-06-21",
+    readTime: 6,
+    tags: ["Fit Guide", "Wide Face", "Sizing"],
+    image: "/og-image.png",
+    faq: [
+      { q: "What is considered a wide face for glasses?", a: "A face measuring roughly 155 mm or more across the widest point, temple to temple. At that width, standard frames pinch and most retail ranges run out of options." },
+      { q: "How wide should glasses be on your face?", a: "As wide as your face. The frame front matches your temple-to-temple width and the arms run straight back without bowing or pressing." },
+      { q: "How do I know when my glasses are too small?", a: "Red marks behind your ears, arms that flare outward, headaches from temple pressure, and lenses sitting too close together all point to a frame that's too narrow." },
+      { q: "Can I measure my face width at home?", a: "Yes. Hold a ruler across the widest part of your face in a mirror and read the millimeters, or run the Woolet Fit Wizard, which uses a credit card and your camera to return an exact number in 30 seconds." },
+    ],
+    howTo: {
+      name: "How to measure your face width for glasses",
+      description: "Two ways to find your face width and the frame size that fits it.",
+      step: [
+        { name: "Measure with a ruler", text: "Hold a ruler flat across the widest part of your face, temple to temple, in a mirror. Read the width in millimeters. 155 mm or above means a wide face." },
+        { name: "Measure with the Woolet Fit Wizard", text: "Use a credit card for scale and your phone camera to read your exact face width in 30 seconds, and confirm whether the 158 mm Woolet front fits." },
+      ],
+    },
+    content: `
+<nav aria-label="breadcrumb" style="font-family:'Barlow',sans-serif;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;margin-bottom:28px;">
+  <a href="/en" style="color:inherit;text-decoration:none;">Home</a>
+  <span style="margin:0 8px;opacity:0.5;">›</span>
+  <a href="/en/blog" style="color:inherit;text-decoration:none;">Eyewear Guides</a>
+  <span style="margin:0 8px;opacity:0.5;">›</span>
+  <span style="opacity:0.85;">How Wide Should Glasses Be</span>
+</nav>
+
+<p>Your glasses leave red marks behind your ears by lunchtime. The arms bow outward to clear your temples. Every frame on the shelf sits a centimeter too narrow. You don't have a styling problem — you have a width problem, and almost no brand measures for it.</p>
+
+<p>Here's the exact frame width your face needs, how to measure it in under a minute, and how to stop buying frames built for someone narrower.</p>
+
+<p style="margin:32px 0;"><a href="/en/fit" style="display:inline-block;background:#c9a84c;color:#0f0f0f;padding:16px 28px;border-radius:4px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.82rem;text-decoration:none;">Measure with the Woolet Fit Wizard →</a></p>
+
+<h2>How wide should glasses be on your face?</h2>
+<p>Your frames should be as wide as your face. The frame front — hinge to hinge — matches your face width at the temples, and the arms run straight back to your ears without bowing out or pressing in. When the arms flare outward to clear your head, the frame is too narrow. When the frame front juts past the edges of your face, it's too wide.</p>
+<p>For a wide face — 155 mm or more across the temples — that means a frame front around 155 mm and up. Standard retail tops out near 135–145 mm, which is why every shelf frame fights you.</p>
+
+<h2>How to measure your face width</h2>
+<p><strong>The ruler method.</strong> Stand in front of a mirror. Hold a ruler flat across the widest part of your face — temple to temple, just above your cheekbones. Read the millimeters. When it lands at 155 mm or above, you're in wide-face territory and standard frames will pinch.</p>
+<p><strong>The 30-second method.</strong> Skip the ruler. The Woolet Fit Wizard uses a credit card for scale and your phone camera to read your exact face width — then confirms whether the 158 mm Woolet front fits you, or whether you fall into the bespoke range (150–172 mm).</p>
+
+<p style="margin:32px 0;"><a href="/en/fit" style="display:inline-block;background:#c9a84c;color:#0f0f0f;padding:16px 28px;border-radius:4px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.82rem;text-decoration:none;">Measure with the Fit Wizard →</a></p>
+
+<h2>The three numbers that decide fit</h2>
+<p>Every frame carries three measurements, printed inside one arm — for example 56▢21–150.</p>
+<ul>
+<li><strong>Lens width</strong> — the width of one lens. Wide faces start in the mid-50s mm and climb.</li>
+<li><strong>Bridge</strong> — the gap over your nose. A wider bridge keeps lenses centered on a broad face. Woolet runs a 21–22 mm keyhole bridge for exactly this.</li>
+<li><strong>Temple length</strong> — the arm, ear to tip. Longer arms wrap a wider head without squeezing.</li>
+</ul>
+<p>Add two lens widths plus the bridge and you get the frame front. When that total sits under your face width, the frame pinches — every time. Woolet builds one precise front: 158 mm.</p>
+
+<h2>How to tell when glasses are too wide — or too narrow</h2>
+<p><strong>Too narrow</strong> (the usual story for a wide face):</p>
+<ul>
+<li>Red marks or soreness behind your ears</li>
+<li>Arms that bow outward instead of running straight</li>
+<li>Frames that grip your temples and trigger headaches</li>
+<li>Lenses sitting too close together</li>
+</ul>
+<p><strong>Too wide:</strong></p>
+<ul>
+<li>Frames slide down your nose</li>
+<li>The frame front extends past the edge of your face</li>
+<li>Lenses sit off-center from your pupils</li>
+</ul>
+<p>When you recognize the first list, you've been wearing frames built for a narrower face. That's the gap Woolet closes.</p>
+
+<h2>What to look for in glasses for a wide face</h2>
+<p>Three things, every time: a frame front that matches your width, a bridge wide enough to center the lenses, and temple arms long enough to wrap without pressure. Standard ranges stop short on all three.</p>
+<p>When your face is too wide for Persol, Tom Ford, Warby Parker, or a Ray-Ban Wayfarer Large, Woolet is built for you. Premium Italian Mazzucchelli acetate, hand-finished, in one precise 158 mm size across two shapes — with a bespoke tier for 150–172 mm.</p>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:28px 0;">
+  <a href="/en/products/007" style="display:block;padding:22px 24px;border:1px solid rgba(201,168,76,0.35);border-radius:6px;text-decoration:none;color:inherit;background:rgba(201,168,76,0.04);">
+    <div style="font-family:'Barlow',sans-serif;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;">Round · 158 mm</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;line-height:1.2;">Woolet 007 →</div>
+  </a>
+  <a href="/en/products/009" style="display:block;padding:22px 24px;border:1px solid rgba(201,168,76,0.35);border-radius:6px;text-decoration:none;color:inherit;background:rgba(201,168,76,0.04);">
+    <div style="font-family:'Barlow',sans-serif;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;">Square · 158 mm</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;line-height:1.2;">Woolet 009 →</div>
+  </a>
+  <a href="/en/about" style="display:block;padding:22px 24px;border:1px solid rgba(201,168,76,0.35);border-radius:6px;text-decoration:none;color:inherit;background:rgba(201,168,76,0.04);">
+    <div style="font-family:'Barlow',sans-serif;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;">The Craft</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;line-height:1.2;">How Woolet is made →</div>
+  </a>
+  <a href="/en/fit" style="display:block;padding:22px 24px;border:1px solid rgba(201,168,76,0.35);border-radius:6px;text-decoration:none;color:inherit;background:rgba(201,168,76,0.04);">
+    <div style="font-family:'Barlow',sans-serif;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;">30 seconds</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;line-height:1.2;">Not sure of your size? Run the Fit Wizard →</div>
+  </a>
+</div>
+
+<h2>FAQ</h2>
+
+<h3>What is considered a wide face for glasses?</h3>
+<p>A face measuring roughly 155 mm or more across the widest point, temple to temple. At that width, standard frames pinch and most retail ranges run out of options.</p>
+
+<h3>How wide should glasses be on your face?</h3>
+<p>As wide as your face. The frame front matches your temple-to-temple width and the arms run straight back without bowing or pressing.</p>
+
+<h3>How do I know when my glasses are too small?</h3>
+<p>Red marks behind your ears, arms that flare outward, headaches from temple pressure, and lenses sitting too close together all point to a frame that's too narrow.</p>
+
+<h3>Can I measure my face width at home?</h3>
+<p>Yes. Hold a ruler across the widest part of your face in a mirror and read the millimeters, or run the Woolet Fit Wizard, which uses a credit card and your camera to return an exact number in 30 seconds.</p>
+
+<div style="margin:48px -8px 8px;padding:40px 32px;background:linear-gradient(180deg,rgba(201,168,76,0.10),rgba(201,168,76,0.04));border:1px solid rgba(201,168,76,0.30);border-radius:8px;text-align:center;">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;line-height:1.15;margin-bottom:12px;">Get your exact width.</div>
+  <p style="max-width:520px;margin:0 auto 24px;opacity:0.85;">The Woolet Fit Wizard reads your face width with a credit card and your camera, then confirms whether the 158 mm front fits or whether you need bespoke. 30 seconds, no guessing.</p>
+  <a href="/en/fit" style="display:inline-block;background:#c9a84c;color:#0f0f0f;padding:16px 32px;border-radius:4px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.82rem;text-decoration:none;">Measure with the Fit Wizard →</a>
+</div>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://woolet.co/en"},{"@type":"ListItem","position":2,"name":"Eyewear Guides","item":"https://woolet.co/en/blog"},{"@type":"ListItem","position":3,"name":"How Wide Should Glasses Be on Your Face?","item":"https://woolet.co/en/blog/how-wide-should-glasses-be"}]}
+</script>
+`,
+  },
 ];
 
 const blogPostsPL: BlogPost[] = [
