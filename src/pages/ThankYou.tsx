@@ -42,9 +42,7 @@ export default function ThankYou() {
     const t = setTimeout(() => setBarWidth(pct), 100);
     if (!conversionFired.current) {
       conversionFired.current = true;
-      // Google Ads conversion
-      const w = window as unknown as { gtag_report_conversion?: () => void };
-      if (typeof w.gtag_report_conversion === "function") w.gtag_report_conversion();
+      // Google Ads conversion is handled exclusively via GTM (dataLayer events).
       rdtPurchase({ value: 133, currency: "USD" });
     }
     return () => clearTimeout(t);

@@ -123,11 +123,13 @@ const VipForm = ({
     >
       <div className="flex gap-2.5 flex-col sm:flex-row">
         <div className="flex-1 flex flex-col">
-          <label style={labelStyle}>First name</label>
+          <label style={labelStyle}>
+            First name{" "}
+            <span style={{ fontWeight: 400, textTransform: "none", letterSpacing: "0.05em", color: "#B8B3A8" }}>(optional)</span>
+          </label>
           <input
             type="text"
             placeholder="James"
-            required
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             className="font-body focus:border-primary transition-colors"
