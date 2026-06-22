@@ -61,8 +61,13 @@ describe("Kickstarter VIP form — email-only submission", () => {
     fireEvent.change(emailInput, { target: { value: "wide@example.com" } });
     fireEvent.click(consentCheckbox);
 
-    expect(submitBtn.disabled).toBe(false);
-    fireEvent.submit(form);
+    await waitFor(() => expect(submitBtn.disabled).toBe(false));
+    fireEvent.click(submitBtn);
+
+    const { supabase } = await import("@/integrations/supabase/client");
+    await waitFor(() => {
+      expect((supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>)).toHaveBeenCalled();
+    });
 
     await waitFor(() => {
       expect(navigateMock).toHaveBeenCalledWith(
