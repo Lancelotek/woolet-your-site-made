@@ -140,18 +140,8 @@
           gtag('js', new Date());
           gtag('config', 'AW-18213714775');
 
-          window.gtag_report_conversion = function (url) {
-            var callback = function () {
-              if (typeof(url) != 'undefined') {
-                window.location = url;
-              }
-            };
-            gtag('event', 'conversion', {
-              'send_to': 'AW-18213714775/nHCBCLW8rbkcENf2_OxD',
-              'event_callback': callback
-            });
-            return false;
-          };
+          // On-page Google Ads conversion snippet removed — VIP signup conversion is
+          // measured exclusively through GTM (waitlist_signup dataLayer event, label jEJW).
         }
       })();
     </script>
