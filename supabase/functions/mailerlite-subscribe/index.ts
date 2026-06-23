@@ -32,6 +32,7 @@ async function ensureCustomFields(apiKey: string) {
     { name: "face_width", type: "text" },
     { name: "interested_models", type: "text" },
     { name: "scan_device", type: "text" },
+    { name: "sms", type: "text" },
     { name: "utm_source", type: "text" },
     { name: "utm_medium", type: "text" },
     { name: "utm_campaign", type: "text" },
@@ -103,7 +104,10 @@ serve(async (req) => {
       interested_models: models || "",
       scan_device: device || "",
     };
-    if (phone) subscriberFields.phone = String(phone);
+    if (phone) {
+      subscriberFields.phone = String(phone);
+      subscriberFields.sms = String(phone);
+    }
     if (utm_source) subscriberFields.utm_source = String(utm_source);
     if (utm_medium) subscriberFields.utm_medium = String(utm_medium);
     if (utm_campaign) subscriberFields.utm_campaign = String(utm_campaign);
