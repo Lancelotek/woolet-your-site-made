@@ -220,12 +220,7 @@ export default function VipPopup() {
 
     const fullPhone = `${country} ${phone.trim()}`;
     const utm = readUtm();
-    const payload: Record<string, string> = {
-      "fields[email]": email.trim(),
-      "fields[phone]": fullPhone,
-      ...mapUtmsToFields(utm),
-    };
-    await submitMailerLite(payload);
+    await submitToWaitlist({ email: email.trim(), phone: fullPhone, utm });
     setSubmitting(false);
     setStep(3);
     setSuppressed();
