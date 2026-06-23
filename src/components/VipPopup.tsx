@@ -11,6 +11,8 @@ const CONFIG = {
   mlAccount: "462864",
   mlForm: "181841173137065623",
   blogPathPrefix: "/blog", // matches any path containing /blog (e.g. /en/blog, /en/blog/slug)
+  forwardUtms: true, // toggle UTM forwarding to MailerLite (fields[utm_*])
+  utmKeys: ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const,
 };
 
 const STORAGE_KEY = "wlt_vip_seen";
@@ -32,13 +34,24 @@ function isBlogPath(pathname: string, prefix: string): boolean {
 
 function readUtm(): Record<string, string> {
   if (typeof window === "undefined") return {};
+  if (!CONFIG.forwardUtms) return {};
   const sp = new URLSearchParams(window.location.search);
   const out: Record<string, string> = {};
-  ["utm_source", "utm_content", "utm_campaign"].forEach((k) => {
+  CONFIG.utmKeys.forEach((k) => {
     const v = sp.get(k);
     if (v) out[k] = v;
   });
   return out;
+}
+
+/** Map raw UTM values to MailerLite `fields[utm_*]` payload entries. */
+export function mapUtmsToFields(utm: Record<string, string>): Record<string, string> {
+  if (!CONFIG.forwardUtms) return {};
+  return Object.fromEntries(
+    Object.entries(utm)
+      .filter(([k, v]) => CONFIG.utmKeys.includes(k as typeof CONFIG.utmKeys[number]) && !!v)
+      .map(([k, v]) => [`fields[${k}]`, v])
+  );
 }
 
 async function submitMailerLite(payload: Record<string, string>) {
@@ -187,7 +200,7 @@ export default function VipPopup() {
     const utm = readUtm();
     const payload: Record<string, string> = {
       "fields[email]": email.trim(),
-      ...Object.fromEntries(Object.entries(utm).map(([k, v]) => [`fields[${k}]`, v])),
+      ...mapUtmsToFields(utm),
     };
     await submitMailerLite(payload);
     setSubmitting(false);
@@ -215,7 +228,7 @@ export default function VipPopup() {
     const payload: Record<string, string> = {
       "fields[email]": email.trim(),
       "fields[phone]": fullPhone,
-      ...Object.fromEntries(Object.entries(utm).map(([k, v]) => [`fields[${k}]`, v])),
+      ...mapUtmsToFields(utm),
     };
     await submitMailerLite(payload);
     setSubmitting(false);
