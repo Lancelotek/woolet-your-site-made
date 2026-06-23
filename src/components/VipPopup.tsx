@@ -11,6 +11,8 @@ const CONFIG = {
   mlAccount: "462864",
   mlForm: "181841173137065623",
   blogPathPrefix: "/blog", // matches any path containing /blog (e.g. /en/blog, /en/blog/slug)
+  forwardUtms: true, // toggle UTM forwarding to MailerLite (fields[utm_*])
+  utmKeys: ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const,
 };
 
 const STORAGE_KEY = "wlt_vip_seen";
