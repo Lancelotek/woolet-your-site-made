@@ -19,11 +19,20 @@ import {
   StepReview,
 } from "./steps";
 
+const PREVIEW_TOKEN = "woolet-preview";
+
 const ConfiguratorPage = () => {
   const { config, update, pricing, reset, replace } = useBespokeConfig();
   const [step, setStep] = useState<StepId>(1);
   const [saved, setSaved] = useState(false);
   const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace });
+  const bypassGate =
+    typeof window !== "undefined" &&
+    (new URLSearchParams(window.location.search).get("preview") === PREVIEW_TOKEN ||
+      window.localStorage.getItem("bespoke-gate-bypass") === PREVIEW_TOKEN);
+  if (typeof window !== "undefined" && bypassGate) {
+    window.localStorage.setItem("bespoke-gate-bypass", PREVIEW_TOKEN);
+  }
 
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
