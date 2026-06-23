@@ -272,9 +272,17 @@ export default function VipPopup() {
     setPhoneErr(null);
     setSubmitting(true);
 
-    const fullPhone = `${country} ${phone.trim()}`;
+    const selected = COUNTRY_CODES.find((c) => c.iso === countryIso);
+    const dialCode = selected?.code ?? "";
+    const fullPhone = `${dialCode} ${phone.trim()}`.trim();
     const utm = readUtm();
-    await submitToWaitlist({ email: email.trim(), phone: fullPhone, utm });
+    await submitToWaitlist({
+      email: email.trim(),
+      phone: fullPhone,
+      country: selected?.name,
+      country_code: selected?.iso,
+      utm,
+    });
     setSubmitting(false);
     setStep(3);
     setSuppressed();
