@@ -71,6 +71,8 @@ serve(async (req) => {
       models,
       source,
       device,
+      country,
+      country_code,
       utm_source,
       utm_medium,
       utm_campaign,
