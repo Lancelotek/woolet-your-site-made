@@ -245,7 +245,13 @@ export default function VipPopup() {
     setSubmitting(true);
 
     const utm = readUtm();
-    await submitToWaitlist({ email: email.trim(), utm });
+    const selected = COUNTRY_CODES.find((c) => c.iso === countryIso);
+    await submitToWaitlist({
+      email: email.trim(),
+      country: selected?.name,
+      country_code: selected?.iso,
+      utm,
+    });
     setSubmitting(false);
 
     if (CONFIG.collectPhone) {
