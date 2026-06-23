@@ -27,10 +27,16 @@ async function mlFetch(apiKey: string, path: string, method: string, body?: unkn
 
 async function ensureCustomFields(apiKey: string) {
   // Idempotent: MailerLite returns 422 if a field already exists.
+  // `phone` is a default MailerLite field (id=6), no need to recreate.
   const fields = [
     { name: "face_width", type: "text" },
     { name: "interested_models", type: "text" },
     { name: "scan_device", type: "text" },
+    { name: "utm_source", type: "text" },
+    { name: "utm_medium", type: "text" },
+    { name: "utm_campaign", type: "text" },
+    { name: "utm_content", type: "text" },
+    { name: "utm_term", type: "text" },
   ];
 
   for (const field of fields) {
