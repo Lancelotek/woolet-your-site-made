@@ -34,13 +34,24 @@ function isBlogPath(pathname: string, prefix: string): boolean {
 
 function readUtm(): Record<string, string> {
   if (typeof window === "undefined") return {};
+  if (!CONFIG.forwardUtms) return {};
   const sp = new URLSearchParams(window.location.search);
   const out: Record<string, string> = {};
-  ["utm_source", "utm_content", "utm_campaign"].forEach((k) => {
+  CONFIG.utmKeys.forEach((k) => {
     const v = sp.get(k);
     if (v) out[k] = v;
   });
   return out;
+}
+
+/** Map raw UTM values to MailerLite `fields[utm_*]` payload entries. */
+export function mapUtmsToFields(utm: Record<string, string>): Record<string, string> {
+  if (!CONFIG.forwardUtms) return {};
+  return Object.fromEntries(
+    Object.entries(utm)
+      .filter(([k, v]) => CONFIG.utmKeys.includes(k as typeof CONFIG.utmKeys[number]) && !!v)
+      .map(([k, v]) => [`fields[${k}]`, v])
+  );
 }
 
 async function submitMailerLite(payload: Record<string, string>) {
