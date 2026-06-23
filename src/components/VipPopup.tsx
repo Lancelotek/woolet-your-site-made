@@ -55,30 +55,28 @@ export function mapUtmsToFields(utm: Record<string, string>): Record<string, str
   );
 }
 
-async function submitMailerLite(payload: Record<string, string>) {
-  const url = `https://assets.mailerlite.com/jsonp/${CONFIG.mlAccount}/forms/${CONFIG.mlForm}/subscribe`;
-  const body = new URLSearchParams();
-  Object.entries(payload).forEach(([k, v]) => body.append(k, v));
-  body.append("ml-submit", "1");
-  body.append("anticsrf", "true");
-
+/**
+ * Submit to MailerLite via our edge function so the lead lands in the
+ * "Woolet Waitlist ENG" group (default route in mailerlite-subscribe)
+ * with phone + UTM fields properly attached.
+ */
+async function submitToWaitlist(input: {
+  email: string;
+  phone?: string;
+  utm: Record<string, string>;
+}) {
   try {
-    await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: body.toString(),
+    const { error } = await supabase.functions.invoke("mailerlite-subscribe", {
+      body: {
+        email: input.email,
+        phone: input.phone,
+        source: "kickstarter", // → VIP_GROUP_ID = Woolet Waitlist ENG
+        ...input.utm,
+      },
     });
-  } catch {
-    try {
-      await fetch(url, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
-    } catch {
-      /* swallow — optimistic UX */
-    }
+    if (error) console.warn("[VipPopup] mailerlite-subscribe error:", error);
+  } catch (e) {
+    console.warn("[VipPopup] submit failed:", e);
   }
 }
 
