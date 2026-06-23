@@ -18,57 +18,57 @@ const CONFIG = {
 
 const STORAGE_KEY = "wlt_vip_seen";
 
-const COUNTRY_CODES = [
-  { code: "+1", label: "US +1" },
-  { code: "+1", label: "CA +1" },
-  { code: "+44", label: "UK +44" },
-  { code: "+353", label: "IE +353" },
-  { code: "+61", label: "AU +61" },
-  { code: "+64", label: "NZ +64" },
-  { code: "+48", label: "PL +48" },
-  { code: "+49", label: "DE +49" },
-  { code: "+43", label: "AT +43" },
-  { code: "+41", label: "CH +41" },
-  { code: "+33", label: "FR +33" },
-  { code: "+34", label: "ES +34" },
-  { code: "+351", label: "PT +351" },
-  { code: "+39", label: "IT +39" },
-  { code: "+31", label: "NL +31" },
-  { code: "+32", label: "BE +32" },
-  { code: "+352", label: "LU +352" },
-  { code: "+45", label: "DK +45" },
-  { code: "+46", label: "SE +46" },
-  { code: "+47", label: "NO +47" },
-  { code: "+358", label: "FI +358" },
-  { code: "+354", label: "IS +354" },
-  { code: "+372", label: "EE +372" },
-  { code: "+371", label: "LV +371" },
-  { code: "+370", label: "LT +370" },
-  { code: "+420", label: "CZ +420" },
-  { code: "+421", label: "SK +421" },
-  { code: "+36", label: "HU +36" },
-  { code: "+40", label: "RO +40" },
-  { code: "+359", label: "BG +359" },
-  { code: "+386", label: "SI +386" },
-  { code: "+385", label: "HR +385" },
-  { code: "+30", label: "GR +30" },
-  { code: "+357", label: "CY +357" },
-  { code: "+356", label: "MT +356" },
-  { code: "+380", label: "UA +380" },
-  { code: "+90", label: "TR +90" },
-  { code: "+971", label: "AE +971" },
-  { code: "+966", label: "SA +966" },
-  { code: "+972", label: "IL +972" },
-  { code: "+27", label: "ZA +27" },
-  { code: "+52", label: "MX +52" },
-  { code: "+55", label: "BR +55" },
-  { code: "+54", label: "AR +54" },
-  { code: "+56", label: "CL +56" },
-  { code: "+81", label: "JP +81" },
-  { code: "+82", label: "KR +82" },
-  { code: "+65", label: "SG +65" },
-  { code: "+852", label: "HK +852" },
-  { code: "+91", label: "IN +91" },
+const COUNTRY_CODES: Array<{ code: string; iso: string; name: string; label: string }> = [
+  { code: "+1", iso: "US", name: "United States", label: "US +1" },
+  { code: "+1", iso: "CA", name: "Canada", label: "CA +1" },
+  { code: "+44", iso: "GB", name: "United Kingdom", label: "UK +44" },
+  { code: "+353", iso: "IE", name: "Ireland", label: "IE +353" },
+  { code: "+61", iso: "AU", name: "Australia", label: "AU +61" },
+  { code: "+64", iso: "NZ", name: "New Zealand", label: "NZ +64" },
+  { code: "+48", iso: "PL", name: "Poland", label: "PL +48" },
+  { code: "+49", iso: "DE", name: "Germany", label: "DE +49" },
+  { code: "+43", iso: "AT", name: "Austria", label: "AT +43" },
+  { code: "+41", iso: "CH", name: "Switzerland", label: "CH +41" },
+  { code: "+33", iso: "FR", name: "France", label: "FR +33" },
+  { code: "+34", iso: "ES", name: "Spain", label: "ES +34" },
+  { code: "+351", iso: "PT", name: "Portugal", label: "PT +351" },
+  { code: "+39", iso: "IT", name: "Italy", label: "IT +39" },
+  { code: "+31", iso: "NL", name: "Netherlands", label: "NL +31" },
+  { code: "+32", iso: "BE", name: "Belgium", label: "BE +32" },
+  { code: "+352", iso: "LU", name: "Luxembourg", label: "LU +352" },
+  { code: "+45", iso: "DK", name: "Denmark", label: "DK +45" },
+  { code: "+46", iso: "SE", name: "Sweden", label: "SE +46" },
+  { code: "+47", iso: "NO", name: "Norway", label: "NO +47" },
+  { code: "+358", iso: "FI", name: "Finland", label: "FI +358" },
+  { code: "+354", iso: "IS", name: "Iceland", label: "IS +354" },
+  { code: "+372", iso: "EE", name: "Estonia", label: "EE +372" },
+  { code: "+371", iso: "LV", name: "Latvia", label: "LV +371" },
+  { code: "+370", iso: "LT", name: "Lithuania", label: "LT +370" },
+  { code: "+420", iso: "CZ", name: "Czechia", label: "CZ +420" },
+  { code: "+421", iso: "SK", name: "Slovakia", label: "SK +421" },
+  { code: "+36", iso: "HU", name: "Hungary", label: "HU +36" },
+  { code: "+40", iso: "RO", name: "Romania", label: "RO +40" },
+  { code: "+359", iso: "BG", name: "Bulgaria", label: "BG +359" },
+  { code: "+386", iso: "SI", name: "Slovenia", label: "SI +386" },
+  { code: "+385", iso: "HR", name: "Croatia", label: "HR +385" },
+  { code: "+30", iso: "GR", name: "Greece", label: "GR +30" },
+  { code: "+357", iso: "CY", name: "Cyprus", label: "CY +357" },
+  { code: "+356", iso: "MT", name: "Malta", label: "MT +356" },
+  { code: "+380", iso: "UA", name: "Ukraine", label: "UA +380" },
+  { code: "+90", iso: "TR", name: "Turkey", label: "TR +90" },
+  { code: "+971", iso: "AE", name: "United Arab Emirates", label: "AE +971" },
+  { code: "+966", iso: "SA", name: "Saudi Arabia", label: "SA +966" },
+  { code: "+972", iso: "IL", name: "Israel", label: "IL +972" },
+  { code: "+27", iso: "ZA", name: "South Africa", label: "ZA +27" },
+  { code: "+52", iso: "MX", name: "Mexico", label: "MX +52" },
+  { code: "+55", iso: "BR", name: "Brazil", label: "BR +55" },
+  { code: "+54", iso: "AR", name: "Argentina", label: "AR +54" },
+  { code: "+56", iso: "CL", name: "Chile", label: "CL +56" },
+  { code: "+81", iso: "JP", name: "Japan", label: "JP +81" },
+  { code: "+82", iso: "KR", name: "South Korea", label: "KR +82" },
+  { code: "+65", iso: "SG", name: "Singapore", label: "SG +65" },
+  { code: "+852", iso: "HK", name: "Hong Kong", label: "HK +852" },
+  { code: "+91", iso: "IN", name: "India", label: "IN +91" },
 ];
 
 /* ───────── Helpers ───────── */
@@ -107,6 +107,8 @@ export function mapUtmsToFields(utm: Record<string, string>): Record<string, str
 async function submitToWaitlist(input: {
   email: string;
   phone?: string;
+  country?: string;
+  country_code?: string;
   utm: Record<string, string>;
 }) {
   try {
@@ -114,6 +116,8 @@ async function submitToWaitlist(input: {
       body: {
         email: input.email,
         phone: input.phone,
+        country: input.country,
+        country_code: input.country_code,
         source: "kickstarter", // → VIP_GROUP_ID = Woolet Waitlist ENG
         ...input.utm,
       },
@@ -157,7 +161,7 @@ export default function VipPopup() {
   const [consent, setConsent] = useState(false);
   const [emailErr, setEmailErr] = useState<string | null>(null);
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("+1");
+  const [countryIso, setCountryIso] = useState("US");
   const [phoneErr, setPhoneErr] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const shownThisSession = useRef(false);
@@ -241,7 +245,13 @@ export default function VipPopup() {
     setSubmitting(true);
 
     const utm = readUtm();
-    await submitToWaitlist({ email: email.trim(), utm });
+    const selected = COUNTRY_CODES.find((c) => c.iso === countryIso);
+    await submitToWaitlist({
+      email: email.trim(),
+      country: selected?.name,
+      country_code: selected?.iso,
+      utm,
+    });
     setSubmitting(false);
 
     if (CONFIG.collectPhone) {
@@ -262,9 +272,17 @@ export default function VipPopup() {
     setPhoneErr(null);
     setSubmitting(true);
 
-    const fullPhone = `${country} ${phone.trim()}`;
+    const selected = COUNTRY_CODES.find((c) => c.iso === countryIso);
+    const dialCode = selected?.code ?? "";
+    const fullPhone = `${dialCode} ${phone.trim()}`.trim();
     const utm = readUtm();
-    await submitToWaitlist({ email: email.trim(), phone: fullPhone, utm });
+    await submitToWaitlist({
+      email: email.trim(),
+      phone: fullPhone,
+      country: selected?.name,
+      country_code: selected?.iso,
+      utm,
+    });
     setSubmitting(false);
     setStep(3);
     setSuppressed();
@@ -427,13 +445,13 @@ export default function VipPopup() {
                 <div className="wlt-vip-phone-row">
                   <select
                     className="wlt-vip-select"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    aria-label="Country code"
+                    value={countryIso}
+                    onChange={(e) => setCountryIso(e.target.value)}
+                    aria-label="Country"
                   >
-                    {COUNTRY_CODES.map((c, i) => (
-                      <option key={`${c.label}-${i}`} value={c.code}>
-                        {c.label}
+                    {COUNTRY_CODES.map((c) => (
+                      <option key={c.iso} value={c.iso}>
+                        {c.name} ({c.code})
                       </option>
                     ))}
                   </select>
