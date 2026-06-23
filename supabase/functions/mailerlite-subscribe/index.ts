@@ -32,6 +32,7 @@ async function ensureCustomFields(apiKey: string) {
     { name: "face_width", type: "text" },
     { name: "interested_models", type: "text" },
     { name: "scan_device", type: "text" },
+    { name: "sms", type: "text" },
     { name: "utm_source", type: "text" },
     { name: "utm_medium", type: "text" },
     { name: "utm_campaign", type: "text" },
