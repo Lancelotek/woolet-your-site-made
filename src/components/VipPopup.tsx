@@ -161,7 +161,7 @@ export default function VipPopup() {
   const [consent, setConsent] = useState(false);
   const [emailErr, setEmailErr] = useState<string | null>(null);
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("+1");
+  const [countryIso, setCountryIso] = useState("US");
   const [phoneErr, setPhoneErr] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const shownThisSession = useRef(false);
