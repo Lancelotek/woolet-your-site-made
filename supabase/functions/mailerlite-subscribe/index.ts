@@ -104,7 +104,10 @@ serve(async (req) => {
       interested_models: models || "",
       scan_device: device || "",
     };
-    if (phone) subscriberFields.phone = String(phone);
+    if (phone) {
+      subscriberFields.phone = String(phone);
+      subscriberFields.sms = String(phone);
+    }
     if (utm_source) subscriberFields.utm_source = String(utm_source);
     if (utm_medium) subscriberFields.utm_medium = String(utm_medium);
     if (utm_campaign) subscriberFields.utm_campaign = String(utm_campaign);
