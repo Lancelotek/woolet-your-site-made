@@ -13,6 +13,8 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.mailerlite-subscribe]
     verify_jwt = false
+  [functions.mailerlite-inspect]
+    verify_jwt = false
   [functions.payments-webhook]
     verify_jwt = false
   [functions.preview-transactional-email]
