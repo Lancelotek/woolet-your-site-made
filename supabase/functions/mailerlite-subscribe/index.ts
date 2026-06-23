@@ -117,6 +117,8 @@ serve(async (req) => {
     if (utm_campaign) subscriberFields.utm_campaign = String(utm_campaign);
     if (utm_content) subscriberFields.utm_content = String(utm_content);
     if (utm_term) subscriberFields.utm_term = String(utm_term);
+    if (country) subscriberFields.country = String(country);
+    if (country_code) subscriberFields.country_code = String(country_code);
 
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
