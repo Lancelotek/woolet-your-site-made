@@ -60,7 +60,20 @@ serve(async (req) => {
       throw new Error("MAILERLITE_API_KEY is not configured");
     }
 
-    const { email, name, face_width, models, source, device } = await req.json();
+    const {
+      email,
+      name,
+      phone,
+      face_width,
+      models,
+      source,
+      device,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+      utm_content,
+      utm_term,
+    } = await req.json();
 
     if (!email) {
       return new Response(
@@ -80,18 +93,26 @@ serve(async (req) => {
     } else if (source === "kickstarter") {
       groups.push(VIP_GROUP_ID);
     } else {
-      // Default/missing — keep current behavior (VIP)
+      // Default/missing — keep current behavior (VIP / Woolet Waitlist ENG)
       groups.push(VIP_GROUP_ID);
     }
 
+    const subscriberFields: Record<string, string> = {
+      name: name || "",
+      face_width: face_width || "",
+      interested_models: models || "",
+      scan_device: device || "",
+    };
+    if (phone) subscriberFields.phone = String(phone);
+    if (utm_source) subscriberFields.utm_source = String(utm_source);
+    if (utm_medium) subscriberFields.utm_medium = String(utm_medium);
+    if (utm_campaign) subscriberFields.utm_campaign = String(utm_campaign);
+    if (utm_content) subscriberFields.utm_content = String(utm_content);
+    if (utm_term) subscriberFields.utm_term = String(utm_term);
+
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
-      fields: {
-        name: name || "",
-        face_width: face_width || "",
-        interested_models: models || "",
-        scan_device: device || "",
-      },
+      fields: subscriberFields,
       groups,
     });
 
@@ -109,6 +130,7 @@ serve(async (req) => {
     console.log(
       "Subscriber added:", email,
       "| source:", source || "default",
+      "| phone:", phone ? "yes" : "-",
       "| device:", device || "-",
       "| face_width:", face_width || "-",
       "| models:", models || "-",
