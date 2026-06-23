@@ -74,9 +74,9 @@ const ConfiguratorPage = () => {
         noindex
       />
       <Navbar />
-      <BespokeWaitlistGate />
+      {!bypassGate && <BespokeWaitlistGate />}
 
-      <div aria-hidden className="pointer-events-none select-none" style={{ filter: "blur(8px)" }}>
+      <div aria-hidden={!bypassGate} className={bypassGate ? "" : "pointer-events-none select-none"} style={bypassGate ? undefined : { filter: "blur(8px)" }}>
 
 
       <main className="pt-24 pb-24">
