@@ -445,13 +445,13 @@ export default function VipPopup() {
                 <div className="wlt-vip-phone-row">
                   <select
                     className="wlt-vip-select"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    aria-label="Country code"
+                    value={countryIso}
+                    onChange={(e) => setCountryIso(e.target.value)}
+                    aria-label="Country"
                   >
-                    {COUNTRY_CODES.map((c, i) => (
-                      <option key={`${c.label}-${i}`} value={c.code}>
-                        {c.label}
+                    {COUNTRY_CODES.map((c) => (
+                      <option key={c.iso} value={c.iso}>
+                        {c.name} ({c.code})
                       </option>
                     ))}
                   </select>
