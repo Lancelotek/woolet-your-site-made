@@ -228,7 +228,7 @@ export default function VipPopup() {
     const payload: Record<string, string> = {
       "fields[email]": email.trim(),
       "fields[phone]": fullPhone,
-      ...Object.fromEntries(Object.entries(utm).map(([k, v]) => [`fields[${k}]`, v])),
+      ...mapUtmsToFields(utm),
     };
     await submitMailerLite(payload);
     setSubmitting(false);
