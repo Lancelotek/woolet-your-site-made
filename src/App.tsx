@@ -100,6 +100,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
         <PageViewTracker />
+        <VipPopup />
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
           {/* Root redirects to /en */}
