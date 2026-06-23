@@ -107,6 +107,8 @@ export function mapUtmsToFields(utm: Record<string, string>): Record<string, str
 async function submitToWaitlist(input: {
   email: string;
   phone?: string;
+  country?: string;
+  country_code?: string;
   utm: Record<string, string>;
 }) {
   try {
@@ -114,6 +116,8 @@ async function submitToWaitlist(input: {
       body: {
         email: input.email,
         phone: input.phone,
+        country: input.country,
+        country_code: input.country_code,
         source: "kickstarter", // → VIP_GROUP_ID = Woolet Waitlist ENG
         ...input.utm,
       },
