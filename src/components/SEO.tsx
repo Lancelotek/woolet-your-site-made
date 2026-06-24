@@ -103,7 +103,7 @@ const SEO = ({
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content="Woolet" />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:locale" content={lang === "pl" ? "pl_PL" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : "en_US"} />
+      <meta property="og:locale" content={lang === "pl" ? "pl_PL" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : lang === "de" ? "de_DE" : "en_US"} />
 
       {publishedTime && <meta property="article:published_time" content={publishedTime} />}
       {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
