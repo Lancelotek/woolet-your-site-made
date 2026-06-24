@@ -819,6 +819,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const cardMissingSinceRef = useRef<number | null>(null);
   const [distanceState, setDistanceState] = useState<"unknown" | "ok" | "too_close" | "too_far">("unknown");
   const [poseState, setPoseState] = useState<"unknown" | "ok" | "off">("unknown");
+  // Lens guard: detects suspected wide-angle / ultra-wide front cameras using
+  // face aspect ratio. A real human face in pixel space has height/width ≈
+  // 1.35–1.7. Wide-angle distortion stretches width → ratio drops below ~1.25.
+  // Requires a sustained streak of low-ratio samples to flip to "wide" so we
+  // don't show a false warning on a single noisy landmark frame.
+  const [lensState, setLensState] = useState<"unknown" | "ok" | "wide">("unknown");
+  const lensWideStreakRef = useRef(0);
+  const lensOkStreakRef = useRef(0);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
   // Device-orientation level (mobile only). roll = side-to-side tilt in degrees.
@@ -1478,6 +1486,29 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   const facing = rollDeg < 10 && yawRatio < 0.2 && pitchRatio < 0.18;
                   const nextPose: typeof poseState = facing ? "ok" : "off";
                   setPoseState((prev) => (prev === nextPose ? prev : nextPose));
+
+                  // Lens guard: only meaningful when face is centered, facing,
+                  // and at a reasonable distance — otherwise aspect ratio is
+                  // dominated by pose, not optics.
+                  const faceWidthPx = (maxX - minX) * vw;
+                  const faceHeightPx = Math.max(1, (chin.y - fHead.y) * vh);
+                  const faceAspect = faceHeightPx / faceWidthPx;
+                  const lensSampleValid =
+                    facing && facePctW >= 0.32 && facePctW <= 0.72;
+                  if (lensSampleValid) {
+                    if (faceAspect < 1.25) {
+                      lensWideStreakRef.current += 1;
+                      lensOkStreakRef.current = 0;
+                    } else if (faceAspect > 1.35) {
+                      lensOkStreakRef.current += 1;
+                      lensWideStreakRef.current = 0;
+                    }
+                    if (lensWideStreakRef.current >= 4) {
+                      setLensState((prev) => (prev === "wide" ? prev : "wide"));
+                    } else if (lensOkStreakRef.current >= 3) {
+                      setLensState((prev) => (prev === "ok" ? prev : "ok"));
+                    }
+                  }
                 }
               } else {
                 setDistanceState((prev) => (prev === "unknown" ? prev : "unknown"));
@@ -1529,6 +1560,11 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const poseColor = poseState === "ok" ? "#4ade80" : poseState === "off" ? "#ef4444" : "#facc15";
   const poseLabel = poseState === "ok" ? tFit(lang, "camera.pose_ok") : poseState === "off" ? tFit(lang, "camera.pose_off") : tFit(lang, "camera.pose_center");
   const showPoseHint = poseState === "off";
+  const showLensHint = lensState === "wide";
+  const lensColor = lensState === "wide" ? "#ef4444" : "#4ade80";
+  const lensLabel = lensState === "wide"
+    ? tFit(lang, "camera.lens_wide")
+    : tFit(lang, "camera.lens_ok");
   const captureBlocked = !ready || busy || countdown !== null;
 
   // Haptic ping when all gates flip to "good" — tells the user "now" before
@@ -1827,6 +1863,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
               <span className="scan-status-chip" style={{ borderColor: poseColor }}>
                 <span className="scan-status-dot" style={{ background: poseColor, boxShadow: `0 0 6px ${poseColor}` }} />
                 {poseLabel}
+              </span>
+            )}
+            {showLensHint && (
+              <span className="scan-status-chip" style={{ borderColor: lensColor }}>
+                <span className="scan-status-dot" style={{ background: lensColor, boxShadow: `0 0 6px ${lensColor}` }} />
+                {lensLabel}
               </span>
             )}
             {levelState !== "unsupported" && levelState !== "needs-permission" && (
@@ -2148,6 +2190,34 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
           {tFit(lang, "camera.like_this_body")}
         </figcaption>
       </figure>
+
+      {isMobile && (
+        <aside
+          aria-label={tFit(lang, "camera.lens_tip_title")}
+          style={{
+            display: "flex",
+            gap: 10,
+            alignItems: "flex-start",
+            padding: "10px 12px",
+            border: showLensHint
+              ? `1px solid rgba(239,68,68,0.55)`
+              : `1px solid rgba(255,255,255,0.12)`,
+            background: showLensHint
+              ? "rgba(239,68,68,0.08)"
+              : "rgba(255,255,255,0.03)",
+            borderRadius: 6,
+            fontFamily: "Barlow, sans-serif",
+          }}
+        >
+          <span aria-hidden style={{ fontSize: "1rem", lineHeight: 1, marginTop: 1 }}>📷</span>
+          <div style={{ fontSize: "0.78rem", lineHeight: 1.5, color: "rgba(255,255,255,0.82)" }}>
+            <strong style={{ display: "block", color: showLensHint ? "#fca5a5" : GOLD, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", fontSize: "0.68rem", marginBottom: 3 }}>
+              {showLensHint ? tFit(lang, "camera.lens_tip_warn") : tFit(lang, "camera.lens_tip_title")}
+            </strong>
+            {tFit(lang, "camera.lens_tip_body")}
+          </div>
+        </aside>
+      )}
 
       <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", textAlign: "center", margin: 0 }}>
         {deviceTip}
