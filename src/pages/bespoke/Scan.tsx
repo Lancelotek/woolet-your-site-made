@@ -821,9 +821,9 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
 
       <Button
         onPointerDown={(e) => { e.preventDefault(); startHold(); }}
-        onPointerUp={cancelHold}
-        onPointerLeave={cancelHold}
-        onPointerCancel={cancelHold}
+        onPointerUp={() => cancelHold()}
+        onPointerLeave={() => cancelHold()}
+        onPointerCancel={() => cancelHold()}
         onContextMenu={(e) => e.preventDefault()}
         disabled={!ready || busy || !yawOk}
         style={{
