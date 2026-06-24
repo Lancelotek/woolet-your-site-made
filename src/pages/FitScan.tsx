@@ -1950,7 +1950,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
             <button type="button" onClick={countdown !== null ? cancelTimer : startTimer} disabled={!ready || busy}>
               {countdown !== null ? tFit(lang, "camera.timer_cancel") : tFit(lang, "camera.timer_start_mobile")}
             </button>
-            <Link to={`/${lang}/fit`}>{tFit(lang, "camera.manual_link")}</Link>
+            
           </div>
         </div>
       </div>
