@@ -519,7 +519,26 @@ html[lang="fr"] {
   --lp-tracking-eyebrow: 0.18em;
   --lp-leading-body: 1.65;
   --lp-leading-tight: 1.25;
+
+  /* Spacing rhythm (4px base). Keep section/card padding ≥ --lp-space-md
+     and vertical gaps between blocks ≥ --lp-space-lg for readability. */
+  --lp-space-xs: 6px;
+  --lp-space-sm: 10px;
+  --lp-space-md: 16px;
+  --lp-space-lg: 24px;
+  --lp-space-xl: 36px;
+  --lp-space-2xl: 56px;
 }
+
+.lp-stack-sm > * + * { margin-top: var(--lp-space-sm); }
+.lp-stack-md > * + * { margin-top: var(--lp-space-md); }
+.lp-stack-lg > * + * { margin-top: var(--lp-space-lg); }
+.lp-stack-xl > * + * { margin-top: var(--lp-space-xl); }
+
+.lp-section   { padding-block: var(--lp-space-xl); }
+.lp-section-tight { padding-block: var(--lp-space-lg); }
+.lp-card { padding: var(--lp-space-lg); }
+
 
 .lp-text-xs   { font-size: max(var(--lp-text-xs), var(--lp-text-min)); }
 .lp-text-sm   { font-size: max(var(--lp-text-sm), var(--lp-text-min)); }
