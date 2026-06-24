@@ -74,7 +74,7 @@ const AdvertorialPage = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              padding: "16px 20px",
+              padding: "20px 20px",
               gap: 8,
             }}
           >
