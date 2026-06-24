@@ -642,8 +642,8 @@ function ResultStep({
     { label: "Face width", value: `${profile.faceWidthMm.toFixed(1)} mm`, source: "front", conf: profile.confidence.faceWidth },
     { label: "Nose bridge width", value: `${profile.noseBridgeWidthMm.toFixed(1)} mm`, source: "front", conf: profile.confidence.noseBridge },
     { label: "Nose bridge height", value: `${profile.noseBridgeHeightMm.toFixed(1)} mm`, source: "left", conf: profile.confidence.noseBridge },
-    { label: "Temple length (L)", value: `${profile.templeLengthLeftMm.toFixed(1)} mm`, source: "left", conf: profile.confidence.templeLength },
-    { label: "Temple length (R)", value: `${profile.templeLengthRightMm.toFixed(1)} mm`, source: "right", conf: profile.confidence.templeLength },
+    { label: "Temple length (L)", value: `${profile.templeLengthLeftMm.toFixed(1)} mm`, source: "left", conf: profile.confidence.temple },
+    { label: "Temple length (R)", value: `${profile.templeLengthRightMm.toFixed(1)} mm`, source: "right", conf: profile.confidence.temple },
     { label: "Pantoscopic angle", value: `${profile.pantoscopicAngleDeg.toFixed(1)}°`, source: "left" },
     { label: "Asymmetry (L vs R)", value: `${profile.asymmetryMm.toFixed(1)} mm`, source: "front" },
   ], [profile]);
