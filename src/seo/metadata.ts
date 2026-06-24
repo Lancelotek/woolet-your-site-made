@@ -180,6 +180,11 @@ const homeCopy: Record<Lang, Copy> = {
     description:
       "Gafas premium en acetato italiano Mazzucchelli, diseñadas para caras anchas (155 mm+). Tres tamaños medidos más a medida. Desde 133 $ en preventa.",
   },
+  de: {
+    title: "Woolet — Premium-Brillen für breite Gesichter (ab 155 mm)",
+    description:
+      "Premium-Brillen aus italienischem Mazzucchelli-Acetat, entwickelt für breite Gesichter (ab 155 mm). Drei gemessene Größen plus Maßanfertigung. Ab 133 $ im Pre-Order.",
+  },
 };
 
 // ---------------------------------------------------------------------------
