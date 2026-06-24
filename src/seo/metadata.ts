@@ -138,6 +138,7 @@ function ogLocale(lang: Lang): string {
     case "pl": return "pl_PL";
     case "fr": return "fr_FR";
     case "es": return "es_ES";
+    case "de": return "de_DE";
     default: return "en_US";
   }
 }
