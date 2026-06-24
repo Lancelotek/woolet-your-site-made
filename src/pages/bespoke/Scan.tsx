@@ -627,25 +627,31 @@ function ResultStep({
   profile,
   saving,
   onRestart,
+  onRetake,
   onContinue,
 }: {
   profile: BespokeProfile;
   saving: boolean;
   onRestart: () => void;
+  onRetake: (p: Pose) => void;
   onContinue: () => void;
 }) {
-  const rows: Array<{ label: string; value: string }> = useMemo(() => [
-    { label: "Face width", value: `${profile.faceWidthMm.toFixed(1)} mm` },
-    { label: "Nose bridge width", value: `${profile.noseBridgeWidthMm.toFixed(1)} mm` },
-    { label: "Nose bridge height", value: `${profile.noseBridgeHeightMm.toFixed(1)} mm` },
-    { label: "Temple length (L)", value: `${profile.templeLengthLeftMm.toFixed(1)} mm` },
-    { label: "Temple length (R)", value: `${profile.templeLengthRightMm.toFixed(1)} mm` },
-    { label: "Pantoscopic angle", value: `${profile.pantoscopicAngleDeg.toFixed(1)}°` },
-    { label: "Asymmetry (L vs R)", value: `${profile.asymmetryMm.toFixed(1)} mm` },
+  // Each metric is annotated with the pose whose frame most influences it,
+  // so the user can re-shoot just the weak photo instead of restarting.
+  const rows: Array<{ label: string; value: string; source: Pose; conf?: number }> = useMemo(() => [
+    { label: "Face width", value: `${profile.faceWidthMm.toFixed(1)} mm`, source: "front", conf: profile.confidence.faceWidth },
+    { label: "Nose bridge width", value: `${profile.noseBridgeWidthMm.toFixed(1)} mm`, source: "front", conf: profile.confidence.noseBridge },
+    { label: "Nose bridge height", value: `${profile.noseBridgeHeightMm.toFixed(1)} mm`, source: "left", conf: profile.confidence.noseBridge },
+    { label: "Temple length (L)", value: `${profile.templeLengthLeftMm.toFixed(1)} mm`, source: "left", conf: profile.confidence.templeLength },
+    { label: "Temple length (R)", value: `${profile.templeLengthRightMm.toFixed(1)} mm`, source: "right", conf: profile.confidence.templeLength },
+    { label: "Pantoscopic angle", value: `${profile.pantoscopicAngleDeg.toFixed(1)}°`, source: "left" },
+    { label: "Asymmetry (L vs R)", value: `${profile.asymmetryMm.toFixed(1)} mm`, source: "front" },
   ], [profile]);
 
   const conf = Math.round(profile.confidence.overall * 100);
   const confColor = conf >= 75 ? "#4ade80" : conf >= 55 ? "#facc15" : "#ef4444";
+
+  const POSE_LABEL: Record<Pose, string> = { front: "Front", left: "Left 90°", right: "Right 90°" };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -659,19 +665,30 @@ function ResultStep({
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", border: "1px solid rgba(202,164,73,0.25)", borderRadius: 6, overflow: "hidden" }}>
-        {rows.map((r, i) => (
-          <div key={r.label} style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "12px 16px",
-            borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.06)",
-            background: i % 2 === 0 ? "rgba(202,164,73,0.03)" : "transparent",
-          }}>
-            <span style={{ fontSize: 13, color: MUTED }}>{r.label}</span>
-            <span style={{ fontSize: 14, color: PAPER, fontVariantNumeric: "tabular-nums", fontWeight: 500 }}>{r.value}</span>
-          </div>
-        ))}
+        {rows.map((r, i) => {
+          const pct = typeof r.conf === "number" ? Math.round(r.conf * 100) : null;
+          const low = pct !== null && pct < 60;
+          return (
+            <div key={r.label} style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "12px 16px",
+              borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.06)",
+              background: i % 2 === 0 ? "rgba(202,164,73,0.03)" : "transparent",
+            }}>
+              <span style={{ fontSize: 13, color: MUTED, display: "flex", flexDirection: "column", gap: 2 }}>
+                {r.label}
+                {pct !== null && (
+                  <span style={{ fontSize: 10.5, color: low ? "#ef4444" : "rgba(240,236,228,0.4)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                    {pct}% confidence
+                  </span>
+                )}
+              </span>
+              <span style={{ fontSize: 14, color: PAPER, fontVariantNumeric: "tabular-nums", fontWeight: 500 }}>{r.value}</span>
+            </div>
+          );
+        })}
       </div>
 
       <div style={{
@@ -694,6 +711,26 @@ function ResultStep({
           {profile.warnings.map((w) => (<li key={w}>{w.replace(/_/g, " ")}</li>))}
         </ul>
       )}
+
+      {/* Per-pose retake — cheaper than re-scanning all 3 frames */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "12px 14px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6 }}>
+        <span style={{ fontSize: 11, color: GOLD, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+          Retake a single photo
+        </span>
+        <div style={{ display: "flex", gap: 8 }}>
+          {POSE_ORDER.map((p) => (
+            <Button
+              key={p}
+              onClick={() => onRetake(p)}
+              variant="outline"
+              style={{ flex: 1, height: 38, fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", borderColor: "rgba(202,164,73,0.35)", background: "transparent", color: PAPER }}
+            >
+              {POSE_LABEL[p]}
+            </Button>
+          ))}
+        </div>
+      </div>
+
 
       <div style={{ display: "flex", gap: 12 }}>
         <Button
