@@ -359,7 +359,7 @@ const KickstarterPrelaunch = () => {
 
       {/* Top bar */}
       <header className="border-b border-[#1a1612]">
-        <div className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-5 py-5 flex items-center justify-between">
           <Link to="/en" className="flex items-center gap-2">
             <img src={logo} alt="Woolet" className="h-6 w-auto" />
           </Link>
@@ -371,7 +371,7 @@ const KickstarterPrelaunch = () => {
 
       {/* HERO — mobile fold: H1 + 1-line subhead + form + scarcity above the fold */}
       <section className="bg-[#080807]">
-        <div className="max-w-6xl mx-auto px-5 pt-5 pb-10 sm:py-16 grid md:grid-cols-2 gap-6 md:gap-10 md:items-center">
+        <div className="max-w-6xl mx-auto px-5 lp-section grid md:grid-cols-2 gap-6 md:gap-10 md:items-center">
           <div>
             <p className="text-primary uppercase tracking-[0.28em] text-[12px] mb-2 sm:mb-4">VIP Early Access</p>
             <h1 className="font-display text-woolet-white leading-[1.02] text-[1.7rem] sm:text-[3rem]">
