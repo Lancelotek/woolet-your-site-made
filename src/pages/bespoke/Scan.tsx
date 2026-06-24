@@ -24,6 +24,7 @@ import {
   type BespokeProfile,
 } from "@/lib/bespoke-profile";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const GOLD = "#CAA449";
 const INK = "#0f0f0f";
