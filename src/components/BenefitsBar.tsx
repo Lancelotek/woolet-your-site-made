@@ -14,15 +14,15 @@ const BenefitsBar = () => {
           className="flex items-center gap-4 px-4 py-3 transition-colors hover:bg-primary/5"
           style={{ borderBottom: i < benefits.length - 1 ? "1px solid hsl(0 0% 100% / 0.055)" : "none" }}
         >
-          <div className="w-7 h-7 flex-shrink-0 border border-primary/20 flex items-center justify-center text-primary" style={{ fontSize: "0.75rem" }}>
+          <div className="w-7 h-7 flex-shrink-0 border border-primary/20 flex items-center justify-center text-primary" style={{ fontSize: "0.85rem" }}>
             {b.icon}
           </div>
           <div className="flex flex-col gap-0.5 flex-1">
-            <span className="text-woolet-white tracking-wider text-[11px] md:text-[0.72rem]">{b.title}</span>
-            <span className="text-cream-dim tracking-wider text-[10px] md:text-[0.6rem]">{b.sub}</span>
+            <span className="text-woolet-white tracking-wider text-[13px] md:text-[0.82rem]">{b.title}</span>
+            <span className="text-cream-dim tracking-wider text-[12px] md:text-[0.74rem]">{b.sub}</span>
           </div>
           {b.tag && (
-            <span className="bg-primary text-primary-foreground px-2 py-0.5 flex-shrink-0 font-semibold uppercase tracking-[0.2em]" style={{ fontSize: "0.48rem" }}>
+            <span className="bg-primary text-primary-foreground px-2 py-0.5 flex-shrink-0 font-semibold uppercase tracking-[0.2em]" style={{ fontSize: "0.62rem" }}>
               {b.tag}
             </span>
           )}

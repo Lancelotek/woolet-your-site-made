@@ -30,7 +30,7 @@ const Navbar = () => {
           <Link
             to={`/${lang}#collection`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-            style={{ fontSize: "0.55rem" }}
+            style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang })}
           >
             {t(lang, "nav.collection")}
@@ -38,7 +38,7 @@ const Navbar = () => {
           <Link
             to={`/${lang}/fit`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-            style={{ fontSize: "0.55rem" }}
+            style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang })}
           >
             {t(lang, "nav.fit_quiz")}
@@ -46,7 +46,7 @@ const Navbar = () => {
           <Link
             to={`/${lang}/bespoke`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-            style={{ fontSize: "0.55rem" }}
+            style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang })}
           >
             {t(lang, "nav.bespoke")}
@@ -54,7 +54,7 @@ const Navbar = () => {
           <Link
             to={`/${lang}/process`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-            style={{ fontSize: "0.55rem" }}
+            style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "process", nav_lang: lang })}
           >
             Process
@@ -62,7 +62,7 @@ const Navbar = () => {
           <Link
             to={`/${lang}/blog`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-            style={{ fontSize: "0.55rem" }}
+            style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "blog", nav_lang: lang })}
           >
             {t(lang, "nav.blog")}
@@ -72,7 +72,7 @@ const Navbar = () => {
               onClick={() => setLangOpen(!langOpen)}
               className="text-cream-dim uppercase tracking-[0.2em] bg-transparent cursor-pointer transition-colors hover:text-primary hover:border-primary/40"
               style={{
-                fontSize: "0.55rem",
+                fontSize: "0.72rem",
                 border: "1px solid hsl(var(--border-sub))",
                 borderRadius: "20px",
                 padding: "4px 12px",
@@ -94,7 +94,7 @@ const Navbar = () => {
                       pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l });
                     }}
                     className={`no-underline px-4 py-2.5 tracking-wider hover:bg-surface-2 transition-colors ${l === lang ? "text-primary" : "text-cream-dim hover:text-foreground"}`}
-                    style={{ fontSize: "0.65rem" }}
+                    style={{ fontSize: "0.75rem" }}
                   >
                     {langNames[l]}
                   </Link>
@@ -115,7 +115,7 @@ const Navbar = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-            style={{ fontSize: "0.55rem" }}
+            style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang })}
           >
             {t(lang, "nav.shop_label")} — {t(lang, "nav.coming_soon")}
@@ -217,7 +217,7 @@ const Navbar = () => {
             <div className="flex flex-col gap-3">
               <span
                 className="text-cream-dim uppercase tracking-[0.2em]"
-                style={{ fontSize: "0.55rem" }}
+                style={{ fontSize: "0.72rem" }}
               >
                 Language
               </span>
@@ -235,7 +235,7 @@ const Navbar = () => {
                         ? "text-primary border-primary/40"
                         : "text-cream-dim border-border-sub hover:text-foreground hover:border-primary/20"
                     }`}
-                    style={{ fontSize: "0.6rem", borderRadius: "20px" }}
+                    style={{ fontSize: "0.72rem", borderRadius: "20px" }}
                   >
                     {langNames[l]}
                   </Link>
@@ -250,7 +250,7 @@ const Navbar = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-2 text-center no-underline hover:bg-primary/10 transition-colors"
-              style={{ fontSize: "0.6rem" }}
+              style={{ fontSize: "0.72rem" }}
               onClick={() => {
                 setMenuOpen(false);
                 pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang });

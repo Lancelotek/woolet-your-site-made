@@ -69,27 +69,27 @@ const BlogIndex = () => {
               >
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3 flex-wrap">
-                    <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.6rem" }}>
+                    <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.78rem" }}>
                       {new Date(post.date).toLocaleDateString(currentLang, { year: "numeric", month: "long", day: "numeric" })}
                     </span>
-                    <span className="text-cream-dim opacity-30" style={{ fontSize: "0.5rem" }}>•</span>
-                    <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.6rem" }}>
+                    <span className="text-cream-dim opacity-40" style={{ fontSize: "0.7rem" }}>•</span>
+                    <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.78rem" }}>
                       {post.readTime} {t(currentLang, "blog.min_read")}
                     </span>
                     {post.tags.map((tag) => (
-                      <span key={tag} className="text-primary/70 uppercase tracking-[0.2em] border border-primary/15 px-2 py-0.5"
-                        style={{ fontSize: "0.48rem" }}>
+                      <span key={tag} className="text-primary/80 uppercase tracking-[0.18em] border border-primary/20 px-2 py-0.5"
+                        style={{ fontSize: "0.65rem" }}>
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <h2 className="font-display text-woolet-white group-hover:text-gold-light transition-colors leading-snug" style={{ fontSize: "1.3rem", fontWeight: 400 }}>
+                  <h2 className="font-display text-woolet-white group-hover:text-gold-light transition-colors leading-snug" style={{ fontSize: "1.4rem", fontWeight: 400 }}>
                     {post.title}
                   </h2>
-                  <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.8rem" }}>
+                  <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "0.92rem" }}>
                     {post.excerpt}
                   </p>
-                  <span className="text-primary uppercase tracking-[0.22em] group-hover:tracking-[0.28em] transition-all" style={{ fontSize: "0.56rem" }}>
+                  <span className="text-primary uppercase tracking-[0.22em] group-hover:tracking-[0.28em] transition-all" style={{ fontSize: "0.72rem" }}>
                     Read full article: {post.title} →
                   </span>
                 </div>
