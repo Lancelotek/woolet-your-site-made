@@ -596,11 +596,7 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
       ctx.drawImage(v, 0, 0);
       const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
 
-      // Kick off frame upload in parallel with model detection — both await
-      // before onDone so the persisted record always references the blob.
-      const { data: userData } = await supabase.auth.getUser();
-      const uploadPromise = uploadFrame(dataUrl, scanId, pose, userData?.user?.id ?? null);
-
+      // Detect first; the parent handles uploading (with retry + UI state).
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-scan-detect", {
         body: { image: dataUrl, width: canvas.width, height: canvas.height, pose },
       });
@@ -612,15 +608,14 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
         setBusy(false);
         return;
       }
-      const framePath = await uploadPromise;
-      await onDone(data as FrontFrame | ProfileFrame, framePath);
+      await onDone(data as FrontFrame | ProfileFrame, dataUrl);
     } catch (e) {
       console.warn("[bespoke-scan] capture failed", e);
       setError(e instanceof Error ? e.message : "Capture failed — try again.");
     } finally {
       setBusy(false);
     }
-  }, [busy, onDone, pose, scanId, setBusy, setError]);
+  }, [busy, onDone, pose, setBusy, setError]);
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
