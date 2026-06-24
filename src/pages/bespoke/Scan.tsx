@@ -40,6 +40,8 @@ interface CaptureData {
   right?: ProfileFrame;
 }
 
+type FramePaths = Partial<Record<Pose, string>>;
+
 const POSE_ORDER: Pose[] = ["front", "left", "right"];
 
 const POSE_COPY: Record<Pose, { title: string; body: string }> = {
@@ -57,30 +59,58 @@ const POSE_COPY: Record<Pose, { title: string; body: string }> = {
   },
 };
 
+// Upload a JPEG dataURL to the `bespoke-scans` bucket under
+// "<uid|anon>/<scanId>/<pose>.jpg" and return the storage path.
+async function uploadFrame(
+  dataUrl: string,
+  scanId: string,
+  pose: Pose,
+  userId: string | null,
+): Promise<string | null> {
+  try {
+    const folder = userId ?? "anon";
+    const path = `${folder}/${scanId}/${pose}.jpg`;
+    const blob = await (await fetch(dataUrl)).blob();
+    const { error: upErr } = await supabase.storage
+      .from("bespoke-scans")
+      .upload(path, blob, { contentType: "image/jpeg", upsert: true });
+    if (upErr) {
+      console.warn("[bespoke-scan] upload failed", upErr);
+      return null;
+    }
+    return path;
+  } catch (e) {
+    console.warn("[bespoke-scan] upload threw", e);
+    return null;
+  }
+}
+
 export default function BespokeScan() {
   const params = useParams();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const lang: Lang = params.lang && isValidLang(params.lang) ? params.lang : "en";
 
+  // Stable per-session scan id — used as the Storage folder.
+  const scanIdRef = useRef<string>(
+    (globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)) as string,
+  );
+
   const [step, setStep] = useState<Step>("intro");
   const [poseIdx, setPoseIdx] = useState(0);
   const [captures, setCaptures] = useState<CaptureData>({});
+  const [framePaths, setFramePaths] = useState<FramePaths>({});
+  const [retakePose, setRetakePose] = useState<Pose | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [profile, setProfile] = useState<BespokeProfile | null>(null);
   const [saving, setSaving] = useState(false);
 
-  const pose = POSE_ORDER[poseIdx];
+  const pose = retakePose ?? POSE_ORDER[poseIdx];
 
-  const onCaptureDone = useCallback((frame: FrontFrame | ProfileFrame) => {
-    setCaptures((prev) => ({ ...prev, [frame.pose]: frame } as CaptureData));
-    setError(null);
-    if (poseIdx < POSE_ORDER.length - 1) {
-      setPoseIdx((i) => i + 1);
-    } else {
-      // All 3 captured — fuse + persist
-      const all = { ...captures, [frame.pose]: frame } as CaptureData;
+  // Refuse + persist once all 3 captures are present.
+  const finalize = useCallback(
+    async (all: CaptureData, paths: FramePaths) => {
       if (!all.front) {
         setError("Front capture missing — please restart.");
         return;
@@ -89,14 +119,52 @@ export default function BespokeScan() {
         const fused = fuseBespokeProfile(all.front, all.left, all.right);
         setProfile(fused);
         setStep("result");
-        void persist(fused);
+        pushGtmEvent("bespoke_scan_completed", {
+          confidence: Math.round(fused.confidence.overall * 100),
+          face_width_mm: Number(fused.faceWidthMm.toFixed(1)),
+          warnings: fused.warnings.length,
+        });
+        await persist(fused, paths);
       } catch (e) {
         setError(e instanceof Error ? e.message : "fusion_failed");
       }
-    }
-  }, [captures, poseIdx]);
+    },
+    // persist captured below uses scanIdRef + captures, but is invoked only after
+    // we've collected all 3 — pass `paths` explicitly to avoid stale closures.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
-  const persist = async (fused: BespokeProfile) => {
+  const onCaptureDone = useCallback(
+    async (frame: FrontFrame | ProfileFrame, framePath: string | null) => {
+      const nextCaptures = { ...captures, [frame.pose]: frame } as CaptureData;
+      const nextPaths: FramePaths = { ...framePaths };
+      if (framePath) nextPaths[frame.pose] = framePath;
+      setCaptures(nextCaptures);
+      setFramePaths(nextPaths);
+      setError(null);
+      pushGtmEvent("bespoke_scan_pose_captured", {
+        pose: frame.pose,
+        retake: retakePose ? "true" : "false",
+      });
+
+      // Retake path: jump straight back to results and re-fuse.
+      if (retakePose) {
+        setRetakePose(null);
+        await finalize(nextCaptures, nextPaths);
+        return;
+      }
+
+      if (poseIdx < POSE_ORDER.length - 1) {
+        setPoseIdx((i) => i + 1);
+      } else {
+        await finalize(nextCaptures, nextPaths);
+      }
+    },
+    [captures, framePaths, poseIdx, retakePose, finalize],
+  );
+
+  const persist = async (fused: BespokeProfile, paths: FramePaths) => {
     setSaving(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -112,7 +180,11 @@ export default function BespokeScan() {
         asymmetry_mm: fused.asymmetryMm,
         pd_mm: fused.pdMm,
         confidence: fused.confidence,
-        raw_frames: {}, // PR 3 will upload to Storage
+        raw_frames: {
+          scan_id: scanIdRef.current,
+          bucket: "bespoke-scans",
+          paths,
+        },
         capture_method: "web_card_3pose",
         status: "completed",
       });
@@ -125,11 +197,22 @@ export default function BespokeScan() {
   };
 
   const restart = () => {
+    scanIdRef.current = (globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)) as string;
     setStep("intro");
     setPoseIdx(0);
     setCaptures({});
+    setFramePaths({});
+    setRetakePose(null);
     setProfile(null);
     setError(null);
+    pushGtmEvent("bespoke_scan_restart");
+  };
+
+  const retake = (p: Pose) => {
+    setRetakePose(p);
+    setError(null);
+    setStep("capture");
+    pushGtmEvent("bespoke_scan_retake_pose", { pose: p });
   };
 
   if (!isMobile) {
