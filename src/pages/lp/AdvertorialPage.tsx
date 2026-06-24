@@ -82,7 +82,7 @@ const AdvertorialPage = () => {
                 color: "#5A4020",
                 padding: "3px 10px",
                 borderRadius: 20,
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: 500,
                 letterSpacing: "0.8px",
                 fontFamily: "'Barlow', sans-serif",
@@ -97,7 +97,7 @@ const AdvertorialPage = () => {
                 color: "#A07A2A",
                 padding: "3px 10px",
                 borderRadius: 20,
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: 500,
                 letterSpacing: "0.8px",
                 fontFamily: "'Barlow', sans-serif",
@@ -109,7 +109,7 @@ const AdvertorialPage = () => {
             <span
               style={{
                 marginLeft: "auto",
-                fontSize: 10,
+                fontSize: 12,
                 color: "#888",
                 fontFamily: "'Barlow', sans-serif",
               }}
@@ -176,7 +176,7 @@ const AdvertorialPage = () => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 300,
-                  fontSize: 10,
+                  fontSize: 12,
                   color: "#888",
                 }}
               >
@@ -207,7 +207,7 @@ const AdvertorialPage = () => {
               <span
                 style={{
                   fontFamily: "'Barlow', sans-serif",
-                  fontSize: 9,
+                  fontSize: 11,
                   color: "#888",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
@@ -417,15 +417,15 @@ const AdvertorialPage = () => {
             >
               <div style={{ flex: 1 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#A07A2A" }}>130–148mm</div>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>standard market</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>standard market</div>
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#A07A2A" }}>155–165mm</div>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#CAA449" }}>158mm</div>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet minimum</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet minimum</div>
               </div>
             </div>
 
@@ -631,7 +631,7 @@ const AdvertorialPage = () => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 300,
-                  fontSize: 9,
+                  fontSize: 11,
                   letterSpacing: "2px",
                   color: "#888",
                   textTransform: "uppercase",
@@ -667,7 +667,7 @@ const AdvertorialPage = () => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 300,
-                  fontSize: 9,
+                  fontSize: 11,
                   letterSpacing: "2px",
                   color: "#888",
                   textTransform: "uppercase",
@@ -716,7 +716,7 @@ const AdvertorialPage = () => {
                   style={{
                     fontFamily: "'Barlow', sans-serif",
                     fontWeight: 500,
-                    fontSize: 9,
+                    fontSize: 11,
                     color: "#CAA449",
                     letterSpacing: "3px",
                   }}
@@ -766,7 +766,7 @@ const AdvertorialPage = () => {
           {/* Internal links — after CTA */}
           <div style={{ padding: "0 20px" }}>
             <div style={{ margin: "0 0 18px", padding: "14px 0", borderTop: "1px solid #E8E4DC" }}>
-              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
+              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
                 READ MORE
               </div>
               <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>

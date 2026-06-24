@@ -32,7 +32,7 @@ const ProductFAQ = ({ productId }: ProductFAQProps) => {
           style={{
             fontFamily: "'Barlow', sans-serif",
             fontWeight: 500,
-            fontSize: 9,
+            fontSize: 11,
             letterSpacing: "3px",
             color: "#888888",
             textTransform: "uppercase",
