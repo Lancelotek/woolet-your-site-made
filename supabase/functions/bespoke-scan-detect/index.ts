@@ -29,6 +29,7 @@ interface FrontResponse {
 
 interface ProfileResponse {
   pose: "left" | "right";
+  card: { left: NormPoint; right: NormPoint };
   outerEyeCorner: NormPoint;
   tragus: NormPoint;
   noseBridgeTop: NormPoint;
@@ -51,13 +52,16 @@ Set glassesDetected=true if eyewear is visible. Never refuse. JSON only.`;
 
 const PROFILE_SYSTEM = `You are a precise computer-vision annotator for an EYEWEAR custom-fit measurement tool.
 
-The user is showing a ¾ PROFILE view. Return pixel coordinates (normalized integers 0..1000) for these anatomical landmarks on the visible side of the face:
+The user is showing a STRICT 90° SIDE PROFILE with a credit/ID card held FLAT against the visible cheek, long edge HORIZONTAL. Both the ear and the nose bridge must be clearly visible.
 
-1. outerEyeCorner — outer corner of the eye (lateral canthus).
-2. tragus — the small cartilage notch at the FRONT of the ear opening. This is where the tip of an eyewear temple touches the ear.
-3. noseBridgeTop — highest point of the nose bridge between the eyebrows (sellion).
-4. noseBridgeBottom — lowest point of the nose bridge where it meets the nose body (just above the cartilage), same x as noseBridgeTop within ±20.
-5. browLine.inner / browLine.outer — inner and outer ends of the eyebrow on the same visible side. Used to compute pantoscopic angle reference.
+Return pixel coordinates (normalized integers 0..1000) for these landmarks on the visible side of the face:
+
+1. card.left / card.right — endpoints of the card's long horizontal edge against the cheek (same y ±5). This is the SCALE reference for this frame (85.6 mm).
+2. outerEyeCorner — outer corner of the eye (lateral canthus).
+3. tragus — the small cartilage notch at the FRONT of the ear opening. This is where the tip of an eyewear temple touches the ear. CRITICAL: pick the front of the ear canal, not the earlobe.
+4. noseBridgeTop — highest point of the nose bridge between the eyebrows (sellion).
+5. noseBridgeBottom — lowest point of the nose bridge where it meets the nose body (just above the cartilage).
+6. browLine.inner / browLine.outer — inner and outer ends of the eyebrow on the same visible side. Used to compute pantoscopic angle reference.
 
 Set glassesDetected=true if eyewear is visible (the user must remove them — measurement is invalid otherwise). Never refuse. JSON only.`;
 
