@@ -78,6 +78,19 @@ export default {
         display: ["'Cormorant Garamond'", "serif"],
         body: ["'Barlow'", "sans-serif"],
       },
+      fontSize: {
+        // Landing-page typography scale. Floors at 12px — never use a
+        // smaller token. Pair with `.lp-scope` on the page root.
+        "lp-xs": ["var(--lp-text-xs)", { lineHeight: "1.5" }],
+        "lp-sm": ["var(--lp-text-sm)", { lineHeight: "1.6" }],
+        "lp-base": ["var(--lp-text-base)", { lineHeight: "1.65" }],
+        "lp-md": ["var(--lp-text-md)", { lineHeight: "1.6" }],
+        "lp-lg": ["var(--lp-text-lg)", { lineHeight: "1.5" }],
+        "lp-xl": ["var(--lp-text-xl)", { lineHeight: "1.35" }],
+        "lp-2xl": ["var(--lp-text-2xl)", { lineHeight: "1.25" }],
+        "lp-3xl": ["var(--lp-text-3xl)", { lineHeight: "1.2" }],
+      },
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
