@@ -32,7 +32,7 @@ const EARLY_BIRD_TOTAL = 300;
 const EARLY_BIRD_LEFT = 247;
 
 const inputStyle: React.CSSProperties = {
-  fontSize: "11.95rem",
+  fontSize: "12px",
   backgroundColor: "rgba(255,255,255,0.06)",
   color: "#f0ece4",
   border: "1px solid rgba(216,212,204,0.35)",

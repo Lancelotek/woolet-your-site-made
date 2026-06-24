@@ -7,7 +7,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { rdtLead } from "@/lib/reddit-pixel";
 
 const inputStyle: React.CSSProperties = {
-  fontSize: "11.82rem",
+  fontSize: "12px",
   backgroundColor: "transparent",
   color: "#f0ece4",
   borderTop: "none",
@@ -149,8 +149,8 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
       {/* Desktop progress */}
       <div className="hidden md:flex flex-col gap-2">
         <div className="flex justify-between items-center">
-          <span style={{ ...labelStyle, fontSize: "11.56rem", letterSpacing: "0.24em" }}>Waitlist</span>
-          <span className="text-primary tracking-wider" style={{ fontSize: "11.58rem" }}>
+          <span style={{ ...labelStyle, fontSize: "12px", letterSpacing: "0.24em" }}>Waitlist</span>
+          <span className="text-primary tracking-wider" style={{ fontSize: "12px" }}>
             {count} / 100 spots
           </span>
         </div>
@@ -243,7 +243,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           </div>
 
           {/* Privacy policy checkbox */}
-          <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1" style={{ fontSize: "11.68rem" }}>
+          <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1" style={{ fontSize: "12px" }}>
             <input
               type="checkbox"
               checked={privacyAccepted}
@@ -273,7 +273,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           </label>
 
           {error && (
-            <p className="text-center" style={{ fontSize: "11.68rem", color: "#e25555" }}>
+            <p className="text-center" style={{ fontSize: "12px", color: "#e25555" }}>
               {error}
             </p>
           )}
@@ -284,7 +284,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             className="relative overflow-hidden bg-primary text-primary-foreground border-none font-body w-full transition-all hover:bg-gold-light active:scale-[0.99] group disabled:opacity-60 flex flex-col items-center justify-center"
             style={{ minHeight: "56px", padding: "12px 24px" }}
           >
-            <span className="relative z-10 font-semibold uppercase tracking-[0.28em]" style={{ fontSize: "11.72rem" }}>
+            <span className="relative z-10 font-semibold uppercase tracking-[0.28em]" style={{ fontSize: "12px" }}>
               {loading ? "Sending..." : "Claim My Spot — 40% Off + Free Shipping"}
             </span>
            <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
@@ -311,7 +311,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             </p>
           )}
 
-          <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5" style={{ fontSize: "11.57rem" }}>
+          <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5" style={{ fontSize: "12px" }}>
             No credit card. No spam. Unsubscribe anytime.
           </p>
           {fitLink && (
@@ -334,17 +334,17 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         </form>
       ) : (
         <div className="flex flex-col gap-3 p-6 border animate-fade-in" style={{ background: "hsl(var(--gold) / 0.06)", borderColor: "hsl(var(--gold) / 0.2)" }}>
-          <div className="w-7 h-7 border border-primary rounded-full flex items-center justify-center text-primary" style={{ fontSize: "11.8rem" }}>✓</div>
-          <div className="font-display text-woolet-white" style={{ fontSize: "11.15rem" }}>You're on the list — benefits locked in.</div>
-          <div className="text-cream-dim leading-relaxed" style={{ fontSize: "11.74rem" }}>Check your inbox for confirmation. Your exclusive benefits at launch:</div>
+          <div className="w-7 h-7 border border-primary rounded-full flex items-center justify-center text-primary" style={{ fontSize: "12px" }}>✓</div>
+          <div className="font-display text-woolet-white" style={{ fontSize: "12px" }}>You're on the list — benefits locked in.</div>
+          <div className="text-cream-dim leading-relaxed" style={{ fontSize: "12px" }}>Check your inbox for confirmation. Your exclusive benefits at launch:</div>
           <div className="flex flex-col gap-1.5 mt-1">
             {[
               "40% off your first Woolet order — $114 instead of $190",
               "Free worldwide shipping — no minimum",
               "48h early access before the public launch",
             ].map((perk) => (
-              <div key={perk} className="flex items-center gap-2.5 text-cream-dim" style={{ fontSize: "11.68rem" }}>
-                <span className="text-primary flex-shrink-0" style={{ fontSize: "11.65rem" }}>✓</span>
+              <div key={perk} className="flex items-center gap-2.5 text-cream-dim" style={{ fontSize: "12px" }}>
+                <span className="text-primary flex-shrink-0" style={{ fontSize: "12px" }}>✓</span>
                 {perk}
               </div>
             ))}
@@ -365,7 +365,7 @@ const CheckboxLabel = ({
   onChange: (v: boolean) => void;
 }) => {
   return (
-    <label className="flex items-center gap-2 cursor-pointer text-cream-dim hover:text-foreground transition-colors" style={{ fontSize: "11.74rem" }}>
+    <label className="flex items-center gap-2 cursor-pointer text-cream-dim hover:text-foreground transition-colors" style={{ fontSize: "12px" }}>
       <input type="checkbox" checked={checked} onChange={() => onChange(!checked)} className="hidden" />
       <div
         className="w-3.5 h-3.5 border flex items-center justify-center flex-shrink-0 transition-all"
