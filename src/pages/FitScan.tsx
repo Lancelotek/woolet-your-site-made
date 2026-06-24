@@ -1560,6 +1560,11 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const poseColor = poseState === "ok" ? "#4ade80" : poseState === "off" ? "#ef4444" : "#facc15";
   const poseLabel = poseState === "ok" ? tFit(lang, "camera.pose_ok") : poseState === "off" ? tFit(lang, "camera.pose_off") : tFit(lang, "camera.pose_center");
   const showPoseHint = poseState === "off";
+  const showLensHint = lensState === "wide";
+  const lensColor = lensState === "wide" ? "#ef4444" : "#4ade80";
+  const lensLabel = lensState === "wide"
+    ? tFit(lang, "camera.lens_wide")
+    : tFit(lang, "camera.lens_ok");
   const captureBlocked = !ready || busy || countdown !== null;
 
   // Haptic ping when all gates flip to "good" — tells the user "now" before
