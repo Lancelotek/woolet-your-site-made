@@ -768,8 +768,12 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
       )}
 
       <Button
-        onClick={startTimer}
-        disabled={!ready || busy || countdown !== null || !yawOk}
+        onPointerDown={(e) => { e.preventDefault(); startHold(); }}
+        onPointerUp={cancelHold}
+        onPointerLeave={cancelHold}
+        onPointerCancel={cancelHold}
+        onContextMenu={(e) => e.preventDefault()}
+        disabled={!ready || busy || !yawOk}
         style={{
           background: yawOk ? GOLD : "rgba(202,164,73,0.3)",
           color: INK,
@@ -777,10 +781,17 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
           fontSize: 14,
           letterSpacing: "0.14em",
           textTransform: "uppercase",
+          touchAction: "none",
+          userSelect: "none",
         }}
       >
-        {busy ? "Analyzing…" : countdown !== null ? `Capturing in ${countdown}…` : yawOk ? "Capture (3s timer)" : "Hold the right pose"}
+        {busy ? "Analyzing…" : countdown !== null ? `Hold still… ${countdown}` : yawOk ? "Press & hold to capture (3s)" : "Hold the right pose"}
       </Button>
+      {countdown !== null && (
+        <p style={{ fontSize: 11, color: MUTED, textAlign: "center", margin: 0, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+          Keep holding — release cancels
+        </p>
+      )}
     </div>
   );
 }
