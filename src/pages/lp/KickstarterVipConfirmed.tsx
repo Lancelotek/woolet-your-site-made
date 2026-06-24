@@ -84,7 +84,7 @@ const KickstarterVipConfirmed = () => {
   const pct = Math.min(100, Math.round((referred / REFERRAL_GOAL) * 100));
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
+    <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
         <title>You're on the VIP list — Woolet Kickstarter</title>
         <meta name="robots" content="noindex" />

@@ -282,7 +282,7 @@ const KickstarterPrelaunch = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
+    <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
         <title>Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear</title>
         <meta
