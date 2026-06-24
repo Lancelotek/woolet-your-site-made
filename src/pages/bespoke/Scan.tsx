@@ -59,30 +59,79 @@ const POSE_COPY: Record<Pose, { title: string; body: string }> = {
   },
 };
 
-// Upload a JPEG dataURL to the `bespoke-scans` bucket under
-// "<uid|anon>/<scanId>/<pose>.jpg" and return the storage path.
-async function uploadFrame(
+// Per-pose upload state surfaced to the user.
+type UploadStatus = "idle" | "uploading" | "ok" | "failed";
+
+interface UploadResult {
+  path: string | null;
+  error: string | null;
+  /** True when the error looks transient (network/5xx) and a manual retry may succeed. */
+  retryable: boolean;
+}
+
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+// Detect Supabase Storage errors that are worth retrying. Auth / RLS / 4xx
+// won't get better by trying again, so we surface those immediately.
+function classifyUploadError(err: unknown): { message: string; retryable: boolean } {
+  const e = err as { statusCode?: number | string; status?: number; message?: string; name?: string } | null;
+  const status = Number(e?.statusCode ?? e?.status ?? 0);
+  const message = e?.message ?? "Upload failed";
+  if (e?.name === "AbortError") return { message: "Upload cancelled", retryable: true };
+  if (typeof navigator !== "undefined" && navigator.onLine === false) {
+    return { message: "You're offline", retryable: true };
+  }
+  // Network errors typically have no status; 408/425/429/5xx are retryable.
+  if (!status) return { message, retryable: true };
+  if (status === 408 || status === 425 || status === 429 || status >= 500) {
+    return { message, retryable: true };
+  }
+  return { message, retryable: false };
+}
+
+// Upload a JPEG dataURL to the `bespoke-scans` bucket with 3 attempts and
+// exponential backoff (400ms → 1200ms). Non-fatal: returns the failure so
+// the caller can surface it without blocking scan completion.
+async function uploadFrameWithRetry(
   dataUrl: string,
   scanId: string,
   pose: Pose,
   userId: string | null,
-): Promise<string | null> {
+  opts: { attempts?: number; signal?: AbortSignal; onAttempt?: (n: number) => void } = {},
+): Promise<UploadResult> {
+  const attempts = opts.attempts ?? 3;
+  const folder = userId ?? "anon";
+  const path = `${folder}/${scanId}/${pose}.jpg`;
+
+  let blob: Blob;
   try {
-    const folder = userId ?? "anon";
-    const path = `${folder}/${scanId}/${pose}.jpg`;
-    const blob = await (await fetch(dataUrl)).blob();
-    const { error: upErr } = await supabase.storage
-      .from("bespoke-scans")
-      .upload(path, blob, { contentType: "image/jpeg", upsert: true });
-    if (upErr) {
-      console.warn("[bespoke-scan] upload failed", upErr);
-      return null;
-    }
-    return path;
+    blob = await (await fetch(dataUrl)).blob();
   } catch (e) {
-    console.warn("[bespoke-scan] upload threw", e);
-    return null;
+    return { path: null, error: e instanceof Error ? e.message : "Could not read frame", retryable: false };
   }
+
+  let lastErr: { message: string; retryable: boolean } = { message: "Upload failed", retryable: true };
+  for (let i = 1; i <= attempts; i++) {
+    if (opts.signal?.aborted) return { path: null, error: "Upload cancelled", retryable: true };
+    opts.onAttempt?.(i);
+    try {
+      const { error: upErr } = await supabase.storage
+        .from("bespoke-scans")
+        .upload(path, blob, { contentType: "image/jpeg", upsert: true });
+      if (!upErr) return { path, error: null, retryable: false };
+      lastErr = classifyUploadError(upErr);
+      console.warn(`[bespoke-scan] upload attempt ${i}/${attempts} failed`, upErr);
+      if (!lastErr.retryable) break;
+    } catch (e) {
+      lastErr = classifyUploadError(e);
+      console.warn(`[bespoke-scan] upload attempt ${i}/${attempts} threw`, e);
+      if (!lastErr.retryable) break;
+    }
+    if (i < attempts && lastErr.retryable) {
+      await sleep(400 * Math.pow(3, i - 1)); // 400ms, 1200ms
+    }
+  }
+  return { path: null, error: lastErr.message, retryable: lastErr.retryable };
 }
 
 export default function BespokeScan() {
@@ -96,10 +145,21 @@ export default function BespokeScan() {
     (globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)) as string,
   );
 
+  // Cache the last dataUrl per pose so the result screen can manually retry
+  // an upload without forcing the user to re-take the photo.
+  const pendingFramesRef = useRef<Partial<Record<Pose, string>>>({});
+  const userIdRef = useRef<string | null>(null);
+
   const [step, setStep] = useState<Step>("intro");
   const [poseIdx, setPoseIdx] = useState(0);
   const [captures, setCaptures] = useState<CaptureData>({});
   const [framePaths, setFramePaths] = useState<FramePaths>({});
+  const [uploadStatus, setUploadStatus] = useState<Record<Pose, UploadStatus>>({
+    front: "idle",
+    left: "idle",
+    right: "idle",
+  });
+  const [uploadErrors, setUploadErrors] = useState<Partial<Record<Pose, string>>>({});
   const [retakePose, setRetakePose] = useState<Pose | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -109,62 +169,7 @@ export default function BespokeScan() {
   const pose = retakePose ?? POSE_ORDER[poseIdx];
 
   // Refuse + persist once all 3 captures are present.
-  const finalize = useCallback(
-    async (all: CaptureData, paths: FramePaths) => {
-      if (!all.front) {
-        setError("Front capture missing — please restart.");
-        return;
-      }
-      try {
-        const fused = fuseBespokeProfile(all.front, all.left, all.right);
-        setProfile(fused);
-        setStep("result");
-        pushGtmEvent("bespoke_scan_completed", {
-          confidence: Math.round(fused.confidence.overall * 100),
-          face_width_mm: Number(fused.faceWidthMm.toFixed(1)),
-          warnings: fused.warnings.length,
-        });
-        await persist(fused, paths);
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "fusion_failed");
-      }
-    },
-    // persist captured below uses scanIdRef + captures, but is invoked only after
-    // we've collected all 3 — pass `paths` explicitly to avoid stale closures.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
-
-  const onCaptureDone = useCallback(
-    async (frame: FrontFrame | ProfileFrame, framePath: string | null) => {
-      const nextCaptures = { ...captures, [frame.pose]: frame } as CaptureData;
-      const nextPaths: FramePaths = { ...framePaths };
-      if (framePath) nextPaths[frame.pose] = framePath;
-      setCaptures(nextCaptures);
-      setFramePaths(nextPaths);
-      setError(null);
-      pushGtmEvent("bespoke_scan_pose_captured", {
-        pose: frame.pose,
-        retake: retakePose ? "true" : "false",
-      });
-
-      // Retake path: jump straight back to results and re-fuse.
-      if (retakePose) {
-        setRetakePose(null);
-        await finalize(nextCaptures, nextPaths);
-        return;
-      }
-
-      if (poseIdx < POSE_ORDER.length - 1) {
-        setPoseIdx((i) => i + 1);
-      } else {
-        await finalize(nextCaptures, nextPaths);
-      }
-    },
-    [captures, framePaths, poseIdx, retakePose, finalize],
-  );
-
-  const persist = async (fused: BespokeProfile, paths: FramePaths) => {
+  const persist = useCallback(async (fused: BespokeProfile, paths: FramePaths) => {
     setSaving(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -194,14 +199,146 @@ export default function BespokeScan() {
     } finally {
       setSaving(false);
     }
-  };
+  }, []);
+
+  const finalize = useCallback(
+    async (all: CaptureData, paths: FramePaths) => {
+      if (!all.front) {
+        setError("Front capture missing — please restart.");
+        return;
+      }
+      try {
+        const fused = fuseBespokeProfile(all.front, all.left, all.right);
+        setProfile(fused);
+        setStep("result");
+        pushGtmEvent("bespoke_scan_completed", {
+          confidence: Math.round(fused.confidence.overall * 100),
+          face_width_mm: Number(fused.faceWidthMm.toFixed(1)),
+          warnings: fused.warnings.length,
+        });
+        await persist(fused, paths);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "fusion_failed");
+      }
+    },
+    [persist],
+  );
+
+  // Run an upload, update per-pose status, and return the resolved path (or null).
+  const runUpload = useCallback(async (p: Pose, dataUrl: string): Promise<string | null> => {
+    setUploadStatus((s) => ({ ...s, [p]: "uploading" }));
+    setUploadErrors((e) => ({ ...e, [p]: undefined }));
+    const res = await uploadFrameWithRetry(dataUrl, scanIdRef.current, p, userIdRef.current);
+    if (res.path) {
+      setUploadStatus((s) => ({ ...s, [p]: "ok" }));
+      setUploadErrors((e) => {
+        const next = { ...e };
+        delete next[p];
+        return next;
+      });
+      pushGtmEvent("bespoke_scan_upload_ok", { pose: p });
+    } else {
+      setUploadStatus((s) => ({ ...s, [p]: "failed" }));
+      setUploadErrors((e) => ({ ...e, [p]: res.error ?? "Upload failed" }));
+      pushGtmEvent("bespoke_scan_upload_failed", { pose: p, retryable: String(res.retryable) });
+    }
+    return res.path;
+  }, []);
+
+  const onCaptureDone = useCallback(
+    async (frame: FrontFrame | ProfileFrame, dataUrl: string) => {
+      // Cache the raw frame so the user can retry the upload later without
+      // needing to re-take the photo.
+      pendingFramesRef.current[frame.pose] = dataUrl;
+      if (!userIdRef.current) {
+        const { data } = await supabase.auth.getUser();
+        userIdRef.current = data?.user?.id ?? null;
+      }
+
+      // Fire upload (with retry) — don't block UI progression on it.
+      const uploadPromise = runUpload(frame.pose, dataUrl);
+
+      const nextCaptures = { ...captures, [frame.pose]: frame } as CaptureData;
+      setCaptures(nextCaptures);
+      setError(null);
+      pushGtmEvent("bespoke_scan_pose_captured", {
+        pose: frame.pose,
+        retake: retakePose ? "true" : "false",
+      });
+
+      // Wait for upload to settle so framePaths is fresh, but proceed even on
+      // failure — the user can retry from the result screen.
+      const framePath = await uploadPromise;
+      const nextPaths: FramePaths = { ...framePaths };
+      if (framePath) nextPaths[frame.pose] = framePath;
+      setFramePaths(nextPaths);
+
+      if (retakePose) {
+        setRetakePose(null);
+        await finalize(nextCaptures, nextPaths);
+        return;
+      }
+
+      if (poseIdx < POSE_ORDER.length - 1) {
+        setPoseIdx((i) => i + 1);
+      } else {
+        await finalize(nextCaptures, nextPaths);
+      }
+    },
+    [captures, framePaths, poseIdx, retakePose, runUpload, finalize],
+  );
+
+  // Manual retry — re-upload a failed frame from the cached dataUrl, then
+  // patch the persisted row's raw_frames so the storage path is recorded.
+  const retryUpload = useCallback(async (p: Pose) => {
+    const dataUrl = pendingFramesRef.current[p];
+    if (!dataUrl) return;
+    const path = await runUpload(p, dataUrl);
+    if (path) {
+      const nextPaths = { ...framePaths, [p]: path };
+      setFramePaths(nextPaths);
+      // Best-effort patch — silently no-op when offline / unauthenticated.
+      try {
+        await supabase
+          .from("bespoke_scan_profiles")
+          .update({
+            raw_frames: {
+              scan_id: scanIdRef.current,
+              bucket: "bespoke-scans",
+              paths: nextPaths,
+            },
+          })
+          .eq("user_id", userIdRef.current ?? "")
+          .order("created_at", { ascending: false })
+          .limit(1);
+      } catch (e) {
+        console.warn("[bespoke-scan] raw_frames patch failed", e);
+      }
+    }
+  }, [framePaths, runUpload]);
+
+  // Auto-retry any failed uploads when the network comes back.
+  useEffect(() => {
+    const onOnline = () => {
+      (Object.entries(uploadStatus) as Array<[Pose, UploadStatus]>).forEach(([p, s]) => {
+        if (s === "failed" && pendingFramesRef.current[p]) {
+          void retryUpload(p);
+        }
+      });
+    };
+    window.addEventListener("online", onOnline);
+    return () => window.removeEventListener("online", onOnline);
+  }, [uploadStatus, retryUpload]);
 
   const restart = () => {
     scanIdRef.current = (globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)) as string;
+    pendingFramesRef.current = {};
     setStep("intro");
     setPoseIdx(0);
     setCaptures({});
     setFramePaths({});
+    setUploadStatus({ front: "idle", left: "idle", right: "idle" });
+    setUploadErrors({});
     setRetakePose(null);
     setProfile(null);
     setError(null);
@@ -270,6 +407,9 @@ export default function BespokeScan() {
           <ResultStep
             profile={profile}
             saving={saving}
+            uploadStatus={uploadStatus}
+            uploadErrors={uploadErrors}
+            onRetryUpload={retryUpload}
             onRestart={restart}
             onRetake={retake}
             onContinue={() => navigate(`/${lang}/bespoke/configurator`)}
@@ -336,10 +476,12 @@ interface CaptureStepProps {
   setBusy: (b: boolean) => void;
   error: string | null;
   setError: (e: string | null) => void;
-  onDone: (frame: FrontFrame | ProfileFrame, framePath: string | null) => void | Promise<void>;
+  /** dataUrl is the raw JPEG frame; parent uploads it with retry. */
+  onDone: (frame: FrontFrame | ProfileFrame, dataUrl: string) => void | Promise<void>;
 }
 
 function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, error, setError, onDone }: CaptureStepProps) {
+  void scanId; void isRetake; // reserved for future use
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -456,11 +598,7 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
       ctx.drawImage(v, 0, 0);
       const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
 
-      // Kick off frame upload in parallel with model detection — both await
-      // before onDone so the persisted record always references the blob.
-      const { data: userData } = await supabase.auth.getUser();
-      const uploadPromise = uploadFrame(dataUrl, scanId, pose, userData?.user?.id ?? null);
-
+      // Detect first; the parent handles uploading (with retry + UI state).
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-scan-detect", {
         body: { image: dataUrl, width: canvas.width, height: canvas.height, pose },
       });
@@ -472,15 +610,14 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
         setBusy(false);
         return;
       }
-      const framePath = await uploadPromise;
-      await onDone(data as FrontFrame | ProfileFrame, framePath);
+      await onDone(data as FrontFrame | ProfileFrame, dataUrl);
     } catch (e) {
       console.warn("[bespoke-scan] capture failed", e);
       setError(e instanceof Error ? e.message : "Capture failed — try again.");
     } finally {
       setBusy(false);
     }
-  }, [busy, onDone, pose, scanId, setBusy, setError]);
+  }, [busy, onDone, pose, setBusy, setError]);
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
@@ -626,12 +763,18 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
 function ResultStep({
   profile,
   saving,
+  uploadStatus,
+  uploadErrors,
+  onRetryUpload,
   onRestart,
   onRetake,
   onContinue,
 }: {
   profile: BespokeProfile;
   saving: boolean;
+  uploadStatus: Record<Pose, UploadStatus>;
+  uploadErrors: Partial<Record<Pose, string>>;
+  onRetryUpload: (p: Pose) => void | Promise<void>;
   onRestart: () => void;
   onRetake: (p: Pose) => void;
   onContinue: () => void;
@@ -653,6 +796,9 @@ function ResultStep({
 
   const POSE_LABEL: Record<Pose, string> = { front: "Front", left: "Left 90°", right: "Right 90°" };
 
+  const failedPoses = POSE_ORDER.filter((p) => uploadStatus[p] === "failed");
+  const uploadingPoses = POSE_ORDER.filter((p) => uploadStatus[p] === "uploading");
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
       <div>
@@ -663,6 +809,61 @@ function ResultStep({
           {saving ? "Saving to your profile…" : "Saved. We'll pre-fill these in the configurator."}
         </p>
       </div>
+
+      {/* Upload error banner — measurements still saved, blobs missing. */}
+      {failedPoses.length > 0 && (
+        <div role="alert" style={{
+          display: "flex", flexDirection: "column", gap: 10,
+          padding: "12px 14px",
+          border: "1px solid rgba(239,68,68,0.55)",
+          background: "rgba(239,68,68,0.08)",
+          borderRadius: 6,
+        }}>
+          <strong style={{ fontSize: 12, color: "#fca5a5", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+            {failedPoses.length === 1 ? "1 photo didn't upload" : `${failedPoses.length} photos didn't upload`}
+          </strong>
+          <span style={{ fontSize: 12.5, color: "rgba(252,165,165,0.85)", lineHeight: 1.5 }}>
+            Your measurements are saved. The original photos couldn't reach our servers — likely a flaky connection. Retry below, or skip and continue.
+          </span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {failedPoses.map((p) => (
+              <Button
+                key={p}
+                onClick={() => onRetryUpload(p)}
+                disabled={uploadStatus[p] === "uploading"}
+                variant="outline"
+                style={{
+                  height: 34, fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase",
+                  borderColor: "rgba(239,68,68,0.6)", background: "transparent", color: "#fca5a5",
+                }}
+              >
+                {uploadStatus[p] === "uploading" ? "Retrying…" : `Retry ${POSE_LABEL[p]}`}
+              </Button>
+            ))}
+          </div>
+          {failedPoses.map((p) => uploadErrors[p] && (
+            <span key={`${p}-err`} style={{ fontSize: 11, color: "rgba(252,165,165,0.6)", fontFamily: "monospace" }}>
+              {POSE_LABEL[p]}: {uploadErrors[p]}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {uploadingPoses.length > 0 && failedPoses.length === 0 && (
+        <div style={{
+          padding: "10px 14px",
+          border: "1px solid rgba(255,255,255,0.1)",
+          background: "rgba(255,255,255,0.03)",
+          borderRadius: 6,
+          fontSize: 12.5,
+          color: MUTED,
+          display: "flex", alignItems: "center", gap: 8,
+        }}>
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: GOLD, animation: "pulse 1.4s ease-in-out infinite" }} />
+          Uploading {uploadingPoses.map((p) => POSE_LABEL[p]).join(", ")}…
+        </div>
+      )}
+
 
       <div style={{ display: "flex", flexDirection: "column", border: "1px solid rgba(202,164,73,0.25)", borderRadius: 6, overflow: "hidden" }}>
         {rows.map((r, i) => {
