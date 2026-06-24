@@ -407,6 +407,9 @@ export default function BespokeScan() {
           <ResultStep
             profile={profile}
             saving={saving}
+            uploadStatus={uploadStatus}
+            uploadErrors={uploadErrors}
+            onRetryUpload={retryUpload}
             onRestart={restart}
             onRetake={retake}
             onContinue={() => navigate(`/${lang}/bespoke/configurator`)}
