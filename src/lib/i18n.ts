@@ -1,4 +1,4 @@
-export const SUPPORTED_LANGS = ["en", "pl", "fr", "es"] as const;
+export const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de"] as const;
 export type Lang = (typeof SUPPORTED_LANGS)[number];
 
 export function isValidLang(lang: string): lang is Lang {
