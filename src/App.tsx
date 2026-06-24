@@ -216,8 +216,12 @@ const App = () => (
           <Route path="/:lang/account" element={<Account />} />
 
          <Route path="/unsubscribe" element={<Unsubscribe />} />
+
+         {/* DE market SEO landing pages */}
+         <Route path="/de" element={<DeHub />} />
+         <Route path="/de/:slug" element={<DeLandingRoute />} />
+
          <Route path="*" element={<NotFound />} />
-        </Routes>
         </Suspense>
         </AuthProvider>
       </BrowserRouter>
