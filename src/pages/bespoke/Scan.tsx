@@ -23,7 +23,7 @@ import {
   type ProfileFrame,
   type BespokeProfile,
 } from "@/lib/bespoke-profile";
-import { isLang, type Lang } from "@/lib/i18n";
+import { isValidLang, type Lang } from "@/lib/i18n";
 
 const GOLD = "#CAA449";
 const INK = "#0f0f0f";
