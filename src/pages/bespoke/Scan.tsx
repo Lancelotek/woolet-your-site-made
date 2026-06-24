@@ -476,10 +476,12 @@ interface CaptureStepProps {
   setBusy: (b: boolean) => void;
   error: string | null;
   setError: (e: string | null) => void;
-  onDone: (frame: FrontFrame | ProfileFrame, framePath: string | null) => void | Promise<void>;
+  /** dataUrl is the raw JPEG frame; parent uploads it with retry. */
+  onDone: (frame: FrontFrame | ProfileFrame, dataUrl: string) => void | Promise<void>;
 }
 
 function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, error, setError, onDone }: CaptureStepProps) {
+  void scanId; void isRetake; // reserved for future use
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const rafRef = useRef<number | null>(null);
