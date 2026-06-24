@@ -64,7 +64,7 @@ const AdvertorialPage = () => {
 
         <div style={{ maxWidth: 680, margin: "0 auto" }}>
           {/* Logo */}
-          <div style={{ padding: "16px 20px 0", display: "flex", alignItems: "center" }}>
+          <div style={{ padding: "22px 20px 0", display: "flex", alignItems: "center" }}>
             <Link to="/en">
               <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} />
             </Link>
@@ -74,7 +74,7 @@ const AdvertorialPage = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              padding: "16px 20px",
+              padding: "20px 20px",
               gap: 8,
             }}
           >
@@ -143,7 +143,7 @@ const AdvertorialPage = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              padding: "12px 20px",
+              padding: "18px 20px",
               borderBottom: "1px solid #E8E4DC",
               gap: 10,
             }}
@@ -221,7 +221,7 @@ const AdvertorialPage = () => {
           </div>
 
           {/* 4. Hero image */}
-          <div style={{ padding: "14px 20px 0" }}>
+          <div style={{ padding: "24px 20px 8px" }}>
             <img
               src={beforeAfterImg}
               alt="Comparison: glasses too small vs perfect fit on a wide face"

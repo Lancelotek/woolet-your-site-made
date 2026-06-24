@@ -91,7 +91,7 @@ const KickstarterVipConfirmed = () => {
       </Helmet>
 
       <header className="border-b border-[#1a1612]">
-        <div className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-5 py-5 flex items-center justify-between">
           <Link to="/en" className="flex items-center gap-2">
             <img src={logo} alt="Woolet" className="h-6 w-auto" />
           </Link>
@@ -101,7 +101,7 @@ const KickstarterVipConfirmed = () => {
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-5 py-12 sm:py-20">
+      <main className="max-w-2xl mx-auto px-5 lp-section">
         {/* Success */}
         <div className="flex flex-col items-center text-center">
           <div className="w-12 h-12 rounded-full border border-primary/50 flex items-center justify-center text-primary text-lg mb-6">
