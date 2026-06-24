@@ -118,7 +118,7 @@ const ListiclePage = () => {
           <div
             style={{
               background: "linear-gradient(180deg, #1A1000 0%, #080807 100%)",
-              padding: "20px 20px 0",
+              padding: "28px 20px 4px",
             }}
           >
             {/* Stars */}
