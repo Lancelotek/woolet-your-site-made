@@ -24,6 +24,7 @@ import {
   type BespokeProfile,
 } from "@/lib/bespoke-profile";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const GOLD = "#CAA449";
 const INK = "#0f0f0f";
@@ -38,6 +39,8 @@ interface CaptureData {
   left?: ProfileFrame;
   right?: ProfileFrame;
 }
+
+type FramePaths = Partial<Record<Pose, string>>;
 
 const POSE_ORDER: Pose[] = ["front", "left", "right"];
 
@@ -56,30 +59,58 @@ const POSE_COPY: Record<Pose, { title: string; body: string }> = {
   },
 };
 
+// Upload a JPEG dataURL to the `bespoke-scans` bucket under
+// "<uid|anon>/<scanId>/<pose>.jpg" and return the storage path.
+async function uploadFrame(
+  dataUrl: string,
+  scanId: string,
+  pose: Pose,
+  userId: string | null,
+): Promise<string | null> {
+  try {
+    const folder = userId ?? "anon";
+    const path = `${folder}/${scanId}/${pose}.jpg`;
+    const blob = await (await fetch(dataUrl)).blob();
+    const { error: upErr } = await supabase.storage
+      .from("bespoke-scans")
+      .upload(path, blob, { contentType: "image/jpeg", upsert: true });
+    if (upErr) {
+      console.warn("[bespoke-scan] upload failed", upErr);
+      return null;
+    }
+    return path;
+  } catch (e) {
+    console.warn("[bespoke-scan] upload threw", e);
+    return null;
+  }
+}
+
 export default function BespokeScan() {
   const params = useParams();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const lang: Lang = params.lang && isValidLang(params.lang) ? params.lang : "en";
 
+  // Stable per-session scan id — used as the Storage folder.
+  const scanIdRef = useRef<string>(
+    (globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)) as string,
+  );
+
   const [step, setStep] = useState<Step>("intro");
   const [poseIdx, setPoseIdx] = useState(0);
   const [captures, setCaptures] = useState<CaptureData>({});
+  const [framePaths, setFramePaths] = useState<FramePaths>({});
+  const [retakePose, setRetakePose] = useState<Pose | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [profile, setProfile] = useState<BespokeProfile | null>(null);
   const [saving, setSaving] = useState(false);
 
-  const pose = POSE_ORDER[poseIdx];
+  const pose = retakePose ?? POSE_ORDER[poseIdx];
 
-  const onCaptureDone = useCallback((frame: FrontFrame | ProfileFrame) => {
-    setCaptures((prev) => ({ ...prev, [frame.pose]: frame } as CaptureData));
-    setError(null);
-    if (poseIdx < POSE_ORDER.length - 1) {
-      setPoseIdx((i) => i + 1);
-    } else {
-      // All 3 captured — fuse + persist
-      const all = { ...captures, [frame.pose]: frame } as CaptureData;
+  // Refuse + persist once all 3 captures are present.
+  const finalize = useCallback(
+    async (all: CaptureData, paths: FramePaths) => {
       if (!all.front) {
         setError("Front capture missing — please restart.");
         return;
@@ -88,14 +119,52 @@ export default function BespokeScan() {
         const fused = fuseBespokeProfile(all.front, all.left, all.right);
         setProfile(fused);
         setStep("result");
-        void persist(fused);
+        pushGtmEvent("bespoke_scan_completed", {
+          confidence: Math.round(fused.confidence.overall * 100),
+          face_width_mm: Number(fused.faceWidthMm.toFixed(1)),
+          warnings: fused.warnings.length,
+        });
+        await persist(fused, paths);
       } catch (e) {
         setError(e instanceof Error ? e.message : "fusion_failed");
       }
-    }
-  }, [captures, poseIdx]);
+    },
+    // persist captured below uses scanIdRef + captures, but is invoked only after
+    // we've collected all 3 — pass `paths` explicitly to avoid stale closures.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
-  const persist = async (fused: BespokeProfile) => {
+  const onCaptureDone = useCallback(
+    async (frame: FrontFrame | ProfileFrame, framePath: string | null) => {
+      const nextCaptures = { ...captures, [frame.pose]: frame } as CaptureData;
+      const nextPaths: FramePaths = { ...framePaths };
+      if (framePath) nextPaths[frame.pose] = framePath;
+      setCaptures(nextCaptures);
+      setFramePaths(nextPaths);
+      setError(null);
+      pushGtmEvent("bespoke_scan_pose_captured", {
+        pose: frame.pose,
+        retake: retakePose ? "true" : "false",
+      });
+
+      // Retake path: jump straight back to results and re-fuse.
+      if (retakePose) {
+        setRetakePose(null);
+        await finalize(nextCaptures, nextPaths);
+        return;
+      }
+
+      if (poseIdx < POSE_ORDER.length - 1) {
+        setPoseIdx((i) => i + 1);
+      } else {
+        await finalize(nextCaptures, nextPaths);
+      }
+    },
+    [captures, framePaths, poseIdx, retakePose, finalize],
+  );
+
+  const persist = async (fused: BespokeProfile, paths: FramePaths) => {
     setSaving(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -111,7 +180,11 @@ export default function BespokeScan() {
         asymmetry_mm: fused.asymmetryMm,
         pd_mm: fused.pdMm,
         confidence: fused.confidence,
-        raw_frames: {}, // PR 3 will upload to Storage
+        raw_frames: {
+          scan_id: scanIdRef.current,
+          bucket: "bespoke-scans",
+          paths,
+        },
         capture_method: "web_card_3pose",
         status: "completed",
       });
@@ -124,11 +197,22 @@ export default function BespokeScan() {
   };
 
   const restart = () => {
+    scanIdRef.current = (globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)) as string;
     setStep("intro");
     setPoseIdx(0);
     setCaptures({});
+    setFramePaths({});
+    setRetakePose(null);
     setProfile(null);
     setError(null);
+    pushGtmEvent("bespoke_scan_restart");
+  };
+
+  const retake = (p: Pose) => {
+    setRetakePose(p);
+    setError(null);
+    setStep("capture");
+    pushGtmEvent("bespoke_scan_retake_pose", { pose: p });
   };
 
   if (!isMobile) {
@@ -159,16 +243,21 @@ export default function BespokeScan() {
 
         {step === "intro" && (
           <IntroStep
-            onStart={() => setStep("capture")}
+            onStart={() => {
+              setStep("capture");
+              pushGtmEvent("bespoke_scan_start");
+            }}
           />
         )}
 
         {step === "capture" && (
           <CaptureStep
-            key={pose}
+            key={`${pose}-${retakePose ? "retake" : poseIdx}`}
             pose={pose}
-            stepIndex={poseIdx}
+            stepIndex={retakePose ? POSE_ORDER.indexOf(retakePose) : poseIdx}
             total={POSE_ORDER.length}
+            isRetake={retakePose !== null}
+            scanId={scanIdRef.current}
             busy={busy}
             setBusy={setBusy}
             error={error}
@@ -182,6 +271,7 @@ export default function BespokeScan() {
             profile={profile}
             saving={saving}
             onRestart={restart}
+            onRetake={retake}
             onContinue={() => navigate(`/${lang}/bespoke/configurator`)}
           />
         )}
@@ -240,14 +330,16 @@ interface CaptureStepProps {
   pose: Pose;
   stepIndex: number;
   total: number;
+  isRetake: boolean;
+  scanId: string;
   busy: boolean;
   setBusy: (b: boolean) => void;
   error: string | null;
   setError: (e: string | null) => void;
-  onDone: (frame: FrontFrame | ProfileFrame) => void;
+  onDone: (frame: FrontFrame | ProfileFrame, framePath: string | null) => void | Promise<void>;
 }
 
-function CaptureStep({ pose, stepIndex, total, busy, setBusy, error, setError, onDone }: CaptureStepProps) {
+function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, error, setError, onDone }: CaptureStepProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -364,6 +456,11 @@ function CaptureStep({ pose, stepIndex, total, busy, setBusy, error, setError, o
       ctx.drawImage(v, 0, 0);
       const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
 
+      // Kick off frame upload in parallel with model detection — both await
+      // before onDone so the persisted record always references the blob.
+      const { data: userData } = await supabase.auth.getUser();
+      const uploadPromise = uploadFrame(dataUrl, scanId, pose, userData?.user?.id ?? null);
+
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-scan-detect", {
         body: { image: dataUrl, width: canvas.width, height: canvas.height, pose },
       });
@@ -375,14 +472,15 @@ function CaptureStep({ pose, stepIndex, total, busy, setBusy, error, setError, o
         setBusy(false);
         return;
       }
-      onDone(data as FrontFrame | ProfileFrame);
+      const framePath = await uploadPromise;
+      await onDone(data as FrontFrame | ProfileFrame, framePath);
     } catch (e) {
       console.warn("[bespoke-scan] capture failed", e);
       setError(e instanceof Error ? e.message : "Capture failed — try again.");
     } finally {
       setBusy(false);
     }
-  }, [busy, onDone, pose, setBusy, setError]);
+  }, [busy, onDone, pose, scanId, setBusy, setError]);
 
   const startTimer = useCallback(() => {
     if (busy || countdown !== null) return;
@@ -529,25 +627,31 @@ function ResultStep({
   profile,
   saving,
   onRestart,
+  onRetake,
   onContinue,
 }: {
   profile: BespokeProfile;
   saving: boolean;
   onRestart: () => void;
+  onRetake: (p: Pose) => void;
   onContinue: () => void;
 }) {
-  const rows: Array<{ label: string; value: string }> = useMemo(() => [
-    { label: "Face width", value: `${profile.faceWidthMm.toFixed(1)} mm` },
-    { label: "Nose bridge width", value: `${profile.noseBridgeWidthMm.toFixed(1)} mm` },
-    { label: "Nose bridge height", value: `${profile.noseBridgeHeightMm.toFixed(1)} mm` },
-    { label: "Temple length (L)", value: `${profile.templeLengthLeftMm.toFixed(1)} mm` },
-    { label: "Temple length (R)", value: `${profile.templeLengthRightMm.toFixed(1)} mm` },
-    { label: "Pantoscopic angle", value: `${profile.pantoscopicAngleDeg.toFixed(1)}°` },
-    { label: "Asymmetry (L vs R)", value: `${profile.asymmetryMm.toFixed(1)} mm` },
+  // Each metric is annotated with the pose whose frame most influences it,
+  // so the user can re-shoot just the weak photo instead of restarting.
+  const rows: Array<{ label: string; value: string; source: Pose; conf?: number }> = useMemo(() => [
+    { label: "Face width", value: `${profile.faceWidthMm.toFixed(1)} mm`, source: "front", conf: profile.confidence.faceWidth },
+    { label: "Nose bridge width", value: `${profile.noseBridgeWidthMm.toFixed(1)} mm`, source: "front", conf: profile.confidence.noseBridge },
+    { label: "Nose bridge height", value: `${profile.noseBridgeHeightMm.toFixed(1)} mm`, source: "left", conf: profile.confidence.noseBridge },
+    { label: "Temple length (L)", value: `${profile.templeLengthLeftMm.toFixed(1)} mm`, source: "left", conf: profile.confidence.temple },
+    { label: "Temple length (R)", value: `${profile.templeLengthRightMm.toFixed(1)} mm`, source: "right", conf: profile.confidence.temple },
+    { label: "Pantoscopic angle", value: `${profile.pantoscopicAngleDeg.toFixed(1)}°`, source: "left" },
+    { label: "Asymmetry (L vs R)", value: `${profile.asymmetryMm.toFixed(1)} mm`, source: "front" },
   ], [profile]);
 
   const conf = Math.round(profile.confidence.overall * 100);
   const confColor = conf >= 75 ? "#4ade80" : conf >= 55 ? "#facc15" : "#ef4444";
+
+  const POSE_LABEL: Record<Pose, string> = { front: "Front", left: "Left 90°", right: "Right 90°" };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -561,19 +665,30 @@ function ResultStep({
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", border: "1px solid rgba(202,164,73,0.25)", borderRadius: 6, overflow: "hidden" }}>
-        {rows.map((r, i) => (
-          <div key={r.label} style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "12px 16px",
-            borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.06)",
-            background: i % 2 === 0 ? "rgba(202,164,73,0.03)" : "transparent",
-          }}>
-            <span style={{ fontSize: 13, color: MUTED }}>{r.label}</span>
-            <span style={{ fontSize: 14, color: PAPER, fontVariantNumeric: "tabular-nums", fontWeight: 500 }}>{r.value}</span>
-          </div>
-        ))}
+        {rows.map((r, i) => {
+          const pct = typeof r.conf === "number" ? Math.round(r.conf * 100) : null;
+          const low = pct !== null && pct < 60;
+          return (
+            <div key={r.label} style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "12px 16px",
+              borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.06)",
+              background: i % 2 === 0 ? "rgba(202,164,73,0.03)" : "transparent",
+            }}>
+              <span style={{ fontSize: 13, color: MUTED, display: "flex", flexDirection: "column", gap: 2 }}>
+                {r.label}
+                {pct !== null && (
+                  <span style={{ fontSize: 10.5, color: low ? "#ef4444" : "rgba(240,236,228,0.4)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                    {pct}% confidence
+                  </span>
+                )}
+              </span>
+              <span style={{ fontSize: 14, color: PAPER, fontVariantNumeric: "tabular-nums", fontWeight: 500 }}>{r.value}</span>
+            </div>
+          );
+        })}
       </div>
 
       <div style={{
@@ -596,6 +711,26 @@ function ResultStep({
           {profile.warnings.map((w) => (<li key={w}>{w.replace(/_/g, " ")}</li>))}
         </ul>
       )}
+
+      {/* Per-pose retake — cheaper than re-scanning all 3 frames */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "12px 14px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6 }}>
+        <span style={{ fontSize: 11, color: GOLD, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+          Retake a single photo
+        </span>
+        <div style={{ display: "flex", gap: 8 }}>
+          {POSE_ORDER.map((p) => (
+            <Button
+              key={p}
+              onClick={() => onRetake(p)}
+              variant="outline"
+              style={{ flex: 1, height: 38, fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", borderColor: "rgba(202,164,73,0.35)", background: "transparent", color: PAPER }}
+            >
+              {POSE_LABEL[p]}
+            </Button>
+          ))}
+        </div>
+      </div>
+
 
       <div style={{ display: "flex", gap: 12 }}>
         <Button
