@@ -619,21 +619,48 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
     }
   }, [busy, onDone, pose, setBusy, setError]);
 
-  const startTimer = useCallback(() => {
-    if (busy || countdown !== null) return;
+  // Hold-to-capture: user must keep the button pressed for the full 3s
+  // countdown AND maintain the correct pose. Releasing or losing the pose
+  // cancels — this guarantees a steady frame and dramatically improves
+  // landmark/card detection accuracy.
+  const intervalRef = useRef<number | null>(null);
+  const yawOkRef = useRef(yawOk);
+  useEffect(() => { yawOkRef.current = yawOk; }, [yawOk]);
+
+  const cancelHold = useCallback(() => {
+    if (intervalRef.current !== null) {
+      window.clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setCountdown(null);
+  }, []);
+
+  const startHold = useCallback(() => {
+    if (busy || intervalRef.current !== null) return;
+    if (!yawOkRef.current) return;
     setCountdown(3);
     let n = 3;
-    const id = window.setInterval(() => {
+    intervalRef.current = window.setInterval(() => {
+      // Abort mid-countdown if the user breaks the pose.
+      if (!yawOkRef.current) {
+        cancelHold();
+        return;
+      }
       n -= 1;
       if (n <= 0) {
-        window.clearInterval(id);
+        if (intervalRef.current !== null) {
+          window.clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
         setCountdown(null);
         void capture();
       } else {
         setCountdown(n);
       }
     }, 1000);
-  }, [busy, capture, countdown]);
+  }, [busy, capture, cancelHold]);
+
+  useEffect(() => () => cancelHold(), [cancelHold]);
 
   const yawColor = yawOk ? "#4ade80" : yawDeg === null ? "#facc15" : "#ef4444";
   const yawLabel = pose === "front"
