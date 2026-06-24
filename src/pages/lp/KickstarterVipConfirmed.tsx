@@ -95,7 +95,7 @@ const KickstarterVipConfirmed = () => {
           <Link to="/en" className="flex items-center gap-2">
             <img src={logo} alt="Woolet" className="h-6 w-auto" />
           </Link>
-          <span className="text-[10px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
+          <span className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
             VIP Confirmed
           </span>
         </div>
@@ -107,7 +107,7 @@ const KickstarterVipConfirmed = () => {
           <div className="w-12 h-12 rounded-full border border-primary/50 flex items-center justify-center text-primary text-lg mb-6">
             ✓
           </div>
-          <p className="text-primary uppercase tracking-[0.28em] text-[10px] mb-4">
+          <p className="text-primary uppercase tracking-[0.28em] text-[12px] mb-4">
             You're in{name ? `, ${name}` : ""}.
           </p>
           <h1 className="font-display text-woolet-white leading-[1.1] text-[2rem] sm:text-[2.75rem] mb-4">
@@ -123,7 +123,7 @@ const KickstarterVipConfirmed = () => {
           className="mt-12 border rounded-sm p-6 sm:p-8"
           style={{ borderColor: "hsl(var(--gold) / 0.25)", background: "hsl(var(--gold) / 0.04)" }}
         >
-          <p className="text-primary uppercase tracking-[0.24em] text-[10px] mb-3">Move up the list</p>
+          <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-3">Move up the list</p>
           <h2 className="font-display text-woolet-white text-2xl sm:text-3xl leading-tight mb-3">
             Refer 3 friends — lock a guaranteed Founders Edition Havana.
           </h2>
@@ -134,7 +134,7 @@ const KickstarterVipConfirmed = () => {
 
           {/* Progress */}
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[11px] uppercase tracking-[0.18em] text-[#B8B3A8]">Your referrals</span>
+            <span className="text-[12px] uppercase tracking-[0.18em] text-[#B8B3A8]">Your referrals</span>
             <span className="font-display text-woolet-white text-sm">
               <span className="text-primary">{referred}</span>
               <span className="text-[#8A857B]"> / {REFERRAL_GOAL}</span>
@@ -148,7 +148,7 @@ const KickstarterVipConfirmed = () => {
           </div>
 
           {/* Link + copy */}
-          <label className="text-[11px] uppercase tracking-[0.18em] text-[#B8B3A8] block mb-2">
+          <label className="text-[12px] uppercase tracking-[0.18em] text-[#B8B3A8] block mb-2">
             Your referral link
           </label>
           <div className="flex flex-col sm:flex-row gap-2 mb-5">
@@ -177,7 +177,7 @@ const KickstarterVipConfirmed = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushGtmEvent("vip_referral_share", { channel: s.key })}
-                className="flex items-center justify-center border border-[#2a241d] text-[#D8D4CC] hover:text-woolet-white hover:border-primary/60 font-body uppercase tracking-[0.18em] text-[11px] rounded-sm transition-colors"
+                className="flex items-center justify-center border border-[#2a241d] text-[#D8D4CC] hover:text-woolet-white hover:border-primary/60 font-body uppercase tracking-[0.18em] text-[12px] rounded-sm transition-colors"
                 style={{ minHeight: 48 }}
               >
                 {s.label}
@@ -188,7 +188,7 @@ const KickstarterVipConfirmed = () => {
 
         {/* What happens next */}
         <section className="mt-12">
-          <p className="text-primary uppercase tracking-[0.24em] text-[10px] mb-4">What happens next</p>
+          <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-4">What happens next</p>
           <ol className="flex flex-col divide-y divide-[#1a1612] border-y border-[#1a1612]">
             {[
               { t: "Confirmation email on its way", d: "Add hello@woolet.co to your contacts so we don't land in spam." },
@@ -208,7 +208,7 @@ const KickstarterVipConfirmed = () => {
       </main>
 
       <footer className="border-t border-[#1a1612] py-8 text-center">
-        <p className="text-[#8A857B] text-[11px]">
+        <p className="text-[#8A857B] text-[12px]">
           © {new Date().getFullYear()} Woolet · <Link to="/en/privacy-policy" className="hover:text-primary">Privacy</Link>
         </p>
       </footer>
