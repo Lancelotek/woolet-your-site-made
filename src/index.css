@@ -148,12 +148,12 @@
   }
   .woolet-eyebrow-text {
     @apply text-primary uppercase tracking-[0.28em];
-    font-size: 0.57rem;
+    font-size: 0.72rem;
   }
 
   .woolet-section-num {
     @apply text-primary uppercase tracking-[0.28em];
-    font-size: 0.52rem;
+    font-size: 0.68rem;
   }
 
   .woolet-divider {
