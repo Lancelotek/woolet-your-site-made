@@ -28,8 +28,8 @@ interface StepProps {
 }
 
 const sectionTitle = "font-display text-cream text-2xl sm:text-3xl font-light";
-const sectionKicker = "uppercase tracking-[0.22em] text-[0.62rem] text-gold-light/80 mb-2";
-const labelClass = "uppercase tracking-[0.18em] text-[0.62rem] text-cream-dim";
+const sectionKicker = "uppercase tracking-[0.22em] text-[0.78rem] text-gold-light/80 mb-2";
+const labelClass = "uppercase tracking-[0.18em] text-[0.78rem] text-cream-dim";
 
 const cardOuter = "rounded-[14px] border border-cream/10 bg-background/40 transition-all";
 const cardActive = "border-gold/60 bg-gold/[0.04] ring-1 ring-gold/30";
@@ -94,7 +94,7 @@ export function StepFrame({ config, update }: StepProps) {
               <div className="px-3 py-2.5 flex items-center justify-between gap-2">
                 <div className="min-w-0">
                   <div className="font-display text-cream text-base leading-tight truncate">{f.name}</div>
-                  <div className="text-[0.62rem] uppercase tracking-[0.18em] text-cream-dim mt-0.5">
+                  <div className="text-[0.78rem] uppercase tracking-[0.18em] text-cream-dim mt-0.5">
                     {f.id} · {f.shape}
                   </div>
                 </div>
@@ -237,7 +237,7 @@ function ScanContactModal({
               className="mt-1.5 w-full px-4 py-2.5 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:ring-1 focus:border-gold focus:ring-gold/40"
             />
             {touched && !emailValid && (
-              <span className="text-[hsl(0_60%_60%)] text-[0.7rem] mt-1 block">Enter a valid email address.</span>
+              <span className="text-[hsl(0_60%_60%)] text-[0.78rem] mt-1 block">Enter a valid email address.</span>
             )}
           </label>
           <label className="block">
@@ -249,10 +249,10 @@ function ScanContactModal({
               placeholder="+48 600 000 000"
               className="mt-1.5 w-full px-4 py-2.5 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:ring-1 focus:border-gold focus:ring-gold/40"
             />
-            <span className="text-cream-dim text-[0.7rem] mt-1 block">For production updates and delivery coordination only.</span>
+            <span className="text-cream-dim text-[0.78rem] mt-1 block">For production updates and delivery coordination only.</span>
           </label>
         </div>
-        <p className="text-cream-dim text-[0.7rem] mb-5 leading-relaxed">
+        <p className="text-cream-dim text-[0.78rem] mb-5 leading-relaxed">
           By proceeding you consent to processing of biometric data under GDPR Art. 9(2)(a). Facial landmarks are stored encrypted in the EU and auto-deleted within 30 days. You can withdraw consent at any time.
         </p>
         {error && (
@@ -468,13 +468,13 @@ export function StepMeasure({ config, update }: StepProps) {
           <div className="flex gap-3 flex-wrap pt-1">
             <button
               onClick={() => launchScan()}
-              className="px-4 py-2 rounded-full border border-gold/50 text-gold-light text-[0.7rem] uppercase tracking-[0.18em] hover:bg-gold/10 transition"
+              className="px-4 py-2 rounded-full border border-gold/50 text-gold-light text-[0.78rem] uppercase tracking-[0.18em] hover:bg-gold/10 transition"
             >
               Re-open scan on this device
             </button>
             <button
               onClick={() => update("measurementMethod", "tape")}
-              className="px-4 py-2 rounded-full border border-cream/15 text-cream-dim text-[0.7rem] uppercase tracking-[0.18em] hover:border-cream/30 transition"
+              className="px-4 py-2 rounded-full border border-cream/15 text-cream-dim text-[0.78rem] uppercase tracking-[0.18em] hover:border-cream/30 transition"
             >
               Switch to tape measure
             </button>
@@ -498,7 +498,7 @@ export function StepMeasure({ config, update }: StepProps) {
             </div>
             <button
               onClick={() => update("scanMeasurementsUnlocked", !config.scanMeasurementsUnlocked)}
-              className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-cream/20 text-cream-dim text-[0.65rem] uppercase tracking-[0.16em] hover:text-cream hover:border-cream/40 transition"
+              className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-cream/20 text-cream-dim text-[0.78rem] uppercase tracking-[0.16em] hover:text-cream hover:border-cream/40 transition"
             >
               {config.scanMeasurementsUnlocked ? <Unlock size={11} /> : <Lock size={11} />}
               {config.scanMeasurementsUnlocked ? "Lock values" : "Unlock to edit"}
@@ -515,7 +515,7 @@ export function StepMeasure({ config, update }: StepProps) {
                   <span className="text-cream text-xs flex items-center gap-1.5">
                     {range.label}
                     {fromScan && (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-gold/15 text-gold-light text-[0.55rem] uppercase tracking-[0.14em]">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-gold/15 text-gold-light text-[0.78rem] uppercase tracking-[0.14em]">
                         <Check size={9} /> scan
                       </span>
                     )}
@@ -541,7 +541,7 @@ export function StepMeasure({ config, update }: StepProps) {
                     </span>
                   </div>
                   {bad && !scanLocked && (
-                    <span className="text-[hsl(0_60%_60%)] text-[0.7rem] mt-1 block">
+                    <span className="text-[hsl(0_60%_60%)] text-[0.78rem] mt-1 block">
                       Outside plausible range ({range.min}–{range.max} mm). Please re-measure.
                     </span>
                   )}
@@ -557,11 +557,11 @@ export function StepMeasure({ config, update }: StepProps) {
                 update("scanMeasurementsUnlocked", false);
                 launchScan();
               }}
-              className="px-4 py-2 rounded-full border border-cream/20 text-cream-dim text-[0.7rem] uppercase tracking-[0.18em] hover:border-cream/40 hover:text-cream transition"
+              className="px-4 py-2 rounded-full border border-cream/20 text-cream-dim text-[0.78rem] uppercase tracking-[0.18em] hover:border-cream/40 hover:text-cream transition"
             >
               Re-scan
             </button>
-            <p className="text-cream-dim text-[0.7rem] self-center">
+            <p className="text-cream-dim text-[0.78rem] self-center">
               Our optician verifies every value before production begins.
             </p>
           </div>
@@ -597,7 +597,7 @@ export function StepMeasure({ config, update }: StepProps) {
                   )}
                 </div>
                 {importedFrom && (
-                  <div className="text-gold-light text-[0.7rem] mt-1.5 inline-flex items-center gap-1">
+                  <div className="text-gold-light text-[0.78rem] mt-1.5 inline-flex items-center gap-1">
                     <Check size={10} /> Imported from your {importedFrom === "scan" ? "scan" : "quiz"} — edit any value below.
                   </div>
                 )}
@@ -607,7 +607,7 @@ export function StepMeasure({ config, update }: StepProps) {
                   <button
                     type="button"
                     onClick={importFromScan}
-                    className="px-3.5 py-2 rounded-full bg-gold text-background text-[0.68rem] uppercase tracking-[0.16em] font-medium hover:bg-gold-light transition"
+                    className="px-3.5 py-2 rounded-full bg-gold text-background text-[0.78rem] uppercase tracking-[0.16em] font-medium hover:bg-gold-light transition"
                   >
                     Use scan values
                   </button>
@@ -616,7 +616,7 @@ export function StepMeasure({ config, update }: StepProps) {
                   <button
                     type="button"
                     onClick={importFromQuiz}
-                    className="px-3.5 py-2 rounded-full border border-gold/50 text-gold-light text-[0.68rem] uppercase tracking-[0.16em] hover:bg-gold/10 transition"
+                    className="px-3.5 py-2 rounded-full border border-gold/50 text-gold-light text-[0.78rem] uppercase tracking-[0.16em] hover:bg-gold/10 transition"
                   >
                     Use quiz estimate
                   </button>
@@ -647,7 +647,7 @@ export function StepMeasure({ config, update }: StepProps) {
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-cream-dim text-xs">mm</span>
                   </div>
                   {bad && (
-                    <span className="text-[hsl(0_60%_60%)] text-[0.7rem] mt-1 block">
+                    <span className="text-[hsl(0_60%_60%)] text-[0.78rem] mt-1 block">
                       Outside plausible range ({range.min}–{range.max} mm). Please re-measure.
                     </span>
                   )}
@@ -655,7 +655,7 @@ export function StepMeasure({ config, update }: StepProps) {
               );
             })}
           </div>
-          <p className="text-cream-dim text-[0.7rem] mt-4">
+          <p className="text-cream-dim text-[0.78rem] mt-4">
             All values stored as <code className="text-cream">needs_verification</code> until reviewed by our optician.
           </p>
         </div>
@@ -759,12 +759,12 @@ function EngravingPreview({
       <div className="flex items-baseline justify-between mb-3 gap-3">
         <div className={labelClass}>Live preview · drag to position</div>
         <div className="flex items-center gap-2">
-          {position && <div className="text-cream-dim text-[0.62rem] uppercase tracking-[0.16em]">{position}</div>}
+          {position && <div className="text-cream-dim text-[0.78rem] uppercase tracking-[0.16em]">{position}</div>}
           {(offset.x !== 0 || offset.y !== 0) && (
             <button
               type="button"
               onClick={() => onOffsetChange({ x: 0, y: 0 })}
-              className="text-gold-light/90 hover:text-gold-light text-[0.62rem] uppercase tracking-[0.16em] underline-offset-4 hover:underline"
+              className="text-gold-light/90 hover:text-gold-light text-[0.78rem] uppercase tracking-[0.16em] underline-offset-4 hover:underline"
             >
               Reset
             </button>
@@ -824,7 +824,7 @@ function EngravingPreview({
           </g>
         </svg>
       </div>
-      <p className="text-cream-dim/70 text-[0.66rem] mt-2 text-center">
+      <p className="text-cream-dim/70 text-[0.78rem] mt-2 text-center">
         Indicative · final depth and kerning set by the laser operator.
       </p>
     </div>
@@ -890,7 +890,7 @@ export function StepEngraving({ config, update }: StepProps) {
               placeholder="Your initials, a date, a word…"
               className="mt-2 w-full px-4 py-3 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
             />
-            <div className="text-cream-dim text-[0.7rem] mt-1.5">{remaining} characters left</div>
+            <div className="text-cream-dim text-[0.78rem] mt-1.5">{remaining} characters left</div>
           </div>
 
           <div>
@@ -1009,7 +1009,7 @@ export function StepLenses({ config, update }: StepProps) {
               })}
             </div>
             {!config.lensMaterialId && (
-              <p className="text-cream-dim/70 text-[0.68rem] mt-2">Pick a material to unlock coatings.</p>
+              <p className="text-cream-dim/70 text-[0.78rem] mt-2">Pick a material to unlock coatings.</p>
             )}
           </div>
 
@@ -1056,7 +1056,7 @@ export function StepLenses({ config, update }: StepProps) {
             />
           </label>
           {config.lensTypeId === "progressive" && (
-            <p className="text-[0.7rem] text-gold-light/90 mt-3">
+            <p className="text-[0.78rem] text-gold-light/90 mt-3">
               Progressive lenses are flagged for an additional optician review before production.
             </p>
           )}
@@ -1170,7 +1170,7 @@ export function StepNav({
       >
         <ChevronLeft size={14} /> Back
       </button>
-      <div className="text-cream-dim text-[0.68rem] uppercase tracking-[0.2em]">
+      <div className="text-cream-dim text-[0.78rem] uppercase tracking-[0.2em]">
         {step} / {total}
       </div>
       {!isLast && (

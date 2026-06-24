@@ -32,7 +32,7 @@ const EARLY_BIRD_TOTAL = 300;
 const EARLY_BIRD_LEFT = 247;
 
 const inputStyle: React.CSSProperties = {
-  fontSize: "0.95rem",
+  fontSize: "11.95rem",
   backgroundColor: "rgba(255,255,255,0.06)",
   color: "#f0ece4",
   border: "1px solid rgba(216,212,204,0.35)",
@@ -402,7 +402,7 @@ const KickstarterPrelaunch = () => {
               ].map((t) => (
                 <div key={t.a} className="border-l-2 border-primary/40 pl-3">
                   <p className="text-woolet-white italic leading-relaxed" style={{ fontSize: "13px" }}>"{t.q}"</p>
-                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "10px", color: "#A8A39A" }}>{t.a}</p>
+                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "12px", color: "#A8A39A" }}>{t.a}</p>
                 </div>
               ))}
             </div>

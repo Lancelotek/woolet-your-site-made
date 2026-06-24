@@ -78,7 +78,7 @@ export default function Payments() {
             </div>
 
 
-            <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
+            <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
               <span>256-bit SSL</span>
               <span>·</span>
               <span>PCI-DSS Stripe</span>
@@ -96,7 +96,7 @@ export default function Payments() {
           </div>
         </main>
 
-        <footer style={{ padding: "20px 16px", borderTop: "1px solid rgba(15,15,15,0.06)", textAlign: "center", fontFamily: "'Barlow', sans-serif", fontSize: 10, color: "rgba(15,15,15,0.45)" }}>
+        <footer style={{ padding: "20px 16px", borderTop: "1px solid rgba(15,15,15,0.06)", textAlign: "center", fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "rgba(15,15,15,0.45)" }}>
           © 2024 JAY23 LLC — Woolet.co — Eyewear for Wide Faces
         </footer>
       </div>

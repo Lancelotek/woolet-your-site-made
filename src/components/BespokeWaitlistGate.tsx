@@ -69,7 +69,7 @@ const BespokeWaitlistGate = () => {
 
       {/* Card */}
       <div className="relative w-full max-w-md rounded-[18px] border border-cream/15 bg-background/95 p-7 sm:p-9 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-gold/40 bg-gold/10 text-gold-light text-[0.6rem] uppercase tracking-[0.22em] mb-5">
+        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-gold/40 bg-gold/10 text-gold-light text-[0.78rem] uppercase tracking-[0.22em] mb-5">
           <Lock size={11} />
           Private preview
         </div>
@@ -93,7 +93,7 @@ const BespokeWaitlistGate = () => {
                   We've added <span className="text-cream break-all">{email.trim()}</span> to the waitlist.
                   Look out for an email from <span className="text-cream">hello@woolet.co</span> with your early-access invite — usually within 48 hours.
                 </div>
-                <div className="text-cream-dim/70 text-[0.65rem] uppercase tracking-[0.18em] mt-3">
+                <div className="text-cream-dim/70 text-[0.78rem] uppercase tracking-[0.18em] mt-3">
                   Tip: check Promotions / Spam just in case.
                 </div>
               </div>
@@ -129,7 +129,7 @@ const BespokeWaitlistGate = () => {
                 }`}
               />
               {showEmailError && (
-                <p id="bespoke-gate-email-error" role="alert" className="mt-2 text-[0.7rem] text-red-300">
+                <p id="bespoke-gate-email-error" role="alert" className="mt-2 text-[0.78rem] text-red-300">
                   {emailError}
                 </p>
               )}
@@ -155,7 +155,7 @@ const BespokeWaitlistGate = () => {
                 </span>
               </label>
               {showConsentError && (
-                <p role="alert" className="mt-2 text-[0.7rem] text-red-300">
+                <p role="alert" className="mt-2 text-[0.78rem] text-red-300">
                   Please accept the Privacy Policy to continue.
                 </p>
               )}
@@ -180,7 +180,7 @@ const BespokeWaitlistGate = () => {
               )}
             </button>
 
-            <p className="text-[0.62rem] uppercase tracking-[0.18em] text-cream-dim/70 text-center">
+            <p className="text-[0.78rem] uppercase tracking-[0.18em] text-cream-dim/70 text-center">
               No spam. Unsubscribe anytime.
             </p>
           </form>

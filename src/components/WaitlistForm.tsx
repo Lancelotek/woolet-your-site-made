@@ -7,7 +7,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { rdtLead } from "@/lib/reddit-pixel";
 
 const inputStyle: React.CSSProperties = {
-  fontSize: "0.82rem",
+  fontSize: "11.82rem",
   backgroundColor: "transparent",
   color: "#f0ece4",
   borderTop: "none",
@@ -18,7 +18,7 @@ const inputStyle: React.CSSProperties = {
 };
 
 const labelStyle: React.CSSProperties = {
-  fontSize: "10px",
+  fontSize: "12px",
   letterSpacing: "0.15em",
   color: "#7a7570",
   textTransform: "uppercase" as const,
@@ -141,7 +141,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           ), text: "Hand-crafted in EU" },
           { icon: <Package size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Free Shipping" },
         ].map((item, i) => (
-          <span key={i} style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#9A8E7E", display: "flex", alignItems: "center", gap: 4 }}>
+          <span key={i} style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#9A8E7E", display: "flex", alignItems: "center", gap: 4 }}>
             {item.icon} <span>{item.text}</span>
           </span>
         ))}
@@ -149,8 +149,8 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
       {/* Desktop progress */}
       <div className="hidden md:flex flex-col gap-2">
         <div className="flex justify-between items-center">
-          <span style={{ ...labelStyle, fontSize: "0.56rem", letterSpacing: "0.24em" }}>Waitlist</span>
-          <span className="text-primary tracking-wider" style={{ fontSize: "0.58rem" }}>
+          <span style={{ ...labelStyle, fontSize: "11.56rem", letterSpacing: "0.24em" }}>Waitlist</span>
+          <span className="text-primary tracking-wider" style={{ fontSize: "11.58rem" }}>
             {count} / 100 spots
           </span>
         </div>
@@ -243,7 +243,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           </div>
 
           {/* Privacy policy checkbox */}
-          <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1" style={{ fontSize: "0.68rem" }}>
+          <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1" style={{ fontSize: "11.68rem" }}>
             <input
               type="checkbox"
               checked={privacyAccepted}
@@ -273,7 +273,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           </label>
 
           {error && (
-            <p className="text-center" style={{ fontSize: "0.68rem", color: "#e25555" }}>
+            <p className="text-center" style={{ fontSize: "11.68rem", color: "#e25555" }}>
               {error}
             </p>
           )}
@@ -284,7 +284,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             className="relative overflow-hidden bg-primary text-primary-foreground border-none font-body w-full transition-all hover:bg-gold-light active:scale-[0.99] group disabled:opacity-60 flex flex-col items-center justify-center"
             style={{ minHeight: "56px", padding: "12px 24px" }}
           >
-            <span className="relative z-10 font-semibold uppercase tracking-[0.28em]" style={{ fontSize: "0.72rem" }}>
+            <span className="relative z-10 font-semibold uppercase tracking-[0.28em]" style={{ fontSize: "11.72rem" }}>
               {loading ? "Sending..." : "Claim My Spot — 40% Off + Free Shipping"}
             </span>
            <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
@@ -294,31 +294,31 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, paddingTop: 6, flexWrap: "wrap" }}>
             <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570", textDecoration: "line-through" }}>$190</span>
             <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 14, color: "#C8A968" }}>$114 USD</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 10, color: "#9A8E7E", letterSpacing: "0.08em", textTransform: "uppercase" }}>pre-order · save 40%</span>
+            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 12, color: "#9A8E7E", letterSpacing: "0.08em", textTransform: "uppercase" }}>pre-order · save 40%</span>
           </div>
 
           {/* Social proof */}
           <div ref={socialProofRef} style={{ textAlign: "center", paddingTop: 8 }}>
-            <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#7A7570", margin: 0 }}>
+            <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570", margin: 0 }}>
               <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, color: "#CAA449" }}>4,900+</span> people on the waitlist
             </p>
           </div>
 
           {/* Urgency micro-copy for BoF/retarget */}
           {(utmCampaign.includes('bof') || utmCampaign.includes('retarget')) && (
-            <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#A07A2A", textAlign: "center", marginTop: 6 }}>
+            <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#A07A2A", textAlign: "center", marginTop: 6 }}>
               Founding Member: $114 instead of $190 — waitlist exclusive
             </p>
           )}
 
-          <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5" style={{ fontSize: "0.57rem" }}>
+          <p className="text-cream-dim opacity-55 tracking-wider text-center mt-0.5" style={{ fontSize: "11.57rem" }}>
             No credit card. No spam. Unsubscribe anytime.
           </p>
           {fitLink && (
             <a
               href={fitLink}
               onClick={(e) => { e.preventDefault(); window.location.href = fitLink; }}
-              className="block text-center w-full mt-3 py-2.5 px-5 rounded-md text-[13px] tracking-[0.04em] transition-colors duration-150 cursor-pointer"
+              className="block text-center w-full mt-3 py-2.5 px-5 rounded-md text-[12px] tracking-[0.04em] transition-colors duration-150 cursor-pointer"
               style={{
                 border: "0.5px solid rgba(184,151,90,0.5)",
                 color: "rgba(212,176,122,0.85)",
@@ -334,17 +334,17 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         </form>
       ) : (
         <div className="flex flex-col gap-3 p-6 border animate-fade-in" style={{ background: "hsl(var(--gold) / 0.06)", borderColor: "hsl(var(--gold) / 0.2)" }}>
-          <div className="w-7 h-7 border border-primary rounded-full flex items-center justify-center text-primary" style={{ fontSize: "0.8rem" }}>✓</div>
-          <div className="font-display text-woolet-white" style={{ fontSize: "1.15rem" }}>You're on the list — benefits locked in.</div>
-          <div className="text-cream-dim leading-relaxed" style={{ fontSize: "0.74rem" }}>Check your inbox for confirmation. Your exclusive benefits at launch:</div>
+          <div className="w-7 h-7 border border-primary rounded-full flex items-center justify-center text-primary" style={{ fontSize: "11.8rem" }}>✓</div>
+          <div className="font-display text-woolet-white" style={{ fontSize: "11.15rem" }}>You're on the list — benefits locked in.</div>
+          <div className="text-cream-dim leading-relaxed" style={{ fontSize: "11.74rem" }}>Check your inbox for confirmation. Your exclusive benefits at launch:</div>
           <div className="flex flex-col gap-1.5 mt-1">
             {[
               "40% off your first Woolet order — $114 instead of $190",
               "Free worldwide shipping — no minimum",
               "48h early access before the public launch",
             ].map((perk) => (
-              <div key={perk} className="flex items-center gap-2.5 text-cream-dim" style={{ fontSize: "0.68rem" }}>
-                <span className="text-primary flex-shrink-0" style={{ fontSize: "0.65rem" }}>✓</span>
+              <div key={perk} className="flex items-center gap-2.5 text-cream-dim" style={{ fontSize: "11.68rem" }}>
+                <span className="text-primary flex-shrink-0" style={{ fontSize: "11.65rem" }}>✓</span>
                 {perk}
               </div>
             ))}
@@ -365,7 +365,7 @@ const CheckboxLabel = ({
   onChange: (v: boolean) => void;
 }) => {
   return (
-    <label className="flex items-center gap-2 cursor-pointer text-cream-dim hover:text-foreground transition-colors" style={{ fontSize: "0.74rem" }}>
+    <label className="flex items-center gap-2 cursor-pointer text-cream-dim hover:text-foreground transition-colors" style={{ fontSize: "11.74rem" }}>
       <input type="checkbox" checked={checked} onChange={() => onChange(!checked)} className="hidden" />
       <div
         className="w-3.5 h-3.5 border flex items-center justify-center flex-shrink-0 transition-all"

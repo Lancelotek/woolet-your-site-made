@@ -319,7 +319,7 @@ export default function SocialProofToast() {
         </div>
         <div
           style={{
-            fontSize: 10,
+            fontSize: 12,
             color: "#6a6a6a",
             letterSpacing: "0.3px",
             marginTop: 3,

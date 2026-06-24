@@ -95,7 +95,7 @@ const SunglassesForBigHeads = () => {
 
         {/* Hero */}
         <header style={{ ...wrap, padding: "24px 20px 8px" }}>
-          <div style={{ display: "inline-block", fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", color: "#A07A2A", border: "1px solid #D9C9A8", padding: "4px 10px", borderRadius: 2, marginBottom: 14 }}>
+          <div style={{ display: "inline-block", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#A07A2A", border: "1px solid #D9C9A8", padding: "4px 10px", borderRadius: 2, marginBottom: 14 }}>
             158 mm + Bespoke
           </div>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 38, lineHeight: 1.1, margin: "0 0 14px" }}>
@@ -146,7 +146,7 @@ const SunglassesForBigHeads = () => {
               { id: "009", name: "Woolet 009 - Soft Square", href: "/en/products/009", alt: "Woolet 009 square sunglasses for big heads - 158 mm" },
             ].map((p) => (
               <Link key={p.id} to={p.href} aria-label={p.alt} style={{ display: "block", padding: "18px 16px", background: "#FFF", border: "1px solid #E0D5C5", borderRadius: 6, textDecoration: "none", color: "#111" }}>
-                <div style={{ fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", color: "#A07A2A", marginBottom: 6 }}>
+                <div style={{ fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#A07A2A", marginBottom: 6 }}>
                   Sun variant available
                 </div>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 20, marginBottom: 6 }}>{p.name}</div>
@@ -154,7 +154,7 @@ const SunglassesForBigHeads = () => {
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                   <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 17 }}>$114</span>
                   <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
-                  <span style={{ marginLeft: "auto", fontSize: 10, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+                  <span style={{ marginLeft: "auto", fontSize: 12, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>
                     Shop {p.id === "007" ? "Round" : "Square"} →
                   </span>
                 </div>
