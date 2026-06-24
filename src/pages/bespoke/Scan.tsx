@@ -330,14 +330,16 @@ interface CaptureStepProps {
   pose: Pose;
   stepIndex: number;
   total: number;
+  isRetake: boolean;
+  scanId: string;
   busy: boolean;
   setBusy: (b: boolean) => void;
   error: string | null;
   setError: (e: string | null) => void;
-  onDone: (frame: FrontFrame | ProfileFrame) => void;
+  onDone: (frame: FrontFrame | ProfileFrame, framePath: string | null) => void | Promise<void>;
 }
 
-function CaptureStep({ pose, stepIndex, total, busy, setBusy, error, setError, onDone }: CaptureStepProps) {
+function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, error, setError, onDone }: CaptureStepProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const rafRef = useRef<number | null>(null);
