@@ -63,6 +63,8 @@ const OversizedRoundGlasses = lazy(() => import("./pages/collections/OversizedRo
 const OversizedBlackGlasses = lazy(() => import("./pages/collections/OversizedBlackGlasses.tsx"));
 const ThickFrameGlasses = lazy(() => import("./pages/collections/ThickFrameGlasses.tsx"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe.tsx"));
+const DeHub = lazy(() => import("./pages/de/DeHub.tsx"));
+const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -214,6 +216,11 @@ const App = () => (
           <Route path="/:lang/account" element={<Account />} />
 
          <Route path="/unsubscribe" element={<Unsubscribe />} />
+
+         {/* DE market SEO landing pages */}
+         <Route path="/de" element={<DeHub />} />
+         <Route path="/de/:slug" element={<DeLandingRoute />} />
+
          <Route path="*" element={<NotFound />} />
         </Routes>
         </Suspense>
