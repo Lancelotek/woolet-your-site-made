@@ -3,9 +3,9 @@ import { QRCodeSVG } from "qrcode.react";
 import type { Lang } from "@/lib/i18n";
 import { tFit } from "@/lib/i18n-fitscan";
 import { clarityEvent } from "@/lib/clarity";
-import fitStep6 from "@/assets/fit-steps/step-6.png.asset.json";
-import fitStep7 from "@/assets/fit-steps/step-7.png.asset.json";
-import fitStep8 from "@/assets/fit-steps/step-8.png.asset.json";
+import fitStep6 from "@/assets/fit-steps/step-6.webp.asset.json";
+import fitStep7 from "@/assets/fit-steps/step-7.webp.asset.json";
+import fitStep8 from "@/assets/fit-steps/step-8.webp.asset.json";
 
 const FLOW_STEPS = [
   { src: fitStep6.url, title: "Tap Scan", desc: "Start FitLens from the Woolet product page with one tap." },
