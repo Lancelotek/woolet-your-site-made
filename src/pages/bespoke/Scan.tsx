@@ -627,21 +627,61 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
   const yawOkRef = useRef(yawOk);
   useEffect(() => { yawOkRef.current = yawOk; }, [yawOk]);
 
-  const cancelHold = useCallback(() => {
+  // Lightweight feedback: WebAudio beep + haptic vibration. No assets needed.
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const getAudioCtx = useCallback(() => {
+    if (typeof window === "undefined") return null;
+    const Ctor: typeof AudioContext | undefined =
+      window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!Ctor) return null;
+    if (!audioCtxRef.current) audioCtxRef.current = new Ctor();
+    if (audioCtxRef.current.state === "suspended") void audioCtxRef.current.resume();
+    return audioCtxRef.current;
+  }, []);
+  const beep = useCallback((freq: number, durMs: number, type: OscillatorType = "sine", gain = 0.12) => {
+    try {
+      const ctx = getAudioCtx();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      g.gain.value = 0;
+      g.gain.linearRampToValueAtTime(gain, ctx.currentTime + 0.01);
+      g.gain.linearRampToValueAtTime(0, ctx.currentTime + durMs / 1000);
+      osc.connect(g).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + durMs / 1000 + 0.02);
+    } catch { /* noop */ }
+  }, [getAudioCtx]);
+  const vibrate = useCallback((pattern: number | number[]) => {
+    try { navigator.vibrate?.(pattern); } catch { /* noop */ }
+  }, []);
+
+  const cancelHold = useCallback((opts: { silent?: boolean } = {}) => {
+    const wasRunning = intervalRef.current !== null;
     if (intervalRef.current !== null) {
       window.clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
     setCountdown(null);
-  }, []);
+    if (wasRunning && !opts.silent) {
+      // Descending two-tone "cancel" cue + short double buzz.
+      beep(420, 90, "sawtooth", 0.08);
+      window.setTimeout(() => beep(260, 140, "sawtooth", 0.08), 90);
+      vibrate([30, 40, 30]);
+    }
+  }, [beep, vibrate]);
 
   const startHold = useCallback(() => {
     if (busy || intervalRef.current !== null) return;
     if (!yawOkRef.current) return;
     setCountdown(3);
+    // Start cue: soft single beep + short tap.
+    beep(660, 110, "sine", 0.1);
+    vibrate(20);
     let n = 3;
     intervalRef.current = window.setInterval(() => {
-      // Abort mid-countdown if the user breaks the pose.
       if (!yawOkRef.current) {
         cancelHold();
         return;
@@ -653,14 +693,26 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
           intervalRef.current = null;
         }
         setCountdown(null);
+        // Success cue: bright two-tone "shutter" + firmer double buzz.
+        beep(880, 90, "sine", 0.12);
+        window.setTimeout(() => beep(1320, 140, "sine", 0.12), 90);
+        vibrate([40, 30, 60]);
         void capture();
       } else {
+        // Per-second tick.
+        beep(520, 60, "sine", 0.08);
+        vibrate(15);
         setCountdown(n);
       }
     }, 1000);
-  }, [busy, capture, cancelHold]);
+  }, [beep, busy, capture, cancelHold, vibrate]);
 
-  useEffect(() => () => cancelHold(), [cancelHold]);
+  useEffect(() => () => cancelHold({ silent: true }), [cancelHold]);
+
+  // Auto-cancel + cue when pose is lost while countdown is running.
+  useEffect(() => {
+    if (!yawOk && intervalRef.current !== null) cancelHold();
+  }, [yawOk, cancelHold]);
 
   const yawColor = yawOk ? "#4ade80" : yawDeg === null ? "#facc15" : "#ef4444";
   const yawLabel = pose === "front"
@@ -769,9 +821,9 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
 
       <Button
         onPointerDown={(e) => { e.preventDefault(); startHold(); }}
-        onPointerUp={cancelHold}
-        onPointerLeave={cancelHold}
-        onPointerCancel={cancelHold}
+        onPointerUp={() => cancelHold()}
+        onPointerLeave={() => cancelHold()}
+        onPointerCancel={() => cancelHold()}
         onContextMenu={(e) => e.preventDefault()}
         disabled={!ready || busy || !yawOk}
         style={{
