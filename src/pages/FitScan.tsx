@@ -819,6 +819,14 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
   const cardMissingSinceRef = useRef<number | null>(null);
   const [distanceState, setDistanceState] = useState<"unknown" | "ok" | "too_close" | "too_far">("unknown");
   const [poseState, setPoseState] = useState<"unknown" | "ok" | "off">("unknown");
+  // Lens guard: detects suspected wide-angle / ultra-wide front cameras using
+  // face aspect ratio. A real human face in pixel space has height/width ≈
+  // 1.35–1.7. Wide-angle distortion stretches width → ratio drops below ~1.25.
+  // Requires a sustained streak of low-ratio samples to flip to "wide" so we
+  // don't show a false warning on a single noisy landmark frame.
+  const [lensState, setLensState] = useState<"unknown" | "ok" | "wide">("unknown");
+  const lensWideStreakRef = useRef(0);
+  const lensOkStreakRef = useRef(0);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [tipsOpen, setTipsOpen] = useState(false);
   // Device-orientation level (mobile only). roll = side-to-side tilt in degrees.
