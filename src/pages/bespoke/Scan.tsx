@@ -243,16 +243,21 @@ export default function BespokeScan() {
 
         {step === "intro" && (
           <IntroStep
-            onStart={() => setStep("capture")}
+            onStart={() => {
+              setStep("capture");
+              pushGtmEvent("bespoke_scan_start");
+            }}
           />
         )}
 
         {step === "capture" && (
           <CaptureStep
-            key={pose}
+            key={`${pose}-${retakePose ? "retake" : poseIdx}`}
             pose={pose}
-            stepIndex={poseIdx}
+            stepIndex={retakePose ? POSE_ORDER.indexOf(retakePose) : poseIdx}
             total={POSE_ORDER.length}
+            isRetake={retakePose !== null}
+            scanId={scanIdRef.current}
             busy={busy}
             setBusy={setBusy}
             error={error}
@@ -266,6 +271,7 @@ export default function BespokeScan() {
             profile={profile}
             saving={saving}
             onRestart={restart}
+            onRetake={retake}
             onContinue={() => navigate(`/${lang}/bespoke/configurator`)}
           />
         )}
