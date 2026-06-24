@@ -1865,6 +1865,12 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                 {poseLabel}
               </span>
             )}
+            {showLensHint && (
+              <span className="scan-status-chip" style={{ borderColor: lensColor }}>
+                <span className="scan-status-dot" style={{ background: lensColor, boxShadow: `0 0 6px ${lensColor}` }} />
+                {lensLabel}
+              </span>
+            )}
             {levelState !== "unsupported" && levelState !== "needs-permission" && (
               <span className="scan-status-chip" style={{ borderColor: levelColor }}>
                 <span className="scan-status-dot" style={{ background: levelColor, boxShadow: `0 0 6px ${levelColor}` }} />
