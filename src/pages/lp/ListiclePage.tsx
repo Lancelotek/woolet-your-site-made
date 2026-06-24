@@ -147,7 +147,7 @@ const ListiclePage = () => {
               style={{
                 fontFamily: "'Barlow', sans-serif",
                 fontWeight: 300,
-                fontSize: 11,
+                fontSize: 12,
                 color: "#9A8E7E",
                 marginTop: 6,
                 marginBottom: 4,
@@ -246,15 +246,15 @@ const ListiclePage = () => {
                 />
                 <div style={{ paddingLeft: 10 }}>
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <span style={{ fontFamily: "monospace", fontSize: 11, fontWeight: 500, color: "#CAA449" }}>
+                    <span style={{ fontFamily: "monospace", fontSize: 12, fontWeight: 600, color: "#CAA449" }}>
                       {card.num}
                     </span>
                     <span
                       style={{
                         marginLeft: 8,
-                        fontSize: 11,
+                        fontSize: 12,
                         letterSpacing: "2px",
-                        color: "#7A7570",
+                        color: "#8A8580",
                         background: "#2A2520",
                         padding: "2px 6px",
                         borderRadius: 3,
@@ -280,8 +280,8 @@ const ListiclePage = () => {
                     style={{
                       fontFamily: "'Barlow', sans-serif",
                       fontWeight: 300,
-                      fontSize: 12,
-                      color: "#BBBBBB",
+                      fontSize: 13,
+                      color: "#C9C9C9",
                       lineHeight: 1.7,
                       margin: 0,
                     }}
@@ -313,8 +313,8 @@ const ListiclePage = () => {
                   style={{
                     fontFamily: "'Barlow', sans-serif",
                     fontWeight: 300,
-                    fontSize: 12,
-                    color: "#BBBBBB",
+                    fontSize: 13,
+                    color: "#C9C9C9",
                     lineHeight: 1.7,
                     margin: 0,
                     fontStyle: "italic",
@@ -326,9 +326,9 @@ const ListiclePage = () => {
                   style={{
                     fontFamily: "'Barlow', sans-serif",
                     fontWeight: 300,
-                    fontSize: 11,
+                    fontSize: 12,
                     letterSpacing: "2px",
-                    color: "#888",
+                    color: "#9A9A9A",
                     textTransform: "uppercase",
                     marginTop: 6,
                     marginBottom: 0,
@@ -365,7 +365,7 @@ const ListiclePage = () => {
                   style={{
                     fontFamily: "'Barlow', sans-serif",
                     fontWeight: 500,
-                    fontSize: 11,
+                    fontSize: 12,
                     color: "#080807",
                     letterSpacing: "2px",
                   }}
@@ -423,7 +423,7 @@ const ListiclePage = () => {
                       fontFamily: "'Barlow', sans-serif",
                       fontWeight: 300,
                       fontSize: 12,
-                      color: "rgba(8,8,7,0.65)",
+                      color: "rgba(8,8,7,0.82)",
                       marginBottom: 8,
                     }}
                   >
@@ -462,11 +462,11 @@ const ListiclePage = () => {
                       background: "#080807",
                       color: "#CAA449",
                       border: "none",
-                      padding: "13px 0",
+                      padding: "15px 0",
                       borderRadius: 5,
                       fontFamily: "'Barlow', sans-serif",
-                      fontWeight: 500,
-                      fontSize: 12,
+                      fontWeight: 600,
+                      fontSize: 14,
                       letterSpacing: "2px",
                       textTransform: "uppercase",
                       cursor: loading ? "wait" : "pointer",
@@ -482,7 +482,7 @@ const ListiclePage = () => {
                       fontFamily: "'Barlow', sans-serif",
                       fontWeight: 300,
                       fontSize: 12,
-                      color: "rgba(8,8,7,0.55)",
+                      color: "rgba(8,8,7,0.78)",
                       textAlign: "center",
                       marginTop: 8,
                       marginBottom: 0,
@@ -497,7 +497,7 @@ const ListiclePage = () => {
                   <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 13, color: "#080807", margin: 0 }}>
                     You're on the list — check your inbox.
                   </p>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "rgba(8,8,7,0.55)", marginTop: 6, marginBottom: 0 }}>
+                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "rgba(8,8,7,0.78)", marginTop: 6, marginBottom: 0 }}>
                     40% off + free shipping locked in.
                   </p>
                 </div>
@@ -509,8 +509,8 @@ const ListiclePage = () => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 300,
-                  fontSize: 11,
-                  color: "#9A8E7E",
+                  fontSize: 12,
+                  color: "#B5A993",
                   textAlign: "center",
                   display: "block",
                   marginTop: 10,
@@ -524,7 +524,7 @@ const ListiclePage = () => {
 
           {/* CHANGE 6 — Recommended with images */}
           <div style={{ padding: "14px 20px 24px" }}>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10 }}>
+            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#8A8580", textTransform: "uppercase", marginBottom: 10 }}>
               RECOMMENDED
             </div>
             <div style={{ display: "flex", gap: 10 }}>
@@ -542,7 +542,7 @@ const ListiclePage = () => {
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>007</span>
                   </div>
                   <div>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Round</p>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 13, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Round</p>
                     <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from $114</p>
                   </div>
                 </div>
@@ -561,7 +561,7 @@ const ListiclePage = () => {
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>009</span>
                   </div>
                   <div>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Square</p>
+                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 13, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Square</p>
                     <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from $114</p>
                   </div>
                 </div>
