@@ -1486,6 +1486,29 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
                   const facing = rollDeg < 10 && yawRatio < 0.2 && pitchRatio < 0.18;
                   const nextPose: typeof poseState = facing ? "ok" : "off";
                   setPoseState((prev) => (prev === nextPose ? prev : nextPose));
+
+                  // Lens guard: only meaningful when face is centered, facing,
+                  // and at a reasonable distance — otherwise aspect ratio is
+                  // dominated by pose, not optics.
+                  const faceWidthPx = (maxX - minX) * vw;
+                  const faceHeightPx = Math.max(1, (chin.y - fHead.y) * vh);
+                  const faceAspect = faceHeightPx / faceWidthPx;
+                  const lensSampleValid =
+                    facing && facePctW >= 0.32 && facePctW <= 0.72;
+                  if (lensSampleValid) {
+                    if (faceAspect < 1.25) {
+                      lensWideStreakRef.current += 1;
+                      lensOkStreakRef.current = 0;
+                    } else if (faceAspect > 1.35) {
+                      lensOkStreakRef.current += 1;
+                      lensWideStreakRef.current = 0;
+                    }
+                    if (lensWideStreakRef.current >= 4) {
+                      setLensState((prev) => (prev === "wide" ? prev : "wide"));
+                    } else if (lensOkStreakRef.current >= 3) {
+                      setLensState((prev) => (prev === "ok" ? prev : "ok"));
+                    }
+                  }
                 }
               } else {
                 setDistanceState((prev) => (prev === "unknown" ? prev : "unknown"));
