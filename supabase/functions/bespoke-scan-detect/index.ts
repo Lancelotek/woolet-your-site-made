@@ -255,6 +255,7 @@ Deno.serve(async (req) => {
   } else {
     result = {
       pose: parsed.pose,
+      card: { left: px(parsed.card.left), right: px(parsed.card.right) },
       outerEyeCorner: px(parsed.outerEyeCorner),
       tragus: px(parsed.tragus),
       noseBridgeTop: px(parsed.noseBridgeTop),
