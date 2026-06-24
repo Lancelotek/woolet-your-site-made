@@ -142,6 +142,8 @@ const App = () => (
           <Route path="/en/bespoke" element={<Bespoke />} />
           <Route path="/en/bespoke/configurator" element={<BespokeConfigurator />} />
           <Route path="/:lang/bespoke/configurator" element={<Navigate to="/en/bespoke/configurator" replace />} />
+          <Route path="/en/bespoke/scan" element={<BespokeScan />} />
+          <Route path="/:lang/bespoke/scan" element={<BespokeScan />} />
           <Route path="/:lang/bespoke" element={<Bespoke />} />
           {/* Legacy /:lang/pages/bespoke -> /:lang/bespoke */}
           <Route path="/en/pages/bespoke" element={<Navigate to="/en/bespoke" replace />} />
