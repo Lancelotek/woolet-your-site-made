@@ -499,3 +499,67 @@
 html[lang="fr"] {
   --cream-dim: 33 22% 74%;
 }
+
+/* ============================================================
+   LP Typography Scale — single source of truth for landing pages
+   Enforces minimum 12px on every step. Use .lp-text-* utilities
+   in any new LP section so sizes stay consistent and readable.
+   ============================================================ */
+:root {
+  --lp-text-min: 12px;       /* hard floor — never go below */
+  --lp-text-xs: 12px;        /* eyebrows, tags, labels, meta */
+  --lp-text-sm: 13px;        /* body in dense cards */
+  --lp-text-base: 14px;      /* default body, CTAs */
+  --lp-text-md: 15px;        /* emphasized body */
+  --lp-text-lg: 17px;        /* lead paragraphs */
+  --lp-text-xl: 20px;        /* sub-headlines */
+  --lp-text-2xl: clamp(22px, 3.5vw, 28px);  /* H2 */
+  --lp-text-3xl: clamp(26px, 4vw, 36px);    /* H1 */
+
+  --lp-tracking-eyebrow: 0.18em;
+  --lp-leading-body: 1.65;
+  --lp-leading-tight: 1.25;
+}
+
+.lp-text-xs   { font-size: max(var(--lp-text-xs), var(--lp-text-min)); }
+.lp-text-sm   { font-size: max(var(--lp-text-sm), var(--lp-text-min)); }
+.lp-text-base { font-size: max(var(--lp-text-base), var(--lp-text-min)); }
+.lp-text-md   { font-size: max(var(--lp-text-md), var(--lp-text-min)); }
+.lp-text-lg   { font-size: var(--lp-text-lg); }
+.lp-text-xl   { font-size: var(--lp-text-xl); }
+.lp-text-2xl  { font-size: var(--lp-text-2xl); line-height: var(--lp-leading-tight); }
+.lp-text-3xl  { font-size: var(--lp-text-3xl); line-height: var(--lp-leading-tight); }
+
+.lp-eyebrow {
+  font-family: 'Barlow', sans-serif;
+  font-size: max(var(--lp-text-xs), var(--lp-text-min));
+  font-weight: 500;
+  letter-spacing: var(--lp-tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.lp-body {
+  font-family: 'Barlow', sans-serif;
+  font-size: max(var(--lp-text-base), var(--lp-text-min));
+  line-height: var(--lp-leading-body);
+  font-weight: 300;
+}
+
+.lp-cta {
+  font-family: 'Barlow', sans-serif;
+  font-size: max(var(--lp-text-base), var(--lp-text-min));
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Safety net: inside any .lp-scope, clamp any sub-12px inline font-size.
+   Cascades onto every descendant so new sections stay compliant even
+   if a contributor hardcodes a smaller value. */
+.lp-scope {
+  font-size: max(1em, var(--lp-text-min));
+}
+.lp-scope * {
+  font-size: max(var(--lp-text-min), var(--__lp-fs, inherit));
+}
+
