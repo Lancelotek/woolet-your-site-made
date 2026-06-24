@@ -60,7 +60,7 @@ export default function BespokeScan() {
   const params = useParams();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
-  const lang: Lang = isLang(params.lang) ? params.lang : "en";
+  const lang: Lang = params.lang && isValidLang(params.lang) ? params.lang : "en";
 
   const [step, setStep] = useState<Step>("intro");
   const [poseIdx, setPoseIdx] = useState(0);
