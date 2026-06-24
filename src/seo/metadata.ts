@@ -138,6 +138,7 @@ function ogLocale(lang: Lang): string {
     case "pl": return "pl_PL";
     case "fr": return "fr_FR";
     case "es": return "es_ES";
+    case "de": return "de_DE";
     default: return "en_US";
   }
 }
@@ -179,6 +180,11 @@ const homeCopy: Record<Lang, Copy> = {
     title: "Woolet — Gafas premium para caras anchas (155 mm+)",
     description:
       "Gafas premium en acetato italiano Mazzucchelli, diseñadas para caras anchas (155 mm+). Tres tamaños medidos más a medida. Desde 133 $ en preventa.",
+  },
+  de: {
+    title: "Woolet — Premium-Brillen für breite Gesichter (ab 155 mm)",
+    description:
+      "Premium-Brillen aus italienischem Mazzucchelli-Acetat, entwickelt für breite Gesichter (ab 155 mm). Drei gemessene Größen plus Maßanfertigung. Ab 133 $ im Pre-Order.",
   },
 };
 
@@ -606,6 +612,7 @@ export function getMetadata(route: string): RouteMeta {
       pl: { title: "Blog — Woolet | Wiedza o okularach na szeroką twarz", description: "Poradniki o okularach na szerokie twarze, włoskim octanie, doborze oprawek i idealnym dopasowaniu dla twarzy 155 mm+." },
       fr: { title: "Blog — Woolet | Conseils lunettes visages larges", description: "Guides experts sur les lunettes pour visages larges, l'acétate italien et le choix des montures pour 155 mm+." },
       es: { title: "Blog — Woolet | Consejos gafas caras anchas", description: "Guías sobre gafas para caras anchas, acetato italiano y cómo encontrar el ajuste perfecto para 155 mm+." },
+      de: { title: "Blog — Woolet | Wissen zu Brillen für breite Gesichter", description: "Expertenwissen zu Brillen für breite Gesichter, italienischem Acetat, Fassungsgrößen und der perfekten Passform ab 155 mm." },
     };
     return base(route, lang, titles[lang]);
   }

@@ -40,6 +40,11 @@ const seoData: Record<Lang, { title: string; description: string }> = {
     description:
       "Gafas de acetato italiano para caras de 155mm+. Woolet 007 y 009 — patillas alargadas, puente más ancho, sin compromisos. Únete a la lista de espera.",
   },
+  de: {
+    title: "Woolet — Premium-Brillen für breite Gesichter (ab 155 mm)",
+    description:
+      "Brillen aus italienischem Acetat für Gesichter ab 155 mm. Woolet 007 & 009 — verlängerte Bügel, breiterer Steg, keine Kompromisse. Trag dich auf die Warteliste ein.",
+  },
 };
 
 const Index = () => {
