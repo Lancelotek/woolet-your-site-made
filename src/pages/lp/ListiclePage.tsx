@@ -122,7 +122,7 @@ const ListiclePage = () => {
             }}
           >
             {/* Stars */}
-            <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 12 }}>
               <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570" }}>
                 4,900+ on the waitlist
               </span>
@@ -151,8 +151,8 @@ const ListiclePage = () => {
                 fontWeight: 300,
                 fontSize: 12,
                 color: "#9A8E7E",
-                marginTop: 6,
-                marginBottom: 4,
+                marginTop: 10,
+                marginBottom: 8,
               }}
             >
               (and why it's not your face that's the problem)
@@ -167,7 +167,7 @@ const ListiclePage = () => {
               fontSize: 13,
               color: "#9A8E7E",
               lineHeight: 1.7,
-              padding: "8px 20px 4px",
+              padding: "14px 20px 10px",
               fontStyle: "italic",
               margin: 0,
             }}
@@ -189,7 +189,7 @@ const ListiclePage = () => {
               display: "flex",
               gap: 2,
               height: 240,
-              padding: "8px 20px 0",
+              padding: "18px 20px 6px",
             }}
           >
             <img
@@ -219,7 +219,7 @@ const ListiclePage = () => {
           </div>
 
           {/* Issue cards */}
-          <div style={{ padding: "10px 20px 0" }}>
+          <div style={{ padding: "20px 20px 4px" }}>
             <h2 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
               5 reasons standard glasses fail on wide faces
             </h2>
@@ -229,9 +229,9 @@ const ListiclePage = () => {
                 style={{
                   background: "#1A1612",
                   borderRadius: 10,
-                  padding: 14,
+                  padding: 18,
                   border: "1px solid #2A2520",
-                  marginBottom: 10,
+                  marginBottom: 14,
                   position: "relative",
                   overflow: "hidden",
                 }}
@@ -272,8 +272,8 @@ const ListiclePage = () => {
                       fontWeight: 400,
                       fontSize: 14,
                       color: "#F8F8F6",
-                      lineHeight: 1.3,
-                      margin: "5px 0 4px",
+                      lineHeight: 1.4,
+                      margin: "10px 0 8px",
                     }}
                   >
                     {card.title}
@@ -296,7 +296,7 @@ const ListiclePage = () => {
           </div>
 
           {/* CHANGE 5 — Testimonials */}
-          <div style={{ padding: "4px 20px 10px" }}>
+          <div style={{ padding: "16px 20px 14px" }}>
             <h2 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
               What customers say
             </h2>
@@ -306,8 +306,8 @@ const ListiclePage = () => {
                 style={{
                   borderLeft: "2px solid #A07A2A",
                   background: "rgba(160,122,42,0.06)",
-                  padding: "10px 14px",
-                  marginBottom: 10,
+                  padding: "14px 18px",
+                  marginBottom: 14,
                   borderRadius: "0 6px 6px 0",
                 }}
               >
@@ -332,7 +332,7 @@ const ListiclePage = () => {
                     letterSpacing: "2px",
                     color: "#9A9A9A",
                     textTransform: "uppercase",
-                    marginTop: 6,
+                    marginTop: 10,
                     marginBottom: 0,
                   }}
                 >
@@ -343,15 +343,15 @@ const ListiclePage = () => {
           </div>
 
           {/* CHANGE 4 — CTA block */}
-          <div style={{ margin: "14px 20px 24px" }}>
+          <div style={{ margin: "22px 20px 32px" }}>
             <div
               style={{
                 background: "linear-gradient(135deg, #A07A2A, #CAA449)",
                 borderRadius: 12,
-                padding: 20,
+                padding: 26,
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                 <span
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
@@ -382,8 +382,8 @@ const ListiclePage = () => {
                   fontWeight: 300,
                   fontSize: 18,
                   color: "#080807",
-                  lineHeight: 1.2,
-                  marginBottom: 14,
+                  lineHeight: 1.25,
+                  marginBottom: 20,
                   marginTop: 0,
                 }}
               >
@@ -410,7 +410,7 @@ const ListiclePage = () => {
                       fontSize: 13,
                       fontWeight: 300,
                       outline: "none",
-                      marginBottom: 8,
+                      marginBottom: 12,
                       boxSizing: "border-box",
                     }}
                   />
@@ -426,7 +426,7 @@ const ListiclePage = () => {
                       fontWeight: 300,
                       fontSize: 12,
                       color: "rgba(8,8,7,0.82)",
-                      marginBottom: 8,
+                      marginBottom: 14,
                     }}
                   >
                     <input type="checkbox" checked={privacyAccepted} onChange={() => setPrivacyAccepted(v => !v)} style={{ display: "none" }} />
@@ -486,7 +486,7 @@ const ListiclePage = () => {
                       fontSize: 12,
                       color: "rgba(8,8,7,0.78)",
                       textAlign: "center",
-                      marginTop: 8,
+                      marginTop: 12,
                       marginBottom: 0,
                     }}
                   >
@@ -515,7 +515,7 @@ const ListiclePage = () => {
                   color: "#B5A993",
                   textAlign: "center",
                   display: "block",
-                  marginTop: 10,
+                  marginTop: 18,
                   cursor: "pointer",
                 }}
               >
@@ -525,8 +525,8 @@ const ListiclePage = () => {
           </div>
 
           {/* CHANGE 6 — Recommended with images */}
-          <div style={{ padding: "14px 20px 24px" }}>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#8A8580", textTransform: "uppercase", marginBottom: 10 }}>
+          <div style={{ padding: "20px 20px 32px" }}>
+            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#8A8580", textTransform: "uppercase", marginBottom: 14 }}>
               RECOMMENDED
             </div>
             <div style={{ display: "flex", gap: 10 }}>
@@ -539,7 +539,7 @@ const ListiclePage = () => {
                     loading="lazy"
                   />
                 </div>
-                <div style={{ padding: 12, display: "flex", gap: 10, alignItems: "center" }}>
+                <div style={{ padding: 14, display: "flex", gap: 12, alignItems: "center" }}>
                   <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>007</span>
                   </div>
@@ -558,7 +558,7 @@ const ListiclePage = () => {
                     loading="lazy"
                   />
                 </div>
-                <div style={{ padding: 12, display: "flex", gap: 10, alignItems: "center" }}>
+                <div style={{ padding: 14, display: "flex", gap: 12, alignItems: "center" }}>
                   <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>009</span>
                   </div>
