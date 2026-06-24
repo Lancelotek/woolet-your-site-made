@@ -763,12 +763,18 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
 function ResultStep({
   profile,
   saving,
+  uploadStatus,
+  uploadErrors,
+  onRetryUpload,
   onRestart,
   onRetake,
   onContinue,
 }: {
   profile: BespokeProfile;
   saving: boolean;
+  uploadStatus: Record<Pose, UploadStatus>;
+  uploadErrors: Partial<Record<Pose, string>>;
+  onRetryUpload: (p: Pose) => void | Promise<void>;
   onRestart: () => void;
   onRetake: (p: Pose) => void;
   onContinue: () => void;
@@ -790,6 +796,9 @@ function ResultStep({
 
   const POSE_LABEL: Record<Pose, string> = { front: "Front", left: "Left 90°", right: "Right 90°" };
 
+  const failedPoses = POSE_ORDER.filter((p) => uploadStatus[p] === "failed");
+  const uploadingPoses = POSE_ORDER.filter((p) => uploadStatus[p] === "uploading");
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
       <div>
@@ -800,6 +809,61 @@ function ResultStep({
           {saving ? "Saving to your profile…" : "Saved. We'll pre-fill these in the configurator."}
         </p>
       </div>
+
+      {/* Upload error banner — measurements still saved, blobs missing. */}
+      {failedPoses.length > 0 && (
+        <div role="alert" style={{
+          display: "flex", flexDirection: "column", gap: 10,
+          padding: "12px 14px",
+          border: "1px solid rgba(239,68,68,0.55)",
+          background: "rgba(239,68,68,0.08)",
+          borderRadius: 6,
+        }}>
+          <strong style={{ fontSize: 12, color: "#fca5a5", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+            {failedPoses.length === 1 ? "1 photo didn't upload" : `${failedPoses.length} photos didn't upload`}
+          </strong>
+          <span style={{ fontSize: 12.5, color: "rgba(252,165,165,0.85)", lineHeight: 1.5 }}>
+            Your measurements are saved. The original photos couldn't reach our servers — likely a flaky connection. Retry below, or skip and continue.
+          </span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {failedPoses.map((p) => (
+              <Button
+                key={p}
+                onClick={() => onRetryUpload(p)}
+                disabled={uploadStatus[p] === "uploading"}
+                variant="outline"
+                style={{
+                  height: 34, fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase",
+                  borderColor: "rgba(239,68,68,0.6)", background: "transparent", color: "#fca5a5",
+                }}
+              >
+                {uploadStatus[p] === "uploading" ? "Retrying…" : `Retry ${POSE_LABEL[p]}`}
+              </Button>
+            ))}
+          </div>
+          {failedPoses.map((p) => uploadErrors[p] && (
+            <span key={`${p}-err`} style={{ fontSize: 11, color: "rgba(252,165,165,0.6)", fontFamily: "monospace" }}>
+              {POSE_LABEL[p]}: {uploadErrors[p]}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {uploadingPoses.length > 0 && failedPoses.length === 0 && (
+        <div style={{
+          padding: "10px 14px",
+          border: "1px solid rgba(255,255,255,0.1)",
+          background: "rgba(255,255,255,0.03)",
+          borderRadius: 6,
+          fontSize: 12.5,
+          color: MUTED,
+          display: "flex", alignItems: "center", gap: 8,
+        }}>
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: GOLD, animation: "pulse 1.4s ease-in-out infinite" }} />
+          Uploading {uploadingPoses.map((p) => POSE_LABEL[p]).join(", ")}…
+        </div>
+      )}
+
 
       <div style={{ display: "flex", flexDirection: "column", border: "1px solid rgba(202,164,73,0.25)", borderRadius: 6, overflow: "hidden" }}>
         {rows.map((r, i) => {
