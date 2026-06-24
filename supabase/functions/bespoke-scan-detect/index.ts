@@ -103,6 +103,14 @@ const PROFILE_SCHEMA = {
   type: "object",
   properties: {
     pose: { type: "string", enum: ["left", "right"] },
+    card: {
+      type: "object",
+      properties: {
+        left: { type: "object", properties: { x: { type: "integer" }, y: { type: "integer" } }, required: ["x", "y"] },
+        right: { type: "object", properties: { x: { type: "integer" }, y: { type: "integer" } }, required: ["x", "y"] },
+      },
+      required: ["left", "right"],
+    },
     outerEyeCorner: { type: "object", properties: { x: { type: "integer" }, y: { type: "integer" } }, required: ["x", "y"] },
     tragus: { type: "object", properties: { x: { type: "integer" }, y: { type: "integer" } }, required: ["x", "y"] },
     noseBridgeTop: { type: "object", properties: { x: { type: "integer" }, y: { type: "integer" } }, required: ["x", "y"] },
@@ -118,7 +126,7 @@ const PROFILE_SCHEMA = {
     confidence: { type: "number" },
     glassesDetected: { type: "boolean" },
   },
-  required: ["pose", "outerEyeCorner", "tragus", "noseBridgeTop", "noseBridgeBottom", "browLine", "confidence"],
+  required: ["pose", "card", "outerEyeCorner", "tragus", "noseBridgeTop", "noseBridgeBottom", "browLine", "confidence"],
 } as const;
 
 Deno.serve(async (req) => {
