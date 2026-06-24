@@ -61,7 +61,7 @@ const LensUpgradeSelector = ({ productId, basePrice, onChange }: Props) => {
 
   return (
     <div style={{ marginBottom: 14 }}>
-      <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 9, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>
+      <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>
         LENS OPTION
       </div>
       <div style={{ display: "grid", gap: 6 }}>
@@ -89,7 +89,7 @@ const LensUpgradeSelector = ({ productId, basePrice, onChange }: Props) => {
                 <span style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, color: "#111" }}>
                   {o.label}
                 </span>
-                <span style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#666", marginTop: 2 }}>
+                <span style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#666", marginTop: 2 }}>
                   {o.sub}
                 </span>
               </span>
@@ -100,7 +100,7 @@ const LensUpgradeSelector = ({ productId, basePrice, onChange }: Props) => {
           );
         })}
       </div>
-      <p style={{ marginTop: 6, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 10, color: "#888", lineHeight: 1.5 }}>
+      <p style={{ marginTop: 6, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888", lineHeight: 1.5 }}>
         Lens choice is saved with your reservation. Final lens order placed after frame ships.
       </p>
     </div>

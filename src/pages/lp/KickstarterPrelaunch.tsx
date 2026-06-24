@@ -363,7 +363,7 @@ const KickstarterPrelaunch = () => {
           <Link to="/en" className="flex items-center gap-2">
             <img src={logo} alt="Woolet" className="h-6 w-auto" />
           </Link>
-          <span className="text-[10px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
+          <span className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
             Launching on Kickstarter
           </span>
         </div>
@@ -373,7 +373,7 @@ const KickstarterPrelaunch = () => {
       <section className="bg-[#080807]">
         <div className="max-w-6xl mx-auto px-5 pt-5 pb-10 sm:py-16 grid md:grid-cols-2 gap-6 md:gap-10 md:items-center">
           <div>
-            <p className="text-primary uppercase tracking-[0.28em] text-[10px] mb-2 sm:mb-4">VIP Early Access</p>
+            <p className="text-primary uppercase tracking-[0.28em] text-[12px] mb-2 sm:mb-4">VIP Early Access</p>
             <h1 className="font-display text-woolet-white leading-[1.02] text-[1.7rem] sm:text-[3rem]">
               Eyewear built for wide faces — coming to Kickstarter
             </h1>
@@ -428,7 +428,7 @@ const KickstarterPrelaunch = () => {
         <div className="max-w-3xl mx-auto px-5 py-10 flex flex-col items-center text-center gap-4">
           {isLaunchPast ? (
             <>
-              <p className="text-cream-dim uppercase tracking-[0.28em] text-[10px]">
+              <p className="text-cream-dim uppercase tracking-[0.28em] text-[12px]">
                 Launch status
               </p>
               <p className="font-display text-woolet-white text-xl sm:text-2xl">
@@ -437,7 +437,7 @@ const KickstarterPrelaunch = () => {
             </>
           ) : (
             <>
-              <p className="text-cream-dim uppercase tracking-[0.28em] text-[10px]">
+              <p className="text-cream-dim uppercase tracking-[0.28em] text-[12px]">
                 Kickstarter launches in
               </p>
               <Countdown targetDate={KS_LAUNCH_DATE} />
@@ -535,7 +535,7 @@ const KickstarterPrelaunch = () => {
         <div className="max-w-3xl mx-auto px-5 py-14 flex flex-col sm:flex-row gap-6 items-center">
           <img src={marek} alt="Marek Ciesla — Woolet founder" className="w-24 h-24 rounded-full object-cover" loading="lazy" />
           <div>
-            <p className="text-primary uppercase tracking-[0.22em] text-[10px] mb-2">A note from the founder</p>
+            <p className="text-primary uppercase tracking-[0.22em] text-[12px] mb-2">A note from the founder</p>
             <p className="text-cream-dim text-base leading-relaxed">
               "I'm 161 mm across. For 20 years I gave up on glasses that actually fit. So I built the brand I wanted to buy from —
               Italian acetate, made wide from the first millimeter. Kickstarter is how we get the first pairs into the hands of people who need them most."
@@ -601,7 +601,7 @@ const KickstarterPrelaunch = () => {
       </section>
 
       <footer className="border-t border-[#1a1612] py-8 text-center">
-        <p className="text-cream-dim/60 text-[11px]">
+        <p className="text-cream-dim/60 text-[12px]">
           © {new Date().getFullYear()} Woolet · <Link to="/en/privacy-policy" className="hover:text-primary">Privacy</Link>
         </p>
       </footer>
