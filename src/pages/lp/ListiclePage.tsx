@@ -98,12 +98,14 @@ const ListiclePage = () => {
       </Helmet>
 
       <div
+        className="lp-scope"
         style={{
           background: "#080807",
           minHeight: "100vh",
           fontFamily: "'Barlow', sans-serif",
         }}
       >
+
         <div style={{ maxWidth: 680, margin: "0 auto" }}>
           {/* Logo */}
           <div style={{ padding: "16px 20px 0" }}>
