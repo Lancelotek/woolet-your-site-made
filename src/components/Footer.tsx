@@ -40,11 +40,11 @@ const Footer = () => {
       <div className="flex flex-col items-center md:items-start gap-1.5">
         <div className="flex items-center gap-3">
           <img src={wooletLogo} alt="Woolet eyewear logo" className="h-6" />
-          <span className="text-cream-dim opacity-40 tracking-wider" style={{ fontSize: '0.57rem' }}>
+          <span className="text-cream-dim opacity-60 tracking-wider" style={{ fontSize: '0.72rem' }}>
             {t(lang, "footer.rights")}
           </span>
         </div>
-        <span className="text-cream-dim opacity-30 tracking-wider text-center md:text-left" style={{ fontSize: '0.5rem', lineHeight: 1.5 }}>
+        <span className="text-cream-dim opacity-55 tracking-wider text-center md:text-left" style={{ fontSize: '0.7rem', lineHeight: 1.5 }}>
           Woolet by JAY23 LLC · 412 N. Main Street, STE 100 · Buffalo, Wyoming 82834
         </span>
       </div>

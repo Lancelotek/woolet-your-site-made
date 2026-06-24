@@ -242,7 +242,7 @@ const BlogPost = () => {
 
         <div className="woolet-divider my-12" />
 
-        <Link to={`/${currentLang}/blog`} className="text-primary no-underline uppercase tracking-[0.22em] hover:tracking-[0.28em] transition-all" style={{ fontSize: "0.58rem" }}>
+        <Link to={`/${currentLang}/blog`} className="text-primary no-underline uppercase tracking-[0.22em] hover:tracking-[0.28em] transition-all" style={{ fontSize: "0.72rem" }}>
           {t(currentLang, "blog.back")}
         </Link>
       </article>

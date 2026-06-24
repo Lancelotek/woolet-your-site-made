@@ -41,7 +41,7 @@ const ModelPills = () => {
   }, []);
   return (
     <div>
-      <div className="text-cream-dim uppercase tracking-[0.24em] mb-3" style={{ fontSize: "0.56rem" }}>
+      <div className="text-cream-dim uppercase tracking-[0.24em] mb-3" style={{ fontSize: "0.72rem" }}>
         {t(lang, "collection.title")}
       </div>
       <div className="flex gap-3 flex-col sm:flex-row">
@@ -62,9 +62,9 @@ const ModelPills = () => {
               />
             ))}
           </div>
-          <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.5rem" }}>007</div>
-          <div className="font-display text-woolet-white" style={{ fontSize: "1.1rem" }}>Woolet 007</div>
-          <div className="text-cream-dim" style={{ fontSize: "0.6rem" }}>{t(lang, "collection.007_specs")}</div>
+          <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.72rem" }}>007</div>
+          <div className="font-display text-woolet-white" style={{ fontSize: "1.25rem" }}>Woolet 007</div>
+          <div className="text-cream-dim" style={{ fontSize: "0.78rem" }}>{t(lang, "collection.007_specs")}</div>
         </div>
 
         {/* Woolet 009 */}
@@ -84,9 +84,9 @@ const ModelPills = () => {
               />
             ))}
           </div>
-          <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.5rem" }}>009</div>
-          <div className="font-display text-woolet-white" style={{ fontSize: "1.1rem" }}>Woolet 009</div>
-          <div className="text-cream-dim" style={{ fontSize: "0.6rem" }}>{t(lang, "collection.009_specs")}</div>
+          <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.72rem" }}>009</div>
+          <div className="font-display text-woolet-white" style={{ fontSize: "1.25rem" }}>Woolet 009</div>
+          <div className="text-cream-dim" style={{ fontSize: "0.78rem" }}>{t(lang, "collection.009_specs")}</div>
         </div>
       </div>
 

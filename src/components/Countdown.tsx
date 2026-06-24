@@ -37,7 +37,7 @@ const Countdown = ({ targetDate }: CountdownProps) => {
 
   return (
     <div className="flex flex-col gap-2.5">
-      <span className="text-cream-dim uppercase tracking-[0.24em]" style={{ fontSize: "0.56rem" }}>
+      <span className="text-cream-dim uppercase tracking-[0.24em]" style={{ fontSize: "0.72rem" }}>
         Launch countdown
       </span>
       <div className="flex items-end gap-2 sm:gap-4">
@@ -47,7 +47,7 @@ const Countdown = ({ targetDate }: CountdownProps) => {
               <span className="font-display text-woolet-white block leading-none text-[2rem] sm:text-[2.8rem]">
                 {u.val}
               </span>
-              <span className="text-cream-dim uppercase tracking-[0.22em] block mt-1" style={{ fontSize: "0.48rem" }}>
+              <span className="text-cream-dim uppercase tracking-[0.22em] block mt-1" style={{ fontSize: "0.65rem" }}>
                 {u.label}
               </span>
             </div>

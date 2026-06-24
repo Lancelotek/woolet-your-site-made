@@ -57,7 +57,7 @@ const SizeMatrix = ({
             className="grid items-center px-5 py-3 uppercase tracking-[0.2em]"
             style={{
               gridTemplateColumns: "1.3fr 1.4fr 1fr 0.9fr 0.9fr 1.1fr",
-              fontSize: "0.55rem",
+              fontSize: "0.72rem",
               color: "hsl(var(--gold-dim))",
               borderBottom: "1px solid hsl(var(--gold) / 0.25)",
             }}
@@ -85,7 +85,7 @@ const SizeMatrix = ({
                   <span
                     className="uppercase tracking-[0.18em]"
                     style={{
-                      fontSize: "0.5rem",
+                      fontSize: "0.65rem",
                       border: "1px solid hsl(var(--gold) / 0.5)",
                       color: "hsl(var(--gold-light))",
                       padding: "2px 6px",
@@ -122,16 +122,16 @@ const SizeMatrix = ({
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"
-                    style={{ fontSize: "0.5rem", border: "1px solid hsl(var(--gold) / 0.5)", color: "hsl(var(--gold-light))", padding: "2px 6px", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
+                    style={{ fontSize: "0.65rem", border: "1px solid hsl(var(--gold) / 0.5)", color: "hsl(var(--gold-light))", padding: "2px 6px", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
                   >{t(lang, "matrix.custom_badge")}</span>
                 )}
               </div>
-              <div className="text-cream-dim mb-3" style={{ fontSize: "0.78rem" }}>{t(lang, r.shapeKey)}</div>
-              <div className="grid grid-cols-2 gap-y-2 gap-x-4" style={{ fontSize: "0.75rem" }}>
-                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>{t(lang, "matrix.m_width")}</span><div className="text-foreground">{r.width}</div></div>
-                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>{t(lang, "matrix.m_bridge")}</span><div className="text-foreground">{r.bridge}</div></div>
-                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>{t(lang, "matrix.m_lens")}</span><div className="text-foreground">{r.lens}</div></div>
-                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.55rem" }}>{t(lang, "matrix.m_face")}</span><div className="text-foreground">{r.face}</div></div>
+              <div className="text-cream-dim mb-3" style={{ fontSize: "0.85rem" }}>{t(lang, r.shapeKey)}</div>
+              <div className="grid grid-cols-2 gap-y-2 gap-x-4" style={{ fontSize: "0.82rem" }}>
+                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.7rem" }}>{t(lang, "matrix.m_width")}</span><div className="text-foreground">{r.width}</div></div>
+                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.7rem" }}>{t(lang, "matrix.m_bridge")}</span><div className="text-foreground">{r.bridge}</div></div>
+                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.7rem" }}>{t(lang, "matrix.m_lens")}</span><div className="text-foreground">{r.lens}</div></div>
+                <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.7rem" }}>{t(lang, "matrix.m_face")}</span><div className="text-foreground">{r.face}</div></div>
               </div>
             </div>
           ))}
@@ -146,8 +146,8 @@ const SizeMatrix = ({
               color: "hsl(var(--background))",
               fontFamily: "Barlow, sans-serif",
               fontWeight: 500,
-              fontSize: "0.7rem",
-              padding: "16px 28px",
+              fontSize: "0.82rem",
+              padding: "18px 32px",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}

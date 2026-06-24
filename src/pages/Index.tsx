@@ -156,7 +156,7 @@ const Index = () => {
         </div>
       )}
 
-      <p className="text-cream-dim leading-relaxed tracking-wider max-w-xl" style={{ fontSize: "0.88rem" }}>
+      <p className="text-cream-dim leading-relaxed tracking-wider max-w-xl" style={{ fontSize: "0.98rem" }}>
         {t(lang, "aifit.desc_before")}
         <span className="text-foreground">{t(lang, "aifit.desc_bold")}</span>
         {t(lang, "aifit.desc_after")}
@@ -173,8 +173,8 @@ const Index = () => {
             color: "hsl(var(--background))",
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
-            fontSize: "0.72rem",
-            padding: "17px 24px",
+            fontSize: "0.82rem",
+            padding: "18px 28px",
             border: "none",
             cursor: "pointer",
             width: "100%",
@@ -189,10 +189,10 @@ const Index = () => {
       {/* Trust badges row — 2 only */}
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap", paddingTop: 6 }}>
         {[
-          { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: t(lang, "aifit.badge_fit") },
-          { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇪🇺</span>, text: t(lang, "aifit.badge_acetate") },
+          { icon: <Ruler size={13} strokeWidth={1.5} color="#9A8E7E" />, text: t(lang, "aifit.badge_fit") },
+          { icon: <span style={{ fontSize: 13, lineHeight: 1 }}>🇪🇺</span>, text: t(lang, "aifit.badge_acetate") },
           { icon: (
-            <svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 11 11" aria-hidden="true">
               <circle cx="5.5" cy="5.5" r="5" fill="none" stroke="#9A8E7E" strokeWidth="0.6" />
               <path d="M3 6.2 Q4 7 5.5 7 T8 6.2" fill="none" stroke="#9A8E7E" strokeWidth="0.6" strokeLinecap="round" />
             </svg>
@@ -202,12 +202,12 @@ const Index = () => {
             key={i}
             style={{
               fontFamily: "'Barlow', sans-serif",
-              fontWeight: 300,
-              fontSize: 10,
-              color: "#9A8E7E",
+              fontWeight: 400,
+              fontSize: 12,
+              color: "#B5A993",
               display: "flex",
               alignItems: "center",
-              gap: 5,
+              gap: 6,
               letterSpacing: "0.04em",
             }}
           >
