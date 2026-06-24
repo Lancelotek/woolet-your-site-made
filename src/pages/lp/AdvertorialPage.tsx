@@ -207,7 +207,7 @@ const AdvertorialPage = () => {
               <span
                 style={{
                   fontFamily: "'Barlow', sans-serif",
-                  fontSize: 11,
+                  fontSize: 12,
                   color: "#888",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
@@ -631,7 +631,7 @@ const AdvertorialPage = () => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 300,
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "2px",
                   color: "#888",
                   textTransform: "uppercase",
@@ -667,7 +667,7 @@ const AdvertorialPage = () => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 300,
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "2px",
                   color: "#888",
                   textTransform: "uppercase",
@@ -716,7 +716,7 @@ const AdvertorialPage = () => {
                   style={{
                     fontFamily: "'Barlow', sans-serif",
                     fontWeight: 500,
-                    fontSize: 11,
+                    fontSize: 12,
                     color: "#CAA449",
                     letterSpacing: "3px",
                   }}
@@ -752,7 +752,7 @@ const AdvertorialPage = () => {
                   borderRadius: 4,
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 500,
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "2px",
                   textTransform: "uppercase",
                   cursor: "pointer",
@@ -766,7 +766,7 @@ const AdvertorialPage = () => {
           {/* Internal links — after CTA */}
           <div style={{ padding: "0 20px" }}>
             <div style={{ margin: "0 0 18px", padding: "14px 0", borderTop: "1px solid #E8E4DC" }}>
-              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
+              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
                 READ MORE
               </div>
               <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>
