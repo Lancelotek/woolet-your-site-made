@@ -553,13 +553,10 @@ html[lang="fr"] {
   text-transform: uppercase;
 }
 
-/* Safety net: inside any .lp-scope, clamp any sub-12px inline font-size.
-   Cascades onto every descendant so new sections stay compliant even
-   if a contributor hardcodes a smaller value. */
+/* Scope marker for LP pages. Wrap the LP root in this class so the
+   utilities above resolve, and so future global LP rules can target it. */
 .lp-scope {
-  font-size: max(1em, var(--lp-text-min));
+  font-size: max(1rem, var(--lp-text-min));
 }
-.lp-scope * {
-  font-size: max(var(--lp-text-min), var(--__lp-fs, inherit));
-}
+
 
