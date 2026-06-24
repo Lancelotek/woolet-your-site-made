@@ -2191,6 +2191,34 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         </figcaption>
       </figure>
 
+      {isMobile && (
+        <aside
+          aria-label={tFit(lang, "camera.lens_tip_title")}
+          style={{
+            display: "flex",
+            gap: 10,
+            alignItems: "flex-start",
+            padding: "10px 12px",
+            border: showLensHint
+              ? `1px solid rgba(239,68,68,0.55)`
+              : `1px solid rgba(255,255,255,0.12)`,
+            background: showLensHint
+              ? "rgba(239,68,68,0.08)"
+              : "rgba(255,255,255,0.03)",
+            borderRadius: 6,
+            fontFamily: "Barlow, sans-serif",
+          }}
+        >
+          <span aria-hidden style={{ fontSize: "1rem", lineHeight: 1, marginTop: 1 }}>📷</span>
+          <div style={{ fontSize: "0.78rem", lineHeight: 1.5, color: "rgba(255,255,255,0.82)" }}>
+            <strong style={{ display: "block", color: showLensHint ? "#fca5a5" : GOLD, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", fontSize: "0.68rem", marginBottom: 3 }}>
+              {showLensHint ? tFit(lang, "camera.lens_tip_warn") : tFit(lang, "camera.lens_tip_title")}
+            </strong>
+            {tFit(lang, "camera.lens_tip_body")}
+          </div>
+        </aside>
+      )}
+
       <p style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.78rem", textAlign: "center", margin: 0 }}>
         {deviceTip}
       </p>
