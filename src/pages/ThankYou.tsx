@@ -133,7 +133,7 @@ export default function ThankYou() {
               }}
             >
               <span className="ty-pulse-dot" style={{ width: 5, height: 5, borderRadius: "50%", background: T.gold, display: "inline-block" }} />
-              <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.gold, fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
+              <span style={{ fontSize: 12, letterSpacing: "0.16em", textTransform: "uppercase", color: T.gold, fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
                 FOUNDING MEMBER CONFIRMED
               </span>
             </span>
@@ -221,7 +221,7 @@ export default function ThankYou() {
               #{spot}
             </span>
             <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: T.muted, fontFamily: "'DM Sans', sans-serif", marginBottom: 4 }}>
+              <span style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.18em", color: T.muted, fontFamily: "'DM Sans', sans-serif", marginBottom: 4 }}>
                 Your spot
               </span>
               <span className="ty-overlay-num" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 300, color: T.goldLight }}>

@@ -83,7 +83,7 @@ const ConfiguratorPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Stepper */}
           <div className="mb-10">
-            <Link to="/en/bespoke" className="text-cream-dim text-[0.7rem] uppercase tracking-[0.22em] hover:text-cream transition">
+            <Link to="/en/bespoke" className="text-cream-dim text-[0.78rem] uppercase tracking-[0.22em] hover:text-cream transition">
               ← Back to Bespoke
             </Link>
             <div className="mt-3 mb-6 flex flex-wrap items-end justify-between gap-3">
@@ -100,7 +100,7 @@ const ConfiguratorPage = () => {
                   <li key={s.id} className="flex items-center gap-1 sm:gap-2 shrink-0">
                     <button
                       onClick={() => goTo(s.id)}
-                      className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border text-[0.68rem] uppercase tracking-[0.16em] transition ${
+                      className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border text-[0.78rem] uppercase tracking-[0.16em] transition ${
                         isCurrent
                           ? "border-gold bg-gold/10 text-gold-light"
                           : isDone
@@ -109,7 +109,7 @@ const ConfiguratorPage = () => {
                       }`}
                     >
                       <span
-                        className={`w-5 h-5 rounded-full inline-flex items-center justify-center text-[0.6rem] ${
+                        className={`w-5 h-5 rounded-full inline-flex items-center justify-center text-[0.78rem] ${
                           isCurrent
                             ? "bg-gold text-background"
                             : isDone
@@ -145,7 +145,7 @@ const ConfiguratorPage = () => {
             {/* Desktop summary sidebar */}
             <aside className="hidden lg:block">
               <div className="sticky top-24 rounded-[14px] border border-cream/10 bg-background/40 p-5">
-                <div className="uppercase tracking-[0.2em] text-[0.62rem] text-gold-light/80 mb-3">Your build</div>
+                <div className="uppercase tracking-[0.2em] text-[0.78rem] text-gold-light/80 mb-3">Your build</div>
 
                 {frame ? (
                   <div className="aspect-[4/3] bg-cream/[0.03] rounded-[10px] overflow-hidden flex items-center justify-center mb-4">
@@ -189,10 +189,10 @@ const ConfiguratorPage = () => {
 
                 <div className="border-t border-cream/10 mt-5 pt-4">
                   <div className="flex items-baseline justify-between">
-                    <span className="uppercase tracking-[0.18em] text-[0.62rem] text-cream-dim">Total</span>
+                    <span className="uppercase tracking-[0.18em] text-[0.78rem] text-cream-dim">Total</span>
                     <span className="font-display text-cream text-3xl font-light">{formatEur(pricing.totalEur)}</span>
                   </div>
-                  <ul className="mt-2 text-[0.68rem] text-cream-dim space-y-0.5">
+                  <ul className="mt-2 text-[0.78rem] text-cream-dim space-y-0.5">
                     <li className="flex justify-between"><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
                     {pricing.engravingEur > 0 && <li className="flex justify-between"><span>Engraving</span><span>+ {formatEur(pricing.engravingEur)}</span></li>}
                     {pricing.lensEur > 0 && <li className="flex justify-between"><span>Lenses</span><span>+ {formatEur(pricing.lensEur)}</span></li>}
@@ -201,7 +201,7 @@ const ConfiguratorPage = () => {
 
                 <button
                   onClick={handleReset}
-                  className="mt-5 w-full text-[0.68rem] text-cream-dim hover:text-cream uppercase tracking-[0.2em] transition"
+                  className="mt-5 w-full text-[0.78rem] text-cream-dim hover:text-cream uppercase tracking-[0.2em] transition"
                 >
                   Start over
                 </button>
@@ -218,7 +218,7 @@ const ConfiguratorPage = () => {
           {frame ? (
             <img src={frame.url} alt="" className="max-h-full max-w-full object-contain p-1" />
           ) : (
-            <span className="text-cream-dim text-[0.55rem] uppercase tracking-[0.16em]">Frame</span>
+            <span className="text-cream-dim text-[0.78rem] uppercase tracking-[0.16em]">Frame</span>
           )}
         </div>
         {/* Meta + swatches */}
@@ -237,7 +237,7 @@ const ConfiguratorPage = () => {
         <button
           onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
           disabled={!isStepComplete(step, config) || step === STEPS.length}
-          className="px-4 py-2.5 rounded-full bg-gold text-background text-[0.66rem] uppercase tracking-[0.2em] font-medium disabled:opacity-40 transition shrink-0"
+          className="px-4 py-2.5 rounded-full bg-gold text-background text-[0.78rem] uppercase tracking-[0.2em] font-medium disabled:opacity-40 transition shrink-0"
         >
           {step === STEPS.length ? "Done" : "Next"}
         </button>
@@ -251,7 +251,7 @@ const ConfiguratorPage = () => {
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex items-baseline justify-between gap-3">
-    <dt className="text-cream-dim uppercase tracking-[0.14em] text-[0.6rem]">{label}</dt>
+    <dt className="text-cream-dim uppercase tracking-[0.14em] text-[0.78rem]">{label}</dt>
     <dd className="text-cream text-xs text-right">{value}</dd>
   </div>
 );
@@ -269,7 +269,7 @@ const SyncBadge = ({
     return (
       <Link
         to="/en/account/signin?next=/en/bespoke/configurator"
-        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/15 text-cream-dim hover:text-cream hover:border-cream/30 text-[0.62rem] uppercase tracking-[0.18em] transition"
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/15 text-cream-dim hover:text-cream hover:border-cream/30 text-[0.78rem] uppercase tracking-[0.18em] transition"
       >
         <CloudOff size={12} />
         Sign in to save across devices
@@ -284,7 +284,7 @@ const SyncBadge = ({
                            "Synced to your account";
   const Icon = status === "loading" || status === "saving" ? Loader2 : Cloud;
   return (
-    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/10 bg-cream/[0.03] text-cream-dim text-[0.62rem] uppercase tracking-[0.18em]">
+    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/10 bg-cream/[0.03] text-cream-dim text-[0.78rem] uppercase tracking-[0.18em]">
       <Icon size={12} className={status === "loading" || status === "saving" ? "animate-spin" : ""} />
       {label}
     </span>

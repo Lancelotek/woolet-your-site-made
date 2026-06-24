@@ -188,7 +188,7 @@ const CollectionPage = ({
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                   <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 16 }}>$114</span>
                   <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
-                  <span style={{ marginLeft: "auto", fontSize: 10, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
+                  <span style={{ marginLeft: "auto", fontSize: 12, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
                 </div>
               </Link>
             ))}
