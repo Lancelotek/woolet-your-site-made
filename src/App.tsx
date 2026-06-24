@@ -222,6 +222,7 @@ const App = () => (
          <Route path="/de/:slug" element={<DeLandingRoute />} />
 
          <Route path="*" element={<NotFound />} />
+        </Routes>
         </Suspense>
         </AuthProvider>
       </BrowserRouter>
