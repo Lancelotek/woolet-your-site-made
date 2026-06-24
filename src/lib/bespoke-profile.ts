@@ -1,17 +1,14 @@
-// Bespoke scan profile — fuses 3 captured frames (front + L¾ + R¾) into a
-// single normalized measurement set used by the bespoke configurator.
+// Bespoke scan profile — fuses 3 captured frames (front + L 90° + R 90°)
+// into a single normalized measurement set used by the bespoke configurator.
 //
 // Calibration scheme:
 //  - FRONT frame is calibrated by a credit card on the forehead (known
-//    85.6 mm long edge). This gives us mm/pixel for the front frame and
-//    lets us measure face width + nose bridge width.
-//  - PROFILE frames carry no card. We reuse the FRONT-derived face width
-//    (which is the same physical person) as an internal scale. Specifically
-//    we assume that the distance between outerEyeCorner and tragus, projected
-//    onto a typical ¾ angle, corresponds to a known anatomical ratio relative
-//    to face width. We use a conservative empirical multiplier
-//    (TEMPLE_LENGTH_RATIO) tuned to give plausible temple lengths in the
-//    130–150 mm range.
+//    85.6 mm long edge). This gives mm/pixel for the front frame and lets
+//    us measure face width + nose bridge width.
+//  - PROFILE frames each carry their OWN card on the cheek, so each profile
+//    is independently calibrated. Real temple length and bridge depth are
+//    measured directly in mm — no anatomical ratio fallback when card is
+//    detected on the profile.
 //
 // All anatomical caps mirror scan-clamp.ts so the configurator never sees
 // implausible numbers.
@@ -20,9 +17,8 @@ import { MAX_FACE_WIDTH_MM, MAX_NOSE_WIDTH_MM } from "./scan-clamp";
 
 const CARD_LONG_EDGE_MM = 85.6; // ISO/IEC 7810 ID-1
 
-/** Empirical ratios derived from CAESAR head-and-face anthropometric dataset
- *  averages. They convert pixel distances on a ¾ profile frame into mm using
- *  the face width (derived from the front frame) as the internal scale. */
+/** Fallback empirical ratios derived from CAESAR head-and-face anthropometric
+ *  averages — used only when profile frames are missing entirely. */
 const TEMPLE_LENGTH_RATIO = 0.95; // (eye→tragus) ≈ 0.95 × face width
 const BRIDGE_HEIGHT_RATIO = 0.13; // bridge height ≈ 0.13 × face width
 
@@ -39,6 +35,8 @@ export interface FrontFrame {
 
 export interface ProfileFrame {
   pose: "left" | "right";
+  /** Card on the cheek — self-calibration reference. Optional for back-compat. */
+  card?: { left: Point; right: Point };
   outerEyeCorner: Point;
   tragus: Point;
   noseBridgeTop: Point;
@@ -79,17 +77,26 @@ function round1(n: number): number {
   return Math.round(n * 10) / 10;
 }
 
+/** mm/pixel for a frame containing a card with a horizontal long edge. */
+function cardMmPerPx(card: { left: Point; right: Point }): number | null {
+  const px = dist(card.left, card.right);
+  if (px <= 0) return null;
+  return CARD_LONG_EDGE_MM / px;
+}
+
 /** mm/pixel for the FRONT frame, using card long edge as reference. */
 export function frontMmPerPx(front: FrontFrame): number {
-  const cardPx = dist(front.card.left, front.card.right);
-  if (cardPx <= 0) throw new Error("invalid_card_pixels");
-  return CARD_LONG_EDGE_MM / cardPx;
+  const v = cardMmPerPx(front.card);
+  if (v == null) throw new Error("invalid_card_pixels");
+  return v;
 }
 
 /**
- * Fuse 3 frames into a single BespokeProfile. Profile frames are optional
- * for MVP — if missing, the profile carries face width + nose bridge width
- * only and confidence drops accordingly.
+ * Fuse 3 frames into a single BespokeProfile. Profile frames are optional —
+ * if missing, the profile carries face width + nose bridge width only and
+ * confidence drops accordingly. When a profile frame has a card, it is
+ * self-calibrated; otherwise it falls back to anatomical ratios from face
+ * width.
  */
 export function fuseBespokeProfile(
   front: FrontFrame,
@@ -109,27 +116,42 @@ export function fuseBespokeProfile(
   const noseBridgeWidthRaw = dist(front.noseBridge.left, front.noseBridge.right) * mmPerPx;
   const noseBridgeWidthMm = clamp(noseBridgeWidthRaw, 12, MAX_NOSE_WIDTH_MM);
 
-  // PROFILE-derived measurements — use face width as internal scale.
-  // Each profile gives us its own pixel scale via the eye→tragus distance.
-  const templeMmFromProfile = (p?: ProfileFrame): number | null => {
-    if (!p) return null;
+  /** Profile-frame mm/px: prefer the card on the cheek (direct measurement).
+   *  When the card is missing, fall back to face-width-based scaling using
+   *  the eye→tragus pixel distance and TEMPLE_LENGTH_RATIO. */
+  const profileMmPerPx = (p: ProfileFrame): number | null => {
+    if (p.card) {
+      const v = cardMmPerPx(p.card);
+      if (v != null) return v;
+      warnings.push(`${p.pose}_card_invalid`);
+    }
     const eyeToTragusPx = dist(p.outerEyeCorner, p.tragus);
     if (eyeToTragusPx <= 0) return null;
-    return clamp(faceWidthMm * TEMPLE_LENGTH_RATIO, 120, 160);
+    return (faceWidthMm * TEMPLE_LENGTH_RATIO) / eyeToTragusPx;
+  };
+
+  // PROFILE-derived temple length (eye corner → tragus, in mm)
+  const templeMmFromProfile = (p?: ProfileFrame): number | null => {
+    if (!p) return null;
+    const scale = profileMmPerPx(p);
+    if (scale == null) return null;
+    const eyeToTragusPx = dist(p.outerEyeCorner, p.tragus);
+    if (eyeToTragusPx <= 0) return null;
+    return clamp(eyeToTragusPx * scale, 110, 160);
   };
 
   const templeLengthLeftMm = templeMmFromProfile(left) ?? faceWidthMm * TEMPLE_LENGTH_RATIO;
   const templeLengthRightMm = templeMmFromProfile(right) ?? faceWidthMm * TEMPLE_LENGTH_RATIO;
 
-  // Nose bridge height — averaged across profiles when both present.
+  // Nose bridge height (top → bottom of the bridge, in mm), averaged across
+  // available profiles.
   const bridgeHeightFromProfile = (p?: ProfileFrame): number | null => {
     if (!p) return null;
+    const scale = profileMmPerPx(p);
+    if (scale == null) return null;
     const bridgePx = dist(p.noseBridgeTop, p.noseBridgeBottom);
-    const eyeToTragusPx = dist(p.outerEyeCorner, p.tragus);
-    if (bridgePx <= 0 || eyeToTragusPx <= 0) return null;
-    // mm/px on this profile frame = (face width mm × TEMPLE_LENGTH_RATIO) / eyeToTragusPx
-    const profileMmPerPx = (faceWidthMm * TEMPLE_LENGTH_RATIO) / eyeToTragusPx;
-    return bridgePx * profileMmPerPx;
+    if (bridgePx <= 0) return null;
+    return bridgePx * scale;
   };
 
   const bridgeSamples = [bridgeHeightFromProfile(left), bridgeHeightFromProfile(right)]
@@ -149,7 +171,6 @@ export function fuseBespokeProfile(
     if (mag <= 0) return null;
     const rad = Math.acos(clamp(dot / mag, -1, 1));
     const deg = (rad * 180) / Math.PI;
-    // Pantoscopic tilt is typically 0–15°; clamp to plausible range.
     return clamp(Math.abs(deg), 0, 20);
   };
 
@@ -157,17 +178,22 @@ export function fuseBespokeProfile(
     .filter((v): v is number => v != null);
   const pantoscopicAngleDeg = angleSamples.length
     ? angleSamples.reduce((s, v) => s + v, 0) / angleSamples.length
-    : 8; // anatomical average fallback
+    : 8;
 
-  // Asymmetry — |left temple − right temple| when both present.
   const asymmetryMm = left && right
     ? Math.abs(templeLengthLeftMm - templeLengthRightMm)
     : 0;
 
-  // Confidence — driven by per-frame model confidence + presence of profiles.
+  // Confidence — driven by per-frame model confidence + presence of profiles
+  // with cards (self-calibrated profiles get a small boost).
   const faceWidthConf = front.confidence;
   const noseBridgeConf = front.confidence;
-  const templeConf = ((left?.confidence ?? 0) + (right?.confidence ?? 0)) / 2;
+  const profileConf = (p?: ProfileFrame) => {
+    if (!p) return 0;
+    const base = p.confidence;
+    return p.card ? Math.min(1, base + 0.05) : base * 0.85;
+  };
+  const templeConf = (profileConf(left) + profileConf(right)) / 2;
   const angleConf = angleSamples.length ? templeConf : 0.3;
   const overall = (faceWidthConf + noseBridgeConf + templeConf + angleConf) / 4;
 
@@ -190,3 +216,4 @@ export function fuseBespokeProfile(
     warnings,
   };
 }
+
