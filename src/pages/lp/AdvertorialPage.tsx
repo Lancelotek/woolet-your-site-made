@@ -383,7 +383,7 @@ const AdvertorialPage = () => {
 
             <img
               src={noseBridgeAsset.url}
-              alt="Nose bridge width comparison for glasses: standard 18–20mm bridge digs into the sides of the nose and sits too high, vs Woolet 21mm and 24mm wide nose bridges matched to the wearer's nose so the frame sits level with room to breathe"
+              alt="Glasses nose bridge fit diagram — standard 18–20mm keyhole bridge digging into a wide nose vs Woolet 21mm and 24mm wider bridge sizes sitting level for wide noses and slim-face wearers"
               style={{
                 width: "100%",
                 borderRadius: 8,
