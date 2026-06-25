@@ -769,40 +769,6 @@ const footLink: React.CSSProperties = {
   textDecoration: "none",
 };
 
-const PortraitCard = ({ img, label }: { img: string; label: string }) => (
-  <div
-    style={{
-      position: "relative",
-      aspectRatio: "3 / 4",
-      background: C.bgPanel,
-      border: `1px solid ${C.divider}`,
-      overflow: "hidden",
-    }}
-  >
-    <img
-      src={img}
-      alt={`Wide-face customer · ${label}`}
-      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "grayscale(15%)" }}
-      loading="lazy"
-    />
-    <span
-      style={{
-        position: "absolute",
-        left: 14,
-        bottom: 14,
-        fontSize: 10.5,
-        letterSpacing: "0.28em",
-        textTransform: "uppercase",
-        color: C.ink,
-        background: "rgba(11,10,9,0.7)",
-        padding: "6px 10px",
-        backdropFilter: "blur(6px)",
-      }}
-    >
-      {label}
-    </span>
-  </div>
-);
 
 const FooterCol = ({ title, links }: { title: string; links: [string, string][] }) => (
   <div>
