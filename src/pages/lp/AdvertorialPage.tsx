@@ -335,7 +335,7 @@ const AdvertorialPage = () => {
             {/* Inline image */}
             <img
               src={wooletModelImg}
-              alt="Man wearing Woolet wide-fit acetate glasses — 158mm frame"
+              alt="Man with a wide face wearing Woolet 158mm Italian Mazzucchelli acetate glasses — proper wide-fit eyewear with keyhole bridge for 155mm+ faces"
               style={{
                 width: "100%",
                 height: 580,
