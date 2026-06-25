@@ -527,7 +527,7 @@ const AdvertorialPage = () => {
               }}
               loading="lazy"
             />
-            <p style={{
+            <p className="lp-cap" style={{
               fontFamily: "'Barlow', sans-serif",
               fontWeight: 300,
               fontSize: 12,
