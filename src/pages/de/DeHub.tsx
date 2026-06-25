@@ -176,6 +176,8 @@ export default function DeHub() {
             ))}
           </div>
         </section>
+
+        <Footer />
       </main>
     </>
   );
