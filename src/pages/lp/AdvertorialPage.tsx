@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
-import beforeAfterImg from "@/assets/before-after-fit.png";
+import beforeAfterAsset from "@/assets/standard-vs-155mm.png.asset.json";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import authorMarek from "@/assets/author-marek.png";
 import wooletModelImg from "@/assets/woolet-model.png";
@@ -223,8 +223,8 @@ const AdvertorialPage = () => {
           {/* 4. Hero image */}
           <div style={{ padding: "24px 20px 8px" }}>
             <img
-              src={beforeAfterImg}
-              alt="Comparison: glasses too small vs perfect fit on a wide face"
+              src={beforeAfterAsset.url}
+              alt="Standard frames vs frames built for 155mm+ faces"
               style={{
                 width: "100%",
                 borderRadius: 8,
