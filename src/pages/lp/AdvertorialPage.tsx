@@ -223,8 +223,8 @@ const AdvertorialPage = () => {
           {/* 4. Hero image */}
           <div style={{ padding: "24px 20px 8px" }}>
             <img
-              src={beforeAfterImg}
-              alt="Comparison: glasses too small vs perfect fit on a wide face"
+              src={beforeAfterAsset.url}
+              alt="Standard frames vs frames built for 155mm+ faces"
               style={{
                 width: "100%",
                 borderRadius: 8,
