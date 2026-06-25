@@ -233,10 +233,22 @@ const ListiclePage = () => {
               </p>
             </div>
 
-            {/* Right portraits */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-              <PortraitCard img={listicleHeroLeft} label="158 mm" />
-              <PortraitCard img={heroMan} label="161 mm" />
+            {/* Right: comparison image */}
+            <div
+              style={{
+                position: "relative",
+                aspectRatio: "1 / 1",
+                overflow: "hidden",
+                border: `1px solid ${C.divider}`,
+                background: C.bgPanel,
+              }}
+            >
+              <img
+                src={comparisonAsset.url}
+                alt="Standard frames vs. Woolet built for 155 mm+ — face fit comparison"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                loading="eager"
+              />
             </div>
           </div>
         </section>
