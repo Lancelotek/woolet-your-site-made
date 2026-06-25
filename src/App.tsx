@@ -31,6 +31,7 @@ const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
 const Payments = lazy(() => import("./pages/Payments.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const AdvertorialPage = lazy(() => import("./pages/lp/AdvertorialPage.tsx"));
+const WideBridgeFitGuide = lazy(() => import("./pages/lp/WideBridgeFitGuide.tsx"));
 const ListiclePage = lazy(() => import("./pages/lp/ListiclePage.tsx"));
 const KickstarterPrelaunch = lazy(() => import("./pages/lp/KickstarterPrelaunch.tsx"));
 const KickstarterVipConfirmed = lazy(() => import("./pages/lp/KickstarterVipConfirmed.tsx"));
@@ -160,6 +161,7 @@ const App = () => (
 
           {/* Landing pages */}
           <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
+          <Route path="/en/lp/wide-bridge-fit-guide" element={<WideBridgeFitGuide />} />
           <Route path="/en/lp/5-reasons" element={<ListiclePage />} />
           <Route path="/en/lp/kickstarter" element={<KickstarterPrelaunch />} />
           <Route path="/en/lp/kickstarter/vip-confirmed" element={<KickstarterVipConfirmed />} />
