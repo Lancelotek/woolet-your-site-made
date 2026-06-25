@@ -600,7 +600,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              The premium market didn't exist.
+              The premium market <em>didn't exist.</em>
             </h2>
 
             <p
