@@ -303,7 +303,11 @@ const AdvertorialPage = () => {
             {/* Avatar */}
             <img
               src={authorMarek}
-              alt="Marek K. — Woolet co-founder and author of this article on glasses for wide faces"
+              alt="Marek W. — Woolet co-founder and author of this article on glasses for wide faces"
+              width={36}
+              height={36}
+              loading="lazy"
+              decoding="async"
               style={{
                 width: 36,
                 height: 36,
@@ -378,8 +382,12 @@ const AdvertorialPage = () => {
               <img
                 src={beforeAfterAsset.url}
                 alt="Standard narrow eyeglass frames vs Woolet frames built for 155mm+ wide faces — side-by-side fit comparison on a man with a wide head"
-                style={{ width: "100%", display: "block" }}
+                width={1600}
+                height={900}
+                style={{ width: "100%", height: "auto", display: "block" }}
                 loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
               {/* Top scrim — masks the baked sentence-case labels in the image */}
               <div
@@ -481,12 +489,16 @@ const AdvertorialPage = () => {
             <img
               src={frameWidthChartImg}
               alt="Frame width comparison chart in millimetres: Zenni 140mm, Warby Parker 148mm, Woolet S 155mm, Woolet M 158mm, Woolet L 161mm — wide faces need 155–168mm where most brands stop fitting"
+              width={1600}
+              height={1000}
               style={{
                 width: "100%",
+                height: "auto",
                 borderRadius: 8,
                 display: "block",
               }}
               loading="lazy"
+              decoding="async"
             />
             {/* duplicate caption removed — chart subtitle already states this */}
           </figure>
@@ -638,14 +650,18 @@ const AdvertorialPage = () => {
             <img
               src={noseBridgeImg}
               alt="Glasses nose bridge fit diagram — standard 18–20mm keyhole bridge digging into a wide nose vs Woolet 21mm and 24mm wider bridge sizes sitting level for wide noses and slim-face wearers"
+              width={1320}
+              height={880}
               style={{
                 width: "100%",
+                height: "auto",
                 maxWidth: 660,
                 borderRadius: 8,
                 margin: "12px auto 6px",
                 display: "block",
               }}
               loading="lazy"
+              decoding="async"
             />
             <p className="lp-cap" style={{
               fontFamily: "'Barlow', sans-serif",
@@ -896,9 +912,12 @@ const AdvertorialPage = () => {
 
             <img
               src={advertorialPortrait.url}
-              alt="Wearer portrait — Woolet frames on a wide face, comfortable all-day fit"
+              alt="Wide-face wearer in Woolet 158mm acetate frames — comfortable all-day fit, no temple pinch, frame sits level on the bridge"
+              width={1480}
+              height={1850}
               style={{
                 width: "100%",
+                height: "auto",
                 maxWidth: 660,
                 objectFit: "contain",
                 borderRadius: 6,
@@ -906,6 +925,7 @@ const AdvertorialPage = () => {
                 display: "block",
               }}
               loading="lazy"
+              decoding="async"
             />
 
             <p
@@ -1180,6 +1200,9 @@ const AdvertorialPage = () => {
                         src={card.img}
                         alt={card.title}
                         loading="lazy"
+                        decoding="async"
+                        width={640}
+                        height={360}
                         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                       />
                     </div>
