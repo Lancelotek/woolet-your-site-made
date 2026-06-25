@@ -316,7 +316,6 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </Link>
-            </Link>
           </div>
         </header>
 
