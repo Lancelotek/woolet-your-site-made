@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useParams, useLocation, Link, Navigate } from "react-router-dom";
 import heroManImg from "@/assets/hero-man.jpg";
+import woolet007Asset from "@/assets/woolet-007-black-front.jpeg.asset.json";
+import woolet009Asset from "@/assets/woolet-009-havana-front.png.asset.json";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -36,9 +38,8 @@ const seoData: Record<Lang, { title: string; description: string }> = {
   },
 };
 
-/** Visual frame-width comparison: Standard 138–148 vs Woolet 155–172 on a 135–175 scale. */
+/** Bold, readable frame-width comparison: Standard 138–148 vs Woolet 155–172 on a 135–175 scale. */
 const FrameWidthMeter = () => {
-  // scale: 135–175 → 40mm span
   const pct = (mm: number) => ((mm - 135) / 40) * 100;
   const stdLeft = pct(138);
   const stdWidth = pct(148) - pct(138);
@@ -46,57 +47,61 @@ const FrameWidthMeter = () => {
   const wlWidth = pct(172) - pct(155);
 
   return (
-    <div className="w-full max-w-[460px]">
+    <div className="w-full max-w-[520px]">
       <div
-        className="flex items-center justify-between mb-3 uppercase tracking-[0.22em]"
-        style={{ fontSize: "0.66rem", color: "hsl(var(--gold-dim))" }}
+        className="flex items-center justify-between mb-4 uppercase tracking-[0.22em]"
+        style={{ fontSize: "0.68rem", color: "hsl(var(--gold-dim))" }}
       >
         <span>Frame width</span>
         <span>mm</span>
       </div>
 
       {/* Labels above bars */}
-      <div className="relative h-5 w-full" style={{ fontSize: "0.72rem" }}>
+      <div className="relative h-6 w-full" style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}>
         <span
-          className="absolute -translate-x-1/2 text-cream-dim whitespace-nowrap"
-          style={{ left: `${stdLeft + stdWidth / 2}%` }}
+          className="absolute -translate-x-1/2 whitespace-nowrap"
+          style={{ left: `${stdLeft + stdWidth / 2}%`, color: "hsl(var(--cream-dim) / 0.7)" }}
         >
-          <span className="text-cream-dim/70">✕ Standard</span>{" "}
-          <span className="text-foreground">138–148</span>
+          <span>✕ Standard</span>{" "}
+          <span className="text-foreground/85" style={{ fontWeight: 500 }}>138–148</span>
         </span>
         <span
           className="absolute -translate-x-1/2 whitespace-nowrap"
-          style={{ left: `${wlLeft + wlWidth / 2}%`, color: "hsl(var(--gold-light))" }}
+          style={{ left: `${wlLeft + wlWidth / 2}%`, color: "hsl(var(--gold-light))", fontWeight: 500 }}
         >
-          ✓ Woolet <span className="text-foreground">155–172</span>
+          ✓ Woolet <span className="text-foreground" style={{ fontWeight: 600 }}>155–172</span>
         </span>
       </div>
 
       {/* Track + bars */}
-      <div className="relative h-[14px] w-full">
+      <div className="relative h-[22px] w-full">
         <div
           className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px"
-          style={{ background: "hsl(0 0% 100% / 0.12)" }}
+          style={{ background: "hsl(0 0% 100% / 0.1)" }}
         />
-        {/* Standard bar — hatched */}
+        {/* Standard bar — hatched, thinner */}
         <div
-          className="absolute top-0 h-full border"
+          className="absolute top-1/2 -translate-y-1/2 border"
           style={{
             left: `${stdLeft}%`,
             width: `${stdWidth}%`,
+            height: "14px",
             borderColor: "hsl(0 0% 100% / 0.18)",
             backgroundImage:
-              "repeating-linear-gradient(135deg, hsl(0 0% 100% / 0.08) 0 4px, transparent 4px 8px)",
+              "repeating-linear-gradient(135deg, hsl(0 0% 100% / 0.09) 0 4px, transparent 4px 8px)",
           }}
           aria-label="Standard frames 138 to 148 millimetres"
         />
-        {/* Woolet bar — gold */}
+        {/* Woolet bar — gold, full height, glow */}
         <div
-          className="absolute top-0 h-full"
+          className="absolute top-0"
           style={{
             left: `${wlLeft}%`,
             width: `${wlWidth}%`,
+            height: "22px",
             background: "hsl(var(--gold))",
+            boxShadow:
+              "0 0 0 1px hsl(var(--gold-light) / 0.55), 0 8px 24px -6px hsl(var(--gold) / 0.55)",
           }}
           aria-label="Woolet frames 155 to 172 millimetres"
         />
@@ -104,12 +109,28 @@ const FrameWidthMeter = () => {
 
       {/* Scale */}
       <div
-        className="flex justify-between mt-2 text-cream-dim/60 tracking-wider"
-        style={{ fontSize: "0.65rem" }}
+        className="flex justify-between mt-2.5 tracking-wider"
+        style={{ fontSize: "0.66rem", color: "hsl(var(--cream-dim) / 0.55)" }}
       >
         <span>135</span>
         <span>155</span>
         <span>175</span>
+      </div>
+
+      {/* "Your range" caption under gold */}
+      <div className="relative mt-3 h-4 w-full">
+        <span
+          className="absolute -translate-x-1/2 uppercase tracking-[0.24em] whitespace-nowrap"
+          style={{
+            left: `${wlLeft + wlWidth / 2}%`,
+            fontSize: "0.62rem",
+            color: "hsl(var(--gold-light))",
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+          }}
+        >
+          ↑ Your range
+        </span>
       </div>
     </div>
   );
@@ -120,7 +141,6 @@ const Index = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const location = useLocation();
 
-  // Smooth scroll for in-page anchors
   useEffect(() => {
     const hash = window.location.hash;
     if (!hash) return;
@@ -136,6 +156,11 @@ const Index = () => {
 
   const seo = seoData[lang];
 
+  const models = [
+    { id: "007", name: "Woolet 007", shape: "Round", img: woolet007Asset.url, alt: "Woolet 007 round Italian acetate frame for wide faces" },
+    { id: "009", name: "Woolet 009", shape: "Soft-square", img: woolet009Asset.url, alt: "Woolet 009 soft-square Italian acetate frame for wide faces" },
+  ];
+
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} />
@@ -145,35 +170,34 @@ const Index = () => {
         <div
           className="absolute pointer-events-none rounded-full w-[900px] h-[900px] -top-[350px] -right-[300px]"
           style={{
-            background:
-              "radial-gradient(circle, hsl(var(--gold) / 0.06) 0%, transparent 60%)",
+            background: "radial-gradient(circle, hsl(var(--gold) / 0.06) 0%, transparent 60%)",
           }}
         />
         <div
           className="absolute pointer-events-none rounded-full w-[600px] h-[600px] -bottom-[200px] -left-[200px]"
           style={{
-            background:
-              "radial-gradient(circle, hsl(var(--gold) / 0.04) 0%, transparent 60%)",
+            background: "radial-gradient(circle, hsl(var(--gold) / 0.04) 0%, transparent 60%)",
           }}
         />
 
         <Navbar />
 
-        <main className="relative flex-1 px-5 sm:px-8 lg:px-16 py-12 lg:py-20">
-          <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16 items-center">
+        {/* HERO */}
+        <section className="relative px-5 sm:px-8 lg:px-16 pt-10 lg:pt-14 pb-10 lg:pb-14">
+          <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-stretch">
             {/* LEFT — copy */}
-            <div className="flex flex-col gap-7">
+            <div className="flex flex-col gap-6 lg:gap-7 lg:py-2">
               <div className="woolet-eyebrow">
                 <div className="woolet-eyebrow-line" />
                 <span className="woolet-eyebrow-text">Built for wide faces</span>
               </div>
 
               <h1
-                className="font-display text-woolet-white leading-[1.02]"
-                style={{ fontSize: "clamp(2.4rem, 4.6vw, 4.2rem)", fontWeight: 300 }}
+                className="font-display text-woolet-white leading-[1.02] max-w-[620px]"
+                style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)", fontWeight: 300 }}
               >
                 Too wide for{" "}
-                <em className="italic text-gold-light not-italic-fallback" style={{ fontStyle: "italic" }}>
+                <em className="text-gold-light" style={{ fontStyle: "italic" }}>
                   Ray-Ban, Persol
                 </em>{" "}
                 or Warby Parker?
@@ -188,11 +212,11 @@ const Index = () => {
                 anywhere else.
               </p>
 
-              <div className="pt-2">
+              <div className="pt-1">
                 <FrameWidthMeter />
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-3">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link
                   to={`/${lang}/lp/kickstarter`}
                   onClick={() =>
@@ -210,12 +234,8 @@ const Index = () => {
                     fontSize: "0.78rem",
                     padding: "18px 28px",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.background = "hsl(var(--gold-light))")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.background = "hsl(var(--gold))")
-                  }
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
                 >
                   Join the list — 40% off
                 </Link>
@@ -227,21 +247,23 @@ const Index = () => {
                       dest: "collection",
                     })
                   }
-                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-colors text-foreground"
+                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-colors text-cream-dim"
                   style={{
-                    border: "1px solid hsl(0 0% 100% / 0.18)",
+                    border: "1px solid hsl(0 0% 100% / 0.12)",
                     fontFamily: "Barlow, sans-serif",
                     fontWeight: 500,
                     fontSize: "0.78rem",
                     padding: "18px 28px",
                     background: "transparent",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.borderColor = "hsl(var(--gold) / 0.6)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.18)")
-                  }
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "hsl(var(--gold) / 0.45)";
+                    e.currentTarget.style.color = "hsl(var(--foreground))";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.12)";
+                    e.currentTarget.style.color = "hsl(var(--cream-dim))";
+                  }}
                 >
                   View collection
                 </Link>
@@ -249,7 +271,7 @@ const Index = () => {
 
               {/* Trust strip */}
               <div
-                className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-3 text-cream-dim/80"
+                className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1 text-cream-dim/80"
                 style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
               >
                 <span>Fit guarantee</span>
@@ -260,9 +282,9 @@ const Index = () => {
               </div>
             </div>
 
-            {/* RIGHT — portrait card */}
+            {/* RIGHT — portrait card, stretches to match left column */}
             <div
-              className="relative w-full aspect-[4/5] lg:aspect-auto lg:h-[640px] overflow-hidden"
+              className="relative w-full aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] lg:self-stretch overflow-hidden"
               style={{
                 border: "1px solid hsl(0 0% 100% / 0.08)",
                 background:
@@ -284,25 +306,30 @@ const Index = () => {
               />
               {/* Customer badge */}
               <div
-                className="absolute left-5 bottom-5 flex items-center gap-3 px-4 py-2.5 backdrop-blur-md"
+                className="absolute left-5 bottom-5 flex items-center gap-4 backdrop-blur-md"
                 style={{
                   background: "hsl(var(--background) / 0.78)",
                   border: "1px solid hsl(0 0% 100% / 0.1)",
+                  padding: "12px 18px",
                 }}
               >
                 <span
                   className="text-foreground"
-                  style={{ fontSize: "0.82rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
+                  style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
                 >
                   Marek W.
                 </span>
                 <span
+                  className="w-px h-3"
+                  style={{ background: "hsl(0 0% 100% / 0.18)" }}
+                />
+                <span
                   className="tracking-wider"
                   style={{
-                    fontSize: "0.82rem",
+                    fontSize: "0.85rem",
                     color: "hsl(var(--gold-light))",
                     fontFamily: "Barlow, sans-serif",
-                    fontWeight: 500,
+                    fontWeight: 600,
                   }}
                 >
                   161 mm
@@ -310,7 +337,89 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </main>
+        </section>
+
+        {/* TEASER — two models, encourages scroll */}
+        <section
+          className="relative px-5 sm:px-8 lg:px-16 py-12 lg:py-16"
+          style={{ borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}
+        >
+          <div className="max-w-[1320px] mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+              <div>
+                <div className="woolet-eyebrow mb-3">
+                  <div className="woolet-eyebrow-line" />
+                  <span className="woolet-eyebrow-text">The collection</span>
+                </div>
+                <h2
+                  className="font-display text-woolet-white leading-tight"
+                  style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)", fontWeight: 300 }}
+                >
+                  Two shapes.{" "}
+                  <em className="text-gold-light" style={{ fontStyle: "italic" }}>
+                    One honest range.
+                  </em>
+                </h2>
+              </div>
+              <Link
+                to={`/${lang}/collection`}
+                onClick={() =>
+                  pushGtmEvent("home_teaser_view_all_click", { dest: "collection" })
+                }
+                className="text-cream-dim hover:text-foreground no-underline uppercase tracking-[0.22em] transition-colors self-start sm:self-auto"
+                style={{ fontSize: "0.72rem", fontFamily: "Barlow, sans-serif" }}
+              >
+                View all sizes →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+              {models.map((m) => (
+                <Link
+                  key={m.id}
+                  to={`/${lang}/collection`}
+                  onClick={() =>
+                    pushGtmEvent("home_teaser_model_click", { model: m.id, dest: "collection" })
+                  }
+                  className="group block no-underline transition-colors"
+                  style={{ border: "1px solid hsl(0 0% 100% / 0.07)" }}
+                >
+                  <div className="relative w-full aspect-[16/9] overflow-hidden bg-woolet-white">
+                    <img
+                      src={m.img}
+                      alt={m.alt}
+                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                      style={{ transform: "scale(1.8)" }}
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between px-5 py-4">
+                    <div>
+                      <div
+                        className="uppercase tracking-[0.28em] mb-1"
+                        style={{ fontSize: "0.68rem", color: "hsl(var(--gold))" }}
+                      >
+                        {m.id}
+                      </div>
+                      <div
+                        className="font-display text-woolet-white"
+                        style={{ fontSize: "1.15rem" }}
+                      >
+                        {m.name}
+                      </div>
+                    </div>
+                    <div
+                      className="uppercase tracking-[0.22em] text-cream-dim group-hover:text-gold-light transition-colors"
+                      style={{ fontSize: "0.7rem", fontFamily: "Barlow, sans-serif" }}
+                    >
+                      {m.shape} · 155–161 mm
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <div className="h-16 lg:hidden" />
         <Footer />
