@@ -5,6 +5,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import beforeAfterAsset from "@/assets/standard-vs-155mm.png.asset.json";
 import frameWidthChartAsset from "@/assets/frame-width-comparison-chart.png.asset.json";
+import noseBridgeAsset from "@/assets/nose-bridge-comparison.png.asset.json";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import authorMarek from "@/assets/author-marek.png";
 import wooletModelImg from "@/assets/woolet-model.png";
