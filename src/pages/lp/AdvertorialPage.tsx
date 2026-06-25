@@ -617,8 +617,9 @@ const AdvertorialPage = () => {
               alt="Glasses nose bridge fit diagram — standard 18–20mm keyhole bridge digging into a wide nose vs Woolet 21mm and 24mm wider bridge sizes sitting level for wide noses and slim-face wearers"
               style={{
                 width: "100%",
+                maxWidth: 660,
                 borderRadius: 8,
-                margin: "12px 0 6px",
+                margin: "12px auto 6px",
                 display: "block",
               }}
               loading="lazy"
