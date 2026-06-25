@@ -670,7 +670,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              The premium market <em>didn't exist.</em>
+              Why premium wide-fit eyewear <em>didn't exist.</em>
             </h2>
 
             <p
@@ -701,7 +701,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              The geometry <em>nobody explained to you.</em>
+              The wide-frame geometry <em>nobody explained to you.</em>
             </h2>
 
             <p
@@ -866,7 +866,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              Three weeks <em>with the Woolet 007.</em>
+              Three weeks wearing the Woolet 007 <em>— 158mm wide-fit acetate.</em>
             </h2>
 
             <p
