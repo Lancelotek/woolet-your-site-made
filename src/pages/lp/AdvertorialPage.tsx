@@ -545,7 +545,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              The second problem nobody fixes: the nose bridge
+              The second problem nobody fixes: <em>the nose bridge</em>
             </h2>
 
             <p
