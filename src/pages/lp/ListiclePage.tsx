@@ -1,66 +1,102 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { supabase } from "@/integrations/supabase/client";
 import wooletLogo from "@/assets/woolet-logo.png";
-import woolet009Img from "@/assets/woolet-009.png";
-import woolet007Img from "@/assets/woolet-007.png";
-import wooletModelImg from "@/assets/woolet-model.png";
+import heroMan from "@/assets/hero-man.jpg";
 import listicleHeroLeft from "@/assets/listicle-hero-left.png";
 
-const CARDS = [
+/* ---------- design tokens (scoped to this page only) ---------- */
+const C = {
+  bg: "#0b0a09",
+  bgPanel: "#141210",
+  ink: "#f3ece0",
+  inkDim: "#c4bdaf",
+  inkMute: "#8a8275",
+  gold: "#d8b86a",
+  goldSoft: "#b89752",
+  goldDark: "#3a352d",
+  rule: "rgba(216,184,106,0.18)",
+  divider: "rgba(244,236,222,0.08)",
+};
+
+const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
+const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
+
+const REASONS = [
   {
-    num: "01",
-    tag: "GEOMETRY",
-    title: "Too-narrow frames optically WIDEN your face",
-    body: "It's physics. When the frame ends before the temple, the brain interprets exposed skin as extra width. Standard 130–148mm → the opposite of the intended effect.",
+    n: "01",
+    tag: "Geometry",
+    title: "Too-narrow frames make your face",
+    em: "look wider",
+    body: "It's physics. When the frame ends before the temple, the eye reads the exposed skin as extra width — the opposite of the effect you wanted.",
+    stat: "130–148",
+    statUnit: "mm",
+    statLabel: "Typical standard width",
+    visual: "bar",
   },
   {
-    num: "02",
-    tag: "MATERIAL",
-    title: "Stressed plastic deforms within weeks",
-    body: "TR90 and cheap acetates deform under the tension of wider faces. Italian Mazzucchelli acetate holds its shape — cotton and cellulose, not petrochemicals.",
+    n: "02",
+    tag: "Material",
+    title: "Stressed plastic",
+    em: "deforms in weeks",
+    body: "TR90 and cheap acetates warp under the tension of a wider face. Italian Mazzucchelli acetate holds its shape — cotton and cellulose, not petrochemicals.",
+    stat: "Mazzucchelli",
+    statUnit: "",
+    statLabel: "Cotton-cellulose acetate",
+    visual: "text",
   },
   {
-    num: "03",
-    tag: "HINGES",
-    title: "5-barrel hinges vs. standard 3-barrel",
-    body: "Standard hinges snap within the first month at 158mm. Woolet uses 5-barrel PVD Gunmetal hinges, engineered for an 11° opening angle.",
+    n: "03",
+    tag: "Hinges",
+    title: "5-barrel hinges,",
+    em: "not the standard 3",
+    body: "Standard hinges snap within the first month at 158 mm. Woolet uses 5-barrel PVD gunmetal hinges, engineered for the load a wider temple puts on the joint.",
+    stat: "11",
+    statUnit: "°",
+    statLabel: "Engineered opening angle",
+    visual: "angle",
   },
   {
-    num: "04",
-    tag: "BRIDGE",
-    title: "21mm keyhole bridge eliminates slipping",
-    body: "Too-narrow bridge = adjusting your glasses every 20 minutes. The 21mm keyhole bridge is matched to wider-set eyes. Zero slip.",
+    n: "04",
+    tag: "Bridge",
+    title: "A 21 mm keyhole bridge",
+    em: "that stops the slip",
+    body: "A too-narrow bridge means adjusting your glasses every 20 minutes. The 21 mm keyhole bridge is matched to wider-set eyes — zero slip, all day.",
+    stat: "21",
+    statUnit: "mm",
+    statLabel: "Keyhole bridge",
+    visual: "stat",
   },
-  {
-    num: "05",
-    tag: "MARKET",
-    title: "Premium + 158mm didn't exist before Woolet",
-    body: "Warby Parker Wide: max 148mm. Cubitts XL: 140mm. Fatheadz: sporty plastic. Woolet = the only brand combining 158mm with Mazzucchelli acetate in the premium segment. Founding Member: $114 (standard: $190).",
-  },
+];
+
+const MARKET = [
+  { brand: "Warby Parker", note: "Wide", width: 148, max: 158, dim: true },
+  { brand: "Cubitts", note: "XL", width: 140, max: 158, dim: true },
+  { brand: "Fatheadz", note: "", width: 150, max: 158, dim: true, label: "sporty plastic" },
+  { brand: "Woolet", note: "Wide Fit", width: 158, max: 158, dim: false },
 ];
 
 const TESTIMONIALS = [
   {
-    quote: "I've been searching for frames this wide for years. Woolet is the first brand that actually gets it.",
-    attribution: "MAREK W. · 161MM · WARSAW",
+    q: "I've been searching for frames this wide for years. Woolet is the first brand that actually gets it.",
+    who: "Marek W.",
+    meta: "161 mm · Warsaw",
   },
   {
-    quote: "Finally no more marks on my temples at the end of the day.",
-    attribution: "JAMES R. · 158MM · LONDON",
+    q: "Finally no more marks on my temples at the end of the day.",
+    who: "James R.",
+    meta: "158 mm · London",
   },
 ];
 
 const ListiclePage = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
-  const handleEmailSubmit = async () => {
+  const subscribe = async () => {
     if (!email) return;
     setLoading(true);
     try {
@@ -80,500 +116,706 @@ const ListiclePage = () => {
   };
 
   useEffect(() => {
-    pushGtmEvent("page_view", {
-      page_type: "listicle",
-      awareness_stage: "problem_aware",
-    });
+    pushGtmEvent("page_view", { page_type: "listicle", awareness_stage: "problem_aware" });
   }, []);
 
   return (
     <>
       <Helmet>
-        <title>5 Reasons Why Standard Glasses Don't Fit Wide Faces | Woolet</title>
+        <title>5 Reasons Standard Glasses Ruin Wide Faces | Woolet</title>
         <meta
           name="description"
-          content="5 technical reasons why 130–148mm glasses don't fit 155mm+ faces. Geometry, Mazzucchelli acetate, 5-barrel hinges, 21mm keyhole bridge."
+          content="Geometry, material, hinges, bridge, market. Five engineering reasons standard 130–148 mm frames fail on 155 mm+ faces — and what Woolet does differently."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/5-reasons" />
       </Helmet>
 
       <div
-        className="lp-scope"
+        className="lp5"
         style={{
-          background: "#080807",
+          background: C.bg,
+          color: C.ink,
           minHeight: "100vh",
-          fontFamily: "'Barlow', sans-serif",
+          fontFamily: SANS,
+          fontWeight: 300,
+          WebkitFontSmoothing: "antialiased",
         }}
       >
-
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          {/* Logo */}
-          <div style={{ padding: "16px 20px 0" }}>
-            <Link to="/en">
-              <img src={wooletLogo} alt="Woolet" style={{ height: 22 }} />
-            </Link>
-          </div>
-
-          {/* Hero */}
-          <div
-            style={{
-              background: "linear-gradient(180deg, #1A1000 0%, #080807 100%)",
-              padding: "28px 20px 4px",
-            }}
-          >
-            {/* Stars */}
-            <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 12 }}>
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570" }}>
-                4,900+ on the waitlist
-              </span>
-            </div>
-
-            {/* H1 */}
-            <h1
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontWeight: 300,
-                fontSize: "clamp(22px, 3.5vw, 28px)",
-                lineHeight: 1.2,
-                color: "#F8F8F6",
-                margin: 0,
-              }}
-            >
-              5 reasons why standard glasses{" "}
-              <em style={{ color: "#DBC184", fontStyle: "italic" }}>
-                ruin your face proportions
-              </em>
-            </h1>
-
-            <p
-              style={{
-                fontFamily: "'Barlow', sans-serif",
-                fontWeight: 300,
-                fontSize: 12,
-                color: "#9A8E7E",
-                marginTop: 10,
-                marginBottom: 8,
-              }}
-            >
-              (and why it's not your face that's the problem)
-            </p>
-          </div>
-
-          {/* CHANGE 3 — Intro paragraph */}
-          <p
-            style={{
-              fontFamily: "'Barlow', sans-serif",
-              fontWeight: 300,
-              fontSize: 13,
-              color: "#9A8E7E",
-              lineHeight: 1.7,
-              padding: "14px 20px 10px",
-              fontStyle: "italic",
-              margin: 0,
-            }}
-          >
-            You've tried. Frames that looked great in the display case were squeezing your temples by noon. Stylish options stopped at 148mm. Here's the engineering explanation — and what actually fits.
-          </p>
-
-          {/* Gold separator */}
-          <div
-            style={{
-              height: 1,
-              background: "linear-gradient(90deg, transparent, #A07A2A, transparent)",
-            }}
-          />
-
-          {/* Photo strip — CHANGE 1 & 2 */}
-          <div
+        {/* ---------- Top bar ---------- */}
+        <header
+          style={{
+            borderBottom: `1px solid ${C.divider}`,
+            padding: "22px 48px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Link to="/en" style={{ textDecoration: "none" }}>
+            <img src={wooletLogo} alt="Woolet" style={{ height: 20, display: "block" }} />
+          </Link>
+          <nav
             style={{
               display: "flex",
-              gap: 2,
-              height: 240,
-              padding: "18px 20px 6px",
+              gap: 42,
+              fontSize: 11,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: C.inkDim,
             }}
           >
-            <img
-              src={listicleHeroLeft}
-              alt="Man wearing wide-fit tortoise acetate glasses"
+            <Link to="/en/collection" style={navLink}>Frames</Link>
+            <Link to="/en/fit" style={navLink}>Find your fit</Link>
+            <Link to="/en/bespoke" style={navLink}>Bespoke</Link>
+            <Link to="/en/process" style={navLink}>Process</Link>
+            <Link to="/en/blog" style={{ ...navLink, color: C.ink }}>Blog</Link>
+          </nav>
+          <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+            <span style={{ fontSize: 11, letterSpacing: "0.22em", color: C.inkDim }}>EN</span>
+            <span
               style={{
-                flex: 1.5,
-                objectFit: "cover",
-                objectPosition: "top center",
-                borderRadius: "6px 0 0 6px",
-                minWidth: 0,
-              }}
-              loading="eager"
-            />
-            <img
-              src={wooletModelImg}
-              alt="Dark tortoise acetate wide-fit frames — Woolet 158mm"
-              style={{
-                flex: 1,
-                objectFit: "cover",
-                borderRadius: "0 6px 6px 0",
-                borderLeft: "1px solid #2A2520",
-                minWidth: 0,
-              }}
-              loading="eager"
-            />
-          </div>
-
-          {/* Issue cards */}
-          <div style={{ padding: "20px 20px 4px" }}>
-            <h2 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
-              5 reasons standard glasses fail on wide faces
-            </h2>
-            {CARDS.map((card) => (
-              <div
-                key={card.num}
-                style={{
-                  background: "#1A1612",
-                  borderRadius: 10,
-                  padding: 18,
-                  border: "1px solid #2A2520",
-                  marginBottom: 14,
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    width: 3,
-                    background: "#CAA449",
-                  }}
-                />
-                <div style={{ paddingLeft: 10 }}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <span style={{ fontFamily: "monospace", fontSize: 12, fontWeight: 600, color: "#CAA449" }}>
-                      {card.num}
-                    </span>
-                    <span
-                      style={{
-                        marginLeft: 8,
-                        fontSize: 12,
-                        letterSpacing: "2px",
-                        color: "#8A8580",
-                        background: "#2A2520",
-                        padding: "2px 6px",
-                        borderRadius: 3,
-                        fontFamily: "'Barlow', sans-serif",
-                      }}
-                    >
-                      {card.tag}
-                    </span>
-                  </div>
-                  <p
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontWeight: 400,
-                      fontSize: 14,
-                      color: "#F8F8F6",
-                      lineHeight: 1.4,
-                      margin: "10px 0 8px",
-                    }}
-                  >
-                    {card.title}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "'Barlow', sans-serif",
-                      fontWeight: 300,
-                      fontSize: 13,
-                      color: "#C9C9C9",
-                      lineHeight: 1.7,
-                      margin: 0,
-                    }}
-                  >
-                    {card.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* CHANGE 5 — Testimonials */}
-          <div style={{ padding: "16px 20px 14px" }}>
-            <h2 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
-              What customers say
-            </h2>
-            {TESTIMONIALS.map((t, i) => (
-              <div
-                key={i}
-                style={{
-                  borderLeft: "2px solid #A07A2A",
-                  background: "rgba(160,122,42,0.06)",
-                  padding: "14px 18px",
-                  marginBottom: 14,
-                  borderRadius: "0 6px 6px 0",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "'Barlow', sans-serif",
-                    fontWeight: 300,
-                    fontSize: 13,
-                    color: "#C9C9C9",
-                    lineHeight: 1.7,
-                    margin: 0,
-                    fontStyle: "italic",
-                  }}
-                >
-                  "{t.quote}"
-                </p>
-                <p
-                  style={{
-                    fontFamily: "'Barlow', sans-serif",
-                    fontWeight: 300,
-                    fontSize: 12,
-                    letterSpacing: "2px",
-                    color: "#9A9A9A",
-                    textTransform: "uppercase",
-                    marginTop: 10,
-                    marginBottom: 0,
-                  }}
-                >
-                  {t.attribution}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* CHANGE 4 — CTA block */}
-          <div style={{ margin: "22px 20px 32px" }}>
-            <div
-              style={{
-                background: "linear-gradient(135deg, #A07A2A, #CAA449)",
-                borderRadius: 12,
-                padding: 26,
+                fontSize: 11,
+                letterSpacing: "0.22em",
+                color: C.ink,
+                border: `1px solid ${C.gold}`,
+                padding: "10px 18px",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-                <span
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontWeight: 300,
-                    fontSize: 12,
-                    color: "#080807",
-                    letterSpacing: "3px",
-                  }}
-                >
-                  WOOLET
+              SHOP — SOON
+            </span>
+          </div>
+        </header>
+
+        {/* ---------- Hero ---------- */}
+        <section style={{ padding: "88px 48px 56px", maxWidth: 1320, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: 64, alignItems: "center" }}>
+            {/* Left */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
+                <span style={{ width: 28, height: 1, background: C.gold }} />
+                <span style={{ fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold }}>
+                  The Fit Guide
                 </span>
-                <span
-                  style={{
-                    fontFamily: "'Barlow', sans-serif",
-                    fontWeight: 500,
-                    fontSize: 12,
-                    color: "#080807",
-                    letterSpacing: "2px",
-                  }}
-                >
-                  WIDE FIT 158
+                <span style={{ fontSize: 11, letterSpacing: "0.18em", color: C.inkMute }}>
+                  · 4,900+ on the waitlist
                 </span>
               </div>
+
+              <h1
+                style={{
+                  fontFamily: SERIF,
+                  fontWeight: 400,
+                  fontSize: "clamp(40px, 4.4vw, 64px)",
+                  lineHeight: 1.05,
+                  letterSpacing: "-0.01em",
+                  margin: 0,
+                  color: C.ink,
+                  maxWidth: 680,
+                }}
+              >
+                5 reasons standard glasses{" "}
+                <em style={{ color: C.gold, fontStyle: "italic", fontWeight: 400 }}>
+                  ruin your face proportions
+                </em>
+              </h1>
 
               <p
                 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 300,
-                  fontSize: 18,
-                  color: "#080807",
-                  lineHeight: 1.25,
-                  marginBottom: 20,
-                  marginTop: 0,
+                  marginTop: 28,
+                  maxWidth: 480,
+                  fontSize: 15,
+                  lineHeight: 1.7,
+                  color: C.inkDim,
                 }}
               >
-                Join 4,900+ people already waiting for Woolet.
+                Frames that looked sharp in the case were squeezing your temples by noon.
+                The stylish options stopped at 148 mm. Here's the engineering — and what
+                actually fits.
               </p>
+            </div>
 
-              {!submitted ? (
-                <>
-                  {/* Email input */}
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()}
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      background: "#1A1612",
-                      border: "1px solid #2A2520",
-                      color: "#F8F8F6",
-                      borderRadius: 4,
-                      fontFamily: "'Barlow', sans-serif",
-                      fontSize: 13,
-                      fontWeight: 300,
-                      outline: "none",
-                      marginBottom: 12,
-                      boxSizing: "border-box",
-                    }}
-                  />
+            {/* Right portraits */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+              <PortraitCard img={listicleHeroLeft} label="158 mm" />
+              <PortraitCard img={heroMan} label="161 mm" />
+            </div>
+          </div>
+        </section>
 
-                  {/* Privacy checkbox */}
-                  <label
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 8,
-                      cursor: "pointer",
-                      fontFamily: "'Barlow', sans-serif",
-                      fontWeight: 300,
-                      fontSize: 12,
-                      color: "rgba(8,8,7,0.82)",
-                      marginBottom: 14,
-                    }}
-                  >
-                    <input type="checkbox" checked={privacyAccepted} onChange={() => setPrivacyAccepted(v => !v)} style={{ display: "none" }} />
+        {/* ---------- Reasons table ---------- */}
+        <section style={{ padding: "20px 48px 40px", maxWidth: 1320, margin: "0 auto" }}>
+          {REASONS.map((r) => (
+            <article
+              key={r.n}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "120px 1fr 280px",
+                gap: 48,
+                padding: "48px 0",
+                borderTop: `1px solid ${C.divider}`,
+                alignItems: "start",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: SERIF,
+                  fontSize: 56,
+                  fontWeight: 400,
+                  color: C.gold,
+                  lineHeight: 1,
+                  fontStyle: "italic",
+                }}
+              >
+                {r.n}
+              </div>
+
+              <div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "0.28em",
+                    textTransform: "uppercase",
+                    color: C.inkMute,
+                    marginBottom: 16,
+                  }}
+                >
+                  {r.tag}
+                </div>
+                <h2
+                  style={{
+                    fontFamily: SERIF,
+                    fontWeight: 400,
+                    fontSize: 28,
+                    lineHeight: 1.2,
+                    color: C.ink,
+                    margin: 0,
+                  }}
+                >
+                  {r.title}{" "}
+                  <em style={{ color: C.gold, fontStyle: "italic", fontWeight: 400 }}>{r.em}</em>
+                </h2>
+                <p
+                  style={{
+                    marginTop: 16,
+                    maxWidth: 560,
+                    fontSize: 15,
+                    lineHeight: 1.75,
+                    color: C.inkDim,
+                  }}
+                >
+                  {r.body}
+                </p>
+
+                {r.visual === "bar" && (
+                  <div style={{ marginTop: 28, maxWidth: 520 }}>
                     <div
                       style={{
-                        width: 14,
-                        height: 14,
-                        border: `1px solid ${privacyAccepted ? "#CAA449" : "#ccc"}`,
-                        backgroundColor: privacyAccepted ? "#CAA449" : "transparent",
-                        borderRadius: 2,
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                        marginTop: 1,
-                        transition: "all 0.15s",
+                        justifyContent: "space-between",
+                        fontSize: 11,
+                        letterSpacing: "0.12em",
+                        color: C.inkMute,
+                        marginBottom: 8,
                       }}
                     >
-                      {privacyAccepted && (
-                        <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      )}
+                      <span>× Frame stops short</span>
+                      <span style={{ color: C.gold }}>✓ Covers the temple</span>
                     </div>
-                    <span>
-                      I agree to the{" "}
-                      <Link to="/en/privacy-policy" style={{ color: "#CAA449", textDecoration: "underline" }}>Privacy Policy</Link>
-                    </span>
-                  </label>
+                    <div style={{ display: "flex", gap: 6 }}>
+                      <div
+                        style={{
+                          flex: 1,
+                          height: 10,
+                          background:
+                            "repeating-linear-gradient(45deg, rgba(244,236,222,0.12), rgba(244,236,222,0.12) 4px, transparent 4px, transparent 8px)",
+                          border: `1px solid rgba(244,236,222,0.18)`,
+                        }}
+                      />
+                      <div style={{ flex: 1, height: 10, background: C.gold }} />
+                    </div>
+                  </div>
+                )}
+              </div>
 
-                  {/* Button */}
-                  <button
-                    onClick={handleEmailSubmit}
-                    disabled={loading || !email || !privacyAccepted}
-                    style={{
-                      width: "100%",
-                      background: "#080807",
-                      color: "#CAA449",
-                      border: "none",
-                      padding: "15px 0",
-                      borderRadius: 5,
-                      fontFamily: "'Barlow', sans-serif",
-                      fontWeight: 600,
-                      fontSize: 14,
-                      letterSpacing: "2px",
-                      textTransform: "uppercase",
-                      cursor: loading ? "wait" : "pointer",
-                      opacity: (!email || !privacyAccepted) ? 0.5 : 1,
-                    }}
-                  >
-                    {loading ? "SENDING..." : "JOIN THE WAITLIST · 40% OFF AT LAUNCH"}
-                  </button>
-
-                  {/* Subtext */}
-                  <p
-                    style={{
-                      fontFamily: "'Barlow', sans-serif",
-                      fontWeight: 300,
-                      fontSize: 12,
-                      color: "rgba(8,8,7,0.78)",
-                      textAlign: "center",
-                      marginTop: 12,
-                      marginBottom: 0,
-                    }}
-                  >
-                    Italian Mazzucchelli Acetate · PVD Gunmetal · 158mm
-                  </p>
-                </>
-              ) : (
-                <div style={{ textAlign: "center", padding: "12px 0" }}>
-                  <div style={{ fontSize: 18, color: "#CAA449", marginBottom: 6 }}>✓</div>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 13, color: "#080807", margin: 0 }}>
-                    You're on the list — check your inbox.
-                  </p>
-                  <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "rgba(8,8,7,0.78)", marginTop: 6, marginBottom: 0 }}>
-                    40% off + free shipping locked in.
-                  </p>
+              <div style={{ textAlign: "right" }}>
+                <div
+                  style={{
+                    fontFamily: r.visual === "text" ? SERIF : SERIF,
+                    fontSize: r.visual === "text" ? 32 : 44,
+                    fontWeight: 400,
+                    color: C.ink,
+                    lineHeight: 1,
+                  }}
+                >
+                  {r.stat}
+                  {r.statUnit && (
+                    <span style={{ fontSize: 16, color: C.inkMute, marginLeft: 4 }}>{r.statUnit}</span>
+                  )}
                 </div>
-              )}
+                <div
+                  style={{
+                    marginTop: 10,
+                    fontSize: 10.5,
+                    letterSpacing: "0.28em",
+                    textTransform: "uppercase",
+                    color: C.inkMute,
+                  }}
+                >
+                  {r.statLabel}
+                </div>
+              </div>
+            </article>
+          ))}
+        </section>
 
-              {/* Secondary link */}
-              <span
-                onClick={() => navigate("/en/fit")}
+        {/* ---------- 05 Market card ---------- */}
+        <section style={{ padding: "20px 48px 80px", maxWidth: 1320, margin: "0 auto" }}>
+          <div
+            style={{
+              border: `1px solid ${C.rule}`,
+              background: "linear-gradient(180deg, rgba(216,184,106,0.04), rgba(216,184,106,0))",
+              padding: "48px 56px",
+            }}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: "120px 1fr", gap: 48 }}>
+              <div
                 style={{
-                  fontFamily: "'Barlow', sans-serif",
-                  fontWeight: 300,
-                  fontSize: 12,
-                  color: "#B5A993",
-                  textAlign: "center",
-                  display: "block",
-                  marginTop: 18,
-                  cursor: "pointer",
+                  fontFamily: SERIF,
+                  fontSize: 56,
+                  fontStyle: "italic",
+                  color: C.gold,
+                  lineHeight: 1,
                 }}
               >
-                Not sure about your size? Check your fit first →
-              </span>
+                05
+              </div>
+              <div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "0.28em",
+                    textTransform: "uppercase",
+                    color: C.inkMute,
+                    marginBottom: 16,
+                  }}
+                >
+                  The Market
+                </div>
+                <h2
+                  style={{
+                    fontFamily: SERIF,
+                    fontWeight: 400,
+                    fontSize: 32,
+                    lineHeight: 1.2,
+                    margin: 0,
+                  }}
+                >
+                  Premium <em style={{ color: C.gold, fontStyle: "italic" }}>and</em> 158 mm didn't
+                  exist — until Woolet
+                </h2>
+                <p
+                  style={{
+                    marginTop: 16,
+                    maxWidth: 640,
+                    fontSize: 15,
+                    lineHeight: 1.75,
+                    color: C.inkDim,
+                  }}
+                >
+                  The widest mainstream options top out below 150 mm, and the truly wide brands use
+                  sporty plastic. No one paired real width with Italian acetate in the premium
+                  segment.
+                </p>
+
+                {/* market bars */}
+                <div style={{ marginTop: 36, display: "grid", gap: 14, maxWidth: 880 }}>
+                  {MARKET.map((m) => {
+                    const pct = (m.width / 165) * 100;
+                    return (
+                      <div
+                        key={m.brand}
+                        style={{ display: "grid", gridTemplateColumns: "180px 1fr 80px", alignItems: "center", gap: 24 }}
+                      >
+                        <div style={{ fontSize: 14, color: m.dim ? C.inkDim : C.ink }}>
+                          {m.brand}{" "}
+                          {m.note && (
+                            <span style={{ color: m.dim ? C.inkMute : C.gold, marginLeft: 6, fontSize: 12 }}>
+                              {m.note}
+                            </span>
+                          )}
+                        </div>
+                        <div
+                          style={{
+                            position: "relative",
+                            height: m.dim ? 8 : 14,
+                            background: "rgba(244,236,222,0.05)",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: `${pct}%`,
+                              height: "100%",
+                              background: m.dim ? "rgba(196,189,175,0.35)" : C.gold,
+                              boxShadow: m.dim ? "none" : `0 0 18px rgba(216,184,106,0.35)`,
+                            }}
+                          />
+                          {m.label && (
+                            <span
+                              style={{
+                                position: "absolute",
+                                left: `${pct + 1}%`,
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                fontSize: 11,
+                                color: C.inkMute,
+                                fontStyle: "italic",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {m.label}
+                            </span>
+                          )}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: 13,
+                            color: m.dim ? C.inkMute : C.ink,
+                            textAlign: "right",
+                          }}
+                        >
+                          {m.width} mm
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* price + CTA */}
+                <div
+                  style={{
+                    marginTop: 44,
+                    paddingTop: 28,
+                    borderTop: `1px solid ${C.divider}`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 24,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 18 }}>
+                    <span
+                      style={{
+                        fontSize: 10.5,
+                        letterSpacing: "0.28em",
+                        textTransform: "uppercase",
+                        color: C.inkMute,
+                      }}
+                    >
+                      Founding Member
+                    </span>
+                    <span style={{ fontFamily: SERIF, fontSize: 36, color: C.ink }}>$133</span>
+                    <span style={{ fontSize: 16, color: C.inkMute, textDecoration: "line-through" }}>
+                      $190
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        letterSpacing: "0.18em",
+                        color: C.gold,
+                        border: `1px solid ${C.gold}`,
+                        padding: "6px 10px",
+                      }}
+                    >
+                      30% OFF AT LAUNCH
+                    </span>
+                  </div>
+                  <a
+                    href="#waitlist"
+                    onClick={() =>
+                      pushGtmEvent("listicle_cta_click", { location: "market_card", dest: "waitlist" })
+                    }
+                    style={{
+                      fontSize: 11,
+                      letterSpacing: "0.28em",
+                      textTransform: "uppercase",
+                      color: C.bg,
+                      background: C.gold,
+                      padding: "16px 28px",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Join the Waitlist
+                  </a>
+                </div>
+              </div>
             </div>
+          </div>
+        </section>
+
+        {/* ---------- Testimonials ---------- */}
+        <section style={{ padding: "0 48px 80px", maxWidth: 1320, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+            {TESTIMONIALS.map((t) => (
+              <blockquote
+                key={t.who}
+                style={{
+                  margin: 0,
+                  padding: "24px 28px",
+                  borderLeft: `2px solid ${C.gold}`,
+                  background: "rgba(216,184,106,0.04)",
+                }}
+              >
+                <p style={{ fontFamily: SERIF, fontSize: 22, fontStyle: "italic", color: C.ink, margin: 0, lineHeight: 1.4 }}>
+                  "{t.q}"
+                </p>
+                <footer
+                  style={{
+                    marginTop: 14,
+                    fontSize: 11,
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: C.inkMute,
+                  }}
+                >
+                  {t.who} · {t.meta}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------- Waitlist ---------- */}
+        <section
+          id="waitlist"
+          style={{ padding: "0 48px 96px", maxWidth: 1320, margin: "0 auto" }}
+        >
+          <div
+            style={{
+              border: `1px solid ${C.rule}`,
+              padding: "64px 56px",
+              textAlign: "center",
+              background: "linear-gradient(180deg, rgba(216,184,106,0.05), rgba(216,184,106,0))",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 11,
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+                color: C.gold,
+                marginBottom: 18,
+              }}
+            >
+              Woolet · Wide Fit 158
+            </div>
+            <h2
+              style={{
+                fontFamily: SERIF,
+                fontWeight: 400,
+                fontSize: 36,
+                lineHeight: 1.2,
+                margin: 0,
+                color: C.ink,
+                maxWidth: 640,
+                marginInline: "auto",
+              }}
+            >
+              Join 4,900+ people already waiting for frames that fit.
+            </h2>
+
+            {!submitted ? (
+              <div
+                style={{
+                  marginTop: 32,
+                  display: "flex",
+                  gap: 10,
+                  maxWidth: 520,
+                  marginInline: "auto",
+                }}
+              >
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && subscribe()}
+                  style={{
+                    flex: 1,
+                    padding: "16px 18px",
+                    background: "rgba(244,236,222,0.04)",
+                    border: `1px solid ${C.divider}`,
+                    color: C.ink,
+                    fontFamily: SANS,
+                    fontSize: 14,
+                    outline: "none",
+                  }}
+                />
+                <button
+                  onClick={subscribe}
+                  disabled={loading || !email}
+                  style={{
+                    background: C.gold,
+                    color: C.bg,
+                    border: "none",
+                    padding: "0 28px",
+                    fontFamily: SANS,
+                    fontSize: 11,
+                    letterSpacing: "0.28em",
+                    textTransform: "uppercase",
+                    cursor: loading ? "wait" : "pointer",
+                    opacity: !email ? 0.55 : 1,
+                  }}
+                >
+                  {loading ? "..." : "Get 30% off"}
+                </button>
+              </div>
+            ) : (
+              <p style={{ marginTop: 28, color: C.gold, fontSize: 14 }}>
+                ✓ You're on the list — check your inbox.
+              </p>
+            )}
+
+            <p style={{ marginTop: 18, fontSize: 12, color: C.inkMute }}>
+              Italian Mazzucchelli acetate · PVD gunmetal · 158 mm · No spam, unsubscribe anytime
+            </p>
+          </div>
+        </section>
+
+        {/* ---------- Footer ---------- */}
+        <footer
+          style={{
+            borderTop: `1px solid ${C.divider}`,
+            padding: "56px 48px 32px",
+          }}
+        >
+          <div
+            style={{
+              maxWidth: 1320,
+              margin: "0 auto",
+              display: "grid",
+              gridTemplateColumns: "1.4fr 1fr 1fr 1fr",
+              gap: 48,
+            }}
+          >
+            <div>
+              <img src={wooletLogo} alt="Woolet" style={{ height: 20, marginBottom: 18 }} />
+              <p style={{ fontSize: 13, color: C.inkDim, lineHeight: 1.6, margin: 0, maxWidth: 280 }}>
+                Eyewear engineered for wide faces. Italian acetate, handmade in the EU.
+              </p>
+              <div style={{ display: "flex", gap: 18, marginTop: 22, fontSize: 11, letterSpacing: "0.22em", color: C.inkMute, textTransform: "uppercase" }}>
+                <a href="https://www.instagram.com/woolet.co" target="_blank" rel="noopener" style={footLink}>Instagram</a>
+                <a href="https://www.facebook.com/woolet.co" target="_blank" rel="noopener" style={footLink}>Facebook</a>
+              </div>
+            </div>
+
+            <FooterCol title="Shop" links={[
+              ["Frames", "/en/collection"],
+              ["Bespoke", "/en/bespoke"],
+              ["Find your fit", "/en/fit"],
+              ["Kickstarter", "/en/lp/kickstarter"],
+            ]} />
+            <FooterCol title="Learn" links={[
+              ["Why glasses fail", "/en/lp/why-glasses-fail"],
+              ["Bridge fit guide", "/en/lp/wide-bridge-fit-guide"],
+              ["The process", "/en/process"],
+              ["Blog", "/en/blog"],
+            ]} />
+            <FooterCol title="Company" links={[
+              ["Support", "/en/contact"],
+              ["Return policy", "/en/return-policy"],
+              ["Privacy", "/en/privacy-policy"],
+              ["Cookie settings", "/en/cookie-policy"],
+            ]} />
           </div>
 
-          {/* CHANGE 6 — Recommended with images */}
-          <div style={{ padding: "20px 20px 32px" }}>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#8A8580", textTransform: "uppercase", marginBottom: 14 }}>
-              RECOMMENDED
-            </div>
-            <div style={{ display: "flex", gap: 10 }}>
-              <Link to="/en/products/007" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", textDecoration: "none", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                <div style={{ height: 120, padding: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "#141210", borderRadius: "6px 6px 0 0" }}>
-                  <img
-                    src={woolet007Img}
-                    alt="Woolet 007 — Panto / Round"
-                    style={{ maxWidth: "80%", maxHeight: "100%", objectFit: "contain", display: "block" }}
-                    loading="lazy"
-                  />
-                </div>
-                <div style={{ padding: 14, display: "flex", gap: 12, alignItems: "center" }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>007</span>
-                  </div>
-                  <div>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 13, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 007 — Panto / Round</p>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from $114</p>
-                  </div>
-                </div>
-              </Link>
-              <Link to="/en/products/009" style={{ flex: 1, background: "#1A1612", borderRadius: 8, border: "1px solid #2A2520", textDecoration: "none", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                <div style={{ height: 120, padding: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "#141210", borderRadius: "6px 6px 0 0" }}>
-                  <img
-                    src={woolet009Img}
-                    alt="Woolet 009 — Square"
-                    style={{ maxWidth: "80%", maxHeight: "100%", objectFit: "contain", display: "block" }}
-                    loading="lazy"
-                  />
-                </div>
-                <div style={{ padding: 14, display: "flex", gap: 12, alignItems: "center" }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 6, background: "#2A2520", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, color: "#CAA449", fontWeight: 300 }}>009</span>
-                  </div>
-                  <div>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 13, color: "#F8F8F6", margin: 0, lineHeight: 1.3 }}>Woolet 009 — Square</p>
-                    <p style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#7A7570", margin: "2px 0 0" }}>158mm · Mazzucchelli · from $114</p>
-                  </div>
-                </div>
-              </Link>
-            </div>
+          <div
+            style={{
+              maxWidth: 1320,
+              margin: "40px auto 0",
+              paddingTop: 24,
+              borderTop: `1px solid ${C.divider}`,
+              fontSize: 11,
+              color: C.inkMute,
+              letterSpacing: "0.04em",
+            }}
+          >
+            © {new Date().getFullYear()} JAY23 LLC — woolet.co · 412 N. Main Street, STE 100 · Buffalo, Wyoming 82834
           </div>
-        </div>
+        </footer>
       </div>
     </>
   );
 };
+
+/* ---------- helpers ---------- */
+const navLink: React.CSSProperties = {
+  color: "inherit",
+  textDecoration: "none",
+};
+const footLink: React.CSSProperties = {
+  color: "inherit",
+  textDecoration: "none",
+};
+
+const PortraitCard = ({ img, label }: { img: string; label: string }) => (
+  <div
+    style={{
+      position: "relative",
+      aspectRatio: "3 / 4",
+      background: C.bgPanel,
+      border: `1px solid ${C.divider}`,
+      overflow: "hidden",
+    }}
+  >
+    <img
+      src={img}
+      alt={`Wide-face customer · ${label}`}
+      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "grayscale(15%)" }}
+      loading="lazy"
+    />
+    <span
+      style={{
+        position: "absolute",
+        left: 14,
+        bottom: 14,
+        fontSize: 10.5,
+        letterSpacing: "0.28em",
+        textTransform: "uppercase",
+        color: C.ink,
+        background: "rgba(11,10,9,0.7)",
+        padding: "6px 10px",
+        backdropFilter: "blur(6px)",
+      }}
+    >
+      {label}
+    </span>
+  </div>
+);
+
+const FooterCol = ({ title, links }: { title: string; links: [string, string][] }) => (
+  <div>
+    <div
+      style={{
+        fontSize: 11,
+        letterSpacing: "0.28em",
+        textTransform: "uppercase",
+        color: C.gold,
+        marginBottom: 18,
+      }}
+    >
+      {title}
+    </div>
+    <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 12 }}>
+      {links.map(([label, href]) => (
+        <li key={href}>
+          <Link to={href} style={{ color: C.inkDim, textDecoration: "none", fontSize: 13 }}>
+            {label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 export default ListiclePage;
