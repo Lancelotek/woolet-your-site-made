@@ -91,6 +91,7 @@ const Navbar = () => {
                     to={`/${l}`}
                     onClick={() => {
                       setLangOpen(false);
+                      try { window.localStorage.setItem("woolet_lang", l); } catch {}
                       pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l });
                     }}
                     className={`no-underline px-4 py-2.5 tracking-wider hover:bg-surface-2 transition-colors ${l === lang ? "text-primary" : "text-cream-dim hover:text-foreground"}`}
@@ -228,6 +229,7 @@ const Navbar = () => {
                     to={`/${l}`}
                     onClick={() => {
                       setMenuOpen(false);
+                      try { window.localStorage.setItem("woolet_lang", l); } catch {}
                       pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l });
                     }}
                     className={`no-underline uppercase tracking-[0.2em] px-3 py-1.5 border transition-colors ${
