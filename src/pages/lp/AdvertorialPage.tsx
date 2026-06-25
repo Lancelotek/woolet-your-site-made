@@ -349,6 +349,61 @@ const AdvertorialPage = () => {
               loading="lazy"
             />
 
+            {/* Section 1b — Nose bridge */}
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 400,
+                fontSize: 18,
+                color: "#111",
+                margin: "20px 0 8px",
+                lineHeight: 1.3,
+              }}
+            >
+              The second problem nobody fixes: the nose bridge
+            </h2>
+
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 300,
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#3A3A3A",
+                margin: "0 0 12px",
+              }}
+            >
+              Width is only half of it. And it isn't only a wide-face issue —
+              plenty of people with a slim face still have a <strong>wide nose</strong>.
+              Standard frames are built around an 18–20mm bridge. If your nose
+              is wider than that, the pads dig in, the frame sits too high, and
+              it slides the moment you look down — no matter how light the
+              acetate is.
+            </p>
+
+            <img
+              src={noseBridgeAsset.url}
+              alt="Nose bridge width comparison for glasses: standard 18–20mm bridge digs into the sides of the nose and sits too high, vs Woolet 21mm and 24mm wide nose bridges matched to the wearer's nose so the frame sits level with room to breathe"
+              style={{
+                width: "100%",
+                borderRadius: 8,
+                margin: "12px 0 6px",
+                display: "block",
+              }}
+              loading="lazy"
+            />
+            <p style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 300,
+              fontSize: 12,
+              lineHeight: 1.6,
+              color: "#7A7A7A",
+              margin: "0 2px 14px",
+              fontStyle: "italic",
+            }}>
+              Two bridge widths — 21mm and 24mm — matched to your nose by the fit scan, so the frame sits level and stops digging in. Wide noses finally have a bridge built for them, slim face or not.
+            </p>
+
             {/* Section 2 */}
             <h2
               style={{
