@@ -900,24 +900,23 @@ const AdvertorialPage = () => {
           </div>
 
           {/* 6. CTA block */}
-          <div style={{ padding: "0 20px" }}>
+          <div className="lp-narrow-row" style={{ padding: "0 20px", margin: "0 auto" }}>
             <div
               style={{
                 background: "#141210",
                 borderRadius: 10,
-                padding: 18,
+                padding: 22,
                 border: "1px solid rgba(216,184,106,0.22)",
-                marginTop: 20,
-                marginBottom: 20,
+                marginTop: 28,
+                marginBottom: 24,
               }}
             >
-              {/* Header row */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
-                  marginBottom: 6,
+                  marginBottom: 8,
                 }}
               >
                 <span
@@ -940,34 +939,46 @@ const AdvertorialPage = () => {
                     letterSpacing: "3px",
                   }}
                 >
-                  FREE QUIZ
+                  FREE FIT SCAN
                 </span>
               </div>
 
-              {/* Subheadline */}
-              <p
+              <h3
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 300,
-                  fontSize: 15,
+                  fontWeight: 400,
+                  fontSize: 22,
                   color: "#f3ece0",
-                  lineHeight: 1.3,
-                  marginBottom: 12,
-                  marginTop: 0,
+                  lineHeight: 1.25,
+                  margin: "2px 0 4px",
                 }}
               >
-                Check if your face needs wider frames
+                Find your <em style={{ color: "#d8b86a", fontStyle: "italic" }}>width</em> — and your <em style={{ color: "#d8b86a", fontStyle: "italic" }}>bridge</em>.
+              </h3>
+              <p
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 13.5,
+                  color: "#c4bdaf",
+                  lineHeight: 1.55,
+                  margin: "0 0 14px",
+                }}
+              >
+                30 seconds, your phone camera. We measure both your face width and your nose bridge — so we know which size and which bridge actually fits.
               </p>
 
-              {/* CTA button */}
               <button
-                onClick={() => navigate("/en/fit")}
+                onClick={() => {
+                  pushGtmEvent("advertorial_cta_click", { location: "end_cta" });
+                  navigate("/en/fit");
+                }}
                 style={{
                   width: "100%",
                   background: "#d8b86a",
                   color: "#141210",
                   border: "none",
-                  padding: "13px 0",
+                  padding: "14px 0",
                   borderRadius: 4,
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 500,
@@ -982,22 +993,114 @@ const AdvertorialPage = () => {
             </div>
           </div>
 
-          {/* Internal links — after CTA */}
-          <div style={{ padding: "0 20px" }}>
-            <div style={{ margin: "0 0 18px", padding: "14px 0", borderTop: "1px solid rgba(216,184,106,0.18)" }}>
-              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#8a8275", textTransform: "uppercase", marginBottom: 10 }}>
-                READ MORE
+          {/* Internal links — Read More cards */}
+          <div className="lp-narrow-row" style={{ padding: "0 20px", margin: "0 auto" }}>
+            <div style={{ margin: "8px 0 24px", padding: "20px 0 0", borderTop: "1px solid rgba(216,184,106,0.18)" }}>
+              <div
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 500,
+                  fontSize: 11,
+                  letterSpacing: "3px",
+                  color: "#8a8275",
+                  textTransform: "uppercase",
+                  marginBottom: 14,
+                }}
+              >
+                Read More
               </div>
-              <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#d8b86a", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>
-                5 reasons why standard glasses ruin your face proportions →
-              </Link>
-              <Link to="/en/fit" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#d8b86a", textDecoration: "none", lineHeight: 1.5 }}>
-                Measure your face → Fit Quiz
-              </Link>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                  gap: 14,
+                }}
+              >
+                {[
+                  {
+                    to: "/en/lp/5-reasons",
+                    img: wideFaceCompAsset.url,
+                    eyebrow: "Fit Guide",
+                    title: "5 reasons standard glasses ruin your face proportions",
+                  },
+                  {
+                    to: "/en/fit",
+                    img: noseBridgeAsset.url,
+                    eyebrow: "Fit Quiz",
+                    title: "Measure your face — find your width and your bridge",
+                  },
+                ].map((card) => (
+                  <Link
+                    key={card.to}
+                    to={card.to}
+                    onClick={() =>
+                      pushGtmEvent("advertorial_read_more", { dest: card.to })
+                    }
+                    style={{
+                      display: "block",
+                      textDecoration: "none",
+                      background: "#141210",
+                      border: "1px solid rgba(216,184,106,0.18)",
+                      borderRadius: 8,
+                      overflow: "hidden",
+                      transition: "transform 200ms ease, border-color 200ms ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.borderColor = "rgba(216,184,106,0.42)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.borderColor = "rgba(216,184,106,0.18)";
+                    }}
+                  >
+                    <div style={{ aspectRatio: "16 / 9", overflow: "hidden", background: "#0b0a09" }}>
+                      <img
+                        src={card.img}
+                        alt={card.title}
+                        loading="lazy"
+                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      />
+                    </div>
+                    <div style={{ padding: "14px 16px 16px" }}>
+                      <div
+                        style={{
+                          fontFamily: "'Barlow', sans-serif",
+                          fontWeight: 500,
+                          fontSize: 10.5,
+                          letterSpacing: "2.5px",
+                          textTransform: "uppercase",
+                          color: "#d8b86a",
+                          marginBottom: 6,
+                        }}
+                      >
+                        {card.eyebrow}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontWeight: 400,
+                          fontSize: 17,
+                          lineHeight: 1.3,
+                          color: "#f3ece0",
+                        }}
+                      >
+                        {card.title} <span style={{ color: "#d8b86a" }}>→</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <StickyCta onClick={() => {
+        pushGtmEvent("advertorial_cta_click", { location: "sticky" });
+        navigate("/en/fit");
+      }} />
+
     </>
   );
 };
