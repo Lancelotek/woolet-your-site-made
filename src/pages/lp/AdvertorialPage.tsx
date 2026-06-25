@@ -709,7 +709,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              What "premium" actually means in eyewear.
+              What "premium" <em>actually means</em> in eyewear.
             </h2>
 
             <p
