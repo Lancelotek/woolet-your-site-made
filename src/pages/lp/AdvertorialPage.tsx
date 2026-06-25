@@ -202,6 +202,8 @@ const AdvertorialPage = () => {
           .lp-figure { margin: 36px auto; max-width: 1000px; }
           .lp-sticky-label { display: inline !important; }
           .lp-hero-h1 { font-size: 64px !important; line-height: 1.05 !important; }
+          .lp-body > h2 { font-size: 44px !important; margin-top: 48px !important; }
+          .lp-body > h3 { font-size: 30px !important; }
         }
       `}</style>
 
