@@ -152,7 +152,7 @@ const AdvertorialPage = () => {
             {/* Avatar */}
             <img
               src={authorMarek}
-              alt="Marek K. — autor artykułu"
+              alt="Marek K. — Woolet co-founder and author of this article on glasses for wide faces"
               style={{
                 width: 36,
                 height: 36,
