@@ -198,7 +198,7 @@ const AdvertorialPage = () => {
           .lp-body > h2 { font-size: 26px !important; margin-top: 40px !important; }
           .lp-figure { margin: 36px auto; max-width: 1000px; }
           .lp-sticky-label { display: inline !important; }
-          .lp-hero-h1 { font-size: 44px !important; line-height: 1.15 !important; }
+          .lp-hero-h1 { font-size: 64px !important; line-height: 1.05 !important; }
         }
       `}</style>
 
