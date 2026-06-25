@@ -171,8 +171,8 @@ const AdvertorialPage = () => {
         .lp-body > h2,
         .lp-body > blockquote,
         .lp-body > .lp-narrow { max-width: 100%; margin-left: auto; margin-right: auto; }
-        .lp-body > p { font-size: 17px !important; line-height: 1.72 !important; color: #e3dccb !important; margin: 0 0 22px !important; letter-spacing: 0.005em; }
-        .lp-body > p.lp-cap { font-size: 12.5px !important; line-height: 1.6 !important; color: #8a8275 !important; font-style: italic !important; margin: 8px 4px 22px !important; max-width: 1000px; }
+        .lp-body > p { font-size: 17px !important; line-height: 1.72 !important; color: #e3dccb !important; margin: 0 auto 22px !important; letter-spacing: 0.005em; }
+        .lp-body > p.lp-cap { font-size: 12.5px !important; line-height: 1.6 !important; color: #8a8275 !important; font-style: italic !important; margin: 8px auto 22px !important; max-width: 660px; }
         .lp-body > h2 { margin-top: 40px !important; margin-bottom: 14px !important; font-size: 32px !important; font-family: 'Cormorant Garamond', serif !important; font-weight: 400 !important; line-height: 1.1 !important; letter-spacing: -0.01em; color: #f3ece0 !important; }
         .lp-body > h2 em, .lp-body > h2 i { color: #d8b86a; font-style: italic; font-weight: 400; }
         .lp-body > h3 { font-family: 'Cormorant Garamond', serif !important; font-weight: 400 !important; font-size: 24px !important; line-height: 1.15 !important; color: #f3ece0 !important; margin: 24px 0 10px !important; }
