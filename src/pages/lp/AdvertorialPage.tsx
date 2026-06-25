@@ -164,22 +164,49 @@ const AdvertorialPage = () => {
         />
       </Helmet>
 
-      <div
-        className="lp-scope"
-        style={{
-          background: "#0b0a09",
-          minHeight: "100vh",
-          fontFamily: "'Barlow', sans-serif",
-        }}
-      >
+      <style>{`
+        .lp-article { background: #0b0a09; min-height: 100vh; font-family: 'Barlow', sans-serif; padding-bottom: 88px; }
+        .lp-shell { max-width: 680px; margin: 0 auto; }
+        .lp-body > p,
+        .lp-body > h2,
+        .lp-body > blockquote,
+        .lp-body > .lp-narrow { max-width: 100%; margin-left: auto; margin-right: auto; }
+        .lp-body > p { font-size: 16px; line-height: 1.78; color: #d4ccba; }
+        .lp-body > h2 { margin-top: 28px !important; font-size: 22px !important; }
+        .lp-figure { margin: 20px 0; }
+        .lp-figure .lp-cap { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.6; color: #8a8275; margin: 8px 4px 0; font-style: italic; }
+        .lp-drop::first-letter {
+          font-family: 'Cormorant Garamond', serif;
+          font-weight: 400;
+          font-style: italic;
+          font-size: 68px;
+          float: left;
+          line-height: 0.85;
+          padding: 6px 12px 0 0;
+          color: #d8b86a;
+        }
+        @media (min-width: 900px) {
+          .lp-shell { max-width: 1040px; }
+          .lp-body > p,
+          .lp-body > h2,
+          .lp-body > blockquote,
+          .lp-body > .lp-narrow,
+          .lp-narrow-row { max-width: 680px; }
+          .lp-body > p { font-size: 17.5px; line-height: 1.78; }
+          .lp-body > h2 { font-size: 26px !important; margin-top: 40px !important; }
+          .lp-figure { margin: 36px auto; max-width: 1000px; }
+          .lp-sticky-label { display: inline !important; }
+          .lp-hero-h1 { font-size: 44px !important; line-height: 1.15 !important; }
+        }
+      `}</style>
 
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          {/* Logo */}
-          <div style={{ padding: "22px 20px 0", display: "flex", alignItems: "center" }}>
-            <Link to="/en">
-              <img src={wooletLogo} alt="Woolet — Italian acetate glasses for wide faces" style={{ height: 22 }} />
-            </Link>
-          </div>
+      <ReadingProgress />
+      <Navbar />
+
+      <div className="lp-article">
+
+        <div className="lp-shell">
+
           {/* 1. Tag bar */}
           <div
             style={{
