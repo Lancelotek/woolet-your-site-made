@@ -631,7 +631,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              The geometry nobody explained to you.
+              The geometry <em>nobody explained to you.</em>
             </h2>
 
             <p
