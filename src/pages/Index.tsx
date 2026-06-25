@@ -38,48 +38,62 @@ const seoData: Record<Lang, { title: string; description: string }> = {
   },
 };
 
-/** Bold, readable frame-width comparison: Standard 138–148 vs Woolet 155–172 on a 135–175 scale. */
-const FrameWidthMeter = () => {
-  const pct = (mm: number) => ((mm - 135) / 40) * 100;
-  const stdLeft = pct(138);
-  const stdWidth = pct(148) - pct(138);
-  const wlLeft = pct(155);
-  const wlWidth = pct(172) - pct(155);
+/** A single fit meter: Standard (hatched) vs Woolet (gold) on a numeric mm scale. */
+type MeterCfg = {
+  key: string;
+  label: string;
+  scaleMin: number;
+  scaleMax: number;
+  standard: [number, number];
+  woolet: [number, number];
+  wooletLabel?: string;
+  ticks: number[];
+};
+
+const MeterRow = ({ cfg }: { cfg: MeterCfg }) => {
+  const pct = (mm: number) =>
+    ((mm - cfg.scaleMin) / (cfg.scaleMax - cfg.scaleMin)) * 100;
+  const stdLeft = pct(cfg.standard[0]);
+  const stdWidth = pct(cfg.standard[1]) - stdLeft;
+  const wlLeft = pct(cfg.woolet[0]);
+  const wlWidth = pct(cfg.woolet[1]) - wlLeft;
 
   return (
-    <div className="w-full max-w-[520px]">
+    <div className="w-full">
       <div
         className="flex items-center justify-between mb-4 uppercase tracking-[0.22em]"
         style={{ fontSize: "0.68rem", color: "hsl(var(--gold-dim))" }}
       >
-        <span>Frame width</span>
+        <span>{cfg.label}</span>
         <span>mm</span>
       </div>
 
-      {/* Labels above bars */}
       <div className="relative h-6 w-full" style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}>
         <span
           className="absolute -translate-x-1/2 whitespace-nowrap"
           style={{ left: `${stdLeft + stdWidth / 2}%`, color: "hsl(var(--cream-dim) / 0.7)" }}
         >
           <span>✕ Standard</span>{" "}
-          <span className="text-foreground/85" style={{ fontWeight: 500 }}>138–148</span>
+          <span className="text-foreground/85" style={{ fontWeight: 500 }}>
+            {cfg.standard[0]}–{cfg.standard[1]}
+          </span>
         </span>
         <span
           className="absolute -translate-x-1/2 whitespace-nowrap"
           style={{ left: `${wlLeft + wlWidth / 2}%`, color: "hsl(var(--gold-light))", fontWeight: 500 }}
         >
-          ✓ Woolet <span className="text-foreground" style={{ fontWeight: 600 }}>155–172</span>
+          ✓ {cfg.wooletLabel ?? "Woolet"}{" "}
+          <span className="text-foreground" style={{ fontWeight: 600 }}>
+            {cfg.woolet[0]}–{cfg.woolet[1]}
+          </span>
         </span>
       </div>
 
-      {/* Track + bars */}
       <div className="relative h-[22px] w-full">
         <div
           className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px"
           style={{ background: "hsl(0 0% 100% / 0.1)" }}
         />
-        {/* Standard bar — hatched, thinner */}
         <div
           className="absolute top-1/2 -translate-y-1/2 border"
           style={{
@@ -90,9 +104,7 @@ const FrameWidthMeter = () => {
             backgroundImage:
               "repeating-linear-gradient(135deg, hsl(0 0% 100% / 0.09) 0 4px, transparent 4px 8px)",
           }}
-          aria-label="Standard frames 138 to 148 millimetres"
         />
-        {/* Woolet bar — gold, full height, glow */}
         <div
           className="absolute top-0"
           style={{
@@ -103,21 +115,18 @@ const FrameWidthMeter = () => {
             boxShadow:
               "0 0 0 1px hsl(var(--gold-light) / 0.55), 0 8px 24px -6px hsl(var(--gold) / 0.55)",
           }}
-          aria-label="Woolet frames 155 to 172 millimetres"
         />
       </div>
 
-      {/* Scale */}
       <div
         className="flex justify-between mt-2.5 tracking-wider"
         style={{ fontSize: "0.66rem", color: "hsl(var(--cream-dim) / 0.55)" }}
       >
-        <span>135</span>
-        <span>155</span>
-        <span>175</span>
+        {cfg.ticks.map((t) => (
+          <span key={t}>{t}</span>
+        ))}
       </div>
 
-      {/* "Your range" caption under gold */}
       <div className="relative mt-3 h-4 w-full">
         <span
           className="absolute -translate-x-1/2 uppercase tracking-[0.24em] whitespace-nowrap"
@@ -130,6 +139,90 @@ const FrameWidthMeter = () => {
           }}
         >
           ↑ Your range
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const METERS: MeterCfg[] = [
+  {
+    key: "frame",
+    label: "Frame width",
+    scaleMin: 135,
+    scaleMax: 175,
+    standard: [138, 148],
+    woolet: [155, 172],
+    ticks: [135, 155, 175],
+  },
+  {
+    key: "bridge",
+    label: "Nose bridge",
+    scaleMin: 16,
+    scaleMax: 26,
+    standard: [18, 20],
+    woolet: [21, 24],
+    wooletLabel: "Woolet keyhole",
+    ticks: [16, 21, 26],
+  },
+];
+
+const FrameWidthMeter = () => {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setActive((i) => (i + 1) % METERS.length);
+    }, 5200);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="w-full max-w-[520px]">
+      <div className="relative overflow-hidden">
+        <div
+          className="flex transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
+          style={{ transform: `translateX(-${active * 100}%)` }}
+        >
+          {METERS.map((m) => (
+            <div key={m.key} className="w-full shrink-0 pr-px">
+              <MeterRow cfg={m} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Indicator dots */}
+      <div className="flex items-center gap-2 mt-4">
+        {METERS.map((m, i) => (
+          <button
+            key={m.key}
+            type="button"
+            aria-label={`Show ${m.label}`}
+            onClick={() => setActive(i)}
+            className="transition-all"
+            style={{
+              width: i === active ? 22 : 8,
+              height: 2,
+              background:
+                i === active
+                  ? "hsl(var(--gold))"
+                  : "hsl(0 0% 100% / 0.18)",
+              border: 0,
+              padding: 0,
+              cursor: "pointer",
+            }}
+          />
+        ))}
+        <span
+          className="ml-2 uppercase tracking-[0.22em]"
+          style={{
+            fontSize: "0.62rem",
+            color: "hsl(var(--cream-dim) / 0.55)",
+            fontFamily: "Barlow, sans-serif",
+          }}
+        >
+          {METERS[active].label}
         </span>
       </div>
     </div>
