@@ -28,19 +28,65 @@ export default function DeHub() {
     <>
       <Helmet>
         <html lang="de" />
-        <title>Woolet – Brillen für breite Gesichter und große Köpfe</title>
+        <title>Brillen für breite Gesichter & große Köpfe 155–161 mm | Woolet</title>
         <meta
           name="description"
-          content="Woolet fertigt Brillen für breite Gesichter und große Köpfe – 155, 158, 161 mm aus italienischem Mazzucchelli-Acetat. Miss dein Gesicht in 20 Sekunden mit FitLens."
+          content="Woolet – breite Brillen für große Köpfe in 155, 158 und 161 mm. Italienisches Mazzucchelli-1849-Acetat, handgefertigt in der EU. Gesicht in 20 Sekunden messen."
         />
+        <meta name="keywords" content="Brillen für breite Gesichter, breite Brille, Brille große Köpfe, XXL Brille Herren, 161 mm Brille, Brille 160 mm, Mazzucchelli Acetat, Brille breite Nase" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+
         <link rel="canonical" href={`${SITE}/de`} />
         <link rel="alternate" hrefLang="de" href={`${SITE}/de`} />
+        <link rel="alternate" hrefLang="de-DE" href={`${SITE}/de`} />
+        <link rel="alternate" hrefLang="de-AT" href={`${SITE}/de`} />
+        <link rel="alternate" hrefLang="de-CH" href={`${SITE}/de`} />
         <link rel="alternate" hrefLang="en" href={`${SITE}/en`} />
         <link rel="alternate" hrefLang="x-default" href={`${SITE}/en`} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Woolet" />
         <meta property="og:locale" content="de_DE" />
-        <meta property="og:title" content="Woolet – Brillen für breite Gesichter und große Köpfe" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:title" content="Brillen für breite Gesichter & große Köpfe – Woolet 155–161 mm" />
+        <meta property="og:description" content="Italienisches Mazzucchelli-Acetat. Drei echte Breiten: 155, 158 und 161 mm. Gemessen, nicht geraten – mit FitLens in 20 Sekunden." />
         <meta property="og:url" content={`${SITE}/de`} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Woolet – breite Brillen aus italienischem Acetat für große Köpfe" />
+
+        {/* Twitter / X */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Brillen für breite Gesichter & große Köpfe – Woolet" />
+        <meta name="twitter:description" content="155, 158 und 161 mm. Italienisches Mazzucchelli-Acetat. Gesicht in 20 Sekunden messen." />
+        <meta name="twitter:image" content={`${SITE}/og-image.png`} />
+
+        {/* Structured data */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Woolet – Brillen für breite Gesichter und große Köpfe",
+          url: `${SITE}/de`,
+          inLanguage: "de-DE",
+          isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE },
+          about: { "@type": "Thing", name: "Brillen für breite Gesichter" },
+          publisher: {
+            "@type": "Organization",
+            name: "Woolet",
+            url: SITE,
+            logo: { "@type": "ImageObject", url: `${SITE}/og-image.png` },
+          },
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Woolet", item: SITE },
+            { "@type": "ListItem", position: 2, name: "Deutschland", item: `${SITE}/de` },
+          ],
+        })}</script>
       </Helmet>
 
       <main style={{ background: colors.ink, color: colors.cream, minHeight: "100vh" }}>
