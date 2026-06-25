@@ -173,7 +173,10 @@ const AdvertorialPage = () => {
         .lp-body > .lp-narrow { max-width: 100%; margin-left: auto; margin-right: auto; }
         .lp-body > p { font-size: 16px; line-height: 1.78; color: #d4ccba; }
         .lp-body > p.lp-cap { font-size: 12.5px; line-height: 1.6; color: #8a8275; font-style: italic; margin: 8px 4px 18px; max-width: 1000px; }
-        .lp-body > h2 { margin-top: 28px !important; font-size: 22px !important; }
+        .lp-body > h2 { margin-top: 32px !important; font-size: 32px !important; font-family: 'Cormorant Garamond', serif !important; font-weight: 400 !important; line-height: 1.1 !important; letter-spacing: -0.01em; color: #f3ece0 !important; }
+        .lp-body > h2 em, .lp-body > h2 i { color: #d8b86a; font-style: italic; font-weight: 400; }
+        .lp-body > h3 { font-family: 'Cormorant Garamond', serif !important; font-weight: 400 !important; font-size: 24px !important; line-height: 1.15 !important; color: #f3ece0 !important; margin: 20px 0 8px !important; }
+        .lp-body > h3 em, .lp-body > h3 i { color: #d8b86a; font-style: italic; }
         .lp-body > img { display: block; width: 100%; max-width: 1000px; margin: 24px auto; border-radius: 8px; }
         .lp-figure { margin: 20px 0; }
         .lp-figure .lp-cap { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.6; color: #8a8275; margin: 8px 4px 0; font-style: italic; }
@@ -199,6 +202,8 @@ const AdvertorialPage = () => {
           .lp-figure { margin: 36px auto; max-width: 1000px; }
           .lp-sticky-label { display: inline !important; }
           .lp-hero-h1 { font-size: 64px !important; line-height: 1.05 !important; }
+          .lp-body > h2 { font-size: 44px !important; margin-top: 48px !important; }
+          .lp-body > h3 { font-size: 30px !important; }
         }
       `}</style>
 
@@ -452,7 +457,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              It started with one photo from a company meeting.
+              It started with one photo <em>from a company meeting.</em>
             </h2>
 
             <p
@@ -540,7 +545,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              The second problem nobody fixes: the nose bridge
+              The second problem nobody fixes: <em>the nose bridge</em>
             </h2>
 
             <p
@@ -595,7 +600,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              The premium market didn't exist.
+              The premium market <em>didn't exist.</em>
             </h2>
 
             <p
@@ -626,7 +631,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              The geometry nobody explained to you.
+              The geometry <em>nobody explained to you.</em>
             </h2>
 
             <p
@@ -704,7 +709,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              What "premium" actually means in eyewear.
+              What "premium" <em>actually means</em> in eyewear.
             </h2>
 
             <p
@@ -791,7 +796,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              Three weeks with the Woolet 007.
+              Three weeks <em>with the Woolet 007.</em>
             </h2>
 
             <p
