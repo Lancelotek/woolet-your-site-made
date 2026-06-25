@@ -388,6 +388,12 @@ export function StepMeasure({ config, update }: StepProps) {
       if (error || !data?.id || !data?.token) {
         throw new Error(error?.message ?? "session_failed");
       }
+      // Fire-and-forget: ensure the email also lands in MailerLite
+      supabase.functions
+        .invoke("mailerlite-subscribe", {
+          body: { email, source: "bespoke_scan_handoff", models: "Bespoke" },
+        })
+        .catch((err) => console.warn("[mailerlite] bespoke handoff failed", err));
       update("measurementMethod", "scan");
       update("scanContactEmail", email);
       update("scanContactPhone", phone || null);
