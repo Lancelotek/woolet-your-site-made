@@ -457,7 +457,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              It started with one photo from a company meeting.
+              It started with one photo <em>from a company meeting.</em>
             </h2>
 
             <p
