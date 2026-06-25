@@ -209,11 +209,13 @@ const AdvertorialPage = () => {
 
           {/* 1. Tag bar */}
           <div
+            className="lp-narrow-row"
             style={{
               display: "flex",
               alignItems: "center",
-              padding: "20px 20px",
+              padding: "22px 20px 18px",
               gap: 8,
+              margin: "0 auto",
             }}
           >
             <span
