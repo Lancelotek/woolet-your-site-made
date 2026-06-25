@@ -8,6 +8,7 @@ import frameWidthChartImg from "@/assets/frame-width-chart-v2.png";
 import noseBridgeImg from "@/assets/nose-bridge-v2.png";
 import wideFaceCompAsset from "@/assets/wide-face-fit-comparison.png.asset.json";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
+import advertorialPortrait from "@/assets/advertorial-portrait.png.asset.json";
 import authorMarek from "@/assets/author-marek.png";
 import wooletModelImg from "@/assets/woolet-model.png";
 
@@ -870,8 +871,8 @@ const AdvertorialPage = () => {
             </p>
 
             <img
-              src={woolet007Detail}
-              alt="Woolet 007 Dark Tortoise acetate frames — front view showing wide 158mm fit, gold rivet details, and keyhole bridge"
+              src={advertorialPortrait.url}
+              alt="Wearer portrait — Woolet frames on a wide face, comfortable all-day fit"
               style={{
                 width: "100%",
                 objectFit: "contain",
