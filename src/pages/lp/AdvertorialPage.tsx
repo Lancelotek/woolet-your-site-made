@@ -401,7 +401,7 @@ const AdvertorialPage = () => {
               margin: "0 2px 14px",
               fontStyle: "italic",
             }}>
-              Two bridge widths — 21mm and 24mm — matched to your nose by the fit scan, so the frame sits level and stops digging in. Wide noses finally have a bridge built for them, slim face or not.
+              Two keyhole bridge sizes — 21mm and 24mm — matched to your nose by the fit scan. The frame sits level, pads stop pinching, and the slide-down problem goes away. Built for wide noses on any face shape.
             </p>
 
             {/* Section 2 */}
