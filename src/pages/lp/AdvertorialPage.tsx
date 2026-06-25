@@ -379,6 +379,52 @@ const AdvertorialPage = () => {
                 style={{ width: "100%", display: "block" }}
                 loading="eager"
               />
+              {/* Top scrim — masks the baked sentence-case labels in the image */}
+              <div
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  inset: "0 0 auto 0",
+                  height: "22%",
+                  background:
+                    "linear-gradient(to bottom, rgba(11,10,9,0.82) 0%, rgba(11,10,9,0.45) 55%, rgba(11,10,9,0) 100%)",
+                  pointerEvents: "none",
+                }}
+              />
+              {/* Top-left label */}
+              <span
+                style={{
+                  position: "absolute",
+                  left: "5%",
+                  top: "6%",
+                  fontFamily: "'Barlow', sans-serif",
+                  fontSize: "clamp(10px, 1.05vw, 13px)",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "#e7dfd0",
+                  fontWeight: 500,
+                }}
+              >
+                <span style={{ color: "#A05A3F", marginRight: 8 }}>✕</span>
+                Standard frames
+              </span>
+              {/* Top-right label */}
+              <span
+                style={{
+                  position: "absolute",
+                  right: "5%",
+                  top: "6%",
+                  fontFamily: "'Barlow', sans-serif",
+                  fontSize: "clamp(10px, 1.05vw, 13px)",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "#f3ece0",
+                  fontWeight: 500,
+                }}
+              >
+                <span style={{ color: "#d8b86a", marginRight: 8 }}>✓</span>
+                Built for 155 mm+
+              </span>
               {/* Bottom scrim for legibility */}
               <div
                 aria-hidden
