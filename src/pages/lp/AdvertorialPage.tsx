@@ -363,8 +363,8 @@ const AdvertorialPage = () => {
             </div>
           </div>
 
-          {/* 4. Hero image */}
-          <div style={{ padding: "24px 20px 8px" }}>
+          {/* 4. Hero image — full figure width on desktop */}
+          <figure className="lp-figure" style={{ padding: "24px 20px 8px", margin: 0 }}>
             <img
               src={beforeAfterAsset.url}
               alt="Standard narrow eyeglass frames vs Woolet frames built for 155mm+ wide faces — side-by-side fit comparison on a man with a wide head"
@@ -375,10 +375,10 @@ const AdvertorialPage = () => {
               }}
               loading="eager"
             />
-          </div>
+          </figure>
 
           {/* 4b. Frame width comparison chart */}
-          <div style={{ padding: "16px 20px 8px" }}>
+          <figure className="lp-figure" style={{ padding: "16px 20px 8px", margin: 0 }}>
             <img
               src={frameWidthChartAsset.url}
               alt="Frame width comparison chart in millimetres: Zenni 140mm, Warby Parker 148mm, Woolet S 155mm, Woolet M 158mm, Woolet L 161mm — wide faces need 155–168mm where most brands stop fitting"
@@ -389,21 +389,11 @@ const AdvertorialPage = () => {
               }}
               loading="lazy"
             />
-            <p style={{
-              fontFamily: "'Barlow', sans-serif",
-              fontWeight: 300,
-              fontSize: 12,
-              lineHeight: 1.6,
-              color: "#8a8275",
-              margin: "8px 2px 0",
-              fontStyle: "italic",
-            }}>
-              Total front frame width — the one number that decides if glasses fit a wide face. Competitor figures approximate widest publicly available frames.
-            </p>
-          </div>
+            {/* duplicate caption removed — chart subtitle already states this */}
+          </figure>
 
           {/* 5. Article body */}
-          <div style={{ padding: "0 20px" }}>
+          <div className="lp-body" style={{ padding: "0 20px" }}>
             {/* Section 1 */}
             <h2
               style={{
@@ -419,6 +409,7 @@ const AdvertorialPage = () => {
             </h2>
 
             <p
+              className="lp-drop"
               style={{
                 fontFamily: "'Barlow', sans-serif",
                 fontWeight: 300,
@@ -432,6 +423,7 @@ const AdvertorialPage = () => {
               looked phenomenal in the case. On my face? Something was off.
               Too-narrow lenses optically widened my face instead of framing it.
             </p>
+
 
             {/* Pull quote */}
             <blockquote
