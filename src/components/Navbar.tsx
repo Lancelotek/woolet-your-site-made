@@ -91,6 +91,7 @@ const Navbar = () => {
                     to={`/${l}`}
                     onClick={() => {
                       setLangOpen(false);
+                      try { window.localStorage.setItem("woolet_lang", l); } catch {}
                       pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l });
                     }}
                     className={`no-underline px-4 py-2.5 tracking-wider hover:bg-surface-2 transition-colors ${l === lang ? "text-primary" : "text-cream-dim hover:text-foreground"}`}
