@@ -1,14 +1,123 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
-import wooletLogo from "@/assets/woolet-logo.png";
+import Navbar from "@/components/Navbar";
 import beforeAfterAsset from "@/assets/standard-vs-155mm.png.asset.json";
 import frameWidthChartAsset from "@/assets/frame-width-comparison-chart.png.asset.json";
 import noseBridgeAsset from "@/assets/nose-bridge-comparison.png.asset.json";
+import wideFaceCompAsset from "@/assets/wide-face-fit-comparison.png.asset.json";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import authorMarek from "@/assets/author-marek.png";
 import wooletModelImg from "@/assets/woolet-model.png";
+
+/* ---------- Reading progress bar ---------- */
+const ReadingProgress = () => {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop;
+      const height = h.scrollHeight - h.clientHeight;
+      setPct(height > 0 ? Math.min(100, (scrolled / height) * 100) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 2,
+        background: "transparent",
+        zIndex: 100,
+        pointerEvents: "none",
+      }}
+    >
+      <div
+        style={{
+          width: `${pct}%`,
+          height: "100%",
+          background: "linear-gradient(90deg, #c2a05a, #d8b86a)",
+          transition: "width 80ms linear",
+        }}
+      />
+    </div>
+  );
+};
+
+/* ---------- Sticky bottom CTA (appears after ~30% scroll) ---------- */
+const StickyCta = ({ onClick }: { onClick: () => void }) => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const ratio = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      setVisible(ratio > 0.28 && ratio < 0.96);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      aria-hidden={!visible}
+      style={{
+        position: "fixed",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 90,
+        padding: "12px 16px",
+        background: "rgba(11,10,9,0.92)",
+        borderTop: "1px solid rgba(216,184,106,0.22)",
+        backdropFilter: "blur(10px)",
+        transform: visible ? "translateY(0)" : "translateY(110%)",
+        transition: "transform 260ms cubic-bezier(.2,.7,.2,1)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 14,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontStyle: "italic",
+          fontSize: 14,
+          color: "#c4bdaf",
+          display: "none",
+        }}
+        className="lp-sticky-label"
+      >
+        Find your width — and your bridge
+      </span>
+      <button
+        onClick={onClick}
+        style={{
+          background: "#d8b86a",
+          color: "#141210",
+          border: "none",
+          padding: "12px 22px",
+          fontFamily: "'Barlow', sans-serif",
+          fontWeight: 500,
+          fontSize: 12,
+          letterSpacing: "2px",
+          textTransform: "uppercase",
+          cursor: "pointer",
+          borderRadius: 4,
+        }}
+      >
+        Scan your face — free
+      </button>
+    </div>
+  );
+};
+
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
@@ -55,29 +164,60 @@ const AdvertorialPage = () => {
         />
       </Helmet>
 
-      <div
-        className="lp-scope"
-        style={{
-          background: "#0b0a09",
-          minHeight: "100vh",
-          fontFamily: "'Barlow', sans-serif",
-        }}
-      >
+      <style>{`
+        .lp-article { background: #0b0a09; min-height: 100vh; font-family: 'Barlow', sans-serif; padding-bottom: 88px; }
+        .lp-shell { max-width: 680px; margin: 0 auto; }
+        .lp-body > p,
+        .lp-body > h2,
+        .lp-body > blockquote,
+        .lp-body > .lp-narrow { max-width: 100%; margin-left: auto; margin-right: auto; }
+        .lp-body > p { font-size: 16px; line-height: 1.78; color: #d4ccba; }
+        .lp-body > p.lp-cap { font-size: 12.5px; line-height: 1.6; color: #8a8275; font-style: italic; margin: 8px 4px 18px; max-width: 1000px; }
+        .lp-body > h2 { margin-top: 28px !important; font-size: 22px !important; }
+        .lp-body > img { display: block; width: 100%; max-width: 1000px; margin: 24px auto; border-radius: 8px; }
+        .lp-figure { margin: 20px 0; }
+        .lp-figure .lp-cap { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.6; color: #8a8275; margin: 8px 4px 0; font-style: italic; }
+        .lp-drop::first-letter {
+          font-family: 'Cormorant Garamond', serif;
+          font-weight: 400;
+          font-style: italic;
+          font-size: 68px;
+          float: left;
+          line-height: 0.85;
+          padding: 6px 12px 0 0;
+          color: #d8b86a;
+        }
+        @media (min-width: 900px) {
+          .lp-shell { max-width: 1040px; }
+          .lp-body > p,
+          .lp-body > h2,
+          .lp-body > blockquote,
+          .lp-body > .lp-narrow,
+          .lp-narrow-row { max-width: 680px; }
+          .lp-body > p { font-size: 17.5px; line-height: 1.78; }
+          .lp-body > h2 { font-size: 26px !important; margin-top: 40px !important; }
+          .lp-figure { margin: 36px auto; max-width: 1000px; }
+          .lp-sticky-label { display: inline !important; }
+          .lp-hero-h1 { font-size: 44px !important; line-height: 1.15 !important; }
+        }
+      `}</style>
 
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          {/* Logo */}
-          <div style={{ padding: "22px 20px 0", display: "flex", alignItems: "center" }}>
-            <Link to="/en">
-              <img src={wooletLogo} alt="Woolet — Italian acetate glasses for wide faces" style={{ height: 22 }} />
-            </Link>
-          </div>
+      <ReadingProgress />
+      <Navbar />
+
+      <div className="lp-article">
+
+        <div className="lp-shell">
+
           {/* 1. Tag bar */}
           <div
+            className="lp-narrow-row"
             style={{
               display: "flex",
               alignItems: "center",
-              padding: "20px 20px",
+              padding: "22px 20px 18px",
               gap: 8,
+              margin: "0 auto",
             }}
           >
             <span
@@ -124,6 +264,7 @@ const AdvertorialPage = () => {
 
           {/* 2. Headline */}
           <h1
+            className="lp-hero-h1 lp-narrow-row"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 300,
@@ -131,7 +272,7 @@ const AdvertorialPage = () => {
               lineHeight: 1.2,
               color: "#f3ece0",
               padding: "0 20px",
-              margin: "0 0 0 0",
+              margin: "0 auto",
             }}
           >
             For years I searched for glasses that fit my face.{" "}
@@ -142,12 +283,14 @@ const AdvertorialPage = () => {
 
           {/* 3. Author row */}
           <div
+            className="lp-narrow-row"
             style={{
               display: "flex",
               alignItems: "center",
               padding: "18px 20px",
               borderBottom: "1px solid rgba(216,184,106,0.18)",
               gap: 10,
+              margin: "0 auto",
             }}
           >
             {/* Avatar */}
@@ -222,8 +365,8 @@ const AdvertorialPage = () => {
             </div>
           </div>
 
-          {/* 4. Hero image */}
-          <div style={{ padding: "24px 20px 8px" }}>
+          {/* 4. Hero image — full figure width on desktop */}
+          <figure className="lp-figure" style={{ padding: "24px 20px 8px", margin: 0 }}>
             <img
               src={beforeAfterAsset.url}
               alt="Standard narrow eyeglass frames vs Woolet frames built for 155mm+ wide faces — side-by-side fit comparison on a man with a wide head"
@@ -234,10 +377,10 @@ const AdvertorialPage = () => {
               }}
               loading="eager"
             />
-          </div>
+          </figure>
 
           {/* 4b. Frame width comparison chart */}
-          <div style={{ padding: "16px 20px 8px" }}>
+          <figure className="lp-figure" style={{ padding: "16px 20px 8px", margin: 0 }}>
             <img
               src={frameWidthChartAsset.url}
               alt="Frame width comparison chart in millimetres: Zenni 140mm, Warby Parker 148mm, Woolet S 155mm, Woolet M 158mm, Woolet L 161mm — wide faces need 155–168mm where most brands stop fitting"
@@ -248,21 +391,11 @@ const AdvertorialPage = () => {
               }}
               loading="lazy"
             />
-            <p style={{
-              fontFamily: "'Barlow', sans-serif",
-              fontWeight: 300,
-              fontSize: 12,
-              lineHeight: 1.6,
-              color: "#8a8275",
-              margin: "8px 2px 0",
-              fontStyle: "italic",
-            }}>
-              Total front frame width — the one number that decides if glasses fit a wide face. Competitor figures approximate widest publicly available frames.
-            </p>
-          </div>
+            {/* duplicate caption removed — chart subtitle already states this */}
+          </figure>
 
           {/* 5. Article body */}
-          <div style={{ padding: "0 20px" }}>
+          <div className="lp-body" style={{ padding: "0 20px" }}>
             {/* Section 1 */}
             <h2
               style={{
@@ -278,6 +411,7 @@ const AdvertorialPage = () => {
             </h2>
 
             <p
+              className="lp-drop"
               style={{
                 fontFamily: "'Barlow', sans-serif",
                 fontWeight: 300,
@@ -291,6 +425,7 @@ const AdvertorialPage = () => {
               looked phenomenal in the case. On my face? Something was off.
               Too-narrow lenses optically widened my face instead of framing it.
             </p>
+
 
             {/* Pull quote */}
             <blockquote
@@ -392,7 +527,7 @@ const AdvertorialPage = () => {
               }}
               loading="lazy"
             />
-            <p style={{
+            <p className="lp-cap" style={{
               fontFamily: "'Barlow', sans-serif",
               fontWeight: 300,
               fontSize: 12,
@@ -765,24 +900,23 @@ const AdvertorialPage = () => {
           </div>
 
           {/* 6. CTA block */}
-          <div style={{ padding: "0 20px" }}>
+          <div className="lp-narrow-row" style={{ padding: "0 20px", margin: "0 auto" }}>
             <div
               style={{
                 background: "#141210",
                 borderRadius: 10,
-                padding: 18,
+                padding: 22,
                 border: "1px solid rgba(216,184,106,0.22)",
-                marginTop: 20,
-                marginBottom: 20,
+                marginTop: 28,
+                marginBottom: 24,
               }}
             >
-              {/* Header row */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
-                  marginBottom: 6,
+                  marginBottom: 8,
                 }}
               >
                 <span
@@ -805,34 +939,46 @@ const AdvertorialPage = () => {
                     letterSpacing: "3px",
                   }}
                 >
-                  FREE QUIZ
+                  FREE FIT SCAN
                 </span>
               </div>
 
-              {/* Subheadline */}
-              <p
+              <h3
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 300,
-                  fontSize: 15,
+                  fontWeight: 400,
+                  fontSize: 22,
                   color: "#f3ece0",
-                  lineHeight: 1.3,
-                  marginBottom: 12,
-                  marginTop: 0,
+                  lineHeight: 1.25,
+                  margin: "2px 0 4px",
                 }}
               >
-                Check if your face needs wider frames
+                Find your <em style={{ color: "#d8b86a", fontStyle: "italic" }}>width</em> — and your <em style={{ color: "#d8b86a", fontStyle: "italic" }}>bridge</em>.
+              </h3>
+              <p
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 13.5,
+                  color: "#c4bdaf",
+                  lineHeight: 1.55,
+                  margin: "0 0 14px",
+                }}
+              >
+                30 seconds, your phone camera. We measure both your face width and your nose bridge — so we know which size and which bridge actually fits.
               </p>
 
-              {/* CTA button */}
               <button
-                onClick={() => navigate("/en/fit")}
+                onClick={() => {
+                  pushGtmEvent("advertorial_cta_click", { location: "end_cta" });
+                  navigate("/en/fit");
+                }}
                 style={{
                   width: "100%",
                   background: "#d8b86a",
                   color: "#141210",
                   border: "none",
-                  padding: "13px 0",
+                  padding: "14px 0",
                   borderRadius: 4,
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 500,
@@ -847,22 +993,114 @@ const AdvertorialPage = () => {
             </div>
           </div>
 
-          {/* Internal links — after CTA */}
-          <div style={{ padding: "0 20px" }}>
-            <div style={{ margin: "0 0 18px", padding: "14px 0", borderTop: "1px solid rgba(216,184,106,0.18)" }}>
-              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#8a8275", textTransform: "uppercase", marginBottom: 10 }}>
-                READ MORE
+          {/* Internal links — Read More cards */}
+          <div className="lp-narrow-row" style={{ padding: "0 20px", margin: "0 auto" }}>
+            <div style={{ margin: "8px 0 24px", padding: "20px 0 0", borderTop: "1px solid rgba(216,184,106,0.18)" }}>
+              <div
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 500,
+                  fontSize: 11,
+                  letterSpacing: "3px",
+                  color: "#8a8275",
+                  textTransform: "uppercase",
+                  marginBottom: 14,
+                }}
+              >
+                Read More
               </div>
-              <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#d8b86a", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>
-                5 reasons why standard glasses ruin your face proportions →
-              </Link>
-              <Link to="/en/fit" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#d8b86a", textDecoration: "none", lineHeight: 1.5 }}>
-                Measure your face → Fit Quiz
-              </Link>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                  gap: 14,
+                }}
+              >
+                {[
+                  {
+                    to: "/en/lp/5-reasons",
+                    img: wideFaceCompAsset.url,
+                    eyebrow: "Fit Guide",
+                    title: "5 reasons standard glasses ruin your face proportions",
+                  },
+                  {
+                    to: "/en/fit",
+                    img: noseBridgeAsset.url,
+                    eyebrow: "Fit Quiz",
+                    title: "Measure your face — find your width and your bridge",
+                  },
+                ].map((card) => (
+                  <Link
+                    key={card.to}
+                    to={card.to}
+                    onClick={() =>
+                      pushGtmEvent("advertorial_read_more", { dest: card.to })
+                    }
+                    style={{
+                      display: "block",
+                      textDecoration: "none",
+                      background: "#141210",
+                      border: "1px solid rgba(216,184,106,0.18)",
+                      borderRadius: 8,
+                      overflow: "hidden",
+                      transition: "transform 200ms ease, border-color 200ms ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.borderColor = "rgba(216,184,106,0.42)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.borderColor = "rgba(216,184,106,0.18)";
+                    }}
+                  >
+                    <div style={{ aspectRatio: "16 / 9", overflow: "hidden", background: "#0b0a09" }}>
+                      <img
+                        src={card.img}
+                        alt={card.title}
+                        loading="lazy"
+                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      />
+                    </div>
+                    <div style={{ padding: "14px 16px 16px" }}>
+                      <div
+                        style={{
+                          fontFamily: "'Barlow', sans-serif",
+                          fontWeight: 500,
+                          fontSize: 10.5,
+                          letterSpacing: "2.5px",
+                          textTransform: "uppercase",
+                          color: "#d8b86a",
+                          marginBottom: 6,
+                        }}
+                      >
+                        {card.eyebrow}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontWeight: 400,
+                          fontSize: 17,
+                          lineHeight: 1.3,
+                          color: "#f3ece0",
+                        }}
+                      >
+                        {card.title} <span style={{ color: "#d8b86a" }}>→</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <StickyCta onClick={() => {
+        pushGtmEvent("advertorial_cta_click", { location: "sticky" });
+        navigate("/en/fit");
+      }} />
+
     </>
   );
 };
