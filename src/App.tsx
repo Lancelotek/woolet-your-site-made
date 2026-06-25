@@ -134,7 +134,7 @@ const App = () => (
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
           {/* Root redirects to /en */}
-          <Route path="/" element={<Navigate to="/en" replace />} />
+          <Route path="/" element={<RootRedirect />} />
 
           {/* === Legacy Shopify smart-wallet 301-equivalent redirects === */}
           {/* Old product URLs that map cleanly to new eyewear models */}
