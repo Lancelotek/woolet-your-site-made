@@ -525,7 +525,7 @@ const ListiclePage = () => {
                     >
                       Founding Member
                     </span>
-                    <span style={{ fontFamily: SERIF, fontSize: 36, color: C.ink }}>$133</span>
+                    <span style={{ fontFamily: SERIF, fontSize: 36, color: C.ink }}>$114</span>
                     <span style={{ fontSize: 16, color: C.inkMute, textDecoration: "line-through" }}>
                       $190
                     </span>
@@ -538,7 +538,7 @@ const ListiclePage = () => {
                         padding: "6px 10px",
                       }}
                     >
-                      30% OFF AT LAUNCH
+                      40% OFF AT LAUNCH
                     </span>
                   </div>
                   <a
@@ -678,7 +678,7 @@ const ListiclePage = () => {
                     opacity: !email ? 0.55 : 1,
                   }}
                 >
-                  {loading ? "..." : "Get 30% off"}
+                  {loading ? "..." : "Get 40% off"}
                 </button>
               </div>
             ) : (
