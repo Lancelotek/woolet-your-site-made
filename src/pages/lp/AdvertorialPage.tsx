@@ -262,6 +262,7 @@ const AdvertorialPage = () => {
 
           {/* 2. Headline */}
           <h1
+            className="lp-hero-h1 lp-narrow-row"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 300,
@@ -269,7 +270,7 @@ const AdvertorialPage = () => {
               lineHeight: 1.2,
               color: "#f3ece0",
               padding: "0 20px",
-              margin: "0 0 0 0",
+              margin: "0 auto",
             }}
           >
             For years I searched for glasses that fit my face.{" "}
@@ -280,12 +281,14 @@ const AdvertorialPage = () => {
 
           {/* 3. Author row */}
           <div
+            className="lp-narrow-row"
             style={{
               display: "flex",
               alignItems: "center",
               padding: "18px 20px",
               borderBottom: "1px solid rgba(216,184,106,0.18)",
               gap: 10,
+              margin: "0 auto",
             }}
           >
             {/* Avatar */}
