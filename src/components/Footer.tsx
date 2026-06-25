@@ -97,7 +97,15 @@ const FooterLink = ({ label, href, newTab }: { label: string; href: string; newT
 };
 
 const SocialIconLink = ({ label, href }: { label: string; href: string }) => {
-  const handleClick = () => pushGtmEvent("footer_click", { footer_item: label });
+  const handleClick = () => {
+    pushGtmEvent("footer_click", { footer_item: label });
+    if (label === "Bridge Fit Guide") {
+      pushGtmEvent("bridge_fit_guide_click", {
+        source: "footer",
+        link_url: href,
+      });
+    }
+  };
   const iconClass = "w-5 h-5 text-cream-dim hover:text-primary transition-colors";
 
   return (
