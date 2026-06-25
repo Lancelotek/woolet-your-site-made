@@ -95,7 +95,8 @@ serve(async (req) => {
       groups.push(AI_SCAN_GROUP_ID);
     } else if (source === "bespoke") {
       groups.push(BESPOKE_GROUP_ID);
-    } else if (source === "kickstarter") {
+    } else if (source === "kickstarter" || source === "DE" || source === "de") {
+      // DE landing pages route into the same Woolet Waitlist ENG group
       groups.push(VIP_GROUP_ID);
     } else {
       // Default/missing — keep current behavior (VIP / Woolet Waitlist ENG)
