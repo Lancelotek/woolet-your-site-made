@@ -58,7 +58,7 @@ const AdvertorialPage = () => {
       <div
         className="lp-scope"
         style={{
-          background: "#F8F6F1",
+          background: "#0b0a09",
           minHeight: "100vh",
           fontFamily: "'Barlow', sans-serif",
         }}
@@ -82,8 +82,8 @@ const AdvertorialPage = () => {
           >
             <span
               style={{
-                background: "#EDE9E0",
-                color: "#5A4020",
+                background: "rgba(216,184,106,0.10)",
+                color: "#d8b86a",
                 padding: "3px 10px",
                 borderRadius: 20,
                 fontSize: 12,
@@ -97,8 +97,8 @@ const AdvertorialPage = () => {
             </span>
             <span
               style={{
-                background: "rgba(202,164,73,0.15)",
-                color: "#A07A2A",
+                background: "rgba(216,184,106,0.14)",
+                color: "#d8b86a",
                 padding: "3px 10px",
                 borderRadius: 20,
                 fontSize: 12,
@@ -114,7 +114,7 @@ const AdvertorialPage = () => {
               style={{
                 marginLeft: "auto",
                 fontSize: 12,
-                color: "#888",
+                color: "#8a8275",
                 fontFamily: "'Barlow', sans-serif",
               }}
             >
@@ -129,13 +129,13 @@ const AdvertorialPage = () => {
               fontWeight: 300,
               fontSize: "clamp(28px, 4vw, 36px)",
               lineHeight: 1.2,
-              color: "#111",
+              color: "#f3ece0",
               padding: "0 20px",
               margin: "0 0 0 0",
             }}
           >
             For years I searched for glasses that fit my face.{" "}
-            <em style={{ color: "#A07A2A", fontStyle: "italic" }}>
+            <em style={{ color: "#d8b86a", fontStyle: "italic" }}>
               Here's what I discovered.
             </em>
           </h1>
@@ -146,7 +146,7 @@ const AdvertorialPage = () => {
               display: "flex",
               alignItems: "center",
               padding: "18px 20px",
-              borderBottom: "1px solid #E8E4DC",
+              borderBottom: "1px solid rgba(216,184,106,0.18)",
               gap: 10,
             }}
           >
@@ -170,18 +170,18 @@ const AdvertorialPage = () => {
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 500,
                   fontSize: 13,
-                  color: "#111",
+                  color: "#f3ece0",
                 }}
               >
                 Marek W.{" "}
-                <span style={{ color: "#CAA449" }}>✓</span>
+                <span style={{ color: "#d8b86a" }}>✓</span>
               </span>
               <span
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 300,
                   fontSize: 12,
-                  color: "#888",
+                  color: "#8a8275",
                 }}
               >
                 Published March 31, 2026
@@ -203,7 +203,7 @@ const AdvertorialPage = () => {
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 600,
                   fontSize: 13,
-                  color: "#111",
+                  color: "#f3ece0",
                 }}
               >
                 92K
@@ -212,7 +212,7 @@ const AdvertorialPage = () => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontSize: 12,
-                  color: "#888",
+                  color: "#8a8275",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
                 }}
@@ -253,7 +253,7 @@ const AdvertorialPage = () => {
               fontWeight: 300,
               fontSize: 12,
               lineHeight: 1.6,
-              color: "#7A7A7A",
+              color: "#8a8275",
               margin: "8px 2px 0",
               fontStyle: "italic",
             }}>
@@ -269,7 +269,7 @@ const AdvertorialPage = () => {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
                 fontSize: 18,
-                color: "#111",
+                color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
               }}
@@ -283,7 +283,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -295,9 +295,9 @@ const AdvertorialPage = () => {
             {/* Pull quote */}
             <blockquote
               style={{
-                borderLeft: "3px solid #A07A2A",
+                borderLeft: "3px solid #d8b86a",
                 padding: "10px 14px",
-                background: "rgba(160,122,42,0.06)",
+                background: "rgba(216,184,106,0.06)",
                 margin: "14px 0",
                 borderRadius: 0,
               }}
@@ -307,7 +307,7 @@ const AdvertorialPage = () => {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontStyle: "italic",
                   fontSize: 15,
-                  color: "#2A1A00",
+                  color: "#f3ece0",
                   lineHeight: 1.6,
                   margin: 0,
                 }}
@@ -323,7 +323,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -355,7 +355,7 @@ const AdvertorialPage = () => {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
                 fontSize: 18,
-                color: "#111",
+                color: "#f3ece0",
                 margin: "20px 0 8px",
                 lineHeight: 1.3,
               }}
@@ -369,7 +369,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -397,7 +397,7 @@ const AdvertorialPage = () => {
               fontWeight: 300,
               fontSize: 12,
               lineHeight: 1.6,
-              color: "#7A7A7A",
+              color: "#8a8275",
               margin: "0 2px 14px",
               fontStyle: "italic",
             }}>
@@ -410,7 +410,7 @@ const AdvertorialPage = () => {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
                 fontSize: 18,
-                color: "#111",
+                color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
               }}
@@ -424,7 +424,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -441,7 +441,7 @@ const AdvertorialPage = () => {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
                 fontSize: 18,
-                color: "#111",
+                color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
               }}
@@ -455,7 +455,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -467,7 +467,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -479,7 +479,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -489,8 +489,8 @@ const AdvertorialPage = () => {
             {/* Stat strip */}
             <div
               style={{
-                background: "#F0EDE6",
-                border: "1px solid #E0D9CF",
+                background: "#141210",
+                border: "1px solid rgba(216,184,106,0.18)",
                 borderRadius: 8,
                 padding: "14px 16px",
                 margin: "14px 0",
@@ -500,16 +500,16 @@ const AdvertorialPage = () => {
               }}
             >
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#A07A2A" }}>130–148mm</div>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>standard market</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>130–148mm</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>standard market</div>
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#A07A2A" }}>155–165mm</div>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>155–165mm</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#CAA449" }}>158mm</div>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet minimum</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>158mm</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet minimum</div>
               </div>
             </div>
 
@@ -519,7 +519,7 @@ const AdvertorialPage = () => {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
                 fontSize: 18,
-                color: "#111",
+                color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
               }}
@@ -533,7 +533,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -545,7 +545,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -554,9 +554,9 @@ const AdvertorialPage = () => {
 
             <blockquote
               style={{
-                borderLeft: "3px solid #A07A2A",
+                borderLeft: "3px solid #d8b86a",
                 padding: "10px 14px",
-                background: "rgba(160,122,42,0.06)",
+                background: "rgba(216,184,106,0.06)",
                 margin: "14px 0",
                 borderRadius: 0,
               }}
@@ -566,7 +566,7 @@ const AdvertorialPage = () => {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontStyle: "italic",
                   fontSize: 15,
-                  color: "#2A1A00",
+                  color: "#f3ece0",
                   lineHeight: 1.6,
                   margin: 0,
                 }}
@@ -581,7 +581,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -593,7 +593,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -606,7 +606,7 @@ const AdvertorialPage = () => {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
                 fontSize: 18,
-                color: "#111",
+                color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
               }}
@@ -620,7 +620,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -632,7 +632,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -658,7 +658,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -670,7 +670,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -682,7 +682,7 @@ const AdvertorialPage = () => {
                 fontWeight: 300,
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#3A3A3A",
+                color: "#c4bdaf",
                 margin: "0 0 12px",
               }}
             >
@@ -692,9 +692,9 @@ const AdvertorialPage = () => {
             {/* Section D — Testimonials */}
             <blockquote
               style={{
-                borderLeft: "3px solid #A07A2A",
+                borderLeft: "3px solid #d8b86a",
                 padding: "10px 14px",
-                background: "rgba(160,122,42,0.06)",
+                background: "rgba(216,184,106,0.06)",
                 margin: "14px 0",
                 borderRadius: 0,
               }}
@@ -704,7 +704,7 @@ const AdvertorialPage = () => {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontStyle: "italic",
                   fontSize: 15,
-                  color: "#2A1A00",
+                  color: "#f3ece0",
                   lineHeight: 1.6,
                   margin: 0,
                 }}
@@ -717,7 +717,7 @@ const AdvertorialPage = () => {
                   fontWeight: 300,
                   fontSize: 12,
                   letterSpacing: "2px",
-                  color: "#888",
+                  color: "#8a8275",
                   textTransform: "uppercase",
                   marginTop: 6,
                 }}
@@ -728,9 +728,9 @@ const AdvertorialPage = () => {
 
             <blockquote
               style={{
-                borderLeft: "3px solid #A07A2A",
+                borderLeft: "3px solid #d8b86a",
                 padding: "10px 14px",
-                background: "rgba(160,122,42,0.06)",
+                background: "rgba(216,184,106,0.06)",
                 margin: "14px 0",
                 borderRadius: 0,
               }}
@@ -740,7 +740,7 @@ const AdvertorialPage = () => {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontStyle: "italic",
                   fontSize: 15,
-                  color: "#2A1A00",
+                  color: "#f3ece0",
                   lineHeight: 1.6,
                   margin: 0,
                 }}
@@ -753,7 +753,7 @@ const AdvertorialPage = () => {
                   fontWeight: 300,
                   fontSize: 12,
                   letterSpacing: "2px",
-                  color: "#888",
+                  color: "#8a8275",
                   textTransform: "uppercase",
                   marginTop: 6,
                 }}
@@ -768,10 +768,10 @@ const AdvertorialPage = () => {
           <div style={{ padding: "0 20px" }}>
             <div
               style={{
-                background: "#080807",
+                background: "#141210",
                 borderRadius: 10,
                 padding: 18,
-                border: "1px solid #2A2520",
+                border: "1px solid rgba(216,184,106,0.22)",
                 marginTop: 20,
                 marginBottom: 20,
               }}
@@ -789,7 +789,7 @@ const AdvertorialPage = () => {
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
                     fontSize: 14,
-                    color: "#CAA449",
+                    color: "#d8b86a",
                     letterSpacing: "3px",
                     fontWeight: 300,
                   }}
@@ -801,7 +801,7 @@ const AdvertorialPage = () => {
                     fontFamily: "'Barlow', sans-serif",
                     fontWeight: 500,
                     fontSize: 12,
-                    color: "#CAA449",
+                    color: "#d8b86a",
                     letterSpacing: "3px",
                   }}
                 >
@@ -815,7 +815,7 @@ const AdvertorialPage = () => {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontWeight: 300,
                   fontSize: 15,
-                  color: "#F8F8F6",
+                  color: "#f3ece0",
                   lineHeight: 1.3,
                   marginBottom: 12,
                   marginTop: 0,
@@ -829,8 +829,8 @@ const AdvertorialPage = () => {
                 onClick={() => navigate("/en/fit")}
                 style={{
                   width: "100%",
-                  background: "#CAA449",
-                  color: "#080807",
+                  background: "#d8b86a",
+                  color: "#141210",
                   border: "none",
                   padding: "13px 0",
                   borderRadius: 4,
@@ -849,14 +849,14 @@ const AdvertorialPage = () => {
 
           {/* Internal links — after CTA */}
           <div style={{ padding: "0 20px" }}>
-            <div style={{ margin: "0 0 18px", padding: "14px 0", borderTop: "1px solid #E8E4DC" }}>
-              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
+            <div style={{ margin: "0 0 18px", padding: "14px 0", borderTop: "1px solid rgba(216,184,106,0.18)" }}>
+              <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "3px", color: "#8a8275", textTransform: "uppercase", marginBottom: 10 }}>
                 READ MORE
               </div>
-              <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>
+              <Link to="/en/lp/5-reasons" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#d8b86a", textDecoration: "none", marginBottom: 8, lineHeight: 1.5 }}>
                 5 reasons why standard glasses ruin your face proportions →
               </Link>
-              <Link to="/en/fit" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#A07A2A", textDecoration: "none", lineHeight: 1.5 }}>
+              <Link to="/en/fit" style={{ display: "block", fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 13, color: "#d8b86a", textDecoration: "none", lineHeight: 1.5 }}>
                 Measure your face → Fit Quiz
               </Link>
             </div>
