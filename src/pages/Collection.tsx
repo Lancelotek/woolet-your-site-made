@@ -47,16 +47,16 @@ const Collection = () => {
                 className="font-display text-woolet-white leading-[1.05] mb-5"
                 style={{ fontSize: "clamp(2rem, 3.6vw, 3rem)", fontWeight: 300 }}
               >
-                Two shapes.{" "}
+                The collection —{" "}
                 <em className="italic text-gold-light" style={{ fontStyle: "italic" }}>
-                  One honest width range.
+                  built only in wide.
                 </em>
               </h1>
               <p
                 className="text-cream-dim leading-relaxed max-w-2xl"
                 style={{ fontSize: "1rem" }}
               >
-                Woolet 007 (round) and 009 (soft-square) — built only in 155, 158 and 161 mm,
+                Two shapes — round 007 and soft-square 009 — in 155, 158 and 161 mm widths,
                 with bespoke up to 172 mm. Italian Mazzucchelli acetate, hand-finished in the EU.
               </p>
             </div>
