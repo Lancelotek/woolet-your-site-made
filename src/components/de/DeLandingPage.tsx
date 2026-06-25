@@ -310,11 +310,12 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
           <div className="max-w-6xl mx-auto flex items-center justify-between py-5">
             <Link to="/de" aria-label="Woolet — Startseite" className="inline-flex items-center">
               <img
-                src="/src/assets/woolet-logo.png"
+                src={wooletLogo}
                 alt="Woolet"
                 className="h-7 md:h-8 w-auto"
                 style={{ filter: "brightness(0) invert(1)" }}
               />
+            </Link>
             </Link>
           </div>
         </header>
