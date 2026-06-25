@@ -388,8 +388,7 @@ const Index = () => {
                     <img
                       src={m.img}
                       alt={m.alt}
-                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-                      style={{ transform: "scale(1.8)" }}
+                      className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                   </div>
