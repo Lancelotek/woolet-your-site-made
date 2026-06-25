@@ -566,19 +566,41 @@ const AdvertorialPage = () => {
             </p>
 
             {/* Inline image */}
-            <img
-              src={tooNarrowPain.url}
-              alt="Wide-face wearer in narrow standard glasses — frames visibly too small, temples digging in"
-              style={{
-                width: "100%",
-                maxWidth: 660,
-                objectFit: "contain",
-                borderRadius: 6,
-                margin: "12px auto",
-                display: "block",
-              }}
-              loading="lazy"
-            />
+            <figure style={{ margin: "12px auto", maxWidth: 660 }}>
+              <img
+                src={tooNarrowPain.url}
+                alt="Close-up of a wide-faced man wearing standard 140mm rectangular glasses — frames sit narrower than his temples, arms press into the sides of his head and the bridge rides high on his nose, showing the classic pinch-and-slide pain pattern of narrow eyewear on 155mm+ faces"
+                title="Standard narrow frames on a wide face — the pinch points wide-face wearers know"
+                style={{
+                  width: "100%",
+                  objectFit: "contain",
+                  borderRadius: 6,
+                  display: "block",
+                }}
+                loading="lazy"
+                decoding="async"
+                width={1480}
+                height={1850}
+              />
+              <figcaption
+                className="lp-cap"
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 12,
+                  lineHeight: 1.6,
+                  color: "#8a8478",
+                  margin: "8px auto 0",
+                  fontStyle: "italic",
+                  textAlign: "center",
+                }}
+              >
+                Figure 01 — Standard 140mm frames on a 158mm face. The temples sit
+                outside the frame line and the arms compress against the head:
+                the exact fit failure wide-face wearers report after a few hours.
+              </figcaption>
+            </figure>
+
 
 
             {/* Section 1b — Nose bridge */}
