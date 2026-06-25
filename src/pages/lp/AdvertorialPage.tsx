@@ -528,7 +528,7 @@ const AdvertorialPage = () => {
                 borderLeft: "3px solid #d8b86a",
                 padding: "10px 14px",
                 background: "rgba(216,184,106,0.06)",
-                margin: "14px 0",
+                margin: "14px auto",
                 borderRadius: 0,
               }}
             >
@@ -723,7 +723,7 @@ const AdvertorialPage = () => {
                 border: "1px solid rgba(216,184,106,0.18)",
                 borderRadius: 8,
                 padding: "14px 16px",
-                margin: "14px 0",
+                margin: "14px auto",
                 display: "flex",
                 gap: 12,
                 textAlign: "center",
@@ -787,7 +787,7 @@ const AdvertorialPage = () => {
                 borderLeft: "3px solid #d8b86a",
                 padding: "10px 14px",
                 background: "rgba(216,184,106,0.06)",
-                margin: "14px 0",
+                margin: "14px auto",
                 borderRadius: 0,
               }}
             >
@@ -925,7 +925,7 @@ const AdvertorialPage = () => {
                 borderLeft: "3px solid #d8b86a",
                 padding: "10px 14px",
                 background: "rgba(216,184,106,0.06)",
-                margin: "14px 0",
+                margin: "14px auto",
                 borderRadius: 0,
               }}
             >
@@ -961,7 +961,7 @@ const AdvertorialPage = () => {
                 borderLeft: "3px solid #d8b86a",
                 padding: "10px 14px",
                 background: "rgba(216,184,106,0.06)",
-                margin: "14px 0",
+                margin: "14px auto",
                 borderRadius: 0,
               }}
             >
