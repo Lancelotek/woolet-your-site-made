@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
+import wooletLogo from "@/assets/woolet-logo.png";
 import {
   DEFAULT_FAQS,
   dePageOrder,
@@ -301,6 +302,23 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
       </Helmet>
 
       <main style={{ background: colors.ink, color: colors.cream, minHeight: "100vh" }}>
+        {/* TOP BAR */}
+        <header
+          className="px-6 md:px-10 absolute top-0 left-0 right-0 z-20"
+          style={{ background: "transparent" }}
+        >
+          <div className="max-w-6xl mx-auto flex items-center justify-between py-5">
+            <Link to="/de" aria-label="Woolet — Startseite" className="inline-flex items-center">
+              <img
+                src={wooletLogo}
+                alt="Woolet"
+                className="h-7 md:h-8 w-auto"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
+            </Link>
+          </div>
+        </header>
+
         {/* HERO */}
         <section
           className="px-6 md:px-10 relative overflow-hidden"
