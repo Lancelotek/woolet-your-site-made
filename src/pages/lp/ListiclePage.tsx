@@ -4,8 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { supabase } from "@/integrations/supabase/client";
 import wooletLogo from "@/assets/woolet-logo.png";
-import heroMan from "@/assets/hero-man.jpg";
-import listicleHeroLeft from "@/assets/listicle-hero-left.png";
+import comparisonAsset from "@/assets/standard-vs-wide-comparison.png.asset.json";
 
 /* ---------- design tokens (scoped to this page only) ---------- */
 const C = {
