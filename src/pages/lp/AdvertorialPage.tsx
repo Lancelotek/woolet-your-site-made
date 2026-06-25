@@ -383,7 +383,7 @@ const AdvertorialPage = () => {
 
             <img
               src={noseBridgeAsset.url}
-              alt="Nose bridge width comparison for glasses: standard 18–20mm bridge digs into the sides of the nose and sits too high, vs Woolet 21mm and 24mm wide nose bridges matched to the wearer's nose so the frame sits level with room to breathe"
+              alt="Glasses nose bridge fit diagram — standard 18–20mm keyhole bridge digging into a wide nose vs Woolet 21mm and 24mm wider bridge sizes sitting level for wide noses and slim-face wearers"
               style={{
                 width: "100%",
                 borderRadius: 8,
@@ -401,7 +401,7 @@ const AdvertorialPage = () => {
               margin: "0 2px 14px",
               fontStyle: "italic",
             }}>
-              Two bridge widths — 21mm and 24mm — matched to your nose by the fit scan, so the frame sits level and stops digging in. Wide noses finally have a bridge built for them, slim face or not.
+              Two keyhole bridge sizes — 21mm and 24mm — matched to your nose by the fit scan. The frame sits level, pads stop pinching, and the slide-down problem goes away. Built for wide noses on any face shape.
             </p>
 
             {/* Section 2 */}
