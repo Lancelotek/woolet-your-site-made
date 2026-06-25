@@ -64,6 +64,7 @@ const Footer = () => {
           { label: "Process", href: `/${lang}/process` },
           { label: t(lang, "footer.why_fail"), href: `/${lang}/lp/why-glasses-fail` },
           { label: t(lang, "footer.5_reasons"), href: `/${lang}/lp/5-reasons` },
+          { label: "Bridge Fit Guide", href: `/${lang}/lp/wide-bridge-fit-guide` },
           { label: "Kickstarter", href: `/${lang}/lp/kickstarter`, newTab: true },
           { label: "support@woolet.co", href: "mailto:support@woolet.co" },
         ].map((link) => (
