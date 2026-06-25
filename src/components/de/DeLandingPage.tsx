@@ -301,6 +301,23 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
       </Helmet>
 
       <main style={{ background: colors.ink, color: colors.cream, minHeight: "100vh" }}>
+        {/* TOP BAR */}
+        <header
+          className="px-6 md:px-10 absolute top-0 left-0 right-0 z-20"
+          style={{ background: "transparent" }}
+        >
+          <div className="max-w-6xl mx-auto flex items-center justify-between py-5">
+            <Link to="/de" aria-label="Woolet — Startseite" className="inline-flex items-center">
+              <img
+                src="/src/assets/woolet-logo.png"
+                alt="Woolet"
+                className="h-7 md:h-8 w-auto"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
+            </Link>
+          </div>
+        </header>
+
         {/* HERO */}
         <section
           className="px-6 md:px-10 relative overflow-hidden"
