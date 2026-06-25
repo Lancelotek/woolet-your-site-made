@@ -403,9 +403,14 @@ const Index = () => {
                     <img
                       src={m.img}
                       alt={m.alt}
-                      className="block max-w-[78%] max-h-[78%] object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                      className={`block object-contain transition-transform duration-500 group-hover:scale-[1.04] ${
+                        m.id === "009"
+                          ? "max-w-[46%] max-h-[46%]"
+                          : "max-w-[78%] max-h-[78%]"
+                      }`}
                       loading="lazy"
                     />
+
                   </div>
 
                   {/* Meta strip */}
