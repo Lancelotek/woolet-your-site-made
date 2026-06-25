@@ -796,7 +796,7 @@ const AdvertorialPage = () => {
                 lineHeight: 1.3,
               }}
             >
-              Three weeks with the Woolet 007.
+              Three weeks <em>with the Woolet 007.</em>
             </h2>
 
             <p
