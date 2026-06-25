@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams, useLocation, Link, Navigate } from "react-router-dom";
 import heroManImg from "@/assets/hero-man.jpg";
 import woolet007Asset from "@/assets/woolet-007-black-front.jpeg.asset.json";
-import woolet009Asset from "@/assets/woolet-009-havana-front.png.asset.json";
+import woolet009Asset from "@/assets/woolet-009-black-front.png.asset.json";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
