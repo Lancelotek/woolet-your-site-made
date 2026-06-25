@@ -12,6 +12,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import VipPopup from "@/components/VipPopup";
 
 import Index from "./pages/Index.tsx";
+const Collection = lazy(() => import("./pages/Collection.tsx"));
 
 const SignIn = lazy(() => import("./pages/account/SignIn.tsx"));
 const AuthCallback = lazy(() => import("./pages/account/Callback.tsx"));
@@ -204,6 +205,7 @@ const App = () => (
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
+          <Route path="/:lang/collection" element={<Collection />} />
           <Route path="/:lang/blog" element={<BlogIndex />} />
           <Route path="/en/blog/category/nose-bridge-fit" element={<NoseBridgeFitHub />} />
           <Route path="/:lang/blog/category/nose-bridge-fit" element={<Navigate to="/en/blog/category/nose-bridge-fit" replace />} />
