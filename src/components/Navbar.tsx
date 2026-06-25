@@ -28,7 +28,7 @@ const Navbar = () => {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-5">
           <Link
-            to={`/${lang}#collection`}
+            to={`/${lang}/collection`}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang })}
@@ -142,7 +142,7 @@ const Navbar = () => {
         >
           <div className="flex flex-col gap-6 px-6 py-8">
             <Link
-              to={`/${lang}#collection`}
+              to={`/${lang}/collection`}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
