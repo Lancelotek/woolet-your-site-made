@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import wooletLogo from "@/assets/woolet-logo.png";
 import beforeAfterAsset from "@/assets/standard-vs-155mm.png.asset.json";
+import frameWidthChartAsset from "@/assets/frame-width-comparison-chart.png.asset.json";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import authorMarek from "@/assets/author-marek.png";
 import wooletModelImg from "@/assets/woolet-model.png";
@@ -151,7 +152,7 @@ const AdvertorialPage = () => {
             {/* Avatar */}
             <img
               src={authorMarek}
-              alt="Marek K. — autor artykułu"
+              alt="Marek K. — Woolet co-founder and author of this article on glasses for wide faces"
               style={{
                 width: 36,
                 height: 36,
@@ -224,7 +225,7 @@ const AdvertorialPage = () => {
           <div style={{ padding: "24px 20px 8px" }}>
             <img
               src={beforeAfterAsset.url}
-              alt="Standard frames vs frames built for 155mm+ faces"
+              alt="Standard narrow eyeglass frames vs Woolet frames built for 155mm+ wide faces — side-by-side fit comparison on a man with a wide head"
               style={{
                 width: "100%",
                 borderRadius: 8,
@@ -232,6 +233,31 @@ const AdvertorialPage = () => {
               }}
               loading="eager"
             />
+          </div>
+
+          {/* 4b. Frame width comparison chart */}
+          <div style={{ padding: "16px 20px 8px" }}>
+            <img
+              src={frameWidthChartAsset.url}
+              alt="Frame width comparison chart in millimetres: Zenni 140mm, Warby Parker 148mm, Woolet S 155mm, Woolet M 158mm, Woolet L 161mm — wide faces need 155–168mm where most brands stop fitting"
+              style={{
+                width: "100%",
+                borderRadius: 8,
+                display: "block",
+              }}
+              loading="lazy"
+            />
+            <p style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 300,
+              fontSize: 12,
+              lineHeight: 1.6,
+              color: "#7A7A7A",
+              margin: "8px 2px 0",
+              fontStyle: "italic",
+            }}>
+              Total front frame width — the one number that decides if glasses fit a wide face. Competitor figures approximate widest publicly available frames.
+            </p>
           </div>
 
           {/* 5. Article body */}
