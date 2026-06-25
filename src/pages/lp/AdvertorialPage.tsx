@@ -197,7 +197,7 @@ const AdvertorialPage = () => {
           .lp-body > blockquote,
           .lp-body > .lp-narrow,
           .lp-narrow-row { max-width: 660px; }
-          .lp-body > p { font-size: 18px !important; line-height: 1.72 !important; color: #e3dccb !important; margin: 0 0 26px !important; }
+          .lp-body > p { font-size: 18px !important; line-height: 1.72 !important; color: #e3dccb !important; margin: 0 auto 26px !important; }
           .lp-figure { margin: 44px auto; max-width: 1000px; }
           .lp-sticky-label { display: inline !important; }
           .lp-hero-h1 { font-size: 64px !important; line-height: 1.05 !important; }
