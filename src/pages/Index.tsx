@@ -381,19 +381,36 @@ const Index = () => {
                   onClick={() =>
                     pushGtmEvent("home_teaser_model_click", { model: m.id, dest: "collection" })
                   }
-                  className="group block no-underline transition-colors"
-                  style={{ border: "1px solid hsl(0 0% 100% / 0.07)" }}
+                  className="group block no-underline transition-all duration-300 hover:-translate-y-1"
+                  style={{
+                    border: "1px solid hsl(0 0% 100% / 0.08)",
+                    background: "#16140f",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "hsl(var(--gold) / 0.55)";
+                    e.currentTarget.style.boxShadow = "0 18px 40px -20px rgba(0,0,0,0.6)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.08)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
                 >
-                  <div className="relative w-full aspect-[16/9] overflow-hidden bg-woolet-white">
+                  {/* Unified product photo panel — same warm off-white, same padding, same crop */}
+                  <div
+                    className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden flex items-center justify-center"
+                    style={{ background: "#efe9df" }}
+                  >
                     <img
                       src={m.img}
                       alt={m.alt}
-                      className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                      className="block max-w-[78%] max-h-[78%] object-contain transition-transform duration-500 group-hover:scale-[1.04]"
                       loading="lazy"
                     />
                   </div>
-                  <div className="flex items-center justify-between px-5 py-4">
-                    <div>
+
+                  {/* Meta strip */}
+                  <div className="flex items-center justify-between px-5 py-4 gap-4">
+                    <div className="min-w-0">
                       <div
                         className="uppercase tracking-[0.28em] mb-1"
                         style={{ fontSize: "0.68rem", color: "hsl(var(--gold))" }}
@@ -401,22 +418,37 @@ const Index = () => {
                         {m.id}
                       </div>
                       <div
-                        className="font-display text-woolet-white"
+                        className="font-display text-woolet-white truncate"
                         style={{ fontSize: "1.15rem" }}
                       >
                         {m.name}
                       </div>
+                      <div
+                        className="uppercase tracking-[0.22em] text-cream-dim mt-1"
+                        style={{ fontSize: "0.65rem", fontFamily: "Barlow, sans-serif" }}
+                      >
+                        {m.shape} · 155–161 mm
+                      </div>
                     </div>
-                    <div
-                      className="uppercase tracking-[0.22em] text-cream-dim group-hover:text-gold-light transition-colors"
-                      style={{ fontSize: "0.7rem", fontFamily: "Barlow, sans-serif" }}
-                    >
-                      {m.shape} · 155–161 mm
+                    <div className="text-right shrink-0">
+                      <div
+                        className="font-display text-woolet-white leading-none"
+                        style={{ fontSize: "1.05rem" }}
+                      >
+                        From $133
+                      </div>
+                      <div
+                        className="uppercase tracking-[0.28em] text-cream-dim group-hover:text-gold-light transition-colors mt-2"
+                        style={{ fontSize: "0.65rem", fontFamily: "Barlow, sans-serif" }}
+                      >
+                        View →
+                      </div>
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
+
           </div>
         </section>
 
