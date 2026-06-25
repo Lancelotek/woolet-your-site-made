@@ -610,8 +610,8 @@ const AdvertorialPage = () => {
                 fontWeight: 400,
                 fontSize: 24,
                 color: "#f3ece0",
-                margin: "20px 0 8px",
-                lineHeight: 1.3,
+                margin: "40px 0 10px",
+                lineHeight: 1.2,
               }}
             >
               The second problem nobody fixes: <em>the nose bridge</em>
