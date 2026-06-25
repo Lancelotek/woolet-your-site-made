@@ -498,7 +498,7 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
@@ -608,10 +608,10 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
-                margin: "20px 0 8px",
-                lineHeight: 1.3,
+                margin: "40px 0 10px",
+                lineHeight: 1.2,
               }}
             >
               The second problem nobody fixes: <em>the nose bridge</em>
@@ -664,13 +664,13 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
               }}
             >
-              The premium market <em>didn't exist.</em>
+              Why premium wide-fit eyewear <em>didn't exist.</em>
             </h2>
 
             <p
@@ -695,13 +695,13 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
               }}
             >
-              The geometry <em>nobody explained to you.</em>
+              The wide-frame geometry <em>nobody explained to you.</em>
             </h2>
 
             <p
@@ -773,7 +773,7 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
@@ -860,13 +860,13 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
               }}
             >
-              Three weeks <em>with the Woolet 007.</em>
+              Three weeks wearing the Woolet 007 <em>— 158mm wide-fit acetate.</em>
             </h2>
 
             <p
