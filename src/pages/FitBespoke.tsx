@@ -214,7 +214,7 @@ export default function FitBespoke() {
               {[
                 {
                   title: "Stock wins",
-                  body: "Face 155–161 mm with a 21–22 mm bridge. Same Mazzucchelli acetate, $133–$190, 2–3 week lead time.",
+                  body: "Face 155–161 mm with a 21–22 mm bridge. Same Mazzucchelli acetate, $114–$190, 2–3 week lead time.",
                   cta: { label: "See 007 / 009", to: "/en/products/009" },
                 },
                 {
