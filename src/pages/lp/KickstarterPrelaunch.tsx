@@ -327,7 +327,7 @@ const KickstarterPrelaunch = () => {
             "@type": "Offer",
             url: "https://woolet.co/en/lp/kickstarter",
             priceCurrency: "USD",
-            price: "133",
+            price: "114",
             priceValidUntil: "2026-12-31",
             availability: "https://schema.org/PreOrder",
             availabilityStarts: KS_LAUNCH_DATE.toISOString(),
