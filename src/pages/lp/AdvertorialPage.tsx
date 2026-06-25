@@ -171,23 +171,23 @@ const AdvertorialPage = () => {
         .lp-body > h2,
         .lp-body > blockquote,
         .lp-body > .lp-narrow { max-width: 100%; margin-left: auto; margin-right: auto; }
-        .lp-body > p { font-size: 16px; line-height: 1.78; color: #d4ccba; }
-        .lp-body > p.lp-cap { font-size: 12.5px; line-height: 1.6; color: #8a8275; font-style: italic; margin: 8px 4px 18px; max-width: 1000px; }
-        .lp-body > h2 { margin-top: 32px !important; font-size: 32px !important; font-family: 'Cormorant Garamond', serif !important; font-weight: 400 !important; line-height: 1.1 !important; letter-spacing: -0.01em; color: #f3ece0 !important; }
+        .lp-body > p { font-size: 17px; line-height: 1.72; color: #e3dccb; margin: 0 0 22px; letter-spacing: 0.005em; }
+        .lp-body > p.lp-cap { font-size: 12.5px; line-height: 1.6; color: #8a8275; font-style: italic; margin: 8px 4px 22px; max-width: 1000px; }
+        .lp-body > h2 { margin-top: 40px !important; margin-bottom: 14px !important; font-size: 32px !important; font-family: 'Cormorant Garamond', serif !important; font-weight: 400 !important; line-height: 1.1 !important; letter-spacing: -0.01em; color: #f3ece0 !important; }
         .lp-body > h2 em, .lp-body > h2 i { color: #d8b86a; font-style: italic; font-weight: 400; }
-        .lp-body > h3 { font-family: 'Cormorant Garamond', serif !important; font-weight: 400 !important; font-size: 24px !important; line-height: 1.15 !important; color: #f3ece0 !important; margin: 20px 0 8px !important; }
+        .lp-body > h3 { font-family: 'Cormorant Garamond', serif !important; font-weight: 400 !important; font-size: 24px !important; line-height: 1.15 !important; color: #f3ece0 !important; margin: 24px 0 10px !important; }
         .lp-body > h3 em, .lp-body > h3 i { color: #d8b86a; font-style: italic; }
-        .lp-body > img { display: block; width: 100%; max-width: 1000px; margin: 24px auto; border-radius: 8px; }
-        .lp-figure { margin: 20px 0; }
-        .lp-figure .lp-cap { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.6; color: #8a8275; margin: 8px 4px 0; font-style: italic; }
+        .lp-body > img { display: block; width: 100%; max-width: 1000px; margin: 28px auto; border-radius: 8px; }
+        .lp-figure { margin: 24px 0; }
+        .lp-figure .lp-cap { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.6; color: #8a8275; margin: 10px 4px 0; font-style: italic; }
         .lp-drop::first-letter {
           font-family: 'Cormorant Garamond', serif;
           font-weight: 400;
           font-style: italic;
-          font-size: 68px;
+          font-size: 72px;
           float: left;
           line-height: 0.85;
-          padding: 6px 12px 0 0;
+          padding: 6px 14px 0 0;
           color: #d8b86a;
         }
         @media (min-width: 900px) {
@@ -196,13 +196,12 @@ const AdvertorialPage = () => {
           .lp-body > h2,
           .lp-body > blockquote,
           .lp-body > .lp-narrow,
-          .lp-narrow-row { max-width: 680px; }
-          .lp-body > p { font-size: 17.5px; line-height: 1.78; }
-          .lp-body > h2 { font-size: 26px !important; margin-top: 40px !important; }
-          .lp-figure { margin: 36px auto; max-width: 1000px; }
+          .lp-narrow-row { max-width: 660px; }
+          .lp-body > p { font-size: 18px; line-height: 1.72; color: #e3dccb; margin: 0 0 26px; }
+          .lp-figure { margin: 44px auto; max-width: 1000px; }
           .lp-sticky-label { display: inline !important; }
           .lp-hero-h1 { font-size: 64px !important; line-height: 1.05 !important; }
-          .lp-body > h2 { font-size: 44px !important; margin-top: 48px !important; }
+          .lp-body > h2 { font-size: 44px !important; margin-top: 56px !important; margin-bottom: 18px !important; }
           .lp-body > h3 { font-size: 30px !important; }
         }
       `}</style>
