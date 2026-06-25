@@ -382,7 +382,7 @@ const AdvertorialPage = () => {
           {/* 4b. Frame width comparison chart */}
           <figure className="lp-figure" style={{ padding: "16px 20px 8px", margin: 0 }}>
             <img
-              src={frameWidthChartAsset.url}
+              src={frameWidthChartImg}
               alt="Frame width comparison chart in millimetres: Zenni 140mm, Warby Parker 148mm, Woolet S 155mm, Woolet M 158mm, Woolet L 161mm — wide faces need 155–168mm where most brands stop fitting"
               style={{
                 width: "100%",
@@ -517,7 +517,7 @@ const AdvertorialPage = () => {
             </p>
 
             <img
-              src={noseBridgeAsset.url}
+              src={noseBridgeImg}
               alt="Glasses nose bridge fit diagram — standard 18–20mm keyhole bridge digging into a wide nose vs Woolet 21mm and 24mm wider bridge sizes sitting level for wide noses and slim-face wearers"
               style={{
                 width: "100%",
@@ -1025,7 +1025,7 @@ const AdvertorialPage = () => {
                   },
                   {
                     to: "/en/fit",
-                    img: noseBridgeAsset.url,
+                    img: noseBridgeImg,
                     eyebrow: "Fit Quiz",
                     title: "Measure your face — find your width and your bridge",
                   },
