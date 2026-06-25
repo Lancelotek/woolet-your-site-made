@@ -43,7 +43,7 @@ export default function ThankYou() {
     if (!conversionFired.current) {
       conversionFired.current = true;
       // Google Ads conversion is handled exclusively via GTM (dataLayer events).
-      rdtPurchase({ value: 133, currency: "USD" });
+      rdtPurchase({ value: 114, currency: "USD" });
     }
     return () => clearTimeout(t);
   }, [pct]);
