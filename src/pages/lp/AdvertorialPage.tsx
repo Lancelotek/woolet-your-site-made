@@ -4,8 +4,8 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import beforeAfterAsset from "@/assets/standard-vs-155mm.png.asset.json";
-import frameWidthChartAsset from "@/assets/frame-width-comparison-chart.png.asset.json";
-import noseBridgeAsset from "@/assets/nose-bridge-comparison.png.asset.json";
+import frameWidthChartImg from "@/assets/frame-width-chart-v2.png";
+import noseBridgeImg from "@/assets/nose-bridge-v2.png";
 import wideFaceCompAsset from "@/assets/wide-face-fit-comparison.png.asset.json";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import authorMarek from "@/assets/author-marek.png";
@@ -365,24 +365,68 @@ const AdvertorialPage = () => {
             </div>
           </div>
 
-          {/* 4. Hero image — full figure width on desktop */}
+          {/* 4. Hero image — full figure width on desktop with Archivo tracked labels */}
           <figure className="lp-figure" style={{ padding: "24px 20px 8px", margin: 0 }}>
-            <img
-              src={beforeAfterAsset.url}
-              alt="Standard narrow eyeglass frames vs Woolet frames built for 155mm+ wide faces — side-by-side fit comparison on a man with a wide head"
-              style={{
-                width: "100%",
-                borderRadius: 8,
-                display: "block",
-              }}
-              loading="eager"
-            />
+            <div style={{ position: "relative", borderRadius: 8, overflow: "hidden" }}>
+              <img
+                src={beforeAfterAsset.url}
+                alt="Standard narrow eyeglass frames vs Woolet frames built for 155mm+ wide faces — side-by-side fit comparison on a man with a wide head"
+                style={{ width: "100%", display: "block" }}
+                loading="eager"
+              />
+              {/* Bottom scrim for legibility */}
+              <div
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  inset: "auto 0 0 0",
+                  height: "32%",
+                  background:
+                    "linear-gradient(to top, rgba(11,10,9,0.78) 0%, rgba(11,10,9,0.35) 55%, rgba(11,10,9,0) 100%)",
+                  pointerEvents: "none",
+                }}
+              />
+              {/* Left label */}
+              <span
+                style={{
+                  position: "absolute",
+                  left: "5%",
+                  bottom: "6%",
+                  fontFamily: "'Barlow', sans-serif",
+                  fontSize: "clamp(10px, 1.05vw, 13px)",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#e7dfd0",
+                  fontWeight: 500,
+                }}
+              >
+                <span style={{ color: "#a85a3c", marginRight: 8 }}>✕</span>
+                Standard frames
+              </span>
+              {/* Right label */}
+              <span
+                style={{
+                  position: "absolute",
+                  right: "5%",
+                  bottom: "6%",
+                  fontFamily: "'Barlow', sans-serif",
+                  fontSize: "clamp(10px, 1.05vw, 13px)",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#f3ece0",
+                  fontWeight: 500,
+                }}
+              >
+                <span style={{ color: "#d8b86a", marginRight: 8 }}>✓</span>
+                Built for 155 mm+
+              </span>
+            </div>
           </figure>
 
           {/* 4b. Frame width comparison chart */}
           <figure className="lp-figure" style={{ padding: "16px 20px 8px", margin: 0 }}>
             <img
-              src={frameWidthChartAsset.url}
+              src={frameWidthChartImg}
               alt="Frame width comparison chart in millimetres: Zenni 140mm, Warby Parker 148mm, Woolet S 155mm, Woolet M 158mm, Woolet L 161mm — wide faces need 155–168mm where most brands stop fitting"
               style={{
                 width: "100%",
@@ -517,7 +561,7 @@ const AdvertorialPage = () => {
             </p>
 
             <img
-              src={noseBridgeAsset.url}
+              src={noseBridgeImg}
               alt="Glasses nose bridge fit diagram — standard 18–20mm keyhole bridge digging into a wide nose vs Woolet 21mm and 24mm wider bridge sizes sitting level for wide noses and slim-face wearers"
               style={{
                 width: "100%",
@@ -1025,7 +1069,7 @@ const AdvertorialPage = () => {
                   },
                   {
                     to: "/en/fit",
-                    img: noseBridgeAsset.url,
+                    img: noseBridgeImg,
                     eyebrow: "Fit Quiz",
                     title: "Measure your face — find your width and your bridge",
                   },
