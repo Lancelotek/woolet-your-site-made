@@ -160,9 +160,9 @@ const METERS: MeterCfg[] = [
     label: "Nose bridge",
     scaleMin: 16,
     scaleMax: 26,
-    standard: [18, 20],
+    standard: [16, 20],
     woolet: [21, 24],
-    wooletLabel: "Woolet keyhole",
+    wooletLabel: "Nose bridge",
     ticks: [16, 21, 26],
   },
 ];
