@@ -875,9 +875,10 @@ const AdvertorialPage = () => {
               alt="Wearer portrait — Woolet frames on a wide face, comfortable all-day fit"
               style={{
                 width: "100%",
+                maxWidth: 660,
                 objectFit: "contain",
                 borderRadius: 6,
-                margin: "12px 0",
+                margin: "12px auto",
                 display: "block",
               }}
               loading="lazy"
