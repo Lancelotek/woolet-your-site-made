@@ -2,15 +2,29 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
-import wooletLogo from "@/assets/woolet-logo.png";
-import TrustGuarantee from "@/components/TrustGuarantee";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import imgTortoise from "@/assets/woolet-007-dark-tortoise.png";
 import imgBlack from "@/assets/woolet-007-black.png";
 import imgHoney from "@/assets/woolet-007-honey.png";
-import faceBefore from "@/assets/face-before-007.jpg";
-import faceAfter from "@/assets/face-after-007.jpg";
+
+/* ---------- shared tokens (match 5-reasons + homepage) ---------- */
+const T = {
+  canvas: "#efe9df",
+  ink: "#16140f",
+  inkDim: "#5b554a",
+  inkMute: "#8a8275",
+  dark: "#0b0a09",
+  darkPanel: "#141210",
+  gold: "#c2a05a",
+  goldHi: "#d8b86a",
+  hair: "rgba(22,20,15,0.10)",
+  hairStrong: "rgba(22,20,15,0.18)",
+};
+const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
+const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 
 const colors007 = [
   { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
@@ -18,22 +32,29 @@ const colors007 = [
   { name: "Honey", dot: "#C8832A", img: imgHoney },
 ];
 
-const specs = [
+const specs: [string, string][] = [
   ["Material", "Italian Mazzucchelli Acetate"],
-  ["Frame Width", "158mm (hinge to hinge)"],
-  ["Lens", "52 × 52mm (round panto)"],
-  ["Bridge", "Keyhole 21mm"],
-  ["Temples", "148mm, 11° angle"],
+  ["Frame Width", "158 mm (hinge to hinge)"],
+  ["Lens", "52 × 52 mm (round panto)"],
+  ["Bridge", "Keyhole 21 mm"],
+  ["Temples", "148 mm, 11° angle"],
   ["Hinges", "5-barrel PVD Gunmetal"],
   ["Rivets", "Double, PVD Gunmetal"],
 ];
 
 const benefits = [
   "Italian Mazzucchelli acetate — cotton, not plastic",
-  "158mm — engineered for 155mm+ faces",
-  "5-barrel PVD Gunmetal hinges — engineered for years of daily wear",
-  "Keyhole bridge 21mm — zero slipping",
+  "158 mm — engineered for 155 mm+ faces",
+  "5-barrel PVD Gunmetal hinges — built for years of daily wear",
+  "Keyhole bridge 21 mm — zero slipping",
   "Hand polish + bevel cut — not machine polish",
+];
+
+const guarantees = [
+  ["30-Day Returns", "No questions asked. Full refund if the frames don't meet expectations."],
+  ["Fit Guarantee", "Take the fit quiz — if the result fits but the frame doesn't, free exchange."],
+  ["Mazzucchelli Since 1849", "Italian acetate used by Tom Ford and Oliver Peoples."],
+  ["Free Shipping + Insurance", "Insured courier delivery with real-time tracking."],
 ];
 
 const ProductPage007 = () => {
@@ -41,6 +62,7 @@ const ProductPage007 = () => {
   const [selectedColor, setSelectedColor] = useState("Dark Tortoise");
   const [lens, setLens] = useState<LensOption>("clear");
   const [total, setTotal] = useState(114);
+  const [showSticky, setShowSticky] = useState(false);
   const selectedColorObj = colors007.find((c) => c.name === selectedColor) || colors007[0];
 
   useEffect(() => {
@@ -51,10 +73,12 @@ const ProductPage007 = () => {
     });
   }, [selectedColor]);
 
-  // Product JSON-LD lives in src/seo/metadata.ts (prerendered into <head>)
-  // — single source of truth, visible to crawlers without JS execution.
-  // Do not duplicate it here.
-
+  useEffect(() => {
+    const onScroll = () => setShowSticky(window.scrollY > 520);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleCTA = () => {
     pushGtmEvent("click_reserve", {
@@ -86,227 +110,452 @@ const ProductPage007 = () => {
         <link rel="canonical" href="https://woolet.co/en/products/007" />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
-        <meta property="og:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for 155 mm+ faces. From $114 pre-order." />
+        <meta property="og:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. From $114 pre-order." />
         <meta property="og:url" content="https://woolet.co/en/products/007" />
         <meta property="og:image" content="https://woolet.co/og-007.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
-        <meta name="twitter:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide. From $114 pre-order." />
-        <meta name="twitter:image" content="https://woolet.co/og-007.png" />
       </Helmet>
 
-      <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif" }}>
-        {/* Logo */}
-        <div style={{ padding: "12px 16px", background: "#F8F6F1" }}>
-          <Link to="/en">
-            <img src={wooletLogo} alt="Woolet" style={{ height: 22, width: "auto" }} height={22} />
-          </Link>
+      {/* Shared dark nav (homepage component) */}
+      <Navbar />
+
+      {/* Breadcrumb strip — dark, sits flush under nav */}
+      <div style={{ background: T.dark, borderBottom: "1px solid rgba(216,184,106,0.10)" }}>
+        <div
+          className="mx-auto"
+          style={{
+            maxWidth: 1240,
+            padding: "10px 20px",
+            fontFamily: SANS,
+            fontSize: 11,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(243,236,224,0.55)",
+          }}
+        >
+          <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
+          <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
+          <Link to="/en/collection" style={{ color: "inherit", textDecoration: "none" }}>Frames</Link>
+          <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
+          <span style={{ color: T.goldHi }}>Woolet 007</span>
         </div>
+      </div>
 
-        {/* 1. Main product image */}
-        <div style={{ position: "relative", background: "#F8F6F1", padding: "20px 16px 0", display: "flex", justifyContent: "center" }}>
-          <img
-            src={selectedColorObj.img}
-            alt={`Woolet 007 — ${selectedColor}`}
-            width={800}
-            height={600}
-            fetchPriority="high"
-            style={{ width: "100%", maxWidth: 520, height: "auto", objectFit: "contain", display: "block" }}
-          />
-        </div>
+      {/* Light product "lightbox" canvas — framed by dark chrome */}
+      <main
+        style={{
+          background: T.canvas,
+          color: T.ink,
+          fontFamily: SANS,
+          // soft transition from dark nav into light canvas
+          boxShadow: "inset 0 1px 0 rgba(216,184,106,0.18), inset 0 12px 28px -22px rgba(11,10,9,0.65)",
+        }}
+      >
+        <div
+          className="mx-auto grid"
+          style={{
+            maxWidth: 1240,
+            padding: "36px 20px 80px",
+            gap: 48,
+            gridTemplateColumns: "minmax(0,1fr)",
+          }}
+        >
+          {/* Use CSS to switch to 2-col at md */}
+          <style>{`
+            @media (min-width: 900px) {
+              .pdp-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) !important; }
+              .pdp-gallery { position: sticky; top: 96px; align-self: start; }
+            }
+            .pdp-cta:hover { filter: brightness(1.04); }
+            .pdp-thumb:focus-visible, .pdp-swatch:focus-visible { outline: 2px solid ${T.gold}; outline-offset: 3px; }
+          `}</style>
 
-        {/* Thumbnail strip */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 10, padding: "12px 16px 8px" }}>
-          {colors007.map((c) => (
-            <button
-              key={c.name}
-              onClick={() => setSelectedColor(c.name)}
-              style={{
-                width: 56, height: 42, padding: 0, borderRadius: 6, overflow: "hidden", cursor: "pointer",
-                border: selectedColor === c.name ? "2px solid #CAA449" : "2px solid #DDD",
-                background: "#FFF",
-              }}
-            >
-              <img src={c.img} alt={c.name} width={56} height={42} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
-            </button>
-          ))}
-        </div>
+          <div className="pdp-grid grid" style={{ gap: 48, gridTemplateColumns: "minmax(0,1fr)" }}>
+            {/* ============== LEFT — Gallery ============== */}
+            <section className="pdp-gallery">
+              <div
+                style={{
+                  background: "#f3ece0",
+                  border: `1px solid ${T.hair}`,
+                  borderRadius: 4,
+                  padding: "48px 40px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  aspectRatio: "4 / 3",
+                }}
+              >
+                <img
+                  src={selectedColorObj.img}
+                  alt={`Woolet 007 — ${selectedColor}`}
+                  width={800}
+                  height={600}
+                  fetchPriority="high"
+                  style={{ width: "100%", maxWidth: 560, height: "auto", objectFit: "contain", display: "block" }}
+                />
+              </div>
 
+              {/* Thumbnails */}
+              <div
+                style={{
+                  marginTop: 14,
+                  display: "flex",
+                  gap: 10,
+                  overflowX: "auto",
+                  paddingBottom: 4,
+                }}
+              >
+                {colors007.map((c) => {
+                  const active = selectedColor === c.name;
+                  return (
+                    <button
+                      key={c.name}
+                      onClick={() => setSelectedColor(c.name)}
+                      className="pdp-thumb"
+                      aria-label={c.name}
+                      style={{
+                        width: 84,
+                        height: 64,
+                        flexShrink: 0,
+                        padding: 6,
+                        background: "#f3ece0",
+                        border: `1px solid ${active ? T.gold : T.hair}`,
+                        boxShadow: active ? `inset 0 0 0 1px ${T.gold}` : "none",
+                        borderRadius: 3,
+                        cursor: "pointer",
+                      }}
+                    >
+                      <img src={c.img} alt={c.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
 
-        {/* 2. Product info */}
-        <div style={{
-          maxWidth: 480,
-          margin: "16px auto 24px",
-          padding: "18px 18px 20px",
-          background: "#FFFFFF",
-          border: "1px solid #E6DFD2",
-          borderRadius: 12,
-          boxShadow: "0 8px 24px -12px rgba(20,16,8,0.18), 0 2px 6px -2px rgba(20,16,8,0.08)",
-        }}>
-          {/* Pre-order widget header */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, paddingBottom: 10, borderBottom: "1px dashed #E6DFD2" }}>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "2px", color: "#A07A2A", textTransform: "uppercase" }}>Pre-order · Founding Run</span>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "1.5px", color: "#888", textTransform: "uppercase" }}>Ships Q3 2026</span>
-          </div>
+            {/* ============== RIGHT — Buy panel ============== */}
+            <section style={{ maxWidth: 520 }}>
+              {/* Trust strip */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
+                {["Rx / Progressive", "Blue Light", "Polarized Sun"].map((tag) => (
+                  <span
+                    key={tag}
+                    style={{
+                      fontFamily: SANS,
+                      fontSize: 11,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      padding: "4px 10px",
+                      border: `1px solid ${T.hairStrong}`,
+                      color: T.inkDim,
+                      borderRadius: 999,
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+                <span
+                  style={{
+                    fontFamily: SANS,
+                    fontSize: 11,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    padding: "4px 10px",
+                    color: T.gold,
+                    borderRadius: 999,
+                  }}
+                >
+                  · 4,900+ on the waitlist
+                </span>
+              </div>
 
-          {/* Lens options available */}
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
-            <span style={{ background: "#F1ECE1", color: "#3A2E15", padding: "3px 8px", borderRadius: 20, fontSize: 11, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Rx / Progressive</span>
-            <span style={{ background: "#E8EEF6", color: "#1F3A66", padding: "3px 8px", borderRadius: 20, fontSize: 11, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Blue Light</span>
-            <span style={{ background: "#1A1612", color: "#CAA449", padding: "3px 8px", borderRadius: 20, fontSize: 11, fontWeight: 500, fontFamily: "'Barlow', sans-serif" }}>Polarized Sun</span>
-          </div>
+              {/* Eyebrow */}
+              <div style={{
+                fontFamily: SANS, fontSize: 11, letterSpacing: "0.28em",
+                textTransform: "uppercase", color: T.gold, marginBottom: 10,
+              }}>
+                Pre-order · Founding Run · Ships Q3 2026
+              </div>
 
-          {/* Waitlist count */}
-          <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 8 }}>
-            <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888" }}>4,900+ on the waitlist</span>
-          </div>
+              {/* Product name */}
+              <h1 style={{
+                fontFamily: SERIF, fontWeight: 300,
+                fontSize: "clamp(34px, 4vw, 46px)", lineHeight: 1.05,
+                color: T.ink, margin: "0 0 6px",
+                letterSpacing: "-0.01em",
+              }}>
+                Woolet 007 <em style={{ fontStyle: "italic", color: T.gold }}>Panto</em>
+              </h1>
+              <div style={{
+                fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 22,
+              }}>
+                Round panto · 158 mm · {selectedColor}
+              </div>
 
-          {/* Product name */}
-          <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#111", marginBottom: 4, marginTop: 0 }}>
-            Woolet 007 <em style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "#888" }}>— Panto / Round</em>
-          </h1>
+              {/* Price hierarchy — $114 leads */}
+              <div style={{
+                padding: "18px 0 20px",
+                borderTop: `1px solid ${T.hair}`,
+                borderBottom: `1px solid ${T.hair}`,
+                margin: "0 0 22px",
+              }}>
+                <div style={{
+                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  textTransform: "uppercase", color: T.gold, marginBottom: 8,
+                }}>
+                  Founding Price
+                </div>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 48, lineHeight: 1, color: T.ink }}>$114</span>
+                  <span style={{ fontFamily: SANS, fontSize: 18, color: T.inkMute, textDecoration: "line-through" }}>$190</span>
+                  <span style={{
+                    background: T.gold, color: T.dark, fontFamily: SANS, fontWeight: 600,
+                    fontSize: 11, letterSpacing: "0.14em", padding: "4px 9px", borderRadius: 2,
+                  }}>−40%</span>
+                </div>
+                <div style={{
+                  marginTop: 10, fontFamily: SANS, fontSize: 13, color: T.inkDim, lineHeight: 1.55,
+                }}>
+                  Reserve today for <strong style={{ color: T.ink }}>$1</strong> — fully refundable deposit. Locks in the founding price; SRP $190 at launch.
+                </div>
+                {total > 114 && (
+                  <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 13, color: T.inkDim }}>
+                    Your locked-in total: <strong style={{ color: T.gold }}>${total}</strong> · {lensLabelFor(lens)}
+                  </div>
+                )}
+              </div>
 
-          {/* Price — $1 deposit today, $114 guaranteed at Kickstarter */}
-          <div style={{ margin: "8px 0 14px" }}>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6 }}>
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 28, color: "#111", lineHeight: 1 }}>$1</span>
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: "1px" }}>today · refundable deposit</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", background: "#FDF6EB", border: "1px solid #EFE2C8", borderRadius: 6 }}>
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "1.5px", color: "#A07A2A", textTransform: "uppercase" }}>Locks in</span>
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 13, color: "#BBB", textDecoration: "line-through" }}>$190</span>
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: 18, color: "#A07A2A" }}>$114</span>
-              <span style={{ background: "#CAA449", color: "#080807", padding: "2px 8px", borderRadius: 3, fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "1px" }}>−40%</span>
-            </div>
-            <div style={{ marginTop: 6, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#888", lineHeight: 1.5 }}>
-              Early-bird price guaranteed at Kickstarter launch. SRP $190 after.
-            </div>
-          </div>
+              {/* Model toggle */}
+              <div style={{ marginBottom: 18 }}>
+                <div style={{
+                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  textTransform: "uppercase", color: T.inkMute, marginBottom: 8,
+                }}>Model</div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button
+                    style={{
+                      flex: 1, padding: "11px 14px", cursor: "pointer",
+                      background: T.canvas, color: T.ink,
+                      border: `1px solid ${T.gold}`,
+                      boxShadow: `inset 0 0 0 1px ${T.gold}`,
+                      fontFamily: SERIF, fontSize: 16, letterSpacing: "0.01em",
+                    }}
+                  >
+                    007 <em style={{ color: T.gold, fontStyle: "italic" }}>Panto</em>
+                  </button>
+                  <button
+                    onClick={() => navigate("/en/products/009")}
+                    style={{
+                      flex: 1, padding: "11px 14px", cursor: "pointer",
+                      background: "transparent", color: T.inkDim,
+                      border: `1px solid ${T.hairStrong}`,
+                      fontFamily: SERIF, fontSize: 16,
+                    }}
+                  >
+                    009 Square
+                  </button>
+                </div>
+              </div>
 
-          {total > 114 && (
-            <div style={{ display: "flex", alignItems: "baseline", gap: 8, margin: "-4px 0 14px", fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "#444" }}>
-              <span style={{ letterSpacing: "1.5px", textTransform: "uppercase", fontSize: 11, color: "#888" }}>Your locked-in total</span>
-              <span style={{ fontWeight: 600, color: "#A07A2A", fontSize: 15 }}>${total}</span>
-              <span style={{ color: "#888" }}>· {lensLabelFor(lens)}</span>
-            </div>
-          )}
+              {/* Color */}
+              <div style={{ marginBottom: 22 }}>
+                <div style={{
+                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  textTransform: "uppercase", color: T.inkMute, marginBottom: 10,
+                }}>
+                  Color — <span style={{ color: T.ink, letterSpacing: "0.06em" }}>{selectedColor}</span>
+                </div>
+                <div style={{ display: "flex", gap: 12 }}>
+                  {colors007.map((c) => {
+                    const active = selectedColor === c.name;
+                    return (
+                      <button
+                        key={c.name}
+                        onClick={() => setSelectedColor(c.name)}
+                        className="pdp-swatch"
+                        aria-label={c.name}
+                        style={{
+                          width: 28, height: 28, borderRadius: "50%",
+                          background: c.dot, padding: 0, cursor: "pointer",
+                          border: "2px solid transparent",
+                          boxShadow: active
+                            ? `0 0 0 2px ${T.gold}, 0 2px 4px rgba(0,0,0,0.18)`
+                            : `0 0 0 1px ${T.hairStrong}, 0 2px 4px rgba(0,0,0,0.10)`,
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
 
-          {/* Model selector */}
-          <div style={{ marginBottom: 14 }}>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>MODEL</div>
-            <div style={{ display: "flex", gap: 8 }}>
-              <button style={{ border: "2px solid #A07A2A", background: "#FDF6EB", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}>
-                007 Panto
+              {/* Lenses */}
+              <div style={{ marginBottom: 22 }}>
+                <LensUpgradeSelector
+                  productId="007"
+                  basePrice={114}
+                  onChange={(opt, t) => { setLens(opt); setTotal(t); }}
+                />
+              </div>
+
+              {/* Primary CTA */}
+              <button
+                onClick={handleCTA}
+                className="pdp-cta"
+                style={{
+                  width: "100%", background: T.gold, color: T.dark, border: "none",
+                  padding: "16px 0", borderRadius: 2,
+                  fontFamily: SANS, fontWeight: 600, fontSize: 13,
+                  letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer",
+                }}
+              >
+                Reserve for $1 — Lock $114
               </button>
               <button
-                onClick={() => navigate("/en/products/009")}
-                style={{ border: "2px solid #DDD", background: "#FFF", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 12, color: "#111", padding: "8px 16px", borderRadius: 5, cursor: "pointer" }}
+                onClick={() => navigate("/en/fit")}
+                style={{
+                  width: "100%", marginTop: 10,
+                  background: "transparent", color: T.ink,
+                  border: `1px solid ${T.hairStrong}`,
+                  padding: "13px 0", borderRadius: 2,
+                  fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em",
+                  textTransform: "uppercase", cursor: "pointer",
+                }}
               >
-                009 Square
+                Check your fit — Free quiz
               </button>
-            </div>
-          </div>
 
-          {/* Color selector */}
-          <div style={{ marginBottom: 14 }}>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>
-              COLOR: <span style={{ color: "#111" }}>{selectedColor}</span>
-            </div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {colors007.map((c) => (
-                <button
-                  key={c.name}
-                  onClick={() => setSelectedColor(c.name)}
-                  style={{
-                    width: 26, height: 26, borderRadius: "50%", background: c.dot, cursor: "pointer", padding: 0,
-                    border: selectedColor === c.name ? "3px solid #A07A2A" : "3px solid transparent",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-                  }}
-                  aria-label={c.name}
-                />
-              ))}
-            </div>
-          </div>
+              {/* Benefits list — light */}
+              <ul style={{
+                listStyle: "none", padding: 0, margin: "28px 0 0",
+                display: "grid", gap: 10,
+              }}>
+                {benefits.map((b, i) => (
+                  <li key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", fontFamily: SANS, fontSize: 14, lineHeight: 1.6, color: T.ink }}>
+                    <span aria-hidden style={{ color: T.gold, marginTop: 2, flex: "0 0 auto" }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
 
-          {/* Lens upgrade selector */}
-          <LensUpgradeSelector
-            productId="007"
-            basePrice={114}
-            onChange={(opt, t) => { setLens(opt); setTotal(t); }}
-          />
-
-          {/* Benefits list */}
-          <div style={{ background: "#1A1612", borderRadius: 10, padding: "14px 16px", marginBottom: 14 }}>
-            {benefits.map((b, i) => (
-              <div key={i} style={{ display: "flex", gap: 8, marginBottom: i < benefits.length - 1 ? 6 : 0 }}>
-                <span style={{ color: "#CAA449", fontSize: 12, flexShrink: 0 }}>✓</span>
-                <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#CCC", lineHeight: 1.5 }}>{b}</span>
+              {/* Specs — light card */}
+              <div style={{
+                marginTop: 28, padding: "18px 20px",
+                border: `1px solid ${T.hair}`,
+                background: "rgba(255,255,255,0.35)",
+              }}>
+                <div style={{
+                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  textTransform: "uppercase", color: T.gold, marginBottom: 12,
+                }}>Specifications</div>
+                <dl style={{ margin: 0, display: "grid", gap: 0 }}>
+                  {specs.map(([k, v], i) => (
+                    <div key={k} style={{
+                      display: "flex", justifyContent: "space-between", gap: 16,
+                      padding: "10px 0",
+                      borderTop: i === 0 ? "none" : `1px solid ${T.hair}`,
+                    }}>
+                      <dt style={{ fontFamily: SANS, fontSize: 13, color: T.inkDim }}>{k}</dt>
+                      <dd style={{ margin: 0, fontFamily: SANS, fontSize: 13, color: T.ink, textAlign: "right" }}>{v}</dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
-            ))}
+
+              {/* Guarantee — light card */}
+              <div style={{
+                marginTop: 16, padding: "18px 20px",
+                border: `1px solid ${T.hair}`,
+                background: "rgba(255,255,255,0.35)",
+              }}>
+                <div style={{
+                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  textTransform: "uppercase", color: T.gold, marginBottom: 14,
+                }}>Woolet Guarantee</div>
+                <div style={{ display: "grid", gap: 14 }}>
+                  {guarantees.map(([title, desc]) => (
+                    <div key={title} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                      <span aria-hidden style={{ color: T.gold, flex: "0 0 auto", marginTop: 2 }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                      </span>
+                      <div>
+                        <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 13, color: T.ink, marginBottom: 2 }}>{title}</div>
+                        <div style={{ fontFamily: SANS, fontSize: 12.5, color: T.inkDim, lineHeight: 1.6 }}>{desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Back link */}
+              <div style={{ marginTop: 22 }}>
+                <Link
+                  to="/en#collection"
+                  style={{
+                    fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em",
+                    textTransform: "uppercase", color: T.inkDim, textDecoration: "none",
+                    borderBottom: `1px solid ${T.hairStrong}`, paddingBottom: 2,
+                  }}
+                >
+                  ← Back to collection
+                </Link>
+              </div>
+            </section>
           </div>
+        </div>
 
-          {/* Trust & Guarantee */}
-          <TrustGuarantee productId="007" />
+        {/* FAQ — full width inside light canvas */}
+        <div style={{ borderTop: `1px solid ${T.hair}` }}>
+          <ProductFAQ productId="007" />
+        </div>
+      </main>
 
-          {/* Primary CTA */}
+      {/* Sticky buy bar */}
+      <div
+        aria-hidden={!showSticky}
+        style={{
+          position: "fixed", left: 0, right: 0, bottom: 0,
+          background: T.dark,
+          borderTop: "1px solid rgba(216,184,106,0.22)",
+          transform: showSticky ? "translateY(0)" : "translateY(110%)",
+          transition: "transform 260ms ease",
+          zIndex: 60,
+        }}
+      >
+        <div
+          className="mx-auto"
+          style={{
+            maxWidth: 1240, padding: "10px 16px",
+            display: "flex", alignItems: "center", gap: 14,
+          }}
+        >
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div style={{ fontFamily: SERIF, fontSize: 18, color: "#f3ece0", lineHeight: 1.1 }}>
+              Woolet 007 <em style={{ color: T.goldHi, fontStyle: "italic" }}>Panto</em>
+            </div>
+            <div style={{ fontFamily: SANS, fontSize: 12, color: "rgba(243,236,224,0.62)" }}>
+              <span style={{ color: "#f3ece0", fontWeight: 600 }}>$114</span>
+              <span style={{ textDecoration: "line-through", margin: "0 6px" }}>$190</span>
+              <span style={{ color: T.goldHi }}>−40%</span>
+            </div>
+          </div>
           <button
             onClick={handleCTA}
             style={{
-              width: "100%", background: "#CAA449", color: "#080807", border: "none",
-              padding: "15px 0", borderRadius: 5, fontFamily: "'Barlow', sans-serif",
-              fontWeight: 500, fontSize: 13, letterSpacing: "2px", textTransform: "uppercase", cursor: "pointer", marginBottom: 8,
+              background: T.gold, color: T.dark, border: "none",
+              padding: "12px 18px", borderRadius: 2, cursor: "pointer",
+              fontFamily: SANS, fontWeight: 600, fontSize: 12,
+              letterSpacing: "0.22em", textTransform: "uppercase",
+              whiteSpace: "nowrap",
             }}
           >
-            RESERVE FOR $1 — LOCK $114 (−40%) →
+            Reserve for $1
           </button>
-
-          {/* Secondary CTA */}
-          <button
-            onClick={() => navigate("/en/fit")}
-            style={{
-              width: "100%", background: "transparent", color: "#444", border: "2px solid #DDD",
-              padding: "12px 0", borderRadius: 5, fontFamily: "'Barlow', sans-serif",
-              fontWeight: 300, fontSize: 12, cursor: "pointer", marginBottom: 14,
-            }}
-          >
-            Check your fit (quiz)
-          </button>
-
-          {/* Trust footer */}
-          <div style={{ display: "flex" }}>
-            {["Secure Payment", "30-Day Returns", "Made in Italy"].map((t, i) => (
-              <div key={i} style={{ flex: 1, fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 11, color: "#AAA", textAlign: "center", padding: "0 4px", lineHeight: 1.4 }}>
-                {t}
-              </div>
-            ))}
-          </div>
         </div>
+      </div>
 
-        {/* 3. Spec table */}
-        <div style={{ background: "#1A1612", padding: "16px 20px" }}>
-          <div style={{ maxWidth: 680, margin: "0 auto" }}>
-            <h2 style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "3px", color: "#7A7570", textTransform: "uppercase", marginBottom: 10, marginTop: 0 }}>
-              Specifications
-            </h2>
-            {specs.map(([key, val], i) => (
-              <div
-                key={i}
-                style={{
-                  display: "flex", justifyContent: "space-between", padding: "7px 0",
-                  borderBottom: i < specs.length - 1 ? "1px solid #2A2520" : "none", fontSize: 11,
-                }}
-              >
-                <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, color: "#7A7570" }}>{key}</span>
-                <span style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 400, color: "#F8F8F6", textAlign: "right" }}>{val}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 4. FAQ */}
-        <ProductFAQ productId="007" />
-      </main>
-
+      {/* Shared dark footer */}
+      <Footer />
     </>
   );
 };
