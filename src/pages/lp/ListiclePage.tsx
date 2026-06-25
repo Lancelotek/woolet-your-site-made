@@ -4,8 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { supabase } from "@/integrations/supabase/client";
 import wooletLogo from "@/assets/woolet-logo.png";
-import heroMan from "@/assets/hero-man.jpg";
-import listicleHeroLeft from "@/assets/listicle-hero-left.png";
+import comparisonAsset from "@/assets/standard-vs-wide-comparison.png.asset.json";
 
 /* ---------- design tokens (scoped to this page only) ---------- */
 const C = {
@@ -234,10 +233,22 @@ const ListiclePage = () => {
               </p>
             </div>
 
-            {/* Right portraits */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-              <PortraitCard img={listicleHeroLeft} label="158 mm" />
-              <PortraitCard img={heroMan} label="161 mm" />
+            {/* Right: comparison image */}
+            <div
+              style={{
+                position: "relative",
+                aspectRatio: "1 / 1",
+                overflow: "hidden",
+                border: `1px solid ${C.divider}`,
+                background: C.bgPanel,
+              }}
+            >
+              <img
+                src={comparisonAsset.url}
+                alt="Standard frames vs. Woolet built for 155 mm+ — face fit comparison"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                loading="eager"
+              />
             </div>
           </div>
         </section>
@@ -758,40 +769,6 @@ const footLink: React.CSSProperties = {
   textDecoration: "none",
 };
 
-const PortraitCard = ({ img, label }: { img: string; label: string }) => (
-  <div
-    style={{
-      position: "relative",
-      aspectRatio: "3 / 4",
-      background: C.bgPanel,
-      border: `1px solid ${C.divider}`,
-      overflow: "hidden",
-    }}
-  >
-    <img
-      src={img}
-      alt={`Wide-face customer · ${label}`}
-      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "grayscale(15%)" }}
-      loading="lazy"
-    />
-    <span
-      style={{
-        position: "absolute",
-        left: 14,
-        bottom: 14,
-        fontSize: 10.5,
-        letterSpacing: "0.28em",
-        textTransform: "uppercase",
-        color: C.ink,
-        background: "rgba(11,10,9,0.7)",
-        padding: "6px 10px",
-        backdropFilter: "blur(6px)",
-      }}
-    >
-      {label}
-    </span>
-  </div>
-);
 
 const FooterCol = ({ title, links }: { title: string; links: [string, string][] }) => (
   <div>
