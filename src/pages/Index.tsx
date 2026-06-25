@@ -440,7 +440,7 @@ const Index = () => {
                         className="font-display text-woolet-white leading-none"
                         style={{ fontSize: "1.05rem" }}
                       >
-                        From $133
+                        From $114
                       </div>
                       <div
                         className="uppercase tracking-[0.28em] text-cream-dim group-hover:text-gold-light transition-colors mt-2"

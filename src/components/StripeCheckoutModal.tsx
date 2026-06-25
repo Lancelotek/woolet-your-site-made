@@ -34,7 +34,7 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
   useEffect(() => {
     if (!addToCartFired.current) {
       addToCartFired.current = true;
-      rdtAddToCart({ value: 133, currency: "USD", itemCount: 1 });
+      rdtAddToCart({ value: 114, currency: "USD", itemCount: 1 });
     }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();

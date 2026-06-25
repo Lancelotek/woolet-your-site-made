@@ -86,7 +86,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         source: utmSource,
       });
 
-      rdtLead({ value: 133, currency: "USD" });
+      rdtLead({ value: 114, currency: "USD" });
 
       setSubmitted(true);
       setCount((c) => c + 1);

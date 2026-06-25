@@ -257,7 +257,7 @@ const blogPostsEN: BlogPost[] = [
       <td style="padding:10px 12px;font-weight:600;">Mazzucchelli acetate, Italy</td>
       <td style="padding:10px 12px;font-weight:600;">21 mm keyhole</td>
       <td style="padding:10px 12px;font-weight:600;">Yes</td>
-      <td style="padding:10px 12px;font-weight:600;">$133 pre-order</td>
+      <td style="padding:10px 12px;font-weight:600;">$114 pre-order</td>
     </tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">SizeGlasses</td><td style="padding:10px 12px;">155–165 mm</td><td style="padding:10px 12px;">TR90</td><td style="padding:10px 12px;">up to 20 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$99</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">BXL Eyewear</td><td style="padding:10px 12px;">145–165 mm</td><td style="padding:10px 12px;">TR90</td><td style="padding:10px 12px;">up to 20 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$105</td></tr>
@@ -1744,7 +1744,7 @@ const blogPostsEN: BlogPost[] = [
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:28px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">Decision matrix</div>
   <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;">
-    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Stock wins when</strong> your face is 155–161 mm with a 21–22 mm bridge. You get the same Mazzucchelli acetate at $133–$190, with a 2–3 week lead time instead of 8–10.</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Stock wins when</strong> your face is 155–161 mm with a 21–22 mm bridge. You get the same Mazzucchelli acetate at $114–$190, with a 2–3 week lead time instead of 8–10.</li>
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Bespoke wins when</strong> stock can't physically fit — face width outside 155–161 mm, bridge outside 21–22 mm, asymmetric ears, or unusual pantoscopic-tilt needs.</li>
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Neither wins when</strong> you're inside the stock range but want a one-of-one piece for aesthetic reasons. That's a legitimate use of bespoke, but the fit gain is zero.</li>
   </ul>
@@ -1842,7 +1842,7 @@ const blogPostsEN: BlogPost[] = [
 <h2>Made-to-measure vs stock — who should buy what</h2>
 
 <ul>
-<li><strong>Face width 145–158 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cover this range at $190 launch ($133 pre-order).</li>
+<li><strong>Face width 145–158 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cover this range at $190 launch ($114 pre-order).</li>
 <li><strong>Face width &lt; 145 mm or &gt; 161 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet bespoke runs 150–172 mm.</li>
 <li><strong>Strongly asymmetric face or unusual bridge:</strong> made-to-measure is the only path. Even a "wide fit" stock frame assumes symmetry.</li>
 <li><strong>You just want a unique frame:</strong> a customised stock frame (engraved, custom colour) is usually a better value than full bespoke unless the geometry actually requires it.</li>
@@ -1920,7 +1920,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>1. Stock wide-fit frame + custom prescription lens (most common)</h3>
 
-<p>You buy a wide-fit frame from a specialist brand and have your local optician fit the lenses. Woolet 007 and 009 both ship at 158 mm with a 21–22 mm bridge and 150 mm temples; the frame arrives lens-less and your optician handles the prescription. Cost: $190 frame ($133 pre-order) + your usual lens fee at the optician (typically $80–$300 depending on lens type and coatings).</p>
+<p>You buy a wide-fit frame from a specialist brand and have your local optician fit the lenses. Woolet 007 and 009 both ship at 158 mm with a 21–22 mm bridge and 150 mm temples; the frame arrives lens-less and your optician handles the prescription. Cost: $190 frame ($114 pre-order) + your usual lens fee at the optician (typically $80–$300 depending on lens type and coatings).</p>
 
 <p>This is the right path for 80% of wide-face buyers — face width 155–161 mm, standard prescription, single-vision or progressive.</p>
 
@@ -2478,7 +2478,7 @@ const blogPostsEN: BlogPost[] = [
 <h2>The shortlist</h2>
 
 <h3>Woolet — 158 mm stock + 150–172 mm bespoke</h3>
-<p><strong>Front: 158 mm (stock) · 150–172 mm (bespoke) · Bridge: 21 mm · Temples: 150 mm · Material: Italian Mazzucchelli acetate · Prescription: yes (lens-less shipping to your optician) · Price: $133 pre-order / $190 launch (stock); $299 (bespoke)</strong></p>
+<p><strong>Front: 158 mm (stock) · 150–172 mm (bespoke) · Bridge: 21 mm · Temples: 150 mm · Material: Italian Mazzucchelli acetate · Prescription: yes (lens-less shipping to your optician) · Price: $114 pre-order / $190 launch (stock); $299 (bespoke)</strong></p>
 
 <p>Woolet's 007 (round) and 009 (soft square) are designed front-out for 155 mm+ faces, not retrofitted from a standard frame. The atelier in Cadore, Italy uses Mazzucchelli M49 acetate and German OBE hinges. Bespoke runs the same atelier with a CAD file generated from the AI face scan. Strongest pick for premium Italian acetate at this size.</p>
 
@@ -2523,7 +2523,7 @@ const blogPostsEN: BlogPost[] = [
     </tr>
   </thead>
   <tbody>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (stock)</td><td style="padding:8px 10px;">158</td><td style="padding:8px 10px;">Italian acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$133–$190</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (stock)</td><td style="padding:8px 10px;">158</td><td style="padding:8px 10px;">Italian acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$114–$190</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (bespoke)</td><td style="padding:8px 10px;">150–172</td><td style="padding:8px 10px;">Italian acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$299</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Faded Days</td><td style="padding:8px 10px;">155–165</td><td style="padding:8px 10px;">TR-90</td><td style="padding:8px 10px;">No</td><td style="padding:8px 10px;">$50–$155</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">BXL</td><td style="padding:8px 10px;">145–165</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$79–$125</td></tr>
