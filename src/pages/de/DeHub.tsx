@@ -43,8 +43,19 @@ export default function DeHub() {
       </Helmet>
 
       <main style={{ background: colors.ink, color: colors.cream, minHeight: "100vh" }}>
+        <header
+          className="px-6 md:px-10"
+          style={{ borderBottom: `1px solid ${colors.line}` }}
+        >
+          <div className="max-w-5xl mx-auto flex items-center py-6">
+            <Link to="/" aria-label="Woolet — zur Startseite" style={{ display: "inline-flex" }}>
+              <img src={wooletLogo} alt="Woolet" className="h-7" />
+            </Link>
+          </div>
+        </header>
+
         <section className="px-6 md:px-10">
-          <div className="max-w-5xl mx-auto pt-28 pb-16">
+          <div className="max-w-5xl mx-auto pt-20 pb-16">
             <span
               style={{
                 fontFamily: "'Barlow', sans-serif",
