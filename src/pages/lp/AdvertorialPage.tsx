@@ -9,6 +9,7 @@ import noseBridgeImg from "@/assets/nose-bridge-v2.png";
 import wideFaceCompAsset from "@/assets/wide-face-fit-comparison.png.asset.json";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import advertorialPortrait from "@/assets/advertorial-portrait.png.asset.json";
+import tooNarrowPain from "@/assets/too-narrow-pain.png.asset.json";
 import authorMarek from "@/assets/author-marek.png";
 import wooletModelImg from "@/assets/woolet-model.png";
 
@@ -566,19 +567,19 @@ const AdvertorialPage = () => {
 
             {/* Inline image */}
             <img
-              src={wooletModelImg}
-              alt="Man with a wide face wearing Woolet 158mm Italian Mazzucchelli acetate glasses — proper wide-fit eyewear with keyhole bridge for 155mm+ faces"
+              src={tooNarrowPain.url}
+              alt="Wide-face wearer in narrow standard glasses — frames visibly too small, temples digging in"
               style={{
                 width: "100%",
-                height: 580,
-                objectFit: "cover",
-                objectPosition: "center top",
+                maxWidth: 660,
+                objectFit: "contain",
                 borderRadius: 6,
-                margin: "12px 0",
+                margin: "12px auto",
                 display: "block",
               }}
               loading="lazy"
             />
+
 
             {/* Section 1b — Nose bridge */}
             <h2
