@@ -498,7 +498,7 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
@@ -608,7 +608,7 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "20px 0 8px",
                 lineHeight: 1.3,
@@ -664,7 +664,7 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
@@ -695,7 +695,7 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
@@ -773,7 +773,7 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
@@ -860,7 +860,7 @@ const AdvertorialPage = () => {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
-                fontSize: 18,
+                fontSize: 24,
                 color: "#f3ece0",
                 margin: "16px 0 8px",
                 lineHeight: 1.3,
