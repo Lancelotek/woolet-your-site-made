@@ -172,7 +172,9 @@ const AdvertorialPage = () => {
         .lp-body > blockquote,
         .lp-body > .lp-narrow { max-width: 100%; margin-left: auto; margin-right: auto; }
         .lp-body > p { font-size: 16px; line-height: 1.78; color: #d4ccba; }
+        .lp-body > p.lp-cap { font-size: 12.5px; line-height: 1.6; color: #8a8275; font-style: italic; margin: 8px 4px 18px; max-width: 1000px; }
         .lp-body > h2 { margin-top: 28px !important; font-size: 22px !important; }
+        .lp-body > img { display: block; width: 100%; max-width: 1000px; margin: 24px auto; border-radius: 8px; }
         .lp-figure { margin: 20px 0; }
         .lp-figure .lp-cap { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.6; color: #8a8275; margin: 8px 4px 0; font-style: italic; }
         .lp-drop::first-letter {
