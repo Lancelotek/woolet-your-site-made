@@ -1,14 +1,123 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
-import wooletLogo from "@/assets/woolet-logo.png";
+import Navbar from "@/components/Navbar";
 import beforeAfterAsset from "@/assets/standard-vs-155mm.png.asset.json";
 import frameWidthChartAsset from "@/assets/frame-width-comparison-chart.png.asset.json";
 import noseBridgeAsset from "@/assets/nose-bridge-comparison.png.asset.json";
+import wideFaceCompAsset from "@/assets/wide-face-fit-comparison.png.asset.json";
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import authorMarek from "@/assets/author-marek.png";
 import wooletModelImg from "@/assets/woolet-model.png";
+
+/* ---------- Reading progress bar ---------- */
+const ReadingProgress = () => {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop;
+      const height = h.scrollHeight - h.clientHeight;
+      setPct(height > 0 ? Math.min(100, (scrolled / height) * 100) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 2,
+        background: "transparent",
+        zIndex: 100,
+        pointerEvents: "none",
+      }}
+    >
+      <div
+        style={{
+          width: `${pct}%`,
+          height: "100%",
+          background: "linear-gradient(90deg, #c2a05a, #d8b86a)",
+          transition: "width 80ms linear",
+        }}
+      />
+    </div>
+  );
+};
+
+/* ---------- Sticky bottom CTA (appears after ~30% scroll) ---------- */
+const StickyCta = ({ onClick }: { onClick: () => void }) => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const ratio = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      setVisible(ratio > 0.28 && ratio < 0.96);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      aria-hidden={!visible}
+      style={{
+        position: "fixed",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 90,
+        padding: "12px 16px",
+        background: "rgba(11,10,9,0.92)",
+        borderTop: "1px solid rgba(216,184,106,0.22)",
+        backdropFilter: "blur(10px)",
+        transform: visible ? "translateY(0)" : "translateY(110%)",
+        transition: "transform 260ms cubic-bezier(.2,.7,.2,1)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 14,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontStyle: "italic",
+          fontSize: 14,
+          color: "#c4bdaf",
+          display: "none",
+        }}
+        className="lp-sticky-label"
+      >
+        Find your width — and your bridge
+      </span>
+      <button
+        onClick={onClick}
+        style={{
+          background: "#d8b86a",
+          color: "#141210",
+          border: "none",
+          padding: "12px 22px",
+          fontFamily: "'Barlow', sans-serif",
+          fontWeight: 500,
+          fontSize: 12,
+          letterSpacing: "2px",
+          textTransform: "uppercase",
+          cursor: "pointer",
+          borderRadius: 4,
+        }}
+      >
+        Scan your face — free
+      </button>
+    </div>
+  );
+};
+
 
 const AdvertorialPage = () => {
   const navigate = useNavigate();
