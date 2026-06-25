@@ -267,16 +267,17 @@ const AdvertorialPage = () => {
             className="lp-hero-h1 lp-narrow-row"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 300,
-              fontSize: "clamp(28px, 4vw, 36px)",
-              lineHeight: 1.2,
+              fontWeight: 400,
+              fontSize: "clamp(40px, 6.2vw, 68px)",
+              lineHeight: 1.05,
+              letterSpacing: "-0.01em",
               color: "#f3ece0",
               padding: "0 20px",
               margin: "0 auto",
             }}
           >
             For years I searched for glasses that fit my face.{" "}
-            <em style={{ color: "#d8b86a", fontStyle: "italic" }}>
+            <em style={{ color: "#d8b86a", fontStyle: "italic", fontWeight: 400 }}>
               Here's what I discovered.
             </em>
           </h1>
