@@ -125,7 +125,7 @@ const Collection = () => {
               <figure className="m-0">
                 <img
                   src={outlinesImg.url}
-                  alt="Woolet frame outline catalogue — every shape available in standard and bespoke sizes"
+                  alt="Woolet frame outline catalogue: 25 wide-face eyewear shapes, available in standard and bespoke widths."
                   loading="lazy"
                   className="w-full h-auto"
                   style={{
@@ -135,7 +135,7 @@ const Collection = () => {
                   }}
                 />
                 <figcaption className="text-cream-dim uppercase tracking-[0.2em] mt-3" style={{ fontSize: "0.7rem" }}>
-                  25 frames, each in standard and bespoke widths
+                  25 Woolet shapes, offered in standard 155–161 mm and bespoke 150–172 mm widths
                 </figcaption>
               </figure>
             </div>
