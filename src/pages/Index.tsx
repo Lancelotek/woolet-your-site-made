@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import SEO from "@/components/SEO";
 import { pushGtmEvent } from "@/lib/gtm";
-import { isValidLang, type Lang } from "@/lib/i18n";
+import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 
 const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
@@ -36,7 +36,223 @@ const seoData: Record<Lang, { title: string; description: string }> = {
     description:
       "Zu breit für Ray-Ban, Persol oder Warby Parker? Woolet fertigt Brillen aus italienischem Mazzucchelli-Acetat für Gesichter von 155–172 mm. Handgefertigt in der EU.",
   },
+  ar: {
+    title: "Woolet — نظارات أسيتات إيطالية للوجوه العريضة (155 ملم+)",
+    description:
+      "وجهك عريض على Ray-Ban أو Persol أو Warby Parker؟ Woolet تصمم إطارات من أسيتات Mazzucchelli الإيطالي للوجوه من 155 إلى 172 ملم. صناعة يدوية في الاتحاد الأوروبي. انضم للقائمة — خصم 40٪.",
+  },
+  ja: {
+    title: "Woolet — 幅広い顔のためのイタリア製アセテートアイウェア (155mm以上)",
+    description:
+      "Ray-Ban、Persol、Warby Parkerが幅広すぎ？ Wooletは155–172mmの顔に合うイタリア製Mazzucchelliアセテートフレームを設計。EUで手作り。リスト登録で40%オフ。",
+  },
 };
+
+/** Translated copy for the homepage UI. */
+type HomeCopy = {
+  heroEyebrow: string;
+  h1Pre: string;
+  h1Em: string;
+  h1Post: string;
+  heroDesc: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  trustFit: string;
+  trustAcetate: string;
+  trustHandmade: string;
+  meterFrame: string;
+  meterBridge: string;
+  meterStandard: string;
+  meterYour: string;
+  yourRange: string;
+  teaserEyebrow: string;
+  teaserH2Pre: string;
+  teaserH2Em: string;
+  viewAll: string;
+  viewCta: string;
+  fromPrice: string;
+  shapeRound: string;
+  shapeSquare: string;
+};
+
+const homeCopy: Record<Lang, HomeCopy> = {
+  en: {
+    heroEyebrow: "Built for wide faces",
+    h1Pre: "Too wide for ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " or Warby Parker?",
+    heroDesc: "Woolet designs frames that finally fit. Italian Mazzucchelli acetate, handmade in the EU — and one honest width range you won't find anywhere else.",
+    ctaPrimary: "Join the list — 40% off",
+    ctaSecondary: "View collection",
+    trustFit: "Fit guarantee",
+    trustAcetate: "Mazzucchelli acetate",
+    trustHandmade: "Handmade in the EU",
+    meterFrame: "Frame width",
+    meterBridge: "Nose bridge",
+    meterStandard: "Standard",
+    meterYour: "Woolet",
+    yourRange: "↑ Your range",
+    teaserEyebrow: "The collection",
+    teaserH2Pre: "Two shapes. ",
+    teaserH2Em: "One honest range.",
+    viewAll: "View all sizes →",
+    viewCta: "View →",
+    fromPrice: "From $114",
+    shapeRound: "Round",
+    shapeSquare: "Soft-square",
+  },
+  pl: {
+    heroEyebrow: "Stworzone dla szerokich twarzy",
+    h1Pre: "Za szeroka twarz na ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " czy Warby Parker?",
+    heroDesc: "Woolet projektuje oprawy, które wreszcie pasują. Włoski octan Mazzucchelli, ręcznie wykonane w UE — i jeden uczciwy zakres szerokości, którego nie znajdziesz nigdzie indziej.",
+    ctaPrimary: "Dołącz do listy — 40% zniżki",
+    ctaSecondary: "Zobacz kolekcję",
+    trustFit: "Gwarancja dopasowania",
+    trustAcetate: "Octan Mazzucchelli",
+    trustHandmade: "Ręcznie w UE",
+    meterFrame: "Szerokość oprawy",
+    meterBridge: "Mostek",
+    meterStandard: "Standard",
+    meterYour: "Woolet",
+    yourRange: "↑ Twój zakres",
+    teaserEyebrow: "Kolekcja",
+    teaserH2Pre: "Dwa kształty. ",
+    teaserH2Em: "Jeden uczciwy zakres.",
+    viewAll: "Zobacz wszystkie rozmiary →",
+    viewCta: "Zobacz →",
+    fromPrice: "Od $114",
+    shapeRound: "Okrągłe",
+    shapeSquare: "Miękki kwadrat",
+  },
+  fr: {
+    heroEyebrow: "Conçues pour les visages larges",
+    h1Pre: "Trop large pour ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " ou Warby Parker ?",
+    heroDesc: "Woolet conçoit des montures qui s'ajustent enfin. Acétate italien Mazzucchelli, fabriqué à la main en UE — et une seule plage de largeur honnête introuvable ailleurs.",
+    ctaPrimary: "Rejoindre la liste — 40% off",
+    ctaSecondary: "Voir la collection",
+    trustFit: "Garantie d'ajustement",
+    trustAcetate: "Acétate Mazzucchelli",
+    trustHandmade: "Fabriqué à la main en UE",
+    meterFrame: "Largeur monture",
+    meterBridge: "Pont nasal",
+    meterStandard: "Standard",
+    meterYour: "Woolet",
+    yourRange: "↑ Votre plage",
+    teaserEyebrow: "La collection",
+    teaserH2Pre: "Deux formes. ",
+    teaserH2Em: "Une plage honnête.",
+    viewAll: "Voir toutes les tailles →",
+    viewCta: "Voir →",
+    fromPrice: "Dès 114$",
+    shapeRound: "Ronde",
+    shapeSquare: "Carrée douce",
+  },
+  es: {
+    heroEyebrow: "Hechas para caras anchas",
+    h1Pre: "¿Demasiado ancho para ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " o Warby Parker?",
+    heroDesc: "Woolet diseña monturas que por fin encajan. Acetato italiano Mazzucchelli, hecho a mano en la UE — y un único rango de anchos honesto que no encontrarás en ningún otro lugar.",
+    ctaPrimary: "Únete a la lista — 40% off",
+    ctaSecondary: "Ver colección",
+    trustFit: "Garantía de ajuste",
+    trustAcetate: "Acetato Mazzucchelli",
+    trustHandmade: "Hecho a mano en la UE",
+    meterFrame: "Ancho montura",
+    meterBridge: "Puente nasal",
+    meterStandard: "Estándar",
+    meterYour: "Woolet",
+    yourRange: "↑ Tu rango",
+    teaserEyebrow: "La colección",
+    teaserH2Pre: "Dos formas. ",
+    teaserH2Em: "Un rango honesto.",
+    viewAll: "Ver todas las tallas →",
+    viewCta: "Ver →",
+    fromPrice: "Desde $114",
+    shapeRound: "Redonda",
+    shapeSquare: "Cuadrada suave",
+  },
+  de: {
+    heroEyebrow: "Für breite Gesichter gebaut",
+    h1Pre: "Zu breit für ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " oder Warby Parker?",
+    heroDesc: "Woolet entwirft Brillen, die endlich passen. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU — und ein ehrlicher Breitenbereich, den du nirgends sonst findest.",
+    ctaPrimary: "Auf die Liste — 40% Rabatt",
+    ctaSecondary: "Kollektion ansehen",
+    trustFit: "Passform-Garantie",
+    trustAcetate: "Mazzucchelli-Acetat",
+    trustHandmade: "Handgefertigt in der EU",
+    meterFrame: "Frontbreite",
+    meterBridge: "Nasensteg",
+    meterStandard: "Standard",
+    meterYour: "Woolet",
+    yourRange: "↑ Dein Bereich",
+    teaserEyebrow: "Die Kollektion",
+    teaserH2Pre: "Zwei Formen. ",
+    teaserH2Em: "Ein ehrlicher Bereich.",
+    viewAll: "Alle Größen ansehen →",
+    viewCta: "Ansehen →",
+    fromPrice: "Ab $114",
+    shapeRound: "Rund",
+    shapeSquare: "Weich-eckig",
+  },
+  ar: {
+    heroEyebrow: "صُمّمت للوجوه العريضة",
+    h1Pre: "وجهك عريض على ",
+    h1Em: "Ray-Ban أو Persol",
+    h1Post: " أو Warby Parker؟",
+    heroDesc: "Woolet تصمم إطارات تناسبك أخيراً. أسيتات Mazzucchelli الإيطالي، صناعة يدوية في الاتحاد الأوروبي — ونطاق عرض صادق لن تجده في أي مكان آخر.",
+    ctaPrimary: "انضم للقائمة — خصم 40٪",
+    ctaSecondary: "تصفح المجموعة",
+    trustFit: "ضمان المقاس",
+    trustAcetate: "أسيتات Mazzucchelli",
+    trustHandmade: "صناعة يدوية في الاتحاد الأوروبي",
+    meterFrame: "عرض الإطار",
+    meterBridge: "جسر الأنف",
+    meterStandard: "قياسي",
+    meterYour: "Woolet",
+    yourRange: "↑ نطاقك",
+    teaserEyebrow: "المجموعة",
+    teaserH2Pre: "شكلان. ",
+    teaserH2Em: "نطاق واحد صادق.",
+    viewAll: "عرض جميع المقاسات ←",
+    viewCta: "عرض ←",
+    fromPrice: "ابتداءً من 114$",
+    shapeRound: "مستدير",
+    shapeSquare: "مربع ناعم",
+  },
+  ja: {
+    heroEyebrow: "幅広い顔のために設計",
+    h1Pre: "",
+    h1Em: "Ray-Ban、Persol",
+    h1Post: "、Warby Parkerが幅広すぎませんか？",
+    heroDesc: "Wooletはついに合うフレームを設計しています。イタリア製Mazzucchelliアセテート、EUで手作り — そして他では見つからない正直な幅レンジ。",
+    ctaPrimary: "リストに登録 — 40%オフ",
+    ctaSecondary: "コレクションを見る",
+    trustFit: "フィット保証",
+    trustAcetate: "Mazzucchelliアセテート",
+    trustHandmade: "EUで手作り",
+    meterFrame: "フレーム幅",
+    meterBridge: "ノーズブリッジ",
+    meterStandard: "標準",
+    meterYour: "Woolet",
+    yourRange: "↑ あなたの範囲",
+    teaserEyebrow: "コレクション",
+    teaserH2Pre: "2つのシェイプ。",
+    teaserH2Em: "一つの正直なレンジ。",
+    viewAll: "すべてのサイズを見る →",
+    viewCta: "見る →",
+    fromPrice: "$114から",
+    shapeRound: "ラウンド",
+    shapeSquare: "ソフトスクエア",
+  },
+};
+
 
 /** A single fit meter: Standard (hatched) vs Woolet (gold) on a numeric mm scale. */
 type MeterCfg = {
@@ -50,13 +266,22 @@ type MeterCfg = {
   ticks: number[];
 };
 
-const MeterRow = ({ cfg }: { cfg: MeterCfg }) => {
+const MeterRow = ({
+  cfg,
+  standardLabel,
+  yourRangeLabel,
+}: {
+  cfg: MeterCfg;
+  standardLabel: string;
+  yourRangeLabel: string;
+}) => {
   const pct = (mm: number) =>
     ((mm - cfg.scaleMin) / (cfg.scaleMax - cfg.scaleMin)) * 100;
   const stdLeft = pct(cfg.standard[0]);
   const stdWidth = pct(cfg.standard[1]) - stdLeft;
   const wlLeft = pct(cfg.woolet[0]);
   const wlWidth = pct(cfg.woolet[1]) - wlLeft;
+
 
   return (
     <div className="w-full">
@@ -73,7 +298,7 @@ const MeterRow = ({ cfg }: { cfg: MeterCfg }) => {
           className="absolute -translate-x-1/2 whitespace-nowrap"
           style={{ left: `${stdLeft + stdWidth / 2}%`, color: "hsl(var(--cream-dim) / 0.7)" }}
         >
-          <span>✕ Standard</span>{" "}
+          <span>✕ {standardLabel}</span>{" "}
           <span className="text-foreground/85" style={{ fontWeight: 500 }}>
             {cfg.standard[0]}–{cfg.standard[1]}
           </span>
@@ -138,17 +363,18 @@ const MeterRow = ({ cfg }: { cfg: MeterCfg }) => {
             fontWeight: 500,
           }}
         >
-          ↑ Your range
+          {yourRangeLabel}
+
         </span>
       </div>
     </div>
   );
 };
 
-const METERS: MeterCfg[] = [
+const makeMeters = (copy: HomeCopy): MeterCfg[] => [
   {
     key: "frame",
-    label: "Frame width",
+    label: copy.meterFrame,
     scaleMin: 135,
     scaleMax: 175,
     standard: [138, 148],
@@ -157,25 +383,26 @@ const METERS: MeterCfg[] = [
   },
   {
     key: "bridge",
-    label: "Nose bridge",
+    label: copy.meterBridge,
     scaleMin: 16,
     scaleMax: 26,
     standard: [16, 20],
     woolet: [21, 24],
-    wooletLabel: "Nose bridge",
+    wooletLabel: copy.meterBridge,
     ticks: [16, 21, 26],
   },
 ];
 
-const FrameWidthMeter = () => {
+const FrameWidthMeter = ({ copy }: { copy: HomeCopy }) => {
   const [active, setActive] = useState(0);
+  const meters = makeMeters(copy);
 
   useEffect(() => {
     const t = setInterval(() => {
-      setActive((i) => (i + 1) % METERS.length);
+      setActive((i) => (i + 1) % meters.length);
     }, 5200);
     return () => clearInterval(t);
-  }, []);
+  }, [meters.length]);
 
   return (
     <div className="w-full max-w-[520px]">
@@ -184,9 +411,13 @@ const FrameWidthMeter = () => {
           className="flex transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
           style={{ transform: `translateX(-${active * 100}%)` }}
         >
-          {METERS.map((m) => (
+          {meters.map((m) => (
             <div key={m.key} className="w-full shrink-0 pr-px">
-              <MeterRow cfg={m} />
+              <MeterRow
+                cfg={m}
+                standardLabel={copy.meterStandard}
+                yourRangeLabel={copy.yourRange}
+              />
             </div>
           ))}
         </div>
@@ -194,7 +425,7 @@ const FrameWidthMeter = () => {
 
       {/* Indicator dots */}
       <div className="flex items-center gap-2 mt-4">
-        {METERS.map((m, i) => (
+        {meters.map((m, i) => (
           <button
             key={m.key}
             type="button"
@@ -222,12 +453,13 @@ const FrameWidthMeter = () => {
             fontFamily: "Barlow, sans-serif",
           }}
         >
-          {METERS[active].label}
+          {meters[active].label}
         </span>
       </div>
     </div>
   );
 };
+
 
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
@@ -243,20 +475,33 @@ const Index = () => {
     }, 120);
   }, [location.hash]);
 
+  // Toggle RTL on <html> for Arabic; restore on cleanup.
+  useEffect(() => {
+    const html = document.documentElement;
+    const prevDir = html.getAttribute("dir");
+    html.setAttribute("dir", dirForLang(lang));
+    return () => {
+      if (prevDir) html.setAttribute("dir", prevDir);
+      else html.removeAttribute("dir");
+    };
+  }, [lang]);
+
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
   }
 
   const seo = seoData[lang];
+  const copy = homeCopy[lang];
 
   const models = [
-    { id: "007", name: "Woolet 007", shape: "Round", img: woolet007Asset.url, alt: "Woolet 007 round Italian acetate frame for wide faces" },
-    { id: "009", name: "Woolet 009", shape: "Soft-square", img: woolet009Asset.url, alt: "Woolet 009 soft-square Italian acetate frame for wide faces" },
+    { id: "007", name: "Woolet 007", shape: copy.shapeRound, img: woolet007Asset.url, alt: "Woolet 007 round Italian acetate frame for wide faces" },
+    { id: "009", name: "Woolet 009", shape: copy.shapeSquare, img: woolet009Asset.url, alt: "Woolet 009 soft-square Italian acetate frame for wide faces" },
   ];
 
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} />
+
 
       <div className="min-h-screen flex flex-col bg-background text-foreground relative overflow-hidden">
         {/* Ambient gold glow */}
@@ -282,31 +527,29 @@ const Index = () => {
             <div className="flex flex-col gap-6 lg:gap-7 lg:py-2">
               <div className="woolet-eyebrow">
                 <div className="woolet-eyebrow-line" />
-                <span className="woolet-eyebrow-text">Built for wide faces</span>
+                <span className="woolet-eyebrow-text">{copy.heroEyebrow}</span>
               </div>
 
               <h1
                 className="font-display text-woolet-white leading-[1.02] max-w-[620px]"
                 style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)", fontWeight: 300 }}
               >
-                Too wide for{" "}
+                {copy.h1Pre}
                 <em className="text-gold-light" style={{ fontStyle: "italic" }}>
-                  Ray-Ban, Persol
-                </em>{" "}
-                or Warby Parker?
+                  {copy.h1Em}
+                </em>
+                {copy.h1Post}
               </h1>
 
               <p
                 className="text-cream-dim leading-relaxed max-w-[520px]"
                 style={{ fontSize: "1.02rem" }}
               >
-                Woolet designs frames that finally fit. Italian Mazzucchelli acetate,
-                handmade in the EU — and one honest width range you won't find
-                anywhere else.
+                {copy.heroDesc}
               </p>
 
               <div className="pt-1">
-                <FrameWidthMeter />
+                <FrameWidthMeter copy={copy} />
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
@@ -330,7 +573,7 @@ const Index = () => {
                   onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
                 >
-                  Join the list — 40% off
+                  {copy.ctaPrimary}
                 </Link>
                 <Link
                   to={`/${lang}/collection`}
@@ -358,7 +601,7 @@ const Index = () => {
                     e.currentTarget.style.color = "hsl(var(--cream-dim))";
                   }}
                 >
-                  View collection
+                  {copy.ctaSecondary}
                 </Link>
               </div>
 
@@ -367,15 +610,16 @@ const Index = () => {
                 className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1 text-cream-dim/80"
                 style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
               >
-                <span>Fit guarantee</span>
+                <span>{copy.trustFit}</span>
                 <span className="text-cream-dim/30">·</span>
-                <span>Mazzucchelli acetate</span>
+                <span>{copy.trustAcetate}</span>
                 <span className="text-cream-dim/30">·</span>
-                <span>Handmade in the EU</span>
+                <span>{copy.trustHandmade}</span>
               </div>
             </div>
 
             {/* RIGHT — portrait card, stretches to match left column */}
+
             <div
               className="relative w-full aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] lg:self-stretch overflow-hidden"
               style={{
@@ -442,15 +686,15 @@ const Index = () => {
               <div>
                 <div className="woolet-eyebrow mb-3">
                   <div className="woolet-eyebrow-line" />
-                  <span className="woolet-eyebrow-text">The collection</span>
+                  <span className="woolet-eyebrow-text">{copy.teaserEyebrow}</span>
                 </div>
                 <h2
                   className="font-display text-woolet-white leading-tight"
                   style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)", fontWeight: 300 }}
                 >
-                  Two shapes.{" "}
+                  {copy.teaserH2Pre}
                   <em className="text-gold-light" style={{ fontStyle: "italic" }}>
-                    One honest range.
+                    {copy.teaserH2Em}
                   </em>
                 </h2>
               </div>
@@ -462,7 +706,8 @@ const Index = () => {
                 className="text-cream-dim hover:text-foreground no-underline uppercase tracking-[0.22em] transition-colors self-start sm:self-auto"
                 style={{ fontSize: "0.72rem", fontFamily: "Barlow, sans-serif" }}
               >
-                View all sizes →
+                {copy.viewAll}
+
               </Link>
             </div>
 
@@ -533,13 +778,14 @@ const Index = () => {
                         className="font-display text-woolet-white leading-none"
                         style={{ fontSize: "1.05rem" }}
                       >
-                        From $114
+                        {copy.fromPrice}
                       </div>
                       <div
                         className="uppercase tracking-[0.28em] text-cream-dim group-hover:text-gold-light transition-colors mt-2"
                         style={{ fontSize: "0.65rem", fontFamily: "Barlow, sans-serif" }}
                       >
-                        View →
+                        {copy.viewCta}
+
                       </div>
                     </div>
                   </div>

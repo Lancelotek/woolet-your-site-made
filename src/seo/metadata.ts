@@ -139,9 +139,12 @@ function ogLocale(lang: Lang): string {
     case "fr": return "fr_FR";
     case "es": return "es_ES";
     case "de": return "de_DE";
+    case "ar": return "ar_AR";
+    case "ja": return "ja_JP";
     default: return "en_US";
   }
 }
+
 
 function langFromRoute(route: string): Lang {
   const m = route.match(/^\/([a-z]{2})(\/|$)/);
@@ -186,7 +189,18 @@ const homeCopy: Record<Lang, Copy> = {
     description:
       "Premium-Brillen aus italienischem Mazzucchelli-Acetat, entwickelt für breite Gesichter (ab 155 mm). Drei gemessene Größen plus Maßanfertigung. Ab 114 $ im Pre-Order.",
   },
+  ar: {
+    title: "Woolet — نظارات فاخرة للوجوه العريضة (155 ملم+)",
+    description:
+      "نظارات فاخرة من أسيتات Mazzucchelli الإيطالي، مصممة للوجوه العريضة (155 ملم+). ثلاثة مقاسات مدروسة بالإضافة للصناعة الخاصة. ابتداءً من 114$ في الطلب المسبق.",
+  },
+  ja: {
+    title: "Woolet — 幅広い顔のためのプレミアムアイウェア (155mm以上)",
+    description:
+      "イタリア製Mazzucchelliアセテートのプレミアムアイウェア、幅広い顔（155mm以上）のために設計。3つの計測サイズとビスポーク。プレオーダー$114から。",
+  },
 };
+
 
 // ---------------------------------------------------------------------------
 // Route builder
@@ -613,6 +627,9 @@ export function getMetadata(route: string): RouteMeta {
       fr: { title: "Blog — Woolet | Conseils lunettes visages larges", description: "Guides experts sur les lunettes pour visages larges, l'acétate italien et le choix des montures pour 155 mm+." },
       es: { title: "Blog — Woolet | Consejos gafas caras anchas", description: "Guías sobre gafas para caras anchas, acetato italiano y cómo encontrar el ajuste perfecto para 155 mm+." },
       de: { title: "Blog — Woolet | Wissen zu Brillen für breite Gesichter", description: "Expertenwissen zu Brillen für breite Gesichter, italienischem Acetat, Fassungsgrößen und der perfekten Passform ab 155 mm." },
+      ar: { title: "المدونة — Woolet | رؤى حول نظارات الوجوه العريضة", description: "أدلة الخبراء حول النظارات للوجوه العريضة، الأسيتات الإيطالي، مقاسات الإطار، والمقاس المثالي من 155 ملم فأكثر." },
+      ja: { title: "ブログ — Woolet | 幅広い顔のためのアイウェア知見", description: "幅広い顔のためのメガネ、イタリア製アセテート、フレームサイジング、155mm以上の顔幅に最適なフィットに関する専門ガイド。" },
+
     };
     return base(route, lang, titles[lang]);
   }

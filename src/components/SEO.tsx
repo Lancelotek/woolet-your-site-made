@@ -31,7 +31,10 @@ const geoMeta: Record<string, { region: string; placename: string }> = {
   fr: { region: "FR", placename: "France" },
   es: { region: "ES", placename: "España" },
   de: { region: "DE", placename: "Deutschland" },
+  ar: { region: "AE", placename: "العالم العربي" },
+  ja: { region: "JP", placename: "日本" },
 };
+
 
 const SEO = ({
   title,
@@ -81,7 +84,7 @@ const SEO = ({
 
   return (
     <Helmet>
-      <html lang={lang} />
+      <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} />
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
@@ -103,7 +106,7 @@ const SEO = ({
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content="Woolet" />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:locale" content={lang === "pl" ? "pl_PL" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : lang === "de" ? "de_DE" : "en_US"} />
+      <meta property="og:locale" content={lang === "pl" ? "pl_PL" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : lang === "de" ? "de_DE" : lang === "ar" ? "ar_AR" : lang === "ja" ? "ja_JP" : "en_US"} />
 
       {publishedTime && <meta property="article:published_time" content={publishedTime} />}
       {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
