@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { dePageOrder, dePageTitles, dePages } from "@/content/de/landingPages";
-import wooletLogo from "@/assets/woolet-logo.png";
+import wooletLogo from "@/assets/woolet-logo.svg";
 import Footer from "@/components/Footer";
 
 const SITE = "https://woolet.co";

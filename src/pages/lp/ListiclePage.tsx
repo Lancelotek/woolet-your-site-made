@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { supabase } from "@/integrations/supabase/client";
-import wooletLogo from "@/assets/woolet-logo.png";
+import wooletLogo from "@/assets/woolet-logo.svg";
 import comparisonAsset from "@/assets/standard-vs-wide-comparison.png.asset.json";
 
 /* ---------- design tokens (scoped to this page only) ---------- */
