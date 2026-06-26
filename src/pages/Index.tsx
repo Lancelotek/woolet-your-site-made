@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import SEO from "@/components/SEO";
 import { pushGtmEvent } from "@/lib/gtm";
-import { isValidLang, type Lang } from "@/lib/i18n";
+import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 
 const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
@@ -36,7 +36,223 @@ const seoData: Record<Lang, { title: string; description: string }> = {
     description:
       "Zu breit für Ray-Ban, Persol oder Warby Parker? Woolet fertigt Brillen aus italienischem Mazzucchelli-Acetat für Gesichter von 155–172 mm. Handgefertigt in der EU.",
   },
+  ar: {
+    title: "Woolet — نظارات أسيتات إيطالية للوجوه العريضة (155 ملم+)",
+    description:
+      "وجهك عريض على Ray-Ban أو Persol أو Warby Parker؟ Woolet تصمم إطارات من أسيتات Mazzucchelli الإيطالي للوجوه من 155 إلى 172 ملم. صناعة يدوية في الاتحاد الأوروبي. انضم للقائمة — خصم 40٪.",
+  },
+  ja: {
+    title: "Woolet — 幅広い顔のためのイタリア製アセテートアイウェア (155mm以上)",
+    description:
+      "Ray-Ban、Persol、Warby Parkerが幅広すぎ？ Wooletは155–172mmの顔に合うイタリア製Mazzucchelliアセテートフレームを設計。EUで手作り。リスト登録で40%オフ。",
+  },
 };
+
+/** Translated copy for the homepage UI. */
+type HomeCopy = {
+  heroEyebrow: string;
+  h1Pre: string;
+  h1Em: string;
+  h1Post: string;
+  heroDesc: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  trustFit: string;
+  trustAcetate: string;
+  trustHandmade: string;
+  meterFrame: string;
+  meterBridge: string;
+  meterStandard: string;
+  meterYour: string;
+  yourRange: string;
+  teaserEyebrow: string;
+  teaserH2Pre: string;
+  teaserH2Em: string;
+  viewAll: string;
+  viewCta: string;
+  fromPrice: string;
+  shapeRound: string;
+  shapeSquare: string;
+};
+
+const homeCopy: Record<Lang, HomeCopy> = {
+  en: {
+    heroEyebrow: "Built for wide faces",
+    h1Pre: "Too wide for ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " or Warby Parker?",
+    heroDesc: "Woolet designs frames that finally fit. Italian Mazzucchelli acetate, handmade in the EU — and one honest width range you won't find anywhere else.",
+    ctaPrimary: "Join the list — 40% off",
+    ctaSecondary: "View collection",
+    trustFit: "Fit guarantee",
+    trustAcetate: "Mazzucchelli acetate",
+    trustHandmade: "Handmade in the EU",
+    meterFrame: "Frame width",
+    meterBridge: "Nose bridge",
+    meterStandard: "Standard",
+    meterYour: "Woolet",
+    yourRange: "↑ Your range",
+    teaserEyebrow: "The collection",
+    teaserH2Pre: "Two shapes. ",
+    teaserH2Em: "One honest range.",
+    viewAll: "View all sizes →",
+    viewCta: "View →",
+    fromPrice: "From $114",
+    shapeRound: "Round",
+    shapeSquare: "Soft-square",
+  },
+  pl: {
+    heroEyebrow: "Stworzone dla szerokich twarzy",
+    h1Pre: "Za szeroka twarz na ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " czy Warby Parker?",
+    heroDesc: "Woolet projektuje oprawy, które wreszcie pasują. Włoski octan Mazzucchelli, ręcznie wykonane w UE — i jeden uczciwy zakres szerokości, którego nie znajdziesz nigdzie indziej.",
+    ctaPrimary: "Dołącz do listy — 40% zniżki",
+    ctaSecondary: "Zobacz kolekcję",
+    trustFit: "Gwarancja dopasowania",
+    trustAcetate: "Octan Mazzucchelli",
+    trustHandmade: "Ręcznie w UE",
+    meterFrame: "Szerokość oprawy",
+    meterBridge: "Mostek",
+    meterStandard: "Standard",
+    meterYour: "Woolet",
+    yourRange: "↑ Twój zakres",
+    teaserEyebrow: "Kolekcja",
+    teaserH2Pre: "Dwa kształty. ",
+    teaserH2Em: "Jeden uczciwy zakres.",
+    viewAll: "Zobacz wszystkie rozmiary →",
+    viewCta: "Zobacz →",
+    fromPrice: "Od $114",
+    shapeRound: "Okrągłe",
+    shapeSquare: "Miękki kwadrat",
+  },
+  fr: {
+    heroEyebrow: "Conçues pour les visages larges",
+    h1Pre: "Trop large pour ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " ou Warby Parker ?",
+    heroDesc: "Woolet conçoit des montures qui s'ajustent enfin. Acétate italien Mazzucchelli, fabriqué à la main en UE — et une seule plage de largeur honnête introuvable ailleurs.",
+    ctaPrimary: "Rejoindre la liste — 40% off",
+    ctaSecondary: "Voir la collection",
+    trustFit: "Garantie d'ajustement",
+    trustAcetate: "Acétate Mazzucchelli",
+    trustHandmade: "Fabriqué à la main en UE",
+    meterFrame: "Largeur monture",
+    meterBridge: "Pont nasal",
+    meterStandard: "Standard",
+    meterYour: "Woolet",
+    yourRange: "↑ Votre plage",
+    teaserEyebrow: "La collection",
+    teaserH2Pre: "Deux formes. ",
+    teaserH2Em: "Une plage honnête.",
+    viewAll: "Voir toutes les tailles →",
+    viewCta: "Voir →",
+    fromPrice: "Dès 114$",
+    shapeRound: "Ronde",
+    shapeSquare: "Carrée douce",
+  },
+  es: {
+    heroEyebrow: "Hechas para caras anchas",
+    h1Pre: "¿Demasiado ancho para ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " o Warby Parker?",
+    heroDesc: "Woolet diseña monturas que por fin encajan. Acetato italiano Mazzucchelli, hecho a mano en la UE — y un único rango de anchos honesto que no encontrarás en ningún otro lugar.",
+    ctaPrimary: "Únete a la lista — 40% off",
+    ctaSecondary: "Ver colección",
+    trustFit: "Garantía de ajuste",
+    trustAcetate: "Acetato Mazzucchelli",
+    trustHandmade: "Hecho a mano en la UE",
+    meterFrame: "Ancho montura",
+    meterBridge: "Puente nasal",
+    meterStandard: "Estándar",
+    meterYour: "Woolet",
+    yourRange: "↑ Tu rango",
+    teaserEyebrow: "La colección",
+    teaserH2Pre: "Dos formas. ",
+    teaserH2Em: "Un rango honesto.",
+    viewAll: "Ver todas las tallas →",
+    viewCta: "Ver →",
+    fromPrice: "Desde $114",
+    shapeRound: "Redonda",
+    shapeSquare: "Cuadrada suave",
+  },
+  de: {
+    heroEyebrow: "Für breite Gesichter gebaut",
+    h1Pre: "Zu breit für ",
+    h1Em: "Ray-Ban, Persol",
+    h1Post: " oder Warby Parker?",
+    heroDesc: "Woolet entwirft Brillen, die endlich passen. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU — und ein ehrlicher Breitenbereich, den du nirgends sonst findest.",
+    ctaPrimary: "Auf die Liste — 40% Rabatt",
+    ctaSecondary: "Kollektion ansehen",
+    trustFit: "Passform-Garantie",
+    trustAcetate: "Mazzucchelli-Acetat",
+    trustHandmade: "Handgefertigt in der EU",
+    meterFrame: "Frontbreite",
+    meterBridge: "Nasensteg",
+    meterStandard: "Standard",
+    meterYour: "Woolet",
+    yourRange: "↑ Dein Bereich",
+    teaserEyebrow: "Die Kollektion",
+    teaserH2Pre: "Zwei Formen. ",
+    teaserH2Em: "Ein ehrlicher Bereich.",
+    viewAll: "Alle Größen ansehen →",
+    viewCta: "Ansehen →",
+    fromPrice: "Ab $114",
+    shapeRound: "Rund",
+    shapeSquare: "Weich-eckig",
+  },
+  ar: {
+    heroEyebrow: "صُمّمت للوجوه العريضة",
+    h1Pre: "وجهك عريض على ",
+    h1Em: "Ray-Ban أو Persol",
+    h1Post: " أو Warby Parker؟",
+    heroDesc: "Woolet تصمم إطارات تناسبك أخيراً. أسيتات Mazzucchelli الإيطالي، صناعة يدوية في الاتحاد الأوروبي — ونطاق عرض صادق لن تجده في أي مكان آخر.",
+    ctaPrimary: "انضم للقائمة — خصم 40٪",
+    ctaSecondary: "تصفح المجموعة",
+    trustFit: "ضمان المقاس",
+    trustAcetate: "أسيتات Mazzucchelli",
+    trustHandmade: "صناعة يدوية في الاتحاد الأوروبي",
+    meterFrame: "عرض الإطار",
+    meterBridge: "جسر الأنف",
+    meterStandard: "قياسي",
+    meterYour: "Woolet",
+    yourRange: "↑ نطاقك",
+    teaserEyebrow: "المجموعة",
+    teaserH2Pre: "شكلان. ",
+    teaserH2Em: "نطاق واحد صادق.",
+    viewAll: "عرض جميع المقاسات ←",
+    viewCta: "عرض ←",
+    fromPrice: "ابتداءً من 114$",
+    shapeRound: "مستدير",
+    shapeSquare: "مربع ناعم",
+  },
+  ja: {
+    heroEyebrow: "幅広い顔のために設計",
+    h1Pre: "",
+    h1Em: "Ray-Ban、Persol",
+    h1Post: "、Warby Parkerが幅広すぎませんか？",
+    heroDesc: "Wooletはついに合うフレームを設計しています。イタリア製Mazzucchelliアセテート、EUで手作り — そして他では見つからない正直な幅レンジ。",
+    ctaPrimary: "リストに登録 — 40%オフ",
+    ctaSecondary: "コレクションを見る",
+    trustFit: "フィット保証",
+    trustAcetate: "Mazzucchelliアセテート",
+    trustHandmade: "EUで手作り",
+    meterFrame: "フレーム幅",
+    meterBridge: "ノーズブリッジ",
+    meterStandard: "標準",
+    meterYour: "Woolet",
+    yourRange: "↑ あなたの範囲",
+    teaserEyebrow: "コレクション",
+    teaserH2Pre: "2つのシェイプ。",
+    teaserH2Em: "一つの正直なレンジ。",
+    viewAll: "すべてのサイズを見る →",
+    viewCta: "見る →",
+    fromPrice: "$114から",
+    shapeRound: "ラウンド",
+    shapeSquare: "ソフトスクエア",
+  },
+};
+
 
 /** A single fit meter: Standard (hatched) vs Woolet (gold) on a numeric mm scale. */
 type MeterCfg = {
