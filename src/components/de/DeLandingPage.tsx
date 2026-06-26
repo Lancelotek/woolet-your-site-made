@@ -3,7 +3,8 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
-import wooletLogo from "@/assets/woolet-logo.svg";
+import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
+const wooletLogo = wooletLogoAsset.url;
 import {
   DEFAULT_FAQS,
   dePageOrder,
