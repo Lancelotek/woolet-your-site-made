@@ -1067,20 +1067,23 @@ const AdvertorialPage = () => {
 
             <blockquote
               style={{
-                borderLeft: "3px solid #d8b86a",
-                padding: "10px 14px",
+                border: "1px solid rgba(216,184,106,0.22)",
+                borderTop: "3px solid #d8b86a",
+                padding: "20px 22px",
                 background: "rgba(216,184,106,0.06)",
-                margin: "14px auto",
+                margin: "20px auto",
                 borderRadius: 0,
+                maxWidth: 560,
+                textAlign: "center",
               }}
             >
               <p
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontStyle: "italic",
-                  fontSize: 15,
+                  fontSize: 17,
                   color: "#f3ece0",
-                  lineHeight: 1.6,
+                  lineHeight: 1.5,
                   margin: 0,
                 }}
               >
@@ -1094,12 +1097,13 @@ const AdvertorialPage = () => {
                   letterSpacing: "2px",
                   color: "#8a8275",
                   textTransform: "uppercase",
-                  marginTop: 6,
+                  marginTop: 10,
                 }}
               >
-                JAMES R. · 158MM · LONDON
+                James R. · 158mm · London
               </div>
             </blockquote>
+
 
           </div>
 
