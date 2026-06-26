@@ -624,6 +624,9 @@ export function getMetadata(route: string): RouteMeta {
       fr: { title: "Blog — Woolet | Conseils lunettes visages larges", description: "Guides experts sur les lunettes pour visages larges, l'acétate italien et le choix des montures pour 155 mm+." },
       es: { title: "Blog — Woolet | Consejos gafas caras anchas", description: "Guías sobre gafas para caras anchas, acetato italiano y cómo encontrar el ajuste perfecto para 155 mm+." },
       de: { title: "Blog — Woolet | Wissen zu Brillen für breite Gesichter", description: "Expertenwissen zu Brillen für breite Gesichter, italienischem Acetat, Fassungsgrößen und der perfekten Passform ab 155 mm." },
+      ar: { title: "المدونة — Woolet | رؤى حول نظارات الوجوه العريضة", description: "أدلة الخبراء حول النظارات للوجوه العريضة، الأسيتات الإيطالي، مقاسات الإطار، والمقاس المثالي من 155 ملم فأكثر." },
+      ja: { title: "ブログ — Woolet | 幅広い顔のためのアイウェア知見", description: "幅広い顔のためのメガネ、イタリア製アセテート、フレームサイジング、155mm以上の顔幅に最適なフィットに関する専門ガイド。" },
+
     };
     return base(route, lang, titles[lang]);
   }
