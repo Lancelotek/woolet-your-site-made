@@ -361,7 +361,7 @@ const AdvertorialPage = () => {
                   color: "#f3ece0",
                 }}
               >
-                8 min read
+                4,900+
               </span>
               <span
                 style={{
@@ -372,8 +372,9 @@ const AdvertorialPage = () => {
                   textTransform: "uppercase",
                 }}
               >
-                Founder's note
+                on the waitlist
               </span>
+
             </div>
 
           </div>
