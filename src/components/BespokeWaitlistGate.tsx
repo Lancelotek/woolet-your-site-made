@@ -31,6 +31,22 @@ const BespokeWaitlistGate = () => {
   const [consentTouched, setConsentTouched] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [mode, setMode] = useState<"email" | "password">("email");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+
+  const submitPassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password.trim().toLowerCase() === "woolet") {
+      try {
+        window.localStorage.setItem("bespoke-gate-bypass", "woolet-preview");
+      } catch {}
+      window.location.reload();
+    } else {
+      setPasswordError("Incorrect password.");
+    }
+  };
+
 
   const emailError = validateEmail(email);
   const showEmailError = emailTouched && !!emailError;
