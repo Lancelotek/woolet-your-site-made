@@ -4,9 +4,8 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import beforeAfterAsset from "@/assets/standard-vs-155mm.png.asset.json";
-import frameWidthChartImg from "@/assets/frame-width-chart-v2.png";
 import noseBridgeImg from "@/assets/nose-bridge-v2.png";
-import wideFaceCompAsset from "@/assets/wide-face-fit-comparison.png.asset.json";
+
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import advertorialPortrait from "@/assets/advertorial-portrait.png.asset.json";
 import tooNarrowPain from "@/assets/too-narrow-pain.png.asset.json";
@@ -361,7 +360,7 @@ const AdvertorialPage = () => {
                   color: "#f3ece0",
                 }}
               >
-                8 min read
+                4,900+
               </span>
               <span
                 style={{
@@ -372,8 +371,9 @@ const AdvertorialPage = () => {
                   textTransform: "uppercase",
                 }}
               >
-                Founder's note
+                on the waitlist
               </span>
+
             </div>
 
           </div>
@@ -441,24 +441,7 @@ const AdvertorialPage = () => {
           </figure>
 
 
-          {/* 4b. Frame width comparison chart */}
-          <figure className="lp-figure" style={{ padding: "16px 20px 8px", margin: 0 }}>
-            <img
-              src={frameWidthChartImg}
-              alt="Frame width comparison chart in millimetres: Zenni 140mm, Warby Parker 148mm, Woolet S 155mm, Woolet M 158mm, Woolet L 161mm — wide faces need 155–168mm where most brands stop fitting"
-              width={1600}
-              height={1000}
-              style={{
-                width: "100%",
-                height: "auto",
-                borderRadius: 8,
-                display: "block",
-              }}
-              loading="lazy"
-              decoding="async"
-            />
-            {/* duplicate caption removed — chart subtitle already states this */}
-          </figure>
+
 
           {/* 5. Article body */}
           <div className="lp-body" style={{ padding: "0 20px" }}>
@@ -572,8 +555,162 @@ const AdvertorialPage = () => {
 
 
 
+            {/* Frame width comparison chart — single Woolet size + bespoke tier */}
+            <figure style={{ margin: "28px auto 18px", maxWidth: 660 }}>
+              <div
+                style={{
+                  background: "#0f0d0b",
+                  border: "1px solid rgba(216,184,106,0.18)",
+                  borderRadius: 8,
+                  padding: "22px 20px 24px",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 20,
+                    color: "#f3ece0",
+                    lineHeight: 1.25,
+                    marginBottom: 4,
+                  }}
+                >
+                  The width <em style={{ color: "#d8b86a", fontStyle: "italic" }}>nobody prints</em>.
+                </div>
+                <div
+                  style={{
+                    fontFamily: "'Barlow', sans-serif",
+                    fontSize: 11,
+                    color: "#8a8275",
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    marginBottom: 22,
+                  }}
+                >
+                  Frame width — total mm across the front
+                </div>
+
+                {/* Bars */}
+                <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 14 }}>
+                  {/* Wide-face threshold marker at 155 / 180 ≈ 86.1% */}
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      left: "calc(110px + (100% - 110px) * 0.861)",
+                      top: -4,
+                      bottom: 22,
+                      width: 1,
+                      background: "repeating-linear-gradient(to bottom, rgba(216,184,106,0.55) 0 4px, transparent 4px 8px)",
+                      pointerEvents: "none",
+                    }}
+                  />
+                  {[
+                    { label: "Zenni", value: 140, display: "140mm", tone: "muted" as const },
+                    { label: "Warby Parker", value: 148, display: "148mm", tone: "muted" as const },
+                    { label: "Woolet 007 / 009", value: 158, display: "158mm", tone: "gold" as const },
+                    { label: "Woolet Bespoke", value: 172, display: "150–172mm", tone: "outline" as const },
+                  ].map((row) => {
+                    const pct = (row.value / 180) * 100;
+                    const barBg =
+                      row.tone === "gold"
+                        ? "linear-gradient(to right, #d8b86a, #b9954a)"
+                        : row.tone === "outline"
+                          ? "repeating-linear-gradient(135deg, rgba(216,184,106,0.18) 0 6px, rgba(216,184,106,0.06) 6px 12px)"
+                          : "rgba(195,188,175,0.18)";
+                    const labelColor = row.tone === "gold" ? "#f3ece0" : "#c4bdaf";
+                    return (
+                      <div key={row.label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                        <div
+                          style={{
+                            width: 110,
+                            flexShrink: 0,
+                            fontFamily: "'Barlow', sans-serif",
+                            fontSize: 11,
+                            letterSpacing: "1.5px",
+                            textTransform: "uppercase",
+                            color: labelColor,
+                            fontWeight: row.tone === "gold" ? 500 : 300,
+                          }}
+                        >
+                          {row.label}
+                        </div>
+                        <div style={{ flex: 1, position: "relative", height: 22 }}>
+                          <div
+                            style={{
+                              width: `${pct}%`,
+                              height: "100%",
+                              background: barBg,
+                              borderRadius: 2,
+                              border: row.tone === "outline" ? "1px dashed rgba(216,184,106,0.45)" : "none",
+                            }}
+                          />
+                          <span
+                            style={{
+                              position: "absolute",
+                              left: `calc(${pct}% + 8px)`,
+                              top: "50%",
+                              transform: "translateY(-50%)",
+                              fontFamily: "'Cormorant Garamond', serif",
+                              fontSize: 14,
+                              color: row.tone === "gold" ? "#d8b86a" : "#8a8275",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {row.display}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Threshold legend */}
+                <div
+                  style={{
+                    marginTop: 18,
+                    paddingTop: 14,
+                    borderTop: "1px solid rgba(216,184,106,0.12)",
+                    fontFamily: "'Barlow', sans-serif",
+                    fontSize: 11,
+                    color: "#8a8275",
+                    letterSpacing: "0.5px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    style={{
+                      display: "inline-block",
+                      width: 14,
+                      height: 1,
+                      background: "repeating-linear-gradient(to right, rgba(216,184,106,0.7) 0 4px, transparent 4px 8px)",
+                    }}
+                  />
+                  Wide-face threshold begins at 155mm — where most brands stop.
+                </div>
+              </div>
+              <figcaption
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 12,
+                  lineHeight: 1.6,
+                  color: "#8a8478",
+                  margin: "10px auto 0",
+                  fontStyle: "italic",
+                  textAlign: "center",
+                }}
+              >
+                Figure 02 — Woolet 007 and 009 are made in one precise wide size: 158mm.
+                Bespoke goes up to 172mm.
+              </figcaption>
+            </figure>
+
             {/* Section 1b — Nose bridge */}
             <h2
+
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontWeight: 400,
@@ -736,8 +873,9 @@ const AdvertorialPage = () => {
                 <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>155 / 158 / 161</div>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet S · M · L (mm)</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>158mm</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet 007 / 009 — one precise size</div>
+
               </div>
 
             </div>
@@ -853,7 +991,7 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              I received a prototype pair. Model 007 — round panto, Dark Tortoise, 158mm. Wide temples. Keyhole bridge 21mm — the wider keyhole-shaped bridge that doesn't slide off your nose every twenty minutes.
+              I received a prototype pair. Model 007 — round panto, Crystal Grey, 158mm. Wide temples. Keyhole bridge 21mm — the wider keyhole-shaped bridge that doesn't slide off your nose every twenty minutes.
             </p>
             <p
               style={{
@@ -928,20 +1066,23 @@ const AdvertorialPage = () => {
 
             <blockquote
               style={{
-                borderLeft: "3px solid #d8b86a",
-                padding: "10px 14px",
+                border: "1px solid rgba(216,184,106,0.22)",
+                borderTop: "3px solid #d8b86a",
+                padding: "20px 22px",
                 background: "rgba(216,184,106,0.06)",
-                margin: "14px auto",
+                margin: "20px auto",
                 borderRadius: 0,
+                maxWidth: 560,
+                textAlign: "center",
               }}
             >
               <p
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontStyle: "italic",
-                  fontSize: 15,
+                  fontSize: 17,
                   color: "#f3ece0",
-                  lineHeight: 1.6,
+                  lineHeight: 1.5,
                   margin: 0,
                 }}
               >
@@ -955,12 +1096,13 @@ const AdvertorialPage = () => {
                   letterSpacing: "2px",
                   color: "#8a8275",
                   textTransform: "uppercase",
-                  marginTop: 6,
+                  marginTop: 10,
                 }}
               >
-                JAMES R. · 158MM · LONDON
+                James R. · 158mm · London
               </div>
             </blockquote>
+
 
           </div>
 
@@ -1092,17 +1234,12 @@ const AdvertorialPage = () => {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                  gridTemplateColumns: "minmax(0, 420px)",
+                  justifyContent: "center",
                   gap: 14,
                 }}
               >
                 {[
-                  {
-                    to: "/en/lp/5-reasons",
-                    img: wideFaceCompAsset.url,
-                    eyebrow: "Fit Guide",
-                    title: "5 reasons standard glasses ruin your face proportions",
-                  },
                   {
                     to: "/en/fit",
                     img: noseBridgeImg,
@@ -1110,6 +1247,7 @@ const AdvertorialPage = () => {
                     title: "Measure your face — find your width and your bridge",
                   },
                 ].map((card) => (
+
                   <Link
                     key={card.to}
                     to={card.to}
