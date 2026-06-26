@@ -31,7 +31,10 @@ const geoMeta: Record<string, { region: string; placename: string }> = {
   fr: { region: "FR", placename: "France" },
   es: { region: "ES", placename: "España" },
   de: { region: "DE", placename: "Deutschland" },
+  ar: { region: "AE", placename: "العالم العربي" },
+  ja: { region: "JP", placename: "日本" },
 };
+
 
 const SEO = ({
   title,
