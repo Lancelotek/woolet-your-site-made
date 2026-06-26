@@ -1099,15 +1099,28 @@ export function StepLenses({ config, update }: StepProps) {
               <button
                 key={l.id}
                 onClick={() => update("lensTypeId", l.id)}
-                className={`${cardOuter} ${active ? cardActive : "hover:border-cream/25"} text-left p-4`}
+                className={`${cardOuter} ${active ? cardActive : "hover:border-cream/25"} text-left p-3 flex gap-3 items-center`}
               >
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="text-cream text-sm">{l.name}</span>
-                  <span className="text-gold-light text-xs">
-                    {l.priceEur === 0 ? "Included" : `+ ${formatEur(l.priceEur)}`}
-                  </span>
+                <div
+                  className="relative w-16 h-16 shrink-0 overflow-hidden bg-cream/[0.03] border border-cream/10"
+                  style={{ borderRadius: 2 }}
+                >
+                  <img
+                    src={l.image}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
                 </div>
-                <div className="text-cream-dim text-[0.72rem] mt-1">{l.description}</div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className="text-cream text-sm truncate">{l.name}</span>
+                    <span className="text-gold-light text-xs shrink-0">
+                      {l.priceEur === 0 ? "Included" : `+ ${formatEur(l.priceEur)}`}
+                    </span>
+                  </div>
+                  <div className="text-cream-dim text-[0.72rem] mt-1">{l.description}</div>
+                </div>
               </button>
             );
           })}
