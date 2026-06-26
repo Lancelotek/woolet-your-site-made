@@ -201,9 +201,59 @@ const BespokeWaitlistGate = () => {
             </p>
           </form>
         )}
+
+        {status !== "success" && (
+          <div className="mt-6 pt-5 border-t border-cream/10">
+            {mode === "email" ? (
+              <button
+                type="button"
+                onClick={() => setMode("password")}
+                className="w-full text-center text-[0.72rem] uppercase tracking-[0.22em] text-cream-dim hover:text-gold-light transition"
+              >
+                Have an access password?
+              </button>
+            ) : (
+              <form onSubmit={submitPassword} className="space-y-3">
+                <label htmlFor="bespoke-gate-password" className="block text-[0.72rem] uppercase tracking-[0.22em] text-cream-dim">
+                  Access password
+                </label>
+                <input
+                  id="bespoke-gate-password"
+                  type="password"
+                  autoFocus
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value); setPasswordError(null); }}
+                  placeholder="Enter password"
+                  className={`w-full px-4 py-3 rounded-[10px] bg-cream/[0.04] border text-cream placeholder:text-cream-dim/60 text-sm focus:outline-none transition ${
+                    passwordError ? "border-red-400/60 focus:border-red-400" : "border-cream/15 focus:border-gold/60"
+                  }`}
+                />
+                {passwordError && (
+                  <p role="alert" className="text-[0.78rem] text-red-300">{passwordError}</p>
+                )}
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => { setMode("email"); setPassword(""); setPasswordError(null); }}
+                    className="flex-1 px-4 py-3 rounded-full border border-cream/20 text-cream-dim text-[0.72rem] uppercase tracking-[0.22em] hover:text-cream hover:border-cream/40 transition"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-3 rounded-full bg-gold text-background text-[0.72rem] uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
+                  >
+                    Unlock
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
 
 export default BespokeWaitlistGate;
