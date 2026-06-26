@@ -437,9 +437,8 @@ const AdvertorialPage = () => {
                 Built for 155 mm+
               </span>
             </div>
-
-            </div>
           </figure>
+
 
           {/* 4b. Frame width comparison chart */}
           <figure className="lp-figure" style={{ padding: "16px 20px 8px", margin: 0 }}>
