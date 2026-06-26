@@ -361,7 +361,7 @@ const KickstarterPrelaunch = () => {
       <header className="border-b border-[#1a1612]">
         <div className="max-w-6xl mx-auto px-5 py-5 flex items-center justify-between">
           <Link to="/en" className="flex items-center gap-2">
-            <img src={logo} alt="Woolet" className="h-6 w-auto" />
+            <img src={logo} alt="Woolet" className="h-8 w-auto" />
           </Link>
           <span className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
             Launching on Kickstarter
