@@ -152,9 +152,7 @@ const Collection = () => {
           />
         </main>
 
-
         <Footer />
-        <StickyMobileCTA />
       </div>
     </>
   );
