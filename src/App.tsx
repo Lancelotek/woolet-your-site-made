@@ -77,7 +77,7 @@ const FitScanRedirect = () => {
 
 /** Root redirect: auto-detect German browsers and send to /de, otherwise /en. */
 const RootRedirect = () => {
-  const SUPPORTED = ["en", "de", "pl", "fr", "es"] as const;
+  const SUPPORTED = ["en", "de", "pl", "fr", "es", "ar", "ja"] as const;
   let target = "/en";
   try {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem("woolet_lang") : null;
