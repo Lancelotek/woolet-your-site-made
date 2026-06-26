@@ -760,7 +760,7 @@ const es: Dict = {
   "page.err_no_camera": "Tu navegador no expone acceso a la cámara. Prueba Chrome, Safari o Firefox — o usa el asistente manual.",
 };
 
-const dicts: Record<Lang, Dict> = { en, pl, fr, es, de: en };
+const dicts: Record<Lang, Dict> = { en, pl, fr, es, de: en, ar: en, ja: en };
 
 export function tFit(lang: Lang, key: string, vars?: Record<string, string | number>): string {
   const raw = dicts[lang]?.[key] ?? en[key] ?? key;
