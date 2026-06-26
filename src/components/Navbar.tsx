@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import wooletLogo from "@/assets/woolet-logo.png";
+import wooletLogo from "@/assets/woolet-logo.svg";
 import { SUPPORTED_LANGS, langNames, t, isValidLang, type Lang } from "@/lib/i18n";
 import { useState } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
