@@ -922,42 +922,8 @@ const AdvertorialPage = () => {
               It was the first time in my life anyone had asked me that.
             </p>
 
-            {/* Section D — Testimonials */}
-            <blockquote
-              style={{
-                borderLeft: "3px solid #d8b86a",
-                padding: "10px 14px",
-                background: "rgba(216,184,106,0.06)",
-                margin: "14px auto",
-                borderRadius: 0,
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontStyle: "italic",
-                  fontSize: 15,
-                  color: "#f3ece0",
-                  lineHeight: 1.6,
-                  margin: 0,
-                }}
-              >
-                "I've been searching for frames this wide for years. Woolet is the first brand that actually gets it."
-              </p>
-              <div
-                style={{
-                  fontFamily: "'Barlow', sans-serif",
-                  fontWeight: 300,
-                  fontSize: 12,
-                  letterSpacing: "2px",
-                  color: "#8a8275",
-                  textTransform: "uppercase",
-                  marginTop: 6,
-                }}
-              >
-                MAREK W. · 161MM · WARSAW
-              </div>
-            </blockquote>
+            {/* Section D — Customer note */}
+
 
             <blockquote
               style={{
