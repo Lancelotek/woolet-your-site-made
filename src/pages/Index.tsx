@@ -266,13 +266,22 @@ type MeterCfg = {
   ticks: number[];
 };
 
-const MeterRow = ({ cfg }: { cfg: MeterCfg }) => {
+const MeterRow = ({
+  cfg,
+  standardLabel,
+  yourRangeLabel,
+}: {
+  cfg: MeterCfg;
+  standardLabel: string;
+  yourRangeLabel: string;
+}) => {
   const pct = (mm: number) =>
     ((mm - cfg.scaleMin) / (cfg.scaleMax - cfg.scaleMin)) * 100;
   const stdLeft = pct(cfg.standard[0]);
   const stdWidth = pct(cfg.standard[1]) - stdLeft;
   const wlLeft = pct(cfg.woolet[0]);
   const wlWidth = pct(cfg.woolet[1]) - wlLeft;
+
 
   return (
     <div className="w-full">
