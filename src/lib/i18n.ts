@@ -1,9 +1,16 @@
-export const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de"] as const;
+export const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de", "ar", "ja"] as const;
 export type Lang = (typeof SUPPORTED_LANGS)[number];
 
 export function isValidLang(lang: string): lang is Lang {
   return SUPPORTED_LANGS.includes(lang as Lang);
 }
+
+/** Locales rendered right-to-left. Used to set <html dir="rtl">. */
+export const RTL_LANGS: ReadonlySet<Lang> = new Set(["ar"]);
+export function dirForLang(lang: Lang): "ltr" | "rtl" {
+  return RTL_LANGS.has(lang) ? "rtl" : "ltr";
+}
+
 
 export const translations: Record<Lang, Record<string, string>> = {
   en: {
