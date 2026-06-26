@@ -298,7 +298,7 @@ const MeterRow = ({
           className="absolute -translate-x-1/2 whitespace-nowrap"
           style={{ left: `${stdLeft + stdWidth / 2}%`, color: "hsl(var(--cream-dim) / 0.7)" }}
         >
-          <span>✕ Standard</span>{" "}
+          <span>✕ {standardLabel}</span>{" "}
           <span className="text-foreground/85" style={{ fontWeight: 500 }}>
             {cfg.standard[0]}–{cfg.standard[1]}
           </span>
