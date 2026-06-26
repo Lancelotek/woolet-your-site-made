@@ -778,13 +778,14 @@ const Index = () => {
                         className="font-display text-woolet-white leading-none"
                         style={{ fontSize: "1.05rem" }}
                       >
-                        From $114
+                        {copy.fromPrice}
                       </div>
                       <div
                         className="uppercase tracking-[0.28em] text-cream-dim group-hover:text-gold-light transition-colors mt-2"
                         style={{ fontSize: "0.65rem", fontFamily: "Barlow, sans-serif" }}
                       >
-                        View →
+                        {copy.viewCta}
+
                       </div>
                     </div>
                   </div>
