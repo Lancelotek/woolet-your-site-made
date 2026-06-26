@@ -991,7 +991,7 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              I received a prototype pair. Model 007 — round panto, Dark Tortoise, 158mm. Wide temples. Keyhole bridge 21mm — the wider keyhole-shaped bridge that doesn't slide off your nose every twenty minutes.
+              I received a prototype pair. Model 007 — round panto, Crystal Grey, 158mm. Wide temples. Keyhole bridge 21mm — the wider keyhole-shaped bridge that doesn't slide off your nose every twenty minutes.
             </p>
             <p
               style={{
