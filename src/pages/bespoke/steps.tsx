@@ -42,6 +42,8 @@ type WidthSort = "all" | "narrow" | "fit" | "wide";
 export function StepFrame({ config, update }: StepProps) {
   const [shapeFilter, setShapeFilter] = useState<string>("all");
   const [widthSort, setWidthSort] = useState<WidthSort>("all");
+  const [galleryFrame, setGalleryFrame] = useState<Frame | null>(null);
+
 
   // User's fit window — from scan if present, else default to 161 mm (brand reference).
   const userFace = config.measurements.faceWidth ?? 161;
