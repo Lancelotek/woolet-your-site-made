@@ -527,11 +527,11 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              When the frame ends before the temple — the brain reads the
-              exposed skin as extra width. Standard glasses (130–148mm) are
-              physically too narrow for faces above 155mm. That's not an
-              opinion — it's geometry.
+              Standard glasses (130–148mm) are physically too narrow for faces above
+              155mm. That's not an opinion — it's geometry. (More on the optical
+              effect below.)
             </p>
+
 
             {/* Inline image */}
             <figure style={{ margin: "12px auto", maxWidth: 660 }}>
