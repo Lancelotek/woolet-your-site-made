@@ -134,7 +134,7 @@ const Collection = () => {
                     pushGtmEvent("collection_cta_fit_wizard_click", {
                       location: "collection_inline",
                       dest: "fit_wizard",
-                      cta_label: "Start Fit Wizard",
+                      cta_label: "Find your fit",
                     })
                   }
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all whitespace-nowrap"
@@ -149,7 +149,8 @@ const Collection = () => {
                   onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
                 >
-                  Start Fit Wizard
+                  Find your fit
+
                 </Link>
               </div>
             </div>
