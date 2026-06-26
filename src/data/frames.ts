@@ -73,7 +73,7 @@ const GALLERY_COUNTS: Record<string, number> = {
 };
 
 
-export const FRAMES: Frame[] = [
+const FRAMES_BASE: Omit<Frame, "gallery">[] = [
   { id: "wr-03", name: "Bold square",        shape: "Square",      url: wr03.url, basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
   { id: "wr-05", name: "Keyhole round",      shape: "Round",       url: wr05.url, basePriceEur: BASE, widthMm: 161, bridgeMm: 23 },
   { id: "wr-07", name: "Soft cat-eye",       shape: "Cat-eye",     url: wr07.url, basePriceEur: BASE, widthMm: 156, bridgeMm: 21 },
@@ -100,6 +100,12 @@ export const FRAMES: Frame[] = [
   { id: "wr-39", name: "Modern cat-eye",     shape: "Cat-eye",     url: wr39.url, basePriceEur: BASE, widthMm: 156, bridgeMm: 22 },
   { id: "wr-40", name: "Bold panto",         shape: "Panto",       url: wr40.url, basePriceEur: BASE, widthMm: 169, bridgeMm: 23 },
 ];
+
+export const FRAMES: Frame[] = FRAMES_BASE.map((f) => ({
+  ...f,
+  gallery: gal(f.id, GALLERY_COUNTS[f.id] ?? 1),
+}));
+
 
 
 export const FRAME_SHAPES: FrameShape[] = Array.from(new Set(FRAMES.map((f) => f.shape))) as FrameShape[];
