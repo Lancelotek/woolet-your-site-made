@@ -102,8 +102,7 @@ const ConfiguratorPage = () => {
           <div className="cfg-container flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link to="/en/bespoke" aria-label="Woolet bespoke" className="flex items-center gap-3 group">
-                <img src="/__l5e/assets-v1/45616e6b-d290-4155-ac79-604f7d642a5d/woolet-logo.png" alt="" className="cfg-mark" />
-                <span className="cfg-wordmark">Woolet</span>
+                <img src="/__l5e/assets-v1/45616e6b-d290-4155-ac79-604f7d642a5d/woolet-logo.png" alt="Woolet" className="cfg-mark" />
               </Link>
               <span className="cfg-divider" aria-hidden />
               <Link to="/en/bespoke" className="cfg-back">
