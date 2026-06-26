@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
-import logo from "@/assets/woolet-logo.png";
+import logo from "@/assets/woolet-logo.svg";
 
 const KS_LAUNCH_DATE_LABEL = "September 19, 2026";
 const FOUNDERS_EDITION_TOTAL = 100;

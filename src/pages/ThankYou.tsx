@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useSearchParams, Link } from "react-router-dom";
-import wooletLogo from "@/assets/woolet-logo.png";
+import wooletLogo from "@/assets/woolet-logo.svg";
 import { rdtPurchase } from "@/lib/reddit-pixel";
 
 const T = {

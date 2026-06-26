@@ -6,7 +6,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import Countdown from "@/components/Countdown";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
-import logo from "@/assets/woolet-logo.png";
+import logo from "@/assets/woolet-logo.svg";
 import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
 import w007BlackAsset from "@/assets/woolet-007-black.png.asset.json";
 import w007GreyAsset from "@/assets/woolet-007-grey.png.asset.json";
