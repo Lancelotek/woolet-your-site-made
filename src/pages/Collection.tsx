@@ -149,6 +149,7 @@ const Collection = () => {
             bespokeHref={`/${lang}/bespoke`}
             sectionId="size-matrix"
             lang={lang}
+            showCta={false}
           />
         </main>
 
