@@ -618,9 +618,8 @@ const Index = () => {
               </div>
             </div>
 
-            </div>
-
             {/* RIGHT — portrait card, stretches to match left column */}
+
             <div
               className="relative w-full aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] lg:self-stretch overflow-hidden"
               style={{
