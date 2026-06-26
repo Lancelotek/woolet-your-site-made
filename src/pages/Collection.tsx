@@ -63,15 +63,15 @@ const Collection = () => {
                 with bespoke up to 172 mm. Italian Mazzucchelli acetate, hand-finished in the EU.
               </p>
 
-              {/* Primary CTAs → Fit Wizard */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-7">
+              {/* Primary CTA → Fit Wizard */}
+              <div className="pt-7">
                 <Link
                   to={`/${lang}/fit`}
                   onClick={() =>
                     pushGtmEvent("collection_cta_fit_wizard_click", {
                       location: "collection_hero",
                       dest: "fit_wizard",
-                      cta_label: "Find your size",
+                      cta_label: "Find your FIT",
                     })
                   }
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
@@ -86,30 +86,7 @@ const Collection = () => {
                   onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
                 >
-                  Find your size — Fit Wizard
-                </Link>
-                <Link
-                  to={`/${lang}/fit/wizard`}
-                  onClick={() =>
-                    pushGtmEvent("collection_cta_fit_wizard_click", {
-                      location: "collection_hero",
-                      dest: "fit_wizard_quiz",
-                      cta_label: "60-second quiz",
-                    })
-                  }
-                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-colors text-foreground"
-                  style={{
-                    border: "1px solid hsl(0 0% 100% / 0.18)",
-                    fontFamily: "Barlow, sans-serif",
-                    fontWeight: 500,
-                    fontSize: "0.78rem",
-                    padding: "18px 28px",
-                    background: "transparent",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = "hsl(var(--gold) / 0.6)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.18)")}
-                >
-                  Take the 60-sec quiz
+                  Find your FIT
                 </Link>
               </div>
             </div>
