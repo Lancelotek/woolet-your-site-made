@@ -18,12 +18,14 @@ const SizeMatrix = ({
   semantic = true,
   sectionId,
   lang = "en",
+  showCta = true,
 }: {
   fitHref?: string;
   bespokeHref?: string;
   semantic?: boolean;
   sectionId?: string;
   lang?: Lang;
+  showCta?: boolean;
 }) => {
   const HeadingTag = semantic ? "h2" : "div";
 
