@@ -43,7 +43,10 @@ export interface Frame {
   id: string;
   name: string;
   shape: FrameShape;
+  /** Studio hero image (local asset) used in product/configurator cards. */
   url: string;
+  /** Full marketing photo set hosted on GitHub (raw.githubusercontent.com). First entry is the hero. */
+  gallery: string[];
   basePriceEur: number;
   /** Total frame front width in millimetres (temple to temple, lens-to-lens). */
   widthMm: number;
@@ -52,6 +55,23 @@ export interface Frame {
 }
 
 const BASE = 480;
+
+const GH_BASE =
+  "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/eyewear-images/all";
+
+/** Build the canonical GitHub gallery URL list for a frame id and photo count. */
+const gal = (id: string, n: number): string[] =>
+  Array.from({ length: n }, (_, i) => `${GH_BASE}/${id}/${id}-${String(i + 1).padStart(2, "0")}.jpg`);
+
+/** Photo counts per frame (verified against the public GitHub repo). */
+const GALLERY_COUNTS: Record<string, number> = {
+  "wr-03": 11, "wr-05": 14, "wr-07": 11, "wr-13": 14, "wr-15": 9,
+  "wr-17": 7,  "wr-19": 6,  "wr-20": 12, "wr-21": 6,  "wr-22": 13,
+  "wr-24": 9,  "wr-25": 7,  "wr-26": 15, "wr-27": 26, "wr-29": 6,
+  "wr-30": 7,  "wr-31": 11, "wr-32": 7,  "wr-34": 7,  "wr-35": 8,
+  "wr-36": 8,  "wr-37": 8,  "wr-38": 7,  "wr-39": 8,  "wr-40": 7,
+};
+
 
 export const FRAMES: Frame[] = [
   { id: "wr-03", name: "Bold square",        shape: "Square",      url: wr03.url, basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
