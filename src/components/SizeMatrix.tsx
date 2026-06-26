@@ -139,24 +139,26 @@ const SizeMatrix = ({
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-2">
-          <Link
-            to={`/${lang}/lp/kickstarter`}
-            className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all self-start"
-            style={{
-              background: "hsl(var(--gold))",
-              color: "hsl(var(--background))",
-              fontFamily: "Barlow, sans-serif",
-              fontWeight: 500,
-              fontSize: "0.82rem",
-              padding: "18px 32px",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
-          >
-            Join the waitlist — save 40%
-          </Link>
-        </div>
+        {showCta && (
+          <div className="mt-12 flex flex-col gap-2">
+            <Link
+              to={`/${lang}/lp/kickstarter`}
+              className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all self-start"
+              style={{
+                background: "hsl(var(--gold))",
+                color: "hsl(var(--background))",
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 500,
+                fontSize: "0.82rem",
+                padding: "18px 32px",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
+            >
+              Join the waitlist — save 40%
+            </Link>
+          </div>
+        )}
 
       </div>
     </section>
