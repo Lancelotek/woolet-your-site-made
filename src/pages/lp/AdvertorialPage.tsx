@@ -342,7 +342,7 @@ const AdvertorialPage = () => {
               </span>
             </div>
 
-            {/* Views */}
+            {/* Trust signal — verifiable, no inflated view counts */}
             <div
               style={{
                 marginLeft: "auto",
@@ -360,20 +360,21 @@ const AdvertorialPage = () => {
                   color: "#f3ece0",
                 }}
               >
-                92K
+                8 min read
               </span>
               <span
                 style={{
                   fontFamily: "'Barlow', sans-serif",
-                  fontSize: 12,
+                  fontSize: 11,
                   color: "#8a8275",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
                 }}
               >
-                VIEWS
+                Founder's note
               </span>
             </div>
+
           </div>
 
           {/* 4. Hero image — full figure width on desktop with Archivo tracked labels */}
