@@ -475,20 +475,33 @@ const Index = () => {
     }, 120);
   }, [location.hash]);
 
+  // Toggle RTL on <html> for Arabic; restore on cleanup.
+  useEffect(() => {
+    const html = document.documentElement;
+    const prevDir = html.getAttribute("dir");
+    html.setAttribute("dir", dirForLang(lang));
+    return () => {
+      if (prevDir) html.setAttribute("dir", prevDir);
+      else html.removeAttribute("dir");
+    };
+  }, [lang]);
+
   if (paramLang && !isValidLang(paramLang)) {
     return <Navigate to="/en" replace />;
   }
 
   const seo = seoData[lang];
+  const copy = homeCopy[lang];
 
   const models = [
-    { id: "007", name: "Woolet 007", shape: "Round", img: woolet007Asset.url, alt: "Woolet 007 round Italian acetate frame for wide faces" },
-    { id: "009", name: "Woolet 009", shape: "Soft-square", img: woolet009Asset.url, alt: "Woolet 009 soft-square Italian acetate frame for wide faces" },
+    { id: "007", name: "Woolet 007", shape: copy.shapeRound, img: woolet007Asset.url, alt: "Woolet 007 round Italian acetate frame for wide faces" },
+    { id: "009", name: "Woolet 009", shape: copy.shapeSquare, img: woolet009Asset.url, alt: "Woolet 009 soft-square Italian acetate frame for wide faces" },
   ];
 
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} />
+
 
       <div className="min-h-screen flex flex-col bg-background text-foreground relative overflow-hidden">
         {/* Ambient gold glow */}
