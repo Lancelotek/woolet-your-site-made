@@ -96,8 +96,9 @@ const StickyCta = ({ onClick }: { onClick: () => void }) => {
         }}
         className="lp-sticky-label"
       >
-        Find your width — and your bridge
+        Scan → see your size → reserve your spot
       </span>
+
       <button
         onClick={onClick}
         style={{
@@ -527,11 +528,11 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              When the frame ends before the temple — the brain reads the
-              exposed skin as extra width. Standard glasses (130–148mm) are
-              physically too narrow for faces above 155mm. That's not an
-              opinion — it's geometry.
+              Standard glasses (130–148mm) are physically too narrow for faces above
+              155mm. That's not an opinion — it's geometry. (More on the optical
+              effect below.)
             </p>
+
 
             {/* Inline image */}
             <figure style={{ margin: "12px auto", maxWidth: 660 }}>
@@ -1054,6 +1055,21 @@ const AdvertorialPage = () => {
               >
                 SCAN YOUR FACE — FREE
               </button>
+              <p
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 12,
+                  color: "#8a8275",
+                  textAlign: "center",
+                  margin: "10px 0 0",
+                  letterSpacing: "0.02em",
+                }}
+              >
+                Scan → see your size → reserve your spot on the waitlist.
+                No purchase, no card.
+              </p>
+
             </div>
           </div>
 
