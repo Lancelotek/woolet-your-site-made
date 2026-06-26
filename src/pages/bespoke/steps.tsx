@@ -202,7 +202,7 @@ function ColorSwatchGrid({
   onSelect: (id: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
       {COLORS.map((c) => {
         const active = selected === c.id;
         return (
@@ -210,14 +210,30 @@ function ColorSwatchGrid({
             key={c.id}
             onClick={() => onSelect(c.id)}
             title={c.name}
-            className={`group relative aspect-square rounded-full border transition ${
-              active ? "border-gold ring-2 ring-gold/40" : "border-cream/15 hover:border-cream/40"
+            className={`group relative aspect-square overflow-hidden border transition ${
+              active
+                ? "border-gold ring-2 ring-gold/40"
+                : "border-cream/10 hover:border-cream/30"
             }`}
-            style={{ background: c.hex }}
+            style={{ borderRadius: 2 }}
           >
+            <img
+              src={c.image}
+              alt={`${c.name} bio-acetate sample`}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            />
+            <span className="absolute inset-x-0 bottom-0 px-2 py-1.5 bg-gradient-to-t from-[#0c0c0c]/85 to-transparent">
+              <span className="block text-cream text-[10px] uppercase tracking-[0.16em] font-medium truncate">
+                {c.name}
+              </span>
+            </span>
             {active && (
-              <span className="absolute inset-0 flex items-center justify-center">
-                <Check size={14} className="text-cream drop-shadow" />
+              <span
+                className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-5 h-5 bg-[color:var(--cfg-gold)]"
+                style={{ borderRadius: 2 }}
+              >
+                <Check size={11} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
               </span>
             )}
           </button>
@@ -256,20 +272,41 @@ export function StepColor({ config, update }: StepProps) {
 
       <div>
         <div className={labelClass}>Finish</div>
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-3 grid grid-cols-3 gap-2.5">
           {FINISHES.map((f) => {
             const active = config.finishId === f.id;
             return (
               <button
                 key={f.id}
                 onClick={() => update("finishId", f.id)}
-                className={`px-4 py-2 rounded-full text-xs tracking-wide border transition ${
+                className={`group relative overflow-hidden border text-left transition ${
                   active
-                    ? "border-gold text-gold-light bg-gold/10"
-                    : "border-cream/15 text-cream-dim hover:border-cream/30"
+                    ? "border-gold ring-2 ring-gold/40"
+                    : "border-cream/10 hover:border-cream/30"
                 }`}
+                style={{ borderRadius: 2 }}
               >
-                {f.name}
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={f.image}
+                    alt={`${f.name} finish sample`}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                </div>
+                <div className="px-3 py-2.5 bg-[#0c0c0c]/40">
+                  <div className={`text-[11px] uppercase tracking-[0.16em] ${active ? "text-gold-light" : "text-cream"}`}>
+                    {f.name}
+                  </div>
+                </div>
+                {active && (
+                  <span
+                    className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-5 h-5 bg-[color:var(--cfg-gold)]"
+                    style={{ borderRadius: 2 }}
+                  >
+                    <Check size={11} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
+                  </span>
+                )}
               </button>
             );
           })}
