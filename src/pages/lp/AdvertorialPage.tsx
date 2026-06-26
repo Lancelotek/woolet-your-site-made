@@ -4,9 +4,8 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import beforeAfterAsset from "@/assets/standard-vs-155mm.png.asset.json";
-import frameWidthChartImg from "@/assets/frame-width-chart-v2.png";
 import noseBridgeImg from "@/assets/nose-bridge-v2.png";
-import wideFaceCompAsset from "@/assets/wide-face-fit-comparison.png.asset.json";
+
 import woolet007Detail from "@/assets/woolet-007-detail.png";
 import advertorialPortrait from "@/assets/advertorial-portrait.png.asset.json";
 import tooNarrowPain from "@/assets/too-narrow-pain.png.asset.json";
