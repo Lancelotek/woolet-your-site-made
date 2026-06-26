@@ -1054,6 +1054,21 @@ const AdvertorialPage = () => {
               >
                 SCAN YOUR FACE — FREE
               </button>
+              <p
+                style={{
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 12,
+                  color: "#8a8275",
+                  textAlign: "center",
+                  margin: "10px 0 0",
+                  letterSpacing: "0.02em",
+                }}
+              >
+                Scan → see your size → reserve your spot on the waitlist.
+                No purchase, no card.
+              </p>
+
             </div>
           </div>
 
