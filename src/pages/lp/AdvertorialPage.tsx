@@ -96,8 +96,9 @@ const StickyCta = ({ onClick }: { onClick: () => void }) => {
         }}
         className="lp-sticky-label"
       >
-        Find your width — and your bridge
+        Scan → see your size → reserve your spot
       </span>
+
       <button
         onClick={onClick}
         style={{
