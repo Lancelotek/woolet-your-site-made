@@ -83,16 +83,18 @@ const Footer = () => {
             <span
               className="self-start"
               style={{
-                fontFamily: "'Newsreader', 'Cormorant Garamond', serif",
+                fontFamily: "'Archivo', system-ui, sans-serif",
                 fontWeight: 500,
-                fontSize: "1.75rem",
+                fontSize: "0.95rem",
                 lineHeight: 1,
-                letterSpacing: "0.01em",
+                letterSpacing: "0.32em",
+                textTransform: "uppercase",
                 color: "hsl(var(--cream, 39 30% 91%))",
               }}
             >
               Woolet
             </span>
+
             <p
               className="text-cream-dim/70 max-w-[280px] leading-relaxed"
               style={{ fontSize: "0.78rem" }}
