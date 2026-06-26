@@ -167,9 +167,16 @@ export function StepFrame({ config, update }: StepProps) {
           );
         })}
       </div>
+
+      <FrameGallery
+        frame={galleryFrame}
+        open={galleryFrame !== null}
+        onOpenChange={(o) => { if (!o) setGalleryFrame(null); }}
+      />
     </div>
   );
 }
+
 
 function ChipFilter({
   active, onClick, children, compact,
