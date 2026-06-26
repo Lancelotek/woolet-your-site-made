@@ -186,7 +186,18 @@ const homeCopy: Record<Lang, Copy> = {
     description:
       "Premium-Brillen aus italienischem Mazzucchelli-Acetat, entwickelt für breite Gesichter (ab 155 mm). Drei gemessene Größen plus Maßanfertigung. Ab 114 $ im Pre-Order.",
   },
+  ar: {
+    title: "Woolet — نظارات فاخرة للوجوه العريضة (155 ملم+)",
+    description:
+      "نظارات فاخرة من أسيتات Mazzucchelli الإيطالي، مصممة للوجوه العريضة (155 ملم+). ثلاثة مقاسات مدروسة بالإضافة للصناعة الخاصة. ابتداءً من 114$ في الطلب المسبق.",
+  },
+  ja: {
+    title: "Woolet — 幅広い顔のためのプレミアムアイウェア (155mm以上)",
+    description:
+      "イタリア製Mazzucchelliアセテートのプレミアムアイウェア、幅広い顔（155mm以上）のために設計。3つの計測サイズとビスポーク。プレオーダー$114から。",
+  },
 };
+
 
 // ---------------------------------------------------------------------------
 // Route builder
