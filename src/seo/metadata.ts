@@ -139,9 +139,12 @@ function ogLocale(lang: Lang): string {
     case "fr": return "fr_FR";
     case "es": return "es_ES";
     case "de": return "de_DE";
+    case "ar": return "ar_AR";
+    case "ja": return "ja_JP";
     default: return "en_US";
   }
 }
+
 
 function langFromRoute(route: string): Lang {
   const m = route.match(/^\/([a-z]{2})(\/|$)/);
