@@ -442,24 +442,7 @@ const AdvertorialPage = () => {
           </figure>
 
 
-          {/* 4b. Frame width comparison chart */}
-          <figure className="lp-figure" style={{ padding: "16px 20px 8px", margin: 0 }}>
-            <img
-              src={frameWidthChartImg}
-              alt="Frame width comparison chart in millimetres: Zenni 140mm, Warby Parker 148mm, Woolet S 155mm, Woolet M 158mm, Woolet L 161mm — wide faces need 155–168mm where most brands stop fitting"
-              width={1600}
-              height={1000}
-              style={{
-                width: "100%",
-                height: "auto",
-                borderRadius: 8,
-                display: "block",
-              }}
-              loading="lazy"
-              decoding="async"
-            />
-            {/* duplicate caption removed — chart subtitle already states this */}
-          </figure>
+
 
           {/* 5. Article body */}
           <div className="lp-body" style={{ padding: "0 20px" }}>
