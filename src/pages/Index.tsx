@@ -527,31 +527,29 @@ const Index = () => {
             <div className="flex flex-col gap-6 lg:gap-7 lg:py-2">
               <div className="woolet-eyebrow">
                 <div className="woolet-eyebrow-line" />
-                <span className="woolet-eyebrow-text">Built for wide faces</span>
+                <span className="woolet-eyebrow-text">{copy.heroEyebrow}</span>
               </div>
 
               <h1
                 className="font-display text-woolet-white leading-[1.02] max-w-[620px]"
                 style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)", fontWeight: 300 }}
               >
-                Too wide for{" "}
+                {copy.h1Pre}
                 <em className="text-gold-light" style={{ fontStyle: "italic" }}>
-                  Ray-Ban, Persol
-                </em>{" "}
-                or Warby Parker?
+                  {copy.h1Em}
+                </em>
+                {copy.h1Post}
               </h1>
 
               <p
                 className="text-cream-dim leading-relaxed max-w-[520px]"
                 style={{ fontSize: "1.02rem" }}
               >
-                Woolet designs frames that finally fit. Italian Mazzucchelli acetate,
-                handmade in the EU — and one honest width range you won't find
-                anywhere else.
+                {copy.heroDesc}
               </p>
 
               <div className="pt-1">
-                <FrameWidthMeter />
+                <FrameWidthMeter copy={copy} />
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
@@ -575,7 +573,7 @@ const Index = () => {
                   onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
                 >
-                  Join the list — 40% off
+                  {copy.ctaPrimary}
                 </Link>
                 <Link
                   to={`/${lang}/collection`}
@@ -603,7 +601,7 @@ const Index = () => {
                     e.currentTarget.style.color = "hsl(var(--cream-dim))";
                   }}
                 >
-                  View collection
+                  {copy.ctaSecondary}
                 </Link>
               </div>
 
@@ -612,12 +610,14 @@ const Index = () => {
                 className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1 text-cream-dim/80"
                 style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
               >
-                <span>Fit guarantee</span>
+                <span>{copy.trustFit}</span>
                 <span className="text-cream-dim/30">·</span>
-                <span>Mazzucchelli acetate</span>
+                <span>{copy.trustAcetate}</span>
                 <span className="text-cream-dim/30">·</span>
-                <span>Handmade in the EU</span>
+                <span>{copy.trustHandmade}</span>
               </div>
+            </div>
+
             </div>
 
             {/* RIGHT — portrait card, stretches to match left column */}
