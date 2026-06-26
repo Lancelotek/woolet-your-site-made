@@ -686,15 +686,15 @@ const Index = () => {
               <div>
                 <div className="woolet-eyebrow mb-3">
                   <div className="woolet-eyebrow-line" />
-                  <span className="woolet-eyebrow-text">The collection</span>
+                  <span className="woolet-eyebrow-text">{copy.teaserEyebrow}</span>
                 </div>
                 <h2
                   className="font-display text-woolet-white leading-tight"
                   style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)", fontWeight: 300 }}
                 >
-                  Two shapes.{" "}
+                  {copy.teaserH2Pre}
                   <em className="text-gold-light" style={{ fontStyle: "italic" }}>
-                    One honest range.
+                    {copy.teaserH2Em}
                   </em>
                 </h2>
               </div>
@@ -706,7 +706,8 @@ const Index = () => {
                 className="text-cream-dim hover:text-foreground no-underline uppercase tracking-[0.22em] transition-colors self-start sm:self-auto"
                 style={{ fontSize: "0.72rem", fontFamily: "Barlow, sans-serif" }}
               >
-                View all sizes →
+                {copy.viewAll}
+
               </Link>
             </div>
 
