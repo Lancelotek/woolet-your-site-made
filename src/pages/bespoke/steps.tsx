@@ -111,19 +111,37 @@ export function StepFrame({ config, update }: StepProps) {
               onClick={() => update("frameId", f.id)}
               className={`cfg-card group text-left ${active ? "cfg-card--active" : ""} ${!fits && !active ? "cfg-card--dim" : ""}`}
             >
-              <div className="cfg-card__photo">
+              <div className="cfg-card__photo relative">
                 <img
                   src={f.url}
                   alt={f.name}
                   loading="lazy"
                   className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.03]"
                 />
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={(e) => { e.stopPropagation(); setGalleryFrame(f); }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setGalleryFrame(f);
+                    }
+                  }}
+                  aria-label={`View ${f.gallery.length} photos of ${f.name}`}
+                  className="absolute bottom-2 left-2 inline-flex items-center gap-1 px-2 py-1 text-[10px] uppercase tracking-[0.18em] bg-[#0c0c0c]/70 text-cream backdrop-blur-sm opacity-0 group-hover:opacity-100 focus:opacity-100 transition cursor-pointer hover:bg-[#0c0c0c]/90"
+                  style={{ borderRadius: 2 }}
+                >
+                  <ImageIcon size={11} /> {f.gallery.length}
+                </span>
                 {active && (
                   <span className="absolute top-2.5 right-2.5 inline-flex items-center justify-center w-6 h-6 bg-[color:var(--cfg-gold)]" style={{ borderRadius: 2 }}>
                     <Check size={14} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
                   </span>
                 )}
               </div>
+
 
               <div className="px-3 py-3">
                 <div className="flex items-baseline justify-between gap-2">
