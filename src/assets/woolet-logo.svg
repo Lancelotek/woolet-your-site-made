@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" role="img" aria-label="Woolet">
+  <title>Woolet</title>
+  <rect x="8" y="20" width="100" height="100" rx="6" ry="6" fill="#C2A05A"/>
+  <text x="58" y="92"
+    text-anchor="middle"
+    font-family="'Newsreader','Cormorant Garamond','Times New Roman',serif"
+    font-size="72"
+    font-weight="600"
+    fill="#0B0A09">W</text>
+  <text x="132" y="96"
+    font-family="'Newsreader','Cormorant Garamond','Times New Roman',serif"
+    font-size="78"
+    font-weight="500"
+    letter-spacing="0.5"
+    fill="#EFE9DF">Woolet</text>
+</svg>
