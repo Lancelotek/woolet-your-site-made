@@ -96,46 +96,11 @@ const Collection = () => {
           <section className="px-5 sm:px-8 lg:px-16 pb-4">
             <div className="max-w-5xl mx-auto">
               <ModelPills />
-
-              {/* Inline CTA between models and size matrix */}
-              <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-5 py-5 border" style={{ borderColor: "hsl(0 0% 100% / 0.08)" }}>
-                <div>
-                  <div className="text-cream-dim uppercase tracking-[0.22em] mb-1" style={{ fontSize: "0.7rem" }}>
-                    Not sure which size?
-                  </div>
-                  <div className="text-foreground" style={{ fontSize: "0.95rem" }}>
-                    Get a personal recommendation in 60 seconds.
-                  </div>
-                </div>
-                <Link
-                  to={`/${lang}/fit`}
-                  onClick={() =>
-                    pushGtmEvent("collection_cta_fit_wizard_click", {
-                      location: "collection_inline",
-                      dest: "fit_wizard",
-                      cta_label: "Find your fit",
-                    })
-                  }
-                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all whitespace-nowrap"
-                  style={{
-                    background: "hsl(var(--gold))",
-                    color: "hsl(var(--background))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontWeight: 500,
-                    fontSize: "0.76rem",
-                    padding: "14px 22px",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
-                >
-                  Find your fit
-
-                </Link>
-              </div>
             </div>
           </section>
 
           {/* Bespoke */}
+
           <section className="px-5 sm:px-8 lg:px-16 py-16 lg:py-24">
             <div className="max-w-5xl mx-auto">
               <div className="woolet-eyebrow mb-5">
