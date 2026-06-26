@@ -106,7 +106,26 @@ const Footer = () => {
                 <SocialIconLink key={s.label} {...s} />
               ))}
             </div>
+            <a
+              href="/brand/woolet-brand-assets.zip"
+              download
+              onClick={() => pushGtmEvent("brand_assets_download", { source: "footer" })}
+              className="inline-flex items-center gap-2 self-start mt-3 no-underline transition-colors hover:text-primary"
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.66rem",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "hsl(var(--gold-dim))",
+                border: "1px solid hsl(var(--gold-dim) / 0.4)",
+                borderRadius: "2px",
+                padding: "8px 12px",
+              }}
+            >
+              ↓ Brand Assets (.zip)
+            </a>
           </div>
+
 
           {/* Link groups */}
           {groups.map((g) => (
