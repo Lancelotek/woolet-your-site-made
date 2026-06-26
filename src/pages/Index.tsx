@@ -371,10 +371,10 @@ const MeterRow = ({
   );
 };
 
-const METERS: MeterCfg[] = [
+const makeMeters = (copy: HomeCopy): MeterCfg[] => [
   {
     key: "frame",
-    label: "Frame width",
+    label: copy.meterFrame,
     scaleMin: 135,
     scaleMax: 175,
     standard: [138, 148],
@@ -383,25 +383,26 @@ const METERS: MeterCfg[] = [
   },
   {
     key: "bridge",
-    label: "Nose bridge",
+    label: copy.meterBridge,
     scaleMin: 16,
     scaleMax: 26,
     standard: [16, 20],
     woolet: [21, 24],
-    wooletLabel: "Nose bridge",
+    wooletLabel: copy.meterBridge,
     ticks: [16, 21, 26],
   },
 ];
 
-const FrameWidthMeter = () => {
+const FrameWidthMeter = ({ copy }: { copy: HomeCopy }) => {
   const [active, setActive] = useState(0);
+  const meters = makeMeters(copy);
 
   useEffect(() => {
     const t = setInterval(() => {
-      setActive((i) => (i + 1) % METERS.length);
+      setActive((i) => (i + 1) % meters.length);
     }, 5200);
     return () => clearInterval(t);
-  }, []);
+  }, [meters.length]);
 
   return (
     <div className="w-full max-w-[520px]">
@@ -410,9 +411,13 @@ const FrameWidthMeter = () => {
           className="flex transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
           style={{ transform: `translateX(-${active * 100}%)` }}
         >
-          {METERS.map((m) => (
+          {meters.map((m) => (
             <div key={m.key} className="w-full shrink-0 pr-px">
-              <MeterRow cfg={m} />
+              <MeterRow
+                cfg={m}
+                standardLabel={copy.meterStandard}
+                yourRangeLabel={copy.yourRange}
+              />
             </div>
           ))}
         </div>
@@ -420,7 +425,7 @@ const FrameWidthMeter = () => {
 
       {/* Indicator dots */}
       <div className="flex items-center gap-2 mt-4">
-        {METERS.map((m, i) => (
+        {meters.map((m, i) => (
           <button
             key={m.key}
             type="button"
@@ -448,12 +453,13 @@ const FrameWidthMeter = () => {
             fontFamily: "Barlow, sans-serif",
           }}
         >
-          {METERS[active].label}
+          {meters[active].label}
         </span>
       </div>
     </div>
   );
 };
+
 
 const Index = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
