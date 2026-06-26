@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, ImageIcon, Lock, Unlock, Upload } from "lucide-react";
+import FrameGallery from "@/components/FrameGallery";
+
 import { supabase } from "@/integrations/supabase/client";
 
 import {
