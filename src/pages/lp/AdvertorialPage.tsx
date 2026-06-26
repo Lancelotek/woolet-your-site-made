@@ -1230,17 +1230,12 @@ const AdvertorialPage = () => {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                  gridTemplateColumns: "minmax(0, 420px)",
+                  justifyContent: "center",
                   gap: 14,
                 }}
               >
                 {[
-                  {
-                    to: "/en/lp/5-reasons",
-                    img: wideFaceCompAsset.url,
-                    eyebrow: "Fit Guide",
-                    title: "5 reasons standard glasses ruin your face proportions",
-                  },
                   {
                     to: "/en/fit",
                     img: noseBridgeImg,
@@ -1248,6 +1243,7 @@ const AdvertorialPage = () => {
                     title: "Measure your face — find your width and your bridge",
                   },
                 ].map((card) => (
+
                   <Link
                     key={card.to}
                     to={card.to}
