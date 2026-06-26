@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" role="img" aria-label="Woolet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 100" role="img" aria-label="Woolet">
   <title>Woolet</title>
-  <image href="/__l5e/assets-v1/45616e6b-d290-4155-ac79-604f7d642a5d/woolet-logo.png" x="10" y="10" width="120" height="120" preserveAspectRatio="xMidYMid meet"/>
-  <text x="148" y="96"
+  <image href="/__l5e/assets-v1/45616e6b-d290-4155-ac79-604f7d642a5d/woolet-logo.png" x="4" y="14" width="72" height="72" preserveAspectRatio="xMidYMid meet"/>
+  <text x="92" y="82"
     font-family="'Newsreader','Cormorant Garamond','Times New Roman',serif"
-    font-size="78"
+    font-size="88"
     font-weight="500"
     letter-spacing="0.5"
     fill="#EFE9DF">Woolet</text>

@@ -151,7 +151,7 @@ const ListiclePage = () => {
           }}
         >
           <Link to="/en" style={{ textDecoration: "none" }}>
-            <img src={wooletLogo} alt="Woolet" style={{ height: 20, display: "block" }} />
+            <img src={wooletLogo} alt="Woolet" style={{ height: 28, display: "block" }} />
           </Link>
           <nav
             style={{
@@ -710,7 +710,7 @@ const ListiclePage = () => {
             }}
           >
             <div>
-              <img src={wooletLogo} alt="Woolet" style={{ height: 20, marginBottom: 18 }} />
+              <img src={wooletLogo} alt="Woolet" style={{ height: 28, marginBottom: 18 }} />
               <p style={{ fontSize: 13, color: C.inkDim, lineHeight: 1.6, margin: 0, maxWidth: 280 }}>
                 Eyewear engineered for wide faces. Italian acetate, handmade in the EU.
               </p>
