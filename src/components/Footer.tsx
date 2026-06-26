@@ -80,7 +80,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(3,1fr)] gap-10 md:gap-8 pb-10">
           {/* Brand */}
           <div className="flex flex-col gap-3">
-            <img src={wooletLogo} alt="Woolet eyewear logo" className="h-7 self-start" />
+            <img src={wooletLogo} alt="Woolet eyewear logo" className="h-8 self-start" />
             <p
               className="text-cream-dim/70 max-w-[280px] leading-relaxed"
               style={{ fontSize: "0.78rem" }}

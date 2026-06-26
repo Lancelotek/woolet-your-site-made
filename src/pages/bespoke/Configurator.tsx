@@ -453,16 +453,17 @@ const ConfiguratorStyles = () => (
       backdrop-filter: saturate(120%) blur(8px);
     }
     .cfg-mark {
-      width: 32px; height: 32px;
+      width: 36px; height: 36px;
       object-fit: contain;
       display: block;
     }
     .cfg-wordmark {
       font-family: 'Newsreader', serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 26px;
       color: var(--cfg-cream);
       letter-spacing: 0.01em;
+      line-height: 1;
     }
     .cfg-divider { width: 1px; height: 18px; background: var(--cfg-border-strong); }
     .cfg-back {

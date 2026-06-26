@@ -312,8 +312,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               <img
                 src={wooletLogo}
                 alt="Woolet"
-                className="h-7 md:h-8 w-auto"
-                style={{ filter: "brightness(0) invert(1)" }}
+                className="h-8 md:h-9 w-auto"
               />
             </Link>
           </div>
