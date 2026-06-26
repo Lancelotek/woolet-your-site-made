@@ -342,7 +342,7 @@ const AdvertorialPage = () => {
               </span>
             </div>
 
-            {/* Views */}
+            {/* Trust signal — verifiable, no inflated view counts */}
             <div
               style={{
                 marginLeft: "auto",
@@ -360,20 +360,21 @@ const AdvertorialPage = () => {
                   color: "#f3ece0",
                 }}
               >
-                92K
+                8 min read
               </span>
               <span
                 style={{
                   fontFamily: "'Barlow', sans-serif",
-                  fontSize: 12,
+                  fontSize: 11,
                   color: "#8a8275",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
                 }}
               >
-                VIEWS
+                Founder's note
               </span>
             </div>
+
           </div>
 
           {/* 4. Hero image — full figure width on desktop with Archivo tracked labels */}
@@ -435,54 +436,9 @@ const AdvertorialPage = () => {
                 <span style={{ color: "#d8b86a", marginRight: 8 }}>✓</span>
                 Built for 155 mm+
               </span>
-              {/* Bottom scrim for legibility */}
-              <div
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  inset: "auto 0 0 0",
-                  height: "32%",
-                  background:
-                    "linear-gradient(to top, rgba(11,10,9,0.78) 0%, rgba(11,10,9,0.35) 55%, rgba(11,10,9,0) 100%)",
-                  pointerEvents: "none",
-                }}
-              />
-              {/* Left label */}
-              <span
-                style={{
-                  position: "absolute",
-                  left: "5%",
-                  bottom: "6%",
-                  fontFamily: "'Barlow', sans-serif",
-                  fontSize: "clamp(10px, 1.05vw, 13px)",
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: "#e7dfd0",
-                  fontWeight: 500,
-                }}
-              >
-                <span style={{ color: "#a85a3c", marginRight: 8 }}>✕</span>
-                Standard frames
-              </span>
-              {/* Right label */}
-              <span
-                style={{
-                  position: "absolute",
-                  right: "5%",
-                  bottom: "6%",
-                  fontFamily: "'Barlow', sans-serif",
-                  fontSize: "clamp(10px, 1.05vw, 13px)",
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: "#f3ece0",
-                  fontWeight: 500,
-                }}
-              >
-                <span style={{ color: "#d8b86a", marginRight: 8 }}>✓</span>
-                Built for 155 mm+
-              </span>
             </div>
           </figure>
+
 
           {/* 4b. Frame width comparison chart */}
           <figure className="lp-figure" style={{ padding: "16px 20px 8px", margin: 0 }}>
@@ -779,9 +735,10 @@ const AdvertorialPage = () => {
                 <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>158mm</div>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet minimum</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>155 / 158 / 161</div>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>Woolet S · M · L (mm)</div>
               </div>
+
             </div>
 
             {/* Section B */}
@@ -965,42 +922,8 @@ const AdvertorialPage = () => {
               It was the first time in my life anyone had asked me that.
             </p>
 
-            {/* Section D — Testimonials */}
-            <blockquote
-              style={{
-                borderLeft: "3px solid #d8b86a",
-                padding: "10px 14px",
-                background: "rgba(216,184,106,0.06)",
-                margin: "14px auto",
-                borderRadius: 0,
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontStyle: "italic",
-                  fontSize: 15,
-                  color: "#f3ece0",
-                  lineHeight: 1.6,
-                  margin: 0,
-                }}
-              >
-                "I've been searching for frames this wide for years. Woolet is the first brand that actually gets it."
-              </p>
-              <div
-                style={{
-                  fontFamily: "'Barlow', sans-serif",
-                  fontWeight: 300,
-                  fontSize: 12,
-                  letterSpacing: "2px",
-                  color: "#8a8275",
-                  textTransform: "uppercase",
-                  marginTop: 6,
-                }}
-              >
-                MAREK W. · 161MM · WARSAW
-              </div>
-            </blockquote>
+            {/* Section D — Customer note */}
+
 
             <blockquote
               style={{
