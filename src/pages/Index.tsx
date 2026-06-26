@@ -363,7 +363,8 @@ const MeterRow = ({
             fontWeight: 500,
           }}
         >
-          ↑ Your range
+          {yourRangeLabel}
+
         </span>
       </div>
     </div>
