@@ -102,7 +102,7 @@ const ConfiguratorPage = () => {
           <div className="cfg-container flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link to="/en/bespoke" aria-label="Woolet bespoke" className="flex items-center gap-3 group">
-                <span className="cfg-mark">W</span>
+                <img src="/__l5e/assets-v1/45616e6b-d290-4155-ac79-604f7d642a5d/woolet-logo.png" alt="" className="cfg-mark" />
                 <span className="cfg-wordmark">Woolet</span>
               </Link>
               <span className="cfg-divider" aria-hidden />
@@ -453,15 +453,9 @@ const ConfiguratorStyles = () => (
       backdrop-filter: saturate(120%) blur(8px);
     }
     .cfg-mark {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px;
-      background: var(--cfg-gold);
-      color: var(--cfg-ink);
-      font-family: 'Newsreader', serif;
-      font-weight: 600;
-      font-size: 17px;
-      border-radius: 2px;
-      line-height: 1;
+      width: 32px; height: 32px;
+      object-fit: contain;
+      display: block;
     }
     .cfg-wordmark {
       font-family: 'Newsreader', serif;
