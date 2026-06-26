@@ -84,7 +84,7 @@ const SEO = ({
 
   return (
     <Helmet>
-      <html lang={lang} />
+      <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} />
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
