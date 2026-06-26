@@ -155,15 +155,42 @@ const AdvertorialPage = () => {
   return (
     <>
       <Helmet>
-        <title>Why Do Glasses Widen Your Face? A Guide | Woolet</title>
+        <html lang="en" />
+        <title>Why Glasses Fail Wide Faces — and the Fix | Woolet</title>
         <meta
           name="description"
-          content="Broad-Faced Professionals: what actually works when searching for 155mm+ glasses. Geometry, material, and why standard opticians fail."
+          content="Why standard 130–148 mm frames optically widen broad faces, and how 158 mm Italian acetate frames fix the problem. A guide for 155 mm+ faces."
         />
-        <link
-          rel="canonical"
-          href="https://woolet.co/en/lp/why-glasses-fail"
+        <link rel="canonical" href="https://woolet.co/en/lp/why-glasses-fail" />
+        <meta name="robots" content="index, follow" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Woolet" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https://woolet.co/en/lp/why-glasses-fail" />
+        <meta property="og:title" content="Why Glasses Fail Wide Faces — and the Fix" />
+        <meta
+          property="og:description"
+          content="Why standard 130–148 mm frames optically widen broad faces, and how 158 mm Italian acetate frames fix the problem."
         />
+        <meta property="og:image" content="https://woolet.co/og-home.png" />
+        <meta property="og:image:secure_url" content="https://woolet.co/og-home.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:alt" content="Woolet — eyewear engineered for wide faces (158 mm)" />
+        <meta property="article:published_time" content="2026-04-01" />
+        <meta property="article:author" content="Woolet" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Why Glasses Fail Wide Faces — and the Fix" />
+        <meta
+          name="twitter:description"
+          content="Why standard 130–148 mm frames optically widen broad faces, and how 158 mm Italian acetate fixes it."
+        />
+        <meta name="twitter:image" content="https://woolet.co/og-home.png" />
       </Helmet>
 
       <style>{`
