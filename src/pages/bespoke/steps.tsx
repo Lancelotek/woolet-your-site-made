@@ -35,70 +35,111 @@ const cardOuter = "rounded-[14px] border border-cream/10 bg-background/40 transi
 const cardActive = "border-gold/60 bg-gold/[0.04] ring-1 ring-gold/30";
 
 /* ───── Step 1 ───── */
+type WidthSort = "all" | "narrow" | "fit" | "wide";
+
 export function StepFrame({ config, update }: StepProps) {
   const [shapeFilter, setShapeFilter] = useState<string>("all");
-  const visible: Frame[] = shapeFilter === "all" ? FRAMES : FRAMES.filter((f) => f.shape === shapeFilter);
+  const [widthSort, setWidthSort] = useState<WidthSort>("all");
+
+  // User's fit window — from scan if present, else default to 161 mm (brand reference).
+  const userFace = config.measurements.faceWidth ?? 161;
+  const FIT_TOLERANCE = 5; // ±5 mm comfortable window
+  const fitMin = userFace - FIT_TOLERANCE;
+  const fitMax = userFace + FIT_TOLERANCE;
+
+  const widthBucket = (w: number): "narrow" | "fit" | "wide" =>
+    w < fitMin ? "narrow" : w > fitMax ? "wide" : "fit";
+
+  let visible: Frame[] = shapeFilter === "all" ? FRAMES : FRAMES.filter((f) => f.shape === shapeFilter);
+  if (widthSort !== "all") {
+    visible = [...visible].sort((a, b) => {
+      const pa = widthBucket(a.widthMm) === widthSort ? 0 : 1;
+      const pb = widthBucket(b.widthMm) === widthSort ? 0 : 1;
+      if (pa !== pb) return pa - pb;
+      return a.widthMm - b.widthMm;
+    });
+  }
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <header>
-        <div className={sectionKicker}>Step 1</div>
-        <h2 className={sectionTitle}>Choose your frame silhouette</h2>
-        <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          25 hand-made bio-acetate shapes. Each pair is cut from a single block — your chosen frame will be unique.
+        <div className="cfg-eyebrow">Step 1 — Frame</div>
+        <h2 className="cfg-h1 mt-3">
+          Choose your frame <em className="cfg-em">silhouette</em>
+        </h2>
+        <p className="cfg-body mt-4 max-w-xl">
+          25 hand-made bio-acetate shapes, cut from a single block of Italian Mazzucchelli acetate.
+          Each pair is unique — your chosen frame will never be made twice in the same grain.
         </p>
       </header>
 
-      <div className="flex gap-2 flex-wrap">
-        <button
-          onClick={() => setShapeFilter("all")}
-          className={`px-3 py-1.5 rounded-full text-[0.72rem] tracking-wide border transition ${
-            shapeFilter === "all"
-              ? "border-gold text-gold-light bg-gold/10"
-              : "border-cream/15 text-cream-dim hover:border-cream/30"
-          }`}
-        >
-          All shapes
-        </button>
-        {FRAME_SHAPES.map((s) => (
-          <button
-            key={s}
-            onClick={() => setShapeFilter(s)}
-            className={`px-3 py-1.5 rounded-full text-[0.72rem] tracking-wide border transition ${
-              shapeFilter === s
-                ? "border-gold text-gold-light bg-gold/10"
-                : "border-cream/15 text-cream-dim hover:border-cream/30"
-            }`}
-          >
-            {s}
-          </button>
-        ))}
+      {/* Filter chips */}
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <div className="flex flex-wrap gap-1.5">
+          <ChipFilter active={shapeFilter === "all"} onClick={() => setShapeFilter("all")}>All shapes</ChipFilter>
+          {FRAME_SHAPES.map((s) => (
+            <ChipFilter key={s} active={shapeFilter === s} onClick={() => setShapeFilter(s)}>
+              {s}
+            </ChipFilter>
+          ))}
+        </div>
+        <div className="flex items-center gap-1.5 ml-auto">
+          <span className="cfg-eyebrow mr-1" style={{ fontSize: 10 }}>Width</span>
+          <ChipFilter active={widthSort === "all"} onClick={() => setWidthSort("all")} compact>All</ChipFilter>
+          <ChipFilter active={widthSort === "fit"} onClick={() => setWidthSort("fit")} compact>Fits you</ChipFilter>
+          <ChipFilter active={widthSort === "narrow"} onClick={() => setWidthSort("narrow")} compact>Narrow</ChipFilter>
+          <ChipFilter active={widthSort === "wide"} onClick={() => setWidthSort("wide")} compact>Wide</ChipFilter>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
         {visible.map((f) => {
           const active = config.frameId === f.id;
+          const bucket = widthBucket(f.widthMm);
+          const fits = bucket === "fit";
+          const tag =
+            bucket === "narrow" ? "runs narrow" :
+            bucket === "wide"   ? "runs wide" : null;
+
           return (
             <button
               key={f.id}
               onClick={() => update("frameId", f.id)}
-              className={`${cardOuter} ${active ? cardActive : "hover:border-cream/25"} text-left overflow-hidden group`}
+              className={`cfg-card group text-left ${active ? "cfg-card--active" : ""} ${!fits && !active ? "cfg-card--dim" : ""}`}
             >
-              <div className="aspect-[4/3] bg-cream/[0.03] flex items-center justify-center overflow-hidden">
+              <div className="cfg-card__photo">
                 <img
                   src={f.url}
                   alt={f.name}
                   loading="lazy"
-                  className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.04]"
+                  className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.03]"
                 />
+                {active && (
+                  <span className="absolute top-2.5 right-2.5 inline-flex items-center justify-center w-6 h-6 bg-[color:var(--cfg-gold)]" style={{ borderRadius: 2 }}>
+                    <Check size={14} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
+                  </span>
+                )}
               </div>
-              <div className="px-3 py-2.5 flex items-center justify-between gap-2">
-                <div className="min-w-0">
-                  <div className="font-display text-cream text-base leading-tight truncate">{f.name}</div>
-                  <div className="text-[0.78rem] uppercase tracking-[0.18em] text-cream-dim mt-0.5">
-                    {f.id} · {f.shape}
-                  </div>
+
+              <div className="px-3 py-3">
+                <div className="flex items-baseline justify-between gap-2">
+                  <div className="cfg-card__name">{f.name}</div>
                 </div>
-                {active && <Check className="text-gold-light shrink-0" size={16} />}
+                <div className="cfg-card__code mt-1">{f.id.toUpperCase()} · {f.shape.toUpperCase()}</div>
+
+                <div className="mt-2.5 flex items-center justify-between gap-2">
+                  <div className="cfg-spec">
+                    <span className="cfg-spec__value">{f.widthMm} mm</span>
+                    <span className="cfg-spec__sub">{f.bridgeMm} mm bridge</span>
+                  </div>
+                  {fits ? (
+                    <span className="cfg-tag cfg-tag--fit">
+                      <Check size={10} strokeWidth={3} /> Fits you
+                    </span>
+                  ) : tag ? (
+                    <span className="cfg-tag cfg-tag--off">{tag}</span>
+                  ) : null}
+                </div>
               </div>
             </button>
           );
@@ -107,6 +148,21 @@ export function StepFrame({ config, update }: StepProps) {
     </div>
   );
 }
+
+function ChipFilter({
+  active, onClick, children, compact,
+}: { active: boolean; onClick: () => void; children: React.ReactNode; compact?: boolean }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`cfg-chip ${active ? "cfg-chip--active" : ""} ${compact ? "cfg-chip--compact" : ""}`}
+    >
+      {children}
+    </button>
+  );
+}
+
+
 
 /* ───── Step 2 ───── */
 function ColorSwatchGrid({
