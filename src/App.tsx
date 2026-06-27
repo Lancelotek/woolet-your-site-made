@@ -69,6 +69,7 @@ const DeHub = lazy(() => import("./pages/de/DeHub.tsx"));
 const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
+const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -260,6 +261,10 @@ const App = () => (
 
          {/* FR market SEO landing pages */}
          <Route path="/fr/lunettes-sur-mesure" element={<FrLandingRoute />} />
+
+         {/* PL market SEO landing pages */}
+         <Route path="/pl/okulary-na-zamowienie" element={<PlLandingRoute />} />
+
 
 
          <Route path="*" element={<NotFound />} />
