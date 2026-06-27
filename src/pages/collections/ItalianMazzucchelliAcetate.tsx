@@ -8,7 +8,7 @@ const ItalianMazzucchelliAcetate = () => (
     slug="italian-mazzucchelli-acetate"
     h1="Italian Mazzucchelli Acetate Glasses — Made From the 1849 Cellulose Sheet"
     breadcrumbName="Italian Mazzucchelli Acetate"
-    metaTitle="Italian Mazzucchelli Acetate Glasses — 158 mm, Hand-Finished | Woolet"
+    metaTitle="Italian Mazzucchelli Acetate Glasses 158 mm | Woolet"
     metaDescription="Glasses and sunglasses cut from Mazzucchelli 1849 Italian cellulose acetate. Wide 158 mm front, 21 mm bridge, hand-polished in Italy. From $114."
     heroImage={{
       src: heroAsset.url,
