@@ -69,6 +69,7 @@ const DeHub = lazy(() => import("./pages/de/DeHub.tsx"));
 const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
+const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
 
 const queryClient = new QueryClient();
 
