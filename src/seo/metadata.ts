@@ -849,6 +849,7 @@ const STATIC_ROUTES = [
   "/pl/blog",
   "/pl/privacy-policy",
   "/pl/return-policy",
+  "/pl/okulary-na-zamowienie",
   "/fr",
   "/fr/lunettes-sur-mesure",
   "/es",
