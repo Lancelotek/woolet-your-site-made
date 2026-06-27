@@ -35,6 +35,14 @@ export type RouteMeta = {
   jsonLd: object[];
   /** Plain HTML injected into <noscript> for LLM bots and the no-JS path. */
   noscriptHtml?: string;
+  /**
+   * Per-language alternate URLs. When set, renderHeadHtml emits ONLY these
+   * hreflang links (instead of auto-generating one per SUPPORTED_LANGS).
+   * Use for single-language landing pages whose equivalents in other locales
+   * live at a different path (or don't exist).
+   * Keys are full URLs; one entry must be "x-default".
+   */
+  alternates?: Record<string, string>;
 };
 
 // ---------------------------------------------------------------------------
@@ -206,7 +214,14 @@ const homeCopy: Record<Lang, Copy> = {
 // Route builder
 // ---------------------------------------------------------------------------
 
-function base(route: string, lang: Lang, copy: Copy, og: Partial<RouteMeta["og"]> = {}, jsonLd: object[] = []): RouteMeta {
+function base(
+  route: string,
+  lang: Lang,
+  copy: Copy,
+  og: Partial<RouteMeta["og"]> = {},
+  jsonLd: object[] = [],
+  alternates?: Record<string, string>,
+): RouteMeta {
   const canonical = `${SITE_URL}${route}`;
   return {
     title: copy.title,
@@ -222,6 +237,7 @@ function base(route: string, lang: Lang, copy: Copy, og: Partial<RouteMeta["og"]
     },
     jsonLd: jsonLd,
     noscriptHtml: copy.noscriptHtml,
+    alternates,
   };
 }
 
@@ -692,6 +708,80 @@ ${post.content}
     }
   }
 
+  // ----- JA & FR market SEO landing pages (single-language, custom alternates)
+  if (route === "/ja/big-face-glasses") {
+    return base(
+      route, "ja",
+      {
+        title: "大きい顔 メガネ 155–161mm | Woolet 幅広イタリア製アセテート",
+        description:
+          "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで手作り。FitLensスキャンで20秒、自分のサイズが分かります。",
+        noscriptHtml: `<h1>大きい顔のメガネ — Woolet 155 / 158 / 161 mm</h1>
+<p>Wooletは155mm・158mm・161mmの実寸フロント幅を提供する、幅広い顔のためのイタリア製アセテートアイウェアブランドです。素材はMazzucchelli 1849、EUの職人が一本ずつ手作業で仕上げます。FitLensスキャンで顔幅を20秒で計測できます。</p>`,
+      },
+      { image: DEFAULT_OG },
+      [
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/ja` },
+          { name: "大きい顔 メガネ", url: `${SITE_URL}/ja/big-face-glasses` },
+        ]),
+      ],
+      {
+        ja: `${SITE_URL}/ja/big-face-glasses`,
+        en: `${SITE_URL}/en/collections/glasses-for-big-heads`,
+        "x-default": `${SITE_URL}/en/collections/glasses-for-big-heads`,
+      },
+    );
+  }
+  if (route === "/ja/bespoke") {
+    return base(
+      route, "ja",
+      {
+        title: "オーダーメイド メガネ 150–172mm | Woolet イタリア製アセテート",
+        description:
+          "オーダーメイド メガネを150〜172mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
+        noscriptHtml: `<h1>オーダーメイド メガネ — Woolet bespoke 150–172 mm</h1>
+<p>Wooletのbespokeはフロント幅、ブリッジ幅、テンプル長、レンズ高さをミリ単位で指定可能。素材はMazzucchelli 1849のイタリア製アセテート、EUで職人が手作業仕上げ。納期は約4〜6週間。</p>`,
+      },
+      { image: DEFAULT_OG },
+      [
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/ja` },
+          { name: "オーダーメイド メガネ", url: `${SITE_URL}/ja/bespoke` },
+        ]),
+      ],
+      {
+        ja: `${SITE_URL}/ja/bespoke`,
+        en: `${SITE_URL}/en/bespoke`,
+        "x-default": `${SITE_URL}/en/bespoke`,
+      },
+    );
+  }
+  if (route === "/fr/lunettes-sur-mesure") {
+    return base(
+      route, "fr",
+      {
+        title: "Lunettes sur mesure 150–172 mm | Woolet — acétate italien",
+        description:
+          "Lunettes sur mesure pour visages larges : 150–172 mm de face, pont 16–26 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 20 s.",
+        noscriptHtml: `<h1>Lunettes sur mesure — Woolet bespoke 150–172 mm</h1>
+<p>Woolet propose des lunettes sur mesure dont la largeur de face, le pont, la longueur des branches et la hauteur de verre sont ajustés au millimètre. Acétate italien Mazzucchelli 1849, façonné à la main dans l'Union européenne. Délai : 4 à 6 semaines.</p>`,
+      },
+      { image: DEFAULT_OG },
+      [
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/fr` },
+          { name: "Lunettes sur mesure", url: `${SITE_URL}/fr/lunettes-sur-mesure` },
+        ]),
+      ],
+      {
+        fr: `${SITE_URL}/fr/lunettes-sur-mesure`,
+        en: `${SITE_URL}/en/bespoke`,
+        "x-default": `${SITE_URL}/en/bespoke`,
+      },
+    );
+  }
+
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
 }
@@ -736,7 +826,11 @@ const STATIC_ROUTES = [
   "/pl/privacy-policy",
   "/pl/return-policy",
   "/fr",
+  "/fr/lunettes-sur-mesure",
   "/es",
+  "/ja",
+  "/ja/big-face-glasses",
+  "/ja/bespoke",
 ];
 
 export function getAllRoutes(): string[] {
@@ -761,11 +855,17 @@ export function renderHeadHtml(meta: RouteMeta): string {
   if (meta.robots) tags.push(`<meta name="robots" content="${meta.robots}" />`);
 
   // hreflang
-  const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
-  for (const l of SUPPORTED_LANGS) {
-    tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}" />`);
+  if (meta.alternates) {
+    for (const [hreflang, href] of Object.entries(meta.alternates)) {
+      tags.push(`<link rel="alternate" hreflang="${hreflang}" href="${href}" />`);
+    }
+  } else {
+    const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
+    for (const l of SUPPORTED_LANGS) {
+      tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}" />`);
+    }
+    tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}" />`);
   }
-  tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}" />`);
 
   // OpenGraph
   tags.push(`<meta property="og:title" content="${escapeHtml(meta.og.title)}" />`);
