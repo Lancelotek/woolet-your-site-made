@@ -37,9 +37,9 @@ export const plPages: Record<string, PlPageConfig> = {
     ctaPrimaryHref: "/pl/fit",
     ctaSecondaryLabel: "Otwórz konfigurator",
     ctaSecondaryHref: "/en/bespoke/configurator",
-    problemH2: "„Personalizacja" i „na zamówienie" to nie to samo",
+    problemH2: '„Personalizacja" i „na zamówienie" to nie to samo',
     problemBody:
-      "Większość marek nazywających się „customizable" pozwala tylko wybrać kolor istniejącej oprawy. Bespoke Woolet działa inaczej: szerokość frontu, mostek, długość zauszników i wysokość soczewki ustalasz niezależnie, co do milimetra. Forma jest dostosowywana do twojej twarzy zanim octan zostanie wycięty.",
+      'Większość marek nazywających się „customizable" pozwala tylko wybrać kolor istniejącej oprawy. Bespoke Woolet działa inaczej: szerokość frontu, mostek, długość zauszników i wysokość soczewki ustalasz niezależnie, co do milimetra. Forma jest dostosowywana do twojej twarzy zanim octan zostanie wycięty.',
     proofH2: "Włoski octan, wykończony ręcznie",
     proofBody:
       "Używamy octanu Mazzucchelli 1849, produkowanego we Włoszech od ponad 70 lat. Europejskie warsztaty frezują, polerują i osadzają zawiasy w każdej oprawie osobno. Realizacja zajmuje około 4–6 tygodni od potwierdzenia zamówienia.",
