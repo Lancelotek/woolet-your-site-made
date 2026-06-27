@@ -616,7 +616,29 @@ const Index = () => {
                 <span className="text-cream-dim/30">·</span>
                 <span>{copy.trustHandmade}</span>
               </div>
+
+              {/* JP-only SEO landing links */}
+              {lang === "ja" && (
+                <div
+                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  style={{ fontSize: "0.8rem", fontFamily: "Barlow, 'Noto Sans JP', sans-serif" }}
+                >
+                  <Link
+                    to="/ja/big-face-glasses"
+                    className="text-gold hover:text-gold-light no-underline border-b border-gold/40 hover:border-gold-light pb-0.5 transition-colors"
+                  >
+                    大きい顔のメガネ →
+                  </Link>
+                  <Link
+                    to="/ja/bespoke"
+                    className="text-gold hover:text-gold-light no-underline border-b border-gold/40 hover:border-gold-light pb-0.5 transition-colors"
+                  >
+                    オーダーメイド メガネ →
+                  </Link>
+                </div>
+              )}
             </div>
+
 
             {/* RIGHT — portrait card, stretches to match left column */}
 
