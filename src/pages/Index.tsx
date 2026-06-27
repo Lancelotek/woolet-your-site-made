@@ -637,6 +637,21 @@ const Index = () => {
                   </Link>
                 </div>
               )}
+
+              {/* FR-only SEO landing link */}
+              {lang === "fr" && (
+                <div
+                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  style={{ fontSize: "0.8rem", fontFamily: "Barlow, sans-serif" }}
+                >
+                  <Link
+                    to="/fr/lunettes-sur-mesure"
+                    className="text-gold hover:text-gold-light no-underline border-b border-gold/40 hover:border-gold-light pb-0.5 transition-colors"
+                  >
+                    Lunettes sur mesure →
+                  </Link>
+                </div>
+              )}
             </div>
 
 
