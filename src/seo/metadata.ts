@@ -777,11 +777,17 @@ export function renderHeadHtml(meta: RouteMeta): string {
   if (meta.robots) tags.push(`<meta name="robots" content="${meta.robots}" />`);
 
   // hreflang
-  const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
-  for (const l of SUPPORTED_LANGS) {
-    tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}" />`);
+  if (meta.alternates) {
+    for (const [hreflang, href] of Object.entries(meta.alternates)) {
+      tags.push(`<link rel="alternate" hreflang="${hreflang}" href="${href}" />`);
+    }
+  } else {
+    const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
+    for (const l of SUPPORTED_LANGS) {
+      tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}" />`);
+    }
+    tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}" />`);
   }
-  tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}" />`);
 
   // OpenGraph
   tags.push(`<meta property="og:title" content="${escapeHtml(meta.og.title)}" />`);
