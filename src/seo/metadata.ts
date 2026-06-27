@@ -781,6 +781,30 @@ ${post.content}
       },
     );
   }
+  if (route === "/pl/okulary-na-zamowienie") {
+    return base(
+      route, "pl",
+      {
+        title: "Okulary na zamówienie 150–172 mm | Woolet — włoski octan",
+        description:
+          "Okulary na zamówienie dla szerszych twarzy: front 150–172 mm, mostek 16–26 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
+        noscriptHtml: `<h1>Okulary na zamówienie — Woolet bespoke 150–172 mm</h1>
+<p>Woolet oferuje okulary szyte na miarę: szerokość frontu, mostek, długość zauszników i wysokość soczewki ustalasz co do milimetra. Materiał: włoski octan Mazzucchelli 1849, ręcznie wykończony w UE. Czas realizacji: 4–6 tygodni.</p>`,
+      },
+      { image: DEFAULT_OG },
+      [
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/pl` },
+          { name: "Okulary na zamówienie", url: `${SITE_URL}/pl/okulary-na-zamowienie` },
+        ]),
+      ],
+      {
+        pl: `${SITE_URL}/pl/okulary-na-zamowienie`,
+        en: `${SITE_URL}/en/bespoke`,
+        "x-default": `${SITE_URL}/en/bespoke`,
+      },
+    );
+  }
 
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
