@@ -558,4 +558,24 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- JA market SEO landing pages -->
+  <url>
+    <loc>https://woolet.co/ja/big-face-glasses</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja/big-face-glasses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/ja/bespoke</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>
