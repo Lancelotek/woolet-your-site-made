@@ -589,4 +589,15 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- PL market SEO landing pages -->
+  <url>
+    <loc>https://woolet.co/pl/okulary-na-zamowienie</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/okulary-na-zamowienie"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>
