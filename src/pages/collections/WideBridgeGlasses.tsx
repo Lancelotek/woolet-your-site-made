@@ -5,7 +5,7 @@ const WideBridgeGlasses = () => (
     slug="wide-bridge-glasses"
     h1="Glasses for Wide Nose Bridge — Wide Bridge Glasses, 21–22 mm Keyhole"
     breadcrumbName="Glasses for Wide Nose Bridge"
-    metaTitle="Glasses for Wide Nose Bridge — Wide Bridge Glasses 21–22 mm | Woolet"
+    metaTitle="Wide Bridge Glasses — 21–22 mm Keyhole | Woolet"
     metaDescription="Glasses for a wide nose bridge: 21–22 mm keyhole bridge in Italian acetate, while most brands top out at 18 mm. Bespoke bridge 16–26 mm. 158 mm front."
     intro="Most eyewear brands top out at an 18 mm bridge. If your nose is wider or higher, that's why frames slide down, leave pressure marks, or sit crooked. Woolet ships every standard frame with a 21 mm (007) or 22 mm (009) keyhole bridge in Italian Mazzucchelli acetate, with bespoke bridges from 16 to 26 mm."
     whyThisFits={[

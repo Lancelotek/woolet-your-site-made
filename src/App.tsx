@@ -68,6 +68,7 @@ const Unsubscribe = lazy(() => import("./pages/Unsubscribe.tsx"));
 const DeHub = lazy(() => import("./pages/de/DeHub.tsx"));
 const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
+const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -256,6 +257,10 @@ const App = () => (
          {/* JA market SEO landing pages */}
          <Route path="/ja/big-face-glasses" element={<JaLandingRoute />} />
          <Route path="/ja/bespoke" element={<JaLandingRoute />} />
+
+         {/* FR market SEO landing pages */}
+         <Route path="/fr/lunettes-sur-mesure" element={<FrLandingRoute />} />
+
 
          <Route path="*" element={<NotFound />} />
         </Routes>
