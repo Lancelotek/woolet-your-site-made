@@ -35,6 +35,14 @@ export type RouteMeta = {
   jsonLd: object[];
   /** Plain HTML injected into <noscript> for LLM bots and the no-JS path. */
   noscriptHtml?: string;
+  /**
+   * Per-language alternate URLs. When set, renderHeadHtml emits ONLY these
+   * hreflang links (instead of auto-generating one per SUPPORTED_LANGS).
+   * Use for single-language landing pages whose equivalents in other locales
+   * live at a different path (or don't exist).
+   * Keys are full URLs; one entry must be "x-default".
+   */
+  alternates?: Record<string, string>;
 };
 
 // ---------------------------------------------------------------------------
