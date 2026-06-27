@@ -214,7 +214,14 @@ const homeCopy: Record<Lang, Copy> = {
 // Route builder
 // ---------------------------------------------------------------------------
 
-function base(route: string, lang: Lang, copy: Copy, og: Partial<RouteMeta["og"]> = {}, jsonLd: object[] = []): RouteMeta {
+function base(
+  route: string,
+  lang: Lang,
+  copy: Copy,
+  og: Partial<RouteMeta["og"]> = {},
+  jsonLd: object[] = [],
+  alternates?: Record<string, string>,
+): RouteMeta {
   const canonical = `${SITE_URL}${route}`;
   return {
     title: copy.title,
@@ -230,6 +237,7 @@ function base(route: string, lang: Lang, copy: Copy, og: Partial<RouteMeta["og"]
     },
     jsonLd: jsonLd,
     noscriptHtml: copy.noscriptHtml,
+    alternates,
   };
 }
 
