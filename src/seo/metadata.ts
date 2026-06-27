@@ -826,7 +826,11 @@ const STATIC_ROUTES = [
   "/pl/privacy-policy",
   "/pl/return-policy",
   "/fr",
+  "/fr/lunettes-sur-mesure",
   "/es",
+  "/ja",
+  "/ja/big-face-glasses",
+  "/ja/bespoke",
 ];
 
 export function getAllRoutes(): string[] {
