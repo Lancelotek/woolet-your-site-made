@@ -633,6 +633,60 @@ export function getMetadata(route: string): RouteMeta {
     ])]);
   }
 
+  // ----- Additional collections (per-route meta so crawlers don't fall back to homepage copy)
+  const extraCollections: Record<string, { title: string; description: string; h1: string; intro: string }> = {
+    "/collections/big-glasses-frames": {
+      title: "Big Glasses Frames for Wide Faces & Big Heads | Woolet",
+      description: "Truly big glasses frames: 158 mm front, 21 mm keyhole bridge, hand-finished Italian Mazzucchelli acetate. For 155 mm+ faces and 58 cm+ heads.",
+      h1: "Big Glasses Frames for Wide Faces & Big Heads",
+      intro: "Most 'big' frames at mainstream retailers are 140–148 mm hinge-to-hinge — a larger lens on a standard front. Woolet builds at 158 mm of actual front width with a 21 mm keyhole bridge, in hand-finished Italian Mazzucchelli acetate. Bespoke covers 150–172 mm for XXL heads.",
+    },
+    "/collections/oversized-prescription-glasses": {
+      title: "Oversized Prescription Glasses for Wide Faces & Big Heads | Woolet",
+      description: "Oversized prescription glasses sized for 155 mm+ faces: 158 mm Italian acetate front, 21–22 mm keyhole bridge, single-vision or progressive lenses.",
+      h1: "Oversized Prescription Glasses for Wide Faces & Big Heads",
+      intro: "Oversized prescription frames that actually fit a wider face. One precise 158 mm front width with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate hand-finished in Italy. Single-vision, progressive and blue-light lens upgrades available. Bespoke 150–172 mm for everything outside the standard range.",
+    },
+    "/collections/wide-frame-reading-glasses": {
+      title: "Wide Frame Reading Glasses for Wide Faces & Big Heads | Woolet",
+      description: "Wide frame reading glasses for 155 mm+ faces: 158 mm Italian acetate front, 21–22 mm keyhole bridge, +0.50 to +3.00 readers. Hand-finished in Italy.",
+      h1: "Wide Frame Reading Glasses for Wide Faces & Big Heads",
+      intro: "Reading glasses don't have to mean drugstore frames that pinch. Woolet builds wide-frame readers at 158 mm hinge-to-hinge with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate, with reading powers from +0.50 to +3.00. Same frame as the optical line — just dispensed as readers.",
+    },
+    "/collections/oversized-square-glasses": {
+      title: "Oversized Square Glasses for Wide Faces & Big Heads | Woolet",
+      description: "Properly oversized square glasses: 158 mm front, 22 mm keyhole bridge, Italian Mazzucchelli acetate. Built for 155 mm+ faces. Bespoke to 172 mm.",
+      h1: "Oversized Square Glasses for Wide Faces & Big Heads",
+      intro: "Soft-square Italian acetate glasses sized for wider faces. The Woolet 009 ships at a 158 mm front width with a 22 mm keyhole bridge — the geometry that makes a square shape sit balanced on a wider face instead of sliding or pinching. Hand-finished in Italy. Bespoke 150–172 mm available.",
+    },
+    "/collections/oversized-round-glasses": {
+      title: "Oversized Round Glasses for Wide Faces & Big Heads | Woolet",
+      description: "Properly oversized round glasses: 158 mm front, 21 mm keyhole bridge, Italian Mazzucchelli acetate. Built for 155 mm+ faces. Bespoke to 172 mm.",
+      h1: "Oversized Round Glasses for Wide Faces & Big Heads",
+      intro: "Round Italian-acetate glasses that read as round, not undersized. The Woolet 007 ships at a 158 mm front width with a 21 mm keyhole bridge — the front-and-bridge combination most round frames lack. Hand-finished in Italy. Bespoke 150–172 mm available.",
+    },
+    "/collections/keyhole-bridge-glasses": {
+      title: "Keyhole Bridge Glasses for Wide Faces & Big Heads | Woolet",
+      description: "Keyhole bridge glasses with a wider 21–22 mm gap. Italian Mazzucchelli acetate, 158 mm front. Built for wider noses and 155 mm+ faces.",
+      h1: "Keyhole Bridge Glasses for Wide Faces & Big Heads",
+      intro: "Mainstream bridges sit at 17–20 mm. Woolet's keyhole bridge is 21–22 mm as standard, shaped to load weight on bone rather than cartilage — the difference between a frame that sits balanced and one that slides or pinches a wider nose. 158 mm front, Italian acetate, bespoke bridge 16–26 mm.",
+    },
+  };
+  if (extraCollections[path]) {
+    const c = extraCollections[path];
+    return base(route, lang, {
+      title: c.title,
+      description: c.description,
+      noscriptHtml: `<h1>${escapeHtml(c.h1)}</h1>\n<p>${escapeHtml(c.intro)}</p>`,
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: c.h1, url: `${SITE_URL}${route}` },
+    ])]);
+  }
+
+
+
   // ----- Landing pages
   if (path === "/lp/why-glasses-fail") {
     return base(route, lang, {
