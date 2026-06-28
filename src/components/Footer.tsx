@@ -53,6 +53,16 @@ const Footer = () => {
       ],
     },
     {
+      heading: "Guides",
+      links: [
+        { label: "Wide-face fit guide", href: "/en/blog/glasses-for-wide-faces-guide" },
+        { label: "Measure your face", href: "/en/blog/how-to-measure-face-width-for-glasses" },
+        { label: "Best wide-fit sunglasses", href: "/en/blog/best-sunglasses-for-wide-faces" },
+        { label: "Wide-face collection", href: "/en/collections/wide-face-glasses" },
+        { label: "Glasses for big heads", href: "/en/collections/glasses-for-big-heads" },
+      ],
+    },
+    {
       heading: "Company",
       links: [
         { label: "Blog", href: `/${lang}/blog` },
