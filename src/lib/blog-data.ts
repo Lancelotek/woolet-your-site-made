@@ -1209,8 +1209,8 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "best-glasses-for-big-heads-2026",
-    title: "The Best Glasses for Big Heads in 2026 (Premium Picks)",
-    excerpt: "Premium glasses and sunglasses sized for big heads. Italian Mazzucchelli acetate frames at 155 / 158 / 161 mm, with bespoke up to 172 mm.",
+    title: "Best Glasses for Big Heads in 2026: Truly Wide Frames",
+    excerpt: "We compared the widest frames you can actually buy. See the best glasses for big heads in 2026 — real measurements, keyhole bridges, and a 158 mm front.",
     date: "2026-02-14",
     readTime: 11,
     tags: ["Roundup", "2026", "Premium"],
