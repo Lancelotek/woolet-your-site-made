@@ -26,8 +26,8 @@ export interface BlogPost {
 const blogPostsEN: BlogPost[] = [
   {
     slug: "glasses-for-wide-faces-guide",
-    title: "Glasses for Wide Faces (2026) — Sizing & Fit Guide",
-    excerpt: "What counts as a wide face, how to measure, and which frame widths actually fit. 155 mm+ buyer's guide.",
+    title: "Glasses for Wide Faces: The Complete 2026 Fit Guide",
+    excerpt: "Can't find glasses that fit a wide face? Learn how to measure, what frame width to look for (155 mm+), and which styles actually work. An honest 2026 guide.",
     date: "2026-03-09",
     readTime: 14,
     tags: ["Guide", "Wide Face", "2026"],
@@ -329,6 +329,15 @@ const blogPostsEN: BlogPost[] = [
   </div>
 </div>
 
+<div style="border-top:1px solid #E8E4DC;margin-top:36px;padding-top:24px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:12px;">Related reading</div>
+  <ul style="margin:0;padding:0 0 0 18px;font-size:15px;line-height:1.8;color:#1a1a1a;">
+    <li><a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#c9a84c;text-decoration:none;">How to measure your face width for glasses</a> — a 30-second method using a phone or a credit card.</li>
+    <li><a href="/en/blog/best-sunglasses-for-wide-faces" style="color:#c9a84c;text-decoration:none;">Best sunglasses for wide faces in 2026</a> — the wide-fit shortlist, with real measurements.</li>
+    <li><a href="/en/collections/wide-face-glasses" style="color:#c9a84c;text-decoration:none;">Wide-face glasses collection</a> and <a href="/en/collections/glasses-for-big-heads" style="color:#c9a84c;text-decoration:none;">glasses for big heads</a> — browse the 158 mm range.</li>
+  </ul>
+</div>
+
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2025-03-09","dateModified":"2025-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Castiglione Olona, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}</script>
 `,
   },
@@ -436,8 +445,8 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "how-to-measure-face-width-for-glasses",
-    title: "How to Measure Face Width for Glasses (Step-by-Step)",
-    excerpt: "Measure your face width at home with a credit card or ruler. Find your correct frame size in under a minute.",
+    title: "How to Measure Your Face Width for Glasses (2026)",
+    excerpt: "Measure your face width at home in 30 seconds and pick the right frame size — no optician needed. A simple guide built for wider faces and bigger heads.",
     date: "2026-03-08",
     readTime: 9,
     tags: ["How-to", "Measurement", "Fit"],
@@ -1200,8 +1209,8 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "best-glasses-for-big-heads-2026",
-    title: "The Best Glasses for Big Heads in 2026 (Premium Picks)",
-    excerpt: "Premium glasses and sunglasses sized for big heads. Italian Mazzucchelli acetate frames at 155 / 158 / 161 mm, with bespoke up to 172 mm.",
+    title: "Best Glasses for Big Heads in 2026: Truly Wide Frames",
+    excerpt: "We compared the widest frames you can actually buy. See the best glasses for big heads in 2026 — real measurements, keyhole bridges, and a 158 mm front.",
     date: "2026-02-14",
     readTime: 11,
     tags: ["Roundup", "2026", "Premium"],
@@ -2686,6 +2695,69 @@ const blogPostsEN: BlogPost[] = [
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://woolet.co/en"},{"@type":"ListItem","position":2,"name":"Eyewear Guides","item":"https://woolet.co/en/blog"},{"@type":"ListItem","position":3,"name":"How Wide Should Glasses Be on Your Face?","item":"https://woolet.co/en/blog/how-wide-should-glasses-be"}]}
 </script>
+`,
+  },
+  {
+    slug: "best-sunglasses-for-wide-faces",
+    title: "Best Sunglasses for Wide Faces in 2026",
+    excerpt: "Sunglasses that don't pinch a wider face. See the best wide-fit sunglasses for 2026 — 158 mm fronts, keyhole bridges, polarized options. Find your size.",
+    date: "2026-06-28",
+    readTime: 8,
+    tags: ["Sunglasses", "Wide Face", "2026", "Guide"],
+    faq: [
+      { q: "What size sunglasses do I need for a wide face?", a: "If your temple-to-temple measurement is 155 mm or more, you need a frame with a front width of at least 155 mm — measured hinge-to-hinge across the front. Most mainstream 'oversized' sunglasses are 138–148 mm, which is a larger lens on a standard front. Woolet's standard size is 158 mm with a 21–22 mm keyhole bridge." },
+      { q: "Are oversized sunglasses the same as wide sunglasses?", a: "No. Oversized usually refers to lens area; wide refers to front width. A pair can be oversized and still narrow at the temples. For a wide face, front width is the dimension that matters." },
+      { q: "Can I get polarized lenses on Woolet sunglasses?", a: "Yes. Polarized is a lens-level upgrade on both the 007 round and 009 soft-square. Standard lenses are CR-39 with UV400 protection." },
+      { q: "What if my face is wider than 161 mm?", a: "Bespoke covers 150–172 mm of front width with a 16–26 mm bridge, in the same Italian Mazzucchelli acetate. Lead time is 4–6 weeks after the standard batch." },
+    ],
+    content: `
+<p>Most "oversized" sunglasses are not actually wide. They're standard frames with a larger lens — same hinge-to-hinge measurement, same temple length, same pinch by the end of the afternoon. If your face is 155 mm across or more, the problem isn't the lens. It's the front.</p>
+
+<p>This is a short, honest shortlist for buyers with a face width of 155 mm and above (or a head circumference of 58 cm and above). No padding, no affiliate noise — just what to look at, what to skip, and how to know which size you actually need.</p>
+
+<h2>What "wide" means for sunglasses</h2>
+
+<p>Two numbers matter. The first is <strong>front width</strong>: the distance hinge-to-hinge across the front of the frame. Mainstream sunglasses sit at 138–148 mm. Anything over 150 mm is wide. The second is <strong>bridge width</strong>: the gap between the two lenses, where the frame rests on your nose. Mainstream bridges are 17–20 mm. Wider noses usually need 21 mm or more, ideally with a keyhole shape that distributes weight onto bone rather than cartilage.</p>
+
+<p>If you don't know your face width yet, the <a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> takes about 20 seconds with your phone camera, or you can <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">measure manually with a ruler or credit card</a>.</p>
+
+<h2>What to look for in 2026</h2>
+
+<ol>
+  <li><strong>A real front-width number, not "oversized".</strong> If a product page doesn't publish the hinge-to-hinge measurement, assume it's 145 mm and move on.</li>
+  <li><strong>A bridge in the 21–22 mm range</strong>, ideally keyhole. Saddle bridges work for some, but most wider noses prefer the load shifted up onto the bone.</li>
+  <li><strong>Temples 145–150 mm or longer.</strong> Short temples bow outward as soon as a wider face puts tension on the hinges.</li>
+  <li><strong>Italian acetate over injection-moulded plastic.</strong> Cellulose acetate holds its set at wider spans where moulded plastic loosens under heat.</li>
+  <li><strong>UV400 as a baseline, polarized as an option.</strong> Polarized is worth it for driving and water; not always for screens.</li>
+</ol>
+
+<h2>The Woolet shortlist</h2>
+
+<p>Woolet makes two shapes, both engineered for wider faces (155–161 mm) at one precise 158 mm front width. Bespoke covers anything outside that, up to 172 mm.</p>
+
+<ul>
+  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
+  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
+</ul>
+
+<p>Both are pre-order at $133 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same geometry — pick on shape, not on size.</p>
+
+<h2>If you're between sizes</h2>
+
+<p>If your face is 150–154 mm or 162–172 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand-finished in the EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
+
+<h2>Quick FAQ</h2>
+
+<h3>What size sunglasses are best for a wide face?</h3>
+<p>A front width of 155 mm or more, a bridge of 21 mm or more, and temples of at least 148 mm. Below those numbers, the frame is doing standard work on a non-standard face.</p>
+
+<h3>Are wider sunglasses better for big heads?</h3>
+<p>Yes, but only if the <em>front</em> is wider. A larger lens on a 145 mm front still pinches a 58 cm head. Check the hinge-to-hinge number, not the lens diameter.</p>
+
+<h3>Where can I buy sunglasses for a wider face?</h3>
+<p>Specialist makers like Woolet design at 158 mm front with bespoke above. Most mass-market "wide" or "oversized" lines cap around 145–148 mm of actual front width.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">More on fit: <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">the complete 2026 wide-face guide</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a> · <a href="/en/collections/sunglasses-for-big-heads" style="color:#A07A2A;">sunglasses for big heads</a>.</p>
 `,
   },
 ];

@@ -667,6 +667,30 @@ const Index = () => {
                   </Link>
                 </div>
               )}
+
+              {/* EN-only contextual SEO links — discoverability for guide + collections */}
+              {lang === "en" && (
+                <div
+                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  style={{ fontSize: "0.8rem", fontFamily: "Barlow, sans-serif" }}
+                >
+                  <Link to="/en/blog/glasses-for-wide-faces-guide" className="text-gold hover:text-gold-light no-underline border-b border-gold/40 hover:border-gold-light pb-0.5 transition-colors">
+                    Wide-face fit guide →
+                  </Link>
+                  <Link to="/en/blog/how-to-measure-face-width-for-glasses" className="text-gold hover:text-gold-light no-underline border-b border-gold/40 hover:border-gold-light pb-0.5 transition-colors">
+                    Measure your face →
+                  </Link>
+                  <Link to="/en/blog/best-sunglasses-for-wide-faces" className="text-gold hover:text-gold-light no-underline border-b border-gold/40 hover:border-gold-light pb-0.5 transition-colors">
+                    Best wide-fit sunglasses →
+                  </Link>
+                  <Link to="/en/collections/wide-face-glasses" className="text-gold hover:text-gold-light no-underline border-b border-gold/40 hover:border-gold-light pb-0.5 transition-colors">
+                    Wide-face collection →
+                  </Link>
+                  <Link to="/en/collections/glasses-for-big-heads" className="text-gold hover:text-gold-light no-underline border-b border-gold/40 hover:border-gold-light pb-0.5 transition-colors">
+                    Glasses for big heads →
+                  </Link>
+                </div>
+              )}
             </div>
 
 
