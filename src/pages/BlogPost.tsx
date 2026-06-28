@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import RelatedGuides from "@/components/RelatedGuides";
 import { getBlogPost } from "@/lib/blog-data";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 
