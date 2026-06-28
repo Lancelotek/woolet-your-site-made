@@ -443,9 +443,9 @@ export function getMetadata(route: string): RouteMeta {
   // ----- Fit
   if (path === "/fit") {
     return base(route, lang, {
-      title: "AI Face-Width Scanner — Find Your Glasses Size | Woolet",
+      title: "Find Your Glasses Size in 20 Seconds — FitLens | Woolet",
       description:
-        "Measure your face width in 30 seconds with a credit card and your camera. Confirms whether 158 mm fits.",
+        "Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork.",
     });
   }
   if (path === "/fit/manual") {
