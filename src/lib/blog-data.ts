@@ -445,8 +445,8 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "how-to-measure-face-width-for-glasses",
-    title: "How to Measure Face Width for Glasses (Step-by-Step)",
-    excerpt: "Measure your face width at home with a credit card or ruler. Find your correct frame size in under a minute.",
+    title: "How to Measure Your Face Width for Glasses (2026)",
+    excerpt: "Measure your face width at home in 30 seconds and pick the right frame size — no optician needed. A simple guide built for wider faces and bigger heads.",
     date: "2026-03-08",
     readTime: 9,
     tags: ["How-to", "Measurement", "Fit"],
