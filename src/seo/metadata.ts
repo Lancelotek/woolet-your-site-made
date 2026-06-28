@@ -636,9 +636,9 @@ export function getMetadata(route: string): RouteMeta {
   // ----- Landing pages
   if (path === "/lp/why-glasses-fail") {
     return base(route, lang, {
-      title: "Why Glasses Fail Wide Faces — and the Fix | Woolet",
+      title: "Why Glasses Never Fit Your Wide Face (And How to Fix It) | Woolet",
       description:
-        "Why standard 130–148 mm frames optically widen broad faces, and how 155 mm+ Italian acetate fixes the problem.",
+        "Most frames top out around 150 mm — too narrow for a wider face. Here's why your glasses pinch or slide, and how to find a pair that actually fits.",
     }, { type: "article" });
   }
   if (path === "/lp/5-reasons") {
