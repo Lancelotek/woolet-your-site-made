@@ -317,6 +317,15 @@ const CollectionPage = ({
             ))}
           </div>
         </section>
+
+        {/* Related guides — internal linking for SEO discovery */}
+        <section aria-label="Related guides" style={{ maxWidth: 760, margin: "0 auto", padding: "8px 20px 40px" }}>
+          <RelatedGuides
+            variant="light"
+            heading="Related guides"
+            excludeHref={`/en/collections/${slug}` === "/en/collections/glasses-for-big-heads" ? "/en/collections/glasses-for-big-heads" : undefined}
+          />
+        </section>
       </main>
       <Footer />
     </>
