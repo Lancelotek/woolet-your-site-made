@@ -817,13 +817,10 @@ const Index = () => {
                     <img
                       src={m.img}
                       alt={m.alt}
-                      className={`block object-contain transition-transform duration-500 group-hover:scale-[1.04] ${
-                        m.id === "009"
-                          ? "max-w-[46%] max-h-[46%]"
-                          : "max-w-[78%] max-h-[78%]"
-                      }`}
+                      className="block object-contain transition-transform duration-500 group-hover:scale-[1.03] max-w-[92%] max-h-[88%]"
                       loading="lazy"
                     />
+
 
                   </div>
 
