@@ -15,6 +15,7 @@
 import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
 import { getBlogPosts } from "@/lib/blog-data";
 import { PRODUCT_FAQ, faqPageJsonLd } from "./faq-data";
+import { getProductReviews } from "@/data/product-reviews";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
@@ -62,7 +63,7 @@ const websiteJsonLd = {
 
 function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
   const bridge = model === "009" ? "22 mm" : "21 mm";
-  return {
+  const base: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
@@ -122,6 +123,33 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
       },
     },
   };
+
+  // Only attach review markup when we have real, verified customer reviews.
+  // Empty set → omit entirely (Google penalises fake/zero aggregate ratings).
+  const { reviews, ratingValue, reviewCount } = getProductReviews(model);
+  if (reviews.length > 0 && reviewCount > 0 && ratingValue > 0) {
+    base.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue,
+      reviewCount,
+      bestRating: "5",
+      worstRating: "1",
+    };
+    base.review = reviews.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.author },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating: "5",
+        worstRating: "1",
+      },
+      reviewBody: r.body,
+      datePublished: r.datePublished,
+    }));
+  }
+
+  return base;
 }
 
 function breadcrumbJsonLd(parts: { name: string; url: string }[]) {
