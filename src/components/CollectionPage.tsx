@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import RelatedGuides from "@/components/RelatedGuides";
 
 export interface CollectionFAQ {
   question: string;
@@ -315,6 +316,15 @@ const CollectionPage = ({
               </Link>
             ))}
           </div>
+        </section>
+
+        {/* Related guides — internal linking for SEO discovery */}
+        <section aria-label="Related guides" style={{ maxWidth: 760, margin: "0 auto", padding: "8px 20px 40px" }}>
+          <RelatedGuides
+            variant="light"
+            heading="Related guides"
+            excludeHref={`/en/collections/${slug}` === "/en/collections/glasses-for-big-heads" ? "/en/collections/glasses-for-big-heads" : undefined}
+          />
         </section>
       </main>
       <Footer />

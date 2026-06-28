@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import RelatedGuides from "@/components/RelatedGuides";
 import { getBlogPost } from "@/lib/blog-data";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 
@@ -239,6 +240,8 @@ const BlogPost = () => {
           className="woolet-blog-content"
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
+
+        <RelatedGuides variant="dark" className="my-12" />
 
         <div className="woolet-divider my-12" />
 
