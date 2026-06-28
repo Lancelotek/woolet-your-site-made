@@ -241,6 +241,8 @@ const BlogPost = () => {
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
 
+        <RelatedGuides variant="dark" className="my-12" />
+
         <div className="woolet-divider my-12" />
 
         <Link to={`/${currentLang}/blog`} className="text-primary no-underline uppercase tracking-[0.22em] hover:tracking-[0.28em] transition-all" style={{ fontSize: "0.72rem" }}>
