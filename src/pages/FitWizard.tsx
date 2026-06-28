@@ -2130,6 +2130,12 @@ export default function FitWizard() {
           )}
           {step === "reserved" && measurement && <ReservedStep measurement={measurement} />}
         </div>
+
+        <div className="px-5 sm:px-8 lg:px-16 pb-16 sm:pb-24">
+          <div className="max-w-2xl mx-auto">
+            <RelatedGuides variant="dark" />
+          </div>
+        </div>
       </main>
 
       {step !== "capture" && <Footer />}
