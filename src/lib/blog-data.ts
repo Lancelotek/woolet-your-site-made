@@ -329,6 +329,15 @@ const blogPostsEN: BlogPost[] = [
   </div>
 </div>
 
+<div style="border-top:1px solid #E8E4DC;margin-top:36px;padding-top:24px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:12px;">Related reading</div>
+  <ul style="margin:0;padding:0 0 0 18px;font-size:15px;line-height:1.8;color:#1a1a1a;">
+    <li><a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#c9a84c;text-decoration:none;">How to measure your face width for glasses</a> — a 30-second method using a phone or a credit card.</li>
+    <li><a href="/en/blog/best-sunglasses-for-wide-faces" style="color:#c9a84c;text-decoration:none;">Best sunglasses for wide faces in 2026</a> — the wide-fit shortlist, with real measurements.</li>
+    <li><a href="/en/collections/wide-face-glasses" style="color:#c9a84c;text-decoration:none;">Wide-face glasses collection</a> and <a href="/en/collections/glasses-for-big-heads" style="color:#c9a84c;text-decoration:none;">glasses for big heads</a> — browse the 158 mm range.</li>
+  </ul>
+</div>
+
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2025-03-09","dateModified":"2025-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Castiglione Olona, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}</script>
 `,
   },
