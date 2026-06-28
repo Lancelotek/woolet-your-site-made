@@ -4,7 +4,6 @@ import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import RelatedGuides from "@/components/RelatedGuides";
 import CardPositionIllustration from "@/components/CardPositionIllustration";
 import SocialProofToast from "@/components/SocialProofToast";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
