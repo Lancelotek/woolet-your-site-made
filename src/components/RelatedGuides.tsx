@@ -47,77 +47,39 @@ export const RelatedGuides = ({
 
   return (
     <aside
-      className={`not-prose ${className}`}
+      className={`not-prose pt-8 ${className}`}
       style={{
         borderTop: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.08)",
-        paddingTop: "2rem",
-      }}
+        "--rg-heading": isDark ? "hsl(var(--cream))" : "#111",
+        "--rg-label": "hsl(var(--gold))",
+        "--rg-desc": isDark ? "hsl(var(--cream-dim))" : "#444",
+        "--rg-card-bg": isDark ? "rgba(255,255,255,0.02)" : "#FFF",
+        "--rg-card-border": isDark ? "rgba(255,255,255,0.10)" : "#D6CBB6",
+        "--rg-card-hover-bg": isDark ? "rgba(255,255,255,0.04)" : "#FAF8F4",
+        "--rg-card-hover-border": "hsl(var(--gold) / 0.55)",
+      } as React.CSSProperties}
     >
       <h3
-        className="font-display"
-        style={{
-          fontSize: "1.15rem",
-          fontWeight: 300,
-          margin: "0 0 1rem",
-          color: isDark ? "hsl(var(--cream))" : "#111",
-        }}
+        className="font-display text-[1.15rem] font-light mb-4 text-[var(--rg-heading)]"
       >
         {heading}
       </h3>
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "0.75rem",
-        }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
       >
         {guides.map((g) => (
           <Link
             key={g.href}
             to={g.href}
-            className="no-underline group"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.35rem",
-              padding: "1rem",
-              borderRadius: "2px",
-              border: isDark ? "1px solid rgba(255,255,255,0.10)" : "1px solid #D6CBB6",
-              background: isDark ? "rgba(255,255,255,0.02)" : "#FFF",
-              transition: "border-color 200ms, background 200ms",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "hsl(var(--gold) / 0.55)";
-              e.currentTarget.style.background = isDark
-                ? "rgba(255,255,255,0.04)"
-                : "#FAF8F4";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = isDark
-                ? "rgba(255,255,255,0.10)"
-                : "#D6CBB6";
-              e.currentTarget.style.background = isDark
-                ? "rgba(255,255,255,0.02)"
-                : "#FFF";
-            }}
+            className="no-underline group flex flex-col gap-[0.35rem] p-4 rounded-[2px] border border-[var(--rg-card-border)] bg-[var(--rg-card-bg)] transition-colors duration-200 hover:border-[var(--rg-card-hover-border)] hover:bg-[var(--rg-card-hover-bg)]"
           >
             <span
-              className="uppercase tracking-[0.16em]"
-              style={{
-                fontSize: "0.7rem",
-                fontFamily: "Barlow, sans-serif",
-                fontWeight: 500,
-                color: "hsl(var(--gold))",
-              }}
+              className="uppercase tracking-[0.16em] text-[0.7rem] font-body font-medium text-[var(--rg-label)]"
             >
               {g.label} →
             </span>
             <span
-              style={{
-                fontSize: "0.85rem",
-                lineHeight: 1.45,
-                color: isDark ? "hsl(var(--cream-dim))" : "#444",
-              }}
+              className="text-[0.85rem] leading-[1.45] text-[var(--rg-desc)]"
             >
               {g.description}
             </span>
