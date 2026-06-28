@@ -53,6 +53,16 @@ const Footer = () => {
       ],
     },
     {
+      heading: "Guides",
+      links: [
+        { label: "Wide-face fit guide", href: "/en/blog/glasses-for-wide-faces-guide" },
+        { label: "Measure your face", href: "/en/blog/how-to-measure-face-width-for-glasses" },
+        { label: "Best wide-fit sunglasses", href: "/en/blog/best-sunglasses-for-wide-faces" },
+        { label: "Wide-face collection", href: "/en/collections/wide-face-glasses" },
+        { label: "Glasses for big heads", href: "/en/collections/glasses-for-big-heads" },
+      ],
+    },
+    {
       heading: "Company",
       links: [
         { label: "Blog", href: `/${lang}/blog` },
@@ -77,7 +87,7 @@ const Footer = () => {
     >
       <div className="max-w-[1320px] mx-auto">
         {/* Top: brand + groups */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(3,1fr)] gap-10 md:gap-8 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(4,1fr)] gap-10 md:gap-8 pb-10">
           {/* Brand */}
           <div className="flex flex-col gap-3">
             <span
