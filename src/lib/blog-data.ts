@@ -2697,6 +2697,69 @@ const blogPostsEN: BlogPost[] = [
 </script>
 `,
   },
+  {
+    slug: "best-sunglasses-for-wide-faces",
+    title: "Best Sunglasses for Wide Faces in 2026",
+    excerpt: "Sunglasses that don't pinch a wider face. See the best wide-fit sunglasses for 2026 — 158 mm fronts, keyhole bridges, polarized options. Find your size.",
+    date: "2026-06-28",
+    readTime: 8,
+    tags: ["Sunglasses", "Wide Face", "2026", "Guide"],
+    faq: [
+      { q: "What size sunglasses do I need for a wide face?", a: "If your temple-to-temple measurement is 155 mm or more, you need a frame with a front width of at least 155 mm — measured hinge-to-hinge across the front. Most mainstream 'oversized' sunglasses are 138–148 mm, which is a larger lens on a standard front. Woolet's standard size is 158 mm with a 21–22 mm keyhole bridge." },
+      { q: "Are oversized sunglasses the same as wide sunglasses?", a: "No. Oversized usually refers to lens area; wide refers to front width. A pair can be oversized and still narrow at the temples. For a wide face, front width is the dimension that matters." },
+      { q: "Can I get polarized lenses on Woolet sunglasses?", a: "Yes. Polarized is a lens-level upgrade on both the 007 round and 009 soft-square. Standard lenses are CR-39 with UV400 protection." },
+      { q: "What if my face is wider than 161 mm?", a: "Bespoke covers 150–172 mm of front width with a 16–26 mm bridge, in the same Italian Mazzucchelli acetate. Lead time is 4–6 weeks after the standard batch." },
+    ],
+    content: `
+<p>Most "oversized" sunglasses are not actually wide. They're standard frames with a larger lens — same hinge-to-hinge measurement, same temple length, same pinch by the end of the afternoon. If your face is 155 mm across or more, the problem isn't the lens. It's the front.</p>
+
+<p>This is a short, honest shortlist for buyers with a face width of 155 mm and above (or a head circumference of 58 cm and above). No padding, no affiliate noise — just what to look at, what to skip, and how to know which size you actually need.</p>
+
+<h2>What "wide" means for sunglasses</h2>
+
+<p>Two numbers matter. The first is <strong>front width</strong>: the distance hinge-to-hinge across the front of the frame. Mainstream sunglasses sit at 138–148 mm. Anything over 150 mm is wide. The second is <strong>bridge width</strong>: the gap between the two lenses, where the frame rests on your nose. Mainstream bridges are 17–20 mm. Wider noses usually need 21 mm or more, ideally with a keyhole shape that distributes weight onto bone rather than cartilage.</p>
+
+<p>If you don't know your face width yet, the <a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> takes about 20 seconds with your phone camera, or you can <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">measure manually with a ruler or credit card</a>.</p>
+
+<h2>What to look for in 2026</h2>
+
+<ol>
+  <li><strong>A real front-width number, not "oversized".</strong> If a product page doesn't publish the hinge-to-hinge measurement, assume it's 145 mm and move on.</li>
+  <li><strong>A bridge in the 21–22 mm range</strong>, ideally keyhole. Saddle bridges work for some, but most wider noses prefer the load shifted up onto the bone.</li>
+  <li><strong>Temples 145–150 mm or longer.</strong> Short temples bow outward as soon as a wider face puts tension on the hinges.</li>
+  <li><strong>Italian acetate over injection-moulded plastic.</strong> Cellulose acetate holds its set at wider spans where moulded plastic loosens under heat.</li>
+  <li><strong>UV400 as a baseline, polarized as an option.</strong> Polarized is worth it for driving and water; not always for screens.</li>
+</ol>
+
+<h2>The Woolet shortlist</h2>
+
+<p>Woolet makes two shapes, both engineered for wider faces (155–161 mm) at one precise 158 mm front width. Bespoke covers anything outside that, up to 172 mm.</p>
+
+<ul>
+  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
+  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
+</ul>
+
+<p>Both are pre-order at $133 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same geometry — pick on shape, not on size.</p>
+
+<h2>If you're between sizes</h2>
+
+<p>If your face is 150–154 mm or 162–172 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand-finished in the EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
+
+<h2>Quick FAQ</h2>
+
+<h3>What size sunglasses are best for a wide face?</h3>
+<p>A front width of 155 mm or more, a bridge of 21 mm or more, and temples of at least 148 mm. Below those numbers, the frame is doing standard work on a non-standard face.</p>
+
+<h3>Are wider sunglasses better for big heads?</h3>
+<p>Yes, but only if the <em>front</em> is wider. A larger lens on a 145 mm front still pinches a 58 cm head. Check the hinge-to-hinge number, not the lens diameter.</p>
+
+<h3>Where can I buy sunglasses for a wider face?</h3>
+<p>Specialist makers like Woolet design at 158 mm front with bespoke above. Most mass-market "wide" or "oversized" lines cap around 145–148 mm of actual front width.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">More on fit: <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">the complete 2026 wide-face guide</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a> · <a href="/en/collections/sunglasses-for-big-heads" style="color:#A07A2A;">sunglasses for big heads</a>.</p>
+`,
+  },
 ];
 
 const blogPostsPL: BlogPost[] = [
