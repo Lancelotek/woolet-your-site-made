@@ -309,9 +309,9 @@ export function getMetadata(route: string): RouteMeta {
       route,
       lang,
       {
-        title: "Woolet 009 — Square Acetate Glasses, 158 mm Wide",
+        title: "009 Square — Wide-Fit Square Glasses, 158 mm | Woolet",
         description:
-          "Soft-square Italian acetate frame for wide faces. 158 mm front, 22 mm keyhole bridge. $114 pre-order, $190 MSRP (save 40%).",
+          "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand-finished. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and hand-finished in Italy. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 150–172 mm available.</p>`,
