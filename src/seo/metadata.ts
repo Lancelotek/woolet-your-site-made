@@ -14,7 +14,7 @@
 
 import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
 import { getBlogPosts } from "@/lib/blog-data";
-import { PRODUCT_FAQ, faqPageJsonLd } from "./faq-data";
+import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 
 export const SITE_URL = "https://woolet.co";
@@ -785,6 +785,7 @@ ${post.content}
             { name: "Blog", url: `${SITE_URL}/${lang}/blog` },
             { name: post.title, url: `${SITE_URL}${route}` },
           ]),
+          ...(GUIDE_FAQS[slug] ? [faqPageJsonLd(GUIDE_FAQS[slug])] : []),
         ],
       );
     }
