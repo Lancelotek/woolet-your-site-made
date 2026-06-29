@@ -93,6 +93,8 @@ async function fireMetaPurchase(session: any) {
   };
 
   const url = `https://graph.facebook.com/${META_GRAPH_VERSION}/${pixelId}/events?access_token=${encodeURIComponent(accessToken)}`;
+  let metaStatus: "sent" | "error" = "sent";
+  let metaDetail: unknown = null;
   try {
     const res = await fetch(url, {
       method: "POST",
@@ -100,13 +102,48 @@ async function fireMetaPurchase(session: any) {
       body: JSON.stringify({ data: [event] }),
     });
     const text = await res.text();
+    metaDetail = { http: res.status, body: text.slice(0, 500) };
     if (!res.ok) {
+      metaStatus = "error";
       console.error("[meta-capi:purchase] graph error", res.status, text);
     } else {
       console.log("[meta-capi:purchase] sent", session.id, text.slice(0, 200));
     }
   } catch (err) {
+    metaStatus = "error";
+    metaDetail = String(err);
     console.error("[meta-capi:purchase] fetch failed", err);
+  }
+
+  try {
+    await getSupabase().from("server_event_log").insert({
+      source: "payments-webhook",
+      event_name: "Purchase",
+      event_id: event.event_id,
+      email_hash: email ? await sha256Hex(email.trim().toLowerCase()) : null,
+      phone_hash: phone ? await sha256Hex(phone.replace(/[^\d]/g, "")) : null,
+      event_source_url: event.event_source_url ?? null,
+      client_ip: ip ?? null,
+      user_agent: ua ?? null,
+      fbp: fbp ?? null,
+      fbc: fbc ?? null,
+      custom_data: event.custom_data,
+      user_data_hashed: {
+        em: userData.em ?? null,
+        ph: userData.ph ?? null,
+        country: userData.country ?? null,
+      },
+      destinations: { meta: { status: metaStatus, detail: metaDetail } },
+      request_summary: {
+        stripe_session_id: session.id,
+        stripe_payment_intent: session.payment_intent ?? null,
+        amount_total: session.amount_total ?? null,
+        currency: session.currency ?? null,
+      },
+      status: metaStatus,
+    });
+  } catch (logErr) {
+    console.error("[server_event_log] insert failed", logErr);
   }
 }
 
