@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { t, type Lang } from "@/lib/i18n";
 import { pushGtmEvent } from "@/lib/gtm";
 import { rdtLead } from "@/lib/reddit-pixel";
+import { trackMetaEvent } from "@/lib/meta-capi";
 
 const inputStyle: React.CSSProperties = {
   fontSize: "12px",
@@ -87,6 +88,19 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
       });
 
       rdtLead({ value: 114, currency: "USD" });
+
+      // Meta CAPI — server-side Lead with hashed PII + fbp/fbc + IP/UA
+      void trackMetaEvent("Lead", {
+        user: {
+          email: formData.email,
+          first_name: formData.name,
+        },
+        custom: {
+          value: 114,
+          currency: "USD",
+          content_name: "Waitlist signup",
+        },
+      });
 
       setSubmitted(true);
       setCount((c) => c + 1);
