@@ -195,6 +195,51 @@ const BlogPost = () => {
               })),
             });
           }
+          // Extract <img> tags from post.content and emit ImageObject schemas
+          // so search engines get a richer description/caption per image.
+          const SITE = "https://woolet.co";
+          const absUrl = (u: string) => (u.startsWith("http") ? u : `${SITE}${u.startsWith("/") ? u : `/${u}`}`);
+          const figureRe = /<figure[^>]*>\s*<img[^>]*src="([^"]+)"[^>]*alt="([^"]*)"[^>]*\/?>(?:\s*<figcaption[^>]*>([\s\S]*?)<\/figcaption>)?/gi;
+          const imgRe = /<img[^>]*src="([^"]+)"[^>]*alt="([^"]+)"[^>]*\/?>(?![^<]*<\/figcaption>)/gi;
+          const seen = new Set<string>();
+          let fm: RegExpExecArray | null;
+          while ((fm = figureRe.exec(post.content)) !== null) {
+            const url = absUrl(fm[1]);
+            if (seen.has(url)) continue;
+            seen.add(url);
+            const alt = fm[2]?.trim();
+            const cap = fm[3]?.replace(/<[^>]+>/g, "").trim();
+            schemas.push({
+              "@context": "https://schema.org",
+              "@type": "ImageObject",
+              contentUrl: url,
+              url,
+              ...(cap ? { caption: cap } : {}),
+              ...(alt ? { description: alt, name: alt } : {}),
+              isPartOf: `${SITE}/${currentLang}/blog/${post.slug}`,
+              creditText: "Woolet",
+              creator: { "@type": "Organization", name: "Woolet", url: SITE },
+              copyrightNotice: `© ${new Date(post.date).getFullYear()} Woolet`,
+              license: `${SITE}/terms`,
+              acquireLicensePage: `${SITE}/contact`,
+            });
+          }
+          while ((fm = imgRe.exec(post.content)) !== null) {
+            const url = absUrl(fm[1]);
+            if (seen.has(url)) continue;
+            seen.add(url);
+            const alt = fm[2]?.trim();
+            schemas.push({
+              "@context": "https://schema.org",
+              "@type": "ImageObject",
+              contentUrl: url,
+              url,
+              ...(alt ? { caption: alt, description: alt, name: alt } : {}),
+              isPartOf: `${SITE}/${currentLang}/blog/${post.slug}`,
+              creditText: "Woolet",
+              creator: { "@type": "Organization", name: "Woolet", url: SITE },
+            });
+          }
           return schemas.length > 0 ? schemas : undefined;
         })()}
       />
