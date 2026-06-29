@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { rdtPageVisit, rdtCustom } from "@/lib/reddit-pixel";
+import { trackMetaEvent } from "@/lib/meta-capi";
 
 const isProdHost = () => {
   if (typeof window === "undefined") return false;
@@ -35,6 +36,9 @@ const PageViewTracker = () => {
     if (/\/fit\/?$/.test(loc.pathname)) {
       rdtCustom({ customEventName: "FitWizardStart" });
     }
+
+    // Meta CAPI — server-side PageView (no-op outside prod hosts)
+    void trackMetaEvent("PageView");
   }, [loc.pathname, loc.search]);
   return null;
 };
