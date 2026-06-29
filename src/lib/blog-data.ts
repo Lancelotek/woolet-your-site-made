@@ -2812,7 +2812,116 @@ const blogPostsEN: BlogPost[] = [
 <p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">More on fit: <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">the complete 2026 wide-face guide</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a> · <a href="/en/collections/sunglasses-for-big-heads" style="color:#A07A2A;">sunglasses for big heads</a>.</p>
 `,
   },
+  {
+    slug: "wide-face-glasses-for-women",
+    title: "Wide-Face Glasses for Women: The Honest 2026 Fit Guide",
+    excerpt: "Most 'women's frames' top out at 138 mm. If your face is 150 mm+ across, here's what to look for, what to skip, and why width — not 'feminine shape' — is the deciding number.",
+    date: "2026-06-29",
+    readTime: 10,
+    tags: ["Guide", "Women", "Wide Face", "2026"],
+    faq: [
+      { q: "What face width counts as wide for a woman?", a: "Anything above 140 mm temple-to-temple sits outside the standard women's eyewear range, which is typically built at 128–138 mm. Above 150 mm you're firmly in wide-face territory and most mainstream women's lines won't fit, regardless of how the frame is shaped." },
+      { q: "Are 'unisex' frames the same as women's frames in a larger size?", a: "Usually no. Most unisex frames are men's frames relabelled. The width is right for a wide face, but the bridge often sits higher and the temple angle assumes a flatter brow. Look at the bridge mm and the lens height, not the marketing label." },
+      { q: "What frame width should I look for as a woman with a wide face?", a: "Match your temple-to-temple measurement, then add 1–2 mm of breathing room. For most wide-face women that's 152–162 mm of total frame width. Woolet's standard is 158 mm; bespoke covers 150–172 mm." },
+      { q: "Will a wider frame make my face look bigger?", a: "The opposite. A frame that's too narrow draws a hard horizontal line inside your hairline and emphasises the width sitting outside it. A frame matched to your actual width reads as proportional and intentional." },
+      { q: "What styles work best on a wider face?", a: "Soft-square and rounded panto shapes both work. The deciding number is width, not shape. Avoid very small cat-eyes — the lens area gets dwarfed by the face and the frame reads as an accessory rather than eyewear." },
+      { q: "Do Woolet frames come in feminine colourways?", a: "Both 007 (round) and 009 (soft square) ship in Dark Tortoise and Black; 007 also offers Honey. Bespoke opens the full Mazzucchelli colour palette, including translucent and crystal acetates often chosen by women buyers." },
+    ],
+    content: `
+<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
+    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Published: June 2026</div>
+  </div>
+</div>
+
+<p>The wide-face problem is rarely framed as a women's problem. Most fit guides default to men's faces, men's heads, men's frame catalogues. The reality is simpler and less convenient: women's eyewear, as a category, is built narrower than men's. So if your face is wider than the average woman's, the mismatch is sharper — not softer — than it would be for a man with the same measurement.</p>
+
+<p>This guide is for women who already know the routine: pulling frame after frame off the wall, watching the arms bow before they ever reach the ears, being told to try "a different shape" when the issue was never the shape. The answer is a number, not a style.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Definition</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A wide face in eyewear terms means a face width above 140 mm measured temple-to-temple. The average adult woman's face measures roughly 134 mm wide; standard women's frames are built for 128–138 mm. Above 145 mm, mainstream women's eyewear stops fitting.</p>
+</div>
+
+<h2>Why "women's frames" are narrower in the first place</h2>
+
+<p>Eyewear is sized to population averages. Peer-reviewed anthropometric data (Cleft Palate and Craniofacial Journal, Gordon et al.) puts the average adult female face at roughly 134 mm of bizygomatic width, against 142 mm for adult men. Frame catalogues mirror this: women's lines cluster between 128 and 138 mm of total front width, men's between 135 and 145 mm. Both ranges leave anyone above the 90th percentile without a fitting option.</p>
+
+<p>That gap matters because the women's-line geometry is not just smaller — it's also shorter in the temple, lower in the bridge, and lighter in the hinge. Stretching a women's frame to a wider face strains exactly the parts that were designed light. Going up into "men's wide" usually means accepting a heavier bridge, a flatter brow line, and a temple angle that sits too low behind the ear.</p>
+
+<h2>The two numbers that decide the fit</h2>
+
+<p>Strip away the styling vocabulary and only two measurements matter for a wide-face fit, regardless of gender:</p>
+
+<ol>
+  <li><strong>Front width (hinge-to-hinge).</strong> This is the total width of the frame across the top, not the lens diameter. Mainstream women's frames sit at 128–138 mm. Wide-face women usually need 152–162 mm. Below your face width, the arms bow outward and the temples press in. Two or three millimetres above is comfortable; ten millimetres above starts to overhang.</li>
+  <li><strong>Bridge width.</strong> The gap between the two lenses, where the frame rests on your nose. Standard bridges are 16–19 mm. Wider noses — common alongside wider faces — usually need 20–22 mm, and a keyhole shape that loads weight onto the nasal bone rather than the cartilage.</li>
+</ol>
+
+<p>If you don't know your numbers yet, the <a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> uses your phone camera and a credit card for calibration and returns front width and bridge in about twenty seconds. The <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">manual method with a ruler</a> works just as well.</p>
+
+<h2>The "feminine shape" myth</h2>
+
+<p>The dominant advice for women's eyewear is built around face shape — cat-eye for round, oval for square, and so on. It's not wrong, but it answers a different question. Shape only matters once width fits. A 138 mm cat-eye on a 155 mm face will read as undersized no matter how flattering the curve. The frame becomes an accessory perched in front of the eyes instead of eyewear sitting on the face.</p>
+
+<p>Once width matches, almost any shape works on a wider face. The shapes that consistently <em>don't</em> work are the smallest ones: petite cat-eyes, micro-ovals, and any frame whose lens diameter is under about 48 mm. They get visually swallowed and underline the width sitting outside the frame edge.</p>
+
+<h2>What to look for in 2026</h2>
+
+<ul>
+  <li><strong>A published front-width number.</strong> If a women's frame doesn't list its hinge-to-hinge measurement, assume it's 138 mm and move on. The number printed inside the temple (e.g. "52□18 140") is lens width, bridge, and temple length — not front width.</li>
+  <li><strong>A 21–22 mm keyhole bridge, or saddle if your nose is broad rather than tall.</strong> The keyhole shape spreads load and stops the frame sliding on warm days.</li>
+  <li><strong>Italian cellulose acetate, hand-finished.</strong> At 155 mm of width, injection-moulded plastic loosens at the hinges within a season. Acetate (Mazzucchelli is the standard) holds its set.</li>
+  <li><strong>Temples 145–150 mm or longer.</strong> A wider face puts the hinge further out, which means the temple has to travel further before it reaches the ear.</li>
+  <li><strong>Colour you actually want to wear.</strong> The premium acetate market opens up here. Translucent honey, smoky champagne, deep tortoise — anything beyond plain black quietly does more work on a wider face than a darker outline would.</li>
+</ul>
+
+<h2>Where Woolet fits</h2>
+
+<p>Woolet is built around one precise measurement: 158 mm of front width, with a 21–22 mm keyhole bridge and 148 mm temples. Two shapes, both unisex by geometry — fit, not styling, decides whether they work:</p>
+
+<ul>
+  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Soft round panto in Italian Mazzucchelli acetate. Reads less architectural; the shape consistently picked by women buyers in our pre-order data. Available in Dark Tortoise, Black, and Honey.</li>
+  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft square with a slightly higher brow line. Reads more deliberate, works on rounder face shapes. Available in Dark Tortoise and Black.</li>
+</ul>
+
+<p>If your face falls outside 155–161 mm, the <a href="/en/bespoke" style="color:#A07A2A;">bespoke tier</a> covers 150–172 mm of front width and 16–26 mm of bridge, in the same Italian acetate. That's the right route for women in the 150–154 mm range — a band ignored by mainstream women's catalogues and most "wide" lines.</p>
+
+<h2>Frame colour, on a wider face, on a woman</h2>
+
+<p>One small editorial note that gets ignored elsewhere. On a wider face, very dark frames in opaque black read heavier than they do on narrower faces — the frame is doing more visual work simply because it's larger. Translucent acetates (honey, champagne, smoke, tortoise) keep the same width without adding visual mass. Most women who order Woolet pick a translucent or tortoise; black is more often picked by men. Both work; the lighter colourways tend to feel more proportional on a wider feminine face.</p>
+
+<h2>What to skip</h2>
+
+<ul>
+  <li>Anything labelled "oversized women's" without a published front-width number. Oversized usually means larger lens on a standard front — exactly the wrong direction.</li>
+  <li>Metal frames at this width. Metal can be sized wider, but the hinge mechanics don't hold tension on a 155 mm+ face for long. Acetate is the more reliable answer.</li>
+  <li>Petite cat-eyes and micro-frames. Fashionable on narrower faces; visually undersized on wider ones.</li>
+  <li>Anything sold purely on shape advice without a width number. If the seller can't tell you the hinge-to-hinge measurement, they can't tell you whether it fits.</li>
+</ul>
+
+<h2>Quick FAQ</h2>
+
+<h3>What's the average face width for women?</h3>
+<p>Roughly 134 mm bizygomatic width across published adult anthropometric studies (Gordon et al., ANSUR II). Standard deviation is around ±5 mm, which means a meaningful share of women sit at 140 mm or above — outside the standard women's eyewear range.</p>
+
+<h3>Is there a "petite wide-face" category?</h3>
+<p>Not as a real product line. Women between 150 and 154 mm of face width are the most under-served group in eyewear — too wide for women's frames, too narrow for men's wide lines. Bespoke (Woolet covers it from 150 mm) is currently the cleanest answer.</p>
+
+<h3>Are men's wide-fit frames acceptable for women?</h3>
+<p>Sometimes. The width works, but watch the bridge height and the temple drop. Men's wide frames are often built with a flatter brow line and a longer drop behind the ear, which can sit awkwardly on a face with a higher brow. Geometry over styling is the right test — try the men's wide frame, but don't accept a frame just because the width is finally right.</p>
+
+<h3>Why do most wide-face guides skip women?</h3>
+<p>Because the addressable market is smaller and the average wide-face buyer searches under different terms ("big head", "extra wide", "oversized"). The fit problem itself is identical; the language around it is gendered. This guide treats the measurement as the deciding factor.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">More on fit: <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">the complete 2026 wide-face guide</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a> · <a href="/en/blog/best-sunglasses-for-wide-faces" style="color:#A07A2A;">best sunglasses for wide faces</a> · <a href="/en/bespoke" style="color:#A07A2A;">explore bespoke (150–172 mm)</a>.</p>
+`,
+  },
 ];
+
 
 const blogPostsPL: BlogPost[] = [
   {
