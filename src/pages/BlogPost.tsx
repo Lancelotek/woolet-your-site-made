@@ -45,24 +45,30 @@ function processContent(html: string, lang: Lang): string {
     return `${cta}<h2 id="${id}"${attrs}>${inner}</h2>`;
   });
 
-  // Convert size-breakdown UL (lists with mm ranges) to styled table
+  // Convert size-breakdown UL (lists with mm/short-label + em-dash split) to styled table.
+  // Strict: EVERY <li> must start with a short <strong>…</strong> label that contains "mm"
+  // (or "+"), immediately followed by an em-dash/arrow separator. Prevents accidental
+  // table conversion of normal bullet lists that happen to mention millimetres.
   processed = processed.replace(/<ul>\s*(<li>.*?<\/li>\s*){2,}<\/ul>/gis, (ulBlock) => {
     const liRegex = /<li>(.*?)<\/li>/gis;
     const items: string[] = [];
     let m;
     while ((m = liRegex.exec(ulBlock)) !== null) items.push(m[1]);
 
-    // Check if this looks like a size breakdown (contains mm ranges)
-    const isSizeTable = items.filter(i => /\d+[\s–—-]+\d*mm/i.test(i)).length >= 3;
-    if (!isSizeTable) return ulBlock;
+    const rowPattern = /^\s*<strong>([^<]{1,40})<\/strong>\s*[—–→]\s*(.+)$/is;
+    const parsed = items.map(i => i.match(rowPattern));
+    const allMatch = parsed.every(Boolean);
+    if (!allMatch) return ulBlock;
 
-    const rows = items.map(item => {
-      const clean = item.replace(/<\/?strong>/g, "");
-      // Try to split on " — " or " – "
-      const parts = clean.split(/\s*[—–]\s*/);
-      const label = parts[0]?.trim() || "";
-      const rest = parts.slice(1).join(" — ").trim();
-      const isHighlight = /155mm\+|155\+/i.test(label);
+    const allLabelsHaveSize = parsed.every(
+      p => p && /(\d+\s*mm|\d+\s*\+|mm\+)/i.test(p[1])
+    );
+    if (!allLabelsHaveSize) return ulBlock;
+
+    const rows = parsed.map(p => {
+      const label = (p![1] || "").trim();
+      const rest = (p![2] || "").trim();
+      const isHighlight = /155\s*mm\s*\+|155\+/i.test(label);
       return `<div class="woolet-size-row${isHighlight ? " woolet-size-row--highlight" : ""}"><span class="woolet-size-label">${label}</span><span class="woolet-size-desc">${rest}</span></div>`;
     });
 
