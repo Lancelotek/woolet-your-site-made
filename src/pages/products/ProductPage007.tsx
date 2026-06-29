@@ -286,10 +286,17 @@ const ProductPage007 = () => {
                 Woolet 007 <em style={{ fontStyle: "italic", color: T.gold }}>Panto</em>
               </h1>
               <div style={{
-                fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 22,
+                fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 10,
               }}>
                 Round panto · 158 mm · {selectedColor}
               </div>
+              <h2 style={{
+                fontFamily: SANS, fontWeight: 500, fontSize: 13,
+                letterSpacing: "0.04em", color: T.inkDim,
+                margin: "0 0 22px", lineHeight: 1.5,
+              }}>
+                Wide-fit round acetate glasses engineered for faces 155&nbsp;mm and above — 158&nbsp;mm front, 21&nbsp;mm keyhole bridge, Italian Mazzucchelli acetate.
+              </h2>
 
               {/* Price hierarchy — $114 leads */}
               <div style={{
