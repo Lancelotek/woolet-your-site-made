@@ -318,31 +318,8 @@
 
 
 
-  <!-- Thank You — per locale -->
-  <url>
-    <loc>https://woolet.co/en/thank-you</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://woolet.co/pl/thank-you</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://woolet.co/fr/thank-you</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://woolet.co/es/thank-you</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
+  <!-- /thank-you intentionally omitted from sitemap (post-conversion pages, not for indexing). -->
+
 
   <!-- Blog Index -->
   <url>
@@ -605,5 +582,76 @@
     <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/blog/wide-face-glasses-for-women</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- PL blog posts -->
+  <url>
+    <loc>https://woolet.co/pl/blog/okulary-na-szeroka-twarz-przewodnik</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog/okulary-na-szeroka-twarz-przewodnik"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/glasses-for-wide-faces-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/glasses-for-wide-faces-guide"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/blog/jak-zmierzyc-szerokosc-twarzy-do-okularow</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog/jak-zmierzyc-szerokosc-twarzy-do-okularow"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/how-to-measure-face-width-for-glasses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/how-to-measure-face-width-for-glasses"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/blog/czym-jest-wloski-octan-premium-oprawki</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog/czym-jest-wloski-octan-premium-oprawki"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/what-is-italian-acetate-premium-eyewear"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/what-is-italian-acetate-premium-eyewear"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/blog/dlaczego-okulary-nie-pasuja-problem-155mm</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog/dlaczego-okulary-nie-pasuja-problem-155mm"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/why-glasses-dont-fit-155mm-problem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/why-glasses-dont-fit-155mm-problem"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/blog/okragle-czy-kwadratowe-okulary-szeroka-twarz</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog/okragle-czy-kwadratowe-okulary-szeroka-twarz"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/round-vs-square-glasses-wide-face"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/round-vs-square-glasses-wide-face"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/blog/okulary-na-szeroka-twarz-dla-profesjonalistow</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog/okulary-na-szeroka-twarz-dla-profesjonalistow"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/wide-frame-glasses-professionals"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/wide-frame-glasses-professionals"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/blog/najlepsze-okulary-na-duza-glowe-2026</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog/najlepsze-okulary-na-duza-glowe-2026"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/best-glasses-for-big-heads-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/best-glasses-for-big-heads-2026"/>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
