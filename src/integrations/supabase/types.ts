@@ -311,6 +311,78 @@ export type Database = {
         }
         Relationships: []
       }
+      server_event_log: {
+        Row: {
+          client_ip: string | null
+          created_at: string
+          custom_data: Json | null
+          destinations: Json | null
+          email_hash: string | null
+          error: string | null
+          event_id: string | null
+          event_name: string
+          event_source_url: string | null
+          external_id_hash: string | null
+          fbc: string | null
+          fbp: string | null
+          id: string
+          phone_hash: string | null
+          rdt_uuid: string | null
+          request_summary: Json | null
+          source: string
+          status: string | null
+          ttclid: string | null
+          user_agent: string | null
+          user_data_hashed: Json | null
+        }
+        Insert: {
+          client_ip?: string | null
+          created_at?: string
+          custom_data?: Json | null
+          destinations?: Json | null
+          email_hash?: string | null
+          error?: string | null
+          event_id?: string | null
+          event_name: string
+          event_source_url?: string | null
+          external_id_hash?: string | null
+          fbc?: string | null
+          fbp?: string | null
+          id?: string
+          phone_hash?: string | null
+          rdt_uuid?: string | null
+          request_summary?: Json | null
+          source: string
+          status?: string | null
+          ttclid?: string | null
+          user_agent?: string | null
+          user_data_hashed?: Json | null
+        }
+        Update: {
+          client_ip?: string | null
+          created_at?: string
+          custom_data?: Json | null
+          destinations?: Json | null
+          email_hash?: string | null
+          error?: string | null
+          event_id?: string | null
+          event_name?: string
+          event_source_url?: string | null
+          external_id_hash?: string | null
+          fbc?: string | null
+          fbp?: string | null
+          id?: string
+          phone_hash?: string | null
+          rdt_uuid?: string | null
+          request_summary?: Json | null
+          source?: string
+          status?: string | null
+          ttclid?: string | null
+          user_agent?: string | null
+          user_data_hashed?: Json | null
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string

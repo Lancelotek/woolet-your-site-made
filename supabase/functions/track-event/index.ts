@@ -10,6 +10,29 @@
 // skipped, never blocks the others. The same `event_id` is shared across all
 // destinations so browser pixels can dedupe natively.
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { createClient } from "npm:@supabase/supabase-js@2";
+
+let _supabase: ReturnType<typeof createClient> | null = null;
+function getSupabase() {
+  if (!_supabase) {
+    const url = Deno.env.get("SUPABASE_URL");
+    const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!url || !key) return null;
+    _supabase = createClient(url, key, { auth: { persistSession: false } });
+  }
+  return _supabase;
+}
+
+async function logServerEvent(row: Record<string, unknown>) {
+  try {
+    const sb = getSupabase();
+    if (!sb) return;
+    const { error } = await sb.from("server_event_log").insert(row);
+    if (error) console.error("[server_event_log] insert failed", error);
+  } catch (e) {
+    console.error("[server_event_log] exception", e);
+  }
+}
 
 const META_GRAPH_VERSION = "v21.0";
 const TIKTOK_ENDPOINT = "https://business-api.tiktok.com/open_api/v1.3/event/track/";
@@ -392,12 +415,41 @@ Deno.serve(async (req) => {
     sendReddit(body, hashes, ip, ua),
   ]);
 
+  const u = body.user_data ?? {};
+  const destinations = { meta, tiktok, reddit };
+  const anySent = [meta, tiktok, reddit].some((d) => d.status === "sent");
+  const anyError = [meta, tiktok, reddit].some((d) => d.status === "error");
+  await logServerEvent({
+    source: "track-event",
+    event_name: body.event_name,
+    event_id: body.event_id,
+    email_hash: hashes.em ?? null,
+    phone_hash: hashes.ph ?? null,
+    external_id_hash: hashes.external_id ?? null,
+    event_source_url: body.event_source_url ?? null,
+    client_ip: ip ?? null,
+    user_agent: ua ?? null,
+    fbp: u.fbp ?? null,
+    fbc: u.fbc ?? null,
+    ttclid: u.ttclid ?? null,
+    rdt_uuid: u.rdt_uuid ?? null,
+    custom_data: body.custom_data ?? null,
+    user_data_hashed: hashes,
+    destinations,
+    request_summary: {
+      test_event_code: body.test_event_code ?? null,
+      platform_events: body.platform_events ?? null,
+      event_time: body.event_time ?? null,
+    },
+    status: anyError ? (anySent ? "partial" : "error") : anySent ? "sent" : "skipped",
+  });
+
   return new Response(
     JSON.stringify({
       ok: true,
       event_id: body.event_id,
       event_name: body.event_name,
-      destinations: { meta, tiktok, reddit },
+      destinations,
     }),
     {
       status: 200,
