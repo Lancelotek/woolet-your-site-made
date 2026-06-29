@@ -678,6 +678,10 @@ const Index = () => {
                 alt="Customer wearing Woolet wide-face Italian acetate eyewear"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                width={1200}
+                height={1600}
               />
               <div
                 className="absolute inset-0 pointer-events-none"
