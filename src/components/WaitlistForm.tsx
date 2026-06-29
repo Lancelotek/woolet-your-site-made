@@ -118,6 +118,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
 
       // Meta CAPI — server-side Lead with hashed PII + fbp/fbc + IP/UA
       void trackMetaEvent("Lead", {
+        eventId: meta_event_id,
         user: {
           email: formData.email,
           first_name: formData.name,
