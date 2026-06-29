@@ -49,6 +49,19 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Capture the buyer's real IP at checkout creation time so the
+    // payments-webhook can attach it to the Meta CAPI Purchase event.
+    // (At webhook time, the request originates from Stripe — the buyer IP is
+    // long gone.) Stripe metadata values are capped at 500 chars.
+    const xff = req.headers.get("x-forwarded-for");
+    const buyerIp =
+      (xff?.split(",")[0]?.trim()) ||
+      req.headers.get("cf-connecting-ip") ||
+      req.headers.get("x-real-ip");
+    if (buyerIp && !cleanMeta.meta_client_ip_address) {
+      cleanMeta.meta_client_ip_address = buyerIp.slice(0, 64);
+    }
+
     const session = await stripe.checkout.sessions.create({
       line_items: [{ price: stripePrice.id, quantity: body.quantity || 1 }],
       mode: "payment",
