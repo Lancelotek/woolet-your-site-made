@@ -449,7 +449,7 @@ Deno.serve(async (req) => {
       ok: true,
       event_id: body.event_id,
       event_name: body.event_name,
-      destinations: { meta, tiktok, reddit },
+      destinations,
     }),
     {
       status: 200,
