@@ -240,7 +240,7 @@ const blogPostsEN: BlogPost[] = [
 <style>
 .woolet-compare{margin:24px 0;font-family:'Barlow',sans-serif;}
 .woolet-compare__scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #E8E4DC;border-radius:2px;}
-.woolet-compare table{width:100%;border-collapse:collapse;font-size:13px;color:#16140f;}
+.woolet-compare table{width:100%;border-collapse:collapse;font-size:13px;color:#16140f;background:#fff;}
 .woolet-compare thead tr{background:#0f0f0f;color:#f0ece4;}
 .woolet-compare th{padding:12px 14px;text-align:left;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;white-space:nowrap;}
 .woolet-compare td{padding:12px 14px;border-top:1px solid #E8E4DC;vertical-align:top;}
