@@ -80,7 +80,7 @@ async function fireMetaPurchase(session: any) {
     event_id: meta.meta_event_id || session.id, // dedupes with browser pixel
     event_time: Math.floor(Date.now() / 1000),
     action_source: "website",
-    event_source_url: meta.meta_event_source_url,
+    event_source_url: meta.meta_event_source_url || waitlist?.event_source_url || undefined,
     user_data: userData,
     custom_data: {
       value,
