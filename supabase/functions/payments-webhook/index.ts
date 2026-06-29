@@ -44,14 +44,33 @@ async function fireMetaPurchase(session: any) {
   const phone: string | undefined = session?.customer_details?.phone;
   const country: string | undefined = session?.customer_details?.address?.country;
 
+  // Fallback attribution from waitlist signup — keyed by email — so a Purchase
+  // can still be matched to fbp/fbc/IP/UA even when the buyer paid from a
+  // different device or after cookies expired.
+  let waitlist: Record<string, string | null> | null = null;
+  if (email) {
+    const { data } = await getSupabase()
+      .from("waitlist_attribution")
+      .select("fbp,fbc,ip_address,user_agent,event_source_url,meta_event_id,ttclid,rdt_uuid")
+      .eq("email", email.trim().toLowerCase())
+      .maybeSingle();
+    waitlist = (data as Record<string, string | null> | null) ?? null;
+  }
+
+  const pick = (a?: string | null, b?: string | null) => a || b || undefined;
+
   const userData: Record<string, unknown> = {};
   if (email) userData.em = [await sha256Hex(email.trim().toLowerCase())];
   if (phone) userData.ph = [await sha256Hex(phone.replace(/[^\d]/g, ""))];
   if (country) userData.country = [await sha256Hex(country.trim().toLowerCase().slice(0, 2))];
-  if (meta.meta_fbp) userData.fbp = meta.meta_fbp;
-  if (meta.meta_fbc) userData.fbc = meta.meta_fbc;
-  if (meta.meta_client_ip_address) userData.client_ip_address = meta.meta_client_ip_address;
-  if (meta.meta_client_user_agent) userData.client_user_agent = meta.meta_client_user_agent;
+  const fbp = pick(meta.meta_fbp, waitlist?.fbp);
+  const fbc = pick(meta.meta_fbc, waitlist?.fbc);
+  const ip = pick(meta.meta_client_ip_address, waitlist?.ip_address);
+  const ua = pick(meta.meta_client_user_agent, waitlist?.user_agent);
+  if (fbp) userData.fbp = fbp;
+  if (fbc) userData.fbc = fbc;
+  if (ip) userData.client_ip_address = ip;
+  if (ua) userData.client_user_agent = ua;
 
   const value = session?.amount_total ? session.amount_total / 100 : 0;
   const currency = (session?.currency ?? "usd").toLowerCase();
