@@ -335,6 +335,51 @@ export type Database = {
         }
         Relationships: []
       }
+      waitlist_attribution: {
+        Row: {
+          created_at: string
+          email: string
+          event_source_url: string | null
+          extra: Json | null
+          fbc: string | null
+          fbp: string | null
+          ip_address: string | null
+          meta_event_id: string | null
+          rdt_uuid: string | null
+          ttclid: string | null
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event_source_url?: string | null
+          extra?: Json | null
+          fbc?: string | null
+          fbp?: string | null
+          ip_address?: string | null
+          meta_event_id?: string | null
+          rdt_uuid?: string | null
+          ttclid?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event_source_url?: string | null
+          extra?: Json | null
+          fbc?: string | null
+          fbp?: string | null
+          ip_address?: string | null
+          meta_event_id?: string | null
+          rdt_uuid?: string | null
+          ttclid?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
