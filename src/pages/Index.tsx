@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, Link, Navigate } from "react-router-dom";
-import heroManImg from "@/assets/hero-man.jpg";
+const heroManImg = "/hero-man.jpg";
 import woolet007Asset from "@/assets/woolet-007-dimensions.png.asset.json";
 import woolet009Asset from "@/assets/woolet-009-dimensions.png.asset.json";
 import Navbar from "@/components/Navbar";
@@ -678,6 +678,10 @@ const Index = () => {
                 alt="Customer wearing Woolet wide-face Italian acetate eyewear"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                width={1200}
+                height={1600}
               />
               <div
                 className="absolute inset-0 pointer-events-none"
