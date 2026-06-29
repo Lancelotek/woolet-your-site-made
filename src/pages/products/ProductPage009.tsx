@@ -198,7 +198,7 @@ const ProductPage009 = () => {
                         borderRadius: 3, cursor: "pointer",
                       }}
                     >
-                      <img src={src} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                      <img src={src} alt={`Woolet 009 wide-fit square acetate glasses — view ${i + 1}`} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                     </button>
                   );
                 })}
@@ -236,9 +236,16 @@ const ProductPage009 = () => {
               }}>
                 Woolet 009 <em style={{ fontStyle: "italic", color: T.gold }}>Square</em>
               </h1>
-              <div style={{ fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 22 }}>
+              <div style={{ fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 10 }}>
                 Square · 158 mm · {colorName}
               </div>
+              <h2 style={{
+                fontFamily: SANS, fontWeight: 500, fontSize: 13,
+                letterSpacing: "0.04em", color: T.inkDim,
+                margin: "0 0 22px", lineHeight: 1.5,
+              }}>
+                Wide-fit soft-square acetate glasses engineered for faces 155&nbsp;mm and above — 158&nbsp;mm front, 22&nbsp;mm keyhole bridge, Italian Mazzucchelli acetate.
+              </h2>
 
               {/* Price hierarchy */}
               <div style={{
