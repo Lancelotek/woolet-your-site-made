@@ -10,6 +10,29 @@
 // skipped, never blocks the others. The same `event_id` is shared across all
 // destinations so browser pixels can dedupe natively.
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { createClient } from "npm:@supabase/supabase-js@2";
+
+let _supabase: ReturnType<typeof createClient> | null = null;
+function getSupabase() {
+  if (!_supabase) {
+    const url = Deno.env.get("SUPABASE_URL");
+    const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!url || !key) return null;
+    _supabase = createClient(url, key, { auth: { persistSession: false } });
+  }
+  return _supabase;
+}
+
+async function logServerEvent(row: Record<string, unknown>) {
+  try {
+    const sb = getSupabase();
+    if (!sb) return;
+    const { error } = await sb.from("server_event_log").insert(row);
+    if (error) console.error("[server_event_log] insert failed", error);
+  } catch (e) {
+    console.error("[server_event_log] exception", e);
+  }
+}
 
 const META_GRAPH_VERSION = "v21.0";
 const TIKTOK_ENDPOINT = "https://business-api.tiktok.com/open_api/v1.3/event/track/";
