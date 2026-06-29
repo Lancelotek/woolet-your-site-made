@@ -55,6 +55,27 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
     try {
       const models = "Woolet 007, Woolet 009";
 
+      // Capture marketing identifiers from cookies / URL for server-side attribution
+      const readCookie = (n: string) =>
+        typeof document !== "undefined"
+          ? document.cookie.split("; ").find((r) => r.startsWith(`${n}=`))?.split("=")[1]
+          : undefined;
+      const urlParams =
+        typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+      const fbclid = urlParams?.get("fbclid");
+      const fbp = readCookie("_fbp");
+      const fbc =
+        readCookie("_fbc") ||
+        (fbclid ? `fb.1.${Date.now()}.${fbclid}` : undefined);
+      const ttclid = urlParams?.get("ttclid") || readCookie("ttclid");
+      const rdt_uuid = readCookie("_rdt_uuid");
+      const event_source_url =
+        typeof window !== "undefined" ? window.location.href : undefined;
+      const meta_event_id =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
       const { data, error: fnError } = await supabase.functions.invoke(
         "mailerlite-subscribe",
         {
@@ -63,6 +84,12 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             name: formData.name,
             face_width: formData.faceWidth,
             models,
+            fbp,
+            fbc,
+            ttclid: ttclid || undefined,
+            rdt_uuid,
+            event_source_url,
+            meta_event_id,
           },
         }
       );
@@ -91,6 +118,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
 
       // Meta CAPI — server-side Lead with hashed PII + fbp/fbc + IP/UA
       void trackMetaEvent("Lead", {
+        eventId: meta_event_id,
         user: {
           email: formData.email,
           first_name: formData.name,

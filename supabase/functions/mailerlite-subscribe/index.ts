@@ -1,10 +1,54 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "npm:@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
 };
+
+function getClientIp(req: Request): string | null {
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0].trim();
+  return req.headers.get("cf-connecting-ip") || req.headers.get("x-real-ip");
+}
+
+async function saveAttribution(
+  email: string,
+  payload: {
+    fbp?: string;
+    fbc?: string;
+    ttclid?: string;
+    rdt_uuid?: string;
+    event_source_url?: string;
+    meta_event_id?: string;
+  },
+  req: Request,
+) {
+  const url = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) return;
+  try {
+    const supabase = createClient(url, key);
+    const row = {
+      email: email.trim().toLowerCase(),
+      ip_address: getClientIp(req),
+      user_agent: req.headers.get("user-agent")?.slice(0, 500) || null,
+      fbp: payload.fbp || null,
+      fbc: payload.fbc || null,
+      ttclid: payload.ttclid || null,
+      rdt_uuid: payload.rdt_uuid || null,
+      event_source_url: payload.event_source_url?.slice(0, 500) || null,
+      meta_event_id: payload.meta_event_id || null,
+    };
+    const { error } = await supabase
+      .from("waitlist_attribution")
+      .upsert(row, { onConflict: "email" });
+    if (error) console.error("[waitlist_attribution] upsert error", error);
+  } catch (e) {
+    console.error("[waitlist_attribution] failed", e);
+  }
+}
 
 const MAILERLITE_API = "https://connect.mailerlite.com/api";
 
@@ -78,6 +122,12 @@ serve(async (req) => {
       utm_campaign,
       utm_content,
       utm_term,
+      fbp,
+      fbc,
+      ttclid,
+      rdt_uuid,
+      event_source_url,
+      meta_event_id,
     } = await req.json();
 
     if (!email) {
@@ -86,6 +136,14 @@ serve(async (req) => {
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    // Capture marketing attribution (IP/UA from headers + browser identifiers)
+    // so payments-webhook can match a later Stripe Purchase back to this lead.
+    await saveAttribution(
+      email,
+      { fbp, fbc, ttclid, rdt_uuid, event_source_url, meta_event_id },
+      req,
+    );
 
     await ensureCustomFields(apiKey);
 
