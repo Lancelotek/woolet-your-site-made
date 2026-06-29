@@ -4,6 +4,7 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "./PaymentTestModeBanner";
 import { rdtAddToCart } from "@/lib/reddit-pixel";
+import { trackMetaEvent, buildPurchaseAttribution } from "@/lib/meta-capi";
 
 interface Props {
   priceId: string;
@@ -15,12 +16,18 @@ interface Props {
 
 export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadata, onClose }: Props) {
   const fetchClientSecret = useCallback(async (): Promise<string> => {
+    // Inject Meta attribution (fbp, fbc, UA, event_id) into Stripe metadata so
+    // the payments-webhook can fire Purchase to Meta CAPI with the original
+    // visitor signals attached.
+    const metaAttribution = buildPurchaseAttribution();
+    const mergedMetadata = { ...(metadata ?? {}), ...metaAttribution };
+
     const { data, error } = await supabase.functions.invoke("create-checkout", {
       body: {
         priceId,
         customerEmail,
         returnUrl,
-        metadata,
+        metadata: mergedMetadata,
         environment: getStripeEnvironment(),
       },
     });
@@ -35,6 +42,11 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
     if (!addToCartFired.current) {
       addToCartFired.current = true;
       rdtAddToCart({ value: 114, currency: "USD", itemCount: 1 });
+      // Meta CAPI — InitiateCheckout (browser pixel + server side)
+      void trackMetaEvent("InitiateCheckout", {
+        user: customerEmail ? { email: customerEmail } : undefined,
+        custom: { value: 114, currency: "USD", num_items: 1 },
+      });
     }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
