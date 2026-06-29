@@ -415,6 +415,35 @@ Deno.serve(async (req) => {
     sendReddit(body, hashes, ip, ua),
   ]);
 
+  const u = body.user_data ?? {};
+  const destinations = { meta, tiktok, reddit };
+  const anySent = [meta, tiktok, reddit].some((d) => d.status === "sent");
+  const anyError = [meta, tiktok, reddit].some((d) => d.status === "error");
+  await logServerEvent({
+    source: "track-event",
+    event_name: body.event_name,
+    event_id: body.event_id,
+    email_hash: hashes.em ?? null,
+    phone_hash: hashes.ph ?? null,
+    external_id_hash: hashes.external_id ?? null,
+    event_source_url: body.event_source_url ?? null,
+    client_ip: ip ?? null,
+    user_agent: ua ?? null,
+    fbp: u.fbp ?? null,
+    fbc: u.fbc ?? null,
+    ttclid: u.ttclid ?? null,
+    rdt_uuid: u.rdt_uuid ?? null,
+    custom_data: body.custom_data ?? null,
+    user_data_hashed: hashes,
+    destinations,
+    request_summary: {
+      test_event_code: body.test_event_code ?? null,
+      platform_events: body.platform_events ?? null,
+      event_time: body.event_time ?? null,
+    },
+    status: anyError ? (anySent ? "partial" : "error") : anySent ? "sent" : "skipped",
+  });
+
   return new Response(
     JSON.stringify({
       ok: true,
