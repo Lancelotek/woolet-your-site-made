@@ -237,37 +237,89 @@ const blogPostsEN: BlogPost[] = [
 <p>Offers "wide" frames but doesn't specify mm widths. New York heritage. Premium acetate. But their "wide" may still fall below 155mm — check individual frame specs before ordering.</p>
 
 <h2>How Woolet compares to other wide-face eyewear brands</h2>
-
-<div style="overflow-x:auto;margin:20px 0;">
-<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:13px;">
+<style>
+.woolet-compare{margin:24px 0;font-family:'Barlow',sans-serif;}
+.woolet-compare__scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #E8E4DC;border-radius:2px;}
+.woolet-compare table{width:100%;border-collapse:collapse;font-size:13px;color:#16140f;}
+.woolet-compare thead tr{background:#0f0f0f;color:#f0ece4;}
+.woolet-compare th{padding:12px 14px;text-align:left;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;white-space:nowrap;}
+.woolet-compare td{padding:12px 14px;border-top:1px solid #E8E4DC;vertical-align:top;}
+.woolet-compare tbody tr.is-featured{background:#FBF7EC;}
+.woolet-compare tbody tr.is-featured td{font-weight:600;border-top-color:#E8DCB8;}
+.woolet-compare tbody tr.is-featured td:first-child{box-shadow:inset 3px 0 0 #c9a84c;}
+.woolet-compare__note{font-size:13px;color:#8a8275;margin:12px 2px 0;line-height:1.5;}
+@media (max-width:640px){
+  .woolet-compare__scroll{border:none;border-radius:0;overflow:visible;}
+  .woolet-compare table,.woolet-compare thead,.woolet-compare tbody,.woolet-compare tr,.woolet-compare td{display:block;width:100%;}
+  .woolet-compare thead{position:absolute;left:-9999px;}
+  .woolet-compare tr{border:1px solid #E8E4DC;border-radius:2px;padding:14px 16px;margin-bottom:12px;background:#fff;}
+  .woolet-compare tbody tr.is-featured{background:#FBF7EC;border-color:#E8DCB8;box-shadow:inset 3px 0 0 #c9a84c;}
+  .woolet-compare tbody tr.is-featured td:first-child{box-shadow:none;}
+  .woolet-compare td{padding:6px 0;border:none;display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:14px;}
+  .woolet-compare td:first-child{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:500;padding-bottom:10px;margin-bottom:8px;border-bottom:1px solid #EFE9DF;display:block;}
+  .woolet-compare td:not(:first-child)::before{content:attr(data-label);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8275;font-weight:500;flex:0 0 auto;}
+  .woolet-compare td:not(:first-child){text-align:right;}
+}
+</style>
+<div class="woolet-compare">
+<div class="woolet-compare__scroll">
+<table>
   <thead>
-    <tr style="background:#0f0f0f;color:#f0ece4;">
-      <th style="padding:10px 12px;text-align:left;font-weight:500;">Brand</th>
-      <th style="padding:10px 12px;text-align:left;font-weight:500;">Frame width</th>
-      <th style="padding:10px 12px;text-align:left;font-weight:500;">Material</th>
-      <th style="padding:10px 12px;text-align:left;font-weight:500;">Bridge</th>
-      <th style="padding:10px 12px;text-align:left;font-weight:500;">Rx available</th>
-      <th style="padding:10px 12px;text-align:left;font-weight:500;">Starting price</th>
+    <tr>
+      <th>Brand</th>
+      <th>Frame width</th>
+      <th>Material</th>
+      <th>Bridge</th>
+      <th>Rx available</th>
+      <th>Starting price</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="background:#FBF7EC;border-left:3px solid #c9a84c;">
-      <td style="padding:10px 12px;font-weight:600;">Woolet</td>
-      <td style="padding:10px 12px;font-weight:600;">158 mm (bespoke 150–172 mm)</td>
-      <td style="padding:10px 12px;font-weight:600;">Mazzucchelli acetate, Italy</td>
-      <td style="padding:10px 12px;font-weight:600;">21 mm keyhole</td>
-      <td style="padding:10px 12px;font-weight:600;">Yes</td>
-      <td style="padding:10px 12px;font-weight:600;">$114 pre-order</td>
+    <tr class="is-featured">
+      <td>Woolet</td>
+      <td data-label="Frame width">158 mm (bespoke 150–172 mm)</td>
+      <td data-label="Material">Mazzucchelli acetate, Italy</td>
+      <td data-label="Bridge">21 mm keyhole</td>
+      <td data-label="Rx">Yes</td>
+      <td data-label="From">$114 pre-order</td>
     </tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">SizeGlasses</td><td style="padding:10px 12px;">155–165 mm</td><td style="padding:10px 12px;">TR90</td><td style="padding:10px 12px;">up to 20 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$99</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">BXL Eyewear</td><td style="padding:10px 12px;">145–165 mm</td><td style="padding:10px 12px;">TR90</td><td style="padding:10px 12px;">up to 20 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$105</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:10px 12px;">Zenni Extended Fit</td><td style="padding:10px 12px;">~138–148 mm</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">up to 18 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$6.95</td></tr>
-    <tr><td style="padding:10px 12px;">Warby Parker Wide</td><td style="padding:10px 12px;">~138–148 mm</td><td style="padding:10px 12px;">Various</td><td style="padding:10px 12px;">up to 18 mm</td><td style="padding:10px 12px;">Yes</td><td style="padding:10px 12px;">$95</td></tr>
+    <tr>
+      <td>SizeGlasses</td>
+      <td data-label="Frame width">155–165 mm</td>
+      <td data-label="Material">TR90</td>
+      <td data-label="Bridge">up to 20 mm</td>
+      <td data-label="Rx">Yes</td>
+      <td data-label="From">$99</td>
+    </tr>
+    <tr>
+      <td>BXL Eyewear</td>
+      <td data-label="Frame width">145–165 mm</td>
+      <td data-label="Material">TR90</td>
+      <td data-label="Bridge">up to 20 mm</td>
+      <td data-label="Rx">Yes</td>
+      <td data-label="From">$105</td>
+    </tr>
+    <tr>
+      <td>Zenni Extended Fit</td>
+      <td data-label="Frame width">~138–148 mm</td>
+      <td data-label="Material">Various</td>
+      <td data-label="Bridge">up to 18 mm</td>
+      <td data-label="Rx">Yes</td>
+      <td data-label="From">$6.95</td>
+    </tr>
+    <tr>
+      <td>Warby Parker Wide</td>
+      <td data-label="Frame width">~138–148 mm</td>
+      <td data-label="Material">Various</td>
+      <td data-label="Bridge">up to 18 mm</td>
+      <td data-label="Rx">Yes</td>
+      <td data-label="From">$95</td>
+    </tr>
   </tbody>
 </table>
 </div>
-
-<p style="font-size:13px;color:#888;">Woolet is the only brand in this comparison built exclusively for wide faces — every frame starts at 158 mm. Other brands offer wide options as a size filter within a broader catalog.</p>
+<p class="woolet-compare__note">Woolet is the only brand in this comparison built exclusively for wide faces — every frame starts at 158 mm. Other brands offer wide options as a size filter within a broader catalog.</p>
+</div>
 
 <h2>FAQ: Glasses for Wide Faces</h2>
 
