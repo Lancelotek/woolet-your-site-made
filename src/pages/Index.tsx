@@ -70,7 +70,6 @@ type HomeCopy = {
   teaserH2Em: string;
   viewAll: string;
   viewCta: string;
-  fromPrice: string;
   shapeRound: string;
   shapeSquare: string;
 };
@@ -97,7 +96,6 @@ const homeCopy: Record<Lang, HomeCopy> = {
     teaserH2Em: "One honest range.",
     viewAll: "View all sizes →",
     viewCta: "View →",
-    fromPrice: "From $114",
     shapeRound: "Round",
     shapeSquare: "Soft-square",
   },
@@ -122,7 +120,6 @@ const homeCopy: Record<Lang, HomeCopy> = {
     teaserH2Em: "Jeden uczciwy zakres.",
     viewAll: "Zobacz wszystkie rozmiary →",
     viewCta: "Zobacz →",
-    fromPrice: "Od $114",
     shapeRound: "Okrągłe",
     shapeSquare: "Miękki kwadrat",
   },
@@ -147,7 +144,6 @@ const homeCopy: Record<Lang, HomeCopy> = {
     teaserH2Em: "Une plage honnête.",
     viewAll: "Voir toutes les tailles →",
     viewCta: "Voir →",
-    fromPrice: "Dès 114$",
     shapeRound: "Ronde",
     shapeSquare: "Carrée douce",
   },
@@ -172,7 +168,6 @@ const homeCopy: Record<Lang, HomeCopy> = {
     teaserH2Em: "Un rango honesto.",
     viewAll: "Ver todas las tallas →",
     viewCta: "Ver →",
-    fromPrice: "Desde $114",
     shapeRound: "Redonda",
     shapeSquare: "Cuadrada suave",
   },
@@ -197,7 +192,6 @@ const homeCopy: Record<Lang, HomeCopy> = {
     teaserH2Em: "Ein ehrlicher Bereich.",
     viewAll: "Alle Größen ansehen →",
     viewCta: "Ansehen →",
-    fromPrice: "Ab $114",
     shapeRound: "Rund",
     shapeSquare: "Weich-eckig",
   },
@@ -222,7 +216,6 @@ const homeCopy: Record<Lang, HomeCopy> = {
     teaserH2Em: "نطاق واحد صادق.",
     viewAll: "عرض جميع المقاسات ←",
     viewCta: "عرض ←",
-    fromPrice: "ابتداءً من 114$",
     shapeRound: "مستدير",
     shapeSquare: "مربع ناعم",
   },
@@ -247,7 +240,6 @@ const homeCopy: Record<Lang, HomeCopy> = {
     teaserH2Em: "一つの正直なレンジ。",
     viewAll: "すべてのサイズを見る →",
     viewCta: "見る →",
-    fromPrice: "$114から",
     shapeRound: "ラウンド",
     shapeSquare: "ソフトスクエア",
   },
@@ -823,20 +815,11 @@ const Index = () => {
                         {m.shape} · 155–161 mm
                       </div>
                     </div>
-                    <div className="text-right shrink-0">
-                      <div
-                        className="font-display text-woolet-white leading-none"
-                        style={{ fontSize: "1.05rem" }}
-                      >
-                        {copy.fromPrice}
-                      </div>
-                      <div
-                        className="uppercase tracking-[0.28em] text-cream-dim group-hover:text-gold-light transition-colors mt-2"
-                        style={{ fontSize: "0.65rem", fontFamily: "Barlow, sans-serif" }}
-                      >
-                        {copy.viewCta}
-
-                      </div>
+                    <div
+                      className="uppercase tracking-[0.28em] text-cream-dim group-hover:text-gold-light transition-colors"
+                      style={{ fontSize: "0.65rem", fontFamily: "Barlow, sans-serif" }}
+                    >
+                      {copy.viewCta}
                     </div>
                   </div>
                 </Link>
