@@ -51,18 +51,69 @@ export default function BespokeCheckout() {
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
-  const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
-  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
-  useEffect(() => {
+const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+
+const findLatestPreview = (history: ReturnType<typeof loadPreviewHistory>): string | null => {
+  let latest: { url: string; ts: number } | null = null;
+  Object.values(history).forEach((list) => {
+    list.forEach((entry) => {
+      if (!latest || entry.ts > latest.ts) latest = entry;
+    });
+  });
+  return latest?.url ?? null;
+};
+
+const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => findLatestPreview(loadPreviewHistory()));
+const [isGenerating, setIsGenerating] = useState(false);
+useEffect(() => {
+  const refresh = () => {
     setAiPreviewUrl(getLatestPreviewUrl(previewKey));
-    const onUpdate = () => setAiPreviewUrl(getLatestPreviewUrl(previewKey));
-    window.addEventListener(PREVIEW_UPDATED_EVENT, onUpdate);
-    window.addEventListener("storage", onUpdate);
-    return () => {
-      window.removeEventListener(PREVIEW_UPDATED_EVENT, onUpdate);
-      window.removeEventListener("storage", onUpdate);
-    };
-  }, [previewKey]);
+    setFallbackPreviewUrl(findLatestPreview(loadPreviewHistory()));
+  };
+  refresh();
+  window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
+  window.addEventListener("storage", refresh);
+  return () => {
+    window.removeEventListener(PREVIEW_UPDATED_EVENT, refresh);
+    window.removeEventListener("storage", refresh);
+  };
+}, [previewKey]);
+
+const handleGeneratePreview = useCallback(async () => {
+  if (!frame || !front || !temple || !finish) return;
+  setIsGenerating(true);
+  try {
+    const { data, error: fnErr } = await supabase.functions.invoke("bespoke-preview-render", {
+      body: {
+        shape: frame.shape,
+        frontColor: `${front.name} (${front.code})`,
+        templeColor: `${temple.name} (${temple.code})`,
+        finish: finish.name,
+      },
+    });
+    if (fnErr) throw fnErr;
+    const url = (data as { imageUrl?: string })?.imageUrl;
+    if (!url) throw new Error("No preview returned");
+
+    const history = loadPreviewHistory();
+    const prev = history[previewKey] ?? [];
+    const combined = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)];
+    const nextList = combined.slice(0, 4);
+    const nextHistory = { ...history, [previewKey]: nextList };
+    savePreviewHistory(nextHistory);
+    setAiPreviewUrl(url);
+    pushGtmEvent("ai_preview_generated", buildEventPayload({ preview_url: url }));
+    clarityEvent("bespoke_ai_preview_generated_checkout");
+  } catch (e) {
+    pushGtmEvent("ai_preview_generation_error", {
+      ...buildEventPayload(),
+      error_message: ((e as Error).message || "unknown").slice(0, 140),
+    });
+  } finally {
+    setIsGenerating(false);
+  }
+}, [frame, front, temple, finish, previewKey, buildEventPayload]);
 
   const ready = Boolean(frame && front && temple && finish && lens && pricing.totalEur > 0);
 
