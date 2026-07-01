@@ -253,7 +253,7 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
   const persist = (next: PreviewHistory) => {
     setHistory(next);
     const res = savePreviewHistory(next);
-    setStorageWarning(res.ok ? null : res.error);
+    setStorageWarning("ok" in res && res.ok ? null : (res as { error: string }).error);
   };
 
   const generate = async () => {
