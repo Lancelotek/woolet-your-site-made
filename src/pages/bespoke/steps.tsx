@@ -67,7 +67,7 @@ export function StepFrame({ config, update }: StepProps) {
               >
                 <img
                   src={f.url}
-                  alt={`${f.name} silhouette template`}
+                  alt={`Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
                   loading="lazy"
                   className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03]"
                 />
