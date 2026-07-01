@@ -181,7 +181,7 @@ const CookieBanner = () => {
         position: "fixed",
         left: 16,
         right: 16,
-        bottom: 16,
+        bottom: bottomOffset,
         zIndex: 10000,
         maxWidth: 520,
         margin: "0 auto",
