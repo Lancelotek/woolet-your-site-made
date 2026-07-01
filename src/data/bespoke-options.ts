@@ -98,12 +98,13 @@ export interface LensType {
   image: string;
 }
 
+// Prices are USD. Each lens = supplier price (EUR) + $20 fitting, converted to USD.
 export const LENS_TYPES: LensType[] = [
-  { id: "plano",         name: "Plano (no correction)",  priceEur: 0,   description: "Frame-ready, no prescription.",       image: planoImg },
-  { id: "single-vision", name: "Single vision",          priceEur: 120, description: "Distance, intermediate or reading.",  image: singleVisionImg },
-  { id: "progressive",   name: "Progressive",            priceEur: 280, description: "Seamless near-to-far vision.",        image: progressiveImg },
-  { id: "sun-tinted",    name: "Sun / tinted",           priceEur: 90,  description: "Category 2–3 UV tint.",               image: sunTintedImg },
-  { id: "blue-light",    name: "Blue-light only",        priceEur: 70,  description: "Screen filter, no correction.",       image: blueLightImg },
+  { id: "plano",       name: "Plano (no correction)",             priceEur: 0,  description: "Frame-ready, no prescription.",                  image: planoImg },
+  { id: "blue-light",  name: "Blue light",                        priceEur: 70, description: "Screen filter for long hours on displays.",     image: blueLightImg },
+  { id: "reading",     name: "Reading",                           priceEur: 50, description: "Single-vision magnification for near work.",     image: singleVisionImg },
+  { id: "photochromic",name: "Photochromic / Transition",         priceEur: 70, description: "Clear indoors, darkens in daylight.",            image: progressiveImg },
+  { id: "sun-uv400",   name: "Sun lenses (UV400)",                priceEur: 40, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg },
 ];
 
 export const LENS_MATERIALS = [

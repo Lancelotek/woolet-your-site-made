@@ -122,8 +122,9 @@ export function computePricing(config: BespokeConfig): Pricing {
   };
 }
 
+// Kept name for import stability; formats USD.
 export const formatEur = (n: number) =>
-  new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+  new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 
 export type StepId = 1 | 2 | 3 | 4 | 5;
 
