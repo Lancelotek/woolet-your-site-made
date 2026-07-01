@@ -232,7 +232,7 @@ const ConfiguratorPage = () => {
                 <div className="cfg-rail__eyebrow">Your build</div>
 
                 <div className="cfg-rail__photo" style={{ background: "#EFE9DF" }}>
-                  {aiPreviewUrl ? (
+                  {aiPreviewUrl && step >= 2 ? (
                     <img src={aiPreviewUrl} alt={frame ? `${frame.name} AI preview` : "AI preview"} className="max-h-full max-w-full object-contain" />
                   ) : frame ? (
                     <img src={frame.url} alt={frame.name} className="max-h-full max-w-[82%] object-contain" />
