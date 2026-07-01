@@ -303,7 +303,7 @@ const ConfiguratorPage = () => {
         {/* ── Mobile sticky CTA ── */}
         <div className="cfg-mobilebar lg:hidden">
           <div className="cfg-mobilebar__thumb">
-            {aiPreviewUrl ? <img src={aiPreviewUrl} alt="" /> : frame ? <img src={frame.url} alt="" /> : <span>Frame</span>}
+            {aiPreviewUrl && step >= 2 ? <img src={aiPreviewUrl} alt="" /> : frame ? <img src={frame.url} alt="" /> : <span>Frame</span>}
           </div>
           <div className="cfg-mobilebar__meta">
             <div className="cfg-mobilebar__name">{frame ? frame.name : "Pick a frame"}</div>
