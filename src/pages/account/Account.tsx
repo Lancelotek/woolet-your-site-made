@@ -134,56 +134,69 @@ export default function Account() {
     }
   };
 
-  useEffect(() => {
-    if (!session) return;
-    let cancelled = false;
-    const load = async () => {
-      setDataLoading(true);
-      // Link any guest scans/orders previously made with the same email to
-      // this account. Idempotent — safe to call on every Account mount.
+  const loadAccountData = async (uid: string, opts?: { signal?: () => boolean }) => {
+    setDataLoading(true);
+    setLoadError(null);
+    try {
       try {
         await supabase.rpc("link_user_data_by_email");
       } catch (err) {
         console.warn("[account] link_user_data_by_email failed", err);
       }
-      const [{ data: p }, { data: s }, { data: o }, { data: b }, { data: pv }] = await Promise.all([
-        supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
+      const [pRes, sRes, oRes, bRes, pvRes] = await Promise.all([
+        supabase.from("profiles").select("*").eq("id", uid).maybeSingle(),
         supabase
           .from("scan_sessions")
           .select("id, created_at, status, face_width_mm, nose_width_mm, recommendation_type, confidence")
-          .eq("user_id", session.user.id)
+          .eq("user_id", uid)
           .order("created_at", { ascending: false }),
         supabase
           .from("founding_members")
           .select("id, created_at, amount_cents, currency, recommended_sku, environment, stripe_session_id")
-          .eq("user_id", session.user.id)
+          .eq("user_id", uid)
           .order("created_at", { ascending: false }),
         supabase
           .from("bespoke_configs")
           .select("id, name, is_current, updated_at, config")
-          .eq("user_id", session.user.id)
+          .eq("user_id", uid)
           .order("updated_at", { ascending: false }),
         supabase
           .from("bespoke_ai_previews")
           .select("id, created_at, image_url, description, shape, front_color, temple_color, finish")
-          .eq("user_id", session.user.id)
+          .eq("user_id", uid)
           .order("created_at", { ascending: false })
           .limit(24),
       ]);
-      if (cancelled) return;
-      setProfile(p as Profile | null);
-      const clampedScans = ((s as Scan[] | null) ?? []).map((row) => ({
+      if (opts?.signal?.()) return;
+      const firstErr = [pRes.error, sRes.error, oRes.error, bRes.error, pvRes.error].find(Boolean);
+      if (firstErr) throw firstErr;
+      setProfile((pRes.data as Profile | null) ?? null);
+      const clampedScans = ((sRes.data as Scan[] | null) ?? []).map((row) => ({
         ...row,
         face_width_mm: clampFaceMm(row.face_width_mm),
         nose_width_mm: clampNoseMm(row.nose_width_mm),
       }));
       setScans(clampedScans);
-      setOrders((o as Order[] | null) ?? []);
-      setBespoke((b as BespokeConfigRow[] | null) ?? []);
-      setPreviews((pv as AiPreview[] | null) ?? []);
-      setDataLoading(false);
-    };
-    load();
+      setOrders((oRes.data as Order[] | null) ?? []);
+      setBespoke((bRes.data as BespokeConfigRow[] | null) ?? []);
+      setPreviews((pvRes.data as AiPreview[] | null) ?? []);
+    } catch (err) {
+      console.error("[account] load failed", err);
+      if (!opts?.signal?.()) {
+        setLoadError(
+          (err as { message?: string })?.message ||
+            "Couldn't load your account data. Check your connection and try again.",
+        );
+      }
+    } finally {
+      if (!opts?.signal?.()) setDataLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!session) return;
+    let cancelled = false;
+    loadAccountData(session.user.id, { signal: () => cancelled });
     return () => {
       cancelled = true;
     };
