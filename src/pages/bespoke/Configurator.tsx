@@ -55,6 +55,12 @@ const ConfiguratorPage = () => {
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
+  // Step-aware total: only show add-ons once the user has reached those steps.
+  const stepTotal =
+    step === 1 || step === 2 ? pricing.basePriceEur :
+    step === 3 ? pricing.basePriceEur + pricing.engravingEur :
+    pricing.totalEur;
+
   // Fit numbers — from scan if present, else brand reference defaults.
   const faceMm = config.measurements.faceWidth ?? 161;
   const bridgeMm = config.measurements.bridge ?? 22;
