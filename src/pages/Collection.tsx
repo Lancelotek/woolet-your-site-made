@@ -6,6 +6,7 @@ import SizeMatrix from "@/components/SizeMatrix";
 import SEO from "@/components/SEO";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { FRAMES } from "@/data/frames";
 
 
 
