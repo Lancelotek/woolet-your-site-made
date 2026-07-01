@@ -9,6 +9,10 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.bespoke-preview-render]
     verify_jwt = false
+  [functions.bespoke-order-get]
+    verify_jwt = false
+  [functions.bespoke-measurements-submit]
+    verify_jwt = false
   [functions.fit-scan-detect]
     verify_jwt = false
   [functions.handle-email-suppression]
