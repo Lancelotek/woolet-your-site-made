@@ -80,40 +80,6 @@ useEffect(() => {
   };
 }, [previewKey]);
 
-const handleGeneratePreview = useCallback(async () => {
-  if (!frame || !front || !temple || !finish) return;
-  setIsGenerating(true);
-  try {
-    const { data, error: fnErr } = await supabase.functions.invoke("bespoke-preview-render", {
-      body: {
-        shape: frame.shape,
-        frontColor: `${front.name} (${front.code})`,
-        templeColor: `${temple.name} (${temple.code})`,
-        finish: finish.name,
-      },
-    });
-    if (fnErr) throw fnErr;
-    const url = (data as { imageUrl?: string })?.imageUrl;
-    if (!url) throw new Error("No preview returned");
-
-    const history = loadPreviewHistory();
-    const prev = history[previewKey] ?? [];
-    const combined = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)];
-    const nextList = combined.slice(0, 4);
-    const nextHistory = { ...history, [previewKey]: nextList };
-    savePreviewHistory(nextHistory);
-    setAiPreviewUrl(url);
-    pushGtmEvent("ai_preview_generated", buildEventPayload({ preview_url: url }));
-    clarityEvent("bespoke_ai_preview_generated_checkout");
-  } catch (e) {
-    pushGtmEvent("ai_preview_generation_error", {
-      ...buildEventPayload(),
-      error_message: ((e as Error).message || "unknown").slice(0, 140),
-    });
-  } finally {
-    setIsGenerating(false);
-  }
-}, [frame, front, temple, finish, previewKey, buildEventPayload]);
 
   const ready = Boolean(frame && front && temple && finish && lens && pricing.totalEur > 0);
 
