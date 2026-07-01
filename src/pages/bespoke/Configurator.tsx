@@ -282,7 +282,7 @@ const ConfiguratorPage = () => {
           </div>
           <div className="cfg-mobilebar__meta">
             <div className="cfg-mobilebar__name">{frame ? frame.name : "Pick a frame"}</div>
-            <div className="cfg-mobilebar__price">{formatEur(pricing.totalEur)}</div>
+            <div className="cfg-mobilebar__price">{formatEur(stepTotal)}</div>
           </div>
           <button
             onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
