@@ -154,8 +154,13 @@ const Collection = () => {
                       />
                     </div>
                     <div className="px-4 py-4">
-                      <div className="font-display text-cream" style={{ fontSize: 17, fontWeight: 400 }}>
-                        {f.name}
+                      <div className="flex items-baseline justify-between gap-3">
+                        <div className="font-display text-cream" style={{ fontSize: 17, fontWeight: 400 }}>
+                          {f.name}
+                        </div>
+                        <div className="font-display text-gold-light" style={{ fontSize: 17, fontWeight: 400 }}>
+                          $480
+                        </div>
                       </div>
                       <div className="text-cream-dim/80 mt-1" style={{ fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase" }}>
                         Cut to your face · reference {f.widthMm} mm
