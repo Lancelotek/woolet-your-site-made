@@ -59,6 +59,24 @@ const CookieBanner = () => {
   const [analytics, setAnalytics] = useState(true);
   const [ads, setAds] = useState(true);
   const [isPrimary, setIsPrimary] = useState(false);
+  const [bottomOffset, setBottomOffset] = useState(16);
+
+  // Avoid overlapping fixed bottom bars (e.g. bespoke configurator mobile CTA).
+  useEffect(() => {
+    const selector = ".cfg-mobilebar, .sticky-mobile-cta";
+    const update = () => {
+      const bar = document.querySelector(selector) as HTMLElement | null;
+      setBottomOffset(bar ? bar.getBoundingClientRect().height + 16 : 16);
+    };
+    update();
+    window.addEventListener("resize", update);
+    const observer = new MutationObserver(update);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      window.removeEventListener("resize", update);
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     // Singleton guard — only one banner instance may render, ever.
@@ -163,7 +181,7 @@ const CookieBanner = () => {
         position: "fixed",
         left: 16,
         right: 16,
-        bottom: 16,
+        bottom: bottomOffset,
         zIndex: 10000,
         maxWidth: 520,
         margin: "0 auto",
