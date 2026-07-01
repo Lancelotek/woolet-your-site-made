@@ -203,24 +203,24 @@ const ConfiguratorPage = () => {
               <div className="cfg-rail">
                 <div className="cfg-rail__eyebrow">Your build</div>
 
-                <div className="cfg-rail__photo">
+                <div className="cfg-rail__photo" style={{ background: "#EFE9DF" }}>
                   {frame ? (
                     <img src={frame.url} alt={frame.name} className="max-h-full max-w-[82%] object-contain" />
                   ) : (
-                    <div className="cfg-rail__placeholder">Select a frame</div>
+                    <div className="cfg-rail__placeholder">Select a pattern</div>
                   )}
                 </div>
 
                 <dl className="cfg-rail__specs">
-                  <SpecRow label="Frame" value={frame ? `${frame.name}` : "—"} />
-                  <SpecRow label="Width" value={frame ? `${frame.widthMm} mm` : "—"} />
+                  <SpecRow label="Pattern" value={frame ? `${frame.name}` : "—"} />
+                  <SpecRow label="Ref width" value={frame ? `${frame.widthMm} mm · cut to face` : "—"} />
                   <SpecRow
                     label="Front"
                     value={
                       front ? (
                         <span className="inline-flex items-center gap-2">
                           <Swatch hex={front.hex} />
-                          {front.name}
+                          <span className="font-mono text-[10px]">{front.code}</span>
                         </span>
                       ) : "—"
                     }
@@ -231,14 +231,12 @@ const ConfiguratorPage = () => {
                       temple ? (
                         <span className="inline-flex items-center gap-2">
                           <Swatch hex={temple.hex} />
-                          {temple.name}
+                          <span className="font-mono text-[10px]">{temple.code}</span>
                         </span>
                       ) : "—"
                     }
                   />
                   <SpecRow label="Finish" value={finish?.name ?? "—"} />
-                  <SpecRow label="PD" value={`${pdMm} mm`} />
-                  <SpecRow label="Bridge" value={`${bridgeMm} mm`} />
                   <SpecRow label="Engraving" value={config.engravingEnabled ? `“${config.engravingText || "…"}”` : "—"} />
                   <SpecRow label="Lenses" value={lens?.name ?? "—"} />
                 </dl>
