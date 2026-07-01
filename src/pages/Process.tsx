@@ -3,6 +3,49 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getMetadata } from "@/seo/metadata";
+import fitProblem01 from "@/assets/process/fit-problem-01.png.asset.json";
+import fitProblem02 from "@/assets/process/fit-problem-02.png.asset.json";
+import fitProblem03 from "@/assets/process/fit-problem-03.png.asset.json";
+import build04 from "@/assets/process/build-04.png.asset.json";
+
+type EditorialChapter = {
+  index: string;
+  eyebrow: string;
+  src: string;
+  alt: string;
+  caption: string;
+};
+
+const CHAPTERS: EditorialChapter[] = [
+  {
+    index: "01",
+    eyebrow: "The Fit Problem / 01",
+    src: fitProblem01.url,
+    alt: "Close-up of a man with a wide face wearing a too-narrow gold wire frame that pinches his temples — Woolet illustrates why standard 138–148 mm frames fail on 155 mm+ faces.",
+    caption: "Frames hide their width. Most run too narrow — and you can't tell until they pinch. Woolet starts at a true 158 mm front.",
+  },
+  {
+    index: "02",
+    eyebrow: "The Fit Problem / 02",
+    src: fitProblem02.url,
+    alt: "Bearded man with a full, broad face wearing wide tortoise acetate glasses with gold temple detail — Woolet 158 mm frame proportioned for wider bone structure.",
+    caption: "A full face needs balance. Small frames make a broad, bearded face look heavier. Proportioned width restores the line.",
+  },
+  {
+    index: "03",
+    eyebrow: "The Fit Problem / 03",
+    src: fitProblem03.url,
+    alt: "Macro close-up of a wide keyhole acetate bridge sitting flush on a wider nose — Woolet keyhole bridges are cut 21–24 mm to fit noses that standard 16–19 mm bridges pinch or slide off.",
+    caption: "The nose is its own axis. Standard bridges run 16–19 mm. Some faces need 24. Ours are cut to fit — no perching, no sliding.",
+  },
+  {
+    index: "04",
+    eyebrow: "The Build / 04",
+    src: build04.url,
+    alt: "Italian craftsman hand-polishing a tortoise Mazzucchelli acetate Woolet frame on a workbench in Milano, acetate shavings visible — hand-finished, not injection-molded.",
+    caption: "Hand-finished, not molded. Cheap frames are injection-molded and brittle. Woolet is cut from Italian Mazzucchelli acetate, finished by hand in Milano.",
+  },
+];
 
 type Step = {
   day: number;
@@ -97,6 +140,63 @@ const Process = () => {
               A made-to-order frame takes about two weeks — from your measurements
               to the final clean. Here is the build, day by day.
             </p>
+          </div>
+        </section>
+
+        {/* Editorial chapters — The Fit Problem + The Build */}
+        <section
+          aria-label="Why Woolet — the fit problem and the build"
+          className="w-full pb-14 sm:pb-20"
+        >
+          <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
+            <div className="max-w-3xl mb-10 sm:mb-14">
+              <p
+                className="uppercase text-gold-light mb-4"
+                style={{
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.68rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.22em",
+                }}
+              >
+                Why the process matters
+              </p>
+              <h2
+                className="font-display text-woolet-white"
+                style={{
+                  fontSize: "clamp(1.7rem, 3.2vw, 2.4rem)",
+                  fontWeight: 500,
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.008em",
+                }}
+              >
+                Three fit problems, one <em className="italic text-gold-light">build answer</em>.
+              </h2>
+            </div>
+
+            <div className="flex flex-col gap-6 sm:gap-8">
+              {CHAPTERS.map((c) => (
+                <figure
+                  key={c.index}
+                  className="relative overflow-hidden group"
+                  style={{
+                    borderRadius: "4px",
+                    border: "1px solid hsl(var(--gold) / 0.18)",
+                    background: "hsl(var(--panel))",
+                  }}
+                >
+                  <img
+                    src={c.src}
+                    alt={c.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="block w-full h-auto"
+                    style={{ aspectRatio: "1920 / 1080", objectFit: "cover" }}
+                  />
+                  <figcaption className="sr-only">{c.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
         </section>
 
