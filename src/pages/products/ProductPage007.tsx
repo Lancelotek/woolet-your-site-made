@@ -532,7 +532,8 @@ const ProductPage007 = () => {
         <div
           className="mx-auto"
           style={{
-            maxWidth: 1240, padding: "10px 16px",
+            maxWidth: 1240,
+            padding: "10px 16px calc(10px + env(safe-area-inset-bottom, 0px))",
             display: "flex", alignItems: "center", gap: 14,
           }}
         >
