@@ -50,9 +50,9 @@ const WhatsAppButton = () => {
       aria-label="Chat with us on WhatsApp"
       title="Chat with us on WhatsApp"
       className={[
-        "fixed right-4 z-50",
-        // Sit above the sticky mobile CTA bar on small screens, normal on desktop
+        "fixed z-50",
         "bottom-24 md:bottom-6",
+        shiftRight ? "right-24 md:right-4" : "right-4",
         "flex items-center justify-center",
         "h-14 w-14 rounded-full",
         "bg-[#25D366] text-white shadow-lg",
