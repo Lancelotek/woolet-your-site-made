@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, ImageIcon, Lock, Unlock, Upload } from "lucide-react";
-import FrameGallery from "@/components/FrameGallery";
+import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 
@@ -18,7 +17,7 @@ import {
   MEASUREMENT_RANGES,
   type MeasurementKey,
 } from "@/data/bespoke-options";
-import { FRAMES, FRAME_SHAPES, findFrame, type Frame } from "@/data/frames";
+import { FRAMES, findFrame } from "@/data/frames";
 import { type BespokeConfig, formatEur } from "@/lib/bespoke-state";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
