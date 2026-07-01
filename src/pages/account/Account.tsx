@@ -529,6 +529,69 @@ export default function Account() {
             )}
           </section>
 
+          {/* Bespoke AI previews */}
+          <section className="flex flex-col gap-3">
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+              Bespoke AI previews
+            </h2>
+            {dataLoading ? (
+              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>Loading…</p>
+            ) : previews.length === 0 ? (
+              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>
+                No AI previews yet. Generate one in the bespoke configurator and it'll appear here with a full spec description.
+              </p>
+            ) : (
+              <ul
+                className="grid gap-4 m-0 p-0"
+                style={{ listStyle: "none", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}
+              >
+                {previews.map((pv) => (
+                  <li
+                    key={pv.id}
+                    className="flex flex-col"
+                    style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+                  >
+                    <div style={{ background: "#EFE9DF", aspectRatio: "4 / 3", overflow: "hidden" }}>
+                      <img
+                        src={pv.image_url}
+                        alt={pv.description ?? "Bespoke AI preview"}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 p-3">
+                      <p className="text-foreground" style={{ fontSize: "0.82rem", lineHeight: 1.45 }}>
+                        {pv.description ??
+                          [pv.shape, pv.front_color && `Front: ${pv.front_color}`, pv.temple_color && `Temples: ${pv.temple_color}`, pv.finish]
+                            .filter(Boolean)
+                            .join(" · ")}
+                      </p>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-cream-dim" style={{ fontSize: "0.68rem" }}>
+                          {new Date(pv.created_at).toLocaleDateString()}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            const { error } = await supabase.from("bespoke_ai_previews").delete().eq("id", pv.id);
+                            if (error) {
+                              toast.error("Could not remove preview");
+                              return;
+                            }
+                            setPreviews((prev) => prev.filter((p) => p.id !== pv.id));
+                          }}
+                          className="uppercase tracking-[0.18em] text-cream-dim hover:text-foreground"
+                          style={{ fontSize: "0.6rem", background: "transparent", border: "none", cursor: "pointer" }}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
 
 
           {/* Profile */}
