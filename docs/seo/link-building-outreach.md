@@ -45,7 +45,7 @@ Targets that review/list frames for unusual sizes. Each has a contact form or vi
 > Happy to ship a sample pair for review (007 round or 009 square, no strings). Or if you're working on a "frames for bigger faces" roundup, I'd love to be considered.
 >
 > Marek
-> woolet.co · hello@woolet.co
+> woolet.co · support@woolet.co
 
 ---
 
