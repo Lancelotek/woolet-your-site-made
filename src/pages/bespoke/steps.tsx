@@ -1145,6 +1145,35 @@ export function StepReview({
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
+  const engravingEur = config.engravingEnabled ? ENGRAVING_FEE_EUR : 0;
+  const lensEur = lens?.priceEur ?? 0;
+  const total = (frame?.basePriceEur ?? 0) + engravingEur + lensEur;
+
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+
+  const productName = frame ? `Woolet Bespoke — ${frame.name}` : "Woolet Bespoke";
+  const descParts: string[] = [];
+  if (front) descParts.push(`Front ${front.code}`);
+  if (temple) descParts.push(`Temple ${temple.code}`);
+  if (finish) descParts.push(finish.name);
+  if (config.engravingEnabled && config.engravingText) descParts.push(`Engraving "${config.engravingText}"`);
+  if (lens) descParts.push(`${lens.name}`);
+  const description = descParts.join(" · ");
+
+  const returnUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/en/bespoke/configurator?paid=1&session_id={CHECKOUT_SESSION_ID}`
+      : "";
+
+  const metadata: Record<string, string> = {
+    frame: frame?.id ?? "",
+    front: front?.code ?? "",
+    temple: temple?.code ?? "",
+    finish: finish?.id ?? "",
+    engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
+    lens_type: lens?.id ?? "",
+  };
+
   const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
     <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10">
       <div className="text-cream-dim text-xs uppercase tracking-[0.16em]">{label}</div>
@@ -1187,6 +1216,11 @@ export function StepReview({
             <Row label="Coating" value={LENS_COATINGS.find((c) => c.id === config.lensCoatingId)?.name} />
           </>
         )}
+        <Row label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
+        <div className="flex items-baseline justify-between gap-4 py-4">
+          <div className="text-cream text-xs uppercase tracking-[0.2em]">Total due today</div>
+          <div className="text-cream text-lg font-display">{formatEur(total)}</div>
+        </div>
       </div>
 
       {/* What happens after payment */}
@@ -1203,25 +1237,44 @@ export function StepReview({
           <li><span className="font-mono text-gold-light text-[11px] mr-3">01</span> Your order is confirmed and paid.</li>
           <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan (or book a studio appointment).</li>
           <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> The pattern is cut in Italy to your exact millimetres — 3–4 weeks to ship.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> The pattern is cut in Italy to your exact millimetres — 3–4 weeks to ship, <em className="italic text-gold-light not-italic">free worldwide</em>.</li>
         </ol>
       </div>
 
-      <button
-        onClick={onSave}
-        disabled={saved}
-        className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light disabled:opacity-50 disabled:cursor-not-allowed transition"
-      >
-        {saved ? "Order saved ✓ — proceed to payment" : "Save &amp; pay for pattern"}
-      </button>
-      {saved && (
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <button
+          onClick={() => {
+            onSave();
+            setCheckoutOpen(true);
+          }}
+          className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
+        >
+          Pay {formatEur(total)} — secure your pattern
+        </button>
+        <span className="text-cream-dim text-[0.78rem] uppercase tracking-[0.18em]">
+          Free worldwide shipping · Stripe secure checkout
+        </span>
+      </div>
+      {saved && !checkoutOpen && (
         <p className="text-cream-dim text-xs">
-          Saved to this device. After payment we will contact you at your email to schedule your fit scan.
+          Saved to this device. Reopen the payment window to complete your order.
         </p>
+      )}
+
+      {checkoutOpen && (
+        <BespokeCheckoutModal
+          amountUsd={total}
+          productName={productName}
+          description={description}
+          returnUrl={returnUrl}
+          metadata={metadata}
+          onClose={() => setCheckoutOpen(false)}
+        />
       )}
     </div>
   );
 }
+
 
 /* ───── Shared nav ───── */
 export function StepNav({
