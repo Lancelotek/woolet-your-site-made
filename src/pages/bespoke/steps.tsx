@@ -192,24 +192,37 @@ export const getLatestPreviewUrl = (key: string): string | null => {
   return list?.[0]?.url ?? null;
 };
 
-const savePreviewHistory = (history: PreviewHistory): { ok: true } | { ok: false; error: string } => {
+type SaveResult =
+  | { ok: true; evictedKeys: string[] }
+  | { ok: false; error: string; reason: "quota" | "blocked" };
+
+const savePreviewHistory = (history: PreviewHistory): SaveResult => {
+  const evictedKeys: string[] = [];
   try {
-    // Trim keys if we exceed the cap (evict oldest by newest-entry timestamp).
+    // Trim keys if we exceed the cap (evict oldest configurations first,
+    // scored by their newest-entry timestamp so recently-used configs stay).
     const entries = Object.entries(history);
     if (entries.length > MAX_KEYS) {
       entries.sort((a, b) => (b[1][0]?.ts ?? 0) - (a[1][0]?.ts ?? 0));
-      history = Object.fromEntries(entries.slice(0, MAX_KEYS));
+      const kept = entries.slice(0, MAX_KEYS);
+      const dropped = entries.slice(MAX_KEYS);
+      evictedKeys.push(...dropped.map(([k]) => k));
+      history = Object.fromEntries(kept);
     }
     localStorage.setItem(PREVIEW_HISTORY_KEY, JSON.stringify(history));
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent(PREVIEW_UPDATED_EVENT));
     }
-    return { ok: true };
+    return { ok: true, evictedKeys };
   } catch (e) {
-    const msg = (e as Error)?.name === "QuotaExceededError"
-      ? "This device's storage is full — older previews won't be remembered."
-      : "Couldn't save preview history on this device (private mode or storage disabled).";
-    return { ok: false, error: msg };
+    const isQuota = (e as Error)?.name === "QuotaExceededError";
+    return {
+      ok: false,
+      reason: isQuota ? "quota" : "blocked",
+      error: isQuota
+        ? `Device storage is full — this preview couldn't be saved locally. To make room we drop the oldest configuration first (cap: ${MAX_KEYS}), then the oldest of its ${MAX_PER_KEY} renders. Sign in to keep an unlimited history in your account.`
+        : `Local storage is disabled on this device (private browsing?). Nothing is remembered here — sign in to save previews to your account.`,
+    };
   }
 };
 
@@ -250,10 +263,26 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
     );
   }
 
-  const persist = (next: PreviewHistory) => {
+  const persist = (next: PreviewHistory, opts?: { droppedOldRenderTs?: number | null }) => {
     setHistory(next);
     const res = savePreviewHistory(next);
-    setStorageWarning("ok" in res && res.ok ? null : (res as { error: string }).error);
+    if (res.ok === false) {
+      setStorageWarning(res.error);
+      return;
+    }
+    const notes: string[] = [];
+    if (opts?.droppedOldRenderTs) {
+      const d = new Date(opts.droppedOldRenderTs);
+      notes.push(
+        `Kept the latest ${MAX_PER_KEY} renders for this configuration — the oldest one (from ${d.toLocaleString()}) was removed to make room.`,
+      );
+    }
+    if (res.evictedKeys.length) {
+      notes.push(
+        `Reached the ${MAX_KEYS}-configuration limit — the ${res.evictedKeys.length} least-recently used configuration${res.evictedKeys.length > 1 ? "s were" : " was"} removed from this device.`,
+      );
+    }
+    setStorageWarning(notes.length ? notes.join(" ") : null);
   };
 
   const generate = async () => {
@@ -274,8 +303,10 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       if (!url) throw new Error("No preview returned");
 
       const prev = history[selectionKey] ?? [];
-      const nextList = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)].slice(0, MAX_PER_KEY);
-      persist({ ...history, [selectionKey]: nextList });
+      const combined = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)];
+      const nextList = combined.slice(0, MAX_PER_KEY);
+      const droppedOldRenderTs = combined.length > MAX_PER_KEY ? combined[combined.length - 1].ts : null;
+      persist({ ...history, [selectionKey]: nextList }, { droppedOldRenderTs });
       setActiveUrl(url);
 
       // If the buyer is signed in, mirror the render to their account so it
@@ -463,7 +494,9 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
 
       <p className="mt-3 text-[10px] text-cream-dim/70 leading-relaxed">
         Illustrative render only — the final hand-crafted pair may vary in acetate grain and highlights.
-        We keep your last {MAX_PER_KEY} renders per configuration on this device.
+        This device keeps up to {MAX_PER_KEY} renders per configuration across a maximum of {MAX_KEYS} configurations.
+        When the limit is reached the oldest render in the current configuration is removed first, then the least-recently used configuration.
+        Sign in to keep an unlimited history in your account.
       </p>
     </div>
   );
