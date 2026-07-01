@@ -150,6 +150,15 @@ export default function BespokeCheckout() {
                   <p className="text-cream-dim text-sm mt-3 max-w-lg leading-relaxed">
                     You&rsquo;re paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <span className="text-gold-light">after</span> payment.
                   </p>
+
+                  {/* Trust row */}
+                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
+                    <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
+                    <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Fit guaranteed</li>
+                    <li className="inline-flex items-center gap-1.5"><RefreshCcw size={12} className="text-gold-light" /> 30-day remake</li>
+                    <li className="inline-flex items-center gap-1.5"><Scissors size={12} className="text-gold-light" /> Cut in Italy</li>
+                    <li className="inline-flex items-center gap-1.5"><Truck size={12} className="text-gold-light" /> Free shipping</li>
+                  </ul>
                 </div>
 
                 <div className="bg-white text-[#0B0A09] overflow-hidden" style={{ borderRadius: 4 }}>
@@ -157,6 +166,32 @@ export default function BespokeCheckout() {
                     <EmbeddedCheckout />
                   </EmbeddedCheckoutProvider>
                 </div>
+
+                {/* Guarantee block */}
+                <div
+                  className="mt-6 border border-cream/10 p-5"
+                  style={{ borderRadius: 4, background: "rgba(239,233,223,0.03)" }}
+                >
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="text-gold-light shrink-0 mt-0.5" size={20} />
+                    <div>
+                      <div className="text-cream text-sm font-medium">The Woolet Fit Promise</div>
+                      <p className="text-cream-dim text-[12px] leading-relaxed mt-1">
+                        Every bespoke pair is hand-cut in Italy from your verified measurements. If the fit isn&rsquo;t right within 30 days of delivery, we remake the frame — on us. No restocking fees, no small print.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Social proof */}
+                <figure className="mt-6 border-l-2 border-gold/40 pl-4">
+                  <blockquote className="text-cream text-[13px] leading-relaxed italic">
+                    &ldquo;First pair in ten years that actually sits on my face. The AI preview matched what arrived — I knew exactly what I was paying for.&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-2 text-cream-dim text-[10px] uppercase tracking-[0.18em]">
+                    Marco B. · Verified bespoke buyer
+                  </figcaption>
+                </figure>
               </section>
 
               {/* Summary column */}
