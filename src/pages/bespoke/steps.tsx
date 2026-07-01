@@ -159,6 +159,139 @@ function ColorSwatchGrid({
   );
 }
 
+function AiPreviewPanel({ config }: { config: BespokeConfig }) {
+  const frame = findFrame(config.frameId);
+  const front = COLORS.find((c) => c.id === config.frontColorId);
+  const temple = COLORS.find((c) => c.id === config.templeColorId);
+  const finish = FINISHES.find((f) => f.id === config.finishId);
+
+  // Recompute a stable key so a new selection invalidates the previous render.
+  const selectionKey = [frame?.id, front?.id, temple?.id, finish?.id].join("|");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [renderedFor, setRenderedFor] = useState<string | null>(null);
+
+  const ready = Boolean(frame && front && temple && finish);
+
+  // If any input changes, drop the previous preview so the CTA reappears.
+  useEffect(() => {
+    if (renderedFor && renderedFor !== selectionKey) {
+      setImageUrl(null);
+      setError(null);
+    }
+  }, [selectionKey, renderedFor]);
+
+  if (!ready || !frame || !front || !temple || !finish) {
+    return (
+      <div className="border border-cream/10 p-6 text-cream-dim text-xs leading-relaxed" style={{ borderRadius: 2 }}>
+        Pick a shape, front acetate, temple acetate and finish — we&rsquo;ll then generate an
+        AI visualisation of how your pair will look before you commit.
+      </div>
+    );
+  }
+
+  const generate = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data, error: fnErr } = await supabase.functions.invoke("bespoke-preview-render", {
+        body: {
+          shape: frame.shape,
+          frontColor: `${front.name} (${front.code})`,
+          templeColor: `${temple.name} (${temple.code})`,
+          finish: finish.name,
+        },
+      });
+      if (fnErr) throw fnErr;
+      const url = (data as { imageUrl?: string })?.imageUrl;
+      if (!url) throw new Error("No preview returned");
+      setImageUrl(url);
+      setRenderedFor(selectionKey);
+    } catch (e) {
+      setError((e as Error).message || "Preview failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="border border-gold/25 bg-[#0c0c0c]/40 p-5 sm:p-6" style={{ borderRadius: 2 }}>
+      <div className="flex items-baseline justify-between gap-3 mb-3">
+        <div>
+          <div className={sectionKicker}>AI preview</div>
+          <div className="font-display text-cream text-lg leading-tight mt-1">
+            See your <em className="italic text-gold-light">{frame.shape}</em> before you build
+          </div>
+        </div>
+        {imageUrl && !loading && (
+          <button
+            onClick={generate}
+            className="text-[11px] uppercase tracking-[0.18em] text-gold-light hover:text-gold underline underline-offset-4"
+          >
+            Regenerate
+          </button>
+        )}
+      </div>
+
+      <p className="text-cream-dim text-xs leading-relaxed mb-4">
+        Front: <span className="text-cream">{front.name}</span> · Temples:{" "}
+        <span className="text-cream">{temple.name}</span> · Finish:{" "}
+        <span className="text-cream">{finish.name}</span>
+      </p>
+
+      <div
+        className="relative w-full overflow-hidden bg-[#EFE9DF] flex items-center justify-center"
+        style={{ aspectRatio: "4 / 3", borderRadius: 2 }}
+      >
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={`AI preview of ${frame.shape} in ${front.name} / ${temple.name}, ${finish.name}`}
+            className="w-full h-full object-cover"
+          />
+        ) : loading ? (
+          <div className="flex flex-col items-center gap-3 text-[color:var(--cfg-ink)]/70">
+            <div className="h-8 w-8 border-2 border-[color:var(--cfg-ink)]/30 border-t-[color:var(--cfg-ink)] rounded-full animate-spin" />
+            <div className="text-[11px] uppercase tracking-[0.2em]">Rendering your pair…</div>
+          </div>
+        ) : (
+          <div className="text-[color:var(--cfg-ink)]/50 text-xs uppercase tracking-[0.2em]">
+            Preview will appear here
+          </div>
+        )}
+      </div>
+
+      {!imageUrl && (
+        <button
+          onClick={generate}
+          disabled={loading}
+          className="mt-4 w-full inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors disabled:opacity-50"
+          style={{
+            background: "hsl(var(--gold))",
+            color: "hsl(var(--background))",
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 500,
+            fontSize: "0.72rem",
+            padding: "16px 24px",
+            borderRadius: 2,
+          }}
+        >
+          {loading ? "Generating…" : "Generate AI preview"}
+        </button>
+      )}
+
+      {error && (
+        <p className="mt-3 text-[11px] text-red-400/90">{error}</p>
+      )}
+
+      <p className="mt-3 text-[10px] text-cream-dim/70 leading-relaxed">
+        Illustrative render only — the final hand-crafted pair may vary in acetate grain and highlights.
+      </p>
+    </div>
+  );
+}
+
 export function StepColor({ config, update }: StepProps) {
   const front = COLORS.find((c) => c.id === config.frontColorId);
   const temple = COLORS.find((c) => c.id === config.templeColorId);
@@ -235,6 +368,8 @@ export function StepColor({ config, update }: StepProps) {
           })}
         </div>
       </div>
+
+      <AiPreviewPanel config={config} />
     </div>
   );
 }
