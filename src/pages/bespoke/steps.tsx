@@ -266,7 +266,7 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
   const persist = (next: PreviewHistory, opts?: { droppedOldRenderTs?: number | null }) => {
     setHistory(next);
     const res = savePreviewHistory(next);
-    if (!res.ok) {
+    if (res.ok === false) {
       setStorageWarning(res.error);
       return;
     }
