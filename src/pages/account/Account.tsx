@@ -144,7 +144,7 @@ export default function Account() {
       } catch (err) {
         console.warn("[account] link_user_data_by_email failed", err);
       }
-      const [{ data: p }, { data: s }, { data: o }, { data: b }] = await Promise.all([
+      const [{ data: p }, { data: s }, { data: o }, { data: b }, { data: pv }] = await Promise.all([
         supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
         supabase
           .from("scan_sessions")
@@ -161,11 +161,15 @@ export default function Account() {
           .select("id, name, is_current, updated_at, config")
           .eq("user_id", session.user.id)
           .order("updated_at", { ascending: false }),
+        supabase
+          .from("bespoke_ai_previews")
+          .select("id, created_at, image_url, description, shape, front_color, temple_color, finish")
+          .eq("user_id", session.user.id)
+          .order("created_at", { ascending: false })
+          .limit(24),
       ]);
       if (cancelled) return;
       setProfile(p as Profile | null);
-      // Clamp implausible scan output for display (e.g. 175 mm face → 161 mm,
-      // 49 mm nose → 42 mm). The raw row is preserved in the DB.
       const clampedScans = ((s as Scan[] | null) ?? []).map((row) => ({
         ...row,
         face_width_mm: clampFaceMm(row.face_width_mm),
@@ -174,6 +178,7 @@ export default function Account() {
       setScans(clampedScans);
       setOrders((o as Order[] | null) ?? []);
       setBespoke((b as BespokeConfigRow[] | null) ?? []);
+      setPreviews((pv as AiPreview[] | null) ?? []);
       setDataLoading(false);
     };
     load();
