@@ -89,7 +89,86 @@ export default function BespokeCheckout() {
     lens_type: lens?.id ?? "",
   };
 
+  // --- Analytics: shared payload builders ------------------------------------
+  const buildEventPayload = useCallback(
+    (extra: Record<string, string | number | boolean> = {}) => {
+      const consent = readConsentSnapshot();
+      return {
+        flow: "bespoke",
+        frame_id: frame?.id ?? "",
+        frame_name: frame?.name ?? "",
+        front_code: front?.code ?? "",
+        temple_code: temple?.code ?? "",
+        finish_id: finish?.id ?? "",
+        lens_type: lens?.id ?? "",
+        engraving_enabled: config.engravingEnabled,
+        ai_preview_present: Boolean(aiPreviewUrl),
+        value: pricing.totalEur,
+        currency: "USD",
+        environment: getStripeEnvironment(),
+        consent_state: consent.consent_state,
+        consent_ad_storage: consent.ad_storage,
+        consent_ad_user_data: consent.ad_user_data,
+        consent_ad_personalization: consent.ad_personalization,
+        consent_analytics_storage: consent.analytics_storage,
+        ...extra,
+      };
+    },
+    [frame, front, temple, finish, lens, config.engravingEnabled, aiPreviewUrl, pricing.totalEur],
+  );
+
+  // --- Analytics: Checkout viewed (once, when ready) -------------------------
+  const viewedTracked = useRef(false);
+  useEffect(() => {
+    if (!ready || viewedTracked.current) return;
+    viewedTracked.current = true;
+    const payload = buildEventPayload();
+    pushGtmEvent("checkout_viewed", payload);
+    claritySet("checkout_flow", "bespoke");
+    claritySet("checkout_consent", payload.consent_state);
+    clarityEvent("bespoke_checkout_viewed");
+    void trackMetaEvent("InitiateCheckout", {
+      custom: {
+        value: pricing.totalEur,
+        currency: "USD",
+        num_items: 1,
+        content_ids: frame?.id ? [frame.id] : undefined,
+        content_name: productName,
+        content_type: "product",
+      },
+    });
+  }, [ready, buildEventPayload, pricing.totalEur, frame?.id, productName]);
+
+  // --- Analytics: Purchase completed (once, on ?paid=1) ----------------------
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("paid") !== "1") return;
+    const sessionId = params.get("session_id") || "";
+    let alreadyTracked = false;
+    try {
+      alreadyTracked = sessionStorage.getItem(PURCHASE_TRACKED_KEY) === sessionId;
+    } catch {
+      /* noop */
+    }
+    if (alreadyTracked) return;
+    try {
+      sessionStorage.setItem(PURCHASE_TRACKED_KEY, sessionId);
+    } catch {
+      /* noop */
+    }
+    const payload = buildEventPayload({ stripe_session_id: sessionId });
+    pushGtmEvent("purchase_completed", payload);
+    clarityEvent("bespoke_purchase_completed");
+    // Purchase to Meta is fired server-side from payments-webhook (dedup by event_id).
+    // We still push GTM so downstream tags (GA4 purchase) fire client-side too.
+  }, [buildEventPayload]);
+
   const fetchClientSecret = useCallback(async (): Promise<string> => {
+    // --- Analytics: Payment initiated (fires when Stripe requests secret) ---
+    pushGtmEvent("payment_initiated", buildEventPayload());
+    clarityEvent("bespoke_payment_initiated");
+
     const { data, error } = await supabase.functions.invoke("create-bespoke-checkout", {
       body: {
         amountUsd: pricing.totalEur,
@@ -101,11 +180,15 @@ export default function BespokeCheckout() {
       },
     });
     if (error || !data?.clientSecret) {
+      pushGtmEvent("payment_initiated_error", {
+        ...buildEventPayload(),
+        error_message: (error?.message || "no_client_secret").slice(0, 140),
+      });
       throw new Error(error?.message || "Failed to create checkout session");
     }
     return data.clientSecret as string;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pricing.totalEur, productName, description, returnUrl]);
+  }, [pricing.totalEur, productName, description, returnUrl, buildEventPayload]);
 
   return (
     <>
