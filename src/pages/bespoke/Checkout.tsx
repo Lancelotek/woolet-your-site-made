@@ -359,9 +359,58 @@ useEffect(() => {
                             <Sparkles size={10} /> Your AI preview
                           </div>
                         </>
+                      ) : fallbackPreviewUrl ? (
+                        <>
+                          <img
+                            src={fallbackPreviewUrl}
+                            alt="Last AI generated preview from a previous configuration"
+                            className="w-full h-full object-cover"
+                          />
+                          <div
+                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-[0.18em]"
+                            style={{ background: "rgba(11,10,9,0.72)", color: "#D8B86A", borderRadius: 2 }}
+                          >
+                            <Sparkles size={10} /> Last AI preview
+                          </div>
+                        </>
                       ) : (
                         <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
                       )}
+                    </div>
+                  )}
+
+                  {!aiPreviewUrl && frame && (
+                    <div className="border-t border-cream/10 p-4" style={{ background: "rgba(239,233,223,0.03)" }}>
+                      <div className="flex items-start gap-3">
+                        <Sparkles size={18} className="text-gold-light shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <div className="text-cream text-xs font-medium">
+                            {fallbackPreviewUrl ? "Preview shown is from a different configuration" : "No AI preview for this build yet"}
+                          </div>
+                          <p className="text-cream-dim text-[11px] leading-relaxed mt-1">
+                            {fallbackPreviewUrl
+                              ? "Generate a fresh AI visualisation of your current pattern and acetate choices to see exactly what you’re buying."
+                              : "Generate an AI visualisation of your current pattern and colours before you pay."}
+                          </p>
+                          <button
+                            onClick={handleGeneratePreview}
+                            disabled={isGenerating}
+                            className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gold text-background text-[10px] uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            style={{ borderRadius: 2 }}
+                          >
+                            {isGenerating ? (
+                              <>
+                                <div className="h-3 w-3 border-2 border-background/30 border-t-background rounded-full animate-spin" />
+                                Rendering…
+                              </>
+                            ) : (
+                              <>
+                                <Sparkles size={12} /> Generate preview for this build
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   )}
                   <div className="p-5">
