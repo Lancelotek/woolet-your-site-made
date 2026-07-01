@@ -100,7 +100,7 @@ export function StepFrame({ config, update }: StepProps) {
 
 
 
-/* ───── Step 2 ───── */
+/* ───── Step 2 · Acetate ───── */
 function ColorSwatchGrid({
   selected,
   onSelect,
@@ -109,40 +109,49 @@ function ColorSwatchGrid({
   onSelect: (id: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
       {COLORS.map((c) => {
         const active = selected === c.id;
         return (
           <button
             key={c.id}
             onClick={() => onSelect(c.id)}
-            title={c.name}
-            className={`group relative aspect-square overflow-hidden border transition ${
+            title={`${c.code} · ${c.name}`}
+            className={`group relative overflow-hidden border text-left transition ${
               active
                 ? "border-gold ring-2 ring-gold/40"
                 : "border-cream/10 hover:border-cream/30"
             }`}
             style={{ borderRadius: 2 }}
           >
-            <img
-              src={c.image}
-              alt={`${c.name} bio-acetate sample`}
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-            />
-            <span className="absolute inset-x-0 bottom-0 px-2 py-1.5 bg-gradient-to-t from-[#0c0c0c]/85 to-transparent">
-              <span className="block text-cream text-[10px] uppercase tracking-[0.16em] font-medium truncate">
-                {c.name}
-              </span>
-            </span>
-            {active && (
-              <span
-                className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-5 h-5 bg-[color:var(--cfg-gold)]"
-                style={{ borderRadius: 2 }}
+            <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
+              <img
+                src={c.image}
+                alt={`Mazzucchelli acetate ${c.code} — ${c.name}`}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              {active && (
+                <span
+                  className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-5 h-5 bg-[color:var(--cfg-gold)]"
+                  style={{ borderRadius: 2 }}
+                >
+                  <Check size={11} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
+                </span>
+              )}
+            </div>
+            <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
+              <div
+                className="font-mono text-[10px] uppercase tracking-[0.14em] text-gold-light/90"
+                style={{ letterSpacing: "0.14em" }}
               >
-                <Check size={11} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
-              </span>
-            )}
+                {c.code}
+              </div>
+              <div className="mt-0.5 text-cream text-[11px] truncate">{c.name}</div>
+              {c.note && (
+                <div className="text-cream-dim text-[10px] italic truncate">{c.note}</div>
+              )}
+            </div>
           </button>
         );
       })}
@@ -151,29 +160,36 @@ function ColorSwatchGrid({
 }
 
 export function StepColor({ config, update }: StepProps) {
+  const front = COLORS.find((c) => c.id === config.frontColorId);
+  const temple = COLORS.find((c) => c.id === config.templeColorId);
   return (
     <div className="space-y-10">
       <header>
-        <div className={sectionKicker}>Step 2</div>
-        <h2 className={sectionTitle}>Compose your acetate</h2>
+        <div className={sectionKicker}>Step 2 — Acetate</div>
+        <h2 className={sectionTitle}>Compose your <em className="italic text-gold-light">Mazzucchelli</em> acetate</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Each sheet of Italian bio-acetate carries a unique grain. After production we keep the off-cut as your keepsake.
+          Each swatch is a live macro photograph of the actual sheet we hold in stock. Codes match the Mazzucchelli reference —
+          quote them to your optician or in any correspondence with our atelier.
         </p>
       </header>
 
       <div>
-        <div className={labelClass}>Front colour</div>
+        <div className={labelClass}>Front acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} /></div>
-        {config.frontColorId && (
-          <div className="text-cream text-xs mt-2">{COLORS.find((c) => c.id === config.frontColorId)?.name}</div>
+        {front && (
+          <div className="text-cream text-xs mt-2">
+            <span className="font-mono text-gold-light">{front.code}</span> · {front.name}
+          </div>
         )}
       </div>
 
       <div>
-        <div className={labelClass}>Temple colour</div>
+        <div className={labelClass}>Temple acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} /></div>
-        {config.templeColorId && (
-          <div className="text-cream text-xs mt-2">{COLORS.find((c) => c.id === config.templeColorId)?.name}</div>
+        {temple && (
+          <div className="text-cream text-xs mt-2">
+            <span className="font-mono text-gold-light">{temple.code}</span> · {temple.name}
+          </div>
         )}
       </div>
 
