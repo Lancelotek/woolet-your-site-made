@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -22,7 +22,7 @@ import { type BespokeConfig, formatEur } from "@/lib/bespoke-state";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
-import { BespokeCheckoutModal } from "@/components/BespokeCheckoutModal";
+
 
 interface StepProps {
   config: BespokeConfig;
@@ -1378,30 +1378,7 @@ export function StepReview({
   const lensEur = lens?.priceEur ?? 0;
   const total = (frame?.basePriceEur ?? 0) + engravingEur + lensEur;
 
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-
-  const productName = frame ? `Woolet Bespoke — ${frame.name}` : "Woolet Bespoke";
-  const descParts: string[] = [];
-  if (front) descParts.push(`Front ${front.code}`);
-  if (temple) descParts.push(`Temple ${temple.code}`);
-  if (finish) descParts.push(finish.name);
-  if (config.engravingEnabled && config.engravingText) descParts.push(`Engraving "${config.engravingText}"`);
-  if (lens) descParts.push(`${lens.name}`);
-  const description = descParts.join(" · ");
-
-  const returnUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/en/bespoke/configurator?paid=1&session_id={CHECKOUT_SESSION_ID}`
-      : "";
-
-  const metadata: Record<string, string> = {
-    frame: frame?.id ?? "",
-    front: front?.code ?? "",
-    temple: temple?.code ?? "",
-    finish: finish?.id ?? "",
-    engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
-    lens_type: lens?.id ?? "",
-  };
+  const navigate = useNavigate();
 
   const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
     <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10">
@@ -1474,7 +1451,7 @@ export function StepReview({
         <button
           onClick={() => {
             onSave();
-            setCheckoutOpen(true);
+            navigate("/en/bespoke/checkout");
           }}
           className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
         >
@@ -1484,21 +1461,10 @@ export function StepReview({
           Free worldwide shipping · Stripe secure checkout
         </span>
       </div>
-      {saved && !checkoutOpen && (
+      {saved && (
         <p className="text-cream-dim text-xs">
-          Saved to this device. Reopen the payment window to complete your order.
+          Saved to this device — your build travels with you into the checkout page.
         </p>
-      )}
-
-      {checkoutOpen && (
-        <BespokeCheckoutModal
-          amountUsd={total}
-          productName={productName}
-          description={description}
-          returnUrl={returnUrl}
-          metadata={metadata}
-          onClose={() => setCheckoutOpen(false)}
-        />
       )}
     </div>
   );
