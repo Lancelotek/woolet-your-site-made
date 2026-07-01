@@ -1155,32 +1155,30 @@ export function StepReview({
   return (
     <div className="space-y-8">
       <header>
-        <div className={sectionKicker}>Step 6</div>
-        <h2 className={sectionTitle}>Review your build</h2>
+        <div className={sectionKicker}>Step 5 — Review &amp; pay</div>
+        <h2 className={sectionTitle}>Confirm your <em className="italic text-gold-light">pattern</em></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Once saved, our atelier verifies your measurements before production. Lead time: 3–4 weeks, hand-made in Greece.
+          You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.
         </p>
       </header>
 
       {frame && (
         <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-background/40">
-          <div className="aspect-[16/9] bg-cream/[0.03] flex items-center justify-center">
+          <div className="aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
             <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
           </div>
           <div className="p-5">
             <div className="font-display text-cream text-2xl font-light">{frame.name}</div>
-            <div className="text-cream-dim text-xs uppercase tracking-[0.16em] mt-1">{frame.id} · {frame.shape}</div>
+            <div className="text-cream-dim text-xs uppercase tracking-[0.16em] mt-1">Pattern · {frame.shape}</div>
           </div>
         </div>
       )}
 
       <div className="rounded-[14px] border border-cream/10 bg-background/40 px-5">
-        <Row label="Frame" value={frame ? `${frame.name} (${frame.id})` : null} />
-        <Row label="Front colour" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
-        <Row label="Temple colour" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
+        <Row label="Pattern" value={frame ? `${frame.name}` : null} />
+        <Row label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> <span className="font-mono text-[10px] text-gold-light">{front.code}</span> · {front.name}</span> : null} />
+        <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> <span className="font-mono text-[10px] text-gold-light">{temple.code}</span> · {temple.name}</span> : null} />
         <Row label="Finish" value={finish?.name} />
-        <Row label="Measurement method" value={config.measurementMethod === "scan" ? "AI face scan" : config.measurementMethod === "tape" ? "Tape measure" : null} />
-        <Row label="PD" value={config.measurements.pd ? `${config.measurements.pd} mm` : null} />
         <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name ?? ""}` : "None"} />
         <Row label="Lenses" value={lens?.name} />
         {config.lensTypeId !== "plano" && (
@@ -1189,7 +1187,24 @@ export function StepReview({
             <Row label="Coating" value={LENS_COATINGS.find((c) => c.id === config.lensCoatingId)?.name} />
           </>
         )}
-        {config.prescriptionFileName && <Row label="Prescription" value={config.prescriptionFileName} />}
+      </div>
+
+      {/* What happens after payment */}
+      <div
+        style={{
+          border: "1px solid rgba(194,160,90,0.35)",
+          background: "linear-gradient(180deg, rgba(194,160,90,0.06), rgba(194,160,90,0.01))",
+          padding: "20px 22px",
+          borderRadius: 2,
+        }}
+      >
+        <div className="cfg-eyebrow" style={{ color: "#C2A05A" }}>What happens after payment</div>
+        <ol className="mt-4 space-y-3 text-cream text-sm">
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">01</span> Your order is confirmed and paid.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan (or book a studio appointment).</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> The pattern is cut in Italy to your exact millimetres — 3–4 weeks to ship.</li>
+        </ol>
       </div>
 
       <button
@@ -1197,11 +1212,11 @@ export function StepReview({
         disabled={saved}
         className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light disabled:opacity-50 disabled:cursor-not-allowed transition"
       >
-        {saved ? "Build saved ✓" : "Save my build"}
+        {saved ? "Order saved ✓ — proceed to payment" : "Save &amp; pay for pattern"}
       </button>
       {saved && (
         <p className="text-cream-dim text-xs">
-          Saved to this device. <Link to="/en/account/sign-in" className="text-gold-light underline">Sign in</Link> to sync across devices and book a measurement review with the atelier.
+          Saved to this device. After payment we will contact you at your email to schedule your fit scan.
         </p>
       )}
     </div>
