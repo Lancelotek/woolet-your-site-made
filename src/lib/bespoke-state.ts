@@ -125,7 +125,7 @@ export function computePricing(config: BespokeConfig): Pricing {
 export const formatEur = (n: number) =>
   new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 
-export type StepId = 1 | 2 | 3 | 4 | 5 | 6;
+export type StepId = 1 | 2 | 3 | 4 | 5;
 
 export interface StepMeta {
   id: StepId;
@@ -133,13 +133,14 @@ export interface StepMeta {
   shortLabel: string;
 }
 
+// Measurement is intentionally NOT a pre-payment step — it happens after the
+// buyer pays for their chosen pattern. See StepReview + configurator banner.
 export const STEPS: StepMeta[] = [
-  { id: 1, label: "Choose frame",          shortLabel: "Frame" },
-  { id: 2, label: "Compose colour",        shortLabel: "Colour" },
+  { id: 1, label: "Choose pattern",        shortLabel: "Pattern" },
+  { id: 2, label: "Choose acetate",        shortLabel: "Acetate" },
   { id: 3, label: "Engraving",             shortLabel: "Engraving" },
   { id: 4, label: "Lenses & prescription", shortLabel: "Lenses" },
-  { id: 5, label: "Measure your fit",      shortLabel: "Fit" },
-  { id: 6, label: "Review",                shortLabel: "Review" },
+  { id: 5, label: "Review & pay",          shortLabel: "Review" },
 ];
 
 export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
@@ -148,11 +149,6 @@ export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
     case 2: return Boolean(config.frontColorId && config.templeColorId && config.finishId);
     case 3: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
     case 4: return Boolean(config.lensTypeId);
-    case 5: {
-      if (config.measurementMethod === "tape") return Boolean(config.measurements.pd);
-      if (config.measurementMethod === "scan") return Boolean(config.consentTimestamp && config.scanContactEmail);
-      return false;
-    }
-    case 6: return true;
+    case 5: return true;
   }
 }
