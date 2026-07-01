@@ -173,7 +173,8 @@ const ConfiguratorPage = () => {
             <p style={{ margin: 0, color: "#C4BDAF", fontSize: 14, lineHeight: 1.55 }}>
               <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
               The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
-              once your measurements are confirmed, your frame is cut in Italy to the exact millimetres of your face.
+              once your measurements are confirmed, your frame is cut in Italy to the exact millimetres of your face.{" "}
+              <span style={{ color: "#D8B86A" }}>Free worldwide shipping included.</span>
             </p>
           </div>
         </div>
@@ -256,6 +257,7 @@ const ConfiguratorPage = () => {
                     <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
                     {step >= 3 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>+ {formatEur(pricing.engravingEur)}</span></li>}
                     {step >= 4 && pricing.lensEur > 0 && <li><span>Lenses</span><span>+ {formatEur(pricing.lensEur)}</span></li>}
+                    <li><span>Shipping</span><span style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</span></li>
                   </ul>
                 </div>
 
