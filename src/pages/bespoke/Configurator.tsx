@@ -244,12 +244,12 @@ const ConfiguratorPage = () => {
                 <div className="cfg-rail__total">
                   <div className="flex items-baseline justify-between">
                     <span className="cfg-eyebrow">Total</span>
-                    <span className="cfg-rail__price">{formatEur(pricing.totalEur)}</span>
+                    <span className="cfg-rail__price">{formatEur(stepTotal)}</span>
                   </div>
                   <ul className="cfg-rail__lines">
                     <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
-                    {pricing.engravingEur > 0 && <li><span>Engraving</span><span>+ {formatEur(pricing.engravingEur)}</span></li>}
-                    {pricing.lensEur > 0 && <li><span>Lenses</span><span>+ {formatEur(pricing.lensEur)}</span></li>}
+                    {step >= 3 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>+ {formatEur(pricing.engravingEur)}</span></li>}
+                    {step >= 4 && pricing.lensEur > 0 && <li><span>Lenses</span><span>+ {formatEur(pricing.lensEur)}</span></li>}
                   </ul>
                 </div>
 
