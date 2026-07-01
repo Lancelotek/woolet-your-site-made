@@ -104,21 +104,7 @@ const BespokePage = () => {
                 Frame widths from <span className="text-foreground">150 mm to 172 mm</span>, 21 mm keyhole bridge,
                 ready for any lens — prescription, progressive, blue-light, or polarized sun.
               </p>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-                <Link
-                  to="/en/fit"
-                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
-                  style={{
-                    background: "hsl(var(--gold))",
-                    color: "hsl(var(--background))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontWeight: 500,
-                    fontSize: "0.72rem",
-                    padding: "18px 32px",
-                  }}
-                >
-                  Scan your face · Reserve $299 spot
-                </Link>
+              <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
                 <Link
                   to="/en/bespoke/configurator"
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
@@ -134,7 +120,7 @@ const BespokePage = () => {
                   Start your build →
                 </Link>
                 <Link
-                  to="/en/fit/bespoke"
+                  to="/en/fit"
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                   style={{
                     border: "1px solid hsl(var(--gold) / 0.5)",
@@ -145,7 +131,20 @@ const BespokePage = () => {
                     padding: "18px 32px",
                   }}
                 >
-                  Learn about the process
+                  Scan your face
+                </Link>
+                <Link
+                  to="/en/fit/bespoke"
+                  className="inline-flex items-center gap-2 no-underline transition-colors"
+                  style={{
+                    color: "hsl(var(--cream-dim))",
+                    fontFamily: "Barlow, sans-serif",
+                    fontSize: "0.85rem",
+                    borderBottom: "1px solid hsl(var(--gold) / 0.35)",
+                    paddingBottom: 2,
+                  }}
+                >
+                  Learn about the process →
                 </Link>
               </div>
             </div>

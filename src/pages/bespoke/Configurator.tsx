@@ -195,14 +195,16 @@ const ConfiguratorPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12">
             <section>
               {StepBody}
-              <StepNav
-                step={step}
-                total={STEPS.length}
-                onBack={() => goTo(Math.max(1, step - 1) as StepId)}
-                onNext={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
-                canNext={isStepComplete(step, config)}
-                isLast={step === STEPS.length}
-              />
+              <div className="hidden lg:block">
+                <StepNav
+                  step={step}
+                  total={STEPS.length}
+                  onBack={() => goTo(Math.max(1, step - 1) as StepId)}
+                  onNext={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
+                  canNext={isStepComplete(step, config)}
+                  isLast={step === STEPS.length}
+                />
+              </div>
             </section>
 
             {/* Sticky build rail */}

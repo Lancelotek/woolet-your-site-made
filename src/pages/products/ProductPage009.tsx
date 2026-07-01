@@ -461,7 +461,7 @@ const ProductPage009 = () => {
           zIndex: 60,
         }}
       >
-        <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 16px", display: "flex", alignItems: "center", gap: 14 }}>
+        <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 16px calc(10px + env(safe-area-inset-bottom, 0px))", display: "flex", alignItems: "center", gap: 14 }}>
           <div style={{ minWidth: 0, flex: 1 }}>
             <div style={{ fontFamily: SERIF, fontSize: 18, color: "#f3ece0", lineHeight: 1.1 }}>
               Woolet 009 <em style={{ color: T.goldHi, fontStyle: "italic" }}>Square</em>

@@ -10,7 +10,7 @@ const WHATSAPP_HREF = `https://wa.me/${PHONE}?text=${encodeURIComponent(PREFILL)
 
 const WhatsAppButton = () => {
   const [mounted, setMounted] = useState(false);
-  const [shiftRight, setShiftRight] = useState(false);
+  const [bottomOffset, setBottomOffset] = useState<number | null>(null);
 
   // Fade/scale in shortly after load so it doesn't compete with above-the-fold content
   useEffect(() => {
@@ -18,11 +18,15 @@ const WhatsAppButton = () => {
     return () => clearTimeout(t);
   }, []);
 
-  // Move left on mobile when a fixed bottom bar is present so it doesn't overlap
-  // the bar's CTA button (e.g. bespoke configurator mobile Next button).
+  // Lift above any fixed bottom bar (bespoke mobile CTA, sticky waitlist CTA)
+  // so the WhatsApp bubble never sits on top of a primary CTA.
   useEffect(() => {
     const selector = ".cfg-mobilebar, .sticky-mobile-cta";
-    const update = () => setShiftRight(Boolean(document.querySelector(selector)));
+    const update = () => {
+      const bar = document.querySelector(selector) as HTMLElement | null;
+      if (!bar) return setBottomOffset(null);
+      setBottomOffset(bar.getBoundingClientRect().height + 16);
+    };
     update();
     window.addEventListener("resize", update);
     const observer = new MutationObserver(update);
@@ -50,9 +54,8 @@ const WhatsAppButton = () => {
       aria-label="Chat with us on WhatsApp"
       title="Chat with us on WhatsApp"
       className={[
-        "fixed z-50",
-        "bottom-24 md:bottom-6",
-        shiftRight ? "right-24 md:right-4" : "right-4",
+        "fixed z-50 right-4 md:right-6",
+        bottomOffset === null ? "bottom-6 md:bottom-6" : "",
         "flex items-center justify-center",
         "h-14 w-14 rounded-full",
         "bg-[#25D366] text-white shadow-lg",
@@ -60,6 +63,7 @@ const WhatsAppButton = () => {
         "focus:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40",
         mounted ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none",
       ].join(" ")}
+      style={bottomOffset !== null ? { bottom: bottomOffset } : undefined}
     >
       <svg
         viewBox="0 0 32 32"
