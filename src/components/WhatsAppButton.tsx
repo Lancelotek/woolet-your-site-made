@@ -10,11 +10,27 @@ const WHATSAPP_HREF = `https://wa.me/${PHONE}?text=${encodeURIComponent(PREFILL)
 
 const WhatsAppButton = () => {
   const [mounted, setMounted] = useState(false);
+  const [shiftRight, setShiftRight] = useState(false);
 
   // Fade/scale in shortly after load so it doesn't compete with above-the-fold content
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 1200);
     return () => clearTimeout(t);
+  }, []);
+
+  // Move left on mobile when a fixed bottom bar is present so it doesn't overlap
+  // the bar's CTA button (e.g. bespoke configurator mobile Next button).
+  useEffect(() => {
+    const selector = ".cfg-mobilebar, .sticky-mobile-cta";
+    const update = () => setShiftRight(Boolean(document.querySelector(selector)));
+    update();
+    window.addEventListener("resize", update);
+    const observer = new MutationObserver(update);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      window.removeEventListener("resize", update);
+      observer.disconnect();
+    };
   }, []);
 
   // Fire analytics on click — GTM dataLayer event (pick up in GTM as a GA4 conversion)
