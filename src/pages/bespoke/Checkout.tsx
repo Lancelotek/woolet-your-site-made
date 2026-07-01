@@ -374,7 +374,7 @@ export default function BespokeCheckout() {
                           </div>
                         </>
                       ) : (
-                        <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
+                        <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern, made-to-measure eyewear cut in Italy for wide faces`} className="max-h-full max-w-[60%] object-contain" />
                       )}
                     </div>
                   )}

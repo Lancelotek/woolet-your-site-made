@@ -426,7 +426,12 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
                     style={{ borderRadius: 2 }}
                     title={new Date(entry.ts).toLocaleString()}
                   >
-                    <img src={entry.url} alt="" className="w-full h-full object-cover" />
+                    <img
+                      src={entry.url}
+                      alt={`Saved AI render of ${frame.name} bespoke eyewear in ${front.name} acetate with ${temple.name} temples — Woolet made-to-measure`}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                   <button
                     onClick={() => removeEntry(entry.url)}
@@ -1375,7 +1380,7 @@ export function StepLenses({ config, update }: StepProps) {
                 >
                   <img
                     src={l.image}
-                    alt=""
+                    alt={`${l.name} lens option for Woolet Bespoke wide-face eyewear — ${l.description}`}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
@@ -1517,7 +1522,7 @@ export function StepReview({
       {frame && (
         <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-background/40">
           <div className="aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
-            <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
+            <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in Italy`} className="max-h-full max-w-[60%] object-contain" />
           </div>
           <div className="p-5">
             <div className="font-display text-cream text-2xl font-light">{frame.name}</div>
