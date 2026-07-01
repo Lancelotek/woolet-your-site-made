@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, Sparkles, ShieldCheck, Lock, RefreshCcw, Scissors, Truck } from "lucide-react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
@@ -22,6 +22,12 @@ import {
   getLatestPreviewUrl,
   PREVIEW_UPDATED_EVENT,
 } from "@/pages/bespoke/steps";
+import { pushGtmEvent } from "@/lib/gtm";
+import { readConsentSnapshot } from "@/lib/consent";
+import { trackMetaEvent } from "@/lib/meta-capi";
+import { clarityEvent, claritySet } from "@/lib/clarity";
+
+const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-cream/10 last:border-b-0">
