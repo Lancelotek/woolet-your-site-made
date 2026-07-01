@@ -494,7 +494,9 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
 
       <p className="mt-3 text-[10px] text-cream-dim/70 leading-relaxed">
         Illustrative render only — the final hand-crafted pair may vary in acetate grain and highlights.
-        We keep your last {MAX_PER_KEY} renders per configuration on this device.
+        This device keeps up to {MAX_PER_KEY} renders per configuration across a maximum of {MAX_KEYS} configurations.
+        When the limit is reached the oldest render in the current configuration is removed first, then the least-recently used configuration.
+        Sign in to keep an unlimited history in your account.
       </p>
     </div>
   );
