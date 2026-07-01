@@ -1,112 +1,82 @@
-// Catalogue of 25 Woolet bespoke frames. Images hosted as Lovable assets.
-import wr03 from "@/assets/frames/wr-03.jpg.asset.json";
-import wr05 from "@/assets/frames/wr-05.jpg.asset.json";
-import wr07 from "@/assets/frames/wr-07.jpg.asset.json";
-import wr13 from "@/assets/frames/wr-13.jpg.asset.json";
-import wr15 from "@/assets/frames/wr-15.jpg.asset.json";
-import wr17 from "@/assets/frames/wr-17.jpg.asset.json";
-import wr19 from "@/assets/frames/wr-19.jpg.asset.json";
-import wr20 from "@/assets/frames/wr-20.jpg.asset.json";
-import wr21 from "@/assets/frames/wr-21.jpg.asset.json";
-import wr22 from "@/assets/frames/wr-22.jpg.asset.json";
-import wr24 from "@/assets/frames/wr-24.jpg.asset.json";
-import wr25 from "@/assets/frames/wr-25.jpg.asset.json";
-import wr26 from "@/assets/frames/wr-26.jpg.asset.json";
-import wr27 from "@/assets/frames/wr-27.jpg.asset.json";
-import wr29 from "@/assets/frames/wr-29.jpg.asset.json";
-import wr30 from "@/assets/frames/wr-30.jpg.asset.json";
-import wr31 from "@/assets/frames/wr-31.jpg.asset.json";
-import wr32 from "@/assets/frames/wr-32.jpg.asset.json";
-import wr34 from "@/assets/frames/wr-34.jpg.asset.json";
-import wr35 from "@/assets/frames/wr-35.jpg.asset.json";
-import wr36 from "@/assets/frames/wr-36.jpg.asset.json";
-import wr37 from "@/assets/frames/wr-37.jpg.asset.json";
-import wr38 from "@/assets/frames/wr-38.jpg.asset.json";
-import wr39 from "@/assets/frames/wr-39.jpg.asset.json";
-import wr40 from "@/assets/frames/wr-40.jpg.asset.json";
+// Bespoke frame templates. We show four canonical silhouettes (Aviator,
+// Rectangle, Crown Panto, Round) as clean line drawings — the finished frame
+// is cut to the buyer's measurements after payment, so a photo would be
+// misleading.
 
-export type FrameShape =
-  | "Square"
-  | "Round"
-  | "Cat-eye"
-  | "Panto"
-  | "Rectangular"
-  | "Aviator"
-  | "Geometric"
-  | "Browline"
-  | "Hexagonal"
-  | "Oval"
-  | "Tear-drop"
-  | "Octagonal";
+export type FrameShape = "Aviator" | "Rectangle" | "Crown Panto" | "Round";
 
 export interface Frame {
   id: string;
   name: string;
   shape: FrameShape;
-  /** Studio hero image (local asset) used in product/configurator cards. */
+  /** Inline SVG data URL — outline template rendered anywhere an <img src=""> is used. */
   url: string;
-  /** Full marketing photo set hosted on GitHub (raw.githubusercontent.com). First entry is the hero. */
+  /** Same URL repeated so any legacy gallery viewer still works. */
   gallery: string[];
   basePriceEur: number;
-  /** Total frame front width in millimetres (temple to temple, lens-to-lens). */
+  /** Reference front width in millimetres. Actual width is cut to the buyer's face. */
   widthMm: number;
-  /** Bridge (between-lens gap) width in millimetres. */
+  /** Reference bridge width. Cut to the buyer's nose after the scan. */
   bridgeMm: number;
 }
 
 const BASE = 480;
 
-const GH_BASE =
-  "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/eyewear-images/all";
+/* ─── SVG outline templates ─────────────────────────────────────── */
 
-/** Build the canonical GitHub gallery URL list for a frame id and photo count. */
-const gal = (id: string, n: number): string[] =>
-  Array.from({ length: n }, (_, i) => `${GH_BASE}/${id}/${id}-${String(i + 1).padStart(2, "0")}.jpg`);
+const svg = (inner: string) =>
+  `data:image/svg+xml;utf8,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none" stroke="#0B0A09" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">${inner}</svg>`,
+  )}`;
 
-/** Photo counts per frame (verified against the public GitHub repo). */
-const GALLERY_COUNTS: Record<string, number> = {
-  "wr-03": 11, "wr-05": 14, "wr-07": 11, "wr-13": 14, "wr-15": 9,
-  "wr-17": 7,  "wr-19": 6,  "wr-20": 12, "wr-21": 6,  "wr-22": 13,
-  "wr-24": 9,  "wr-25": 7,  "wr-26": 15, "wr-27": 26, "wr-29": 6,
-  "wr-30": 7,  "wr-31": 11, "wr-32": 7,  "wr-34": 7,  "wr-35": 8,
-  "wr-36": 8,  "wr-37": 8,  "wr-38": 7,  "wr-39": 8,  "wr-40": 7,
-};
+// Aviator — teardrop lenses, small keyhole notch, hockey-stick temples.
+const AVIATOR_SVG = svg(`
+  <path d="M60 70 C60 55 78 48 104 48 C138 48 168 58 178 72 C186 84 182 118 170 132 C158 146 132 152 110 148 C86 144 66 128 60 108 Z"/>
+  <path d="M222 72 C232 58 262 48 296 48 C322 48 340 55 340 70 C334 128 314 144 290 148 C268 152 242 146 230 132 C218 118 214 84 222 72 Z"/>
+  <path d="M178 72 L192 68 L196 82 L204 82 L208 68 L222 72"/>
+  <path d="M60 72 L30 82"/>
+  <path d="M340 72 L370 82"/>
+`);
 
+// Rectangle — soft-cornered rectangles, chunky rims, slim keyhole bridge.
+const RECTANGLE_SVG = svg(`
+  <path d="M46 62 h140 a10 10 0 0 1 10 10 v56 a10 10 0 0 1 -10 10 h-140 a10 10 0 0 1 -10 -10 v-56 a10 10 0 0 1 10 -10 Z"/>
+  <path d="M64 78 h104 a6 6 0 0 1 6 6 v32 a6 6 0 0 1 -6 6 h-104 a6 6 0 0 1 -6 -6 v-32 a6 6 0 0 1 6 -6 Z"/>
+  <path d="M214 62 h140 a10 10 0 0 1 10 10 v56 a10 10 0 0 1 -10 10 h-140 a10 10 0 0 1 -10 -10 v-56 a10 10 0 0 1 10 -10 Z"/>
+  <path d="M232 78 h104 a6 6 0 0 1 6 6 v32 a6 6 0 0 1 -6 6 h-104 a6 6 0 0 1 -6 -6 v-32 a6 6 0 0 1 6 -6 Z"/>
+  <path d="M196 92 h18"/>
+  <path d="M36 78 l-14 -4"/>
+  <path d="M364 78 l14 -4"/>
+`);
+
+// Crown Panto — rounded lens with a flat 'crown' top edge, keyhole bridge.
+const CROWN_PANTO_SVG = svg(`
+  <path d="M58 60 h108 a4 4 0 0 1 4 4 v18 c0 32 -26 58 -58 58 -32 0 -58 -26 -58 -58 v-18 a4 4 0 0 1 4 -4 Z"/>
+  <path d="M234 60 h108 a4 4 0 0 1 4 4 v18 c0 32 -26 58 -58 58 -32 0 -58 -26 -58 -58 v-18 a4 4 0 0 1 4 -4 Z"/>
+  <path d="M170 80 c4 -4 12 -6 18 -6 h24 c6 0 14 2 18 6 v10 c-6 -4 -14 -6 -22 -6 h-16 c-8 0 -16 2 -22 6 Z"/>
+  <path d="M58 66 l-32 -2"/>
+  <path d="M346 66 l32 -2"/>
+`);
+
+// Round — perfect circles, prominent keyhole bridge, thin straight temples.
+const ROUND_SVG = svg(`
+  <circle cx="120" cy="102" r="48"/>
+  <circle cx="120" cy="102" r="34"/>
+  <circle cx="280" cy="102" r="48"/>
+  <circle cx="280" cy="102" r="34"/>
+  <path d="M168 92 c6 -6 16 -8 22 -8 h20 c6 0 16 2 22 8 v14 c-6 -6 -16 -8 -22 -8 h-20 c-6 0 -16 2 -22 8 Z"/>
+  <path d="M72 96 l-42 -6 v14"/>
+  <path d="M328 96 l42 -6 v14"/>
+`);
 
 const FRAMES_BASE: Omit<Frame, "gallery">[] = [
-  { id: "wr-03", name: "Bold square",        shape: "Square",      url: wr03.url, basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
-  { id: "wr-05", name: "Keyhole round",      shape: "Round",       url: wr05.url, basePriceEur: BASE, widthMm: 161, bridgeMm: 23 },
-  { id: "wr-07", name: "Soft cat-eye",       shape: "Cat-eye",     url: wr07.url, basePriceEur: BASE, widthMm: 156, bridgeMm: 21 },
-  { id: "wr-13", name: "Panto round",        shape: "Panto",       url: wr13.url, basePriceEur: BASE, widthMm: 163, bridgeMm: 22 },
-  { id: "wr-15", name: "Rectangular",        shape: "Rectangular", url: wr15.url, basePriceEur: BASE, widthMm: 165, bridgeMm: 22 },
-  { id: "wr-17", name: "Aviator",            shape: "Aviator",     url: wr17.url, basePriceEur: BASE, widthMm: 168, bridgeMm: 23 },
-  { id: "wr-19", name: "Geometric",          shape: "Geometric",   url: wr19.url, basePriceEur: BASE, widthMm: 159, bridgeMm: 21 },
-  { id: "wr-20", name: "Round classic",      shape: "Round",       url: wr20.url, basePriceEur: BASE, widthMm: 162, bridgeMm: 22 },
-  { id: "wr-21", name: "Browline",           shape: "Browline",    url: wr21.url, basePriceEur: BASE, widthMm: 166, bridgeMm: 23 },
-  { id: "wr-22", name: "Oversized square",   shape: "Square",      url: wr22.url, basePriceEur: BASE, widthMm: 170, bridgeMm: 24 },
-  { id: "wr-24", name: "Hexagonal",          shape: "Hexagonal",   url: wr24.url, basePriceEur: BASE, widthMm: 160, bridgeMm: 22 },
-  { id: "wr-25", name: "Slim oval",          shape: "Oval",        url: wr25.url, basePriceEur: BASE, widthMm: 155, bridgeMm: 21 },
-  { id: "wr-26", name: "Angular cat-eye",    shape: "Cat-eye",     url: wr26.url, basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
-  { id: "wr-27", name: "Round contemporary", shape: "Round",       url: wr27.url, basePriceEur: BASE, widthMm: 164, bridgeMm: 22 },
-  { id: "wr-29", name: "Wide panto",         shape: "Panto",       url: wr29.url, basePriceEur: BASE, widthMm: 167, bridgeMm: 23 },
-  { id: "wr-30", name: "Pillow square",      shape: "Square",      url: wr30.url, basePriceEur: BASE, widthMm: 162, bridgeMm: 22 },
-  { id: "wr-31", name: "Tear-drop",          shape: "Tear-drop",   url: wr31.url, basePriceEur: BASE, widthMm: 161, bridgeMm: 22 },
-  { id: "wr-32", name: "Bevelled square",    shape: "Square",      url: wr32.url, basePriceEur: BASE, widthMm: 160, bridgeMm: 22 },
-  { id: "wr-34", name: "Round bold",         shape: "Round",       url: wr34.url, basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
-  { id: "wr-35", name: "Octagonal",          shape: "Octagonal",   url: wr35.url, basePriceEur: BASE, widthMm: 163, bridgeMm: 22 },
-  { id: "wr-36", name: "Square classic",     shape: "Square",      url: wr36.url, basePriceEur: BASE, widthMm: 172, bridgeMm: 24 },
-  { id: "wr-37", name: "Slim rectangle",     shape: "Rectangular", url: wr37.url, basePriceEur: BASE, widthMm: 154, bridgeMm: 21 },
-  { id: "wr-38", name: "Round wire-look",    shape: "Round",       url: wr38.url, basePriceEur: BASE, widthMm: 159, bridgeMm: 21 },
-  { id: "wr-39", name: "Modern cat-eye",     shape: "Cat-eye",     url: wr39.url, basePriceEur: BASE, widthMm: 156, bridgeMm: 22 },
-  { id: "wr-40", name: "Bold panto",         shape: "Panto",       url: wr40.url, basePriceEur: BASE, widthMm: 169, bridgeMm: 23 },
+  { id: "aviator",     name: "Aviator",     shape: "Aviator",     url: AVIATOR_SVG,     basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
+  { id: "rectangle",   name: "Rectangle",   shape: "Rectangle",   url: RECTANGLE_SVG,   basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
+  { id: "crown-panto", name: "Crown Panto", shape: "Crown Panto", url: CROWN_PANTO_SVG, basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
+  { id: "round",       name: "Round",       shape: "Round",       url: ROUND_SVG,       basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
 ];
 
-export const FRAMES: Frame[] = FRAMES_BASE.map((f) => ({
-  ...f,
-  gallery: gal(f.id, GALLERY_COUNTS[f.id] ?? 1),
-}));
-
-
+export const FRAMES: Frame[] = FRAMES_BASE.map((f) => ({ ...f, gallery: [f.url] }));
 
 export const FRAME_SHAPES: FrameShape[] = Array.from(new Set(FRAMES.map((f) => f.shape))) as FrameShape[];
 
