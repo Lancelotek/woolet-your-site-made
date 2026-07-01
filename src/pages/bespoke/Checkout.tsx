@@ -322,7 +322,7 @@ export default function BespokeCheckout() {
                     <div>
                       <div className="text-cream text-sm font-medium">The Woolet Fit Promise</div>
                       <p className="text-cream-dim text-[12px] leading-relaxed mt-1">
-                        Every bespoke pair is hand-cut in Italy from your verified measurements. If the fit isn&rsquo;t right within 30 days of delivery, we remake the frame — on us. No restocking fees, no small print.
+                        Every bespoke pair is hand-cut in Greece with Italian materials from your verified measurements. If the fit isn&rsquo;t right within 30 days of delivery, we remake the frame — on us. No restocking fees, no small print.
                       </p>
                     </div>
                   </div>
