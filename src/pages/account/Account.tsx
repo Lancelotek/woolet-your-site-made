@@ -550,7 +550,65 @@ export default function Account() {
               Bespoke AI previews
             </h2>
             {dataLoading ? (
-              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>Loading…</p>
+              <ul
+                className="grid gap-4 m-0 p-0"
+                style={{ listStyle: "none", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}
+                aria-busy="true"
+                aria-label="Loading AI previews"
+              >
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <li key={i} style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
+                    <div
+                      style={{
+                        aspectRatio: "4 / 3",
+                        background:
+                          "linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.04) 100%)",
+                        backgroundSize: "200% 100%",
+                        animation: "shimmer 1.4s ease-in-out infinite",
+                      }}
+                    />
+                    <div className="p-3 flex flex-col gap-2">
+                      <div style={{ height: 10, background: "rgba(255,255,255,0.08)", width: "80%" }} />
+                      <div style={{ height: 8, background: "rgba(255,255,255,0.06)", width: "40%" }} />
+                    </div>
+                  </li>
+                ))}
+                <style>{`@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }`}</style>
+              </ul>
+            ) : loadError ? (
+              <div
+                className="flex flex-col gap-3"
+                role="alert"
+                style={{
+                  background: "rgba(252,165,165,0.06)",
+                  border: "1px solid rgba(252,165,165,0.35)",
+                  padding: "14px 16px",
+                }}
+              >
+                <p className="text-foreground" style={{ fontSize: "0.85rem", lineHeight: 1.5 }}>
+                  Couldn&rsquo;t load your saved previews.
+                </p>
+                <p className="text-cream-dim" style={{ fontSize: "0.75rem", lineHeight: 1.5 }}>
+                  {loadError}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => session && loadAccountData(session.user.id)}
+                  className="self-start uppercase tracking-[0.22em]"
+                  style={{
+                    background: GOLD,
+                    color: "#0f0f0f",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.68rem",
+                    padding: "10px 16px",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  Retry
+                </button>
+              </div>
             ) : previews.length === 0 ? (
               <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>
                 No AI previews yet. Generate one in the bespoke configurator and it'll appear here with a full spec description.
@@ -560,53 +618,78 @@ export default function Account() {
                 className="grid gap-4 m-0 p-0"
                 style={{ listStyle: "none", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}
               >
-                {previews.map((pv) => (
-                  <li
-                    key={pv.id}
-                    className="flex flex-col"
-                    style={{ border: "1px solid rgba(255,255,255,0.1)" }}
-                  >
-                    <div style={{ background: "#EFE9DF", aspectRatio: "4 / 3", overflow: "hidden" }}>
-                      <img
-                        src={pv.image_url}
-                        alt={pv.description ?? "Bespoke AI preview"}
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2 p-3">
-                      <p className="text-foreground" style={{ fontSize: "0.82rem", lineHeight: 1.45 }}>
-                        {pv.description ??
-                          [pv.shape, pv.front_color && `Front: ${pv.front_color}`, pv.temple_color && `Temples: ${pv.temple_color}`, pv.finish]
-                            .filter(Boolean)
-                            .join(" · ")}
-                      </p>
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-cream-dim" style={{ fontSize: "0.68rem" }}>
-                          {new Date(pv.created_at).toLocaleDateString()}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={async () => {
-                            const { error } = await supabase.from("bespoke_ai_previews").delete().eq("id", pv.id);
-                            if (error) {
-                              toast.error("Could not remove preview");
-                              return;
-                            }
-                            setPreviews((prev) => prev.filter((p) => p.id !== pv.id));
-                          }}
-                          className="uppercase tracking-[0.18em] text-cream-dim hover:text-foreground"
-                          style={{ fontSize: "0.6rem", background: "transparent", border: "none", cursor: "pointer" }}
-                        >
-                          Remove
-                        </button>
+                {previews.map((pv) => {
+                  const isDeleting = deletingPreviewId === pv.id;
+                  return (
+                    <li
+                      key={pv.id}
+                      className="flex flex-col"
+                      style={{
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        opacity: isDeleting ? 0.5 : 1,
+                        transition: "opacity 0.2s",
+                      }}
+                    >
+                      <div style={{ background: "#EFE9DF", aspectRatio: "4 / 3", overflow: "hidden" }}>
+                        <img
+                          src={pv.image_url}
+                          alt={pv.description ?? "Bespoke AI preview"}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          loading="lazy"
+                        />
                       </div>
-                    </div>
-                  </li>
-                ))}
+                      <div className="flex flex-col gap-2 p-3">
+                        <p className="text-foreground" style={{ fontSize: "0.82rem", lineHeight: 1.45 }}>
+                          {pv.description ??
+                            [pv.shape, pv.front_color && `Front: ${pv.front_color}`, pv.temple_color && `Temples: ${pv.temple_color}`, pv.finish]
+                              .filter(Boolean)
+                              .join(" · ")}
+                        </p>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-cream-dim" style={{ fontSize: "0.68rem" }}>
+                            {new Date(pv.created_at).toLocaleDateString()}
+                          </span>
+                          <button
+                            type="button"
+                            disabled={isDeleting}
+                            onClick={async () => {
+                              setDeletingPreviewId(pv.id);
+                              const { error } = await supabase
+                                .from("bespoke_ai_previews")
+                                .delete()
+                                .eq("id", pv.id);
+                              if (error) {
+                                setDeletingPreviewId(null);
+                                toast.error(
+                                  error.message?.toLowerCase().includes("network")
+                                    ? "Network error — check your connection and try again."
+                                    : "Couldn't remove this preview. Please try again.",
+                                );
+                                return;
+                              }
+                              setPreviews((prev) => prev.filter((p) => p.id !== pv.id));
+                              setDeletingPreviewId(null);
+                              toast.success("Preview removed");
+                            }}
+                            className="uppercase tracking-[0.18em] text-cream-dim hover:text-foreground disabled:cursor-wait"
+                            style={{
+                              fontSize: "0.6rem",
+                              background: "transparent",
+                              border: "none",
+                              cursor: isDeleting ? "wait" : "pointer",
+                            }}
+                          >
+                            {isDeleting ? "Removing…" : "Remove"}
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </section>
+
 
 
           {/* Profile */}
