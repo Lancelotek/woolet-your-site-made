@@ -53,6 +53,17 @@ type Order = {
   stripe_session_id: string;
 };
 
+type AiPreview = {
+  id: string;
+  created_at: string;
+  image_url: string;
+  description: string | null;
+  shape: string | null;
+  front_color: string | null;
+  temple_color: string | null;
+  finish: string | null;
+};
+
 export default function Account() {
   const { lang: paramLang } = useParams();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
@@ -65,6 +76,7 @@ export default function Account() {
   const [scans, setScans] = useState<Scan[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [bespoke, setBespoke] = useState<BespokeConfigRow[]>([]);
+  const [previews, setPreviews] = useState<AiPreview[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [savingProfile, setSavingProfile] = useState(false);
   const [resendState, setResendState] = useState<"idle" | "sending" | "sent">("idle");
@@ -132,7 +144,7 @@ export default function Account() {
       } catch (err) {
         console.warn("[account] link_user_data_by_email failed", err);
       }
-      const [{ data: p }, { data: s }, { data: o }, { data: b }] = await Promise.all([
+      const [{ data: p }, { data: s }, { data: o }, { data: b }, { data: pv }] = await Promise.all([
         supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
         supabase
           .from("scan_sessions")
@@ -149,11 +161,15 @@ export default function Account() {
           .select("id, name, is_current, updated_at, config")
           .eq("user_id", session.user.id)
           .order("updated_at", { ascending: false }),
+        supabase
+          .from("bespoke_ai_previews")
+          .select("id, created_at, image_url, description, shape, front_color, temple_color, finish")
+          .eq("user_id", session.user.id)
+          .order("created_at", { ascending: false })
+          .limit(24),
       ]);
       if (cancelled) return;
       setProfile(p as Profile | null);
-      // Clamp implausible scan output for display (e.g. 175 mm face → 161 mm,
-      // 49 mm nose → 42 mm). The raw row is preserved in the DB.
       const clampedScans = ((s as Scan[] | null) ?? []).map((row) => ({
         ...row,
         face_width_mm: clampFaceMm(row.face_width_mm),
@@ -162,6 +178,7 @@ export default function Account() {
       setScans(clampedScans);
       setOrders((o as Order[] | null) ?? []);
       setBespoke((b as BespokeConfigRow[] | null) ?? []);
+      setPreviews((pv as AiPreview[] | null) ?? []);
       setDataLoading(false);
     };
     load();
@@ -512,6 +529,69 @@ export default function Account() {
             )}
           </section>
 
+          {/* Bespoke AI previews */}
+          <section className="flex flex-col gap-3">
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+              Bespoke AI previews
+            </h2>
+            {dataLoading ? (
+              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>Loading…</p>
+            ) : previews.length === 0 ? (
+              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>
+                No AI previews yet. Generate one in the bespoke configurator and it'll appear here with a full spec description.
+              </p>
+            ) : (
+              <ul
+                className="grid gap-4 m-0 p-0"
+                style={{ listStyle: "none", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}
+              >
+                {previews.map((pv) => (
+                  <li
+                    key={pv.id}
+                    className="flex flex-col"
+                    style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+                  >
+                    <div style={{ background: "#EFE9DF", aspectRatio: "4 / 3", overflow: "hidden" }}>
+                      <img
+                        src={pv.image_url}
+                        alt={pv.description ?? "Bespoke AI preview"}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 p-3">
+                      <p className="text-foreground" style={{ fontSize: "0.82rem", lineHeight: 1.45 }}>
+                        {pv.description ??
+                          [pv.shape, pv.front_color && `Front: ${pv.front_color}`, pv.temple_color && `Temples: ${pv.temple_color}`, pv.finish]
+                            .filter(Boolean)
+                            .join(" · ")}
+                      </p>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-cream-dim" style={{ fontSize: "0.68rem" }}>
+                          {new Date(pv.created_at).toLocaleDateString()}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            const { error } = await supabase.from("bespoke_ai_previews").delete().eq("id", pv.id);
+                            if (error) {
+                              toast.error("Could not remove preview");
+                              return;
+                            }
+                            setPreviews((prev) => prev.filter((p) => p.id !== pv.id));
+                          }}
+                          className="uppercase tracking-[0.18em] text-cream-dim hover:text-foreground"
+                          style={{ fontSize: "0.6rem", background: "transparent", border: "none", cursor: "pointer" }}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
 
 
           {/* Profile */}

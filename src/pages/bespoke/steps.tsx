@@ -267,6 +267,29 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       const nextList = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)].slice(0, MAX_PER_KEY);
       persist({ ...history, [selectionKey]: nextList });
       setActiveUrl(url);
+
+      // If the buyer is signed in, mirror the render to their account so it
+      // shows up on the /account panel later. Silent — a failed save must
+      // never break the on-page preview experience.
+      try {
+        const { data: authData } = await supabase.auth.getUser();
+        const uid = authData?.user?.id;
+        if (uid) {
+          const description = `${frame.shape} · Front: ${front.name} (${front.code}) · Temples: ${temple.name} (${temple.code}) · ${finish.name}`;
+          await supabase.from("bespoke_ai_previews").insert({
+            user_id: uid,
+            selection_key: selectionKey,
+            image_url: url,
+            shape: frame.shape,
+            front_color: `${front.name} (${front.code})`,
+            temple_color: `${temple.name} (${temple.code})`,
+            finish: finish.name,
+            description,
+          });
+        }
+      } catch (saveErr) {
+        console.warn("[bespoke] preview account save failed", saveErr);
+      }
     } catch (e) {
       setError((e as Error).message || "Preview failed");
     } finally {

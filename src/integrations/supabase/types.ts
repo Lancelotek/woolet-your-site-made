@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      bespoke_ai_previews: {
+        Row: {
+          created_at: string
+          description: string | null
+          finish: string | null
+          front_color: string | null
+          id: string
+          image_url: string
+          selection_key: string
+          shape: string | null
+          temple_color: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          finish?: string | null
+          front_color?: string | null
+          id?: string
+          image_url: string
+          selection_key: string
+          shape?: string | null
+          temple_color?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          finish?: string | null
+          front_color?: string | null
+          id?: string
+          image_url?: string
+          selection_key?: string
+          shape?: string | null
+          temple_color?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       bespoke_configs: {
         Row: {
           config: Json
