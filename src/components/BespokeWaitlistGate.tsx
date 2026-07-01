@@ -1,7 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, Check, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+const UTM_STORAGE_KEY = "bespoke-utms";
+const ACCESS_CODE = (import.meta.env.VITE_BESPOKE_ACCESS_CODE as string | undefined)?.trim() || "woolet1973";
+
+function readStoredUtms(): Record<string, string> {
+  try {
+    const raw = window.localStorage.getItem(UTM_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch { return {}; }
+}
+
+function captureUtmsFromUrl(): Record<string, string> {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const stored = readStoredUtms();
+    let changed = false;
+    for (const k of UTM_KEYS) {
+      const v = params.get(k);
+      if (v && v.trim() && stored[k] !== v.trim()) {
+        stored[k] = v.trim();
+        changed = true;
+      }
+    }
+    if (changed) {
+      try { window.localStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(stored)); } catch {}
+    }
+    return stored;
+  } catch { return {}; }
+}
+
+function detectCountryCode(): string | undefined {
+  try {
+    const lang = navigator.language || (navigator.languages && navigator.languages[0]);
+    if (!lang) return undefined;
+    const parts = lang.split("-");
+    if (parts.length >= 2) return parts[1].toUpperCase();
+  } catch {}
+  return undefined;
+}
 
 // RFC 5322-inspired pragmatic email pattern.
 const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$/;
