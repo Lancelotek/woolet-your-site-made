@@ -226,6 +226,9 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
   const [activeUrl, setActiveUrl] = useState<string | null>(currentList[0]?.url ?? null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [storageWarning, setStorageWarning] = useState<string | null>(null);
+  const [cloudSaveState, setCloudSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [deletingUrl, setDeletingUrl] = useState<string | null>(null);
 
   const ready = Boolean(frame && front && temple && finish);
 
@@ -235,6 +238,7 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
     const list = history[selectionKey] ?? [];
     setActiveUrl(list[0]?.url ?? null);
     setError(null);
+    setCloudSaveState("idle");
   }, [selectionKey, history]);
 
   if (!ready || !frame || !front || !temple || !finish) {
@@ -248,12 +252,15 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
 
   const persist = (next: PreviewHistory) => {
     setHistory(next);
-    savePreviewHistory(next);
+    const res = savePreviewHistory(next);
+    if (!res.ok) setStorageWarning(res.error);
+    else setStorageWarning(null);
   };
 
   const generate = async () => {
     setLoading(true);
     setError(null);
+    setCloudSaveState("idle");
     try {
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-preview-render", {
         body: {
@@ -273,14 +280,15 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       setActiveUrl(url);
 
       // If the buyer is signed in, mirror the render to their account so it
-      // shows up on the /account panel later. Silent — a failed save must
-      // never break the on-page preview experience.
+      // shows up on the /account panel later. Non-blocking — surface the
+      // outcome as a small hint but never break the on-page preview.
       try {
         const { data: authData } = await supabase.auth.getUser();
         const uid = authData?.user?.id;
         if (uid) {
+          setCloudSaveState("saving");
           const description = `${frame.shape} · Front: ${front.name} (${front.code}) · Temples: ${temple.name} (${temple.code}) · ${finish.name}`;
-          await supabase.from("bespoke_ai_previews").insert({
+          const { error: insertErr } = await supabase.from("bespoke_ai_previews").insert({
             user_id: uid,
             selection_key: selectionKey,
             image_url: url,
@@ -290,25 +298,33 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
             finish: finish.name,
             description,
           });
+          if (insertErr) throw insertErr;
+          setCloudSaveState("saved");
         }
       } catch (saveErr) {
         console.warn("[bespoke] preview account save failed", saveErr);
+        setCloudSaveState("error");
       }
     } catch (e) {
-      setError((e as Error).message || "Preview failed");
+      setError((e as Error).message || "Preview failed. Please try again in a moment.");
     } finally {
       setLoading(false);
     }
   };
 
   const removeEntry = (url: string) => {
-    const prev = history[selectionKey] ?? [];
-    const nextList = prev.filter((e) => e.url !== url);
-    const nextHistory = { ...history };
-    if (nextList.length) nextHistory[selectionKey] = nextList;
-    else delete nextHistory[selectionKey];
-    persist(nextHistory);
-    if (activeUrl === url) setActiveUrl(nextList[0]?.url ?? null);
+    setDeletingUrl(url);
+    try {
+      const prev = history[selectionKey] ?? [];
+      const nextList = prev.filter((e) => e.url !== url);
+      const nextHistory = { ...history };
+      if (nextList.length) nextHistory[selectionKey] = nextList;
+      else delete nextHistory[selectionKey];
+      persist(nextHistory);
+      if (activeUrl === url) setActiveUrl(nextList[0]?.url ?? null);
+    } finally {
+      setDeletingUrl(null);
+    }
   };
 
   return (
