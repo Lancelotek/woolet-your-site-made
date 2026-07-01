@@ -1,7 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, Check, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+const UTM_STORAGE_KEY = "bespoke-utms";
+const ACCESS_CODE = (import.meta.env.VITE_BESPOKE_ACCESS_CODE as string | undefined)?.trim() || "woolet1973";
+
+function readStoredUtms(): Record<string, string> {
+  try {
+    const raw = window.localStorage.getItem(UTM_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch { return {}; }
+}
+
+function captureUtmsFromUrl(): Record<string, string> {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const stored = readStoredUtms();
+    let changed = false;
+    for (const k of UTM_KEYS) {
+      const v = params.get(k);
+      if (v && v.trim() && stored[k] !== v.trim()) {
+        stored[k] = v.trim();
+        changed = true;
+      }
+    }
+    if (changed) {
+      try { window.localStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(stored)); } catch {}
+    }
+    return stored;
+  } catch { return {}; }
+}
+
+function detectCountryCode(): string | undefined {
+  try {
+    const lang = navigator.language || (navigator.languages && navigator.languages[0]);
+    if (!lang) return undefined;
+    const parts = lang.split("-");
+    if (parts.length >= 2) return parts[1].toUpperCase();
+  } catch {}
+  return undefined;
+}
 
 // RFC 5322-inspired pragmatic email pattern.
 const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$/;
@@ -35,9 +77,13 @@ const BespokeWaitlistGate = () => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
+  useEffect(() => {
+    captureUtmsFromUrl();
+  }, []);
+
   const submitPassword = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.trim().toLowerCase() === "woolet") {
+    if (password.trim() === ACCESS_CODE) {
       try {
         window.localStorage.setItem("bespoke-gate-bypass", "woolet-preview");
       } catch {}
@@ -61,10 +107,21 @@ const BespokeWaitlistGate = () => {
     setStatus("loading");
     setError(null);
     try {
+      const utms = captureUtmsFromUrl();
+      const country_code = detectCountryCode();
+      const body: Record<string, unknown> = {
+        email: email.trim(),
+        source: "bespoke",
+        event_source_url: typeof window !== "undefined" ? window.location.href : undefined,
+        ...utms,
+      };
+      if (country_code) body.country_code = country_code;
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: { email: email.trim(), source: "bespoke" },
+        body,
       });
-      if (fnError || !data?.success) {
+      // Treat already-subscribed as success too.
+      const alreadySubscribed = typeof data?.error === "string" && /already|exists|subscribed/i.test(data.error);
+      if ((fnError || !data?.success) && !alreadySubscribed) {
         throw new Error(data?.error || fnError?.message || "Something went wrong");
       }
       setStatus("success");
@@ -73,6 +130,7 @@ const BespokeWaitlistGate = () => {
       setError(err instanceof Error ? err.message : "Something went wrong");
     }
   };
+
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 pt-20 pb-10">
@@ -104,10 +162,9 @@ const BespokeWaitlistGate = () => {
                 <Check size={16} className="text-gold" />
               </div>
               <div className="min-w-0">
-                <div className="text-cream text-[0.95rem] font-medium">You're on the Bespoke list.</div>
+                <div className="text-cream text-[0.95rem] font-medium">Check your inbox.</div>
                 <div className="text-cream-dim text-xs mt-1.5 leading-relaxed">
-                  We've added <span className="text-cream break-all">{email.trim()}</span> to the waitlist.
-                  Look out for an email from <span className="text-cream">hello@woolet.co</span> with your early-access invite — usually within 48 hours.
+                  We've sent your access code and a link to the configurator to <span className="text-cream break-all">{email.trim()}</span>. It usually arrives within a couple of minutes from <span className="text-cream">hello@woolet.co</span>.
                 </div>
                 <div className="text-cream-dim/70 text-[0.78rem] uppercase tracking-[0.18em] mt-3">
                   Tip: check Promotions / Spam just in case.
