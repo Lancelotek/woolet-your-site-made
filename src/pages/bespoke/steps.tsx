@@ -426,7 +426,12 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
                     style={{ borderRadius: 2 }}
                     title={new Date(entry.ts).toLocaleString()}
                   >
-                    <img src={entry.url} alt="" className="w-full h-full object-cover" />
+                    <img
+                      src={entry.url}
+                      alt={`Saved AI render of ${frame.name} bespoke eyewear in ${front.name} acetate with ${temple.name} temples — Woolet made-to-measure`}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                   <button
                     onClick={() => removeEntry(entry.url)}
