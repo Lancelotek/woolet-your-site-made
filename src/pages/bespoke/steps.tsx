@@ -196,7 +196,7 @@ type SaveResult =
   | { ok: true; evictedKeys: string[] }
   | { ok: false; error: string; reason: "quota" | "blocked" };
 
-const savePreviewHistory = (history: PreviewHistory): SaveResult => {
+export const savePreviewHistory = (history: PreviewHistory): SaveResult => {
   const evictedKeys: string[] = [];
   try {
     // Trim keys if we exceed the cap (evict oldest configurations first,
