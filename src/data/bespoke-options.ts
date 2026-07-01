@@ -1,15 +1,24 @@
 // All non-frame configuration options + pricing.
 
-import noirImg from "@/assets/configurator/colors/noir.jpg";
-import havanaImg from "@/assets/configurator/colors/havana.jpg";
-import crystalImg from "@/assets/configurator/colors/crystal.jpg";
-import darkTortoiseImg from "@/assets/configurator/colors/dark-tortoise.jpg";
-import forestImg from "@/assets/configurator/colors/forest.jpg";
-import smokeGreyImg from "@/assets/configurator/colors/smoke-grey.jpg";
-import honeyAmberImg from "@/assets/configurator/colors/honey-amber.jpg";
-import bordeauxImg from "@/assets/configurator/colors/bordeaux.jpg";
-import cobaltImg from "@/assets/configurator/colors/cobalt.jpg";
-import ivoryImg from "@/assets/configurator/colors/ivory.jpg";
+import p632 from "@/assets/configurator/acetate/p632-0006.jpg.asset.json";
+import a102 from "@/assets/configurator/acetate/a102-8421.jpg.asset.json";
+import a332 from "@/assets/configurator/acetate/a332-1203.jpg.asset.json";
+import a090 from "@/assets/configurator/acetate/a090-0135.jpg.asset.json";
+import a132 from "@/assets/configurator/acetate/a132-1960.jpg.asset.json";
+import p610 from "@/assets/configurator/acetate/p610-3013.jpg.asset.json";
+import ace3096 from "@/assets/configurator/acetate/3096-1110.jpg.asset.json";
+import p601 from "@/assets/configurator/acetate/p601-0009.jpg.asset.json";
+import p668 from "@/assets/configurator/acetate/p668-6006.jpg.asset.json";
+import p649 from "@/assets/configurator/acetate/p649-2301.jpg.asset.json";
+import a078 from "@/assets/configurator/acetate/a078-5208.jpg.asset.json";
+import ace3102w from "@/assets/configurator/acetate/3102-7110.jpg.asset.json";
+import p554 from "@/assets/configurator/acetate/p554-1365.jpg.asset.json";
+import ace3102y from "@/assets/configurator/acetate/3102-1106.jpg.asset.json";
+import p844 from "@/assets/configurator/acetate/p844-5962.jpg.asset.json";
+import a423 from "@/assets/configurator/acetate/a423-1176.jpg.asset.json";
+import p634 from "@/assets/configurator/acetate/p634-0813.jpg.asset.json";
+import p685 from "@/assets/configurator/acetate/p685-1583.jpg.asset.json";
+import a305 from "@/assets/configurator/acetate/a305-2826.jpg.asset.json";
 
 import shinyImg from "@/assets/configurator/finishes/shiny.jpg";
 import matteImg from "@/assets/configurator/finishes/matte.jpg";
@@ -23,23 +32,38 @@ import blueLightImg from "@/assets/configurator/lenses/blue-light.jpg";
 
 export interface ColorSwatch {
   id: string;
+  /** Mazzucchelli stock code, shown on the swatch (e.g. "P632 0006"). */
+  code: string;
+  /** Human-readable descriptor. */
   name: string;
+  /** Fallback hex used in the sidebar summary dot. */
   hex: string;
-  /** Macro studio photograph of the acetate tile. */
+  /** Macro photograph of the actual acetate sheet. */
   image: string;
+  /** Optional short note (translucent, layered, etc.). */
+  note?: string;
 }
 
 export const COLORS: ColorSwatch[] = [
-  { id: "noir",          name: "Noir",          hex: "#111111", image: noirImg },
-  { id: "havana",        name: "Havana",        hex: "#5b3a1e", image: havanaImg },
-  { id: "crystal",       name: "Crystal",       hex: "#e8e6df", image: crystalImg },
-  { id: "dark-tortoise", name: "Dark Tortoise", hex: "#3a2412", image: darkTortoiseImg },
-  { id: "forest",        name: "Forest",        hex: "#2c4030", image: forestImg },
-  { id: "smoke-grey",    name: "Smoke Grey",    hex: "#6b6b6b", image: smokeGreyImg },
-  { id: "honey-amber",   name: "Honey Amber",   hex: "#b7782e", image: honeyAmberImg },
-  { id: "bordeaux",      name: "Bordeaux",      hex: "#5a1a22", image: bordeauxImg },
-  { id: "cobalt",        name: "Cobalt",        hex: "#1f3a8a", image: cobaltImg },
-  { id: "ivory",         name: "Ivory",         hex: "#efe7d6", image: ivoryImg },
+  { id: "p632-0006", code: "P632 0006", name: "Dark tortoise",          hex: "#3a1a05", image: p632.url },
+  { id: "p601-0009", code: "P601 0009", name: "Amber tortoise",         hex: "#4a2306", image: p601.url },
+  { id: "p554-1365", code: "P554 1365", name: "Bordeaux marble",        hex: "#4b1210", image: p554.url },
+  { id: "p610-3013", code: "P610 3013", name: "Honey tortoise",         hex: "#a26b26", image: p610.url },
+  { id: "p634-0813", code: "P634 0813", name: "Amber mint chip",        hex: "#b46a12", image: p634.url },
+  { id: "p649-2301", code: "P649 2301", name: "Ember sparkle",          hex: "#2a1a10", image: p649.url },
+  { id: "p685-1583", code: "P685 1583", name: "Emerald rose",           hex: "#2a3a2a", image: p685.url },
+  { id: "3096-1110", code: "3096 1110", name: "Piano black",            hex: "#0a0a0a", image: ace3096.url },
+  { id: "a305-2826", code: "A305 2826", name: "Deep matte black",       hex: "#050505", image: a305.url },
+  { id: "a423-1176", code: "A423 1176", name: "Black · red core",       hex: "#0d0505", image: a423.url, note: "Red layer inside" },
+  { id: "p668-6006", code: "P668 6006", name: "Slate grain",             hex: "#2a2c30", image: p668.url },
+  { id: "a132-1960", code: "A132 1960", name: "Smoke translucent",     hex: "#8892a0", image: a132.url, note: "Translucent" },
+  { id: "3102-7110", code: "3102 7110", name: "Ice translucent",       hex: "#e7e6e2", image: ace3102w.url, note: "Translucent" },
+  { id: "a102-8421", code: "A102 8421", name: "Nude beige",             hex: "#e6d3c0", image: a102.url, note: "Translucent" },
+  { id: "a332-1203", code: "A332 1203", name: "British racing green",  hex: "#0f4c34", image: a332.url },
+  { id: "a078-5208", code: "A078 5208", name: "Navy",                    hex: "#0f1a5a", image: a078.url },
+  { id: "a090-0135", code: "A090 0135", name: "Rouge",                   hex: "#a02030", image: a090.url },
+  { id: "3102-1106", code: "3102 1106", name: "Sunflower",               hex: "#f4b410", image: ace3102y.url },
+  { id: "p844-5962", code: "P844 5962", name: "Olive marble",            hex: "#8a7a1a", image: p844.url },
 ];
 
 export const FINISHES = [

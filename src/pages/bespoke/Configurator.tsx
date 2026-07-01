@@ -12,7 +12,6 @@ import {
   StepEngraving,
   StepFrame,
   StepLenses,
-  StepMeasure,
   StepNav,
   StepReview,
 } from "./steps";
@@ -80,7 +79,6 @@ const ConfiguratorPage = () => {
     step === 2 ? <StepColor config={config} update={update} /> :
     step === 3 ? <StepEngraving config={config} update={update} /> :
     step === 4 ? <StepLenses config={config} update={update} /> :
-    step === 5 ? <StepMeasure config={config} update={update} /> :
                  <StepReview config={config} onSave={handleSave} saved={saved} />;
 
   return (
@@ -138,6 +136,42 @@ const ConfiguratorPage = () => {
           </ol>
         </div>
 
+        {/* ── Pay-first notice ── */}
+        <div className="cfg-container mt-6">
+          <div
+            role="note"
+            style={{
+              display: "flex",
+              gap: 14,
+              alignItems: "flex-start",
+              border: "1px solid rgba(194,160,90,0.35)",
+              background: "linear-gradient(180deg, rgba(194,160,90,0.08), rgba(194,160,90,0.02))",
+              padding: "14px 18px",
+              borderRadius: 2,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Archivo', sans-serif",
+                fontSize: 10,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "#C2A05A",
+                whiteSpace: "nowrap",
+                paddingTop: 3,
+                fontWeight: 600,
+              }}
+            >
+              Pay → Measure
+            </span>
+            <p style={{ margin: 0, color: "#C4BDAF", fontSize: 14, lineHeight: 1.55 }}>
+              <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
+              The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
+              once your measurements are confirmed, your frame is cut in Italy to the exact millimetres of your face.
+            </p>
+          </div>
+        </div>
+
         {/* ── Persistent fit badge ── */}
         <div className="cfg-container mt-6">
           <FitBadge
@@ -169,24 +203,24 @@ const ConfiguratorPage = () => {
               <div className="cfg-rail">
                 <div className="cfg-rail__eyebrow">Your build</div>
 
-                <div className="cfg-rail__photo">
+                <div className="cfg-rail__photo" style={{ background: "#EFE9DF" }}>
                   {frame ? (
                     <img src={frame.url} alt={frame.name} className="max-h-full max-w-[82%] object-contain" />
                   ) : (
-                    <div className="cfg-rail__placeholder">Select a frame</div>
+                    <div className="cfg-rail__placeholder">Select a pattern</div>
                   )}
                 </div>
 
                 <dl className="cfg-rail__specs">
-                  <SpecRow label="Frame" value={frame ? `${frame.name}` : "—"} />
-                  <SpecRow label="Width" value={frame ? `${frame.widthMm} mm` : "—"} />
+                  <SpecRow label="Pattern" value={frame ? `${frame.name}` : "—"} />
+                  <SpecRow label="Ref width" value={frame ? `${frame.widthMm} mm · cut to face` : "—"} />
                   <SpecRow
                     label="Front"
                     value={
                       front ? (
                         <span className="inline-flex items-center gap-2">
                           <Swatch hex={front.hex} />
-                          {front.name}
+                          <span className="font-mono text-[10px]">{front.code}</span>
                         </span>
                       ) : "—"
                     }
@@ -197,14 +231,12 @@ const ConfiguratorPage = () => {
                       temple ? (
                         <span className="inline-flex items-center gap-2">
                           <Swatch hex={temple.hex} />
-                          {temple.name}
+                          <span className="font-mono text-[10px]">{temple.code}</span>
                         </span>
                       ) : "—"
                     }
                   />
                   <SpecRow label="Finish" value={finish?.name ?? "—"} />
-                  <SpecRow label="PD" value={`${pdMm} mm`} />
-                  <SpecRow label="Bridge" value={`${bridgeMm} mm`} />
                   <SpecRow label="Engraving" value={config.engravingEnabled ? `“${config.engravingText || "…"}”` : "—"} />
                   <SpecRow label="Lenses" value={lens?.name ?? "—"} />
                 </dl>

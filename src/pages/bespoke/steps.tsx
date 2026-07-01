@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, ImageIcon, Lock, Unlock, Upload } from "lucide-react";
-import FrameGallery from "@/components/FrameGallery";
+import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 
@@ -18,7 +17,7 @@ import {
   MEASUREMENT_RANGES,
   type MeasurementKey,
 } from "@/data/bespoke-options";
-import { FRAMES, FRAME_SHAPES, findFrame, type Frame } from "@/data/frames";
+import { FRAMES, findFrame } from "@/data/frames";
 import { type BespokeConfig, formatEur } from "@/lib/bespoke-state";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
@@ -36,164 +35,71 @@ const labelClass = "uppercase tracking-[0.18em] text-[0.78rem] text-cream-dim";
 const cardOuter = "rounded-[14px] border border-cream/10 bg-background/40 transition-all";
 const cardActive = "border-gold/60 bg-gold/[0.04] ring-1 ring-gold/30";
 
-/* ───── Step 1 ───── */
-type WidthSort = "all" | "narrow" | "fit" | "wide";
+/* ───── Step 1 · Pattern ───── */
 
 export function StepFrame({ config, update }: StepProps) {
-  const [shapeFilter, setShapeFilter] = useState<string>("all");
-  const [widthSort, setWidthSort] = useState<WidthSort>("all");
-  const [galleryFrame, setGalleryFrame] = useState<Frame | null>(null);
-
-
-  // User's fit window — from scan if present, else default to 161 mm (brand reference).
-  const userFace = config.measurements.faceWidth ?? 161;
-  const FIT_TOLERANCE = 5; // ±5 mm comfortable window
-  const fitMin = userFace - FIT_TOLERANCE;
-  const fitMax = userFace + FIT_TOLERANCE;
-
-  const widthBucket = (w: number): "narrow" | "fit" | "wide" =>
-    w < fitMin ? "narrow" : w > fitMax ? "wide" : "fit";
-
-  let visible: Frame[] = shapeFilter === "all" ? FRAMES : FRAMES.filter((f) => f.shape === shapeFilter);
-  if (widthSort !== "all") {
-    visible = [...visible].sort((a, b) => {
-      const pa = widthBucket(a.widthMm) === widthSort ? 0 : 1;
-      const pb = widthBucket(b.widthMm) === widthSort ? 0 : 1;
-      if (pa !== pb) return pa - pb;
-      return a.widthMm - b.widthMm;
-    });
-  }
-
   return (
     <div className="space-y-10">
       <header>
-        <div className="cfg-eyebrow">Step 1 — Frame</div>
+        <div className="cfg-eyebrow">Step 1 — Pattern</div>
         <h2 className="cfg-h1 mt-3">
           Choose your frame <em className="cfg-em">silhouette</em>
         </h2>
         <p className="cfg-body mt-4 max-w-xl">
-          25 hand-made bio-acetate shapes, cut from a single block of Italian Mazzucchelli acetate.
-          Each pair is unique — your chosen frame will never be made twice in the same grain.
+          Four canonical shapes, drawn as line templates because the finished frame is cut to <em className="cfg-em">your</em> measurements —
+          not to a stock photo. We scan your face after payment, then hand-cut the pattern in Italy from a single block of Mazzucchelli acetate.
         </p>
       </header>
 
-      {/* Filter chips */}
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="flex flex-wrap gap-1.5">
-          <ChipFilter active={shapeFilter === "all"} onClick={() => setShapeFilter("all")}>All shapes</ChipFilter>
-          {FRAME_SHAPES.map((s) => (
-            <ChipFilter key={s} active={shapeFilter === s} onClick={() => setShapeFilter(s)}>
-              {s}
-            </ChipFilter>
-          ))}
-        </div>
-        <div className="flex items-center gap-1.5 ml-auto">
-          <span className="cfg-eyebrow mr-1" style={{ fontSize: 10 }}>Width</span>
-          <ChipFilter active={widthSort === "all"} onClick={() => setWidthSort("all")} compact>All</ChipFilter>
-          <ChipFilter active={widthSort === "fit"} onClick={() => setWidthSort("fit")} compact>Fits you</ChipFilter>
-          <ChipFilter active={widthSort === "narrow"} onClick={() => setWidthSort("narrow")} compact>Narrow</ChipFilter>
-          <ChipFilter active={widthSort === "wide"} onClick={() => setWidthSort("wide")} compact>Wide</ChipFilter>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        {visible.map((f) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+        {FRAMES.map((f) => {
           const active = config.frameId === f.id;
-          const bucket = widthBucket(f.widthMm);
-          const fits = bucket === "fit";
-          const tag =
-            bucket === "narrow" ? "runs narrow" :
-            bucket === "wide"   ? "runs wide" : null;
-
           return (
             <button
               key={f.id}
               onClick={() => update("frameId", f.id)}
-              className={`cfg-card group text-left ${active ? "cfg-card--active" : ""} ${!fits && !active ? "cfg-card--dim" : ""}`}
+              className={`cfg-card group text-left ${active ? "cfg-card--active" : ""}`}
             >
-              <div className="cfg-card__photo relative">
+              <div
+                className="cfg-card__photo relative"
+                style={{ background: "#EFE9DF", aspectRatio: "16 / 9" }}
+              >
                 <img
                   src={f.url}
-                  alt={f.name}
+                  alt={`${f.name} silhouette template`}
                   loading="lazy"
-                  className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <span
-                  role="button"
-                  tabIndex={0}
-                  onClick={(e) => { e.stopPropagation(); setGalleryFrame(f); }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setGalleryFrame(f);
-                    }
-                  }}
-                  aria-label={`View ${f.gallery.length} photos of ${f.name}`}
-                  className="absolute bottom-2 left-2 inline-flex items-center gap-1 px-2 py-1 text-[10px] uppercase tracking-[0.18em] bg-[#0c0c0c]/70 text-cream backdrop-blur-sm opacity-0 group-hover:opacity-100 focus:opacity-100 transition cursor-pointer hover:bg-[#0c0c0c]/90"
-                  style={{ borderRadius: 2 }}
-                >
-                  <ImageIcon size={11} /> {f.gallery.length}
-                </span>
                 {active && (
-                  <span className="absolute top-2.5 right-2.5 inline-flex items-center justify-center w-6 h-6 bg-[color:var(--cfg-gold)]" style={{ borderRadius: 2 }}>
+                  <span
+                    className="absolute top-2.5 right-2.5 inline-flex items-center justify-center w-6 h-6 bg-[color:var(--cfg-gold)]"
+                    style={{ borderRadius: 2 }}
+                  >
                     <Check size={14} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
                   </span>
                 )}
               </div>
 
-
-              <div className="px-3 py-3">
-                <div className="flex items-baseline justify-between gap-2">
-                  <div className="cfg-card__name">{f.name}</div>
-                </div>
-                <div className="cfg-card__code mt-1">{f.id.toUpperCase()} · {f.shape.toUpperCase()}</div>
-
-                <div className="mt-2.5 flex items-center justify-between gap-2">
-                  <div className="cfg-spec">
-                    <span className="cfg-spec__value">{f.widthMm} mm</span>
-                    <span className="cfg-spec__sub">{f.bridgeMm} mm bridge</span>
-                  </div>
-                  {fits ? (
-                    <span className="cfg-tag cfg-tag--fit">
-                      <Check size={10} strokeWidth={3} /> Fits you
-                    </span>
-                  ) : tag ? (
-                    <span className="cfg-tag cfg-tag--off">{tag}</span>
-                  ) : null}
-                </div>
+              <div className="px-4 py-4">
+                <div className="cfg-card__name" style={{ fontSize: 17 }}>{f.name}</div>
+                <div className="cfg-card__code mt-1">Cut to your face · reference {f.widthMm} mm</div>
               </div>
             </button>
           );
         })}
       </div>
 
-      <FrameGallery
-        frame={galleryFrame}
-        open={galleryFrame !== null}
-        onOpenChange={(o) => { if (!o) setGalleryFrame(null); }}
-      />
+      <p className="text-cream-dim text-xs leading-relaxed max-w-xl" style={{ fontStyle: "italic" }}>
+        These outlines represent the shape only. Final dimensions — front width, bridge, temple length, lens height — are all cut to your scan after payment.
+      </p>
     </div>
   );
 }
 
 
-function ChipFilter({
-  active, onClick, children, compact,
-}: { active: boolean; onClick: () => void; children: React.ReactNode; compact?: boolean }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`cfg-chip ${active ? "cfg-chip--active" : ""} ${compact ? "cfg-chip--compact" : ""}`}
-    >
-      {children}
-    </button>
-  );
-}
 
 
-
-/* ───── Step 2 ───── */
+/* ───── Step 2 · Acetate ───── */
 function ColorSwatchGrid({
   selected,
   onSelect,
@@ -202,40 +108,49 @@ function ColorSwatchGrid({
   onSelect: (id: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
       {COLORS.map((c) => {
         const active = selected === c.id;
         return (
           <button
             key={c.id}
             onClick={() => onSelect(c.id)}
-            title={c.name}
-            className={`group relative aspect-square overflow-hidden border transition ${
+            title={`${c.code} · ${c.name}`}
+            className={`group relative overflow-hidden border text-left transition ${
               active
                 ? "border-gold ring-2 ring-gold/40"
                 : "border-cream/10 hover:border-cream/30"
             }`}
             style={{ borderRadius: 2 }}
           >
-            <img
-              src={c.image}
-              alt={`${c.name} bio-acetate sample`}
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-            />
-            <span className="absolute inset-x-0 bottom-0 px-2 py-1.5 bg-gradient-to-t from-[#0c0c0c]/85 to-transparent">
-              <span className="block text-cream text-[10px] uppercase tracking-[0.16em] font-medium truncate">
-                {c.name}
-              </span>
-            </span>
-            {active && (
-              <span
-                className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-5 h-5 bg-[color:var(--cfg-gold)]"
-                style={{ borderRadius: 2 }}
+            <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
+              <img
+                src={c.image}
+                alt={`Mazzucchelli acetate ${c.code} — ${c.name}`}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              {active && (
+                <span
+                  className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-5 h-5 bg-[color:var(--cfg-gold)]"
+                  style={{ borderRadius: 2 }}
+                >
+                  <Check size={11} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
+                </span>
+              )}
+            </div>
+            <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
+              <div
+                className="font-mono text-[10px] uppercase tracking-[0.14em] text-gold-light/90"
+                style={{ letterSpacing: "0.14em" }}
               >
-                <Check size={11} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
-              </span>
-            )}
+                {c.code}
+              </div>
+              <div className="mt-0.5 text-cream text-[11px] truncate">{c.name}</div>
+              {c.note && (
+                <div className="text-cream-dim text-[10px] italic truncate">{c.note}</div>
+              )}
+            </div>
           </button>
         );
       })}
@@ -244,29 +159,36 @@ function ColorSwatchGrid({
 }
 
 export function StepColor({ config, update }: StepProps) {
+  const front = COLORS.find((c) => c.id === config.frontColorId);
+  const temple = COLORS.find((c) => c.id === config.templeColorId);
   return (
     <div className="space-y-10">
       <header>
-        <div className={sectionKicker}>Step 2</div>
-        <h2 className={sectionTitle}>Compose your acetate</h2>
+        <div className={sectionKicker}>Step 2 — Acetate</div>
+        <h2 className={sectionTitle}>Compose your <em className="italic text-gold-light">Mazzucchelli</em> acetate</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Each sheet of Italian bio-acetate carries a unique grain. After production we keep the off-cut as your keepsake.
+          Each swatch is a live macro photograph of the actual sheet we hold in stock. Codes match the Mazzucchelli reference —
+          quote them to your optician or in any correspondence with our atelier.
         </p>
       </header>
 
       <div>
-        <div className={labelClass}>Front colour</div>
+        <div className={labelClass}>Front acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} /></div>
-        {config.frontColorId && (
-          <div className="text-cream text-xs mt-2">{COLORS.find((c) => c.id === config.frontColorId)?.name}</div>
+        {front && (
+          <div className="text-cream text-xs mt-2">
+            <span className="font-mono text-gold-light">{front.code}</span> · {front.name}
+          </div>
         )}
       </div>
 
       <div>
-        <div className={labelClass}>Temple colour</div>
+        <div className={labelClass}>Temple acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} /></div>
-        {config.templeColorId && (
-          <div className="text-cream text-xs mt-2">{COLORS.find((c) => c.id === config.templeColorId)?.name}</div>
+        {temple && (
+          <div className="text-cream text-xs mt-2">
+            <span className="font-mono text-gold-light">{temple.code}</span> · {temple.name}
+          </div>
         )}
       </div>
 
@@ -1233,32 +1155,30 @@ export function StepReview({
   return (
     <div className="space-y-8">
       <header>
-        <div className={sectionKicker}>Step 6</div>
-        <h2 className={sectionTitle}>Review your build</h2>
+        <div className={sectionKicker}>Step 5 — Review &amp; pay</div>
+        <h2 className={sectionTitle}>Confirm your <em className="italic text-gold-light">pattern</em></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Once saved, our atelier verifies your measurements before production. Lead time: 3–4 weeks, hand-made in Greece.
+          You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.
         </p>
       </header>
 
       {frame && (
         <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-background/40">
-          <div className="aspect-[16/9] bg-cream/[0.03] flex items-center justify-center">
+          <div className="aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
             <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
           </div>
           <div className="p-5">
             <div className="font-display text-cream text-2xl font-light">{frame.name}</div>
-            <div className="text-cream-dim text-xs uppercase tracking-[0.16em] mt-1">{frame.id} · {frame.shape}</div>
+            <div className="text-cream-dim text-xs uppercase tracking-[0.16em] mt-1">Pattern · {frame.shape}</div>
           </div>
         </div>
       )}
 
       <div className="rounded-[14px] border border-cream/10 bg-background/40 px-5">
-        <Row label="Frame" value={frame ? `${frame.name} (${frame.id})` : null} />
-        <Row label="Front colour" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
-        <Row label="Temple colour" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
+        <Row label="Pattern" value={frame ? `${frame.name}` : null} />
+        <Row label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> <span className="font-mono text-[10px] text-gold-light">{front.code}</span> · {front.name}</span> : null} />
+        <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> <span className="font-mono text-[10px] text-gold-light">{temple.code}</span> · {temple.name}</span> : null} />
         <Row label="Finish" value={finish?.name} />
-        <Row label="Measurement method" value={config.measurementMethod === "scan" ? "AI face scan" : config.measurementMethod === "tape" ? "Tape measure" : null} />
-        <Row label="PD" value={config.measurements.pd ? `${config.measurements.pd} mm` : null} />
         <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name ?? ""}` : "None"} />
         <Row label="Lenses" value={lens?.name} />
         {config.lensTypeId !== "plano" && (
@@ -1267,7 +1187,24 @@ export function StepReview({
             <Row label="Coating" value={LENS_COATINGS.find((c) => c.id === config.lensCoatingId)?.name} />
           </>
         )}
-        {config.prescriptionFileName && <Row label="Prescription" value={config.prescriptionFileName} />}
+      </div>
+
+      {/* What happens after payment */}
+      <div
+        style={{
+          border: "1px solid rgba(194,160,90,0.35)",
+          background: "linear-gradient(180deg, rgba(194,160,90,0.06), rgba(194,160,90,0.01))",
+          padding: "20px 22px",
+          borderRadius: 2,
+        }}
+      >
+        <div className="cfg-eyebrow" style={{ color: "#C2A05A" }}>What happens after payment</div>
+        <ol className="mt-4 space-y-3 text-cream text-sm">
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">01</span> Your order is confirmed and paid.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan (or book a studio appointment).</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> The pattern is cut in Italy to your exact millimetres — 3–4 weeks to ship.</li>
+        </ol>
       </div>
 
       <button
@@ -1275,11 +1212,11 @@ export function StepReview({
         disabled={saved}
         className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light disabled:opacity-50 disabled:cursor-not-allowed transition"
       >
-        {saved ? "Build saved ✓" : "Save my build"}
+        {saved ? "Order saved ✓ — proceed to payment" : "Save &amp; pay for pattern"}
       </button>
       {saved && (
         <p className="text-cream-dim text-xs">
-          Saved to this device. <Link to="/en/account/sign-in" className="text-gold-light underline">Sign in</Link> to sync across devices and book a measurement review with the atelier.
+          Saved to this device. After payment we will contact you at your email to schedule your fit scan.
         </p>
       )}
     </div>
