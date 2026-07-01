@@ -55,6 +55,12 @@ const ConfiguratorPage = () => {
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
+  // Step-aware total: only show add-ons once the user has reached those steps.
+  const stepTotal =
+    step === 1 || step === 2 ? pricing.basePriceEur :
+    step === 3 ? pricing.basePriceEur + pricing.engravingEur :
+    pricing.totalEur;
+
   // Fit numbers — from scan if present, else brand reference defaults.
   const faceMm = config.measurements.faceWidth ?? 161;
   const bridgeMm = config.measurements.bridge ?? 22;
@@ -244,12 +250,12 @@ const ConfiguratorPage = () => {
                 <div className="cfg-rail__total">
                   <div className="flex items-baseline justify-between">
                     <span className="cfg-eyebrow">Total</span>
-                    <span className="cfg-rail__price">{formatEur(pricing.totalEur)}</span>
+                    <span className="cfg-rail__price">{formatEur(stepTotal)}</span>
                   </div>
                   <ul className="cfg-rail__lines">
                     <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
-                    {pricing.engravingEur > 0 && <li><span>Engraving</span><span>+ {formatEur(pricing.engravingEur)}</span></li>}
-                    {pricing.lensEur > 0 && <li><span>Lenses</span><span>+ {formatEur(pricing.lensEur)}</span></li>}
+                    {step >= 3 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>+ {formatEur(pricing.engravingEur)}</span></li>}
+                    {step >= 4 && pricing.lensEur > 0 && <li><span>Lenses</span><span>+ {formatEur(pricing.lensEur)}</span></li>}
                   </ul>
                 </div>
 
@@ -276,7 +282,7 @@ const ConfiguratorPage = () => {
           </div>
           <div className="cfg-mobilebar__meta">
             <div className="cfg-mobilebar__name">{frame ? frame.name : "Pick a frame"}</div>
-            <div className="cfg-mobilebar__price">{formatEur(pricing.totalEur)}</div>
+            <div className="cfg-mobilebar__price">{formatEur(stepTotal)}</div>
           </div>
           <button
             onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
