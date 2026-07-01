@@ -43,6 +43,19 @@ export default function BespokeCheckout() {
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
+  const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+  useEffect(() => {
+    setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    const onUpdate = () => setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    window.addEventListener(PREVIEW_UPDATED_EVENT, onUpdate);
+    window.addEventListener("storage", onUpdate);
+    return () => {
+      window.removeEventListener(PREVIEW_UPDATED_EVENT, onUpdate);
+      window.removeEventListener("storage", onUpdate);
+    };
+  }, [previewKey]);
+
   const ready = Boolean(frame && front && temple && finish && lens && pricing.totalEur > 0);
 
   const productName = frame ? `Woolet Bespoke — ${frame.name}` : "Woolet Bespoke";
