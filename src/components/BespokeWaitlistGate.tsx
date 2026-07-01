@@ -162,10 +162,9 @@ const BespokeWaitlistGate = () => {
                 <Check size={16} className="text-gold" />
               </div>
               <div className="min-w-0">
-                <div className="text-cream text-[0.95rem] font-medium">You're on the Bespoke list.</div>
+                <div className="text-cream text-[0.95rem] font-medium">Check your inbox.</div>
                 <div className="text-cream-dim text-xs mt-1.5 leading-relaxed">
-                  We've added <span className="text-cream break-all">{email.trim()}</span> to the waitlist.
-                  Look out for an email from <span className="text-cream">hello@woolet.co</span> with your early-access invite — usually within 48 hours.
+                  We've sent your access code and a link to the configurator to <span className="text-cream break-all">{email.trim()}</span>. It usually arrives within a couple of minutes from <span className="text-cream">hello@woolet.co</span>.
                 </div>
                 <div className="text-cream-dim/70 text-[0.78rem] uppercase tracking-[0.18em] mt-3">
                   Tip: check Promotions / Spam just in case.
