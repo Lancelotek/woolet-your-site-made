@@ -399,11 +399,12 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
                   </button>
                   <button
                     onClick={() => removeEntry(entry.url)}
+                    disabled={deletingUrl === entry.url}
                     aria-label="Delete render"
-                    className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-[color:var(--cfg-ink)]/70 text-cream text-[11px] leading-none opacity-0 group-hover:opacity-100 focus:opacity-100 transition"
+                    className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-[color:var(--cfg-ink)]/70 text-cream text-[11px] leading-none opacity-0 group-hover:opacity-100 focus:opacity-100 transition disabled:opacity-100 disabled:cursor-wait"
                     style={{ borderRadius: 2 }}
                   >
-                    ×
+                    {deletingUrl === entry.url ? "…" : "×"}
                   </button>
                 </div>
               );
