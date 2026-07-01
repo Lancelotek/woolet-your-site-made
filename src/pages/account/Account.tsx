@@ -53,6 +53,17 @@ type Order = {
   stripe_session_id: string;
 };
 
+type AiPreview = {
+  id: string;
+  created_at: string;
+  image_url: string;
+  description: string | null;
+  shape: string | null;
+  front_color: string | null;
+  temple_color: string | null;
+  finish: string | null;
+};
+
 export default function Account() {
   const { lang: paramLang } = useParams();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
