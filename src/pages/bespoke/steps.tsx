@@ -159,6 +159,40 @@ function ColorSwatchGrid({
   );
 }
 
+// Persist the last few AI renders per selection so the user can revisit
+// previous variations without re-spending AI credits. Keyed by configuration
+// hash → array of { url, ts }. Kept small (max 4 per key, 12 keys total).
+const PREVIEW_HISTORY_KEY = "woolet:bespoke:aiPreviews:v1";
+const MAX_PER_KEY = 4;
+const MAX_KEYS = 12;
+
+type PreviewEntry = { url: string; ts: number };
+type PreviewHistory = Record<string, PreviewEntry[]>;
+
+const loadPreviewHistory = (): PreviewHistory => {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = localStorage.getItem(PREVIEW_HISTORY_KEY);
+    return raw ? (JSON.parse(raw) as PreviewHistory) : {};
+  } catch {
+    return {};
+  }
+};
+
+const savePreviewHistory = (history: PreviewHistory) => {
+  try {
+    // Trim keys if we exceed the cap (evict oldest by newest-entry timestamp).
+    const entries = Object.entries(history);
+    if (entries.length > MAX_KEYS) {
+      entries.sort((a, b) => (b[1][0]?.ts ?? 0) - (a[1][0]?.ts ?? 0));
+      history = Object.fromEntries(entries.slice(0, MAX_KEYS));
+    }
+    localStorage.setItem(PREVIEW_HISTORY_KEY, JSON.stringify(history));
+  } catch {
+    // localStorage full or unavailable — silently ignore.
+  }
+};
+
 function AiPreviewPanel({ config }: { config: BespokeConfig }) {
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
@@ -167,20 +201,21 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
 
   // Recompute a stable key so a new selection invalidates the previous render.
   const selectionKey = [frame?.id, front?.id, temple?.id, finish?.id].join("|");
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [history, setHistory] = useState<PreviewHistory>(() => loadPreviewHistory());
+  const currentList = history[selectionKey] ?? [];
+  const [activeUrl, setActiveUrl] = useState<string | null>(currentList[0]?.url ?? null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [renderedFor, setRenderedFor] = useState<string | null>(null);
 
   const ready = Boolean(frame && front && temple && finish);
 
-  // If any input changes, drop the previous preview so the CTA reappears.
+  // When selection changes, jump to the newest stored preview for that config
+  // (or clear the canvas if we have never rendered this exact combo).
   useEffect(() => {
-    if (renderedFor && renderedFor !== selectionKey) {
-      setImageUrl(null);
-      setError(null);
-    }
-  }, [selectionKey, renderedFor]);
+    const list = history[selectionKey] ?? [];
+    setActiveUrl(list[0]?.url ?? null);
+    setError(null);
+  }, [selectionKey, history]);
 
   if (!ready || !frame || !front || !temple || !finish) {
     return (
@@ -190,6 +225,11 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       </div>
     );
   }
+
+  const persist = (next: PreviewHistory) => {
+    setHistory(next);
+    savePreviewHistory(next);
+  };
 
   const generate = async () => {
     setLoading(true);
@@ -206,13 +246,26 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       if (fnErr) throw fnErr;
       const url = (data as { imageUrl?: string })?.imageUrl;
       if (!url) throw new Error("No preview returned");
-      setImageUrl(url);
-      setRenderedFor(selectionKey);
+
+      const prev = history[selectionKey] ?? [];
+      const nextList = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)].slice(0, MAX_PER_KEY);
+      persist({ ...history, [selectionKey]: nextList });
+      setActiveUrl(url);
     } catch (e) {
       setError((e as Error).message || "Preview failed");
     } finally {
       setLoading(false);
     }
+  };
+
+  const removeEntry = (url: string) => {
+    const prev = history[selectionKey] ?? [];
+    const nextList = prev.filter((e) => e.url !== url);
+    const nextHistory = { ...history };
+    if (nextList.length) nextHistory[selectionKey] = nextList;
+    else delete nextHistory[selectionKey];
+    persist(nextHistory);
+    if (activeUrl === url) setActiveUrl(nextList[0]?.url ?? null);
   };
 
   return (
@@ -224,7 +277,7 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
             See your <em className="italic text-gold-light">{frame.shape}</em> before you build
           </div>
         </div>
-        {imageUrl && !loading && (
+        {activeUrl && !loading && (
           <button
             onClick={generate}
             className="text-[11px] uppercase tracking-[0.18em] text-gold-light hover:text-gold underline underline-offset-4"
@@ -244,9 +297,9 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
         className="relative w-full overflow-hidden bg-[#EFE9DF] flex items-center justify-center"
         style={{ aspectRatio: "4 / 3", borderRadius: 2 }}
       >
-        {imageUrl ? (
+        {activeUrl ? (
           <img
-            src={imageUrl}
+            src={activeUrl}
             alt={`AI preview of ${frame.shape} in ${front.name} / ${temple.name}, ${finish.name}`}
             className="w-full h-full object-cover"
           />
@@ -262,7 +315,46 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
         )}
       </div>
 
-      {!imageUrl && (
+      {currentList.length > 0 && (
+        <div className="mt-3">
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-cream-dim">
+              Saved renders · {currentList.length}/{MAX_PER_KEY}
+            </div>
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            {currentList.map((entry) => {
+              const isActive = entry.url === activeUrl;
+              return (
+                <div key={entry.url} className="relative group">
+                  <button
+                    onClick={() => setActiveUrl(entry.url)}
+                    className={`block w-full aspect-[4/3] overflow-hidden border transition ${
+                      isActive
+                        ? "border-gold ring-2 ring-gold/40"
+                        : "border-cream/10 hover:border-cream/40"
+                    }`}
+                    style={{ borderRadius: 2 }}
+                    title={new Date(entry.ts).toLocaleString()}
+                  >
+                    <img src={entry.url} alt="" className="w-full h-full object-cover" />
+                  </button>
+                  <button
+                    onClick={() => removeEntry(entry.url)}
+                    aria-label="Delete render"
+                    className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-[color:var(--cfg-ink)]/70 text-cream text-[11px] leading-none opacity-0 group-hover:opacity-100 focus:opacity-100 transition"
+                    style={{ borderRadius: 2 }}
+                  >
+                    ×
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {!activeUrl && (
         <button
           onClick={generate}
           disabled={loading}
@@ -287,6 +379,7 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
 
       <p className="mt-3 text-[10px] text-cream-dim/70 leading-relaxed">
         Illustrative render only — the final hand-crafted pair may vary in acetate grain and highlights.
+        We keep your last {MAX_PER_KEY} renders per configuration on this device.
       </p>
     </div>
   );
