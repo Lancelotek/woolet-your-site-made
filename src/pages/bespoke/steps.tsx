@@ -22,6 +22,7 @@ import { type BespokeConfig, formatEur } from "@/lib/bespoke-state";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
+import { BespokeCheckoutModal } from "@/components/BespokeCheckoutModal";
 
 interface StepProps {
   config: BespokeConfig;
