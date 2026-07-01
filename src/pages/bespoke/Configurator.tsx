@@ -233,9 +233,9 @@ const ConfiguratorPage = () => {
 
                 <div className="cfg-rail__photo" style={{ background: "#EFE9DF" }}>
                   {aiPreviewUrl && step >= 2 ? (
-                    <img src={aiPreviewUrl} alt={frame ? `${frame.name} AI preview` : "AI preview"} className="max-h-full max-w-full object-contain" />
+                    <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name} — ${frame.shape} pattern, made-to-measure for wide faces` : "AI visualisation of Woolet Bespoke eyewear configuration"} className="max-h-full max-w-full object-contain" />
                   ) : frame ? (
-                    <img src={frame.url} alt={frame.name} className="max-h-full max-w-[82%] object-contain" />
+                    <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in Italy`} className="max-h-full max-w-[82%] object-contain" />
                   ) : (
                     <div className="cfg-rail__placeholder">Select a pattern</div>
                   )}

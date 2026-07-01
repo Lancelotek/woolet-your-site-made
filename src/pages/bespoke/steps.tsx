@@ -67,7 +67,7 @@ export function StepFrame({ config, update }: StepProps) {
               >
                 <img
                   src={f.url}
-                  alt={`${f.name} silhouette template`}
+                  alt={`Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
                   loading="lazy"
                   className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03]"
                 />
@@ -560,7 +560,7 @@ export function StepColor({ config, update }: StepProps) {
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={f.image}
-                    alt={`${f.name} finish sample`}
+                    alt={`${f.name} acetate finish sample for Woolet Bespoke made-to-measure eyewear`}
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
