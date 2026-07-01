@@ -70,6 +70,22 @@ const ConfiguratorPage = () => {
   const pdMm = config.measurements.pd ?? 66;
   const fitFromScan = !!config.scanCompletedAt;
 
+  // Latest AI-generated preview for the current selection (frame + acetates + finish).
+  // Reads from the same localStorage store used by AiPreviewPanel and re-checks
+  // whenever the panel dispatches PREVIEW_UPDATED_EVENT.
+  const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+  useEffect(() => {
+    setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    const refresh = () => setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
+    window.addEventListener("storage", refresh);
+    return () => {
+      window.removeEventListener(PREVIEW_UPDATED_EVENT, refresh);
+      window.removeEventListener("storage", refresh);
+    };
+  }, [previewKey]);
+
   const goTo = (n: StepId) => {
     setStep(n);
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
