@@ -51,34 +51,34 @@ export default function BespokeCheckout() {
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
-const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
 
-const findLatestPreview = (history: ReturnType<typeof loadPreviewHistory>): string | null => {
-  let latest: { url: string; ts: number } | null = null;
-  Object.values(history).forEach((list) => {
-    list.forEach((entry) => {
-      if (!latest || entry.ts > latest.ts) latest = entry;
+  const findLatestPreview = (history: ReturnType<typeof loadPreviewHistory>): string | null => {
+    let latest: { url: string; ts: number } | null = null;
+    Object.values(history).forEach((list) => {
+      list.forEach((entry) => {
+        if (!latest || entry.ts > latest.ts) latest = entry;
+      });
     });
-  });
-  return latest?.url ?? null;
-};
+    return latest?.url ?? null;
+  };
 
-const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
-const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => findLatestPreview(loadPreviewHistory()));
-const [isGenerating, setIsGenerating] = useState(false);
-useEffect(() => {
-  const refresh = () => {
-    setAiPreviewUrl(getLatestPreviewUrl(previewKey));
-    setFallbackPreviewUrl(findLatestPreview(loadPreviewHistory()));
-  };
-  refresh();
-  window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
-  window.addEventListener("storage", refresh);
-  return () => {
-    window.removeEventListener(PREVIEW_UPDATED_EVENT, refresh);
-    window.removeEventListener("storage", refresh);
-  };
-}, [previewKey]);
+  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+  const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => findLatestPreview(loadPreviewHistory()));
+  const [isGenerating, setIsGenerating] = useState(false);
+  useEffect(() => {
+    const refresh = () => {
+      setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+      setFallbackPreviewUrl(findLatestPreview(loadPreviewHistory()));
+    };
+    refresh();
+    window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
+    window.addEventListener("storage", refresh);
+    return () => {
+      window.removeEventListener(PREVIEW_UPDATED_EVENT, refresh);
+      window.removeEventListener("storage", refresh);
+    };
+  }, [previewKey]);
 
 
   const ready = Boolean(frame && front && temple && finish && lens && pricing.totalEur > 0);
