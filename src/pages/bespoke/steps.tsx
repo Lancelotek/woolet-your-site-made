@@ -36,160 +36,67 @@ const labelClass = "uppercase tracking-[0.18em] text-[0.78rem] text-cream-dim";
 const cardOuter = "rounded-[14px] border border-cream/10 bg-background/40 transition-all";
 const cardActive = "border-gold/60 bg-gold/[0.04] ring-1 ring-gold/30";
 
-/* ───── Step 1 ───── */
-type WidthSort = "all" | "narrow" | "fit" | "wide";
+/* ───── Step 1 · Pattern ───── */
 
 export function StepFrame({ config, update }: StepProps) {
-  const [shapeFilter, setShapeFilter] = useState<string>("all");
-  const [widthSort, setWidthSort] = useState<WidthSort>("all");
-  const [galleryFrame, setGalleryFrame] = useState<Frame | null>(null);
-
-
-  // User's fit window — from scan if present, else default to 161 mm (brand reference).
-  const userFace = config.measurements.faceWidth ?? 161;
-  const FIT_TOLERANCE = 5; // ±5 mm comfortable window
-  const fitMin = userFace - FIT_TOLERANCE;
-  const fitMax = userFace + FIT_TOLERANCE;
-
-  const widthBucket = (w: number): "narrow" | "fit" | "wide" =>
-    w < fitMin ? "narrow" : w > fitMax ? "wide" : "fit";
-
-  let visible: Frame[] = shapeFilter === "all" ? FRAMES : FRAMES.filter((f) => f.shape === shapeFilter);
-  if (widthSort !== "all") {
-    visible = [...visible].sort((a, b) => {
-      const pa = widthBucket(a.widthMm) === widthSort ? 0 : 1;
-      const pb = widthBucket(b.widthMm) === widthSort ? 0 : 1;
-      if (pa !== pb) return pa - pb;
-      return a.widthMm - b.widthMm;
-    });
-  }
-
   return (
     <div className="space-y-10">
       <header>
-        <div className="cfg-eyebrow">Step 1 — Frame</div>
+        <div className="cfg-eyebrow">Step 1 — Pattern</div>
         <h2 className="cfg-h1 mt-3">
           Choose your frame <em className="cfg-em">silhouette</em>
         </h2>
         <p className="cfg-body mt-4 max-w-xl">
-          25 hand-made bio-acetate shapes, cut from a single block of Italian Mazzucchelli acetate.
-          Each pair is unique — your chosen frame will never be made twice in the same grain.
+          Four canonical shapes, drawn as line templates because the finished frame is cut to <em className="cfg-em">your</em> measurements —
+          not to a stock photo. We scan your face after payment, then hand-cut the pattern in Italy from a single block of Mazzucchelli acetate.
         </p>
       </header>
 
-      {/* Filter chips */}
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="flex flex-wrap gap-1.5">
-          <ChipFilter active={shapeFilter === "all"} onClick={() => setShapeFilter("all")}>All shapes</ChipFilter>
-          {FRAME_SHAPES.map((s) => (
-            <ChipFilter key={s} active={shapeFilter === s} onClick={() => setShapeFilter(s)}>
-              {s}
-            </ChipFilter>
-          ))}
-        </div>
-        <div className="flex items-center gap-1.5 ml-auto">
-          <span className="cfg-eyebrow mr-1" style={{ fontSize: 10 }}>Width</span>
-          <ChipFilter active={widthSort === "all"} onClick={() => setWidthSort("all")} compact>All</ChipFilter>
-          <ChipFilter active={widthSort === "fit"} onClick={() => setWidthSort("fit")} compact>Fits you</ChipFilter>
-          <ChipFilter active={widthSort === "narrow"} onClick={() => setWidthSort("narrow")} compact>Narrow</ChipFilter>
-          <ChipFilter active={widthSort === "wide"} onClick={() => setWidthSort("wide")} compact>Wide</ChipFilter>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        {visible.map((f) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+        {FRAMES.map((f) => {
           const active = config.frameId === f.id;
-          const bucket = widthBucket(f.widthMm);
-          const fits = bucket === "fit";
-          const tag =
-            bucket === "narrow" ? "runs narrow" :
-            bucket === "wide"   ? "runs wide" : null;
-
           return (
             <button
               key={f.id}
               onClick={() => update("frameId", f.id)}
-              className={`cfg-card group text-left ${active ? "cfg-card--active" : ""} ${!fits && !active ? "cfg-card--dim" : ""}`}
+              className={`cfg-card group text-left ${active ? "cfg-card--active" : ""}`}
             >
-              <div className="cfg-card__photo relative">
+              <div
+                className="cfg-card__photo relative"
+                style={{ background: "#EFE9DF", aspectRatio: "16 / 9" }}
+              >
                 <img
                   src={f.url}
-                  alt={f.name}
+                  alt={`${f.name} silhouette template`}
                   loading="lazy"
-                  className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <span
-                  role="button"
-                  tabIndex={0}
-                  onClick={(e) => { e.stopPropagation(); setGalleryFrame(f); }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setGalleryFrame(f);
-                    }
-                  }}
-                  aria-label={`View ${f.gallery.length} photos of ${f.name}`}
-                  className="absolute bottom-2 left-2 inline-flex items-center gap-1 px-2 py-1 text-[10px] uppercase tracking-[0.18em] bg-[#0c0c0c]/70 text-cream backdrop-blur-sm opacity-0 group-hover:opacity-100 focus:opacity-100 transition cursor-pointer hover:bg-[#0c0c0c]/90"
-                  style={{ borderRadius: 2 }}
-                >
-                  <ImageIcon size={11} /> {f.gallery.length}
-                </span>
                 {active && (
-                  <span className="absolute top-2.5 right-2.5 inline-flex items-center justify-center w-6 h-6 bg-[color:var(--cfg-gold)]" style={{ borderRadius: 2 }}>
+                  <span
+                    className="absolute top-2.5 right-2.5 inline-flex items-center justify-center w-6 h-6 bg-[color:var(--cfg-gold)]"
+                    style={{ borderRadius: 2 }}
+                  >
                     <Check size={14} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
                   </span>
                 )}
               </div>
 
-
-              <div className="px-3 py-3">
-                <div className="flex items-baseline justify-between gap-2">
-                  <div className="cfg-card__name">{f.name}</div>
-                </div>
-                <div className="cfg-card__code mt-1">{f.id.toUpperCase()} · {f.shape.toUpperCase()}</div>
-
-                <div className="mt-2.5 flex items-center justify-between gap-2">
-                  <div className="cfg-spec">
-                    <span className="cfg-spec__value">{f.widthMm} mm</span>
-                    <span className="cfg-spec__sub">{f.bridgeMm} mm bridge</span>
-                  </div>
-                  {fits ? (
-                    <span className="cfg-tag cfg-tag--fit">
-                      <Check size={10} strokeWidth={3} /> Fits you
-                    </span>
-                  ) : tag ? (
-                    <span className="cfg-tag cfg-tag--off">{tag}</span>
-                  ) : null}
-                </div>
+              <div className="px-4 py-4">
+                <div className="cfg-card__name" style={{ fontSize: 17 }}>{f.name}</div>
+                <div className="cfg-card__code mt-1">Cut to your face · reference {f.widthMm} mm</div>
               </div>
             </button>
           );
         })}
       </div>
 
-      <FrameGallery
-        frame={galleryFrame}
-        open={galleryFrame !== null}
-        onOpenChange={(o) => { if (!o) setGalleryFrame(null); }}
-      />
+      <p className="text-cream-dim text-xs leading-relaxed max-w-xl" style={{ fontStyle: "italic" }}>
+        These outlines represent the shape only. Final dimensions — front width, bridge, temple length, lens height — are all cut to your scan after payment.
+      </p>
     </div>
   );
 }
 
-
-function ChipFilter({
-  active, onClick, children, compact,
-}: { active: boolean; onClick: () => void; children: React.ReactNode; compact?: boolean }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`cfg-chip ${active ? "cfg-chip--active" : ""} ${compact ? "cfg-chip--compact" : ""}`}
-    >
-      {children}
-    </button>
-  );
-}
 
 
 
