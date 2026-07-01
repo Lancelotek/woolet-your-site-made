@@ -192,7 +192,7 @@ export const getLatestPreviewUrl = (key: string): string | null => {
   return list?.[0]?.url ?? null;
 };
 
-const savePreviewHistory = (history: PreviewHistory) => {
+const savePreviewHistory = (history: PreviewHistory): { ok: true } | { ok: false; error: string } => {
   try {
     // Trim keys if we exceed the cap (evict oldest by newest-entry timestamp).
     const entries = Object.entries(history);
@@ -204,8 +204,12 @@ const savePreviewHistory = (history: PreviewHistory) => {
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent(PREVIEW_UPDATED_EVENT));
     }
-  } catch {
-    // localStorage full or unavailable — silently ignore.
+    return { ok: true };
+  } catch (e) {
+    const msg = (e as Error)?.name === "QuotaExceededError"
+      ? "This device's storage is full — older previews won't be remembered."
+      : "Couldn't save preview history on this device (private mode or storage disabled).";
+    return { ok: false, error: msg };
   }
 };
 
@@ -222,6 +226,9 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
   const [activeUrl, setActiveUrl] = useState<string | null>(currentList[0]?.url ?? null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [storageWarning, setStorageWarning] = useState<string | null>(null);
+  const [cloudSaveState, setCloudSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [deletingUrl, setDeletingUrl] = useState<string | null>(null);
 
   const ready = Boolean(frame && front && temple && finish);
 
@@ -231,6 +238,7 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
     const list = history[selectionKey] ?? [];
     setActiveUrl(list[0]?.url ?? null);
     setError(null);
+    setCloudSaveState("idle");
   }, [selectionKey, history]);
 
   if (!ready || !frame || !front || !temple || !finish) {
@@ -244,12 +252,14 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
 
   const persist = (next: PreviewHistory) => {
     setHistory(next);
-    savePreviewHistory(next);
+    const res = savePreviewHistory(next);
+    setStorageWarning("ok" in res && res.ok ? null : (res as { error: string }).error);
   };
 
   const generate = async () => {
     setLoading(true);
     setError(null);
+    setCloudSaveState("idle");
     try {
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-preview-render", {
         body: {
@@ -269,14 +279,15 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       setActiveUrl(url);
 
       // If the buyer is signed in, mirror the render to their account so it
-      // shows up on the /account panel later. Silent — a failed save must
-      // never break the on-page preview experience.
+      // shows up on the /account panel later. Non-blocking — surface the
+      // outcome as a small hint but never break the on-page preview.
       try {
         const { data: authData } = await supabase.auth.getUser();
         const uid = authData?.user?.id;
         if (uid) {
+          setCloudSaveState("saving");
           const description = `${frame.shape} · Front: ${front.name} (${front.code}) · Temples: ${temple.name} (${temple.code}) · ${finish.name}`;
-          await supabase.from("bespoke_ai_previews").insert({
+          const { error: insertErr } = await supabase.from("bespoke_ai_previews").insert({
             user_id: uid,
             selection_key: selectionKey,
             image_url: url,
@@ -286,25 +297,33 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
             finish: finish.name,
             description,
           });
+          if (insertErr) throw insertErr;
+          setCloudSaveState("saved");
         }
       } catch (saveErr) {
         console.warn("[bespoke] preview account save failed", saveErr);
+        setCloudSaveState("error");
       }
     } catch (e) {
-      setError((e as Error).message || "Preview failed");
+      setError((e as Error).message || "Preview failed. Please try again in a moment.");
     } finally {
       setLoading(false);
     }
   };
 
   const removeEntry = (url: string) => {
-    const prev = history[selectionKey] ?? [];
-    const nextList = prev.filter((e) => e.url !== url);
-    const nextHistory = { ...history };
-    if (nextList.length) nextHistory[selectionKey] = nextList;
-    else delete nextHistory[selectionKey];
-    persist(nextHistory);
-    if (activeUrl === url) setActiveUrl(nextList[0]?.url ?? null);
+    setDeletingUrl(url);
+    try {
+      const prev = history[selectionKey] ?? [];
+      const nextList = prev.filter((e) => e.url !== url);
+      const nextHistory = { ...history };
+      if (nextList.length) nextHistory[selectionKey] = nextList;
+      else delete nextHistory[selectionKey];
+      persist(nextHistory);
+      if (activeUrl === url) setActiveUrl(nextList[0]?.url ?? null);
+    } finally {
+      setDeletingUrl(null);
+    }
   };
 
   return (
@@ -380,11 +399,12 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
                   </button>
                   <button
                     onClick={() => removeEntry(entry.url)}
+                    disabled={deletingUrl === entry.url}
                     aria-label="Delete render"
-                    className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-[color:var(--cfg-ink)]/70 text-cream text-[11px] leading-none opacity-0 group-hover:opacity-100 focus:opacity-100 transition"
+                    className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-[color:var(--cfg-ink)]/70 text-cream text-[11px] leading-none opacity-0 group-hover:opacity-100 focus:opacity-100 transition disabled:opacity-100 disabled:cursor-wait"
                     style={{ borderRadius: 2 }}
                   >
-                    ×
+                    {deletingUrl === entry.url ? "…" : "×"}
                   </button>
                 </div>
               );
@@ -413,7 +433,32 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       )}
 
       {error && (
-        <p className="mt-3 text-[11px] text-red-400/90">{error}</p>
+        <p role="alert" className="mt-3 text-[11px] text-red-400/90">
+          {error}{" "}
+          <button
+            type="button"
+            onClick={generate}
+            className="underline underline-offset-2 hover:text-red-300"
+          >
+            Try again
+          </button>
+        </p>
+      )}
+
+      {storageWarning && (
+        <p className="mt-2 text-[11px] text-amber-300/80">{storageWarning}</p>
+      )}
+
+      {cloudSaveState === "saving" && (
+        <p className="mt-2 text-[11px] text-cream-dim/80">Saving to your account…</p>
+      )}
+      {cloudSaveState === "saved" && (
+        <p className="mt-2 text-[11px] text-cream-dim/80">Saved to your account.</p>
+      )}
+      {cloudSaveState === "error" && (
+        <p className="mt-2 text-[11px] text-amber-300/80">
+          Preview is ready, but we couldn&rsquo;t save it to your account. It stays on this device — regenerate to retry the sync.
+        </p>
       )}
 
       <p className="mt-3 text-[10px] text-cream-dim/70 leading-relaxed">

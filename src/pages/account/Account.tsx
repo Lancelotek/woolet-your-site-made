@@ -78,6 +78,8 @@ export default function Account() {
   const [bespoke, setBespoke] = useState<BespokeConfigRow[]>([]);
   const [previews, setPreviews] = useState<AiPreview[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [deletingPreviewId, setDeletingPreviewId] = useState<string | null>(null);
   const [savingProfile, setSavingProfile] = useState(false);
   const [resendState, setResendState] = useState<"idle" | "sending" | "sent">("idle");
   const [resendError, setResendError] = useState<string | null>(null);
@@ -132,56 +134,69 @@ export default function Account() {
     }
   };
 
-  useEffect(() => {
-    if (!session) return;
-    let cancelled = false;
-    const load = async () => {
-      setDataLoading(true);
-      // Link any guest scans/orders previously made with the same email to
-      // this account. Idempotent — safe to call on every Account mount.
+  const loadAccountData = async (uid: string, opts?: { signal?: () => boolean }) => {
+    setDataLoading(true);
+    setLoadError(null);
+    try {
       try {
         await supabase.rpc("link_user_data_by_email");
       } catch (err) {
         console.warn("[account] link_user_data_by_email failed", err);
       }
-      const [{ data: p }, { data: s }, { data: o }, { data: b }, { data: pv }] = await Promise.all([
-        supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
+      const [pRes, sRes, oRes, bRes, pvRes] = await Promise.all([
+        supabase.from("profiles").select("*").eq("id", uid).maybeSingle(),
         supabase
           .from("scan_sessions")
           .select("id, created_at, status, face_width_mm, nose_width_mm, recommendation_type, confidence")
-          .eq("user_id", session.user.id)
+          .eq("user_id", uid)
           .order("created_at", { ascending: false }),
         supabase
           .from("founding_members")
           .select("id, created_at, amount_cents, currency, recommended_sku, environment, stripe_session_id")
-          .eq("user_id", session.user.id)
+          .eq("user_id", uid)
           .order("created_at", { ascending: false }),
         supabase
           .from("bespoke_configs")
           .select("id, name, is_current, updated_at, config")
-          .eq("user_id", session.user.id)
+          .eq("user_id", uid)
           .order("updated_at", { ascending: false }),
         supabase
           .from("bespoke_ai_previews")
           .select("id, created_at, image_url, description, shape, front_color, temple_color, finish")
-          .eq("user_id", session.user.id)
+          .eq("user_id", uid)
           .order("created_at", { ascending: false })
           .limit(24),
       ]);
-      if (cancelled) return;
-      setProfile(p as Profile | null);
-      const clampedScans = ((s as Scan[] | null) ?? []).map((row) => ({
+      if (opts?.signal?.()) return;
+      const firstErr = [pRes.error, sRes.error, oRes.error, bRes.error, pvRes.error].find(Boolean);
+      if (firstErr) throw firstErr;
+      setProfile((pRes.data as Profile | null) ?? null);
+      const clampedScans = ((sRes.data as Scan[] | null) ?? []).map((row) => ({
         ...row,
         face_width_mm: clampFaceMm(row.face_width_mm),
         nose_width_mm: clampNoseMm(row.nose_width_mm),
       }));
       setScans(clampedScans);
-      setOrders((o as Order[] | null) ?? []);
-      setBespoke((b as BespokeConfigRow[] | null) ?? []);
-      setPreviews((pv as AiPreview[] | null) ?? []);
-      setDataLoading(false);
-    };
-    load();
+      setOrders((oRes.data as Order[] | null) ?? []);
+      setBespoke((bRes.data as BespokeConfigRow[] | null) ?? []);
+      setPreviews((pvRes.data as AiPreview[] | null) ?? []);
+    } catch (err) {
+      console.error("[account] load failed", err);
+      if (!opts?.signal?.()) {
+        setLoadError(
+          (err as { message?: string })?.message ||
+            "Couldn't load your account data. Check your connection and try again.",
+        );
+      }
+    } finally {
+      if (!opts?.signal?.()) setDataLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!session) return;
+    let cancelled = false;
+    loadAccountData(session.user.id, { signal: () => cancelled });
     return () => {
       cancelled = true;
     };
@@ -535,7 +550,65 @@ export default function Account() {
               Bespoke AI previews
             </h2>
             {dataLoading ? (
-              <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>Loading…</p>
+              <ul
+                className="grid gap-4 m-0 p-0"
+                style={{ listStyle: "none", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}
+                aria-busy="true"
+                aria-label="Loading AI previews"
+              >
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <li key={i} style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
+                    <div
+                      style={{
+                        aspectRatio: "4 / 3",
+                        background:
+                          "linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.04) 100%)",
+                        backgroundSize: "200% 100%",
+                        animation: "shimmer 1.4s ease-in-out infinite",
+                      }}
+                    />
+                    <div className="p-3 flex flex-col gap-2">
+                      <div style={{ height: 10, background: "rgba(255,255,255,0.08)", width: "80%" }} />
+                      <div style={{ height: 8, background: "rgba(255,255,255,0.06)", width: "40%" }} />
+                    </div>
+                  </li>
+                ))}
+                <style>{`@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }`}</style>
+              </ul>
+            ) : loadError ? (
+              <div
+                className="flex flex-col gap-3"
+                role="alert"
+                style={{
+                  background: "rgba(252,165,165,0.06)",
+                  border: "1px solid rgba(252,165,165,0.35)",
+                  padding: "14px 16px",
+                }}
+              >
+                <p className="text-foreground" style={{ fontSize: "0.85rem", lineHeight: 1.5 }}>
+                  Couldn&rsquo;t load your saved previews.
+                </p>
+                <p className="text-cream-dim" style={{ fontSize: "0.75rem", lineHeight: 1.5 }}>
+                  {loadError}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => session && loadAccountData(session.user.id)}
+                  className="self-start uppercase tracking-[0.22em]"
+                  style={{
+                    background: GOLD,
+                    color: "#0f0f0f",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.68rem",
+                    padding: "10px 16px",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  Retry
+                </button>
+              </div>
             ) : previews.length === 0 ? (
               <p className="text-cream-dim" style={{ fontSize: "0.85rem" }}>
                 No AI previews yet. Generate one in the bespoke configurator and it'll appear here with a full spec description.
@@ -545,53 +618,78 @@ export default function Account() {
                 className="grid gap-4 m-0 p-0"
                 style={{ listStyle: "none", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}
               >
-                {previews.map((pv) => (
-                  <li
-                    key={pv.id}
-                    className="flex flex-col"
-                    style={{ border: "1px solid rgba(255,255,255,0.1)" }}
-                  >
-                    <div style={{ background: "#EFE9DF", aspectRatio: "4 / 3", overflow: "hidden" }}>
-                      <img
-                        src={pv.image_url}
-                        alt={pv.description ?? "Bespoke AI preview"}
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2 p-3">
-                      <p className="text-foreground" style={{ fontSize: "0.82rem", lineHeight: 1.45 }}>
-                        {pv.description ??
-                          [pv.shape, pv.front_color && `Front: ${pv.front_color}`, pv.temple_color && `Temples: ${pv.temple_color}`, pv.finish]
-                            .filter(Boolean)
-                            .join(" · ")}
-                      </p>
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-cream-dim" style={{ fontSize: "0.68rem" }}>
-                          {new Date(pv.created_at).toLocaleDateString()}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={async () => {
-                            const { error } = await supabase.from("bespoke_ai_previews").delete().eq("id", pv.id);
-                            if (error) {
-                              toast.error("Could not remove preview");
-                              return;
-                            }
-                            setPreviews((prev) => prev.filter((p) => p.id !== pv.id));
-                          }}
-                          className="uppercase tracking-[0.18em] text-cream-dim hover:text-foreground"
-                          style={{ fontSize: "0.6rem", background: "transparent", border: "none", cursor: "pointer" }}
-                        >
-                          Remove
-                        </button>
+                {previews.map((pv) => {
+                  const isDeleting = deletingPreviewId === pv.id;
+                  return (
+                    <li
+                      key={pv.id}
+                      className="flex flex-col"
+                      style={{
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        opacity: isDeleting ? 0.5 : 1,
+                        transition: "opacity 0.2s",
+                      }}
+                    >
+                      <div style={{ background: "#EFE9DF", aspectRatio: "4 / 3", overflow: "hidden" }}>
+                        <img
+                          src={pv.image_url}
+                          alt={pv.description ?? "Bespoke AI preview"}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          loading="lazy"
+                        />
                       </div>
-                    </div>
-                  </li>
-                ))}
+                      <div className="flex flex-col gap-2 p-3">
+                        <p className="text-foreground" style={{ fontSize: "0.82rem", lineHeight: 1.45 }}>
+                          {pv.description ??
+                            [pv.shape, pv.front_color && `Front: ${pv.front_color}`, pv.temple_color && `Temples: ${pv.temple_color}`, pv.finish]
+                              .filter(Boolean)
+                              .join(" · ")}
+                        </p>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-cream-dim" style={{ fontSize: "0.68rem" }}>
+                            {new Date(pv.created_at).toLocaleDateString()}
+                          </span>
+                          <button
+                            type="button"
+                            disabled={isDeleting}
+                            onClick={async () => {
+                              setDeletingPreviewId(pv.id);
+                              const { error } = await supabase
+                                .from("bespoke_ai_previews")
+                                .delete()
+                                .eq("id", pv.id);
+                              if (error) {
+                                setDeletingPreviewId(null);
+                                toast.error(
+                                  error.message?.toLowerCase().includes("network")
+                                    ? "Network error — check your connection and try again."
+                                    : "Couldn't remove this preview. Please try again.",
+                                );
+                                return;
+                              }
+                              setPreviews((prev) => prev.filter((p) => p.id !== pv.id));
+                              setDeletingPreviewId(null);
+                              toast.success("Preview removed");
+                            }}
+                            className="uppercase tracking-[0.18em] text-cream-dim hover:text-foreground disabled:cursor-wait"
+                            style={{
+                              fontSize: "0.6rem",
+                              background: "transparent",
+                              border: "none",
+                              cursor: isDeleting ? "wait" : "pointer",
+                            }}
+                          >
+                            {isDeleting ? "Removing…" : "Remove"}
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </section>
+
 
 
           {/* Profile */}
