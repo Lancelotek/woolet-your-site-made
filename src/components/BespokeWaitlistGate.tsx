@@ -77,9 +77,13 @@ const BespokeWaitlistGate = () => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
+  useEffect(() => {
+    captureUtmsFromUrl();
+  }, []);
+
   const submitPassword = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.trim().toLowerCase() === "woolet") {
+    if (password.trim() === ACCESS_CODE) {
       try {
         window.localStorage.setItem("bespoke-gate-bypass", "woolet-preview");
       } catch {}
@@ -103,10 +107,21 @@ const BespokeWaitlistGate = () => {
     setStatus("loading");
     setError(null);
     try {
+      const utms = captureUtmsFromUrl();
+      const country_code = detectCountryCode();
+      const body: Record<string, unknown> = {
+        email: email.trim(),
+        source: "bespoke",
+        event_source_url: typeof window !== "undefined" ? window.location.href : undefined,
+        ...utms,
+      };
+      if (country_code) body.country_code = country_code;
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: { email: email.trim(), source: "bespoke" },
+        body,
       });
-      if (fnError || !data?.success) {
+      // Treat already-subscribed as success too.
+      const alreadySubscribed = typeof data?.error === "string" && /already|exists|subscribed/i.test(data.error);
+      if ((fnError || !data?.success) && !alreadySubscribed) {
         throw new Error(data?.error || fnError?.message || "Something went wrong");
       }
       setStatus("success");
@@ -115,6 +130,7 @@ const BespokeWaitlistGate = () => {
       setError(err instanceof Error ? err.message : "Something went wrong");
     }
   };
+
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 pt-20 pb-10">
