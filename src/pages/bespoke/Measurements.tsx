@@ -240,7 +240,7 @@ export default function BespokeMeasurements() {
                     {order.temple_code && <Spec label="Temple" value={order.temple_code} />}
                     {order.finish_id && <Spec label="Finish" value={order.finish_id} />}
                     {order.lens_type && <Spec label="Lenses" value={order.lens_type} />}
-                    {order.engraving_text && <Spec label="Engraving" value={`"${order.engravingText}"`} />}
+                    {order.engraving_text && <Spec label="Engraving" value={`"${order.engraving_text}"`} />}
                     {order.customer_email_masked && <Spec label="Confirmation" value={order.customer_email_masked} />}
                   </dl>
                   {order.ai_preview_url && (
