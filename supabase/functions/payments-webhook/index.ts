@@ -172,7 +172,111 @@ async function tagMailerLiteFoundingMember(email: string, recommendedSku?: strin
   }
 }
 
+const SITE_ORIGIN = "https://woolet.co";
+
+function formatAmount(cents: number | null | undefined, currency: string | null | undefined): string {
+  const c = cents ?? 0;
+  const cur = (currency ?? "usd").toUpperCase();
+  try {
+    return new Intl.NumberFormat("en-US", { style: "currency", currency: cur }).format(c / 100);
+  } catch {
+    return `${(c / 100).toFixed(2)} ${cur}`;
+  }
+}
+
+async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
+  const email: string | undefined =
+    session?.customer_details?.email ||
+    session?.customer_email ||
+    session?.metadata?.email;
+  if (!email) {
+    console.error("[payments-webhook:bespoke] session without email", session?.id);
+    return;
+  }
+
+  const meta = (session?.metadata ?? {}) as Record<string, string>;
+  const customerName: string | undefined = session?.customer_details?.name;
+  const amountCents = session.amount_total ?? null;
+  const currency = (session.currency ?? "usd").toLowerCase();
+  const amountFormatted = formatAmount(amountCents, currency);
+  const measurementsUrl = `${SITE_ORIGIN}/en/bespoke/measurements?sid=${encodeURIComponent(session.id)}`;
+
+  const { error: upsertErr } = await getSupabase()
+    .from("bespoke_orders")
+    .upsert(
+      {
+        stripe_session_id: session.id,
+        stripe_payment_intent_id: session.payment_intent ?? null,
+        customer_email: email,
+        customer_name: customerName ?? null,
+        environment: env,
+        amount_cents: amountCents,
+        currency,
+        frame_id: meta.frame ?? null,
+        frame_name: meta.frame_name ?? (meta.frame ? `Woolet Bespoke — ${meta.frame}` : "Woolet Bespoke"),
+        front_code: meta.front ?? null,
+        temple_code: meta.temple ?? null,
+        finish_id: meta.finish ?? null,
+        lens_type: meta.lens_type ?? null,
+        engraving_text: meta.engraving || null,
+        ai_preview_url: meta.ai_preview_url ?? null,
+        metadata: session.metadata ?? null,
+      },
+      { onConflict: "stripe_session_id" },
+    );
+  if (upsertErr) {
+    console.error("[payments-webhook:bespoke] upsert failed", upsertErr);
+  }
+
+  const templateData = {
+    customerName: customerName ?? "",
+    customerEmail: email,
+    frameName: meta.frame_name ?? (meta.frame ? `Woolet Bespoke — ${meta.frame}` : "Woolet Bespoke"),
+    frontCode: meta.front ?? "",
+    templeCode: meta.temple ?? "",
+    finishName: meta.finish ?? "",
+    lensName: meta.lens_type ?? "",
+    engravingText: meta.engraving || "",
+    amountFormatted,
+    orderRef: session.id,
+    paymentIntentId: session.payment_intent ?? "",
+    environment: env,
+    measurementsUrl,
+    adminOrderUrl: session.payment_intent
+      ? `https://dashboard.stripe.com/${env === "sandbox" ? "test/" : ""}payments/${session.payment_intent}`
+      : "",
+  };
+
+  const invoke = async (templateName: string, recipient?: string) => {
+    try {
+      const { error } = await getSupabase().functions.invoke("send-transactional-email", {
+        body: {
+          templateName,
+          recipientEmail: recipient,
+          idempotencyKey: `${templateName}-${session.id}`,
+          templateData,
+        },
+      });
+      if (error) console.error(`[payments-webhook:bespoke] send ${templateName} error`, error);
+    } catch (e) {
+      console.error(`[payments-webhook:bespoke] send ${templateName} failed`, e);
+    }
+  };
+
+  await Promise.all([
+    invoke("bespoke-purchase-customer", email),
+    invoke("bespoke-purchase-admin"),
+  ]);
+}
+
 async function handleCheckoutCompleted(session: any, env: StripeEnv) {
+  const flow = session?.metadata?.flow;
+  if (flow === "bespoke") {
+    await handleBespokeCheckoutCompleted(session, env);
+    await fireMetaPurchase(session);
+    return;
+  }
+
   const email: string | undefined =
     session?.customer_details?.email ||
     session?.customer_email ||
