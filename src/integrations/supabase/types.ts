@@ -86,6 +86,114 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_orders: {
+        Row: {
+          ai_bridge_width_mm: number | null
+          ai_face_width_mm: number | null
+          ai_notes: string | null
+          ai_pd_mm: number | null
+          ai_preview_url: string | null
+          ai_temple_to_temple_mm: number | null
+          amount_cents: number | null
+          created_at: string
+          currency: string | null
+          customer_email: string
+          customer_name: string | null
+          engraving_text: string | null
+          environment: string
+          finish_id: string | null
+          frame_id: string | null
+          frame_name: string | null
+          front_code: string | null
+          id: string
+          lens_type: string | null
+          manual_bridge_width_mm: number | null
+          manual_ear_to_ear_mm: number | null
+          manual_face_width_mm: number | null
+          manual_head_circumference_mm: number | null
+          manual_notes: string | null
+          manual_pd_mm: number | null
+          manual_temple_length_mm: number | null
+          manual_temple_to_temple_mm: number | null
+          measurements_submitted_at: string | null
+          metadata: Json | null
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string
+          temple_code: string | null
+          updated_at: string
+        }
+        Insert: {
+          ai_bridge_width_mm?: number | null
+          ai_face_width_mm?: number | null
+          ai_notes?: string | null
+          ai_pd_mm?: number | null
+          ai_preview_url?: string | null
+          ai_temple_to_temple_mm?: number | null
+          amount_cents?: number | null
+          created_at?: string
+          currency?: string | null
+          customer_email: string
+          customer_name?: string | null
+          engraving_text?: string | null
+          environment?: string
+          finish_id?: string | null
+          frame_id?: string | null
+          frame_name?: string | null
+          front_code?: string | null
+          id?: string
+          lens_type?: string | null
+          manual_bridge_width_mm?: number | null
+          manual_ear_to_ear_mm?: number | null
+          manual_face_width_mm?: number | null
+          manual_head_circumference_mm?: number | null
+          manual_notes?: string | null
+          manual_pd_mm?: number | null
+          manual_temple_length_mm?: number | null
+          manual_temple_to_temple_mm?: number | null
+          measurements_submitted_at?: string | null
+          metadata?: Json | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id: string
+          temple_code?: string | null
+          updated_at?: string
+        }
+        Update: {
+          ai_bridge_width_mm?: number | null
+          ai_face_width_mm?: number | null
+          ai_notes?: string | null
+          ai_pd_mm?: number | null
+          ai_preview_url?: string | null
+          ai_temple_to_temple_mm?: number | null
+          amount_cents?: number | null
+          created_at?: string
+          currency?: string | null
+          customer_email?: string
+          customer_name?: string | null
+          engraving_text?: string | null
+          environment?: string
+          finish_id?: string | null
+          frame_id?: string | null
+          frame_name?: string | null
+          front_code?: string | null
+          id?: string
+          lens_type?: string | null
+          manual_bridge_width_mm?: number | null
+          manual_ear_to_ear_mm?: number | null
+          manual_face_width_mm?: number | null
+          manual_head_circumference_mm?: number | null
+          manual_notes?: string | null
+          manual_pd_mm?: number | null
+          manual_temple_length_mm?: number | null
+          manual_temple_to_temple_mm?: number | null
+          measurements_submitted_at?: string | null
+          metadata?: Json | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string
+          temple_code?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       bespoke_scan_profiles: {
         Row: {
           asymmetry_mm: number | null

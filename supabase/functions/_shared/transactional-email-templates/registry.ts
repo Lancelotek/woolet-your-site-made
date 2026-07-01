@@ -1,5 +1,7 @@
 import * as React from 'npm:react@18.3.1'
 import { template as fitScanResult } from './fit-scan-result.tsx'
+import { template as bespokePurchaseCustomer } from './bespoke-purchase-customer.tsx'
+import { template as bespokePurchaseAdmin } from './bespoke-purchase-admin.tsx'
 
 export interface TemplateEntry {
   component: React.ComponentType<any>
@@ -11,4 +13,6 @@ export interface TemplateEntry {
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'fit-scan-result': fitScanResult,
+  'bespoke-purchase-customer': bespokePurchaseCustomer,
+  'bespoke-purchase-admin': bespokePurchaseAdmin,
 }
