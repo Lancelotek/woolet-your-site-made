@@ -164,10 +164,26 @@ export default function BespokeCheckout() {
                 <div className="border border-cream/10 bg-background/40" style={{ borderRadius: 4 }}>
                   {frame && (
                     <div
-                      className="aspect-[16/10] flex items-center justify-center"
+                      className="relative aspect-[16/10] flex items-center justify-center overflow-hidden"
                       style={{ background: "#EFE9DF", borderTopLeftRadius: 4, borderTopRightRadius: 4 }}
                     >
-                      <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
+                      {aiPreviewUrl ? (
+                        <>
+                          <img
+                            src={aiPreviewUrl}
+                            alt={`AI visualisation of your ${frame.name} in ${front?.name} / ${temple?.name}`}
+                            className="w-full h-full object-cover"
+                          />
+                          <div
+                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-[0.18em]"
+                            style={{ background: "rgba(11,10,9,0.72)", color: "#D8B86A", borderRadius: 2 }}
+                          >
+                            <Sparkles size={10} /> Your AI preview
+                          </div>
+                        </>
+                      ) : (
+                        <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
+                      )}
                     </div>
                   )}
                   <div className="p-5">
