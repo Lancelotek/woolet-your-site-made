@@ -101,11 +101,13 @@ export default function BespokeCheckout() {
 
   const metadata: Record<string, string> = {
     frame: frame?.id ?? "",
-    front: front?.code ?? "",
-    temple: temple?.code ?? "",
-    finish: finish?.id ?? "",
+    frame_name: frame ? `Woolet Bespoke — ${frame.name}` : "",
+    front: front ? `${front.name} (${front.code})` : "",
+    temple: temple ? `${temple.name} (${temple.code})` : "",
+    finish: finish?.name ?? "",
     engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
-    lens_type: lens?.id ?? "",
+    lens_type: lens?.name ?? "",
+    ai_preview_url: (aiPreviewUrl ?? fallbackPreviewUrl ?? "").slice(0, 500),
   };
 
   // --- Analytics: shared payload builders ------------------------------------
