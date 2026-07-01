@@ -263,10 +263,26 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
     );
   }
 
-  const persist = (next: PreviewHistory) => {
+  const persist = (next: PreviewHistory, opts?: { droppedOldRenderTs?: number | null }) => {
     setHistory(next);
     const res = savePreviewHistory(next);
-    setStorageWarning("ok" in res && res.ok ? null : (res as { error: string }).error);
+    if (!res.ok) {
+      setStorageWarning(res.error);
+      return;
+    }
+    const notes: string[] = [];
+    if (opts?.droppedOldRenderTs) {
+      const d = new Date(opts.droppedOldRenderTs);
+      notes.push(
+        `Kept the latest ${MAX_PER_KEY} renders for this configuration — the oldest one (from ${d.toLocaleString()}) was removed to make room.`,
+      );
+    }
+    if (res.evictedKeys.length) {
+      notes.push(
+        `Reached the ${MAX_KEYS}-configuration limit — the ${res.evictedKeys.length} least-recently used configuration${res.evictedKeys.length > 1 ? "s were" : " was"} removed from this device.`,
+      );
+    }
+    setStorageWarning(notes.length ? notes.join(" ") : null);
   };
 
   const generate = async () => {
