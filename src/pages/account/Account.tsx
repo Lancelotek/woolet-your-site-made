@@ -78,6 +78,8 @@ export default function Account() {
   const [bespoke, setBespoke] = useState<BespokeConfigRow[]>([]);
   const [previews, setPreviews] = useState<AiPreview[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [deletingPreviewId, setDeletingPreviewId] = useState<string | null>(null);
   const [savingProfile, setSavingProfile] = useState(false);
   const [resendState, setResendState] = useState<"idle" | "sending" | "sent">("idle");
   const [resendError, setResendError] = useState<string | null>(null);
