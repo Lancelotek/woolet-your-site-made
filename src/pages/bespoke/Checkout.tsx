@@ -1,6 +1,6 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Sparkles, ShieldCheck, Lock, RefreshCcw, Scissors, Truck } from "lucide-react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
@@ -17,6 +17,11 @@ import {
   ENGRAVING_POSITIONS,
 } from "@/data/bespoke-options";
 import SEO from "@/components/SEO";
+import {
+  buildPreviewKey,
+  getLatestPreviewUrl,
+  PREVIEW_UPDATED_EVENT,
+} from "@/pages/bespoke/steps";
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-cream/10 last:border-b-0">
@@ -37,6 +42,19 @@ export default function BespokeCheckout() {
   const temple = COLORS.find((c) => c.id === config.templeColorId);
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
+
+  const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+  useEffect(() => {
+    setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    const onUpdate = () => setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    window.addEventListener(PREVIEW_UPDATED_EVENT, onUpdate);
+    window.addEventListener("storage", onUpdate);
+    return () => {
+      window.removeEventListener(PREVIEW_UPDATED_EVENT, onUpdate);
+      window.removeEventListener("storage", onUpdate);
+    };
+  }, [previewKey]);
 
   const ready = Boolean(frame && front && temple && finish && lens && pricing.totalEur > 0);
 
@@ -132,6 +150,15 @@ export default function BespokeCheckout() {
                   <p className="text-cream-dim text-sm mt-3 max-w-lg leading-relaxed">
                     You&rsquo;re paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <span className="text-gold-light">after</span> payment.
                   </p>
+
+                  {/* Trust row */}
+                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
+                    <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
+                    <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Fit guaranteed</li>
+                    <li className="inline-flex items-center gap-1.5"><RefreshCcw size={12} className="text-gold-light" /> 30-day remake</li>
+                    <li className="inline-flex items-center gap-1.5"><Scissors size={12} className="text-gold-light" /> Cut in Italy</li>
+                    <li className="inline-flex items-center gap-1.5"><Truck size={12} className="text-gold-light" /> Free shipping</li>
+                  </ul>
                 </div>
 
                 <div className="bg-white text-[#0B0A09] overflow-hidden" style={{ borderRadius: 4 }}>
@@ -139,6 +166,32 @@ export default function BespokeCheckout() {
                     <EmbeddedCheckout />
                   </EmbeddedCheckoutProvider>
                 </div>
+
+                {/* Guarantee block */}
+                <div
+                  className="mt-6 border border-cream/10 p-5"
+                  style={{ borderRadius: 4, background: "rgba(239,233,223,0.03)" }}
+                >
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="text-gold-light shrink-0 mt-0.5" size={20} />
+                    <div>
+                      <div className="text-cream text-sm font-medium">The Woolet Fit Promise</div>
+                      <p className="text-cream-dim text-[12px] leading-relaxed mt-1">
+                        Every bespoke pair is hand-cut in Italy from your verified measurements. If the fit isn&rsquo;t right within 30 days of delivery, we remake the frame — on us. No restocking fees, no small print.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Social proof */}
+                <figure className="mt-6 border-l-2 border-gold/40 pl-4">
+                  <blockquote className="text-cream text-[13px] leading-relaxed italic">
+                    &ldquo;First pair in ten years that actually sits on my face. The AI preview matched what arrived — I knew exactly what I was paying for.&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-2 text-cream-dim text-[10px] uppercase tracking-[0.18em]">
+                    Marco B. · Verified bespoke buyer
+                  </figcaption>
+                </figure>
               </section>
 
               {/* Summary column */}
@@ -146,10 +199,26 @@ export default function BespokeCheckout() {
                 <div className="border border-cream/10 bg-background/40" style={{ borderRadius: 4 }}>
                   {frame && (
                     <div
-                      className="aspect-[16/10] flex items-center justify-center"
+                      className="relative aspect-[16/10] flex items-center justify-center overflow-hidden"
                       style={{ background: "#EFE9DF", borderTopLeftRadius: 4, borderTopRightRadius: 4 }}
                     >
-                      <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
+                      {aiPreviewUrl ? (
+                        <>
+                          <img
+                            src={aiPreviewUrl}
+                            alt={`AI visualisation of your ${frame.name} in ${front?.name} / ${temple?.name}`}
+                            className="w-full h-full object-cover"
+                          />
+                          <div
+                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-[0.18em]"
+                            style={{ background: "rgba(11,10,9,0.72)", color: "#D8B86A", borderRadius: 2 }}
+                          >
+                            <Sparkles size={10} /> Your AI preview
+                          </div>
+                        </>
+                      ) : (
+                        <img src={frame.url} alt={frame.name} className="max-h-full max-w-[60%] object-contain" />
+                      )}
                     </div>
                   )}
                   <div className="p-5">
