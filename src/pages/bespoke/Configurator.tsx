@@ -138,11 +138,36 @@ const ConfiguratorPage = () => {
 
         {/* ── Pay-first notice ── */}
         <div className="cfg-container mt-6">
-          <div className="cfg-payfirst">
-            <span className="cfg-payfirst__num">01 → 02</span>
-            <p>
-              <strong>Pay for your pattern first.</strong> The made-to-measure fit scan is scheduled <em className="cfg-em">after</em> your payment clears —
-              your frame is then cut in Italy to the exact millimetres of your face.
+          <div
+            role="note"
+            style={{
+              display: "flex",
+              gap: 14,
+              alignItems: "flex-start",
+              border: "1px solid rgba(194,160,90,0.35)",
+              background: "linear-gradient(180deg, rgba(194,160,90,0.08), rgba(194,160,90,0.02))",
+              padding: "14px 18px",
+              borderRadius: 2,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Archivo', sans-serif",
+                fontSize: 10,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "#C2A05A",
+                whiteSpace: "nowrap",
+                paddingTop: 3,
+                fontWeight: 600,
+              }}
+            >
+              Pay → Measure
+            </span>
+            <p style={{ margin: 0, color: "#C4BDAF", fontSize: 14, lineHeight: 1.55 }}>
+              <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
+              The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
+              once your measurements are confirmed, your frame is cut in Italy to the exact millimetres of your face.
             </p>
           </div>
         </div>
