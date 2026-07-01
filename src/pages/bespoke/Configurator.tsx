@@ -232,7 +232,7 @@ const ConfiguratorPage = () => {
                 <div className="cfg-rail__eyebrow">Your build</div>
 
                 <div className="cfg-rail__photo" style={{ background: "#EFE9DF" }}>
-                  {aiPreviewUrl ? (
+                  {aiPreviewUrl && step >= 2 ? (
                     <img src={aiPreviewUrl} alt={frame ? `${frame.name} AI preview` : "AI preview"} className="max-h-full max-w-full object-contain" />
                   ) : frame ? (
                     <img src={frame.url} alt={frame.name} className="max-h-full max-w-[82%] object-contain" />
@@ -303,7 +303,7 @@ const ConfiguratorPage = () => {
         {/* ── Mobile sticky CTA ── */}
         <div className="cfg-mobilebar lg:hidden">
           <div className="cfg-mobilebar__thumb">
-            {aiPreviewUrl ? <img src={aiPreviewUrl} alt="" /> : frame ? <img src={frame.url} alt="" /> : <span>Frame</span>}
+            {aiPreviewUrl && step >= 2 ? <img src={aiPreviewUrl} alt="" /> : frame ? <img src={frame.url} alt="" /> : <span>Frame</span>}
           </div>
           <div className="cfg-mobilebar__meta">
             <div className="cfg-mobilebar__name">{frame ? frame.name : "Pick a frame"}</div>
