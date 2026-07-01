@@ -192,7 +192,7 @@ const KickstarterVipConfirmed = () => {
           <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-4">What happens next</p>
           <ol className="flex flex-col divide-y divide-[#1a1612] border-y border-[#1a1612]">
             {[
-              { t: "Confirmation email on its way", d: "Add hello@woolet.co to your contacts so we don't land in spam." },
+              { t: "Confirmation email on its way", d: "Add support@woolet.co to your contacts so we don't land in spam." },
               { t: "We email you on launch day", d: `September 19, 2026. You'll get the hidden-pledge link before the public sees the campaign.` },
               { t: "Pledge & lock your reward", d: "Founders Edition Havana goes first (100 numbered). Then Early Bird at 40% off." },
             ].map((s, i) => (
