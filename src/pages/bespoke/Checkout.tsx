@@ -1,6 +1,6 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Sparkles, ShieldCheck, Lock, RefreshCcw, Scissors, Truck } from "lucide-react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
@@ -17,6 +17,11 @@ import {
   ENGRAVING_POSITIONS,
 } from "@/data/bespoke-options";
 import SEO from "@/components/SEO";
+import {
+  buildPreviewKey,
+  getLatestPreviewUrl,
+  PREVIEW_UPDATED_EVENT,
+} from "@/pages/bespoke/steps";
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-cream/10 last:border-b-0">
