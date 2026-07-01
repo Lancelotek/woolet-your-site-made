@@ -76,6 +76,7 @@ export default function Account() {
   const [scans, setScans] = useState<Scan[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [bespoke, setBespoke] = useState<BespokeConfigRow[]>([]);
+  const [previews, setPreviews] = useState<AiPreview[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [savingProfile, setSavingProfile] = useState(false);
   const [resendState, setResendState] = useState<"idle" | "sending" | "sent">("idle");
