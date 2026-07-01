@@ -1380,7 +1380,7 @@ export function StepLenses({ config, update }: StepProps) {
                 >
                   <img
                     src={l.image}
-                    alt=""
+                    alt={`${l.name} lens option for Woolet Bespoke wide-face eyewear — ${l.description}`}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
