@@ -51,8 +51,8 @@ const WhatsAppButton = () => {
       title="Chat with us on WhatsApp"
       className={[
         "fixed z-50",
-        "bottom-24 md:bottom-6",
-        shiftRight ? "right-24 md:right-4" : "right-4",
+        shiftRight ? "bottom-28 md:bottom-6" : "bottom-24 md:bottom-6",
+        shiftRight ? "right-4 md:right-4" : "right-4",
         "flex items-center justify-center",
         "h-14 w-14 rounded-full",
         "bg-[#25D366] text-white shadow-lg",
