@@ -136,6 +136,17 @@ const ConfiguratorPage = () => {
           </ol>
         </div>
 
+        {/* ── Pay-first notice ── */}
+        <div className="cfg-container mt-6">
+          <div className="cfg-payfirst">
+            <span className="cfg-payfirst__num">01 → 02</span>
+            <p>
+              <strong>Pay for your pattern first.</strong> The made-to-measure fit scan is scheduled <em className="cfg-em">after</em> your payment clears —
+              your frame is then cut in Italy to the exact millimetres of your face.
+            </p>
+          </div>
+        </div>
+
         {/* ── Persistent fit badge ── */}
         <div className="cfg-container mt-6">
           <FitBadge
