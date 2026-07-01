@@ -303,8 +303,10 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       if (!url) throw new Error("No preview returned");
 
       const prev = history[selectionKey] ?? [];
-      const nextList = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)].slice(0, MAX_PER_KEY);
-      persist({ ...history, [selectionKey]: nextList });
+      const combined = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)];
+      const nextList = combined.slice(0, MAX_PER_KEY);
+      const droppedOldRenderTs = combined.length > MAX_PER_KEY ? combined[combined.length - 1].ts : null;
+      persist({ ...history, [selectionKey]: nextList }, { droppedOldRenderTs });
       setActiveUrl(url);
 
       // If the buyer is signed in, mirror the render to their account so it
