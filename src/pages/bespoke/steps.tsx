@@ -192,7 +192,7 @@ export const getLatestPreviewUrl = (key: string): string | null => {
   return list?.[0]?.url ?? null;
 };
 
-const savePreviewHistory = (history: PreviewHistory) => {
+const savePreviewHistory = (history: PreviewHistory): { ok: true } | { ok: false; error: string } => {
   try {
     // Trim keys if we exceed the cap (evict oldest by newest-entry timestamp).
     const entries = Object.entries(history);
@@ -204,8 +204,12 @@ const savePreviewHistory = (history: PreviewHistory) => {
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent(PREVIEW_UPDATED_EVENT));
     }
-  } catch {
-    // localStorage full or unavailable — silently ignore.
+    return { ok: true };
+  } catch (e) {
+    const msg = (e as Error)?.name === "QuotaExceededError"
+      ? "This device's storage is full — older previews won't be remembered."
+      : "Couldn't save preview history on this device (private mode or storage disabled).";
+    return { ok: false, error: msg };
   }
 };
 
