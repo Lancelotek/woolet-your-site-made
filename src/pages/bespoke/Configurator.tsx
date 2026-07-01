@@ -14,6 +14,9 @@ import {
   StepLenses,
   StepNav,
   StepReview,
+  buildPreviewKey,
+  getLatestPreviewUrl,
+  PREVIEW_UPDATED_EVENT,
 } from "./steps";
 
 const PREVIEW_TOKEN = "woolet-preview";
@@ -66,6 +69,22 @@ const ConfiguratorPage = () => {
   const bridgeMm = config.measurements.bridge ?? 22;
   const pdMm = config.measurements.pd ?? 66;
   const fitFromScan = !!config.scanCompletedAt;
+
+  // Latest AI-generated preview for the current selection (frame + acetates + finish).
+  // Reads from the same localStorage store used by AiPreviewPanel and re-checks
+  // whenever the panel dispatches PREVIEW_UPDATED_EVENT.
+  const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+  useEffect(() => {
+    setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    const refresh = () => setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
+    window.addEventListener("storage", refresh);
+    return () => {
+      window.removeEventListener(PREVIEW_UPDATED_EVENT, refresh);
+      window.removeEventListener("storage", refresh);
+    };
+  }, [previewKey]);
 
   const goTo = (n: StepId) => {
     setStep(n);
@@ -213,7 +232,9 @@ const ConfiguratorPage = () => {
                 <div className="cfg-rail__eyebrow">Your build</div>
 
                 <div className="cfg-rail__photo" style={{ background: "#EFE9DF" }}>
-                  {frame ? (
+                  {aiPreviewUrl ? (
+                    <img src={aiPreviewUrl} alt={frame ? `${frame.name} AI preview` : "AI preview"} className="max-h-full max-w-full object-contain" />
+                  ) : frame ? (
                     <img src={frame.url} alt={frame.name} className="max-h-full max-w-[82%] object-contain" />
                   ) : (
                     <div className="cfg-rail__placeholder">Select a pattern</div>
@@ -282,7 +303,7 @@ const ConfiguratorPage = () => {
         {/* ── Mobile sticky CTA ── */}
         <div className="cfg-mobilebar lg:hidden">
           <div className="cfg-mobilebar__thumb">
-            {frame ? <img src={frame.url} alt="" /> : <span>Frame</span>}
+            {aiPreviewUrl ? <img src={aiPreviewUrl} alt="" /> : frame ? <img src={frame.url} alt="" /> : <span>Frame</span>}
           </div>
           <div className="cfg-mobilebar__meta">
             <div className="cfg-mobilebar__name">{frame ? frame.name : "Pick a frame"}</div>

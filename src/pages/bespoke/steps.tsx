@@ -162,14 +162,22 @@ function ColorSwatchGrid({
 // Persist the last few AI renders per selection so the user can revisit
 // previous variations without re-spending AI credits. Keyed by configuration
 // hash → array of { url, ts }. Kept small (max 4 per key, 12 keys total).
-const PREVIEW_HISTORY_KEY = "woolet:bespoke:aiPreviews:v1";
+export const PREVIEW_HISTORY_KEY = "woolet:bespoke:aiPreviews:v1";
+export const PREVIEW_UPDATED_EVENT = "woolet:bespoke:aiPreviewUpdated";
 const MAX_PER_KEY = 4;
 const MAX_KEYS = 12;
 
-type PreviewEntry = { url: string; ts: number };
-type PreviewHistory = Record<string, PreviewEntry[]>;
+export type PreviewEntry = { url: string; ts: number };
+export type PreviewHistory = Record<string, PreviewEntry[]>;
 
-const loadPreviewHistory = (): PreviewHistory => {
+export const buildPreviewKey = (
+  frameId: string | null | undefined,
+  frontId: string | null | undefined,
+  templeId: string | null | undefined,
+  finishId: string | null | undefined,
+) => [frameId, frontId, templeId, finishId].join("|");
+
+export const loadPreviewHistory = (): PreviewHistory => {
   if (typeof window === "undefined") return {};
   try {
     const raw = localStorage.getItem(PREVIEW_HISTORY_KEY);
@@ -177,6 +185,11 @@ const loadPreviewHistory = (): PreviewHistory => {
   } catch {
     return {};
   }
+};
+
+export const getLatestPreviewUrl = (key: string): string | null => {
+  const list = loadPreviewHistory()[key];
+  return list?.[0]?.url ?? null;
 };
 
 const savePreviewHistory = (history: PreviewHistory) => {
@@ -188,6 +201,9 @@ const savePreviewHistory = (history: PreviewHistory) => {
       history = Object.fromEntries(entries.slice(0, MAX_KEYS));
     }
     localStorage.setItem(PREVIEW_HISTORY_KEY, JSON.stringify(history));
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent(PREVIEW_UPDATED_EVENT));
+    }
   } catch {
     // localStorage full or unavailable — silently ignore.
   }
