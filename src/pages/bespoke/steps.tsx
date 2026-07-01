@@ -433,7 +433,32 @@ function AiPreviewPanel({ config }: { config: BespokeConfig }) {
       )}
 
       {error && (
-        <p className="mt-3 text-[11px] text-red-400/90">{error}</p>
+        <p role="alert" className="mt-3 text-[11px] text-red-400/90">
+          {error}{" "}
+          <button
+            type="button"
+            onClick={generate}
+            className="underline underline-offset-2 hover:text-red-300"
+          >
+            Try again
+          </button>
+        </p>
+      )}
+
+      {storageWarning && (
+        <p className="mt-2 text-[11px] text-amber-300/80">{storageWarning}</p>
+      )}
+
+      {cloudSaveState === "saving" && (
+        <p className="mt-2 text-[11px] text-cream-dim/80">Saving to your account…</p>
+      )}
+      {cloudSaveState === "saved" && (
+        <p className="mt-2 text-[11px] text-cream-dim/80">Saved to your account.</p>
+      )}
+      {cloudSaveState === "error" && (
+        <p className="mt-2 text-[11px] text-amber-300/80">
+          Preview is ready, but we couldn&rsquo;t save it to your account. It stays on this device — regenerate to retry the sync.
+        </p>
       )}
 
       <p className="mt-3 text-[10px] text-cream-dim/70 leading-relaxed">
