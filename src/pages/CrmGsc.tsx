@@ -1,5 +1,16 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { supabase } from "@/integrations/supabase/client";
 import { CrmTabs } from "./crm/CrmTabs";
 
