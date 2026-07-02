@@ -605,6 +605,15 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://woolet.co/pl/jak-dobrac-okulary-do-twarzy</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/jak-dobrac-okulary-do-twarzy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/fit/manual"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/fit/manual"/>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://woolet.co/en/blog/best-sunglasses-for-wide-faces</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
