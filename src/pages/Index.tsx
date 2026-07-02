@@ -46,6 +46,11 @@ const seoData: Record<Lang, { title: string; description: string }> = {
     description:
       "Ray-Ban、Persol、Warby Parkerが幅広すぎ？ Wooletは155–172mmの顔に合うイタリア製Mazzucchelliアセテートフレームを設計。EUで手作り。リスト登録で40%オフ。",
   },
+  nl: {
+    title: "Woolet — Italiaans acetaat voor brede gezichten (155 mm+)",
+    description:
+      "Te breed voor Ray-Ban, Persol of Warby Parker? Woolet ontwerpt Italiaanse Mazzucchelli-acetaatmonturen voor gezichten van 155–172 mm. Handgemaakt in de EU.",
+  },
 };
 
 /** Translated copy for the homepage UI. */
