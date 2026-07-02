@@ -23,7 +23,7 @@ export type PlPageConfig = {
   closingH2: string;
   closingBody: string;
   faqs: PlFaq[];
-  englishEquivalent: string;
+  englishEquivalent?: string;
   heroImage?: string;
   heroAlt?: string;
   heroCaption?: string;
@@ -167,7 +167,9 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
       a: 'Trzy sygnały: (1) czerwone ślady po zausznikach za uszami po zdjęciu okularów, (2) ból lub pulsowanie w skroniach po 4–8 godzinach noszenia, (3) źrenice wypadają bliżej wewnętrznej krawędzi soczewek zamiast na środku. Każdy z tych objawów oznacza, że front oprawki jest za wąski — nie da się tego „dotrzeć".',
     },
   ],
-  englishEquivalent: "/en/blog/how-to-measure-face-width-for-glasses",
+  // Intencjonalnie brak englishEquivalent — brak bezpośredniego 1:1 EN.
+  // PL blog /pl/blog/jak-zmierzyc-szerokosc-twarzy-do-okularow jest już sparowany z /en/blog/how-to-measure-face-width-for-glasses;
+  // dodanie drugiego PL → tego samego EN tworzyłoby konflikt hreflang (dwa PL do jednego EN).
   heroImage: manualFitImg.url,
   heroAlt:
     "Jak dobrać okulary do twarzy — diagram pomiaru szerokości twarzy w milimetrach od skroni do skroni z kartą płatniczą jako miarką odniesienia.",
