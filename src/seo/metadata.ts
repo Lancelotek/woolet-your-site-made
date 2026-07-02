@@ -489,7 +489,7 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/italian-mazzucchelli-acetate") {
     return base(route, lang, {
-      title: "Italian Mazzucchelli Acetate Glasses — 158 mm, Hand-Finished | Woolet",
+      title: "Italian Mazzucchelli Acetate Glasses 158 mm | Woolet",
       description:
         "Glasses and sunglasses cut from Mazzucchelli 1849 Italian cellulose acetate. Wide 158 mm front, 21–22 mm bridge, hand-polished in Italy. From $114.",
       noscriptHtml: `<h1>Italian Mazzucchelli Acetate Glasses</h1>
