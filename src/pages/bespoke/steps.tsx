@@ -104,13 +104,18 @@ export function StepFrame({ config, update }: StepProps) {
 function ColorSwatchGrid({
   selected,
   onSelect,
+  thicknessMm,
 }: {
   selected: string | null;
   onSelect: (id: string) => void;
+  /** When set, only swatches with matching `thicknessMm` are shown. Falls back to full list if none are marked. */
+  thicknessMm?: 4 | 6;
 }) {
+  const filtered = thicknessMm ? COLORS.filter((c) => c.thicknessMm === thicknessMm) : COLORS;
+  const list = filtered.length > 0 ? filtered : COLORS;
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-      {COLORS.map((c) => {
+      {list.map((c) => {
         const active = selected === c.id;
         return (
           <button
@@ -523,8 +528,8 @@ export function StepColor({ config, update }: StepProps) {
       </div>
 
       <div>
-        <div className={labelClass}>Temple acetate</div>
-        <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} /></div>
+        <div className={labelClass}>Temple acetate <span className="text-cream-dim/70 font-normal normal-case tracking-normal">— 4 mm sheets only</span></div>
+        <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} thicknessMm={4} /></div>
         {temple && (
           <div className="text-cream text-xs mt-2">{temple.name}</div>
         )}
