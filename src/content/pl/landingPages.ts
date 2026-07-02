@@ -1,4 +1,5 @@
 import manualFitImg from "@/assets/manual-fit-measure.png.asset.json";
+import ogJakDobrac from "@/assets/og-jak-dobrac-okulary.jpg.asset.json";
 
 export type PlFaq = { q: string; a: string };
 
@@ -24,6 +25,7 @@ export type PlPageConfig = {
   faqs: PlFaq[];
   englishEquivalent: string;
   heroImage?: string;
+  ogImage?: string;
 };
 
 export const plPages: Record<string, PlPageConfig> = {
@@ -133,6 +135,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
   ],
   englishEquivalent: "/en/fit/manual",
   heroImage: manualFitImg.url,
+  ogImage: ogJakDobrac.url,
 };
 
 export const plPageOrder = ["okulary-na-zamowienie", "jak-dobrac-okulary-do-twarzy"] as const;
