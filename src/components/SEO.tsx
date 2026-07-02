@@ -48,6 +48,7 @@ const geoMeta: Record<string, { region: string; placename: string }> = {
   de: { region: "DE", placename: "Deutschland" },
   ar: { region: "AE", placename: "العالم العربي" },
   ja: { region: "JP", placename: "日本" },
+  nl: { region: "NL", placename: "Nederland" },
 };
 
 
@@ -165,7 +166,7 @@ const SEO = ({
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content="Woolet" />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:locale" content={lang === "pl" ? "pl_PL" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : lang === "de" ? "de_DE" : lang === "ar" ? "ar_AR" : lang === "ja" ? "ja_JP" : "en_US"} />
+      <meta property="og:locale" content={lang === "pl" ? "pl_PL" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : lang === "de" ? "de_DE" : lang === "ar" ? "ar_AR" : lang === "ja" ? "ja_JP" : lang === "nl" ? "nl_NL" : "en_US"} />
 
       {publishedTime && <meta property="article:published_time" content={publishedTime} />}
       {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}

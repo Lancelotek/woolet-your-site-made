@@ -177,6 +177,7 @@ function ogLocale(lang: Lang): string {
     case "de": return "de_DE";
     case "ar": return "ar_AR";
     case "ja": return "ja_JP";
+    case "nl": return "nl_NL";
     default: return "en_US";
   }
 }
@@ -234,6 +235,11 @@ const homeCopy: Record<Lang, Copy> = {
     title: "Woolet — 幅広い顔のためのプレミアムアイウェア (155mm以上)",
     description:
       "イタリア製Mazzucchelliアセテートのプレミアムアイウェア、幅広い顔（155mm以上）のために設計。3つの計測サイズとビスポーク。プレオーダー$114から。",
+  },
+  nl: {
+    title: "Woolet — Premium bril voor brede gezichten (158 mm)",
+    description:
+      "Italiaanse Mazzucchelli-acetaatbril ontworpen voor bredere gezichten. Eén precieze maat 158 mm, keyhole-brug, met de hand afgewerkt in Italië. Vind je pasvorm in 20 seconden.",
   },
 };
 
@@ -727,6 +733,7 @@ export function getMetadata(route: string): RouteMeta {
       de: { title: "Blog — Woolet | Wissen zu Brillen für breite Gesichter", description: "Expertenwissen zu Brillen für breite Gesichter, italienischem Acetat, Fassungsgrößen und der perfekten Passform ab 155 mm." },
       ar: { title: "المدونة — Woolet | رؤى حول نظارات الوجوه العريضة", description: "أدلة الخبراء حول النظارات للوجوه العريضة، الأسيتات الإيطالي، مقاسات الإطار، والمقاس المثالي من 155 ملم فأكثر." },
       ja: { title: "ブログ — Woolet | 幅広い顔のためのアイウェア知見", description: "幅広い顔のためのメガネ、イタリア製アセテート、フレームサイジング、155mm以上の顔幅に最適なフィットに関する専門ガイド。" },
+      nl: { title: "Blog — Woolet | Inzichten over bril voor brede gezichten", description: "Expertgidsen over brillen voor brede gezichten, Italiaans acetaat, framematen en de perfecte pasvorm vanaf 155 mm." },
 
     };
     return base(route, lang, titles[lang]);

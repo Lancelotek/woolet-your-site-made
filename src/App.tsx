@@ -74,6 +74,7 @@ const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
 const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
+const NlLandingRoute = lazy(() => import("./pages/nl/NlLandingRoute.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -84,7 +85,7 @@ const FitScanRedirect = () => {
 
 /** Root redirect: auto-detect German browsers and send to /de, otherwise /en. */
 const RootRedirect = () => {
-  const SUPPORTED = ["en", "de", "pl", "fr", "es", "ar", "ja"] as const;
+  const SUPPORTED = ["en", "de", "pl", "fr", "es", "ar", "ja", "nl"] as const;
   let target = "/en";
   try {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem("woolet_lang") : null;
@@ -274,6 +275,10 @@ const App = () => (
 
          {/* PL market SEO landing pages */}
          <Route path="/pl/okulary-na-zamowienie" element={<PlLandingRoute />} />
+
+         {/* NL market SEO landing pages (pilot) */}
+         <Route path="/nl/acetaat-bril-op-maat" element={<NlLandingRoute />} />
+         <Route path="/nl/grote-brillen-heren" element={<NlLandingRoute />} />
 
 
 

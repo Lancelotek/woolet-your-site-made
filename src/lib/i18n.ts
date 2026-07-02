@@ -1,4 +1,4 @@
-export const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de", "ar", "ja"] as const;
+export const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl"] as const;
 export type Lang = (typeof SUPPORTED_LANGS)[number];
 
 export function isValidLang(lang: string): lang is Lang {
@@ -664,6 +664,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.scan_cta": "顔をスキャン",
     "nav.shop_label": "ショップ",
   },
+  // NL: pilot market. Empty dictionary — t() falls back to EN automatically.
+  // Only bespoke landing pages exist in NL for now (see src/content/nl/landingPages.ts).
+  nl: {},
 };
 
 export function t(lang: Lang, key: string): string {
@@ -678,5 +681,7 @@ export const langNames: Record<Lang, string> = {
   de: "Deutsch",
   ar: "العربية",
   ja: "日本語",
+  nl: "Nederlands",
 };
+
 

@@ -22,6 +22,7 @@ const seoData: Record<Lang, { title: string; description: string }> = {
   de: { title: "Woolet Kollektion — 007 & 009 für breite Gesichter", description: "Zwei Formen, Breiten 155–172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU." },
   ar: { title: "مجموعة Woolet — 007 و 009 للوجوه العريضة", description: "شكلان، عرض 155–172 ملم. أسيتات Mazzucchelli الإيطالي، صناعة يدوية في الاتحاد الأوروبي." },
   ja: { title: "Wooletコレクション — 幅広い顔のための007 & 009", description: "2つのシェイプ、幅155–172mm。イタリア製Mazzucchelliアセテート、EUで手作り。" },
+  nl: { title: "Woolet Collectie — 007 & 009 voor brede gezichten", description: "Twee vormen, breedtes 155–172 mm. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU." },
 };
 
 
