@@ -31,6 +31,7 @@ const FitScan = lazy(() => import("./pages/FitScan.tsx"));
 const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
 const Payments = lazy(() => import("./pages/Payments.tsx"));
 const Crm = lazy(() => import("./pages/Crm.tsx"));
+const CrmGsc = lazy(() => import("./pages/CrmGsc.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const AdvertorialPage = lazy(() => import("./pages/lp/AdvertorialPage.tsx"));
 const WideBridgeFitGuide = lazy(() => import("./pages/lp/WideBridgeFitGuide.tsx"));
