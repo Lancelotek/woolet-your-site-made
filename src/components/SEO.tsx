@@ -18,6 +18,21 @@ interface SEOProps {
     tags: string[];
   };
   jsonLd?: object | object[];
+  /**
+   * Languages in which THIS route exists with the same path structure.
+   * When provided, emits a full hreflang alternates cluster so Google can
+   * group the translated versions. Use for shared routes like
+   * `/products/007`, `/bespoke`, `/collection`, `/fit` that are mirrored
+   * across locales. Leave undefined for language-unique slugs (blog posts,
+   * FR /lunettes-sur-mesure, DE hub pages, etc.).
+   */
+  availableLangs?: Lang[];
+  /**
+   * Optional per-language path overrides when the slug differs by locale
+   * (e.g. { fr: "/lunettes-sur-mesure", en: "/bespoke" }). Merged with
+   * `availableLangs`; keys present here take priority over `path`.
+   */
+  alternates?: Partial<Record<Lang, string>>;
 }
 
 const SITE_URL = "https://woolet.co";
