@@ -18,6 +18,21 @@ interface SEOProps {
     tags: string[];
   };
   jsonLd?: object | object[];
+  /**
+   * Languages in which THIS route exists with the same path structure.
+   * When provided, emits a full hreflang alternates cluster so Google can
+   * group the translated versions. Use for shared routes like
+   * `/products/007`, `/bespoke`, `/collection`, `/fit` that are mirrored
+   * across locales. Leave undefined for language-unique slugs (blog posts,
+   * FR /lunettes-sur-mesure, DE hub pages, etc.).
+   */
+  availableLangs?: Lang[];
+  /**
+   * Optional per-language path overrides when the slug differs by locale
+   * (e.g. { fr: "/lunettes-sur-mesure", en: "/bespoke" }). Merged with
+   * `availableLangs`; keys present here take priority over `path`.
+   */
+  alternates?: Partial<Record<Lang, string>>;
 }
 
 const SITE_URL = "https://woolet.co";
@@ -49,6 +64,8 @@ const SEO = ({
   image,
   article,
   jsonLd,
+  availableLangs,
+  alternates,
 }: SEOProps) => {
   const fullTitle = title.includes("Woolet") ? title : `${title} | Woolet`;
   const canonical = `${SITE_URL}/${lang}${path}`;
@@ -102,16 +119,37 @@ const SEO = ({
       <meta name="geo.placename" content={geo.placename} />
       <meta name="content-language" content={lang} />
 
-      {/* hreflang: emit full alternate set only for pages that exist in every language
-          (the localised homepages at /{lang}). For per-page routes (blog posts,
-          collections, product pages) only the current lang is emitted, because those
-          slugs don't have 1:1 translations across all locales. */}
+      {/* hreflang:
+          - Homepages (path === ""): emit the full locale cluster.
+          - Shared per-route pages (pass `availableLangs` and/or `alternates`):
+            emit an alternates cluster so Google groups translated versions.
+          - Language-unique slugs (blog posts, FR /lunettes-sur-mesure, etc.):
+            emit only the current lang + x-default self-reference. */}
       {path === "" ? (
         <>
           {SUPPORTED_LANGS.map((l) => (
             <link key={l} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}`} />
           ))}
           <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en`} />
+        </>
+      ) : availableLangs && availableLangs.length > 0 ? (
+        <>
+          {availableLangs.map((l) => {
+            const overridePath = alternates?.[l];
+            const href = overridePath
+              ? `${SITE_URL}/${l}${overridePath.startsWith("/") ? overridePath : `/${overridePath}`}`
+              : `${SITE_URL}/${l}${path}`;
+            return <link key={l} rel="alternate" hrefLang={l} href={href} />;
+          })}
+          <link
+            rel="alternate"
+            hrefLang="x-default"
+            href={
+              alternates?.en
+                ? `${SITE_URL}/en${alternates.en.startsWith("/") ? alternates.en : `/${alternates.en}`}`
+                : `${SITE_URL}/en${path}`
+            }
+          />
         </>
       ) : (
         <>
