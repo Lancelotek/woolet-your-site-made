@@ -106,8 +106,7 @@ Deno.serve(async (req) => {
       ? body.product
       : null;
 
-    const admin2 = admin;
-    void admin2;
+
 
 
     const leadsQuery = admin
