@@ -413,6 +413,51 @@ export type Database = {
         }
         Relationships: []
       }
+      reservation_leads: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          locale: string | null
+          notes: string | null
+          phone: string | null
+          product: string
+          referrer: string | null
+          user_agent: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          locale?: string | null
+          notes?: string | null
+          phone?: string | null
+          product: string
+          referrer?: string | null
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          locale?: string | null
+          notes?: string | null
+          phone?: string | null
+          product?: string
+          referrer?: string | null
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: []
+      }
       scan_sessions: {
         Row: {
           access_token: string | null
