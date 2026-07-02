@@ -120,60 +120,139 @@ export const plPages: Record<string, PlPageConfig> = {
 plPages["jak-dobrac-okulary-do-twarzy"] = {
   slug: "jak-dobrac-okulary-do-twarzy",
   eyebrow: "Woolet · Poradnik doboru",
-  h1: "Jak dobrać okulary do twarzy — przewodnik po szerokości i kształcie",
-  sub: "Zmierz szerokość twarzy w 20 sekund telefonem albo miarką krawiecką i sprawdź, która oprawa (155, 158 czy 161 mm) będzie leżeć bez zsuwania i uciskania skroni.",
-  metaTitle: "Jak dobrać okulary do twarzy — rozmiar oprawek 155–172 mm | Woolet",
+  h1: "Jak dobrać okulary do twarzy — kształt, rozmiar i dopasowanie",
+  sub: "Dobór okularów to dwie rzeczy: kształt (estetyka) i rozmiar w milimetrach (komfort). Ten poradnik prowadzi przez obie — plus skan FitLens telefonem w około 20 sekund.",
+  metaTitle: "Jak dobrać okulary do twarzy: kształt, rozmiar w mm, dopasowanie (2026) | Woolet",
   metaDescription:
-    "Jak dobrać okulary do twarzy: zmierz szerokość między skrońmi i dopasuj oprawę 155, 158 lub 161 mm. Poradnik + darmowy pomiar FitLens w 20 sekund. Włoski octan Mazzucchelli.",
+    "Jak dobrać okulary do twarzy krok po kroku: kształt twarzy, rozmiar okularów w milimetrach, szerokość mostka i skan FitLens w 20 sekund. Poradnik 2026.",
   primaryKeyword: "jak dobrać okulary do twarzy",
   ctaPrimaryLabel: "Zmierz twarz (20 s)",
-  ctaPrimaryHref: "/pl/fit",
-  ctaSecondaryLabel: "Zobacz oprawy 155–161 mm",
+  ctaPrimaryHref: "/en/fit",
+  ctaSecondaryLabel: "Zobacz oprawy Woolet",
   ctaSecondaryHref: "/en/collection",
   problemH2: "Dlaczego okulary zsuwają się z nosa albo uciskają skronie",
   problemBody:
-    "90% oprawek dostępnych w salonach ma szerokość frontu 135–148 mm — projektowaną pod przeciętną szerokość twarzy. Jeśli twoja twarz między skrońmi ma powyżej 150 mm, standardowa oprawa dosłownie „siedzi na skroniach”, zostawia ślady i po godzinie boli. Za wąska oprawa spycha też nos do przodu, przez co okulary zsuwają się, choć zauszniki są dokręcone.",
-  proofH2: "Wystarczy jeden pomiar — szerokość między skrońmi",
+    "Większość osób dobiera okulary „na oko" — i dlatego oprawki uciskają skronie, zsuwają się z nosa albo wyglądają na za małe. 90% opraw w salonach ma szerokość frontu 135–148 mm, projektowaną pod przeciętną twarz. Jeśli twoja szerokość między skrońmi przekracza 150 mm, standardowa oprawa dosłownie „siedzi na skroniach" — zostawia ślady, spycha nos i po godzinie boli.",
+  proofH2: "Rozmiar w milimetrach jest ważniejszy niż kształt twarzy",
   proofBody:
-    "Nie musisz znać kształtu twarzy (owalny, kwadratowy, serce). Do doboru rozmiaru oprawy liczy się jeden wymiar: szerokość między skrońmi w milimetrach. Zmierz miarką krawiecką od jednej skroni do drugiej — na wysokości brwi, tuż przed uszami. Ten wynik mapujemy na konkretną oprawę.",
+    "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 150 do 172 mm co 1 mm.",
   proofBullets: [
-    { label: "Poniżej 145 mm", value: "Bespoke wąski (150 mm)" },
-    { label: "145 – 155 mm", value: "Oprawa 155 mm" },
-    { label: "155 – 160 mm", value: "Oprawa 158 mm" },
-    { label: "Powyżej 160 mm", value: "Oprawa 161 mm lub bespoke (do 172)" },
+    { label: "Poniżej 145 mm", value: "Standardowe oprawki z salonów" },
+    { label: "145 – 154 mm", value: "Bespoke Woolet (150–154 mm)" },
+    { label: "155 mm i więcej", value: "Woolet 007 / 009 — 158 mm" },
+    { label: "Powyżej 165 mm", value: "Bespoke Woolet (do 172 mm)" },
   ],
   closingH2: "Zmierz raz, zamawiaj bez ryzyka",
   closingBody:
-    "FitLens używa aparatu w telefonie i wyznacza szerokość twarzy z dokładnością do milimetra w 20 sekund — bez instalacji, bez wysyłania zdjęć. Wynik od razu mówi, która oprawa Woolet będzie leżeć.",
+    "FitLens używa aparatu w telefonie i wyznacza szerokość twarzy, mostka i rozstaw źrenic z jednego zdjęcia — w około 20 sekund. Bez instalacji, bez wysyłania zdjęć. Zdjęcie zostaje w twojej przeglądarce.",
   faqs: [
     {
-      q: "Jak dobrać rozmiar okularów do twarzy bez wizyty w salonie?",
-      a: "Zmierz szerokość twarzy między skrońmi miarką krawiecką (na wysokości brwi, tuż przed uszami). Wynik w milimetrach odpowiada szerokości frontu oprawy: 145–155 mm → oprawa 155 mm, 155–160 mm → 158 mm, powyżej 160 mm → 161 mm lub bespoke.",
+      q: "Jak dobrać rozmiar okularów?",
+      a: "Zmierz szerokość twarzy między skrońmi — na wysokości brwi, tuż przed uszami. Wynik w milimetrach porównaj z całkowitą szerokością oprawki: (szerokość soczewki × 2) + mostek + ok. 10 mm na zawiasy. Woolet 007 i 009 mają szerokość frontu 158 mm — dla twarzy 155 mm i więcej.",
     },
     {
-      q: "Co jest ważniejsze — kształt twarzy czy szerokość?",
-      a: "Szerokość. Kształt (owalny, okrągły, kwadratowy) wpływa na estetykę, ale to szerokość między skrońmi decyduje, czy oprawa fizycznie leży, czy uciska. Najpierw dobierz rozmiar, potem kształt.",
+      q: "Jak zmierzyć okulary, które już mam?",
+      a: "Trzy liczby wygrawerowane na wewnętrznej stronie zausznika: np. 54 □ 21 – 148. Pierwsza to szerokość soczewki (mm), druga to szerokość mostka, trzecia to długość zausznika. Woolet 007: 52 □ 21 – 148. Woolet 009: 54 □ 22 – 148.",
     },
     {
-      q: "Jak zmierzyć szerokość twarzy telefonem?",
-      a: "Nasze narzędzie FitLens używa aparatu w telefonie i wyznacza szerokość twarzy z dokładnością do milimetra w około 20 sekund. Nie zapisujemy zdjęć — pomiar odbywa się lokalnie w przeglądarce.",
+      q: "Jakie okulary do okrągłej twarzy?",
+      a: "Kwadratowe lub prostokątne — dodają kontrastu i optycznie wydłużają twarz. Unikaj okrągłych i owalnych oprawek, które powielają kształt twarzy. Ale najpierw upewnij się, że rozmiar jest odpowiedni — źle dopasowany kształt w dobrym rozmiarze wygląda lepiej niż dobrze dobrany kształt w za wąskiej oprawce.",
     },
     {
-      q: "Czy oprawki 155 mm i wyżej pasują tylko do mężczyzn?",
-      a: "Nie. Około 1 na 4 kobiety ma szerokość twarzy powyżej 148 mm i standardowe damskie oprawki (130–142 mm) są dla nich za wąskie. Rozmiar oprawki nie ma płci — liczy się liczba w milimetrach.",
+      q: "Czy okulary mogą być szersze niż twarz?",
+      a: "Tak — do około 5 mm. Za szerokie oprawki wyglądają współcześnie i nie powodują dyskomfortu. Prawdziwym problemem są oprawki za wąskie — uciskają skronie, zsuwają się z nosa i po kilku godzinach powodują ból głowy.",
     },
     {
-      q: "Co jeśli mam szerokość poniżej 145 mm?",
-      a: "Standardowa kolekcja Woolet startuje od 155 mm i jest zaprojektowana dla szerszych twarzy. Poniżej 145 mm warto rozważyć zwykłe oprawki dostępne w salonach albo naszą opcję bespoke (od 150 mm).",
+      q: "Skąd mam wiedzieć, że okulary są za małe?",
+      a: "Trzy sygnały: (1) czerwone ślady po zausznikach za uszami po zdjęciu okularów, (2) ból lub pulsowanie w skroniach po 4–8 godzinach noszenia, (3) źrenice wypadają bliżej wewnętrznej krawędzi soczewek zamiast na środku. Każdy z tych objawów oznacza, że front oprawki jest za wąski — nie da się tego „dotrzeć".",
     },
   ],
-  englishEquivalent: "/en/fit/manual",
+  englishEquivalent: "/en/blog/how-to-measure-face-width-for-glasses",
   heroImage: manualFitImg.url,
   heroAlt:
     "Jak dobrać okulary do twarzy — diagram pomiaru szerokości twarzy w milimetrach od skroni do skroni z kartą płatniczą jako miarką odniesienia.",
   heroCaption:
     "Pomiar skroń–skroń kartą płatniczą (85,6 mm) — tak wyznaczasz szerokość oprawek okularów w milimetrach.",
   ogImage: ogJakDobrac.url,
+  extendedContent: {
+    faceShapes: {
+      h2: "Jakie okulary do jakiej twarzy — kształt",
+      intro:
+        "Pięć podstawowych kształtów twarzy i oprawki, które je najlepiej równoważą. To zasady stylizacji, nie fizyki dopasowania.",
+      items: [
+        { shape: "Twarz okrągła", recommendation: "Oprawki kwadratowe lub prostokątne — dodają kontrastu i optycznie wydłużają rysy." },
+        { shape: "Twarz kwadratowa", recommendation: "Oprawki okrągłe, owalne lub aviator — łagodzą mocną linię szczęki." },
+        { shape: "Twarz owalna", recommendation: "Uniwersalna — pasują niemal wszystkie kształty. Trzymaj się szerokości zbliżonej do skroni." },
+        { shape: "Twarz w kształcie serca (trójkątna)", recommendation: "Oprawki cięższe u dołu (aviator, bottom-heavy) — balansują szeroką linię czoła." },
+        { shape: "Twarz podłużna", recommendation: "Oprawki szerokie i głębokie (large frames) — optycznie skracają twarz." },
+      ],
+      counterpoint:
+        "Kształt to jednak dopiero połowa. Najczęstszy błąd to nie zły kształt — to za wąskie oprawki. Idealny kształt w rozmiarze 140 mm na twarzy 158 mm nadal będzie uciskać skronie.",
+    },
+    sizeExplainer: {
+      h2: "Rozmiar okularów — co znaczą trzy liczby na zauszniku",
+      intro:
+        "Na wewnętrznej stronie zausznika znajdziesz zapis w stylu 54 □ 21 – 148. To trzy kluczowe wymiary: szerokość soczewki (54 mm), szerokość mostka (21 mm), długość zausznika (148 mm). Całkowita szerokość frontu oprawki to (soczewka × 2) + mostek + ok. 10 mm na zawiasy. Dla 54 □ 21 to 129 mm front — czyli oprawka pod twarz około 125–132 mm.",
+      formulaLabel: "Wzór na szerokość frontu",
+      formula: "(szerokość soczewki × 2) + mostek + ~10 mm zawiasy",
+      bandsTitle: "Bandy szerokości twarzy",
+      bands: [
+        { range: "poniżej 130 mm", label: "wąska twarz — większość opraw damskich" },
+        { range: "130 – 137 mm", label: "standardowa — bestselling range w salonach" },
+        { range: "138 – 144 mm", label: "szeroka — jeszcze dostępna w salonach" },
+        { range: "145 – 154 mm", label: "bardzo szeroka — trudno znaleźć, głównie bespoke" },
+        { range: "155 mm i więcej", label: "poza standardowym rynkiem — Woolet 158 mm", highlight: true },
+      ],
+    },
+    measureSteps: {
+      h2: "Jak zmierzyć twarz do okularów w domu",
+      steps: [
+        {
+          title: "Szerokość twarzy",
+          body: "Przyłóż linijkę poziomo na wysokości skroni, tuż nad uszami. Zmierz odległość między skrajnymi punktami skroni w milimetrach. To twój master number.",
+        },
+        {
+          title: "Szerokość mostka",
+          body: "Zmierz szerokość nosa około 12 mm poniżej linii brwi — w miejscu, w którym siada mostek okularów. Ta wartość to twoja minimalna szerokość mostka.",
+        },
+        {
+          title: "Rozstaw źrenic (PD)",
+          body: "Stań przed lustrem, patrz prosto. Zmierz odległość między środkami źrenic. U szerszych twarzy PD często wynosi 65–70 mm — standardowe oprawki mają rozstaw optyczny 60–64 mm.",
+        },
+      ],
+      ctaCard: {
+        text: "Nie chcesz mierzyć linijką? FitLens mierzy szerokość twarzy, mostek i rozstaw źrenic z jednego zdjęcia telefonem — w około 20 sekund. Zdjęcie zostaje w twojej przeglądarce.",
+        ctaLabel: "Zmierz twarz w 20 sekund",
+        ctaHref: "/en/fit",
+      },
+    },
+    fitRules: {
+      h2: "Dopasowanie okularów do twarzy — 3 zasady, których używają optycy",
+      rules: [
+        {
+          title: "Zasada źrenic",
+          body: "Źrenice powinny wypadać dokładnie na środku soczewek — zarówno w poziomie, jak i w pionie. Jeśli źrenice są bliżej wewnętrznej krawędzi soczewki, oprawka jest za wąska.",
+        },
+        {
+          title: "Zasada kości policzkowych",
+          body: "Zewnętrzna krawędź oprawki powinna sięgać krawędzi kości policzkowych — nie wchodzić na nie, nie kończyć się przed nimi. To najprostszy test szerokości frontu.",
+        },
+        {
+          title: "Zasada zero nacisku",
+          body: "Dobrze dobrane okulary trzymają się geometrią — nos plus uszy — a nie ściskaniem głowy. Jeśli po 8 godzinach noszenia bolą cię skronie, oprawki są za wąskie. Tego się nie „dotrze".",
+        },
+      ],
+    },
+    brandSection: {
+      h2: "A jeśli masz szeroką twarz?",
+      body:
+        "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 21–22 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie we Włoszech. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 150–172 mm co 1 mm.",
+      ctas: [
+        { label: "Zobacz modele 007 i 009", href: "/en/collection", primary: true },
+        { label: "Dołącz do listy VIP", href: "/en/vip-join" },
+      ],
+    },
+  },
 };
 
 export const plPageOrder = ["okulary-na-zamowienie", "jak-dobrac-okulary-do-twarzy"] as const;
