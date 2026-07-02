@@ -105,6 +105,39 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
         <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+        {config.extendedContent?.measureSteps && (
+          <script type="application/ld+json">{JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: config.extendedContent.measureSteps.h2,
+            description: config.metaDescription,
+            totalTime: "PT5M",
+            supply: [
+              { "@type": "HowToSupply", name: "Linijka lub miarka krawiecka" },
+              { "@type": "HowToSupply", name: "Lustro" },
+            ],
+            tool: [{ "@type": "HowToTool", name: "Telefon z aparatem (opcjonalnie — FitLens)" }],
+            step: config.extendedContent.measureSteps.steps.map((s, i) => ({
+              "@type": "HowToStep",
+              position: i + 1,
+              name: s.title,
+              text: s.body,
+            })),
+          })}</script>
+        )}
+        {config.extendedContent && (
+          <script type="application/ld+json">{JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: config.h1,
+            description: config.metaDescription,
+            image: ogImageUrl,
+            author: { "@type": "Organization", name: "Woolet" },
+            publisher: { "@type": "Organization", name: "Woolet", logo: { "@type": "ImageObject", url: `${SITE}/og-image.png` } },
+            inLanguage: "pl-PL",
+            mainEntityOfPage: canonical,
+          })}</script>
+        )}
       </Helmet>
 
       <main style={{ background: colors.ink, color: colors.cream, minHeight: "100vh" }}>
