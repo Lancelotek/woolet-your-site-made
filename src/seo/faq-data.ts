@@ -76,7 +76,7 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
     },
     {
       q: "How big is too big for sunglasses on a wide face?",
-      a: "If the frame front is wider than 172 mm it starts to overhang the face. Woolet's standard 158 mm covers 155–161 mm faces; bespoke extends to 172 mm before overhang becomes a problem.",
+      a: "If the frame front is wider than 165 mm it starts to overhang the face. Woolet's standard 158 mm covers 155–161 mm faces; bespoke extends to 165 mm before overhang becomes a problem.",
     },
     {
       q: "Round or square sunglasses for a wide face?",
