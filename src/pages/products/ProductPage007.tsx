@@ -225,7 +225,7 @@ const ProductPage007 = () => {
                         cursor: "pointer",
                       }}
                     >
-                      <img src={c.img} alt={c.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                      <img src={c.img} alt={`Woolet 007 wide-fit acetate glasses in ${c.name} — color swatch`} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                     </button>
                   );
                 })}
