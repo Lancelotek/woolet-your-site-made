@@ -5,15 +5,15 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import bespokeHero from "@/assets/bespoke-hero.png.asset.json";
-import craft1 from "@/assets/bespoke-craft/craft-1.jpg.asset.json";
-import craft2 from "@/assets/bespoke-craft/craft-2.jpg.asset.json";
-import craft3 from "@/assets/bespoke-craft/craft-3.jpg.asset.json";
-import craft4 from "@/assets/bespoke-craft/craft-4.jpg.asset.json";
-import craft5 from "@/assets/bespoke-craft/craft-5.jpg.asset.json";
-import craft6 from "@/assets/bespoke-craft/craft-6.jpg.asset.json";
-import craft7 from "@/assets/bespoke-craft/craft-7.jpg.asset.json";
-import craft8 from "@/assets/bespoke-craft/craft-8.jpg.asset.json";
-import craft9 from "@/assets/bespoke-craft/craft-9.jpg.asset.json";
+import craft1 from "@/assets/bespoke-craft/woolet-bespoke-hand-filing-acetate-frame.jpg.asset.json";
+import craft2 from "@/assets/bespoke-craft/woolet-bespoke-acetate-template-frame-blank.jpg.asset.json";
+import craft3 from "@/assets/bespoke-craft/woolet-bespoke-milling-acetate-bridge.jpg.asset.json";
+import craft4 from "@/assets/bespoke-craft/woolet-bespoke-hinge-core-acetate-temple.jpg.asset.json";
+import craft5 from "@/assets/bespoke-craft/woolet-bespoke-polishing-cotton-wheel.jpg.asset.json";
+import craft6 from "@/assets/bespoke-craft/woolet-bespoke-mirror-polish-finish.jpg.asset.json";
+import craft7 from "@/assets/bespoke-craft/woolet-bespoke-jigsaw-cutting-acetate-front.jpg.asset.json";
+import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-bridge.jpg.asset.json";
+import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
 type AtelierCopy = {
@@ -269,6 +269,30 @@ const BespokePage = () => {
         { "@type": "ListItem", position: 2, name: "Bespoke", item: "https://woolet.co/en/bespoke" },
       ],
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      name: "Inside the Woolet bespoke atelier",
+      description:
+        "Hand-crafted process for Woolet bespoke acetate frames: template, cutting, filing, bridge milling, hinge fitting, and mirror polishing.",
+      about: "Woolet bespoke eyewear atelier",
+      image: GALLERY_LAYOUT.map((img, i) => ({
+        "@type": "ImageObject",
+        contentUrl: img.src,
+        url: img.src,
+        width: 1620,
+        height: 1080,
+        name: ATELIER_I18N.en.alts[i],
+        caption: ATELIER_I18N.en.alts[i],
+        description: ATELIER_I18N.en.alts[i],
+        creditText: "Woolet atelier",
+        creator: { "@type": "Organization", name: "Woolet" },
+        copyrightNotice: "© Woolet",
+        license: "https://woolet.co/en/privacy-policy",
+        acquireLicensePage: "https://woolet.co/en/bespoke",
+        encodingFormat: "image/jpeg",
+      })),
+    },
   ];
 
   return (
@@ -515,7 +539,11 @@ const BespokePage = () => {
                     <img
                       src={img.src}
                       alt={atelier.alts[i]}
+                      title={atelier.alts[i]}
+                      width={1620}
+                      height={1080}
                       loading="lazy"
+                      decoding="async"
                       className={`w-full h-full object-cover ${img.ratio} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
                     />
                     <div
@@ -572,6 +600,10 @@ const BespokePage = () => {
                   key={GALLERY_LAYOUT[lightbox].key}
                   src={GALLERY_LAYOUT[lightbox].src}
                   alt={atelier.alts[lightbox]}
+                  title={atelier.alts[lightbox]}
+                  width={1620}
+                  height={1080}
+                  decoding="async"
                   className="max-w-[92vw] max-h-[78vh] object-contain shadow-2xl animate-in fade-in zoom-in-95 duration-300"
                 />
                 <figcaption className="mt-4 text-center text-white/70 text-xs sm:text-sm max-w-2xl px-4 leading-relaxed">
