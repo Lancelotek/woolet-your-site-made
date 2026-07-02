@@ -83,13 +83,22 @@ const CrmGsc = () => {
   }, {});
 
   return (
-    <div style={{ minHeight: "100vh", background: T.bg, color: T.ink, fontFamily: SANS, padding: "48px 24px" }}>
+    <div style={{ minHeight: "100vh", background: T.bg, color: T.ink, fontFamily: SANS }}>
       <Helmet>
         <title>GSC CTR Tracking · Woolet</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <header style={{ borderBottom: `1px solid ${T.hair}`, padding: "18px 24px" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+          <div style={{ fontFamily: SERIF, fontSize: 22, letterSpacing: "0.02em" }}>
+            Woolet <em style={{ color: T.gold }}>CRM</em>
+          </div>
+          <CrmTabs current="gsc" />
+        </div>
+      </header>
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "36px 24px 80px" }}>
         <h1 style={{ fontFamily: SERIF, fontSize: 32, fontWeight: 400, marginBottom: 8 }}>
           GSC CTR Tracking
         </h1>
@@ -97,6 +106,7 @@ const CrmGsc = () => {
           Daily snapshot of Search Console CTR + position for the two rewritten blog pages.
           Snapshot runs automatically at 09:15 UTC (data lag ~3 days).
         </p>
+
 
         <div style={{ display: "flex", gap: 12, alignItems: "flex-end", marginBottom: 32, flexWrap: "wrap" }}>
           <div>
