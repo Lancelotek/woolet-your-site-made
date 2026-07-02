@@ -2080,7 +2080,9 @@ export default function FitWizard() {
         description="Measure your face width in 30 seconds with a credit card and your camera. Confirms whether 158 mm fits."
         lang={lang}
         path="/fit"
+        availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
       />
+
 
       <style>{`
         @keyframes fitPulse {

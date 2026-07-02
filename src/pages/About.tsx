@@ -10,7 +10,9 @@ const About = () => {
         description="Why we make one precise size (158 mm) in Italian Mazzucchelli acetate. Founder story, factory, fit philosophy."
         lang="en"
         path="/about"
+        availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
       />
+
       <Navbar />
 
       <main className="min-h-screen bg-background text-foreground">

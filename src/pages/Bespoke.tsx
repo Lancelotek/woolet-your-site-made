@@ -302,8 +302,11 @@ const BespokePage = () => {
         description="Bespoke acetate glasses hand-crafted in Italy from your AI face scan. Face widths 150–172 mm, 21 mm keyhole bridge, Mazzucchelli acetate. $299 for the first 100 backers."
         lang="en"
         path="/bespoke"
+        availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
+        alternates={{ fr: "/lunettes-sur-mesure" }}
         jsonLd={jsonLd}
       />
+
       <Navbar />
 
       <main className="bg-background text-foreground min-h-screen">

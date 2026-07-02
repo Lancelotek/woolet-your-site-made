@@ -103,8 +103,10 @@ const Process = () => {
         description={PROCESS_META.description}
         lang="en"
         path="/process"
+        availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
         jsonLd={HOW_TO_JSON_LD}
       />
+
       <Navbar />
 
       <main className="min-h-screen bg-background text-foreground">

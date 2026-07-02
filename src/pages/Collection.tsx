@@ -37,7 +37,7 @@ const Collection = () => {
 
   return (
     <>
-      <SEO title={seo.title} description={seo.description} lang={lang} />
+      <SEO title={seo.title} description={seo.description} lang={lang} path="/collection" availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]} />
       <div className="min-h-screen flex flex-col bg-background text-foreground">
         <Navbar />
 
