@@ -28,6 +28,38 @@ export type PlPageConfig = {
   heroAlt?: string;
   heroCaption?: string;
   ogImage?: string;
+  extendedContent?: PlExtendedContent;
+};
+
+export type PlExtendedContent = {
+  faceShapes?: {
+    h2: string;
+    intro?: string;
+    items: { shape: string; recommendation: string }[];
+    counterpoint?: string;
+  };
+  sizeExplainer?: {
+    h2: string;
+    intro: string;
+    formulaLabel?: string;
+    formula?: string;
+    bandsTitle?: string;
+    bands: { range: string; label: string; highlight?: boolean }[];
+  };
+  measureSteps?: {
+    h2: string;
+    steps: { title: string; body: string }[];
+    ctaCard: { text: string; ctaLabel: string; ctaHref: string };
+  };
+  fitRules?: {
+    h2: string;
+    rules: { title: string; body: string }[];
+  };
+  brandSection?: {
+    h2: string;
+    body: string;
+    ctas: { label: string; href: string; primary?: boolean }[];
+  };
 };
 
 export const plPages: Record<string, PlPageConfig> = {
