@@ -1226,7 +1226,7 @@ function EngravingPreview({
         </svg>
       </div>
       <p className="text-cream-dim/70 text-[0.78rem] mt-2 text-center">
-        Indicative · final depth and kerning set by the laser operator.
+        Indicative · CNC-engraved by our Italian atelier. Left temple only — right temple carries the Woolet logo.
       </p>
     </div>
   );
