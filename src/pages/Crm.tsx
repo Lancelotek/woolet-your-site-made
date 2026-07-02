@@ -263,7 +263,7 @@ export default function Crm() {
                   <tbody>
                     {rows.length === 0 && !loading && (
                       <tr>
-                        <td colSpan={8} style={{ padding: "40px 14px", textAlign: "center", color: T.inkMute }}>
+                        <td colSpan={9} style={{ padding: "40px 14px", textAlign: "center", color: T.inkMute }}>
                           No reservations yet.
                         </td>
                       </tr>
@@ -293,6 +293,22 @@ export default function Crm() {
                           {[r.utm_source, r.utm_medium, r.utm_campaign].filter(Boolean).join(" · ") || "—"}
                         </td>
                         <td style={{ padding: "11px 14px", color: T.inkMute, fontSize: 11 }}>{r.environment || "—"}</td>
+                        <td style={{ padding: "11px 14px", textAlign: "right" }}>
+                          <button
+                            onClick={() => handleDelete(r)}
+                            disabled={deletingKey === `${r.email}-${r.status}`}
+                            title="Delete reservation"
+                            style={{
+                              padding: "6px 10px", cursor: "pointer",
+                              background: "transparent", color: "#e57373",
+                              border: `1px solid rgba(229,115,115,0.35)`, borderRadius: 2,
+                              fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase",
+                              opacity: deletingKey === `${r.email}-${r.status}` ? 0.5 : 1,
+                            }}
+                          >
+                            {deletingKey === `${r.email}-${r.status}` ? "…" : "Delete"}
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
