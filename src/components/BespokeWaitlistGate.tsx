@@ -73,8 +73,13 @@ const BespokeWaitlistGate = () => {
   const [consentTouched, setConsentTouched] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [mode, setMode] = useState<"email" | "password">("email");
-  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState<"password" | "email">("password");
+  const [password, setPassword] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      return (params.get("access") || params.get("code") || params.get("password") || "").trim();
+    } catch { return ""; }
+  });
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
   useEffect(() => {
