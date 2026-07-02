@@ -127,7 +127,7 @@ function ColorSwatchGrid({
             <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
               <img
                 src={c.image}
-                alt={`Mazzucchelli acetate ${c.code} — ${c.name}`}
+                alt={`Italian acetate — ${c.name}`}
                 loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
@@ -141,13 +141,7 @@ function ColorSwatchGrid({
               )}
             </div>
             <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
-              <div
-                className="font-mono text-[10px] uppercase tracking-[0.14em] text-gold-light/90"
-                style={{ letterSpacing: "0.14em" }}
-              >
-                {c.code}
-              </div>
-              <div className="mt-0.5 text-cream text-[11px] truncate">{c.name}</div>
+              <div className="text-cream text-[12px] truncate">{c.name}</div>
               {c.note && (
                 <div className="text-cream-dim text-[10px] italic truncate">{c.note}</div>
               )}
