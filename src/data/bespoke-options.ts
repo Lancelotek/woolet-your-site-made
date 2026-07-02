@@ -97,9 +97,11 @@ export const ENGRAVING_MAX_CHARS = 20;
 export const ENGRAVING_POSITIONS = [
   { id: "inner-left", name: "Inner left temple (right temple carries the Woolet logo)" },
 ] as const;
+// Single house font for personal engraving. Loaded from Google Fonts so it renders
+// identically on Mac/Linux/iOS previews (Malgun Gothic ships only with Windows;
+// Noto Sans KR is Google's cross-platform equivalent from the same humanist family).
 export const ENGRAVING_FONTS = [
-  { id: "malgun",   name: "Malgun Gothic", cssFamily: "'Malgun Gothic', 'Segoe UI', sans-serif" },
-  { id: "gabriola", name: "Gabriola",       cssFamily: "'Gabriola', 'Segoe Script', cursive" },
+  { id: "malgun", name: "Malgun Gothic", cssFamily: "'Noto Sans KR', 'Malgun Gothic', 'Segoe UI', sans-serif" },
 ] as const;
 
 export interface LensType {
