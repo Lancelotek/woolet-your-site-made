@@ -1328,7 +1328,7 @@ export function StepLenses({ config, update }: StepProps) {
         <div className={sectionKicker}>Step 5</div>
         <h2 className={sectionTitle}>Lenses & prescription</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Choose plano if you already have lenses cut at your optician.
+          Every frame ships with lenses cut and fitted — plano (no correction) starts at €20, same as sun lenses. Choose plano if you plan to send the frame to your own optician for prescription lenses.
         </p>
       </header>
 
