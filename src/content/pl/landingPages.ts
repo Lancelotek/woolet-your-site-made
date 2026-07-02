@@ -25,6 +25,8 @@ export type PlPageConfig = {
   faqs: PlFaq[];
   englishEquivalent: string;
   heroImage?: string;
+  heroAlt?: string;
+  heroCaption?: string;
   ogImage?: string;
 };
 
