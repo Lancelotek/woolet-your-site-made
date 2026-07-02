@@ -1,5 +1,16 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { supabase } from "@/integrations/supabase/client";
 import { CrmTabs } from "./crm/CrmTabs";
 
@@ -157,6 +168,22 @@ const CrmGsc = () => {
 
         {Object.entries(byPage).map(([page, prows]) => {
           const flagCount = prows.filter((r) => r.threshold_met === false).length;
+          const thresholdCtr = prows.find((r) => r.threshold_ctr != null)?.threshold_ctr ?? null;
+
+          // Build chart data: one row per date, one field per query with CTR%
+          const queries = Array.from(new Set(prows.map((r) => r.query)));
+          const dateMap = new Map<string, Record<string, number | string>>();
+          for (const r of prows) {
+            const key = r.snapshot_date;
+            if (!dateMap.has(key)) dateMap.set(key, { date: key });
+            const row = dateMap.get(key)!;
+            if (r.impressions >= 10) row[r.query] = Number((r.ctr * 100).toFixed(2));
+          }
+          const chartData = Array.from(dateMap.values()).sort((a, b) =>
+            String(a.date).localeCompare(String(b.date)),
+          );
+          const lineColors = [T.gold, "#7fc48c", "#7fb4e0", "#e0a87f"];
+
           return (
             <section key={page} style={{ marginBottom: 40 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
@@ -165,6 +192,55 @@ const CrmGsc = () => {
                   {flagCount > 0 ? `⚠ ${flagCount} day(s) below threshold` : "✓ meeting threshold"}
                 </span>
               </div>
+
+              {chartData.length > 0 && (
+                <div style={{ background: T.panel, border: `1px solid ${T.hair}`, padding: "16px 12px 8px", marginBottom: 12, height: 260 }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={chartData} margin={{ top: 8, right: 16, left: -8, bottom: 0 }}>
+                      <CartesianGrid stroke={T.hair} strokeDasharray="3 3" vertical={false} />
+                      <XAxis
+                        dataKey="date"
+                        tick={{ fill: T.inkMute, fontSize: 11 }}
+                        tickFormatter={(v: string) => v.slice(5)}
+                        stroke={T.hair}
+                      />
+                      <YAxis
+                        tick={{ fill: T.inkMute, fontSize: 11 }}
+                        tickFormatter={(v: number) => `${v}%`}
+                        stroke={T.hair}
+                        width={44}
+                      />
+                      <Tooltip
+                        contentStyle={{ background: T.bg, border: `1px solid ${T.hair}`, fontSize: 12, color: T.ink }}
+                        labelStyle={{ color: T.inkDim }}
+                        formatter={(v: number) => `${v.toFixed(2)}%`}
+                      />
+                      <Legend wrapperStyle={{ fontSize: 11, color: T.inkDim, paddingTop: 4 }} />
+                      {thresholdCtr != null && (
+                        <ReferenceLine
+                          y={thresholdCtr * 100}
+                          stroke={T.bad}
+                          strokeDasharray="4 4"
+                          label={{ value: `target ${(thresholdCtr * 100).toFixed(1)}%`, fill: T.bad, fontSize: 10, position: "insideTopRight" }}
+                        />
+                      )}
+                      {queries.map((q, i) => (
+                        <Line
+                          key={q}
+                          type="monotone"
+                          dataKey={q}
+                          stroke={lineColors[i % lineColors.length]}
+                          strokeWidth={2}
+                          dot={{ r: 2 }}
+                          activeDot={{ r: 4 }}
+                          connectNulls
+                        />
+                      ))}
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
+
               <div style={{ overflowX: "auto", border: `1px solid ${T.hair}` }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
                   <thead>
