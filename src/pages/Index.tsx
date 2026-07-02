@@ -12,9 +12,9 @@ import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 
 const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
-    title: "Woolet — Italian Acetate Eyewear Built for Wide Faces (155 mm+)",
+    title: "Woolet — Italian Acetate Eyewear for Wide Faces (155 mm+)",
     description:
-      "Too wide for Ray-Ban, Persol or Warby Parker? Woolet designs Italian Mazzucchelli acetate frames for 155–172 mm faces. Handmade in the EU. Join the list — 40% off.",
+      "Too wide for Ray-Ban, Persol or Warby Parker? Woolet designs Italian Mazzucchelli acetate frames for 155–172 mm faces. Handmade in the EU. Pre-order 40% off.",
   },
   pl: {
     title: "Woolet — Włoski octan dla szerokich twarzy (155mm+)",
