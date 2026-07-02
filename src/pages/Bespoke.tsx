@@ -515,7 +515,11 @@ const BespokePage = () => {
                     <img
                       src={img.src}
                       alt={atelier.alts[i]}
+                      title={atelier.alts[i]}
+                      width={1620}
+                      height={1080}
                       loading="lazy"
+                      decoding="async"
                       className={`w-full h-full object-cover ${img.ratio} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
                     />
                     <div
