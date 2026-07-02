@@ -1241,9 +1241,9 @@ export function StepEngraving({ config, update }: StepProps) {
     <div className="space-y-8">
       <header>
         <div className={sectionKicker}>Step 4</div>
-        <h2 className={sectionTitle}>Laser engraving <span className="text-cream-dim text-base ml-2">+ {formatEur(ENGRAVING_FEE_EUR)} · optional</span></h2>
+        <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">+ {formatEur(ENGRAVING_FEE_EUR)} · optional</span></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Permanent and non-returnable. Adds 2–3 days to production.
+          CNC-engraved on the inner left temple by our Italian atelier. Permanent and non-returnable. Adds 2–3 days to production. The right temple always carries the Woolet logo.
         </p>
       </header>
 
@@ -1259,14 +1259,17 @@ export function StepEngraving({ config, update }: StepProps) {
           No engraving
         </button>
         <button
-          onClick={() => update("engravingEnabled", true)}
+          onClick={() => {
+            update("engravingEnabled", true);
+            if (!config.engravingPositionId) update("engravingPositionId", "inner-left");
+          }}
           className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] border transition ${
             config.engravingEnabled
               ? "border-gold text-gold-light bg-gold/10"
               : "border-cream/15 text-cream-dim hover:border-cream/30"
           }`}
         >
-          Add engraving
+          Write my name
         </button>
       </div>
 
@@ -1282,43 +1285,25 @@ export function StepEngraving({ config, update }: StepProps) {
           />
 
           <div>
-            <div className={labelClass}>Text · max {ENGRAVING_MAX_CHARS} characters</div>
+            <div className={labelClass}>Your name · max {ENGRAVING_MAX_CHARS} characters</div>
             <input
               type="text"
               value={config.engravingText}
               onChange={(e) => update("engravingText", e.target.value.slice(0, ENGRAVING_MAX_CHARS))}
               maxLength={ENGRAVING_MAX_CHARS}
-              placeholder="Your initials, a date, a word…"
+              placeholder="Your name, initials or a date…"
               className="mt-2 w-full px-4 py-3 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
             />
             <div className="text-cream-dim text-[0.78rem] mt-1.5">{remaining} characters left</div>
           </div>
 
-          <div>
-            <div className={labelClass}>Position</div>
-            <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {ENGRAVING_POSITIONS.map((p) => {
-                const active = config.engravingPositionId === p.id;
-                return (
-                  <button
-                    key={p.id}
-                    onClick={() => update("engravingPositionId", p.id)}
-                    className={`px-3 py-2.5 rounded-[10px] text-xs border transition ${
-                      active
-                        ? "border-gold text-gold-light bg-gold/10"
-                        : "border-cream/15 text-cream-dim hover:border-cream/30"
-                    }`}
-                  >
-                    {p.name}
-                  </button>
-                );
-              })}
-            </div>
+          <div className="rounded-[10px] border border-cream/10 bg-cream/[0.02] px-4 py-3 text-[0.78rem] text-cream-dim">
+            Position: inner left temple (fixed). The right temple always carries the Woolet logo.
           </div>
 
           <div>
             <div className={labelClass}>Font</div>
-            <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div className="mt-2 grid grid-cols-2 gap-2">
               {ENGRAVING_FONTS.map((f) => {
                 const active = config.engravingFontId === f.id;
                 return (
@@ -1330,15 +1315,10 @@ export function StepEngraving({ config, update }: StepProps) {
                         ? "border-gold text-gold-light bg-gold/10"
                         : "border-cream/15 text-cream-dim hover:border-cream/30"
                     }`}
-                    style={{
-                      fontFamily:
-                        f.id === "serif" ? "'Cormorant Garamond', serif" :
-                        f.id === "script" ? "'Cormorant Garamond', cursive" :
-                        f.id === "mono" ? "ui-monospace, monospace" : "Barlow, sans-serif",
-                      fontStyle: f.id === "script" ? "italic" : "normal",
-                    }}
+                    style={{ fontFamily: f.cssFamily }}
                   >
-                    {config.engravingText || "Aa"}
+                    <div className="text-[0.7rem] uppercase tracking-[0.18em] text-cream-dim mb-1">{f.name}</div>
+                    <div className="text-lg text-cream">{config.engravingText || "Your name"}</div>
                   </button>
                 );
               })}
