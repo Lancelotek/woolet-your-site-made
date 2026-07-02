@@ -106,9 +106,9 @@ Deno.serve(async (req) => {
       ? body.product
       : null;
 
-    const admin = createClient(SUPABASE_URL, SERVICE_ROLE, {
-      auth: { persistSession: false },
-    });
+    const admin2 = admin;
+    void admin2;
+
 
     const leadsQuery = admin
       .from("reservation_leads")
