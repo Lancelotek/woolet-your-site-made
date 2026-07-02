@@ -269,6 +269,30 @@ const BespokePage = () => {
         { "@type": "ListItem", position: 2, name: "Bespoke", item: "https://woolet.co/en/bespoke" },
       ],
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      name: "Inside the Woolet bespoke atelier",
+      description:
+        "Hand-crafted process for Woolet bespoke acetate frames: template, cutting, filing, bridge milling, hinge fitting, and mirror polishing.",
+      about: "Woolet bespoke eyewear atelier",
+      image: GALLERY_LAYOUT.map((img, i) => ({
+        "@type": "ImageObject",
+        contentUrl: img.src,
+        url: img.src,
+        width: 1620,
+        height: 1080,
+        name: ATELIER_I18N.en.alts[i],
+        caption: ATELIER_I18N.en.alts[i],
+        description: ATELIER_I18N.en.alts[i],
+        creditText: "Woolet atelier",
+        creator: { "@type": "Organization", name: "Woolet" },
+        copyrightNotice: "© Woolet",
+        license: "https://woolet.co/en/privacy-policy",
+        acquireLicensePage: "https://woolet.co/en/bespoke",
+        encodingFormat: "image/jpeg",
+      })),
+    },
   ];
 
   return (
