@@ -1,4 +1,6 @@
+import { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
