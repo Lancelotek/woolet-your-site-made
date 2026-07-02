@@ -19,7 +19,7 @@ const colors = {
 
 export default function PlLandingPage({ config }: { config: PlPageConfig }) {
   const canonical = `${SITE}/pl/${config.slug}`;
-  const englishAlt = `${SITE}${config.englishEquivalent}`;
+  const englishAlt = config.englishEquivalent ? `${SITE}${config.englishEquivalent}` : null;
   const ogImageUrl = config.ogImage
     ? (config.ogImage.startsWith("http") ? config.ogImage : `${SITE}${config.ogImage}`)
     : `${SITE}/og-image.png`;
@@ -82,13 +82,14 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="pl" href={canonical} />
         <link rel="alternate" hrefLang="pl-PL" href={canonical} />
-        <link rel="alternate" hrefLang="en" href={englishAlt} />
-        <link rel="alternate" hrefLang="x-default" href={englishAlt} />
+        {englishAlt && <link rel="alternate" hrefLang="en" href={englishAlt} />}
+        {englishAlt && <link rel="alternate" hrefLang="x-default" href={englishAlt} />}
+        {!englishAlt && <link rel="alternate" hrefLang="x-default" href={canonical} />}
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Woolet" />
         <meta property="og:locale" content="pl_PL" />
-        <meta property="og:locale:alternate" content="en_US" />
+        {englishAlt && <meta property="og:locale:alternate" content="en_US" />}
         <meta property="og:title" content={config.metaTitle} />
         <meta property="og:description" content={config.metaDescription} />
         <meta property="og:url" content={canonical} />
