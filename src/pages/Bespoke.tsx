@@ -302,6 +302,54 @@ const BespokePage = () => {
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
+        {/* Craft gallery */}
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-24">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-3xl mb-10 sm:mb-14">
+              <div className="woolet-eyebrow mb-5">
+                <div className="woolet-eyebrow-line" />
+                <span className="woolet-eyebrow-text">INSIDE THE ATELIER</span>
+              </div>
+              <h2
+                className="font-display text-woolet-white mb-5"
+                style={{ fontSize: "clamp(1.8rem, 3.4vw, 2.4rem)", fontWeight: 300 }}
+              >
+                Every frame, <em className="italic text-gold-light">shaped by hand.</em>
+              </h2>
+              <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+                Cut from a single sheet of Mazzucchelli acetate, filed against a wooden jig, milled at the bridge, then polished on a cotton wheel until the surface holds a mirror. No CNC finishing — nine to eleven hours of hand-work per frame.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-2 sm:gap-3">
+              {CRAFT_GALLERY.map((img, i) => (
+                <figure
+                  key={i}
+                  className={`relative overflow-hidden bg-[hsl(var(--background))] group ${img.span}`}
+                  style={{ boxShadow: "0 20px 50px -30px hsl(0 0% 0% / 0.8)" }}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className={`w-full h-full object-cover ${img.ratio} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
+                  />
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: "linear-gradient(180deg, transparent 55%, hsl(0 0% 0% / 0.55) 100%)" }}
+                  />
+                </figure>
+              ))}
+            </div>
+
+            <p className="text-cream-dim/70 text-center mt-8 uppercase tracking-[0.22em]" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem" }}>
+              Woolet atelier · Hand-crafted with Italian materials
+            </p>
+          </div>
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
         {/* Pricing */}
         <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto">
