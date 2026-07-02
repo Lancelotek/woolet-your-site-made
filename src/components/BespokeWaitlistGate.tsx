@@ -153,164 +153,174 @@ const BespokeWaitlistGate = () => {
           Private preview
         </div>
 
-        <h2 className="font-display text-cream text-2xl sm:text-[1.75rem] font-light leading-tight">
-          The Bespoke configurator is by invitation.
-        </h2>
-        <p className="mt-3 text-cream-dim text-sm leading-relaxed">
-          Leave your email and we'll send you early access — together with your AI face scan results, so the configurator opens pre-measured.
-        </p>
+        {mode === "password" ? (
+          <>
+            <h2 className="font-display text-cream text-2xl sm:text-[1.75rem] font-light leading-tight">
+              Enter your access password.
+            </h2>
+            <p className="mt-3 text-cream-dim text-sm leading-relaxed">
+              Paste the password we sent you by email to open the Bespoke configurator.
+            </p>
 
-        {status === "success" ? (
-          <div role="status" aria-live="polite" className="mt-6 rounded-[14px] border border-gold/40 bg-gold/[0.08] p-5">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center shrink-0">
-                <Check size={16} className="text-gold" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-cream text-[0.95rem] font-medium">Check your inbox.</div>
-                <div className="text-cream-dim text-xs mt-1.5 leading-relaxed">
-                  We've sent your access code and a link to the configurator to <span className="text-cream break-all">{email.trim()}</span>. It usually arrives within a couple of minutes from <span className="text-cream">support@woolet.co</span>.
-                </div>
-                <div className="text-cream-dim/70 text-[0.78rem] uppercase tracking-[0.18em] mt-3">
-                  Tip: check Promotions / Spam just in case.
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <form onSubmit={submit} noValidate className="mt-6 space-y-4">
-            <div>
-              <label htmlFor="bespoke-gate-email" className="sr-only">Email</label>
+            <form onSubmit={submitPassword} className="mt-6 space-y-3">
+              <label htmlFor="bespoke-gate-password" className="block text-[0.72rem] uppercase tracking-[0.22em] text-cream-dim">
+                Access password
+              </label>
               <input
-                id="bespoke-gate-email"
-                type="email"
-                inputMode="email"
-                autoComplete="email"
-                required
-                
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (status === "error") {
-                    setStatus("idle");
-                    setError(null);
-                  }
-                }}
-                onBlur={() => setEmailTouched(true)}
-                aria-invalid={showEmailError}
-                aria-describedby={showEmailError ? "bespoke-gate-email-error" : undefined}
+                id="bespoke-gate-password"
+                type="text"
+                autoFocus
+                autoComplete="one-time-code"
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setPasswordError(null); }}
+                placeholder="Paste your password"
                 className={`w-full px-4 py-3 rounded-[10px] bg-cream/[0.04] border text-cream placeholder:text-cream-dim/60 text-sm focus:outline-none transition ${
-                  showEmailError
-                    ? "border-red-400/60 focus:border-red-400"
-                    : "border-cream/15 focus:border-gold/60"
+                  passwordError ? "border-red-400/60 focus:border-red-400" : "border-cream/15 focus:border-gold/60"
                 }`}
               />
-              {showEmailError && (
-                <p id="bespoke-gate-email-error" role="alert" className="mt-2 text-[0.78rem] text-red-300">
-                  {emailError}
-                </p>
+              {passwordError && (
+                <p role="alert" className="text-[0.78rem] text-red-300">{passwordError}</p>
               )}
-            </div>
+              <button
+                type="submit"
+                className="w-full px-5 py-3 rounded-full bg-gold text-background text-[0.72rem] uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
+              >
+                Unlock configurator
+              </button>
+            </form>
 
-            <div>
-              <label className="flex items-start gap-2.5 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => {
-                    setConsent(e.target.checked);
-                    setConsentTouched(true);
-                  }}
-                  className="mt-0.5 h-4 w-4 rounded border-cream/30 bg-transparent accent-gold cursor-pointer shrink-0"
-                />
-                <span className="text-[0.72rem] leading-relaxed text-cream-dim">
-                  I agree to the{" "}
-                  <Link to="/en/privacy" target="_blank" className="text-cream underline underline-offset-2 hover:text-gold-light">
-                    Privacy Policy
-                  </Link>{" "}
-                  and to receiving updates about Woolet Bespoke.
-                </span>
-              </label>
-              {showConsentError && (
-                <p role="alert" className="mt-2 text-[0.78rem] text-red-300">
-                  Please accept the Privacy Policy to continue.
-                </p>
-              )}
+            <div className="mt-6 pt-5 border-t border-cream/10 text-center">
+              <p className="text-[0.78rem] text-cream-dim mb-2">Don't have a password yet?</p>
+              <button
+                type="button"
+                onClick={() => setMode("email")}
+                className="text-[0.72rem] uppercase tracking-[0.22em] text-gold-light hover:text-gold transition"
+              >
+                Request early access →
+              </button>
             </div>
+          </>
+        ) : (
+          <>
+            <h2 className="font-display text-cream text-2xl sm:text-[1.75rem] font-light leading-tight">
+              The Bespoke configurator is by invitation.
+            </h2>
+            <p className="mt-3 text-cream-dim text-sm leading-relaxed">
+              Leave your email and we'll send you early access — together with your AI face scan results, so the configurator opens pre-measured.
+            </p>
 
-            {error && (
-              <div role="alert" className="text-[0.72rem] text-red-300 bg-red-500/10 border border-red-500/30 rounded-[8px] px-3 py-2">
-                {error}
+            {status === "success" ? (
+              <div role="status" aria-live="polite" className="mt-6 rounded-[14px] border border-gold/40 bg-gold/[0.08] p-5">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center shrink-0">
+                    <Check size={16} className="text-gold" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-cream text-[0.95rem] font-medium">Check your inbox.</div>
+                    <div className="text-cream-dim text-xs mt-1.5 leading-relaxed">
+                      We've sent your access code and a link to the configurator to <span className="text-cream break-all">{email.trim()}</span>. It usually arrives within a couple of minutes from <span className="text-cream">support@woolet.co</span>.
+                    </div>
+                    <div className="text-cream-dim/70 text-[0.78rem] uppercase tracking-[0.18em] mt-3">
+                      Tip: check Promotions / Spam just in case.
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setMode("password")}
+                  className="mt-4 w-full text-center text-[0.72rem] uppercase tracking-[0.22em] text-gold-light hover:text-gold transition"
+                >
+                  I already have the password →
+                </button>
               </div>
+            ) : (
+              <form onSubmit={submit} noValidate className="mt-6 space-y-4">
+                <div>
+                  <label htmlFor="bespoke-gate-email" className="sr-only">Email</label>
+                  <input
+                    id="bespoke-gate-email"
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    required
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (status === "error") { setStatus("idle"); setError(null); }
+                    }}
+                    onBlur={() => setEmailTouched(true)}
+                    aria-invalid={showEmailError}
+                    aria-describedby={showEmailError ? "bespoke-gate-email-error" : undefined}
+                    className={`w-full px-4 py-3 rounded-[10px] bg-cream/[0.04] border text-cream placeholder:text-cream-dim/60 text-sm focus:outline-none transition ${
+                      showEmailError ? "border-red-400/60 focus:border-red-400" : "border-cream/15 focus:border-gold/60"
+                    }`}
+                  />
+                  {showEmailError && (
+                    <p id="bespoke-gate-email-error" role="alert" className="mt-2 text-[0.78rem] text-red-300">
+                      {emailError}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => { setConsent(e.target.checked); setConsentTouched(true); }}
+                      className="mt-0.5 h-4 w-4 rounded border-cream/30 bg-transparent accent-gold cursor-pointer shrink-0"
+                    />
+                    <span className="text-[0.72rem] leading-relaxed text-cream-dim">
+                      I agree to the{" "}
+                      <Link to="/en/privacy" target="_blank" className="text-cream underline underline-offset-2 hover:text-gold-light">
+                        Privacy Policy
+                      </Link>{" "}
+                      and to receiving updates about Woolet Bespoke.
+                    </span>
+                  </label>
+                  {showConsentError && (
+                    <p role="alert" className="mt-2 text-[0.78rem] text-red-300">
+                      Please accept the Privacy Policy to continue.
+                    </p>
+                  )}
+                </div>
+
+                {error && (
+                  <div role="alert" className="text-[0.72rem] text-red-300 bg-red-500/10 border border-red-500/30 rounded-[8px] px-3 py-2">
+                    {error}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  aria-disabled={!valid || status === "loading"}
+                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-gold text-background text-[0.72rem] uppercase tracking-[0.22em] font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gold-light transition aria-disabled:opacity-40 aria-disabled:cursor-not-allowed"
+                >
+                  {status === "loading" ? (
+                    <><Loader2 size={14} className="animate-spin" /> Sending…</>
+                  ) : (
+                    "Request access"
+                  )}
+                </button>
+
+                <p className="text-[0.78rem] uppercase tracking-[0.18em] text-cream-dim/70 text-center">
+                  No spam. Unsubscribe anytime.
+                </p>
+              </form>
             )}
 
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              aria-disabled={!valid || status === "loading"}
-              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-gold text-background text-[0.72rem] uppercase tracking-[0.22em] font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gold-light transition aria-disabled:opacity-40 aria-disabled:cursor-not-allowed"
-            >
-              {status === "loading" ? (
-                <><Loader2 size={14} className="animate-spin" /> Sending…</>
-              ) : (
-                "Request access"
-              )}
-            </button>
-
-            <p className="text-[0.78rem] uppercase tracking-[0.18em] text-cream-dim/70 text-center">
-              No spam. Unsubscribe anytime.
-            </p>
-          </form>
-        )}
-
-        {status !== "success" && (
-          <div className="mt-6 pt-5 border-t border-cream/10">
-            {mode === "email" ? (
+            <div className="mt-6 pt-5 border-t border-cream/10 text-center">
               <button
                 type="button"
                 onClick={() => setMode("password")}
-                className="w-full text-center text-[0.72rem] uppercase tracking-[0.22em] text-cream-dim hover:text-gold-light transition"
+                className="text-[0.72rem] uppercase tracking-[0.22em] text-cream-dim hover:text-gold-light transition"
               >
-                Have an access password?
+                ← Have an access password?
               </button>
-            ) : (
-              <form onSubmit={submitPassword} className="space-y-3">
-                <label htmlFor="bespoke-gate-password" className="block text-[0.72rem] uppercase tracking-[0.22em] text-cream-dim">
-                  Access password
-                </label>
-                <input
-                  id="bespoke-gate-password"
-                  type="password"
-                  autoFocus
-                  value={password}
-                  onChange={(e) => { setPassword(e.target.value); setPasswordError(null); }}
-                  placeholder="Enter password"
-                  className={`w-full px-4 py-3 rounded-[10px] bg-cream/[0.04] border text-cream placeholder:text-cream-dim/60 text-sm focus:outline-none transition ${
-                    passwordError ? "border-red-400/60 focus:border-red-400" : "border-cream/15 focus:border-gold/60"
-                  }`}
-                />
-                {passwordError && (
-                  <p role="alert" className="text-[0.78rem] text-red-300">{passwordError}</p>
-                )}
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => { setMode("email"); setPassword(""); setPasswordError(null); }}
-                    className="flex-1 px-4 py-3 rounded-full border border-cream/20 text-cream-dim text-[0.72rem] uppercase tracking-[0.22em] hover:text-cream hover:border-cream/40 transition"
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 px-4 py-3 rounded-full bg-gold text-background text-[0.72rem] uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
-                  >
-                    Unlock
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
+            </div>
+          </>
         )}
       </div>
     </div>
