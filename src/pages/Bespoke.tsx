@@ -576,6 +576,10 @@ const BespokePage = () => {
                   key={GALLERY_LAYOUT[lightbox].key}
                   src={GALLERY_LAYOUT[lightbox].src}
                   alt={atelier.alts[lightbox]}
+                  title={atelier.alts[lightbox]}
+                  width={1620}
+                  height={1080}
+                  decoding="async"
                   className="max-w-[92vw] max-h-[78vh] object-contain shadow-2xl animate-in fade-in zoom-in-95 duration-300"
                 />
                 <figcaption className="mt-4 text-center text-white/70 text-xs sm:text-sm max-w-2xl px-4 leading-relaxed">
