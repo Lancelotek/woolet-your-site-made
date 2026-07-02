@@ -199,6 +199,8 @@ const FAQS = [
 ];
 
 const BespokePage = () => {
+  const { lang } = useParams();
+  const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
   const jsonLd = [
     {
       "@context": "https://schema.org",
