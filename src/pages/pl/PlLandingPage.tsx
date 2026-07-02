@@ -49,7 +49,7 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
     description: config.metaDescription,
     brand: { "@type": "Brand", name: "Woolet" },
     material: "Włoski octan Mazzucchelli 1849",
-    image: `${SITE}/og-image.png`,
+    image: ogImageUrl,
     offers: {
       "@type": "Offer",
       url: canonical,
@@ -92,14 +92,15 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
         <meta property="og:title" content={config.metaTitle} />
         <meta property="og:description" content={config.metaDescription} />
         <meta property="og:url" content={canonical} />
-        <meta property="og:image" content={`${SITE}/og-image.png`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:width" content="1216" />
+        <meta property="og:image:height" content="640" />
+        <meta property="og:image:alt" content={config.h1} />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={config.metaTitle} />
         <meta name="twitter:description" content={config.metaDescription} />
-        <meta name="twitter:image" content={`${SITE}/og-image.png`} />
+        <meta name="twitter:image" content={ogImageUrl} />
 
         <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
