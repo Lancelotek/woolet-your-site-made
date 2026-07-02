@@ -317,11 +317,11 @@ const ProductPage009 = () => {
                   fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.inkMute, marginBottom: 8,
                 }}>Model</div>
-                <div style={{ display: "flex", gap: 8 }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   <button
                     onClick={() => navigate("/en/products/007")}
                     style={{
-                      flex: 1, padding: "11px 14px", cursor: "pointer",
+                      flex: "1 1 120px", padding: "11px 14px", cursor: "pointer",
                       background: "transparent", color: T.inkDim,
                       border: `1px solid ${T.hairStrong}`,
                       fontFamily: SERIF, fontSize: 16,
@@ -331,7 +331,7 @@ const ProductPage009 = () => {
                   </button>
                   <button
                     style={{
-                      flex: 1, padding: "11px 14px", cursor: "pointer",
+                      flex: "1 1 120px", padding: "11px 14px", cursor: "pointer",
                       background: T.canvas, color: T.ink,
                       border: `1px solid ${T.gold}`,
                       boxShadow: `inset 0 0 0 1px ${T.gold}`,
@@ -339,6 +339,17 @@ const ProductPage009 = () => {
                     }}
                   >
                     009 <em style={{ color: T.gold, fontStyle: "italic" }}>Square</em>
+                  </button>
+                  <button
+                    onClick={() => navigate("/en/products/bespoke")}
+                    style={{
+                      flex: "1 1 120px", padding: "11px 14px", cursor: "pointer",
+                      background: "transparent", color: T.inkDim,
+                      border: `1px solid ${T.hairStrong}`,
+                      fontFamily: SERIF, fontSize: 16,
+                    }}
+                  >
+                    Bespoke
                   </button>
                 </div>
               </div>
