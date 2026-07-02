@@ -158,9 +158,33 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
               </div>
             </div>
             <div className="hidden md:block">
-              <div style={{ background: config.heroImage ? "#f0ece4" : "transparent", padding: config.heroImage ? 20 : 0 }}>
-                <img src={config.heroImage || "/og-image.png"} alt={`Woolet — ${config.primaryKeyword}`} loading="lazy" width={520} height={520} style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }} />
-              </div>
+              <figure style={{ margin: 0 }}>
+                <div style={{ background: config.heroImage ? "#f0ece4" : "transparent", padding: config.heroImage ? 20 : 0 }}>
+                  <img
+                    src={config.heroImage || "/og-image.png"}
+                    alt={config.heroAlt || `Woolet — ${config.primaryKeyword}`}
+                    loading="lazy"
+                    width={520}
+                    height={520}
+                    style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }}
+                  />
+                </div>
+                {config.heroCaption && (
+                  <figcaption
+                    style={{
+                      marginTop: 10,
+                      fontFamily: "'Barlow', sans-serif",
+                      fontSize: 12,
+                      lineHeight: 1.55,
+                      color: colors.creamDim,
+                      textAlign: "center",
+                      letterSpacing: "0.01em",
+                    }}
+                  >
+                    {config.heroCaption}
+                  </figcaption>
+                )}
+              </figure>
             </div>
           </div>
         </section>
