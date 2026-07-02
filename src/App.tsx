@@ -242,6 +242,7 @@ const App = () => (
           <Route path="/:lang/thank-you" element={<ThankYou />} />
           <Route path="/:lang/payments" element={<Payments />} />
           <Route path="/:lang/crm" element={<Crm />} />
+          <Route path="/:lang/crm/gsc" element={<CrmGsc />} />
 
           {/* Legacy routes redirect */}
           <Route path="/privacy-policy" element={<Navigate to="/en/privacy-policy" replace />} />
