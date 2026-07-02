@@ -203,6 +203,33 @@ const FAQS = [
 const BespokePage = () => {
   const { lang } = useParams();
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
+
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+  const showPrev = useCallback(
+    () => setLightbox((i) => (i === null ? i : (i - 1 + GALLERY_LAYOUT.length) % GALLERY_LAYOUT.length)),
+    [],
+  );
+  const showNext = useCallback(
+    () => setLightbox((i) => (i === null ? i : (i + 1) % GALLERY_LAYOUT.length)),
+    [],
+  );
+  useEffect(() => {
+    if (lightbox === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") showPrev();
+      else if (e.key === "ArrowRight") showNext();
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [lightbox, closeLightbox, showPrev, showNext]);
+
   const jsonLd = [
     {
       "@context": "https://schema.org",
