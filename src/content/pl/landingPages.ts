@@ -239,7 +239,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
         },
         {
           title: "Zasada zero nacisku",
-          body: "Dobrze dobrane okulary trzymają się geometrią — nos plus uszy — a nie ściskaniem głowy. Jeśli po 8 godzinach noszenia bolą cię skronie, oprawki są za wąskie. Tego się nie „dotrze".",
+          body: 'Dobrze dobrane okulary trzymają się geometrią — nos plus uszy — a nie ściskaniem głowy. Jeśli po 8 godzinach noszenia bolą cię skronie, oprawki są za wąskie. Tego się nie „dotrze".',
         },
       ],
     },
