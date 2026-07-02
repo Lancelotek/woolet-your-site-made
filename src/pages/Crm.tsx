@@ -251,8 +251,8 @@ export default function Crm() {
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
                   <thead>
                     <tr style={{ borderBottom: `1px solid ${T.hair}` }}>
-                      {["Date", "Email", "Phone", "Product", "Status", "Amount", "UTM", "Env"].map((h) => (
-                        <th key={h} style={{
+                      {["Date", "Email", "Phone", "Product", "Status", "Amount", "UTM", "Env", ""].map((h, i) => (
+                        <th key={h + i} style={{
                           textAlign: "left", padding: "12px 14px",
                           fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase",
                           color: T.inkMute, fontWeight: 500,
