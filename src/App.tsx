@@ -30,6 +30,7 @@ const FitBespoke = lazy(() => import("./pages/FitBespoke.tsx"));
 const FitScan = lazy(() => import("./pages/FitScan.tsx"));
 const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
 const Payments = lazy(() => import("./pages/Payments.tsx"));
+const Crm = lazy(() => import("./pages/Crm.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const AdvertorialPage = lazy(() => import("./pages/lp/AdvertorialPage.tsx"));
 const WideBridgeFitGuide = lazy(() => import("./pages/lp/WideBridgeFitGuide.tsx"));
@@ -238,6 +239,7 @@ const App = () => (
           <Route path="/:lang/fit/scan" element={<FitScanRedirect />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
           <Route path="/:lang/payments" element={<Payments />} />
+          <Route path="/:lang/crm" element={<Crm />} />
 
           {/* Legacy routes redirect */}
           <Route path="/privacy-policy" element={<Navigate to="/en/privacy-policy" replace />} />
