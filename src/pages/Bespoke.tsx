@@ -3,6 +3,27 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import bespokeHero from "@/assets/bespoke-hero.png.asset.json";
+import craft1 from "@/assets/bespoke-craft/craft-1.jpg.asset.json";
+import craft2 from "@/assets/bespoke-craft/craft-2.jpg.asset.json";
+import craft3 from "@/assets/bespoke-craft/craft-3.jpg.asset.json";
+import craft4 from "@/assets/bespoke-craft/craft-4.jpg.asset.json";
+import craft5 from "@/assets/bespoke-craft/craft-5.jpg.asset.json";
+import craft6 from "@/assets/bespoke-craft/craft-6.jpg.asset.json";
+import craft7 from "@/assets/bespoke-craft/craft-7.jpg.asset.json";
+import craft8 from "@/assets/bespoke-craft/craft-8.jpg.asset.json";
+import craft9 from "@/assets/bespoke-craft/craft-9.jpg.asset.json";
+
+const CRAFT_GALLERY = [
+  { src: craft2.url, alt: "Acetate template and hand-cut frame blank for a bespoke Woolet frame, resting on the atelier bench.", span: "md:col-span-2 md:row-span-2", ratio: "aspect-[4/3]" },
+  { src: craft7.url, alt: "Jigsaw tracing the outline of a bespoke acetate front on a wooden cutting jig.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
+  { src: craft1.url, alt: "Craftsman hand-filing the edge of a rough bespoke acetate frame against a wooden work block.", span: "", ratio: "aspect-square" },
+  { src: craft9.url, alt: "Hand-shaping the temple-brow line of a bespoke acetate frame with a precision file.", span: "", ratio: "aspect-square" },
+  { src: craft3.url, alt: "Milling the bridge of a bespoke acetate frame with a rotary tool, acetate dust catching the light.", span: "md:col-span-2 md:row-span-2", ratio: "aspect-[4/5]" },
+  { src: craft8.url, alt: "Close-up of a diamond file refining the keyhole bridge of a bespoke Woolet frame.", span: "", ratio: "aspect-square" },
+  { src: craft4.url, alt: "Fitting the stainless-steel hinge core into the acetate temple by hand.", span: "", ratio: "aspect-square" },
+  { src: craft5.url, alt: "Bespoke acetate frame being polished on a rotating cotton wheel inside the polishing cabin.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
+  { src: craft6.url, alt: "Final mirror-polish pass on a finished bespoke Woolet frame at the buffing station.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
+];
 
 const FAQS = [
   {
@@ -275,6 +296,54 @@ const BespokePage = () => {
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
               Every bespoke frame uses Mazzucchelli acetate from Castiglione Olona — the same material used by Cutler &amp; Gross, Jacques Marie Mage, and most premium Italian houses. It is denser and heavier than TR90 thermoplastic, but it can be heat-adjusted by any optician for ongoing fit corrections. That post-purchase adjustability is the difference between a frame that fits for a week and one that fits for a decade.
+            </p>
+          </div>
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
+        {/* Craft gallery */}
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-24">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-3xl mb-10 sm:mb-14">
+              <div className="woolet-eyebrow mb-5">
+                <div className="woolet-eyebrow-line" />
+                <span className="woolet-eyebrow-text">INSIDE THE ATELIER</span>
+              </div>
+              <h2
+                className="font-display text-woolet-white mb-5"
+                style={{ fontSize: "clamp(1.8rem, 3.4vw, 2.4rem)", fontWeight: 300 }}
+              >
+                Every frame, <em className="italic text-gold-light">shaped by hand.</em>
+              </h2>
+              <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+                Cut from a single sheet of Mazzucchelli acetate, filed against a wooden jig, milled at the bridge, then polished on a cotton wheel until the surface holds a mirror. No CNC finishing — nine to eleven hours of hand-work per frame.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-2 sm:gap-3">
+              {CRAFT_GALLERY.map((img, i) => (
+                <figure
+                  key={i}
+                  className={`relative overflow-hidden bg-[hsl(var(--background))] group ${img.span}`}
+                  style={{ boxShadow: "0 20px 50px -30px hsl(0 0% 0% / 0.8)" }}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className={`w-full h-full object-cover ${img.ratio} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
+                  />
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: "linear-gradient(180deg, transparent 55%, hsl(0 0% 0% / 0.55) 100%)" }}
+                  />
+                </figure>
+              ))}
+            </div>
+
+            <p className="text-cream-dim/70 text-center mt-8 uppercase tracking-[0.22em]" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem" }}>
+              Woolet atelier · Hand-crafted with Italian materials
             </p>
           </div>
         </section>
