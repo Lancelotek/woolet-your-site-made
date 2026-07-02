@@ -52,6 +52,9 @@ Deno.serve(async (req) => {
     const body = (await req.json().catch(() => ({}))) as {
       password?: string;
       product?: string;
+      action?: string;
+      email?: string;
+      status?: "lead" | "paid";
     };
     const provided = body.password ?? req.headers.get("x-admin-password") ?? "";
 
@@ -62,13 +65,49 @@ Deno.serve(async (req) => {
       });
     }
 
+    const admin = createClient(SUPABASE_URL, SERVICE_ROLE, {
+      auth: { persistSession: false },
+    });
+
+    // Delete action: remove reservation by email from the matching table(s).
+    if (body.action === "delete") {
+      const email = (body.email ?? "").trim().toLowerCase();
+      if (!email) {
+        return new Response(JSON.stringify({ error: "Missing email" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      const target = body.status;
+      const deleted: Record<string, number> = { leads: 0, paid: 0 };
+      if (!target || target === "lead") {
+        const { error, count } = await admin
+          .from("reservation_leads")
+          .delete({ count: "exact" })
+          .ilike("email", email);
+        if (error) throw error;
+        deleted.leads = count ?? 0;
+      }
+      if (!target || target === "paid") {
+        const { error, count } = await admin
+          .from("founding_members")
+          .delete({ count: "exact" })
+          .ilike("email", email);
+        if (error) throw error;
+        deleted.paid = count ?? 0;
+      }
+      return new Response(JSON.stringify({ ok: true, deleted }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const productFilter = body.product && ["007", "009", "bespoke"].includes(body.product)
       ? body.product
       : null;
 
-    const admin = createClient(SUPABASE_URL, SERVICE_ROLE, {
-      auth: { persistSession: false },
-    });
+
+
 
     const leadsQuery = admin
       .from("reservation_leads")

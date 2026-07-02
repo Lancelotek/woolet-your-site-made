@@ -73,6 +73,28 @@ export default function Crm() {
   const [rows, setRows] = useState<Row[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [product, setProduct] = useState<Product>("all");
+  const [deletingKey, setDeletingKey] = useState<string | null>(null);
+
+  const handleDelete = async (r: Row) => {
+    const label = `${r.email} (${r.status})`;
+    if (!window.confirm(`Delete reservation for ${label}? This cannot be undone.`)) return;
+    const key = `${r.email}-${r.status}`;
+    setDeletingKey(key);
+    setError(null);
+    try {
+      const { data, error: fnErr } = await supabase.functions.invoke("admin-crm", {
+        body: { password, action: "delete", email: r.email, status: r.status },
+      });
+      if (fnErr) throw fnErr;
+      if (!data || data.error) throw new Error(data?.error || "Failed to delete");
+      setRows((prev) => prev.filter((x) => !(x.email === r.email && x.status === r.status)));
+      fetchData(password, product);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete");
+    } finally {
+      setDeletingKey(null);
+    }
+  };
 
   const fetchData = async (pwd: string, prod: Product) => {
     setLoading(true);
@@ -251,8 +273,8 @@ export default function Crm() {
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
                   <thead>
                     <tr style={{ borderBottom: `1px solid ${T.hair}` }}>
-                      {["Date", "Email", "Phone", "Product", "Status", "Amount", "UTM", "Env"].map((h) => (
-                        <th key={h} style={{
+                      {["Date", "Email", "Phone", "Product", "Status", "Amount", "UTM", "Env", ""].map((h, i) => (
+                        <th key={h + i} style={{
                           textAlign: "left", padding: "12px 14px",
                           fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase",
                           color: T.inkMute, fontWeight: 500,
@@ -263,7 +285,7 @@ export default function Crm() {
                   <tbody>
                     {rows.length === 0 && !loading && (
                       <tr>
-                        <td colSpan={8} style={{ padding: "40px 14px", textAlign: "center", color: T.inkMute }}>
+                        <td colSpan={9} style={{ padding: "40px 14px", textAlign: "center", color: T.inkMute }}>
                           No reservations yet.
                         </td>
                       </tr>
@@ -293,6 +315,22 @@ export default function Crm() {
                           {[r.utm_source, r.utm_medium, r.utm_campaign].filter(Boolean).join(" · ") || "—"}
                         </td>
                         <td style={{ padding: "11px 14px", color: T.inkMute, fontSize: 11 }}>{r.environment || "—"}</td>
+                        <td style={{ padding: "11px 14px", textAlign: "right" }}>
+                          <button
+                            onClick={() => handleDelete(r)}
+                            disabled={deletingKey === `${r.email}-${r.status}`}
+                            title="Delete reservation"
+                            style={{
+                              padding: "6px 10px", cursor: "pointer",
+                              background: "transparent", color: "#e57373",
+                              border: `1px solid rgba(229,115,115,0.35)`, borderRadius: 2,
+                              fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase",
+                              opacity: deletingKey === `${r.email}-${r.status}` ? 0.5 : 1,
+                            }}
+                          >
+                            {deletingKey === `${r.email}-${r.status}` ? "…" : "Delete"}
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
