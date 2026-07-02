@@ -1,4 +1,6 @@
+import { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -201,6 +203,33 @@ const FAQS = [
 const BespokePage = () => {
   const { lang } = useParams();
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
+
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+  const showPrev = useCallback(
+    () => setLightbox((i) => (i === null ? i : (i - 1 + GALLERY_LAYOUT.length) % GALLERY_LAYOUT.length)),
+    [],
+  );
+  const showNext = useCallback(
+    () => setLightbox((i) => (i === null ? i : (i + 1) % GALLERY_LAYOUT.length)),
+    [],
+  );
+  useEffect(() => {
+    if (lightbox === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") showPrev();
+      else if (e.key === "ArrowRight") showNext();
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [lightbox, closeLightbox, showPrev, showNext]);
+
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -477,16 +506,23 @@ const BespokePage = () => {
                   className={`relative overflow-hidden bg-[hsl(var(--background))] group ${img.span}`}
                   style={{ boxShadow: "0 20px 50px -30px hsl(0 0% 0% / 0.8)" }}
                 >
-                  <img
-                    src={img.src}
-                    alt={atelier.alts[i]}
-                    loading="lazy"
-                    className={`w-full h-full object-cover ${img.ratio} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
-                  />
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: "linear-gradient(180deg, transparent 55%, hsl(0 0% 0% / 0.55) 100%)" }}
-                  />
+                  <button
+                    type="button"
+                    onClick={() => setLightbox(i)}
+                    aria-label={atelier.alts[i]}
+                    className="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-light"
+                  >
+                    <img
+                      src={img.src}
+                      alt={atelier.alts[i]}
+                      loading="lazy"
+                      className={`w-full h-full object-cover ${img.ratio} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
+                    />
+                    <div
+                      className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ background: "linear-gradient(180deg, transparent 55%, hsl(0 0% 0% / 0.55) 100%)" }}
+                    />
+                  </button>
                 </figure>
               ))}
             </div>
@@ -495,6 +531,58 @@ const BespokePage = () => {
               {atelier.footer}
             </p>
           </div>
+
+          {lightbox !== null && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={atelier.alts[lightbox]}
+              className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-200"
+              onClick={closeLightbox}
+            >
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
+                aria-label="Close"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/80 hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={1.4} />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); showPrev(); }}
+                aria-label="Previous"
+                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 text-white/70 hover:text-white transition-colors"
+              >
+                <ChevronLeft className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={1.4} />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); showNext(); }}
+                aria-label="Next"
+                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 text-white/70 hover:text-white transition-colors"
+              >
+                <ChevronRight className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={1.4} />
+              </button>
+              <figure
+                className="relative max-w-[92vw] max-h-[86vh] flex flex-col items-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  key={GALLERY_LAYOUT[lightbox].key}
+                  src={GALLERY_LAYOUT[lightbox].src}
+                  alt={atelier.alts[lightbox]}
+                  className="max-w-[92vw] max-h-[78vh] object-contain shadow-2xl animate-in fade-in zoom-in-95 duration-300"
+                />
+                <figcaption className="mt-4 text-center text-white/70 text-xs sm:text-sm max-w-2xl px-4 leading-relaxed">
+                  {atelier.alts[lightbox]}
+                  <span className="ml-2 text-white/40 tabular-nums">
+                    {lightbox + 1} / {GALLERY_LAYOUT.length}
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
+          )}
         </section>
 
         <div className="woolet-divider max-w-5xl mx-auto" />
