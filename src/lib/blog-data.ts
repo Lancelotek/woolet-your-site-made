@@ -2920,6 +2920,159 @@ const blogPostsEN: BlogPost[] = [
 <p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">More on fit: <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">the complete 2026 wide-face guide</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a> · <a href="/en/blog/best-sunglasses-for-wide-faces" style="color:#A07A2A;">best sunglasses for wide faces</a> · <a href="/en/bespoke" style="color:#A07A2A;">explore bespoke (150–172 mm)</a>.</p>
 `,
   },
+  {
+    slug: "extra-wide-glasses-158mm",
+    title: "Extra Wide Glasses for Wide Faces: The 158 mm Truth",
+    excerpt: "Every 'large' frame still pinches? Here are the only glasses actually built at 158 mm — measured, compared, and honest. Find your fit in 60 seconds.",
+    date: "2026-04-14",
+    readTime: 9,
+    tags: ["Guide", "Wide Face", "158mm", "Comparison"],
+    content: `
+<p>If you have a face wider than 155&nbsp;mm, you already know the ritual. You walk into an optical store, the assistant hands you the "large" frames, and within thirty seconds the temples are pressing against the sides of your head. The Ray-Ban Wayfarer Large. The Persol 649. The Warby Parker Wide. All of them stop at roughly 145&nbsp;mm of total front width — and your face begins where their sizing ends.</p>
+
+<p>This is not your face's fault. It is a sizing ceiling. And it is measurable.</p>
+
+<p>We built Woolet because that ceiling exists. This article is the honest map of what sits above it — every frame we could find at a genuine 158&nbsp;mm front width, and how they actually compare.</p>
+
+<h2>Why 99% of "large" frames still don't fit</h2>
+
+<p>Standard adult eyewear is manufactured to a bell curve. The mainstream range runs from roughly 130&nbsp;mm to 145&nbsp;mm of total front width — hinge to hinge, including the frame body. Even the frames marketed as "oversized" or "XL" rarely exceed 148&nbsp;mm, because the moulds they are cut from were designed for a narrower face.</p>
+
+<p>At 155&nbsp;mm and above, three things happen at once. The temples bow outward and press against the sides of your head. The arms sit high on the ears, leaving red marks after an hour. The optical centres of the lenses fall inward of your pupils, which distorts what you see and pulls the frame forward through the day.</p>
+
+<p>None of that is fixed by an optician's bench. A frame moulded for 142&nbsp;mm cannot be adjusted to fit 158&nbsp;mm. The only real fix is starting from the correct width.</p>
+
+<h2>How to measure what you actually need</h2>
+
+<p>Before shopping, get one number: your total face width, measured temple to temple at the widest point. A ruler in front of a mirror is enough, or a credit card (85.6&nbsp;mm) held against the cheek as a reference. Aim for ±2&nbsp;mm accuracy.</p>
+
+<p>If you read <strong>155&nbsp;mm or more</strong>, you are outside the mainstream range and inside Woolet's territory.</p>
+
+<p>Then learn to read the numbers printed on the inside of any existing frame's temple arm. A stamp like <strong>58□23-150</strong> means:</p>
+
+<ul>
+  <li><strong>58&nbsp;mm</strong> — lens width (a single lens, edge to edge)</li>
+  <li><strong>23&nbsp;mm</strong> — bridge width (the gap between the two lenses)</li>
+  <li><strong>150&nbsp;mm</strong> — temple length (the arm from hinge to tip)</li>
+</ul>
+
+<p>To estimate the total front width, add: <em>lens width × 2 + bridge width + roughly 6–8&nbsp;mm of frame body</em>. So a 58□23 frame lands near 148&nbsp;mm total — still narrow for a 158&nbsp;mm face. For temple length, 145&nbsp;mm is standard; wide faces need <strong>150–155&nbsp;mm</strong> so the arm reaches over the ear without pulling.</p>
+
+<p>This is the part most retailers skip. If a shop cannot tell you the hinge-to-hinge measurement of a frame, they cannot tell you whether it fits.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <p style="margin:0;font-size:15px;line-height:1.6;color:#1a1a1a;">Not sure about your measurements? Our <a href="/en/fit" style="color:#A07A2A;font-weight:600;">Fit Wizard</a> tells you in 60 seconds — one front-facing photo, no tape measure required.</p>
+</div>
+
+<h2>Every frame we found at 158&nbsp;mm — honest comparison</h2>
+
+<p>Below is the shortlist. These are the only frames we could verify at or near a 158&nbsp;mm total front width. We list them with their published specs, and we do not link to external stores — this is a fit comparison, not an affiliate table.</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
+  <thead>
+    <tr style="background:#0f0f0f;color:#f0ece4;">
+      <th style="padding:12px 14px;text-align:left;border:1px solid #2a2a2a;">Model</th>
+      <th style="padding:12px 14px;text-align:left;border:1px solid #2a2a2a;">Front width</th>
+      <th style="padding:12px 14px;text-align:left;border:1px solid #2a2a2a;">Lens / bridge</th>
+      <th style="padding:12px 14px;text-align:left;border:1px solid #2a2a2a;">Type</th>
+      <th style="padding:12px 14px;text-align:left;border:1px solid #2a2a2a;">Built for wide faces?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#FBF8F1;">
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;"><strong>Woolet 007 Round</strong></td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">158&nbsp;mm</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">proportional lens, 21–22&nbsp;mm keyhole bridge</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Optical &amp; sun, bespoke 150–172&nbsp;mm</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Yes — designed at 158&nbsp;mm from scratch</td>
+    </tr>
+    <tr style="background:#FBF8F1;">
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;"><strong>Woolet 009 Square</strong></td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">158&nbsp;mm</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">proportional lens, 21–22&nbsp;mm keyhole bridge</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Optical &amp; sun, bespoke 150–172&nbsp;mm</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Yes — designed at 158&nbsp;mm from scratch</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Tom Ford Bettina TF 1068</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">158&nbsp;mm</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">15&nbsp;mm bridge</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Sunglasses (luxury)</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">No — oversized fashion frame, narrow bridge</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Oakley Holbrook Prizm Gaming</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">158&nbsp;mm</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">57&nbsp;mm lens / 18&nbsp;mm bridge</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Sport / protective</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Partially — sport styling only</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Loretto LT2411 C1</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">158&nbsp;mm</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">58&nbsp;mm lens / 23&nbsp;mm bridge</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Optical (budget)</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">No — scaled-up standard frame</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">STGATN XXL (Amazon)</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">155–158&nbsp;mm</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">varies</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Polarised sunglasses</td>
+      <td style="padding:12px 14px;border:1px solid #E8E4DC;">Partially — sun only, no optical</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Tom Ford Bettina TF 1068</h3>
+<p>The Bettina hits 158&nbsp;mm on the outside, and the acetate is unquestionably premium. The problem is the bridge — 15&nbsp;mm is narrow even for a standard face, and on a wide face the lenses sit too close to the nose while the outer edges overhang. It is an oversized fashion sunglass, not a wide-face frame. If you want a comparable width with a bridge that matches your proportions, the <a href="/en/products/009" style="color:#A07A2A;">Woolet 009 square</a> is the closer geometric answer.</p>
+
+<h3>Oakley Holbrook Prizm Gaming</h3>
+<p>Oakley's 158&nbsp;mm Holbrook variant is genuinely wide and genuinely durable. Its limitation is aesthetic and functional: it is a sport frame with sport branding, straight temples designed to sit under a helmet, and no optical version at this width in most markets. If you need one frame for the office, dinner, and outdoors, look at the <a href="/en/products/007" style="color:#A07A2A;">Woolet 007</a> or <a href="/en/products/009" style="color:#A07A2A;">009</a> — both come in optical and sun with the same 158&nbsp;mm front.</p>
+
+<h3>Loretto LT2411 C1</h3>
+<p>The Loretto is the honest budget option. The specs on paper are close — 58□23 lands at roughly the right total width, and it is available with prescription lenses. What you give up is the acetate quality, the hinge engineering, and the geometry: it is a standard frame scaled up rather than designed for the width. On a 158&nbsp;mm face it works, but it looks and feels like a larger version of a smaller frame. Compare against the <a href="/en/products/007" style="color:#A07A2A;">Woolet 007</a> in Italian Mazzucchelli acetate to see the difference.</p>
+
+<h3>STGATN XXL (Amazon)</h3>
+<p>Marketplace XXL sunglasses cover the 155–158&nbsp;mm range at a very low price. They fit, and if you only need a beach pair, they are a valid entry point. The limitation is consistent: injection-moulded plastic, no optical option, and specs that vary between batches. When you are ready for a frame you can wear every day, the <a href="/en/fit" style="color:#A07A2A;">Fit Wizard</a> will point you to the right Woolet size.</p>
+
+<h2>What Woolet does differently</h2>
+
+<p>Woolet frames are not scaled-up versions of a smaller design. Both the <a href="/en/products/007" style="color:#A07A2A;">007 round</a> and the <a href="/en/products/009" style="color:#A07A2A;">009 soft-square</a> are cut from a mould that starts at a 158&nbsp;mm front. The bridge is a 21–22&nbsp;mm keyhole — wider than the industry norm, and matched to the wider nasal geometry that tends to come with a wider face. The lens area is scaled proportionally, so the optical centres actually align with your pupils. Temple length is engineered for wide heads, not borrowed from a 142&nbsp;mm frame.</p>
+
+<p>The acetate is Italian Mazzucchelli — the same block used by high-end European houses — and every frame is hand-finished in Italy. Above and below the standard 158&nbsp;mm size sits the <a href="/en/bespoke" style="color:#A07A2A;">bespoke tier</a>, which covers 150–172&nbsp;mm to the millimetre for faces that fall outside the standard range.</p>
+
+<p>Before you order, run the <a href="/en/fit" style="color:#A07A2A;">AI Fit Wizard</a>. It tells you whether the 158&nbsp;mm standard fits you, or whether you should go bespoke.</p>
+
+<h2>FAQ</h2>
+
+<h3>What is the widest glasses frame available?</h3>
+<p>Off-the-shelf, 158&nbsp;mm is currently the widest common size — held by Woolet 007, Woolet 009, Tom Ford Bettina TF 1068, Oakley Holbrook (Prizm Gaming variant) and Loretto LT2411. Bespoke tiers go further: Woolet bespoke covers 150–172&nbsp;mm.</p>
+
+<h3>Is a 158&nbsp;mm frame width big?</h3>
+<p>Yes. Standard adult frames run 130–145&nbsp;mm. 158&nbsp;mm sits 13&nbsp;mm above the mainstream ceiling and is engineered for faces of 155&nbsp;mm and above.</p>
+
+<h3>How do I know my face is too wide for standard glasses?</h3>
+<p>Measure temple to temple. If you read 155&nbsp;mm or more, standard frames will pinch and leave red marks. Frames sitting too high on the ears, temples bowing outward, or lenses drifting forward through the day are the practical signs.</p>
+
+<h3>Do wide 158&nbsp;mm frames come in prescription?</h3>
+<p>Yes. Both <a href="/en/products/007" style="color:#A07A2A;">Woolet 007</a> and <a href="/en/products/009" style="color:#A07A2A;">009</a> are available with single-vision and progressive prescription lenses at the 158&nbsp;mm width, in optical or sun. Loretto also offers a prescription option at this width; Tom Ford Bettina and the sport Holbrook variants are typically sun-only.</p>
+
+<h3>What about a wider bridge — is 21&nbsp;mm important?</h3>
+<p>For most wide faces, yes. A narrow 15–18&nbsp;mm bridge on a 158&nbsp;mm front leaves the lenses too far inboard. A 21–22&nbsp;mm keyhole bridge keeps the optical centres aligned with your pupils and prevents the frame from sitting too low on the nose.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">See the frames built at 158&nbsp;mm from scratch: <a href="/en/products/007" style="color:#A07A2A;">Woolet 007 (round)</a> · <a href="/en/products/009" style="color:#A07A2A;">Woolet 009 (soft square)</a> · <a href="/en/fit" style="color:#A07A2A;">run the Fit Wizard</a> · <a href="/en/bespoke" style="color:#A07A2A;">bespoke 150–172&nbsp;mm</a>.</p>
+`,
+    faq: [
+      { q: "What is the widest glasses frame available?", a: "Off-the-shelf, 158 mm is currently the widest common size — held by Woolet 007, Woolet 009, Tom Ford Bettina TF 1068, Oakley Holbrook (Prizm Gaming variant) and Loretto LT2411. Bespoke tiers go further: Woolet bespoke covers 150–172 mm." },
+      { q: "Is a 158 mm frame width big?", a: "Yes. Standard adult frames run 130–145 mm. 158 mm sits 13 mm above the mainstream ceiling and is engineered for faces of 155 mm and above." },
+      { q: "How do I know my face is too wide for standard glasses?", a: "Measure temple to temple. If you read 155 mm or more, standard frames will pinch and leave red marks. Frames sitting too high on the ears, temples bowing outward, or lenses drifting forward through the day are the practical signs." },
+      { q: "Do wide 158 mm frames come in prescription?", a: "Yes. Both Woolet 007 and 009 are available with single-vision and progressive prescription lenses at the 158 mm width, in optical or sun. Loretto also offers a prescription option at this width; Tom Ford Bettina and the sport Holbrook variants are typically sun-only." },
+      { q: "Is a 21 mm bridge important on a 158 mm frame?", a: "For most wide faces, yes. A narrow 15–18 mm bridge on a 158 mm front leaves the lenses too far inboard. A 21–22 mm keyhole bridge keeps the optical centres aligned with your pupils and prevents the frame from sitting too low on the nose." },
+    ],
+  },
 ];
 
 
