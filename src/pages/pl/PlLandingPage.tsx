@@ -154,7 +154,9 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
               </div>
             </div>
             <div className="hidden md:block">
-              <img src="/og-image.png" alt={`Woolet ${config.primaryKeyword}`} loading="lazy" width={520} height={520} style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }} />
+              <div style={{ background: config.heroImage ? "#f0ece4" : "transparent", padding: config.heroImage ? 20 : 0 }}>
+                <img src={config.heroImage || "/og-image.png"} alt={`Woolet — ${config.primaryKeyword}`} loading="lazy" width={520} height={520} style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }} />
+              </div>
             </div>
           </div>
         </section>

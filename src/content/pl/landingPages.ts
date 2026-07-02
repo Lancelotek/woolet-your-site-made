@@ -132,6 +132,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     },
   ],
   englishEquivalent: "/en/fit/manual",
+  heroImage: manualFitImg.url,
 };
 
 export const plPageOrder = ["okulary-na-zamowienie", "jak-dobrac-okulary-do-twarzy"] as const;
