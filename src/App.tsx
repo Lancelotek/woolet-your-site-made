@@ -38,6 +38,7 @@ const KickstarterPrelaunch = lazy(() => import("./pages/lp/KickstarterPrelaunch.
 const KickstarterVipConfirmed = lazy(() => import("./pages/lp/KickstarterVipConfirmed.tsx"));
 const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"));
 const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
+const ProductPageBespoke = lazy(() => import("./pages/products/ProductPageBespoke.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
 const Bespoke = lazy(() => import("./pages/Bespoke.tsx"));
@@ -173,6 +174,7 @@ const App = () => (
           <Route path="/en/lp/kickstarter/vip-confirmed" element={<KickstarterVipConfirmed />} />
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
+          <Route path="/en/products/bespoke" element={<ProductPageBespoke />} />
           <Route path="/en/about" element={<About />} />
           <Route path="/en/process" element={<Process />} />
           <Route path="/:lang/process" element={<RedirectToEn to="/process" />} />
