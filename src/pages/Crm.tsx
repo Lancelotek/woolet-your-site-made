@@ -73,6 +73,28 @@ export default function Crm() {
   const [rows, setRows] = useState<Row[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [product, setProduct] = useState<Product>("all");
+  const [deletingKey, setDeletingKey] = useState<string | null>(null);
+
+  const handleDelete = async (r: Row) => {
+    const label = `${r.email} (${r.status})`;
+    if (!window.confirm(`Delete reservation for ${label}? This cannot be undone.`)) return;
+    const key = `${r.email}-${r.status}`;
+    setDeletingKey(key);
+    setError(null);
+    try {
+      const { data, error: fnErr } = await supabase.functions.invoke("admin-crm", {
+        body: { password, action: "delete", email: r.email, status: r.status },
+      });
+      if (fnErr) throw fnErr;
+      if (!data || data.error) throw new Error(data?.error || "Failed to delete");
+      setRows((prev) => prev.filter((x) => !(x.email === r.email && x.status === r.status)));
+      fetchData(password, product);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete");
+    } finally {
+      setDeletingKey(null);
+    }
+  };
 
   const fetchData = async (pwd: string, prod: Product) => {
     setLoading(true);
