@@ -46,11 +46,11 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
   "glasses-for-wide-faces-guide": [
     {
       q: "What face width is considered wide for glasses?",
-      a: "Anything above 145 mm temple-to-temple is wide. Standard eyewear frames cap at 135–145 mm of front width. Woolet starts at 158 mm and bespoke covers 150–172 mm.",
+      a: "Anything above 145 mm temple-to-temple is wide. Standard eyewear frames cap at 135–145 mm of front width. Woolet starts at 158 mm and bespoke covers 150–165 mm.",
     },
     {
       q: "How do I measure my face width for glasses?",
-      a: "Use a ruler or tape measure across the widest point of your face — usually cheekbone to cheekbone, just below the eyes. Record the value in millimetres. 155 mm and above is the Woolet 158 mm standard range; 150–172 mm is covered by bespoke.",
+      a: "Use a ruler or tape measure across the widest point of your face — usually cheekbone to cheekbone, just below the eyes. Record the value in millimetres. 155 mm and above is the Woolet 158 mm standard range; 150–165 mm is covered by bespoke.",
     },
     {
       q: "Why don't standard glasses fit wide faces?",
@@ -106,7 +106,7 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
     },
     {
       q: "What if my measurement falls between sizes?",
-      a: "If you're between 150–154 mm or above 161 mm, you fall outside the 158 mm standard size. Woolet bespoke covers the full 150–172 mm range to the millimetre.",
+      a: "If you're between 150–154 mm or above 161 mm, you fall outside the 158 mm standard size. Woolet bespoke covers the full 150–165 mm range to the millimetre.",
     },
   ],
 };
