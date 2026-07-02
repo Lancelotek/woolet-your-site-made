@@ -76,17 +76,14 @@ export type FinishId = (typeof FINISHES)[number]["id"];
 
 export const ENGRAVING_FEE_EUR = 45;
 export const ENGRAVING_MAX_CHARS = 20;
+// Customer name is engraved CNC on the LEFT temple only.
+// Right temple always carries the Woolet logo.
 export const ENGRAVING_POSITIONS = [
-  { id: "inner-left",  name: "Inner left temple" },
-  { id: "inner-right", name: "Inner right temple" },
-  { id: "both",        name: "Both temples" },
-  { id: "bridge",      name: "Bridge" },
+  { id: "inner-left", name: "Inner left temple (right temple carries the Woolet logo)" },
 ] as const;
 export const ENGRAVING_FONTS = [
-  { id: "serif",  name: "Serif" },
-  { id: "sans",   name: "Sans" },
-  { id: "script", name: "Script" },
-  { id: "mono",   name: "Mono" },
+  { id: "malgun",   name: "Malgun Gothic", cssFamily: "'Malgun Gothic', 'Segoe UI', sans-serif" },
+  { id: "gabriola", name: "Gabriola",       cssFamily: "'Gabriola', 'Segoe Script', cursive" },
 ] as const;
 
 export interface LensType {
