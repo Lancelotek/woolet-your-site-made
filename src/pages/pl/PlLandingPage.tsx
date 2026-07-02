@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 import Footer from "@/components/Footer";
-import { plPageOrder, plPages, type PlPageConfig } from "@/content/pl/landingPages";
+import { plPageOrder, plPages, type PlPageConfig, type PlExtendedContent } from "@/content/pl/landingPages";
 
 const wooletLogo = wooletLogoAsset.url;
 const SITE = "https://woolet.co";
