@@ -20,6 +20,9 @@ const colors = {
 export default function PlLandingPage({ config }: { config: PlPageConfig }) {
   const canonical = `${SITE}/pl/${config.slug}`;
   const englishAlt = `${SITE}${config.englishEquivalent}`;
+  const ogImageUrl = config.ogImage
+    ? (config.ogImage.startsWith("http") ? config.ogImage : `${SITE}${config.ogImage}`)
+    : `${SITE}/og-image.png`;
 
   useEffect(() => {
     document.documentElement.lang = "pl";
