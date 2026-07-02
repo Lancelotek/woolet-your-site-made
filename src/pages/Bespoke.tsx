@@ -3,6 +3,27 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import bespokeHero from "@/assets/bespoke-hero.png.asset.json";
+import craft1 from "@/assets/bespoke-craft/craft-1.jpg.asset.json";
+import craft2 from "@/assets/bespoke-craft/craft-2.jpg.asset.json";
+import craft3 from "@/assets/bespoke-craft/craft-3.jpg.asset.json";
+import craft4 from "@/assets/bespoke-craft/craft-4.jpg.asset.json";
+import craft5 from "@/assets/bespoke-craft/craft-5.jpg.asset.json";
+import craft6 from "@/assets/bespoke-craft/craft-6.jpg.asset.json";
+import craft7 from "@/assets/bespoke-craft/craft-7.jpg.asset.json";
+import craft8 from "@/assets/bespoke-craft/craft-8.jpg.asset.json";
+import craft9 from "@/assets/bespoke-craft/craft-9.jpg.asset.json";
+
+const CRAFT_GALLERY = [
+  { src: craft2.url, alt: "Acetate template and hand-cut frame blank for a bespoke Woolet frame, resting on the atelier bench.", span: "md:col-span-2 md:row-span-2", ratio: "aspect-[4/3]" },
+  { src: craft7.url, alt: "Jigsaw tracing the outline of a bespoke acetate front on a wooden cutting jig.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
+  { src: craft1.url, alt: "Craftsman hand-filing the edge of a rough bespoke acetate frame against a wooden work block.", span: "", ratio: "aspect-square" },
+  { src: craft9.url, alt: "Hand-shaping the temple-brow line of a bespoke acetate frame with a precision file.", span: "", ratio: "aspect-square" },
+  { src: craft3.url, alt: "Milling the bridge of a bespoke acetate frame with a rotary tool, acetate dust catching the light.", span: "md:col-span-2 md:row-span-2", ratio: "aspect-[4/5]" },
+  { src: craft8.url, alt: "Close-up of a diamond file refining the keyhole bridge of a bespoke Woolet frame.", span: "", ratio: "aspect-square" },
+  { src: craft4.url, alt: "Fitting the stainless-steel hinge core into the acetate temple by hand.", span: "", ratio: "aspect-square" },
+  { src: craft5.url, alt: "Bespoke acetate frame being polished on a rotating cotton wheel inside the polishing cabin.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
+  { src: craft6.url, alt: "Final mirror-polish pass on a finished bespoke Woolet frame at the buffing station.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
+];
 
 const FAQS = [
   {
