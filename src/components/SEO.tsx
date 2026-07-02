@@ -102,10 +102,24 @@ const SEO = ({
       <meta name="geo.placename" content={geo.placename} />
       <meta name="content-language" content={lang} />
 
-      {SUPPORTED_LANGS.map((l) => (
-        <link key={l} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}${path}`} />
-      ))}
-      <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en${path}`} />
+      {/* hreflang: emit full alternate set only for pages that exist in every language
+          (the localised homepages at /{lang}). For per-page routes (blog posts,
+          collections, product pages) only the current lang is emitted, because those
+          slugs don't have 1:1 translations across all locales. */}
+      {path === "" ? (
+        <>
+          {SUPPORTED_LANGS.map((l) => (
+            <link key={l} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}`} />
+          ))}
+          <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en`} />
+        </>
+      ) : (
+        <>
+          <link rel="alternate" hrefLang={lang} href={canonical} />
+          <link rel="alternate" hrefLang="x-default" href={canonical} />
+        </>
+      )}
+
 
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
