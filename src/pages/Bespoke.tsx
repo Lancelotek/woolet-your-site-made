@@ -13,16 +13,162 @@ import craft7 from "@/assets/bespoke-craft/craft-7.jpg.asset.json";
 import craft8 from "@/assets/bespoke-craft/craft-8.jpg.asset.json";
 import craft9 from "@/assets/bespoke-craft/craft-9.jpg.asset.json";
 
-const CRAFT_GALLERY = [
-  { src: craft2.url, alt: "Acetate template and hand-cut frame blank for a bespoke Woolet frame, resting on the atelier bench.", span: "md:col-span-2 md:row-span-2", ratio: "aspect-[4/3]" },
-  { src: craft7.url, alt: "Jigsaw tracing the outline of a bespoke acetate front on a wooden cutting jig.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
-  { src: craft1.url, alt: "Craftsman hand-filing the edge of a rough bespoke acetate frame against a wooden work block.", span: "", ratio: "aspect-square" },
-  { src: craft9.url, alt: "Hand-shaping the temple-brow line of a bespoke acetate frame with a precision file.", span: "", ratio: "aspect-square" },
-  { src: craft3.url, alt: "Milling the bridge of a bespoke acetate frame with a rotary tool, acetate dust catching the light.", span: "md:col-span-2 md:row-span-2", ratio: "aspect-[4/5]" },
-  { src: craft8.url, alt: "Close-up of a diamond file refining the keyhole bridge of a bespoke Woolet frame.", span: "", ratio: "aspect-square" },
-  { src: craft4.url, alt: "Fitting the stainless-steel hinge core into the acetate temple by hand.", span: "", ratio: "aspect-square" },
-  { src: craft5.url, alt: "Bespoke acetate frame being polished on a rotating cotton wheel inside the polishing cabin.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
-  { src: craft6.url, alt: "Final mirror-polish pass on a finished bespoke Woolet frame at the buffing station.", span: "md:col-span-2", ratio: "aspect-[3/2]" },
+type AtelierAlts = [string, string, string, string, string, string, string, string, string];
+type AtelierCopy = {
+  eyebrow: string;
+  headingLead: string;
+  headingItalic: string;
+  intro: string;
+  footer: string;
+  alts: AtelierAlts;
+};
+
+const ATELIER_I18N: Record<string, AtelierCopy> = {
+  en: {
+    eyebrow: "INSIDE THE ATELIER",
+    headingLead: "Every frame,",
+    headingItalic: "shaped by hand.",
+    intro:
+      "Cut from a single sheet of Mazzucchelli acetate, filed against a wooden jig, milled at the bridge, then polished on a cotton wheel until the surface holds a mirror. No CNC finishing — nine to eleven hours of hand-work per frame.",
+    footer: "Woolet atelier · Hand-crafted with Italian materials",
+    alts: [
+      "Acetate template and hand-cut frame blank for a bespoke Woolet frame, resting on the atelier bench.",
+      "Jigsaw tracing the outline of a bespoke acetate front on a wooden cutting jig.",
+      "Craftsman hand-filing the edge of a rough bespoke acetate frame against a wooden work block.",
+      "Hand-shaping the temple-brow line of a bespoke acetate frame with a precision file.",
+      "Milling the bridge of a bespoke acetate frame with a rotary tool, acetate dust catching the light.",
+      "Close-up of a diamond file refining the keyhole bridge of a bespoke Woolet frame.",
+      "Fitting the stainless-steel hinge core into the acetate temple by hand.",
+      "Bespoke acetate frame being polished on a rotating cotton wheel inside the polishing cabin.",
+      "Final mirror-polish pass on a finished bespoke Woolet frame at the buffing station.",
+    ],
+  },
+  pl: {
+    eyebrow: "WEWNĄTRZ PRACOWNI",
+    headingLead: "Każda oprawa",
+    headingItalic: "kształtowana ręcznie.",
+    intro:
+      "Wycinane z pojedynczej płyty octanu Mazzucchelli, opiłowywane na drewnianym jigu, frezowane w mostku, a następnie polerowane na bawełnianej tarczy do lustrzanego wykończenia. Żadnego CNC — od dziewięciu do jedenastu godzin pracy ręcznej przy każdej oprawie.",
+    footer: "Pracownia Woolet · Ręcznie wykonane z włoskich materiałów",
+    alts: [
+      "Szablon z octanu i ręcznie wycięta forma oprawy Woolet bespoke na stole warsztatowym.",
+      "Wyrzynarka prowadzona po obrysie frontu oprawy na drewnianym jigu.",
+      "Rzemieślnik ręcznie opiłowuje krawędź surowej oprawy octanowej na drewnianym bloku roboczym.",
+      "Ręczne kształtowanie linii brwi oprawy octanowej precyzyjnym pilnikiem.",
+      "Frezowanie mostka oprawy octanowej narzędziem obrotowym, pył octanowy w świetle.",
+      "Zbliżenie diamentowego pilnika wykańczającego mostek typu keyhole oprawy Woolet.",
+      "Ręczne osadzanie stalowego rdzenia zawiasu w zauszniku z octanu.",
+      "Oprawa octanowa polerowana na obracającej się bawełnianej tarczy w kabinie polerskiej.",
+      "Ostatni przebieg polerski nadający lustrzany połysk gotowej oprawie Woolet.",
+    ],
+  },
+  de: {
+    eyebrow: "IN DER MANUFAKTUR",
+    headingLead: "Jede Fassung,",
+    headingItalic: "von Hand geformt.",
+    intro:
+      "Aus einer einzigen Platte Mazzucchelli-Acetat geschnitten, an einer Holzschablone gefeilt, an der Brücke gefräst und anschließend auf einer Baumwollscheibe zu spiegelndem Glanz poliert. Keine CNC-Endbearbeitung — neun bis elf Stunden Handarbeit pro Fassung.",
+    footer: "Woolet Atelier · Handgefertigt mit italienischen Materialien",
+    alts: [
+      "Acetat-Schablone und handgeschnittener Fassungs-Rohling einer Woolet-Maßfassung auf der Werkbank.",
+      "Stichsäge folgt der Kontur einer maßgefertigten Acetat-Front auf einer Holzschablone.",
+      "Handwerker feilt die Kante einer rohen Acetatfassung an einem Holzblock von Hand.",
+      "Handformung der Brauenlinie einer Acetatfassung mit einer Präzisionsfeile.",
+      "Fräsen der Brücke einer Acetatfassung mit einem Rotationswerkzeug, Acetatstaub im Licht.",
+      "Nahaufnahme einer Diamantfeile beim Ausarbeiten der Keyhole-Brücke einer Woolet-Fassung.",
+      "Einsetzen des Edelstahl-Scharnierkerns in den Acetatbügel von Hand.",
+      "Maßgefertigte Acetatfassung wird auf einer rotierenden Baumwollscheibe in der Polierkabine poliert.",
+      "Letzter Spiegelpoliergang an einer fertigen Woolet-Maßfassung an der Polierstation.",
+    ],
+  },
+  fr: {
+    eyebrow: "DANS L'ATELIER",
+    headingLead: "Chaque monture,",
+    headingItalic: "façonnée à la main.",
+    intro:
+      "Découpée dans une seule plaque d'acétate Mazzucchelli, limée sur un gabarit en bois, fraisée au pont, puis polie sur une roue en coton jusqu'au fini miroir. Aucune finition CNC — neuf à onze heures de travail manuel par monture.",
+    footer: "Atelier Woolet · Fait main avec des matériaux italiens",
+    alts: [
+      "Gabarit en acétate et ébauche de monture sur mesure Woolet, posés sur l'établi de l'atelier.",
+      "Scie sauteuse suivant le contour d'une face en acétate sur un gabarit en bois.",
+      "Artisan limant à la main le bord d'une monture en acétate brute sur un bloc de bois.",
+      "Mise en forme à la main de la ligne des sourcils d'une monture en acétate à la lime de précision.",
+      "Fraisage du pont d'une monture en acétate à l'outil rotatif, poussière d'acétate dans la lumière.",
+      "Gros plan d'une lime diamant affinant le pont keyhole d'une monture Woolet sur mesure.",
+      "Insertion à la main du cœur de charnière en acier inoxydable dans la branche en acétate.",
+      "Monture en acétate sur mesure polie sur une roue en coton en rotation dans la cabine de polissage.",
+      "Dernière passe de polissage miroir sur une monture Woolet terminée à la station de lustrage.",
+    ],
+  },
+  es: {
+    eyebrow: "DENTRO DEL TALLER",
+    headingLead: "Cada montura,",
+    headingItalic: "moldeada a mano.",
+    intro:
+      "Cortada de una única lámina de acetato Mazzucchelli, limada sobre una plantilla de madera, fresada en el puente y pulida en un disco de algodón hasta lograr un acabado espejo. Sin acabado CNC: de nueve a once horas de trabajo manual por montura.",
+    footer: "Taller Woolet · Hecho a mano con materiales italianos",
+    alts: [
+      "Plantilla de acetato y montura a medida Woolet cortada a mano, sobre la mesa del taller.",
+      "Sierra caladora siguiendo el contorno de un frente de acetato sobre una plantilla de madera.",
+      "Artesano limando a mano el borde de una montura de acetato en bruto sobre un bloque de madera.",
+      "Moldeado a mano de la línea de las cejas de una montura de acetato con una lima de precisión.",
+      "Fresado del puente de una montura de acetato con una herramienta rotativa, polvo de acetato en la luz.",
+      "Primer plano de una lima de diamante afinando el puente keyhole de una montura Woolet.",
+      "Colocación a mano del núcleo de bisagra de acero inoxidable en la varilla de acetato.",
+      "Montura de acetato a medida pulida en un disco de algodón giratorio en la cabina de pulido.",
+      "Última pasada de pulido espejo en una montura Woolet terminada en la estación de abrillantado.",
+    ],
+  },
+  ja: {
+    eyebrow: "アトリエの内側",
+    headingLead: "すべてのフレームは、",
+    headingItalic: "手で削り出す。",
+    intro:
+      "マッツケリ社の一枚板のアセテートから切り出し、木製ジグに当てて削り、ブリッジをフライスで整え、コットンホイールで鏡面になるまで磨き上げます。CNC仕上げは一切なし——一本あたり9〜11時間の手作業。",
+    footer: "Woolet アトリエ · イタリア素材による手仕事",
+    alts: [
+      "アトリエの作業台に置かれた、Wooletビスポークのアセテート型紙と手切りのフレーム素材。",
+      "木製の切削ジグ上で、ビスポーク・アセテートフロントの輪郭をなぞる糸鋸。",
+      "職人が木製ブロックに当てて、粗いアセテートフレームの縁を手作業で削る様子。",
+      "精密ヤスリでアセテートフレームのブロウラインを手で成形する様子。",
+      "回転工具でアセテートフレームのブリッジを削り、光の中に舞うアセテートの粉。",
+      "Wooletビスポークのキーホール・ブリッジを整えるダイヤモンドヤスリのクローズアップ。",
+      "アセテートのテンプルにステンレス製ヒンジコアを手作業で埋め込む様子。",
+      "研磨ブース内で、回転するコットンホイールに当てて磨かれるビスポーク・アセテートフレーム。",
+      "バフィング台での最終鏡面研磨——完成したWooletビスポークフレーム。",
+    ],
+  },
+  ar: {
+    eyebrow: "داخل الورشة",
+    headingLead: "كل إطار",
+    headingItalic: "يُشكَّل باليد.",
+    intro:
+      "يُقطع من صفيحة واحدة من أسيتات ماتزوكيلي، ثم يُبرد على قالب خشبي، ويُفرَز عند الجسر، ويُصقل على قرص قطني حتى يصبح السطح كالمرآة. لا تشطيب آلي بالـ CNC — من تسع إلى إحدى عشرة ساعة من العمل اليدوي لكل إطار.",
+    footer: "ورشة Woolet · صناعة يدوية بمواد إيطالية",
+    alts: [
+      "قالب أسيتات ومسودة إطار مقطوعة يدوياً لإطار Woolet مفصّل، على طاولة الورشة.",
+      "منشار كهربائي يتتبع محيط واجهة أسيتات مفصّلة على قالب خشبي.",
+      "حرفي يبرد يدوياً حافة إطار أسيتات خام على كتلة عمل خشبية.",
+      "تشكيل يدوي لخط الحاجب في إطار أسيتات باستخدام مبرد دقيق.",
+      "فَرْز جسر إطار أسيتات بأداة دوارة، وغبار الأسيتات يتلألأ في الضوء.",
+      "لقطة قريبة لمبرد ماسي يشذّب الجسر (keyhole) في إطار Woolet مفصّل.",
+      "تركيب قلب المفصلة من الفولاذ المقاوم للصدأ في ذراع الأسيتات يدوياً.",
+      "إطار أسيتات مفصّل يُصقل على قرص قطني دوّار داخل كابينة التلميع.",
+      "التلميع النهائي بلمعان المرآة لإطار Woolet جاهز عند محطة التلميع.",
+    ],
+  },
+};
+
+const GALLERY_LAYOUT = [
+  { key: "craft2", src: craft2.url, span: "md:col-span-2 md:row-span-2", ratio: "aspect-[4/3]" },
+  { key: "craft7", src: craft7.url, span: "md:col-span-2", ratio: "aspect-[3/2]" },
+  { key: "craft1", src: craft1.url, span: "", ratio: "aspect-square" },
+  { key: "craft9", src: craft9.url, span: "", ratio: "aspect-square" },
+  { key: "craft3", src: craft3.url, span: "md:col-span-2 md:row-span-2", ratio: "aspect-[4/5]" },
+  { key: "craft8", src: craft8.url, span: "", ratio: "aspect-square" },
+  { key: "craft4", src: craft4.url, span: "", ratio: "aspect-square" },
+  { key: "craft5", src: craft5.url, span: "md:col-span-2", ratio: "aspect-[3/2]" },
+  { key: "craft6", src: craft6.url, span: "md:col-span-2", ratio: "aspect-[3/2]" },
 ];
 
 const FAQS = [
