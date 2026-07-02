@@ -1,3 +1,5 @@
+import manualFitImg from "@/assets/manual-fit-measure.png.asset.json";
+
 export type PlFaq = { q: string; a: string };
 
 export type PlPageConfig = {
@@ -21,6 +23,7 @@ export type PlPageConfig = {
   closingBody: string;
   faqs: PlFaq[];
   englishEquivalent: string;
+  heroImage?: string;
 };
 
 export const plPages: Record<string, PlPageConfig> = {
