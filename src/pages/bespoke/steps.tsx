@@ -508,10 +508,9 @@ export function StepColor({ config, update }: StepProps) {
     <div className="space-y-10">
       <header>
         <div className={sectionKicker}>Step 2 — Acetate</div>
-        <h2 className={sectionTitle}>Compose your <em className="italic text-gold-light">Mazzucchelli</em> acetate</h2>
+        <h2 className={sectionTitle}>Compose your <em className="italic text-gold-light">Italian</em> acetate</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Each swatch is a live macro photograph of the actual sheet we hold in stock. Codes match the Mazzucchelli reference —
-          quote them to your optician or in any correspondence with our atelier.
+          Each swatch is a live macro photograph of the actual sheet we hold in stock — cut and finished by our Italian atelier.
         </p>
       </header>
 
@@ -519,9 +518,7 @@ export function StepColor({ config, update }: StepProps) {
         <div className={labelClass}>Front acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} /></div>
         {front && (
-          <div className="text-cream text-xs mt-2">
-            <span className="font-mono text-gold-light">{front.code}</span> · {front.name}
-          </div>
+          <div className="text-cream text-xs mt-2">{front.name}</div>
         )}
       </div>
 
@@ -529,9 +526,7 @@ export function StepColor({ config, update }: StepProps) {
         <div className={labelClass}>Temple acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} /></div>
         {temple && (
-          <div className="text-cream text-xs mt-2">
-            <span className="font-mono text-gold-light">{temple.code}</span> · {temple.name}
-          </div>
+          <div className="text-cream text-xs mt-2">{temple.name}</div>
         )}
       </div>
 
