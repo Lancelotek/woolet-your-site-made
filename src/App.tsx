@@ -275,6 +275,7 @@ const App = () => (
 
          {/* PL market SEO landing pages */}
          <Route path="/pl/okulary-na-zamowienie" element={<PlLandingRoute />} />
+         <Route path="/pl/jak-dobrac-okulary-do-twarzy" element={<PlLandingRoute />} />
 
          {/* NL market SEO landing pages (pilot) */}
          <Route path="/nl/acetaat-bril-op-maat" element={<NlLandingRoute />} />
