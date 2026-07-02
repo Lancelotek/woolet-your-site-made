@@ -274,7 +274,7 @@ function WelcomeStep({
               margin: 0,
             }}
           >
-            AI scan <em style={{ color: GOLD }}>· 30 seconds</em>
+            FitLens <em style={{ color: GOLD }}>· ~20 seconds</em>
           </h3>
           <ul
             style={{

@@ -2076,8 +2076,8 @@ export default function FitWizard() {
   return (
     <>
       <SEO
-        title="AI Face-Width Scanner — Find Your Glasses Size | Woolet"
-        description="Measure your face width in 30 seconds with a credit card and your camera. Confirms whether 158 mm fits."
+        title="FitLens — Find Your Glasses Size in 20 Seconds | Woolet"
+        description="FitLens measures your face width in about 20 seconds with a credit card and your phone camera. Confirms whether 158 mm fits."
         lang={lang}
         path="/fit"
         availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}

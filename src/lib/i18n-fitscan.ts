@@ -4,13 +4,13 @@ type Dict = Record<string, string>;
 
 const en: Dict = {
   // SEO
-  "seo.title": "Face Scan — Woolet AI Fit",
-  "seo.desc": "Measure your face width and nose width with your camera and a credit card. Local, private, and accurate to about 2mm. Find out if Woolet's wide-face frames fit you.",
+  "seo.title": "FitLens — Find Your Glasses Size in 20 Seconds",
+  "seo.desc": "FitLens measures your face width with your phone camera and a credit card in about 20 seconds. Private, in-browser, accurate to ±1.5 mm — built for wide faces.",
 
   // Welcome
-  "welcome.eyebrow": "30-SECOND FIT SCAN",
-  "welcome.h1_pre": "Measure your face in",
-  "welcome.h1_em": "30 seconds",
+  "welcome.eyebrow": "FITLENS · ~20-SECOND SCAN",
+  "welcome.h1_pre": "Find your glasses size in",
+  "welcome.h1_em": "20 seconds",
   "welcome.subtitle": "Three steps. Photo never leaves your device until you capture.",
   "welcome.need_card_title": "You need a card for this scan",
   "welcome.need_card_why": "A standard payment card is an exact 85.60 mm ruler. We use its long edge to convert pixels in the photo into millimeters on your face — that's how a single selfie gives you a real frame width.",
@@ -37,14 +37,14 @@ const en: Dict = {
   "welcome.manual_link": "Enter your measurements manually →",
 
   // Desktop QR gate
-  "desktop.eyebrow": "FIT SCAN — PHONE ONLY",
-  "desktop.h1_pre": "Point your phone camera at the",
-  "desktop.h1_em": "QR code",
-  "desktop.desc": "The 30-second scan needs a phone camera — we'll ask for your email on the phone, after the measurement.",
+  "desktop.eyebrow": "FITLENS · PHONE ONLY",
+  "desktop.h1_pre": "Find your glasses size in",
+  "desktop.h1_em": "20 seconds — no ruler needed",
+  "desktop.desc": "FitLens runs on your phone camera in about 20 seconds. Your photo stays in the browser — it isn't uploaded or saved. We ask for your email on the phone, after the measurement.",
   "desktop.step1": "Open the camera app on your phone and aim it at the QR code.",
-  "desktop.step2": "Tap the link that appears — the scan opens in your phone's browser.",
+  "desktop.step2": "Tap the link that appears — FitLens opens in your phone's browser.",
   "desktop.step3": "Hold a credit card flat on your forehead and follow the on-screen steps.",
-  "desktop.step4": "Your result appears on your phone in about 30 seconds.",
+  "desktop.step4": "Your result appears on your phone in about 20 seconds.",
   "desktop.fallback_summary": "Can't scan the QR code?",
   "desktop.fallback_text": "Open this link on your phone:",
 
