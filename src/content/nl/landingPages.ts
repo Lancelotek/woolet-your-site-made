@@ -37,9 +37,9 @@ export const nlPages: Record<string, NlPageConfig> = {
     ctaPrimaryHref: "/nl/fit",
     ctaSecondaryLabel: "Open configurator",
     ctaSecondaryHref: "/en/bespoke/configurator",
-    problemH2: "„Personaliseerbaar" en „op maat" zijn niet hetzelfde",
+    problemH2: '„Personaliseerbaar" en „op maat" zijn niet hetzelfde',
     problemBody:
-      "De meeste zogenaamd „customizable" merken laten je alleen een kleur kiezen op een bestaand montuur. Woolet Bespoke werkt anders: frontbreedte, brug, veerlengte en glashoogte stel je onafhankelijk in, tot op de millimeter. De mal wordt aangepast aan jouw gezicht vóór het acetaat wordt gesneden.",
+      'De meeste zogenaamd „customizable" merken laten je alleen een kleur kiezen op een bestaand montuur. Woolet Bespoke werkt anders: frontbreedte, brug, veerlengte en glashoogte stel je onafhankelijk in, tot op de millimeter. De mal wordt aangepast aan jouw gezicht vóór het acetaat wordt gesneden.',
     proofH2: "Italiaans acetaat, met de hand afgewerkt",
     proofBody:
       "We werken met Mazzucchelli 1849 acetaat, al ruim 70 jaar geproduceerd in Italië. Europese ateliers frezen, polijsten en zetten scharnieren per montuur afzonderlijk. Reken op circa 4–6 weken productie na bevestiging van de bestelling.",
@@ -89,7 +89,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     ctaPrimaryHref: "/nl/fit",
     ctaSecondaryLabel: "Bekijk de collectie",
     ctaSecondaryHref: "/nl/collection",
-    problemH2: "„XL" betekent bij de meeste merken helemaal geen XL",
+    problemH2: '„XL" betekent bij de meeste merken helemaal geen XL',
     problemBody:
       "Grote maten in de reguliere optiek stoppen meestal rond 148–150 mm. Voor gezichten van 155 mm en breder blijft er dan weinig over: monturen die knellen op de slapen, veren die te kort zijn en een brug die op je neus drukt. Woolet begint daar juist: alle standaardmaten zijn 155 mm of breder.",
     proofH2: "Twee vormen. Één eerlijk breedtebereik.",
