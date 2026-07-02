@@ -9,7 +9,7 @@ import fitStep8 from "@/assets/fit-steps/step-8.webp.asset.json";
 
 const FLOW_STEPS = [
   { src: fitStep6.url, title: "Tap Scan", desc: "Start FitLens from the Woolet product page with one tap." },
-  { src: fitStep7.url, title: "Guided face scan", desc: "In-browser guidance captures your face width in 15 seconds." },
+  { src: fitStep7.url, title: "Guided face scan", desc: "In-browser guidance captures your face width in about 20 seconds." },
   { src: fitStep8.url, title: "Your fit, confirmed", desc: "See your exact width and the matching Woolet model — measured, not guessed." },
 ];
 
