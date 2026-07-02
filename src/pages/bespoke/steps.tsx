@@ -1502,8 +1502,8 @@ export function StepReview({
 
       <div className="rounded-[14px] border border-cream/10 bg-background/40 px-5">
         <Row label="Pattern" value={frame ? `${frame.name}` : null} />
-        <Row label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> <span className="font-mono text-[10px] text-gold-light">{front.code}</span> · {front.name}</span> : null} />
-        <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> <span className="font-mono text-[10px] text-gold-light">{temple.code}</span> · {temple.name}</span> : null} />
+        <Row label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
+        <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
         <Row label="Finish" value={finish?.name} />
         <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name ?? ""}` : "None"} />
         <Row label="Lenses" value={lens?.name} />
