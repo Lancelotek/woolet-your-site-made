@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useSearchParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
 
@@ -8,17 +9,92 @@ const BUY_BUTTON_ID = "buy_btn_1Tf0naLEPUSL9e9mbcfVXmQb";
 const PUBLISHABLE_KEY = "pk_live_51IZBv9LEPUSL9e9m7dWKqimMZLNFxfjVfjAlLlXaSVqJ3emyB9v12FRo2ytUn9WszI84SRDb3kQxJmzKy7Qcoeih00lUJL9roa";
 const STRIPE_FALLBACK_URL = "https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n";
 
+type Product = "007" | "009" | "bespoke";
+
+function normalizeProduct(raw: string): Product {
+  const v = raw.toLowerCase();
+  if (v.includes("bespoke")) return "bespoke";
+  if (v.includes("009")) return "009";
+  return "007";
+}
+
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function Payments() {
   const [params] = useSearchParams();
-  const product = params.get("product") || "";
+  const productParam = params.get("product") || "007";
+  const product: Product = normalizeProduct(productParam);
+
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [consent, setConsent] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [ready, setReady] = useState(false); // once true → show Stripe button
 
   useEffect(() => {
+    if (!ready) return;
     if (document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) return;
     const s = document.createElement("script");
     s.src = "https://js.stripe.com/v3/buy-button.js";
     s.async = true;
     document.head.appendChild(s);
-  }, []);
+  }, [ready]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    const trimmedEmail = email.trim();
+    const trimmedPhone = phone.trim();
+    if (!emailRe.test(trimmedEmail) || trimmedEmail.length > 320) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    if (trimmedPhone && trimmedPhone.length > 40) {
+      setError("Phone number is too long.");
+      return;
+    }
+    if (!consent) {
+      setError("Please accept the confirmation email consent to continue.");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const utm = {
+        utm_source: params.get("utm_source"),
+        utm_medium: params.get("utm_medium"),
+        utm_campaign: params.get("utm_campaign"),
+      };
+      const { error: insertError } = await supabase.from("reservation_leads").insert({
+        email: trimmedEmail,
+        phone: trimmedPhone || null,
+        product,
+        locale: navigator.language?.slice(0, 5) || null,
+        utm_source: utm.utm_source,
+        utm_medium: utm.utm_medium,
+        utm_campaign: utm.utm_campaign,
+        referrer: document.referrer || null,
+        user_agent: navigator.userAgent?.slice(0, 500) || null,
+      });
+      if (insertError) throw insertError;
+      try { sessionStorage.setItem("woolet_reservation_email", trimmedEmail); } catch { /* noop */ }
+      setReady(true);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Something went wrong.";
+      setError(msg);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const inputStyle: React.CSSProperties = {
+    width: "100%", padding: "12px 14px", fontFamily: "'Barlow', sans-serif",
+    fontSize: 15, border: "1px solid rgba(15,15,15,0.18)", borderRadius: 4,
+    background: "#fff", color: "#0f0f0f", outline: "none", boxSizing: "border-box",
+  };
+
+  const productLabel = product === "bespoke" ? "Bespoke" : product;
 
   return (
     <>
@@ -50,34 +126,105 @@ export default function Payments() {
                 Secure checkout
               </h1>
               <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 13, color: "rgba(15,15,15,0.6)", margin: 0 }}>
-                {product ? `Reserving Woolet ${product} · ` : ""}Payment processed by Stripe
+                Reserving Woolet {productLabel} · Payment processed by Stripe
               </p>
             </div>
 
-            <div style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(15,15,15,0.08)", padding: "32px 24px", textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-              <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", margin: "0 0 18px" }}>
-                Woolet {product || "007 / 009"} — Reserve for $1
+            <div style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(15,15,15,0.08)", padding: "28px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", margin: "0 0 20px", textAlign: "center" }}>
+                Woolet {productLabel} — Reserve for $1
               </p>
 
-              {/* @ts-expect-error - Stripe web component */}
-              <stripe-buy-button
-                buy-button-id={BUY_BUTTON_ID}
-                publishable-key={PUBLISHABLE_KEY}
-              />
+              {!ready ? (
+                <form onSubmit={handleSubmit} style={{ display: "grid", gap: 14 }}>
+                  <label style={{ display: "grid", gap: 6 }}>
+                    <span style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(15,15,15,0.7)" }}>
+                      Email <span style={{ color: "#c9a84c" }}>*</span>
+                    </span>
+                    <input
+                      type="email"
+                      required
+                      autoComplete="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      style={inputStyle}
+                    />
+                  </label>
 
-              <div style={{ marginTop: 18, fontFamily: "'Barlow', sans-serif", fontSize: 11, color: "rgba(15,15,15,0.55)" }}>
-                Button not loading?{" "}
-                <a
-                  href={STRIPE_FALLBACK_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: "#0f0f0f", textDecoration: "underline" }}
-                >
-                  Continue to Stripe →
-                </a>
-              </div>
+                  <label style={{ display: "grid", gap: 6 }}>
+                    <span style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(15,15,15,0.7)" }}>
+                      Phone <span style={{ color: "rgba(15,15,15,0.4)", textTransform: "none", letterSpacing: 0 }}>(optional)</span>
+                    </span>
+                    <input
+                      type="tel"
+                      autoComplete="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+1 555 000 0000"
+                      style={inputStyle}
+                    />
+                  </label>
+
+                  <label style={{ display: "flex", gap: 10, alignItems: "flex-start", fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "rgba(15,15,15,0.7)", lineHeight: 1.5 }}>
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                      style={{ marginTop: 3 }}
+                    />
+                    <span>
+                      Send me the reservation confirmation and shipping updates. See our{" "}
+                      <Link to="/en/privacy" style={{ color: "#0f0f0f" }}>privacy policy</Link>.
+                    </span>
+                  </label>
+
+                  {error && (
+                    <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "#b3261e", background: "rgba(179,38,30,0.06)", padding: "8px 12px", borderRadius: 4 }}>
+                      {error}
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    style={{
+                      marginTop: 4, width: "100%", padding: "14px 0",
+                      background: "#c2a05a", color: "#0b0a09", border: "none",
+                      borderRadius: 2, cursor: submitting ? "wait" : "pointer",
+                      fontFamily: "'Barlow', sans-serif", fontWeight: 600,
+                      fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase",
+                      opacity: submitting ? 0.7 : 1,
+                    }}
+                  >
+                    {submitting ? "Saving…" : "Continue to payment →"}
+                  </button>
+                </form>
+              ) : (
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "rgba(15,15,15,0.6)", marginBottom: 14 }}>
+                    Confirmation will be sent to <strong>{email}</strong>
+                  </div>
+                  {/* @ts-expect-error - Stripe web component */}
+                  <stripe-buy-button
+                    buy-button-id={BUY_BUTTON_ID}
+                    publishable-key={PUBLISHABLE_KEY}
+                    customer-email={email}
+                  />
+                  <div style={{ marginTop: 18, fontFamily: "'Barlow', sans-serif", fontSize: 11, color: "rgba(15,15,15,0.55)" }}>
+                    Button not loading?{" "}
+                    <a
+                      href={`${STRIPE_FALLBACK_URL}?prefilled_email=${encodeURIComponent(email)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "#0f0f0f", textDecoration: "underline" }}
+                    >
+                      Continue to Stripe →
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
-
 
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
               <span>256-bit SSL</span>
