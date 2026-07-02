@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 import Footer from "@/components/Footer";
-import { plPageOrder, plPages, type PlPageConfig } from "@/content/pl/landingPages";
+import { plPageOrder, plPages, type PlPageConfig, type PlExtendedContent } from "@/content/pl/landingPages";
 
 const wooletLogo = wooletLogoAsset.url;
 const SITE = "https://woolet.co";
@@ -105,6 +105,39 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
         <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+        {config.extendedContent?.measureSteps && (
+          <script type="application/ld+json">{JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: config.extendedContent.measureSteps.h2,
+            description: config.metaDescription,
+            totalTime: "PT5M",
+            supply: [
+              { "@type": "HowToSupply", name: "Linijka lub miarka krawiecka" },
+              { "@type": "HowToSupply", name: "Lustro" },
+            ],
+            tool: [{ "@type": "HowToTool", name: "Telefon z aparatem (opcjonalnie — FitLens)" }],
+            step: config.extendedContent.measureSteps.steps.map((s, i) => ({
+              "@type": "HowToStep",
+              position: i + 1,
+              name: s.title,
+              text: s.body,
+            })),
+          })}</script>
+        )}
+        {config.extendedContent && (
+          <script type="application/ld+json">{JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: config.h1,
+            description: config.metaDescription,
+            image: ogImageUrl,
+            author: { "@type": "Organization", name: "Woolet" },
+            publisher: { "@type": "Organization", name: "Woolet", logo: { "@type": "ImageObject", url: `${SITE}/og-image.png` } },
+            inLanguage: "pl-PL",
+            mainEntityOfPage: canonical,
+          })}</script>
+        )}
       </Helmet>
 
       <main style={{ background: colors.ink, color: colors.cream, minHeight: "100vh" }}>
@@ -221,6 +254,10 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
           </div>
         </section>
 
+        {config.extendedContent && (
+          <ExtendedSections content={config.extendedContent} colors={colors} />
+        )}
+
         {/* CLOSING */}
         <section className="px-6 md:px-10" style={{ borderTop: `1px solid ${colors.line}` }}>
           <div className="max-w-3xl mx-auto py-20 md:py-28 text-center flex flex-col items-center gap-6">
@@ -277,6 +314,212 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
 
         <Footer />
       </main>
+    </>
+  );
+}
+
+function ExtendedSections({
+  content,
+  colors,
+}: {
+  content: PlExtendedContent;
+  colors: { ink: string; inkSoft: string; cream: string; creamDim: string; gold: string; line: string };
+}) {
+  const h2Style: React.CSSProperties = {
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: "clamp(1.6rem, 2.6vw, 2.2rem)",
+    fontWeight: 400,
+    lineHeight: 1.3,
+    color: colors.cream,
+    margin: 0,
+    marginBottom: 24,
+  };
+  const bodyStyle: React.CSSProperties = {
+    fontFamily: "'Barlow', sans-serif",
+    fontSize: 16,
+    lineHeight: 1.85,
+    color: colors.creamDim,
+  };
+
+  return (
+    <>
+      {content.faceShapes && (
+        <section className="px-6 md:px-10" style={{ borderTop: `1px solid ${colors.line}` }}>
+          <div className="max-w-4xl mx-auto py-20 md:py-24">
+            <h2 style={h2Style}>{content.faceShapes.h2}</h2>
+            {content.faceShapes.intro && (
+              <p style={{ ...bodyStyle, marginBottom: 28, maxWidth: 640 }}>{content.faceShapes.intro}</p>
+            )}
+            <div className="grid sm:grid-cols-2 gap-px" style={{ background: colors.line }}>
+              {content.faceShapes.items.map((it) => (
+                <div key={it.shape} className="p-6" style={{ background: colors.ink }}>
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: colors.cream, marginBottom: 8 }}>
+                    {it.shape}
+                  </div>
+                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 14.5, lineHeight: 1.7, color: colors.creamDim }}>
+                    {it.recommendation}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {content.faceShapes.counterpoint && (
+              <p style={{ ...bodyStyle, marginTop: 28, borderLeft: `2px solid ${colors.gold}`, paddingLeft: 18, color: colors.cream, fontStyle: "italic" }}>
+                {content.faceShapes.counterpoint}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
+      {content.sizeExplainer && (
+        <section className="px-6 md:px-10" style={{ borderTop: `1px solid ${colors.line}`, background: colors.inkSoft }}>
+          <div className="max-w-4xl mx-auto py-20 md:py-24">
+            <h2 style={h2Style}>{content.sizeExplainer.h2}</h2>
+            <p style={{ ...bodyStyle, maxWidth: 720 }}>{content.sizeExplainer.intro}</p>
+            {content.sizeExplainer.formula && (
+              <div className="mt-8 p-6" style={{ border: `1px solid ${colors.line}`, background: colors.ink }}>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 8 }}>
+                  {content.sizeExplainer.formulaLabel}
+                </div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: colors.cream }}>
+                  {content.sizeExplainer.formula}
+                </div>
+              </div>
+            )}
+            {content.sizeExplainer.bandsTitle && (
+              <h3 style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.creamDim, marginTop: 40, marginBottom: 16 }}>
+                {content.sizeExplainer.bandsTitle}
+              </h3>
+            )}
+            <div style={{ borderTop: `1px solid ${colors.line}` }}>
+              {content.sizeExplainer.bands.map((b) => (
+                <div
+                  key={b.range}
+                  className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 py-4"
+                  style={{
+                    borderBottom: `1px solid ${colors.line}`,
+                    background: b.highlight ? "rgba(202,164,73,0.06)" : "transparent",
+                    paddingLeft: b.highlight ? 16 : 0,
+                    paddingRight: b.highlight ? 16 : 0,
+                  }}
+                >
+                  <div style={{ minWidth: 160, fontFamily: "'Cormorant Garamond', serif", fontSize: 18, color: b.highlight ? colors.gold : colors.cream }}>
+                    {b.range}
+                  </div>
+                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 14.5, lineHeight: 1.7, color: colors.creamDim }}>
+                    {b.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {content.measureSteps && (
+        <section className="px-6 md:px-10" style={{ borderTop: `1px solid ${colors.line}` }}>
+          <div className="max-w-4xl mx-auto py-20 md:py-24">
+            <h2 style={h2Style}>{content.measureSteps.h2}</h2>
+            <ol className="grid gap-px mt-6" style={{ background: colors.line, listStyle: "none", padding: 0 }}>
+              {content.measureSteps.steps.map((s, i) => (
+                <li key={s.title} className="p-6 flex gap-5" style={{ background: colors.ink }}>
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, lineHeight: 1, color: colors.gold, minWidth: 40 }}>
+                    {i + 1}
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: colors.cream, marginBottom: 6 }}>
+                      {s.title}
+                    </div>
+                    <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 14.5, lineHeight: 1.75, color: colors.creamDim }}>
+                      {s.body}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div
+              className="mt-10 p-7 flex flex-col md:flex-row md:items-center gap-6"
+              style={{ border: `1px solid ${colors.gold}`, background: "rgba(202,164,73,0.05)" }}
+            >
+              <p style={{ ...bodyStyle, color: colors.cream, margin: 0, flex: 1 }}>
+                {content.measureSteps.ctaCard.text}
+              </p>
+              <Link
+                to={content.measureSteps.ctaCard.ctaHref}
+                className="inline-flex items-center justify-center whitespace-nowrap"
+                style={{
+                  padding: "14px 24px",
+                  background: colors.gold,
+                  color: colors.ink,
+                  fontFamily: "'Barlow', sans-serif",
+                  fontWeight: 600,
+                  fontSize: 12,
+                  letterSpacing: "0.18em",
+                  textDecoration: "none",
+                  textTransform: "uppercase",
+                }}
+              >
+                {content.measureSteps.ctaCard.ctaLabel}
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {content.fitRules && (
+        <section className="px-6 md:px-10" style={{ borderTop: `1px solid ${colors.line}`, background: colors.inkSoft }}>
+          <div className="max-w-4xl mx-auto py-20 md:py-24">
+            <h2 style={h2Style}>{content.fitRules.h2}</h2>
+            <div className="grid md:grid-cols-3 gap-px mt-6" style={{ background: colors.line }}>
+              {content.fitRules.rules.map((r, i) => (
+                <div key={r.title} className="p-6" style={{ background: colors.ink }}>
+                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 12 }}>
+                    Zasada {i + 1}
+                  </div>
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: colors.cream, marginBottom: 10 }}>
+                    {r.title}
+                  </div>
+                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 14.5, lineHeight: 1.75, color: colors.creamDim }}>
+                    {r.body}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {content.brandSection && (
+        <section className="px-6 md:px-10" style={{ borderTop: `1px solid ${colors.line}` }}>
+          <div className="max-w-3xl mx-auto py-20 md:py-24">
+            <h2 style={h2Style}>{content.brandSection.h2}</h2>
+            <p style={{ ...bodyStyle, marginBottom: 28 }}>{content.brandSection.body}</p>
+            <div className="flex flex-wrap gap-4">
+              {content.brandSection.ctas.map((c) => (
+                <Link
+                  key={c.label}
+                  to={c.href}
+                  className="inline-flex items-center justify-center"
+                  style={{
+                    padding: "16px 28px",
+                    background: c.primary ? colors.gold : "transparent",
+                    color: c.primary ? colors.ink : colors.gold,
+                    border: c.primary ? "none" : `1px solid ${colors.gold}`,
+                    fontFamily: "'Barlow', sans-serif",
+                    fontWeight: 600,
+                    fontSize: 12,
+                    letterSpacing: "0.18em",
+                    textDecoration: "none",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {c.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
