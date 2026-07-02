@@ -116,7 +116,7 @@ function ColorSwatchGrid({
           <button
             key={c.id}
             onClick={() => onSelect(c.id)}
-            title={`${c.code} · ${c.name}`}
+            title={c.name}
             className={`group relative overflow-hidden border text-left transition ${
               active
                 ? "border-gold ring-2 ring-gold/40"
@@ -127,7 +127,7 @@ function ColorSwatchGrid({
             <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
               <img
                 src={c.image}
-                alt={`Mazzucchelli acetate ${c.code} — ${c.name}`}
+                alt={`Italian acetate — ${c.name}`}
                 loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
@@ -141,13 +141,7 @@ function ColorSwatchGrid({
               )}
             </div>
             <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
-              <div
-                className="font-mono text-[10px] uppercase tracking-[0.14em] text-gold-light/90"
-                style={{ letterSpacing: "0.14em" }}
-              >
-                {c.code}
-              </div>
-              <div className="mt-0.5 text-cream text-[11px] truncate">{c.name}</div>
+              <div className="text-cream text-[12px] truncate">{c.name}</div>
               {c.note && (
                 <div className="text-cream-dim text-[10px] italic truncate">{c.note}</div>
               )}
@@ -514,10 +508,9 @@ export function StepColor({ config, update }: StepProps) {
     <div className="space-y-10">
       <header>
         <div className={sectionKicker}>Step 2 — Acetate</div>
-        <h2 className={sectionTitle}>Compose your <em className="italic text-gold-light">Mazzucchelli</em> acetate</h2>
+        <h2 className={sectionTitle}>Compose your <em className="italic text-gold-light">Italian</em> acetate</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Each swatch is a live macro photograph of the actual sheet we hold in stock. Codes match the Mazzucchelli reference —
-          quote them to your optician or in any correspondence with our atelier.
+          Each swatch is a live macro photograph of the actual sheet we hold in stock — cut and finished by our Italian atelier.
         </p>
       </header>
 
@@ -525,9 +518,7 @@ export function StepColor({ config, update }: StepProps) {
         <div className={labelClass}>Front acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} /></div>
         {front && (
-          <div className="text-cream text-xs mt-2">
-            <span className="font-mono text-gold-light">{front.code}</span> · {front.name}
-          </div>
+          <div className="text-cream text-xs mt-2">{front.name}</div>
         )}
       </div>
 
@@ -535,9 +526,7 @@ export function StepColor({ config, update }: StepProps) {
         <div className={labelClass}>Temple acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} /></div>
         {temple && (
-          <div className="text-cream text-xs mt-2">
-            <span className="font-mono text-gold-light">{temple.code}</span> · {temple.name}
-          </div>
+          <div className="text-cream text-xs mt-2">{temple.name}</div>
         )}
       </div>
 
@@ -1226,7 +1215,7 @@ function EngravingPreview({
         </svg>
       </div>
       <p className="text-cream-dim/70 text-[0.78rem] mt-2 text-center">
-        Indicative · final depth and kerning set by the laser operator.
+        Indicative · CNC-engraved by our Italian atelier. Left temple only — right temple carries the Woolet logo.
       </p>
     </div>
   );
@@ -1241,9 +1230,9 @@ export function StepEngraving({ config, update }: StepProps) {
     <div className="space-y-8">
       <header>
         <div className={sectionKicker}>Step 4</div>
-        <h2 className={sectionTitle}>Laser engraving <span className="text-cream-dim text-base ml-2">+ {formatEur(ENGRAVING_FEE_EUR)} · optional</span></h2>
+        <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">+ {formatEur(ENGRAVING_FEE_EUR)} · optional</span></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Permanent and non-returnable. Adds 2–3 days to production.
+          CNC-engraved on the inner left temple by our Italian atelier. Permanent and non-returnable. Adds 2–3 days to production. The right temple always carries the Woolet logo.
         </p>
       </header>
 
@@ -1259,14 +1248,17 @@ export function StepEngraving({ config, update }: StepProps) {
           No engraving
         </button>
         <button
-          onClick={() => update("engravingEnabled", true)}
+          onClick={() => {
+            update("engravingEnabled", true);
+            if (!config.engravingPositionId) update("engravingPositionId", "inner-left");
+          }}
           className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] border transition ${
             config.engravingEnabled
               ? "border-gold text-gold-light bg-gold/10"
               : "border-cream/15 text-cream-dim hover:border-cream/30"
           }`}
         >
-          Add engraving
+          Write my name
         </button>
       </div>
 
@@ -1282,43 +1274,25 @@ export function StepEngraving({ config, update }: StepProps) {
           />
 
           <div>
-            <div className={labelClass}>Text · max {ENGRAVING_MAX_CHARS} characters</div>
+            <div className={labelClass}>Your name · max {ENGRAVING_MAX_CHARS} characters</div>
             <input
               type="text"
               value={config.engravingText}
               onChange={(e) => update("engravingText", e.target.value.slice(0, ENGRAVING_MAX_CHARS))}
               maxLength={ENGRAVING_MAX_CHARS}
-              placeholder="Your initials, a date, a word…"
+              placeholder="Your name, initials or a date…"
               className="mt-2 w-full px-4 py-3 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
             />
             <div className="text-cream-dim text-[0.78rem] mt-1.5">{remaining} characters left</div>
           </div>
 
-          <div>
-            <div className={labelClass}>Position</div>
-            <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {ENGRAVING_POSITIONS.map((p) => {
-                const active = config.engravingPositionId === p.id;
-                return (
-                  <button
-                    key={p.id}
-                    onClick={() => update("engravingPositionId", p.id)}
-                    className={`px-3 py-2.5 rounded-[10px] text-xs border transition ${
-                      active
-                        ? "border-gold text-gold-light bg-gold/10"
-                        : "border-cream/15 text-cream-dim hover:border-cream/30"
-                    }`}
-                  >
-                    {p.name}
-                  </button>
-                );
-              })}
-            </div>
+          <div className="rounded-[10px] border border-cream/10 bg-cream/[0.02] px-4 py-3 text-[0.78rem] text-cream-dim">
+            Position: inner left temple (fixed). The right temple always carries the Woolet logo.
           </div>
 
           <div>
             <div className={labelClass}>Font</div>
-            <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div className="mt-2 grid grid-cols-2 gap-2">
               {ENGRAVING_FONTS.map((f) => {
                 const active = config.engravingFontId === f.id;
                 return (
@@ -1330,15 +1304,10 @@ export function StepEngraving({ config, update }: StepProps) {
                         ? "border-gold text-gold-light bg-gold/10"
                         : "border-cream/15 text-cream-dim hover:border-cream/30"
                     }`}
-                    style={{
-                      fontFamily:
-                        f.id === "serif" ? "'Cormorant Garamond', serif" :
-                        f.id === "script" ? "'Cormorant Garamond', cursive" :
-                        f.id === "mono" ? "ui-monospace, monospace" : "Barlow, sans-serif",
-                      fontStyle: f.id === "script" ? "italic" : "normal",
-                    }}
+                    style={{ fontFamily: f.cssFamily }}
                   >
-                    {config.engravingText || "Aa"}
+                    <div className="text-[0.7rem] uppercase tracking-[0.18em] text-cream-dim mb-1">{f.name}</div>
+                    <div className="text-lg text-cream">{config.engravingText || "Your name"}</div>
                   </button>
                 );
               })}
@@ -1359,7 +1328,7 @@ export function StepLenses({ config, update }: StepProps) {
         <div className={sectionKicker}>Step 5</div>
         <h2 className={sectionTitle}>Lenses & prescription</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Choose plano if you already have lenses cut at your optician.
+          Every frame ships with lenses cut and fitted — plano (no correction) starts at €20, same as sun lenses. Choose plano if you plan to send the frame to your own optician for prescription lenses.
         </p>
       </header>
 
@@ -1533,8 +1502,8 @@ export function StepReview({
 
       <div className="rounded-[14px] border border-cream/10 bg-background/40 px-5">
         <Row label="Pattern" value={frame ? `${frame.name}` : null} />
-        <Row label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> <span className="font-mono text-[10px] text-gold-light">{front.code}</span> · {front.name}</span> : null} />
-        <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> <span className="font-mono text-[10px] text-gold-light">{temple.code}</span> · {temple.name}</span> : null} />
+        <Row label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
+        <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
         <Row label="Finish" value={finish?.name} />
         <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name ?? ""}` : "None"} />
         <Row label="Lenses" value={lens?.name} />

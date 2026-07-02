@@ -80,10 +80,10 @@ export const jaPages: Record<string, JaPageConfig> = {
     slug: "bespoke",
     eyebrow: "Woolet · オーダーメイド メガネ",
     h1: "オーダーメイド メガネ — 顔に合わせて作る、本当の一本",
-    sub: "顔幅150〜172mmまでミリ単位で対応。ブリッジ幅、テンプル長、レンズ高さも個別調整。イタリア製マッツケリ・アセテートを使い、EUの職人が一本ずつ手作業で仕立てます。",
-    metaTitle: "オーダーメイド メガネ 150–172mm | Woolet イタリア製アセテート",
+    sub: "顔幅150〜165mmまでミリ単位で対応。ブリッジ幅、テンプル長、レンズ高さも個別調整。イタリア製マッツケリ・アセテートを使い、EUの職人が一本ずつ手作業で仕立てます。",
+    metaTitle: "オーダーメイド メガネ 150–165mm | Woolet イタリア製アセテート",
     metaDescription:
-      "オーダーメイド メガネを150〜172mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
+      "オーダーメイド メガネを150〜165mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
     primaryKeyword: "オーダーメイド メガネ",
     ctaPrimaryLabel: "FitLensで顔を測る",
     ctaPrimaryHref: "/ja/fit",
@@ -96,7 +96,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     proofBody:
       "素材はマッツケリ1849のアセテート。70年以上の歴史を持つイタリア素材です。EUの工房で職人が削り、磨き、ヒンジを埋め込みます。納期は約4〜6週間。",
     proofBullets: [
-      { label: "対応サイズ", value: "150 – 172 mm" },
+      { label: "対応サイズ", value: "150 – 165 mm" },
       { label: "カスタマイズ", value: "幅 / ブリッジ / テンプル / 高さ" },
       { label: "素材", value: "Mazzucchelli 1849 アセテート" },
       { label: "納期", value: "4 – 6 週間 (EU手作業)" },
@@ -107,7 +107,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     faqs: [
       {
         q: "どこまでサイズを調整できますか？",
-        a: "フロント幅は150〜172mm、ブリッジは18〜24mm、テンプルは135〜155mmまで指定可能です。レンズ高さも調整できます。",
+        a: "フロント幅は150〜165mm、ブリッジは18〜24mm、テンプルは135〜155mmまで指定可能です。レンズ高さも調整できます。",
       },
       {
         q: "どうやって採寸しますか？",
