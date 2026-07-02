@@ -383,6 +383,48 @@ export type Database = {
         }
         Relationships: []
       }
+      gsc_snapshots: {
+        Row: {
+          clicks: number
+          created_at: string
+          ctr: number
+          id: string
+          impressions: number
+          page_path: string
+          position: number
+          query: string
+          snapshot_date: string
+          threshold_ctr: number | null
+          threshold_met: boolean | null
+        }
+        Insert: {
+          clicks?: number
+          created_at?: string
+          ctr?: number
+          id?: string
+          impressions?: number
+          page_path: string
+          position?: number
+          query: string
+          snapshot_date: string
+          threshold_ctr?: number | null
+          threshold_met?: boolean | null
+        }
+        Update: {
+          clicks?: number
+          created_at?: string
+          ctr?: number
+          id?: string
+          impressions?: number
+          page_path?: string
+          position?: number
+          query?: string
+          snapshot_date?: string
+          threshold_ctr?: number | null
+          threshold_met?: boolean | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
