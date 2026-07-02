@@ -164,7 +164,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     },
     {
       q: "Skąd mam wiedzieć, że okulary są za małe?",
-      a: "Trzy sygnały: (1) czerwone ślady po zausznikach za uszami po zdjęciu okularów, (2) ból lub pulsowanie w skroniach po 4–8 godzinach noszenia, (3) źrenice wypadają bliżej wewnętrznej krawędzi soczewek zamiast na środku. Każdy z tych objawów oznacza, że front oprawki jest za wąski — nie da się tego „dotrzeć".",
+      a: 'Trzy sygnały: (1) czerwone ślady po zausznikach za uszami po zdjęciu okularów, (2) ból lub pulsowanie w skroniach po 4–8 godzinach noszenia, (3) źrenice wypadają bliżej wewnętrznej krawędzi soczewek zamiast na środku. Każdy z tych objawów oznacza, że front oprawki jest za wąski — nie da się tego „dotrzeć".',
     },
   ],
   englishEquivalent: "/en/blog/how-to-measure-face-width-for-glasses",
