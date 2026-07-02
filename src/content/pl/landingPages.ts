@@ -93,7 +93,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
   ctaSecondaryHref: "/en/collection",
   problemH2: "Dlaczego okulary zsuwają się z nosa albo uciskają skronie",
   problemBody:
-    "90% oprawek dostępnych w salonach ma szerokość frontu 135–148 mm — projektowaną pod przeciętną szerokość twarzy. Jeśli twoja twarz między skrońmi ma powyżej 150 mm, standardowa oprawa dosłownie „siedzi na skroniach", zostawia ślady i po godzinie boli. Za wąska oprawa spycha też nos do przodu, przez co okulary zsuwają się, choć zauszniki są dokręcone.",
+    "90% oprawek dostępnych w salonach ma szerokość frontu 135–148 mm — projektowaną pod przeciętną szerokość twarzy. Jeśli twoja twarz między skrońmi ma powyżej 150 mm, standardowa oprawa dosłownie „siedzi na skroniach”, zostawia ślady i po godzinie boli. Za wąska oprawa spycha też nos do przodu, przez co okulary zsuwają się, choć zauszniki są dokręcone.",
   proofH2: "Wystarczy jeden pomiar — szerokość między skrońmi",
   proofBody:
     "Nie musisz znać kształtu twarzy (owalny, kwadratowy, serce). Do doboru rozmiaru oprawy liczy się jeden wymiar: szerokość między skrońmi w milimetrach. Zmierz miarką krawiecką od jednej skroni do drugiej — na wysokości brwi, tuż przed uszami. Ten wynik mapujemy na konkretną oprawę.",
