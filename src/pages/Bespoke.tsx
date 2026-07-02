@@ -5,15 +5,15 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import bespokeHero from "@/assets/bespoke-hero.png.asset.json";
-import craft1 from "@/assets/bespoke-craft/craft-1.jpg.asset.json";
-import craft2 from "@/assets/bespoke-craft/craft-2.jpg.asset.json";
-import craft3 from "@/assets/bespoke-craft/craft-3.jpg.asset.json";
-import craft4 from "@/assets/bespoke-craft/craft-4.jpg.asset.json";
-import craft5 from "@/assets/bespoke-craft/craft-5.jpg.asset.json";
-import craft6 from "@/assets/bespoke-craft/craft-6.jpg.asset.json";
-import craft7 from "@/assets/bespoke-craft/craft-7.jpg.asset.json";
-import craft8 from "@/assets/bespoke-craft/craft-8.jpg.asset.json";
-import craft9 from "@/assets/bespoke-craft/craft-9.jpg.asset.json";
+import craft1 from "@/assets/bespoke-craft/woolet-bespoke-hand-filing-acetate-frame.jpg.asset.json";
+import craft2 from "@/assets/bespoke-craft/woolet-bespoke-acetate-template-frame-blank.jpg.asset.json";
+import craft3 from "@/assets/bespoke-craft/woolet-bespoke-milling-acetate-bridge.jpg.asset.json";
+import craft4 from "@/assets/bespoke-craft/woolet-bespoke-hinge-core-acetate-temple.jpg.asset.json";
+import craft5 from "@/assets/bespoke-craft/woolet-bespoke-polishing-cotton-wheel.jpg.asset.json";
+import craft6 from "@/assets/bespoke-craft/woolet-bespoke-mirror-polish-finish.jpg.asset.json";
+import craft7 from "@/assets/bespoke-craft/woolet-bespoke-jigsaw-cutting-acetate-front.jpg.asset.json";
+import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-bridge.jpg.asset.json";
+import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
 type AtelierCopy = {
