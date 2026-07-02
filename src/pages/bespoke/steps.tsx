@@ -116,7 +116,7 @@ function ColorSwatchGrid({
           <button
             key={c.id}
             onClick={() => onSelect(c.id)}
-            title={`${c.code} · ${c.name}`}
+            title={c.name}
             className={`group relative overflow-hidden border text-left transition ${
               active
                 ? "border-gold ring-2 ring-gold/40"
