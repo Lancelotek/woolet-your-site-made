@@ -69,18 +69,87 @@ export default function DesktopScanGate({ lang }: Props) {
 
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 18,
-          padding: 28,
-          background: "#fff",
-          borderRadius: 8,
+          display: "grid",
+          gridTemplateColumns: "auto 1fr",
+          alignItems: "stretch",
+          gap: 20,
           alignSelf: "flex-start",
         }}
       >
-        {scanUrl && <QRCodeSVG value={scanUrl} size={232} level="M" includeMargin={false} />}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 20,
+            background: "#fff",
+            borderRadius: 8,
+          }}
+        >
+          {scanUrl && <QRCodeSVG value={scanUrl} size={188} level="M" includeMargin={false} />}
+        </div>
+        <div
+          aria-label="Example FitLens result"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            gap: 12,
+            padding: "16px 18px",
+            border: "1px solid rgba(202,164,73,0.35)",
+            borderRadius: 8,
+            background: "rgba(202,164,73,0.05)",
+            fontFamily: "Barlow, sans-serif",
+            minWidth: 220,
+          }}
+        >
+          <div>
+            <div
+              style={{
+                color: GOLD,
+                fontSize: "0.62rem",
+                fontWeight: 600,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                marginBottom: 6,
+              }}
+            >
+              Example result
+            </div>
+            <div
+              style={{
+                color: "#fff",
+                fontFamily: "Cormorant Garamond, serif",
+                fontSize: "2rem",
+                lineHeight: 1,
+                fontWeight: 300,
+              }}
+            >
+              158 mm
+            </div>
+            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem", marginTop: 4 }}>
+              Your match: <span style={{ color: GOLD }}>Woolet 009</span>
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              alignItems: "flex-start",
+              color: "rgba(255,255,255,0.55)",
+              fontSize: "0.72rem",
+              lineHeight: 1.45,
+              paddingTop: 10,
+              borderTop: "1px solid rgba(255,255,255,0.08)",
+            }}
+          >
+            <span aria-hidden style={{ color: GOLD }}>🔒</span>
+            <span>Photo stays in your browser. Not uploaded, not saved.</span>
+          </div>
+        </div>
       </div>
+
+
 
       <ol
         className="flex flex-col gap-3 m-0 p-0"
