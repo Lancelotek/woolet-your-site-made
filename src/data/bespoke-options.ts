@@ -32,7 +32,7 @@ import blueLightImg from "@/assets/configurator/lenses/blue-light.jpg";
 
 export interface ColorSwatch {
   id: string;
-  /** Mazzucchelli stock code, shown on the swatch (e.g. "P632 0006"). */
+  /** Internal factory stock code — NEVER surfaced to the customer. */
   code: string;
   /** Human-readable descriptor. */
   name: string;
@@ -42,9 +42,18 @@ export interface ColorSwatch {
   image: string;
   /** Optional short note (translucent, layered, etc.). */
   note?: string;
+  /**
+   * Sheet thickness in millimetres.
+   * Front acetate is cut from 6 mm plates; TEMPLES must be 4 mm.
+   * When set, `ColorSwatchGrid` can filter the temple picker to 4 mm-only.
+   * TODO(catalog): confirm exact thickness per code with atelier and fill in.
+   */
+  thicknessMm?: 4 | 6;
 }
 
 export const COLORS: ColorSwatch[] = [
+  // NOTE(temples): mark each swatch with `thicknessMm: 4` once the atelier confirms
+  // which of the sheets below are also stocked at 4 mm (needed for temple selection).
   { id: "p632-0006", code: "P632 0006", name: "Dark tortoise",          hex: "#3a1a05", image: p632.url },
   { id: "p601-0009", code: "P601 0009", name: "Amber tortoise",         hex: "#4a2306", image: p601.url },
   { id: "p554-1365", code: "P554 1365", name: "Bordeaux marble",        hex: "#4b1210", image: p554.url },
@@ -65,6 +74,14 @@ export const COLORS: ColorSwatch[] = [
   { id: "3102-1106", code: "3102 1106", name: "Sunflower",               hex: "#f4b410", image: ace3102y.url },
   { id: "p844-5962", code: "P844 5962", name: "Olive marble",            hex: "#8a7a1a", image: p844.url },
 ];
+
+/** Front plates are 6 mm; temples must be 4 mm (only sheets stocked at 4 mm show up in the temple grid). */
+export const TEMPLE_THICKNESS_MM = 4 as const;
+export const FRONT_THICKNESS_MM = 6 as const;
+
+/** Convenience helpers used by the configurator to filter the picker. */
+export const templeColors = () => COLORS.filter((c) => c.thicknessMm === TEMPLE_THICKNESS_MM);
+export const frontColors = () => COLORS.filter((c) => c.thicknessMm === undefined || c.thicknessMm === FRONT_THICKNESS_MM);
 
 export const FINISHES = [
   { id: "shiny",   name: "Shiny hand-polished", image: shinyImg },
