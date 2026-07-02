@@ -25,6 +25,8 @@ export type PlPageConfig = {
   faqs: PlFaq[];
   englishEquivalent: string;
   heroImage?: string;
+  heroAlt?: string;
+  heroCaption?: string;
   ogImage?: string;
 };
 
@@ -135,6 +137,10 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
   ],
   englishEquivalent: "/en/fit/manual",
   heroImage: manualFitImg.url,
+  heroAlt:
+    "Jak dobrać okulary do twarzy — diagram pomiaru szerokości twarzy w milimetrach od skroni do skroni z kartą płatniczą jako miarką odniesienia.",
+  heroCaption:
+    "Pomiar skroń–skroń kartą płatniczą (85,6 mm) — tak wyznaczasz szerokość oprawek okularów w milimetrach.",
   ogImage: ogJakDobrac.url,
 };
 
