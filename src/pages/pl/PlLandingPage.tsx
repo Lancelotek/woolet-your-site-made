@@ -221,6 +221,10 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
           </div>
         </section>
 
+        {config.extendedContent && (
+          <ExtendedSections content={config.extendedContent} colors={colors} />
+        )}
+
         {/* CLOSING */}
         <section className="px-6 md:px-10" style={{ borderTop: `1px solid ${colors.line}` }}>
           <div className="max-w-3xl mx-auto py-20 md:py-28 text-center flex flex-col items-center gap-6">
