@@ -4,13 +4,13 @@ type Dict = Record<string, string>;
 
 const en: Dict = {
   // SEO
-  "seo.title": "Face Scan — Woolet AI Fit",
-  "seo.desc": "Measure your face width and nose width with your camera and a credit card. Local, private, and accurate to about 2mm. Find out if Woolet's wide-face frames fit you.",
+  "seo.title": "FitLens — Find Your Glasses Size in 20 Seconds",
+  "seo.desc": "FitLens measures your face width with your phone camera and a credit card in about 20 seconds. Private, in-browser, accurate to ±1.5 mm — built for wide faces.",
 
   // Welcome
-  "welcome.eyebrow": "30-SECOND FIT SCAN",
-  "welcome.h1_pre": "Measure your face in",
-  "welcome.h1_em": "30 seconds",
+  "welcome.eyebrow": "FITLENS · ~20-SECOND SCAN",
+  "welcome.h1_pre": "Find your glasses size in",
+  "welcome.h1_em": "20 seconds",
   "welcome.subtitle": "Three steps. Photo never leaves your device until you capture.",
   "welcome.need_card_title": "You need a card for this scan",
   "welcome.need_card_why": "A standard payment card is an exact 85.60 mm ruler. We use its long edge to convert pixels in the photo into millimeters on your face — that's how a single selfie gives you a real frame width.",
