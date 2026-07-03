@@ -162,13 +162,13 @@ const Footer = () => {
         >
           <div className="flex flex-col gap-1">
             <span
-              className="text-cream-dim/60 tracking-wider"
+              className="text-cream-dim tracking-wider"
               style={{ fontSize: "0.7rem" }}
             >
               {t(lang, "footer.rights")}
             </span>
             <span
-              className="text-cream-dim/50 tracking-wider"
+              className="text-cream-dim/85 tracking-wider"
               style={{ fontSize: "0.68rem", lineHeight: 1.5 }}
             >
               Woolet by JAY23 LLC · 412 N. Main Street, STE 100 · Buffalo, Wyoming 82834
