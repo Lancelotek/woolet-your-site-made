@@ -22,8 +22,8 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY")!;
 const GSC_API_KEY = Deno.env.get("GOOGLE_SEARCH_CONSOLE_API_KEY")!;
 
-// GSC site URL (verified property). `sc-domain:` covers all subdomains + protocols.
-const SITE_URL = Deno.env.get("GSC_SITE_URL") ?? "sc-domain:woolet.co";
+// GSC site URL. The verified property is the URL-prefix `https://woolet.co/`.
+const SITE_URL = Deno.env.get("GSC_SITE_URL") ?? "https://woolet.co/";
 const GATEWAY = "https://connector-gateway.lovable.dev/google_search_console";
 
 // Tracking config: which pages, which queries, and success thresholds.
