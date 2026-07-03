@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { pushGtmEvent } from "@/lib/gtm";
+import wordmark from "@/assets/woolet-wordmark.svg";
 
 const InstagramIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -90,20 +91,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(4,1fr)] gap-10 md:gap-8 pb-10">
           {/* Brand */}
           <div className="flex flex-col gap-3">
-            <span
+            <img
+              src={wordmark}
+              alt="Woolet"
               className="self-start"
-              style={{
-                fontFamily: "'Archivo', system-ui, sans-serif",
-                fontWeight: 500,
-                fontSize: "0.95rem",
-                lineHeight: 1,
-                letterSpacing: "0.32em",
-                textTransform: "uppercase",
-                color: "hsl(var(--cream, 39 30% 91%))",
-              }}
-            >
-              Woolet
-            </span>
+              style={{ height: 18, width: "auto", display: "block" }}
+            />
+
 
             <p
               className="text-cream-dim/70 max-w-[280px] leading-relaxed"
