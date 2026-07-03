@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120" width="600" height="120">
+  <rect width="600" height="120" fill="#0B0A09"/>
+  <text x="300" y="78" text-anchor="middle"
+        font-family="Archivo, system-ui, sans-serif"
+        font-weight="500" font-size="56" letter-spacing="18"
+        fill="#EFE9DF">WOOLET</text>
+</svg>
