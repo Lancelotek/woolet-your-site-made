@@ -3073,6 +3073,82 @@ const blogPostsEN: BlogPost[] = [
       { q: "Is a 21 mm bridge important on a 158 mm frame?", a: "For most wide faces, yes. A narrow 15–18 mm bridge on a 158 mm front leaves the lenses too far inboard. A 21–22 mm keyhole bridge keeps the optical centres aligned with your pupils and prevents the frame from sitting too low on the nose." },
     ],
   },
+  {
+    slug: "xxl-aviator-sunglasses-for-big-heads",
+    title: "XXL Aviator Sunglasses for Big Heads: The Honest 2026 Guide",
+    excerpt: "Most 'XXL aviators' are still 140 mm across. If your face is 155 mm+ or your head is 58 cm+, here's what to actually look for — front width, bridge, temple length, and why Italian acetate beats bent metal at this size.",
+    date: "2026-07-03",
+    readTime: 9,
+    tags: ["Sunglasses", "Aviator", "Big Heads", "Guide", "2026"],
+    faq: [
+      { q: "What size aviator sunglasses do I need for a big head?", a: "For a head circumference of 58 cm or a temple-to-temple face width of 155 mm and above, look for a front width of at least 155 mm hinge-to-hinge, a bridge of 21 mm or wider, and temples of 148 mm or longer. Most 'XXL aviators' on the market are 140–148 mm front and still pinch at this size." },
+      { q: "Are XXL aviator sunglasses always made of metal?", a: "Traditionally yes — the classic aviator is a bent metal wire frame. But metal aviators in the 155 mm+ range often bow at the temples and lose their set within months. Italian Mazzucchelli acetate holds its geometry at wider spans and does not warp under heat, which is why Woolet's aviator-adjacent shapes (007 round panto and 009 soft square) are hand-cut acetate at 158 mm rather than metal." },
+      { q: "Does Woolet make a true aviator?", a: "Not a metal teardrop aviator, no. The 007 round panto and 009 soft square are the acetate aviator alternatives at 158 mm — same brow-forward silhouette, same UV400 or polarized lens options, but built to sit correctly on a wider face. Bespoke covers 150–172 mm if you want a custom aviator-style front outside standard sizing." },
+      { q: "What's the difference between XXL and XL aviators?", a: "There is no industry standard. In practice, 'XL aviator' usually means a larger lens on a 140–145 mm front, and 'XXL aviator' usually means a slightly larger lens on a 145–150 mm front. Neither is genuinely wide. For a 155 mm+ face, the number that matters is hinge-to-hinge front width, not lens diameter." },
+    ],
+    content: `
+<p>Search "XXL aviator sunglasses" and you'll get pages of listings that use the word "XXL" for a larger lens on a standard-width front. The lens is 62 mm instead of 58 mm. The front is still 140 mm hinge-to-hinge. On a 155 mm face or a 58 cm head, that frame pinches within an hour.</p>
+
+<p>This is a short, honest guide for buyers who actually need a wider aviator — not a bigger lens. What "XXL" should mean at this size, why most metal aviators fail at 158 mm, and what to look at instead.</p>
+
+<h2>What "XXL aviator" should mean — and usually doesn't</h2>
+
+<p>The aviator is a specific silhouette: teardrop lenses, double or single bridge, thin metal wire, straight temples with cable or paddle ends. Ray-Ban invented it in 1937 for US Army Air Corps pilots at 58–62 mm lens width on a ~140 mm front. Every "XXL aviator" you'll find today is a variation on that geometry — usually with a bigger lens, occasionally with a slightly wider front, almost never above 148 mm.</p>
+
+<p>For a face of 155 mm or more, the number that matters is <strong>front width, hinge-to-hinge</strong>. Not lens diameter. A 62 mm lens on a 142 mm front pinches exactly as hard as a 58 mm lens on a 142 mm front — it's the same distance between the hinges.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The number to check</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Front width (hinge-to-hinge) is the only measurement that determines whether a frame sits flush on a wider face. Lens diameter is a style choice; front width is a fit constraint. If a listing doesn't publish the front width, assume it's 140–145 mm and skip it.</p>
+</div>
+
+<h2>Why metal aviators struggle at 158 mm+</h2>
+
+<p>Metal aviators are cold-formed wire — usually monel, sometimes titanium. At standard sizes (140–148 mm front) the wire is stiff enough to hold its shape under normal wear. At 155–165 mm the same wire gauge starts to flex at the temples, and after 3–6 months of heat cycles (car dashboards, back pockets, sweat) the frame loses its set and starts sliding down the nose.</p>
+
+<p>The fix isn't a thicker wire — that makes the frame heavy and top-front-loaded. The fix is a different material. Cellulose acetate, block-cut from Italian Mazzucchelli sheet, holds its geometry at wider spans because the temple stiffness scales with cross-section rather than tensile strength. This is why premium wide-face eyewear at 158 mm is almost always hand-cut acetate rather than bent metal.</p>
+
+<h2>What to look for in an XXL aviator-style frame</h2>
+
+<ol>
+  <li><strong>A published front-width number of 155 mm or more.</strong> Not "oversized", not "XXL" — an actual millimetre measurement.</li>
+  <li><strong>Bridge width of 21 mm or more</strong>, ideally keyhole. A 17 mm saddle bridge on a 158 mm front pulls the lenses inward and off-centre from your pupils.</li>
+  <li><strong>Temples of 148 mm or longer.</strong> Short temples on a wide front bow outward the moment you put the frame on.</li>
+  <li><strong>Italian acetate, not injection-moulded plastic or thin metal.</strong> Acetate holds set at wider spans; injection-moulded plastic loosens under heat, metal fatigues at the temples.</li>
+  <li><strong>UV400 lenses as a baseline; polarized as an option.</strong> Polarized is worth the upgrade for driving and outdoor water; not always for screens.</li>
+</ol>
+
+<h2>The Woolet alternative to metal XXL aviators</h2>
+
+<p>Woolet doesn't make a metal teardrop aviator. It makes two aviator-adjacent shapes at 158 mm front width, hand-cut from Italian Mazzucchelli acetate, both in the size range where standard aviators stop working.</p>
+
+<ul>
+  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 148 mm temples. The closest silhouette to a classic aviator without the metal fatigue. Polarized lens upgrade available.</li>
+  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Reads more architectural than the round; the acetate equivalent of a squared-off aviator.</li>
+</ul>
+
+<p>Both are pre-order at $133 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same 158 mm geometry — pick on shape, not on size.</p>
+
+<h2>If your head is above 60 cm or your face is above 161 mm</h2>
+
+<p>At head circumferences of 60 cm and above, or face widths of 161 mm and above, even the standard 158 mm sits at the edge of comfort. Bespoke is the right call: 150–172 mm of front width, 16–26 mm of bridge, same Italian Mazzucchelli acetate, hand-finished in the EU, with the front, bridge and temple length set to your measurements. Lead time is roughly 4–6 weeks after the standard production batch.</p>
+
+<p>If you don't know your face width yet, the <a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> takes about 20 seconds with your phone camera, or you can <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">measure manually with a ruler or credit card</a>.</p>
+
+<h2>Quick FAQ</h2>
+
+<h3>What's the widest aviator-style sunglass I can buy off the shelf?</h3>
+<p>In genuine 155 mm+ front width, the pickings are thin. Woolet 007 and 009 sit at 158 mm in Italian acetate. Metal aviators labeled "XXL" from mainstream brands usually top out around 145–148 mm hinge-to-hinge — enough for a wide face, not enough for a 58 cm+ head.</p>
+
+<h3>Do XXL aviators come in prescription?</h3>
+<p>Yes. Both Woolet 007 and 009 are available with single-vision and progressive prescription lenses at 158 mm width, in optical or sun. Most metal XXL aviators from mainstream brands are sun-only at their widest size.</p>
+
+<h3>Are XXL aviators the same as oversized aviators?</h3>
+<p>No. "Oversized" refers to lens area; "XXL" is used loosely for both lens area and (occasionally) front width. Only the front-width number tells you whether a frame will actually sit flush on a wider face.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">More on fit: <a href="/en/blog/best-sunglasses-for-wide-faces" style="color:#A07A2A;">best sunglasses for wide faces</a> · <a href="/en/blog/best-oversized-sunglasses-big-heads-2026" style="color:#A07A2A;">best oversized sunglasses for big heads</a> · <a href="/en/collections/sunglasses-for-big-heads" style="color:#A07A2A;">sunglasses for big heads collection</a> · <a href="/en/bespoke" style="color:#A07A2A;">bespoke 150–172&nbsp;mm</a>.</p>
+`,
+  },
 ];
 
 
