@@ -11,7 +11,7 @@ export function PaymentTestModeBanner() {
         rel="noopener noreferrer"
         className="underline font-medium"
       >
-        Learn more
+        Learn about Stripe test and live payment environments
       </a>
     </div>
   );
