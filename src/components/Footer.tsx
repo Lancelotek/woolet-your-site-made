@@ -93,7 +93,7 @@ const Footer = () => {
           <div className="flex flex-col gap-3">
             <img
               src={wordmark}
-              alt="Woolet"
+              alt="Woolet wordmark — Italian acetate eyewear for wide faces"
               className="self-start"
               style={{ height: 18, width: "auto", display: "block" }}
             />
