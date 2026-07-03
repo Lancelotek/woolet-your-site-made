@@ -52,6 +52,7 @@ const CrmGsc = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
+  const [metric, setMetric] = useState<"ctr" | "position">("ctr");
 
   const load = async () => {
     setLoading(true);
@@ -168,23 +169,56 @@ const CrmGsc = () => {
           </div>
         )}
 
+        {rows.length > 0 && (
+          <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
+            {(["ctr", "position"] as const).map((m) => {
+              const active = metric === m;
+              return (
+                <button
+                  key={m}
+                  onClick={() => setMetric(m)}
+                  style={{
+                    background: active ? T.gold : "transparent",
+                    color: active ? "#0b0a09" : T.inkDim,
+                    border: `1px solid ${active ? T.gold : T.hair}`,
+                    padding: "7px 14px",
+                    fontSize: 11,
+                    letterSpacing: 1.5,
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                    borderRadius: 2,
+                    fontWeight: active ? 600 : 400,
+                  }}
+                >
+                  {m === "ctr" ? "CTR" : "Avg. position"}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         {Object.entries(byPage).map(([page, prows]) => {
           const flagCount = prows.filter((r) => r.threshold_met === false).length;
           const thresholdCtr = prows.find((r) => r.threshold_ctr != null)?.threshold_ctr ?? null;
 
-          // Build chart data: one row per date, one field per query with CTR%
+          // Build chart data: one row per date, one field per query with chosen metric
           const queries = Array.from(new Set(prows.map((r) => r.query)));
           const dateMap = new Map<string, Record<string, number | string>>();
           for (const r of prows) {
             const key = r.snapshot_date;
             if (!dateMap.has(key)) dateMap.set(key, { date: key });
             const row = dateMap.get(key)!;
-            if (r.impressions >= 10) row[r.query] = Number((r.ctr * 100).toFixed(2));
+            if (r.impressions >= 10) {
+              row[r.query] = metric === "ctr"
+                ? Number((r.ctr * 100).toFixed(2))
+                : Number(r.position.toFixed(2));
+            }
           }
           const chartData = Array.from(dateMap.values()).sort((a, b) =>
             String(a.date).localeCompare(String(b.date)),
           );
           const lineColors = [T.gold, "#7fc48c", "#7fb4e0", "#e0a87f"];
+          const isCtr = metric === "ctr";
 
           return (
             <section key={page} style={{ marginBottom: 40 }}>
@@ -208,22 +242,33 @@ const CrmGsc = () => {
                       />
                       <YAxis
                         tick={{ fill: T.inkMute, fontSize: 11 }}
-                        tickFormatter={(v: number) => `${v}%`}
+                        tickFormatter={(v: number) => isCtr ? `${v}%` : v.toFixed(1)}
                         stroke={T.hair}
                         width={44}
+                        reversed={!isCtr}
+                        domain={isCtr ? [0, "auto"] : [1, "auto"]}
+                        allowDecimals
                       />
                       <Tooltip
                         contentStyle={{ background: T.bg, border: `1px solid ${T.hair}`, fontSize: 12, color: T.ink }}
                         labelStyle={{ color: T.inkDim }}
-                        formatter={(v: number) => `${v.toFixed(2)}%`}
+                        formatter={(v: number) => isCtr ? `${v.toFixed(2)}%` : `#${v.toFixed(1)}`}
                       />
                       <Legend wrapperStyle={{ fontSize: 11, color: T.inkDim, paddingTop: 4 }} />
-                      {thresholdCtr != null && (
+                      {isCtr && thresholdCtr != null && (
                         <ReferenceLine
                           y={thresholdCtr * 100}
                           stroke={T.bad}
                           strokeDasharray="4 4"
                           label={{ value: `target ${(thresholdCtr * 100).toFixed(1)}%`, fill: T.bad, fontSize: 10, position: "insideTopRight" }}
+                        />
+                      )}
+                      {!isCtr && (
+                        <ReferenceLine
+                          y={10}
+                          stroke={T.bad}
+                          strokeDasharray="4 4"
+                          label={{ value: "page 1 (#10)", fill: T.bad, fontSize: 10, position: "insideTopRight" }}
                         />
                       )}
                       {queries.map((q, i) => (
@@ -242,6 +287,7 @@ const CrmGsc = () => {
                   </ResponsiveContainer>
                 </div>
               )}
+
 
               <div style={{ overflowX: "auto", border: `1px solid ${T.hair}` }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
