@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import wordmark from "@/assets/woolet-wordmark.svg";
 import {
   CartesianGrid,
   Legend,
@@ -102,8 +103,9 @@ const CrmGsc = () => {
 
       <header style={{ borderBottom: `1px solid ${T.hair}`, padding: "18px 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-          <div style={{ fontFamily: SERIF, fontSize: 22, letterSpacing: "0.02em" }}>
-            Woolet <em style={{ color: T.gold }}>CRM</em>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <img src={wordmark} alt="Woolet" style={{ height: 16, width: "auto", display: "block" }} />
+            <span style={{ fontFamily: SERIF, fontSize: 20, letterSpacing: "0.02em", color: T.gold, fontStyle: "italic" }}>CRM</span>
           </div>
           <CrmTabs current="gsc" />
         </div>

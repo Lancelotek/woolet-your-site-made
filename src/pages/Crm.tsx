@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { CrmTabs } from "./crm/CrmTabs";
+import wordmark from "@/assets/woolet-wordmark.svg";
 
 type Product = "007" | "009" | "bespoke" | "all";
 
@@ -148,7 +149,7 @@ export default function Crm() {
         <header style={{ borderBottom: `1px solid ${T.hair}`, padding: "18px 24px" }}>
           <div style={{ maxWidth: 1400, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <img src="/src/assets/woolet-wordmark.svg" alt="Woolet" style={{ height: 16, width: "auto", display: "block" }} />
+              <img src={wordmark} alt="Woolet" style={{ height: 16, width: "auto", display: "block" }} />
               <span style={{ fontFamily: SERIF, fontSize: 20, letterSpacing: "0.02em", color: T.gold, fontStyle: "italic" }}>CRM</span>
             </div>
             <CrmTabs current="reservations" />
