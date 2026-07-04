@@ -1,8 +1,17 @@
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { competitors } from "@/data/competitors";
+
+type SortKey = "default" | "name-asc" | "name-desc" | "price-asc" | "price-desc";
+
+// Extract a numeric anchor from the price string for sorting (e.g. "≈ $75–206" → 75).
+const priceAnchor = (price: string): number => {
+  const m = price.match(/\d+/);
+  return m ? parseInt(m[0], 10) : Number.POSITIVE_INFINITY;
+};
 
 const SITE = "https://woolet.co";
 
