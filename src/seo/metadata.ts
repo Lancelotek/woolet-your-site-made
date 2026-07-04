@@ -961,6 +961,39 @@ ${post.content}
     );
   }
 
+  // ----- Compare / competitor-alternative pages
+  if (path === "/compare") {
+    return base(
+      route,
+      lang,
+      {
+        title: "Woolet vs the Alternatives — Wide-Face Eyewear Comparisons",
+        description:
+          "Head-to-head comparisons between Woolet and other wide-face eyewear brands — Fatheadz, EYESHELLS, Zenni, Warby Parker, Ray-Ban and Persol.",
+      },
+      { image: `${SITE_URL}/og-compare-index.png`, type: "website" },
+      [compareIndexBreadcrumbJsonLd(), compareIndexItemListJsonLd()],
+    );
+  }
+
+  const compareMatch = path.match(/^\/compare\/(.+)$/);
+  if (compareMatch) {
+    const slug = compareMatch[1];
+    const c = competitors.find((x) => x.slug === slug);
+    if (c) {
+      return base(
+        route,
+        lang,
+        {
+          title: c.seoTitle,
+          description: c.metaDescription,
+        },
+        { image: `${SITE_URL}/og-compare-${c.slug}.png`, type: "website" },
+        [compareFaqJsonLd(c), compareProductJsonLd(c), compareBreadcrumbJsonLd(c)],
+      );
+    }
+  }
+
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
 }
