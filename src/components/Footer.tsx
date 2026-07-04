@@ -67,6 +67,7 @@ const Footer = () => {
       heading: "Company",
       links: [
         { label: "Blog", href: `/${lang}/blog` },
+        { label: "Compare", href: "/en/compare" },
         { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
         { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
         { label: "support@woolet.co", href: "mailto:support@woolet.co" },
