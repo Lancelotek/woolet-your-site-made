@@ -167,6 +167,70 @@ function breadcrumbJsonLd(parts: { name: string; url: string }[]) {
 }
 
 // ---------------------------------------------------------------------------
+// Competitor comparison pages
+// ---------------------------------------------------------------------------
+
+function compareFaqJsonLd(c: { faqs: { q: string; a: string }[] }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: c.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
+function compareProductJsonLd(c: { slug: string; metaDescription: string }) {
+  const canonical = `${SITE_URL}/en/compare/${c.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Woolet Wide-Face Eyewear",
+    brand: { "@type": "Brand", name: "Woolet" },
+    url: SITE_URL,
+    description: c.metaDescription,
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "USD",
+      lowPrice: "190",
+      availability: "https://schema.org/PreOrder",
+      url: canonical,
+    },
+  };
+}
+
+function compareBreadcrumbJsonLd(c: { slug: string; name: string }) {
+  const canonical = `${SITE_URL}/en/compare/${c.slug}`;
+  return breadcrumbJsonLd([
+    { name: "Home", url: `${SITE_URL}/en` },
+    { name: "Compare", url: `${SITE_URL}/en/compare` },
+    { name: `${c.name} Alternative`, url: canonical },
+  ]);
+}
+
+function compareIndexBreadcrumbJsonLd() {
+  return breadcrumbJsonLd([
+    { name: "Home", url: `${SITE_URL}/en` },
+    { name: "Compare", url: `${SITE_URL}/en/compare` },
+  ]);
+}
+
+function compareIndexItemListJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: competitors.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: `${c.name} Alternative`,
+      url: `${SITE_URL}/en/compare/${c.slug}`,
+    })),
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Locale helpers
 // ---------------------------------------------------------------------------
 
