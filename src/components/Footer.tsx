@@ -100,7 +100,7 @@ const Footer = () => {
     >
       <div className="max-w-[1320px] mx-auto">
         {/* Top: brand + groups */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(4,1fr)] gap-10 md:gap-8 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(5,1fr)] gap-10 md:gap-8 pb-10">
           {/* Brand */}
           <div className="flex flex-col gap-3">
             <img
