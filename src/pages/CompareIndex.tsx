@@ -19,6 +19,34 @@ const CompareIndex = () => {
   const path = "/compare";
   const canonical = `${SITE}/en${path}`;
 
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<SortKey>("default");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const base = q
+      ? competitors.filter(
+          (c) =>
+            c.name.toLowerCase().includes(q) ||
+            c.slug.toLowerCase().includes(q) ||
+            c.keyword.toLowerCase().includes(q),
+        )
+      : competitors.slice();
+
+    switch (sort) {
+      case "name-asc":
+        return base.sort((a, b) => a.name.localeCompare(b.name));
+      case "name-desc":
+        return base.sort((a, b) => b.name.localeCompare(a.name));
+      case "price-asc":
+        return base.sort((a, b) => priceAnchor(a.table.Price) - priceAnchor(b.table.Price));
+      case "price-desc":
+        return base.sort((a, b) => priceAnchor(b.table.Price) - priceAnchor(a.table.Price));
+      default:
+        return base;
+    }
+  }, [query, sort]);
+
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
