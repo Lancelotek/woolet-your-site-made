@@ -1,0 +1,166 @@
+import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { competitors } from "@/data/competitors";
+
+const SITE = "https://woolet.co";
+
+const CompareIndex = () => {
+  const path = "/compare";
+  const canonical = `${SITE}/en${path}`;
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/en` },
+      { "@type": "ListItem", position: 2, name: "Compare", item: canonical },
+    ],
+  };
+
+  const itemListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: competitors.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: `${c.name} Alternative`,
+      url: `${SITE}/en/compare/${c.slug}`,
+    })),
+  };
+
+  return (
+    <>
+      <SEO
+        title="Woolet vs the Alternatives — Wide-Face Eyewear Comparisons"
+        description="Head-to-head comparisons between Woolet and other wide-face eyewear brands — Fatheadz, EYESHELLS, Zenni, Warby Parker, Ray-Ban and Persol."
+        lang="en"
+        path={path}
+        jsonLd={[breadcrumbLd, itemListLd]}
+      />
+      <Navbar />
+      <main
+        style={{
+          background: "#F8F6F1",
+          minHeight: "100vh",
+          fontFamily: "'Barlow', sans-serif",
+          color: "#111",
+        }}
+      >
+        <nav
+          aria-label="Breadcrumb"
+          style={{
+            maxWidth: 960,
+            margin: "0 auto",
+            padding: "16px 20px 0",
+            fontSize: 11,
+            color: "#888",
+            letterSpacing: 1,
+            textTransform: "uppercase",
+          }}
+        >
+          <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
+          <span style={{ margin: "0 8px" }}>/</span>
+          <span style={{ color: "#111" }}>Compare</span>
+        </nav>
+
+        <header style={{ maxWidth: 760, margin: "0 auto", padding: "32px 20px 20px", textAlign: "center" }}>
+          <div
+            style={{
+              fontSize: 11,
+              letterSpacing: "2.4px",
+              textTransform: "uppercase",
+              color: "#A07A2A",
+              marginBottom: 14,
+              fontWeight: 500,
+            }}
+          >
+            Wide-Face Eyewear Comparisons
+          </div>
+          <h1
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: 40,
+              lineHeight: 1.15,
+              margin: "0 0 16px",
+            }}
+          >
+            Woolet vs the Alternatives
+          </h1>
+          <p style={{ fontSize: 15, lineHeight: 1.7, color: "#555", margin: "0 auto", maxWidth: 620 }}>
+            Honest side-by-side comparisons between Woolet and the brands wide-faced wearers usually consider first. Every entry covers materials, fit range, sizing, price and where the competitor still wins.
+          </p>
+        </header>
+
+        <section style={{ maxWidth: 960, margin: "0 auto", padding: "20px 20px 48px" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: 14,
+            }}
+          >
+            {competitors.map((c) => (
+              <Link
+                key={c.slug}
+                to={`/en/compare/${c.slug}`}
+                style={{
+                  display: "block",
+                  padding: "22px 20px",
+                  background: "#FFF",
+                  border: "1px solid #E0D5C5",
+                  borderRadius: 8,
+                  textDecoration: "none",
+                  color: "#111",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    color: "#A07A2A",
+                    marginBottom: 8,
+                    fontWeight: 600,
+                  }}
+                >
+                  {c.name} Alternative
+                </div>
+                <div
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontWeight: 400,
+                    fontSize: 22,
+                    marginBottom: 10,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  Woolet vs {c.name}
+                </div>
+                <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>
+                  {c.metaDescription}
+                </div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: "#A07A2A",
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+                    fontWeight: 600,
+                  }}
+                >
+                  Read comparison →
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+};
+
+export default CompareIndex;

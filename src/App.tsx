@@ -76,6 +76,8 @@ const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
 const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
 const NlLandingRoute = lazy(() => import("./pages/nl/NlLandingRoute.tsx"));
+const CompareIndex = lazy(() => import("./pages/CompareIndex.tsx"));
+const ComparePage = lazy(() => import("./pages/ComparePage.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -216,6 +218,12 @@ const App = () => (
           <Route path="/en/collections/oversized-round-glasses" element={<OversizedRoundGlasses />} />
           <Route path="/en/collections/oversized-black-glasses" element={<OversizedBlackGlasses />} />
           <Route path="/en/collections/thick-frame-glasses" element={<ThickFrameGlasses />} />
+
+          {/* Competitor comparison pages */}
+          <Route path="/en/compare" element={<CompareIndex />} />
+          <Route path="/en/compare/:slug" element={<ComparePage />} />
+          <Route path="/:lang/compare" element={<Navigate to="/en/compare" replace />} />
+          <Route path="/:lang/compare/:slug" element={<Navigate to="/en/compare" replace />} />
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
