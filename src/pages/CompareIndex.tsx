@@ -279,6 +279,7 @@ const CompareIndex = () => {
               </Link>
             ))}
           </div>
+          )}
         </section>
       </main>
       <Footer />
