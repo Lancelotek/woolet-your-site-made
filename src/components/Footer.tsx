@@ -64,10 +64,21 @@ const Footer = () => {
       ],
     },
     {
+      heading: "Compare",
+      links: [
+        { label: "Compare", href: `/${lang}/compare` },
+        { label: "Fatheadz", href: `/${lang}/compare/fatheadz-alternative` },
+        { label: "EYESHELLS", href: `/${lang}/compare/eyeshells-alternative` },
+        { label: "Zenni", href: `/${lang}/compare/zenni-alternative` },
+        { label: "Warby Parker", href: `/${lang}/compare/warby-parker-alternative` },
+        { label: "Ray-Ban", href: `/${lang}/compare/ray-ban-alternative` },
+        { label: "Persol", href: `/${lang}/compare/persol-alternative` },
+      ],
+    },
+    {
       heading: "Company",
       links: [
         { label: "Blog", href: `/${lang}/blog` },
-        { label: "Compare", href: "/en/compare" },
         { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
         { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
         { label: "support@woolet.co", href: "mailto:support@woolet.co" },
