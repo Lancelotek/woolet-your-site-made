@@ -76,6 +76,8 @@ const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
 const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
 const NlLandingRoute = lazy(() => import("./pages/nl/NlLandingRoute.tsx"));
+const CompareIndex = lazy(() => import("./pages/CompareIndex.tsx"));
+const ComparePage = lazy(() => import("./pages/ComparePage.tsx"));
 
 const queryClient = new QueryClient();
 
