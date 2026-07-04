@@ -14,6 +14,7 @@
 
 import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
 import { getBlogPosts } from "@/lib/blog-data";
+import { competitors } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 
@@ -161,6 +162,70 @@ function breadcrumbJsonLd(parts: { name: string; url: string }[]) {
       position: i + 1,
       name: p.name,
       item: p.url,
+    })),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Competitor comparison pages
+// ---------------------------------------------------------------------------
+
+function compareFaqJsonLd(c: { faqs: { q: string; a: string }[] }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: c.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
+function compareProductJsonLd(c: { slug: string; metaDescription: string }) {
+  const canonical = `${SITE_URL}/en/compare/${c.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Woolet Wide-Face Eyewear",
+    brand: { "@type": "Brand", name: "Woolet" },
+    url: SITE_URL,
+    description: c.metaDescription,
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "USD",
+      lowPrice: "190",
+      availability: "https://schema.org/PreOrder",
+      url: canonical,
+    },
+  };
+}
+
+function compareBreadcrumbJsonLd(c: { slug: string; name: string }) {
+  const canonical = `${SITE_URL}/en/compare/${c.slug}`;
+  return breadcrumbJsonLd([
+    { name: "Home", url: `${SITE_URL}/en` },
+    { name: "Compare", url: `${SITE_URL}/en/compare` },
+    { name: `${c.name} Alternative`, url: canonical },
+  ]);
+}
+
+function compareIndexBreadcrumbJsonLd() {
+  return breadcrumbJsonLd([
+    { name: "Home", url: `${SITE_URL}/en` },
+    { name: "Compare", url: `${SITE_URL}/en/compare` },
+  ]);
+}
+
+function compareIndexItemListJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: competitors.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: `${c.name} Alternative`,
+      url: `${SITE_URL}/en/compare/${c.slug}`,
     })),
   };
 }
@@ -896,6 +961,39 @@ ${post.content}
     );
   }
 
+  // ----- Compare / competitor-alternative pages
+  if (path === "/compare") {
+    return base(
+      route,
+      lang,
+      {
+        title: "Woolet vs the Alternatives — Wide-Face Eyewear Comparisons",
+        description:
+          "Head-to-head comparisons between Woolet and other wide-face eyewear brands — Fatheadz, EYESHELLS, Zenni, Warby Parker, Ray-Ban and Persol.",
+      },
+      { image: `${SITE_URL}/og-compare-index.png`, type: "website" },
+      [compareIndexBreadcrumbJsonLd(), compareIndexItemListJsonLd()],
+    );
+  }
+
+  const compareMatch = path.match(/^\/compare\/(.+)$/);
+  if (compareMatch) {
+    const slug = compareMatch[1];
+    const c = competitors.find((x) => x.slug === slug);
+    if (c) {
+      return base(
+        route,
+        lang,
+        {
+          title: c.seoTitle,
+          description: c.metaDescription,
+        },
+        { image: `${SITE_URL}/og-compare-${c.slug}.png`, type: "website" },
+        [compareFaqJsonLd(c), compareProductJsonLd(c), compareBreadcrumbJsonLd(c)],
+      );
+    }
+  }
+
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
 }
@@ -940,6 +1038,13 @@ const STATIC_ROUTES = [
   "/en/privacy-policy",
   "/en/return-policy",
   "/en/blog",
+  "/en/compare",
+  "/en/compare/fatheadz-alternative",
+  "/en/compare/eyeshells-alternative",
+  "/en/compare/zenni-alternative",
+  "/en/compare/warby-parker-alternative",
+  "/en/compare/ray-ban-alternative",
+  "/en/compare/persol-alternative",
   "/pl",
   "/pl/process",
   "/pl/blog",

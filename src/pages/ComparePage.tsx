@@ -78,6 +78,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
         description={c.metaDescription}
         lang="en"
         path={path}
+        image={`/og-compare-${c.slug}.png`}
         jsonLd={[faqLd, productLd, breadcrumbLd]}
       />
       <Navbar />
