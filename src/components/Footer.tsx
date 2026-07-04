@@ -64,10 +64,21 @@ const Footer = () => {
       ],
     },
     {
+      heading: "Compare",
+      links: [
+        { label: "Compare", href: `/${lang}/compare` },
+        { label: "Fatheadz", href: `/${lang}/compare/fatheadz-alternative` },
+        { label: "EYESHELLS", href: `/${lang}/compare/eyeshells-alternative` },
+        { label: "Zenni", href: `/${lang}/compare/zenni-alternative` },
+        { label: "Warby Parker", href: `/${lang}/compare/warby-parker-alternative` },
+        { label: "Ray-Ban", href: `/${lang}/compare/ray-ban-alternative` },
+        { label: "Persol", href: `/${lang}/compare/persol-alternative` },
+      ],
+    },
+    {
       heading: "Company",
       links: [
         { label: "Blog", href: `/${lang}/blog` },
-        { label: "Compare", href: "/en/compare" },
         { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
         { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
         { label: "support@woolet.co", href: "mailto:support@woolet.co" },
@@ -89,7 +100,7 @@ const Footer = () => {
     >
       <div className="max-w-[1320px] mx-auto">
         {/* Top: brand + groups */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(4,1fr)] gap-10 md:gap-8 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(5,1fr)] gap-10 md:gap-8 pb-10">
           {/* Brand */}
           <div className="flex flex-col gap-3">
             <img
