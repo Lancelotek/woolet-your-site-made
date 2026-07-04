@@ -219,6 +219,12 @@ const App = () => (
           <Route path="/en/collections/oversized-black-glasses" element={<OversizedBlackGlasses />} />
           <Route path="/en/collections/thick-frame-glasses" element={<ThickFrameGlasses />} />
 
+          {/* Competitor comparison pages */}
+          <Route path="/en/compare" element={<CompareIndex />} />
+          <Route path="/en/compare/:slug" element={<ComparePage />} />
+          <Route path="/:lang/compare" element={<Navigate to="/en/compare" replace />} />
+          <Route path="/:lang/compare/:slug" element={<Navigate to="/en/compare" replace />} />
+
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
           <Route path="/:lang/collection" element={<Collection />} />
