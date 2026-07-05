@@ -112,6 +112,42 @@ const SEO = ({
     ...(article?.readTime ? { wordCount: article.readTime * 220 } : {}),
   } : null;
 
+  // Build hreflang links as a flat array — react-helmet-async does NOT
+  // traverse React Fragments as direct children of <Helmet>, so wrapping
+  // conditional groups in <>...</> silently drops them.
+  const hreflangLinks: JSX.Element[] = [];
+  if (path === "") {
+    SUPPORTED_LANGS.forEach((l) => {
+      hreflangLinks.push(
+        <link key={`hl-${l}`} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}`} />
+      );
+    });
+    hreflangLinks.push(
+      <link key="hl-xdef" rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en`} />
+    );
+  } else if (availableLangs && availableLangs.length > 0) {
+    availableLangs.forEach((l) => {
+      const overridePath = alternates?.[l];
+      const href = overridePath
+        ? `${SITE_URL}/${l}${overridePath.startsWith("/") ? overridePath : `/${overridePath}`}`
+        : `${SITE_URL}/${l}${path}`;
+      hreflangLinks.push(
+        <link key={`hl-${l}`} rel="alternate" hrefLang={l} href={href} />
+      );
+    });
+    const xdef = alternates?.en
+      ? `${SITE_URL}/en${alternates.en.startsWith("/") ? alternates.en : `/${alternates.en}`}`
+      : `${SITE_URL}/en${path}`;
+    hreflangLinks.push(
+      <link key="hl-xdef" rel="alternate" hrefLang="x-default" href={xdef} />
+    );
+  } else {
+    hreflangLinks.push(
+      <link key="hl-self" rel="alternate" hrefLang={lang} href={canonical} />,
+      <link key="hl-xdef" rel="alternate" hrefLang="x-default" href={canonical} />
+    );
+  }
+
   return (
     <Helmet>
       <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} />
@@ -125,44 +161,9 @@ const SEO = ({
       <meta name="geo.placename" content={geo.placename} />
       <meta name="content-language" content={lang} />
 
-      {/* hreflang:
-          - Homepages (path === ""): emit the full locale cluster.
-          - Shared per-route pages (pass `availableLangs` and/or `alternates`):
-            emit an alternates cluster so Google groups translated versions.
-          - Language-unique slugs (blog posts, FR /lunettes-sur-mesure, etc.):
-            emit only the current lang + x-default self-reference. */}
-      {path === "" ? (
-        <>
-          {SUPPORTED_LANGS.map((l) => (
-            <link key={l} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}`} />
-          ))}
-          <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en`} />
-        </>
-      ) : availableLangs && availableLangs.length > 0 ? (
-        <>
-          {availableLangs.map((l) => {
-            const overridePath = alternates?.[l];
-            const href = overridePath
-              ? `${SITE_URL}/${l}${overridePath.startsWith("/") ? overridePath : `/${overridePath}`}`
-              : `${SITE_URL}/${l}${path}`;
-            return <link key={l} rel="alternate" hrefLang={l} href={href} />;
-          })}
-          <link
-            rel="alternate"
-            hrefLang="x-default"
-            href={
-              alternates?.en
-                ? `${SITE_URL}/en${alternates.en.startsWith("/") ? alternates.en : `/${alternates.en}`}`
-                : `${SITE_URL}/en${path}`
-            }
-          />
-        </>
-      ) : (
-        <>
-          <link rel="alternate" hrefLang={lang} href={canonical} />
-          <link rel="alternate" hrefLang="x-default" href={canonical} />
-        </>
-      )}
+      {hreflangLinks}
+
+
 
 
       <meta property="og:title" content={fullTitle} />
