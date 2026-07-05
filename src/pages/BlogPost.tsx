@@ -238,6 +238,9 @@ const BlogPost = () => {
               isPartOf: `${SITE}/${currentLang}/blog/${post.slug}`,
               creditText: "Woolet",
               creator: { "@type": "Organization", name: "Woolet", url: SITE },
+              copyrightNotice: `© ${new Date(post.date).getFullYear()} Woolet`,
+              license: `${SITE}/terms`,
+              acquireLicensePage: `${SITE}/contact`,
             });
           }
           return schemas.length > 0 ? schemas : undefined;

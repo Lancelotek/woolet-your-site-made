@@ -121,6 +121,11 @@ const CollectionPage = ({
       description: i.alt,
       ...(i.width ? { width: i.width } : {}),
       ...(i.height ? { height: i.height } : {}),
+      creditText: "Woolet",
+      creator: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
+      copyrightNotice: `© ${new Date().getFullYear()} Woolet`,
+      license: "https://woolet.co/en/terms",
+      acquireLicensePage: "https://woolet.co/en/contact",
     }));
 
   return (
