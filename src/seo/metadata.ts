@@ -665,7 +665,7 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/oversized-blue-light-glasses") {
     return base(route, lang, {
-      title: "Oversized Blue Light Glasses — 158 mm Italian Acetate | Woolet",
+      title: "Oversized Blue Light Glasses — 158 mm Acetate | Woolet",
       description:
         "Truly oversized blue light glasses for wide faces (155 mm+). 158 mm front, 21–22 mm bridge, Italian acetate. HEV 380–460 nm filter lens upgrade.",
       noscriptHtml: `<h1>Oversized Blue Light Glasses for Wide Faces — 158 mm</h1>
@@ -713,13 +713,13 @@ export function getMetadata(route: string): RouteMeta {
       intro: "Most 'big' frames at mainstream retailers are 140–148 mm hinge-to-hinge — a larger lens on a standard front. Woolet builds at 158 mm of actual front width with a 21 mm keyhole bridge, in hand-finished Italian Mazzucchelli acetate. Bespoke covers 150–165 mm for XXL heads.",
     },
     "/collections/oversized-prescription-glasses": {
-      title: "Oversized Prescription Glasses for Wide Faces & Big Heads | Woolet",
+      title: "Oversized Prescription Glasses for Wide Faces | Woolet",
       description: "Oversized prescription glasses sized for 155 mm+ faces: 158 mm Italian acetate front, 21–22 mm keyhole bridge, single-vision or progressive lenses.",
       h1: "Oversized Prescription Glasses for Wide Faces & Big Heads",
       intro: "Oversized prescription frames that actually fit a wider face. One precise 158 mm front width with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate hand-finished in Italy. Single-vision, progressive and blue-light lens upgrades available. Bespoke 150–165 mm for everything outside the standard range.",
     },
     "/collections/wide-frame-reading-glasses": {
-      title: "Wide Frame Reading Glasses for Wide Faces & Big Heads | Woolet",
+      title: "Wide Frame Reading Glasses for Wide Faces | Woolet",
       description: "Wide frame reading glasses for 155 mm+ faces: 158 mm Italian acetate front, 21–22 mm keyhole bridge, +0.50 to +3.00 readers. Hand-finished in Italy.",
       h1: "Wide Frame Reading Glasses for Wide Faces & Big Heads",
       intro: "Reading glasses don't have to mean drugstore frames that pinch. Woolet builds wide-frame readers at 158 mm hinge-to-hinge with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate, with reading powers from +0.50 to +3.00. Same frame as the optical line — just dispensed as readers.",
@@ -761,7 +761,7 @@ export function getMetadata(route: string): RouteMeta {
   // ----- Landing pages
   if (path === "/lp/why-glasses-fail") {
     return base(route, lang, {
-      title: "Why Glasses Never Fit Your Wide Face (And How to Fix It) | Woolet",
+      title: "Why Glasses Never Fit Wide Faces — Fix Guide | Woolet",
       description:
         "Most frames top out around 150 mm — too narrow for a wider face. Here's why your glasses pinch or slide, and how to find a pair that actually fits.",
     }, { type: "article" });
