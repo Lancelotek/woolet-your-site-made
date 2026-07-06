@@ -2921,6 +2921,103 @@ const blogPostsEN: BlogPost[] = [
 `,
   },
   {
+    slug: "best-glasses-for-wide-faces-for-women",
+    title: "Best Glasses for Wide Faces for Women (2026 Picks)",
+    excerpt: "Which frames actually fit a wide female face in 2026? An honest pick list — 158 mm fronts, 21 mm keyhole bridges, Italian acetate — with styling notes, not vague shape advice.",
+    date: "2026-07-06",
+    readTime: 9,
+    tags: ["Guide", "Women", "Wide Face", "Best Of", "2026"],
+    faq: [
+      { q: "What is the best glasses size for a woman with a wide face?", a: "A total front width of 152–162 mm hinge-to-hinge, with a 20–22 mm keyhole bridge. Standard women's frames sit at 128–138 mm — too narrow above a 145 mm face width. Woolet's standard is 158 mm; bespoke covers 150–172 mm." },
+      { q: "Which frame shape is most flattering on a wide female face?", a: "Shape matters less than width. Once the front is 152 mm+, both a soft round panto (Woolet 007) and a soft square (Woolet 009) read as intentional. Skip petite cat-eyes and micro-ovals — they get visually swallowed on a wider face regardless of colour." },
+      { q: "Are there feminine wide-face frames or are they all men's styles?", a: "Woolet 007 and 009 are unisex by geometry — the same 158 mm front is picked most often by women in a Dark Tortoise or Honey translucent acetate, and by men in Black. Translucent colourways read as feminine without changing the fit." },
+      { q: "Do wide-face glasses for women come with prescription lenses?", a: "Yes. Both Woolet 007 and 009 ship prescription-ready — single-vision, progressive, and blue-light coatings. The 21–22 mm keyhole bridge is deep enough to fit the progressive corridor most narrow bridges cannot." },
+      { q: "What's the price of premium wide-face glasses for women?", a: "Woolet 007 and 009 are $133 during pre-order (30% off the $190 launch price). Bespoke — for face widths outside the 155–161 mm standard range — is priced separately based on the exact dimensions." },
+    ],
+    content: `
+<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
+    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Published: July 2026</div>
+  </div>
+</div>
+
+<p>Most "best glasses for women" round-ups treat width as an afterthought — shape first, colour second, size buried in a spec table nobody reads. That order works for the average 134 mm face. It fails the moment your temple-to-temple measurement crosses 145 mm.</p>
+
+<p>This is the opposite list. Width first, then bridge, then shape, then colour. Every pick below is measured in millimetres, not styled in adjectives.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">If a women's frame doesn't publish its total front width (hinge-to-hinge), assume it's under 140 mm and skip it. Lens width printed inside the temple ("52▢18 140") is not the number that decides fit.</p>
+</div>
+
+<h2>How we ranked</h2>
+
+<ol>
+  <li><strong>Front width first.</strong> The frame must publish a hinge-to-hinge measurement of 150 mm or more. No exceptions.</li>
+  <li><strong>Bridge width and shape.</strong> 20–22 mm keyhole preferred; saddle acceptable for broader noses.</li>
+  <li><strong>Material.</strong> Italian cellulose acetate holds tension at wider widths where injection-moulded plastic loosens within a season.</li>
+  <li><strong>Colourway.</strong> Translucent honey, smoke, or tortoise reads lighter than opaque black on a wider face — a small styling note the men's-first guides never mention.</li>
+</ol>
+
+<h2>Top picks — 2026</h2>
+
+<h3>1. Woolet 007 — Round Panto, 158 mm (best overall)</h3>
+
+<p><strong>Front width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Temple:</strong> 148 mm · <strong>Material:</strong> Mazzucchelli Italian acetate · <strong>Colours:</strong> Dark Tortoise, Black, Honey · <strong>Price:</strong> $133 pre-order ($190 launch).</p>
+
+<p>Soft round panto, deliberately unfussy. In our pre-order data this is the shape women pick most often once width is no longer the deciding constraint. Honey translucent is the quiet favourite — it keeps the 158 mm width without adding visual weight. Ships with clear demo lenses; add single-vision, progressive, or blue-light in-cart.</p>
+
+<p><a href="/en/products/007" style="color:#A07A2A;">Shop Woolet 007 →</a></p>
+
+<h3>2. Woolet 009 — Soft Square, 158 mm (best for rounder face shapes)</h3>
+
+<p><strong>Front width:</strong> 158 mm · <strong>Bridge:</strong> 22 mm keyhole · <strong>Temple:</strong> 148 mm · <strong>Material:</strong> Mazzucchelli Italian acetate · <strong>Colours:</strong> Dark Tortoise, Black · <strong>Price:</strong> $133 pre-order ($190 launch).</p>
+
+<p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes where a full-round frame can flatten the vertical. The 22 mm keyhole bridge — a millimetre wider than the 007 — matters for anyone with a broader nasal base.</p>
+
+<p><a href="/en/products/009" style="color:#A07A2A;">Shop Woolet 009 →</a></p>
+
+<h3>3. Woolet Bespoke — 150–172 mm (best for the 150–154 mm gap)</h3>
+
+<p><strong>Front width:</strong> 150–172 mm to spec · <strong>Bridge:</strong> 16–26 mm · <strong>Material:</strong> Mazzucchelli Italian acetate, full palette · <strong>Shapes:</strong> 007 and 009 geometry.</p>
+
+<p>The under-served band. Women between 150 and 154 mm of face width fall outside the standard women's range and below the "wide" specialist range — a gap most catalogues quietly ignore. Bespoke opens the full Mazzucchelli colour palette including translucents and crystal acetates typically requested by women buyers.</p>
+
+<p><a href="/en/bespoke" style="color:#A07A2A;">Explore bespoke (150–172 mm) →</a></p>
+
+<h2>What to skip in 2026</h2>
+
+<ul>
+  <li><strong>"Oversized women's" without a published front width.</strong> Almost always a larger lens on a standard 138 mm front — visually oversized, mechanically the same fit.</li>
+  <li><strong>Metal frames above 152 mm.</strong> Metal can be sized wider, but the hinge geometry does not hold tension on a wider face for long. Acetate is the more durable answer at this width.</li>
+  <li><strong>Petite cat-eyes and micro-ovals.</strong> Flattering on narrower faces, visually swallowed on wider ones. The frame stops reading as eyewear and starts reading as an accessory.</li>
+  <li><strong>Any pick sold purely on face-shape advice.</strong> If the seller does not publish the hinge-to-hinge width, they cannot tell you whether the frame will fit. Shape only matters after width fits.</li>
+</ul>
+
+<h2>Frame colour, on a wider female face</h2>
+
+<p>Opaque black in a 158 mm frame does more visual work than the same colour in a 138 mm frame — the frame itself is larger, so the outline reads heavier. Translucent acetates keep the same width without the added mass: honey, champagne, smoke, tortoise. Most women who order Woolet pick a translucent or tortoise; black is more often chosen by men. Both fit identically; the lighter colourways tend to feel more proportional.</p>
+
+<h2>How to find your number in 60 seconds</h2>
+
+<p>If you don't know your face width yet:</p>
+
+<ul>
+  <li><a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> — phone camera, credit card for calibration, returns front width and bridge in about 20 seconds.</li>
+  <li><a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">Ruler method</a> — measure temple-to-temple in millimetres, then subtract 2–3 mm to find your ideal frame front.</li>
+</ul>
+
+<h2>The short answer</h2>
+
+<p>For most women with a face width above 150 mm in 2026, the best glasses are a soft round panto (Woolet 007) or a soft square (Woolet 009) at 158 mm front width with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate. If your face falls outside 155–161 mm, bespoke (150–172 mm) is the honest answer — every other route ends in a compromise.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">Further reading: <a href="/en/blog/wide-face-glasses-for-women" style="color:#A07A2A;">the honest women's fit guide</a> · <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">the complete 2026 wide-face guide</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a> · <a href="/en/bespoke" style="color:#A07A2A;">bespoke (150–172 mm)</a>.</p>
+`,
+  },
+  {
     slug: "extra-wide-glasses-158mm",
     title: "Extra Wide Glasses for Wide Faces: The 158 mm Truth",
     excerpt: "Every 'large' frame still pinches? Here are the only glasses actually built at 158 mm — measured, compared, and honest. Find your fit in 60 seconds.",
