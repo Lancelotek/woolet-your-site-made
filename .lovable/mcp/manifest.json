@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "woolet-mcp",
+      "version": "0.1.0",
+      "title": "Woolet Eyewear"
+    },
+    "tools": [
+      {
+        "name": "list_products",
+        "title": "List Woolet products",
+        "description": "List Woolet eyewear products with model, width, bridge, and pre-order pricing (USD).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "recommend_fit",
+        "title": "Recommend Woolet fit",
+        "description": "Recommend a Woolet model based on face width in millimetres (measured temple-to-temple). Wide faces only — 150 mm and above.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "faceWidthMm": {
+              "type": "number",
+              "minimum": 120,
+              "maximum": 200,
+              "description": "Face width in millimetres, measured temple-to-temple."
+            }
+          },
+          "required": [
+            "faceWidthMm"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
