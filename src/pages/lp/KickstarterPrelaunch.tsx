@@ -8,7 +8,6 @@ import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
 const logo = logoAsset.url;
 import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
-import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
 import w009BlackFrontAsset from "@/assets/woolet-009-black-front.png.asset.json";
 import w009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
 import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
