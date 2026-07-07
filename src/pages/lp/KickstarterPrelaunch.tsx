@@ -16,10 +16,10 @@ import w009HavanaAsset from "@/assets/woolet-009-havana-front.png.asset.json";
 import marek from "@/assets/author-marek.png";
 
 // Bespoke gallery photos
-import wr03 from "@/assets/frames/wr-03.jpg.asset.json";
-import wr07 from "@/assets/frames/wr-07.jpg.asset.json";
-import wr13 from "@/assets/frames/wr-13.jpg.asset.json";
-import wr15 from "@/assets/frames/wr-15.jpg.asset.json";
+import bespokeAviatorTortoiseSun from "@/assets/bespoke/aviator-tortoise-sun.png.asset.json";
+import bespokeAviatorHavana from "@/assets/bespoke/aviator-havana.png.asset.json";
+import bespokeAviatorCaramel from "@/assets/bespoke/aviator-caramel.png.asset.json";
+import bespokeAviatorGreyStripe from "@/assets/bespoke/aviator-grey-stripe.png.asset.json";
 import wr19 from "@/assets/frames/wr-19.jpg.asset.json";
 import wr21 from "@/assets/frames/wr-21.jpg.asset.json";
 import wr24 from "@/assets/frames/wr-24.jpg.asset.json";
@@ -48,10 +48,10 @@ const heroGallery: { src: string; alt: string }[] = [
 ];
 
 const bespokeGallery = [
-  { src: wr03.url, shape: "Round" },
-  { src: wr07.url, shape: "Soft-Square" },
-  { src: wr13.url, shape: "Panto" },
-  { src: wr15.url, shape: "Rectangle" },
+  { src: bespokeAviatorTortoiseSun.url, shape: "Aviator" },
+  { src: bespokeAviatorHavana.url, shape: "Aviator" },
+  { src: bespokeAviatorCaramel.url, shape: "Aviator" },
+  { src: bespokeAviatorGreyStripe.url, shape: "Aviator" },
   { src: wr19.url, shape: "Round" },
   { src: wr21.url, shape: "Soft-Square" },
   { src: wr24.url, shape: "Panto" },
