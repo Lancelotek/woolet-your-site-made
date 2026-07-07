@@ -83,7 +83,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Is Woolet more expensive than Fatheadz?",
-        a: "Generally yes. Fatheadz sunglasses run roughly $75–206; Woolet frames start at $190 with free worldwide shipping — handmade Italian acetate rather than molded TR90.",
+        a: "Generally yes. Fatheadz sunglasses run roughly $75–206; Woolet frames start at $190 with free worldwide shipping — handmade in the EU from Italian acetate rather than molded TR90.",
       },
       {
         q: "Does Woolet make prescription glasses?",
@@ -97,10 +97,10 @@ export const competitors: Competitor[] = [
     keyword: "EYESHELLS alternative",
     seoTitle: "EYESHELLS Alternative: Premium Wide-Face Glasses | Woolet",
     metaDescription:
-      "EYESHELLS alternative for wide faces: handmade Italian acetate frames, bespoke sizing to 172mm, 20-second fit scan and 30-day guarantee.",
+      "EYESHELLS alternative for wide faces: handmade in the EU from Italian acetate frames, bespoke sizing to 172mm, 20-second fit scan and 30-day guarantee.",
     heroH1: "The Premium EYESHELLS Alternative",
     heroSub:
-      "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade Italian bio-acetate, bespoke sizing from 150 to 172 mm, and a fit scan that proves it fits before you order.",
+      "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 150 to 172 mm, and a fit scan that proves it fits before you order.",
     verdict:
       "Choose EYESHELLS if you need functional extra-wide frames at factory-direct prices. Choose Woolet if your face deserves more than a budget frame — made-to-order Italian acetate with verified fit, engraving, and a 30-day fit guarantee.",
     table: {
@@ -140,7 +140,7 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What is the best premium alternative to EYESHELLS?",
-        a: "Woolet — frames engineered exclusively for wide faces (150–172 mm), handmade from Mazzucchelli 1849 Italian acetate, with a 20-second phone fit scan and a 30-day fit guarantee.",
+        a: "Woolet — frames engineered exclusively for wide faces (150–172 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, with a 20-second phone fit scan and a 30-day fit guarantee.",
       },
       {
         q: "Is Woolet wider than EYESHELLS?",
@@ -162,10 +162,10 @@ export const competitors: Competitor[] = [
     keyword: "Zenni alternative",
     seoTitle: "Zenni Alternative for Wide Faces & Big Heads | Woolet",
     metaDescription:
-      "Looking for a Zenni alternative that actually fits a wide face? Woolet builds handmade Italian acetate frames for 150–172mm faces, with a 20-second fit scan.",
+      "Looking for a Zenni alternative that actually fits a wide face? Woolet builds handmade in the EU from Italian acetate frames for 150–172mm faces, with a 20-second fit scan.",
     heroH1: "The Zenni Alternative Built for Wide Faces",
     heroSub:
-      "Zenni's Extended Fit is a big catalogue stretched a little wider. Woolet is the opposite: one obsession — faces 150 mm and up — served with handmade Italian acetate and a fit scan that ends the guesswork.",
+      "Zenni's Extended Fit is a big catalogue stretched a little wider. Woolet is the opposite: one obsession — faces 150 mm and up — served with handmade in the EU from Italian acetate and a fit scan that ends the guesswork.",
     verdict:
       "Choose Zenni if you want the cheapest possible glasses and a standard-width face. Choose Woolet if glasses have pinched, slid, or sat crooked your whole life — because your face was never the problem; the frame was.",
     table: {
@@ -205,7 +205,7 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What's a good Zenni alternative for big heads?",
-        a: "Woolet — a premium brand that only makes frames for wide faces (150–172 mm), handmade from Mazzucchelli 1849 Italian acetate, from $190 with free worldwide shipping and a 30-day fit guarantee.",
+        a: "Woolet — a premium brand that only makes frames for wide faces (150–172 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, from $190 with free worldwide shipping and a 30-day fit guarantee.",
       },
       {
         q: "Are Zenni Extended Fit frames wide enough for a 160 mm face?",
@@ -213,7 +213,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Why choose a $190 frame over a $7 frame?",
-        a: "Materials, fit and longevity: hand-finished Italian bio-acetate, made-to-order sizing verified by a face scan, optional engraving, and a frame designed for your width rather than adjusted to it.",
+        a: "Materials, fit and longevity: hand-finished in the EU from Italian bio-acetate, made-to-order sizing verified by a face scan, optional engraving, and a frame designed for your width rather than adjusted to it.",
       },
       {
         q: "Does Woolet offer a try-on like Zenni?",
@@ -227,10 +227,10 @@ export const competitors: Competitor[] = [
     keyword: "Warby Parker alternative",
     seoTitle: "Warby Parker Alternative for Wide Faces | Woolet",
     metaDescription:
-      "The Warby Parker alternative engineered for 150–172mm faces — handmade Italian acetate, 20-second fit scan, 30-day fit guarantee.",
+      "The Warby Parker alternative engineered for 150–172mm faces — handmade in the EU from Italian acetate, 20-second fit scan, 30-day fit guarantee.",
     heroH1: "The Warby Parker Alternative for Faces Their 'Extra Wide' Forgot",
     heroSub:
-      "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 150 to 172 mm, handmade Italian acetate, fit verified by a 20-second scan.",
+      "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 150 to 172 mm, handmade in the EU from Italian acetate, fit verified by a 20-second scan.",
     verdict:
       "Choose Warby Parker for affordable, well-styled glasses if you're near the middle of their size range. Choose Woolet if you're the person who tried their widest frame and still felt the temples flex — because scaling a standard design up is not the same as designing for a wide face.",
     table: {
@@ -270,7 +270,7 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What's the best Warby Parker alternative for wide faces?",
-        a: "Woolet — every frame is designed exclusively for wide faces (150–172 mm), handmade from Mazzucchelli 1849 Italian acetate, with a 20-second FitLens face scan, free worldwide shipping and a 30-day fit guarantee. From $190.",
+        a: "Woolet — every frame is designed exclusively for wide faces (150–172 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, with a 20-second FitLens face scan, free worldwide shipping and a 30-day fit guarantee. From $190.",
       },
       {
         q: "Are Warby Parker extra-wide frames big enough for a 160 mm face?",
@@ -292,10 +292,10 @@ export const competitors: Competitor[] = [
     keyword: "Ray-Ban alternative",
     seoTitle: "Ray-Ban Alternative for Wide Faces & Big Heads | Woolet",
     metaDescription:
-      "Ray-Ban pinching? Woolet is the Ray-Ban alternative for wide faces: handmade Italian acetate, 150–172mm sizing, 20-second fit scan.",
+      "Ray-Ban pinching? Woolet is the Ray-Ban alternative for wide faces: handmade in the EU from Italian acetate, 150–172mm sizing, 20-second fit scan.",
     heroH1: "The Ray-Ban Alternative That Doesn't Pinch",
     heroSub:
-      "Ray-Ban sizes run XXS to XXL — of frames proportioned for the average head. If Wayfarers leave marks at your temples, the problem isn't you. Woolet builds classic shapes for faces 150–172 mm wide, in hand-finished Italian acetate.",
+      "Ray-Ban sizes run XXS to XXL — of frames proportioned for the average head. If Wayfarers leave marks at your temples, the problem isn't you. Woolet builds classic shapes for faces 150–172 mm wide, in hand-finished in the EU from Italian acetate.",
     verdict:
       "Choose Ray-Ban for iconic styling at standard sizes. Choose Woolet if you love those silhouettes but your face is 150 mm or wider — you get the classic shapes, cut for your actual head, with fit verified before you buy.",
     table: {
@@ -335,7 +335,7 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What's a good Ray-Ban alternative for a big head?",
-        a: "Woolet — classic silhouettes engineered for wide faces (150–172 mm), handmade from Mazzucchelli 1849 Italian acetate. From $190 with free worldwide shipping and a 30-day fit guarantee.",
+        a: "Woolet — classic silhouettes engineered for wide faces (150–172 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU. From $190 with free worldwide shipping and a 30-day fit guarantee.",
       },
       {
         q: "Do Ray-Bans come in wide sizes?",

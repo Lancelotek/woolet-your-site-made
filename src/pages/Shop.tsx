@@ -299,7 +299,7 @@ const BuyBox = () => {
             {modelName}
           </h3>
           <p style={{ ...sans, color: MUTED, fontSize: 15, lineHeight: 1.7, marginTop: 12 }}>
-            158 mm front · 21 mm keyhole bridge · Italian Mazzucchelli acetate, hand-finished.
+            158 mm front · 21 mm keyhole bridge · Italian Mazzucchelli acetate, hand-finished in the EU.
           </p>
 
           <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 24 }}>
@@ -461,7 +461,7 @@ const ProductTabs = () => {
         {tab === "materials" && (
           <p>
             Cut from a single sheet of Mazzucchelli 1849 Italian cellulose acetate — batch-cured for several
-            weeks in Castiglione Olona, then milled, hand-bevelled and hand-polished in Italy. Stainless-steel
+            weeks in Castiglione Olona, then milled, hand-bevelled and hand polished in the EU. Stainless-steel
             hinges. The material is denser and more dimensionally stable than injection-moulded plastic, which is
             why a 158 mm front holds its geometry season after season.
           </p>

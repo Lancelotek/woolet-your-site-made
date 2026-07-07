@@ -6,14 +6,14 @@ const OversizedRoundGlasses = () => (
     breadcrumbName="Oversized Round Glasses"
     h1="Oversized Round Glasses — 158 mm Round 007"
     metaTitle="Oversized Round Glasses — 158 mm for Wide Faces | Woolet"
-    metaDescription="Oversized round glasses for 155 mm+ faces. The 007 model: 158 mm front, true-round silhouette, hand-finished Italian Mazzucchelli acetate, 21 mm keyhole bridge."
+    metaDescription="Oversized round glasses for 155 mm+ faces. The 007 model: 158 mm front, true-round silhouette, hand-finished in the EU from Italian Mazzucchelli acetate, 21 mm keyhole bridge."
     intro="Round frames balance angular faces and add softness to strong jaw lines — but most 'oversized round' glasses are still built on 142–148 mm fronts that look child-sized on a wide face. The Woolet 007 is a true round in Italian Mazzucchelli acetate, 158 mm front, 52 mm lens diameter, designed specifically for 155–161 mm faces. Available as optical, sunglass, blue-light, or reading."
     whyThisFits={[
       "<strong>A genuine round, not a 'panto rectangle'.</strong> Most 'round' frames in 2026 are actually soft rectangles labelled round. The 007 is a true circle — the silhouette that gives oversized round its iconic look.",
       "<strong>158 mm front for proper oversized scale.</strong> A 145 mm round on a 160 mm face shrinks the wearer. The 007 sits at 158 mm — proportional to a wide face instead of dwarfed by it.",
       "<strong>52 mm lens diameter</strong> — large enough to dominate the face confidently and to accommodate progressive prescriptions with a workable corridor.",
       "<strong>21 mm keyhole bridge</strong> for wider noses. Round frames are unforgiving of a too-narrow bridge — the lenses sit too close together and the look collapses. 21 mm spaces them correctly.",
-      "<strong>Italian Mazzucchelli acetate, hand-finished.</strong> A round bevel is the hardest cut in eyewear; injection-moulded rounds always look pressed-out. The 007 is hand-polished so the circumference catches light evenly.",
+      "<strong>Italian Mazzucchelli acetate, hand-finished in the EU.</strong> A round bevel is the hardest cut in eyewear; injection-moulded rounds always look pressed-out. The 007 is hand-polished so the circumference catches light evenly.",
       "<strong>Bespoke 150–172 mm</strong> if 158 mm still isn't wide enough. Same acetate, same true-round silhouette, scaled to measurement.",
     ]}
     faqs={[

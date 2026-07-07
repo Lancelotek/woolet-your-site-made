@@ -6,14 +6,14 @@ const OversizedSquareGlasses = () => (
     breadcrumbName="Oversized Square Glasses"
     h1="Oversized Square Glasses — 158 mm Soft-Square 009"
     metaTitle="Oversized Square Glasses — 158 mm for Wide Faces | Woolet"
-    metaDescription="Oversized square glasses built for 155 mm+ faces. The 009 model: 158 mm front, soft-square silhouette, hand-finished Italian Mazzucchelli acetate."
+    metaDescription="Oversized square glasses built for 155 mm+ faces. The 009 model: 158 mm front, soft-square silhouette, hand-finished in the EU from Italian Mazzucchelli acetate."
     intro="A square frame draws the eye horizontally — exactly what a wide face usually doesn't need more of. The trick is a soft-square: the structure and architecture of a square, but with rounded corners that soften the horizontal pull. The Woolet 009 is built on a 158 mm soft-square front in Italian Mazzucchelli acetate, with a 21 mm keyhole bridge and temple flare engineered for 155–161 mm faces. Available as optical, sunglass, blue-light, or reading."
     whyThisFits={[
       "<strong>Soft-square, not hard rectangle.</strong> A hard 90° square corner on a wide face emphasises width. The 009's softened corners read as structured but not boxy — the architectural look without the harshness.",
       "<strong>158 mm front for genuine oversized scale.</strong> Most 'oversized square' frames on the high street top out at 145–148 mm. The 009 sits comfortably on 155 mm+ faces with room at the temples instead of pressure.",
       "<strong>54 × 50 mm lens area</strong> — large enough to anchor the silhouette and accommodate progressive prescriptions without peripheral distortion.",
       "<strong>21 mm keyhole bridge</strong> distributes weight on a wider nose without slipping. Standard 16–18 mm bridges on fashion squares pinch at oversized widths.",
-      "<strong>Italian Mazzucchelli acetate, hand-finished.</strong> A square silhouette only looks premium when the bevel edges and corner radii are cut by hand. Injection-moulded squares always look cheap up close.",
+      "<strong>Italian Mazzucchelli acetate, hand-finished in the EU.</strong> A square silhouette only looks premium when the bevel edges and corner radii are cut by hand. Injection-moulded squares always look cheap up close.",
       "<strong>Bespoke 150–172 mm</strong> if 158 mm still isn't wide enough. Same acetate, same shape, scaled to your measurement.",
     ]}
     faqs={[

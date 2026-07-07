@@ -1939,7 +1939,7 @@ const blogPostsEN: BlogPost[] = [
 <ul>
 <li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — line-by-line price breakdown.</li>
-<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> — what your $299 actually buys.</li>
+<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — what your $299 actually buys.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — where the difference is real.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — 90-second check before you go bespoke.</li>
 <li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 150–172 mm.</li>
@@ -2138,7 +2138,7 @@ const blogPostsEN: BlogPost[] = [
 <ul>
 <li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — definitions and who actually needs it.</li>
-<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> — where the cost comes from.</li>
+<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — where the cost comes from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — which premium is worth paying.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — confirm stock vs bespoke in 90 seconds.</li>
 <li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 150–172 mm.</li>
@@ -2153,13 +2153,13 @@ const blogPostsEN: BlogPost[] = [
     readTime: 10,
     tags: ["Handmade", "Italian Acetate", "Craftsmanship"],
     faq: [
-      { q: "How is handmade Italian acetate eyewear made?", a: "A block of Mazzucchelli acetate is milled on a 5-axis CNC to the frame shape, then tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling — by a bench technician. Total labour per frame is 8–16 hours." },
+      { q: "How is handmade in the EU from Italian acetate eyewear made?", a: "A block of Mazzucchelli acetate is milled on a 5-axis CNC to the frame shape, then tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling — by a bench technician. Total labour per frame is 8–16 hours." },
       { q: "What does 'handmade' mean for glasses in 2026?", a: "Honest 'handmade' means the cutting may be CNC (it almost always is — hand-cutting acetate is no longer commercial) but every finishing step is done by a person at a bench. The polishing, hinging, bending and final QC cannot be automated to the standard a premium frame requires." },
       { q: "What is Italian acetate?", a: "Italian acetate is cellulose acetate sheet manufactured by Italian houses — primarily Mazzucchelli (in Castiglione Olona since 1849). It is denser and holds colour more deeply than injection-moulded plastic, and it is heat-malleable for optician fitting." },
       { q: "Why is it called 'made in Cadore'?", a: "Cadore is a valley in the Italian Dolomites where the modern eyewear industry was founded in the late 19th century. Most of the world's premium acetate frames — Luxottica, Marcolin, Safilo, plus dozens of independent ateliers — are still made there." },
     ],
     content: `
-<p>"Handmade Italian acetate" is one of the most over-claimed phrases in eyewear marketing. Plenty of brands print it on the temple of a frame that was injection-moulded in southern China and never touched by a human until the QC sticker went on. The phrase has a real meaning — and once you know what each step looks like, you can tell the difference in your hand.</p>
+<p>"Handmade in the EU from Italian acetate" is one of the most over-claimed phrases in eyewear marketing. Plenty of brands print it on the temple of a frame that was injection-moulded in southern China and never touched by a human until the QC sticker went on. The phrase has a real meaning — and once you know what each step looks like, you can tell the difference in your hand.</p>
 
 <h2>Where it's made</h2>
 
@@ -2197,13 +2197,13 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>What about machine-finished frames?</h2>
 
-<p>Machine finishing exists and is cheaper. Injection-moulded plastic frames (not acetate — different material) take 30 seconds to make and require no bench labour. They are functional, often perfectly fine for $40–$120 frames. They are not handmade Italian acetate, and they should not be sold as such.</p>
+<p>Machine finishing exists and is cheaper. Injection-moulded plastic frames (not acetate — different material) take 30 seconds to make and require no bench labour. They are functional, often perfectly fine for $40–$120 frames. They are not handmade in the EU from Italian acetate, and they should not be sold as such.</p>
 
 <p>The trick to spot one: weight, edge feel, and how the colour catches light. Injection-moulded plastic is lighter than acetate (lower density), has slightly sharper edges where the mould met, and the colour pattern is printed on a single layer rather than woven through the block.</p>
 
 <h2>Why this still matters in 2026</h2>
 
-<p>You could argue that for a $190 frame, none of this matters. But two things keep handmade Italian acetate worth paying for:</p>
+<p>You could argue that for a $190 frame, none of this matters. But two things keep handmade in the EU from Italian acetate worth paying for:</p>
 
 <ul>
 <li><strong>Durability.</strong> A properly hand-finished acetate frame, kept reasonably, lasts 8–15 years. Injection-moulded plastic frames usually become hinge-loose at year 3 and are not worth re-hinging.</li>
@@ -2321,7 +2321,7 @@ const blogPostsEN: BlogPost[] = [
 <h2>Related articles</h2>
 <ul>
 <li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
-<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade Italian acetate process</a> — step-by-step inside the atelier.</li>
+<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — step-by-step inside the atelier.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — why the material matters before the method.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — the price of handwork, line by line.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — see whether handmade bespoke is right for your face.</li>
@@ -2703,7 +2703,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>What to look for in glasses for a wide face</h2>
 <p>Three things, every time: a frame front that matches your width, a bridge wide enough to center the lenses, and temple arms long enough to wrap without pressure. Standard ranges stop short on all three.</p>
-<p>When your face is too wide for Persol, Tom Ford, Warby Parker, or a Ray-Ban Wayfarer Large, Woolet is built for you. Premium Italian Mazzucchelli acetate, hand-finished, in one precise 158 mm size across two shapes — with a bespoke tier for 150–172 mm.</p>
+<p>When your face is too wide for Persol, Tom Ford, Warby Parker, or a Ray-Ban Wayfarer Large, Woolet is built for you. Premium Italian Mazzucchelli acetate, hand-finished in the EU, in one precise 158 mm size across two shapes — with a bespoke tier for 150–172 mm.</p>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:28px 0;">
   <a href="/en/products/007" style="display:block;padding:22px 24px;border:1px solid rgba(201,168,76,0.35);border-radius:6px;text-decoration:none;color:inherit;background:rgba(201,168,76,0.04);">

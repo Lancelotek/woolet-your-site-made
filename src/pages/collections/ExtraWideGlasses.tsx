@@ -7,7 +7,7 @@ const ExtraWideGlasses = () => (
     breadcrumbName="Extra Wide Glasses"
     metaTitle="Extra Wide Glasses — 158 mm Italian Acetate Frames | Woolet"
     metaDescription="Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21 mm bridge, Italian Mazzucchelli acetate. Bespoke 150–172 mm."
-    intro="Most brands label a frame <em>extra wide</em> once it crosses 142 or 145 mm. That is still narrow for anyone whose face measures 155 mm or more. Woolet's standard front is 158 mm — properly extra wide — with a 21 mm keyhole bridge, in hand-finished Italian acetate."
+    intro="Most brands label a frame <em>extra wide</em> once it crosses 142 or 145 mm. That is still narrow for anyone whose face measures 155 mm or more. Woolet's standard front is 158 mm — properly extra wide — with a 21 mm keyhole bridge, in hand-finished in the EU from Italian acetate."
     whyThisFits={[
       "Extra wide means different things at different brands. At mainstream retailers it usually means a slightly larger lens on the same 140 mm front, so the frame still pinches at the temples after an hour. Woolet scales front width and lens area together at 158 mm, so the geometry is consistent.",
       "Bridge width is the second variable most extra-wide listings ignore. A wider face usually has a wider nose; we use a 21 mm keyhole bridge (vs the 18–20 mm typical of mainstream wide frames) so the frame sits without riding up or leaving pressure marks.",
