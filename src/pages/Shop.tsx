@@ -555,8 +555,9 @@ const Shop = () => {
             gap: 24,
           }}
         >
-          <a href="/en/shop" style={{ ...serif, color: HEADING, fontSize: 26, letterSpacing: "0.04em", textDecoration: "none" }}>
-            Woolet
+          <a href="/en/shop" style={{ display: "inline-flex", alignItems: "center", gap: 12, textDecoration: "none" }} aria-label="Woolet">
+            <img src={logoMark} alt="" style={{ height: 28, width: "auto", display: "block" }} />
+            <img src={wordmark} alt="Woolet" style={{ height: 16, width: "auto", display: "block" }} />
           </a>
           <nav
             className="subbar-links"
