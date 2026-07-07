@@ -304,6 +304,16 @@ const KickstarterPrelaunch = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, [lightboxOpen]);
 
+  useEffect(() => {
+    if (lightboxOpen) {
+      const original = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = original;
+      };
+    }
+  }, [lightboxOpen]);
+
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
