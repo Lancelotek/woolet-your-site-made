@@ -2030,7 +2030,7 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "how-much-do-bespoke-glasses-cost",
     title: "How Much Do Bespoke Glasses Cost? A Real Breakdown (2026)",
-    excerpt: "Bespoke eyewear prices in 2026 — Tom Davies, Cartier, European ateliers and Woolet compared. Why the same handmade Italian frame can cost $300 or $3,000.",
+    excerpt: "Bespoke eyewear prices in 2026 — Tom Davies, Cartier, European ateliers and Woolet compared. Why the same handmade frame can cost $300 or $3,000.",
     date: "2026-06-18",
     readTime: 9,
     tags: ["Bespoke", "Pricing", "Buying Guide"],
