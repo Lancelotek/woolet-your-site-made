@@ -21,6 +21,8 @@ import {
   getRecommendation,
   LANDMARKS,
   MeasurementError,
+  EMPTY_BRIDGE_ANSWERS,
+  type BridgeQuizAnswers,
   type Measurements,
   type NormalizedLandmark,
   type Point,
