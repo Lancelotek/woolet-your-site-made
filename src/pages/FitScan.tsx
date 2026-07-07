@@ -4294,7 +4294,7 @@ export default function FitScan() {
       };
       setQuizReconcileNote(rec.reason ? { reason: rec.reason, warn: rec.warn } : null);
 
-      const r = getRecommendation(m.faceWidthMm, m.noseWidthMm);
+      const r = getRecommendation(m.faceWidthMm, m.noseWidthMm, bridgeAnswersRef.current);
       const shape = detectFaceShape(f.landmarks, f.width, f.height);
       setMeasurements(m);
       setRecommendation(r);
