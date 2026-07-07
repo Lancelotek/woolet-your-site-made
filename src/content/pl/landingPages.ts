@@ -81,7 +81,7 @@ export const plPages: Record<string, PlPageConfig> = {
       'Większość marek nazywających się „customizable" pozwala tylko wybrać kolor istniejącej oprawy. Bespoke Woolet działa inaczej: szerokość frontu, mostek, długość zauszników i wysokość soczewki ustalasz niezależnie, co do milimetra. Forma jest dostosowywana do twojej twarzy zanim octan zostanie wycięty.',
     proofH2: "Włoski octan, wykończony ręcznie",
     proofBody:
-      "Używamy octanu Mazzucchelli 1849, produkowanego we Włoszech od ponad 70 lat. Europejskie warsztaty frezują, polerują i osadzają zawiasy w każdej oprawie osobno. Realizacja zajmuje około 4–6 tygodni od potwierdzenia zamówienia.",
+      "Używamy octanu Mazzucchelli 1849, produkowanego w UE od ponad 70 lat. Europejskie warsztaty frezują, polerują i osadzają zawiasy w każdej oprawie osobno. Realizacja zajmuje około 4–6 tygodni od potwierdzenia zamówienia.",
     proofBullets: [
       { label: "Szerokość frontu", value: "150 – 165 mm" },
       { label: "Personalizacja", value: "front / mostek / zauszniki / wysokość" },
@@ -248,7 +248,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     brandSection: {
       h2: "A jeśli masz szeroką twarz?",
       body:
-        "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 21–22 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie we Włoszech. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 150–165 mm co 1 mm.",
+        "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 21–22 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie w UE. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 150–165 mm co 1 mm.",
       ctas: [
         { label: "Zobacz modele 007 i 009", href: "/en/collection", primary: true },
         { label: "Dołącz do listy VIP", href: "/en/vip-join" },

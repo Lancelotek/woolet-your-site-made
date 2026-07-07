@@ -21,7 +21,7 @@ export const DEFAULT_FAQS: DeFaq[] = [
   },
   {
     q: "Aus welchem Material sind die Fassungen?",
-    a: "Italienisches Mazzucchelli-1849-Acetat, in Italien handgefertigt, mit Keyhole-Steg für breitere Nasen.",
+    a: "Italienisches Mazzucchelli-1849-Acetat, in der EU handgefertigt, mit Keyhole-Steg für breitere Nasen.",
   },
   {
     q: "Kann ich Sehstärke einsetzen lassen?",
@@ -40,7 +40,7 @@ export const dePages: Record<string, DePageConfig> = {
     sub: "Italienisches Acetat, entwickelt für breitere Gesichter: 155, 158 und 161 mm. Schluss mit Brillen, die nach einer Stunde an den Schläfen drücken.",
     metaTitle: "Brille für breites Gesicht | Woolet – 155/158/161 mm aus italienischem Acetat",
     metaDescription:
-      "Drückt jede Brille an den Schläfen? Woolet fertigt Brillen für breite Gesichter und große Köpfe – 155, 158, 161 mm, handgefertigt aus italienischem Mazzucchelli-Acetat. Miss dein Gesicht in 20 Sekunden.",
+      "Drückt jede Brille an den Schläfen? Woolet fertigt Brillen für breite Gesichter und große Köpfe – 155, 158, 161 mm, in der EU handgefertigt aus italienischem Mazzucchelli-Acetat. Miss dein Gesicht in 20 Sekunden.",
     primaryKeyword: "brille für breites gesicht",
   },
   "breite-brille": {
@@ -49,7 +49,7 @@ export const dePages: Record<string, DePageConfig> = {
     sub: "Fassungen, die wirklich breit sind – nicht „large“ im Namen, sondern in Millimetern. Gemessen, nicht geraten.",
     metaTitle: "Breite Brille (155–161 mm) | Woolet – Fassungen für breite Gesichter",
     metaDescription:
-      "Breite Brillen von 155 bis 161 mm, handgefertigt aus italienischem Acetat. Für breite Gesichter und große Köpfe. Finde deine Größe mit FitLens in 20 Sekunden.",
+      "Breite Brillen von 155 bis 161 mm, in der EU handgefertigt aus italienischem Acetat. Für breite Gesichter und große Köpfe. Finde deine Größe mit FitLens in 20 Sekunden.",
     primaryKeyword: "breite brille",
   },
   "brille-grosse-koepfe": {
@@ -58,7 +58,7 @@ export const dePages: Record<string, DePageConfig> = {
     sub: "Wenn dir jede Fassung zu eng ist: Woolet ist von Grund auf für größere Köpfe gebaut. Bis 161 mm Frontbreite.",
     metaTitle: "Brille für große Köpfe | Woolet – bis 161 mm, italienisches Acetat",
     metaDescription:
-      "Brillen für große Köpfe, die nicht drücken. 155/158/161 mm aus italienischem Mazzucchelli-Acetat, in Italien handgefertigt. Miss deinen Kopf mit FitLens in 20 Sekunden.",
+      "Brillen für große Köpfe, die nicht drücken. 155/158/161 mm aus italienischem Mazzucchelli-Acetat, in der EU handgefertigt. Miss deinen Kopf mit FitLens in 20 Sekunden.",
     primaryKeyword: "brille für große köpfe",
   },
   "xxl-brille-herren": {
@@ -67,7 +67,7 @@ export const dePages: Record<string, DePageConfig> = {
     sub: "Männliche Gesichter, echte Breite: Woolet-Fassungen in 155, 158 und 161 mm. Italienisches Acetat, klare Formen.",
     metaTitle: "XXL Brille Herren | Woolet – breite Herrenfassungen bis 161 mm",
     metaDescription:
-      "XXL Brillen für Herren mit breitem Gesicht oder großem Kopf. 155–161 mm, italienisches Acetat, handgefertigt. Größe per FitLens-Scan in 20 Sekunden bestimmen.",
+      "XXL Brillen für Herren mit breitem Gesicht oder großem Kopf. 155–161 mm, italienisches Acetat, in der EU handgefertigt. Größe per FitLens-Scan in 20 Sekunden bestimmen.",
     primaryKeyword: "xxl brille herren",
   },
   "brille-breite-160-mm": {
