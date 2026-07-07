@@ -513,7 +513,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                 lineHeight: 1.15,
               }}
             >
-              Italienisches Mazzucchelli-1849-Acetat, in Italien handgefertigt
+              Italienisches Mazzucchelli-1849-Acetat, in der EU handgefertigt
             </h2>
             <ul className="flex flex-col gap-4" style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {[
