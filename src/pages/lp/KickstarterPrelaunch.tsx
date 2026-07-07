@@ -422,8 +422,11 @@ const KickstarterPrelaunch = () => {
                 <button
                   key={img.src}
                   type="button"
-                  onClick={() => setActiveImg(i)}
-                  aria-label={`Show image ${i + 1}`}
+                  onClick={() => {
+                    setActiveImg(i);
+                    openLightbox(i);
+                  }}
+                  aria-label={`Open image ${i + 1} in lightbox`}
                   style={{
                     flex: "0 0 72px",
                     width: 72,
