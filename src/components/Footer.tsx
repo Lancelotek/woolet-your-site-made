@@ -151,7 +151,7 @@ const Footer = () => {
           {groups.map((g) => (
             <div key={g.heading} className="flex flex-col gap-3">
               <h3
-                className="uppercase tracking-[0.22em m-0"
+                className="uppercase tracking-[0.22em] m-0"
                 style={{
                   fontSize: "0.66rem",
                   color: "hsl(var(--gold-dim))",
