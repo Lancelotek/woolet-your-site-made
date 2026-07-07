@@ -4248,6 +4248,10 @@ export default function FitScan() {
     setFaceShape(null);
     setErrorMsg("");
     setErrorKind(null);
+    setBridgeAnswers(EMPTY_BRIDGE_ANSWERS);
+    setBridgeQuizDone(false);
+    setAnalyzingReady(false);
+    pendingResultRef.current = null;
     setStep("welcome");
   };
 
