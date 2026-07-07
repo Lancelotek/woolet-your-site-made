@@ -16,7 +16,6 @@ import w009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
 import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
 import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
 import w009HavanaAsset from "@/assets/woolet-009-havana-front.png.asset.json";
-import bespokeHeroAsset from "@/assets/bespoke-hero.png.asset.json";
 import marek from "@/assets/author-marek.png";
 
 // Bespoke gallery photos
@@ -53,7 +52,6 @@ const heroGallery: { src: string; alt: string }[] = [
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
   { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
   { src: w009HavanaAsset.url, alt: "Woolet 009 Soft-Square — havana" },
-  { src: bespokeHeroAsset.url, alt: "Woolet Bespoke — made to measure" },
 ];
 
 const bespokeGallery = [
