@@ -134,6 +134,13 @@ const RedirectLpToEn = () => {
   return <Navigate to={`/en/lp/${slug}`} replace />;
 };
 
+const WhatsAppButtonWrapper = () => {
+  const location = useLocation();
+  const hideOnPaths = ["/en/lp/kickstarter"];
+  if (hideOnPaths.some((path) => location.pathname.startsWith(path))) return null;
+  return <WhatsAppButton />;
+};
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
