@@ -308,8 +308,8 @@ const App = () => (
         </Routes>
         </Suspense>
         </AuthProvider>
+        <WhatsAppButtonWrapper />
       </BrowserRouter>
-      <WhatsAppButton />
       <CookieBanner />
       </ErrorBoundary>
     </TooltipProvider>
