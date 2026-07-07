@@ -278,6 +278,8 @@ const KickstarterPrelaunch = () => {
   const referredBy = params.get("ref");
 
   const [activeImg, setActiveImg] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
@@ -286,6 +288,36 @@ const KickstarterPrelaunch = () => {
       pushGtmEvent("vip_referral_visit", { ref: referredBy });
     }
   }, [referredBy]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!lightboxOpen) return;
+      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "ArrowLeft") {
+        setLightboxIndex((i) => (i - 1 + heroGallery.length) % heroGallery.length);
+      }
+      if (e.key === "ArrowRight") {
+        setLightboxIndex((i) => (i + 1) % heroGallery.length);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxOpen]);
+
+  useEffect(() => {
+    if (lightboxOpen) {
+      const original = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = original;
+      };
+    }
+  }, [lightboxOpen]);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   useEffect(() => {
     pushGtmEvent("page_view", {
@@ -375,12 +407,14 @@ const KickstarterPrelaunch = () => {
           {/* Left — gallery */}
           <div>
             <div
+              onClick={() => openLightbox(activeImg)}
               style={{
                 width: "100%",
                 aspectRatio: "4 / 5",
                 background: "#0f0e0c",
                 border: `1px solid ${HAIRLINE}`,
                 overflow: "hidden",
+                cursor: "zoom-in",
               }}
             >
               <img
@@ -398,8 +432,11 @@ const KickstarterPrelaunch = () => {
                 <button
                   key={img.src}
                   type="button"
-                  onClick={() => setActiveImg(i)}
-                  aria-label={`Show image ${i + 1}`}
+                  onClick={() => {
+                    setActiveImg(i);
+                    openLightbox(i);
+                  }}
+                  aria-label={`Open image ${i + 1} in lightbox`}
                   style={{
                     flex: "0 0 72px",
                     width: 72,
@@ -1010,7 +1047,138 @@ const KickstarterPrelaunch = () => {
         >
           <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: CREAM, letterSpacing: "0.24em" }}>
             WOOLET
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image gallery lightbox"
+          onClick={() => setLightboxOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 100,
+            background: "rgba(8,8,7,0.96)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close lightbox"
+            style={{
+              position: "absolute",
+              top: 16,
+              right: 16,
+              width: 44,
+              height: 44,
+              background: "transparent",
+              border: "none",
+              color: CREAM,
+              fontSize: 28,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ×
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightboxIndex((i) => (i - 1 + heroGallery.length) % heroGallery.length);
+            }}
+            aria-label="Previous image"
+            style={{
+              position: "absolute",
+              left: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 48,
+              height: 48,
+              background: "rgba(255,255,255,0.08)",
+              border: `1px solid ${HAIRLINE}`,
+              color: CREAM,
+              fontSize: 24,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ‹
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightboxIndex((i) => (i + 1) % heroGallery.length);
+            }}
+            aria-label="Next image"
+            style={{
+              position: "absolute",
+              right: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 48,
+              height: 48,
+              background: "rgba(255,255,255,0.08)",
+              border: `1px solid ${HAIRLINE}`,
+              color: CREAM,
+              fontSize: 24,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ›
+          </button>
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "min(100%, 900px)",
+              maxHeight: "min(90vh, 100%)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 16,
+            }}
+          >
+            <img
+              src={heroGallery[lightboxIndex].src}
+              alt={heroGallery[lightboxIndex].alt}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "calc(90vh - 80px)",
+                objectFit: "contain",
+                display: "block",
+                border: `1px solid ${HAIRLINE}`,
+              }}
+            />
+            <p
+              style={{
+                color: TAUPE,
+                fontSize: 13,
+                letterSpacing: "0.04em",
+                fontFamily: "Barlow, sans-serif",
+                textAlign: "center",
+              }}
+            >
+              {lightboxIndex + 1} / {heroGallery.length}
+            </p>
           </div>
+        </div>
+      )}
+    </div>
           <p>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
           <div className="flex gap-5">
             <Link to="/en/privacy-policy" style={{ color: TAUPE }}>Privacy</Link>
