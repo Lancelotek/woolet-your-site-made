@@ -141,16 +141,22 @@ const Navbar = () => {
         <button
           className="md:hidden text-foreground bg-transparent border-none cursor-pointer p-1"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav-menu"
         >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
         </button>
       </nav>
 
       {/* Mobile menu overlay */}
       {menuOpen && (
         <div
+          id="mobile-nav-menu"
           className="fixed inset-0 z-40 md:hidden flex flex-col pt-[72px] bg-background/98 backdrop-blur-xl animate-fade-in"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
         >
           <div className="flex flex-col gap-6 px-6 py-8">
             <Link
