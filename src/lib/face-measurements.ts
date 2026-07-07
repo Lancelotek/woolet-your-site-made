@@ -261,10 +261,12 @@ export function calculateMeasurements(
 }
 
 export type RecommendationType =
-  | "wide_face_wide_bridge"
-  | "wide_face_standard_bridge"
-  | "standard_face_wide_bridge"
-  | "standard_fit";
+  | "wide_face_wide_bridge"       // 009 — wider keyhole
+  | "wide_face_standard_bridge"   // 007 — standard keyhole
+  | "standard_face_wide_bridge"   // 009 fallback
+  | "standard_fit"                // 007 fallback
+  | "bespoke_small_face"          // face narrower than 158mm stock
+  | "bespoke_extra_wide";         // face beyond 172mm
 
 export interface Recommendation {
   type: RecommendationType;
@@ -276,50 +278,107 @@ export interface Recommendation {
   primaryHref: string;
 }
 
-export function getRecommendation(faceWidthMm: number, noseWidthMm: number): Recommendation {
-  const isWideFace = faceWidthMm >= 155;
-  const needsWideBridge = noseWidthMm >= 40;
+/**
+ * Low-bridge fit quiz — three plain-language symptoms the user recognises
+ * from real-world eyewear. Any positive answer flips the recommendation
+ * toward the wider-bridge model (009) or bespoke, because standard bridges
+ * won't sit correctly on their nose.
+ */
+export interface BridgeQuizAnswers {
+  /** "Do your glasses slide down your nose?" */
+  slipping: "yes" | "sometimes" | "no" | null;
+  /** "Do frames leave marks / pinch the sides of your nose?" */
+  marks: "yes" | "a_bit" | "no" | null;
+  /** "Do your lashes touch the lenses?" */
+  lashes: "yes" | "no" | null;
+}
 
-  if (isWideFace && needsWideBridge) {
+export const EMPTY_BRIDGE_ANSWERS: BridgeQuizAnswers = {
+  slipping: null,
+  marks: null,
+  lashes: null,
+};
+
+/** True when at least one clear low-bridge symptom is reported. */
+export function hasLowBridgeSymptoms(a: BridgeQuizAnswers | null | undefined): boolean {
+  if (!a) return false;
+  return a.slipping === "yes" || a.marks === "yes" || a.lashes === "yes";
+}
+
+/** Softer, "some indication" signal used to nudge toward wider bridge. */
+export function hasBridgeHint(a: BridgeQuizAnswers | null | undefined): boolean {
+  if (!a) return false;
+  return a.slipping === "sometimes" || a.marks === "a_bit";
+}
+
+// Stock frame envelope. Both 007 and 009 are 158mm wide; if the face sits
+// meaningfully below that (or well above), a bespoke cut is the honest answer.
+const STOCK_WIDTH_MM = 158;
+const BESPOKE_SMALL_THRESHOLD_MM = 152; // face narrower than this → stock 158 will overhang
+const BESPOKE_WIDE_THRESHOLD_MM = 172;  // beyond top of stock range → bespoke
+
+export function getRecommendation(
+  faceWidthMm: number,
+  noseWidthMm: number,
+  bridge?: BridgeQuizAnswers | null,
+): Recommendation {
+  // 1) Face outside stock envelope → recommend bespoke, regardless of bridge.
+  if (faceWidthMm < BESPOKE_SMALL_THRESHOLD_MM) {
+    return {
+      type: "bespoke_small_face",
+      badgeLabel: "BESPOKE FIT",
+      badgeColor: "#CAA449",
+      title: "Your face is narrower than our stock frames",
+      body: `At ${faceWidthMm}mm your face sits below our ${STOCK_WIDTH_MM}mm stock width — a stock 007 or 009 would overhang your temples. Bespoke is cut to your exact face and bridge (${noseWidthMm}mm nose), so it sits flush without slipping.`,
+      primaryCta: "Explore bespoke",
+      primaryHref: "/en/bespoke",
+    };
+  }
+  if (faceWidthMm > BESPOKE_WIDE_THRESHOLD_MM) {
+    return {
+      type: "bespoke_extra_wide",
+      badgeLabel: "BESPOKE FIT",
+      badgeColor: "#CAA449",
+      title: "Your face is wider than our stock frames",
+      body: `At ${faceWidthMm}mm you're beyond the top of the 007/009 range (max ${BESPOKE_WIDE_THRESHOLD_MM}mm). Bespoke is cut to your exact measurements so temple pressure and compression disappear.`,
+      primaryCta: "Explore bespoke",
+      primaryHref: "/en/bespoke",
+    };
+  }
+
+  // 2) Face inside stock envelope — pick between 007 (standard keyhole) and
+  // 009 (wider keyhole) based on nose width + low-bridge symptoms.
+  const wideNose = noseWidthMm >= 40;
+  const lowBridge = hasLowBridgeSymptoms(bridge);
+  const bridgeHint = hasBridgeHint(bridge);
+  const needsWiderBridge = wideNose || lowBridge || bridgeHint;
+
+  if (needsWiderBridge) {
+    // Route to 009 (22mm keyhole, soft-square, low-bridge-friendly).
+    const reason = lowBridge
+      ? "Your quiz answers point to a low-bridge fit — standard bridges slip, leave marks or push lashes into the lens."
+      : wideNose
+        ? `Your ${noseWidthMm}mm nose width needs a wider bridge than most brands offer.`
+        : `Your quiz answers hint at a low-bridge fit — a wider keyhole prevents the usual slipping and pressure marks.`;
     return {
       type: "wide_face_wide_bridge",
-      badgeLabel: "PERFECT WOOLET CANDIDATE",
+      badgeLabel: "WOOLET 009 — WIDER KEYHOLE",
       badgeColor: "#CAA449",
-      title: "You need wider frames AND a wider bridge",
-      body: `At ${faceWidthMm}mm face width and ${noseWidthMm}mm nose width, you're exactly who we built Woolet for. Our 158mm+ frames with a 21mm keyhole bridge are engineered for your face geometry.`,
-      primaryCta: "Claim my spot — Founding Member",
-      primaryHref: "/en",
+      title: "Woolet 009 is your fit",
+      body: `At ${faceWidthMm}mm you're inside our stock range. ${reason} 009's 158mm front with a 22mm keyhole bridge is engineered for exactly this.`,
+      primaryCta: "See Woolet 009",
+      primaryHref: "/en/products/009",
     };
   }
-  if (isWideFace) {
-    return {
-      type: "wide_face_standard_bridge",
-      badgeLabel: "WIDE FACE — STANDARD BRIDGE",
-      badgeColor: "#CAA449",
-      title: "Your face needs wider frames",
-      body: `At ${faceWidthMm}mm, mainstream frames (max about 148mm) compress your temples. Woolet 158mm+ aligns the frame with your actual face width. Your nose width (${noseWidthMm}mm) is standard — our keyhole bridge fits comfortably.`,
-      primaryCta: "Claim my spot",
-      primaryHref: "/en",
-    };
-  }
-  if (needsWideBridge) {
-    return {
-      type: "standard_face_wide_bridge",
-      badgeLabel: "STANDARD WIDTH — WIDER BRIDGE",
-      badgeColor: "#888888",
-      title: "Your face fits standard frames, but your bridge needs space",
-      body: `At ${faceWidthMm}mm, you could wear mainstream frames — but with a ${noseWidthMm}mm nose width, narrow bridges will leave pressure marks. Woolet's 21mm keyhole bridge sits comfortably without pinching.`,
-      primaryCta: "See if Woolet fits you",
-      primaryHref: "/en/products/007",
-    };
-  }
+
+  // Comfortable on standard bridges → 007.
   return {
-    type: "standard_fit",
-    badgeLabel: "STANDARD FIT",
-    badgeColor: "#888888",
-    title: "Mainstream frames should work for you",
-    body: `At ${faceWidthMm}mm face width and ${noseWidthMm}mm nose width, you're within the range that most standard brands serve well. Woolet is built for 155mm+ — but if you want premium Italian acetate, we'd still love to have you.`,
-    primaryCta: "Browse Woolet anyway",
+    type: "wide_face_standard_bridge",
+    badgeLabel: "WOOLET 007 — STANDARD KEYHOLE",
+    badgeColor: "#CAA449",
+    title: "Woolet 007 is your fit",
+    body: `At ${faceWidthMm}mm face width and ${noseWidthMm}mm nose width, 007's 158mm round-panto front with a 21mm keyhole bridge lines up with your geometry — no slipping, no lash contact.`,
+    primaryCta: "See Woolet 007",
     primaryHref: "/en/products/007",
   };
 }
