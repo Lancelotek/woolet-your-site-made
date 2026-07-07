@@ -163,6 +163,154 @@ function AnalyzingStep({ previewUrl, lang }: { previewUrl?: string; lang: Lang }
   );
 }
 
+/* ─────────────── Bridge Quiz (runs during analysis) ─────────────── */
+
+interface BridgeQuizProps {
+  answers: BridgeQuizAnswers;
+  onChange: (next: BridgeQuizAnswers) => void;
+  onSubmit: () => void;
+  onSkip: () => void;
+  analyzingReady: boolean;
+}
+
+function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }: BridgeQuizProps) {
+  const questions: Array<{
+    key: keyof BridgeQuizAnswers;
+    q: string;
+    options: Array<{ value: string; label: string }>;
+  }> = [
+    {
+      key: "slipping",
+      q: "Do your glasses slide down your nose?",
+      options: [
+        { value: "yes", label: "Yes, often" },
+        { value: "sometimes", label: "Sometimes" },
+        { value: "no", label: "No" },
+      ],
+    },
+    {
+      key: "marks",
+      q: "Do frames leave marks or pinch the sides of your nose?",
+      options: [
+        { value: "yes", label: "Yes, red marks" },
+        { value: "a_bit", label: "A little" },
+        { value: "no", label: "No" },
+      ],
+    },
+    {
+      key: "lashes",
+      q: "Do your lashes brush against the lenses?",
+      options: [
+        { value: "yes", label: "Yes" },
+        { value: "no", label: "No" },
+      ],
+    },
+  ];
+
+  const allAnswered = questions.every((q) => answers[q.key] != null);
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        maxWidth: 460,
+        marginTop: 8,
+        padding: "18px 18px 16px",
+        borderRadius: 12,
+        border: "1px solid rgba(202,164,73,0.22)",
+        background: "rgba(255,255,255,0.02)",
+        textAlign: "left",
+      }}
+    >
+      <div style={{ fontSize: 11, letterSpacing: 1.4, color: GOLD, marginBottom: 6, textTransform: "uppercase" }}>
+        While we measure — 3 quick questions
+      </div>
+      <div style={{ fontSize: 13, color: "#c9c4bb", marginBottom: 14, lineHeight: 1.45 }}>
+        Answers help us route you to the right bridge width (007, 009 or bespoke).
+      </div>
+
+      {questions.map((q) => (
+        <div key={q.key} style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 13, color: "#f0ece4", marginBottom: 8 }}>{q.q}</div>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            {q.options.map((opt) => {
+              const active = answers[q.key] === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() =>
+                    onChange({ ...answers, [q.key]: opt.value as never })
+                  }
+                  style={{
+                    padding: "7px 12px",
+                    borderRadius: 2,
+                    border: `1px solid ${active ? GOLD : "rgba(255,255,255,0.14)"}`,
+                    background: active ? "rgba(202,164,73,0.14)" : "transparent",
+                    color: active ? GOLD : "#d7d2c8",
+                    fontSize: 12.5,
+                    cursor: "pointer",
+                    fontFamily: "inherit",
+                    transition: "all 140ms ease",
+                  }}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+
+      <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 8 }}>
+        <button
+          type="button"
+          onClick={onSubmit}
+          disabled={!allAnswered}
+          style={{
+            flex: 1,
+            padding: "11px 14px",
+            borderRadius: 2,
+            border: "none",
+            background: allAnswered ? GOLD : "rgba(202,164,73,0.28)",
+            color: "#0B0A09",
+            fontSize: 13,
+            fontWeight: 600,
+            letterSpacing: 0.4,
+            cursor: allAnswered ? "pointer" : "not-allowed",
+            fontFamily: "inherit",
+          }}
+        >
+          {analyzingReady ? "See my recommendation" : "Save answers"}
+        </button>
+        <button
+          type="button"
+          onClick={onSkip}
+          style={{
+            padding: "11px 14px",
+            borderRadius: 2,
+            border: "1px solid rgba(255,255,255,0.14)",
+            background: "transparent",
+            color: MUTED,
+            fontSize: 12.5,
+            cursor: "pointer",
+            fontFamily: "inherit",
+          }}
+        >
+          Skip
+        </button>
+      </div>
+      {analyzingReady && (
+        <div style={{ fontSize: 11, color: GOLD, marginTop: 10, textAlign: "center" }}>
+          ✓ Scan finished — submit or skip to see your fit.
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
 const emailSchema = z.string().trim().email("Enter a valid email address").max(255);
 
 interface CapturedFrame {
