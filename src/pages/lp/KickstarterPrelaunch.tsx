@@ -370,7 +370,7 @@ const KickstarterPrelaunch = () => {
               padding: "6px 14px",
             }}
           >
-            VIP Early Access
+            Soon on Kickstarter
           </span>
         </div>
       </header>
