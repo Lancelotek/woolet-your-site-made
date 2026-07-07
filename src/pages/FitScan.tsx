@@ -4959,7 +4959,23 @@ export default function FitScan() {
                   />
                 )}
                 {step === "analyzing" && (
-                  <AnalyzingStep previewUrl={frame?.dataUrl} lang={lang} />
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+                    <AnalyzingStep previewUrl={frame?.dataUrl} lang={lang} />
+                    {!bridgeQuizDone && (
+                      <BridgeQuizStep
+                        answers={bridgeAnswers}
+                        onChange={setBridgeAnswers}
+                        onSubmit={() => finishBridgeQuiz(true)}
+                        onSkip={() => finishBridgeQuiz(false)}
+                        analyzingReady={analyzingReady}
+                      />
+                    )}
+                    {bridgeQuizDone && analyzingReady === false && (
+                      <div style={{ fontSize: 12, color: MUTED, marginTop: 4 }}>
+                        Thanks — finishing the measurement…
+                      </div>
+                    )}
+                  </div>
                 )}
                 {step === "annotate" && frame && (
                   <AnnotateStep frame={frame} onCalculate={handleCalculate} onRetake={() => setStep("camera")} fallbackReason={autoFallback} initialCard={prefillPoints?.card ?? null} initialFace={prefillPoints?.face ?? null} lang={lang} />
