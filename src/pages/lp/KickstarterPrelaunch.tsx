@@ -397,12 +397,14 @@ const KickstarterPrelaunch = () => {
           {/* Left — gallery */}
           <div>
             <div
+              onClick={() => openLightbox(activeImg)}
               style={{
                 width: "100%",
                 aspectRatio: "4 / 5",
                 background: "#0f0e0c",
                 border: `1px solid ${HAIRLINE}`,
                 overflow: "hidden",
+                cursor: "zoom-in",
               }}
             >
               <img
