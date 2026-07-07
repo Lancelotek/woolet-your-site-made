@@ -150,16 +150,17 @@ const Footer = () => {
           {/* Link groups */}
           {groups.map((g) => (
             <div key={g.heading} className="flex flex-col gap-3">
-              <div
-                className="uppercase tracking-[0.22em]"
+              <h3
+                className="uppercase tracking-[0.22em m-0"
                 style={{
                   fontSize: "0.66rem",
                   color: "hsl(var(--gold-dim))",
                   fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
                 }}
               >
                 {g.heading}
-              </div>
+              </h3>
               <ul className="flex flex-col gap-2.5 list-none p-0 m-0">
                 {g.links.map((l) => (
                   <li key={l.label}>
