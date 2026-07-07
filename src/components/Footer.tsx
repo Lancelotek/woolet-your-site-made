@@ -103,19 +103,22 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(5,1fr)] gap-10 md:gap-8 pb-10">
           {/* Brand */}
           <div className="flex flex-col gap-3">
-            <img
-              src={wordmark}
-              alt="Woolet wordmark — Italian acetate eyewear for wide faces"
-              className="self-start"
-              style={{ height: 18, width: "auto", display: "block" }}
-            />
-
+            <Link to={`/${lang}`} aria-label="Woolet home" className="self-start no-underline">
+              <img
+                src={wordmark}
+                alt="Woolet wordmark — wide-fit eyewear brand"
+                className="self-start"
+                style={{ height: 24, width: "auto", display: "block" }}
+                width={120}
+                height={24}
+              />
+            </Link>
 
             <p
               className="text-cream-dim/70 max-w-[280px] leading-relaxed"
               style={{ fontSize: "0.78rem" }}
             >
-              Italian Mazzucchelli acetate eyewear for wide faces (155–165 mm). Handmade in the EU.
+              Italian Mazzucchelli acetate eyewear for wide faces (155–165 mm). Hand made in EU.
             </p>
             <div className="flex gap-4 mt-2">
               {socials.map((s) => (
@@ -125,6 +128,7 @@ const Footer = () => {
             <a
               href="/brand/woolet-brand-assets.zip"
               download
+              aria-label="Download Woolet brand assets zip"
               onClick={() => pushGtmEvent("brand_assets_download", { source: "footer" })}
               className="inline-flex items-center gap-2 self-start mt-3 no-underline transition-colors hover:text-primary"
               style={{
@@ -146,16 +150,17 @@ const Footer = () => {
           {/* Link groups */}
           {groups.map((g) => (
             <div key={g.heading} className="flex flex-col gap-3">
-              <div
-                className="uppercase tracking-[0.22em]"
+              <h3
+                className="uppercase tracking-[0.22em] m-0"
                 style={{
                   fontSize: "0.66rem",
                   color: "hsl(var(--gold-dim))",
                   fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
                 }}
               >
                 {g.heading}
-              </div>
+              </h3>
               <ul className="flex flex-col gap-2.5 list-none p-0 m-0">
                 {g.links.map((l) => (
                   <li key={l.label}>

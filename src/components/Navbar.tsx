@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
-const wooletLogo = wooletLogoAsset.url;
+import wooletLogo from "@/assets/woolet-logo.svg";
 import { SUPPORTED_LANGS, langNames, t, isValidLang, type Lang } from "@/lib/i18n";
 import { useState } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
@@ -21,8 +20,14 @@ const Navbar = () => {
         style={{ borderBottomColor: "hsl(0 0% 100% / 0.055)" }}
       >
         <div className="flex items-center">
-          <Link to={`/${lang}`} className="flex items-center no-underline">
-            <img src={wooletLogo} alt="Woolet eyewear logo" className="h-8" />
+          <Link to={`/${lang}`} className="flex items-center no-underline" aria-label="Woolet home">
+            <img
+              src={wooletLogo}
+              alt="Woolet logo mark — wide-fit eyewear brand"
+              className="h-10 w-auto"
+              width={40}
+              height={40}
+            />
           </Link>
         </div>
 
@@ -71,6 +76,9 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
+              aria-label="Select language"
+              aria-expanded={langOpen}
+              aria-haspopup="listbox"
               className="text-cream-dim uppercase tracking-[0.2em] bg-transparent cursor-pointer transition-colors hover:text-primary hover:border-primary/40"
               style={{
                 fontSize: "0.72rem",
@@ -84,12 +92,17 @@ const Navbar = () => {
             {langOpen && (
               <div
                 className="absolute right-0 top-full mt-1 bg-surface border flex flex-col min-w-[120px] z-50"
+                role="listbox"
+                aria-label="Languages"
                 style={{ borderColor: "hsl(0 0% 100% / 0.055)", borderRadius: "4px" }}
               >
                 {SUPPORTED_LANGS.map((l) => (
                   <Link
                     key={l}
                     to={`/${l}`}
+                    role="option"
+                    aria-selected={l === lang}
+                    aria-current={l === lang ? "true" : undefined}
                     onClick={() => {
                       setLangOpen(false);
                       try { window.localStorage.setItem("woolet_lang", l); } catch {}
@@ -130,16 +143,22 @@ const Navbar = () => {
         <button
           className="md:hidden text-foreground bg-transparent border-none cursor-pointer p-1"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav-menu"
         >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
         </button>
       </nav>
 
       {/* Mobile menu overlay */}
       {menuOpen && (
         <div
+          id="mobile-nav-menu"
           className="fixed inset-0 z-40 md:hidden flex flex-col pt-[72px] bg-background/98 backdrop-blur-xl animate-fade-in"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
         >
           <div className="flex flex-col gap-6 px-6 py-8">
             <Link
