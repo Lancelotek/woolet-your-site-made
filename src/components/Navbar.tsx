@@ -77,6 +77,9 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
+              aria-label="Select language"
+              aria-expanded={langOpen}
+              aria-haspopup="listbox"
               className="text-cream-dim uppercase tracking-[0.2em] bg-transparent cursor-pointer transition-colors hover:text-primary hover:border-primary/40"
               style={{
                 fontSize: "0.72rem",
@@ -90,6 +93,8 @@ const Navbar = () => {
             {langOpen && (
               <div
                 className="absolute right-0 top-full mt-1 bg-surface border flex flex-col min-w-[120px] z-50"
+                role="listbox"
+                aria-label="Languages"
                 style={{ borderColor: "hsl(0 0% 100% / 0.055)", borderRadius: "4px" }}
               >
                 {SUPPORTED_LANGS.map((l) => (
