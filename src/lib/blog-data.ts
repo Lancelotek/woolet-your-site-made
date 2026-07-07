@@ -362,7 +362,7 @@ const blogPostsEN: BlogPost[] = [
 <p>Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement.</p>
 
 <h3>How is Woolet different from Zenni Extended Fit or Warby Parker Wide?</h3>
-<p>Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm — categories that cover slightly broader faces within their standard range. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate hand-finished in Italy. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement.</p>
+<p>Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm — categories that cover slightly broader faces within their standard range. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate Hand finished in the EU. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement.</p>
 
 <h3>What is Mazzucchelli acetate and why does it matter for wide-face eyewear?</h3>
 <p>Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate is more flexible, more color-rich, and more durable than the TR90 plastic used by most wide-face specialty brands. For frames at 158 mm, material rigidity matters: acetate holds its shape at larger widths without warping or losing tension at the temples.</p>
@@ -370,7 +370,7 @@ const blogPostsEN: BlogPost[] = [
 <h3>Is Woolet the same as the Woolet smart wallet?</h3>
 <p>No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company.</p>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What face width do I need for Woolet glasses?","acceptedAnswer":{"@type":"Answer","text":"Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones."}},{"@type":"Question","name":"Do Woolet frames work with progressive lenses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require."}},{"@type":"Question","name":"Why don't standard glasses fit wide faces?","acceptedAnswer":{"@type":"Answer","text":"Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement."}},{"@type":"Question","name":"How is Woolet different from Zenni Extended Fit or Warby Parker Wide?","acceptedAnswer":{"@type":"Answer","text":"Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate hand-finished in Italy. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement."}},{"@type":"Question","name":"What is Mazzucchelli acetate and why does it matter for wide-face eyewear?","acceptedAnswer":{"@type":"Answer","text":"Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm."}},{"@type":"Question","name":"Is Woolet the same as the Woolet smart wallet?","acceptedAnswer":{"@type":"Answer","text":"No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What face width do I need for Woolet glasses?","acceptedAnswer":{"@type":"Answer","text":"Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones."}},{"@type":"Question","name":"Do Woolet frames work with progressive lenses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require."}},{"@type":"Question","name":"Why don't standard glasses fit wide faces?","acceptedAnswer":{"@type":"Answer","text":"Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement."}},{"@type":"Question","name":"How is Woolet different from Zenni Extended Fit or Warby Parker Wide?","acceptedAnswer":{"@type":"Answer","text":"Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate Hand finished in the EU. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement."}},{"@type":"Question","name":"What is Mazzucchelli acetate and why does it matter for wide-face eyewear?","acceptedAnswer":{"@type":"Answer","text":"Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm."}},{"@type":"Question","name":"Is Woolet the same as the Woolet smart wallet?","acceptedAnswer":{"@type":"Answer","text":"No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company."}}]}</script>
 
 <div style="background:#F8F6F1;border:1px solid #E8E4DC;border-radius:8px;padding:28px;margin:40px 0 12px;display:flex;gap:20px;align-items:flex-start;font-family:'Barlow',sans-serif;">
   <div style="flex-shrink:0;width:56px;height:56px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;letter-spacing:0.5px;">MC</div>
@@ -471,7 +471,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Which model — 007 or 009?</h2>
 
-<p>Both are 158 mm front width in Italian Mazzucchelli acetate, hand-finished in Italy. The difference is shape and bridge.</p>
+<p>Both are 158 mm front width in Italian Mazzucchelli acetate, Hand finished in the EU. The difference is shape and bridge.</p>
 
 <ul>
 <li><strong><a href="/en/products/woolet-007">Woolet 007</a></strong> — round panto, 21 mm keyhole bridge. The vintage-round silhouette done at wide-bridge scale. For anyone who's tried Persol 649 or Moscot Lemtosh and found the bridge too narrow.</li>
@@ -746,7 +746,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>That difference is, in most cases, <strong>Italian acetate</strong>.</p>
 
-<p>It's the material that defines the upper tier of the eyewear market. It's what Cubitts uses. What independent Italian ateliers cut by hand. What separates a $300 pair of frames that will outlast a decade from a $30 pair that warps by the third month.</p>
+<p>It's the material that defines the upper tier of the eyewear market. It's what Cubitts uses. What independent European ateliers cut by hand. What separates a $300 pair of frames that will outlast a decade from a $30 pair that warps by the third month.</p>
 
 <p>And for those of us with faces that measure 155mm or wider, it's not just a luxury preference. It's a structural requirement.</p>
 
@@ -775,7 +775,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>When eyewear professionals say "Italian acetate," they usually mean one specific manufacturer: <strong><a href="/en/collections/italian-mazzucchelli-acetate">Mazzucchelli 1849</a></strong>.</p>
 
-<p>Founded in the province of Varese in northern Italy, Mazzucchelli has been producing cellulose acetate for eyewear for over 175 years. They are the oldest and most respected acetate manufacturer in the world, and their material is used by virtually every premium eyewear brand that matters: from independent Italian ateliers to heritage British opticians.</p>
+<p>Founded in the province of Varese in northern Italy, Mazzucchelli has been producing cellulose acetate for eyewear for over 175 years. They are the oldest and most respected acetate manufacturer in the world, and their material is used by virtually every premium eyewear brand that matters: from independent European ateliers to heritage British opticians.</p>
 
 <p>What makes Mazzucchelli acetate different is the casting process. The material is poured into large blocks and sheets, then allowed to cure slowly. This slow-cure process produces a material with exceptional homogeneity — consistent density and composition throughout. There are no weak points, no air pockets, no inconsistencies in the material structure.</p>
 
@@ -929,7 +929,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>The specialist wide-face brands that exist — Fatheadz, Faded Days, SizeGlasses, BXL Eyewear — all entered the market solving one problem: physical fit. They built frames wide enough. But the economics of serving a smaller market segment with specialized manufacturing pushed them firmly into the budget tier. The materials are injection-molded plastic or TR90 nylon. The designs are functional, not refined.</p>
 
-<p>On the other side, premium heritage brands — MOSCOT, Cubitts, independent Italian ateliers — invested their craft in producing exceptional frames in premium Italian acetate with sophisticated design sensibilities. Their "wide" options are wider than standard. But their manufacturing was never recalibrated for genuinely wide faces. "Wide" at MOSCOT means something like 142mm. Still not 155mm.</p>
+<p>On the other side, premium heritage brands — MOSCOT, Cubitts, independent European ateliers — invested their craft in producing exceptional frames in premium Italian acetate with sophisticated design sensibilities. Their "wide" options are wider than standard. But their manufacturing was never recalibrated for genuinely wide faces. "Wide" at MOSCOT means something like 142mm. Still not 155mm.</p>
 
 <p>The result is a hard market gap: <strong>no premium Italian acetate brand has ever properly served faces above 155mm.</strong></p>
 
@@ -1729,7 +1729,7 @@ const blogPostsEN: BlogPost[] = [
       },
       {
         q: "How long does bespoke production take?",
-        a: "About 8–10 weeks from approved measurements to delivery: scan and CAD approval in week 1, hand-finishing at the Italian atelier over 6–8 weeks, shipping in the final week.",
+        a: "About 8–10 weeks from approved measurements to delivery: scan and CAD approval in week 1, hand-finishing at the European atelier over 6–8 weeks, shipping in the final week.",
       },
       {
         q: "Bespoke vs stock — how do I decide?",
@@ -1871,7 +1871,7 @@ const blogPostsEN: BlogPost[] = [
     faq: [
       { q: "What does made-to-measure glasses mean?", a: "Made-to-measure glasses are eyewear frames built to a single customer's face measurements — front width, bridge, temple length and tilt — rather than picked off a stock size run. The lenses are added separately by an optician." },
       { q: "Are made-to-measure glasses the same as bespoke?", a: "Functionally yes. 'Bespoke' is the British term, 'made-to-measure' the international one. Both describe a frame cut to a single buyer rather than a standard size grid." },
-      { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet's bespoke tier starts at $299 because the order is handled digitally and the frame is cut in our partner Italian atelier — no in-person fitter visits." },
+      { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet's bespoke tier starts at $299 because the order is handled digitally and the frame is cut in our partner European atelier — no in-person fitter visits." },
       { q: "Do I need to fly somewhere to get measured?", a: "No. Woolet bespoke runs from an AI face scan on your phone. The atelier receives the digitized measurements and a CAD approval — no fitter visit required." },
       { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside the 145–158 mm stock range — either narrower than 150 mm or wider than 161 mm — and people with an asymmetric bridge or strong temple curve that no stock size accommodates." },
     ],
@@ -1913,7 +1913,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Traditional made-to-measure ateliers — Tom Davies in London, Nakanishi in Tokyo, several Italian houses in Cadore — charge $800–$3,000 per frame. The cost reflects two in-person fitter visits, hand drafting, and bench labour at a workshop rate that hasn't shifted in two decades.</p>
 
-<p>Woolet bespoke starts at <strong>$299</strong>. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and hand-finished in Italy — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
+<p>Woolet bespoke starts at <strong>$299</strong>. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and Hand finished in the EU — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
 
 <h2>The realistic timeline</h2>
 
@@ -2030,12 +2030,12 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "how-much-do-bespoke-glasses-cost",
     title: "How Much Do Bespoke Glasses Cost? A Real Breakdown (2026)",
-    excerpt: "Bespoke eyewear prices in 2026 — Tom Davies, Cartier, Italian ateliers and Woolet compared. Why the same handmade Italian frame can cost $300 or $3,000.",
+    excerpt: "Bespoke eyewear prices in 2026 — Tom Davies, Cartier, European ateliers and Woolet compared. Why the same handmade Italian frame can cost $300 or $3,000.",
     date: "2026-06-18",
     readTime: 9,
     tags: ["Bespoke", "Pricing", "Buying Guide"],
     faq: [
-      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet's digital bespoke starts at $299 because the order is handled remotely — the frame is still milled and hand-finished in Italy." },
+      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet's digital bespoke starts at $299 because the order is handled remotely — the frame is still milled and Hand finished in the EU." },
       { q: "How much do Tom Davies bespoke glasses cost?", a: "Tom Davies bespoke runs roughly £950–£2,500 (about $1,200–$3,200) depending on material and complexity. The price includes two in-person fitter consultations and the workshop labour, which is most of the cost." },
       { q: "Why are bespoke glasses so expensive?", a: "Most of the cost is human labour — fitter visits, CAD drafting, bench finishing — not material. The acetate block itself costs about $25–$60. Cutting it costs $40–$120 of CNC time. Everything else is people: typically 8–16 hours of skilled labour per frame at workshop rates." },
       { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 145–158 mm stock range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." },
@@ -2097,7 +2097,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Why Woolet bespoke is $299</h2>
 
-<p>We removed the part that dominates traditional pricing: the in-person consultations. The AI face scan captures the measurements remotely. CAD approval happens by email. The atelier — the same Italian workshop tradition, the same Mazzucchelli acetate, the same hand-finishing — receives a complete digital order and cuts the frame.</p>
+<p>We removed the part that dominates traditional pricing: the in-person consultations. The AI face scan captures the measurements remotely. CAD approval happens by email. The atelier — the same European workshop tradition, the same Mazzucchelli acetate, the same hand-finishing — receives a complete digital order and cuts the frame.</p>
 
 <p>The bench labour is the same. The fitter labour is not in the price because there is no fitter visit. That single change cuts the cost by roughly $500–$700 per frame.</p>
 
@@ -2325,7 +2325,7 @@ const blogPostsEN: BlogPost[] = [
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — why the material matters before the method.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — the price of handwork, line by line.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — see whether handmade bespoke is right for your face.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — handmade in Italy, pre-launch pricing.</li>
+<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — Hand made in EU, pre-launch pricing.</li>
 </ul>
 `,
   },
@@ -2484,7 +2484,7 @@ const blogPostsEN: BlogPost[] = [
 <li>Bridge: 20–24 mm</li>
 <li>Temples: 150–158 mm</li>
 </ul>
-<p>Available at: Woolet bespoke ($299, digital scan + Italian atelier), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
+<p>Available at: Woolet bespoke ($299, digital scan + European atelier), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
 
 <h2>Why "the number on the temple" is misleading</h2>
 
@@ -3139,7 +3139,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Woolet frames are not scaled-up versions of a smaller design. Both the <a href="/en/products/007" style="color:#A07A2A;">007 round</a> and the <a href="/en/products/009" style="color:#A07A2A;">009 soft-square</a> are cut from a mould that starts at a 158&nbsp;mm front. The bridge is a 21–22&nbsp;mm keyhole — wider than the industry norm, and matched to the wider nasal geometry that tends to come with a wider face. The lens area is scaled proportionally, so the optical centres actually align with your pupils. Temple length is engineered for wide heads, not borrowed from a 142&nbsp;mm frame.</p>
 
-<p>The acetate is Italian Mazzucchelli — the same block used by high-end European houses — and every frame is hand-finished in Italy. Above and below the standard 158&nbsp;mm size sits the <a href="/en/bespoke" style="color:#A07A2A;">bespoke tier</a>, which covers 150–172&nbsp;mm to the millimetre for faces that fall outside the standard range.</p>
+<p>The acetate is Italian Mazzucchelli — the same block used by high-end European houses — and every frame is Hand finished in the EU. Above and below the standard 158&nbsp;mm size sits the <a href="/en/bespoke" style="color:#A07A2A;">bespoke tier</a>, which covers 150–172&nbsp;mm to the millimetre for faces that fall outside the standard range.</p>
 
 <p>Before you order, run the <a href="/en/fit" style="color:#A07A2A;">AI Fit Wizard</a>. It tells you whether the 158&nbsp;mm standard fits you, or whether you should go bespoke.</p>
 

@@ -122,7 +122,7 @@ const Process = () => {
                 letterSpacing: "0.24em",
               }}
             >
-              Made in Italy · 13 stages · ~14 days per frame
+              Made in the EU · 13 stages · ~14 days per frame
             </p>
             <h1
               className="font-display text-woolet-white mb-7"
@@ -389,7 +389,7 @@ const Process = () => {
               style={{ fontSize: "1rem", lineHeight: 1.7 }}
             >
               Made from <em className="italic text-gold-light">Italian Mazzucchelli</em> acetate.
-              Hand-finished in Italy.
+              Hand finished in the EU.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center">
               <Link

@@ -459,7 +459,7 @@ const BespokePage = () => {
                 },
                 {
                   n: "03",
-                  t: "Italian atelier",
+                  t: "European atelier",
                   d: "The frame is cut, milled, and hand-polished from a single block of Mazzucchelli acetate in northern Italy. No CNC finishing — each piece is shaped by hand.",
                 },
                 {
