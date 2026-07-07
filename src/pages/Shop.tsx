@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import SEO from "@/components/SEO";
+import wordmark from "@/assets/woolet-wordmark.svg";
+import logoMark from "@/assets/woolet-logo.svg";
 
 /**
  * Woolet Shop — hidden long-form landing page.
@@ -553,8 +555,9 @@ const Shop = () => {
             gap: 24,
           }}
         >
-          <a href="/en/shop" style={{ ...serif, color: HEADING, fontSize: 26, letterSpacing: "0.04em", textDecoration: "none" }}>
-            Woolet
+          <a href="/en/shop" style={{ display: "inline-flex", alignItems: "center", gap: 12, textDecoration: "none" }} aria-label="Woolet">
+            <img src={logoMark} alt="" style={{ height: 28, width: "auto", display: "block" }} />
+            <img src={wordmark} alt="Woolet" style={{ height: 16, width: "auto", display: "block" }} />
           </a>
           <nav
             className="subbar-links"
@@ -616,7 +619,9 @@ const Shop = () => {
               <a href="#guarantee" style={{ color: MUTED, textDecoration: "none" }}>Guarantee</a>
               <a href="#faq" style={{ color: MUTED, textDecoration: "none" }}>FAQ</a>
             </nav>
-            <PrimaryBtn as="a" href="#buy">Shop Now</PrimaryBtn>
+            <a href="#buy" style={{ ...sans, color: GOLD, textDecoration: "none", textTransform: "uppercase", letterSpacing: "0.18em", fontSize: 11 }}>
+              40% off — join the list →
+            </a>
           </div>
         </div>
       </header>
@@ -1121,7 +1126,10 @@ const Shop = () => {
             className="feature-row"
           >
             <div>
-              <div style={{ ...serif, color: HEADING, fontSize: 30 }}>Woolet</div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
+                <img src={logoMark} alt="" style={{ height: 32, width: "auto" }} />
+                <img src={wordmark} alt="Woolet" style={{ height: 18, width: "auto" }} />
+              </div>
               <p style={{ ...sans, color: MUTED, fontSize: 13, lineHeight: 1.7, marginTop: 12, maxWidth: 320 }}>
                 Italian Mazzucchelli acetate eyewear for wide faces. 155–172 mm. Handmade in the EU.
               </p>
