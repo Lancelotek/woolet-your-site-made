@@ -1,7 +1,7 @@
 export const wooletColumn: Record<string, string> = {
   "Designed for": "Wide faces first — every frame engineered for 150–172 mm faces",
   "Fit range": "150–172 mm (Bespoke tier), frames built from scratch for wide faces",
-  "Material": "Mazzucchelli 1849 bio-acetate, hand-finished in Italy",
+  "Material": "Mazzucchelli 1849 bio-acetate, Hand Finished in the EU",
   "Fit technology": "FitLens — 20-second phone face scan that confirms your fit before you buy",
   "Made to order": "Yes — bespoke sizing, optional laser engraving",
   "Fit guarantee": "30-day fit guarantee",
@@ -33,7 +33,7 @@ export const competitors: Competitor[] = [
     seoTitle: "Fatheadz Alternative for Wide Faces: Woolet vs Fatheadz (2026)",
     metaDescription:
       "Looking for a Fatheadz alternative? Compare Fatheadz vs Woolet — Italian Mazzucchelli acetate, frames engineered for 150–172mm faces, and a 20-second fit scan.",
-    heroH1: "The Fatheadz Alternative, Hand-Finished in Italy",
+    heroH1: "The Fatheadz Alternative, Hand Finished in the EU",
     heroSub:
       "Fatheadz proved that big heads deserve real eyewear. Woolet takes the same mission upmarket: Mazzucchelli 1849 acetate, bespoke sizing for 150–172 mm faces, and a fit you can verify with a 20-second phone scan.",
     verdict:
@@ -52,7 +52,7 @@ export const competitors: Competitor[] = [
     advantages: [
       {
         title: "Luxury materials, not utility plastics",
-        text: "Fatheadz leans on TR90 nylon and monel — durable, but utilitarian. Woolet frames are cut from Mazzucchelli 1849 bio-acetate, the same Italian acetate used by the world's top luxury houses, and hand-finished in Italy.",
+        text: "Fatheadz leans on TR90 nylon and monel — durable, but utilitarian. Woolet frames are cut from Mazzucchelli 1849 bio-acetate, the same Italian acetate used by the world's top luxury houses, and Hand Finished in the EU.",
       },
       {
         title: "Bespoke sizing up to 172 mm",
@@ -116,8 +116,8 @@ export const competitors: Competitor[] = [
     fitRange: { min: 150, max: 160, label: "EYESHELLS (published range)" },
     advantages: [
       {
-        title: "Handmade in Italy vs factory-direct",
-        text: "EYESHELLS keeps prices low with minimal-overhead factory distribution. Woolet goes the other way: Mazzucchelli 1849 bio-acetate cut and hand-finished in Italy, in small numbered batches.",
+        title: "Hand made in EU vs factory-direct",
+        text: "EYESHELLS keeps prices low with minimal-overhead factory distribution. Woolet goes the other way: Mazzucchelli 1849 bio-acetate cut and Hand Finished in the EU, in small numbered batches.",
       },
       {
         title: "12 mm more head room",
@@ -259,7 +259,7 @@ export const competitors: Competitor[] = [
       },
       {
         title: "Italian hands, luxury acetate",
-        text: "Woolet frames are cut from Mazzucchelli 1849 bio-acetate and hand-finished in Italy — a materials-and-craft tier above direct-to-consumer retail frames.",
+        text: "Woolet frames are cut from Mazzucchelli 1849 bio-acetate and Hand Finished in the EU — a materials-and-craft tier above direct-to-consumer retail frames.",
       },
     ],
     whereTheyWin: [
@@ -316,7 +316,7 @@ export const competitors: Competitor[] = [
       },
       {
         title: "Hand-finished vs mass-produced",
-        text: "Ray-Ban is a brilliant industrial product. Woolet is a craft product: Mazzucchelli 1849 bio-acetate, hand-finished in Italy, made to order, numbered batches.",
+        text: "Ray-Ban is a brilliant industrial product. Woolet is a craft product: Mazzucchelli 1849 bio-acetate, Hand Finished in the EU, made to order, numbered batches.",
       },
       {
         title: "Fit you can verify in 20 seconds",
@@ -357,7 +357,7 @@ export const competitors: Competitor[] = [
     keyword: "Persol alternative",
     seoTitle: "Persol Alternative for Wide Faces (150–172mm) | Woolet",
     metaDescription:
-      "Persol craftsmanship, built for wide faces. Woolet is the Persol alternative for 150–172mm faces: Mazzucchelli 1849 acetate, hand-finished in Italy, bespoke sizing.",
+      "Persol craftsmanship, built for wide faces. Woolet is the Persol alternative for 150–172mm faces: Mazzucchelli 1849 acetate, Hand Finished in the EU, bespoke sizing.",
     heroH1: "The Persol Alternative for Faces Persol Never Measured",
     heroSub:
       "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 150 to 172 mm wide, the range where even the most beautiful Persol starts to pinch.",
@@ -377,7 +377,7 @@ export const competitors: Competitor[] = [
     advantages: [
       {
         title: "The same acetate heritage — sized for you",
-        text: "Woolet uses Mazzucchelli 1849 bio-acetate, the benchmark Italian acetate, hand-finished in Italy. The craft language of Persol, redrawn around wide-face geometry from the first sketch.",
+        text: "Woolet uses Mazzucchelli 1849 bio-acetate, the benchmark Italian acetate, Hand Finished in the EU. The craft language of Persol, redrawn around wide-face geometry from the first sketch.",
       },
       {
         title: "150–172 mm, guaranteed",
@@ -408,7 +408,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Is Woolet real Italian acetate like Persol?",
-        a: "Yes — Woolet frames are cut from Mazzucchelli 1849 bio-acetate, the Italian acetate used by top luxury houses, and hand-finished in Italy.",
+        a: "Yes — Woolet frames are cut from Mazzucchelli 1849 bio-acetate, the Italian acetate used by top luxury houses, and Hand Finished in the EU.",
       },
       {
         q: "Is Woolet cheaper than Persol?",

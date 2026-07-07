@@ -515,7 +515,7 @@ export function StepColor({ config, update }: StepProps) {
         <div className={sectionKicker}>Step 2 — Acetate</div>
         <h2 className={sectionTitle}>Compose your <em className="italic text-gold-light">Italian</em> acetate</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Each swatch is a live macro photograph of the actual sheet we hold in stock — cut and finished by our Italian atelier.
+          Each swatch is a live macro photograph of the actual sheet we hold in stock — cut and finished by our European atelier.
         </p>
       </header>
 
@@ -1220,7 +1220,7 @@ function EngravingPreview({
         </svg>
       </div>
       <p className="text-cream-dim/70 text-[0.78rem] mt-2 text-center">
-        Indicative · CNC-engraved by our Italian atelier. Left temple only — right temple carries the Woolet logo.
+        Indicative · CNC-engraved by our European atelier. Left temple only — right temple carries the Woolet logo.
       </p>
     </div>
   );
@@ -1237,7 +1237,7 @@ export function StepEngraving({ config, update }: StepProps) {
         <div className={sectionKicker}>Step 4</div>
         <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">+ {formatEur(ENGRAVING_FEE_EUR)} · optional</span></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          CNC-engraved on the inner left temple by our Italian atelier. Permanent and non-returnable. Adds 2–3 days to production. The right temple always carries the Woolet logo.
+          CNC-engraved on the inner left temple by our European atelier. Permanent and non-returnable. Adds 2–3 days to production. The right temple always carries the Woolet logo.
         </p>
       </header>
 

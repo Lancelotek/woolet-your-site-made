@@ -11,7 +11,7 @@ const ExtraWideGlasses = () => (
     whyThisFits={[
       "Extra wide means different things at different brands. At mainstream retailers it usually means a slightly larger lens on the same 140 mm front, so the frame still pinches at the temples after an hour. Woolet scales front width and lens area together at 158 mm, so the geometry is consistent.",
       "Bridge width is the second variable most extra-wide listings ignore. A wider face usually has a wider nose; we use a 21 mm keyhole bridge (vs the 18–20 mm typical of mainstream wide frames) so the frame sits without riding up or leaving pressure marks.",
-      "Both shapes — round 007 and soft-square 009 — are cut from Italian Mazzucchelli cellulose acetate, the same block material used by Persol and Tom Ford. Hand-finished in Italy, 5-barrel PVD Gunmetal hinges, 148 mm temples at 11°.",
+      "Both shapes — round 007 and soft-square 009 — are cut from Italian Mazzucchelli cellulose acetate, the same block material used by Persol and Tom Ford. Hand Finished in the EU, 5-barrel PVD Gunmetal hinges, 148 mm temples at 11°.",
       "Pricing: $114 founding-member pre-order, $190 at full launch. Confirm 158 mm is right for you with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a>, or run the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a>. Outside 155–161 mm? <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers 150 to 172 mm.",
     ]}
     faqs={[
