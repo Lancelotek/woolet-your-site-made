@@ -1596,6 +1596,30 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     cardLevelOkPrevRef.current = isLevel;
   }, [cardTiltDeg, isMobile]);
 
+  // Auto-trigger: fire capture after 500ms of continuously stable "all green"
+  // gates (card OK, distance OK, pose OK, lighting OK). This removes the need
+  // for the user to hit the button while holding the card steady — a common
+  // source of misalignment. Any gate flipping red cancels the pending trigger.
+  const autoTriggerTimerRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (autoTriggerTimerRef.current !== null) {
+      window.clearTimeout(autoTriggerTimerRef.current);
+      autoTriggerTimerRef.current = null;
+    }
+    if (!allReady) return;
+    if (busy || stabilizing || countdown !== null || capturedRef.current) return;
+    autoTriggerTimerRef.current = window.setTimeout(() => {
+      autoTriggerTimerRef.current = null;
+      performCapture();
+    }, 500);
+    return () => {
+      if (autoTriggerTimerRef.current !== null) {
+        window.clearTimeout(autoTriggerTimerRef.current);
+        autoTriggerTimerRef.current = null;
+      }
+    };
+  }, [allReady, busy, stabilizing, countdown, performCapture]);
+
   const levelColor =
     levelState === "ok"
       ? "#4ade80"
