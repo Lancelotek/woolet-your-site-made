@@ -110,7 +110,7 @@ const ConfiguratorPage = () => {
     <div className="cfg-scope min-h-screen">
       <SEO
         title="Bespoke Configurator — Woolet"
-        description="Design your made-to-order bio-acetate eyewear for wide faces and wide bridges. Hand-made in Italy from Mazzucchelli acetate."
+        description="Design your made-to-order bio-acetate eyewear for wide faces and wide bridges. Hand made in EU from Mazzucchelli acetate."
         path="/bespoke/configurator"
         noindex
       />

@@ -29,7 +29,7 @@ const FAQS = [
   },
   {
     q: "What's the lead time?",
-    a: "Roughly 8–10 weeks. Week 1: scan and CAD approval. Weeks 2–7: hand-cut and polished at the Italian atelier. Week 8: QC and shipping. Weeks 9–10: lens fitting at your local optician.",
+    a: "Roughly 8–10 weeks. Week 1: scan and CAD approval. Weeks 2–7: hand-cut and polished at the European atelier. Week 8: QC and shipping. Weeks 9–10: lens fitting at your local optician.",
   },
   {
     q: "How much do bespoke glasses cost?",

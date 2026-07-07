@@ -55,7 +55,7 @@ const SunglassesForBigHeads = () => {
     "@type": "CollectionPage",
     name: "Sunglasses for Big Heads",
     description:
-      "Sunglasses for big heads in one precise 158 mm front width, plus bespoke from 150 to 172 mm. Italian Mazzucchelli acetate, handmade, from $114 pre-order.",
+      "Sunglasses for big heads in one precise 158 mm front width, plus bespoke from 150 to 172 mm. Italian Mazzucchelli acetate, handmade in the EU, from $114 pre-order.",
     url: CANONICAL,
     inLanguage: "en",
     isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE },
@@ -102,7 +102,7 @@ const SunglassesForBigHeads = () => {
             Sunglasses for Big Heads - 158 mm + Bespoke
           </h1>
           <p style={{ fontSize: 15, lineHeight: 1.65, color: "#333", margin: "0 0 18px" }}>
-            Built from the ground up for wide faces (155 mm+) and head circumference 58 to 62 cm, not retrofitted from standard sizes. Handmade Italian Mazzucchelli acetate, two shapes, one precise 158 mm front plus bespoke up to 172 mm.
+            Built from the ground up for wide faces (155 mm+) and head circumference 58 to 62 cm, not retrofitted from standard sizes. Handmade in the EU from Italian Mazzucchelli acetate, two shapes, one precise 158 mm front plus bespoke up to 172 mm.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <a href="#size-finder" style={{ background: "#111", color: "#F8F6F1", padding: "11px 20px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2 }}>

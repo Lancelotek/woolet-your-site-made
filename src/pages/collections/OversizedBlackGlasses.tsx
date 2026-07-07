@@ -6,7 +6,7 @@ const OversizedBlackGlasses = () => (
     breadcrumbName="Oversized Black Glasses"
     h1="Oversized Black Glasses — 158 mm Italian Acetate"
     metaTitle="Oversized Black Glasses — 158 mm for Wide Faces | Woolet"
-    metaDescription="Oversized black glasses in hand-finished Italian Mazzucchelli acetate. 158 mm front, 21 mm keyhole bridge, built for 155 mm+ faces. Round 007 and soft-square 009."
+    metaDescription="Oversized black glasses in hand-finished in the EU from Italian Mazzucchelli acetate. 158 mm front, 21 mm keyhole bridge, built for 155 mm+ faces. Round 007 and soft-square 009."
     intro="Black is the default oversized colourway for a reason — it sharpens the silhouette and pairs with everything. The catch is that black exaggerates every flaw in the acetate, every uneven bevel, every injection-mould seam. The Woolet oversized black glasses are cut from a single block of Italian Mazzucchelli acetate and hand-polished, so the black surface stays deep and even instead of going grey at the edges. 158 mm front, round 007 or soft-square 009."
     whyThisFits={[
       "<strong>True deep black, not 'almost black' plastic.</strong> Mazzucchelli's pigment-loaded acetate stays black under all lighting — sunlight, office LEDs, evening. Cheap acetates and plastics drift grey or brown at the edges.",

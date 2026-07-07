@@ -338,7 +338,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                   color: colors.gold,
                 }}
               >
-                Woolet · Made in Italy
+                Woolet · Made in the EU
               </span>
               <h1
                 style={{
@@ -513,7 +513,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                 lineHeight: 1.15,
               }}
             >
-              Italienisches Mazzucchelli-1849-Acetat, in Italien handgefertigt
+              Italienisches Mazzucchelli-1849-Acetat, in der EU handgefertigt
             </h2>
             <ul className="flex flex-col gap-4" style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {[
@@ -704,7 +704,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               Woolet
             </Link>
             <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: colors.creamDim }}>
-              Made in Italy · Mazzucchelli 1849 Acetat
+              Made in the EU · Mazzucchelli 1849 Acetat
             </div>
             <Link
               to="/en/privacy-policy"

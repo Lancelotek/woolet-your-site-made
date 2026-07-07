@@ -6,12 +6,12 @@ const BigGlassesFrames = () => (
     breadcrumbName="Big Glasses Frames"
     h1="Big Glasses Frames — 158 mm Italian Acetate"
     metaTitle="Big Glasses Frames — 158 mm Wide, Italian Acetate | Woolet"
-    metaDescription="Big glasses frames built for big heads and wide faces (155 mm+). 158 mm front, 21 mm bridge, hand-finished Italian Mazzucchelli acetate. Bespoke up to 172 mm."
-    intro="Most so-called <em>big glasses frames</em> are 140 to 148 mm hinge-to-hinge — narrow once you cross a 58 cm head circumference. Woolet builds at 158 mm of front width with a 21 mm keyhole bridge, in hand-finished Italian Mazzucchelli acetate. Two shapes — round 007 and soft-square 009 — both available as optical or sunglasses."
+    metaDescription="Big glasses frames built for big heads and wide faces (155 mm+). 158 mm front, 21 mm bridge, hand-finished in the EU from Italian Mazzucchelli acetate. Bespoke up to 172 mm."
+    intro="Most so-called <em>big glasses frames</em> are 140 to 148 mm hinge-to-hinge — narrow once you cross a 58 cm head circumference. Woolet builds at 158 mm of front width with a 21 mm keyhole bridge, in hand-finished in the EU from Italian Mazzucchelli acetate. Two shapes — round 007 and soft-square 009 — both available as optical or sunglasses."
     whyThisFits={[
       "<strong>Front width is the variable that matters.</strong> Big glasses frames at mainstream retailers usually mean a slightly larger lens on the same narrow front, so the temples splay outward and the hinges carry all the load. Woolet scales front and lens area together at 158 mm.",
       "<strong>For head circumferences 58 cm and above.</strong> 58 to 60 cm is large, 60 to 62 cm is XL, 62 cm+ is XXL. The 158 mm standard fits large to XL heads comfortably; bespoke covers XXL up to 172 mm front width.",
-      "<strong>Italian Mazzucchelli acetate.</strong> Cellulose acetate holds its set on a wider span; injection-moulded plastic loosens under heat — and at this width the drift is amplified. Hand-finished in Italy, 5-barrel PVD Gunmetal hinges rated for daily flex.",
+      "<strong>Italian Mazzucchelli acetate.</strong> Cellulose acetate holds its set on a wider span; injection-moulded plastic loosens under heat — and at this width the drift is amplified. Hand Finished in the EU, 5-barrel PVD Gunmetal hinges rated for daily flex.",
       "<strong>21 mm keyhole bridge</strong> — wider than the 18–20 mm bridges typical of big-frame glasses — distributes weight across a wider nose without riding up.",
       "<strong>Optical or sunglasses.</strong> Single-vision, progressive, blue-light filter, or polarized sunglass lenses. Pre-order $114, regular $190. Confirm your size with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a>, or run the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a>.",
     ]}
@@ -39,7 +39,7 @@ const BigGlassesFrames = () => (
       {
         question: "What if 158 mm is still too narrow?",
         answer:
-          "Bespoke covers 150 to 172 mm of front width in either shape, with a 16–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand-finished to your measurement.",
+          "Bespoke covers 150 to 172 mm of front width in either shape, with a 16–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand-finished in the EU to your measurement.",
       },
       {
         question: "How does this compare to other Woolet wide-face pages?",

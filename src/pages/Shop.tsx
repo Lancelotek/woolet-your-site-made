@@ -191,7 +191,7 @@ const faqs = [
   },
   {
     q: "Where are Woolet frames made?",
-    a: "The acetate is Mazzucchelli 1849 from Castiglione Olona, Italy. Cutting, bevelling, hand-polishing and inspection are done in Italy.",
+    a: "The acetate is Mazzucchelli 1849 from Castiglione Olona, Italy. Cutting, bevelling, hand-polishing and inspection are done in the EU.",
   },
   {
     q: "What if they don't fit?",
@@ -299,7 +299,7 @@ const BuyBox = () => {
             {modelName}
           </h3>
           <p style={{ ...sans, color: MUTED, fontSize: 15, lineHeight: 1.7, marginTop: 12 }}>
-            158 mm front · 21 mm keyhole bridge · Italian Mazzucchelli acetate, hand-finished.
+            158 mm front · 21 mm keyhole bridge · Italian Mazzucchelli acetate, hand-finished in the EU.
           </p>
 
           <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 24 }}>
@@ -378,7 +378,7 @@ const BuyBox = () => {
             {[
               "30-day fit guarantee",
               "Free worldwide shipping",
-              "Handmade in Italy",
+              "Hand made in EU",
               "Free AI Fit Wizard",
             ].map((t) => (
               <li key={t} style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -461,7 +461,7 @@ const ProductTabs = () => {
         {tab === "materials" && (
           <p>
             Cut from a single sheet of Mazzucchelli 1849 Italian cellulose acetate — batch-cured for several
-            weeks in Castiglione Olona, then milled, hand-bevelled and hand-polished in Italy. Stainless-steel
+            weeks in Castiglione Olona, then milled, hand-bevelled and hand polished in the EU. Stainless-steel
             hinges. The material is denser and more dimensionally stable than injection-moulded plastic, which is
             why a 158 mm front holds its geometry season after season.
           </p>
@@ -497,7 +497,7 @@ const Shop = () => {
     <div style={{ background: BG, color: CREAM, minHeight: "100vh", ...sans }}>
       <SEO
         title="Woolet Shop — Wide-Face Eyewear"
-        description="Italian Mazzucchelli acetate eyewear engineered for wide faces. 158 mm front, 21 mm keyhole bridge, hand-finished in Italy."
+        description="Italian Mazzucchelli acetate eyewear engineered for wide faces. 158 mm front, 21 mm keyhole bridge, Hand finished in the EU."
         path="/shop"
         noindex
         robots="noindex, nofollow"
@@ -529,7 +529,7 @@ const Shop = () => {
           letterSpacing: "0.08em",
         }}
       >
-        Handmade in Italy · Free worldwide shipping · 30-day fit guarantee ·{" "}
+        Hand made in EU · Free worldwide shipping · 30-day fit guarantee ·{" "}
         <span style={{ color: GOLD }}>40% off — join the list</span>
       </div>
 
@@ -663,14 +663,14 @@ const Shop = () => {
               }}
             >
               158 mm Italian acetate, measured for faces 155 mm and above.
-              Hand-finished in Italy. No more pinched temples, no more marks.
+              Hand finished in the EU. No more pinched temples, no more marks.
             </p>
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
               <PrimaryBtn as="a" href="#buy">Shop the frames</PrimaryBtn>
               <GhostBtn href="#fit-wizard">Find my fit</GhostBtn>
             </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 32 }}>
-              {["Handmade in Italy", "Mazzucchelli acetate", "30-day fit guarantee"].map((b) => (
+              {["Hand made in EU", "Mazzucchelli acetate", "30-day fit guarantee"].map((b) => (
                 <span
                   key={b}
                   style={{
@@ -748,7 +748,7 @@ const Shop = () => {
             {[
               { eb: "The Fit", h: "158 mm front + 21 mm keyhole bridge", p: "One precise size, built for 155–161 mm faces. Bespoke covers 150–172 mm." },
               { eb: "The Material", h: "Mazzucchelli 1849 acetate", p: "Italian cellulose acetate, batch-cured for weeks. Denser and more stable than moulded plastic." },
-              { eb: "The Craft", h: "Hand-finished in Italy", p: "Milled, bevelled and polished by hand. Every front inspected before it leaves the workshop." },
+              { eb: "The Craft", h: "Hand finished in the EU", p: "Milled, bevelled and polished by hand. Every front inspected before it leaves the workshop." },
             ].map((c) => (
               <div key={c.eb} style={{ background: SURFACE, border: `1px solid ${HAIR}`, padding: 32 }}>
                 <Eyebrow>{c.eb}</Eyebrow>
@@ -875,7 +875,7 @@ const Shop = () => {
               { n: "150–172", u: "mm", l: "Bespoke range" },
               { n: "100%", u: "", l: "Mazzucchelli acetate" },
               { n: "2", u: "", l: "Shapes: 007 & 009" },
-              { n: "IT", u: "", l: "Handmade in Italy" },
+              { n: "IT", u: "", l: "Hand made in EU" },
               { n: "30", u: "days", l: "Fit guarantee" },
               { n: "0", u: "€", l: "Worldwide shipping" },
             ].map((s) => (
@@ -980,7 +980,7 @@ const Shop = () => {
                   ["Front width", "158 mm", "~142 mm", "~144 mm", "~150 mm"],
                   ["Bespoke tier (150–172 mm)", "yes", "no", "no", "no"],
                   ["Italian Mazzucchelli acetate", "yes", "yes", "no", "sometimes"],
-                  ["Hand-finished in Italy", "yes", "yes", "no", "no"],
+                  ["Hand finished in the EU", "yes", "yes", "no", "no"],
                   ["AI at-home fit check", "yes", "no", "yes", "no"],
                   ["Fit guarantee (30 days)", "yes", "varies", "yes", "no"],
                 ].map((row, i) => (
@@ -1171,7 +1171,7 @@ const Shop = () => {
             }}
           >
             <span>© 2026 Woolet by JAY23 LLC</span>
-            <span>Buffalo, Wyoming · Handmade in Italy</span>
+            <span>Buffalo, Wyoming · Hand made in EU</span>
           </div>
         </div>
       </footer>

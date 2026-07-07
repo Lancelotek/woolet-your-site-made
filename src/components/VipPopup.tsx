@@ -418,7 +418,7 @@ export default function VipPopup() {
                 </button>
 
                 <div className="wlt-vip-trust">
-                  Handmade in Italy · 30-day returns · No payment today
+                  Hand made in EU · 30-day returns · No payment today
                 </div>
               </form>
             )}
