@@ -619,7 +619,9 @@ const Shop = () => {
               <a href="#guarantee" style={{ color: MUTED, textDecoration: "none" }}>Guarantee</a>
               <a href="#faq" style={{ color: MUTED, textDecoration: "none" }}>FAQ</a>
             </nav>
-            <PrimaryBtn as="a" href="#buy">Shop Now</PrimaryBtn>
+            <a href="#buy" style={{ ...sans, color: GOLD, textDecoration: "none", textTransform: "uppercase", letterSpacing: "0.18em", fontSize: 11 }}>
+              40% off — join the list →
+            </a>
           </div>
         </div>
       </header>
