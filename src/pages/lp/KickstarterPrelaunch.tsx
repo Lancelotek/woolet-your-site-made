@@ -278,6 +278,8 @@ const KickstarterPrelaunch = () => {
   const referredBy = params.get("ref");
 
   const [activeImg, setActiveImg] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
