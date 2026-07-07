@@ -31,7 +31,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     sub: "標準フレームの幅は135〜145mm。顔幅が155mm以上なら、市販のメガネは「Mサイズ」しか存在しません。Wooletは155・158・161mmの実寸で、イタリア製マッツケリ・アセテートをEUで手作業仕立てします。",
     metaTitle: "大きい顔 メガネ 155–161mm | Woolet 幅広イタリア製アセテート",
     metaDescription:
-      "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで手作り。FitLensスキャンで20秒、自分のサイズが分かります。",
+      "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで、EUで手作り。FitLensスキャンで20秒、自分のサイズが分かります。",
     primaryKeyword: "大きい顔 メガネ",
     ctaPrimaryLabel: "顔幅を20秒で測る",
     ctaPrimaryHref: "/ja/fit",
