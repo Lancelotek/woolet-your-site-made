@@ -470,10 +470,6 @@ const KickstarterPrelaunch = () => {
               <span>Hand made in the EU</span>
               <span style={{ color: TAUPE }}>·</span>
               <span>155 mm+ wide fit</span>
-              <span style={{ color: TAUPE }}>·</span>
-              <span>
-                <span style={{ color: GOLD, fontWeight: 600 }}>4,900+</span> waitlist
-              </span>
             </div>
           </div>
         </div>
