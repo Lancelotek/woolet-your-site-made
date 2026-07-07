@@ -20,7 +20,7 @@ const ItalianAcetateSunglasses = () => (
       { question: "Are the sunglasses prescription-compatible?", answer: "Yes. Take the frame and your Rx to a qualified optician. Both shapes accept single-vision and progressive prescription tinted lenses." },
       { question: "What lens tint and UV protection do you offer?", answer: "Default lenses are CR-39 tinted to category 3, with 100% UVA/UVB protection. Polarised upgrade is available on both shapes." },
       { question: "How do I clean Italian acetate frames?", answer: "Lukewarm water and a drop of dish soap, then dry with the microfiber pouch the frame ships in. Avoid alcohol wipes — they dry out acetate over time and dull the polish." },
-      { question: "Are the sunglasses Made in the EU?", answer: "The acetate is Italian (Mazzucchelli, Castiglione Olona) and the hand-finishing — bevelling, polishing, inspection — is done in Italy. We do not claim each step of every component is Italian, which would be misleading." },
+      { question: "Are the sunglasses Made in the EU?", answer: "The acetate is Italian (Mazzucchelli, Castiglione Olona) and the hand-finishing — bevelling, polishing, inspection — is done in the EU. We do not claim each step of every component is Italian, which would be misleading." },
     ]}
   />
 );

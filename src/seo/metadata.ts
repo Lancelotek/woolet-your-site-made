@@ -531,7 +531,7 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Bespoke Fit — Woolet (150–165 mm)",
       description:
-        "If your face falls outside the standard Woolet sizes, bespoke covers 150–165 mm with a 16–26 mm bridge. Hand-crafted by an European atelier from your AI scan.",
+        "If your face falls outside the standard Woolet sizes, bespoke covers 150–165 mm with a 16–26 mm bridge. Hand-crafted by a European atelier from your AI scan.",
     });
   }
 
