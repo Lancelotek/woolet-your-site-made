@@ -4376,6 +4376,31 @@ export default function FitScan() {
     }
   };
 
+  // Called when the user submits or skips the in-flight bridge-fit quiz.
+  const finishBridgeQuiz = (submitted: boolean) => {
+    setBridgeQuizDone(true);
+    bridgeQuizDoneRef.current = true;
+    pushEvent("bridge_quiz_completed", {
+      submitted,
+      slipping: bridgeAnswersRef.current.slipping,
+      marks: bridgeAnswersRef.current.marks,
+      lashes: bridgeAnswersRef.current.lashes,
+    });
+    // If the scan already completed while the user was answering, recompute
+    // the recommendation with the fresh answers and reveal the result.
+    const pending = pendingResultRef.current;
+    if (pending) {
+      const r = getRecommendation(
+        pending.measurements.faceWidthMm,
+        pending.measurements.noseWidthMm,
+        submitted ? bridgeAnswersRef.current : null,
+      );
+      setRecommendation(r);
+      pendingResultRef.current = null;
+      setStep(user ? "result-sent" : "result");
+    }
+  };
+
   const handleCaptured = async (f: CapturedFrame) => {
     setFrame(f);
     setAutoFallback(null);
