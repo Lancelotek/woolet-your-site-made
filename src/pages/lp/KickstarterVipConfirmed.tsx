@@ -119,6 +119,27 @@ const KickstarterVipConfirmed = () => {
           </p>
         </div>
 
+        {/* VIP Facebook group */}
+        <section className="mt-10 border rounded-sm p-6 sm:p-8" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
+          <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-3">Shape the product</p>
+          <h2 className="font-display text-woolet-white text-2xl sm:text-3xl leading-tight mb-3">
+            Join the WOOLET VIP group.
+          </h2>
+          <p className="text-[#D8D4CC] text-sm leading-relaxed mb-6">
+            Get a real say in how the frames evolve and talk directly with the creators. This is where early backers vote on colors, shapes, and final details.
+          </p>
+          <a
+            href="https://www.facebook.com/groups/867413636043717/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => pushGtmEvent("vip_facebook_group_click", { source: "kickstarter_vip_confirmed" })}
+            className="inline-flex items-center justify-center bg-primary text-primary-foreground font-body uppercase tracking-[0.22em] text-xs px-6 rounded-sm hover:bg-gold-light transition-colors"
+            style={{ minHeight: 48 }}
+          >
+            Join on Facebook
+          </a>
+        </section>
+
         {/* Referral block */}
         <section
           className="mt-12 border rounded-sm p-6 sm:p-8"
