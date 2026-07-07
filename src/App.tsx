@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, Navigate, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useParams, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -132,6 +132,13 @@ const RedirectProductToEn = () => {
 const RedirectLpToEn = () => {
   const { slug } = useParams();
   return <Navigate to={`/en/lp/${slug}`} replace />;
+};
+
+const WhatsAppButtonWrapper = () => {
+  const location = useLocation();
+  const hideOnPaths = ["/en/lp/kickstarter"];
+  if (hideOnPaths.some((path) => location.pathname.startsWith(path))) return null;
+  return <WhatsAppButton />;
 };
 
 
@@ -301,8 +308,8 @@ const App = () => (
         </Routes>
         </Suspense>
         </AuthProvider>
+        <WhatsAppButtonWrapper />
       </BrowserRouter>
-      <WhatsAppButton />
       <CookieBanner />
       </ErrorBoundary>
     </TooltipProvider>
