@@ -4352,7 +4352,15 @@ export default function FitScan() {
             if (insErr) console.warn("[scan] account scan save failed", insErr);
           });
       }
-      setStep(user ? "result-sent" : "result");
+      // Only reveal the result once the user has finished (or skipped) the
+      // bridge-fit quiz. Otherwise the analyzing step stays put and shows a
+      // "scan finished — submit or skip" hint.
+      if (bridgeQuizDoneRef.current) {
+        setStep(user ? "result-sent" : "result");
+      } else {
+        pendingResultRef.current = { measurements: m, frame: f };
+        setAnalyzingReady(true);
+      }
       return true;
     } catch (err) {
       const isMeasurement = err instanceof MeasurementError;
