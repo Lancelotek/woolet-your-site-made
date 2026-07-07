@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import SEO from "@/components/SEO";
+import wordmark from "@/assets/woolet-wordmark.svg";
+import logoMark from "@/assets/woolet-logo.svg";
 
 /**
  * Woolet Shop — hidden long-form landing page.
