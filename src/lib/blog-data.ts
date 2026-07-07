@@ -2147,7 +2147,7 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "handmade-italian-acetate-eyewear-process",
-    title: "How Handmade Italian Acetate Eyewear Is Actually Made",
+    title: "How Handmade Acetate Eyewear Is Actually Made",
     excerpt: "Inside the Cadore atelier process — from a Mazzucchelli acetate block to a finished frame. The steps, the tools, and what 'handmade' should actually mean in 2026.",
     date: "2026-06-18",
     readTime: 10,
