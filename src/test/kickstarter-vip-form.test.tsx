@@ -53,11 +53,12 @@ describe("Kickstarter VIP form — email-only submission", () => {
     expect(form).toBeTruthy();
 
     const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
-    const nameInput = form.querySelector('input[type="text"]') as HTMLInputElement;
     const consentCheckbox = form.querySelector('input[type="checkbox"]') as HTMLInputElement;
     const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 
-    expect(nameInput.value).toBe(""); // no first name
+    // Email-only form: no first-name field on the page anymore
+    expect(form.querySelector('input[type="text"]')).toBeNull();
+
     fireEvent.change(emailInput, { target: { value: "wide@example.com" } });
     fireEvent.click(consentCheckbox);
 
