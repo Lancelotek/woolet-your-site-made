@@ -1126,7 +1126,10 @@ const Shop = () => {
             className="feature-row"
           >
             <div>
-              <div style={{ ...serif, color: HEADING, fontSize: 30 }}>Woolet</div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
+                <img src={logoMark} alt="" style={{ height: 32, width: "auto" }} />
+                <img src={wordmark} alt="Woolet" style={{ height: 18, width: "auto" }} />
+              </div>
               <p style={{ ...sans, color: MUTED, fontSize: 13, lineHeight: 1.7, marginTop: 12, maxWidth: 320 }}>
                 Italian Mazzucchelli acetate eyewear for wide faces. 155–172 mm. Handmade in the EU.
               </p>
