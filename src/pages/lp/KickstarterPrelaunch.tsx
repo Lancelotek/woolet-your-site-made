@@ -8,9 +8,6 @@ import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
 const logo = logoAsset.url;
 import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
-import w007BlackAsset from "@/assets/woolet-007-black.png.asset.json";
-import w007GreyAsset from "@/assets/woolet-007-grey.png.asset.json";
-import w007TaupeAsset from "@/assets/woolet-007-taupe.png.asset.json";
 import w009BlackFrontAsset from "@/assets/woolet-009-black-front.png.asset.json";
 import w009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
 import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
@@ -44,10 +41,6 @@ const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
 // ---------- Hero gallery ----------
 const heroGallery: { src: string; alt: string }[] = [
   { src: heroManAsset.url, alt: "Man wearing Woolet wide-face eyewear" },
-  { src: w007BlackFrontAsset.url, alt: "Woolet 007 Round — black, front" },
-  { src: w007BlackAsset.url, alt: "Woolet 007 Round — black" },
-  { src: w007GreyAsset.url, alt: "Woolet 007 Round — grey" },
-  { src: w007TaupeAsset.url, alt: "Woolet 007 Round — taupe" },
   { src: w009BlackAsset.url, alt: "Woolet 009 Soft-Square — black" },
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
   { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
