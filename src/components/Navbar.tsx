@@ -101,6 +101,9 @@ const Navbar = () => {
                   <Link
                     key={l}
                     to={`/${l}`}
+                    role="option"
+                    aria-selected={l === lang}
+                    aria-current={l === lang ? "true" : undefined}
                     onClick={() => {
                       setLangOpen(false);
                       try { window.localStorage.setItem("woolet_lang", l); } catch {}
