@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
-import Countdown from "@/components/Countdown";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
 const logo = logoAsset.url;
@@ -12,62 +11,123 @@ import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json
 import w007BlackAsset from "@/assets/woolet-007-black.png.asset.json";
 import w007GreyAsset from "@/assets/woolet-007-grey.png.asset.json";
 import w007TaupeAsset from "@/assets/woolet-007-taupe.png.asset.json";
+import w009BlackFrontAsset from "@/assets/woolet-009-black-front.png.asset.json";
 import w009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
 import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
 import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
-
-const slides007Lp = [w007BlackFrontAsset.url, w007BlackAsset.url, w007GreyAsset.url, w007TaupeAsset.url];
-const slides009Lp = [w009BlackAsset.url, w009GreyAsset.url, w009TaupeAsset.url];
+import w009HavanaAsset from "@/assets/woolet-009-havana-front.png.asset.json";
+import bespokeHeroAsset from "@/assets/bespoke-hero.png.asset.json";
 import marek from "@/assets/author-marek.png";
-import beforeAfterAsset from "@/assets/woolet-fit-comparison.png.asset.json";
-const beforeAfter = beforeAfterAsset.url;
 
-const KS_LAUNCH_DATE = new Date("2026-09-19T16:00:00+02:00");
+// Bespoke gallery photos
+import wr03 from "@/assets/frames/wr-03.jpg.asset.json";
+import wr07 from "@/assets/frames/wr-07.jpg.asset.json";
+import wr13 from "@/assets/frames/wr-13.jpg.asset.json";
+import wr15 from "@/assets/frames/wr-15.jpg.asset.json";
+import wr19 from "@/assets/frames/wr-19.jpg.asset.json";
+import wr21 from "@/assets/frames/wr-21.jpg.asset.json";
+import wr24 from "@/assets/frames/wr-24.jpg.asset.json";
+import wr26 from "@/assets/frames/wr-26.jpg.asset.json";
+import wr29 from "@/assets/frames/wr-29.jpg.asset.json";
+import wr31 from "@/assets/frames/wr-31.jpg.asset.json";
+import wr34 from "@/assets/frames/wr-34.jpg.asset.json";
+import wr37 from "@/assets/frames/wr-37.jpg.asset.json";
 
-const LAUNCH_DATE_LABEL = KS_LAUNCH_DATE.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+// ---------- Design tokens ----------
+const INK = "#080807";
+const CREAM = "#EDE9DE";
+const TAUPE = "#BAAFA1";
+const GOLD = "#CAA449";
+const BRONZE = "#8A6E2E";
+const HAIRLINE = "rgba(255,255,255,0.10)";
+const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
 
-// Tier 1 — limited Founders Edition (Havana colorway, numbered)
-const FOUNDERS_EDITION_TOTAL = 100;
-// Tier 2 — Early Bird (40% off retail)
-const EARLY_BIRD_TOTAL = 300;
-const EARLY_BIRD_LEFT = 247;
+// ---------- Hero gallery ----------
+const heroGallery: { src: string; alt: string }[] = [
+  { src: heroManAsset.url, alt: "Man wearing Woolet wide-face eyewear" },
+  { src: w007BlackFrontAsset.url, alt: "Woolet 007 Round — black, front" },
+  { src: w007BlackAsset.url, alt: "Woolet 007 Round — black" },
+  { src: w007GreyAsset.url, alt: "Woolet 007 Round — grey" },
+  { src: w007TaupeAsset.url, alt: "Woolet 007 Round — taupe" },
+  { src: w009BlackFrontAsset.url, alt: "Woolet 009 Soft-Square — black, front" },
+  { src: w009BlackAsset.url, alt: "Woolet 009 Soft-Square — black" },
+  { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
+  { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
+  { src: w009HavanaAsset.url, alt: "Woolet 009 Soft-Square — havana" },
+  { src: bespokeHeroAsset.url, alt: "Woolet Bespoke — made to measure" },
+];
+
+const bespokeGallery = [
+  { src: wr03.url, shape: "Round" },
+  { src: wr07.url, shape: "Soft-Square" },
+  { src: wr13.url, shape: "Panto" },
+  { src: wr15.url, shape: "Rectangle" },
+  { src: wr19.url, shape: "Round" },
+  { src: wr21.url, shape: "Soft-Square" },
+  { src: wr24.url, shape: "Panto" },
+  { src: wr26.url, shape: "Rectangle" },
+  { src: wr29.url, shape: "Round" },
+  { src: wr31.url, shape: "Soft-Square" },
+  { src: wr34.url, shape: "Panto" },
+  { src: wr37.url, shape: "Rectangle" },
+];
+
+// ---------- CTA button ----------
+const ctaButtonStyle: React.CSSProperties = {
+  background: GOLD,
+  color: INK,
+  border: "none",
+  borderRadius: 0,
+  padding: "16px 28px",
+  fontFamily: "Barlow, sans-serif",
+  fontWeight: 600,
+  letterSpacing: "0.16em",
+  textTransform: "uppercase",
+  fontSize: "12px",
+  cursor: "pointer",
+  transition: "background 0.2s ease",
+  width: "100%",
+};
 
 const inputStyle: React.CSSProperties = {
-  fontSize: "12px",
-  backgroundColor: "rgba(255,255,255,0.06)",
-  color: "#f0ece4",
-  border: "1px solid rgba(216,212,204,0.35)",
-  borderRadius: "4px",
-  padding: "12px 14px",
+  background: "rgba(255,255,255,0.04)",
+  color: CREAM,
+  border: `1px solid ${HAIRLINE_STRONG}`,
+  borderRadius: 0,
+  padding: "14px 16px",
+  fontFamily: "Barlow, sans-serif",
+  fontSize: "14px",
   outline: "none",
+  width: "100%",
   transition: "border-color 0.2s",
 };
 
-const labelStyle: React.CSSProperties = {
+const eyebrowStyle: React.CSSProperties = {
+  fontFamily: "Barlow, sans-serif",
   fontSize: "11px",
   fontWeight: 500,
-  letterSpacing: "0.15em",
-  color: "#D8D4CC",
+  letterSpacing: "0.18em",
   textTransform: "uppercase",
-  marginBottom: "8px",
+  color: GOLD,
 };
 
-type FormState = { name: string; email: string; faceWidth: string };
-
+// ---------- VIP Form (email + consent only) ----------
 const VipForm = ({
   utmSource,
   idSuffix = "",
   referredBy,
+  compact = false,
 }: {
   utmSource: string;
   idSuffix?: string;
   referredBy?: string | null;
+  compact?: boolean;
 }) => {
   const navigate = useNavigate();
-  const [form, setForm] = useState<FormState>({ name: "", email: "", faceWidth: "" });
+  const [email, setEmail] = useState("");
+  const [accepted, setAccepted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,13 +135,11 @@ const VipForm = ({
     setError(null);
     try {
       const models = "Kickstarter VIP";
-      const resolvedRef = resolveReferredBy(form.email, referredBy);
+      const resolvedRef = resolveReferredBy(email, referredBy);
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
-          email: form.email,
-          name: form.name,
-          face_width: form.faceWidth,
-          models,
+          email,
+          name: "",
           source: "kickstarter",
           referred_by: resolvedRef,
         },
@@ -93,9 +151,8 @@ const VipForm = ({
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "waitlist_signup",
-          user_email: form.email,
-          user_first_name: form.name,
-          frame_width_preference: form.faceWidth || null,
+          user_email: email,
+          user_first_name: "",
           waitlist_models: models,
           referred_by: resolvedRef,
         });
@@ -106,7 +163,7 @@ const VipForm = ({
       });
 
       navigate("/en/lp/kickstarter/vip-confirmed", {
-        state: { email: form.email, name: form.name },
+        state: { email, name: "" },
       });
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
@@ -115,134 +172,119 @@ const VipForm = ({
     }
   };
 
-
   return (
     <form
       id={`vip-form${idSuffix}`}
       onSubmit={onSubmit}
-      className="flex flex-col gap-2.5 mt-4"
+      className="flex flex-col gap-3"
+      style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
     >
-      <div className="flex gap-2.5 flex-col sm:flex-row">
-        <div className="flex-1 flex flex-col">
-          <label style={labelStyle}>
-            First name{" "}
-            <span style={{ fontWeight: 400, textTransform: "none", letterSpacing: "0.05em", color: "#B8B3A8" }}>(optional)</span>
-          </label>
-          <input
-            type="text"
-            placeholder="James"
-            value={form.name}
-            onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-            className="font-body focus:border-primary transition-colors"
-            style={{ ...inputStyle }}
-          />
-        </div>
-        <div className="flex-1 flex flex-col">
-          <label style={labelStyle}>Email</label>
-          <input
-            type="email"
-            placeholder="james@example.com"
-            required
-            value={form.email}
-            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-            className="font-body focus:border-primary transition-colors"
-            style={{ ...inputStyle }}
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col">
-        <label style={labelStyle}>
-          Preferred frame width{" "}
-          <span style={{ fontWeight: 400, textTransform: "none", letterSpacing: "0.05em", color: "#B8B3A8" }}>(optional)</span>
-        </label>
-        <select
-          value={form.faceWidth}
-          onChange={(e) => setForm((f) => ({ ...f, faceWidth: e.target.value }))}
-          className="w-full font-body appearance-none focus:border-primary transition-colors"
-          style={{ ...inputStyle, fontSize: "max(0.95rem, 16px)", paddingRight: "32px" }}
+      <div className={compact ? "flex flex-col sm:flex-row gap-3" : "flex flex-col gap-3"}>
+        <input
+          type="email"
+          placeholder="Your email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ ...inputStyle, flex: 1 }}
+          onFocus={(e) => (e.currentTarget.style.borderColor = GOLD)}
+          onBlur={(e) => (e.currentTarget.style.borderColor = HAIRLINE_STRONG)}
+        />
+        <button
+          type="submit"
+          disabled={loading || !accepted}
+          style={{
+            ...ctaButtonStyle,
+            width: compact ? "auto" : "100%",
+            whiteSpace: "nowrap",
+            opacity: !accepted || loading ? 0.55 : 1,
+            cursor: !accepted || loading ? "not-allowed" : "pointer",
+          }}
+          onMouseEnter={(e) => {
+            if (!e.currentTarget.disabled) e.currentTarget.style.background = BRONZE;
+          }}
+          onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
         >
-          <option value="" style={{ background: "#1a1612", color: "#f0ece4" }}>Select your frame width</option>
-          <option value="unknown" style={{ background: "#1a1612", color: "#f0ece4" }}>I don't know, will measure it</option>
-          <option value="145" style={{ background: "#1a1612", color: "#f0ece4" }}>145 mm to 155 mm</option>
-          <option value="155" style={{ background: "#1a1612", color: "#f0ece4" }}>155 mm to 161 mm</option>
-          <option value="bespoke" style={{ background: "#1a1612", color: "#f0ece4" }}>Bespoke — any size</option>
-        </select>
+          {loading ? "Sending…" : "Claim Your Early Access"}
+        </button>
       </div>
 
-      <label className="flex items-start gap-3 cursor-pointer hover:text-woolet-white transition-colors mt-1 py-2 -my-2" style={{ fontSize: "13px", color: "#C8C3B8", minHeight: 44 }}>
+      <label
+        className="flex items-start gap-3 cursor-pointer select-none"
+        style={{ fontFamily: "Barlow, sans-serif", fontSize: "13px", color: TAUPE, lineHeight: 1.5 }}
+      >
         <input
           type="checkbox"
-          checked={privacyAccepted}
-          onChange={() => setPrivacyAccepted((v) => !v)}
+          checked={accepted}
+          onChange={() => setAccepted((v) => !v)}
           className="sr-only"
         />
-        <div
-          className="w-5 h-5 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]"
+        <span
+          aria-hidden
           style={{
-            backgroundColor: privacyAccepted ? "#c9a84c" : "transparent",
-            borderColor: privacyAccepted ? "#c9a84c" : "#A8A39A",
+            width: 18,
+            height: 18,
+            border: `1px solid ${accepted ? GOLD : HAIRLINE_STRONG}`,
+            background: accepted ? GOLD : "transparent",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 2,
+            flexShrink: 0,
           }}
         >
-          {privacyAccepted && (
+          {accepted && (
             <svg width="10" height="8" viewBox="0 0 8 6" fill="none">
-              <path d="M1 3L3 5L7 1" stroke="#0f0f0f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M1 3L3 5L7 1" stroke={INK} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           )}
-        </div>
+        </span>
         <span>
-          I agree to receive launch emails and accept the{" "}
-          <Link to="/en/privacy-policy" className="text-primary underline underline-offset-2 hover:text-gold-light transition-colors">
+          Get early access and launch updates. Accept the{" "}
+          <Link to="/en/privacy-policy" style={{ color: CREAM, textDecoration: "underline", textUnderlineOffset: 2 }}>
             privacy policy
           </Link>
           .
         </span>
       </label>
 
+      {error && (
+        <p style={{ fontFamily: "Barlow, sans-serif", fontSize: 12, color: "#e25555" }}>{error}</p>
+      )}
 
-      {error && <p className="text-center text-xs" style={{ color: "#e25555" }}>{error}</p>}
-
-      <button
-        type="submit"
-        disabled={loading || !privacyAccepted}
-        className="relative overflow-hidden bg-primary text-primary-foreground border-none font-body w-full transition-all hover:bg-gold-light active:scale-[0.99] disabled:opacity-60 flex items-center justify-center"
-        style={{ minHeight: "56px", padding: "12px 24px" }}
+      <p
+        style={{
+          fontFamily: "Barlow, sans-serif",
+          fontSize: 11,
+          color: TAUPE,
+          letterSpacing: "0.04em",
+          textAlign: compact ? "center" : "left",
+          marginTop: 2,
+        }}
       >
-        <span className="font-semibold uppercase tracking-[0.24em] text-xs">
-          {loading ? "Sending..." : "Join the VIP list — lock 40% off"}
-        </span>
-      </button>
-
-      <p className="text-center mt-1" style={{ fontSize: "12px", color: "#C8C3B8", letterSpacing: "0.04em" }}>
-        <span style={{ color: "#D4B07A", fontWeight: 600 }}>{EARLY_BIRD_LEFT}</span> / {EARLY_BIRD_TOTAL} Early Bird spots left
-        <span style={{ color: "#8A857B" }}> · </span>
-        <span style={{ color: "#E8E2D6" }}>{FOUNDERS_EDITION_TOTAL} Founders Edition Havana (numbered)</span>
+        No payment now · Just your email · Unsubscribe anytime.
       </p>
-
-      <p className="text-center mt-0.5" style={{ fontSize: "12px", color: "#C8C3B8", letterSpacing: "0.02em" }}>
-        No payment now · No spam · Unsubscribe anytime
-      </p>
-
     </form>
   );
 };
 
+// ---------- Section helpers ----------
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p style={eyebrowStyle}>{children}</p>
+);
 
+const Hairline = () => (
+  <div style={{ height: 1, background: HAIRLINE, width: "100%" }} />
+);
 
-
+// ---------- Page ----------
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
   const utmSource = params.get("utm_source") || "direct";
   const referredBy = params.get("ref");
 
-  const [idx007Lp, setIdx007Lp] = useState(0);
-  const [idx009Lp, setIdx009Lp] = useState(0);
-  useEffect(() => {
-    const a = window.setInterval(() => setIdx007Lp((i) => (i + 1) % slides007Lp.length), 3500);
-    const b = window.setInterval(() => setIdx009Lp((i) => (i + 1) % slides009Lp.length), 3500);
-    return () => { window.clearInterval(a); window.clearInterval(b); };
-  }, []);
-
+  const [activeImg, setActiveImg] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
     if (referredBy) {
@@ -258,366 +300,734 @@ const KickstarterPrelaunch = () => {
     });
   }, []);
 
-  const isLaunchPast = useMemo(() => !KS_LAUNCH_DATE || KS_LAUNCH_DATE.getTime() <= Date.now(), []);
-
-  const scrollToForm = () => {
-    document.getElementById("vip-form-hero")?.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
-
-  const [showStickyCta, setShowStickyCta] = useState(false);
-  useEffect(() => {
-    const hero = document.getElementById("vip-form-hero");
-    const finalForm = document.getElementById("vip-form-final");
-    if (!hero) return;
-    let heroVisible = true;
-    let finalVisible = false;
-    const update = () => setShowStickyCta(!heroVisible && !finalVisible);
-    const heroObs = new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; update(); }, { threshold: 0 });
-    heroObs.observe(hero);
-    let finalObs: IntersectionObserver | null = null;
-    if (finalForm) {
-      finalObs = new IntersectionObserver(([e]) => { finalVisible = e.isIntersecting; update(); }, { threshold: 0 });
-      finalObs.observe(finalForm);
-    }
-    return () => { heroObs.disconnect(); finalObs?.disconnect(); };
-  }, []);
+  const faqs = useMemo(
+    () => [
+      {
+        q: "Do I pay anything now?",
+        a: "No. This page only joins you to the VIP list. You'll pledge on Kickstarter at launch if you want a pair.",
+      },
+      {
+        q: "What if 158 mm doesn't fit me?",
+        a: "Bespoke covers any width from 145 to 162 mm, built to measure with FitLens — our AI fit app that measures your face with your phone camera.",
+      },
+      {
+        q: "Can I get prescription lenses?",
+        a: "Yes. Every Woolet frame is prescription-ready. You can order frame-only and take them to your optician, or add prescription lenses at checkout.",
+      },
+      {
+        q: "Where are they made and from what?",
+        a: "Mazzucchelli acetate milled in Milan, then hand made in the EU. The material comes from Milan; the craftsmanship happens in our European atelier.",
+      },
+      {
+        q: "How is this different from a Ray-Ban or Persol XL?",
+        a: "XL models are scaled-up versions of frames designed for a ~137 mm face. Woolet is engineered wide from the first millimetre — 158 mm front, 20–21 mm keyhole bridge, proportions built for 155–161 mm faces.",
+      },
+      {
+        q: "What exactly do VIPs get?",
+        a: "Four things: early access to FitLens, the Bespoke configurator, up to 40% off retail, and the private VIP Facebook group with direct access to the founder.",
+      },
+    ],
+    []
+  );
 
   return (
-    <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
+    <div
+      className="min-h-screen"
+      style={{
+        background: INK,
+        color: CREAM,
+        fontFamily: "Barlow, sans-serif",
+      }}
+    >
       <Helmet>
-        <title>Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear</title>
+        <title>Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)</title>
         <meta
           name="description"
-          content="Join the Woolet Kickstarter VIP list. Lock 40% off Early Bird pricing, a hidden pledge invisible to the public, and first access to 100 numbered Founders Edition Havana frames built for wide faces (155 mm+)."
+          content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price."
         />
         <link rel="canonical" href="https://woolet.co/en/lp/kickstarter" />
-        <meta property="og:title" content="Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear" />
-        <meta property="og:description" content="Italian Mazzucchelli acetate eyewear built for wide faces (155 mm+). VIPs lock 40% off and a hidden pledge before public launch." />
+        <meta property="og:title" content="Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)" />
+        <meta
+          property="og:description"
+          content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. VIP early access and up to 40% off."
+        />
         <meta property="og:url" content="https://woolet.co/en/lp/kickstarter" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear" />
-        <meta name="twitter:description" content="VIP early access for the Woolet Kickstarter. 40% off + hidden pledge for wide faces (155 mm+)." />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          name: "Woolet Kickstarter VIP — 40% Off Wide-Face Eyewear",
-          url: "https://woolet.co/en/lp/kickstarter",
-          inLanguage: "en",
-          isPartOf: { "@type": "WebSite", name: "Woolet", url: "https://woolet.co/" },
-          primaryImageOfPage: { "@type": "ImageObject", url: "https://woolet.co/og-image.jpg" },
-          breadcrumb: {
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
-              { "@type": "ListItem", position: 2, name: "Kickstarter VIP", item: "https://woolet.co/en/lp/kickstarter" },
-            ],
-          },
-        })}</script>
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: "Woolet Founders Edition — Italian Acetate Eyewear for Wide Faces",
-          brand: { "@type": "Brand", name: "Woolet" },
-          description: "Italian Mazzucchelli acetate eyewear for faces 155 mm+. Two shapes (007 Round, 009 Square) in 155 / 158 / 161 mm. Kickstarter VIP pricing: 40% off Early Bird, plus 100 numbered Founders Edition Havana frames.",
-          image: ["https://woolet.co/og-image.jpg"],
-          material: "Italian Mazzucchelli acetate",
-          countryOfOrigin: "IT",
-          audience: { "@type": "PeopleAudience", suggestedMeasurement: "Face width 155 mm and above" },
-          offers: {
-            "@type": "Offer",
-            url: "https://woolet.co/en/lp/kickstarter",
-            priceCurrency: "USD",
-            price: "114",
-            priceValidUntil: "2026-12-31",
-            availability: "https://schema.org/PreOrder",
-            availabilityStarts: KS_LAUNCH_DATE.toISOString(),
-            itemCondition: "https://schema.org/NewCondition",
-            seller: { "@type": "Organization", name: "Woolet", url: "https://woolet.co/" },
-          },
-        })}</script>
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Event",
-          name: "Woolet Kickstarter Launch",
-          description: "Public launch of the Woolet eyewear campaign on Kickstarter. VIPs receive 40% off Early Bird and access to a hidden pledge.",
-          startDate: KS_LAUNCH_DATE.toISOString(),
-          eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-          eventStatus: "https://schema.org/EventScheduled",
-          location: { "@type": "VirtualLocation", url: "https://woolet.co/en/lp/kickstarter" },
-          image: ["https://woolet.co/og-image.jpg"],
-          organizer: { "@type": "Organization", name: "Woolet", url: "https://woolet.co/" },
-          offers: {
-            "@type": "Offer",
-            url: "https://woolet.co/en/lp/kickstarter",
-            price: "0",
-            priceCurrency: "USD",
-            availability: "https://schema.org/InStock",
-            validFrom: new Date().toISOString(),
-          },
-        })}</script>
       </Helmet>
 
       {/* Top bar */}
-      <header className="border-b border-[#1a1612]">
-        <div className="max-w-6xl mx-auto px-5 py-5 flex items-center justify-between">
+      <header style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-5 flex items-center justify-between">
           <Link to="/en" className="flex items-center gap-2">
-            <img src={logo} alt="Woolet" className="h-8 w-auto" />
+            <img src={logo} alt="Woolet" style={{ height: 26, width: "auto" }} />
           </Link>
-          <span className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
-            Launching on Kickstarter
+          <span
+            style={{
+              ...eyebrowStyle,
+              color: GOLD,
+              border: `1px solid ${GOLD}`,
+              padding: "6px 14px",
+            }}
+          >
+            VIP Early Access
           </span>
         </div>
       </header>
 
-      {/* HERO — mobile fold: H1 + 1-line subhead + form + scarcity above the fold */}
-      <section className="bg-[#080807]">
-        <div className="max-w-6xl mx-auto px-5 lp-section grid md:grid-cols-2 gap-6 md:gap-10 md:items-center">
+      {/* HERO */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 md:py-20 grid md:grid-cols-2 gap-10 md:gap-16 md:items-center">
+          {/* Left — gallery */}
           <div>
-            <p className="text-primary uppercase tracking-[0.28em] text-[12px] mb-2 sm:mb-4">VIP Early Access</p>
-            <h1 className="font-display text-woolet-white leading-[1.02] text-[1.7rem] sm:text-[3rem]">
-              Eyewear built for wide faces — coming to Kickstarter
-            </h1>
-            <p className="text-cream-dim mt-3 sm:mt-5 text-sm sm:text-lg leading-snug sm:leading-relaxed">
-              Launches <span className="text-woolet-white">{LAUNCH_DATE_LABEL}</span>. VIPs lock <span className="text-primary">40% off</span> + a <span className="text-primary">hidden pledge</span>.
-            </p>
-
-            <div id="vip-form-hero" className="mt-4 sm:mt-6">
-              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} />
+            <div
+              style={{
+                width: "100%",
+                aspectRatio: "4 / 5",
+                background: "#0f0e0c",
+                border: `1px solid ${HAIRLINE}`,
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={heroGallery[activeImg].src}
+                alt={heroGallery[activeImg].alt}
+                loading="eager"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
             </div>
-
-
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2" style={{ fontSize: "12.5px", color: "#E8E2D6" }}>
-              <span>🇮🇹 Italian Mazzucchelli Acetate</span>
-              <span style={{ color: "#8A857B" }}>·</span>
-              <span>155mm+ wide fit</span>
-              <span style={{ color: "#8A857B" }}>·</span>
-              <span><span style={{ color: "#D4B07A", fontWeight: 600 }}>4,900+</span> on the waitlist</span>
-            </div>
-
-            {/* Testimonials */}
-            <div className="mt-8 grid sm:grid-cols-2 gap-4">
-              {[
-                { q: "I've been searching for frames this wide for years. Woolet is the first brand that gets it.", a: "Marek W. · 161mm · Warsaw" },
-                { q: "Finally no more marks on my temples at the end of the day.", a: "James R. · 158mm · London" },
-              ].map((t) => (
-                <div key={t.a} className="border-l-2 border-primary/40 pl-3">
-                  <p className="text-woolet-white italic leading-relaxed" style={{ fontSize: "13px" }}>"{t.q}"</p>
-                  <p className="mt-2 uppercase tracking-[0.18em]" style={{ fontSize: "12px", color: "#A8A39A" }}>{t.a}</p>
-                </div>
+            <div
+              className="mt-4 flex gap-2 overflow-x-auto"
+              style={{ scrollbarWidth: "thin" }}
+            >
+              {heroGallery.map((img, i) => (
+                <button
+                  key={img.src}
+                  type="button"
+                  onClick={() => setActiveImg(i)}
+                  aria-label={`Show image ${i + 1}`}
+                  style={{
+                    flex: "0 0 72px",
+                    width: 72,
+                    height: 72,
+                    padding: 0,
+                    border: `1px solid ${i === activeImg ? GOLD : HAIRLINE}`,
+                    background: "#0f0e0c",
+                    cursor: "pointer",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={img.src}
+                    alt=""
+                    loading="lazy"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  />
+                </button>
               ))}
             </div>
           </div>
 
-          {/* Hero image — hidden on mobile to keep form above the fold; shown md+ */}
-          <div className="hidden md:block md:order-last">
-            <img
-              src={heroManAsset.url}
-              alt="Man wearing Woolet wide-face eyewear"
-              className="w-full h-auto object-cover rounded-sm"
-              loading="eager"
-              width={800}
-              height={1000}
-            />
-          </div>
+          {/* Right — copy + form */}
+          <div>
+            <Eyebrow>VIP Early Access</Eyebrow>
+            <h1
+              style={{
+                fontFamily: "'Cormorant Garamond', 'Newsreader', serif",
+                fontWeight: 300,
+                fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+                lineHeight: 1.05,
+                color: CREAM,
+                marginTop: 16,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Eyewear built for wide faces.
+            </h1>
+            <p
+              style={{
+                color: TAUPE,
+                fontSize: "1.05rem",
+                lineHeight: 1.6,
+                marginTop: 20,
+                maxWidth: 520,
+              }}
+            >
+              Premium Milanese acetate, hand made in the EU, engineered for faces the industry forgot — 155 mm and up. Launching soon on Kickstarter. Join the VIP list for early access and up to <span style={{ color: CREAM }}>40% off</span>.
+            </p>
 
-        </div>
-      </section>
-
-      {/* COUNTDOWN */}
-      <section className="border-y border-[#1a1612] bg-[#0a0908]">
-        <div className="max-w-3xl mx-auto px-5 py-10 flex flex-col items-center text-center gap-4">
-          {isLaunchPast ? (
-            <>
-              <p className="text-cream-dim uppercase tracking-[0.28em] text-[12px]">
-                Launch status
-              </p>
-              <p className="font-display text-woolet-white text-xl sm:text-2xl">
-                Launching soon on Kickstarter — exact date announced to the VIP list.
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="text-cream-dim uppercase tracking-[0.28em] text-[12px]">
-                Kickstarter launches in
-              </p>
-              <Countdown targetDate={KS_LAUNCH_DATE} />
-              <p className="text-cream-dim text-sm mt-2">Target launch: {LAUNCH_DATE_LABEL}</p>
-            </>
-          )}
-        </div>
-      </section>
-
-      {/* WHY JOIN */}
-      <section className="max-w-6xl mx-auto px-5 py-14">
-        <h2 className="font-display text-3xl sm:text-4xl text-center text-woolet-white mb-10">
-          Why join the VIP list
-        </h2>
-        <div className="grid sm:grid-cols-3 gap-6">
-          {[
-            {
-              t: "Founders Edition Havana",
-              d: `100 numbered pairs in our signature Havana acetate — limited edition, only on Kickstarter. Goes first.`,
-            },
-            {
-              t: "Early Bird — 40% off",
-              d: `300 spots at 40% off the $190 retail price. ${EARLY_BIRD_LEFT} left when the campaign opens.`,
-            },
-            {
-              t: "Hidden VIP pledge",
-              d: "A secret reward tier only VIPs can see — invisible to the public during the Kickstarter campaign. Access link goes out by email on launch day.",
-            },
-          ].map((p) => (
-            <div key={p.t} className="border border-[#1a1612] p-6 rounded-sm bg-[#0a0908]">
-              <div className="text-primary text-xs uppercase tracking-[0.24em] mb-3">Perk</div>
-              <h3 className="font-display text-xl text-woolet-white mb-2">{p.t}</h3>
-              <p className="text-cream-dim text-sm leading-relaxed">{p.d}</p>
+            <div id="vip-form-hero" style={{ marginTop: 28 }}>
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} />
             </div>
-          ))}
+
+            {/* Trust row */}
+            <div
+              className="mt-8 flex flex-wrap gap-x-5 gap-y-2"
+              style={{ fontSize: 12.5, color: CREAM, letterSpacing: "0.02em" }}
+            >
+              <span>Milanese acetate</span>
+              <span style={{ color: TAUPE }}>·</span>
+              <span>Hand made in the EU</span>
+              <span style={{ color: TAUPE }}>·</span>
+              <span>155 mm+ wide fit</span>
+              <span style={{ color: TAUPE }}>·</span>
+              <span>
+                <span style={{ color: GOLD, fontWeight: 600 }}>4,900+</span> waitlist
+              </span>
+            </div>
+          </div>
         </div>
+        <Hairline />
       </section>
 
-      {/* PRODUCT TEASER */}
-      <section className="bg-[#080807] border-y border-[#1a1612]">
-        <div className="max-w-6xl mx-auto px-5 py-14">
-          <h2 className="font-display text-3xl sm:text-4xl text-center text-woolet-white mb-3">
-            Two frames. Built wide from the start.
+      {/* WHAT VIPs GET */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-24">
+          <Eyebrow>The VIP list</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
+              lineHeight: 1.1,
+              color: CREAM,
+              marginTop: 12,
+              maxWidth: 640,
+            }}
+          >
+            Four things only VIPs get.
           </h2>
-          <p className="text-cream-dim text-center max-w-xl mx-auto text-sm">
-            Italian acetate · three stock widths — 155 / 158 / 161 mm — plus bespoke from 150 to 172 mm · 21–22 mm keyhole bridge · 3 colors per shape.
-          </p>
-          <div className="grid sm:grid-cols-2 gap-8 mt-10">
+
+          <div className="grid sm:grid-cols-2 gap-px mt-10" style={{ background: HAIRLINE }}>
             {[
-              { slides: slides007Lp, name: "Woolet 007", shape: "Round / Panto" },
-              { slides: slides009Lp, name: "Woolet 009", shape: "Soft Square" },
-            ].map((m) => (
-              <div key={m.name} className="text-center">
-                <div className="relative w-full max-w-sm mx-auto aspect-square overflow-hidden bg-woolet-white" style={{ borderRadius: "4px" }}>
-                  {m.slides.map((src, i) => (
-                    <img
-                      key={src}
-                      src={src}
-                      alt={m.name}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
-                      style={{ opacity: i === (m.name === "Woolet 007" ? idx007Lp : idx009Lp) ? 1 : 0 }}
-                    />
-                  ))}
+              {
+                t: "Access to FitLens",
+                d: "First access to our AI fit app — measure your face with your phone camera and get your exact Woolet size before you pledge.",
+              },
+              {
+                t: "Bespoke configurator",
+                d: "Design your own frame: 4 shapes, 60 colour and size combinations, any width from 145 to 162 mm, built to measure.",
+              },
+              {
+                t: "Up to 40% off",
+                d: "Lock the lowest price we'll ever offer — up to 40% off the $190 retail, reserved for VIPs at launch.",
+              },
+              {
+                t: "Facebook VIP group",
+                d: "Join the private VIP group: behind-the-scenes updates, early votes on colours, and a direct line to the founder.",
+              },
+            ].map((p, i) => (
+              <div key={p.t} style={{ background: INK, padding: "36px 28px" }}>
+                <div style={{ ...eyebrowStyle, marginBottom: 12 }}>0{i + 1}</div>
+                <h3
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontWeight: 400,
+                    fontSize: "1.5rem",
+                    color: CREAM,
+                    marginBottom: 10,
+                  }}
+                >
+                  {p.t}
+                </h3>
+                <p style={{ color: TAUPE, fontSize: 14, lineHeight: 1.65 }}>{p.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <Hairline />
+      </section>
+
+      {/* PROBLEM / REFRAME */}
+      <section style={{ background: "#0b0a09" }}>
+        <div className="max-w-4xl mx-auto px-5 sm:px-8 py-20 md:py-28">
+          <Eyebrow>The wide-face problem</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.9rem, 4vw, 3rem)",
+              lineHeight: 1.1,
+              color: CREAM,
+              marginTop: 12,
+            }}
+          >
+            You're not too wide.<br />
+            <em style={{ color: GOLD, fontStyle: "italic" }}>The frame is too narrow.</em>
+          </h2>
+          <p style={{ color: TAUPE, marginTop: 20, fontSize: "1.05rem", lineHeight: 1.7, maxWidth: 620 }}>
+            Standard frames are drawn for a face around <span style={{ color: CREAM }}>137 mm</span> wide. Wide faces measure <span style={{ color: CREAM }}>155 mm+</span>. Woolet begins at <span style={{ color: CREAM }}>158 mm</span> — engineered wide from the first millimetre. Built for the faces the industry forgot.
+          </p>
+
+          <div
+            className="mt-10 grid sm:grid-cols-3"
+            style={{ borderTop: `1px solid ${HAIRLINE}`, borderBottom: `1px solid ${HAIRLINE}` }}
+          >
+            {[
+              { n: "137 mm", d: "Industry standard face width" },
+              { n: "155 mm+", d: "A typical wide face" },
+              { n: "158 mm", d: "Where Woolet begins" },
+            ].map((s, i) => (
+              <div
+                key={s.n}
+                style={{
+                  padding: "28px 8px",
+                  borderRight: i < 2 ? `1px solid ${HAIRLINE}` : "none",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "2rem",
+                    fontWeight: 300,
+                    color: i === 2 ? GOLD : CREAM,
+                  }}
+                >
+                  {s.n}
                 </div>
-                <h3 className="font-display text-2xl text-woolet-white mt-4">{m.name}</h3>
-                <p className="text-cream-dim text-xs uppercase tracking-[0.24em] mt-1">{m.shape}</p>
+                <div style={{ ...eyebrowStyle, color: TAUPE, marginTop: 6 }}>{s.d}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WIDE FACE PROBLEM */}
-      <section className="max-w-4xl mx-auto px-5 py-14">
-        <h2 className="font-display text-3xl sm:text-4xl text-woolet-white mb-5">
-          You're not too wide — the frame is too narrow.
-        </h2>
-        <p className="text-cream-dim text-base leading-relaxed mb-4">
-          Standard frames are built for a face around 137 mm wide. Wide faces typically measure ~155 mm and above.
-        </p>
-        <p className="text-cream-dim text-base leading-relaxed">
-          Woolet comes in three stock frame widths — 155 / 158 / 161 mm — plus bespoke from 150 to 172 mm, with a 21–22 mm keyhole bridge. Designed from day one for the faces the industry forgot.
-        </p>
-        <img
-          src={beforeAfter}
-          alt="Before and after — wide-face fit"
-          className="w-full mt-8 rounded-sm border border-[#1a1612]"
-          loading="lazy"
-        />
-      </section>
+      {/* SIGNATURE SHAPES */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24">
+          <Eyebrow>Signature shapes</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
+              lineHeight: 1.1,
+              color: CREAM,
+              marginTop: 12,
+              maxWidth: 640,
+            }}
+          >
+            One precise size. <em style={{ color: GOLD, fontStyle: "italic" }}>158 mm.</em> Fits 155–161 mm faces.
+          </h2>
 
-      {/* FOUNDER */}
-      <section className="bg-[#080807] border-y border-[#1a1612]">
-        <div className="max-w-3xl mx-auto px-5 py-14 flex flex-col sm:flex-row gap-6 items-center">
-          <img src={marek} alt="Marek Ciesla — Woolet founder" className="w-24 h-24 rounded-full object-cover" loading="lazy" />
-          <div>
-            <p className="text-primary uppercase tracking-[0.22em] text-[12px] mb-2">A note from the founder</p>
-            <p className="text-cream-dim text-base leading-relaxed">
-              "I'm 161 mm across. For 20 years I gave up on glasses that actually fit. So I built the brand I wanted to buy from —
-              Italian acetate, made wide from the first millimeter. Kickstarter is how we get the first pairs into the hands of people who need them most."
-            </p>
-            <p className="text-woolet-white font-display text-lg mt-3">— Marek Ciesla</p>
+          <div className="grid md:grid-cols-2 gap-6 mt-12">
+            {[
+              {
+                name: "Woolet 007",
+                shape: "Round",
+                img: w007BlackFrontAsset.url,
+                specs: [
+                  ["Front width", "158 mm"],
+                  ["Bridge", "21 mm keyhole"],
+                  ["Lens", "54 × 42 mm"],
+                  ["Temple", "103 mm"],
+                  ["Front height", "52 mm"],
+                ],
+              },
+              {
+                name: "Woolet 009",
+                shape: "Soft-Square",
+                img: w009BlackFrontAsset.url,
+                specs: [
+                  ["Front width", "158 mm"],
+                  ["Bridge", "20 mm keyhole"],
+                  ["Lens", "51 × 45 mm"],
+                  ["Temple", "103 mm"],
+                  ["Front height", "54 mm"],
+                ],
+              },
+            ].map((m) => (
+              <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
+                <div style={{ background: CREAM, aspectRatio: "4 / 3", overflow: "hidden" }}>
+                  <img
+                    src={m.img}
+                    alt={`${m.name} — ${m.shape}`}
+                    loading="lazy"
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
+                </div>
+                <div style={{ padding: "28px 24px" }}>
+                  <div style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</div>
+                  <h3
+                    style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontWeight: 400,
+                      fontSize: "1.75rem",
+                      color: CREAM,
+                      marginTop: 4,
+                    }}
+                  >
+                    {m.name}
+                  </h3>
+                  <dl className="mt-5 grid grid-cols-2 gap-y-2 gap-x-4">
+                    {m.specs.map(([k, v]) => (
+                      <div key={k} style={{ display: "contents" }}>
+                        <dt style={{ ...eyebrowStyle, color: TAUPE }}>{k}</dt>
+                        <dd style={{ fontSize: 14, color: CREAM, textAlign: "right" }}>{v}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
+        <Hairline />
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="max-w-5xl mx-auto px-5 py-14">
-        <h2 className="font-display text-3xl sm:text-4xl text-center text-woolet-white mb-10">How it works</h2>
-        <div className="grid sm:grid-cols-3 gap-6">
-          {[
-            { n: "01", t: "Join the VIP list", d: "Drop your email — no payment, no commitment." },
-            { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
-            { n: "03", t: "Pledge & lock the reward", d: "Back on Kickstarter to secure the founding-backer tier." },
-          ].map((s) => (
-            <div key={s.n} className="border border-[#1a1612] p-6 rounded-sm">
-              <div className="font-display text-primary text-3xl mb-3">{s.n}</div>
-              <h3 className="font-display text-xl text-woolet-white mb-2">{s.t}</h3>
-              <p className="text-cream-dim text-sm leading-relaxed">{s.d}</p>
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-cream-dim/70 text-xs mt-8 uppercase tracking-[0.24em]">
-          No payment is taken on this page
-        </p>
-      </section>
+      {/* WHAT MAKES A WOOLET FIT */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24">
+          <Eyebrow>What makes a Woolet fit</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
+              lineHeight: 1.1,
+              color: CREAM,
+              marginTop: 12,
+              maxWidth: 640,
+            }}
+          >
+            Three details. <em style={{ color: GOLD, fontStyle: "italic" }}>One frame that stays put.</em>
+          </h2>
 
-      {/* FAQ */}
-      <section className="bg-[#080807] border-y border-[#1a1612]">
-        <div className="max-w-3xl mx-auto px-5 py-14">
-          <h2 className="font-display text-3xl sm:text-4xl text-center text-woolet-white mb-10">FAQ</h2>
-          <div className="flex flex-col divide-y divide-[#1a1612]">
+          <div className="grid md:grid-cols-3 gap-10 mt-12">
             {[
-              { q: "When does it launch?", a: `Kickstarter goes live on ${LAUNCH_DATE_LABEL}. VIPs get a launch-day email.` },
-              { q: "Do I pay now?", a: "No. This page only joins you to the VIP list. You pledge on Kickstarter on launch day if you want a pair." },
-              { q: "What do VIPs actually get?", a: "A hidden pledge invisible to the public during the Kickstarter campaign, with two reward tiers only VIPs can access: 100 numbered Founders Edition Havana pairs (limited edition), then 300 Early Bird spots at 40% off the $190 retail price. The access link arrives by email on launch day." },
-              { q: "Which faces is this for?", a: "Built for faces around 155 mm and above (temple-to-temple). Stock comes in three frame widths — 155 / 158 / 161 mm — in 3 colors per shape, with a 21–22 mm keyhole bridge. Anything outside the stock range is covered by bespoke from 150 to 172 mm." },
-            ].map((f) => (
-              <details key={f.q} className="py-5 group">
-                <summary className="flex justify-between items-center cursor-pointer list-none">
-                  <span className="font-display text-lg text-woolet-white">{f.q}</span>
-                  <span className="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
-                </summary>
-                <p className="text-cream-dim text-sm mt-3 leading-relaxed">{f.a}</p>
-              </details>
+              {
+                t: "FitLens",
+                sub: "Know your size before you pledge",
+                d: "Our AI fit app measures your face temple-to-temple with your phone camera and recommends the exact Woolet size — so the frame you back is the frame that fits.",
+              },
+              {
+                t: "Keyhole Bridge",
+                sub: "20–21 mm, rests on the sides of the nose",
+                d: "The bridge sits on the sides of the nose rather than the top, so the frame sits level, doesn't slide, and leaves no red marks at the end of the day.",
+              },
+              {
+                t: "Milanese Acetate",
+                sub: "Mazzucchelli, milled in Milan",
+                d: "Sheet acetate from Mazzucchelli in Milan, then hand made in the EU. Denser and longer-lasting than injection-moulded plastic, with warmer colour depth.",
+              },
+            ].map((b) => (
+              <div key={b.t}>
+                <div style={{ height: 1, background: GOLD, width: 32, marginBottom: 20 }} />
+                <h3
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontWeight: 400,
+                    fontSize: "1.5rem",
+                    color: CREAM,
+                  }}
+                >
+                  {b.t}
+                </h3>
+                <p style={{ ...eyebrowStyle, color: TAUPE, marginTop: 6 }}>{b.sub}</p>
+                <p style={{ color: TAUPE, fontSize: 14, lineHeight: 1.7, marginTop: 14 }}>{b.d}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FINAL CAPTURE */}
-      <section className="max-w-2xl mx-auto px-5 py-16">
-        <h2 className="font-display text-3xl sm:text-4xl text-center text-woolet-white mb-3">
-          Be first when the campaign goes live.
-        </h2>
-        <p className="text-cream-dim text-center text-sm mb-6">
-          VIPs get the launch-day email, the 100 Founders Edition Havana pairs, and 40% off Early Bird before anyone else.
-        </p>
-        <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} />
+      {/* MID CTA BAND */}
+      <section style={{ background: "#0b0a09", borderTop: `1px solid ${HAIRLINE}`, borderBottom: `1px solid ${HAIRLINE}` }}>
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 text-center">
+          <Eyebrow>Join the VIP list</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.6rem, 3vw, 2.25rem)",
+              lineHeight: 1.15,
+              color: CREAM,
+              marginTop: 12,
+              marginBottom: 24,
+            }}
+          >
+            Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
+          </h2>
+          <div id="vip-form-mid">
+            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} compact />
+          </div>
+        </div>
       </section>
 
-      <footer className="border-t border-[#1a1612] py-8 text-center">
-        <p className="text-cream-dim/60 text-[12px]">
-          © {new Date().getFullYear()} Woolet · <Link to="/en/privacy-policy" className="hover:text-primary">Privacy</Link>
-        </p>
-      </footer>
+      {/* BESPOKE GALLERY */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24">
+          <Eyebrow>Bespoke</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
+              lineHeight: 1.1,
+              color: CREAM,
+              marginTop: 12,
+              maxWidth: 720,
+            }}
+          >
+            If none of these are wide enough, <em style={{ color: GOLD, fontStyle: "italic" }}>we build yours.</em>
+          </h2>
+          <div
+            className="mt-6 flex flex-wrap gap-x-5 gap-y-2"
+            style={{ fontSize: 13, color: TAUPE, letterSpacing: "0.02em" }}
+          >
+            <span>4 shapes</span>
+            <span>·</span>
+            <span>60 colour and size combinations</span>
+            <span>·</span>
+            <span>Any width 145–162 mm</span>
+            <span>·</span>
+            <span>Built to measure with FitLens</span>
+          </div>
 
-      {/* Sticky mobile CTA — only after hero form scrolls off-screen */}
-      <button
-        onClick={scrollToForm}
-        aria-hidden={!showStickyCta}
-        tabIndex={showStickyCta ? 0 : -1}
-        className={`md:hidden fixed bottom-4 left-4 right-4 bg-primary text-primary-foreground py-4 font-semibold uppercase tracking-[0.24em] text-xs shadow-xl z-50 rounded-sm transition-all duration-300 ${
-          showStickyCta ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
-        }`}
-      >
-        Join the VIP list — lock 40% off
-      </button>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-12">
+            {bespokeGallery.map((f, i) => (
+              <div key={i} style={{ border: `1px solid ${HAIRLINE}` }}>
+                <div style={{ background: CREAM, aspectRatio: "1 / 1", overflow: "hidden" }}>
+                  <img
+                    src={f.src}
+                    alt={`Bespoke ${f.shape}`}
+                    loading="lazy"
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+                <div className="flex items-center justify-between" style={{ padding: "12px 14px" }}>
+                  <span style={{ fontSize: 13, color: CREAM }}>{f.shape}</span>
+                  <span
+                    style={{
+                      ...eyebrowStyle,
+                      color: GOLD,
+                      border: `1px solid ${GOLD}`,
+                      padding: "2px 8px",
+                      fontSize: 10,
+                    }}
+                  >
+                    Bespoke
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <Hairline />
+      </section>
+
+      {/* FOUNDER */}
+      <section style={{ background: "#0b0a09" }}>
+        <div className="max-w-4xl mx-auto px-5 sm:px-8 py-20 md:py-24 flex flex-col sm:flex-row gap-10 items-start">
+          <img
+            src={marek}
+            alt="Marek Ciesla — Woolet founder"
+            loading="lazy"
+            style={{
+              width: 128,
+              height: 128,
+              objectFit: "cover",
+              border: `1px solid ${HAIRLINE_STRONG}`,
+              flexShrink: 0,
+            }}
+          />
+          <div>
+            <Eyebrow>A note from the founder</Eyebrow>
+            <blockquote
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 300,
+                fontSize: "clamp(1.25rem, 2.2vw, 1.75rem)",
+                lineHeight: 1.35,
+                color: CREAM,
+                marginTop: 16,
+                fontStyle: "italic",
+              }}
+            >
+              "I'm 161 mm across. For twenty years I gave up on glasses that actually fit. So I built the brand I wanted to buy from — Milanese acetate, made wide from the first millimetre. Kickstarter is how we get the first pairs to the people who need them most."
+            </blockquote>
+            <p style={{ ...eyebrowStyle, color: TAUPE, marginTop: 20 }}>— Marek Ciesla, Founder</p>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24">
+          <Eyebrow>How it works</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
+              lineHeight: 1.1,
+              color: CREAM,
+              marginTop: 12,
+              maxWidth: 640,
+            }}
+          >
+            Three steps.
+          </h2>
+          <div className="grid md:grid-cols-3 gap-px mt-12" style={{ background: HAIRLINE }}>
+            {[
+              { n: "01", t: "Join the VIP list", d: "Email only — no payment, no commitment." },
+              { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
+              { n: "03", t: "Pledge & lock the reward", d: "Back on Kickstarter to secure your VIP tier and price." },
+            ].map((s) => (
+              <div key={s.n} style={{ background: INK, padding: "32px 24px" }}>
+                <div
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "2rem",
+                    fontWeight: 300,
+                    color: GOLD,
+                  }}
+                >
+                  {s.n}
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontWeight: 400,
+                    fontSize: "1.35rem",
+                    color: CREAM,
+                    marginTop: 8,
+                  }}
+                >
+                  {s.t}
+                </h3>
+                <p style={{ color: TAUPE, fontSize: 14, lineHeight: 1.65, marginTop: 10 }}>{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <Hairline />
+      </section>
+
+      {/* FAQ */}
+      <section>
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-20 md:py-24">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
+              lineHeight: 1.1,
+              color: CREAM,
+              marginTop: 12,
+              marginBottom: 28,
+            }}
+          >
+            Questions before you join.
+          </h2>
+          <div style={{ borderTop: `1px solid ${HAIRLINE}` }}>
+            {faqs.map((f, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={f.q} style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    aria-expanded={open}
+                    style={{
+                      width: "100%",
+                      background: "transparent",
+                      border: "none",
+                      padding: "22px 0",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      cursor: "pointer",
+                      color: CREAM,
+                      textAlign: "left",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontSize: "1.2rem",
+                        fontWeight: 400,
+                        color: CREAM,
+                      }}
+                    >
+                      {f.q}
+                    </span>
+                    <span
+                      style={{
+                        color: GOLD,
+                        fontSize: 20,
+                        transform: open ? "rotate(45deg)" : "rotate(0)",
+                        transition: "transform 0.25s",
+                        display: "inline-block",
+                        lineHeight: 1,
+                      }}
+                    >
+                      +
+                    </span>
+                  </button>
+                  {open && (
+                    <p
+                      style={{
+                        color: TAUPE,
+                        fontSize: 14,
+                        lineHeight: 1.7,
+                        paddingBottom: 24,
+                        maxWidth: 620,
+                      }}
+                    >
+                      {f.a}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section style={{ background: "#0b0a09", borderTop: `1px solid ${HAIRLINE}` }}>
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-20 text-center">
+          <Eyebrow>Last thing</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: "clamp(1.9rem, 4vw, 3rem)",
+              lineHeight: 1.1,
+              color: CREAM,
+              marginTop: 12,
+              marginBottom: 20,
+            }}
+          >
+            Be first when the campaign <em style={{ color: GOLD, fontStyle: "italic" }}>goes live.</em>
+          </h2>
+          <p style={{ color: TAUPE, fontSize: 15, lineHeight: 1.6, marginBottom: 28, maxWidth: 520, marginInline: "auto" }}>
+            One email. Early access to FitLens, the Bespoke configurator, and up to 40% off the $190 retail price.
+          </p>
+          <div id="vip-form-final">
+            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ borderTop: `1px solid ${HAIRLINE}` }}>
+        <div
+          className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ fontSize: 12, color: TAUPE, letterSpacing: "0.04em" }}
+        >
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: CREAM, letterSpacing: "0.24em" }}>
+            WOOLET
+          </div>
+          <p>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
+          <div className="flex gap-5">
+            <Link to="/en/privacy-policy" style={{ color: TAUPE }}>Privacy</Link>
+            <Link to="/en/return-policy" style={{ color: TAUPE }}>Terms</Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
