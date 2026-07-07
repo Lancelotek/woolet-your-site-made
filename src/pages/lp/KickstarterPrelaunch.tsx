@@ -309,6 +309,13 @@ const KickstarterPrelaunch = () => {
     setLightboxOpen(true);
   };
 
+  useEffect(() => {
+    pushGtmEvent("page_view", {
+      page_type: "kickstarter_prelaunch",
+      awareness_stage: "solution_aware",
+    });
+  }, []);
+
   const faqs = useMemo(
     () => [
       {
