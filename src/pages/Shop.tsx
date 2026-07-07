@@ -191,7 +191,7 @@ const faqs = [
   },
   {
     q: "Where are Woolet frames made?",
-    a: "The acetate is Mazzucchelli 1849 from Castiglione Olona, Italy. Cutting, bevelling, hand-polishing and inspection are done in Italy.",
+    a: "The acetate is Mazzucchelli 1849 from Castiglione Olona, Italy. Cutting, bevelling, hand-polishing and inspection are done in the EU.",
   },
   {
     q: "What if they don't fit?",
