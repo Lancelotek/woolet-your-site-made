@@ -172,6 +172,9 @@ const App = () => (
           <Route path="/blogs/*" element={<Gone />} />
           <Route path="/pages/*" element={<Gone />} />
 
+          {/* Hidden shop landing (noindex, not linked from nav) */}
+          <Route path="/en/shop" element={<Shop />} />
+
           {/* Landing pages */}
           <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
           <Route path="/en/lp/wide-bridge-fit-guide" element={<WideBridgeFitGuide />} />
