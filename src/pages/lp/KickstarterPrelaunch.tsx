@@ -290,11 +290,24 @@ const KickstarterPrelaunch = () => {
   }, [referredBy]);
 
   useEffect(() => {
-    pushGtmEvent("page_view", {
-      page_type: "kickstarter_prelaunch",
-      awareness_stage: "solution_aware",
-    });
-  }, []);
+    const onKey = (e: KeyboardEvent) => {
+      if (!lightboxOpen) return;
+      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "ArrowLeft") {
+        setLightboxIndex((i) => (i - 1 + heroGallery.length) % heroGallery.length);
+      }
+      if (e.key === "ArrowRight") {
+        setLightboxIndex((i) => (i + 1) % heroGallery.length);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxOpen]);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   const faqs = useMemo(
     () => [
