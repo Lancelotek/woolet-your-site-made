@@ -78,6 +78,7 @@ const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
 const NlLandingRoute = lazy(() => import("./pages/nl/NlLandingRoute.tsx"));
 const CompareIndex = lazy(() => import("./pages/CompareIndex.tsx"));
 const ComparePage = lazy(() => import("./pages/ComparePage.tsx"));
+const Shop = lazy(() => import("./pages/Shop.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -170,6 +171,9 @@ const App = () => (
           <Route path="/products/*" element={<Gone />} />
           <Route path="/blogs/*" element={<Gone />} />
           <Route path="/pages/*" element={<Gone />} />
+
+          {/* Hidden shop landing (noindex, not linked from nav) */}
+          <Route path="/en/shop" element={<Shop />} />
 
           {/* Landing pages */}
           <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
