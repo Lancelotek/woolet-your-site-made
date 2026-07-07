@@ -20,10 +20,10 @@ import bespokeAviatorTortoiseSun from "@/assets/bespoke/aviator-tortoise-sun.png
 import bespokeAviatorHavana from "@/assets/bespoke/aviator-havana.png.asset.json";
 import bespokeAviatorCaramel from "@/assets/bespoke/aviator-caramel.png.asset.json";
 import bespokeAviatorGreyStripe from "@/assets/bespoke/aviator-grey-stripe.png.asset.json";
-import wr19 from "@/assets/frames/wr-19.jpg.asset.json";
-import wr21 from "@/assets/frames/wr-21.jpg.asset.json";
-import wr24 from "@/assets/frames/wr-24.jpg.asset.json";
-import wr26 from "@/assets/frames/wr-26.jpg.asset.json";
+import bespokeGreenRectangle from "@/assets/bespoke/green-rectangle.png.asset.json";
+import bespokeGreenPinkPattern from "@/assets/bespoke/green-pink-pattern.png.asset.json";
+import bespokeGreyStripeRect from "@/assets/bespoke/grey-stripe-rect.png.asset.json";
+import bespokeBurgundy from "@/assets/bespoke/burgundy.png.asset.json";
 import wr29 from "@/assets/frames/wr-29.jpg.asset.json";
 import wr31 from "@/assets/frames/wr-31.jpg.asset.json";
 import wr34 from "@/assets/frames/wr-34.jpg.asset.json";
