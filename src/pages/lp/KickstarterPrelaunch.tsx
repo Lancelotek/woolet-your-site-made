@@ -45,6 +45,10 @@ const heroGallery: { src: string; alt: string }[] = [
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
   { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
   { src: w009HavanaAsset.url, alt: "Woolet 009 Soft-Square — havana" },
+  { src: bespokeAviatorTortoiseSun.url, alt: "Woolet Bespoke Aviator — tortoise sun" },
+  { src: bespokeAviatorHavana.url, alt: "Woolet Bespoke Aviator — havana" },
+  { src: bespokeAviatorCaramel.url, alt: "Woolet Bespoke Aviator — caramel" },
+  { src: bespokeAviatorGreyStripe.url, alt: "Woolet Bespoke Aviator — grey stripe" },
 ];
 
 const bespokeGallery = [
