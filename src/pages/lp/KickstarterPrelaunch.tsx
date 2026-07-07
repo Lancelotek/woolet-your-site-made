@@ -1047,7 +1047,138 @@ const KickstarterPrelaunch = () => {
         >
           <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: CREAM, letterSpacing: "0.24em" }}>
             WOOLET
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image gallery lightbox"
+          onClick={() => setLightboxOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 100,
+            background: "rgba(8,8,7,0.96)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close lightbox"
+            style={{
+              position: "absolute",
+              top: 16,
+              right: 16,
+              width: 44,
+              height: 44,
+              background: "transparent",
+              border: "none",
+              color: CREAM,
+              fontSize: 28,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ×
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightboxIndex((i) => (i - 1 + heroGallery.length) % heroGallery.length);
+            }}
+            aria-label="Previous image"
+            style={{
+              position: "absolute",
+              left: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 48,
+              height: 48,
+              background: "rgba(255,255,255,0.08)",
+              border: `1px solid ${HAIRLINE}`,
+              color: CREAM,
+              fontSize: 24,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ‹
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightboxIndex((i) => (i + 1) % heroGallery.length);
+            }}
+            aria-label="Next image"
+            style={{
+              position: "absolute",
+              right: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 48,
+              height: 48,
+              background: "rgba(255,255,255,0.08)",
+              border: `1px solid ${HAIRLINE}`,
+              color: CREAM,
+              fontSize: 24,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ›
+          </button>
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "min(100%, 900px)",
+              maxHeight: "min(90vh, 100%)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 16,
+            }}
+          >
+            <img
+              src={heroGallery[lightboxIndex].src}
+              alt={heroGallery[lightboxIndex].alt}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "calc(90vh - 80px)",
+                objectFit: "contain",
+                display: "block",
+                border: `1px solid ${HAIRLINE}`,
+              }}
+            />
+            <p
+              style={{
+                color: TAUPE,
+                fontSize: 13,
+                letterSpacing: "0.04em",
+                fontFamily: "Barlow, sans-serif",
+                textAlign: "center",
+              }}
+            >
+              {lightboxIndex + 1} / {heroGallery.length}
+            </p>
           </div>
+        </div>
+      )}
+    </div>
           <p>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
           <div className="flex gap-5">
             <Link to="/en/privacy-policy" style={{ color: TAUPE }}>Privacy</Link>
