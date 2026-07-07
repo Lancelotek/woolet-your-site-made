@@ -4182,6 +4182,18 @@ export default function FitScan() {
   const [quizReconcileNote, setQuizReconcileNote] = useState<{ reason: string; warn: boolean } | null>(null);
   const [emailCaptured, setEmailCaptured] = useState<boolean>(emailAlreadyCaptured);
   const [capturedEmail, setCapturedEmail] = useState<string>(user?.email ?? "");
+  // Bridge-fit quiz: rendered inside the "analyzing" step so the user answers
+  // during the ~12s Gemini roundtrip. Answers feed getRecommendation() to
+  // route between 007 / 009 / bespoke.
+  const [bridgeAnswers, setBridgeAnswers] = useState<BridgeQuizAnswers>(EMPTY_BRIDGE_ANSWERS);
+  const [bridgeQuizDone, setBridgeQuizDone] = useState(false);
+  const bridgeAnswersRef = useRef<BridgeQuizAnswers>(EMPTY_BRIDGE_ANSWERS);
+  const bridgeQuizDoneRef = useRef(false);
+  useEffect(() => { bridgeAnswersRef.current = bridgeAnswers; }, [bridgeAnswers]);
+  useEffect(() => { bridgeQuizDoneRef.current = bridgeQuizDone; }, [bridgeQuizDone]);
+  // Holds a completed scan payload until the user finishes/skips the quiz.
+  const pendingResultRef = useRef<null | { measurements: Measurements; frame: CapturedFrame }>(null);
+  const [analyzingReady, setAnalyzingReady] = useState(false);
 
   // Desktop/tablet visitors must always hand off to a phone via QR — the scan
   // requires holding the device against the forehead. Only mobile runs the
