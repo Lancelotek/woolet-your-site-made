@@ -388,7 +388,7 @@ const KickstarterPrelaunch = () => {
 
   return (
     <div
-      className="min-h-screen"
+      className="min-h-screen ks-lp"
       style={{
         background: INK,
         color: CREAM,
@@ -485,18 +485,35 @@ const KickstarterPrelaunch = () => {
         })}</script>
       </Helmet>
 
+      {/* Mobile refinements — scoped to this LP */}
+      <style>{`
+        @media (min-width: 768px) {
+          .ks-hero-image { aspect-ratio: 4 / 5 !important; }
+        }
+        @media (max-width: 767px) {
+          .ks-lp section > div.max-w-6xl,
+          .ks-lp section > div.max-w-4xl,
+          .ks-lp section > div.max-w-3xl { padding-top: 44px !important; padding-bottom: 44px !important; }
+          .ks-lp section:first-of-type > div.max-w-6xl { padding-top: 24px !important; padding-bottom: 24px !important; }
+        }
+      `}</style>
+
+
       {/* Top bar */}
       <header style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-5 flex items-center justify-between">
-          <Link to="/en" className="flex items-center gap-2">
-            <img src={logo} alt="Woolet" style={{ height: 26, width: "auto" }} />
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 sm:py-5 flex items-center justify-between">
+          <Link to="/en" className="flex items-center gap-2" aria-label="Woolet home">
+            <img src={logo} alt="Woolet" style={{ height: 32, width: "auto" }} />
           </Link>
           <span
             style={{
               ...eyebrowStyle,
               color: GOLD,
               border: `1px solid ${GOLD}`,
-              padding: "6px 14px",
+              padding: "5px 10px",
+              fontSize: 10,
+              letterSpacing: "0.14em",
+              whiteSpace: "nowrap",
             }}
           >
             Soon on Kickstarter
@@ -506,14 +523,15 @@ const KickstarterPrelaunch = () => {
 
       {/* HERO */}
       <section>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 md:py-20 grid md:grid-cols-2 gap-10 md:gap-16 md:items-center">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid md:grid-cols-2 gap-8 md:gap-16 md:items-center">
           {/* Left — gallery */}
           <div>
             <div
               onClick={() => openLightbox(activeImg)}
+              className="ks-hero-image"
               style={{
                 width: "100%",
-                aspectRatio: "4 / 5",
+                aspectRatio: "1 / 1",
                 background: "#0f0e0c",
                 border: `1px solid ${HAIRLINE}`,
                 overflow: "hidden",
