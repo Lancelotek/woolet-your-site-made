@@ -523,7 +523,7 @@ const KickstarterPrelaunch = () => {
 
       {/* HERO */}
       <section>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid md:grid-cols-2 gap-8 md:gap-16 md:items-center">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 md:items-center min-w-0">
           {/* Left — gallery */}
           <div>
             <div
