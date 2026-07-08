@@ -187,7 +187,10 @@ serve(async (req) => {
       email,
       fields: subscriberFields,
       groups,
+      status: "active",                    // skip MailerLite double opt-in
+      subscribed_at: new Date().toISOString().slice(0, 19).replace("T", " "),
     });
+
 
     if (status >= 400) {
       console.error("MailerLite API error:", JSON.stringify(data));
