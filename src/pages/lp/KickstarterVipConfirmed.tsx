@@ -105,9 +105,10 @@ const KickstarterVipConfirmed = () => {
             href="https://www.facebook.com/groups/867413636043717/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Join WOOLET VIP Facebook group (opens in new tab)"
             onClick={() => pushGtmEvent("vip_facebook_group_click", { source: "kickstarter_vip_confirmed" })}
-            className="inline-flex items-center justify-center bg-primary text-primary-foreground font-body uppercase tracking-[0.22em] text-xs px-6 rounded-sm hover:bg-gold-light transition-colors"
-            style={{ minHeight: 48 }}
+            className="flex items-center justify-center w-full sm:w-auto sm:inline-flex bg-primary text-primary-foreground font-body uppercase tracking-[0.22em] text-xs px-8 py-4 rounded-sm hover:bg-gold-light transition-colors touch-manipulation"
+            style={{ minHeight: 56 }}
           >
             Join on Facebook
           </a>
