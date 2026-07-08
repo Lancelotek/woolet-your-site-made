@@ -56,18 +56,18 @@ const heroGallery: { src: string; alt: string }[] = [
 ];
 
 const bespokeGallery = [
-  { src: bespokeAviatorTortoiseSun.url, shape: "Aviator" },
-  { src: bespokeAviatorHavana.url, shape: "Aviator" },
-  { src: bespokeAviatorCaramel.url, shape: "Aviator" },
-  { src: bespokeAviatorGreyStripe.url, shape: "Aviator" },
-  { src: bespokeGreenRectangle.url, shape: "Rectangle" },
-  { src: bespokeGreenPinkPattern.url, shape: "Rectangle" },
-  { src: bespokeGreyStripeRect.url, shape: "Rectangle" },
-  { src: bespokeBurgundy.url, shape: "Soft-Square" },
-  { src: bespokePantoBlackRed.url, shape: "Panto" },
-  { src: bespokePantoNavy.url, shape: "Panto" },
-  { src: bespokePantoHoney.url, shape: "Panto" },
-  { src: bespokePantoGreenStripe.url, shape: "Panto" },
+  { src: bespokeAviatorTortoiseSun.url, shape: "Aviator", alt: "Woolet Bespoke Aviator sunglasses in tortoise acetate with warm amber lenses" },
+  { src: bespokeAviatorHavana.url, shape: "Aviator", alt: "Woolet Bespoke Aviator glasses in classic Havana Mazzucchelli acetate" },
+  { src: bespokeAviatorCaramel.url, shape: "Aviator", alt: "Woolet Bespoke Aviator glasses in caramel translucent acetate" },
+  { src: bespokeAviatorGreyStripe.url, shape: "Aviator", alt: "Woolet Bespoke Aviator glasses in grey layered stripe acetate" },
+  { src: bespokeGreenRectangle.url, shape: "Rectangle", alt: "Woolet Bespoke Rectangle glasses in deep green Italian acetate" },
+  { src: bespokeGreenPinkPattern.url, shape: "Rectangle", alt: "Woolet Bespoke Rectangle glasses in green and pink marbled acetate pattern" },
+  { src: bespokeGreyStripeRect.url, shape: "Rectangle", alt: "Woolet Bespoke Rectangle glasses in grey pinstripe layered acetate" },
+  { src: bespokeBurgundy.url, shape: "Soft-Square", alt: "Woolet Bespoke Soft-Square glasses in rich burgundy acetate" },
+  { src: bespokePantoBlackRed.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in black with red interior acetate" },
+  { src: bespokePantoNavy.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in navy blue Italian acetate" },
+  { src: bespokePantoHoney.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in warm honey translucent acetate" },
+  { src: bespokePantoGreenStripe.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in green striped Mazzucchelli acetate" },
 ];
 
 // ---------- CTA button ----------
@@ -861,7 +861,7 @@ const KickstarterPrelaunch = () => {
                 <div style={{ background: CREAM, aspectRatio: "1 / 1", overflow: "hidden" }}>
                   <img
                     src={f.src}
-                    alt={`Bespoke ${f.shape}`}
+                    alt={f.alt}
                     loading="lazy"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
