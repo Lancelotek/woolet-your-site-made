@@ -24,6 +24,10 @@ import bespokeGreenRectangle from "@/assets/bespoke/green-rectangle.png.asset.js
 import bespokeGreenPinkPattern from "@/assets/bespoke/green-pink-pattern.png.asset.json";
 import bespokeGreyStripeRect from "@/assets/bespoke/grey-stripe-rect.png.asset.json";
 import bespokeBurgundy from "@/assets/bespoke/burgundy.png.asset.json";
+import bespokePantoBlackRed from "@/assets/bespoke/panto-black-red.png.asset.json";
+import bespokePantoNavy from "@/assets/bespoke/panto-navy.png.asset.json";
+import bespokePantoHoney from "@/assets/bespoke/panto-honey.png.asset.json";
+import bespokePantoGreenStripe from "@/assets/bespoke/panto-green-stripe.png.asset.json";
 import wr29 from "@/assets/frames/wr-29.jpg.asset.json";
 import wr31 from "@/assets/frames/wr-31.jpg.asset.json";
 import wr34 from "@/assets/frames/wr-34.jpg.asset.json";
