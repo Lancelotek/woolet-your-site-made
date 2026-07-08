@@ -1328,10 +1328,10 @@ const KickstarterPrelaunch = () => {
         </div>
       )}
     </div>
-          <p>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
-          <div className="flex gap-5">
-            <Link to="/en/privacy-policy" style={{ color: TAUPE }}>Privacy</Link>
-            <Link to="/en/return-policy" style={{ color: TAUPE }}>Terms</Link>
+          <p style={{ fontSize: 13, lineHeight: 1.6 }}>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
+          <div className="flex gap-2">
+            <Link to="/en/privacy-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Privacy</Link>
+            <Link to="/en/return-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Terms</Link>
           </div>
         </div>
       </footer>
