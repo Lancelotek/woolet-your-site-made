@@ -647,6 +647,8 @@ const KickstarterPrelaunch = () => {
                 name: "Woolet 007",
                 shape: "Round",
                 img: w007BlackFrontAsset.url,
+                srp: 190,
+                kickstarter: 114,
                 specs: [
                   ["Front width", "158 mm"],
                   ["Bridge", "21 mm keyhole"],
@@ -659,6 +661,8 @@ const KickstarterPrelaunch = () => {
                 name: "Woolet 009",
                 shape: "Soft-Square",
                 img: w009BlackFrontAsset.url,
+                srp: 190,
+                kickstarter: 114,
                 specs: [
                   ["Front width", "158 mm"],
                   ["Bridge", "20 mm keyhole"],
@@ -679,17 +683,52 @@ const KickstarterPrelaunch = () => {
                 </div>
                 <div style={{ padding: "28px 24px" }}>
                   <div style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</div>
-                  <h3
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontWeight: 400,
-                      fontSize: "1.75rem",
-                      color: CREAM,
-                      marginTop: 4,
-                    }}
-                  >
-                    {m.name}
-                  </h3>
+                  <div className="flex items-start justify-between gap-4" style={{ marginTop: 4 }}>
+                    <h3
+                      style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontWeight: 400,
+                        fontSize: "1.75rem",
+                        color: CREAM,
+                      }}
+                    >
+                      {m.name}
+                    </h3>
+                    <div style={{ textAlign: "right", flexShrink: 0 }}>
+                      <div style={{ display: "flex", alignItems: "baseline", gap: 8, justifyContent: "flex-end" }}>
+                        <span
+                          style={{
+                            fontFamily: "'Cormorant Garamond', serif",
+                            fontWeight: 400,
+                            fontSize: "1.5rem",
+                            color: GOLD,
+                          }}
+                        >
+                          ${m.kickstarter}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "Barlow, sans-serif",
+                            fontSize: 13,
+                            color: TAUPE,
+                            textDecoration: "line-through",
+                          }}
+                        >
+                          ${m.srp}
+                        </span>
+                      </div>
+                      <span
+                        style={{
+                          ...eyebrowStyle,
+                          color: GOLD,
+                          fontSize: 9,
+                          marginTop: 2,
+                        }}
+                      >
+                        Kickstarter
+                      </span>
+                    </div>
+                  </div>
                   <dl className="mt-5 grid grid-cols-2 gap-y-2 gap-x-4">
                     {m.specs.map(([k, v]) => (
                       <div key={k} style={{ display: "contents" }}>
@@ -802,10 +841,7 @@ const KickstarterPrelaunch = () => {
           >
             If none of these are wide enough, <em style={{ color: GOLD, fontStyle: "italic" }}>we build yours.</em>
           </h2>
-          <div
-            className="mt-6 flex flex-wrap gap-x-5 gap-y-2"
-            style={{ fontSize: 13, color: TAUPE, letterSpacing: "0.02em" }}
-          >
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2" style={{ fontSize: 13, color: TAUPE, letterSpacing: "0.02em" }}>
             <span>4 shapes</span>
             <span>·</span>
             <span>60 colour and size combinations</span>
@@ -813,6 +849,10 @@ const KickstarterPrelaunch = () => {
             <span>Any width 145–162 mm</span>
             <span>·</span>
             <span>Built to measure with FitLens</span>
+            <span style={{ color: CREAM, marginLeft: 4 }}>
+              Kickstarter <span style={{ color: GOLD, fontWeight: 600 }}>$299</span>
+            </span>
+            <span style={{ textDecoration: "line-through" }}>SRP $480</span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-12">
