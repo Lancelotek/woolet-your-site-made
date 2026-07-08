@@ -53,7 +53,8 @@ async function saveAttribution(
 const MAILERLITE_API = "https://connect.mailerlite.com/api";
 
 // MailerLite group IDs
-const VIP_GROUP_ID = "181841182994728358";          // Kickstarter VIP (default)
+const VIP_GROUP_ID = "192429285503403097";          // Kickstarter VIP (dedicated)
+const WAITLIST_ENG_GROUP_ID = "181841182994728358"; // Woolet Waitlist ENG (general)
 const AI_SCAN_GROUP_ID = "189356132351870087";      // AI Scan leads
 const BESPOKE_GROUP_ID = "189449279680546761";      // Bespoke configurator waitlist
 
