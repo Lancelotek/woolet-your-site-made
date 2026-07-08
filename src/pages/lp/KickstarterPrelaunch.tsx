@@ -495,8 +495,15 @@ const KickstarterPrelaunch = () => {
           .ks-lp section > div.max-w-4xl,
           .ks-lp section > div.max-w-3xl { padding-top: 44px !important; padding-bottom: 44px !important; }
           .ks-lp section:first-of-type > div.max-w-6xl { padding-top: 24px !important; padding-bottom: 24px !important; }
+
+          /* Tighter, more editorial heading rhythm on mobile */
+          .ks-lp h1 { font-size: 2rem !important; line-height: 1.08 !important; margin-top: 12px !important; }
+          .ks-lp h2 { font-size: 1.6rem !important; line-height: 1.12 !important; margin-top: 10px !important; }
+          .ks-lp h3 { font-size: 1.2rem !important; line-height: 1.2 !important; }
+          .ks-lp p  { max-width: 60ch; }
         }
       `}</style>
+
 
 
       {/* Top bar */}
