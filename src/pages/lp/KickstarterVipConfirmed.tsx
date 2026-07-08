@@ -42,6 +42,36 @@ const KickstarterVipConfirmed = () => {
     pushGtmEvent("vip_confirmed", { source: "kickstarter_lp" });
   }, [email, name, navigate]);
 
+  const trackVipFacebookGroupClick = () => {
+    // Fire once per click across handlers (click + auxClick for middle-mouse)
+    const w = window as unknown as {
+      __wooletVipFbTracked?: number;
+      gtag?: (...args: unknown[]) => void;
+    };
+    const now = Date.now();
+    if (w.__wooletVipFbTracked && now - w.__wooletVipFbTracked < 800) return;
+    w.__wooletVipFbTracked = now;
+
+    // GTM dataLayer event (existing pipeline)
+    pushGtmEvent("vip_facebook_group_click", {
+      source: "kickstarter_vip_confirmed",
+      destination: "facebook_group",
+      campaign: "kickstarter_vip",
+    });
+
+    // Direct GA4 event — fires even if GTM is blocked or the redirect happens fast
+    if (typeof w.gtag === "function") {
+      w.gtag("event", "vip_facebook_group_click", {
+        event_category: "engagement",
+        event_label: "kickstarter_vip_confirmed",
+        source: "kickstarter_vip_confirmed",
+        destination: "facebook_group",
+        campaign: "kickstarter_vip",
+        transport_type: "beacon",
+      });
+    }
+  };
+
   return (
     <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
