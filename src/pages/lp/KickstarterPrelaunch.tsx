@@ -509,14 +509,15 @@ const KickstarterPrelaunch = () => {
 
       {/* HERO */}
       <section>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 md:py-20 grid md:grid-cols-2 gap-10 md:gap-16 md:items-center">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid md:grid-cols-2 gap-8 md:gap-16 md:items-center">
           {/* Left — gallery */}
           <div>
             <div
               onClick={() => openLightbox(activeImg)}
+              className="ks-hero-image"
               style={{
                 width: "100%",
-                aspectRatio: "4 / 5",
+                aspectRatio: "1 / 1",
                 background: "#0f0e0c",
                 border: `1px solid ${HAIRLINE}`,
                 overflow: "hidden",
