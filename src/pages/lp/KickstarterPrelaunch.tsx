@@ -485,6 +485,20 @@ const KickstarterPrelaunch = () => {
         })}</script>
       </Helmet>
 
+      {/* Mobile refinements — scoped to this LP */}
+      <style>{`
+        @media (min-width: 768px) {
+          .ks-hero-image { aspect-ratio: 4 / 5 !important; }
+        }
+        @media (max-width: 767px) {
+          .ks-lp section > div.max-w-6xl,
+          .ks-lp section > div.max-w-4xl,
+          .ks-lp section > div.max-w-3xl { padding-top: 44px !important; padding-bottom: 44px !important; }
+          .ks-lp section:first-of-type > div.max-w-6xl { padding-top: 24px !important; padding-bottom: 24px !important; }
+        }
+      `}</style>
+
+
       {/* Top bar */}
       <header style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 sm:py-5 flex items-center justify-between">
