@@ -487,16 +487,19 @@ const KickstarterPrelaunch = () => {
 
       {/* Top bar */}
       <header style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-5 flex items-center justify-between">
-          <Link to="/en" className="flex items-center gap-2">
-            <img src={logo} alt="Woolet" style={{ height: 26, width: "auto" }} />
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 sm:py-5 flex items-center justify-between">
+          <Link to="/en" className="flex items-center gap-2" aria-label="Woolet home">
+            <img src={logo} alt="Woolet" style={{ height: 32, width: "auto" }} />
           </Link>
           <span
             style={{
               ...eyebrowStyle,
               color: GOLD,
               border: `1px solid ${GOLD}`,
-              padding: "6px 14px",
+              padding: "5px 10px",
+              fontSize: 10,
+              letterSpacing: "0.14em",
+              whiteSpace: "nowrap",
             }}
           >
             Soon on Kickstarter
