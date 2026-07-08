@@ -23,6 +23,48 @@ serve(async (req) => {
 
   const url = new URL(req.url);
 
+  // Bulk-activate all "unconfirmed" subscribers in a given group.
+  // Usage: POST /mailerlite-inspect?activate_group=<groupId>
+  const activateGroup = url.searchParams.get("activate_group");
+  if (activateGroup && req.method === "POST") {
+    const activated: string[] = [];
+    const failed: Array<{ email: string; status: number; error: unknown }> = [];
+    let cursor = "";
+    let scanned = 0;
+    for (let page = 0; page < 50; page++) {
+      const path =
+        `/subscribers?filter[group]=${activateGroup}&filter[status]=unconfirmed&limit=100${cursor ? `&cursor=${cursor}` : ""}`;
+      const { status, data } = await ml(apiKey, path);
+      if (status >= 400) break;
+      const items: Array<{ id: string; email: string }> = data.data || [];
+      scanned += items.length;
+      for (const s of items) {
+        const r = await fetch(`${API}/subscribers/${encodeURIComponent(s.email)}`, {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            status: "active",
+            subscribed_at: new Date().toISOString().slice(0, 19).replace("T", " "),
+          }),
+        });
+        const body = await r.json().catch(() => ({}));
+        if (r.status >= 400) failed.push({ email: s.email, status: r.status, error: body });
+        else activated.push(s.email);
+      }
+      cursor = data?.meta?.next_cursor || "";
+      if (!cursor) break;
+    }
+    return new Response(
+      JSON.stringify(
+        { group_id: activateGroup, scanned, activated_count: activated.length, activated, failed },
+        null,
+        2,
+      ),
+      { headers: { ...cors, "Content-Type": "application/json" } },
+    );
+  }
+
+
   // Lookup a single subscriber by email → returns full object + groups
   const email = url.searchParams.get("email");
   if (email) {
