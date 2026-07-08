@@ -64,10 +64,10 @@ const bespokeGallery = [
   { src: bespokeGreenPinkPattern.url, shape: "Rectangle" },
   { src: bespokeGreyStripeRect.url, shape: "Rectangle" },
   { src: bespokeBurgundy.url, shape: "Soft-Square" },
-  { src: wr29.url, shape: "Round" },
-  { src: wr31.url, shape: "Soft-Square" },
-  { src: wr34.url, shape: "Panto" },
-  { src: wr37.url, shape: "Rectangle" },
+  { src: bespokePantoBlackRed.url, shape: "Panto" },
+  { src: bespokePantoNavy.url, shape: "Panto" },
+  { src: bespokePantoHoney.url, shape: "Panto" },
+  { src: bespokePantoGreenStripe.url, shape: "Panto" },
 ];
 
 // ---------- CTA button ----------
