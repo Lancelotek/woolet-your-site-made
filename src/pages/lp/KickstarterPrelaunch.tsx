@@ -673,12 +673,18 @@ const KickstarterPrelaunch = () => {
               },
             ].map((m) => (
               <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
-                <div style={{ background: CREAM, aspectRatio: "4 / 3", overflow: "hidden" }}>
+                <div style={{ background: CREAM, aspectRatio: "4 / 3", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <img
                     src={m.img}
                     alt={`${m.name} — ${m.shape}`}
                     loading="lazy"
-                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                      transform: m.name === "Woolet 009" ? "scale(0.82)" : "scale(1)",
+                      transformOrigin: "center",
+                    }}
                   />
                 </div>
                 <div style={{ padding: "28px 24px" }}>
