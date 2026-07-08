@@ -758,7 +758,7 @@ const KickstarterPrelaunch = () => {
             One precise size. <em style={{ color: GOLD, fontStyle: "italic" }}>158 mm.</em> Fits 155–161 mm faces.
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-6 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             {[
               {
                 name: "Woolet 007",
@@ -886,7 +886,7 @@ const KickstarterPrelaunch = () => {
             Three details. <em style={{ color: GOLD, fontStyle: "italic" }}>One frame that stays put.</em>
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-10 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {[
               {
                 t: "FitLens",
@@ -1062,7 +1062,7 @@ const KickstarterPrelaunch = () => {
           >
             Three steps.
           </h2>
-          <div className="grid md:grid-cols-3 gap-px mt-12" style={{ background: HAIRLINE }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px mt-12" style={{ background: HAIRLINE }}>
             {[
               { n: "01", t: "Join the VIP list", d: "Email only — no payment, no commitment." },
               { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
