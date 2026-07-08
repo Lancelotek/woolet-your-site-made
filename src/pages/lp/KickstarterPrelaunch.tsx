@@ -102,7 +102,7 @@ const inputStyle: React.CSSProperties = {
 
 const eyebrowStyle: React.CSSProperties = {
   fontFamily: "Barlow, sans-serif",
-  fontSize: "11px",
+  fontSize: "12px",
   fontWeight: 500,
   letterSpacing: "0.18em",
   textTransform: "uppercase",
