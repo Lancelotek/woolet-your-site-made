@@ -23,6 +23,42 @@ serve(async (req) => {
 
   const url = new URL(req.url);
 
+  // Lookup a single subscriber by email → returns full object + groups
+  const email = url.searchParams.get("email");
+  if (email) {
+    const enc = encodeURIComponent(email.trim().toLowerCase());
+    const sub = await ml(apiKey, `/subscribers/${enc}`);
+    if (sub.status >= 400) {
+      return new Response(
+        JSON.stringify({ found: false, status: sub.status, error: sub.data }, null, 2),
+        { status: sub.status === 404 ? 404 : 200, headers: { ...cors, "Content-Type": "application/json" } },
+      );
+    }
+    const s = sub.data?.data ?? {};
+    const groupsRes = await ml(apiKey, `/subscribers/${enc}/groups`);
+    const groups = (groupsRes.data?.data || []).map(
+      (g: { id: string; name: string }) => ({ id: g.id, name: g.name }),
+    );
+    return new Response(
+      JSON.stringify({
+        found: true,
+        email: s.email,
+        status: s.status,                       // active | unsubscribed | unconfirmed | bounced | junk
+        subscribed_at: s.subscribed_at,
+        updated_at: s.updated_at,               // "Last updated" in the ML UI
+        created_at: s.created_at,
+        opted_in_at: s.opted_in_at,
+        source: s.source,
+        fields: s.fields,
+        groups,
+        raw: s,
+      }, null, 2),
+      { headers: { ...cors, "Content-Type": "application/json" } },
+    );
+  }
+
+
+
 
   const q = (url.searchParams.get("q") || "").toLowerCase();
 
