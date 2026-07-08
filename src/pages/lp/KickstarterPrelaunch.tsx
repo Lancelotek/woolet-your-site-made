@@ -861,7 +861,7 @@ const KickstarterPrelaunch = () => {
                 <div style={{ background: CREAM, aspectRatio: "1 / 1", overflow: "hidden" }}>
                   <img
                     src={f.src}
-                    alt={`Bespoke ${f.shape}`}
+                    alt={f.alt}
                     loading="lazy"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
