@@ -102,7 +102,7 @@ const KickstarterVipConfirmed = () => {
             ))}
           </ul>
           <a
-            href="https://www.facebook.com/groups/867413636043717/"
+            href="https://www.facebook.com/groups/867413636043717/?utm_source=woolet.co&utm_medium=referral&utm_campaign=kickstarter_vip&utm_content=vip_confirmed_page"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Join WOOLET VIP Facebook group (opens in new tab)"
