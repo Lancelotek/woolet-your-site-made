@@ -826,7 +826,7 @@ const KickstarterPrelaunch = () => {
                         style={{
                           ...eyebrowStyle,
                           color: GOLD,
-                          fontSize: 9,
+                          fontSize: 11,
                           marginTop: 2,
                         }}
                       >
