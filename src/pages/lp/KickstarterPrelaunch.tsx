@@ -388,7 +388,7 @@ const KickstarterPrelaunch = () => {
 
   return (
     <div
-      className="min-h-screen"
+      className="min-h-screen ks-lp"
       style={{
         background: INK,
         color: CREAM,
