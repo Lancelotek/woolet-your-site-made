@@ -22,6 +22,19 @@ serve(async (req) => {
   }
 
   const url = new URL(req.url);
+  const createName = url.searchParams.get("create");
+  if (createName) {
+    const r = await fetch(`${API}/groups`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ name: createName }),
+    });
+    const body = await r.json();
+    return new Response(JSON.stringify({ status: r.status, body }, null, 2), {
+      headers: { ...cors, "Content-Type": "application/json" },
+    });
+  }
+
   const q = (url.searchParams.get("q") || "").toLowerCase();
 
   // 1. list groups (paginate up to a few pages)
