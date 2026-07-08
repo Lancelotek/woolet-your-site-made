@@ -841,10 +841,7 @@ const KickstarterPrelaunch = () => {
           >
             If none of these are wide enough, <em style={{ color: GOLD, fontStyle: "italic" }}>we build yours.</em>
           </h2>
-          <div
-            className="mt-6 flex flex-wrap gap-x-5 gap-y-2"
-            style={{ fontSize: 13, color: TAUPE, letterSpacing: "0.02em" }}
-          >
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2" style={{ fontSize: 13, color: TAUPE, letterSpacing: "0.02em" }}>
             <span>4 shapes</span>
             <span>·</span>
             <span>60 colour and size combinations</span>
@@ -852,6 +849,10 @@ const KickstarterPrelaunch = () => {
             <span>Any width 145–162 mm</span>
             <span>·</span>
             <span>Built to measure with FitLens</span>
+            <span style={{ color: CREAM, marginLeft: 4 }}>
+              Kickstarter <span style={{ color: GOLD, fontWeight: 600 }}>$299</span>
+            </span>
+            <span style={{ textDecoration: "line-through" }}>SRP $480</span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-12">
