@@ -22,6 +22,8 @@ serve(async (req) => {
   }
 
   const url = new URL(req.url);
+
+
   const q = (url.searchParams.get("q") || "").toLowerCase();
 
   // 1. list groups (paginate up to a few pages)

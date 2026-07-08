@@ -53,7 +53,8 @@ async function saveAttribution(
 const MAILERLITE_API = "https://connect.mailerlite.com/api";
 
 // MailerLite group IDs
-const VIP_GROUP_ID = "181841182994728358";          // Kickstarter VIP (default)
+const VIP_GROUP_ID = "192429285503403097";          // Kickstarter VIP (dedicated)
+const WAITLIST_ENG_GROUP_ID = "181841182994728358"; // Woolet Waitlist ENG (general)
 const AI_SCAN_GROUP_ID = "189356132351870087";      // AI Scan leads
 const BESPOKE_GROUP_ID = "189449279680546761";      // Bespoke configurator waitlist
 
@@ -153,12 +154,15 @@ serve(async (req) => {
       groups.push(AI_SCAN_GROUP_ID);
     } else if (source === "bespoke") {
       groups.push(BESPOKE_GROUP_ID);
-    } else if (source === "kickstarter" || source === "DE" || source === "de") {
-      // DE landing pages route into the same Woolet Waitlist ENG group
+    } else if (source === "kickstarter") {
+      // Dedicated Kickstarter VIP group for campaign reporting
       groups.push(VIP_GROUP_ID);
+    } else if (source === "DE" || source === "de") {
+      // DE landing pages stay in the general Woolet Waitlist ENG group
+      groups.push(WAITLIST_ENG_GROUP_ID);
     } else {
-      // Default/missing — keep current behavior (VIP / Woolet Waitlist ENG)
-      groups.push(VIP_GROUP_ID);
+      // Default/missing — general waitlist
+      groups.push(WAITLIST_ENG_GROUP_ID);
     }
 
     const subscriberFields: Record<string, string> = {
