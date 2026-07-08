@@ -131,9 +131,19 @@ const VipForm = ({
     e.preventDefault();
     setLoading(true);
     setError(null);
+    const models = "Kickstarter VIP";
+    const resolvedRef = resolveReferredBy(email, referredBy);
+    const formLocation = idSuffix ? idSuffix.replace(/^-/, "") : "default";
+
+    // Fire an attempt event first — independent of success/failure/redirect,
+    // so we can measure submit intent even if the network call never returns.
+    pushGtmEvent("kickstarter_form_submit_attempt", {
+      form_location: formLocation,
+      source: utmSource,
+      referred_by: resolvedRef,
+    });
+
     try {
-      const models = "Kickstarter VIP";
-      const resolvedRef = resolveReferredBy(email, referredBy);
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           email,
@@ -159,13 +169,29 @@ const VipForm = ({
         awareness_stage: "solution_aware",
         source: utmSource,
       });
+      // Explicit success event so it can be verified in GA/GTM even if the
+      // navigate() below unloads the page before other tags flush.
+      pushGtmEvent("kickstarter_form_submit_success", {
+        form_location: formLocation,
+        source: utmSource,
+        referred_by: resolvedRef,
+        provider: "mailerlite",
+      });
 
       navigate("/en/lp/kickstarter/vip-confirmed", {
         state: { email, name: "" },
       });
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      pushGtmEvent("kickstarter_form_submit_error", {
+        form_location: formLocation,
+        source: utmSource,
+        referred_by: resolvedRef,
+        provider: "mailerlite",
+        error_message: message.slice(0, 200),
+      });
+      setError(message);
       setLoading(false);
     }
   };
