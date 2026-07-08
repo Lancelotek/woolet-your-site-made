@@ -154,12 +154,15 @@ serve(async (req) => {
       groups.push(AI_SCAN_GROUP_ID);
     } else if (source === "bespoke") {
       groups.push(BESPOKE_GROUP_ID);
-    } else if (source === "kickstarter" || source === "DE" || source === "de") {
-      // DE landing pages route into the same Woolet Waitlist ENG group
+    } else if (source === "kickstarter") {
+      // Dedicated Kickstarter VIP group for campaign reporting
       groups.push(VIP_GROUP_ID);
+    } else if (source === "DE" || source === "de") {
+      // DE landing pages stay in the general Woolet Waitlist ENG group
+      groups.push(WAITLIST_ENG_GROUP_ID);
     } else {
-      // Default/missing — keep current behavior (VIP / Woolet Waitlist ENG)
-      groups.push(VIP_GROUP_ID);
+      // Default/missing — general waitlist
+      groups.push(WAITLIST_ENG_GROUP_ID);
     }
 
     const subscriberFields: Record<string, string> = {
