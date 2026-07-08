@@ -3,10 +3,10 @@ import CollectionPage from "@/components/CollectionPage";
 const GlassesForBigHeads = () => (
   <CollectionPage
     slug="glasses-for-big-heads"
-    h1="Glasses for Big Heads"
+    h1="Glasses for Big Heads — Eyeglasses for Wide Heads"
     breadcrumbName="Glasses for Big Heads"
-    metaTitle="Glasses for Big Heads — Wide 158 mm Frames | Woolet"
-    metaDescription="Glasses for big heads in 158 mm Italian acetate. Fits 58–62 cm head circumference. Prescription-ready, two shapes, bespoke to 172 mm. Pre-order $114."
+    metaTitle="Glasses for Big Heads & Wide Heads — 158 mm | Woolet"
+    metaDescription="Glasses for big heads and eyeglasses for wide heads: 158 mm Italian acetate frames, fits 58–62 cm heads. Prescription-ready, bespoke to 172 mm."
     intro="Glasses for big heads need a wider front, a stronger bridge and hinges that actually hold. Most optical frames stop at 138–148 mm and pinch anyone with a 58 cm+ head circumference. Woolet starts at 158 mm — round 007 and soft-square 009 — in hand-finished in the EU from Italian Mazzucchelli acetate, prescription-ready, with bespoke sizing up to 172 mm."
     whyThisFits={[
       "<strong>What counts as a big head in eyewear.</strong> Head circumference of about 58 to 64 cm. 58–60 cm is large (L), 60–62 cm is XL, above 62 cm is XXL. At those sizes the pain point is rarely the lens — it is the front width. Standard frames sit at 138–148 mm, so the temples splay outward, the hinges take all the load, and the bridge slides down the nose within an hour. Woolet's 158 mm front lets the temples sit naturally and the bridge carry weight evenly across the face.",
