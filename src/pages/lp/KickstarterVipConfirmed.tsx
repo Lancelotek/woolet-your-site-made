@@ -42,6 +42,36 @@ const KickstarterVipConfirmed = () => {
     pushGtmEvent("vip_confirmed", { source: "kickstarter_lp" });
   }, [email, name, navigate]);
 
+  const trackVipFacebookGroupClick = () => {
+    // Fire once per click across handlers (click + auxClick for middle-mouse)
+    const w = window as unknown as {
+      __wooletVipFbTracked?: number;
+      gtag?: (...args: unknown[]) => void;
+    };
+    const now = Date.now();
+    if (w.__wooletVipFbTracked && now - w.__wooletVipFbTracked < 800) return;
+    w.__wooletVipFbTracked = now;
+
+    // GTM dataLayer event (existing pipeline)
+    pushGtmEvent("vip_facebook_group_click", {
+      source: "kickstarter_vip_confirmed",
+      destination: "facebook_group",
+      campaign: "kickstarter_vip",
+    });
+
+    // Direct GA4 event — fires even if GTM is blocked or the redirect happens fast
+    if (typeof w.gtag === "function") {
+      w.gtag("event", "vip_facebook_group_click", {
+        event_category: "engagement",
+        event_label: "kickstarter_vip_confirmed",
+        source: "kickstarter_vip_confirmed",
+        destination: "facebook_group",
+        campaign: "kickstarter_vip",
+        transport_type: "beacon",
+      });
+    }
+  };
+
   return (
     <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
@@ -106,7 +136,8 @@ const KickstarterVipConfirmed = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Join WOOLET VIP Facebook group (opens in new tab)"
-            onClick={() => pushGtmEvent("vip_facebook_group_click", { source: "kickstarter_vip_confirmed" })}
+            onClick={trackVipFacebookGroupClick}
+            onAuxClick={trackVipFacebookGroupClick}
             className="flex items-center justify-center w-full sm:w-auto sm:inline-flex bg-primary text-primary-foreground font-body uppercase tracking-[0.22em] text-xs px-8 py-4 rounded-sm hover:bg-gold-light transition-colors touch-manipulation"
             style={{ minHeight: 56 }}
           >
