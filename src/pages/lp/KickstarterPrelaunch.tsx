@@ -978,8 +978,8 @@ const KickstarterPrelaunch = () => {
                       ...eyebrowStyle,
                       color: GOLD,
                       border: `1px solid ${GOLD}`,
-                      padding: "2px 8px",
-                      fontSize: 10,
+                      padding: "3px 8px",
+                      fontSize: 11,
                     }}
                   >
                     Bespoke
