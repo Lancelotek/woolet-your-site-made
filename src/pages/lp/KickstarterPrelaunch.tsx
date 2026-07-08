@@ -102,7 +102,7 @@ const inputStyle: React.CSSProperties = {
 
 const eyebrowStyle: React.CSSProperties = {
   fontFamily: "Barlow, sans-serif",
-  fontSize: "11px",
+  fontSize: "12px",
   fontWeight: 500,
   letterSpacing: "0.18em",
   textTransform: "uppercase",
@@ -395,13 +395,17 @@ const KickstarterPrelaunch = () => {
         fontFamily: "Barlow, sans-serif",
       }}
     >
-      <Helmet>
+      <Helmet prioritizeSeoTags>
+        <html lang="en" dir="ltr" />
         <title>Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)</title>
         <meta
           name="description"
           content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price."
         />
+        <meta name="robots" content="index,follow" />
         <link rel="canonical" href="https://woolet.co/en/lp/kickstarter" />
+        <link rel="alternate" hrefLang="en" href="https://woolet.co/en/lp/kickstarter" />
+        <link rel="alternate" hrefLang="x-default" href="https://woolet.co/en/lp/kickstarter" />
         <meta property="og:title" content="Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)" />
         <meta
           property="og:description"
@@ -409,7 +413,76 @@ const KickstarterPrelaunch = () => {
         />
         <meta property="og:url" content="https://woolet.co/en/lp/kickstarter" />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Woolet" />
+        <meta property="og:image" content={heroManAsset.url} />
+        <meta property="og:locale" content="en_US" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)" />
+        <meta name="twitter:description" content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. VIP early access and up to 40% off." />
+        <meta name="twitter:image" content={heroManAsset.url} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
+            { "@type": "ListItem", position: 2, name: "Kickstarter VIP", item: "https://woolet.co/en/lp/kickstarter" },
+          ],
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Woolet Kickstarter — signature frames",
+          itemListElement: [
+            {
+              "@type": "Product",
+              name: "Woolet 007 — Round",
+              description: "Round Milanese acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              image: w007BlackFrontAsset.url,
+              brand: { "@type": "Brand", name: "Woolet" },
+              category: "Eyewear",
+              offers: {
+                "@type": "Offer",
+                url: "https://woolet.co/en/lp/kickstarter",
+                priceCurrency: "USD",
+                price: "114",
+                availability: "https://schema.org/PreOrder",
+                priceValidUntil: "2026-12-31",
+              },
+            },
+            {
+              "@type": "Product",
+              name: "Woolet 009 — Soft-Square",
+              description: "Soft-square Milanese acetate frame, 158 mm wide with a 20 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              image: w009BlackFrontAsset.url,
+              brand: { "@type": "Brand", name: "Woolet" },
+              category: "Eyewear",
+              offers: {
+                "@type": "Offer",
+                url: "https://woolet.co/en/lp/kickstarter",
+                priceCurrency: "USD",
+                price: "114",
+                availability: "https://schema.org/PreOrder",
+                priceValidUntil: "2026-12-31",
+              },
+            },
+            {
+              "@type": "Product",
+              name: "Woolet Bespoke — built to measure",
+              description: "Bespoke Milanese acetate frames, 4 shapes, 60 colour and size combinations, any width from 145 to 162 mm.",
+              image: heroManAsset.url,
+              brand: { "@type": "Brand", name: "Woolet" },
+              category: "Eyewear",
+              offers: {
+                "@type": "Offer",
+                url: "https://woolet.co/en/lp/kickstarter",
+                priceCurrency: "USD",
+                price: "299",
+                availability: "https://schema.org/PreOrder",
+                priceValidUntil: "2026-12-31",
+              },
+            },
+          ],
+        })}</script>
       </Helmet>
 
       {/* Top bar */}
@@ -480,7 +553,7 @@ const KickstarterPrelaunch = () => {
                 >
                   <img
                     src={img.src}
-                    alt=""
+                    alt={img.alt}
                     loading="lazy"
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
@@ -753,7 +826,7 @@ const KickstarterPrelaunch = () => {
                         style={{
                           ...eyebrowStyle,
                           color: GOLD,
-                          fontSize: 9,
+                          fontSize: 11,
                           marginTop: 2,
                         }}
                       >
@@ -905,8 +978,8 @@ const KickstarterPrelaunch = () => {
                       ...eyebrowStyle,
                       color: GOLD,
                       border: `1px solid ${GOLD}`,
-                      padding: "2px 8px",
-                      fontSize: 10,
+                      padding: "3px 8px",
+                      fontSize: 11,
                     }}
                   >
                     Bespoke
@@ -1255,10 +1328,10 @@ const KickstarterPrelaunch = () => {
         </div>
       )}
     </div>
-          <p>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
-          <div className="flex gap-5">
-            <Link to="/en/privacy-policy" style={{ color: TAUPE }}>Privacy</Link>
-            <Link to="/en/return-policy" style={{ color: TAUPE }}>Terms</Link>
+          <p style={{ fontSize: 13, lineHeight: 1.6 }}>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
+          <div className="flex gap-2">
+            <Link to="/en/privacy-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Privacy</Link>
+            <Link to="/en/return-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Terms</Link>
           </div>
         </div>
       </footer>
