@@ -297,6 +297,8 @@ const BlogPost = () => {
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
 
+        <RelatedPosts currentSlug={post.slug} lang={currentLang} />
+
         <RelatedGuides variant="dark" className="my-12" />
 
         <div className="woolet-divider my-12" />
