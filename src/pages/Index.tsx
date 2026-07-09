@@ -81,11 +81,11 @@ type HomeCopy = {
 
 const homeCopy: Record<Lang, HomeCopy> = {
   en: {
-    heroEyebrow: "Built for wide faces",
+    heroEyebrow: "Eyewear built for wide faces",
     h1Pre: "Too wide for ",
     h1Em: "Ray-Ban, Persol",
     h1Post: " or Warby Parker?",
-    heroDesc: "Woolet designs frames that finally fit. Italian Mazzucchelli acetate, handmade in the EU — and one honest width range you won't find anywhere else.",
+    heroDesc: "Woolet designs glasses that finally fit. Italian Mazzucchelli acetate from Milan, hand made in the EU — and one honest width range you won't find anywhere else.",
     ctaPrimary: "Join the list — 40% off",
     ctaSecondary: "View collection",
     trustFit: "Fit guarantee",
