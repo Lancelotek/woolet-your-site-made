@@ -3431,6 +3431,173 @@ More on fit for bigger heads and wider faces:
 </p>
 `,
   },
+  {
+    slug: "hat-size-chart-guide-cm-inches-us-uk-eu",
+    title: "Hat Size Chart: Complete Guide (US, UK, EU, cm & inches)",
+    excerpt: "The one hat sizing chart that reconciles US, UK, EU, cm and inches — plus how to read fractional sizes like 7 5/8, what a fitted cap number really means, and what to do when you're between sizes.",
+    date: "2026-03-18",
+    readTime: 8,
+    tags: ["Size Chart", "Sizing", "Big Heads", "Reference"],
+    faq: [
+      {
+        q: "What is 7 5/8 hat size in cm?",
+        a: "A US hat size of 7 5/8 equals a head circumference of 61 cm (24 inches). It's the standard XL size in most catalogues and the first size above what mainstream one-size-fits-most caps stock.",
+      },
+      {
+        q: "What is a size 7 hat in cm?",
+        a: "A US size 7 hat equals 56 cm (22 inches) — an S/M size for most adult men, or M for women.",
+      },
+      {
+        q: "How do US and UK hat sizes differ?",
+        a: "UK hat sizes run exactly 1/8 smaller than US sizes at the same circumference. A 60 cm head is US 7½ and UK 7⅜. Every full US–UK conversion in this article uses that 1/8 shift.",
+      },
+      {
+        q: "What is the average hat size?",
+        a: "For adult men in Europe and North America, 57–58 cm (US 7⅛–7¼). For adult women, 55–57 cm (US 6⅞–7⅛). Roughly 15% of adult men measure above 60 cm — the point where mainstream ranges stop.",
+      },
+      {
+        q: "How do I convert head circumference in cm to inches?",
+        a: "Divide the cm value by 2.54. A 60 cm head equals 23.62 inches (rounded to 23⅝ on hat charts). All hat charts round inches to the nearest eighth to match traditional US sizing.",
+      },
+      {
+        q: "Should I size up or size down if I'm between hat sizes?",
+        a: "Always size up. A hat can be padded down with a self-adhesive sizing strip in under a minute; a hat that's a full size too small will squeeze, leave a red ring, and cannot be stretched more than 3–4 mm without deforming.",
+      },
+    ],
+    content: `
+<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
+    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: March 2026</div>
+  </div>
+</div>
+
+<p>Hat sizing is one of the last places in fashion where four different measurement systems are still in daily use — cm, inches, fractional US sizes, and letter sizes — and nobody at the shop counter agrees on the conversion. This is the single chart that reconciles all four, plus the context you need to read it correctly the first time.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule that fixes 90% of confusion</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Every hat size in the world is derived from one number: your <strong>head circumference in centimetres</strong>. US, UK and EU sizes are just three different ways of labelling the same measurement. Get the cm right and the rest is arithmetic.</p>
+</div>
+
+<h2>The Master Hat Size Chart</h2>
+
+<p>Read across the row. If your circumference lands between two rows, use the larger one — see <a href="#between-sizes" style="color:#c9a84c;">between sizes</a> below. Don't know your circumference yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a>.</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;min-width:640px;">
+  <thead>
+    <tr style="background:#F8F6F1;">
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Head (cm)</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Head (in)</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">US</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">UK</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">EU / cm</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Letter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">53</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">20⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">53</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">XXS</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">54</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">21¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">54</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">XS</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">55</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">21⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">55</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">S</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">56</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">56</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">S / M</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">57</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">57</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">M</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">58</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">58</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">M</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">59</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">23¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">59</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">L</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">60</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">23⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">60</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">L / XL</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">61</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">61</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XL</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">62</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">62</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XL</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">63</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">63</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXL</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">64</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">25¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">64</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXL</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">65</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">25⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">65</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXXL</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">66</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">26</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">66</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXXL</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p style="font-size:13px;color:#666;margin-top:-8px;"><em>Rows highlighted in cream (60&nbsp;cm+, US 7½ and up) are where mainstream brands typically stop stocking. If you land here, plan to shop specialist.</em></p>
+
+<h2>How to Read US Fractional Sizes (7, 7⅛, 7¼…)</h2>
+
+<p>The US size is not arbitrary — it's the hat's <strong>internal diameter in inches</strong>, assuming the head is a perfect circle. To convert from any circumference:</p>
+
+<p style="background:#F8F6F1;padding:14px 18px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:15px;"><strong>US size</strong> = head circumference (in) ÷ π <em>(≈ 3.1416)</em></p>
+
+<p>A 60&nbsp;cm head is 23.62&nbsp;in ÷ 3.1416 = 7.52 → rounded to the nearest eighth = <strong>7½</strong>. That's why the chart moves in 1/8-inch increments: it mirrors the way felt hat blocks and fitted-cap moulds are actually manufactured.</p>
+
+<h2>UK vs US: The 1/8 Shift</h2>
+
+<p>UK sizes label the same physical hat one-eighth of an inch smaller than the US number. Nobody outside the trade knows why — it's a leftover from parallel 19th-century hatter guilds — but the shift is exact and predictable. If a British brand tells you the hat is a 7⅜, the American equivalent is 7½.</p>
+
+<h2>EU and Continental Sizing</h2>
+
+<p>Europe skipped the fractions and simply uses the head circumference in cm as the size. A "60" hat fits a 60&nbsp;cm head. This is by far the least ambiguous system — and the reason so many premium Italian and French hatmakers (Borsalino, Maison Michel, Christys' London for EU markets) label in cm directly.</p>
+
+<h2>Fitted Cap Sizing (New Era, 59FIFTY)</h2>
+
+<p>Baseball fitted caps use US fractional sizing but with tighter production tolerances than felt hats. The typical New Era 59FIFTY size range is 6¾ to 8 (54–64&nbsp;cm). Above 8, you're into specialist territory — <a href="https://www.mammothheadwear.com/" target="_blank" rel="noopener" style="color:#A07A2A;">Mammoth Headwear</a>, <a href="https://bighatstore.com/" target="_blank" rel="noopener" style="color:#A07A2A;">Big Hat Store</a>, and a small number of Etsy makers cover 8⅛ (65&nbsp;cm) and up.</p>
+
+<p>A fitted cap runs about 3–5&nbsp;mm tighter than a felt hat at the same labelled size, because the polyester/wool shell has less give than a stretched-and-blocked felt crown. If you're between sizes on a fitted cap, size up.</p>
+
+<h2 id="between-sizes">What to Do When You're Between Sizes</h2>
+
+<ul>
+<li><strong>Size up, then pad.</strong> A self-adhesive hat sizing strip (also called "hat size reducer" — costs about $3) takes 60 seconds to install and reduces internal circumference by 3–6&nbsp;mm. That's the width of a full half-size.</li>
+<li><strong>Never stretch more than 3–4&nbsp;mm.</strong> Steaming a felt hat can gain about a quarter-inch. Beyond that the crown deforms permanently and the sweatband tears.</li>
+<li><strong>Watch for the "red ring" test.</strong> If you wear the hat for 20 minutes and it leaves a visible mark across your forehead, it's undersized by at least a half-size — return it, don't stretch it.</li>
+</ul>
+
+<h2>Head Shape Matters (Not Just Size)</h2>
+
+<p>Two people with identical 60&nbsp;cm circumferences can wear the same labelled size and get completely different fits. Circumference sets the size; <strong>shape</strong> decides the comfort.</p>
+
+<ul>
+<li><strong>Oval (long front-to-back).</strong> The default Western pattern — most brands are cut for it.</li>
+<li><strong>Round (nearly circular from above).</strong> Common in East Asian and some Central-European populations. A standard oval hat pinches at the temples and gaps at the front and back. Stetson, Bailey and Christys' London label round-fit and long-oval variants explicitly.</li>
+</ul>
+
+<p>If your hats always pinch at the sides even in the correct size, your head is <em>round</em>, not big. That's a shape problem, not a sizing problem — and no chart will fix it.</p>
+
+<div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:28px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">Don't have a tape measure?</div>
+  <p style="font-size:14px;line-height:1.7;color:#f0ece4;margin:0 0 14px 0;">Woolet's <strong style="color:#fff;">AI Fit Wizard</strong> measures your face from a single phone photo — accurate to about 2&nbsp;mm, using a credit card as the reference object. Faster than finding a soft measure in a drawer, and it doubles as a glasses-fit tool.</p>
+  <p style="font-size:14px;line-height:1.7;color:#f0ece4;margin:0;"><a href="/en/fit/wizard" style="color:#c9a84c;text-decoration:underline;font-weight:500;">Try the AI Fit Wizard →</a></p>
+</div>
+
+<h2>The Bigger Picture: If You're Over 60 cm</h2>
+
+<p>About 15% of adult men measure above 60&nbsp;cm and roughly 3% above 62&nbsp;cm. In the same population, 4 out of 5 people with a head above 60&nbsp;cm also measure above <strong>150&nbsp;mm across the temples</strong> — outside the sizing range of virtually every mainstream eyewear brand. If hats never fit, your glasses probably don't either.</p>
+
+<p>That's the gap Woolet was built to fill: frames engineered from the front width outward, starting at 158&nbsp;mm and going up to 172&nbsp;mm bespoke — for exactly the crowd that shops for hats in XL and XXL.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">For the same crowd</div>
+  <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat size is 7½ or larger, mainstream frames almost certainly pinch your temples. Woolet 007 and 009 ship at 158&nbsp;mm front width, in Italian Mazzucchelli acetate.</p>
+  <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">Glasses for big heads →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke up to 172 mm →</a></p>
+</div>
+
+<h2>Quick Reference: Common Conversions</h2>
+
+<ul>
+<li><strong>7 hat size in cm</strong> — 56 cm (22 in)</li>
+<li><strong>7¼ hat size in cm</strong> — 58 cm (22¾ in)</li>
+<li><strong>7½ hat size in cm</strong> — 60 cm (23⅝ in)</li>
+<li><strong>7 5/8 hat size in cm</strong> — 61 cm (24 in)</li>
+<li><strong>7¾ hat size in cm</strong> — 62 cm (24⅜ in)</li>
+<li><strong>7⅞ hat size in cm</strong> — 63 cm (24¾ in)</li>
+<li><strong>Size 8 hat in cm</strong> — 64 cm (25¼ in)</li>
+</ul>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">
+Related guides:
+<a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#A07A2A;">how to measure your head for a hat</a> ·
+<a href="/en/blog/best-glasses-for-big-heads-2026" style="color:#A07A2A;">best glasses for big heads</a> ·
+<a href="/en/blog/what-size-glasses-for-a-large-head" style="color:#A07A2A;">what size glasses for a large head</a> ·
+<a href="/en/fit/wizard" style="color:#A07A2A;">AI Fit Wizard</a>.
+</p>
+`,
+  },
 ];
 
 
