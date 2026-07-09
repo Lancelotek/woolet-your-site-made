@@ -22,6 +22,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
 const ReturnPolicy = lazy(() => import("./pages/ReturnPolicy.tsx"));
 const BlogIndex = lazy(() => import("./pages/BlogIndex.tsx"));
 const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
+const HatSizeCalculator = lazy(() => import("./pages/tools/HatSizeCalculator.tsx"));
 const NoseBridgeFitHub = lazy(() => import("./pages/blog/NoseBridgeFitHub.tsx"));
 const FitWizard = lazy(() => import("./pages/FitWizard.tsx"));
 const FitManual = lazy(() => import("./pages/FitManual.tsx"));
