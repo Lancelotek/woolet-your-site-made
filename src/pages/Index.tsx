@@ -14,7 +14,7 @@ const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
     title: "Woolet — Italian Acetate Eyewear for Wide Faces (155 mm+)",
     description:
-      "Too wide for Ray-Ban, Persol or Warby Parker? Woolet designs Italian Mazzucchelli acetate frames for 155–161 mm faces. Handmade in the EU. Pre-order 40% off.",
+      "Too wide for Ray-Ban, Persol or Warby Parker? Woolet designs glasses that finally fit. Mazzucchelli acetate from Milan, Italy — hand made in EU. Pre-order 40% off.",
   },
   pl: {
     title: "Woolet — Włoski octan dla szerokich twarzy (155mm+)",
