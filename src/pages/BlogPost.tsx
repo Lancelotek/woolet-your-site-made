@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import RelatedGuides from "@/components/RelatedGuides";
 import { getBlogPost } from "@/lib/blog-data";
+import { blogMetaBySlug } from "@/lib/blog-meta";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 
 /* ── helpers ── */
