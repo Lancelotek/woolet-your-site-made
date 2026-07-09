@@ -14,7 +14,7 @@ const OversizedPrescriptionGlasses = () => (
       "<strong>Italian Mazzucchelli acetate, hand-finished in the EU.</strong> The same cellulose acetate used by heritage European eyewear houses. At oversized widths, injection-moulded plastics warp and creak — acetate keeps the set an optician gives it, year after year.",
       "<strong>21 mm keyhole bridge</strong> distributes weight on a wider nose better than the 16–18 mm bridges common in oversized women's fashion frames. No red marks, no slipping.",
       "<strong>Prescription, blue-light, or sunglass lenses — your choice.</strong> Order optical frames with clear prescription lenses, add a blue-light filter for screen work, or go full polarized sunglass. The oversized lens area handles every option.",
-      "<strong>Bespoke 150–172 mm</strong> if standard oversized still isn't large enough. Same Italian acetate, same hand-finishing, scaled to your measurement. Confirm with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a>.",
+      "<strong>Bespoke 145–162 mm</strong> if standard oversized still isn't large enough. Same Italian acetate, same hand-finishing, scaled to your measurement. Confirm with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a>.",
     ]}
     faqs={[
       {

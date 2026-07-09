@@ -12,7 +12,7 @@ const BlueLightGlassesForWideFaces = () => (
       "<strong>Engineered for 155 mm+ faces.</strong> One precise 158 mm front width with a 21 mm keyhole bridge. Mainstream 'wide' blue-light frames cap at 138–148 mm.",
       "<strong>HEV 380–460 nm filter upgrade (+$40)</strong> on either 007 (round) or 009 (soft square). Pairs with single-vision, progressive, or plano lenses.",
       "<strong>Italian Mazzucchelli acetate</strong>, hand-finished and polished. Holds its set on a wider span where injection-moulded plastic warps.",
-      "<strong>Bespoke 150–172 mm</strong> if you fall outside the 155–161 mm range. Same material and finishing.",
+      "<strong>Bespoke 145–162 mm</strong> if you fall outside the 155–161 mm range. Same material and finishing.",
     ]}
     faqs={[
       {
@@ -38,7 +38,7 @@ const BlueLightGlassesForWideFaces = () => (
       {
         question: "Do you ship prescription lenses fitted?",
         answer:
-          "Yes — for standard prescriptions. After your founding-member reservation you'll receive a measurement and prescription form. Bespoke fronts (150–172 mm) follow the same flow with a longer lead time.",
+          "Yes — for standard prescriptions. After your founding-member reservation you'll receive a measurement and prescription form. Bespoke fronts (145–162 mm) follow the same flow with a longer lead time.",
       },
     ]}
   />

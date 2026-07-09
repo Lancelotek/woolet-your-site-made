@@ -14,27 +14,27 @@ const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
     title: "Woolet — Italian Acetate Eyewear for Wide Faces (155 mm+)",
     description:
-      "Too wide for Ray-Ban, Persol or Warby Parker? Woolet designs Italian Mazzucchelli acetate frames for 155–172 mm faces. Handmade in the EU. Pre-order 40% off.",
+      "Too wide for Ray-Ban, Persol or Warby Parker? Woolet designs glasses that finally fit. Mazzucchelli acetate from Milan, Italy — hand made in EU. Pre-order 40% off.",
   },
   pl: {
     title: "Woolet — Włoski octan dla szerokich twarzy (155mm+)",
     description:
-      "Za szeroka twarz na Ray-Ban, Persol czy Warby Parker? Woolet projektuje oprawy z włoskiego octanu Mazzucchelli dla twarzy 155–172 mm. Ręcznie w UE.",
+      "Za szeroka twarz na Ray-Ban, Persol czy Warby Parker? Woolet projektuje oprawy z włoskiego octanu Mazzucchelli dla twarzy 155–161 mm. Ręcznie w UE.",
   },
   fr: {
     title: "Woolet — Acétate italien pour visages larges (155mm+)",
     description:
-      "Trop large pour Ray-Ban, Persol ou Warby Parker ? Woolet conçoit des montures en acétate italien pour visages de 155 à 172 mm. Fabriqué à la main en UE.",
+      "Trop large pour Ray-Ban, Persol ou Warby Parker ? Woolet conçoit des montures en acétate italien pour visages de 155 à 161 mm. Fabriqué à la main en UE.",
   },
   es: {
     title: "Woolet — Acetato italiano para caras anchas (155mm+)",
     description:
-      "¿Demasiado ancho para Ray-Ban, Persol o Warby Parker? Woolet diseña monturas de acetato italiano para caras de 155–172 mm. Hechas a mano en la UE.",
+      "¿Demasiado ancho para Ray-Ban, Persol o Warby Parker? Woolet diseña monturas de acetato italiano para caras de 155–161 mm. Hechas a mano en la UE.",
   },
   de: {
     title: "Woolet — Italienisches Acetat für breite Gesichter (ab 155 mm)",
     description:
-      "Zu breit für Ray-Ban, Persol oder Warby Parker? Woolet fertigt Brillen aus italienischem Mazzucchelli-Acetat für Gesichter von 155–172 mm. Handgefertigt in der EU.",
+      "Zu breit für Ray-Ban, Persol oder Warby Parker? Woolet fertigt Brillen aus italienischem Mazzucchelli-Acetat für Gesichter von 155–161 mm. Handgefertigt in der EU.",
   },
   ar: {
     title: "Woolet — نظارات أسيتات إيطالية للوجوه العريضة (155 ملم+)",
@@ -44,12 +44,12 @@ const seoData: Record<Lang, { title: string; description: string }> = {
   ja: {
     title: "Woolet — 幅広い顔のためのイタリア製アセテートアイウェア (155mm以上)",
     description:
-      "Ray-Ban、Persol、Warby Parkerが幅広すぎ？ Wooletは155–172mmの顔に合うイタリア製Mazzucchelliアセテートフレームを設計。EUで手作り。リスト登録で40%オフ。",
+      "Ray-Ban、Persol、Warby Parkerが幅広すぎ？ Wooletは155–161mmの顔に合うイタリア製Mazzucchelliアセテートフレームを設計。EUで手作り。リスト登録で40%オフ。",
   },
   nl: {
     title: "Woolet — Italiaans acetaat voor brede gezichten (155 mm+)",
     description:
-      "Te breed voor Ray-Ban, Persol of Warby Parker? Woolet ontwerpt Italiaanse Mazzucchelli-acetaatmonturen voor gezichten van 155–172 mm. Handgemaakt in de EU.",
+      "Te breed voor Ray-Ban, Persol of Warby Parker? Woolet ontwerpt Italiaanse Mazzucchelli-acetaatmonturen voor gezichten van 155–161 mm. Handgemaakt in de EU.",
   },
 };
 
@@ -81,11 +81,11 @@ type HomeCopy = {
 
 const homeCopy: Record<Lang, HomeCopy> = {
   en: {
-    heroEyebrow: "Built for wide faces",
+    heroEyebrow: "Eyewear built for wide faces",
     h1Pre: "Too wide for ",
     h1Em: "Ray-Ban, Persol",
     h1Post: " or Warby Parker?",
-    heroDesc: "Woolet designs frames that finally fit. Italian Mazzucchelli acetate, handmade in the EU — and one honest width range you won't find anywhere else.",
+    heroDesc: "Woolet designs glasses that finally fit. Italian Mazzucchelli acetate from Milan, hand made in the EU — and one honest width range you won't find anywhere else.",
     ctaPrimary: "Join the list — 40% off",
     ctaSecondary: "View collection",
     trustFit: "Fit guarantee",
@@ -399,7 +399,7 @@ const makeMeters = (copy: HomeCopy): MeterCfg[] => [
     scaleMin: 135,
     scaleMax: 175,
     standard: [138, 148],
-    woolet: [155, 172],
+    woolet: [155, 161],
     ticks: [135, 155, 175],
   },
   {
@@ -754,7 +754,47 @@ const Index = () => {
           </div>
         </section>
 
+        {/* FITLENS STRIP — slim band, light surface */}
+        <section
+          aria-label="FitLens"
+          className="relative"
+          style={{ background: "#F8F6F1", color: "#1F1B16", borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}
+        >
+          <div className="max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-16 py-5 lg:py-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+            <div
+              className="uppercase tracking-[0.24em] shrink-0"
+              style={{ fontSize: "0.7rem", color: "#CAA449", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
+            >
+              FitLens
+            </div>
+            <div className="flex-1 min-w-0" style={{ fontSize: "0.94rem", lineHeight: 1.5, fontFamily: "Barlow, sans-serif" }}>
+              <span style={{ fontWeight: 600 }}>Measure your fit in 30 seconds.</span>{" "}
+              <span style={{ color: "#1F1B16", opacity: 0.78 }}>
+                Your phone camera measures temple-to-temple width and recommends your exact size before you buy.
+              </span>
+            </div>
+            <Link
+              to={`/${lang}/fit`}
+              onClick={() => pushGtmEvent("home_fitlens_strip_click", { location: "home_fitlens_strip", dest: "fit" })}
+              className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-colors shrink-0 self-start md:self-auto"
+              style={{
+                background: "#CAA449",
+                color: "#1F1B16",
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 600,
+                fontSize: "0.74rem",
+                padding: "14px 22px",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#D8B86A")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "#CAA449")}
+            >
+              Find your fit →
+            </Link>
+          </div>
+        </section>
+
         {/* TEASER — two models, encourages scroll */}
+
         <section
           className="relative px-5 sm:px-8 lg:px-16 py-12 lg:py-16"
           style={{ borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}
@@ -859,6 +899,100 @@ const Index = () => {
               ))}
             </div>
 
+          </div>
+        </section>
+
+        {/* BESPOKE — outside the standard range */}
+        <section
+          aria-label="Bespoke"
+          className="relative px-5 sm:px-8 lg:px-16 py-16 lg:py-24"
+          style={{ borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}
+        >
+          <div className="max-w-[1100px] mx-auto flex flex-col gap-8 lg:gap-10">
+            <div className="woolet-eyebrow">
+              <div className="woolet-eyebrow-line" />
+              <span className="woolet-eyebrow-text">Bespoke</span>
+            </div>
+
+            <h2
+              className="font-display text-woolet-white leading-[1.05] max-w-[820px]"
+              style={{ fontSize: "clamp(1.9rem, 3.6vw, 3rem)", fontWeight: 300 }}
+            >
+              Outside the range?{" "}
+              <em className="text-gold-light" style={{ fontStyle: "italic" }}>
+                We'll build to yours.
+              </em>
+            </h2>
+
+            <p
+              className="text-cream-dim leading-relaxed max-w-[680px]"
+              style={{ fontSize: "1.02rem" }}
+            >
+              Our signature frames fit 155–161 mm. Bespoke covers everything else:
+              any width from 145 to 162 mm, 4 frame shapes, 60 colour &amp; size
+              combinations — built to measure, for everyone.
+            </p>
+
+            {/* Stat row */}
+            <div
+              className="grid grid-cols-1 sm:grid-cols-3 gap-px mt-2"
+              style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
+            >
+              {[
+                { v: "145–162", unit: "mm", label: "Any width" },
+                { v: "4", unit: "", label: "Frame shapes" },
+                { v: "60", unit: "", label: "Colour & size combos" },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="flex flex-col gap-2 px-6 py-7"
+                  style={{ background: "hsl(var(--background))" }}
+                >
+                  <div
+                    className="font-display text-woolet-white leading-none"
+                    style={{ fontSize: "clamp(1.9rem, 3vw, 2.4rem)", fontWeight: 300 }}
+                  >
+                    {s.v}
+                    {s.unit && (
+                      <span
+                        className="ml-1.5 text-cream-dim"
+                        style={{ fontSize: "0.9rem", fontFamily: "Barlow, sans-serif", fontWeight: 400, letterSpacing: "0.06em" }}
+                      >
+                        {s.unit}
+                      </span>
+                    )}
+                  </div>
+                  <div
+                    className="uppercase tracking-[0.24em] text-cream-dim"
+                    style={{ fontSize: "0.66rem", fontFamily: "Barlow, sans-serif" }}
+                  >
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2">
+              <Link
+                to={`/${lang}/bespoke`}
+                onClick={() =>
+                  pushGtmEvent("home_bespoke_cta_click", { location: "home_bespoke_section", dest: "bespoke" })
+                }
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                style={{
+                  background: "hsl(var(--gold))",
+                  color: "hsl(var(--background))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.78rem",
+                  padding: "18px 28px",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
+              >
+                Start bespoke →
+              </Link>
+            </div>
           </div>
         </section>
 

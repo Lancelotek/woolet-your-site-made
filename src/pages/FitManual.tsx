@@ -109,7 +109,7 @@ export default function FitManual() {
     <>
       <SEO
         title="How to Measure Your Face for Glasses — Face Width Calculator | Woolet"
-        description="Measure your face width for glasses with a tape measure (cm or inches) and instantly see your frame size — stock 155/158/161 mm or bespoke 150–172 mm. Free, no scan needed."
+        description="Measure your face width for glasses with a tape measure (cm or inches) and instantly see your frame size — stock 155/158/161 mm or bespoke 145–162 mm. Free, no scan needed."
         lang="en"
         path="/fit/manual"
         jsonLd={{
@@ -126,7 +126,7 @@ export default function FitManual() {
             { "@type": "HowToStep", name: "Position the tape", text: "Hold a soft tape measure horizontally across your face, temple to temple, just in front of the ears and level with your eyebrows." },
             { "@type": "HowToStep", name: "Keep it flat", text: "Keep the tape straight and snug against the skin, not over the hair." },
             { "@type": "HowToStep", name: "Read the number", text: "Read the number where the tape meets — in centimeters or inches." },
-            { "@type": "HowToStep", name: "Match your size", text: "Enter it in the calculator to map your measurement to a stock (155/158/161 mm) or bespoke (150–172 mm) Woolet frame." },
+            { "@type": "HowToStep", name: "Match your size", text: "Enter it in the calculator to map your measurement to a stock (155/158/161 mm) or bespoke (145–162 mm) Woolet frame." },
           ],
         }}
       />

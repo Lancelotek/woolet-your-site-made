@@ -39,7 +39,7 @@ var list_products_default = defineTool({
         id: "bespoke",
         name: "Woolet Bespoke",
         shape: "Made-to-measure (Aviator / Rectangle / Crown Panto / Round)",
-        widthMm: "150\u2013172 (cut to face)",
+        widthMm: "145\u2013162 (cut to face)",
         bridgeMm: "custom",
         preOrderUsd: 480,
         regularUsd: 480,
@@ -66,7 +66,7 @@ var RECS = [
   {
     minFaceWidthMm: 159,
     maxFaceWidthMm: 172,
-    recommendation: "Woolet Bespoke \u2014 cut to your exact face width (150\u2013172 mm).",
+    recommendation: "Woolet Bespoke \u2014 cut to your exact face width (145\u2013162 mm).",
     url: "https://woolet.co/en/bespoke"
   }
 ];
@@ -110,7 +110,7 @@ var mcp_default = defineMcp({
   name: "woolet-mcp",
   title: "Woolet Eyewear",
   version: "0.1.0",
-  instructions: "Tools for Woolet, an Italian acetate eyewear brand for wide faces (150\u2013172 mm). Use `list_products` to browse models 007, 009, and Bespoke. Use `recommend_fit` to suggest a model from a face width in millimetres.",
+  instructions: "Tools for Woolet, an Italian acetate eyewear brand for wide faces (145\u2013162 mm). Use `list_products` to browse models 007, 009, and Bespoke. Use `recommend_fit` to suggest a model from a face width in millimetres.",
   tools: [list_products_default, recommend_fit_default]
 });
 

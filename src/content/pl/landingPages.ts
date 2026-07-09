@@ -67,10 +67,10 @@ export const plPages: Record<string, PlPageConfig> = {
     slug: "okulary-na-zamowienie",
     eyebrow: "Woolet · Okulary na zamówienie",
     h1: "Okulary na zamówienie — szyte na twoją twarz, co do milimetra",
-    sub: "Szerokość frontu od 150 do 165 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
-    metaTitle: "Okulary na zamówienie 150–165 mm | Woolet — włoski octan",
+    sub: "Szerokość frontu od 145 do 162 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
+    metaTitle: "Okulary na zamówienie 145–162 mm | Woolet — włoski octan",
     metaDescription:
-      "Okulary na zamówienie dla szerszych twarzy: front 150–165 mm, mostek 16–26 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
+      "Okulary na zamówienie dla szerszych twarzy: front 145–162 mm, mostek 16–26 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
     primaryKeyword: "okulary na zamówienie",
     ctaPrimaryLabel: "Zmierz twarz (20 s)",
     ctaPrimaryHref: "/pl/fit",
@@ -83,7 +83,7 @@ export const plPages: Record<string, PlPageConfig> = {
     proofBody:
       "Używamy octanu Mazzucchelli 1849, produkowanego we Włoszech od ponad 70 lat. Europejskie warsztaty frezują, polerują i osadzają zawiasy w każdej oprawie osobno. Realizacja zajmuje około 4–6 tygodni od potwierdzenia zamówienia.",
     proofBullets: [
-      { label: "Szerokość frontu", value: "150 – 165 mm" },
+      { label: "Szerokość frontu", value: "145 – 162 mm" },
       { label: "Personalizacja", value: "front / mostek / zauszniki / wysokość" },
       { label: "Materiał", value: "Mazzucchelli 1849, włoski octan" },
       { label: "Realizacja", value: "4 – 6 tygodni, ręcznie w UE" },
@@ -94,7 +94,7 @@ export const plPages: Record<string, PlPageConfig> = {
     faqs: [
       {
         q: "Jak daleko można dopasować wymiary?",
-        a: "Front: 150–165 mm. Mostek: 16–26 mm. Zauszniki: 135–155 mm. Wysokość soczewki też jest konfigurowalna.",
+        a: "Front: 145–162 mm. Mostek: 16–26 mm. Zauszniki: 135–155 mm. Wysokość soczewki też jest konfigurowalna.",
       },
       {
         q: "Jak wygląda pomiar?",
@@ -135,7 +135,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     'Większość osób dobiera okulary „na oko" — i dlatego oprawki uciskają skronie, zsuwają się z nosa albo wyglądają na za małe. 90% opraw w salonach ma szerokość frontu 135–148 mm, projektowaną pod przeciętną twarz. Jeśli twoja szerokość między skrońmi przekracza 150 mm, standardowa oprawa dosłownie „siedzi na skroniach" — zostawia ślady, spycha nos i po godzinie boli.',
   proofH2: "Rozmiar w milimetrach jest ważniejszy niż kształt twarzy",
   proofBody:
-    "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 150 do 165 mm co 1 mm.",
+    "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 145 do 162 mm co 1 mm.",
   proofBullets: [
     { label: "Poniżej 145 mm", value: "Standardowe oprawki z salonów" },
     { label: "145 – 154 mm", value: "Bespoke Woolet (150–154 mm)" },
@@ -248,7 +248,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     brandSection: {
       h2: "A jeśli masz szeroką twarz?",
       body:
-        "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 21–22 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie w UE. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 150–165 mm co 1 mm.",
+        "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 21–22 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie w UE. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 145–162 mm co 1 mm.",
       ctas: [
         { label: "Zobacz modele 007 i 009", href: "/en/collection", primary: true },
         { label: "Dołącz do listy VIP", href: "/en/vip-join" },

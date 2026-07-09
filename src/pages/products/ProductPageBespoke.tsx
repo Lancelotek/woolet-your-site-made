@@ -33,7 +33,7 @@ const galleryBespoke = [
 
 const specs: [string, string][] = [
   ["Material", "Italian Mazzucchelli Acetate"],
-  ["Frame Width", "Cut to your face (150–172 mm)"],
+  ["Frame Width", "Cut to your face (145–162 mm)"],
   ["Shapes", "Aviator · Rectangle · Crown Panto · Round"],
   ["Bridge", "Cut to your nose"],
   ["Temples", "Cut to your temple length"],
@@ -99,7 +99,7 @@ const ProductPageBespoke = () => {
     <>
       <Helmet>
         <title>Woolet Bespoke — Custom Acetate Glasses Cut to Your Face</title>
-        <meta name="description" content="Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 150–172 mm. From $299 pre-order." />
+        <meta name="description" content="Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order." />
         <link rel="canonical" href="https://woolet.co/en/products/bespoke" />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet Bespoke — Custom Acetate Glasses" />
@@ -114,7 +114,7 @@ const ProductPageBespoke = () => {
           mpn: "WOOLET-BESPOKE",
           brand: { "@type": "Brand", name: "Woolet" },
           category: "Eyewear > Prescription Glasses > Bespoke",
-          description: "Bespoke Italian Mazzucchelli acetate frames cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 150–172 mm.",
+          description: "Bespoke Italian Mazzucchelli acetate frames cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–162 mm.",
           image: galleryBespoke,
           material: "Italian Mazzucchelli 1849 cotton acetate",
           offers: {
@@ -257,14 +257,14 @@ const ProductPageBespoke = () => {
                 Woolet <em style={{ fontStyle: "italic", color: T.gold }}>Bespoke</em>
               </h1>
               <div style={{ fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 10 }}>
-                Custom · 150–172 mm · Italian acetate
+                Custom · 145–162 mm · Italian acetate
               </div>
               <h2 style={{
                 fontFamily: SANS, fontWeight: 500, fontSize: 13,
                 letterSpacing: "0.04em", color: T.inkDim,
                 margin: "0 0 22px", lineHeight: 1.5,
               }}>
-                Bespoke Italian Mazzucchelli acetate glasses cut to your exact face — four silhouettes, front width 150–172&nbsp;mm, bridge and temples cut to your measurements.
+                Bespoke Italian Mazzucchelli acetate glasses cut to your exact face — four silhouettes, front width 145–162&nbsp;mm, bridge and temples cut to your measurements.
               </h2>
 
               {/* Price hierarchy */}

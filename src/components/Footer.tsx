@@ -118,7 +118,7 @@ const Footer = () => {
               className="text-cream-dim/70 max-w-[280px] leading-relaxed"
               style={{ fontSize: "0.78rem" }}
             >
-              Italian Mazzucchelli acetate eyewear for wide faces (155–165 mm). Hand made in EU.
+              Italian Mazzucchelli acetate eyewear for wide faces (155–161 mm). Hand made in EU.
             </p>
             <div className="flex gap-4 mt-2">
               {socials.map((s) => (

@@ -440,7 +440,7 @@ function WelcomeStep({
             {[
               "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
               "Captures face width, bridge and PD in one shot",
-              "Auto-routes to 007, 009 or bespoke (150–172 mm)",
+              "Auto-routes to 007, 009 or bespoke (145–162 mm)",
               "Runs in your browser. Nothing uploaded.",
             ].map((b) => (
               <li

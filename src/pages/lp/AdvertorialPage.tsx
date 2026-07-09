@@ -635,7 +635,7 @@ const AdvertorialPage = () => {
                     { label: "Zenni", value: 140, display: "140mm", tone: "muted" as const },
                     { label: "Warby Parker", value: 148, display: "148mm", tone: "muted" as const },
                     { label: "Woolet 007 / 009", value: 158, display: "158mm", tone: "gold" as const },
-                    { label: "Woolet Bespoke", value: 172, display: "150–172mm", tone: "outline" as const },
+                    { label: "Woolet Bespoke", value: 172, display: "145–162mm", tone: "outline" as const },
                   ].map((row) => {
                     const pct = (row.value / 180) * 100;
                     const barBg =
@@ -896,7 +896,7 @@ const AdvertorialPage = () => {
                 <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>standard market</div>
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>155–165mm</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>155–161mm</div>
                 <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
               </div>
               <div style={{ flex: 1 }}>
