@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import RelatedGuides from "@/components/RelatedGuides";
+import RelatedPosts from "@/components/RelatedPosts";
 import { getBlogPost } from "@/lib/blog-data";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
@@ -295,6 +296,8 @@ const BlogPost = () => {
           className="woolet-blog-content"
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
+
+        <RelatedPosts currentSlug={post.slug} lang={currentLang} />
 
         <RelatedGuides variant="dark" className="my-12" />
 
