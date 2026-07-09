@@ -902,6 +902,100 @@ const Index = () => {
           </div>
         </section>
 
+        {/* BESPOKE — outside the standard range */}
+        <section
+          aria-label="Bespoke"
+          className="relative px-5 sm:px-8 lg:px-16 py-16 lg:py-24"
+          style={{ borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}
+        >
+          <div className="max-w-[1100px] mx-auto flex flex-col gap-8 lg:gap-10">
+            <div className="woolet-eyebrow">
+              <div className="woolet-eyebrow-line" />
+              <span className="woolet-eyebrow-text">Bespoke</span>
+            </div>
+
+            <h2
+              className="font-display text-woolet-white leading-[1.05] max-w-[820px]"
+              style={{ fontSize: "clamp(1.9rem, 3.6vw, 3rem)", fontWeight: 300 }}
+            >
+              Outside the range?{" "}
+              <em className="text-gold-light" style={{ fontStyle: "italic" }}>
+                We'll build to yours.
+              </em>
+            </h2>
+
+            <p
+              className="text-cream-dim leading-relaxed max-w-[680px]"
+              style={{ fontSize: "1.02rem" }}
+            >
+              Our signature frames fit 155–161 mm. Bespoke covers everything else:
+              any width from 145 to 162 mm, 4 frame shapes, 60 colour &amp; size
+              combinations — built to measure, for everyone.
+            </p>
+
+            {/* Stat row */}
+            <div
+              className="grid grid-cols-1 sm:grid-cols-3 gap-px mt-2"
+              style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
+            >
+              {[
+                { v: "145–162", unit: "mm", label: "Any width" },
+                { v: "4", unit: "", label: "Frame shapes" },
+                { v: "60", unit: "", label: "Colour & size combos" },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="flex flex-col gap-2 px-6 py-7"
+                  style={{ background: "hsl(var(--background))" }}
+                >
+                  <div
+                    className="font-display text-woolet-white leading-none"
+                    style={{ fontSize: "clamp(1.9rem, 3vw, 2.4rem)", fontWeight: 300 }}
+                  >
+                    {s.v}
+                    {s.unit && (
+                      <span
+                        className="ml-1.5 text-cream-dim"
+                        style={{ fontSize: "0.9rem", fontFamily: "Barlow, sans-serif", fontWeight: 400, letterSpacing: "0.06em" }}
+                      >
+                        {s.unit}
+                      </span>
+                    )}
+                  </div>
+                  <div
+                    className="uppercase tracking-[0.24em] text-cream-dim"
+                    style={{ fontSize: "0.66rem", fontFamily: "Barlow, sans-serif" }}
+                  >
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2">
+              <Link
+                to={`/${lang}/bespoke`}
+                onClick={() =>
+                  pushGtmEvent("home_bespoke_cta_click", { location: "home_bespoke_section", dest: "bespoke" })
+                }
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                style={{
+                  background: "hsl(var(--gold))",
+                  color: "hsl(var(--background))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.78rem",
+                  padding: "18px 28px",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
+              >
+                Start bespoke →
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <div className="h-16 lg:hidden" />
         <Footer />
         <StickyMobileCTA />
