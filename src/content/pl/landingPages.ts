@@ -83,7 +83,7 @@ export const plPages: Record<string, PlPageConfig> = {
     proofBody:
       "Używamy octanu Mazzucchelli 1849, produkowanego we Włoszech od ponad 70 lat. Europejskie warsztaty frezują, polerują i osadzają zawiasy w każdej oprawie osobno. Realizacja zajmuje około 4–6 tygodni od potwierdzenia zamówienia.",
     proofBullets: [
-      { label: "Szerokość frontu", value: "150 – 165 mm" },
+      { label: "Szerokość frontu", value: "145 – 162 mm" },
       { label: "Personalizacja", value: "front / mostek / zauszniki / wysokość" },
       { label: "Materiał", value: "Mazzucchelli 1849, włoski octan" },
       { label: "Realizacja", value: "4 – 6 tygodni, ręcznie w UE" },

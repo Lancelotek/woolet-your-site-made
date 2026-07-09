@@ -44,7 +44,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     proofBody:
       "We werken met Mazzucchelli 1849 acetaat, al ruim 70 jaar geproduceerd in Italië. Europese ateliers frezen, polijsten en zetten scharnieren per montuur afzonderlijk. Reken op circa 4–6 weken productie na bevestiging van de bestelling.",
     proofBullets: [
-      { label: "Frontbreedte", value: "150 – 165 mm" },
+      { label: "Frontbreedte", value: "145 – 162 mm" },
       { label: "Op maat", value: "front / brug / veren / hoogte" },
       { label: "Materiaal", value: "Mazzucchelli 1849, Italiaans acetaat" },
       { label: "Doorlooptijd", value: "4 – 6 weken, handmatig in EU" },
@@ -97,7 +97,7 @@ export const nlPages: Record<string, NlPageConfig> = {
       "De 007 (rond) en 009 (zacht vierkant) worden geleverd in drie precieze maten — 155, 158 en 161 mm — met een 21–22 mm keyhole-brug en veren van 148 mm. Wie erboven of eronder valt, gaat naar Bespoke: 145–162 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
     proofBullets: [
       { label: "Standaardbreedte", value: "155 / 158 / 161 mm" },
-      { label: "Bespoke bereik", value: "150 – 165 mm" },
+      { label: "Bespoke bereik", value: "145 – 162 mm" },
       { label: "Brug", value: "21 – 22 mm keyhole" },
       { label: "Veren", value: "148 mm, hoek 11°" },
     ],

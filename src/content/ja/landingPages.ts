@@ -96,7 +96,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     proofBody:
       "素材はマッツケリ1849のアセテート。70年以上の歴史を持つイタリア素材です。EUの工房で職人が削り、磨き、ヒンジを埋め込みます。納期は約4〜6週間。",
     proofBullets: [
-      { label: "対応サイズ", value: "150 – 165 mm" },
+      { label: "対応サイズ", value: "145 – 162 mm" },
       { label: "カスタマイズ", value: "幅 / ブリッジ / テンプル / 高さ" },
       { label: "素材", value: "Mazzucchelli 1849 アセテート" },
       { label: "納期", value: "4 – 6 週間 (EU手作業)" },

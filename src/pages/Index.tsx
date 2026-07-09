@@ -399,7 +399,7 @@ const makeMeters = (copy: HomeCopy): MeterCfg[] => [
     scaleMin: 135,
     scaleMax: 175,
     standard: [138, 148],
-    woolet: [155, 172],
+    woolet: [155, 161],
     ticks: [135, 155, 175],
   },
   {

@@ -44,7 +44,7 @@ export const frPages: Record<string, FrPageConfig> = {
     proofBody:
       "Nous utilisons l'acétate Mazzucchelli 1849, produit en Italie depuis plus de 70 ans. Les ateliers européens fraisent, polissent et insèrent les charnières une monture à la fois. Comptez environ 4 à 6 semaines de fabrication après confirmation de la commande.",
     proofBullets: [
-      { label: "Largeur de face", value: "150 – 165 mm" },
+      { label: "Largeur de face", value: "145 – 162 mm" },
       { label: "Personnalisation", value: "face / pont / branches / hauteur" },
       { label: "Matière", value: "Mazzucchelli 1849, acétate italien" },
       { label: "Délai", value: "4 – 6 semaines, fait main UE" },
