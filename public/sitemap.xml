@@ -780,4 +780,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://woolet.co/en/blog/what-size-hat-do-i-wear-big-heads-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/what-size-hat-do-i-wear-big-heads-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/what-size-hat-do-i-wear-big-heads-guide"/>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
