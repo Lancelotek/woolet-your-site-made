@@ -244,6 +244,8 @@ const App = () => (
           <Route path="/en/blog/category/nose-bridge-fit" element={<NoseBridgeFitHub />} />
           <Route path="/:lang/blog/category/nose-bridge-fit" element={<Navigate to="/en/blog/category/nose-bridge-fit" replace />} />
           <Route path="/:lang/blog/:slug" element={<BlogPost />} />
+          <Route path="/en/hat-size-calculator" element={<HatSizeCalculator />} />
+          <Route path="/:lang/hat-size-calculator" element={<HatSizeCalculator />} />
           <Route path="/:lang/fit" element={<FitScan />} />
           <Route path="/:lang/fit/wizard" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
