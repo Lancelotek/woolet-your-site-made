@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import RelatedGuides from "@/components/RelatedGuides";
 import { getBlogPost } from "@/lib/blog-data";
+import { blogMetaBySlug } from "@/lib/blog-meta";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 
 /* ── helpers ── */
@@ -153,13 +154,13 @@ const BlogPost = () => {
   return (
     <div className="relative z-[1] flex flex-col min-h-screen">
       <SEO
-        title={post.title}
-        description={post.excerpt}
+        title={blogMetaBySlug[post.slug]?.metaTitle ?? post.title}
+        description={blogMetaBySlug[post.slug]?.metaDescription ?? post.excerpt}
         lang={currentLang}
         path={`/blog/${post.slug}`}
         type="article"
         publishedTime={post.date}
-        image={post.image || `/og-${post.slug}.png`}
+        image={blogMetaBySlug[post.slug]?.ogImage ?? post.image ?? `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
         jsonLd={(() => {
           const schemas: object[] = [];
