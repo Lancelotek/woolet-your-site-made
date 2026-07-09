@@ -10,11 +10,11 @@ const CANONICAL = `${SITE}/en${PATH}`;
 const faqs = [
   {
     q: "How many mm is considered wide for sunglasses?",
-    a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm front width with a 21 mm bridge, and bespoke covers 150 to 172 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
+    a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm front width with a 21 mm bridge, and bespoke covers 145 to 162 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
   },
   {
     q: "What head circumference is considered big?",
-    a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm fits most XL heads (face width 155 to 161 mm). Outside that range, bespoke handles XS-wide and XXL faces from 150 to 172 mm.",
+    a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm fits most XL heads (face width 155 to 161 mm). Outside that range, bespoke handles XS-wide and XXL faces from 145 to 162 mm.",
   },
   {
     q: "Where do you buy sunglasses for big heads?",
@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     q: "Can I get sunglasses custom-made for my head size?",
-    a: "Yes. Bespoke covers 150 to 172 mm of front width in either shape (007 round or 009 soft square), with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.",
+    a: "Yes. Bespoke covers 145 to 162 mm of front width in either shape (007 round or 009 soft square), with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.",
   },
   {
     q: "Are Woolet sunglasses polarized?",
@@ -55,7 +55,7 @@ const SunglassesForBigHeads = () => {
     "@type": "CollectionPage",
     name: "Sunglasses for Big Heads",
     description:
-      "Sunglasses for big heads in one precise 158 mm front width, plus bespoke from 150 to 172 mm. Italian Mazzucchelli acetate, handmade in the EU, from $114 pre-order.",
+      "Sunglasses for big heads in one precise 158 mm front width, plus bespoke from 145 to 162 mm. Italian Mazzucchelli acetate, handmade in the EU, from $114 pre-order.",
     url: CANONICAL,
     inLanguage: "en",
     isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE },
@@ -131,7 +131,7 @@ const SunglassesForBigHeads = () => {
             ))}
           </div>
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "#444", margin: 0 }}>
-            Standard eyewear maxes out around 145 to 148 mm of front width. Woolet's standard is 158 mm with a 21 mm keyhole bridge, and bespoke covers anything from 150 to 172 mm.
+            Standard eyewear maxes out around 145 to 148 mm of front width. Woolet's standard is 158 mm with a 21 mm keyhole bridge, and bespoke covers anything from 145 to 162 mm.
           </p>
         </section>
 
@@ -213,7 +213,7 @@ const SunglassesForBigHeads = () => {
             {[
               { t: "Italian Mazzucchelli acetate", b: "Cellulose acetate sheet from the same Italian supplier used by major luxury houses. Holds its set under heat, unlike injection-moulded TR-90." },
               { t: "Sized for big heads from day one", b: "One precise front at 158 mm with a 21 mm bridge — engineered, not retrofitted. Temples 150 mm standard, up to 155 mm bespoke." },
-              { t: "Bespoke outside 155–161 mm", b: "Custom fronts from 150 to 172 mm in either shape. Same material, same finishing, made to your measurement." },
+              { t: "Bespoke outside 155–161 mm", b: "Custom fronts from 145 to 162 mm in either shape. Same material, same finishing, made to your measurement." },
             ].map((c) => (
               <div key={c.t} style={{ background: "#FFF", border: "1px solid #E0D5C5", padding: "16px 14px", borderRadius: 4 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, marginBottom: 8 }}>{c.t}</div>
@@ -236,7 +236,7 @@ const SunglassesForBigHeads = () => {
               <strong>Big-head specific.</strong> Larger front and bridge, not just larger lenses. Woolet's 158 mm front pairs with a 21 mm keyhole bridge; most oversized frames stay at 18 to 20 mm.
             </p>
             <p style={{ margin: 0 }}>
-              <strong>Bespoke option.</strong> Fatheadz and similar specialists focus on plastic injection at one or two widths. Woolet is acetate at 158 mm, with bespoke from 150 to 172 mm.
+              <strong>Bespoke option.</strong> Fatheadz and similar specialists focus on plastic injection at one or two widths. Woolet is acetate at 158 mm, with bespoke from 145 to 162 mm.
             </p>
           </div>
         </section>

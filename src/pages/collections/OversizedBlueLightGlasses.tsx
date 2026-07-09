@@ -12,7 +12,7 @@ const OversizedBlueLightGlasses = () => (
       "<strong>158 mm front</strong> — engineered for 155 mm+ faces, not stretched from a standard 145 mm shell. The bridge stays at 21 mm so the lens sits where your eyes are, not on your cheekbones.",
       "<strong>HEV 380–460 nm filter lens upgrade (+$40)</strong> — chosen on the product page, applied to your prescription or plano lenses. Compatible with both 007 and 009.",
       "<strong>Italian Mazzucchelli acetate</strong> — holds its set across a wider span (TR-90 and injection-moulded plastic do not). Hand-finished, polished, beveled.",
-      "<strong>Bespoke 150–172 mm</strong> in either shape if your face sits outside the 155–161 mm range. Same material, made to measure.",
+      "<strong>Bespoke 145–162 mm</strong> in either shape if your face sits outside the 155–161 mm range. Same material, made to measure.",
     ]}
     faqs={[
       {
@@ -43,7 +43,7 @@ const OversizedBlueLightGlasses = () => (
       {
         question: "How fast does it ship?",
         answer:
-          "Standard 158 mm sizes ship in the next founding-member batch. Bespoke 150–172 mm ships approximately 6–8 weeks after the standard batch.",
+          "Standard 158 mm sizes ship in the next founding-member batch. Bespoke 145–162 mm ships approximately 6–8 weeks after the standard batch.",
       },
     ]}
   />

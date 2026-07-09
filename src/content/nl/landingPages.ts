@@ -29,9 +29,9 @@ export const nlPages: Record<string, NlPageConfig> = {
     eyebrow: "Woolet · Acetaat bril op maat",
     h1: "Acetaat bril op maat — gesneden op jouw gezicht, tot op de millimeter",
     sub: "Frontbreedte van 150 tot 165 mm, brug, veren en glashoogte individueel afgesteld. Italiaans Mazzucchelli 1849 acetaat, met de hand afgewerkt in de EU.",
-    metaTitle: "Acetaat bril op maat 150–165 mm | Woolet — Italiaans acetaat",
+    metaTitle: "Acetaat bril op maat 145–162 mm | Woolet — Italiaans acetaat",
     metaDescription:
-      "Acetaat bril op maat voor bredere gezichten: front 150–165 mm, brug 16–26 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in 20 s.",
+      "Acetaat bril op maat voor bredere gezichten: front 145–162 mm, brug 16–26 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in 20 s.",
     primaryKeyword: "acetaat bril op maat",
     ctaPrimaryLabel: "Meet je gezicht (20 s)",
     ctaPrimaryHref: "/nl/fit",
@@ -55,7 +55,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     faqs: [
       {
         q: "Hoe ver kunnen de afmetingen worden aangepast?",
-        a: "Front: 150–165 mm. Brug: 16–26 mm. Veren: 135–155 mm. Ook de glashoogte is instelbaar.",
+        a: "Front: 145–162 mm. Brug: 16–26 mm. Veren: 135–155 mm. Ook de glashoogte is instelbaar.",
       },
       {
         q: "Hoe verloopt de meting?",
@@ -81,7 +81,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     eyebrow: "Woolet · Grote brillen heren",
     h1: "Grote brillen voor heren — ontworpen voor brede gezichten (155 mm+)",
     sub: "Frontbreedtes 155, 158 en 161 mm. Keyhole-brug van 21–22 mm voor bredere neusruggen. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. Twee vormen: rond (007) en zacht vierkant (009).",
-    metaTitle: "Grote brillen heren 155–165 mm | Woolet — Italiaans acetaat",
+    metaTitle: "Grote brillen heren 155–161 mm | Woolet — Italiaans acetaat",
     metaDescription:
       "Grote brillen voor heren met een breed gezicht: frontbreedte 155/158/161 mm, plus bespoke tot 165 mm. 21 mm keyhole-brug, Italiaans acetaat, handgemaakt in de EU.",
     primaryKeyword: "grote brillen heren",
@@ -94,7 +94,7 @@ export const nlPages: Record<string, NlPageConfig> = {
       "Grote maten in de reguliere optiek stoppen meestal rond 148–150 mm. Voor gezichten van 155 mm en breder blijft er dan weinig over: monturen die knellen op de slapen, veren die te kort zijn en een brug die op je neus drukt. Woolet begint daar juist: alle standaardmaten zijn 155 mm of breder.",
     proofH2: "Twee vormen. Één eerlijk breedtebereik.",
     proofBody:
-      "De 007 (rond) en 009 (zacht vierkant) worden geleverd in drie precieze maten — 155, 158 en 161 mm — met een 21–22 mm keyhole-brug en veren van 148 mm. Wie erboven of eronder valt, gaat naar Bespoke: 150–165 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
+      "De 007 (rond) en 009 (zacht vierkant) worden geleverd in drie precieze maten — 155, 158 en 161 mm — met een 21–22 mm keyhole-brug en veren van 148 mm. Wie erboven of eronder valt, gaat naar Bespoke: 145–162 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
     proofBullets: [
       { label: "Standaardbreedte", value: "155 / 158 / 161 mm" },
       { label: "Bespoke bereik", value: "150 – 165 mm" },

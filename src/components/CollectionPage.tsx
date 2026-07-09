@@ -42,13 +42,13 @@ const productCards = [
   {
     id: "007",
     name: "Woolet 007 — Round / Panto",
-    blurb: "Round Italian acetate frame, 158 mm wide with a 21 mm bridge. Bespoke from 150 to 172 mm.",
+    blurb: "Round Italian acetate frame, 158 mm wide with a 21 mm bridge. Bespoke from 145 to 162 mm.",
     href: "/en/products/007",
   },
   {
     id: "009",
     name: "Woolet 009 — Soft Square",
-    blurb: "Soft-square Italian acetate frame, 158 mm wide with a 22 mm bridge. Bespoke from 150 to 172 mm.",
+    blurb: "Soft-square Italian acetate frame, 158 mm wide with a 22 mm bridge. Bespoke from 145 to 162 mm.",
     href: "/en/products/009",
   },
 ];
@@ -252,7 +252,7 @@ const CollectionPage = ({
               One precise size - or go bespoke
             </h2>
             <p style={{ fontSize: 13, lineHeight: 1.6, color: "#CCC", margin: "0 0 14px" }}>
-              Both shapes ship at 158 mm wide with a 21 mm bridge, engineered for faces in the 155-161 mm range. Outside that, bespoke covers 150 to 172 mm with the same 21 mm bridge.
+              Both shapes ship at 158 mm wide with a 21 mm bridge, engineered for faces in the 155-161 mm range. Outside that, bespoke covers 145 to 162 mm with the same 21 mm bridge.
               Use our AI Fit Wizard to confirm the right fit for your face.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>

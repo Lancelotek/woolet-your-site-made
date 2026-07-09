@@ -28,10 +28,10 @@ export const frPages: Record<string, FrPageConfig> = {
     slug: "lunettes-sur-mesure",
     eyebrow: "Woolet · Lunettes sur mesure",
     h1: "Lunettes sur mesure — taillées pour votre visage, au millimètre",
-    sub: "Largeur de face de 150 à 165 mm, pont, branches et hauteur de verre ajustés individuellement. Acétate italien Mazzucchelli 1849, façonné à la main dans l'Union européenne.",
-    metaTitle: "Lunettes sur mesure 150–165 mm | Woolet — acétate italien",
+    sub: "Largeur de face de 145 à 162 mm, pont, branches et hauteur de verre ajustés individuellement. Acétate italien Mazzucchelli 1849, façonné à la main dans l'Union européenne.",
+    metaTitle: "Lunettes sur mesure 145–162 mm | Woolet — acétate italien",
     metaDescription:
-      "Lunettes sur mesure pour visages larges : 150–165 mm de face, pont 16–26 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 20 s.",
+      "Lunettes sur mesure pour visages larges : 145–162 mm de face, pont 16–26 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 20 s.",
     primaryKeyword: "lunettes sur mesure",
     ctaPrimaryLabel: "Mesurer mon visage (20 s)",
     ctaPrimaryHref: "/fr/fit",
@@ -55,7 +55,7 @@ export const frPages: Record<string, FrPageConfig> = {
     faqs: [
       {
         q: "Jusqu'où peut-on ajuster les dimensions ?",
-        a: "Face : 150 à 165 mm. Pont : 16 à 26 mm. Branches : 135 à 155 mm. La hauteur de verre est également paramétrable.",
+        a: "Face : 145 à 162 mm. Pont : 16 à 26 mm. Branches : 135 à 155 mm. La hauteur de verre est également paramétrable.",
       },
       {
         q: "Comment se fait la prise de mesure ?",

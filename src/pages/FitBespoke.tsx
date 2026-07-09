@@ -70,8 +70,8 @@ export default function FitBespoke() {
   return (
     <>
       <SEO
-        title="Bespoke Glasses Sizing 150–172 mm — Size Table & FAQ | Woolet"
-        description="Complete size reference for Woolet bespoke eyewear: 150–172 mm frame width, 16–26 mm bridge, with the stock vs bespoke decision matrix and a full FAQ."
+        title="Bespoke Glasses Sizing 145–162 mm — Size Table & FAQ | Woolet"
+        description="Complete size reference for Woolet bespoke eyewear: 145–162 mm frame width, 16–26 mm bridge, with the stock vs bespoke decision matrix and a full FAQ."
         lang="en"
         path="/fit/bespoke"
         jsonLd={JSON_LD}
@@ -96,7 +96,7 @@ export default function FitBespoke() {
 
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">BESPOKE · 150–172 MM</span>
+              <span className="woolet-eyebrow-text">BESPOKE · 145–162 MM</span>
             </div>
 
             <h1
@@ -332,7 +332,7 @@ export default function FitBespoke() {
                 Start AI Fit Scan
               </Link>
               <Link
-                to="/en/blog/bespoke-eyewear-size-range-150-172mm-guide"
+                to="/en/blog/bespoke-eyewear-size-range-145-162mm-guide"
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   border: "1px solid hsl(var(--gold) / 0.5)",

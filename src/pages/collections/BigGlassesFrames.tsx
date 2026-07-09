@@ -39,7 +39,7 @@ const BigGlassesFrames = () => (
       {
         question: "What if 158 mm is still too narrow?",
         answer:
-          "Bespoke covers 150 to 172 mm of front width in either shape, with a 16–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand-finished in the EU to your measurement.",
+          "Bespoke covers 145 to 162 mm of front width in either shape, with a 16–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand-finished in the EU to your measurement.",
       },
       {
         question: "How does this compare to other Woolet wide-face pages?",

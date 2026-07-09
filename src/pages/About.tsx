@@ -25,7 +25,7 @@ const About = () => {
             Woolet is an AI-fit Italian acetate eyewear brand for wide faces (155 mm and above).
             The brand offers two shapes - Woolet 007 (round / panto) and Woolet 009 (soft square) -
             both in one precise size: 158 mm wide with a 21 mm keyhole bridge, engineered for
-            faces in the 155-161 mm range. A bespoke tier covers 150-172 mm, same 21 mm bridge,
+            faces in the 155-161 mm range. A bespoke tier covers 145-162 mm, same 21 mm bridge,
             made to your AI scan. All frames are manufactured in the EU from Mazzucchelli acetate,
             with sub-millimeter measurement, extended temples, and a wider keyhole bridge
             engineered to eliminate temple pressure and nose bridge squeeze - the two most common
@@ -48,7 +48,7 @@ const About = () => {
             not a style problem. Standard frames are engineered around a mean face width of
             135–140mm. At 155mm+, standard temples apply lateral pressure at the skull, the bridge
             sits too narrow, and the frame appears visually undersized. The correct solution is a
-            frame with a total width of 155–165mm, a bridge width above 18mm, and temples of at
+            frame with a total width of 155–161mm, a bridge width above 18mm, and temples of at
             least 145mm. Material matters: acetate provides micro-adjustability that metal and TR90
             cannot — an optician can heat and reshape acetate temples for a custom fit without
             compromising structural integrity. Woolet 007 and 009 use Italian Mazzucchelli acetate
@@ -97,7 +97,7 @@ const About = () => {
             that is too narrow — even by 5mm — will flare outward at the temples, creating an
             inconsistent gap between temple and skull that worsens throughout the day. Woolet 007
             and 009 are engineered at 158mm total frame width with a 19mm bridge and 148mm temples,
-            positioned precisely for the 155–165mm face width range.
+            positioned precisely for the 155–161mm face width range.
           </p>
         </section>
 

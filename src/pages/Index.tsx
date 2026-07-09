@@ -14,27 +14,27 @@ const seoData: Record<Lang, { title: string; description: string }> = {
   en: {
     title: "Woolet — Italian Acetate Eyewear for Wide Faces (155 mm+)",
     description:
-      "Too wide for Ray-Ban, Persol or Warby Parker? Woolet designs Italian Mazzucchelli acetate frames for 155–172 mm faces. Handmade in the EU. Pre-order 40% off.",
+      "Too wide for Ray-Ban, Persol or Warby Parker? Woolet designs Italian Mazzucchelli acetate frames for 155–161 mm faces. Handmade in the EU. Pre-order 40% off.",
   },
   pl: {
     title: "Woolet — Włoski octan dla szerokich twarzy (155mm+)",
     description:
-      "Za szeroka twarz na Ray-Ban, Persol czy Warby Parker? Woolet projektuje oprawy z włoskiego octanu Mazzucchelli dla twarzy 155–172 mm. Ręcznie w UE.",
+      "Za szeroka twarz na Ray-Ban, Persol czy Warby Parker? Woolet projektuje oprawy z włoskiego octanu Mazzucchelli dla twarzy 155–161 mm. Ręcznie w UE.",
   },
   fr: {
     title: "Woolet — Acétate italien pour visages larges (155mm+)",
     description:
-      "Trop large pour Ray-Ban, Persol ou Warby Parker ? Woolet conçoit des montures en acétate italien pour visages de 155 à 172 mm. Fabriqué à la main en UE.",
+      "Trop large pour Ray-Ban, Persol ou Warby Parker ? Woolet conçoit des montures en acétate italien pour visages de 155 à 161 mm. Fabriqué à la main en UE.",
   },
   es: {
     title: "Woolet — Acetato italiano para caras anchas (155mm+)",
     description:
-      "¿Demasiado ancho para Ray-Ban, Persol o Warby Parker? Woolet diseña monturas de acetato italiano para caras de 155–172 mm. Hechas a mano en la UE.",
+      "¿Demasiado ancho para Ray-Ban, Persol o Warby Parker? Woolet diseña monturas de acetato italiano para caras de 155–161 mm. Hechas a mano en la UE.",
   },
   de: {
     title: "Woolet — Italienisches Acetat für breite Gesichter (ab 155 mm)",
     description:
-      "Zu breit für Ray-Ban, Persol oder Warby Parker? Woolet fertigt Brillen aus italienischem Mazzucchelli-Acetat für Gesichter von 155–172 mm. Handgefertigt in der EU.",
+      "Zu breit für Ray-Ban, Persol oder Warby Parker? Woolet fertigt Brillen aus italienischem Mazzucchelli-Acetat für Gesichter von 155–161 mm. Handgefertigt in der EU.",
   },
   ar: {
     title: "Woolet — نظارات أسيتات إيطالية للوجوه العريضة (155 ملم+)",
@@ -44,12 +44,12 @@ const seoData: Record<Lang, { title: string; description: string }> = {
   ja: {
     title: "Woolet — 幅広い顔のためのイタリア製アセテートアイウェア (155mm以上)",
     description:
-      "Ray-Ban、Persol、Warby Parkerが幅広すぎ？ Wooletは155–172mmの顔に合うイタリア製Mazzucchelliアセテートフレームを設計。EUで手作り。リスト登録で40%オフ。",
+      "Ray-Ban、Persol、Warby Parkerが幅広すぎ？ Wooletは155–161mmの顔に合うイタリア製Mazzucchelliアセテートフレームを設計。EUで手作り。リスト登録で40%オフ。",
   },
   nl: {
     title: "Woolet — Italiaans acetaat voor brede gezichten (155 mm+)",
     description:
-      "Te breed voor Ray-Ban, Persol of Warby Parker? Woolet ontwerpt Italiaanse Mazzucchelli-acetaatmonturen voor gezichten van 155–172 mm. Handgemaakt in de EU.",
+      "Te breed voor Ray-Ban, Persol of Warby Parker? Woolet ontwerpt Italiaanse Mazzucchelli-acetaatmonturen voor gezichten van 155–161 mm. Handgemaakt in de EU.",
   },
 };
 

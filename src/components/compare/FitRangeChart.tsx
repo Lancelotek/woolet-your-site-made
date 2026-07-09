@@ -24,7 +24,7 @@ const FitRangeChart = ({ competitorMin, competitorMax, competitorLabel }: FitRan
   const compX = toX(competitorMin);
   const compW = toX(competitorMax) - compX;
 
-  const ariaLabel = `Face-width coverage chart. Woolet covers 150 to 172 millimetres. ${competitorLabel} covers ${competitorMin} to ${competitorMax} millimetres.`;
+  const ariaLabel = `Face-width coverage chart. Woolet covers 145 to 162 millimetres. ${competitorLabel} covers ${competitorMin} to ${competitorMax} millimetres.`;
 
   const ticks = [120, 130, 140, 150, 160, 170];
 
@@ -50,7 +50,7 @@ const FitRangeChart = ({ competitorMin, competitorMax, competitorLabel }: FitRan
           fontWeight={600}
           fill="#080807"
         >
-          150–172 mm bespoke
+          145–162 mm bespoke
         </text>
 
         {/* Competitor band */}
