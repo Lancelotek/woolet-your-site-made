@@ -3598,6 +3598,153 @@ Related guides:
 </p>
 `,
   },
+  {
+    slug: "what-size-hat-do-i-wear-big-heads-guide",
+    title: "Big Head? Here's What Hat Size You Actually Wear (7¾ and Up)",
+    excerpt: "A no-guessing guide to hat sizing for bigger heads. What 7¾, 7⅞, and 8 actually mean in cm and inches, how head size tracks with height, and where to buy when mainstream brands stop stocking.",
+    date: "2026-03-21",
+    readTime: 7,
+    tags: ["Big Heads", "Sizing", "Buying Guide", "XXL"],
+    faq: [
+      {
+        q: "What size hat do I wear if my head is 62 cm?",
+        a: "A 62 cm head is US 7¾, UK 7⅝, EU 62 — labelled XL by most brands. It's above the top of standard cap ranges and requires a brand that explicitly stocks XL or XXL.",
+      },
+      {
+        q: "What hat size does a 6'7 person wear?",
+        a: "Head circumference doesn't scale linearly with height, but the median 6'7 (201 cm) adult male measures 60–62 cm around the head — US 7½ to 7¾. Roughly one in three people at that height measures above 62 cm and needs an XXL. Height is a hint, not a substitute for measuring.",
+      },
+      {
+        q: "What is the biggest hat size you can buy?",
+        a: "Mainstream brands cap at 62 cm (US 7¾). Specialist brands — Mammoth Headwear, Big Hat Store, Noggin Boss — go up to 66 cm (US 8¼) off-the-shelf, and a handful of custom hatters (Optimo, Bencraft) will block a felt hat up to about 68 cm (8⅜) on order.",
+      },
+      {
+        q: "Is my head big or is my hair just thick?",
+        a: "Wet or press your hair flat before measuring. Thick or curly hair can add 1–2 cm to a circumference reading — enough to push you into the next size and buy a hat that's genuinely too loose once the hair settles. Measure at the skull, not at the volume.",
+      },
+      {
+        q: "Why do XL hats cost more?",
+        a: "XL and XXL sizes are made in small production runs on the same felt blocks and moulds as standard sizes but with more material per unit. Some brands charge a 10–20% surcharge; others (mostly specialist DTC) price them the same as standard and eat the margin.",
+      },
+    ],
+    content: `
+<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
+    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: March 2026</div>
+  </div>
+</div>
+
+<p>If every "one size fits most" cap slides straight back to the crown of your skull, and every fitted-cap chart tops out one size below yours, this is the guide. No fluff, no chart you have to hunt down — just the numbers, the brands, and the honest answer to "what size hat do I wear?" when your head is on the bigger end of the bell curve.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The short version</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your head measures <strong>60&nbsp;cm or more</strong>, you wear a US 7½ or larger — and mainstream brands stop stocking your size right there. Above 62&nbsp;cm (7¾), you're in specialist territory: 4–5 brands worldwide will actually fit you off-the-shelf.</p>
+</div>
+
+<h2>The Big-Head Sizing Ladder</h2>
+
+<p>Every number below is a real head circumference matched to the size you'll see on the label. No conversions to memorize.</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;min-width:560px;">
+  <thead>
+    <tr style="background:#F8F6F1;">
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Your head</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">US size</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Letter</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Where you can buy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">60&nbsp;cm (23⅝ in)</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">L / XL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">Top of mainstream range — most brands</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">61&nbsp;cm (24 in)</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">New Era, some Stetson — specialist for felt</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">62&nbsp;cm (24⅜ in)</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">Mammoth, Big Hat Store, Bailey, some Stetson</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">63&nbsp;cm (24¾ in)</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">Mammoth, Noggin Boss, Big Hat Store</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">64&nbsp;cm (25¼ in)</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">Specialist only — 3–4 brands worldwide</td></tr>
+    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">65&nbsp;cm+ (25⅝ in+)</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8⅛+</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXXL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">Custom / made-to-order only</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Not sure what your circumference is yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a> — a piece of string is enough. Or see the <a href="/en/blog/hat-size-chart-guide-cm-inches-us-uk-eu" style="color:#c9a84c;">full US/UK/EU hat size chart</a>.</p>
+
+<h2>Does Height Predict Hat Size? (Sort Of)</h2>
+
+<p>Head circumference correlates with height, but weakly. The rule most tailors use is: for every 10&nbsp;cm above 180&nbsp;cm (5'11"), add about 0.5&nbsp;cm of circumference. It gets you a plausible starting size — never the final answer.</p>
+
+<ul>
+<li><strong>6'0" (183&nbsp;cm)</strong> — median 58 cm (US 7¼). Range: 56–60 cm.</li>
+<li><strong>6'3" (191&nbsp;cm)</strong> — median 59 cm (US 7⅜). Range: 57–61 cm.</li>
+<li><strong>6'5" (196&nbsp;cm)</strong> — median 60 cm (US 7½). Range: 58–62 cm.</li>
+<li><strong>6'7" (201&nbsp;cm)</strong> — median 60–62 cm (US 7½–7¾). Roughly 1 in 3 above 62 cm.</li>
+<li><strong>6'9" (206&nbsp;cm)+</strong> — median 62 cm (US 7¾). Roughly half above 62 cm.</li>
+</ul>
+
+<p>Note the overlap: at every height, roughly 20% of people measure well above the median. Height narrows the guess; only a tape (or a phone camera) confirms it.</p>
+
+<h2>Where to Actually Buy (7¾ and Up)</h2>
+
+<p>Off-the-shelf, four brands do the bulk of the work above US 7¾. This is the honest map — no affiliate padding.</p>
+
+<ul>
+<li><strong><a href="https://www.mammothheadwear.com/" target="_blank" rel="noopener" style="color:#A07A2A;">Mammoth Headwear</a>.</strong> The reference brand for XL and XXL fitted caps and bucket hats. Size range up to XXXL (65 cm+). Solid quality, no surcharge on bigger sizes.</li>
+<li><strong><a href="https://bighatstore.com/" target="_blank" rel="noopener" style="color:#A07A2A;">Big Hat Store</a>.</strong> Broader style range than Mammoth — including western, fedora, and dress hats up to 66 cm. Slightly less consistent shell quality but the widest selection above 63 cm.</li>
+<li><strong>Noggin Boss.</strong> Novelty/oversized specialists; also stock genuinely wearable caps up to size 8. Better for statement pieces than everyday wear.</li>
+<li><strong>Bailey / Stetson (select styles).</strong> Not every model is stocked in XL, but the ones that are (Cattleman, Renegade, some Stratoliners) run true to size and are among the best-made hats at any size.</li>
+</ul>
+
+<p>For made-to-order felt hats above 65 cm, look at Optimo (Chicago) and Bencraft (London). Expect a 6–12 week wait and a starting price around $400.</p>
+
+<h2>Fitted Caps vs Felt Hats: The 5 mm Gap</h2>
+
+<p>A fitted baseball cap in the same labelled size as a felt hat will feel about 3–5&nbsp;mm tighter — the poly/wool shell has less give than a stretched-and-blocked felt crown. If you land at 61.5&nbsp;cm on the tape, size up on the cap (7¾) and stay at 7⅝ on the felt.</p>
+
+<p>Straw hats fall in between: more give than a fitted cap, less than felt.</p>
+
+<h2>The Hair Question</h2>
+
+<p>If you have thick, coarse, or curly hair, measure at the skull — not at the volume. Wet or press the hair down first. A dry curly measurement can add 1–2&nbsp;cm and put you in a size that fits when your hair is fresh out of the shower but feels loose by the end of the day.</p>
+
+<p>If your hair volume fluctuates significantly (post-haircut vs a month out), measure at both extremes and buy at the <em>smaller</em> reading — a hat that's a hair too tight on haircut day is padded with a sizing strip; a hat that's a full size loose on the same day is falling off.</p>
+
+<div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:28px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">Measure with your phone</div>
+  <p style="font-size:14px;line-height:1.7;color:#f0ece4;margin:0 0 14px 0;">Woolet's <strong style="color:#fff;">AI Fit Wizard</strong> uses a single photo and a credit card as a reference to measure your face width to about ±2&nbsp;mm. Face width and head circumference track together closely, so the Wizard gives you a strong estimate of both without any tape.</p>
+  <p style="font-size:14px;line-height:1.7;color:#f0ece4;margin:0;"><a href="/en/fit/wizard" style="color:#c9a84c;text-decoration:underline;font-weight:500;">Try the AI Fit Wizard →</a></p>
+</div>
+
+<h2>The Other Thing Big-Head Guys Should Know</h2>
+
+<p>If your hat size is 7½ or higher, there's roughly an 80% chance the frames you tried in the last optician's shop pinched your temples. Head circumference and face width aren't the same measurement, but they track together — and the same industry that stops at 60&nbsp;cm on hats stops at about 145&nbsp;mm on eyewear.</p>
+
+<p>That's the gap Woolet was built for: frames starting at 158&nbsp;mm front width in Italian Mazzucchelli acetate, with bespoke sizing up to 172&nbsp;mm. Same crowd, adjacent problem.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Sized out of eyewear too?</div>
+  <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">Woolet 007 and 009 ship at 158&nbsp;mm — designed for exactly the group that shops for hats in XL and XXL.</p>
+  <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">Glasses for big heads →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke up to 172&nbsp;mm →</a></p>
+</div>
+
+<h2>Quick Answers</h2>
+
+<p><strong>What size hat is 7⅝?</strong> 61&nbsp;cm circumference. XL. Above one-size-fits-most caps.</p>
+<p><strong>What size hat is 7¾?</strong> 62&nbsp;cm. XL. Requires specialist brand for felt; some mainstream fitted caps stock it.</p>
+<p><strong>What size hat is 7⅞?</strong> 63&nbsp;cm. XXL. Specialist only.</p>
+<p><strong>What size hat is 8?</strong> 64&nbsp;cm. XXL. Three or four brands worldwide off-the-shelf.</p>
+<p><strong>Is 62&nbsp;cm a big head?</strong> Yes — top ~5% of adult males globally. You need XL or an explicit big-head brand.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">
+Related guides:
+<a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#A07A2A;">how to measure your head</a> ·
+<a href="/en/blog/hat-size-chart-guide-cm-inches-us-uk-eu" style="color:#A07A2A;">hat size chart</a> ·
+<a href="/en/blog/best-glasses-for-big-heads-2026" style="color:#A07A2A;">best glasses for big heads</a> ·
+<a href="/en/fit/wizard" style="color:#A07A2A;">AI Fit Wizard</a>.
+</p>
+`,
+  },
 ];
 
 
