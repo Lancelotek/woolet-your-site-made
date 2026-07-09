@@ -754,7 +754,47 @@ const Index = () => {
           </div>
         </section>
 
+        {/* FITLENS STRIP — slim band, light surface */}
+        <section
+          aria-label="FitLens"
+          className="relative"
+          style={{ background: "#F8F6F1", color: "#1F1B16", borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}
+        >
+          <div className="max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-16 py-5 lg:py-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+            <div
+              className="uppercase tracking-[0.24em] shrink-0"
+              style={{ fontSize: "0.7rem", color: "#CAA449", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
+            >
+              FitLens
+            </div>
+            <div className="flex-1 min-w-0" style={{ fontSize: "0.94rem", lineHeight: 1.5, fontFamily: "Barlow, sans-serif" }}>
+              <span style={{ fontWeight: 600 }}>Measure your fit in 30 seconds.</span>{" "}
+              <span style={{ color: "#1F1B16", opacity: 0.78 }}>
+                Your phone camera measures temple-to-temple width and recommends your exact size before you buy.
+              </span>
+            </div>
+            <Link
+              to={`/${lang}/fit`}
+              onClick={() => pushGtmEvent("home_fitlens_strip_click", { location: "home_fitlens_strip", dest: "fit" })}
+              className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-colors shrink-0 self-start md:self-auto"
+              style={{
+                background: "#CAA449",
+                color: "#1F1B16",
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 600,
+                fontSize: "0.74rem",
+                padding: "14px 22px",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#D8B86A")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "#CAA449")}
+            >
+              Find your fit →
+            </Link>
+          </div>
+        </section>
+
         {/* TEASER — two models, encourages scroll */}
+
         <section
           className="relative px-5 sm:px-8 lg:px-16 py-12 lg:py-16"
           style={{ borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}
