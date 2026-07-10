@@ -77,6 +77,8 @@ const KickstarterVipConfirmed = () => {
     <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
         <title>You're on the VIP list — Woolet Kickstarter</title>
+        <meta name="description" content="You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch." />
+        <meta property="og:description" content="You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch." />
         <meta name="robots" content="noindex" />
       </Helmet>
 
@@ -109,13 +111,13 @@ const KickstarterVipConfirmed = () => {
         </div>
 
         {/* Bespoke preview — what VIPs see first */}
-        <section className="mt-10">
+        <section className="mt-10" aria-labelledby="bespoke-preview-heading">
           <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-3">Behind the scenes</p>
-          <h2 className="font-display text-woolet-white text-2xl sm:text-3xl leading-tight mb-4">
-            How Woolet builds your bespoke glasses.
+          <h2 id="bespoke-preview-heading" className="font-display text-woolet-white text-2xl sm:text-3xl leading-tight mb-4">
+            How Woolet builds bespoke glasses for wide faces.
           </h2>
           <p className="text-[#D8D4CC] text-sm leading-relaxed mb-5">
-            The VIP group is the only place where early backers see the full process — from AI face scan to finished frame.
+            The VIP group is the only place where early backers see the full process — from AI face scan to a finished frame hand made in the EU. Click the preview to join the group.
           </p>
           <a
             href="https://www.facebook.com/groups/867413636043717/?utm_source=woolet.co&utm_medium=referral&utm_campaign=kickstarter_vip&utm_content=vip_confirmed_bespoke_preview"
@@ -129,7 +131,7 @@ const KickstarterVipConfirmed = () => {
           >
             <img
               src={vipBespokePreview.url}
-              alt="How Woolet builds bespoke glasses for wide faces"
+              alt="Video preview: How Woolet builds bespoke glasses for wide faces"
               className="w-full h-auto"
               loading="eager"
             />
