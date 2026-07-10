@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
+import vipBespokePreview from "@/assets/vip-bespoke-preview.png.asset.json";
 const logo = logoAsset.url;
 
 const KS_LAUNCH_DATE_LABEL = "September 19, 2026";
@@ -106,6 +107,34 @@ const KickstarterVipConfirmed = () => {
             Watch your inbox on <span className="text-woolet-white">{KS_LAUNCH_DATE_LABEL}</span> — we'll send your hidden-pledge link the moment the campaign opens.
           </p>
         </div>
+
+        {/* Bespoke preview — what VIPs see first */}
+        <section className="mt-10">
+          <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-3">Behind the scenes</p>
+          <h2 className="font-display text-woolet-white text-2xl sm:text-3xl leading-tight mb-4">
+            How Woolet builds your bespoke glasses.
+          </h2>
+          <p className="text-[#D8D4CC] text-sm leading-relaxed mb-5">
+            The VIP group is the only place where early backers see the full process — from AI face scan to finished frame.
+          </p>
+          <a
+            href="https://www.facebook.com/groups/867413636043717/?utm_source=woolet.co&utm_medium=referral&utm_campaign=kickstarter_vip&utm_content=vip_confirmed_bespoke_preview"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch the full bespoke process in the WOOLET VIP group"
+            onClick={trackVipFacebookGroupClick}
+            onAuxClick={trackVipFacebookGroupClick}
+            className="block rounded-sm overflow-hidden border hover:opacity-90 transition-opacity"
+            style={{ borderColor: "hsl(var(--gold) / 0.25)" }}
+          >
+            <img
+              src={vipBespokePreview.url}
+              alt="How Woolet builds bespoke glasses for wide faces"
+              className="w-full h-auto"
+              loading="eager"
+            />
+          </a>
+        </section>
 
         {/* VIP Facebook group — single CTA */}
         <section className="mt-10 border rounded-sm p-6 sm:p-8" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
