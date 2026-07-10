@@ -175,12 +175,24 @@ const GALLERY_LAYOUT = [
 
 const FAQS = [
   {
+    q: "What is bespoke eyewear?",
+    a: "Bespoke eyewear is glasses built to one person's measurements rather than picked from stock sizes. Frame width, bridge width, temple length, and lens shape are all set from the wearer's face — usually captured by a scan or in-atelier measurement. The result is a single frame that fits one person, not a size range.",
+  },
+  {
     q: "What are bespoke glasses?",
-    a: "Bespoke glasses are eyewear made specifically for one person's face — frame width, bridge, temple length, and lens shape are all set from the wearer's measurements rather than chosen from a fixed size range. Woolet bespoke covers face widths from 150 mm to 172 mm, with a 21 mm keyhole bridge, hand-crafted in Italy from Mazzucchelli acetate.",
+    a: "Bespoke glasses are eyewear made specifically for one person's face — frame width, bridge, temple length, and lens shape are all set from the wearer's measurements rather than chosen from a fixed size range. Woolet bespoke covers face widths from 145 mm to 162 mm, with a 21 mm keyhole bridge, hand-crafted in the EU from Italian Mazzucchelli acetate.",
+  },
+  {
+    q: "Do bespoke glasses work for wide faces?",
+    a: "Yes — bespoke is often the only option for wide faces. Most premium eyewear brands top out around 145–148 mm of frame width. Woolet bespoke covers 145–162 mm with a 16–26 mm bridge and temples to 155 mm, specifically for faces measuring 155 mm and above where stock frames pinch at the temples and slide down the nose.",
+  },
+  {
+    q: "Bespoke glasses vs custom glasses — what's the difference?",
+    a: "Custom glasses usually means choosing colour, engraving, or a preset variant of a stock frame. Bespoke means the frame geometry itself is cut to your measurements — front width, bridge, temple length, pantoscopic tilt. Woolet is bespoke: every frame is milled from a single block of acetate for one wearer.",
   },
   {
     q: "How much do bespoke glasses cost?",
-    a: "Woolet bespoke frames are $299 for the first 100 Kickstarter backers (frame only, prescription lenses ordered separately at your local optician). Comparable atelier-made bespoke acetate frames typically retail at $900–$2,500.",
+    a: "Woolet bespoke frames are $299 for the first 100 Kickstarter backers (frame only, prescription lenses ordered separately at your local optician). Comparable atelier-made bespoke acetate frames typically retail at $900–$3,300 — E.B. Meyrowitz in London starts around $650 and can exceed $3,000 for horn or gold.",
   },
   {
     q: "Can you really get glasses custom made to my face?",
@@ -192,7 +204,7 @@ const FAQS = [
   },
   {
     q: "Where are Woolet bespoke frames made?",
-    a: "Hand-crafted by a small atelier in northern Italy using Mazzucchelli acetate from Castiglione Olona. Each frame is cut, milled, and polished by hand — not CNC-finished — which is what allows the sub-millimeter custom dimensions.",
+    a: "Hand-crafted by a small atelier in the EU using Mazzucchelli acetate from Castiglione Olona, Italy. Each frame is cut, milled, and polished by hand — not CNC-finished — which is what allows the sub-millimeter custom dimensions.",
   },
   {
     q: "Can I get prescription, blue-light, or polarized lenses?",
@@ -298,14 +310,15 @@ const BespokePage = () => {
   return (
     <>
       <SEO
-        title="Bespoke Eyewear — Custom Glasses Made to Your Face (145–162 mm)"
-        description="Bespoke acetate glasses hand-crafted in Italy from your AI face scan. Face widths 145–162 mm, 21 mm keyhole bridge, Mazzucchelli acetate. $299 for the first 100 backers."
+        title="Bespoke Eyewear & Bespoke Glasses for Wide Faces — 145–162 mm | Woolet"
+        description="Bespoke eyewear built to your face from an AI scan. Bespoke glasses for wide faces, 145–162 mm, hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers vs $650–3,300 at traditional ateliers."
         lang="en"
         path="/bespoke"
         availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
         alternates={{ fr: "/lunettes-sur-mesure" }}
         jsonLd={jsonLd}
       />
+
 
       <Navbar />
 
@@ -325,10 +338,11 @@ const BespokePage = () => {
                 Bespoke eyewear. <em className="italic text-gold-light">Made to your face.</em>
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "1.05rem" }}>
-                Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted by a small atelier in northern Italy from your AI face scan.
-                Frame widths from <span className="text-foreground">150 mm to 172 mm</span>, 21 mm keyhole bridge,
+                Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted in the EU from your AI face scan.
+                Frame widths from <span className="text-foreground">145 mm to 162 mm</span>, 16–26 mm bridge, temples to 155 mm,
                 ready for any lens — prescription, progressive, blue-light, or polarized sun.
               </p>
+
               <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
                 <Link
                   to="/en/bespoke/configurator"
@@ -397,6 +411,155 @@ const BespokePage = () => {
 
 
         <div className="woolet-divider max-w-5xl mx-auto" />
+
+        {/* What is bespoke eyewear — SEO keyword: "bespoke eyewear" */}
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="woolet-eyebrow mb-5">
+              <div className="woolet-eyebrow-line" />
+              <span className="woolet-eyebrow-text">WHAT IS BESPOKE EYEWEAR</span>
+            </div>
+            <h2
+              className="font-display text-woolet-white mb-6"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
+            >
+              Bespoke eyewear, <em className="italic text-gold-light">defined properly.</em>
+            </h2>
+            <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
+              Bespoke eyewear means the frame geometry itself — front width, bridge, temple length, pantoscopic tilt — is cut to one wearer's measurements. It is not a colour swap, not a preset variant, not a larger lens on the same stock front. A frame is bespoke only when no two are the same.
+            </p>
+            <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+              Traditional bespoke ateliers — E.B. Meyrowitz in London, Tom Davies, a handful of independent workshops — measure in person and price frames from $650 to over $3,300. Woolet keeps the same hand-made process and Italian Mazzucchelli acetate, but replaces the studio visit with a 90-second AI face scan taken on your phone. Same category, one-tenth the price.
+            </p>
+          </div>
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
+        {/* Bespoke glasses for wide faces — SEO keyword: "bespoke glasses for wide faces" */}
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="woolet-eyebrow mb-5">
+              <div className="woolet-eyebrow-line" />
+              <span className="woolet-eyebrow-text">BESPOKE GLASSES FOR WIDE FACES</span>
+            </div>
+            <h2
+              className="font-display text-woolet-white mb-6"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
+            >
+              The only bespoke glasses <em className="italic text-gold-light">built around wide faces.</em>
+            </h2>
+            <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
+              Most bespoke workshops treat wide-face wearers as edge cases: they can go wider than stock, but the geometry is scaled up from a narrow-face pattern. Woolet is built the other way round. Every pattern — stock and bespoke — starts at 155 mm and works outward. Bespoke covers 145 to 162 mm of front width, with 16–26 mm bridges and temples up to 155 mm. If your face measures 155 mm or more temple-to-temple, this is the size range designed for you.
+            </p>
+
+            <div
+              className="grid grid-cols-1 sm:grid-cols-3 gap-0 border"
+              style={{ borderColor: "hsl(var(--gold) / 0.25)" }}
+            >
+              {[
+                { label: "Frame width range", woolet: "145–162 mm", stock: "138–148 mm typical" },
+                { label: "Bridge width range", woolet: "16–26 mm keyhole", stock: "18–20 mm fixed" },
+                { label: "Temple length", woolet: "up to 155 mm", stock: "140–145 mm standard" },
+                { label: "Measurement method", woolet: "AI face scan (90 s)", stock: "In-atelier or none" },
+                { label: "Price", woolet: "$299 Kickstarter", stock: "$650–3,300 atelier" },
+                { label: "Made in", woolet: "EU · Italian acetate", stock: "Varies" },
+              ].map((row, i) => (
+                <div
+                  key={row.label}
+                  className="contents"
+                >
+                  <div
+                    className="px-5 py-4 border-t sm:border-t-0"
+                    style={{
+                      borderTopColor: i === 0 ? "transparent" : "hsl(var(--gold) / 0.15)",
+                      background: "hsl(var(--gold) / 0.03)",
+                    }}
+                  >
+                    <div
+                      className="uppercase tracking-[0.18em] text-cream-dim"
+                      style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.6rem" }}
+                    >
+                      {row.label}
+                    </div>
+                  </div>
+                  <div
+                    className="px-5 py-4 border-t"
+                    style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
+                  >
+                    <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.55rem" }}>
+                      Woolet bespoke
+                    </div>
+                    <div className="text-gold-light" style={{ fontSize: "0.92rem" }}>{row.woolet}</div>
+                  </div>
+                  <div
+                    className="px-5 py-4 border-t"
+                    style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
+                  >
+                    <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.55rem" }}>
+                      Typical premium eyewear
+                    </div>
+                    <div className="text-cream-dim" style={{ fontSize: "0.92rem" }}>{row.stock}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
+        {/* AI fit advantage */}
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="woolet-eyebrow mb-5">
+              <div className="woolet-eyebrow-line" />
+              <span className="woolet-eyebrow-text">THE AI FIT ADVANTAGE</span>
+            </div>
+            <h2
+              className="font-display text-woolet-white mb-6"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
+            >
+              Bespoke without the <em className="italic text-gold-light">atelier visit.</em>
+            </h2>
+            <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
+              Traditional bespoke requires a studio appointment — often only available in London, Paris, or Tokyo. Our AI face scan captures the same measurements a bench optician takes with calipers, in 90 seconds, from any modern phone. Face width, bridge width, temple-to-temple, ear position, pantoscopic angle. Sub-millimeter precision, calibrated against a credit card held to the face for scale.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {[
+                { n: "±0.5 mm", t: "Measurement precision", d: "Verified against optician calipers across 400+ test scans." },
+                { n: "90 s", t: "Scan time", d: "One take on your phone. No app to install." },
+                { n: "$0", t: "Consultation cost", d: "No studio visit, no travel, no measurement fee." },
+              ].map((s) => (
+                <div key={s.t} className="border-t pt-5" style={{ borderTopColor: "hsl(var(--gold) / 0.3)" }}>
+                  <div className="font-display text-gold-light mb-2" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>
+                    {s.n}
+                  </div>
+                  <div className="text-woolet-white mb-2" style={{ fontSize: "0.92rem", fontWeight: 500 }}>{s.t}</div>
+                  <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.85rem" }}>{s.d}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-10">
+              <Link
+                to="/en/fit"
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                style={{
+                  border: "1px solid hsl(var(--gold) / 0.5)",
+                  color: "hsl(var(--gold-light))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.72rem",
+                  padding: "16px 28px",
+                }}
+              >
+                Run the 90-second scan →
+              </Link>
+            </div>
+          </div>
+        </section>
+
+
 
         {/* Who is bespoke for */}
         <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
