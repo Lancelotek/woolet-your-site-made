@@ -301,6 +301,65 @@ export default function FitBespoke() {
           </div>
         </section>
 
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
+        {/* Check also — internal links to bespoke anchors */}
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="woolet-eyebrow mb-5">
+              <div className="woolet-eyebrow-line" />
+              <span className="woolet-eyebrow-text">Check also</span>
+            </div>
+            <h2
+              className="font-display text-woolet-white leading-[1.05] mb-5"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
+            >
+              Compare the full bespoke{" "}
+              <em className="italic text-gold-light" style={{ fontStyle: "italic" }}>
+                offering.
+              </em>
+            </h2>
+            <p
+              className="text-cream-dim leading-relaxed max-w-2xl mb-8"
+              style={{ fontSize: "1rem" }}
+            >
+              See how Woolet defines bespoke eyewear and why our 145–162 mm range is made for faces standard brands ignore.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                to="/en/bespoke#bespoke-eyewear"
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                style={{
+                  background: "hsl(var(--gold))",
+                  color: "hsl(var(--background))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.72rem",
+                  padding: "16px 28px",
+                }}
+              >
+                What is bespoke eyewear
+              </Link>
+              <Link
+                to="/en/bespoke#bespoke-glasses-for-wide-faces"
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                style={{
+                  border: "1px solid hsl(var(--gold) / 0.55)",
+                  color: "hsl(var(--gold-light))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.72rem",
+                  padding: "16px 28px",
+                }}
+              >
+                Bespoke glasses for wide faces
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
         {/* Final CTA */}
         <section
           className="w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-24"
