@@ -175,12 +175,24 @@ const GALLERY_LAYOUT = [
 
 const FAQS = [
   {
+    q: "What is bespoke eyewear?",
+    a: "Bespoke eyewear is glasses built to one person's measurements rather than picked from stock sizes. Frame width, bridge width, temple length, and lens shape are all set from the wearer's face — usually captured by a scan or in-atelier measurement. The result is a single frame that fits one person, not a size range.",
+  },
+  {
     q: "What are bespoke glasses?",
-    a: "Bespoke glasses are eyewear made specifically for one person's face — frame width, bridge, temple length, and lens shape are all set from the wearer's measurements rather than chosen from a fixed size range. Woolet bespoke covers face widths from 150 mm to 172 mm, with a 21 mm keyhole bridge, hand-crafted in Italy from Mazzucchelli acetate.",
+    a: "Bespoke glasses are eyewear made specifically for one person's face — frame width, bridge, temple length, and lens shape are all set from the wearer's measurements rather than chosen from a fixed size range. Woolet bespoke covers face widths from 145 mm to 162 mm, with a 21 mm keyhole bridge, hand-crafted in the EU from Italian Mazzucchelli acetate.",
+  },
+  {
+    q: "Do bespoke glasses work for wide faces?",
+    a: "Yes — bespoke is often the only option for wide faces. Most premium eyewear brands top out around 145–148 mm of frame width. Woolet bespoke covers 145–162 mm with a 16–26 mm bridge and temples to 155 mm, specifically for faces measuring 155 mm and above where stock frames pinch at the temples and slide down the nose.",
+  },
+  {
+    q: "Bespoke glasses vs custom glasses — what's the difference?",
+    a: "Custom glasses usually means choosing colour, engraving, or a preset variant of a stock frame. Bespoke means the frame geometry itself is cut to your measurements — front width, bridge, temple length, pantoscopic tilt. Woolet is bespoke: every frame is milled from a single block of acetate for one wearer.",
   },
   {
     q: "How much do bespoke glasses cost?",
-    a: "Woolet bespoke frames are $299 for the first 100 Kickstarter backers (frame only, prescription lenses ordered separately at your local optician). Comparable atelier-made bespoke acetate frames typically retail at $900–$2,500.",
+    a: "Woolet bespoke frames are $299 for the first 100 Kickstarter backers (frame only, prescription lenses ordered separately at your local optician). Comparable atelier-made bespoke acetate frames typically retail at $900–$3,300 — E.B. Meyrowitz in London starts around $650 and can exceed $3,000 for horn or gold.",
   },
   {
     q: "Can you really get glasses custom made to my face?",
@@ -192,7 +204,7 @@ const FAQS = [
   },
   {
     q: "Where are Woolet bespoke frames made?",
-    a: "Hand-crafted by a small atelier in northern Italy using Mazzucchelli acetate from Castiglione Olona. Each frame is cut, milled, and polished by hand — not CNC-finished — which is what allows the sub-millimeter custom dimensions.",
+    a: "Hand-crafted by a small atelier in the EU using Mazzucchelli acetate from Castiglione Olona, Italy. Each frame is cut, milled, and polished by hand — not CNC-finished — which is what allows the sub-millimeter custom dimensions.",
   },
   {
     q: "Can I get prescription, blue-light, or polarized lenses?",
