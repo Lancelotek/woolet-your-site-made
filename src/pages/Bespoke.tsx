@@ -338,10 +338,11 @@ const BespokePage = () => {
                 Bespoke eyewear. <em className="italic text-gold-light">Made to your face.</em>
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "1.05rem" }}>
-                Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted by a small atelier in northern Italy from your AI face scan.
-                Frame widths from <span className="text-foreground">150 mm to 172 mm</span>, 21 mm keyhole bridge,
+                Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted in the EU from your AI face scan.
+                Frame widths from <span className="text-foreground">145 mm to 162 mm</span>, 16–26 mm bridge, temples to 155 mm,
                 ready for any lens — prescription, progressive, blue-light, or polarized sun.
               </p>
+
               <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
                 <Link
                   to="/en/bespoke/configurator"
