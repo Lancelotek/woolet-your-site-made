@@ -219,8 +219,8 @@ export default function FitBespoke() {
                 },
                 {
                   title: "Bespoke wins",
-                  body: "Face outside 155–161 mm or bridge outside 21–22 mm. Asymmetric ears. Unusual pantoscopic tilt. Stock can't fit.",
-                  cta: { label: "Reserve a bespoke spot", to: "/en/bespoke" },
+                  body: "Face outside 155–161 mm or bridge outside 21–22 mm. Asymmetric ears. Unusual pantoscopic tilt. Stock can't fit. See why our bespoke glasses for wide faces are the right path.",
+                  cta: { label: "Bespoke glasses for wide faces", to: "/en/bespoke#bespoke-glasses-for-wide-faces" },
                 },
                 {
                   title: "Not sure",
