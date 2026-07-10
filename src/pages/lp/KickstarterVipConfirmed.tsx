@@ -77,6 +77,8 @@ const KickstarterVipConfirmed = () => {
     <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
         <title>You're on the VIP list — Woolet Kickstarter</title>
+        <meta name="description" content="You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch." />
+        <meta property="og:description" content="You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch." />
         <meta name="robots" content="noindex" />
       </Helmet>
 
