@@ -310,14 +310,15 @@ const BespokePage = () => {
   return (
     <>
       <SEO
-        title="Bespoke Eyewear — Custom Glasses Made to Your Face (145–162 mm)"
-        description="Bespoke acetate glasses hand-crafted in Italy from your AI face scan. Face widths 145–162 mm, 21 mm keyhole bridge, Mazzucchelli acetate. $299 for the first 100 backers."
+        title="Bespoke Eyewear & Bespoke Glasses for Wide Faces — 145–162 mm | Woolet"
+        description="Bespoke eyewear built to your face from an AI scan. Bespoke glasses for wide faces, 145–162 mm, hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers vs $650–3,300 at traditional ateliers."
         lang="en"
         path="/bespoke"
         availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
         alternates={{ fr: "/lunettes-sur-mesure" }}
         jsonLd={jsonLd}
       />
+
 
       <Navbar />
 
