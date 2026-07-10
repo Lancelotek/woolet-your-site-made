@@ -115,7 +115,7 @@ const KickstarterVipConfirmed = () => {
             How Woolet builds your bespoke glasses.
           </h2>
           <p className="text-[#D8D4CC] text-sm leading-relaxed mb-5">
-            The VIP group is the only place where early backers see the full process — from face scan to hand-finished frame.
+            The VIP group is the only place where early backers see the full process — from AI face scan to finished frame.
           </p>
           <div className="rounded-sm overflow-hidden border" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
             <img
