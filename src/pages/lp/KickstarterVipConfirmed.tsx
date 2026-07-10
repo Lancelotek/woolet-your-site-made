@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
+import vipBespokePreview from "@/assets/vip-bespoke-preview.png.asset.json";
 const logo = logoAsset.url;
 
 const KS_LAUNCH_DATE_LABEL = "September 19, 2026";
