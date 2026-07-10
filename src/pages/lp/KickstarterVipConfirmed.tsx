@@ -108,6 +108,25 @@ const KickstarterVipConfirmed = () => {
           </p>
         </div>
 
+        {/* Bespoke preview — what VIPs see first */}
+        <section className="mt-10">
+          <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-3">Behind the scenes</p>
+          <h2 className="font-display text-woolet-white text-2xl sm:text-3xl leading-tight mb-4">
+            How Woolet builds your bespoke glasses.
+          </h2>
+          <p className="text-[#D8D4CC] text-sm leading-relaxed mb-5">
+            The VIP group is the only place where early backers see the full process — from face scan to hand-finished frame.
+          </p>
+          <div className="rounded-sm overflow-hidden border" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
+            <img
+              src={vipBespokePreview.url}
+              alt="How Woolet builds bespoke glasses for wide faces"
+              className="w-full h-auto"
+              loading="eager"
+            />
+          </div>
+        </section>
+
         {/* VIP Facebook group — single CTA */}
         <section className="mt-10 border rounded-sm p-6 sm:p-8" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
           <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-3">Shape the product</p>
