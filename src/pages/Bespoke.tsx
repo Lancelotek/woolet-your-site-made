@@ -413,7 +413,7 @@ const BespokePage = () => {
         <div className="woolet-divider max-w-5xl mx-auto" />
 
         {/* What is bespoke eyewear — SEO keyword: "bespoke eyewear" */}
-        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
+        <section id="bespoke-eyewear" className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto">
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />
@@ -437,7 +437,7 @@ const BespokePage = () => {
         <div className="woolet-divider max-w-5xl mx-auto" />
 
         {/* Bespoke glasses for wide faces — SEO keyword: "bespoke glasses for wide faces" */}
-        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
+        <section id="bespoke-glasses-for-wide-faces" className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto">
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />

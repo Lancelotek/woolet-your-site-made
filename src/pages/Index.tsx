@@ -928,8 +928,14 @@ const Index = () => {
               className="text-cream-dim leading-relaxed max-w-[680px]"
               style={{ fontSize: "1.02rem" }}
             >
-              Our signature frames fit 155–161 mm. Bespoke covers everything else:
-              any width from 145 to 162 mm, 4 frame shapes, 60 colour &amp; size
+              Our signature frames fit 155–161 mm. For measurements outside that range, explore our{" "}
+              <Link to="/en/bespoke#bespoke-eyewear" className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
+                bespoke eyewear
+              </Link>{" "}
+              — or go straight to{" "}
+              <Link to="/en/bespoke#bespoke-glasses-for-wide-faces" className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
+                bespoke glasses for wide faces
+              </Link>. Bespoke covers any width from 145 to 162 mm, 4 frame shapes, 60 colour &amp; size
               combinations — built to measure, for everyone.
             </p>
 

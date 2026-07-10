@@ -123,8 +123,15 @@ const Collection = () => {
                 className="text-cream-dim leading-relaxed max-w-2xl mb-10"
                 style={{ fontSize: "1rem" }}
               >
-                Every frame can be made to your exact measurements — from 150 mm up to
-                172 mm front width, with a bridge tailored to your nose. Choose your
+                Every frame can be made to your exact measurements — from 145 mm up to
+                162 mm front width, with a bridge tailored to your nose. Learn more about{" "}
+                <Link to="/en/bespoke#bespoke-eyewear" className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
+                  bespoke eyewear
+                </Link>{" "}
+                or{" "}
+                <Link to="/en/bespoke#bespoke-glasses-for-wide-faces" className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
+                  bespoke glasses for wide faces
+                </Link>, then choose your
                 acetate colour, finish, engraving, and lenses in the configurator.
               </p>
 
