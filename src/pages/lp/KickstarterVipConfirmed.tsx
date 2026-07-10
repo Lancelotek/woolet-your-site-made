@@ -117,14 +117,23 @@ const KickstarterVipConfirmed = () => {
           <p className="text-[#D8D4CC] text-sm leading-relaxed mb-5">
             The VIP group is the only place where early backers see the full process — from AI face scan to finished frame.
           </p>
-          <div className="rounded-sm overflow-hidden border" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
+          <a
+            href="https://www.facebook.com/groups/867413636043717/?utm_source=woolet.co&utm_medium=referral&utm_campaign=kickstarter_vip&utm_content=vip_confirmed_bespoke_preview"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch the full bespoke process in the WOOLET VIP group"
+            onClick={trackVipFacebookGroupClick}
+            onAuxClick={trackVipFacebookGroupClick}
+            className="block rounded-sm overflow-hidden border hover:opacity-90 transition-opacity"
+            style={{ borderColor: "hsl(var(--gold) / 0.25)" }}
+          >
             <img
               src={vipBespokePreview.url}
               alt="How Woolet builds bespoke glasses for wide faces"
               className="w-full h-auto"
               loading="eager"
             />
-          </div>
+          </a>
         </section>
 
         {/* VIP Facebook group — single CTA */}
