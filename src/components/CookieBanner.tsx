@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const STORAGE_KEY = "woolet_consent_v1";
 const SIX_MONTHS_MS = 1000 * 60 * 60 * 24 * 30 * 6;
@@ -16,27 +16,44 @@ declare global {
   }
 }
 
-const gtag = (...args: unknown[]) => {
+// ---------- GTM dataLayer helpers ----------
+const dl = (payload: Record<string, unknown>) => {
   window.dataLayer = window.dataLayer || [];
-  // Use dataLayer.push directly so it works regardless of when GTM loads
-  window.dataLayer.push(args as unknown as Record<string, unknown>);
+  window.dataLayer.push(payload);
 };
 
-const updateConsent = (state: ConsentState) => {
-  gtag("consent", "update", state);
+const gtagConsent = (state: ConsentState) => {
+  window.dataLayer = window.dataLayer || [];
+  // consent update via dataLayer so it works regardless of GTM load order
+  window.dataLayer.push(["consent", "update", state] as unknown as Record<string, unknown>);
+};
+
+const persist = (state: ConsentState) => {
   try {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ state, ts: Date.now() })
-    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ state, ts: Date.now() }));
   } catch {
-    // ignore
+    /* ignore */
   }
   try {
     window.dispatchEvent(new CustomEvent("woolet-consent-updated", { detail: state }));
   } catch {
-    // ignore
+    /* ignore */
   }
+};
+
+const applyConsent = (
+  state: ConsentState,
+  event: "cmp_accept_all" | "cmp_reject_all" | "cmp_partial_consent" | "cmp_auto_granted",
+) => {
+  gtagConsent(state);
+  persist(state);
+  const grantedCount = Object.values(state).filter((v) => v === "granted").length;
+  dl({
+    event,
+    cmp_ad_storage: state.ad_storage,
+    cmp_analytics_storage: state.analytics_storage,
+    cmp_granted_count: grantedCount,
+  });
 };
 
 const readSavedConsent = (): ConsentState | null => {
@@ -51,6 +68,78 @@ const readSavedConsent = (): ConsentState | null => {
   }
 };
 
+// ---------- Region detection (EEA + UK + CH) ----------
+// GDPR/ePrivacy applies to EEA + UK + Switzerland. Outside this region we can
+// grant consent by default — GDPR does not apply, and unblocking remarketing
+// (esp. US traffic) is the primary business goal here.
+const GDPR_TIMEZONES = new Set([
+  // EEA
+  "Europe/Vienna", "Europe/Brussels", "Europe/Sofia", "Europe/Zagreb",
+  "Asia/Nicosia", "Europe/Prague", "Europe/Copenhagen", "Europe/Tallinn",
+  "Europe/Helsinki", "Europe/Paris", "Europe/Berlin", "Europe/Busingen",
+  "Europe/Athens", "Europe/Budapest", "Atlantic/Reykjavik", "Europe/Dublin",
+  "Europe/Rome", "Europe/Riga", "Europe/Vaduz", "Europe/Vilnius",
+  "Europe/Luxembourg", "Europe/Malta", "Europe/Amsterdam", "Europe/Oslo",
+  "Europe/Warsaw", "Europe/Lisbon", "Atlantic/Madeira", "Atlantic/Azores",
+  "Europe/Bucharest", "Europe/Bratislava", "Europe/Ljubljana", "Europe/Madrid",
+  "Atlantic/Canary", "Europe/Stockholm",
+  // UK
+  "Europe/London", "Europe/Belfast", "Europe/Guernsey", "Europe/Jersey", "Europe/Isle_of_Man",
+  // Switzerland
+  "Europe/Zurich",
+]);
+
+const isGdprRegion = (): boolean => {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (GDPR_TIMEZONES.has(tz)) return true;
+    // Fallback: any Europe/* timezone → treat as GDPR to be safe.
+    if (tz && tz.startsWith("Europe/")) return true;
+    return false;
+  } catch {
+    // If detection fails, default to GDPR (safer legally).
+    return true;
+  }
+};
+
+// ---------- Locale detection ----------
+const detectLocale = (): "pl" | "en" => {
+  if (typeof window === "undefined") return "en";
+  const path = window.location.pathname;
+  if (path.startsWith("/pl") || path === "/pl") return "pl";
+  const lang = (navigator.language || "en").toLowerCase();
+  if (lang.startsWith("pl")) return "pl";
+  return "en";
+};
+
+// ---------- Copy ----------
+const COPY = {
+  en: {
+    headline: "Better fit, better recommendations.",
+    body: "Allow cookies so we can remember your fit preferences and show you frames that actually suit your face. You can change this anytime.",
+    accept: "Accept",
+    reject: "Reject",
+    customize: "Settings",
+    save: "Save preferences",
+    analytics: "Analytics — helps us improve fit and page performance",
+    ads: "Marketing — lets us show you Woolet instead of generic frame ads",
+    policy: "Privacy policy",
+    settingsIntro: "Choose what you're comfortable with. Both options are equally valid.",
+  },
+  pl: {
+    headline: "Lepsze dopasowanie, trafniejsze rekomendacje.",
+    body: "Zgódź się na cookies, żebyśmy zapamiętali Twoje preferencje dopasowania i pokazywali oprawki, które faktycznie pasują do Twojej twarzy. Zmienisz to w każdej chwili.",
+    accept: "Akceptuję",
+    reject: "Odrzucam",
+    customize: "Ustawienia",
+    save: "Zapisz wybór",
+    analytics: "Analityka — pomaga nam poprawiać dopasowanie i wydajność strony",
+    ads: "Marketing — pozwala pokazywać Ci Woolet zamiast losowych reklam oprawek",
+    policy: "Polityka prywatności",
+    settingsIntro: "Wybierz to, co Ci pasuje. Obie opcje są tak samo poprawne.",
+  },
+} as const;
+
 const SINGLETON_ATTR = "data-woolet-cookie-banner";
 
 const CookieBanner = () => {
@@ -60,6 +149,9 @@ const CookieBanner = () => {
   const [ads, setAds] = useState(true);
   const [isPrimary, setIsPrimary] = useState(false);
   const [bottomOffset, setBottomOffset] = useState(16);
+
+  const locale = useMemo(detectLocale, []);
+  const t = COPY[locale];
 
   // Avoid overlapping fixed bottom bars (e.g. bespoke configurator mobile CTA).
   useEffect(() => {
@@ -79,12 +171,8 @@ const CookieBanner = () => {
   }, []);
 
   useEffect(() => {
-    // Singleton guard — only one banner instance may render, ever.
-    // Defends against SSG/hydration duplication, StrictMode double-mount,
-    // and any stale DOM left from previous renders.
     if (typeof document === "undefined") return;
     const existing = document.querySelectorAll(`[${SINGLETON_ATTR}]`);
-    // Remove any orphan/static markup left by prerender or previous mounts
     existing.forEach((n) => n.remove());
     document.documentElement.setAttribute(SINGLETON_ATTR + "-owner", "1");
     setIsPrimary(true);
@@ -95,31 +183,53 @@ const CookieBanner = () => {
 
   useEffect(() => {
     if (!isPrimary) return;
+
     const saved = readSavedConsent();
     if (saved) {
-      // Re-apply on every load so GTM gets the right state in this session
-      gtag("consent", "update", saved);
+      // Re-apply on every load so GTM sees the right state in this session.
+      gtagConsent(saved);
+      dl({ event: "cmp_consent_restored" });
       try {
         window.dispatchEvent(new CustomEvent("woolet-consent-updated", { detail: saved }));
       } catch {
-        // ignore
+        /* ignore */
       }
       return;
     }
-    // Defer banner reveal until the browser is idle so it can never block FCP/LCP
-    const w = window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number };
-    const show = () => setVisible(true);
+
+    // Non-GDPR region: auto-grant so remarketing lists (esp. US) fill up.
+    // This is legally fine outside the EEA/UK/CH and directly unblocks the
+    // Google Ads 1p user list for AW-18213714775.
+    if (!isGdprRegion()) {
+      const auto: ConsentState = {
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        analytics_storage: "granted",
+      };
+      applyConsent(auto, "cmp_auto_granted");
+      return;
+    }
+
+    // GDPR region — reveal banner after idle so it never blocks LCP.
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+    };
+    const show = () => {
+      setVisible(true);
+      dl({ event: "cmp_banner_shown" });
+    };
     if (typeof w.requestIdleCallback === "function") {
       const id = w.requestIdleCallback(show, { timeout: 2000 });
       return () => {
-        const cancel = (window as unknown as { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
+        const cancel = (window as unknown as { cancelIdleCallback?: (id: number) => void })
+          .cancelIdleCallback;
         if (typeof cancel === "function") cancel(id);
       };
     }
-    const t = window.setTimeout(show, 800);
-    return () => window.clearTimeout(t);
+    const timer = window.setTimeout(show, 800);
+    return () => window.clearTimeout(timer);
   }, [isPrimary]);
-
 
   useEffect(() => {
     const handleOpenSettings = () => {
@@ -133,40 +243,57 @@ const CookieBanner = () => {
       }
       setCustomizing(true);
       setVisible(true);
+      dl({ event: "cmp_settings_opened", cmp_source: "footer_link" });
     };
     window.addEventListener("open-cookie-settings", handleOpenSettings);
-    return () =>
-      window.removeEventListener("open-cookie-settings", handleOpenSettings);
+    return () => window.removeEventListener("open-cookie-settings", handleOpenSettings);
   }, []);
 
   const acceptAll = () => {
-    updateConsent({
-      ad_storage: "granted",
-      ad_user_data: "granted",
-      ad_personalization: "granted",
-      analytics_storage: "granted",
-    });
+    applyConsent(
+      {
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        analytics_storage: "granted",
+      },
+      "cmp_accept_all",
+    );
     setVisible(false);
   };
 
   const rejectAll = () => {
-    updateConsent({
-      ad_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied",
-      analytics_storage: "denied",
-    });
+    applyConsent(
+      {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+      },
+      "cmp_reject_all",
+    );
     setVisible(false);
   };
 
   const saveCustom = () => {
-    updateConsent({
+    const state: ConsentState = {
       ad_storage: ads ? "granted" : "denied",
       ad_user_data: ads ? "granted" : "denied",
       ad_personalization: ads ? "granted" : "denied",
       analytics_storage: analytics ? "granted" : "denied",
-    });
+    };
+    const allGranted = ads && analytics;
+    const allDenied = !ads && !analytics;
+    applyConsent(
+      state,
+      allGranted ? "cmp_accept_all" : allDenied ? "cmp_reject_all" : "cmp_partial_consent",
+    );
     setVisible(false);
+  };
+
+  const openCustomize = () => {
+    setCustomizing(true);
+    dl({ event: "cmp_settings_opened", cmp_source: "banner_button" });
   };
 
   if (!isPrimary || !visible) return null;
@@ -174,114 +301,189 @@ const CookieBanner = () => {
   return (
     <div
       role="dialog"
-      aria-label="Cookie preferences"
+      aria-label={locale === "pl" ? "Preferencje cookies" : "Cookie preferences"}
+      aria-modal="false"
       {...{ [SINGLETON_ATTR]: "1" }}
-
       style={{
         position: "fixed",
         left: 16,
         right: 16,
         bottom: bottomOffset,
         zIndex: 10000,
-        maxWidth: 520,
+        maxWidth: 460,
         margin: "0 auto",
-        background: "#0f0f0f",
-        color: "#f0ece4",
-        borderRadius: 10,
-        boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
-        padding: 20,
-        fontFamily: "'Barlow', sans-serif",
-        fontSize: 13,
+        background: BG,
+        color: TEXT,
+        borderRadius: 12,
+        border: `1px solid ${BORDER}`,
+        boxShadow: "0 24px 60px rgba(0,0,0,0.45)",
+        padding: 22,
+        fontFamily: "'Archivo', system-ui, sans-serif",
+        fontSize: 14,
         lineHeight: 1.55,
       }}
     >
-      <p style={{ margin: 0, marginBottom: 14 }}>
-        We use cookies to improve your experience, measure traffic and show
-        relevant ads. You can accept all, reject all, or choose what to allow.
-        See our{" "}
-        <a
-          href="/en/privacy-policy"
-          style={{ color: "#c9a84c", textDecoration: "underline" }}
-        >
-          Privacy Policy
-        </a>
-        .
-      </p>
+      {!customizing && (
+        <>
+          <p
+            style={{
+              margin: 0,
+              marginBottom: 8,
+              fontFamily: "'Newsreader', 'Archivo', serif",
+              fontSize: 20,
+              lineHeight: 1.25,
+              color: TEXT,
+              letterSpacing: "-0.005em",
+            }}
+          >
+            {t.headline}
+          </p>
+          <p style={{ margin: 0, marginBottom: 18, color: MUTED, fontSize: 13.5 }}>
+            {t.body}{" "}
+            <a href={locale === "pl" ? "/pl/privacy-policy" : "/en/privacy-policy"} style={linkStyle}>
+              {t.policy}
+            </a>
+            .
+          </p>
 
-      {customizing && (
-        <div style={{ marginBottom: 14, display: "grid", gap: 8 }}>
-          <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <input
-              type="checkbox"
-              checked={analytics}
-              onChange={(e) => setAnalytics(e.target.checked)}
-            />
-            Analytics (page views, performance)
-          </label>
-          <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <input
-              type="checkbox"
-              checked={ads}
-              onChange={(e) => setAds(e.target.checked)}
-            />
-            Marketing (ad measurement & personalization)
-          </label>
-        </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            <button onClick={acceptAll} style={btnPrimary} type="button">
+              {t.accept}
+            </button>
+            <button onClick={rejectAll} style={btnSecondary} type="button">
+              {t.reject}
+            </button>
+          </div>
+
+          <button
+            onClick={openCustomize}
+            style={{
+              ...linkButtonStyle,
+              marginTop: 12,
+              width: "100%",
+              textAlign: "center",
+            }}
+            type="button"
+          >
+            {t.customize}
+          </button>
+        </>
       )}
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {!customizing && (
-          <>
-            <button onClick={acceptAll} style={btnPrimary}>
-              Accept all
+      {customizing && (
+        <>
+          <p style={{ margin: 0, marginBottom: 14, color: MUTED, fontSize: 13 }}>
+            {t.settingsIntro}
+          </p>
+
+          <div style={{ marginBottom: 18, display: "grid", gap: 10 }}>
+            <label style={rowStyle}>
+              <input
+                type="checkbox"
+                checked={analytics}
+                onChange={(e) => setAnalytics(e.target.checked)}
+                style={checkboxStyle}
+              />
+              <span>{t.analytics}</span>
+            </label>
+            <label style={rowStyle}>
+              <input
+                type="checkbox"
+                checked={ads}
+                onChange={(e) => setAds(e.target.checked)}
+                style={checkboxStyle}
+              />
+              <span>{t.ads}</span>
+            </label>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            <button onClick={saveCustom} style={btnPrimary} type="button">
+              {t.save}
             </button>
-            <button onClick={rejectAll} style={btnGhost}>
-              Reject all
+            <button onClick={rejectAll} style={btnSecondary} type="button">
+              {t.reject}
             </button>
-            <button onClick={() => setCustomizing(true)} style={btnGhost}>
-              Customize
-            </button>
-          </>
-        )}
-        {customizing && (
-          <>
-            <button onClick={saveCustom} style={btnPrimary}>
-              Save preferences
-            </button>
-            <button onClick={acceptAll} style={btnGhost}>
-              Accept all
-            </button>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
+// ---------- Brand tokens (Woolet Brand Book v1.0, per-task overrides) ----------
+const BG = "#080807";           // Ink
+const TEXT = "#EDE7D9";         // Cream
+const MUTED = "rgba(237,231,217,0.72)";
+const BORDER = "rgba(202,164,73,0.22)";
+const GOLD = "#CAA449";
+const GOLD_INK = "#1F1B16";
+
 const btnBase: React.CSSProperties = {
-  fontFamily: "'Barlow', sans-serif",
+  fontFamily: "'Archivo', system-ui, sans-serif",
   fontSize: 12,
-  letterSpacing: "1.5px",
+  fontWeight: 600,
+  letterSpacing: "1.4px",
   textTransform: "uppercase",
-  padding: "10px 16px",
-  borderRadius: 4,
+  padding: "12px 14px",
+  borderRadius: 2, // brand: never pill
   cursor: "pointer",
   border: "1px solid transparent",
+  minHeight: 44, // a11y tap target
 };
 
 const btnPrimary: React.CSSProperties = {
   ...btnBase,
-  background: "#c9a84c",
-  color: "#0f0f0f",
-  borderColor: "#c9a84c",
-  fontWeight: 600,
+  background: GOLD,
+  color: GOLD_INK,
+  borderColor: GOLD,
 };
 
-const btnGhost: React.CSSProperties = {
+// Equal weight to primary: same size, same font, high-contrast outline.
+// Legal parity — reject must be as easy as accept.
+const btnSecondary: React.CSSProperties = {
   ...btnBase,
   background: "transparent",
-  color: "#f0ece4",
-  borderColor: "rgba(240,236,228,0.4)",
+  color: TEXT,
+  borderColor: "rgba(237,231,217,0.55)",
+};
+
+const linkStyle: React.CSSProperties = {
+  color: GOLD,
+  textDecoration: "underline",
+  textUnderlineOffset: 2,
+};
+
+const linkButtonStyle: React.CSSProperties = {
+  background: "transparent",
+  border: "none",
+  color: MUTED,
+  fontFamily: "'Archivo', system-ui, sans-serif",
+  fontSize: 12,
+  letterSpacing: "1.2px",
+  textTransform: "uppercase",
+  cursor: "pointer",
+  padding: "6px 8px",
+  textDecoration: "underline",
+  textUnderlineOffset: 3,
+};
+
+const rowStyle: React.CSSProperties = {
+  display: "flex",
+  alignItems: "flex-start",
+  gap: 10,
+  fontSize: 13,
+  color: TEXT,
+  cursor: "pointer",
+  lineHeight: 1.5,
+};
+
+const checkboxStyle: React.CSSProperties = {
+  marginTop: 3,
+  accentColor: GOLD,
+  width: 16,
+  height: 16,
+  flexShrink: 0,
 };
 
 export default CookieBanner;
