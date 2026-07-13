@@ -44,6 +44,7 @@ const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"))
 const ProductPageBespoke = lazy(() => import("./pages/products/ProductPageBespoke.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
+const TheBox = lazy(() => import("./pages/TheBox.tsx"));
 const Bespoke = lazy(() => import("./pages/Bespoke.tsx"));
 const BespokeConfigurator = lazy(() => import("./pages/bespoke/Configurator.tsx"));
 const BespokeScan = lazy(() => import("./pages/bespoke/Scan.tsx"));
@@ -194,6 +195,8 @@ const App = () => (
           <Route path="/en/products/bespoke" element={<ProductPageBespoke />} />
           <Route path="/en/about" element={<About />} />
           <Route path="/en/process" element={<Process />} />
+          <Route path="/en/the-box" element={<TheBox />} />
+          <Route path="/:lang/the-box" element={<Navigate to="/en/the-box" replace />} />
           <Route path="/:lang/process" element={<RedirectToEn to="/process" />} />
           <Route path="/en/bespoke" element={<Bespoke />} />
           <Route path="/en/bespoke/configurator" element={<BespokeConfigurator />} />
