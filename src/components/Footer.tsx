@@ -45,9 +45,10 @@ const Footer = () => {
       ],
     },
     {
-      heading: "Learn",
+      heading: "Craft",
       links: [
         { label: "Process", href: `/${lang}/process` },
+        { label: "The Box", href: `/${lang}/the-box` },
         { label: t(lang, "footer.why_fail"), href: `/${lang}/lp/why-glasses-fail` },
         { label: t(lang, "footer.5_reasons"), href: `/${lang}/lp/5-reasons` },
         { label: "Bridge Fit Guide", href: `/${lang}/lp/wide-bridge-fit-guide` },
