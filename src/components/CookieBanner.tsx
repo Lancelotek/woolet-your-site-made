@@ -264,10 +264,36 @@ const CookieBanner = () => {
       return;
     }
 
-    // Non-GDPR region: auto-grant so remarketing lists (esp. US) fill up.
-    // This is legally fine outside the EEA/UK/CH and directly unblocks the
-    // Google Ads 1p user list for AW-18213714775.
-    if (!isGdprRegion()) {
+    let cancelled = false;
+    let idleId: number | null = null;
+    let timerId: number | null = null;
+
+    const showBanner = () => {
+      if (cancelled) return;
+      const w = window as Window & {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      };
+      const show = () => {
+        if (cancelled) return;
+        setVisible(true);
+        dl({ event: "cmp_banner_shown" });
+      };
+      if (typeof w.requestIdleCallback === "function") {
+        idleId = w.requestIdleCallback(show, { timeout: 2000 });
+      } else {
+        timerId = window.setTimeout(show, 800);
+      }
+    };
+
+    (async () => {
+      const gdpr = await resolveIsGdpr();
+      if (cancelled) return;
+      // Hard safety: EEA/UK/CH users NEVER auto-grant. Show the banner.
+      if (gdpr) {
+        showBanner();
+        return;
+      }
+      // Non-GDPR region: auto-grant so remarketing lists fill up.
       const auto: ConsentState = {
         ad_storage: "granted",
         ad_user_data: "granted",
@@ -275,28 +301,19 @@ const CookieBanner = () => {
         analytics_storage: "granted",
       };
       applyConsent(auto, "cmp_auto_granted");
-      return;
-    }
+    })();
 
-    // GDPR region — reveal banner after idle so it never blocks LCP.
-    const w = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-    };
-    const show = () => {
-      setVisible(true);
-      dl({ event: "cmp_banner_shown" });
-    };
-    if (typeof w.requestIdleCallback === "function") {
-      const id = w.requestIdleCallback(show, { timeout: 2000 });
-      return () => {
+    return () => {
+      cancelled = true;
+      if (idleId != null) {
         const cancel = (window as unknown as { cancelIdleCallback?: (id: number) => void })
           .cancelIdleCallback;
-        if (typeof cancel === "function") cancel(id);
-      };
-    }
-    const timer = window.setTimeout(show, 800);
-    return () => window.clearTimeout(timer);
+        if (typeof cancel === "function") cancel(idleId);
+      }
+      if (timerId != null) window.clearTimeout(timerId);
+    };
   }, [isPrimary]);
+
 
   useEffect(() => {
     const handleOpenSettings = () => {
