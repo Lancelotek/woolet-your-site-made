@@ -44,6 +44,7 @@ const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"))
 const ProductPageBespoke = lazy(() => import("./pages/products/ProductPageBespoke.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
+const TheBox = lazy(() => import("./pages/TheBox.tsx"));
 const Bespoke = lazy(() => import("./pages/Bespoke.tsx"));
 const BespokeConfigurator = lazy(() => import("./pages/bespoke/Configurator.tsx"));
 const BespokeScan = lazy(() => import("./pages/bespoke/Scan.tsx"));
