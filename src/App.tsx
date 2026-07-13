@@ -194,6 +194,8 @@ const App = () => (
           <Route path="/en/products/bespoke" element={<ProductPageBespoke />} />
           <Route path="/en/about" element={<About />} />
           <Route path="/en/process" element={<Process />} />
+          <Route path="/en/the-box" element={<TheBox />} />
+          <Route path="/:lang/the-box" element={<Navigate to="/en/the-box" replace />} />
           <Route path="/:lang/process" element={<RedirectToEn to="/process" />} />
           <Route path="/en/bespoke" element={<Bespoke />} />
           <Route path="/en/bespoke/configurator" element={<BespokeConfigurator />} />
