@@ -69,9 +69,22 @@ const readSavedConsent = (): ConsentState | null => {
 };
 
 // ---------- Region detection (EEA + UK + CH) ----------
-// GDPR/ePrivacy applies to EEA + UK + Switzerland. Outside this region we can
-// grant consent by default — GDPR does not apply, and unblocking remarketing
-// (esp. US traffic) is the primary business goal here.
+// GDPR/ePrivacy applies to EEA + UK + Switzerland. Layered detection
+// (country → timezone → locale) that FAILS CLOSED: any ambiguity is
+// treated as GDPR region so auto-grant NEVER fires for an EEA/UK/CH user.
+const GDPR_COUNTRIES = new Set([
+  // EEA (EU 27)
+  "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR",
+  "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK",
+  "SI", "ES", "SE",
+  // EEA non-EU
+  "IS", "LI", "NO",
+  // UK + Crown Dependencies (UK GDPR)
+  "GB", "UK", "GG", "JE", "IM",
+  // Switzerland (FADP — treated as GDPR-equivalent here)
+  "CH",
+]);
+
 const GDPR_TIMEZONES = new Set([
   // EEA
   "Europe/Vienna", "Europe/Brussels", "Europe/Sofia", "Europe/Zagreb",
@@ -89,17 +102,71 @@ const GDPR_TIMEZONES = new Set([
   "Europe/Zurich",
 ]);
 
-const isGdprRegion = (): boolean => {
+// Country hints from navigator.language(s) region subtag (e.g. "en-GB" → "GB").
+const countriesFromNavigator = (): string[] => {
+  const out: string[] = [];
+  try {
+    const langs = (navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language]) as string[];
+    for (const l of langs) {
+      const m = /-([A-Za-z]{2})\b/.exec(l || "");
+      if (m) out.push(m[1].toUpperCase());
+    }
+  } catch { /* ignore */ }
+  return out;
+};
+
+const COUNTRY_CACHE_KEY = "woolet_country_v1";
+
+// Cloudflare trace: no key required, returns `loc=XX` (ISO country).
+const fetchCountry = async (): Promise<string | null> => {
+  try {
+    const cached = sessionStorage.getItem(COUNTRY_CACHE_KEY);
+    if (cached) return cached;
+  } catch { /* ignore */ }
+  try {
+    const ctrl = new AbortController();
+    const to = setTimeout(() => ctrl.abort(), 1500);
+    const res = await fetch("https://www.cloudflare.com/cdn-cgi/trace", {
+      signal: ctrl.signal,
+      cache: "force-cache",
+    });
+    clearTimeout(to);
+    const text = await res.text();
+    const m = /(?:^|\n)loc=([A-Z]{2})/.exec(text);
+    if (m) {
+      const cc = m[1].toUpperCase();
+      try { sessionStorage.setItem(COUNTRY_CACHE_KEY, cc); } catch { /* ignore */ }
+      return cc;
+    }
+  } catch { /* ignore */ }
+  return null;
+};
+
+const isGdprByTimezone = (): boolean => {
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!tz) return true;
     if (GDPR_TIMEZONES.has(tz)) return true;
-    // Fallback: any Europe/* timezone → treat as GDPR to be safe.
-    if (tz && tz.startsWith("Europe/")) return true;
+    if (tz.startsWith("Europe/")) return true;
     return false;
   } catch {
-    // If detection fails, default to GDPR (safer legally).
     return true;
   }
+};
+
+const isGdprByNavigator = (): boolean =>
+  countriesFromNavigator().some((c) => GDPR_COUNTRIES.has(c));
+
+// Returns true if ANY signal points to EEA/UK/CH. Country lookup is
+// authoritative — but unknown / failed lookup = GDPR (fail closed).
+const resolveIsGdpr = async (): Promise<boolean> => {
+  if (isGdprByTimezone()) return true;
+  if (isGdprByNavigator()) return true;
+  const cc = await fetchCountry();
+  if (!cc) return true; // fail closed
+  return GDPR_COUNTRIES.has(cc);
 };
 
 // ---------- Locale detection ----------
@@ -197,10 +264,36 @@ const CookieBanner = () => {
       return;
     }
 
-    // Non-GDPR region: auto-grant so remarketing lists (esp. US) fill up.
-    // This is legally fine outside the EEA/UK/CH and directly unblocks the
-    // Google Ads 1p user list for AW-18213714775.
-    if (!isGdprRegion()) {
+    let cancelled = false;
+    let idleId: number | null = null;
+    let timerId: number | null = null;
+
+    const showBanner = () => {
+      if (cancelled) return;
+      const w = window as Window & {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      };
+      const show = () => {
+        if (cancelled) return;
+        setVisible(true);
+        dl({ event: "cmp_banner_shown" });
+      };
+      if (typeof w.requestIdleCallback === "function") {
+        idleId = w.requestIdleCallback(show, { timeout: 2000 });
+      } else {
+        timerId = window.setTimeout(show, 800);
+      }
+    };
+
+    (async () => {
+      const gdpr = await resolveIsGdpr();
+      if (cancelled) return;
+      // Hard safety: EEA/UK/CH users NEVER auto-grant. Show the banner.
+      if (gdpr) {
+        showBanner();
+        return;
+      }
+      // Non-GDPR region: auto-grant so remarketing lists fill up.
       const auto: ConsentState = {
         ad_storage: "granted",
         ad_user_data: "granted",
@@ -208,28 +301,19 @@ const CookieBanner = () => {
         analytics_storage: "granted",
       };
       applyConsent(auto, "cmp_auto_granted");
-      return;
-    }
+    })();
 
-    // GDPR region — reveal banner after idle so it never blocks LCP.
-    const w = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-    };
-    const show = () => {
-      setVisible(true);
-      dl({ event: "cmp_banner_shown" });
-    };
-    if (typeof w.requestIdleCallback === "function") {
-      const id = w.requestIdleCallback(show, { timeout: 2000 });
-      return () => {
+    return () => {
+      cancelled = true;
+      if (idleId != null) {
         const cancel = (window as unknown as { cancelIdleCallback?: (id: number) => void })
           .cancelIdleCallback;
-        if (typeof cancel === "function") cancel(id);
-      };
-    }
-    const timer = window.setTimeout(show, 800);
-    return () => window.clearTimeout(timer);
+        if (typeof cancel === "function") cancel(idleId);
+      }
+      if (timerId != null) window.clearTimeout(timerId);
+    };
   }, [isPrimary]);
+
 
   useEffect(() => {
     const handleOpenSettings = () => {
