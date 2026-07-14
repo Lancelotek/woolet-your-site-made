@@ -518,8 +518,8 @@ const Index = () => {
   const copy = homeCopy[lang];
 
   const models = [
-    { id: "007", name: "Woolet 007", shape: copy.shapeRound, img: woolet007Asset.url, alt: "Woolet 007 round Italian acetate frame for wide faces" },
-    { id: "009", name: "Woolet 009", shape: copy.shapeSquare, img: woolet009Asset.url, alt: "Woolet 009 soft-square Italian acetate frame for wide faces" },
+    { id: "007", name: "Woolet 007", shape: copy.shapeRound, img: woolet007Asset.url, alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 21 mm keyhole bridge, for wide faces 155 mm+" },
+    { id: "009", name: "Woolet 009", shape: copy.shapeSquare, img: woolet009Asset.url, alt: "Woolet 009 — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 22 mm keyhole bridge, for wide faces 155 mm+" },
   ];
 
   return (

@@ -206,7 +206,7 @@ const ProductPage009 = () => {
               >
                 <img
                   src={activeImg}
-                  alt={`Woolet 009 — ${colorName}`}
+                  alt={`Woolet 009 — soft-square Italian acetate glasses in ${colorName}, 158 mm front · 22 mm keyhole bridge, wide-face fit`}
                   width={800}
                   height={600}
                   fetchPriority="high"

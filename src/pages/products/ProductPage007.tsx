@@ -222,7 +222,7 @@ const ProductPage007 = () => {
               >
                 <img
                   src={selectedColorObj.img}
-                  alt={`Woolet 007 — ${selectedColor}`}
+                  alt={`Woolet 007 — round panto Italian acetate glasses in ${selectedColor}, 158 mm front · 21 mm keyhole bridge, wide-face fit`}
                   width={800}
                   height={600}
                   fetchPriority="high"
