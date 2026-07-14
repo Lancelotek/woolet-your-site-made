@@ -3745,7 +3745,116 @@ Related guides:
 </p>
 `,
   },
+  {
+    slug: "how-to-tell-if-your-face-is-wide-or-narrow",
+    title: "How to Tell if Your Face Is Wide or Narrow (30-Second Test)",
+    excerpt: "A precise, honest way to classify your face width in millimetres — and what to do next, whether you're narrow (<140 mm), average (140–154 mm), wide (155–161 mm), or extra-wide (162 mm+).",
+    date: "2026-07-14",
+    readTime: 8,
+    tags: ["Guide", "Fit", "Bespoke"],
+    faq: [
+      { q: "What counts as a narrow face for glasses?", a: "Under about 138 mm temple-to-temple. Standard 'small' and 'petite' frames (125–135 mm total width) fit this range. Woolet does not — our smallest frame is 158 mm." },
+      { q: "What counts as a wide face?", a: "155 mm or more temple-to-temple. This is where mainstream brands stop and where Woolet begins. Above 161 mm, off-the-shelf 158 mm frames still bow at the temples — that is bespoke territory (150–172 mm)." },
+      { q: "How do I measure my face width at home?", a: "Hold a credit card (85.6 mm wide) horizontally under your eyes, take a straight-on selfie, and use the card as a ruler. Full method in our measurement guide." },
+      { q: "What if my face is 155–161 mm?", a: "You're in Woolet's stock range. The 007 (round) and 009 (soft square) are both built at 158 mm front / 21–22 mm keyhole bridge for this bracket." },
+      { q: "What if my face is above 162 mm?", a: "Off-the-shelf 158 mm will still pinch. Woolet Bespoke is cut to your exact face width and bridge (150–172 mm, 16–26 mm bridge)." },
+    ],
+    content: `
+<p>Most fit advice online skips the one thing that actually decides whether a frame will pinch or float on your face: <strong>your face width in millimetres</strong>. Not your face <em>shape</em>. Not your head circumference. The temple-to-temple distance, measured across the widest part of your cheekbones.</p>
+
+<p>This guide gives you a 30-second self-test, a clear four-band classification, and — honestly — tells you when Woolet is the answer and when it isn't.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The one number that matters</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Face width = the horizontal distance between the two most outward points of your cheekbones, measured in millimetres. This is the number opticians <em>should</em> match to frame front width — but rarely publish.</p>
+</div>
+
+<h2>The 30-second test</h2>
+
+<p>You need a standard credit or debit card (ISO/IEC 7810 ID-1 — <strong>85.60 mm wide</strong>, exactly, by international standard) and a phone camera.</p>
+
+<ol>
+  <li>Face a mirror or front camera, head straight, hair pushed back behind the ears.</li>
+  <li>Hold the card <strong>horizontally under your eyes</strong>, resting lightly against your cheeks. The long edge should sit roughly at nostril height.</li>
+  <li>Take a straight-on selfie (arm fully extended, camera at eye level).</li>
+  <li>Compare the card's edge to your temples on the photo. Multiply the ratio by 85.6.</li>
+</ol>
+
+<p>Example: if your face is <strong>1.8× wider</strong> than the card in the photo, your face width is <code>85.6 × 1.8 = 154 mm</code>.</p>
+
+<p>Prefer to skip the arithmetic? The <a href="/en/fit" style="color:#A07A2A;text-decoration:underline;">AI Fit Wizard</a> does the measurement from a single selfie. For a manual walkthrough with photos, see <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;text-decoration:underline;">How to Measure Face Width for Glasses</a>.</p>
+
+<h2>The four bands</h2>
+
+<p>Anthropometric data (<a href="https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">ANSUR II, US Army, 2012</a>; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Gordon et al., PMC4496583</a>) shows adult male face widths cluster around <strong>142 mm ±5 mm</strong>. Here is how that maps to what you can actually buy.</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
+  <thead>
+    <tr style="background:#0f0f0f;color:#f0ece4;">
+      <th style="padding:12px 14px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">Band</th>
+      <th style="padding:12px 14px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">Face width</th>
+      <th style="padding:12px 14px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">What fits</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px;font-weight:600;">Narrow</td><td style="padding:14px;">Under 138 mm</td><td style="padding:14px;">Petite / small frames (125–135 mm). Warby Parker Narrow, Zenni Petite, Eyebobs Small.</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="padding:14px;font-weight:600;">Average</td><td style="padding:14px;">138–154 mm</td><td style="padding:14px;">Standard mainstream frames (135–150 mm). Ray-Ban, Persol, Tom Ford, most Warby Parker.</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#F5EFDD;"><td style="padding:14px;font-weight:600;">Wide</td><td style="padding:14px;">155–161 mm</td><td style="padding:14px;"><strong>Woolet 007 or 009 (158 mm stock).</strong> Almost nothing else at premium tier.</td></tr>
+    <tr style="background:#EFE5C2;"><td style="padding:14px;font-weight:600;">Extra-wide</td><td style="padding:14px;">162 mm and above</td><td style="padding:14px;"><strong>Woolet Bespoke (150–172 mm).</strong> Off-the-shelf 158 mm will still pinch.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>What to do next — by band</h2>
+
+<h3 style="margin-top:28px;">If you're narrow (&lt;138 mm)</h3>
+
+<p>Honest answer: <strong>Woolet is not for you.</strong> Our smallest frame is 158 mm — it would slide down your nose and sit past your temples. Look at Warby Parker Narrow, Zenni Petite, Eyebobs Small, or Moscot's smaller sizes. Save yourself the return shipping.</p>
+
+<h3 style="margin-top:28px;">If you're average (138–154 mm)</h3>
+
+<p>You have the widest choice of any group — every mainstream brand builds for you. If your face is at the top of this band (150–154 mm) and you feel most frames still pinch slightly, look at Ray-Ban's Large series, Moscot Lemtosh XL, or Persol's wider models. Woolet's 158 mm will feel one size too big.</p>
+
+<h3 style="margin-top:28px;">If you're wide (155–161 mm)</h3>
+
+<p>This is the core Woolet range. Standard frames stop right before your face begins. <a href="/en/products/007" style="color:#A07A2A;text-decoration:underline;">Woolet 007</a> (round / panto) and <a href="/en/products/009" style="color:#A07A2A;text-decoration:underline;">Woolet 009</a> (soft square) are both built at 158 mm front width with a 21–22 mm keyhole bridge — engineered for exactly this bracket.</p>
+
+<h3 style="margin-top:28px;">If you're extra-wide (162 mm+)</h3>
+
+<p>Even our stock 158 mm will bow at the temples. This is <a href="/en/bespoke" style="color:#A07A2A;text-decoration:underline;">Woolet Bespoke</a> territory — every frame is cut to your exact face width (up to 172 mm) and bridge (16–26 mm), same Italian Mazzucchelli acetate, hand-finished in the EU. It's the only path that actually fits above 162 mm.</p>
+
+<div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">Not sure which band you're in?</div>
+  <p style="margin:0 0 18px 0;font-size:15px;line-height:1.65;">Run the <a href="/en/fit" style="color:#c9a84c;text-decoration:underline;">AI Fit Wizard</a> — one selfie, a credit card as reference, face width in millimetres, plus a shape recommendation. Free, no email required to see the number.</p>
+  <a href="/en/fit" style="display:inline-block;background:#c9a84c;color:#0f0f0f;padding:12px 22px;text-decoration:none;font-weight:600;font-size:13px;letter-spacing:1px;text-transform:uppercase;border-radius:2px;">Measure my face</a>
+</div>
+
+<h2>Why "face shape" advice usually misses this</h2>
+
+<p>Nearly every "best glasses for X face shape" article treats a 138 mm oval face the same as a 165 mm oval face. Shape helps you choose between round and square once a frame <em>fits</em>. Width decides whether it fits at all. If the front is 10 mm narrower than your face, the shape doesn't matter — it will pinch.</p>
+
+<p>That's the single reason we publish frame width in mm on every product page, and why our first question is never "what shape do you like" but "how wide is your face."</p>
+
+<h2>Common questions</h2>
+
+<p><strong>My head is large — does that mean my face is wide?</strong> Not automatically. Head circumference (measured around the skull) and face width (measured across the cheekbones) correlate loosely but not tightly. A 60 cm head can sit on a 148 mm face. Measure the face, not the head.</p>
+
+<p><strong>Does face width change with age?</strong> Marginally. Adult face width is set by bone structure; soft-tissue changes shift it by 1–2 mm at most.</p>
+
+<p><strong>What about women?</strong> Same method, same bands. Women's face widths cluster ~8 mm narrower on average (Gordon et al.), so the "wide" bracket is rarer — but real. Woolet's stock 158 mm suits a 155–161 mm face regardless of gender.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">
+Related guides:
+<a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure face width</a> ·
+<a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">wide-face fit guide</a> ·
+<a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide" style="color:#A07A2A;">bespoke size range 150–172 mm</a> ·
+<a href="/en/fit" style="color:#A07A2A;">AI Fit Wizard</a>.
+</p>
+`,
+  },
 ];
+
 
 
 const blogPostsPL: BlogPost[] = [
