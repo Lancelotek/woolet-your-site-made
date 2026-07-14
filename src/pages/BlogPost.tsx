@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import RelatedGuides from "@/components/RelatedGuides";
 import RelatedPosts from "@/components/RelatedPosts";
+import FaceWidthQuiz from "@/components/FaceWidthQuiz";
 import { getBlogPost } from "@/lib/blog-data";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
@@ -301,6 +302,9 @@ const BlogPost = () => {
 
         {/* TOC */}
         <TableOfContents headings={headings} lang={currentLang} />
+
+        {/* Interactive quiz — appears at top of the face-width guide */}
+        {post.slug === "how-to-tell-if-your-face-is-wide-or-narrow" && <FaceWidthQuiz />}
 
         {/* Article body */}
         <div
