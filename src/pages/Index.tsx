@@ -766,7 +766,7 @@ const Index = () => {
           <div className="max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-16 py-5 lg:py-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
             <div
               className="uppercase tracking-[0.24em] shrink-0"
-              style={{ fontSize: "0.7rem", color: "#CAA449", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
+              style={{ fontSize: "0.7rem", color: "#5F4C1F", fontFamily: "Barlow, sans-serif", fontWeight: 700 }}
             >
               FitLens
             </div>
