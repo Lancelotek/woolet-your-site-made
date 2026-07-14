@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, Link, Navigate } from "react-router-dom";
 const heroManImg = "/hero-man.jpg";
-import woolet007Asset from "@/assets/woolet-007-dimensions.png.asset.json";
-import woolet009Asset from "@/assets/woolet-009-dimensions.png.asset.json";
+// NOTE: the *-dimensions.png assets were uploaded swapped (007 file contains
+// the square frame, 009 file contains the round frame). Import them under
+// corrected aliases so the homepage collection cards render the right shape.
+import woolet007Asset from "@/assets/woolet-009-dimensions.png.asset.json";
+import woolet009Asset from "@/assets/woolet-007-dimensions.png.asset.json";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
