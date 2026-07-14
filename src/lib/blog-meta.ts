@@ -77,6 +77,13 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "How to pick sunglass size for a wide face: front width, bridge and temple numbers explained — plus a 10-second test using your current glasses.",
   },
+  "how-to-tell-if-your-face-is-wide-or-narrow": {
+    metaTitle: "How to Tell If Your Face Is Wide or Narrow (Test)",
+    metaDescription:
+      "A 30-second credit-card test to classify your face width in mm — narrow, average, wide, or extra-wide — and exactly which brands (or bespoke) actually fit each band.",
+  },
+
+
 
   // ── EN: bespoke / process ────────────────────────────────────────────
   "bespoke-eyewear-size-range-150-172mm-guide": {
