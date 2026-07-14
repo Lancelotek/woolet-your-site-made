@@ -165,6 +165,17 @@ const BlogPost = () => {
         article={{ readTime: post.readTime, tags: post.tags }}
         jsonLd={(() => {
           const schemas: object[] = [];
+          const SITE_URL = "https://woolet.co";
+          // BreadcrumbList — Home › Blog › Post
+          schemas.push({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/${currentLang}` },
+              { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/${currentLang}/blog` },
+              { "@type": "ListItem", position: 3, name: post.title, item: `${SITE_URL}/${currentLang}/blog/${post.slug}` },
+            ],
+          });
           if (post.faq && post.faq.length > 0) {
             schemas.push({
               "@context": "https://schema.org",
