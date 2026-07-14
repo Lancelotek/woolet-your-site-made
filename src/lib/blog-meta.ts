@@ -81,6 +81,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaTitle: "How to Tell If Your Face Is Wide or Narrow (Test)",
     metaDescription:
       "A 30-second credit-card test to classify your face width in mm — narrow, average, wide, or extra-wide — and exactly which brands (or bespoke) actually fit each band.",
+    ogImage: "/og-how-to-tell-if-your-face-is-wide-or-narrow.jpg",
   },
 
 
