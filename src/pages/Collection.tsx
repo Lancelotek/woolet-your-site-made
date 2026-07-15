@@ -101,17 +101,79 @@ const Collection = () => {
           <section className="px-5 sm:px-8 lg:px-16 pb-10">
             <div className="max-w-5xl mx-auto">
               <figure className="m-0">
+                {/* Tablet & desktop: single triptych, aspect reserved to prevent CLS */}
                 <img
                   src={fitTriptych.url}
-                  alt="Three men wearing Woolet frames — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 162 mm bespoke extra wide on a large head with a broad face."
+                  alt="Three men wearing Woolet frames side by side — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 162 mm bespoke extra wide on a large head with a broad face."
                   loading="lazy"
-                  width="1920"
-                  height="800"
-                  className="w-full h-auto block"
-                  style={{ borderRadius: 2 }}
+                  decoding="async"
+                  width={1920}
+                  height={787}
+                  sizes="(min-width: 1024px) 960px, (min-width: 640px) 92vw, 100vw"
+                  className="hidden sm:block w-full h-auto"
+                  style={{ aspectRatio: "1920 / 787", borderRadius: 2 }}
                 />
+
+                {/* Mobile: stack the three portraits with individual alts, each slot pre-sized */}
+                <div className="grid sm:hidden grid-cols-1 gap-2">
+                  {[
+                    {
+                      pos: "0% 0%",
+                      eyebrow: "Average-to-wide faces",
+                      label: "150 mm · Bespoke fit",
+                      alt: "Man with average-to-wide face wearing Woolet 150 mm bespoke acetate glasses.",
+                    },
+                    {
+                      pos: "50% 0%",
+                      eyebrow: "Medium-to-large heads",
+                      label: "158 mm · The Signature",
+                      alt: "Bearded man with medium-to-large head wearing Woolet 158 mm signature acetate glasses.",
+                    },
+                    {
+                      pos: "100% 0%",
+                      eyebrow: "Large heads & broad faces",
+                      label: "162 mm · Bespoke extra wide",
+                      alt: "Bearded man with a large head and broad face wearing Woolet 162 mm bespoke extra-wide acetate glasses.",
+                    },
+                  ].map((panel) => (
+                    <div key={panel.label} className="relative w-full overflow-hidden" style={{ borderRadius: 2 }}>
+                      <div
+                        role="img"
+                        aria-label={panel.alt}
+                        className="w-full"
+                        style={{
+                          aspectRatio: "640 / 787",
+                          backgroundImage: `url(${fitTriptych.url})`,
+                          backgroundSize: "300% 100%",
+                          backgroundPosition: panel.pos,
+                          backgroundRepeat: "no-repeat",
+                        }}
+                      />
+                      <div
+                        className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-4 text-center"
+                        style={{
+                          background: "linear-gradient(to top, rgba(11,10,9,0.78) 0%, rgba(11,10,9,0) 100%)",
+                        }}
+                      >
+                        <div
+                          className="text-gold-light/80"
+                          style={{ fontSize: 9.5, letterSpacing: "0.22em", textTransform: "uppercase" }}
+                        >
+                          {panel.eyebrow}
+                        </div>
+                        <div
+                          className="text-cream mt-1"
+                          style={{ fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500 }}
+                        >
+                          {panel.label}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
                 <figcaption
-                  className="text-cream-dim/80 mt-3 text-center"
+                  className="text-cream-dim/80 mt-4 text-center hidden sm:block"
                   style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" }}
                 >
                   150 mm bespoke · 158 mm signature · 162 mm bespoke extra wide
@@ -119,6 +181,7 @@ const Collection = () => {
               </figure>
             </div>
           </section>
+
 
           {/* Models */}
           <section className="px-5 sm:px-8 lg:px-16 pb-4">
