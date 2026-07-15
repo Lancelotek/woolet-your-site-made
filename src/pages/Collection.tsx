@@ -97,6 +97,29 @@ const Collection = () => {
             </div>
           </section>
 
+          {/* Fit range triptych — visual proof of who Woolet fits */}
+          <section className="px-5 sm:px-8 lg:px-16 pb-10">
+            <div className="max-w-5xl mx-auto">
+              <figure className="m-0">
+                <img
+                  src={fitTriptych.url}
+                  alt="Three men wearing Woolet frames — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 162 mm bespoke extra wide on a large head with a broad face."
+                  loading="lazy"
+                  width="1920"
+                  height="800"
+                  className="w-full h-auto block"
+                  style={{ borderRadius: 2 }}
+                />
+                <figcaption
+                  className="text-cream-dim/80 mt-3 text-center"
+                  style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" }}
+                >
+                  150 mm bespoke · 158 mm signature · 162 mm bespoke extra wide
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
           {/* Models */}
           <section className="px-5 sm:px-8 lg:px-16 pb-4">
             <div className="max-w-5xl mx-auto">
