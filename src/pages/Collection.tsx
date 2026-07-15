@@ -40,6 +40,14 @@ const Collection = () => {
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} path="/collection" availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]} />
+      {/* Preload LCP triptych so it starts fetching before React hydrates the <img> */}
+      <link
+        rel="preload"
+        as="image"
+        href={fitTriptych.url}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        {...({ fetchpriority: "high" } as any)}
+      />
       <div className="min-h-screen flex flex-col bg-background text-foreground">
         <Navbar />
 
@@ -105,7 +113,8 @@ const Collection = () => {
                 <img
                   src={fitTriptych.url}
                   alt="Three men wearing Woolet frames side by side — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 162 mm bespoke extra wide on a large head with a broad face."
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                   width={1920}
                   height={787}
