@@ -7,6 +7,7 @@ import SEO from "@/components/SEO";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { FRAMES } from "@/data/frames";
+import fitTriptych from "@/assets/woolet-fit-triptych.png.asset.json";
 
 
 
