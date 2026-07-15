@@ -40,6 +40,14 @@ const Collection = () => {
   return (
     <>
       <SEO title={seo.title} description={seo.description} lang={lang} path="/collection" availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]} />
+      {/* Preload LCP triptych so it starts fetching before React hydrates the <img> */}
+      <link
+        rel="preload"
+        as="image"
+        href={fitTriptych.url}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        {...({ fetchpriority: "high" } as any)}
+      />
       <div className="min-h-screen flex flex-col bg-background text-foreground">
         <Navbar />
 
