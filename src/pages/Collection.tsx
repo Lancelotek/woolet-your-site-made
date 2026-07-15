@@ -113,7 +113,8 @@ const Collection = () => {
                 <img
                   src={fitTriptych.url}
                   alt="Three men wearing Woolet frames side by side — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 162 mm bespoke extra wide on a large head with a broad face."
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                   width={1920}
                   height={787}
