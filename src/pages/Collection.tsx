@@ -53,6 +53,30 @@ const Collection = () => {
         <Navbar />
 
         <main className="flex-1">
+          {/* Waitlist band — above the fold */}
+          <section className="px-5 sm:px-8 lg:px-16 pt-10 lg:pt-14 pb-6">
+            <div className="max-w-2xl mx-auto text-center">
+              <div className="woolet-eyebrow mb-4 justify-center">
+                <div className="woolet-eyebrow-line" />
+                <span className="woolet-eyebrow-text">Founding members</span>
+                <div className="woolet-eyebrow-line" />
+              </div>
+              <h2
+                className="font-display text-woolet-white leading-[1.1] mb-3"
+                style={{ fontSize: "clamp(1.5rem, 2.6vw, 2rem)", fontWeight: 300 }}
+              >
+                Wide-face frames drop soon —{" "}
+                <em className="italic text-gold-light" style={{ fontStyle: "italic" }}>
+                  claim 40% off + free shipping.
+                </em>
+              </h2>
+              <p className="text-cream-dim mb-6" style={{ fontSize: "0.95rem" }}>
+                100 founding-member spots. No credit card.
+              </p>
+              <WaitlistForm lang={lang} utmSource="collection" />
+            </div>
+          </section>
+
           {/* Intro */}
           <section className="px-5 sm:px-8 lg:px-16 pt-12 lg:pt-20 pb-10">
             <div className="max-w-5xl mx-auto">
