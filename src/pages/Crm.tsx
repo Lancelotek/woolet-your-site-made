@@ -27,6 +27,13 @@ interface Summary {
   leads: number;
   by_product: Record<"007" | "009" | "bespoke", number>;
 }
+interface MailerLiteDaily {
+  groups: Array<{ id: string; label: string }>;
+  days: string[];
+  per_group: Record<string, Record<string, number>>;
+  totals: Record<string, number>;
+}
+
 
 const T = {
   bg: "#0b0a09",
