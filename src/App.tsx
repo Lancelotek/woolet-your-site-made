@@ -184,6 +184,10 @@ const App = () => (
           {/* Hidden shop landing (noindex, not linked from nav) */}
           <Route path="/en/shop" element={<Shop />} />
 
+          {/* Hidden badge host page for third-party directories (noindex) */}
+          <Route path="/upvote" element={<Upvote />} />
+          <Route path="/en/upvote" element={<Upvote />} />
+
           {/* Landing pages */}
           <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
           <Route path="/en/lp/wide-bridge-fit-guide" element={<WideBridgeFitGuide />} />
