@@ -9,6 +9,7 @@ import CardPositionIllustration from "@/components/CardPositionIllustration";
 import SocialProofToast from "@/components/SocialProofToast";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { FoundingBenefits, FoundingUrgency } from "@/components/FoundingBenefits";
 
 const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
 const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
@@ -1553,6 +1554,9 @@ function EmailCaptureForm({
       className="flex flex-col gap-5"
       data-clarity-region="fit-email-capture"
     >
+      {/* Urgency + social proof — mirrors /en/lp/kickstarter */}
+      <FoundingUrgency />
+
       {/* Light gold-tinted teaser */}
       <div
         className="rounded-lg p-4 sm:p-5"
@@ -1575,6 +1579,10 @@ function EmailCaptureForm({
           launches in October.
         </p>
       </div>
+
+      {/* Founding-member benefits block */}
+      <FoundingBenefits compact />
+
 
       <label className="flex flex-col gap-1.5">
         <span className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.55rem", fontFamily: "Barlow, sans-serif" }}>
@@ -1648,7 +1656,7 @@ function EmailCaptureForm({
         disabled={submitting || !agree || !name || !email}
         style={{ ...goldButtonStyle, opacity: submitting || !agree ? 0.6 : 1 }}
       >
-        {submitting ? "Sending…" : "Send me my fit"}
+        {submitting ? "Sending…" : "Claim My Spot — 40% Off + Free Shipping"}
       </button>
 
       <p
