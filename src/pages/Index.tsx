@@ -9,6 +9,7 @@ import woolet009Asset from "@/assets/woolet-007-dimensions.png.asset.json";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import { FoundingBenefits } from "@/components/FoundingBenefits";
 import SEO from "@/components/SEO";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
