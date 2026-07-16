@@ -2792,7 +2792,7 @@ const blogPostsEN: BlogPost[] = [
   <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
 </ul>
 
-<p>Both are pre-order at $133 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same geometry — pick on shape, not on size.</p>
+<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same geometry — pick on shape, not on size.</p>
 
 <h2>If you're between sizes</h2>
 
@@ -2932,7 +2932,7 @@ const blogPostsEN: BlogPost[] = [
       { q: "Which frame shape is most flattering on a wide female face?", a: "Shape matters less than width. Once the front is 152 mm+, both a soft round panto (Woolet 007) and a soft square (Woolet 009) read as intentional. Skip petite cat-eyes and micro-ovals — they get visually swallowed on a wider face regardless of colour." },
       { q: "Are there feminine wide-face frames or are they all men's styles?", a: "Woolet 007 and 009 are unisex by geometry — the same 158 mm front is picked most often by women in a Dark Tortoise or Honey translucent acetate, and by men in Black. Translucent colourways read as feminine without changing the fit." },
       { q: "Do wide-face glasses for women come with prescription lenses?", a: "Yes. Both Woolet 007 and 009 ship prescription-ready — single-vision, progressive, and blue-light coatings. The 21–22 mm keyhole bridge is deep enough to fit the progressive corridor most narrow bridges cannot." },
-      { q: "What's the price of premium wide-face glasses for women?", a: "Woolet 007 and 009 are $133 during pre-order (30% off the $190 launch price). Bespoke — for face widths outside the 155–161 mm standard range — is priced separately based on the exact dimensions." },
+      { q: "What's the price of premium wide-face glasses for women?", a: "Woolet 007 and 009 are $114 during pre-order (40% off the $190 launch price). Bespoke — for face widths outside the 155–161 mm standard range — is priced separately based on the exact dimensions." },
     ],
     content: `
 <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
@@ -2966,7 +2966,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>1. Woolet 007 — Round Panto, 158 mm (best overall)</h3>
 
-<p><strong>Front width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Temple:</strong> 148 mm · <strong>Material:</strong> Mazzucchelli Italian acetate · <strong>Colours:</strong> Dark Tortoise, Black, Honey · <strong>Price:</strong> $133 pre-order ($190 launch).</p>
+<p><strong>Front width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Temple:</strong> 148 mm · <strong>Material:</strong> Mazzucchelli Italian acetate · <strong>Colours:</strong> Dark Tortoise, Black, Honey · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
 
 <p>Soft round panto, deliberately unfussy. In our pre-order data this is the shape women pick most often once width is no longer the deciding constraint. Honey translucent is the quiet favourite — it keeps the 158 mm width without adding visual weight. Ships with clear demo lenses; add single-vision, progressive, or blue-light in-cart.</p>
 
@@ -2974,7 +2974,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>2. Woolet 009 — Soft Square, 158 mm (best for rounder face shapes)</h3>
 
-<p><strong>Front width:</strong> 158 mm · <strong>Bridge:</strong> 22 mm keyhole · <strong>Temple:</strong> 148 mm · <strong>Material:</strong> Mazzucchelli Italian acetate · <strong>Colours:</strong> Dark Tortoise, Black · <strong>Price:</strong> $133 pre-order ($190 launch).</p>
+<p><strong>Front width:</strong> 158 mm · <strong>Bridge:</strong> 22 mm keyhole · <strong>Temple:</strong> 148 mm · <strong>Material:</strong> Mazzucchelli Italian acetate · <strong>Colours:</strong> Dark Tortoise, Black · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
 
 <p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes where a full-round frame can flatten the vertical. The 22 mm keyhole bridge — a millimetre wider than the 007 — matters for anyone with a broader nasal base.</p>
 
@@ -3224,7 +3224,7 @@ const blogPostsEN: BlogPost[] = [
   <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Reads more architectural than the round; the acetate equivalent of a squared-off aviator.</li>
 </ul>
 
-<p>Both are pre-order at $133 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same 158 mm geometry — pick on shape, not on size.</p>
+<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same 158 mm geometry — pick on shape, not on size.</p>
 
 <h2>If your head is above 60 cm or your face is above 161 mm</h2>
 
