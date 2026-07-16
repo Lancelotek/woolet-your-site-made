@@ -27,6 +27,13 @@ interface Summary {
   leads: number;
   by_product: Record<"007" | "009" | "bespoke", number>;
 }
+interface MailerLiteDaily {
+  groups: Array<{ id: string; label: string }>;
+  days: string[];
+  per_group: Record<string, Record<string, number>>;
+  totals: Record<string, number>;
+}
+
 
 const T = {
   bg: "#0b0a09",
@@ -76,6 +83,27 @@ export default function Crm() {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [product, setProduct] = useState<Product>("all");
   const [deletingKey, setDeletingKey] = useState<string | null>(null);
+  const [mlData, setMlData] = useState<MailerLiteDaily | null>(null);
+  const [mlLoading, setMlLoading] = useState(false);
+  const [mlError, setMlError] = useState<string | null>(null);
+
+  const fetchMailerLite = async (pwd: string) => {
+    setMlLoading(true);
+    setMlError(null);
+    try {
+      const { data, error: fnErr } = await supabase.functions.invoke("admin-crm", {
+        body: { password: pwd, action: "mailerlite_daily", days: 30 },
+      });
+      if (fnErr) throw fnErr;
+      if (!data || data.error) throw new Error(data?.error || "Failed to load MailerLite");
+      setMlData(data as MailerLiteDaily);
+    } catch (err) {
+      setMlError(err instanceof Error ? err.message : "Failed to load MailerLite");
+    } finally {
+      setMlLoading(false);
+    }
+  };
+
 
   const handleDelete = async (r: Row) => {
     const label = `${r.email} (${r.status})`;
@@ -113,6 +141,8 @@ export default function Crm() {
       setRows(data.rows as Row[]);
       setSummary(data.summary as Summary);
       setAuthed(true);
+      fetchMailerLite(pwd);
+
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Failed to load";
       setError(msg);
@@ -215,6 +245,75 @@ export default function Crm() {
                   ))}
                 </div>
               )}
+
+              {/* MailerLite daily signups */}
+              <div style={{ marginBottom: 28, background: T.panel, border: `1px solid ${T.hair}`, borderRadius: 4, padding: "18px 20px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
+                  <div>
+                    <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: T.inkMute, marginBottom: 4 }}>
+                      MailerLite — daily signups (last 30 days)
+                    </div>
+                    <div style={{ fontFamily: SERIF, fontSize: 18, color: T.ink }}>
+                      {mlData ? `${Object.values(mlData.totals).reduce((a, b) => a + b, 0)} new subscribers` : mlLoading ? "Loading…" : "—"}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => fetchMailerLite(password)}
+                    disabled={mlLoading}
+                    style={{
+                      padding: "7px 14px", cursor: "pointer",
+                      background: "transparent", color: T.ink,
+                      border: `1px solid ${T.hair}`, borderRadius: 2,
+                      fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase",
+                    }}
+                  >
+                    {mlLoading ? "…" : "Refresh"}
+                  </button>
+                </div>
+                {mlError && <div style={{ fontSize: 12, color: "#e57373", marginBottom: 10 }}>{mlError}</div>}
+                {mlData && (
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+                      <thead>
+                        <tr style={{ color: T.inkMute, textAlign: "left" }}>
+                          <th style={{ padding: "8px 10px", borderBottom: `1px solid ${T.hair}`, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase", fontSize: 10 }}>Date</th>
+                          {mlData.groups.map((g) => (
+                            <th key={g.id} style={{ padding: "8px 10px", borderBottom: `1px solid ${T.hair}`, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase", fontSize: 10, textAlign: "right" }}>
+                              {g.label}
+                            </th>
+                          ))}
+                          <th style={{ padding: "8px 10px", borderBottom: `1px solid ${T.hair}`, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase", fontSize: 10, textAlign: "right", color: T.gold }}>
+                            Total
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {mlData.days.map((day) => {
+                          const total = mlData.totals[day] ?? 0;
+                          return (
+                            <tr key={day} style={{ color: total === 0 ? T.inkMute : T.ink }}>
+                              <td style={{ padding: "7px 10px", borderBottom: `1px solid ${T.hair}`, fontFamily: SANS }}>{day}</td>
+                              {mlData.groups.map((g) => {
+                                const v = mlData.per_group[g.id]?.[day] ?? 0;
+                                return (
+                                  <td key={g.id} style={{ padding: "7px 10px", borderBottom: `1px solid ${T.hair}`, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                                    {v || ""}
+                                  </td>
+                                );
+                              })}
+                              <td style={{ padding: "7px 10px", borderBottom: `1px solid ${T.hair}`, textAlign: "right", color: total > 0 ? T.gold : T.inkMute, fontVariantNumeric: "tabular-nums", fontWeight: 600 }}>
+                                {total || "—"}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+
 
               {/* Controls */}
               <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 18, alignItems: "center", justifyContent: "space-between" }}>
