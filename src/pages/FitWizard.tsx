@@ -1554,6 +1554,9 @@ function EmailCaptureForm({
       className="flex flex-col gap-5"
       data-clarity-region="fit-email-capture"
     >
+      {/* Urgency + social proof — mirrors /en/lp/kickstarter */}
+      <FoundingUrgency />
+
       {/* Light gold-tinted teaser */}
       <div
         className="rounded-lg p-4 sm:p-5"
@@ -1576,6 +1579,10 @@ function EmailCaptureForm({
           launches in October.
         </p>
       </div>
+
+      {/* Founding-member benefits block */}
+      <FoundingBenefits compact />
+
 
       <label className="flex flex-col gap-1.5">
         <span className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.55rem", fontFamily: "Barlow, sans-serif" }}>
