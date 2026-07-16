@@ -243,11 +243,10 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-4">
           <div className="flex gap-2.5 flex-col sm:flex-row">
             <div className="flex-1 flex flex-col">
-              <label style={labelStyle}>First name</label>
+              <label style={labelStyle}>First name <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
               <input
                 type="text"
                 placeholder="James"
-                required
                 value={formData.name}
                 onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
                 className="woolet-input py-3 font-body placeholder:text-cream-dim/30 focus:border-b-primary transition-colors"
@@ -257,9 +256,11 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             <div className="flex-1 flex flex-col">
               <label style={labelStyle}>Email</label>
               <input
+                ref={emailRef}
                 type="email"
                 placeholder="james@example.com"
                 required
+                autoFocus
                 value={formData.email}
                 onChange={(e) => setFormData((f) => ({ ...f, email: e.target.value }))}
                 className="woolet-input py-3 font-body placeholder:text-cream-dim/30 focus:border-b-primary transition-colors"
