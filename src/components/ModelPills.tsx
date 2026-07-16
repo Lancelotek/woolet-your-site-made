@@ -27,7 +27,11 @@ const slides009 = [
   { src: woolet009TaupeAsset.url, alt: "Woolet 009 — Taupe acetate" },
 ];
 
-const ModelPills = () => {
+type ModelPillsProps = {
+  waitlistAnchor?: string;
+};
+
+const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [open007, setOpen007] = useState(false);
@@ -39,6 +43,35 @@ const ModelPills = () => {
     const b = window.setInterval(() => setIdx009((i) => (i + 1) % slides009.length), 3500);
     return () => { window.clearInterval(a); window.clearInterval(b); };
   }, []);
+
+  const scrollToWaitlist = (e: React.MouseEvent) => {
+    if (!waitlistAnchor) return;
+    e.preventDefault();
+    if (typeof document === "undefined") return;
+    const el = document.getElementById(waitlistAnchor);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const cardClickHandler = (openSetter: (v: boolean) => void) =>
+    waitlistAnchor ? scrollToWaitlist : () => openSetter(true);
+
+  const waitlistCta = (
+    <div
+      className="mt-2 inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors"
+      style={{
+        background: "hsl(var(--gold))",
+        color: "hsl(var(--background))",
+        fontFamily: "Barlow, sans-serif",
+        fontWeight: 500,
+        fontSize: "0.72rem",
+        padding: "12px 20px",
+        alignSelf: "flex-start",
+      }}
+    >
+      Join the waitlist
+    </div>
+  );
+
   return (
     <div>
       <div className="text-cream-dim uppercase tracking-[0.24em] mb-3" style={{ fontSize: "0.72rem" }}>
@@ -48,7 +81,7 @@ const ModelPills = () => {
         {/* Woolet 007 */}
         <div className="flex-1 border p-4 flex flex-col gap-1 transition-colors hover:border-primary/20 relative overflow-hidden group cursor-pointer"
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
-          onClick={() => setOpen007(true)}>
+          onClick={cardClickHandler(setOpen007)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
           <div className="relative w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
             {slides007.map((s, i) => (
@@ -65,12 +98,13 @@ const ModelPills = () => {
           <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.72rem" }}>007</div>
           <div className="font-display text-woolet-white" style={{ fontSize: "1.25rem" }}>Woolet 007</div>
           <div className="text-cream-dim" style={{ fontSize: "0.78rem" }}>{t(lang, "collection.007_specs")}</div>
+          {waitlistAnchor && waitlistCta}
         </div>
 
         {/* Woolet 009 */}
         <div className="flex-1 border p-4 flex flex-col gap-1 transition-colors hover:border-primary/20 relative overflow-hidden group cursor-pointer"
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
-          onClick={() => setOpen009(true)}>
+          onClick={cardClickHandler(setOpen009)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
           <div className="relative w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
             {slides009.map((s, i) => (
@@ -87,6 +121,7 @@ const ModelPills = () => {
           <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.72rem" }}>009</div>
           <div className="font-display text-woolet-white" style={{ fontSize: "1.25rem" }}>Woolet 009</div>
           <div className="text-cream-dim" style={{ fontSize: "0.78rem" }}>{t(lang, "collection.009_specs")}</div>
+          {waitlistAnchor && waitlistCta}
         </div>
       </div>
 
