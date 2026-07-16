@@ -9,6 +9,7 @@ import CardPositionIllustration from "@/components/CardPositionIllustration";
 import SocialProofToast from "@/components/SocialProofToast";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { FoundingBenefits, FoundingUrgency } from "@/components/FoundingBenefits";
 
 const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
 const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
