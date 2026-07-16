@@ -32,8 +32,12 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [count, setCount] = useState(23);
-  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const fillRef = useRef<HTMLDivElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    emailRef.current?.focus();
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -239,11 +243,10 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-4">
           <div className="flex gap-2.5 flex-col sm:flex-row">
             <div className="flex-1 flex flex-col">
-              <label style={labelStyle}>First name</label>
+              <label style={labelStyle}>First name <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
               <input
                 type="text"
                 placeholder="James"
-                required
                 value={formData.name}
                 onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
                 className="woolet-input py-3 font-body placeholder:text-cream-dim/30 focus:border-b-primary transition-colors"
@@ -253,9 +256,11 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             <div className="flex-1 flex flex-col">
               <label style={labelStyle}>Email</label>
               <input
+                ref={emailRef}
                 type="email"
                 placeholder="james@example.com"
                 required
+                autoFocus
                 value={formData.email}
                 onChange={(e) => setFormData((f) => ({ ...f, email: e.target.value }))}
                 className="woolet-input py-3 font-body placeholder:text-cream-dim/30 focus:border-b-primary transition-colors"
@@ -286,36 +291,6 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             </div>
           </div>
 
-          {/* Privacy policy checkbox */}
-          <label className="flex items-start gap-2.5 cursor-pointer text-cream-dim hover:text-foreground transition-colors mt-1" style={{ fontSize: "12px" }}>
-            <input
-              type="checkbox"
-              checked={privacyAccepted}
-              onChange={() => setPrivacyAccepted((v) => !v)}
-              className="hidden"
-            />
-            <div
-              className={`w-3.5 h-3.5 border flex items-center justify-center flex-shrink-0 transition-all mt-[1px]`}
-              style={{
-                backgroundColor: privacyAccepted ? "#c9a84c" : "transparent",
-                borderColor: privacyAccepted ? "#c9a84c" : "#2a2520",
-              }}
-            >
-              {privacyAccepted && (
-                <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
-                  <path d="M1 3L3 5L7 1" stroke="#0f0f0f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              )}
-            </div>
-            <span>
-              {t(lang, "waitlist.privacy").split("{link}")[0]}
-              <Link to={`/${lang}/privacy-policy`} className="text-primary underline underline-offset-2 hover:text-gold-light transition-colors">
-                {t(lang, "waitlist.privacy").split("{link}")[1]?.split("{/link}")[0]}
-              </Link>
-              {t(lang, "waitlist.privacy").split("{/link}")[1] || ""}
-            </span>
-          </label>
-
           {error && (
             <p className="text-center" style={{ fontSize: "12px", color: "#e25555" }}>
               {error}
@@ -324,7 +299,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
 
           <button
             type="submit"
-            disabled={loading || !privacyAccepted}
+            disabled={loading}
             className="relative overflow-hidden bg-primary text-primary-foreground border-none font-body w-full transition-all hover:bg-gold-light active:scale-[0.99] group disabled:opacity-60 flex flex-col items-center justify-center"
             style={{ minHeight: "56px", padding: "12px 24px" }}
           >
@@ -333,6 +308,15 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             </span>
            <span className="absolute inset-0 bg-woolet-white/15 -translate-x-full group-hover:translate-x-full transition-transform duration-400" />
           </button>
+
+          {/* Inline consent notice */}
+          <p className="text-cream-dim/70 text-center mt-1" style={{ fontSize: "11px" }}>
+            By joining you agree to our{" "}
+            <Link to={`/${lang}/privacy-policy`} className="text-primary underline underline-offset-2 hover:text-gold-light transition-colors">
+              Privacy Policy
+            </Link>.
+          </p>
+
 
           {/* Visible price for Google Merchant / Search Console compliance */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, paddingTop: 6, flexWrap: "wrap" }}>
