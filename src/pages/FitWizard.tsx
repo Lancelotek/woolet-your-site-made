@@ -1656,7 +1656,7 @@ function EmailCaptureForm({
         disabled={submitting || !agree || !name || !email}
         style={{ ...goldButtonStyle, opacity: submitting || !agree ? 0.6 : 1 }}
       >
-        {submitting ? "Sending…" : "Send me my fit"}
+        {submitting ? "Sending…" : "Claim My Spot — 40% Off + Free Shipping"}
       </button>
 
       <p
