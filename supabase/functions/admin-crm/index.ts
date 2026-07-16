@@ -69,6 +69,80 @@ Deno.serve(async (req) => {
       auth: { persistSession: false },
     });
 
+    // MailerLite daily subscription counts across key groups.
+    if (body.action === "mailerlite_daily") {
+      const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+      if (!apiKey) {
+        return new Response(JSON.stringify({ error: "Missing MAILERLITE_API_KEY" }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      const GROUPS: Array<{ id: string; label: string }> = [
+        { id: "192429285503403097", label: "Kickstarter VIP" },
+        { id: "181841182994728358", label: "Waitlist ENG" },
+        { id: "189356132351870087", label: "AI Scan" },
+        { id: "189449279680546761", label: "Bespoke" },
+      ];
+      const days = Math.min(Math.max(Number((body as { days?: number }).days ?? 30), 1), 90);
+      const cutoff = new Date();
+      cutoff.setUTCHours(0, 0, 0, 0);
+      cutoff.setUTCDate(cutoff.getUTCDate() - (days - 1));
+      const cutoffMs = cutoff.getTime();
+
+      const perGroup: Record<string, Record<string, number>> = {};
+      const totals: Record<string, number> = {};
+      for (const g of GROUPS) {
+        perGroup[g.id] = {};
+        let cursor = "";
+        outer: for (let page = 0; page < 30; page++) {
+          const path =
+            `/subscribers?filter[group]=${g.id}&limit=100&sort=-subscribed_at${cursor ? `&cursor=${cursor}` : ""}`;
+          const r = await fetch(`https://connect.mailerlite.com/api${path}`, {
+            headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+          });
+          if (r.status >= 400) break;
+          const data = await r.json();
+          const items: Array<{ subscribed_at?: string }> = data?.data || [];
+          if (items.length === 0) break;
+          for (const s of items) {
+            if (!s.subscribed_at) continue;
+            // MailerLite format: "YYYY-MM-DD HH:MM:SS" (UTC)
+            const iso = s.subscribed_at.replace(" ", "T") + "Z";
+            const t = Date.parse(iso);
+            if (isNaN(t)) continue;
+            if (t < cutoffMs) break outer;
+            const day = new Date(t).toISOString().slice(0, 10);
+            perGroup[g.id][day] = (perGroup[g.id][day] ?? 0) + 1;
+            totals[day] = (totals[day] ?? 0) + 1;
+          }
+          cursor = data?.meta?.next_cursor || "";
+          if (!cursor) break;
+        }
+      }
+
+      // Build day list newest → oldest
+      const daysList: string[] = [];
+      for (let i = 0; i < days; i++) {
+        const d = new Date();
+        d.setUTCHours(0, 0, 0, 0);
+        d.setUTCDate(d.getUTCDate() - i);
+        daysList.push(d.toISOString().slice(0, 10));
+      }
+
+      return new Response(
+        JSON.stringify({
+          groups: GROUPS,
+          days: daysList,
+          per_group: perGroup,
+          totals,
+        }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
+
+
     // Delete action: remove reservation by email from the matching table(s).
     if (body.action === "delete") {
       const email = (body.email ?? "").trim().toLowerCase();
