@@ -712,8 +712,8 @@ const Index = () => {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                width={1200}
-                height={1600}
+                width={622}
+                height={864}
               />
               <div
                 className="absolute inset-0 pointer-events-none"
