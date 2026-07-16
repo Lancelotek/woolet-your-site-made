@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
 import {
@@ -49,6 +50,7 @@ function VipForm() {
     try {
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
+          ...getAttribution(),
           email,
           source: "DE",
           country: "Germany",

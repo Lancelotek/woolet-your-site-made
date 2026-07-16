@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
 import comparisonAsset from "@/assets/standard-vs-wide-comparison.png.asset.json";
@@ -101,7 +102,7 @@ const ListiclePage = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: { email, name: "", face_width: "", models: "Woolet 007, Woolet 009" },
+        body: { ...getAttribution(), email, name: "", face_width: "", models: "Woolet 007, Woolet 009" },
       });
       if (error) throw error;
       if (data && !data.success) throw new Error(data.error);

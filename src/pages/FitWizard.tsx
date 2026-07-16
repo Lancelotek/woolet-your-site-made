@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -1493,6 +1494,7 @@ function EmailCaptureForm({
     try {
       const { error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
+          ...getAttribution(),
           email,
           name,
           face_width: String(measurement.faceWidthMm),
