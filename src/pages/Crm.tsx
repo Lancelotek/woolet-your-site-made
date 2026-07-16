@@ -76,6 +76,27 @@ export default function Crm() {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [product, setProduct] = useState<Product>("all");
   const [deletingKey, setDeletingKey] = useState<string | null>(null);
+  const [mlData, setMlData] = useState<MailerLiteDaily | null>(null);
+  const [mlLoading, setMlLoading] = useState(false);
+  const [mlError, setMlError] = useState<string | null>(null);
+
+  const fetchMailerLite = async (pwd: string) => {
+    setMlLoading(true);
+    setMlError(null);
+    try {
+      const { data, error: fnErr } = await supabase.functions.invoke("admin-crm", {
+        body: { password: pwd, action: "mailerlite_daily", days: 30 },
+      });
+      if (fnErr) throw fnErr;
+      if (!data || data.error) throw new Error(data?.error || "Failed to load MailerLite");
+      setMlData(data as MailerLiteDaily);
+    } catch (err) {
+      setMlError(err instanceof Error ? err.message : "Failed to load MailerLite");
+    } finally {
+      setMlLoading(false);
+    }
+  };
+
 
   const handleDelete = async (r: Row) => {
     const label = `${r.email} (${r.status})`;
