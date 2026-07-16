@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 
 import {
   COLORS,
@@ -780,7 +781,7 @@ export function StepMeasure({ config, update }: StepProps) {
       // Fire-and-forget: ensure the email also lands in MailerLite
       supabase.functions
         .invoke("mailerlite-subscribe", {
-          body: { email, source: "bespoke_scan_handoff", models: "Bespoke" },
+          body: { ...getAttribution(), email, source: "bespoke_scan_handoff", models: "Bespoke" },
         })
         .catch((err) => console.warn("[mailerlite] bespoke handoff failed", err));
       update("measurementMethod", "scan");

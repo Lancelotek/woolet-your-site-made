@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 import { toast } from "sonner";
 import type { Lang } from "@/lib/i18n";
 import {
@@ -115,7 +116,7 @@ export default function ScanHandoffDesktop({ lang, onSessionComplete }: Props) {
       // Fire-and-forget MailerLite subscribe → Fit Scan group.
       supabase.functions
         .invoke("mailerlite-subscribe", {
-          body: { email: parsed.data, source: "fit_scan" },
+          body: { ...getAttribution(), email: parsed.data, source: "fit_scan" },
         })
         .then(({ error: mlErr }) => {
           if (mlErr) console.warn("[scan-handoff] mailerlite subscribe failed", mlErr);

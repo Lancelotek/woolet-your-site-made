@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 import { pushGtmEvent } from "@/lib/gtm";
 import { Link } from "react-router-dom";
 
@@ -119,6 +120,7 @@ export function ReserveModal({
       // TODO: Stripe Payment Element — Phase 4
       const { error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
+          ...getAttribution(),
           email,
           name,
           face_width: width,
@@ -413,6 +415,7 @@ export function WaitlistModal({ open, onOpenChange }: { open: boolean; onOpenCha
     try {
       const { error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
+          ...getAttribution(),
           email,
           name: name || undefined,
           face_width: width,

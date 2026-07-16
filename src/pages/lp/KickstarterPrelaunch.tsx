@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 import { pushGtmEvent } from "@/lib/gtm";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
@@ -146,6 +147,7 @@ const VipForm = ({
     try {
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
+          ...getAttribution(),
           email,
           name: "",
           source: "kickstarter",

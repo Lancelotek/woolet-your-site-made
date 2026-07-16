@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, Check, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
 const UTM_STORAGE_KEY = "bespoke-utms";
@@ -115,6 +116,7 @@ const BespokeWaitlistGate = () => {
       const utms = captureUtmsFromUrl();
       const country_code = detectCountryCode();
       const body: Record<string, unknown> = {
+        ...getAttribution(),
         email: email.trim(),
         source: "bespoke",
         event_source_url: typeof window !== "undefined" ? window.location.href : undefined,

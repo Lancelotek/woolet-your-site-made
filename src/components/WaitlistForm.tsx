@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { RotateCcw, Ruler, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 import { t, type Lang } from "@/lib/i18n";
 import { pushGtmEvent } from "@/lib/gtm";
 import { rdtLead } from "@/lib/reddit-pixel";
@@ -80,6 +81,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         "mailerlite-subscribe",
         {
           body: {
+            ...getAttribution(),
             email: formData.email,
             name: formData.name,
             face_width: formData.faceWidth,

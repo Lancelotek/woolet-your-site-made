@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/attribution";
 
 /* ───────── Config ───────── */
 const CONFIG = {
@@ -114,6 +115,7 @@ async function submitToWaitlist(input: {
   try {
     const { error } = await supabase.functions.invoke("mailerlite-subscribe", {
       body: {
+        ...getAttribution(),
         email: input.email,
         phone: input.phone,
         country: input.country,
