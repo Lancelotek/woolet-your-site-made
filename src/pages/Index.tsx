@@ -630,6 +630,15 @@ const Index = () => {
                 </Link>
               </div>
 
+              {/* Founding-member benefits — mirrors /en/lp/kickstarter */}
+              {lang === "en" && (
+                <div className="pt-3 max-w-[520px]">
+                  <FoundingBenefits />
+                </div>
+              )}
+
+
+
               {/* Trust strip */}
               <div
                 className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1 text-cream-dim/80"
