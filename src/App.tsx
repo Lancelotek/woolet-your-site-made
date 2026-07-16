@@ -80,6 +80,7 @@ const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
 const NlLandingRoute = lazy(() => import("./pages/nl/NlLandingRoute.tsx"));
 const CompareIndex = lazy(() => import("./pages/CompareIndex.tsx"));
 const ComparePage = lazy(() => import("./pages/ComparePage.tsx"));
+const Upvote = lazy(() => import("./pages/Upvote.tsx"));
 const Shop = lazy(() => import("./pages/Shop.tsx"));
 
 const queryClient = new QueryClient();
@@ -183,6 +184,10 @@ const App = () => (
 
           {/* Hidden shop landing (noindex, not linked from nav) */}
           <Route path="/en/shop" element={<Shop />} />
+
+          {/* Hidden badge host page for third-party directories (noindex) */}
+          <Route path="/upvote" element={<Upvote />} />
+          <Route path="/en/upvote" element={<Upvote />} />
 
           {/* Landing pages */}
           <Route path="/en/lp/why-glasses-fail" element={<AdvertorialPage />} />
