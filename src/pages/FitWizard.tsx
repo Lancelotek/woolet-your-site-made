@@ -1884,7 +1884,7 @@ function ReservedStep({ measurement }: { measurement: Measurement }) {
 
       <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
         We've reserved your <span className="text-foreground">Woolet {measurement.recommendedSku}</span>
-        {sku ? ` (${sku.widthMm} mm)` : ""} for $99 — a 40% discount on the $149 retail.
+        {sku ? ` (${sku.widthMm} mm)` : ""} for $114 — a 40% discount on the $190 retail.
         We'll email you 24 hours before the Kickstarter launches in October 2026.
       </p>
 

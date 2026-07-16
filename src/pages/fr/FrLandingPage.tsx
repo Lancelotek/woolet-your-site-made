@@ -51,7 +51,7 @@ export default function FrLandingPage({ config }: { config: FrPageConfig }) {
       "@type": "Offer",
       url: canonical,
       priceCurrency: "USD",
-      price: "133.00",
+      price: "114.00",
       availability: "https://schema.org/PreOrder",
     },
   };
