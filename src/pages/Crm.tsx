@@ -159,8 +159,19 @@ export default function Crm() {
 
   const handleProductChange = (next: Product) => {
     setProduct(next);
-    if (authed) fetchData(password, next);
+    if (authed) {
+      fetchData(password, next);
+      fetchMailerLite(password);
+    }
   };
+
+  // Auto-refresh MailerLite counts every 60s while authenticated.
+  useEffect(() => {
+    if (!authed) return;
+    const id = setInterval(() => fetchMailerLite(password), 60_000);
+    return () => clearInterval(id);
+  }, [authed, password]);
+
 
   const inputStyle: React.CSSProperties = {
     width: "100%", padding: "12px 14px", fontFamily: SANS, fontSize: 15,
