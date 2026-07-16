@@ -141,6 +141,8 @@ export default function Crm() {
       setRows(data.rows as Row[]);
       setSummary(data.summary as Summary);
       setAuthed(true);
+      fetchMailerLite(pwd);
+
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Failed to load";
       setError(msg);
