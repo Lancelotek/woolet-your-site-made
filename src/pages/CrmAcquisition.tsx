@@ -60,6 +60,15 @@ const CHANNEL_LABEL: Record<ChannelRow["channel"], string> = {
   other: "Other / Direct",
 };
 
+interface Ga4Status {
+  ok: boolean;
+  status: string;
+  http_status?: number;
+  property_id?: string;
+  service_account_email?: string;
+  message: string;
+}
+
 const CrmAcquisition = () => {
   const [password, setPassword] = useState("");
   const [days, setDays] = useState(30);
@@ -67,6 +76,26 @@ const CrmAcquisition = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState<string | null>(null);
+  const [ga4Status, setGa4Status] = useState<Ga4Status | null>(null);
+  const [checkingGa4, setCheckingGa4] = useState(false);
+
+  const checkGa4 = async () => {
+    setCheckingGa4(true);
+    try {
+      const { data: res, error: fnErr } = await supabase.functions.invoke("ga4-check", {
+        body: { password },
+      });
+      if (fnErr) {
+        setGa4Status({ ok: false, status: "invoke_error", message: fnErr.message });
+      } else {
+        setGa4Status(res as Ga4Status);
+      }
+    } catch (e) {
+      setGa4Status({ ok: false, status: "exception", message: (e as Error).message });
+    } finally {
+      setCheckingGa4(false);
+    }
+  };
 
   const load = async (nextDays = days) => {
     setLoading(true);
@@ -78,6 +107,8 @@ const CrmAcquisition = () => {
       if (fnErr) throw new Error(fnErr.message);
       if (!res?.ok) throw new Error(res?.error ?? "Request failed");
       setData(res as Data);
+      // Fire-and-forget GA4 access probe so the banner is always fresh.
+      checkGa4();
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -103,6 +134,7 @@ const CrmAcquisition = () => {
       setRunning(null);
     }
   };
+
 
   const kpiCards: Array<{ label: string; value: string; hint?: string }> = data
     ? [
