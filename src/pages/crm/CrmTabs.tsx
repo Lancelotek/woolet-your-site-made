@@ -7,10 +7,11 @@ const T = {
   hair: "rgba(239,233,223,0.10)",
 };
 
-type Tab = "reservations" | "gsc";
+type Tab = "reservations" | "gsc" | "acquisition";
 
 const TABS: { id: Tab; label: string; path: (lang: string) => string }[] = [
   { id: "reservations", label: "Reservations", path: (l) => `/${l}/crm` },
+  { id: "acquisition", label: "Acquisition", path: (l) => `/${l}/crm/acquisition` },
   { id: "gsc", label: "GSC Tracking", path: (l) => `/${l}/crm/gsc` },
 ];
 
