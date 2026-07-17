@@ -16,12 +16,19 @@ interface ChannelRow {
   leads: number | null;
   cpl: number | null;
 }
+interface DailyRow {
+  date: string;
+  sessions: number;
+  signups: number;
+  conv_rate: number;
+}
 interface Data {
   days: number;
   currency?: string;
   fx?: { pln_to_usd: number; source: string };
   totals: { sessions: number; leads: number; paid_spend: number; blended_cac: number | null };
   landing_pages: LandingPageRow[];
+  daily: DailyRow[];
   channels: ChannelRow[];
   has_ga4: boolean;
   has_meta: boolean;
