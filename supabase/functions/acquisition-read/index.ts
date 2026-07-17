@@ -170,6 +170,22 @@ Deno.serve(async (req) => {
       ? Number((paidSpendUsd / mlLeads).toFixed(2))
       : null;
 
+    // Daily conversion: one row per UTC day in the period
+    const daily: Array<{ date: string; sessions: number; signups: number; conv_rate: number }> = [];
+    const today = new Date();
+    for (let i = 0; i < days; i++) {
+      const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - i));
+      const key = d.toISOString().slice(0, 10);
+      const sessions = sessionsByDay.get(key) ?? 0;
+      const signups = ml.byDay.get(key) ?? 0;
+      daily.push({
+        date: key,
+        sessions,
+        signups,
+        conv_rate: sessions > 0 ? signups / sessions : 0,
+      });
+    }
+
     return new Response(
       JSON.stringify({
         ok: true,
