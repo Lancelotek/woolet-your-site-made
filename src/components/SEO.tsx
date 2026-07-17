@@ -4,6 +4,9 @@ import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
 interface SEOProps {
   title: string;
   description: string;
+  /** Optional shorter description used only for og:description / twitter:description.
+   *  Falls back to `description` when omitted. Keep under 160 characters for optimal social previews. */
+  ogDescription?: string;
   lang?: Lang;
   path?: string;
   type?: "website" | "article";
@@ -55,6 +58,7 @@ const geoMeta: Record<string, { region: string; placename: string }> = {
 const SEO = ({
   title,
   description,
+  ogDescription,
   lang = "en",
   path = "",
   type = "website",
@@ -69,6 +73,7 @@ const SEO = ({
   alternates,
 }: SEOProps) => {
   const fullTitle = title.includes("Woolet") ? title : `${title} | Woolet`;
+  const socialDescription = ogDescription || description;
   const canonical = `${SITE_URL}/${lang}${path}`;
   const geo = geoMeta[lang] || geoMeta.en;
   const ogImage = image
@@ -167,7 +172,7 @@ const SEO = ({
 
 
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={socialDescription} />
       <meta property="og:url" content={canonical} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content="Woolet" />
@@ -179,7 +184,7 @@ const SEO = ({
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={socialDescription} />
       <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:site" content="@WooletEyewear" />
 
