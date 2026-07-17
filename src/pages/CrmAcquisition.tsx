@@ -60,6 +60,15 @@ const CHANNEL_LABEL: Record<ChannelRow["channel"], string> = {
   other: "Other / Direct",
 };
 
+interface Ga4Status {
+  ok: boolean;
+  status: string;
+  http_status?: number;
+  property_id?: string;
+  service_account_email?: string;
+  message: string;
+}
+
 const CrmAcquisition = () => {
   const [password, setPassword] = useState("");
   const [days, setDays] = useState(30);
@@ -67,6 +76,26 @@ const CrmAcquisition = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState<string | null>(null);
+  const [ga4Status, setGa4Status] = useState<Ga4Status | null>(null);
+  const [checkingGa4, setCheckingGa4] = useState(false);
+
+  const checkGa4 = async () => {
+    setCheckingGa4(true);
+    try {
+      const { data: res, error: fnErr } = await supabase.functions.invoke("ga4-check", {
+        body: { password },
+      });
+      if (fnErr) {
+        setGa4Status({ ok: false, status: "invoke_error", message: fnErr.message });
+      } else {
+        setGa4Status(res as Ga4Status);
+      }
+    } catch (e) {
+      setGa4Status({ ok: false, status: "exception", message: (e as Error).message });
+    } finally {
+      setCheckingGa4(false);
+    }
+  };
 
   const load = async (nextDays = days) => {
     setLoading(true);
@@ -78,6 +107,8 @@ const CrmAcquisition = () => {
       if (fnErr) throw new Error(fnErr.message);
       if (!res?.ok) throw new Error(res?.error ?? "Request failed");
       setData(res as Data);
+      // Fire-and-forget GA4 access probe so the banner is always fresh.
+      checkGa4();
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -103,6 +134,7 @@ const CrmAcquisition = () => {
       setRunning(null);
     }
   };
+
 
   const kpiCards: Array<{ label: string; value: string; hint?: string }> = data
     ? [
@@ -201,8 +233,42 @@ const CrmAcquisition = () => {
                 {running === fn ? "Running…" : `Run ${fn.replace("-snapshot", "").replace("-spend", "")} now`}
               </button>
             ))}
+            <button
+              onClick={checkGa4}
+              disabled={checkingGa4 || !password}
+              style={{ background: "transparent", color: T.ink, border: `1px solid ${T.hair}`, padding: "8px 14px", fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase", cursor: checkingGa4 ? "not-allowed" : "pointer", opacity: checkingGa4 ? 0.5 : 1, borderRadius: 2 }}
+            >
+              {checkingGa4 ? "Checking…" : "Check GA4 access"}
+            </button>
           </div>
         )}
+
+        {ga4Status && (
+          <div
+            style={{
+              background: ga4Status.ok ? "rgba(194,160,90,0.08)" : "rgba(224,112,112,0.10)",
+              border: `1px solid ${ga4Status.ok ? T.gold : T.bad}`,
+              color: ga4Status.ok ? T.ink : T.bad,
+              padding: "12px 16px",
+              marginBottom: 24,
+              fontSize: 13,
+              borderRadius: 2,
+            }}
+          >
+            <div style={{ fontSize: 10, letterSpacing: 1.5, textTransform: "uppercase", color: ga4Status.ok ? T.gold : T.bad, marginBottom: 6 }}>
+              GA4 · {ga4Status.status}{ga4Status.http_status ? ` (HTTP ${ga4Status.http_status})` : ""}
+            </div>
+            <div style={{ color: ga4Status.ok ? T.inkDim : T.bad }}>{ga4Status.message}</div>
+            {ga4Status.service_account_email && (
+              <div style={{ marginTop: 6, fontSize: 12, color: T.inkMute, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+                {ga4Status.service_account_email}
+                {ga4Status.property_id ? ` · property ${ga4Status.property_id}` : ""}
+              </div>
+            )}
+          </div>
+        )}
+
+
 
         {error && (
           <div style={{ background: "rgba(224,112,112,0.1)", border: `1px solid ${T.bad}`, color: T.bad, padding: "12px 16px", marginBottom: 24, fontSize: 13 }}>
