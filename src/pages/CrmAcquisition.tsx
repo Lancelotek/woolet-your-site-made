@@ -268,15 +268,7 @@ const CrmAcquisition = () => {
           </div>
         )}
 
-                onClick={() => runSnapshot(fn)}
-                disabled={!!running || !password}
-                style={{ background: "transparent", color: T.ink, border: `1px solid ${T.hair}`, padding: "8px 14px", fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase", cursor: running ? "not-allowed" : "pointer", opacity: running ? 0.5 : 1, borderRadius: 2 }}
-              >
-                {running === fn ? "Running…" : `Run ${fn.replace("-snapshot", "").replace("-spend", "")} now`}
-              </button>
-            ))}
-          </div>
-        )}
+
 
         {error && (
           <div style={{ background: "rgba(224,112,112,0.1)", border: `1px solid ${T.bad}`, color: T.bad, padding: "12px 16px", marginBottom: 24, fontSize: 13 }}>
