@@ -87,27 +87,36 @@ Deno.serve(async (req) => {
 
     const token = await getGoogleAccessToken("https://www.googleapis.com/auth/analytics.readonly");
 
-    const body = {
-      dateRanges: [{ startDate: "35daysAgo", endDate: "yesterday" }],
-      dimensions: [{ name: "date" }, { name: "landingPagePlusQueryString" }],
-      metrics: [{ name: "sessions" }, { name: "keyEvents" }],
-      limit: 100000,
-    };
-
-    const res = await fetch(
-      `https://analyticsdata.googleapis.com/v1beta/properties/${GA4_PROPERTY_ID}:runReport`,
-      {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      },
-    );
-    if (!res.ok) throw new Error(`GA4 ${res.status}: ${(await res.text()).slice(0, 300)}`);
-    const json = await res.json() as { rows?: Array<{ dimensionValues: Array<{ value: string }>; metricValues: Array<{ value: string }> }> };
+    const pageSize = 100000;
+    let offset = 0;
+    const allRows: Array<{ dimensionValues: Array<{ value: string }>; metricValues: Array<{ value: string }> }> = [];
+    for (let page = 0; page < 20; page++) {
+      const body = {
+        dateRanges: [{ startDate: "95daysAgo", endDate: "yesterday" }],
+        dimensions: [{ name: "date" }, { name: "landingPagePlusQueryString" }],
+        metrics: [{ name: "sessions" }, { name: "keyEvents" }],
+        limit: pageSize,
+        offset,
+      };
+      const res = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/${GA4_PROPERTY_ID}:runReport`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        },
+      );
+      if (!res.ok) throw new Error(`GA4 ${res.status}: ${(await res.text()).slice(0, 300)}`);
+      const json = await res.json() as { rows?: Array<{ dimensionValues: Array<{ value: string }>; metricValues: Array<{ value: string }> }>; rowCount?: number };
+      const rows = json.rows ?? [];
+      allRows.push(...rows);
+      if (rows.length < pageSize) break;
+      offset += pageSize;
+    }
 
     const admin = createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { persistSession: false } });
 
-    const records = (json.rows ?? []).map((r) => {
+    const records = allRows.map((r) => {
       const rawDate = r.dimensionValues[0]?.value ?? ""; // YYYYMMDD
       const snapshot_date = rawDate.length === 8
         ? `${rawDate.slice(0, 4)}-${rawDate.slice(4, 6)}-${rawDate.slice(6, 8)}`
