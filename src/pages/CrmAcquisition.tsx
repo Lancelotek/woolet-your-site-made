@@ -13,17 +13,20 @@ interface LandingPageRow {
 interface ChannelRow {
   channel: "meta" | "google" | "other";
   spend: number;
-  leads: number;
+  leads: number | null;
   cpl: number | null;
 }
 interface Data {
   days: number;
+  currency?: string;
+  fx?: { pln_to_usd: number; source: string };
   totals: { sessions: number; leads: number; paid_spend: number; blended_cac: number | null };
   landing_pages: LandingPageRow[];
   channels: ChannelRow[];
   has_ga4: boolean;
   has_meta: boolean;
   has_google: boolean;
+  has_mailerlite?: boolean;
 }
 
 const T = {
