@@ -16,12 +16,19 @@ interface ChannelRow {
   leads: number | null;
   cpl: number | null;
 }
+interface DailyRow {
+  date: string;
+  sessions: number;
+  signups: number;
+  conv_rate: number;
+}
 interface Data {
   days: number;
   currency?: string;
   fx?: { pln_to_usd: number; source: string };
   totals: { sessions: number; leads: number; paid_spend: number; blended_cac: number | null };
   landing_pages: LandingPageRow[];
+  daily: DailyRow[];
   channels: ChannelRow[];
   has_ga4: boolean;
   has_meta: boolean;
@@ -260,6 +267,45 @@ const CrmAcquisition = () => {
                 </table>
               </div>
             </section>
+
+            <section style={{ marginBottom: 40 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
+                <h2 style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 400, margin: 0 }}>Daily conversion</h2>
+                <span style={{ fontSize: 12, color: T.inkMute }}>Sessions (GA4) × MailerLite signups per UTC day</span>
+              </div>
+              <div style={{ overflowX: "auto", border: `1px solid ${T.hair}` }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                  <thead>
+                    <tr style={{ background: T.panel, textAlign: "left" }}>
+                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute }}>Date</th>
+                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Sesje</th>
+                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Zapisy</th>
+                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Konwersja %</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(data.daily ?? []).map((r) => (
+                      <tr key={r.date} style={{ borderTop: `1px solid ${T.hair}` }}>
+                        <td style={{ padding: "8px 12px", color: T.inkDim, fontVariantNumeric: "tabular-nums" }}>{r.date}</td>
+                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtInt(r.sessions)}</td>
+                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtInt(r.signups)}</td>
+                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: r.sessions > 0 ? T.gold : T.inkMute }}>
+                          {r.sessions > 0 ? `${(r.conv_rate * 100).toFixed(1)}%` : "—"}
+                        </td>
+                      </tr>
+                    ))}
+                    {(!data.daily || data.daily.length === 0) && (
+                      <tr>
+                        <td colSpan={4} style={{ padding: "16px 12px", color: T.inkMute, fontSize: 13 }}>
+                          Brak danych dziennych.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
 
             <section style={{ marginBottom: 24 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12, gap: 12, flexWrap: "wrap" }}>

@@ -39,8 +39,9 @@ async function fetchPlnUsdRate(): Promise<{ rate: number; source: string }> {
   return { rate: FX_FALLBACK, source: "fallback" };
 }
 
-async function countMailerliteSignups(cutoffMs: number): Promise<number> {
-  if (!MAILERLITE_API_KEY) return 0;
+async function fetchMailerliteSignups(cutoffMs: number): Promise<{ total: number; byDay: Map<string, number> }> {
+  const byDay = new Map<string, number>();
+  if (!MAILERLITE_API_KEY) return { total: 0, byDay };
   let total = 0;
   for (const g of MAILERLITE_GROUPS) {
     let cursor = "";
@@ -61,12 +62,14 @@ async function countMailerliteSignups(cutoffMs: number): Promise<number> {
         if (isNaN(t)) continue;
         if (t < cutoffMs) break outer;
         total++;
+        const day = new Date(t).toISOString().slice(0, 10);
+        byDay.set(day, (byDay.get(day) ?? 0) + 1);
       }
       cursor = data?.meta?.next_cursor || "";
       if (!cursor) break;
     }
   }
-  return total;
+  return { total, byDay };
 }
 
 Deno.serve(async (req) => {
@@ -95,25 +98,30 @@ Deno.serve(async (req) => {
     const admin = createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { persistSession: false } });
 
     // Kick off external fetches in parallel
-    const [fx, mlLeads] = await Promise.all([
+    const [fx, ml] = await Promise.all([
       fetchPlnUsdRate(),
-      countMailerliteSignups(cutoffMs),
+      fetchMailerliteSignups(cutoffMs),
     ]);
+    const mlLeads = ml.total;
 
     // GA4 landing pages
     const { data: ga4 } = await admin
       .from("ga4_lp_snapshots")
-      .select("landing_page, sessions, conversions")
+      .select("landing_page, sessions, conversions, snapshot_date")
       .gte("snapshot_date", sinceIso);
 
     const pageMap = new Map<string, { sessions: number; conversions: number }>();
+    const sessionsByDay = new Map<string, number>();
     let totalSessions = 0;
     for (const r of ga4 ?? []) {
       const cur = pageMap.get(r.landing_page) ?? { sessions: 0, conversions: 0 };
-      cur.sessions += Number(r.sessions ?? 0);
+      const s = Number(r.sessions ?? 0);
+      cur.sessions += s;
       cur.conversions += Number(r.conversions ?? 0);
       pageMap.set(r.landing_page, cur);
-      totalSessions += Number(r.sessions ?? 0);
+      totalSessions += s;
+      const d = String(r.snapshot_date).slice(0, 10);
+      sessionsByDay.set(d, (sessionsByDay.get(d) ?? 0) + s);
     }
     const landingPages = Array.from(pageMap.entries())
       .map(([landing_page, v]) => ({
@@ -162,6 +170,22 @@ Deno.serve(async (req) => {
       ? Number((paidSpendUsd / mlLeads).toFixed(2))
       : null;
 
+    // Daily conversion: one row per UTC day in the period
+    const daily: Array<{ date: string; sessions: number; signups: number; conv_rate: number }> = [];
+    const today = new Date();
+    for (let i = 0; i < days; i++) {
+      const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - i));
+      const key = d.toISOString().slice(0, 10);
+      const sessions = sessionsByDay.get(key) ?? 0;
+      const signups = ml.byDay.get(key) ?? 0;
+      daily.push({
+        date: key,
+        sessions,
+        signups,
+        conv_rate: sessions > 0 ? signups / sessions : 0,
+      });
+    }
+
     return new Response(
       JSON.stringify({
         ok: true,
@@ -175,6 +199,7 @@ Deno.serve(async (req) => {
           blended_cac: blendedCac,
         },
         landing_pages: landingPages,
+        daily,
         channels,
         has_ga4: (ga4?.length ?? 0) > 0,
         has_meta: (spendByPlatform.meta?.spend ?? 0) > 0 || (spendRows ?? []).some((r) => r.platform === "meta"),
