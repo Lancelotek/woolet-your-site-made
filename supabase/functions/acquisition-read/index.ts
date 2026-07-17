@@ -199,6 +199,7 @@ Deno.serve(async (req) => {
           blended_cac: blendedCac,
         },
         landing_pages: landingPages,
+        daily,
         channels,
         has_ga4: (ga4?.length ?? 0) > 0,
         has_meta: (spendByPlatform.meta?.spend ?? 0) > 0 || (spendRows ?? []).some((r) => r.platform === "meta"),
