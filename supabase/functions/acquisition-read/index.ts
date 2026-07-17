@@ -107,17 +107,21 @@ Deno.serve(async (req) => {
     // GA4 landing pages
     const { data: ga4 } = await admin
       .from("ga4_lp_snapshots")
-      .select("landing_page, sessions, conversions")
+      .select("landing_page, sessions, conversions, snapshot_date")
       .gte("snapshot_date", sinceIso);
 
     const pageMap = new Map<string, { sessions: number; conversions: number }>();
+    const sessionsByDay = new Map<string, number>();
     let totalSessions = 0;
     for (const r of ga4 ?? []) {
       const cur = pageMap.get(r.landing_page) ?? { sessions: 0, conversions: 0 };
-      cur.sessions += Number(r.sessions ?? 0);
+      const s = Number(r.sessions ?? 0);
+      cur.sessions += s;
       cur.conversions += Number(r.conversions ?? 0);
       pageMap.set(r.landing_page, cur);
-      totalSessions += Number(r.sessions ?? 0);
+      totalSessions += s;
+      const d = String(r.snapshot_date).slice(0, 10);
+      sessionsByDay.set(d, (sessionsByDay.get(d) ?? 0) + s);
     }
     const landingPages = Array.from(pageMap.entries())
       .map(([landing_page, v]) => ({
