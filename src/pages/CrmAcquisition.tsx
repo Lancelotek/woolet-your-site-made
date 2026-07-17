@@ -13,17 +13,20 @@ interface LandingPageRow {
 interface ChannelRow {
   channel: "meta" | "google" | "other";
   spend: number;
-  leads: number;
+  leads: number | null;
   cpl: number | null;
 }
 interface Data {
   days: number;
+  currency?: string;
+  fx?: { pln_to_usd: number; source: string };
   totals: { sessions: number; leads: number; paid_spend: number; blended_cac: number | null };
   landing_pages: LandingPageRow[];
   channels: ChannelRow[];
   has_ga4: boolean;
   has_meta: boolean;
   has_google: boolean;
+  has_mailerlite?: boolean;
 }
 
 const T = {
@@ -97,10 +100,8 @@ const CrmAcquisition = () => {
   const kpiCards: Array<{ label: string; value: string; hint?: string }> = data
     ? [
         { label: "Total sessions", value: fmtInt(data.totals.sessions), hint: `Last ${data.days}d` },
-        { label: "Total leads", value: fmtInt(data.totals.leads) },
+        { label: "Total leads", value: fmtInt(data.totals.leads), hint: "MailerLite signups" },
         { label: "Blended CAC", value: fmtUsd(data.totals.blended_cac), hint: `Paid $${data.totals.paid_spend.toFixed(2)}` },
-        { label: "CPL · Meta", value: fmtUsd(data.channels.find((c) => c.channel === "meta")?.cpl ?? null) },
-        { label: "CPL · Google", value: fmtUsd(data.channels.find((c) => c.channel === "google")?.cpl ?? null) },
       ]
     : [];
 
@@ -282,18 +283,22 @@ const CrmAcquisition = () => {
                       <tr key={c.channel} style={{ borderTop: `1px solid ${T.hair}` }}>
                         <td style={{ padding: "8px 12px" }}>{CHANNEL_LABEL[c.channel]}</td>
                         <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtUsd(c.spend || null)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtInt(c.leads)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: T.inkDim }}>{fmtUsd(c.cpl)}</td>
+                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: T.inkMute }}>—</td>
+                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: T.inkMute }}>—</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+              <div style={{ marginTop: 10, fontSize: 11, color: T.inkMute }}>
+                Per-channel CPL requires UTM tagging on signups — showing blended CAC only for now.
+                {data.fx && <> · FX PLN→USD: {data.fx.pln_to_usd.toFixed(4)} ({data.fx.source})</>}
+              </div>
               <div style={{ marginTop: 12, fontSize: 13, color: T.inkDim }}>
                 Blended CAC ={" "}
                 <span style={{ color: T.gold, fontFamily: SERIF, fontSize: 18 }}>{fmtUsd(data.totals.blended_cac)}</span>{" "}
                 <span style={{ color: T.inkMute, fontSize: 12 }}>
-                  (paid spend / total leads · last {data.days}d)
+                  (paid spend USD / MailerLite signups · last {data.days}d)
                 </span>
               </div>
             </section>

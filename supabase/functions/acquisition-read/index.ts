@@ -1,6 +1,6 @@
 // Password-gated aggregated read for the Acquisition CRM tab.
-// Returns period totals: sessions, leads, blended CAC, per-channel spend & CPL,
-// per-landing-page sessions/conversions, per-channel leads.
+// Returns period totals: GA4 sessions, MailerLite leads, USD-converted ad spend,
+// blended CAC (USD/lead), per-channel spend, per-landing-page sessions.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 
@@ -14,14 +14,59 @@ const corsHeaders = {
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ADMIN_PASSWORD = Deno.env.get("ADMIN_CRM_PASSWORD") ?? "";
+const MAILERLITE_API_KEY = Deno.env.get("MAILERLITE_API_KEY") ?? "";
+const PLN_USD_RATE_ENV = Number(Deno.env.get("PLN_USD_RATE") ?? "");
+const FX_FALLBACK = 0.25; // USD per 1 PLN
 
-type Channel = "meta" | "google" | "other";
+const MAILERLITE_GROUPS = [
+  { id: "192429285503403097", label: "Kickstarter VIP" },
+  { id: "181841182994728358", label: "Waitlist ENG" },
+  { id: "189356132351870087", label: "AI Scan" },
+  { id: "189449279680546761", label: "Bespoke" },
+];
 
-function normalizeChannel(src: string | null): Channel {
-  const s = (src ?? "").toLowerCase();
-  if (["facebook", "instagram", "ig", "fb", "meta"].some((k) => s.includes(k))) return "meta";
-  if (["google", "adwords", "gads"].some((k) => s.includes(k))) return "google";
-  return "other";
+async function fetchPlnUsdRate(): Promise<{ rate: number; source: string }> {
+  try {
+    const r = await fetch("https://api.frankfurter.app/latest?from=PLN&to=USD");
+    if (r.ok) {
+      const j = await r.json();
+      const rate = Number(j?.rates?.USD);
+      if (rate > 0) return { rate, source: "frankfurter" };
+    }
+  } catch (_) { /* ignore */ }
+  if (PLN_USD_RATE_ENV > 0) return { rate: PLN_USD_RATE_ENV, source: "env" };
+  console.warn("[acquisition-read] FX fetch failed, using fallback", FX_FALLBACK);
+  return { rate: FX_FALLBACK, source: "fallback" };
+}
+
+async function countMailerliteSignups(cutoffMs: number): Promise<number> {
+  if (!MAILERLITE_API_KEY) return 0;
+  let total = 0;
+  for (const g of MAILERLITE_GROUPS) {
+    let cursor = "";
+    outer: for (let page = 0; page < 30; page++) {
+      const path =
+        `/subscribers?filter[group]=${g.id}&limit=100&sort=-subscribed_at${cursor ? `&cursor=${cursor}` : ""}`;
+      const r = await fetch(`https://connect.mailerlite.com/api${path}`, {
+        headers: { Authorization: `Bearer ${MAILERLITE_API_KEY}`, "Content-Type": "application/json" },
+      });
+      if (r.status >= 400) break;
+      const data = await r.json();
+      const items: Array<{ subscribed_at?: string }> = data?.data || [];
+      if (items.length === 0) break;
+      for (const s of items) {
+        if (!s.subscribed_at) continue;
+        const iso = s.subscribed_at.replace(" ", "T") + "Z";
+        const t = Date.parse(iso);
+        if (isNaN(t)) continue;
+        if (t < cutoffMs) break outer;
+        total++;
+      }
+      cursor = data?.meta?.next_cursor || "";
+      if (!cursor) break;
+    }
+  }
+  return total;
 }
 
 Deno.serve(async (req) => {
@@ -45,9 +90,15 @@ Deno.serve(async (req) => {
     const since = new Date();
     since.setUTCDate(since.getUTCDate() - days);
     const sinceIso = since.toISOString().slice(0, 10);
-    const sinceTs = since.toISOString();
+    const cutoffMs = since.getTime();
 
     const admin = createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { persistSession: false } });
+
+    // Kick off external fetches in parallel
+    const [fx, mlLeads] = await Promise.all([
+      fetchPlnUsdRate(),
+      countMailerliteSignups(cutoffMs),
+    ]);
 
     // GA4 landing pages
     const { data: ga4 } = await admin
@@ -73,7 +124,7 @@ Deno.serve(async (req) => {
       }))
       .sort((a, b) => b.sessions - a.sessions);
 
-    // Ad spend
+    // Ad spend (stored in account native currency, assumed PLN)
     const { data: spendRows } = await admin
       .from("ad_spend_snapshots")
       .select("platform, spend, impressions, clicks")
@@ -91,42 +142,36 @@ Deno.serve(async (req) => {
       spendByPlatform[p].clicks += Number(r.clicks ?? 0);
     }
 
-    // Leads by channel from reservation_leads
-    const { data: leadRows } = await admin
-      .from("reservation_leads")
-      .select("utm_source, created_at")
-      .gte("created_at", sinceTs);
+    // Convert to USD
+    const toUsd = (pln: number) => pln * fx.rate;
 
-    const leadsByChannel: Record<Channel, number> = { meta: 0, google: 0, other: 0 };
-    for (const r of leadRows ?? []) {
-      leadsByChannel[normalizeChannel(r.utm_source)]++;
-    }
-    const totalLeads = (leadRows ?? []).length;
-
-    const channels = (["meta", "google", "other"] as Channel[]).map((ch) => {
-      const spend = spendByPlatform[ch]?.spend ?? 0;
-      const leads = leadsByChannel[ch];
+    const channels = (["meta", "google", "other"] as const).map((ch) => {
+      const spendUsd = toUsd(spendByPlatform[ch]?.spend ?? 0);
       return {
         channel: ch,
-        spend: Number(spend.toFixed(2)),
-        leads,
-        cpl: leads > 0 && spend > 0 ? Number((spend / leads).toFixed(2)) : null,
+        spend: Number(spendUsd.toFixed(2)),
+        leads: null as number | null, // no per-channel attribution
+        cpl: null as number | null,
       };
     });
 
-    const paidSpend = (spendByPlatform.meta?.spend ?? 0) + (spendByPlatform.google?.spend ?? 0);
-    const blendedCac = totalLeads > 0 && paidSpend > 0
-      ? Number((paidSpend / totalLeads).toFixed(2))
+    const paidSpendUsd = toUsd(
+      (spendByPlatform.meta?.spend ?? 0) + (spendByPlatform.google?.spend ?? 0),
+    );
+    const blendedCac = mlLeads > 0 && paidSpendUsd > 0
+      ? Number((paidSpendUsd / mlLeads).toFixed(2))
       : null;
 
     return new Response(
       JSON.stringify({
         ok: true,
         days,
+        currency: "USD",
+        fx: { pln_to_usd: Number(fx.rate.toFixed(4)), source: fx.source },
         totals: {
           sessions: totalSessions,
-          leads: totalLeads,
-          paid_spend: Number(paidSpend.toFixed(2)),
+          leads: mlLeads,
+          paid_spend: Number(paidSpendUsd.toFixed(2)),
           blended_cac: blendedCac,
         },
         landing_pages: landingPages,
@@ -134,6 +179,7 @@ Deno.serve(async (req) => {
         has_ga4: (ga4?.length ?? 0) > 0,
         has_meta: (spendByPlatform.meta?.spend ?? 0) > 0 || (spendRows ?? []).some((r) => r.platform === "meta"),
         has_google: (spendByPlatform.google?.spend ?? 0) > 0 || (spendRows ?? []).some((r) => r.platform === "google"),
+        has_mailerlite: !!MAILERLITE_API_KEY,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
