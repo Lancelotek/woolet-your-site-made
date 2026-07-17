@@ -77,8 +77,9 @@ const fmtPct = (n: number) => `${(n * 100).toFixed(2)}%`;
 const CHANNEL_LABEL: Record<ChannelRow["channel"], string> = {
   meta: "Meta (FB/IG)",
   google: "Google Ads",
-  other: "Other / Direct",
+  other: "Other paid",
 };
+
 
 interface Ga4Status {
   ok: boolean;
