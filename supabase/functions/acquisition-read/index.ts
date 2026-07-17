@@ -98,10 +98,11 @@ Deno.serve(async (req) => {
     const admin = createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { persistSession: false } });
 
     // Kick off external fetches in parallel
-    const [fx, mlLeads] = await Promise.all([
+    const [fx, ml] = await Promise.all([
       fetchPlnUsdRate(),
-      countMailerliteSignups(cutoffMs),
+      fetchMailerliteSignups(cutoffMs),
     ]);
+    const mlLeads = ml.total;
 
     // GA4 landing pages
     const { data: ga4 } = await admin
