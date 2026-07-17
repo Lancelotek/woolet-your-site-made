@@ -6,6 +6,9 @@ import { getAttribution } from "@/lib/attribution";
 import { pushGtmEvent } from "@/lib/gtm";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
+import ksFit150 from "@/assets/ks-fit/woolet-150-bespoke-fit.jpg.asset.json";
+import ksFit158 from "@/assets/ks-fit/woolet-158-signature.jpg.asset.json";
+import ksFit162 from "@/assets/ks-fit/woolet-162-bespoke-extra-wide.jpg.asset.json";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
 const logo = logoAsset.url;
 import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
@@ -45,7 +48,9 @@ const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
 
 // ---------- Hero gallery ----------
 const heroGallery: { src: string; alt: string }[] = [
-  { src: heroManAsset.url, alt: "Man wearing Woolet wide-face eyewear" },
+  { src: ksFit158.url, alt: "158 mm — The Signature: Woolet frames on a medium-to-large head" },
+  { src: ksFit150.url, alt: "150 mm — Bespoke Fit: Woolet frames on an average-to-wide face" },
+  { src: ksFit162.url, alt: "162 mm — Bespoke Extra Wide: Woolet frames on a large head and broad face" },
   { src: w009BlackAsset.url, alt: "Woolet 009 Soft-Square — black" },
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
   { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
