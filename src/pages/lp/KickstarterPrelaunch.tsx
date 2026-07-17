@@ -205,7 +205,7 @@ const VipForm = ({
       className="flex flex-col gap-3"
       style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
     >
-      <div className={compact ? "flex flex-col sm:flex-row gap-3" : "flex flex-col gap-3"}>
+      <div className={compact ? "flex flex-col sm:flex-row gap-2" : "flex flex-col gap-2"}>
         <input
           type="email"
           placeholder="Your email"
@@ -218,13 +218,15 @@ const VipForm = ({
         />
         <button
           type="submit"
-          disabled={loading || !accepted}
+          disabled={loading}
           style={{
             ...ctaButtonStyle,
+            background: GOLD,
+            color: INK,
             width: compact ? "auto" : "100%",
             whiteSpace: "nowrap",
-            opacity: !accepted || loading ? 0.55 : 1,
-            cursor: !accepted || loading ? "not-allowed" : "pointer",
+            opacity: loading ? 0.55 : 1,
+            cursor: loading ? "not-allowed" : "pointer",
           }}
           onMouseEnter={(e) => {
             if (!e.currentTarget.disabled) e.currentTarget.style.background = BRONZE;
@@ -235,44 +237,26 @@ const VipForm = ({
         </button>
       </div>
 
-      <label
-        className="flex items-start gap-3 cursor-pointer select-none"
-        style={{ fontFamily: "Barlow, sans-serif", fontSize: "13px", color: TAUPE, lineHeight: 1.5 }}
+      <p
+        style={{
+          fontFamily: "Barlow, sans-serif",
+          fontSize: 12,
+          color: TAUPE,
+          opacity: 0.6,
+          lineHeight: 1.5,
+          textAlign: compact ? "center" : "left",
+          margin: 0,
+        }}
       >
-        <input
-          type="checkbox"
-          checked={accepted}
-          onChange={() => setAccepted((v) => !v)}
-          className="sr-only"
-        />
-        <span
-          aria-hidden
-          style={{
-            width: 18,
-            height: 18,
-            border: `1px solid ${accepted ? GOLD : HAIRLINE_STRONG}`,
-            background: accepted ? GOLD : "transparent",
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 2,
-            flexShrink: 0,
-          }}
+        By joining, you accept our{" "}
+        <Link
+          to="/en/privacy-policy"
+          style={{ color: TAUPE, textDecoration: "underline", textUnderlineOffset: 2 }}
         >
-          {accepted && (
-            <svg width="10" height="8" viewBox="0 0 8 6" fill="none">
-              <path d="M1 3L3 5L7 1" stroke={INK} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          )}
-        </span>
-        <span>
-          Get early access and launch updates. Accept the{" "}
-          <Link to="/en/privacy-policy" style={{ color: CREAM, textDecoration: "underline", textUnderlineOffset: 2 }}>
-            privacy policy
-          </Link>
-          .
-        </span>
-      </label>
+          Privacy Policy
+        </Link>{" "}
+        and agree to receive launch emails. Unsubscribe anytime.
+      </p>
 
       {error && (
         <p style={{ fontFamily: "Barlow, sans-serif", fontSize: 12, color: "#e25555" }}>{error}</p>
@@ -288,7 +272,7 @@ const VipForm = ({
           marginTop: 2,
         }}
       >
-        No payment now · Just your email · Unsubscribe anytime.
+        No payment now · Just your email.
       </p>
     </form>
   );
