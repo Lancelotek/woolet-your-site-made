@@ -184,22 +184,52 @@ Deno.serve(async (req) => {
 
     const toUsd = (pln: number) => pln * fx.rate;
 
+    // GA4 channel conversions
+    const { data: chRows } = await admin
+      .from("ga4_channel_snapshots")
+      .select("channel, sessions, conversions")
+      .gte("snapshot_date", startIso)
+      .lte("snapshot_date", endIso);
+
+    const convByChannel: Record<string, number> = { meta: 0, google: 0, other_paid: 0, organic: 0 };
+    const sessByChannel: Record<string, number> = { meta: 0, google: 0, other_paid: 0, organic: 0 };
+    for (const r of chRows ?? []) {
+      const ch = String(r.channel);
+      convByChannel[ch] = (convByChannel[ch] ?? 0) + Number(r.conversions ?? 0);
+      sessByChannel[ch] = (sessByChannel[ch] ?? 0) + Number(r.sessions ?? 0);
+    }
+
+    const metaSpendUsd = toUsd(spendByPlatform.meta?.spend ?? 0);
+    const googleSpendUsd = toUsd(spendByPlatform.google?.spend ?? 0);
+    const totalPaidConversions = convByChannel.meta + convByChannel.google + convByChannel.other_paid;
+
+    const safeDiv = (num: number, den: number): number | null =>
+      den > 0 && num > 0 ? Number((num / den).toFixed(2)) : null;
+
+    const meta_cac = safeDiv(metaSpendUsd, convByChannel.meta);
+    const google_cac = safeDiv(googleSpendUsd, convByChannel.google);
+    const paid_spend_usd_total = metaSpendUsd + googleSpendUsd;
+    const paid_cac = safeDiv(paid_spend_usd_total, totalPaidConversions);
+
     const channels = (["meta", "google", "other"] as const).map((ch) => {
-      const spendUsd = toUsd(spendByPlatform[ch]?.spend ?? 0);
+      const spendKey = ch === "other" ? null : ch;
+      const spendUsd = spendKey ? toUsd(spendByPlatform[spendKey]?.spend ?? 0) : 0;
+      const convKey = ch === "other" ? "other_paid" : ch;
+      const conv = convByChannel[convKey] ?? 0;
       return {
         channel: ch,
         spend: Number(spendUsd.toFixed(2)),
-        leads: null as number | null,
-        cpl: null as number | null,
+        leads: conv,
+        cpl: safeDiv(spendUsd, conv),
+        cac: safeDiv(spendUsd, conv),
       };
     });
 
-    const paidSpendUsd = toUsd(
-      (spendByPlatform.meta?.spend ?? 0) + (spendByPlatform.google?.spend ?? 0),
-    );
+    const paidSpendUsd = paid_spend_usd_total;
     const blendedCac = mlLeads > 0 && paidSpendUsd > 0
       ? Number((paidSpendUsd / mlLeads).toFixed(2))
       : null;
+
 
     // Build ascending day list for range
     const dayList: string[] = [];
