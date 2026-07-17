@@ -39,8 +39,9 @@ async function fetchPlnUsdRate(): Promise<{ rate: number; source: string }> {
   return { rate: FX_FALLBACK, source: "fallback" };
 }
 
-async function countMailerliteSignups(cutoffMs: number): Promise<number> {
-  if (!MAILERLITE_API_KEY) return 0;
+async function fetchMailerliteSignups(cutoffMs: number): Promise<{ total: number; byDay: Map<string, number> }> {
+  const byDay = new Map<string, number>();
+  if (!MAILERLITE_API_KEY) return { total: 0, byDay };
   let total = 0;
   for (const g of MAILERLITE_GROUPS) {
     let cursor = "";
@@ -61,12 +62,14 @@ async function countMailerliteSignups(cutoffMs: number): Promise<number> {
         if (isNaN(t)) continue;
         if (t < cutoffMs) break outer;
         total++;
+        const day = new Date(t).toISOString().slice(0, 10);
+        byDay.set(day, (byDay.get(day) ?? 0) + 1);
       }
       cursor = data?.meta?.next_cursor || "";
       if (!cursor) break;
     }
   }
-  return total;
+  return { total, byDay };
 }
 
 Deno.serve(async (req) => {
