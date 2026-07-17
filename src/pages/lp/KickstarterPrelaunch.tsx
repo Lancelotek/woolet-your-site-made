@@ -124,7 +124,7 @@ const VipForm = ({
 }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [accepted, setAccepted] = useState(false);
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
