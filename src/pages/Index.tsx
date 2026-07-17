@@ -541,7 +541,7 @@ const Index = () => {
 
   return (
     <>
-      <SEO title={seo.title} description={seo.description} lang={lang} />
+      <SEO title={seo.title} description={seo.description} ogDescription={seo.ogDescription} lang={lang} />
 
 
       <div className="min-h-screen flex flex-col bg-background text-foreground relative overflow-hidden">
