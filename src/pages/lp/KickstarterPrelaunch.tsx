@@ -48,7 +48,9 @@ const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
 
 // ---------- Hero gallery ----------
 const heroGallery: { src: string; alt: string }[] = [
-  { src: heroManAsset.url, alt: "Man wearing Woolet wide-face eyewear" },
+  { src: ksFit158.url, alt: "158 mm — The Signature: Woolet frames on a medium-to-large head" },
+  { src: ksFit150.url, alt: "150 mm — Bespoke Fit: Woolet frames on an average-to-wide face" },
+  { src: ksFit162.url, alt: "162 mm — Bespoke Extra Wide: Woolet frames on a large head and broad face" },
   { src: w009BlackAsset.url, alt: "Woolet 009 Soft-Square — black" },
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
   { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
