@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      ad_spend_snapshots: {
+        Row: {
+          clicks: number
+          created_at: string
+          id: string
+          impressions: number
+          platform: string
+          snapshot_date: string
+          spend: number
+        }
+        Insert: {
+          clicks?: number
+          created_at?: string
+          id?: string
+          impressions?: number
+          platform: string
+          snapshot_date: string
+          spend?: number
+        }
+        Update: {
+          clicks?: number
+          created_at?: string
+          id?: string
+          impressions?: number
+          platform?: string
+          snapshot_date?: string
+          spend?: number
+        }
+        Relationships: []
+      }
       bespoke_ai_previews: {
         Row: {
           created_at: string
@@ -380,6 +410,33 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      ga4_lp_snapshots: {
+        Row: {
+          conversions: number
+          created_at: string
+          id: string
+          landing_page: string
+          sessions: number
+          snapshot_date: string
+        }
+        Insert: {
+          conversions?: number
+          created_at?: string
+          id?: string
+          landing_page: string
+          sessions?: number
+          snapshot_date: string
+        }
+        Update: {
+          conversions?: number
+          created_at?: string
+          id?: string
+          landing_page?: string
+          sessions?: number
+          snapshot_date?: string
         }
         Relationships: []
       }
