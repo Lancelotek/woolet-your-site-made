@@ -312,6 +312,7 @@ const BespokePage = () => {
       <SEO
         title="Bespoke Eyewear & Bespoke Glasses for Wide Faces — 145–162 mm | Woolet"
         description="Bespoke eyewear built to your face from an AI scan. Bespoke glasses for wide faces, 145–162 mm, hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers vs $650–3,300 at traditional ateliers."
+        ogDescription="Bespoke glasses for wide faces, 145–162 mm. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers."
         lang="en"
         path="/bespoke"
         availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
