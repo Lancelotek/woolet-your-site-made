@@ -413,6 +413,36 @@ export type Database = {
         }
         Relationships: []
       }
+      ga4_channel_snapshots: {
+        Row: {
+          channel: string
+          conversions: number
+          created_at: string
+          id: string
+          sessions: number
+          snapshot_date: string
+          updated_at: string
+        }
+        Insert: {
+          channel: string
+          conversions?: number
+          created_at?: string
+          id?: string
+          sessions?: number
+          snapshot_date: string
+          updated_at?: string
+        }
+        Update: {
+          channel?: string
+          conversions?: number
+          created_at?: string
+          id?: string
+          sessions?: number
+          snapshot_date?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       ga4_lp_snapshots: {
         Row: {
           conversions: number

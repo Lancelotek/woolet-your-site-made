@@ -15,6 +15,7 @@ interface ChannelRow {
   spend: number;
   leads: number | null;
   cpl: number | null;
+  cac: number | null;
 }
 interface DailyRow {
   date: string;
@@ -31,7 +32,19 @@ interface Data {
   range?: { start: string; end: string; label: string };
   currency?: string;
   fx?: { pln_to_usd: number; source: string };
-  totals: { sessions: number; leads: number; paid_spend: number; blended_cac: number | null };
+  totals: {
+    sessions: number;
+    leads: number;
+    paid_spend: number;
+    blended_cac: number | null;
+    paid_cac: number | null;
+    meta_cac: number | null;
+    google_cac: number | null;
+    paid_conversions: number;
+    meta_conversions: number;
+    google_conversions: number;
+    other_paid_conversions: number;
+  };
   landing_pages: LandingPageRow[];
   daily: DailyRow[];
   lp_daily?: LpDailyRow[];
@@ -41,6 +54,7 @@ interface Data {
   has_google: boolean;
   has_mailerlite?: boolean;
 }
+
 
 const T = {
   bg: "#0b0a09",
@@ -63,8 +77,9 @@ const fmtPct = (n: number) => `${(n * 100).toFixed(2)}%`;
 const CHANNEL_LABEL: Record<ChannelRow["channel"], string> = {
   meta: "Meta (FB/IG)",
   google: "Google Ads",
-  other: "Other / Direct",
+  other: "Other paid",
 };
+
 
 interface Ga4Status {
   ok: boolean;
@@ -189,8 +204,10 @@ const CrmAcquisition = () => {
         { label: "Total sessions", value: fmtInt(data.totals.sessions), hint: rangeHint },
         { label: "Total leads", value: fmtInt(data.totals.leads), hint: "MailerLite signups" },
         { label: "Blended CAC", value: fmtUsd(data.totals.blended_cac), hint: `Paid $${data.totals.paid_spend.toFixed(2)}` },
+        { label: "Paid CAC", value: fmtUsd(data.totals.paid_cac), hint: "spend / GA4 paid conversions" },
       ]
     : [];
+
 
   const totalsRow = data
     ? data.landing_pages.reduce(
@@ -532,27 +549,37 @@ const CrmAcquisition = () => {
                   <thead>
                     <tr style={{ background: T.panel, textAlign: "left" }}>
                       <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute }}>Channel</th>
-                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Spend</th>
-                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Leads</th>
-                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>CPL</th>
+                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Spend (USD)</th>
+                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Konwersje (GA4)</th>
+                      <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>CAC</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {data.channels.map((c) => (
-                      <tr key={c.channel} style={{ borderTop: `1px solid ${T.hair}` }}>
-                        <td style={{ padding: "8px 12px" }}>{CHANNEL_LABEL[c.channel]}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtUsd(c.spend || null)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: T.inkMute }}>—</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: T.inkMute }}>—</td>
-                      </tr>
-                    ))}
+                    {data.channels
+                      .filter((c) => c.channel !== "other" || (c.spend > 0 || (c.leads ?? 0) > 0))
+                      .map((c) => {
+                        const conv = c.leads ?? 0;
+                        return (
+                          <tr key={c.channel} style={{ borderTop: `1px solid ${T.hair}` }}>
+                            <td style={{ padding: "8px 12px" }}>{CHANNEL_LABEL[c.channel]}</td>
+                            <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtUsd(c.spend || null)}</td>
+                            <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: conv > 0 ? T.ink : T.inkMute }}>
+                              {conv > 0 ? fmtInt(conv) : "—"}
+                            </td>
+                            <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: c.cac != null ? T.gold : T.inkMute }}>
+                              {c.cac != null ? fmtUsd(c.cac) : "—"}
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>
-              <div style={{ marginTop: 10, fontSize: 11, color: T.inkMute }}>
-                Per-channel CPL requires UTM tagging on signups — showing blended CAC only for now.
-                {data.fx && <> · FX PLN→USD: {data.fx.pln_to_usd.toFixed(4)} ({data.fx.source})</>}
+              <div style={{ marginTop: 10, fontSize: 11, color: T.inkMute, lineHeight: 1.6 }}>
+                Blended CAC = spend / MailerLite signups (all leads). Paid & per-channel CAC use GA4-attributed conversions (client-side, undercounts vs MailerLite — directional). Data accumulates from when key events were enabled.
+                {data.fx && <><br />FX PLN→USD: {data.fx.pln_to_usd.toFixed(4)} ({data.fx.source})</>}
               </div>
+
               <div style={{ marginTop: 12, fontSize: 13, color: T.inkDim }}>
                 Blended CAC ={" "}
                 <span style={{ color: T.gold, fontFamily: SERIF, fontSize: 18 }}>{fmtUsd(data.totals.blended_cac)}</span>{" "}

@@ -139,10 +139,81 @@ Deno.serve(async (req) => {
       upserted += slice.length;
     }
 
+    // === Second report: sessions + conversions by date × sessionSourceMedium ===
+    const channelRows: Array<{ dimensionValues: Array<{ value: string }>; metricValues: Array<{ value: string }> }> = [];
+    let cOffset = 0;
+    for (let page = 0; page < 20; page++) {
+      const body = {
+        dateRanges: [{ startDate: "95daysAgo", endDate: "yesterday" }],
+        dimensions: [{ name: "date" }, { name: "sessionSourceMedium" }],
+        metrics: [{ name: "sessions" }, { name: "keyEvents" }],
+        limit: pageSize,
+        offset: cOffset,
+      };
+      const res = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/${GA4_PROPERTY_ID}:runReport`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        },
+      );
+      if (!res.ok) throw new Error(`GA4 channels ${res.status}: ${(await res.text()).slice(0, 300)}`);
+      const json = await res.json() as { rows?: Array<{ dimensionValues: Array<{ value: string }>; metricValues: Array<{ value: string }> }> };
+      const rows = json.rows ?? [];
+      channelRows.push(...rows);
+      if (rows.length < pageSize) break;
+      cOffset += pageSize;
+    }
+
+    function classifyChannel(sourceMedium: string): "meta" | "google" | "other_paid" | "organic" {
+      const sm = sourceMedium.toLowerCase().trim();
+      const [rawSource, rawMedium] = sm.split("/").map((s) => s.trim());
+      const source = rawSource ?? "";
+      const medium = (rawMedium ?? "").replace(/[-\s]/g, "");
+      const paidMediums = new Set(["cpc", "ppc", "paid", "paidsocial"]);
+      const isMetaSource = /(facebook|fb|instagram|ig|meta)/.test(source);
+      const isGoogleSource = /google/.test(source);
+      if (isMetaSource && paidMediums.has(medium)) return "meta";
+      if (isGoogleSource && (medium === "cpc" || medium === "ppc" || medium === "paid")) return "google";
+      if (paidMediums.has(medium)) return "other_paid";
+      return "organic";
+    }
+
+    // Aggregate per (date, channel)
+    const channelAgg = new Map<string, { snapshot_date: string; channel: string; sessions: number; conversions: number }>();
+    for (const r of channelRows) {
+      const rawDate = r.dimensionValues[0]?.value ?? "";
+      const snapshot_date = rawDate.length === 8
+        ? `${rawDate.slice(0, 4)}-${rawDate.slice(4, 6)}-${rawDate.slice(6, 8)}`
+        : rawDate;
+      const sm = r.dimensionValues[1]?.value ?? "";
+      const channel = classifyChannel(sm);
+      const sessions = Number(r.metricValues[0]?.value ?? 0) | 0;
+      const conversions = Math.round(Number(r.metricValues[1]?.value ?? 0));
+      if (!snapshot_date) continue;
+      const key = `${snapshot_date}|${channel}`;
+      const cur = channelAgg.get(key) ?? { snapshot_date, channel, sessions: 0, conversions: 0 };
+      cur.sessions += sessions;
+      cur.conversions += conversions;
+      channelAgg.set(key, cur);
+    }
+    const channelRecords = Array.from(channelAgg.values());
+    let channelsUpserted = 0;
+    for (let i = 0; i < channelRecords.length; i += chunk) {
+      const slice = channelRecords.slice(i, i + chunk);
+      const { error } = await admin
+        .from("ga4_channel_snapshots")
+        .upsert(slice, { onConflict: "snapshot_date,channel" });
+      if (error) throw error;
+      channelsUpserted += slice.length;
+    }
+
     return new Response(
-      JSON.stringify({ ok: true, upserted }),
+      JSON.stringify({ ok: true, upserted, channels_upserted: channelsUpserted }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
+
   } catch (e) {
     return new Response(
       JSON.stringify({ ok: false, error: (e as Error).message }),
