@@ -39,7 +39,7 @@ async function fetchPlnUsdRate(): Promise<{ rate: number; source: string }> {
   return { rate: FX_FALLBACK, source: "fallback" };
 }
 
-async function fetchMailerliteSignups(cutoffMs: number): Promise<{ total: number; byDay: Map<string, number> }> {
+async function fetchMailerliteSignups(startMs: number, endMs: number): Promise<{ total: number; byDay: Map<string, number> }> {
   const byDay = new Map<string, number>();
   if (!MAILERLITE_API_KEY) return { total: 0, byDay };
   let total = 0;
@@ -60,7 +60,8 @@ async function fetchMailerliteSignups(cutoffMs: number): Promise<{ total: number
         const iso = s.subscribed_at.replace(" ", "T") + "Z";
         const t = Date.parse(iso);
         if (isNaN(t)) continue;
-        if (t < cutoffMs) break outer;
+        if (t < startMs) break outer;
+        if (t > endMs) continue;
         total++;
         const day = new Date(t).toISOString().slice(0, 10);
         byDay.set(day, (byDay.get(day) ?? 0) + 1);
@@ -81,7 +82,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const body = (await req.json().catch(() => ({}))) as { password?: string; days?: number };
+    const body = (await req.json().catch(() => ({}))) as { password?: string; days?: number; start_date?: string; end_date?: string };
     const provided = body.password ?? req.headers.get("x-admin-password") ?? "";
     if (!ADMIN_PASSWORD || provided !== ADMIN_PASSWORD) {
       return new Response(JSON.stringify({ error: "Invalid password" }), {
@@ -89,18 +90,38 @@ Deno.serve(async (req) => {
       });
     }
 
-    const days = Math.min(Math.max(body.days ?? 30, 1), 90);
-    const since = new Date();
-    since.setUTCDate(since.getUTCDate() - days);
-    const sinceIso = since.toISOString().slice(0, 10);
-    const cutoffMs = since.getTime();
+    const isoDay = /^\d{4}-\d{2}-\d{2}$/;
+    let startIso: string;
+    let endIso: string;
+    let days: number;
+    let rangeLabel: string;
+
+    if (body.start_date && body.end_date && isoDay.test(body.start_date) && isoDay.test(body.end_date)) {
+      startIso = body.start_date;
+      endIso = body.end_date;
+      const s = Date.parse(startIso + "T00:00:00Z");
+      const e = Date.parse(endIso + "T00:00:00Z");
+      days = Math.max(1, Math.round((e - s) / 86400000) + 1);
+      rangeLabel = `${startIso} → ${endIso}`;
+    } else {
+      days = Math.min(Math.max(body.days ?? 30, 1), 120);
+      const end = new Date();
+      const start = new Date();
+      start.setUTCDate(start.getUTCDate() - (days - 1));
+      startIso = start.toISOString().slice(0, 10);
+      endIso = end.toISOString().slice(0, 10);
+      rangeLabel = `Last ${days}d`;
+    }
+
+    const startMs = Date.parse(startIso + "T00:00:00Z");
+    const endMs = Date.parse(endIso + "T23:59:59Z");
 
     const admin = createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { persistSession: false } });
 
     // Kick off external fetches in parallel
     const [fx, ml] = await Promise.all([
       fetchPlnUsdRate(),
-      fetchMailerliteSignups(cutoffMs),
+      fetchMailerliteSignups(startMs, endMs),
     ]);
     const mlLeads = ml.total;
 
@@ -108,20 +129,30 @@ Deno.serve(async (req) => {
     const { data: ga4 } = await admin
       .from("ga4_lp_snapshots")
       .select("landing_page, sessions, conversions, snapshot_date")
-      .gte("snapshot_date", sinceIso);
+      .gte("snapshot_date", startIso)
+      .lte("snapshot_date", endIso);
 
     const pageMap = new Map<string, { sessions: number; conversions: number }>();
     const sessionsByDay = new Map<string, number>();
+    // per-page per-day map for lp_daily
+    const pageDayMap = new Map<string, Map<string, { sessions: number; conversions: number }>>();
     let totalSessions = 0;
     for (const r of ga4 ?? []) {
       const cur = pageMap.get(r.landing_page) ?? { sessions: 0, conversions: 0 };
       const s = Number(r.sessions ?? 0);
+      const c = Number(r.conversions ?? 0);
       cur.sessions += s;
-      cur.conversions += Number(r.conversions ?? 0);
+      cur.conversions += c;
       pageMap.set(r.landing_page, cur);
       totalSessions += s;
       const d = String(r.snapshot_date).slice(0, 10);
       sessionsByDay.set(d, (sessionsByDay.get(d) ?? 0) + s);
+      let inner = pageDayMap.get(r.landing_page);
+      if (!inner) { inner = new Map(); pageDayMap.set(r.landing_page, inner); }
+      const dayCur = inner.get(d) ?? { sessions: 0, conversions: 0 };
+      dayCur.sessions += s;
+      dayCur.conversions += c;
+      inner.set(d, dayCur);
     }
     const landingPages = Array.from(pageMap.entries())
       .map(([landing_page, v]) => ({
@@ -136,7 +167,8 @@ Deno.serve(async (req) => {
     const { data: spendRows } = await admin
       .from("ad_spend_snapshots")
       .select("platform, spend, impressions, clicks")
-      .gte("snapshot_date", sinceIso);
+      .gte("snapshot_date", startIso)
+      .lte("snapshot_date", endIso);
 
     const spendByPlatform: Record<string, { spend: number; impressions: number; clicks: number }> = {
       meta: { spend: 0, impressions: 0, clicks: 0 },
@@ -150,7 +182,6 @@ Deno.serve(async (req) => {
       spendByPlatform[p].clicks += Number(r.clicks ?? 0);
     }
 
-    // Convert to USD
     const toUsd = (pln: number) => pln * fx.rate;
 
     const channels = (["meta", "google", "other"] as const).map((ch) => {
@@ -158,7 +189,7 @@ Deno.serve(async (req) => {
       return {
         channel: ch,
         spend: Number(spendUsd.toFixed(2)),
-        leads: null as number | null, // no per-channel attribution
+        leads: null as number | null,
         cpl: null as number | null,
       };
     });
@@ -170,26 +201,36 @@ Deno.serve(async (req) => {
       ? Number((paidSpendUsd / mlLeads).toFixed(2))
       : null;
 
-    // Daily conversion: one row per UTC day in the period
+    // Build ascending day list for range
+    const dayList: string[] = [];
+    for (let t = startMs; t <= endMs; t += 86400000) {
+      dayList.push(new Date(t).toISOString().slice(0, 10));
+    }
+
+    // Daily conversion (newest-first, matching existing UI)
     const daily: Array<{ date: string; sessions: number; signups: number; conv_rate: number }> = [];
-    const today = new Date();
-    for (let i = 0; i < days; i++) {
-      const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - i));
-      const key = d.toISOString().slice(0, 10);
+    for (let i = dayList.length - 1; i >= 0; i--) {
+      const key = dayList[i];
       const sessions = sessionsByDay.get(key) ?? 0;
       const signups = ml.byDay.get(key) ?? 0;
-      daily.push({
-        date: key,
-        sessions,
-        signups,
-        conv_rate: sessions > 0 ? signups / sessions : 0,
-      });
+      daily.push({ date: key, sessions, signups, conv_rate: sessions > 0 ? signups / sessions : 0 });
     }
+
+    // lp_daily: top 8 pages by sessions, per-day series ascending, zero-filled
+    const lp_daily = landingPages.slice(0, 8).map((lp) => {
+      const inner = pageDayMap.get(lp.landing_page) ?? new Map();
+      const series = dayList.map((d) => {
+        const v = inner.get(d) ?? { sessions: 0, conversions: 0 };
+        return { date: d, sessions: v.sessions, conversions: v.conversions };
+      });
+      return { landing_page: lp.landing_page, series };
+    });
 
     return new Response(
       JSON.stringify({
         ok: true,
         days,
+        range: { start: startIso, end: endIso, label: rangeLabel },
         currency: "USD",
         fx: { pln_to_usd: Number(fx.rate.toFixed(4)), source: fx.source },
         totals: {
@@ -200,6 +241,7 @@ Deno.serve(async (req) => {
         },
         landing_pages: landingPages,
         daily,
+        lp_daily,
         channels,
         has_ga4: (ga4?.length ?? 0) > 0,
         has_meta: (spendByPlatform.meta?.spend ?? 0) > 0 || (spendRows ?? []).some((r) => r.platform === "meta"),

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import wordmark from "@/assets/woolet-wordmark.svg";
 import { supabase } from "@/integrations/supabase/client";
@@ -22,13 +22,19 @@ interface DailyRow {
   signups: number;
   conv_rate: number;
 }
+interface LpDailyRow {
+  landing_page: string;
+  series: Array<{ date: string; sessions: number; conversions: number }>;
+}
 interface Data {
   days: number;
+  range?: { start: string; end: string; label: string };
   currency?: string;
   fx?: { pln_to_usd: number; source: string };
   totals: { sessions: number; leads: number; paid_spend: number; blended_cac: number | null };
   landing_pages: LandingPageRow[];
   daily: DailyRow[];
+  lp_daily?: LpDailyRow[];
   channels: ChannelRow[];
   has_ga4: boolean;
   has_meta: boolean;
@@ -69,15 +75,42 @@ interface Ga4Status {
   message: string;
 }
 
+type RangeMode =
+  | { kind: "days"; days: number }
+  | { kind: "month"; year: number; month: number /* 0-based */; label: string };
+
+function pad(n: number) { return n < 10 ? `0${n}` : `${n}`; }
+function monthRange(year: number, month: number) {
+  const start = `${year}-${pad(month + 1)}-01`;
+  const endDate = new Date(Date.UTC(year, month + 1, 0));
+  const end = `${year}-${pad(month + 1)}-${pad(endDate.getUTCDate())}`;
+  return { start, end };
+}
+const PL_MONTHS = ["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Październik","Listopad","Grudzień"];
+function monthLabel(year: number, month: number) { return `${PL_MONTHS[month]} ${year}`; }
+
 const CrmAcquisition = () => {
   const [password, setPassword] = useState("");
-  const [days, setDays] = useState(30);
+  const [range, setRange] = useState<RangeMode>({ kind: "days", days: 30 });
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState<string | null>(null);
   const [ga4Status, setGa4Status] = useState<Ga4Status | null>(null);
   const [checkingGa4, setCheckingGa4] = useState(false);
+  const [pacingPage, setPacingPage] = useState<string>("");
+
+  const monthOptions = useMemo(() => {
+    const opts: Array<{ value: string; label: string; year: number; month: number }> = [];
+    const now = new Date();
+    for (let i = 0; i < 6; i++) {
+      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+      const y = d.getUTCFullYear();
+      const m = d.getUTCMonth();
+      opts.push({ value: `${y}-${pad(m + 1)}`, label: monthLabel(y, m), year: y, month: m });
+    }
+    return opts;
+  }, []);
 
   const checkGa4 = async () => {
     setCheckingGa4(true);
@@ -97,17 +130,31 @@ const CrmAcquisition = () => {
     }
   };
 
-  const load = async (nextDays = days) => {
+  const load = async (nextRange: RangeMode = range) => {
     setLoading(true);
     setError(null);
     try {
+      const body: Record<string, unknown> = { password };
+      if (nextRange.kind === "days") {
+        body.days = nextRange.days;
+      } else {
+        const { start, end } = monthRange(nextRange.year, nextRange.month);
+        body.start_date = start;
+        body.end_date = end;
+      }
       const { data: res, error: fnErr } = await supabase.functions.invoke("acquisition-read", {
-        body: { password, days: nextDays },
+        body,
       });
       if (fnErr) throw new Error(fnErr.message);
       if (!res?.ok) throw new Error(res?.error ?? "Request failed");
-      setData(res as Data);
-      // Fire-and-forget GA4 access probe so the banner is always fresh.
+      const d = res as Data;
+      setData(d);
+      // Default pacing selection to top page
+      if (d.lp_daily && d.lp_daily.length > 0) {
+        setPacingPage((prev) => (prev && d.lp_daily!.some((p) => p.landing_page === prev) ? prev : d.lp_daily![0].landing_page));
+      } else {
+        setPacingPage("");
+      }
       checkGa4();
     } catch (e) {
       setError((e as Error).message);
@@ -136,9 +183,10 @@ const CrmAcquisition = () => {
   };
 
 
+  const rangeHint = data?.range?.label ?? `Last ${data?.days ?? 0}d`;
   const kpiCards: Array<{ label: string; value: string; hint?: string }> = data
     ? [
-        { label: "Total sessions", value: fmtInt(data.totals.sessions), hint: `Last ${data.days}d` },
+        { label: "Total sessions", value: fmtInt(data.totals.sessions), hint: rangeHint },
         { label: "Total leads", value: fmtInt(data.totals.leads), hint: "MailerLite signups" },
         { label: "Blended CAC", value: fmtUsd(data.totals.blended_cac), hint: `Paid $${data.totals.paid_spend.toFixed(2)}` },
       ]
@@ -187,13 +235,20 @@ const CrmAcquisition = () => {
               style={{ background: T.panel, border: `1px solid ${T.hair}`, color: T.ink, padding: "10px 12px", fontSize: 14, width: 260, borderRadius: 2 }}
             />
           </div>
-          <div style={{ display: "flex", gap: 6 }}>
-            {[7, 30].map((d) => {
-              const active = days === d;
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            {([
+              { key: "7d", label: "7D", r: { kind: "days", days: 7 } as RangeMode },
+              { key: "30d", label: "30D", r: { kind: "days", days: 30 } as RangeMode },
+              { key: "tm", label: "This month", r: (() => { const n = new Date(); return { kind: "month", year: n.getUTCFullYear(), month: n.getUTCMonth(), label: monthLabel(n.getUTCFullYear(), n.getUTCMonth()) } as RangeMode; })() },
+              { key: "lm", label: "Last month", r: (() => { const n = new Date(); const d = new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth() - 1, 1)); return { kind: "month", year: d.getUTCFullYear(), month: d.getUTCMonth(), label: monthLabel(d.getUTCFullYear(), d.getUTCMonth()) } as RangeMode; })() },
+            ]).map((p) => {
+              const active =
+                (p.r.kind === "days" && range.kind === "days" && range.days === p.r.days) ||
+                (p.r.kind === "month" && range.kind === "month" && range.year === p.r.year && range.month === p.r.month);
               return (
                 <button
-                  key={d}
-                  onClick={() => { setDays(d); if (password) load(d); }}
+                  key={p.key}
+                  onClick={() => { setRange(p.r); if (password) load(p.r); }}
                   style={{
                     background: active ? T.gold : "transparent",
                     color: active ? T.goldInk : T.inkDim,
@@ -207,10 +262,35 @@ const CrmAcquisition = () => {
                     fontWeight: active ? 600 : 400,
                   }}
                 >
-                  Last {d}d
+                  {p.label}
                 </button>
               );
             })}
+            <select
+              value={range.kind === "month" ? `${range.year}-${pad(range.month + 1)}` : ""}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (!val) return;
+                const opt = monthOptions.find((o) => o.value === val);
+                if (!opt) return;
+                const r: RangeMode = { kind: "month", year: opt.year, month: opt.month, label: opt.label };
+                setRange(r);
+                if (password) load(r);
+              }}
+              style={{
+                background: T.panel,
+                color: T.ink,
+                border: `1px solid ${T.hair}`,
+                padding: "10px 12px",
+                fontSize: 12,
+                borderRadius: 2,
+              }}
+            >
+              <option value="">Miesiąc…</option>
+              {monthOptions.map((o) => (
+                <option key={o.value} value={o.value}>{o.label}</option>
+              ))}
+            </select>
           </div>
           <button
             onClick={() => load()}
@@ -278,6 +358,12 @@ const CrmAcquisition = () => {
 
         {data && (
           <>
+            {data.range && (
+              <div style={{ fontSize: 11, color: T.inkMute, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 10 }}>
+                Range · <span style={{ color: T.gold }}>{data.range.label}</span>
+                <span style={{ color: T.inkMute, textTransform: "none", letterSpacing: 0 }}> ({data.range.start} → {data.range.end})</span>
+              </div>
+            )}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12, marginBottom: 32 }}>
               {kpiCards.map((k) => (
                 <div key={k.label} style={{ background: T.panel, border: `1px solid ${T.hair}`, padding: "16px 18px" }}>
@@ -372,6 +458,67 @@ const CrmAcquisition = () => {
               </div>
             </section>
 
+            <section style={{ marginBottom: 40 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
+                <h2 style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 400, margin: 0 }}>Landing page pacing</h2>
+                {data.lp_daily && data.lp_daily.length > 0 && (
+                  <select
+                    value={pacingPage}
+                    onChange={(e) => setPacingPage(e.target.value)}
+                    style={{ background: T.panel, color: T.ink, border: `1px solid ${T.hair}`, padding: "8px 10px", fontSize: 12, borderRadius: 2, maxWidth: 480 }}
+                  >
+                    {data.lp_daily.map((p) => (
+                      <option key={p.landing_page} value={p.landing_page}>{p.landing_page}</option>
+                    ))}
+                  </select>
+                )}
+              </div>
+              {(() => {
+                const selected = data.lp_daily?.find((p) => p.landing_page === pacingPage) ?? data.lp_daily?.[0];
+                if (!selected || selected.series.length === 0) {
+                  return (
+                    <div style={{ border: `1px solid ${T.hair}`, padding: "16px 12px", color: T.inkMute, fontSize: 13 }}>
+                      Brak danych GA4 dla wybranego zakresu.
+                    </div>
+                  );
+                }
+                let cum = 0;
+                return (
+                  <div style={{ overflowX: "auto", border: `1px solid ${T.hair}` }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                      <thead>
+                        <tr style={{ background: T.panel, textAlign: "left" }}>
+                          <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute }}>Date</th>
+                          <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Sesje</th>
+                          <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Konwersje</th>
+                          <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Konwersja %</th>
+                          <th style={{ padding: "10px 12px", fontWeight: 500, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: T.inkMute, textAlign: "right" }}>Skum. konwersje</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selected.series.map((r) => {
+                          cum += r.conversions;
+                          const rate = r.sessions > 0 ? r.conversions / r.sessions : null;
+                          return (
+                            <tr key={r.date} style={{ borderTop: `1px solid ${T.hair}` }}>
+                              <td style={{ padding: "8px 12px", color: T.inkDim, fontVariantNumeric: "tabular-nums" }}>{r.date}</td>
+                              <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtInt(r.sessions)}</td>
+                              <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtInt(r.conversions)}</td>
+                              <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: rate != null ? T.gold : T.inkMute }}>
+                                {rate != null ? `${(rate * 100).toFixed(1)}%` : "—"}
+                              </td>
+                              <td style={{ padding: "8px 12px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: T.ink }}>{fmtInt(cum)}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                );
+              })()}
+            </section>
+
+
 
             <section style={{ marginBottom: 24 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
@@ -410,7 +557,7 @@ const CrmAcquisition = () => {
                 Blended CAC ={" "}
                 <span style={{ color: T.gold, fontFamily: SERIF, fontSize: 18 }}>{fmtUsd(data.totals.blended_cac)}</span>{" "}
                 <span style={{ color: T.inkMute, fontSize: 12 }}>
-                  (paid spend USD / MailerLite signups · last {data.days}d)
+                  (paid spend USD / MailerLite signups · {rangeHint})
                 </span>
               </div>
             </section>
@@ -419,7 +566,7 @@ const CrmAcquisition = () => {
 
         {!data && !loading && (
           <p style={{ color: T.inkMute, fontSize: 13 }}>
-            Enter password and click <em>Load</em> to view the last {days} days.
+            Enter password and click <em>Load</em>.
           </p>
         )}
       </div>
