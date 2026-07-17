@@ -203,8 +203,10 @@ const CrmAcquisition = () => {
         { label: "Total sessions", value: fmtInt(data.totals.sessions), hint: rangeHint },
         { label: "Total leads", value: fmtInt(data.totals.leads), hint: "MailerLite signups" },
         { label: "Blended CAC", value: fmtUsd(data.totals.blended_cac), hint: `Paid $${data.totals.paid_spend.toFixed(2)}` },
+        { label: "Paid CAC", value: fmtUsd(data.totals.paid_cac), hint: "spend / GA4 paid conversions" },
       ]
     : [];
+
 
   const totalsRow = data
     ? data.landing_pages.reduce(
