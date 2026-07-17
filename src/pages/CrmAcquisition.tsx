@@ -100,10 +100,8 @@ const CrmAcquisition = () => {
   const kpiCards: Array<{ label: string; value: string; hint?: string }> = data
     ? [
         { label: "Total sessions", value: fmtInt(data.totals.sessions), hint: `Last ${data.days}d` },
-        { label: "Total leads", value: fmtInt(data.totals.leads) },
+        { label: "Total leads", value: fmtInt(data.totals.leads), hint: "MailerLite signups" },
         { label: "Blended CAC", value: fmtUsd(data.totals.blended_cac), hint: `Paid $${data.totals.paid_spend.toFixed(2)}` },
-        { label: "CPL · Meta", value: fmtUsd(data.channels.find((c) => c.channel === "meta")?.cpl ?? null) },
-        { label: "CPL · Google", value: fmtUsd(data.channels.find((c) => c.channel === "google")?.cpl ?? null) },
       ]
     : [];
 
