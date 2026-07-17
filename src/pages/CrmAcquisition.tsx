@@ -15,6 +15,7 @@ interface ChannelRow {
   spend: number;
   leads: number | null;
   cpl: number | null;
+  cac: number | null;
 }
 interface DailyRow {
   date: string;
@@ -31,7 +32,19 @@ interface Data {
   range?: { start: string; end: string; label: string };
   currency?: string;
   fx?: { pln_to_usd: number; source: string };
-  totals: { sessions: number; leads: number; paid_spend: number; blended_cac: number | null };
+  totals: {
+    sessions: number;
+    leads: number;
+    paid_spend: number;
+    blended_cac: number | null;
+    paid_cac: number | null;
+    meta_cac: number | null;
+    google_cac: number | null;
+    paid_conversions: number;
+    meta_conversions: number;
+    google_conversions: number;
+    other_paid_conversions: number;
+  };
   landing_pages: LandingPageRow[];
   daily: DailyRow[];
   lp_daily?: LpDailyRow[];
@@ -41,6 +54,7 @@ interface Data {
   has_google: boolean;
   has_mailerlite?: boolean;
 }
+
 
 const T = {
   bg: "#0b0a09",
