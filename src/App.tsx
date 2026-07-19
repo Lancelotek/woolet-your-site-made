@@ -272,9 +272,9 @@ const App = () => (
           <Route path="/:lang/fit/scan" element={<FitScanRedirect />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
           <Route path="/:lang/payments" element={<Payments />} />
-          <Route path="/:lang/crm" element={<Crm />} />
-          <Route path="/:lang/crm/acquisition" element={<CrmAcquisition />} />
-          <Route path="/:lang/crm/gsc" element={<CrmGsc />} />
+          <Route path="/:lang/crm" element={<NotFound />} />
+          <Route path="/:lang/crm/acquisition" element={<NotFound />} />
+          <Route path="/:lang/crm/gsc" element={<NotFound />} />
 
           {/* Legacy routes redirect */}
           <Route path="/privacy-policy" element={<Navigate to="/en/privacy-policy" replace />} />
