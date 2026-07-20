@@ -20,6 +20,7 @@ import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug } from "@/data/sizes";
 import { getBridgeBySlug } from "@/data/bridges";
 import { getTempleBySlug } from "@/data/temples";
+import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
@@ -1128,6 +1129,88 @@ ${post.content}
       );
     }
   }
+
+  // ----- XXL / Wide-Face hub cluster
+  if (path === "/xxl") {
+    return base(
+      route,
+      lang,
+      {
+        title: XXL_HUB.metaTitle,
+        description: XXL_HUB.metaDescription,
+        noscriptHtml: `<h1>${XXL_HUB.h1}</h1>
+<p>${XXL_HUB.subhead}</p>
+<p>${XXL_HUB.intro}</p>
+<h2>Explore the XXL cluster</h2>
+<ul>${XXL_PAGES.map((s) => `<li><a href="/en/xxl/${s.slug}">${s.h1}</a></li>`).join("")}</ul>
+<p><a href="/en/fit/bespoke">Start XXL bespoke</a> · <a href="/en/fit">FitLens</a> · <a href="/en/collections/wide-face-glasses">Wide-face collection</a></p>`,
+      },
+      { image: DEFAULT_OG, type: "website" },
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+            { "@type": "ListItem", position: 2, name: "XXL Sizing", item: `${SITE_URL}${route}` },
+          ],
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          itemListElement: XXL_PAGES.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: s.h1,
+            url: `${SITE_URL}/en/xxl/${s.slug}`,
+          })),
+        },
+      ],
+    );
+  }
+
+  const xxlMatch = path.match(/^\/xxl\/([a-z0-9-]+)$/);
+  if (xxlMatch) {
+    const x = getXxlBySlug(xxlMatch[1]);
+    if (x) {
+      return base(
+        route,
+        lang,
+        {
+          title: x.metaTitle,
+          description: x.metaDescription,
+          noscriptHtml: `<h1>${x.h1}</h1>
+<p>${x.subhead}</p>
+<p>${x.intro}</p>
+<h2>Specification</h2>
+<ul>${x.spec.map((s) => `<li><strong>${s.label}:</strong> ${s.value}</li>`).join("")}</ul>
+<p><a href="${x.primaryCta.to}">${x.primaryCta.label}</a> · <a href="${x.secondaryCta.to}">${x.secondaryCta.label}</a> · <a href="/en/xxl">XXL hub</a></p>`,
+        },
+        { image: DEFAULT_OG, type: "website" },
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: x.faq.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+              { "@type": "ListItem", position: 2, name: "XXL Sizing", item: `${SITE_URL}/en/xxl` },
+              { "@type": "ListItem", position: 3, name: x.h1, item: `${SITE_URL}${route}` },
+            ],
+          },
+        ],
+      );
+    }
+  }
+
 
 
   // Fallback: home copy for that lang
