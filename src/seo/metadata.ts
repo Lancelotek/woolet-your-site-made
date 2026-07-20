@@ -1212,7 +1212,69 @@ ${post.content}
     }
   }
 
+  // ----- /en/bespoke (canonical bespoke landing)
+  if (path === "/bespoke" && lang === "en") {
+    return base(
+      route,
+      lang,
+      {
+        title: "Bespoke Glasses for Wide Faces — 145–162 mm | Woolet",
+        description:
+          "Bespoke eyewear for wide faces, 145–162 mm front width. Italian Mazzucchelli acetate, hand made in the EU. From $299 for the first 100 backers.",
+        noscriptHtml: `<h1>Woolet Bespoke — 145–162 mm</h1>
+<p>Woolet Bespoke is made-to-measure eyewear for faces outside the 155–161 mm core range. Front width covers 145–162 mm, bridge 16–26 mm, temples 145–155 mm. Same Italian Mazzucchelli 1849 cellulose acetate, hand made in the EU. Founding price $299 for the first 100 backers ($480 MSRP).</p>
+<p>Choose the 007 round-panto or 009 soft-square silhouette, submit measurements from the AI Fit Scan, and we build a single frame around your exact face. <a href="/en/fit/bespoke">Start the bespoke fit scan</a>.</p>`,
+      },
+      { image: DEFAULT_OG, type: "website" },
+      [
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/en` },
+          { name: "Bespoke", url: `${SITE_URL}/en/bespoke` },
+        ]),
+        faqPageJsonLd([
+          { q: "What face widths does Woolet Bespoke cover?", a: "Bespoke covers 145–162 mm front width, 16–26 mm bridge, and 145–155 mm temples — outside the 155–161 mm core range." },
+          { q: "How much does bespoke cost?", a: "$299 USD for the first 100 backers, $480 MSRP after. Includes measurements review, one production run, and free shipping." },
+          { q: "How long does bespoke take?", a: "About 6 weeks from confirmed measurements to shipped frame — 13 stages, hand made in the EU from Italian Mazzucchelli acetate." },
+        ]),
+      ],
+    );
+  }
 
+  // ----- /de and /de/{slug}: DE landing hub + spokes
+  if (lang === "de") {
+    const canonical = `${SITE_URL}${route}`;
+    if (path === "/") {
+      return base(route, lang, {
+        title: "Woolet — Brillen für breite Gesichter (155 mm+) aus italienischem Acetat",
+        description:
+          "Premium-Brillen aus italienischem Mazzucchelli-Acetat für breite Gesichter (ab 155 mm). Eine präzise Größe (158 mm), plus Maßanfertigung 145–162 mm. Ab 114 $ im Pre-Order.",
+        noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
+<p>Woolet fertigt Brillen für breite Gesichter und große Köpfe: 158 mm Frontbreite, 21–22 mm Keyhole-Steg, italienisches Mazzucchelli-Acetat, in der EU handgefertigt. Founding-Preis 114 $ (statt 190 $).</p>
+<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a>.</p>`,
+      });
+    }
+    const slug = path.replace(/^\//, "");
+    const de = dePages[slug];
+    if (de) {
+      return base(
+        route,
+        lang,
+        {
+          title: de.metaTitle,
+          description: de.metaDescription,
+          noscriptHtml: `<h1>${escapeHtml(de.h1)}</h1><p>${escapeHtml(de.sub)}</p>`,
+        },
+        { image: DEFAULT_OG, type: "website" },
+        [
+          breadcrumbJsonLd([
+            { name: "Woolet", url: `${SITE_URL}/de` },
+            { name: de.h1, url: canonical },
+          ]),
+          ...(de.faqs && de.faqs.length ? [faqPageJsonLd(de.faqs.map((f) => ({ q: f.q, a: f.a })))] : []),
+        ],
+      );
+    }
+  }
 
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
