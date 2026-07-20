@@ -1400,7 +1400,7 @@ export function renderHeadHtml(meta: RouteMeta): string {
     }
   } else {
     const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
-    for (const l of SUPPORTED_LANGS) {
+    for (const l of INDEXABLE_LANGS) {
       tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}" />`);
     }
     tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}" />`);
