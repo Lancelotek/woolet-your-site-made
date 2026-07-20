@@ -132,6 +132,20 @@ Key facts for AI summaries:
 - [The Best Glasses for Big Heads in 2026 (Premium Picks)](https://woolet.co/en/blog/best-glasses-for-big-heads-2026) — Premium glasses and sunglasses sized for big heads — Italian Mazzucchelli acetate frames at 158 mm with bespoke up to 172 mm.
 - [What Size Sunglasses for Wide Faces? (Quick Sizing Guide)](https://woolet.co/en/blog/what-size-sunglasses-for-wide-faces) — How to read frame size numbers and pick the right sunglass front width, bridge and temple length for a 155 mm+ face.
 
+
+## Fit & Sizing (by millimetre)
+
+Numeric-width landing pages. Each answers "does 158 mm fit an X mm face" with a direct verdict, spec table (007 vs 009), how-to-measure, and links to bespoke where the signature does not fit. Signature 158 mm covers 155–161 mm faces; bespoke covers 145–162 mm; we do not build wider than 162 mm.
+
+- [145 mm wide glasses](https://woolet.co/en/size/145mm) — Bespoke floor. Signature runs wider.
+- [150 mm wide glasses](https://woolet.co/en/size/150mm) — Bespoke; 8 mm under signature.
+- [152 mm wide glasses](https://woolet.co/en/size/152mm) — Bespoke; 6 mm under signature.
+- [155 mm wide glasses](https://woolet.co/en/size/155mm) — Bottom of signature range. 158 mm fits.
+- [158 mm wide glasses — the signature fit](https://woolet.co/en/size/158mm) — The canonical Woolet width.
+- [160 mm wide glasses](https://woolet.co/en/size/160mm) — Dead centre of signature range.
+- [162 mm wide glasses](https://woolet.co/en/size/162mm) — Top of bespoke range (max).
+- [165 mm wide glasses](https://woolet.co/en/size/165mm) — Wider than we build. Bespoke ceiling is 162 mm.
+
 ## Optional
 
 - [Privacy Policy](/en/privacy-policy)
