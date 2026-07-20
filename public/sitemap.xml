@@ -962,4 +962,44 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://woolet.co/en/xxl</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/xxl/glasses</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl/glasses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl/glasses"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/xxl/sunglasses</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl/sunglasses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl/sunglasses"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/xxl/for-big-heads</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl/for-big-heads"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl/for-big-heads"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/xxl/extra-wide-frames</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl/extra-wide-frames"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl/extra-wide-frames"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
