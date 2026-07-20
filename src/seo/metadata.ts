@@ -21,6 +21,7 @@ import { getSizeBySlug } from "@/data/sizes";
 import { getBridgeBySlug } from "@/data/bridges";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
+import { dePages, dePageOrder } from "@/content/de/landingPages";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
