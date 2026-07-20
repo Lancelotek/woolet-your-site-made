@@ -1,5 +1,8 @@
 export const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl"] as const;
 export type Lang = (typeof SUPPORTED_LANGS)[number];
+/** Languages emitted in hreflang alternates + sitemap. es/ar are rendered but not indexed. */
+export const INDEXABLE_LANGS = ["en", "pl", "fr", "de", "ja", "nl"] as const;
+
 
 export function isValidLang(lang: string): lang is Lang {
   return SUPPORTED_LANGS.includes(lang as Lang);
