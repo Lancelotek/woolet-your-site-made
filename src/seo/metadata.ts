@@ -1155,6 +1155,12 @@ const STATIC_ROUTES = [
   "/en/size/160mm",
   "/en/size/162mm",
   "/en/size/165mm",
+  "/en/bridge/18mm",
+  "/en/bridge/19mm",
+  "/en/bridge/20mm",
+  "/en/bridge/21mm",
+  "/en/bridge/22mm",
+  "/en/bridge/24mm",
 ];
 
 export function getAllRoutes(): string[] {

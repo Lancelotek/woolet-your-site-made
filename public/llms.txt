@@ -146,6 +146,18 @@ Numeric-width landing pages. Each answers "does 158 mm fit an X mm face" with a 
 - [162 mm wide glasses](https://woolet.co/en/size/162mm) — Top of bespoke range (max).
 - [165 mm wide glasses](https://woolet.co/en/size/165mm) — Wider than we build. Bespoke ceiling is 162 mm.
 
+
+## Bridge Sizing (nose bridge, by millimetre)
+
+Numeric bridge-width landing pages. Signature 007 uses a 21 mm keyhole bridge; signature 009 uses a 22 mm bridge; bespoke covers 20–24 mm. Below 20 mm we don't build — a narrow bridge on a wide front pinches and slides.
+
+- [18 mm bridge glasses](https://woolet.co/en/bridge/18mm) — Below our range; mainstream fit.
+- [19 mm bridge glasses](https://woolet.co/en/bridge/19mm) — Below our range; transitional width.
+- [20 mm bridge glasses](https://woolet.co/en/bridge/20mm) — Bespoke floor.
+- [21 mm keyhole bridge — 007 signature](https://woolet.co/en/bridge/21mm) — Signature keyhole on the 007 Round.
+- [22 mm bridge — 009 signature](https://woolet.co/en/bridge/22mm) — Signature bridge on the 009 Soft Square.
+- [24 mm bridge glasses](https://woolet.co/en/bridge/24mm) — Widest bespoke; widest-nose territory.
+
 ## Optional
 
 - [Privacy Policy](/en/privacy-policy)
