@@ -18,6 +18,7 @@ import { competitors } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug } from "@/data/sizes";
+import { getBridgeBySlug } from "@/data/bridges";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
@@ -1039,6 +1040,50 @@ ${post.content}
     }
   }
 
+  // ----- Numeric bridge landing cluster
+  const bridgeMatch = path.match(/^\/bridge\/(\d+mm)$/);
+  if (bridgeMatch) {
+    const b = getBridgeBySlug(bridgeMatch[1]);
+    if (b) {
+      return base(
+        route,
+        lang,
+        {
+          title: `${b.width} mm Bridge Glasses | Wide-Face Bridge Sizing — Woolet`,
+          description: b.metaDescription,
+          noscriptHtml: `<h1>${b.h1}</h1>
+<p>${b.subhead}</p>
+<h2>Does Woolet fit a ${b.width} mm bridge?</h2>
+<p>${b.fitVerdict}</p>
+<p>${b.intro}</p>
+<p>Signature bridges: 21 mm keyhole (007) · 22 mm (009). Bespoke 20–24 mm.</p>
+<p><a href="/en/products/007">Woolet 007 · 21 mm keyhole</a> · <a href="/en/products/009">Woolet 009 · 22 mm</a> · <a href="/en/bespoke">Bespoke bridge</a> · <a href="/en/collections/wide-bridge-glasses">Wide-bridge hub</a></p>`,
+        },
+        { image: DEFAULT_OG, type: "website" },
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: b.faq.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+              { "@type": "ListItem", position: 2, name: "Bridge Guide", item: `${SITE_URL}/en/collections/wide-bridge-glasses` },
+              { "@type": "ListItem", position: 3, name: `${b.width} mm bridge glasses`, item: `${SITE_URL}${route}` },
+            ],
+          },
+        ],
+      );
+    }
+  }
+
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
 }
@@ -1110,6 +1155,12 @@ const STATIC_ROUTES = [
   "/en/size/160mm",
   "/en/size/162mm",
   "/en/size/165mm",
+  "/en/bridge/18mm",
+  "/en/bridge/19mm",
+  "/en/bridge/20mm",
+  "/en/bridge/21mm",
+  "/en/bridge/22mm",
+  "/en/bridge/24mm",
 ];
 
 export function getAllRoutes(): string[] {
