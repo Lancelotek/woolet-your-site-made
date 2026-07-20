@@ -122,7 +122,7 @@ const SEO = ({
   // conditional groups in <>...</> silently drops them.
   const hreflangLinks: JSX.Element[] = [];
   if (path === "") {
-    SUPPORTED_LANGS.forEach((l) => {
+    INDEXABLE_LANGS.forEach((l) => {
       hreflangLinks.push(
         <link key={`hl-${l}`} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}`} />
       );
