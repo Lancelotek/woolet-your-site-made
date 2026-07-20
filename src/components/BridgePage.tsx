@@ -35,25 +35,9 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
   const path = `/bridge/${b.slug}`;
   const canonical = `${SITE}/en${path}`;
 
-  const faqLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: b.faq.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
-  const breadcrumbLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/en` },
-      { "@type": "ListItem", position: 2, name: "Bridge Guide", item: `${SITE}/en/collections/wide-bridge-glasses` },
-      { "@type": "ListItem", position: 3, name: `${b.width} mm bridge glasses`, item: canonical },
-    ],
-  };
+  // NOTE: FAQPage + BreadcrumbList JSON-LD are emitted by the prerender
+  // (see src/seo/metadata.ts bridgeMatch branch). Do NOT re-inject them
+  // here via Helmet or crawlers will see each schema twice after hydration.
 
   const related = getRelatedBridges(b.slug);
   const wrap: React.CSSProperties = { maxWidth: 760, margin: "0 auto", padding: "0 20px" };
@@ -65,9 +49,9 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
         description={b.metaDescription}
         lang="en"
         path={path}
-        jsonLd={[breadcrumbLd, faqLd]}
       />
       <Navbar />
+
       <main
         style={{
           background: "#F8F6F1",
