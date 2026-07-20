@@ -241,6 +241,12 @@ const App = () => (
           <Route path="/en/collections/oversized-black-glasses" element={<OversizedBlackGlasses />} />
           <Route path="/en/collections/thick-frame-glasses" element={<ThickFrameGlasses />} />
 
+          {/* Numeric size landing cluster (Part 1) */}
+          <Route path="/en/size/:slug" element={<SizePage />} />
+          <Route path="/:lang/size/:slug" element={<RedirectToEn to="/size" />} />
+
+
+
           {/* Competitor comparison pages */}
           <Route path="/en/compare" element={<CompareIndex />} />
           <Route path="/en/compare/:slug" element={<ComparePage />} />
