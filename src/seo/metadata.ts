@@ -998,9 +998,6 @@ ${post.content}
   // ----- Numeric size landing cluster
   const sizeMatch = path.match(/^\/size\/(\d+mm)$/);
   if (sizeMatch) {
-    // Lazy inline import to avoid circular deps in the SSR bundle.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { getSizeBySlug } = require("../data/sizes") as typeof import("../data/sizes");
     const s = getSizeBySlug(sizeMatch[1]);
     if (s) {
       return base(
