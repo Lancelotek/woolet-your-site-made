@@ -12,7 +12,7 @@
  * `getMetadata()`. Anything not matched falls back to the homepage meta.
  */
 
-import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
+import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
 import { getBlogPosts } from "@/lib/blog-data";
 import { competitors } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
@@ -73,7 +73,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
-    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 145–162 mm. Lens ${lensSize}, temples 148 mm, 5-barrel PVD Gunmetal hinges.`,
+    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 145–162 mm. Lens ${lensSize}, temples 150 mm, 5-barrel PVD Gunmetal hinges.`,
     brand: { "@type": "Brand", name: "Woolet" },
     image: `${SITE_URL}/og-${model}.png`,
     sku: `WOOLET-${model}`,
@@ -86,7 +86,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
       { "@type": "PropertyValue", name: "Frame width", value: "158 mm" },
       { "@type": "PropertyValue", name: "Bridge", value: `${bridge} keyhole` },
       { "@type": "PropertyValue", name: "Lens", value: lensSize },
-      { "@type": "PropertyValue", name: "Temple length", value: "148 mm" },
+      { "@type": "PropertyValue", name: "Temple length", value: "150 mm" },
       { "@type": "PropertyValue", name: "Hinge", value: "5-barrel PVD Gunmetal" },
       { "@type": "PropertyValue", name: "Frame shape", value: shape },
       { "@type": "PropertyValue", name: "Fit", value: "Wide fit (155 mm+ faces)" },
@@ -364,7 +364,7 @@ export function getMetadata(route: string): RouteMeta {
         description:
           "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand-finished in the EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
-<p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand finished in the EU. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
+<p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand finished in the EU. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Dark Tortoise, Black, Honey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
       },
       { image: `${SITE_URL}/og-007.png`, type: "product" },
@@ -389,7 +389,7 @@ export function getMetadata(route: string): RouteMeta {
         description:
           "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand-finished in the EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
-<p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand finished in the EU. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 148 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
+<p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand finished in the EU. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
       },
       { image: `${SITE_URL}/og-009.png`, type: "product" },
@@ -1103,7 +1103,7 @@ ${post.content}
 <h2>Does Woolet fit a ${t.length} mm temple?</h2>
 <p>${t.fitVerdict}</p>
 <p>${t.intro}</p>
-<p>Signature temples: 148 mm on both 007 and 009. Bespoke 145–155 mm.</p>
+<p>Signature temples: 150 mm on both 007 and 009. Bespoke 145–155 mm.</p>
 <p><a href="/en/products/007">Woolet 007</a> · <a href="/en/products/009">Woolet 009</a> · <a href="/en/bespoke">Bespoke temples</a> · <a href="/en/fit">FitLens</a></p>`,
         },
         { image: DEFAULT_OG, type: "website" },
@@ -1362,7 +1362,6 @@ const STATIC_ROUTES = [
   "/en/bridge/24mm",
   "/en/temple/140mm",
   "/en/temple/145mm",
-  "/en/temple/148mm",
   "/en/temple/150mm",
   "/en/temple/152mm",
   "/en/temple/155mm",
@@ -1401,7 +1400,7 @@ export function renderHeadHtml(meta: RouteMeta): string {
     }
   } else {
     const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
-    for (const l of SUPPORTED_LANGS) {
+    for (const l of INDEXABLE_LANGS) {
       tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}" />`);
     }
     tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}" />`);

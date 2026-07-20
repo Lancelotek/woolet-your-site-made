@@ -161,11 +161,11 @@ Numeric bridge-width landing pages. Signature 007 uses a 21 mm keyhole bridge; s
 
 ## Temple Length (arm length, by millimetre)
 
-Numeric temple-length landing pages. Signature temples run 148 mm on both 007 and 009 with an 11° tip bend; bespoke covers 145–155 mm. Below 145 mm and above 155 mm we don't build — the arm-to-front ratio breaks down.
+Numeric temple-length landing pages. Signature temples run 150 mm on both 007 and 009 with an 11° tip bend; bespoke covers 145–155 mm. Below 145 mm and above 155 mm we don't build — the arm-to-front ratio breaks down.
 
 - [140 mm temple glasses](https://woolet.co/en/temple/140mm) — Below our range; mainstream fit.
 - [145 mm temple glasses](https://woolet.co/en/temple/145mm) — Bespoke floor; forward-set ears.
-- [148 mm temple glasses — signature](https://woolet.co/en/temple/148mm) — The canonical Woolet temple length.
+- [148 mm temple glasses — signature](https://woolet.co/en/temple/150mm) — The canonical Woolet temple length.
 - [150 mm temple glasses](https://woolet.co/en/temple/150mm) — Long-temple bespoke; 60+ cm heads.
 - [152 mm temple glasses](https://woolet.co/en/temple/152mm) — Extra-long bespoke; 62–63 cm heads.
 - [155 mm temple glasses](https://woolet.co/en/temple/155mm) — Longest bespoke we build.
