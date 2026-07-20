@@ -243,7 +243,7 @@ const App = () => (
 
           {/* Numeric size landing cluster (Part 1) */}
           <Route path="/en/size/:slug" element={<SizePage />} />
-          <Route path="/:lang/size/:slug" element={<RedirectToEn to="/size" />} />
+          <Route path="/:lang/size/:slug" element={<RedirectSizeToEn />} />
 
 
 
