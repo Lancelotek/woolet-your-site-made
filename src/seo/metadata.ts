@@ -19,6 +19,7 @@ import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug } from "@/data/sizes";
 import { getBridgeBySlug } from "@/data/bridges";
+import { getTempleBySlug } from "@/data/temples";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
@@ -1084,6 +1085,51 @@ ${post.content}
     }
   }
 
+  // ----- Numeric temple-length landing cluster
+  const templeMatch = path.match(/^\/temple\/(\d+mm)$/);
+  if (templeMatch) {
+    const t = getTempleBySlug(templeMatch[1]);
+    if (t) {
+      return base(
+        route,
+        lang,
+        {
+          title: `${t.length} mm Temple Glasses | Wide-Face Temple Sizing — Woolet`,
+          description: t.metaDescription,
+          noscriptHtml: `<h1>${t.h1}</h1>
+<p>${t.subhead}</p>
+<h2>Does Woolet fit a ${t.length} mm temple?</h2>
+<p>${t.fitVerdict}</p>
+<p>${t.intro}</p>
+<p>Signature temples: 148 mm on both 007 and 009. Bespoke 145–155 mm.</p>
+<p><a href="/en/products/007">Woolet 007</a> · <a href="/en/products/009">Woolet 009</a> · <a href="/en/bespoke">Bespoke temples</a> · <a href="/en/fit">FitLens</a></p>`,
+        },
+        { image: DEFAULT_OG, type: "website" },
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: t.faq.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+              { "@type": "ListItem", position: 2, name: "Fit Guide", item: `${SITE_URL}/en/fit` },
+              { "@type": "ListItem", position: 3, name: `${t.length} mm temple glasses`, item: `${SITE_URL}${route}` },
+            ],
+          },
+        ],
+      );
+    }
+  }
+
+
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
 }
@@ -1161,6 +1207,12 @@ const STATIC_ROUTES = [
   "/en/bridge/21mm",
   "/en/bridge/22mm",
   "/en/bridge/24mm",
+  "/en/temple/140mm",
+  "/en/temple/145mm",
+  "/en/temple/148mm",
+  "/en/temple/150mm",
+  "/en/temple/152mm",
+  "/en/temple/155mm",
 ];
 
 export function getAllRoutes(): string[] {
