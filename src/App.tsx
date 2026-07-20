@@ -86,6 +86,8 @@ const Shop = lazy(() => import("./pages/Shop.tsx"));
 const SizePage = lazy(() => import("./components/SizePage.tsx"));
 const BridgePage = lazy(() => import("./components/BridgePage.tsx"));
 const TemplePage = lazy(() => import("./components/TemplePage.tsx"));
+const XxlPage = lazy(() => import("./components/XxlPage.tsx"));
+const XxlHubPage = lazy(() => import("./components/XxlPage.tsx").then((m) => ({ default: m.XxlHubPage })));
 
 const queryClient = new QueryClient();
 
@@ -268,6 +270,12 @@ const App = () => (
           {/* Numeric temple-length landing cluster (Part 3) */}
           <Route path="/en/temple/:slug" element={<TemplePage />} />
           <Route path="/:lang/temple/:slug" element={<RedirectTempleToEn />} />
+
+          {/* XXL / Wide-Face hub cluster (Part 4) */}
+          <Route path="/en/xxl" element={<XxlHubPage />} />
+          <Route path="/en/xxl/:slug" element={<XxlPage />} />
+          <Route path="/:lang/xxl" element={<Navigate to="/en/xxl" replace />} />
+          <Route path="/:lang/xxl/:slug" element={<Navigate to="/en/xxl" replace />} />
 
 
 
