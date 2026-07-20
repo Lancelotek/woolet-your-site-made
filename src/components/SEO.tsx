@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
+import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
 
 interface SEOProps {
   title: string;
