@@ -5,14 +5,14 @@
  * "long temple arms 155mm", "148mm temple length").
  *
  * Rules:
- *  - Signature temple length: 148 mm on both 007 and 009.
+ *  - Signature temple length: 150 mm on both 007 and 009.
  *  - Bespoke covers 145–155 mm temple length.
  *  - No "Made in Italy" — Italian Mazzucchelli acetate, hand made in EU.
  */
 
 export type TempleVerdictKind =
   | "below-signature"      // shorter than we build in signature
-  | "signature"            // matches signature 148 mm
+  | "signature"            // matches signature 150 mm
   | "bespoke-long"         // 150–155 mm bespoke territory
   | "out-of-range";        // beyond bespoke (>155 mm)
 
@@ -47,7 +47,7 @@ export const TEMPLES: TempleEntry[] = [
     fitVerdict:
       "We don't build at 140 mm. Signature is 148 mm; bespoke floor is 145 mm. If 140 mm is genuinely your fit, mainstream 140–148 mm frames will match you better than forcing a wider front.",
     metaDescription:
-      "140 mm temple length: below Woolet's 145 mm bespoke floor. Honest guide to temple sizing for wide faces. Signature temples 148 mm.",
+      "140 mm temple length: below Woolet's 145 mm bespoke floor. Honest guide to temple sizing for wide faces. Signature temples 150 mm.",
     bespokeNote:
       "We don't offer 140 mm temples. Wide-face frames need longer arms to clear the temples and hook the ears without pressure.",
     bestFor: "Narrow-to-average heads on 140–148 mm mainstream frames.",
@@ -66,11 +66,11 @@ export const TEMPLES: TempleEntry[] = [
     subhead:
       "145 mm is the shortest temple we build. Bespoke only — signature runs 148 mm on both shapes.",
     intro:
-      "145 mm is where wide-face temple sizing begins. Signature 148 mm sits 3 mm above this, so 145 mm requires bespoke. Same Italian Mazzucchelli acetate, scaled to your measurement — useful when your ears sit forward relative to your face width.",
+      "145 mm is where wide-face temple sizing begins. Signature 150 mm sits 3 mm above this, so 145 mm requires bespoke. Same Italian Mazzucchelli acetate, scaled to your measurement — useful when your ears sit forward relative to your face width.",
     fitVerdict:
       "Bespoke only. Signature is 148 mm. If your temple-to-ear distance measures shorter than average for a 155 mm+ face, 145 mm bespoke is the honest fit — signature would push past the ear.",
     metaDescription:
-      "145 mm temple glasses: bespoke floor. Italian Mazzucchelli acetate. Signature temples 148 mm · Bespoke 145–155 mm.",
+      "145 mm temple glasses: bespoke floor. Italian Mazzucchelli acetate. Signature temples 150 mm · Bespoke 145–155 mm.",
     bespokeNote:
       "145 mm sits at the floor of our bespoke temple range. Same acetate and shapes as signature, cut 3 mm shorter.",
     bestFor: "Wide faces with slightly forward-set ears — shorter arms than typical.",
@@ -99,7 +99,7 @@ export const TEMPLES: TempleEntry[] = [
     bestFor: "Wide faces (155–161 mm) with average head circumference — the canonical Woolet fit.",
     faq: [
       { q: "Why 148 mm and not 145 mm?", a: "148 mm matches a 158 mm front on a wider head. Shorter temples on a wider front push the tip in front of the ear; longer temples overshoot." },
-      { q: "What's the tip bend angle on the signature 148 mm temple?", a: "11°. Enough to hook the ear on a wider head without the tip poking straight back." },
+      { q: "What's the tip bend angle on the signature 150 mm temple?", a: "11°. Enough to hook the ear on a wider head without the tip poking straight back." },
       { q: "Can I get 148 mm temples on a bespoke front width?", a: "Yes. Bespoke lets you keep 148 mm temples on any front from 145 to 162 mm, or scale 145–155 mm." },
       { q: "How does 148 mm compare to Ray-Ban temples?", a: "Ray-Ban runs 140–150 mm across their line; 145 mm is typical. 148 mm is on the longer end for standard eyewear and specifically matched to a 158 mm front." },
     ],
@@ -117,7 +117,7 @@ export const TEMPLES: TempleEntry[] = [
     fitVerdict:
       "Bespoke only. Signature is 148 mm; 150 mm is 2 mm longer. Worth it if signature temples land in front of your ear.",
     metaDescription:
-      "150 mm temple glasses: long-temple bespoke in Italian Mazzucchelli acetate. Signature 148 mm · Bespoke 145–155 mm.",
+      "150 mm temple glasses: long-temple bespoke in Italian Mazzucchelli acetate. Signature 150 mm · Bespoke 145–155 mm.",
     bespokeNote:
       "150 mm sits in the bespoke long-temple range. Same shapes and acetate as signature, arms cut 2 mm longer.",
     bestFor: "Wide faces with head circumference 60+ cm — arms sit past the ear.",
@@ -140,7 +140,7 @@ export const TEMPLES: TempleEntry[] = [
     fitVerdict:
       "Bespoke only. Signature caps at 148 mm; 152 mm is 4 mm longer. If your head measures 62 cm+ and signature arms sit forward of the ear, this is the right fit.",
     metaDescription:
-      "152 mm temple glasses: extra-long bespoke. Italian Mazzucchelli acetate, hand made in EU. Signature 148 mm · Bespoke 145–155 mm.",
+      "152 mm temple glasses: extra-long bespoke. Italian Mazzucchelli acetate, hand made in EU. Signature 150 mm · Bespoke 145–155 mm.",
     bespokeNote:
       "152 mm is extra-long bespoke — pairs well with 160–162 mm bespoke fronts.",
     bestFor: "Widest faces (159–161 mm) with 62–63 cm head circumference.",
@@ -163,7 +163,7 @@ export const TEMPLES: TempleEntry[] = [
     fitVerdict:
       "Bespoke ceiling. Signature is 148 mm; 155 mm is 7 mm longer. If mainstream and even our signature arms end in front of your ear, 155 mm is the answer.",
     metaDescription:
-      "155 mm temple glasses: longest bespoke arm Woolet builds. Italian Mazzucchelli acetate, hand made in EU. Signature 148 mm · Bespoke 145–155 mm.",
+      "155 mm temple glasses: longest bespoke arm Woolet builds. Italian Mazzucchelli acetate, hand made in EU. Signature 150 mm · Bespoke 145–155 mm.",
     bespokeNote:
       "155 mm is the maximum bespoke temple length. Above this the frame geometry stops working reliably.",
     bestFor: "Largest heads (63 cm+) with the widest bespoke fronts (160–162 mm).",
