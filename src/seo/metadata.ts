@@ -1363,7 +1363,6 @@ const STATIC_ROUTES = [
   "/en/temple/140mm",
   "/en/temple/145mm",
   "/en/temple/150mm",
-  "/en/temple/150mm",
   "/en/temple/152mm",
   "/en/temple/155mm",
   "/en/xxl",
