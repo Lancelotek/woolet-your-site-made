@@ -12,7 +12,7 @@
  * `getMetadata()`. Anything not matched falls back to the homepage meta.
  */
 
-import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
+import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
 import { getBlogPosts } from "@/lib/blog-data";
 import { competitors } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
