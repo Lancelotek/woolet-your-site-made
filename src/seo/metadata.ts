@@ -18,6 +18,7 @@ import { competitors } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug } from "@/data/sizes";
+import { getBridgeBySlug } from "@/data/bridges";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
