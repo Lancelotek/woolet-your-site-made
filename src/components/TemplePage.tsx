@@ -21,7 +21,7 @@ const verdictBg: Record<TempleVerdictKind, string> = {
 };
 
 const verdictLabel: Record<TempleVerdictKind, string> = {
-  signature: "Signature — 148 mm",
+  signature: "Signature — 150 mm",
   "bespoke-long": "Bespoke — long temple",
   "below-signature": "Below our range",
   "out-of-range": "Outside our range",
@@ -107,7 +107,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              Signature 148 mm
+              Signature 150 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
               Bespoke 145–155 mm
@@ -266,7 +266,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
                 Woolet 007 — Round
               </div>
               <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                148 mm temples · 158 mm front · 52 × 52 mm lens · 21 mm keyhole bridge.
+                150 mm temples · 158 mm front · 52 × 52 mm lens · 21 mm keyhole bridge.
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
@@ -292,7 +292,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
                 Woolet 009 — Soft Square
               </div>
               <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                148 mm temples · 158 mm front · 54 × 50 mm lens · 22 mm bridge.
+                150 mm temples · 158 mm front · 54 × 50 mm lens · 22 mm bridge.
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
