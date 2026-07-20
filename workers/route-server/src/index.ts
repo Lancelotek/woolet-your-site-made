@@ -34,6 +34,13 @@ export default {
       pathname = pathname.slice(0, -1);
     }
 
+    // 2b. Root → /en 301. The SPA shell at "/" has no per-route meta and
+    // was showing crawlers the generic homepage H1. Redirect to the canonical
+    // English homepage which has real prerendered metadata.
+    if (pathname === "/" || pathname === "") {
+      return Response.redirect("https://woolet.co/en", 301);
+    }
+
     // 3. Match a prerendered route — only for GET / HEAD navigations.
     const method = request.method.toUpperCase();
     if (method === "GET" || method === "HEAD") {
