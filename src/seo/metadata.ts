@@ -1296,6 +1296,11 @@ const STATIC_ROUTES = [
   "/en/temple/150mm",
   "/en/temple/152mm",
   "/en/temple/155mm",
+  "/en/xxl",
+  "/en/xxl/glasses",
+  "/en/xxl/sunglasses",
+  "/en/xxl/for-big-heads",
+  "/en/xxl/extra-wide-frames",
 ];
 
 export function getAllRoutes(): string[] {
