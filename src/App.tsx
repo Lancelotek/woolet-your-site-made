@@ -85,6 +85,7 @@ const Upvote = lazy(() => import("./pages/Upvote.tsx"));
 const Shop = lazy(() => import("./pages/Shop.tsx"));
 const SizePage = lazy(() => import("./components/SizePage.tsx"));
 const BridgePage = lazy(() => import("./components/BridgePage.tsx"));
+const TemplePage = lazy(() => import("./components/TemplePage.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -147,6 +148,11 @@ const RedirectSizeToEn = () => {
 const RedirectBridgeToEn = () => {
   const { slug } = useParams();
   return <Navigate to={`/en/bridge/${slug}`} replace />;
+};
+
+const RedirectTempleToEn = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/en/temple/${slug}`} replace />;
 };
 
 const WhatsAppButtonWrapper = () => {
@@ -258,6 +264,10 @@ const App = () => (
           {/* Numeric bridge landing cluster (Part 2) */}
           <Route path="/en/bridge/:slug" element={<BridgePage />} />
           <Route path="/:lang/bridge/:slug" element={<RedirectBridgeToEn />} />
+
+          {/* Numeric temple-length landing cluster (Part 3) */}
+          <Route path="/en/temple/:slug" element={<TemplePage />} />
+          <Route path="/:lang/temple/:slug" element={<RedirectTempleToEn />} />
 
 
 
