@@ -802,4 +802,68 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://woolet.co/en/size/145mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/145mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/145mm"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/150mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/150mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/150mm"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/152mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/152mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/152mm"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/155mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/155mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/155mm"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/158mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/158mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/158mm"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/160mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/160mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/160mm"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/162mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/162mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/162mm"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/165mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/165mm"/>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>
