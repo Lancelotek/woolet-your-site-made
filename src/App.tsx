@@ -138,6 +138,10 @@ const RedirectLpToEn = () => {
   const { slug } = useParams();
   return <Navigate to={`/en/lp/${slug}`} replace />;
 };
+const RedirectSizeToEn = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/en/size/${slug}`} replace />;
+};
 
 const WhatsAppButtonWrapper = () => {
   const location = useLocation();
