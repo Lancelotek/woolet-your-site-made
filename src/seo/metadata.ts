@@ -1057,6 +1057,14 @@ const STATIC_ROUTES = [
   "/ja",
   "/ja/big-face-glasses",
   "/ja/bespoke",
+  "/en/size/145mm",
+  "/en/size/150mm",
+  "/en/size/152mm",
+  "/en/size/155mm",
+  "/en/size/158mm",
+  "/en/size/160mm",
+  "/en/size/162mm",
+  "/en/size/165mm",
 ];
 
 export function getAllRoutes(): string[] {
