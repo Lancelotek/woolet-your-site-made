@@ -17,6 +17,7 @@ import { getBlogPosts } from "@/lib/blog-data";
 import { competitors } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
+import { getSizeBySlug } from "@/data/sizes";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
@@ -994,6 +995,50 @@ ${post.content}
     }
   }
 
+  // ----- Numeric size landing cluster
+  const sizeMatch = path.match(/^\/size\/(\d+mm)$/);
+  if (sizeMatch) {
+    const s = getSizeBySlug(sizeMatch[1]);
+    if (s) {
+      return base(
+        route,
+        lang,
+        {
+          title: `${s.width} mm Wide Glasses | Frames That Actually Fit — Woolet`,
+          description: s.metaDescription,
+          noscriptHtml: `<h1>${s.h1}</h1>
+<p>${s.subhead}</p>
+<h2>Does 158 mm fit a ${s.width} mm face?</h2>
+<p>${s.fitVerdict}</p>
+<p>${s.intro}</p>
+<p>Signature 158 mm · Bespoke 145–162 mm · Hand made in EU · Mazzucchelli acetate from Milan, Italy.</p>
+<p><a href="/en/fit">Measure my face with FitLens</a> · <a href="/en/products/007">Woolet 007 Round</a> · <a href="/en/products/009">Woolet 009 Soft Square</a> · <a href="/en/bespoke">Bespoke 145–162 mm</a></p>`,
+        },
+        { image: DEFAULT_OG, type: "website" },
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: s.faq.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+              { "@type": "ListItem", position: 2, name: "Size Guide", item: `${SITE_URL}/en/blog/glasses-for-wide-faces-guide` },
+              { "@type": "ListItem", position: 3, name: `${s.width} mm wide glasses`, item: `${SITE_URL}${route}` },
+            ],
+          },
+        ],
+      );
+    }
+  }
+
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
 }
@@ -1057,6 +1102,14 @@ const STATIC_ROUTES = [
   "/ja",
   "/ja/big-face-glasses",
   "/ja/bespoke",
+  "/en/size/145mm",
+  "/en/size/150mm",
+  "/en/size/152mm",
+  "/en/size/155mm",
+  "/en/size/158mm",
+  "/en/size/160mm",
+  "/en/size/162mm",
+  "/en/size/165mm",
 ];
 
 export function getAllRoutes(): string[] {

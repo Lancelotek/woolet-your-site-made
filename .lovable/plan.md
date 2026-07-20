@@ -1,159 +1,71 @@
+# SEO Landing Cluster Build
 
-# Bespoke Scan Flow — projekt
+Duży build (~25+ nowych stron). Proponuję realizację w fazach z checkpointem po Fazie 1, żebyś potwierdził jakość/ton przed skalowaniem.
 
-Cel: zebrać dane wystarczające do dopasowania modelu **bespoke** do indywidualnej geometrii twarzy — nie tylko szerokość twarzy (jak w kolekcji 007/009), ale pełny zestaw pomiarów potrzebnych do custom rozmiarówki.
+## Zakres i decyzje wstępne
 
-## Co mierzymy (bespoke vs kolekcja)
+**Audyt kanibalizacji (przed budową):**
+- `/en/collections/keyhole-bridge-glasses` — istnieje → NIE tworzę `/en/bridge/keyhole`. Upgraduję istniejącą kolekcję strukturą z briefu, dodaję redirect w App.tsx.
+- `/en/collections/extra-wide-glasses` — istnieje → NIE tworzę `/en/extra-wide-glasses`. Upgrade.
+- `/en/collections/big-glasses-frames`, `glasses-for-big-heads` — istnieją → nowy `/en/xxl-glasses` tylko jeśli intencja XXL jest odrębna; inaczej upgrade najbliższej.
+- `/en/collections/italian-mazzucchelli-acetate` — istnieje → NIE tworzę `/en/italian-acetate-frames`. Upgrade + alias redirect.
+- Hub `/en/guide/glasses-for-wide-faces` vs istniejący blog `glasses-for-wide-faces-guide` — użyję istniejącego blog slug jako canonical, dodam redirect z `/en/guide/...`.
 
-| Pomiar | Kolekcja | Bespoke | Po co |
-|---|---|---|---|
-| Face width (temple-to-temple) | ✅ | ✅ | dobór bazowej szerokości frontu |
-| Nose bridge width | ✅ | ✅ | szerokość mostka |
-| **Nose bridge height** | — | ✅ | gdzie mostek siada (wysoki/niski nos) |
-| **Temple length (eye→ear)** | — | ✅ | długość zauszników |
-| **Pantoscopic angle** | — | ✅ | kąt nachylenia frontu |
-| **Face asymmetry (L/R offset)** | — | ✅ | korekta krzywizny / wysokości uszu |
-| **Eye height from bridge** | — | ✅ | pozycja środka soczewki |
-| **PD (pupillary distance)** | opcjonalnie | ✅ | jeśli prescription lenses |
+**Ton/design:** reuse `CollectionPage`, `SEO`, tokeny brand book (Ink/Panel/Gold/Cream, Newsreader+Archivo). Zero nowych komponentów kolorystycznych.
 
-## Architektura: dwa tory, jedno UI
+**Prerender:** `scripts/prerender.mjs` — dodam wszystkie nowe ścieżki do listy prerenderowanej, żeby `curl` zwracał H1.
 
-```text
-                  /en/bespoke/scan
-                         │
-              ┌──────────┴──────────┐
-              ▼                     ▼
-       iOS 12+ Safari        Wszystko inne
-       (TrueDepth dostępne)  (Android, desktop, starszy iOS)
-              │                     │
-              ▼                     ▼
-       TrueDepth 3D scan     Multi-frame card scan
-       (ARKit Face Mesh      (3 zdjęcia: front + L¾ + R¾
-        via WebXR fallback   z kartą referencyjną
-        lub natywny app      na czole)
-        bridge)              + AI landmark detection
-              │                     │
-              └──────────┬──────────┘
-                         ▼
-              Normalized BespokeProfile
-              (12 wartości w mm/stopniach
-               + confidence per pomiar)
-                         ▼
-              zapis do bespoke_configs
-              + prefil w Configurator
-```
+## Faza 1 (checkpoint — pokażę Ci przed dalszą pracą)
 
-## Tor A — TrueDepth (iOS, "Premium scan")
+1. `src/data/sizes.ts` — pełne dane dla 145/150/152/155/158/160/162/165 mm (h1, intro, verdict wg reguł z briefu, faq 3–5 unikalnych, bespokeNote).
+2. `src/components/SizePage.tsx` — reusable template (hero, verdict block, spec table 007 vs 009, how-to-measure, product cards, related sizes strip, FAQ accordion, JSON-LD FAQPage + 2×Product).
+3. Route `/en/size/:slug` w `App.tsx` + 8 statycznych ścieżek do prerender listy.
+4. Sitemap.xml + llms.txt („Fit & sizing" sekcja).
+5. Renderuję Ci na żywo `/en/size/158mm` (canonical) i `/en/size/160mm` do walidacji tonu/układu.
 
-WebXR Face Tracking nie jest dostępne w Safari publicznie, więc realistyczne opcje:
+**Stop. Czekam na akceptację.**
 
-1. **Capacitor + ARKit plugin** — jeśli wejdziemy w aplikację mobilną (jest knowledge o Capacitor w projekcie). Daje pełny Face Mesh 1220 punktów, ~0.5 mm precyzja.
-2. **Web fallback dla iOS bez aplikacji**: użyć MediaPipe Face Mesh w przeglądarce (468 landmarków 3D, brak prawdziwego depth, ale z kartą referencyjną daje przyzwoity wynik) + dodatkowe ujęcie z profilu do pomiaru pantoscopic angle i wysokości mostka.
+## Faza 2 — Bridge (najwyższy volume: 2 900+ msv)
 
-Na start (MVP, bez app store): **tor A = MediaPipe Face Mesh + 3-klatkowy capture** (front, lewy profil, prawy profil), kalibracja kartą na froncie.
+- Upgrade `/en/collections/keyhole-bridge-glasses` do pełnej struktury z briefu (definicja w pierwszych 40 słowach, anatomy placeholder, who-it-suits, tabela porównawcza, Woolet's take 21/20 mm, FAQ + JSON-LD, cross-linki do size).
+- Nowe: `/en/bridge/saddle`, `/en/bridge/double`.
+- Nowy komponent `BridgePage.tsx` (shared).
+- Hub `/en/guide/bridge-types` + comparison `/en/guide/keyhole-vs-saddle-bridge`.
+- Redirect `/en/bridge/keyhole` → istniejąca kolekcja.
 
-## Tor B — Multi-frame card-reference (Android / desktop / fallback)
+## Faza 3 — Temple length
 
-Rozszerzenie obecnego `FitScan` o:
+- `/en/temple-length/150mm|155mm|160mm` (template `TempleLengthPage.tsx`, spec-focus na 103 mm temple + 52 mm drop, wyraźne rozróżnienie temple ≠ front width).
+- Hub `/en/guide/temple-length`.
+- Comparison `/en/guide/140-vs-145-temple-length` (informacyjne, soft CTA do FitLens).
 
-- **3 ujęcia zamiast 1**: front (jak teraz), lewy ¾, prawy ¾.
-- Każda klatka → `fit-scan-detect` edge function z nowym promptem dla Gemini 2.5 Pro który dla profili zwraca dodatkowe landmarki: tip ucha (do temple length), szczyt mostka, dolny brzeg mostka, kącik oka.
-- Klient łączy 3 wyniki w `BespokeProfile`:
-  - face width ← front (już mamy)
-  - nose bridge width ← front (już mamy)
-  - nose bridge height ← profile (szczyt − dół mostka, kalibracja przez kartę widoczną na froncie + projekcja głębi z kąta)
-  - temple length ← profile (kącik oka → tragus ucha)
-  - pantoscopic angle ← profile (kąt linii brwi vs linia kącik oka–tragus)
-  - asymmetry ← porównanie L¾ vs R¾
+## Faza 4 — XXL / Long temple / Material / Hub
 
-Karta referencyjna pojawia się tylko na ujęciu frontalnym. Na profilach używamy znanej już szerokości twarzy z frontu jako wewnętrznej skali (twarz tej samej osoby między klatkami → ta sama wartość mm na pixel po normalizacji odległości od kamery).
+- `/en/xxl-glasses` (nowy — angle „real mm above the fold"; upewnię się intencja różna od big-heads).
+- `/en/long-temple-glasses` (nowy).
+- `/en/guide/widest-glasses-frame-size` (informacyjne).
+- `/en/italian-acetate-frames` → redirect do istniejącej `italian-mazzucchelli-acetate` (jedna intencja) LUB upgrade i alias — zdecyduję po audycie treści.
+- Hub `/en/guide/glasses-for-wide-faces` → redirect do istniejącego bloga + upgrade tego bloga o exact-match anchors do wszystkich `/en/size/*` i bridge hub.
 
-## UX flow (4 ekrany)
+## Global
 
-```text
-1. INTRO           2. CAPTURE 1/3 FRONT     3. CAPTURE 2/3 LEFT      4. RESULT
-┌─────────────┐    ┌─────────────┐          ┌─────────────┐          ┌─────────────┐
-│ Bespoke fit │    │ ◉ live view │          │ ◉ live view │          │ Your face   │
-│ scan        │    │             │          │             │          │ ────────────│
-│             │    │ card aligned│          │ turn head   │          │ Width 158mm │
-│ • 3 photos  │    │ on forehead │          │ to your L   │          │ Bridge 19mm │
-│ • 60 sec    │    │             │          │             │          │ Temple 142  │
-│ • What you  │    │ [Capture]   │          │ [Capture]   │          │ Pant. 8°    │
-│   need:     │    │             │          │             │          │             │
-│   card      │    │ tip overlay │          │ profile     │          │ Confidence  │
-│             │    │ shows good  │          │ silhouette  │          │ ▓▓▓▓▓░ 85%  │
-│ [Start]     │    │ position    │          │ overlay     │          │             │
-│             │    │             │          │             │          │ [Use this   │
-│ [Skip→Quick │    │             │          │             │          │  in config] │
-│  scan]      │    │             │          │             │          │             │
-└─────────────┘    └─────────────┘          └─────────────┘          └─────────────┘
-```
+- Nav: pozycja „Size Guide" → hub.
+- Footer: kolumny „By size" (150/155/158/160/162) i „By bridge" (keyhole/saddle/double).
+- Wszystkie route'y w `sitemap.xml` + `llms.txt`.
+- Per-route: unikalne title/meta/canonical/OG/Twitter (przez `SEO.tsx` z `ogDescription`).
+- Guardrails: „Hand made in EU" + „Mazzucchelli acetate from Milan, Italy", nigdy „Made in Italy". Nigdy nie obiecuję 165 mm produktu.
+- Gold buttons: `#CAA449` bg + `#1F1B16` text (już w tokens).
 
-Ujęcie #4 (R¾) analogiczne do #3, pominięte w diagramie dla zwięzłości.
+## Sekcja techniczna (dla dev-reference)
 
-Każdy capture ma:
-- live face mesh overlay (MediaPipe) z kolorowymi punktami w realnym czasie
-- auto-trigger gdy pose match > 90% (nie wymagamy ręcznego clicka, redukuje błędy użytkownika)
-- 3-sek countdown + sound cue
-- możliwość retake pojedynczej klatki
+- Route params: preferuję statyczne komponenty per-slug wrapujące shared template (lepszy tree-shaking + explicit prerender) zamiast dynamicznego `:slug`.
+- JSON-LD wstrzykiwany przez `SEO` prop `jsonLd`.
+- Related-sizes strip: mapa sąsiedztwa w `sizes.ts` (prev/next w tablicy widths).
+- Prerender: dopisuję ścieżki do `scripts/prerender.mjs` + workers/route-server bundle build.
+- Weryfikacja: po Fazie 1 uruchomię `curl` na zbudowany prerender, żeby potwierdzić `<h1>` w HTML.
 
-## Wynik: BespokeProfile
+## Nie robię (zgodnie z briefem)
 
-Nowy typ + tabela `bespoke_scan_profiles` (osobno od `scan_sessions`, bo struktura inna):
-
-```ts
-type BespokeProfile = {
-  faceWidthMm: number;
-  noseBridgeWidthMm: number;
-  noseBridgeHeightMm: number;
-  templeLengthLeftMm: number;
-  templeLengthRightMm: number;
-  pantoscopicAngleDeg: number;
-  asymmetryMm: number;
-  pdMm: number | null;       // opcjonalne, dla prescription
-  confidence: {              // per pomiar 0..1
-    faceWidth: number;
-    noseBridge: number;
-    temple: number;
-    angle: number;
-  };
-  rawFrames: { front: string; left: string; right: string }; // signed URLs
-  capturedAt: string;
-};
-```
-
-Profile zapisywany do nowej tabeli z RLS (user widzi tylko swoje) + automatyczne mapowanie w `Configurator.tsx` na presety bespoke (front size, bridge style, temple length wybierane automatycznie, użytkownik tylko potwierdza / fine-tunuje suwakami).
-
-## Integracja z istniejącym kodem
-
-- Reuse: `src/lib/face-landmarker.ts` (MediaPipe), `src/lib/card-detection.ts`, `src/lib/face-measurements.ts`, `supabase/functions/fit-scan-detect` (rozszerzony o profile poses).
-- Nowe pliki:
-  - `src/pages/bespoke/Scan.tsx` (kontener flow)
-  - `src/components/bespoke-scan/IntroStep.tsx`
-  - `src/components/bespoke-scan/CaptureFront.tsx`
-  - `src/components/bespoke-scan/CaptureProfile.tsx` (parametryzowana L/R)
-  - `src/components/bespoke-scan/ResultStep.tsx`
-  - `src/lib/bespoke-profile.ts` (fuzja 3 klatek → `BespokeProfile`)
-  - `supabase/functions/bespoke-scan-detect/index.ts` (nowy prompt dla profili)
-  - migracja: tabela `bespoke_scan_profiles` + GRANT + RLS
-- Routing: `/en/bespoke/scan` (+ PL/FR/ES), CTA z `BespokeWaitlistGate` po zostawieniu emaila → przekierowanie na scan (waitlist gate zostaje, scan jest następnym krokiem).
-- Desktop: nie pokazuje aparatu, tylko QR jak w `DesktopScanGate` (telefon ma kamerę + sensory).
-
-## Kolejność implementacji
-
-1. Migracja `bespoke_scan_profiles` + RLS + GRANT
-2. Edge function `bespoke-scan-detect` (3-pose prompt + JSON schema)
-3. `bespoke-profile.ts` (fusion logic + testy z fixturami)
-4. UI: Intro → Capture Front (działa solo, MVP smoke test)
-5. UI: Capture Profile L + R + Result
-6. Prefil w `Configurator.tsx`
-7. (Opcjonalnie później) tor TrueDepth via Capacitor, gdy zdecydujemy się na aplikację natywną
-
-## Otwarte decyzje
-
-- **Karta referencyjna na profilu?** Domyślnie nie — używamy face width z frontu jako skali. Jeśli precyzja okaże się słaba, dodamy wymóg karty na profilu.
-- **Storage zdjęć?** Klatki zapisywać do Supabase Storage (bucket `bespoke-scans`, prywatny, retencja 30 dni, signed URLs) czy tylko liczyć i wyrzucać? Rekomendacja: zapisywać, bo daje to ground truth do retrenowania promptu i debugowania spornych przypadków.
-- **TrueDepth native app**: zostawiamy poza MVP, ale architektura `BespokeProfile` jest gotowa na podmianę toru A.
-- **PD measurement**: pomijamy w MVP, dodamy gdy ruszą prescription lenses.
-
-Czy zatwierdzasz? Mogę zacząć od kroków 1–3 (migracja + edge function + fusion logic) jako pierwsza iteracja, zanim wejdziemy w UI.
+- Bez safety glasses.
+- Bez odniesień do wallet Woolet 2014–2016.
+- Bez duplikatów dla istniejących kolekcji — redirect + upgrade.

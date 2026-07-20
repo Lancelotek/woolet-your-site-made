@@ -83,6 +83,7 @@ const CompareIndex = lazy(() => import("./pages/CompareIndex.tsx"));
 const ComparePage = lazy(() => import("./pages/ComparePage.tsx"));
 const Upvote = lazy(() => import("./pages/Upvote.tsx"));
 const Shop = lazy(() => import("./pages/Shop.tsx"));
+const SizePage = lazy(() => import("./components/SizePage.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -136,6 +137,10 @@ const RedirectProductToEn = () => {
 const RedirectLpToEn = () => {
   const { slug } = useParams();
   return <Navigate to={`/en/lp/${slug}`} replace />;
+};
+const RedirectSizeToEn = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/en/size/${slug}`} replace />;
 };
 
 const WhatsAppButtonWrapper = () => {
@@ -239,6 +244,12 @@ const App = () => (
           <Route path="/en/collections/oversized-round-glasses" element={<OversizedRoundGlasses />} />
           <Route path="/en/collections/oversized-black-glasses" element={<OversizedBlackGlasses />} />
           <Route path="/en/collections/thick-frame-glasses" element={<ThickFrameGlasses />} />
+
+          {/* Numeric size landing cluster (Part 1) */}
+          <Route path="/en/size/:slug" element={<SizePage />} />
+          <Route path="/:lang/size/:slug" element={<RedirectSizeToEn />} />
+
+
 
           {/* Competitor comparison pages */}
           <Route path="/en/compare" element={<CompareIndex />} />
