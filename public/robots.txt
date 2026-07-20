@@ -25,6 +25,17 @@ Allow: /
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /*?*
+Disallow: /crm
+Disallow: /en/crm
+Disallow: /account/
+Disallow: /en/account/
+Disallow: /thank-you
+Disallow: /en/thank-you
+Disallow: /upvote
+Disallow: /en/upvote
+
+# Ignore tracking parameters (keeps ?product=, ?slug=, etc. crawlable)
+User-agent: Yandex
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&fbclid&gclid&msclkid&ref&mc_cid&mc_eid /
 
 Sitemap: https://woolet.co/sitemap.xml
