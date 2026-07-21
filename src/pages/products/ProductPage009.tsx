@@ -5,7 +5,6 @@ import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
-import ProductJsonLd from "@/components/ProductJsonLd";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import wooletHavanaFrontAsset from "@/assets/woolet-009-havana-front.png.asset.json";
 import wooletBlackAsset from "@/assets/woolet-009-black.png.asset.json";
@@ -127,25 +126,6 @@ const ProductPage009 = () => {
           ],
         })}</script>
       </Helmet>
-
-      <ProductJsonLd
-        product={{
-          id: "009",
-          name: "Woolet 009 — Square Acetate Glasses",
-          description:
-            "Square Italian Mazzucchelli acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for 155 mm+ faces. Hand-polished in the EU.",
-          url: "https://woolet.co/en/products/009",
-          images: [...gallery009, "/og-image.png"],
-          price: 114,
-          priceCurrency: "USD",
-          isBespoke: false,
-          material: "Italian Mazzucchelli 1849 cotton acetate",
-          category: "Eyewear > Prescription Glasses",
-          colors: ["Havana", "Black", "Grey", "Taupe"],
-          // TODO: pass expressShippingFee when checkout exposes a real express rate
-        }}
-      />
-
 
       <Navbar />
 

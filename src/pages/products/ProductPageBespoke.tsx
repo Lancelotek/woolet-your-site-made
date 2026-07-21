@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ProductJsonLd from "@/components/ProductJsonLd";
 import aviatorImg from "@/assets/configurator/frames/aviator.png.asset.json";
 import rectangleImg from "@/assets/configurator/frames/rectangle.png.asset.json";
 import crownPantoImg from "@/assets/configurator/frames/crown-panto.png.asset.json";
@@ -117,23 +116,6 @@ const ProductPageBespoke = () => {
           ],
         })}</script>
       </Helmet>
-
-      <ProductJsonLd
-        product={{
-          id: "bespoke",
-          name: "Woolet Bespoke — Custom Acetate Glasses",
-          description:
-            "Bespoke Italian Mazzucchelli acetate frames cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–162 mm.",
-          url: "https://woolet.co/en/products/bespoke",
-          images: [...galleryBespoke, "/og-image.png"],
-          price: 299,
-          priceCurrency: "USD",
-          isBespoke: true,
-          material: "Italian Mazzucchelli 1849 cotton acetate",
-          category: "Eyewear > Prescription Glasses > Bespoke",
-          // Bespoke is made-to-order — no returns; longer handling time.
-        }}
-      />
 
       <Navbar />
 
