@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductJsonLd from "@/components/ProductJsonLd";
 import aviatorImg from "@/assets/configurator/frames/aviator.png.asset.json";
 import rectangleImg from "@/assets/configurator/frames/rectangle.png.asset.json";
 import crownPantoImg from "@/assets/configurator/frames/crown-panto.png.asset.json";
