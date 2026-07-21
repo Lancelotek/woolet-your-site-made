@@ -1379,6 +1379,7 @@ const STATIC_ROUTES = [
   "/en/process",
   "/en/products/007",
   "/en/products/009",
+  "/en/products/bespoke",
   "/en/fit",
   "/en/fit",
   "/en/fit/manual",
