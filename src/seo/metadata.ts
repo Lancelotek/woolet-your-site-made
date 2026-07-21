@@ -67,6 +67,42 @@ const websiteJsonLd = {
   publisher: { "@type": "Organization", name: "Woolet", url: SITE_URL },
 };
 
+const MERCHANT_COUNTRIES = ["PL", "DE", "FR", "IT", "ES", "NL", "BE", "AT", "IE"];
+
+const standardReturnPolicy = {
+  "@type": "MerchantReturnPolicy",
+  applicableCountry: MERCHANT_COUNTRIES,
+  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+  merchantReturnDays: 14,
+  returnMethod: "https://schema.org/ReturnByMail",
+  returnFees: "https://schema.org/ReturnShippingFees",
+};
+
+const bespokeReturnPolicy = {
+  "@type": "MerchantReturnPolicy",
+  applicableCountry: MERCHANT_COUNTRIES,
+  returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
+};
+
+function freeShippingDetails(isBespoke = false) {
+  return [
+    {
+      "@type": "OfferShippingDetails",
+      shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+      shippingDestination: { "@type": "DefinedRegion", addressCountry: MERCHANT_COUNTRIES },
+      deliveryTime: {
+        "@type": "ShippingDeliveryTime",
+        handlingTime: isBespoke
+          ? { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" }
+          : { "@type": "QuantitativeValue", minValue: 1, maxValue: 2, unitCode: "DAY" },
+        transitTime: isBespoke
+          ? { "@type": "QuantitativeValue", minValue: 2, maxValue: 4, unitCode: "DAY" }
+          : { "@type": "QuantitativeValue", minValue: 3, maxValue: 7, unitCode: "DAY" },
+      },
+    },
+  ];
+}
+
 function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
   const bridge = model === "009" ? "22 mm" : "21 mm";
   const base: Record<string, unknown> = {
@@ -75,7 +111,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
     description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 145–162 mm. Lens ${lensSize}, temples 150 mm, 5-barrel PVD Gunmetal hinges.`,
     brand: { "@type": "Brand", name: "Woolet" },
-    image: `${SITE_URL}/og-${model}.png`,
+    image: [`${SITE_URL}/og-${model}.png`, `${SITE_URL}/og-image.png`],
     sku: `WOOLET-${model}`,
     mpn: `WOOLET-${model}-158`,
     material: "Italian Mazzucchelli Acetate",
@@ -91,7 +127,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
       { "@type": "PropertyValue", name: "Frame shape", value: shape },
       { "@type": "PropertyValue", name: "Fit", value: "Wide fit (155 mm+ faces)" },
       { "@type": "PropertyValue", name: "Bespoke range", value: "145–162 mm" },
-      { "@type": "PropertyValue", name: "Country of assembly", value: "Italy" },
+      { "@type": "PropertyValue", name: "Frame origin", value: "Hand finished in the EU" },
     ],
     offers: {
       "@type": "Offer",
@@ -110,23 +146,8 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
         description: "Founding-member pre-order price; $190 MSRP at full launch.",
       },
       eligibleRegion: { "@type": "Place", name: "Worldwide" },
-      hasMerchantReturnPolicy: {
-        "@type": "MerchantReturnPolicy",
-        applicableCountry: ["US", "PL", "GB", "DE", "FR", "ES"],
-        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-        merchantReturnDays: 30,
-        returnMethod: "https://schema.org/ReturnByMail",
-        returnFees: "https://schema.org/FreeReturn",
-      },
-      shippingDetails: {
-        "@type": "OfferShippingDetails",
-        shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
-        deliveryTime: {
-          "@type": "ShippingDeliveryTime",
-          handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 2, unitCode: "DAY" },
-          transitTime: { "@type": "QuantitativeValue", minValue: 5, maxValue: 12, unitCode: "DAY" },
-        },
-      },
+      hasMerchantReturnPolicy: standardReturnPolicy,
+      shippingDetails: freeShippingDetails(false),
     },
   };
 
@@ -156,6 +177,47 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
   }
 
   return base;
+}
+
+function bespokeProductJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Woolet Bespoke — Custom Acetate Glasses",
+    description:
+      "Bespoke Italian Mazzucchelli acetate glasses cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–162 mm.",
+    brand: { "@type": "Brand", name: "Woolet" },
+    image: [`${SITE_URL}/og-image.png`],
+    sku: "WOOLET-BESPOKE",
+    mpn: "WOOLET-BESPOKE",
+    material: "Italian Mazzucchelli Acetate",
+    category: "Eyewear > Optical frames > Bespoke",
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Frame width", value: "145–162 mm" },
+      { "@type": "PropertyValue", name: "Fit", value: "Cut to your face" },
+      { "@type": "PropertyValue", name: "Frame origin", value: "Hand finished in the EU" },
+    ],
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/PreOrder",
+      priceCurrency: "USD",
+      price: "299",
+      priceValidUntil: "2026-12-31",
+      url: `${SITE_URL}/en/products/bespoke`,
+      seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+      itemCondition: "https://schema.org/NewCondition",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: "299",
+        priceCurrency: "USD",
+        valueAddedTaxIncluded: false,
+        description: "Founding-member bespoke pre-order price; $480 MSRP at full launch.",
+      },
+      eligibleRegion: { "@type": "Place", name: "Worldwide" },
+      hasMerchantReturnPolicy: bespokeReturnPolicy,
+      shippingDetails: freeShippingDetails(true),
+    },
+  };
 }
 
 function breadcrumbJsonLd(parts: { name: string; url: string }[]) {
@@ -369,9 +431,7 @@ export function getMetadata(route: string): RouteMeta {
       },
       { image: `${SITE_URL}/og-007.png`, type: "product" },
       [
-        // Product JSON-LD is emitted client-side by <ProductJsonLd/> in
-        // ProductPage007 to avoid duplicate schema blocks. Google renders
-        // JS and picks it up from the hydrated head.
+        productJsonLd("007", "Round", "52 × 52 mm"),
         breadcrumbJsonLd([
           { name: "Woolet", url: `${SITE_URL}/en` },
           { name: "Products", url: `${SITE_URL}/en` },
@@ -396,13 +456,36 @@ export function getMetadata(route: string): RouteMeta {
       },
       { image: `${SITE_URL}/og-009.png`, type: "product" },
       [
-        // Product JSON-LD emitted client-side by <ProductJsonLd/> in ProductPage009.
+        productJsonLd("009", "Soft Square", "54 × 50 mm"),
         breadcrumbJsonLd([
           { name: "Woolet", url: `${SITE_URL}/en` },
           { name: "Products", url: `${SITE_URL}/en` },
           { name: "Woolet 009", url: `${SITE_URL}/en/products/009` },
         ]),
         faqPageJsonLd(PRODUCT_FAQ),
+      ],
+    );
+  }
+
+  if (path === "/products/bespoke") {
+    return base(
+      route,
+      lang,
+      {
+        title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
+        description:
+          "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order.",
+        noscriptHtml: `<h1>Woolet Bespoke — Custom Acetate Glasses</h1>
+<p>Bespoke Italian Mazzucchelli acetate frames cut to your face in four silhouettes: Aviator, Rectangle, Crown Panto and Round. Sizes 145–162 mm. Founding-member pre-order $299; $480 MSRP at full launch.</p>`,
+      },
+      { image: DEFAULT_OG, type: "product" },
+      [
+        bespokeProductJsonLd(),
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/en` },
+          { name: "Products", url: `${SITE_URL}/en` },
+          { name: "Woolet Bespoke", url: `${SITE_URL}/en/products/bespoke` },
+        ]),
       ],
     );
   }
@@ -1296,6 +1379,7 @@ const STATIC_ROUTES = [
   "/en/process",
   "/en/products/007",
   "/en/products/009",
+  "/en/products/bespoke",
   "/en/fit",
   "/en/fit",
   "/en/fit/manual",
