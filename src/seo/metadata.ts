@@ -396,7 +396,7 @@ export function getMetadata(route: string): RouteMeta {
       },
       { image: `${SITE_URL}/og-009.png`, type: "product" },
       [
-        productJsonLd("009", "soft square", "54 × 50 mm"),
+        // Product JSON-LD emitted client-side by <ProductJsonLd/> in ProductPage009.
         breadcrumbJsonLd([
           { name: "Woolet", url: `${SITE_URL}/en` },
           { name: "Products", url: `${SITE_URL}/en` },
