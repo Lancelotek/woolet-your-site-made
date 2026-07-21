@@ -5,6 +5,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
+import ProductJsonLd from "@/components/ProductJsonLd";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import wooletHavanaFrontAsset from "@/assets/woolet-009-havana-front.png.asset.json";
 import wooletBlackAsset from "@/assets/woolet-009-black.png.asset.json";
