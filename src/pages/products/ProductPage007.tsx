@@ -124,16 +124,30 @@ const ProductPage007 = () => {
             { "@type": "ListItem", position: 3, name: "Woolet 007", item: "https://woolet.co/en/products/007" },
           ],
         })}</script>
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
-            { "@type": "ListItem", position: 2, name: "Collection", item: "https://woolet.co/en/collection" },
-            { "@type": "ListItem", position: 3, name: "Woolet 007", item: "https://woolet.co/en/products/007" },
-          ],
-        })}</script>
       </Helmet>
+
+      <ProductJsonLd
+        product={{
+          id: "007",
+          name: "Woolet 007 — Round Panto Acetate Glasses",
+          description:
+            "Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for 155 mm+ faces. Hand-polished in the EU.",
+          url: "https://woolet.co/en/products/007",
+          images: [
+            imgTortoise,
+            imgBlack,
+            imgHoney,
+            "/og-image.png",
+          ],
+          price: 114,
+          priceCurrency: "USD",
+          isBespoke: false,
+          material: "Italian Mazzucchelli 1849 cotton acetate",
+          category: "Eyewear > Prescription Glasses",
+          colors: colors007.map((c) => c.name),
+          // TODO: pass expressShippingFee when checkout exposes a real express rate
+        }}
+      />
 
 
       {/* Shared dark nav (homepage component) */}
