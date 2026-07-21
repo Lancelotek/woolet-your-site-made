@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductJsonLd from "@/components/ProductJsonLd";
 import aviatorImg from "@/assets/configurator/frames/aviator.png.asset.json";
 import rectangleImg from "@/assets/configurator/frames/rectangle.png.asset.json";
 import crownPantoImg from "@/assets/configurator/frames/crown-panto.png.asset.json";
@@ -108,26 +109,6 @@ const ProductPageBespoke = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Product",
-          name: "Woolet Bespoke — Custom Acetate Glasses",
-          sku: "WOOLET-BESPOKE",
-          mpn: "WOOLET-BESPOKE",
-          brand: { "@type": "Brand", name: "Woolet" },
-          category: "Eyewear > Prescription Glasses > Bespoke",
-          description: "Bespoke Italian Mazzucchelli acetate frames cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–162 mm.",
-          image: galleryBespoke,
-          material: "Italian Mazzucchelli 1849 cotton acetate",
-          offers: {
-            "@type": "Offer",
-            priceCurrency: "USD",
-            price: "299",
-            availability: "https://schema.org/PreOrder",
-            url: "https://woolet.co/en/products/bespoke",
-            seller: { "@type": "Organization", name: "Woolet" },
-          },
-        })}</script>
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
@@ -136,6 +117,23 @@ const ProductPageBespoke = () => {
           ],
         })}</script>
       </Helmet>
+
+      <ProductJsonLd
+        product={{
+          id: "bespoke",
+          name: "Woolet Bespoke — Custom Acetate Glasses",
+          description:
+            "Bespoke Italian Mazzucchelli acetate frames cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–162 mm.",
+          url: "https://woolet.co/en/products/bespoke",
+          images: [...galleryBespoke, "/og-image.png"],
+          price: 299,
+          priceCurrency: "USD",
+          isBespoke: true,
+          material: "Italian Mazzucchelli 1849 cotton acetate",
+          category: "Eyewear > Prescription Glasses > Bespoke",
+          // Bespoke is made-to-order — no returns; longer handling time.
+        }}
+      />
 
       <Navbar />
 

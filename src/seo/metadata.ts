@@ -369,7 +369,9 @@ export function getMetadata(route: string): RouteMeta {
       },
       { image: `${SITE_URL}/og-007.png`, type: "product" },
       [
-        productJsonLd("007", "round-panto", "52 × 52 mm"),
+        // Product JSON-LD is emitted client-side by <ProductJsonLd/> in
+        // ProductPage007 to avoid duplicate schema blocks. Google renders
+        // JS and picks it up from the hydrated head.
         breadcrumbJsonLd([
           { name: "Woolet", url: `${SITE_URL}/en` },
           { name: "Products", url: `${SITE_URL}/en` },
@@ -394,7 +396,7 @@ export function getMetadata(route: string): RouteMeta {
       },
       { image: `${SITE_URL}/og-009.png`, type: "product" },
       [
-        productJsonLd("009", "soft square", "54 × 50 mm"),
+        // Product JSON-LD emitted client-side by <ProductJsonLd/> in ProductPage009.
         breadcrumbJsonLd([
           { name: "Woolet", url: `${SITE_URL}/en` },
           { name: "Products", url: `${SITE_URL}/en` },
