@@ -5,6 +5,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
+import ProductJsonLd from "@/components/ProductJsonLd";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import imgTortoise from "@/assets/woolet-007-dark-tortoise.png";
 import imgBlack from "@/assets/woolet-007-black.png";
