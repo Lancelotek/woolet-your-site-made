@@ -119,29 +119,6 @@ const ProductPage009 = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Product",
-          name: "Woolet 009 — Square Acetate Glasses",
-          sku: "WOOLET-009",
-          mpn: "WOOLET-009",
-          brand: { "@type": "Brand", name: "Woolet" },
-          category: "Eyewear > Prescription Glasses",
-          description: "Square Italian Mazzucchelli acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for 155 mm+ faces. Hand-polished in the EU.",
-          image: gallery009,
-          material: "Italian Mazzucchelli 1849 cotton acetate",
-          color: ["Havana", "Black", "Grey", "Taupe"],
-          offers: {
-            "@type": "AggregateOffer",
-            priceCurrency: "USD",
-            lowPrice: "114",
-            highPrice: "190",
-            offerCount: 4,
-            availability: "https://schema.org/PreOrder",
-            url: "https://woolet.co/en/products/009",
-            seller: { "@type": "Organization", name: "Woolet" },
-          },
-        })}</script>
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
@@ -150,6 +127,24 @@ const ProductPage009 = () => {
           ],
         })}</script>
       </Helmet>
+
+      <ProductJsonLd
+        product={{
+          id: "009",
+          name: "Woolet 009 — Square Acetate Glasses",
+          description:
+            "Square Italian Mazzucchelli acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for 155 mm+ faces. Hand-polished in the EU.",
+          url: "https://woolet.co/en/products/009",
+          images: [...gallery009, "/og-image.png"],
+          price: 114,
+          priceCurrency: "USD",
+          isBespoke: false,
+          material: "Italian Mazzucchelli 1849 cotton acetate",
+          category: "Eyewear > Prescription Glasses",
+          colors: ["Havana", "Black", "Grey", "Taupe"],
+          // TODO: pass expressShippingFee when checkout exposes a real express rate
+        }}
+      />
 
 
       <Navbar />
