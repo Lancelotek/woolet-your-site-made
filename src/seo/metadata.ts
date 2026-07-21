@@ -431,9 +431,7 @@ export function getMetadata(route: string): RouteMeta {
       },
       { image: `${SITE_URL}/og-007.png`, type: "product" },
       [
-        // Product JSON-LD is emitted client-side by <ProductJsonLd/> in
-        // ProductPage007 to avoid duplicate schema blocks. Google renders
-        // JS and picks it up from the hydrated head.
+        productJsonLd("007", "Round", "52 × 52 mm"),
         breadcrumbJsonLd([
           { name: "Woolet", url: `${SITE_URL}/en` },
           { name: "Products", url: `${SITE_URL}/en` },
@@ -458,13 +456,36 @@ export function getMetadata(route: string): RouteMeta {
       },
       { image: `${SITE_URL}/og-009.png`, type: "product" },
       [
-        // Product JSON-LD emitted client-side by <ProductJsonLd/> in ProductPage009.
+        productJsonLd("009", "Soft Square", "54 × 50 mm"),
         breadcrumbJsonLd([
           { name: "Woolet", url: `${SITE_URL}/en` },
           { name: "Products", url: `${SITE_URL}/en` },
           { name: "Woolet 009", url: `${SITE_URL}/en/products/009` },
         ]),
         faqPageJsonLd(PRODUCT_FAQ),
+      ],
+    );
+  }
+
+  if (path === "/products/bespoke") {
+    return base(
+      route,
+      lang,
+      {
+        title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
+        description:
+          "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order.",
+        noscriptHtml: `<h1>Woolet Bespoke — Custom Acetate Glasses</h1>
+<p>Bespoke Italian Mazzucchelli acetate frames cut to your face in four silhouettes: Aviator, Rectangle, Crown Panto and Round. Sizes 145–162 mm. Founding-member pre-order $299; $480 MSRP at full launch.</p>`,
+      },
+      { image: DEFAULT_OG, type: "product" },
+      [
+        bespokeProductJsonLd(),
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/en` },
+          { name: "Products", url: `${SITE_URL}/en` },
+          { name: "Woolet Bespoke", url: `${SITE_URL}/en/products/bespoke` },
+        ]),
       ],
     );
   }
