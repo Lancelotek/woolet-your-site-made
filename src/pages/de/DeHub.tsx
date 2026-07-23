@@ -224,7 +224,7 @@ export default function DeHub() {
           </div>
         </section>
 
-        <Footer />
+        <Footer lang="de" />
       </main>
     </>
   );

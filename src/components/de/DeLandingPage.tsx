@@ -709,7 +709,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               Made in the EU · Mazzucchelli 1849 Acetat
             </div>
             <Link
-              to="/en/privacy-policy"
+              to="/de/privacy-policy"
               style={{
                 fontFamily: "'Barlow', sans-serif",
                 fontSize: 12,
