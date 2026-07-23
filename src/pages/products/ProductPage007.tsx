@@ -6,9 +6,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
-import imgTortoise from "@/assets/woolet-007-dark-tortoise.png";
-import imgBlack from "@/assets/woolet-007-black.png";
-import imgHoney from "@/assets/woolet-007-honey.png";
+import imgHavana from "@/assets/frames-2026/oval-havana.asset.json";
+import imgBlackAsset from "@/assets/frames-2026/oval-black.asset.json";
+import imgCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
 
 /* ---------- shared tokens (match 5-reasons + homepage) ---------- */
 const T = {
@@ -27,9 +27,9 @@ const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
 const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 
 const colors007 = [
-  { name: "Dark Tortoise", dot: "#5C3317", img: imgTortoise },
-  { name: "Black", dot: "#141414", img: imgBlack },
-  { name: "Honey", dot: "#C8832A", img: imgHoney },
+  { name: "Dark Tortoise", dot: "#8B5A2B", img: imgHavana.url },
+  { name: "Black", dot: "#141414", img: imgBlackAsset.url },
+  { name: "Crystal", dot: "#E8E4DA", img: imgCrystal.url },
 ];
 
 const specs: [string, string][] = [
