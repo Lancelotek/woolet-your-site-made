@@ -165,6 +165,8 @@ const BlogPost = () => {
         publishedTime={post.date}
         image={blogMetaBySlug[post.slug]?.ogImage ?? post.image ?? `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
+        availableLangs={alternateLangsFor(currentLang, post.slug)}
+        alternates={alternatesFor(currentLang, post.slug)}
         jsonLd={(() => {
           const schemas: object[] = [];
           const SITE_URL = "https://woolet.co";
