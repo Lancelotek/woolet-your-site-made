@@ -840,21 +840,22 @@ const Index = () => {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  {/* Unified product photo panel — same warm off-white, same padding, same crop */}
+                  {/* Unified product photo panel — edge-to-edge, matches pack background */}
                   <div
-                    className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden flex items-center justify-center"
-                    style={{ background: "#efe9df" }}
+                    className="relative w-full aspect-[16/10] overflow-hidden flex items-center justify-center"
+                    style={{ background: "#000" }}
                   >
                     <img
                       src={m.img}
                       alt={m.alt}
-                      className="block object-contain transition-transform duration-500 group-hover:scale-[1.03] max-w-[92%] max-h-[88%]"
+                      className="block w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       loading="lazy"
                       decoding="async"
-                      width={800}
-                      height={600}
+                      width={1600}
+                      height={1000}
                       sizes="(min-width: 640px) 46vw, 90vw"
                     />
+
 
 
                   </div>
