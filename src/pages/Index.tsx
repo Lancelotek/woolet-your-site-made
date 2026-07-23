@@ -842,13 +842,13 @@ const Index = () => {
                 >
                   {/* Unified product photo panel — edge-to-edge, matches pack background */}
                   <div
-                    className="relative w-full aspect-[16/10] overflow-hidden flex items-center justify-center"
+                    className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden flex items-center justify-center"
                     style={{ background: "#000" }}
                   >
                     <img
                       src={m.img}
                       alt={m.alt}
-                      className="block w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="block w-full h-full object-contain sm:object-cover object-center scale-[1.15] sm:scale-100 transition-transform duration-500 group-hover:scale-[1.18] sm:group-hover:scale-[1.03]"
                       loading="lazy"
                       decoding="async"
                       width={1600}
