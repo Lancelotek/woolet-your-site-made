@@ -292,6 +292,9 @@ const App = () => (
           <Route path="/:lang/blog" element={<BlogIndex />} />
           <Route path="/en/blog/category/nose-bridge-fit" element={<NoseBridgeFitHub />} />
           <Route path="/:lang/blog/category/nose-bridge-fit" element={<Navigate to="/en/blog/category/nose-bridge-fit" replace />} />
+          {/* Non-EN blog posts: redirect legacy EN slugs to their translated slug */}
+          <Route path="/de/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/de/blog/beste-brillen-fuer-grosse-koepfe-2026" replace />} />
+          <Route path="/de/blog/what-size-sunglasses-for-wide-faces" element={<Navigate to="/de/blog/welche-groesse-sonnenbrille-breites-gesicht" replace />} />
           <Route path="/:lang/blog/:slug" element={<BlogPost />} />
           <Route path="/en/hat-size-calculator" element={<HatSizeCalculator />} />
           <Route path="/:lang/hat-size-calculator" element={<HatSizeCalculator />} />
