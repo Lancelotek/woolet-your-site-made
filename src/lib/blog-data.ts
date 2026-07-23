@@ -3853,6 +3853,122 @@ Related guides:
 </p>
 `,
   },
+  {
+    slug: "acetate-vs-tr90-glasses",
+    title: "Italian Acetate vs TR90: Which Fits a Wide Face Better?",
+    excerpt: "TR90 is light and cheap. Italian Mazzucchelli acetate is heavier, warmer to the touch — and, crucially for a 155 mm+ face, adjustable. Here's the honest side-by-side.",
+    date: "2026-07-21",
+    readTime: 9,
+    tags: ["Materials", "Fit", "Acetate"],
+    faq: [
+      { q: "Can TR90 frames be adjusted like acetate?", a: "No. TR90 is a thermoplastic engineered to snap back to its molded shape. An optician cannot heat-reshape the front or bend the temples inward the way they can with Italian acetate. What you buy is what you wear." },
+      { q: "Is TR90 stronger than acetate?", a: "TR90 is more flex-tolerant — it survives being sat on. Italian Mazzucchelli acetate is more rigid but far more repairable: dings can be polished out, temples reshaped, nose pads re-set. Different definitions of 'strong.'" },
+      { q: "Why does adjustability matter more for a wide face?", a: "Because there is no true off-the-shelf 158 mm+ market. Even the right frame will need a 1–3 mm tweak at the temples or bridge to sit level. Acetate allows that tweak; TR90 does not." },
+      { q: "Which is better for sports or kids?", a: "TR90 wins — light, flexible, cheap to replace. For everyday wear on a 155 mm+ face where fit and longevity matter, acetate is the honest answer." },
+      { q: "Is TR90 a cheap material?", a: "It is inexpensive to mould at scale, which is why it dominates sub-$100 frames. That is not a knock on the plastic itself — it just explains why no premium atelier uses it." },
+    ],
+    content: `
+<p>Walk into any optical store and you will meet two materials: shiny, warm-to-the-touch <strong>Italian acetate</strong>, and matte, feather-light <strong>TR90</strong>. Both are plastics. Both promise "premium." Only one is actually built for a wide face.</p>
+
+<p>This is not a marketing piece — TR90 has real strengths and we will name them. But if your face is 155 mm+ and you want a frame that fits <em>you</em>, not the mould it came out of, the answer is not close.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The single deciding factor</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Italian Mazzucchelli acetate can be reheated and reshaped at the bench — front curvature, temple splay, bridge angle. TR90 cannot. It is engineered to snap back to its factory shape. On a 155 mm+ face, that difference decides whether the frame sits level or forever tilts.</p>
+</div>
+
+<h2>What each material actually is</h2>
+
+<p><strong>Italian acetate</strong> — cellulose acetate is a plant-based plastic made from cotton and wood pulp. The Italian standard is <a href="https://www.mazzucchelli1849.it/en/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Mazzucchelli 1849</a>, which supplies the vast majority of premium eyewear ateliers in Cadore and Belluno. It arrives as a solid block. Every frame is milled, tumbled, polished and hand-finished — a 5–7 week process.</p>
+
+<p><strong>TR90</strong> — a nylon-based thermoplastic (polyamide) developed by Swiss chemists in the 1980s, originally for ski boots and safety eyewear. It is <em>injection-moulded</em>: molten plastic is shot into a metal cavity, cooled in seconds, ejected. No hand-finishing. A frame that takes 5 weeks in acetate takes 90 seconds in TR90.</p>
+
+<h2>The side-by-side</h2>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
+  <thead>
+    <tr style="background:#0f0f0f;color:#f0ece4;">
+      <th style="padding:12px 14px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">Property</th>
+      <th style="padding:12px 14px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">Italian Acetate</th>
+      <th style="padding:12px 14px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;">TR90</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px;font-weight:600;">Post-purchase adjustability</td><td style="padding:14px;">Yes — heated to ~80 °C and reshaped by an optician. Repeatable.</td><td style="padding:14px;">No. Snaps back to moulded shape. What you buy is what you wear.</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="padding:14px;font-weight:600;">Weight (158 mm frame)</td><td style="padding:14px;">28–34 g</td><td style="padding:14px;">18–22 g</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px;font-weight:600;">Flex tolerance</td><td style="padding:14px;">Rigid. Can crack under sharp impact.</td><td style="padding:14px;">High. Survives being sat on.</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="padding:14px;font-weight:600;">Colour depth</td><td style="padding:14px;">Colour runs through the block — layered, translucent, three-dimensional.</td><td style="padding:14px;">Surface pigment. Flat matte finish. Scratches show base plastic.</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px;font-weight:600;">Repairability</td><td style="padding:14px;">Dings polished out, temples re-set, nose pads adjusted for life.</td><td style="padding:14px;">Effectively single-use. Damage means replacement.</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="padding:14px;font-weight:600;">Feel on the skin</td><td style="padding:14px;">Warms to body temperature. Substantial.</td><td style="padding:14px;">Stays cool. Almost weightless — some wearers forget the frame is on.</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px;font-weight:600;">Available at 158 mm+</td><td style="padding:14px;">Yes — a handful of ateliers, including Woolet.</td><td style="padding:14px;">Rare. TR90 tooling is a fixed mould; wide-fit runs almost never justify the cost.</td></tr>
+    <tr style="background:#F5EFDD;"><td style="padding:14px;font-weight:600;">Typical price band</td><td style="padding:14px;">$180–$800 (handmade tier)</td><td style="padding:14px;">$30–$120 (mass-market tier)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Why adjustability is the whole game on a wide face</h2>
+
+<p>If your face is under 145 mm, the mainstream market has hundreds of moulds cut to your dimensions. A rigid TR90 frame will fit close enough that adjustability rarely matters.</p>
+
+<p>Above 155 mm, the maths break. There is no dense cluster of moulds serving 158, 160, 162, 165 mm faces — the industry treats you as a rounding error. Even when you find a frame at your width, one temple is inevitably 2 mm too tight, or the bridge sits 1 mm too high, or the front tilts because your left cheekbone is 3 mm higher than your right (most cheekbones are).</p>
+
+<p>An optician with a hot-air heater and Italian acetate fixes all of that in under ten minutes. The same optician looking at TR90 will politely tell you they cannot do anything — the plastic is <em>memory-set</em>. Try to bend it and it snaps straight back within seconds. Try harder and it cracks.</p>
+
+<div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">Our position, stated plainly</div>
+  <p style="margin:0 0 12px 0;font-size:15px;line-height:1.65;">Woolet uses Mazzucchelli acetate for one reason above all others: a 158 mm frame on a 158 mm face still needs post-purchase fine-tuning. Acetate gives you (and your optician) that room. TR90 does not.</p>
+  <p style="margin:0;font-size:14px;line-height:1.65;color:#c2bda9;">If you want the lightest possible frame for sport, TR90 is a real answer — just not from us.</p>
+</div>
+
+<h2>Where TR90 genuinely wins</h2>
+
+<p>We are not going to pretend TR90 is inferior across the board. It is not.</p>
+
+<ul>
+  <li><strong>Sports and safety eyewear.</strong> Flex tolerance, low weight, no shatter risk. Acetate has no business on a mountain-bike descent.</li>
+  <li><strong>Kids' frames.</strong> Children lose, sit on, and drop frames. TR90 survives; acetate does not.</li>
+  <li><strong>Sub-$100 daily beaters.</strong> If a frame is going in and out of a backpack for a year, injection-moulded plastic is the honest, sustainable choice.</li>
+  <li><strong>Very hot climates.</strong> Acetate softens above 60 °C (a car dashboard in Dubai). TR90 does not care.</li>
+</ul>
+
+<h2>Where acetate wins by design</h2>
+
+<ul>
+  <li><strong>Any face wider than 155 mm.</strong> Adjustability, repairability, and the fact that ateliers still cut it in this size range.</li>
+  <li><strong>Progressive lenses.</strong> A perfectly level front matters — one degree of tilt in the front plane pushes the reading corridor off-axis. Acetate can be corrected; TR90 cannot.</li>
+  <li><strong>Long-term ownership.</strong> A well-made acetate frame lasts 10–15 years with periodic hinge and nose-pad service. TR90 is closer to 2–4.</li>
+  <li><strong>Aesthetic depth.</strong> Layered colour, warm hand-feel, real polish. This is subjective — but it is why every luxury house from Persol to Jacques Marie Mage uses acetate, not TR90.</li>
+</ul>
+
+<h2>Quick decision guide</h2>
+
+<p><strong>Face under 145 mm, mostly desk and daily wear:</strong> either material is fine. Pick on style and budget.</p>
+<p><strong>Face under 145 mm, active lifestyle:</strong> TR90 makes sense.</p>
+<p><strong>Face 145–154 mm:</strong> acetate is worth the premium for the adjustment margin alone. TR90 will fit but never <em>settle</em>.</p>
+<p><strong>Face 155 mm+:</strong> acetate is not really optional. This is the range where post-purchase adjustment is the difference between "wearable" and "unwearable" — and where the wide-fit market only exists in acetate anyway.</p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Not sure which band you're in?</div>
+  <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">Run the <a href="/en/fit" style="color:#A07A2A;text-decoration:underline;">AI Fit Wizard</a> — one selfie, face width in millimetres, and a straight recommendation on which material bracket you're in.</p>
+  <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 (Italian acetate, 158 mm) →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke (150–172 mm) →</a></p>
+</div>
+
+<h2>The one myth worth killing</h2>
+
+<p>"TR90 is unbreakable, acetate is fragile." This is repeated everywhere and it is not quite true. Acetate is <em>rigid</em>, which means it dents rather than flexes. But rigid also means <em>repairable</em>: the same rigidity that lets an optician reshape a temple lets them polish out a scratch or re-cut a hinge slot. TR90 is unbreakable in the way a garden hose is unbreakable — it survives everything except needing to change shape.</p>
+
+<p>For a wide face, needing to change shape is not the exception. It is the entire point.</p>
+
+<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">
+Related guides:
+<a href="/en/blog/what-is-italian-acetate-premium-eyewear" style="color:#A07A2A;">what is Italian acetate</a> ·
+<a href="/en/blog/handmade-italian-acetate-eyewear-process" style="color:#A07A2A;">how handmade acetate frames are made</a> ·
+<a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">wide-face fit guide</a> ·
+<a href="/en/fit" style="color:#A07A2A;">AI Fit Wizard</a>.
+</p>
+`,
+  },
 ];
 
 
