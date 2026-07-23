@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import woolet007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
-import woolet007BlackAsset from "@/assets/woolet-007-black.png.asset.json";
-import woolet007GreyAsset from "@/assets/woolet-007-grey.png.asset.json";
-import woolet007TaupeAsset from "@/assets/woolet-007-taupe.png.asset.json";
-import woolet009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
-import woolet009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
-import woolet009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
+import ovalHavana from "@/assets/frames-2026/oval-havana.asset.json";
+import ovalBlack from "@/assets/frames-2026/oval-black.asset.json";
+import ovalCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
+import squareHavana from "@/assets/frames-2026/square-havana.asset.json";
+import squareBlack from "@/assets/frames-2026/square-black.asset.json";
+import squareCrystal from "@/assets/frames-2026/square-crystal.asset.json";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import {
   Dialog,
@@ -15,16 +14,15 @@ import {
 } from "@/components/ui/dialog";
 
 const slides007 = [
-  { src: woolet007BlackFrontAsset.url, alt: "Woolet 007 — Black acetate, front" },
-  { src: woolet007BlackAsset.url, alt: "Woolet 007 — Black acetate" },
-  { src: woolet007GreyAsset.url, alt: "Woolet 007 — Smoke Grey acetate" },
-  { src: woolet007TaupeAsset.url, alt: "Woolet 007 — Taupe acetate" },
+  { src: ovalHavana.url, alt: "Woolet 007 — round panto Italian acetate glasses in dark tortoise, front view" },
+  { src: ovalBlack.url, alt: "Woolet 007 — round panto Italian acetate glasses in black, front view" },
+  { src: ovalCrystal.url, alt: "Woolet 007 — round panto Italian acetate glasses in crystal, front view" },
 ];
 
 const slides009 = [
-  { src: woolet009BlackAsset.url, alt: "Woolet 009 — Black acetate" },
-  { src: woolet009GreyAsset.url, alt: "Woolet 009 — Smoke Grey acetate" },
-  { src: woolet009TaupeAsset.url, alt: "Woolet 009 — Taupe acetate" },
+  { src: squareHavana.url, alt: "Woolet 009 — soft-square Italian acetate glasses in havana, front view" },
+  { src: squareBlack.url, alt: "Woolet 009 — soft-square Italian acetate glasses in black, front view" },
+  { src: squareCrystal.url, alt: "Woolet 009 — soft-square Italian acetate glasses in crystal, front view" },
 ];
 
 type ModelPillsProps = {
@@ -83,15 +81,19 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={cardClickHandler(setOpen007)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="relative w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
             {slides007.map((s, i) => (
               <img
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
                 className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
-                style={{ opacity: i === idx007 ? 1 : 0, transform: "scale(2.4)" }}
+                style={{ opacity: i === idx007 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                width={800}
+                height={600}
+                sizes="(min-width: 640px) 480px, 90vw"
               />
             ))}
           </div>
@@ -106,15 +108,19 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={cardClickHandler(setOpen009)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="relative w-full aspect-[3/1] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
             {slides009.map((s, i) => (
               <img
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
                 className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
-                style={{ opacity: i === idx009 ? 1 : 0, transform: "scale(2.4)" }}
+                style={{ opacity: i === idx009 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                width={800}
+                height={600}
+                sizes="(min-width: 640px) 480px, 90vw"
               />
             ))}
           </div>
