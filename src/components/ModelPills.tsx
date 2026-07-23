@@ -108,18 +108,18 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={cardClickHandler(setOpen009)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-black">
             {slides009.map((s, i) => (
               <img
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
-                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-in-out"
                 style={{ opacity: i === idx009 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
-                width={800}
-                height={600}
+                width={880}
+                height={1824}
                 sizes="(min-width: 640px) 480px, 90vw"
               />
             ))}
