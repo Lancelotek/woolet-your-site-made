@@ -223,4 +223,17 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "Porównanie najszerszych opraw dostępnych w 2026: szerokość frontu, mostek keyhole, materiał. Z realną opcją 158 mm dla naprawdę dużych głów.",
   },
+
+  // ── DE ───────────────────────────────────────────────────────────────
+  "beste-brillen-fuer-grosse-koepfe-2026": {
+    metaTitle: "Beste Brillen für große Köpfe 2026 — echte Breiten",
+    metaDescription:
+      "Die breitesten Brillen, die du 2026 wirklich kaufen kannst. Verglichen nach Frontbreite, Keyhole-Steg und Material — mit einer 158-mm-Option, die auf große Köpfe passt.",
+    ogImage: "/og-best-glasses-for-big-heads-2026.png",
+  },
+  "welche-groesse-sonnenbrille-breites-gesicht": {
+    metaTitle: "Welche Sonnenbrille bei breitem Gesicht? Kurzguide",
+    metaDescription:
+      "So findest du die richtige Sonnenbrillengröße für ein breites Gesicht: Frontbreite, Steg und Bügel erklärt — plus 10-Sekunden-Test mit deiner aktuellen Brille.",
+  },
 };
