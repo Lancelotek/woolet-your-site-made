@@ -81,18 +81,18 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={cardClickHandler(setOpen007)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-black">
             {slides007.map((s, i) => (
               <img
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
-                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-in-out"
                 style={{ opacity: i === idx007 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
-                width={800}
-                height={600}
+                width={880}
+                height={1824}
                 sizes="(min-width: 640px) 480px, 90vw"
               />
             ))}
@@ -108,18 +108,18 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
           style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
           onClick={cardClickHandler(setOpen009)}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-woolet-white">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-black">
             {slides009.map((s, i) => (
               <img
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
-                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-in-out"
                 style={{ opacity: i === idx009 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
-                width={800}
-                height={600}
+                width={880}
+                height={1824}
                 sizes="(min-width: 640px) 480px, 90vw"
               />
             ))}
@@ -133,9 +133,9 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
 
       {/* 007 Popup */}
       <Dialog open={open007} onOpenChange={setOpen007}>
-        <DialogContent className="max-w-2xl bg-woolet-white border-primary/10 p-2">
+        <DialogContent className="max-w-2xl bg-black border-primary/10 p-2">
           <DialogTitle className="sr-only">Woolet 007</DialogTitle>
-          <div className="relative w-full aspect-square bg-woolet-white rounded overflow-hidden">
+          <div className="relative w-full aspect-square bg-black rounded overflow-hidden">
             {slides007.map((s, i) => (
               <img key={s.src} src={s.src} alt={s.alt} className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms]" style={{ opacity: i === idx007 ? 1 : 0 }} />
             ))}
@@ -145,9 +145,9 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
 
       {/* 009 Popup */}
       <Dialog open={open009} onOpenChange={setOpen009}>
-        <DialogContent className="max-w-2xl bg-woolet-white border-primary/10 p-2">
+        <DialogContent className="max-w-2xl bg-black border-primary/10 p-2">
           <DialogTitle className="sr-only">Woolet 009</DialogTitle>
-          <div className="relative w-full aspect-square bg-woolet-white rounded overflow-hidden">
+          <div className="relative w-full aspect-square bg-black rounded overflow-hidden">
             {slides009.map((s, i) => (
               <img key={s.src} src={s.src} alt={s.alt} className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms]" style={{ opacity: i === idx009 ? 1 : 0 }} />
             ))}

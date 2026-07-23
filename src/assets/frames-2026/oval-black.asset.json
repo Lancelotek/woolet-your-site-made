@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "bf4d1ebf-d1df-4164-8f64-6a138bb926c8",
+  "asset_id": "6b7b2275-aa3b-4dd2-8011-ad32f8c6e108",
   "project_id": "db6d8b13-643f-4791-aab7-db9fbd5ea35d",
-  "url": "/__l5e/assets-v1/bf4d1ebf-d1df-4164-8f64-6a138bb926c8/woolet-oval-black.webp",
-  "r2_key": "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/bf4d1ebf-d1df-4164-8f64-6a138bb926c8/woolet-oval-black.webp",
-  "original_filename": "woolet-oval-black.webp",
-  "size": 30838,
+  "url": "/__l5e/assets-v1/6b7b2275-aa3b-4dd2-8011-ad32f8c6e108/woolet-oval-black-cropped.webp",
+  "r2_key": "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/6b7b2275-aa3b-4dd2-8011-ad32f8c6e108/woolet-oval-black-cropped.webp",
+  "original_filename": "woolet-oval-black-cropped.webp",
+  "size": 24630,
   "content_type": "image/webp",
-  "created_at": "2026-07-23T14:35:40Z"
+  "created_at": "2026-07-23T15:22:02Z"
 }
