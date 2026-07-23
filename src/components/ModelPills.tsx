@@ -91,8 +91,8 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
                 style={{ opacity: i === idx007 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
-                width={880}
-                height={1824}
+                width={1600}
+                height={900}
                 sizes="(min-width: 640px) 480px, 90vw"
               />
             ))}
@@ -118,8 +118,8 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
                 style={{ opacity: i === idx009 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
-                width={880}
-                height={1824}
+                width={1600}
+                height={900}
                 sizes="(min-width: 640px) 480px, 90vw"
               />
             ))}
