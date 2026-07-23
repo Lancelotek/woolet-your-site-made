@@ -9,6 +9,7 @@ import RelatedPosts from "@/components/RelatedPosts";
 import FaceWidthQuiz from "@/components/FaceWidthQuiz";
 import { getBlogPost } from "@/lib/blog-data";
 import { blogMetaBySlug } from "@/lib/blog-meta";
+import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 
 /* ── helpers ── */
@@ -164,6 +165,8 @@ const BlogPost = () => {
         publishedTime={post.date}
         image={blogMetaBySlug[post.slug]?.ogImage ?? post.image ?? `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
+        availableLangs={alternateLangsFor(currentLang, post.slug)}
+        alternates={alternatesFor(currentLang, post.slug)}
         jsonLd={(() => {
           const schemas: object[] = [];
           const SITE_URL = "https://woolet.co";
