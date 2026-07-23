@@ -87,7 +87,7 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-in-out"
+                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
                 style={{ opacity: i === idx007 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
@@ -114,7 +114,7 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-in-out"
+                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms] ease-in-out"
                 style={{ opacity: i === idx009 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
