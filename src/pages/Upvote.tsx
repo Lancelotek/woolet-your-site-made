@@ -2,9 +2,8 @@ import { Helmet } from "react-helmet-async";
 import { useEffect, useRef } from "react";
 
 /**
- * Hidden page for third-party directory badges (e.g. Launchpadly).
- * Not linked from nav, noindex, minimal chrome. External sites crawl
- * this URL to verify the badge is embedded on our domain.
+ * Hidden page for third-party directory badges (e.g. Launchpadly) and
+ * embedded forms (e.g. Klaviyo). Not linked from nav, noindex.
  */
 const Upvote = () => {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -29,13 +28,16 @@ const Upvote = () => {
         style={{
           minHeight: "100vh",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          gap: "2rem",
           background: "hsl(var(--background))",
           padding: "2rem",
         }}
       >
         <div ref={hostRef} />
+        <div className="klaviyo-form-XhdvN5" />
       </main>
     </>
   );
