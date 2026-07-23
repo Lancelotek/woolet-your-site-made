@@ -96,7 +96,7 @@ export default function DeHub() {
           style={{ borderBottom: `1px solid ${colors.line}` }}
         >
           <div className="max-w-5xl mx-auto flex items-center py-6">
-            <Link to="/en" aria-label="Woolet — home" style={{ display: "inline-flex" }}>
+            <Link to="/de" aria-label="Woolet — home" style={{ display: "inline-flex" }}>
               <img src={wooletLogo} alt="Woolet" className="h-8" />
             </Link>
           </div>
@@ -224,7 +224,7 @@ export default function DeHub() {
           </div>
         </section>
 
-        <Footer />
+        <Footer lang="de" />
       </main>
     </>
   );

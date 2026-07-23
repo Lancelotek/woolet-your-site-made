@@ -30,9 +30,9 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 
 type FooterLinkItem = { label: string; href: string; newTab?: boolean };
 
-const Footer = () => {
+const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
   const { lang: paramLang } = useParams<{ lang: string }>();
-  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+  const lang: Lang = langProp ?? (paramLang && isValidLang(paramLang) ? paramLang : "en");
 
   const groups: { heading: string; links: FooterLinkItem[] }[] = [
     {

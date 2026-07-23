@@ -212,7 +212,7 @@ export const blogPostsDE: BlogPost[] = [
 <li>Grob geschätzt: die Karte deckt das halbe Gesicht vollständig ab = ~85 mm halbe Breite, also Gesamtbreite ≈ 145–150 mm. Die Karte plus eine Daumenbreite Überlappung auf jeder Seite = im Bereich 165 mm+.</li>
 </ol>
 
-<p>Für eine präzise Messung nutzt unser <a href="/en/fit">AI Fit Wizard</a> die Kamera Ihres Smartphones und eine Kreditkarte, um eine auf 2 mm genaue Angabe zu ermitteln. Oder verwenden Sie die <a href="/en/fit/manual">manuelle Methode mit Kreditkarte</a>, wenn Sie die Kamera nicht nutzen möchten.</p>
+<p>Für eine präzise Messung nutzt unser <a href="/de/fit">AI Fit Wizard</a> die Kamera Ihres Smartphones und eine Kreditkarte, um eine auf 2 mm genaue Angabe zu ermitteln. Oder verwenden Sie die <a href="/en/fit/manual">manuelle Methode mit Kreditkarte</a>, wenn Sie die Kamera nicht nutzen möchten.</p>
 
 <h2>Größenkategorien für Sonnenbrillen für breite Gesichter</h2>
 
@@ -237,7 +237,7 @@ export const blogPostsDE: BlogPost[] = [
 <p>Eine Frontbreite (von Scharnier zu Scharnier) von 155 mm oder mehr, ein 20–22 mm breiter Steg und Bügel von mindestens 148 mm. Unter 155 mm Frontbreite wird die Fassung drücken – ganz egal, wie groß das Glas aussieht.</p>
 
 <h3>Wie messe ich meine Gesichtsbreite für eine Sonnenbrille?</h3>
-<p>Finden Sie die breiteste Stelle Ihres Gesichts auf Höhe der Wangenknochen. Nutzen Sie eine Kreditkarte (85,6 mm) als Referenz oder verwenden Sie den <a href="/en/fit">AI Fit Wizard</a> für eine präzise Messung.</p>
+<p>Finden Sie die breiteste Stelle Ihres Gesichts auf Höhe der Wangenknochen. Nutzen Sie eine Kreditkarte (85,6 mm) als Referenz oder verwenden Sie den <a href="/de/fit">AI Fit Wizard</a> für eine präzise Messung.</p>
 
 <h3>Was bedeutet 52□19 145 auf einer Sonnenbrille?</h3>
 <p>Glasbreite – Stegbreite – Bügellänge, in Millimetern. Dies gibt keine Auskunft über die Frontbreite (von Scharnier zu Scharnier), welche die entscheidende Größe für die Passform bei einem breiten Gesicht ist. Fragen Sie den Verkäufer direkt nach dem Maß von Scharnier zu Scharnier.</p>
