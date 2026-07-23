@@ -83,6 +83,11 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "A 30-second credit-card test to classify your face width in mm — narrow, average, wide, or extra-wide — and exactly which brands (or bespoke) actually fit each band.",
     ogImage: "/og-how-to-tell-if-your-face-is-wide-or-narrow.jpg",
   },
+  "acetate-vs-tr90-glasses": {
+    metaTitle: "Italian Acetate vs TR90: Which Wins on a Wide Face?",
+    metaDescription:
+      "Acetate can be heat-adjusted; TR90 cannot. See the side-by-side on weight, repairability and fit — and why 155 mm+ faces need Italian acetate, not moulded plastic.",
+  },
 
 
 
