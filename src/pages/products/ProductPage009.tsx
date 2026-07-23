@@ -6,10 +6,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
-import wooletHavanaFrontAsset from "@/assets/woolet-009-havana-front.png.asset.json";
-import wooletBlackAsset from "@/assets/woolet-009-black.png.asset.json";
-import wooletGreyAsset from "@/assets/woolet-009-grey.png.asset.json";
-import wooletTaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
+import sqHavana from "@/assets/frames-2026/square-havana.asset.json";
+import sqBlack from "@/assets/frames-2026/square-black.asset.json";
+import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
 
 /* ---------- shared tokens (match 5-reasons + homepage) ---------- */
 const T = {
@@ -28,10 +27,9 @@ const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
 const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 
 const gallery009 = [
-  wooletHavanaFrontAsset.url,
-  wooletBlackAsset.url,
-  wooletGreyAsset.url,
-  wooletTaupeAsset.url,
+  sqHavana.url,
+  sqBlack.url,
+  sqCrystal.url,
 ];
 
 const specs: [string, string][] = [
