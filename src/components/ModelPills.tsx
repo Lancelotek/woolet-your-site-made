@@ -133,9 +133,9 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
 
       {/* 007 Popup */}
       <Dialog open={open007} onOpenChange={setOpen007}>
-        <DialogContent className="max-w-2xl bg-woolet-white border-primary/10 p-2">
+        <DialogContent className="max-w-2xl bg-black border-primary/10 p-2">
           <DialogTitle className="sr-only">Woolet 007</DialogTitle>
-          <div className="relative w-full aspect-square bg-woolet-white rounded overflow-hidden">
+          <div className="relative w-full aspect-square bg-black rounded overflow-hidden">
             {slides007.map((s, i) => (
               <img key={s.src} src={s.src} alt={s.alt} className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms]" style={{ opacity: i === idx007 ? 1 : 0 }} />
             ))}
@@ -145,9 +145,9 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
 
       {/* 009 Popup */}
       <Dialog open={open009} onOpenChange={setOpen009}>
-        <DialogContent className="max-w-2xl bg-woolet-white border-primary/10 p-2">
+        <DialogContent className="max-w-2xl bg-black border-primary/10 p-2">
           <DialogTitle className="sr-only">Woolet 009</DialogTitle>
-          <div className="relative w-full aspect-square bg-woolet-white rounded overflow-hidden">
+          <div className="relative w-full aspect-square bg-black rounded overflow-hidden">
             {slides009.map((s, i) => (
               <img key={s.src} src={s.src} alt={s.alt} className="absolute inset-0 w-full h-full object-contain transition-opacity duration-[1400ms]" style={{ opacity: i === idx009 ? 1 : 0 }} />
             ))}
