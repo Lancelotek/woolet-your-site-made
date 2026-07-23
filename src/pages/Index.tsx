@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, Link, Navigate } from "react-router-dom";
 const heroManImg = "/hero-man.jpg";
-import woolet007Asset from "@/assets/frames-2026/oval-havana.asset.json";
-import woolet009Asset from "@/assets/frames-2026/square-havana.asset.json";
+import woolet007Asset from "@/assets/frames-2026/oval-crystal.asset.json";
+import woolet009Asset from "@/assets/frames-2026/square-crystal.asset.json";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
