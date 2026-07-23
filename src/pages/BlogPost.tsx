@@ -9,6 +9,7 @@ import RelatedPosts from "@/components/RelatedPosts";
 import FaceWidthQuiz from "@/components/FaceWidthQuiz";
 import { getBlogPost } from "@/lib/blog-data";
 import { blogMetaBySlug } from "@/lib/blog-meta";
+import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 
 /* ── helpers ── */
