@@ -88,11 +88,11 @@ const ModelPills = ({ waitlistAnchor }: ModelPillsProps = {}) => {
                 src={s.src}
                 alt={s.alt}
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-in-out"
-                style={{ opacity: i === idx007 ? 1 : 0, objectPosition: "center" }}
+                style={{ opacity: i === idx007 ? 1 : 0 }}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
-                width={800}
-                height={600}
+                width={880}
+                height={1824}
                 sizes="(min-width: 640px) 480px, 90vw"
               />
             ))}
