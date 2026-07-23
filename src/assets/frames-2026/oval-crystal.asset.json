@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "4e69c9ad-1ea0-43fa-9759-b9f81dc9bcfb",
+  "asset_id": "c976067b-f05d-4047-8b7c-81186c6a7924",
   "project_id": "db6d8b13-643f-4791-aab7-db9fbd5ea35d",
-  "url": "/__l5e/assets-v1/4e69c9ad-1ea0-43fa-9759-b9f81dc9bcfb/woolet-oval-crystal.webp",
-  "r2_key": "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/4e69c9ad-1ea0-43fa-9759-b9f81dc9bcfb/woolet-oval-crystal.webp",
-  "original_filename": "woolet-oval-crystal.webp",
-  "size": 44310,
+  "url": "/__l5e/assets-v1/c976067b-f05d-4047-8b7c-81186c6a7924/woolet-oval-crystal-cropped.webp",
+  "r2_key": "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/c976067b-f05d-4047-8b7c-81186c6a7924/woolet-oval-crystal-cropped.webp",
+  "original_filename": "woolet-oval-crystal-cropped.webp",
+  "size": 31942,
   "content_type": "image/webp",
-  "created_at": "2026-07-23T14:35:37Z"
+  "created_at": "2026-07-23T15:22:08Z"
 }
