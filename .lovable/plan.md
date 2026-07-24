@@ -1,71 +1,55 @@
-# SEO Landing Cluster Build
+## Cel
 
-Duży build (~25+ nowych stron). Proponuję realizację w fazach z checkpointem po Fazie 1, żebyś potwierdził jakość/ton przed skalowaniem.
+Zbudować holenderską warstwę SEO na parytecie z DE, żeby ~60% ruchu z NL do `/en` konwertowało lepiej na natywnym `/nl`.
 
-## Zakres i decyzje wstępne
+## Zakres tej tury (potwierdzony)
 
-**Audyt kanibalizacji (przed budową):**
-- `/en/collections/keyhole-bridge-glasses` — istnieje → NIE tworzę `/en/bridge/keyhole`. Upgraduję istniejącą kolekcję strukturą z briefu, dodaję redirect w App.tsx.
-- `/en/collections/extra-wide-glasses` — istnieje → NIE tworzę `/en/extra-wide-glasses`. Upgrade.
-- `/en/collections/big-glasses-frames`, `glasses-for-big-heads` — istnieją → nowy `/en/xxl-glasses` tylko jeśli intencja XXL jest odrębna; inaczej upgrade najbliższej.
-- `/en/collections/italian-mazzucchelli-acetate` — istnieje → NIE tworzę `/en/italian-acetate-frames`. Upgrade + alias redirect.
-- Hub `/en/guide/glasses-for-wide-faces` vs istniejący blog `glasses-for-wide-faces-guide` — użyję istniejącego blog slug jako canonical, dodam redirect z `/en/guide/...`.
+1. **Hub `/nl`** — dedykowana strona listująca istniejące NL landing pages, wzorowana na `DeHub`.
+2. **2 blogi NL** (tłumaczenia z DE dla spójności — te same posty, które już się dobrze indeksują):
+   - `beste-brillen-voor-brede-hoofden-2026` (odpowiednik `best-glasses-for-big-heads-2026`)
+   - `welke-maat-zonnebril-voor-breed-gezicht` (odpowiednik `what-size-sunglasses-for-wide-faces`)
+3. **`/nl/products/007`, `/nl/products/009`, `/nl/products/bespoke`** — routing, żeby przestały robić 301 do `/en`. Strony renderują istniejące komponenty (`ProductPage007/009/Bespoke`) z `lang="nl"` z URL. Tylko meta/H1/CTA copy zostaje przetłumaczone; reszta UI już jest sterowana przez `t(lang, …)` w `i18n.ts` (NL translations są kompletne).
+4. **`/nl/collection`** — audyt: strona już istnieje przez `/:lang/collection`. Uzupełnić brakujące klucze NL w `i18n.ts` jeśli jakieś wyjdą (spot check).
+5. **SEO wiring**: hreflang (`nl`, `nl-NL`, `nl-BE`), sitemap, redirect z EN slugów blogów na non-NL, meta title/description w `blog-meta.ts`, JSON-LD Article/FAQ/Breadcrumb (już obsługiwane w `BlogPost.tsx`).
 
-**Ton/design:** reuse `CollectionPage`, `SEO`, tokeny brand book (Ink/Panel/Gold/Cream, Newsreader+Archivo). Zero nowych komponentów kolorystycznych.
+## Poza zakresem (świadomie)
 
-**Prerender:** `scripts/prerender.mjs` — dodam wszystkie nowe ścieżki do listy prerenderowanej, żeby `curl` zwracał H1.
+- Tłumaczenie *treści* stron produktowych (`ProductPage007/009`) — copy jest w większości hardkodowane po angielsku. Pełna i18n wymaga osobnej tury (kilkaset stringów). W tej turze produkty NL dostają natywny URL, poprawny `<html lang="nl">`, hreflang i lokalne meta, ale body pozostaje po angielsku (lepsze niż redirect, ale nie idealnie).
+- Tłumaczenie kolekcji collection.tsx — bazuje na `i18n.ts` i NL translations już są.
+- Pozostałe 2 blogi z EN katalogu (poza parytetem z DE).
 
-## Faza 1 (checkpoint — pokażę Ci przed dalszą pracą)
+## Techniczna realizacja
 
-1. `src/data/sizes.ts` — pełne dane dla 145/150/152/155/158/160/162/165 mm (h1, intro, verdict wg reguł z briefu, faq 3–5 unikalnych, bespokeNote).
-2. `src/components/SizePage.tsx` — reusable template (hero, verdict block, spec table 007 vs 009, how-to-measure, product cards, related sizes strip, FAQ accordion, JSON-LD FAQPage + 2×Product).
-3. Route `/en/size/:slug` w `App.tsx` + 8 statycznych ścieżek do prerender listy.
-4. Sitemap.xml + llms.txt („Fit & sizing" sekcja).
-5. Renderuję Ci na żywo `/en/size/158mm` (canonical) i `/en/size/160mm` do walidacji tonu/układu.
+**Nowe pliki:**
+- `src/lib/blog-data-nl.ts` — 2 posty NL (tłumaczone przez `lovable_ai.py` skrypt Gemini z DE, ręczna redakcja tytułów/H1).
+- `src/pages/nl/NlHub.tsx` — mirror `DeHub.tsx` z holenderskim copy.
 
-**Stop. Czekam na akceptację.**
+**Edytowane:**
+- `src/lib/blog-data.ts` — dodać `nl: blogPostsNL` do mapy.
+- `src/lib/blog-slug-map.ts` — dodać `nl` do dwóch grup slugów.
+- `src/lib/blog-meta.ts` — dodać `metaTitle`/`metaDescription` dla 2 slugów NL.
+- `src/App.tsx`:
+  - Nowa trasa `/nl` → `NlHub` (przed `/:lang` catch-all — jak DE).
+  - Legacy EN slug redirects: `/nl/blog/best-glasses-for-big-heads-2026` → NL slug (i drugi).
+  - Wykluczyć `nl` z `RedirectProductToEn`: dodać jawne `/nl/products/007|009|bespoke` przed generic `/:lang/products/:slug`.
+- `public/sitemap.xml` — dodać hreflang `nl` do klastrów, wpis dla `/nl` huba, 2 blogów NL, 3 produktów NL.
+- `public/robots.txt` — bez zmian (już zezwala).
 
-## Faza 2 — Bridge (najwyższy volume: 2 900+ msv)
+**Struktura routes w App.tsx (kolejność):**
+```
+/nl                          → NlHub                 (nowe, przed /:lang)
+/nl/products/007|009|bespoke → ProductPageXxx        (nowe, przed /:lang/products)
+/nl/blog/<legacy>            → Navigate do NL slugu  (nowe)
+… reszta istniejących route bez zmian …
+```
 
-- Upgrade `/en/collections/keyhole-bridge-glasses` do pełnej struktury z briefu (definicja w pierwszych 40 słowach, anatomy placeholder, who-it-suits, tabela porównawcza, Woolet's take 21/20 mm, FAQ + JSON-LD, cross-linki do size).
-- Nowe: `/en/bridge/saddle`, `/en/bridge/double`.
-- Nowy komponent `BridgePage.tsx` (shared).
-- Hub `/en/guide/bridge-types` + comparison `/en/guide/keyhole-vs-saddle-bridge`.
-- Redirect `/en/bridge/keyhole` → istniejąca kolekcja.
+## Weryfikacja
 
-## Faza 3 — Temple length
+- `bunx tsgo` — czysto.
+- Ręcznie: `/nl`, `/nl/blog/beste-brillen-voor-brede-hoofden-2026`, `/nl/products/007`, `/nl/collection` renderują się z `<html lang="nl">` i poprawnymi meta.
+- Test `src/test/de-internal-links.test.ts` — zaadaptować szybko dla NL (opcjonalnie w kolejnej turze).
 
-- `/en/temple-length/150mm|155mm|160mm` (template `TempleLengthPage.tsx`, spec-focus na 103 mm temple + 52 mm drop, wyraźne rozróżnienie temple ≠ front width).
-- Hub `/en/guide/temple-length`.
-- Comparison `/en/guide/140-vs-145-temple-length` (informacyjne, soft CTA do FitLens).
+## Ryzyko
 
-## Faza 4 — XXL / Long temple / Material / Hub
-
-- `/en/xxl-glasses` (nowy — angle „real mm above the fold"; upewnię się intencja różna od big-heads).
-- `/en/long-temple-glasses` (nowy).
-- `/en/guide/widest-glasses-frame-size` (informacyjne).
-- `/en/italian-acetate-frames` → redirect do istniejącej `italian-mazzucchelli-acetate` (jedna intencja) LUB upgrade i alias — zdecyduję po audycie treści.
-- Hub `/en/guide/glasses-for-wide-faces` → redirect do istniejącego bloga + upgrade tego bloga o exact-match anchors do wszystkich `/en/size/*` i bridge hub.
-
-## Global
-
-- Nav: pozycja „Size Guide" → hub.
-- Footer: kolumny „By size" (150/155/158/160/162) i „By bridge" (keyhole/saddle/double).
-- Wszystkie route'y w `sitemap.xml` + `llms.txt`.
-- Per-route: unikalne title/meta/canonical/OG/Twitter (przez `SEO.tsx` z `ogDescription`).
-- Guardrails: „Hand made in EU" + „Mazzucchelli acetate from Milan, Italy", nigdy „Made in Italy". Nigdy nie obiecuję 165 mm produktu.
-- Gold buttons: `#CAA449` bg + `#1F1B16` text (już w tokens).
-
-## Sekcja techniczna (dla dev-reference)
-
-- Route params: preferuję statyczne komponenty per-slug wrapujące shared template (lepszy tree-shaking + explicit prerender) zamiast dynamicznego `:slug`.
-- JSON-LD wstrzykiwany przez `SEO` prop `jsonLd`.
-- Related-sizes strip: mapa sąsiedztwa w `sizes.ts` (prev/next w tablicy widths).
-- Prerender: dopisuję ścieżki do `scripts/prerender.mjs` + workers/route-server bundle build.
-- Weryfikacja: po Fazie 1 uruchomię `curl` na zbudowany prerender, żeby potwierdzić `<h1>` w HTML.
-
-## Nie robię (zgodnie z briefem)
-
-- Bez safety glasses.
-- Bez odniesień do wallet Woolet 2014–2016.
-- Bez duplikatów dla istniejących kolekcji — redirect + upgrade.
+- Tłumaczenia LLM (~2000 słów × 2) mogą wymagać ręcznej korekty tytułów CTA/H1 — zrobię pass po generacji.
+- Strony produktowe NL renderują angielski body — akceptowalne w tej turze, oznaczyć jako TODO na następną iterację.
