@@ -9,15 +9,15 @@ import type { Lang } from "@/lib/i18n";
 
 export const SITE_URL = "https://woolet.co";
 
-const productBaseByLang: Partial<Record<Lang, { home: string; collection: string; collectionLabel: string; framesLabel: string }>> = {
-  en: { home: "/en", collection: "/en/collection", collectionLabel: "Collection", framesLabel: "Frames" },
-  nl: { home: "/nl", collection: "/nl/collection", collectionLabel: "Collectie", framesLabel: "Monturen" },
-  de: { home: "/de", collection: "/de/collection", collectionLabel: "Kollektion", framesLabel: "Fassungen" },
-  pl: { home: "/pl", collection: "/pl/collection", collectionLabel: "Kolekcja", framesLabel: "Oprawki" },
-  fr: { home: "/fr", collection: "/fr/collection", collectionLabel: "Collection", framesLabel: "Montures" },
-  es: { home: "/es", collection: "/es/collection", collectionLabel: "Colección", framesLabel: "Monturas" },
-  ja: { home: "/ja", collection: "/ja/collection", collectionLabel: "コレクション", framesLabel: "フレーム" },
-  ar: { home: "/ar", collection: "/ar/collection", collectionLabel: "المجموعة", framesLabel: "الإطارات" },
+const productBaseByLang: Partial<Record<Lang, { home: string; collection: string; collectionLabel: string; framesLabel: string; homeLabel: string }>> = {
+  en: { home: "/en", collection: "/en/collection", collectionLabel: "Collection", framesLabel: "Frames", homeLabel: "Home" },
+  nl: { home: "/nl", collection: "/nl/collection", collectionLabel: "Collectie", framesLabel: "Monturen", homeLabel: "Home" },
+  de: { home: "/de", collection: "/de/collection", collectionLabel: "Kollektion", framesLabel: "Fassungen", homeLabel: "Startseite" },
+  pl: { home: "/pl", collection: "/pl/collection", collectionLabel: "Kolekcja", framesLabel: "Oprawki", homeLabel: "Strona główna" },
+  fr: { home: "/fr", collection: "/fr/collection", collectionLabel: "Collection", framesLabel: "Montures", homeLabel: "Accueil" },
+  es: { home: "/es", collection: "/es/collection", collectionLabel: "Colección", framesLabel: "Monturas", homeLabel: "Inicio" },
+  ja: { home: "/ja", collection: "/ja/collection", collectionLabel: "コレクション", framesLabel: "フレーム", homeLabel: "ホーム" },
+  ar: { home: "/ar", collection: "/ar/collection", collectionLabel: "المجموعة", framesLabel: "الإطارات", homeLabel: "الرئيسية" },
 };
 
 export function localeCtx(lang: Lang) {
