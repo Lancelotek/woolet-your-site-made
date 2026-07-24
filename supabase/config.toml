@@ -15,6 +15,8 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.fit-scan-detect]
     verify_jwt = true
+  [functions.bespoke-scan-detect]
+    verify_jwt = true
   [functions.fit-scan-email-notify]
     verify_jwt = false
   [functions.handle-email-suppression]
