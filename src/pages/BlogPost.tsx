@@ -165,6 +165,7 @@ const BlogPost = () => {
         publishedTime={post.date}
         image={blogMetaBySlug[post.slug]?.ogImage ?? post.image ?? `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
+        articleBody={post.content.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim()}
         availableLangs={alternateLangsFor(currentLang, post.slug)}
         alternates={alternatesFor(currentLang, post.slug)}
         author={
