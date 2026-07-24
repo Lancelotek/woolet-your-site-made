@@ -128,7 +128,7 @@ export function collectionJsonLd(
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/${lang}` },
+        { "@type": "ListItem", position: 1, name: localeCtx(lang).homeLabel, item: `${SITE_URL}/${lang}` },
         { "@type": "ListItem", position: 2, name: localeCtx(lang).collectionLabel, item: url },
       ],
     },
