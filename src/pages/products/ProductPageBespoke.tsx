@@ -103,17 +103,19 @@ const ProductPageBespoke = () => {
   return (
     <>
       <Helmet>
-        <title>Woolet Bespoke — Custom Acetate Glasses Cut to Your Face</title>
-        <meta name="description" content="Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order." />
+        <html lang={lang} />
+        <title>{({ en: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face", nl: "Woolet Bespoke — acetaatbril op maat van je gezicht", fr: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage" } as Record<string,string>)[lang] ?? "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face"}</title>
+        <meta name="description" content={({ en: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order.", nl: "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145–162 mm. Vanaf $299 in pre-order.", fr: "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Quatre silhouettes, tailles 145–162 mm. Dès 299 $ en pré-commande." } as Record<string,string>)[lang] ?? "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order."} />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/bespoke`} />
         <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/bespoke`} />
+        <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr/products/bespoke`} />
         <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/bespoke`} />
         <meta property="og:type" content="product" />
-        <meta property="og:title" content="Woolet Bespoke — Custom Acetate Glasses" />
-        <meta property="og:description" content="Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. From $299 pre-order." />
+        <meta property="og:title" content={({ en: "Woolet Bespoke — Custom Acetate Glasses", nl: "Woolet Bespoke — acetaatbril op maat", fr: "Woolet Bespoke — lunettes en acétate sur mesure" } as Record<string,string>)[lang] ?? "Woolet Bespoke — Custom Acetate Glasses"} />
+        <meta property="og:description" content={({ en: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. From $299 pre-order.", nl: "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vanaf $299 in pre-order.", fr: "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Dès 299 $ en pré-commande." } as Record<string,string>)[lang] ?? "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. From $299 pre-order."} />
         <meta property="og:url" content={canonical} />
-        <meta property="og:locale" content={lang === "nl" ? "nl_NL" : "en_US"} />
+        <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, {
           id: "bespoke",
