@@ -512,6 +512,54 @@ export type Database = {
         }
         Relationships: []
       }
+      meta_capi_lead_log: {
+        Row: {
+          correlation_id: string
+          created_at: string
+          duration_ms: number | null
+          email_hash: string | null
+          error: string | null
+          event_id: string
+          event_name: string
+          http_status: number | null
+          id: string
+          meta_event_id: string | null
+          ok: boolean
+          response_snippet: string | null
+          source: string | null
+        }
+        Insert: {
+          correlation_id: string
+          created_at?: string
+          duration_ms?: number | null
+          email_hash?: string | null
+          error?: string | null
+          event_id: string
+          event_name?: string
+          http_status?: number | null
+          id?: string
+          meta_event_id?: string | null
+          ok?: boolean
+          response_snippet?: string | null
+          source?: string | null
+        }
+        Update: {
+          correlation_id?: string
+          created_at?: string
+          duration_ms?: number | null
+          email_hash?: string | null
+          error?: string | null
+          event_id?: string
+          event_name?: string
+          http_status?: number | null
+          id?: string
+          meta_event_id?: string | null
+          ok?: boolean
+          response_snippet?: string | null
+          source?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string

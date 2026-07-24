@@ -50,6 +50,35 @@ async function saveAttribution(
   }
 }
 
+async function sha256Hex(input: string): Promise<string> {
+  const bytes = new TextEncoder().encode(input);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+// Structured log line — one JSON object per event for easy log filtering.
+function logStructured(level: "info" | "warn" | "error", fields: Record<string, unknown>) {
+  const line = JSON.stringify({ ts: new Date().toISOString(), level, ...fields });
+  if (level === "error") console.error(line);
+  else if (level === "warn") console.warn(line);
+  else console.log(line);
+}
+
+async function persistCapiLog(row: Record<string, unknown>) {
+  const url = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) return;
+  try {
+    const supabase = createClient(url, key);
+    const { error } = await supabase.from("meta_capi_lead_log").insert(row);
+    if (error) console.error("[meta_capi_lead_log] insert error", error);
+  } catch (e) {
+    console.error("[meta_capi_lead_log] failed", e);
+  }
+}
+
 // Send server-side Lead event to Meta Conversions API.
 // Deduplicated with browser pixel via shared meta_event_id.
 async function sendMetaCapiLead(params: {
@@ -61,25 +90,32 @@ async function sendMetaCapiLead(params: {
   event_source_url?: string;
   meta_event_id?: string;
   source?: string;
+  correlation_id: string;
   req: Request;
 }) {
   const pixelId = Deno.env.get("META_PIXEL_ID");
   const accessToken = Deno.env.get("META_CAPI_ACCESS_TOKEN");
-  if (!pixelId || !accessToken) return;
+  const email = params.email.trim().toLowerCase();
+  const emailHash = await sha256Hex(email);
+  const event_id = params.meta_event_id || crypto.randomUUID();
+  const base = {
+    correlation_id: params.correlation_id,
+    event_id,
+    event_name: "Lead",
+    source: params.source ?? null,
+    email_hash: emailHash,
+    meta_event_id: params.meta_event_id ?? null,
+  };
 
+  if (!pixelId || !accessToken) {
+    logStructured("warn", { ...base, msg: "capi_skipped_not_configured" });
+    await persistCapiLog({ ...base, ok: false, error: "not_configured" });
+    return;
+  }
+
+  const startedAt = Date.now();
   try {
-    const sha256Hex = async (input: string) => {
-      const bytes = new TextEncoder().encode(input);
-      const digest = await crypto.subtle.digest("SHA-256", bytes);
-      return Array.from(new Uint8Array(digest))
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("");
-    };
-
-    const email = params.email.trim().toLowerCase();
-    const user_data: Record<string, unknown> = {
-      em: [await sha256Hex(email)],
-    };
+    const user_data: Record<string, unknown> = { em: [emailHash] };
     if (params.phone) {
       const phoneDigits = params.phone.replace(/[^\d]/g, "");
       if (phoneDigits) user_data.ph = [await sha256Hex(phoneDigits)];
@@ -93,8 +129,6 @@ async function sendMetaCapiLead(params: {
     if (ip) user_data.client_ip_address = ip;
     const ua = params.req.headers.get("user-agent");
     if (ua) user_data.client_user_agent = ua;
-
-    const event_id = params.meta_event_id || crypto.randomUUID();
 
     const payload = {
       data: [{
@@ -118,13 +152,46 @@ async function sendMetaCapiLead(params: {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+    const bodyText = await res.text();
+    const durationMs = Date.now() - startedAt;
+    const snippet = bodyText.slice(0, 500);
+
     if (!res.ok) {
-      console.error("[meta-capi Lead] failed", res.status, await res.text());
+      logStructured("error", {
+        ...base,
+        msg: "capi_lead_failed",
+        http_status: res.status,
+        duration_ms: durationMs,
+        response_snippet: snippet,
+      });
+      await persistCapiLog({
+        ...base,
+        ok: false,
+        http_status: res.status,
+        duration_ms: durationMs,
+        response_snippet: snippet,
+        error: `http_${res.status}`,
+      });
     } else {
-      console.log("[meta-capi Lead] sent", email, "event_id:", event_id);
+      logStructured("info", {
+        ...base,
+        msg: "capi_lead_sent",
+        http_status: res.status,
+        duration_ms: durationMs,
+      });
+      await persistCapiLog({
+        ...base,
+        ok: true,
+        http_status: res.status,
+        duration_ms: durationMs,
+        response_snippet: snippet,
+      });
     }
   } catch (e) {
-    console.error("[meta-capi Lead] error", e);
+    const durationMs = Date.now() - startedAt;
+    const errMsg = e instanceof Error ? e.message : String(e);
+    logStructured("error", { ...base, msg: "capi_lead_error", duration_ms: durationMs, error: errMsg });
+    await persistCapiLog({ ...base, ok: false, duration_ms: durationMs, error: errMsg });
   }
 }
 
@@ -179,6 +246,9 @@ export const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
+
+  const correlation_id =
+    req.headers.get("x-correlation-id") || crypto.randomUUID();
 
   try {
     const apiKey = Deno.env.get("MAILERLITE_API_KEY");
@@ -300,12 +370,13 @@ export const handler = async (req: Request): Promise<Response> => {
       event_source_url,
       meta_event_id,
       source,
+      correlation_id,
       req,
     });
 
     return new Response(
-      JSON.stringify({ success: true, subscriber: { email: data.data?.email } }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({ success: true, correlation_id, subscriber: { email: data.data?.email } }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json", "x-correlation-id": correlation_id } }
     );
   } catch (error: unknown) {
     console.error("Error in mailerlite-subscribe:", error);
