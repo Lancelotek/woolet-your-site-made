@@ -110,18 +110,22 @@ const ProductPage007 = () => {
   return (
     <>
       <Helmet>
-        <title>Woolet 007 — Round Panto Acetate Glasses, 158 mm</title>
-        <meta name="description" content="Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order." />
+        {(() => null)()}
+        {(() => { /* locale-aware meta */ })()}
+        <html lang={lang} />
+        <title>{({ en: "Woolet 007 — Round Panto Acetate Glasses, 158 mm", nl: "Woolet 007 — ronde panto acetaatbril, 158 mm", fr: "Woolet 007 — lunettes rondes panto en acétate, 158 mm" } as Record<string,string>)[lang] ?? "Woolet 007 — Round Panto Acetate Glasses, 158 mm"}</title>
+        <meta name="description" content={({ en: "Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order.", nl: "Ronde panto in Italiaans acetaat, 158 mm breed met 21 mm brug. Ontworpen voor gezichten van 155 mm+. Vanaf $114 in pre-order.", fr: "Monture ronde panto en acétate italien, 158 mm de large avec pont 21 mm. Conçue pour les visages de 155 mm+. Dès 114 $ en pré-commande." } as Record<string,string>)[lang] ?? "Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order."} />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/007`} />
         <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/007`} />
+        <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr/products/007`} />
         <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/007`} />
         <meta property="og:type" content="product" />
-        <meta property="og:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
-        <meta property="og:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. From $114 pre-order." />
+        <meta property="og:title" content={({ en: "Woolet 007 — Round Panto Acetate Glasses, 158 mm", nl: "Woolet 007 — ronde panto acetaatbril, 158 mm", fr: "Woolet 007 — lunettes rondes panto en acétate, 158 mm" } as Record<string,string>)[lang] ?? "Woolet 007 — Round Panto Acetate Glasses, 158 mm"} />
+        <meta property="og:description" content={({ en: "Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. From $114 pre-order.", nl: "Ronde panto in Italiaans Mazzucchelli-acetaat, 158 mm breed met keyhole-brug 21 mm. Vanaf $114 in pre-order.", fr: "Monture ronde panto en acétate italien Mazzucchelli, 158 mm de large avec pont keyhole de 21 mm. Dès 114 $ en pré-commande." } as Record<string,string>)[lang] ?? "Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. From $114 pre-order."} />
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content="https://woolet.co/og-007.png" />
-        <meta property="og:locale" content={lang === "nl" ? "nl_NL" : "en_US"} />
+        <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, {
           id: "007",
