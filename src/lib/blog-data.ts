@@ -4175,6 +4175,7 @@ const blogPostsPL: BlogPost[] = [
 
 import { blogPostsDE } from "./blog-data-de";
 import { blogPostsNL } from "./blog-data-nl";
+import { blogPostsFR } from "./blog-data-fr";
 
 export const blogPosts: Partial<Record<Lang, BlogPost[]>> = {
   en: blogPostsEN,

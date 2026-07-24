@@ -15,11 +15,13 @@ export const BLOG_SLUG_GROUPS: BlogSlugGroup[] = [
     pl: "najlepsze-okulary-na-duza-glowe-2026",
     de: "beste-brillen-fuer-grosse-koepfe-2026",
     nl: "beste-brillen-voor-brede-hoofden-2026",
+    fr: "meilleures-lunettes-pour-grosses-tetes-2026",
   },
   {
     en: "what-size-sunglasses-for-wide-faces",
     de: "welche-groesse-sonnenbrille-breites-gesicht",
     nl: "welke-maat-zonnebril-voor-breed-gezicht",
+    fr: "quelle-taille-de-lunettes-de-soleil-visage-large",
   },
 ];
 
