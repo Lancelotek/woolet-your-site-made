@@ -4182,6 +4182,7 @@ export const blogPosts: Partial<Record<Lang, BlogPost[]>> = {
   pl: blogPostsPL,
   de: blogPostsDE,
   nl: blogPostsNL,
+  fr: blogPostsFR,
 };
 
 export function getBlogPosts(lang: Lang): BlogPost[] {
