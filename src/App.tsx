@@ -17,6 +17,7 @@ const Collection = lazy(() => import("./pages/Collection.tsx"));
 const SignIn = lazy(() => import("./pages/account/SignIn.tsx"));
 const AuthCallback = lazy(() => import("./pages/account/Callback.tsx"));
 const Account = lazy(() => import("./pages/account/Account.tsx"));
+const OAuthConsent = lazy(() => import("./pages/OAuthConsent.tsx"));
 
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
 const ReturnPolicy = lazy(() => import("./pages/ReturnPolicy.tsx"));
@@ -343,6 +344,7 @@ const App = () => (
           <Route path="/:lang/account/sign-in" element={<SignIn />} />
           <Route path="/:lang/account/callback" element={<AuthCallback />} />
           <Route path="/:lang/account" element={<Account />} />
+          <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
 
          <Route path="/unsubscribe" element={<Unsubscribe />} />
 
