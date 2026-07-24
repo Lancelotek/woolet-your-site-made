@@ -8,6 +8,7 @@ import WaitlistForm from "@/components/WaitlistForm";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { FRAMES } from "@/data/frames";
+import { collectionJsonLd } from "@/seo/product-collection-jsonld";
 import fitTriptych from "@/assets/woolet-fit-triptych.webp.asset.json";
 
 
@@ -40,7 +41,18 @@ const Collection = () => {
 
   return (
     <>
-      <SEO title={seo.title} description={seo.description} lang={lang} path="/collection" availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]} />
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        lang={lang}
+        path="/collection"
+        availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja", "nl"]}
+        jsonLd={collectionJsonLd(lang, seo.title, seo.description, [
+          { id: "007", name: "Woolet 007 — Round Panto" },
+          { id: "009", name: "Woolet 009 — Soft Square" },
+          { id: "bespoke", name: "Woolet Bespoke — Custom" },
+        ])}
+      />
       {/* Preload LCP triptych so it starts fetching before React hydrates the <img> */}
       <link
         rel="preload"
