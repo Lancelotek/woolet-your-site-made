@@ -130,24 +130,40 @@ const SEO = ({
       : {}),
   } : null;
 
+  // Stable @id for the featured image so BlogPosting.image references the
+  // same entity that we emit as a standalone ImageObject node. The id is
+  // canonical-URL-scoped (not locale-scoped), matching Google's guidance
+  // for connected nodes across translated variants.
+  const featuredImageId = type === "article" && publishedTime
+    ? `${canonical}#primaryimage`
+    : undefined;
+
+  const featuredImageNode = featuredImageId ? {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    "@id": featuredImageId,
+    url: ogImage,
+    contentUrl: ogImage,
+    caption: title,
+    name: title,
+    description,
+    inLanguage: bcp47,
+    representativeOfPage: true,
+    creditText: "Woolet",
+    creator: { "@type": "Organization", "@id": ORG_ID, name: "Woolet", url: SITE_URL },
+    copyrightHolder: { "@type": "Organization", "@id": ORG_ID, name: "Woolet" },
+    copyrightNotice: `© ${new Date().getFullYear()} Woolet`,
+    license: `${SITE_URL}/terms`,
+    acquireLicensePage: `${SITE_URL}/contact`,
+  } : null;
+
   const articleJsonLd = type === "article" && publishedTime ? {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: title,
     description,
-    image: {
-      "@type": "ImageObject",
-      url: ogImage,
-      contentUrl: ogImage,
-      caption: title,
-      description,
-      representativeOfPage: true,
-      creditText: "Woolet",
-      creator: { "@type": "Organization", name: "Woolet", url: SITE_URL },
-      copyrightNotice: `© ${new Date().getFullYear()} Woolet`,
-      license: `${SITE_URL}/terms`,
-      acquireLicensePage: `${SITE_URL}/contact`,
-    },
+    image: { "@id": featuredImageId },
+    primaryImageOfPage: { "@id": featuredImageId },
     url: canonical,
     datePublished: publishedTime,
     dateModified: modifiedTime || publishedTime,
