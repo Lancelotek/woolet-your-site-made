@@ -3,7 +3,7 @@
 // supabase function: mcp
 // Bundled from src/lib/mcp/index.ts by @lovable.dev/mcp-js.
 // src/lib/mcp/index.ts
-import { defineMcp } from "npm:@lovable.dev/mcp-js@0.20.0";
+import { auth, defineMcp } from "npm:@lovable.dev/mcp-js@0.20.0";
 
 // src/lib/mcp/tools/list-products.ts
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.20.0";
@@ -106,11 +106,16 @@ var recommend_fit_default = defineTool2({
 });
 
 // src/lib/mcp/index.ts
+var projectRef = "wmefczrhnsqicikveuhz";
 var mcp_default = defineMcp({
   name: "woolet-mcp",
   title: "Woolet Eyewear",
   version: "0.1.0",
   instructions: "Tools for Woolet, an Italian acetate eyewear brand for wide faces (145\u2013162 mm). Use `list_products` to browse models 007, 009, and Bespoke. Use `recommend_fit` to suggest a model from a face width in millimetres.",
+  auth: auth.oauth.issuer({
+    issuer: `https://${projectRef}.supabase.co/auth/v1`,
+    acceptedAudiences: "authenticated"
+  }),
   tools: [list_products_default, recommend_fit_default]
 });
 

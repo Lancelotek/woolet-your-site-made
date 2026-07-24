@@ -3763,34 +3763,24 @@ function EmailGateStep({
       });
       if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
 
-      // Fire-and-forget: send measurements + fit recommendation by email.
-      // Use primaryHref so the CTA points to the actually recommended model (007 or 009).
-      const primaryHref = recommendation.primaryHref || `/${lang}/products/007`;
-      const modelUrl = primaryHref.startsWith("http")
-        ? primaryHref
-        : `https://woolet.co${primaryHref}`;
-      const recommendedModel = primaryHref.includes("009") ? "Woolet 009" : "Woolet 007";
-      // Include a per-session nonce so re-scans for the same email still send.
+      // Fire-and-forget: send measurements + fit recommendation by email via a
+      // whitelisted server-side proxy. send-transactional-email itself is
+      // service-role gated so callers can only send this specific template.
+      const variant: "007" | "009" = recommendation.primaryHref?.includes("009") ? "009" : "007";
       const scanNonce = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
       supabase.functions
-        .invoke("send-transactional-email", {
+        .invoke("fit-scan-email-notify", {
           body: {
-            templateName: "fit-scan-result",
-            recipientEmail: parsed.data,
-            idempotencyKey: `fit-scan-${parsed.data}-${Math.round(faceWidthMm)}-${Math.round(noseWidthMm)}-${scanNonce}`,
-            templateData: {
-              faceWidthMm: Math.round(faceWidthMm),
-              noseWidthMm: Math.round(noseWidthMm),
-              recommendationTitle: recommendation.title,
-              recommendationBody: recommendation.body,
-              recommendedModel,
-              modelUrl,
-              badgeLabel: recommendation.badgeLabel,
-            },
+            email: parsed.data,
+            faceWidthMm: Math.round(faceWidthMm),
+            noseWidthMm: Math.round(noseWidthMm),
+            variant,
+            lang,
+            scanNonce,
           },
         })
         .then(({ error: emailErr }) => {
-          if (emailErr) console.warn("[scan email gate] send-transactional-email failed", emailErr);
+          if (emailErr) console.warn("[scan email gate] fit-scan-email-notify failed", emailErr);
         });
 
       // Create a Woolet account (passwordless) so we can remember the measurements

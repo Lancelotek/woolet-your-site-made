@@ -16,6 +16,21 @@ async function ml(apiKey: string, path: string) {
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
+
+  // Admin-gated. Same posture as gsc-tracking-read: require the shared
+  // admin password because this endpoint exposes MailerLite subscriber PII.
+  const adminPassword = Deno.env.get("ADMIN_CRM_PASSWORD") ?? "";
+  const provided =
+    req.headers.get("x-admin-password") ??
+    new URL(req.url).searchParams.get("password") ??
+    "";
+  if (!adminPassword || provided !== adminPassword) {
+    return new Response(JSON.stringify({ error: "unauthorized" }), {
+      status: 401,
+      headers: { ...cors, "Content-Type": "application/json" },
+    });
+  }
+
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) {
     return new Response(JSON.stringify({ error: "no api key" }), { status: 500, headers: cors });

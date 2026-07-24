@@ -37,7 +37,11 @@ export default function Callback() {
       } catch (e) {
         console.warn("[auth-callback] backfill failed", e);
       }
-      navigate(`/${lang}/account`, { replace: true });
+      // Honor ?next=/... so OAuth consent (or any other pending flow) picks
+      // up where it left off. Only same-origin relative paths are allowed.
+      const rawNext = new URLSearchParams(window.location.search).get("next");
+      const next = rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : null;
+      navigate(next ?? `/${lang}/account`, { replace: true });
     };
 
     finalize();
