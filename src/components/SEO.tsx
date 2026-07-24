@@ -22,19 +22,22 @@ interface SEOProps {
   };
   jsonLd?: object | object[];
   /**
-   * Languages in which THIS route exists with the same path structure.
-   * When provided, emits a full hreflang alternates cluster so Google can
-   * group the translated versions. Use for shared routes like
-   * `/products/007`, `/bespoke`, `/collection`, `/fit` that are mirrored
-   * across locales. Leave undefined for language-unique slugs (blog posts,
-   * FR /lunettes-sur-mesure, DE hub pages, etc.).
+   * Optional author for article-type pages. When provided, emitted as a
+   * standalone Person/Organization node with a stable @id, and referenced
+   * from BlogPosting.author via that @id so the same entity is reused
+   * across every locale (en/nl/de/…).
    */
+  author?: {
+    type: "Person" | "Organization";
+    name: string;
+    /** Stable @id — MUST be identical across locales. Defaults to a Woolet Organization id. */
+    id?: string;
+    url?: string;
+    sameAs?: string[];
+    jobTitle?: string;
+    image?: string;
+  };
   availableLangs?: Lang[];
-  /**
-   * Optional per-language path overrides when the slug differs by locale
-   * (e.g. { fr: "/lunettes-sur-mesure", en: "/bespoke" }). Merged with
-   * `availableLangs`; keys present here take priority over `path`.
-   */
   alternates?: Partial<Record<Lang, string>>;
 }
 
