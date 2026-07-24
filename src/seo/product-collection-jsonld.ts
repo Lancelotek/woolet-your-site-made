@@ -41,6 +41,7 @@ export function productJsonLd(lang: Lang, p: ProductInfo) {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": url,
+    url,
     name: p.name,
     description: p.description,
     image: p.image,
