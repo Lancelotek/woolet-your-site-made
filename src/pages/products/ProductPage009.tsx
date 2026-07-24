@@ -110,18 +110,20 @@ const ProductPage009 = () => {
   return (
     <>
       <Helmet>
-        <title>Woolet 009 — Square Acetate Glasses, 158 mm</title>
-        <meta name="description" content="Square Italian acetate frame, 158 mm wide with 22 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order." />
+        <html lang={lang} />
+        <title>{({ en: "Woolet 009 — Square Acetate Glasses, 158 mm", nl: "Woolet 009 — vierkante acetaatbril, 158 mm", fr: "Woolet 009 — lunettes carrées en acétate, 158 mm" } as Record<string,string>)[lang] ?? "Woolet 009 — Square Acetate Glasses, 158 mm"}</title>
+        <meta name="description" content={({ en: "Square Italian acetate frame, 158 mm wide with 22 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order.", nl: "Vierkante Italiaanse acetaatbril, 158 mm breed met 22 mm brug. Ontworpen voor gezichten van 155 mm+. Vanaf $114 in pre-order.", fr: "Monture carrée en acétate italien, 158 mm de large avec pont 22 mm. Conçue pour les visages de 155 mm+. Dès 114 $ en pré-commande." } as Record<string,string>)[lang] ?? "Square Italian acetate frame, 158 mm wide with 22 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order."} />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/009`} />
         <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/009`} />
+        <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr/products/009`} />
         <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/009`} />
         <meta property="og:type" content="product" />
-        <meta property="og:title" content="Woolet 009 — Square Acetate Glasses, 158 mm" />
-        <meta property="og:description" content="Square Italian Mazzucchelli acetate frame, 158 mm wide with a 22 mm keyhole bridge. From $114 pre-order." />
+        <meta property="og:title" content={({ en: "Woolet 009 — Square Acetate Glasses, 158 mm", nl: "Woolet 009 — vierkante acetaatbril, 158 mm", fr: "Woolet 009 — lunettes carrées en acétate, 158 mm" } as Record<string,string>)[lang] ?? "Woolet 009 — Square Acetate Glasses, 158 mm"} />
+        <meta property="og:description" content={({ en: "Square Italian Mazzucchelli acetate frame, 158 mm wide with a 22 mm keyhole bridge. From $114 pre-order.", nl: "Vierkante Italiaanse Mazzucchelli-acetaatbril, 158 mm breed met keyhole-brug 22 mm. Vanaf $114 in pre-order.", fr: "Monture carrée en acétate italien Mazzucchelli, 158 mm de large avec pont keyhole de 22 mm. Dès 114 $ en pré-commande." } as Record<string,string>)[lang] ?? "Square Italian Mazzucchelli acetate frame, 158 mm wide with a 22 mm keyhole bridge. From $114 pre-order."} />
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content="https://woolet.co/og-009.png" />
-        <meta property="og:locale" content={lang === "nl" ? "nl_NL" : "en_US"} />
+        <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, {
           id: "009",
