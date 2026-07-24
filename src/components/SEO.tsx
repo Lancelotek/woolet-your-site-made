@@ -20,6 +20,9 @@ interface SEOProps {
     readTime: number;
     tags: string[];
   };
+  /** Plain-text article body (HTML stripped). When provided, emitted as
+   *  BlogPosting.articleBody and drives an accurate wordCount. */
+  articleBody?: string;
   jsonLd?: object | object[];
   /**
    * Optional author for article-type pages. When provided, emitted as a
