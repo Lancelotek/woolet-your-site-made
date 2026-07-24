@@ -89,7 +89,7 @@ export function productBreadcrumbJsonLd(lang: Lang, name: string, id: string) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}${ctx.home}` },
+      { "@type": "ListItem", position: 1, name: ctx.homeLabel, item: `${SITE_URL}${ctx.home}` },
       { "@type": "ListItem", position: 2, name: ctx.collectionLabel, item: `${SITE_URL}${ctx.collection}` },
       { "@type": "ListItem", position: 3, name, item: `${SITE_URL}/${lang}/products/${id}` },
     ],
