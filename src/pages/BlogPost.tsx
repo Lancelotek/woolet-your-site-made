@@ -192,13 +192,21 @@ const BlogPost = () => {
         jsonLd={(() => {
           const schemas: object[] = [];
           const SITE_URL = "https://woolet.co";
+          const homeLabelByLang: Record<string, string> = {
+            en: "Home", nl: "Home", de: "Startseite", pl: "Strona główna",
+            fr: "Accueil", es: "Inicio", ja: "ホーム", ar: "الرئيسية",
+          };
+          const blogLabelByLang: Record<string, string> = {
+            en: "Blog", nl: "Blog", de: "Blog", pl: "Blog",
+            fr: "Blog", es: "Blog", ja: "ブログ", ar: "المدونة",
+          };
           // BreadcrumbList — Home › Blog › Post
           schemas.push({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/${currentLang}` },
-              { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/${currentLang}/blog` },
+              { "@type": "ListItem", position: 1, name: homeLabelByLang[currentLang] ?? "Home", item: `${SITE_URL}/${currentLang}` },
+              { "@type": "ListItem", position: 2, name: blogLabelByLang[currentLang] ?? "Blog", item: `${SITE_URL}/${currentLang}/blog` },
               { "@type": "ListItem", position: 3, name: post.title, item: `${SITE_URL}/${currentLang}/blog/${post.slug}` },
             ],
           });
