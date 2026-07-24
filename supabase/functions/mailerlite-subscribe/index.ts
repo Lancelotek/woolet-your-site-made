@@ -290,6 +290,19 @@ serve(async (req) => {
       "| models:", models || "-",
     );
 
+    // Fire server-side Meta CAPI Lead event (deduped with browser pixel via meta_event_id)
+    await sendMetaCapiLead({
+      email,
+      phone,
+      country_code,
+      fbp,
+      fbc,
+      event_source_url,
+      meta_event_id,
+      source,
+      req,
+    });
+
     return new Response(
       JSON.stringify({ success: true, subscriber: { email: data.data?.email } }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
