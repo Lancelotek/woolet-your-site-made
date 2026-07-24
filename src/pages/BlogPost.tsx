@@ -167,6 +167,27 @@ const BlogPost = () => {
         article={{ readTime: post.readTime, tags: post.tags }}
         availableLangs={alternateLangsFor(currentLang, post.slug)}
         alternates={alternatesFor(currentLang, post.slug)}
+        author={
+          post.slug === "glasses-for-wide-faces-guide"
+            ? {
+                type: "Person",
+                name: "Marek Cieśla",
+                id: "https://woolet.co/authors/marek-ciesla#person",
+                url: "https://woolet.co/en/about",
+                jobTitle: "Founder, Woolet",
+                sameAs: ["https://www.linkedin.com/in/marekciesla/"],
+              }
+            : {
+                type: "Organization",
+                name: "Woolet Editorial Team",
+                id: "https://woolet.co/#organization",
+                url: "https://woolet.co",
+                sameAs: [
+                  "https://www.facebook.com/wooleteyewear",
+                  "https://www.instagram.com/wooleteyewear/",
+                ],
+              }
+        }
         jsonLd={(() => {
           const schemas: object[] = [];
           const SITE_URL = "https://woolet.co";
