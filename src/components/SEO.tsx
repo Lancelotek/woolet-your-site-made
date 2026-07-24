@@ -83,9 +83,19 @@ const SEO = ({
   // Determine robots content
   const robotsContent = robots || (noindex ? "noindex, follow" : "index, follow");
 
+  // BlogPosting is a subtype of Article and is the preferred schema.org
+  // type for editorial blog content. Google renders it identically to
+  // Article for rich results, but the more specific type gives translated
+  // language versions (nl-NL, de-DE, en-US, …) a cleaner semantic anchor
+  // and pairs well with the sitewide WebSite entity from index.html.
+  const localeMap: Record<string, string> = {
+    en: "en-US", pl: "pl-PL", fr: "fr-FR", es: "es-ES",
+    de: "de-DE", ar: "ar-AR", ja: "ja-JP", nl: "nl-NL",
+  };
+  const bcp47 = localeMap[lang] ?? "en-US";
   const articleJsonLd = type === "article" && publishedTime ? {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: title,
     description,
     image: {
@@ -110,11 +120,16 @@ const SEO = ({
       name: "Woolet",
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.ico` },
+      sameAs: [
+        "https://www.facebook.com/wooleteyewear",
+        "https://www.instagram.com/wooleteyewear/",
+      ],
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
-    inLanguage: lang,
+    isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}#website`, url: SITE_URL, name: "Woolet" },
+    inLanguage: bcp47,
     ...(article?.tags?.length ? { keywords: article.tags.join(", ") } : {}),
-    ...(article?.readTime ? { wordCount: article.readTime * 220 } : {}),
+    ...(article?.readTime ? { timeRequired: `PT${article.readTime}M`, wordCount: article.readTime * 220 } : {}),
   } : null;
 
   // Build hreflang links as a flat array — react-helmet-async does NOT
