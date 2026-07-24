@@ -20,6 +20,9 @@ interface SEOProps {
     readTime: number;
     tags: string[];
   };
+  /** Plain-text article body (HTML stripped). When provided, emitted as
+   *  BlogPosting.articleBody and drives an accurate wordCount. */
+  articleBody?: string;
   jsonLd?: object | object[];
   /**
    * Optional author for article-type pages. When provided, emitted as a
@@ -73,6 +76,7 @@ const SEO = ({
   article,
   jsonLd,
   author,
+  articleBody,
   availableLangs,
   alternates,
 }: SEOProps) => {
@@ -182,8 +186,9 @@ const SEO = ({
     mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
     isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}#website`, url: SITE_URL, name: "Woolet" },
     inLanguage: bcp47,
-    ...(article?.tags?.length ? { keywords: article.tags.join(", ") } : {}),
-    ...(article?.readTime ? { timeRequired: `PT${article.readTime}M`, wordCount: article.readTime * 220 } : {}),
+    ...(article?.tags?.length ? { keywords: article.tags.join(", "), articleSection: article.tags[0] } : {}),
+    ...(article?.readTime ? { timeRequired: `PT${article.readTime}M` } : {}),
+    ...(articleBody ? { articleBody, wordCount: articleBody.trim().split(/\s+/).filter(Boolean).length } : (article?.readTime ? { wordCount: article.readTime * 220 } : {})),
   } : null;
 
   // Build hreflang links as a flat array — react-helmet-async does NOT
