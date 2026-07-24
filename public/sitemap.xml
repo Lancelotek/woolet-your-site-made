@@ -1015,4 +1015,61 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://woolet.co/nl/blog/beste-brillen-voor-brede-hoofden-2026</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/best-glasses-for-big-heads-2026"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog/najlepsze-okulary-na-duza-glowe-2026"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/blog/beste-brillen-fuer-grosse-koepfe-2026"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/blog/beste-brillen-voor-brede-hoofden-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/best-glasses-for-big-heads-2026"/>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/nl/blog/welke-maat-zonnebril-voor-breed-gezicht</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/what-size-sunglasses-for-wide-faces"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/blog/welche-groesse-sonnenbrille-breites-gesicht"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/blog/welke-maat-zonnebril-voor-breed-gezicht"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/what-size-sunglasses-for-wide-faces"/>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/nl/collection</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/collection"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/nl/products/007</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/007"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/007"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/007"/>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/nl/products/009</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/009"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/009"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/009"/>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/nl/products/bespoke</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/bespoke"/>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>

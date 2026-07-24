@@ -236,4 +236,17 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "So findest du die richtige Sonnenbrillengröße für ein breites Gesicht: Frontbreite, Steg und Bügel erklärt — plus 10-Sekunden-Test mit deiner aktuellen Brille.",
   },
+
+  // ── NL ───────────────────────────────────────────────────────────────
+  "beste-brillen-voor-brede-hoofden-2026": {
+    metaTitle: "Beste brillen voor grote hoofden 2026 — echte breedtes",
+    metaDescription:
+      "De breedste brillen die je in 2026 echt kunt kopen. Vergeleken op frontbreedte, sleutelgatbrug en materiaal — met een 158 mm-optie die op grote hoofden past.",
+    ogImage: "/og-best-glasses-for-big-heads-2026.png",
+  },
+  "welke-maat-zonnebril-voor-breed-gezicht": {
+    metaTitle: "Welke zonnebril bij een breed gezicht? Snelle gids",
+    metaDescription:
+      "Zo vind je de juiste zonnebrilmaat voor een breed gezicht: frontbreedte, brug en veren uitgelegd — plus een 10-secondentest met je huidige bril.",
+  },
 };
