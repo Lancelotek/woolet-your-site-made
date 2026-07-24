@@ -50,6 +50,84 @@ async function saveAttribution(
   }
 }
 
+// Send server-side Lead event to Meta Conversions API.
+// Deduplicated with browser pixel via shared meta_event_id.
+async function sendMetaCapiLead(params: {
+  email: string;
+  phone?: string;
+  country_code?: string;
+  fbp?: string;
+  fbc?: string;
+  event_source_url?: string;
+  meta_event_id?: string;
+  source?: string;
+  req: Request;
+}) {
+  const pixelId = Deno.env.get("META_PIXEL_ID");
+  const accessToken = Deno.env.get("META_CAPI_ACCESS_TOKEN");
+  if (!pixelId || !accessToken) return;
+
+  try {
+    const sha256Hex = async (input: string) => {
+      const bytes = new TextEncoder().encode(input);
+      const digest = await crypto.subtle.digest("SHA-256", bytes);
+      return Array.from(new Uint8Array(digest))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+    };
+
+    const email = params.email.trim().toLowerCase();
+    const user_data: Record<string, unknown> = {
+      em: [await sha256Hex(email)],
+    };
+    if (params.phone) {
+      const phoneDigits = params.phone.replace(/[^\d]/g, "");
+      if (phoneDigits) user_data.ph = [await sha256Hex(phoneDigits)];
+    }
+    if (params.country_code) {
+      user_data.country = [await sha256Hex(params.country_code.trim().toLowerCase().slice(0, 2))];
+    }
+    if (params.fbp) user_data.fbp = params.fbp;
+    if (params.fbc) user_data.fbc = params.fbc;
+    const ip = getClientIp(params.req);
+    if (ip) user_data.client_ip_address = ip;
+    const ua = params.req.headers.get("user-agent");
+    if (ua) user_data.client_user_agent = ua;
+
+    const event_id = params.meta_event_id || crypto.randomUUID();
+
+    const payload = {
+      data: [{
+        event_name: "Lead",
+        event_time: Math.floor(Date.now() / 1000),
+        event_id,
+        event_source_url: params.event_source_url,
+        action_source: "website",
+        user_data,
+        custom_data: {
+          currency: "USD",
+          value: 5,
+          lead_source: params.source || "waitlist",
+        },
+      }],
+    };
+
+    const url = `https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${accessToken}`;
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      console.error("[meta-capi Lead] failed", res.status, await res.text());
+    } else {
+      console.log("[meta-capi Lead] sent", email, "event_id:", event_id);
+    }
+  } catch (e) {
+    console.error("[meta-capi Lead] error", e);
+  }
+}
+
 const MAILERLITE_API = "https://connect.mailerlite.com/api";
 
 // MailerLite group IDs
