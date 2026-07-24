@@ -247,6 +247,9 @@ export const handler = async (req: Request): Promise<Response> => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const correlation_id =
+    req.headers.get("x-correlation-id") || crypto.randomUUID();
+
   try {
     const apiKey = Deno.env.get("MAILERLITE_API_KEY");
     if (!apiKey) {
