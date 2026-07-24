@@ -11,6 +11,16 @@ import SEO from "@/components/SEO";
 const GOLD = "#c9a84c";
 const emailSchema = z.string().trim().email("Enter a valid email").max(255);
 
+// A caller (e.g. the OAuth consent screen) can pass ?next=/... to have the
+// magic link return the user to that path instead of /account. Only same-origin
+// relative paths are honored.
+function safeNext(): string | null {
+  const raw = new URLSearchParams(window.location.search).get("next");
+  if (!raw) return null;
+  if (!raw.startsWith("/") || raw.startsWith("//")) return null;
+  return raw;
+}
+
 export default function SignIn() {
   const { lang: paramLang } = useParams();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
@@ -21,7 +31,10 @@ export default function SignIn() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  if (!loading && session) return <Navigate to={`/${lang}/account`} replace />;
+  const nextPath = typeof window !== "undefined" ? safeNext() : null;
+  if (!loading && session) {
+    return <Navigate to={nextPath ?? `/${lang}/account`} replace />;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,10 +49,13 @@ export default function SignIn() {
       return;
     }
     setSubmitting(true);
-    const redirectTo = `${window.location.origin}/${lang}/account/callback`;
+    // Preserve `next` through the magic-link round trip so OAuth consent
+    // returns the user to /.lovable/oauth/consent?authorization_id=… after login.
+    const callback = new URL(`${window.location.origin}/${lang}/account/callback`);
+    if (nextPath) callback.searchParams.set("next", nextPath);
     const { error: err } = await supabase.auth.signInWithOtp({
       email: parsed.data,
-      options: { emailRedirectTo: redirectTo, data: { locale: lang } },
+      options: { emailRedirectTo: callback.toString(), data: { locale: lang } },
     });
     setSubmitting(false);
     if (err) {
