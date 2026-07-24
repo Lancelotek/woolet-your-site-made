@@ -110,8 +110,6 @@ const ProductPage007 = () => {
   return (
     <>
       <Helmet>
-        {(() => null)()}
-        {(() => { /* locale-aware meta */ })()}
         <html lang={lang} />
         <title>{({ en: "Woolet 007 — Round Panto Acetate Glasses, 158 mm", nl: "Woolet 007 — ronde panto acetaatbril, 158 mm", fr: "Woolet 007 — lunettes rondes panto en acétate, 158 mm" } as Record<string,string>)[lang] ?? "Woolet 007 — Round Panto Acetate Glasses, 158 mm"}</title>
         <meta name="description" content={({ en: "Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order.", nl: "Ronde panto in Italiaans acetaat, 158 mm breed met 21 mm brug. Ontworpen voor gezichten van 155 mm+. Vanaf $114 in pre-order.", fr: "Monture ronde panto en acétate italien, 158 mm de large avec pont 21 mm. Conçue pour les visages de 155 mm+. Dès 114 $ en pré-commande." } as Record<string,string>)[lang] ?? "Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order."} />
