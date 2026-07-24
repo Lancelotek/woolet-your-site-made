@@ -249,4 +249,17 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "Zo vind je de juiste zonnebrilmaat voor een breed gezicht: frontbreedte, brug en veren uitgelegd — plus een 10-secondentest met je huidige bril.",
   },
+
+  // ── FR ───────────────────────────────────────────────────────────────
+  "meilleures-lunettes-pour-grosses-tetes-2026": {
+    metaTitle: "Meilleures lunettes pour grosses têtes 2026 — vraies largeurs",
+    metaDescription:
+      "Les montures les plus larges vraiment disponibles en 2026. Comparées par largeur de face, pont keyhole et matière — avec une option 158 mm qui va aux grosses têtes.",
+    ogImage: "/og-best-glasses-for-big-heads-2026.png",
+  },
+  "quelle-taille-de-lunettes-de-soleil-visage-large": {
+    metaTitle: "Quelle taille de solaires pour un visage large ? Guide rapide",
+    metaDescription:
+      "Comment choisir la taille de solaires pour un visage large : largeur de face, pont et branches expliqués — plus un test 10 s avec vos lunettes actuelles.",
+  },
 };
