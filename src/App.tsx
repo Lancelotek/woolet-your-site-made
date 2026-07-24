@@ -79,6 +79,7 @@ const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
 const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
 const NlLandingRoute = lazy(() => import("./pages/nl/NlLandingRoute.tsx"));
+const NlHub = lazy(() => import("./pages/nl/NlHub.tsx"));
 const CompareIndex = lazy(() => import("./pages/CompareIndex.tsx"));
 const ComparePage = lazy(() => import("./pages/ComparePage.tsx"));
 const Upvote = lazy(() => import("./pages/Upvote.tsx"));
@@ -218,6 +219,10 @@ const App = () => (
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/products/bespoke" element={<ProductPageBespoke />} />
+          {/* NL: native product URLs (avoid 301 to /en to preserve NL SEO signals) */}
+          <Route path="/nl/products/007" element={<ProductPage007 />} />
+          <Route path="/nl/products/009" element={<ProductPage009 />} />
+          <Route path="/nl/products/bespoke" element={<ProductPageBespoke />} />
           <Route path="/en/about" element={<About />} />
           <Route path="/en/process" element={<Process />} />
           <Route path="/en/the-box" element={<TheBox />} />
@@ -295,6 +300,8 @@ const App = () => (
           {/* Non-EN blog posts: redirect legacy EN slugs to their translated slug */}
           <Route path="/de/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/de/blog/beste-brillen-fuer-grosse-koepfe-2026" replace />} />
           <Route path="/de/blog/what-size-sunglasses-for-wide-faces" element={<Navigate to="/de/blog/welche-groesse-sonnenbrille-breites-gesicht" replace />} />
+          <Route path="/nl/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/nl/blog/beste-brillen-voor-brede-hoofden-2026" replace />} />
+          <Route path="/nl/blog/what-size-sunglasses-for-wide-faces" element={<Navigate to="/nl/blog/welke-maat-zonnebril-voor-breed-gezicht" replace />} />
           <Route path="/:lang/blog/:slug" element={<BlogPost />} />
           <Route path="/en/hat-size-calculator" element={<HatSizeCalculator />} />
           <Route path="/:lang/hat-size-calculator" element={<HatSizeCalculator />} />
@@ -354,7 +361,8 @@ const App = () => (
          <Route path="/pl/okulary-na-zamowienie" element={<PlLandingRoute />} />
          <Route path="/pl/jak-dobrac-okulary-do-twarzy" element={<PlLandingRoute />} />
 
-         {/* NL market SEO landing pages (pilot) */}
+         {/* NL market SEO hub + landing pages */}
+         <Route path="/nl" element={<NlHub />} />
          <Route path="/nl/acetaat-bril-op-maat" element={<NlLandingRoute />} />
          <Route path="/nl/grote-brillen-heren" element={<NlLandingRoute />} />
 
