@@ -261,6 +261,9 @@ const SEO = ({
       {articleJsonLd && (
         <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
       )}
+      {featuredImageNode && (
+        <script type="application/ld+json">{JSON.stringify(featuredImageNode)}</script>
+      )}
       {authorNode && (
         <script type="application/ld+json">{JSON.stringify(authorNode)}</script>
       )}
