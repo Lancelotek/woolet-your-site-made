@@ -167,6 +167,18 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
+  if (image.length > 4_200_000) {
+    return new Response(JSON.stringify({ error: "image_too_large" }), {
+      status: 413,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+  if ((width as number) < 100 || (height as number) < 100 || (width as number) > 8000 || (height as number) > 8000) {
+    return new Response(JSON.stringify({ error: "frame_size_invalid" }), {
+      status: 400,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
 
   const imageUrl = image.startsWith("data:") ? image : `data:image/jpeg;base64,${image}`;
   const system = pose === "front" ? FRONT_SYSTEM : PROFILE_SYSTEM;

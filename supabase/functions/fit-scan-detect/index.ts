@@ -105,8 +105,16 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
-  if ((width as number) < 100 || (height as number) < 100) {
-    return new Response(JSON.stringify({ error: "frame_too_small" }), {
+  // Cap image payload at ~3 MB to prevent Gemini credit exhaustion via
+  // arbitrarily large base64 blobs from the internet.
+  if (image.length > 4_200_000) {
+    return new Response(JSON.stringify({ error: "image_too_large" }), {
+      status: 413,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+  if ((width as number) < 100 || (height as number) < 100 || (width as number) > 8000 || (height as number) > 8000) {
+    return new Response(JSON.stringify({ error: "frame_size_invalid" }), {
       status: 400,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
