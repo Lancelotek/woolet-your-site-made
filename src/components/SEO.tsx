@@ -245,6 +245,9 @@ const SEO = ({
       {articleJsonLd && (
         <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
       )}
+      {authorNode && (
+        <script type="application/ld+json">{JSON.stringify(authorNode)}</script>
+      )}
       {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((obj, i) => (
         <script key={i} type="application/ld+json">{JSON.stringify(obj)}</script>
       ))}
