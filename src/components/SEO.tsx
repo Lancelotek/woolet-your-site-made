@@ -22,19 +22,22 @@ interface SEOProps {
   };
   jsonLd?: object | object[];
   /**
-   * Languages in which THIS route exists with the same path structure.
-   * When provided, emits a full hreflang alternates cluster so Google can
-   * group the translated versions. Use for shared routes like
-   * `/products/007`, `/bespoke`, `/collection`, `/fit` that are mirrored
-   * across locales. Leave undefined for language-unique slugs (blog posts,
-   * FR /lunettes-sur-mesure, DE hub pages, etc.).
+   * Optional author for article-type pages. When provided, emitted as a
+   * standalone Person/Organization node with a stable @id, and referenced
+   * from BlogPosting.author via that @id so the same entity is reused
+   * across every locale (en/nl/de/…).
    */
+  author?: {
+    type: "Person" | "Organization";
+    name: string;
+    /** Stable @id — MUST be identical across locales. Defaults to a Woolet Organization id. */
+    id?: string;
+    url?: string;
+    sameAs?: string[];
+    jobTitle?: string;
+    image?: string;
+  };
   availableLangs?: Lang[];
-  /**
-   * Optional per-language path overrides when the slug differs by locale
-   * (e.g. { fr: "/lunettes-sur-mesure", en: "/bespoke" }). Merged with
-   * `availableLangs`; keys present here take priority over `path`.
-   */
   alternates?: Partial<Record<Lang, string>>;
 }
 
@@ -69,6 +72,7 @@ const SEO = ({
   image,
   article,
   jsonLd,
+  author,
   availableLangs,
   alternates,
 }: SEOProps) => {
@@ -93,6 +97,39 @@ const SEO = ({
     de: "de-DE", ar: "ar-AR", ja: "ja-JP", nl: "nl-NL",
   };
   const bcp47 = localeMap[lang] ?? "en-US";
+  // Stable, locale-independent @id for the author entity. When no explicit
+  // author is passed, we fall back to the Woolet Organization so BlogPosting
+  // still points at a real node.
+  const ORG_ID = `${SITE_URL}/#organization`;
+  const resolvedAuthor = author ?? {
+    type: "Organization" as const,
+    name: "Woolet",
+    id: ORG_ID,
+    url: SITE_URL,
+    sameAs: [
+      "https://www.facebook.com/wooleteyewear",
+      "https://www.instagram.com/wooleteyewear/",
+    ],
+  };
+  const authorId = resolvedAuthor.id
+    ?? (resolvedAuthor.type === "Organization"
+      ? ORG_ID
+      : `${SITE_URL}/authors/${resolvedAuthor.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}#person`);
+
+  const authorNode = type === "article" && publishedTime ? {
+    "@context": "https://schema.org",
+    "@type": resolvedAuthor.type,
+    "@id": authorId,
+    name: resolvedAuthor.name,
+    ...(resolvedAuthor.url ? { url: resolvedAuthor.url } : {}),
+    ...(resolvedAuthor.jobTitle ? { jobTitle: resolvedAuthor.jobTitle } : {}),
+    ...(resolvedAuthor.image ? { image: resolvedAuthor.image } : {}),
+    ...(resolvedAuthor.sameAs?.length ? { sameAs: resolvedAuthor.sameAs } : {}),
+    ...(resolvedAuthor.type === "Person"
+      ? { worksFor: { "@type": "Organization", "@id": ORG_ID, name: "Woolet", url: SITE_URL } }
+      : {}),
+  } : null;
+
   const articleJsonLd = type === "article" && publishedTime ? {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -114,9 +151,10 @@ const SEO = ({
     url: canonical,
     datePublished: publishedTime,
     dateModified: modifiedTime || publishedTime,
-    author: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+    author: { "@type": resolvedAuthor.type, "@id": authorId, name: resolvedAuthor.name },
     publisher: {
       "@type": "Organization",
+      "@id": ORG_ID,
       name: "Woolet",
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.ico` },
@@ -206,6 +244,9 @@ const SEO = ({
       {/* Organization, WebSite, and Product schemas live in index.html (single source) */}
       {articleJsonLd && (
         <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
+      )}
+      {authorNode && (
+        <script type="application/ld+json">{JSON.stringify(authorNode)}</script>
       )}
       {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((obj, i) => (
         <script key={i} type="application/ld+json">{JSON.stringify(obj)}</script>
