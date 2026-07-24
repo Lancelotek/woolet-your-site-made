@@ -370,12 +370,13 @@ export const handler = async (req: Request): Promise<Response> => {
       event_source_url,
       meta_event_id,
       source,
+      correlation_id,
       req,
     });
 
     return new Response(
-      JSON.stringify({ success: true, subscriber: { email: data.data?.email } }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({ success: true, correlation_id, subscriber: { email: data.data?.email } }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json", "x-correlation-id": correlation_id } }
     );
   } catch (error: unknown) {
     console.error("Error in mailerlite-subscribe:", error);
