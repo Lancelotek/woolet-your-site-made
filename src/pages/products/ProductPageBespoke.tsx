@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { langFromPath, productJsonLd, productBreadcrumbJsonLd, SITE_URL, localeCtx } from "@/seo/product-collection-jsonld";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -58,6 +59,10 @@ const guarantees: [string, string][] = [
 
 const ProductPageBespoke = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const lang = langFromPath(location.pathname);
+  const ctx = localeCtx(lang);
+  const canonical = `${SITE_URL}/${lang}/products/bespoke`;
   const [activeImg, setActiveImg] = useState<string>(galleryBespoke[0]);
   const [showSticky, setShowSticky] = useState(false);
 
@@ -100,21 +105,24 @@ const ProductPageBespoke = () => {
       <Helmet>
         <title>Woolet Bespoke — Custom Acetate Glasses Cut to Your Face</title>
         <meta name="description" content="Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order." />
-        <link rel="canonical" href="https://woolet.co/en/products/bespoke" />
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/bespoke`} />
+        <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/bespoke`} />
+        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/bespoke`} />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet Bespoke — Custom Acetate Glasses" />
         <meta property="og:description" content="Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. From $299 pre-order." />
-        <meta property="og:url" content="https://woolet.co/en/products/bespoke" />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:locale" content={lang === "nl" ? "nl_NL" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
-            { "@type": "ListItem", position: 2, name: "Collection", item: "https://woolet.co/en/collection" },
-            { "@type": "ListItem", position: 3, name: "Woolet Bespoke", item: "https://woolet.co/en/products/bespoke" },
-          ],
-        })}</script>
+        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, {
+          id: "bespoke",
+          name: "Woolet Bespoke — Custom Acetate Glasses",
+          description: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm.",
+          image: "https://woolet.co/og-image.png",
+          price: "299.00",
+        }))}</script>
+        <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet Bespoke", "bespoke"))}</script>
       </Helmet>
 
       <Navbar />
@@ -129,9 +137,9 @@ const ProductPageBespoke = () => {
             textTransform: "uppercase", color: "rgba(243,236,224,0.55)",
           }}
         >
-          <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
+          <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
-          <Link to="/en/collection" style={{ color: "inherit", textDecoration: "none" }}>Frames</Link>
+          <Link to={ctx.collection} style={{ color: "inherit", textDecoration: "none" }}>{ctx.framesLabel}</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
           <span style={{ color: T.goldHi }}>Woolet Bespoke</span>
         </div>

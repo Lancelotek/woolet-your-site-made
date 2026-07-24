@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { langFromPath, productJsonLd, productBreadcrumbJsonLd, SITE_URL, localeCtx } from "@/seo/product-collection-jsonld";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -59,6 +60,10 @@ const guarantees = [
 
 const ProductPage007 = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const lang = langFromPath(location.pathname);
+  const ctx = localeCtx(lang);
+  const canonical = `${SITE_URL}/${lang}/products/007`;
   const [selectedColor, setSelectedColor] = useState("Dark Tortoise");
   const [lens, setLens] = useState<LensOption>("clear");
   const [total, setTotal] = useState(114);
@@ -107,22 +112,25 @@ const ProductPage007 = () => {
       <Helmet>
         <title>Woolet 007 — Round Panto Acetate Glasses, 158 mm</title>
         <meta name="description" content="Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order." />
-        <link rel="canonical" href="https://woolet.co/en/products/007" />
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/007`} />
+        <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/007`} />
+        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/007`} />
         <meta property="og:type" content="product" />
         <meta property="og:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
         <meta property="og:description" content="Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. From $114 pre-order." />
-        <meta property="og:url" content="https://woolet.co/en/products/007" />
+        <meta property="og:url" content={canonical} />
         <meta property="og:image" content="https://woolet.co/og-007.png" />
+        <meta property="og:locale" content={lang === "nl" ? "nl_NL" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
-            { "@type": "ListItem", position: 2, name: "Collection", item: "https://woolet.co/en/collection" },
-            { "@type": "ListItem", position: 3, name: "Woolet 007", item: "https://woolet.co/en/products/007" },
-          ],
-        })}</script>
+        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, {
+          id: "007",
+          name: "Woolet 007 — Round Panto Acetate Glasses",
+          description: "Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for 155 mm+ faces.",
+          image: "https://woolet.co/og-007.png",
+          price: "114.00",
+        }))}</script>
+        <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet 007", "007"))}</script>
       </Helmet>
 
       {/* Shared dark nav (homepage component) */}
@@ -142,9 +150,9 @@ const ProductPage007 = () => {
             color: "rgba(243,236,224,0.55)",
           }}
         >
-          <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
+          <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
-          <Link to="/en/collection" style={{ color: "inherit", textDecoration: "none" }}>Frames</Link>
+          <Link to={ctx.collection} style={{ color: "inherit", textDecoration: "none" }}>{ctx.framesLabel}</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
           <span style={{ color: T.goldHi }}>Woolet 007</span>
         </div>
