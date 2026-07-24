@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
+import { pushGtmEvent } from "@/lib/gtm";
 
 /* ───────── Config ───────── */
 const CONFIG = {
@@ -255,6 +256,12 @@ export default function VipPopup() {
       utm,
     });
     setSubmitting(false);
+
+    pushGtmEvent("generate_lead", {
+      method: "vip_popup",
+      value: 5,
+      currency: "USD",
+    });
 
     if (CONFIG.collectPhone) {
       setStep(2);
