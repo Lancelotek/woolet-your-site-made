@@ -72,6 +72,7 @@ const SEO = ({
   image,
   article,
   jsonLd,
+  author,
   availableLangs,
   alternates,
 }: SEOProps) => {
