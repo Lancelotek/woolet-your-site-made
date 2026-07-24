@@ -97,6 +97,39 @@ const SEO = ({
     de: "de-DE", ar: "ar-AR", ja: "ja-JP", nl: "nl-NL",
   };
   const bcp47 = localeMap[lang] ?? "en-US";
+  // Stable, locale-independent @id for the author entity. When no explicit
+  // author is passed, we fall back to the Woolet Organization so BlogPosting
+  // still points at a real node.
+  const ORG_ID = `${SITE_URL}/#organization`;
+  const resolvedAuthor = author ?? {
+    type: "Organization" as const,
+    name: "Woolet",
+    id: ORG_ID,
+    url: SITE_URL,
+    sameAs: [
+      "https://www.facebook.com/wooleteyewear",
+      "https://www.instagram.com/wooleteyewear/",
+    ],
+  };
+  const authorId = resolvedAuthor.id
+    ?? (resolvedAuthor.type === "Organization"
+      ? ORG_ID
+      : `${SITE_URL}/authors/${resolvedAuthor.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}#person`);
+
+  const authorNode = type === "article" && publishedTime ? {
+    "@context": "https://schema.org",
+    "@type": resolvedAuthor.type,
+    "@id": authorId,
+    name: resolvedAuthor.name,
+    ...(resolvedAuthor.url ? { url: resolvedAuthor.url } : {}),
+    ...(resolvedAuthor.jobTitle ? { jobTitle: resolvedAuthor.jobTitle } : {}),
+    ...(resolvedAuthor.image ? { image: resolvedAuthor.image } : {}),
+    ...(resolvedAuthor.sameAs?.length ? { sameAs: resolvedAuthor.sameAs } : {}),
+    ...(resolvedAuthor.type === "Person"
+      ? { worksFor: { "@type": "Organization", "@id": ORG_ID, name: "Woolet", url: SITE_URL } }
+      : {}),
+  } : null;
+
   const articleJsonLd = type === "article" && publishedTime ? {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -118,9 +151,10 @@ const SEO = ({
     url: canonical,
     datePublished: publishedTime,
     dateModified: modifiedTime || publishedTime,
-    author: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+    author: { "@type": resolvedAuthor.type, "@id": authorId, name: resolvedAuthor.name },
     publisher: {
       "@type": "Organization",
+      "@id": ORG_ID,
       name: "Woolet",
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.ico` },
