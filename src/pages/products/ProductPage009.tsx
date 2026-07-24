@@ -145,9 +145,9 @@ const ProductPage009 = () => {
             textTransform: "uppercase", color: "rgba(243,236,224,0.55)",
           }}
         >
-          <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
+          <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
-          <Link to="/en/collection" style={{ color: "inherit", textDecoration: "none" }}>Frames</Link>
+          <Link to={ctx.collection} style={{ color: "inherit", textDecoration: "none" }}>{ctx.framesLabel}</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
           <span style={{ color: T.goldHi }}>Woolet 009</span>
         </div>
