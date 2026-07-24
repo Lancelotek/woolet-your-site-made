@@ -257,6 +257,12 @@ export default function VipPopup() {
     });
     setSubmitting(false);
 
+    pushGtmEvent("generate_lead", {
+      method: "vip_popup",
+      value: 5,
+      currency: "USD",
+    });
+
     if (CONFIG.collectPhone) {
       setStep(2);
     } else {
