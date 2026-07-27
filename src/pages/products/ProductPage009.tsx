@@ -125,14 +125,8 @@ const ProductPage009 = () => {
         <meta property="og:image" content="https://woolet.co/og-009.png" />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, {
-          id: "009",
-          name: "Woolet 009 — Square Acetate Glasses",
-          description: "Square Italian Mazzucchelli acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for 155 mm+ faces.",
-          image: "https://woolet.co/og-009.png",
-          price: "114.00",
-        }))}</script>
         <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet 009", "009"))}</script>
+
       </Helmet>
 
       <Navbar />

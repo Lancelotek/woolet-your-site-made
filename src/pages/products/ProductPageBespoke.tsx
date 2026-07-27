@@ -117,14 +117,8 @@ const ProductPageBespoke = () => {
         <meta property="og:url" content={canonical} />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, {
-          id: "bespoke",
-          name: "Woolet Bespoke — Custom Acetate Glasses",
-          description: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm.",
-          image: "https://woolet.co/og-image.png",
-          price: "299.00",
-        }))}</script>
         <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet Bespoke", "bespoke"))}</script>
+
       </Helmet>
 
       <Navbar />

@@ -13,6 +13,7 @@ import {
   dePages,
   type DePageConfig,
 } from "@/content/de/landingPages";
+import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
 const SITE = "https://woolet.co";
 const SCAN_HREF = "/de/fit";
@@ -249,9 +250,15 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
     offers: {
       "@type": "Offer",
       url: canonical,
-      priceCurrency: "EUR",
-      price: "129.00",
+      priceCurrency: PRICE_CURRENCY,
+      price: SALE_PRICE,
+      priceValidUntil: PRICE_VALID_UNTIL,
       availability: "https://schema.org/PreOrder",
+      itemCondition: "https://schema.org/NewCondition",
+      priceSpecification: LIST_PRICE_SPEC,
+      seller: { "@type": "Organization", name: "Woolet", url: `${SITE}` },
+      hasMerchantReturnPolicy: RETURN_POLICY,
+      shippingDetails: shippingDetails(false),
     },
   };
 

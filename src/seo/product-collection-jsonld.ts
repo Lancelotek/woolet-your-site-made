@@ -6,6 +6,13 @@
  */
 
 import type { Lang } from "@/lib/i18n";
+import {
+  RETURN_POLICY,
+  shippingDetails,
+  LIST_PRICE_SPEC,
+  PRICE_VALID_UNTIL,
+  PRICE_CURRENCY,
+} from "./commerce-schema";
 
 export const SITE_URL = "https://woolet.co";
 
@@ -37,6 +44,7 @@ export type ProductInfo = {
 
 export function productJsonLd(lang: Lang, p: ProductInfo) {
   const url = `${SITE_URL}/${lang}/products/${p.id}`;
+  const isBespoke = p.id === "bespoke";
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -53,32 +61,14 @@ export function productJsonLd(lang: Lang, p: ProductInfo) {
       "@type": "Offer",
       url,
       price: p.price,
-      priceCurrency: p.priceCurrency ?? "USD",
+      priceCurrency: p.priceCurrency ?? PRICE_CURRENCY,
       availability: p.availability ?? "https://schema.org/PreOrder",
-      priceValidUntil: "2027-12-31",
-      hasMerchantReturnPolicy: {
-        "@type": "MerchantReturnPolicy",
-        applicableCountry: ["US", "GB", "EU", "NL", "DE", "PL", "FR", "ES", "IT"],
-        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-        merchantReturnDays: 30,
-        returnMethod: "https://schema.org/ReturnByMail",
-        returnFees: "https://schema.org/FreeReturn",
-      },
-      shippingDetails: {
-        "@type": "OfferShippingDetails",
-        shippingRate: { "@type": "MonetaryAmount", value: "0", currency: p.priceCurrency ?? "USD" },
-        shippingDestination: [
-          { "@type": "DefinedRegion", addressCountry: "US" },
-          { "@type": "DefinedRegion", addressCountry: "NL" },
-          { "@type": "DefinedRegion", addressCountry: "DE" },
-          { "@type": "DefinedRegion", addressCountry: "GB" },
-        ],
-        deliveryTime: {
-          "@type": "ShippingDeliveryTime",
-          handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "DAY" },
-          transitTime: { "@type": "QuantitativeValue", minValue: 3, maxValue: 7, unitCode: "DAY" },
-        },
-      },
+      priceValidUntil: PRICE_VALID_UNTIL,
+      ...(isBespoke ? {} : { priceSpecification: LIST_PRICE_SPEC }),
+      itemCondition: "https://schema.org/NewCondition",
+      seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+      hasMerchantReturnPolicy: RETURN_POLICY,
+      shippingDetails: shippingDetails(isBespoke),
     },
   };
 }
