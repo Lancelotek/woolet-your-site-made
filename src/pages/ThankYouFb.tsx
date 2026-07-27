@@ -280,46 +280,8 @@ export default function ThankYouFb() {
                 surveys, no guessing.
               </p>
 
-              <ul
-                style={{
-                  listStyle: "none",
-                  padding: 0,
-                  margin: "24px 0 32px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                }}
-              >
-                {[
-                  "Prototype photos and colour votes, weeks before launch",
-                  "Direct line to the founders",
-                  "First access to founder-tier pledges",
-                ].map((t) => (
-                  <li
-                    key={t}
-                    style={{
-                      ...body,
-                      display: "flex",
-                      gap: 14,
-                      alignItems: "baseline",
-                      fontSize: 15,
-                    }}
-                  >
-                    <span
-                      aria-hidden
-                      style={{
-                        width: 6,
-                        height: 6,
-                        background: C.gold,
-                        display: "inline-block",
-                        flexShrink: 0,
-                        transform: "translateY(-2px)",
-                      }}
-                    />
-                    <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
+              <div style={{ marginBottom: 32 }} />
+
 
               <a
                 href={FB_GROUP_URL}
