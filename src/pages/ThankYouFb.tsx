@@ -208,9 +208,9 @@ export default function ThankYouFb() {
             </svg>
           </div>
 
-          <div style={{ ...eyebrow, marginBottom: 18 }}>You're on the list</div>
+          <div style={{ ...eyebrow, marginBottom: 18 }}>YOUR SPOT IS SAVED</div>
           <h1 style={{ ...h1, fontSize: "clamp(38px, 6vw, 56px)", margin: 0 }}>
-            Thank you. Your spot is saved.
+            Two steps and you're set.
           </h1>
           <p
             style={{
@@ -221,9 +221,9 @@ export default function ThankYouFb() {
               fontSize: 16,
             }}
           >
-            You'll be first to hear when the Woolet Kickstarter goes live — and
-            you'll get founder pricing before anyone else. Two quick things
-            while you're here.
+            You'll be first to hear when the Woolet campaign goes live — and
+            you'll get founder pricing before anyone else. Here's how to lock
+            that in.
           </p>
 
           <hr
@@ -269,56 +269,19 @@ export default function ThankYouFb() {
               01
             </div>
             <div>
-              <div style={{ ...eyebrow, marginBottom: 12 }}>Step one</div>
+              <div style={{ ...eyebrow, marginBottom: 12 }}>STEP ONE</div>
               <h2 style={{ ...h2, fontSize: 32, margin: "0 0 16px" }}>
-                Join the private Woolet group.
+                Join the private Woolet VIP group.
               </h2>
               <p style={{ ...body, margin: 0 }}>
-                See prototypes before they're public, vote on colours, and
-                shape the frames we actually make. It's where the 155 mm+
-                crowd talks fit — and where the first pledges will be claimed.
+                This is where the frames actually get decided. Vote on the
+                final colors and shapes, see acetate samples before anyone
+                else, and talk straight to the people building them. No
+                surveys, no guessing.
               </p>
 
-              <ul
-                style={{
-                  listStyle: "none",
-                  padding: 0,
-                  margin: "24px 0 32px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                }}
-              >
-                {[
-                  "Prototype photos and colour votes, weeks before launch",
-                  "Direct line to the founders",
-                  "First access to founder-tier pledges",
-                ].map((t) => (
-                  <li
-                    key={t}
-                    style={{
-                      ...body,
-                      display: "flex",
-                      gap: 14,
-                      alignItems: "baseline",
-                      fontSize: 15,
-                    }}
-                  >
-                    <span
-                      aria-hidden
-                      style={{
-                        width: 6,
-                        height: 6,
-                        background: C.gold,
-                        display: "inline-block",
-                        flexShrink: 0,
-                        transform: "translateY(-2px)",
-                      }}
-                    />
-                    <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
+              <div style={{ marginBottom: 32 }} />
+
 
               <a
                 href={FB_GROUP_URL}
@@ -368,7 +331,7 @@ export default function ThankYouFb() {
               02
             </div>
             <div>
-              <div style={{ ...eyebrow, marginBottom: 12 }}>Step two</div>
+              <div style={{ ...eyebrow, marginBottom: 12 }}>STEP TWO</div>
               <h2 style={{ ...h2, fontSize: 32, margin: "0 0 16px" }}>
                 Follow the launch on Kickstarter.
               </h2>
