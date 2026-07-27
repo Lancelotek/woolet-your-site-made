@@ -22,18 +22,53 @@ const C = {
   ink: "#1F1B16",
 };
 
-const track = (event: string) => {
-  if (typeof window !== "undefined") {
-    (window as unknown as { dataLayer?: unknown[] }).dataLayer =
-      (window as unknown as { dataLayer?: unknown[] }).dataLayer || [];
-    (window as unknown as { dataLayer: unknown[] }).dataLayer.push({ event });
+const UTM_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+  "utm_id",
+] as const;
+const UTM_STORAGE_KEY = "woolet_ty_utms";
+
+type UtmParams = Partial<Record<(typeof UTM_KEYS)[number], string>>;
+
+const captureUtms = (): UtmParams => {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl: UtmParams = {};
+  UTM_KEYS.forEach((k) => {
+    const v = params.get(k);
+    if (v) fromUrl[k] = v;
+  });
+  try {
+    if (Object.keys(fromUrl).length > 0) {
+      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(fromUrl));
+      return fromUrl;
+    }
+    const stored = sessionStorage.getItem(UTM_STORAGE_KEY);
+    if (stored) return JSON.parse(stored) as UtmParams;
+  } catch {
+    /* ignore */
   }
+  return fromUrl;
+};
+
+const track = (event: string, extra: Record<string, unknown> = {}) => {
+  if (typeof window === "undefined") return;
+  const utms = captureUtms();
+  const dl =
+    ((window as unknown as { dataLayer?: unknown[] }).dataLayer =
+      (window as unknown as { dataLayer?: unknown[] }).dataLayer || []);
+  dl.push({ event, ...utms, ...extra });
 };
 
 export default function ThankYouFb() {
   useEffect(() => {
     track("ty_page_view");
   }, []);
+
 
   const eyebrow: React.CSSProperties = {
     fontFamily: "'Barlow', sans-serif",
