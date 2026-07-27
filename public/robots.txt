@@ -33,6 +33,11 @@ Disallow: /thank-you
 Disallow: /en/thank-you
 Disallow: /upvote
 Disallow: /en/upvote
+# Interactive bespoke configurator + checkout — not indexable content
+Disallow: /bespoke/configurator
+Disallow: /en/bespoke/configurator
+Disallow: /bespoke/checkout
+Disallow: /en/bespoke/checkout
 
 # Ignore tracking parameters (keeps ?product=, ?slug=, etc. crawlable)
 User-agent: Yandex
