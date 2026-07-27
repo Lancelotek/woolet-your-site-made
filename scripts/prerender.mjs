@@ -277,6 +277,8 @@ async function main() {
     console.error("[prerender] FAILED — no per-route files generated");
     process.exit(1);
   }
+
+  await rm(SSR_OUT, { recursive: true, force: true }).catch(() => {});
 }
 
 main().catch((err) => {
