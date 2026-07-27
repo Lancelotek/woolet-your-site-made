@@ -259,10 +259,15 @@ const BespokePage = () => {
         "Bespoke (made-to-measure) acetate eyewear for face widths 145–162 mm. Italian Mazzucchelli acetate, 21 mm keyhole bridge, built from your AI face scan.",
       offers: {
         "@type": "Offer",
-        price: "299",
-        priceCurrency: "USD",
+        price: BESPOKE_PRICE,
+        priceCurrency: PRICE_CURRENCY,
+        priceValidUntil: PRICE_VALID_UNTIL,
         availability: "https://schema.org/PreOrder",
+        itemCondition: "https://schema.org/NewCondition",
         url: "https://woolet.co/en/bespoke",
+        seller: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
+        hasMerchantReturnPolicy: RETURN_POLICY,
+        shippingDetails: shippingDetails(true),
       },
     },
     {
