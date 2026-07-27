@@ -12,29 +12,29 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <title>Woolet — AI-Fit Italian Acetate Eyewear for Wide Faces</title>
-    <!-- meta name="description" is set per-route by the prerender (scripts/prerender.mjs)
-         and by react-helmet-async at runtime. Do NOT add a static one here — it would
-         duplicate with Helmet's runtime tag and trigger Bing's "More than one Meta
-         Description tag" warning. -->
+    <title data-seo="prerender">Woolet — AI-Fit Italian Acetate Eyewear for Wide Faces</title>
+    <!-- Sitewide fallback SEO tags. Tagged data-seo="prerender" so
+         src/lib/strip-prerender-seo.ts removes them before Helmet mounts,
+         leaving react-helmet-async as the single owner of head SEO on the
+         client. Crawlers still see them in the initial HTML. -->
 
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Woolet — Italian Acetate Eyewear for Wide Faces">
-    <meta property="og:description" content="Premium eyewear engineered for wide faces (155 mm+). Mazzucchelli acetate from Milan, Italy. Hand made in EU. Models 007 Round and 009 Square.">
-    <meta property="og:url" content="https://woolet.co/">
-    <meta name="twitter:title" content="Woolet — Italian Acetate Eyewear for Wide Faces">
-    <meta name="twitter:description" content="Premium eyewear engineered for wide faces (155 mm+). Mazzucchelli acetate from Milan, Italy. Hand made in EU.">
+    <meta property="og:type" content="website" data-seo="prerender">
+    <meta property="og:title" content="Woolet — Italian Acetate Eyewear for Wide Faces" data-seo="prerender">
+    <meta property="og:description" content="Premium eyewear engineered for wide faces (155 mm+). Mazzucchelli acetate from Milan, Italy. Hand made in EU. Models 007 Round and 009 Square." data-seo="prerender">
+    <meta property="og:url" content="https://woolet.co/" data-seo="prerender">
+    <meta name="twitter:title" content="Woolet — Italian Acetate Eyewear for Wide Faces" data-seo="prerender">
+    <meta name="twitter:description" content="Premium eyewear engineered for wide faces (155 mm+). Mazzucchelli acetate from Milan, Italy. Hand made in EU." data-seo="prerender">
 
-    <meta property="og:site_name" content="Woolet">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:image" content="https://woolet.co/og-home.png">
-    <meta property="og:image:secure_url" content="https://woolet.co/og-home.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:alt" content="Woolet - Eyewear that actually fits">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://woolet.co/og-home.png">
+    <meta property="og:site_name" content="Woolet" data-seo="prerender">
+    <meta property="og:locale" content="en_US" data-seo="prerender">
+    <meta property="og:image" content="https://woolet.co/og-home.png" data-seo="prerender">
+    <meta property="og:image:secure_url" content="https://woolet.co/og-home.png" data-seo="prerender">
+    <meta property="og:image:width" content="1200" data-seo="prerender">
+    <meta property="og:image:height" content="630" data-seo="prerender">
+    <meta property="og:image:type" content="image/png" data-seo="prerender">
+    <meta property="og:image:alt" content="Woolet - Eyewear that actually fits" data-seo="prerender">
+    <meta name="twitter:card" content="summary_large_image" data-seo="prerender">
+    <meta name="twitter:image" content="https://woolet.co/og-home.png" data-seo="prerender">
     <link rel="alternate" type="text/plain" title="LLMs reference" href="/llms.txt">
     <link rel="alternate" type="text/plain" title="LLMs full reference" href="/llms-full.txt">
 
