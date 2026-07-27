@@ -81,8 +81,31 @@ for (const path of REQUIRED) {
   if (!present.has(path)) errors.push(`missing required URL: ${path}`);
 }
 
+// 4. Parity with STATIC_ROUTES declared in src/seo/metadata.ts.
+//    Every prerendered route should also be discoverable via sitemap
+//    (otherwise we ship pages that crawlers never learn about).
+const metadataSrc = readFileSync(resolve("src/seo/metadata.ts"), "utf8");
+const staticBlock = metadataSrc.match(/const STATIC_ROUTES = \[([\s\S]*?)\];/);
+const declaredRoutes = staticBlock
+  ? [...staticBlock[1].matchAll(/"([^"]+)"/g)].map((m) => m[1])
+  : [];
+const declaredSet = new Set(declaredRoutes);
+const missingFromSitemap = [];
+for (const path of declaredSet) {
+  // /en is represented in sitemap as the homepage entry; skip legal/localized
+  // aliases the sitemap intentionally omits (thank-you, upvote, configurator).
+  if (/\/(thank-you|upvote|bespoke\/configurator|bespoke\/checkout|crm|account)/.test(path)) continue;
+  if (!present.has(path)) missingFromSitemap.push(path);
+}
+if (missingFromSitemap.length) {
+  for (const p of missingFromSitemap) {
+    warnings.push(`prerendered route missing from sitemap: ${p}`);
+  }
+}
+
 // Report
 console.log(`[audit-sitemap] ${locs.length} <loc> entries, ${seen.size} unique`);
+console.log(`[audit-sitemap] ${declaredRoutes.length} STATIC_ROUTES declared, ${missingFromSitemap.length} missing from sitemap`);
 for (const w of warnings) console.warn(`[audit-sitemap] WARN ${w}`);
 if (errors.length) {
   for (const e of errors) console.error(`[audit-sitemap] ERROR ${e}`);
