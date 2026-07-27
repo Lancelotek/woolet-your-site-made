@@ -238,7 +238,40 @@ async function main() {
   console.log(`[prerender] done: ${ok} ok, ${fail} failed, ${routes.length} total`);
   console.log(`[prerender] wrote ${ok} route files to dist/`);
 
-  await rm(SSR_OUT, { recursive: true, force: true }).catch(() => {});
+  // ------------------------------------------------------------------
+  // Patch the fallback dist/index.html so that:
+  //   • the bare root URL "/" carries a self-referencing canonical to /en,
+  //     robots="noindex, follow", and a <noscript> meta refresh to /en for
+  //     crawlers that don't execute JavaScript.
+  //   • any request that falls back to dist/index.html (unknown route)
+  //     ships robots="noindex, follow" so soft-404 URLs stop being indexed.
+  // The SPA still hydrates on top — RootRedirect Navigate("/en") handles
+  // JS users, and NotFound's Helmet block overrides robots to noindex,nofollow
+  // for real 404 routes.
+  try {
+    const fallbackPath = resolve(DIST, "index.html");
+    let fallback = await readFile(fallbackPath, "utf8");
+    // Strip any existing canonical/robots so we don't double up.
+    fallback = fallback.replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, "");
+    fallback = fallback.replace(/<meta\s+name=["']robots["'][^>]*>\s*/gi, "");
+    const softHead = [
+      `<link rel="canonical" href="https://woolet.co/en" data-seo="prerender" />`,
+      `<meta name="robots" content="noindex, follow" data-seo="prerender" />`,
+    ].join("\n    ");
+    fallback = fallback.replace("</head>", `    ${softHead}\n    <!-- fallback: soft-404 + root redirect -->\n  </head>`);
+    // Add a no-JS refresh + link to /en inside <body>, so crawlers without JS
+    // (and users with JS disabled) end up on the real homepage instead of the
+    // empty SPA shell. This sits inside <noscript> so it never runs when the
+    // SPA is executing.
+    const softBody = `<noscript><meta http-equiv="refresh" content="0; url=/en"><p style="font:14px system-ui;padding:2rem;text-align:center">Go to the <a href="/en">Woolet English homepage</a>.</p></noscript>`;
+    if (!fallback.includes('<noscript><meta http-equiv="refresh"')) {
+      fallback = fallback.replace("</body>", `    ${softBody}\n  </body>`);
+    }
+    await writeFile(fallbackPath, fallback, "utf8");
+    console.log(`[prerender] patched dist/index.html with soft-404 head + noscript refresh`);
+  } catch (err) {
+    console.warn(`[prerender] could not patch dist/index.html — ${err.message}`);
+  }
 
   if (ok === 0 && isProd) {
     console.error("[prerender] FAILED — no per-route files generated");
