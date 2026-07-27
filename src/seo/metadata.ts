@@ -1468,6 +1468,12 @@ export function getAllRoutes(): string[] {
   return [...STATIC_ROUTES, ...blogRoutes];
 }
 
+let _knownRouteSet: Set<string> | null = null;
+function getKnownRouteSet(): Set<string> {
+  if (!_knownRouteSet) _knownRouteSet = new Set(getAllRoutes());
+  return _knownRouteSet;
+}
+
 // ---------------------------------------------------------------------------
 // HTML rendering — used by the prerender script.
 // ---------------------------------------------------------------------------
