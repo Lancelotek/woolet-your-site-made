@@ -99,32 +99,14 @@ const FitScanRedirect = () => {
   return <Navigate to={`/${lang}/fit`} replace />;
 };
 
-/** Root redirect: auto-detect German browsers and send to /de, otherwise /en. */
-const RootRedirect = () => {
-  const SUPPORTED = ["en", "de", "pl", "fr", "es", "ar", "ja", "nl"] as const;
-  let target = "/en";
-  try {
-    const stored = typeof window !== "undefined" ? window.localStorage.getItem("woolet_lang") : null;
-    if (stored && (SUPPORTED as readonly string[]).includes(stored)) {
-      target = `/${stored}`;
-    } else if (typeof navigator !== "undefined") {
-      const langs = (navigator.languages && navigator.languages.length
-        ? navigator.languages
-        : [navigator.language || "en"]
-      ).map((l) => l.toLowerCase());
-      if (langs.some((l) => l.startsWith("de"))) target = "/de";
-      else {
-        const match = langs
-          .map((l) => l.slice(0, 2))
-          .find((l) => (SUPPORTED as readonly string[]).includes(l));
-        if (match) target = `/${match}`;
-      }
-    }
-  } catch {
-    // ignore — fall back to /en
-  }
-  return <Navigate to={target} replace />;
-};
+/**
+ * Root redirect. "/" is not a real page — it is a placeholder that ships the
+ * SPA shell without per-route metadata. Send everyone to /en (the English
+ * homepage), which is x-default for hreflang and the canonical entry point.
+ * A companion prerendered dist/index.html emits canonical=/en, noindex,follow
+ * and a <noscript> meta refresh so crawlers without JS also land on /en.
+ */
+const RootRedirect = () => <Navigate to="/en" replace />;
 
 /** Redirect non-EN locales of EN-only pages to their /en/... equivalent. */
 const RedirectToEn = ({ to }: { to: string }) => {

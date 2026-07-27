@@ -1163,4 +1163,54 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <url>
+    <loc>https://woolet.co/de/brille-breite-160-mm</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-160-mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/de/brille-breite-160-mm"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/blog/best-oversized-sunglasses-big-heads-2026</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/best-oversized-sunglasses-big-heads-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/best-oversized-sunglasses-big-heads-2026"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/blog/do-blue-light-glasses-work-wide-face</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/do-blue-light-glasses-work-wide-face"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/do-blue-light-glasses-work-wide-face"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/blog/how-wide-should-glasses-be</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog/how-wide-should-glasses-be"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/blog/how-wide-should-glasses-be"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/privacy-policy</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/pl/privacy-policy"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/process</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/process"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/pl/process"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://woolet.co/pl/return-policy</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/return-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/pl/return-policy"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>

@@ -1425,6 +1425,37 @@ const STATIC_ROUTES = [
   "/en/xxl/sunglasses",
   "/en/xxl/for-big-heads",
   "/en/xxl/extra-wide-frames",
+  // Routes previously falling back to the SPA shell — now prerendered so
+  // JS-less crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot, OAI-SearchBot)
+  // receive real per-route head metadata instead of an empty index.html.
+  "/ar",
+  "/fr",
+  "/nl",
+  "/en/collection",
+  "/fr/collection",
+  "/nl/collection",
+  "/en/hat-size-calculator",
+  "/en/collections/extra-large-oversized-eyeglasses",
+  "/en/collections/oversized-black-glasses",
+  "/fr/products/007",
+  "/fr/products/009",
+  "/fr/products/bespoke",
+  "/nl/products/007",
+  "/nl/products/009",
+  "/nl/products/bespoke",
+  "/nl/acetaat-bril-op-maat",
+  "/nl/grote-brillen-heren",
+  "/de/blog",
+  "/de/blog/beste-brillen-fuer-grosse-koepfe-2026",
+  "/de/blog/welche-groesse-sonnenbrille-breites-gesicht",
+  "/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026",
+  "/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large",
+  "/nl/blog/beste-brillen-voor-brede-hoofden-2026",
+  "/nl/blog/welke-maat-zonnebril-voor-breed-gezicht",
+  "/en/blog/category/nose-bridge-fit",
+  "/en/lp/kickstarter",
+  "/en/lp/wide-bridge-fit-guide",
+  "/pl/jak-dobrac-okulary-do-twarzy",
 ];
 
 export function getAllRoutes(): string[] {
