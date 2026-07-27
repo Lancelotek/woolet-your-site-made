@@ -1509,7 +1509,7 @@ export function renderHeadHtml(meta: RouteMeta): string {
     for (const l of availableLangs) {
       tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}"${D} />`);
     }
-    if (availableLangs.includes("en" as Lang)) {
+    if (availableLangs.includes("en" as typeof INDEXABLE_LANGS[number])) {
       tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}"${D} />`);
     }
   }
