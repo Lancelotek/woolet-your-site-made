@@ -18,6 +18,7 @@ import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
 import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
 import w009HavanaAsset from "@/assets/woolet-009-havana-front.png.asset.json";
 import marek from "@/assets/author-marek.png";
+import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, BESPOKE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
 // Bespoke gallery photos
 import bespokeAviatorTortoiseSun from "@/assets/bespoke/aviator-tortoise-sun.png.asset.json";
@@ -434,10 +435,15 @@ const KickstarterPrelaunch = () => {
               offers: {
                 "@type": "Offer",
                 url: "https://woolet.co/en/lp/kickstarter",
-                priceCurrency: "USD",
-                price: "114",
+                priceCurrency: PRICE_CURRENCY,
+                price: SALE_PRICE,
                 availability: "https://schema.org/PreOrder",
-                priceValidUntil: "2026-12-31",
+                priceValidUntil: PRICE_VALID_UNTIL,
+                priceSpecification: LIST_PRICE_SPEC,
+                itemCondition: "https://schema.org/NewCondition",
+                seller: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
+                hasMerchantReturnPolicy: RETURN_POLICY,
+                shippingDetails: shippingDetails(false),
               },
             },
             {
@@ -450,10 +456,15 @@ const KickstarterPrelaunch = () => {
               offers: {
                 "@type": "Offer",
                 url: "https://woolet.co/en/lp/kickstarter",
-                priceCurrency: "USD",
-                price: "114",
+                priceCurrency: PRICE_CURRENCY,
+                price: SALE_PRICE,
                 availability: "https://schema.org/PreOrder",
-                priceValidUntil: "2026-12-31",
+                priceValidUntil: PRICE_VALID_UNTIL,
+                priceSpecification: LIST_PRICE_SPEC,
+                itemCondition: "https://schema.org/NewCondition",
+                seller: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
+                hasMerchantReturnPolicy: RETURN_POLICY,
+                shippingDetails: shippingDetails(false),
               },
             },
             {
@@ -466,10 +477,14 @@ const KickstarterPrelaunch = () => {
               offers: {
                 "@type": "Offer",
                 url: "https://woolet.co/en/lp/kickstarter",
-                priceCurrency: "USD",
-                price: "299",
+                priceCurrency: PRICE_CURRENCY,
+                price: BESPOKE_PRICE,
                 availability: "https://schema.org/PreOrder",
-                priceValidUntil: "2026-12-31",
+                priceValidUntil: PRICE_VALID_UNTIL,
+                itemCondition: "https://schema.org/NewCondition",
+                seller: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
+                hasMerchantReturnPolicy: RETURN_POLICY,
+                shippingDetails: shippingDetails(true),
               },
             },
           ],

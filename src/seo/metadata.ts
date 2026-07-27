@@ -22,6 +22,16 @@ import { getBridgeBySlug } from "@/data/bridges";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
 import { dePages, dePageOrder } from "@/content/de/landingPages";
+import {
+  RETURN_POLICY,
+  shippingDetails,
+  LIST_PRICE,
+  SALE_PRICE,
+  BESPOKE_PRICE,
+  PRICE_CURRENCY,
+  PRICE_VALID_UNTIL,
+  LIST_PRICE_SPEC,
+} from "./commerce-schema";
 
 export const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
@@ -67,47 +77,14 @@ const websiteJsonLd = {
   publisher: { "@type": "Organization", name: "Woolet", url: SITE_URL },
 };
 
-const MERCHANT_COUNTRIES = ["PL", "DE", "FR", "IT", "ES", "NL", "BE", "AT", "IE"];
-
-const standardReturnPolicy = {
-  "@type": "MerchantReturnPolicy",
-  applicableCountry: MERCHANT_COUNTRIES,
-  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-  merchantReturnDays: 14,
-  returnMethod: "https://schema.org/ReturnByMail",
-  returnFees: "https://schema.org/ReturnShippingFees",
-};
-
-const bespokeReturnPolicy = {
-  "@type": "MerchantReturnPolicy",
-  applicableCountry: MERCHANT_COUNTRIES,
-  returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
-};
-
-function freeShippingDetails(isBespoke = false) {
-  return [
-    {
-      "@type": "OfferShippingDetails",
-      shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
-      shippingDestination: { "@type": "DefinedRegion", addressCountry: MERCHANT_COUNTRIES },
-      deliveryTime: {
-        "@type": "ShippingDeliveryTime",
-        handlingTime: isBespoke
-          ? { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" }
-          : { "@type": "QuantitativeValue", minValue: 1, maxValue: 2, unitCode: "DAY" },
-        transitTime: isBespoke
-          ? { "@type": "QuantitativeValue", minValue: 2, maxValue: 4, unitCode: "DAY" }
-          : { "@type": "QuantitativeValue", minValue: 3, maxValue: 7, unitCode: "DAY" },
-      },
-    },
-  ];
-}
-
 function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
   const bridge = model === "009" ? "22 mm" : "21 mm";
+  const url = `${SITE_URL}/en/products/${model}`;
   const base: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": url,
+    url,
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
     description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 145–162 mm. Lens ${lensSize}, temples 150 mm, 5-barrel PVD Gunmetal hinges.`,
     brand: { "@type": "Brand", name: "Woolet" },
@@ -132,22 +109,16 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/PreOrder",
-      priceCurrency: "USD",
-      price: "114",
-      priceValidUntil: "2026-12-31",
-      url: `${SITE_URL}/en/products/${model}`,
+      priceCurrency: PRICE_CURRENCY,
+      price: SALE_PRICE,
+      priceValidUntil: PRICE_VALID_UNTIL,
+      priceSpecification: LIST_PRICE_SPEC,
+      url,
       seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
       itemCondition: "https://schema.org/NewCondition",
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        price: "114",
-        priceCurrency: "USD",
-        valueAddedTaxIncluded: false,
-        description: "Founding-member pre-order price; $190 MSRP at full launch.",
-      },
       eligibleRegion: { "@type": "Place", name: "Worldwide" },
-      hasMerchantReturnPolicy: standardReturnPolicy,
-      shippingDetails: freeShippingDetails(false),
+      hasMerchantReturnPolicy: RETURN_POLICY,
+      shippingDetails: shippingDetails(false),
     },
   };
 
@@ -180,9 +151,12 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
 }
 
 function bespokeProductJsonLd() {
+  const url = `${SITE_URL}/en/products/bespoke`;
   return {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": url,
+    url,
     name: "Woolet Bespoke — Custom Acetate Glasses",
     description:
       "Bespoke Italian Mazzucchelli acetate glasses cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–162 mm.",
@@ -200,22 +174,15 @@ function bespokeProductJsonLd() {
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/PreOrder",
-      priceCurrency: "USD",
-      price: "299",
-      priceValidUntil: "2026-12-31",
-      url: `${SITE_URL}/en/products/bespoke`,
+      priceCurrency: PRICE_CURRENCY,
+      price: BESPOKE_PRICE,
+      priceValidUntil: PRICE_VALID_UNTIL,
+      url,
       seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
       itemCondition: "https://schema.org/NewCondition",
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        price: "299",
-        priceCurrency: "USD",
-        valueAddedTaxIncluded: false,
-        description: "Founding-member bespoke pre-order price; $480 MSRP at full launch.",
-      },
       eligibleRegion: { "@type": "Place", name: "Worldwide" },
-      hasMerchantReturnPolicy: bespokeReturnPolicy,
-      shippingDetails: freeShippingDetails(true),
+      hasMerchantReturnPolicy: RETURN_POLICY,
+      shippingDetails: shippingDetails(true),
     },
   };
 }
@@ -260,8 +227,10 @@ function compareProductJsonLd(c: { slug: string; metaDescription: string }) {
     description: c.metaDescription,
     offers: {
       "@type": "AggregateOffer",
-      priceCurrency: "USD",
-      lowPrice: "190",
+      priceCurrency: PRICE_CURRENCY,
+      lowPrice: SALE_PRICE,
+      highPrice: BESPOKE_PRICE,
+      offerCount: 3,
       availability: "https://schema.org/PreOrder",
       url: canonical,
     },

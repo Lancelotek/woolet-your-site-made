@@ -11,6 +11,7 @@ import {
   type SizeVerdictKind,
 } from "@/data/sizes";
 import NotFound from "@/pages/NotFound";
+import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
 const SITE = "https://woolet.co";
 
@@ -77,10 +78,16 @@ function SizePageInner({ size }: { size: SizeEntry }) {
     material: "Italian Mazzucchelli cellulose acetate",
     offers: {
       "@type": "Offer",
-      price: "114",
-      priceCurrency: "USD",
+      price: SALE_PRICE,
+      priceCurrency: PRICE_CURRENCY,
+      priceValidUntil: PRICE_VALID_UNTIL,
+      priceSpecification: LIST_PRICE_SPEC,
       availability: "https://schema.org/PreOrder",
+      itemCondition: "https://schema.org/NewCondition",
       url: `${SITE}${p.href}`,
+      seller: { "@type": "Organization", name: "Woolet", url: SITE },
+      hasMerchantReturnPolicy: RETURN_POLICY,
+      shippingDetails: shippingDetails(false),
     },
   }));
 

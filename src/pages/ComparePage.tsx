@@ -45,22 +45,6 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
     })),
   };
 
-  const productLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: "Woolet Wide-Face Eyewear",
-    brand: { "@type": "Brand", name: "Woolet" },
-    url: SITE,
-    description: c.metaDescription,
-    offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "USD",
-      lowPrice: "190",
-      availability: "https://schema.org/PreOrder",
-      url: canonical,
-    },
-  };
-
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -79,8 +63,9 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
         lang="en"
         path={path}
         image={`/og-compare-${c.slug}.png`}
-        jsonLd={[faqLd, productLd, breadcrumbLd]}
+        jsonLd={[faqLd, breadcrumbLd]}
       />
+
       <Navbar />
       <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: body, color: "#111" }}>
         {/* Breadcrumbs */}

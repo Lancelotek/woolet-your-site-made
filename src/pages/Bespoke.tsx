@@ -14,6 +14,7 @@ import craft6 from "@/assets/bespoke-craft/woolet-bespoke-mirror-polish-finish.j
 import craft7 from "@/assets/bespoke-craft/woolet-bespoke-jigsaw-cutting-acetate-front.jpg.asset.json";
 import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-bridge.jpg.asset.json";
 import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
+import { BESPOKE_PRICE, PRICE_CURRENCY, PRICE_VALID_UNTIL, RETURN_POLICY, shippingDetails } from "@/seo/commerce-schema";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
 type AtelierCopy = {
@@ -258,10 +259,15 @@ const BespokePage = () => {
         "Bespoke (made-to-measure) acetate eyewear for face widths 145–162 mm. Italian Mazzucchelli acetate, 21 mm keyhole bridge, built from your AI face scan.",
       offers: {
         "@type": "Offer",
-        price: "299",
-        priceCurrency: "USD",
+        price: BESPOKE_PRICE,
+        priceCurrency: PRICE_CURRENCY,
+        priceValidUntil: PRICE_VALID_UNTIL,
         availability: "https://schema.org/PreOrder",
+        itemCondition: "https://schema.org/NewCondition",
         url: "https://woolet.co/en/bespoke",
+        seller: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
+        hasMerchantReturnPolicy: RETURN_POLICY,
+        shippingDetails: shippingDetails(true),
       },
     },
     {

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 import Footer from "@/components/Footer";
 import { plPageOrder, plPages, type PlPageConfig, type PlExtendedContent } from "@/content/pl/landingPages";
+import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
 const wooletLogo = wooletLogoAsset.url;
 const SITE = "https://woolet.co";
@@ -53,9 +54,15 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
     offers: {
       "@type": "Offer",
       url: canonical,
-      priceCurrency: "USD",
-      price: "114.00",
+      priceCurrency: PRICE_CURRENCY,
+      price: SALE_PRICE,
+      priceValidUntil: PRICE_VALID_UNTIL,
       availability: "https://schema.org/PreOrder",
+      itemCondition: "https://schema.org/NewCondition",
+      priceSpecification: LIST_PRICE_SPEC,
+      seller: { "@type": "Organization", name: "Woolet", url: SITE },
+      hasMerchantReturnPolicy: RETURN_POLICY,
+      shippingDetails: shippingDetails(false),
     },
   };
 
