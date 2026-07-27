@@ -1486,17 +1486,26 @@ export function renderHeadHtml(meta: RouteMeta): string {
   tags.push(`<link rel="canonical" href="${meta.canonical}"${D} />`);
   if (meta.robots) tags.push(`<meta name="robots" content="${meta.robots}"${D} />`);
 
-  // hreflang
+  // hreflang — always reciprocal. Only emit alternates for locales whose
+  // localized route actually exists (present in STATIC_ROUTES or a known
+  // blog slug). Non-existent alternates break reciprocity and get dropped
+  // by Google, so we never fabricate them here.
   if (meta.alternates) {
     for (const [hreflang, href] of Object.entries(meta.alternates)) {
       tags.push(`<link rel="alternate" hreflang="${hreflang}" href="${href}"${D} />`);
     }
   } else {
     const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
-    for (const l of INDEXABLE_LANGS) {
+    const known = getKnownRouteSet();
+    const availableLangs = INDEXABLE_LANGS.filter((l) =>
+      known.has(`/${l}${path}`),
+    );
+    for (const l of availableLangs) {
       tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}"${D} />`);
     }
-    tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}"${D} />`);
+    if (availableLangs.includes("en" as Lang)) {
+      tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}"${D} />`);
+    }
   }
 
   // OpenGraph
