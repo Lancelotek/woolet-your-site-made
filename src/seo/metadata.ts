@@ -1442,43 +1442,50 @@ export function getAllRoutes(): string[] {
 // ---------------------------------------------------------------------------
 
 export function renderHeadHtml(meta: RouteMeta): string {
+  // Every tag emitted by the prerender is stamped with data-seo="prerender".
+  // At runtime, src/lib/strip-prerender-seo.ts removes every element matching
+  // that selector from document.head BEFORE react-helmet-async mounts, so the
+  // Helmet-managed tags become the only copy in the DOM after hydration.
+  // This is the single mechanism that prevents duplicate <title>,
+  // <meta name="description">, <link rel="canonical"> and hreflang links.
+  const D = ` data-seo="prerender"`;
   const tags: string[] = [];
-  tags.push(`<title>${escapeHtml(meta.title)}</title>`);
-  tags.push(`<meta name="description" content="${escapeHtml(meta.description)}" />`);
-  tags.push(`<link rel="canonical" href="${meta.canonical}" />`);
-  if (meta.robots) tags.push(`<meta name="robots" content="${meta.robots}" />`);
+  tags.push(`<title${D}>${escapeHtml(meta.title)}</title>`);
+  tags.push(`<meta name="description" content="${escapeHtml(meta.description)}"${D} />`);
+  tags.push(`<link rel="canonical" href="${meta.canonical}"${D} />`);
+  if (meta.robots) tags.push(`<meta name="robots" content="${meta.robots}"${D} />`);
 
   // hreflang
   if (meta.alternates) {
     for (const [hreflang, href] of Object.entries(meta.alternates)) {
-      tags.push(`<link rel="alternate" hreflang="${hreflang}" href="${href}" />`);
+      tags.push(`<link rel="alternate" hreflang="${hreflang}" href="${href}"${D} />`);
     }
   } else {
     const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
     for (const l of INDEXABLE_LANGS) {
-      tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}" />`);
+      tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}"${D} />`);
     }
-    tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}" />`);
+    tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}"${D} />`);
   }
 
   // OpenGraph
-  tags.push(`<meta property="og:title" content="${escapeHtml(meta.og.title)}" />`);
-  tags.push(`<meta property="og:description" content="${escapeHtml(meta.og.description)}" />`);
-  tags.push(`<meta property="og:url" content="${meta.canonical}" />`);
-  tags.push(`<meta property="og:type" content="${meta.og.type}" />`);
-  tags.push(`<meta property="og:site_name" content="Woolet" />`);
-  tags.push(`<meta property="og:image" content="${meta.og.image}" />`);
-  tags.push(`<meta property="og:locale" content="${meta.og.locale}" />`);
+  tags.push(`<meta property="og:title" content="${escapeHtml(meta.og.title)}"${D} />`);
+  tags.push(`<meta property="og:description" content="${escapeHtml(meta.og.description)}"${D} />`);
+  tags.push(`<meta property="og:url" content="${meta.canonical}"${D} />`);
+  tags.push(`<meta property="og:type" content="${meta.og.type}"${D} />`);
+  tags.push(`<meta property="og:site_name" content="Woolet"${D} />`);
+  tags.push(`<meta property="og:image" content="${meta.og.image}"${D} />`);
+  tags.push(`<meta property="og:locale" content="${meta.og.locale}"${D} />`);
 
   // Twitter
-  tags.push(`<meta name="twitter:card" content="summary_large_image" />`);
-  tags.push(`<meta name="twitter:title" content="${escapeHtml(meta.og.title)}" />`);
-  tags.push(`<meta name="twitter:description" content="${escapeHtml(meta.og.description)}" />`);
-  tags.push(`<meta name="twitter:image" content="${meta.og.image}" />`);
-  tags.push(`<meta name="twitter:site" content="@WooletEyewear" />`);
+  tags.push(`<meta name="twitter:card" content="summary_large_image"${D} />`);
+  tags.push(`<meta name="twitter:title" content="${escapeHtml(meta.og.title)}"${D} />`);
+  tags.push(`<meta name="twitter:description" content="${escapeHtml(meta.og.description)}"${D} />`);
+  tags.push(`<meta name="twitter:image" content="${meta.og.image}"${D} />`);
+  tags.push(`<meta name="twitter:site" content="@WooletEyewear"${D} />`);
 
   for (const obj of meta.jsonLd) {
-    tags.push(`<script type="application/ld+json">${JSON.stringify(obj)}</script>`);
+    tags.push(`<script type="application/ld+json"${D}>${JSON.stringify(obj)}</script>`);
   }
 
   return tags.join("\n    ");
