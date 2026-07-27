@@ -331,7 +331,7 @@ export default function ThankYouFb() {
               02
             </div>
             <div>
-              <div style={{ ...eyebrow, marginBottom: 12 }}>Step two</div>
+              <div style={{ ...eyebrow, marginBottom: 12 }}>STEP TWO</div>
               <h2 style={{ ...h2, fontSize: 32, margin: "0 0 16px" }}>
                 Follow the launch on Kickstarter.
               </h2>
