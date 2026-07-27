@@ -31,6 +31,8 @@ Disallow: /account/
 Disallow: /en/account/
 Disallow: /thank-you
 Disallow: /en/thank-you
+Disallow: /thank-you-fb
+Disallow: /en/thank-you-fb
 Disallow: /upvote
 Disallow: /en/upvote
 # Interactive bespoke configurator + checkout — not indexable content
