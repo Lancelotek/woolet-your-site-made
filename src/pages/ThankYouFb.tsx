@@ -269,14 +269,15 @@ export default function ThankYouFb() {
               01
             </div>
             <div>
-              <div style={{ ...eyebrow, marginBottom: 12 }}>Step one</div>
+              <div style={{ ...eyebrow, marginBottom: 12 }}>STEP ONE</div>
               <h2 style={{ ...h2, fontSize: 32, margin: "0 0 16px" }}>
-                Join the private Woolet group.
+                Join the private Woolet VIP group.
               </h2>
               <p style={{ ...body, margin: 0 }}>
-                See prototypes before they're public, vote on colours, and
-                shape the frames we actually make. It's where the 155 mm+
-                crowd talks fit — and where the first pledges will be claimed.
+                This is where the frames actually get decided. Vote on the
+                final colors and shapes, see acetate samples before anyone
+                else, and talk straight to the people building them. No
+                surveys, no guessing.
               </p>
 
               <ul
