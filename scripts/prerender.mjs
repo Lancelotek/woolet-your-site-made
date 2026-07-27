@@ -135,7 +135,7 @@ function injectHead(template, headHtml, noscriptHtml, route) {
 
   // Strip whatever generic head bits the SPA template ships so we
   // don't render duplicates next to the per-route ones.
-  html = html.replace(/<title>[\s\S]*?<\/title>/i, "");
+  html = html.replace(/<title\b[^>]*>[\s\S]*?<\/title>/i, "");
   html = html.replace(/<meta\s+name=["']description["'][^>]*>/gi, "");
   html = html.replace(/<link\s+rel=["']canonical["'][^>]*>/gi, "");
   html = html.replace(/<meta\s+property=["']og:[^"']+["'][^>]*>/gi, "");
