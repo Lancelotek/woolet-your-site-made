@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs && node scripts/audit-head.mjs",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/audit-head.mjs && node scripts/audit-sitemap.mjs",
     "audit:head": "node scripts/audit-head.mjs",
+    "audit:sitemap": "node scripts/audit-sitemap.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
