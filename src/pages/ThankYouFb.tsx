@@ -208,9 +208,9 @@ export default function ThankYouFb() {
             </svg>
           </div>
 
-          <div style={{ ...eyebrow, marginBottom: 18 }}>You're on the list</div>
+          <div style={{ ...eyebrow, marginBottom: 18 }}>YOUR SPOT IS SAVED</div>
           <h1 style={{ ...h1, fontSize: "clamp(38px, 6vw, 56px)", margin: 0 }}>
-            Thank you. Your spot is saved.
+            Two steps and you're set.
           </h1>
           <p
             style={{
@@ -221,9 +221,9 @@ export default function ThankYouFb() {
               fontSize: 16,
             }}
           >
-            You'll be first to hear when the Woolet Kickstarter goes live — and
-            you'll get founder pricing before anyone else. Two quick things
-            while you're here.
+            You'll be first to hear when the Woolet campaign goes live — and
+            you'll get founder pricing before anyone else. Here's how to lock
+            that in.
           </p>
 
           <hr
