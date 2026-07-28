@@ -22,26 +22,19 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+# Default rule for every other crawler. We deliberately keep this
+# minimal: self-referencing canonicals on every page consolidate
+# UTM-parameterised URLs (previously we shipped a blanket
+# `Disallow: /*?*` which blocked our own campaign landings for every
+# crawler without a dedicated group). Interactive / conversion pages
+# (thank-you, vip-join, payments, checkout, configurator, upvote,
+# account, crm) rely on `<meta name="robots" content="noindex">` and
+# are also absent from sitemap.xml — no disallow needed here.
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /crm
-Disallow: /en/crm
-Disallow: /account/
-Disallow: /en/account/
-Disallow: /thank-you
-Disallow: /en/thank-you
-Disallow: /thank-you-fb
-Disallow: /en/thank-you-fb
-Disallow: /upvote
-Disallow: /en/upvote
-# Interactive bespoke configurator + checkout — not indexable content
-Disallow: /bespoke/configurator
-Disallow: /en/bespoke/configurator
-Disallow: /bespoke/checkout
-Disallow: /en/bespoke/checkout
 
-# Ignore tracking parameters (keeps ?product=, ?slug=, etc. crawlable)
+# Ignore tracking parameters — Yandex-specific directive.
 User-agent: Yandex
 Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&fbclid&gclid&msclkid&ref&mc_cid&mc_eid /
 

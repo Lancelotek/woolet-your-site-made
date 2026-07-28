@@ -1,115 +1,166 @@
 #!/usr/bin/env node
 /**
- * Sitemap validator.
+ * Sitemap validator + drift guard.
  *
- * Guarantees:
- *   • the 7 previously-missing URLs are present
- *   • "/" (bare root) is NOT listed — /en is x-default
- *   • no duplicate <loc> entries
- *   • every <loc> is an absolute https://woolet.co URL, no trailing slash
- *     (except the domain root, which is banned anyway), no whitespace,
- *     no query string, no fragment
+ * Since `scripts/generate-sitemap.mjs` derives `public/sitemap.xml`
+ * from the registry, this script re-runs the same derivation and
+ * asserts:
  *
- * Exits non-zero on any violation so it can gate the build.
+ *   • sitemap URL set === generator URL set
+ *       (no hand-edits, no stale entries, no missing routes)
+ *   • per-URL xhtml:link alternates === hreflangAlternates() output
+ *       (sitemap alternates must never drift from the emitted <head>)
+ *   • no duplicate <loc>
+ *   • no bare "/" root (canonical homepage is /en)
+ *   • no <loc> with query string, fragment, or trailing slash
+ *   • every prerendered route not on the explicit exclusion list is
+ *     represented in the sitemap
+ *
+ * Any mismatch exits non-zero and fails the build.
  */
 
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { readFileSync, existsSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { spawn } from "node:child_process";
+import { rm } from "node:fs/promises";
 
-const SITEMAP = resolve("public/sitemap.xml");
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(__dirname, "..");
+const SITEMAP = resolve(ROOT, "public/sitemap.xml");
+const SSR_OUT = resolve(ROOT, "dist-seo");
 const BASE = "https://woolet.co";
 
-const REQUIRED = [
-  "/de/brille-breite-160-mm",
-  "/en/blog/best-oversized-sunglasses-big-heads-2026",
-  "/en/blog/do-blue-light-glasses-work-wide-face",
-  "/en/blog/how-wide-should-glasses-be",
-  "/pl/privacy-policy",
-  "/pl/process",
-  "/pl/return-policy",
+function run(cmd, args) {
+  return new Promise((res, rej) => {
+    const p = spawn(cmd, args, { cwd: ROOT, stdio: "inherit" });
+    p.on("exit", (c) => (c === 0 ? res() : rej(new Error(`${cmd} exited ${c}`))));
+    p.on("error", rej);
+  });
+}
+
+async function loadModule() {
+  const entry = resolve(SSR_OUT, "metadata.js");
+  if (!existsSync(entry)) {
+    await rm(SSR_OUT, { recursive: true, force: true });
+    await run("npx", [
+      "vite", "build", "--ssr", "src/seo/metadata.ts",
+      "--outDir", "dist-seo", "--logLevel", "warn",
+    ]);
+  }
+  return import(pathToFileURL(entry).href);
+}
+
+// Same exclusion policy as the generator — keep in sync.
+const EXCLUDED_PATH_PATTERNS = [
+  /^\/(?:[a-z]{2}\/)?thank-you(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?thank-you-fb(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?vip-join(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?payments(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?upvote(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?account(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?crm(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?bespoke\/(?:configurator|checkout|scan|measurements)(?:$|\/)/,
 ];
-
-const FORBIDDEN_LOCS = new Set([
-  `${BASE}`,
-  `${BASE}/`,
-]);
-
-const xml = readFileSync(SITEMAP, "utf8");
-const locs = [...xml.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]);
+const isExcludedPath = (p) => EXCLUDED_PATH_PATTERNS.some((r) => r.test(p));
+const emitsNoindex = (m) => typeof m?.robots === "string" && /noindex/i.test(m.robots);
 
 const errors = [];
 const warnings = [];
 
-// 1. Format checks
-const seen = new Map();
-for (const loc of locs) {
-  if (loc !== loc.trim()) errors.push(`whitespace in <loc>: ${JSON.stringify(loc)}`);
-  const raw = loc.trim();
-  if (!raw.startsWith(`${BASE}/`) && raw !== BASE) {
-    errors.push(`<loc> not under ${BASE}: ${raw}`);
+// ---------------------------------------------------------------------
+// 1. Parse sitemap: build { loc -> [{lang, href}] } from <url> blocks.
+// ---------------------------------------------------------------------
+const xml = readFileSync(SITEMAP, "utf8");
+const urlBlocks = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
+const sitemap = new Map(); // loc -> alternates[]
+const locOrder = [];
+for (const block of urlBlocks) {
+  const locMatch = block.match(/<loc>([^<]+)<\/loc>/);
+  if (!locMatch) {
+    errors.push(`<url> block without <loc>`);
     continue;
   }
-  if (FORBIDDEN_LOCS.has(raw)) {
-    errors.push(`bare root "/" must not be in sitemap: ${raw}`);
+  const loc = locMatch[1].trim();
+  const alts = [...block.matchAll(
+    /<xhtml:link[^>]*rel="alternate"[^>]*hreflang="([^"]+)"[^>]*href="([^"]+)"/g,
+  )].map(([, lang, href]) => ({ lang, href }));
+  if (sitemap.has(loc)) errors.push(`duplicate <loc>: ${loc}`);
+  sitemap.set(loc, alts);
+  locOrder.push(loc);
+}
+
+// ---------------------------------------------------------------------
+// 2. URL format checks
+// ---------------------------------------------------------------------
+for (const loc of sitemap.keys()) {
+  if (!loc.startsWith(`${BASE}/`) && loc !== BASE) {
+    errors.push(`<loc> not under ${BASE}: ${loc}`);
+    continue;
   }
+  if (loc === BASE || loc === `${BASE}/`) errors.push(`bare root "/" must not be in sitemap: ${loc}`);
   let url;
-  try {
-    url = new URL(raw);
-  } catch {
-    errors.push(`invalid URL: ${raw}`);
-    continue;
-  }
-  if (url.search) errors.push(`<loc> has query string: ${raw}`);
-  if (url.hash) errors.push(`<loc> has fragment: ${raw}`);
+  try { url = new URL(loc); } catch { errors.push(`invalid URL: ${loc}`); continue; }
+  if (url.search) errors.push(`<loc> has query string: ${loc}`);
+  if (url.hash) errors.push(`<loc> has fragment: ${loc}`);
   if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
-    errors.push(`<loc> ends with trailing slash: ${raw}`);
+    errors.push(`<loc> ends with trailing slash: ${loc}`);
   }
-  if (/[A-Z]/.test(url.pathname)) {
-    warnings.push(`<loc> contains uppercase path chars: ${raw}`);
+  if (/[A-Z]/.test(url.pathname)) warnings.push(`<loc> contains uppercase: ${loc}`);
+}
+
+// ---------------------------------------------------------------------
+// 3. Drift check: sitemap set === registry-derived set
+//                sitemap alternates === hreflangAlternates()
+// ---------------------------------------------------------------------
+const mod = await loadModule();
+const { getAllRoutes, getMetadata, hreflangAlternates } = mod;
+
+const expected = new Map(); // loc -> alternates[]
+for (const route of getAllRoutes()) {
+  if (isExcludedPath(route)) continue;
+  let meta;
+  try { meta = getMetadata(route); } catch { continue; }
+  if (emitsNoindex(meta)) continue;
+  const loc = `${BASE}${route}`;
+  if (expected.has(loc)) continue; // getAllRoutes has intentional duplicates
+  expected.set(loc, hreflangAlternates(route, BASE) ?? []);
+}
+
+// 3a. missing from sitemap
+for (const loc of expected.keys()) {
+  if (!sitemap.has(loc)) errors.push(`missing from sitemap: ${loc}`);
+}
+// 3b. surplus in sitemap
+for (const loc of sitemap.keys()) {
+  if (!expected.has(loc)) errors.push(`sitemap has URL not in registry (excluded / noindex / stale): ${loc}`);
+}
+// 3c. alternate drift
+const eqAlts = (a, b) => {
+  if (a.length !== b.length) return false;
+  const key = (x) => `${x.lang}|${x.href}`;
+  const A = new Set(a.map(key));
+  return b.every((x) => A.has(key(x)));
+};
+for (const [loc, exp] of expected) {
+  const got = sitemap.get(loc);
+  if (!got) continue;
+  if (!eqAlts(got, exp)) {
+    errors.push(
+      `hreflang drift at ${loc}\n  sitemap:  ${JSON.stringify(got)}\n  expected: ${JSON.stringify(exp)}`,
+    );
   }
-  seen.set(raw, (seen.get(raw) ?? 0) + 1);
 }
 
-// 2. Duplicates
-for (const [loc, count] of seen) {
-  if (count > 1) errors.push(`duplicate <loc> (${count}×): ${loc}`);
-}
-
-// 3. Required URLs present
-const present = new Set([...seen.keys()].map((u) => u.replace(BASE, "")));
-for (const path of REQUIRED) {
-  if (!present.has(path)) errors.push(`missing required URL: ${path}`);
-}
-
-// 4. Parity with STATIC_ROUTES declared in src/seo/metadata.ts.
-//    Every prerendered route should also be discoverable via sitemap
-//    (otherwise we ship pages that crawlers never learn about).
-const metadataSrc = readFileSync(resolve("src/seo/metadata.ts"), "utf8");
-const staticBlock = metadataSrc.match(/const STATIC_ROUTES = \[([\s\S]*?)\];/);
-const declaredRoutes = staticBlock
-  ? [...staticBlock[1].matchAll(/"([^"]+)"/g)].map((m) => m[1])
-  : [];
-const declaredSet = new Set(declaredRoutes);
-const missingFromSitemap = [];
-for (const path of declaredSet) {
-  // /en is represented in sitemap as the homepage entry; skip legal/localized
-  // aliases the sitemap intentionally omits (thank-you, upvote, configurator).
-  if (/\/(thank-you|upvote|bespoke\/configurator|bespoke\/checkout|crm|account)/.test(path)) continue;
-  if (!present.has(path)) missingFromSitemap.push(path);
-}
-if (missingFromSitemap.length) {
-  for (const p of missingFromSitemap) {
-    warnings.push(`prerendered route missing from sitemap: ${p}`);
-  }
-}
-
+// ---------------------------------------------------------------------
 // Report
-console.log(`[audit-sitemap] ${locs.length} <loc> entries, ${seen.size} unique`);
-console.log(`[audit-sitemap] ${declaredRoutes.length} STATIC_ROUTES declared, ${missingFromSitemap.length} missing from sitemap`);
+// ---------------------------------------------------------------------
+console.log(`[audit-sitemap] ${sitemap.size} URLs in sitemap`);
+console.log(`[audit-sitemap] ${expected.size} URLs expected from registry`);
 for (const w of warnings) console.warn(`[audit-sitemap] WARN ${w}`);
 if (errors.length) {
   for (const e of errors) console.error(`[audit-sitemap] ERROR ${e}`);
   console.error(`[audit-sitemap] FAILED (${errors.length} error${errors.length === 1 ? "" : "s"})`);
   process.exit(1);
 }
-console.log(`[audit-sitemap] OK — all ${REQUIRED.length} required URLs present, no duplicates, no "/" entry`);
+console.log(`[audit-sitemap] OK — sitemap and registry are in sync, no hreflang drift`);
