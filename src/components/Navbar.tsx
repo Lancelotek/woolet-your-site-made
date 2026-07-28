@@ -181,7 +181,7 @@ const Navbar = () => {
         >
           <div className="flex flex-col gap-6 px-6 py-8">
             <Link
-              to={`/${lang}/collection`}
+              to={hrefFor("collection", lang)}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
@@ -193,7 +193,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to={`/${lang}/fit`}
+              to={hrefFor("fit", lang)}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
@@ -205,7 +205,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to={`/${lang}/bespoke`}
+              to={hrefFor("bespoke", lang)}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
@@ -217,7 +217,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to={`/${lang}/process`}
+              to={hrefFor("process", lang)}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
@@ -229,7 +229,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to={`/${lang}/blog`}
+              to={hrefFor("blog", lang)}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
@@ -241,7 +241,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to={`/${lang}/account${session ? "" : "/sign-in"}`}
+              to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
