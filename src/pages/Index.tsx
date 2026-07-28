@@ -10,6 +10,7 @@ import { FoundingBenefits } from "@/components/FoundingBenefits";
 import SEO from "@/components/SEO";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
+import { hrefFor } from "@/i18n/routeRegistry";
 
 const seoData: Record<Lang, { title: string; description: string; ogDescription: string }> = {
   en: {
