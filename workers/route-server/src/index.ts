@@ -17,6 +17,20 @@
  *    /sitemap.xml).
  */
 import { PRERENDERED } from "./prerendered";
+import { ROUTE_MANIFEST } from "./route-manifest";
+import LEGACY_REDIRECTS from "./legacy-redirects.json";
+
+/**
+ * Blog URLs that render 200 today. Built from the shared route manifest so
+ * the Worker's known-blog set can never drift from the sitemap / prerender.
+ * Any blog slug not in this set now returns a real HTTP 404 at the edge —
+ * an omission in route-manifest.json takes a live article offline.
+ */
+const BLOG_ROUTES: ReadonlySet<string> = new Set(
+  Object.entries(ROUTE_MANIFEST.blogSlugs).flatMap(([locale, slugs]) =>
+    (slugs as readonly string[]).map((s) => `/${locale}/blog/${s}`),
+  ),
+);
 
 const SECURITY_HEADERS: Record<string, string> = {
   "strict-transport-security": "max-age=31536000; includeSubDomains",
