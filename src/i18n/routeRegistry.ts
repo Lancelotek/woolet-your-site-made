@@ -199,14 +199,44 @@ export const ROUTES = {
 export type RouteKey = keyof typeof ROUTES;
 
 // ---------------------------------------------------------------------------
-// Path classification for arbitrary internal links (used by localePath()
-// for leaf URLs like /size/158mm that don't have a named RouteKey).
+// Derived tables — generated from ROUTES so they cannot drift.
+//
+// DEFECT-2 FIX: the previous version hand-maintained EN_ONLY_PATH_PREFIXES
+// and PARTIAL_LOCALE_ROUTES. `"/bespoke"` sat in EN_ONLY even though
+// ROUTES.bespoke has a real `ja` entry (/ja/bespoke), so
+// localePath("ja", "/bespoke") returned "/en/bespoke" and silently
+// dropped the Japanese translation. We now derive per-path locale sets
+// FROM ROUTES and assert at module load that hand-maintained hints do
+// not contradict the registry.
 // ---------------------------------------------------------------------------
 
-/** Path suffixes (after /{lang}) that render 200 in EVERY locale. Kept
- *  intentionally short — most `/:lang/<x>` routes actually only render
- *  meaningful content under /en. Adding a path here means we've verified
- *  the page carries a self-referencing canonical in every locale. */
+const stripLang = (url: string): string => {
+  // /en, /en/foo → "", "/foo".  /ja/bespoke → "/bespoke".
+  const m = url.match(/^\/[a-z]{2}(\/.*)?$/);
+  return m ? (m[1] ?? "") : url;
+};
+
+/** For each canonical suffix (e.g. "/collection", "/bespoke"), the set of
+ *  locales that have a real translated page, plus the per-locale URL. */
+const SUFFIX_TO_LOCALES: Map<string, Partial<Record<Lang, string>>> = (() => {
+  const m = new Map<string, Partial<Record<Lang, string>>>();
+  for (const entry of Object.values(ROUTES)) {
+    const enUrl = (entry as Partial<Record<Lang, string>>).en;
+    if (!enUrl) continue;
+    const suffix = stripLang(enUrl);
+    const prev = m.get(suffix) ?? {};
+    for (const [lang, url] of Object.entries(entry) as [Lang, string][]) {
+      // Only accept a locale's URL when the suffix under its own prefix
+      // matches the EN suffix — otherwise it's a landing page with a
+      // different slug and belongs to its own cluster, not this suffix.
+      if (stripLang(url) === suffix) prev[lang] = url;
+    }
+    m.set(suffix, prev);
+  }
+  return m;
+})();
+
+/** Path suffixes (after /{lang}) that render 200 in EVERY locale. */
 const ALL_LOCALES_PATHS: ReadonlySet<string> = new Set([
   "", // /:lang homepage
   "/vip-join",
@@ -216,10 +246,10 @@ const ALL_LOCALES_PATHS: ReadonlySet<string> = new Set([
   "/account/callback",
 ]);
 
-/** Path prefixes that only render under /en. Every other locale 301s to
- *  /en, so internal links must point directly at /en. */
+/** Prefixes for paths that have no registry entry AND no per-locale
+ *  translation. These are always served under /en. Validated below
+ *  against ROUTES so a real translation cannot silently be masked. */
 const EN_ONLY_PATH_PREFIXES: readonly string[] = [
-  "/about",
   "/the-box",
   "/lp/",
   "/collections/",
@@ -228,27 +258,24 @@ const EN_ONLY_PATH_PREFIXES: readonly string[] = [
   "/bridge/",
   "/temple/",
   "/xxl",
-  "/fit",
-  "/bespoke",
-  "/privacy-policy",
-  "/return-policy",
-  "/account",
   "/hat-size-calculator",
 ];
 
-/** Path suffixes that have translations in a limited locale set (native
- *  routes exist; every other locale should fall back to the /en URL). */
-const PARTIAL_LOCALE_ROUTES: readonly {
-  path: string;
-  locales: readonly Lang[];
-}[] = [
-  { path: "/collection",         locales: ["en", "fr", "nl"] },
-  { path: "/blog",               locales: ["en", "pl", "de"] },
-  { path: "/process",            locales: ["en", "pl"] },
-  { path: "/products/007",       locales: ["en", "fr", "nl"] },
-  { path: "/products/009",       locales: ["en", "fr", "nl"] },
-  { path: "/products/bespoke",   locales: ["en", "fr", "nl"] },
-];
+// Build-time assertion: no EN-only prefix may collide with a suffix that
+// actually has a non-EN translation in ROUTES.
+if (typeof console !== "undefined") {
+  for (const pref of EN_ONLY_PATH_PREFIXES) {
+    for (const [suffix, langs] of SUFFIX_TO_LOCALES) {
+      const nonEn = Object.keys(langs).filter((l) => l !== "en");
+      if (nonEn.length === 0) continue;
+      if (suffix === pref || suffix.startsWith(pref)) {
+        console.warn(
+          `[routeRegistry] EN_ONLY_PATH_PREFIXES contains "${pref}" but ROUTES has non-EN locales (${nonEn.join(",")}) for suffix "${suffix}". Remove the prefix or the translation.`,
+        );
+      }
+    }
+  }
+}
 
 /**
  * Return a real, non-redirecting internal href for `path` in `lang`.
@@ -264,10 +291,10 @@ export function localePath(lang: Lang, path: string): string {
 
   if (ALL_LOCALES_PATHS.has(p)) return `/${lang}${p}`;
 
-  for (const rule of PARTIAL_LOCALE_ROUTES) {
-    if (p === rule.path) {
-      return `/${(rule.locales as readonly string[]).includes(lang) ? lang : "en"}${p}`;
-    }
+  // Registry-derived lookup: does this suffix have a real translation?
+  const langs = SUFFIX_TO_LOCALES.get(p);
+  if (langs) {
+    return langs[lang] ?? langs.en ?? `/en${p}`;
   }
 
   for (const pref of EN_ONLY_PATH_PREFIXES) {
@@ -297,42 +324,100 @@ export function hrefFor(key: RouteKey, lang: Lang): string {
 }
 
 // ---------------------------------------------------------------------------
-// Reverse lookup: pathname -> RouteKey. Used by hreflang emission (find
-// the cluster this URL belongs to) and by the language switcher (offer
-// the localized version of the current page when one exists).
+// Reverse lookup: pathname -> RouteKey[]
+//
+// DEFECT-1 FIX: the previous Map<string,RouteKey> overwrote earlier
+// entries whenever the same URL appeared in multiple ROUTES values
+// (five DE landing pages all anchor /en/collection; four bespoke
+// landings all anchor /en/bespoke). Only the last entry survived and
+// keyForPath("/en/collection") returned a DE landing key, causing the
+// emitted hreflang cluster to drop /fr/collection and /nl/collection.
+//
+// The map now stores EVERY key that references a URL. Cluster
+// resolution then picks the correct entry per the rules in
+// hreflangAlternates() below.
 // ---------------------------------------------------------------------------
 
-const PATH_TO_KEY: Map<string, RouteKey> = (() => {
-  const m = new Map<string, RouteKey>();
+const PATH_TO_KEYS: Map<string, RouteKey[]> = (() => {
+  const m = new Map<string, RouteKey[]>();
   for (const [key, entry] of Object.entries(ROUTES)) {
     for (const url of Object.values(entry)) {
-      if (url) m.set(url, key as RouteKey);
+      if (!url) continue;
+      const list = m.get(url) ?? [];
+      list.push(key as RouteKey);
+      m.set(url, list);
     }
   }
   return m;
 })();
 
-/** RouteKey for a full pathname (e.g. "/de/blog/...") or undefined. */
+// Build-time diagnostic: log every many-to-one cluster so we can see
+// which EN anchors are shared. This is expected for /en/collection and
+// /en/bespoke; anything unexpected should be reviewed.
+if (typeof console !== "undefined") {
+  for (const [url, keys] of PATH_TO_KEYS) {
+    if (keys.length > 1) {
+      console.info(
+        `[routeRegistry] Many-to-one anchor: ${url} is referenced by ${keys.length} entries: ${keys.join(", ")}`,
+      );
+    }
+  }
+}
+
+/** RouteKey list for a full pathname (empty when pathname is unknown). */
+export function keysForPath(pathname: string): RouteKey[] {
+  return PATH_TO_KEYS.get(pathname) ?? [];
+}
+
+/** Backwards-compatible single-key lookup: returns the "primary" entry
+ *  (a non-`landing.*` key when one exists, else the first match). Prefer
+ *  keysForPath() in new code; hreflangAlternates() no longer relies on
+ *  this. */
 export function keyForPath(pathname: string): RouteKey | undefined {
-  return PATH_TO_KEY.get(pathname);
+  const keys = keysForPath(pathname);
+  if (keys.length === 0) return undefined;
+  return keys.find((k) => !String(k).startsWith("landing.")) ?? keys[0];
 }
 
 /**
  * hreflang alternates for a pathname, as absolute URLs.
- * Returns `null` when the page has no translation cluster — callers must
- * emit NO hreflang block in that case (a lone self-reference is noise).
+ * Returns `null` when the page has no translation cluster.
+ *
+ * Resolution rules (see DEFECT-1 spec):
+ *   • If `pathname` appears as a NON-EN URL in some entry, use that
+ *     entry (that landing is unambiguously "the" translation).
+ *   • Otherwise `pathname` is an EN anchor; use the primary
+ *     (non-`landing.*`) entry — landing pages that share the anchor do
+ *     NOT get merged in, because five different DE landings cannot all
+ *     be "the" German version of /en/collection.
  */
 export function hreflangAlternates(
   pathname: string,
   siteUrl: string,
 ): { lang: string; href: string }[] | null {
-  const key = keyForPath(pathname);
-  if (!key) return null;
-  const entry = ROUTES[key] as Partial<Record<Lang, string>>;
+  const keys = keysForPath(pathname);
+  if (keys.length === 0) return null;
+
+  // 1. Non-EN URL match wins.
+  const nonEnMatch = keys.find((k) => {
+    const entry = ROUTES[k] as Partial<Record<Lang, string>>;
+    return Object.entries(entry).some(([l, u]) => l !== "en" && u === pathname);
+  });
+
+  // 2. Otherwise treat as EN anchor and prefer the non-landing entry.
+  const chosenKey =
+    nonEnMatch ??
+    keys.find((k) => !String(k).startsWith("landing.")) ??
+    keys[0];
+
+  const entry = ROUTES[chosenKey] as Partial<Record<Lang, string>>;
   const langs = Object.keys(entry) as Lang[];
   if (langs.length < 2) return null;
-  const list: { lang: string; href: string }[] =
-    langs.map((l) => ({ lang: l, href: `${siteUrl}${entry[l]}` }));
+
+  const list: { lang: string; href: string }[] = langs.map((l) => ({
+    lang: l,
+    href: `${siteUrl}${entry[l]}`,
+  }));
   if (entry.en) list.push({ lang: "x-default", href: `${siteUrl}${entry.en}` });
   return list;
 }
