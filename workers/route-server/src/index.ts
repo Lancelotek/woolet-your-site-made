@@ -87,13 +87,17 @@ const EXTRA_ROUTES: ReadonlySet<string> = new Set([
   "/en/crm",
 ]);
 
-/** Dynamic route families. Deliberately narrow — no catch-all. */
+/**
+ * Dynamic route families. Deliberately narrow — no catch-all.
+ * The blog family is NOT here: a regex would greenlight every mistyped or
+ * dead slug (the exact soft-404 bug this Worker exists to fix). Blog URLs
+ * are matched against BLOG_ROUTES, sourced from the route manifest.
+ */
 const DYNAMIC_ROUTES: readonly RegExp[] = [
   /^\/en\/(size|bridge|temple)\/\d{2,3}mm$/,
   /^\/en\/xxl(\/[a-z0-9-]+)?$/,
   /^\/en\/compare(\/[a-z0-9-]+-alternative)?$/,
   /^\/en\/collections\/[a-z0-9-]+$/,
-  /^\/(en|pl|de|fr|nl|ja|es|ar)\/blog\/[a-z0-9-]+$/,
   /^\/en\/account(\/.*)?$/,
 ];
 
