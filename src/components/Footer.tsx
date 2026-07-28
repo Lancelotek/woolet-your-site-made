@@ -39,20 +39,20 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
     {
       heading: "Shop",
       links: [
-        { label: "Collection", href: `/${lang}/collection` },
-        { label: "Fit Quiz", href: `/${lang}/fit` },
-        { label: "Bespoke", href: `/${lang}/bespoke` },
-        { label: "Kickstarter", href: `/${lang}/lp/kickstarter`, newTab: true },
+        { label: "Collection", href: hrefFor("collection", lang) },
+        { label: "Fit Quiz", href: hrefFor("fit", lang) },
+        { label: "Bespoke", href: hrefFor("bespoke", lang) },
+        { label: "Kickstarter", href: hrefFor("lp.kickstarter", lang), newTab: true },
       ],
     },
     {
       heading: "Craft",
       links: [
-        { label: "Process", href: `/${lang}/process` },
-        { label: "The Box", href: `/${lang}/the-box` },
-        { label: t(lang, "footer.why_fail"), href: `/${lang}/lp/why-glasses-fail` },
-        { label: t(lang, "footer.5_reasons"), href: `/${lang}/lp/5-reasons` },
-        { label: "Bridge Fit Guide", href: `/${lang}/lp/wide-bridge-fit-guide` },
+        { label: "Process", href: hrefFor("process", lang) },
+        { label: "The Box", href: hrefFor("theBox", lang) },
+        { label: t(lang, "footer.why_fail"), href: hrefFor("lp.whyGlassesFail", lang) },
+        { label: t(lang, "footer.5_reasons"), href: hrefFor("lp.5reasons", lang) },
+        { label: "Bridge Fit Guide", href: hrefFor("lp.wideBridgeFitGuide", lang) },
       ],
     },
     {
@@ -68,25 +68,28 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
     {
       heading: "Compare",
       links: [
-        { label: "Compare", href: `/${lang}/compare` },
-        { label: "Fatheadz", href: `/${lang}/compare/fatheadz-alternative` },
-        { label: "EYESHELLS", href: `/${lang}/compare/eyeshells-alternative` },
-        { label: "Zenni", href: `/${lang}/compare/zenni-alternative` },
-        { label: "Warby Parker", href: `/${lang}/compare/warby-parker-alternative` },
-        { label: "Ray-Ban", href: `/${lang}/compare/ray-ban-alternative` },
-        { label: "Persol", href: `/${lang}/compare/persol-alternative` },
+        { label: "Compare", href: hrefFor("compare", lang) },
+        { label: "Fatheadz", href: hrefFor("compare.fatheadz", lang) },
+        { label: "EYESHELLS", href: hrefFor("compare.eyeshells", lang) },
+        { label: "Zenni", href: hrefFor("compare.zenni", lang) },
+        { label: "Warby Parker", href: hrefFor("compare.warbyParker", lang) },
+        { label: "Ray-Ban", href: hrefFor("compare.rayBan", lang) },
+        { label: "Persol", href: hrefFor("compare.persol", lang) },
       ],
     },
     {
       heading: "Company",
       links: [
-        { label: "Blog", href: `/${lang}/blog` },
-        { label: t(lang, "footer.privacy"), href: `/${lang}/privacy-policy` },
-        { label: t(lang, "footer.return"), href: `/${lang}/return-policy` },
+        { label: "Blog", href: hrefFor("blog", lang) },
+        { label: t(lang, "footer.privacy"), href: hrefFor("privacyPolicy", lang) },
+        { label: t(lang, "footer.return"), href: hrefFor("returnPolicy", lang) },
         { label: "support@woolet.co", href: "mailto:support@woolet.co" },
       ],
     },
   ];
+  // Reference to keep linter happy if `localePath` becomes unused after
+  // future refactors — the helper is re-exported for other callers.
+  void localePath;
 
   const socials: { label: string; href: string }[] = [
     { label: "Instagram", href: "https://www.instagram.com/frames_for_wide_faces" },
