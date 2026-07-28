@@ -1493,25 +1493,24 @@ export function renderHeadHtml(meta: RouteMeta): string {
   tags.push(`<link rel="canonical" href="${meta.canonical}"${D} />`);
   if (meta.robots) tags.push(`<meta name="robots" content="${meta.robots}"${D} />`);
 
-  // hreflang — always reciprocal. Only emit alternates for locales whose
-  // localized route actually exists (present in STATIC_ROUTES or a known
-  // blog slug). Non-existent alternates break reciprocity and get dropped
-  // by Google, so we never fabricate them here.
+  // hreflang — sourced from src/i18n/routeRegistry.ts (single source of
+  // truth). Only emit alternates when the canonical URL belongs to a
+  // multi-locale cluster where every URL renders 200 with a
+  // self-referencing canonical. Pages with no translation cluster get
+  // NO hreflang block (a lone self-reference is noise). Pages that
+  // define custom `meta.alternates` (e.g. many-to-one landing groups)
+  // bypass this and emit whatever they declared.
   if (meta.alternates) {
     for (const [hreflang, href] of Object.entries(meta.alternates)) {
       tags.push(`<link rel="alternate" hreflang="${hreflang}" href="${href}"${D} />`);
     }
   } else {
-    const path = meta.canonical.replace(SITE_URL, "").replace(/^\/[a-z]{2}/, "");
-    const known = getKnownRouteSet();
-    const availableLangs = INDEXABLE_LANGS.filter((l) =>
-      known.has(`/${l}${path}`),
-    );
-    for (const l of availableLangs) {
-      tags.push(`<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${path}"${D} />`);
-    }
-    if (availableLangs.includes("en" as typeof INDEXABLE_LANGS[number])) {
-      tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${path}"${D} />`);
+    const path = meta.canonical.replace(SITE_URL, "");
+    const alts = hreflangAlternates(path, SITE_URL);
+    if (alts) {
+      for (const { lang, href } of alts) {
+        tags.push(`<link rel="alternate" hreflang="${lang}" href="${href}"${D} />`);
+      }
     }
   }
 
