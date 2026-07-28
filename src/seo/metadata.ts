@@ -566,11 +566,11 @@ export function getMetadata(route: string): RouteMeta {
       { image: processImage, type: "website" },
       [howTo],
     );
-    if (isPL) {
-      // /pl/process redirects to /en/process in the SPA — canonicalise to EN and noindex the PL shell.
-      meta.canonical = enCanonical;
-      meta.robots = "noindex, follow";
-    }
+    // /pl/process is a real translated page — the prerendered <head>
+    // ships fully-localised PL title/description/HowTo schema and it is
+    // listed as `process.pl` in the route registry, so it must
+    // self-canonicalise and remain indexable (was previously noindex +
+    // canonical=/en, which contradicted the registry cluster).
     return meta;
   }
 
