@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams, useLocation, Link, Navigate } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
+import NotFound from "@/pages/NotFound";
 const heroManImg = "/hero-man.jpg";
 import woolet007Asset from "@/assets/frames-2026/oval-crystal.asset.json";
 import woolet009Asset from "@/assets/frames-2026/square-crystal.asset.json";
