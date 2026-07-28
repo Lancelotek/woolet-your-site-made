@@ -130,8 +130,26 @@ function getNoscriptContent(route, fallback) {
   return NOSCRIPT_OVERRIDES[route] ?? fallback;
 }
 
+const RTL_LOCALES = new Set(["ar"]);
+const KNOWN_LOCALES = new Set(["en", "pl", "de", "fr", "nl", "ja", "es", "ar"]);
+
+function localeFromRoute(route) {
+  const m = /^\/([a-z]{2})(?:\/|$)/.exec(route);
+  return m && KNOWN_LOCALES.has(m[1]) ? m[1] : "en";
+}
+
 function injectHead(template, headHtml, noscriptHtml, route) {
   let html = template;
+
+  // Set <html lang> and dir per route so crawlers see the correct
+  // language signal in the initial response (Helmet also sets it
+  // client-side after hydration).
+  const lang = localeFromRoute(route);
+  const dir = RTL_LOCALES.has(lang) ? "rtl" : "ltr";
+  html = html.replace(
+    /<html\b[^>]*>/i,
+    `<html lang="${lang}" dir="${dir}" data-seo="prerender">`,
+  );
 
   // Strip whatever generic head bits the SPA template ships so we
   // don't render duplicates next to the per-route ones.
