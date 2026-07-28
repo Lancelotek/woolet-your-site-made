@@ -14,6 +14,9 @@
 
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
 import { hreflangAlternates } from "@/i18n/routeRegistry";
+// Re-export so scripts/generate-sitemap.mjs can consume the SAME cluster
+// resolver as renderHeadHtml() from a single SSR bundle (no drift).
+export { hreflangAlternates } from "@/i18n/routeRegistry";
 import { getBlogPosts } from "@/lib/blog-data";
 import { competitors } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
