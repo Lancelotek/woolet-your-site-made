@@ -17,6 +17,20 @@
  *    /sitemap.xml).
  */
 import { PRERENDERED } from "./prerendered";
+import { ROUTE_MANIFEST } from "./route-manifest";
+import LEGACY_REDIRECTS from "./legacy-redirects.json";
+
+/**
+ * Blog URLs that render 200 today. Built from the shared route manifest so
+ * the Worker's known-blog set can never drift from the sitemap / prerender.
+ * Any blog slug not in this set now returns a real HTTP 404 at the edge —
+ * an omission in route-manifest.json takes a live article offline.
+ */
+const BLOG_ROUTES: ReadonlySet<string> = new Set(
+  Object.entries(ROUTE_MANIFEST.blogSlugs).flatMap(([locale, slugs]) =>
+    (slugs as readonly string[]).map((s) => `/${locale}/blog/${s}`),
+  ),
+);
 
 const SECURITY_HEADERS: Record<string, string> = {
   "strict-transport-security": "max-age=31536000; includeSubDomains",
@@ -73,13 +87,17 @@ const EXTRA_ROUTES: ReadonlySet<string> = new Set([
   "/en/crm",
 ]);
 
-/** Dynamic route families. Deliberately narrow — no catch-all. */
+/**
+ * Dynamic route families. Deliberately narrow — no catch-all.
+ * The blog family is NOT here: a regex would greenlight every mistyped or
+ * dead slug (the exact soft-404 bug this Worker exists to fix). Blog URLs
+ * are matched against BLOG_ROUTES, sourced from the route manifest.
+ */
 const DYNAMIC_ROUTES: readonly RegExp[] = [
   /^\/en\/(size|bridge|temple)\/\d{2,3}mm$/,
   /^\/en\/xxl(\/[a-z0-9-]+)?$/,
   /^\/en\/compare(\/[a-z0-9-]+-alternative)?$/,
   /^\/en\/collections\/[a-z0-9-]+$/,
-  /^\/(en|pl|de|fr|nl|ja|es|ar)\/blog\/[a-z0-9-]+$/,
   /^\/en\/account(\/.*)?$/,
 ];
 
@@ -109,6 +127,7 @@ function isDocumentRequest(request: Request, pathname: string): boolean {
 function isKnownRoute(pathname: string): boolean {
   if (Object.prototype.hasOwnProperty.call(PRERENDERED, pathname)) return true;
   if (EXTRA_ROUTES.has(pathname)) return true;
+  if (BLOG_ROUTES.has(pathname)) return true;
   return DYNAMIC_ROUTES.some((re) => re.test(pathname));
 }
 
@@ -145,7 +164,13 @@ export default {
 
     const pathname = url.pathname;
 
-    // 3. Root -> default locale.
+    // 3. Legacy renamed URLs -> 301 to their successor. Every value is
+    //    validated at build time against PRERENDERED / route-manifest /
+    //    DYNAMIC_ROUTES so we never point a 301 at a 404.
+    const legacy = (LEGACY_REDIRECTS as Record<string, string>)[pathname];
+    if (legacy) return Response.redirect(`https://woolet.co${legacy}`, 301);
+
+    // 4. Root -> default locale.
     if (pathname === "/" || pathname === "") {
       return Response.redirect("https://woolet.co/en", 301);
     }
