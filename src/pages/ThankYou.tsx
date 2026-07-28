@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams, useSearchParams, Link } from "react-router-dom";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
@@ -63,6 +64,9 @@ export default function ThankYou() {
 
   return (
     <div style={{ minHeight: "100vh", background: T.ink, color: T.paper, position: "relative" }}>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <style>{`
         @keyframes tyFadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         @keyframes tyPulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
