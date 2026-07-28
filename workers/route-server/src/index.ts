@@ -164,7 +164,13 @@ export default {
 
     const pathname = url.pathname;
 
-    // 3. Root -> default locale.
+    // 3. Legacy renamed URLs -> 301 to their successor. Every value is
+    //    validated at build time against PRERENDERED / route-manifest /
+    //    DYNAMIC_ROUTES so we never point a 301 at a 404.
+    const legacy = (LEGACY_REDIRECTS as Record<string, string>)[pathname];
+    if (legacy) return Response.redirect(`https://woolet.co${legacy}`, 301);
+
+    // 4. Root -> default locale.
     if (pathname === "/" || pathname === "") {
       return Response.redirect("https://woolet.co/en", 301);
     }
