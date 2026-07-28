@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { pushGtmEvent } from "@/lib/gtm";
+import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import wordmark from "@/assets/woolet-wordmark.svg";
 
 const InstagramIcon = ({ className }: { className?: string }) => (
