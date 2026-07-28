@@ -38,7 +38,7 @@ const Navbar = () => {
         style={{ borderBottomColor: "hsl(0 0% 100% / 0.055)" }}
       >
         <div className="flex items-center">
-          <Link to={`/${lang}`} className="flex items-center no-underline" aria-label="Woolet home">
+          <Link to={hrefFor("home", lang)} className="flex items-center no-underline" aria-label="Woolet home">
             <img
               src={wooletLogo}
               alt="Woolet logo mark — wide-fit eyewear brand"
