@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
  * Walks dist/ (post `npm run build` + prerender) and emits src/prerendered.ts
- * mapping each route path -> the prerendered HTML string. The Worker imports
- * that map at deploy time so all 37 routes ship as a single edge bundle.
+ * mapping each route path -> the prerendered HTML string. Also snapshots
+ * public/route-manifest.json into src/route-manifest.ts so the Worker
+ * bundles it at deploy time, and validates LEGACY_REDIRECTS values.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -12,9 +13,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "../..");
 const DIST = path.resolve(REPO_ROOT, "dist");
 const OUT = path.resolve(__dirname, "src/prerendered.ts");
+const MANIFEST_SRC = path.resolve(REPO_ROOT, "public/route-manifest.json");
+const MANIFEST_OUT = path.resolve(__dirname, "src/route-manifest.ts");
+const LEGACY_SRC = path.resolve(__dirname, "src/legacy-redirects.json");
 
 if (!fs.existsSync(DIST)) {
   console.error(`[build-bundle] dist/ missing — run \`npm run build\` first.`);
+  process.exit(1);
+}
+if (!fs.existsSync(MANIFEST_SRC)) {
+  console.error(`[build-bundle] public/route-manifest.json missing — run \`npm run build\` first.`);
   process.exit(1);
 }
 
