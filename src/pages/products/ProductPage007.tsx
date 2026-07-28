@@ -6,35 +6,34 @@ import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
-import LensUpgradeSelector, { lensLabelFor, type LensOption } from "@/components/LensUpgradeSelector";
 import imgHavana from "@/assets/frames-2026/oval-havana.asset.json";
 import imgBlackAsset from "@/assets/frames-2026/oval-black.asset.json";
 import imgCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
 
-/* ---------- shared tokens (match 5-reasons + homepage) ---------- */
 const T = {
   canvas: "#efe9df",
   ink: "#16140f",
   inkDim: "#5b554a",
   inkMute: "#8a8275",
-  dark: "#0b0a09",
-  darkPanel: "#141210",
-  gold: "#c2a05a",
+  dark: "#080807",
+  darkText: "#EDE7D9",
+  gold: "#CAA449",
   goldHi: "#d8b86a",
+  goldDim: "#8A6E2C",
   hair: "rgba(22,20,15,0.10)",
   hairStrong: "rgba(22,20,15,0.18)",
 };
 const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
 const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 
-const colors007 = [
+const launchColors = [
   { name: "Dark Tortoise", dot: "#8B5A2B", img: imgHavana.url },
   { name: "Black", dot: "#141414", img: imgBlackAsset.url },
   { name: "Crystal", dot: "#E8E4DA", img: imgCrystal.url },
 ];
 
 const specs: [string, string][] = [
-  ["Material", "Italian Mazzucchelli Acetate"],
+  ["Material", "Mazzucchelli acetate from Milan"],
   ["Frame Width", "158 mm (hinge to hinge)"],
   ["Lens", "52 × 52 mm (round panto)"],
   ["Bridge", "Keyhole 21 mm"],
@@ -44,18 +43,11 @@ const specs: [string, string][] = [
 ];
 
 const benefits = [
-  "Italian Mazzucchelli acetate — cotton, not plastic",
+  "Mazzucchelli acetate from Milan — hand made in EU",
   "158 mm — engineered for 155 mm+ faces",
   "5-barrel PVD Gunmetal hinges — built for years of daily wear",
   "Keyhole bridge 21 mm — zero slipping",
   "Hand polish + bevel cut — not machine polish",
-];
-
-const guarantees = [
-  ["30-Day Returns", "No questions asked. Full refund if the frames don't meet expectations."],
-  ["Fit Guarantee", "Take the fit quiz — if the result fits but the frame doesn't, free exchange."],
-  ["Mazzucchelli Since 1849", "Italian acetate used by Tom Ford and Oliver Peoples."],
-  ["Free Shipping + Insurance", "Insured courier delivery with real-time tracking."],
 ];
 
 const ProductPage007 = () => {
@@ -64,47 +56,45 @@ const ProductPage007 = () => {
   const lang = langFromPath(location.pathname);
   const ctx = localeCtx(lang);
   const canonical = `${SITE_URL}/${lang}/products/007`;
-  const [selectedColor, setSelectedColor] = useState("Dark Tortoise");
-  const [lens, setLens] = useState<LensOption>("clear");
-  const [total, setTotal] = useState(114);
   const [showSticky, setShowSticky] = useState(false);
-  const selectedColorObj = colors007.find((c) => c.name === selectedColor) || colors007[0];
+  const [specsOpen, setSpecsOpen] = useState(false);
+  const hero = launchColors[0].img;
 
   useEffect(() => {
-    pushGtmEvent("view_item", {
-      item_name: "Woolet 007",
-      awareness_stage: "most_aware",
-      item_variant: selectedColor,
-    });
-  }, [selectedColor]);
-
-  useEffect(() => {
-    const onScroll = () => setShowSticky(window.scrollY > 520);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    pushGtmEvent("view_item", { item_name: "Woolet 007", awareness_stage: "most_aware" });
   }, []);
 
-  const handleCTA = () => {
+  useEffect(() => {
+    const onScroll = () => setShowSticky(window.scrollY > 480);
+    onScroll();
+    const onScrollDepth = (() => {
+      let f50 = false, f90 = false;
+      return () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        const p = h > 0 ? window.scrollY / h : 0;
+        if (!f50 && p >= 0.5) { f50 = true; pushGtmEvent("scroll_50", { page: "pdp_007" }); }
+        if (!f90 && p >= 0.9) { f90 = true; pushGtmEvent("scroll_90", { page: "pdp_007" }); }
+      };
+    })();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onScrollDepth, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", onScrollDepth);
+    };
+  }, []);
+
+  const handleReserve = () => {
     pushGtmEvent("click_reserve", {
-      product_id: "007",
-      item_name: "Woolet 007",
-      item_variant: selectedColor,
-      lens_option: lens,
-      total_price: total,
-      value: 1,
-      currency: "USD",
+      product_id: "007", item_name: "Woolet 007",
+      value: 1, currency: "USD",
     });
-    pushGtmEvent("begin_checkout", {
-      item_name: "Woolet 007",
-      item_variant: selectedColor,
-      lens_option: lens,
-      total_price: total,
-      value: 1,
-      currency: "USD",
-    });
-    try { sessionStorage.setItem("woolet_lens_pref", lens); } catch { /* noop */ }
+    try { sessionStorage.setItem("woolet_lens_pref", "clear"); } catch { /* noop */ }
     window.location.href = "/en/payments?product=007";
+  };
+  const handleFitQuiz = () => {
+    pushGtmEvent("click_fit_quiz", { product_id: "007" });
+    navigate("/en/fit");
   };
 
   return (
@@ -112,40 +102,26 @@ const ProductPage007 = () => {
       <Helmet>
         <html lang={lang} />
         <title>{({ en: "Woolet 007 — Round Panto Acetate Glasses, 158 mm", nl: "Woolet 007 — ronde panto acetaatbril, 158 mm", fr: "Woolet 007 — lunettes rondes panto en acétate, 158 mm" } as Record<string,string>)[lang] ?? "Woolet 007 — Round Panto Acetate Glasses, 158 mm"}</title>
-        <meta name="description" content={({ en: "Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order.", nl: "Ronde panto in Italiaans acetaat, 158 mm breed met 21 mm brug. Ontworpen voor gezichten van 155 mm+. Vanaf $114 in pre-order.", fr: "Monture ronde panto en acétate italien, 158 mm de large avec pont 21 mm. Conçue pour les visages de 155 mm+. Dès 114 $ en pré-commande." } as Record<string,string>)[lang] ?? "Round panto Italian acetate frame, 158 mm wide with 21 mm bridge. Engineered for 155 mm+ faces. From $114 pre-order."} />
+        <meta name="description" content={({ en: "Round panto acetate frame, 158 mm wide with 21 mm keyhole bridge. Engineered for 155 mm+ faces. Reserve for $1, locks $114 founding price.", nl: "Ronde panto in acetaat, 158 mm breed met 21 mm brug. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.", fr: "Monture ronde panto en acétate, 158 mm de large avec pont keyhole 21 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $." } as Record<string,string>)[lang] ?? "Round panto acetate frame, 158 mm wide with 21 mm keyhole bridge. Engineered for 155 mm+ faces. Reserve for $1, locks $114 founding price."} />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/007`} />
         <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/007`} />
         <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr/products/007`} />
         <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/007`} />
         <meta property="og:type" content="product" />
-        <meta property="og:title" content={({ en: "Woolet 007 — Round Panto Acetate Glasses, 158 mm", nl: "Woolet 007 — ronde panto acetaatbril, 158 mm", fr: "Woolet 007 — lunettes rondes panto en acétate, 158 mm" } as Record<string,string>)[lang] ?? "Woolet 007 — Round Panto Acetate Glasses, 158 mm"} />
-        <meta property="og:description" content={({ en: "Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. From $114 pre-order.", nl: "Ronde panto in Italiaans Mazzucchelli-acetaat, 158 mm breed met keyhole-brug 21 mm. Vanaf $114 in pre-order.", fr: "Monture ronde panto en acétate italien Mazzucchelli, 158 mm de large avec pont keyhole de 21 mm. Dès 114 $ en pré-commande." } as Record<string,string>)[lang] ?? "Round panto Italian Mazzucchelli acetate frame, 158 mm wide with a 21 mm keyhole bridge. From $114 pre-order."} />
+        <meta property="og:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
+        <meta property="og:description" content="Reserve for $1, refundable. Locks $114 founding price (SRP $190). 158 mm front, 21 mm keyhole bridge." />
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content="https://woolet.co/og-007.png" />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet 007", "007"))}</script>
-
       </Helmet>
 
-      {/* Shared dark nav (homepage component) */}
       <Navbar />
 
-      {/* Breadcrumb strip — dark, sits flush under nav */}
       <div style={{ background: T.dark, borderBottom: "1px solid rgba(216,184,106,0.10)" }}>
-        <div
-          className="mx-auto"
-          style={{
-            maxWidth: 1240,
-            padding: "10px 20px",
-            fontFamily: SANS,
-            fontSize: 11,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "rgba(243,236,224,0.55)",
-          }}
-        >
+        <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 20px", fontFamily: SANS, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(243,236,224,0.55)" }}>
           <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
           <Link to={ctx.collection} style={{ color: "inherit", textDecoration: "none" }}>{ctx.framesLabel}</Link>
@@ -154,439 +130,223 @@ const ProductPage007 = () => {
         </div>
       </div>
 
-      {/* Light product "lightbox" canvas — framed by dark chrome */}
-      <main
-        style={{
-          background: T.canvas,
-          color: T.ink,
-          fontFamily: SANS,
-          // soft transition from dark nav into light canvas
-          boxShadow: "inset 0 1px 0 rgba(216,184,106,0.18), inset 0 12px 28px -22px rgba(11,10,9,0.65)",
-        }}
-      >
-        <div
-          className="mx-auto grid"
-          style={{
-            maxWidth: 1240,
-            padding: "36px 20px 80px",
-            gap: 48,
-            gridTemplateColumns: "minmax(0,1fr)",
-          }}
-        >
-          {/* Use CSS to switch to 2-col at md */}
+      <main style={{ background: T.canvas, color: T.ink, fontFamily: SANS, boxShadow: "inset 0 1px 0 rgba(216,184,106,0.18), inset 0 12px 28px -22px rgba(11,10,9,0.65)", paddingBottom: 80 }}>
+        <div className="mx-auto" style={{ maxWidth: 1240, padding: "28px 20px 0" }}>
           <style>{`
             @media (min-width: 900px) {
-              .pdp-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) !important; }
-              .pdp-gallery { position: sticky; top: 96px; align-self: start; }
+              .pdp-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) !important; gap: 56px !important; }
+              .pdp-gallery { position: sticky; top: 88px; align-self: start; }
+              .pdp-hero-img { max-height: none !important; }
+            }
+            @media (max-width: 899px) {
+              .pdp-hero-wrap { max-height: 40vh; padding: 20px !important; }
+              .pdp-hero-img { max-height: calc(40vh - 40px); }
             }
             .pdp-cta:hover { filter: brightness(1.04); }
-            .pdp-thumb:focus-visible, .pdp-swatch:focus-visible { outline: 2px solid ${T.gold}; outline-offset: 3px; }
           `}</style>
 
-          <div className="pdp-grid grid" style={{ gap: 48, gridTemplateColumns: "minmax(0,1fr)" }}>
-            {/* ============== LEFT — Gallery ============== */}
+          <div className="pdp-grid grid" style={{ gap: 40, gridTemplateColumns: "minmax(0,1fr)" }}>
+            {/* GALLERY */}
             <section className="pdp-gallery">
-              <div
-                style={{
-                  background: "#f3ece0",
-                  border: `1px solid ${T.hair}`,
-                  borderRadius: 4,
-                  padding: "48px 40px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  aspectRatio: "4 / 3",
-                }}
-              >
-                <img
-                  src={selectedColorObj.img}
-                  alt={`Woolet 007 — round panto Italian acetate glasses in ${selectedColor}, 158 mm front · 21 mm keyhole bridge, wide-face fit`}
-                  width={800}
-                  height={600}
-                  fetchPriority="high"
-                  style={{ width: "100%", maxWidth: 560, height: "auto", objectFit: "contain", display: "block" }}
-                />
-              </div>
-
-              {/* Thumbnails */}
-              <div
-                style={{
-                  marginTop: 14,
-                  display: "flex",
-                  gap: 10,
-                  overflowX: "auto",
-                  paddingBottom: 4,
-                }}
-              >
-                {colors007.map((c) => {
-                  const active = selectedColor === c.name;
-                  return (
-                    <button
-                      key={c.name}
-                      onClick={() => setSelectedColor(c.name)}
-                      className="pdp-thumb"
-                      aria-label={c.name}
-                      style={{
-                        width: 84,
-                        height: 64,
-                        flexShrink: 0,
-                        padding: 6,
-                        background: "#f3ece0",
-                        border: `1px solid ${active ? T.gold : T.hair}`,
-                        boxShadow: active ? `inset 0 0 0 1px ${T.gold}` : "none",
-                        borderRadius: 3,
-                        cursor: "pointer",
-                      }}
-                    >
-                      <img src={c.img} alt={`Woolet 007 wide-fit acetate glasses in ${c.name} — color swatch`} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
-                    </button>
-                  );
-                })}
+              <div className="pdp-hero-wrap" style={{ background: "#f3ece0", border: `1px solid ${T.hair}`, borderRadius: 4, padding: "48px 40px", display: "flex", alignItems: "center", justifyContent: "center", aspectRatio: "4 / 3" }}>
+                <img className="pdp-hero-img" src={hero} alt="Woolet 007 — round panto acetate glasses, 158 mm front · 21 mm keyhole bridge, wide-face fit" width={800} height={600} fetchPriority="high" style={{ width: "100%", maxWidth: 560, height: "auto", objectFit: "contain", display: "block" }} />
               </div>
             </section>
 
-            {/* ============== RIGHT — Buy panel ============== */}
-            <section style={{ maxWidth: 520 }}>
-              {/* Trust strip */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
-                {["Rx / Progressive", "Blue Light", "Polarized Sun"].map((tag) => (
-                  <span
-                    key={tag}
-                    style={{
-                      fontFamily: SANS,
-                      fontSize: 11,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      padding: "4px 10px",
-                      border: `1px solid ${T.hairStrong}`,
-                      color: T.inkDim,
-                      borderRadius: 999,
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-                <span
-                  style={{
-                    fontFamily: SANS,
-                    fontSize: 11,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    padding: "4px 10px",
-                    color: T.gold,
-                    borderRadius: 999,
-                  }}
-                >
-                  · 4,900+ on the waitlist
+            {/* BUY PANEL */}
+            <section style={{ maxWidth: 540 }}>
+              {/* a) Scarcity bar */}
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+                <span style={{ width: 7, height: 7, borderRadius: "50%", background: T.gold, boxShadow: `0 0 0 3px rgba(202,164,73,0.18)` }} />
+                <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.16em", textTransform: "uppercase", color: T.goldDim, fontWeight: 600 }}>
+                  4,900+ on the waitlist · Founding run limited to 300 pairs
                 </span>
               </div>
 
-              {/* Eyebrow */}
-              <div style={{
-                fontFamily: SANS, fontSize: 11, letterSpacing: "0.28em",
-                textTransform: "uppercase", color: T.gold, marginBottom: 10,
-              }}>
-                Pre-order · Founding Run · Ships Q3 2026
-              </div>
-
-              {/* Product name */}
-              <h1 style={{
-                fontFamily: SERIF, fontWeight: 300,
-                fontSize: "clamp(34px, 4vw, 46px)", lineHeight: 1.05,
-                color: T.ink, margin: "0 0 6px",
-                letterSpacing: "-0.01em",
-              }}>
+              {/* b) Name */}
+              <h1 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(34px, 4vw, 46px)", lineHeight: 1.05, color: T.ink, margin: "0 0 8px", letterSpacing: "-0.01em" }}>
                 Woolet 007 <em style={{ fontStyle: "italic", color: T.gold }}>Panto</em>
               </h1>
-              <div style={{
-                fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 10,
-              }}>
-                Round panto · 158 mm · {selectedColor}
+              <div style={{ fontFamily: SANS, fontSize: 13, color: T.inkDim, marginBottom: 6, letterSpacing: "0.02em" }}>
+                158 mm · Hand made in EU · Mazzucchelli acetate from Milan
               </div>
-              <h2 style={{
-                fontFamily: SANS, fontWeight: 500, fontSize: 13,
-                letterSpacing: "0.04em", color: T.inkDim,
-                margin: "0 0 22px", lineHeight: 1.5,
-              }}>
-                Wide-fit round acetate glasses engineered for faces 155&nbsp;mm and above — 158&nbsp;mm front, 21&nbsp;mm keyhole bridge, Italian Mazzucchelli acetate.
-              </h2>
+              <div style={{ marginBottom: 24 }}>
+                <button onClick={() => navigate("/en/products/009")} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 13, color: T.goldDim, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 3 }}>
+                  Prefer a soft-square shape? See the Woolet 009 →
+                </button>
+              </div>
 
-              {/* Price hierarchy — $114 leads */}
-              <div style={{
-                padding: "18px 0 20px",
-                borderTop: `1px solid ${T.hair}`,
-                borderBottom: `1px solid ${T.hair}`,
-                margin: "0 0 22px",
-              }}>
-                <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
-                  textTransform: "uppercase", color: T.gold, marginBottom: 8,
-                }}>
-                  Founding Price
-                </div>
+              {/* c) Fit-first headline */}
+              <div style={{ marginBottom: 24 }}>
+                <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(28px, 3.2vw, 36px)", lineHeight: 1.12, color: T.ink, margin: "0 0 10px", letterSpacing: "-0.005em" }}>
+                  Finally, glasses that don't <em style={{ fontStyle: "italic", color: T.gold }}>pinch</em>.
+                </h2>
+                <p style={{ fontFamily: SANS, fontSize: 15, color: T.inkDim, margin: 0, lineHeight: 1.55 }}>
+                  Engineered for faces 155 mm and wider. 158 mm front, 21 mm keyhole bridge.
+                </p>
+              </div>
+
+              {/* d) Price block — two numbers */}
+              <div style={{ padding: "20px 0", borderTop: `1px solid ${T.hair}`, borderBottom: `1px solid ${T.hair}`, margin: "0 0 20px" }}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 48, lineHeight: 1, color: T.ink }}>$114</span>
-                  <span style={{ fontFamily: SANS, fontSize: 18, color: T.inkMute, textDecoration: "line-through" }}>$190</span>
-                  <span style={{
-                    background: T.gold, color: T.dark, fontFamily: SANS, fontWeight: 600,
-                    fontSize: 11, letterSpacing: "0.14em", padding: "4px 9px", borderRadius: 2,
-                  }}>−40%</span>
+                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 56, lineHeight: 1, color: T.ink }}>$1</span>
+                  <span style={{ fontFamily: SANS, fontSize: 15, color: T.inkDim, letterSpacing: "0.04em" }}>today</span>
                 </div>
-                <div style={{
-                  marginTop: 10, fontFamily: SANS, fontSize: 13, color: T.inkDim, lineHeight: 1.55,
-                }}>
-                  Reserve today for <strong style={{ color: T.ink }}>$1</strong> — fully refundable deposit. Locks in the founding price; SRP $190 at launch.
-                </div>
-                {total > 114 && (
-                  <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 13, color: T.inkDim }}>
-                    Your locked-in total: <strong style={{ color: T.gold }}>${total}</strong> · {lensLabelFor(lens)}
-                  </div>
-                )}
-              </div>
-
-              {/* Model toggle */}
-              <div style={{ marginBottom: 18 }}>
-                <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
-                  textTransform: "uppercase", color: T.inkMute, marginBottom: 8,
-                }}>Model</div>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <button
-                    style={{
-                      flex: "1 1 120px", padding: "11px 14px", cursor: "pointer",
-                      background: T.canvas, color: T.ink,
-                      border: `1px solid ${T.gold}`,
-                      boxShadow: `inset 0 0 0 1px ${T.gold}`,
-                      fontFamily: SERIF, fontSize: 16, letterSpacing: "0.01em",
-                    }}
-                  >
-                    007 <em style={{ color: T.gold, fontStyle: "italic" }}>Panto</em>
-                  </button>
-                  <button
-                    onClick={() => navigate("/en/products/009")}
-                    style={{
-                      flex: "1 1 120px", padding: "11px 14px", cursor: "pointer",
-                      background: "transparent", color: T.inkDim,
-                      border: `1px solid ${T.hairStrong}`,
-                      fontFamily: SERIF, fontSize: 16,
-                    }}
-                  >
-                    009 Square
-                  </button>
-                  <button
-                    onClick={() => navigate("/en/products/bespoke")}
-                    style={{
-                      flex: "1 1 120px", padding: "11px 14px", cursor: "pointer",
-                      background: "transparent", color: T.inkDim,
-                      border: `1px solid ${T.hairStrong}`,
-                      fontFamily: SERIF, fontSize: 16,
-                    }}
-                  >
-                    Bespoke
-                  </button>
+                <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 14, color: T.inkDim, lineHeight: 1.5 }}>
+                  locks your founding price of <strong style={{ color: T.ink }}>$114</strong> — SRP <span style={{ textDecoration: "line-through", color: T.inkMute }}>$190</span> at launch
                 </div>
               </div>
 
-              {/* Color */}
-              <div style={{ marginBottom: 22 }}>
-                <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
-                  textTransform: "uppercase", color: T.inkMute, marginBottom: 10,
-                }}>
-                  Color — <span style={{ color: T.ink, letterSpacing: "0.06em" }}>{selectedColor}</span>
-                </div>
-                <div style={{ display: "flex", gap: 12 }}>
-                  {colors007.map((c) => {
-                    const active = selectedColor === c.name;
-                    return (
-                      <button
-                        key={c.name}
-                        onClick={() => setSelectedColor(c.name)}
-                        className="pdp-swatch"
-                        aria-label={c.name}
-                        style={{
-                          width: 28, height: 28, borderRadius: "50%",
-                          background: c.dot, padding: 0, cursor: "pointer",
-                          border: "2px solid transparent",
-                          boxShadow: active
-                            ? `0 0 0 2px ${T.gold}, 0 2px 4px rgba(0,0,0,0.18)`
-                            : `0 0 0 1px ${T.hairStrong}, 0 2px 4px rgba(0,0,0,0.10)`,
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Lenses */}
-              <div style={{ marginBottom: 22 }}>
-                <LensUpgradeSelector
-                  productId="007"
-                  basePrice={114}
-                  onChange={(opt, t) => { setLens(opt); setTotal(t); }}
-                />
-              </div>
-
-              {/* Primary CTA */}
-              <button
-                onClick={handleCTA}
-                className="pdp-cta"
-                style={{
-                  width: "100%", background: T.gold, color: T.dark, border: "none",
-                  padding: "16px 0", borderRadius: 2,
-                  fontFamily: SANS, fontWeight: 600, fontSize: 13,
-                  letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer",
-                }}
-              >
-                Reserve for $1 — Lock $114
-              </button>
-              <button
-                onClick={() => navigate("/en/fit")}
-                style={{
-                  width: "100%", marginTop: 10,
-                  background: "transparent", color: T.ink,
-                  border: `1px solid ${T.hairStrong}`,
-                  padding: "13px 0", borderRadius: 2,
-                  fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em",
-                  textTransform: "uppercase", cursor: "pointer",
-                }}
-              >
-                Check your fit — Free quiz
+              {/* e) Primary CTA */}
+              <button onClick={handleReserve} className="pdp-cta" style={{ width: "100%", minHeight: 60, background: T.gold, color: "#1F1B16", border: "none", padding: "18px 0", borderRadius: 2, fontFamily: SANS, fontWeight: 700, fontSize: 14, letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer" }}>
+                Reserve your pair — $1
               </button>
 
-              {/* Benefits list — light */}
-              <ul style={{
-                listStyle: "none", padding: 0, margin: "28px 0 0",
-                display: "grid", gap: 10,
-              }}>
-                {benefits.map((b, i) => (
-                  <li key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", fontFamily: SANS, fontSize: 14, lineHeight: 1.6, color: T.ink }}>
-                    <span aria-hidden style={{ color: T.gold, marginTop: 2, flex: "0 0 auto" }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    </span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Specs — light card */}
-              <div style={{
-                marginTop: 28, padding: "18px 20px",
-                border: `1px solid ${T.hair}`,
-                background: "rgba(255,255,255,0.35)",
-              }}>
-                <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
-                  textTransform: "uppercase", color: T.gold, marginBottom: 12,
-                }}>Specifications</div>
-                <dl style={{ margin: 0, display: "grid", gap: 0 }}>
-                  {specs.map(([k, v], i) => (
-                    <div key={k} style={{
-                      display: "flex", justifyContent: "space-between", gap: 16,
-                      padding: "10px 0",
-                      borderTop: i === 0 ? "none" : `1px solid ${T.hair}`,
-                    }}>
-                      <dt style={{ fontFamily: SANS, fontSize: 13, color: T.inkDim }}>{k}</dt>
-                      <dd style={{ margin: 0, fontFamily: SANS, fontSize: 13, color: T.ink, textAlign: "right" }}>{v}</dd>
-                    </div>
-                  ))}
-                </dl>
+              {/* f) Trust microcopy */}
+              <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 13, color: T.inkDim, lineHeight: 1.5 }}>
+                Fully refundable, anytime · No further charge today · Founding price locked for good
               </div>
 
-              {/* Guarantee — light card */}
-              <div style={{
-                marginTop: 16, padding: "18px 20px",
-                border: `1px solid ${T.hair}`,
-                background: "rgba(255,255,255,0.35)",
-              }}>
-                <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
-                  textTransform: "uppercase", color: T.gold, marginBottom: 14,
-                }}>Woolet Guarantee</div>
-                <div style={{ display: "grid", gap: 14 }}>
-                  {guarantees.map(([title, desc]) => (
-                    <div key={title} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                      <span aria-hidden style={{ color: T.gold, flex: "0 0 auto", marginTop: 2 }}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                      </span>
-                      <div>
-                        <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 13, color: T.ink, marginBottom: 2 }}>{title}</div>
-                        <div style={{ fontFamily: SANS, fontSize: 12.5, color: T.inkDim, lineHeight: 1.6 }}>{desc}</div>
-                      </div>
+              {/* g) Fit quiz link */}
+              <div style={{ marginTop: 14 }}>
+                <button onClick={handleFitQuiz} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 13, color: T.goldDim, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 3 }}>
+                  Not sure about your size? Check your fit in 30 seconds →
+                </button>
+              </div>
+
+              {/* h) Lens reassurance */}
+              <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 12.5, color: T.inkMute, lineHeight: 1.55 }}>
+                Prescription, blue-light and polarized options are chosen later — after your frame ships. Nothing extra is charged today.
+              </div>
+
+              {/* Non-blocking color strip */}
+              <div style={{ marginTop: 28, paddingTop: 20, borderTop: `1px solid ${T.hair}` }}>
+                <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: T.inkMute, marginBottom: 12 }}>
+                  Launch colours — pick yours after the campaign
+                </div>
+                <div style={{ display: "flex", gap: 20 }}>
+                  {launchColors.map((c) => (
+                    <div key={c.name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+                      <span aria-hidden style={{ width: 22, height: 22, borderRadius: "50%", background: c.dot, boxShadow: `0 0 0 1px ${T.hairStrong}` }} />
+                      <span style={{ fontFamily: SANS, fontSize: 11, color: T.inkDim }}>{c.name}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* Back link */}
-              <div style={{ marginTop: 22 }}>
-                <Link
-                  to="/en#collection"
-                  style={{
-                    fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em",
-                    textTransform: "uppercase", color: T.inkDim, textDecoration: "none",
-                    borderBottom: `1px solid ${T.hairStrong}`, paddingBottom: 2,
-                  }}
-                >
-                  ← Back to collection
-                </Link>
               </div>
             </section>
           </div>
         </div>
 
-        {/* FAQ — full width inside light canvas */}
-        <div style={{ borderTop: `1px solid ${T.hair}` }}>
+        {/* ============ BELOW THE FOLD ============ */}
+        <div className="mx-auto" style={{ maxWidth: 980, padding: "72px 20px 0" }}>
+          {/* 1. Will it fit */}
+          <section style={{ background: "#F8F6F1", border: `1px solid ${T.gold}`, padding: "28px 28px 26px", borderRadius: 4 }}>
+            <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 10 }}>Fit-first</div>
+            <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 28, color: "#1F1B16", margin: "0 0 10px", lineHeight: 1.15 }}>Will it actually fit?</h3>
+            <p style={{ fontFamily: SANS, fontSize: 15, color: T.inkDim, lineHeight: 1.6, margin: "0 0 16px" }}>
+              Standard frames stop at 138–148 mm. If your face is 155 mm or wider, they pinch, slide, and leave marks. Woolet 007 runs 158 mm across the front with a 21 mm keyhole bridge — the width you've been missing. Take our 30-second fit quiz to confirm before you reserve.
+            </p>
+            <button onClick={handleFitQuiz} style={{ background: T.gold, color: "#1F1B16", border: "none", padding: "12px 20px", borderRadius: 2, fontFamily: SANS, fontWeight: 600, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer" }}>
+              Take the fit quiz
+            </button>
+          </section>
+
+          {/* 2. Feature list */}
+          <section style={{ marginTop: 56 }}>
+            <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 14 }}>What you get</div>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 12 }}>
+              {benefits.map((b, i) => (
+                <li key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start", fontFamily: SANS, fontSize: 15, lineHeight: 1.55, color: T.ink }}>
+                  <span aria-hidden style={{ color: T.gold, marginTop: 3, flex: "0 0 auto" }}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* 3. Specs accordion */}
+          <section style={{ marginTop: 40, borderTop: `1px solid ${T.hair}`, borderBottom: `1px solid ${T.hair}` }}>
+            <button onClick={() => setSpecsOpen((v) => !v)} style={{ width: "100%", background: "none", border: "none", padding: "18px 0", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}>
+              <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.24em", textTransform: "uppercase", color: T.ink, fontWeight: 600 }}>
+                Full specifications & dimensions
+              </span>
+              <span style={{ fontFamily: SANS, fontSize: 22, color: T.inkDim, lineHeight: 1 }}>{specsOpen ? "–" : "+"}</span>
+            </button>
+            {specsOpen && (
+              <dl style={{ margin: 0, padding: "0 0 20px", display: "grid", gap: 0 }}>
+                {specs.map(([k, v], i) => (
+                  <div key={k} style={{ display: "flex", justifyContent: "space-between", gap: 16, padding: "10px 0", borderTop: i === 0 ? `1px solid ${T.hair}` : `1px solid ${T.hair}` }}>
+                    <dt style={{ fontFamily: SANS, fontSize: 13, color: T.inkDim }}>{k}</dt>
+                    <dd style={{ margin: 0, fontFamily: SANS, fontSize: 13, color: T.ink, textAlign: "right" }}>{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </section>
+
+          {/* 4. What happens after your $1 */}
+          <section style={{ marginTop: 56 }}>
+            <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 30, color: T.ink, margin: "0 0 24px", lineHeight: 1.15 }}>
+              What happens after your <em style={{ color: T.gold, fontStyle: "italic" }}>$1</em>
+            </h3>
+            <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 20, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+              {[
+                ["Today", "You pay $1. Fully refundable. Your founding price is locked."],
+                ["At launch", "We email you. You choose colour, lens type and prescription."],
+                ["Q3 2026", "Your frame ships. The $1 is deducted from the final price."],
+              ].map(([step, body], i) => (
+                <li key={i} style={{ borderTop: `1px solid ${T.gold}`, paddingTop: 16 }}>
+                  <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 8 }}>Step {i + 1} · {step}</div>
+                  <div style={{ fontFamily: SANS, fontSize: 14, color: T.ink, lineHeight: 1.55 }}>{body}</div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* 5. Cross-links */}
+          <section style={{ marginTop: 56, paddingTop: 28, borderTop: `1px solid ${T.hair}`, display: "flex", gap: 24, flexWrap: "wrap" }}>
+            <button onClick={() => navigate("/en/products/009")} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 14, color: T.ink, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 4 }}>
+              Prefer a soft-square shape? See the Woolet 009 →
+            </button>
+            <button onClick={() => navigate("/en/bespoke")} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 14, color: T.inkDim, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 4 }}>
+              Need a different width? Explore Bespoke →
+            </button>
+          </section>
+        </div>
+
+        <div style={{ borderTop: `1px solid ${T.hair}`, marginTop: 56 }}>
           <ProductFAQ productId="007" />
         </div>
       </main>
 
-      {/* Sticky buy bar */}
+      {/* Sticky mobile CTA */}
       <div
         aria-hidden={!showSticky}
+        className="md:hidden"
         style={{
           position: "fixed", left: 0, right: 0, bottom: 0,
-          background: T.dark,
-          borderTop: "1px solid rgba(216,184,106,0.22)",
+          background: T.dark, borderTop: "1px solid rgba(202,164,73,0.28)",
           transform: showSticky ? "translateY(0)" : "translateY(110%)",
-          transition: "transform 260ms ease",
-          zIndex: 60,
+          transition: "transform 260ms ease", zIndex: 60,
+          height: 64,
         }}
       >
-        <div
-          className="mx-auto"
-          style={{
-            maxWidth: 1240,
-            padding: "10px 16px calc(10px + env(safe-area-inset-bottom, 0px))",
-            display: "flex", alignItems: "center", gap: 14,
-          }}
-        >
+        <div style={{ padding: "10px 14px calc(10px + env(safe-area-inset-bottom, 0px))", display: "flex", alignItems: "center", gap: 12, height: "100%" }}>
           <div style={{ minWidth: 0, flex: 1 }}>
-            <div style={{ fontFamily: SERIF, fontSize: 18, color: "#f3ece0", lineHeight: 1.1 }}>
-              Woolet 007 <em style={{ color: T.goldHi, fontStyle: "italic" }}>Panto</em>
+            <div style={{ fontFamily: SANS, fontSize: 13, color: T.darkText, lineHeight: 1.25 }}>
+              <strong style={{ fontWeight: 700 }}>$1 today</strong>
+              <span style={{ opacity: 0.7 }}> · locks $114</span>
             </div>
-            <div style={{ fontFamily: SANS, fontSize: 12, color: "rgba(243,236,224,0.62)" }}>
-              <span style={{ color: "#f3ece0", fontWeight: 600 }}>$114</span>
-              <span style={{ textDecoration: "line-through", margin: "0 6px" }}>$190</span>
-              <span style={{ color: T.goldHi }}>−40%</span>
-            </div>
+            <div style={{ fontFamily: SANS, fontSize: 11, color: "rgba(237,231,217,0.55)", marginTop: 2 }}>Fully refundable</div>
           </div>
-          <button
-            onClick={handleCTA}
-            style={{
-              background: T.gold, color: T.dark, border: "none",
-              padding: "12px 18px", borderRadius: 2, cursor: "pointer",
-              fontFamily: SANS, fontWeight: 600, fontSize: 12,
-              letterSpacing: "0.22em", textTransform: "uppercase",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Reserve for $1
+          <button onClick={handleReserve} style={{ background: T.gold, color: "#1F1B16", border: "none", padding: "12px 20px", borderRadius: 2, cursor: "pointer", fontFamily: SANS, fontWeight: 700, fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+            Reserve
           </button>
         </div>
       </div>
 
-      {/* Shared dark footer */}
       <Footer />
     </>
   );
