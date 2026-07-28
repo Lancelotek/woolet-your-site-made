@@ -265,7 +265,8 @@ const Navbar = () => {
                 {SUPPORTED_LANGS.map((l) => (
                   <Link
                     key={l}
-                    to={`/${l}`}
+                    to={switcherHref(l)}
+                    title={switcherTitle(l)}
                     onClick={() => {
                       setMenuOpen(false);
                       try { window.localStorage.setItem("woolet_lang", l); } catch {}
