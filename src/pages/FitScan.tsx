@@ -1,3 +1,4 @@
+import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { z } from "zod";
@@ -575,7 +576,7 @@ function WelcomeStep({
 
       {/* Third path — no measurement, just a quick quiz */}
       <Link
-        to={`/${lang}/fit/quick`}
+        to={localePath(lang, "/fit/quick")}
         onClick={() => pushEvent("fit_quick_open", { source: "welcome_compare" })}
         style={{
           display: "flex",
@@ -903,7 +904,7 @@ function WelcomeStep({
           {tFit(lang, "welcome.cta_note")} · For upload: face front-on, credit card flat on forehead, no glasses.
         </p>
         <Link
-          to={`/${lang}/fit`}
+          to={hrefFor("fit", lang)}
           style={{
             color: MUTED,
             fontFamily: "Barlow, sans-serif",
@@ -2560,7 +2561,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       </details>
 
       <Link
-        to={`/${lang}/fit`}
+        to={hrefFor("fit", lang)}
         style={{ color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.75rem", textAlign: "center", textDecoration: "none" }}
       >
         {tFit(lang, "camera.manual_link")}
@@ -3637,7 +3638,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 
       <div className="scan-cta-primary flex flex-col gap-2">
         <Link
-          to={`/${lang}/products/009`}
+          to={localePath(lang, "/products/009")}
           onClick={handleCta}
           style={{
             background: GOLD,
@@ -3659,7 +3660,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           {authedUser ? tFit(lang, "result.cta_account") : tFit(lang, "result.cta_prefill")}
         </Link>
         <Link
-          to={`/${lang}/products/009`}
+          to={localePath(lang, "/products/009")}
           onClick={handleCta}
           style={{
             background: "transparent",
@@ -3971,7 +3972,7 @@ function ResultSentStep({
 }) {
   const primaryHref = recommendation.primaryHref?.startsWith("/")
     ? recommendation.primaryHref
-    : `/${lang}/products/007`;
+    : localePath(lang, "/products/007");
   return (
     <div className="flex flex-col gap-6" style={{ paddingTop: "1rem" }}>
       <div className="woolet-eyebrow">
@@ -4913,7 +4914,7 @@ export default function FitScan() {
                         </button>
                       )}
                       <button
-                        onClick={() => navigate(`/${lang}/fit`)}
+                        onClick={() => navigate(hrefFor("fit", lang))}
                         style={{
                           background: "transparent",
                           border: "1px solid hsl(var(--border))",

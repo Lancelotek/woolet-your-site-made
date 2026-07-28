@@ -1,3 +1,4 @@
+import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
@@ -57,7 +58,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
   }, []);
 
   const scrollToForm = useCallback(() => {
-    window.location.href = `/${lang}/lp/kickstarter`;
+    window.location.href = hrefFor("lp.kickstarter", lang);
   }, [lang]);
 
   const spotsText = t(lang, "sticky.spots").replace("{count}", String(count));

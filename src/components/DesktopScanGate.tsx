@@ -1,3 +1,4 @@
+import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useEffect, useMemo, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import type { Lang } from "@/lib/i18n";
@@ -242,7 +243,7 @@ export default function DesktopScanGate({ lang }: Props) {
           No phone handy?
         </span>
         <a
-          href={`/${lang}/fit/manual`}
+          href={localePath(lang, "/fit/manual")}
           onClick={() =>
             pushEvent("scan_manual_fallback_click", {
               device: "desktop",

@@ -1,3 +1,4 @@
+import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -206,7 +207,7 @@ export default function Account() {
     return <div className="min-h-screen bg-background" />;
   }
   if (!session) {
-    return <Navigate to={`/${lang}/account/sign-in`} replace />;
+    return <Navigate to={hrefFor("accountSignIn", lang)} replace />;
   }
 
   const latestCompleted = scans.find(
@@ -349,7 +350,7 @@ export default function Account() {
                   Based on your latest scan: face {latestCompleted!.face_width_mm} mm, nose {latestCompleted!.nose_width_mm} mm.
                 </p>
                 <Link
-                  to={`/${lang}/products/${recModel}`}
+                  to={localePath(lang, `/products/${recModel}`)}
                   className="inline-block mt-4 uppercase tracking-[0.22em] no-underline"
                   style={{
                     background: GOLD,
@@ -371,7 +372,7 @@ export default function Account() {
                   recommendation.
                 </p>
                 <Link
-                  to={`/${lang}/fit`}
+                  to={hrefFor("fit", lang)}
                   className="inline-block self-start uppercase tracking-[0.22em] no-underline"
                   style={{
                     background: GOLD,
@@ -401,7 +402,7 @@ export default function Account() {
                   No scans linked yet. Run the 30‑second fit scan and we'll save it here.
                 </p>
                 <Link
-                  to={`/${lang}/fit`}
+                  to={hrefFor("fit", lang)}
                   className="inline-block self-start uppercase tracking-[0.22em] no-underline"
                   style={{
                     background: GOLD,
@@ -515,7 +516,7 @@ export default function Account() {
                   No bespoke configurations saved yet. Start a configurator to record your measurements here.
                 </p>
                 <Link
-                  to={`/${lang}/bespoke`}
+                  to={hrefFor("bespoke", lang)}
                   className="inline-block self-start uppercase tracking-[0.22em] no-underline"
                   style={{
                     background: GOLD,

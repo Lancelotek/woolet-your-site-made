@@ -1,3 +1,4 @@
+import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { Link } from "react-router-dom";
 import { t, type Lang } from "@/lib/i18n";
 
@@ -142,7 +143,7 @@ const SizeMatrix = ({
         {showCta && (
           <div className="mt-12 flex flex-col gap-2">
             <Link
-              to={`/${lang}/lp/kickstarter`}
+              to={hrefFor("lp.kickstarter", lang)}
               className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all self-start"
               style={{
                 background: "hsl(var(--gold))",
