@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
+import { hreflangAlternates } from "@/i18n/routeRegistry";
 
 interface SEOProps {
   title: string;
