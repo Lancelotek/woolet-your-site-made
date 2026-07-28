@@ -145,7 +145,12 @@ const BlogPost = () => {
   const processedContent = useMemo(() => post ? processContent(post.content, currentLang) : "", [post, currentLang]);
 
   if (!post) {
-    return <Navigate to={`/${currentLang}/blog`} replace />;
+    // Unknown blog slug: render the NotFound view in-place. Do NOT
+    // <Navigate> to `/${currentLang}/blog` — that produced a soft-404
+    // (Google drops the URL and transfers zero relevance to the hub).
+    // Genuine 404 lets the URL either resolve to a real page (via the
+    // Cloudflare Worker's 301 map for renamed slugs) or die cleanly.
+    return <NotFound />;
   }
 
   const formattedDate = new Date(post.date).toLocaleDateString("en-US", {

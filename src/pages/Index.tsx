@@ -527,7 +527,10 @@ const Index = () => {
   }, [lang]);
 
   if (paramLang && !isValidLang(paramLang)) {
-    return <Navigate to="/en" replace />;
+    // Invalid locale segment (e.g. /xx/): render NotFound rather than
+    // silently redirecting to /en. Redirect-to-parent hides bad links
+    // from crawlers and produces a soft-404.
+    return <NotFound />;
   }
 
   const seo = seoData[lang];
