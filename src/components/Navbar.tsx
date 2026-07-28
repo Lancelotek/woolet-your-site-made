@@ -52,7 +52,7 @@ const Navbar = () => {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-5">
           <Link
-            to={`/${lang}/collection`}
+            to={hrefFor("collection", lang)}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang })}
@@ -60,7 +60,7 @@ const Navbar = () => {
             {t(lang, "nav.collection")}
           </Link>
           <Link
-            to={`/${lang}/fit`}
+            to={hrefFor("fit", lang)}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang })}
@@ -68,7 +68,7 @@ const Navbar = () => {
             {t(lang, "nav.fit_quiz")}
           </Link>
           <Link
-            to={`/${lang}/bespoke`}
+            to={hrefFor("bespoke", lang)}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang })}
@@ -76,7 +76,7 @@ const Navbar = () => {
             {t(lang, "nav.bespoke")}
           </Link>
           <Link
-            to={`/${lang}/process`}
+            to={hrefFor("process", lang)}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "process", nav_lang: lang })}
@@ -84,7 +84,7 @@ const Navbar = () => {
             Process
           </Link>
           <Link
-            to={`/${lang}/blog`}
+            to={hrefFor("blog", lang)}
             className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
             style={{ fontSize: "0.72rem" }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "blog", nav_lang: lang })}
