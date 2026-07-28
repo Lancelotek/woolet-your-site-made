@@ -137,7 +137,7 @@ const Navbar = () => {
             )}
           </div>
           <Link
-            to={`/${lang}/account${session ? "" : "/sign-in"}`}
+            to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
             aria-label={session ? "Your account" : "Sign in"}
             className="text-cream-dim hover:text-primary transition-colors flex items-center"
             onClick={() => pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session })}
