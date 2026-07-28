@@ -331,7 +331,8 @@ export function hreflangAlternates(
   const entry = ROUTES[key] as Partial<Record<Lang, string>>;
   const langs = Object.keys(entry) as Lang[];
   if (langs.length < 2) return null;
-  const list = langs.map((l) => ({ lang: l, href: `${siteUrl}${entry[l]}` }));
+  const list: { lang: string; href: string }[] =
+    langs.map((l) => ({ lang: l, href: `${siteUrl}${entry[l]}` }));
   if (entry.en) list.push({ lang: "x-default", href: `${siteUrl}${entry.en}` });
   return list;
 }
