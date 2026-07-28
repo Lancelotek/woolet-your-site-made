@@ -192,20 +192,13 @@ const SEO = ({
     ...(articleBody ? { articleBody, wordCount: articleBody.trim().split(/\s+/).filter(Boolean).length } : (article?.readTime ? { wordCount: article.readTime * 220 } : {})),
   } : null;
 
-  // Build hreflang links as a flat array — react-helmet-async does NOT
-  // traverse React Fragments as direct children of <Helmet>, so wrapping
-  // conditional groups in <>...</> silently drops them.
+  // Build hreflang links from the route registry (single source of truth).
+  // Callers can still pass `availableLangs`/`alternates` for pages with
+  // custom cluster shapes (blog posts, many-to-one landing groups).
+  // Pages with no translation cluster emit NO hreflang block — a lone
+  // self-reference is noise that Google discards.
   const hreflangLinks: JSX.Element[] = [];
-  if (path === "") {
-    INDEXABLE_LANGS.forEach((l) => {
-      hreflangLinks.push(
-        <link key={`hl-${l}`} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}`} />
-      );
-    });
-    hreflangLinks.push(
-      <link key="hl-xdef" rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en`} />
-    );
-  } else if (availableLangs && availableLangs.length > 0) {
+  if (availableLangs && availableLangs.length > 0) {
     availableLangs.forEach((l) => {
       const overridePath = alternates?.[l];
       const href = overridePath
@@ -217,15 +210,24 @@ const SEO = ({
     });
     const xdef = alternates?.en
       ? `${SITE_URL}/en${alternates.en.startsWith("/") ? alternates.en : `/${alternates.en}`}`
-      : `${SITE_URL}/en${path}`;
-    hreflangLinks.push(
-      <link key="hl-xdef" rel="alternate" hrefLang="x-default" href={xdef} />
-    );
+      : availableLangs.includes("en" as Lang)
+        ? `${SITE_URL}/en${path}`
+        : null;
+    if (xdef) {
+      hreflangLinks.push(
+        <link key="hl-xdef" rel="alternate" hrefLang="x-default" href={xdef} />
+      );
+    }
   } else {
-    hreflangLinks.push(
-      <link key="hl-self" rel="alternate" hrefLang={lang} href={canonical} />,
-      <link key="hl-xdef" rel="alternate" hrefLang="x-default" href={canonical} />
-    );
+    const alts = hreflangAlternates(`/${lang}${path}`, SITE_URL);
+    if (alts) {
+      alts.forEach(({ lang: l, href }) => {
+        hreflangLinks.push(
+          <link key={`hl-${l}`} rel="alternate" hrefLang={l} href={href} />
+        );
+      });
+    }
+    // No cluster => no hreflang block. Canonical still self-references.
   }
 
   return (
