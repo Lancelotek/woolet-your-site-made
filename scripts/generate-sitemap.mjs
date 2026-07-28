@@ -103,27 +103,12 @@ function urlBlock({ loc, alternates }) {
 async function main() {
   const entry = await ensureBundle();
   const mod = await import(pathToFileURL(entry).href);
-  const { getAllRoutes, getMetadata } = mod;
-
-  // Import the registry the same way — it's transitively bundled with
-  // metadata.ts, so a second SSR build isn't needed; re-export it from
-  // metadata.ts is not required either because hreflangAlternates is
-  // already used inside renderHeadHtml(). We recompute here for the
-  // sitemap so both surfaces share ONE truth.
-  const { hreflangAlternates } = await import(
-    pathToFileURL(resolve(SSR_OUT, "metadata.js")).href
-  ).then(async () => {
-    // The registry is not re-exported by metadata.ts. Build a second
-    // SSR bundle for the registry so we can consume it here.
-    const REG_ENTRY = resolve(SSR_OUT, "routeRegistry.js");
-    if (!existsSync(REG_ENTRY)) {
-      await run("npx", [
-        "vite", "build", "--ssr", "src/i18n/routeRegistry.ts",
-        "--outDir", "dist-seo", "--logLevel", "warn",
-      ]);
-    }
-    return import(pathToFileURL(REG_ENTRY).href);
-  });
+  const { getAllRoutes, getMetadata, hreflangAlternates } = mod;
+  if (!getAllRoutes || !getMetadata || !hreflangAlternates) {
+    throw new Error(
+      "metadata bundle missing expected exports (getAllRoutes / getMetadata / hreflangAlternates)",
+    );
+  }
 
   const routes = getAllRoutes();
   const kept = [];
