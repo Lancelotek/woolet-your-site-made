@@ -45,25 +45,20 @@ describe("SEO hreflang", () => {
     expect(alts.find((a) => a.hreflang === "en")?.href).toBe(`${SITE}/en`);
   });
 
-  it("non-home English-only route self-references (regression: Fragments dropped these)", async () => {
+  it("non-home English-only route emits NO hreflang (single-locale cluster is noise)", async () => {
     renderSEO({
       title: "Compare Zenni",
       description: "d",
       lang: "en",
       path: "/compare/zenni-alternative",
     });
-    await waitFor(() => expect(readAlternates().length).toBeGreaterThan(0));
+    // Give Helmet a tick to flush.
+    await new Promise((r) => setTimeout(r, 50));
 
-    const alts = readAlternates();
     const expected = `${SITE}/en/compare/zenni-alternative`;
-
     expect(readCanonical()).toBe(expected);
-    // Must NOT leak the homepage cluster onto a subpage.
-    expect(alts).toHaveLength(2);
-    expect(alts.find((a) => a.hreflang === "en")?.href).toBe(expected);
-    expect(alts.find((a) => a.hreflang === "x-default")?.href).toBe(expected);
-    // Guard against index.html-style homepage leaks.
-    expect(alts.every((a) => !a.href.match(/\/(pl|fr|es|de|ar|ja|nl)$/))).toBe(true);
+    // No hreflang block — the page has no translation cluster.
+    expect(readAlternates()).toHaveLength(0);
   });
 
   it("shared route with availableLangs emits one link per locale + x-default", async () => {
