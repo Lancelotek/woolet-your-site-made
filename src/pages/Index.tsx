@@ -10,6 +10,7 @@ import { FoundingBenefits } from "@/components/FoundingBenefits";
 import SEO from "@/components/SEO";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
+import { hrefFor } from "@/i18n/routeRegistry";
 
 const seoData: Record<Lang, { title: string; description: string; ogDescription: string }> = {
   en: {
@@ -593,7 +594,7 @@ const Index = () => {
 
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link
-                  to={`/${lang}/lp/kickstarter`}
+                  to={hrefFor("lp.kickstarter", lang)}
                   onClick={() =>
                     pushGtmEvent("hero_cta_primary_click", {
                       location: "home_hero",
@@ -615,7 +616,7 @@ const Index = () => {
                   {copy.ctaPrimary}
                 </Link>
                 <Link
-                  to={`/${lang}/collection`}
+                  to={hrefFor("collection", lang)}
                   onClick={() =>
                     pushGtmEvent("hero_cta_secondary_click", {
                       location: "home_hero",
@@ -806,7 +807,7 @@ const Index = () => {
                 </h2>
               </div>
               <Link
-                to={`/${lang}/collection`}
+                to={hrefFor("collection", lang)}
                 onClick={() =>
                   pushGtmEvent("home_teaser_view_all_click", { dest: "collection" })
                 }
@@ -822,7 +823,7 @@ const Index = () => {
               {models.map((m) => (
                 <Link
                   key={m.id}
-                  to={`/${lang}/collection`}
+                  to={hrefFor("collection", lang)}
                   onClick={() =>
                     pushGtmEvent("home_teaser_model_click", { model: m.id, dest: "collection" })
                   }
@@ -923,11 +924,11 @@ const Index = () => {
               style={{ fontSize: "1.02rem" }}
             >
               Our signature frames fit 155–161 mm. For measurements outside that range, explore our{" "}
-              <Link to={`/${lang}/bespoke#bespoke-eyewear`} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
+              <Link to={`${hrefFor("bespoke", lang)}#bespoke-eyewear`} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
                 bespoke eyewear
               </Link>{" "}
               — or go straight to{" "}
-              <Link to={`/${lang}/bespoke#bespoke-glasses-for-wide-faces`} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
+              <Link to={`${hrefFor("bespoke", lang)}#bespoke-glasses-for-wide-faces`} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
                 bespoke glasses for wide faces
               </Link>. Bespoke covers any width from 145 to 162 mm, 4 frame shapes, 60 colour &amp; size
               combinations — built to measure, for everyone.
@@ -974,7 +975,7 @@ const Index = () => {
 
             <div className="pt-2">
               <Link
-                to={`/${lang}/bespoke`}
+                to={hrefFor("bespoke", lang)}
                 onClick={() =>
                   pushGtmEvent("home_bespoke_cta_click", { location: "home_bespoke_section", dest: "bespoke" })
                 }

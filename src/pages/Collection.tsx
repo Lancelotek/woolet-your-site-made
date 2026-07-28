@@ -1,3 +1,4 @@
+import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useParams, Navigate, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -116,7 +117,7 @@ const Collection = () => {
               {/* Primary CTA → Fit Wizard */}
               <div className="pt-7">
                 <Link
-                  to={`/${lang}/fit`}
+                  to={hrefFor("fit", lang)}
                   onClick={() =>
                     pushGtmEvent("collection_cta_fit_wizard_click", {
                       location: "collection_hero",
@@ -340,8 +341,8 @@ const Collection = () => {
 
           {/* Fit / size matrix */}
           <SizeMatrix
-            fitHref={`/${lang}/fit`}
-            bespokeHref={`/${lang}/bespoke`}
+            fitHref={hrefFor("fit", lang)}
+            bespokeHref={hrefFor("bespoke", lang)}
             sectionId="size-matrix"
             lang={lang}
             showCta={false}
