@@ -3504,7 +3504,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             </p>
           )}
           <Link
-            to={localePath(lang, faceShape.modelHref.replace(/^\/en/, ""))}
+            to={faceShape.modelHref}
             style={{
               alignSelf: "flex-start",
               marginTop: 4,
