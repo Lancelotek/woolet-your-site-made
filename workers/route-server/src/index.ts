@@ -127,6 +127,7 @@ function isDocumentRequest(request: Request, pathname: string): boolean {
 function isKnownRoute(pathname: string): boolean {
   if (Object.prototype.hasOwnProperty.call(PRERENDERED, pathname)) return true;
   if (EXTRA_ROUTES.has(pathname)) return true;
+  if (BLOG_ROUTES.has(pathname)) return true;
   return DYNAMIC_ROUTES.some((re) => re.test(pathname));
 }
 
