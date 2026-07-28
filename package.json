@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs && node scripts/audit-head.mjs && node scripts/audit-sitemap.mjs",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-route-manifest.mjs && node scripts/audit-head.mjs && node scripts/audit-sitemap.mjs",
     "audit:head": "node scripts/audit-head.mjs",
     "audit:sitemap": "node scripts/audit-sitemap.mjs",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "generate:route-manifest": "node scripts/generate-route-manifest.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
