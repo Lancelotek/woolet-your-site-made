@@ -117,10 +117,11 @@ const Navbar = () => {
                 {SUPPORTED_LANGS.map((l) => (
                   <Link
                     key={l}
-                    to={`/${l}`}
+                    to={switcherHref(l)}
                     role="option"
                     aria-selected={l === lang}
                     aria-current={l === lang ? "true" : undefined}
+                    title={switcherTitle(l)}
                     onClick={() => {
                       setLangOpen(false);
                       try { window.localStorage.setItem("woolet_lang", l); } catch {}
