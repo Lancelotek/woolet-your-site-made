@@ -1,5 +1,6 @@
 import { hrefFor, localePath } from "@/i18n/routeRegistry";
-import { useParams, Navigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import NotFound from "@/pages/NotFound";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ModelPills from "@/components/ModelPills";
@@ -35,7 +36,10 @@ const Collection = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
 
   if (paramLang && !isValidLang(paramLang)) {
-    return <Navigate to="/en/collection" replace />;
+    // Invalid locale in URL: render NotFound instead of soft-redirecting
+    // to /en/collection (which would silently rewrite the URL and drop
+    // the mistake from crawlers' error signals).
+    return <NotFound />;
   }
 
   const seo = seoData[lang];

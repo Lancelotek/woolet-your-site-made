@@ -1,4 +1,5 @@
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import NotFound from "@/pages/NotFound";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -18,7 +19,10 @@ const body = "'Barlow', sans-serif";
 const ComparePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const competitor = competitors.find((c) => c.slug === slug);
-  if (!competitor) return <Navigate to="/en/404" replace />;
+  // Unknown competitor slug: render NotFound in-place. Do NOT redirect
+  // to `/en/404` (that URL isn't a route, it just re-renders NotFound
+  // one hop later) or to `/en/compare` (soft-404 to the hub).
+  if (!competitor) return <NotFound />;
 
   return <ComparePageInner competitor={competitor} />;
 };
