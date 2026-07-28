@@ -6647,10 +6647,6 @@ function getMetadata(route) {
       { image: processImage, type: "website" },
       [howTo]
     );
-    if (isPL) {
-      meta.canonical = enCanonical;
-      meta.robots = "noindex, follow";
-    }
     return meta;
   }
   if (path === "/fit") {
