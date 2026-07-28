@@ -269,7 +269,10 @@ const App = () => (
           <Route path="/en/xxl" element={<XxlHubPage />} />
           <Route path="/en/xxl/:slug" element={<XxlPage />} />
           <Route path="/:lang/xxl" element={<Navigate to="/en/xxl" replace />} />
-          <Route path="/:lang/xxl/:slug" element={<Navigate to="/en/xxl" replace />} />
+          {/* Unknown /:lang/xxl/:slug: render NotFound rather than
+              bouncing to the /en/xxl hub. Redirect-to-parent was a
+              soft-404 for any invalid or non-EN slug. */}
+          <Route path="/:lang/xxl/:slug" element={<NotFound />} />
 
 
 
@@ -278,7 +281,9 @@ const App = () => (
           <Route path="/en/compare" element={<CompareIndex />} />
           <Route path="/en/compare/:slug" element={<ComparePage />} />
           <Route path="/:lang/compare" element={<Navigate to="/en/compare" replace />} />
-          <Route path="/:lang/compare/:slug" element={<Navigate to="/en/compare" replace />} />
+          {/* Unknown /:lang/compare/:slug: render NotFound rather than
+              bouncing to the /en/compare hub. */}
+          <Route path="/:lang/compare/:slug" element={<NotFound />} />
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
