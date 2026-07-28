@@ -10,9 +10,26 @@ import { useAuth } from "@/lib/auth-context";
 const Navbar = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+  const location = useLocation();
+  const currentKey = keyForPath(location.pathname);
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { session } = useAuth();
+
+  // Build a target URL per locale for the language switcher.
+  // If the current page has a real translation in that locale, link to it.
+  // Otherwise link to that locale's homepage (labelled as "site in <lang>"),
+  // never a URL that would redirect.
+  const switcherHref = (targetLang: Lang): string => {
+    if (currentKey && hasLocalized(currentKey, targetLang)) {
+      return (ROUTES[currentKey] as Partial<Record<Lang, string>>)[targetLang]!;
+    }
+    return ROUTES.home[targetLang];
+  };
+  const switcherTitle = (targetLang: Lang): string =>
+    currentKey && hasLocalized(currentKey, targetLang)
+      ? `${langNames[targetLang]}`
+      : `Woolet — site in ${langNames[targetLang]}`;
 
   return (
     <>
