@@ -53,9 +53,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Office-ready eyewear for 155 mm+ faces. What to look for in wide frames that fit AND command respect — materials, silhouettes, and picks that survive Zoom.",
   },
   "best-glasses-for-big-heads-2026": {
-    metaTitle: "Best Glasses for Big Heads in 2026 — Real Widths",
+    metaTitle: "Glasses for Big Heads 2026 — Every 150 mm+ Brand",
     metaDescription:
-      "The widest frames you can actually buy in 2026. Compared by front width, keyhole bridge, and material — with a 158 mm option that fits big heads properly.",
+      "Big head glasses frames compared: every brand selling a 150 mm+ front width, by measurement, material and price — plus the 158 mm option built for the size.",
   },
   "best-glasses-for-oval-face": {
     metaTitle: "Best Glasses for an Oval (and Wide) Face — 2026",
@@ -68,9 +68,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "What independent studies say about blue-light lenses, when they help, when they don't, and why frame width matters more than the coating on a 155 mm+ face.",
   },
   "best-oversized-sunglasses-big-heads-2026": {
-    metaTitle: "Best Oversized Sunglasses for Big Heads (2026)",
+    metaTitle: "Sunglasses for Big Heads — 2026 Guide (155 mm+)",
     metaDescription:
-      "Real 155 mm+ oversized sunglasses, ranked by fit and material. Polarized, Cat 3 UV400, and which brands actually widen the front — not just the lens.",
+      "Big head sunglasses that fit: 155 mm+ fronts ranked by fit and material, XXL aviator-style options, polarized Cat 3 UV400, and which brands widen the front.",
   },
   "what-size-sunglasses-for-wide-faces": {
     metaTitle: "What Size Sunglasses for a Wide Face? Quick Guide",
@@ -134,11 +134,6 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "Turn 'large head' into a real frame size — bracket by bracket, with the front-width, bridge and temple numbers to look for from 140 mm up to 172 mm.",
   },
-  "glasses-bigger-than-150mm-where-to-find-them": {
-    metaTitle: "Glasses Bigger Than 150 mm: Where to Buy in 2026",
-    metaDescription:
-      "A real listicle of brands stocking 150 mm+ front-width frames — with measurements, materials, price ranges and prescription availability. No filler.",
-  },
   "how-wide-should-glasses-be": {
     metaTitle: "How Wide Should Glasses Be on Your Face? (Rule)",
     metaDescription:
@@ -154,20 +149,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "Most 'women's frames' cap at 138 mm. If your face is 150 mm+, here's what to look for, what to skip, and why width — not shape — is the deciding number.",
   },
-  "best-glasses-for-wide-faces-for-women": {
-    metaTitle: "Best Glasses for Wide Faces for Women (2026 Picks)",
-    metaDescription:
-      "Which frames actually fit a wide female face in 2026? An honest pick list — 158 mm fronts, 21 mm keyhole bridges, Italian acetate — with real styling notes.",
-  },
   "extra-wide-glasses-158mm": {
-    metaTitle: "Extra Wide Glasses: The 158 mm Truth for Wide Faces",
+    metaTitle: "Extra Wide Glasses for Big Heads & Men (158 mm)",
     metaDescription:
-      "Every 'large' frame still pinches? Here are the glasses actually built at 158 mm — measured, compared, honest. Find your fit in 60 seconds.",
-  },
-  "xxl-aviator-sunglasses-for-big-heads": {
-    metaTitle: "XXL Aviator Sunglasses for Big Heads (2026 Guide)",
-    metaDescription:
-      "Most 'XXL aviators' are still 140 mm across. If your face is 155 mm+, here's what to look for — front width, bridge, temple length — and why acetate beats metal.",
+      "Extra wide glasses for big heads and for men, measured. Which frames are genuinely built at a 158 mm front width, which only look large, and how to size up.",
   },
 
   // ── EN: hats (face-measurement crossover) ────────────────────────────

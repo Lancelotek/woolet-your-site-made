@@ -1164,7 +1164,7 @@ const blogPostsEN = [
 
 <p>For someone wearing glasses 10–12 hours a day, this isn't a luxury distinction. It's an engineering requirement.</p>
 
-<p>Woolet frames are made from <a href="https://www.mazzucchelli1849.it/" target="_blank" rel="noopener"><strong>Mazzucchelli 1849</strong></a> cellulose acetate — sourced from a sixth-generation Italian family business founded in Castiglione Olona in 1849. Mazzucchelli is the world's leading manufacturer of cellulose acetate for eyewear and supplies material to brands including Ray-Ban, Oliver Peoples, and DITA. Unlike the TR90 plastic used by most wide-face specialty brands, Mazzucchelli acetate is derived from cotton and wood pulp — not petroleum — and undergoes a weeks-long layering and curing process to achieve color depth and structural integrity. At 158 mm frame width, material rigidity is not a detail: acetate holds its shape at wider dimensions where TR90 loses tension at the temples over time.</p>
+<p>Woolet frames are made from <a href="https://www.mazzucchelli1849.it/" target="_blank" rel="noopener"><strong>Mazzucchelli 1849</strong></a> cellulose acetate — sourced from a sixth-generation Italian family business founded near Milan in 1849. Mazzucchelli is the world's leading manufacturer of cellulose acetate for eyewear and supplies material to brands including Ray-Ban, Oliver Peoples, and DITA. Unlike the TR90 plastic used by most wide-face specialty brands, Mazzucchelli acetate is derived from cotton and wood pulp — not petroleum — and undergoes a weeks-long layering and curing process to achieve color depth and structural integrity. At 158 mm frame width, material rigidity is not a detail: acetate holds its shape at wider dimensions where TR90 loses tension at the temples over time.</p>
 
 <h2>Where to Buy Glasses for Wide Faces Online</h2>
 
@@ -1339,7 +1339,7 @@ const blogPostsEN = [
   </ul>
 </div>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2025-03-09","dateModified":"2025-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Castiglione Olona, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}<\/script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2025-03-09","dateModified":"2025-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Milan, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}<\/script>
 `
   },
   {
@@ -1876,7 +1876,7 @@ const blogPostsEN = [
 
 <p>For most of eyewear's history, the people who needed wider frames had one option: compromise.</p>
 
-<p>The specialist wide-face brands that exist — Fatheadz, Faded Days, SizeGlasses, BXL Eyewear — all entered the market solving one problem: physical fit. They built frames wide enough. But the economics of serving a smaller market segment with specialized manufacturing pushed them firmly into the budget tier. The materials are injection-molded plastic or TR90 nylon. The designs are functional, not refined.</p>
+<p>The specialist wide-face brands that exist entered the market solving one problem: physical fit. They built frames wide enough. But the economics of serving a smaller segment with specialised manufacturing pushed them firmly into the budget tier — injection-moulded plastic or TR90 nylon, functional rather than refined. Who sells what, at which width and price, is catalogued in <a href="/en/blog/best-glasses-for-big-heads-2026">best glasses for big heads</a>; this article is about why the gap exists at all.</p>
 
 <p>On the other side, premium heritage brands — MOSCOT, Cubitts, independent European ateliers — invested their craft in producing exceptional frames in premium Italian acetate with sophisticated design sensibilities. Their "wide" options are wider than standard. But their manufacturing was never recalibrated for genuinely wide faces. "Wide" at MOSCOT means something like 142mm. Still not 155mm.</p>
 
@@ -1946,7 +1946,9 @@ const blogPostsEN = [
 
 <p>Woolet was built to close that gap: premium Italian acetate frames, precisely engineered at 158mm, designed for the faces that the rest of the industry forgot to include.</p>
 
-<p><em>Woolet 007 and Woolet 009 — Italian acetate frames at 158mm, built for faces the industry left behind. Join the waitlist at woolet.co.</em></p>
+<p><em>Woolet 007 and Woolet 009 — Mazzucchelli acetate frames at a 158 mm front width, hand made in the EU, built for faces the industry left behind.</em></p>
+
+<p>Looking for what to actually buy rather than why the problem exists? <a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> compares every brand selling a 150 mm+ front width. Don't know your number yet? <a href="/en/fit">Measure my face with FitLens — 20 seconds, no app</a>.</p>
 `
   },
   {
@@ -2211,10 +2213,16 @@ const blogPostsEN = [
   {
     slug: "best-glasses-for-big-heads-2026",
     title: "Best Glasses for Big Heads in 2026: Truly Wide Frames",
-    excerpt: "We compared the widest frames you can actually buy. See the best glasses for big heads in 2026 — real measurements, keyhole bridges, and a 158 mm front.",
+    excerpt: "Big head glasses frames that actually fit. Every brand selling a 150 mm+ front width compared — real measurements, keyhole bridges, and a 158 mm option.",
     date: "2026-02-14",
-    readTime: 11,
+    readTime: 13,
     tags: ["Roundup", "2026", "Premium"],
+    faq: [
+      { q: "What brands make glasses bigger than 150 mm?", a: "Woolet (158 mm stock, 145–162 mm bespoke), Faded Days (155–165 mm), BXL Eyewear (145–165 mm), SizeGlasses (140–165 mm), some Jubleelens models, and traditional bespoke ateliers such as Tom Davies — all as listed by each brand. Mainstream brands generally cap at 145–148 mm." },
+      { q: "Why are most glasses smaller than 150 mm?", a: "Industrial moulds were standardised around an average face width of 138–142 mm. Adding wider moulds is a capital cost mainstream brands will not carry for a segment they treat as niche." },
+      { q: "Are 150 mm+ glasses prescription-compatible?", a: "Yes. Specialist wide-face brands ship frames lens-less so your optician can fit prescription lenses. No prescription range is specific to wide frames — anything your lens lab can produce fits a 158 mm frame." },
+      { q: "What glasses actually fit big heads?", a: "Frames with a total front width of 155 mm or above. For prescription eyewear that means Woolet at 158 mm, BXL Eyewear and SizeGlasses up to 165 mm as listed by the brands. For sunglasses only, Faded Days reaches 165 mm." }
+    ],
     content: `
 <p>Finding glasses for a wider face has never been easy. Finding ones that genuinely fit, look sophisticated, and won't warp or discolor by the end of the year? That's been even harder.</p>
 
@@ -2246,7 +2254,7 @@ const blogPostsEN = [
 <h2>Best Glasses for Big Heads in 2026: By Category</h2>
 
 <h3>🥇 Best Overall Premium: Woolet (woolet.co)</h3>
-<p><strong>Width: 158mm | Price: $250–$400 | Material: Italian Mazzucchelli acetate | Prescription: Yes</strong></p>
+<p><strong>Width: 158mm | Price: $114 pre-order, $190 at launch | Material: Mazzucchelli acetate from Milan | Prescription: Yes</strong></p>
 
 <p>Woolet is the answer to a question the premium eyewear market ignored for too long: why doesn't a sophisticated Italian acetate brand engineer frames specifically for 155mm+ faces?</p>
 
@@ -2317,6 +2325,65 @@ const blogPostsEN = [
 <p>But their "Extra-Wide" frames top out at approximately 148mm. For a 155mm+ face, this isn't enough — and Warby Parker's own site acknowledges this by noting frames "may not accommodate all face widths."</p>
 
 <p><strong>Verdict:</strong> Strong brand, genuinely limited at 155mm+ face widths. Good starting point for faces in the 145–150mm range.</p>
+
+<h2>Every brand selling 150 mm+, compared</h2>
+
+<p>The honest list of brands actually shipping a 150 mm+ front width in 2026 is short. Here it is with the real numbers and trade-offs.</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:13px;">
+  <thead>
+    <tr style="border-bottom:2px solid #0f0f0f;text-align:left;">
+      <th style="padding:8px 10px;">Brand</th>
+      <th style="padding:8px 10px;">Front (mm)</th>
+      <th style="padding:8px 10px;">Material</th>
+      <th style="padding:8px 10px;">Rx</th>
+      <th style="padding:8px 10px;">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (stock)</td><td style="padding:8px 10px;">158</td><td style="padding:8px 10px;">Mazzucchelli acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$114–$190</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (bespoke)</td><td style="padding:8px 10px;">145–162</td><td style="padding:8px 10px;">Mazzucchelli acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$299–$480</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Faded Days</td><td style="padding:8px 10px;">155–165 (as listed by the brand)</td><td style="padding:8px 10px;">TR-90</td><td style="padding:8px 10px;">No</td><td style="padding:8px 10px;">$50–$155</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">BXL Eyewear</td><td style="padding:8px 10px;">145–165 (as listed by the brand)</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$79–$125</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">SizeGlasses</td><td style="padding:8px 10px;">140–165 (as listed by the brand)</td><td style="padding:8px 10px;">TR-90 blend</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$59–$99</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Jubleelens</td><td style="padding:8px 10px;">138–155 (as listed by the brand)</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$30–$120</td></tr>
+    <tr><td style="padding:8px 10px;">Tom Davies bespoke</td><td style="padding:8px 10px;">Custom</td><td style="padding:8px 10px;">Acetate, horn, Ti</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$1,200–$3,200</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Faded Days (155–165 mm, as listed by the brand).</strong> The original wide-face sunglass specialist. Honest fit across the range and the right price for a casual pair. Trade-offs: TR-90 plastic rather than acetate, and sunglasses only — no prescription.</p>
+
+<p><strong>BXL Eyewear (145–165 mm, as listed by the brand).</strong> The broadest range of shapes and materials in the specialist budget tier, with prescription available. Material quality is mixed: TR-90 at the low end, titanium and acetate higher up.</p>
+
+<p><strong>SizeGlasses (140–165 mm, as listed by the brand).</strong> Functional, not fashionable. Best price if you need wide-fit prescription glasses and don't mind a recognisably budget plastic frame.</p>
+
+<p><strong>Jubleelens (138–155 mm, as listed by the brand).</strong> An Amazon-first brand with a small subset of frames in the 150–155 mm range. Filter carefully; the published measurements are inconsistent.</p>
+
+<p><strong>Tom Davies bespoke (custom width).</strong> The most established bespoke atelier in London: in-person consultations, CAD design, hand-finished frame. The price reflects the in-person service and bench labour.</p>
+
+<p><strong>Mainstream "wide" lines — the caveat.</strong> Ray-Ban Wide Fit, Warby Parker Wide, Oakley XL, Persol Large mostly cap at 145–148 mm of front width, as listed by each brand. Below 150 mm of face width they work. At 150 mm or more they do not, regardless of how large the lens looks.</p>
+
+<h3>How to decide which one to buy</h3>
+
+<ul>
+<li><strong>Premium daily-wear prescription frame at 155–161 mm:</strong> Woolet stock — 158 mm front, Mazzucchelli acetate from Milan, hand made in the EU, lens-less shipping to your optician.</li>
+<li><strong>A width outside 155–161 mm:</strong> Woolet bespoke, any width from 145 to 162 mm, 4 shapes and 60 colour and size combinations.</li>
+<li><strong>Casual sunglasses under $155:</strong> Faded Days.</li>
+<li><strong>Prescription at the lowest price:</strong> SizeGlasses or BXL TR-90, accepting the material trade-off.</li>
+<li><strong>Traditional bespoke with an in-person fitter:</strong> Tom Davies.</li>
+</ul>
+
+<h3>What to ask any brand before you buy</h3>
+
+<ul>
+<li>What is the hinge-to-hinge front width in millimetres (not lens width)?</li>
+<li>What is the bridge width and the temple length?</li>
+<li>What material is the frame — cellulose acetate, TR-90, injection plastic?</li>
+<li>Does it accept prescription lenses, and does it ship lens-less to my optician?</li>
+<li>What is the return policy if the fit is wrong?</li>
+</ul>
 
 <h2>What Nobody Tells You About Buying Wide-Face Glasses Online</h2>
 
@@ -2488,8 +2555,8 @@ const blogPostsEN = [
   },
   {
     slug: "best-oversized-sunglasses-big-heads-2026",
-    title: "The Best Oversized Sunglasses for Big Heads (2026 Buyer's Guide)",
-    excerpt: "Real 155 mm+ oversized sunglasses, ranked by fit and material. Polarized options, Cat 3 UV400, and which brands actually scale the front — not just the lens.",
+    title: "Sunglasses for Big Heads: The 2026 Buyer's Guide (155 mm+)",
+    excerpt: "Big head sunglasses that actually fit: 155 mm+ fronts ranked by fit and material, XXL aviator-style options, polarized Cat 3 UV400, and which brands widen the front — not just the lens.",
     date: "2026-06-02",
     readTime: 11,
     tags: ["Roundup", "Sunglasses", "Big Heads", "2026"],
@@ -2531,6 +2598,26 @@ const blogPostsEN = [
 <h3>What about mainstream "oversized"?</h3>
 <p>Ray-Ban "Oversized", Warby Parker "Wide Fit", Quay "Oversized", Oakley XL — almost all of these cap at 140–148 mm of front width. For a face below 155 mm, they work. For a 155 mm+ face, they do not, regardless of how big the lens looks in the photo.</p>
 
+<h2>XXL aviator-style frames</h2>
+
+<p>Search "XXL aviator sunglasses" and most listings use "XXL" for a larger lens on a standard-width front: a 62 mm lens on a 140 mm front. On a 155 mm face or a 58 cm head, that frame pinches within an hour. A 62 mm lens on a 142 mm front pinches exactly as hard as a 58 mm lens on the same front — the hinge-to-hinge distance is identical.</p>
+
+<p>The aviator is a specific silhouette: teardrop lenses, thin metal wire, straight temples. Ray-Ban built it in 1937 at 58–62 mm lens width on a roughly 140 mm front, and almost every "XXL aviator" since is a variation on that geometry — rarely above 148 mm hinge-to-hinge.</p>
+
+<p><strong>Why metal aviators struggle above 155 mm.</strong> Metal aviators are cold-formed wire, usually monel, sometimes titanium. At 140–148 mm the wire is stiff enough to hold its shape. At 155–165 mm the same gauge flexes at the temples, and after 3–6 months of heat cycles — car dashboards, back pockets, sweat — the frame loses its set and slides down the nose. A thicker wire only makes the frame heavy and front-loaded. Cellulose acetate, block-cut from Mazzucchelli sheet, holds its geometry at wider spans because temple stiffness scales with cross-section rather than tensile strength.</p>
+
+<p><strong>What to check on any XXL aviator-style frame:</strong></p>
+
+<ol>
+  <li><strong>A published front width of 155 mm or more.</strong> Not "oversized", not "XXL" — a millimetre number.</li>
+  <li><strong>A bridge of 20 mm or more</strong>, ideally keyhole. A 17 mm saddle bridge on a 158 mm front pulls the lenses inward, off-centre from your pupils.</li>
+  <li><strong>Temples long enough to clear a wider skull</strong> before they turn down behind the ear.</li>
+  <li><strong>Acetate over thin metal or injection-moulded plastic.</strong> Acetate holds set at wider spans; metal fatigues at the temples.</li>
+  <li><strong>UV400 as a baseline, polarized as an option.</strong></li>
+</ol>
+
+<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 20 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 162 mm.</p>
+
 <h2>Polarized or not?</h2>
 
 <p>For sunglasses, the answer is usually yes. Polarized lenses block horizontal light reflections — water, wet roads, car hoods — and dramatically reduce glare during driving and outdoor sport. The only downsides are slightly reduced screen visibility (LCDs can show rainbow patterns) and a higher price.</p>
@@ -2541,6 +2628,9 @@ const blogPostsEN = [
 
 <h3>What size sunglasses do I need for a big head?</h3>
 <p>Measure across the temples. If your face is 155 mm or more, you need a sunglass frame with a front width of 155 mm or more, a 20–22 mm bridge, and 148+ mm temples. Anything narrower will pinch within an hour.</p>
+
+<h3>What size aviator sunglasses do I need for a big head?</h3>
+<p>For a head circumference of 58 cm or a face width of 155 mm and above, look for a front width of at least 155 mm hinge-to-hinge and a bridge of 20 mm or wider. Most frames sold as "XXL aviators" are 140–148 mm across the front and still pinch at this size.</p>
 
 <h3>Are oversized sunglasses for big heads polarized?</h3>
 <p>It depends on the brand. Woolet's polarized lens is a $60 upgrade across both 007 and 009; Faded Days offers polarized as a standard option on most models; BXL and SizeGlasses offer polarized as an upgrade on selected SKUs.</p>
@@ -2762,7 +2852,7 @@ const blogPostsEN = [
 
 <h2>Why Italian Mazzucchelli acetate matters for bespoke</h2>
 
-<p>Bespoke only works on a material that can be hand-shaped after the initial cut. Mazzucchelli acetate (from Castiglione Olona, northern Italy) is denser than TR90 thermoplastic and can be heat-adjusted by any optician for ongoing fit corrections — even years after delivery. CNC-finished TR90 frames cannot be reshaped the same way.</p>
+<p>Bespoke only works on a material that can be hand-shaped after the initial cut. Mazzucchelli acetate (from Milan, northern Italy) is denser than TR90 thermoplastic and can be heat-adjusted by any optician for ongoing fit corrections — even years after delivery. CNC-finished TR90 frames cannot be reshaped the same way.</p>
 
 <p>That adjustability is the difference between a frame that fits for a week and one that fits for a decade. For deeper background, see <a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate</a>.</p>
 
@@ -3097,14 +3187,14 @@ const blogPostsEN = [
   {
     slug: "handmade-italian-acetate-eyewear-process",
     title: "How Handmade Acetate Eyewear Is Actually Made",
-    excerpt: "Inside the Cadore atelier process — from a Mazzucchelli acetate block to a finished frame. The steps, the tools, and what 'handmade' should actually mean in 2026.",
+    excerpt: "From a Mazzucchelli acetate block in Milan to a finished frame, hand made in EU — the steps, the tools, and what 'handmade' should actually mean in 2026.",
     date: "2026-06-18",
     readTime: 10,
     tags: ["Handmade", "Italian Acetate", "Craftsmanship"],
     faq: [
       { q: "How is handmade in the EU from Italian acetate eyewear made?", a: "A block of Mazzucchelli acetate is milled on a 5-axis CNC to the frame shape, then tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling — by a bench technician. Total labour per frame is 8–16 hours." },
       { q: "What does 'handmade' mean for glasses in 2026?", a: "Honest 'handmade' means the cutting may be CNC (it almost always is — hand-cutting acetate is no longer commercial) but every finishing step is done by a person at a bench. The polishing, hinging, bending and final QC cannot be automated to the standard a premium frame requires." },
-      { q: "What is Italian acetate?", a: "Italian acetate is cellulose acetate sheet manufactured by Italian houses — primarily Mazzucchelli (in Castiglione Olona since 1849). It is denser and holds colour more deeply than injection-moulded plastic, and it is heat-malleable for optician fitting." },
+      { q: "What is Italian acetate?", a: "Italian acetate is cellulose acetate sheet manufactured by Italian houses — primarily Mazzucchelli (near Milan since 1849). It is denser and holds colour more deeply than injection-moulded plastic, and it is heat-malleable for optician fitting." },
       { q: "Why is it called 'made in Cadore'?", a: "Cadore is a valley in the Italian Dolomites where the modern eyewear industry was founded in the late 19th century. Most of the world's premium acetate frames — Luxottica, Marcolin, Safilo, plus dozens of independent ateliers — are still made there." }
     ],
     content: `
@@ -3114,7 +3204,7 @@ const blogPostsEN = [
 
 <p>The world's premium acetate eyewear industry is concentrated in two places: <strong>Cadore</strong>, a valley in the Italian Dolomites, and <strong>Sabae</strong>, a city on Japan's west coast. Both regions specialise because the skilled bench technicians who hand-finish frames live there — the talent is geographic, the way Swiss watchmaking is geographic.</p>
 
-<p>Most of Woolet's stock production runs in Cadore. The acetate itself comes from <strong>Mazzucchelli 1849</strong> in Castiglione Olona — the oldest acetate manufacturer in the world, supplying everyone from Persol to Cutler &amp; Gross.</p>
+<p>Woolet's stock production runs in our EU atelier, using the same bench process described above. The acetate itself comes from <strong>Mazzucchelli 1849</strong> near Milan — the oldest acetate manufacturer in the world, supplying everyone from Persol to Cutler &amp; Gross.</p>
 
 <h2>Step 1 — The acetate block</h2>
 
@@ -3161,7 +3251,7 @@ const blogPostsEN = [
 
 <h2>Where Woolet's frames come from</h2>
 
-<p>Woolet 007 and 009 are cut from Mazzucchelli M49 Italian acetate and finished by hand in a Cadore atelier — the same process described above, applied to a frame engineered front-out for 155 mm+ faces. The bespoke tier uses the same atelier, the same acetate, with a CAD file generated from your AI face scan instead of a stock shape file.</p>
+<p>Woolet 007 and 009 are cut from Mazzucchelli M49 Italian acetate and finished by hand in our EU atelier — the same process described above, applied to a frame engineered front-out for 155 mm+ faces. The bespoke tier uses the same atelier, the same acetate, with a CAD file generated from your AI face scan instead of a stock shape file.</p>
 
 <p>Next step: <a href="/en/products/009">view 009</a> · <a href="/en/about">about our atelier partner</a> · <a href="/en/fit">measure your face</a>.</p>
 
@@ -3265,7 +3355,7 @@ const blogPostsEN = [
 
 <h2>Where Woolet sits</h2>
 
-<p>Woolet 007 and 009 are CNC-cut and hand-finished in a Cadore atelier from Mazzucchelli M49 Italian acetate, with German-made OBE 5-barrel hinges. The bespoke tier uses the same atelier and same materials with a CAD file generated from your AI face scan. Full atelier details are on the <a href="/en/about">about page</a>.</p>
+<p>Woolet 007 and 009 are CNC-cut and hand-finished in our EU atelier from Mazzucchelli M49 acetate from Milan, with German-made OBE 5-barrel hinges. The bespoke tier uses the same atelier and same materials with a CAD file generated from your AI face scan. Full atelier details are on the <a href="/en/about">about page</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -3463,118 +3553,9 @@ const blogPostsEN = [
 <li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — curated wide-fit picks.</li>
 <li><a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> — diagnose it before reordering.</li>
-<li><a href="/en/blog/glasses-bigger-than-150mm-where-to-find-them">Where to find glasses bigger than 150 mm</a> — brands that actually ship the size.</li>
+<li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — every brand selling a 150 mm+ front width, compared.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — your real face width in 90 seconds.</li>
 <li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — built for 150–172 mm faces.</li>
-</ul>
-`
-  },
-  {
-    slug: "glasses-bigger-than-150mm-where-to-find-them",
-    title: "Glasses Bigger Than 150 mm: Where to Actually Find Them in 2026",
-    excerpt: "A real listicle of brands selling glasses with a 150 mm+ front width — front-width numbers, materials, price ranges, prescription availability.",
-    date: "2026-06-20",
-    readTime: 8,
-    tags: ["Roundup", "Oversized", "Wide Face", "2026"],
-    faq: [
-      { q: "What brands make glasses bigger than 150 mm?", a: "Woolet (158 mm stock, 150–172 mm bespoke), Faded Days (155–165 mm), BXL Eyewear (145–165 mm), SizeGlasses (140–165 mm), Jubleelens (some 150 mm+ models), and traditional bespoke ateliers like Tom Davies. Mainstream brands generally cap at 145–148 mm." },
-      { q: "Why are most glasses smaller than 150 mm?", a: "Industrial moulds were standardised in the 1960s around the average face width (138–142 mm). Adding wider moulds is a capital cost mainstream brands won't take on for what they treat as a niche segment, even though roughly 1 in 4 adult men have a face wider than 150 mm." },
-      { q: "Are 150 mm glasses prescription-compatible?", a: "Yes. Specialist wide-face brands ship frames lens-less so your local optician can fit prescription lenses. There is no prescription range limit specific to wide frames — any prescription your lens lab can produce fits a 158 mm frame." },
-      { q: "What's the largest frame width currently sold?", a: "In stock production, around 165 mm (Faded Days, BXL upper end). In digital bespoke, 172 mm (Woolet). In traditional atelier bespoke, there is effectively no cap — Maison Bonnet has made frames above 180 mm for individual commissions." }
-    ],
-    content: `
-<p>If you measured your face and the answer is 150 mm or more, you've probably noticed the brands that "do oversized" mostly don't. The honest list of brands actually selling 150 mm+ front-width frames in 2026 is short — and it's compiled here, with the real numbers and trade-offs for each.</p>
-
-<h2>The shortlist</h2>
-
-<h3>Woolet — 158 mm stock + 150–172 mm bespoke</h3>
-<p><strong>Front: 158 mm (stock) · 150–172 mm (bespoke) · Bridge: 21 mm · Temples: 150 mm · Material: Italian Mazzucchelli acetate · Prescription: yes (lens-less shipping to your optician) · Price: $114 pre-order / $190 launch (stock); $299 (bespoke)</strong></p>
-
-<p>Woolet's 007 (round) and 009 (soft square) are designed front-out for 155 mm+ faces, not retrofitted from a standard frame. The atelier in Cadore, Italy uses Mazzucchelli M49 acetate and German OBE hinges. Bespoke runs the same atelier with a CAD file generated from the AI face scan. Strongest pick for premium Italian acetate at this size.</p>
-
-<h3>Faded Days — 155–165 mm</h3>
-<p><strong>Front: 155–165 mm · Material: TR-90 plastic · Prescription: no (sunglasses only) · Price: $50–$155</strong></p>
-
-<p>The original wide-face sunglass specialist, founded by a wide-faced person who got tired of the problem. Faded Days does the fit honestly across the 155–165 mm range and the price is right for a casual lifestyle pair. Trade-offs: TR-90 plastic rather than acetate (lower long-term shape retention), and sunglasses only — no prescription. Strong second pair for weekends and beach.</p>
-
-<h3>BXL Eyewear — 145–165 mm</h3>
-<p><strong>Front: 145–165 mm · Material: TR-90, titanium, some acetate · Prescription: yes · Price: $79–$125</strong></p>
-
-<p>The broadest range of shapes and materials in the specialist budget tier. Sizing claims are honest, prescription is available. Material quality is mixed — the TR-90 frames hit the lower price points; the titanium and acetate options are higher. Worth checking if you want multiple pairs at different price points and are willing to compromise on premium feel.</p>
-
-<h3>SizeGlasses — 140–165 mm</h3>
-<p><strong>Front: 140–165 mm · Material: TR-90, acetate-poly blends · Prescription: yes (often included) · Price: $59–$99 with lenses</strong></p>
-
-<p>Functional, not fashionable. Best price point if you need wide-fit prescription glasses and don't care that the frame is recognisably budget plastic. Fit is genuine; longevity is limited (expect to replace within 18–24 months).</p>
-
-<h3>Jubleelens — some 150 mm+ models</h3>
-<p><strong>Front: 138–155 mm (varies by SKU) · Material: acetate, metal · Prescription: yes · Price: $30–$120</strong></p>
-
-<p>An Amazon-first brand with a small subset of frames in the 150–155 mm range. Inconsistent — you have to filter carefully and the measurements aren't always reliable. Cheap, fast, no atelier story. Acceptable as a try-before-you-commit if you're still figuring out your size.</p>
-
-<h3>Tom Davies bespoke — unlimited (atelier)</h3>
-<p><strong>Front: custom (any width) · Material: acetate, horn, titanium · Prescription: yes · Price: £950–£2,500 (~$1,200–$3,200)</strong></p>
-
-<p>The most established bespoke atelier in London. Includes two in-person consultations at a TD studio (London, Hong Kong, LA, others), CAD design, and a hand-finished frame. The price reflects the in-person service and bench labour. Right pick if you want the traditional bespoke experience and live near a TD studio, or you want a material outside Woolet's range (buffalo horn, titanium inlays).</p>
-
-<h3>Mainstream "wide" lines — caveat</h3>
-<p>Ray-Ban "Wide Fit", Warby Parker "Wide", Oakley XL, Persol "Large" — these mostly cap at 145–148 mm of front width. For a face below 150 mm, they work. For 150 mm or more, they do not, regardless of how the lens looks. Don't waste a return cycle.</p>
-
-<h2>Side-by-side at a glance</h2>
-
-<table style="width:100%;border-collapse:collapse;margin:24px 0;font-family:'Barlow',sans-serif;font-size:13px;">
-  <thead>
-    <tr style="border-bottom:2px solid #0f0f0f;text-align:left;">
-      <th style="padding:8px 10px;">Brand</th>
-      <th style="padding:8px 10px;">Front (mm)</th>
-      <th style="padding:8px 10px;">Material</th>
-      <th style="padding:8px 10px;">Rx</th>
-      <th style="padding:8px 10px;">Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (stock)</td><td style="padding:8px 10px;">158</td><td style="padding:8px 10px;">Italian acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$114–$190</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (bespoke)</td><td style="padding:8px 10px;">150–172</td><td style="padding:8px 10px;">Italian acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$299</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Faded Days</td><td style="padding:8px 10px;">155–165</td><td style="padding:8px 10px;">TR-90</td><td style="padding:8px 10px;">No</td><td style="padding:8px 10px;">$50–$155</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">BXL</td><td style="padding:8px 10px;">145–165</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$79–$125</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">SizeGlasses</td><td style="padding:8px 10px;">140–165</td><td style="padding:8px 10px;">TR-90 blend</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$59–$99</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Jubleelens</td><td style="padding:8px 10px;">138–155</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$30–$120</td></tr>
-    <tr><td style="padding:8px 10px;">Tom Davies bespoke</td><td style="padding:8px 10px;">Any</td><td style="padding:8px 10px;">Acetate, horn, Ti</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$1,200–$3,200</td></tr>
-  </tbody>
-</table>
-
-<h2>How to decide which one to buy</h2>
-
-<ul>
-<li><strong>Premium daily-wear prescription frame at 155–161 mm:</strong> Woolet stock at $190 is the obvious pick — premium Italian acetate, lens-less shipping for your optician, designed for this exact bracket.</li>
-<li><strong>Premium frame outside 155–161 mm:</strong> Woolet bespoke at $299 covers the rest of the range with the same atelier and materials.</li>
-<li><strong>Sunglasses for casual use, $50–$155:</strong> Faded Days. Honest fit, casual aesthetic, fast.</li>
-<li><strong>Prescription at the lowest possible price:</strong> SizeGlasses or BXL TR-90. Accept the material and longevity trade-off.</li>
-<li><strong>Traditional bespoke with in-person fitter:</strong> Tom Davies. Plan on $1,200+ and several appointments.</li>
-</ul>
-
-<h2>What to ask any of these brands before you buy</h2>
-
-<ul>
-<li>What is the hinge-to-hinge front width in millimetres (not lens width)?</li>
-<li>What is the bridge and temple length?</li>
-<li>What material is the frame (Italian acetate, TR-90, injection plastic, etc.)?</li>
-<li>Does the frame accept prescription lenses, and does it ship lens-less to my optician?</li>
-<li>What is the return policy if the fit is wrong?</li>
-</ul>
-
-<h2>Next step</h2>
-
-<p>If you don't know your face width yet, the <a href="/en/fit">AI Fit Scan</a> gives it to you in 90 seconds. If you already know you're 155 mm+, <a href="/en/products/009">Woolet 009</a> at 158 mm or <a href="/en/bespoke">bespoke at $299</a> are the direct paths.</p>
-
-<h2>Related articles</h2>
-<ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (150–172 mm)</a> — the full pillar reference.</li>
-<li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — curated wide-fit picks.</li>
-<li><a href="/en/blog/best-oversized-sunglasses-big-heads-2026">Best oversized sunglasses for big heads</a> — the sunglasses counterpart.</li>
-<li><a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head?</a> — the size grid behind the picks.</li>
-<li><a href="/en/fit">AI Fit Scan</a> — confirm whether you're stock or bespoke.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — when "bigger than 150 mm" still isn't enough.</li>
 </ul>
 `
   },
@@ -3619,9 +3600,8 @@ const blogPostsEN = [
 <p>Your frames should be as wide as your face. The frame front — hinge to hinge — matches your face width at the temples, and the arms run straight back to your ears without bowing out or pressing in. When the arms flare outward to clear your head, the frame is too narrow. When the frame front juts past the edges of your face, it's too wide.</p>
 <p>For a wide face — 155 mm or more across the temples — that means a frame front around 155 mm and up. Standard retail tops out near 135–145 mm, which is why every shelf frame fights you.</p>
 
-<h2>How to measure your face width</h2>
-<p><strong>The ruler method.</strong> Stand in front of a mirror. Hold a ruler flat across the widest part of your face — temple to temple, just above your cheekbones. Read the millimeters. When it lands at 155 mm or above, you're in wide-face territory and standard frames will pinch.</p>
-<p><strong>The 30-second method.</strong> Skip the ruler. The Woolet Fit Wizard uses a credit card for scale and your phone camera to read your exact face width — then confirms whether the 158 mm Woolet front fits you, or whether you fall into the bespoke range (150–172 mm).</p>
+<h2>Getting your number</h2>
+<p>Hold a ruler flat across the widest part of your face, temple to temple, and read the millimetres — 155 mm or above is wide-face territory. For the calibrated method, the photo walkthrough and the bracket chart, read <a href="/en/blog/how-to-measure-face-width-for-glasses">how to measure your face width</a>.</p>
 
 <p style="margin:32px 0;"><a href="/en/fit" style="display:inline-block;background:#c9a84c;color:#0f0f0f;padding:16px 28px;border-radius:4px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.82rem;text-decoration:none;">Measure with the Fit Wizard →</a></p>
 
@@ -3741,7 +3721,7 @@ const blogPostsEN = [
   <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
 </ul>
 
-<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same geometry — pick on shape, not on size.</p>
+<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same EU atelier, same hand-finishing, same geometry — pick on shape, not on size.</p>
 
 <h2>If you're between sizes</h2>
 
@@ -3774,7 +3754,9 @@ const blogPostsEN = [
       { q: "What frame width should I look for as a woman with a wide face?", a: "Match your temple-to-temple measurement, then add 1–2 mm of breathing room. For most wide-face women that's 152–162 mm of total frame width. Woolet's standard is 158 mm; bespoke covers 150–172 mm." },
       { q: "Will a wider frame make my face look bigger?", a: "The opposite. A frame that's too narrow draws a hard horizontal line inside your hairline and emphasises the width sitting outside it. A frame matched to your actual width reads as proportional and intentional." },
       { q: "What styles work best on a wider face?", a: "Soft-square and rounded panto shapes both work. The deciding number is width, not shape. Avoid very small cat-eyes — the lens area gets dwarfed by the face and the frame reads as an accessory rather than eyewear." },
-      { q: "Do Woolet frames come in feminine colourways?", a: "Both 007 (round) and 009 (soft square) ship in Dark Tortoise and Black; 007 also offers Honey. Bespoke opens the full Mazzucchelli colour palette, including translucent and crystal acetates often chosen by women buyers." }
+      { q: "Do Woolet frames come in feminine colourways?", a: "Both 007 (round) and 009 (soft square) ship in Dark Tortoise and Black; 007 also offers Honey. Bespoke opens the full Mazzucchelli colour palette, including translucent and crystal acetates often chosen by women buyers." },
+      { q: "Do wide-face glasses for women come with prescription lenses?", a: "Yes. Both Woolet 007 and 009 ship prescription-ready — single-vision, progressive, and blue-light coatings. The 20–21 mm keyhole bridge is deep enough for the progressive corridor that narrow bridges cannot carry." },
+      { q: "What do premium wide-face glasses for women cost?", a: "Woolet 007 and 009 are $114 during pre-order, against a $190 launch price. Bespoke — for face widths outside the 155–161 mm standard range — is $299 during pre-order and $480 at launch." }
     ],
     content: `
 <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
@@ -3843,6 +3825,43 @@ const blogPostsEN = [
 
 <p>One small editorial note that gets ignored elsewhere. On a wider face, very dark frames in opaque black read heavier than they do on narrower faces — the frame is doing more visual work simply because it's larger. Translucent acetates (honey, champagne, smoke, tortoise) keep the same width without adding visual mass. Most women who order Woolet pick a translucent or tortoise; black is more often picked by men. Both work; the lighter colourways tend to feel more proportional on a wider feminine face.</p>
 
+<h2>The 2026 pick list — frames that actually fit</h2>
+
+<p>Ranked width first, then bridge, then material, then colour. Every pick publishes a hinge-to-hinge number in millimetres; anything that doesn't publish one is not on the list.</p>
+
+<h3>1. Woolet 007 — Round Panto, 158 mm (best overall)</h3>
+
+<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Lens width:</strong> 54 mm · <strong>Lens height:</strong> 42 mm · <strong>Front height:</strong> 52 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Dark Tortoise, Black, Honey · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
+
+<p>Soft round panto, deliberately unfussy. This is the shape women pick most often once width is no longer the deciding constraint. Honey translucent keeps the 158 mm width without adding visual weight. Ships with clear demo lenses; single-vision, progressive, or blue-light added in cart.</p>
+
+<p><a href="/en/products/007" style="color:#A07A2A;">Shop Woolet 007 →</a></p>
+
+<h3>2. Woolet 009 — Soft Square, 158 mm (best for rounder face shapes)</h3>
+
+<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 20 mm keyhole · <strong>Lens width:</strong> 51 mm · <strong>Lens height:</strong> 45 mm · <strong>Front height:</strong> 54 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Dark Tortoise, Black · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
+
+<p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes, where a full-round frame can flatten the vertical. The 45 mm lens height gives more vertical lens area than the 007 — useful if you wear progressives.</p>
+
+<p><a href="/en/products/009" style="color:#A07A2A;">Shop Woolet 009 →</a></p>
+
+<h3>3. Woolet Bespoke — built to measure, 145–162 mm</h3>
+
+<p><strong>Frame width:</strong> any width 145–162 mm · <strong>Shapes:</strong> 4 · <strong>Colour and size combinations:</strong> 60 · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU.</p>
+
+<p>The under-served band. Women between 145 and 154 mm of face width fall outside the standard women's range and below the specialist "wide" range — a gap most catalogues quietly ignore. Bespoke opens the full Mazzucchelli palette, including the translucent and crystal acetates most often requested by women buyers.</p>
+
+<p><a href="/en/bespoke" style="color:#A07A2A;">Explore bespoke (145–162 mm) →</a></p>
+
+<h2>How to rank any frame before you buy it</h2>
+
+<ol>
+  <li><strong>Front width first.</strong> The frame must publish a hinge-to-hinge measurement of 150 mm or more. No exceptions.</li>
+  <li><strong>Bridge width and shape.</strong> 20–22 mm keyhole preferred; saddle acceptable for broader noses.</li>
+  <li><strong>Material.</strong> Cellulose acetate holds tension at wider widths where injection-moulded plastic loosens within a season.</li>
+  <li><strong>Colourway.</strong> Translucent honey, smoke, or tortoise reads lighter than opaque black on a wider face — a styling note the men's-first guides never mention.</li>
+</ol>
+
 <h2>What to skip</h2>
 
 <ul>
@@ -3870,106 +3889,9 @@ const blogPostsEN = [
 `
   },
   {
-    slug: "best-glasses-for-wide-faces-for-women",
-    title: "Best Glasses for Wide Faces for Women (2026 Picks)",
-    excerpt: "Which frames actually fit a wide female face in 2026? An honest pick list — 158 mm fronts, 21 mm keyhole bridges, Italian acetate — with styling notes, not vague shape advice.",
-    date: "2026-07-06",
-    readTime: 9,
-    tags: ["Guide", "Women", "Wide Face", "Best Of", "2026"],
-    faq: [
-      { q: "What is the best glasses size for a woman with a wide face?", a: "A total front width of 152–162 mm hinge-to-hinge, with a 20–22 mm keyhole bridge. Standard women's frames sit at 128–138 mm — too narrow above a 145 mm face width. Woolet's standard is 158 mm; bespoke covers 150–172 mm." },
-      { q: "Which frame shape is most flattering on a wide female face?", a: "Shape matters less than width. Once the front is 152 mm+, both a soft round panto (Woolet 007) and a soft square (Woolet 009) read as intentional. Skip petite cat-eyes and micro-ovals — they get visually swallowed on a wider face regardless of colour." },
-      { q: "Are there feminine wide-face frames or are they all men's styles?", a: "Woolet 007 and 009 are unisex by geometry — the same 158 mm front is picked most often by women in a Dark Tortoise or Honey translucent acetate, and by men in Black. Translucent colourways read as feminine without changing the fit." },
-      { q: "Do wide-face glasses for women come with prescription lenses?", a: "Yes. Both Woolet 007 and 009 ship prescription-ready — single-vision, progressive, and blue-light coatings. The 21–22 mm keyhole bridge is deep enough to fit the progressive corridor most narrow bridges cannot." },
-      { q: "What's the price of premium wide-face glasses for women?", a: "Woolet 007 and 009 are $114 during pre-order (40% off the $190 launch price). Bespoke — for face widths outside the 155–161 mm standard range — is priced separately based on the exact dimensions." }
-    ],
-    content: `
-<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
-  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
-  <div style="flex:1;min-width:0;">
-    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
-    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
-    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Published: July 2026</div>
-  </div>
-</div>
-
-<p>Most "best glasses for women" round-ups treat width as an afterthought — shape first, colour second, size buried in a spec table nobody reads. That order works for the average 134 mm face. It fails the moment your temple-to-temple measurement crosses 145 mm.</p>
-
-<p>This is the opposite list. Width first, then bridge, then shape, then colour. Every pick below is measured in millimetres, not styled in adjectives.</p>
-
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
-  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule</div>
-  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">If a women's frame doesn't publish its total front width (hinge-to-hinge), assume it's under 140 mm and skip it. Lens width printed inside the temple ("52▢18 140") is not the number that decides fit.</p>
-</div>
-
-<h2>How we ranked</h2>
-
-<ol>
-  <li><strong>Front width first.</strong> The frame must publish a hinge-to-hinge measurement of 150 mm or more. No exceptions.</li>
-  <li><strong>Bridge width and shape.</strong> 20–22 mm keyhole preferred; saddle acceptable for broader noses.</li>
-  <li><strong>Material.</strong> Italian cellulose acetate holds tension at wider widths where injection-moulded plastic loosens within a season.</li>
-  <li><strong>Colourway.</strong> Translucent honey, smoke, or tortoise reads lighter than opaque black on a wider face — a small styling note the men's-first guides never mention.</li>
-</ol>
-
-<h2>Top picks — 2026</h2>
-
-<h3>1. Woolet 007 — Round Panto, 158 mm (best overall)</h3>
-
-<p><strong>Front width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Temple:</strong> 148 mm · <strong>Material:</strong> Mazzucchelli Italian acetate · <strong>Colours:</strong> Dark Tortoise, Black, Honey · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
-
-<p>Soft round panto, deliberately unfussy. In our pre-order data this is the shape women pick most often once width is no longer the deciding constraint. Honey translucent is the quiet favourite — it keeps the 158 mm width without adding visual weight. Ships with clear demo lenses; add single-vision, progressive, or blue-light in-cart.</p>
-
-<p><a href="/en/products/007" style="color:#A07A2A;">Shop Woolet 007 →</a></p>
-
-<h3>2. Woolet 009 — Soft Square, 158 mm (best for rounder face shapes)</h3>
-
-<p><strong>Front width:</strong> 158 mm · <strong>Bridge:</strong> 22 mm keyhole · <strong>Temple:</strong> 148 mm · <strong>Material:</strong> Mazzucchelli Italian acetate · <strong>Colours:</strong> Dark Tortoise, Black · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
-
-<p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes where a full-round frame can flatten the vertical. The 22 mm keyhole bridge — a millimetre wider than the 007 — matters for anyone with a broader nasal base.</p>
-
-<p><a href="/en/products/009" style="color:#A07A2A;">Shop Woolet 009 →</a></p>
-
-<h3>3. Woolet Bespoke — 150–172 mm (best for the 150–154 mm gap)</h3>
-
-<p><strong>Front width:</strong> 150–172 mm to spec · <strong>Bridge:</strong> 16–26 mm · <strong>Material:</strong> Mazzucchelli Italian acetate, full palette · <strong>Shapes:</strong> 007 and 009 geometry.</p>
-
-<p>The under-served band. Women between 150 and 154 mm of face width fall outside the standard women's range and below the "wide" specialist range — a gap most catalogues quietly ignore. Bespoke opens the full Mazzucchelli colour palette including translucents and crystal acetates typically requested by women buyers.</p>
-
-<p><a href="/en/bespoke" style="color:#A07A2A;">Explore bespoke (150–172 mm) →</a></p>
-
-<h2>What to skip in 2026</h2>
-
-<ul>
-  <li><strong>"Oversized women's" without a published front width.</strong> Almost always a larger lens on a standard 138 mm front — visually oversized, mechanically the same fit.</li>
-  <li><strong>Metal frames above 152 mm.</strong> Metal can be sized wider, but the hinge geometry does not hold tension on a wider face for long. Acetate is the more durable answer at this width.</li>
-  <li><strong>Petite cat-eyes and micro-ovals.</strong> Flattering on narrower faces, visually swallowed on wider ones. The frame stops reading as eyewear and starts reading as an accessory.</li>
-  <li><strong>Any pick sold purely on face-shape advice.</strong> If the seller does not publish the hinge-to-hinge width, they cannot tell you whether the frame will fit. Shape only matters after width fits.</li>
-</ul>
-
-<h2>Frame colour, on a wider female face</h2>
-
-<p>Opaque black in a 158 mm frame does more visual work than the same colour in a 138 mm frame — the frame itself is larger, so the outline reads heavier. Translucent acetates keep the same width without the added mass: honey, champagne, smoke, tortoise. Most women who order Woolet pick a translucent or tortoise; black is more often chosen by men. Both fit identically; the lighter colourways tend to feel more proportional.</p>
-
-<h2>How to find your number in 60 seconds</h2>
-
-<p>If you don't know your face width yet:</p>
-
-<ul>
-  <li><a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> — phone camera, credit card for calibration, returns front width and bridge in about 20 seconds.</li>
-  <li><a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">Ruler method</a> — measure temple-to-temple in millimetres, then subtract 2–3 mm to find your ideal frame front.</li>
-</ul>
-
-<h2>The short answer</h2>
-
-<p>For most women with a face width above 150 mm in 2026, the best glasses are a soft round panto (Woolet 007) or a soft square (Woolet 009) at 158 mm front width with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate. If your face falls outside 155–161 mm, bespoke (150–172 mm) is the honest answer — every other route ends in a compromise.</p>
-
-<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">Further reading: <a href="/en/blog/wide-face-glasses-for-women" style="color:#A07A2A;">the honest women's fit guide</a> · <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">the complete 2026 wide-face guide</a> · <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a> · <a href="/en/bespoke" style="color:#A07A2A;">bespoke (150–172 mm)</a>.</p>
-`
-  },
-  {
     slug: "extra-wide-glasses-158mm",
-    title: "Extra Wide Glasses for Wide Faces: The 158 mm Truth",
-    excerpt: "Every 'large' frame still pinches? Here are the only glasses actually built at 158 mm — measured, compared, and honest. Find your fit in 60 seconds.",
+    title: "Extra Wide Glasses for Big Heads and Men: The 158 mm Truth",
+    excerpt: "Extra wide glasses for big heads and for men, measured. Which frames are genuinely built at a 158 mm front width, which only look large, and how to find your number.",
     date: "2026-04-14",
     readTime: 9,
     tags: ["Guide", "Wide Face", "158mm", "Comparison"],
@@ -3978,7 +3900,7 @@ const blogPostsEN = [
 
 <p>This is not your face's fault. It is a sizing ceiling. And it is measurable.</p>
 
-<p>We built Woolet because that ceiling exists. This article is the honest map of what sits above it — every frame we could find at a genuine 158&nbsp;mm front width, and how they actually compare.</p>
+<p>We built Woolet because that ceiling exists. This article is the honest map of what sits above it — every frame we could find at a genuine 158&nbsp;mm front width, and how they actually compare. If you want the brand-level roundup instead — who sells what across the whole 150&nbsp;mm+ market, at every price tier — read <a href="/en/blog/best-glasses-for-big-heads-2026" style="color:#A07A2A;">best glasses for big heads</a>. This page stays on one number: 158&nbsp;mm.</p>
 
 <h2>Why 99% of "large" frames still don't fit</h2>
 
@@ -3990,7 +3912,7 @@ const blogPostsEN = [
 
 <h2>How to measure what you actually need</h2>
 
-<p>Before shopping, get one number: your total face width, measured temple to temple at the widest point. A ruler in front of a mirror is enough, or a credit card (85.6&nbsp;mm) held against the cheek as a reference. Aim for ±2&nbsp;mm accuracy.</p>
+<p>Before shopping, get one number: your total face width, measured temple to temple at the widest point. A ruler in front of a mirror is enough, or a credit card (85.6&nbsp;mm) held against the cheek as a reference. The full method is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a>.</p>
 
 <p>If you read <strong>155&nbsp;mm or more</strong>, you are outside the mainstream range and inside Woolet's territory.</p>
 
@@ -4118,82 +4040,6 @@ const blogPostsEN = [
       { q: "Do wide 158 mm frames come in prescription?", a: "Yes. Both Woolet 007 and 009 are available with single-vision and progressive prescription lenses at the 158 mm width, in optical or sun. Loretto also offers a prescription option at this width; Tom Ford Bettina and the sport Holbrook variants are typically sun-only." },
       { q: "Is a 21 mm bridge important on a 158 mm frame?", a: "For most wide faces, yes. A narrow 15–18 mm bridge on a 158 mm front leaves the lenses too far inboard. A 21–22 mm keyhole bridge keeps the optical centres aligned with your pupils and prevents the frame from sitting too low on the nose." }
     ]
-  },
-  {
-    slug: "xxl-aviator-sunglasses-for-big-heads",
-    title: "XXL Aviator Sunglasses for Big Heads: The Honest 2026 Guide",
-    excerpt: "Most 'XXL aviators' are still 140 mm across. If your face is 155 mm+ or your head is 58 cm+, here's what to actually look for — front width, bridge, temple length, and why Italian acetate beats bent metal at this size.",
-    date: "2026-07-03",
-    readTime: 9,
-    tags: ["Sunglasses", "Aviator", "Big Heads", "Guide", "2026"],
-    faq: [
-      { q: "What size aviator sunglasses do I need for a big head?", a: "For a head circumference of 58 cm or a temple-to-temple face width of 155 mm and above, look for a front width of at least 155 mm hinge-to-hinge, a bridge of 21 mm or wider, and temples of 148 mm or longer. Most 'XXL aviators' on the market are 140–148 mm front and still pinch at this size." },
-      { q: "Are XXL aviator sunglasses always made of metal?", a: "Traditionally yes — the classic aviator is a bent metal wire frame. But metal aviators in the 155 mm+ range often bow at the temples and lose their set within months. Italian Mazzucchelli acetate holds its geometry at wider spans and does not warp under heat, which is why Woolet's aviator-adjacent shapes (007 round panto and 009 soft square) are hand-cut acetate at 158 mm rather than metal." },
-      { q: "Does Woolet make a true aviator?", a: "Not a metal teardrop aviator, no. The 007 round panto and 009 soft square are the acetate aviator alternatives at 158 mm — same brow-forward silhouette, same UV400 or polarized lens options, but built to sit correctly on a wider face. Bespoke covers 150–172 mm if you want a custom aviator-style front outside standard sizing." },
-      { q: "What's the difference between XXL and XL aviators?", a: "There is no industry standard. In practice, 'XL aviator' usually means a larger lens on a 140–145 mm front, and 'XXL aviator' usually means a slightly larger lens on a 145–150 mm front. Neither is genuinely wide. For a 155 mm+ face, the number that matters is hinge-to-hinge front width, not lens diameter." }
-    ],
-    content: `
-<p>Search "XXL aviator sunglasses" and you'll get pages of listings that use the word "XXL" for a larger lens on a standard-width front. The lens is 62 mm instead of 58 mm. The front is still 140 mm hinge-to-hinge. On a 155 mm face or a 58 cm head, that frame pinches within an hour.</p>
-
-<p>This is a short, honest guide for buyers who actually need a wider aviator — not a bigger lens. What "XXL" should mean at this size, why most metal aviators fail at 158 mm, and what to look at instead.</p>
-
-<h2>What "XXL aviator" should mean — and usually doesn't</h2>
-
-<p>The aviator is a specific silhouette: teardrop lenses, double or single bridge, thin metal wire, straight temples with cable or paddle ends. Ray-Ban invented it in 1937 for US Army Air Corps pilots at 58–62 mm lens width on a ~140 mm front. Every "XXL aviator" you'll find today is a variation on that geometry — usually with a bigger lens, occasionally with a slightly wider front, almost never above 148 mm.</p>
-
-<p>For a face of 155 mm or more, the number that matters is <strong>front width, hinge-to-hinge</strong>. Not lens diameter. A 62 mm lens on a 142 mm front pinches exactly as hard as a 58 mm lens on a 142 mm front — it's the same distance between the hinges.</p>
-
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
-  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The number to check</div>
-  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Front width (hinge-to-hinge) is the only measurement that determines whether a frame sits flush on a wider face. Lens diameter is a style choice; front width is a fit constraint. If a listing doesn't publish the front width, assume it's 140–145 mm and skip it.</p>
-</div>
-
-<h2>Why metal aviators struggle at 158 mm+</h2>
-
-<p>Metal aviators are cold-formed wire — usually monel, sometimes titanium. At standard sizes (140–148 mm front) the wire is stiff enough to hold its shape under normal wear. At 155–165 mm the same wire gauge starts to flex at the temples, and after 3–6 months of heat cycles (car dashboards, back pockets, sweat) the frame loses its set and starts sliding down the nose.</p>
-
-<p>The fix isn't a thicker wire — that makes the frame heavy and top-front-loaded. The fix is a different material. Cellulose acetate, block-cut from Italian Mazzucchelli sheet, holds its geometry at wider spans because the temple stiffness scales with cross-section rather than tensile strength. This is why premium wide-face eyewear at 158 mm is almost always hand-cut acetate rather than bent metal.</p>
-
-<h2>What to look for in an XXL aviator-style frame</h2>
-
-<ol>
-  <li><strong>A published front-width number of 155 mm or more.</strong> Not "oversized", not "XXL" — an actual millimetre measurement.</li>
-  <li><strong>Bridge width of 21 mm or more</strong>, ideally keyhole. A 17 mm saddle bridge on a 158 mm front pulls the lenses inward and off-centre from your pupils.</li>
-  <li><strong>Temples of 148 mm or longer.</strong> Short temples on a wide front bow outward the moment you put the frame on.</li>
-  <li><strong>Italian acetate, not injection-moulded plastic or thin metal.</strong> Acetate holds set at wider spans; injection-moulded plastic loosens under heat, metal fatigues at the temples.</li>
-  <li><strong>UV400 lenses as a baseline; polarized as an option.</strong> Polarized is worth the upgrade for driving and outdoor water; not always for screens.</li>
-</ol>
-
-<h2>The Woolet alternative to metal XXL aviators</h2>
-
-<p>Woolet doesn't make a metal teardrop aviator. It makes two aviator-adjacent shapes at 158 mm front width, hand-cut from Italian Mazzucchelli acetate, both in the size range where standard aviators stop working.</p>
-
-<ul>
-  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 148 mm temples. The closest silhouette to a classic aviator without the metal fatigue. Polarized lens upgrade available.</li>
-  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Reads more architectural than the round; the acetate equivalent of a squared-off aviator.</li>
-</ul>
-
-<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same 158 mm geometry — pick on shape, not on size.</p>
-
-<h2>If your head is above 60 cm or your face is above 161 mm</h2>
-
-<p>At head circumferences of 60 cm and above, or face widths of 161 mm and above, even the standard 158 mm sits at the edge of comfort. Bespoke is the right call: 150–172 mm of front width, 16–26 mm of bridge, same Italian Mazzucchelli acetate, hand-finished in the EU, with the front, bridge and temple length set to your measurements. Lead time is roughly 4–6 weeks after the standard production batch.</p>
-
-<p>If you don't know your face width yet, the <a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> takes about 20 seconds with your phone camera, or you can <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">measure manually with a ruler or credit card</a>.</p>
-
-<h2>Quick FAQ</h2>
-
-<h3>What's the widest aviator-style sunglass I can buy off the shelf?</h3>
-<p>In genuine 155 mm+ front width, the pickings are thin. Woolet 007 and 009 sit at 158 mm in Italian acetate. Metal aviators labeled "XXL" from mainstream brands usually top out around 145–148 mm hinge-to-hinge — enough for a wide face, not enough for a 58 cm+ head.</p>
-
-<h3>Do XXL aviators come in prescription?</h3>
-<p>Yes. Both Woolet 007 and 009 are available with single-vision and progressive prescription lenses at 158 mm width, in optical or sun. Most metal XXL aviators from mainstream brands are sun-only at their widest size.</p>
-
-<h3>Are XXL aviators the same as oversized aviators?</h3>
-<p>No. "Oversized" refers to lens area; "XXL" is used loosely for both lens area and (occasionally) front width. Only the front-width number tells you whether a frame will actually sit flush on a wider face.</p>
-
-<p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">More on fit: <a href="/en/blog/best-sunglasses-for-wide-faces" style="color:#A07A2A;">best sunglasses for wide faces</a> · <a href="/en/blog/best-oversized-sunglasses-big-heads-2026" style="color:#A07A2A;">best oversized sunglasses for big heads</a> · <a href="/en/collections/sunglasses-for-big-heads" style="color:#A07A2A;">sunglasses for big heads collection</a> · <a href="/en/bespoke" style="color:#A07A2A;">bespoke 150–172&nbsp;mm</a>.</p>
-`
   },
   {
     slug: "how-to-measure-your-head-for-a-hat",
@@ -4720,18 +4566,7 @@ Related guides:
 
 <h2>The 30-second test</h2>
 
-<p>You need a standard credit or debit card (ISO/IEC 7810 ID-1 — <strong>85.60 mm wide</strong>, exactly, by international standard) and a phone camera.</p>
-
-<ol>
-  <li>Face a mirror or front camera, head straight, hair pushed back behind the ears.</li>
-  <li>Hold the card <strong>horizontally under your eyes</strong>, resting lightly against your cheeks. The long edge should sit roughly at nostril height.</li>
-  <li>Take a straight-on selfie (arm fully extended, camera at eye level).</li>
-  <li>Compare the card's edge to your temples on the photo. Multiply the ratio by 85.6.</li>
-</ol>
-
-<p>Example: if your face is <strong>1.8× wider</strong> than the card in the photo, your face width is <code>85.6 × 1.8 = 154 mm</code>.</p>
-
-<p>Prefer to skip the arithmetic? The <a href="/en/fit" style="color:#A07A2A;text-decoration:underline;">AI Fit Wizard</a> does the measurement from a single selfie. For a manual walkthrough with photos, see <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;text-decoration:underline;">How to Measure Face Width for Glasses</a>.</p>
+<p>Hold a credit card (85.60 mm wide by ISO standard) horizontally under your eyes, take a straight-on selfie, and multiply the card-to-temple ratio by 85.6 — a face 1.8× wider than the card measures 154 mm. The <a href="/en/fit" style="color:#A07A2A;text-decoration:underline;">FitLens scanner</a> does the same arithmetic from one photo. For the full calibrated walkthrough, read <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;text-decoration:underline;">how to measure your face width</a>.</p>
 
 <h2>The four bands</h2>
 
@@ -4994,7 +4829,7 @@ const blogPostsPL = [
 <p>Standardowe plastikowe oprawki (wtryskiwany poliwęglan) są tanie, lekkie i tak wyglądają. Octan to <strong>materiał roślinny</strong> pozyskiwany z włókien bawełny i pulpy drzewnej. Jest wycinany z bloków, ręcznie polerowany i wykończony z głębią, której plastik nie może odwzorować.</p>
 
 <h2>Dlaczego "włoski"?</h2>
-<p>Włochy — a konkretnie region Cadore koło Belluno — są epicentrum produkcji octanu od dekad. Producenci jak <strong>Mazzucchelli</strong> tworzą arkusze o niezrównanej głębi kolorów i integralności strukturalnej.</p>
+<p>Włochy są epicentrum branży okularowej od dekad — octan powstaje w fabryce Mazzucchelli pod Mediolanem, a region Cadore koło Belluno skupia produkcję opraw. Producenci jak <strong>Mazzucchelli</strong> tworzą arkusze o niezrównanej głębi kolorów i integralności strukturalnej.</p>
 
 <h2>Zalety włoskiego octanu</h2>
 <ul>
@@ -6458,7 +6293,7 @@ const homeCopy = {
   },
   nl: {
     title: "Woolet — Premium bril voor brede gezichten (158 mm)",
-    description: "Italiaanse Mazzucchelli-acetaatbril ontworpen voor bredere gezichten. Eén precieze maat 158 mm, keyhole-brug, met de hand afgewerkt in Italië. Vind je pasvorm in 20 seconden."
+    description: "Italiaanse Mazzucchelli-acetaatbril ontworpen voor bredere gezichten. Eén precieze maat 158 mm, keyhole-brug, met de hand afgewerkt in de EU. Vind je pasvorm in 20 seconden."
   }
 };
 function base(route, lang, copy, og = {}, jsonLd = [], alternates) {
@@ -6601,7 +6436,7 @@ function getMetadata(route) {
       "@context": "https://schema.org",
       "@type": "HowTo",
       name: isPL ? "Jak powstaje oprawa Woolet" : "How a Woolet frame is made",
-      description: isPL ? "13-etapowy, ok. 14-dniowy proces produkcji oprawy Woolet — od inżynierii CAD na bazie pomiarów Twojej twarzy po czyszczenie ultradźwiękowe. Wykończona ręcznie we Włoszech z octanu Mazzucchelli." : "The 13-stage, ~14-day process behind every Woolet frame — from CAD engineering on your face measurements to the final ultrasonic clean. Hand finished in the EU from Mazzucchelli acetate.",
+      description: isPL ? "13-etapowy, ok. 14-dniowy proces produkcji oprawy Woolet — od inżynierii CAD na bazie pomiarów Twojej twarzy po czyszczenie ultradźwiękowe. Ręcznie wykończona w UE z octanu Mazzucchelli z Mediolanu." : "The 13-stage, ~14-day process behind every Woolet frame — from CAD engineering on your face measurements to the final ultrasonic clean. Hand finished in the EU from Mazzucchelli acetate.",
       image: processImage,
       totalTime: "P14D",
       estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "299" },
@@ -6631,11 +6466,11 @@ function getMetadata(route) {
       lang,
       isPL ? {
         title: "Proces Woolet — jak powstają nasze oprawy z włoskiego octanu",
-        description: "Jak powstaje oprawa Woolet: 13 etapów w ok. 14 dni — od CAD po czyszczenie ultradźwiękowe. Ręcznie wykończona we Włoszech z octanu Mazzucchelli, dopasowana do szerszych twarzy.",
+        description: "Jak powstaje oprawa Woolet: 13 etapów w ok. 14 dni — od CAD po czyszczenie ultradźwiękowe. Ręcznie wykończona w UE z octanu Mazzucchelli z Mediolanu, dopasowana do szerszych twarzy.",
         noscriptHtml: `<h1>Proces Woolet</h1>
 <p>Każda oprawa Woolet powstaje wokół jednej twarzy — Twojej. Od pierwszego cyfrowego szkicu po końcowe płukanie ultradźwiękowe przechodzi przez ręce i maszyny kilkanaście razy. 13 etapów. W większości ręcznie. Włoski octan Mazzucchelli.</p>
 <ol>${steps.map(([n, t]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t)}</li>`).join("")}</ol>
-<p>Wykonane z włoskiego octanu Mazzucchelli. Wykończone ręcznie we Włoszech. <a href="/en/fit">Dobierz rozmiar</a> · <a href="/en/bespoke">Poznaj bespoke</a>.</p>`
+<p>Wykonane z włoskiego octanu Mazzucchelli z Mediolanu. Wykończone ręcznie w UE. <a href="/en/fit">Dobierz rozmiar</a> · <a href="/en/bespoke">Poznaj bespoke</a>.</p>`
       } : {
         title: "The Woolet Process — How Our Italian Acetate Eyewear Is Made",
         description: "How a Woolet frame is made: 13 stages across ~14 days, from CAD to ultrasonic cleaning. Hand finished in the EU from Mazzucchelli acetate, tailored for wider faces.",
@@ -6692,9 +6527,9 @@ function getMetadata(route) {
       title: "Italian Mazzucchelli Acetate Glasses 158 mm | Woolet",
       description: "Glasses and sunglasses cut from Mazzucchelli 1849 Italian cellulose acetate. Wide 158 mm front, 21–22 mm bridge, hand polished in the EU. From $114.",
       noscriptHtml: `<h1>Italian Mazzucchelli Acetate Glasses</h1>
-<p>Wide-face frames cut from Mazzucchelli 1849 cellulose-acetate sheet (Castiglione Olona, Italy) and Hand finished in the EU. Two shapes (Woolet 007 round, 009 soft square), one precise 158 mm front with a 21–22 mm keyhole bridge. Bespoke 145–162 mm. Optical, blue-light, prescription and polarised sunglass options share the same geometry. From $114 pre-order.</p>
+<p>Wide-face frames cut from Mazzucchelli 1849 cellulose-acetate sheet (Milan, Italy) and Hand finished in the EU. Two shapes (Woolet 007 round, 009 soft square), one precise 158 mm front with a 21–22 mm keyhole bridge. Bespoke 145–162 mm. Optical, blue-light, prescription and polarised sunglass options share the same geometry. From $114 pre-order.</p>
 <h2>What is Mazzucchelli acetate?</h2>
-<p>Cellulose-acetate sheet made by Mazzucchelli 1849, the Italian mill that has produced acetate in Castiglione Olona since 1849. Pigment is layered into a block, batch-cured for weeks and sliced into sheets — denser, more colour-stable and easier to hand-finish than injection-moulded plastic.</p>`
+<p>Cellulose-acetate sheet made by Mazzucchelli 1849, the Italian mill that has produced acetate near Milan since 1849. Pigment is layered into a block, batch-cured for weeks and sliced into sheets — denser, more colour-stable and easier to hand-finish than injection-moulded plastic.</p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
