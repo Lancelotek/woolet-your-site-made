@@ -357,6 +357,7 @@ const BlogPost = () => {
 
         {/* Article body */}
         <div
+          ref={bodyRef}
           className="woolet-blog-content"
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
