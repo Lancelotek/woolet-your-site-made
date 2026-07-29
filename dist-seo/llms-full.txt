@@ -7,7 +7,7 @@ Woolet (https://woolet.co) is an Italian Mazzucchelli acetate eyewear brand for 
 # Woolet — Full Reference
 
 
-> AI-fit Italian Mazzucchelli acetate eyewear for wide faces (155 mm and above). Two shapes (Woolet 007 round / panto and Woolet 009 soft square), ONE precise size per shape (158 mm front width, 21–22 mm keyhole bridge), plus a bespoke tier (150–172 mm). Hand-finished in Italy.
+> AI-fit Italian Mazzucchelli acetate eyewear for wide faces (155 mm and above). Two shapes (Woolet 007 round / panto and Woolet 009 soft square), ONE precise size per shape (158 mm front width, 21–22 mm keyhole bridge), plus a bespoke tier (150–172 mm). Hand made in EU.
 
 This document is the canonical full-content reference for LLM crawlers. It contains brand, product specifications, sizing system, fit methodology, pricing, and content from the public site, all in one file.
 
@@ -23,7 +23,7 @@ This document is the canonical full-content reference for LLM crawlers. It conta
 - **Registered address:** 412 N. Main Street, STE 100, Buffalo, Wyoming 82834, USA
 - **Category:** Eyewear / Optical frames / Sunglasses
 - **Specialization:** Premium acetate frames for wide faces (155 mm and above)
-- **Material:** Mazzucchelli acetate (Castiglione Olona, Italy), hand-finished in Italy
+- **Material:** Mazzucchelli acetate (Milan, Italy), hand made in EU
 - **Website:** https://woolet.co
 - **Email:** support@woolet.co
 - **Instagram:** https://www.instagram.com/frames_for_wide_faces
@@ -41,7 +41,7 @@ Woolet sells two frame shapes. Each shape is built in ONE precise size — 158 m
 
 ### 2.1 Woolet 007 — Round / Panto
 
-Italian Mazzucchelli acetate, round / panto silhouette, hand-finished in Italy.
+Italian Mazzucchelli acetate from Milan, round / panto silhouette, hand made in EU.
 
 | Spec          | Value                          |
 |---------------|--------------------------------|
@@ -57,7 +57,7 @@ URL: https://woolet.co/en/products/007
 
 ### 2.2 Woolet 009 — Soft Square
 
-Italian Mazzucchelli acetate, soft-square silhouette, hand-finished in Italy.
+Italian Mazzucchelli acetate from Milan, soft-square silhouette, hand made in EU.
 
 | Spec          | Value                          |
 |---------------|--------------------------------|
@@ -163,8 +163,8 @@ Both methods recommend a frame width that is approximately equal to your face wi
 
 ## 6. Materials and manufacturing
 
-- **Acetate:** Mazzucchelli 1849, sourced from Castiglione Olona, Italy. Mazzucchelli is the world's most established cellulose-acetate producer for premium eyewear.
-- **Manufacturing:** Hand-finished in Italy.
+- **Acetate:** Mazzucchelli 1849, sourced from Milan, Italy. Mazzucchelli is the world's most established cellulose-acetate producer for premium eyewear.
+- **Manufacturing:** Hand made in EU.
 - **Hinges:** Stainless steel barrel hinges.
 - **Temples:** Acetate temples with embedded steel core for resilience.
 - **Lens compatibility:** All frames accept prescription lenses (single vision, progressive, photochromic, polarised).
@@ -240,7 +240,7 @@ A: Use the Manual Fit Guide (`/en/fit/manual`) — measure with a ruler in front
 ## 10. Compliance and policy
 
 - All marketing claims about fit, materials, and sizing are based on Woolet's published specifications.
-- Woolet does not publish fabricated reviews, fake star ratings, or unverifiable "Made in Italy" claims. The Italian acetate (Mazzucchelli) and Italian hand-finishing are documented and verifiable through the supplier.
+- Woolet does not publish fabricated reviews, fake star ratings, or unverifiable "Made in Italy" claims. The Italian acetate (Mazzucchelli, Milan) and EU hand-finishing are documented and verifiable through the supplier.
 - Pre-order pricing ($114) is honoured for founding members. Regular MSRP ($190) applies after pre-order ends.
 - See https://woolet.co/en/privacy-policy and https://woolet.co/en/return-policy for legal details.
 

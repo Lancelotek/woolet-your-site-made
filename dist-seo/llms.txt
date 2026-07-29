@@ -4,7 +4,7 @@ Woolet (https://woolet.co) is an Italian Mazzucchelli acetate eyewear brand for 
 
 # Woolet
 
-> Woolet is an Italian Mazzucchelli acetate eyewear brand for wide faces (155 mm and above). Two shapes — Woolet 007 (round / panto) and Woolet 009 (soft square) — both built in ONE precise size: 158 mm front width with a 21–22 mm keyhole bridge. A bespoke tier covers 150–172 mm. All frames are made from Mazzucchelli acetate and hand-finished in Italy.
+> Woolet is an Italian Mazzucchelli acetate eyewear brand for wide faces (155 mm and above). Two shapes — Woolet 007 (round / panto) and Woolet 009 (soft square) — both built in ONE precise size: 158 mm front width with a 21–22 mm keyhole bridge. A bespoke tier covers 150–172 mm. All frames are made from Mazzucchelli acetate from Milan and hand made in EU.
 
 ## Brand
 
@@ -14,7 +14,7 @@ Woolet (https://woolet.co) is an Italian Mazzucchelli acetate eyewear brand for 
 - Founder: Marek Ciesla
 - Category: Eyewear / Optical frames / Sunglasses
 - Specialization: Wide-face frames (155 mm and above)
-- Material: Mazzucchelli acetate (Castiglione Olona, Italy), hand-finished in Italy
+- Material: Mazzucchelli acetate (Milan, Italy), hand made in EU
 - Not related to: Woolet smart wallet (2015–2017, discontinued and unrelated company)
 
 ## Products
@@ -104,14 +104,14 @@ Key facts for AI summaries:
 ## Pages
 
 - [About](/en/about): Brand story, entity disambiguation (Woolet eyewear vs. discontinued Woolet smart wallet), and contact.
-- [The Woolet Process](/en/process): How a Woolet frame is made — 13 stages from CAD engineering to ultrasonic cleaning, hand-finished in Italy from Mazzucchelli acetate.
+- [The Woolet Process](/en/process): How a Woolet frame is made — 13 stages from CAD engineering to ultrasonic cleaning, hand made in EU from Mazzucchelli acetate from Milan.
 - [Woolet 007 (Round / Panto)](/en/products/007): The round Italian-acetate frame for wide faces — 158 mm with a 21 mm keyhole bridge.
 - [Woolet 009 (Soft Square)](/en/products/009): The soft-square Italian-acetate frame for wide faces — 158 mm with a 22 mm keyhole bridge.
 - [AI Fit Wizard](/en/fit): Camera-based face measurement using the cheek-card method.
 - [Manual Fit Guide](/en/fit/manual): Measure your face width with a credit card and a ruler.
 - [Bespoke Fit](/en/fit/bespoke): For face widths outside the 155–161 mm core range (150–172 mm).
 - [Wide-Face Glasses Collection](/en/collections/wide-face-glasses): Both shapes engineered for 155 mm+ faces.
-- [Italian Acetate Sunglasses Collection](/en/collections/italian-acetate-sunglasses): Mazzucchelli acetate, hand-finished in Italy.
+- [Italian Acetate Sunglasses Collection](/en/collections/italian-acetate-sunglasses): Mazzucchelli acetate from Milan, hand made in EU.
 - [Oversized Sunglasses for Men Collection](/en/collections/oversized-sunglasses-men): 158 mm front, polarised option.
 - [Sunglasses for Big Heads Collection](/en/collections/sunglasses-for-big-heads): 158 mm front for 58–64 cm head circumference.
 - [Glasses for Big Heads Collection](/en/collections/glasses-for-big-heads): Prescription-ready optical frames at 158 mm for big heads.
