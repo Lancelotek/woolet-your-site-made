@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { langFromPath, productBreadcrumbJsonLd, SITE_URL, localeCtx } from "@/seo/product-collection-jsonld";
+import { langFromPath, productBreadcrumbJsonLd, productJsonLd, SITE_URL, localeCtx } from "@/seo/product-collection-jsonld";
 import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -115,6 +115,7 @@ const ProductPage009 = () => {
         <meta property="og:image" content="https://woolet.co/og-009.png" />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, { id: "009", name: "Woolet 009", description: "Soft-square acetate frame, 158 mm wide with a 22 mm bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.", image: "https://woolet.co/og-009.png", price: "114.00" }))}</script>
         <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet 009", "009"))}</script>
       </Helmet>
 
