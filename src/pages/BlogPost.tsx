@@ -12,6 +12,7 @@ import { getBlogPost } from "@/lib/blog-data";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
+import { trackFitCtas } from "@/lib/blog-cta-tracking";
 
 /* ── helpers ── */
 
