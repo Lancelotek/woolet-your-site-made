@@ -5056,8 +5056,8 @@ export default function FitScan() {
         </div>
 
         <div className="px-5 sm:px-8 lg:px-16 pb-16 sm:pb-24">
+          {lang === "en" && <FitToolContent />}
           <div className="max-w-2xl mx-auto">
-            {lang === "en" && <FitToolContent />}
             <RelatedGuides variant="dark" />
           </div>
         </div>

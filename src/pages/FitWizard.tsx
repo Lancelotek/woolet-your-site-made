@@ -10,8 +10,6 @@ import SocialProofToast from "@/components/SocialProofToast";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { FoundingBenefits, FoundingUrgency } from "@/components/FoundingBenefits";
-import FitToolContent, { FitBreadcrumbs } from "@/components/FitToolContent";
-import { FIT_JSONLD } from "@/seo/fit-jsonld";
 
 const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
 const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
@@ -135,17 +133,17 @@ const ghostButtonStyle: React.CSSProperties = {
 function IntroStep({ onBegin }: { onBegin: () => void }) {
   return (
     <div className="max-w-xl mx-auto flex flex-col gap-7 animate-fade-in">
-      <FitBreadcrumbs current="scan" />
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
         <span className="woolet-eyebrow-text">AI FIT · POWERED BY WOOLET</span>
       </div>
 
       <h1
-        className="font-display text-woolet-white leading-[1.02]"
-        style={{ fontSize: "clamp(2.2rem, 4.4vw, 3.1rem)", fontWeight: 300 }}
+        className="font-display text-woolet-white leading-[0.95]"
+        style={{ fontSize: "clamp(2.6rem, 5vw, 3.4rem)", fontWeight: 300 }}
       >
-        Virtual Fit for Wide Faces — <em className="italic text-gold-light">Measure</em> Your Face in 20 Seconds
+        <em className="italic text-gold-light">Measured</em> for you.<br />
+        In thirty seconds.
       </h1>
 
       <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "1rem" }}>
@@ -2088,9 +2086,9 @@ export default function FitWizard() {
   return (
     <>
       <SEO
-        title="FitLens — Virtual Glasses Fit for Wide Faces | Woolet"
-        description="Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork."
-        jsonLd={FIT_JSONLD}
+        title="FitLens Wizard — Measure Your Face | Woolet"
+        description="Step-by-step wizard for the Woolet FitLens measurement. Face width, bridge and PD in about 20 seconds."
+        noindex
         lang={lang}
         path="/fit"
         availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
@@ -2113,7 +2111,6 @@ export default function FitWizard() {
       <main className="bg-background text-foreground" style={{ minHeight: "100vh" }}>
         <div className="px-5 sm:px-8 lg:px-16 py-16 sm:py-24">
           {step === "intro" && <IntroStep onBegin={() => setStep("consent")} />}
-          {step === "intro" && <FitToolContent />}
           {step === "consent" && (
             <ConsentStep onAllow={() => setStep("capture")} onManual={goManual} />
           )}
