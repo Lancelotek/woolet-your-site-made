@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { FitBreadcrumbs, FitClusterNav } from "@/components/FitToolContent";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import manualFitImg from "@/assets/manual-fit-measure.png.asset.json";
@@ -133,6 +134,7 @@ export default function FitManual() {
       <Navbar />
       <main className="bg-background text-foreground min-h-screen">
         <div className="max-w-5xl mx-auto px-5 py-16 sm:py-20">
+          <FitBreadcrumbs current="manual" />
           <div className="woolet-eyebrow mb-5">
             <div className="woolet-eyebrow-line" />
             <span className="woolet-eyebrow-text">MANUAL FIT · TAPE MEASURE</span>
@@ -397,6 +399,9 @@ export default function FitManual() {
                 ← Prefer the 30-second AI scan?
               </Link>
             </div>
+          </div>
+          <div style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid hsl(var(--gold) / 0.16)" }}>
+            <FitClusterNav current="/en/fit/manual" />
           </div>
         </div>
       </main>
