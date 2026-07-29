@@ -388,6 +388,8 @@ const blogPostsEN: BlogPost[] = [
 <p class="woolet-compare__note">Woolet is the only brand in this comparison built exclusively for wide faces — every frame starts at 158 mm. Other brands offer wide options as a size filter within a broader catalog.</p>
 </div>
 
+<p>If your current frames already hurt, the pressure point tells you which problem you have: <a href="/en/blog/glasses-too-tight-on-side-of-head" style="color:#A07A2A;">glasses too tight on the side of your head</a> walks through the temple-versus-behind-the-ear diagnostic and what an optician genuinely can and cannot change.</p>
+
 <h2>FAQ: Glasses for Wide Faces</h2>
 
 <h3>What mm frame width do I need for a wide face?</h3>
@@ -795,6 +797,10 @@ const blogPostsEN: BlogPost[] = [
 <li><strong>Have your PD ready</strong> for prescription lens ordering</li>
 </ul>
 
+<h2>Keep going: sizing references</h2>
+
+<p>Once you have your number, three companion references turn it into a purchase. The <a href="/en/blog/eyeglass-frame-size-chart" style="color:#A07A2A;">eyeglass frame size chart</a> maps XS–XXL bands to real front widths in millimetres. <a href="/en/blog/numbers-on-glasses-frames-meaning" style="color:#A07A2A;">What the numbers on glasses frames mean</a> decodes the 54□21-103 marking and shows why none of those digits is the frame's total width. And <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a> separates temple length (the arm) from temple-to-temple width (your head) — the two are constantly confused.</p>
+
 <h2>FAQ: Measuring Face Width for Glasses</h2>
 
 <h3>How do I measure my face width without a measuring tape?</h3>
@@ -1065,6 +1071,8 @@ const blogPostsEN: BlogPost[] = [
 </ul>
 
 <p>Woolet was built to answer exactly one question: why doesn't a brand exist that does all of this? The 155mm problem has a solution. It just took building it.</p>
+
+<p>For the day-to-day symptom side of the same problem — temple indentations, compression headaches, pressure sores behind the ear — see <a href="/en/blog/glasses-too-tight-on-side-of-head" style="color:#A07A2A;">glasses too tight on the side of your head</a>.</p>
 
 <h2>FAQ: Why Glasses Don't Fit Wide Faces</h2>
 
@@ -4133,12 +4141,13 @@ const blogPostsPL: BlogPost[] = [
   },
 ];
 
+import { blogPostsENFit } from "./blog-data-en-fit";
 import { blogPostsDE } from "./blog-data-de";
 import { blogPostsNL } from "./blog-data-nl";
 import { blogPostsFR } from "./blog-data-fr";
 
 export const blogPosts: Partial<Record<Lang, BlogPost[]>> = {
-  en: blogPostsEN,
+  en: [...blogPostsEN, ...blogPostsENFit],
   pl: blogPostsPL,
   de: blogPostsDE,
   nl: blogPostsNL,
