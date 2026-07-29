@@ -191,7 +191,7 @@ const faqs = [
   },
   {
     q: "Where are Woolet frames made?",
-    a: "The acetate is Mazzucchelli 1849 from Castiglione Olona, Italy. Cutting, bevelling, hand-polishing and inspection are done in the EU.",
+    a: "The acetate is Mazzucchelli 1849 from Milan, Italy. Cutting, bevelling, hand-polishing and inspection are done in the EU.",
   },
   {
     q: "What if they don't fit?",
@@ -461,7 +461,7 @@ const ProductTabs = () => {
         {tab === "materials" && (
           <p>
             Cut from a single sheet of Mazzucchelli 1849 Italian cellulose acetate — batch-cured for several
-            weeks in Castiglione Olona, then milled, hand-bevelled and hand polished in the EU. Stainless-steel
+            weeks near Milan, then milled, hand-bevelled and hand polished in the EU. Stainless-steel
             hinges. The material is denser and more dimensionally stable than injection-moulded plastic, which is
             why a 158 mm front holds its geometry season after season.
           </p>

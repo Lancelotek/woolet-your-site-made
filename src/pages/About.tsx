@@ -69,7 +69,7 @@ const About = () => {
             eyewear, and they serve different priorities. TR90 is lightweight, flexible, and
             inexpensive to manufacture — the dominant choice for budget wide-frame producers. It
             resists breakage but cannot be heat-adjusted after production, which means fit is fixed
-            at purchase. Italian acetate — particularly Mazzucchelli acetate from Castiglione Olona,
+            at purchase. Italian acetate — particularly Mazzucchelli acetate from Milan,
             Italy — is denser, heavier, and significantly more expensive. Its advantage for
             wide-face wearers is adjustability: acetate frames can be precisely reshaped by a
             trained optician using a frame warmer, correcting temple angle, nose bridge curve, and

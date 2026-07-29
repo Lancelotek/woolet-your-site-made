@@ -215,7 +215,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>For someone wearing glasses 10–12 hours a day, this isn't a luxury distinction. It's an engineering requirement.</p>
 
-<p>Woolet frames are made from <a href="https://www.mazzucchelli1849.it/" target="_blank" rel="noopener"><strong>Mazzucchelli 1849</strong></a> cellulose acetate — sourced from a sixth-generation Italian family business founded in Castiglione Olona in 1849. Mazzucchelli is the world's leading manufacturer of cellulose acetate for eyewear and supplies material to brands including Ray-Ban, Oliver Peoples, and DITA. Unlike the TR90 plastic used by most wide-face specialty brands, Mazzucchelli acetate is derived from cotton and wood pulp — not petroleum — and undergoes a weeks-long layering and curing process to achieve color depth and structural integrity. At 158 mm frame width, material rigidity is not a detail: acetate holds its shape at wider dimensions where TR90 loses tension at the temples over time.</p>
+<p>Woolet frames are made from <a href="https://www.mazzucchelli1849.it/" target="_blank" rel="noopener"><strong>Mazzucchelli 1849</strong></a> cellulose acetate — sourced from a sixth-generation Italian family business founded near Milan in 1849. Mazzucchelli is the world's leading manufacturer of cellulose acetate for eyewear and supplies material to brands including Ray-Ban, Oliver Peoples, and DITA. Unlike the TR90 plastic used by most wide-face specialty brands, Mazzucchelli acetate is derived from cotton and wood pulp — not petroleum — and undergoes a weeks-long layering and curing process to achieve color depth and structural integrity. At 158 mm frame width, material rigidity is not a detail: acetate holds its shape at wider dimensions where TR90 loses tension at the temples over time.</p>
 
 <h2>Where to Buy Glasses for Wide Faces Online</h2>
 
@@ -390,7 +390,7 @@ const blogPostsEN: BlogPost[] = [
   </ul>
 </div>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2025-03-09","dateModified":"2025-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Castiglione Olona, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2025-03-09","dateModified":"2025-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Milan, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}</script>
 `,
   },
   {
@@ -1813,7 +1813,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Why Italian Mazzucchelli acetate matters for bespoke</h2>
 
-<p>Bespoke only works on a material that can be hand-shaped after the initial cut. Mazzucchelli acetate (from Castiglione Olona, northern Italy) is denser than TR90 thermoplastic and can be heat-adjusted by any optician for ongoing fit corrections — even years after delivery. CNC-finished TR90 frames cannot be reshaped the same way.</p>
+<p>Bespoke only works on a material that can be hand-shaped after the initial cut. Mazzucchelli acetate (from Milan, northern Italy) is denser than TR90 thermoplastic and can be heat-adjusted by any optician for ongoing fit corrections — even years after delivery. CNC-finished TR90 frames cannot be reshaped the same way.</p>
 
 <p>That adjustability is the difference between a frame that fits for a week and one that fits for a decade. For deeper background, see <a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate</a>.</p>
 
@@ -2148,14 +2148,14 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "handmade-italian-acetate-eyewear-process",
     title: "How Handmade Acetate Eyewear Is Actually Made",
-    excerpt: "Inside the Cadore atelier process — from a Mazzucchelli acetate block to a finished frame. The steps, the tools, and what 'handmade' should actually mean in 2026.",
+    excerpt: "From a Mazzucchelli acetate block in Milan to a finished frame, hand made in EU — the steps, the tools, and what 'handmade' should actually mean in 2026.",
     date: "2026-06-18",
     readTime: 10,
     tags: ["Handmade", "Italian Acetate", "Craftsmanship"],
     faq: [
       { q: "How is handmade in the EU from Italian acetate eyewear made?", a: "A block of Mazzucchelli acetate is milled on a 5-axis CNC to the frame shape, then tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling — by a bench technician. Total labour per frame is 8–16 hours." },
       { q: "What does 'handmade' mean for glasses in 2026?", a: "Honest 'handmade' means the cutting may be CNC (it almost always is — hand-cutting acetate is no longer commercial) but every finishing step is done by a person at a bench. The polishing, hinging, bending and final QC cannot be automated to the standard a premium frame requires." },
-      { q: "What is Italian acetate?", a: "Italian acetate is cellulose acetate sheet manufactured by Italian houses — primarily Mazzucchelli (in Castiglione Olona since 1849). It is denser and holds colour more deeply than injection-moulded plastic, and it is heat-malleable for optician fitting." },
+      { q: "What is Italian acetate?", a: "Italian acetate is cellulose acetate sheet manufactured by Italian houses — primarily Mazzucchelli (near Milan since 1849). It is denser and holds colour more deeply than injection-moulded plastic, and it is heat-malleable for optician fitting." },
       { q: "Why is it called 'made in Cadore'?", a: "Cadore is a valley in the Italian Dolomites where the modern eyewear industry was founded in the late 19th century. Most of the world's premium acetate frames — Luxottica, Marcolin, Safilo, plus dozens of independent ateliers — are still made there." },
     ],
     content: `
@@ -2165,7 +2165,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>The world's premium acetate eyewear industry is concentrated in two places: <strong>Cadore</strong>, a valley in the Italian Dolomites, and <strong>Sabae</strong>, a city on Japan's west coast. Both regions specialise because the skilled bench technicians who hand-finish frames live there — the talent is geographic, the way Swiss watchmaking is geographic.</p>
 
-<p>Most of Woolet's stock production runs in Cadore. The acetate itself comes from <strong>Mazzucchelli 1849</strong> in Castiglione Olona — the oldest acetate manufacturer in the world, supplying everyone from Persol to Cutler &amp; Gross.</p>
+<p>Woolet's stock production runs in our EU atelier, using the same bench process described above. The acetate itself comes from <strong>Mazzucchelli 1849</strong> near Milan — the oldest acetate manufacturer in the world, supplying everyone from Persol to Cutler &amp; Gross.</p>
 
 <h2>Step 1 — The acetate block</h2>
 
@@ -2212,7 +2212,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Where Woolet's frames come from</h2>
 
-<p>Woolet 007 and 009 are cut from Mazzucchelli M49 Italian acetate and finished by hand in a Cadore atelier — the same process described above, applied to a frame engineered front-out for 155 mm+ faces. The bespoke tier uses the same atelier, the same acetate, with a CAD file generated from your AI face scan instead of a stock shape file.</p>
+<p>Woolet 007 and 009 are cut from Mazzucchelli M49 Italian acetate and finished by hand in our EU atelier — the same process described above, applied to a frame engineered front-out for 155 mm+ faces. The bespoke tier uses the same atelier, the same acetate, with a CAD file generated from your AI face scan instead of a stock shape file.</p>
 
 <p>Next step: <a href="/en/products/009">view 009</a> · <a href="/en/about">about our atelier partner</a> · <a href="/en/fit">measure your face</a>.</p>
 
@@ -2316,7 +2316,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Where Woolet sits</h2>
 
-<p>Woolet 007 and 009 are CNC-cut and hand-finished in a Cadore atelier from Mazzucchelli M49 Italian acetate, with German-made OBE 5-barrel hinges. The bespoke tier uses the same atelier and same materials with a CAD file generated from your AI face scan. Full atelier details are on the <a href="/en/about">about page</a>.</p>
+<p>Woolet 007 and 009 are CNC-cut and hand-finished in our EU atelier from Mazzucchelli M49 acetate from Milan, with German-made OBE 5-barrel hinges. The bespoke tier uses the same atelier and same materials with a CAD file generated from your AI face scan. Full atelier details are on the <a href="/en/about">about page</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2541,7 +2541,7 @@ const blogPostsEN: BlogPost[] = [
 <h3>Woolet — 158 mm stock + 150–172 mm bespoke</h3>
 <p><strong>Front: 158 mm (stock) · 150–172 mm (bespoke) · Bridge: 21 mm · Temples: 150 mm · Material: Italian Mazzucchelli acetate · Prescription: yes (lens-less shipping to your optician) · Price: $114 pre-order / $190 launch (stock); $299 (bespoke)</strong></p>
 
-<p>Woolet's 007 (round) and 009 (soft square) are designed front-out for 155 mm+ faces, not retrofitted from a standard frame. The atelier in Cadore, Italy uses Mazzucchelli M49 acetate and German OBE hinges. Bespoke runs the same atelier with a CAD file generated from the AI face scan. Strongest pick for premium Italian acetate at this size.</p>
+<p>Woolet's 007 (round) and 009 (soft square) are designed front-out for 155 mm+ faces, not retrofitted from a standard frame. Our EU atelier uses Mazzucchelli M49 acetate from Milan and German OBE hinges. Bespoke runs the same atelier with a CAD file generated from the AI face scan. Strongest pick for premium Italian acetate at this size.</p>
 
 <h3>Faded Days — 155–165 mm</h3>
 <p><strong>Front: 155–165 mm · Material: TR-90 plastic · Prescription: no (sunglasses only) · Price: $50–$155</strong></p>
@@ -2792,7 +2792,7 @@ const blogPostsEN: BlogPost[] = [
   <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
 </ul>
 
-<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same geometry — pick on shape, not on size.</p>
+<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same EU atelier, same hand-finishing, same geometry — pick on shape, not on size.</p>
 
 <h2>If you're between sizes</h2>
 
@@ -3224,7 +3224,7 @@ const blogPostsEN: BlogPost[] = [
   <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Reads more architectural than the round; the acetate equivalent of a squared-off aviator.</li>
 </ul>
 
-<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same Italian factory, same hand-finishing, same 158 mm geometry — pick on shape, not on size.</p>
+<p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same EU atelier, same hand-finishing, same 158 mm geometry — pick on shape, not on size.</p>
 
 <h2>If your head is above 60 cm or your face is above 161 mm</h2>
 
@@ -4048,7 +4048,7 @@ const blogPostsPL: BlogPost[] = [
 <p>Standardowe plastikowe oprawki (wtryskiwany poliwęglan) są tanie, lekkie i tak wyglądają. Octan to <strong>materiał roślinny</strong> pozyskiwany z włókien bawełny i pulpy drzewnej. Jest wycinany z bloków, ręcznie polerowany i wykończony z głębią, której plastik nie może odwzorować.</p>
 
 <h2>Dlaczego "włoski"?</h2>
-<p>Włochy — a konkretnie region Cadore koło Belluno — są epicentrum produkcji octanu od dekad. Producenci jak <strong>Mazzucchelli</strong> tworzą arkusze o niezrównanej głębi kolorów i integralności strukturalnej.</p>
+<p>Włochy są epicentrum branży okularowej od dekad — octan powstaje w fabryce Mazzucchelli pod Mediolanem, a region Cadore koło Belluno skupia produkcję opraw. Producenci jak <strong>Mazzucchelli</strong> tworzą arkusze o niezrównanej głębi kolorów i integralności strukturalnej.</p>
 
 <h2>Zalety włoskiego octanu</h2>
 <ul>

@@ -115,7 +115,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "handmade-italian-acetate-eyewear-process": {
     metaTitle: "How Handmade Acetate Eyewear Is Really Made",
     metaDescription:
-      "Inside the Cadore atelier — from a Mazzucchelli acetate block to a finished frame. The steps, the tools, and what 'handmade' should mean in 2026.",
+      "From a Mazzucchelli acetate block in Milan to a finished frame, hand made in EU — the steps, the tools, and what 'handmade' should mean in 2026.",
   },
   "handcrafted-vs-machine-made-glasses": {
     metaTitle: "Handcrafted vs Machine-Made Glasses: What Differs",
