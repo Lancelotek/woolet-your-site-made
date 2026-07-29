@@ -100,7 +100,7 @@ const NOSCRIPT_OVERRIDES = {
   <p>Woolet is the only brand in this comparison built exclusively for wide faces — every frame starts at 158 mm. Other brands offer wide options as a size filter within a broader catalog.</p>
 </section>
 <section>
-  <p>Woolet frames are made from Mazzucchelli 1849 cellulose acetate — sourced from a sixth-generation Italian family business founded in Castiglione Olona in 1849. Mazzucchelli is the world's leading manufacturer of cellulose acetate for eyewear and supplies material to brands including Ray-Ban, Oliver Peoples, and DITA. Unlike the TR90 plastic used by most wide-face specialty brands, Mazzucchelli acetate is derived from cotton and wood pulp — not petroleum — and undergoes a weeks-long layering and curing process to achieve color depth and structural integrity. At 158 mm frame width, material rigidity is not a detail: acetate holds its shape at wider dimensions where TR90 loses tension at the temples over time.</p>
+  <p>Woolet frames are made from Mazzucchelli 1849 cellulose acetate — sourced from a sixth-generation Italian family business founded near Milan in 1849. Mazzucchelli is the world's leading manufacturer of cellulose acetate for eyewear and supplies material to brands including Ray-Ban, Oliver Peoples, and DITA. Unlike the TR90 plastic used by most wide-face specialty brands, Mazzucchelli acetate is derived from cotton and wood pulp — not petroleum — and undergoes a weeks-long layering and curing process to achieve color depth and structural integrity. At 158 mm frame width, material rigidity is not a detail: acetate holds its shape at wider dimensions where TR90 loses tension at the temples over time.</p>
 </section>
 <section id="faq">
   <h2>Frequently asked questions</h2>
@@ -111,7 +111,7 @@ const NOSCRIPT_OVERRIDES = {
   <h3>Why don't standard glasses fit wide faces?</h3>
   <p>Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement.</p>
   <h3>How is Woolet different from Zenni Extended Fit or Warby Parker Wide?</h3>
-  <p>Zenni Extended Fit and Warby Parker Wide top out around 138–148 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate hand-finished in Italy. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement.</p>
+  <p>Zenni Extended Fit and Warby Parker Wide top out around 138–148 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate from Milan, hand made in EU. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement.</p>
   <h3>What is Mazzucchelli acetate and why does it matter for wide-face eyewear?</h3>
   <p>Mazzucchelli is Italy's premium acetate manufacturer since 1849, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm.</p>
   <h3>Is Woolet the same as the Woolet smart wallet?</h3>
