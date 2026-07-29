@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import { t, type Lang } from "@/lib/i18n";
 import { pushGtmEvent } from "@/lib/gtm";
+import { trackWaitlistSignupExperiment } from "@/lib/hero-experiment";
 import { rdtLead } from "@/lib/reddit-pixel";
 import { trackMetaEvent } from "@/lib/meta-capi";
 
@@ -119,6 +120,9 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         awareness_stage: "solution_aware",
         source: utmSource,
       });
+
+      // Hero headline A/B test conversion (GA4) — success only.
+      trackWaitlistSignupExperiment();
 
       rdtLead({ value: 114, currency: "USD" });
 

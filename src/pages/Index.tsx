@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 const heroManImg = "/hero-man.jpg";
@@ -12,6 +12,12 @@ import SEO from "@/components/SEO";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 import { hrefFor } from "@/i18n/routeRegistry";
+import {
+  assignHeroVariant,
+  setHeroVariantUserProperty,
+  trackHeroExposure,
+  trackHeroCtaClick,
+} from "@/lib/hero-experiment";
 
 const seoData: Record<Lang, { title: string; description: string; ogDescription: string }> = {
   en: {
@@ -507,6 +513,22 @@ const Index = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const location = useLocation();
 
+  // ── Hero headline A/B test (see src/lib/hero-experiment.ts) ──────────────
+  // Assigned synchronously on first render → no flash of the control copy.
+  // English hero only; other locales keep their translated copy.
+  const [heroAssignment] = useState(assignHeroVariant);
+  const heroVariant = heroAssignment.variant;
+  const heroExperimentActive = lang === "en";
+  const heroTracked = heroExperimentActive && !heroAssignment.forced;
+  const exposureFired = useRef(false);
+
+  useEffect(() => {
+    if (!heroTracked || exposureFired.current) return;
+    exposureFired.current = true;
+    setHeroVariantUserProperty(heroVariant.id);
+    trackHeroExposure(heroVariant.id);
+  }, [heroTracked, heroVariant.id]);
+
   useEffect(() => {
     const hash = window.location.hash;
     if (!hash) return;
@@ -569,28 +591,48 @@ const Index = () => {
           <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-stretch">
             {/* LEFT — copy */}
             <div className="flex flex-col gap-6 lg:gap-7 lg:py-2">
-              <div className="woolet-eyebrow">
-                <div className="woolet-eyebrow-line" />
-                <span className="woolet-eyebrow-text">{copy.heroEyebrow}</span>
+              {/* Copy block gets a min-height sized to the longest variant so
+                  switching headlines never moves the CTA (see .woolet-hero-copy). */}
+              <div className="woolet-hero-copy flex flex-col gap-6 lg:gap-7">
+                <div className="woolet-eyebrow">
+                  <div className="woolet-eyebrow-line" />
+                  <span className="woolet-eyebrow-text">
+                    {heroExperimentActive ? heroVariant.eyebrow : copy.heroEyebrow}
+                  </span>
+                </div>
+
+                <h1
+                  className="font-display text-woolet-white leading-[1.02] max-w-[620px]"
+                  style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)", fontWeight: 300 }}
+                >
+                  {heroExperimentActive ? (
+                    heroVariant.headlineParts.map((part, i) =>
+                      part.accent ? (
+                        <em key={i} className="text-gold-light" style={{ fontStyle: "italic" }}>
+                          {part.text}
+                        </em>
+                      ) : (
+                        <span key={i}>{part.text}</span>
+                      )
+                    )
+                  ) : (
+                    <>
+                      {copy.h1Pre}
+                      <em className="text-gold-light" style={{ fontStyle: "italic" }}>
+                        {copy.h1Em}
+                      </em>
+                      {copy.h1Post}
+                    </>
+                  )}
+                </h1>
+
+                <p
+                  className="text-cream-dim leading-relaxed max-w-[520px]"
+                  style={{ fontSize: "1.02rem" }}
+                >
+                  {heroExperimentActive ? heroVariant.sub : copy.heroDesc}
+                </p>
               </div>
-
-              <h1
-                className="font-display text-woolet-white leading-[1.02] max-w-[620px]"
-                style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)", fontWeight: 300 }}
-              >
-                {copy.h1Pre}
-                <em className="text-gold-light" style={{ fontStyle: "italic" }}>
-                  {copy.h1Em}
-                </em>
-                {copy.h1Post}
-              </h1>
-
-              <p
-                className="text-cream-dim leading-relaxed max-w-[520px]"
-                style={{ fontSize: "1.02rem" }}
-              >
-                {copy.heroDesc}
-              </p>
 
               <div className="pt-1">
                 <FrameWidthMeter copy={copy} />
@@ -599,12 +641,13 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link
                   to={hrefFor("lp.kickstarter", lang)}
-                  onClick={() =>
+                  onClick={() => {
                     pushGtmEvent("hero_cta_primary_click", {
                       location: "home_hero",
                       dest: "lp_kickstarter",
-                    })
-                  }
+                    });
+                    if (heroTracked) trackHeroCtaClick(heroVariant.id, "join_list");
+                  }}
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                   style={{
                     background: "hsl(var(--gold))",
@@ -621,12 +664,13 @@ const Index = () => {
                 </Link>
                 <Link
                   to={hrefFor("collection", lang)}
-                  onClick={() =>
+                  onClick={() => {
                     pushGtmEvent("hero_cta_secondary_click", {
                       location: "home_hero",
                       dest: "collection",
-                    })
-                  }
+                    });
+                    if (heroTracked) trackHeroCtaClick(heroVariant.id, "view_collection");
+                  }}
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-colors text-cream-dim"
                   style={{
                     border: "1px solid hsl(0 0% 100% / 0.12)",
