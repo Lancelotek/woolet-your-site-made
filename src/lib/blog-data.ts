@@ -1226,6 +1226,9 @@ const blogPostsEN: BlogPost[] = [
 <p>Absolutely. Many wearers maintain two pairs for different contexts — a round pair for creative and intellectual environments, a square pair for formal professional settings. With both the 007 and 009 available in the same Italian acetate at 158mm, this is a natural pairing.</p>
 
 <p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm) — Italian acetate frames designed for 155mm+ faces. Join the waitlist at woolet.co.</em></p>
+
+<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Shape is taste; width is arithmetic. Before you choose between round and soft-square, <a href="/en/fit" style="color:#A07A2A;"><strong>measure your face with FitLens</strong></a> — 20 seconds on your phone camera, and you will know whether 158 mm is your number.</p>
+
 `,
   },
   {
@@ -1348,6 +1351,9 @@ const blogPostsEN: BlogPost[] = [
 <p>Italian acetate frames with proper care should last 8–12 years, significantly outlasting budget plastic alternatives. The per-year cost of a $300 frame worn daily for 10 years is $30/year — less than the cost of most professional accessories that receive far less use.</p>
 
 <p><em>Woolet makes premium Italian acetate eyewear engineered for professionals with 155mm+ face widths. Two models: 007 (round, 158mm) and 009 (square, 158mm). Join the waitlist at woolet.co.</em></p>
+
+<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Not sure where you land? <a href="/en/fit" style="color:#A07A2A;"><strong>Get your number in 20 seconds</strong></a> with FitLens — your phone camera, a credit card for scale, and a face width in millimetres.</p>
+
 `,
   },
   {
@@ -1561,6 +1567,9 @@ const blogPostsEN: BlogPost[] = [
 <p><strong>The glasses for big heads that look like they belong on a discerning, style-conscious professional — because they do — are finally here.</strong></p>
 
 <p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm). Italian acetate. Engineered for 155mm+ faces. Join the waitlist at woolet.co for priority access and 15% off at launch.</em></p>
+
+<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Every recommendation above depends on one number you probably do not have yet. <a href="/en/fit" style="color:#A07A2A;"><strong>Scan your face with your phone</strong></a> — FitLens returns your temple-to-temple width and the front width that fits it.</p>
+
 `,
   },
   {
@@ -1691,6 +1700,9 @@ const blogPostsEN: BlogPost[] = [
 <p>Blue-light glasses are a useful comfort feature with modest, mostly evening-and-glare-related benefits. They are not a medical product. The biggest mistake wide-faced buyers make is not in choosing the wrong coating — it is in buying a frame that doesn't fit, and then blaming the lens when their head still hurts. Get the 158 mm frame first. Then choose the lens.</p>
 
 <p><a href="/en/collections/oversized-blue-light-glasses">Oversized blue-light glasses (158 mm)</a> | <a href="/en/collections/blue-light-glasses-for-wide-faces">Blue-light glasses for wide faces</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+
+<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 20 seconds, no app.</p>
+
 `,
   },
   {
@@ -1785,6 +1797,9 @@ const blogPostsEN: BlogPost[] = [
 <p>Yes. Woolet 007 and 009 both accept prescription lenses, with the polarized or combo upgrade applied on top. SizeGlasses and BXL also offer prescription in their wide ranges; Faded Days does not at the time of writing.</p>
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+
+<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Before you buy any pair on this list, <a href="/en/fit" style="color:#A07A2A;"><strong>get your number in 20 seconds</strong></a>. FitLens measures your face width from your phone camera and tells you whether 158 mm fits.</p>
+
 `,
   },
   {
