@@ -11,6 +11,7 @@ import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { FoundingBenefits, FoundingUrgency } from "@/components/FoundingBenefits";
 import FitToolContent, { FitBreadcrumbs } from "@/components/FitToolContent";
+import { FIT_JSONLD } from "@/seo/fit-jsonld";
 
 const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
 const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
