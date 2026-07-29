@@ -579,3 +579,19 @@ html[lang="fr"] {
 }
 
 
+
+/* Hero headline A/B test — reserve space for the longest variant so the CTA
+   never shifts between variants. Remove together with src/lib/hero-experiment.ts. */
+.woolet-hero-copy {
+  min-height: 316px;
+}
+@media (min-width: 768px) {
+  .woolet-hero-copy {
+    min-height: 300px;
+  }
+}
+@media (min-width: 1024px) {
+  .woolet-hero-copy {
+    min-height: 340px;
+  }
+}
