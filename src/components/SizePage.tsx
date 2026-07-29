@@ -11,6 +11,8 @@ import {
   type SizeVerdictKind,
 } from "@/data/sizes";
 import NotFound from "@/pages/NotFound";
+import ClusterSections from "@/components/ClusterSections";
+import { SIZE_SECTIONS } from "@/data/size-sections";
 import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
 const SITE = "https://woolet.co";
@@ -339,6 +341,8 @@ function SizePageInner({ size }: { size: SizeEntry }) {
             </Link>
           </div>
         </section>
+
+        <ClusterSections sections={SIZE_SECTIONS[size.slug]} />
 
         {/* Frame cards */}
         <section aria-labelledby="frames-heading" style={{ ...wrap, padding: "32px 20px 8px" }}>
