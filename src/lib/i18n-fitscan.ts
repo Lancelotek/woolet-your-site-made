@@ -38,8 +38,8 @@ const en: Dict = {
 
   // Desktop QR gate
   "desktop.eyebrow": "FITLENS · PHONE ONLY",
-  "desktop.h1_pre": "Find your glasses size in",
-  "desktop.h1_em": "20 seconds — no ruler needed",
+  "desktop.h1_pre": "Virtual Fit for Wide Faces — Measure Your Face in",
+  "desktop.h1_em": "20 seconds",
   "desktop.desc": "FitLens runs on your phone camera in about 20 seconds. Your photo stays in the browser — it isn't uploaded or saved. We ask for your email on the phone, after the measurement.",
   "desktop.step1": "Open the camera app on your phone and aim it at the QR code.",
   "desktop.step2": "Tap the link that appears — FitLens opens in your phone's browser.",
