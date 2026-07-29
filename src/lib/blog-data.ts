@@ -3789,8 +3789,8 @@ Related guides:
   },
   {
     slug: "acetate-vs-tr90-glasses",
-    title: "Italian Acetate vs TR90: Which Fits a Wide Face Better?",
-    excerpt: "TR90 is light and cheap. Italian Mazzucchelli acetate is heavier, warmer to the touch — and, crucially for a 155 mm+ face, adjustable. Here's the honest side-by-side.",
+    title: "Acetate vs TR90 vs Plastic Glasses: Which Fits a Wide Face?",
+    excerpt: "Acetate vs TR90 and acetate vs ordinary injection-moulded plastic, compared on weight, adjustability, colour and repair — and what each means on a 155 mm+ face.",
     date: "2026-07-21",
     readTime: 9,
     tags: ["Materials", "Fit", "Acetate"],
@@ -3800,6 +3800,7 @@ Related guides:
       { q: "Why does adjustability matter more for a wide face?", a: "Because there is no true off-the-shelf 158 mm+ market. Even the right frame will need a 1–3 mm tweak at the temples or bridge to sit level. Acetate allows that tweak; TR90 does not." },
       { q: "Which is better for sports or kids?", a: "TR90 wins — light, flexible, cheap to replace. For everyday wear on a 155 mm+ face where fit and longevity matter, acetate is the honest answer." },
       { q: "Is TR90 a cheap material?", a: "It is inexpensive to mould at scale, which is why it dominates sub-$100 frames. That is not a knock on the plastic itself — it just explains why no premium atelier uses it." },
+      { q: "What is the difference between acetate glasses and plastic glasses?", a: "Acetate is a cellulose-based plastic cut from solid sheet and hand finished; frames sold as plastic are injection-moulded from polymer in seconds. Acetate has colour running through the material, can be reheated and reshaped by an optician, and can be polished after a scratch. Moulded plastic can do none of those things." },
     ],
     content: `
 <p>Walk into any optical store and you will meet two materials: shiny, warm-to-the-touch <strong>Italian acetate</strong>, and matte, feather-light <strong>TR90</strong>. Both are plastics. Both promise "premium." Only one is actually built for a wide face.</p>
@@ -3816,6 +3817,16 @@ Related guides:
 <p><strong>Italian acetate</strong> — cellulose acetate is a plant-based plastic made from cotton and wood pulp. The Italian standard is <a href="https://www.mazzucchelli1849.it/en/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Mazzucchelli 1849</a>, which supplies the vast majority of premium eyewear ateliers in Cadore and Belluno. It arrives as a solid block. Every frame is milled, tumbled, polished and hand-finished — a 5–7 week process.</p>
 
 <p><strong>TR90</strong> — a nylon-based thermoplastic (polyamide) developed by Swiss chemists in the 1980s, originally for ski boots and safety eyewear. It is <em>injection-moulded</em>: molten plastic is shot into a metal cavity, cooled in seconds, ejected. No hand-finishing. A frame that takes 5 weeks in acetate takes 90 seconds in TR90.</p>
+
+<h2>Acetate vs injection-moulded plastic</h2>
+
+<p>Before comparing acetate with TR90 specifically, it is worth separating the two categories properly, because "acetate glasses vs plastic" is the comparison most people are actually making. Acetate is a plastic — a cellulose-based one — so the meaningful distinction is not chemistry but process. Acetate frames are cut from solid sheet or block and finished by hand. Everything sold generically as "plastic" is injection-moulded: molten polymer forced into a metal cavity, cooled, ejected, done.</p>
+
+<p>That process difference produces four practical consequences. <strong>Density and feel:</strong> a milled acetate front has consistent density throughout, which is why it feels warm and solid; moulded plastic cools from the outside in and carries internal stress lines, which is why it feels hollow and can whiten at flex points. <strong>Adjustability:</strong> acetate softens predictably at around 80 °C and holds a new shape; moulded polymers are engineered with shape memory and return to the mould geometry. <strong>Colour:</strong> acetate colour runs through the material, so a scratch polishes out; moulded frames are usually surface-coated or dyed, so a scratch is permanent. <strong>Repair:</strong> an optician can re-cut, re-polish and re-set acetate. Almost nothing on an injection-moulded frame is serviceable.</p>
+
+<p>For a 155 mm+ face, the adjustability point outweighs everything else. A wide front is a long lever, and getting it to sit level almost always requires a one-to-three-millimetre correction at the temple or bridge after the first week of wear. Acetate accepts that correction. Injection-moulded plastic, TR90 included, does not — it will hold whatever geometry the mould gave it for the life of the frame.</p>
+
+<p>None of this makes moulded plastic a bad material. It makes it a material chosen for cost and volume rather than for fit, which is a reasonable trade at $40 and a poor one at 158 mm.</p>
 
 <h2>The side-by-side</h2>
 
