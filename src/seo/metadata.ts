@@ -344,7 +344,7 @@ const homeCopy: Record<Lang, Copy> = {
   nl: {
     title: "Woolet — Premium bril voor brede gezichten (158 mm)",
     description:
-      "Italiaanse Mazzucchelli-acetaatbril ontworpen voor bredere gezichten. Eén precieze maat 158 mm, keyhole-brug, met de hand afgewerkt in Italië. Vind je pasvorm in 20 seconden.",
+      "Italiaanse Mazzucchelli-acetaatbril ontworpen voor bredere gezichten. Eén precieze maat 158 mm, keyhole-brug, met de hand afgewerkt in de EU. Vind je pasvorm in 20 seconden.",
   },
 };
 
@@ -515,7 +515,7 @@ export function getMetadata(route: string): RouteMeta {
       "@type": "HowTo",
       name: isPL ? "Jak powstaje oprawa Woolet" : "How a Woolet frame is made",
       description: isPL
-        ? "13-etapowy, ok. 14-dniowy proces produkcji oprawy Woolet — od inżynierii CAD na bazie pomiarów Twojej twarzy po czyszczenie ultradźwiękowe. Wykończona ręcznie we Włoszech z octanu Mazzucchelli."
+        ? "13-etapowy, ok. 14-dniowy proces produkcji oprawy Woolet — od inżynierii CAD na bazie pomiarów Twojej twarzy po czyszczenie ultradźwiękowe. Ręcznie wykończona w UE z octanu Mazzucchelli z Mediolanu."
         : "The 13-stage, ~14-day process behind every Woolet frame — from CAD engineering on your face measurements to the final ultrasonic clean. Hand finished in the EU from Mazzucchelli acetate.",
       image: processImage,
       totalTime: "P14D",
@@ -548,11 +548,11 @@ export function getMetadata(route: string): RouteMeta {
         ? {
             title: "Proces Woolet — jak powstają nasze oprawy z włoskiego octanu",
             description:
-              "Jak powstaje oprawa Woolet: 13 etapów w ok. 14 dni — od CAD po czyszczenie ultradźwiękowe. Ręcznie wykończona we Włoszech z octanu Mazzucchelli, dopasowana do szerszych twarzy.",
+              "Jak powstaje oprawa Woolet: 13 etapów w ok. 14 dni — od CAD po czyszczenie ultradźwiękowe. Ręcznie wykończona w UE z octanu Mazzucchelli z Mediolanu, dopasowana do szerszych twarzy.",
             noscriptHtml: `<h1>Proces Woolet</h1>
 <p>Każda oprawa Woolet powstaje wokół jednej twarzy — Twojej. Od pierwszego cyfrowego szkicu po końcowe płukanie ultradźwiękowe przechodzi przez ręce i maszyny kilkanaście razy. 13 etapów. W większości ręcznie. Włoski octan Mazzucchelli.</p>
 <ol>${steps.map(([n, t]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t)}</li>`).join("")}</ol>
-<p>Wykonane z włoskiego octanu Mazzucchelli. Wykończone ręcznie we Włoszech. <a href="/en/fit">Dobierz rozmiar</a> · <a href="/en/bespoke">Poznaj bespoke</a>.</p>`,
+<p>Wykonane z włoskiego octanu Mazzucchelli z Mediolanu. Wykończone ręcznie w UE. <a href="/en/fit">Dobierz rozmiar</a> · <a href="/en/bespoke">Poznaj bespoke</a>.</p>`,
           }
         : {
             title: "The Woolet Process — How Our Italian Acetate Eyewear Is Made",
