@@ -12,6 +12,7 @@ import { getBlogPost } from "@/lib/blog-data";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
+import { trackFitCtas } from "@/lib/blog-cta-tracking";
 
 /* ── helpers ── */
 
@@ -144,6 +145,15 @@ const BlogPost = () => {
 
   const headings = useMemo(() => post ? extractH2s(post.content) : [], [post]);
   const processedContent = useMemo(() => post ? processContent(post.content, currentLang) : "", [post, currentLang]);
+
+  // Instrument FitLens CTAs inside the injected article HTML. Runs after the
+  // body is in the DOM and re-runs whenever the article changes.
+  const bodyRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!bodyRef.current || !post) return;
+    return trackFitCtas(bodyRef.current, { slug: post.slug, lang: currentLang });
+  }, [processedContent, post?.slug, currentLang]);
+
 
   if (!post) {
     // Unknown blog slug: render the NotFound view in-place. Do NOT
@@ -347,6 +357,7 @@ const BlogPost = () => {
 
         {/* Article body */}
         <div
+          ref={bodyRef}
           className="woolet-blog-content"
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
