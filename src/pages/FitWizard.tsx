@@ -139,17 +139,16 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
       </div>
 
       <h1
-        className="font-display text-woolet-white leading-[0.95]"
-        style={{ fontSize: "clamp(2.6rem, 5vw, 3.4rem)", fontWeight: 300 }}
+        className="font-display text-woolet-white leading-[1.02]"
+        style={{ fontSize: "clamp(2.2rem, 4.4vw, 3.1rem)", fontWeight: 300 }}
       >
-        <em className="italic text-gold-light">Measured</em> for you.<br />
-        In thirty seconds.
+        Virtual Fit for Wide Faces — <em className="italic text-gold-light">Measure</em> Your Face in 20 Seconds
       </h1>
 
       <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "1rem" }}>
-        Three numbers. One frame. No more guessing.<br />
-        Your face width, your bridge, your pupillary distance — captured by your phone camera against the scale of a credit-card-sized object you already have. Sub-millimeter accuracy. No app to install.
+        Not a try-on mirror — a measurement. FitLens uses your phone camera and any credit-card-sized object to return three numbers: your face width, your bridge, your pupillary distance. Then it tells you whether our 158 mm front actually fits. Sub-millimeter accuracy. No app to install.
       </p>
+
 
       <ul className="flex flex-col gap-3 my-2">
         {[
