@@ -22,6 +22,8 @@ import { competitors } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug } from "@/data/sizes";
+import { FIT_FAQ, FIT_BANDS } from "./fit-faq";
+import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
@@ -576,18 +578,50 @@ export function getMetadata(route: string): RouteMeta {
 
   // ----- Fit
   if (path === "/fit") {
-    return base(route, lang, {
-      title: "Find Your Glasses Size in 20 Seconds — FitLens | Woolet",
-      description:
-        "Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork.",
-    });
+    return base(
+      route,
+      lang,
+      {
+        title: "FitLens — Virtual Glasses Fit for Wide Faces | Woolet",
+        description:
+          "Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork.",
+        noscriptHtml: `<h1>Virtual Fit for Wide Faces — Measure Your Face in 20 Seconds</h1>
+<p>FitLens is a virtual fit tool, not a virtual try-on. It uses your phone camera and a credit card (85.6&nbsp;mm) as a scale reference to return your temple-to-temple face width, your nose bridge width and your pupillary distance in millimetres — then tells you whether our 158&nbsp;mm front width fits. No app, no account, about 20 seconds.</p>
+<h2>How it works</h2>
+<ol>
+<li><strong>Open the camera</strong> — runs in your phone browser, nothing to install.</li>
+<li><strong>Hold the phone at arm's length</strong> — face the camera straight on with a card held flat under your eyes.</li>
+<li><strong>Get your measurement</strong> — temple-to-temple face width plus the recommended frame front width.</li>
+</ol>
+<h2>What it measures and what it does not</h2>
+<p>It measures face width, bridge width, pupillary distance and the front width that fits you. It does not render frames on your face, does not replace an eye test or prescription, and does not guess: outside 145–162&nbsp;mm it says so.</p>
+<h2>Virtual try-on vs virtual fit</h2>
+<p>A virtual try-on shows how frames look. FitLens shows whether they will actually fit a 155&nbsp;mm+ face. Appearance is subjective; fit is a number in millimetres.</p>
+<h2>Your result explained</h2>
+<ul>${FIT_BANDS.map((b) => `<li><strong>${escapeHtml(b.range)}</strong> — ${escapeHtml(b.verdict)}. ${escapeHtml(b.size)}.</li>`).join("")}</ul>
+<h2>Privacy</h2>
+<p>The camera frame is processed to extract measurements and is not kept as an identifiable profile. Only the resulting numbers persist, and only if you save or email your result.</p>
+<h2>FAQ</h2>
+<dl>${FIT_FAQ.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>
+<p>Fit tools: <a href="/en/fit">virtual fit scan</a> · <a href="/en/fit/manual">manual measurement</a> · <a href="/en/fit/bespoke">bespoke fit (145–162 mm)</a>.</p>`,
+      },
+      {},
+      FIT_JSONLD,
+    );
   }
   if (path === "/fit/manual") {
     return base(route, lang, {
       title: "Manual Measurement — Woolet Fit",
       description:
         "Measure your face width, bridge and PD with a ruler and a credit card. Manual fallback for the Woolet AI Fit scan.",
-    });
+      noscriptHtml: `<h1>Manual Measurement — Woolet Fit</h1>
+<p>Measure your face width, bridge width and pupillary distance with a ruler and a standard card, no camera required. Same size recommendation as the camera scan.</p>
+<p>Fit tools: <a href="/en/fit">virtual fit scan</a> · <a href="/en/fit/manual">manual measurement</a> · <a href="/en/fit/bespoke">bespoke fit (145–162 mm)</a>.</p>`,
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Virtual fit", url: `${SITE_URL}/en/fit` },
+      { name: "Manual measurement", url: `${SITE_URL}/en/fit/manual` },
+    ])]);
   }
   // /fit/scan now redirects to /fit — metadata handled by /fit block above
   if (path === "/fit/bespoke") {
@@ -595,7 +629,14 @@ export function getMetadata(route: string): RouteMeta {
       title: "Bespoke Fit — Woolet (145–162 mm)",
       description:
         "If your face falls outside the standard Woolet sizes, bespoke covers 145–162 mm with a 16–26 mm bridge. Hand-crafted by a European atelier from your AI scan.",
-    });
+      noscriptHtml: `<h1>Bespoke Fit — Woolet (145–162 mm)</h1>
+<p>Outside the 155–161 mm signature range? Bespoke builds your frame to the millimetre across 145–162 mm, with a 16–26 mm bridge, from your fit measurement.</p>
+<p>Fit tools: <a href="/en/fit">virtual fit scan</a> · <a href="/en/fit/manual">manual measurement</a> · <a href="/en/fit/bespoke">bespoke fit (145–162 mm)</a>.</p>`,
+    }, {}, [breadcrumbJsonLd([
+      { name: "Woolet", url: `${SITE_URL}/en` },
+      { name: "Virtual fit", url: `${SITE_URL}/en/fit` },
+      { name: "Bespoke fit", url: `${SITE_URL}/en/fit/bespoke` },
+    ])]);
   }
 
   // ----- Collections
