@@ -343,7 +343,7 @@ const MeterRow = ({
       <div className="relative h-6 w-full" style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}>
         <span
           className="absolute -translate-x-1/2 whitespace-nowrap"
-          style={{ left: `${stdLeft + stdWidth / 2}%`, color: "hsl(var(--cream-dim) / 0.7)" }}
+          style={{ left: `${stdLeft + stdWidth / 2}%`, color: "hsl(var(--cream-dim))" }}
         >
           <span>✕ {standardLabel}</span>{" "}
           <span className="text-foreground/85" style={{ fontWeight: 500 }}>
@@ -392,7 +392,7 @@ const MeterRow = ({
 
       <div
         className="flex justify-between mt-2.5 tracking-wider"
-        style={{ fontSize: "0.66rem", color: "hsl(var(--cream-dim) / 0.55)" }}
+        style={{ fontSize: "0.66rem", color: "hsl(var(--cream-dim))" }}
       >
         {cfg.ticks.map((t) => (
           <span key={t}>{t}</span>
@@ -496,7 +496,7 @@ const FrameWidthMeter = ({ copy }: { copy: HomeCopy }) => {
           className="ml-2 uppercase tracking-[0.22em]"
           style={{
             fontSize: "0.62rem",
-            color: "hsl(var(--cream-dim) / 0.55)",
+            color: "hsl(var(--cream-dim))",
             fontFamily: "Barlow, sans-serif",
           }}
         >
@@ -704,13 +704,13 @@ const Index = () => {
 
               {/* Trust strip */}
               <div
-                className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1 text-cream-dim/80"
+                className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1 text-cream-dim"
                 style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
               >
                 <span>{copy.trustFit}</span>
-                <span className="text-cream-dim/30">·</span>
+                <span className="text-cream-dim/60" aria-hidden="true">·</span>
                 <span>{copy.trustAcetate}</span>
-                <span className="text-cream-dim/30">·</span>
+                <span className="text-cream-dim/60" aria-hidden="true">·</span>
                 <span>{copy.trustHandmade}</span>
               </div>
 
