@@ -205,7 +205,7 @@ const FAQS = [
   },
   {
     q: "Where are Woolet bespoke frames made?",
-    a: "Hand-crafted by a small atelier in the EU using Mazzucchelli acetate from Castiglione Olona, Italy. Each frame is cut, milled, and polished by hand — not CNC-finished — which is what allows the sub-millimeter custom dimensions.",
+    a: "Hand-crafted by a small atelier in the EU using Mazzucchelli acetate from Milan, Italy. Each frame is cut, milled, and polished by hand — not CNC-finished — which is what allows the sub-millimeter custom dimensions.",
   },
   {
     q: "Can I get prescription, blue-light, or polarized lenses?",
@@ -670,7 +670,7 @@ const BespokePage = () => {
               <em className="italic text-gold-light">Mazzucchelli</em> acetate. Hand-crafted in Italy.
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-              Every bespoke frame uses Mazzucchelli acetate from Castiglione Olona — the same material used by Cutler &amp; Gross, Jacques Marie Mage, and most premium Italian houses. It is denser and heavier than TR90 thermoplastic, but it can be heat-adjusted by any optician for ongoing fit corrections. That post-purchase adjustability is the difference between a frame that fits for a week and one that fits for a decade.
+              Every bespoke frame uses Mazzucchelli acetate from Milan — the same material used by Cutler &amp; Gross, Jacques Marie Mage, and most premium Italian houses. It is denser and heavier than TR90 thermoplastic, but it can be heat-adjusted by any optician for ongoing fit corrections. That post-purchase adjustability is the difference between a frame that fits for a week and one that fits for a decade.
             </p>
           </div>
         </section>
