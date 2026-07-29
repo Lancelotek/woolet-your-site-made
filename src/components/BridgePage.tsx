@@ -10,6 +10,8 @@ import {
   type BridgeVerdictKind,
 } from "@/data/bridges";
 import NotFound from "@/pages/NotFound";
+import ClusterSections from "@/components/ClusterSections";
+import { BRIDGE_SECTIONS } from "@/data/cluster-sections";
 
 const SITE = "https://woolet.co";
 
@@ -222,6 +224,8 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
             Bridge width scales with front width. Bespoke pairs 20–24 mm bridges with any front from 145 to 162 mm.
           </p>
         </section>
+
+        <ClusterSections sections={BRIDGE_SECTIONS[b.slug]} />
 
         {/* Frame cards */}
         <section aria-labelledby="frames" style={{ ...wrap, padding: "32px 20px 8px" }}>

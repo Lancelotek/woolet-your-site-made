@@ -10,6 +10,8 @@ import {
   type TempleVerdictKind,
 } from "@/data/temples";
 import NotFound from "@/pages/NotFound";
+import ClusterSections from "@/components/ClusterSections";
+import { TEMPLE_SECTIONS } from "@/data/cluster-sections";
 
 const SITE = "https://woolet.co";
 
@@ -234,6 +236,8 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
             Temple length scales with head circumference. Bespoke pairs 145–155 mm temples with any front from 145 to 162 mm.
           </p>
         </section>
+
+        <ClusterSections sections={TEMPLE_SECTIONS[t.slug]} />
 
         {/* Frame cards */}
         <section aria-labelledby="frames" style={{ ...wrap, padding: "32px 20px 8px" }}>

@@ -84,9 +84,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     ogImage: "/og-how-to-tell-if-your-face-is-wide-or-narrow.jpg",
   },
   "acetate-vs-tr90-glasses": {
-    metaTitle: "Italian Acetate vs TR90: Which Wins on a Wide Face?",
+    metaTitle: "Acetate vs TR90 vs Plastic Glasses: What Fits a Wide Face",
     metaDescription:
-      "Acetate can be heat-adjusted; TR90 cannot. See the side-by-side on weight, repairability and fit — and why 155 mm+ faces need Italian acetate, not moulded plastic.",
+      "Acetate glasses vs plastic and TR90, compared on weight, adjustability, colour and repair — and why a 155 mm+ face needs a frame an optician can reshape.",
   },
 
 

@@ -37,13 +37,80 @@ const blogPostsEN: BlogPost[] = [
   <div style="flex:1;min-width:0;">
     <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
     <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
-    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: June 2025</div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Published: 9 March 2026 · Last updated: 29 July 2026</div>
   </div>
 </div>
 
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face measures 150 mm or more temple-to-temple, and it needs glasses with a front width of 155 mm or more.</strong> Most frames marketed as wide stop at 138–148 mm, which is why they still pinch. Measure your face width first, then buy to that number — not to lens size or style.</p>
+
+<h2>How to know if your face is wide</h2>
+
+<p>The 30-second check: stand square to a mirror, look straight ahead, and hold a ruler flat and level across the widest part of your head — just above and in front of the ears, not across the cheeks. Read the millimetres temple to temple. Under 140 mm is average. 140–149 mm is large-average. 150 mm and above is a wide face. 155 mm and above is where the mainstream market has nothing for you at all.</p>
+
+<p>Two secondary signals confirm it without a ruler. First, the imprint test: take your current glasses off after four hours and look for a red line in front of each ear. That mark means the arms are gripping rather than resting, which happens when the front is too narrow. Second, the centring test: photograph yourself straight on wearing your glasses. If your pupils sit noticeably inboard of the lens centres, the frame is too wide; if the frame edges stop short of the sides of your face, it is too narrow.</p>
+
+<p>The full calibrated method — including the credit-card reference for photographing rather than measuring — is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width for glasses</a>. If you would rather not measure at all, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens takes about 20 seconds from your phone camera</strong></a>, no app and no appointment, and returns face width and bridge width together.</p>
+
+<h2>The number that matters: front width</h2>
+
+<p>Almost every sizing mistake in eyewear comes from shopping by the wrong number. The three digits printed inside the temple — 52▫16 145 — are lens width, bridge and temple length. None of them is the total front width, and total front width is the only measurement that decides whether a frame fits a wide face. A 58 mm lens on a narrow bridge can still produce a 142 mm front.</p>
+
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;">
+  <thead><tr style="background:#F8F6F1;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Your face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Front width to buy</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Where to buy it</th></tr></thead>
+  <tbody>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Any mainstream retailer. Nothing here applies to you.</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Extended-fit lines, or Woolet bespoke from 145 mm. Signature 158 mm is too wide.</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">The Woolet signature range. <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> or <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a>, both cut at 158 mm.</td></tr>
+    <tr><td style="padding:10px 12px;">162 mm and above</td><td style="padding:10px 12px;">162 mm max</td><td style="padding:10px 12px;">Bespoke only, to 162 mm. Above that we do not build — a made-to-order metal frame is the honest answer.</td></tr>
+  </tbody>
+</table>
+
+<p>Bespoke covers the full 145–162 mm span in four shapes and sixty colour and size combinations, which exists precisely because the two bands either side of 155–161 mm are the ones nobody serves. Sizing pages for individual widths are here: <a href="/en/size/150mm" style="color:#A07A2A;">150 mm</a>, <a href="/en/size/155mm" style="color:#A07A2A;">155 mm</a>, <a href="/en/size/158mm" style="color:#A07A2A;">158 mm</a>, <a href="/en/size/160mm" style="color:#A07A2A;">160 mm</a>, <a href="/en/size/162mm" style="color:#A07A2A;">162 mm</a>.</p>
+
+<h2>What the market actually offers</h2>
+
+<p>Here is the market for glasses frames for wide faces, measured rather than described. Widest front width is as listed by each brand on its own widest model; where a brand publishes lens and bridge only, the front width is the sum of lens, bridge and rim allowance.</p>
+
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;">
+  <thead><tr style="background:#F8F6F1;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Brand</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Widest front</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Material</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Prescription</th></tr></thead>
+  <tbody>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Zenni Extended Fit</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">~145 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">TR90, mixed plastic</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Yes</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Warby Parker Wide</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">~145 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Cellulose acetate</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Yes</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">EyeBuyDirect (wide filter)</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">~146 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">TR90, acetate, metal</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Yes</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Eyeshells</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">~150 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Acetate</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Yes</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Fatheadz</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">~152 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Plastic, metal</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Yes</td></tr>
+    <tr style="background:#FBF7EE;"><td style="padding:10px 12px;"><strong>Woolet</strong></td><td style="padding:10px 12px;"><strong>158 mm signature · 162 mm bespoke</strong></td><td style="padding:10px 12px;">Mazzucchelli acetate from Milan, hand made in EU</td><td style="padding:10px 12px;">Yes — single-vision, bifocal, progressive</td></tr>
+  </tbody>
+</table>
+
+<p>The pattern is consistent. The volume retailers treat wide as a filter inside a general catalogue and stop between 145 and 148 mm, because that is where their existing tooling ends. The specialists get to 150–152 mm and mostly build in plastic, because plastic is cheap to mould at unusual sizes. Nobody in the mainstream tools a front at 158 mm, which is the width a 155–161 mm face needs. That gap is the entire reason this brand exists.</p>
+
+<p>For prescription glasses for wide faces specifically, the constraint is not just the front. Progressive lenses need fitting height, which means a lens depth of at least 40 mm and a bridge that holds the frame at a stable height on the nose — a 21–22 mm keyhole or saddle rather than the 18 mm most wide frames still ship with.</p>
+
+<h2>Shapes that work at 155 mm+</h2>
+
+<p>At mainstream widths, shape is a style question. At 155 mm and above it is a structural one, because the frame has to hold tension across a longer span. Two shapes reliably work. A soft-square holds its line on a fuller face and pairs with a flatter top edge that follows the brow — the reasoning behind the 009. A round with a keyhole bridge softens a strong jaw and carries weight higher on the nose, which is the 007. Both are cut at 158 mm.</p>
+
+<p>What does not work at this width is anything without a full acetate rim. Rimless and semi-rimless constructions have nothing holding alignment across a 158 mm span, and they drift within weeks. Narrow rectangles fail differently: they emphasise horizontal width without covering it, which produces the strip effect across the face.</p>
+
+<p>The shape comparison in detail, including which suits glasses for wide faces male versus female proportions — the difference is brow height and lens depth, not width — is covered in <a href="/en/blog/round-vs-square-glasses-wide-face" style="color:#A07A2A;">round vs square glasses for a wide face</a>.</p>
+
+<h2>What to skip</h2>
+
+<p><strong>Skip frames that publish no total front width.</strong> If a product page lists 54▫18 145 and calls itself wide, it is 140 mm and it is not wide.</p>
+
+<p><strong>Skip the adjustment promise.</strong> An optician can heat and bend temple arms, change wrap angle and move nose pads. Nobody can widen a moulded front. If the front is 6 mm short, no adjustment recovers it and the frame will take a permanent set outward within months.</p>
+
+<p><strong>Skip spring hinges as a fix.</strong> A spring hinge masks a too-narrow front by adding outward tension, which is precisely the force that produces temple pain. On a wide face they make the symptom worse while feeling better in the shop.</p>
+
+<p><strong>Skip TR90 and injection-moulded nylon above 155 mm.</strong> The material flexes under the leverage a long front generates, and the fit drifts. See <a href="/en/blog/acetate-vs-tr90-glasses" style="color:#A07A2A;">acetate vs TR90</a> for the comparison.</p>
+
+<p><strong>Skip buying by lens diameter.</strong> A large round lens creates the impression of a wide frame and shares none of the width with your temples.</p>
+
 <p>You already know the problem. You've walked into an optical store, tried on frame after frame, and felt the creeping frustration as every single pair pinches your temples before it even reaches your ears. You've ordered online, hoped for the best, and returned the glasses three times. You've been told to "try metal frames" or to "maybe go custom" — as if finding glasses that simply fit should require a bespoke tailor.</p>
 
-<p>It shouldn't. And this guide is here to fix that.</p>
+<p>It shouldn't. And the rest of this guide is here to fix that.</p>
+
 
 <div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Definition</div>
@@ -390,7 +457,7 @@ const blogPostsEN: BlogPost[] = [
   </ul>
 </div>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2025-03-09","dateModified":"2025-06-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Milan, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Glasses for Wide Faces — Complete Fit and Buying Guide","description":"How to find prescription eyewear that fits faces wider than 145 mm. Frame measurements, material comparison, anthropometric data, and why standard glasses fail wide faces.","author":{"@type":"Person","name":"Marek Cieśla","url":"https://www.linkedin.com/in/marekciesla/","jobTitle":"Founder","worksFor":{"@type":"Organization","name":"Woolet Eyewear","url":"https://woolet.co"}},"publisher":{"@type":"Organization","name":"Woolet","url":"https://woolet.co","logo":{"@type":"ImageObject","url":"https://woolet.co/og-home.png"}},"datePublished":"2026-03-09","dateModified":"2026-07-29","mainEntityOfPage":{"@type":"WebPage","@id":"https://woolet.co/en/blog/glasses-for-wide-faces-guide"},"about":[{"@type":"Thing","name":"Wide face eyewear","description":"Prescription glasses designed for face widths above 145 mm"},{"@type":"Thing","name":"Mazzucchelli acetate","description":"Premium Italian cellulose acetate produced by Mazzucchelli 1849, Milan, Italy, since 1849"}],"citation":[{"@type":"CreativeWork","name":"Cleft Palate and Craniofacial Journal — facial anthropometric measurements","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/"},{"@type":"CreativeWork","name":"ISO 8624 — Spectacle frame measuring system and vocabulary","url":"https://www.iso.org/standard/31811.html"},{"@type":"CreativeWork","name":"ANSUR II — 2012 Anthropometric Survey of U.S. Army Personnel","url":"https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf"}]}</script>
 `,
   },
   {
@@ -558,9 +625,31 @@ const blogPostsEN: BlogPost[] = [
       ],
     },
     content: `
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 24px;border-radius:4px;"><strong>To measure your face width, hold a ruler flat and level across the widest part of your head at eye level — just in front of the ears — and read temple to temple in millimetres.</strong> That single number, not lens size, decides which frames fit. Under 145 mm is average; 155 mm and above needs a wide-face frame.</p>
+
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:0 0 28px;">
+  <thead><tr style="background:#F8F6F1;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Frame front width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Size band</th></tr></thead>
+  <tbody>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Standard</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Large / extended fit</td></tr>
+    <tr style="background:#FBF7EE;"><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Wide — <a href="/en/size/158mm" style="color:#A07A2A;">Woolet signature</a></td></tr>
+    <tr><td style="padding:10px 12px;">162 mm+</td><td style="padding:10px 12px;">162 mm max</td><td style="padding:10px 12px;">Bespoke (145–162 mm)</td></tr>
+  </tbody>
+</table>
+
 <p>Most people who struggle to find fitting glasses have never measured their face. They rely on vague labels like "wide" or "large" without understanding what those terms actually mean in millimeters — or why the "wide" option at their local optician might still be 15mm too narrow.</p>
 
 <p>This guide will fix that. In under 10 minutes, you'll have the one number that changes how you shop for glasses forever: your face width in millimeters.</p>
+
+<h2>Measure with your phone instead</h2>
+
+<p>If you would rather not hold a ruler against your own face in a mirror, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens</strong></a> does the same job from your phone camera in about 20 seconds. There is no app to install and no appointment: you open the page in your phone browser, hold a standard credit card (85.6 mm by ISO standard) under your eyes as a calibration reference, and take one straight-on photo.</p>
+
+<p>The scan uses the known card width to convert pixels to millimetres, then returns your face width and your nose bridge width together — the two numbers that decide frame size. It works in ordinary indoor light, nothing is uploaded to a third party, and it will tell you plainly whether you fall inside the 155–161 mm signature range, inside the 145–162 mm bespoke range, or outside both.</p>
+
+<p>The manual method below is just as accurate if you prefer it, and it is worth reading either way so you know what the number means.</p>
+
+
 
 <h2>What You'll Need</h2>
 
@@ -2048,6 +2137,8 @@ const blogPostsEN: BlogPost[] = [
       { q: "Do progressives work in a 158 mm wide-face frame?", a: "Yes — and they work better than in a standard 140 mm frame. The taller lens gives the optician more vertical room for the progressive corridor, which means a smoother distance-to-reading transition and less head tilt." },
       { q: "Why don't most prescription brands offer 155 mm+ widths?", a: "Lens-fitting tooling and frame moulds in mass-market optical labs are set for 130–148 mm front widths. Adding wider widths is a capital cost most chains won't take on for what they consider a niche segment." },
       { q: "What does custom prescription mean — the frame, the lens, or both?", a: "Both can be customised. A custom frame is cut to your face (made-to-measure). A custom lens is ground to your prescription, PD and the frame curve. Most 'custom prescription' brands customise only the lens — Woolet's bespoke tier customises both." },
+      { q: "Where can I get prescription glasses for a big head?", a: "From a brand that publishes a total front width above 155 mm, not from a wide filter inside a mainstream catalogue. Woolet 007 and 009 ship at a 158 mm front with 150 mm temples and arrive lens-less, so any local optician can fit your prescription. Bespoke covers 145–162 mm." },
+      { q: "Are prescription glasses for big heads the same as for wide faces?", a: "Almost always the same product. Face width decides the front measurement, head circumference decides the temple length, and a 59–61 cm head usually pairs with a 155–161 mm face. If your head is 62 cm or more, bespoke specifies 152–155 mm temples alongside the wide front." },
     ],
     content: `
 <p>If your face is wider than 155 mm and you need a prescription, you have probably had this exact conversation in an optical store: "We don't make this frame in your prescription range" or "We can do the prescription, but only in these three frames" — pointing to a wall of identical narrow rectangles. <strong>Custom prescription glasses for wide faces</strong> exist precisely to end that conversation.</p>
@@ -2099,6 +2190,14 @@ const blogPostsEN: BlogPost[] = [
 <h2>What it should not cost</h2>
 
 <p>A wide-fit frame plus single-vision prescription lenses at a good independent optician should land at $270–$500 total. A wide-fit frame plus progressives lands at $400–$700. Anything above that for a standard prescription is either premium lens technology (Zeiss DriveSafe, Varilux X-series) or a margin you can negotiate.</p>
+
+<h2>Prescription glasses for big heads — the same problem, a different search</h2>
+
+<p>"Prescription glasses for big heads" and "prescription glasses for wide faces" describe one product and two ways of noticing the same failure. Face width is the measurement that decides whether a frame front reaches across you; head circumference is what decides whether the temple arms reach around you. Big-head buyers usually arrive with the second complaint — arms that grip in front of the ear, tips that press behind it — and assume they need a longer arm rather than a wider front.</p>
+
+<p>In practice the two travel together. A head circumference of 59–61 cm typically comes with a face width of 155–161 mm, which is exactly the band the 158 mm signature front is cut for, paired with 150 mm temples at an 11° drop. A 62 cm head on a 160 mm face is the case where the arm becomes the binding constraint and bespoke specifies 152–155 mm temples instead.</p>
+
+<p>The prescription side does not change with head size. The frame ships lens-less either way, your optician grinds to your PD — which on a big head commonly runs 66–74 mm — and progressives benefit from the taller lens a wide frame allows. What changes is only the frame geometry, and that is the part that no mainstream prescription chain tools for. If you are not sure which of the two measurements is failing you, <a href="/en/fit" style="color:#A07A2A;">FitLens returns face width and bridge in about 20 seconds</a> from your phone camera.</p>
 
 <h2>Where Woolet fits</h2>
 
@@ -3690,8 +3789,8 @@ Related guides:
   },
   {
     slug: "acetate-vs-tr90-glasses",
-    title: "Italian Acetate vs TR90: Which Fits a Wide Face Better?",
-    excerpt: "TR90 is light and cheap. Italian Mazzucchelli acetate is heavier, warmer to the touch — and, crucially for a 155 mm+ face, adjustable. Here's the honest side-by-side.",
+    title: "Acetate vs TR90 vs Plastic Glasses: Which Fits a Wide Face?",
+    excerpt: "Acetate vs TR90 and acetate vs ordinary injection-moulded plastic, compared on weight, adjustability, colour and repair — and what each means on a 155 mm+ face.",
     date: "2026-07-21",
     readTime: 9,
     tags: ["Materials", "Fit", "Acetate"],
@@ -3701,6 +3800,7 @@ Related guides:
       { q: "Why does adjustability matter more for a wide face?", a: "Because there is no true off-the-shelf 158 mm+ market. Even the right frame will need a 1–3 mm tweak at the temples or bridge to sit level. Acetate allows that tweak; TR90 does not." },
       { q: "Which is better for sports or kids?", a: "TR90 wins — light, flexible, cheap to replace. For everyday wear on a 155 mm+ face where fit and longevity matter, acetate is the honest answer." },
       { q: "Is TR90 a cheap material?", a: "It is inexpensive to mould at scale, which is why it dominates sub-$100 frames. That is not a knock on the plastic itself — it just explains why no premium atelier uses it." },
+      { q: "What is the difference between acetate glasses and plastic glasses?", a: "Acetate is a cellulose-based plastic cut from solid sheet and hand finished; frames sold as plastic are injection-moulded from polymer in seconds. Acetate has colour running through the material, can be reheated and reshaped by an optician, and can be polished after a scratch. Moulded plastic can do none of those things." },
     ],
     content: `
 <p>Walk into any optical store and you will meet two materials: shiny, warm-to-the-touch <strong>Italian acetate</strong>, and matte, feather-light <strong>TR90</strong>. Both are plastics. Both promise "premium." Only one is actually built for a wide face.</p>
@@ -3717,6 +3817,16 @@ Related guides:
 <p><strong>Italian acetate</strong> — cellulose acetate is a plant-based plastic made from cotton and wood pulp. The Italian standard is <a href="https://www.mazzucchelli1849.it/en/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Mazzucchelli 1849</a>, which supplies the vast majority of premium eyewear ateliers in Cadore and Belluno. It arrives as a solid block. Every frame is milled, tumbled, polished and hand-finished — a 5–7 week process.</p>
 
 <p><strong>TR90</strong> — a nylon-based thermoplastic (polyamide) developed by Swiss chemists in the 1980s, originally for ski boots and safety eyewear. It is <em>injection-moulded</em>: molten plastic is shot into a metal cavity, cooled in seconds, ejected. No hand-finishing. A frame that takes 5 weeks in acetate takes 90 seconds in TR90.</p>
+
+<h2>Acetate vs injection-moulded plastic</h2>
+
+<p>Before comparing acetate with TR90 specifically, it is worth separating the two categories properly, because "acetate glasses vs plastic" is the comparison most people are actually making. Acetate is a plastic — a cellulose-based one — so the meaningful distinction is not chemistry but process. Acetate frames are cut from solid sheet or block and finished by hand. Everything sold generically as "plastic" is injection-moulded: molten polymer forced into a metal cavity, cooled, ejected, done.</p>
+
+<p>That process difference produces four practical consequences. <strong>Density and feel:</strong> a milled acetate front has consistent density throughout, which is why it feels warm and solid; moulded plastic cools from the outside in and carries internal stress lines, which is why it feels hollow and can whiten at flex points. <strong>Adjustability:</strong> acetate softens predictably at around 80 °C and holds a new shape; moulded polymers are engineered with shape memory and return to the mould geometry. <strong>Colour:</strong> acetate colour runs through the material, so a scratch polishes out; moulded frames are usually surface-coated or dyed, so a scratch is permanent. <strong>Repair:</strong> an optician can re-cut, re-polish and re-set acetate. Almost nothing on an injection-moulded frame is serviceable.</p>
+
+<p>For a 155 mm+ face, the adjustability point outweighs everything else. A wide front is a long lever, and getting it to sit level almost always requires a one-to-three-millimetre correction at the temple or bridge after the first week of wear. Acetate accepts that correction. Injection-moulded plastic, TR90 included, does not — it will hold whatever geometry the mould gave it for the life of the frame.</p>
+
+<p>None of this makes moulded plastic a bad material. It makes it a material chosen for cost and volume rather than for fit, which is a reasonable trade at $40 and a poor one at 158 mm.</p>
 
 <h2>The side-by-side</h2>
 
