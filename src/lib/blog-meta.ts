@@ -247,4 +247,26 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "Comment choisir la taille de solaires pour un visage large : largeur de face, pont et branches expliqués — plus un test 10 s avec vos lunettes actuelles.",
   },
+
+  // ── EN: fit, sizing & frame-measurement cluster (July 2026) ──────────
+  "glasses-too-tight-on-side-of-head": {
+    metaTitle: "Glasses Too Tight on the Side of Your Head? Real Fix",
+    metaDescription:
+      "Temple pressure means the frame front is too narrow — and no adjustment fixes that. Diagnose where it hurts, what an optician can change, and the 30-second width check.",
+  },
+  "eyeglass-frame-size-chart": {
+    metaTitle: "Eyeglass Frame Size Chart 2026 (XS–XXL, in mm)",
+    metaDescription:
+      "A real frame size chart: XS to XXL mapped to front width, lens, bridge and temple length in mm — plus the face width each band fits, and what to do past 150 mm.",
+  },
+  "temple-to-temple-measurement": {
+    metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
+    metaDescription:
+      "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit. A clear table, common lengths, and why Woolet lists a 103 mm temple.",
+  },
+  "numbers-on-glasses-frames-meaning": {
+    metaTitle: "Numbers on Glasses Frames Explained (54□21-103)",
+    metaDescription:
+      "Lens width, bridge and temple length decoded — and why none of the three printed numbers is your frame's total width. Worked examples on real 158 mm frames.",
+  },
 };
