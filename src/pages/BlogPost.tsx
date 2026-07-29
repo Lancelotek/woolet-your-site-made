@@ -146,6 +146,15 @@ const BlogPost = () => {
   const headings = useMemo(() => post ? extractH2s(post.content) : [], [post]);
   const processedContent = useMemo(() => post ? processContent(post.content, currentLang) : "", [post, currentLang]);
 
+  // Instrument FitLens CTAs inside the injected article HTML. Runs after the
+  // body is in the DOM and re-runs whenever the article changes.
+  const bodyRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!bodyRef.current || !post) return;
+    return trackFitCtas(bodyRef.current, { slug: post.slug, lang: currentLang });
+  }, [processedContent, post?.slug, currentLang]);
+
+
   if (!post) {
     // Unknown blog slug: render the NotFound view in-place. Do NOT
     // <Navigate> to `/${currentLang}/blog` — that produced a soft-404
