@@ -10,6 +10,7 @@ import SocialProofToast from "@/components/SocialProofToast";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { FoundingBenefits, FoundingUrgency } from "@/components/FoundingBenefits";
+import FitToolContent, { FitBreadcrumbs } from "@/components/FitToolContent";
 
 const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
 const RESERVATION_STORAGE_KEY = "woolet_pending_reservation";
@@ -133,6 +134,7 @@ const ghostButtonStyle: React.CSSProperties = {
 function IntroStep({ onBegin }: { onBegin: () => void }) {
   return (
     <div className="max-w-xl mx-auto flex flex-col gap-7 animate-fade-in">
+      <FitBreadcrumbs current="scan" />
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
         <span className="woolet-eyebrow-text">AI FIT · POWERED BY WOOLET</span>
@@ -2085,8 +2087,9 @@ export default function FitWizard() {
   return (
     <>
       <SEO
-        title="FitLens — Find Your Glasses Size in 20 Seconds | Woolet"
-        description="FitLens measures your face width in about 20 seconds with a credit card and your phone camera. Confirms whether 158 mm fits."
+        title="FitLens — Virtual Glasses Fit for Wide Faces | Woolet"
+        description="Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork."
+        jsonLd={FIT_JSONLD}
         lang={lang}
         path="/fit"
         availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}
@@ -2109,6 +2112,7 @@ export default function FitWizard() {
       <main className="bg-background text-foreground" style={{ minHeight: "100vh" }}>
         <div className="px-5 sm:px-8 lg:px-16 py-16 sm:py-24">
           {step === "intro" && <IntroStep onBegin={() => setStep("consent")} />}
+          {step === "intro" && <FitToolContent />}
           {step === "consent" && (
             <ConsentStep onAllow={() => setStep("capture")} onManual={goManual} />
           )}
