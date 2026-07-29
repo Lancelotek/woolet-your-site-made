@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { FitClusterNav } from "@/components/FitToolContent";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -405,6 +406,9 @@ export default function FitBespoke() {
                 Read the full size guide
               </Link>
             </div>
+          </div>
+          <div className="max-w-3xl mx-auto" style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid hsl(var(--gold) / 0.16)" }}>
+            <FitClusterNav current="/en/fit/bespoke" />
           </div>
         </section>
       </main>

@@ -4,12 +4,12 @@ type Dict = Record<string, string>;
 
 const en: Dict = {
   // SEO
-  "seo.title": "FitLens — Find Your Glasses Size in 20 Seconds",
-  "seo.desc": "FitLens measures your face width with your phone camera and a credit card in about 20 seconds. Private, in-browser, accurate to ±1.5 mm — built for wide faces.",
+  "seo.title": "FitLens — Virtual Glasses Fit for Wide Faces | Woolet",
+  "seo.desc": "Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork.",
 
   // Welcome
   "welcome.eyebrow": "FITLENS · ~20-SECOND SCAN",
-  "welcome.h1_pre": "Find your glasses size in",
+  "welcome.h1_pre": "Virtual Fit for Wide Faces — Measure Your Face in",
   "welcome.h1_em": "20 seconds",
   "welcome.subtitle": "Three steps. Photo never leaves your device until you capture.",
   "welcome.need_card_title": "You need a card for this scan",
@@ -38,8 +38,8 @@ const en: Dict = {
 
   // Desktop QR gate
   "desktop.eyebrow": "FITLENS · PHONE ONLY",
-  "desktop.h1_pre": "Find your glasses size in",
-  "desktop.h1_em": "20 seconds — no ruler needed",
+  "desktop.h1_pre": "Virtual Fit for Wide Faces — Measure Your Face in",
+  "desktop.h1_em": "20 seconds",
   "desktop.desc": "FitLens runs on your phone camera in about 20 seconds. Your photo stays in the browser — it isn't uploaded or saved. We ask for your email on the phone, after the measurement.",
   "desktop.step1": "Open the camera app on your phone and aim it at the QR code.",
   "desktop.step2": "Tap the link that appears — FitLens opens in your phone's browser.",

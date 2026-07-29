@@ -147,9 +147,9 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
       </h1>
 
       <p className="text-cream-dim leading-relaxed tracking-wider" style={{ fontSize: "1rem" }}>
-        Three numbers. One frame. No more guessing.<br />
-        Your face width, your bridge, your pupillary distance — captured by your phone camera against the scale of a credit-card-sized object you already have. Sub-millimeter accuracy. No app to install.
+        Not a try-on mirror — a measurement. FitLens uses your phone camera and any credit-card-sized object to return three numbers: your face width, your bridge, your pupillary distance. Then it tells you whether our 158 mm front actually fits. Sub-millimeter accuracy. No app to install.
       </p>
+
 
       <ul className="flex flex-col gap-3 my-2">
         {[
@@ -2086,8 +2086,9 @@ export default function FitWizard() {
   return (
     <>
       <SEO
-        title="FitLens — Find Your Glasses Size in 20 Seconds | Woolet"
-        description="FitLens measures your face width in about 20 seconds with a credit card and your phone camera. Confirms whether 158 mm fits."
+        title="FitLens Wizard — Measure Your Face | Woolet"
+        description="Step-by-step wizard for the Woolet FitLens measurement. Face width, bridge and PD in about 20 seconds."
+        noindex
         lang={lang}
         path="/fit"
         availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}

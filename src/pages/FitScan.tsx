@@ -7,6 +7,8 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RelatedGuides from "@/components/RelatedGuides";
+import FitToolContent, { FitBreadcrumbs } from "@/components/FitToolContent";
+import { FIT_JSONLD } from "@/seo/fit-jsonld";
 import fitScanTip from "@/assets/fit-scan-tip.png";
 import fitStepCard from "@/assets/fit-step-card.jpg";
 import fitStepForehead from "@/assets/fit-step-forehead.jpg";
@@ -366,6 +368,7 @@ function WelcomeStep({
 
   return (
     <div className="flex flex-col gap-8">
+      {lang === "en" && <FitBreadcrumbs current="scan" />}
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
         <span className="woolet-eyebrow-text">{tFit(lang, "welcome.eyebrow")}</span>
@@ -4599,7 +4602,8 @@ export default function FitScan() {
         description={tFit(lang, "seo.desc")}
         lang={lang}
         path="/fit"
-        noindex
+        noindex={lang !== "en"}
+        jsonLd={lang === "en" ? FIT_JSONLD : undefined}
       />
 
       <Navbar />
@@ -5052,6 +5056,7 @@ export default function FitScan() {
         </div>
 
         <div className="px-5 sm:px-8 lg:px-16 pb-16 sm:pb-24">
+          {lang === "en" && <FitToolContent />}
           <div className="max-w-2xl mx-auto">
             <RelatedGuides variant="dark" />
           </div>
