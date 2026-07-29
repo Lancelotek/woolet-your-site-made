@@ -625,9 +625,31 @@ const blogPostsEN: BlogPost[] = [
       ],
     },
     content: `
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 24px;border-radius:4px;"><strong>To measure your face width, hold a ruler flat and level across the widest part of your head at eye level — just in front of the ears — and read temple to temple in millimetres.</strong> That single number, not lens size, decides which frames fit. Under 145 mm is average; 155 mm and above needs a wide-face frame.</p>
+
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:0 0 28px;">
+  <thead><tr style="background:#F8F6F1;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Frame front width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Size band</th></tr></thead>
+  <tbody>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Standard</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Large / extended fit</td></tr>
+    <tr style="background:#FBF7EE;"><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Wide — <a href="/en/size/158mm" style="color:#A07A2A;">Woolet signature</a></td></tr>
+    <tr><td style="padding:10px 12px;">162 mm+</td><td style="padding:10px 12px;">162 mm max</td><td style="padding:10px 12px;">Bespoke (145–162 mm)</td></tr>
+  </tbody>
+</table>
+
 <p>Most people who struggle to find fitting glasses have never measured their face. They rely on vague labels like "wide" or "large" without understanding what those terms actually mean in millimeters — or why the "wide" option at their local optician might still be 15mm too narrow.</p>
 
 <p>This guide will fix that. In under 10 minutes, you'll have the one number that changes how you shop for glasses forever: your face width in millimeters.</p>
+
+<h2>Measure with your phone instead</h2>
+
+<p>If you would rather not hold a ruler against your own face in a mirror, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens</strong></a> does the same job from your phone camera in about 20 seconds. There is no app to install and no appointment: you open the page in your phone browser, hold a standard credit card (85.6 mm by ISO standard) under your eyes as a calibration reference, and take one straight-on photo.</p>
+
+<p>The scan uses the known card width to convert pixels to millimetres, then returns your face width and your nose bridge width together — the two numbers that decide frame size. It works in ordinary indoor light, nothing is uploaded to a third party, and it will tell you plainly whether you fall inside the 155–161 mm signature range, inside the 145–162 mm bespoke range, or outside both.</p>
+
+<p>The manual method below is just as accurate if you prefer it, and it is worth reading either way so you know what the number means.</p>
+
+
 
 <h2>What You'll Need</h2>
 
