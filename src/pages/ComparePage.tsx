@@ -19,7 +19,13 @@ const body = "'Barlow', sans-serif";
 
 const ComparePage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const competitor = competitors.find((c) => c.slug === slug);
+  const canonicalSlug = resolveCompetitorSlug(slug);
+  // Alias URL (e.g. /en/compare/warby-parker): send it to the canonical page
+  // so there is exactly one indexable URL per competitor.
+  if (canonicalSlug && canonicalSlug !== slug) {
+    return <Navigate to={`/en/compare/${canonicalSlug}`} replace />;
+  }
+  const competitor = competitors.find((c) => c.slug === canonicalSlug);
   // Unknown competitor slug: render NotFound in-place. Do NOT redirect
   // to `/en/404` (that URL isn't a route, it just re-renders NotFound
   // one hop later) or to `/en/compare` (soft-404 to the hub).
@@ -27,6 +33,7 @@ const ComparePage = () => {
 
   return <ComparePageInner competitor={competitor} />;
 };
+
 
 const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
   const path = `/compare/${c.slug}`;
