@@ -1,11 +1,12 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FitRangeChart from "@/components/compare/FitRangeChart";
-import { competitors, wooletColumn, Competitor } from "@/data/competitors";
+import { competitors, wooletColumn, Competitor, resolveCompetitorSlug } from "@/data/competitors";
 import productImage from "@/assets/woolet-007-black.png";
+
 
 const SITE = "https://woolet.co";
 
