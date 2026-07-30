@@ -317,6 +317,7 @@ const CookieBanner = () => {
 
   const locale = useMemo(detectLocale, []);
   const t = COPY[locale];
+  const isDesktop = useIsDesktop();
 
   // Avoid overlapping fixed bottom bars (e.g. bespoke configurator mobile CTA).
   useEffect(() => {
