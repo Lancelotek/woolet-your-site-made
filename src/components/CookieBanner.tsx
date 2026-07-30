@@ -294,6 +294,19 @@ const COPY: Record<Lang, {
 
 const SINGLETON_ATTR = "data-woolet-cookie-banner";
 
+const useIsDesktop = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return isDesktop;
+};
+
 const CookieBanner = () => {
   const [visible, setVisible] = useState(false);
   const [customizing, setCustomizing] = useState(false);
