@@ -242,7 +242,9 @@ export const competitors: Competitor[] = [
   },
   {
     slug: "warby-parker-alternative",
+    aliases: ["warby-parker"],
     name: "Warby Parker",
+
     keyword: "Warby Parker alternative",
     seoTitle: "Warby Parker Alternative for Wide Faces | Woolet",
     metaDescription:
