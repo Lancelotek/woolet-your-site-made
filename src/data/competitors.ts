@@ -264,6 +264,45 @@ export const competitors: Competitor[] = [
       "Shipping": "Free (US)",
       "Price": "From ~$95 incl. Rx lenses",
     },
+    measurements: {
+      intro:
+        "The difference is not styling — it is millimetres. Woolet 007 Round and 009 Soft-Square both run a 158 mm front, built for faces measuring 155 mm and wider. Warby Parker's widest \"Extended Fit\" / extra-wide models generally top out around 145–148 mm, which is where a wide face starts, not where it ends.",
+      rows: [
+        {
+          label: "Front width (hinge to hinge)",
+          woolet: "158 mm (007 Round & 009 Soft-Square)",
+          competitor: "≈ 145–148 mm on the widest Extended Fit models",
+          note: "A 10 mm gap is the difference between the temples resting behind the ears and pressing on the head.",
+        },
+        {
+          label: "Face width served",
+          woolet: "155–161 mm signature · 145–162 mm bespoke",
+          competitor: "≈ 138–148 mm",
+        },
+        {
+          label: "Temple length",
+          woolet: "150 mm, 11° tip bend (148–155 mm bespoke)",
+          competitor: "≈ 140–145 mm typical",
+          note: "Short temples on a wide head push the bend in front of the ear and slide the frame down the nose.",
+        },
+        {
+          label: "Bridge",
+          woolet: "21–22 mm keyhole (up to 24 mm bespoke)",
+          competitor: "≈ 18–20 mm, plus a Low Bridge Fit variant",
+        },
+        {
+          label: "Lens width",
+          woolet: "50–54 mm, proportioned to a 158 mm front",
+          competitor: "≈ 49–56 mm across the range",
+        },
+        {
+          label: "Sizing method",
+          woolet: "FitLens — 20-second phone face scan returns your measurement in mm",
+          competitor: "Virtual try-on and home try-on — visual, not measured",
+        },
+      ],
+    },
+
     fitRange: { min: 130, max: 150, label: "Warby Parker wide/extra-wide (approx.)" },
     advantages: [
       {
