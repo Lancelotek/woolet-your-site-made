@@ -489,20 +489,20 @@ const CookieBanner = () => {
       {...{ [SINGLETON_ATTR]: "1" }}
       style={{
         position: "fixed",
-        left: 16,
-        right: 16,
+        left: isDesktop ? 24 : 16,
+        right: isDesktop ? 24 : 16,
         bottom: bottomOffset,
         zIndex: 10000,
-        maxWidth: 460,
+        maxWidth: isDesktop ? 640 : 460,
         margin: "0 auto",
         background: BG,
         color: TEXT,
         borderRadius: 12,
         border: `1px solid ${BORDER}`,
         boxShadow: "0 24px 60px rgba(0,0,0,0.45)",
-        padding: 22,
+        padding: isDesktop ? 32 : 22,
         fontFamily: "'Archivo', system-ui, sans-serif",
-        fontSize: 14,
+        fontSize: isDesktop ? 15 : 14,
         lineHeight: 1.55,
       }}
     >
@@ -511,45 +511,46 @@ const CookieBanner = () => {
           <p
             style={{
               margin: 0,
-              marginBottom: 8,
+              marginBottom: isDesktop ? 10 : 8,
               fontFamily: "'Newsreader', 'Archivo', serif",
-              fontSize: 20,
-              lineHeight: 1.25,
+              fontSize: isDesktop ? 26 : 20,
+              lineHeight: 1.2,
               color: TEXT,
               letterSpacing: "-0.005em",
             }}
           >
             {t.headline}
           </p>
-          <p style={{ margin: 0, marginBottom: 18, color: MUTED, fontSize: 13.5 }}>
+          <p style={{ margin: 0, marginBottom: isDesktop ? 22 : 18, color: MUTED, fontSize: isDesktop ? 14.5 : 13.5 }}>
             {t.body}{" "}
-            <a href={locale === "pl" ? "/pl/privacy-policy" : "/en/privacy-policy"} style={linkStyle}>
+            <a href={`/${locale}/privacy-policy`} style={linkStyle}>
               {t.policy}
             </a>
             .
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-            <button onClick={acceptAll} style={btnPrimary} type="button">
-              {t.accept}
-            </button>
-            <button onClick={rejectAll} style={btnSecondary} type="button">
-              {t.reject}
-            </button>
-          </div>
-
           <button
-            onClick={openCustomize}
+            onClick={acceptAll}
             style={{
-              ...linkButtonStyle,
-              marginTop: 12,
+              ...btnPrimary,
               width: "100%",
-              textAlign: "center",
+              padding: isDesktop ? "16px 22px" : "14px 18px",
+              fontSize: isDesktop ? 14 : 13,
+              marginBottom: 12,
             }}
             type="button"
           >
-            {t.customize}
+            {t.accept}
           </button>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            <button onClick={rejectAll} style={btnSecondary} type="button">
+              {t.reject}
+            </button>
+            <button onClick={openCustomize} style={btnSecondary} type="button">
+              {t.customize}
+            </button>
+          </div>
         </>
       )}
 
