@@ -171,23 +171,35 @@ const resolveIsGdpr = async (): Promise<boolean> => {
 };
 
 // ---------- Locale detection ----------
-const detectLocale = (): "pl" | "en" => {
+const detectLocale = (): Lang => {
   if (typeof window === "undefined") return "en";
   const path = window.location.pathname;
-  if (path.startsWith("/pl") || path === "/pl") return "pl";
+  const prefix = path.split("/")[1]?.toLowerCase() || "";
+  if (isValidLang(prefix)) return prefix;
   const lang = (navigator.language || "en").toLowerCase();
-  if (lang.startsWith("pl")) return "pl";
+  if (isValidLang(lang.slice(0, 2))) return lang.slice(0, 2) as Lang;
   return "en";
 };
 
 // ---------- Copy ----------
-const COPY = {
+const COPY: Record<Lang, {
+  headline: string;
+  body: string;
+  accept: string;
+  reject: string;
+  customize: string;
+  save: string;
+  analytics: string;
+  ads: string;
+  policy: string;
+  settingsIntro: string;
+}> = {
   en: {
-    headline: "Better fit, better recommendations.",
-    body: "Allow cookies so we can remember your fit preferences and show you frames that actually suit your face. You can change this anytime.",
-    accept: "Accept",
+    headline: "Get the full Woolet experience.",
+    body: "Accept cookies so we can remember your fit, save your preferences, and show you frames that actually suit a wide face. You can change this anytime.",
+    accept: "Accept all cookies",
     reject: "Reject",
-    customize: "Settings",
+    customize: "Manage preferences",
     save: "Save preferences",
     analytics: "Analytics — helps us improve fit and page performance",
     ads: "Marketing — lets us show you Woolet instead of generic frame ads",
@@ -195,18 +207,90 @@ const COPY = {
     settingsIntro: "Choose what you're comfortable with. Both options are equally valid.",
   },
   pl: {
-    headline: "Lepsze dopasowanie, trafniejsze rekomendacje.",
-    body: "Zgódź się na cookies, żebyśmy zapamiętali Twoje preferencje dopasowania i pokazywali oprawki, które faktycznie pasują do Twojej twarzy. Zmienisz to w każdej chwili.",
-    accept: "Akceptuję",
+    headline: "W pełni wykorzystaj Woolet.",
+    body: "Zaakceptuj cookies, żebyśmy zapamiętali Twoje dopasowanie, preferencje i pokazywali oprawki, które faktycznie pasują do szerokiej twarzy. Zmienisz to w każdej chwili.",
+    accept: "Akceptuję wszystkie cookies",
     reject: "Odrzucam",
-    customize: "Ustawienia",
+    customize: "Zarządzaj zgodami",
     save: "Zapisz wybór",
     analytics: "Analityka — pomaga nam poprawiać dopasowanie i wydajność strony",
     ads: "Marketing — pozwala pokazywać Ci Woolet zamiast losowych reklam oprawek",
     policy: "Polityka prywatności",
     settingsIntro: "Wybierz to, co Ci pasuje. Obie opcje są tak samo poprawne.",
   },
-} as const;
+  fr: {
+    headline: "Profitez pleinement de Woolet.",
+    body: "Acceptez les cookies pour que nous mémorisions votre morphologie, vos préférences, et vous proposions des montures adaptées aux visages larges. Vous pourrez modifier ce choix à tout moment.",
+    accept: "Accepter tous les cookies",
+    reject: "Refuser",
+    customize: "Gérer les préférences",
+    save: "Enregistrer les préférences",
+    analytics: "Analytique — nous aide à améliorer l'ajustement et les performances",
+    ads: "Marketing — nous permet de vous montrer Woolet plutôt que des publicités génériques",
+    policy: "Politique de confidentialité",
+    settingsIntro: "Choisissez ce qui vous convient. Les deux options sont également valides.",
+  },
+  es: {
+    headline: "Disfruta al máximo de Woolet.",
+    body: "Acepta las cookies para que recordemos tu ajuste, tus preferencias y te mostremos monturas que realmente se adapten a caras anchas. Puedes cambiarlo cuando quieras.",
+    accept: "Aceptar todas las cookies",
+    reject: "Rechazar",
+    customize: "Gestionar preferencias",
+    save: "Guardar preferencias",
+    analytics: "Analítica — nos ayuda a mejorar el ajuste y el rendimiento",
+    ads: "Marketing — nos permite mostrarte Woolet en lugar de anuncios genéricos",
+    policy: "Política de privacidad",
+    settingsIntro: "Elige lo que te resulte cómodo. Ambas opciones son igualmente válidas.",
+  },
+  de: {
+    headline: "Das volle Woolet-Erlebnis.",
+    body: "Akzeptieren Sie Cookies, damit wir Ihre Passform, Ihre Präferenzen speichern und Ihnen Brillenfassungen zeigen können, die wirklich zu breiten Gesichtern passen. Sie können dies jederzeit ändern.",
+    accept: "Alle Cookies akzeptieren",
+    reject: "Ablehnen",
+    customize: "Präferenzen verwalten",
+    save: "Präferenzen speichern",
+    analytics: "Analytik — hilft uns, Passform und Seitenleistung zu verbessern",
+    ads: "Marketing — ermöglicht es uns, Ihnen Woolet statt generischer Anzeigen zu zeigen",
+    policy: "Datenschutzrichtlinie",
+    settingsIntro: "Wählen Sie, womit Sie sich wohlfühlen. Beide Optionen sind gleichermaßen gültig.",
+  },
+  ar: {
+    headline: "احصل على تجربة Woolet الكاملة.",
+    body: "اقبل ملفات cookies حتى نتذكر قياسات وجهك وتفضيلاتك ونعرض لك إطارات تناسب الوجوه العريضة. يمكنك تغيير هذا في أي وقت.",
+    accept: "قبول جميع ملفات cookies",
+    reject: "رفض",
+    customize: "إدارة التفضيلات",
+    save: "حفظ التفضيلات",
+    analytics: "التحليلات — تساعدنا على تحسين المقاس وأداء الصفحة",
+    ads: "التسويق — يتيح لنا عرض Woolet بدلاً من الإعلانات العامة",
+    policy: "سياسة الخصوصية",
+    settingsIntro: "اختر ما تشعر بالراحة تجاهه. كلا الخيارين صحيحان.",
+  },
+  ja: {
+    headline: "Wooletをフル活用。",
+    body: "Cookieを受け入れると、お顔のサイズや好みを記憶し、ワイドフェイスに本当に合うフレームをご提案できます。いつでも変更可能です。",
+    accept: "すべてのCookieを受け入れる",
+    reject: "拒否",
+    customize: "設定を管理",
+    save: "設定を保存",
+    analytics: "アナリティクス — フィット感とページパフォーマンスの向上に役立ちます",
+    ads: "マーケティング — 一般的な眼鏡広告ではなくWooletをお見せできるようにします",
+    policy: "プライバシーポリシー",
+    settingsIntro: "ご希望に応じて選択してください。どちらの選択も同様に有効です。",
+  },
+  nl: {
+    headline: "Haal alles uit Woolet.",
+    body: "Accepteer cookies zodat we je pasvorm, voorkeuren kunnen onthouden en je monturen kunnen tonen die echt bij een breed gezicht passen. Je kunt dit altijd wijzigen.",
+    accept: "Alle cookies accepteren",
+    reject: "Weigeren",
+    customize: "Voorkeuren beheren",
+    save: "Voorkeuren opslaan",
+    analytics: "Analytics — helpt ons pasvorm en paginaprestaties te verbeteren",
+    ads: "Marketing — laat ons Woolet tonen in plaats van generieke montuuradvertenties",
+    policy: "Privacybeleid",
+    settingsIntro: "Kies wat je prettig vindt. Beide opties zijn even geldig.",
+  },
+};
 
 const SINGLETON_ATTR = "data-woolet-cookie-banner";
 
