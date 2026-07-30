@@ -1,11 +1,12 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FitRangeChart from "@/components/compare/FitRangeChart";
-import { competitors, wooletColumn, Competitor } from "@/data/competitors";
+import { competitors, wooletColumn, Competitor, resolveCompetitorSlug } from "@/data/competitors";
 import productImage from "@/assets/woolet-007-black.png";
+
 
 const SITE = "https://woolet.co";
 
@@ -18,7 +19,13 @@ const body = "'Barlow', sans-serif";
 
 const ComparePage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const competitor = competitors.find((c) => c.slug === slug);
+  const canonicalSlug = resolveCompetitorSlug(slug);
+  // Alias URL (e.g. /en/compare/warby-parker): send it to the canonical page
+  // so there is exactly one indexable URL per competitor.
+  if (canonicalSlug && canonicalSlug !== slug) {
+    return <Navigate to={`/en/compare/${canonicalSlug}`} replace />;
+  }
+  const competitor = competitors.find((c) => c.slug === canonicalSlug);
   // Unknown competitor slug: render NotFound in-place. Do NOT redirect
   // to `/en/404` (that URL isn't a route, it just re-renders NotFound
   // one hop later) or to `/en/compare` (soft-404 to the hub).
@@ -26,6 +33,7 @@ const ComparePage = () => {
 
   return <ComparePageInner competitor={competitor} />;
 };
+
 
 const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
   const path = `/compare/${c.slug}`;
@@ -163,7 +171,55 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
           </div>
         </section>
 
+        {/* Millimetre-level spec comparison */}
+        {c.measurements && (
+          <section style={{ maxWidth: 960, margin: "0 auto", padding: "16px 20px 8px" }}>
+            <h2 style={{ ...heading, fontSize: 28, margin: "0 0 12px" }}>
+              Woolet vs {c.name}: the measurements that decide fit
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.7, color: "#555", margin: "0 0 18px", maxWidth: 720 }}>
+              {c.measurements.intro}
+            </p>
+            <div style={{ overflowX: "auto", border: "1px solid #E0D5C5", borderRadius: 8, background: "#FFF" }}>
+              <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 13 }}>
+                <thead>
+                  <tr style={{ background: "#F1EBDD" }}>
+                    <th style={{ ...thStyle, width: "24%" }}>Measurement</th>
+                    <th style={{ ...thStyle, color: "#A07A2A", background: "rgba(202,164,73,0.07)" }}>
+                      Woolet 007 / 009
+                    </th>
+                    <th style={thStyle}>{c.name} (widest fit)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {c.measurements.rows.map((r, i) => (
+                    <tr key={r.label} style={{ borderTop: i === 0 ? "none" : "1px solid #EEE7D6" }}>
+                      <td style={{ ...tdStyle, fontWeight: 500, color: "#555" }}>{r.label}</td>
+                      <td style={{ ...tdStyle, background: "rgba(202,164,73,0.07)", color: "#222" }}>
+                        {r.woolet}
+                      </td>
+                      <td style={{ ...tdStyle, color: "#444" }}>
+                        {r.competitor}
+                        {r.note && (
+                          <span style={{ display: "block", marginTop: 6, fontSize: 12, color: "#777", lineHeight: 1.55 }}>
+                            {r.note}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p style={{ fontSize: 11, color: "#888", marginTop: 10, lineHeight: 1.6 }}>
+              {c.name} figures are approximate and vary by model — check the current product listing. Woolet
+              figures are the published specs for the 007 Round and 009 Soft-Square, with bespoke ranges noted.
+            </p>
+          </section>
+        )}
+
         {/* Comparison table */}
+
         <section style={{ maxWidth: 960, margin: "0 auto", padding: "16px 20px 24px" }}>
           <h2 style={{ ...heading, fontSize: 28, margin: "0 0 16px" }}>
             Woolet vs {c.name}: side by side
