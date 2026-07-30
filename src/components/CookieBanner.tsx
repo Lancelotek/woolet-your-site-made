@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { isValidLang, type Lang } from "@/lib/i18n";
 
 const STORAGE_KEY = "woolet_consent_v1";
 const SIX_MONTHS_MS = 1000 * 60 * 60 * 24 * 30 * 6;
