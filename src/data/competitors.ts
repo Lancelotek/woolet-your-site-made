@@ -9,8 +9,17 @@ export const wooletColumn: Record<string, string> = {
   "Price": "From $190",
 };
 
+export interface MeasurementRow {
+  label: string;
+  woolet: string;
+  competitor: string;
+  note?: string;
+}
+
 export interface Competitor {
   slug: string;
+  /** Extra URLs that should resolve to this page (301 / canonical redirect). */
+  aliases?: string[];
   name: string;
   keyword: string;
   seoTitle: string;
@@ -19,11 +28,21 @@ export interface Competitor {
   heroSub: string;
   verdict: string;
   table: Record<string, string>;
+  /** Optional millimetre-level spec comparison rendered above the feature table. */
+  measurements?: { intro: string; rows: MeasurementRow[] };
   fitRange: { min: number; max: number; label: string };
   advantages: { title: string; text: string }[];
   whereTheyWin: string[];
   faqs: { q: string; a: string }[];
 }
+
+/** Resolve a URL slug (canonical or alias) to its canonical competitor slug. */
+export const resolveCompetitorSlug = (slug?: string): string | undefined => {
+  if (!slug) return undefined;
+  if (competitors.some((c) => c.slug === slug)) return slug;
+  return competitors.find((c) => c.aliases?.includes(slug))?.slug;
+};
+
 
 export const competitors: Competitor[] = [
   {
