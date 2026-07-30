@@ -481,10 +481,21 @@ const CookieBanner = () => {
 
   if (!isPrimary || !visible) return null;
 
+  const ariaLabels: Record<Lang, string> = {
+    en: "Cookie preferences",
+    pl: "Preferencje cookies",
+    fr: "Préférences de cookies",
+    es: "Preferencias de cookies",
+    de: "Cookie-Einstellungen",
+    ar: "تفضيلات ملفات cookies",
+    ja: "Cookieの設定",
+    nl: "Cookievoorkeuren",
+  };
+
   return (
     <div
       role="dialog"
-      aria-label={locale === "pl" ? "Preferencje cookies" : "Cookie preferences"}
+      aria-label={ariaLabels[locale]}
       aria-modal="false"
       {...{ [SINGLETON_ATTR]: "1" }}
       style={{
