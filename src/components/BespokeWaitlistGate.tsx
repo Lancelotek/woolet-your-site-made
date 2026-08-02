@@ -194,6 +194,20 @@ const BespokeWaitlistGate = () => {
 
             <div className="mt-6 pt-5 border-t border-cream/10">
               <p className="text-[0.82rem] text-cream-dim mb-3 text-center">Don't have a password yet?</p>
+
+              <ul className="mb-4 space-y-2">
+                {[
+                  "Made to your exact face measurements",
+                  "Early-bird pricing before public launch",
+                  "1-on-1 fit review with the design team",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-[0.75rem] text-cream-dim leading-snug">
+                    <span className="mt-0.5 text-gold" aria-hidden="true">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
               <button
                 type="button"
                 onClick={() => setMode("email")}
