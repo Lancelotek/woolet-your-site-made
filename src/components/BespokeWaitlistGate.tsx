@@ -74,13 +74,14 @@ const BespokeWaitlistGate = () => {
   const [consentTouched, setConsentTouched] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [mode, setMode] = useState<"password" | "email">("password");
   const [password, setPassword] = useState(() => {
     try {
       const params = new URLSearchParams(window.location.search);
       return (params.get("access") || params.get("code") || params.get("password") || "").trim();
     } catch { return ""; }
   });
+  // Email request is the primary step; the password screen is step two.
+  const [mode, setMode] = useState<"password" | "email">(() => (password ? "password" : "email"));
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -191,12 +192,12 @@ const BespokeWaitlistGate = () => {
               </button>
             </form>
 
-            <div className="mt-6 pt-5 border-t border-cream/10 text-center">
-              <p className="text-[0.78rem] text-cream-dim mb-2">Don't have a password yet?</p>
+            <div className="mt-6 pt-5 border-t border-cream/10">
+              <p className="text-[0.82rem] text-cream-dim mb-3 text-center">Don't have a password yet?</p>
               <button
                 type="button"
                 onClick={() => setMode("email")}
-                className="text-[0.72rem] uppercase tracking-[0.22em] text-gold-light hover:text-gold transition"
+                className="w-full px-5 py-3 rounded-[2px] border border-gold/50 bg-gold/[0.08] text-gold-light text-[0.72rem] uppercase tracking-[0.22em] font-medium hover:bg-gold/15 hover:text-gold transition"
               >
                 Request early access →
               </button>
