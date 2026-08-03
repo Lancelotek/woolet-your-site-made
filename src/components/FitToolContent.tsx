@@ -87,6 +87,34 @@ export function GoldCta({ to, children }: { to: string; children: React.ReactNod
   );
 }
 
+/** Same visual as GoldCta, but scrolls to the scan panel — never drops the ?sid= param. */
+export function GoldScrollCta({ children }: { children: React.ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={scrollToFitPanel}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: GOLD,
+        color: GOLD_INK,
+        fontFamily: "Barlow, sans-serif",
+        fontSize: 13,
+        fontWeight: 600,
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
+        padding: "15px 30px",
+        borderRadius: 2,
+        border: "none",
+        cursor: "pointer",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
 /* ─────────────────────────────────────────────
    Breadcrumbs + tool cluster
    ───────────────────────────────────────────── */
