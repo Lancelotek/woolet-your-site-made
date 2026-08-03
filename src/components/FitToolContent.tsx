@@ -60,9 +60,10 @@ export const FIT_PANEL_ID = "fit-scan-panel";
 function getScrollParent(el: HTMLElement): HTMLElement | null {
   let node: HTMLElement | null = el.parentElement;
   while (node) {
+    if (node === document.body || node === document.documentElement) return null;
     const style = window.getComputedStyle(node);
     const canScroll = /(auto|scroll|overlay)/.test(style.overflowY);
-    if (canScroll && node.scrollHeight > node.clientHeight + 1) return node;
+    if (canScroll && node.scrollHeight > node.clientHeight + 16) return node;
     node = node.parentElement;
   }
   return null;
@@ -73,10 +74,7 @@ export function scrollToFitPanel() {
   const el = document.getElementById(FIT_PANEL_ID);
   if (!el) return;
 
-  const reduced =
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const behavior: ScrollBehavior = reduced ? "auto" : "smooth";
+  const behavior: ScrollBehavior = "auto";
 
   const container = getScrollParent(el);
 
