@@ -50,7 +50,7 @@ export default defineTool({
           type: "text",
           text: match
             ? `${match.recommendation} (${match.url})`
-            : `Face width ${faceWidthMm} mm exceeds Woolet Bespoke's 172 mm max. Contact support@woolet.co.`,
+            : `Face width ${faceWidthMm} mm exceeds Woolet Bespoke's 162 mm max. Contact support@woolet.co.`,
         },
       ],
       structuredContent: { faceWidthMm, match: match ?? null },

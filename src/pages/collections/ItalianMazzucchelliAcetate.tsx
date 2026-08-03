@@ -43,7 +43,7 @@ const ItalianMazzucchelliAcetate = () => (
         heading: "Why Mazzucchelli 1849 specifically",
         paragraphs: [
           "Mazzucchelli has been making acetate sheet near Milan since 1849 and supplies most premium eyewear houses. The mill operates the largest cellulose-acetate facility in the world and remains family-run. The reason houses keep specifying it is consistency — sheet-to-sheet colour matches across production runs, and the dimensional stability holds across the lifetime of the frame.",
-          "We don't make every part of a Woolet frame in Italy. We do start every front with Mazzucchelli sheet and finish it by hand in Italy, because on a wider 158 mm front that's where the visible difference shows up.",
+          "Woolet frames are hand made in the EU. We do start every front with Mazzucchelli sheet from Milan and finish it by hand, because on a wider 158 mm front that's where the visible difference shows up.",
         ],
       },
     ]}

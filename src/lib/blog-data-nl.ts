@@ -173,7 +173,7 @@ export const blogPostsNL: BlogPost[] = [
       },
       {
         q: "Waar koop ik zonnebrillen die echt passen op een breed gezicht?",
-        a: "Bij gespecialiseerde merken. Woolet 007 en 009 zijn 158 mm zonnebrillen van Italiaans acetaat, met bespoke tot 172 mm.",
+        a: "Bij gespecialiseerde merken. Woolet 007 en 009 zijn 158 mm zonnebrillen van Italiaans acetaat, met bespoke tot 162 mm.",
       },
     ],
     content: `
@@ -214,8 +214,8 @@ export const blogPostsNL: BlogPost[] = [
 <ul>
 <li><strong>Gezichtsbreedte 150–154 mm — matig breed.</strong> Een standaard-grote zonnebril met 148–152 mm frontbreedte past hier. De meeste "Wide Fit"-lijnen van mainstream-merken (Ray-Ban Justin XL, Warby Parker Wide) vallen in dit bereik.</li>
 <li><strong>Gezichtsbreedte 155–161 mm — breed.</strong> Standaardzonnebrillen van mainstream-merken passen niet. Je hebt een gespecialiseerd merk nodig. De modellen 007 en 009 van Woolet komen met 158 mm frontbreedte, een 21–22 mm brug en 150 mm-veren — precies voor dit bereik ontworpen.</li>
-<li><strong>Gezichtsbreedte 161–172 mm — extra breed.</strong> Het standaardaanbod is zeer beperkt. Maatwerk is hier vaak het enige eerlijke antwoord. Woolet Bespoke dekt frontbreedtes van 150 tot 172 mm voor beide vormen.</li>
-<li><strong>Gezichtsbreedte 172 mm+ — XXL.</strong> Alleen op individuele bestelling. De meeste bespoke-programma's stoppen bij 172 mm.</li>
+<li><strong>Gezichtsbreedte 161–162 mm — extra breed.</strong> Het standaardaanbod is zeer beperkt. Maatwerk is hier vaak het enige eerlijke antwoord. Woolet Bespoke dekt frontbreedtes van 150 tot 162 mm voor beide vormen.</li>
+<li><strong>Gezichtsbreedte 162 mm+ — XXL.</strong> Alleen op individuele bestelling. De meeste bespoke-programma's stoppen bij 162 mm.</li>
 </ul>
 
 <h2>De meest gemaakte maatfout</h2>
@@ -241,7 +241,7 @@ export const blogPostsNL: BlogPost[] = [
 <p>Nee. "Oversized" betekent meestal een groter glas op een standaardfront van 140 mm. Zonnebrillen voor brede gezichten schalen de frontbreedte zelf op naar 155 mm of meer. Lees onze <a href="/nl/blog/beste-brillen-voor-brede-hoofden-2026">gids voor de beste brillen voor grote hoofden in 2026</a> voor het gedetailleerde verschil.</p>
 
 <h3>Waar koop ik zonnebrillen die echt passen op een breed gezicht?</h3>
-<p>Bij gespecialiseerde merken. Woolet 007 en 009 zijn 158 mm zonnebrillen van Italiaans acetaat, met bespoke tot 172 mm. De volledige collectie vind je onder <a href="/en/collections/sunglasses-for-big-heads">Zonnebrillen voor grote hoofden (158 mm)</a>.</p>
+<p>Bij gespecialiseerde merken. Woolet 007 en 009 zijn 158 mm zonnebrillen van Italiaans acetaat, met bespoke tot 162 mm. De volledige collectie vind je onder <a href="/en/collections/sunglasses-for-big-heads">Zonnebrillen voor grote hoofden (158 mm)</a>.</p>
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Zonnebrillen voor grote hoofden — hele collectie</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized zonnebrillen voor heren</a> | <a href="/nl/products/007">Woolet 007 (rond)</a> | <a href="/nl/products/009">Woolet 009 (vierkant)</a></p>
 `,

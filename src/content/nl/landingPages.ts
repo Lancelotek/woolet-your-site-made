@@ -31,7 +31,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     sub: "Frontbreedte van 150 tot 165 mm, brug, veren en glashoogte individueel afgesteld. Italiaans Mazzucchelli 1849 acetaat, met de hand afgewerkt in de EU.",
     metaTitle: "Acetaat bril op maat 145–162 mm | Woolet — Italiaans acetaat",
     metaDescription:
-      "Acetaat bril op maat voor bredere gezichten: front 145–162 mm, brug 16–26 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in 20 s.",
+      "Acetaat bril op maat voor bredere gezichten: front 145–162 mm, brug 20–24 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in 20 s.",
     primaryKeyword: "acetaat bril op maat",
     ctaPrimaryLabel: "Meet je gezicht (20 s)",
     ctaPrimaryHref: "/nl/fit",
@@ -55,7 +55,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     faqs: [
       {
         q: "Hoe ver kunnen de afmetingen worden aangepast?",
-        a: "Front: 145–162 mm. Brug: 16–26 mm. Veren: 135–155 mm. Ook de glashoogte is instelbaar.",
+        a: "Front: 145–162 mm. Brug: 20–24 mm. Veren: 135–155 mm. Ook de glashoogte is instelbaar.",
       },
       {
         q: "Hoe verloopt de meting?",
@@ -96,7 +96,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     proofBody:
       "De 007 (rond) en 009 (zacht vierkant) worden geleverd in drie precieze maten — 155, 158 en 161 mm — met een 21–22 mm keyhole-brug en veren van 148 mm. Wie erboven of eronder valt, gaat naar Bespoke: 145–162 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
     proofBullets: [
-      { label: "Standaardbreedte", value: "155 / 158 / 161 mm" },
+      { label: "Standaardbreedte", value: "158 mm" },
       { label: "Bespoke bereik", value: "145 – 162 mm" },
       { label: "Brug", value: "21 – 22 mm keyhole" },
       { label: "Veren", value: "148 mm, hoek 11°" },

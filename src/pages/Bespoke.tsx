@@ -185,7 +185,7 @@ const FAQS = [
   },
   {
     q: "Do bespoke glasses work for wide faces?",
-    a: "Yes — bespoke is often the only option for wide faces. Most premium eyewear brands top out around 145–148 mm of frame width. Woolet bespoke covers 145–162 mm with a 16–26 mm bridge and temples to 155 mm, specifically for faces measuring 155 mm and above where stock frames pinch at the temples and slide down the nose.",
+    a: "Yes — bespoke is often the only option for wide faces. Most premium eyewear brands top out around 145–148 mm of frame width. Woolet bespoke covers 145–162 mm with a 20–24 mm bridge and temples to 155 mm, specifically for faces measuring 155 mm and above where stock frames pinch at the temples and slide down the nose.",
   },
   {
     q: "Bespoke glasses vs custom glasses — what's the difference?",
@@ -201,7 +201,7 @@ const FAQS = [
   },
   {
     q: "Who should choose bespoke over the stock Woolet widths?",
-    a: "Stock Woolet comes in three frame widths — 155 / 158 / 161 mm — with a 21–22 mm keyhole bridge. If your ideal frame width falls outside that stock range (below 155 mm or above 161 mm), bespoke covers the full 145–162 mm spectrum. The /en/fit scan tells you which path applies in 90 seconds.",
+    a: "Stock Woolet comes in three frame widths — 158 mm — with a 21–22 mm keyhole bridge. If your ideal frame width falls outside that stock range (below 155 mm or above 161 mm), bespoke covers the full 145–162 mm spectrum. The /en/fit scan tells you which path applies in 90 seconds.",
   },
   {
     q: "Where are Woolet bespoke frames made?",
@@ -347,7 +347,7 @@ const BespokePage = () => {
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "1.05rem" }}>
                 Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted in the EU from your AI face scan.
-                Frame widths from <span className="text-foreground">145 mm to 162 mm</span>, 16–26 mm bridge, temples to 155 mm,
+                Frame widths from <span className="text-foreground">145 mm to 162 mm</span>, 20–24 mm bridge, temples to 155 mm,
                 ready for any lens — prescription, progressive, blue-light, or polarized sun.
               </p>
 
@@ -458,7 +458,7 @@ const BespokePage = () => {
               The only bespoke glasses <em className="italic text-gold-light">built around wide faces.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              Most bespoke workshops treat wide-face wearers as edge cases: they can go wider than stock, but the geometry is scaled up from a narrow-face pattern. Woolet is built the other way round. Every pattern — stock and bespoke — starts at 155 mm and works outward. Bespoke covers 145 to 162 mm of front width, with 16–26 mm bridges and temples up to 155 mm. If your face measures 155 mm or more temple-to-temple, this is the size range designed for you.
+              Most bespoke workshops treat wide-face wearers as edge cases: they can go wider than stock, but the geometry is scaled up from a narrow-face pattern. Woolet is built the other way round. Every pattern — stock and bespoke — starts at 155 mm and works outward. Bespoke covers 145 to 162 mm of front width, with 20–24 mm bridges and temples up to 155 mm. If your face measures 155 mm or more temple-to-temple, this is the size range designed for you.
             </p>
 
             <div
@@ -467,7 +467,7 @@ const BespokePage = () => {
             >
               {[
                 { label: "Frame width range", woolet: "145–162 mm", stock: "138–148 mm typical" },
-                { label: "Bridge width range", woolet: "16–26 mm keyhole", stock: "18–20 mm fixed" },
+                { label: "Bridge width range", woolet: "20–24 mm keyhole", stock: "18–20 mm fixed" },
                 { label: "Temple length", woolet: "up to 155 mm", stock: "140–145 mm standard" },
                 { label: "Measurement method", woolet: "AI face scan (90 s)", stock: "In-atelier or none" },
                 { label: "Price", woolet: "$299 Kickstarter", stock: "$650–3,300 atelier" },
@@ -579,11 +579,11 @@ const BespokePage = () => {
               Who bespoke is <em className="italic text-gold-light">actually for</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.95rem" }}>
-              Most wide-face wearers fit the stock Woolet range — three frame widths (155 / 158 / 161 mm) with a 21–22 mm keyhole bridge, engineered for faces around 155 mm and above. Bespoke exists for the people the stock range cannot serve: anyone whose ideal frame width sits below 155 mm or above 161 mm, covering 145–162 mm in total.
+              Most wide-face wearers fit the stock Woolet range — three frame widths (158 mm) with a 21–22 mm keyhole bridge, engineered for faces around 155 mm and above. Bespoke exists for the people the stock range cannot serve: anyone whose ideal frame width sits below 155 mm or above 161 mm, covering 145–162 mm in total.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
               {[
-                "Frame width 145–162 mm (outside the stock 155 / 158 / 161 mm widths)",
+                "Frame width 145–162 mm (outside the stock 158 mm widths)",
                 "Asymmetric ears or significant pantoscopic-tilt needs",
                 "Very high or very low nose bridge — beyond what acetate reshaping can correct",
                 "Wearers who simply want a one-of-one frame, cut to their face",
@@ -631,7 +631,7 @@ const BespokePage = () => {
                 {
                   n: "03",
                   t: "European atelier",
-                  d: "The frame is cut, milled, and hand-polished from a single block of Mazzucchelli acetate in northern Italy. No CNC finishing — each piece is shaped by hand.",
+                  d: "The frame is cut, milled, and hand-polished from a single block of Mazzucchelli acetate from Milan. No CNC finishing — each piece is shaped by hand.",
                 },
                 {
                   n: "04",
@@ -667,7 +667,7 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              <em className="italic text-gold-light">Mazzucchelli</em> acetate. Hand-crafted in Italy.
+              <em className="italic text-gold-light">Mazzucchelli</em> acetate. Hand made in EU.
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
               Every bespoke frame uses Mazzucchelli acetate from Milan — the same material used by Cutler &amp; Gross, Jacques Marie Mage, and most premium Italian houses. It is denser and heavier than TR90 thermoplastic, but it can be heat-adjusted by any optician for ongoing fit corrections. That post-purchase adjustability is the difference between a frame that fits for a week and one that fits for a decade.

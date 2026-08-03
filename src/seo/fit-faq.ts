@@ -15,7 +15,7 @@ export const FIT_FAQ: FitFaqItem[] = [
   },
   {
     q: "How accurate is the measurement?",
-    a: "Within about ±1.5 mm when you hold a standard card flat against your cheek. Every credit, debit and ID card is 85.6 mm wide by ISO standard, so the scan uses that known edge to convert pixels to millimetres.",
+    a: "Within about ±1.5 mm when you hold a standard card flat on your forehead. Every credit, debit and ID card is 85.6 mm wide by ISO standard, so the scan uses that known edge to convert pixels to millimetres.",
   },
   {
     q: "Do I need to download an app?",
@@ -31,7 +31,7 @@ export const FIT_FAQ: FitFaqItem[] = [
   },
   {
     q: "Can I measure without the camera?",
-    a: "Yes. The manual route at /en/fit/manual walks you through the same measurements with a ruler and a card in front of a mirror, and feeds into the same size recommendation.",
+    a: "Yes. The manual route at /en/fit/manual walks you through your face width with a soft tape measure — no camera, no card. It gives you the same size recommendation, but only the face-width figure; for bridge width and pupillary distance you need the scan.",
   },
 ];
 

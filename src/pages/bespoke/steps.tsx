@@ -49,7 +49,7 @@ export function StepFrame({ config, update }: StepProps) {
         </h2>
         <p className="cfg-body mt-4 max-w-xl">
           Four canonical shapes, drawn as line templates because the finished frame is cut to <em className="cfg-em">your</em> measurements —
-          not to a stock photo. We scan your face after payment, then hand-cut the pattern in Italy from a single block of Mazzucchelli acetate.
+          not to a stock photo. We scan your face after payment, then hand-cut the pattern in the EU from a single block of Mazzucchelli acetate.
         </p>
       </header>
 
@@ -1497,7 +1497,7 @@ export function StepReview({
       {frame && (
         <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-background/40">
           <div className="aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
-            <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in Italy`} className="max-h-full max-w-[60%] object-contain" />
+            <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`} className="max-h-full max-w-[60%] object-contain" />
           </div>
           <div className="p-5">
             <div className="font-display text-cream text-2xl font-light">{frame.name}</div>
@@ -1540,7 +1540,7 @@ export function StepReview({
           <li><span className="font-mono text-gold-light text-[11px] mr-3">01</span> Your order is confirmed and paid.</li>
           <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan (or book a studio appointment).</li>
           <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> The pattern is cut in Italy to your exact millimetres — 3–4 weeks to ship, <em className="italic text-gold-light not-italic">free worldwide</em>.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> The pattern is cut in the EU to your exact millimetres — 3–4 weeks to ship, <em className="italic text-gold-light not-italic">free worldwide</em>.</li>
         </ol>
       </div>
 

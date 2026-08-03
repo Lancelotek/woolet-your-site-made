@@ -428,7 +428,7 @@ const WideBridgeFitGuide = () => {
                 border: "1px solid hsl(0 0% 100% / 0.08)",
               }}
             >
-              Bespoke 16–26 mm
+              Bespoke 20–24 mm
             </Link>
           </div>
         </section>

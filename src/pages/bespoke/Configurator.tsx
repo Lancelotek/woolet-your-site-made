@@ -192,7 +192,7 @@ const ConfiguratorPage = () => {
             <p style={{ margin: 0, color: "#C4BDAF", fontSize: 14, lineHeight: 1.55 }}>
               <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
               The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
-              once your measurements are confirmed, your frame is cut in Italy to the exact millimetres of your face.{" "}
+              once your measurements are confirmed, your frame is cut in the EU to the exact millimetres of your face.{" "}
               <span style={{ color: "#D8B86A" }}>Free worldwide shipping included.</span>
             </p>
           </div>
@@ -235,7 +235,7 @@ const ConfiguratorPage = () => {
                   {aiPreviewUrl && step >= 2 ? (
                     <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name} — ${frame.shape} pattern, made-to-measure for wide faces` : "AI visualisation of Woolet Bespoke eyewear configuration"} className="max-h-full max-w-full object-contain" />
                   ) : frame ? (
-                    <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in Italy`} className="max-h-full max-w-[82%] object-contain" />
+                    <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`} className="max-h-full max-w-[82%] object-contain" />
                   ) : (
                     <div className="cfg-rail__placeholder">Select a pattern</div>
                   )}

@@ -1213,7 +1213,7 @@ function ResultStep({
           Your face is <em className="italic text-gold-light">beyond standard</em>.
         </h2>
         <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-          We measured a face width of {measurement.faceWidthMm} mm. That's outside our stock frame widths (155 / 158 / 161 mm) —
+          We measured a face width of {measurement.faceWidthMm} mm. That's outside our signature frame width (158 mm) —
           which is exactly what Bespoke (145–162 mm) is built for.
         </p>
         <Link to="/en/fit/bespoke" style={goldButtonStyle} onClick={onBespoke}>

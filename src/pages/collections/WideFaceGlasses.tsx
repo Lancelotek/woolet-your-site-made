@@ -6,7 +6,7 @@ const WideFaceGlasses = () => (
     h1="Glasses for Wide Faces — Frames for Wide Faces 155 mm+"
     breadcrumbName="Glasses for Wide Faces"
     metaTitle="Glasses for Wide Faces — Wide Frames 155 mm+ | Woolet"
-    metaDescription="Glasses for wide faces and large faces: 158 mm front, 21 mm keyhole bridge, Italian acetate. Extended fit, prescription-ready, bespoke to 172 mm."
+    metaDescription="Glasses for wide faces and large faces: 158 mm front, 21 mm keyhole bridge, Italian acetate. Extended fit, prescription-ready, bespoke to 162 mm."
     intro="Most premium eyewear stops at 148 mm. Woolet starts at 158 mm. Each shape — the 007 round and the 009 soft square — is offered in one precise off-the-shelf size (158 mm front with a 21 mm bridge), plus a bespoke tier from 145 to 162 mm. All cut from Italian Mazzucchelli acetate and Hand finished in the EU."
     whyThisFits={[
       "The eyewear industry runs on a 130–148 mm bell curve. If your temples sit at 155 mm or above, mainstream <em>wide</em> frames are still narrow — they pinch, leave marks, and slide forward through the day. The fix is not adjustment. The fix is a frame engineered for your width from the first sketch.",

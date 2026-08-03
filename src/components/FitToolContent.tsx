@@ -53,6 +53,15 @@ function Section({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** Anchor id on the /en/fit scan/QR panel. Shared so CTAs scroll instead of navigating. */
+export const FIT_PANEL_ID = "fit-scan-panel";
+
+export function scrollToFitPanel() {
+  if (typeof document === "undefined") return;
+  const el = document.getElementById(FIT_PANEL_ID);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export function GoldCta({ to, children }: { to: string; children: React.ReactNode }) {
   return (
     <Link
@@ -75,6 +84,34 @@ export function GoldCta({ to, children }: { to: string; children: React.ReactNod
     >
       {children}
     </Link>
+  );
+}
+
+/** Same visual as GoldCta, but scrolls to the scan panel — never drops the ?sid= param. */
+export function GoldScrollCta({ children }: { children: React.ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={scrollToFitPanel}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: GOLD,
+        color: GOLD_INK,
+        fontFamily: "Barlow, sans-serif",
+        fontSize: 13,
+        fontWeight: 600,
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
+        padding: "15px 30px",
+        borderRadius: 2,
+        border: "none",
+        cursor: "pointer",
+      }}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -128,6 +165,7 @@ export function FitClusterNav({ current }: { current: string }) {
             key={c.to}
             to={c.to}
             aria-current={active ? "page" : undefined}
+            onClick={active ? (e) => { e.preventDefault(); scrollToFitPanel(); } : undefined}
             style={{
               display: "block",
               padding: "16px 18px",
@@ -166,7 +204,7 @@ const STEPS = [
   {
     n: "02",
     t: "Hold the phone at arm's length",
-    d: "Face the camera straight on and hold any credit, debit or ID card flat under your eyes. Its 85.6 mm edge is the scale reference.",
+    d: "Face the camera straight on and hold any credit, debit or ID card flat on your forehead. Its 85.6 mm edge is the scale reference.",
   },
   {
     n: "03",
@@ -365,7 +403,7 @@ export default function FitToolContent() {
           <FitClusterNav current="/en/fit" />
         </div>
         <div style={{ marginTop: 32 }}>
-          <GoldCta to="/en/fit">Start the scan — 20 seconds</GoldCta>
+          <GoldScrollCta>Start the scan — 20 seconds</GoldScrollCta>
         </div>
       </Section>
     </div>

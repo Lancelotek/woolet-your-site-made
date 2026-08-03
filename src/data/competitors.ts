@@ -74,7 +74,7 @@ export const competitors: Competitor[] = [
         text: "Fatheadz leans on TR90 nylon and monel — durable, but utilitarian. Woolet frames are cut from Mazzucchelli 1849 bio-acetate, the same Italian acetate used by the world's top luxury houses, and Hand Finished in the EU.",
       },
       {
-        title: "Bespoke sizing up to 172 mm",
+        title: "Bespoke sizing up to 162 mm",
         text: "Fatheadz stops where its size chart stops. Woolet's Bespoke tier is made to order for face widths from 145 to 162 mm — the widths the rest of the industry pretends don't exist.",
       },
       {
@@ -98,7 +98,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "How is Woolet's fit different from Fatheadz?",
-        a: "Fatheadz sells off-the-shelf oversized sizes. Woolet designs every frame for wide faces from scratch and offers a Bespoke tier made to your measurements — up to 172 mm face width.",
+        a: "Fatheadz sells off-the-shelf oversized sizes. Woolet designs every frame for wide faces from scratch and offers a Bespoke tier made to your measurements — up to 162 mm face width.",
       },
       {
         q: "Is Woolet more expensive than Fatheadz?",
@@ -163,11 +163,11 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Is Woolet wider than EYESHELLS?",
-        a: "EYESHELLS publishes frame widths of roughly 150–160 mm. Woolet's Bespoke tier is made to order up to 172 mm.",
+        a: "EYESHELLS publishes frame widths of roughly 150–160 mm. Woolet's Bespoke tier is made to order up to 162 mm.",
       },
       {
         q: "Why is Woolet more expensive than EYESHELLS?",
-        a: "EYESHELLS ships mass-produced factory frames; Woolet frames are made to order in Italy from luxury-grade bio-acetate, with bespoke sizing and optional laser engraving. From $190 with free worldwide shipping.",
+        a: "EYESHELLS ships mass-produced factory frames; Woolet frames are made to order in the EU from luxury-grade bio-acetate, with bespoke sizing and optional laser engraving. From $190 with free worldwide shipping.",
       },
       {
         q: "Can I check the fit before buying a Woolet frame?",
@@ -213,7 +213,7 @@ export const competitors: Competitor[] = [
       },
       {
         title: "Made for 145–162 mm faces",
-        text: "Zenni's extended sizing helps up to a point. Woolet's Bespoke tier is built to order for faces up to 172 mm wide — with a 30-day fit guarantee.",
+        text: "Zenni's extended sizing helps up to a point. Woolet's Bespoke tier is built to order for faces up to 162 mm wide — with a 30-day fit guarantee.",
       },
     ],
     whereTheyWin: [
@@ -228,7 +228,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Are Zenni Extended Fit frames wide enough for a 160 mm face?",
-        a: "Sometimes — Zenni recommends ~138 mm+ total width for larger heads, and select frames go wider. For faces 155 mm and up, purpose-built wide-face frames like Woolet's (up to 172 mm bespoke) fit without temple pressure.",
+        a: "Sometimes — Zenni recommends ~138 mm+ total width for larger heads, and select frames go wider. For faces 155 mm and up, purpose-built wide-face frames like Woolet's (up to 162 mm bespoke) fit without temple pressure.",
       },
       {
         q: "Why choose a $190 frame over a $7 frame?",
@@ -310,7 +310,7 @@ export const competitors: Competitor[] = [
         text: "Warby Parker's wide and extra-wide frames are wider cuts of designs proportioned for average faces. Woolet frames are engineered from scratch for wide faces and broader nose bridges — the proportions, bridge, and temple geometry all start at 150 mm.",
       },
       {
-        title: "Bespoke to 172 mm",
+        title: "Bespoke to 162 mm",
         text: "When extra-wide isn't extra enough, Warby has nothing left to offer. Woolet's Bespoke tier is made to order for face widths from 145 to 162 mm.",
       },
       {
@@ -334,7 +334,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Are Warby Parker extra-wide frames big enough for a 160 mm face?",
-        a: "Often not — their extra-wide line extends standard designs, and many wearers above ~155 mm still report temple pressure. Woolet builds for exactly this range, up to 172 mm bespoke.",
+        a: "Often not — their extra-wide line extends standard designs, and many wearers above ~155 mm still report temple pressure. Woolet builds for exactly this range, up to 162 mm bespoke.",
       },
       {
         q: "Is Woolet more expensive than Warby Parker?",
@@ -403,7 +403,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Is Woolet cheaper than Ray-Ban?",
-        a: "Comparable: Woolet starts at $190, in the range of Ray-Ban's acetate models — but made to order in Italy with bespoke wide-face sizing rather than mass-produced.",
+        a: "Comparable: Woolet starts at $190, in the range of Ray-Ban's acetate models — but made to order in the EU with bespoke wide-face sizing rather than mass-produced.",
       },
       {
         q: "How do I know a Woolet frame will fit before ordering?",
@@ -441,7 +441,7 @@ export const competitors: Competitor[] = [
       },
       {
         title: "145–162 mm, guaranteed",
-        text: "Persol's most generous sizes still follow standard proportions. Woolet's Bespoke tier is made to order up to 172 mm face width — with a 30-day fit guarantee.",
+        text: "Persol's most generous sizes still follow standard proportions. Woolet's Bespoke tier is made to order up to 162 mm face width — with a 30-day fit guarantee.",
       },
       {
         title: "Made to order, numbered, engravable",

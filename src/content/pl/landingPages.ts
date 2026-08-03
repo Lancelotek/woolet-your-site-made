@@ -70,7 +70,7 @@ export const plPages: Record<string, PlPageConfig> = {
     sub: "Szerokość frontu od 145 do 162 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
     metaTitle: "Okulary na zamówienie 145–162 mm | Woolet — włoski octan",
     metaDescription:
-      "Okulary na zamówienie dla szerszych twarzy: front 145–162 mm, mostek 16–26 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
+      "Okulary na zamówienie dla szerszych twarzy: front 145–162 mm, mostek 20–24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
     primaryKeyword: "okulary na zamówienie",
     ctaPrimaryLabel: "Zmierz twarz (20 s)",
     ctaPrimaryHref: "/pl/fit",
@@ -94,7 +94,7 @@ export const plPages: Record<string, PlPageConfig> = {
     faqs: [
       {
         q: "Jak daleko można dopasować wymiary?",
-        a: "Front: 145–162 mm. Mostek: 16–26 mm. Zauszniki: 135–155 mm. Wysokość soczewki też jest konfigurowalna.",
+        a: "Front: 145–162 mm. Mostek: 20–24 mm. Zauszniki: 135–155 mm. Wysokość soczewki też jest konfigurowalna.",
       },
       {
         q: "Jak wygląda pomiar?",

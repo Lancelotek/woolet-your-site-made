@@ -590,7 +590,7 @@ export function getMetadata(route: string): RouteMeta {
 <h2>How it works</h2>
 <ol>
 <li><strong>Open the camera</strong> — runs in your phone browser, nothing to install.</li>
-<li><strong>Hold the phone at arm's length</strong> — face the camera straight on with a card held flat under your eyes.</li>
+<li><strong>Hold the phone at arm's length</strong> — face the camera straight on with a card held flat on your forehead.</li>
 <li><strong>Get your measurement</strong> — temple-to-temple face width plus the recommended frame front width.</li>
 </ol>
 <h2>What it measures and what it does not</h2>
@@ -628,9 +628,9 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Bespoke Fit — Woolet (145–162 mm)",
       description:
-        "If your face falls outside the standard Woolet sizes, bespoke covers 145–162 mm with a 16–26 mm bridge. Hand-crafted by a European atelier from your AI scan.",
+        "If your face falls outside the standard Woolet sizes, bespoke covers 145–162 mm with a 20–24 mm bridge. Hand-crafted by a European atelier from your AI scan.",
       noscriptHtml: `<h1>Bespoke Fit — Woolet (145–162 mm)</h1>
-<p>Outside the 155–161 mm signature range? Bespoke builds your frame to the millimetre across 145–162 mm, with a 16–26 mm bridge, from your fit measurement.</p>
+<p>Outside the 155–161 mm signature range? Bespoke builds your frame to the millimetre across 145–162 mm, with a 20–24 mm bridge, from your fit measurement.</p>
 <p>Fit tools: <a href="/en/fit">virtual fit scan</a> · <a href="/en/fit/manual">manual measurement</a> · <a href="/en/fit/bespoke">bespoke fit (145–162 mm)</a>.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -758,9 +758,9 @@ export function getMetadata(route: string): RouteMeta {
     return base(route, lang, {
       title: "Wide Bridge Glasses — 21–22 mm Keyhole Bridge, Acetate | Woolet",
       description:
-        "Wide bridge glasses for wider noses: 21–22 mm keyhole bridge, 158 mm front, Italian Mazzucchelli acetate. Bespoke bridge 16–26 mm.",
+        "Wide bridge glasses for wider noses: 21–22 mm keyhole bridge, 158 mm front, Italian Mazzucchelli acetate. Bespoke bridge 20–24 mm.",
       noscriptHtml: `<h1>Wide Bridge Glasses</h1>
-<p>Glasses with a 21–22 mm keyhole bridge as standard — engineered for wider noses where mainstream 17–19 mm bridges pinch or slide. 158 mm front width, Italian Mazzucchelli acetate. Bespoke bridge 16–26 mm available. From $114 pre-order.</p>`,
+<p>Glasses with a 21–22 mm keyhole bridge as standard — engineered for wider noses where mainstream 17–19 mm bridges pinch or slide. 158 mm front width, Italian Mazzucchelli acetate. Bespoke bridge 20–24 mm available. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -844,7 +844,7 @@ export function getMetadata(route: string): RouteMeta {
       title: "Keyhole Bridge Glasses for Wide Faces & Big Heads | Woolet",
       description: "Keyhole bridge glasses with a wider 21–22 mm gap. Italian Mazzucchelli acetate, 158 mm front. Built for wider noses and 155 mm+ faces.",
       h1: "Keyhole Bridge Glasses for Wide Faces & Big Heads",
-      intro: "Mainstream bridges sit at 17–20 mm. Woolet's keyhole bridge is 21–22 mm as standard, shaped to load weight on bone rather than cartilage — the difference between a frame that sits balanced and one that slides or pinches a wider nose. 158 mm front, Italian acetate, bespoke bridge 16–26 mm.",
+      intro: "Mainstream bridges sit at 17–20 mm. Woolet's keyhole bridge is 21–22 mm as standard, shaped to load weight on bone rather than cartilage — the difference between a frame that sits balanced and one that slides or pinches a wider nose. 158 mm front, Italian acetate, bespoke bridge 20–24 mm.",
     },
   };
   if (extraCollections[path]) {
@@ -975,7 +975,7 @@ ${post.content}
         title: "大きい顔 メガネ 155–161mm | Woolet 幅広イタリア製アセテート",
         description:
           "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで手作り。FitLensスキャンで20秒、自分のサイズが分かります。",
-        noscriptHtml: `<h1>大きい顔のメガネ — Woolet 155 / 158 / 161 mm</h1>
+        noscriptHtml: `<h1>大きい顔のメガネ — Woolet 158 mm</h1>
 <p>Wooletは155mm・158mm・161mmの実寸フロント幅を提供する、幅広い顔のためのイタリア製アセテートアイウェアブランドです。素材はMazzucchelli 1849、EUの職人が一本ずつ手作業で仕上げます。FitLensスキャンで顔幅を20秒で計測できます。</p>`,
       },
       { image: DEFAULT_OG },
@@ -1022,7 +1022,7 @@ ${post.content}
       {
         title: "Lunettes sur mesure 145–162 mm | Woolet — acétate italien",
         description:
-          "Lunettes sur mesure pour visages larges : 145–162 mm de face, pont 16–26 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 20 s.",
+          "Lunettes sur mesure pour visages larges : 145–162 mm de face, pont 20–24 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 20 s.",
         noscriptHtml: `<h1>Lunettes sur mesure — Woolet bespoke 145–162 mm</h1>
 <p>Woolet propose des lunettes sur mesure dont la largeur de face, le pont, la longueur des branches et la hauteur de verre sont ajustés au millimètre. Acétate italien Mazzucchelli 1849, façonné à la main dans l'Union européenne. Délai : 4 à 6 semaines.</p>`,
       },
@@ -1046,7 +1046,7 @@ ${post.content}
       {
         title: "Okulary na zamówienie 145–162 mm | Woolet — włoski octan",
         description:
-          "Okulary na zamówienie dla szerszych twarzy: front 145–162 mm, mostek 16–26 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
+          "Okulary na zamówienie dla szerszych twarzy: front 145–162 mm, mostek 20–24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
         noscriptHtml: `<h1>Okulary na zamówienie — Woolet bespoke 145–162 mm</h1>
 <p>Woolet oferuje okulary szyte na miarę: szerokość frontu, mostek, długość zauszników i wysokość soczewki ustalasz co do milimetra. Materiał: włoski octan Mazzucchelli 1849, ręcznie wykończony w UE. Czas realizacji: 4–6 tygodni.</p>`,
       },
@@ -1321,7 +1321,7 @@ ${post.content}
         description:
           "Bespoke eyewear for wide faces, 145–162 mm front width. Italian Mazzucchelli acetate, hand made in the EU. From $299 for the first 100 backers.",
         noscriptHtml: `<h1>Woolet Bespoke — 145–162 mm</h1>
-<p>Woolet Bespoke is made-to-measure eyewear for faces outside the 155–161 mm core range. Front width covers 145–162 mm, bridge 16–26 mm, temples 145–155 mm. Same Italian Mazzucchelli 1849 cellulose acetate, hand made in the EU. Founding price $299 for the first 100 backers ($480 MSRP).</p>
+<p>Woolet Bespoke is made-to-measure eyewear for faces outside the 155–161 mm core range. Front width covers 145–162 mm, bridge 20–24 mm, temples 145–155 mm. Same Italian Mazzucchelli 1849 cellulose acetate, hand made in the EU. Founding price $299 for the first 100 backers ($480 MSRP).</p>
 <p>Choose the 007 round-panto or 009 soft-square silhouette, submit measurements from the AI Fit Scan, and we build a single frame around your exact face. <a href="/en/fit/bespoke">Start the bespoke fit scan</a>.</p>`,
       },
       { image: DEFAULT_OG, type: "website" },
@@ -1331,7 +1331,7 @@ ${post.content}
           { name: "Bespoke", url: `${SITE_URL}/en/bespoke` },
         ]),
         faqPageJsonLd([
-          { q: "What face widths does Woolet Bespoke cover?", a: "Bespoke covers 145–162 mm front width, 16–26 mm bridge, and 145–155 mm temples — outside the 155–161 mm core range." },
+          { q: "What face widths does Woolet Bespoke cover?", a: "Bespoke covers 145–162 mm front width, 20–24 mm bridge, and 145–155 mm temples — outside the 155–161 mm core range." },
           { q: "How much does bespoke cost?", a: "$299 USD for the first 100 backers, $480 MSRP after. Includes measurements review, one production run, and free shipping." },
           { q: "How long does bespoke take?", a: "About 6 weeks from confirmed measurements to shipped frame — 13 stages, hand made in the EU from Italian Mazzucchelli acetate." },
         ]),
