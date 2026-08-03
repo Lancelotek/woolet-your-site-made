@@ -4829,7 +4829,7 @@ export default function FitScan() {
           }
           .scan-mobile-secondary button:disabled { opacity: 0.4; cursor: not-allowed; }
         `}</style>
-        <div className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
+        <div id="fit-scan-panel" className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
             {requiresHandoff ? (
               <DesktopScanGate lang={lang} />
