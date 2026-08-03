@@ -301,7 +301,7 @@ export default function BespokeCheckout() {
                     <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
                     <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Fit guaranteed</li>
                     <li className="inline-flex items-center gap-1.5"><RefreshCcw size={12} className="text-gold-light" /> 30-day remake</li>
-                    <li className="inline-flex items-center gap-1.5"><Scissors size={12} className="text-gold-light" /> Cut in Italy</li>
+                    <li className="inline-flex items-center gap-1.5"><Scissors size={12} className="text-gold-light" /> Cut in the EU</li>
                     <li className="inline-flex items-center gap-1.5"><Truck size={12} className="text-gold-light" /> Free shipping</li>
                   </ul>
                 </div>
@@ -376,7 +376,7 @@ export default function BespokeCheckout() {
                           </div>
                         </>
                       ) : (
-                        <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern, made-to-measure eyewear cut in Italy for wide faces`} className="max-h-full max-w-[60%] object-contain" />
+                        <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern, made-to-measure eyewear cut in the EU for wide faces`} className="max-h-full max-w-[60%] object-contain" />
                       )}
                     </div>
                   )}
@@ -487,7 +487,7 @@ export default function BespokeCheckout() {
                     <li>01 · Order confirmed and paid.</li>
                     <li>02 · Private link emailed for your AI fit scan.</li>
                     <li>03 · Optician verifies measurements within 24 h.</li>
-                    <li>04 · Cut in Italy — 3–4 weeks to ship, free worldwide.</li>
+                    <li>04 · Cut in the EU — 3–4 weeks to ship, free worldwide.</li>
                   </ol>
                 </div>
               </aside>

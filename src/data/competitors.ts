@@ -167,7 +167,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Why is Woolet more expensive than EYESHELLS?",
-        a: "EYESHELLS ships mass-produced factory frames; Woolet frames are made to order in Italy from luxury-grade bio-acetate, with bespoke sizing and optional laser engraving. From $190 with free worldwide shipping.",
+        a: "EYESHELLS ships mass-produced factory frames; Woolet frames are made to order in the EU from luxury-grade bio-acetate, with bespoke sizing and optional laser engraving. From $190 with free worldwide shipping.",
       },
       {
         q: "Can I check the fit before buying a Woolet frame?",
@@ -403,7 +403,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Is Woolet cheaper than Ray-Ban?",
-        a: "Comparable: Woolet starts at $190, in the range of Ray-Ban's acetate models — but made to order in Italy with bespoke wide-face sizing rather than mass-produced.",
+        a: "Comparable: Woolet starts at $190, in the range of Ray-Ban's acetate models — but made to order in the EU with bespoke wide-face sizing rather than mass-produced.",
       },
       {
         q: "How do I know a Woolet frame will fit before ordering?",

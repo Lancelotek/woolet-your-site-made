@@ -631,7 +631,7 @@ const BespokePage = () => {
                 {
                   n: "03",
                   t: "European atelier",
-                  d: "The frame is cut, milled, and hand-polished from a single block of Mazzucchelli acetate in northern Italy. No CNC finishing — each piece is shaped by hand.",
+                  d: "The frame is cut, milled, and hand-polished from a single block of Mazzucchelli acetate from Milan. No CNC finishing — each piece is shaped by hand.",
                 },
                 {
                   n: "04",
@@ -667,7 +667,7 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              <em className="italic text-gold-light">Mazzucchelli</em> acetate. Hand-crafted in Italy.
+              <em className="italic text-gold-light">Mazzucchelli</em> acetate. Hand made in EU.
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
               Every bespoke frame uses Mazzucchelli acetate from Milan — the same material used by Cutler &amp; Gross, Jacques Marie Mage, and most premium Italian houses. It is denser and heavier than TR90 thermoplastic, but it can be heat-adjusted by any optician for ongoing fit corrections. That post-purchase adjustability is the difference between a frame that fits for a week and one that fits for a decade.
