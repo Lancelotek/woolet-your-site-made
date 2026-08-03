@@ -56,11 +56,63 @@ function Section({ children }: { children: React.ReactNode }) {
 /** Anchor id on the /en/fit scan/QR panel. Shared so CTAs scroll instead of navigating. */
 export const FIT_PANEL_ID = "fit-scan-panel";
 
+/** Nearest ancestor that actually scrolls; falls back to the window. */
+function getScrollParent(el: HTMLElement): HTMLElement | null {
+  let node: HTMLElement | null = el.parentElement;
+  while (node) {
+    const style = window.getComputedStyle(node);
+    const canScroll = /(auto|scroll|overlay)/.test(style.overflowY);
+    if (canScroll && node.scrollHeight > node.clientHeight + 1) return node;
+    node = node.parentElement;
+  }
+  return null;
+}
+
 export function scrollToFitPanel() {
   if (typeof document === "undefined") return;
   const el = document.getElementById(FIT_PANEL_ID);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!el) return;
+
+  const reduced =
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const behavior: ScrollBehavior = reduced ? "auto" : "smooth";
+
+  const container = getScrollParent(el);
+
+  const jump = () => {
+    if (container) {
+      const top =
+        el.getBoundingClientRect().top -
+        container.getBoundingClientRect().top +
+        container.scrollTop;
+      container.scrollTo({ top, behavior });
+    } else {
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior });
+    }
+  };
+
+  const before = container ? container.scrollTop : window.scrollY;
+  jump();
+
+  // Fallback: if nothing moved (smooth swallowed, interrupted, etc.), jump instantly.
+  window.setTimeout(() => {
+    const after = container ? container.scrollTop : window.scrollY;
+    if (Math.abs(after - before) < 2) {
+      if (container) {
+        const top =
+          el.getBoundingClientRect().top -
+          container.getBoundingClientRect().top +
+          container.scrollTop;
+        container.scrollTop = top;
+      } else {
+        window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY);
+      }
+    }
+  }, 250);
 }
+
 
 export function GoldCta({ to, children }: { to: string; children: React.ReactNode }) {
   return (
@@ -148,7 +200,7 @@ export function FitBreadcrumbs({ current }: { current: "scan" | "manual" | "besp
 
 const CLUSTER = [
   { to: "/en/fit", label: "Virtual fit (camera scan)", note: "20 seconds, phone camera, ±1.5 mm." },
-  { to: "/en/fit/manual", label: "Manual measurement", note: "Ruler and a card, no camera needed." },
+  { to: "/en/fit/manual", label: "Manual measurement", note: "Tape measure, no camera needed." },
   { to: "/en/fit/bespoke", label: "Bespoke fit", note: "Outside 155–161 mm? 145–162 mm built to measure." },
 ];
 
