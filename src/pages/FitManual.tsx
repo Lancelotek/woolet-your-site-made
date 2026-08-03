@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { FitBreadcrumbs, FitClusterNav } from "@/components/FitToolContent";
+import { FIT_BANDS } from "@/seo/fit-faq";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import manualFitImg from "@/assets/manual-fit-measure.png.asset.json";
@@ -27,35 +28,35 @@ const BUCKETS: Record<BucketKey, Bucket> = {
     label: "Narrow",
     range: "under 145 mm",
     description:
-      "Your face is narrower than our stock range. Standard Woolet frames will likely sit too wide on your temples.",
-    recommendation: "Bespoke is the right path — we can scale the frame down to 140–144 mm while keeping the 21–22 mm keyhole bridge.",
+      "Narrow to average — mainstream frames fit you. The signature Woolet at 158 mm will sit too wide on your temples.",
+    recommendation: "This is not a Woolet fit. Below 145 mm, mainstream brands cover you better than we can.",
     cta: { label: "Explore bespoke →", href: "/en/bespoke" },
   },
   b145_155: {
     key: "b145_155",
-    label: "Just below stock",
-    range: "145–155 mm",
+    label: "Below signature",
+    range: "145–154 mm",
     description:
-      "You're at the lower edge of what most off-the-shelf wide frames cover. Our 155 mm stock width may still work depending on temple flex.",
-    recommendation: "Start with Woolet 007 or 009 at 155 mm. If you want a precise sit, bespoke at 150–154 mm is the safer call.",
+      "Wider than average, narrower than our signature 158 mm front. Off-the-shelf wide frames rarely land here cleanly.",
+    recommendation: "Bespoke, built to your millimetre — 145 to 162 mm front width with a 20–24 mm bridge.",
     cta: { label: "See bespoke options →", href: "/en/bespoke" },
   },
   b155_160: {
     key: "b155_160",
-    label: "Stock fit",
-    range: "155–160 mm",
+    label: "Signature fit",
+    range: "155–161 mm",
     description:
-      "You're squarely in our stock range. The 155 / 158 mm widths are designed for exactly this face width.",
-    recommendation: "Woolet 007 (round) or 009 (soft square) at 155 or 158 mm — both available on the Kickstarter VIP list with 40% off.",
+      "You're squarely in our signature range. The 158 mm front width is designed for exactly this face width.",
+    recommendation: "158 mm — Woolet 007 (round) or 009 (soft square), both on the Kickstarter VIP list with 40% off.",
     cta: { label: "Join the VIP list →", href: "/en/lp/kickstarter" },
   },
   above160: {
     key: "above160",
-    label: "Wide / XL",
-    range: "above 160 mm",
+    label: "Above signature",
+    range: "162 mm and above",
     description:
-      "You need an XL frame. Most brands stop at 150 mm — we go up to 161 mm in stock and 172 mm bespoke.",
-    recommendation: "Go for 161 mm stock if you measure 160–164 mm. Above 164 mm, bespoke (up to 172 mm) is the right fit.",
+      "Most brands stop at 150 mm. Our signature covers up to 161 mm and made-to-measure tops out at 162 mm.",
+    recommendation: "At 162 mm, bespoke is your frame. Above 162 mm we do not build — there is no frame we can make honestly.",
     cta: { label: "Join the VIP list →", href: "/en/lp/kickstarter" },
   },
 };
@@ -63,7 +64,7 @@ const BUCKETS: Record<BucketKey, Bucket> = {
 function classify(mm: number): BucketKey {
   if (mm < 145) return "below145";
   if (mm < 155) return "b145_155";
-  if (mm <= 160) return "b155_160";
+  if (mm <= 161) return "b155_160";
   return "above160";
 }
 
@@ -82,8 +83,8 @@ export default function FitManual() {
 
   const placeholder = unit === "cm" ? "e.g. 15.8" : "e.g. 6.2";
   const hint = unit === "cm"
-    ? "Stock range: 15.5–16.1 cm. Bespoke: 14.0–17.2 cm."
-    : "Stock range: 6.10–6.34 in. Bespoke: 5.51–6.77 in.";
+    ? "Signature: 15.5–16.1 cm. Bespoke: 14.5–16.2 cm."
+    : "Signature: 6.10–6.34 in. Bespoke: 5.71–6.38 in.";
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,8 +110,8 @@ export default function FitManual() {
   return (
     <>
       <SEO
-        title="How to Measure Your Face for Glasses — Face Width Calculator | Woolet"
-        description="Measure your face width for glasses with a tape measure (cm or inches) and instantly see your frame size — stock 155/158/161 mm or bespoke 145–162 mm. Free, no scan needed."
+        title="Measure Your Face Width Manually — Woolet Fit Guide"
+        description="No camera needed. Measure your face width with a tape measure and get the matching Woolet size — signature 158 mm or bespoke 145–162 mm."
         lang="en"
         path="/fit/manual"
         jsonLd={{
@@ -127,7 +128,7 @@ export default function FitManual() {
             { "@type": "HowToStep", name: "Position the tape", text: "Hold a soft tape measure horizontally across your face, temple to temple, just in front of the ears and level with your eyebrows." },
             { "@type": "HowToStep", name: "Keep it flat", text: "Keep the tape straight and snug against the skin, not over the hair." },
             { "@type": "HowToStep", name: "Read the number", text: "Read the number where the tape meets — in centimeters or inches." },
-            { "@type": "HowToStep", name: "Match your size", text: "Enter it in the calculator to map your measurement to a stock (155/158/161 mm) or bespoke (145–162 mm) Woolet frame." },
+            { "@type": "HowToStep", name: "Match your size", text: "Enter it in the calculator to map your measurement to the signature (158 mm) or bespoke (145–162 mm) Woolet frame." },
           ],
         }}
       />
@@ -143,7 +144,7 @@ export default function FitManual() {
             className="font-display text-woolet-white mb-4"
             style={{ fontSize: "clamp(2.2rem, 4.4vw, 3.2rem)", fontWeight: 300, lineHeight: 1.02 }}
           >
-            Enter your measurements <em className="italic" style={{ color: GOLD }}>manually</em> →
+            Measure your face width <em className="italic" style={{ color: GOLD }}>manually</em>
           </h1>
           <p className="text-cream-dim max-w-2xl mb-12" style={{ fontSize: "1rem", lineHeight: 1.6, fontWeight: 300 }}>
             No phone, no scan. Grab a soft tape measure (or a piece of string and a ruler) and enter the number below —
@@ -377,12 +378,7 @@ export default function FitManual() {
                   Reference
                 </div>
                 <ul style={{ display: "flex", flexDirection: "column", gap: 8, margin: 0, padding: 0, listStyle: "none", fontSize: "0.82rem" }}>
-                  {[
-                    ["Below 145 mm", "Bespoke (narrow)"],
-                    ["145–155 mm", "Edge — 155 stock or bespoke"],
-                    ["155–160 mm", "Stock 155 / 158 mm"],
-                    ["Above 160 mm", "Stock 161 mm or bespoke (up to 172 mm)"],
-                  ].map(([range, label]) => (
+                  {FIT_BANDS.map(({ range, size: label }) => (
                     <li key={range} style={{ display: "flex", justifyContent: "space-between", gap: 16, color: "rgba(255,255,255,0.8)" }}>
                       <span style={{ color: GOLD }}>{range}</span>
                       <span style={{ textAlign: "right" }}>{label}</span>
@@ -396,7 +392,7 @@ export default function FitManual() {
                 className="self-start"
                 style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.8rem", fontFamily: "Barlow, sans-serif", textDecoration: "underline", textUnderlineOffset: 4 }}
               >
-                ← Prefer the 30-second AI scan?
+                ← Prefer the 20-second scan?
               </Link>
             </div>
           </div>
