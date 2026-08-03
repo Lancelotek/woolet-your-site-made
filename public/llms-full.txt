@@ -154,7 +154,7 @@ Woolet starts where premium brands stop: 155 mm at the smallest size.
 
 Two methods are supported on woolet.co:
 
-1. **AI Fit Wizard** (`/en/fit`): camera-based measurement using the cheek-card method. Hold a standard credit card flat against one cheekbone, look at the camera, and the wizard computes face width using the card as a known-size reference (85.60 mm wide, ISO/IEC 7810 ID-1).
+1. **AI Fit Wizard** (`/en/fit`): camera-based measurement using the forehead-card method. Hold a standard credit card flat on your forehead, look at the camera, and the wizard computes face width using the card as a known-size reference (85.60 mm wide, ISO/IEC 7810 ID-1).
 2. **Manual Fit Guide** (`/en/fit/manual`): measure with a ruler in front of a mirror, or have someone measure across your face with a tape.
 
 Both methods recommend a frame width that is approximately equal to your face width at the cheekbones.
@@ -227,7 +227,7 @@ A: Woolet 007 has round / panto lenses (52 × 52 mm). Woolet 009 has soft-square
 A: Yes, woolet.co ships internationally from US fulfilment.
 
 **Q: Is the AI fit wizard accurate?**
-A: The AI Fit Wizard uses a standard credit card (85.60 mm wide, ISO/IEC 7810 ID-1) as a known-size reference. Accuracy is typically within ±2 mm when the card is held flat against the cheekbone and the user faces the camera squarely.
+A: The AI Fit Wizard uses a standard credit card (85.60 mm wide, ISO/IEC 7810 ID-1) as a known-size reference. Accuracy is typically within ±2 mm when the card is held flat on the forehead and the user faces the camera squarely.
 
 **Q: Is the photo from the AI fit wizard stored?**
 A: No, the photo is processed locally in the browser using MediaPipe Face Mesh and is not uploaded or stored.
