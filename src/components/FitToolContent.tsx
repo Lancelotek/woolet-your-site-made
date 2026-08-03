@@ -165,6 +165,7 @@ export function FitClusterNav({ current }: { current: string }) {
             key={c.to}
             to={c.to}
             aria-current={active ? "page" : undefined}
+            onClick={active ? (e) => { e.preventDefault(); scrollToFitPanel(); } : undefined}
             style={{
               display: "block",
               padding: "16px 18px",
