@@ -303,7 +303,7 @@ function ConsentStep({ onAllow, onManual }: { onAllow: () => void; onManual: () 
           className="text-cream-dim underline self-start bg-transparent border-none cursor-pointer text-left"
           style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif" }}
         >
-          I'd rather use a ruler — show me the manual method →
+          I'd rather use a tape measure — show me the manual method →
         </button>
       </div>
     </div>
