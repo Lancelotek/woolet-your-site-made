@@ -204,7 +204,7 @@ const STEPS = [
   {
     n: "02",
     t: "Hold the phone at arm's length",
-    d: "Face the camera straight on and hold any credit, debit or ID card flat under your eyes. Its 85.6 mm edge is the scale reference.",
+    d: "Face the camera straight on and hold any credit, debit or ID card flat on your forehead. Its 85.6 mm edge is the scale reference.",
   },
   {
     n: "03",
@@ -403,7 +403,7 @@ export default function FitToolContent() {
           <FitClusterNav current="/en/fit" />
         </div>
         <div style={{ marginTop: 32 }}>
-          <GoldCta to="/en/fit">Start the scan — 20 seconds</GoldCta>
+          <GoldScrollCta>Start the scan — 20 seconds</GoldScrollCta>
         </div>
       </Section>
     </div>
