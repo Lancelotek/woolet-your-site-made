@@ -6,7 +6,7 @@ const ExtraLargeOversizedEyeglasses = () => (
     breadcrumbName="Extra Large Oversized Eyeglasses"
     h1="Extra Large Oversized Eyeglasses — 158 mm Front, Italian Acetate"
     metaTitle="Extra Large Oversized Eyeglasses — 158 mm Wide Frames | Woolet"
-    metaDescription="Extra large oversized eyeglasses built for 155 mm+ faces. 158 mm front, 21 mm bridge, hand-finished in the EU from Italian Mazzucchelli acetate. Bespoke up to 172 mm."
+    metaDescription="Extra large oversized eyeglasses built for 155 mm+ faces. 158 mm front, 21 mm bridge, hand-finished in the EU from Italian Mazzucchelli acetate. Bespoke up to 162 mm."
     intro="<em>Extra large</em> at most online opticians means a slightly bigger lens on the same 140 mm front — the frame still pinches at the temples after an hour. Woolet's extra large oversized eyeglasses are properly large: 158 mm front-to-front, 21 mm keyhole bridge, and lens area sized to match. Two shapes — round 007 and soft-square 009 — both prescription-ready."
     whyThisFits={[
       "<strong>158 mm front width is the honest measure.</strong> Mainstream <em>extra large</em> eyeglasses cap at 140–148 mm. The first number printed inside the temple is lens width, not total front width. Woolet scales both axes together so the frame fits faces of 155 mm and above.",
@@ -34,7 +34,7 @@ const ExtraLargeOversizedEyeglasses = () => (
       {
         question: "Can I go larger than 158 mm?",
         answer:
-          "Yes. Bespoke covers 145 to 162 mm of front width in either shape, with a 16–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand-finished in the EU to your measurement. Lead time is 6–8 weeks beyond standard.",
+          "Yes. Bespoke covers 145 to 162 mm of front width in either shape, with a 20–24 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand-finished in the EU to your measurement. Lead time is 6–8 weeks beyond standard.",
       },
       {
         question: "How do I know if I need extra large?",

@@ -19,7 +19,7 @@ const WideFrameReadingGlasses = () => (
       {
         question: "Do wide frame reading glasses exist for faces over 155 mm?",
         answer:
-          "They do, but they're rare. Most pharmacy and online readers cap at 142–145 mm front width. Woolet's wide frame readers are built on the same 158 mm fronts as our optical line, specifically for 155–161 mm faces (and bespoke up to 172 mm).",
+          "They do, but they're rare. Most pharmacy and online readers cap at 142–145 mm front width. Woolet's wide frame readers are built on the same 158 mm fronts as our optical line, specifically for 155–161 mm faces (and bespoke up to 162 mm).",
       },
       {
         question: "What reading powers are available?",

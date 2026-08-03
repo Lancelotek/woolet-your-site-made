@@ -15,7 +15,7 @@ const ExtraWideGlasses = () => (
       "Pricing: $114 founding-member pre-order, $190 at full launch. Confirm 158 mm is right for you with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a>, or run the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a>. Outside 155–161 mm? <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers 145 to 162 mm.",
     ]}
     faqs={[
-      { question: "What counts as extra wide for glasses?", answer: "Anything above 150 mm of front width. Mainstream brands cap around 145–148 mm even on extra-wide models. Woolet's standard is 158 mm with bespoke up to 172 mm." },
+      { question: "What counts as extra wide for glasses?", answer: "Anything above 150 mm of front width. Mainstream brands cap around 145–148 mm even on extra-wide models. Woolet's standard is 158 mm with bespoke up to 162 mm." },
       { question: "How do I know if I need extra wide?", answer: "Measure your face width temple-to-temple at eye level. 155 mm or above means standard frames will sit too narrow. The AI Fit Wizard does this in 30 seconds using a credit card for scale." },
       { question: "Are these for prescription or sunglasses?", answer: "Both. The frames accept single-vision, progressive, blue-light, and polarised sunglass lenses. Polarised is a paid upgrade." },
       { question: "What about the bridge — will it fit a wider nose?", answer: "The 21 mm keyhole bridge is wider than the 18–20 mm bridges typical of mainstream extra-wide frames, designed to distribute weight evenly on a wider nose." },

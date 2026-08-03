@@ -173,7 +173,7 @@ export const blogPostsFR: BlogPost[] = [
       },
       {
         q: "Où acheter des solaires qui vont vraiment sur un visage large ?",
-        a: "Chez les marques spécialisées. Les Woolet 007 et 009 sont des solaires de 158 mm en acétate italien, avec un service bespoke jusqu'à 172 mm.",
+        a: "Chez les marques spécialisées. Les Woolet 007 et 009 sont des solaires de 158 mm en acétate italien, avec un service bespoke jusqu'à 162 mm.",
       },
     ],
     content: `
@@ -214,8 +214,8 @@ export const blogPostsFR: BlogPost[] = [
 <ul>
 <li><strong>Largeur de visage 150–154 mm — modérément large.</strong> Des solaires large standard avec 148–152 mm de face conviennent. La plupart des lignes « Wide Fit » mainstream (Ray-Ban Justin XL, Warby Parker Wide) tombent dans cette plage.</li>
 <li><strong>Largeur de visage 155–161 mm — large.</strong> Les solaires standard des marques mainstream ne conviennent pas. Il vous faut une marque spécialisée. Les modèles 007 et 009 de Woolet arrivent avec 158 mm de face, un pont 21–22 mm et des branches 150 mm — conçus exactement pour cette plage.</li>
-<li><strong>Largeur de visage 161–172 mm — extra large.</strong> L'offre standard est très limitée. Le sur-mesure est souvent la seule réponse honnête. Woolet Bespoke couvre les faces de 150 à 172 mm pour les deux formes.</li>
-<li><strong>Largeur de visage 172 mm+ — XXL.</strong> Uniquement sur commande individuelle. La plupart des programmes bespoke s'arrêtent à 172 mm.</li>
+<li><strong>Largeur de visage 161–162 mm — extra large.</strong> L'offre standard est très limitée. Le sur-mesure est souvent la seule réponse honnête. Woolet Bespoke couvre les faces de 150 à 162 mm pour les deux formes.</li>
+<li><strong>Largeur de visage 162 mm+ — XXL.</strong> Uniquement sur commande individuelle. La plupart des programmes bespoke s'arrêtent à 162 mm.</li>
 </ul>
 
 <h2>L'erreur de taille la plus fréquente</h2>
@@ -241,7 +241,7 @@ export const blogPostsFR: BlogPost[] = [
 <p>Non. « Oversized » désigne en général un verre plus grand sur une face standard de 140 mm. Les solaires pour visages larges augmentent la largeur de la face elle-même à 155 mm ou plus. Lisez notre <a href="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026">guide des meilleures lunettes pour grosses têtes en 2026</a> pour le détail.</p>
 
 <h3>Où acheter des solaires qui vont vraiment sur un visage large ?</h3>
-<p>Chez les marques spécialisées. Les Woolet 007 et 009 sont des solaires de 158 mm en acétate italien, avec bespoke jusqu'à 172 mm. La collection complète est sur <a href="/en/collections/sunglasses-for-big-heads">Solaires pour grosses têtes (158 mm)</a>.</p>
+<p>Chez les marques spécialisées. Les Woolet 007 et 009 sont des solaires de 158 mm en acétate italien, avec bespoke jusqu'à 162 mm. La collection complète est sur <a href="/en/collections/sunglasses-for-big-heads">Solaires pour grosses têtes (158 mm)</a>.</p>
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Solaires pour grosses têtes — collection complète</a> | <a href="/en/collections/oversized-sunglasses-men">Solaires oversized pour hommes</a> | <a href="/fr/products/007">Woolet 007 (rond)</a> | <a href="/fr/products/009">Woolet 009 (carré)</a></p>
 `,

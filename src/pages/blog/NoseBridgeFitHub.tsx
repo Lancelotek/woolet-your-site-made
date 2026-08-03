@@ -215,7 +215,7 @@ const NoseBridgeFitHub = () => {
               className="text-cream-dim hover:text-gold-light no-underline px-4 py-2"
               style={{ fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase", border: "1px solid hsl(0 0% 100% / 0.08)" }}
             >
-              Bespoke 16–26 mm
+              Bespoke 20–24 mm
             </Link>
           </div>
         </section>

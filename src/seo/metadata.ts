@@ -975,7 +975,7 @@ ${post.content}
         title: "大きい顔 メガネ 155–161mm | Woolet 幅広イタリア製アセテート",
         description:
           "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで手作り。FitLensスキャンで20秒、自分のサイズが分かります。",
-        noscriptHtml: `<h1>大きい顔のメガネ — Woolet 155 / 158 / 161 mm</h1>
+        noscriptHtml: `<h1>大きい顔のメガネ — Woolet 158 mm</h1>
 <p>Wooletは155mm・158mm・161mmの実寸フロント幅を提供する、幅広い顔のためのイタリア製アセテートアイウェアブランドです。素材はMazzucchelli 1849、EUの職人が一本ずつ手作業で仕上げます。FitLensスキャンで顔幅を20秒で計測できます。</p>`,
       },
       { image: DEFAULT_OG },

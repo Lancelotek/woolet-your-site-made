@@ -178,7 +178,7 @@ export const blogPostsDE: BlogPost[] = [
       },
       {
         q: "Wo kann ich Sonnenbrillen kaufen, die wirklich zu einem breiten Gesicht passen?",
-        a: "Bei spezialisierten Marken. Woolet 007 und 009 sind 158-mm-Sonnenbrillen aus italienischem Acetat, die als Maßanfertigung bis zu 172 mm erhältlich sind.",
+        a: "Bei spezialisierten Marken. Woolet 007 und 009 sind 158-mm-Sonnenbrillen aus italienischem Acetat, die als Maßanfertigung bis zu 162 mm erhältlich sind.",
       },
     ],
     content: `
@@ -219,8 +219,8 @@ export const blogPostsDE: BlogPost[] = [
 <ul>
 <li><strong>Gesichtsbreite 150–154 mm — mittelbreit.</strong> Eine standardmäßig-große Sonnenbrille mit 148–152 mm Frontbreite wird hier passen. Die meisten „Wide Fit“-Linien von Mainstream-Marken (Ray-Ban Justin XL, Warby Parker Wide) fallen in diesen Bereich.</li>
 <li><strong>Gesichtsbreite 155–161 mm — breit.</strong> Standard-Sonnenbrillen von Mainstream-Marken werden nicht passen. Sie benötigen eine spezialisierte Marke für breite Gesichter. Die Modelle 007 und 009 von Woolet werden mit einer Frontbreite von 158 mm, einem Steg von 21–22 mm und 150 mm langen Bügeln geliefert – genau für diesen Bereich konzipiert.</li>
-<li><strong>Gesichtsbreite 161–172 mm — extrabreit.</strong> Die Auswahl an Standardmodellen ist sehr begrenzt. Eine Maßanfertigung ist hier oft die einzig ehrliche Antwort. Der Maßanfertigungs-Service von Woolet deckt Frontbreiten von 150 bis 172 mm für beide Formen ab.</li>
-<li><strong>Gesichtsbreite 172 mm+ — XXL.</strong> Nur als Einzelanfertigung. Die meisten Maßanfertigungsprogramme enden bei 172 mm.</li>
+<li><strong>Gesichtsbreite 161–162 mm — extrabreit.</strong> Die Auswahl an Standardmodellen ist sehr begrenzt. Eine Maßanfertigung ist hier oft die einzig ehrliche Antwort. Der Maßanfertigungs-Service von Woolet deckt Frontbreiten von 150 bis 162 mm für beide Formen ab.</li>
+<li><strong>Gesichtsbreite 162 mm+ — XXL.</strong> Nur als Einzelanfertigung. Die meisten Maßanfertigungsprogramme enden bei 162 mm.</li>
 </ul>
 
 <h2>Der häufigste Fehler bei der Größenwahl</h2>
@@ -246,7 +246,7 @@ export const blogPostsDE: BlogPost[] = [
 <p>Nein. „Oversized“ bedeutet in der Regel ein größeres Glas auf einer Standardfront von 140 mm. Sonnenbrillen für breite Gesichter skalieren die Frontbreite selbst auf 155 mm oder mehr. Lesen Sie unseren <a href="/de/blog/beste-brillen-fuer-grosse-koepfe-2026">2026 Ratgeber für Oversized-Sonnenbrillen</a> für den detaillierten Unterschied.</p>
 
 <h3>Wo kann ich Sonnenbrillen kaufen, die wirklich zu einem breiten Gesicht passen?</h3>
-<p>Bei spezialisierten Marken. Woolet 007 und 009 sind 158-mm-Sonnenbrillen aus italienischem Acetat, die als Maßanfertigung bis zu 172 mm erhältlich sind. Die vollständige Kollektion finden Sie unter <a href="/en/collections/sunglasses-for-big-heads">Sonnenbrillen für große Köpfe (158 mm)</a>.</p>
+<p>Bei spezialisierten Marken. Woolet 007 und 009 sind 158-mm-Sonnenbrillen aus italienischem Acetat, die als Maßanfertigung bis zu 162 mm erhältlich sind. Die vollständige Kollektion finden Sie unter <a href="/en/collections/sunglasses-for-big-heads">Sonnenbrillen für große Köpfe (158 mm)</a>.</p>
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Sonnenbrillen für große Köpfe – gesamte Kollektion</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized-Sonnenbrillen für Herren</a> | <a href="/en/products/007">Woolet 007 (rund)</a> | <a href="/en/products/009">Woolet 009 (eckig)</a></p>
 `,

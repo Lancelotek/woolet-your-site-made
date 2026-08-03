@@ -44,7 +44,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     proofBody:
       "Wooletは3つの実寸フロント幅を提供します。「ラージ」「XL」といった曖昧な呼称ではなく、155mm・158mm・161mm。テンプル長、ブリッジ幅も大きめ顔向けに再設計。素材はマッツケリ1849のイタリア製アセテート、すべてEUで手作業仕上げ。",
     proofBullets: [
-      { label: "フロント幅", value: "155 / 158 / 161 mm" },
+      { label: "フロント幅", value: "158 mm" },
       { label: "ブリッジ幅", value: "21–22 mm キーホール" },
       { label: "素材", value: "Mazzucchelli 1849 イタリア製アセテート" },
       { label: "製造", value: "EU 手作業" },

@@ -30,7 +30,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "how-to-measure-face-width-for-glasses": {
     metaTitle: "How to Measure Your Face Width for Glasses (30 sec)",
     metaDescription:
-      "Measure your face width at home in 30 seconds and pick the right frame size — no optician needed. Includes a size bracket chart for 140–172 mm.",
+      "Measure your face width at home in 30 seconds and pick the right frame size — no optician needed. Includes a size bracket chart for 140–162 mm.",
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",
@@ -93,9 +93,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
 
   // ── EN: bespoke / process ────────────────────────────────────────────
   "bespoke-eyewear-size-range-150-172mm-guide": {
-    metaTitle: "Bespoke Eyewear 150–172 mm — Complete Size Guide",
+    metaTitle: "Bespoke Eyewear 145–162 mm — Complete Size Guide",
     metaDescription:
-      "Why bespoke eyewear lives between 150 and 172 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you.",
+      "Why bespoke eyewear lives between 150 and 162 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you.",
   },
   "made-to-measure-glasses-explained": {
     metaTitle: "Made-to-Measure Glasses: How They Work & Who Needs Them",
@@ -132,7 +132,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "what-size-glasses-for-a-large-head": {
     metaTitle: "What Size Glasses for a Large Head? Bracket Guide",
     metaDescription:
-      "Turn 'large head' into a real frame size — bracket by bracket, with the front-width, bridge and temple numbers to look for from 140 mm up to 172 mm.",
+      "Turn 'large head' into a real frame size — bracket by bracket, with the front-width, bridge and temple numbers to look for from 140 mm up to 162 mm.",
   },
   "how-wide-should-glasses-be": {
     metaTitle: "How Wide Should Glasses Be on Your Face? (Rule)",
@@ -181,7 +181,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "jak-zmierzyc-szerokosc-twarzy-do-okularow": {
     metaTitle: "Jak zmierzyć szerokość twarzy do okularów (30 sek)",
     metaDescription:
-      "Zmierz szerokość twarzy w domu w 30 sekund i dobierz właściwy rozmiar oprawek — bez wizyty u optyka. Prosta metoda i tabela od 140 do 172 mm.",
+      "Zmierz szerokość twarzy w domu w 30 sekund i dobierz właściwy rozmiar oprawek — bez wizyty u optyka. Prosta metoda i tabela od 140 do 162 mm.",
   },
   "czym-jest-wloski-octan-premium-oprawki": {
     metaTitle: "Włoski octan — czym jest i dlaczego to premium",
