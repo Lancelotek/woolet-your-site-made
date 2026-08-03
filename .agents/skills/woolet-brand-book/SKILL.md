@@ -15,8 +15,8 @@ Italian Mazzucchelli acetate, handmade in the EU, built honestly wide.
 
 Two problems nobody else solves:
 
-- **Frame width** — standard frames stop at 138–148 mm. Woolet runs **155–172 mm**.
-- **Bridge width** — standard 18–20 mm bridges dig into wide noses. Woolet keyhole runs **21–24 mm**, matched by fit scan.
+- **Frame width** — standard frames stop at 138–148 mm. Woolet signature runs **158 mm**, bespoke **145–162 mm**.
+- **Bridge width** — standard 18–20 mm bridges dig into wide noses. Woolet keyhole runs **21–22 mm** signature, **20–24 mm** bespoke, matched by fit scan.
 
 **Core brand truth:** "You are not too wide. The frame is too narrow."
 
