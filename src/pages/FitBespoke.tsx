@@ -11,12 +11,10 @@ const SIZE_ROWS: Array<{
   pathLabel: string;
   note: string;
 }> = [
-  { width: "150–154 mm", bridge: "16–20 mm", path: "bespoke", pathLabel: "Bespoke", note: "Gap below stock" },
-  { width: "155 mm", bridge: "21 mm", path: "stock", pathLabel: "Stock · 007 (S)", note: "Round / panto" },
-  { width: "158 mm", bridge: "21–22 mm", path: "stock", pathLabel: "Stock · 007 / 009 (M)", note: "Core size" },
-  { width: "161 mm", bridge: "22 mm", path: "stock", pathLabel: "Stock · 009 (L)", note: "Soft square, top of stock" },
-  { width: "162–166 mm", bridge: "22–24 mm", path: "bespoke", pathLabel: "Bespoke", note: "Above stock ceiling" },
-  { width: "167–172 mm", bridge: "23–26 mm", path: "bespoke", pathLabel: "Bespoke", note: "Single-block acetate limit" },
+  { width: "145–154 mm", bridge: "20–22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
+  { width: "155–161 mm", bridge: "21–22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front — the signature fit" },
+  { width: "162 mm", bridge: "22–24 mm", path: "bespoke", pathLabel: "Bespoke", note: "Ceiling of made-to-measure" },
+  { width: "Above 162 mm", bridge: "—", path: "bespoke", pathLabel: "Not built", note: "Wider than we build" },
 ];
 
 const FAQS = [
@@ -37,8 +35,8 @@ const FAQS = [
     a: "$299 for the first 100 Kickstarter backers (frame only). Comparable atelier-made bespoke acetate frames retail at $900–$2,500. Prescription lenses are ordered separately at your local optician.",
   },
   {
-    q: "Do I need to visit a fitter or fly to Italy?",
-    a: "No. The entire process runs from the AI scan on your phone. The atelier receives digitized measurements plus a CAD approval — no in-person fitting needed.",
+    q: "Do I need to visit a fitter in person?",
+    a: "No. The entire process runs from the fit scan on your phone. The atelier receives digitized measurements plus a CAD approval — no in-person fitting needed.",
   },
   {
     q: "What if it doesn't fit when it arrives?",
@@ -61,7 +59,7 @@ const JSON_LD = [
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
-      { "@type": "ListItem", position: 2, name: "AI Fit", item: "https://woolet.co/en/fit" },
+      { "@type": "ListItem", position: 2, name: "Virtual fit", item: "https://woolet.co/en/fit" },
       { "@type": "ListItem", position: 3, name: "Bespoke sizing", item: "https://woolet.co/en/fit/bespoke" },
     ],
   },
@@ -71,8 +69,8 @@ export default function FitBespoke() {
   return (
     <>
       <SEO
-        title="Bespoke Glasses Sizing 145–162 mm — Size Table & FAQ | Woolet"
-        description="Complete size reference for Woolet bespoke eyewear: 145–162 mm frame width, 16–26 mm bridge, with the stock vs bespoke decision matrix and a full FAQ."
+        title="Bespoke Sizing 145–162 mm — Woolet Made-to-Measure"
+        description="Made-to-measure Woolet frames from 145 mm to 162 mm front width, 20–24 mm bridge. Hand made in EU from Mazzucchelli acetate from Milan."
         lang="en"
         path="/fit/bespoke"
         jsonLd={JSON_LD}
@@ -90,7 +88,7 @@ export default function FitBespoke() {
             >
               <Link to="/en" className="text-cream-dim hover:text-gold-light no-underline">Home</Link>
               <span className="opacity-30 mx-2">/</span>
-              <Link to="/en/fit" className="text-cream-dim hover:text-gold-light no-underline">AI Fit</Link>
+              <Link to="/en/fit" className="text-cream-dim hover:text-gold-light no-underline">Virtual fit</Link>
               <span className="opacity-30 mx-2">/</span>
               <span className="text-woolet-white">Bespoke sizing</span>
             </nav>
@@ -107,9 +105,9 @@ export default function FitBespoke() {
               Bespoke sizing, <em className="italic text-gold-light">in one table.</em>
             </h1>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "1rem" }}>
-              The reference for everyone deciding between a stock Woolet (155 / 158 / 161 mm) and a made-to-measure
-              frame. Total frame width from <span className="text-foreground">150 mm to 172 mm</span>, bridge
-              16 to 26 mm, hand-cut from Mazzucchelli acetate in northern Italy.
+              The reference for everyone deciding between the signature Woolet (158 mm) and a made-to-measure
+              frame. Total frame width from <span className="text-foreground">145 mm to 162 mm</span>, bridge
+              20 to 24 mm, hand-cut in the EU from Mazzucchelli acetate from Milan.
             </p>
           </div>
         </section>
@@ -194,8 +192,8 @@ export default function FitBespoke() {
 
             <p className="text-cream-dim leading-relaxed mt-8 max-w-2xl" style={{ fontSize: "0.85rem" }}>
               "Face width" is the total horizontal width of the frame (lens + bridge + lens + hinge allowance),
-              not just lens width. Bespoke covers everything stock can't — the 150–154 mm gap below and the
-              162–172 mm range above.
+              not just lens width. Bespoke covers everything the signature 158 mm can't — 145–154 mm below and
+              162 mm above. Wider than 162 mm we do not build.
             </p>
           </div>
         </section>
