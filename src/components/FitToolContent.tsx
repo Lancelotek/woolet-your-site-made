@@ -53,6 +53,15 @@ function Section({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** Anchor id on the /en/fit scan/QR panel. Shared so CTAs scroll instead of navigating. */
+export const FIT_PANEL_ID = "fit-scan-panel";
+
+export function scrollToFitPanel() {
+  if (typeof document === "undefined") return;
+  const el = document.getElementById(FIT_PANEL_ID);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export function GoldCta({ to, children }: { to: string; children: React.ReactNode }) {
   return (
     <Link
