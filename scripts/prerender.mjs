@@ -272,9 +272,27 @@ async function main() {
     // Strip any existing canonical/robots so we don't double up.
     fallback = fallback.replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, "");
     fallback = fallback.replace(/<meta\s+name=["']robots["'][^>]*>\s*/gi, "");
+    // The SPA template ships homepage-specific og:url / og:title /
+    // og:description. Every route that falls back to this shell would then
+    // preview as the homepage on non-JS social crawlers. Strip the
+    // page-specific social tags and re-emit brand-level ones that point at
+    // /en (the URL this shell actually resolves to).
+    fallback = fallback.replace(
+      /<meta\s+property=["']og:(url|title|description)["'][^>]*>\s*/gi,
+      "",
+    );
+    fallback = fallback.replace(
+      /<meta\s+name=["']twitter:(title|description)["'][^>]*>\s*/gi,
+      "",
+    );
     const softHead = [
       `<link rel="canonical" href="https://woolet.co/en" data-seo="prerender" />`,
       `<meta name="robots" content="noindex, follow" data-seo="prerender" />`,
+      `<meta property="og:url" content="https://woolet.co/en" data-seo="prerender" />`,
+      `<meta property="og:title" content="Woolet — Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
+      `<meta property="og:description" content="Premium frames engineered for wide faces (155 mm+). Mazzucchelli acetate, hand made in EU." data-seo="prerender" />`,
+      `<meta name="twitter:title" content="Woolet — Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
+      `<meta name="twitter:description" content="Premium frames engineered for wide faces (155 mm+). Mazzucchelli acetate, hand made in EU." data-seo="prerender" />`,
     ].join("\n    ");
     fallback = fallback.replace("</head>", `    ${softHead}\n    <!-- fallback: soft-404 + root redirect -->\n  </head>`);
     // Add a no-JS refresh + link to /en inside <body>, so crawlers without JS
