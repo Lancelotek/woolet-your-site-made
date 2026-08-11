@@ -73,9 +73,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Big head sunglasses that fit: 155 mm+ fronts ranked by fit and material, XXL aviator-style options, polarized Cat 3 UV400, and which brands widen the front.",
   },
   "what-size-sunglasses-for-wide-faces": {
-    metaTitle: "What Size Sunglasses for a Wide Face? Quick Guide",
+    metaTitle: "What Size Sunglasses for Wide Faces? (155 mm+ Guide)",
     metaDescription:
-      "How to pick sunglass size for a wide face: front width, bridge and temple numbers explained — plus a 10-second test using your current glasses.",
+      "Sunglasses for wide faces need 155 mm+ front width and a 20–22 mm bridge. Decode frame numbers and find your exact size in 10 seconds.",
   },
   "how-to-tell-if-your-face-is-wide-or-narrow": {
     metaTitle: "How to Tell If Your Face Is Wide or Narrow (Test)",
