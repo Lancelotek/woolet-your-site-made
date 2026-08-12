@@ -18,7 +18,7 @@ import { hreflangAlternates } from "@/i18n/routeRegistry";
 // resolver as renderHeadHtml() from a single SSR bundle (no drift).
 export { hreflangAlternates } from "@/i18n/routeRegistry";
 import { getBlogPosts } from "@/lib/blog-data";
-import { competitors } from "@/data/competitors";
+import { competitors, wooletColumn } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug } from "@/data/sizes";
