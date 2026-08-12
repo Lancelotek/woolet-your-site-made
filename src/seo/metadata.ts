@@ -868,6 +868,14 @@ export function getMetadata(route: string): RouteMeta {
       title: "Why Glasses Never Fit Wide Faces — Fix Guide | Woolet",
       description:
         "Most frames top out around 150 mm — too narrow for a wider face. Here's why your glasses pinch or slide, and how to find a pair that actually fits.",
+      noscriptHtml: `<h1>Why Glasses Never Fit Wide Faces</h1>
+<p>Most mainstream frames top out around 150 mm of front width. A face measuring 155 mm or more pushes the temples outward, so the arms bow, the frame pinches and the optical centres drift off your pupils.</p>
+<h2>The measurement that decides everything</h2>
+<p>Measure temple-to-temple at the widest point of your face. Above 155 mm you are outside standard sizing. Woolet's signature front width is 158 mm (fit range 155–161 mm), with a bespoke tier covering 145–162 mm.</p>
+<h2>What a frame built for a wide face looks like</h2>
+<p>A 158 mm front, a 21–22 mm keyhole bridge and long temples, cut from Mazzucchelli acetate from Milan, Italy and hand made in EU — acetate holds tension at that width where thinner plastics relax over time.</p>
+<h2>Find your size</h2>
+<p><a href="/en/fit">Run the 20-second FitLens scan</a> · <a href="/en/collection">See the collection</a></p>`,
     }, { type: "article" });
   }
   if (path === "/lp/5-reasons") {
@@ -875,8 +883,21 @@ export function getMetadata(route: string): RouteMeta {
       title: "5 Reasons Standard Glasses Fail on Wide Faces | Woolet",
       description:
         "Geometry, material, hinges, bridge, market. Five engineering reasons mainstream frames fail on 155 mm+ faces — and what Woolet does differently.",
+      noscriptHtml: `<h1>5 Reasons Standard Glasses Fail on Wide Faces</h1>
+<p>Standard eyewear is engineered around a 140 mm face. Five things break once you pass 155 mm.</p>
+<h2>The five failure points</h2>
+<ol>
+<li><strong>Geometry:</strong> a 140–150 mm front cannot span a 155 mm+ face, so the frame sits on your temples instead of your nose.</li>
+<li><strong>Material:</strong> thin plastics lose tension when stretched; Mazzucchelli acetate from Milan, Italy holds its shape at 158 mm.</li>
+<li><strong>Hinges:</strong> constant outward pressure loosens standard hinges within months.</li>
+<li><strong>Bridge:</strong> narrow 16–18 mm bridges pinch; a 21–22 mm keyhole bridge distributes weight.</li>
+<li><strong>Market:</strong> wide sizing is treated as a filter, not a design brief.</li>
+</ol>
+<h2>What Woolet does differently</h2>
+<p>Every Woolet frame is built at a 158 mm signature front width (fit range 155–161 mm), hand made in EU from Mazzucchelli acetate from Milan, Italy, with a bespoke tier covering 145–162 mm. <a href="/en/fit">Check your fit in 20 seconds</a>.</p>`,
     }, { type: "article" });
   }
+
 
   // ----- Policies
   if (path === "/privacy-policy") {
