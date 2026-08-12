@@ -133,6 +133,15 @@ const RedirectSizeToEn = () => {
   return <Navigate to={`/en/size/${slug}`} replace />;
 };
 
+/** /:lang/compare/:slug — send real competitor slugs to the English page. */
+const LocalizedCompareRedirect = () => {
+  const { slug } = useParams();
+  const canonical = resolveCompetitorSlug(slug);
+  if (!canonical) return <NotFound />;
+  return <Navigate to={`/en/compare/${canonical}`} replace />;
+};
+
+
 const RedirectBridgeToEn = () => {
   const { slug } = useParams();
   return <Navigate to={`/en/bridge/${slug}`} replace />;
