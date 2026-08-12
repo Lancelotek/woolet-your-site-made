@@ -10,6 +10,7 @@ import PageViewTracker from "@/components/PageViewTracker";
 import { AuthProvider } from "@/lib/auth-context";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import VipPopup from "@/components/VipPopup";
+import { resolveCompetitorSlug } from "@/data/competitors";
 
 import Index from "./pages/Index.tsx";
 const Collection = lazy(() => import("./pages/Collection.tsx"));
