@@ -1,0 +1,41 @@
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: GoogleBot
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Default rule for every other crawler. We deliberately keep this
+# minimal: self-referencing canonicals on every page consolidate
+# UTM-parameterised URLs (previously we shipped a blanket
+# `Disallow: /*?*` which blocked our own campaign landings for every
+# crawler without a dedicated group). Interactive / conversion pages
+# (thank-you, vip-join, payments, checkout, configurator, upvote,
+# account, crm) rely on `<meta name="robots" content="noindex">` and
+# are also absent from sitemap.xml — no disallow needed here.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Ignore tracking parameters — Yandex-specific directive.
+User-agent: Yandex
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&fbclid&gclid&msclkid&ref&mc_cid&mc_eid /
+
+Sitemap: https://woolet.co/sitemap.xml

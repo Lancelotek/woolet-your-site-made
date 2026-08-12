@@ -1,0 +1,19 @@
+# Pricing — Woolet Eyewear
+
+Both models (007 round, 009 soft-square) share one price.
+
+## Founding Member (pre-order)
+- Price: $114 USD
+- Availability: Pre-order, first production batch
+- Includes: Italian Mazzucchelli acetate frame, 5-barrel PVD Gunmetal hinges, Fit Guarantee, 30-day returns, free shipping
+
+## Full launch (MSRP)
+- Price: $190 USD
+
+## Bespoke
+- Price: $299 USD (first 100 backers) · $480 MSRP
+- For face widths outside the 155–161 mm core range (bespoke covers 145–162 mm)
+
+Sizes: 158 mm front width per shape, plus bespoke (145–162 mm).
+Checkout: Stripe. Currency: USD.
+Last updated: 2026-07-20
