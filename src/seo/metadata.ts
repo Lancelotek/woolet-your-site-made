@@ -1074,6 +1074,17 @@ ${post.content}
         title: "Woolet vs the Alternatives — Wide-Face Eyewear Comparisons",
         description:
           "Head-to-head comparisons between Woolet and other wide-face eyewear brands — Fatheadz, EYESHELLS, Zenni, Warby Parker, Ray-Ban and Persol.",
+        noscriptHtml: `<h1>Woolet vs Other Wide-Fit Eyewear Brands</h1>
+<p>Side-by-side comparisons between Woolet and the brands wide-faced wearers usually consider first. Woolet frames have a 158 mm signature front width (fit range 155–161 mm), a bespoke tier covering 145–162 mm, and are made from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
+<h2>All comparisons</h2>
+<ul>${competitors
+          .map(
+            (c) =>
+              `<li><a href="/en/compare/${c.slug}">${escapeHtml(c.name)} Alternative for Wide Faces &amp; Big Heads</a> — ${escapeHtml(c.metaDescription)}</li>`,
+          )
+          .join("")}</ul>
+<h2>How we compare</h2>
+<p>Every comparison covers materials, fit range in millimetres, sizing, price and where the competitor still wins. Not sure of your own measurement? <a href="/en/fit">Run the 20-second FitLens scan</a>.</p>`,
       },
       { image: `${SITE_URL}/og-compare-index.png`, type: "website" },
       [compareIndexBreadcrumbJsonLd(), compareIndexItemListJsonLd()],
@@ -1091,12 +1102,32 @@ ${post.content}
         {
           title: c.seoTitle,
           description: c.metaDescription,
+          noscriptHtml: `<h1>${escapeHtml(c.name)} Alternative for Wide Faces &amp; Big Heads</h1>
+<p>${escapeHtml(c.heroSub)}</p>
+<h2>Woolet vs ${escapeHtml(c.name)} — the specs</h2>
+<ul>${Object.entries(c.table)
+            .map(
+              ([k, v]) =>
+                `<li><strong>${escapeHtml(k)}:</strong> Woolet — ${escapeHtml(wooletColumn[k] ?? "")}; ${escapeHtml(c.name)} — ${escapeHtml(v)}</li>`,
+            )
+            .join("")}</ul>
+<h2>Why wide-face wearers switch to Woolet</h2>
+<ul>${c.advantages
+            .map((a) => `<li><strong>${escapeHtml(a.title)}:</strong> ${escapeHtml(a.text)}</li>`)
+            .join("")}</ul>
+<h2>Where ${escapeHtml(c.name)} still wins</h2>
+<ul>${c.whereTheyWin.map((w) => `<li>${escapeHtml(w)}</li>`).join("")}</ul>
+<h2>Frequently asked questions</h2>
+${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join("")}
+<p>Woolet: 158 mm signature front width (fit range 155–161 mm), bespoke 145–162 mm, Mazzucchelli acetate from Milan, Italy, hand made in EU. <a href="/en/fit">Check your fit in 20 seconds</a> · <a href="/en/compare">All comparisons</a></p>`,
         },
         { image: `${SITE_URL}/og-compare-${c.slug}.png`, type: "website" },
         [compareFaqJsonLd(c), compareProductJsonLd(c), compareBreadcrumbJsonLd(c)],
       );
     }
   }
+
+
 
   // ----- Numeric size landing cluster
   const sizeMatch = path.match(/^\/size\/(\d+mm)$/);
