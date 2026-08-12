@@ -281,9 +281,11 @@ const App = () => (
           <Route path="/en/compare" element={<CompareIndex />} />
           <Route path="/en/compare/:slug" element={<ComparePage />} />
           <Route path="/:lang/compare" element={<Navigate to="/en/compare" replace />} />
-          {/* Unknown /:lang/compare/:slug: render NotFound rather than
-              bouncing to the /en/compare hub. */}
-          <Route path="/:lang/compare/:slug" element={<NotFound />} />
+          {/* A localized comparison URL that maps to a real competitor
+              redirects to the English page (the cluster is English-only);
+              anything else is a genuine 404. */}
+          <Route path="/:lang/compare/:slug" element={<LocalizedCompareRedirect />} />
+
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />
