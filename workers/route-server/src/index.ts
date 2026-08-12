@@ -170,10 +170,24 @@ export default {
     const legacy = (LEGACY_REDIRECTS as Record<string, string>)[pathname];
     if (legacy) return Response.redirect(`https://woolet.co${legacy}`, 301);
 
+    // 3b. Localized /compare URLs -> the English comparison (the cluster is
+    //     English-only). Prevents /ar/compare/zenni-alternative & co. from
+    //     landing on the SPA 404 shell while they still collect impressions.
+    const localizedCompare = pathname.match(
+      /^\/(?:pl|de|fr|nl|ja|es|ar)\/compare(\/[a-z0-9-]+-alternative)?$/,
+    );
+    if (localizedCompare) {
+      return Response.redirect(
+        `https://woolet.co/en/compare${localizedCompare[1] ?? ""}`,
+        301,
+      );
+    }
+
     // 4. Root -> default locale.
     if (pathname === "/" || pathname === "") {
       return Response.redirect("https://woolet.co/en", 301);
     }
+
 
     // 4. Match a prerendered route — only for GET / HEAD navigations.
     const method = request.method.toUpperCase();
