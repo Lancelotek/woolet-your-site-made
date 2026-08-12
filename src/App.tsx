@@ -10,6 +10,7 @@ import PageViewTracker from "@/components/PageViewTracker";
 import { AuthProvider } from "@/lib/auth-context";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import VipPopup from "@/components/VipPopup";
+import { resolveCompetitorSlug } from "@/data/competitors";
 
 import Index from "./pages/Index.tsx";
 const Collection = lazy(() => import("./pages/Collection.tsx"));
@@ -132,6 +133,15 @@ const RedirectSizeToEn = () => {
   const { slug } = useParams();
   return <Navigate to={`/en/size/${slug}`} replace />;
 };
+
+/** /:lang/compare/:slug — send real competitor slugs to the English page. */
+const LocalizedCompareRedirect = () => {
+  const { slug } = useParams();
+  const canonical = resolveCompetitorSlug(slug);
+  if (!canonical) return <NotFound />;
+  return <Navigate to={`/en/compare/${canonical}`} replace />;
+};
+
 
 const RedirectBridgeToEn = () => {
   const { slug } = useParams();
@@ -281,9 +291,11 @@ const App = () => (
           <Route path="/en/compare" element={<CompareIndex />} />
           <Route path="/en/compare/:slug" element={<ComparePage />} />
           <Route path="/:lang/compare" element={<Navigate to="/en/compare" replace />} />
-          {/* Unknown /:lang/compare/:slug: render NotFound rather than
-              bouncing to the /en/compare hub. */}
-          <Route path="/:lang/compare/:slug" element={<NotFound />} />
+          {/* A localized comparison URL that maps to a real competitor
+              redirects to the English page (the cluster is English-only);
+              anything else is a genuine 404. */}
+          <Route path="/:lang/compare/:slug" element={<LocalizedCompareRedirect />} />
+
 
           {/* Language-prefixed routes */}
           <Route path="/:lang" element={<Index />} />

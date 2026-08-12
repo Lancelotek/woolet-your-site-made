@@ -18,7 +18,7 @@ import { hreflangAlternates } from "@/i18n/routeRegistry";
 // resolver as renderHeadHtml() from a single SSR bundle (no drift).
 export { hreflangAlternates } from "@/i18n/routeRegistry";
 import { getBlogPosts } from "@/lib/blog-data";
-import { competitors } from "@/data/competitors";
+import { competitors, wooletColumn } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug } from "@/data/sizes";
@@ -868,6 +868,14 @@ export function getMetadata(route: string): RouteMeta {
       title: "Why Glasses Never Fit Wide Faces — Fix Guide | Woolet",
       description:
         "Most frames top out around 150 mm — too narrow for a wider face. Here's why your glasses pinch or slide, and how to find a pair that actually fits.",
+      noscriptHtml: `<h1>Why Glasses Never Fit Wide Faces</h1>
+<p>Most mainstream frames top out around 150 mm of front width. A face measuring 155 mm or more pushes the temples outward, so the arms bow, the frame pinches and the optical centres drift off your pupils.</p>
+<h2>The measurement that decides everything</h2>
+<p>Measure temple-to-temple at the widest point of your face. Above 155 mm you are outside standard sizing. Woolet's signature front width is 158 mm (fit range 155–161 mm), with a bespoke tier covering 145–162 mm.</p>
+<h2>What a frame built for a wide face looks like</h2>
+<p>A 158 mm front, a 21–22 mm keyhole bridge and long temples, cut from Mazzucchelli acetate from Milan, Italy and hand made in EU — acetate holds tension at that width where thinner plastics relax over time.</p>
+<h2>Find your size</h2>
+<p><a href="/en/fit">Run the 20-second FitLens scan</a> · <a href="/en/collection">See the collection</a></p>`,
     }, { type: "article" });
   }
   if (path === "/lp/5-reasons") {
@@ -875,8 +883,21 @@ export function getMetadata(route: string): RouteMeta {
       title: "5 Reasons Standard Glasses Fail on Wide Faces | Woolet",
       description:
         "Geometry, material, hinges, bridge, market. Five engineering reasons mainstream frames fail on 155 mm+ faces — and what Woolet does differently.",
+      noscriptHtml: `<h1>5 Reasons Standard Glasses Fail on Wide Faces</h1>
+<p>Standard eyewear is engineered around a 140 mm face. Five things break once you pass 155 mm.</p>
+<h2>The five failure points</h2>
+<ol>
+<li><strong>Geometry:</strong> a 140–150 mm front cannot span a 155 mm+ face, so the frame sits on your temples instead of your nose.</li>
+<li><strong>Material:</strong> thin plastics lose tension when stretched; Mazzucchelli acetate from Milan, Italy holds its shape at 158 mm.</li>
+<li><strong>Hinges:</strong> constant outward pressure loosens standard hinges within months.</li>
+<li><strong>Bridge:</strong> narrow 16–18 mm bridges pinch; a 21–22 mm keyhole bridge distributes weight.</li>
+<li><strong>Market:</strong> wide sizing is treated as a filter, not a design brief.</li>
+</ol>
+<h2>What Woolet does differently</h2>
+<p>Every Woolet frame is built at a 158 mm signature front width (fit range 155–161 mm), hand made in EU from Mazzucchelli acetate from Milan, Italy, with a bespoke tier covering 145–162 mm. <a href="/en/fit">Check your fit in 20 seconds</a>.</p>`,
     }, { type: "article" });
   }
+
 
   // ----- Policies
   if (path === "/privacy-policy") {
@@ -1074,6 +1095,17 @@ ${post.content}
         title: "Woolet vs the Alternatives — Wide-Face Eyewear Comparisons",
         description:
           "Head-to-head comparisons between Woolet and other wide-face eyewear brands — Fatheadz, EYESHELLS, Zenni, Warby Parker, Ray-Ban and Persol.",
+        noscriptHtml: `<h1>Woolet vs Other Wide-Fit Eyewear Brands</h1>
+<p>Side-by-side comparisons between Woolet and the brands wide-faced wearers usually consider first. Woolet frames have a 158 mm signature front width (fit range 155–161 mm), a bespoke tier covering 145–162 mm, and are made from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
+<h2>All comparisons</h2>
+<ul>${competitors
+          .map(
+            (c) =>
+              `<li><a href="/en/compare/${c.slug}">${escapeHtml(c.name)} Alternative for Wide Faces &amp; Big Heads</a> — ${escapeHtml(c.metaDescription)}</li>`,
+          )
+          .join("")}</ul>
+<h2>How we compare</h2>
+<p>Every comparison covers materials, fit range in millimetres, sizing, price and where the competitor still wins. Not sure of your own measurement? <a href="/en/fit">Run the 20-second FitLens scan</a>.</p>`,
       },
       { image: `${SITE_URL}/og-compare-index.png`, type: "website" },
       [compareIndexBreadcrumbJsonLd(), compareIndexItemListJsonLd()],
@@ -1091,12 +1123,32 @@ ${post.content}
         {
           title: c.seoTitle,
           description: c.metaDescription,
+          noscriptHtml: `<h1>${escapeHtml(c.name)} Alternative for Wide Faces &amp; Big Heads</h1>
+<p>${escapeHtml(c.heroSub)}</p>
+<h2>Woolet vs ${escapeHtml(c.name)} — the specs</h2>
+<ul>${Object.entries(c.table)
+            .map(
+              ([k, v]) =>
+                `<li><strong>${escapeHtml(k)}:</strong> Woolet — ${escapeHtml(wooletColumn[k] ?? "")}; ${escapeHtml(c.name)} — ${escapeHtml(v)}</li>`,
+            )
+            .join("")}</ul>
+<h2>Why wide-face wearers switch to Woolet</h2>
+<ul>${c.advantages
+            .map((a) => `<li><strong>${escapeHtml(a.title)}:</strong> ${escapeHtml(a.text)}</li>`)
+            .join("")}</ul>
+<h2>Where ${escapeHtml(c.name)} still wins</h2>
+<ul>${c.whereTheyWin.map((w) => `<li>${escapeHtml(w)}</li>`).join("")}</ul>
+<h2>Frequently asked questions</h2>
+${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join("")}
+<p>Woolet: 158 mm signature front width (fit range 155–161 mm), bespoke 145–162 mm, Mazzucchelli acetate from Milan, Italy, hand made in EU. <a href="/en/fit">Check your fit in 20 seconds</a> · <a href="/en/compare">All comparisons</a></p>`,
         },
         { image: `${SITE_URL}/og-compare-${c.slug}.png`, type: "website" },
         [compareFaqJsonLd(c), compareProductJsonLd(c), compareBreadcrumbJsonLd(c)],
       );
     }
   }
+
+
 
   // ----- Numeric size landing cluster
   const sizeMatch = path.match(/^\/size\/(\d+mm)$/);

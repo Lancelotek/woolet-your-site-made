@@ -125,7 +125,7 @@ const CompareIndex = () => {
               margin: "0 0 16px",
             }}
           >
-            Woolet vs the Alternatives
+            Woolet vs Other Wide-Fit Eyewear Brands
           </h1>
           <p style={{ fontSize: 15, lineHeight: 1.7, color: "#555", margin: "0 auto", maxWidth: 620 }}>
             Honest side-by-side comparisons between Woolet and the brands wide-faced wearers usually consider first. Every entry covers materials, fit range, sizing, price and where the competitor still wins.
