@@ -824,7 +824,7 @@ const AdvertorialPage = () => {
               manufacturer combined 158mm+ width with Italian Mazzucchelli
               acetate. There was no brand positioned like Moscot or Oliver
               Peoples — but built exclusively for wide faces. That's why
-              Woolet was created.
+              Woolet was created; the <Link to="/en/blog/glasses-for-wide-faces-guide" style={{ color: "#d8b86a", textDecoration: "underline", textUnderlineOffset: 3 }}>complete guide to glasses for wide faces</Link> maps the rest of the market, and <Link to="/en/temple/150mm" style={{ color: "#d8b86a", textDecoration: "underline", textUnderlineOffset: 3 }}>150 mm temple arms</Link> explain the half of fit nobody lists on a product page.
             </p>
 
             {/* Section A */}
@@ -875,7 +875,7 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              You are not too wide. The frame is too narrow.
+              You are not too wide. The frame is too narrow. Before you shop again, spend a minute on <Link to="/en/blog/how-to-measure-face-width-for-glasses" style={{ color: "#d8b86a", textDecoration: "underline", textUnderlineOffset: 3 }}>how to measure your face width for glasses</Link> — the number decides everything that follows.
             </p>
 
             {/* Stat strip */}
@@ -991,7 +991,7 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              For wider faces this has practical significance: TR90 plastic under the tension of a 158mm spread deforms within weeks. Mazzucchelli acetate does not.
+              For wider faces this has practical significance: TR90 plastic under the tension of a 158mm spread deforms within weeks. Mazzucchelli acetate does not — it is the sheet we cut <Link to="/en/products/007" style={{ color: "#d8b86a", textDecoration: "underline", textUnderlineOffset: 3 }}>Woolet 007</Link> and <Link to="/en/products/009" style={{ color: "#d8b86a", textDecoration: "underline", textUnderlineOffset: 3 }}>Woolet 009</Link> from, hand made in EU.
             </p>
 
             {/* Section C */}

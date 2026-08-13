@@ -52,7 +52,7 @@ export const competitors: Competitor[] = [
     seoTitle: "Fatheadz Alternative for Wide Faces: Woolet vs Fatheadz (2026)",
     metaDescription:
       "Looking for a Fatheadz alternative? Compare Fatheadz vs Woolet — Italian Mazzucchelli acetate, frames engineered for 145–162mm faces, and a 20-second fit scan.",
-    heroH1: "The Fatheadz Alternative, Hand Finished in the EU",
+    heroH1: "Fatheadz Alternative for Wide Faces & Big Heads",
     heroSub:
       "Fatheadz proved that big heads deserve real eyewear. Woolet takes the same mission upmarket: Mazzucchelli 1849 acetate, bespoke sizing for 145–162 mm faces, and a fit you can verify with a 20-second phone scan.",
     verdict:
@@ -117,7 +117,7 @@ export const competitors: Competitor[] = [
     seoTitle: "EYESHELLS Alternative: Premium Wide-Face Glasses | Woolet",
     metaDescription:
       "EYESHELLS alternative for wide faces: handmade in the EU from Italian acetate frames, bespoke sizing to 172mm, 20-second fit scan and 30-day guarantee.",
-    heroH1: "The Premium EYESHELLS Alternative",
+    heroH1: "EYESHELLS Alternative for Wide Faces & Big Heads",
     heroSub:
       "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 145 to 162 mm, and a fit scan that proves it fits before you order.",
     verdict:
@@ -182,7 +182,7 @@ export const competitors: Competitor[] = [
     seoTitle: "Zenni Alternative for Wide Faces & Big Heads | Woolet",
     metaDescription:
       "Looking for a Zenni alternative that actually fits a wide face? Woolet builds handmade in the EU from Italian acetate frames for 145–162mm faces, with a 20-second fit scan.",
-    heroH1: "The Zenni Alternative Built for Wide Faces",
+    heroH1: "Zenni Alternative for Wide Faces & Big Heads",
     heroSub:
       "Zenni's Extended Fit is a big catalogue stretched a little wider. Woolet is the opposite: one obsession — faces 150 mm and up — served with handmade in the EU from Italian acetate and a fit scan that ends the guesswork.",
     verdict:
@@ -249,7 +249,7 @@ export const competitors: Competitor[] = [
     seoTitle: "Warby Parker Alternative for Wide Faces | Woolet",
     metaDescription:
       "The Warby Parker alternative engineered for 145–162mm faces — handmade in the EU from Italian acetate, 20-second fit scan, 30-day fit guarantee.",
-    heroH1: "The Warby Parker Alternative for Faces Their 'Extra Wide' Forgot",
+    heroH1: "Warby Parker Alternative for Wide Faces & Big Heads",
     heroSub:
       "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 145 to 162 mm, handmade in the EU from Italian acetate, fit verified by a 20-second scan.",
     verdict:
@@ -353,7 +353,7 @@ export const competitors: Competitor[] = [
     seoTitle: "Ray-Ban Alternative for Wide Faces & Big Heads | Woolet",
     metaDescription:
       "Ray-Ban pinching? Woolet is the Ray-Ban alternative for wide faces: handmade in the EU from Italian acetate, 145–162mm sizing, 20-second fit scan.",
-    heroH1: "The Ray-Ban Alternative That Doesn't Pinch",
+    heroH1: "Ray-Ban Alternative for Wide Faces & Big Heads",
     heroSub:
       "Ray-Ban sizes run XXS to XXL — of frames proportioned for the average head. If Wayfarers leave marks at your temples, the problem isn't you. Woolet builds classic shapes for faces 145–162 mm wide, in hand made in EU from Italian acetate.",
     verdict:
@@ -418,7 +418,7 @@ export const competitors: Competitor[] = [
     seoTitle: "Persol Alternative for Wide Faces (145–162mm) | Woolet",
     metaDescription:
       "Persol craftsmanship, built for wide faces. Woolet is the Persol alternative for 145–162mm faces: Mazzucchelli 1849 acetate, Hand Finished in the EU, bespoke sizing.",
-    heroH1: "The Persol Alternative for Faces Persol Never Measured",
+    heroH1: "Persol Alternative for Wide Faces & Big Heads",
     heroSub:
       "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 162 mm wide, the range where even the most beautiful Persol starts to pinch.",
     verdict:
