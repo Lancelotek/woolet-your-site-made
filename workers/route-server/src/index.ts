@@ -172,11 +172,11 @@ export default {
 
     // 3b. Localized URLs for English-only route families -> 301 to the English
     //     original. These clusters (compare, lp, size/bridge/temple, xxl,
-    //     collections, fit) exist in EN only; without this a request such as
+    //     collections) exist in EN only; without this a request such as
     //     /ar/compare/zenni-alternative renders the English SPA fallback and
     //     becomes indexable duplicate content under a non-EN path.
     const localizedEnOnly = pathname.match(
-      /^\/(?:pl|de|fr|nl|ja|es|ar)(\/(?:compare|lp|xxl|collections|fit)(?:\/[a-z0-9-]+)*|\/(?:size|bridge|temple)\/\d{2,3}mm)$/,
+      /^\/(?:pl|de|fr|nl|ja|es|ar)(\/(?:compare|lp|xxl|collections)(?:\/[a-z0-9-]+)*|\/(?:size|bridge|temple)\/\d{2,3}mm)$/,
     );
     if (localizedEnOnly) {
       return Response.redirect(
