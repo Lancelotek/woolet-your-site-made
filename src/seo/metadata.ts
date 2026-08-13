@@ -898,6 +898,24 @@ export function getMetadata(route: string): RouteMeta {
 <p>Every Woolet frame is built at a 158 mm signature front width (fit range 155–161 mm), hand made in EU from Mazzucchelli acetate from Milan, Italy, with a bespoke tier covering 145–162 mm. <a href="/en/fit">Check your fit in 20 seconds</a>.</p>`,
     }, { type: "article" });
   }
+  if (path === "/lp/wide-bridge-fit-guide") {
+    return base(route, lang, {
+      title: "Wide Bridge Glasses — Fit Guide for a Wide Nose Bridge | Woolet",
+      description:
+        "A wide nose bridge changes where glasses sit, pinch and slide. How to size one, what bridge width to look for, and why Woolet uses a 20–21 mm keyhole bridge on a 158 mm front. Hand made in EU.",
+      noscriptHtml: `<h1>Wide Bridge Fit Guide</h1>
+<p>A wide nose bridge changes where a frame sits, where it pinches and how fast it slides. Most mainstream frames use a 16–18 mm bridge; a wider or higher nose usually needs 20–22 mm before the frame stops sliding or leaving marks.</p>
+<h2>How to measure your bridge width</h2>
+<p>Measure the gap between the inner edges of your lenses on a pair that already sits well, or measure across the top of your nose where the frame rests. Under 17 mm is narrow, 17–20 mm is mainstream, 21 mm and above is wide.</p>
+<h2>Why a keyhole bridge works on a wide nose</h2>
+<p>A keyhole bridge rides on the top ridge of the nose instead of pinching the sides, so the weight sits on bone rather than cartilage. That removes the two usual failure modes: sliding and red pressure marks.</p>
+<h2>Woolet's bridge specs</h2>
+<p>Woolet 007 ships with a 21 mm keyhole bridge, Woolet 009 with 22 mm, both on a 158 mm signature front width (fit range 155–161 mm). Bespoke covers fronts from 145 to 162 mm with bridges from 20 to 24 mm. Cut from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
+<p><a href="/en/fit">Measure your bridge in 20 seconds</a> · <a href="/en/collections/wide-bridge-glasses">See wide bridge glasses</a></p>`,
+    }, { type: "article" });
+  }
+
+
 
 
   // ----- Policies
