@@ -116,7 +116,7 @@ const WideBridgeFitGuide = () => {
           className="font-display text-woolet-white leading-tight mb-5"
           style={{ fontSize: "clamp(2rem, 4.2vw, 3.2rem)", fontWeight: 400 }}
         >
-          Wide bridge fit — how to pick bridge width and stop glasses from sliding
+          Wide Bridge Fit Guide
         </h1>
         <p
           className="text-cream-dim leading-relaxed mb-10 pb-8"
