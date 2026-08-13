@@ -566,8 +566,8 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "how-to-measure-face-width-for-glasses",
-    title: "How to Measure Your Face Width for Glasses (2026)",
-    excerpt: "Measure your face width at home in 30 seconds and pick the right frame size — no optician needed. A simple guide built for wider faces and bigger heads.",
+    title: "How to Measure Face Width for Glasses in 60 Seconds",
+    excerpt: "No ruler, no optician: measure your face width in 60 seconds with a credit card and match it to the right frame size — built for wider faces and bigger heads.",
     date: "2026-03-08",
     readTime: 9,
     tags: ["How-to", "Measurement", "Fit"],
@@ -641,7 +641,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Most people who struggle to find fitting glasses have never measured their face. They rely on vague labels like "wide" or "large" without understanding what those terms actually mean in millimeters — or why the "wide" option at their local optician might still be 15mm too narrow.</p>
 
-<p>This guide will fix that. In under 10 minutes, you'll have the one number that changes how you shop for glasses forever: your face width in millimeters.</p>
+<p>This guide fixes that in 60 seconds, with nothing more than a credit card or a ruler you already own: you get the one number that changes how you shop for glasses forever — your face width in millimetres.</p>
 
 <h2>Measure with your phone instead</h2>
 

@@ -28,9 +28,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Most frames cap at 18 mm. See what a 21–22 mm bridge changes for a wide nose, why keyhole beats saddle, and which brands actually stock it.",
   },
   "how-to-measure-face-width-for-glasses": {
-    metaTitle: "How to Measure Your Face Width for Glasses (30 sec)",
+    metaTitle: "How to Measure Face Width for Glasses in 60 Seconds",
     metaDescription:
-      "Measure your face width at home in 30 seconds and pick the right frame size — no optician needed. Includes a size bracket chart for 140–162 mm.",
+      "No ruler, no optician. Measure your face width in 60 seconds with a credit card (85.6 mm) and match it to a frame size — chart for 140–162 mm included.",
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",
