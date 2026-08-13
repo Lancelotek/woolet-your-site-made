@@ -888,11 +888,11 @@ export function getMetadata(route: string): RouteMeta {
 <p>Standard eyewear is engineered around a 140 mm face. Five things break once you pass 155 mm.</p>
 <h2>The five failure points</h2>
 <ol>
-<li><strong>Geometry:</strong> a 140–150 mm front cannot span a 155 mm+ face, so the frame sits on your temples instead of your nose.</li>
-<li><strong>Material:</strong> thin plastics lose tension when stretched; Mazzucchelli acetate from Milan, Italy holds its shape at 158 mm.</li>
-<li><strong>Hinges:</strong> constant outward pressure loosens standard hinges within months.</li>
-<li><strong>Bridge:</strong> narrow 16–18 mm bridges pinch; a 21–22 mm keyhole bridge distributes weight.</li>
-<li><strong>Market:</strong> wide sizing is treated as a filter, not a design brief.</li>
+<li><strong>Geometry:</strong> a 140–150 mm front cannot span a 155 mm+ face, so the frame sits on your temples instead of your nose — the <a href="/en/blog/glasses-for-wide-faces-guide">complete guide to glasses for wide faces</a> walks through the geometry.</li>
+<li><strong>Material:</strong> thin plastics lose tension when stretched; Mazzucchelli acetate from Milan, Italy holds its shape at 158 mm, which is why a budget <a href="/en/compare/zenni-alternative">Zenni alternative built for wide faces</a> reads differently on the face.</li>
+<li><strong>Hinges:</strong> constant outward pressure loosens standard hinges within months, and short arms make it worse — <a href="/en/temple/150mm">150 mm temple arms</a> keep the load off the joint.</li>
+<li><strong>Bridge:</strong> narrow 16–18 mm bridges pinch; the 21 mm keyhole bridge on <a href="/en/products/007">Woolet 007</a> and the 22 mm on <a href="/en/products/009">Woolet 009</a> distribute weight instead.</li>
+<li><strong>Market:</strong> wide sizing is treated as a filter, not a design brief; past 161 mm the <a href="/en/bespoke">bespoke programme</a> covers 145–162 mm.</li>
 </ol>
 <h2>What Woolet does differently</h2>
 <p>Every Woolet frame is built at a 158 mm signature front width (fit range 155–161 mm), hand made in EU from Mazzucchelli acetate from Milan, Italy, with a bespoke tier covering 145–162 mm. <a href="/en/fit">Check your fit in 20 seconds</a>.</p>`,
