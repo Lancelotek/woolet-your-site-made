@@ -399,7 +399,7 @@ export function getMetadata(route: string): RouteMeta {
       {
         title: "007 Round — Wide-Fit Round Glasses, 158 mm | Woolet",
         description:
-          "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand-finished in the EU. Made for 155 mm+ faces. See the fit.",
+          "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
 <p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Dark Tortoise, Black, Honey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
@@ -424,7 +424,7 @@ export function getMetadata(route: string): RouteMeta {
       {
         title: "009 Square — Wide-Fit Square Glasses, 158 mm | Woolet",
         description:
-          "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand-finished in the EU. Made for 155 mm+ faces. See the fit.",
+          "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
@@ -813,9 +813,9 @@ export function getMetadata(route: string): RouteMeta {
   const extraCollections: Record<string, { title: string; description: string; h1: string; intro: string }> = {
     "/collections/big-glasses-frames": {
       title: "Big Glasses Frames for Wide Faces & Big Heads | Woolet",
-      description: "Truly big glasses frames: 158 mm front, 21 mm keyhole bridge, hand-finished in the EU from Italian Mazzucchelli acetate. For 155 mm+ faces and 58 cm+ heads.",
+      description: "Truly big glasses frames: 158 mm front, 21 mm keyhole bridge, hand made in EU from Italian Mazzucchelli acetate. For 155 mm+ faces and 58 cm+ heads.",
       h1: "Big Glasses Frames for Wide Faces & Big Heads",
-      intro: "Most 'big' frames at mainstream retailers are 140–148 mm hinge-to-hinge — a larger lens on a standard front. Woolet builds at 158 mm of actual front width with a 21 mm keyhole bridge, in hand-finished in the EU from Italian Mazzucchelli acetate. Bespoke covers 145–162 mm for XXL heads.",
+      intro: "Most 'big' frames at mainstream retailers are 140–148 mm hinge-to-hinge — a larger lens on a standard front. Woolet builds at 158 mm of actual front width with a 21 mm keyhole bridge, in hand made in EU from Italian Mazzucchelli acetate. Bespoke covers 145–162 mm for XXL heads.",
     },
     "/collections/oversized-prescription-glasses": {
       title: "Oversized Prescription Glasses for Wide Faces | Woolet",

@@ -2805,7 +2805,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>What to look for in glasses for a wide face</h2>
 <p>Three things, every time: a frame front that matches your width, a bridge wide enough to center the lenses, and temple arms long enough to wrap without pressure. Standard ranges stop short on all three.</p>
-<p>When your face is too wide for Persol, Tom Ford, Warby Parker, or a Ray-Ban Wayfarer Large, Woolet is built for you. Premium Italian Mazzucchelli acetate, hand-finished in the EU, in one precise 158 mm size across two shapes — with a bespoke tier for 145–162 mm.</p>
+<p>When your face is too wide for Persol, Tom Ford, Warby Parker, or a Ray-Ban Wayfarer Large, Woolet is built for you. Premium Italian Mazzucchelli acetate, hand made in EU, in one precise 158 mm size across two shapes — with a bespoke tier for 145–162 mm.</p>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:28px 0;">
   <a href="/en/products/007" style="display:block;padding:22px 24px;border:1px solid rgba(201,168,76,0.35);border-radius:6px;text-decoration:none;color:inherit;background:rgba(201,168,76,0.04);">
@@ -2898,7 +2898,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>If you're between sizes</h2>
 
-<p>If your face is 150–154 mm or 162–162 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand-finished in the EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
+<p>If your face is 150–154 mm or 162–162 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
 
 <h2>Quick FAQ</h2>
 
@@ -3779,7 +3779,7 @@ Related guides:
 
 <h3 style="margin-top:28px;">If you're extra-wide (162 mm+)</h3>
 
-<p>Even our stock 158 mm will bow at the temples. This is <a href="/en/bespoke" style="color:#A07A2A;text-decoration:underline;">Woolet Bespoke</a> territory — every frame is cut to your exact face width (up to 162 mm) and bridge (20–24 mm), same Italian Mazzucchelli acetate, hand-finished in the EU. It's the only path that actually fits above 162 mm.</p>
+<p>Even our stock 158 mm will bow at the temples. This is <a href="/en/bespoke" style="color:#A07A2A;text-decoration:underline;">Woolet Bespoke</a> territory — every frame is cut to your exact face width (up to 162 mm) and bridge (20–24 mm), same Italian Mazzucchelli acetate, hand made in EU. It's the only path that actually fits above 162 mm.</p>
 
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">Not sure which band you're in?</div>

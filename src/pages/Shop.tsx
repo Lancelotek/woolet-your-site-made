@@ -299,7 +299,7 @@ const BuyBox = () => {
             {modelName}
           </h3>
           <p style={{ ...sans, color: MUTED, fontSize: 15, lineHeight: 1.7, marginTop: 12 }}>
-            158 mm front · 21 mm keyhole bridge · Italian Mazzucchelli acetate, hand-finished in the EU.
+            158 mm front · 21 mm keyhole bridge · Italian Mazzucchelli acetate, hand made in EU.
           </p>
 
           <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 24 }}>
