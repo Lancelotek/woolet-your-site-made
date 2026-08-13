@@ -103,6 +103,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
     { label: "Facebook", href: "https://www.facebook.com/WooletWideFit/" },
     { label: "YouTube", href: "https://www.youtube.com/@wooleteyewear" },
     { label: "TikTok", href: "https://www.tiktok.com/@wooletai" },
+    { label: "Pinterest", href: "https://www.pinterest.com/Bestwoolet/" },
   ];
 
   return (
@@ -267,6 +268,7 @@ const SocialIconLink = ({ label, href }: { label: string; href: string }) => {
       {label === "Facebook" && <FacebookIcon className={iconClass} />}
       {label === "YouTube" && <YouTubeIcon className={iconClass} />}
       {label === "TikTok" && <TikTokIcon className={iconClass} />}
+      {label === "Pinterest" && <PinterestIcon className={iconClass} />}
     </a>
   );
 };
