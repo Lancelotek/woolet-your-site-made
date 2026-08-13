@@ -4,12 +4,12 @@ type Dict = Record<string, string>;
 
 const en: Dict = {
   // SEO
-  "seo.title": "FitLens — Virtual Glasses Fit for Wide Faces | Woolet",
-  "seo.desc": "Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork.",
+  "seo.title": "Frame Finder for Wide Faces — 155 mm+ | Woolet FitLens",
+  "seo.desc": "A frame finder built for wide faces. Scan with your phone camera and get your face width in millimetres plus the frame size that fits, in about 20 seconds.",
 
   // Welcome
   "welcome.eyebrow": "FITLENS · ~20-SECOND SCAN",
-  "welcome.h1_pre": "Virtual Fit for Wide Faces — Measure Your Face in",
+  "welcome.h1_pre": "Frame Finder for Wide Faces — Measure Your Face in",
   "welcome.h1_em": "20 seconds",
   "welcome.subtitle": "Three steps. Photo never leaves your device until you capture.",
   "welcome.need_card_title": "You need a card for this scan",
@@ -38,7 +38,7 @@ const en: Dict = {
 
   // Desktop QR gate
   "desktop.eyebrow": "FITLENS · PHONE ONLY",
-  "desktop.h1_pre": "Virtual Fit for Wide Faces — Measure Your Face in",
+  "desktop.h1_pre": "Frame Finder for Wide Faces — Measure Your Face in",
   "desktop.h1_em": "20 seconds",
   "desktop.desc": "FitLens runs on your phone camera in about 20 seconds. Your photo stays in the browser — it isn't uploaded or saved. We ask for your email on the phone, after the measurement.",
   "desktop.step1": "Open the camera app on your phone and aim it at the QR code.",
