@@ -6,7 +6,7 @@ const WideFrameReadingGlasses = () => (
     breadcrumbName="Wide Frame Reading Glasses"
     h1="Wide Frame Reading Glasses — 158 mm Italian Acetate"
     metaTitle="Wide Frame Reading Glasses — 158 mm for Wide Faces | Woolet"
-    metaDescription="Wide frame reading glasses for 155 mm+ faces. 158 mm front, 21 mm keyhole bridge, hand-finished in the EU from Italian Mazzucchelli acetate. Readers from +1.00 to +3.00."
+    metaDescription="Wide frame reading glasses for 155 mm+ faces. 158 mm front, 21 mm keyhole bridge, hand made in EU from Italian Mazzucchelli acetate. Readers from +1.00 to +3.00."
     intro="Drugstore readers are almost always built on 135–142 mm fronts — fine for an average face, painful on a wide one. Woolet's wide frame reading glasses use the same 158 mm Italian acetate fronts as our optical line, fitted with single-vision reading lenses from +1.00 to +3.00. Two shapes — round 007 and soft-square 009 — both built for 155 mm+ faces that have outgrown off-the-shelf readers."
     whyThisFits={[
       "<strong>158 mm front — not a rebadged 142 mm reader.</strong> Most 'wide' readers on Amazon top out at 145 mm. Our front is genuinely scaled for 155–161 mm faces, with temple flare that opens at the hinge instead of pressing into the side of the head.",

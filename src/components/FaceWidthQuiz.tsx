@@ -92,7 +92,7 @@ const RESULTS: Record<Band, {
     title: "Extra-wide face — bespoke territory",
     range: "162 mm and above",
     honest:
-      "Even our stock 158 mm will bow at the temples. Woolet Bespoke is cut to your exact face width (up to 162 mm) and bridge (20–24 mm), same Italian acetate, hand-finished in the EU. It's the only path that actually fits above 162 mm.",
+      "Even our stock 158 mm will bow at the temples. Woolet Bespoke is cut to your exact face width (up to 162 mm) and bridge (20–24 mm), same Italian acetate, hand made in EU. It's the only path that actually fits above 162 mm.",
     cta: { label: "Explore Woolet Bespoke", href: "/en/bespoke" },
     secondary: { label: "Measure first with AI Fit Wizard", href: "/en/fit" },
     tone: "bespoke",

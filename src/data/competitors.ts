@@ -232,7 +232,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Why choose a $190 frame over a $7 frame?",
-        a: "Materials, fit and longevity: hand-finished in the EU from Italian bio-acetate, made-to-order sizing verified by a face scan, optional engraving, and a frame designed for your width rather than adjusted to it.",
+        a: "Materials, fit and longevity: hand made in EU from Italian bio-acetate, made-to-order sizing verified by a face scan, optional engraving, and a frame designed for your width rather than adjusted to it.",
       },
       {
         q: "Does Woolet offer a try-on like Zenni?",
@@ -355,7 +355,7 @@ export const competitors: Competitor[] = [
       "Ray-Ban pinching? Woolet is the Ray-Ban alternative for wide faces: handmade in the EU from Italian acetate, 145–162mm sizing, 20-second fit scan.",
     heroH1: "The Ray-Ban Alternative That Doesn't Pinch",
     heroSub:
-      "Ray-Ban sizes run XXS to XXL — of frames proportioned for the average head. If Wayfarers leave marks at your temples, the problem isn't you. Woolet builds classic shapes for faces 145–162 mm wide, in hand-finished in the EU from Italian acetate.",
+      "Ray-Ban sizes run XXS to XXL — of frames proportioned for the average head. If Wayfarers leave marks at your temples, the problem isn't you. Woolet builds classic shapes for faces 145–162 mm wide, in hand made in EU from Italian acetate.",
     verdict:
       "Choose Ray-Ban for iconic styling at standard sizes. Choose Woolet if you love those silhouettes but your face is 150 mm or wider — you get the classic shapes, cut for your actual head, with fit verified before you buy.",
     table: {

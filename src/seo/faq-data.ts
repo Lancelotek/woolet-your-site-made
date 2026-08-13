@@ -58,7 +58,7 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
     },
     {
       q: "What's the difference between Woolet and Zenni or Warby Parker wide frames?",
-      a: "Zenni Extended Fit and Warby Parker Wide top out around 138–148 mm. Woolet starts at 158 mm and is built exclusively for wide faces in Italian Mazzucchelli acetate, Hand finished in the EU.",
+      a: "Zenni Extended Fit and Warby Parker Wide top out around 138–148 mm. Woolet starts at 158 mm and is built exclusively for wide faces in Italian Mazzucchelli acetate, Hand made in EU.",
     },
     {
       q: "Do Woolet frames work with prescription lenses?",

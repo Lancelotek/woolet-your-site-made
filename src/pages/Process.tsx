@@ -389,7 +389,7 @@ const Process = () => {
               style={{ fontSize: "1rem", lineHeight: 1.7 }}
             >
               Made from <em className="italic text-gold-light">Italian Mazzucchelli</em> acetate.
-              Hand finished in the EU.
+              Hand made in EU.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center">
               <Link
