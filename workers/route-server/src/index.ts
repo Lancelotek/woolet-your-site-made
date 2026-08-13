@@ -170,18 +170,21 @@ export default {
     const legacy = (LEGACY_REDIRECTS as Record<string, string>)[pathname];
     if (legacy) return Response.redirect(`https://woolet.co${legacy}`, 301);
 
-    // 3b. Localized /compare URLs -> the English comparison (the cluster is
-    //     English-only). Prevents /ar/compare/zenni-alternative & co. from
-    //     landing on the SPA 404 shell while they still collect impressions.
-    const localizedCompare = pathname.match(
-      /^\/(?:pl|de|fr|nl|ja|es|ar)\/compare(\/[a-z0-9-]+-alternative)?$/,
+    // 3b. Localized URLs for English-only route families -> 301 to the English
+    //     original. These clusters (compare, lp, size/bridge/temple, xxl,
+    //     collections, fit) exist in EN only; without this a request such as
+    //     /ar/compare/zenni-alternative renders the English SPA fallback and
+    //     becomes indexable duplicate content under a non-EN path.
+    const localizedEnOnly = pathname.match(
+      /^\/(?:pl|de|fr|nl|ja|es|ar)(\/(?:compare|lp|xxl|collections|fit)(?:\/[a-z0-9-]+)*|\/(?:size|bridge|temple)\/\d{2,3}mm)$/,
     );
-    if (localizedCompare) {
+    if (localizedEnOnly) {
       return Response.redirect(
-        `https://woolet.co/en/compare${localizedCompare[1] ?? ""}`,
+        `https://woolet.co/en${localizedEnOnly[1]}`,
         301,
       );
     }
+
 
     // 4. Root -> default locale.
     if (pathname === "/" || pathname === "") {
