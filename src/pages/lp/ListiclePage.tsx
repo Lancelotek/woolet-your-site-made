@@ -25,6 +25,8 @@ const C = {
 const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
 const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 
+const IL = { color: C.gold, textDecoration: "underline", textUnderlineOffset: 3 } as const;
+
 const REASONS = [
   {
     n: "01",
@@ -36,6 +38,14 @@ const REASONS = [
     statUnit: "mm",
     statLabel: "Typical standard width",
     visual: "bar",
+    extra: (
+      <>
+        The same geometry is why a cheap swap rarely helps — see how a{" "}
+        <Link to="/en/compare/zenni-alternative" style={IL}>Zenni alternative built for wide faces</Link>{" "}
+        differs, or read the{" "}
+        <Link to="/en/blog/glasses-for-wide-faces-guide" style={IL}>complete guide to glasses for wide faces</Link>.
+      </>
+    ),
   },
   {
     n: "02",
@@ -47,6 +57,12 @@ const REASONS = [
     statUnit: "",
     statLabel: "Cotton-cellulose acetate",
     visual: "text",
+    extra: (
+      <>
+        That is the acetate we cut{" "}
+        <Link to="/en/products/007" style={IL}>Woolet 007</Link> from — Mazzucchelli from Milan, hand made in EU.
+      </>
+    ),
   },
   {
     n: "03",
@@ -58,6 +74,12 @@ const REASONS = [
     statUnit: "°",
     statLabel: "Engineered opening angle",
     visual: "angle",
+    extra: (
+      <>
+        Long arms carry that load too: here is what{" "}
+        <Link to="/en/temple/150mm" style={IL}>150 mm temple arms</Link> change over a full day.
+      </>
+    ),
   },
   {
     n: "04",
@@ -69,6 +91,12 @@ const REASONS = [
     statUnit: "mm",
     statLabel: "Keyhole bridge",
     visual: "stat",
+    extra: (
+      <>
+        <Link to="/en/products/009" style={IL}>Woolet 009</Link> takes the same idea to a 22 mm bridge, and past 161 mm the{" "}
+        <Link to="/en/bespoke" style={IL}>bespoke programme</Link> covers 145–162 mm.
+      </>
+    ),
   },
 ];
 
@@ -318,6 +346,19 @@ const ListiclePage = () => {
                 >
                   {r.body}
                 </p>
+                {r.extra && (
+                  <p
+                    style={{
+                      marginTop: 12,
+                      maxWidth: 560,
+                      fontSize: 15,
+                      lineHeight: 1.75,
+                      color: C.inkDim,
+                    }}
+                  >
+                    {r.extra}
+                  </p>
+                )}
 
                 {r.visual === "bar" && (
                   <div style={{ marginTop: 28, maxWidth: 520 }}>
