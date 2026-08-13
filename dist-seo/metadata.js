@@ -2145,8 +2145,8 @@ const blogPostsEN = [
   },
   {
     slug: "how-to-measure-face-width-for-glasses",
-    title: "How to Measure Your Face Width for Glasses (2026)",
-    excerpt: "Measure your face width at home in 30 seconds and pick the right frame size — no optician needed. A simple guide built for wider faces and bigger heads.",
+    title: "How to Measure Face Width for Glasses in 60 Seconds",
+    excerpt: "No ruler, no optician: measure your face width in 60 seconds with a credit card and match it to the right frame size — built for wider faces and bigger heads.",
     date: "2026-03-08",
     readTime: 9,
     tags: ["How-to", "Measurement", "Fit"],
@@ -2220,7 +2220,7 @@ const blogPostsEN = [
 
 <p>Most people who struggle to find fitting glasses have never measured their face. They rely on vague labels like "wide" or "large" without understanding what those terms actually mean in millimeters — or why the "wide" option at their local optician might still be 15mm too narrow.</p>
 
-<p>This guide will fix that. In under 10 minutes, you'll have the one number that changes how you shop for glasses forever: your face width in millimeters.</p>
+<p>This guide fixes that in 60 seconds, with nothing more than a credit card or a ruler you already own: you get the one number that changes how you shop for glasses forever — your face width in millimetres.</p>
 
 <h2>Measure with your phone instead</h2>
 
@@ -7381,9 +7381,10 @@ function getMetadata(route) {
       route,
       lang,
       {
-        title: "FitLens — Virtual Glasses Fit for Wide Faces | Woolet",
-        description: "Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork.",
-        noscriptHtml: `<h1>Virtual Fit for Wide Faces — Measure Your Face in 20 Seconds</h1>
+        title: "Frame Finder for Wide Faces — 155 mm+ | Woolet FitLens",
+        description: "A frame finder built for wide faces. Scan with your phone camera and get your face width in millimetres plus the frame size that fits, in about 20 seconds.",
+        noscriptHtml: `<h1>Frame Finder for Wide Faces — Measure Your Face in 20 Seconds</h1>
+<p>FitLens is a frame finder for 155&nbsp;mm+ faces: it returns your face width in millimetres and the frame front width that fits, instead of guessing from photos.</p>
 <p>FitLens is a virtual fit tool, not a virtual try-on. It uses your phone camera and a credit card (85.6&nbsp;mm) as a scale reference to return your temple-to-temple face width, your nose bridge width and your pupillary distance in millimetres — then tells you whether our 158&nbsp;mm front width fits. No app, no account, about 20 seconds.</p>
 <h2>How it works</h2>
 <ol>
@@ -8315,6 +8316,13 @@ function renderHeadHtml(meta) {
   tags.push(`<meta property="og:type" content="${meta.og.type}"${D} />`);
   tags.push(`<meta property="og:site_name" content="Woolet"${D} />`);
   tags.push(`<meta property="og:image" content="${meta.og.image}"${D} />`);
+  tags.push(`<meta property="og:image:secure_url" content="${meta.og.image}"${D} />`);
+  tags.push(`<meta property="og:image:width" content="1200"${D} />`);
+  tags.push(`<meta property="og:image:height" content="630"${D} />`);
+  tags.push(
+    `<meta property="og:image:type" content="${meta.og.image.endsWith(".jpg") || meta.og.image.endsWith(".jpeg") ? "image/jpeg" : meta.og.image.endsWith(".webp") ? "image/webp" : "image/png"}"${D} />`
+  );
+  tags.push(`<meta property="og:image:alt" content="${escapeHtml(meta.og.title)}"${D} />`);
   tags.push(`<meta property="og:locale" content="${meta.og.locale}"${D} />`);
   tags.push(`<meta name="twitter:card" content="summary_large_image"${D} />`);
   tags.push(`<meta name="twitter:title" content="${escapeHtml(meta.og.title)}"${D} />`);

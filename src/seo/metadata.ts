@@ -1618,7 +1618,15 @@ export function renderHeadHtml(meta: RouteMeta): string {
   tags.push(`<meta property="og:type" content="${meta.og.type}"${D} />`);
   tags.push(`<meta property="og:site_name" content="Woolet"${D} />`);
   tags.push(`<meta property="og:image" content="${meta.og.image}"${D} />`);
+  tags.push(`<meta property="og:image:secure_url" content="${meta.og.image}"${D} />`);
+  tags.push(`<meta property="og:image:width" content="1200"${D} />`);
+  tags.push(`<meta property="og:image:height" content="630"${D} />`);
+  tags.push(
+    `<meta property="og:image:type" content="${meta.og.image.endsWith(".jpg") || meta.og.image.endsWith(".jpeg") ? "image/jpeg" : meta.og.image.endsWith(".webp") ? "image/webp" : "image/png"}"${D} />`,
+  );
+  tags.push(`<meta property="og:image:alt" content="${escapeHtml(meta.og.title)}"${D} />`);
   tags.push(`<meta property="og:locale" content="${meta.og.locale}"${D} />`);
+
 
   // Twitter
   tags.push(`<meta name="twitter:card" content="summary_large_image"${D} />`);
