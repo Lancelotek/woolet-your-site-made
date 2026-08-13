@@ -582,10 +582,11 @@ export function getMetadata(route: string): RouteMeta {
       route,
       lang,
       {
-        title: "FitLens — Virtual Glasses Fit for Wide Faces | Woolet",
+        title: "Frame Finder for Wide Faces — 155 mm+ | Woolet FitLens",
         description:
-          "Scan your face with your phone camera and get a precise frame-size recommendation in about 20 seconds. Built for wide faces. No app, no guesswork.",
-        noscriptHtml: `<h1>Virtual Fit for Wide Faces — Measure Your Face in 20 Seconds</h1>
+          "A frame finder built for wide faces. Scan with your phone camera and get your face width in millimetres plus the frame size that fits, in about 20 seconds.",
+        noscriptHtml: `<h1>Frame Finder for Wide Faces — Measure Your Face in 20 Seconds</h1>
+<p>FitLens is a frame finder for 155&nbsp;mm+ faces: it returns your face width in millimetres and the frame front width that fits, instead of guessing from photos.</p>
 <p>FitLens is a virtual fit tool, not a virtual try-on. It uses your phone camera and a credit card (85.6&nbsp;mm) as a scale reference to return your temple-to-temple face width, your nose bridge width and your pupillary distance in millimetres — then tells you whether our 158&nbsp;mm front width fits. No app, no account, about 20 seconds.</p>
 <h2>How it works</h2>
 <ol>
