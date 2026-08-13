@@ -29,6 +29,13 @@ const TikTokIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const PinterestIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <path d="M12 2a10 10 0 0 0-3.65 19.31c-.09-.78-.17-1.98.03-2.83.19-.79 1.2-5.05 1.2-5.05s-.31-.61-.31-1.52c0-1.42.83-2.48 1.86-2.48.88 0 1.3.66 1.3 1.45 0 .88-.56 2.2-.85 3.42-.24 1.02.51 1.85 1.52 1.85 1.83 0 3.23-1.93 3.23-4.71 0-2.46-1.77-4.18-4.3-4.18-2.93 0-4.65 2.2-4.65 4.47 0 .89.34 1.84.77 2.36.08.1.09.19.07.29-.08.32-.25.99-.28 1.13-.05.19-.15.23-.35.14-1.3-.61-2.11-2.51-2.11-4.04 0-3.29 2.39-6.31 6.89-6.31 3.62 0 6.43 2.58 6.43 6.02 0 3.6-2.27 6.49-5.41 6.49-1.06 0-2.05-.55-2.39-1.2l-.65 2.48c-.23.9-.87 2.03-1.3 2.72A10 10 0 1 0 12 2z" />
+  </svg>
+);
+
+
 type FooterLinkItem = { label: string; href: string; newTab?: boolean };
 
 const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
@@ -96,6 +103,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
     { label: "Facebook", href: "https://www.facebook.com/WooletWideFit/" },
     { label: "YouTube", href: "https://www.youtube.com/@wooleteyewear" },
     { label: "TikTok", href: "https://www.tiktok.com/@wooletai" },
+    { label: "Pinterest", href: "https://www.pinterest.com/Bestwoolet/" },
   ];
 
   return (
@@ -260,6 +268,7 @@ const SocialIconLink = ({ label, href }: { label: string; href: string }) => {
       {label === "Facebook" && <FacebookIcon className={iconClass} />}
       {label === "YouTube" && <YouTubeIcon className={iconClass} />}
       {label === "TikTok" && <TikTokIcon className={iconClass} />}
+      {label === "Pinterest" && <PinterestIcon className={iconClass} />}
     </a>
   );
 };
