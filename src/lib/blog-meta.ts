@@ -13,14 +13,16 @@ export interface PostMetaOverride {
   metaDescription: string;
   /** Optional social preview image override (absolute URL or /path). */
   ogImage?: string;
+  /** When true, the title is used verbatim — no " | Woolet" suffix is appended. */
+  exactTitle?: boolean;
 }
 
 export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   // ── EN: wide-face core ───────────────────────────────────────────────
   "glasses-for-wide-faces-guide": {
-    metaTitle: "Glasses for Wide Faces: 2026 Fit Guide (155 mm+)",
+    metaTitle: "Glasses for Wide Faces: Frames That Fit (155 mm+) | Woolet",
     metaDescription:
-      "The honest 2026 guide to glasses for wide faces. Measure in 30 seconds, learn why 155 mm+ frames actually fit, and see which shapes work — without guessing.",
+      "Most frames stop at 150 mm — that's why yours pinch. How to measure your face, what width to look for, and which shapes work at 155–161 mm. Hand made in EU.",
   },
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
     metaTitle: "Glasses for a Wide Nose Bridge (21–22 mm Explained)",
@@ -28,9 +30,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Most frames cap at 18 mm. See what a 21–22 mm bridge changes for a wide nose, why keyhole beats saddle, and which brands actually stock it.",
   },
   "how-to-measure-face-width-for-glasses": {
-    metaTitle: "How to Measure Face Width for Glasses in 60 Seconds",
+    metaTitle: "Measure Your Face Width With Your Phone Camera | Woolet",
     metaDescription:
-      "No ruler, no optician. Measure your face width in 60 seconds with a credit card (85.6 mm) and match it to a frame size — chart for 140–162 mm included.",
+      "Point your phone camera and get your temple-to-temple width in millimetres — then see which frame size, 145 to 162 mm, actually fits. No ruler, no optician.",
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",
@@ -43,9 +45,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Glasses pinch your temples? It isn't your head — it's the industry. Here's why most frames stop at 148 mm and how the 155 mm problem gets fixed.",
   },
   "round-vs-square-glasses-wide-face": {
-    metaTitle: "Round vs Square Glasses for a Wide Face — Which Wins?",
+    metaTitle: "Round vs Square Glasses: Which Suits Your Face? | Woolet",
     metaDescription:
-      "Round or square for a wide face? See the visual logic, who each shape suits, and how the Woolet 007 and 009 were designed at 158 mm for 155 mm+ faces.",
+      "Round or square? See both shapes on round, square and wide faces — plus the one measurement that decides whether either will actually fit. Hand made in EU.",
   },
   "wide-frame-glasses-professionals": {
     metaTitle: "Wide Frame Glasses for Professionals (155 mm+)",
@@ -73,14 +75,17 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Big head sunglasses that fit: 155 mm+ fronts ranked by fit and material, XXL aviator-style options, polarized Cat 3 UV400, and which brands widen the front.",
   },
   "what-size-sunglasses-for-wide-faces": {
-    metaTitle: "What Size Sunglasses for Wide Faces? (155 mm+ Guide)",
+    // Intentionally no " | Woolet" suffix — adding it pushes the title past
+    // the mobile SERP truncation limit. `exactTitle` suppresses the suffix.
+    metaTitle: "What Size Sunglasses for a Wide Face? Find Yours in 20s",
+    exactTitle: true,
     metaDescription:
-      "Sunglasses for wide faces need 155 mm+ front width and a 20–22 mm bridge. Decode frame numbers and find your exact size in 10 seconds.",
+      "Front width, bridge and temple explained in plain numbers — plus a 20-second camera check that gives you your size. Woolet fits 155–161 mm, bespoke from 145 mm.",
   },
   "how-to-tell-if-your-face-is-wide-or-narrow": {
-    metaTitle: "How to Tell If Your Face Is Wide or Narrow (Test)",
+    metaTitle: "Is Your Face Wide or Narrow? Get Your Number in mm | Woolet",
     metaDescription:
-      "A 30-second credit-card test to classify your face width in mm — narrow, average, wide, or extra-wide — and exactly which brands (or bespoke) actually fit each band.",
+      "Narrow under 140 mm, average 140–154, wide 155–161, extra-wide 162+. Take the camera test, get your millimetres, then see the frame size that fits them.",
     ogImage: "/og-how-to-tell-if-your-face-is-wide-or-narrow.jpg",
   },
   "acetate-vs-tr90-glasses": {

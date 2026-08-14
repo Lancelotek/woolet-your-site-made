@@ -4,6 +4,8 @@ import { hreflangAlternates } from "@/i18n/routeRegistry";
 
 interface SEOProps {
   title: string;
+  /** When true, `title` is emitted verbatim (no " | Woolet" suffix appended). */
+  exactTitle?: boolean;
   description: string;
   /** Optional shorter description used only for og:description / twitter:description.
    *  Falls back to `description` when omitted. Keep under 160 characters for optimal social previews. */
@@ -64,6 +66,7 @@ const geoMeta: Record<string, { region: string; placename: string }> = {
 
 const SEO = ({
   title,
+  exactTitle = false,
   description,
   ogDescription,
   lang = "en",
@@ -81,7 +84,7 @@ const SEO = ({
   availableLangs,
   alternates,
 }: SEOProps) => {
-  const fullTitle = title.includes("Woolet") ? title : `${title} | Woolet`;
+  const fullTitle = exactTitle || title.includes("Woolet") ? title : `${title} | Woolet`;
   const socialDescription = ogDescription || description;
   const canonical = `${SITE_URL}/${lang}${path}`;
   const geo = geoMeta[lang] || geoMeta.en;

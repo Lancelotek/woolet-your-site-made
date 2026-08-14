@@ -5,8 +5,8 @@ const ExtraLargeOversizedEyeglasses = () => (
     slug="extra-large-oversized-eyeglasses"
     breadcrumbName="Extra Large Oversized Eyeglasses"
     h1="Extra Large Oversized Eyeglasses — 158 mm Front, Italian Acetate"
-    metaTitle="Extra Large Oversized Eyeglasses — 158 mm Wide Frames | Woolet"
-    metaDescription="Extra large oversized eyeglasses built for 155 mm+ faces. 158 mm front, 21 mm bridge, hand made in EU from Italian Mazzucchelli acetate. Bespoke up to 162 mm."
+    metaTitle="Extra Large Oversized Eyeglasses — 158 mm Frames | Woolet"
+    metaDescription="Genuinely oversized: 158 mm front, 54 mm lens, 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Built for faces 155 mm and wider."
     intro="<em>Extra large</em> at most online opticians means a slightly bigger lens on the same 140 mm front — the frame still pinches at the temples after an hour. Woolet's extra large oversized eyeglasses are properly large: 158 mm front-to-front, 21 mm keyhole bridge, and lens area sized to match. Two shapes — round 007 and soft-square 009 — both prescription-ready."
     whyThisFits={[
       "<strong>158 mm front width is the honest measure.</strong> Mainstream <em>extra large</em> eyeglasses cap at 140–148 mm. The first number printed inside the temple is lens width, not total front width. Woolet scales both axes together so the frame fits faces of 155 mm and above.",
