@@ -174,6 +174,7 @@ const BlogPost = () => {
     <div className="relative z-[1] flex flex-col min-h-screen">
       <SEO
         title={blogMetaBySlug[post.slug]?.metaTitle ?? post.title}
+        exactTitle={blogMetaBySlug[post.slug]?.exactTitle}
         description={blogMetaBySlug[post.slug]?.metaDescription ?? post.excerpt}
         lang={currentLang}
         path={`/blog/${post.slug}`}

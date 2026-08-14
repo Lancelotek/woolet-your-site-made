@@ -13,6 +13,7 @@
  */
 
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
+import { blogMetaBySlug } from "@/lib/blog-meta";
 import { hreflangAlternates } from "@/i18n/routeRegistry";
 // Re-export so scripts/generate-sitemap.mjs can consume the SAME cluster
 // resolver as renderHeadHtml() from a single SSR bundle (no drift).
@@ -841,6 +842,12 @@ export function getMetadata(route: string): RouteMeta {
       h1: "Oversized Round Glasses for Wide Faces & Big Heads",
       intro: "Round Italian-acetate glasses that read as round, not undersized. The Woolet 007 ships at a 158 mm front width with a 21 mm keyhole bridge — the front-and-bridge combination most round frames lack. Hand made in EU. Bespoke 145–162 mm available.",
     },
+    "/collections/extra-large-oversized-eyeglasses": {
+      title: "Extra Large Oversized Eyeglasses — 158 mm Frames | Woolet",
+      description: "Genuinely oversized: 158 mm front, 54 mm lens, 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Built for faces 155 mm and wider.",
+      h1: "Extra Large Oversized Eyeglasses — 158 mm Front, Italian Acetate",
+      intro: "Extra large at most online opticians means a slightly bigger lens on the same 140 mm front. Woolet's extra large oversized eyeglasses are properly large: 158 mm front-to-front, 21 mm keyhole bridge, and lens area sized to match. Two shapes — round 007 and soft-square 009 — both prescription-ready. Bespoke covers 145–162 mm.",
+    },
     "/collections/keyhole-bridge-glasses": {
       title: "Keyhole Bridge Glasses for Wide Faces & Big Heads | Woolet",
       description: "Keyhole bridge glasses with a wider 21–22 mm gap. Italian Mazzucchelli acetate, 158 mm front. Built for wider noses and 155 mm+ faces.",
@@ -957,12 +964,21 @@ export function getMetadata(route: string): RouteMeta {
       const ogImage = post.image
         ? (post.image.startsWith("http") ? post.image : `${SITE_URL}${post.image.startsWith("/") ? post.image : `/${post.image}`}`)
         : `${SITE_URL}/og-${post.slug}.png`;
+      // Head title/description come from the same CTR override map the
+      // client-side <SEO/> uses, so SSG output and hydrated head match.
+      const override = blogMetaBySlug[post.slug];
+      const headTitle = override
+        ? (override.exactTitle || override.metaTitle.includes("Woolet")
+            ? override.metaTitle
+            : `${override.metaTitle} | Woolet`)
+        : `${post.title} | Woolet`;
+      const headDescription = override?.metaDescription ?? post.excerpt;
       return base(
         route,
         lang,
         {
-          title: `${post.title} | Woolet`,
-          description: post.excerpt,
+          title: headTitle,
+          description: headDescription,
           // Inject the full article body so Googlebot / ChatGPT-User / no-JS
           // crawlers receive real content in the first response, not the SPA
           // shell. Helmet on the client hydrates the same head on top.
