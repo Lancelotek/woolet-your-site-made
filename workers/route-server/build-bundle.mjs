@@ -141,7 +141,13 @@ if (fs.existsSync(sitemapPath)) {
   }
   console.log(`[build-bundle] sitemap blog parity OK (${sitemapBlog.length} URLs)`);
 }
-const prerenderedBlog = [...prerenderedKeys].filter((p) => /\/blog\//.test(p));
+// /blog/category/* and /blog/tag/* are taxonomy pages, not posts — they are
+// prerendered but never appear in manifest.blogSlugs. Excluding them keeps the
+// guard meaningful for actual posts.
+const BLOG_TAXONOMY = /\/blog\/(category|tag)\//;
+const prerenderedBlog = [...prerenderedKeys].filter(
+  (p) => /\/blog\//.test(p) && !BLOG_TAXONOMY.test(p),
+);
 const missingPre = prerenderedBlog.filter((p) => !blogRoutes.has(p));
 if (missingPre.length) {
   console.error("[build-bundle] prerendered blog paths missing from manifest:");
