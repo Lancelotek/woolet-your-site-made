@@ -785,7 +785,7 @@ export function getMetadata(route: string): RouteMeta {
   if (path === "/collections/blue-light-glasses-for-wide-faces") {
     return base(route, lang, {
       title: "Blue Light Glasses for Wide Faces — 158 mm Fit | Woolet",
-      exactTitle: true,
+      
       description:
         "Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 148 mm temples, blue-light filter optional. Bespoke 145–162 mm. Hand made in EU.",
       noscriptHtml: `<h1>Blue Light Glasses for Wide Faces — 158 mm Fit</h1>
