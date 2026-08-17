@@ -349,6 +349,11 @@ const homeCopy: Record<Lang, Copy> = {
     title: "Woolet — Premium-Brillen für breite Gesichter (ab 155 mm)",
     description:
       "Premium-Brillen aus italienischem Mazzucchelli-Acetat, entwickelt für breite Gesichter (ab 155 mm). Drei gemessene Größen plus Maßanfertigung. Ab 114 $ im Pre-Order.",
+    // The /de hub is the only inbound link to the DE landing pages in the
+    // JS-free HTML — all six must be listed here or they stay orphaned.
+    noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
+<p>Woolet fertigt Brillen für breite Gesichter und große Köpfe: 158 mm Frontbreite, 21–22 mm Keyhole-Steg, italienisches Mazzucchelli-Acetat, in der EU handgefertigt. Founding-Preis 114 $ (statt 190 $).</p>
+<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a>.</p>`,
   },
   ar: {
     title: "Woolet — نظارات فاخرة للوجوه العريضة (155 ملم+)",
@@ -1548,16 +1553,9 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
   // ----- /de and /de/{slug}: DE landing hub + spokes
   if (lang === "de") {
     const canonical = `${SITE_URL}${route}`;
-    if (path === "/") {
-      return base(route, lang, {
-        title: "Woolet — Brillen für breite Gesichter (155 mm+) aus italienischem Acetat",
-        description:
-          "Premium-Brillen aus italienischem Mazzucchelli-Acetat für breite Gesichter (ab 155 mm). Eine präzise Größe (158 mm), plus Maßanfertigung 145–162 mm. Ab 114 $ im Pre-Order.",
-        noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
-<p>Woolet fertigt Brillen für breite Gesichter und große Köpfe: 158 mm Frontbreite, 21–22 mm Keyhole-Steg, italienisches Mazzucchelli-Acetat, in der EU handgefertigt. Founding-Preis 114 $ (statt 190 $).</p>
-<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a>.</p>`,
-      });
-    }
+    // NOTE: path === "/" never reaches here — the homepage branch at the top
+    // of getMetadata() handles /de via homeCopy.de (which carries the hub's
+    // outbound links in its noscriptHtml).
     const slug = path.replace(/^\//, "");
     const de = dePages[slug];
     if (de) {
