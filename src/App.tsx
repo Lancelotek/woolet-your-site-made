@@ -254,6 +254,9 @@ const App = () => (
           <Route path="/en/collections/keyhole-bridge-glasses" element={<KeyholeBridgeGlasses />} />
           <Route path="/en/collections/oversized-blue-light-glasses" element={<OversizedBlueLightGlasses />} />
           <Route path="/en/collections/blue-light-glasses-for-wide-faces" element={<BlueLightGlassesForWideFaces />} />
+          {/* One page per intent: the standalone blue-light URL folds into the collection route. */}
+          <Route path="/en/blue-light-glasses-wide-faces" element={<Navigate to="/en/collections/blue-light-glasses-for-wide-faces" replace />} />
+          <Route path="/blue-light-glasses-wide-faces" element={<Navigate to="/en/collections/blue-light-glasses-for-wide-faces" replace />} />
           <Route path="/en/collections/extra-large-oversized-eyeglasses" element={<ExtraLargeOversizedEyeglasses />} />
           <Route path="/en/collections/big-glasses-frames" element={<BigGlassesFrames />} />
           <Route path="/en/collections/oversized-prescription-glasses" element={<OversizedPrescriptionGlasses />} />
