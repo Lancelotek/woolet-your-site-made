@@ -1569,6 +1569,267 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
     }
   }
 
+  // ----- /{lang}/collection — copy shared with src/pages/Collection.tsx
+  if (path === "/collection") {
+    const c = collectionSeo[lang];
+    return base(
+      route,
+      lang,
+      {
+        title: c.title,
+        description: c.description,
+        noscriptHtml: `<h1>${escapeHtml(c.title)}</h1>
+<p>${escapeHtml(c.description)}</p>
+<ul>
+${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escapeHtml(it.name)}</a></li>`).join("\n")}
+</ul>`,
+      },
+      { image: DEFAULT_OG },
+      collectionJsonLd(lang, c.title, c.description, COLLECTION_ITEMS),
+    );
+  }
+
+  // ----- /en/hat-size-calculator — copy shared with src/pages/tools/HatSizeCalculator.tsx
+  if (path === "/hat-size-calculator") {
+    return base(
+      route,
+      lang,
+      {
+        title: "Hat Size Calculator — Head Circumference to US, UK, EU & cm | Woolet",
+        description:
+          "Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads.",
+        noscriptHtml: `<h1>Hat Size Calculator — Head Circumference to US, UK, EU &amp; cm</h1>
+<p>Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads.</p>
+<p>Bigger head? Frame width matters too: <a href="/en/collections/glasses-for-big-heads">glasses for big heads</a> · <a href="/en/fit">measure your face width in 20 seconds</a>.</p>`,
+      },
+      { image: DEFAULT_OG },
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: "Hat Size Calculator",
+          applicationCategory: "UtilityApplication",
+          operatingSystem: "Web",
+          description:
+            "Free hat size calculator. Convert your head circumference (cm or inches) into US, UK, EU and letter hat sizes instantly.",
+          url: `${SITE_URL}/en/hat-size-calculator`,
+          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        },
+        faqPageJsonLd(HAT_SIZE_FAQ),
+      ],
+    );
+  }
+
+  // ----- /en/lp/kickstarter — copy shared with src/pages/lp/KickstarterPrelaunch.tsx
+  if (path === "/lp/kickstarter") {
+    const ksImage = `${SITE_URL}${ksHeroAsset.url}`;
+    return base(
+      route,
+      lang,
+      {
+        title: "Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)",
+        description:
+          "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price.",
+        noscriptHtml: `<h1>Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)</h1>
+<p>Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price.</p>
+<p><a href="/en/products/007">Woolet 007 — Round</a> · <a href="/en/products/009">Woolet 009 — Soft-Square</a> · <a href="/en/fit">Find your fit</a></p>`,
+      },
+      { image: ksImage, type: "website" },
+      [
+        breadcrumbJsonLd([
+          { name: "Home", url: `${SITE_URL}/en` },
+          { name: "Kickstarter VIP", url: `${SITE_URL}/en/lp/kickstarter` },
+        ]),
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Woolet Kickstarter — signature frames",
+          itemListElement: [
+            {
+              "@type": "Product",
+              name: "Woolet 007 — Round",
+              description:
+                "Round Milanese acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              brand: { "@type": "Brand", name: "Woolet" },
+              category: "Eyewear",
+              offers: {
+                "@type": "Offer",
+                url: `${SITE_URL}/en/lp/kickstarter`,
+                priceCurrency: PRICE_CURRENCY,
+                price: SALE_PRICE,
+                availability: "https://schema.org/PreOrder",
+                priceValidUntil: PRICE_VALID_UNTIL,
+                priceSpecification: LIST_PRICE_SPEC,
+                itemCondition: "https://schema.org/NewCondition",
+                seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+                hasMerchantReturnPolicy: RETURN_POLICY,
+                shippingDetails: shippingDetails(false),
+              },
+            },
+            {
+              "@type": "Product",
+              name: "Woolet 009 — Soft-Square",
+              description:
+                "Soft-square Milanese acetate frame, 158 mm wide with a 20 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              brand: { "@type": "Brand", name: "Woolet" },
+              category: "Eyewear",
+              offers: {
+                "@type": "Offer",
+                url: `${SITE_URL}/en/lp/kickstarter`,
+                priceCurrency: PRICE_CURRENCY,
+                price: SALE_PRICE,
+                availability: "https://schema.org/PreOrder",
+                priceValidUntil: PRICE_VALID_UNTIL,
+                priceSpecification: LIST_PRICE_SPEC,
+                itemCondition: "https://schema.org/NewCondition",
+                seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+                hasMerchantReturnPolicy: RETURN_POLICY,
+                shippingDetails: shippingDetails(false),
+              },
+            },
+          ],
+        },
+      ],
+      {
+        en: `${SITE_URL}/en/lp/kickstarter`,
+        "x-default": `${SITE_URL}/en/lp/kickstarter`,
+      },
+    );
+  }
+
+  // ----- /en/blog/category/nose-bridge-fit — topic hub
+  // The blog-post regex below forbids a second slash, so this needs its own
+  // branch. Its noscriptHtml carries the hub's real outbound links, otherwise
+  // the whole nose-bridge cluster is orphaned in the JS-free HTML.
+  if (path === "/blog/category/nose-bridge-fit") {
+    const canonical = `${SITE_URL}/en/blog/category/nose-bridge-fit`;
+    const NB_FAQS = [
+      {
+        q: "What counts as a wide nose bridge?",
+        a: "Bridges under 17 mm are narrow, 17–20 mm is the mainstream range, and 21 mm and above is wide. Most brands top out at 18 mm — anyone with a wider or higher nose typically needs 21 mm or more for the frame to sit on bone instead of pinching cartilage.",
+      },
+      {
+        q: "Where do I start if my glasses always slide or pinch?",
+        a: "Read the pillar guide first — it explains what the bridge number on your current frames means and what 21–22 mm actually changes. Then use the AI Fit Wizard to confirm width and bridge from a single photo.",
+      },
+      {
+        q: "Keyhole or saddle bridge for a wide nose?",
+        a: "Keyhole. Saddle bridges wrap the sides of the nose and pinch wider noses; keyhole bridges sit across the top ridge and distribute weight on bone. Both Woolet 007 (21 mm) and 009 (22 mm) are keyhole.",
+      },
+    ];
+    const NB_RELATED = [
+      "how-to-measure-face-width-for-glasses",
+      "glasses-for-wide-faces-guide",
+      "why-glasses-dont-fit-155mm-problem",
+      "round-vs-square-glasses-wide-face",
+    ];
+    const enPosts = getBlogPosts("en");
+    const nbLink = (slug: string) => {
+      const post = enPosts.find((p) => p.slug === slug);
+      return post ? `<li><a href="/en/blog/${slug}">${escapeHtml(post.title)}</a></li>` : "";
+    };
+    return base(
+      route,
+      "en",
+      {
+        title: "Nose-Bridge Fit for Glasses — Guides, Sizing & Collections | Woolet",
+        description:
+          "Hub for nose-bridge fit: what bridge width means, what counts as wide, keyhole vs saddle, and how to measure. Pillar guide plus the 21–22 mm Woolet collections.",
+        noscriptHtml: `<h1>Nose-Bridge Fit</h1>
+<p>Everything we've written on bridge width, keyhole geometry, and what 21–22 mm actually fixes for wider or higher noses. Start with the pillar guide, then measure, then pick a shape.</p>
+<h2>Start here — pillar guide</h2>
+<ul>
+${nbLink("glasses-for-wide-nose-bridge-21-22mm-explained")}
+</ul>
+<h2>Shop the fit</h2>
+<ul>
+<li><a href="/en/collections/wide-bridge-glasses">Wide Bridge Glasses</a> — 21–22 mm keyhole while most brands cap at 18 mm.</li>
+<li><a href="/en/collections/keyhole-bridge-glasses">Keyhole Bridge Glasses</a> — round 007 (21 mm) and soft-square 009 (22 mm).</li>
+<li><a href="/en/products/007">Woolet 007 — 21 mm</a></li>
+<li><a href="/en/products/009">Woolet 009 — 22 mm</a></li>
+<li><a href="/en/fit">AI Fit Wizard</a></li>
+<li><a href="/en/fit/bespoke">Bespoke 20–24 mm</a></li>
+</ul>
+<h2>Related guides</h2>
+<ul>
+${NB_RELATED.map(nbLink).join("\n")}
+</ul>
+<p><a href="/en/blog">All articles</a></p>`,
+      },
+      { image: DEFAULT_OG },
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Nose-Bridge Fit — Guides & Resources",
+          url: canonical,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE_URL },
+          description:
+            "A complete hub on nose-bridge fit for glasses: what bridge width means, what counts as wide, keyhole vs saddle, and how to measure.",
+        },
+        breadcrumbJsonLd([
+          { name: "Home", url: `${SITE_URL}/en` },
+          { name: "Blog", url: `${SITE_URL}/en/blog` },
+          { name: "Nose-Bridge Fit", url: canonical },
+        ]),
+        faqPageJsonLd(NB_FAQS),
+      ],
+    );
+  }
+
+  // ----- /nl/{slug} and /pl/{slug}: landing hub spokes (mirrors the DE block)
+  if (lang === "nl" || lang === "pl") {
+    const canonical = `${SITE_URL}${route}`;
+    const slug = path.replace(/^\//, "");
+    const page = (lang === "nl" ? nlPages : plPages)[slug] as
+      | {
+          h1: string;
+          sub: string;
+          metaTitle: string;
+          metaDescription: string;
+          faqs?: { q: string; a: string }[];
+          ogImage?: string;
+          englishEquivalent?: string;
+        }
+      | undefined;
+    if (page) {
+      return base(
+        route,
+        lang,
+        {
+          title: page.metaTitle,
+          description: page.metaDescription,
+          noscriptHtml: `<h1>${escapeHtml(page.h1)}</h1><p>${escapeHtml(page.sub)}</p>`,
+        },
+        {
+          image: page.ogImage
+            ? page.ogImage.startsWith("http")
+              ? page.ogImage
+              : `${SITE_URL}${page.ogImage}`
+            : DEFAULT_OG,
+          type: "website",
+        },
+        [
+          breadcrumbJsonLd([
+            { name: "Woolet", url: `${SITE_URL}/${lang}` },
+            { name: page.h1, url: canonical },
+          ]),
+          ...(page.faqs && page.faqs.length
+            ? [faqPageJsonLd(page.faqs.map((f) => ({ q: f.q, a: f.a })))]
+            : []),
+        ],
+        page.englishEquivalent
+          ? {
+              [lang]: canonical,
+              en: `${SITE_URL}${page.englishEquivalent}`,
+              "x-default": `${SITE_URL}${page.englishEquivalent}`,
+            }
+          : undefined,
+      );
+    }
+  }
+
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
 }
