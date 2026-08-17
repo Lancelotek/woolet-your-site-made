@@ -6,6 +6,8 @@ import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
+import LensOptions from "@/components/LensOptions";
+import { lensOffers } from "@/data/lensOptions";
 import imgHavana from "@/assets/frames-2026/oval-havana.asset.json";
 import imgBlackAsset from "@/assets/frames-2026/oval-black.asset.json";
 import imgCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
@@ -115,7 +117,7 @@ const ProductPage007 = () => {
         <meta property="og:image" content="https://woolet.co/og-007.png" />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, { id: "007", name: "Woolet 007", description: "Round panto acetate frame, 158 mm wide with a 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.", image: "https://woolet.co/og-007.png", price: "114.00" }))}</script>
+        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, { id: "007", name: "Woolet 007", description: "Round panto acetate frame, 158 mm wide with a 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.", image: "https://woolet.co/og-007.png", price: "114.00", variantOffers: lensOffers(canonical, "114.00", "USD") }))}</script>
         <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet 007", "007"))}</script>
       </Helmet>
 
@@ -286,6 +288,10 @@ const ProductPage007 = () => {
               </dl>
             )}
           </section>
+
+          {/* 3b. Lens options */}
+          <LensOptions productId="007" specs={specs} framePrice="114" />
+
 
           {/* 4. What happens after your $1 */}
           <section style={{ marginTop: 56 }}>

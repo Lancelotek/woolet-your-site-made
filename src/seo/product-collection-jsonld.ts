@@ -40,6 +40,8 @@ export type ProductInfo = {
   priceCurrency?: string; // "USD"
   availability?: string; // schema.org URL
   sku?: string;
+  /** Extra lens-variant Offers. Disabled / null-priced options are never passed. */
+  variantOffers?: object[];
 };
 
 export function productJsonLd(lang: Lang, p: ProductInfo) {
@@ -57,19 +59,26 @@ export function productJsonLd(lang: Lang, p: ProductInfo) {
     brand: { "@type": "Brand", name: "Woolet" },
     material: "Italian Mazzucchelli acetate",
     inLanguage: lang,
-    offers: {
-      "@type": "Offer",
-      url,
-      price: p.price,
-      priceCurrency: p.priceCurrency ?? PRICE_CURRENCY,
-      availability: p.availability ?? "https://schema.org/PreOrder",
-      priceValidUntil: PRICE_VALID_UNTIL,
-      ...(isBespoke ? {} : { priceSpecification: LIST_PRICE_SPEC }),
-      itemCondition: "https://schema.org/NewCondition",
-      seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
-      hasMerchantReturnPolicy: RETURN_POLICY,
-      shippingDetails: shippingDetails(isBespoke),
-    },
+    offers: (() => {
+      const commerce = {
+        priceValidUntil: PRICE_VALID_UNTIL,
+        itemCondition: "https://schema.org/NewCondition",
+        seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+        hasMerchantReturnPolicy: RETURN_POLICY,
+        shippingDetails: shippingDetails(isBespoke),
+      };
+      const base = {
+        "@type": "Offer",
+        url,
+        price: p.price,
+        priceCurrency: p.priceCurrency ?? PRICE_CURRENCY,
+        availability: p.availability ?? "https://schema.org/PreOrder",
+        ...(isBespoke ? {} : { priceSpecification: LIST_PRICE_SPEC }),
+        ...commerce,
+      };
+      const variants = (p.variantOffers ?? []).map((v) => ({ ...commerce, ...v }));
+      return variants.length > 0 ? [base, ...variants] : base;
+    })(),
   };
 }
 

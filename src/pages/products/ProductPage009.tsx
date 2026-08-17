@@ -6,6 +6,8 @@ import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
+import LensOptions from "@/components/LensOptions";
+import { lensOffers } from "@/data/lensOptions";
 import sqHavana from "@/assets/frames-2026/square-havana.asset.json";
 import sqBlack from "@/assets/frames-2026/square-black.asset.json";
 import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
@@ -115,7 +117,7 @@ const ProductPage009 = () => {
         <meta property="og:image" content="https://woolet.co/og-009.png" />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, { id: "009", name: "Woolet 009", description: "Soft-square acetate frame, 158 mm wide with a 22 mm bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.", image: "https://woolet.co/og-009.png", price: "114.00" }))}</script>
+        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, { id: "009", name: "Woolet 009", description: "Soft-square acetate frame, 158 mm wide with a 22 mm bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.", image: "https://woolet.co/og-009.png", price: "114.00", variantOffers: lensOffers(canonical, "114.00", "USD") }))}</script>
         <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet 009", "009"))}</script>
       </Helmet>
 
@@ -271,6 +273,10 @@ const ProductPage009 = () => {
               </dl>
             )}
           </section>
+
+          {/* Lens options */}
+          <LensOptions productId="009" specs={specs} framePrice="114" />
+
 
           <section style={{ marginTop: 56 }}>
             <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 30, color: T.ink, margin: "0 0 24px", lineHeight: 1.15 }}>
