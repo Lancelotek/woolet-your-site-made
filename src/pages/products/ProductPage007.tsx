@@ -6,6 +6,8 @@ import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
+import LensOptions from "@/components/LensOptions";
+import { lensOffers } from "@/data/lensOptions";
 import imgHavana from "@/assets/frames-2026/oval-havana.asset.json";
 import imgBlackAsset from "@/assets/frames-2026/oval-black.asset.json";
 import imgCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
