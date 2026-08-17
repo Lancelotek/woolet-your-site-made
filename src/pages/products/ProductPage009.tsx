@@ -6,6 +6,8 @@ import { pushGtmEvent } from "@/lib/gtm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
+import LensOptions from "@/components/LensOptions";
+import { lensOffers } from "@/data/lensOptions";
 import sqHavana from "@/assets/frames-2026/square-havana.asset.json";
 import sqBlack from "@/assets/frames-2026/square-black.asset.json";
 import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
