@@ -13,9 +13,9 @@
  */
 
 /** Supplier price delta in USD for the blue-light coating. `null` = not supplied yet. */
-export const LENS_PRICE: number | null = null; // ← set to the real figure when supplied
+export const LENS_PRICE: number | null = 40;
 /** Real supplier filtration spec, e.g. "415–455 nm". `null` = not supplied yet. */
-export const FILTER_SPEC: string | null = null; // ← set to the real supplier figure
+export const FILTER_SPEC: string | null = "415–455 nm";
 
 export type LensOption = {
   id: "clear" | "blue-light" | "prescription";
