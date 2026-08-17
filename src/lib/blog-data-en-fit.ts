@@ -650,4 +650,174 @@ ${FITLENS_CTA(
 </ul>
 `,
   },
+
+  /* ─────────────────────────── POST 5 ─────────────────────────── */
+  {
+    slug: "oversized-blue-light-glasses-vs-wide-fit",
+    title: "Oversized vs Wide-Fit Blue Light Glasses: Which One Do You Actually Need?",
+    excerpt:
+      "Oversized describes the lens. Wide-fit describes the distance across your face. A frame can have huge lenses and still measure 140 mm across — here's how to tell which one your face actually needs, in millimetres.",
+    date: "2026-08-17",
+    readTime: 7,
+    tags: ["Blue Light", "Fit", "Guide"],
+    faq: [
+      {
+        q: "What is the difference between oversized and wide-fit glasses?",
+        a: "Oversized refers to lens size — tall, wide lenses that create a large visual footprint on the face. Wide-fit refers to the frame's total front width, hinge to hinge, and its bridge and temple length. A frame can be oversized and narrow at the same time: big lenses on a 140 mm front. Only the front width decides whether it spans your face.",
+      },
+      {
+        q: "Are oversized blue light glasses good for a wide face?",
+        a: "Only if the front width is also large. Most oversized frames sit around 130–145 mm front width as listed by the brands, which is under the 155 mm+ a wide face needs. If your temple-to-temple measurement is above 155 mm, the lenses can be as big as you like and the frame will still press on your temples.",
+      },
+      {
+        q: "How do I measure whether I need a wide fit?",
+        a: "Measure temple-to-temple: the straight-line distance across your face at the widest point, just in front of your ears. Under 145 mm is standard sizing, 145–155 mm is the upper end of mainstream, and above 155 mm you are outside most catalogues. Woolet's front width is 158 mm, with bespoke covering 145–162 mm.",
+      },
+      {
+        q: "What size are oversized square blue light glasses?",
+        a: "There is no standard. Brands apply the label to lens widths from roughly 52 mm upward, with front widths that vary widely and are often not published. The Woolet 009 Soft Square is 158 mm across the front with 54 mm lens width, a 22 mm keyhole bridge and 148 mm temples, and blue-light filtering is offered as a lens option.",
+      },
+      {
+        q: "Do blue light glasses actually do anything?",
+        a: "A 2023 Cochrane systematic review found blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality compared with standard lenses. We treat the filter as an optional coating and a matter of preference, not as a health product. The fit — the millimetres — is the part we make claims about.",
+      },
+    ],
+    content: `${BYLINE("17 August 2026", "17 August 2026")}
+${ANSWER(
+      `<strong>Oversized describes the lens and the look. Wide-fit describes the distance across your face.</strong> A frame can carry huge lenses and still measure 140 mm from hinge to hinge — which is exactly why oversized frames keep pinching wide faces. Measure temple-to-temple first, then choose the style. The two words control different dimensions.`,
+    )}
+
+<p>Search "oversized blue light glasses" and you get a wall of big-lens frames photographed on small faces. That is a style category, and it is a perfectly good thing to want: a large lens reads as deliberate, softens a strong brow, and gives a screen-facing frame some presence. Nothing about that description tells you whether the frame will fit.</p>
+
+<p>The confusion is costly for one specific group — people whose faces measure more than 155 mm across. They buy the biggest frame on the page, it arrives, and it still leaves two red marks in front of the ears. Below is the distinction, in millimetres.</p>
+
+<h2>Oversized means big lenses. Wide-fit means a big front.</h2>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
+  <thead>
+    <tr style="background:#0f0f0f;color:#f0ece4;">
+      <th style="${TH}">Oversized controls</th>
+      <th style="${TH}">Wide-fit controls</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #E8E4DC;">
+      <td style="${TD}"><strong>Lens width</strong> — how far each lens runs horizontally, typically 52–58 mm when a frame is called oversized.</td>
+      <td style="${TD}"><strong>Front width</strong> — hinge to hinge across the whole frame. The only number that decides whether the frame spans your face.</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;">
+      <td style="${TD}"><strong>Lens height</strong> — the vertical drop, which is what makes a frame look big in photographs.</td>
+      <td style="${TD}"><strong>Bridge width</strong> — the gap between the lenses. A wide nose needs 21–22 mm; standard bridges stop near 18 mm.</td>
+    </tr>
+    <tr>
+      <td style="${TD}"><strong>Rim thickness and visual mass</strong> — styling, not geometry.</td>
+      <td style="${TD}"><strong>Temple length</strong> — how far the arms reach before they turn down. Woolet runs 148 mm at an 11° drop.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Neither list overlaps. That is the whole point. A brand can enlarge every lens dimension and leave the front width untouched, because the front is set by the acetate block, the rim geometry and the hinge placement — none of which change when the lens gets taller.</p>
+
+<h2>How to tell which one you need</h2>
+
+<p>Three steps, about a minute:</p>
+
+<ol>
+<li><strong>Measure temple-to-temple.</strong> Straight line across your face at the widest point, just in front of your ears — not around your head. A credit card is 85.6 mm wide and makes a usable ruler; the method is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width</a>.</li>
+<li><strong>Compare it with the frame's front width</strong>, not its lens width. If the brand publishes only 54□18-145, the front is roughly 54 × 2 + 18 + 6 ≈ 132 mm.</li>
+<li><strong>Decide.</strong> Under 150 mm, you can shop mainstream and pick oversized purely for the look. Above 155 mm, front width is the constraint and style comes second.</li>
+</ol>
+
+<p>If step one puts you above 155 mm, the rest of the catalogue problem is described in <a href="/en/blog/extra-wide-glasses-158mm" style="color:#A07A2A;">extra-wide glasses at 158 mm</a>.</p>
+
+<h2>Where oversized blue-light frames stop</h2>
+
+<p>Most frames marketed as oversized sit somewhere in the 130–145 mm front-width band as listed by the brands — where the number is listed at all, which is the recurring problem. Lens size is advertised; front width usually is not. Woolet publishes both, because on a wide face the second number is the one that decides comfort.</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
+  <thead>
+    <tr style="background:#0f0f0f;color:#f0ece4;">
+      <th style="${TH}" scope="col">Spec</th>
+      <th style="${TH}" scope="col">Woolet 007 Round</th>
+      <th style="${TH}" scope="col">Woolet 009 Soft Square</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #E8E4DC;">
+      <th style="${TD}" scope="row">Front width</th>
+      <td style="${TD}">158 mm</td>
+      <td style="${TD}">158 mm</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;">
+      <th style="${TD}" scope="row">Lens width × height</th>
+      <td style="${TD}">52 × 52 mm</td>
+      <td style="${TD}">54 × 50 mm</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;">
+      <th style="${TD}" scope="row">Bridge (keyhole)</th>
+      <td style="${TD}">21 mm</td>
+      <td style="${TD}">22 mm</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;">
+      <th style="${TD}" scope="row">Temple length</th>
+      <td style="${TD}">148 mm at 11°</td>
+      <td style="${TD}">148 mm at 11°</td>
+    </tr>
+    <tr>
+      <th style="${TD}" scope="row">Fit range</th>
+      <td style="${TD}">155–161 mm (bespoke 145–162 mm)</td>
+      <td style="${TD}">155–161 mm (bespoke 145–162 mm)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Both are cut from Mazzucchelli acetate from Milan and hand made in EU. Blue-light filtering is a lens option rather than a separate product, which is why the same two frames appear under <a href="/en/collections/blue-light-glasses-for-wide-faces" style="color:#A07A2A;">blue light glasses for wide faces</a>.</p>
+
+<h2>Oversized square blue-light glasses</h2>
+
+<p>If the shape you want is square, the <a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a> is the one that is oversized and wide at the same time: 54 mm lens width for the look, 158 mm front width for the fit, softened corners so a strong jaw is not doubled by a hard rectangle. The 50 mm lens height keeps a square frame from dominating a long face, and the 22 mm keyhole bridge spreads weight across a broader nasal base instead of two pressure points.</p>
+
+<p>For a rounder shape at the same width, the 007 runs 52 × 52 mm on the same 158 mm front.</p>
+
+<h2>Does the blue-light filter matter here?</h2>
+
+<p>Honestly: probably less than the marketing suggests. A 2023 Cochrane systematic review of randomised trials concluded that blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality compared with standard lenses — <a href="https://www.cochrane.org/CD013244/EYES_blue-light-filtering-spectacles-lenses-eye-health-and-sleep-quality" target="_blank" rel="noopener noreferrer" style="color:#A07A2A;">read the review</a>.</p>
+
+<p>So we treat it as what it is: an optional coating, a preference, not a medical device. The claim we do make is the measurement. A frame that spans your face is the difference between wearing it for eight hours and taking it off at three.</p>
+
+${FITLENS_CTA(
+      "Stop guessing from lens numbers. FitLens reads your temple-to-temple and bridge width from a phone photo in about twenty seconds, then tells you whether 158 mm is your size or bespoke is.",
+      "Measure with FitLens",
+    )}
+
+<h2>FAQ</h2>
+
+<h3>What is the difference between oversized and wide-fit glasses?</h3>
+<p>Oversized refers to lens size — tall, wide lenses that create a large visual footprint. Wide-fit refers to the frame's total front width, hinge to hinge, plus bridge and temple length. A frame can be oversized and narrow at once: big lenses on a 140 mm front. Only front width decides whether it spans your face.</p>
+
+<h3>Are oversized blue light glasses good for a wide face?</h3>
+<p>Only if the front width is also large. Most oversized frames sit around 130–145 mm front width as listed by the brands, under the 155 mm+ a wide face needs. Above 155 mm temple-to-temple, the lenses can be as big as you like and the frame will still press on your temples.</p>
+
+<h3>How do I measure whether I need a wide fit?</h3>
+<p>Measure temple-to-temple: the straight-line distance across your face at its widest point, just in front of your ears. Under 145 mm is standard, 145–155 mm is the upper end of mainstream, above 155 mm is outside most catalogues. Woolet's front width is 158 mm; bespoke covers 145–162 mm.</p>
+
+<h3>What size are oversized square blue light glasses?</h3>
+<p>There is no standard. The label gets applied from roughly 52 mm lens width upward, with front widths that vary and are often unpublished. The Woolet 009 Soft Square is 158 mm across the front, 54 mm lens width, 22 mm keyhole bridge, 148 mm temples, with blue-light filtering offered as a lens option.</p>
+
+<h3>Do blue light glasses actually do anything?</h3>
+<p>A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality versus standard lenses. We treat the filter as an optional coating and a matter of preference — not a health product. The millimetres are the part we stand behind.</p>
+
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/collections/blue-light-glasses-for-wide-faces">Blue light glasses for wide faces</a> — the 158 mm fit, filter optional.</li>
+<li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — the one number that decides this.</li>
+<li><a href="/en/blog/extra-wide-glasses-158mm">Extra-wide glasses at 158 mm</a> — what exists past the end of the size chart.</li>
+</ul>
+`,
+  },
 ];
+

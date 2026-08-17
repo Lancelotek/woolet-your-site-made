@@ -29,6 +29,11 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "Most frames cap at 18 mm. See what a 21–22 mm bridge changes for a wide nose, why keyhole beats saddle, and which brands actually stock it.",
   },
+  "oversized-blue-light-glasses-vs-wide-fit": {
+    metaTitle: "Oversized vs Wide-Fit Blue Light Glasses (158 mm)",
+    metaDescription:
+      "Oversized means big lenses. Wide-fit means a big front. Most oversized frames stop at 130–145 mm — see the 158 mm specs and how to measure which one you need.",
+  },
   "how-to-measure-face-width-for-glasses": {
     metaTitle: "Measure Your Face Width With Your Phone Camera | Woolet",
     metaDescription:
