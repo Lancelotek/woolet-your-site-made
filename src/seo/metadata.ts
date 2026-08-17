@@ -402,10 +402,8 @@ export function getMetadata(route: string): RouteMeta {
 
   // ----- Products
   if (path === "/products/007") {
-    return base(
-      route,
-      lang,
-      {
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
         title: "007 Round — Wide-Fit Round Glasses, 158 mm | Woolet",
         description:
           "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
@@ -413,13 +411,32 @@ export function getMetadata(route: string): RouteMeta {
 <p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Dark Tortoise, Black, Honey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
       },
+      nl: {
+        title: "Woolet 007 — ronde panto acetaatbril, 158 mm",
+        description:
+          "Ronde panto in acetaat, 158 mm breed met 21 mm brug. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
+        noscriptHtml: `<h1>Woolet 007 — ronde panto acetaatbril, 158 mm</h1>
+<p>Ronde panto in Italiaans Mazzucchelli-acetaat, 158 mm breed met een 21 mm keyhole-brug. Glas 52 × 52 mm, veren 150 mm. Handgemaakt in de EU. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast (adviesprijs $190). Bespoke 145–162 mm beschikbaar.</p>`,
+      },
+      fr: {
+        title: "Woolet 007 — lunettes rondes panto en acétate, 158 mm",
+        description:
+          "Monture ronde panto en acétate, 158 mm de large avec pont keyhole 21 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
+        noscriptHtml: `<h1>Woolet 007 — lunettes rondes panto en acétate, 158 mm</h1>
+<p>Monture ronde panto en acétate italien Mazzucchelli, 158 mm de large avec un pont keyhole de 21 mm. Verres 52 × 52 mm, branches 150 mm. Façonnée à la main dans l'Union européenne. Conçue pour les visages de 155 mm et plus. Réservez pour 1 $ et bloquez le prix fondateur de 114 $ (prix public 190 $). Sur mesure 145–162 mm.</p>`,
+      },
+    };
+    return base(
+      route,
+      lang,
+      copy[lang] ?? copy.en!,
       { image: `${SITE_URL}/og-007.png`, type: "product" },
       [
-        productJsonLd("007", "Round", "52 × 52 mm"),
+        productJsonLd("007", "Round", "52 × 52 mm", lang),
         breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/en` },
-          { name: "Products", url: `${SITE_URL}/en` },
-          { name: "Woolet 007", url: `${SITE_URL}/en/products/007` },
+          { name: "Woolet", url: `${SITE_URL}/${lang}` },
+          { name: "Products", url: `${SITE_URL}/${lang}` },
+          { name: "Woolet 007", url: `${SITE_URL}/${lang}/products/007` },
         ]),
         faqPageJsonLd(PRODUCT_FAQ),
       ],
@@ -427,10 +444,8 @@ export function getMetadata(route: string): RouteMeta {
   }
 
   if (path === "/products/009") {
-    return base(
-      route,
-      lang,
-      {
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
         title: "009 Square — Wide-Fit Square Glasses, 158 mm | Woolet",
         description:
           "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
@@ -438,13 +453,32 @@ export function getMetadata(route: string): RouteMeta {
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
       },
+      nl: {
+        title: "Woolet 009 — vierkante acetaatbril, 158 mm",
+        description:
+          "Zachte vierkante acetaatbril, 158 mm breed met 20 mm brug. Voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
+        noscriptHtml: `<h1>Woolet 009 — vierkante acetaatbril, 158 mm</h1>
+<p>Zacht vierkant model in Italiaans Mazzucchelli-acetaat, 158 mm breed met keyhole-brug. Glas 54 × 50 mm, veren 150 mm. Handgemaakt in de EU. Voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast (adviesprijs $190). Bespoke 145–162 mm beschikbaar.</p>`,
+      },
+      fr: {
+        title: "Woolet 009 — lunettes carrées en acétate, 158 mm",
+        description:
+          "Monture carrée douce en acétate, 158 mm de large avec pont 20 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
+        noscriptHtml: `<h1>Woolet 009 — lunettes carrées en acétate, 158 mm</h1>
+<p>Monture carrée douce en acétate italien Mazzucchelli, 158 mm de large avec pont keyhole. Verres 54 × 50 mm, branches 150 mm. Façonnée à la main dans l'Union européenne. Conçue pour les visages de 155 mm et plus. Réservez pour 1 $ et bloquez le prix fondateur de 114 $ (prix public 190 $). Sur mesure 145–162 mm.</p>`,
+      },
+    };
+    return base(
+      route,
+      lang,
+      copy[lang] ?? copy.en!,
       { image: `${SITE_URL}/og-009.png`, type: "product" },
       [
-        productJsonLd("009", "Soft Square", "54 × 50 mm"),
+        productJsonLd("009", "Soft Square", "54 × 50 mm", lang),
         breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/en` },
-          { name: "Products", url: `${SITE_URL}/en` },
-          { name: "Woolet 009", url: `${SITE_URL}/en/products/009` },
+          { name: "Woolet", url: `${SITE_URL}/${lang}` },
+          { name: "Products", url: `${SITE_URL}/${lang}` },
+          { name: "Woolet 009", url: `${SITE_URL}/${lang}/products/009` },
         ]),
         faqPageJsonLd(PRODUCT_FAQ),
       ],
@@ -452,23 +486,40 @@ export function getMetadata(route: string): RouteMeta {
   }
 
   if (path === "/products/bespoke") {
-    return base(
-      route,
-      lang,
-      {
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
         title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
         description:
           "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order.",
         noscriptHtml: `<h1>Woolet Bespoke — Custom Acetate Glasses</h1>
 <p>Bespoke Italian Mazzucchelli acetate frames cut to your face in four silhouettes: Aviator, Rectangle, Crown Panto and Round. Sizes 145–162 mm. Founding-member pre-order $299; $480 MSRP at full launch.</p>`,
       },
+      nl: {
+        title: "Woolet Bespoke — acetaatbril op maat van je gezicht",
+        description:
+          "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145–162 mm. Vanaf $299 in pre-order.",
+        noscriptHtml: `<h1>Woolet Bespoke — acetaatbril op maat</h1>
+<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145–162 mm. Handgemaakt in de EU. Vanaf $299 in pre-order ($480 adviesprijs).</p>`,
+      },
+      fr: {
+        title: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage",
+        description:
+          "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Quatre silhouettes, tailles 145–162 mm. Dès 299 $ en pré-commande.",
+        noscriptHtml: `<h1>Woolet Bespoke — lunettes en acétate sur mesure</h1>
+<p>Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage, en quatre silhouettes : Aviator, Rectangle, Crown Panto et Round. Tailles 145–162 mm. Façonnées à la main dans l'Union européenne. Dès 299 $ en pré-commande (prix public 480 $).</p>`,
+      },
+    };
+    return base(
+      route,
+      lang,
+      copy[lang] ?? copy.en!,
       { image: DEFAULT_OG, type: "product" },
       [
-        bespokeProductJsonLd(),
+        bespokeProductJsonLd(lang),
         breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/en` },
-          { name: "Products", url: `${SITE_URL}/en` },
-          { name: "Woolet Bespoke", url: `${SITE_URL}/en/products/bespoke` },
+          { name: "Woolet", url: `${SITE_URL}/${lang}` },
+          { name: "Products", url: `${SITE_URL}/${lang}` },
+          { name: "Woolet Bespoke", url: `${SITE_URL}/${lang}/products/bespoke` },
         ]),
       ],
     );
@@ -936,16 +987,30 @@ export function getMetadata(route: string): RouteMeta {
 
   // ----- Policies
   if (path === "/privacy-policy") {
-    return base(route, lang, {
-      title: "Privacy Policy | Woolet",
-      description: "Woolet privacy policy — how we collect, use and protect your personal information. JAY23 LLC.",
-    });
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
+        title: "Privacy Policy | Woolet",
+        description: "Woolet privacy policy — how we collect, use and protect your personal information. JAY23 LLC.",
+      },
+      pl: {
+        title: "Polityka prywatności | Woolet",
+        description: "Polityka prywatności Woolet — jak zbieramy, wykorzystujemy i chronimy Twoje dane osobowe. JAY23 LLC.",
+      },
+    };
+    return base(route, lang, copy[lang] ?? copy.en!);
   }
   if (path === "/return-policy") {
-    return base(route, lang, {
-      title: "Return Policy | Woolet",
-      description: "Woolet return and exchange policy — 30-day returns, fit guarantee and hassle-free refunds. JAY23 LLC.",
-    });
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
+        title: "Return Policy | Woolet",
+        description: "Woolet return and exchange policy — 30-day returns, fit guarantee and hassle-free refunds. JAY23 LLC.",
+      },
+      pl: {
+        title: "Polityka zwrotów | Woolet",
+        description: "Polityka zwrotów i wymiany Woolet — 30 dni na zwrot, gwarancja dopasowania i zwrot pieniędzy bez formalności. JAY23 LLC.",
+      },
+    };
+    return base(route, lang, copy[lang] ?? copy.en!);
   }
 
   // ----- Blog index
