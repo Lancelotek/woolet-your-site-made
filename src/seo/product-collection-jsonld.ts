@@ -6,6 +6,7 @@
  */
 
 import type { Lang } from "@/lib/i18n";
+import { getProductReviews } from "@/data/product-reviews";
 import {
   RETURN_POLICY,
   shippingDetails,
@@ -47,6 +48,34 @@ export type ProductInfo = {
 export function productJsonLd(lang: Lang, p: ProductInfo) {
   const url = `${SITE_URL}/${lang}/products/${p.id}`;
   const isBespoke = p.id === "bespoke";
+  // Mirrors the prerender layer (src/seo/metadata.ts): review markup is
+  // attached ONLY when real, verified reviews exist. Empty set → omitted.
+  const reviewSet = isBespoke ? null : getProductReviews(p.id as "007" | "009");
+  const hasReviews =
+    !!reviewSet && reviewSet.reviews.length > 0 && reviewSet.reviewCount > 0 && reviewSet.ratingValue > 0;
+  const reviewMarkup = hasReviews
+    ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: reviewSet!.ratingValue,
+          reviewCount: reviewSet!.reviewCount,
+          bestRating: "5",
+          worstRating: "1",
+        },
+        review: reviewSet!.reviews.map((r) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: r.author },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: r.rating,
+            bestRating: "5",
+            worstRating: "1",
+          },
+          reviewBody: r.body,
+          datePublished: r.datePublished,
+        })),
+      }
+    : {};
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -59,6 +88,7 @@ export function productJsonLd(lang: Lang, p: ProductInfo) {
     brand: { "@type": "Brand", name: "Woolet" },
     material: "Italian Mazzucchelli acetate",
     inLanguage: lang,
+    ...reviewMarkup,
     offers: (() => {
       const commerce = {
         priceValidUntil: PRICE_VALID_UNTIL,
