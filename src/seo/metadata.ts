@@ -1850,7 +1850,6 @@ const STATIC_ROUTES = [
   "/en/products/009",
   "/en/products/bespoke",
   "/en/fit",
-  "/en/fit",
   "/en/fit/manual",
   "/en/fit/bespoke",
   "/en/collections/wide-face-glasses",
@@ -1930,7 +1929,6 @@ const STATIC_ROUTES = [
   // JS-less crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot, OAI-SearchBot)
   // receive real per-route head metadata instead of an empty index.html.
   "/ar",
-  "/fr",
   "/nl",
   "/en/collection",
   "/fr/collection",
@@ -1947,12 +1945,6 @@ const STATIC_ROUTES = [
   "/nl/acetaat-bril-op-maat",
   "/nl/grote-brillen-heren",
   "/de/blog",
-  "/de/blog/beste-brillen-fuer-grosse-koepfe-2026",
-  "/de/blog/welche-groesse-sonnenbrille-breites-gesicht",
-  "/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026",
-  "/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large",
-  "/nl/blog/beste-brillen-voor-brede-hoofden-2026",
-  "/nl/blog/welke-maat-zonnebril-voor-breed-gezicht",
   "/en/blog/category/nose-bridge-fit",
   "/en/lp/kickstarter",
   "/en/lp/wide-bridge-fit-guide",
@@ -1961,7 +1953,7 @@ const STATIC_ROUTES = [
 
 export function getAllRoutes(): string[] {
   const blogRoutes: string[] = [];
-  for (const lang of ["en", "pl"] as Lang[]) {
+  for (const lang of ["en", "pl", "de", "fr", "nl"] as Lang[]) {
     for (const post of getBlogPosts(lang)) {
       blogRoutes.push(`/${lang}/blog/${post.slug}`);
     }
