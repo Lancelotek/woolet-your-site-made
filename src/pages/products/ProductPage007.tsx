@@ -289,6 +289,10 @@ const ProductPage007 = () => {
             )}
           </section>
 
+          {/* 3b. Lens options */}
+          <LensOptions productId="007" specs={specs} framePrice="114" />
+
+
           {/* 4. What happens after your $1 */}
           <section style={{ marginTop: 56 }}>
             <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 30, color: T.ink, margin: "0 0 24px", lineHeight: 1.15 }}>
