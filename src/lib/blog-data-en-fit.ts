@@ -687,7 +687,13 @@ ${ANSWER(
       `<strong>Oversized describes the lens and the look. Wide-fit describes the distance across your face.</strong> A frame can carry huge lenses and still measure 140 mm from hinge to hinge — which is exactly why oversized frames keep pinching wide faces. Measure temple-to-temple first, then choose the style. The two words control different dimensions.`,
     )}
 
+<figure style="margin:0 0 28px;">
+  <img src="/__l5e/assets-v1/5552e04f-7dae-4c80-af3a-32577d75b965/standard-vs-wide-comparison.png" alt="Side-by-side comparison of a standard 140 mm front-width frame pinching a wide face against a 158 mm Woolet frame sitting flush at the temples" width="1200" height="675" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:auto;border-radius:6px;display:block;" />
+  <figcaption style="font-size:0.72rem;opacity:0.55;text-align:center;margin-top:8px;">A standard ~140 mm front versus a 158 mm wide fit on the same face. Lens size is unchanged — only the front width moves.</figcaption>
+</figure>
+
 <p>Search "oversized blue light glasses" and you get a wall of big-lens frames photographed on small faces. That is a style category, and it is a perfectly good thing to want: a large lens reads as deliberate, softens a strong brow, and gives a screen-facing frame some presence. Nothing about that description tells you whether the frame will fit.</p>
+
 
 <p>The confusion is costly for one specific group — people whose faces measure more than 155 mm across. They buy the biggest frame on the page, it arrives, and it still leaves two red marks in front of the ears. Below is the distinction, in millimetres.</p>
 
