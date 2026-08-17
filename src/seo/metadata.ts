@@ -784,11 +784,12 @@ export function getMetadata(route: string): RouteMeta {
   }
   if (path === "/collections/blue-light-glasses-for-wide-faces") {
     return base(route, lang, {
-      title: "Blue Light Glasses for Wide Faces — 158 mm | Woolet",
+      title: "Blue Light Glasses for Wide Faces — 158 mm Fit | Woolet",
+      exactTitle: true,
       description:
-        "Blue light filter glasses for wide faces 155 mm+. 158 mm Italian acetate front, 21–22 mm bridge. HEV 380–460 nm coating upgrade on 007 / 009.",
-      noscriptHtml: `<h1>Blue Light Glasses for Wide Faces — 158 mm Acetate</h1>
-<p>Blue-light filter glasses designed for wide faces 155 mm+. 158 mm front width, 21–22 mm keyhole bridge, Italian Mazzucchelli acetate. HEV 380–460 nm filter is a lens upgrade (+$40) on both Woolet 007 and 009. Pairs with prescription or plano lenses. Bespoke 145–162 mm available.</p>`,
+        "Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 148 mm temples, blue-light filter optional. Bespoke 145–162 mm. Hand made in EU.",
+      noscriptHtml: `<h1>Blue Light Glasses for Wide Faces — 158 mm Fit</h1>
+<p>Most blue-light frames are built 130–145 mm across, which is why they pinch a wide face. Woolet's front is 158 mm with 148 mm temples and a 21–22 mm keyhole bridge, and the blue-light filter is a lens option on both shapes (007 Round, 009 Soft Square). Bespoke covers 145–162 mm. Mazzucchelli acetate, hand made in EU. A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain or sleep — we sell the measurement, not the coating.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
