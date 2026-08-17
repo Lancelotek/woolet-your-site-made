@@ -61,6 +61,26 @@ function routeFromPath(file) {
 const issues = [];
 const warnings = [];
 
+// Cross-file indexes — populated in the per-file loop below.
+const titleIndex = new Map(); // title -> [route]
+const descIndex = new Map(); // description -> [route]
+const homeCopyByLang = new Map(); // lang -> { title, description }
+const routeMetaByFile = new Map(); // file -> { route, lang, title, description }
+
+/**
+ * Genuine cross-locale twins: routes that legitimately share a title or a
+ * description with another route (same copy served under two paths).
+ * Anything NOT listed here must be unique.
+ */
+const DUPLICATE_ALLOW_LIST = [
+  // Locale root aliases of the same page.
+  ["/en", "/"],
+];
+
+const isAllowedDuplicate = (routes) =>
+  DUPLICATE_ALLOW_LIST.some((group) => routes.every((r) => group.includes(r)));
+
+
 function add(list, file, msg) {
   list.push(`${relative(ROOT, file)}: ${msg}`);
 }
