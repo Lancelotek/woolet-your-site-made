@@ -70,12 +70,13 @@ export function formatPriceDelta(delta: number | null): string {
 }
 
 /**
- * Internal link to the blue-light cluster page. The route is built in a later
- * step — keep `enabled` false until it exists so we never render a dead link.
+ * Internal link to the blue-light cluster page. Lives on the existing
+ * collection route (one page per intent — /en/blue-light-glasses-wide-faces
+ * 301s here) so the two do not cannibalise each other.
  */
 export const blueLightArticleLink = {
-  enabled: false,
-  href: "/en/blue-light-glasses-wide-faces",
+  enabled: true,
+  href: "/en/collections/blue-light-glasses-for-wide-faces",
   label: "Blue-light glasses that actually fit a wide face",
 };
 
