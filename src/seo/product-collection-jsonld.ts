@@ -40,6 +40,8 @@ export type ProductInfo = {
   priceCurrency?: string; // "USD"
   availability?: string; // schema.org URL
   sku?: string;
+  /** Extra lens-variant Offers. Disabled / null-priced options are never passed. */
+  variantOffers?: object[];
 };
 
 export function productJsonLd(lang: Lang, p: ProductInfo) {
