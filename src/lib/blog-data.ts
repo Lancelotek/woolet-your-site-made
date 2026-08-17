@@ -3460,7 +3460,7 @@ More on fit for bigger heads and wider faces:
 
 <p>Hat sizing is one of the last places in fashion where four different measurement systems are still in daily use — cm, inches, fractional US sizes, and letter sizes — and nobody at the shop counter agrees on the conversion. This is the single chart that reconciles all four, plus the context you need to read it correctly the first time.</p>
 
-<p>One more thing the chart will tell you, if you know where to look: your hat size is the single best off-the-shelf predictor of whether glasses will fit you. The two measurements sit on the same ring of your skull. <a href="#glasses-conversion" style="color:#c9a84c;">Skip to the hat size → glasses size conversion ↓</a></p>
+<p>One more thing the chart will tell you, if you know where to look: your hat size is the single best off-the-shelf predictor of whether glasses will fit you. The two measurements sit on the same ring of your skull. <a href="#your-hat-size-predicts-your-glasses-size" style="color:#c9a84c;">Skip to the hat size → glasses size conversion ↓</a></p>
 
 <div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule that fixes 90% of confusion</div>
@@ -3505,7 +3505,7 @@ More on fit for bigger heads and wider faces:
 
 <p style="font-size:13px;color:#666;margin-top:-8px;"><em>*Temple width = distance across the widest point of your skull, where glasses arms sit. Median values from ANSUR II (n = 4,082 men); 63&nbsp;cm and above are extrapolated. Rows highlighted in cream (58&nbsp;cm+, US 7¼ and up) are where mainstream hats and mainstream eyewear both start running out — see the conversion table below.</em></p>
 
-<h2 id="glasses-conversion">Your Hat Size Predicts Your Glasses Size</h2>
+<h2>Your Hat Size Predicts Your Glasses Size</h2>
 
 <p>Hat size is a circumference. Glasses size is a breadth. They are not the same measurement — but they are measured on the same ring of your skull, roughly a centimetre above your ears, and they move together. In the ANSUR II anthropometric survey (n = 4,082 men) the two correlate at <strong>r = 0.55</strong>, tight enough that your hat size narrows your frame width to a 4&nbsp;mm window before you try anything on.</p>
 
@@ -3635,7 +3635,7 @@ More on fit for bigger heads and wider faces:
 
 <p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">
 Related guides:
-<a href="#glasses-conversion" style="color:#A07A2A;">hat size to glasses size conversion</a> ·
+<a href="#your-hat-size-predicts-your-glasses-size" style="color:#A07A2A;">hat size to glasses size conversion</a> ·
 <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#A07A2A;">how to measure your head for a hat</a> ·
 <a href="/en/blog/best-glasses-for-big-heads-2026" style="color:#A07A2A;">best glasses for big heads</a> ·
 <a href="/en/blog/what-size-glasses-for-a-large-head" style="color:#A07A2A;">what size glasses for a large head</a> ·
