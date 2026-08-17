@@ -92,6 +92,23 @@ for (const file of files) {
   const html = await readFile(file, "utf8");
   const route = routeFromPath(file);
 
+  // Cross-file index -----------------------------------------------------
+  {
+    const t = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1]?.trim();
+    const d = firstAttr(
+      html,
+      /<meta\s+[^>]*name=["']description["'][^>]*>/i,
+      "content",
+    );
+    const lang = /^\/([a-z]{2})(?:\/|$)/.exec(route)?.[1] ?? "en";
+    routeMetaByFile.set(file, { route, lang, title: t, description: d });
+    if (route === `/${lang}` || route === "/") {
+      homeCopyByLang.set(lang, { title: t, description: d });
+    }
+    if (t) titleIndex.set(t, [...(titleIndex.get(t) ?? []), route]);
+    if (d) descIndex.set(d, [...(descIndex.get(d) ?? []), route]);
+  }
+
   // Duplicates ---------------------------------------------------------
   const titleCount = count(html, /<title[\s>]/gi);
   if (titleCount > 1) add(issues, file, `${titleCount} <title> tags`);
@@ -157,6 +174,43 @@ for (const file of files) {
     if (ogUrl && ogUrl !== expected) {
       add(warnings, file, `og:url ${ogUrl} != ${expected}`);
     }
+  }
+}
+
+// -------------------------------------------------------------------------
+// Cross-file pass — the guard that catches routes silently shipping the
+// homepage's <title>/<meta description> (the metadata.ts fallback), and any
+// title/description shared by more than one route.
+// -------------------------------------------------------------------------
+for (const [file, meta] of routeMetaByFile) {
+  const home = homeCopyByLang.get(meta.lang);
+  if (!home) continue;
+  const isHome = meta.route === `/${meta.lang}` || meta.route === "/";
+  if (isHome) continue;
+  if (meta.title && home.title && meta.title === home.title) {
+    add(issues, file, `ships homeCopy[${meta.lang}] <title> — missing getMetadata() branch`);
+  }
+  if (meta.description && home.description && meta.description === home.description) {
+    add(
+      issues,
+      file,
+      `ships homeCopy[${meta.lang}] meta description — missing getMetadata() branch`,
+    );
+  }
+}
+
+for (const [title, routes] of titleIndex) {
+  const uniq = [...new Set(routes)];
+  if (uniq.length > 1 && !isAllowedDuplicate(uniq)) {
+    issues.push(`duplicate <title> across ${uniq.length} routes (${uniq.join(", ")}): ${title}`);
+  }
+}
+for (const [desc, routes] of descIndex) {
+  const uniq = [...new Set(routes)];
+  if (uniq.length > 1 && !isAllowedDuplicate(uniq)) {
+    issues.push(
+      `duplicate meta description across ${uniq.length} routes (${uniq.join(", ")}): ${desc.slice(0, 80)}…`,
+    );
   }
 }
 
