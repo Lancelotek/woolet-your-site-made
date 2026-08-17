@@ -339,6 +339,16 @@ const BlueLightGlassesForWideFaces = () => {
             measurement: a {S007.frameWidth} mm front, a {S007.bridge}–{S009.bridge} mm keyhole bridge and{" "}
             {S007.templeLength} mm temples, cut to fit a face the rest of the market stopped designing for.
           </p>
+          <p style={{ ...p, maxWidth: 660 }}>
+            Read the fit breakdown:{" "}
+            <Link to="/en/blog/oversized-blue-light-glasses-vs-wide-fit" style={{ color: T.goldDim, textUnderlineOffset: 3 }}>
+              oversized blue-light glasses vs a true wide fit
+            </Link>{" "}
+            ·{" "}
+            <Link to="/en/collections/oversized-blue-light-glasses" style={{ color: T.goldDim, textUnderlineOffset: 3 }}>
+              oversized blue light glasses
+            </Link>
+          </p>
           <p style={{ ...p, fontSize: 13, color: "#7A7263", maxWidth: 660 }}>
             Source:{" "}
             <a

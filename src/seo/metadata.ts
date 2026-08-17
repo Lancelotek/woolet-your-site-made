@@ -29,6 +29,12 @@ import { getBridgeBySlug } from "@/data/bridges";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
 import { dePages, dePageOrder } from "@/content/de/landingPages";
+import { nlPages } from "@/content/nl/landingPages";
+import { plPages } from "@/content/pl/landingPages";
+import { collectionSeo, COLLECTION_ITEMS } from "./collection-copy";
+import { collectionJsonLd } from "./product-collection-jsonld";
+import { HAT_SIZE_FAQ } from "./hat-size-faq";
+import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import {
   RETURN_POLICY,
   shippingDetails,
@@ -57,6 +63,12 @@ export type RouteMeta = {
     locale: string;
   };
   jsonLd: object[];
+  /**
+   * Real, page-specific content-change date (ISO yyyy-mm-dd) — emitted as
+   * <lastmod> in the sitemap. Only set when a genuine date exists (e.g. a
+   * blog post's publication date). NEVER a build timestamp.
+   */
+  lastmod?: string;
   /** Plain HTML injected into <noscript> for LLM bots and the no-JS path. */
   noscriptHtml?: string;
   /**
@@ -84,14 +96,15 @@ const websiteJsonLd = {
   publisher: { "@type": "Organization", name: "Woolet", url: SITE_URL },
 };
 
-function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
+function productJsonLd(model: "007" | "009", shape: string, lensSize: string, lang: Lang = "en") {
   const bridge = model === "009" ? "22 mm" : "21 mm";
-  const url = `${SITE_URL}/en/products/${model}`;
+  const url = `${SITE_URL}/${lang}/products/${model}`;
   const base: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": url,
     url,
+    inLanguage: lang,
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
     description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 145–162 mm. Lens ${lensSize}, temples 150 mm, 5-barrel PVD Gunmetal hinges.`,
     brand: { "@type": "Brand", name: "Woolet" },
@@ -157,13 +170,14 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
   return base;
 }
 
-function bespokeProductJsonLd() {
-  const url = `${SITE_URL}/en/products/bespoke`;
+function bespokeProductJsonLd(lang: Lang = "en") {
+  const url = `${SITE_URL}/${lang}/products/bespoke`;
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": url,
     url,
+    inLanguage: lang,
     name: "Woolet Bespoke — Custom Acetate Glasses",
     description:
       "Bespoke Italian Mazzucchelli acetate glasses cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–162 mm.",
@@ -302,7 +316,9 @@ function langFromRoute(route: string): Lang {
 // Per-route copy
 // ---------------------------------------------------------------------------
 
-type Copy = { title: string; description: string; noscriptHtml?: string };
+type Copy = { title: string; description: string; noscriptHtml?: string   /** Real page-specific content-change date (ISO), e.g. a post date. */
+  lastmod?: string;
+};
 
 const homeCopy: Record<Lang, Copy> = {
   en: {
@@ -333,6 +349,11 @@ const homeCopy: Record<Lang, Copy> = {
     title: "Woolet — Premium-Brillen für breite Gesichter (ab 155 mm)",
     description:
       "Premium-Brillen aus italienischem Mazzucchelli-Acetat, entwickelt für breite Gesichter (ab 155 mm). Drei gemessene Größen plus Maßanfertigung. Ab 114 $ im Pre-Order.",
+    // The /de hub is the only inbound link to the DE landing pages in the
+    // JS-free HTML — all six must be listed here or they stay orphaned.
+    noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
+<p>Woolet fertigt Brillen für breite Gesichter und große Köpfe: 158 mm Frontbreite, 21–22 mm Keyhole-Steg, italienisches Mazzucchelli-Acetat, in der EU handgefertigt. Founding-Preis 114 $ (statt 190 $).</p>
+<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a>.</p>`,
   },
   ar: {
     title: "Woolet — نظارات فاخرة للوجوه العريضة (155 ملم+)",
@@ -378,6 +399,7 @@ function base(
       locale: ogLocale(lang),
     },
     jsonLd: jsonLd,
+    lastmod: copy.lastmod,
     noscriptHtml: copy.noscriptHtml,
     alternates,
   };
@@ -394,10 +416,8 @@ export function getMetadata(route: string): RouteMeta {
 
   // ----- Products
   if (path === "/products/007") {
-    return base(
-      route,
-      lang,
-      {
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
         title: "007 Round — Wide-Fit Round Glasses, 158 mm | Woolet",
         description:
           "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
@@ -405,13 +425,32 @@ export function getMetadata(route: string): RouteMeta {
 <p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Dark Tortoise, Black, Honey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
       },
+      nl: {
+        title: "Woolet 007 — ronde panto acetaatbril, 158 mm",
+        description:
+          "Ronde panto in acetaat, 158 mm breed met 21 mm brug. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
+        noscriptHtml: `<h1>Woolet 007 — ronde panto acetaatbril, 158 mm</h1>
+<p>Ronde panto in Italiaans Mazzucchelli-acetaat, 158 mm breed met een 21 mm keyhole-brug. Glas 52 × 52 mm, veren 150 mm. Handgemaakt in de EU. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast (adviesprijs $190). Bespoke 145–162 mm beschikbaar.</p>`,
+      },
+      fr: {
+        title: "Woolet 007 — lunettes rondes panto en acétate, 158 mm",
+        description:
+          "Monture ronde panto en acétate, 158 mm de large avec pont keyhole 21 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
+        noscriptHtml: `<h1>Woolet 007 — lunettes rondes panto en acétate, 158 mm</h1>
+<p>Monture ronde panto en acétate italien Mazzucchelli, 158 mm de large avec un pont keyhole de 21 mm. Verres 52 × 52 mm, branches 150 mm. Façonnée à la main dans l'Union européenne. Conçue pour les visages de 155 mm et plus. Réservez pour 1 $ et bloquez le prix fondateur de 114 $ (prix public 190 $). Sur mesure 145–162 mm.</p>`,
+      },
+    };
+    return base(
+      route,
+      lang,
+      copy[lang] ?? copy.en!,
       { image: `${SITE_URL}/og-007.png`, type: "product" },
       [
-        productJsonLd("007", "Round", "52 × 52 mm"),
+        productJsonLd("007", "Round", "52 × 52 mm", lang),
         breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/en` },
-          { name: "Products", url: `${SITE_URL}/en` },
-          { name: "Woolet 007", url: `${SITE_URL}/en/products/007` },
+          { name: "Woolet", url: `${SITE_URL}/${lang}` },
+          { name: "Products", url: `${SITE_URL}/${lang}` },
+          { name: "Woolet 007", url: `${SITE_URL}/${lang}/products/007` },
         ]),
         faqPageJsonLd(PRODUCT_FAQ),
       ],
@@ -419,10 +458,8 @@ export function getMetadata(route: string): RouteMeta {
   }
 
   if (path === "/products/009") {
-    return base(
-      route,
-      lang,
-      {
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
         title: "009 Square — Wide-Fit Square Glasses, 158 mm | Woolet",
         description:
           "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
@@ -430,13 +467,32 @@ export function getMetadata(route: string): RouteMeta {
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
 <p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
       },
+      nl: {
+        title: "Woolet 009 — vierkante acetaatbril, 158 mm",
+        description:
+          "Zachte vierkante acetaatbril, 158 mm breed met 20 mm brug. Voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
+        noscriptHtml: `<h1>Woolet 009 — vierkante acetaatbril, 158 mm</h1>
+<p>Zacht vierkant model in Italiaans Mazzucchelli-acetaat, 158 mm breed met keyhole-brug. Glas 54 × 50 mm, veren 150 mm. Handgemaakt in de EU. Voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast (adviesprijs $190). Bespoke 145–162 mm beschikbaar.</p>`,
+      },
+      fr: {
+        title: "Woolet 009 — lunettes carrées en acétate, 158 mm",
+        description:
+          "Monture carrée douce en acétate, 158 mm de large avec pont 20 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
+        noscriptHtml: `<h1>Woolet 009 — lunettes carrées en acétate, 158 mm</h1>
+<p>Monture carrée douce en acétate italien Mazzucchelli, 158 mm de large avec pont keyhole. Verres 54 × 50 mm, branches 150 mm. Façonnée à la main dans l'Union européenne. Conçue pour les visages de 155 mm et plus. Réservez pour 1 $ et bloquez le prix fondateur de 114 $ (prix public 190 $). Sur mesure 145–162 mm.</p>`,
+      },
+    };
+    return base(
+      route,
+      lang,
+      copy[lang] ?? copy.en!,
       { image: `${SITE_URL}/og-009.png`, type: "product" },
       [
-        productJsonLd("009", "Soft Square", "54 × 50 mm"),
+        productJsonLd("009", "Soft Square", "54 × 50 mm", lang),
         breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/en` },
-          { name: "Products", url: `${SITE_URL}/en` },
-          { name: "Woolet 009", url: `${SITE_URL}/en/products/009` },
+          { name: "Woolet", url: `${SITE_URL}/${lang}` },
+          { name: "Products", url: `${SITE_URL}/${lang}` },
+          { name: "Woolet 009", url: `${SITE_URL}/${lang}/products/009` },
         ]),
         faqPageJsonLd(PRODUCT_FAQ),
       ],
@@ -444,23 +500,40 @@ export function getMetadata(route: string): RouteMeta {
   }
 
   if (path === "/products/bespoke") {
-    return base(
-      route,
-      lang,
-      {
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
         title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
         description:
           "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order.",
         noscriptHtml: `<h1>Woolet Bespoke — Custom Acetate Glasses</h1>
 <p>Bespoke Italian Mazzucchelli acetate frames cut to your face in four silhouettes: Aviator, Rectangle, Crown Panto and Round. Sizes 145–162 mm. Founding-member pre-order $299; $480 MSRP at full launch.</p>`,
       },
+      nl: {
+        title: "Woolet Bespoke — acetaatbril op maat van je gezicht",
+        description:
+          "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145–162 mm. Vanaf $299 in pre-order.",
+        noscriptHtml: `<h1>Woolet Bespoke — acetaatbril op maat</h1>
+<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145–162 mm. Handgemaakt in de EU. Vanaf $299 in pre-order ($480 adviesprijs).</p>`,
+      },
+      fr: {
+        title: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage",
+        description:
+          "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Quatre silhouettes, tailles 145–162 mm. Dès 299 $ en pré-commande.",
+        noscriptHtml: `<h1>Woolet Bespoke — lunettes en acétate sur mesure</h1>
+<p>Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage, en quatre silhouettes : Aviator, Rectangle, Crown Panto et Round. Tailles 145–162 mm. Façonnées à la main dans l'Union européenne. Dès 299 $ en pré-commande (prix public 480 $).</p>`,
+      },
+    };
+    return base(
+      route,
+      lang,
+      copy[lang] ?? copy.en!,
       { image: DEFAULT_OG, type: "product" },
       [
-        bespokeProductJsonLd(),
+        bespokeProductJsonLd(lang),
         breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/en` },
-          { name: "Products", url: `${SITE_URL}/en` },
-          { name: "Woolet Bespoke", url: `${SITE_URL}/en/products/bespoke` },
+          { name: "Woolet", url: `${SITE_URL}/${lang}` },
+          { name: "Products", url: `${SITE_URL}/${lang}` },
+          { name: "Woolet Bespoke", url: `${SITE_URL}/${lang}/products/bespoke` },
         ]),
       ],
     );
@@ -775,7 +848,8 @@ export function getMetadata(route: string): RouteMeta {
       description:
         "Truly oversized blue light glasses for wide faces (155 mm+). 158 mm front, 21–22 mm bridge, Italian acetate. HEV 380–460 nm filter lens upgrade.",
       noscriptHtml: `<h1>Oversized Blue Light Glasses for Wide Faces — 158 mm</h1>
-<p>Truly oversized blue-light glasses for wide faces (155 mm+). Woolet 007 (round) and 009 (soft square) ship at 158 mm front width with a 21–22 mm keyhole bridge, Italian Mazzucchelli acetate. The HEV 380–460 nm filter is an in-line lens upgrade (+$40), compatible with prescription or plano lenses. Bespoke 145–162 mm available.</p>`,
+<p>Truly oversized blue-light glasses for wide faces (155 mm+). Woolet 007 (round) and 009 (soft square) ship at 158 mm front width with a 21–22 mm keyhole bridge, Italian Mazzucchelli acetate. The HEV 380–460 nm filter is an in-line lens upgrade (+$40), compatible with prescription or plano lenses. Bespoke 145–162 mm available.</p>
+<p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a> · <a href="/en/collections/blue-light-glasses-for-wide-faces">Blue light glasses for wide faces</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -789,7 +863,8 @@ export function getMetadata(route: string): RouteMeta {
       description:
         "Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 148 mm temples, blue-light filter optional. Bespoke 145–162 mm. Hand made in EU.",
       noscriptHtml: `<h1>Blue Light Glasses for Wide Faces — 158 mm Fit</h1>
-<p>Most blue-light frames are built 130–145 mm across, which is why they pinch a wide face. Woolet's front is 158 mm with 148 mm temples and a 21–22 mm keyhole bridge, and the blue-light filter is a lens option on both shapes (007 Round, 009 Soft Square). Bespoke covers 145–162 mm. Mazzucchelli acetate, hand made in EU. A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain or sleep — we sell the measurement, not the coating.</p>`,
+<p>Most blue-light frames are built 130–145 mm across, which is why they pinch a wide face. Woolet's front is 158 mm with 148 mm temples and a 21–22 mm keyhole bridge, and the blue-light filter is a lens option on both shapes (007 Round, 009 Soft Square). Bespoke covers 145–162 mm. Mazzucchelli acetate, hand made in EU. A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain or sleep — we sell the measurement, not the coating.</p>
+<p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a> · <a href="/en/collections/oversized-blue-light-glasses">Oversized blue light glasses</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -848,6 +923,12 @@ export function getMetadata(route: string): RouteMeta {
       description: "Genuinely oversized: 158 mm front, 54 mm lens, 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Built for faces 155 mm and wider.",
       h1: "Extra Large Oversized Eyeglasses — 158 mm Front, Italian Acetate",
       intro: "Extra large at most online opticians means a slightly bigger lens on the same 140 mm front. Woolet's extra large oversized eyeglasses are properly large: 158 mm front-to-front, 21 mm keyhole bridge, and lens area sized to match. Two shapes — round 007 and soft-square 009 — both prescription-ready. Bespoke covers 145–162 mm.",
+    },
+    "/collections/oversized-black-glasses": {
+      title: "Oversized Black Glasses — 158 mm for Wide Faces | Woolet",
+      description: "Oversized black glasses in hand made in EU from Italian Mazzucchelli acetate. 158 mm front, 21 mm keyhole bridge, built for 155 mm+ faces. Round 007 and soft-square 009.",
+      h1: "Oversized Black Glasses — 158 mm Italian Acetate",
+      intro: "Black is the default oversized colourway for a reason — it sharpens the silhouette and pairs with everything. The catch is that black exaggerates every flaw in the acetate, every uneven bevel, every injection-mould seam. The Woolet oversized black glasses are cut from a single block of Italian Mazzucchelli acetate and hand-polished, so the black surface stays deep and even instead of going grey at the edges. 158 mm front, round 007 or soft-square 009.",
     },
     "/collections/keyhole-bridge-glasses": {
       title: "Keyhole Bridge Glasses for Wide Faces & Big Heads | Woolet",
@@ -928,16 +1009,30 @@ export function getMetadata(route: string): RouteMeta {
 
   // ----- Policies
   if (path === "/privacy-policy") {
-    return base(route, lang, {
-      title: "Privacy Policy | Woolet",
-      description: "Woolet privacy policy — how we collect, use and protect your personal information. JAY23 LLC.",
-    });
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
+        title: "Privacy Policy | Woolet",
+        description: "Woolet privacy policy — how we collect, use and protect your personal information. JAY23 LLC.",
+      },
+      pl: {
+        title: "Polityka prywatności | Woolet",
+        description: "Polityka prywatności Woolet — jak zbieramy, wykorzystujemy i chronimy Twoje dane osobowe. JAY23 LLC.",
+      },
+    };
+    return base(route, lang, copy[lang] ?? copy.en!);
   }
   if (path === "/return-policy") {
-    return base(route, lang, {
-      title: "Return Policy | Woolet",
-      description: "Woolet return and exchange policy — 30-day returns, fit guarantee and hassle-free refunds. JAY23 LLC.",
-    });
+    const copy: Partial<Record<Lang, Copy>> = {
+      en: {
+        title: "Return Policy | Woolet",
+        description: "Woolet return and exchange policy — 30-day returns, fit guarantee and hassle-free refunds. JAY23 LLC.",
+      },
+      pl: {
+        title: "Polityka zwrotów | Woolet",
+        description: "Polityka zwrotów i wymiany Woolet — 30 dni na zwrot, gwarancja dopasowania i zwrot pieniędzy bez formalności. JAY23 LLC.",
+      },
+    };
+    return base(route, lang, copy[lang] ?? copy.en!);
   }
 
   // ----- Blog index
@@ -953,7 +1048,26 @@ export function getMetadata(route: string): RouteMeta {
       nl: { title: "Blog — Woolet | Inzichten over bril voor brede gezichten", description: "Expertgidsen over brillen voor brede gezichten, Italiaans acetaat, framematen en de perfecte pasvorm vanaf 155 mm." },
 
     };
-    return base(route, lang, titles[lang]);
+    const posts = getBlogPosts(lang);
+    const links = posts
+      .map(
+        (p) =>
+          `<li><a href="/${lang}/blog/${p.slug}">${escapeHtml(p.title)}</a> — ${escapeHtml(p.excerpt)}</li>`,
+      )
+      .join("\n");
+    const hub =
+      lang === "en"
+        ? `<p>Topic hub: <a href="/en/blog/category/nose-bridge-fit">Nose-bridge fit</a>.</p>`
+        : "";
+    return base(route, lang, {
+      ...titles[lang],
+      noscriptHtml: `<h1>${escapeHtml(titles[lang].title)}</h1>
+<p>${escapeHtml(titles[lang].description)}</p>
+${hub}
+<ul>
+${links}
+</ul>`,
+    });
   }
 
   // ----- Blog post
@@ -980,6 +1094,9 @@ export function getMetadata(route: string): RouteMeta {
         {
           title: headTitle,
           description: headDescription,
+          // post.date is a real publication date, so it is a legitimate
+          // <lastmod> signal for the sitemap.
+          lastmod: /^\d{4}-\d{2}-\d{2}$/.test(post.date) ? post.date : undefined,
           // Inject the full article body so Googlebot / ChatGPT-User / no-JS
           // crawlers receive real content in the first response, not the SPA
           // shell. Helmet on the client hydrates the same head on top.
@@ -1097,31 +1214,6 @@ ${post.content}
       },
     );
   }
-  if (route === "/pl/okulary-na-zamowienie") {
-    return base(
-      route, "pl",
-      {
-        title: "Okulary na zamówienie 145–162 mm | Woolet — włoski octan",
-        description:
-          "Okulary na zamówienie dla szerszych twarzy: front 145–162 mm, mostek 20–24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
-        noscriptHtml: `<h1>Okulary na zamówienie — Woolet bespoke 145–162 mm</h1>
-<p>Woolet oferuje okulary szyte na miarę: szerokość frontu, mostek, długość zauszników i wysokość soczewki ustalasz co do milimetra. Materiał: włoski octan Mazzucchelli 1849, ręcznie wykończony w UE. Czas realizacji: 4–6 tygodni.</p>`,
-      },
-      { image: DEFAULT_OG },
-      [
-        breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/pl` },
-          { name: "Okulary na zamówienie", url: `${SITE_URL}/pl/okulary-na-zamowienie` },
-        ]),
-      ],
-      {
-        pl: `${SITE_URL}/pl/okulary-na-zamowienie`,
-        en: `${SITE_URL}/en/bespoke`,
-        "x-default": `${SITE_URL}/en/bespoke`,
-      },
-    );
-  }
-
   // ----- Compare / competitor-alternative pages
   if (path === "/compare") {
     return base(
@@ -1461,16 +1553,9 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
   // ----- /de and /de/{slug}: DE landing hub + spokes
   if (lang === "de") {
     const canonical = `${SITE_URL}${route}`;
-    if (path === "/") {
-      return base(route, lang, {
-        title: "Woolet — Brillen für breite Gesichter (155 mm+) aus italienischem Acetat",
-        description:
-          "Premium-Brillen aus italienischem Mazzucchelli-Acetat für breite Gesichter (ab 155 mm). Eine präzise Größe (158 mm), plus Maßanfertigung 145–162 mm. Ab 114 $ im Pre-Order.",
-        noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
-<p>Woolet fertigt Brillen für breite Gesichter und große Köpfe: 158 mm Frontbreite, 21–22 mm Keyhole-Steg, italienisches Mazzucchelli-Acetat, in der EU handgefertigt. Founding-Preis 114 $ (statt 190 $).</p>
-<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a>.</p>`,
-      });
-    }
+    // NOTE: path === "/" never reaches here — the homepage branch at the top
+    // of getMetadata() handles /de via homeCopy.de (which carries the hub's
+    // outbound links in its noscriptHtml).
     const slug = path.replace(/^\//, "");
     const de = dePages[slug];
     if (de) {
@@ -1494,6 +1579,267 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
     }
   }
 
+  // ----- /{lang}/collection — copy shared with src/pages/Collection.tsx
+  if (path === "/collection") {
+    const c = collectionSeo[lang];
+    return base(
+      route,
+      lang,
+      {
+        title: c.title,
+        description: c.description,
+        noscriptHtml: `<h1>${escapeHtml(c.title)}</h1>
+<p>${escapeHtml(c.description)}</p>
+<ul>
+${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escapeHtml(it.name)}</a></li>`).join("\n")}
+</ul>`,
+      },
+      { image: DEFAULT_OG },
+      collectionJsonLd(lang, c.title, c.description, COLLECTION_ITEMS),
+    );
+  }
+
+  // ----- /en/hat-size-calculator — copy shared with src/pages/tools/HatSizeCalculator.tsx
+  if (path === "/hat-size-calculator") {
+    return base(
+      route,
+      lang,
+      {
+        title: "Hat Size Calculator — Head Circumference to US, UK, EU & cm | Woolet",
+        description:
+          "Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads.",
+        noscriptHtml: `<h1>Hat Size Calculator — Head Circumference to US, UK, EU &amp; cm</h1>
+<p>Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads.</p>
+<p>Bigger head? Frame width matters too: <a href="/en/collections/glasses-for-big-heads">glasses for big heads</a> · <a href="/en/fit">measure your face width in 20 seconds</a>.</p>`,
+      },
+      { image: DEFAULT_OG },
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: "Hat Size Calculator",
+          applicationCategory: "UtilityApplication",
+          operatingSystem: "Web",
+          description:
+            "Free hat size calculator. Convert your head circumference (cm or inches) into US, UK, EU and letter hat sizes instantly.",
+          url: `${SITE_URL}/en/hat-size-calculator`,
+          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        },
+        faqPageJsonLd(HAT_SIZE_FAQ),
+      ],
+    );
+  }
+
+  // ----- /en/lp/kickstarter — copy shared with src/pages/lp/KickstarterPrelaunch.tsx
+  if (path === "/lp/kickstarter") {
+    const ksImage = `${SITE_URL}${ksHeroAsset.url}`;
+    return base(
+      route,
+      lang,
+      {
+        title: "Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)",
+        description:
+          "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price.",
+        noscriptHtml: `<h1>Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)</h1>
+<p>Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price.</p>
+<p><a href="/en/products/007">Woolet 007 — Round</a> · <a href="/en/products/009">Woolet 009 — Soft-Square</a> · <a href="/en/fit">Find your fit</a></p>`,
+      },
+      { image: ksImage, type: "website" },
+      [
+        breadcrumbJsonLd([
+          { name: "Home", url: `${SITE_URL}/en` },
+          { name: "Kickstarter VIP", url: `${SITE_URL}/en/lp/kickstarter` },
+        ]),
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Woolet Kickstarter — signature frames",
+          itemListElement: [
+            {
+              "@type": "Product",
+              name: "Woolet 007 — Round",
+              description:
+                "Round Milanese acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              brand: { "@type": "Brand", name: "Woolet" },
+              category: "Eyewear",
+              offers: {
+                "@type": "Offer",
+                url: `${SITE_URL}/en/lp/kickstarter`,
+                priceCurrency: PRICE_CURRENCY,
+                price: SALE_PRICE,
+                availability: "https://schema.org/PreOrder",
+                priceValidUntil: PRICE_VALID_UNTIL,
+                priceSpecification: LIST_PRICE_SPEC,
+                itemCondition: "https://schema.org/NewCondition",
+                seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+                hasMerchantReturnPolicy: RETURN_POLICY,
+                shippingDetails: shippingDetails(false),
+              },
+            },
+            {
+              "@type": "Product",
+              name: "Woolet 009 — Soft-Square",
+              description:
+                "Soft-square Milanese acetate frame, 158 mm wide with a 20 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              brand: { "@type": "Brand", name: "Woolet" },
+              category: "Eyewear",
+              offers: {
+                "@type": "Offer",
+                url: `${SITE_URL}/en/lp/kickstarter`,
+                priceCurrency: PRICE_CURRENCY,
+                price: SALE_PRICE,
+                availability: "https://schema.org/PreOrder",
+                priceValidUntil: PRICE_VALID_UNTIL,
+                priceSpecification: LIST_PRICE_SPEC,
+                itemCondition: "https://schema.org/NewCondition",
+                seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+                hasMerchantReturnPolicy: RETURN_POLICY,
+                shippingDetails: shippingDetails(false),
+              },
+            },
+          ],
+        },
+      ],
+      {
+        en: `${SITE_URL}/en/lp/kickstarter`,
+        "x-default": `${SITE_URL}/en/lp/kickstarter`,
+      },
+    );
+  }
+
+  // ----- /en/blog/category/nose-bridge-fit — topic hub
+  // The blog-post regex below forbids a second slash, so this needs its own
+  // branch. Its noscriptHtml carries the hub's real outbound links, otherwise
+  // the whole nose-bridge cluster is orphaned in the JS-free HTML.
+  if (path === "/blog/category/nose-bridge-fit") {
+    const canonical = `${SITE_URL}/en/blog/category/nose-bridge-fit`;
+    const NB_FAQS = [
+      {
+        q: "What counts as a wide nose bridge?",
+        a: "Bridges under 17 mm are narrow, 17–20 mm is the mainstream range, and 21 mm and above is wide. Most brands top out at 18 mm — anyone with a wider or higher nose typically needs 21 mm or more for the frame to sit on bone instead of pinching cartilage.",
+      },
+      {
+        q: "Where do I start if my glasses always slide or pinch?",
+        a: "Read the pillar guide first — it explains what the bridge number on your current frames means and what 21–22 mm actually changes. Then use the AI Fit Wizard to confirm width and bridge from a single photo.",
+      },
+      {
+        q: "Keyhole or saddle bridge for a wide nose?",
+        a: "Keyhole. Saddle bridges wrap the sides of the nose and pinch wider noses; keyhole bridges sit across the top ridge and distribute weight on bone. Both Woolet 007 (21 mm) and 009 (22 mm) are keyhole.",
+      },
+    ];
+    const NB_RELATED = [
+      "how-to-measure-face-width-for-glasses",
+      "glasses-for-wide-faces-guide",
+      "why-glasses-dont-fit-155mm-problem",
+      "round-vs-square-glasses-wide-face",
+    ];
+    const enPosts = getBlogPosts("en");
+    const nbLink = (slug: string) => {
+      const post = enPosts.find((p) => p.slug === slug);
+      return post ? `<li><a href="/en/blog/${slug}">${escapeHtml(post.title)}</a></li>` : "";
+    };
+    return base(
+      route,
+      "en",
+      {
+        title: "Nose-Bridge Fit for Glasses — Guides, Sizing & Collections | Woolet",
+        description:
+          "Hub for nose-bridge fit: what bridge width means, what counts as wide, keyhole vs saddle, and how to measure. Pillar guide plus the 21–22 mm Woolet collections.",
+        noscriptHtml: `<h1>Nose-Bridge Fit</h1>
+<p>Everything we've written on bridge width, keyhole geometry, and what 21–22 mm actually fixes for wider or higher noses. Start with the pillar guide, then measure, then pick a shape.</p>
+<h2>Start here — pillar guide</h2>
+<ul>
+${nbLink("glasses-for-wide-nose-bridge-21-22mm-explained")}
+</ul>
+<h2>Shop the fit</h2>
+<ul>
+<li><a href="/en/collections/wide-bridge-glasses">Wide Bridge Glasses</a> — 21–22 mm keyhole while most brands cap at 18 mm.</li>
+<li><a href="/en/collections/keyhole-bridge-glasses">Keyhole Bridge Glasses</a> — round 007 (21 mm) and soft-square 009 (22 mm).</li>
+<li><a href="/en/products/007">Woolet 007 — 21 mm</a></li>
+<li><a href="/en/products/009">Woolet 009 — 22 mm</a></li>
+<li><a href="/en/fit">AI Fit Wizard</a></li>
+<li><a href="/en/fit/bespoke">Bespoke 20–24 mm</a></li>
+</ul>
+<h2>Related guides</h2>
+<ul>
+${NB_RELATED.map(nbLink).join("\n")}
+</ul>
+<p><a href="/en/blog">All articles</a></p>`,
+      },
+      { image: DEFAULT_OG },
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Nose-Bridge Fit — Guides & Resources",
+          url: canonical,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE_URL },
+          description:
+            "A complete hub on nose-bridge fit for glasses: what bridge width means, what counts as wide, keyhole vs saddle, and how to measure.",
+        },
+        breadcrumbJsonLd([
+          { name: "Home", url: `${SITE_URL}/en` },
+          { name: "Blog", url: `${SITE_URL}/en/blog` },
+          { name: "Nose-Bridge Fit", url: canonical },
+        ]),
+        faqPageJsonLd(NB_FAQS),
+      ],
+    );
+  }
+
+  // ----- /nl/{slug} and /pl/{slug}: landing hub spokes (mirrors the DE block)
+  if (lang === "nl" || lang === "pl") {
+    const canonical = `${SITE_URL}${route}`;
+    const slug = path.replace(/^\//, "");
+    const page = (lang === "nl" ? nlPages : plPages)[slug] as
+      | {
+          h1: string;
+          sub: string;
+          metaTitle: string;
+          metaDescription: string;
+          faqs?: { q: string; a: string }[];
+          ogImage?: string;
+          englishEquivalent?: string;
+        }
+      | undefined;
+    if (page) {
+      return base(
+        route,
+        lang,
+        {
+          title: page.metaTitle,
+          description: page.metaDescription,
+          noscriptHtml: `<h1>${escapeHtml(page.h1)}</h1><p>${escapeHtml(page.sub)}</p>`,
+        },
+        {
+          image: page.ogImage
+            ? page.ogImage.startsWith("http")
+              ? page.ogImage
+              : `${SITE_URL}${page.ogImage}`
+            : DEFAULT_OG,
+          type: "website",
+        },
+        [
+          breadcrumbJsonLd([
+            { name: "Woolet", url: `${SITE_URL}/${lang}` },
+            { name: page.h1, url: canonical },
+          ]),
+          ...(page.faqs && page.faqs.length
+            ? [faqPageJsonLd(page.faqs.map((f) => ({ q: f.q, a: f.a })))]
+            : []),
+        ],
+        page.englishEquivalent
+          ? {
+              [lang]: canonical,
+              en: `${SITE_URL}${page.englishEquivalent}`,
+              "x-default": `${SITE_URL}${page.englishEquivalent}`,
+            }
+          : undefined,
+      );
+    }
+  }
+
   // Fallback: home copy for that lang
   return base(route, lang, homeCopy[lang]);
 }
@@ -1513,7 +1859,6 @@ const STATIC_ROUTES = [
   "/en/products/007",
   "/en/products/009",
   "/en/products/bespoke",
-  "/en/fit",
   "/en/fit",
   "/en/fit/manual",
   "/en/fit/bespoke",
@@ -1594,7 +1939,6 @@ const STATIC_ROUTES = [
   // JS-less crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot, OAI-SearchBot)
   // receive real per-route head metadata instead of an empty index.html.
   "/ar",
-  "/fr",
   "/nl",
   "/en/collection",
   "/fr/collection",
@@ -1611,12 +1955,6 @@ const STATIC_ROUTES = [
   "/nl/acetaat-bril-op-maat",
   "/nl/grote-brillen-heren",
   "/de/blog",
-  "/de/blog/beste-brillen-fuer-grosse-koepfe-2026",
-  "/de/blog/welche-groesse-sonnenbrille-breites-gesicht",
-  "/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026",
-  "/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large",
-  "/nl/blog/beste-brillen-voor-brede-hoofden-2026",
-  "/nl/blog/welke-maat-zonnebril-voor-breed-gezicht",
   "/en/blog/category/nose-bridge-fit",
   "/en/lp/kickstarter",
   "/en/lp/wide-bridge-fit-guide",
@@ -1625,7 +1963,7 @@ const STATIC_ROUTES = [
 
 export function getAllRoutes(): string[] {
   const blogRoutes: string[] = [];
-  for (const lang of ["en", "pl"] as Lang[]) {
+  for (const lang of ["en", "pl", "de", "fr", "nl"] as Lang[]) {
     for (const post of getBlogPosts(lang)) {
       blogRoutes.push(`/${lang}/blog/${post.slug}`);
     }

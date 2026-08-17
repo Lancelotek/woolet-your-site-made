@@ -61,6 +61,26 @@ function routeFromPath(file) {
 const issues = [];
 const warnings = [];
 
+// Cross-file indexes — populated in the per-file loop below.
+const titleIndex = new Map(); // title -> [route]
+const descIndex = new Map(); // description -> [route]
+const homeCopyByLang = new Map(); // lang -> { title, description }
+const routeMetaByFile = new Map(); // file -> { route, lang, title, description }
+
+/**
+ * Genuine cross-locale twins: routes that legitimately share a title or a
+ * description with another route (same copy served under two paths).
+ * Anything NOT listed here must be unique.
+ */
+const DUPLICATE_ALLOW_LIST = [
+  // Locale root aliases of the same page.
+  ["/en", "/"],
+];
+
+const isAllowedDuplicate = (routes) =>
+  DUPLICATE_ALLOW_LIST.some((group) => routes.every((r) => group.includes(r)));
+
+
 function add(list, file, msg) {
   list.push(`${relative(ROOT, file)}: ${msg}`);
 }
@@ -71,6 +91,23 @@ console.log(`[audit-head] scanning ${files.length} html file(s)…`);
 for (const file of files) {
   const html = await readFile(file, "utf8");
   const route = routeFromPath(file);
+
+  // Cross-file index -----------------------------------------------------
+  {
+    const t = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1]?.trim();
+    const d = firstAttr(
+      html,
+      /<meta\s+[^>]*name=["']description["'][^>]*>/i,
+      "content",
+    );
+    const lang = /^\/([a-z]{2})(?:\/|$)/.exec(route)?.[1] ?? "en";
+    routeMetaByFile.set(file, { route, lang, title: t, description: d });
+    if (route === `/${lang}` || route === "/") {
+      homeCopyByLang.set(lang, { title: t, description: d });
+    }
+    if (t) titleIndex.set(t, [...(titleIndex.get(t) ?? []), route]);
+    if (d) descIndex.set(d, [...(descIndex.get(d) ?? []), route]);
+  }
 
   // Duplicates ---------------------------------------------------------
   const titleCount = count(html, /<title[\s>]/gi);
@@ -137,6 +174,43 @@ for (const file of files) {
     if (ogUrl && ogUrl !== expected) {
       add(warnings, file, `og:url ${ogUrl} != ${expected}`);
     }
+  }
+}
+
+// -------------------------------------------------------------------------
+// Cross-file pass — the guard that catches routes silently shipping the
+// homepage's <title>/<meta description> (the metadata.ts fallback), and any
+// title/description shared by more than one route.
+// -------------------------------------------------------------------------
+for (const [file, meta] of routeMetaByFile) {
+  const home = homeCopyByLang.get(meta.lang);
+  if (!home) continue;
+  const isHome = meta.route === `/${meta.lang}` || meta.route === "/";
+  if (isHome) continue;
+  if (meta.title && home.title && meta.title === home.title) {
+    add(issues, file, `ships homeCopy[${meta.lang}] <title> — missing getMetadata() branch`);
+  }
+  if (meta.description && home.description && meta.description === home.description) {
+    add(
+      issues,
+      file,
+      `ships homeCopy[${meta.lang}] meta description — missing getMetadata() branch`,
+    );
+  }
+}
+
+for (const [title, routes] of titleIndex) {
+  const uniq = [...new Set(routes)];
+  if (uniq.length > 1 && !isAllowedDuplicate(uniq)) {
+    issues.push(`duplicate <title> across ${uniq.length} routes (${uniq.join(", ")}): ${title}`);
+  }
+}
+for (const [desc, routes] of descIndex) {
+  const uniq = [...new Set(routes)];
+  if (uniq.length > 1 && !isAllowedDuplicate(uniq)) {
+    issues.push(
+      `duplicate meta description across ${uniq.length} routes (${uniq.join(", ")}): ${desc.slice(0, 80)}…`,
+    );
   }
 }
 

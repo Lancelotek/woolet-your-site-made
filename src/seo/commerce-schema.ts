@@ -30,6 +30,12 @@ export const BESPOKE_PRICE = "299.00";   // bespoke pre-order price
 export const BESPOKE_LIST_PRICE = "480.00";
 export const PRICE_CURRENCY = "USD";
 export const PRICE_VALID_UNTIL = "2027-12-31";
+/**
+ * Start of the founding-member pre-order campaign — the date the $114 price
+ * became live. Google flags `priceSpecification` without `validFrom` as a
+ * Merchant listings warning.
+ */
+export const PRICE_VALID_FROM = "2026-06-20";
 
 /**
  * 30-day return window. Return shipping is paid by the customer
@@ -91,5 +97,7 @@ export const LIST_PRICE_SPEC = [
     priceType: "https://schema.org/ListPrice",
     price: LIST_PRICE,
     priceCurrency: PRICE_CURRENCY,
+    validFrom: PRICE_VALID_FROM,
+    validThrough: PRICE_VALID_UNTIL,
   },
 ];

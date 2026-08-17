@@ -20,9 +20,10 @@
  *
  * Emits <loc> only, plus xhtml:link alternates when the route belongs
  * to a translation cluster. No <priority> / <changefreq> (Google
- * ignores both). No <lastmod> (we cannot derive a real page-specific
- * content-change date at build time; a build-timestamp stamped on
- * every URL is worse than nothing).
+ * ignores both). <lastmod> is emitted ONLY for routes that expose a real
+ * page-specific content date via RouteMeta.lastmod (blog posts use
+ * `post.date`). We never stamp a build timestamp on every URL — that is
+ * worse than no lastmod at all.
  */
 
 import { spawn } from "node:child_process";
@@ -89,8 +90,11 @@ function xmlEscape(s) {
     .replace(/"/g, "&quot;");
 }
 
-function urlBlock({ loc, alternates }) {
+function urlBlock({ loc, alternates, lastmod }) {
   const lines = [`  <url>`, `    <loc>${xmlEscape(loc)}</loc>`];
+  // <lastmod> is emitted ONLY when the route carries a real, page-specific
+  // content date (blog posts expose `post.date`). Never a build timestamp.
+  if (lastmod) lines.push(`    <lastmod>${xmlEscape(lastmod)}</lastmod>`);
   for (const { lang, href } of alternates ?? []) {
     lines.push(
       `    <xhtml:link rel="alternate" hreflang="${xmlEscape(lang)}" href="${xmlEscape(href)}"/>`,
@@ -99,6 +103,8 @@ function urlBlock({ loc, alternates }) {
   lines.push(`  </url>`);
   return lines.join("\n");
 }
+
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 async function main() {
   const entry = await ensureBundle();
@@ -134,6 +140,7 @@ async function main() {
     kept.push({
       loc: `${SITE_URL}${route}`,
       alternates: alternates ?? [],
+      lastmod: ISO_DATE.test(meta?.lastmod ?? "") ? meta.lastmod : undefined,
     });
   }
 
@@ -163,6 +170,10 @@ async function main() {
 
   await writeFile(SITEMAP_OUT, xml, "utf8");
 
+  const withLastmod = unique.filter((u) => u.lastmod).length;
+  console.log(
+    `[generate-sitemap] ${withLastmod} URL(s) carry a real <lastmod>`,
+  );
   console.log(
     `[generate-sitemap] wrote ${unique.length} URLs (of ${routes.length} routes, ` +
       `${dropped.length} dropped)`,
