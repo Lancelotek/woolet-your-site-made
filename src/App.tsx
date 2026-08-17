@@ -119,15 +119,18 @@ const RedirectToEn = ({ to }: { to: string }) => {
 };
 
 const RedirectCollectionToEn = () => {
-  const { slug } = useParams();
+  const { lang, slug } = useParams();
+  if (lang === "en") return <NotFound />;
   return <Navigate to={`/en/collections/${slug}`} replace />;
 };
 const RedirectProductToEn = () => {
-  const { slug } = useParams();
+  const { lang, slug } = useParams();
+  if (lang === "en") return <NotFound />;
   return <Navigate to={`/en/products/${slug}`} replace />;
 };
 const RedirectLpToEn = () => {
-  const { slug } = useParams();
+  const { lang, slug } = useParams();
+  if (lang === "en") return <NotFound />;
   return <Navigate to={`/en/lp/${slug}`} replace />;
 };
 const RedirectSizeToEn = () => {
