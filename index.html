@@ -200,7 +200,26 @@
         })(window, document, "clarity", "script", "wqzkegnpjo");
       })();
     </script>
+
+    <script type="text/javascript">
+      // Canonical host guard — only woolet.co may be indexed.
+      // Preview / published Lovable domains (*.lovable.app, *.lovableproject.com,
+      // localhost) get a noindex,nofollow directive so they never compete with
+      // the production domain in search results.
+      (function () {
+        var host = window.location.hostname;
+        if (/(^|\.)woolet\.co$/.test(host)) return;
+        var m = document.querySelector('meta[name="robots"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.setAttribute('name', 'robots');
+          document.head.appendChild(m);
+        }
+        m.setAttribute('content', 'noindex, nofollow');
+      })();
+    </script>
 </head>
+
   <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTJLN2KX"
