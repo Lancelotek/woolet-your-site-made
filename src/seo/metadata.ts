@@ -63,6 +63,12 @@ export type RouteMeta = {
     locale: string;
   };
   jsonLd: object[];
+  /**
+   * Real, page-specific content-change date (ISO yyyy-mm-dd) — emitted as
+   * <lastmod> in the sitemap. Only set when a genuine date exists (e.g. a
+   * blog post's publication date). NEVER a build timestamp.
+   */
+  lastmod?: string;
   /** Plain HTML injected into <noscript> for LLM bots and the no-JS path. */
   noscriptHtml?: string;
   /**
@@ -310,7 +316,9 @@ function langFromRoute(route: string): Lang {
 // Per-route copy
 // ---------------------------------------------------------------------------
 
-type Copy = { title: string; description: string; noscriptHtml?: string };
+type Copy = { title: string; description: string; noscriptHtml?: string   /** Real page-specific content-change date (ISO), e.g. a post date. */
+  lastmod?: string;
+};
 
 const homeCopy: Record<Lang, Copy> = {
   en: {
@@ -386,6 +394,7 @@ function base(
       locale: ogLocale(lang),
     },
     jsonLd: jsonLd,
+    lastmod: copy.lastmod,
     noscriptHtml: copy.noscriptHtml,
     alternates,
   };
@@ -1080,6 +1089,9 @@ ${links}
         {
           title: headTitle,
           description: headDescription,
+          // post.date is a real publication date, so it is a legitimate
+          // <lastmod> signal for the sitemap.
+          lastmod: /^\d{4}-\d{2}-\d{2}$/.test(post.date) ? post.date : undefined,
           // Inject the full article body so Googlebot / ChatGPT-User / no-JS
           // crawlers receive real content in the first response, not the SPA
           // shell. Helmet on the client hydrates the same head on top.
