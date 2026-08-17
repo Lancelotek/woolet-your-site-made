@@ -3421,7 +3421,7 @@ More on fit for bigger heads and wider faces:
       },
       {
         q: "What is the average hat size?",
-        a: "For adult men in Europe and North America, 57–58 cm (US 7⅛–7¼). For adult women, 55–57 cm (US 6⅞–7⅛). Roughly 15% of adult men measure above 60 cm — the point where mainstream ranges stop.",
+        a: "For adult men in Europe and North America, 57–58 cm (US 7⅛–7¼). For adult women, 55–57 cm (US 6⅞–7⅛). In the ANSUR II survey, 36.8% of men measure 58 cm or more and 6.4% measure above 60 cm — the point where mainstream ranges stop.",
       },
       {
         q: "How do I convert head circumference in cm to inches?",
@@ -3431,6 +3431,22 @@ More on fit for bigger heads and wider faces:
         q: "Should I size up or size down if I'm between hat sizes?",
         a: "Always size up. A hat can be padded down with a self-adhesive sizing strip in under a minute; a hat that's a full size too small will squeeze, leave a red ring, and cannot be stretched more than 3–4 mm without deforming.",
       },
+      {
+        q: "What size glasses do I need for a 7 5/8 hat?",
+        a: "A US 7 5/8 hat is a 61 cm head, which puts your temple width around 161 mm. You need a frame with a front width of roughly 158–162 mm. Standard frames run 140–148 mm, so nothing off the shelf will sit straight on you.",
+      },
+      {
+        q: "Does a big head always mean a wide face?",
+        a: "Usually, but not always. Head circumference and head breadth correlate at r = 0.55 in the ANSUR II anthropometric survey. A long-oval head can carry a 60 cm circumference with a narrower than median breadth, which is why a photo measurement is more precise than a hat-size estimate.",
+      },
+      {
+        q: "Is temple width the same as face width?",
+        a: "No. Face width is usually quoted as cheekbone to cheekbone (bizygomatic breadth), about 12–14 mm narrower than temple width. Glasses sit on the temples, so temple width is the measurement that decides frame fit.",
+      },
+      {
+        q: "What hat size means I need wide glasses?",
+        a: "A US 7 1/4 hat (58 cm) or larger. At 58 cm the median temple width is 155 mm, and 93 percent of men that size exceed 148 mm, which is where most mainstream eyewear ranges stop.",
+      },
     ],
     content: `
 <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
@@ -3438,11 +3454,13 @@ More on fit for bigger heads and wider faces:
   <div style="flex:1;min-width:0;">
     <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
     <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
-    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: March 2026</div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: August 2026</div>
   </div>
 </div>
 
 <p>Hat sizing is one of the last places in fashion where four different measurement systems are still in daily use — cm, inches, fractional US sizes, and letter sizes — and nobody at the shop counter agrees on the conversion. This is the single chart that reconciles all four, plus the context you need to read it correctly the first time.</p>
+
+<p>One more thing the chart will tell you, if you know where to look: your hat size is the single best off-the-shelf predictor of whether glasses will fit you. The two measurements sit on the same ring of your skull. <a href="#your-hat-size-predicts-your-glasses-size" style="color:#c9a84c;">Skip to the hat size → glasses size conversion ↓</a></p>
 
 <div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule that fixes 90% of confusion</div>
@@ -3463,28 +3481,73 @@ More on fit for bigger heads and wider faces:
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">UK</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">EU / cm</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Letter</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Temple width*</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">53</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">20⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">53</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">XXS</td></tr>
-    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">54</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">21¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">54</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">XS</td></tr>
-    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">55</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">21⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">55</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">S</td></tr>
-    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">56</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">56</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">S / M</td></tr>
-    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">57</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">57</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">M</td></tr>
-    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">58</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">58</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">M</td></tr>
-    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">59</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">23¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">59</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">L</td></tr>
-    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">60</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">23⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">60</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">L / XL</td></tr>
-    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">61</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">61</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XL</td></tr>
-    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">62</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">62</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XL</td></tr>
-    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">63</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">63</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXL</td></tr>
-    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">64</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">25¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">64</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXL</td></tr>
-    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">65</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">25⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">65</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXXL</td></tr>
-    <tr style="background:#FBF7ED;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">66</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">26</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">66</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXXL</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">53</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">20⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">53</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">XXS</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">146&nbsp;mm</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">54</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">21¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">54</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">XS</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">148&nbsp;mm</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">55</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">21⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">55</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">S</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">150&nbsp;mm</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">56</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">56</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">S / M</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">151&nbsp;mm</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">57</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">57</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">M</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">153&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">58</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">22¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">58</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">M</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">155&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">59</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">23¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">59</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">L</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">157&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">60</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">23⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">60</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">L / XL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">159&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">61</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7½</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">61</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">161&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">62</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">62</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">163&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">63</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">24¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¾</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">63</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">~165&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">64</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">25¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">64</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">~167&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">65</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">25⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">65</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXXL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">~169&nbsp;mm</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">66</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">26</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8¼</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">8⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">66</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">XXXL</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">~171&nbsp;mm</td></tr>
   </tbody>
 </table>
 </div>
 
-<p style="font-size:13px;color:#666;margin-top:-8px;"><em>Rows highlighted in cream (60&nbsp;cm+, US 7½ and up) are where mainstream brands typically stop stocking. If you land here, plan to shop specialist.</em></p>
+<p style="font-size:13px;color:#666;margin-top:-8px;"><em>*Temple width = distance across the widest point of your skull, where glasses arms sit. Median values from ANSUR II (n = 4,082 men); 63&nbsp;cm and above are extrapolated. Rows highlighted in cream (58&nbsp;cm+, US 7¼ and up) are where mainstream hats and mainstream eyewear both start running out — see the conversion table below.</em></p>
+
+<h2>Your Hat Size Predicts Your Glasses Size</h2>
+
+<p>Hat size is a circumference. Glasses size is a breadth. They are not the same measurement — but they are measured on the same ring of your skull, roughly a centimetre above your ears, and they move together. In the ANSUR II anthropometric survey (n = 4,082 men) the two correlate at <strong>r = 0.55</strong>, tight enough that your hat size narrows your frame width to a 4&nbsp;mm window before you try anything on.</p>
+
+<p style="background:#F8F6F1;padding:14px 18px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:15px;">The arithmetic, if you want it: <strong>temple width (mm) ≈ 1.91 × head circumference (cm) + 44.7</strong></p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;min-width:640px;">
+  <thead>
+    <tr style="background:#F8F6F1;">
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Hat size (US)</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Head (cm)</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Your temple width</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Frame front width you need</th>
+      <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">In mainstream frames</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">6⅝ – 6⅞</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">53 – 55</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">146 – 150&nbsp;mm</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">140 – 148&nbsp;mm</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">Standard sizes fit. You are in the range every brand designs for.</td></tr>
+    <tr><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">7 – 7⅛</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">56 – 57</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">151 – 153&nbsp;mm</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">148 – 152&nbsp;mm</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;">Borderline. Look for models labelled “wide” or “XL” — regular fits leave marks after a few hours.</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¼ – 7⅜</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">58 – 59</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">155 – 157&nbsp;mm</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">155 – 158&nbsp;mm</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">They pinch. 93% of men this size are already past the point where mainstream frames stop.</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7½ – 7⅝</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">60 – 61</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">159 – 161&nbsp;mm</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">158 – 162&nbsp;mm</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">Nothing off the shelf fits. Arms splay outward, the front bows, lenses sit off-axis.</td></tr>
+    <tr style="background:#FBF7ED;color:#1a1a1a;"><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">7¾ and up</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">62+</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">163&nbsp;mm+</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">162&nbsp;mm+</td><td style="padding:10px 14px;border-bottom:1px solid #E8E4DC;font-weight:600;">Bespoke territory. The same shops that stock your hat size do not exist in eyewear.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p style="font-size:13px;color:#666;margin-top:-8px;"><em>Frame front width = total width of the frame, hinge to hinge — not lens width. It is the number that decides whether the arms run straight back or splay. Most mainstream brands top out around 148&nbsp;mm; a handful of “XL” lines reach 152&nbsp;mm.</em></p>
+
+<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Where Woolet sits on this table</div>
+  <p style="margin:0 0 10px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">We build one front width: <strong>158&nbsp;mm</strong>. That is deliberate — it covers the 58–61&nbsp;cm band (US 7¼ to 7⅝) properly rather than covering everything badly.</p>
+  <p style="margin:0 0 10px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat is 7 or smaller, you do not need us. A mainstream frame labelled “wide” or “XL” will fit you, and we would rather tell you that than sell you 158&nbsp;mm you will have to push back up your nose. If you are 62&nbsp;cm and above, 158&nbsp;mm is still short for you — that is what bespoke is for.</p>
+  <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/wide-face-glasses" style="color:#A07A2A;">See the 158 mm frames →</a> · <a href="/en/fit/bespoke" style="color:#A07A2A;">Bespoke up to 162 mm →</a></p>
+</div>
+
+<p>The line to remember: <strong>7¼</strong>. Not 7½. A US 7¼ hat means a 58&nbsp;cm head, and at 58&nbsp;cm the median temple width is already 155&nbsp;mm — seven millimetres past where most eyewear brands stop designing. If you have ever bought a hat in 7¼ or larger and separately assumed your glasses were “just a bit tight”, those are the same fact.</p>
+
+<div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:28px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">Don't want to estimate from a hat size?</div>
+  <p style="font-size:14px;line-height:1.7;color:#f0ece4;margin:0 0 14px 0;">The table above gives you a median. Your own face can sit 4–5&nbsp;mm either side of it. Woolet's <strong style="color:#fff;">AI Fit Wizard</strong> measures your actual temple width from a single phone photo — accurate to about 2&nbsp;mm, using a credit card as the reference object. No tape measure, no guessing which side of the median you are on.</p>
+  <p style="font-size:14px;line-height:1.7;color:#f0ece4;margin:0;"><a href="/en/fit/wizard" style="color:#c9a84c;text-decoration:underline;font-weight:500;">Measure my temple width →</a> · <a href="/en/collections/wide-face-glasses" style="color:#c9a84c;text-decoration:underline;font-weight:500;">See frames at 158 mm →</a></p>
+</div>
 
 <h2>How to Read US Fractional Sizes (7, 7⅛, 7¼…)</h2>
 
@@ -3527,23 +3590,36 @@ More on fit for bigger heads and wider faces:
 
 <p>If your hats always pinch at the sides even in the correct size, your head is <em>round</em>, not big. That's a shape problem, not a sizing problem — and no chart will fix it.</p>
 
-<div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:28px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
-  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">Don't have a tape measure?</div>
-  <p style="font-size:14px;line-height:1.7;color:#f0ece4;margin:0 0 14px 0;">Woolet's <strong style="color:#fff;">AI Fit Wizard</strong> measures your face from a single phone photo — accurate to about 2&nbsp;mm, using a credit card as the reference object. Faster than finding a soft measure in a drawer, and it doubles as a glasses-fit tool.</p>
-  <p style="font-size:14px;line-height:1.7;color:#f0ece4;margin:0;"><a href="/en/fit/wizard" style="color:#c9a84c;text-decoration:underline;font-weight:500;">Try the AI Fit Wizard →</a></p>
-</div>
+<h2>The Bigger Picture: This Is Not a Rare Problem</h2>
 
-<h2>The Bigger Picture: If You're Over 60 cm</h2>
+<p>The eyewear industry designs as if large heads were an edge case. The anthropometry says otherwise. In ANSUR II, <strong>36.8% of men measure 58&nbsp;cm or more</strong> — a US 7¼ hat — and 93% of them have a temple width above 148&nbsp;mm, past the point where most frame ranges stop. Above 60&nbsp;cm (US 7½) it is 6.4% of men, and there the figure is 99%. Among women, 30.6% measure 57&nbsp;cm or more.</p>
 
-<p>About 15% of adult men measure above 60&nbsp;cm and roughly 3% above 62&nbsp;cm. In the same population, 4 out of 5 people with a head above 60&nbsp;cm also measure above <strong>150&nbsp;mm across the temples</strong> — outside the sizing range of virtually every mainstream eyewear brand. If hats never fit, your glasses probably don't either.</p>
+<p>So it is not that a handful of unusually large people struggle to buy glasses. It is that roughly a third of adult men are being fitted from a size range that was never cut for them, and have quietly decided the marks behind their ears are normal. Hat retail solved this decades ago — that is why XL and XXL exist on the shelf, and why the specialist shops linked above have a business. Eyewear never did.</p>
 
-<p>That's the gap Woolet was built to fill: frames engineered from the front width outward, starting at 158&nbsp;mm and going up to 172&nbsp;mm bespoke — for exactly the crowd that shops for hats in XL and XXL.</p>
+<p>That is the gap Woolet was built to fill: frames engineered from the front width outward, starting at 158&nbsp;mm and going up to 162&nbsp;mm bespoke — for exactly the crowd that shops for hats in XL and XXL.</p>
 
 <div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">For the same crowd</div>
-  <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat size is 7½ or larger, mainstream frames almost certainly pinch your temples. Woolet 007 and 009 ship at 158&nbsp;mm front width, in Italian Mazzucchelli acetate.</p>
+  <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat size is 7¼ or larger, mainstream frames are pinching your temples whether or not you have noticed. Woolet 007 and 009 ship at 158&nbsp;mm front width, in Italian Mazzucchelli acetate, hand made in EU.</p>
   <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">Glasses for big heads →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke up to 162 mm →</a></p>
 </div>
+
+<h2>Hat Size and Glasses Size: Common Questions</h2>
+
+<h3>What size glasses do I need for a 7⅝ hat?</h3>
+<p>A US 7⅝ hat is a 61&nbsp;cm head, which puts your temple width around 161&nbsp;mm. You need a frame with a front width of roughly 158–162&nbsp;mm. Standard frames run 140–148&nbsp;mm, so nothing off the shelf will sit straight on you.</p>
+
+<h3>Does a big head always mean a wide face?</h3>
+<p>Not always, but usually. Head circumference and head breadth correlate at r = 0.55 in ANSUR II — strong, not absolute. A long-oval head can carry a 60&nbsp;cm circumference with a narrower-than-median breadth. That is the 4–5&nbsp;mm of uncertainty the table above cannot remove; a photo measurement can.</p>
+
+<h3>Is temple width the same as face width?</h3>
+<p>No. Face width is usually quoted as cheekbone-to-cheekbone (bizygomatic breadth), which runs about 12–14&nbsp;mm narrower than temple width. Frames sit on the temples, not the cheekbones, so temple width is the number that decides fit.</p>
+
+<h3>My hat is 7½ but my glasses feel fine. Am I wrong?</h3>
+<p>Check for the marks, not the feeling. Pressure that builds over hours reads as normal because it is constant. If you have indentations in front of your ears after a working day, or the arms have visibly splayed outward over time, the frame is too narrow regardless of how it felt in the shop.</p>
+
+<h3>Where do these numbers come from?</h3>
+<p>ANSUR II, the 2012 U.S. Army anthropometric survey — 4,082 men and 1,986 women, each measured for both head circumference and head breadth by trained anthropometrists. It is the largest public dataset with both measurements on the same subject. The sample is military and therefore younger and fitter than the general population; head dimensions are less affected by this than body dimensions, but treat the medians as close estimates rather than exact population values.</p>
 
 <h2>Quick Reference: Common Conversions</h2>
 
@@ -3559,6 +3635,7 @@ More on fit for bigger heads and wider faces:
 
 <p style="border-top:1px solid #E8E4DC;margin-top:32px;padding-top:20px;">
 Related guides:
+<a href="#your-hat-size-predicts-your-glasses-size" style="color:#A07A2A;">hat size to glasses size conversion</a> ·
 <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#A07A2A;">how to measure your head for a hat</a> ·
 <a href="/en/blog/best-glasses-for-big-heads-2026" style="color:#A07A2A;">best glasses for big heads</a> ·
 <a href="/en/blog/what-size-glasses-for-a-large-head" style="color:#A07A2A;">what size glasses for a large head</a> ·

@@ -1568,3 +1568,19 @@ A: 30-day returns with no questions asked, plus a Fit Guarantee — if the AI Fi
 
 **Q: Is this the same Woolet that made smart wallets?**
 A: No. The current Woolet is an optical brand focused on eyewear for wide faces. The smart-wallet product line is unrelated and discontinued.
+
+## Hat Size to Glasses Size Conversion
+
+Head circumference (hat size) predicts temple width (where glasses arms sit). ANSUR II (U.S. Army, 2012, n = 4,082 men): the two correlate at r = 0.55. Regression: temple width (mm) = 1.91 x head circumference (cm) + 44.7.
+
+| Hat (US) | Head (cm) | Median temple width | Frame front width needed |
+|---|---|---|---|
+| 6 5/8 - 6 7/8 | 53-55 | 146-150 mm | 140-148 mm (mainstream fits) |
+| 7 - 7 1/8 | 56-57 | 151-153 mm | 148-152 mm (borderline, "wide"/XL lines) |
+| 7 1/4 - 7 3/8 | 58-59 | 155-157 mm | 155-158 mm (mainstream stops here) |
+| 7 1/2 - 7 5/8 | 60-61 | 159-161 mm | 158-162 mm |
+| 7 3/4 and up | 62+ | 163 mm+ | 162 mm+ (bespoke) |
+
+Population shares (ANSUR II men): 58 cm+ = 36.8%, 59 cm+ = 16.9%, 60 cm+ = 6.4%, 61 cm+ = 1.9%. Women: 57 cm+ = 30.6%, 58 cm+ = 16.5%. At 58 cm, 93% of men exceed 148 mm temple width; at 60 cm, 99% do.
+
+Woolet builds one front width, 158 mm (007 and 009), covering the 58-61 cm band (US 7 1/4 to 7 5/8); bespoke covers 145-162 mm. Source page: https://woolet.co/en/blog/hat-size-chart-guide-cm-inches-us-uk-eu#your-hat-size-predicts-your-glasses-size

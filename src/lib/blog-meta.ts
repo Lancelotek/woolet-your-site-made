@@ -174,7 +174,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "hat-size-chart-guide-cm-inches-us-uk-eu": {
     metaTitle: "Hat Size Chart: US, UK, EU, cm & inches (Full Guide)",
     metaDescription:
-      "The one hat sizing chart that reconciles US, UK, EU, cm and inches — plus how to read 7 5/8, what a fitted cap number means, and what to do between sizes.",
+      "Hat size chart converting US, UK, EU, cm and inches — plus what your hat size tells you about the glasses width you need (58 cm = 155 mm temples).",
   },
   "what-size-hat-do-i-wear-big-heads-guide": {
     metaTitle: "What Size Hat Do I Wear? Big Heads Guide (7¾ and Up)",
