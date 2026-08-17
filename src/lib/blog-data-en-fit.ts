@@ -688,8 +688,8 @@ ${ANSWER(
     )}
 
 <figure style="margin:0 0 28px;">
-  <img src="/__l5e/assets-v1/5552e04f-7dae-4c80-af3a-32577d75b965/standard-vs-wide-comparison.png" alt="Side-by-side comparison of a standard 140 mm front-width frame pinching a wide face against a 158 mm Woolet frame sitting flush at the temples" width="1200" height="675" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:auto;border-radius:6px;display:block;" />
-  <figcaption style="font-size:0.72rem;opacity:0.55;text-align:center;margin-top:8px;">A standard ~140 mm front versus a 158 mm wide fit on the same face. Lens size is unchanged — only the front width moves.</figcaption>
+  <img src="/images/frame-front-width-chart-oversized-vs-wide-fit.webp" alt="Bar chart of frame front widths in millimetres: mainstream frames at 140 mm and 148 mm fall below the 155 mm wide-face threshold, while Woolet sizes run 155, 158 and 161 mm" width="1400" height="798" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:auto;border-radius:6px;display:block;" />
+  <figcaption style="font-size:0.72rem;opacity:0.55;text-align:center;margin-top:8px;">Front width, hinge to hinge. Oversized lenses do not move this number — mainstream frames stop around 140–148 mm, the wide-face threshold begins at 155 mm.</figcaption>
 </figure>
 
 <p>Search "oversized blue light glasses" and you get a wall of big-lens frames photographed on small faces. That is a style category, and it is a perfectly good thing to want: a large lens reads as deliberate, softens a strong brow, and gives a screen-facing frame some presence. Nothing about that description tells you whether the frame will fit.</p>
