@@ -29,6 +29,12 @@ import { getBridgeBySlug } from "@/data/bridges";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
 import { dePages, dePageOrder } from "@/content/de/landingPages";
+import { nlPages } from "@/content/nl/landingPages";
+import { plPages } from "@/content/pl/landingPages";
+import { collectionSeo, COLLECTION_ITEMS } from "./collection-copy";
+import { collectionJsonLd } from "./product-collection-jsonld";
+import { HAT_SIZE_FAQ } from "./hat-size-faq";
+import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import {
   RETURN_POLICY,
   shippingDetails,
@@ -84,14 +90,15 @@ const websiteJsonLd = {
   publisher: { "@type": "Organization", name: "Woolet", url: SITE_URL },
 };
 
-function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
+function productJsonLd(model: "007" | "009", shape: string, lensSize: string, lang: Lang = "en") {
   const bridge = model === "009" ? "22 mm" : "21 mm";
-  const url = `${SITE_URL}/en/products/${model}`;
+  const url = `${SITE_URL}/${lang}/products/${model}`;
   const base: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": url,
     url,
+    inLanguage: lang,
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
     description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 145–162 mm. Lens ${lensSize}, temples 150 mm, 5-barrel PVD Gunmetal hinges.`,
     brand: { "@type": "Brand", name: "Woolet" },
@@ -157,13 +164,14 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string) {
   return base;
 }
 
-function bespokeProductJsonLd() {
-  const url = `${SITE_URL}/en/products/bespoke`;
+function bespokeProductJsonLd(lang: Lang = "en") {
+  const url = `${SITE_URL}/${lang}/products/bespoke`;
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": url,
     url,
+    inLanguage: lang,
     name: "Woolet Bespoke — Custom Acetate Glasses",
     description:
       "Bespoke Italian Mazzucchelli acetate glasses cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–162 mm.",
