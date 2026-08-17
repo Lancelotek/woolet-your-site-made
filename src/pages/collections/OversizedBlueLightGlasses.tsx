@@ -13,6 +13,7 @@ const OversizedBlueLightGlasses = () => (
       "<strong>HEV 380–460 nm filter lens upgrade (+$40)</strong> — chosen on the product page, applied to your prescription or plano lenses. Compatible with both 007 and 009.",
       "<strong>Italian Mazzucchelli acetate</strong> — holds its set across a wider span (TR-90 and injection-moulded plastic do not). Hand-finished, polished, beveled.",
       "<strong>Bespoke 145–162 mm</strong> in either shape if your face sits outside the 155–161 mm range. Same material, made to measure.",
+      "<strong>Fit before filter.</strong> The lens coating is the easy part — the millimetres are not. Read the full breakdown in <a href=\"/en/blog/oversized-blue-light-glasses-vs-wide-fit\">oversized blue-light glasses vs a true wide fit</a>, or see <a href=\"/en/collections/blue-light-glasses-for-wide-faces\">blue light glasses for wide faces</a>.",
     ]}
     faqs={[
       {
