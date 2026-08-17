@@ -1427,6 +1427,37 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
     );
   }
 
+  // ----- DE: Blaulichtfilter-Brille Herren (blue-light × breite Köpfe)
+  if (route === "/de/blaulichtfilter-brille-herren") {
+    return base(
+      route,
+      "de",
+      {
+        title: "Blaulichtfilter-Brille Herren — 158 mm für breite Köpfe | Woolet",
+        description:
+          "Die meisten Blaulichtfilter-Brillen enden bei 145 mm. Woolet: 158 mm Fassung, 148 mm Bügel, Blaulichtfilter optional. Maßanfertigung 145–162 mm. Handgefertigt in der EU.",
+        noscriptHtml: `<h1>Blaulichtfilter-Brille Herren — 158 mm für breite Köpfe</h1>
+<p>Die meisten Blaulichtfilter-Brillen sind 130–145 mm breit — deshalb drücken sie auf einem breiten Kopf. Woolets Front misst 158 mm, die Bügel 148 mm, der Keyhole-Steg 21–22 mm. Den Blaulichtfilter gibt es als Glasoption, mit oder ohne Sehstärke. Maßanfertigung 145–162 mm, Mazzucchelli-Acetat, handgefertigt in der EU.</p>
+<p>Eine Cochrane-Übersichtsarbeit von 2023 (17 randomisierte Studien) fand keinen messbaren Nutzen von Blaulichtfilter-Gläsern. Wir versprechen die Millimeter, nicht die Beschichtung.</p>`,
+      },
+      { image: DEFAULT_OG, type: "website" },
+      [
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/de` },
+          { name: "Blaulichtfilter-Brille Herren", url: `${SITE_URL}/de/blaulichtfilter-brille-herren` },
+        ]),
+        faqPageJsonLd([
+          { q: "Welche Brillenbreite brauche ich bei einem breiten Kopf?", a: "Ab 155 mm Gesichtsbreite brauchst du eine Fassungsbreite ab 155 mm. Woolet baut 158 mm Front mit 21–22 mm Keyhole-Steg und 148 mm Bügeln, Maßanfertigung 145–162 mm." },
+          { q: "Gibt es Blaulichtfilter-Brillen in XXL für Herren?", a: "Ja. 007 Rund und 009 Soft Square haben beide 158 mm Frontbreite (ca. 58–62 cm Kopfumfang). Der Blaulichtfilter ist bei beiden eine Glasoption." },
+          { q: "Wie breit ist die Woolet-Fassung genau?", a: "158 mm Fassungsbreite, 21 mm Steg (007) bzw. 22 mm (009), Glasbreite 52 mm bzw. 54 mm, Bügellänge 148 mm. Mazzucchelli-Acetat, handgefertigt in der EU." },
+          { q: "Blaulichtfilter mit Sehstärke — geht das?", a: "Ja. Der Filter ist eine Beschichtung und lässt sich mit Einstärken- oder Gleitsichtgläsern kombinieren. Ohne Sehstärke geht genauso: gleiche Fassung, planes Glas." },
+          { q: "Sind Blaulichtfilter-Brillen sinnvoll?", a: "Eine Cochrane-Übersichtsarbeit von 2023 mit 17 randomisierten Studien fand keinen messbaren Unterschied bei Ermüdung am Bildschirm oder beim Schlaf. Wir bieten den Filter als Option an, versprechen aber nur die Passform." },
+          { q: "Woher weiß ich, ob 158 mm zu mir passen?", a: "158 mm passen typischerweise bei 155–161 mm Gesichtsbreite. Miss von Schläfe zu Schläfe oder nutze FitLens mit der Handykamera." },
+        ]),
+      ],
+    );
+  }
+
   // ----- /de and /de/{slug}: DE landing hub + spokes
   if (lang === "de") {
     const canonical = `${SITE_URL}${route}`;
@@ -1509,6 +1540,7 @@ const STATIC_ROUTES = [
   "/de/breite-brille",
   "/de/brille-grosse-koepfe",
   "/de/xxl-brille-herren",
+  "/de/blaulichtfilter-brille-herren",
   "/de/brille-breite-160-mm",
   "/en/lp/why-glasses-fail",
   "/en/lp/5-reasons",

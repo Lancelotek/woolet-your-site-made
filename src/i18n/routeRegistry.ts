@@ -152,6 +152,13 @@ export const ROUTES = {
   "landing.collection.de.xxl-brille-herren":        { en: "/en/collection", de: "/de/xxl-brille-herren" },
   "landing.collection.de.brille-breite-160-mm":     { en: "/en/collection", de: "/de/brille-breite-160-mm" },
 
+  // Blue-light + wide-head cluster. Reciprocal 1:1 pair (EN anchor is not
+  // shared with any other entry), so both sides emit en + de + x-default.
+  "landing.blueLight.de": {
+    en: "/en/collections/blue-light-glasses-for-wide-faces",
+    de: "/de/blaulichtfilter-brille-herren",
+  },
+
   // -----------------------------------------------------------------------
   // Translated blog posts. Sourced from public/sitemap.xml alternates and
   // src/lib/blog-slug-map.ts. Every non-EN slug is unique to its locale
