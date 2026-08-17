@@ -210,7 +210,7 @@ const BlueLightGlassesForWideFaces = () => {
 
       <main style={{ background: T.surface, minHeight: "100vh", fontFamily: SANS, color: T.ink }}>
         {/* 1 — Hero */}
-        <header style={{ background: T.dark, color: T.cream }}>
+        <header style={{ background: T.dark, color: T.cream, paddingTop: 64 }}>
           <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 18, fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(237,231,217,0.55)" }}>
             <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
             <span style={{ margin: "0 8px" }}>/</span>
