@@ -274,6 +274,10 @@ const ProductPage009 = () => {
             )}
           </section>
 
+          {/* Lens options */}
+          <LensOptions productId="009" specs={specs} framePrice="114" />
+
+
           <section style={{ marginTop: 56 }}>
             <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 30, color: T.ink, margin: "0 0 24px", lineHeight: 1.15 }}>
               What happens after your <em style={{ color: T.gold, fontStyle: "italic" }}>$1</em>
