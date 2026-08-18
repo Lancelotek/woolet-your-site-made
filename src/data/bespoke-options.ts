@@ -90,7 +90,7 @@ export const FINISHES = [
 
 export type FinishId = (typeof FINISHES)[number]["id"];
 
-export const ENGRAVING_FEE_EUR = 45;
+export const ENGRAVING_FEE_EUR = 10;
 export const ENGRAVING_MAX_CHARS = 20;
 // Customer name is engraved CNC on the LEFT temple only.
 // Right temple always carries the Woolet logo.
