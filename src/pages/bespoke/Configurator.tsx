@@ -5,7 +5,7 @@ import SEO from "@/components/SEO";
 import BespokeWaitlistGate from "@/components/BespokeWaitlistGate";
 import { COLORS, FINISHES, LENS_TYPES } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
-import { STEPS, formatEur, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
 import {
   StepColor,
