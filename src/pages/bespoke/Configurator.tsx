@@ -278,8 +278,8 @@ const ConfiguratorPage = () => {
                   </div>
                   <ul className="cfg-rail__lines">
                     <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
-                    {step >= 3 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>+ {formatEur(pricing.engravingEur)}</span></li>}
-                    {step >= 4 && pricing.lensEur > 0 && <li><span>Lenses</span><span>+ {formatEur(pricing.lensEur)}</span></li>}
+                    {step >= 3 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>{formatAddOn(pricing.engravingEur)}</span></li>}
+                    {step >= 4 && pricing.lensEur > 0 && <li><span>Lenses</span><span>{formatAddOn(pricing.lensEur)}</span></li>}
                     <li><span>Shipping</span><span style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</span></li>
                   </ul>
                 </div>
