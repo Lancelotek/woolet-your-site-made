@@ -126,6 +126,9 @@ export function computePricing(config: BespokeConfig): Pricing {
 export const formatEur = (n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 
+/** Consistent add-on display: "Included" at zero, otherwise "+ $10". */
+export const formatAddOn = (n: number) => (n === 0 ? "Included" : `+ ${formatEur(n)}`);
+
 export type StepId = 1 | 2 | 3 | 4 | 5;
 
 export interface StepMeta {
