@@ -1364,7 +1364,7 @@ export function StepLenses({ config, update }: StepProps) {
                   <div className="flex items-baseline justify-between gap-3">
                     <span className="text-cream text-sm truncate">{l.name}</span>
                     <span className="text-gold-light text-xs shrink-0">
-                      {l.priceEur === 0 ? "Included" : `+ ${formatEur(l.priceEur)}`}
+                      {formatAddOn(l.priceEur)}
                     </span>
                   </div>
                   <div className="text-cream-dim text-[0.72rem] mt-1">{l.description}</div>
