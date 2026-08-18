@@ -19,7 +19,7 @@ import {
   type MeasurementKey,
 } from "@/data/bespoke-options";
 import { FRAMES, findFrame } from "@/data/frames";
-import { type BespokeConfig, formatEur } from "@/lib/bespoke-state";
+import { type BespokeConfig, formatEur, formatAddOn } from "@/lib/bespoke-state";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
