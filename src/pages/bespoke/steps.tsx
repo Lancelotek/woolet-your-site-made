@@ -1236,7 +1236,7 @@ export function StepEngraving({ config, update }: StepProps) {
     <div className="space-y-8">
       <header>
         <div className={sectionKicker}>Step 4</div>
-        <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">+ {formatEur(ENGRAVING_FEE_EUR)} · optional</span></h2>
+        <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">{formatAddOn(ENGRAVING_FEE_EUR)} · optional</span></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           CNC-engraved on the inner left temple by our European atelier. Permanent and non-returnable. Adds 2–3 days to production. The right temple always carries the Woolet logo.
         </p>
