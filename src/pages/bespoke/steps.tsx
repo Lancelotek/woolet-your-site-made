@@ -19,7 +19,7 @@ import {
   type MeasurementKey,
 } from "@/data/bespoke-options";
 import { FRAMES, findFrame } from "@/data/frames";
-import { type BespokeConfig, formatEur } from "@/lib/bespoke-state";
+import { type BespokeConfig, formatEur, formatAddOn } from "@/lib/bespoke-state";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
@@ -1236,7 +1236,7 @@ export function StepEngraving({ config, update }: StepProps) {
     <div className="space-y-8">
       <header>
         <div className={sectionKicker}>Step 4</div>
-        <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">+ {formatEur(ENGRAVING_FEE_EUR)} · optional</span></h2>
+        <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">{formatAddOn(ENGRAVING_FEE_EUR)} · optional</span></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           CNC-engraved on the inner left temple by our European atelier. Permanent and non-returnable. Adds 2–3 days to production. The right temple always carries the Woolet logo.
         </p>
@@ -1364,7 +1364,7 @@ export function StepLenses({ config, update }: StepProps) {
                   <div className="flex items-baseline justify-between gap-3">
                     <span className="text-cream text-sm truncate">{l.name}</span>
                     <span className="text-gold-light text-xs shrink-0">
-                      {l.priceEur === 0 ? "Included" : `+ ${formatEur(l.priceEur)}`}
+                      {formatAddOn(l.priceEur)}
                     </span>
                   </div>
                   <div className="text-cream-dim text-[0.72rem] mt-1">{l.description}</div>
@@ -1511,8 +1511,8 @@ export function StepReview({
         <Row label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
         <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
         <Row label="Finish" value={finish?.name} />
-        <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name ?? ""}` : "None"} />
-        <Row label="Lenses" value={lens?.name} />
+        <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "None"} />
+        <Row label="Lenses" value={lens ? `${lens.name} · ${formatAddOn(lens.priceEur)}` : null} />
         {config.lensTypeId !== "plano" && (
           <>
             <Row label="Material" value={LENS_MATERIALS.find((m) => m.id === config.lensMaterialId)?.name} />

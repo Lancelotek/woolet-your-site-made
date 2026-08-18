@@ -5,7 +5,7 @@ import SEO from "@/components/SEO";
 import BespokeWaitlistGate from "@/components/BespokeWaitlistGate";
 import { COLORS, FINISHES, LENS_TYPES } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
-import { STEPS, formatEur, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
 import {
   StepColor,
@@ -278,8 +278,8 @@ const ConfiguratorPage = () => {
                   </div>
                   <ul className="cfg-rail__lines">
                     <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
-                    {step >= 3 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>+ {formatEur(pricing.engravingEur)}</span></li>}
-                    {step >= 4 && pricing.lensEur > 0 && <li><span>Lenses</span><span>+ {formatEur(pricing.lensEur)}</span></li>}
+                    {step >= 3 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>{formatAddOn(pricing.engravingEur)}</span></li>}
+                    {step >= 4 && pricing.lensEur > 0 && <li><span>Lenses</span><span>{formatAddOn(pricing.lensEur)}</span></li>}
                     <li><span>Shipping</span><span style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</span></li>
                   </ul>
                 </div>
