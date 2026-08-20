@@ -14,7 +14,13 @@ interface Body {
   returnUrl: string;
   environment: StripeEnv;
   metadata?: Record<string, string>;
+  couponCode?: string;
 }
+
+// Server-side coupon table — never trust a client-supplied discount.
+const COUPONS: Record<string, { percentOff: number }> = {
+  KICKSTARTER2026: { percentOff: 30 },
+};
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -41,9 +47,22 @@ Deno.serve(async (req) => {
     }
 
     const stripe = createStripeClient(body.environment);
-    const amountInCents = Math.round(body.amountUsd * 100);
+
+    const couponKey = (body.couponCode ?? "").trim().toUpperCase().slice(0, 40);
+    const coupon = couponKey ? COUPONS[couponKey] : undefined;
+    if (couponKey && !coupon) throw new Error("Invalid coupon code");
+
+    const grossCents = Math.round(body.amountUsd * 100);
+    const amountInCents = coupon
+      ? Math.max(100, Math.round((grossCents * (100 - coupon.percentOff)) / 100))
+      : grossCents;
 
     const cleanMeta: Record<string, string> = { flow: "bespoke" };
+    if (coupon) {
+      cleanMeta.coupon_code = couponKey;
+      cleanMeta.coupon_percent_off = String(coupon.percentOff);
+      cleanMeta.list_price_usd = (grossCents / 100).toFixed(2);
+    }
     if (body.metadata) {
       for (const [k, v] of Object.entries(body.metadata)) {
         if (typeof v === "string" && v.length <= 500) cleanMeta[k] = v;
@@ -66,7 +85,7 @@ Deno.serve(async (req) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: body.productName,
+              name: coupon ? `${body.productName} (${coupon.percentOff}% off · ${couponKey})` : body.productName,
               ...(body.description && { description: body.description.slice(0, 500) }),
             },
             unit_amount: amountInCents,
