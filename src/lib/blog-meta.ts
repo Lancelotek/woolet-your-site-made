@@ -20,10 +20,11 @@ export interface PostMetaOverride {
 export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   // ── EN: wide-face core ───────────────────────────────────────────────
   "glasses-for-wide-faces-guide": {
-    metaTitle: "Glasses for Wide Faces: Frames That Fit (155 mm+) | Woolet",
+    metaTitle: "Glasses for Wide Faces: 155–161 mm Frames That Fit",
     metaDescription:
-      "Most frames stop at 150 mm — that's why yours pinch. How to measure your face, what width to look for, and which shapes work at 155–161 mm. Hand made in EU.",
+      "Wide face? You need a 155 mm+ front — most frames stop at 148 mm. Measure in 30 seconds, see the size chart, and the round and square shapes that fit 150–165 mm faces.",
   },
+
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
     metaTitle: "Glasses for a Wide Nose Bridge (21–22 mm Explained)",
     metaDescription:
