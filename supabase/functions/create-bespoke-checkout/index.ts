@@ -58,15 +58,16 @@ Deno.serve(async (req) => {
       : grossCents;
 
     const cleanMeta: Record<string, string> = { flow: "bespoke" };
-    if (coupon) {
-      cleanMeta.coupon_code = couponKey;
-      cleanMeta.coupon_percent_off = String(coupon.percentOff);
-      cleanMeta.list_price_usd = (grossCents / 100).toFixed(2);
-    }
     if (body.metadata) {
       for (const [k, v] of Object.entries(body.metadata)) {
         if (typeof v === "string" && v.length <= 500) cleanMeta[k] = v;
       }
+    }
+
+    if (coupon) {
+      cleanMeta.coupon_code = couponKey;
+      cleanMeta.coupon_percent_off = String(coupon.percentOff);
+      cleanMeta.list_price_usd = (grossCents / 100).toFixed(2);
     }
 
     // Buyer IP capture (for Meta CAPI in payments-webhook).

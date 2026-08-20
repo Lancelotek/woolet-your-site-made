@@ -28,8 +28,12 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { readConsentSnapshot } from "@/lib/consent";
 import { trackMetaEvent } from "@/lib/meta-capi";
 import { clarityEvent, claritySet } from "@/lib/clarity";
+import { useAuth } from "@/lib/auth-context";
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
+
+// Client-side mirror of the server coupon table (server is the source of truth).
+const COUPONS: Record<string, number> = { KICKSTARTER2026: 30 };
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-cream/10 last:border-b-0">
@@ -42,6 +46,8 @@ const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode })
 
 export default function BespokeCheckout() {
   const navigate = useNavigate();
+  const { session } = useAuth();
+  const isSignedIn = Boolean(session);
   const { config } = useBespokeConfig();
   const pricing = computePricing(config);
 
@@ -66,6 +72,12 @@ export default function BespokeCheckout() {
   const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
   const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => findLatestPreview(loadPreviewHistory()));
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // --- Coupon -----------------------------------------------------------
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const couponPercent = appliedCoupon ? COUPONS[appliedCoupon] ?? 0 : 0;
   useEffect(() => {
     const refresh = () => {
       setAiPreviewUrl(getLatestPreviewUrl(previewKey));
@@ -228,6 +240,7 @@ export default function BespokeCheckout() {
     const { data, error } = await supabase.functions.invoke("create-bespoke-checkout", {
       body: {
         amountUsd: pricing.totalEur,
+        couponCode: appliedCoupon ?? undefined,
         productName,
         description,
         returnUrl,
@@ -244,7 +257,7 @@ export default function BespokeCheckout() {
     }
     return data.clientSecret as string;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pricing.totalEur, productName, description, returnUrl, buildEventPayload]);
+  }, [pricing.totalEur, productName, description, returnUrl, buildEventPayload, appliedCoupon]);
 
   return (
     <>
@@ -307,7 +320,7 @@ export default function BespokeCheckout() {
                 </div>
 
                 <div className="bg-white text-[#0B0A09] overflow-hidden" style={{ borderRadius: 4 }}>
-                  <EmbeddedCheckoutProvider stripe={getStripe()} options={{ fetchClientSecret }}>
+                  <EmbeddedCheckoutProvider key={appliedCoupon ?? "no-coupon"} stripe={getStripe()} options={{ fetchClientSecret }}>
                     <EmbeddedCheckout />
                   </EmbeddedCheckoutProvider>
                 </div>
@@ -394,6 +407,15 @@ export default function BespokeCheckout() {
                               ? "Generate a fresh AI visualisation of your current pattern and acetate choices to see exactly what you’re buying."
                               : "Generate an AI visualisation of your current pattern and colours before you pay."}
                           </p>
+                          {!isSignedIn ? (
+                            <Link
+                              to={`/en/account/sign-in?next=${encodeURIComponent("/en/bespoke/checkout")}`}
+                              className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gold text-background text-[10px] uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition"
+                              style={{ borderRadius: 2 }}
+                            >
+                              <Sparkles size={12} /> Sign in to generate AI preview
+                            </Link>
+                          ) : (
                           <button
                             onClick={handleGeneratePreview}
                             disabled={isGenerating}
@@ -411,6 +433,7 @@ export default function BespokeCheckout() {
                               </>
                             )}
                           </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -466,9 +489,79 @@ export default function BespokeCheckout() {
                       <SummaryRow label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
                     </div>
 
+                    {/* Coupon */}
+                    <div className="pt-4 mt-3 border-t border-cream/15">
+                      <label htmlFor="coupon" className="text-cream-dim text-[10px] uppercase tracking-[0.2em]">
+                        Discount code
+                      </label>
+                      {appliedCoupon ? (
+                        <div className="mt-2 flex items-center justify-between gap-3 border border-gold/30 px-3 py-2" style={{ borderRadius: 2, background: "rgba(194,160,90,0.07)" }}>
+                          <span className="text-gold-light text-[11px] uppercase tracking-[0.16em]">
+                            {appliedCoupon} · −{couponPercent}%
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => { setAppliedCoupon(null); setCouponInput(""); }}
+                            className="text-cream-dim hover:text-cream text-[10px] uppercase tracking-[0.16em] underline underline-offset-4"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ) : (
+                        <form
+                          className="mt-2 flex gap-2"
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            const code = couponInput.trim().toUpperCase();
+                            if (!code) return;
+                            if (!COUPONS[code]) {
+                              setCouponError("This code isn’t valid.");
+                              return;
+                            }
+                            setCouponError(null);
+                            setAppliedCoupon(code);
+                            pushGtmEvent("coupon_applied", buildEventPayload({ coupon_code: code }));
+                          }}
+                        >
+                          <input
+                            id="coupon"
+                            value={couponInput}
+                            onChange={(e) => { setCouponInput(e.target.value); setCouponError(null); }}
+                            placeholder="Enter code"
+                            maxLength={40}
+                            className="flex-1 bg-transparent border border-cream/15 px-3 py-2 text-cream text-sm placeholder:text-cream-dim/50 focus:border-gold/50 outline-none"
+                            style={{ borderRadius: 2 }}
+                          />
+                          <button
+                            type="submit"
+                            className="px-4 py-2 border border-gold/40 text-gold-light text-[10px] uppercase tracking-[0.18em] hover:bg-gold hover:text-background transition"
+                            style={{ borderRadius: 2 }}
+                          >
+                            Apply
+                          </button>
+                        </form>
+                      )}
+                      {couponError && <p className="mt-2 text-[11px] text-red-400/90">{couponError}</p>}
+                    </div>
+
+                    {couponPercent > 0 && (
+                      <div className="mt-4 space-y-1">
+                        <div className="flex items-baseline justify-between gap-4">
+                          <div className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">Subtotal</div>
+                          <div className="text-cream-dim text-sm line-through">{formatEur(pricing.totalEur)}</div>
+                        </div>
+                        <div className="flex items-baseline justify-between gap-4">
+                          <div className="text-gold-light text-[11px] uppercase tracking-[0.16em]">Discount · {appliedCoupon}</div>
+                          <div className="text-gold-light text-sm">−{formatEur(Math.round(pricing.totalEur * couponPercent) / 100)}</div>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="flex items-baseline justify-between gap-4 pt-4 mt-3 border-t border-cream/15">
                       <div className="text-cream text-[11px] uppercase tracking-[0.2em]">Total due today</div>
-                      <div className="text-cream text-2xl font-display">{formatEur(pricing.totalEur)}</div>
+                      <div className="text-cream text-2xl font-display">
+                        {formatEur(Math.round(pricing.totalEur * (100 - couponPercent)) / 100)}
+                      </div>
                     </div>
                   </div>
                 </div>
