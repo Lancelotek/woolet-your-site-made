@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
 import SEO from "@/components/SEO";
-import BespokeWaitlistGate from "@/components/BespokeWaitlistGate";
 import { COLORS, FINISHES, LENS_TYPES } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
@@ -18,8 +17,6 @@ import {
   getLatestPreviewUrl,
   PREVIEW_UPDATED_EVENT,
 } from "./steps";
-
-const PREVIEW_TOKEN = "woolet-preview";
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
 const FONT_HREF =
@@ -44,13 +41,6 @@ const ConfiguratorPage = () => {
   const [saved, setSaved] = useState(false);
   const [fitOpen, setFitOpen] = useState(false);
   const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace });
-  const bypassGate =
-    typeof window !== "undefined" &&
-    (new URLSearchParams(window.location.search).get("preview") === PREVIEW_TOKEN ||
-      window.localStorage.getItem("bespoke-gate-bypass") === PREVIEW_TOKEN);
-  if (typeof window !== "undefined" && bypassGate) {
-    window.localStorage.setItem("bespoke-gate-bypass", PREVIEW_TOKEN);
-  }
 
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
