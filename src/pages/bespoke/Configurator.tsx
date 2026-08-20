@@ -116,9 +116,8 @@ const ConfiguratorPage = () => {
       />
       <ConfiguratorStyles />
 
-      {!bypassGate && <BespokeWaitlistGate />}
+      <div>
 
-      <div aria-hidden={!bypassGate} className={bypassGate ? "" : "pointer-events-none select-none"} style={bypassGate ? undefined : { filter: "blur(8px)" }}>
 
         {/* ── Top utility bar ── */}
         <header className="cfg-topbar">
