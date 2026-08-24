@@ -103,6 +103,7 @@ export default function BespokeMeasurements() {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const requestedTempleLength = useMemo(() => readRequestedTempleLength(), []);
 
   useEffect(() => {
     if (!sid) {
