@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import { RotateCcw, Ruler, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -35,6 +35,9 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
   const [count, setCount] = useState(23);
   const fillRef = useRef<HTMLDivElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const nameId = useId();
+  const emailId = useId();
+  const widthId = useId();
 
   useEffect(() => {
     emailRef.current?.focus();
@@ -247,8 +250,9 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-4">
           <div className="flex gap-2.5 flex-col sm:flex-row">
             <div className="flex-1 flex flex-col">
-              <label style={labelStyle}>First name <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
+              <label htmlFor={nameId} style={labelStyle}>First name <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
               <input
+                id={nameId}
                 type="text"
                 placeholder="James"
                 value={formData.name}
@@ -258,8 +262,9 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
               />
             </div>
             <div className="flex-1 flex flex-col">
-              <label style={labelStyle}>Email</label>
+              <label htmlFor={emailId} style={labelStyle}>Email</label>
               <input
+                id={emailId}
                 ref={emailRef}
                 type="email"
                 placeholder="james@example.com"
@@ -274,9 +279,10 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           </div>
 
           <div className="flex flex-col">
-            <label style={labelStyle}>Preferred frame width <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
+            <label htmlFor={widthId} style={labelStyle}>Preferred frame width <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
             <div className="relative">
               <select
+                id={widthId}
                 value={formData.faceWidth}
                 onChange={(e) => setFormData((f) => ({ ...f, faceWidth: e.target.value }))}
                 className="woolet-input w-full py-3 pr-8 font-body appearance-none focus:border-b-primary transition-colors"
