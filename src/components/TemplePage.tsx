@@ -213,7 +213,13 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
               Measure my face with FitLens
             </Link>
             <Link
-              to={t.verdictKind === "signature" ? "/en/products/007" : "/en/fit/bespoke"}
+              to={
+                t.verdictKind === "signature"
+                  ? "/en/products/007"
+                  : t.verdictKind === "bespoke-long"
+                  ? `/en/bespoke/configurator?step=3`
+                  : "/en/fit/bespoke"
+              }
               style={{
                 background: "transparent",
                 color: "#0B0A09",
@@ -226,9 +232,14 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
                 borderRadius: 2,
               }}
             >
-              {t.verdictKind === "signature" ? "See 007 Round" : "Explore bespoke"}
+              {t.verdictKind === "signature"
+                ? "See 007 Round"
+                : t.verdictKind === "bespoke-long"
+                ? `Configure ${t.length} mm temples`
+                : "Explore bespoke"}
             </Link>
           </div>
+
         </header>
 
         {/* Frame cards — the offer, directly under the hero */}
