@@ -15,8 +15,8 @@ import {
   LENS_MATERIALS,
   LENS_COATINGS,
   ENGRAVING_POSITIONS,
-} formatTempleLength,
-  from "@/data/bespoke-options";
+  formatTempleLength,
+} from "@/data/bespoke-options";
 import SEO from "@/components/SEO";
 import {
   buildPreviewKey,
