@@ -52,7 +52,7 @@ export default function Callback() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <SEO title="Signing in… — Woolet" description="" noindex />
+      <SEO title="Signing in… — Woolet" description="Completing your secure sign-in to Woolet." noindex />
       <Navbar />
       <main className="flex-1 px-5 py-24 flex justify-center">
         <div className="max-w-[420px] flex flex-col gap-4 text-center">

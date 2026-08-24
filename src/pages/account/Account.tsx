@@ -232,7 +232,7 @@ export default function Account() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <SEO title="Your account — Woolet" description="" noindex />
+      <SEO title="Your account — Woolet" description="Manage your fit scans, orders, and bespoke configurations." noindex />
       <Navbar />
       <main className="flex-1 px-5 py-12 flex justify-center">
         <div className="w-full max-w-[680px] flex flex-col gap-12">
