@@ -74,7 +74,7 @@ const CompareIndex = () => {
         description="Head-to-head comparisons between Woolet and other wide-face eyewear brands — Fatheadz, EYESHELLS, Zenni, Warby Parker, Ray-Ban and Persol."
         lang="en"
         path={path}
-        image="/og-compare-index.png"
+        image={`${SITE}/og-compare-index.png`}
         jsonLd={[breadcrumbLd, itemListLd]}
       />
       <Navbar />
