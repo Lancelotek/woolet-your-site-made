@@ -279,9 +279,10 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           </div>
 
           <div className="flex flex-col">
-            <label style={labelStyle}>Preferred frame width <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
+            <label htmlFor={widthId} style={labelStyle}>Preferred frame width <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
             <div className="relative">
               <select
+                id={widthId}
                 value={formData.faceWidth}
                 onChange={(e) => setFormData((f) => ({ ...f, faceWidth: e.target.value }))}
                 className="woolet-input w-full py-3 pr-8 font-body appearance-none focus:border-b-primary transition-colors"
