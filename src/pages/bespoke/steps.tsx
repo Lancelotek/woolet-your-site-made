@@ -1641,7 +1641,7 @@ export function StepReview({
   return (
     <div className="space-y-8">
       <header>
-        <div className={sectionKicker}>Step 5 — Review &amp; pay</div>
+        <div className={sectionKicker}>Step 6 — Review &amp; pay</div>
         <h2 className={sectionTitle}>Confirm your <em className="italic text-gold-light">pattern</em></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.
