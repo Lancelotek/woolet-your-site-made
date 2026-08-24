@@ -56,6 +56,82 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
   const related = getRelatedTemples(t.slug);
   const wrap: React.CSSProperties = { maxWidth: 760, margin: "0 auto", padding: "0 20px" };
 
+  // On bespoke-long lengths (145 / 152 / 155 mm) the bespoke card leads.
+  const bespokePrimary = t.verdictKind === "bespoke-long";
+  const signature = t.verdictKind === "signature";
+
+  const productCard = (
+    to: string,
+    name: string,
+    specs: string,
+  ) => (
+    <Link
+      key={to}
+      to={to}
+      style={{
+        display: "block",
+        padding: "18px 16px",
+        background: "#FFF",
+        border: signature ? "2px solid #CAA449" : "1px solid #E0D5C5",
+        borderRadius: 4,
+        textDecoration: "none",
+        color: "#0B0A09",
+      }}
+    >
+      <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6 }}>
+        {name}
+      </div>
+      <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>{specs}</div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+        <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
+        <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
+        <span style={{ marginLeft: "auto", fontSize: 11, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+          View →
+        </span>
+      </div>
+    </Link>
+  );
+
+  const model007Card = productCard(
+    "/en/products/007",
+    "Woolet 007 — Round",
+    "150 mm temples · 158 mm front · 52 × 52 mm lens · 21 mm keyhole bridge.",
+  );
+  const model009Card = productCard(
+    "/en/products/009",
+    "Woolet 009 — Soft Square",
+    "150 mm temples · 158 mm front · 54 × 50 mm lens · 22 mm bridge.",
+  );
+
+  const bespokeCard = (
+    <Link
+      to={bespokePrimary ? "/en/bespoke/configurator?step=3" : "/en/bespoke"}
+      style={{
+        display: "block",
+        gridColumn: bespokePrimary ? "1 / -1" : undefined,
+        padding: "18px 16px",
+        background: "#16140F",
+        border: bespokePrimary ? "2px solid #CAA449" : "1px solid #16140F",
+        borderRadius: 4,
+        textDecoration: "none",
+        color: "#EFE9DF",
+      }}
+    >
+      <div style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#CAA449", marginBottom: 8 }}>
+        Bespoke
+      </div>
+      <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6, color: "#EFE9DF" }}>
+        Build temples to measure
+      </div>
+      <div style={{ fontSize: 12, color: "#B9B0A0", lineHeight: 1.55, marginBottom: 12 }}>{t.bespokeNote}</div>
+      <span style={{ fontSize: 11, color: "#CAA449", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+        {bespokePrimary ? `Configure ${t.length} mm temples →` : "Start bespoke →"}
+      </span>
+    </Link>
+  );
+
+
+
   return (
     <>
       <SEO
