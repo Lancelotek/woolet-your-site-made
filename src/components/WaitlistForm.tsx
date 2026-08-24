@@ -35,6 +35,9 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
   const [count, setCount] = useState(23);
   const fillRef = useRef<HTMLDivElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const nameId = useId();
+  const emailId = useId();
+  const widthId = useId();
 
   useEffect(() => {
     emailRef.current?.focus();
