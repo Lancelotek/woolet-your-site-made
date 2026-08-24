@@ -38,7 +38,13 @@ const useConfiguratorFonts = () => {
 const ConfiguratorPage = () => {
   useConfiguratorFonts();
   const { config, update, pricing, reset, replace } = useBespokeConfig();
-  const [step, setStep] = useState<StepId>(1);
+  const [step, setStep] = useState<StepId>(() => {
+    if (typeof window === "undefined") return 1;
+    const raw = new URLSearchParams(window.location.search).get("step");
+    if (!raw || !/^\d+$/.test(raw)) return 1;
+    const n = Number(raw);
+    return (n >= 1 && n <= STEPS.length ? n : 1) as StepId;
+  });
   const [saved, setSaved] = useState(false);
   const [fitOpen, setFitOpen] = useState(false);
   const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace });
