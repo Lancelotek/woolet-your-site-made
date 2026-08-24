@@ -1368,7 +1368,7 @@ export function StepTempleLength({ config, update }: StepProps) {
             </label>
             {invalidCustom && (
               <p role="alert" className="text-[0.78rem] text-red-300/90 mt-2 leading-relaxed">
-                Enter a length between {min} and {max} mm — outside that we can't guarantee the hinge geometry.
+                Enter a length between 145 and 155 mm — that&apos;s the range our hinge geometry supports.
               </p>
             )}
           </div>
