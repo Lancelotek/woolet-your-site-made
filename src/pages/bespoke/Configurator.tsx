@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
 import SEO from "@/components/SEO";
-import { COLORS, FINISHES, LENS_TYPES } from "@/data/bespoke-options";
+import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
@@ -13,6 +13,7 @@ import {
   StepLenses,
   StepNav,
   StepReview,
+  StepTempleLength,
   buildPreviewKey,
   getLatestPreviewUrl,
   PREVIEW_UPDATED_EVENT,
@@ -50,8 +51,8 @@ const ConfiguratorPage = () => {
 
   // Step-aware total: only show add-ons once the user has reached those steps.
   const stepTotal =
-    step === 1 || step === 2 ? pricing.basePriceEur :
-    step === 3 ? pricing.basePriceEur + pricing.engravingEur :
+    step === 1 || step === 2 || step === 3 ? pricing.basePriceEur :
+    step === 4 ? pricing.basePriceEur + pricing.engravingEur :
     pricing.totalEur;
 
   // Fit numbers — from scan if present, else brand reference defaults.
@@ -92,8 +93,9 @@ const ConfiguratorPage = () => {
   const StepBody =
     step === 1 ? <StepFrame config={config} update={update} /> :
     step === 2 ? <StepColor config={config} update={update} /> :
-    step === 3 ? <StepEngraving config={config} update={update} /> :
-    step === 4 ? <StepLenses config={config} update={update} /> :
+    step === 3 ? <StepTempleLength config={config} update={update} /> :
+    step === 4 ? <StepEngraving config={config} update={update} /> :
+    step === 5 ? <StepLenses config={config} update={update} /> :
                  <StepReview config={config} onSave={handleSave} saved={saved} />;
 
   return (
@@ -233,6 +235,7 @@ const ConfiguratorPage = () => {
                 <dl className="cfg-rail__specs">
                   <SpecRow label="Pattern" value={frame ? `${frame.name}` : "—"} />
                   <SpecRow label="Ref width" value={frame ? `${frame.widthMm} mm · cut to face` : "—"} />
+                  <SpecRow label="Temple length" value={formatTempleLength(config.templeLengthMm, config.templeLengthIsCustom)} />
                   <SpecRow
                     label="Front"
                     value={

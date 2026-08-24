@@ -15,6 +15,7 @@ import {
   LENS_MATERIALS,
   LENS_COATINGS,
   ENGRAVING_POSITIONS,
+  formatTempleLength,
 } from "@/data/bespoke-options";
 import SEO from "@/components/SEO";
 import {
@@ -101,10 +102,11 @@ export default function BespokeCheckout() {
     if (front) parts.push(`Front ${front.code}`);
     if (temple) parts.push(`Temple ${temple.code}`);
     if (finish) parts.push(finish.name);
+    if (config.templeLengthMm) parts.push(`Temples ${config.templeLengthMm} mm${config.templeLengthIsCustom ? " (custom)" : ""}`);
     if (config.engravingEnabled && config.engravingText) parts.push(`Engraving "${config.engravingText}"`);
     if (lens) parts.push(lens.name);
     return parts.join(" · ");
-  }, [front, temple, finish, lens, config.engravingEnabled, config.engravingText]);
+  }, [front, temple, finish, lens, config.engravingEnabled, config.engravingText, config.templeLengthMm, config.templeLengthIsCustom]);
 
   const returnUrl =
     typeof window !== "undefined"
@@ -117,6 +119,7 @@ export default function BespokeCheckout() {
     front: front ? `${front.name} (${front.code})` : "",
     temple: temple ? `${temple.name} (${temple.code})` : "",
     finish: finish?.name ?? "",
+    temple_length: config.templeLengthMm ? `${config.templeLengthMm} mm${config.templeLengthIsCustom ? " (custom)" : ""}` : "",
     engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
     lens_type: lens?.name ?? "",
     ai_preview_url: (aiPreviewUrl ?? fallbackPreviewUrl ?? "").slice(0, 500),
@@ -133,6 +136,7 @@ export default function BespokeCheckout() {
         front_code: front?.code ?? "",
         temple_code: temple?.code ?? "",
         finish_id: finish?.id ?? "",
+        temple_length_mm: config.templeLengthMm ?? "",
         lens_type: lens?.id ?? "",
         engraving_enabled: config.engravingEnabled,
         ai_preview_present: Boolean(aiPreviewUrl),
@@ -469,6 +473,10 @@ export default function BespokeCheckout() {
                             </span>
                           )
                         }
+                      />
+                      <SummaryRow
+                        label="Temple length"
+                        value={formatTempleLength(config.templeLengthMm, config.templeLengthIsCustom)}
                       />
                       <SummaryRow label="Finish" value={finish?.name} />
                       <SummaryRow

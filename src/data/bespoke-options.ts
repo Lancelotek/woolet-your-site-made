@@ -147,3 +147,33 @@ export const MEASUREMENT_RANGES = {
 } as const;
 
 export type MeasurementKey = keyof typeof MEASUREMENT_RANGES;
+
+/* ───── Temple length ─────
+   The arm from hinge to the bend behind the ear. Included in the price —
+   all lengths cost the same. */
+export interface TempleLengthOption {
+  mm: number;
+  label: string;
+  descriptor: string;
+  recommended?: boolean;
+}
+
+export const TEMPLE_LENGTHS: TempleLengthOption[] = [
+  { mm: 145, label: "145 mm", descriptor: "Shorter reach. Ears sit forward or higher." },
+  { mm: 150, label: "150 mm", descriptor: "Woolet standard. Fits most wide-face builds.", recommended: true },
+  { mm: 155, label: "155 mm", descriptor: "Extended reach. Deeper head, ears set further back." },
+];
+
+export const TEMPLE_LENGTH_CUSTOM_RANGE = { min: 140, max: 160 } as const;
+
+export const DEFAULT_TEMPLE_LENGTH_MM = 150;
+
+export const isValidTempleLength = (mm: number | null | undefined): mm is number =>
+  typeof mm === "number" &&
+  Number.isFinite(mm) &&
+  mm >= TEMPLE_LENGTH_CUSTOM_RANGE.min &&
+  mm <= TEMPLE_LENGTH_CUSTOM_RANGE.max;
+
+/** "150 mm" or "152 mm · custom" */
+export const formatTempleLength = (mm: number | null | undefined, isCustom?: boolean) =>
+  typeof mm === "number" ? `${mm} mm${isCustom ? " · custom" : ""}` : "—";
