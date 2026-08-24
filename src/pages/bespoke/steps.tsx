@@ -17,6 +17,9 @@ import {
   LENS_MATERIALS,
   LENS_TYPES,
   MEASUREMENT_RANGES,
+  TEMPLE_LENGTHS,
+  TEMPLE_LENGTH_CUSTOM_RANGE,
+  isValidTempleLength,
   type MeasurementKey,
 } from "@/data/bespoke-options";
 import { FRAMES, findFrame } from "@/data/frames";
@@ -1264,6 +1267,123 @@ function EngravingPreview({
 
 
 
+/* ───── Step 3 · Temple length ───── */
+
+export function StepTempleLength({ config, update }: StepProps) {
+  const { min, max } = TEMPLE_LENGTH_CUSTOM_RANGE;
+  const isCustom = config.templeLengthIsCustom;
+  const [customValue, setCustomValue] = useState<string>(
+    isCustom && config.templeLengthMm != null ? String(config.templeLengthMm) : ""
+  );
+  const invalidCustom = isCustom && !isValidTempleLength(config.templeLengthMm);
+
+  const selectPreset = (mm: number) => {
+    update("templeLengthIsCustom", false);
+    update("templeLengthMm", mm);
+  };
+
+  return (
+    <div className="space-y-8">
+      <header>
+        <div className="cfg-eyebrow">Step 3 — Temple length</div>
+        <h2 className="cfg-h1 mt-3">
+          Choose your <em className="cfg-em">temple length</em>
+        </h2>
+        <p className="cfg-body mt-4 max-w-xl">
+          Temple length is the arm from the hinge to the bend behind your ear — not the width of the frame.
+          It is included in the price; every length costs the same.
+        </p>
+      </header>
+
+      <div role="radiogroup" aria-label="Temple length" className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {TEMPLE_LENGTHS.map((t) => {
+          const active = !isCustom && config.templeLengthMm === t.mm;
+          return (
+            <label
+              key={t.mm}
+              className={`${cardOuter} ${active ? cardActive : "hover:border-cream/25"} block cursor-pointer p-4 focus-within:ring-2 focus-within:ring-gold/60`}
+            >
+              <input
+                type="radio"
+                name="temple-length"
+                className="sr-only"
+                checked={active}
+                onChange={() => selectPreset(t.mm)}
+              />
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-cream text-base">{t.label}</span>
+                {t.recommended && (
+                  <span className="text-[0.62rem] uppercase tracking-[0.18em] text-gold-light border border-gold/40 px-2 py-0.5">
+                    Standard
+                  </span>
+                )}
+              </div>
+              <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2">{t.descriptor}</p>
+            </label>
+          );
+        })}
+      </div>
+
+      <div className={`${cardOuter} ${isCustom ? cardActive : ""} p-4`}>
+        <label className="flex items-start gap-3 cursor-pointer focus-within:ring-2 focus-within:ring-gold/60">
+          <input
+            type="radio"
+            name="temple-length"
+            className="mt-1 accent-[color:var(--cfg-gold)]"
+            checked={isCustom}
+            onChange={() => {
+              update("templeLengthIsCustom", true);
+              const parsed = Number(customValue);
+              update("templeLengthMm", customValue !== "" && Number.isFinite(parsed) ? parsed : null);
+            }}
+          />
+          <span>
+            <span className="text-cream text-sm">Custom length</span>
+            <span className="block text-cream-dim text-[0.8rem] mt-1">
+              Enter an exact value between {min} and {max} mm.
+            </span>
+          </span>
+        </label>
+
+        {isCustom && (
+          <div className="mt-4 max-w-[220px]">
+            <label className="block">
+              <span className={labelClass}>Temple length (mm)</span>
+              <input
+                type="number"
+                min={min}
+                max={max}
+                step={1}
+                inputMode="numeric"
+                value={customValue}
+                onChange={(e) => {
+                  setCustomValue(e.target.value);
+                  const parsed = Number(e.target.value);
+                  update("templeLengthMm", e.target.value !== "" && Number.isFinite(parsed) ? parsed : null);
+                }}
+                aria-invalid={invalidCustom}
+                placeholder="152"
+                className="mt-2 w-full px-4 py-3 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
+              />
+            </label>
+            {invalidCustom && (
+              <p role="alert" className="text-[0.78rem] text-red-300/90 mt-2 leading-relaxed">
+                Enter a length between {min} and {max} mm — outside that we can't guarantee the hinge geometry.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="rounded-[10px] border border-cream/10 bg-cream/[0.02] px-4 py-3 text-[0.8rem] text-cream-dim leading-relaxed">
+        The final temple length is confirmed against your fit scan after payment. If the scan shows a materially
+        different length, our optician contacts you before cutting. Nothing is cut until your measurements are verified.
+      </div>
+    </div>
+  );
+}
+
+/* ───── Step 4 · Engraving ───── */
 export function StepEngraving({ config, update }: StepProps) {
   const remaining = ENGRAVING_MAX_CHARS - config.engravingText.length;
   return (
