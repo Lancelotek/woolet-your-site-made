@@ -52,6 +52,7 @@ export const TEMPLES: TempleEntry[] = [
       "140 mm temples are the mainstream default for narrow-to-average heads and 140–148 mm front widths. Woolet is built for wider faces (155 mm+), which almost always come with a wider head circumference — and that needs 150 mm or longer temples to reach the ears without pinching.",
     fitVerdict:
       "We don't build at 140 mm. Signature is 150 mm; bespoke floor is 145 mm. If 140 mm is genuinely your fit, mainstream 140–148 mm frames will match you better than forcing a wider front.",
+    metaTitle: "140 mm Temple Length: What It Means, Who It Fits",
     metaDescription:
       "140 mm temple length: below Woolet's 145 mm bespoke floor. Honest guide to temple sizing for wide faces. Signature temples 150 mm.",
     bespokeNote:
@@ -75,6 +76,7 @@ export const TEMPLES: TempleEntry[] = [
       "145 mm is where wide-face temple sizing begins. Signature 150 mm sits 5 mm above this, so 145 mm requires bespoke. Same Italian Mazzucchelli acetate, scaled to your measurement — useful when your ears sit forward relative to your face width.",
     fitVerdict:
       "Bespoke only. Signature is 150 mm. If your temple-to-ear distance measures shorter than average for a 155 mm+ face, 145 mm bespoke is the honest fit — signature would push past the ear.",
+    metaTitle: "145 mm Temple Glasses — Who Actually Fits Them",
     metaDescription:
       "145 mm temple glasses: bespoke floor. Italian Mazzucchelli acetate. Signature temples 150 mm · Bespoke 145–155 mm.",
     bespokeNote:
@@ -98,6 +100,7 @@ export const TEMPLES: TempleEntry[] = [
       "150 mm is the signature temple length on both Woolet shapes. It's the honest match for a 158 mm front on a 155–161 mm face — long enough to reach past the temples and hook the ear cleanly, short enough not to overshoot. 11° tip bend, 5-barrel PVD Gunmetal hinges, Italian Mazzucchelli acetate.",
     fitVerdict:
       "Yes — 150 mm is exactly the signature temple on both 007 and 009. No bespoke, no upcharge. This is the fit.",
+    metaTitle: "150 mm Temple Glasses for Wide Faces and Wide Temples",
     metaDescription:
       "150 mm temple glasses: the Woolet signature. Italian Mazzucchelli acetate, hand made in EU. 158 mm front · 21–22 mm keyhole bridge · 150 mm temples.",
     bespokeNote:
@@ -122,8 +125,9 @@ export const TEMPLES: TempleEntry[] = [
       "152 mm temples are long-arm territory — designed for face widths at the top of our signature range (159–161 mm) paired with a head circumference around 62–63 cm. Bespoke, in the same Italian Mazzucchelli acetate.",
     fitVerdict:
       "Bespoke only. Signature is 150 mm; 152 mm is 2 mm longer. If your head measures 62 cm+ and signature arms sit forward of the ear, this is the right fit.",
+    metaTitle: "152 mm Temple Glasses — Long Temples, Made to Measure",
     metaDescription:
-      "152 mm temple glasses: long bespoke arm. Italian Mazzucchelli acetate, hand made in EU. Signature 150 mm · Bespoke 145–155 mm.",
+      "Need 152 mm temples? Most frames stop at 145 mm. Woolet builds 145–155 mm temples to measure on a 145–162 mm front. Italian Mazzucchelli acetate, hand made in EU.",
     bespokeNote:
       "152 mm is long bespoke — pairs well with 160–162 mm bespoke fronts.",
     bestFor: "Widest faces (159–161 mm) with 62–63 cm head circumference.",
@@ -145,8 +149,9 @@ export const TEMPLES: TempleEntry[] = [
       "155 mm is the longest temple we make. It's specialist territory — pairs with 160–162 mm bespoke fronts on head circumferences of 63 cm and above. Bespoke only, same Italian Mazzucchelli acetate as signature.",
     fitVerdict:
       "Bespoke ceiling. Signature is 150 mm; 155 mm is 5 mm longer. If mainstream and even our signature arms end in front of your ear, 155 mm is the answer.",
+    metaTitle: "Extra-Long 155 mm Temple Glasses, Made to Measure",
     metaDescription:
-      "155 mm temple glasses: longest bespoke arm Woolet builds. Italian Mazzucchelli acetate, hand made in EU. Signature 150 mm · Bespoke 145–155 mm.",
+      "Need 155 mm temples? Most frames stop at 145 mm. Woolet builds 145–155 mm temples to measure on a 145–162 mm front. Italian Mazzucchelli acetate, hand made in EU.",
     bespokeNote:
       "155 mm is the maximum bespoke temple length. Above this the frame geometry stops working reliably.",
     bestFor: "Largest heads (63 cm+) with the widest bespoke fronts (160–162 mm).",
