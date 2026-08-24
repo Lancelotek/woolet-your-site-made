@@ -18,6 +18,8 @@ export type TempleVerdictKind =
 
 export interface TempleFAQ { q: string; a: string; }
 
+export interface TempleProseSection { h2: string; body: string[]; }
+
 export interface TempleEntry {
   length: number;             // mm
   slug: string;               // "150mm"
@@ -27,11 +29,15 @@ export interface TempleEntry {
   subhead: string;
   intro: string;
   fitVerdict: string;
+  metaTitle?: string;         // click-optimised <title>; falls back to generated pattern
   metaDescription: string;
   bespokeNote: string;
   bestFor: string;
   faq: TempleFAQ[];
+  /** Rendered only where the entry owns a disambiguation query (150 mm). */
+  disambiguation?: TempleProseSection;
 }
+
 
 export const TEMPLES: TempleEntry[] = [
   {
