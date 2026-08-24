@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ENGRAVING_FEE_EUR, LENS_TYPES, type MeasurementKey } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, isValidTempleLength, LENS_TYPES, type MeasurementKey } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
@@ -9,6 +9,8 @@ export interface BespokeConfig {
   frontColorId: string | null;
   templeColorId: string | null;
   finishId: string | null;
+  templeLengthMm: number | null;
+  templeLengthIsCustom: boolean;
   measurementMethod: "scan" | "tape" | null;
   measurements: Measurements;
   consentTimestamp: string | null;
@@ -36,6 +38,8 @@ export const INITIAL_CONFIG: BespokeConfig = {
   frontColorId: null,
   templeColorId: null,
   finishId: null,
+  templeLengthMm: DEFAULT_TEMPLE_LENGTH_MM,
+  templeLengthIsCustom: false,
   measurementMethod: null,
   measurements: {},
   consentTimestamp: null,
@@ -59,7 +63,7 @@ export const INITIAL_CONFIG: BespokeConfig = {
   updatedAt: new Date().toISOString(),
 };
 
-const STORAGE_KEY = "woolet:bespoke:v1";
+export const STORAGE_KEY = "woolet:bespoke:v1";
 
 const loadInitial = (): BespokeConfig => {
   if (typeof window === "undefined") return INITIAL_CONFIG;
@@ -129,7 +133,7 @@ export const formatEur = (n: number) =>
 /** Consistent add-on display: "Included" at zero, otherwise "+ $10". */
 export const formatAddOn = (n: number) => (n === 0 ? "Included" : `+ ${formatEur(n)}`);
 
-export type StepId = 1 | 2 | 3 | 4 | 5;
+export type StepId = 1 | 2 | 3 | 4 | 5 | 6;
 
 export interface StepMeta {
   id: StepId;
@@ -142,17 +146,19 @@ export interface StepMeta {
 export const STEPS: StepMeta[] = [
   { id: 1, label: "Choose pattern",        shortLabel: "Pattern" },
   { id: 2, label: "Choose acetate",        shortLabel: "Acetate" },
-  { id: 3, label: "Engraving",             shortLabel: "Engraving" },
-  { id: 4, label: "Lenses & prescription", shortLabel: "Lenses" },
-  { id: 5, label: "Review & pay",          shortLabel: "Review" },
+  { id: 3, label: "Temple length",         shortLabel: "Temples" },
+  { id: 4, label: "Engraving",             shortLabel: "Engraving" },
+  { id: 5, label: "Lenses & prescription", shortLabel: "Lenses" },
+  { id: 6, label: "Review & pay",          shortLabel: "Review" },
 ];
 
 export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
   switch (step) {
     case 1: return Boolean(config.frameId);
     case 2: return Boolean(config.frontColorId && config.templeColorId && config.finishId);
-    case 3: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
-    case 4: return Boolean(config.lensTypeId);
-    case 5: return true;
+    case 3: return isValidTempleLength(config.templeLengthMm);
+    case 4: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
+    case 5: return Boolean(config.lensTypeId);
+    case 6: return true;
   }
 }
