@@ -3,6 +3,21 @@ import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Loader2, Ruler, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
+import { STORAGE_KEY } from "@/lib/bespoke-state";
+
+/** Temple length the customer asked for at checkout — shown for reference only. */
+function readRequestedTempleLength(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as { templeLengthMm?: number | null; templeLengthIsCustom?: boolean };
+    if (typeof parsed.templeLengthMm !== "number") return null;
+    return `${parsed.templeLengthMm} mm${parsed.templeLengthIsCustom ? " (custom)" : ""}`;
+  } catch {
+    return null;
+  }
+}
 
 type OrderSummary = {
   stripe_session_id: string;
@@ -297,7 +312,13 @@ export default function BespokeMeasurements() {
                     <Field label="Temple-to-temple (mm)" value={form.manual_temple_to_temple_mm} onChange={update("manual_temple_to_temple_mm")} placeholder="e.g. 158" />
                     <Field label="Bridge width (mm)" value={form.manual_bridge_width_mm} onChange={update("manual_bridge_width_mm")} placeholder="e.g. 20" />
                     <Field label="PD (mm)" value={form.manual_pd_mm} onChange={update("manual_pd_mm")} placeholder="e.g. 65" />
-                    <Field label="Temple length (mm)" value={form.manual_temple_length_mm} onChange={update("manual_temple_length_mm")} placeholder="e.g. 145" />
+                    <Field
+                      label="Temple length (mm)"
+                      value={form.manual_temple_length_mm}
+                      onChange={update("manual_temple_length_mm")}
+                      placeholder="e.g. 145"
+                      note={requestedTempleLength ? `Requested at checkout: ${requestedTempleLength}` : undefined}
+                    />
                     <Field label="Head circumference (mm)" value={form.manual_head_circumference_mm} onChange={update("manual_head_circumference_mm")} placeholder="e.g. 580" />
                     <Field label="Ear-to-ear over crown (mm)" value={form.manual_ear_to_ear_mm} onChange={update("manual_ear_to_ear_mm")} placeholder="e.g. 200" />
                     <Textarea label="Notes for the workshop" value={form.manual_notes} onChange={update("manual_notes")} placeholder="Preferred fit (snug / relaxed), sensitivities, current frame model that fits well…" />
@@ -369,11 +390,13 @@ function Field({
   value,
   onChange,
   placeholder,
+  note,
 }: {
   label: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  note?: string;
 }) {
   return (
     <label className="block">
@@ -387,6 +410,7 @@ function Field({
         placeholder={placeholder}
         className="w-full bg-cream/[0.04] border border-cream/15 rounded-sm px-3 py-2.5 text-cream text-sm focus:outline-none focus:border-gold/60 transition"
       />
+      {note && <span className="block text-[11px] text-gold-light/80 mt-1.5">{note}</span>}
     </label>
   );
 }
