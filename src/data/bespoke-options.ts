@@ -164,7 +164,7 @@ export const TEMPLE_LENGTHS: TempleLengthOption[] = [
   { mm: 155, label: "155 mm", descriptor: "Extended reach. Deeper head, ears set further back." },
 ];
 
-export const TEMPLE_LENGTH_CUSTOM_RANGE = { min: 140, max: 160 } as const;
+export const TEMPLE_LENGTH_CUSTOM_RANGE = { min: 145, max: 155 } as const;
 
 export const DEFAULT_TEMPLE_LENGTH_MM = 150;
 
