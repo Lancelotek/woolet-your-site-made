@@ -250,8 +250,9 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-4">
           <div className="flex gap-2.5 flex-col sm:flex-row">
             <div className="flex-1 flex flex-col">
-              <label style={labelStyle}>First name <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
+              <label htmlFor={nameId} style={labelStyle}>First name <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "0.05em", opacity: 0.6 }}>(optional)</span></label>
               <input
+                id={nameId}
                 type="text"
                 placeholder="James"
                 value={formData.name}
@@ -261,8 +262,9 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
               />
             </div>
             <div className="flex-1 flex flex-col">
-              <label style={labelStyle}>Email</label>
+              <label htmlFor={emailId} style={labelStyle}>Email</label>
               <input
+                id={emailId}
                 ref={emailRef}
                 type="email"
                 placeholder="james@example.com"
