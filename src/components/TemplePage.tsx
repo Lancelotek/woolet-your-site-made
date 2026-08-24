@@ -56,10 +56,86 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
   const related = getRelatedTemples(t.slug);
   const wrap: React.CSSProperties = { maxWidth: 760, margin: "0 auto", padding: "0 20px" };
 
+  // On bespoke-long lengths (145 / 152 / 155 mm) the bespoke card leads.
+  const bespokePrimary = t.verdictKind === "bespoke-long";
+  const signature = t.verdictKind === "signature";
+
+  const productCard = (
+    to: string,
+    name: string,
+    specs: string,
+  ) => (
+    <Link
+      key={to}
+      to={to}
+      style={{
+        display: "block",
+        padding: "18px 16px",
+        background: "#FFF",
+        border: signature ? "2px solid #CAA449" : "1px solid #E0D5C5",
+        borderRadius: 4,
+        textDecoration: "none",
+        color: "#0B0A09",
+      }}
+    >
+      <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6 }}>
+        {name}
+      </div>
+      <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>{specs}</div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+        <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
+        <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
+        <span style={{ marginLeft: "auto", fontSize: 11, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+          View →
+        </span>
+      </div>
+    </Link>
+  );
+
+  const model007Card = productCard(
+    "/en/products/007",
+    "Woolet 007 — Round",
+    "150 mm temples · 158 mm front · 52 × 52 mm lens · 21 mm keyhole bridge.",
+  );
+  const model009Card = productCard(
+    "/en/products/009",
+    "Woolet 009 — Soft Square",
+    "150 mm temples · 158 mm front · 54 × 50 mm lens · 22 mm bridge.",
+  );
+
+  const bespokeCard = (
+    <Link
+      to={bespokePrimary ? "/en/bespoke/configurator?step=3" : "/en/bespoke"}
+      style={{
+        display: "block",
+        gridColumn: bespokePrimary ? "1 / -1" : undefined,
+        padding: "18px 16px",
+        background: "#16140F",
+        border: bespokePrimary ? "2px solid #CAA449" : "1px solid #16140F",
+        borderRadius: 4,
+        textDecoration: "none",
+        color: "#EFE9DF",
+      }}
+    >
+      <div style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#CAA449", marginBottom: 8 }}>
+        Bespoke
+      </div>
+      <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6, color: "#EFE9DF" }}>
+        Build temples to measure
+      </div>
+      <div style={{ fontSize: 12, color: "#B9B0A0", lineHeight: 1.55, marginBottom: 12 }}>{t.bespokeNote}</div>
+      <span style={{ fontSize: 11, color: "#CAA449", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+        {bespokePrimary ? `Configure ${t.length} mm temples →` : "Start bespoke →"}
+      </span>
+    </Link>
+  );
+
+
+
   return (
     <>
       <SEO
-        title={`${t.length} mm Temple Glasses | Wide-Face Temple Sizing — Woolet`}
+        title={t.metaTitle ?? `${t.length} mm Temple Glasses | Wide-Face Temple Sizing — Woolet`}
         description={t.metaDescription}
         lang="en"
         path={path}
@@ -155,6 +231,34 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
           </div>
         </header>
 
+        {/* Frame cards — the offer, directly under the hero */}
+        <section aria-labelledby="frames" style={{ ...wrap, padding: "28px 20px 8px" }}>
+          <h2
+            id="frames"
+            style={{
+              fontFamily: "'Newsreader', 'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: 26,
+              margin: "0 0 14px",
+              letterSpacing: "-0.3px",
+            }}
+          >
+            The frames
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 12 }}>
+            {bespokePrimary && bespokeCard}
+            {model007Card}
+            {model009Card}
+            {bespokePrimary && (
+              <p style={{ gridColumn: "1 / -1", fontSize: 12, color: "#666", lineHeight: 1.6, margin: 0 }}>
+                Signature runs 150 mm — if that's your number, no bespoke needed.
+              </p>
+            )}
+            {!bespokePrimary && bespokeCard}
+          </div>
+        </section>
+
+
         {/* Verdict block */}
         <section aria-labelledby="verdict" style={{ ...wrap, padding: "28px 20px 8px" }}>
           <div
@@ -239,100 +343,28 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
 
         <ClusterSections sections={TEMPLE_SECTIONS[t.slug]} />
 
-        {/* Frame cards */}
-        <section aria-labelledby="frames" style={{ ...wrap, padding: "32px 20px 8px" }}>
-          <h2
-            id="frames"
-            style={{
-              fontFamily: "'Newsreader', 'Cormorant Garamond', serif",
-              fontWeight: 300,
-              fontSize: 26,
-              margin: "0 0 14px",
-              letterSpacing: "-0.3px",
-            }}
-          >
-            The frames
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 12 }}>
-            <Link
-              to="/en/products/007"
+        {t.disambiguation && (
+          <section aria-labelledby="disambiguation" style={{ ...wrap, padding: "32px 20px 8px" }}>
+            <h2
+              id="disambiguation"
               style={{
-                display: "block",
-                padding: "18px 16px",
-                background: "#FFF",
-                border: t.verdictKind === "signature" ? "2px solid #CAA449" : "1px solid #E0D5C5",
-                borderRadius: 4,
-                textDecoration: "none",
-                color: "#0B0A09",
+                fontFamily: "'Newsreader', 'Cormorant Garamond', serif",
+                fontWeight: 300,
+                fontSize: 26,
+                margin: "0 0 14px",
+                letterSpacing: "-0.3px",
               }}
             >
-              <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6 }}>
-                Woolet 007 — Round
-              </div>
-              <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                150 mm temples · 158 mm front · 52 × 52 mm lens · 21 mm keyhole bridge.
-              </div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
-                <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
-                <span style={{ marginLeft: "auto", fontSize: 11, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-                  View →
-                </span>
-              </div>
-            </Link>
-            <Link
-              to="/en/products/009"
-              style={{
-                display: "block",
-                padding: "18px 16px",
-                background: "#FFF",
-                border: t.verdictKind === "signature" ? "2px solid #CAA449" : "1px solid #E0D5C5",
-                borderRadius: 4,
-                textDecoration: "none",
-                color: "#0B0A09",
-              }}
-            >
-              <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6 }}>
-                Woolet 009 — Soft Square
-              </div>
-              <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                150 mm temples · 158 mm front · 54 × 50 mm lens · 22 mm bridge.
-              </div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
-                <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
-                <span style={{ marginLeft: "auto", fontSize: 11, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-                  View →
-                </span>
-              </div>
-            </Link>
-            <Link
-              to="/en/bespoke"
-              style={{
-                display: "block",
-                padding: "18px 16px",
-                background: "#16140F",
-                border: "1px solid #16140F",
-                borderRadius: 4,
-                textDecoration: "none",
-                color: "#EFE9DF",
-              }}
-            >
-              <div style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#CAA449", marginBottom: 8 }}>
-                Bespoke
-              </div>
-              <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6, color: "#EFE9DF" }}>
-                Build temples to measure
-              </div>
-              <div style={{ fontSize: 12, color: "#B9B0A0", lineHeight: 1.55, marginBottom: 12 }}>
-                {t.bespokeNote}
-              </div>
-              <span style={{ fontSize: 11, color: "#CAA449", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-                Start bespoke →
-              </span>
-            </Link>
-          </div>
-        </section>
+              {t.disambiguation.h2}
+            </h2>
+            {t.disambiguation.body.map((p, i) => (
+              <p key={i} style={{ fontSize: 15, lineHeight: 1.75, color: "#333", margin: "0 0 14px", maxWidth: 660 }}>
+                {p}
+              </p>
+            ))}
+          </section>
+        )}
+
 
         {/* Related temples */}
         {related.length > 0 && (

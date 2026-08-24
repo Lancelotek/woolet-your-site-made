@@ -185,7 +185,7 @@ const blogPostsEN: BlogPost[] = [
 <p>The distance between the two lenses, measured across the nose bridge. Wider faces often benefit from a wider bridge (17–19mm) to prevent the frames from sitting too high or pinching the nose.</p>
 
 <h3>145 — Temple Length</h3>
-<p>The length of the arm from hinge to tip. Standard temples are 140–145mm. For wider faces, 148–150mm temples provide a more comfortable, proportional fit.</p>
+<p>The length of the arm from hinge to tip; standard temples run 140–145 mm, and wider faces generally need 148–150 mm. If the arms are the part that feels wrong, read the full breakdown of <a href="/en/temple/150mm" style="color:#A07A2A;">150 mm arms and wide temples</a>.</p>
 
 <p><strong>Total frame width</strong> = Lens Width × 2 + Bridge Width + hinge allowance (~10mm per side)</p>
 

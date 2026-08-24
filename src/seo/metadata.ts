@@ -1375,7 +1375,7 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
         route,
         lang,
         {
-          title: `${t.length} mm Temple Glasses | Wide-Face Temple Sizing — Woolet`,
+          title: t.metaTitle ?? `${t.length} mm Temple Glasses | Wide-Face Temple Sizing — Woolet`,
           description: t.metaDescription,
           noscriptHtml: `<h1>${t.h1}</h1>
 <p>${t.subhead}</p>
