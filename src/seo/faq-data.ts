@@ -64,6 +64,10 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
       q: "Do Woolet frames work with prescription lenses?",
       a: "Yes. Both 007 (round) and 009 (soft square) accept single-vision, bifocal, and progressive Rx lenses. The 21–22 mm keyhole bridge accommodates the fitting height progressive lenses require.",
     },
+    {
+      q: "Are glasses for wide faces the same as glasses for big heads?",
+      a: "Yes. The search terms differ, but the measurement that matters is the same: a total front width of 155 mm or more. A wide face and a big head both describe a temple-to-temple measurement above 145 mm, where standard frames pinch. Woolet's 158 mm signature range and bespoke 145–162 mm range are built for both.",
+    },
   ],
   "best-sunglasses-for-wide-faces": [
     {
