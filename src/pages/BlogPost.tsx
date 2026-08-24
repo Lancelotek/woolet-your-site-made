@@ -315,7 +315,7 @@ const BlogPost = () => {
 
       <Helmet>
         <meta name="author" content={post.slug === "glasses-for-wide-faces-guide" ? "Marek Cieśla" : "Woolet Editorial Team"} />
-        <meta name="last-modified" content={post.slug === "glasses-for-wide-faces-guide" ? "2025-06-14" : post.date} />
+        <meta name="last-modified" content={post.slug === "glasses-for-wide-faces-guide" ? "2026-08-24" : post.date} />
       </Helmet>
 
 
