@@ -32,6 +32,12 @@ import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
+import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options";
+import {
+  applyFitLensToBespokeConfig,
+  normalizeFitLensResult,
+  type FitLensMeasurements,
+} from "@/lib/fitlens-result";
 import { QRCodeSVG } from "qrcode.react";
 
 import { toast } from "sonner";
@@ -4082,6 +4088,8 @@ export default function FitScan() {
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
   const [faceShape, setFaceShape] = useState<FaceShapeResult | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  // Validated measurements handed over by the external FitLens widget.
+  const [fitLensMeasurements, setFitLensMeasurements] = useState<FitLensMeasurements | null>(null);
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
@@ -4146,6 +4154,49 @@ export default function FitScan() {
         if (error) console.warn("[scan] connect status update failed", error);
       });
   }, [sessionId, sessionToken]);
+
+  // FitLens hand-over: the embed dispatches a bubbling `fitlens:result` event
+  // with the measurement payload. We validate it against our own ranges, mirror
+  // it into the bespoke config (localStorage) and — when this page was opened
+  // through the desktop→phone QR handoff — push it to the scan session so the
+  // configurator's poller autofills on the other device.
+  useEffect(() => {
+    const onResult = (event: Event) => {
+      const detail = (event as CustomEvent).detail;
+      const mapped = normalizeFitLensResult(detail);
+      const keys = Object.keys(mapped);
+      if (keys.length === 0) {
+        console.warn("[fitlens] result had no usable measurements", detail);
+        pushEvent("fit_fitlens_result", { usable: 0 });
+        return;
+      }
+
+      const stored = applyFitLensToBespokeConfig(mapped);
+      setFitLensMeasurements(mapped);
+      pushEvent("fit_fitlens_result", { usable: keys.length, fields: keys.join(","), stored: stored ? 1 : 0 });
+
+      if (sessionId && sessionToken) {
+        supabase.functions
+          .invoke("scan-session-update", {
+            body: {
+              id: sessionId,
+              token: sessionToken,
+              status: "completed",
+              face_width_mm: mapped.faceWidth != null ? Math.round(mapped.faceWidth) : undefined,
+              nose_width_mm: mapped.bridge != null ? Math.round(mapped.bridge) : undefined,
+            },
+          })
+          .then(({ error }) => {
+            if (error) console.warn("[fitlens] scan session sync failed", error);
+          });
+      }
+    };
+
+    document.addEventListener("fitlens:result", onResult as EventListener);
+    return () => document.removeEventListener("fitlens:result", onResult as EventListener);
+  }, [sessionId, sessionToken]);
+
+
 
   const goWelcome = () => {
     setFrame(null);
@@ -4846,6 +4897,34 @@ export default function FitScan() {
                   </div>
                 )}
 
+                {step === "welcome" && fitLensMeasurements && (
+                  <div
+                    className="mb-6 rounded-sm border p-5"
+                    style={{ borderColor: "rgba(202,164,73,0.45)", background: "rgba(202,164,73,0.07)" }}
+                  >
+                    <p
+                      className="mb-3 text-[11px] uppercase tracking-[0.22em]"
+                      style={{ color: GOLD, fontFamily: "Barlow, sans-serif" }}
+                    >
+                      Measurements received
+                    </p>
+                    <ul className="mb-4 grid gap-1 text-[14px]" style={{ color: "#EFE9DF" }}>
+                      {(Object.keys(fitLensMeasurements) as MeasurementKey[]).map((k) => (
+                        <li key={k} className="flex justify-between gap-4">
+                          <span style={{ opacity: 0.75 }}>{MEASUREMENT_RANGES[k].label}</span>
+                          <span className="font-mono">{fitLensMeasurements[k]} mm</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      to={`/${lang}/bespoke/configurator`}
+                      className="inline-flex items-center justify-center border px-5 py-3 text-[11px] uppercase tracking-[0.2em]"
+                      style={{ borderColor: GOLD, color: GOLD, fontFamily: "Barlow, sans-serif" }}
+                    >
+                      Use these in bespoke
+                    </Link>
+                  </div>
+                )}
                 {step === "welcome" && (
                   <WelcomeStep
                     lang={lang}
