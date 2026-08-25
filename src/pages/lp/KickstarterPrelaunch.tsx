@@ -197,10 +197,19 @@ const VipForm = ({
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!EMAIL_RE.test(normalizedEmail) || normalizedEmail.length > 320) {
+      setErrorKind("invalid");
+      setError("That email doesn't look right. Check the address and try again.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
+    setErrorKind(null);
     const models = "Kickstarter VIP";
-    const resolvedRef = resolveReferredBy(email, referredBy);
+    const resolvedRef = resolveReferredBy(normalizedEmail, referredBy);
 
     // Fire an attempt event first — independent of success/failure/redirect,
     // so we can measure submit intent even if the network call never returns.
@@ -211,6 +220,23 @@ const VipForm = ({
     });
 
     try {
+      const { data: statusData } = await supabase.functions.invoke("vip-reservation-status", {
+        body: { email: normalizedEmail },
+      });
+      if (statusData?.reserved) {
+        setErrorKind("duplicate");
+        setError("This email already has a VIP reservation.");
+        setLoading(false);
+        pushGtmEvent("kickstarter_form_submit_error", {
+          form_location: formLocation,
+          source: utmSource,
+          referred_by: resolvedRef,
+          provider: "mailerlite",
+          error_message: "duplicate_reservation",
+        });
+        return;
+      }
+
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           ...getAttribution(),
