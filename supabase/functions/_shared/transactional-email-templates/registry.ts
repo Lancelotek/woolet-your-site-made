@@ -18,4 +18,7 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'fit-scan-result': fitScanResult,
   'bespoke-purchase-customer': bespokePurchaseCustomer,
   'bespoke-purchase-admin': bespokePurchaseAdmin,
+  'vip-waitlist-confirmation': vipWaitlistConfirmation,
+  'vip-reservation-paid': vipReservationPaid,
 }
+
