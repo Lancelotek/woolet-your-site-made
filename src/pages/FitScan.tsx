@@ -4141,10 +4141,8 @@ export default function FitScan() {
   const pendingResultRef = useRef<null | { measurements: Measurements; frame: CapturedFrame }>(null);
   const [analyzingReady, setAnalyzingReady] = useState(false);
 
-  // Desktop/tablet visitors must always hand off to a phone via QR — the scan
-  // requires holding the device against the forehead. Only mobile runs the
-  // camera flow directly. `sid`/`s` mean the visitor already arrived from a
-  // phone handoff, so we let them through.
+  // Visitors can run FitLens on this device (webcam or phone camera) or hand
+  // off to a phone via the QR code shown on desktop.
 
 
   useEffect(() => {
