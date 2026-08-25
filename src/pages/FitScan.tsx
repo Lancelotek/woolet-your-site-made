@@ -5035,6 +5035,11 @@ export default function FitScan() {
                         </li>
                       ))}
                     </ul>
+                    <FitLensEmailCapture
+                      lang={lang}
+                      measurements={fitLensMeasurements}
+                      device={isMobile ? "mobile" : "desktop"}
+                    />
                     <Link
                       to={`/${lang}/bespoke/configurator`}
                       className="inline-flex items-center justify-center border px-5 py-3 text-[11px] uppercase tracking-[0.2em]"
