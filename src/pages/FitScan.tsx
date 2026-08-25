@@ -341,17 +341,14 @@ interface CapturedFrame {
 function WelcomeStep({
   lang,
   onStart,
-  onUpload,
   disabled = false,
   isMobile,
 }: {
   lang: Lang;
   onStart: () => void;
-  onUpload: (file: File) => void;
   disabled?: boolean;
   isMobile: boolean;
 }) {
-  const uploadInputRef = useRef<HTMLInputElement | null>(null);
   useFitLensScript();
   // QR handoff target: the same page opened on a phone (sid marks the handoff).
   const [handoffSid] = useState(() =>
@@ -689,44 +686,6 @@ function WelcomeStep({
           )}
         </div>
 
-        <input
-          ref={uploadInputRef}
-          type="file"
-          accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
-          style={{ display: "none" }}
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              pushEvent("fit_scan_upload_picked", { size: file.size, type: file.type });
-              onUpload(file);
-            }
-            // Reset so re-selecting the same file re-triggers onChange
-            if (uploadInputRef.current) uploadInputRef.current.value = "";
-          }}
-        />
-        <button
-          type="button"
-          onClick={() => {
-            pushEvent("fit_scan_upload_open", {});
-            uploadInputRef.current?.click();
-          }}
-          style={{
-            background: "transparent",
-            color: "#f0ece4",
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 400,
-            fontSize: "0.72rem",
-            padding: "14px 20px",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            border: "1px solid rgba(240,236,228,0.22)",
-            borderRadius: 2,
-            cursor: "pointer",
-            height: 48,
-          }}
-        >
-          Upload a photo instead
-        </button>
         <p
           style={{
             color: MUTED,
@@ -738,9 +697,9 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          {tFit(lang, "welcome.cta_note")} · Uploading instead? Face front-on, credit card flat on your
-          forehead, no glasses.
+          {tFit(lang, "welcome.cta_note")}
         </p>
+
         <Link
           to={hrefFor("fit", lang)}
           style={{
@@ -823,8 +782,8 @@ function WelcomeStep({
           }}
         >
           <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
-          face straight from the camera — works on a laptop webcam or a phone. A credit card is only
-          needed if you upload a photo instead.
+          face straight from the camera — works on a laptop webcam or a phone.
+
         </p>
       </div>
 
@@ -4887,7 +4846,6 @@ export default function FitScan() {
                   <WelcomeStep
                     lang={lang}
                     onStart={startScan}
-                    onUpload={handleUpload}
                     disabled={!!blockingMessage}
                     isMobile={isMobile}
                   />
