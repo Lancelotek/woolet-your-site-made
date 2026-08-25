@@ -7,8 +7,6 @@ import {
   Button,
   Container,
   Head,
-  Section,
-  Img,
   Heading,
   Html,
   Preview,
@@ -29,9 +27,6 @@ export const RecoveryEmail = ({
     <Preview>Reset your password for {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Section style={{ textAlign: 'left', padding: '8px 0 24px' }}>
-          <Img src="https://woolet.co/woolet-logo.png" width="72" height="auto" alt="Woolet" style={{ display: 'block', margin: '0' }} />
-        </Section>
         <Heading style={h1}>Reset your password</Heading>
         <Text style={text}>
           We received a request to reset your password for {siteName}. Click

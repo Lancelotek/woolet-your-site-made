@@ -6,8 +6,6 @@ import {
   Body,
   Container,
   Head,
-  Section,
-  Img,
   Heading,
   Html,
   Preview,
@@ -24,9 +22,6 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
     <Preview>Your verification code</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Section style={{ textAlign: 'left', padding: '8px 0 24px' }}>
-          <Img src="https://woolet.co/woolet-logo.png" width="72" height="auto" alt="Woolet" style={{ display: 'block', margin: '0' }} />
-        </Section>
         <Heading style={h1}>Confirm reauthentication</Heading>
         <Text style={text}>Use the code below to confirm your identity:</Text>
         <Text style={codeStyle}>{token}</Text>
