@@ -11,7 +11,11 @@ const BodySchema = z.object({
   email: z.string().trim().toLowerCase().email().max(255),
   faceWidthMm: z.number().finite().min(80).max(300),
   noseWidthMm: z.number().finite().min(10).max(60),
-  variant: z.enum(["007", "009"]),
+  // Optional extras handed over by the FitLens widget.
+  pdMm: z.number().finite().min(40).max(90).optional(),
+  templeToTempleMm: z.number().finite().min(100).max(200).optional(),
+  templeLengthMm: z.number().finite().min(120).max(170).optional(),
+  variant: z.enum(["007", "009"]).default("007"),
   lang: z.string().regex(/^[a-z]{2}$/).default("en"),
   scanNonce: z.string().max(64).optional(),
 });
@@ -60,7 +64,8 @@ Deno.serve(async (req) => {
     );
   }
 
-  const { email, faceWidthMm, noseWidthMm, variant, scanNonce } = parsed.data;
+  const { email, faceWidthMm, noseWidthMm, pdMm, templeToTempleMm, templeLengthMm, variant, scanNonce } =
+    parsed.data;
   const lang = LANGS.has(parsed.data.lang) ? parsed.data.lang : "en";
   const rec = RECOMMENDATIONS[variant];
   const modelUrl = `https://woolet.co/${lang}/products/${variant}`;
@@ -72,6 +77,9 @@ Deno.serve(async (req) => {
       templateData: {
         faceWidthMm: Math.round(faceWidthMm),
         noseWidthMm: Math.round(noseWidthMm),
+        pdMm: pdMm != null ? Math.round(pdMm) : undefined,
+        templeToTempleMm: templeToTempleMm != null ? Math.round(templeToTempleMm) : undefined,
+        templeLengthMm: templeLengthMm != null ? Math.round(templeLengthMm) : undefined,
         recommendationTitle: rec.title,
         recommendationBody: rec.body,
         recommendedModel: rec.modelName,
