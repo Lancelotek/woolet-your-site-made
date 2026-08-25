@@ -105,21 +105,19 @@ Deno.serve(async (req) => {
 
     // Notify admin that measurements landed.
     try {
-      await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "bespoke-purchase-admin",
-          idempotencyKey: `bespoke-measurements-${sid}`,
-          templateData: {
-            customerEmail: (data as any).customer_email,
-            frameName: (data as any).frame_name ?? "Woolet Bespoke",
-            amountFormatted: "measurements received",
-            orderRef: sid,
-          },
+      await sendTemplateEmailAndLog("bespoke-purchase-admin", undefined, {
+        idempotencyKey: `bespoke-measurements-${sid}`,
+        templateData: {
+          customerEmail: (data as any).customer_email,
+          frameName: (data as any).frame_name ?? "Woolet Bespoke",
+          amountFormatted: "measurements received",
+          orderRef: sid,
         },
       });
     } catch (e) {
       console.error("[bespoke-measurements-submit] admin notify failed", e);
     }
+
 
     return new Response(JSON.stringify({ ok: true, submitted_at: (data as any).measurements_submitted_at }), {
       status: 200,
