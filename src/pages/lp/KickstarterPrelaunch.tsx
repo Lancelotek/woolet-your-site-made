@@ -498,11 +498,27 @@ const VipForm = ({
           placeholder="Your email"
           required
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ ...inputStyle, flex: 1 }}
+          aria-invalid={errorKind === "invalid"}
+          aria-describedby={error ? `vip-form-error${idSuffix}` : undefined}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (errorKind) {
+              setErrorKind(null);
+              setError(null);
+            }
+          }}
+          style={{
+            ...inputStyle,
+            flex: 1,
+            borderColor: errorKind === "invalid" ? "#e25555" : inputStyle.borderColor,
+          }}
           onFocus={(e) => (e.currentTarget.style.borderColor = GOLD)}
-          onBlur={(e) => (e.currentTarget.style.borderColor = HAIRLINE_STRONG)}
+          onBlur={(e) =>
+            (e.currentTarget.style.borderColor =
+              errorKind === "invalid" ? "#e25555" : HAIRLINE_STRONG)
+          }
         />
+
         <button
           type="submit"
           disabled={loading}
