@@ -119,6 +119,8 @@ const eyebrowStyle: React.CSSProperties = {
 
 // ---------- VIP Form (email + consent only) ----------
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
 
 const StepBar = ({ step }: { step: 1 | 2 }) => {
   const steps = ["Your email", "Reserve 40% OFF"];
@@ -185,6 +187,8 @@ const VipForm = ({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errorKind, setErrorKind] = useState<"invalid" | "duplicate" | "generic" | null>(null);
+
   const [step, setStep] = useState<1 | 2>(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
 
@@ -197,10 +201,19 @@ const VipForm = ({
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!EMAIL_RE.test(normalizedEmail) || normalizedEmail.length > 320) {
+      setErrorKind("invalid");
+      setError("That email doesn't look right. Check the address and try again.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
+    setErrorKind(null);
     const models = "Kickstarter VIP";
-    const resolvedRef = resolveReferredBy(email, referredBy);
+    const resolvedRef = resolveReferredBy(normalizedEmail, referredBy);
 
     // Fire an attempt event first — independent of success/failure/redirect,
     // so we can measure submit intent even if the network call never returns.
@@ -211,10 +224,27 @@ const VipForm = ({
     });
 
     try {
+      const { data: statusData } = await supabase.functions.invoke("vip-reservation-status", {
+        body: { email: normalizedEmail },
+      });
+      if (statusData?.reserved) {
+        setErrorKind("duplicate");
+        setError("This email already has a VIP reservation.");
+        setLoading(false);
+        pushGtmEvent("kickstarter_form_submit_error", {
+          form_location: formLocation,
+          source: utmSource,
+          referred_by: resolvedRef,
+          provider: "mailerlite",
+          error_message: "duplicate_reservation",
+        });
+        return;
+      }
+
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           ...getAttribution(),
-          email,
+          email: normalizedEmail,
           name: "",
           source: "kickstarter",
           referred_by: resolvedRef,
@@ -227,13 +257,16 @@ const VipForm = ({
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "waitlist_signup",
-          user_email: email,
+          user_email: normalizedEmail,
           user_first_name: "",
           waitlist_models: models,
           referred_by: resolvedRef,
         });
         try {
-          sessionStorage.setItem("woolet_vip_confirm", JSON.stringify({ email, name: "" }));
+          sessionStorage.setItem(
+            "woolet_vip_confirm",
+            JSON.stringify({ email: normalizedEmail, name: "" }),
+          );
         } catch {
           /* ignore */
         }
@@ -249,6 +282,7 @@ const VipForm = ({
         provider: "mailerlite",
       });
 
+      setEmail(normalizedEmail);
       setLoading(false);
       setStep(2);
     } catch (err: unknown) {
@@ -261,9 +295,11 @@ const VipForm = ({
         provider: "mailerlite",
         error_message: message.slice(0, 200),
       });
+      setErrorKind("generic");
       setError(message);
       setLoading(false);
     }
+
   };
 
   const consent = (
@@ -373,7 +409,82 @@ const VipForm = ({
     );
   }
 
+  if (errorKind === "duplicate") {
+    return (
+      <div
+        id={`vip-form${idSuffix}`}
+        role="alert"
+        className="flex flex-col gap-3"
+        style={{
+          maxWidth: compact ? 560 : "100%",
+          margin: compact ? "0 auto" : undefined,
+          border: `1px solid ${HAIRLINE_STRONG}`,
+          borderLeft: `2px solid ${GOLD}`,
+          padding: 18,
+          background: "rgba(255,255,255,0.02)",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: GOLD,
+            margin: 0,
+          }}
+        >
+          Already reserved
+        </p>
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 14,
+            color: CREAM,
+            lineHeight: 1.6,
+            margin: 0,
+          }}
+        >
+          <strong>{email.trim().toLowerCase()}</strong> already holds a VIP reservation with 40% OFF
+          locked in. There's nothing more to pay — we'll email you the moment the campaign opens.
+        </p>
+        <button
+          type="button"
+          onClick={() => navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } })}
+          style={ctaButtonStyle}
+          onMouseEnter={(e) => (e.currentTarget.style.background = BRONZE)}
+          onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
+        >
+          Go to your VIP page
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setErrorKind(null);
+            setError(null);
+            setEmail("");
+          }}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: TAUPE,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 12,
+            textDecoration: "underline",
+            textUnderlineOffset: 3,
+            cursor: "pointer",
+            padding: 0,
+            textAlign: compact ? "center" : "left",
+          }}
+        >
+          Use a different email
+        </button>
+      </div>
+    );
+  }
+
   return (
+
     <form
       id={`vip-form${idSuffix}`}
       onSubmit={onSubmit}
@@ -387,11 +498,27 @@ const VipForm = ({
           placeholder="Your email"
           required
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ ...inputStyle, flex: 1 }}
+          aria-invalid={errorKind === "invalid"}
+          aria-describedby={error ? `vip-form-error${idSuffix}` : undefined}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (errorKind) {
+              setErrorKind(null);
+              setError(null);
+            }
+          }}
+          style={{
+            ...inputStyle,
+            flex: 1,
+            borderColor: errorKind === "invalid" ? "#e25555" : inputStyle.borderColor,
+          }}
           onFocus={(e) => (e.currentTarget.style.borderColor = GOLD)}
-          onBlur={(e) => (e.currentTarget.style.borderColor = HAIRLINE_STRONG)}
+          onBlur={(e) =>
+            (e.currentTarget.style.borderColor =
+              errorKind === "invalid" ? "#e25555" : HAIRLINE_STRONG)
+          }
         />
+
         <button
           type="submit"
           disabled={loading}
@@ -416,8 +543,21 @@ const VipForm = ({
       {consent}
 
       {error && (
-        <p style={{ fontFamily: "Barlow, sans-serif", fontSize: 12, color: "#e25555" }}>{error}</p>
+        <p
+          id={`vip-form-error${idSuffix}`}
+          role="alert"
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 12,
+            color: "#e25555",
+            lineHeight: 1.5,
+            margin: 0,
+          }}
+        >
+          {error}
+        </p>
       )}
+
 
       <p
         style={{
