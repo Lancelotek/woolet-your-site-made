@@ -768,13 +768,13 @@ function WelcomeStep({
           borderRadius: 12,
           border: `1px solid rgba(202,164,73,0.35)`,
           background: "rgba(202,164,73,0.06)",
-          padding: "16px 18px",
+          padding: isMobile ? "18px" : "16px 18px",
           display: "flex",
           alignItems: "flex-start",
           gap: 12,
         }}
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
+        <svg width={isMobile ? 22 : 20} height={isMobile ? 22 : 20} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
           <circle cx="12" cy="12" r="9" stroke={GOLD} strokeWidth="1.5" />
           <path d="M8.5 12.2l2.4 2.4 4.6-4.8" stroke={GOLD} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -782,7 +782,7 @@ function WelcomeStep({
           style={{
             color: "rgba(240,236,228,0.88)",
             fontFamily: "Barlow, sans-serif",
-            fontSize: "0.9rem",
+            fontSize: isMobile ? "1rem" : "0.9rem",
             fontWeight: 300,
             lineHeight: 1.6,
             margin: 0,
@@ -790,14 +790,11 @@ function WelcomeStep({
         >
           <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
           face straight from the camera — works on a laptop webcam or a phone.
-
         </p>
       </div>
 
-
-
       <ol
-        className="flex flex-col gap-5 pt-2 m-0 p-0"
+        className={`flex flex-col m-0 p-0 ${isMobile ? "gap-6 pt-3" : "gap-5 pt-2"}`}
         style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
       >
         {steps.map((s) => (
@@ -807,10 +804,10 @@ function WelcomeStep({
               style={{
                 color: GOLD,
                 fontFamily: "Cormorant Garamond, serif",
-                fontSize: "1.5rem",
+                fontSize: isMobile ? "1.65rem" : "1.5rem",
                 fontWeight: 300,
                 fontStyle: "italic",
-                minWidth: 36,
+                minWidth: isMobile ? 40 : 36,
                 lineHeight: 1,
                 paddingTop: 2,
               }}
@@ -821,14 +818,14 @@ function WelcomeStep({
               <span
                 style={{
                   color: "rgba(255,255,255,0.95)",
-                  fontSize: "1.05rem",
+                  fontSize: isMobile ? "1.1rem" : "1.05rem",
                   fontWeight: 500,
                   letterSpacing: "0.01em",
                 }}
               >
                 {s.title}
               </span>
-              <span style={{ color: MUTED, fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.5 }}>
+              <span style={{ color: MUTED, fontSize: isMobile ? "1rem" : "0.92rem", fontWeight: 300, lineHeight: 1.5 }}>
                 {s.body}
               </span>
             </div>
