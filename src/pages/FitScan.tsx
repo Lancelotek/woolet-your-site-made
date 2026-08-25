@@ -778,7 +778,7 @@ function WelcomeStep({
       </figure>
 
       <ol
-        className="flex flex-col gap-6 pt-2 m-0 p-0"
+        className="flex flex-col gap-5 pt-2 m-0 p-0"
         style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
       >
         {steps.map((s) => (
@@ -798,27 +798,6 @@ function WelcomeStep({
             >
               {s.n}
             </span>
-            <div
-              aria-hidden
-              style={{
-                flexShrink: 0,
-                width: 72,
-                height: 72,
-                borderRadius: 8,
-                overflow: "hidden",
-                background: "#0f0f0e",
-                border: "1px solid rgba(202,164,73,0.18)",
-              }}
-            >
-              <img
-                src={s.img}
-                alt={s.alt}
-                width={144}
-                height={144}
-                loading="lazy"
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
-            </div>
             <div className="flex flex-col gap-1">
               <span
                 style={{
@@ -837,6 +816,7 @@ function WelcomeStep({
           </li>
         ))}
       </ol>
+
 
       <div className="flex flex-col gap-3 pt-2">
         <button
