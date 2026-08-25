@@ -32,6 +32,11 @@ import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
+import {
+  applyFitLensToBespokeConfig,
+  normalizeFitLensResult,
+  type FitLensMeasurements,
+} from "@/lib/fitlens-result";
 import { QRCodeSVG } from "qrcode.react";
 
 import { toast } from "sonner";
