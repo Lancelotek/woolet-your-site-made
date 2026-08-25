@@ -10,10 +10,6 @@ import RelatedGuides from "@/components/RelatedGuides";
 import FitToolContent, { FitBreadcrumbs } from "@/components/FitToolContent";
 import { FIT_JSONLD } from "@/seo/fit-jsonld";
 import fitScanTip from "@/assets/fit-scan-tip.png";
-import fitStepCard from "@/assets/fit-step-card.jpg";
-import fitStepForehead from "@/assets/fit-step-forehead.jpg";
-import fitStepPhone from "@/assets/fit-step-phone.jpg";
-import fitScanReference from "@/assets/fit-scan-reference.jpg.asset.json";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getAttribution } from "@/lib/attribution";
 import { tFit } from "@/lib/i18n-fitscan";
@@ -356,17 +352,12 @@ function WelcomeStep({
 }) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
   useFitLensScript();
-  const steps = isMobile
-    ? [
-        { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: tFit(lang, "welcome.step2_title"), body: tFit(lang, "welcome.step2_body"), img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
-        { n: "03", title: tFit(lang, "welcome.step3_mobile_title"), body: tFit(lang, "welcome.step3_mobile_body"), img: fitStepPhone, alt: "Hand holding a smartphone at arm's length for a selfie" },
-      ]
-    : [
-        { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: tFit(lang, "welcome.step2_title"), body: tFit(lang, "welcome.step2_body"), img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
-        { n: "03", title: tFit(lang, "welcome.step3_desktop_title"), body: tFit(lang, "welcome.step3_desktop_body"), img: fitStepPhone, alt: "Person facing a camera at eye level" },
-      ];
+  const steps = [
+    { n: "01", title: "Tap “Find my fit”", body: "FitLens opens in a secure window and asks for camera access." },
+    { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your camera at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
+    { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 20 seconds — then we route you to 007, 009 or bespoke." },
+  ];
+
 
   return (
     <div className="flex flex-col gap-8">
@@ -485,8 +476,10 @@ function WelcomeStep({
               fontWeight: 300,
             }}
           >
-            Needs a phone camera and any credit-card-sized object as scale. Follow the steps below to start.
+            Needs a camera and good light — no card, no ruler. Follow the steps below to start.
           </p>
+
+
         </div>
 
         {/* Manual — alternative */}
@@ -622,31 +615,18 @@ function WelcomeStep({
       <div
         style={{
           borderRadius: 12,
-          border: `1.5px solid ${GOLD}`,
-          background: "rgba(202,164,73,0.08)",
-          padding: "18px 18px 16px",
+          border: `1px solid rgba(202,164,73,0.35)`,
+          background: "rgba(202,164,73,0.06)",
+          padding: "16px 18px",
           display: "flex",
-          flexDirection: "column",
+          alignItems: "flex-start",
           gap: 12,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="2" y="6" width="20" height="12" rx="2" stroke={GOLD} strokeWidth="1.5" />
-            <line x1="2" y1="10" x2="22" y2="10" stroke={GOLD} strokeWidth="1" />
-          </svg>
-          <span
-            style={{
-              color: GOLD,
-              fontFamily: "Barlow, sans-serif",
-              fontWeight: 600,
-              fontSize: "0.9rem",
-              letterSpacing: "0.02em",
-            }}
-          >
-            {tFit(lang, "welcome.need_card_title")}
-          </span>
-        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
+          <circle cx="12" cy="12" r="9" stroke={GOLD} strokeWidth="1.5" />
+          <path d="M8.5 12.2l2.4 2.4 4.6-4.8" stroke={GOLD} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
         <p
           style={{
             color: "rgba(240,236,228,0.85)",
@@ -657,128 +637,15 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          {tFit(lang, "welcome.need_card_why")}
-        </p>
-
-        {/* Visual: good vs bad card placement */}
-        <div
-          aria-hidden
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 8,
-            marginTop: 2,
-          }}
-        >
-          {[
-            { ok: true, label: tFit(lang, "welcome.placement_good"), card: { rotate: 0, y: 22 } },
-            { ok: false, label: tFit(lang, "welcome.placement_tilted"), card: { rotate: -18, y: 26 } },
-            { ok: false, label: tFit(lang, "welcome.placement_low"), card: { rotate: 0, y: 50 } },
-          ].map((variant, i) => {
-            const accent = variant.ok ? "#7ec77a" : "#d97f6b";
-            return (
-              <div
-                key={i}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 6,
-                  background: "rgba(15,15,14,0.55)",
-                  border: `1px solid ${variant.ok ? "rgba(126,199,122,0.4)" : "rgba(217,127,107,0.35)"}`,
-                  borderRadius: 8,
-                  padding: "10px 6px 8px",
-                }}
-              >
-                <svg width="78" height="78" viewBox="0 0 80 80" fill="none">
-                  {/* face */}
-                  <ellipse cx="40" cy="46" rx="22" ry="28" stroke="rgba(240,236,228,0.55)" strokeWidth="1.5" fill="none" />
-                  {/* eyes */}
-                  <circle cx="32" cy="44" r="1.6" fill="rgba(240,236,228,0.7)" />
-                  <circle cx="48" cy="44" r="1.6" fill="rgba(240,236,228,0.7)" />
-                  {/* card */}
-                  <g transform={`translate(40 ${variant.card.y}) rotate(${variant.card.rotate})`}>
-                    <rect x="-22" y="-4" width="44" height="8" rx="1" fill={accent} opacity="0.9" />
-                  </g>
-                  {/* status icon */}
-                  <g transform="translate(60 12)">
-                    <circle cx="0" cy="0" r="8" fill={accent} />
-                    {variant.ok ? (
-                      <path d="M -3 0 L -1 2 L 3 -2" stroke={BG} strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                    ) : (
-                      <>
-                        <line x1="-3" y1="-3" x2="3" y2="3" stroke={BG} strokeWidth="1.6" strokeLinecap="round" />
-                        <line x1="3" y1="-3" x2="-3" y2="3" stroke={BG} strokeWidth="1.6" strokeLinecap="round" />
-                      </>
-                    )}
-                  </g>
-                </svg>
-                <span
-                  style={{
-                    color: accent,
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.7rem",
-                    fontWeight: 500,
-                    letterSpacing: "0.04em",
-                    textAlign: "center",
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {variant.label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-
-        <p
-          style={{
-            color: "rgba(240,236,228,0.65)",
-            fontFamily: "Barlow, sans-serif",
-            fontSize: "0.75rem",
-            fontWeight: 300,
-            lineHeight: 1.5,
-            margin: 0,
-          }}
-        >
-          {tFit(lang, "welcome.need_card_body_a")} <strong style={{ color: "#fff", fontWeight: 500 }}>{tFit(lang, "welcome.need_card_body_long")}</strong> {tFit(lang, "welcome.need_card_body_b")} <strong style={{ color: "#fff", fontWeight: 500 }}>{tFit(lang, "welcome.need_card_body_short")}</strong> {tFit(lang, "welcome.need_card_body_c")}
+          <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
+          face directly from the camera — just your face, good light and no glasses. A credit card is only
+          required if you upload a photo instead.
         </p>
       </div>
 
-      <figure
-        style={{
-          margin: 0,
-          borderRadius: 12,
-          overflow: "hidden",
-          background: "#0f0f0e",
-          border: "1px solid rgba(202,164,73,0.25)",
-        }}
-      >
-        <img
-          src={fitScanReference.url}
-          alt="Reference photo: person holding a credit card flat across the forehead with the long edge horizontal, both edges touching the skin, facing the camera."
-          width={896}
-          height={1152}
-          loading="lazy"
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
-        <figcaption
-          style={{
-            color: GOLD,
-            fontFamily: "Cormorant Garamond, serif",
-            fontStyle: "italic",
-            fontSize: "0.95rem",
-            textAlign: "center",
-            padding: "10px 14px 12px",
-            background: "#0f0f0e",
-          }}
-        >
-          {tFit(lang, "welcome.ref_caption")}
-        </figcaption>
-      </figure>
 
       <ol
-        className="flex flex-col gap-6 pt-2 m-0 p-0"
+        className="flex flex-col gap-5 pt-2 m-0 p-0"
         style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
       >
         {steps.map((s) => (
@@ -798,27 +665,6 @@ function WelcomeStep({
             >
               {s.n}
             </span>
-            <div
-              aria-hidden
-              style={{
-                flexShrink: 0,
-                width: 72,
-                height: 72,
-                borderRadius: 8,
-                overflow: "hidden",
-                background: "#0f0f0e",
-                border: "1px solid rgba(202,164,73,0.18)",
-              }}
-            >
-              <img
-                src={s.img}
-                alt={s.alt}
-                width={144}
-                height={144}
-                loading="lazy"
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
-            </div>
             <div className="flex flex-col gap-1">
               <span
                 style={{
@@ -837,6 +683,7 @@ function WelcomeStep({
           </li>
         ))}
       </ol>
+
 
       <div className="flex flex-col gap-3 pt-2">
         <button
