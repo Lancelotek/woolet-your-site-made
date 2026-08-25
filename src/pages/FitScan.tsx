@@ -355,6 +355,7 @@ function WelcomeStep({
   isMobile: boolean;
 }) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
+  useFitLensScript();
   const steps = isMobile
     ? [
         { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
