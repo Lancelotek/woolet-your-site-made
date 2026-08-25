@@ -693,7 +693,7 @@ function WelcomeStep({
         <p
           style={{
             color: MUTED,
-            fontSize: "0.78rem",
+            fontSize: isMobile ? "0.85rem" : "0.78rem",
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
             textAlign: "center",
@@ -710,7 +710,7 @@ function WelcomeStep({
             color: MUTED,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
-            fontSize: "0.78rem",
+            fontSize: isMobile ? "0.85rem" : "0.78rem",
             textAlign: "center",
             textDecoration: "none",
             paddingTop: 4,
@@ -726,10 +726,11 @@ function WelcomeStep({
         onClick={() => pushEvent("fit_quick_open", { source: "welcome_compare" })}
         style={{
           display: "flex",
-          alignItems: "center",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "flex-start" : "center",
           justifyContent: "space-between",
-          gap: 16,
-          padding: "14px 18px",
+          gap: isMobile ? 12 : 16,
+          padding: isMobile ? "18px" : "14px 18px",
           border: "1px dashed rgba(240,236,228,0.18)",
           background: "rgba(255,255,255,0.015)",
           borderRadius: 8,
@@ -737,24 +738,26 @@ function WelcomeStep({
           color: "#f0ece4",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 4 : 2, minWidth: 0 }}>
           <span style={{
-            fontFamily: "Barlow, sans-serif", fontSize: "0.95rem",
+            fontFamily: "Barlow, sans-serif", fontSize: isMobile ? "1rem" : "0.95rem",
             fontWeight: 500, color: "#f0ece4",
           }}>
             Not ready to measure?
           </span>
           <span style={{
             color: MUTED, fontFamily: "Barlow, sans-serif",
-            fontSize: "0.82rem", fontWeight: 300,
+            fontSize: isMobile ? "0.9rem" : "0.82rem", fontWeight: 300,
+            lineHeight: 1.45,
           }}>
             Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec.
           </span>
         </div>
         <span style={{
-          color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem",
+          color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: isMobile ? "0.78rem" : "0.7rem",
           letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500,
           whiteSpace: "nowrap",
+          flexShrink: 0,
         }}>
           Take quiz →
         </span>
