@@ -4147,6 +4147,49 @@ export default function FitScan() {
       });
   }, [sessionId, sessionToken]);
 
+  // FitLens hand-over: the embed dispatches a bubbling `fitlens:result` event
+  // with the measurement payload. We validate it against our own ranges, mirror
+  // it into the bespoke config (localStorage) and — when this page was opened
+  // through the desktop→phone QR handoff — push it to the scan session so the
+  // configurator's poller autofills on the other device.
+  useEffect(() => {
+    const onResult = (event: Event) => {
+      const detail = (event as CustomEvent).detail;
+      const mapped = normalizeFitLensResult(detail);
+      const keys = Object.keys(mapped);
+      if (keys.length === 0) {
+        console.warn("[fitlens] result had no usable measurements", detail);
+        pushEvent("fit_fitlens_result", { usable: 0 });
+        return;
+      }
+
+      const stored = applyFitLensToBespokeConfig(mapped);
+      setFitLensMeasurements(mapped);
+      pushEvent("fit_fitlens_result", { usable: keys.length, fields: keys.join(","), stored: stored ? 1 : 0 });
+
+      if (sessionId && sessionToken) {
+        supabase.functions
+          .invoke("scan-session-update", {
+            body: {
+              id: sessionId,
+              token: sessionToken,
+              status: "completed",
+              face_width_mm: mapped.faceWidth != null ? Math.round(mapped.faceWidth) : undefined,
+              nose_width_mm: mapped.bridge != null ? Math.round(mapped.bridge) : undefined,
+            },
+          })
+          .then(({ error }) => {
+            if (error) console.warn("[fitlens] scan session sync failed", error);
+          });
+      }
+    };
+
+    document.addEventListener("fitlens:result", onResult as EventListener);
+    return () => document.removeEventListener("fitlens:result", onResult as EventListener);
+  }, [sessionId, sessionToken]);
+
+
+
   const goWelcome = () => {
     setFrame(null);
     setMeasurements(null);
