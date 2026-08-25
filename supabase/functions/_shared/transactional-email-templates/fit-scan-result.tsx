@@ -16,6 +16,9 @@ import type { TemplateEntry } from './registry.ts'
 interface Props {
   faceWidthMm?: number
   noseWidthMm?: number
+  pdMm?: number
+  templeToTempleMm?: number
+  templeLengthMm?: number
   recommendationTitle?: string
   recommendationBody?: string
   recommendedModel?: string
