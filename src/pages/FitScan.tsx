@@ -481,6 +481,8 @@ function WelcomeStep({
             }}
           >
             Needs a camera and good light — no card, no ruler. Follow the steps below to start.
+          </p>
+
 
         </div>
 
