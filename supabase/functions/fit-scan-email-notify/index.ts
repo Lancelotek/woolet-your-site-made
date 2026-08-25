@@ -3,7 +3,7 @@
 // every field that reaches the template so an attacker cannot use this to
 // send arbitrary content from the woolet.co domain.
 
-import { createClient } from "npm:@supabase/supabase-js@2";
+import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { z } from "npm:zod@3.23.8";
 
