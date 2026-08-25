@@ -4087,6 +4087,8 @@ export default function FitScan() {
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
   const [faceShape, setFaceShape] = useState<FaceShapeResult | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  // Validated measurements handed over by the external FitLens widget.
+  const [fitLensMeasurements, setFitLensMeasurements] = useState<FitLensMeasurements | null>(null);
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
