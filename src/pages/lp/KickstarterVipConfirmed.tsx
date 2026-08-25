@@ -13,7 +13,10 @@ type LocationState = { email?: string; name?: string } | null;
 const KickstarterVipConfirmed = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [params] = useSearchParams();
+  const paid = params.get("paid") === "1";
   const state = (location.state as LocationState) || null;
+
 
   // Fall back to localStorage in case the user refreshes
   const fallback = useMemo(() => {
