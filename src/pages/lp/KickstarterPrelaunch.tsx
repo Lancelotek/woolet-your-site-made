@@ -409,7 +409,82 @@ const VipForm = ({
     );
   }
 
+  if (errorKind === "duplicate") {
+    return (
+      <div
+        id={`vip-form${idSuffix}`}
+        role="alert"
+        className="flex flex-col gap-3"
+        style={{
+          maxWidth: compact ? 560 : "100%",
+          margin: compact ? "0 auto" : undefined,
+          border: `1px solid ${HAIRLINE_STRONG}`,
+          borderLeft: `2px solid ${GOLD}`,
+          padding: 18,
+          background: "rgba(255,255,255,0.02)",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: GOLD,
+            margin: 0,
+          }}
+        >
+          Already reserved
+        </p>
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 14,
+            color: CREAM,
+            lineHeight: 1.6,
+            margin: 0,
+          }}
+        >
+          <strong>{email.trim().toLowerCase()}</strong> already holds a VIP reservation with 40% OFF
+          locked in. There's nothing more to pay — we'll email you the moment the campaign opens.
+        </p>
+        <button
+          type="button"
+          onClick={() => navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } })}
+          style={ctaButtonStyle}
+          onMouseEnter={(e) => (e.currentTarget.style.background = BRONZE)}
+          onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
+        >
+          Go to your VIP page
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setErrorKind(null);
+            setError(null);
+            setEmail("");
+          }}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: TAUPE,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 12,
+            textDecoration: "underline",
+            textUnderlineOffset: 3,
+            cursor: "pointer",
+            padding: 0,
+            textAlign: compact ? "center" : "left",
+          }}
+        >
+          Use a different email
+        </button>
+      </div>
+    );
+  }
+
   return (
+
     <form
       id={`vip-form${idSuffix}`}
       onSubmit={onSubmit}
