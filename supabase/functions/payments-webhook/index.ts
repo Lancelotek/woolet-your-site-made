@@ -249,19 +249,15 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
 
   const invoke = async (templateName: string, recipient?: string) => {
     try {
-      const { error } = await getSupabase().functions.invoke("send-transactional-email", {
-        body: {
-          templateName,
-          recipientEmail: recipient,
-          idempotencyKey: `${templateName}-${session.id}`,
-          templateData,
-        },
+      await sendTemplateEmailAndLog(templateName, recipient, {
+        idempotencyKey: `${templateName}-${session.id}`,
+        templateData,
       });
-      if (error) console.error(`[payments-webhook:bespoke] send ${templateName} error`, error);
     } catch (e) {
       console.error(`[payments-webhook:bespoke] send ${templateName} failed`, e);
     }
   };
+
 
   await Promise.all([
     invoke("bespoke-purchase-customer", email),
