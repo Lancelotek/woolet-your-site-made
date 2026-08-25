@@ -341,17 +341,14 @@ interface CapturedFrame {
 function WelcomeStep({
   lang,
   onStart,
-  onUpload,
   disabled = false,
   isMobile,
 }: {
   lang: Lang;
   onStart: () => void;
-  onUpload: (file: File) => void;
   disabled?: boolean;
   isMobile: boolean;
 }) {
-  const uploadInputRef = useRef<HTMLInputElement | null>(null);
   useFitLensScript();
   // QR handoff target: the same page opened on a phone (sid marks the handoff).
   const [handoffSid] = useState(() =>
@@ -4849,7 +4846,6 @@ export default function FitScan() {
                   <WelcomeStep
                     lang={lang}
                     onStart={startScan}
-                    onUpload={handleUpload}
                     disabled={!!blockingMessage}
                     isMobile={isMobile}
                   />
