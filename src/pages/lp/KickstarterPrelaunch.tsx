@@ -244,7 +244,7 @@ const VipForm = ({
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           ...getAttribution(),
-          email,
+          email: normalizedEmail,
           name: "",
           source: "kickstarter",
           referred_by: resolvedRef,
@@ -257,13 +257,16 @@ const VipForm = ({
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "waitlist_signup",
-          user_email: email,
+          user_email: normalizedEmail,
           user_first_name: "",
           waitlist_models: models,
           referred_by: resolvedRef,
         });
         try {
-          sessionStorage.setItem("woolet_vip_confirm", JSON.stringify({ email, name: "" }));
+          sessionStorage.setItem(
+            "woolet_vip_confirm",
+            JSON.stringify({ email: normalizedEmail, name: "" }),
+          );
         } catch {
           /* ignore */
         }
@@ -279,6 +282,7 @@ const VipForm = ({
         provider: "mailerlite",
       });
 
+      setEmail(normalizedEmail);
       setLoading(false);
       setStep(2);
     } catch (err: unknown) {
@@ -291,8 +295,11 @@ const VipForm = ({
         provider: "mailerlite",
         error_message: message.slice(0, 200),
       });
+      setErrorKind("generic");
       setError(message);
       setLoading(false);
+    }
+
     }
   };
 
