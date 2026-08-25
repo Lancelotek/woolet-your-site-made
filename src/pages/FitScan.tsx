@@ -32,6 +32,7 @@ import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
+import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options";
 import {
   applyFitLensToBespokeConfig,
   normalizeFitLensResult,
@@ -4907,8 +4908,8 @@ export default function FitScan() {
                     >
                       Measurements received
                     </p>
-                    <ul className="mb-4 grid gap-1 text-[14px]" style={{ color: PAPER }}>
-                      {(Object.keys(fitLensMeasurements) as (keyof typeof MEASUREMENT_RANGES)[]).map((k) => (
+                    <ul className="mb-4 grid gap-1 text-[14px]" style={{ color: "#EFE9DF" }}>
+                      {(Object.keys(fitLensMeasurements) as MeasurementKey[]).map((k) => (
                         <li key={k} className="flex justify-between gap-4">
                           <span style={{ opacity: 0.75 }}>{MEASUREMENT_RANGES[k].label}</span>
                           <span className="font-mono">{fitLensMeasurements[k]} mm</span>
