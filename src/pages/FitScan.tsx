@@ -352,11 +352,20 @@ function WelcomeStep({
 }) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
   useFitLensScript();
+  // QR handoff target: the same page opened on a phone (sid marks the handoff).
+  const [handoffSid] = useState(() =>
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : Math.random().toString(36).slice(2) + Date.now().toString(36),
+  );
+  const phoneUrl =
+    typeof window === "undefined" ? "" : `${window.location.origin}/${lang}/fit?sid=${handoffSid}`;
   const steps = [
     { n: "01", title: "Tap “Find my fit”", body: "FitLens opens in a secure window and asks for camera access." },
-    { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your camera at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
+    { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your webcam at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
     { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 20 seconds — then we route you to 007, 009 or bespoke." },
   ];
+
 
 
   return (
