@@ -375,11 +375,11 @@ function WelcomeStep({
       </div>
       <h1
         className="font-display text-woolet-white"
-        style={{ fontSize: "clamp(2.5rem, 5.5vw, 3.75rem)", fontWeight: 300, lineHeight: 1 }}
+        style={{ fontSize: isMobile ? "2.25rem" : "clamp(2.5rem, 5.5vw, 3.75rem)", fontWeight: 300, lineHeight: 1.05 }}
       >
         {tFit(lang, "welcome.h1_pre")} <em className="italic" style={{ color: GOLD }}>{tFit(lang, "welcome.h1_em")}</em>
       </h1>
-      <p className="text-cream-dim" style={{ fontSize: "1.1rem", fontWeight: 300, lineHeight: 1.5 }}>
+      <p className="text-cream-dim" style={{ fontSize: isMobile ? "1.05rem" : "1.1rem", fontWeight: 300, lineHeight: 1.55 }}>
         {tFit(lang, "welcome.subtitle")}
       </p>
 
