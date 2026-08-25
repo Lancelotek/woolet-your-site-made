@@ -36,6 +36,7 @@ import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
 import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useFitLensScript } from "@/hooks/use-fitlens-script";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
