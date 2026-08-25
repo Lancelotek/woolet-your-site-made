@@ -119,6 +119,8 @@ const eyebrowStyle: React.CSSProperties = {
 
 // ---------- VIP Form (email + consent only) ----------
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
 
 const StepBar = ({ step }: { step: 1 | 2 }) => {
   const steps = ["Your email", "Reserve 40% OFF"];
