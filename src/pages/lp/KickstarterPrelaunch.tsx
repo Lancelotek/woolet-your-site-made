@@ -543,8 +543,21 @@ const VipForm = ({
       {consent}
 
       {error && (
-        <p style={{ fontFamily: "Barlow, sans-serif", fontSize: 12, color: "#e25555" }}>{error}</p>
+        <p
+          id={`vip-form-error${idSuffix}`}
+          role="alert"
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 12,
+            color: "#e25555",
+            lineHeight: 1.5,
+            margin: 0,
+          }}
+        >
+          {error}
+        </p>
       )}
+
 
       <p
         style={{
