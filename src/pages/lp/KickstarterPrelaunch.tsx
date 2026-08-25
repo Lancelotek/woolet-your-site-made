@@ -300,7 +300,6 @@ const VipForm = ({
       setLoading(false);
     }
 
-    }
   };
 
   const consent = (
