@@ -317,7 +317,27 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   }
 
   await tagMailerLiteFoundingMember(email, recommendedSku ?? undefined);
+
+  try {
+    const amountCents = session.amount_total ?? 100;
+    const currency = (session.currency ?? "usd").toUpperCase();
+    const amountFormatted = `${currency === "USD" ? "$" : ""}${(amountCents / 100).toFixed(2)}${
+      currency === "USD" ? "" : ` ${currency}`
+    }`;
+    await sendTemplateEmailAndLog("vip-reservation-paid", email, {
+      idempotencyKey: `vip-reservation-paid-${session.id}`,
+      templateData: {
+        vipUrl: "https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1",
+        amountFormatted,
+        orderRef: session.id,
+      },
+    });
+  } catch (e) {
+    console.error("[payments-webhook] vip-reservation-paid send failed", e);
+  }
+
   await fireMetaPurchase(session);
+
 }
 
 Deno.serve(async (req) => {
