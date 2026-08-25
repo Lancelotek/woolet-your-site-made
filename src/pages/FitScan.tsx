@@ -685,27 +685,112 @@ function WelcomeStep({
       </ol>
 
 
-      <div className="flex flex-col gap-3 pt-2">
-        <button
-          type="button"
-          data-fitlens="open"
-          disabled={disabled}
+      <div className="flex flex-col gap-4 pt-2">
+        <div
           style={{
-            background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
-            color: BG,
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 500,
-            fontSize: "0.78rem",
-            padding: "18px 28px",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            border: "none",
-            cursor: disabled ? "not-allowed" : "pointer",
-            height: 52,
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
+            gap: 18,
+            alignItems: "stretch",
+            border: "1px solid rgba(240,236,228,0.12)",
+            borderRadius: 12,
+            padding: isMobile ? "18px" : "22px 24px",
+            background: "rgba(255,255,255,0.02)",
           }}
         >
-          {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
-        </button>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, justifyContent: "center" }}>
+            <span
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.68rem",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: GOLD,
+                fontWeight: 600,
+              }}
+            >
+              {isMobile ? "Start on this phone" : "Start on this computer"}
+            </span>
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.92rem",
+                lineHeight: 1.55,
+                color: "rgba(240,236,228,0.82)",
+                fontWeight: 300,
+              }}
+            >
+              {isMobile
+                ? "FitLens opens right here and uses your front camera. No card, no ruler."
+                : "FitLens opens right here and uses your webcam. No card, no ruler — just good light."}
+            </p>
+            <button
+              type="button"
+              data-fitlens="open"
+              disabled={disabled}
+              onClick={() => pushEvent("fit_fitlens_open", { device: isMobile ? "mobile" : "desktop" })}
+              style={{
+                background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
+                color: BG,
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 500,
+                fontSize: "0.78rem",
+                padding: "18px 28px",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                border: "none",
+                borderRadius: 2,
+                cursor: disabled ? "not-allowed" : "pointer",
+                height: 52,
+              }}
+            >
+              {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
+            </button>
+          </div>
+
+          {!isMobile && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 10,
+                paddingLeft: 24,
+                borderLeft: "1px solid rgba(240,236,228,0.1)",
+                minWidth: 210,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.68rem",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "rgba(240,236,228,0.7)",
+                  fontWeight: 600,
+                }}
+              >
+                Or use your phone
+              </span>
+              <div style={{ background: "#fff", padding: 10, borderRadius: 8, lineHeight: 0 }}>
+                {phoneUrl && <QRCodeSVG value={phoneUrl} size={132} level="M" includeMargin={false} />}
+              </div>
+              <span
+                style={{
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.78rem",
+                  color: MUTED,
+                  fontWeight: 300,
+                  textAlign: "center",
+                  lineHeight: 1.45,
+                }}
+              >
+                Scan to open this page on your phone camera.
+              </span>
+            </div>
+          )}
+        </div>
 
         <input
           ref={uploadInputRef}
@@ -738,6 +823,7 @@ function WelcomeStep({
             letterSpacing: "0.2em",
             textTransform: "uppercase",
             border: "1px solid rgba(240,236,228,0.22)",
+            borderRadius: 2,
             cursor: "pointer",
             height: 48,
           }}
@@ -747,14 +833,16 @@ function WelcomeStep({
         <p
           style={{
             color: MUTED,
-            fontSize: "0.72rem",
+            fontSize: "0.78rem",
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
             textAlign: "center",
+            lineHeight: 1.5,
             margin: 0,
           }}
         >
-          {tFit(lang, "welcome.cta_note")} · For upload: face front-on, credit card flat on forehead, no glasses.
+          {tFit(lang, "welcome.cta_note")} · Uploading instead? Face front-on, credit card flat on your
+          forehead, no glasses.
         </p>
         <Link
           to={hrefFor("fit", lang)}
@@ -762,7 +850,7 @@ function WelcomeStep({
             color: MUTED,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
-            fontSize: "0.75rem",
+            fontSize: "0.78rem",
             textAlign: "center",
             textDecoration: "none",
             paddingTop: 4,
@@ -771,6 +859,7 @@ function WelcomeStep({
           {tFit(lang, "welcome.manual_link")}
         </Link>
       </div>
+
     </div>
   );
 }
