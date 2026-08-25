@@ -375,18 +375,18 @@ function WelcomeStep({
       </div>
       <h1
         className="font-display text-woolet-white"
-        style={{ fontSize: "clamp(2.5rem, 5.5vw, 3.75rem)", fontWeight: 300, lineHeight: 1 }}
+        style={{ fontSize: isMobile ? "2.25rem" : "clamp(2.5rem, 5.5vw, 3.75rem)", fontWeight: 300, lineHeight: 1.05 }}
       >
         {tFit(lang, "welcome.h1_pre")} <em className="italic" style={{ color: GOLD }}>{tFit(lang, "welcome.h1_em")}</em>
       </h1>
-      <p className="text-cream-dim" style={{ fontSize: "1.1rem", fontWeight: 300, lineHeight: 1.5 }}>
+      <p className="text-cream-dim" style={{ fontSize: isMobile ? "1.05rem" : "1.1rem", fontWeight: 300, lineHeight: 1.55 }}>
         {tFit(lang, "welcome.subtitle")}
       </p>
 
       {/* Why scan + manual alternative — two paths on the same page */}
       <section
         aria-label="Two ways to measure"
-        className="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-1"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1"
       >
         {/* Scan — recommended */}
         <div
@@ -395,10 +395,10 @@ function WelcomeStep({
             border: `1.5px solid ${GOLD}`,
             background: "rgba(202,164,73,0.06)",
             borderRadius: 12,
-            padding: "22px 20px 18px",
+            padding: isMobile ? "20px 18px 18px" : "22px 20px 18px",
             display: "flex",
             flexDirection: "column",
-            gap: 12,
+            gap: isMobile ? 14 : 12,
           }}
         >
           <div
@@ -410,7 +410,7 @@ function WelcomeStep({
               color: BG,
               fontFamily: "Barlow, sans-serif",
               fontWeight: 600,
-              fontSize: "0.6rem",
+              fontSize: isMobile ? "0.65rem" : "0.6rem",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
               padding: "3px 10px",
@@ -423,7 +423,7 @@ function WelcomeStep({
             style={{
               fontFamily: "Cormorant Garamond, serif",
               fontWeight: 400,
-              fontSize: "1.5rem",
+              fontSize: isMobile ? "1.6rem" : "1.5rem",
               color: "#f0ece4",
               lineHeight: 1.1,
               margin: 0,
@@ -438,7 +438,7 @@ function WelcomeStep({
               padding: 0,
               display: "flex",
               flexDirection: "column",
-              gap: 8,
+              gap: isMobile ? 10 : 8,
               fontFamily: "Barlow, sans-serif",
             }}
           >
@@ -454,19 +454,19 @@ function WelcomeStep({
                   display: "flex",
                   gap: 10,
                   alignItems: "flex-start",
-                  fontSize: "0.85rem",
+                  fontSize: isMobile ? "0.95rem" : "0.85rem",
                   color: "rgba(240,236,228,0.85)",
                   fontWeight: 300,
-                  lineHeight: 1.45,
+                  lineHeight: 1.5,
                 }}
               >
                 <span
                   style={{
-                    width: 5,
-                    height: 5,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: GOLD,
-                    marginTop: 8,
+                    marginTop: isMobile ? 7 : 8,
                     flexShrink: 0,
                   }}
                 />
@@ -478,15 +478,13 @@ function WelcomeStep({
             style={{
               margin: 0,
               fontFamily: "Barlow, sans-serif",
-              fontSize: "0.75rem",
+              fontSize: isMobile ? "0.82rem" : "0.75rem",
               color: MUTED,
               fontWeight: 300,
             }}
           >
             Needs a camera and good light — no card, no ruler. Follow the steps below to start.
           </p>
-
-
         </div>
 
         {/* Manual — alternative */}
@@ -495,17 +493,17 @@ function WelcomeStep({
             border: "1px solid rgba(240,236,228,0.14)",
             background: "rgba(255,255,255,0.02)",
             borderRadius: 12,
-            padding: "22px 20px 18px",
+            padding: isMobile ? "20px 18px 18px" : "22px 20px 18px",
             display: "flex",
             flexDirection: "column",
-            gap: 12,
+            gap: isMobile ? 14 : 12,
           }}
         >
           <h3
             style={{
               fontFamily: "Cormorant Garamond, serif",
               fontWeight: 400,
-              fontSize: "1.5rem",
+              fontSize: isMobile ? "1.6rem" : "1.5rem",
               color: "#f0ece4",
               lineHeight: 1.1,
               margin: 0,
@@ -520,7 +518,7 @@ function WelcomeStep({
               padding: 0,
               display: "flex",
               flexDirection: "column",
-              gap: 8,
+              gap: isMobile ? 10 : 8,
               fontFamily: "Barlow, sans-serif",
             }}
           >
@@ -536,19 +534,19 @@ function WelcomeStep({
                   display: "flex",
                   gap: 10,
                   alignItems: "flex-start",
-                  fontSize: "0.85rem",
+                  fontSize: isMobile ? "0.95rem" : "0.85rem",
                   color: "rgba(240,236,228,0.78)",
                   fontWeight: 300,
-                  lineHeight: 1.45,
+                  lineHeight: 1.5,
                 }}
               >
                 <span
                   style={{
-                    width: 5,
-                    height: 5,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: "rgba(240,236,228,0.5)",
-                    marginTop: 8,
+                    marginTop: isMobile ? 7 : 8,
                     flexShrink: 0,
                   }}
                 />
@@ -560,18 +558,23 @@ function WelcomeStep({
             to="/en/fit/manual"
             onClick={() => pushEvent("fit_manual_alt_click", { source: "welcome_compare" })}
             style={{
-              alignSelf: "flex-start",
+              alignSelf: isMobile ? "stretch" : "flex-start",
+              textAlign: "center",
               marginTop: "auto",
               color: GOLD,
               fontFamily: "Barlow, sans-serif",
-              fontSize: "0.7rem",
+              fontSize: isMobile ? "0.78rem" : "0.7rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               fontWeight: 500,
               textDecoration: "none",
-              padding: "12px 18px",
+              padding: isMobile ? "16px 18px" : "12px 18px",
               border: `1px solid ${GOLD}`,
               borderRadius: 2,
+              minHeight: isMobile ? 48 : 40,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             Measure with a tape →
@@ -584,19 +587,19 @@ function WelcomeStep({
           style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
-            gap: 18,
+            gap: isMobile ? 14 : 18,
             alignItems: "stretch",
             border: "1px solid rgba(240,236,228,0.12)",
             borderRadius: 12,
-            padding: isMobile ? "18px" : "22px 24px",
+            padding: isMobile ? "20px" : "22px 24px",
             background: "rgba(255,255,255,0.02)",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, justifyContent: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 14 : 12, justifyContent: "center" }}>
             <span
               style={{
                 fontFamily: "Barlow, sans-serif",
-                fontSize: "0.68rem",
+                fontSize: isMobile ? "0.72rem" : "0.68rem",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 color: GOLD,
@@ -609,7 +612,7 @@ function WelcomeStep({
               style={{
                 margin: 0,
                 fontFamily: "Barlow, sans-serif",
-                fontSize: "0.92rem",
+                fontSize: isMobile ? "1rem" : "0.92rem",
                 lineHeight: 1.55,
                 color: "rgba(240,236,228,0.82)",
                 fontWeight: 300,
@@ -629,14 +632,15 @@ function WelcomeStep({
                 color: BG,
                 fontFamily: "Barlow, sans-serif",
                 fontWeight: 500,
-                fontSize: "0.78rem",
-                padding: "18px 28px",
+                fontSize: isMobile ? "0.85rem" : "0.78rem",
+                padding: isMobile ? "20px 28px" : "18px 28px",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 border: "none",
                 borderRadius: 2,
                 cursor: disabled ? "not-allowed" : "pointer",
-                height: 52,
+                height: isMobile ? 56 : 52,
+                width: "100%",
               }}
             >
               {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
@@ -689,7 +693,7 @@ function WelcomeStep({
         <p
           style={{
             color: MUTED,
-            fontSize: "0.78rem",
+            fontSize: isMobile ? "0.85rem" : "0.78rem",
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
             textAlign: "center",
@@ -706,7 +710,7 @@ function WelcomeStep({
             color: MUTED,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 300,
-            fontSize: "0.78rem",
+            fontSize: isMobile ? "0.85rem" : "0.78rem",
             textAlign: "center",
             textDecoration: "none",
             paddingTop: 4,
@@ -722,10 +726,11 @@ function WelcomeStep({
         onClick={() => pushEvent("fit_quick_open", { source: "welcome_compare" })}
         style={{
           display: "flex",
-          alignItems: "center",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "flex-start" : "center",
           justifyContent: "space-between",
-          gap: 16,
-          padding: "14px 18px",
+          gap: isMobile ? 12 : 16,
+          padding: isMobile ? "18px" : "14px 18px",
           border: "1px dashed rgba(240,236,228,0.18)",
           background: "rgba(255,255,255,0.015)",
           borderRadius: 8,
@@ -733,24 +738,26 @@ function WelcomeStep({
           color: "#f0ece4",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 4 : 2, minWidth: 0 }}>
           <span style={{
-            fontFamily: "Barlow, sans-serif", fontSize: "0.95rem",
+            fontFamily: "Barlow, sans-serif", fontSize: isMobile ? "1rem" : "0.95rem",
             fontWeight: 500, color: "#f0ece4",
           }}>
             Not ready to measure?
           </span>
           <span style={{
             color: MUTED, fontFamily: "Barlow, sans-serif",
-            fontSize: "0.82rem", fontWeight: 300,
+            fontSize: isMobile ? "0.9rem" : "0.82rem", fontWeight: 300,
+            lineHeight: 1.45,
           }}>
             Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec.
           </span>
         </div>
         <span style={{
-          color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem",
+          color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: isMobile ? "0.78rem" : "0.7rem",
           letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500,
           whiteSpace: "nowrap",
+          flexShrink: 0,
         }}>
           Take quiz →
         </span>
@@ -761,13 +768,13 @@ function WelcomeStep({
           borderRadius: 12,
           border: `1px solid rgba(202,164,73,0.35)`,
           background: "rgba(202,164,73,0.06)",
-          padding: "16px 18px",
+          padding: isMobile ? "18px" : "16px 18px",
           display: "flex",
           alignItems: "flex-start",
           gap: 12,
         }}
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
+        <svg width={isMobile ? 22 : 20} height={isMobile ? 22 : 20} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
           <circle cx="12" cy="12" r="9" stroke={GOLD} strokeWidth="1.5" />
           <path d="M8.5 12.2l2.4 2.4 4.6-4.8" stroke={GOLD} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -775,7 +782,7 @@ function WelcomeStep({
           style={{
             color: "rgba(240,236,228,0.88)",
             fontFamily: "Barlow, sans-serif",
-            fontSize: "0.9rem",
+            fontSize: isMobile ? "1rem" : "0.9rem",
             fontWeight: 300,
             lineHeight: 1.6,
             margin: 0,
@@ -783,14 +790,11 @@ function WelcomeStep({
         >
           <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
           face straight from the camera — works on a laptop webcam or a phone.
-
         </p>
       </div>
 
-
-
       <ol
-        className="flex flex-col gap-5 pt-2 m-0 p-0"
+        className={`flex flex-col m-0 p-0 ${isMobile ? "gap-6 pt-3" : "gap-5 pt-2"}`}
         style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
       >
         {steps.map((s) => (
@@ -800,10 +804,10 @@ function WelcomeStep({
               style={{
                 color: GOLD,
                 fontFamily: "Cormorant Garamond, serif",
-                fontSize: "1.5rem",
+                fontSize: isMobile ? "1.65rem" : "1.5rem",
                 fontWeight: 300,
                 fontStyle: "italic",
-                minWidth: 36,
+                minWidth: isMobile ? 40 : 36,
                 lineHeight: 1,
                 paddingTop: 2,
               }}
@@ -814,14 +818,14 @@ function WelcomeStep({
               <span
                 style={{
                   color: "rgba(255,255,255,0.95)",
-                  fontSize: "1.05rem",
+                  fontSize: isMobile ? "1.1rem" : "1.05rem",
                   fontWeight: 500,
                   letterSpacing: "0.01em",
                 }}
               >
                 {s.title}
               </span>
-              <span style={{ color: MUTED, fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.5 }}>
+              <span style={{ color: MUTED, fontSize: isMobile ? "1rem" : "0.92rem", fontWeight: 300, lineHeight: 1.5 }}>
                 {s.body}
               </span>
             </div>
