@@ -4063,6 +4063,125 @@ function ResultSentStep({
   );
 }
 
+/* ─────────────── FitLens result → email capture ─────────────── */
+
+/**
+ * Offers to email the FitLens measurements to the visitor. The send itself goes
+ * through the whitelisted `fit-scan-email-notify` proxy so only this one
+ * template can ever be sent, and the address is also pushed to the list with
+ * inline consent (no separate checkbox — the copy states it).
+ */
+function FitLensEmailCapture({
+  lang,
+  measurements,
+  device,
+}: {
+  lang: Lang;
+  measurements: FitLensMeasurements;
+  device: "mobile" | "desktop";
+}) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const inputId = `fitlens-email-${lang}`;
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status === "sending") return;
+    const parsed = z.string().trim().toLowerCase().email().max(255).safeParse(email);
+    if (!parsed.success) {
+      toast.error(tFit(lang, "email.err_invalid"));
+      return;
+    }
+    setStatus("sending");
+    const value = parsed.data;
+    try {
+      const { error } = await supabase.functions.invoke("fit-scan-email-notify", {
+        body: {
+          email: value,
+          lang,
+          faceWidthMm: measurements.faceWidth != null ? Math.round(measurements.faceWidth) : undefined,
+          noseWidthMm: measurements.bridge != null ? Math.round(measurements.bridge) : undefined,
+          pdMm: measurements.pd != null ? Math.round(measurements.pd) : undefined,
+          templeToTempleMm:
+            measurements.templeToTemple != null ? Math.round(measurements.templeToTemple) : undefined,
+          templeLengthMm:
+            measurements.templeLength != null ? Math.round(measurements.templeLength) : undefined,
+        },
+      });
+      if (error) throw error;
+
+      supabase.functions
+        .invoke("mailerlite-subscribe", {
+          body: {
+            ...getAttribution(),
+            email: value,
+            face_width:
+              measurements.faceWidth != null ? String(Math.round(measurements.faceWidth)) : undefined,
+            source: "fitlens",
+            device,
+          },
+        })
+        .then(({ error: mlErr }) => {
+          if (mlErr) console.warn("[fitlens email] mailerlite failed", mlErr);
+        });
+
+      setStatus("sent");
+      pushEvent("fit_fitlens_email_captured", { device });
+      clarityEvent("scan_email_submitted");
+      toast.success(tFit(lang, "email.toast_sent"));
+    } catch (err) {
+      console.error("[fitlens email] send failed", err);
+      setStatus("idle");
+      clarityEvent("scan_email_failed");
+      toast.error(tFit(lang, "email.toast_save_failed"));
+    }
+  };
+
+  if (status === "sent") {
+    return (
+      <p className="mb-4 text-[14px]" style={{ color: "#EFE9DF", opacity: 0.85 }}>
+        {tFit(lang, "fitlens.email_sent")}
+      </p>
+    );
+  }
+
+  return (
+    <form onSubmit={submit} className="mb-5">
+      <label
+        htmlFor={inputId}
+        className="mb-2 block text-[13px]"
+        style={{ color: "#EFE9DF", opacity: 0.85 }}
+      >
+        {tFit(lang, "fitlens.email_prompt")}
+      </label>
+      <div className="flex flex-col gap-2 sm:flex-row">
+        <input
+          id={inputId}
+          type="email"
+          autoComplete="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@email.com"
+          className="min-h-[48px] flex-1 rounded-sm border bg-transparent px-4 text-[15px]"
+          style={{ borderColor: "rgba(239,233,223,0.28)", color: "#EFE9DF" }}
+        />
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="min-h-[48px] rounded-sm px-5 text-[11px] uppercase tracking-[0.2em] disabled:opacity-60"
+          style={{ background: GOLD, color: "#0B0A09", fontFamily: "Barlow, sans-serif" }}
+        >
+          {status === "sending" ? tFit(lang, "fitlens.email_sending") : tFit(lang, "fitlens.email_cta")}
+        </button>
+      </div>
+      <p className="mt-2 text-[12px]" style={{ color: "#EFE9DF", opacity: 0.55 }}>
+        {tFit(lang, "fitlens.email_consent")}
+      </p>
+    </form>
+  );
+}
+
 /* ─────────────── Page shell ─────────────── */
 
 
