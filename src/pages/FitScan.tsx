@@ -386,7 +386,7 @@ function WelcomeStep({
       {/* Why scan + manual alternative — two paths on the same page */}
       <section
         aria-label="Two ways to measure"
-        className="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-1"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1"
       >
         {/* Scan — recommended */}
         <div
@@ -395,10 +395,10 @@ function WelcomeStep({
             border: `1.5px solid ${GOLD}`,
             background: "rgba(202,164,73,0.06)",
             borderRadius: 12,
-            padding: "22px 20px 18px",
+            padding: isMobile ? "20px 18px 18px" : "22px 20px 18px",
             display: "flex",
             flexDirection: "column",
-            gap: 12,
+            gap: isMobile ? 14 : 12,
           }}
         >
           <div
@@ -410,7 +410,7 @@ function WelcomeStep({
               color: BG,
               fontFamily: "Barlow, sans-serif",
               fontWeight: 600,
-              fontSize: "0.6rem",
+              fontSize: isMobile ? "0.65rem" : "0.6rem",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
               padding: "3px 10px",
@@ -423,7 +423,7 @@ function WelcomeStep({
             style={{
               fontFamily: "Cormorant Garamond, serif",
               fontWeight: 400,
-              fontSize: "1.5rem",
+              fontSize: isMobile ? "1.6rem" : "1.5rem",
               color: "#f0ece4",
               lineHeight: 1.1,
               margin: 0,
@@ -438,7 +438,7 @@ function WelcomeStep({
               padding: 0,
               display: "flex",
               flexDirection: "column",
-              gap: 8,
+              gap: isMobile ? 10 : 8,
               fontFamily: "Barlow, sans-serif",
             }}
           >
@@ -454,19 +454,19 @@ function WelcomeStep({
                   display: "flex",
                   gap: 10,
                   alignItems: "flex-start",
-                  fontSize: "0.85rem",
+                  fontSize: isMobile ? "0.95rem" : "0.85rem",
                   color: "rgba(240,236,228,0.85)",
                   fontWeight: 300,
-                  lineHeight: 1.45,
+                  lineHeight: 1.5,
                 }}
               >
                 <span
                   style={{
-                    width: 5,
-                    height: 5,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: GOLD,
-                    marginTop: 8,
+                    marginTop: isMobile ? 7 : 8,
                     flexShrink: 0,
                   }}
                 />
@@ -478,15 +478,13 @@ function WelcomeStep({
             style={{
               margin: 0,
               fontFamily: "Barlow, sans-serif",
-              fontSize: "0.75rem",
+              fontSize: isMobile ? "0.82rem" : "0.75rem",
               color: MUTED,
               fontWeight: 300,
             }}
           >
             Needs a camera and good light — no card, no ruler. Follow the steps below to start.
           </p>
-
-
         </div>
 
         {/* Manual — alternative */}
@@ -495,17 +493,17 @@ function WelcomeStep({
             border: "1px solid rgba(240,236,228,0.14)",
             background: "rgba(255,255,255,0.02)",
             borderRadius: 12,
-            padding: "22px 20px 18px",
+            padding: isMobile ? "20px 18px 18px" : "22px 20px 18px",
             display: "flex",
             flexDirection: "column",
-            gap: 12,
+            gap: isMobile ? 14 : 12,
           }}
         >
           <h3
             style={{
               fontFamily: "Cormorant Garamond, serif",
               fontWeight: 400,
-              fontSize: "1.5rem",
+              fontSize: isMobile ? "1.6rem" : "1.5rem",
               color: "#f0ece4",
               lineHeight: 1.1,
               margin: 0,
@@ -520,7 +518,7 @@ function WelcomeStep({
               padding: 0,
               display: "flex",
               flexDirection: "column",
-              gap: 8,
+              gap: isMobile ? 10 : 8,
               fontFamily: "Barlow, sans-serif",
             }}
           >
@@ -536,19 +534,19 @@ function WelcomeStep({
                   display: "flex",
                   gap: 10,
                   alignItems: "flex-start",
-                  fontSize: "0.85rem",
+                  fontSize: isMobile ? "0.95rem" : "0.85rem",
                   color: "rgba(240,236,228,0.78)",
                   fontWeight: 300,
-                  lineHeight: 1.45,
+                  lineHeight: 1.5,
                 }}
               >
                 <span
                   style={{
-                    width: 5,
-                    height: 5,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: "rgba(240,236,228,0.5)",
-                    marginTop: 8,
+                    marginTop: isMobile ? 7 : 8,
                     flexShrink: 0,
                   }}
                 />
@@ -560,18 +558,23 @@ function WelcomeStep({
             to="/en/fit/manual"
             onClick={() => pushEvent("fit_manual_alt_click", { source: "welcome_compare" })}
             style={{
-              alignSelf: "flex-start",
+              alignSelf: isMobile ? "stretch" : "flex-start",
+              textAlign: "center",
               marginTop: "auto",
               color: GOLD,
               fontFamily: "Barlow, sans-serif",
-              fontSize: "0.7rem",
+              fontSize: isMobile ? "0.78rem" : "0.7rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               fontWeight: 500,
               textDecoration: "none",
-              padding: "12px 18px",
+              padding: isMobile ? "16px 18px" : "12px 18px",
               border: `1px solid ${GOLD}`,
               borderRadius: 2,
+              minHeight: isMobile ? 48 : 40,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             Measure with a tape →
