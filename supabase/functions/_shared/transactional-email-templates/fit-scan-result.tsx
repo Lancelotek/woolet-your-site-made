@@ -257,3 +257,12 @@ const footer: React.CSSProperties = {
   lineHeight: 1.55,
   margin: '0 0 8px',
 }
+const hrTight: React.CSSProperties = {
+  borderColor: 'rgba(202,164,73,0.35)',
+  margin: '16px 0 12px',
+}
+const extraRow: React.CSSProperties = {
+  fontSize: 14,
+  color: '#333',
+  margin: '0 0 6px',
+}
