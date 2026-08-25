@@ -31,8 +31,8 @@ const INK = '#0f0f0f'
 const PAPER = '#f0ece4'
 
 const Email = ({
-  faceWidthMm = 158,
-  noseWidthMm = 40,
+  faceWidthMm,
+  noseWidthMm,
   pdMm,
   templeToTempleMm,
   templeLengthMm,
@@ -45,7 +45,7 @@ const Email = ({
   <Html lang="en" dir="ltr">
     <Head />
     <Preview>
-      Your face width is {faceWidthMm}mm — here's your recommended Woolet fit.
+      {faceWidthMm ? `Your face width is ${faceWidthMm}mm — ` : ''}here's your recommended Woolet fit.
     </Preview>
     <Body style={main}>
       <Container style={container}>
@@ -59,14 +59,18 @@ const Email = ({
         <Section style={card}>
           <Text style={badge}>{badgeLabel}</Text>
           <Section style={metricsRow}>
-            <Section style={metricCell}>
-              <Text style={metricValue}>{faceWidthMm}<span style={metricUnit}> mm</span></Text>
-              <Text style={metricLabel}>Face width (temple to temple)</Text>
-            </Section>
-            <Section style={metricCell}>
-              <Text style={metricValue}>{noseWidthMm}<span style={metricUnit}> mm</span></Text>
-              <Text style={metricLabel}>Nose / bridge width</Text>
-            </Section>
+            {faceWidthMm ? (
+              <Section style={metricCell}>
+                <Text style={metricValue}>{faceWidthMm}<span style={metricUnit}> mm</span></Text>
+                <Text style={metricLabel}>Face width (temple to temple)</Text>
+              </Section>
+            ) : null}
+            {noseWidthMm ? (
+              <Section style={metricCell}>
+                <Text style={metricValue}>{noseWidthMm}<span style={metricUnit}> mm</span></Text>
+                <Text style={metricLabel}>Nose / bridge width</Text>
+              </Section>
+            ) : null}
           </Section>
           {(pdMm || templeToTempleMm || templeLengthMm) && (
             <Section>
@@ -98,12 +102,12 @@ const Email = ({
         <Heading as="h3" style={h3}>How to use these numbers</Heading>
         <Text style={body}>
           <strong>Frame width</strong> should be within ±3 mm of your face width
-          ({faceWidthMm} mm). Anything narrower will pinch your temples; wider
+          {faceWidthMm ? ` (${faceWidthMm} mm)` : ''}. Anything narrower will pinch your temples; wider
           will slide down your nose.
         </Text>
         <Text style={body}>
           <strong>Bridge width</strong> should be close to your nose width
-          ({noseWidthMm} mm). A keyhole bridge (like Woolet's 21 mm) distributes
+          {noseWidthMm ? ` (${noseWidthMm} mm)` : ''}. A keyhole bridge (like Woolet's 21 mm) distributes
           weight without leaving pressure marks.
         </Text>
         <Text style={body}>
@@ -129,7 +133,9 @@ const Email = ({
 export const template = {
   component: Email,
   subject: (data: Record<string, any>) =>
-    `Your fit: ${data.faceWidthMm ?? '—'}mm face · ${data.recommendedModel ?? 'Woolet'} recommended`,
+    data.faceWidthMm
+      ? `Your fit: ${data.faceWidthMm}mm face · ${data.recommendedModel ?? 'Woolet'} recommended`
+      : `Your Woolet measurements · ${data.recommendedModel ?? 'Woolet'} recommended`,
   displayName: 'Fit Scan Result',
   previewData: {
     faceWidthMm: 162,

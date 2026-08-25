@@ -9,8 +9,8 @@ import { z } from "npm:zod@3.23.8";
 
 const BodySchema = z.object({
   email: z.string().trim().toLowerCase().email().max(255),
-  faceWidthMm: z.number().finite().min(80).max(300),
-  noseWidthMm: z.number().finite().min(10).max(60),
+  faceWidthMm: z.number().finite().min(80).max(300).optional(),
+  noseWidthMm: z.number().finite().min(10).max(60).optional(),
   // Optional extras handed over by the FitLens widget.
   pdMm: z.number().finite().min(40).max(90).optional(),
   templeToTempleMm: z.number().finite().min(100).max(200).optional(),
@@ -73,10 +73,10 @@ Deno.serve(async (req) => {
   const nonce = scanNonce || crypto.randomUUID().slice(0, 8);
   try {
     await sendTemplateEmailAndLog("fit-scan-result", email, {
-      idempotencyKey: `fit-scan-${email}-${Math.round(faceWidthMm)}-${Math.round(noseWidthMm)}-${nonce}`,
+      idempotencyKey: `fit-scan-${email}-${Math.round(faceWidthMm ?? 0)}-${Math.round(noseWidthMm ?? 0)}-${nonce}`,
       templateData: {
-        faceWidthMm: Math.round(faceWidthMm),
-        noseWidthMm: Math.round(noseWidthMm),
+        faceWidthMm: faceWidthMm != null ? Math.round(faceWidthMm) : undefined,
+        noseWidthMm: noseWidthMm != null ? Math.round(noseWidthMm) : undefined,
         pdMm: pdMm != null ? Math.round(pdMm) : undefined,
         templeToTempleMm: templeToTempleMm != null ? Math.round(templeToTempleMm) : undefined,
         templeLengthMm: templeLengthMm != null ? Math.round(templeLengthMm) : undefined,
