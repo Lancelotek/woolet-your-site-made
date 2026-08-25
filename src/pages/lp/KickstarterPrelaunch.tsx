@@ -187,6 +187,8 @@ const VipForm = ({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errorKind, setErrorKind] = useState<"invalid" | "duplicate" | "generic" | null>(null);
+
   const [step, setStep] = useState<1 | 2>(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
 
