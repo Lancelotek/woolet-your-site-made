@@ -36,6 +36,7 @@ import { detectFaceShape, type FaceShapeResult } from "@/lib/face-shape";
 import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useFitLensScript } from "@/hooks/use-fitlens-script";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
@@ -354,6 +355,7 @@ function WelcomeStep({
   isMobile: boolean;
 }) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
+  useFitLensScript();
   const steps = isMobile
     ? [
         { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
@@ -838,7 +840,8 @@ function WelcomeStep({
 
       <div className="flex flex-col gap-3 pt-2">
         <button
-          onClick={onStart}
+          type="button"
+          data-fitlens="open"
           disabled={disabled}
           style={{
             background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
@@ -854,7 +857,7 @@ function WelcomeStep({
             height: 52,
           }}
         >
-          {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_start")}
+          {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
         </button>
 
         <input
