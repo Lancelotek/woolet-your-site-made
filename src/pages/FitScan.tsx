@@ -2,7 +2,6 @@ import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { z } from "zod";
-import DesktopScanGate from "@/components/DesktopScanGate";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -33,6 +32,8 @@ import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
+import { QRCodeSVG } from "qrcode.react";
+
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
@@ -352,11 +353,20 @@ function WelcomeStep({
 }) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
   useFitLensScript();
+  // QR handoff target: the same page opened on a phone (sid marks the handoff).
+  const [handoffSid] = useState(() =>
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : Math.random().toString(36).slice(2) + Date.now().toString(36),
+  );
+  const phoneUrl =
+    typeof window === "undefined" ? "" : `${window.location.origin}/${lang}/fit?sid=${handoffSid}`;
   const steps = [
     { n: "01", title: "Tap “Find my fit”", body: "FitLens opens in a secure window and asks for camera access." },
-    { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your camera at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
+    { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your webcam at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
     { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 20 seconds — then we route you to 007, 009 or bespoke." },
   ];
+
 
 
   return (
@@ -572,6 +582,181 @@ function WelcomeStep({
         </div>
       </section>
 
+      <div className="flex flex-col gap-4 pt-2">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
+            gap: 18,
+            alignItems: "stretch",
+            border: "1px solid rgba(240,236,228,0.12)",
+            borderRadius: 12,
+            padding: isMobile ? "18px" : "22px 24px",
+            background: "rgba(255,255,255,0.02)",
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, justifyContent: "center" }}>
+            <span
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.68rem",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: GOLD,
+                fontWeight: 600,
+              }}
+            >
+              {isMobile ? "Start on this phone" : "Start on this computer"}
+            </span>
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "0.92rem",
+                lineHeight: 1.55,
+                color: "rgba(240,236,228,0.82)",
+                fontWeight: 300,
+              }}
+            >
+              {isMobile
+                ? "FitLens opens right here and uses your front camera. No card, no ruler."
+                : "FitLens opens right here and uses your webcam. No card, no ruler — just good light."}
+            </p>
+            <button
+              type="button"
+              data-fitlens="open"
+              disabled={disabled}
+              onClick={() => pushEvent("fit_fitlens_open", { device: isMobile ? "mobile" : "desktop" })}
+              style={{
+                background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
+                color: BG,
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 500,
+                fontSize: "0.78rem",
+                padding: "18px 28px",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                border: "none",
+                borderRadius: 2,
+                cursor: disabled ? "not-allowed" : "pointer",
+                height: 52,
+              }}
+            >
+              {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
+            </button>
+          </div>
+
+          {!isMobile && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 10,
+                paddingLeft: 24,
+                borderLeft: "1px solid rgba(240,236,228,0.1)",
+                minWidth: 210,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.68rem",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "rgba(240,236,228,0.7)",
+                  fontWeight: 600,
+                }}
+              >
+                Or use your phone
+              </span>
+              <div style={{ background: "#fff", padding: 10, borderRadius: 8, lineHeight: 0 }}>
+                {phoneUrl && <QRCodeSVG value={phoneUrl} size={132} level="M" includeMargin={false} />}
+              </div>
+              <span
+                style={{
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.78rem",
+                  color: MUTED,
+                  fontWeight: 300,
+                  textAlign: "center",
+                  lineHeight: 1.45,
+                }}
+              >
+                Scan to open this page on your phone camera.
+              </span>
+            </div>
+          )}
+        </div>
+
+        <input
+          ref={uploadInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              pushEvent("fit_scan_upload_picked", { size: file.size, type: file.type });
+              onUpload(file);
+            }
+            // Reset so re-selecting the same file re-triggers onChange
+            if (uploadInputRef.current) uploadInputRef.current.value = "";
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            pushEvent("fit_scan_upload_open", {});
+            uploadInputRef.current?.click();
+          }}
+          style={{
+            background: "transparent",
+            color: "#f0ece4",
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 400,
+            fontSize: "0.72rem",
+            padding: "14px 20px",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            border: "1px solid rgba(240,236,228,0.22)",
+            borderRadius: 2,
+            cursor: "pointer",
+            height: 48,
+          }}
+        >
+          Upload a photo instead
+        </button>
+        <p
+          style={{
+            color: MUTED,
+            fontSize: "0.78rem",
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 300,
+            textAlign: "center",
+            lineHeight: 1.5,
+            margin: 0,
+          }}
+        >
+          {tFit(lang, "welcome.cta_note")} · Uploading instead? Face front-on, credit card flat on your
+          forehead, no glasses.
+        </p>
+        <Link
+          to={hrefFor("fit", lang)}
+          style={{
+            color: MUTED,
+            fontFamily: "Barlow, sans-serif",
+            fontWeight: 300,
+            fontSize: "0.78rem",
+            textAlign: "center",
+            textDecoration: "none",
+            paddingTop: 4,
+          }}
+        >
+          {tFit(lang, "welcome.manual_link")}
+        </Link>
+      </div>
+
       {/* Third path — no measurement, just a quick quiz */}
       <Link
         to={localePath(lang, "/fit/quick")}
@@ -629,19 +814,20 @@ function WelcomeStep({
         </svg>
         <p
           style={{
-            color: "rgba(240,236,228,0.85)",
+            color: "rgba(240,236,228,0.88)",
             fontFamily: "Barlow, sans-serif",
-            fontSize: "0.85rem",
+            fontSize: "0.9rem",
             fontWeight: 300,
-            lineHeight: 1.55,
+            lineHeight: 1.6,
             margin: 0,
           }}
         >
           <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
-          face directly from the camera — just your face, good light and no glasses. A credit card is only
-          required if you upload a photo instead.
+          face straight from the camera — works on a laptop webcam or a phone. A credit card is only
+          needed if you upload a photo instead.
         </p>
       </div>
+
 
 
       <ol
@@ -685,92 +871,6 @@ function WelcomeStep({
       </ol>
 
 
-      <div className="flex flex-col gap-3 pt-2">
-        <button
-          type="button"
-          data-fitlens="open"
-          disabled={disabled}
-          style={{
-            background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
-            color: BG,
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 500,
-            fontSize: "0.78rem",
-            padding: "18px 28px",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            border: "none",
-            cursor: disabled ? "not-allowed" : "pointer",
-            height: 52,
-          }}
-        >
-          {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
-        </button>
-
-        <input
-          ref={uploadInputRef}
-          type="file"
-          accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
-          style={{ display: "none" }}
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              pushEvent("fit_scan_upload_picked", { size: file.size, type: file.type });
-              onUpload(file);
-            }
-            // Reset so re-selecting the same file re-triggers onChange
-            if (uploadInputRef.current) uploadInputRef.current.value = "";
-          }}
-        />
-        <button
-          type="button"
-          onClick={() => {
-            pushEvent("fit_scan_upload_open", {});
-            uploadInputRef.current?.click();
-          }}
-          style={{
-            background: "transparent",
-            color: "#f0ece4",
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 400,
-            fontSize: "0.72rem",
-            padding: "14px 20px",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            border: "1px solid rgba(240,236,228,0.22)",
-            cursor: "pointer",
-            height: 48,
-          }}
-        >
-          Upload a photo instead
-        </button>
-        <p
-          style={{
-            color: MUTED,
-            fontSize: "0.72rem",
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 300,
-            textAlign: "center",
-            margin: 0,
-          }}
-        >
-          {tFit(lang, "welcome.cta_note")} · For upload: face front-on, credit card flat on forehead, no glasses.
-        </p>
-        <Link
-          to={hrefFor("fit", lang)}
-          style={{
-            color: MUTED,
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 300,
-            fontSize: "0.75rem",
-            textAlign: "center",
-            textDecoration: "none",
-            paddingTop: 4,
-          }}
-        >
-          {tFit(lang, "welcome.manual_link")}
-        </Link>
-      </div>
     </div>
   );
 }
@@ -4041,11 +4141,8 @@ export default function FitScan() {
   const pendingResultRef = useRef<null | { measurements: Measurements; frame: CapturedFrame }>(null);
   const [analyzingReady, setAnalyzingReady] = useState(false);
 
-  // Desktop/tablet visitors must always hand off to a phone via QR — the scan
-  // requires holding the device against the forehead. Only mobile runs the
-  // camera flow directly. `sid`/`s` mean the visitor already arrived from a
-  // phone handoff, so we let them through.
-  const requiresHandoff = !isMobile && !sidParam && !sessionId;
+  // Visitors can run FitLens on this device (webcam or phone camera) or hand
+  // off to a phone via the QR code shown on desktop.
 
 
   useEffect(() => {
@@ -4681,10 +4778,9 @@ export default function FitScan() {
         `}</style>
         <div id="fit-scan-panel" className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
-            {requiresHandoff ? (
-              <DesktopScanGate lang={lang} />
-            ) : (
+            {
               <>
+
                 {step === "welcome" && (blockingMessage || errorMsg) && (
                   <div
                     role="alert"
@@ -4900,7 +4996,9 @@ export default function FitScan() {
                   </>
                 )}
               </>
-            )}
+            }
+
+
 
           </div>
         </div>
