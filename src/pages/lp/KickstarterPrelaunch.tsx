@@ -253,6 +253,13 @@ const VipForm = ({
       if (fnError) throw fnError;
       if (data && !data.success) throw new Error(data.error || "Subscription failed");
 
+      // Confirmation email — non-blocking, never fails the signup.
+      void supabase.functions
+        .invoke("vip-waitlist-email", { body: { email: normalizedEmail } })
+        .catch((e) => console.error("VIP confirmation email failed:", e));
+
+
+
       if (typeof window !== "undefined") {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
