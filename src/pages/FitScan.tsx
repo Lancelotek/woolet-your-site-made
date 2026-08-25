@@ -2,7 +2,6 @@ import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { z } from "zod";
-import DesktopScanGate from "@/components/DesktopScanGate";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -4146,7 +4145,6 @@ export default function FitScan() {
   // requires holding the device against the forehead. Only mobile runs the
   // camera flow directly. `sid`/`s` mean the visitor already arrived from a
   // phone handoff, so we let them through.
-  const requiresHandoff = !isMobile && !sidParam && !sessionId;
 
 
   useEffect(() => {
