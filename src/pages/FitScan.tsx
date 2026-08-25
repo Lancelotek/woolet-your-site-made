@@ -629,19 +629,20 @@ function WelcomeStep({
         </svg>
         <p
           style={{
-            color: "rgba(240,236,228,0.85)",
+            color: "rgba(240,236,228,0.88)",
             fontFamily: "Barlow, sans-serif",
-            fontSize: "0.85rem",
+            fontSize: "0.9rem",
             fontWeight: 300,
-            lineHeight: 1.55,
+            lineHeight: 1.6,
             margin: 0,
           }}
         >
           <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
-          face directly from the camera — just your face, good light and no glasses. A credit card is only
-          required if you upload a photo instead.
+          face straight from the camera — works on a laptop webcam or a phone. A credit card is only
+          needed if you upload a photo instead.
         </p>
       </div>
+
 
 
       <ol
