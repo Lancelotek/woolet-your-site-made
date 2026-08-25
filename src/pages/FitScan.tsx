@@ -480,8 +480,8 @@ function WelcomeStep({
               fontWeight: 300,
             }}
           >
-            Needs a phone camera and any credit-card-sized object as scale. Follow the steps below to start.
-          </p>
+            Needs a camera and good light — no card, no ruler. Follow the steps below to start.
+
         </div>
 
         {/* Manual — alternative */}
