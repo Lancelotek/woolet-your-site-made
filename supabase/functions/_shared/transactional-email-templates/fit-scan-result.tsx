@@ -33,6 +33,9 @@ const PAPER = '#f0ece4'
 const Email = ({
   faceWidthMm = 158,
   noseWidthMm = 40,
+  pdMm,
+  templeToTempleMm,
+  templeLengthMm,
   recommendationTitle = 'Your fit recommendation',
   recommendationBody = '',
   recommendedModel = 'Woolet 007',
