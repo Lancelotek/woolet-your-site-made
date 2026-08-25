@@ -4782,9 +4782,10 @@ export default function FitScan() {
         `}</style>
         <div id="fit-scan-panel" className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
           <div className="max-w-xl mx-auto">
-            {requiresHandoff ? (
+            {false ? (
               <DesktopScanGate lang={lang} />
             ) : (
+
               <>
                 {step === "welcome" && (blockingMessage || errorMsg) && (
                   <div
