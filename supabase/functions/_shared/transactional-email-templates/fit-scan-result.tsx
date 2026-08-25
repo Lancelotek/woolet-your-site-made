@@ -68,6 +68,20 @@ const Email = ({
               <Text style={metricLabel}>Nose / bridge width</Text>
             </Section>
           </Section>
+          {(pdMm || templeToTempleMm || templeLengthMm) && (
+            <Section>
+              <Hr style={hrTight} />
+              {pdMm ? (
+                <Text style={extraRow}>Pupillary distance (PD) — <strong>{pdMm} mm</strong></Text>
+              ) : null}
+              {templeToTempleMm ? (
+                <Text style={extraRow}>Temple to temple — <strong>{templeToTempleMm} mm</strong></Text>
+              ) : null}
+              {templeLengthMm ? (
+                <Text style={extraRow}>Temple (arm) length — <strong>{templeLengthMm} mm</strong></Text>
+              ) : null}
+            </Section>
+          )}
         </Section>
 
         <Heading as="h2" style={h2}>{recommendationTitle}</Heading>
