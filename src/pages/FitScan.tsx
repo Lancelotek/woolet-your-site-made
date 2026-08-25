@@ -4896,6 +4896,34 @@ export default function FitScan() {
                   </div>
                 )}
 
+                {step === "welcome" && fitLensMeasurements && (
+                  <div
+                    className="mb-6 rounded-sm border p-5"
+                    style={{ borderColor: "rgba(202,164,73,0.45)", background: "rgba(202,164,73,0.07)" }}
+                  >
+                    <p
+                      className="mb-3 text-[11px] uppercase tracking-[0.22em]"
+                      style={{ color: GOLD, fontFamily: "Barlow, sans-serif" }}
+                    >
+                      Measurements received
+                    </p>
+                    <ul className="mb-4 grid gap-1 text-[14px]" style={{ color: PAPER }}>
+                      {(Object.keys(fitLensMeasurements) as (keyof typeof MEASUREMENT_RANGES)[]).map((k) => (
+                        <li key={k} className="flex justify-between gap-4">
+                          <span style={{ opacity: 0.75 }}>{MEASUREMENT_RANGES[k].label}</span>
+                          <span className="font-mono">{fitLensMeasurements[k]} mm</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      to={`/${lang}/bespoke/configurator`}
+                      className="inline-flex items-center justify-center border px-5 py-3 text-[11px] uppercase tracking-[0.2em]"
+                      style={{ borderColor: GOLD, color: GOLD, fontFamily: "Barlow, sans-serif" }}
+                    >
+                      Use these in bespoke
+                    </Link>
+                  </div>
+                )}
                 {step === "welcome" && (
                   <WelcomeStep
                     lang={lang}
