@@ -356,17 +356,12 @@ function WelcomeStep({
 }) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
   useFitLensScript();
-  const steps = isMobile
-    ? [
-        { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: tFit(lang, "welcome.step2_title"), body: tFit(lang, "welcome.step2_body"), img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
-        { n: "03", title: tFit(lang, "welcome.step3_mobile_title"), body: tFit(lang, "welcome.step3_mobile_body"), img: fitStepPhone, alt: "Hand holding a smartphone at arm's length for a selfie" },
-      ]
-    : [
-        { n: "01", title: tFit(lang, "welcome.step1_title"), body: tFit(lang, "welcome.step1_body"), img: fitStepCard, alt: "Credit card illustration used as scale reference" },
-        { n: "02", title: tFit(lang, "welcome.step2_title"), body: tFit(lang, "welcome.step2_body"), img: fitStepForehead, alt: "Person holding a credit card flat across the forehead" },
-        { n: "03", title: tFit(lang, "welcome.step3_desktop_title"), body: tFit(lang, "welcome.step3_desktop_body"), img: fitStepPhone, alt: "Person facing a camera at eye level" },
-      ];
+  const steps = [
+    { n: "01", title: "Tap “Find my fit”", body: "FitLens opens in a secure window and asks for camera access." },
+    { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your camera at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
+    { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 20 seconds — then we route you to 007, 009 or bespoke." },
+  ];
+
 
   return (
     <div className="flex flex-col gap-8">
