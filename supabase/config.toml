@@ -31,4 +31,7 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.vip-reservation-status]
     verify_jwt = false
+  [functions.vip-waitlist-email]
+    verify_jwt = false
+
 
