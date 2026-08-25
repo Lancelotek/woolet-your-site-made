@@ -582,120 +582,6 @@ function WelcomeStep({
         </div>
       </section>
 
-      {/* Third path — no measurement, just a quick quiz */}
-      <Link
-        to={localePath(lang, "/fit/quick")}
-        onClick={() => pushEvent("fit_quick_open", { source: "welcome_compare" })}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 16,
-          padding: "14px 18px",
-          border: "1px dashed rgba(240,236,228,0.18)",
-          background: "rgba(255,255,255,0.015)",
-          borderRadius: 8,
-          textDecoration: "none",
-          color: "#f0ece4",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
-          <span style={{
-            fontFamily: "Barlow, sans-serif", fontSize: "0.95rem",
-            fontWeight: 500, color: "#f0ece4",
-          }}>
-            Not ready to measure?
-          </span>
-          <span style={{
-            color: MUTED, fontFamily: "Barlow, sans-serif",
-            fontSize: "0.82rem", fontWeight: 300,
-          }}>
-            Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec.
-          </span>
-        </div>
-        <span style={{
-          color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem",
-          letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500,
-          whiteSpace: "nowrap",
-        }}>
-          Take quiz →
-        </span>
-      </Link>
-
-      <div
-        style={{
-          borderRadius: 12,
-          border: `1px solid rgba(202,164,73,0.35)`,
-          background: "rgba(202,164,73,0.06)",
-          padding: "16px 18px",
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 12,
-        }}
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
-          <circle cx="12" cy="12" r="9" stroke={GOLD} strokeWidth="1.5" />
-          <path d="M8.5 12.2l2.4 2.4 4.6-4.8" stroke={GOLD} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        <p
-          style={{
-            color: "rgba(240,236,228,0.88)",
-            fontFamily: "Barlow, sans-serif",
-            fontSize: "0.9rem",
-            fontWeight: 300,
-            lineHeight: 1.6,
-            margin: 0,
-          }}
-        >
-          <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
-          face straight from the camera — works on a laptop webcam or a phone. A credit card is only
-          needed if you upload a photo instead.
-        </p>
-      </div>
-
-
-
-      <ol
-        className="flex flex-col gap-5 pt-2 m-0 p-0"
-        style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
-      >
-        {steps.map((s) => (
-          <li key={s.n} className="flex items-start gap-4">
-            <span
-              aria-hidden
-              style={{
-                color: GOLD,
-                fontFamily: "Cormorant Garamond, serif",
-                fontSize: "1.5rem",
-                fontWeight: 300,
-                fontStyle: "italic",
-                minWidth: 36,
-                lineHeight: 1,
-                paddingTop: 2,
-              }}
-            >
-              {s.n}
-            </span>
-            <div className="flex flex-col gap-1">
-              <span
-                style={{
-                  color: "rgba(255,255,255,0.95)",
-                  fontSize: "1.05rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.01em",
-                }}
-              >
-                {s.title}
-              </span>
-              <span style={{ color: MUTED, fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.5 }}>
-                {s.body}
-              </span>
-            </div>
-          </li>
-        ))}
-      </ol>
-
-
       <div className="flex flex-col gap-4 pt-2">
         <div
           style={{
@@ -870,6 +756,120 @@ function WelcomeStep({
           {tFit(lang, "welcome.manual_link")}
         </Link>
       </div>
+
+      {/* Third path — no measurement, just a quick quiz */}
+      <Link
+        to={localePath(lang, "/fit/quick")}
+        onClick={() => pushEvent("fit_quick_open", { source: "welcome_compare" })}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+          padding: "14px 18px",
+          border: "1px dashed rgba(240,236,228,0.18)",
+          background: "rgba(255,255,255,0.015)",
+          borderRadius: 8,
+          textDecoration: "none",
+          color: "#f0ece4",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+          <span style={{
+            fontFamily: "Barlow, sans-serif", fontSize: "0.95rem",
+            fontWeight: 500, color: "#f0ece4",
+          }}>
+            Not ready to measure?
+          </span>
+          <span style={{
+            color: MUTED, fontFamily: "Barlow, sans-serif",
+            fontSize: "0.82rem", fontWeight: 300,
+          }}>
+            Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec.
+          </span>
+        </div>
+        <span style={{
+          color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem",
+          letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500,
+          whiteSpace: "nowrap",
+        }}>
+          Take quiz →
+        </span>
+      </Link>
+
+      <div
+        style={{
+          borderRadius: 12,
+          border: `1px solid rgba(202,164,73,0.35)`,
+          background: "rgba(202,164,73,0.06)",
+          padding: "16px 18px",
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 12,
+        }}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
+          <circle cx="12" cy="12" r="9" stroke={GOLD} strokeWidth="1.5" />
+          <path d="M8.5 12.2l2.4 2.4 4.6-4.8" stroke={GOLD} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <p
+          style={{
+            color: "rgba(240,236,228,0.88)",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: "0.9rem",
+            fontWeight: 300,
+            lineHeight: 1.6,
+            margin: 0,
+          }}
+        >
+          <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
+          face straight from the camera — works on a laptop webcam or a phone. A credit card is only
+          needed if you upload a photo instead.
+        </p>
+      </div>
+
+
+
+      <ol
+        className="flex flex-col gap-5 pt-2 m-0 p-0"
+        style={{ listStyle: "none", fontFamily: "Barlow, sans-serif" }}
+      >
+        {steps.map((s) => (
+          <li key={s.n} className="flex items-start gap-4">
+            <span
+              aria-hidden
+              style={{
+                color: GOLD,
+                fontFamily: "Cormorant Garamond, serif",
+                fontSize: "1.5rem",
+                fontWeight: 300,
+                fontStyle: "italic",
+                minWidth: 36,
+                lineHeight: 1,
+                paddingTop: 2,
+              }}
+            >
+              {s.n}
+            </span>
+            <div className="flex flex-col gap-1">
+              <span
+                style={{
+                  color: "rgba(255,255,255,0.95)",
+                  fontSize: "1.05rem",
+                  fontWeight: 500,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                {s.title}
+              </span>
+              <span style={{ color: MUTED, fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.5 }}>
+                {s.body}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ol>
+
 
     </div>
   );
