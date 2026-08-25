@@ -3,7 +3,7 @@
 // every field that reaches the template so an attacker cannot use this to
 // send arbitrary content from the woolet.co domain.
 
-import { createClient } from "npm:@supabase/supabase-js@2";
+import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { z } from "npm:zod@3.23.8";
 
@@ -65,16 +65,9 @@ Deno.serve(async (req) => {
   const rec = RECOMMENDATIONS[variant];
   const modelUrl = `https://woolet.co/${lang}/products/${variant}`;
 
-  const supabase = createClient(
-    Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-  );
-
   const nonce = scanNonce || crypto.randomUUID().slice(0, 8);
-  const { error } = await supabase.functions.invoke("send-transactional-email", {
-    body: {
-      templateName: "fit-scan-result",
-      recipientEmail: email,
+  try {
+    await sendTemplateEmailAndLog("fit-scan-result", email, {
       idempotencyKey: `fit-scan-${email}-${Math.round(faceWidthMm)}-${Math.round(noseWidthMm)}-${nonce}`,
       templateData: {
         faceWidthMm: Math.round(faceWidthMm),
@@ -85,16 +78,15 @@ Deno.serve(async (req) => {
         modelUrl,
         badgeLabel: rec.badgeLabel,
       },
-    },
-  });
-
-  if (error) {
+    });
+  } catch (error) {
     console.error("[fit-scan-email-notify] send failed", error);
     return new Response(JSON.stringify({ error: "send_failed" }), {
       status: 502,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
+
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

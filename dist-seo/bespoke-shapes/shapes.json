@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "updated": "2026-08-18",
+  "baseUrl": "https://woolet.co/bespoke-shapes/",
+  "note": "Woolet Bespoke frame shapes. Renders in black acetate, matched to the shop packshot style. Aviator and Rectangle are not yet in the production catalogue.",
+  "shapes": [
+    {
+      "id": "crown-panto",
+      "name": "Crown Panto",
+      "image": "https://woolet.co/bespoke-shapes/crown-panto.jpg",
+      "alt": "Woolet Bespoke shape - Crown Panto in black acetate, flat brow with round lenses",
+      "subtitle": "Cut to your face - reference 158 mm",
+      "oneLiner": "Flat brow, round below - the shape that argues with a heavy jaw and wins.",
+      "description": "A straight brow line gives you the structure of a rectangle across the top, then the lens curves away underneath, so the bottom of the frame softens what the top has just stated. On a wide face with a strong jaw it is the most reliable shape in the range: the flat top echoes your brow, the round bottom refuses to echo your jaw. This is the silhouette the Woolet 007 is drawn from.",
+      "bestFor": "strong jaw, square face, the safest first bespoke if you are unsure"
+    },
+    {
+      "id": "round",
+      "name": "Round",
+      "image": "https://woolet.co/bespoke-shapes/round.jpg",
+      "alt": "Woolet Bespoke shape - Round in black acetate, fully circular lenses and keyhole bridge",
+      "subtitle": "Cut to your face - reference 158 mm",
+      "oneLiner": "A full circle. The only shape here with no straight lines to compete with your face.",
+      "description": "Fully circular lenses, a keyhole bridge, and no horizontal line anywhere. On a wide face the effect is counter-intuitive: because there is no straight edge running across your brow, nothing marks the width, and the frame reads as a shape rather than a measurement. A circle at 158 mm is a large circle, and it needs the acetate cut thick enough to hold the curve, which is why so few brands offer a true round above 145 mm.",
+      "bestFor": "angular or square face, anyone who wants the frame to read as design rather than correction"
+    },
+    {
+      "id": "rectangle",
+      "name": "Rectangle",
+      "image": "https://woolet.co/bespoke-shapes/rectangle.jpg",
+      "alt": "Woolet Bespoke shape - Rectangle in black acetate, heavy flat brow and tall squared lenses",
+      "subtitle": "Cut to your face - reference 158 mm",
+      "oneLiner": "The most direct of the four. One strong horizontal, nothing decorative.",
+      "description": "A heavy flat brow and tall squared lens openings. On a wide face this is the least apologetic option - it does not soften the width, it frames it. The straight top line sits parallel to your brow, which is why it reads as deliberate rather than oversized. The trade: a strong rectangle on a strong jaw doubles down. If your jaw is already square, Crown Panto will balance you better.",
+      "bestFor": "oval or long face, softer jaw, people who want the frame to be part of the face"
+    },
+    {
+      "id": "aviator",
+      "name": "Aviator",
+      "image": "https://woolet.co/bespoke-shapes/aviator.jpg",
+      "alt": "Woolet Bespoke shape - Aviator in black acetate, double bridge and teardrop lenses",
+      "subtitle": "Cut to your face - reference 158 mm",
+      "oneLiner": "The widest-reading shape in the range - a top bar that carries a broad brow instead of fighting it.",
+      "description": "The double bridge does something no single-bridge frame can: it draws a horizontal line across the top of your face, and a wide face reads that line as balance rather than width. The teardrop lens then falls away from it, so the frame gets narrower exactly where your face does. Cut in acetate, not wire - the aviator silhouette without the flex that makes metal aviators slide.",
+      "bestFor": "broad forehead, square jaw, anyone who wants width acknowledged, not hidden"
+    }
+  ]
+}
