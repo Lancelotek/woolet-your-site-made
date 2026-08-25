@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import { pushGtmEvent } from "@/lib/gtm";
+import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
 import ksFit150 from "@/assets/ks-fit/woolet-150-bespoke-fit.jpg.asset.json";
@@ -117,6 +118,57 @@ const eyebrowStyle: React.CSSProperties = {
 };
 
 // ---------- VIP Form (email + consent only) ----------
+const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
+
+const StepBar = ({ step }: { step: 1 | 2 }) => {
+  const steps = ["Your email", "Reserve 40% OFF"];
+  return (
+    <div className="flex items-center gap-3" style={{ marginBottom: 4 }}>
+      {steps.map((label, i) => {
+        const index = (i + 1) as 1 | 2;
+        const done = step > index;
+        const active = step === index;
+        return (
+          <div key={label} className="flex items-center gap-2" style={{ flex: 1 }}>
+            <span
+              style={{
+                width: 20,
+                height: 20,
+                flex: "0 0 20px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontFamily: "Barlow, sans-serif",
+                fontSize: 11,
+                fontWeight: 600,
+                color: active || done ? INK : TAUPE,
+                background: active || done ? GOLD : "transparent",
+                border: `1px solid ${active || done ? GOLD : HAIRLINE_STRONG}`,
+              }}
+            >
+              {done ? "✓" : index}
+            </span>
+            <span
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: active ? CREAM : TAUPE,
+                opacity: active ? 1 : 0.65,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {label}
+            </span>
+            <span style={{ flex: 1, height: 1, background: done ? GOLD : HAIRLINE }} />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 const VipForm = ({
   utmSource,
   idSuffix = "",
@@ -130,9 +182,18 @@ const VipForm = ({
 }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [step, setStep] = useState<1 | 2>(1);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+
+  const formLocation = idSuffix ? idSuffix.replace(/^-/, "") : "default";
+
+  const returnUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}`
+      : "https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}";
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,7 +201,6 @@ const VipForm = ({
     setError(null);
     const models = "Kickstarter VIP";
     const resolvedRef = resolveReferredBy(email, referredBy);
-    const formLocation = idSuffix ? idSuffix.replace(/^-/, "") : "default";
 
     // Fire an attempt event first — independent of success/failure/redirect,
     // so we can measure submit intent even if the network call never returns.
@@ -172,13 +232,16 @@ const VipForm = ({
           waitlist_models: models,
           referred_by: resolvedRef,
         });
+        try {
+          sessionStorage.setItem("woolet_vip_confirm", JSON.stringify({ email, name: "" }));
+        } catch {
+          /* ignore */
+        }
       }
       pushGtmEvent("generate_lead", {
         awareness_stage: "solution_aware",
         source: utmSource,
       });
-      // Explicit success event so it can be verified in GA/GTM even if the
-      // navigate() below unloads the page before other tags flush.
       pushGtmEvent("kickstarter_form_submit_success", {
         form_location: formLocation,
         source: utmSource,
@@ -186,9 +249,8 @@ const VipForm = ({
         provider: "mailerlite",
       });
 
-      navigate("/en/lp/kickstarter/vip-confirmed", {
-        state: { email, name: "" },
-      });
+      setLoading(false);
+      setStep(2);
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
@@ -204,6 +266,113 @@ const VipForm = ({
     }
   };
 
+  const consent = (
+    <p
+      style={{
+        fontFamily: "Barlow, sans-serif",
+        fontSize: 12,
+        color: TAUPE,
+        opacity: 0.6,
+        lineHeight: 1.5,
+        textAlign: compact ? "center" : "left",
+        margin: 0,
+      }}
+    >
+      By joining, you accept our{" "}
+      <Link
+        to="/en/privacy-policy"
+        style={{ color: TAUPE, textDecoration: "underline", textUnderlineOffset: 2 }}
+      >
+        Privacy Policy
+      </Link>{" "}
+      and agree to receive launch emails. Unsubscribe anytime.
+    </p>
+  );
+
+  if (step === 2) {
+    return (
+      <div
+        id={`vip-form${idSuffix}`}
+        className="flex flex-col gap-3"
+        style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
+      >
+        <StepBar step={2} />
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 13,
+            color: CREAM,
+            lineHeight: 1.6,
+            margin: 0,
+          }}
+        >
+          You're on the VIP list. Lock your <strong style={{ color: GOLD }}>40% OFF</strong> founding
+          price with a refundable <strong>$1</strong> reservation — it holds your spot when the
+          campaign opens.
+        </p>
+        <button
+          type="button"
+          onClick={() => {
+            setCheckoutOpen(true);
+            pushGtmEvent("kickstarter_reserve_click", {
+              form_location: formLocation,
+              source: utmSource,
+            });
+          }}
+          style={ctaButtonStyle}
+          onMouseEnter={(e) => (e.currentTarget.style.background = BRONZE)}
+          onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
+        >
+          Reserve 40% OFF — $1
+        </button>
+        <button
+          type="button"
+          onClick={() => navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } })}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: TAUPE,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 12,
+            textDecoration: "underline",
+            textUnderlineOffset: 3,
+            cursor: "pointer",
+            padding: 0,
+            textAlign: compact ? "center" : "left",
+          }}
+        >
+          Skip for now — stay on the free VIP list
+        </button>
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 11,
+            color: TAUPE,
+            letterSpacing: "0.04em",
+            textAlign: compact ? "center" : "left",
+            margin: 0,
+          }}
+        >
+          $1 today · Fully refundable · Applied to your pledge.
+        </p>
+
+        {checkoutOpen && (
+          <StripeCheckoutModal
+            priceId={RESERVATION_PRICE_ID}
+            customerEmail={email}
+            returnUrl={returnUrl}
+            metadata={{
+              campaign: "kickstarter_vip",
+              form_location: formLocation,
+              utm_source: utmSource,
+            }}
+            onClose={() => setCheckoutOpen(false)}
+          />
+        )}
+      </div>
+    );
+  }
+
   return (
     <form
       id={`vip-form${idSuffix}`}
@@ -211,6 +380,7 @@ const VipForm = ({
       className="flex flex-col gap-3"
       style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
     >
+      <StepBar step={1} />
       <div className={compact ? "flex flex-col sm:flex-row gap-2" : "flex flex-col gap-2"}>
         <input
           type="email"
@@ -243,26 +413,7 @@ const VipForm = ({
         </button>
       </div>
 
-      <p
-        style={{
-          fontFamily: "Barlow, sans-serif",
-          fontSize: 12,
-          color: TAUPE,
-          opacity: 0.6,
-          lineHeight: 1.5,
-          textAlign: compact ? "center" : "left",
-          margin: 0,
-        }}
-      >
-        By joining, you accept our{" "}
-        <Link
-          to="/en/privacy-policy"
-          style={{ color: TAUPE, textDecoration: "underline", textUnderlineOffset: 2 }}
-        >
-          Privacy Policy
-        </Link>{" "}
-        and agree to receive launch emails. Unsubscribe anytime.
-      </p>
+      {consent}
 
       {error && (
         <p style={{ fontFamily: "Barlow, sans-serif", fontSize: 12, color: "#e25555" }}>{error}</p>
@@ -278,7 +429,7 @@ const VipForm = ({
           marginTop: 2,
         }}
       >
-        No payment now · Just your email.
+        Step 1 of 2 · No payment now · Just your email.
       </p>
     </form>
   );

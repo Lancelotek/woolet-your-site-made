@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
@@ -13,7 +13,10 @@ type LocationState = { email?: string; name?: string } | null;
 const KickstarterVipConfirmed = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [params] = useSearchParams();
+  const paid = params.get("paid") === "1";
   const state = (location.state as LocationState) || null;
+
 
   // Fall back to localStorage in case the user refreshes
   const fallback = useMemo(() => {
@@ -103,11 +106,19 @@ const KickstarterVipConfirmed = () => {
             You're in{name ? `, ${name}` : ""}.
           </p>
           <h1 className="font-display text-woolet-white leading-[1.1] text-[2rem] sm:text-[2.75rem] mb-4">
-            You're on the VIP list.
+            {paid ? "Your 40% OFF is reserved." : "You're on the VIP list."}
           </h1>
           <p className="text-[#D8D4CC] text-base sm:text-lg leading-relaxed max-w-lg">
             Watch your inbox on <span className="text-woolet-white">{KS_LAUNCH_DATE_LABEL}</span> — we'll send your hidden-pledge link the moment the campaign opens.
           </p>
+          {paid && (
+            <p
+              className="mt-5 text-[12px] uppercase tracking-[0.22em] text-primary border rounded-sm px-4 py-3"
+              style={{ borderColor: "hsl(var(--gold) / 0.35)" }}
+            >
+              $1 reservation confirmed · Refundable · Applied to your pledge
+            </p>
+          )}
         </div>
 
         {/* Bespoke preview — what VIPs see first */}
