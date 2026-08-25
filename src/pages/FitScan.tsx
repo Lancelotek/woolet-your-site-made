@@ -840,7 +840,8 @@ function WelcomeStep({
 
       <div className="flex flex-col gap-3 pt-2">
         <button
-          onClick={onStart}
+          type="button"
+          data-fitlens="open"
           disabled={disabled}
           style={{
             background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
@@ -856,7 +857,7 @@ function WelcomeStep({
             height: 52,
           }}
         >
-          {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_start")}
+          {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
         </button>
 
         <input
