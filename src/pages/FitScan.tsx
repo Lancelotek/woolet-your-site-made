@@ -587,19 +587,19 @@ function WelcomeStep({
           style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
-            gap: 18,
+            gap: isMobile ? 14 : 18,
             alignItems: "stretch",
             border: "1px solid rgba(240,236,228,0.12)",
             borderRadius: 12,
-            padding: isMobile ? "18px" : "22px 24px",
+            padding: isMobile ? "20px" : "22px 24px",
             background: "rgba(255,255,255,0.02)",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, justifyContent: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 14 : 12, justifyContent: "center" }}>
             <span
               style={{
                 fontFamily: "Barlow, sans-serif",
-                fontSize: "0.68rem",
+                fontSize: isMobile ? "0.72rem" : "0.68rem",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 color: GOLD,
@@ -612,7 +612,7 @@ function WelcomeStep({
               style={{
                 margin: 0,
                 fontFamily: "Barlow, sans-serif",
-                fontSize: "0.92rem",
+                fontSize: isMobile ? "1rem" : "0.92rem",
                 lineHeight: 1.55,
                 color: "rgba(240,236,228,0.82)",
                 fontWeight: 300,
@@ -632,14 +632,15 @@ function WelcomeStep({
                 color: BG,
                 fontFamily: "Barlow, sans-serif",
                 fontWeight: 500,
-                fontSize: "0.78rem",
-                padding: "18px 28px",
+                fontSize: isMobile ? "0.85rem" : "0.78rem",
+                padding: isMobile ? "20px 28px" : "18px 28px",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 border: "none",
                 borderRadius: 2,
                 cursor: disabled ? "not-allowed" : "pointer",
-                height: 52,
+                height: isMobile ? 56 : 52,
+                width: "100%",
               }}
             >
               {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
