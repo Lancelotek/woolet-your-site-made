@@ -618,10 +618,9 @@ const KickstarterFollowCta = ({
   label = "Follow us on",
 }: {
   slot: string;
-  variant?: "outline" | "solid" | "quiet";
+  variant?: "outline" | "quiet";
   label?: string;
 }) => {
-  const solid = variant === "solid";
   const quiet = variant === "quiet";
   return (
     <a
@@ -635,9 +634,9 @@ const KickstarterFollowCta = ({
         gap: 10,
         minHeight: 44,
         padding: quiet ? "8px 12px" : "12px 18px",
-        border: solid ? "none" : `1px solid ${quiet ? HAIRLINE : HAIRLINE_STRONG}`,
-        background: solid ? CREAM : "transparent",
-        color: solid ? INK : CREAM,
+        border: `1px solid ${quiet ? HAIRLINE : HAIRLINE_STRONG}`,
+        background: "transparent",
+        color: CREAM,
         textDecoration: "none",
         fontFamily: "Barlow, sans-serif",
         fontSize: 11,
@@ -647,7 +646,8 @@ const KickstarterFollowCta = ({
         whiteSpace: "nowrap",
       }}
     >
-      <span style={{ opacity: solid ? 0.7 : 0.75 }}>{label}</span>
+      <span style={{ opacity: 0.75 }}>{label}</span>
+      {/* Official white Kickstarter wordmark — never recolour, crop or restyle. */}
       <img
         src={kickstarterWordmark}
         alt="Kickstarter"
@@ -655,12 +655,7 @@ const KickstarterFollowCta = ({
         height={102}
         loading="lazy"
         decoding="async"
-        style={{
-          height: 12,
-          width: "auto",
-          display: "block",
-          filter: solid ? "invert(1)" : "none",
-        }}
+        style={{ height: 12, width: "auto", display: "block" }}
       />
     </a>
   );
