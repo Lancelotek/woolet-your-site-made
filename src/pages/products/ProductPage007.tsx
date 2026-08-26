@@ -243,7 +243,7 @@ const ProductPage007 = () => {
         {/* ============ BELOW THE FOLD ============ */}
         <div className="mx-auto" style={{ maxWidth: 980, padding: "72px 20px 0" }}>
 
-          {/* 2. Feature list */}
+          {/* 1. Feature list */}
           <section style={{ marginTop: 56 }}>
             <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 14 }}>What you get</div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 12 }}>
