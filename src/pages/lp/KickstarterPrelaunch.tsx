@@ -1074,7 +1074,6 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 007",
                 shape: "Round",
-                img: w007BlackFrontAsset.url,
                 srp: 190,
                 kickstarter: 114,
                 specs: [
@@ -1088,7 +1087,6 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 009",
                 shape: "Soft-Square",
-                img: w009BlackFrontAsset.url,
                 srp: 190,
                 kickstarter: 114,
                 specs: [
@@ -1101,20 +1099,29 @@ const KickstarterPrelaunch = () => {
               },
             ].map((m) => (
               <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
-                <div style={{ background: CREAM, aspectRatio: "4 / 3", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <img
-                    src={m.img}
-                    alt={`${m.name} — ${m.shape}`}
-                    loading="lazy"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
-                      transform: m.name === "Woolet 009" ? "scale(0.82)" : "scale(1)",
-                      transformOrigin: "center",
-                    }}
+                <div
+                  style={{
+                    background: "transparent",
+                    aspectRatio: "4 / 3",
+                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 18,
+                    borderBottom: `1px solid ${HAIRLINE}`,
+                    padding: "24px 20px",
+                  }}
+                >
+                  <FrameOutline
+                    variant={m.name === "Woolet 007" ? "round" : "square"}
+                    label={`${m.name} — ${m.shape} outline`}
                   />
+                  <div style={{ ...eyebrowStyle, color: TAUPE, fontSize: 10, textAlign: "center", maxWidth: 320 }}>
+                    Shape shown as outline — colour is yours to choose
+                  </div>
                 </div>
+
                 <div style={{ padding: "28px 24px" }}>
                   <div style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</div>
                   <div className="flex items-start justify-between gap-4" style={{ marginTop: 4 }}>
@@ -1669,3 +1676,36 @@ const KickstarterPrelaunch = () => {
 };
 
 export default KickstarterPrelaunch;
+
+function FrameOutline({ variant, label }: { variant: "round" | "square"; label: string }) {
+  const stroke = CREAM;
+  return (
+    <svg
+      viewBox="0 0 320 110"
+      role="img"
+      aria-label={label}
+      style={{ width: "100%", maxWidth: 320, height: "auto", opacity: 0.9 }}
+      fill="none"
+      stroke={stroke}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {variant === "round" ? (
+        <>
+          <circle cx="104" cy="58" r="40" />
+          <circle cx="216" cy="58" r="40" />
+          <path d="M144 50c6-8 26-8 32 0" />
+        </>
+      ) : (
+        <>
+          <rect x="64" y="26" width="82" height="62" rx="12" />
+          <rect x="174" y="26" width="82" height="62" rx="12" />
+          <path d="M146 44h28" />
+        </>
+      )}
+      <path d="M64 46 18 32" />
+      <path d="M256 46l46-14" />
+    </svg>
+  );
+}
