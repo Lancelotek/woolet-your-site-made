@@ -1094,7 +1094,7 @@ const KickstarterPrelaunch = () => {
             </p>
 
             <div id="vip-form-hero" style={{ marginTop: 28 }}>
-              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} />
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} onJoined={() => setHasJoined(true)} />
             </div>
 
             {/* Trust row */}
