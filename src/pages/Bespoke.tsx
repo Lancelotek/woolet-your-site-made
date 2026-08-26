@@ -366,19 +366,6 @@ const BespokePage = () => {
                 >
                   Start your build →
                 </Link>
-                <Link
-                  to="/en/fit/bespoke"
-                  className="inline-flex items-center gap-2 no-underline transition-colors"
-                  style={{
-                    color: "hsl(var(--cream-dim))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.85rem",
-                    borderBottom: "1px solid hsl(var(--gold) / 0.35)",
-                    paddingBottom: 2,
-                  }}
-                >
-                  Learn about the process →
-                </Link>
               </div>
             </div>
 
@@ -533,22 +520,6 @@ const BespokePage = () => {
                   <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.85rem" }}>{s.d}</p>
                 </div>
               ))}
-            </div>
-            <div className="mt-10">
-              <Link
-                to="/en/fit"
-                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
-                style={{
-                  border: "1px solid hsl(var(--gold) / 0.5)",
-                  color: "hsl(var(--gold-light))",
-                  fontFamily: "Barlow, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.72rem",
-                  padding: "16px 28px",
-                }}
-              >
-                Run the 90-second scan →
-              </Link>
             </div>
           </div>
         </section>
@@ -786,9 +757,8 @@ const BespokePage = () => {
               <div className="woolet-eyebrow-line" />
               <span className="woolet-eyebrow-text">PRICING · LIMITED TO 100 BACKERS</span>
             </div>
-            <a
-              href="https://woolet.co/en/lp/kickstarter"
-              className="group block no-underline transition-all hover:-translate-y-0.5"
+            <div
+              className="block"
               style={{
                 border: "1px solid hsl(var(--gold) / 0.55)",
                 background: "linear-gradient(180deg, hsl(var(--gold) / 0.07) 0%, hsl(var(--gold) / 0.02) 100%)",
@@ -819,33 +789,7 @@ const BespokePage = () => {
                   </div>
                 </div>
               </div>
-              <div
-                className="flex items-center justify-between gap-4 px-8 py-5 border-t transition-colors group-hover:bg-[hsl(var(--gold)/0.08)]"
-                style={{ borderTopColor: "hsl(var(--gold) / 0.2)" }}
-              >
-                <span
-                  className="uppercase tracking-[0.22em]"
-                  style={{
-                    color: "hsl(var(--gold-light))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.72rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  Reserve your $299 spot — $1 hold
-                </span>
-                <span
-                  style={{
-                    color: "hsl(var(--gold-light))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "1rem",
-                  }}
-                  className="transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </div>
-            </a>
+            </div>
             <p className="text-cream-dim leading-relaxed mt-6" style={{ fontSize: "0.85rem" }}>
               Reservation is $1 to hold your spot. Full $299 charged when production starts. Prescription lenses are ordered separately at your local optician.
             </p>
@@ -876,43 +820,6 @@ const BespokePage = () => {
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-24" style={{ background: "hsl(var(--gold) / 0.04)" }}>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2
-              className="font-display text-woolet-white mb-6"
-              style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 300 }}
-            >
-              Reserve your <em className="italic text-gold-light">bespoke</em> spot.
-            </h2>
-            <p className="text-cream-dim leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontSize: "0.95rem" }}>
-              100 spots at $299. Reservation costs $1 and is fully refundable.
-            </p>
-            <Link
-              to="/en/fit"
-              className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
-              style={{
-                background: "hsl(var(--gold))",
-                color: "hsl(var(--background))",
-                fontFamily: "Barlow, sans-serif",
-                fontWeight: 500,
-                fontSize: "0.72rem",
-                padding: "18px 32px",
-              }}
-            >
-              Start AI face scan
-            </Link>
-            <div className="mt-6">
-              <Link
-                to="/en/process"
-                className="text-gold-light/80 no-underline uppercase tracking-[0.22em] hover:text-gold-light transition-colors border-b border-gold-light/30 hover:border-gold-light pb-1"
-                style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem", fontWeight: 500 }}
-              >
-                See how it's made →
-              </Link>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
     </>
