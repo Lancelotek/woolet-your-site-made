@@ -883,6 +883,15 @@ const KickstarterPrelaunch = () => {
             },
           ],
         })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        })}</script>
       </Helmet>
 
       {/* Mobile refinements — scoped to this LP */}
@@ -891,6 +900,9 @@ const KickstarterPrelaunch = () => {
           .ks-hero-image { aspect-ratio: 4 / 5 !important; }
         }
         @media (max-width: 767px) {
+          /* Taller hero crop on phones — portrait frames read better than a square */
+          .ks-hero-image { aspect-ratio: 4 / 5 !important; }
+
           .ks-lp section > div.max-w-6xl,
           .ks-lp section > div.max-w-4xl,
           .ks-lp section > div.max-w-3xl { padding-top: 44px !important; padding-bottom: 44px !important; }
@@ -901,6 +913,9 @@ const KickstarterPrelaunch = () => {
           .ks-lp h2 { font-size: 1.6rem !important; line-height: 1.12 !important; margin-top: 10px !important; }
           .ks-lp h3 { font-size: 1.2rem !important; line-height: 1.2 !important; }
           .ks-lp p  { max-width: 60ch; }
+
+          /* Room for the sticky CTA bar */
+          .ks-lp footer { padding-bottom: 88px; }
         }
       `}</style>
 
