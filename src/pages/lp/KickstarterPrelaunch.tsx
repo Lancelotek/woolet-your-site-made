@@ -519,8 +519,15 @@ const VipForm = ({
     >
       <StepBar step={1} />
       <div className={compact ? "flex flex-col sm:flex-row gap-2" : "flex flex-col gap-2"}>
+        <label htmlFor={`vip-email${idSuffix}`} className="sr-only">
+          Your email address
+        </label>
         <input
+          id={`vip-email${idSuffix}`}
+          name="email"
           type="email"
+          inputMode="email"
+          autoComplete="email"
           placeholder="Your email"
           required
           value={email}
