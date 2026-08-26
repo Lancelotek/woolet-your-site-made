@@ -366,19 +366,6 @@ const BespokePage = () => {
                 >
                   Start your build →
                 </Link>
-                <Link
-                  to="/en/fit/bespoke"
-                  className="inline-flex items-center gap-2 no-underline transition-colors"
-                  style={{
-                    color: "hsl(var(--cream-dim))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.85rem",
-                    borderBottom: "1px solid hsl(var(--gold) / 0.35)",
-                    paddingBottom: 2,
-                  }}
-                >
-                  Learn about the process →
-                </Link>
               </div>
             </div>
 
