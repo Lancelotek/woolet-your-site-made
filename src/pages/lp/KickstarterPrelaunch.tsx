@@ -712,6 +712,16 @@ const KickstarterPrelaunch = () => {
   const [stickyVisible, setStickyVisible] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
 
+  // Gate Kickstarter follow CTAs behind the email capture.
+  const [hasJoined, setHasJoined] = useState(false);
+  useEffect(() => {
+    try {
+      setHasJoined(localStorage.getItem(VIP_JOINED_KEY) === "1");
+    } catch {
+      setHasJoined(false);
+    }
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setStickyVisible(window.scrollY > 640);
     onScroll();
