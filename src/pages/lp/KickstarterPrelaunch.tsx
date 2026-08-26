@@ -433,6 +433,16 @@ const VipForm = ({
         >
           Skip for now — stay on the free VIP list
         </button>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            flexWrap: "wrap",
+          }}
+        >
+          <KickstarterFollowCta slot="post_signup" label="You're on the list. Now follow on" />
+        </div>
         <p
           style={{
             fontFamily: "Barlow, sans-serif",
