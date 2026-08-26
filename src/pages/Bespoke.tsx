@@ -521,22 +521,6 @@ const BespokePage = () => {
                 </div>
               ))}
             </div>
-            <div className="mt-10">
-              <Link
-                to="/en/fit"
-                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
-                style={{
-                  border: "1px solid hsl(var(--gold) / 0.5)",
-                  color: "hsl(var(--gold-light))",
-                  fontFamily: "Barlow, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.72rem",
-                  padding: "16px 28px",
-                }}
-              >
-                Run the 90-second scan →
-              </Link>
-            </div>
           </div>
         </section>
 
