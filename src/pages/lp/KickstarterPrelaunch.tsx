@@ -1678,3 +1678,36 @@ const KickstarterPrelaunch = () => {
 };
 
 export default KickstarterPrelaunch;
+
+function FrameOutline({ variant, label }: { variant: "round" | "square"; label: string }) {
+  const stroke = CREAM;
+  return (
+    <svg
+      viewBox="0 0 320 110"
+      role="img"
+      aria-label={label}
+      style={{ width: "100%", maxWidth: 320, height: "auto", opacity: 0.9 }}
+      fill="none"
+      stroke={stroke}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {variant === "round" ? (
+        <>
+          <circle cx="104" cy="58" r="40" />
+          <circle cx="216" cy="58" r="40" />
+          <path d="M144 50c6-8 26-8 32 0" />
+        </>
+      ) : (
+        <>
+          <rect x="64" y="26" width="82" height="62" rx="12" />
+          <rect x="174" y="26" width="82" height="62" rx="12" />
+          <path d="M146 44h28" />
+        </>
+      )}
+      <path d="M64 46 18 32" />
+      <path d="M256 46l46-14" />
+    </svg>
+  );
+}
