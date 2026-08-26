@@ -1770,10 +1770,25 @@ const KickstarterPrelaunch = () => {
           <div id="vip-form-final">
             <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
           </div>
-          <div className="mt-8 flex flex-col items-center gap-3">
-            <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
-            <KickstarterFollowCta slot="final_cta" label="Follow us on" />
-          </div>
+          {hasJoined ? (
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
+              <KickstarterFollowCta slot="final_cta" label="Follow us on" />
+            </div>
+          ) : (
+            <p
+              className="mt-8"
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontSize: 12.5,
+                color: TAUPE,
+                lineHeight: 1.5,
+                textAlign: "center",
+              }}
+            >
+              We'll send you the Kickstarter link the moment we launch.
+            </p>
+          )}
         </div>
       </section>
 
