@@ -610,6 +610,63 @@ const Hairline = () => (
   <div style={{ height: 1, background: HAIRLINE, width: "100%" }} />
 );
 
+// ---------- Kickstarter follow CTA ----------
+// The wordmark PNG is the official white Kickstarter wordmark, used unmodified.
+const KickstarterFollowCta = ({
+  slot,
+  variant = "outline",
+  label = "Follow us on",
+}: {
+  slot: string;
+  variant?: "outline" | "solid" | "quiet";
+  label?: string;
+}) => {
+  const solid = variant === "solid";
+  const quiet = variant === "quiet";
+  return (
+    <a
+      href={kickstarterFollowHref(slot)}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => pushGtmEvent("kickstarter_follow_click", { slot, source: "ks_lp" })}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+        minHeight: 44,
+        padding: quiet ? "8px 12px" : "12px 18px",
+        border: solid ? "none" : `1px solid ${quiet ? HAIRLINE : HAIRLINE_STRONG}`,
+        background: solid ? CREAM : "transparent",
+        color: solid ? INK : CREAM,
+        textDecoration: "none",
+        fontFamily: "Barlow, sans-serif",
+        fontSize: 11,
+        fontWeight: 600,
+        letterSpacing: "0.16em",
+        textTransform: "uppercase",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <span style={{ opacity: solid ? 0.7 : 0.75 }}>{label}</span>
+      <img
+        src={kickstarterWordmark}
+        alt="Kickstarter"
+        width={960}
+        height={102}
+        loading="lazy"
+        decoding="async"
+        style={{
+          height: 12,
+          width: "auto",
+          display: "block",
+          filter: solid ? "invert(1)" : "none",
+        }}
+      />
+    </a>
+  );
+};
+
+
 // ---------- Page ----------
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
