@@ -1004,7 +1004,20 @@ const KickstarterPrelaunch = () => {
                 </button>
               ))}
             </div>
+            {/* Caption sits below the thumbnails so the strip stays adjacent to the hero image */}
+            <p
+              style={{
+                marginTop: 12,
+                fontSize: 12.5,
+                lineHeight: 1.5,
+                color: TAUPE,
+                letterSpacing: "0.02em",
+              }}
+            >
+              {heroGallery[activeImg].alt}
+            </p>
           </div>
+
 
           {/* Right — copy + form */}
           <div>
