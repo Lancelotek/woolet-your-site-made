@@ -325,6 +325,7 @@ const VipForm = ({
 
       setEmail(normalizedEmail);
       setLoading(false);
+      markJoined();
       setStep(2);
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
