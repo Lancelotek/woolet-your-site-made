@@ -159,10 +159,10 @@ export default function ThankYouFb() {
         <Link
           to="/"
           style={{
-            fontFamily: "'Barlow', sans-serif",
-            fontWeight: 600,
-            fontSize: 16,
-            letterSpacing: "0.18em",
+            fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 500,
+            fontSize: 20,
+            letterSpacing: "0.24em",
             textTransform: "uppercase",
             color: C.body,
             textDecoration: "none",

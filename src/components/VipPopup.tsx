@@ -582,8 +582,8 @@ const css = `
   display: flex; flex-direction: column;
 }
 .wlt-vip-wordmark {
-  font-family: Georgia, "Times New Roman", serif;
-  letter-spacing: .35em; font-size: 11px;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: .35em; font-size: 12px;
   color: #6b6f76; margin-bottom: 18px;
 }
 .wlt-vip-progress { display: flex; gap: 6px; margin-bottom: 12px; }
