@@ -19,6 +19,9 @@ import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
 import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
 import w009HavanaAsset from "@/assets/woolet-009-havana-front.png.asset.json";
 import marek from "@/assets/author-marek.png";
+import gregSquare from "@/assets/testimonials/greg-woolet-tester-square.webp";
+import gregPortrait from "@/assets/testimonials/greg-woolet-tester.webp";
+import kickstarterWordmark from "@/assets/kickstarter-wordmark-white.png";
 import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, BESPOKE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
 // Bespoke gallery photos
@@ -48,11 +51,27 @@ const BRONZE = "#8A6E2E";
 const HAIRLINE = "rgba(255,255,255,0.10)";
 const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
 
+// ---------- Kickstarter follow ----------
+// Official prelaunch page. Do not alter the Kickstarter wordmark asset (brand policy).
+const KICKSTARTER_URL =
+  "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces";
+
+const kickstarterFollowHref = (slot: string) =>
+  `${KICKSTARTER_URL}?utm_source=woolet_site&utm_medium=lp&utm_campaign=ks_prelaunch&utm_content=${slot}`;
+
+// ---------- Tester testimonial ----------
+// DRAFT — quote and attribution pending written approval from the tester.
+// Ship verbatim. Do not append a model name, colour or millimetre figure to the attribution.
+const GREG_QUOTE =
+  "First pair in years that didn't pinch by lunchtime. They sit level, they stay put, and they actually look like they were made for my face — because they were.";
+const GREG_ATTRIBUTION = "— Greg · Woolet tester";
+
 // ---------- Hero gallery ----------
 const heroGallery: { src: string; alt: string }[] = [
   { src: ksFit158.url, alt: "158 mm — The Signature: Woolet frames on a medium-to-large head" },
   { src: ksFit150.url, alt: "150 mm — Bespoke Fit: Woolet frames on an average-to-wide face" },
   { src: ksFit162.url, alt: "162 mm — Bespoke Extra Wide: Woolet frames on a large head and broad face" },
+  { src: gregSquare, alt: "Greg, a Woolet tester, wearing a wide-fit Woolet frame in tortoise acetate" },
   { src: w009BlackAsset.url, alt: "Woolet 009 Soft-Square — black" },
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
   { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
@@ -500,8 +519,15 @@ const VipForm = ({
     >
       <StepBar step={1} />
       <div className={compact ? "flex flex-col sm:flex-row gap-2" : "flex flex-col gap-2"}>
+        <label htmlFor={`vip-email${idSuffix}`} className="sr-only">
+          Your email address
+        </label>
         <input
+          id={`vip-email${idSuffix}`}
+          name="email"
           type="email"
+          inputMode="email"
+          autoComplete="email"
           placeholder="Your email"
           required
           value={email}
@@ -576,7 +602,7 @@ const VipForm = ({
           marginTop: 2,
         }}
       >
-        Step 1 of 2 · No payment now · Just your email.
+        Step 1 of 2 · No payment now · No spam, unsubscribe anytime.
       </p>
     </form>
   );
@@ -591,6 +617,58 @@ const Hairline = () => (
   <div style={{ height: 1, background: HAIRLINE, width: "100%" }} />
 );
 
+// ---------- Kickstarter follow CTA ----------
+// The wordmark PNG is the official white Kickstarter wordmark, used unmodified.
+const KickstarterFollowCta = ({
+  slot,
+  variant = "outline",
+  label = "Follow us on",
+}: {
+  slot: string;
+  variant?: "outline" | "quiet";
+  label?: string;
+}) => {
+  const quiet = variant === "quiet";
+  return (
+    <a
+      href={kickstarterFollowHref(slot)}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => pushGtmEvent("kickstarter_follow_click", { slot, source: "ks_lp" })}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+        minHeight: 44,
+        padding: quiet ? "8px 12px" : "12px 18px",
+        border: `1px solid ${quiet ? HAIRLINE : HAIRLINE_STRONG}`,
+        background: "transparent",
+        color: CREAM,
+        textDecoration: "none",
+        fontFamily: "Barlow, sans-serif",
+        fontSize: 11,
+        fontWeight: 600,
+        letterSpacing: "0.16em",
+        textTransform: "uppercase",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <span style={{ opacity: 0.75 }}>{label}</span>
+      {/* Official white Kickstarter wordmark — never recolour, crop or restyle. */}
+      <img
+        src={kickstarterWordmark}
+        alt="Kickstarter"
+        width={960}
+        height={102}
+        loading="lazy"
+        decoding="async"
+        style={{ height: 12, width: "auto", display: "block" }}
+      />
+    </a>
+  );
+};
+
+
 // ---------- Page ----------
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
@@ -602,12 +680,37 @@ const KickstarterPrelaunch = () => {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  // Sticky mobile CTA — appears after the hero scrolls away, hides while typing.
+  const [stickyVisible, setStickyVisible] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setStickyVisible(window.scrollY > 640);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const isField = (t: EventTarget | null) =>
+      t instanceof HTMLElement && ["INPUT", "TEXTAREA", "SELECT"].includes(t.tagName);
+    const onIn = (e: FocusEvent) => { if (isField(e.target)) setInputFocused(true); };
+    const onOut = (e: FocusEvent) => { if (isField(e.target)) setInputFocused(false); };
+    document.addEventListener("focusin", onIn);
+    document.addEventListener("focusout", onOut);
+    return () => {
+      document.removeEventListener("focusin", onIn);
+      document.removeEventListener("focusout", onOut);
+    };
+  }, []);
+
   useEffect(() => {
     if (referredBy) {
       persistRef(referredBy);
       pushGtmEvent("vip_referral_visit", { ref: referredBy });
     }
   }, [referredBy]);
+
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -787,6 +890,15 @@ const KickstarterPrelaunch = () => {
             },
           ],
         })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        })}</script>
       </Helmet>
 
       {/* Mobile refinements — scoped to this LP */}
@@ -795,6 +907,9 @@ const KickstarterPrelaunch = () => {
           .ks-hero-image { aspect-ratio: 4 / 5 !important; }
         }
         @media (max-width: 767px) {
+          /* Taller hero crop on phones — portrait frames read better than a square */
+          .ks-hero-image { aspect-ratio: 4 / 5 !important; }
+
           .ks-lp section > div.max-w-6xl,
           .ks-lp section > div.max-w-4xl,
           .ks-lp section > div.max-w-3xl { padding-top: 44px !important; padding-bottom: 44px !important; }
@@ -805,6 +920,9 @@ const KickstarterPrelaunch = () => {
           .ks-lp h2 { font-size: 1.6rem !important; line-height: 1.12 !important; margin-top: 10px !important; }
           .ks-lp h3 { font-size: 1.2rem !important; line-height: 1.2 !important; }
           .ks-lp p  { max-width: 60ch; }
+
+          /* Room for the sticky CTA bar */
+          .ks-lp footer { padding-bottom: 88px; }
         }
       `}</style>
 
@@ -816,19 +934,23 @@ const KickstarterPrelaunch = () => {
           <Link to="/en" className="flex items-center gap-2" aria-label="Woolet home">
             <img src={logo} alt="Woolet" style={{ height: 32, width: "auto" }} />
           </Link>
-          <span
-            style={{
-              ...eyebrowStyle,
-              color: GOLD,
-              border: `1px solid ${GOLD}`,
-              padding: "5px 10px",
-              fontSize: 10,
-              letterSpacing: "0.14em",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Soon on Kickstarter
-          </span>
+          <div className="flex items-center gap-3">
+            <span
+              className="hidden sm:inline-flex"
+              style={{
+                ...eyebrowStyle,
+                color: GOLD,
+                border: `1px solid ${GOLD}`,
+                padding: "5px 10px",
+                fontSize: 10,
+                letterSpacing: "0.14em",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Soon on Kickstarter
+            </span>
+            <KickstarterFollowCta slot="header" variant="quiet" label="Follow on" />
+          </div>
         </div>
       </header>
 
@@ -884,12 +1006,26 @@ const KickstarterPrelaunch = () => {
                     src={img.src}
                     alt={img.alt}
                     loading="lazy"
+                    decoding="async"
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
                 </button>
               ))}
             </div>
+            {/* Caption sits below the thumbnails so the strip stays adjacent to the hero image */}
+            <p
+              style={{
+                marginTop: 12,
+                fontSize: 12.5,
+                lineHeight: 1.5,
+                color: TAUPE,
+                letterSpacing: "0.02em",
+              }}
+            >
+              {heroGallery[activeImg].alt}
+            </p>
           </div>
+
 
           {/* Right — copy + form */}
           <div>
@@ -933,7 +1069,14 @@ const KickstarterPrelaunch = () => {
               <span>Hand made in the EU</span>
               <span style={{ color: TAUPE }}>·</span>
               <span>155 mm+ wide fit</span>
+              <span style={{ color: TAUPE }}>·</span>
+              <span>Worn by our testers</span>
             </div>
+
+            <div className="mt-6">
+              <KickstarterFollowCta slot="hero" />
+            </div>
+
           </div>
         </div>
         <Hairline />
@@ -1145,7 +1288,7 @@ const KickstarterPrelaunch = () => {
                             color: GOLD,
                           }}
                         >
-                          ${m.kickstarter}
+                          from ${m.kickstarter}
                         </span>
                         <span
                           style={{
@@ -1166,10 +1309,11 @@ const KickstarterPrelaunch = () => {
                           marginTop: 2,
                         }}
                       >
-                        Kickstarter
+                        Kickstarter Early Bird
                       </span>
                     </div>
                   </div>
+                  {/* TODO: do not change these millimetre figures without sign-off from production. */}
                   <dl className="mt-5 grid grid-cols-2 gap-y-2 gap-x-4">
                     {m.specs.map(([k, v]) => (
                       <div key={k} style={{ display: "contents" }}>
@@ -1178,6 +1322,10 @@ const KickstarterPrelaunch = () => {
                       </div>
                     ))}
                   </dl>
+                  <p style={{ marginTop: 16, fontSize: 12, color: TAUPE, lineHeight: 1.6 }}>
+                    Early Bird pricing opens with the campaign and rises once the first tier is
+                    claimed. VIPs get the link first.
+                  </p>
                 </div>
               </article>
             ))}
@@ -1280,7 +1428,7 @@ const KickstarterPrelaunch = () => {
               maxWidth: 720,
             }}
           >
-            If none of these are wide enough, <em style={{ color: GOLD, fontStyle: "italic" }}>we build yours.</em>
+            Nothing wide enough? <em style={{ color: GOLD, fontStyle: "italic" }}>We build yours to measure.</em>
           </h2>
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2" style={{ fontSize: 13, color: TAUPE, letterSpacing: "0.02em" }}>
             <span>4 shapes</span>
@@ -1291,7 +1439,7 @@ const KickstarterPrelaunch = () => {
             <span>·</span>
             <span>Built to measure with FitLens</span>
             <span style={{ color: CREAM, marginLeft: 4 }}>
-              Kickstarter <span style={{ color: GOLD, fontWeight: 600 }}>$299</span>
+              Kickstarter Early Bird <span style={{ color: GOLD, fontWeight: 600 }}>from $299</span>
             </span>
             <span style={{ textDecoration: "line-through" }}>SRP $480</span>
           </div>
@@ -1304,6 +1452,8 @@ const KickstarterPrelaunch = () => {
                     src={f.src}
                     alt={f.alt}
                     loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
@@ -1328,21 +1478,62 @@ const KickstarterPrelaunch = () => {
         <Hairline />
       </section>
 
+      {/* TESTER TESTIMONIAL — DRAFT copy, pending written approval. */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 md:items-center">
+          <figure style={{ margin: 0, border: `1px solid ${HAIRLINE}`, overflow: "hidden" }}>
+            <img
+              src={gregPortrait}
+              alt="Greg, a Woolet tester, wearing a wide-fit Woolet frame outdoors"
+              width={900}
+              height={1125}
+              loading="lazy"
+              decoding="async"
+              style={{ width: "100%", height: "auto", display: "block", aspectRatio: "4 / 5", objectFit: "cover" }}
+            />
+          </figure>
+          <div>
+            <Eyebrow>From a tester</Eyebrow>
+            <blockquote
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 300,
+                fontSize: "clamp(1.35rem, 2.4vw, 2rem)",
+                lineHeight: 1.35,
+                color: CREAM,
+                marginTop: 16,
+                fontStyle: "italic",
+              }}
+            >
+              “{GREG_QUOTE}”
+            </blockquote>
+            <p style={{ ...eyebrowStyle, color: TAUPE, marginTop: 20 }}>{GREG_ATTRIBUTION}</p>
+            <p style={{ color: TAUPE, fontSize: 12.5, lineHeight: 1.6, marginTop: 16, maxWidth: 460 }}>
+              Real tester, real pair. We don't run paid reviews or star ratings before launch.
+            </p>
+          </div>
+        </div>
+        <Hairline />
+      </section>
+
       {/* FOUNDER */}
       <section style={{ background: "#0b0a09" }}>
         <div className="max-w-4xl mx-auto px-5 sm:px-8 py-20 md:py-24 flex flex-col sm:flex-row gap-10 items-start">
-          <img
-            src={marek}
-            alt="Marek Ciesla — Woolet founder"
-            loading="lazy"
-            style={{
-              width: 128,
-              height: 128,
-              objectFit: "cover",
-              border: `1px solid ${HAIRLINE_STRONG}`,
-              flexShrink: 0,
-            }}
-          />
+          <Link to="/en/about" aria-label="About Woolet and its founder" style={{ flexShrink: 0 }}>
+            <img
+              src={marek}
+              alt="Marek Ciesla — Woolet founder"
+              loading="lazy"
+              decoding="async"
+              style={{
+                width: 128,
+                height: 128,
+                objectFit: "cover",
+                border: `1px solid ${HAIRLINE_STRONG}`,
+                display: "block",
+              }}
+            />
+          </Link>
           <div>
             <Eyebrow>A note from the founder</Eyebrow>
             <blockquote
@@ -1362,6 +1553,7 @@ const KickstarterPrelaunch = () => {
           </div>
         </div>
       </section>
+
 
       {/* HOW IT WORKS */}
       <section>
@@ -1411,6 +1603,12 @@ const KickstarterPrelaunch = () => {
                 <p style={{ color: TAUPE, fontSize: 14, lineHeight: 1.65, marginTop: 10 }}>{s.d}</p>
               </div>
             ))}
+          </div>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <KickstarterFollowCta slot="how_it_works" />
+            <span style={{ fontSize: 12.5, color: TAUPE, lineHeight: 1.5 }}>
+              Following on Kickstarter means you get a notification the minute we go live.
+            </span>
           </div>
         </div>
         <Hairline />
@@ -1516,13 +1714,59 @@ const KickstarterPrelaunch = () => {
             Be first when the campaign <em style={{ color: GOLD, fontStyle: "italic" }}>goes live.</em>
           </h2>
           <p style={{ color: TAUPE, fontSize: 15, lineHeight: 1.6, marginBottom: 28, maxWidth: 520, marginInline: "auto" }}>
-            One email. Early access to FitLens, the Bespoke configurator, and up to 40% off the $190 retail price.
+            One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
           <div id="vip-form-final">
             <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact />
           </div>
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
+            <KickstarterFollowCta slot="final_cta" label="Follow us on" />
+          </div>
         </div>
       </section>
+
+      {/* Sticky mobile CTA — hidden while a field has focus so it never covers the keyboard target */}
+      <div
+        className="md:hidden"
+        aria-hidden={!stickyVisible || inputFocused}
+        style={{
+          position: "fixed",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 60,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          padding: "10px 14px",
+          background: "rgba(8,8,7,0.94)",
+          borderTop: `1px solid ${HAIRLINE_STRONG}`,
+          backdropFilter: "blur(6px)",
+          transform: stickyVisible && !inputFocused ? "translateY(0)" : "translateY(120%)",
+          transition: "transform 0.25s ease",
+          pointerEvents: stickyVisible && !inputFocused ? "auto" : "none",
+        }}
+      >
+        <a
+          href="#vip-form-final"
+          onClick={() => pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" })}
+          style={{
+            ...ctaButtonStyle,
+            flex: 1,
+            textAlign: "center",
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: 48,
+          }}
+        >
+          Get Early Access
+        </a>
+        <KickstarterFollowCta slot="sticky_mobile" variant="quiet" label="" />
+      </div>
+
 
       {/* Footer */}
       <footer style={{ borderTop: `1px solid ${HAIRLINE}` }}>
