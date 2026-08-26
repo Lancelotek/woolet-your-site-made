@@ -1444,6 +1444,11 @@ const KickstarterPrelaunch = () => {
         </div>
       </section>
 
+      {/* MARKET WIDTH CHART */}
+      <MarketWidthChart />
+
+
+
       {/* SIGNATURE SHAPES */}
       <section>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24">
