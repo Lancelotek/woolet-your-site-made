@@ -1704,13 +1704,59 @@ const KickstarterPrelaunch = () => {
             Be first when the campaign <em style={{ color: GOLD, fontStyle: "italic" }}>goes live.</em>
           </h2>
           <p style={{ color: TAUPE, fontSize: 15, lineHeight: 1.6, marginBottom: 28, maxWidth: 520, marginInline: "auto" }}>
-            One email. Early access to FitLens, the Bespoke configurator, and up to 40% off the $190 retail price.
+            One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
           <div id="vip-form-final">
             <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact />
           </div>
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
+            <KickstarterFollowCta slot="final_cta" label="Follow us on" />
+          </div>
         </div>
       </section>
+
+      {/* Sticky mobile CTA — hidden while a field has focus so it never covers the keyboard target */}
+      <div
+        className="md:hidden"
+        aria-hidden={!stickyVisible || inputFocused}
+        style={{
+          position: "fixed",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 60,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          padding: "10px 14px",
+          background: "rgba(8,8,7,0.94)",
+          borderTop: `1px solid ${HAIRLINE_STRONG}`,
+          backdropFilter: "blur(6px)",
+          transform: stickyVisible && !inputFocused ? "translateY(0)" : "translateY(120%)",
+          transition: "transform 0.25s ease",
+          pointerEvents: stickyVisible && !inputFocused ? "auto" : "none",
+        }}
+      >
+        <a
+          href="#vip-form-final"
+          onClick={() => pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" })}
+          style={{
+            ...ctaButtonStyle,
+            flex: 1,
+            textAlign: "center",
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: 48,
+          }}
+        >
+          Get Early Access
+        </a>
+        <KickstarterFollowCta slot="sticky_mobile" variant="quiet" label="" />
+      </div>
+
 
       {/* Footer */}
       <footer style={{ borderTop: `1px solid ${HAIRLINE}` }}>
