@@ -1229,6 +1229,8 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 007",
                 shape: "Round",
+                photo: w007BlackFrontAsset.url,
+                photoAlt: "Woolet 007 round frame in black acetate, front view",
                 srp: 190,
                 kickstarter: 114,
                 specs: [
@@ -1242,6 +1244,8 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 009",
                 shape: "Soft-Square",
+                photo: w009BlackFrontAsset.url,
+                photoAlt: "Woolet 009 soft-square frame in black acetate, front view",
                 srp: 190,
                 kickstarter: 114,
                 specs: [
@@ -1256,25 +1260,20 @@ const KickstarterPrelaunch = () => {
               <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
                 <div
                   style={{
-                    background: "transparent",
+                    background: "#0f0e0c",
                     aspectRatio: "4 / 3",
                     overflow: "hidden",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 18,
                     borderBottom: `1px solid ${HAIRLINE}`,
-                    padding: "24px 20px",
                   }}
                 >
-                  <FrameOutline
-                    variant={m.name === "Woolet 007" ? "round" : "square"}
-                    label={`${m.name} — ${m.shape} outline`}
+                  <img
+                    src={m.photo}
+                    alt={m.photoAlt}
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
-                  <div style={{ ...eyebrowStyle, color: TAUPE, fontSize: 10, textAlign: "center", maxWidth: 320 }}>
-                    Shape shown as outline — colour is yours to choose
-                  </div>
                 </div>
 
                 <div style={{ padding: "28px 24px" }}>
@@ -1326,14 +1325,23 @@ const KickstarterPrelaunch = () => {
                     </div>
                   </div>
                   {/* TODO: do not change these millimetre figures without sign-off from production. */}
-                  <dl className="mt-5 grid grid-cols-2 gap-y-2 gap-x-4">
-                    {m.specs.map(([k, v]) => (
-                      <div key={k} style={{ display: "contents" }}>
-                        <dt style={{ ...eyebrowStyle, color: TAUPE }}>{k}</dt>
-                        <dd style={{ fontSize: 14, color: CREAM, textAlign: "right" }}>{v}</dd>
-                      </div>
-                    ))}
-                  </dl>
+                  <div className="mt-5 flex items-start gap-5">
+                    {/* Schematic sits beside the numbers, where it helps read the dimensions */}
+                    <div style={{ flex: "0 0 96px", opacity: 0.7, paddingTop: 4 }}>
+                      <FrameOutline
+                        variant={m.name === "Woolet 007" ? "round" : "square"}
+                        label={`${m.name} — ${m.shape} dimension schematic`}
+                      />
+                    </div>
+                    <dl className="grid grid-cols-2 gap-y-2 gap-x-4" style={{ flex: 1, minWidth: 0 }}>
+                      {m.specs.map(([k, v]) => (
+                        <div key={k} style={{ display: "contents" }}>
+                          <dt style={{ ...eyebrowStyle, color: TAUPE }}>{k}</dt>
+                          <dd style={{ fontSize: 14, color: CREAM, textAlign: "right" }}>{v}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
                   <p style={{ marginTop: 16, fontSize: 12, color: TAUPE, lineHeight: 1.6 }}>
                     Early Bird pricing opens with the campaign and rises once the first tier is
                     claimed. VIPs get the link first.
