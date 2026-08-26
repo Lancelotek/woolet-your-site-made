@@ -195,16 +195,8 @@ const ConfiguratorPage = () => {
           </div>
         </div>
 
-        {/* ── Persistent fit badge ── */}
-        <div className="cfg-container mt-6">
-          <FitBadge
-            faceMm={faceMm}
-            bridgeMm={bridgeMm}
-            fromScan={fitFromScan}
-            open={fitOpen}
-            onToggle={() => setFitOpen((v) => !v)}
-          />
-        </div>
+
+
 
         {/* ── Main two-column layout ── */}
         <main className="cfg-container pt-10 pb-32">
