@@ -1074,7 +1074,6 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 007",
                 shape: "Round",
-                img: w007BlackFrontAsset.url,
                 srp: 190,
                 kickstarter: 114,
                 specs: [
@@ -1088,7 +1087,6 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 009",
                 shape: "Soft-Square",
-                img: w009BlackFrontAsset.url,
                 srp: 190,
                 kickstarter: 114,
                 specs: [
