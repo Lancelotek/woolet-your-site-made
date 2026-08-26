@@ -141,6 +141,7 @@ const eyebrowStyle: React.CSSProperties = {
 // ---------- VIP Form (email + consent only) ----------
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+const VIP_JOINED_KEY = "wlt_ks_vip_joined";
 
 
 const StepBar = ({ step }: { step: 1 | 2 }) => {
