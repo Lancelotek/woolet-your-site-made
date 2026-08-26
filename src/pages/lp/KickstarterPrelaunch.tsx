@@ -1814,23 +1814,26 @@ const KickstarterPrelaunch = () => {
           pointerEvents: stickyVisible && !inputFocused ? "auto" : "none",
         }}
       >
-        <a
-          href="#vip-form-final"
-          onClick={() => pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" })}
-          style={{
-            ...ctaButtonStyle,
-            flex: 1,
-            textAlign: "center",
-            textDecoration: "none",
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: 48,
-          }}
-        >
-          Get Early Access
-        </a>
-        <KickstarterFollowCta slot="sticky_mobile" variant="quiet" label="" />
+        {hasJoined ? (
+          <KickstarterFollowCta slot="sticky_mobile" label="Follow us on" />
+        ) : (
+          <a
+            href="#vip-form-final"
+            onClick={() => pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" })}
+            style={{
+              ...ctaButtonStyle,
+              flex: 1,
+              textAlign: "center",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: 48,
+            }}
+          >
+            Get Early Access
+          </a>
+        )}
       </div>
 
 
