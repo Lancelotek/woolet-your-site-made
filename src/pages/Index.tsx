@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
-const heroManImg = "/hero-man.jpg";
+const heroManImg = "/hero-man.webp";
 import woolet007Asset from "@/assets/frames-2026/oval-crystal.asset.json";
 import woolet009Asset from "@/assets/frames-2026/square-crystal.asset.json";
 import Navbar from "@/components/Navbar";
@@ -780,6 +780,8 @@ const Index = () => {
             >
               <img
                 src={heroManImg}
+                srcSet="/hero-man.webp 622w, /hero-man@2x.webp 1244w"
+                sizes="(min-width: 1024px) 48vw, 100vw"
                 alt="Customer wearing Woolet wide-face Italian acetate eyewear"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="eager"

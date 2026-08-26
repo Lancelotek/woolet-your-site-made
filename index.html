@@ -42,7 +42,8 @@
     <!-- Bespoke engraving preview font (Malgun Gothic equivalent for non-Windows) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
     
     <!-- hreflang is emitted per-route by react-helmet-async (see src/components/SEO.tsx).
          Static tags were removed because they always pointed at homepages and
@@ -60,7 +61,7 @@
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cormorant-italic-latin.woff2">
 
     <!-- Preload hero LCP image (home) -->
-    <link rel="preload" as="image" type="image/jpeg" href="/hero-man.jpg" fetchpriority="high" imagesrcset="/hero-man.jpg 622w" imagesizes="(min-width: 1024px) 48vw, 100vw">
+    <link rel="preload" as="image" type="image/webp" href="/hero-man.webp" fetchpriority="high" imagesrcset="/hero-man.webp 622w, /hero-man@2x.webp 1244w" imagesizes="(min-width: 1024px) 48vw, 100vw">
 
     <script type="application/ld+json" data-seo="prerender">
 
