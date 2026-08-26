@@ -168,7 +168,7 @@ const Collection = () => {
           {/* Models */}
           <section className="px-5 sm:px-8 lg:px-16 pb-4">
             <div className="max-w-5xl mx-auto">
-              <ModelPills waitlistAnchor="waitlist-form" />
+              <ModelPills />
             </div>
           </section>
 
