@@ -1420,7 +1420,7 @@ const KickstarterPrelaunch = () => {
               maxWidth: 720,
             }}
           >
-            If none of these are wide enough, <em style={{ color: GOLD, fontStyle: "italic" }}>we build yours.</em>
+            Nothing wide enough? <em style={{ color: GOLD, fontStyle: "italic" }}>We build yours to measure.</em>
           </h2>
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2" style={{ fontSize: 13, color: TAUPE, letterSpacing: "0.02em" }}>
             <span>4 shapes</span>
@@ -1431,7 +1431,7 @@ const KickstarterPrelaunch = () => {
             <span>·</span>
             <span>Built to measure with FitLens</span>
             <span style={{ color: CREAM, marginLeft: 4 }}>
-              Kickstarter <span style={{ color: GOLD, fontWeight: 600 }}>$299</span>
+              Kickstarter Early Bird <span style={{ color: GOLD, fontWeight: 600 }}>from $299</span>
             </span>
             <span style={{ textDecoration: "line-through" }}>SRP $480</span>
           </div>
