@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
@@ -706,6 +706,213 @@ const KickstarterFollowCta = ({
   );
 };
 
+// ---------- Market width chart ----------
+// Widest published frame widths, from each brand's own size guide or product
+// specs. Sources: Cubitts size guide (XL = "more than 145 mm"); the figures for
+// Warby Parker, Persol, Ray-Ban, Fatheadz and EYESHELLS match the ranges already
+// published on our own /en/compare pages in src/data/competitors.ts — keep them
+// in sync, two different numbers for one brand on one domain is indefensible.
+const MARKET_ROWS = [
+  { brand: "Cubitts",       tier: "XL",            mm: 145, label: "145 mm+", material: "acetate",            open: true  },
+  { brand: "Warby Parker",  tier: "Extended Fit",  mm: 148, label: "148 mm",  material: "acetate" },
+  { brand: "Persol",        tier: "largest caliber", mm: 148, label: "148 mm", material: "Italian acetate" },
+  { brand: "Ray-Ban",       tier: "wide fits",     mm: 150, label: "150 mm",  material: "acetate, nylon" },
+  { brand: "Fatheadz",      tier: "widest",        mm: 160, label: "~160 mm", material: "TR90 nylon, monel" },
+  { brand: "EYESHELLS",     tier: "widest",        mm: 160, label: "~160 mm", material: "injected plastic" },
+  { brand: "Woolet",        tier: "Signature",     mm: 158, label: "158 mm",  material: "Mazzucchelli 1849, hand finished", isWoolet: true },
+];
+const SCALE_MIN = 130;
+const SCALE_MAX = 165;
+const pctOf = (mm: number) => ((mm - SCALE_MIN) / (SCALE_MAX - SCALE_MIN)) * 100;
+
+const MarketWidthChart = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setShown(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <section>
+      <style>{`
+        .mkt-row { display: grid; grid-template-columns: 190px 1fr 84px; align-items: center; column-gap: 18px; }
+        .mkt-bar { width: 0; transition: width 700ms cubic-bezier(0.2,0.7,0.2,1); }
+        .mkt-shown .mkt-bar { width: var(--w); }
+        @media (max-width: 639px) {
+          .mkt-row { grid-template-columns: 1fr auto; column-gap: 12px; row-gap: 8px; }
+          .mkt-brand { grid-column: 1; }
+          .mkt-value { grid-column: 2; }
+          .mkt-track-cell { grid-column: 1 / -1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mkt-bar { width: var(--w); transition: none; }
+        }
+      `}</style>
+
+      <div className="max-w-4xl mx-auto px-5 sm:px-8 py-20 md:py-28">
+        <Eyebrow>The market</Eyebrow>
+        <h2
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 300,
+            fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
+            lineHeight: 1.1,
+            color: CREAM,
+            marginTop: 12,
+          }}
+        >
+          Premium <em style={{ color: GOLD, fontStyle: "italic" }}>and</em> 158 mm didn't exist — until Woolet
+        </h2>
+        <p style={{ color: TAUPE, marginTop: 20, fontSize: "1.05rem", lineHeight: 1.7, maxWidth: "62ch" }}>
+          Premium acetate stops around 150 mm. Past that the market offers nylon and injection-moulded
+          plastic. Nobody had put real width and Italian acetate in the same frame.
+        </p>
+
+        <div ref={ref} className={shown ? "mkt-shown" : undefined} style={{ marginTop: 40 }}>
+          {/* 155 mm threshold label, above the first row, over the track column only */}
+          <div className="mkt-row" style={{ marginBottom: 10 }}>
+            <div className="mkt-brand" aria-hidden="true" />
+            <div className="mkt-track-cell" style={{ position: "relative" }}>
+              <div
+                style={{
+                  ...eyebrowStyle,
+                  color: TAUPE,
+                  fontSize: 10,
+                  marginLeft: `${pctOf(155)}%`,
+                  transform: "translateX(-6px)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                155 mm — where a wide face starts
+              </div>
+            </div>
+            <div className="mkt-value" aria-hidden="true" />
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            {MARKET_ROWS.map((r, i) => (
+              <div
+                key={r.brand}
+                className="mkt-row"
+                style={
+                  r.isWoolet
+                    ? { borderTop: `1px solid ${HAIRLINE}`, paddingTop: 18 }
+                    : undefined
+                }
+              >
+                <div className="mkt-brand">
+                  <span style={{ color: CREAM, fontSize: r.isWoolet ? 15 : 14, fontWeight: r.isWoolet ? 500 : 400 }}>
+                    {r.brand}
+                  </span>{" "}
+                  <span
+                    style={{
+                      color: TAUPE,
+                      fontSize: 11,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.14em",
+                    }}
+                  >
+                    {r.tier}
+                  </span>
+                </div>
+
+                <div className="mkt-track-cell">
+                  <div style={{ position: "relative" }}>
+                    {/* threshold line, behind the bars */}
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        left: `${pctOf(155)}%`,
+                        top: -10,
+                        bottom: -10,
+                        width: 1,
+                        borderLeft: "1px dashed rgba(202,164,73,0.45)",
+                        zIndex: 0,
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "relative",
+                        zIndex: 1,
+                        background: "rgba(237,231,217,0.06)",
+                        height: r.isWoolet ? 14 : 10,
+                      }}
+                    >
+                      <div
+                        className="mkt-bar"
+                        style={{
+                          // @ts-expect-error custom property
+                          "--w": `${pctOf(r.mm)}%`,
+                          transitionDelay: `${i * 60}ms`,
+                          height: "100%",
+                          background: r.isWoolet ? GOLD : "rgba(237,231,217,0.28)",
+                          WebkitMaskImage: r.open
+                            ? "linear-gradient(to right, #000 calc(100% - 12px), transparent 100%)"
+                            : undefined,
+                          maskImage: r.open
+                            ? "linear-gradient(to right, #000 calc(100% - 12px), transparent 100%)"
+                            : undefined,
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      color: TAUPE,
+                      fontSize: 10,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.12em",
+                      marginTop: 7,
+                    }}
+                  >
+                    {r.material}
+                  </div>
+                </div>
+
+                <div
+                  className="mkt-value"
+                  style={{
+                    textAlign: "right",
+                    fontVariantNumeric: "tabular-nums",
+                    fontSize: 13,
+                    color: r.isWoolet ? GOLD : CREAM,
+                  }}
+                >
+                  {r.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p style={{ color: TAUPE, fontSize: 11, lineHeight: 1.6, marginTop: 24, maxWidth: "62ch" }}>
+          Widest published sizes, taken from each brand's own size guide or product specifications.
+          Approximate and subject to change as their ranges change.
+        </p>
+      </div>
+      <Hairline />
+    </section>
+  );
+};
+
 
 // ---------- Page ----------
 const KickstarterPrelaunch = () => {
@@ -1236,6 +1443,11 @@ const KickstarterPrelaunch = () => {
           </div>
         </div>
       </section>
+
+      {/* MARKET WIDTH CHART */}
+      <MarketWidthChart />
+
+
 
       {/* SIGNATURE SHAPES */}
       <section>
