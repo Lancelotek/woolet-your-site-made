@@ -919,8 +919,8 @@ const KickstarterPrelaunch = () => {
           .ks-hero-image { aspect-ratio: 4 / 5 !important; }
         }
         @media (max-width: 767px) {
-          /* Taller hero crop on phones — portrait frames read better than a square */
-          .ks-hero-image { aspect-ratio: 4 / 5 !important; }
+          /* Taller hero crop on phones, capped so the headline and form stay above the fold */
+          .ks-hero-image { aspect-ratio: 4 / 5 !important; max-height: 42vh; }
 
           .ks-lp section > div.max-w-6xl,
           .ks-lp section > div.max-w-4xl,
@@ -969,8 +969,8 @@ const KickstarterPrelaunch = () => {
       {/* HERO */}
       <section>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 md:items-center min-w-0">
-          {/* Left — gallery */}
-          <div>
+          {/* Left on desktop, second on mobile — gallery */}
+          <div className="order-2 md:order-1">
             <div
               onClick={() => openLightbox(activeImg)}
               className="ks-hero-image"
@@ -1017,7 +1017,7 @@ const KickstarterPrelaunch = () => {
                   <img
                     src={img.src}
                     alt={img.alt}
-                    loading="lazy"
+                    loading={i === 0 ? "eager" : "lazy"}
                     decoding="async"
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
@@ -1039,8 +1039,8 @@ const KickstarterPrelaunch = () => {
           </div>
 
 
-          {/* Right — copy + form */}
-          <div>
+          {/* Right on desktop, first on mobile — headline + email field above the fold */}
+          <div className="order-1 md:order-2">
             <Eyebrow>VIP Early Access</Eyebrow>
             <h1
               style={{
