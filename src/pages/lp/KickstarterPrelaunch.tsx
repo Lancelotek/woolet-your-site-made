@@ -1454,7 +1454,7 @@ const KickstarterPrelaunch = () => {
             Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
           </h2>
           <div id="vip-form-mid">
-            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} compact />
+            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
           </div>
         </div>
       </section>
