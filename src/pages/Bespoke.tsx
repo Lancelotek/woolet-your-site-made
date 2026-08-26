@@ -757,9 +757,8 @@ const BespokePage = () => {
               <div className="woolet-eyebrow-line" />
               <span className="woolet-eyebrow-text">PRICING · LIMITED TO 100 BACKERS</span>
             </div>
-            <a
-              href="https://woolet.co/en/lp/kickstarter"
-              className="group block no-underline transition-all hover:-translate-y-0.5"
+            <div
+              className="block"
               style={{
                 border: "1px solid hsl(var(--gold) / 0.55)",
                 background: "linear-gradient(180deg, hsl(var(--gold) / 0.07) 0%, hsl(var(--gold) / 0.02) 100%)",
@@ -790,33 +789,7 @@ const BespokePage = () => {
                   </div>
                 </div>
               </div>
-              <div
-                className="flex items-center justify-between gap-4 px-8 py-5 border-t transition-colors group-hover:bg-[hsl(var(--gold)/0.08)]"
-                style={{ borderTopColor: "hsl(var(--gold) / 0.2)" }}
-              >
-                <span
-                  className="uppercase tracking-[0.22em]"
-                  style={{
-                    color: "hsl(var(--gold-light))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "0.72rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  Reserve your $299 spot — $1 hold
-                </span>
-                <span
-                  style={{
-                    color: "hsl(var(--gold-light))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontSize: "1rem",
-                  }}
-                  className="transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </div>
-            </a>
+            </div>
             <p className="text-cream-dim leading-relaxed mt-6" style={{ fontSize: "0.85rem" }}>
               Reservation is $1 to hold your spot. Full $299 charged when production starts. Prescription lenses are ordered separately at your local optician.
             </p>
