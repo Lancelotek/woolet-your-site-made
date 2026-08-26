@@ -1110,10 +1110,6 @@ const KickstarterPrelaunch = () => {
               <span>Worn by our testers</span>
             </div>
 
-            <div className="mt-6">
-              <KickstarterFollowCta slot="hero" />
-            </div>
-
           </div>
         </div>
         <Hairline />
