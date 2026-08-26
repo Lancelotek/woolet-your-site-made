@@ -1260,7 +1260,7 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 007",
                 shape: "Round",
-                photo: w007BlackFrontAsset.url,
+                photo: w007CardAsset.url,
                 photoAlt: "Woolet 007 round frame in black acetate, front view",
                 srp: 190,
                 kickstarter: 114,
@@ -1275,7 +1275,7 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 009",
                 shape: "Soft-Square",
-                photo: w009BlackFrontAsset.url,
+                photo: w009CardAsset.url,
                 photoAlt: "Woolet 009 soft-square frame in black acetate, front view",
                 srp: 190,
                 kickstarter: 114,
@@ -1291,7 +1291,7 @@ const KickstarterPrelaunch = () => {
               <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
                 <div
                   style={{
-                    background: "#0f0e0c",
+                    background: INK,
                     aspectRatio: "4 / 3",
                     overflow: "hidden",
                     borderBottom: `1px solid ${HAIRLINE}`,
@@ -1303,7 +1303,7 @@ const KickstarterPrelaunch = () => {
                     loading="lazy"
                     decoding="async"
                     sizes="(min-width: 768px) 50vw, 100vw"
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
                   />
                 </div>
 
