@@ -1760,7 +1760,7 @@ const KickstarterPrelaunch = () => {
             One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
           <div id="vip-form-final">
-            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact />
+            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
           </div>
           <div className="mt-8 flex flex-col items-center gap-3">
             <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
