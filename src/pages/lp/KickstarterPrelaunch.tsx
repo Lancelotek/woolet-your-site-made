@@ -198,11 +198,13 @@ const VipForm = ({
   idSuffix = "",
   referredBy,
   compact = false,
+  onJoined,
 }: {
   utmSource: string;
   idSuffix?: string;
   referredBy?: string | null;
   compact?: boolean;
+  onJoined?: () => void;
 }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
