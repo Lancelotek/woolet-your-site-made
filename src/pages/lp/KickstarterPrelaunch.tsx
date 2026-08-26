@@ -602,7 +602,7 @@ const VipForm = ({
           marginTop: 2,
         }}
       >
-        Step 1 of 2 · No payment now · Just your email.
+        Step 1 of 2 · No payment now · No spam, unsubscribe anytime.
       </p>
     </form>
   );
@@ -1006,6 +1006,7 @@ const KickstarterPrelaunch = () => {
                     src={img.src}
                     alt={img.alt}
                     loading="lazy"
+                    decoding="async"
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
                 </button>
@@ -1451,6 +1452,8 @@ const KickstarterPrelaunch = () => {
                     src={f.src}
                     alt={f.alt}
                     loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
