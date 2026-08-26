@@ -367,20 +367,6 @@ const BespokePage = () => {
                   Start your build →
                 </Link>
                 <Link
-                  to="/en/fit"
-                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
-                  style={{
-                    border: "1px solid hsl(var(--gold) / 0.5)",
-                    color: "hsl(var(--gold-light))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontWeight: 500,
-                    fontSize: "0.72rem",
-                    padding: "18px 32px",
-                  }}
-                >
-                  Scan your face
-                </Link>
-                <Link
                   to="/en/fit/bespoke"
                   className="inline-flex items-center gap-2 no-underline transition-colors"
                   style={{
