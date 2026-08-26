@@ -1280,7 +1280,7 @@ const KickstarterPrelaunch = () => {
                             color: GOLD,
                           }}
                         >
-                          ${m.kickstarter}
+                          from ${m.kickstarter}
                         </span>
                         <span
                           style={{
@@ -1301,10 +1301,11 @@ const KickstarterPrelaunch = () => {
                           marginTop: 2,
                         }}
                       >
-                        Kickstarter
+                        Kickstarter Early Bird
                       </span>
                     </div>
                   </div>
+                  {/* TODO: do not change these millimetre figures without sign-off from production. */}
                   <dl className="mt-5 grid grid-cols-2 gap-y-2 gap-x-4">
                     {m.specs.map(([k, v]) => (
                       <div key={k} style={{ display: "contents" }}>
@@ -1313,6 +1314,10 @@ const KickstarterPrelaunch = () => {
                       </div>
                     ))}
                   </dl>
+                  <p style={{ marginTop: 16, fontSize: 12, color: TAUPE, lineHeight: 1.6 }}>
+                    Early Bird pricing opens with the campaign and rises once the first tier is
+                    claimed. VIPs get the link first.
+                  </p>
                 </div>
               </article>
             ))}
