@@ -847,43 +847,6 @@ const BespokePage = () => {
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-24" style={{ background: "hsl(var(--gold) / 0.04)" }}>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2
-              className="font-display text-woolet-white mb-6"
-              style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 300 }}
-            >
-              Reserve your <em className="italic text-gold-light">bespoke</em> spot.
-            </h2>
-            <p className="text-cream-dim leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontSize: "0.95rem" }}>
-              100 spots at $299. Reservation costs $1 and is fully refundable.
-            </p>
-            <Link
-              to="/en/fit"
-              className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
-              style={{
-                background: "hsl(var(--gold))",
-                color: "hsl(var(--background))",
-                fontFamily: "Barlow, sans-serif",
-                fontWeight: 500,
-                fontSize: "0.72rem",
-                padding: "18px 32px",
-              }}
-            >
-              Start AI face scan
-            </Link>
-            <div className="mt-6">
-              <Link
-                to="/en/process"
-                className="text-gold-light/80 no-underline uppercase tracking-[0.22em] hover:text-gold-light transition-colors border-b border-gold-light/30 hover:border-gold-light pb-1"
-                style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem", fontWeight: 500 }}
-              >
-                See how it's made →
-              </Link>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
     </>
