@@ -19,6 +19,9 @@ import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
 import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
 import w009HavanaAsset from "@/assets/woolet-009-havana-front.png.asset.json";
 import marek from "@/assets/author-marek.png";
+import gregSquare from "@/assets/testimonials/greg-woolet-tester-square.webp";
+import gregPortrait from "@/assets/testimonials/greg-woolet-tester.webp";
+import kickstarterWordmark from "@/assets/kickstarter-wordmark-white.png";
 import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, BESPOKE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
 // Bespoke gallery photos
