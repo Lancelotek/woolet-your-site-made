@@ -987,7 +987,6 @@ const KickstarterPrelaunch = () => {
             >
               Soon on Kickstarter
             </span>
-            <KickstarterFollowCta slot="header" variant="quiet" label="Follow on" />
           </div>
         </div>
       </header>
