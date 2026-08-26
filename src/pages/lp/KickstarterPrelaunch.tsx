@@ -63,7 +63,7 @@ const kickstarterFollowHref = (slot: string) =>
 // DRAFT — quote and attribution pending written approval from the tester.
 // Ship verbatim. Do not append a model name, colour or millimetre figure to the attribution.
 const GREG_QUOTE =
-  "First pair in years that didn't pinch by lunchtime. They sit level, they stay put, and they actually look like they were made for my face — because they were.";
+  "Twenty years of frames that pinched. These are the first pair I forget I'm wearing.";
 const GREG_ATTRIBUTION = "— Greg · Woolet tester";
 
 // ---------- Hero gallery ----------
@@ -372,6 +372,18 @@ const VipForm = ({
           price with a refundable <strong>$1</strong> reservation — it holds your spot when the
           campaign opens.
         </p>
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 12,
+            color: TAUPE,
+            lineHeight: 1.6,
+            margin: 0,
+          }}
+        >
+          This $1 reservation is with Woolet, not a Kickstarter pledge. Fully refundable, or applied
+          to your order.
+        </p>
         <button
           type="button"
           onClick={() => {
@@ -602,7 +614,7 @@ const VipForm = ({
           marginTop: 2,
         }}
       >
-        Step 1 of 2 · No payment now · No spam, unsubscribe anytime.
+        Step 1 of 2 · Email now, optional $1 reservation next.
       </p>
     </form>
   );
@@ -1439,7 +1451,7 @@ const KickstarterPrelaunch = () => {
             <span>·</span>
             <span>Built to measure with FitLens</span>
             <span style={{ color: CREAM, marginLeft: 4 }}>
-              Kickstarter Early Bird <span style={{ color: GOLD, fontWeight: 600 }}>from $299</span>
+              Kickstarter Early Bird <span style={{ color: GOLD, fontWeight: 600 }}>$299</span>
             </span>
             <span style={{ textDecoration: "line-through" }}>SRP $480</span>
           </div>
@@ -1508,9 +1520,6 @@ const KickstarterPrelaunch = () => {
               “{GREG_QUOTE}”
             </blockquote>
             <p style={{ ...eyebrowStyle, color: TAUPE, marginTop: 20 }}>{GREG_ATTRIBUTION}</p>
-            <p style={{ color: TAUPE, fontSize: 12.5, lineHeight: 1.6, marginTop: 16, maxWidth: 460 }}>
-              Real tester, real pair. We don't run paid reviews or star ratings before launch.
-            </p>
           </div>
         </div>
         <Hairline />
@@ -1576,7 +1585,7 @@ const KickstarterPrelaunch = () => {
             {[
               { n: "01", t: "Join the VIP list", d: "Email only — no payment, no commitment." },
               { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
-              { n: "03", t: "Pledge & lock the reward", d: "Back on Kickstarter to secure your VIP tier and price." },
+              { n: "03", t: "Follow now, pledge at launch", d: "Kickstarter emails you from their own domain the minute we go live." },
             ].map((s) => (
               <div key={s.n} style={{ background: INK, padding: "32px 24px" }}>
                 <div
