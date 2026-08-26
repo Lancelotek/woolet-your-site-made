@@ -1101,20 +1101,29 @@ const KickstarterPrelaunch = () => {
               },
             ].map((m) => (
               <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
-                <div style={{ background: CREAM, aspectRatio: "4 / 3", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <img
-                    src={m.img}
-                    alt={`${m.name} — ${m.shape}`}
-                    loading="lazy"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
-                      transform: m.name === "Woolet 009" ? "scale(0.82)" : "scale(1)",
-                      transformOrigin: "center",
-                    }}
+                <div
+                  style={{
+                    background: "transparent",
+                    aspectRatio: "4 / 3",
+                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 18,
+                    borderBottom: `1px solid ${HAIRLINE}`,
+                    padding: "24px 20px",
+                  }}
+                >
+                  <FrameOutline
+                    variant={m.name === "Woolet 007" ? "round" : "square"}
+                    label={`${m.name} — ${m.shape} outline`}
                   />
+                  <div style={{ ...eyebrowStyle, color: TAUPE, fontSize: 10, textAlign: "center", maxWidth: 320 }}>
+                    Shape shown as outline — colour is yours to choose
+                  </div>
                 </div>
+
                 <div style={{ padding: "28px 24px" }}>
                   <div style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</div>
                   <div className="flex items-start justify-between gap-4" style={{ marginTop: 4 }}>
