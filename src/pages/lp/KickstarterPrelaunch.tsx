@@ -51,11 +51,27 @@ const BRONZE = "#8A6E2E";
 const HAIRLINE = "rgba(255,255,255,0.10)";
 const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
 
+// ---------- Kickstarter follow ----------
+// Official prelaunch page. Do not alter the Kickstarter wordmark asset (brand policy).
+const KICKSTARTER_URL =
+  "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces";
+
+const kickstarterFollowHref = (slot: string) =>
+  `${KICKSTARTER_URL}?utm_source=woolet_site&utm_medium=lp&utm_campaign=ks_prelaunch&utm_content=${slot}`;
+
+// ---------- Tester testimonial ----------
+// DRAFT — quote and attribution pending written approval from the tester.
+// Ship verbatim. Do not append a model name, colour or millimetre figure to the attribution.
+const GREG_QUOTE =
+  "First pair in years that didn't pinch by lunchtime. They sit level, they stay put, and they actually look like they were made for my face — because they were.";
+const GREG_ATTRIBUTION = "— Greg · Woolet tester";
+
 // ---------- Hero gallery ----------
 const heroGallery: { src: string; alt: string }[] = [
   { src: ksFit158.url, alt: "158 mm — The Signature: Woolet frames on a medium-to-large head" },
   { src: ksFit150.url, alt: "150 mm — Bespoke Fit: Woolet frames on an average-to-wide face" },
   { src: ksFit162.url, alt: "162 mm — Bespoke Extra Wide: Woolet frames on a large head and broad face" },
+  { src: gregSquare, alt: "Greg, a Woolet tester, wearing a wide-fit Woolet frame in tortoise acetate" },
   { src: w009BlackAsset.url, alt: "Woolet 009 Soft-Square — black" },
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
   { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
