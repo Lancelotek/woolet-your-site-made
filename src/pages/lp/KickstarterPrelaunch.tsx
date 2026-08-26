@@ -1594,6 +1594,12 @@ const KickstarterPrelaunch = () => {
               </div>
             ))}
           </div>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <KickstarterFollowCta slot="how_it_works" />
+            <span style={{ fontSize: 12.5, color: TAUPE, lineHeight: 1.5 }}>
+              Following on Kickstarter means you get a notification the minute we go live.
+            </span>
+          </div>
         </div>
         <Hairline />
       </section>
