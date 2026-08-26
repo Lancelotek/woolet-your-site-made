@@ -673,12 +673,37 @@ const KickstarterPrelaunch = () => {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  // Sticky mobile CTA — appears after the hero scrolls away, hides while typing.
+  const [stickyVisible, setStickyVisible] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setStickyVisible(window.scrollY > 640);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const isField = (t: EventTarget | null) =>
+      t instanceof HTMLElement && ["INPUT", "TEXTAREA", "SELECT"].includes(t.tagName);
+    const onIn = (e: FocusEvent) => { if (isField(e.target)) setInputFocused(true); };
+    const onOut = (e: FocusEvent) => { if (isField(e.target)) setInputFocused(false); };
+    document.addEventListener("focusin", onIn);
+    document.addEventListener("focusout", onOut);
+    return () => {
+      document.removeEventListener("focusin", onIn);
+      document.removeEventListener("focusout", onOut);
+    };
+  }, []);
+
   useEffect(() => {
     if (referredBy) {
       persistRef(referredBy);
       pushGtmEvent("vip_referral_visit", { ref: referredBy });
     }
   }, [referredBy]);
+
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
