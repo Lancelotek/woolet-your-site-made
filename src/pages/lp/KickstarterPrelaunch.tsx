@@ -1061,7 +1061,14 @@ const KickstarterPrelaunch = () => {
               <span>Hand made in the EU</span>
               <span style={{ color: TAUPE }}>·</span>
               <span>155 mm+ wide fit</span>
+              <span style={{ color: TAUPE }}>·</span>
+              <span>Worn by our testers</span>
             </div>
+
+            <div className="mt-6">
+              <KickstarterFollowCta slot="hero" />
+            </div>
+
           </div>
         </div>
         <Hairline />
