@@ -223,6 +223,15 @@ const VipForm = ({
       ? `${window.location.origin}/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}`
       : "https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}";
 
+  const markJoined = () => {
+    onJoined?.();
+    try {
+      localStorage.setItem(VIP_JOINED_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+  };
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const normalizedEmail = email.trim().toLowerCase();
