@@ -264,6 +264,7 @@ const VipForm = ({
         setErrorKind("duplicate");
         setError("This email already has a VIP reservation.");
         setLoading(false);
+        markJoined();
         pushGtmEvent("kickstarter_form_submit_error", {
           form_location: formLocation,
           source: utmSource,
