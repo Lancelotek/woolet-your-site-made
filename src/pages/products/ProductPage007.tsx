@@ -242,19 +242,8 @@ const ProductPage007 = () => {
 
         {/* ============ BELOW THE FOLD ============ */}
         <div className="mx-auto" style={{ maxWidth: 980, padding: "72px 20px 0" }}>
-          {/* 1. Will it fit */}
-          <section style={{ background: "#F8F6F1", border: `1px solid ${T.gold}`, padding: "28px 28px 26px", borderRadius: 4 }}>
-            <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 10 }}>Fit-first</div>
-            <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 28, color: "#1F1B16", margin: "0 0 10px", lineHeight: 1.15 }}>Will it actually fit?</h3>
-            <p style={{ fontFamily: SANS, fontSize: 15, color: T.inkDim, lineHeight: 1.6, margin: "0 0 16px" }}>
-              Standard frames stop at 138–148 mm. If your face is 155 mm or wider, they pinch, slide, and leave marks. Woolet 007 runs 158 mm across the front with a 21 mm keyhole bridge — the width you've been missing. Take our 30-second fit quiz to confirm before you reserve.
-            </p>
-            <button onClick={handleFitQuiz} style={{ background: T.gold, color: "#1F1B16", border: "none", padding: "12px 20px", borderRadius: 2, fontFamily: SANS, fontWeight: 600, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer" }}>
-              Take the fit quiz
-            </button>
-          </section>
 
-          {/* 2. Feature list */}
+          {/* 1. Feature list */}
           <section style={{ marginTop: 56 }}>
             <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 14 }}>What you get</div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 12 }}>
