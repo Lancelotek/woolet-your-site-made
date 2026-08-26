@@ -216,7 +216,100 @@
         m.setAttribute('content', 'noindex, nofollow');
       })();
     </script>
+
+    <!-- FitLens bridge: cross-origin widget events -> Clarity + dataLayer.
+         Must run before the FitLens embed script (injected by React) and
+         before hydration, so early clicks are covered. No PII forwarded. -->
+    <script>
+    (function () {
+      if (window.__fitlensBridge) return;
+      window.__fitlensBridge = true;
+
+      var ALLOWED = 'https://fitlens-web-production.up.railway.app';
+      var BUCKET_RE = /^[0-9]{2,3}-[0-9]{2,3}$/;
+      var LOADER_ID = '__fitlens-loader';
+      var timer = null;
+
+      function hideLoader() {
+        if (timer) { clearTimeout(timer); timer = null; }
+        var el = document.getElementById(LOADER_ID);
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+      }
+
+      function showLoader() {
+        if (document.getElementById(LOADER_ID) || !document.body) return;
+        var el = document.createElement('div');
+        el.id = LOADER_ID;
+        el.setAttribute('role', 'status');
+        el.setAttribute('aria-live', 'polite');
+        el.style.cssText = [
+          'position:fixed', 'inset:0', 'z-index:2147483646',
+          'background:rgba(11,10,9,0.92)',
+          'display:flex', 'align-items:center', 'justify-content:center',
+          'pointer-events:none',
+          'font-family:Barlow,system-ui,sans-serif', 'color:#EFE9DF'
+        ].join(';');
+        el.innerHTML =
+          '<div style="text-align:center;max-width:22rem;padding:0 1.5rem">' +
+            '<div style="width:34px;height:34px;margin:0 auto 1.25rem;border:2px solid rgba(194,160,90,0.25);' +
+            'border-top-color:#C2A05A;border-radius:50%;animation:__flspin 0.9s linear infinite"></div>' +
+            '<p style="margin:0;font-size:0.95rem;letter-spacing:0.02em;opacity:0.9">Opening FitLens — this takes a moment.</p>' +
+            '<div data-fallback style="display:none;margin-top:1.25rem;pointer-events:auto">' +
+              '<p style="margin:0 0 0.75rem;font-size:0.85rem;opacity:0.7">Taking longer than usual.</p>' +
+              '<a href="/en/fit/manual" style="display:inline-block;padding:0.65rem 1.1rem;border:1px solid #C2A05A;' +
+              'border-radius:2px;color:#C2A05A;text-decoration:none;font-size:0.85rem">Measure with a tape — 1 minute</a>' +
+            '</div>' +
+          '</div>' +
+          '<style>@keyframes __flspin{to{transform:rotate(360deg)}}</style>';
+        document.body.appendChild(el);
+
+        timer = setTimeout(function () {
+          var cur = document.getElementById(LOADER_ID);
+          if (!cur) return;
+          var fb = cur.querySelector('[data-fallback]');
+          if (fb) fb.style.display = 'block';
+          setTimeout(hideLoader, 12000);
+        }, 25000);
+      }
+
+      document.addEventListener('click', function (e) {
+        var t = e.target;
+        if (!t || !t.closest) return;
+        if (t.closest('[data-fitlens]')) showLoader();
+      }, true);
+
+      window.addEventListener('message', function (e) {
+        if (e.origin !== ALLOWED) return;
+
+        var d = e.data;
+        if (!d || d.source !== 'fitlens' || d.type !== 'fitlens:event') return;
+
+        var raw = String(d.name || '').replace(/[^a-z0-9_]/gi, '').slice(0, 40);
+        if (!raw) return;
+
+        if (raw === 'ready' || raw === 'intro_shown') hideLoader();
+
+        var name = 'fit_' + raw;
+
+        if (typeof window.clarity === 'function') {
+          window.clarity('event', name);
+
+          if (raw === 'camera_granted') {
+            window.clarity('upgrade', 'fitlens_scan');
+          }
+
+          var bucket = d.data && d.data.face_width_bucket;
+          if (typeof bucket === 'string' && BUCKET_RE.test(bucket)) {
+            window.clarity('set', 'face_width_bucket', bucket);
+          }
+        }
+
+        (window.dataLayer = window.dataLayer || []).push({ event: name });
+      }, false);
+    })();
+    </script>
 </head>
+
 
   <body>
     <!-- Google Tag Manager (noscript) -->
