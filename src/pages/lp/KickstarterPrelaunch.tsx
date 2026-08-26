@@ -1785,12 +1785,6 @@ const KickstarterPrelaunch = () => {
       </div>
 
 
-      {/* Footer */}
-      <footer style={{ borderTop: `1px solid ${HAIRLINE}` }}>
-        <div
-          className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ fontSize: 12, color: TAUPE, letterSpacing: "0.04em" }}
-        >
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8" style={{ textAlign: "center" }}>
         <p style={{ fontFamily: "Barlow, sans-serif", fontSize: 12, color: TAUPE, letterSpacing: "0.04em", lineHeight: 1.6 }}>
           30-day returns · Free worldwide shipping · Hand made in the EU
