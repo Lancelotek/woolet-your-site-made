@@ -45,7 +45,7 @@ describe("Kickstarter VIP form — email-only submission", () => {
     (window as unknown as { dataLayer?: unknown[] }).dataLayer = [];
   });
 
-  it("submits with only email + consent, navigates to /vip-confirmed, and pushes empty user_first_name", async () => {
+  it("submits with only email + inline consent, advances to step 2, and pushes empty user_first_name", async () => {
     renderPage();
 
     // Hero form has idSuffix="-hero"
@@ -53,14 +53,13 @@ describe("Kickstarter VIP form — email-only submission", () => {
     expect(form).toBeTruthy();
 
     const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
-    const consentCheckbox = form.querySelector('input[type="checkbox"]') as HTMLInputElement;
     const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 
-    // Email-only form: no first-name field on the page anymore
+    // Email-only form: no first-name field and no consent checkbox on the page anymore
     expect(form.querySelector('input[type="text"]')).toBeNull();
+    expect(form.querySelector('input[type="checkbox"]')).toBeNull();
 
     fireEvent.change(emailInput, { target: { value: "wide@example.com" } });
-    fireEvent.click(consentCheckbox);
 
     await waitFor(() => expect(submitBtn.disabled).toBe(false));
     fireEvent.click(submitBtn);
@@ -70,13 +69,9 @@ describe("Kickstarter VIP form — email-only submission", () => {
       expect((supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>)).toHaveBeenCalled();
     });
 
+    // Form advances to step 2 instead of navigating away
     await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith(
-        "/en/lp/kickstarter/vip-confirmed",
-        expect.objectContaining({
-          state: expect.objectContaining({ email: "wide@example.com", name: "" }),
-        }),
-      );
+      expect(form.textContent).toContain("You're on the VIP list");
     });
 
     const dl = (window as unknown as { dataLayer: Array<Record<string, unknown>> }).dataLayer;

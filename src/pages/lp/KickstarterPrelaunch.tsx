@@ -14,6 +14,8 @@ import logoAsset from "@/assets/woolet-logo.png.asset.json";
 const logo = logoAsset.url;
 import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
 import w009BlackFrontAsset from "@/assets/woolet-009-black-front.png.asset.json";
+import w007CardAsset from "@/assets/products/woolet-007-round-black-card.webp.asset.json";
+import w009CardAsset from "@/assets/products/woolet-009-square-black-card.webp.asset.json";
 import w009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
 import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
 import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
@@ -139,6 +141,7 @@ const eyebrowStyle: React.CSSProperties = {
 // ---------- VIP Form (email + consent only) ----------
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+const VIP_JOINED_KEY = "wlt_ks_vip_joined";
 
 
 const StepBar = ({ step }: { step: 1 | 2 }) => {
@@ -195,11 +198,13 @@ const VipForm = ({
   idSuffix = "",
   referredBy,
   compact = false,
+  onJoined,
 }: {
   utmSource: string;
   idSuffix?: string;
   referredBy?: string | null;
   compact?: boolean;
+  onJoined?: () => void;
 }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -217,6 +222,15 @@ const VipForm = ({
     typeof window !== "undefined"
       ? `${window.location.origin}/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}`
       : "https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}";
+
+  const markJoined = () => {
+    onJoined?.();
+    try {
+      localStorage.setItem(VIP_JOINED_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+  };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -250,6 +264,7 @@ const VipForm = ({
         setErrorKind("duplicate");
         setError("This email already has a VIP reservation.");
         setLoading(false);
+        markJoined();
         pushGtmEvent("kickstarter_form_submit_error", {
           form_location: formLocation,
           source: utmSource,
@@ -310,6 +325,7 @@ const VipForm = ({
 
       setEmail(normalizedEmail);
       setLoading(false);
+      markJoined();
       setStep(2);
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
@@ -417,6 +433,16 @@ const VipForm = ({
         >
           Skip for now — stay on the free VIP list
         </button>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            flexWrap: "wrap",
+          }}
+        >
+          <KickstarterFollowCta slot="post_signup" label="You're on the list. Now follow on" />
+        </div>
         <p
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -696,6 +722,16 @@ const KickstarterPrelaunch = () => {
   const [stickyVisible, setStickyVisible] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
 
+  // Gate Kickstarter follow CTAs behind the email capture.
+  const [hasJoined, setHasJoined] = useState(false);
+  useEffect(() => {
+    try {
+      setHasJoined(localStorage.getItem(VIP_JOINED_KEY) === "1");
+    } catch {
+      setHasJoined(false);
+    }
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setStickyVisible(window.scrollY > 640);
     onScroll();
@@ -961,7 +997,6 @@ const KickstarterPrelaunch = () => {
             >
               Soon on Kickstarter
             </span>
-            <KickstarterFollowCta slot="header" variant="quiet" label="Follow on" />
           </div>
         </div>
       </header>
@@ -1068,7 +1103,7 @@ const KickstarterPrelaunch = () => {
             </p>
 
             <div id="vip-form-hero" style={{ marginTop: 28 }}>
-              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} />
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} onJoined={() => setHasJoined(true)} />
             </div>
 
             {/* Trust row */}
@@ -1083,10 +1118,6 @@ const KickstarterPrelaunch = () => {
               <span>155 mm+ wide fit</span>
               <span style={{ color: TAUPE }}>·</span>
               <span>Worn by our testers</span>
-            </div>
-
-            <div className="mt-6">
-              <KickstarterFollowCta slot="hero" />
             </div>
 
           </div>
@@ -1229,7 +1260,7 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 007",
                 shape: "Round",
-                photo: w007BlackFrontAsset.url,
+                photo: w007CardAsset.url,
                 photoAlt: "Woolet 007 round frame in black acetate, front view",
                 srp: 190,
                 kickstarter: 114,
@@ -1244,7 +1275,7 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 009",
                 shape: "Soft-Square",
-                photo: w009BlackFrontAsset.url,
+                photo: w009CardAsset.url,
                 photoAlt: "Woolet 009 soft-square frame in black acetate, front view",
                 srp: 190,
                 kickstarter: 114,
@@ -1260,7 +1291,7 @@ const KickstarterPrelaunch = () => {
               <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
                 <div
                   style={{
-                    background: "#0f0e0c",
+                    background: INK,
                     aspectRatio: "4 / 3",
                     overflow: "hidden",
                     borderBottom: `1px solid ${HAIRLINE}`,
@@ -1272,7 +1303,7 @@ const KickstarterPrelaunch = () => {
                     loading="lazy"
                     decoding="async"
                     sizes="(min-width: 768px) 50vw, 100vw"
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
                   />
                 </div>
 
@@ -1428,7 +1459,7 @@ const KickstarterPrelaunch = () => {
             Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
           </h2>
           <div id="vip-form-mid">
-            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} compact />
+            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
           </div>
         </div>
       </section>
@@ -1622,10 +1653,13 @@ const KickstarterPrelaunch = () => {
             ))}
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <KickstarterFollowCta slot="how_it_works" />
-            <span style={{ fontSize: 12.5, color: TAUPE, lineHeight: 1.5 }}>
-              Following on Kickstarter means you get a notification the minute we go live.
-            </span>
+            {hasJoined ? (
+              <KickstarterFollowCta slot="how_it_works" />
+            ) : (
+              <span style={{ fontSize: 12.5, color: TAUPE, lineHeight: 1.5 }}>
+                We'll send you the Kickstarter link the moment we launch.
+              </span>
+            )}
           </div>
         </div>
         <Hairline />
@@ -1734,12 +1768,27 @@ const KickstarterPrelaunch = () => {
             One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
           <div id="vip-form-final">
-            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact />
+            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
           </div>
-          <div className="mt-8 flex flex-col items-center gap-3">
-            <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
-            <KickstarterFollowCta slot="final_cta" label="Follow us on" />
-          </div>
+          {hasJoined ? (
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
+              <KickstarterFollowCta slot="final_cta" label="Follow us on" />
+            </div>
+          ) : (
+            <p
+              className="mt-8"
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontSize: 12.5,
+                color: TAUPE,
+                lineHeight: 1.5,
+                textAlign: "center",
+              }}
+            >
+              We'll send you the Kickstarter link the moment we launch.
+            </p>
+          )}
         </div>
       </section>
 
@@ -1765,23 +1814,26 @@ const KickstarterPrelaunch = () => {
           pointerEvents: stickyVisible && !inputFocused ? "auto" : "none",
         }}
       >
-        <a
-          href="#vip-form-final"
-          onClick={() => pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" })}
-          style={{
-            ...ctaButtonStyle,
-            flex: 1,
-            textAlign: "center",
-            textDecoration: "none",
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: 48,
-          }}
-        >
-          Get Early Access
-        </a>
-        <KickstarterFollowCta slot="sticky_mobile" variant="quiet" label="" />
+        {hasJoined ? (
+          <KickstarterFollowCta slot="sticky_mobile" label="Follow us on" />
+        ) : (
+          <a
+            href="#vip-form-final"
+            onClick={() => pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" })}
+            style={{
+              ...ctaButtonStyle,
+              flex: 1,
+              textAlign: "center",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: 48,
+            }}
+          >
+            Get Early Access
+          </a>
+        )}
       </div>
 
 
