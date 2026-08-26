@@ -63,7 +63,7 @@ const kickstarterFollowHref = (slot: string) =>
 // DRAFT — quote and attribution pending written approval from the tester.
 // Ship verbatim. Do not append a model name, colour or millimetre figure to the attribution.
 const GREG_QUOTE =
-  "First pair in years that didn't pinch by lunchtime. They sit level, they stay put, and they actually look like they were made for my face — because they were.";
+  "Twenty years of frames that pinched. These are the first pair I forget I'm wearing.";
 const GREG_ATTRIBUTION = "— Greg · Woolet tester";
 
 // ---------- Hero gallery ----------
@@ -372,6 +372,18 @@ const VipForm = ({
           price with a refundable <strong>$1</strong> reservation — it holds your spot when the
           campaign opens.
         </p>
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 12,
+            color: TAUPE,
+            lineHeight: 1.6,
+            margin: 0,
+          }}
+        >
+          This $1 reservation is with Woolet, not a Kickstarter pledge. Fully refundable, or applied
+          to your order.
+        </p>
         <button
           type="button"
           onClick={() => {
@@ -602,7 +614,7 @@ const VipForm = ({
           marginTop: 2,
         }}
       >
-        Step 1 of 2 · No payment now · No spam, unsubscribe anytime.
+        Step 1 of 2 · Email now, optional $1 reservation next.
       </p>
     </form>
   );
@@ -907,8 +919,8 @@ const KickstarterPrelaunch = () => {
           .ks-hero-image { aspect-ratio: 4 / 5 !important; }
         }
         @media (max-width: 767px) {
-          /* Taller hero crop on phones — portrait frames read better than a square */
-          .ks-hero-image { aspect-ratio: 4 / 5 !important; }
+          /* Taller hero crop on phones, capped so the headline and form stay above the fold */
+          .ks-hero-image { aspect-ratio: 4 / 5 !important; max-height: 42vh; }
 
           .ks-lp section > div.max-w-6xl,
           .ks-lp section > div.max-w-4xl,
@@ -957,8 +969,8 @@ const KickstarterPrelaunch = () => {
       {/* HERO */}
       <section>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 md:items-center min-w-0">
-          {/* Left — gallery */}
-          <div>
+          {/* Left on desktop, second on mobile — gallery */}
+          <div className="order-2 md:order-1">
             <div
               onClick={() => openLightbox(activeImg)}
               className="ks-hero-image"
@@ -1005,7 +1017,7 @@ const KickstarterPrelaunch = () => {
                   <img
                     src={img.src}
                     alt={img.alt}
-                    loading="lazy"
+                    loading={i === 0 ? "eager" : "lazy"}
                     decoding="async"
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
@@ -1027,8 +1039,8 @@ const KickstarterPrelaunch = () => {
           </div>
 
 
-          {/* Right — copy + form */}
-          <div>
+          {/* Right on desktop, first on mobile — headline + email field above the fold */}
+          <div className="order-1 md:order-2">
             <Eyebrow>VIP Early Access</Eyebrow>
             <h1
               style={{
@@ -1217,6 +1229,8 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 007",
                 shape: "Round",
+                photo: w007BlackFrontAsset.url,
+                photoAlt: "Woolet 007 round frame in black acetate, front view",
                 srp: 190,
                 kickstarter: 114,
                 specs: [
@@ -1230,6 +1244,8 @@ const KickstarterPrelaunch = () => {
               {
                 name: "Woolet 009",
                 shape: "Soft-Square",
+                photo: w009BlackFrontAsset.url,
+                photoAlt: "Woolet 009 soft-square frame in black acetate, front view",
                 srp: 190,
                 kickstarter: 114,
                 specs: [
@@ -1244,25 +1260,20 @@ const KickstarterPrelaunch = () => {
               <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
                 <div
                   style={{
-                    background: "transparent",
+                    background: "#0f0e0c",
                     aspectRatio: "4 / 3",
                     overflow: "hidden",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 18,
                     borderBottom: `1px solid ${HAIRLINE}`,
-                    padding: "24px 20px",
                   }}
                 >
-                  <FrameOutline
-                    variant={m.name === "Woolet 007" ? "round" : "square"}
-                    label={`${m.name} — ${m.shape} outline`}
+                  <img
+                    src={m.photo}
+                    alt={m.photoAlt}
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
-                  <div style={{ ...eyebrowStyle, color: TAUPE, fontSize: 10, textAlign: "center", maxWidth: 320 }}>
-                    Shape shown as outline — colour is yours to choose
-                  </div>
                 </div>
 
                 <div style={{ padding: "28px 24px" }}>
@@ -1314,14 +1325,23 @@ const KickstarterPrelaunch = () => {
                     </div>
                   </div>
                   {/* TODO: do not change these millimetre figures without sign-off from production. */}
-                  <dl className="mt-5 grid grid-cols-2 gap-y-2 gap-x-4">
-                    {m.specs.map(([k, v]) => (
-                      <div key={k} style={{ display: "contents" }}>
-                        <dt style={{ ...eyebrowStyle, color: TAUPE }}>{k}</dt>
-                        <dd style={{ fontSize: 14, color: CREAM, textAlign: "right" }}>{v}</dd>
-                      </div>
-                    ))}
-                  </dl>
+                  <div className="mt-5 flex items-start gap-5">
+                    {/* Schematic sits beside the numbers, where it helps read the dimensions */}
+                    <div style={{ flex: "0 0 96px", opacity: 0.7, paddingTop: 4 }}>
+                      <FrameOutline
+                        variant={m.name === "Woolet 007" ? "round" : "square"}
+                        label={`${m.name} — ${m.shape} dimension schematic`}
+                      />
+                    </div>
+                    <dl className="grid grid-cols-2 gap-y-2 gap-x-4" style={{ flex: 1, minWidth: 0 }}>
+                      {m.specs.map(([k, v]) => (
+                        <div key={k} style={{ display: "contents" }}>
+                          <dt style={{ ...eyebrowStyle, color: TAUPE }}>{k}</dt>
+                          <dd style={{ fontSize: 14, color: CREAM, textAlign: "right" }}>{v}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
                   <p style={{ marginTop: 16, fontSize: 12, color: TAUPE, lineHeight: 1.6 }}>
                     Early Bird pricing opens with the campaign and rises once the first tier is
                     claimed. VIPs get the link first.
@@ -1439,7 +1459,7 @@ const KickstarterPrelaunch = () => {
             <span>·</span>
             <span>Built to measure with FitLens</span>
             <span style={{ color: CREAM, marginLeft: 4 }}>
-              Kickstarter Early Bird <span style={{ color: GOLD, fontWeight: 600 }}>from $299</span>
+              Kickstarter Early Bird <span style={{ color: GOLD, fontWeight: 600 }}>$299</span>
             </span>
             <span style={{ textDecoration: "line-through" }}>SRP $480</span>
           </div>
@@ -1508,9 +1528,6 @@ const KickstarterPrelaunch = () => {
               “{GREG_QUOTE}”
             </blockquote>
             <p style={{ ...eyebrowStyle, color: TAUPE, marginTop: 20 }}>{GREG_ATTRIBUTION}</p>
-            <p style={{ color: TAUPE, fontSize: 12.5, lineHeight: 1.6, marginTop: 16, maxWidth: 460 }}>
-              Real tester, real pair. We don't run paid reviews or star ratings before launch.
-            </p>
           </div>
         </div>
         <Hairline />
@@ -1576,7 +1593,7 @@ const KickstarterPrelaunch = () => {
             {[
               { n: "01", t: "Join the VIP list", d: "Email only — no payment, no commitment." },
               { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
-              { n: "03", t: "Pledge & lock the reward", d: "Back on Kickstarter to secure your VIP tier and price." },
+              { n: "03", t: "Follow now, pledge at launch", d: "Kickstarter emails you from their own domain the minute we go live." },
             ].map((s) => (
               <div key={s.n} style={{ background: INK, padding: "32px 24px" }}>
                 <div
@@ -1768,6 +1785,12 @@ const KickstarterPrelaunch = () => {
       </div>
 
 
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8" style={{ textAlign: "center" }}>
+        <p style={{ fontFamily: "Barlow, sans-serif", fontSize: 12, color: TAUPE, letterSpacing: "0.04em", lineHeight: 1.6 }}>
+          30-day returns · Free worldwide shipping · Hand made in the EU
+        </p>
+      </div>
+
       {/* Footer */}
       <footer style={{ borderTop: `1px solid ${HAIRLINE}` }}>
         <div
@@ -1776,6 +1799,18 @@ const KickstarterPrelaunch = () => {
         >
           <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: CREAM, letterSpacing: "0.24em" }}>
             WOOLET
+          </div>
+          <p style={{ fontSize: 11, lineHeight: 1.6, color: TAUPE, width: "100%", textAlign: "center", order: -1 }}>
+            Kickstarter is a registered trademark of Kickstarter, PBC. Woolet is not affiliated with
+            or endorsed by Kickstarter.
+          </p>
+          <p style={{ fontSize: 13, lineHeight: 1.6 }}>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
+          <div className="flex gap-2">
+            <Link to="/en/privacy-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Privacy</Link>
+            <Link to="/en/return-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Terms</Link>
+          </div>
+        </div>
+      </footer>
       {/* Lightbox */}
       {lightboxOpen && (
         <div
@@ -1907,14 +1942,6 @@ const KickstarterPrelaunch = () => {
           </div>
         </div>
       )}
-    </div>
-          <p style={{ fontSize: 13, lineHeight: 1.6 }}>© {new Date().getFullYear()} Woolet · JAY23 LLC · Hand made in the EU</p>
-          <div className="flex gap-2">
-            <Link to="/en/privacy-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Privacy</Link>
-            <Link to="/en/return-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Terms</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
