@@ -1468,21 +1468,62 @@ const KickstarterPrelaunch = () => {
         <Hairline />
       </section>
 
+      {/* TESTER TESTIMONIAL — DRAFT copy, pending written approval. */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 md:items-center">
+          <figure style={{ margin: 0, border: `1px solid ${HAIRLINE}`, overflow: "hidden" }}>
+            <img
+              src={gregPortrait}
+              alt="Greg, a Woolet tester, wearing a wide-fit Woolet frame outdoors"
+              width={900}
+              height={1125}
+              loading="lazy"
+              decoding="async"
+              style={{ width: "100%", height: "auto", display: "block", aspectRatio: "4 / 5", objectFit: "cover" }}
+            />
+          </figure>
+          <div>
+            <Eyebrow>From a tester</Eyebrow>
+            <blockquote
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 300,
+                fontSize: "clamp(1.35rem, 2.4vw, 2rem)",
+                lineHeight: 1.35,
+                color: CREAM,
+                marginTop: 16,
+                fontStyle: "italic",
+              }}
+            >
+              “{GREG_QUOTE}”
+            </blockquote>
+            <p style={{ ...eyebrowStyle, color: TAUPE, marginTop: 20 }}>{GREG_ATTRIBUTION}</p>
+            <p style={{ color: TAUPE, fontSize: 12.5, lineHeight: 1.6, marginTop: 16, maxWidth: 460 }}>
+              Real tester, real pair. We don't run paid reviews or star ratings before launch.
+            </p>
+          </div>
+        </div>
+        <Hairline />
+      </section>
+
       {/* FOUNDER */}
       <section style={{ background: "#0b0a09" }}>
         <div className="max-w-4xl mx-auto px-5 sm:px-8 py-20 md:py-24 flex flex-col sm:flex-row gap-10 items-start">
-          <img
-            src={marek}
-            alt="Marek Ciesla — Woolet founder"
-            loading="lazy"
-            style={{
-              width: 128,
-              height: 128,
-              objectFit: "cover",
-              border: `1px solid ${HAIRLINE_STRONG}`,
-              flexShrink: 0,
-            }}
-          />
+          <Link to="/en/about" aria-label="About Woolet and its founder" style={{ flexShrink: 0 }}>
+            <img
+              src={marek}
+              alt="Marek Ciesla — Woolet founder"
+              loading="lazy"
+              decoding="async"
+              style={{
+                width: 128,
+                height: 128,
+                objectFit: "cover",
+                border: `1px solid ${HAIRLINE_STRONG}`,
+                display: "block",
+              }}
+            />
+          </Link>
           <div>
             <Eyebrow>A note from the founder</Eyebrow>
             <blockquote
@@ -1502,6 +1543,7 @@ const KickstarterPrelaunch = () => {
           </div>
         </div>
       </section>
+
 
       {/* HOW IT WORKS */}
       <section>
