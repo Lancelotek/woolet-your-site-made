@@ -14,6 +14,8 @@ import logoAsset from "@/assets/woolet-logo.png.asset.json";
 const logo = logoAsset.url;
 import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
 import w009BlackFrontAsset from "@/assets/woolet-009-black-front.png.asset.json";
+import w007CardAsset from "@/assets/products/woolet-007-round-black-card.webp.asset.json";
+import w009CardAsset from "@/assets/products/woolet-009-square-black-card.webp.asset.json";
 import w009BlackAsset from "@/assets/woolet-009-black.png.asset.json";
 import w009GreyAsset from "@/assets/woolet-009-grey.png.asset.json";
 import w009TaupeAsset from "@/assets/woolet-009-taupe.png.asset.json";
