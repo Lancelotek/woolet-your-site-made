@@ -510,7 +510,7 @@ const ConfiguratorStyles = () => (
       display: block;
     }
     .cfg-wordmark {
-      font-family: 'Newsreader', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-weight: 500;
       font-size: 26px;
       color: var(--cfg-cream);
