@@ -73,7 +73,7 @@ export default function SignIn() {
     setSent(true);
   };
 
-  const handleVerify = async (e: React.FormEvent) => {
+  const handleVerify = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     // Password managers and mobile OTP autofill can update the DOM without
