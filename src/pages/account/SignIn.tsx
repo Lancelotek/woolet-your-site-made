@@ -98,6 +98,8 @@ export default function SignIn() {
     window.location.replace(nextPath ?? `/${lang}/account`);
   };
 
+  const forAi = (nextPath ?? "").includes("bespoke");
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEO title="Sign in — Woolet" description="Sign in to view your fit scan history and orders." noindex />
@@ -109,28 +111,30 @@ export default function SignIn() {
               Account
             </p>
             <h1 className="font-display text-foreground mt-3" style={{ fontSize: "2.25rem", fontWeight: 300, lineHeight: 1.1 }}>
-              Sign in to <em className="italic" style={{ color: GOLD }}>your Woolet</em>
+              {sent ? (
+                <>Enter your <em className="italic" style={{ color: GOLD }}>code</em></>
+              ) : (
+                <>Sign in to <em className="italic" style={{ color: GOLD }}>your Woolet</em></>
+              )}
             </h1>
             <p className="text-cream-dim mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>
-              We'll email you a 6-digit code each time. No password to remember — your bespoke build and fit scans stay saved to your account.
+              {sent ? (
+                <>
+                  We sent a 6-digit code to <strong style={{ color: "white" }}>{email}</strong>. Enter it below
+                  {forAi ? " to open your AI visualisation." : " to continue."} It expires in 60 minutes.
+                </>
+              ) : forAi ? (
+                "Enter your email and we'll send a 6-digit code. Type it here to unlock your AI visualisation — no password, and your bespoke build stays saved."
+              ) : (
+                "We'll email you a 6-digit code each time. No password to remember — your bespoke build and fit scans stay saved to your account."
+              )}
             </p>
           </div>
 
           {sent ? (
-            <form
-              onSubmit={handleVerify}
-              className="flex flex-col gap-4 p-6"
-              style={{ background: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.25)" }}
-              noValidate
-            >
-              <p className="font-display text-foreground" style={{ fontSize: "1.4rem", fontWeight: 300 }}>
-                Enter your code
-              </p>
-              <p className="text-cream-dim" style={{ fontSize: "0.9rem", lineHeight: 1.55 }}>
-                We sent a 6-digit code to <strong style={{ color: "white" }}>{email}</strong>. It expires in 60 minutes.
-              </p>
+            <form onSubmit={handleVerify} className="flex flex-col gap-4" noValidate>
               <label htmlFor="signin-code" className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.7rem" }}>
-                Sign-in code
+                Your 6-digit code
               </label>
               <input
                 id="signin-code"
@@ -160,6 +164,7 @@ export default function SignIn() {
                 type="submit"
                 disabled={verifying}
                 style={{
+                  marginTop: 8,
                   background: verifying ? "rgba(201,168,76,0.4)" : GOLD,
                   color: "#0f0f0f",
                   fontFamily: "Barlow, sans-serif",
@@ -173,7 +178,7 @@ export default function SignIn() {
                   height: 52,
                 }}
               >
-                {verifying ? "Verifying…" : "Sign in"}
+                {verifying ? "Verifying…" : forAi ? "See my AI visualisation" : "Sign in"}
               </button>
               <p className="text-cream-dim" style={{ fontSize: "0.78rem", opacity: 0.7 }}>
                 Didn't get it? Check spam, or{" "}
@@ -193,6 +198,7 @@ export default function SignIn() {
               </p>
             </form>
           ) : (
+
             <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
               <label htmlFor="signin-email" className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.7rem" }}>
                 Your email
