@@ -4019,7 +4019,7 @@ function ResultSentStep({
             marginBottom: 6,
           }}
         >
-          {recommendation.badgeLabel}
+          {renderWordmarkBadge(recommendation.badgeLabel)}
         </div>
         <div
           className="font-display text-woolet-white"
