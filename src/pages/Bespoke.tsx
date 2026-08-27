@@ -4,7 +4,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import bespokeHero from "@/assets/bespoke-hero.webp.asset.json";
+import bespokeHero from "@/assets/woolet-overlay-full-scan.png.asset.json";
 import craft1 from "@/assets/bespoke-craft/woolet-bespoke-hand-filing-acetate-frame.jpg.asset.json";
 import craft2 from "@/assets/bespoke-craft/woolet-bespoke-acetate-template-frame-blank.jpg.asset.json";
 import craft3 from "@/assets/bespoke-craft/woolet-bespoke-milling-acetate-bridge.jpg.asset.json";
@@ -380,7 +380,7 @@ const BespokePage = () => {
               >
                 <img
                   src={bespokeHero.url}
-                  alt="Woolet Bespoke — portrait of a man wearing custom-made round acetate glasses engineered to his exact face measurements."
+                  alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
                   loading="eager"
                   fetchPriority="high"
                   className="w-full h-full object-cover"
