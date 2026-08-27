@@ -43,11 +43,8 @@ export const SignupEmail = ({
         </Text>
         {token ? <Text style={codeStyle}>{token}</Text> : null}
         <Text style={footer}>
-          This code was requested for {recipient}. Prefer a link?{' '}
-          <Link href={confirmationUrl} style={link}>
-            Confirm here
-          </Link>
-          . If you didn't request this, you can safely ignore this email.
+          This code was requested for {recipient}. If you didn't request this, you can safely
+          ignore this email.
         </Text>
       </Container>
     </Body>
