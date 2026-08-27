@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
-const heroManImg = "/hero-man.webp";
+import gregHeroAsset from "@/assets/greg-woolet-009.webp.asset.json";
 import woolet007Asset from "@/assets/frames-2026/oval-crystal.asset.json";
 import woolet009Asset from "@/assets/frames-2026/square-crystal.asset.json";
 import Navbar from "@/components/Navbar";
@@ -779,16 +779,15 @@ const Index = () => {
               }}
             >
               <img
-                src={heroManImg}
-                srcSet="/hero-man.webp 622w, /hero-man@2x.webp 1244w"
+                src={gregHeroAsset.url}
                 sizes="(min-width: 1024px) 48vw, 100vw"
-                alt="Customer wearing Woolet wide-face Italian acetate eyewear"
+                alt="Greg wearing Woolet 009 soft-square tortoise acetate glasses"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                width={622}
-                height={864}
+                width={1000}
+                height={1250}
               />
               <div
                 className="absolute inset-0 pointer-events-none"
@@ -810,7 +809,7 @@ const Index = () => {
                   className="text-foreground"
                   style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
                 >
-                  Marek W.
+                  Greg
                 </span>
                 <span
                   className="w-px h-3"
@@ -825,7 +824,7 @@ const Index = () => {
                     fontWeight: 600,
                   }}
                 >
-                  161 mm
+                  user of <span className="font-display" style={{ fontWeight: 500 }}>WOOLET</span> 009
                 </span>
               </div>
             </div>
