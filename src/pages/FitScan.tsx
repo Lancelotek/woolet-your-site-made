@@ -3518,7 +3518,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             textTransform: "uppercase",
           }}
         >
-          {recommendation.badgeLabel}
+          {renderWordmarkBadge(recommendation.badgeLabel)}
         </span>
         <h3 className="font-display text-woolet-white" style={{ fontSize: "clamp(1.4rem, 2.6vw, 1.8rem)", fontWeight: 300, lineHeight: 1.2 }}>
           {recommendation.title}
