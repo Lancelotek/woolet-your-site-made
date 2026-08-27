@@ -779,16 +779,15 @@ const Index = () => {
               }}
             >
               <img
-                src={heroManImg}
-                srcSet="/hero-man.webp 622w, /hero-man@2x.webp 1244w"
+                src={gregHeroAsset.url}
                 sizes="(min-width: 1024px) 48vw, 100vw"
-                alt="Customer wearing Woolet wide-face Italian acetate eyewear"
+                alt="Greg wearing Woolet 009 soft-square tortoise acetate glasses"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                width={622}
-                height={864}
+                width={1000}
+                height={1250}
               />
               <div
                 className="absolute inset-0 pointer-events-none"
