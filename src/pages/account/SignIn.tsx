@@ -252,7 +252,7 @@ export default function SignIn() {
                   height: 52,
                 }}
               >
-                {submitting ? "Sending…" : "Email me the link"}
+                {submitting ? "Sending…" : "Email me a code"}
               </button>
             </form>
           )}
