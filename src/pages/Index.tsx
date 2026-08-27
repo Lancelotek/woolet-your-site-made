@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
-const heroManImg = "/hero-man.webp";
+import gregHeroAsset from "@/assets/greg-woolet-009.webp.asset.json";
 import woolet007Asset from "@/assets/frames-2026/oval-crystal.asset.json";
 import woolet009Asset from "@/assets/frames-2026/square-crystal.asset.json";
 import Navbar from "@/components/Navbar";
