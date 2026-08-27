@@ -76,7 +76,11 @@ export default function SignIn() {
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    const token = code.replace(/\D/g, "");
+    // Password managers and mobile OTP autofill can update the DOM without
+    // firing React's onChange. Read the submitted field directly so the code
+    // visible to the user is always the code sent for verification.
+    const submittedCode = new FormData(e.currentTarget).get("code");
+    const token = (typeof submittedCode === "string" ? submittedCode : code).replace(/\D/g, "");
     if (token.length !== 6) {
       setError("Enter the 6-digit code from your email.");
       return;
@@ -143,6 +147,7 @@ export default function SignIn() {
               </label>
               <input
                 id="signin-code"
+                name="code"
                 inputMode="numeric"
                 autoComplete="one-time-code"
                 maxLength={6}
