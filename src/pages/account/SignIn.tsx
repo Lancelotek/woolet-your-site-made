@@ -134,7 +134,7 @@ export default function SignIn() {
           {sent ? (
             <form onSubmit={handleVerify} className="flex flex-col gap-4" noValidate>
               <label htmlFor="signin-code" className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.7rem" }}>
-                Your 6-digit code
+                Paste the 6-digit code from your email
               </label>
               <input
                 id="signin-code"
@@ -143,7 +143,7 @@ export default function SignIn() {
                 maxLength={6}
                 value={code}
                 onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                placeholder="123456"
+                placeholder="− − − − − −"
                 autoFocus
                 style={{
                   background: "rgba(255,255,255,0.04)",
@@ -157,6 +157,9 @@ export default function SignIn() {
                   borderRadius: 4,
                 }}
               />
+              <p className="text-cream-dim" style={{ fontSize: "0.78rem", opacity: 0.7, marginTop: -2 }}>
+                Tip: you can copy and paste the code straight from the message.
+              </p>
               {error && (
                 <span style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}>{error}</span>
               )}
