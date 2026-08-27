@@ -79,12 +79,25 @@ export default function SignIn() {
       return;
     }
     setVerifying(true);
-    const { error: err } = await supabase.auth.verifyOtp({
-      email: emailSchema.parse(email),
-      token,
-      type: "email",
-    });
-    if (err) {
+    const normalizedEmail = emailSchema.parse(email).toLowerCase();
+    // GoTrue issues the code as `email` (magic link) or `signup` (new user)
+    // depending on whether the account already existed — try both.
+    let lastError: unknown = null;
+    let ok = false;
+    for (const type of ["email", "signup"] as const) {
+      const { error: err } = await supabase.auth.verifyOtp({
+        email: normalizedEmail,
+        token,
+        type,
+      });
+      if (!err) {
+        ok = true;
+        break;
+      }
+      lastError = err;
+    }
+    if (!ok) {
+      console.warn("[auth] verifyOtp failed", lastError);
       setVerifying(false);
       setError("That code is invalid or expired. Request a new one.");
       return;
