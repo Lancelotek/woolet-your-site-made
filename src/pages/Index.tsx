@@ -771,7 +771,7 @@ const Index = () => {
             {/* RIGHT — portrait card, stretches to match left column */}
 
             <div
-              className="relative w-full aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] lg:self-stretch overflow-hidden"
+              className="relative w-full aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] xl:min-h-[600px] lg:self-stretch overflow-hidden max-h-[58vh] sm:max-h-[680px] lg:max-h-none rounded-sm"
               style={{
                 border: "1px solid hsl(0 0% 100% / 0.08)",
                 background:
@@ -782,7 +782,7 @@ const Index = () => {
                 src={gregHeroAsset.url}
                 sizes="(min-width: 1024px) 48vw, 100vw"
                 alt="Greg wearing Woolet 009 soft-square tortoise acetate glasses"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-[center_25%]"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
