@@ -62,6 +62,15 @@ const haptic = (pattern: number | number[]) => {
   }
 };
 
+const renderWordmarkBadge = (label: string) =>
+  label.split(/(WOOLET)/).map((part, i) =>
+    part === "WOOLET" ? (
+      <span key={i} className="font-wordmark">WOOLET</span>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+
 type Step = "welcome" | "camera" | "analyzing" | "annotate" | "email-gate" | "result" | "result-sent";
 
 /* ─────────────── Analyzing (progress) ─────────────── */
