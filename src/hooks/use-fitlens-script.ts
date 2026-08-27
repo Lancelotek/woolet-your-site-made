@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 const SCRIPT_SRC = "https://fitlens-web-production.up.railway.app/v1/embed.js";
 const SCRIPT_INTEGRITY =
-  "sha384-4j5GyGmarK1WprpkbZh9RoLLdLREC+zSeF0TDyBSyrf3+3WD5kbDRQAqFuPYqHzu";
+  "sha384-/oLuzB2402AcbPCZLgkjIH28E3YXlys9k+0FuYU08cwj0cjk7cRtG5ErHW376fSv";
 const FITLENS_KEY = "pk_live_OuBrFjXWKeNygZku6WyJHeFW_8d55SVqIrleeFfrzuQ";
 
 /**
