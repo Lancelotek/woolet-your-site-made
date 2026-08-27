@@ -380,7 +380,7 @@ const BespokePage = () => {
               >
                 <img
                   src={bespokeHero.url}
-                  alt="Woolet Bespoke — portrait of a man wearing custom-made round acetate glasses engineered to his exact face measurements."
+                  alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
                   loading="eager"
                   fetchPriority="high"
                   className="w-full h-full object-cover"
