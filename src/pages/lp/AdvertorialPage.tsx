@@ -1154,12 +1154,10 @@ const AdvertorialPage = () => {
                 }}
               >
                 <span
+                  className="font-wordmark"
                   style={{
-                    fontFamily: "'Cormorant Garamond', serif",
                     fontSize: 14,
                     color: "#d8b86a",
-                    letterSpacing: "3px",
-                    fontWeight: 300,
                   }}
                 >
                   WOOLET

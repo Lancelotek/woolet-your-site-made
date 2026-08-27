@@ -125,7 +125,7 @@ const TrustGuarantee = ({ productId }: TrustGuaranteeProps) => {
             textTransform: "uppercase",
           }}
         >
-          WOOLET GUARANTEE
+          <span className="font-wordmark">WOOLET</span> GUARANTEE
         </span>
       </div>
 

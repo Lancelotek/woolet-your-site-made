@@ -160,7 +160,7 @@ const TheBox = () => {
             },
             {
               eyebrowText: "02 — THE SPINE",
-              title: "WOOLET · 158 MM.",
+              title: <><span className="font-wordmark">WOOLET</span> · 158 MM.</>,
               body:
                 "The only number on the outside — because it’s the only one that matters. Standard frames stop around 148 mm. This is not standard.",
               tone: "spine",

@@ -135,7 +135,7 @@ function IntroStep({ onBegin }: { onBegin: () => void }) {
     <div className="max-w-xl mx-auto flex flex-col gap-7 animate-fade-in">
       <div className="woolet-eyebrow">
         <div className="woolet-eyebrow-line" />
-        <span className="woolet-eyebrow-text">AI FIT · POWERED BY WOOLET</span>
+        <span className="woolet-eyebrow-text">AI FIT · POWERED BY <span className="font-wordmark">WOOLET</span></span>
       </div>
 
       <h1
