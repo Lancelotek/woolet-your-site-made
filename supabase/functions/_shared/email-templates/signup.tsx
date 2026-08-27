@@ -42,6 +42,9 @@ export const SignupEmail = ({
           to create your account and save your bespoke build. It expires in 60 minutes.
         </Text>
         {token ? <Text style={codeStyle}>{token}</Text> : null}
+        <Text style={note}>
+          Only the code from your newest Woolet email will work. Requesting another code replaces the previous one.
+        </Text>
         <Text style={footer}>
           This code was requested for {recipient}. If you didn't request this, you can safely
           ignore this email.
@@ -75,5 +78,6 @@ const codeStyle = {
   color: '#0B0A09',
   margin: '0 0 30px',
 }
+const note = { ...text, fontSize: '12px', margin: '0 0 20px' }
 const link = { color: '#C2A05A', textDecoration: 'underline' }
 const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
