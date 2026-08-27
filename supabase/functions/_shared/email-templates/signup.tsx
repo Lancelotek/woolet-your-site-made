@@ -4,7 +4,6 @@ import * as React from 'npm:react@18.3.1'
 
 import {
   Body,
-  Button,
   Container,
   Head,
   Heading,
@@ -19,6 +18,7 @@ interface SignupEmailProps {
   siteUrl: string
   recipient: string
   confirmationUrl: string
+  token?: string
 }
 
 export const SignupEmail = ({
@@ -26,32 +26,28 @@ export const SignupEmail = ({
   siteUrl,
   recipient,
   confirmationUrl,
+  token,
 }: SignupEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Confirm your email for {siteName}</Preview>
+    <Preview>{token ? `${token} is your Woolet sign-in code` : `Confirm your email for ${siteName}`}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={h1}>Confirm your email</Heading>
+        <Heading style={h1}>Your sign-in code</Heading>
         <Text style={text}>
-          Thanks for signing up for{' '}
+          Enter this code on{' '}
           <Link href={siteUrl} style={link}>
-            <strong>{siteName}</strong>
-          </Link>
-          !
+            {siteName}
+          </Link>{' '}
+          to create your account and save your bespoke build. It expires in 60 minutes.
         </Text>
-        <Text style={text}>
-          Please confirm your email address (
-          <Link href={`mailto:${recipient}`} style={link}>
-            {recipient}
-          </Link>
-          ) by clicking the button below:
-        </Text>
-        <Button style={button} href={confirmationUrl}>
-          Verify Email
-        </Button>
+        {token ? <Text style={codeStyle}>{token}</Text> : null}
         <Text style={footer}>
-          If you didn't create an account, you can safely ignore this email.
+          This code was requested for {recipient}. Prefer a link?{' '}
+          <Link href={confirmationUrl} style={link}>
+            Confirm here
+          </Link>
+          . If you didn't request this, you can safely ignore this email.
         </Text>
       </Container>
     </Body>
@@ -65,22 +61,22 @@ const container = { padding: '20px 25px' }
 const h1 = {
   fontSize: '22px',
   fontWeight: 'bold' as const,
-  color: '#000000',
+  color: '#0B0A09',
   margin: '0 0 20px',
 }
 const text = {
   fontSize: '14px',
   color: '#55575d',
   lineHeight: '1.5',
-  margin: '0 0 25px',
+  margin: '0 0 20px',
 }
-const link = { color: 'inherit', textDecoration: 'underline' }
-const button = {
-  backgroundColor: '#000000',
-  color: '#ffffff',
-  fontSize: '14px',
-  borderRadius: '8px',
-  padding: '12px 20px',
-  textDecoration: 'none',
+const codeStyle = {
+  fontFamily: 'Courier, monospace',
+  fontSize: '30px',
+  letterSpacing: '8px',
+  fontWeight: 'bold' as const,
+  color: '#0B0A09',
+  margin: '0 0 30px',
 }
+const link = { color: '#C2A05A', textDecoration: 'underline' }
 const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
