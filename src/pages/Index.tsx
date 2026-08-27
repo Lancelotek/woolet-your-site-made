@@ -771,7 +771,7 @@ const Index = () => {
             {/* RIGHT — portrait card, stretches to match left column */}
 
             <div
-              className="relative w-full aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] lg:self-stretch overflow-hidden"
+              className="relative w-full aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] xl:min-h-[600px] lg:self-stretch overflow-hidden max-h-[58vh] sm:max-h-[680px] lg:max-h-none rounded-sm"
               style={{
                 border: "1px solid hsl(0 0% 100% / 0.08)",
                 background:
@@ -782,7 +782,7 @@ const Index = () => {
                 src={gregHeroAsset.url}
                 sizes="(min-width: 1024px) 48vw, 100vw"
                 alt="Greg wearing Woolet 009 soft-square tortoise acetate glasses"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-[center_25%]"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -798,27 +798,26 @@ const Index = () => {
               />
               {/* Customer badge */}
               <div
-                className="absolute left-5 bottom-5 flex items-center gap-4 backdrop-blur-md"
+                className="absolute left-4 bottom-4 sm:left-5 sm:bottom-5 md:left-6 md:bottom-6 flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 backdrop-blur-md rounded-sm max-w-[calc(100%-2rem)]"
                 style={{
                   background: "hsl(var(--background) / 0.78)",
                   border: "1px solid hsl(0 0% 100% / 0.1)",
-                  padding: "12px 18px",
+                  padding: "10px 14px",
                 }}
               >
                 <span
-                  className="text-foreground"
-                  style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
+                  className="text-foreground text-xs sm:text-[0.85rem]"
+                  style={{ fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
                 >
                   Greg
                 </span>
                 <span
-                  className="w-px h-3"
+                  className="hidden sm:block w-px h-3"
                   style={{ background: "hsl(0 0% 100% / 0.18)" }}
                 />
                 <span
-                  className="tracking-wider"
+                  className="tracking-wider text-xs sm:text-[0.85rem]"
                   style={{
-                    fontSize: "0.85rem",
                     color: "hsl(var(--gold-light))",
                     fontFamily: "Barlow, sans-serif",
                     fontWeight: 600,
