@@ -229,7 +229,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
               <thead>
                 <tr style={{ background: "#F1EBDD" }}>
                   <th style={thStyle}></th>
-                  <th style={{ ...thStyle, color: "#A07A2A", background: "rgba(202,164,73,0.07)" }}>Woolet</th>
+                  <th style={{ ...thStyle, color: "#A07A2A", background: "rgba(202,164,73,0.07)" }}><span className="font-wordmark">Woolet</span></th>
                   <th style={thStyle}>{c.name}</th>
                 </tr>
               </thead>
