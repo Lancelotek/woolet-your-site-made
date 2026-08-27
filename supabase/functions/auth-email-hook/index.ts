@@ -21,6 +21,18 @@ const ROOT_DOMAIN = "woolet.co"
 const FROM_DOMAIN = "woolet.co"
 const SITE_URL = `https://${ROOT_DOMAIN}`
 
+function issuedAtLabel(): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: 'UTC',
+    timeZoneName: 'short',
+  }).format(new Date())
+}
+
 // Template mapping for preview mode
 const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
   signup: SignupEmail,
@@ -130,17 +142,16 @@ const handler = createAuthEmailHandler({
   senderDomain: SENDER_DOMAIN,
   sendUrl: Deno.env.get('LOVABLE_SEND_URL'),
   emails: {
-    signup: {
-      subject: 'Your Woolet sign-in code',
-      render: (data) =>
-        React.createElement(SignupEmail, {
+    signup: (data) => ({
+      subject: `Your Woolet sign-in code — ${issuedAtLabel()}`,
+      element: React.createElement(SignupEmail, {
           siteName: SITE_NAME,
           siteUrl: SITE_URL,
           recipient: data.email,
           confirmationUrl: data.url,
           token: data.token ?? '',
         }),
-    },
+    }),
     invite: {
       subject: "You've been invited",
       render: (data) =>
@@ -150,15 +161,14 @@ const handler = createAuthEmailHandler({
           confirmationUrl: data.url,
         }),
     },
-    magiclink: {
-      subject: 'Your Woolet sign-in code',
-      render: (data) =>
-        React.createElement(MagicLinkEmail, {
+    magiclink: (data) => ({
+      subject: `Your Woolet sign-in code — ${issuedAtLabel()}`,
+      element: React.createElement(MagicLinkEmail, {
           siteName: SITE_NAME,
           confirmationUrl: data.url,
           token: data.token ?? '',
         }),
-    },
+    }),
     recovery: {
       subject: 'Reset your password',
       render: (data) =>
