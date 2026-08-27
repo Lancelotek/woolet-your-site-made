@@ -417,6 +417,122 @@ const BespokePage = () => {
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
+        {/* Craft gallery */}
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-24">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-3xl mb-10 sm:mb-14">
+              <div className="woolet-eyebrow mb-5">
+                <div className="woolet-eyebrow-line" />
+                <span className="woolet-eyebrow-text">{atelier.eyebrow}</span>
+              </div>
+              <h2
+                className="font-display text-woolet-white mb-5"
+                style={{ fontSize: "clamp(1.8rem, 3.4vw, 2.4rem)", fontWeight: 300 }}
+              >
+                {atelier.headingLead}{" "}
+                <em className="italic text-gold-light">{atelier.headingItalic}</em>
+              </h2>
+              <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+                {atelier.intro}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-2 sm:gap-3">
+              {GALLERY_LAYOUT.map((img, i) => (
+                <figure
+                  key={img.key}
+                  className={`relative overflow-hidden bg-[hsl(var(--background))] group ${img.span}`}
+                  style={{ boxShadow: "0 20px 50px -30px hsl(0 0% 0% / 0.8)" }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setLightbox(i)}
+                    aria-label={atelier.alts[i]}
+                    className="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-light"
+                  >
+                    <img
+                      src={img.src}
+                      alt={atelier.alts[i]}
+                      title={atelier.alts[i]}
+                      width={1620}
+                      height={1080}
+                      loading="lazy"
+                      decoding="async"
+                      className={`w-full h-full object-cover ${img.ratio} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
+                    />
+                    <div
+                      className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ background: "linear-gradient(180deg, transparent 55%, hsl(0 0% 0% / 0.55) 100%)" }}
+                    />
+                  </button>
+                </figure>
+              ))}
+            </div>
+
+            <p className="text-cream-dim/70 text-center mt-8 uppercase tracking-[0.22em]" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem" }}>
+              {atelier.footer}
+            </p>
+          </div>
+
+          {lightbox !== null && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={atelier.alts[lightbox]}
+              className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-200"
+              onClick={closeLightbox}
+            >
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
+                aria-label="Close"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/80 hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={1.4} />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); showPrev(); }}
+                aria-label="Previous"
+                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 text-white/70 hover:text-white transition-colors"
+              >
+                <ChevronLeft className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={1.4} />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); showNext(); }}
+                aria-label="Next"
+                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 text-white/70 hover:text-white transition-colors"
+              >
+                <ChevronRight className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={1.4} />
+              </button>
+              <figure
+                className="relative max-w-[92vw] max-h-[86vh] flex flex-col items-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  key={GALLERY_LAYOUT[lightbox].key}
+                  src={GALLERY_LAYOUT[lightbox].src}
+                  alt={atelier.alts[lightbox]}
+                  title={atelier.alts[lightbox]}
+                  width={1620}
+                  height={1080}
+                  decoding="async"
+                  className="max-w-[92vw] max-h-[78vh] object-contain shadow-2xl animate-in fade-in zoom-in-95 duration-300"
+                />
+                <figcaption className="mt-4 text-center text-white/70 text-xs sm:text-sm max-w-2xl px-4 leading-relaxed">
+                  {atelier.alts[lightbox]}
+                  <span className="ml-2 text-white/40 tabular-nums">
+                    {lightbox + 1} / {GALLERY_LAYOUT.length}
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
+          )}
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
         {/* Bespoke glasses for wide faces — SEO keyword: "bespoke glasses for wide faces" */}
         <section id="bespoke-glasses-for-wide-faces" className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto">
@@ -630,122 +746,6 @@ const BespokePage = () => {
               Every bespoke frame uses Mazzucchelli acetate from Milan — the same material used by Cutler &amp; Gross, Jacques Marie Mage, and most premium Italian houses. It is denser and heavier than TR90 thermoplastic, but it can be heat-adjusted by any optician for ongoing fit corrections. That post-purchase adjustability is the difference between a frame that fits for a week and one that fits for a decade.
             </p>
           </div>
-        </section>
-
-        <div className="woolet-divider max-w-5xl mx-auto" />
-
-        {/* Craft gallery */}
-        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-24">
-          <div className="max-w-6xl mx-auto">
-            <div className="max-w-3xl mb-10 sm:mb-14">
-              <div className="woolet-eyebrow mb-5">
-                <div className="woolet-eyebrow-line" />
-                <span className="woolet-eyebrow-text">{atelier.eyebrow}</span>
-              </div>
-              <h2
-                className="font-display text-woolet-white mb-5"
-                style={{ fontSize: "clamp(1.8rem, 3.4vw, 2.4rem)", fontWeight: 300 }}
-              >
-                {atelier.headingLead}{" "}
-                <em className="italic text-gold-light">{atelier.headingItalic}</em>
-              </h2>
-              <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-                {atelier.intro}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-2 sm:gap-3">
-              {GALLERY_LAYOUT.map((img, i) => (
-                <figure
-                  key={img.key}
-                  className={`relative overflow-hidden bg-[hsl(var(--background))] group ${img.span}`}
-                  style={{ boxShadow: "0 20px 50px -30px hsl(0 0% 0% / 0.8)" }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setLightbox(i)}
-                    aria-label={atelier.alts[i]}
-                    className="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-light"
-                  >
-                    <img
-                      src={img.src}
-                      alt={atelier.alts[i]}
-                      title={atelier.alts[i]}
-                      width={1620}
-                      height={1080}
-                      loading="lazy"
-                      decoding="async"
-                      className={`w-full h-full object-cover ${img.ratio} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
-                    />
-                    <div
-                      className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{ background: "linear-gradient(180deg, transparent 55%, hsl(0 0% 0% / 0.55) 100%)" }}
-                    />
-                  </button>
-                </figure>
-              ))}
-            </div>
-
-            <p className="text-cream-dim/70 text-center mt-8 uppercase tracking-[0.22em]" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem" }}>
-              {atelier.footer}
-            </p>
-          </div>
-
-          {lightbox !== null && (
-            <div
-              role="dialog"
-              aria-modal="true"
-              aria-label={atelier.alts[lightbox]}
-              className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-200"
-              onClick={closeLightbox}
-            >
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
-                aria-label="Close"
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/80 hover:text-white transition-colors"
-              >
-                <X className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={1.4} />
-              </button>
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); showPrev(); }}
-                aria-label="Previous"
-                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 text-white/70 hover:text-white transition-colors"
-              >
-                <ChevronLeft className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={1.4} />
-              </button>
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); showNext(); }}
-                aria-label="Next"
-                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 text-white/70 hover:text-white transition-colors"
-              >
-                <ChevronRight className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={1.4} />
-              </button>
-              <figure
-                className="relative max-w-[92vw] max-h-[86vh] flex flex-col items-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <img
-                  key={GALLERY_LAYOUT[lightbox].key}
-                  src={GALLERY_LAYOUT[lightbox].src}
-                  alt={atelier.alts[lightbox]}
-                  title={atelier.alts[lightbox]}
-                  width={1620}
-                  height={1080}
-                  decoding="async"
-                  className="max-w-[92vw] max-h-[78vh] object-contain shadow-2xl animate-in fade-in zoom-in-95 duration-300"
-                />
-                <figcaption className="mt-4 text-center text-white/70 text-xs sm:text-sm max-w-2xl px-4 leading-relaxed">
-                  {atelier.alts[lightbox]}
-                  <span className="ml-2 text-white/40 tabular-nums">
-                    {lightbox + 1} / {GALLERY_LAYOUT.length}
-                  </span>
-                </figcaption>
-              </figure>
-            </div>
-          )}
         </section>
 
         <div className="woolet-divider max-w-5xl mx-auto" />
