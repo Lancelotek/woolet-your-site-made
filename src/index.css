@@ -399,6 +399,12 @@
   .font-body {
     font-family: 'Barlow', sans-serif;
   }
+  .font-wordmark {
+    font-family: 'Archivo', 'Barlow', system-ui, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
 
   .animate-pulse-gold {
     animation: pulseGold 2.5s ease infinite;

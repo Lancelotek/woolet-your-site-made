@@ -824,7 +824,7 @@ const Index = () => {
                     fontWeight: 600,
                   }}
                 >
-                  user of <span className="font-display" style={{ fontWeight: 500 }}>WOOLET</span> 009
+                  user of <span className="font-wordmark">WOOLET</span> 009
                 </span>
               </div>
             </div>

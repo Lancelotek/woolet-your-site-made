@@ -158,12 +158,9 @@ export default function ThankYouFb() {
       >
         <Link
           to="/"
+          className="font-wordmark"
           style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontWeight: 500,
             fontSize: 20,
-            letterSpacing: "0.24em",
-            textTransform: "uppercase",
             color: C.body,
             textDecoration: "none",
           }}

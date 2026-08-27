@@ -77,6 +77,7 @@ export default {
       fontFamily: {
         display: ["'Cormorant Garamond'", "serif"],
         body: ["'Barlow'", "sans-serif"],
+        wordmark: ["'Archivo'", "'Barlow'", "system-ui", "sans-serif"],
       },
       fontSize: {
         // Landing-page typography scale. Floors at 12px — never use a

@@ -37,7 +37,7 @@ const FitRangeChart = ({ competitorMin, competitorMax, competitorLabel }: FitRan
         style={{ width: "100%", height: "auto", display: "block" }}
       >
         {/* Woolet band */}
-        <text x={wooletX} y="30" fontFamily="'Barlow', sans-serif" fontSize="11" fill="#A07A2A" letterSpacing="1.2">
+        <text x={wooletX} y="30" fontFamily="'Archivo', 'Barlow', sans-serif" fontSize="11" fill="#A07A2A" letterSpacing="1.6">
           WOOLET — DESIGNED FOR WIDE FACES
         </text>
         <rect x={wooletX} y="40" width={wooletW} height="34" rx="8" fill="#CAA449" />

@@ -153,7 +153,7 @@ const KickstarterVipConfirmed = () => {
         <section className="mt-10 border rounded-sm p-6 sm:p-8" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
           <p className="text-primary uppercase tracking-[0.24em] text-[12px] mb-3">Shape the product</p>
           <h2 className="font-display text-woolet-white text-2xl sm:text-3xl leading-tight mb-4">
-            Join the WOOLET VIP group.
+            Join the <span className="font-wordmark">WOOLET</span> VIP group.
           </h2>
           <p className="text-[#D8D4CC] text-sm leading-relaxed mb-5">
             This is the only place where early backers get a direct voice before launch. No surveys, no guessing — just real conversations that decide what ships.

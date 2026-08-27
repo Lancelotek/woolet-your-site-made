@@ -2061,7 +2061,7 @@ const KickstarterPrelaunch = () => {
           className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4"
           style={{ fontSize: 12, color: TAUPE, letterSpacing: "0.04em" }}
         >
-          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: CREAM, letterSpacing: "0.24em" }}>
+          <div className="font-wordmark" style={{ fontSize: 20, color: CREAM }}>
             WOOLET
           </div>
           <p style={{ fontSize: 11, lineHeight: 1.6, color: TAUPE, width: "100%", textAlign: "center", order: -1 }}>
