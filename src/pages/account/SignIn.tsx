@@ -28,6 +28,8 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [agreed, setAgreed] = useState(true);
   const [sent, setSent] = useState(false);
+  const [code, setCode] = useState("");
+  const [verifying, setVerifying] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -49,13 +51,16 @@ export default function SignIn() {
       return;
     }
     setSubmitting(true);
-    // Preserve `next` through the magic-link round trip so OAuth consent
-    // returns the user to /.lovable/oauth/consent?authorization_id=… after login.
+    // Preserve `next` through the round trip for the link fallback.
     const callback = new URL(`${window.location.origin}/${lang}/account/callback`);
     if (nextPath) callback.searchParams.set("next", nextPath);
     const { error: err } = await supabase.auth.signInWithOtp({
       email: parsed.data,
-      options: { emailRedirectTo: callback.toString(), data: { locale: lang } },
+      options: {
+        shouldCreateUser: true,
+        emailRedirectTo: callback.toString(),
+        data: { locale: lang },
+      },
     });
     setSubmitting(false);
     if (err) {
@@ -63,6 +68,34 @@ export default function SignIn() {
       return;
     }
     setSent(true);
+  };
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    const token = code.replace(/\D/g, "");
+    if (token.length !== 6) {
+      setError("Enter the 6-digit code from your email.");
+      return;
+    }
+    setVerifying(true);
+    const { error: err } = await supabase.auth.verifyOtp({
+      email: emailSchema.parse(email),
+      token,
+      type: "email",
+    });
+    if (err) {
+      setVerifying(false);
+      setError("That code is invalid or expired. Request a new one.");
+      return;
+    }
+    // Link any scans / orders already made with this email.
+    try {
+      await supabase.rpc("link_user_data_by_email");
+    } catch {
+      /* non-blocking */
+    }
+    window.location.replace(nextPath ?? `/${lang}/account`);
   };
 
   return (
@@ -79,29 +112,86 @@ export default function SignIn() {
               Sign in to <em className="italic" style={{ color: GOLD }}>your Woolet</em>
             </h1>
             <p className="text-cream-dim mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>
-              We'll email you a one-tap sign-in link. No password to remember.
+              We'll email you a 6-digit code each time. No password to remember — your bespoke build and fit scans stay saved to your account.
             </p>
           </div>
 
           {sent ? (
-            <div
-              className="flex flex-col gap-3 p-6"
+            <form
+              onSubmit={handleVerify}
+              className="flex flex-col gap-4 p-6"
               style={{ background: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.25)" }}
+              noValidate
             >
               <p className="font-display text-foreground" style={{ fontSize: "1.4rem", fontWeight: 300 }}>
-                Check your inbox
+                Enter your code
               </p>
               <p className="text-cream-dim" style={{ fontSize: "0.9rem", lineHeight: 1.55 }}>
-                We sent a sign-in link to <strong style={{ color: "white" }}>{email}</strong>. Open it on this device to access your account.
+                We sent a 6-digit code to <strong style={{ color: "white" }}>{email}</strong>. It expires in 60 minutes.
               </p>
+              <label htmlFor="signin-code" className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.7rem" }}>
+                Sign-in code
+              </label>
+              <input
+                id="signin-code"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                maxLength={6}
+                value={code}
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                placeholder="123456"
+                autoFocus
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.16)",
+                  color: "white",
+                  padding: "14px 16px",
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "1.4rem",
+                  letterSpacing: "0.5em",
+                  textAlign: "center",
+                  borderRadius: 4,
+                }}
+              />
+              {error && (
+                <span style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}>{error}</span>
+              )}
+              <button
+                type="submit"
+                disabled={verifying}
+                style={{
+                  background: verifying ? "rgba(201,168,76,0.4)" : GOLD,
+                  color: "#0f0f0f",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.78rem",
+                  padding: "18px 28px",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  border: "none",
+                  cursor: verifying ? "wait" : "pointer",
+                  height: 52,
+                }}
+              >
+                {verifying ? "Verifying…" : "Sign in"}
+              </button>
               <p className="text-cream-dim" style={{ fontSize: "0.78rem", opacity: 0.7 }}>
-                The link expires in 1 hour. Didn't get it? Check spam, or{" "}
-                <button onClick={() => setSent(false)} className="underline bg-transparent border-none p-0 cursor-pointer" style={{ color: GOLD }}>
-                  try a different email
+                Didn't get it? Check spam, or{" "}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSent(false);
+                    setCode("");
+                    setError(null);
+                  }}
+                  className="underline bg-transparent border-none p-0 cursor-pointer"
+                  style={{ color: GOLD }}
+                >
+                  use a different email
                 </button>
                 .
               </p>
-            </div>
+            </form>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
               <label htmlFor="signin-email" className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.7rem" }}>
