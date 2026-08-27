@@ -186,7 +186,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
                   <tr style={{ background: "#F1EBDD" }}>
                     <th style={{ ...thStyle, width: "24%" }}>Measurement</th>
                     <th style={{ ...thStyle, color: "#A07A2A", background: "rgba(202,164,73,0.07)" }}>
-                      Woolet 007 / 009
+                      <span className="font-wordmark">Woolet</span> 007 / 009
                     </th>
                     <th style={thStyle}>{c.name} (widest fit)</th>
                   </tr>
