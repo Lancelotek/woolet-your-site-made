@@ -81,8 +81,8 @@ export default function SignIn() {
     // visible to the user is always the code sent for verification.
     const submittedCode = new FormData(e.currentTarget).get("code");
     const token = (typeof submittedCode === "string" ? submittedCode : code).replace(/\D/g, "");
-    if (token.length !== 6) {
-      setError("Enter the 6-digit code from your email.");
+    if (token.length !== 8) {
+      setError("Enter the 8-digit code from your email.");
       return;
     }
     setVerifying(true);
@@ -129,13 +129,13 @@ export default function SignIn() {
             <p className="text-cream-dim mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>
               {sent ? (
                 <>
-                  We sent a 6-digit code to <strong style={{ color: "white" }}>{email}</strong>. Enter it below
+                  We sent an 8-digit code to <strong style={{ color: "white" }}>{email}</strong>. Enter it below
                   {forAi ? " to open your AI visualisation." : " to continue."} It expires in 60 minutes.
                 </>
               ) : forAi ? (
-                "Enter your email and we'll send a 6-digit code. Type it here to unlock your AI visualisation — no password, and your bespoke build stays saved."
+                "Enter your email and we'll send an 8-digit code. Type it here to unlock your AI visualisation — no password, and your bespoke build stays saved."
               ) : (
-                "We'll email you a 6-digit code each time. No password to remember — your bespoke build and fit scans stay saved to your account."
+                "We'll email you an 8-digit code each time. No password to remember — your bespoke build and fit scans stay saved to your account."
               )}
             </p>
           </div>
@@ -143,17 +143,17 @@ export default function SignIn() {
           {sent ? (
             <form onSubmit={handleVerify} className="flex flex-col gap-4" noValidate>
               <label htmlFor="signin-code" className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.7rem" }}>
-                Paste the 6-digit code from your email
+                Paste the 8-digit code from your email
               </label>
               <input
                 id="signin-code"
                 name="code"
                 inputMode="numeric"
                 autoComplete="one-time-code"
-                maxLength={6}
+                maxLength={8}
                 value={code}
-                onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                placeholder="− − − − − −"
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                placeholder="− − − − − − − −"
                 autoFocus
                 style={{
                   background: "rgba(255,255,255,0.04)",
