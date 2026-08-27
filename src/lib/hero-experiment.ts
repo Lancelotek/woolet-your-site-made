@@ -47,7 +47,7 @@ export const HERO_VARIANTS: HeroVariant[] = [
       { text: " for wide faces." },
     ],
     sub: "Too wide for Ray-Ban, Persol or Warby Parker? Woolet's range starts at 155 mm — where most brands stop.",
-  }
+  },
   // Variant C — number-first (INACTIVE — uncomment to enable)
   // {
   //   id: "c",
