@@ -1517,19 +1517,6 @@ function EmailCaptureForm({
         })
         .catch((err) => console.warn("[fit] scan-session-create failed", err));
 
-      // Best-effort: send a one-tap magic link to the user's inbox. Works
-      // whether the email is new or already registered. Clicking the link
-      // verifies the email — required before any purchase.
-      supabase.auth
-        .signInWithOtp({
-          email,
-          options: {
-            emailRedirectTo: `${window.location.origin}/${lang}/account?from=fit`,
-            data: { locale: lang, full_name: name },
-          },
-        })
-        .catch((err) => console.warn("[fit] signInWithOtp failed", err));
-
       pushEvent("fit_email_captured", {
         recommended_sku: measurement.recommendedSku,
         face_width_mm: measurement.faceWidthMm,

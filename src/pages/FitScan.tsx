@@ -3715,26 +3715,6 @@ function EmailGateStep({
           if (emailErr) console.warn("[scan email gate] fit-scan-email-notify failed", emailErr);
         });
 
-      // Create a Woolet account (passwordless) so we can remember the measurements
-      // for next time. User receives a magic link to log in. Respect locale prefix.
-      supabase.auth
-        .signInWithOtp({
-          email: parsed.data,
-          options: {
-            shouldCreateUser: true,
-            emailRedirectTo: `${window.location.origin}/${lang}/account`,
-            data: {
-              face_width_mm: Math.round(faceWidthMm),
-              nose_width_mm: Math.round(noseWidthMm),
-              source: "fit-scan",
-              locale: lang,
-            },
-          },
-        })
-        .then(({ error: otpErr }) => {
-          if (otpErr) console.warn("[scan email gate] account signup failed", otpErr);
-        });
-
       pushEvent("fit_email_captured", { device, face_width: Math.round(faceWidthMm) });
       // CLARITY EVENT: scan_email_submitted — fired after successful submit.
       clarityEvent("scan_email_submitted");

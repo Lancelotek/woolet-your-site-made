@@ -54,8 +54,9 @@ export default function SignIn() {
     // Preserve `next` through the round trip for the link fallback.
     const callback = new URL(`${window.location.origin}/${lang}/account/callback`);
     if (nextPath) callback.searchParams.set("next", nextPath);
+    const normalizedEmail = parsed.data.toLowerCase();
     const { error: err } = await supabase.auth.signInWithOtp({
-      email: parsed.data,
+      email: normalizedEmail,
       options: {
         shouldCreateUser: true,
         emailRedirectTo: callback.toString(),
@@ -67,6 +68,8 @@ export default function SignIn() {
       setError(err.message);
       return;
     }
+    setEmail(normalizedEmail);
+    setCode("");
     setSent(true);
   };
 
@@ -80,26 +83,15 @@ export default function SignIn() {
     }
     setVerifying(true);
     const normalizedEmail = emailSchema.parse(email).toLowerCase();
-    // GoTrue issues the code as `email` (magic link) or `signup` (new user)
-    // depending on whether the account already existed — try both.
-    let lastError: unknown = null;
-    let ok = false;
-    for (const type of ["email", "signup"] as const) {
-      const { error: err } = await supabase.auth.verifyOtp({
-        email: normalizedEmail,
-        token,
-        type,
-      });
-      if (!err) {
-        ok = true;
-        break;
-      }
-      lastError = err;
-    }
-    if (!ok) {
-      console.warn("[auth] verifyOtp failed", lastError);
+    const { error: verifyError } = await supabase.auth.verifyOtp({
+      email: normalizedEmail,
+      token,
+      type: "email",
+    });
+    if (verifyError) {
+      console.warn("[auth] verifyOtp failed", verifyError);
       setVerifying(false);
-      setError("That code is invalid or expired. Request a new one.");
+      setError("That code is no longer valid. If you received more than one email, use the newest code.");
       return;
     }
     // Link any scans / orders already made with this email.
@@ -208,7 +200,7 @@ export default function SignIn() {
                   className="underline bg-transparent border-none p-0 cursor-pointer"
                   style={{ color: GOLD }}
                 >
-                  use a different email
+                  request a new code
                 </button>
                 .
               </p>
