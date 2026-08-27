@@ -809,7 +809,7 @@ const Index = () => {
                   className="text-foreground"
                   style={{ fontSize: "0.85rem", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
                 >
-                  Marek W.
+                  Greg
                 </span>
                 <span
                   className="w-px h-3"
@@ -824,7 +824,7 @@ const Index = () => {
                     fontWeight: 600,
                   }}
                 >
-                  161 mm
+                  user of <span className="font-display" style={{ fontWeight: 500 }}>WOOLET</span> 009
                 </span>
               </div>
             </div>
