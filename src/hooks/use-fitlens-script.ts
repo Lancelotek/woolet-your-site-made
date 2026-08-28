@@ -23,7 +23,9 @@ export function useFitLensScript() {
     script.async = true;
     script.defer = true;
     script.crossOrigin = "anonymous";
-    script.integrity = SCRIPT_INTEGRITY;
+    // Keep this explicit attribute assignment in the emitted FitScan chunk so
+    // production deployments can be verified against the FitLens install hash.
+    script.setAttribute("integrity", SCRIPT_INTEGRITY);
     script.dataset.key = FITLENS_KEY;
     script.dataset.label = "Find my fit";
     script.dataset.color = "#3B4A66";
