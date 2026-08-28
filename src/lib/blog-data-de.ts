@@ -154,8 +154,8 @@ export const blogPostsDE: BlogPost[] = [
 },
   {
     slug: "welche-groesse-sonnenbrille-breites-gesicht",
-    title: "Welche Sonnenbrillengröße für breite Gesichter? (Schneller Größen-Guide)",
-    excerpt: "So finden Sie die richtige Sonnenbrillengröße für ein breites Gesicht: Frontbreite, Steg- und Bügelmaße erklärt, plus ein einfacher Test mit Ihrer aktuellen Brille.",
+    title: "Welche Sonnenbrille bei breitem Gesicht? 155-mm-Fit-Guide",
+    excerpt: "Sonnenbrillen für breite Gesichter (155mm+): 155mm+ Frontbreite, 20–22mm Steg, 148mm Bügel. In 60 Sekunden messen und passende Fassungen finden.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Größenberatung", "Sonnenbrillen", "Breites Gesicht"],
