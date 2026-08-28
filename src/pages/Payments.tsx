@@ -20,6 +20,26 @@ function normalizeProduct(raw: string): Product {
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const cardBadgeBase: React.CSSProperties = {
+  display: "inline-flex", alignItems: "center", justifyContent: "center",
+  height: 24, minWidth: 38, padding: "0 6px", borderRadius: 3,
+  border: "1px solid rgba(15,15,15,0.12)", background: "#fff",
+};
+
+const CardBadges = () => (
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6 }} role="img" aria-label="Accepted payment methods: Visa, Mastercard, American Express">
+    <span style={cardBadgeBase}>
+      <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden="true"><text x="0" y="8.5" fontFamily="Arial, sans-serif" fontSize="9" fontWeight="bold" fontStyle="italic" fill="#1A1F71">VISA</text></svg>
+    </span>
+    <span style={cardBadgeBase}>
+      <svg width="28" height="16" viewBox="0 0 28 16" aria-hidden="true"><circle cx="10" cy="8" r="7" fill="#EB001B"/><circle cx="18" cy="8" r="7" fill="#F79E1B" fillOpacity="0.85"/></svg>
+    </span>
+    <span style={cardBadgeBase}>
+      <svg width="30" height="12" viewBox="0 0 30 12" aria-hidden="true"><rect width="30" height="12" rx="2" fill="#2E77BC"/><text x="15" y="9" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="7" fontWeight="bold" fill="#fff">AMEX</text></svg>
+    </span>
+  </div>
+);
+
 export default function Payments() {
   const [params] = useSearchParams();
   const productParam = params.get("product") || "007";
@@ -131,9 +151,13 @@ export default function Payments() {
             </div>
 
             <div style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(15,15,15,0.08)", padding: "28px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-              <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", margin: "0 0 20px", textAlign: "center" }}>
+              <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", margin: "0 0 12px", textAlign: "center" }}>
                 Woolet {productLabel} — Reserve for $1
               </p>
+
+              <div style={{ background: "rgba(194,160,90,0.08)", border: "1px solid rgba(194,160,90,0.35)", borderRadius: 4, padding: "12px 14px", marginBottom: 20, fontFamily: "'Barlow', sans-serif", fontSize: 13, lineHeight: 1.6, color: "rgba(15,15,15,0.75)" }}>
+                <strong style={{ color: "#0f0f0f" }}>How the $1 reservation works:</strong> reserve now for $1 and lock the founding price of <strong>$114</strong> instead of $190 (save 40%) when the Kickstarter launches. The $1 counts toward your purchase. Free shipping, 30-day returns, 2-year warranty.
+              </div>
 
               {!ready ? (
                 <form onSubmit={handleSubmit} style={{ display: "grid", gap: 14 }}>
@@ -226,7 +250,11 @@ export default function Payments() {
               )}
             </div>
 
-            <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
+            <div style={{ marginTop: 20 }}>
+              <CardBadges />
+            </div>
+
+            <div style={{ marginTop: 14, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
               <span>256-bit SSL</span>
               <span>·</span>
               <span>PCI-DSS Stripe</span>
