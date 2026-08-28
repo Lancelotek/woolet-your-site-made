@@ -4276,6 +4276,16 @@ export default function FitScan() {
   useEffect(() => {
     const onResult = (event: Event) => {
       const detail = (event as CustomEvent).detail;
+
+      // Guard against the embed replaying a cached result from a previous run:
+      // anything stamped before the current scan was opened is stale.
+      const openedAt = fitLensOpenedAtRef.current;
+      const stamp = readResultTimestamp(detail);
+      if (openedAt && stamp && stamp < openedAt - 5000) {
+        console.warn("[fitlens] ignored stale result", { stamp, openedAt });
+        return;
+      }
+
       const mapped = normalizeFitLensResult(detail);
       const keys = Object.keys(mapped);
       if (keys.length === 0) {
@@ -4284,6 +4294,8 @@ export default function FitScan() {
         return;
       }
 
+      // Always replace — never merge with the previous run, otherwise fields the
+      // new scan did not return would keep showing older millimetres.
       const stored = applyFitLensToBespokeConfig(mapped);
       setFitLensMeasurements(mapped);
       pushEvent("fit_fitlens_result", { usable: keys.length, fields: keys.join(","), stored: stored ? 1 : 0 });
