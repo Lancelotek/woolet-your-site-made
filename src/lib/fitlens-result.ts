@@ -82,10 +82,12 @@ export function applyFitLensToBespokeConfig(measurements: FitLensMeasurements): 
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const parsed = raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
-    const prev = (parsed.measurements as FitLensMeasurements | undefined) ?? {};
     const next = {
       ...parsed,
-      measurements: { ...prev, ...measurements },
+      // Replace, never merge: a new scan must not inherit millimetres from an
+      // earlier run for fields it did not return.
+      measurements: { ...measurements },
+
       measurementMethod: "scan",
       scanCompletedAt: new Date().toISOString(),
       scanMeasurementsUnlocked: false,
