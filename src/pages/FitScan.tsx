@@ -358,11 +358,13 @@ function WelcomeStep({
   onStart,
   disabled = false,
   isMobile,
+  onFitLensOpen,
 }: {
   lang: Lang;
   onStart: () => void;
   disabled?: boolean;
   isMobile: boolean;
+  onFitLensOpen?: () => void;
 }) {
   useFitLensScript();
   // QR handoff target: the same page opened on a phone (sid marks the handoff).
