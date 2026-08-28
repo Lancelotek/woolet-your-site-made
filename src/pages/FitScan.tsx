@@ -36,6 +36,7 @@ import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options"
 import {
   applyFitLensToBespokeConfig,
   normalizeFitLensResult,
+  readResultTimestamp,
   type FitLensMeasurements,
 } from "@/lib/fitlens-result";
 import { QRCodeSVG } from "qrcode.react";
