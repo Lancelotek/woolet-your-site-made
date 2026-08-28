@@ -52,9 +52,9 @@ const blogMetaBySlug = {
   "what-size-sunglasses-for-wide-faces": {
     // Intentionally no " | Woolet" suffix — adding it pushes the title past
     // the mobile SERP truncation limit. `exactTitle` suppresses the suffix.
-    metaTitle: "What Size Sunglasses for a Wide Face? Find Yours in 20s",
+    metaTitle: "What Size Sunglasses for a Wide Face? 155mm+ Fit Guide",
     exactTitle: true,
-    metaDescription: "Front width, bridge and temple explained in plain numbers — plus a 20-second camera check that gives you your size. Woolet fits 155–161 mm, bespoke from 145 mm."
+    metaDescription: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 148mm temples. Measure in 60 seconds and find frames that fit."
   },
   "how-to-tell-if-your-face-is-wide-or-narrow": {
     metaTitle: "Is Your Face Wide or Narrow? Get Your Number in mm | Woolet",
@@ -164,8 +164,8 @@ const blogMetaBySlug = {
     ogImage: "/og-best-glasses-for-big-heads-2026.png"
   },
   "welche-groesse-sonnenbrille-breites-gesicht": {
-    metaTitle: "Welche Sonnenbrille bei breitem Gesicht? Kurzguide",
-    metaDescription: "So findest du die richtige Sonnenbrillengröße für ein breites Gesicht: Frontbreite, Steg und Bügel erklärt — plus 10-Sekunden-Test mit deiner aktuellen Brille."
+    metaTitle: "Welche Sonnenbrille bei breitem Gesicht? 155-mm-Fit-Guide",
+    metaDescription: "Sonnenbrillen für breite Gesichter (155mm+): 155mm+ Frontbreite, 20–22mm Steg, 148mm Bügel. In 60 Sekunden messen und passende Fassungen finden."
   },
   // ── NL ───────────────────────────────────────────────────────────────
   "beste-brillen-voor-brede-hoofden-2026": {
@@ -174,8 +174,8 @@ const blogMetaBySlug = {
     ogImage: "/og-best-glasses-for-big-heads-2026.png"
   },
   "welke-maat-zonnebril-voor-breed-gezicht": {
-    metaTitle: "Welke zonnebril bij een breed gezicht? Snelle gids",
-    metaDescription: "Zo vind je de juiste zonnebrilmaat voor een breed gezicht: frontbreedte, brug en veren uitgelegd — plus een 10-secondentest met je huidige bril."
+    metaTitle: "Welke zonnebril bij een breed gezicht? 155mm+ fitgids",
+    metaDescription: "Zonnebrillen voor brede gezichten (155mm+): 155mm+ frontbreedte, 20–22mm brug, 148mm veren. Meet in 60 seconden en vind passende monturen."
   },
   // ── FR ───────────────────────────────────────────────────────────────
   "meilleures-lunettes-pour-grosses-tetes-2026": {
@@ -184,8 +184,8 @@ const blogMetaBySlug = {
     ogImage: "/og-best-glasses-for-big-heads-2026.png"
   },
   "quelle-taille-de-lunettes-de-soleil-visage-large": {
-    metaTitle: "Quelle taille de solaires pour un visage large ? Guide rapide",
-    metaDescription: "Comment choisir la taille de solaires pour un visage large : largeur de face, pont et branches expliqués — plus un test 10 s avec vos lunettes actuelles."
+    metaTitle: "Quelle taille de solaires pour un visage large ? Guide 155mm+",
+    metaDescription: "Lunettes de soleil pour visages larges (155mm+) : largeur de face 155mm+, pont 20–22mm, branches 148mm. Mesurez en 60 secondes et trouvez votre taille."
   },
   // ── EN: fit, sizing & frame-measurement cluster (July 2026) ──────────
   "glasses-too-tight-on-side-of-head": {
@@ -1416,8 +1416,8 @@ const blogPostsDE = [
   },
   {
     slug: "welche-groesse-sonnenbrille-breites-gesicht",
-    title: "Welche Sonnenbrillengröße für breite Gesichter? (Schneller Größen-Guide)",
-    excerpt: "So finden Sie die richtige Sonnenbrillengröße für ein breites Gesicht: Frontbreite, Steg- und Bügelmaße erklärt, plus ein einfacher Test mit Ihrer aktuellen Brille.",
+    title: "Welche Sonnenbrille bei breitem Gesicht? 155-mm-Fit-Guide",
+    excerpt: "Sonnenbrillen für breite Gesichter (155mm+): 155mm+ Frontbreite, 20–22mm Steg, 148mm Bügel. In 60 Sekunden messen und passende Fassungen finden.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Größenberatung", "Sonnenbrillen", "Breites Gesicht"],
@@ -1658,8 +1658,8 @@ const blogPostsNL = [
   },
   {
     slug: "welke-maat-zonnebril-voor-breed-gezicht",
-    title: "Welke zonnebrilmaat bij een breed gezicht? (Snelle maatgids)",
-    excerpt: "Zo vind je de juiste zonnebrilmaat voor een breed gezicht: frontbreedte, brug en veren uitgelegd, plus een simpele test met je huidige bril.",
+    title: "Welke zonnebril bij een breed gezicht? 155mm+ fitgids",
+    excerpt: "Zonnebrillen voor brede gezichten (155mm+): 155mm+ frontbreedte, 20–22mm brug, 148mm veren. Meet in 60 seconden en vind passende monturen.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Maatgids", "Zonnebrillen", "Breed gezicht"],
@@ -1900,8 +1900,8 @@ const blogPostsFR = [
   },
   {
     slug: "quelle-taille-de-lunettes-de-soleil-visage-large",
-    title: "Quelle taille de lunettes de soleil pour un visage large ? (Guide rapide)",
-    excerpt: "Comment choisir la bonne taille de lunettes de soleil pour un visage large : largeur de face, pont et branches expliqués, plus un test simple avec vos lunettes actuelles.",
+    title: "Quelle taille de solaires pour un visage large ? Guide 155mm+",
+    excerpt: "Lunettes de soleil pour visages larges (155mm+) : largeur de face 155mm+, pont 20–22mm, branches 148mm. Mesurez en 60 secondes et trouvez votre taille.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Guide taille", "Solaires", "Visage large"],
@@ -3792,8 +3792,8 @@ const blogPostsEN = [
   },
   {
     slug: "what-size-sunglasses-for-wide-faces",
-    title: "What Size Sunglasses for Wide Faces? (Quick Sizing Guide)",
-    excerpt: "How to pick the right sunglass size for a wide face: front width, bridge and temple numbers explained, plus a simple test using your current glasses.",
+    title: "What Size Sunglasses for a Wide Face? 155mm+ Fit Guide",
+    excerpt: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 148mm temples. Measure in 60 seconds and find frames that fit.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Sizing", "Sunglasses", "Wide Face"],
