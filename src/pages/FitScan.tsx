@@ -36,6 +36,7 @@ import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options"
 import {
   applyFitLensToBespokeConfig,
   normalizeFitLensResult,
+  readResultTimestamp,
   type FitLensMeasurements,
 } from "@/lib/fitlens-result";
 import { QRCodeSVG } from "qrcode.react";
@@ -358,11 +359,13 @@ function WelcomeStep({
   onStart,
   disabled = false,
   isMobile,
+  onFitLensOpen,
 }: {
   lang: Lang;
   onStart: () => void;
   disabled?: boolean;
   isMobile: boolean;
+  onFitLensOpen?: () => void;
 }) {
   useFitLensScript();
   // QR handoff target: the same page opened on a phone (sid marks the handoff).
@@ -641,7 +644,10 @@ function WelcomeStep({
               type="button"
               data-fitlens="open"
               disabled={disabled}
-              onClick={() => pushEvent("fit_fitlens_open", { device: isMobile ? "mobile" : "desktop" })}
+              onClick={() => {
+                onFitLensOpen?.();
+                pushEvent("fit_fitlens_open", { device: isMobile ? "mobile" : "desktop" });
+              }}
               style={{
                 background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
                 color: BG,
@@ -4198,6 +4204,8 @@ export default function FitScan() {
   const [errorMsg, setErrorMsg] = useState("");
   // Validated measurements handed over by the external FitLens widget.
   const [fitLensMeasurements, setFitLensMeasurements] = useState<FitLensMeasurements | null>(null);
+  // When the current FitLens run was opened — used to discard replayed results.
+  const fitLensOpenedAtRef = useRef<number | null>(null);
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
@@ -4271,6 +4279,16 @@ export default function FitScan() {
   useEffect(() => {
     const onResult = (event: Event) => {
       const detail = (event as CustomEvent).detail;
+
+      // Guard against the embed replaying a cached result from a previous run:
+      // anything stamped before the current scan was opened is stale.
+      const openedAt = fitLensOpenedAtRef.current;
+      const stamp = readResultTimestamp(detail);
+      if (openedAt && stamp && stamp < openedAt - 5000) {
+        console.warn("[fitlens] ignored stale result", { stamp, openedAt });
+        return;
+      }
+
       const mapped = normalizeFitLensResult(detail);
       const keys = Object.keys(mapped);
       if (keys.length === 0) {
@@ -4279,6 +4297,8 @@ export default function FitScan() {
         return;
       }
 
+      // Always replace — never merge with the previous run, otherwise fields the
+      // new scan did not return would keep showing older millimetres.
       const stored = applyFitLensToBespokeConfig(mapped);
       setFitLensMeasurements(mapped);
       pushEvent("fit_fitlens_result", { usable: keys.length, fields: keys.join(","), stored: stored ? 1 : 0 });
@@ -5044,7 +5064,14 @@ export default function FitScan() {
                     onStart={startScan}
                     disabled={!!blockingMessage}
                     isMobile={isMobile}
+                    onFitLensOpen={() => {
+                      // Fresh run: drop the previous card so nothing older can
+                      // linger on screen while the new scan is in progress.
+                      fitLensOpenedAtRef.current = Date.now();
+                      setFitLensMeasurements(null);
+                    }}
                   />
+
                 )}
                 {step === "camera" && (
                   <CameraStep

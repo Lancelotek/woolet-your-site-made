@@ -82,10 +82,12 @@ export function applyFitLensToBespokeConfig(measurements: FitLensMeasurements): 
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const parsed = raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
-    const prev = (parsed.measurements as FitLensMeasurements | undefined) ?? {};
     const next = {
       ...parsed,
-      measurements: { ...prev, ...measurements },
+      // Replace, never merge: a new scan must not inherit millimetres from an
+      // earlier run for fields it did not return.
+      measurements: { ...measurements },
+
       measurementMethod: "scan",
       scanCompletedAt: new Date().toISOString(),
       scanMeasurementsUnlocked: false,
@@ -96,4 +98,24 @@ export function applyFitLensToBespokeConfig(measurements: FitLensMeasurements): 
   } catch {
     return false;
   }
+}
+
+/**
+ * Best-effort extraction of a "produced at" timestamp (ms epoch) from a
+ * FitLens result payload, so callers can drop replays of an older scan.
+ */
+export function readResultTimestamp(detail: unknown): number | null {
+  const flat = flatten(detail);
+  for (const key of ["timestamp", "createdat", "completedat", "measuredat", "time", "ts", "date"]) {
+    if (!(key in flat)) continue;
+    const raw = flat[key];
+    if (typeof raw === "number" && Number.isFinite(raw)) {
+      return raw < 1e12 ? raw * 1000 : raw;
+    }
+    if (typeof raw === "string") {
+      const parsed = Date.parse(raw);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+  }
+  return null;
 }
