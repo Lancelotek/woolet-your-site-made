@@ -151,9 +151,13 @@ export default function Payments() {
             </div>
 
             <div style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(15,15,15,0.08)", padding: "28px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-              <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", margin: "0 0 20px", textAlign: "center" }}>
+              <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", margin: "0 0 12px", textAlign: "center" }}>
                 Woolet {productLabel} — Reserve for $1
               </p>
+
+              <div style={{ background: "rgba(194,160,90,0.08)", border: "1px solid rgba(194,160,90,0.35)", borderRadius: 4, padding: "12px 14px", marginBottom: 20, fontFamily: "'Barlow', sans-serif", fontSize: 13, lineHeight: 1.6, color: "rgba(15,15,15,0.75)" }}>
+                <strong style={{ color: "#0f0f0f" }}>How the $1 reservation works:</strong> reserve now for $1 and lock the founding price of <strong>$114</strong> instead of $190 (save 40%) when the Kickstarter launches. The $1 counts toward your purchase. Free shipping, 30-day returns, 2-year warranty.
+              </div>
 
               {!ready ? (
                 <form onSubmit={handleSubmit} style={{ display: "grid", gap: 14 }}>
