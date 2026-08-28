@@ -20,6 +20,26 @@ function normalizeProduct(raw: string): Product {
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const cardBadgeBase: React.CSSProperties = {
+  display: "inline-flex", alignItems: "center", justifyContent: "center",
+  height: 24, minWidth: 38, padding: "0 6px", borderRadius: 3,
+  border: "1px solid rgba(15,15,15,0.12)", background: "#fff",
+};
+
+const CardBadges = () => (
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6 }} role="img" aria-label="Accepted payment methods: Visa, Mastercard, American Express">
+    <span style={cardBadgeBase}>
+      <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden="true"><text x="0" y="8.5" fontFamily="Arial, sans-serif" fontSize="9" fontWeight="bold" fontStyle="italic" fill="#1A1F71">VISA</text></svg>
+    </span>
+    <span style={cardBadgeBase}>
+      <svg width="28" height="16" viewBox="0 0 28 16" aria-hidden="true"><circle cx="10" cy="8" r="7" fill="#EB001B"/><circle cx="18" cy="8" r="7" fill="#F79E1B" fillOpacity="0.85"/></svg>
+    </span>
+    <span style={cardBadgeBase}>
+      <svg width="30" height="12" viewBox="0 0 30 12" aria-hidden="true"><rect width="30" height="12" rx="2" fill="#2E77BC"/><text x="15" y="9" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="7" fontWeight="bold" fill="#fff">AMEX</text></svg>
+    </span>
+  </div>
+);
+
 export default function Payments() {
   const [params] = useSearchParams();
   const productParam = params.get("product") || "007";
