@@ -643,7 +643,10 @@ function WelcomeStep({
               type="button"
               data-fitlens="open"
               disabled={disabled}
-              onClick={() => pushEvent("fit_fitlens_open", { device: isMobile ? "mobile" : "desktop" })}
+              onClick={() => {
+                onFitLensOpen?.();
+                pushEvent("fit_fitlens_open", { device: isMobile ? "mobile" : "desktop" });
+              }}
               style={{
                 background: disabled ? "rgba(202,164,73,0.3)" : GOLD,
                 color: BG,
