@@ -5064,7 +5064,14 @@ export default function FitScan() {
                     onStart={startScan}
                     disabled={!!blockingMessage}
                     isMobile={isMobile}
+                    onFitLensOpen={() => {
+                      // Fresh run: drop the previous card so nothing older can
+                      // linger on screen while the new scan is in progress.
+                      fitLensOpenedAtRef.current = Date.now();
+                      setFitLensMeasurements(null);
+                    }}
                   />
+
                 )}
                 {step === "camera" && (
                   <CameraStep
