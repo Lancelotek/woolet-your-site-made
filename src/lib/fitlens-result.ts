@@ -97,3 +97,23 @@ export function applyFitLensToBespokeConfig(measurements: FitLensMeasurements): 
     return false;
   }
 }
+
+/**
+ * Best-effort extraction of a "produced at" timestamp (ms epoch) from a
+ * FitLens result payload, so callers can drop replays of an older scan.
+ */
+export function readResultTimestamp(detail: unknown): number | null {
+  const flat = flatten(detail);
+  for (const key of ["timestamp", "createdat", "completedat", "measuredat", "time", "ts", "date"]) {
+    if (!(key in flat)) continue;
+    const raw = flat[key];
+    if (typeof raw === "number" && Number.isFinite(raw)) {
+      return raw < 1e12 ? raw * 1000 : raw;
+    }
+    if (typeof raw === "string") {
+      const parsed = Date.parse(raw);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+  }
+  return null;
+}
