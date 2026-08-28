@@ -4203,6 +4203,8 @@ export default function FitScan() {
   const [errorMsg, setErrorMsg] = useState("");
   // Validated measurements handed over by the external FitLens widget.
   const [fitLensMeasurements, setFitLensMeasurements] = useState<FitLensMeasurements | null>(null);
+  // When the current FitLens run was opened — used to discard replayed results.
+  const fitLensOpenedAtRef = useRef<number | null>(null);
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
