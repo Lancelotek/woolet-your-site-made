@@ -250,7 +250,11 @@ export default function Payments() {
               )}
             </div>
 
-            <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
+            <div style={{ marginTop: 20 }}>
+              <CardBadges />
+            </div>
+
+            <div style={{ marginTop: 14, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 18, fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)" }}>
               <span>256-bit SSL</span>
               <span>·</span>
               <span>PCI-DSS Stripe</span>
