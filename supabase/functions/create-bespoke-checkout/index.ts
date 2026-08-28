@@ -19,7 +19,7 @@ interface Body {
 
 // Server-side coupon table — never trust a client-supplied discount.
 const COUPONS: Record<string, { percentOff: number }> = {
-  KICKSTARTER2026: { percentOff: 50 },
+  KICKSTARTER2026: { percentOff: 40 },
 };
 
 Deno.serve(async (req) => {
