@@ -226,6 +226,9 @@ export default function Payments() {
                 </form>
               ) : (
                 <div style={{ textAlign: "center" }}>
+                  <div style={{ background: "rgba(194,160,90,0.08)", border: "1px solid rgba(194,160,90,0.35)", borderRadius: 4, padding: "12px 14px", marginBottom: 20, fontFamily: "'Barlow', sans-serif", fontSize: 13, lineHeight: 1.6, color: "rgba(15,15,15,0.75)", textAlign: "left" }}>
+                    <strong style={{ color: "#0f0f0f" }}>Founding member reservation:</strong> reserve now for $1 and lock the founding price of <strong>$114</strong> instead of $190 (save 40%). The $1 counts toward your purchase. Free shipping, 30-day returns, 2-year warranty.
+                  </div>
                   <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "rgba(15,15,15,0.6)", marginBottom: 14 }}>
                     Confirmation will be sent to <strong>{email}</strong>
                   </div>
