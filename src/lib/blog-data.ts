@@ -1817,8 +1817,8 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "what-size-sunglasses-for-wide-faces",
-    title: "What Size Sunglasses for Wide Faces? (Quick Sizing Guide)",
-    excerpt: "How to pick the right sunglass size for a wide face: front width, bridge and temple numbers explained, plus a simple test using your current glasses.",
+    title: "What Size Sunglasses for a Wide Face? 155mm+ Fit Guide",
+    excerpt: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 148mm temples. Measure in 60 seconds and find frames that fit.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Sizing", "Sunglasses", "Wide Face"],

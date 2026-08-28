@@ -148,9 +148,9 @@ export const blogPostsNL: BlogPost[] = [
   },
   {
     slug: "welke-maat-zonnebril-voor-breed-gezicht",
-    title: "Welke zonnebrilmaat bij een breed gezicht? (Snelle maatgids)",
+    title: "Welke zonnebril bij een breed gezicht? 155mm+ fitgids",
     excerpt:
-      "Zo vind je de juiste zonnebrilmaat voor een breed gezicht: frontbreedte, brug en veren uitgelegd, plus een simpele test met je huidige bril.",
+      "Zonnebrillen voor brede gezichten (155mm+): 155mm+ frontbreedte, 20–22mm brug, 148mm veren. Meet in 60 seconden en vind passende monturen.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Maatgids", "Zonnebrillen", "Breed gezicht"],

@@ -148,9 +148,9 @@ export const blogPostsFR: BlogPost[] = [
   },
   {
     slug: "quelle-taille-de-lunettes-de-soleil-visage-large",
-    title: "Quelle taille de lunettes de soleil pour un visage large ? (Guide rapide)",
+    title: "Quelle taille de solaires pour un visage large ? Guide 155mm+",
     excerpt:
-      "Comment choisir la bonne taille de lunettes de soleil pour un visage large : largeur de face, pont et branches expliqués, plus un test simple avec vos lunettes actuelles.",
+      "Lunettes de soleil pour visages larges (155mm+) : largeur de face 155mm+, pont 20–22mm, branches 148mm. Mesurez en 60 secondes et trouvez votre taille.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Guide taille", "Solaires", "Visage large"],
