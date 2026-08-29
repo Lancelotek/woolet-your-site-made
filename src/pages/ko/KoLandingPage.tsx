@@ -243,7 +243,10 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+        {config.noindex ? <meta name="robots" content="noindex, follow" /> : null}
+        {config.faqs.length ? (
+          <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+        ) : null}
       </Helmet>
 
       <div style={{ background: c.ink, color: c.cream, minHeight: "100vh", fontFamily: KO_SANS }}>
@@ -275,6 +278,7 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
             <SectionBlock key={s.h2} s={s} />
           ))}
 
+          {config.faqs.length ? (
           <section className="px-6 md:px-10" style={{ borderBottom: `1px solid ${c.line}` }}>
             <div className="max-w-3xl mx-auto py-14 flex flex-col gap-6">
               <h2 style={{ fontFamily: KO_SERIF, fontWeight: 400, fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", margin: 0 }}>
@@ -288,6 +292,7 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
               ))}
             </div>
           </section>
+          ) : null}
 
           <nav aria-label="한국어 페이지" className="px-6 md:px-10">
             <div className="max-w-3xl mx-auto py-14 flex flex-col gap-4">
