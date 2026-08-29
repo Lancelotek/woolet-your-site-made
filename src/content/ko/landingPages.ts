@@ -203,6 +203,7 @@ export const koPages: Record<string, KoPageConfig> = {
         h2: "150mm는 어떤 얼굴인가",
         body:
           "전면부 총길이 150mm는 일반 브랜드의 넓은 쪽 라인과 겹치는 구간입니다. 기성품에서도 선택지가 있다는 뜻입니다. 그럼에도 비스포크를 고르는 이유는 브릿지 폭, 다리 길이, 프론트 높이를 함께 맞추기 때문입니다.",
+        link: { label: "안경 사이즈 재는 법", href: "/ko/guide/frame-size" },
       },
       {
         h2: "비스포크 145-172mm",
