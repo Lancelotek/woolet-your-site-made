@@ -78,11 +78,11 @@ const seoData: Record<Lang, { title: string; description: string; ogDescription:
       "Woolet — Mazzucchelli-acetaatbrillen voor brede gezichten (155–161 mm). Handgemaakt in de EU. Pre-order voor $114 (40% korting).",
   },
   ko: {
-    title: "Woolet — 넓은 얼굴을 위한 마주켈리 아세테이트 안경 (155mm+)",
+    title: "Woolet — 대두 안경테, 마주켈리 아세테이트 (155mm+)",
     description:
       "레이밴이나 와비파커가 좁게 느껴지나요? Woolet 프레임은 마침내 맞습니다. 이탈리아 마주켈리 아세테이트, EU 수제 제작. $114 선주문 (40% 할인).",
     ogDescription:
-      "Woolet — 넓은 얼굴을 위한 마주켈리 아세테이트 안경 (155–161mm). EU 수제 제작. $114 선주문 (40% 할인).",
+      "Woolet — 대두 안경테, 마주켈리 아세테이트 (155–161mm). EU 수제 제작. $114 선주문 (40% 할인).",
   },
 };
 
@@ -306,7 +306,7 @@ const homeCopy: Record<Lang, HomeCopy> = {
     shapeSquare: "Zacht vierkant",
   },
   ko: {
-    heroEyebrow: "넓은 얼굴을 위해 설계",
+    heroEyebrow: "대두를 위해 설계",
     h1Pre: "레이밴, 페르솔, 와비파커가 ",
     h1Em: "너무 좁으신가요",
     h1Post: "?",
