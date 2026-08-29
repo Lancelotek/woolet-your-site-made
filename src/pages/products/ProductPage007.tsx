@@ -8,7 +8,8 @@ import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensOptions from "@/components/LensOptions";
 import { lensOffers } from "@/data/lensOptions";
-import { ColourHero, ColourSwatches, useColourGallery, type FrameColour } from "@/components/ProductColourGallery";
+import { ColourSwatches, useColourGallery, type FrameColour } from "@/components/ProductColourGallery";
+import ProductGalleryStage from "@/components/ProductGalleryStage";
 import imgHavana from "@/assets/frames-2026/oval-havana.asset.json";
 import imgBlackAsset from "@/assets/frames-2026/oval-black.asset.json";
 import imgCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
@@ -152,7 +153,7 @@ const ProductPage007 = () => {
           <div className="pdp-grid grid" style={{ gap: 40, gridTemplateColumns: "minmax(0,1fr)" }}>
             {/* GALLERY */}
             <section className="pdp-gallery">
-              <ColourHero colour={gallery.active} alt={`Woolet 007 — round panto acetate glasses in ${gallery.active.name.toLowerCase()}, 158 mm front · 21 mm keyhole bridge, wide-face fit`} />
+              <ProductGalleryStage model="007" colourId={gallery.active.id} colourName={gallery.active.name} />
             </section>
 
             {/* BUY PANEL */}

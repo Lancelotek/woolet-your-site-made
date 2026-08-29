@@ -8,7 +8,8 @@ import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensOptions from "@/components/LensOptions";
 import { lensOffers } from "@/data/lensOptions";
-import { ColourHero, ColourSwatches, useColourGallery, type FrameColour } from "@/components/ProductColourGallery";
+import { ColourSwatches, useColourGallery, type FrameColour } from "@/components/ProductColourGallery";
+import ProductGalleryStage from "@/components/ProductGalleryStage";
 import sqHavana from "@/assets/frames-2026/square-havana.asset.json";
 import sqBlack from "@/assets/frames-2026/square-black.asset.json";
 import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
@@ -151,7 +152,7 @@ const ProductPage009 = () => {
 
           <div className="pdp-grid grid" style={{ gap: 40, gridTemplateColumns: "minmax(0,1fr)" }}>
             <section className="pdp-gallery">
-              <ColourHero colour={gallery.active} alt={`Woolet 009 — soft-square acetate glasses in ${gallery.active.name.toLowerCase()}, 158 mm front · 20 mm bridge, wide-face fit`} />
+              <ProductGalleryStage model="009" colourId={gallery.active.id} colourName={gallery.active.name} />
             </section>
 
             <section style={{ maxWidth: 540 }}>
