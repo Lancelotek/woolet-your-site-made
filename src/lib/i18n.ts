@@ -762,6 +762,14 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.scan_cta": "Scan je gezicht",
     "nav.shop_label": "Shop",
   },
+  ko: {
+    "nav.collection": "컬렉션",
+    "nav.blog": "블로그",
+    "nav.bespoke": "비스포크",
+    "nav.fit_quiz": "핏 찾기",
+    "nav.back": "뒤로",
+    "nav.shop_label": "쇼핑",
+  },
 };
 
 export function t(lang: Lang, key: string): string {

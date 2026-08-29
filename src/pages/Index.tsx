@@ -77,6 +77,13 @@ const seoData: Record<Lang, { title: string; description: string; ogDescription:
     ogDescription:
       "Woolet — Mazzucchelli-acetaatbrillen voor brede gezichten (155–161 mm). Handgemaakt in de EU. Pre-order voor $114 (40% korting).",
   },
+  ko: {
+    title: "Woolet — 넓은 얼굴을 위한 마주켈리 아세테이트 안경 (155mm+)",
+    description:
+      "레이밴이나 와비파커가 좁게 느껴지나요? Woolet 프레임은 마침내 맞습니다. 이탈리아 마주켈리 아세테이트, EU 수제 제작. $114 선주문 (40% 할인).",
+    ogDescription:
+      "Woolet — 넓은 얼굴을 위한 마주켈리 아세테이트 안경 (155–161mm). EU 수제 제작. $114 선주문 (40% 할인).",
+  },
 };
 
 /** Translated copy for the homepage UI. */
@@ -297,6 +304,30 @@ const homeCopy: Record<Lang, HomeCopy> = {
     viewCta: "Bekijken →",
     shapeRound: "Rond",
     shapeSquare: "Zacht vierkant",
+  },
+  ko: {
+    heroEyebrow: "넓은 얼굴을 위해 설계",
+    h1Pre: "레이밴, 페르솔, 와비파커가 ",
+    h1Em: "너무 좁으신가요",
+    h1Post: "?",
+    heroDesc: "Woolet은 마침내 맞는 프레임을 만듭니다. 이탈리아 마주켈리 아세테이트, EU 수제 제작 — 대형 브랜드가 놓친 얼굴을 위한 정직한 폭 범위 (155–161mm).",
+    ctaPrimary: "대기자 등록 — 40% 할인",
+    ctaSecondary: "컬렉션 보기",
+    trustFit: "핏 보증",
+    trustAcetate: "마주켈리 아세테이트",
+    trustHandmade: "EU 수제 제작",
+    meterFrame: "전면 폭",
+    meterBridge: "브리지",
+    meterStandard: "일반 브랜드",
+    meterYour: "Woolet",
+    yourRange: "↑ 당신의 범위",
+    teaserEyebrow: "컬렉션",
+    teaserH2Pre: "두 가지 형태. ",
+    teaserH2Em: "하나의 정직한 범위.",
+    viewAll: "모든 사이즈 보기 →",
+    viewCta: "보기 →",
+    shapeRound: "라운드",
+    shapeSquare: "소프트 스퀘어",
   },
 };
 
