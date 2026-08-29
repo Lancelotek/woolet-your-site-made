@@ -6,9 +6,9 @@
  *   - sitemap.xml
  *
  * Data-accuracy rules (do not violate):
- *   - Signature 158 mm.
- *   - Bespoke range 145–172 mm.
- *   - We never claim 165 mm; that entry is honest & informational.
+ *   - Signature 158 mm, designed fit range 155–161 mm.
+ *   - Bespoke range 145–172 mm (172 mm is the maximum we build).
+ *   - Widths above 161 mm are bespoke builds, not rejections.
  *   - "Hand made in EU" + material = "Mazzucchelli acetate from Milan, Italy".
  */
 
@@ -36,7 +36,7 @@ export interface SizeEntry {
 /**
  * Woolet frame specs shared by every size page's comparison table.
  * Numbers reflect the current site source of truth (product pages,
- * seo/metadata product blocks). Temple length 148 mm at 11° drop.
+ * seo/metadata product blocks). Temple length 150 mm at 11° drop.
  */
 export const FRAME_SPECS = {
   "007": {
@@ -45,7 +45,7 @@ export const FRAME_SPECS = {
     bridge: 21,
     lensWidth: 52,
     lensHeight: 52,
-    templeLength: 148,
+    templeLength: 150,
     templeDrop: 11, // degrees
     href: "/en/products/007",
   },
@@ -55,7 +55,7 @@ export const FRAME_SPECS = {
     bridge: 22,
     lensWidth: 54,
     lensHeight: 50,
-    templeLength: 148,
+    templeLength: 150,
     templeDrop: 11,
     href: "/en/products/009",
   },
@@ -204,19 +204,19 @@ export const SIZES: SizeEntry[] = [
     verdictKind: "top-of-bespoke",
     h1: "162 mm Wide Glasses — At the Top of Our Bespoke Range",
     subhead:
-      "162 mm is the widest we build to measure. One millimetre above signature; the ceiling of bespoke.",
+      "162 mm is a bespoke width — one millimetre above the signature fit range, well inside what we build to measure.",
     intro:
       "162 mm is a specialist width. Above the 155–161 mm signature range, and at the top of what we hand-build to measure. Same Italian Mazzucchelli acetate, same shapes, same finishing — scaled to 162 mm.",
     fitVerdict:
-      "Just above signature. 162 mm is the widest we build. Order bespoke — signature 158 mm will sit 4 mm short across your face and pinch at the temples over time.",
+      "Just above signature. Order bespoke — signature 158 mm will sit 4 mm short across your face and pinch at the temples over time. Bespoke covers any width from 145 to 172 mm.",
     metaDescription:
-      "162 mm wide glasses: the top of our bespoke range. Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm; signature 158 mm.",
+      "162 mm wide glasses: a bespoke build in Mazzucchelli acetate, hand made in Greece. Bespoke covers 145–172 mm; signature 158 mm fits 155–161 mm faces.",
     bespokeNote:
-      "162 mm is the maximum. We do not build wider. If you measure above 162 mm, we cannot make your frame — see the 165 mm page for what to do next.",
+      "162 mm is a straightforward bespoke width. If you measure wider, we build to 172 mm — see the 165, 168, 170 and 172 mm pages.",
     faq: [
-      { q: "How wide are 162 mm frames?", a: "Very. 162 mm is 14–17 mm above standard mainstream sizing and the widest hand-built frame we offer. Bespoke only." },
-      { q: "Why is 162 mm the ceiling?", a: "It's the widest we can build in acetate without compromising structural integrity at the hinges. Beyond 162 mm the geometry stops working for a single-piece front." },
-      { q: "How long is bespoke at 162 mm?", a: "6 to 8 weeks after the standard batch. Same lead time as any bespoke width." },
+      { q: "How wide are 162 mm frames?", a: "Very. 162 mm is 14–17 mm above standard mainstream sizing. Bespoke only — the signature is cut at 158 mm." },
+      { q: "What is the widest frame Woolet builds?", a: "172 mm. Bespoke covers any width from 145 to 172 mm in four shapes." },
+      { q: "How long is bespoke at 162 mm?", a: "2 weeks from order to shipping. Same lead time as any bespoke width." },
     ],
   },
   {
