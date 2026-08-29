@@ -50,7 +50,7 @@ const FitRangeChart = ({ competitorMin, competitorMax, competitorLabel }: FitRan
           fontWeight={600}
           fill="#080807"
         >
-          145–162 mm bespoke
+          145–172 mm bespoke
         </text>
 
         {/* Competitor band */}

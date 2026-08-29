@@ -34,7 +34,7 @@ const galleryBespoke = [
 
 const specs: [string, string][] = [
   ["Material", "Italian Mazzucchelli Acetate"],
-  ["Frame Width", "Cut to your face (145–162 mm)"],
+  ["Frame Width", "Cut to your face (145–172 mm)"],
   ["Shapes", "Aviator · Rectangle · Crown Panto · Round"],
   ["Bridge", "Cut to your nose"],
   ["Temples", "Cut to your temple length"],
@@ -105,7 +105,7 @@ const ProductPageBespoke = () => {
       <Helmet>
         <html lang={lang} />
         <title>{({ en: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face", nl: "Woolet Bespoke — acetaatbril op maat van je gezicht", fr: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage" } as Record<string,string>)[lang] ?? "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face"}</title>
-        <meta name="description" content={({ en: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order.", nl: "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145–162 mm. Vanaf $299 in pre-order.", fr: "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Quatre silhouettes, tailles 145–162 mm. Dès 299 $ en pré-commande." } as Record<string,string>)[lang] ?? "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–162 mm. From $299 pre-order."} />
+        <meta name="description" content={({ en: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–172 mm. From $299 pre-order.", nl: "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145–172 mm. Vanaf $299 in pre-order.", fr: "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Quatre silhouettes, tailles 145–172 mm. Dès 299 $ en pré-commande." } as Record<string,string>)[lang] ?? "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–172 mm. From $299 pre-order."} />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/bespoke`} />
         <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/bespoke`} />
@@ -241,14 +241,14 @@ const ProductPageBespoke = () => {
                 Woolet <em style={{ fontStyle: "italic", color: T.gold }}>Bespoke</em>
               </h1>
               <div style={{ fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 10 }}>
-                Custom · 145–162 mm · Italian acetate
+                Custom · 145–172 mm · Italian acetate
               </div>
               <h2 style={{
                 fontFamily: SANS, fontWeight: 500, fontSize: 13,
                 letterSpacing: "0.04em", color: T.inkDim,
                 margin: "0 0 22px", lineHeight: 1.5,
               }}>
-                Bespoke Italian Mazzucchelli acetate glasses cut to your exact face — four silhouettes, front width 145–162&nbsp;mm, bridge and temples cut to your measurements.
+                Bespoke Italian Mazzucchelli acetate glasses cut to your exact face — four silhouettes, front width 145–172&nbsp;mm, bridge and temples cut to your measurements.
               </h2>
 
               {/* Price hierarchy */}

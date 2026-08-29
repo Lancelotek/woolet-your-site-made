@@ -777,7 +777,7 @@ export function getMetadata(route: string): RouteMeta {
 <li><strong>Get your measurement</strong> — temple-to-temple face width plus the recommended frame front width.</li>
 </ol>
 <h2>What it measures and what it does not</h2>
-<p>It measures face width, bridge width, pupillary distance and the front width that fits you. It does not render frames on your face, does not replace an eye test or prescription, and does not guess: outside 145–162&nbsp;mm it says so.</p>
+<p>It measures face width, bridge width, pupillary distance and the front width that fits you. It does not render frames on your face, does not replace an eye test or prescription, and does not guess: outside 145–172&nbsp;mm it says so.</p>
 <h2>Virtual try-on vs virtual fit</h2>
 <p>A virtual try-on shows how frames look. FitLens shows whether they will actually fit a 155&nbsp;mm+ face. Appearance is subjective; fit is a number in millimetres.</p>
 <h2>Your result explained</h2>
@@ -1280,7 +1280,7 @@ ${post.content}
     return base(
       route, "ja",
       {
-        title: "オーダーメイド メガネ 145–162mm | Woolet イタリア製アセテート",
+        title: "オーダーメイド メガネ 145–172mm | Woolet イタリア製アセテート",
         description:
           "オーダーメイド メガネを145〜162mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
         noscriptHtml: `<h1>オーダーメイド メガネ — Woolet bespoke 145–172 mm</h1>

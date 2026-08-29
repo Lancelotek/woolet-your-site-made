@@ -481,7 +481,7 @@ function WelcomeStep({
               {[
                 "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
                 "Captures face width, bridge and PD in one shot",
-                "Auto-routes to 007, 009 or bespoke (145–162 mm)",
+                "Auto-routes to 007, 009 or bespoke (145–172 mm)",
                 "Runs in your browser. Nothing uploaded.",
               ].map((b) => (
                 <li
@@ -5109,7 +5109,7 @@ export default function FitScan() {
                 color: MUTED,
               }}
             >
-              Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–162 mm).
+              Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–172 mm).
             </p>
             <button
               type="button"

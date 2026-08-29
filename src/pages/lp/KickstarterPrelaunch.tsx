@@ -1698,7 +1698,7 @@ const KickstarterPrelaunch = () => {
             <span>·</span>
             <span>60 colour and size combinations</span>
             <span>·</span>
-            <span>Any width 145–162 mm</span>
+            <span>Any width 145–172 mm</span>
             <span>·</span>
             <span>Built to measure with FitLens</span>
             <span style={{ color: CREAM, marginLeft: 4 }}>

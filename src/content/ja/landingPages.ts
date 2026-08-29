@@ -81,7 +81,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     eyebrow: "Woolet · オーダーメイド メガネ",
     h1: "オーダーメイド メガネ — 顔に合わせて作る、本当の一本",
     sub: "顔幅145〜162mmまでミリ単位で対応。ブリッジ幅、テンプル長、レンズ高さも個別調整。イタリア製マッツケリ・アセテートを使い、EUの職人が一本ずつ手作業で仕立てます。",
-    metaTitle: "オーダーメイド メガネ 145–162mm | Woolet イタリア製アセテート",
+    metaTitle: "オーダーメイド メガネ 145–172mm | Woolet イタリア製アセテート",
     metaDescription:
       "オーダーメイド メガネを145〜162mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
     primaryKeyword: "オーダーメイド メガネ",

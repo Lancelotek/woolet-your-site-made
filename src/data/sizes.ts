@@ -22,7 +22,7 @@ export interface SizeFAQ {
 export interface SizeEntry {
   width: number;              // mm
   slug: string;               // e.g. "158mm"
-  inRange: boolean;           // true if we can make it (145–162 inclusive)
+  inRange: boolean;           // true if we can make it (145–172 inclusive)
   verdictKind: SizeVerdictKind;
   h1: string;
   intro: string;

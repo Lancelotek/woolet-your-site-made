@@ -43,7 +43,7 @@ const wrap: React.CSSProperties = { maxWidth: 760, margin: "0 auto", padding: "0
 const S007 = FRAME_SPECS["007"];
 const S009 = FRAME_SPECS["009"];
 
-const badges = ["Signature 158 mm", "Bespoke 145–162 mm", "Hand made in EU", "UV400"];
+const badges = ["Signature 158 mm", "Bespoke 145–172 mm", "Hand made in EU", "UV400"];
 
 const tableRows: [string, string, string, string][] = [
   ["Frame width", "130–145 mm", `${S007.frameWidth} mm`, `${S009.frameWidth} mm`],
@@ -95,7 +95,7 @@ const faqs = [
   },
   {
     q: "How do I know if 158 mm is right for me?",
-    a: "Measure across the widest point of your face, temple to temple. 155–161 mm is the signature range. Under 155 mm or over 161 mm, bespoke covers 145–162 mm. FitLens does the same measurement from your phone camera in about a minute if you would rather not use a ruler.",
+    a: "Measure across the widest point of your face, temple to temple. 155–161 mm is the signature range. Under 155 mm or over 161 mm, bespoke covers 145–172 mm. FitLens does the same measurement from your phone camera in about a minute if you would rather not use a ruler.",
   },
 ];
 
@@ -201,7 +201,7 @@ const BlueLightGlassesForWideFaces = () => {
       <SEO
         title="Blue Light Glasses for Wide Faces — 158 mm Fit | Woolet"
         exactTitle
-        description="Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 148 mm temples, blue-light filter optional. Bespoke 145–162 mm. Hand made in EU."
+        description="Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 148 mm temples, blue-light filter optional. Bespoke 145–172 mm. Hand made in EU."
         lang="en"
         path={PATH}
         jsonLd={[collectionLd, breadcrumbLd, faqLd]}
@@ -261,7 +261,7 @@ const BlueLightGlassesForWideFaces = () => {
             <p style={{ ...p, fontSize: 15.5, color: "#222", margin: 0 }}>
               Most blue-light frames are built 130–145 mm across, which is why they pinch a wide face. Woolet's front
               is {S007.frameWidth} mm with {S007.templeLength} mm temples and a {S007.bridge}–{S009.bridge} mm keyhole
-              bridge, and the blue-light filter is a lens option on both shapes. Bespoke covers 145–162 mm.
+              bridge, and the blue-light filter is a lens option on both shapes. Bespoke covers 145–172 mm.
             </p>
           </div>
         </section>

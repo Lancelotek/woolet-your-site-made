@@ -73,7 +73,7 @@ const eyebrowText: React.CSSProperties = {
 
 const WIDTH_OPTIONS = [
   { value: "158", label: "158 mm - standard fit (155-161 mm faces)" },
-  { value: "bespoke", label: "Bespoke - 145-162 mm" },
+  { value: "bespoke", label: "Bespoke - 145-172 mm" },
   { value: "unsure", label: "Not sure - help me decide" },
 ];
 

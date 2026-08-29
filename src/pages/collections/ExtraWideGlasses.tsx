@@ -6,7 +6,7 @@ const ExtraWideGlasses = () => (
     h1="Extra Wide Glasses — Wide Eyeglass Frames 158 mm"
     breadcrumbName="Extra Wide Glasses"
     metaTitle="Extra Wide Glasses & Wide Eyeglass Frames 158 mm | Woolet"
-    metaDescription="Extra wide glasses and wide eyeglass frames for 155 mm+ faces: 158 mm front, 21 mm keyhole bridge, Italian acetate. Bespoke 145–162 mm."
+    metaDescription="Extra wide glasses and wide eyeglass frames for 155 mm+ faces: 158 mm front, 21 mm keyhole bridge, Italian acetate. Bespoke 145–172 mm."
     intro="Most brands label a frame <em>extra wide</em> once it crosses 142 or 145 mm. That is still narrow for anyone whose face measures 155 mm or more. Woolet's standard front is 158 mm — properly extra wide — with a 21 mm keyhole bridge, in hand made in EU from Italian acetate."
     whyThisFits={[
       "Extra wide means different things at different brands. At mainstream retailers it usually means a slightly larger lens on the same 140 mm front, so the frame still pinches at the temples after an hour. Woolet scales front width and lens area together at 158 mm, so the geometry is consistent.",

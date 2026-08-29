@@ -111,7 +111,7 @@ export default function FitManual() {
     <>
       <SEO
         title="Measure Your Face Width Manually — Woolet Fit Guide"
-        description="No camera needed. Measure your face width with a tape measure and get the matching Woolet size — signature 158 mm or bespoke 145–162 mm."
+        description="No camera needed. Measure your face width with a tape measure and get the matching Woolet size — signature 158 mm or bespoke 145–172 mm."
         lang="en"
         path="/fit/manual"
         jsonLd={{
@@ -128,7 +128,7 @@ export default function FitManual() {
             { "@type": "HowToStep", name: "Position the tape", text: "Hold a soft tape measure horizontally across your face, temple to temple, just in front of the ears and level with your eyebrows." },
             { "@type": "HowToStep", name: "Keep it flat", text: "Keep the tape straight and snug against the skin, not over the hair." },
             { "@type": "HowToStep", name: "Read the number", text: "Read the number where the tape meets — in centimeters or inches." },
-            { "@type": "HowToStep", name: "Match your size", text: "Enter it in the calculator to map your measurement to the signature (158 mm) or bespoke (145–162 mm) Woolet frame." },
+            { "@type": "HowToStep", name: "Match your size", text: "Enter it in the calculator to map your measurement to the signature (158 mm) or bespoke (145–172 mm) Woolet frame." },
           ],
         }}
       />
