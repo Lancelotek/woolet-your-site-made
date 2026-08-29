@@ -6,7 +6,8 @@ import {
   FRAME_SPECS,
   SIZES,
   getSizeBySlug,
-  getRelatedSizes,
+  ladderLabel,
+  getLadderNeighbours,
   type SizeEntry,
   type SizeVerdictKind,
 } from "@/data/sizes";
@@ -93,7 +94,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
     },
   }));
 
-  const related = getRelatedSizes(size.slug);
+  const { prev, next } = getLadderNeighbours(size.slug);
 
   const wrap: React.CSSProperties = { maxWidth: 760, margin: "0 auto", padding: "0 20px" };
 
