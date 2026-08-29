@@ -22,7 +22,7 @@ import { getBlogPosts } from "@/lib/blog-data";
 import { competitors, wooletColumn } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
-import { getSizeBySlug } from "@/data/sizes";
+import { getSizeBySlug, SIZES } from "@/data/sizes";
 import { FIT_FAQ, FIT_BANDS } from "./fit-faq";
 import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
@@ -2034,6 +2034,9 @@ const STATIC_ROUTES = [
   "/en/size/160mm",
   "/en/size/162mm",
   "/en/size/165mm",
+  "/en/size/168mm",
+  "/en/size/170mm",
+  "/en/size/172mm",
   "/en/bridge/18mm",
   "/en/bridge/19mm",
   "/en/bridge/20mm",
