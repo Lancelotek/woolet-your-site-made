@@ -471,7 +471,7 @@ ${faqs}
               { name: cfg.h1, url: `${SITE_URL}${route}` },
             ],
       ),
-      faqPageJsonLd(cfg.faqs.map((f) => ({ question: f.q, answer: f.a }))),
+      faqPageJsonLd(cfg.faqs.map((f) => ({ q: f.q, a: f.a }))),
     ],
     alternates,
   );
