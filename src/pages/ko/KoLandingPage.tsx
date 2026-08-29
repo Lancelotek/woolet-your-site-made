@@ -54,6 +54,41 @@ function SectionBlock({ s }: { s: KoSection }) {
           </ListTag>
         ) : null}
 
+        {s.code ? (
+          <pre
+            style={{
+              margin: 0,
+              padding: "18px 20px",
+              background: c.panel,
+              border: `1px solid ${c.gold}`,
+              borderRadius: 2,
+              color: c.gold,
+              fontFamily: "'Archivo', 'Noto Sans KR', monospace",
+              fontSize: "0.95rem",
+              lineHeight: 1.7,
+              whiteSpace: "pre-wrap",
+              overflowX: "auto",
+            }}
+          >
+            <code>{s.code}</code>
+          </pre>
+        ) : null}
+
+        {s.emphasis ? (
+          <p
+            style={{
+              margin: 0,
+              padding: "4px 0 4px 20px",
+              borderLeft: `2px solid ${c.gold}`,
+              color: c.cream,
+              fontSize: "1.05rem",
+              lineHeight: 1.85,
+            }}
+          >
+            {s.emphasis}
+          </p>
+        ) : null}
+
         {s.table ? (
           <div className="overflow-x-auto" style={{ border: `1px solid ${c.line}` }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
