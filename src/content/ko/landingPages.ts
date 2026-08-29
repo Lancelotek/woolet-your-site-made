@@ -36,6 +36,10 @@ export type KoSection = {
   table?: KoTable;
   /** Bordered callout box lines. */
   callout?: string[];
+  /** Highlighted monospace/formula block. */
+  code?: string;
+  /** Visually emphasised paragraph (rendered as a pull-quote). */
+  emphasis?: string;
   ctas?: KoCta[];
   link?: { label: string; href: string };
 };
@@ -53,7 +57,31 @@ export type KoPageConfig = {
   faqs: KoFaq[];
   /** Absolute-path EN equivalent, or null when none exists yet. */
   englishEquivalent: string | null;
+  /**
+   * Keep the page out of the index while it still carries unverified /
+   * placeholder data. Emits <meta name="robots" content="noindex, follow">
+   * and drops the route from the sitemap.
+   */
+  noindex?: boolean;
 };
+
+/**
+ * Feature flags for /ko sections whose data is NOT verified yet.
+ * Both are OFF by default and must stay off until the underlying facts are
+ * confirmed. Flipping one to `true` without the confirmation described in the
+ * TODO next to the section is a compliance failure, not a content tweak.
+ */
+export const KO_FLAGS = {
+  /** TODO: confirm carrier and delivery SLA with the fulfilment partner before enabling. */
+  shippingCarrierAndSla: false,
+  /** TODO: do not publish any percentage, threshold or duty rate until confirmed with a customs broker. */
+  shippingDutyAndVat: false,
+} as const;
+
+/** Drops sections whose feature flag is off. */
+const gated = (entries: { on: boolean; section: KoSection }[]): KoSection[] =>
+  entries.filter((e) => e.on).map((e) => e.section);
+
 
 export const KO_HOME_PATH = "/ko";
 
