@@ -401,22 +401,37 @@ function WelcomeStep({
         {tFit(lang, "welcome.subtitle")}
       </p>
 
-      {/* Why scan + manual alternative — two paths on the same page */}
-      <section
-        aria-label="Two ways to measure"
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1"
-      >
-        {/* Scan — recommended */}
+      {/* One primary path: the whole FitLens card is a single click target */}
+      <section aria-label="Measure your face" className="flex flex-col gap-4 mt-1">
         <div
+          role="button"
+          tabIndex={disabled ? -1 : 0}
+          aria-disabled={disabled || undefined}
+          aria-label={tFit(lang, "welcome.cta_fitlens")}
+          onClick={(e) => {
+            if (disabled) return;
+            const target = e.target as HTMLElement;
+            if (target.closest("a") || target.closest("button")) return;
+            fitlensBtnRef.current?.click();
+          }}
+          onKeyDown={(e) => {
+            if (disabled) return;
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              fitlensBtnRef.current?.click();
+            }
+          }}
           style={{
             position: "relative",
             border: `1.5px solid ${GOLD}`,
             background: "rgba(202,164,73,0.06)",
             borderRadius: 12,
-            padding: isMobile ? "20px 18px 18px" : "22px 20px 18px",
-            display: "flex",
-            flexDirection: "column",
-            gap: isMobile ? 14 : 12,
+            padding: isMobile ? "24px 18px 20px" : "28px 26px 24px",
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
+            gap: isMobile ? 18 : 28,
+            alignItems: "center",
+            cursor: disabled ? "not-allowed" : "pointer",
           }}
         >
           <div
@@ -437,210 +452,66 @@ function WelcomeStep({
           >
             Recommended
           </div>
-          <h3
-            style={{
-              fontFamily: "Cormorant Garamond, serif",
-              fontWeight: 400,
-              fontSize: isMobile ? "1.6rem" : "1.5rem",
-              color: "#f0ece4",
-              lineHeight: 1.1,
-              margin: 0,
-            }}
-          >
-            FitLens <em style={{ color: GOLD }}>· ~20 seconds</em>
-          </h3>
-          <ul
-            style={{
-              listStyle: "none",
-              margin: 0,
-              padding: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: isMobile ? 10 : 8,
-              fontFamily: "Barlow, sans-serif",
-            }}
-          >
-            {[
-              "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
-              "Captures face width, bridge and PD in one shot",
-              "Auto-routes to 007, 009 or bespoke (145–162 mm)",
-              "Runs in your browser. Nothing uploaded.",
-            ].map((b) => (
-              <li
-                key={b}
-                style={{
-                  display: "flex",
-                  gap: 10,
-                  alignItems: "flex-start",
-                  fontSize: isMobile ? "0.95rem" : "0.85rem",
-                  color: "rgba(240,236,228,0.85)",
-                  fontWeight: 300,
-                  lineHeight: 1.5,
-                }}
-              >
-                <span
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: GOLD,
-                    marginTop: isMobile ? 7 : 8,
-                    flexShrink: 0,
-                  }}
-                />
-                {b}
-              </li>
-            ))}
-          </ul>
-          <p
-            style={{
-              margin: 0,
-              fontFamily: "Barlow, sans-serif",
-              fontSize: isMobile ? "0.82rem" : "0.75rem",
-              color: MUTED,
-              fontWeight: 300,
-            }}
-          >
-            Needs a camera and good light — no card, no ruler. Follow the steps below to start.
-          </p>
-        </div>
 
-        {/* Manual — alternative */}
-        <div
-          style={{
-            border: "1px solid rgba(240,236,228,0.14)",
-            background: "rgba(255,255,255,0.02)",
-            borderRadius: 12,
-            padding: isMobile ? "20px 18px 18px" : "22px 20px 18px",
-            display: "flex",
-            flexDirection: "column",
-            gap: isMobile ? 14 : 12,
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: "Cormorant Garamond, serif",
-              fontWeight: 400,
-              fontSize: isMobile ? "1.6rem" : "1.5rem",
-              color: "#f0ece4",
-              lineHeight: 1.1,
-              margin: 0,
-            }}
-          >
-            Tape measure <em style={{ color: GOLD }}>· 1 minute</em>
-          </h3>
-          <ul
-            style={{
-              listStyle: "none",
-              margin: 0,
-              padding: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: isMobile ? 10 : 8,
-              fontFamily: "Barlow, sans-serif",
-            }}
-          >
-            {[
-              "No camera, no permissions",
-              "Works on any device, in any light",
-              "Enter cm or inches — we map it to the right size",
-              "Best for privacy-first or a quick double-check",
-            ].map((b) => (
-              <li
-                key={b}
-                style={{
-                  display: "flex",
-                  gap: 10,
-                  alignItems: "flex-start",
-                  fontSize: isMobile ? "0.95rem" : "0.85rem",
-                  color: "rgba(240,236,228,0.78)",
-                  fontWeight: 300,
-                  lineHeight: 1.5,
-                }}
-              >
-                <span
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "rgba(240,236,228,0.5)",
-                    marginTop: isMobile ? 7 : 8,
-                    flexShrink: 0,
-                  }}
-                />
-                {b}
-              </li>
-            ))}
-          </ul>
-          <Link
-            to="/en/fit/manual"
-            onClick={() => pushEvent("fit_manual_alt_click", { source: "welcome_compare" })}
-            style={{
-              alignSelf: isMobile ? "stretch" : "flex-start",
-              textAlign: "center",
-              marginTop: "auto",
-              color: GOLD,
-              fontFamily: "Barlow, sans-serif",
-              fontSize: isMobile ? "0.78rem" : "0.7rem",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              fontWeight: 500,
-              textDecoration: "none",
-              padding: isMobile ? "16px 18px" : "12px 18px",
-              border: `1px solid ${GOLD}`,
-              borderRadius: 2,
-              minHeight: isMobile ? 48 : 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            Measure with a tape →
-          </Link>
-        </div>
-      </section>
-
-      <div className="flex flex-col gap-4 pt-2">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
-            gap: isMobile ? 14 : 18,
-            alignItems: "stretch",
-            border: "1px solid rgba(240,236,228,0.12)",
-            borderRadius: 12,
-            padding: isMobile ? "20px" : "22px 24px",
-            background: "rgba(255,255,255,0.02)",
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 14 : 12, justifyContent: "center" }}>
-            <span
+          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 14 : 12, minWidth: 0 }}>
+            <h2
               style={{
-                fontFamily: "Barlow, sans-serif",
-                fontSize: isMobile ? "0.72rem" : "0.68rem",
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: GOLD,
-                fontWeight: 600,
-              }}
-            >
-              {isMobile ? "Start on this phone" : "Start on this computer"}
-            </span>
-            <p
-              style={{
+                fontFamily: "Cormorant Garamond, serif",
+                fontWeight: 400,
+                fontSize: isMobile ? "1.7rem" : "1.6rem",
+                color: "#f0ece4",
+                lineHeight: 1.1,
                 margin: 0,
-                fontFamily: "Barlow, sans-serif",
-                fontSize: isMobile ? "1rem" : "0.92rem",
-                lineHeight: 1.55,
-                color: "rgba(240,236,228,0.82)",
-                fontWeight: 300,
               }}
             >
-              {isMobile
-                ? "FitLens opens right here and uses your front camera. No card, no ruler."
-                : "FitLens opens right here and uses your webcam. No card, no ruler — just good light."}
-            </p>
+              FitLens <em style={{ color: GOLD }}>· ~20 seconds</em>
+            </h2>
+            <ul
+              style={{
+                listStyle: "none",
+                margin: 0,
+                padding: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: isMobile ? 10 : 8,
+                fontFamily: "Barlow, sans-serif",
+              }}
+            >
+              {[
+                "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
+                "Captures face width, bridge and PD in one shot",
+                "Auto-routes to 007, 009 or bespoke (145–162 mm)",
+                "Runs in your browser. Nothing uploaded.",
+              ].map((b) => (
+                <li
+                  key={b}
+                  style={{
+                    display: "flex",
+                    gap: 10,
+                    alignItems: "flex-start",
+                    fontSize: isMobile ? "0.95rem" : "0.85rem",
+                    color: "rgba(240,236,228,0.85)",
+                    fontWeight: 300,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: GOLD,
+                      marginTop: isMobile ? 7 : 8,
+                      flexShrink: 0,
+                    }}
+                  />
+                  {b}
+                </li>
+              ))}
+            </ul>
+
             <button
+              ref={fitlensBtnRef}
               type="button"
               data-fitlens="open"
               disabled={disabled}
@@ -662,10 +533,26 @@ function WelcomeStep({
                 cursor: disabled ? "not-allowed" : "pointer",
                 height: isMobile ? 56 : 52,
                 width: "100%",
+                marginTop: 4,
               }}
             >
               {disabled ? tFit(lang, "welcome.cta_unavailable") : tFit(lang, "welcome.cta_fitlens")}
             </button>
+
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: isMobile ? "0.82rem" : "0.75rem",
+                color: MUTED,
+                fontWeight: 300,
+                lineHeight: 1.5,
+              }}
+            >
+              {isMobile
+                ? "Opens right here and uses your front camera. Needs good light — no card, no ruler."
+                : "Opens right here and uses your webcam. Needs good light — no card, no ruler."}
+            </p>
           </div>
 
           {!isMobile && (
@@ -675,8 +562,8 @@ function WelcomeStep({
                 flexDirection: "column",
                 alignItems: "center",
                 gap: 10,
-                paddingLeft: 24,
-                borderLeft: "1px solid rgba(240,236,228,0.1)",
+                paddingLeft: 26,
+                borderLeft: "1px solid rgba(240,236,228,0.12)",
                 minWidth: 210,
               }}
             >
@@ -725,21 +612,27 @@ function WelcomeStep({
           {tFit(lang, "welcome.cta_note")}
         </p>
 
-        <Link
-          to={hrefFor("fit", lang)}
+        <p
           style={{
-            color: MUTED,
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 300,
-            fontSize: isMobile ? "0.85rem" : "0.78rem",
+            margin: 0,
             textAlign: "center",
-            textDecoration: "none",
-            paddingTop: 4,
+            fontFamily: "Barlow, sans-serif",
+            fontSize: isMobile ? "0.88rem" : "0.82rem",
+            color: MUTED,
+            fontWeight: 300,
+            lineHeight: 1.6,
           }}
         >
-          {tFit(lang, "welcome.manual_link")}
-        </Link>
-      </div>
+          No camera?{" "}
+          <Link
+            to={localePath(lang, "/fit/manual")}
+            onClick={() => pushEvent("fit_manual_alt_click", { source: "welcome_text_link" })}
+            style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 3 }}
+          >
+            {tFit(lang, "welcome.manual_link")}
+          </Link>
+        </p>
+      </section>
 
       {/* Third path — no measurement, just a quick quiz */}
       <Link
