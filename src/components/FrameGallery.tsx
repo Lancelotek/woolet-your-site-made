@@ -108,7 +108,7 @@ const FrameGallery = ({ frame, open, onOpenChange }: FrameGalleryProps) => {
                 >
                   <img
                     src={src}
-                    alt=""
+                    alt={`Woolet ${frame.id} ${frame.name} — thumbnail ${i + 1}`}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
