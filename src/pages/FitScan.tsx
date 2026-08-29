@@ -5115,7 +5115,7 @@ export default function FitScan() {
               type="button"
               onClick={() => {
                 document.getElementById("fit-scan-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                pushGtmEvent("fit_closing_cta_click", { lang });
+                pushEvent("fit_closing_cta_click", { lang });
               }}
               style={{
                 background: GOLD,
