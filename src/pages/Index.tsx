@@ -567,6 +567,14 @@ const Index = () => {
   return (
     <>
       <SEO title={seo.title} description={seo.description} ogDescription={seo.ogDescription} lang={lang} />
+      {/* Preload the LCP hero portrait so it starts fetching before hydration */}
+      <link
+        rel="preload"
+        as="image"
+        href={gregHeroAsset.url}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        {...({ fetchpriority: "high" } as any)}
+      />
 
 
       <div className="min-h-screen flex flex-col bg-background text-foreground relative overflow-hidden">
