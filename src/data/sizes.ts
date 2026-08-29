@@ -321,3 +321,17 @@ export function getRelatedSizes(slug: string): SizeEntry[] {
   const window = SIZES.slice(Math.max(0, i - 2), i).concat(SIZES.slice(i + 1, i + 3));
   return window.slice(0, 4);
 }
+
+/** Band label for the ladder: signature 158 mm, signature-range 155–161 mm, else bespoke. */
+export function ladderLabel(width: number): "signature" | "signature-range" | "bespoke" {
+  if (width === 158) return "signature";
+  if (width >= 155 && width <= 161) return "signature-range";
+  return "bespoke";
+}
+
+/** Previous / next widths on the 145 → 172 ladder. */
+export function getLadderNeighbours(slug: string): { prev?: SizeEntry; next?: SizeEntry } {
+  const i = SIZES.findIndex((s) => s.slug === slug);
+  if (i === -1) return {};
+  return { prev: SIZES[i - 1], next: SIZES[i + 1] };
+}
