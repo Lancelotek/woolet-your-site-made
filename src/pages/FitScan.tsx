@@ -5078,12 +5078,63 @@ export default function FitScan() {
           </div>
         </div>
 
-        <div className="px-5 sm:px-8 lg:px-16 pb-16 sm:pb-24">
+        <div className="px-5 sm:px-8 lg:px-16 pb-10 sm:pb-16">
           {lang === "en" && <FitToolContent />}
           <div className="max-w-2xl mx-auto">
             <RelatedGuides variant="dark" />
           </div>
         </div>
+
+        {/* Closing CTA — the page must never end on an empty dark block */}
+        <section
+          className="px-5 sm:px-8 lg:px-16 py-14 sm:py-20"
+          style={{ borderTop: "1px solid rgba(240,236,228,0.08)", background: "rgba(202,164,73,0.04)" }}
+        >
+          <div className="max-w-2xl mx-auto text-center flex flex-col items-center gap-5">
+            <h2
+              className="font-display text-woolet-white"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300, lineHeight: 1.1, margin: 0 }}
+            >
+              Measure your face in{" "}
+              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>20 seconds</em>
+            </h2>
+            <p
+              style={{
+                margin: 0,
+                maxWidth: 520,
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 300,
+                fontSize: "0.95rem",
+                lineHeight: 1.6,
+                color: MUTED,
+              }}
+            >
+              Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–162 mm).
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                document.getElementById("fit-scan-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                pushGtmEvent("fit_closing_cta_click", { lang });
+              }}
+              style={{
+                background: GOLD,
+                color: BG,
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 500,
+                fontSize: "0.78rem",
+                padding: "18px 32px",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                border: "none",
+                borderRadius: 2,
+                cursor: "pointer",
+              }}
+            >
+              {tFit(lang, "welcome.cta_fitlens")}
+            </button>
+          </div>
+        </section>
       </main>
 
       <Footer />
