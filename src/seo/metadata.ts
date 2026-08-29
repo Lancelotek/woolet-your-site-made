@@ -423,7 +423,7 @@ export function getMetadata(route: string): RouteMeta {
           "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
 <p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
-<p>Colours: Dark Tortoise, Black, Honey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
+<p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
       },
       nl: {
         title: "Woolet 007 — ronde panto acetaatbril, 158 mm",
@@ -465,7 +465,7 @@ export function getMetadata(route: string): RouteMeta {
           "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
-<p>Colours: Black, Dark Tortoise, Smoke Grey. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
+<p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–162 mm available.</p>`,
       },
       nl: {
         title: "Woolet 009 — vierkante acetaatbril, 158 mm",
