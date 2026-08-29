@@ -7,7 +7,7 @@
  *
  * Rules (do not violate):
  *  - Signature bridges: 21 mm (007 keyhole), 22 mm (009).
- *  - Bespoke can adjust bridge within the 145–162 mm front-width range.
+ *  - Bespoke can adjust bridge within the 145–172 mm front-width range.
  *  - No "Made in Italy" — Italian Mazzucchelli acetate, hand made in EU.
  */
 
@@ -50,7 +50,7 @@ export const BRIDGES: BridgeEntry[] = [
     fitVerdict:
       "We don't build at 18 mm. Our signature runs 21 mm keyhole (007) and 22 mm (009). If 18 mm is genuinely your fit, a mainstream 140–148 mm frame is a better match than forcing a wider front.",
     metaDescription:
-      "18 mm bridge glasses: below Woolet's signature 21–22 mm bridge range. Honest guide to bridge sizing for wide faces. Signature 158 mm · Bespoke 145–162 mm.",
+      "18 mm bridge glasses: below Woolet's signature 21–22 mm bridge range. Honest guide to bridge sizing for wide faces. Signature 158 mm · Bespoke 145–172 mm.",
     bespokeNote:
       "We don't offer 18 mm bridges. Wide-face frames need wider bridges to sit correctly. See the 20 mm and 21 mm pages for the honest floor.",
     bestFor: "Narrow noses on 140–148 mm mainstream frames.",
@@ -118,7 +118,7 @@ export const BRIDGES: BridgeEntry[] = [
     fitVerdict:
       "Yes — 21 mm is exactly the signature keyhole bridge on the 007 Round. No bespoke, no upcharge. This is the fit.",
     metaDescription:
-      "21 mm keyhole bridge glasses: the Woolet 007 signature. Italian Mazzucchelli acetate. Signature 158 mm front · Bespoke 145–162 mm.",
+      "21 mm keyhole bridge glasses: the Woolet 007 signature. Italian Mazzucchelli acetate. Signature 158 mm front · Bespoke 145–172 mm.",
     bespokeNote:
       "Bespoke lets you keep the 21 mm bridge on any shape, at any front width from 145 to 162 mm.",
     bestFor: "Wide noses on 155–161 mm faces — the canonical Woolet fit.",
@@ -142,7 +142,7 @@ export const BRIDGES: BridgeEntry[] = [
     fitVerdict:
       "Yes — 22 mm is exactly the signature bridge on the 009 Soft Square. No bespoke needed. This is the fit.",
     metaDescription:
-      "22 mm bridge glasses: the Woolet 009 signature. Soft-square Italian acetate. Signature 158 mm front · Bespoke 145–162 mm.",
+      "22 mm bridge glasses: the Woolet 009 signature. Soft-square Italian acetate. Signature 158 mm front · Bespoke 145–172 mm.",
     bespokeNote:
       "Bespoke lets you keep the 22 mm bridge on the 007 Round, or on any bespoke front from 145 to 162 mm.",
     bestFor: "Wider noses on 155–161 mm faces who want the larger soft-square lens.",
@@ -165,7 +165,7 @@ export const BRIDGES: BridgeEntry[] = [
     fitVerdict:
       "Bespoke only. Signature caps at 22 mm; 24 mm is 2 mm above that. If you measure at 24 mm, mainstream eyewear won't fit at all — bespoke is the answer.",
     metaDescription:
-      "24 mm bridge glasses: bespoke wide-bridge in Italian Mazzucchelli acetate. Hand made in EU. Signature 158 mm · Bespoke 145–162 mm front.",
+      "24 mm bridge glasses: bespoke wide-bridge in Italian Mazzucchelli acetate. Hand made in EU. Signature 158 mm · Bespoke 145–172 mm front.",
     bespokeNote:
       "24 mm is the widest bridge we build. Pairs with any front width from 145 to 162 mm, in either the round or soft-square shape.",
     bestFor: "Widest noses on 158–162 mm faces — bespoke-only territory.",

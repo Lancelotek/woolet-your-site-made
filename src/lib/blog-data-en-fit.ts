@@ -166,7 +166,7 @@ ${FITLENS_CTA(
 
 <p>The full explanation of why the industry stops where it does — and what it means for pricing, tooling and availability — is in <a href="/en/blog/why-glasses-dont-fit-155mm-problem" style="color:#A07A2A;">why glasses don't fit at 155 mm</a>. If you want the practical version, with what to buy and what to skip, start with the <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">complete wide-face fit guide</a>.</p>
 
-<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 54□21 with a 103 mm temple, and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> at 51□20 with the same 103 mm temple. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, bespoke covers 145–162 mm in four shapes.</p>
+<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 54□21 with a 103 mm temple, and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> at 51□20 with the same 103 mm temple. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, bespoke covers 145–172 mm in four shapes.</p>
 
 <p>The point is not that you need a particular frame. It is that the pain you are feeling has a number attached to it, and once you know that number the problem stops being mysterious.</p>
 
@@ -671,7 +671,7 @@ ${FITLENS_CTA(
       },
       {
         q: "How do I measure whether I need a wide fit?",
-        a: "Measure temple-to-temple: the straight-line distance across your face at the widest point, just in front of your ears. Under 145 mm is standard sizing, 145–155 mm is the upper end of mainstream, and above 155 mm you are outside most catalogues. Woolet's front width is 158 mm, with bespoke covering 145–162 mm.",
+        a: "Measure temple-to-temple: the straight-line distance across your face at the widest point, just in front of your ears. Under 145 mm is standard sizing, 145–155 mm is the upper end of mainstream, and above 155 mm you are outside most catalogues. Woolet's front width is 158 mm, with bespoke covering 145–172 mm.",
       },
       {
         q: "What size are oversized square blue light glasses?",
@@ -774,8 +774,8 @@ ${ANSWER(
     </tr>
     <tr>
       <th style="${TD}" scope="row">Fit range</th>
-      <td style="${TD}">155–161 mm (bespoke 145–162 mm)</td>
-      <td style="${TD}">155–161 mm (bespoke 145–162 mm)</td>
+      <td style="${TD}">155–161 mm (bespoke 145–172 mm)</td>
+      <td style="${TD}">155–161 mm (bespoke 145–172 mm)</td>
     </tr>
   </tbody>
 </table>
@@ -820,7 +820,7 @@ ${FITLENS_CTA(
 <p>Only if the front width is also large. Most oversized frames sit around 130–145 mm front width as listed by the brands, under the 155 mm+ a wide face needs. Above 155 mm temple-to-temple, the lenses can be as big as you like and the frame will still press on your temples.</p>
 
 <h3>How do I measure whether I need a wide fit?</h3>
-<p>Measure temple-to-temple: the straight-line distance across your face at its widest point, just in front of your ears. Under 145 mm is standard, 145–155 mm is the upper end of mainstream, above 155 mm is outside most catalogues. Woolet's front width is 158 mm; bespoke covers 145–162 mm.</p>
+<p>Measure temple-to-temple: the straight-line distance across your face at its widest point, just in front of your ears. Under 145 mm is standard, 145–155 mm is the upper end of mainstream, above 155 mm is outside most catalogues. Woolet's front width is 158 mm; bespoke covers 145–172 mm.</p>
 
 <h3>What size are oversized square blue light glasses?</h3>
 <p>There is no standard. The label gets applied from roughly 52 mm lens width upward, with front widths that vary and are often unpublished. The Woolet 009 Soft Square is 158 mm across the front, 54 mm lens width, 22 mm keyhole bridge, 148 mm temples, with blue-light filtering offered as a lens option.</p>

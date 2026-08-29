@@ -94,7 +94,7 @@ const REASONS = [
     extra: (
       <>
         <Link to="/en/products/009" style={IL}>Woolet 009</Link> takes the same idea to a 22 mm bridge, and past 161 mm the{" "}
-        <Link to="/en/bespoke" style={IL}>bespoke programme</Link> covers 145–162 mm.
+        <Link to="/en/bespoke" style={IL}>bespoke programme</Link> covers 145–172 mm.
       </>
     ),
   },

@@ -6,7 +6,8 @@ import {
   FRAME_SPECS,
   SIZES,
   getSizeBySlug,
-  getRelatedSizes,
+  ladderLabel,
+  getLadderNeighbours,
   type SizeEntry,
   type SizeVerdictKind,
 } from "@/data/sizes";
@@ -93,7 +94,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
     },
   }));
 
-  const related = getRelatedSizes(size.slug);
+  const { prev, next } = getLadderNeighbours(size.slug);
 
   const wrap: React.CSSProperties = { maxWidth: 760, margin: "0 auto", padding: "0 20px" };
 
@@ -153,7 +154,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
               Signature 158 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              Bespoke 145–162 mm
+              Bespoke 145–172 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
               Hand made in EU
@@ -278,7 +279,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
             </table>
           </div>
           <p style={{ fontSize: 12, color: "#666", lineHeight: 1.6, margin: "12px 0 0" }}>
-            Bespoke: 4 frame shapes, 60 colour and size combinations, any width 145–162 mm, built to measure.
+            Bespoke: 4 frame shapes, 60 colour and size combinations, any width 145–172 mm, built to measure.
           </p>
         </section>
 
@@ -414,43 +415,67 @@ function SizePageInner({ size }: { size: SizeEntry }) {
           </div>
         </section>
 
-        {/* Related sizes strip */}
-        {related.length > 0 && (
-          <section aria-labelledby="related-sizes" style={{ ...wrap, padding: "32px 20px 8px" }}>
-            <h2
-              id="related-sizes"
-              style={{
-                fontFamily: "'Newsreader', 'Cormorant Garamond', serif",
-                fontWeight: 300,
-                fontSize: 22,
-                margin: "0 0 12px",
-                letterSpacing: "-0.2px",
-              }}
-            >
-              Nearby widths
-            </h2>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {related.map((r) => (
+        {/* Full width ladder 145 → 172 */}
+        <section aria-labelledby="related-sizes" style={{ ...wrap, padding: "32px 20px 8px" }}>
+          <h2
+            id="related-sizes"
+            style={{
+              fontFamily: "'Newsreader', 'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: 22,
+              margin: "0 0 6px",
+              letterSpacing: "-0.2px",
+            }}
+          >
+            Every width we cover — 145 to 172 mm
+          </h2>
+          <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6, margin: "0 0 14px" }}>
+            Signature 158 mm fits 155–161 mm faces. Everything outside that band is a bespoke build,
+            up to our 172 mm maximum.
+          </p>
+          <nav aria-label="Frame width ladder" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {SIZES.map((r) => {
+              const band = ladderLabel(r.width);
+              const current = r.slug === size.slug;
+              return (
                 <Link
                   key={r.slug}
                   to={`/en/size/${r.slug}`}
+                  aria-current={current ? "page" : undefined}
                   style={{
                     fontSize: 12,
                     color: "#0B0A09",
                     padding: "8px 14px",
-                    border: "1px solid #D6CBB6",
+                    border: current ? "1px solid #CAA449" : "1px solid #D6CBB6",
                     borderRadius: 999,
                     textDecoration: "none",
-                    background: "#FFF",
+                    background: band === "signature" ? "#F3EBD5" : "#FFF",
+                    fontWeight: current || band === "signature" ? 600 : 400,
                     letterSpacing: "0.3px",
                   }}
                 >
-                  {r.width} mm wide glasses
+                  {r.width} mm
+                  <span style={{ color: "#7A6420", marginLeft: 6, fontSize: 11 }}>
+                    {band === "signature" ? "signature" : band === "signature-range" ? "signature fit" : "bespoke"}
+                  </span>
                 </Link>
-              ))}
-            </div>
-          </section>
-        )}
+              );
+            })}
+          </nav>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginTop: 16, fontSize: 13 }}>
+            {prev ? (
+              <Link to={`/en/size/${prev.slug}`} style={{ color: "#7A6420", fontWeight: 600, textDecoration: "none" }}>
+                ← {prev.width} mm wide glasses
+              </Link>
+            ) : <span />}
+            {next ? (
+              <Link to={`/en/size/${next.slug}`} style={{ color: "#7A6420", fontWeight: 600, textDecoration: "none" }}>
+                {next.width} mm wide glasses →
+              </Link>
+            ) : <span />}
+          </div>
+        </section>
+
 
         {/* FAQ */}
         <section aria-labelledby="faq-heading" style={{ ...wrap, padding: "32px 20px 8px" }}>

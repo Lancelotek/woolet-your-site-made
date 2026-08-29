@@ -183,7 +183,7 @@ const faqs = [
   },
   {
     q: "What's the difference between standard and bespoke?",
-    a: "Standard 007 and 009 are built in one precise size — 158 mm front with a 21 mm keyhole bridge — which fits faces 155–161 mm. Bespoke is cut to your exact measurements and covers 145–162 mm.",
+    a: "Standard 007 and 009 are built in one precise size — 158 mm front with a 21 mm keyhole bridge — which fits faces 155–161 mm. Bespoke is cut to your exact measurements and covers 145–172 mm.",
   },
   {
     q: "Can I get prescription lenses?",
@@ -455,7 +455,7 @@ const ProductTabs = () => {
             <li><span style={{ color: GOLD }}>—</span> Temple length: 148 mm</li>
             <li><span style={{ color: GOLD }}>—</span> Lens height: 45 mm (007) / 42 mm (009)</li>
             <li><span style={{ color: GOLD }}>—</span> Weight: ~28 g</li>
-            <li><span style={{ color: GOLD }}>—</span> Recommended face width: 155–161 mm (standard); 145–162 mm (bespoke)</li>
+            <li><span style={{ color: GOLD }}>—</span> Recommended face width: 155–161 mm (standard); 145–172 mm (bespoke)</li>
           </ul>
         )}
         {tab === "materials" && (
@@ -469,7 +469,7 @@ const ProductTabs = () => {
         {tab === "fit" && (
           <p>
             Woolet is built for faces measuring 155 mm or more temple-to-temple. If your face is between 155 and
-            161 mm, the standard 007 or 009 will fit. If you're outside that range, bespoke covers 145–162 mm.
+            161 mm, the standard 007 or 009 will fit. If you're outside that range, bespoke covers 145–172 mm.
             Run the AI Fit Wizard from a single front-on photo to know for sure.
           </p>
         )}
@@ -745,7 +745,7 @@ const Shop = () => {
             className="feature-row"
           >
             {[
-              { eb: "The Fit", h: "158 mm front + 21 mm keyhole bridge", p: "One precise size, built for 155–161 mm faces. Bespoke covers 145–162 mm." },
+              { eb: "The Fit", h: "158 mm front + 21 mm keyhole bridge", p: "One precise size, built for 155–161 mm faces. Bespoke covers 145–172 mm." },
               { eb: "The Material", h: "Mazzucchelli 1849 acetate", p: "Italian cellulose acetate, batch-cured for weeks. Denser and more stable than moulded plastic." },
               { eb: "The Craft", h: "Hand made in EU", p: "Milled, bevelled and polished by hand. Every front inspected before it leaves the workshop." },
             ].map((c) => (
@@ -796,9 +796,9 @@ const Shop = () => {
             },
             {
               eb: "Bespoke tier",
-              h: "145–162 mm. Cut to your face.",
+              h: "145–172 mm. Cut to your face.",
               p: "If you're outside the 155–161 mm standard range, we cut a bespoke front from the same Mazzucchelli sheet. Same craft, same 4–6 weeks. Yours only.",
-              bullets: ["Range: 145–162 mm", "Cut from Mazzucchelli 1849 sheet", "4–6 weeks, made to order"],
+              bullets: ["Range: 145–172 mm", "Cut from Mazzucchelli 1849 sheet", "4–6 weeks, made to order"],
               img: "Feature — bespoke acetate block being milled",
               reverse: true,
             },
@@ -871,7 +871,7 @@ const Shop = () => {
             {[
               { n: "158", u: "mm", l: "Front width" },
               { n: "21", u: "mm", l: "Keyhole bridge" },
-              { n: "145–162", u: "mm", l: "Bespoke range" },
+              { n: "145–172", u: "mm", l: "Bespoke range" },
               { n: "100%", u: "", l: "Mazzucchelli acetate" },
               { n: "2", u: "", l: "Shapes: 007 & 009" },
               { n: "IT", u: "", l: "Hand made in EU" },
@@ -977,7 +977,7 @@ const Shop = () => {
                 {[
                   ["Designed for 155 mm+ faces", "yes", "no", "no", "no"],
                   ["Front width", "158 mm", "~142 mm", "~144 mm", "~150 mm"],
-                  ["Bespoke tier (145–162 mm)", "yes", "no", "no", "no"],
+                  ["Bespoke tier (145–172 mm)", "yes", "no", "no", "no"],
                   ["Italian Mazzucchelli acetate", "yes", "yes", "no", "sometimes"],
                   ["Hand made in EU", "yes", "yes", "no", "no"],
                   ["AI at-home fit check", "yes", "no", "yes", "no"],

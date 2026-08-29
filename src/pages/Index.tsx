@@ -1027,7 +1027,7 @@ const Index = () => {
               style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
             >
               {[
-                { v: "145–162", unit: "mm", label: "Any width" },
+                { v: "145–172", unit: "mm", label: "Any width" },
                 { v: "4", unit: "", label: "Frame shapes" },
                 { v: "60", unit: "", label: "Colour & size combos" },
               ].map((s) => (

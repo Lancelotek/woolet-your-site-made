@@ -1,7 +1,7 @@
 /**
  * Long-form, per-length unique copy for the /en/temple/* landing cluster.
  * Signature temple length 150 mm; bespoke temple range 145–155 mm.
- * Front width context: signature 158 mm, bespoke 145–162 mm.
+ * Front width context: signature 158 mm, bespoke 145–172 mm.
  * Material: Mazzucchelli acetate from Milan. Hand made in EU.
  */
 
@@ -174,7 +174,7 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
 /**
  * Long-form, per-width unique copy for the /en/bridge/* landing cluster.
  * Signature bridges: 21 mm keyhole (007), 22 mm (009). Bespoke adjusts bridge
- * within the 145–162 mm front-width range.
+ * within the 145–172 mm front-width range.
  */
 export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
   "18mm": [
@@ -323,7 +323,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
           ["Bridge", "22 mm saddle"],
           ["Front width", "158 mm"],
           ["Lens", "54 × 50 mm"],
-          ["Alternative at 22 mm", "Bespoke, any front 145–162 mm"],
+          ["Alternative at 22 mm", "Bespoke, any front 145–172 mm"],
         ],
       },
     },

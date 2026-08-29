@@ -14,7 +14,7 @@ const OversizedSquareGlasses = () => (
       "<strong>54 × 50 mm lens area</strong> — large enough to anchor the silhouette and accommodate progressive prescriptions without peripheral distortion.",
       "<strong>21 mm keyhole bridge</strong> distributes weight on a wider nose without slipping. Standard 16–18 mm bridges on fashion squares pinch at oversized widths.",
       "<strong>Italian Mazzucchelli acetate, hand made in EU.</strong> A square silhouette only looks premium when the bevel edges and corner radii are cut by hand. Injection-moulded squares always look cheap up close.",
-      "<strong>Bespoke 145–162 mm</strong> if 158 mm still isn't wide enough. Same acetate, same shape, scaled to your measurement.",
+      "<strong>Bespoke 145–172 mm</strong> if 158 mm still isn't wide enough. Same acetate, same shape, scaled to your measurement.",
     ]}
     faqs={[
       {

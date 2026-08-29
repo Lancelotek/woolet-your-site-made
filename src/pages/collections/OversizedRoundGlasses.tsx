@@ -14,7 +14,7 @@ const OversizedRoundGlasses = () => (
       "<strong>52 mm lens diameter</strong> — large enough to dominate the face confidently and to accommodate progressive prescriptions with a workable corridor.",
       "<strong>21 mm keyhole bridge</strong> for wider noses. Round frames are unforgiving of a too-narrow bridge — the lenses sit too close together and the look collapses. 21 mm spaces them correctly.",
       "<strong>Italian Mazzucchelli acetate, hand made in EU.</strong> A round bevel is the hardest cut in eyewear; injection-moulded rounds always look pressed-out. The 007 is hand-polished so the circumference catches light evenly.",
-      "<strong>Bespoke 145–162 mm</strong> if 158 mm still isn't wide enough. Same acetate, same true-round silhouette, scaled to measurement.",
+      "<strong>Bespoke 145–172 mm</strong> if 158 mm still isn't wide enough. Same acetate, same true-round silhouette, scaled to measurement.",
     ]}
     faqs={[
       {

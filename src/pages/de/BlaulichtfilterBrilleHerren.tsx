@@ -46,7 +46,7 @@ const wrap: React.CSSProperties = { maxWidth: 760, margin: "0 auto", padding: "0
 const S007 = FRAME_SPECS["007"];
 const S009 = FRAME_SPECS["009"];
 
-const badges = ["Signature 158 mm", "Maßanfertigung 145–162 mm", "Handgefertigt in der EU", "UV400"];
+const badges = ["Signature 158 mm", "Maßanfertigung 145–172 mm", "Handgefertigt in der EU", "UV400"];
 
 const tableRows: [string, string, string, string][] = [
   ["Fassungsbreite", "130–145 mm", `${S007.frameWidth} mm`, `${S009.frameWidth} mm`],
@@ -209,7 +209,7 @@ const BlaulichtfilterBrilleHerren = () => {
       <SEO
         title="Blaulichtfilter-Brille Herren — 158 mm für breite Köpfe | Woolet"
         exactTitle
-        description="Die meisten Blaulichtfilter-Brillen enden bei 145 mm. Woolet: 158 mm Fassung, 148 mm Bügel, Blaulichtfilter optional. Maßanfertigung 145–162 mm. Handgefertigt in der EU."
+        description="Die meisten Blaulichtfilter-Brillen enden bei 145 mm. Woolet: 158 mm Fassung, 148 mm Bügel, Blaulichtfilter optional. Maßanfertigung 145–172 mm. Handgefertigt in der EU."
         lang="de"
         path={PATH}
         jsonLd={[collectionLd, breadcrumbLd, faqLd]}
@@ -268,7 +268,7 @@ const BlaulichtfilterBrilleHerren = () => {
               Die meisten Blaulichtfilter-Brillen sind 130–145 mm breit — deshalb drücken sie auf einem breiten Kopf.
               Woolets Front misst {S007.frameWidth} mm, die Bügel {S007.templeLength} mm, der Keyhole-Steg{" "}
               {S007.bridge}–{S009.bridge} mm. Den Blaulichtfilter gibt es als Glasoption, die Maßanfertigung deckt
-              145–162 mm ab.
+              145–172 mm ab.
             </p>
           </div>
         </section>

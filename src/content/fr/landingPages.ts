@@ -29,9 +29,9 @@ export const frPages: Record<string, FrPageConfig> = {
     eyebrow: "Woolet · Lunettes sur mesure",
     h1: "Lunettes sur mesure — taillées pour votre visage, au millimètre",
     sub: "Largeur de face de 145 à 162 mm, pont, branches et hauteur de verre ajustés individuellement. Acétate italien Mazzucchelli 1849, façonné à la main dans l'Union européenne.",
-    metaTitle: "Lunettes sur mesure 145–162 mm | Woolet — acétate italien",
+    metaTitle: "Lunettes sur mesure 145–172 mm | Woolet — acétate italien",
     metaDescription:
-      "Lunettes sur mesure pour visages larges : 145–162 mm de face, pont 20–24 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 20 s.",
+      "Lunettes sur mesure pour visages larges : 145–172 mm de face, pont 20–24 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 20 s.",
     primaryKeyword: "lunettes sur mesure",
     ctaPrimaryLabel: "Mesurer mon visage (20 s)",
     ctaPrimaryHref: "/fr/fit",

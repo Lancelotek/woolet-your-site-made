@@ -33,7 +33,7 @@ export default defineTool({
         id: "bespoke",
         name: "Woolet Bespoke",
         shape: "Made-to-measure (Aviator / Rectangle / Crown Panto / Round)",
-        widthMm: "145–162 (cut to face)",
+        widthMm: "145–172 (cut to face)",
         bridgeMm: "custom",
         preOrderUsd: 480,
         regularUsd: 480,

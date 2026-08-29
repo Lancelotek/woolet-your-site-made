@@ -49,7 +49,7 @@ const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: numb
 };
 
 // Single-size catalog: one 158 mm width with a 21 mm bridge.
-// Faces outside the 155–161 mm sweet spot are routed to Bespoke (145–162 mm).
+// Faces outside the 155–161 mm sweet spot are routed to Bespoke (145–172 mm).
 const recommendSku = (faceWidthMm: number): Sku => {
   if (faceWidthMm < 155 || faceWidthMm > 161) return "bespoke";
   return "009";
@@ -1214,7 +1214,7 @@ function ResultStep({
         </h2>
         <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
           We measured a face width of {measurement.faceWidthMm} mm. That's outside our signature frame width (158 mm) —
-          which is exactly what Bespoke (145–162 mm) is built for.
+          which is exactly what Bespoke (145–172 mm) is built for.
         </p>
         <Link to="/en/fit/bespoke" style={goldButtonStyle} onClick={onBespoke}>
           Explore Bespoke
