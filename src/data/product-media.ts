@@ -11,7 +11,7 @@ import dims007 from "@/assets/woolet-007-dimensions.png.asset.json";
 import dims009 from "@/assets/woolet-009-dimensions.png.asset.json";
 import greg009 from "@/assets/greg-woolet-009.webp.asset.json";
 import onFace007 from "@/assets/face-after-007.jpg";
-import detail007 from "@/assets/woolet-007-detail.png";
+import detail007 from "@/assets/woolet-007-detail-hinge.jpg";
 import gregTester from "@/assets/testimonials/greg-woolet-tester.webp";
 
 export type MediaKind = "packshot" | "on-face" | "detail" | "scale";
@@ -39,7 +39,7 @@ const shapeLabel: Record<ProductId, string> = {
   "009": "soft-square",
 };
 
-const bridge: Record<ProductId, string> = { "007": "21 mm keyhole bridge", "009": "20 mm bridge" };
+const bridge: Record<ProductId, string> = { "007": "20 mm keyhole bridge", "009": "21 mm bridge" };
 
 const shared: Record<ProductId, MediaItem[]> = {
   "007": [
