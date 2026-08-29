@@ -131,7 +131,7 @@ function getNoscriptContent(route, fallback) {
 }
 
 const RTL_LOCALES = new Set(["ar"]);
-const KNOWN_LOCALES = new Set(["en", "pl", "de", "fr", "nl", "ja", "es", "ar"]);
+const KNOWN_LOCALES = new Set(["en", "pl", "de", "fr", "nl", "ja", "es", "ar", "ko"]);
 
 function localeFromRoute(route) {
   const m = /^\/([a-z]{2})(?:\/|$)/.exec(route);
