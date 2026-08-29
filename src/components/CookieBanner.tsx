@@ -290,6 +290,18 @@ const COPY: Record<Lang, {
     policy: "Privacybeleid",
     settingsIntro: "Kies wat je prettig vindt. Beide opties zijn even geldig.",
   },
+  ko: {
+    headline: "Woolet를 최대한 활용하세요.",
+    body: "쿠키를 허용하면 사이즈와 선호도를 기억하고, 넓은 얼굴에 실제로 맞는 프레임을 보여드릴 수 있습니다. 언제든지 변경할 수 있습니다.",
+    accept: "모든 쿠키 허용",
+    reject: "거부",
+    customize: "설정 관리",
+    save: "설정 저장",
+    analytics: "분석 — 핏과 페이지 성능 개선에 사용됩니다",
+    ads: "마케팅 — 일반 광고 대신 Woolet을 보여드립니다",
+    policy: "개인정보처리방침",
+    settingsIntro: "편한 쪽을 선택하세요. 두 선택 모두 동일하게 유효합니다.",
+  },
 };
 
 const SINGLETON_ATTR = "data-woolet-cookie-banner";
@@ -489,6 +501,7 @@ const CookieBanner = () => {
     de: "Cookie-Einstellungen",
     ar: "تفضيلات ملفات cookies",
     ja: "Cookieの設定",
+    ko: "쿠키 설정",
     nl: "Cookievoorkeuren",
   };
 

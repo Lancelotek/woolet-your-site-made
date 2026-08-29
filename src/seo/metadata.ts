@@ -1125,6 +1125,8 @@ export function getMetadata(route: string): RouteMeta {
       ar: { title: "المدونة — Woolet | رؤى حول نظارات الوجوه العريضة", description: "أدلة الخبراء حول النظارات للوجوه العريضة، الأسيتات الإيطالي، مقاسات الإطار، والمقاس المثالي من 155 ملم فأكثر." },
       ja: { title: "ブログ — Woolet | 幅広い顔のためのアイウェア知見", description: "幅広い顔のためのメガネ、イタリア製アセテート、フレームサイジング、155mm以上の顔幅に最適なフィットに関する専門ガイド。" },
       nl: { title: "Blog — Woolet | Inzichten over bril voor brede gezichten", description: "Expertgidsen over brillen voor brede gezichten, Italiaans acetaat, framematen en de perfecte pasvorm vanaf 155 mm." },
+      ko: { title: "블로그 — Woolet | 넓은 얼굴 안경 인사이트", description: "넓은 얼굴을 위한 안경, 이탈리아 아세테이트, 프레임 사이즈, 155mm 이상 얼굴 폭에 맞는 핏에 대한 전문 가이드." },
+
 
     };
     const posts = getBlogPosts(lang);
