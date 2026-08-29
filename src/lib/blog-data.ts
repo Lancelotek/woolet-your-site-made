@@ -2932,7 +2932,7 @@ const blogPostsEN: BlogPost[] = [
       { q: "What frame width should I look for as a woman with a wide face?", a: "Match your temple-to-temple measurement, then add 1–2 mm of breathing room. For most wide-face women that's 152–162 mm of total frame width. Woolet's standard is 158 mm; bespoke covers 145–162 mm." },
       { q: "Will a wider frame make my face look bigger?", a: "The opposite. A frame that's too narrow draws a hard horizontal line inside your hairline and emphasises the width sitting outside it. A frame matched to your actual width reads as proportional and intentional." },
       { q: "What styles work best on a wider face?", a: "Soft-square and rounded panto shapes both work. The deciding number is width, not shape. Avoid very small cat-eyes — the lens area gets dwarfed by the face and the frame reads as an accessory rather than eyewear." },
-      { q: "Do Woolet frames come in feminine colourways?", a: "Both 007 (round) and 009 (soft square) ship in Dark Tortoise and Black; 007 also offers Honey. Bespoke opens the full Mazzucchelli colour palette, including translucent and crystal acetates often chosen by women buyers." },
+      { q: "Do Woolet frames come in feminine colourways?", a: "Both 007 (round) and 009 (soft square) ship in Honey tortoise, Piano black and Crystal. Bespoke opens the full Mazzucchelli colour palette, including translucent and crystal acetates often chosen by women buyers." },
       { q: "Do wide-face glasses for women come with prescription lenses?", a: "Yes. Both Woolet 007 and 009 ship prescription-ready — single-vision, progressive, and blue-light coatings. The 20–21 mm keyhole bridge is deep enough for the progressive corridor that narrow bridges cannot carry." },
       { q: "What do premium wide-face glasses for women cost?", a: "Woolet 007 and 009 are $114 during pre-order, against a $190 launch price. Bespoke — for face widths outside the 155–161 mm standard range — is $299 during pre-order and $480 at launch." },
     ],
@@ -2993,8 +2993,8 @@ const blogPostsEN: BlogPost[] = [
 <p>Woolet is built around one precise measurement: 158 mm of front width, with a 21–22 mm keyhole bridge and 148 mm temples. Two shapes, both unisex by geometry — fit, not styling, decides whether they work:</p>
 
 <ul>
-  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Soft round panto in Italian Mazzucchelli acetate. Reads less architectural; the shape consistently picked by women buyers in our pre-order data. Available in Dark Tortoise, Black, and Honey.</li>
-  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft square with a slightly higher brow line. Reads more deliberate, works on rounder face shapes. Available in Dark Tortoise and Black.</li>
+  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Soft round panto in Italian Mazzucchelli acetate. Reads less architectural; the shape consistently picked by women buyers in our pre-order data. Available in Honey tortoise, Piano black, and Crystal.</li>
+  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft square with a slightly higher brow line. Reads more deliberate, works on rounder face shapes. Available in Honey tortoise, Piano black, and Crystal.</li>
 </ul>
 
 <p>If your face falls outside 155–161 mm, the <a href="/en/bespoke" style="color:#A07A2A;">bespoke tier</a> covers 145–162 mm of front width and 20–24 mm of bridge, in the same Italian acetate. That's the right route for women in the 150–154 mm range — a band ignored by mainstream women's catalogues and most "wide" lines.</p>
@@ -3009,7 +3009,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>1. Woolet 007 — Round Panto, 158 mm (best overall)</h3>
 
-<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Lens width:</strong> 54 mm · <strong>Lens height:</strong> 42 mm · <strong>Front height:</strong> 52 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Dark Tortoise, Black, Honey · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
+<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Lens width:</strong> 54 mm · <strong>Lens height:</strong> 42 mm · <strong>Front height:</strong> 52 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
 
 <p>Soft round panto, deliberately unfussy. This is the shape women pick most often once width is no longer the deciding constraint. Honey translucent keeps the 158 mm width without adding visual weight. Ships with clear demo lenses; single-vision, progressive, or blue-light added in cart.</p>
 
@@ -3017,7 +3017,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>2. Woolet 009 — Soft Square, 158 mm (best for rounder face shapes)</h3>
 
-<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 20 mm keyhole · <strong>Lens width:</strong> 51 mm · <strong>Lens height:</strong> 45 mm · <strong>Front height:</strong> 54 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Dark Tortoise, Black · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
+<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 20 mm keyhole · <strong>Lens width:</strong> 51 mm · <strong>Lens height:</strong> 45 mm · <strong>Front height:</strong> 54 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
 
 <p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes, where a full-round frame can flatten the vertical. The 45 mm lens height gives more vertical lens area than the 007 — useful if you wear progressives.</p>
 
