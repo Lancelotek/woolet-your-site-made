@@ -25,7 +25,7 @@
 import type { Lang } from "@/lib/i18n";
 
 export const SUPPORTED_LOCALES = [
-  "en", "pl", "de", "fr", "nl", "ja", "es", "ar",
+  "en", "pl", "de", "fr", "nl", "ja", "es", "ar", "ko",
 ] as const satisfies readonly Lang[];
 
 // ---------------------------------------------------------------------------
@@ -38,7 +38,7 @@ export const ROUTES = {
   // Homepages. Every locale ships a native `/:lang` page.
   home: {
     en: "/en", pl: "/pl", de: "/de", fr: "/fr",
-    nl: "/nl", ja: "/ja", es: "/es", ar: "/ar",
+    nl: "/nl", ja: "/ja", es: "/es", ar: "/ar", ko: "/ko",
   },
 
   // -----------------------------------------------------------------------
@@ -159,6 +159,13 @@ export const ROUTES = {
     de: "/de/blaulichtfilter-brille-herren",
   },
 
+  // KO size pages — paired 1:1 with their EN equivalents. Only these three
+  // numeric sizes have a Korean translation; every other /en/size/* page
+  // stays EN-only and therefore emits no hreflang cluster.
+  "size.150mm": { en: "/en/size/150mm", ko: "/ko/size/150mm" },
+  "size.160mm": { en: "/en/size/160mm", ko: "/ko/size/160mm" },
+  "size.165mm": { en: "/en/size/165mm", ko: "/ko/size/165mm" },
+
   // -----------------------------------------------------------------------
   // Translated blog posts. Sourced from public/sitemap.xml alternates and
   // src/lib/blog-slug-map.ts. Every non-EN slug is unique to its locale
@@ -261,7 +268,6 @@ const EN_ONLY_PATH_PREFIXES: readonly string[] = [
   "/lp/",
   "/collections/",
   "/compare",
-  "/size/",
   "/bridge/",
   "/temple/",
   "/xxl",

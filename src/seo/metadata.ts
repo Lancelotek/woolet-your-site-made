@@ -300,6 +300,7 @@ function ogLocale(lang: Lang): string {
     case "ar": return "ar_AR";
     case "ja": return "ja_JP";
     case "nl": return "nl_NL";
+    case "ko": return "ko_KR";
     default: return "en_US";
   }
 }
