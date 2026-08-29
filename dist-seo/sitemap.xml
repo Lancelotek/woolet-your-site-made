@@ -13,6 +13,7 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
   </url>
   <url>
@@ -25,6 +26,7 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
   </url>
   <url>
@@ -99,6 +101,7 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
   </url>
   <url>
@@ -459,6 +462,9 @@
   </url>
   <url>
     <loc>https://woolet.co/en/size/150mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/150mm"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/150mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/150mm"/>
   </url>
   <url>
     <loc>https://woolet.co/en/size/152mm</loc>
@@ -471,12 +477,18 @@
   </url>
   <url>
     <loc>https://woolet.co/en/size/160mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/160mm"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/160mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/160mm"/>
   </url>
   <url>
     <loc>https://woolet.co/en/size/162mm</loc>
   </url>
   <url>
     <loc>https://woolet.co/en/size/165mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/165mm"/>
   </url>
   <url>
     <loc>https://woolet.co/en/temple/140mm</loc>
@@ -518,6 +530,7 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
   </url>
   <url>
@@ -530,6 +543,7 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
   </url>
   <url>
@@ -595,6 +609,7 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
   </url>
   <url>
@@ -610,6 +625,49 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
   <url>
+    <loc>https://woolet.co/ko</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
+  </url>
+  <url>
+    <loc>https://woolet.co/ko/brands</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/ko/guide/frame-size</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/ko/shipping</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/ko/size/150mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/150mm"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/150mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/150mm"/>
+  </url>
+  <url>
+    <loc>https://woolet.co/ko/size/160mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/160mm"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/160mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/160mm"/>
+  </url>
+  <url>
+    <loc>https://woolet.co/ko/size/165mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/165mm"/>
+  </url>
+  <url>
+    <loc>https://woolet.co/ko/sunglasses</loc>
+  </url>
+  <url>
     <loc>https://woolet.co/nl</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en"/>
     <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl"/>
@@ -619,6 +677,7 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
   </url>
   <url>
@@ -690,6 +749,7 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://woolet.co/es"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://woolet.co/ar"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en"/>
   </url>
   <url>
