@@ -368,6 +368,7 @@ function WelcomeStep({
   onFitLensOpen?: () => void;
 }) {
   useFitLensScript();
+  const fitlensBtnRef = useRef<HTMLButtonElement>(null);
   // QR handoff target: the same page opened on a phone (sid marks the handoff).
   const [handoffSid] = useState(() =>
     typeof crypto !== "undefined" && "randomUUID" in crypto
