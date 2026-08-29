@@ -153,7 +153,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
               Signature 158 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              Bespoke 145–162 mm
+              Bespoke 145–172 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
               Hand made in EU
@@ -278,7 +278,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
             </table>
           </div>
           <p style={{ fontSize: 12, color: "#666", lineHeight: 1.6, margin: "12px 0 0" }}>
-            Bespoke: 4 frame shapes, 60 colour and size combinations, any width 145–162 mm, built to measure.
+            Bespoke: 4 frame shapes, 60 colour and size combinations, any width 145–172 mm, built to measure.
           </p>
         </section>
 

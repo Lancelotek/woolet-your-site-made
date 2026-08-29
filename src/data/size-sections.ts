@@ -8,7 +8,7 @@
  *
  * Data-accuracy rules (do not violate):
  *   - Signature front width 158 mm, designed fit range 155–161 mm.
- *   - Bespoke 145–162 mm. We never claim 165 mm.
+ *   - Bespoke 145–172 mm. We never claim 165 mm.
  *   - Material: Mazzucchelli acetate from Milan. Manufacturing: hand made in EU.
  *   - Head-circumference figures are stated as approximate correlations, never
  *     as measured guarantees.
@@ -88,7 +88,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Why bespoke is the honest route here",
       body: [
-        "150 mm sits comfortably inside our 145–162 mm bespoke range, near the middle of the lower half. Both signature shapes scale cleanly to it: the 007 round keeps its keyhole bridge geometry, the 009 soft-square keeps its flatter top line. What changes is the front width, the distance between the hinges and the temple length that follows from it.",
+        "150 mm sits comfortably inside our 145–172 mm bespoke range, near the middle of the lower half. Both signature shapes scale cleanly to it: the 007 round keeps its keyhole bridge geometry, the 009 soft-square keeps its flatter top line. What changes is the front width, the distance between the hinges and the temple length that follows from it.",
         "If you have already tried three or four pairs of extended-fit frames and sent them all back, the arithmetic on bespoke is simpler than it looks. You are not paying for luxury, you are paying to stop guessing.",
       ],
     },
@@ -126,7 +126,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "The bespoke case at 152 mm",
       body: [
-        "152 mm is well inside the 145–162 mm bespoke range and is one of the widths we are asked for most. Because it sits only 6 mm below signature, the frame keeps the same visual proportions — the same lens depth, the same acetate thickness at the rim, the same 11° temple drop — while losing the overhang.",
+        "152 mm is well inside the 145–172 mm bespoke range and is one of the widths we are asked for most. Because it sits only 6 mm below signature, the frame keeps the same visual proportions — the same lens depth, the same acetate thickness at the rim, the same 11° temple drop — while losing the overhang.",
         "Same material throughout: Mazzucchelli acetate from Milan, hand made in the EU, hand polished. Bespoke changes the dimensions, not the build.",
       ],
     },

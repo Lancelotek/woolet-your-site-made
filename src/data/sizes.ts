@@ -7,7 +7,7 @@
  *
  * Data-accuracy rules (do not violate):
  *   - Signature 158 mm.
- *   - Bespoke range 145–162 mm.
+ *   - Bespoke range 145–172 mm.
  *   - We never claim 165 mm; that entry is honest & informational.
  *   - "Hand made in EU" + material = "Mazzucchelli acetate from Milan, Italy".
  */
@@ -75,7 +75,7 @@ export const SIZES: SizeEntry[] = [
     fitVerdict:
       "Our signature 158 mm runs 13 mm wider than your face — that is a full size and a half in optical terms. Bespoke starts at 145 mm; go there, not signature.",
     metaDescription:
-      "145 mm wide glasses: our signature 158 mm frame is wider than you need. Bespoke starts at 145 mm — Mazzucchelli acetate, hand made in EU. Bespoke 145–162 mm.",
+      "145 mm wide glasses: our signature 158 mm frame is wider than you need. Bespoke starts at 145 mm — Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm.",
     bespokeNote:
       "145 mm sits at the floor of our bespoke range. Same acetate, same shapes (007 or 009), made to your measurement.",
     faq: [
@@ -97,7 +97,7 @@ export const SIZES: SizeEntry[] = [
     fitVerdict:
       "Our signature 158 mm runs 8 mm wider than your face — noticeably oversized. Bespoke starts at 145 mm; 150 mm is a comfortable middle of that range.",
     metaDescription:
-      "150 mm wide glasses: signature runs wider. Bespoke 150 mm in Italian Mazzucchelli acetate, hand made in EU. Full range 145–162 mm.",
+      "150 mm wide glasses: signature runs wider. Bespoke 150 mm in Italian Mazzucchelli acetate, hand made in EU. Full range 145–172 mm.",
     bespokeNote:
       "150 mm falls squarely inside our bespoke range. Both shapes (007 Round, 009 Soft Square) can be scaled to 150 mm.",
     faq: [
@@ -119,7 +119,7 @@ export const SIZES: SizeEntry[] = [
     fitVerdict:
       "Our signature 158 mm runs 6 mm wider than your face. That is enough to look oversized and feel loose. Bespoke at 152 mm is the honest fit.",
     metaDescription:
-      "152 mm wide glasses: bespoke fits, signature 158 mm runs wider. Mazzucchelli acetate, hand made in EU. Bespoke 145–162 mm.",
+      "152 mm wide glasses: bespoke fits, signature 158 mm runs wider. Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm.",
     bespokeNote:
       "152 mm is well inside bespoke. Same shapes, same finishing, made to your millimetre.",
     faq: [
@@ -141,7 +141,7 @@ export const SIZES: SizeEntry[] = [
     fitVerdict:
       "Yes — 155 mm is the floor of our signature range. The 158 mm frame fits with 3 mm of easing at the temples, which is designed-in room, not slack.",
     metaDescription:
-      "155 mm wide glasses: our signature 158 mm frame fits exactly. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–162 mm optional.",
+      "155 mm wide glasses: our signature 158 mm frame fits exactly. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm optional.",
     bespokeNote:
       "You don’t need bespoke at 155 mm. It’s available if you want it dead-on, but the signature 158 mm is designed for exactly this face width.",
     faq: [
@@ -159,13 +159,13 @@ export const SIZES: SizeEntry[] = [
     subhead:
       "This is the width we build to. Not a bespoke variant. Not an upsell. Our two shapes are cut at 158 mm as the canonical fit.",
     intro:
-      "158 mm is the number the whole brand is engineered around. Both signature shapes — 007 Round and 009 Soft Square — are cut at 158 mm frame width, in Italian Mazzucchelli acetate, hand made in the EU. If your face measures between 155 and 161 mm, this is your frame. If you're outside that band, bespoke covers 145 to 162 mm.",
+      "158 mm is the number the whole brand is engineered around. Both signature shapes — 007 Round and 009 Soft Square — are cut at 158 mm frame width, in Italian Mazzucchelli acetate, hand made in the EU. If your face measures between 155 and 161 mm, this is your frame. If you're outside that band, bespoke covers 145 to 172 mm.",
     fitVerdict:
       "Yes — 158 mm is exactly the range the signature frame is built for. No bespoke, no upcharge, no waiting on a scan. The 007 and 009 in signature 158 mm are your fit.",
     metaDescription:
-      "158 mm wide glasses: the signature Woolet fit. Two shapes in Mazzucchelli acetate, hand made in EU. Built for 155–161 mm faces. Bespoke 145–162 mm.",
+      "158 mm wide glasses: the signature Woolet fit. Two shapes in Mazzucchelli acetate, hand made in EU. Built for 155–161 mm faces. Bespoke 145–172 mm.",
     bespokeNote:
-      "Bespoke is available in either shape from 145 to 162 mm, but at 158 mm you don't need it — signature is the fit.",
+      "Bespoke is available in either shape from 145 to 172 mm, but at 158 mm you don't need it — signature is the fit.",
     faq: [
       { q: "Is 158 mm wide for glasses?", a: "Very wide by mainstream standards. Standard retail eyewear tops out around 145–148 mm. Woolet's 158 mm is a specialist size for faces in the 155–161 mm band." },
       { q: "What bridge width comes with a 158 mm front?", a: "The 007 Round uses a 21 mm keyhole bridge; the 009 Soft Square uses a 22 mm bridge. Both are shaped for weight distribution across a wider nose." },
@@ -187,7 +187,7 @@ export const SIZES: SizeEntry[] = [
     fitVerdict:
       "Yes — 160 mm is dead centre of our signature 155–161 mm fit range. The 158 mm frame is the fit.",
     metaDescription:
-      "160 mm wide glasses: our signature 158 mm fits perfectly. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–162 mm.",
+      "160 mm wide glasses: our signature 158 mm fits perfectly. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm.",
     bespokeNote:
       "Optional at 160 mm. Bespoke 160 mm gives a millimetre-exact match; signature 158 mm gives a designed-in 2 mm of ease that most wearers prefer.",
     faq: [
@@ -210,7 +210,7 @@ export const SIZES: SizeEntry[] = [
     fitVerdict:
       "Just above signature. 162 mm is the widest we build. Order bespoke — signature 158 mm will sit 4 mm short across your face and pinch at the temples over time.",
     metaDescription:
-      "162 mm wide glasses: the top of our bespoke range. Mazzucchelli acetate, hand made in EU. Bespoke 145–162 mm; signature 158 mm.",
+      "162 mm wide glasses: the top of our bespoke range. Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm; signature 158 mm.",
     bespokeNote:
       "162 mm is the maximum. We do not build wider. If you measure above 162 mm, we cannot make your frame — see the 165 mm page for what to do next.",
     faq: [
