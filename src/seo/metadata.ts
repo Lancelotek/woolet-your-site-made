@@ -420,13 +420,36 @@ function koMetadata(route: string): RouteMeta | null {
   const cfg = koPages[route];
   if (!cfg) return null;
 
-  const bullets = cfg.sections
-    .flatMap((sec) => sec.bullets ?? [])
-    .map((b) => `<li>${escapeHtml(b.label)}: ${escapeHtml(b.value)}</li>`)
-    .join("");
-  const body = cfg.sections
-    .map((sec) => `<h2>${escapeHtml(sec.h2)}</h2>\n<p>${escapeHtml(sec.body)}</p>`)
-    .join("\n");
+  const renderSection = (sec: (typeof cfg.sections)[number]) => {
+    const parts: string[] = [`<h2>${escapeHtml(sec.h2)}</h2>`, `<p>${escapeHtml(sec.body)}</p>`];
+    for (const p of sec.paras ?? []) parts.push(`<p>${escapeHtml(p)}</p>`);
+    if (sec.list?.length) {
+      const tag = sec.ordered ? "ol" : "ul";
+      parts.push(`<${tag}>${sec.list.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</${tag}>`);
+    }
+    if (sec.table) {
+      const head = sec.table.head.map((h) => `<th scope="col">${escapeHtml(h)}</th>`).join("");
+      const rows = sec.table.rows
+        .map((r) => `<tr>${r.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`)
+        .join("");
+      parts.push(`<table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`);
+    }
+    if (sec.callout?.length) {
+      parts.push(`<blockquote>${sec.callout.map((l) => `<p>${escapeHtml(l)}</p>`).join("")}</blockquote>`);
+    }
+    if (sec.bullets?.length) {
+      parts.push(
+        `<ul>${sec.bullets.map((b) => `<li>${escapeHtml(b.label)}: ${escapeHtml(b.value)}</li>`).join("")}</ul>`,
+      );
+    }
+    for (const cta of sec.ctas ?? []) {
+      parts.push(`<p><a href="${cta.href}">${escapeHtml(cta.label)}</a></p>`);
+    }
+    if (sec.link) parts.push(`<p><a href="${sec.link.href}">${escapeHtml(sec.link.label)}</a></p>`);
+    return parts.join("\n");
+  };
+
+  const body = cfg.sections.map(renderSection).join("\n");
   const links = KO_ROUTES.filter((p) => p !== route)
     .map((p) => `<li><a href="${p}">${escapeHtml(koPages[p].h1)}</a></li>`)
     .join("");
@@ -437,9 +460,10 @@ function koMetadata(route: string): RouteMeta | null {
   const noscriptHtml = `<h1>${escapeHtml(cfg.h1)}</h1>
 <p>${escapeHtml(cfg.sub)}</p>
 ${body}
-${bullets ? `<ul>${bullets}</ul>` : ""}
+<h2>자주 묻는 질문</h2>
 ${faqs}
-<nav><ul>${links}<li><a href="/en">English site</a></li></ul></nav>`;
+<nav><ul>${links}</ul></nav>`;
+
 
   const alternates = cfg.englishEquivalent
     ? undefined // registry cluster (ROUTES.home / size.*) emits en + ko + x-default
