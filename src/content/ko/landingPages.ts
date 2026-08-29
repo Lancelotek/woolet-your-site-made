@@ -626,6 +626,8 @@ for (const [path, cfg] of Object.entries(koPages)) {
     for (const p of s.paras ?? []) assertCopy(path, `section.para (${s.h2})`, p);
     for (const l of s.list ?? []) assertCopy(path, `section.list (${s.h2})`, l);
     for (const l of s.callout ?? []) assertCopy(path, `section.callout (${s.h2})`, l);
+    if (s.code) assertCopy(path, `section.code (${s.h2})`, s.code);
+    if (s.emphasis) assertCopy(path, `section.emphasis (${s.h2})`, s.emphasis);
     for (const cta of s.ctas ?? []) assertCopy(path, `section.cta (${s.h2})`, cta.label);
   }
   for (const f of cfg.faqs) {
