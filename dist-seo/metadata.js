@@ -7696,6 +7696,13 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     }
   }
 };
+const KO_FLAGS = {
+  /** TODO: confirm carrier and delivery SLA with the fulfilment partner before enabling. */
+  shippingCarrierAndSla: false,
+  /** TODO: do not publish any percentage, threshold or duty rate until confirmed with a customs broker. */
+  shippingDutyAndVat: false
+};
+const gated = (entries) => entries.filter((e) => e.on).map((e) => e.section);
 const SPEC_TABLE = {
   head: ["항목", "Woolet 007 라운드", "Woolet 009 스퀘어"],
   rows: [
@@ -7801,7 +7808,8 @@ const koPages = {
       },
       {
         h2: "150mm는 어떤 얼굴인가",
-        body: "전면부 총길이 150mm는 일반 브랜드의 넓은 쪽 라인과 겹치는 구간입니다. 기성품에서도 선택지가 있다는 뜻입니다. 그럼에도 비스포크를 고르는 이유는 브릿지 폭, 다리 길이, 프론트 높이를 함께 맞추기 때문입니다."
+        body: "전면부 총길이 150mm는 일반 브랜드의 넓은 쪽 라인과 겹치는 구간입니다. 기성품에서도 선택지가 있다는 뜻입니다. 그럼에도 비스포크를 고르는 이유는 브릿지 폭, 다리 길이, 프론트 높이를 함께 맞추기 때문입니다.",
+        link: { label: "안경 사이즈 재는 법", href: "/ko/guide/frame-size" }
       },
       {
         h2: "비스포크 145-172mm",
@@ -7910,113 +7918,240 @@ const koPages = {
   "/ko/sunglasses": {
     path: "/ko/sunglasses",
     eyebrow: "Woolet · 선글라스",
-    h1: "대두 선글라스 158mm",
-    sub: "실측 155-161mm 얼굴을 위한 선글라스. 전면부 총길이 158mm, 키홀 브릿지, UV400 렌즈. 이탈리아 마주켈리 아세테이트, EU 핸드메이드.",
-    metaTitle: "대두 선글라스 158mm — UV400 | Woolet",
-    metaDescription: "실측 155-161mm 얼굴을 위한 158mm 선글라스. 키홀 브릿지, UV400 렌즈, 이탈리아 마주켈리 아세테이트, EU 핸드메이드.",
+    h1: "얼굴 옆이 눌리지 않는 대두 선글라스",
+    sub: "전면부 총길이 158mm, UV400 차단. 도수 없는 제품이라 한국 주소로 바로 배송됩니다.",
+    metaTitle: "대두 선글라스 158mm UV400 - 와이드핏 | Woolet",
+    metaDescription: "전면부 총길이 158mm, UV400 차단. 관자놀이 압박 없는 와이드핏 선글라스. 도수 없는 제품이라 한국으로 바로 배송됩니다.",
     sections: [
       {
-        h2: "선글라스는 오차가 더 크게 보인다",
-        body: "렌즈 면적이 넓기 때문에 전면부 총길이가 부족하면 눈이 렌즈 안쪽으로 몰리고 관자놀이에 자국이 남습니다. 158mm 전면부는 눈동자 중심을 렌즈 중앙에 맞춰 줍니다.",
-        bullets: [
-          { label: "전면부 총길이", value: "158mm" },
-          { label: "렌즈", value: "UV400" },
-          { label: "브릿지", value: "21-22mm 키홀" }
-        ]
+        h2: "도수가 없으니 바로 배송됩니다",
+        body: "선글라스는 도수 렌즈가 아닙니다. 주문하시면 한국 주소로 그대로 배송됩니다. 안경원에 들를 필요도, 처방전도 필요 없습니다."
       },
       {
-        h2: "렌즈에 대한 솔직한 설명",
-        body: "UV400은 자외선 차단 규격입니다. 블루라이트 코팅은 선택 옵션이며 의료기기가 아니고, 눈의 피로나 수면 개선을 약속하지 않습니다."
+        h2: "전면부 총길이 158mm",
+        body: "대부분의 선글라스는 얼굴에 얹히는 것이 아니라 얼굴을 조입니다. 러닝이나 라운딩처럼 오래 쓰는 상황에서 관자놀이 압박은 두통으로 돌아옵니다. 158mm는 155-161mm 얼굴이 하루 종일 써도 자국이 남지 않는 폭입니다."
+      },
+      {
+        h2: "스펙",
+        body: "007 라운드와 009 스퀘어 모두 전면부 총길이는 158mm입니다.",
+        table: {
+          head: ["항목", "007 라운드", "009 스퀘어"],
+          rows: [
+            ["전면부 총길이", "158mm", "158mm"],
+            ["브릿지", "21mm (키홀)", "22mm (키홀)"],
+            ["렌즈", "52 × 52mm", "54 × 50mm"],
+            ["다리 길이", "150mm", "150mm"],
+            ["렌즈 사양", "UV400 차단", "UV400 차단"],
+            ["가격", "$210", "$210"]
+          ]
+        }
+      },
+      {
+        h2: "더 넓은 폭이 필요하다면",
+        body: "비스포크로 145-172mm까지 만듭니다. 선글라스 렌즈 포함 $480, 주문 후 2주."
+      },
+      {
+        h2: "한국 배송",
+        body: "도수 렌즈는 한국으로 판매하지 않습니다.",
+        callout: [
+          "Woolet은 한국으로 도수 렌즈를 판매하지 않습니다.",
+          "프레임(데모 렌즈 포함)과 도수 없는 선글라스만 배송합니다.",
+          "도수 렌즈는 가까운 안경원에서 조제하시면 됩니다."
+        ],
+        ctas: [
+          { label: "FitLens로 측정하기", href: "/en/fit", primary: true },
+          { label: "선글라스 보기", href: "/en/collections/sunglasses-for-big-heads" }
+        ],
+        link: { label: "한국 배송, 관세, 개인통관고유부호 안내", href: "/ko/shipping" }
       }
     ],
     faqs: [
-      { q: "한국에서 도수를 넣을 수 있나요?", a: "프레임만 배송하며, 도수 렌즈는 가까운 안경원에서 조제하시면 됩니다." }
+      {
+        q: "한국에서 도수를 넣을 수 있나요?",
+        a: "선글라스는 도수 없는 제품으로만 배송합니다. 도수 렌즈가 필요하면 프레임을 받아 가까운 안경원에서 조제하시면 됩니다."
+      }
     ],
     englishEquivalent: null
   },
   "/ko/guide/frame-size": {
     path: "/ko/guide/frame-size",
     eyebrow: "Woolet · 가이드",
-    h1: "안경 사이즈 재는 법",
-    sub: "안경테 안쪽에 적힌 숫자와 내 얼굴 폭을 연결하는 방법. 자 하나와 30초면 충분합니다.",
-    metaTitle: "안경 사이즈 재는 법 — 얼굴 폭과 전면부 총길이 | Woolet",
-    metaDescription: "안경 다리 안쪽 숫자(렌즈 가로-브릿지-다리 길이)를 읽는 법과 얼굴 폭 측정법. 전면부 총길이 계산식과 실측 155mm 이상 기준을 정리했습니다.",
+    h1: "안경 사이즈, 렌즈 크기 말고 전면부 총길이로 보세요",
+    sub: "안경테에 적힌 52□19 145가 무슨 뜻인지, 전면부 총길이는 어떻게 계산하는지, 대두라면 어떤 숫자를 봐야 하는지 정리했습니다.",
+    metaTitle: "안경 사이즈 재는 법 - 전면부 총길이로 고르기 | Woolet",
+    metaDescription: "안경테에 적힌 52□19 145가 무슨 뜻인지, 전면부 총길이는 어떻게 계산하는지, 대두라면 어떤 숫자를 봐야 하는지 정리했습니다.",
     sections: [
       {
-        h2: "다리 안쪽 숫자 읽기",
-        body: "예를 들어 52□21 150은 렌즈 가로 52mm, 브릿지 21mm, 다리 길이 150mm를 뜻합니다. 전면부 총길이는 대략 (렌즈 가로 × 2) + 브릿지 + 엔드피스 여유입니다.",
-        bullets: [
-          { label: "렌즈 가로", value: "52-54mm" },
-          { label: "브릿지", value: "21-22mm" },
-          { label: "다리 길이", value: "150mm" }
+        h2: "안경테에 적힌 숫자 읽는 법",
+        body: "안경 다리 안쪽이나 브릿지 뒤에 52□19 145 형태의 숫자가 있습니다.",
+        list: [
+          "52 - 렌즈 한쪽 가로 길이(mm)",
+          "□ - 구분 기호, 브릿지를 뜻합니다",
+          "19 - 브릿지 폭(mm), 두 렌즈 사이 거리",
+          "145 - 다리 길이(mm), 힌지에서 끝까지"
+        ],
+        paras: [
+          "이 세 숫자만으로는 안경이 얼굴에 맞는지 알 수 없습니다. 가장 중요한 숫자가 빠져 있기 때문입니다."
         ]
       },
       {
-        h2: "얼굴 폭 측정",
-        body: "왼쪽 관자놀이의 가장 튀어나온 지점에서 오른쪽 같은 지점까지를 직선으로 잽니다. 이 값이 전면부 총길이와 ±3mm 안에 들면 잘 맞는 크기입니다."
+        h2: "전면부 총길이 - 표기되지 않는 숫자",
+        body: "전면부 총길이는 안경테 왼쪽 끝에서 오른쪽 끝까지의 직선 거리입니다. 얼굴 폭과 직접 맞물리는 유일한 숫자인데, 안경테에는 인쇄되지 않습니다.",
+        code: "전면부 총길이 ≈ (렌즈 가로 × 2) + 브릿지 + (엔드피스 × 2)",
+        paras: [
+          "52□19라면 52×2 + 19 = 123mm에 양쪽 엔드피스를 더해 대개 135-142mm가 나옵니다. 엔드피스 길이는 디자인마다 달라서, 정확한 값은 제조사가 표기해야 알 수 있습니다."
+        ]
+      },
+      {
+        h2: "얼굴 폭 재는 법",
+        body: "자 하나면 충분합니다.",
+        ordered: true,
+        list: [
+          "거울을 정면으로 봅니다",
+          "왼쪽 관자놀이의 가장 튀어나온 지점을 찾습니다",
+          "반대쪽 같은 지점까지 자를 직선으로 대고 잽니다",
+          "자가 얼굴 곡면을 따라 휘지 않도록 유지합니다"
+        ],
+        emphasis: "지금 쓰는 안경으로 재는 방법이 더 쉽습니다. 안경 다리를 펼쳐 책상에 놓고 양 끝 사이를 재세요. 그 숫자가 지금 얼굴이 견디고 있는 폭입니다."
+      },
+      {
+        h2: "대두가 봐야 하는 숫자는 렌즈 크기가 아닙니다",
+        body: "큰 안경을 찾을 때 보통 렌즈 가로가 큰 제품을 고릅니다. 하지만 렌즈를 키워도 브릿지와 엔드피스가 좁으면 전체 폭은 그대로입니다. 결과는 두 가지입니다.",
+        list: [
+          "관자놀이 압박은 사라지지 않습니다 - 원인은 렌즈가 아니라 전체 폭이었으니까요",
+          "얼굴이 더 커 보입니다 - 렌즈가 얼굴 안쪽으로 파고들기 때문입니다"
+        ],
+        paras: [
+          "전면부 총길이가 얼굴 폭보다 좁으면 다리가 바깥으로 벌어지면서 힌지에 힘이 걸립니다. 안경이 흘러내리거나, 다리가 헐거워지거나, 관자놀이에 자국이 남는 이유입니다."
+        ]
+      },
+      {
+        h2: "브릿지와 다리 길이는 따로 봐야 합니다",
+        body: "두 숫자는 전면부 총길이와 함께 움직입니다.",
+        list: [
+          "브릿지 - 코 위에서 안경이 얹히는 지점입니다. 좁으면 코에 자국이 남고, 넓으면 안경이 내려앉습니다. 키홀 브릿지는 콧등 양옆으로 하중을 나눕니다.",
+          "다리 길이 - 힌지에서 귀까지의 거리입니다. 전면부가 넓어지면 다리도 길어져야 귀 뒤에서 자연스럽게 꺾입니다. 전면부만 넓고 다리가 짧으면 귀 뒤가 아픕니다."
+        ],
+        paras: ["Woolet 007과 009는 전면부 158mm에 다리 150mm를 맞췄습니다."]
+      },
+      {
+        h2: "직접 재기 어렵다면 - FitLens",
+        body: "FitLens는 휴대폰 카메라로 관자놀이에서 관자놀이까지의 폭을 측정합니다. 자도, 도움도 필요 없습니다. 측정값과 함께 맞는 사이즈를 알려드립니다.",
+        ctas: [{ label: "FitLens로 측정하기", href: "/en/fit", primary: true }]
       }
     ],
     faqs: [
-      { q: "전면부 총길이가 얼굴 폭보다 좁으면?", a: "관자놀이가 눌리고 다리가 벌어집니다. 얼굴 폭 이상 또는 동일한 전면부 총길이를 고르세요." }
+      {
+        q: "안경 사이즈는 어디에 적혀 있나요?",
+        a: "안경 다리 안쪽 또는 브릿지 뒤쪽에 52□19 145 형태로 인쇄되어 있습니다. 렌즈 가로, 브릿지, 다리 길이 순서입니다. 전면부 총길이는 여기에 포함되지 않습니다."
+      },
+      {
+        q: "전면부 총길이가 몇 mm면 대두인가요?",
+        a: "기준선은 없습니다. 다만 일반 브랜드의 전면부 총길이가 대개 135-145mm이므로, 얼굴 폭이 150mm를 넘으면 기성품에서 선택지가 급격히 줄어듭니다."
+      },
+      {
+        q: "렌즈가 크면 얼굴이 작아 보이나요?",
+        a: "전체 폭이 얼굴 폭과 맞을 때만 그렇습니다. 폭이 좁은 상태에서 렌즈만 크면 오히려 얼굴이 커 보입니다."
+      },
+      {
+        q: "아세테이트 안경테는 사이즈 조절이 되나요?",
+        a: "열로 미세 조정이 가능합니다. 다만 조정 폭은 수 mm 수준입니다. 10mm 이상 차이는 조정으로 해결되지 않습니다."
+      }
     ],
     englishEquivalent: null
   },
   "/ko/brands": {
     path: "/ko/brands",
     eyebrow: "Woolet · 비교",
-    h1: "대두 안경테 브랜드 비교",
-    sub: "대두 안경테를 다루는 브랜드는 많지 않습니다. 전면부 총길이라는 하나의 숫자로만 비교했습니다.",
-    metaTitle: "대두 안경테 브랜드 비교 — 전면부 총길이 기준 | Woolet",
-    metaDescription: "대두 안경테 브랜드를 전면부 총길이 기준으로 비교합니다. 대부분 135-145mm에 머무는 반면 Woolet은 158mm 기성과 145-172mm 비스포크를 제공합니다.",
+    h1: "대두 안경테, 브랜드별 전면부 총길이 비교",
+    sub: "브랜드를 비교할 수 있는 숫자는 전면부 총길이 하나뿐입니다.",
+    metaTitle: "대두 안경테 브랜드 비교 - 어디까지 나오나 | Woolet",
+    metaDescription: "대두 안경테를 전면부 총길이 기준으로 비교합니다. 경쟁 브랜드 수치는 각 브랜드 공식 스펙으로 확인되는 대로 채웁니다.",
+    // Unverified comparison data -> stays out of the index until the
+    // competitor rows below are filled in with confirmed figures.
+    noindex: true,
     sections: [
       {
-        h2: "비교 기준은 전면부 총길이 하나",
-        body: "'라지', 'XL' 같은 표기는 브랜드마다 다릅니다. 유일하게 비교 가능한 숫자는 양 끝에서 끝까지의 전면부 총길이(mm)입니다.",
-        bullets: [
-          { label: "일반 브랜드", value: "135-145mm" },
-          { label: "Woolet 시그니처", value: "158mm" },
-          { label: "Woolet 비스포크", value: "145-172mm" }
-        ]
+        h2: "브랜드별 전면부 총길이",
+        body: "확인된 수치만 표기합니다. 확인 전인 항목은 '확인 중'으로 둡니다.",
+        table: {
+          head: ["브랜드", "전면부 총길이", "소재", "맞춤 제작"],
+          rows: [
+            ["Woolet 시그니처", "158mm", "이탈리아 마주켈리 아세테이트", "-"],
+            ["Woolet 비스포크", "145-172mm", "이탈리아 마주켈리 아세테이트", "4가지 모양, 60가지 조합"],
+            // TODO(ko/brands): a figure may only be filled in from that brand's OWN
+            // published spec page — never from an AI summary, a forum post, or a
+            // retailer listing. Until then every competitor cell stays "확인 중"
+            // and this page keeps `noindex: true`.
+            ["[경쟁 브랜드 1]", "확인 중", "확인 중", "확인 중"],
+            ["[경쟁 브랜드 2]", "확인 중", "확인 중", "확인 중"]
+          ]
+        }
       },
       {
-        h2: "선택 기준",
-        body: "얼굴 폭을 먼저 재고, 그 숫자에 맞는 전면부 총길이를 제공하는 브랜드만 후보에 남기세요. 그러면 대부분의 선택지는 자동으로 정리됩니다."
+        h2: "왜 전면부 총길이를 공개하는 브랜드가 적을까",
+        body: "대부분의 브랜드는 52□19 145 세 숫자만 표기합니다. 전면부 총길이는 디자인마다 엔드피스 길이가 달라 일괄 표기가 번거롭기 때문입니다. 얼굴 폭이 큰 사람에게는 그 숫자가 유일하게 중요한 숫자인데도 그렇습니다.",
+        paras: ["Woolet은 모든 제품에 전면부 총길이를 명시합니다."],
+        link: { label: "안경 사이즈 재는 법", href: "/ko/guide/frame-size" }
       }
     ],
-    faqs: [
-      { q: "전면부 총길이를 공개하지 않는 브랜드는?", a: "다리 안쪽 숫자로 추정할 수 있습니다: (렌즈 가로 × 2) + 브릿지 + 약 6-10mm." }
-    ],
+    faqs: [],
     englishEquivalent: null
   },
   "/ko/shipping": {
     path: "/ko/shipping",
     eyebrow: "Woolet · 배송",
-    h1: "한국 배송 안내",
-    sub: "한국으로의 배송, 통관, 반품과 보증에 대한 안내입니다.",
-    metaTitle: "한국 배송 안내 — 통관·반품·보증 | Woolet",
-    metaDescription: "Woolet 안경의 한국 배송 안내. 무료 배송, 30일 반품, 2년 보증, 개인통관고유부호 안내. 비스포크는 주문 후 2주 발송.",
+    h1: "한국으로 배송하면 관세는 얼마인가요?",
+    sub: "통관에 필요한 준비물과 국내 안경원에서 렌즈를 넣는 방법을 정리했습니다.",
+    metaTitle: "한국 배송, 관세, 개인통관고유부호 안내 | Woolet",
+    metaDescription: "해외직구 통관에 필요한 개인통관고유부호 발급 방법과, Woolet 프레임을 받아 국내 안경원에서 도수 렌즈를 넣는 절차를 안내합니다.",
     sections: [
+      // [1] FEATURE FLAG OFF — KO_FLAGS.shippingCarrierAndSla
+      // TODO(ko/shipping): confirm carrier and delivery SLA before enabling.
+      // Do not render any carrier name or delivery window until then.
+      ...gated([
+        {
+          on: KO_FLAGS.shippingCarrierAndSla,
+          section: { h2: "배송 기간과 배송사", body: "확인 중" }
+        }
+      ]),
       {
-        h2: "배송과 기간",
-        body: "시그니처 007·009는 EU에서 발송됩니다. 비스포크는 그리스에서 손으로 제작하며 주문 후 2주면 발송합니다.",
-        bullets: [
-          { label: "배송비", value: "무료" },
-          { label: "반품", value: "30일" },
-          { label: "보증", value: "2년" }
-        ]
+        h2: "개인통관고유부호(PCCC)",
+        body: "해외직구로 물건을 받으려면 개인통관고유부호가 필요합니다. 관세청 전자통관시스템(UNI-PASS)에서 무료로 발급받을 수 있고, 한 번 받으면 계속 사용합니다. 주문할 때 이 번호를 입력하지 않으면 통관이 지연됩니다."
       },
+      // [3] FEATURE FLAG OFF — KO_FLAGS.shippingDutyAndVat
+      // TODO(ko/shipping): do not publish any percentage, threshold or duty
+      // rate until it is confirmed with a customs broker.
+      ...gated([
+        {
+          on: KO_FLAGS.shippingDutyAndVat,
+          section: { h2: "관세와 부가세", body: "확인 중" }
+        }
+      ]),
       {
-        h2: "통관과 개인통관고유부호",
-        body: "한국으로 배송되는 해외 직구 상품은 개인통관고유부호가 필요합니다. 수입 관세와 부가세는 통관 시점의 규정에 따라 부과될 수 있습니다.",
+        h2: "도수 렌즈는 판매하지 않습니다",
+        body: "한국으로는 도수 렌즈를 배송하지 않습니다.",
         callout: [
           "Woolet은 한국으로 도수 렌즈를 판매하지 않습니다.",
           "프레임(데모 렌즈 포함)과 도수 없는 선글라스만 배송합니다."
         ]
+      },
+      {
+        h2: "국내 안경원에서 렌즈 넣는 방법",
+        body: "네 단계면 끝납니다.",
+        ordered: true,
+        list: [
+          "Woolet 프레임을 받습니다 (데모 렌즈가 끼워진 상태로 배송됩니다)",
+          "프레임을 들고 가까운 안경원에 갑니다",
+          "시력 검사를 받고 도수 렌즈를 조제합니다",
+          "안경사가 데모 렌즈를 빼고 도수 렌즈를 넣어 줍니다"
+        ],
+        paras: [
+          "국내 안경원에서 구하기 어려운 것은 렌즈가 아니라 158mm 프레임입니다. 렌즈는 어디서나 넣을 수 있습니다. 프레임만 해결하면 됩니다."
+        ]
       }
     ],
-    faqs: [
-      { q: "반품 기간은?", a: "수령 후 30일입니다." }
-    ],
+    faqs: [],
     englishEquivalent: null
   }
 };
@@ -8058,6 +8193,8 @@ for (const [path, cfg] of Object.entries(koPages)) {
     for (const p of s.paras ?? []) assertCopy(path, `section.para (${s.h2})`, p);
     for (const l of s.list ?? []) assertCopy(path, `section.list (${s.h2})`, l);
     for (const l of s.callout ?? []) assertCopy(path, `section.callout (${s.h2})`, l);
+    if (s.code) assertCopy(path, `section.code (${s.h2})`, s.code);
+    if (s.emphasis) assertCopy(path, `section.emphasis (${s.h2})`, s.emphasis);
     for (const cta of s.ctas ?? []) assertCopy(path, `section.cta (${s.h2})`, cta.label);
   }
   for (const f of cfg.faqs) {
@@ -8539,6 +8676,8 @@ function koMetadata(route) {
     if ((_b = sec.callout) == null ? void 0 : _b.length) {
       parts.push(`<blockquote>${sec.callout.map((l) => `<p>${escapeHtml(l)}</p>`).join("")}</blockquote>`);
     }
+    if (sec.code) parts.push(`<pre><code>${escapeHtml(sec.code)}</code></pre>`);
+    if (sec.emphasis) parts.push(`<p><strong>${escapeHtml(sec.emphasis)}</strong></p>`);
     if ((_c = sec.bullets) == null ? void 0 : _c.length) {
       parts.push(
         `<ul>${sec.bullets.map((b) => `<li>${escapeHtml(b.label)}: ${escapeHtml(b.value)}</li>`).join("")}</ul>`
@@ -8554,17 +8693,18 @@ function koMetadata(route) {
   const links = KO_ROUTES.filter((p) => p !== route).map((p) => `<li><a href="${p}">${escapeHtml(koPages[p].h1)}</a></li>`).join("");
   const faqs = cfg.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3>
 <p>${escapeHtml(f.a)}</p>`).join("\n");
+  const faqBlock = cfg.faqs.length ? `<h2>자주 묻는 질문</h2>
+${faqs}` : "";
   const noscriptHtml = `<h1>${escapeHtml(cfg.h1)}</h1>
 <p>${escapeHtml(cfg.sub)}</p>
 ${body}
-<h2>자주 묻는 질문</h2>
-${faqs}
+${faqBlock}
 <nav><ul>${links}</ul></nav>`;
   const alternates = cfg.englishEquivalent ? void 0 : {
     ko: `${SITE_URL}${route}`,
     "x-default": `${SITE_URL}/en`
   };
-  return base(
+  const meta = base(
     route,
     "ko",
     { title: cfg.metaTitle, description: cfg.metaDescription, noscriptHtml },
@@ -8585,10 +8725,12 @@ ${faqs}
           { name: cfg.h1, url: `${SITE_URL}${route}` }
         ]
       ),
-      faqPageJsonLd(cfg.faqs.map((f) => ({ q: f.q, a: f.a })))
+      ...cfg.faqs.length ? [faqPageJsonLd(cfg.faqs.map((f) => ({ q: f.q, a: f.a })))] : []
     ],
     alternates
   );
+  if (cfg.noindex) meta.robots = "noindex, follow";
+  return meta;
 }
 function getMetadata(route) {
   var _a;
