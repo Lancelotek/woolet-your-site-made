@@ -80,6 +80,7 @@ const DeHub = lazy(() => import("./pages/de/DeHub.tsx"));
 const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
 const BlaulichtfilterBrilleHerren = lazy(() => import("./pages/de/BlaulichtfilterBrilleHerren.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
+const KoLandingRoute = lazy(() => import("./pages/ko/KoLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
 const PlLandingRoute = lazy(() => import("./pages/pl/PlLandingRoute.tsx"));
 const NlLandingRoute = lazy(() => import("./pages/nl/NlLandingRoute.tsx"));
@@ -377,6 +378,15 @@ const App = () => (
          {/* JA market SEO landing pages */}
          <Route path="/ja/big-face-glasses" element={<JaLandingRoute />} />
          <Route path="/ja/bespoke" element={<JaLandingRoute />} />
+
+         {/* KO market pages — every /ko route is served from src/content/ko.
+             Unregistered /ko paths 404; they never render the English shell. */}
+         <Route path="/ko" element={<KoLandingRoute />} />
+         <Route path="/ko/size/:width" element={<KoLandingRoute />} />
+         <Route path="/ko/sunglasses" element={<KoLandingRoute />} />
+         <Route path="/ko/guide/frame-size" element={<KoLandingRoute />} />
+         <Route path="/ko/brands" element={<KoLandingRoute />} />
+         <Route path="/ko/shipping" element={<KoLandingRoute />} />
 
          {/* FR market SEO landing pages */}
          <Route path="/fr" element={<FrHub />} />
