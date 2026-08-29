@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import ProductFAQ from "@/components/ProductFAQ";
 import LensOptions from "@/components/LensOptions";
 import { lensOffers } from "@/data/lensOptions";
+import { ColourHero, ColourSwatches, useColourGallery, type FrameColour } from "@/components/ProductColourGallery";
 import sqHavana from "@/assets/frames-2026/square-havana.asset.json";
 import sqBlack from "@/assets/frames-2026/square-black.asset.json";
 import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
@@ -28,10 +29,10 @@ const T = {
 const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
 const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 
-const launchColors = [
-  { name: "Dark Tortoise", dot: "#8B5A2B", img: sqHavana.url },
-  { name: "Black", dot: "#141414", img: sqBlack.url },
-  { name: "Crystal", dot: "#E8E4DA", img: sqCrystal.url },
+const launchColors: FrameColour[] = [
+  { id: "havana", name: "Honey tortoise", dot: "#8B5A2B", img: sqHavana.url },
+  { id: "black", name: "Piano black", dot: "#141414", img: sqBlack.url },
+  { id: "crystal", name: "Crystal", dot: "#E8E4DA", img: sqCrystal.url },
 ];
 
 const specs: [string, string][] = [
@@ -60,7 +61,7 @@ const ProductPage009 = () => {
   const canonical = `${SITE_URL}/${lang}/products/009`;
   const [showSticky, setShowSticky] = useState(false);
   const [specsOpen, setSpecsOpen] = useState(false);
-  const hero = launchColors[0].img;
+  const gallery = useColourGallery("009", launchColors);
 
   useEffect(() => {
     pushGtmEvent("view_item", { item_name: "Woolet 009", awareness_stage: "most_aware" });
@@ -150,9 +151,7 @@ const ProductPage009 = () => {
 
           <div className="pdp-grid grid" style={{ gap: 40, gridTemplateColumns: "minmax(0,1fr)" }}>
             <section className="pdp-gallery">
-              <div className="pdp-hero-wrap" style={{ background: "#f3ece0", border: `1px solid ${T.hair}`, borderRadius: 4, padding: "48px 40px", display: "flex", alignItems: "center", justifyContent: "center", aspectRatio: "4 / 3" }}>
-                <img className="pdp-hero-img" src={hero} alt="Woolet 009 — soft-square acetate glasses, 158 mm front · 20 mm bridge, wide-face fit" width={800} height={600} fetchPriority="high" style={{ width: "100%", maxWidth: 560, height: "auto", objectFit: "contain", display: "block" }} />
-              </div>
+              <ColourHero colour={gallery.active} alt={`Woolet 009 — soft-square acetate glasses in ${gallery.active.name.toLowerCase()}, 158 mm front · 20 mm bridge, wide-face fit`} />
             </section>
 
             <section style={{ maxWidth: 540 }}>
@@ -212,19 +211,7 @@ const ProductPage009 = () => {
                 Prescription, blue-light and polarized options are chosen later — after your frame ships. Nothing extra is charged today.
               </div>
 
-              <div style={{ marginTop: 28, paddingTop: 20, borderTop: `1px solid ${T.hair}` }}>
-                <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: T.inkMute, marginBottom: 12 }}>
-                  Launch colours — pick yours after the campaign
-                </div>
-                <div style={{ display: "flex", gap: 20 }}>
-                  {launchColors.map((c) => (
-                    <div key={c.name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-                      <span aria-hidden style={{ width: 22, height: 22, borderRadius: "50%", background: c.dot, boxShadow: `0 0 0 1px ${T.hairStrong}` }} />
-                      <span style={{ fontFamily: SANS, fontSize: 11, color: T.inkDim }}>{c.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <ColourSwatches colours={launchColors} index={gallery.index} onSelect={gallery.select} />
             </section>
           </div>
         </div>
