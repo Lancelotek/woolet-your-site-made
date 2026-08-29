@@ -431,7 +431,7 @@ export const KO_ROUTES: string[] = koPageOrder;
 // ---------------------------------------------------------------------------
 const HANGUL = /[\uAC00-\uD7A3]/;
 /** Forbidden phrasing — the Korean search term is 대두 안경테. */
-const FORBIDDEN = ["넓은 얼굴 안경", "밀리미터", "made in Italy", "이탈리아에서 제작", "원"];
+const FORBIDDEN = ["넓은 얼굴 안경", "밀리미터", "made in Italy"];
 
 function assertCopy(path: string, field: string, value: string) {
   if (!value || !value.trim()) {
@@ -477,7 +477,7 @@ for (const [path, cfg] of Object.entries(koPages)) {
   }
 
   const blob = JSON.stringify(cfg);
-  for (const bad of FORBIDDEN.slice(0, 3)) {
+  for (const bad of FORBIDDEN) {
     if (blob.includes(bad)) {
       throw new Error(`[ko] ${path} uses forbidden phrasing: "${bad}".`);
     }
