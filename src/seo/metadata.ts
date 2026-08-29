@@ -31,6 +31,7 @@ import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
 import { dePages, dePageOrder } from "@/content/de/landingPages";
 import { nlPages } from "@/content/nl/landingPages";
 import { plPages } from "@/content/pl/landingPages";
+import { koPages, KO_ROUTES } from "@/content/ko/landingPages";
 import { collectionSeo, COLLECTION_ITEMS } from "./collection-copy";
 import { collectionJsonLd } from "./product-collection-jsonld";
 import { HAT_SIZE_FAQ } from "./hat-size-faq";
@@ -300,6 +301,7 @@ function ogLocale(lang: Lang): string {
     case "ar": return "ar_AR";
     case "ja": return "ja_JP";
     case "nl": return "nl_NL";
+    case "ko": return "ko_KR";
     default: return "en_US";
   }
 }
@@ -321,6 +323,10 @@ type Copy = { title: string; description: string; noscriptHtml?: string   /** Re
 };
 
 const homeCopy: Record<Lang, Copy> = {
+  ko: {
+    title: koPages["/ko"].metaTitle,
+    description: koPages["/ko"].metaDescription,
+  },
   en: {
     title: "Woolet — Premium Glasses for Wide Faces & Big Heads (158 mm)",
     description:
@@ -405,9 +411,82 @@ function base(
   };
 }
 
+/**
+ * Korean routes. Copy comes exclusively from src/content/ko/landingPages.ts,
+ * which throws at import time when a Korean string is missing — there is NO
+ * English fallback for /ko by design.
+ */
+function koMetadata(route: string): RouteMeta | null {
+  const cfg = koPages[route];
+  if (!cfg) return null;
+
+  const bullets = cfg.sections
+    .flatMap((sec) => sec.bullets ?? [])
+    .map((b) => `<li>${escapeHtml(b.label)}: ${escapeHtml(b.value)}</li>`)
+    .join("");
+  const body = cfg.sections
+    .map((sec) => `<h2>${escapeHtml(sec.h2)}</h2>\n<p>${escapeHtml(sec.body)}</p>`)
+    .join("\n");
+  const links = KO_ROUTES.filter((p) => p !== route)
+    .map((p) => `<li><a href="${p}">${escapeHtml(koPages[p].h1)}</a></li>`)
+    .join("");
+  const faqs = cfg.faqs
+    .map((f) => `<h3>${escapeHtml(f.q)}</h3>\n<p>${escapeHtml(f.a)}</p>`)
+    .join("\n");
+
+  const noscriptHtml = `<h1>${escapeHtml(cfg.h1)}</h1>
+<p>${escapeHtml(cfg.sub)}</p>
+${body}
+${bullets ? `<ul>${bullets}</ul>` : ""}
+${faqs}
+<nav><ul>${links}<li><a href="/en">English site</a></li></ul></nav>`;
+
+  const alternates = cfg.englishEquivalent
+    ? undefined // registry cluster (ROUTES.home / size.*) emits en + ko + x-default
+    : {
+        ko: `${SITE_URL}${route}`,
+        "x-default": `${SITE_URL}/en`,
+      };
+
+  return base(
+    route,
+    "ko",
+    { title: cfg.metaTitle, description: cfg.metaDescription, noscriptHtml },
+    { image: DEFAULT_OG },
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: cfg.h1,
+        description: cfg.metaDescription,
+        url: `${SITE_URL}${route}`,
+        inLanguage: "ko",
+        isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE_URL },
+      },
+      breadcrumbJsonLd(
+        route === "/ko"
+          ? [{ name: "Woolet", url: `${SITE_URL}/ko` }]
+          : [
+              { name: "Woolet", url: `${SITE_URL}/ko` },
+              { name: cfg.h1, url: `${SITE_URL}${route}` },
+            ],
+      ),
+      faqPageJsonLd(cfg.faqs.map((f) => ({ q: f.q, a: f.a }))),
+    ],
+    alternates,
+  );
+}
+
 export function getMetadata(route: string): RouteMeta {
   const lang = langFromRoute(route);
   const path = route.replace(/^\/[a-z]{2}/, "") || "/";
+
+  // Korean locale — handled before every generic branch so a /ko route can
+  // never fall through to English copy.
+  if (route === "/ko" || route.startsWith("/ko/")) {
+    const ko = koMetadata(route);
+    if (ko) return ko;
+  }
 
   // Homepage
   if (path === "/" || path === "") {
@@ -1959,6 +2038,8 @@ const STATIC_ROUTES = [
   "/en/lp/kickstarter",
   "/en/lp/wide-bridge-fit-guide",
   "/pl/jak-dobrac-okulary-do-twarzy",
+  // Korean locale (ASCII slugs; Korean copy lives in src/content/ko).
+  ...KO_ROUTES,
 ];
 
 export function getAllRoutes(): string[] {
