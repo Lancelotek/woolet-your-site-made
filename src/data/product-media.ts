@@ -47,7 +47,7 @@ const shared: Record<ProductId, MediaItem[]> = {
       id: "on-face",
       kind: "on-face",
       src: onFace007.url,
-      alt: "Man with a wide face wearing Woolet 007 round panto acetate glasses, front view showing the 158 mm frame sitting flush at the temples",
+      alt: "Man with a wide face wearing Woolet 007 round panto glasses in honey tortoise acetate — front view showing the 158 mm frame sitting flush at the temples",
       caption: "On a 156 mm face — temples flush, no pinch",
       cover: true,
     },
