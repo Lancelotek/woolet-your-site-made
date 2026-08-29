@@ -10,7 +10,7 @@ import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
 import dims007 from "@/assets/woolet-007-dimensions.png.asset.json";
 import dims009 from "@/assets/woolet-009-dimensions.png.asset.json";
 import greg009 from "@/assets/greg-woolet-009.webp.asset.json";
-import onFace007 from "@/assets/face-after-007.jpg";
+import onFace007 from "@/assets/woolet-007-on-face-havana.jpg.asset.json";
 import detail007 from "@/assets/woolet-007-detail-hinge.jpg";
 import gregTester from "@/assets/testimonials/greg-woolet-tester.webp";
 
