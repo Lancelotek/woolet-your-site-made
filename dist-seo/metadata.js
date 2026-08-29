@@ -7696,120 +7696,214 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     }
   }
 };
+const SPEC_TABLE = {
+  head: ["항목", "Woolet 007 라운드", "Woolet 009 스퀘어"],
+  rows: [
+    ["전면부 총길이", "158mm", "158mm"],
+    ["브릿지", "21mm (키홀)", "22mm (키홀)"],
+    ["렌즈 (가로×세로)", "52 × 52mm", "54 × 50mm"],
+    ["다리 길이", "150mm", "150mm"],
+    ["프론트 높이", "52mm", "54mm"],
+    ["소재", "이탈리아 마주켈리 아세테이트", "이탈리아 마주켈리 아세테이트"],
+    ["가격", "$190 (데모 렌즈 포함)", "$190 (데모 렌즈 포함)"]
+  ]
+};
+const BESPOKE_BULLETS = [
+  "4가지 모양 중 선택",
+  "60가지 색상과 사이즈 조합",
+  "브릿지 폭과 다리 길이도 함께 조정",
+  "이탈리아 마주켈리 아세테이트, 그리스에서 손으로 제작",
+  "주문 후 2주 발송",
+  "렌즈 포함 $480 (도수·선글라스·블루라이트·변색 중 선택)"
+];
+const FIT_CTAS = [
+  { label: "FitLens로 측정하기", href: "/en/fit", primary: true },
+  { label: "비스포크 문의하기", href: "/en/bespoke" }
+];
 const koPages = {
   "/ko": {
     path: "/ko",
-    eyebrow: "Woolet · 넓은 얼굴을 위한 아이웨어",
-    h1: "대두 안경테 158mm",
-    sub: "일반 안경테의 전면 폭은 135~145mm입니다. 얼굴 폭이 155mm를 넘으면 시중의 모든 안경은 사실상 'M 사이즈' 하나뿐입니다. Woolet은 이탈리아 Mazzucchelli 아세테이트를 EU에서 수작업으로 마감한 158mm 전면 폭 안경테를 만듭니다.",
-    metaTitle: "대두 안경테 158mm | Woolet 이탈리아 아세테이트",
-    metaDescription: "얼굴 폭 155mm 이상을 위한 대두 안경테. Woolet은 전면 폭 158mm, 키홀 브리지, 이탈리아 Mazzucchelli 아세테이트를 EU에서 수작업으로 마감합니다. 비스포크는 145~162mm.",
+    eyebrow: "Woolet · 대두 안경테",
+    h1: "158mm 하나로 만든 대두 안경테",
+    sub: "렌즈 크기가 아니라 전면부 총길이로 고르는 안경",
+    metaTitle: "대두 안경테 158mm - 이탈리아 아세테이트 | Woolet",
+    metaDescription: "전면부 총길이 158mm 단일 사이즈. 이탈리아 마주켈리 아세테이트, EU 핸드메이드. 비스포크는 145-172mm까지 맞춤 제작, 주문 후 2주.",
     sections: [
       {
-        h2: "왜 시중 안경은 작게 느껴질까",
-        body: "주요 브랜드의 전면 폭은 대부분 135~148mm입니다. 얼굴 폭이 150mm를 넘으면 관자놀이가 눌리고, 다리가 벌어지고, 코받침 자국이 남습니다. 얼굴이 큰 것이 아니라 업계가 평균 한 가지 치수만 만들기 때문입니다.",
-        bullets: [
-          { label: "전면 폭", value: "158 mm" },
-          { label: "브리지", value: "20~21 mm 키홀" },
-          { label: "다리 길이", value: "145~155 mm" },
-          { label: "소재", value: "Mazzucchelli 1849 이탈리아 아세테이트" },
-          { label: "제작", value: "EU 수작업" }
+        h2: "사이즈를 고를 필요가 없습니다",
+        body: "우리는 158mm 하나만 만듭니다. 007 라운드와 009 스퀘어, 두 모양 모두 전면부 총길이가 158mm입니다. S·M·L 같은 표기도, 같은 모델의 여러 사이즈도 없습니다. 실측 155-161mm 얼굴이라면 고민할 것이 없습니다. 그 범위 밖이라면 비스포크로 만듭니다."
+      },
+      {
+        h2: "007 라운드 · 009 스퀘어",
+        body: "두 모양의 전면부 총길이는 같습니다. 차이는 렌즈 형태와 브릿지 폭입니다.",
+        table: SPEC_TABLE
+      },
+      {
+        h2: "렌즈 크기 말고 전면부 총길이를 보세요",
+        body: "안경테 안쪽에 적힌 52□19 145에서 52는 렌즈 한쪽 가로, 19는 브릿지, 145는 다리 길이입니다. 정작 얼굴 폭과 직접 맞물리는 숫자 - 전면부 총길이 - 는 어디에도 적혀 있지 않습니다.",
+        paras: [
+          "렌즈가 큰 안경이 곧 넓은 안경은 아닙니다. 관자놀이가 눌리는 이유는 렌즈가 작아서가 아니라 전체 폭이 좁아서입니다. 렌즈만 키우면 얼굴은 더 커 보이고 압박은 그대로 남습니다."
         ]
       },
       {
-        h2: "두 가지 셰이프, 하나의 정확한 사이즈",
-        body: "007은 라운드 판토, 009는 소프트 스퀘어입니다. 두 모델 모두 전면 폭 158mm로 얼굴 폭 155~161mm를 위해 설계되었습니다. 그 범위를 벗어난다면 145~162mm를 1mm 단위로 제작하는 비스포크를 권합니다."
+        h2: "155-161mm은 시그니처, 그 밖은 비스포크",
+        body: "실측 155-161mm이라면 시그니처 158mm가 맞습니다. 그 범위를 벗어나면 비스포크로 만듭니다 - 145mm부터 172mm까지, 원하는 폭 그대로.",
+        list: [
+          "4가지 모양, 60가지 색상과 사이즈 조합",
+          "주문 후 2주면 발송",
+          "렌즈 포함 $480 (도수·선글라스·블루라이트·변색 렌즈 중 선택)",
+          "그리스에서 손으로 제작"
+        ]
+      },
+      {
+        h2: "휴대폰으로 얼굴 폭 재기 - FitLens",
+        body: "자를 들고 거울 앞에 서기 어렵다면 FitLens를 쓰세요. 휴대폰 카메라로 관자놀이에서 관자놀이까지의 폭을 측정하고, 그 숫자에 맞는 사이즈를 바로 알려줍니다. 구매 전에 확인하는 것이 반품보다 빠릅니다.",
+        ctas: FIT_CTAS
+      },
+      {
+        h2: "소재와 제작",
+        body: "이탈리아 마주켈리(Mazzucchelli) 아세테이트를 밀라노에서 가공합니다. 같은 아세테이트가 007·009와 비스포크에 모두 들어갑니다. 007과 009는 EU에서, 비스포크는 그리스에서 손으로 만듭니다."
+      },
+      {
+        h2: "한국 배송과 도수 렌즈",
+        body: "프레임만 들고 안경원에 가시면 됩니다. 국내 안경원에서 구하기 어려운 것은 렌즈가 아니라 158mm 프레임입니다. 렌즈는 어디서나 넣을 수 있습니다.",
+        callout: [
+          "Woolet은 한국으로 도수 렌즈를 판매하지 않습니다.",
+          "프레임(데모 렌즈 포함)과 도수 없는 선글라스만 배송합니다.",
+          "도수 렌즈는 가까운 안경원에서 조제하시면 됩니다."
+        ],
+        link: { label: "한국 배송, 관세, 개인통관고유부호 안내", href: "/ko/shipping" }
       }
     ],
     faqs: [
       {
         q: "내 얼굴 폭은 어떻게 재나요?",
-        a: "관자놀이에서 관자놀이까지 가장 넓은 지점을 밀리미터로 측정합니다. 155mm 이상이면 Woolet 158mm가 맞습니다."
+        a: "관자놀이에서 관자놀이까지 가장 넓은 지점을 재고, 그 숫자를 전면부 총길이와 비교합니다. 실측 155-161mm이라면 158mm가 맞습니다."
       },
       {
-        q: "158mm보다 더 큰 사이즈도 있나요?",
-        a: "비스포크로 145~162mm까지 1mm 단위로 제작합니다."
+        q: "158mm보다 넓게 만들 수 있나요?",
+        a: "비스포크로 145mm부터 172mm까지 제작합니다. 주문 후 2주, 렌즈 포함 $480입니다."
       }
     ],
     englishEquivalent: "/en"
   },
   "/ko/size/150mm": {
     path: "/ko/size/150mm",
-    eyebrow: "Woolet · 사이즈 가이드",
-    h1: "대두 안경테 150mm",
-    sub: "전면 폭 150mm는 얼굴 폭 약 148~152mm에 맞습니다. Woolet 기성 모델은 158mm 한 가지이므로, 150mm가 필요하면 비스포크로 제작합니다.",
-    metaTitle: "150mm 안경테 — 얼굴 폭 148~152mm | Woolet",
-    metaDescription: "전면 폭 150mm 안경테가 맞는 얼굴 폭과 측정 방법. Woolet 비스포크는 145~162mm를 1mm 단위로, 이탈리아 아세테이트로 EU에서 수작업 제작합니다.",
+    eyebrow: "Woolet · 사이즈",
+    h1: "150mm는 시그니처보다 좁습니다",
+    sub: "시그니처 158mm는 실측 155-161mm 얼굴을 위한 치수입니다. 150mm는 비스포크로 만듭니다.",
+    metaTitle: "대두 안경테 150mm - 비스포크 | Woolet",
+    metaDescription: "시그니처 158mm는 155-161mm 얼굴용입니다. 150mm는 비스포크로 제작합니다.",
     sections: [
       {
-        h2: "150mm는 누구에게 맞나요",
-        body: "관자놀이 사이 폭이 148~152mm인 얼굴입니다. 158mm 기성 모델은 다리가 바깥으로 벌어져 흘러내릴 수 있으므로, 이 구간은 비스포크 치수로 맞추는 편이 정확합니다.",
-        bullets: [
-          { label: "권장 얼굴 폭", value: "148~152 mm" },
-          { label: "전면 폭", value: "150 mm" },
-          { label: "비스포크 범위", value: "145~162 mm" }
-        ]
+        h2: "솔직하게 말씀드리면",
+        body: "Woolet 시그니처는 158mm입니다. 150mm 얼굴에는 넓습니다. 억지로 맞추는 대신 비스포크로 150mm를 만드는 편이 낫습니다."
       },
       {
-        h2: "측정 순서",
-        body: "거울 앞에서 자를 눈썹 바로 위에 대고, 왼쪽 관자놀이 끝에서 오른쪽 관자놀이 끝까지 밀리미터로 읽습니다. 두 번 측정해 평균을 냅니다."
+        h2: "150mm는 어떤 얼굴인가",
+        body: "전면부 총길이 150mm는 일반 브랜드의 넓은 쪽 라인과 겹치는 구간입니다. 기성품에서도 선택지가 있다는 뜻입니다. 그럼에도 비스포크를 고르는 이유는 브릿지 폭, 다리 길이, 프론트 높이를 함께 맞추기 때문입니다."
+      },
+      {
+        h2: "비스포크 145-172mm",
+        body: "원하는 폭을 그대로 지정합니다. 150mm도 같은 방식으로 만듭니다.",
+        list: BESPOKE_BULLETS,
+        ctas: FIT_CTAS
       }
     ],
     faqs: [
-      { q: "150mm와 158mm 중 무엇을 골라야 하나요?", a: "얼굴 폭이 155mm 미만이면 150mm 비스포크, 155mm 이상이면 158mm 기성 모델입니다." }
+      {
+        q: "150mm와 158mm 중 무엇을 골라야 하나요?",
+        a: "실측 155mm 미만이면 150mm 비스포크, 155-161mm이면 시그니처 158mm입니다."
+      }
     ],
     englishEquivalent: "/en/size/150mm"
   },
   "/ko/size/160mm": {
     path: "/ko/size/160mm",
-    eyebrow: "Woolet · 사이즈 가이드",
-    h1: "대두 안경테 160mm",
-    sub: "전면 폭 160mm는 얼굴 폭 약 158~162mm에 맞습니다. Woolet 158mm 기성 모델이 가장 가까우며, 정확한 160mm는 비스포크로 제작합니다.",
-    metaTitle: "160mm 안경테 — 얼굴 폭 158~162mm | Woolet",
-    metaDescription: "전면 폭 160mm 안경테가 필요한 얼굴 폭과 선택 기준. Woolet 158mm 기성 모델과 145~162mm 비스포크를 비교합니다. 이탈리아 아세테이트, EU 수작업.",
+    eyebrow: "Woolet · 사이즈",
+    h1: "대두 안경테 160mm - 정말 160mm가 필요한가요?",
+    sub: "160mm를 검색하는 분들 대부분은 실측 155-161mm입니다. 재는 법부터 확인하세요.",
+    metaTitle: "대두 안경테 160mm를 찾는다면 | Woolet",
+    metaDescription: "160mm를 검색하는 분들 대부분은 실측 155-161mm입니다. 재는 법부터 확인하고 시그니처 158mm와 비스포크 중에서 고르세요.",
     sections: [
       {
-        h2: "160mm는 누구에게 맞나요",
-        body: "관자놀이 사이 폭이 158~162mm인 얼굴입니다. 이 구간에서는 158mm 기성 모델도 무리 없이 착용되지만, 다리 압박이 전혀 없기를 원한다면 160mm 비스포크가 정확합니다.",
-        bullets: [
-          { label: "권장 얼굴 폭", value: "158~162 mm" },
-          { label: "전면 폭", value: "160 mm" },
-          { label: "기성 대안", value: "Woolet 007 / 009 — 158 mm" }
-        ]
+        h2: "160mm는 어디를 재는 숫자인가",
+        body: "160mm는 안경테 양 끝에서 끝까지, 전면부 총길이를 말합니다. 안경테에 인쇄된 52□19 145 같은 표기에는 이 숫자가 없습니다. 그래서 160mm를 검색하는 분들 대부분은 실제로 재본 적이 없습니다."
       },
       {
-        h2: "158mm로 충분한 경우",
-        body: "아세테이트는 열로 미세 조정이 가능합니다. 얼굴 폭 158~160mm라면 158mm 전면에 다리 각도만 조정해도 편안하게 맞는 경우가 많습니다."
+        h2: "얼굴 폭 재는 법",
+        body: "자 하나면 충분합니다.",
+        ordered: true,
+        list: [
+          "거울을 정면으로 보고 섭니다",
+          "왼쪽 관자놀이의 가장 튀어나온 지점에서 오른쪽 같은 지점까지를 잽니다",
+          "자가 얼굴 곡면을 따라가지 않도록 직선으로 유지합니다"
+        ],
+        paras: [
+          "지금 쓰는 안경이 있다면 더 쉽습니다. 안경테를 펼쳐 놓고 양 끝 사이를 재세요. 그 숫자가 지금 압박을 느끼는 폭입니다."
+        ],
+        link: { label: "안경 사이즈 재는 법 자세히 보기", href: "/ko/guide/frame-size" }
+      },
+      {
+        h2: "실측 155-161mm이라면 시그니처 158mm",
+        body: "이 범위가 Woolet 007과 009가 설계된 구간입니다. 158mm 프레임은 155mm 얼굴에서도, 161mm 얼굴에서도 관자놀이를 누르지 않습니다. 키홀 브릿지와 150mm 다리가 무게를 코가 아니라 프레임 전체에 분산시킵니다."
+      },
+      {
+        h2: "실측 162mm 이상이라면 비스포크",
+        body: "비스포크는 145mm부터 172mm까지 원하는 폭으로 만듭니다. 4가지 모양, 60가지 색상과 사이즈 조합, 주문 후 2주, 렌즈 포함 $480.",
+        ctas: FIT_CTAS
+      },
+      {
+        h2: "007 / 009 스펙",
+        body: "두 모양 모두 전면부 총길이 158mm입니다.",
+        table: SPEC_TABLE
       }
     ],
     faqs: [
-      { q: "160mm 기성 모델이 있나요?", a: "기성은 158mm 한 가지이며, 160mm는 비스포크로 제작합니다." }
+      {
+        q: "안경테에 160mm라고 적혀 있는 제품을 찾고 있는데요.",
+        a: "전면부 총길이는 안경테에 인쇄되지 않습니다. 제조사가 스펙에 따로 표기해야 알 수 있습니다. Woolet은 모든 제품에 전면부 총길이를 명시합니다."
+      },
+      {
+        q: "렌즈가 크면 전체 폭도 넓어지나요?",
+        a: "아닙니다. 렌즈 가로가 58mm여도 브릿지와 엔드피스가 좁으면 전체 폭은 150mm에 못 미칩니다."
+      },
+      {
+        q: "158mm인데 160mm 얼굴에 맞나요?",
+        a: "실측 161mm까지는 맞습니다. 아세테이트는 열로 미세 조정이 가능하고, 키홀 브릿지가 여유를 만듭니다."
+      }
     ],
     englishEquivalent: "/en/size/160mm"
   },
   "/ko/size/165mm": {
     path: "/ko/size/165mm",
-    eyebrow: "Woolet · 사이즈 가이드",
-    h1: "대두 안경테 165mm",
-    sub: "전면 폭 165mm는 얼굴 폭 163mm 이상을 위한 치수입니다. 솔직히 말해, 현재 Woolet의 제작 범위는 145~162mm이므로 165mm는 제작하지 않습니다.",
-    metaTitle: "165mm 안경테 — 초광폭 얼굴 가이드 | Woolet",
-    metaDescription: "전면 폭 165mm가 필요한 얼굴 폭과 현실적인 선택지. Woolet의 제작 범위는 145~162mm이며 그 이상은 제작하지 않습니다. 측정 기준과 대안을 정리했습니다.",
+    eyebrow: "Woolet · 비스포크",
+    h1: "165mm 안경테는 비스포크로 만듭니다",
+    sub: "165mm 전면부 총길이는 비스포크 범위(145-172mm) 안에 있습니다.",
+    metaTitle: "대두 안경테 165mm - 비스포크 맞춤 제작 | Woolet",
+    metaDescription: "165mm 전면부 총길이는 비스포크 범위(145-172mm) 안에 있습니다. 4가지 모양, 60가지 조합, 주문 후 2주, 렌즈 포함 $480.",
     sections: [
       {
-        h2: "165mm가 필요한 얼굴",
-        body: "관자놀이 사이 폭이 163mm를 넘는 경우입니다. 전체 인구에서 매우 드문 구간이며, 대부분의 브랜드가 다루지 않습니다.",
-        bullets: [
-          { label: "권장 얼굴 폭", value: "163 mm 이상" },
-          { label: "Woolet 제작 범위", value: "145~162 mm" }
-        ]
+        h2: "165mm는 기성품에 없습니다",
+        body: "일반 브랜드의 전면부 총길이는 대개 135-145mm입니다. 165mm는 기성 라인에서 찾기 어려운 구간입니다. 그래서 맞춤으로 만듭니다.",
+        link: { label: "안경 사이즈 재는 법", href: "/ko/guide/frame-size" }
       },
       {
-        h2: "Woolet이 맞지 않는 경우",
-        body: "얼굴 폭이 163mm를 넘는다면 Woolet 158mm도, 162mm 비스포크도 압박이 남습니다. 이 경우에는 구매를 권하지 않습니다. 먼저 정확히 측정하고, 162mm 이하라면 비스포크가 해답입니다."
+        h2: "비스포크는 145mm부터 172mm까지",
+        body: "원하는 폭을 그대로 지정합니다. 165mm도, 168mm도, 172mm도 같은 방식입니다. 172mm가 Woolet이 만드는 최대 폭입니다.",
+        list: BESPOKE_BULLETS
+      },
+      {
+        h2: "165mm가 정말 맞는 숫자인지 먼저 확인하세요",
+        body: "실측 155-161mm이라면 시그니처 158mm가 맞고, 가격은 $190입니다. 비스포크는 그 범위 밖일 때 필요합니다. FitLens로 먼저 재보세요.",
+        ctas: FIT_CTAS
       }
     ],
     faqs: [
-      { q: "162mm보다 넓게 제작할 수 있나요?", a: "현재는 불가능합니다. 제작 범위는 145~162mm입니다." }
+      {
+        q: "165mm보다 넓게 제작할 수 있나요?",
+        a: "172mm까지 제작합니다. 그 이상은 만들지 않습니다."
+      }
     ],
     englishEquivalent: "/en/size/165mm"
   },
@@ -7817,17 +7911,17 @@ const koPages = {
     path: "/ko/sunglasses",
     eyebrow: "Woolet · 선글라스",
     h1: "대두 선글라스 158mm",
-    sub: "얼굴 폭 155mm 이상을 위한 선글라스. 전면 폭 158mm, 키홀 브리지, UV400 렌즈. 이탈리아 Mazzucchelli 아세테이트를 EU에서 수작업으로 마감합니다.",
+    sub: "실측 155-161mm 얼굴을 위한 선글라스. 전면부 총길이 158mm, 키홀 브릿지, UV400 렌즈. 이탈리아 마주켈리 아세테이트, EU 핸드메이드.",
     metaTitle: "대두 선글라스 158mm — UV400 | Woolet",
-    metaDescription: "넓은 얼굴을 위한 158mm 선글라스. 키홀 브리지, UV400 렌즈, 이탈리아 Mazzucchelli 아세테이트, EU 수작업. 얼굴 폭 155~161mm에 맞습니다.",
+    metaDescription: "실측 155-161mm 얼굴을 위한 158mm 선글라스. 키홀 브릿지, UV400 렌즈, 이탈리아 마주켈리 아세테이트, EU 핸드메이드.",
     sections: [
       {
         h2: "선글라스는 오차가 더 크게 보인다",
-        body: "렌즈 면적이 넓기 때문에 전면 폭이 부족하면 눈이 렌즈 안쪽으로 몰리고 관자놀이에 자국이 남습니다. 158mm 전면은 눈동자 중심을 렌즈 중앙에 맞춰 줍니다.",
+        body: "렌즈 면적이 넓기 때문에 전면부 총길이가 부족하면 눈이 렌즈 안쪽으로 몰리고 관자놀이에 자국이 남습니다. 158mm 전면부는 눈동자 중심을 렌즈 중앙에 맞춰 줍니다.",
         bullets: [
-          { label: "전면 폭", value: "158 mm" },
+          { label: "전면부 총길이", value: "158mm" },
           { label: "렌즈", value: "UV400" },
-          { label: "브리지", value: "20~21 mm 키홀" }
+          { label: "브릿지", value: "21-22mm 키홀" }
         ]
       },
       {
@@ -7836,7 +7930,7 @@ const koPages = {
       }
     ],
     faqs: [
-      { q: "도수를 넣을 수 있나요?", a: "네, 도수 렌즈로 제작 가능합니다." }
+      { q: "한국에서 도수를 넣을 수 있나요?", a: "프레임만 배송하며, 도수 렌즈는 가까운 안경원에서 조제하시면 됩니다." }
     ],
     englishEquivalent: null
   },
@@ -7845,25 +7939,25 @@ const koPages = {
     eyebrow: "Woolet · 가이드",
     h1: "안경 사이즈 재는 법",
     sub: "안경테 안쪽에 적힌 숫자와 내 얼굴 폭을 연결하는 방법. 자 하나와 30초면 충분합니다.",
-    metaTitle: "안경 사이즈 재는 법 — 얼굴 폭과 프레임 숫자 | Woolet",
-    metaDescription: "안경 다리 안쪽 숫자(렌즈 폭-브리지-다리 길이)를 읽는 법과 얼굴 폭 측정법. 전면 폭 계산식과 155mm 이상 얼굴을 위한 기준을 정리했습니다.",
+    metaTitle: "안경 사이즈 재는 법 — 얼굴 폭과 전면부 총길이 | Woolet",
+    metaDescription: "안경 다리 안쪽 숫자(렌즈 가로-브릿지-다리 길이)를 읽는 법과 얼굴 폭 측정법. 전면부 총길이 계산식과 실측 155mm 이상 기준을 정리했습니다.",
     sections: [
       {
         h2: "다리 안쪽 숫자 읽기",
-        body: "예를 들어 54–21–150은 렌즈 폭 54mm, 브리지 21mm, 다리 길이 150mm를 뜻합니다. 전면 폭은 대략 (렌즈 폭 × 2) + 브리지 + 힌지 여유입니다.",
+        body: "예를 들어 52□21 150은 렌즈 가로 52mm, 브릿지 21mm, 다리 길이 150mm를 뜻합니다. 전면부 총길이는 대략 (렌즈 가로 × 2) + 브릿지 + 엔드피스 여유입니다.",
         bullets: [
-          { label: "렌즈 폭", value: "51~54 mm" },
-          { label: "브리지", value: "20~21 mm" },
-          { label: "다리 길이", value: "145~155 mm" }
+          { label: "렌즈 가로", value: "52-54mm" },
+          { label: "브릿지", value: "21-22mm" },
+          { label: "다리 길이", value: "150mm" }
         ]
       },
       {
         h2: "얼굴 폭 측정",
-        body: "눈썹 바로 위, 왼쪽 관자놀이 끝에서 오른쪽 관자놀이 끝까지 밀리미터로 잽니다. 이 값이 전면 폭과 ±3mm 안에 들면 잘 맞는 크기입니다."
+        body: "왼쪽 관자놀이의 가장 튀어나온 지점에서 오른쪽 같은 지점까지를 직선으로 잽니다. 이 값이 전면부 총길이와 ±3mm 안에 들면 잘 맞는 크기입니다."
       }
     ],
     faqs: [
-      { q: "전면 폭이 얼굴 폭보다 좁으면?", a: "관자놀이가 눌리고 다리가 벌어집니다. 얼굴 폭 이상 또는 동일한 전면 폭을 고르세요." }
+      { q: "전면부 총길이가 얼굴 폭보다 좁으면?", a: "관자놀이가 눌리고 다리가 벌어집니다. 얼굴 폭 이상 또는 동일한 전면부 총길이를 고르세요." }
     ],
     englishEquivalent: null
   },
@@ -7871,26 +7965,26 @@ const koPages = {
     path: "/ko/brands",
     eyebrow: "Woolet · 비교",
     h1: "대두 안경테 브랜드 비교",
-    sub: "넓은 얼굴을 다루는 브랜드는 많지 않습니다. 전면 폭이라는 하나의 숫자로만 비교했습니다.",
-    metaTitle: "대두 안경테 브랜드 비교 — 전면 폭 기준 | Woolet",
-    metaDescription: "넓은 얼굴용 안경 브랜드를 전면 폭 기준으로 비교합니다. 대부분 135~148mm에 머무는 반면 Woolet은 158mm 기성과 145~162mm 비스포크를 제공합니다.",
+    sub: "대두 안경테를 다루는 브랜드는 많지 않습니다. 전면부 총길이라는 하나의 숫자로만 비교했습니다.",
+    metaTitle: "대두 안경테 브랜드 비교 — 전면부 총길이 기준 | Woolet",
+    metaDescription: "대두 안경테 브랜드를 전면부 총길이 기준으로 비교합니다. 대부분 135-145mm에 머무는 반면 Woolet은 158mm 기성과 145-172mm 비스포크를 제공합니다.",
     sections: [
       {
-        h2: "비교 기준은 전면 폭 하나",
-        body: "'라지', 'XL' 같은 표기는 브랜드마다 다릅니다. 유일하게 비교 가능한 숫자는 힌지에서 힌지까지의 전면 폭(mm)입니다.",
+        h2: "비교 기준은 전면부 총길이 하나",
+        body: "'라지', 'XL' 같은 표기는 브랜드마다 다릅니다. 유일하게 비교 가능한 숫자는 양 끝에서 끝까지의 전면부 총길이(mm)입니다.",
         bullets: [
-          { label: "일반 브랜드", value: "135~148 mm" },
-          { label: "Woolet 기성", value: "158 mm" },
-          { label: "Woolet 비스포크", value: "145~162 mm" }
+          { label: "일반 브랜드", value: "135-145mm" },
+          { label: "Woolet 시그니처", value: "158mm" },
+          { label: "Woolet 비스포크", value: "145-172mm" }
         ]
       },
       {
         h2: "선택 기준",
-        body: "얼굴 폭을 먼저 재고, 그 숫자에 맞는 전면 폭을 제공하는 브랜드만 후보에 남기세요. 그러면 대부분의 선택지는 자동으로 정리됩니다."
+        body: "얼굴 폭을 먼저 재고, 그 숫자에 맞는 전면부 총길이를 제공하는 브랜드만 후보에 남기세요. 그러면 대부분의 선택지는 자동으로 정리됩니다."
       }
     ],
     faqs: [
-      { q: "전면 폭을 공개하지 않는 브랜드는?", a: "다리 안쪽 숫자로 추정할 수 있습니다: (렌즈 폭 × 2) + 브리지 + 약 6~10mm." }
+      { q: "전면부 총길이를 공개하지 않는 브랜드는?", a: "다리 안쪽 숫자로 추정할 수 있습니다: (렌즈 가로 × 2) + 브릿지 + 약 6-10mm." }
     ],
     englishEquivalent: null
   },
@@ -7898,13 +7992,13 @@ const koPages = {
     path: "/ko/shipping",
     eyebrow: "Woolet · 배송",
     h1: "한국 배송 안내",
-    sub: "한국으로의 배송, 소요 기간, 반품과 보증에 대한 안내입니다.",
-    metaTitle: "한국 배송 안내 — 기간·반품·보증 | Woolet",
-    metaDescription: "Woolet 안경의 한국 배송 안내. 무료 배송, 30일 반품, 2년 보증. 기성 모델과 145~162mm 비스포크의 제작 및 배송 기간을 정리했습니다.",
+    sub: "한국으로의 배송, 통관, 반품과 보증에 대한 안내입니다.",
+    metaTitle: "한국 배송 안내 — 통관·반품·보증 | Woolet",
+    metaDescription: "Woolet 안경의 한국 배송 안내. 무료 배송, 30일 반품, 2년 보증, 개인통관고유부호 안내. 비스포크는 주문 후 2주 발송.",
     sections: [
       {
         h2: "배송과 기간",
-        body: "기성 모델은 EU에서 발송되며 통상 영업일 기준 배송됩니다. 비스포크는 1mm 단위로 제작하므로 제작 기간이 추가로 필요합니다.",
+        body: "시그니처 007·009는 EU에서 발송됩니다. 비스포크는 그리스에서 손으로 제작하며 주문 후 2주면 발송합니다.",
         bullets: [
           { label: "배송비", value: "무료" },
           { label: "반품", value: "30일" },
@@ -7912,8 +8006,12 @@ const koPages = {
         ]
       },
       {
-        h2: "관세와 세금",
-        body: "수입 관세와 부가세는 도착 국가의 규정에 따라 부과될 수 있습니다. 정확한 금액은 통관 시점에 결정됩니다."
+        h2: "통관과 개인통관고유부호",
+        body: "한국으로 배송되는 해외 직구 상품은 개인통관고유부호가 필요합니다. 수입 관세와 부가세는 통관 시점의 규정에 따라 부과될 수 있습니다.",
+        callout: [
+          "Woolet은 한국으로 도수 렌즈를 판매하지 않습니다.",
+          "프레임(데모 렌즈 포함)과 도수 없는 선글라스만 배송합니다."
+        ]
       }
     ],
     faqs: [
@@ -7925,6 +8023,17 @@ const koPages = {
 const koPageOrder = Object.keys(koPages);
 const KO_ROUTES = koPageOrder;
 const HANGUL = /[\uAC00-\uD7A3]/;
+const FORBIDDEN = ["넓은 얼굴 안경", "밀리미터", "made in Italy"];
+function assertCopy(path, field, value) {
+  if (!value || !value.trim()) {
+    throw new Error(`[ko] Missing Korean copy: ${path} -> ${field}`);
+  }
+  if (!HANGUL.test(value)) {
+    throw new Error(
+      `[ko] ${path} -> ${field} contains no Korean text ("${value}"). English fallback is forbidden for /ko.`
+    );
+  }
+}
 for (const [path, cfg] of Object.entries(koPages)) {
   const required = [
     ["h1", cfg.h1],
@@ -7933,14 +8042,7 @@ for (const [path, cfg] of Object.entries(koPages)) {
     ["metaDescription", cfg.metaDescription],
     ["eyebrow", cfg.eyebrow]
   ];
-  for (const [field, value] of required) {
-    if (!value || !value.trim()) {
-      throw new Error(`[ko] Missing Korean copy: ${path} -> ${field}`);
-    }
-    if (!HANGUL.test(value)) {
-      throw new Error(`[ko] ${path} -> ${field} contains no Korean text ("${value}"). English fallback is forbidden for /ko.`);
-    }
-  }
+  for (const [field, value] of required) assertCopy(path, field, value);
   if (cfg.path !== path) {
     throw new Error(`[ko] path mismatch for ${path} (config.path = ${cfg.path})`);
   }
@@ -7951,8 +8053,21 @@ for (const [path, cfg] of Object.entries(koPages)) {
     throw new Error(`[ko] ${path} has no content sections.`);
   }
   for (const s of cfg.sections) {
-    if (!HANGUL.test(s.h2) || !HANGUL.test(s.body)) {
-      throw new Error(`[ko] ${path} has a section without Korean copy.`);
+    assertCopy(path, `section.h2 (${s.h2})`, s.h2);
+    assertCopy(path, `section.body (${s.h2})`, s.body);
+    for (const p of s.paras ?? []) assertCopy(path, `section.para (${s.h2})`, p);
+    for (const l of s.list ?? []) assertCopy(path, `section.list (${s.h2})`, l);
+    for (const l of s.callout ?? []) assertCopy(path, `section.callout (${s.h2})`, l);
+    for (const cta of s.ctas ?? []) assertCopy(path, `section.cta (${s.h2})`, cta.label);
+  }
+  for (const f of cfg.faqs) {
+    assertCopy(path, "faq.q", f.q);
+    assertCopy(path, "faq.a", f.a);
+  }
+  const blob = JSON.stringify(cfg);
+  for (const bad of FORBIDDEN) {
+    if (blob.includes(bad)) {
+      throw new Error(`[ko] ${path} uses forbidden phrasing: "${bad}".`);
     }
   }
 }
@@ -7967,7 +8082,8 @@ const collectionSeo = {
   de: { title: "Woolet Kollektion — 007 & 009 für breite Gesichter", description: "Zwei Formen, Breiten 155–161 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU." },
   ar: { title: "مجموعة Woolet — 007 و 009 للوجوه العريضة", description: "شكلان، عرض 155–161 ملم. أسيتات Mazzucchelli الإيطالي، صناعة يدوية في الاتحاد الأوروبي." },
   ja: { title: "Wooletコレクション — 幅広い顔のための007 & 009", description: "2つのシェイプ、幅155–161mm。イタリア製Mazzucchelliアセテート、EUで手作り。" },
-  nl: { title: "Woolet Collectie — 007 & 009 voor brede gezichten", description: "Twee vormen, breedtes 155–161 mm. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU." }
+  nl: { title: "Woolet Collectie — 007 & 009 voor brede gezichten", description: "Twee vormen, breedtes 155–161 mm. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU." },
+  ko: { title: "Woolet 컬렉션 — 넓은 얼굴을 위한 007 & 009", description: "두 가지 형태, 폭 155–161mm. 이탈리아 마주켈리 아세테이트, EU 수제 제작." }
 };
 const COLLECTION_ITEMS = [
   { id: "007", name: "Woolet 007 — Round Panto" },
@@ -8407,18 +8523,43 @@ function base(route, lang, copy, og = {}, jsonLd = [], alternates) {
 function koMetadata(route) {
   const cfg = koPages[route];
   if (!cfg) return null;
-  const bullets = cfg.sections.flatMap((sec) => sec.bullets ?? []).map((b) => `<li>${escapeHtml(b.label)}: ${escapeHtml(b.value)}</li>`).join("");
-  const body = cfg.sections.map((sec) => `<h2>${escapeHtml(sec.h2)}</h2>
-<p>${escapeHtml(sec.body)}</p>`).join("\n");
+  const renderSection = (sec) => {
+    var _a, _b, _c;
+    const parts = [`<h2>${escapeHtml(sec.h2)}</h2>`, `<p>${escapeHtml(sec.body)}</p>`];
+    for (const p of sec.paras ?? []) parts.push(`<p>${escapeHtml(p)}</p>`);
+    if ((_a = sec.list) == null ? void 0 : _a.length) {
+      const tag = sec.ordered ? "ol" : "ul";
+      parts.push(`<${tag}>${sec.list.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</${tag}>`);
+    }
+    if (sec.table) {
+      const head = sec.table.head.map((h) => `<th scope="col">${escapeHtml(h)}</th>`).join("");
+      const rows = sec.table.rows.map((r) => `<tr>${r.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("");
+      parts.push(`<table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`);
+    }
+    if ((_b = sec.callout) == null ? void 0 : _b.length) {
+      parts.push(`<blockquote>${sec.callout.map((l) => `<p>${escapeHtml(l)}</p>`).join("")}</blockquote>`);
+    }
+    if ((_c = sec.bullets) == null ? void 0 : _c.length) {
+      parts.push(
+        `<ul>${sec.bullets.map((b) => `<li>${escapeHtml(b.label)}: ${escapeHtml(b.value)}</li>`).join("")}</ul>`
+      );
+    }
+    for (const cta of sec.ctas ?? []) {
+      parts.push(`<p><a href="${cta.href}">${escapeHtml(cta.label)}</a></p>`);
+    }
+    if (sec.link) parts.push(`<p><a href="${sec.link.href}">${escapeHtml(sec.link.label)}</a></p>`);
+    return parts.join("\n");
+  };
+  const body = cfg.sections.map(renderSection).join("\n");
   const links = KO_ROUTES.filter((p) => p !== route).map((p) => `<li><a href="${p}">${escapeHtml(koPages[p].h1)}</a></li>`).join("");
   const faqs = cfg.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3>
 <p>${escapeHtml(f.a)}</p>`).join("\n");
   const noscriptHtml = `<h1>${escapeHtml(cfg.h1)}</h1>
 <p>${escapeHtml(cfg.sub)}</p>
 ${body}
-${bullets ? `<ul>${bullets}</ul>` : ""}
+<h2>자주 묻는 질문</h2>
 ${faqs}
-<nav><ul>${links}<li><a href="/en">English site</a></li></ul></nav>`;
+<nav><ul>${links}</ul></nav>`;
   const alternates = cfg.englishEquivalent ? void 0 : {
     ko: `${SITE_URL}${route}`,
     "x-default": `${SITE_URL}/en`
@@ -9028,7 +9169,8 @@ function getMetadata(route) {
       de: { title: "Blog — Woolet | Wissen zu Brillen für breite Gesichter", description: "Expertenwissen zu Brillen für breite Gesichter, italienischem Acetat, Fassungsgrößen und der perfekten Passform ab 155 mm." },
       ar: { title: "المدونة — Woolet | رؤى حول نظارات الوجوه العريضة", description: "أدلة الخبراء حول النظارات للوجوه العريضة، الأسيتات الإيطالي، مقاسات الإطار، والمقاس المثالي من 155 ملم فأكثر." },
       ja: { title: "ブログ — Woolet | 幅広い顔のためのアイウェア知見", description: "幅広い顔のためのメガネ、イタリア製アセテート、フレームサイジング、155mm以上の顔幅に最適なフィットに関する専門ガイド。" },
-      nl: { title: "Blog — Woolet | Inzichten over bril voor brede gezichten", description: "Expertgidsen over brillen voor brede gezichten, Italiaans acetaat, framematen en de perfecte pasvorm vanaf 155 mm." }
+      nl: { title: "Blog — Woolet | Inzichten over bril voor brede gezichten", description: "Expertgidsen over brillen voor brede gezichten, Italiaans acetaat, framematen en de perfecte pasvorm vanaf 155 mm." },
+      ko: { title: "블로그 — Woolet | 넓은 얼굴 안경 인사이트", description: "넓은 얼굴을 위한 안경, 이탈리아 아세테이트, 프레임 사이즈, 155mm 이상 얼굴 폭에 맞는 핏에 대한 전문 가이드." }
     };
     const posts = getBlogPosts(lang);
     const links = posts.map(
