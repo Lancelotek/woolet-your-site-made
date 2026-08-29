@@ -1404,8 +1404,13 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
 <h2>Does 158 mm fit a ${s.width} mm face?</h2>
 <p>${s.fitVerdict}</p>
 <p>${s.intro}</p>
-<p>Signature 158 mm · Bespoke 145–172 mm · Hand made in EU · Mazzucchelli acetate from Milan, Italy.</p>
-<p><a href="/en/fit">Measure my face with FitLens</a> · <a href="/en/products/007">Woolet 007 Round</a> · <a href="/en/products/009">Woolet 009 Soft Square</a> · <a href="/en/bespoke">Bespoke 145–172 mm</a></p>`,
+<h2>Bespoke at ${s.width} mm</h2>
+<p>${s.bespokeNote}</p>
+<p>Bespoke: 4 shapes, 60 colour and size combinations, any width 145–172 mm (172 mm maximum), 2 weeks from order to shipping, $480 with lenses included, hand made in Greece. Signature 158 mm $190, fits 155–161 mm faces, hand made in EU from Mazzucchelli acetate milled in Milan.</p>
+<h2>Every width we cover — 145 to 172 mm</h2>
+<p>${SIZES.map((r) => `<a href="/en/size/${r.slug}">${r.width} mm${r.width === 158 ? " (signature)" : r.width >= 155 && r.width <= 161 ? " (signature fit)" : " (bespoke)"}</a>`).join(" · ")}</p>
+<p><a href="/en/fit">Measure my face with FitLens</a> · <a href="/en/products/007">Woolet 007 Round</a> · <a href="/en/products/009">Woolet 009 Soft Square</a> · <a href="/en/fit/bespoke">Bespoke 145–172 mm</a></p>`,
+
         },
         { image: DEFAULT_OG, type: "website" },
         [
