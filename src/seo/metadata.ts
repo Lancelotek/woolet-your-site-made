@@ -437,6 +437,8 @@ function koMetadata(route: string): RouteMeta | null {
     if (sec.callout?.length) {
       parts.push(`<blockquote>${sec.callout.map((l) => `<p>${escapeHtml(l)}</p>`).join("")}</blockquote>`);
     }
+    if (sec.code) parts.push(`<pre><code>${escapeHtml(sec.code)}</code></pre>`);
+    if (sec.emphasis) parts.push(`<p><strong>${escapeHtml(sec.emphasis)}</strong></p>`);
     if (sec.bullets?.length) {
       parts.push(
         `<ul>${sec.bullets.map((b) => `<li>${escapeHtml(b.label)}: ${escapeHtml(b.value)}</li>`).join("")}</ul>`,
@@ -456,12 +458,12 @@ function koMetadata(route: string): RouteMeta | null {
   const faqs = cfg.faqs
     .map((f) => `<h3>${escapeHtml(f.q)}</h3>\n<p>${escapeHtml(f.a)}</p>`)
     .join("\n");
+  const faqBlock = cfg.faqs.length ? `<h2>자주 묻는 질문</h2>\n${faqs}` : "";
 
   const noscriptHtml = `<h1>${escapeHtml(cfg.h1)}</h1>
 <p>${escapeHtml(cfg.sub)}</p>
 ${body}
-<h2>자주 묻는 질문</h2>
-${faqs}
+${faqBlock}
 <nav><ul>${links}</ul></nav>`;
 
 
@@ -472,7 +474,7 @@ ${faqs}
         "x-default": `${SITE_URL}/en`,
       };
 
-  return base(
+  const meta = base(
     route,
     "ko",
     { title: cfg.metaTitle, description: cfg.metaDescription, noscriptHtml },
@@ -495,10 +497,13 @@ ${faqs}
               { name: cfg.h1, url: `${SITE_URL}${route}` },
             ],
       ),
-      faqPageJsonLd(cfg.faqs.map((f) => ({ q: f.q, a: f.a }))),
+      ...(cfg.faqs.length ? [faqPageJsonLd(cfg.faqs.map((f) => ({ q: f.q, a: f.a })))] : []),
     ],
     alternates,
   );
+
+  if (cfg.noindex) meta.robots = "noindex, follow";
+  return meta;
 }
 
 export function getMetadata(route: string): RouteMeta {
@@ -1149,7 +1154,7 @@ export function getMetadata(route: string): RouteMeta {
       ar: { title: "المدونة — Woolet | رؤى حول نظارات الوجوه العريضة", description: "أدلة الخبراء حول النظارات للوجوه العريضة، الأسيتات الإيطالي، مقاسات الإطار، والمقاس المثالي من 155 ملم فأكثر." },
       ja: { title: "ブログ — Woolet | 幅広い顔のためのアイウェア知見", description: "幅広い顔のためのメガネ、イタリア製アセテート、フレームサイジング、155mm以上の顔幅に最適なフィットに関する専門ガイド。" },
       nl: { title: "Blog — Woolet | Inzichten over bril voor brede gezichten", description: "Expertgidsen over brillen voor brede gezichten, Italiaans acetaat, framematen en de perfecte pasvorm vanaf 155 mm." },
-      ko: { title: "블로그 — Woolet | 넓은 얼굴 안경 인사이트", description: "넓은 얼굴을 위한 안경, 이탈리아 아세테이트, 프레임 사이즈, 155mm 이상 얼굴 폭에 맞는 핏에 대한 전문 가이드." },
+      ko: { title: "블로그 — Woolet | 대두 안경테 인사이트", description: "대두 안경테, 이탈리아 아세테이트, 프레임 사이즈, 155mm 이상 얼굴 폭에 맞는 핏에 대한 전문 가이드." },
 
 
     };
