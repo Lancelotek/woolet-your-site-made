@@ -144,16 +144,14 @@ const Navbar = () => {
           >
             <User size={15} strokeWidth={1.5} />
           </Link>
-          <a
-            href="https://shop.woolet.co/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-            style={{ fontSize: "0.72rem" }}
-            onClick={() => pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang })}
+          <Link
+            to={hrefFor("lp.kickstarter", lang)}
+            className="text-primary no-underline uppercase tracking-[0.2em] border border-primary/40 hover:bg-primary/10 transition-colors"
+            style={{ fontSize: "0.72rem", padding: "6px 12px", borderRadius: 2 }}
+            onClick={() => pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang })}
           >
-            {t(lang, "nav.shop_label")} — {t(lang, "nav.coming_soon")}
-          </a>
+            VIP — 40% off
+          </Link>
           {/* Top "Scan your face" CTA hidden — primary CTA is now waitlist */}
 
         </div>
@@ -287,19 +285,17 @@ const Navbar = () => {
 
             <div className="woolet-divider" />
 
-            <a
-              href="https://shop.woolet.co/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary uppercase tracking-[0.2em] border border-primary/20 px-3 py-2 text-center no-underline hover:bg-primary/10 transition-colors"
+            <Link
+              to={hrefFor("lp.kickstarter", lang)}
+              className="text-primary uppercase tracking-[0.2em] border border-primary/40 px-3 py-2 text-center no-underline hover:bg-primary/10 transition-colors"
               style={{ fontSize: "0.72rem" }}
               onClick={() => {
                 setMenuOpen(false);
-                pushGtmEvent("nav_click", { nav_item: "shop", nav_lang: lang });
+                pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang });
               }}
             >
-              {t(lang, "nav.shop_label")} — {t(lang, "nav.coming_soon")}
-            </a>
+              VIP — 40% off
+            </Link>
           </div>
         </div>
       )}
