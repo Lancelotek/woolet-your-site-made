@@ -101,7 +101,9 @@ const modelLabel: Record<RefProduct["model"], string> = {
   "009": "009",
   "003": "003",
   bespoke: "Bespoke",
+  box: "The Box",
 };
+
 
 const firstSlugForModel = (m: RefProduct["model"]) =>
   REF_PRODUCTS.find((p) => p.model === m)?.slug ?? "";
@@ -123,6 +125,7 @@ const RefProductPage = () => {
     .map((s) => refProductBySlug(s))
     .filter(Boolean) as RefProduct[];
 
+  const isBox = product.model === "box";
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -131,15 +134,20 @@ const RefProductPage = () => {
     description: product.intro,
     brand: { "@type": "Brand", name: "Woolet" },
     color: product.colour,
-    material: "Mazzucchelli acetate",
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      price: product.priceUsd,
-      availability: product.model === "003" ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
-      url: canonical,
-    },
+    ...(isBox
+      ? {}
+      : {
+          material: "Mazzucchelli acetate",
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "USD",
+            price: product.priceUsd,
+            availability: product.model === "003" ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+            url: canonical,
+          },
+        }),
   };
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
