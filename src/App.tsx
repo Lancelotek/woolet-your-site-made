@@ -141,6 +141,12 @@ const RedirectSizeToEn = () => {
   return <Navigate to={`/en/size/${slug}`} replace />;
 };
 
+/** /:lang/ref/:slug — reference pages exist in English only. */
+const RedirectRefToEn = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/en/ref/${slug}`} replace />;
+};
+
 /** /:lang/compare/:slug — send real competitor slugs to the English page. */
 const LocalizedCompareRedirect = () => {
   const { slug } = useParams();
