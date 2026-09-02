@@ -2120,6 +2120,7 @@ const STATIC_ROUTES = [
   "/en/ref/009-silver-clear",
   "/en/ref/003-black",
   "/en/ref/bespoke",
+  "/en/ref/the-box",
   "/en/bridge/18mm",
   "/en/bridge/19mm",
   "/en/bridge/20mm",

@@ -66,7 +66,7 @@ const RefIndex = () => (
               </div>
               <div style={{ fontFamily: SERIF, fontSize: 20, lineHeight: 1.2, marginTop: 12 }}>{p.name}</div>
               <div style={{ fontSize: 13, color: T.inkMute, marginTop: 4 }}>
-                ${p.priceUsd} · {p.model === "bespoke" ? "lenses included" : "frame with demo lens"}
+                {p.model === "box" ? "Included with every pair" : `$${p.priceUsd} · ${p.model === "bespoke" ? "lenses included" : "frame with demo lens"}`}
               </div>
             </Link>
           ))}
