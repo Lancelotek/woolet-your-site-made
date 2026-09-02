@@ -101,7 +101,9 @@ const modelLabel: Record<RefProduct["model"], string> = {
   "009": "009",
   "003": "003",
   bespoke: "Bespoke",
+  box: "The Box",
 };
+
 
 const firstSlugForModel = (m: RefProduct["model"]) =>
   REF_PRODUCTS.find((p) => p.model === m)?.slug ?? "";
@@ -123,6 +125,7 @@ const RefProductPage = () => {
     .map((s) => refProductBySlug(s))
     .filter(Boolean) as RefProduct[];
 
+  const isBox = product.model === "box";
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -131,15 +134,20 @@ const RefProductPage = () => {
     description: product.intro,
     brand: { "@type": "Brand", name: "Woolet" },
     color: product.colour,
-    material: "Mazzucchelli acetate",
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      price: product.priceUsd,
-      availability: product.model === "003" ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
-      url: canonical,
-    },
+    ...(isBox
+      ? {}
+      : {
+          material: "Mazzucchelli acetate",
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "USD",
+            price: product.priceUsd,
+            availability: product.model === "003" ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+            url: canonical,
+          },
+        }),
   };
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -159,7 +167,7 @@ const RefProductPage = () => {
     margin: "0 0 14px", fontWeight: 400,
   };
 
-  const otherModels = (["007", "009", "003", "bespoke"] as RefProduct["model"][]).filter((m) => m !== product.model);
+  const otherModels = (["007", "009", "003", "bespoke", "box"] as RefProduct["model"][]).filter((m) => m !== product.model);
 
   return (
     <>
@@ -220,8 +228,14 @@ const RefProductPage = () => {
               )}
 
               <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginTop: 26, paddingTop: 22, borderTop: `1px solid ${T.hair}` }}>
-                <span style={{ fontFamily: SERIF, fontSize: 34, lineHeight: 1 }}>${product.priceUsd}</span>
-                <span style={{ fontSize: 13, color: T.inkMute }}>{isBespoke ? "lenses included" : "frame with demo lens"}</span>
+                {product.priceLabel ? (
+                  <span style={{ fontFamily: SERIF, fontSize: 34, lineHeight: 1.1 }}>{product.priceLabel}</span>
+                ) : (
+                  <>
+                    <span style={{ fontFamily: SERIF, fontSize: 34, lineHeight: 1 }}>${product.priceUsd}</span>
+                    <span style={{ fontSize: 13, color: T.inkMute }}>{isBespoke ? "lenses included" : "frame with demo lens"}</span>
+                  </>
+                )}
               </div>
 
               {swatches.length > 1 && (
@@ -269,6 +283,30 @@ const RefProductPage = () => {
                 </dl>
               </section>
 
+              {product.included && product.included.length > 0 && (
+                <section style={{ marginTop: 36, paddingTop: 26, borderTop: `1px solid ${T.hair}` }}>
+                  <h2 style={h2}>In the box</h2>
+                  <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                    {product.included.map((item) => (
+                      <li key={item} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "7px 0" }}>
+                        <svg width="15" height="15" viewBox="0 0 20 20" fill="none" style={{ flex: "0 0 15px", marginTop: 3 }} aria-hidden="true">
+                          <path d="M4 10.5l4 4 8-9" stroke={T.gold} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span style={{ fontSize: 14, lineHeight: 1.5, color: T.ink }}>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {!isBox && (
+                    <div style={{ marginTop: 12 }}>
+                      <Link to="/en/ref/the-box" style={{ fontSize: 13, color: T.inkDim, textDecoration: "none" }}>
+                        See the box in detail →
+                      </Link>
+                    </div>
+                  )}
+                </section>
+              )}
+
+              {product.lensOptions.length > 0 && (
               <section style={{ marginTop: 36, paddingTop: 26, borderTop: `1px solid ${T.hair}` }}>
                 <h2 style={h2}>Lens options</h2>
                 <p style={{ fontSize: 13, lineHeight: 1.6, color: T.inkMute, margin: "0 0 16px" }}>
@@ -288,6 +326,7 @@ const RefProductPage = () => {
                   ))}
                 </ul>
               </section>
+              )}
 
               <section style={{ marginTop: 36, paddingTop: 26, borderTop: `1px solid ${T.hair}` }}>
                 <div style={{ fontSize: 14, color: T.inkDim }}>

@@ -8,12 +8,14 @@ export type RefImage = { src: string; alt: string; caption: string };
 
 export type RefProduct = {
   slug: string;
-  model: "007" | "009" | "003" | "bespoke";
+  model: "007" | "009" | "003" | "bespoke" | "box";
   name: string;            // "Woolet 007 Round / Panto - Black"
   shortName: string;       // "007 Round / Panto"
   colour: string;          // "Black"
   colourDot: string;       // swatch hex
   priceUsd: number;        // frame with demo lens
+  priceLabel?: string;     // when set, replaces the "$xxx" price row
+  included?: string[];     // rendered as "In the box"
   status?: "pre-production";
   tagline: string;         // one line under the H1
   intro: string;           // colour-specific opening paragraph
@@ -114,7 +116,10 @@ export const REF_PRODUCTS: RefProduct[] = [
       ...img007("black", "Black"),
       { src: `${F}woolet-007-round-panto-black-eyeglasses-on-face.jpg`, alt: "Woolet 007 Black worn on a wide face", caption: "On face" },
       { src: `${F}woolet-007-round-panto-black-worn.jpg`, alt: "Woolet 007 Black worn, lifestyle", caption: "Worn" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with frames, felt cloth and welcome card - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w - included with every pair", caption: "Felt pouch" },
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
     siblings: ["007-havana", "007-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-black",
     metaTitle: "Woolet 007 Round / Panto - Black | 158 mm acetate glasses for wide faces",
@@ -136,7 +141,10 @@ export const REF_PRODUCTS: RefProduct[] = [
     images: [
       ...img007("havana", "Havana"),
       { src: `${F}woolet-007-round-panto-havana-eyeglasses-on-face.jpg`, alt: "Woolet 007 Havana worn on a wide face", caption: "On face" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with frames, felt cloth and welcome card - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w - included with every pair", caption: "Felt pouch" },
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
     siblings: ["007-black", "007-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-havana",
     metaTitle: "Woolet 007 Round / Panto - Havana | 158 mm tortoise acetate glasses",
@@ -161,7 +169,10 @@ export const REF_PRODUCTS: RefProduct[] = [
       { src: `${F}woolet-007-round-panto-silver-clear-detail-1.jpg`, alt: "Woolet 007 Silver Clear hinge detail", caption: "Hinge detail" },
       { src: `${F}woolet-007-round-panto-silver-clear-detail-2.jpg`, alt: "Woolet 007 Silver Clear acetate detail", caption: "Acetate detail" },
       { src: `${F}woolet-007-round-panto-silver-clear-angle-top.jpg`, alt: "Woolet 007 Silver Clear top view", caption: "Top view" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with frames, felt cloth and welcome card - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w - included with every pair", caption: "Felt pouch" },
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
     siblings: ["007-black", "007-havana"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-silver-clear",
     metaTitle: "Woolet 007 Round / Panto - Silver Clear | 158 mm clear acetate glasses",
@@ -185,7 +196,10 @@ export const REF_PRODUCTS: RefProduct[] = [
     images: [
       ...img009("black", "Black"),
       { src: `${F}woolet-009-soft-square-black-eyeglasses-on-face.jpg`, alt: "Woolet 009 Black worn on a wide face", caption: "On face" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with frames, felt cloth and welcome card - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w - included with every pair", caption: "Felt pouch" },
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
     siblings: ["009-havana", "009-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-black",
     metaTitle: "Woolet 009 Soft Square - Black | 158 mm acetate glasses for wide faces",
@@ -208,7 +222,10 @@ export const REF_PRODUCTS: RefProduct[] = [
       ...img009("havana", "Havana"),
       { src: `${F}woolet-009-soft-square-havana-eyeglasses-on-face.jpg`, alt: "Woolet 009 Havana worn on a wide face", caption: "On face" },
       { src: `${F}woolet-009-soft-square-havana-worn.jpg`, alt: "Woolet 009 Havana worn, lifestyle", caption: "Worn" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with frames, felt cloth and welcome card - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w - included with every pair", caption: "Felt pouch" },
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
     siblings: ["009-black", "009-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-havana",
     metaTitle: "Woolet 009 Soft Square - Havana | 158 mm tortoise acetate glasses",
@@ -230,7 +247,10 @@ export const REF_PRODUCTS: RefProduct[] = [
     images: [
       ...img009("silver-clear", "Silver Clear"),
       { src: `${F}woolet-009-soft-square-silver-clear-eyeglasses-on-face.jpg`, alt: "Woolet 009 Silver Clear worn on a wide face", caption: "On face" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with frames, felt cloth and welcome card - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w - included with every pair", caption: "Felt pouch" },
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
     siblings: ["009-black", "009-havana"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-silver-clear",
     metaTitle: "Woolet 009 Soft Square - Silver Clear | 158 mm clear acetate glasses",
@@ -260,7 +280,10 @@ export const REF_PRODUCTS: RefProduct[] = [
       { src: `${F}woolet-003-bold-round-black-eyeglasses.jpg`, alt: "Woolet 003 Bold Round Black acetate glasses, front view, 158 mm", caption: "Front" },
       { src: `${F}woolet-003-bold-round-black-angle-34.jpg`, alt: "Woolet 003 Bold Round Black three-quarter view", caption: "Three-quarter" },
       { src: `${F}woolet-003-bold-round-black-studio-front.jpg`, alt: "Woolet 003 Bold Round Black on light studio background", caption: "Studio" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with frames, felt cloth and welcome card - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w - included with every pair", caption: "Felt pouch" },
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
     siblings: [],
     metaTitle: "Woolet 003 Bold Round - Black | 158 mm full-round acetate glasses",
     metaDescription: "Bold full-circle frame in thick piano-black Italian Mazzucchelli acetate, 158 mm front, keyhole bridge, hand made in EU. Pre-production reference page.",
@@ -305,11 +328,55 @@ export const REF_PRODUCTS: RefProduct[] = [
       { src: `${F}woolet-bespoke-shape-round-black.jpg`, alt: "Woolet Bespoke Round shape in black acetate", caption: "Round" },
       { src: `${F}woolet-bespoke-shape-rectangle-black.jpg`, alt: "Woolet Bespoke Rectangle shape in black acetate", caption: "Rectangle" },
       { src: `${F}woolet-bespoke-shape-aviator-black.jpg`, alt: "Woolet Bespoke Aviator shape in black acetate", caption: "Aviator" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with frames, felt cloth and welcome card - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w - included with every pair", caption: "Felt pouch" },
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
     siblings: [],
     shopUrl: "https://shop.woolet.co/products/woolet-bespoke-custom-fit-eyewear",
     metaTitle: "Woolet Bespoke - Made-to-measure acetate glasses, 145-172 mm",
     metaDescription: "Four shapes, any width 145-172 mm, Italian Mazzucchelli acetate, hand made in Greece, lenses included at $480. Reference product page.",
+  },
+  // ---------- The Box ----------
+  {
+    slug: "the-box",
+    model: "box",
+    name: "The Woolet Box",
+    shortName: "The Box",
+    colour: "Soft-touch black · gold foil",
+    colourDot: "#080807",
+    priceUsd: 45,
+    priceLabel: "Included with every pair · $45 value",
+    tagline: "A rigid magnetic gift box, 180 x 80 x 55 mm. Hand made in EU. Ships with every Woolet frame.",
+    intro: "Every Woolet ships in a rigid, matte-black gift box - a gold-foil mark on the lid, and the number this whole brand is built around printed on the spine: 158 MM. Inside: a magnetic-close lid, a cream moulded bed for the frames, a felt pouch with the yellow w, a microfiber cloth and a welcome card.",
+    body: [
+      "It is a $45 box, and it costs nothing extra. Not an upsell, not an add-on - it is in every order, from the 158 mm frames to Bespoke.",
+      "Rigid FSC-certified board, soft-touch black, no plastic laminate, soy inks. The single gold w is hot-stamped on the lid. The wordmark and 158 MM run along the spine. Open it and the inside of the lid reads MADE FOR WIDE FACES in cream.",
+      "The box is designed to be kept - a place to leave your frames at the end of the day, not something to throw away on the first. For creators: the box is the unboxing. Film the lid opening, the number on the spine, the pouch coming out.",
+    ],
+    specs: [
+      ["Dimensions", "180 x 80 x 55 mm"],
+      ["Shell", "Rigid FSC-certified board, soft-touch black"],
+      ["Closure", "Magnetic lid"],
+      ["Mark", "Gold foil, hot-stamped w on the lid"],
+      ["Spine", "WOOLET · 158 MM"],
+      ["Inside lid", "MADE FOR WIDE FACES, cream lining"],
+      ["Production", "Hand made in EU"],
+      ["Availability", "Included with every pair - not sold separately"],
+    ],
+    lensOptions: [],
+    included: ["Woolet frames in a cream moulded bed", "Felt pouch with the yellow w", "Microfiber cleaning cloth", "Welcome card"],
+    images: [
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box open with frames, felt cloth and welcome card", caption: "Open - frames, cloth, card" },
+      { src: `${F}woolet-box-open-frames.jpg`, alt: "Woolet gift box open with frames in the cream bed", caption: "Open - frames" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet felt pouch with yellow w and frames inside", caption: "Felt pouch" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed, gold w and WOOLET on the lid", caption: "Closed" },
+      { src: `${F}woolet-box-render-open.jpg`, alt: "Woolet gift box lid open showing cream inner lid", caption: "Lid open" },
+      { src: "https://woolet.co/box/woolet-box-3D-closed.png", alt: "Woolet gift box 3D render, closed", caption: "3D render" },
+    ],
+    siblings: [],
+    metaTitle: "The Woolet Box - rigid magnetic gift box, included with every pair",
+    metaDescription: "Rigid matte-black gift box, 180 x 80 x 55 mm, gold-foil w, 158 MM on the spine. Felt pouch, microfiber cloth and card inside. Hand made in EU. Reference page.",
   },
 ];
 

@@ -540,13 +540,13 @@ export function getMetadata(route: string): RouteMeta {
           description: p.metaDescription,
           noscriptHtml: `<h1>${escapeHtml(p.name)}</h1>
 <p>${escapeHtml(p.tagline)}</p>
-<p>$${p.priceUsd} — ${p.model === "bespoke" ? "lenses included" : "frame with demo lens"}</p>
+<p>${p.priceLabel ? escapeHtml(p.priceLabel) : `$${p.priceUsd} - ${p.model === "bespoke" ? "lenses included" : "frame with demo lens"}`}</p>
 <p>${escapeHtml(p.intro)}</p>
 ${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
 <h2>Specifications</h2>
 <ul>${p.specs.map(([k, v]) => `<li>${escapeHtml(k)}: ${escapeHtml(v)}</li>`).join("")}</ul>
-<h2>Lens options</h2>
-<ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} — $${l.priceUsd}. ${escapeHtml(l.note)}</li>`).join("")}</ul>
+${p.included ? `<h2>In the box</h2><ul>${p.included.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>` : ""}
+${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - $${l.priceUsd}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
 <p>${REF_PRODUCTS.filter((o) => o.slug !== p.slug).map((o) => `<a href="/en/ref/${o.slug}">${escapeHtml(o.name)}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Check your fit in 30 seconds</a></p>`,
         },
@@ -2120,6 +2120,7 @@ const STATIC_ROUTES = [
   "/en/ref/009-silver-clear",
   "/en/ref/003-black",
   "/en/ref/bespoke",
+  "/en/ref/the-box",
   "/en/bridge/18mm",
   "/en/bridge/19mm",
   "/en/bridge/20mm",
