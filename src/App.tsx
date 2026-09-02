@@ -221,6 +221,11 @@ const App = () => (
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/products/bespoke" element={<ProductPageBespoke />} />
+          {/* Reference product pages for partners/creators — English only */}
+          <Route path="/en/ref" element={<RefIndex />} />
+          <Route path="/en/ref/:slug" element={<RefProductPage />} />
+          <Route path="/:lang/ref" element={<Navigate to="/en/ref" replace />} />
+          <Route path="/:lang/ref/:slug" element={<RedirectRefToEn />} />
           {/* NL: native product URLs (avoid 301 to /en to preserve NL SEO signals) */}
           <Route path="/nl/products/007" element={<ProductPage007 />} />
           <Route path="/nl/products/009" element={<ProductPage009 />} />
