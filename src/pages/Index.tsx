@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import { FoundingBenefits } from "@/components/FoundingBenefits";
 import SEO from "@/components/SEO";
+import HeroSymptoms from "@/components/HeroSymptoms";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 import { hrefFor } from "@/i18n/routeRegistry";
@@ -674,7 +675,11 @@ const Index = () => {
               </div>
 
               <div className="pt-1">
-                <FrameWidthMeter copy={copy} />
+                {lang === "en" ? (
+                  <HeroSymptoms meter={<FrameWidthMeter copy={copy} />} />
+                ) : (
+                  <FrameWidthMeter copy={copy} />
+                )}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
