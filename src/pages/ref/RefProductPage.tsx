@@ -23,6 +23,8 @@ const T = {
 const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
 const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 const SITE_URL = "https://woolet.co";
+/** Render images from the same origin so they resolve in preview and on the live domain. */
+const rel = (src: string) => src.replace(SITE_URL, "");
 
 /* ---------------- Gallery ---------------- */
 
@@ -50,7 +52,7 @@ const Gallery = ({ images, name }: { images: RefImage[]; name: string }) => {
     <div>
       <div style={{ position: "relative", background: T.dark, aspectRatio: "1 / 1", border: `1px solid ${T.hairStrong}` }}>
         <img
-          src={active.src}
+          src={rel(active.src)}
           alt={active.alt}
           loading="eager"
           style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
@@ -83,7 +85,7 @@ const Gallery = ({ images, name }: { images: RefImage[]; name: string }) => {
                 outlineOffset: 1,
               }}
             >
-              <img src={im.src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+              <img src={rel(im.src)} alt="" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
             </button>
           ))}
         </div>

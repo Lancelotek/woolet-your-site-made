@@ -17,6 +17,7 @@ const T = {
   hairStrong: "rgba(22,20,15,0.18)",
 };
 const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
+const rel = (src: string) => src.replace("https://woolet.co", "");
 const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 
 const RefIndex = () => (
@@ -61,7 +62,7 @@ const RefIndex = () => (
           {REF_PRODUCTS.map((p) => (
             <Link key={p.slug} to={`/en/ref/${p.slug}`} style={{ textDecoration: "none", color: "inherit", display: "block" }}>
               <div style={{ background: T.dark, aspectRatio: "1 / 1", border: `1px solid ${T.hairStrong}` }}>
-                <img src={p.images[0].src} alt={p.images[0].alt} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                <img src={rel(p.images[0].src)} alt={p.images[0].alt} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
               </div>
               <div style={{ fontFamily: SERIF, fontSize: 20, lineHeight: 1.2, marginTop: 12 }}>{p.name}</div>
               <div style={{ fontSize: 13, color: T.inkMute, marginTop: 4 }}>
