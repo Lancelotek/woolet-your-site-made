@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-29T12:07:54.887Z",
-  "totalRoutes": 300,
+  "generatedAt": "2026-09-02T16:51:51.746Z",
+  "totalRoutes": 309,
   "blogSlugs": {
     "de": [
       "beste-brillen-fuer-grosse-koepfe-2026",
@@ -203,6 +203,15 @@
     "/en/products/007",
     "/en/products/009",
     "/en/products/bespoke",
+    "/en/ref",
+    "/en/ref/003-black",
+    "/en/ref/007-black",
+    "/en/ref/007-havana",
+    "/en/ref/007-silver-clear",
+    "/en/ref/009-black",
+    "/en/ref/009-havana",
+    "/en/ref/009-silver-clear",
+    "/en/ref/bespoke",
     "/en/return-policy",
     "/en/shop",
     "/en/size/145mm",

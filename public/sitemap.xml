@@ -452,6 +452,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/bespoke"/>
   </url>
   <url>
+    <loc>https://woolet.co/en/ref/003-black</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/ref/007-black</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/ref/007-havana</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/ref/007-silver-clear</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/ref/009-black</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/ref/009-havana</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/ref/009-silver-clear</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/ref/bespoke</loc>
+  </url>
+  <url>
     <loc>https://woolet.co/en/return-policy</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/return-policy"/>
     <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/return-policy"/>
