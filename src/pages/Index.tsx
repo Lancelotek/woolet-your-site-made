@@ -1,4 +1,4 @@
-undefinedimport { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import gregHeroAsset from "@/assets/greg-woolet-009.webp.asset.json";
