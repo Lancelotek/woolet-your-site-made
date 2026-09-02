@@ -33,7 +33,7 @@ const Gallery = ({ images, name }: { images: RefImage[]; name: string }) => {
 
   useEffect(() => {
     setI(0);
-    images.forEach((im) => { const p = new Image(); p.src = im.src; });
+    images.forEach((im) => { const p = new Image(); p.src = rel(im.src); });
   }, [images]);
 
   const go = (d: number) => setI((v) => (v + d + images.length) % images.length);
