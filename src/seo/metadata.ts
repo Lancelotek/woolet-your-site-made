@@ -23,6 +23,7 @@ import { competitors, wooletColumn } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug, SIZES } from "@/data/sizes";
+import { REF_PRODUCTS, refProductBySlug } from "@/data/reference-products";
 import { FIT_FAQ, FIT_BANDS } from "./fit-faq";
 import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
