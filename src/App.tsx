@@ -46,6 +46,8 @@ const KickstarterVipConfirmed = lazy(() => import("./pages/lp/KickstarterVipConf
 const ProductPage007 = lazy(() => import("./pages/products/ProductPage007.tsx"));
 const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"));
 const ProductPageBespoke = lazy(() => import("./pages/products/ProductPageBespoke.tsx"));
+const RefIndex = lazy(() => import("./pages/ref/RefIndex.tsx"));
+const RefProductPage = lazy(() => import("./pages/ref/RefProductPage.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
 const TheBox = lazy(() => import("./pages/TheBox.tsx"));
@@ -139,6 +141,12 @@ const RedirectSizeToEn = () => {
   return <Navigate to={`/en/size/${slug}`} replace />;
 };
 
+/** /:lang/ref/:slug — reference pages exist in English only. */
+const RedirectRefToEn = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/en/ref/${slug}`} replace />;
+};
+
 /** /:lang/compare/:slug — send real competitor slugs to the English page. */
 const LocalizedCompareRedirect = () => {
   const { slug } = useParams();
@@ -219,6 +227,11 @@ const App = () => (
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
           <Route path="/en/products/bespoke" element={<ProductPageBespoke />} />
+          {/* Reference product pages for partners/creators — English only */}
+          <Route path="/en/ref" element={<RefIndex />} />
+          <Route path="/en/ref/:slug" element={<RefProductPage />} />
+          <Route path="/:lang/ref" element={<Navigate to="/en/ref" replace />} />
+          <Route path="/:lang/ref/:slug" element={<RedirectRefToEn />} />
           {/* NL: native product URLs (avoid 301 to /en to preserve NL SEO signals) */}
           <Route path="/nl/products/007" element={<ProductPage007 />} />
           <Route path="/nl/products/009" element={<ProductPage009 />} />

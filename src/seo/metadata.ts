@@ -23,6 +23,7 @@ import { competitors, wooletColumn } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug, SIZES } from "@/data/sizes";
+import { REF_PRODUCTS, refProductBySlug } from "@/data/reference-products";
 import { FIT_FAQ, FIT_BANDS } from "./fit-faq";
 import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
@@ -509,6 +510,79 @@ ${faqBlock}
 export function getMetadata(route: string): RouteMeta {
   const lang = langFromRoute(route);
   const path = route.replace(/^\/[a-z]{2}/, "") || "/";
+
+  // ----- Reference product pages (partners / creators), English only
+  if (path === "/ref" || path.startsWith("/ref/")) {
+    if (path === "/ref") {
+      const meta = base(
+        "/en/ref",
+        "en",
+        {
+          title: "Woolet reference product pages",
+          description:
+            "Read-only reference product pages for partners and creators. Specs, photography and copy for every Woolet frame.",
+          noscriptHtml: `<h1>Woolet product reference</h1>
+<p>${REF_PRODUCTS.map((p) => `<a href="/en/ref/${p.slug}">${escapeHtml(p.name)}</a>`).join(" · ")}</p>`,
+        },
+        { image: DEFAULT_OG },
+      );
+      meta.robots = "noindex, follow";
+      return meta;
+    }
+    const p = refProductBySlug(path.replace("/ref/", ""));
+    if (p) {
+      const canonical = `${SITE_URL}/en/ref/${p.slug}`;
+      return base(
+        `/en/ref/${p.slug}`,
+        "en",
+        {
+          title: p.metaTitle,
+          description: p.metaDescription,
+          noscriptHtml: `<h1>${escapeHtml(p.name)}</h1>
+<p>${escapeHtml(p.tagline)}</p>
+<p>$${p.priceUsd} — ${p.model === "bespoke" ? "lenses included" : "frame with demo lens"}</p>
+<p>${escapeHtml(p.intro)}</p>
+${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
+<h2>Specifications</h2>
+<ul>${p.specs.map(([k, v]) => `<li>${escapeHtml(k)}: ${escapeHtml(v)}</li>`).join("")}</ul>
+<h2>Lens options</h2>
+<ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} — $${l.priceUsd}. ${escapeHtml(l.note)}</li>`).join("")}</ul>
+<p>${REF_PRODUCTS.filter((o) => o.slug !== p.slug).map((o) => `<a href="/en/ref/${o.slug}">${escapeHtml(o.name)}</a>`).join(" · ")}</p>
+<p><a href="/en/fit">Check your fit in 30 seconds</a></p>`,
+        },
+        { image: p.images[0].src, type: "product" },
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: p.name,
+            image: p.images.map((im) => im.src),
+            description: p.intro,
+            brand: { "@type": "Brand", name: "Woolet" },
+            color: p.colour,
+            material: "Mazzucchelli acetate",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "USD",
+              price: p.priceUsd,
+              availability: p.model === "003" ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+              url: canonical,
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+              { "@type": "ListItem", position: 2, name: "Frames", item: `${SITE_URL}/en/collection` },
+              { "@type": "ListItem", position: 3, name: p.name, item: canonical },
+            ],
+          },
+        ],
+      );
+    }
+  }
+
 
   // Korean locale — handled before every generic branch so a /ko route can
   // never fall through to English copy.
@@ -2037,6 +2111,15 @@ const STATIC_ROUTES = [
   "/en/size/168mm",
   "/en/size/170mm",
   "/en/size/172mm",
+  "/en/ref",
+  "/en/ref/007-black",
+  "/en/ref/007-havana",
+  "/en/ref/007-silver-clear",
+  "/en/ref/009-black",
+  "/en/ref/009-havana",
+  "/en/ref/009-silver-clear",
+  "/en/ref/003-black",
+  "/en/ref/bespoke",
   "/en/bridge/18mm",
   "/en/bridge/19mm",
   "/en/bridge/20mm",
