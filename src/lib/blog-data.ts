@@ -4184,8 +4184,22 @@ const blogPostsPL: BlogPost[] = [
 
 <figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 kwadratowe okulary na szeroką twarz — włoski octan Mazzucchelli, 158mm szerokości, oprawki premium typu wayfarer na twarze 155mm+" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Kwadratowe oprawki, 158mm, włoski octan</figcaption></figure>
 
+<figure class="blog-figure">
+  <picture>
+    <source type="image/webp" srcset="/blog/face-shape-guide/woolet-ksztalt-twarzy-mezczyzni-pl-1400.webp">
+    <img src="/blog/face-shape-guide/woolet-ksztalt-twarzy-mezczyzni-pl-1400.jpg" width="1400" height="2100" loading="lazy" decoding="async" alt="Okulary do kształtu twarzy - mężczyźni o szerokiej twarzy: twarz owalna, okrągła, kwadratowa i podłużna z najlepszą oprawką Woolet (007 Round lub 009 Soft-Square) i kształtem Bespoke (Rectangle, Aviator, Crown Panto, Round)">
+  </picture>
+  <figcaption>Kwadratowe oprawki do okrągłej twarzy, okrągłe do kwadratowej żuchwy - cztery kształty twarzy i wybór Woolet dla każdego, wszystko w 155-161 mm.</figcaption>
+</figure>
+
 <h2>Podejście Woolet</h2>
 <p>Woolet 007 to wyrafinowany prostokątny kształt — uniwersalnie korzystny na szerokich twarzach. Woolet 009 ma łagodniejsze, zaokrąglone rogi dla tych, którzy wolą cieplejszy wygląd.</p>
+
+<h2>Gdy żaden z czterech kształtów nie pasuje: Bespoke</h2>
+
+<p>007 i 009 pokrywają dwa kształty, których potrzebuje większość szerokich twarzy. Gdy chcesz innej geometrii - belki aviatora, pełnego koła, prostego prostokąta - Bespoke wycina jeden z czterech kształtów pod twoją szerokość twarzy, od 145 do 172 mm, z tego samego włoskiego acetatu Mazzucchelli. Ręcznie wykonane w Grecji, dwa tygodnie od zamówienia do wysyłki, 480 USD z soczewkami w cenie.</p>
+
+<p><a class="blog-gold-button" href="/pl/bespoke">Zaprojektuj oprawkę Bespoke</a></p>
 `,
   },
   {
