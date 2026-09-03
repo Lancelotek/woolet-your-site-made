@@ -257,6 +257,41 @@
     border-radius: 4px;
   }
 
+  /* Editorial infographic figure (face-shape guide) */
+  .woolet-blog-content .blog-figure {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .woolet-blog-content .blog-figure img {
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #E3DCCE;
+  }
+  .woolet-blog-content .blog-figure figcaption {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6F6659;
+    opacity: 1;
+  }
+
+  /* Inline gold CTA button inside article HTML */
+  .woolet-blog-content a.blog-gold-button {
+    display: inline-block;
+    background: #CAA449;
+    color: #1F1B16;
+    text-decoration: none;
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.6rem;
+    border-radius: 2px;
+    transition: background 0.2s ease;
+  }
+  .woolet-blog-content a.blog-gold-button:hover {
+    background: #D8B86A;
+  }
+
   /* Size breakdown table */
   .woolet-size-table {
     @apply w-full my-6 flex flex-col;
