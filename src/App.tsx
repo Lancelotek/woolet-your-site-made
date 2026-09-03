@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import CookieBanner from "@/components/CookieBanner";
 import PageViewTracker from "@/components/PageViewTracker";
+import Redirects from "@/components/Redirects";
 import { AuthProvider } from "@/lib/auth-context";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
