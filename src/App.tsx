@@ -182,6 +182,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+        <Redirects />
         <PageViewTracker />
         
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
