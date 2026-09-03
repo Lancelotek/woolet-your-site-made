@@ -9,6 +9,14 @@
  */
 
 export const EXACT: Record<string, string> = {
+  // Legacy Shopify product URLs that map to specific eyewear models.
+  // Kept here (ahead of the generic /products/* rule) so the centralized
+  // layer preserves the existing router behavior for these paths.
+  "/products/smart-and-slim-leather-wallet": "/en/products/009",
+  "/products/smart-and-slim-travel-wallet-hand-crafted-leather": "/en/products/007",
+  "/blog/woolet-howl-3-0-gps-manual-how-setup-gps-wallet": "/en",
+
+  "/en/blog/what-is-italian-acetate": "/en/blog/what-is-italian-acetate-premium-eyewear",
   "/en/blog/what-is-italian-acetate": "/en/blog/what-is-italian-acetate-premium-eyewear",
   "/en/blog/round-vs-square": "/en/blog/round-vs-square-glasses-wide-face",
   "/en/blog/why-glasses-dont-fit-155mm": "/en/blog/why-glasses-dont-fit-155mm-problem",
