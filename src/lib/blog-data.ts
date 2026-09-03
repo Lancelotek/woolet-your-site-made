@@ -1184,6 +1184,14 @@ const blogPostsEN: BlogPost[] = [
 
 <figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round keyhole bridge glasses for wide faces 155mm+ — Italian Mazzucchelli acetate, tortoiseshell, 158mm width, 52mm lens, keyhole bridge detail" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Round keyhole bridge, 158mm, Mazzucchelli acetate</figcaption></figure>
 
+<figure class="blog-figure">
+  <picture>
+    <source type="image/webp" srcset="/blog/face-shape-guide/woolet-face-shape-guide-men-en-1400.webp">
+    <img src="/blog/face-shape-guide/woolet-face-shape-guide-men-en-1400.jpg" width="1400" height="2100" loading="lazy" decoding="async" alt="Glasses for your face shape - men with wide faces: oval, round, square and oblong faces with the best Woolet frame (007 Round or 009 Soft-Square) and the best Bespoke shape (Rectangle, Aviator, Crown Panto, Round)">
+  </picture>
+  <figcaption>Square frames for a round face, round frames for a square jaw - the four face shapes and the Woolet pick for each, all at 155-161 mm.</figcaption>
+</figure>
+
 <h2>How to Choose: A Decision Framework</h2>
 
 <p>If you're deciding between round and square glasses for a wide face, work through these questions:</p>
@@ -1226,6 +1234,12 @@ const blogPostsEN: BlogPost[] = [
 </ul>
 
 <p>The choice between round and square is a genuine aesthetic decision. But it's a decision you can make on purely stylistic grounds, because both options have already solved the fit problem.</p>
+
+<h2>When none of the four shapes fits: Bespoke</h2>
+
+<p>The 007 and 009 cover the two shapes most wide faces need. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four shapes to your own face width, anywhere from 145 to 172 mm, in the same Italian Mazzucchelli acetate. Hand made in Greece, two weeks from order to shipping, $480 with lenses included.</p>
+
+<p><a class="blog-gold-button" href="/en/bespoke">Start a Bespoke frame</a></p>
 
 <h2>FAQ: Frame Shapes for Wide Faces</h2>
 
@@ -1632,6 +1646,14 @@ const blogPostsEN: BlogPost[] = [
 <li><strong>Buying a frame with bridge width that does not scale:</strong> a 19 mm bridge on a 161 mm frame leaves a wide gap above the nose. Bridges should scale with the frame — 19 / 21 / 23 mm in the Woolet line.</li>
 <li><strong>Choosing material on price alone:</strong> at 155 mm+ the front spans a wider arc, and budget plastic deforms over time. <a href="/en/blog/what-is-italian-acetate-premium-eyewear">Italian Mazzucchelli acetate</a> holds the shape it was cut at.</li>
 </ul>
+
+<figure class="blog-figure">
+  <picture>
+    <source type="image/webp" srcset="/blog/face-shape-guide/woolet-face-shape-guide-men-en-1400.webp">
+    <img src="/blog/face-shape-guide/woolet-face-shape-guide-men-en-1400.jpg" width="1400" height="2100" loading="lazy" decoding="async" alt="Face shape guide for men with wide faces - oval face row highlighted: Woolet 007 Round from the collection and Rectangle as the Bespoke shape">
+  </picture>
+  <figcaption>Oval is row one. The other three rows show what changes when your face is round, square or oblong.</figcaption>
+</figure>
 
 <h2>A short decision tree</h2>
 
