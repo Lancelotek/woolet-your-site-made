@@ -1338,6 +1338,18 @@ export function StepTempleLength({ config, update }: StepProps) {
 /* ───── Step 4 · Engraving ───── */
 export function StepEngraving({ config, update }: StepProps) {
   const remaining = ENGRAVING_MAX_CHARS - config.engravingText.length;
+
+  const enable = () => {
+    update("engravingEnabled", true);
+    if (!config.engravingPositionId) update("engravingPositionId", "inner-left");
+  };
+
+  const onTextChange = (value: string) => {
+    update("engravingText", value.slice(0, ENGRAVING_MAX_CHARS));
+    // Typing means intent — switch engraving on automatically.
+    if (value.length > 0 && !config.engravingEnabled) enable();
+  };
+
   return (
     <div className="space-y-8">
       <header>
@@ -1348,35 +1360,60 @@ export function StepEngraving({ config, update }: StepProps) {
         </p>
       </header>
 
-      <div className="flex gap-3">
-        <button
-          onClick={() => update("engravingEnabled", false)}
-          className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] border transition ${
-            !config.engravingEnabled
-              ? "border-gold text-gold-light bg-gold/10"
-              : "border-cream/15 text-cream-dim hover:border-cream/30"
-          }`}
-        >
-          No engraving
-        </button>
-        <button
-          onClick={() => {
-            update("engravingEnabled", true);
-            if (!config.engravingPositionId) update("engravingPositionId", "inner-left");
-          }}
-          className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] border transition ${
-            config.engravingEnabled
-              ? "border-gold text-gold-light bg-gold/10"
-              : "border-cream/15 text-cream-dim hover:border-cream/30"
-          }`}
-        >
-          Write my name
-        </button>
+      {/* 1 · The choice — same radio-card pattern as the other steps */}
+      <div role="radiogroup" aria-label="Engraving" className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label className={`${cardOuter} ${!config.engravingEnabled ? cardActive : "hover:border-cream/25"} block cursor-pointer p-4 focus-within:ring-2 focus-within:ring-gold/60`}>
+          <input
+            type="radio"
+            name="engraving-choice"
+            className="sr-only"
+            checked={!config.engravingEnabled}
+            onChange={() => update("engravingEnabled", false)}
+          />
+          <div className="flex items-baseline justify-between gap-2">
+            <span className="text-cream text-base">No engraving</span>
+            <span className="text-cream-dim text-[0.78rem]">Included</span>
+          </div>
+          <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2">Clean temples, Woolet logo on the right side only.</p>
+        </label>
+        <label className={`${cardOuter} ${config.engravingEnabled ? cardActive : "hover:border-cream/25"} block cursor-pointer p-4 focus-within:ring-2 focus-within:ring-gold/60`}>
+          <input
+            type="radio"
+            name="engraving-choice"
+            className="sr-only"
+            checked={config.engravingEnabled}
+            onChange={enable}
+          />
+          <div className="flex items-baseline justify-between gap-2">
+            <span className="text-cream text-base">Add my engraving</span>
+            <span className="text-gold-light text-[0.78rem]">{formatAddOn(ENGRAVING_FEE_EUR)}</span>
+          </div>
+          <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2">Your name, initials or a date on the inner left temple.</p>
+        </label>
       </div>
 
       {config.engravingEnabled && (
         <div className="space-y-6">
-          {/* Live SVG preview on temple */}
+          {/* 2 · Type first — the preview reacts instantly */}
+          <div>
+            <div className={labelClass}>Your text</div>
+            <div className="relative mt-2">
+              <input
+                type="text"
+                value={config.engravingText}
+                onChange={(e) => onTextChange(e.target.value)}
+                maxLength={ENGRAVING_MAX_CHARS}
+                placeholder="e.g. Marek Ciesla"
+                autoFocus
+                className="w-full px-4 py-3 pr-16 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
+              />
+              <span className={`absolute right-3 top-1/2 -translate-y-1/2 text-[0.72rem] tabular-nums ${remaining === 0 ? "text-gold-light" : "text-cream-dim/70"}`}>
+                {remaining}
+              </span>
+            </div>
+          </div>
+
+          {/* 3 · Live SVG preview on temple */}
           <EngravingPreview
             text={config.engravingText}
             fontId={config.engravingFontId}
@@ -1385,23 +1422,7 @@ export function StepEngraving({ config, update }: StepProps) {
             onOffsetChange={(next) => update("engravingOffset", next)}
           />
 
-          <div>
-            <div className={labelClass}>Your name · max {ENGRAVING_MAX_CHARS} characters</div>
-            <input
-              type="text"
-              value={config.engravingText}
-              onChange={(e) => update("engravingText", e.target.value.slice(0, ENGRAVING_MAX_CHARS))}
-              maxLength={ENGRAVING_MAX_CHARS}
-              placeholder="Your name, initials or a date…"
-              className="mt-2 w-full px-4 py-3 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
-            />
-            <div className="text-cream-dim text-[0.78rem] mt-1.5">{remaining} characters left</div>
-          </div>
-
-          <div className="rounded-[10px] border border-cream/10 bg-cream/[0.02] px-4 py-3 text-[0.78rem] text-cream-dim">
-            Position: inner left temple (fixed). The right temple always carries the Woolet logo.
-          </div>
-
+          {/* 4 · Font */}
           <div>
             <div className={labelClass}>Font</div>
             <div className="mt-2 grid grid-cols-2 gap-2">
@@ -1411,15 +1432,16 @@ export function StepEngraving({ config, update }: StepProps) {
                   <button
                     key={f.id}
                     onClick={() => update("engravingFontId", f.id)}
-                    className={`px-3 py-3 rounded-[10px] text-base border transition ${
+                    className={`px-3 py-3 rounded-[10px] text-base border transition text-left ${
                       active
                         ? "border-gold text-gold-light bg-gold/10"
                         : "border-cream/15 text-cream-dim hover:border-cream/30"
                     }`}
-                    style={{ fontFamily: f.cssFamily }}
                   >
                     <div className="text-[0.7rem] uppercase tracking-[0.18em] text-cream-dim mb-1">{f.name}</div>
-                    <div className="text-lg text-cream">{config.engravingText || "Your name"}</div>
+                    <div className="text-lg text-cream truncate" style={{ fontFamily: f.cssFamily }}>
+                      {config.engravingText || "Your name"}
+                    </div>
                   </button>
                 );
               })}
