@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
+import { trackMetaEvent, uuid } from "@/lib/meta-capi";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
@@ -134,8 +135,19 @@ const ListiclePage = () => {
       });
       if (error) throw error;
       if (data && !data.success) throw new Error(data.error);
-      pushGtmEvent("waitlist_signup", { waitlist_email: email, waitlist_models: "Woolet 007, Woolet 009" });
+      const metaEventId = uuid();
+      pushGtmEvent("waitlist_signup", { waitlist_email: email, waitlist_models: "Woolet 007, Woolet 009", event_id: metaEventId });
       pushGtmEvent("generate_lead", { awareness_stage: "solution_aware", source: "listicle" });
+      void trackMetaEvent("Lead", {
+        eventId: metaEventId,
+        user: { email },
+        custom: {
+          content_name: "listicle_waitlist",
+          content_category: "waitlist",
+          source: "listicle",
+          form_location: "listicle_inline",
+        },
+      });
       setSubmitted(true);
     } catch (err) {
       console.error("Listicle subscribe error:", err);

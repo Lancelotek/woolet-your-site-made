@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
+import { trackMetaEvent, uuid } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
@@ -294,6 +295,9 @@ const VipForm = ({
 
 
 
+      // One event_id shared by the GTM Meta Lead tag and the Conversions API.
+      const metaEventId = uuid();
+
       if (typeof window !== "undefined") {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
@@ -302,6 +306,7 @@ const VipForm = ({
           user_first_name: "",
           waitlist_models: models,
           referred_by: resolvedRef,
+          event_id: metaEventId,
         });
         try {
           sessionStorage.setItem(
@@ -315,6 +320,17 @@ const VipForm = ({
       pushGtmEvent("generate_lead", {
         awareness_stage: "solution_aware",
         source: utmSource,
+      });
+
+      void trackMetaEvent("Lead", {
+        eventId: metaEventId,
+        user: { email: normalizedEmail },
+        custom: {
+          content_name: "kickstarter_vip",
+          content_category: "waitlist",
+          source: utmSource,
+          form_location: formLocation,
+        },
       });
       pushGtmEvent("kickstarter_form_submit_success", {
         form_location: formLocation,
