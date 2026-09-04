@@ -1324,56 +1324,8 @@ export function StepTempleLength({ config, update }: StepProps) {
         })}
       </div>
 
-      <div className={`${cardOuter} ${isCustom ? cardActive : ""} p-4`}>
-        <label className="flex items-start gap-3 cursor-pointer focus-within:ring-2 focus-within:ring-gold/60">
-          <input
-            type="radio"
-            name="temple-length"
-            className="mt-1 accent-[color:var(--cfg-gold)]"
-            checked={isCustom}
-            onChange={() => {
-              update("templeLengthIsCustom", true);
-              const parsed = Number(customValue);
-              update("templeLengthMm", customValue !== "" && Number.isFinite(parsed) ? parsed : null);
-            }}
-          />
-          <span>
-            <span className="text-cream text-sm">Custom length</span>
-            <span className="block text-cream-dim text-[0.8rem] mt-1">
-              Enter an exact value between {min} and {max} mm.
-            </span>
-          </span>
-        </label>
 
-        {isCustom && (
-          <div className="mt-4 max-w-[220px]">
-            <label className="block">
-              <span className={labelClass}>Temple length (mm)</span>
-              <input
-                type="number"
-                min={min}
-                max={max}
-                step={1}
-                inputMode="numeric"
-                value={customValue}
-                onChange={(e) => {
-                  setCustomValue(e.target.value);
-                  const parsed = Number(e.target.value);
-                  update("templeLengthMm", e.target.value !== "" && Number.isFinite(parsed) ? parsed : null);
-                }}
-                aria-invalid={invalidCustom}
-                placeholder="152"
-                className="mt-2 w-full px-4 py-3 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
-              />
-            </label>
-            {invalidCustom && (
-              <p role="alert" className="text-[0.78rem] text-red-300/90 mt-2 leading-relaxed">
-                Enter a length between 145 and 155 mm — that&apos;s the range our hinge geometry supports.
-              </p>
-            )}
-          </div>
-        )}
-      </div>
+
 
       <div className="rounded-[10px] border border-cream/10 bg-cream/[0.02] px-4 py-3 text-[0.8rem] text-cream-dim leading-relaxed">
         The final temple length is confirmed against your fit scan after payment. If the scan shows a materially
