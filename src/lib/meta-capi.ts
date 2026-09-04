@@ -71,7 +71,7 @@ const synthesizeFbcFromFbclid = (): string | undefined => {
   return `fb.1.${Date.now()}.${fbclid}`;
 };
 
-const uuid = (): string => {
+export const uuid = (): string => {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
   }
@@ -83,7 +83,7 @@ const uuid = (): string => {
   });
 };
 
-const isProdHost = (): boolean => {
+export const isProdHost = (): boolean => {
   if (typeof window === "undefined") return false;
   const host = window.location.hostname;
   return host === "woolet.co" || host === "www.woolet.co";
