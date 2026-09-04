@@ -1010,7 +1010,127 @@ const ConfiguratorStyles = () => (
       color: var(--cfg-cream);
       line-height: 1.1;
     }
-    .cfg-cta--mobile { width: auto; padding: 11px 16px; }
+    .cfg-cta--mobile { width: auto; padding: 12px 18px; white-space: nowrap; }
+    .cfg-mobilebar__back {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--cfg-border-strong);
+      background: transparent;
+      color: var(--cfg-text);
+      border-radius: 2px;
+    }
+    .cfg-mobilebar__back:disabled { opacity: .3; }
+    .cfg-mobilebar__note {
+      font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cfg-muted); margin-top: 2px;
+    }
+
+    /* Pay → Measure notice */
+    .cfg-note {
+      display: flex; gap: 14px; align-items: flex-start;
+      border: 1px solid rgba(194,160,90,0.35);
+      background: linear-gradient(180deg, rgba(194,160,90,0.08), rgba(194,160,90,0.02));
+      padding: 14px 18px;
+      border-radius: 2px;
+    }
+    .cfg-note__tag {
+      font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--cfg-gold); white-space: nowrap; padding-top: 3px;
+    }
+    .cfg-note__body { color: var(--cfg-text); font-size: 14px; line-height: 1.55; }
+    .cfg-note__more {
+      margin-top: 6px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--cfg-gold); background: none; border: 0; padding: 0;
+    }
+
+    /* Stepper — honest, single scrollable row on phones */
+    .cfg-stepper-wrap { padding-top: 32px; }
+    .cfg-stepnow { display: none; }
+    @media (max-width: 1023px) {
+      .cfg-stepper-wrap { padding-top: 14px; }
+      .cfg-stepnow {
+        display: block;
+        font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+        color: var(--cfg-muted); margin-bottom: 10px;
+      }
+      .cfg-stepnow strong { color: var(--cfg-cream); font-weight: 500; }
+      .cfg-stepper {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        margin-inline: -20px; padding-inline: 20px;
+      }
+      .cfg-stepper::-webkit-scrollbar { display: none; }
+      .cfg-step { flex-shrink: 0; padding: 8px 11px; gap: 7px; }
+      .cfg-step__label { display: none; }
+      .cfg-step--current .cfg-step__label { display: inline; }
+    }
+
+    /* Mobile live preview — sticky under the top bar */
+    .cfg-mobilepreview { display: none; }
+    @media (max-width: 1023px) {
+      .cfg-mobilepreview {
+        display: block;
+        position: sticky; top: 62px; z-index: 25;
+        background: var(--cfg-ink);
+        border-bottom: 1px solid var(--cfg-border);
+        padding: 10px 20px 12px;
+        margin-top: 12px;
+      }
+      .cfg-mobilepreview__stage {
+        height: 26vh; min-height: 150px; max-height: 230px;
+        background: var(--cfg-cream);
+        border-radius: 2px;
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden;
+      }
+      .cfg-mobilepreview__stage img { max-height: 88%; max-width: 88%; object-fit: contain; }
+      .cfg-mobilepreview__place {
+        font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8F897B;
+      }
+      .cfg-mobilepreview__meta {
+        display: flex; align-items: center; gap: 8px;
+        margin-top: 8px;
+        font-family: 'Newsreader', serif; font-size: 13px; color: var(--cfg-cream);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .cfg-mobilepreview__dot {
+        width: 11px; height: 11px; border-radius: 999px; flex-shrink: 0;
+        box-shadow: inset 0 0 0 1px rgba(239,233,223,0.22);
+      }
+      .cfg-mobilepreview__finish {
+        font-family: 'Archivo', sans-serif; font-size: 10px;
+        letter-spacing: .14em; text-transform: uppercase; color: var(--cfg-muted);
+      }
+
+      /* Compact top bar: logo + sync only */
+      .cfg-topbar { padding: 12px 0; }
+      .cfg-topbar .cfg-divider, .cfg-topbar .cfg-back { display: none; }
+      .cfg-mark { width: 28px; height: 28px; }
+
+      /* Bottom bar clears the iPhone gesture area */
+      .cfg-mobilebar { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+    }
+
+    /* Horizontal swatch strips on phones (single DOM, CSS-only switch) */
+    @media (max-width: 1023px) {
+      .cfg-scope .cfg-swatchstrip {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        margin-inline: -20px;
+        padding: 2px 20px 6px;
+      }
+      .cfg-scope .cfg-swatchstrip::-webkit-scrollbar { display: none; }
+      .cfg-scope .cfg-swatchstrip > * {
+        flex: 0 0 42%;
+        scroll-snap-align: start;
+      }
+    }
 
     /* StepNav inherits Tailwind from steps.tsx — give it breathing room */
     .cfg-scope .step-nav, .cfg-scope nav[aria-label="step navigation"] { margin-top: 36px; }
