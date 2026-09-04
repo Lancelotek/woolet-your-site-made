@@ -765,7 +765,7 @@ const Index = () => {
               {/* JP-only SEO landing links */}
               {lang === "ja" && (
                 <div
-                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  className="order-7 lg:order-none flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
                   style={{ fontSize: "0.8rem", fontFamily: "Barlow, 'Noto Sans JP', sans-serif" }}
                 >
                   <Link
@@ -786,7 +786,7 @@ const Index = () => {
               {/* FR-only SEO landing link */}
               {lang === "fr" && (
                 <div
-                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  className="order-7 lg:order-none flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
                   style={{ fontSize: "0.8rem", fontFamily: "Barlow, sans-serif" }}
                 >
                   <Link
@@ -801,7 +801,7 @@ const Index = () => {
               {/* PL-only SEO landing link */}
               {lang === "pl" && (
                 <div
-                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  className="order-7 lg:order-none flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
                   style={{ fontSize: "0.8rem", fontFamily: "Barlow, sans-serif" }}
                 >
                   <Link
@@ -819,7 +819,7 @@ const Index = () => {
             {/* RIGHT — portrait card, stretches to match left column */}
 
             <div
-              className="relative w-full aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] xl:min-h-[600px] lg:self-stretch overflow-hidden max-h-[58vh] sm:max-h-[680px] lg:max-h-none rounded-sm"
+              className="order-2 lg:order-none relative w-full aspect-[4/3] sm:aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] xl:min-h-[600px] lg:self-stretch overflow-hidden max-h-[58vh] sm:max-h-[680px] lg:max-h-none rounded-sm"
               style={{
                 border: "1px solid hsl(0 0% 100% / 0.08)",
                 background:
@@ -1026,7 +1026,7 @@ const Index = () => {
               — or go straight to{" "}
               <Link to={`${hrefFor("bespoke", lang)}#bespoke-glasses-for-wide-faces`} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
                 bespoke glasses for wide faces
-              </Link>. Bespoke covers any width from 145 to 162 mm, 4 frame shapes, 60 colour &amp; size
+              </Link>. Bespoke covers any width from 145 to 172 mm, 4 frame shapes, 60 colour &amp; size
               combinations — built to measure, for everyone.
             </p>
 
