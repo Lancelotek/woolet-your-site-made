@@ -116,6 +116,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           user_first_name: formData.name,
           frame_width_preference: formData.faceWidth || null,
           waitlist_models: models,
+          event_id: meta_event_id,
         });
       }
 
