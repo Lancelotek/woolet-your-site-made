@@ -47,7 +47,19 @@ const ConfiguratorPage = () => {
   });
   const [saved, setSaved] = useState(false);
   const [fitOpen, setFitOpen] = useState(false);
+  const [noticeOpen, setNoticeOpen] = useState(false);
+  // A step only earns a tick once the buyer has actually been there — steps 4–6
+  // carry defaults, so completeness alone would show false progress.
+  const [visited, setVisited] = useState<number[]>([step]);
   const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace });
+  const isMobile = useIsMobile();
+
+  // Inside the configurator the floating WhatsApp bubble covers the swatch grid
+  // on phones — suppress it for the lifetime of this page.
+  useEffect(() => {
+    document.body.classList.add("cfg-hide-whatsapp");
+    return () => document.body.classList.remove("cfg-hide-whatsapp");
+  }, []);
 
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
