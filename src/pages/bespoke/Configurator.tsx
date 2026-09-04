@@ -1024,7 +1024,9 @@ const ConfiguratorStyles = () => (
     .cfg-mobilebar__note {
       font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
       color: var(--cfg-muted); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
+    @media (max-width: 400px) { .cfg-mobilebar__note { font-size: 9px; letter-spacing: .06em; } }
 
     /* Pay → Measure notice */
     .cfg-note {
@@ -1073,7 +1075,7 @@ const ConfiguratorStyles = () => (
     @media (max-width: 1023px) {
       .cfg-mobilepreview {
         display: block;
-        position: sticky; top: 62px; z-index: 25;
+        position: sticky; top: 54px; z-index: 25;
         background: var(--cfg-ink);
         border-bottom: 1px solid var(--cfg-border);
         padding: 10px 20px 12px;
