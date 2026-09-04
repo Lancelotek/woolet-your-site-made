@@ -1,9 +1,9 @@
+/// <reference path="../types/global.d.ts" />
 // Direct Meta Pixel loader for visitors outside the EU/EEA/UK/CH.
 // EU-like visitors stay on the GTM consent path — this file no-ops for them.
 // Production hosts only. Deduplicates with the Conversions API via event_id.
 
 import { trackMetaEvent, uuid, isProdHost } from "@/lib/meta-capi";
-/// <reference path="../types/global.d.ts" />
 
 const PIXEL_ID = "1951914478320328";
 
