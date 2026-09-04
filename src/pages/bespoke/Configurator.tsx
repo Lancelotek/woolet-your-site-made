@@ -98,6 +98,7 @@ const ConfiguratorPage = () => {
 
   const goTo = (n: StepId) => {
     setStep(n);
+    setVisited((prev) => (prev.includes(n) ? prev : [...prev, n]));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
