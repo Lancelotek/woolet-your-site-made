@@ -1190,7 +1190,7 @@ function EngravingPreview({
   return (
     <div className="rounded-[14px] border border-cream/10 bg-background/40 p-4 sm:p-5">
       <div className="flex items-baseline justify-between mb-3 gap-3">
-        <div className={labelClass}>Live preview · drag to position</div>
+        <div className={labelClass}>Live preview · drag the text to place it</div>
         <div className="flex items-center gap-2">
           {position && <div className="text-cream-dim text-[0.78rem] uppercase tracking-[0.16em]">{position}</div>}
           {(offset.x !== 0 || offset.y !== 0) && (
