@@ -744,16 +744,14 @@ const Index = () => {
 
               {/* Founding-member benefits — mirrors /en/lp/kickstarter */}
               {lang === "en" && (
-                <div className="pt-3 max-w-[520px]">
+                <div className="order-6 lg:order-none lg:pt-3 max-w-[520px]">
                   <FoundingBenefits />
                 </div>
               )}
 
-
-
               {/* Trust strip */}
               <div
-                className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1 text-cream-dim"
+                className="order-4 lg:order-none flex flex-wrap items-center gap-x-6 gap-y-2 lg:pt-1 text-cream-dim"
                 style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
               >
                 <span>{copy.trustFit}</span>
@@ -762,6 +760,7 @@ const Index = () => {
                 <span className="text-cream-dim/60" aria-hidden="true">·</span>
                 <span>{copy.trustHandmade}</span>
               </div>
+
 
               {/* JP-only SEO landing links */}
               {lang === "ja" && (
