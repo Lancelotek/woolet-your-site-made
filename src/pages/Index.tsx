@@ -627,13 +627,17 @@ const Index = () => {
         <Navbar />
 
         {/* HERO */}
-        <section className="relative px-5 sm:px-8 lg:px-16 pt-10 lg:pt-14 pb-10 lg:pb-14">
-          <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-stretch">
-            {/* LEFT — copy */}
-            <div className="flex flex-col gap-6 lg:gap-7 lg:py-2">
+        <section className="relative px-5 sm:px-8 lg:px-16 pt-8 lg:pt-14 pb-10 lg:pb-14">
+          <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-7 lg:gap-14 items-stretch">
+            {/* LEFT — copy.
+                On phones the column dissolves (display: contents) so the
+                portrait can slot between the headline and the CTAs; from lg
+                up it behaves as a normal flex column again. */}
+            <div className="contents lg:flex lg:flex-col lg:gap-7 lg:py-2">
               {/* Copy block gets a min-height sized to the longest variant so
                   switching headlines never moves the CTA (see .woolet-hero-copy). */}
-              <div className="woolet-hero-copy flex flex-col gap-6 lg:gap-7">
+              <div className="woolet-hero-copy order-1 lg:order-none flex flex-col gap-5 lg:gap-7">
+
                 <div className="woolet-eyebrow">
                   <div className="woolet-eyebrow-line" />
                   <span className="woolet-eyebrow-text">
