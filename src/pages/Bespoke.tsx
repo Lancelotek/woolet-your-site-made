@@ -391,32 +391,6 @@ const BespokePage = () => {
         </section>
 
 
-        <div className="woolet-divider max-w-5xl mx-auto" />
-
-        {/* What is bespoke eyewear — SEO keyword: "bespoke eyewear" */}
-        <section id="bespoke-eyewear" className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="woolet-eyebrow mb-5">
-              <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">WHAT IS BESPOKE EYEWEAR</span>
-            </div>
-            <h2
-              className="font-display text-woolet-white mb-6"
-              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
-            >
-              Bespoke eyewear, <em className="italic text-gold-light">defined properly.</em>
-            </h2>
-            <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
-              Bespoke eyewear means the frame geometry itself — front width, bridge, temple length, pantoscopic tilt — is cut to one wearer's measurements. It is not a colour swap, not a preset variant, not a larger lens on the same stock front. A frame is bespoke only when no two are the same.
-            </p>
-            <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-              Traditional bespoke ateliers — E.B. Meyrowitz in London, Tom Davies, a handful of independent workshops — measure in person and price frames from $650 to over $3,300. Woolet keeps the same hand-made process and Italian Mazzucchelli acetate, but replaces the studio visit with a 90-second AI face scan taken on your phone. Same category, one-tenth the price.
-            </p>
-          </div>
-        </section>
-
-        <div className="woolet-divider max-w-5xl mx-auto" />
-
         {/* Craft gallery */}
         <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-24">
           <div className="max-w-6xl mx-auto">
@@ -530,6 +504,32 @@ const BespokePage = () => {
             </div>
           )}
         </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
+        {/* What is bespoke eyewear — SEO keyword: "bespoke eyewear" */}
+        <section id="bespoke-eyewear" className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="woolet-eyebrow mb-5">
+              <div className="woolet-eyebrow-line" />
+              <span className="woolet-eyebrow-text">WHAT IS BESPOKE EYEWEAR</span>
+            </div>
+            <h2
+              className="font-display text-woolet-white mb-6"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
+            >
+              Bespoke eyewear, <em className="italic text-gold-light">defined properly.</em>
+            </h2>
+            <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
+              Bespoke eyewear means the frame geometry itself — front width, bridge, temple length, pantoscopic tilt — is cut to one wearer's measurements. It is not a colour swap, not a preset variant, not a larger lens on the same stock front. A frame is bespoke only when no two are the same.
+            </p>
+            <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+              Traditional bespoke ateliers — E.B. Meyrowitz in London, Tom Davies, a handful of independent workshops — measure in person and price frames from $650 to over $3,300. Woolet keeps the same hand-made process and Italian Mazzucchelli acetate, but replaces the studio visit with a 90-second AI face scan taken on your phone. Same category, one-tenth the price.
+            </p>
+          </div>
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
