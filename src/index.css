@@ -636,3 +636,6 @@ html[lang="fr"] {
     min-height: 340px;
   }
 }
+
+/* Bespoke configurator: the floating WhatsApp bubble covers swatches on phones */
+body.cfg-hide-whatsapp a[aria-label="Chat with us on WhatsApp"] { display: none; }

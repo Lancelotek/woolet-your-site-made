@@ -119,7 +119,7 @@ function ColorSwatchGrid({
   const filtered = thicknessMm ? COLORS.filter((c) => c.thicknessMm === thicknessMm) : COLORS;
   const list = filtered.length > 0 ? filtered : COLORS;
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+    <div className="cfg-swatchstrip grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
       {list.map((c) => {
         const active = selected === c.id;
         return (
@@ -575,7 +575,7 @@ export function StepColor({ config, update }: StepProps) {
 
       <div>
         <div className={labelClass}>Finish</div>
-        <div className="mt-3 grid grid-cols-3 gap-2.5">
+        <div className="cfg-swatchstrip mt-3 grid grid-cols-3 gap-2.5">
           {FINISHES.map((f) => {
             const active = config.finishId === f.id;
             return (
