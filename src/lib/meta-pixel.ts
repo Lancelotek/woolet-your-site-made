@@ -3,7 +3,7 @@
 // Production hosts only. Deduplicates with the Conversions API via event_id.
 
 import { trackMetaEvent, uuid, isProdHost } from "@/lib/meta-capi";
-import "@/types/global";
+/// <reference path="../types/global.d.ts" />
 
 const PIXEL_ID = "1951914478320328";
 
