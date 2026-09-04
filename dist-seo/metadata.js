@@ -3165,6 +3165,14 @@ const blogPostsEN = [
 
 <figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 round keyhole bridge glasses for wide faces 155mm+ — Italian Mazzucchelli acetate, tortoiseshell, 158mm width, 52mm lens, keyhole bridge detail" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 — Round keyhole bridge, 158mm, Mazzucchelli acetate</figcaption></figure>
 
+<figure class="blog-figure">
+  <picture>
+    <source type="image/webp" srcset="/blog/face-shape-guide/woolet-face-shape-guide-men-en-1400.webp">
+    <img src="/blog/face-shape-guide/woolet-face-shape-guide-men-en-1400.jpg" width="1400" height="2100" loading="lazy" decoding="async" alt="Glasses for your face shape - men with wide faces: oval, round, square and oblong faces with the best Woolet frame (007 Round or 009 Soft-Square) and the best Bespoke shape (Rectangle, Aviator, Crown Panto, Round)">
+  </picture>
+  <figcaption>Square frames for a round face, round frames for a square jaw - the four face shapes and the Woolet pick for each, all at 155-161 mm.</figcaption>
+</figure>
+
 <h2>How to Choose: A Decision Framework</h2>
 
 <p>If you're deciding between round and square glasses for a wide face, work through these questions:</p>
@@ -3207,6 +3215,12 @@ const blogPostsEN = [
 </ul>
 
 <p>The choice between round and square is a genuine aesthetic decision. But it's a decision you can make on purely stylistic grounds, because both options have already solved the fit problem.</p>
+
+<h2>When none of the four shapes fits: Bespoke</h2>
+
+<p>The 007 and 009 cover the two shapes most wide faces need. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four shapes to your own face width, anywhere from 145 to 172 mm, in the same Italian Mazzucchelli acetate. Hand made in Greece, two weeks from order to shipping, $480 with lenses included.</p>
+
+<p><a class="blog-gold-button" href="/en/bespoke">Start a Bespoke frame</a></p>
 
 <h2>FAQ: Frame Shapes for Wide Faces</h2>
 
@@ -3613,6 +3627,14 @@ const blogPostsEN = [
 <li><strong>Buying a frame with bridge width that does not scale:</strong> a 19 mm bridge on a 161 mm frame leaves a wide gap above the nose. Bridges should scale with the frame — 19 / 21 / 23 mm in the Woolet line.</li>
 <li><strong>Choosing material on price alone:</strong> at 155 mm+ the front spans a wider arc, and budget plastic deforms over time. <a href="/en/blog/what-is-italian-acetate-premium-eyewear">Italian Mazzucchelli acetate</a> holds the shape it was cut at.</li>
 </ul>
+
+<figure class="blog-figure">
+  <picture>
+    <source type="image/webp" srcset="/blog/face-shape-guide/woolet-face-shape-guide-men-en-1400.webp">
+    <img src="/blog/face-shape-guide/woolet-face-shape-guide-men-en-1400.jpg" width="1400" height="2100" loading="lazy" decoding="async" alt="Face shape guide for men with wide faces - oval face row highlighted: Woolet 007 Round from the collection and Rectangle as the Bespoke shape">
+  </picture>
+  <figcaption>Oval is row one. The other three rows show what changes when your face is round, square or oblong.</figcaption>
+</figure>
 
 <h2>A short decision tree</h2>
 
@@ -6140,8 +6162,22 @@ const blogPostsPL = [
 
 <figure><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 kwadratowe okulary na szeroką twarz — włoski octan Mazzucchelli, 158mm szerokości, oprawki premium typu wayfarer na twarze 155mm+" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 009 — Kwadratowe oprawki, 158mm, włoski octan</figcaption></figure>
 
+<figure class="blog-figure">
+  <picture>
+    <source type="image/webp" srcset="/blog/face-shape-guide/woolet-ksztalt-twarzy-mezczyzni-pl-1400.webp">
+    <img src="/blog/face-shape-guide/woolet-ksztalt-twarzy-mezczyzni-pl-1400.jpg" width="1400" height="2100" loading="lazy" decoding="async" alt="Okulary do kształtu twarzy - mężczyźni o szerokiej twarzy: twarz owalna, okrągła, kwadratowa i podłużna z najlepszą oprawką Woolet (007 Round lub 009 Soft-Square) i kształtem Bespoke (Rectangle, Aviator, Crown Panto, Round)">
+  </picture>
+  <figcaption>Kwadratowe oprawki do okrągłej twarzy, okrągłe do kwadratowej żuchwy - cztery kształty twarzy i wybór Woolet dla każdego, wszystko w 155-161 mm.</figcaption>
+</figure>
+
 <h2>Podejście Woolet</h2>
 <p>Woolet 007 to wyrafinowany prostokątny kształt — uniwersalnie korzystny na szerokich twarzach. Woolet 009 ma łagodniejsze, zaokrąglone rogi dla tych, którzy wolą cieplejszy wygląd.</p>
+
+<h2>Gdy żaden z czterech kształtów nie pasuje: Bespoke</h2>
+
+<p>007 i 009 pokrywają dwa kształty, których potrzebuje większość szerokich twarzy. Gdy chcesz innej geometrii - belki aviatora, pełnego koła, prostego prostokąta - Bespoke wycina jeden z czterech kształtów pod twoją szerokość twarzy, od 145 do 172 mm, z tego samego włoskiego acetatu Mazzucchelli. Ręcznie wykonane w Grecji, dwa tygodnie od zamówienia do wysyłki, 480 USD z soczewkami w cenie.</p>
+
+<p><a class="blog-gold-button" href="/pl/bespoke">Zaprojektuj oprawkę Bespoke</a></p>
 `
   },
   {
@@ -7021,8 +7057,12 @@ const REF_PRODUCTS = [
     images: [
       ...img007("black", "Black"),
       { src: `${F}woolet-007-round-panto-black-eyeglasses-on-face.jpg`, alt: "Woolet 007 Black worn on a wide face", caption: "On face" },
-      { src: `${F}woolet-007-round-panto-black-worn.jpg`, alt: "Woolet 007 Black worn, lifestyle", caption: "Worn" }
+      { src: `${F}woolet-007-round-panto-black-worn.jpg`, alt: "Woolet 007 Black worn, lifestyle", caption: "Worn" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with felt pouch and microfiber pouch - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine - included with every pair", caption: "The box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet charcoal felt pouch with the yellow w - included with every pair", caption: "Felt pouch" }
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: ["007-havana", "007-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-black",
     metaTitle: "Woolet 007 Round / Panto - Black | 158 mm acetate glasses for wide faces",
@@ -7043,8 +7083,12 @@ const REF_PRODUCTS = [
     lensOptions: LENSES_STD,
     images: [
       ...img007("havana", "Havana"),
-      { src: `${F}woolet-007-round-panto-havana-eyeglasses-on-face.jpg`, alt: "Woolet 007 Havana worn on a wide face", caption: "On face" }
+      { src: `${F}woolet-007-round-panto-havana-eyeglasses-on-face.jpg`, alt: "Woolet 007 Havana worn on a wide face", caption: "On face" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with felt pouch and microfiber pouch - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine - included with every pair", caption: "The box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet charcoal felt pouch with the yellow w - included with every pair", caption: "Felt pouch" }
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: ["007-black", "007-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-havana",
     metaTitle: "Woolet 007 Round / Panto - Havana | 158 mm tortoise acetate glasses",
@@ -7068,8 +7112,12 @@ const REF_PRODUCTS = [
       { src: `${F}woolet-007-round-panto-silver-clear-angle-34.jpg`, alt: "Woolet 007 Silver Clear three-quarter view", caption: "Three-quarter" },
       { src: `${F}woolet-007-round-panto-silver-clear-detail-1.jpg`, alt: "Woolet 007 Silver Clear hinge detail", caption: "Hinge detail" },
       { src: `${F}woolet-007-round-panto-silver-clear-detail-2.jpg`, alt: "Woolet 007 Silver Clear acetate detail", caption: "Acetate detail" },
-      { src: `${F}woolet-007-round-panto-silver-clear-angle-top.jpg`, alt: "Woolet 007 Silver Clear top view", caption: "Top view" }
+      { src: `${F}woolet-007-round-panto-silver-clear-angle-top.jpg`, alt: "Woolet 007 Silver Clear top view", caption: "Top view" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with felt pouch and microfiber pouch - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine - included with every pair", caption: "The box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet charcoal felt pouch with the yellow w - included with every pair", caption: "Felt pouch" }
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: ["007-black", "007-havana"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-silver-clear",
     metaTitle: "Woolet 007 Round / Panto - Silver Clear | 158 mm clear acetate glasses",
@@ -7091,8 +7139,12 @@ const REF_PRODUCTS = [
     lensOptions: LENSES_STD,
     images: [
       ...img009("black", "Black"),
-      { src: `${F}woolet-009-soft-square-black-eyeglasses-on-face.jpg`, alt: "Woolet 009 Black worn on a wide face", caption: "On face" }
+      { src: `${F}woolet-009-soft-square-black-eyeglasses-on-face.jpg`, alt: "Woolet 009 Black worn on a wide face", caption: "On face" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with felt pouch and microfiber pouch - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine - included with every pair", caption: "The box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet charcoal felt pouch with the yellow w - included with every pair", caption: "Felt pouch" }
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: ["009-havana", "009-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-black",
     metaTitle: "Woolet 009 Soft Square - Black | 158 mm acetate glasses for wide faces",
@@ -7114,8 +7166,12 @@ const REF_PRODUCTS = [
     images: [
       ...img009("havana", "Havana"),
       { src: `${F}woolet-009-soft-square-havana-eyeglasses-on-face.jpg`, alt: "Woolet 009 Havana worn on a wide face", caption: "On face" },
-      { src: `${F}woolet-009-soft-square-havana-worn.jpg`, alt: "Woolet 009 Havana worn, lifestyle", caption: "Worn" }
+      { src: `${F}woolet-009-soft-square-havana-worn.jpg`, alt: "Woolet 009 Havana worn, lifestyle", caption: "Worn" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with felt pouch and microfiber pouch - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine - included with every pair", caption: "The box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet charcoal felt pouch with the yellow w - included with every pair", caption: "Felt pouch" }
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: ["009-black", "009-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-havana",
     metaTitle: "Woolet 009 Soft Square - Havana | 158 mm tortoise acetate glasses",
@@ -7136,8 +7192,12 @@ const REF_PRODUCTS = [
     lensOptions: LENSES_STD,
     images: [
       ...img009("silver-clear", "Silver Clear"),
-      { src: `${F}woolet-009-soft-square-silver-clear-eyeglasses-on-face.jpg`, alt: "Woolet 009 Silver Clear worn on a wide face", caption: "On face" }
+      { src: `${F}woolet-009-soft-square-silver-clear-eyeglasses-on-face.jpg`, alt: "Woolet 009 Silver Clear worn on a wide face", caption: "On face" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with felt pouch and microfiber pouch - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine - included with every pair", caption: "The box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet charcoal felt pouch with the yellow w - included with every pair", caption: "Felt pouch" }
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: ["009-black", "009-havana"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-silver-clear",
     metaTitle: "Woolet 009 Soft Square - Silver Clear | 158 mm clear acetate glasses",
@@ -7165,8 +7225,12 @@ const REF_PRODUCTS = [
     images: [
       { src: `${F}woolet-003-bold-round-black-eyeglasses.jpg`, alt: "Woolet 003 Bold Round Black acetate glasses, front view, 158 mm", caption: "Front" },
       { src: `${F}woolet-003-bold-round-black-angle-34.jpg`, alt: "Woolet 003 Bold Round Black three-quarter view", caption: "Three-quarter" },
-      { src: `${F}woolet-003-bold-round-black-studio-front.jpg`, alt: "Woolet 003 Bold Round Black on light studio background", caption: "Studio" }
+      { src: `${F}woolet-003-bold-round-black-studio-front.jpg`, alt: "Woolet 003 Bold Round Black on light studio background", caption: "Studio" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with felt pouch and microfiber pouch - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine - included with every pair", caption: "The box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet charcoal felt pouch with the yellow w - included with every pair", caption: "Felt pouch" }
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: [],
     metaTitle: "Woolet 003 Bold Round - Black | 158 mm full-round acetate glasses",
     metaDescription: "Bold full-circle frame in thick piano-black Italian Mazzucchelli acetate, 158 mm front, keyhole bridge, hand made in EU. Pre-production reference page."
@@ -7209,12 +7273,55 @@ const REF_PRODUCTS = [
       { src: `${F}woolet-bespoke-shape-crown-panto-black.jpg`, alt: "Woolet Bespoke Crown Panto shape in black acetate", caption: "Crown Panto" },
       { src: `${F}woolet-bespoke-shape-round-black.jpg`, alt: "Woolet Bespoke Round shape in black acetate", caption: "Round" },
       { src: `${F}woolet-bespoke-shape-rectangle-black.jpg`, alt: "Woolet Bespoke Rectangle shape in black acetate", caption: "Rectangle" },
-      { src: `${F}woolet-bespoke-shape-aviator-black.jpg`, alt: "Woolet Bespoke Aviator shape in black acetate", caption: "Aviator" }
+      { src: `${F}woolet-bespoke-shape-aviator-black.jpg`, alt: "Woolet Bespoke Aviator shape in black acetate", caption: "Aviator" },
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box with felt pouch and microfiber pouch - included with every pair", caption: "In the box" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine - included with every pair", caption: "The box" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Woolet charcoal felt pouch with the yellow w - included with every pair", caption: "Felt pouch" }
     ],
+    included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: [],
     shopUrl: "https://shop.woolet.co/products/woolet-bespoke-custom-fit-eyewear",
     metaTitle: "Woolet Bespoke - Made-to-measure acetate glasses, 145-172 mm",
     metaDescription: "Four shapes, any width 145-172 mm, Italian Mazzucchelli acetate, hand made in Greece, lenses included at $480. Reference product page."
+  },
+  // ---------- The Box ----------
+  {
+    slug: "the-box",
+    model: "box",
+    name: "The Woolet Box",
+    shortName: "The Box",
+    colour: "Soft-touch black · gold foil",
+    colourDot: "#080807",
+    priceUsd: 45,
+    priceLabel: "Included with every pair · $45 value",
+    tagline: "A rigid magnetic gift box, 180 x 80 x 55 mm. Hand made in EU. Ships with every Woolet frame.",
+    intro: "Every Woolet ships in a rigid, matte-black gift box - a gold-foil w on the lid, HAND MADE IN EU underneath it, and the number this whole brand is built around printed on the spine: 158 MM. Open the magnetic lid and the inside reads MADE FOR WIDE FACES. Inside: a charcoal felt pouch with the yellow w for the frames, and a small microfiber cleaning pouch on a clip.",
+    body: [
+      "It is a $45 box, and it costs nothing extra. Not an upsell, not an add-on - it is in every order, from the 158 mm frames to Bespoke.",
+      "Rigid FSC-certified board, soft-touch black, no plastic laminate, soy inks. The single gold w is hot-stamped on the lid, with HAND MADE IN EU under the wordmark. WOOLET and 158 MM run along the spine. The inside of the lid is black too, with MADE FOR WIDE FACES and woolet.co printed in cream.",
+      "The box is designed to be kept - a place to leave your frames at the end of the day, not something to throw away on the first. For creators: the box is the unboxing. Film the lid opening, the number on the spine, the pouch coming out."
+    ],
+    specs: [
+      ["Dimensions", "180 x 80 x 55 mm"],
+      ["Shell", "Rigid FSC-certified board, soft-touch black"],
+      ["Closure", "Magnetic lid"],
+      ["Mark", "Gold foil, hot-stamped w on the lid"],
+      ["Spine", "WOOLET · 158 MM"],
+      ["Inside lid", "MADE FOR WIDE FACES · woolet.co, printed in cream on black"],
+      ["Production", "Hand made in EU"],
+      ["Availability", "Included with every pair - not sold separately"]
+    ],
+    lensOptions: [],
+    included: ["Charcoal felt pouch with the yellow w - holds the frames", "Microfiber cleaning pouch on a clip, yellow w", "Rigid magnetic box, 180 x 80 x 55 mm"],
+    images: [
+      { src: `${F}woolet-box-open-frames-cloth.jpg`, alt: "Woolet gift box open - felt pouch and microfiber pouch inside, MADE FOR WIDE FACES on the lid", caption: "Open" },
+      { src: `${F}woolet-box-render-closed.jpg`, alt: "Woolet gift box closed - gold w, WOOLET, HAND MADE IN EU on the lid, 158 MM on the spine", caption: "Closed" },
+      { src: `${F}woolet-felt-pouch.jpg`, alt: "Two Woolet charcoal felt pouches with the yellow w, frames inside", caption: "Felt pouch" },
+      { src: "https://woolet.co/box/woolet-box-3D-closed.png", alt: "Woolet gift box 3D render, closed", caption: "3D render" }
+    ],
+    siblings: [],
+    metaTitle: "The Woolet Box - rigid magnetic gift box, included with every pair",
+    metaDescription: "Rigid matte-black gift box, 180 x 80 x 55 mm, gold-foil w, 158 MM on the spine, MADE FOR WIDE FACES inside the lid. Felt pouch and microfiber pouch inside. Hand made in EU. Reference page."
   }
 ];
 const refProductBySlug = (slug) => REF_PRODUCTS.find((p) => p.slug === slug);
@@ -9092,13 +9199,13 @@ function getMetadata(route) {
           description: p.metaDescription,
           noscriptHtml: `<h1>${escapeHtml(p.name)}</h1>
 <p>${escapeHtml(p.tagline)}</p>
-<p>$${p.priceUsd} — ${p.model === "bespoke" ? "lenses included" : "frame with demo lens"}</p>
+<p>${p.priceLabel ? escapeHtml(p.priceLabel) : `$${p.priceUsd} - ${p.model === "bespoke" ? "lenses included" : "frame with demo lens"}`}</p>
 <p>${escapeHtml(p.intro)}</p>
 ${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
 <h2>Specifications</h2>
 <ul>${p.specs.map(([k, v]) => `<li>${escapeHtml(k)}: ${escapeHtml(v)}</li>`).join("")}</ul>
-<h2>Lens options</h2>
-<ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} — $${l.priceUsd}. ${escapeHtml(l.note)}</li>`).join("")}</ul>
+${p.included ? `<h2>In the box</h2><ul>${p.included.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>` : ""}
+${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - $${l.priceUsd}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
 <p>${REF_PRODUCTS.filter((o) => o.slug !== p.slug).map((o) => `<a href="/en/ref/${o.slug}">${escapeHtml(o.name)}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Check your fit in 30 seconds</a></p>`
         },
@@ -10502,6 +10609,7 @@ const STATIC_ROUTES = [
   "/en/ref/009-silver-clear",
   "/en/ref/003-black",
   "/en/ref/bespoke",
+  "/en/ref/the-box",
   "/en/bridge/18mm",
   "/en/bridge/19mm",
   "/en/bridge/20mm",
