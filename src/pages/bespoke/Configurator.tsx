@@ -327,19 +327,24 @@ const ConfiguratorPage = () => {
 
         {/* ── Mobile sticky CTA ── */}
         <div className="cfg-mobilebar lg:hidden">
-          <div className="cfg-mobilebar__thumb">
-            {aiPreviewUrl && step >= 2 ? <img src={aiPreviewUrl} alt="" /> : frame ? <img src={frame.url} alt="" /> : <span>Frame</span>}
-          </div>
+          <button
+            onClick={() => goTo(Math.max(1, step - 1) as StepId)}
+            disabled={step === 1}
+            className="cfg-mobilebar__back"
+            aria-label="Previous step"
+          >
+            <ChevronLeft size={16} />
+          </button>
           <div className="cfg-mobilebar__meta">
-            <div className="cfg-mobilebar__name">{frame ? frame.name : "Pick a frame"}</div>
             <div className="cfg-mobilebar__price">{formatEur(stepTotal)}</div>
+            <div className="cfg-mobilebar__note">2-week build · free shipping</div>
           </div>
           <button
             onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
             disabled={!isStepComplete(step, config) || step === STEPS.length}
             className="cfg-cta cfg-cta--mobile"
           >
-            {step === STEPS.length ? "Done" : "Next"}
+            {step === STEPS.length ? "Done" : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
           </button>
         </div>
       </div>
