@@ -678,7 +678,7 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="pt-1">
+              <div className="order-5 lg:order-none pt-1">
                 {lang === "en" ? (
                   <HeroSymptoms meter={<FrameWidthMeter copy={copy} />} />
                 ) : (
@@ -686,7 +686,8 @@ const Index = () => {
                 )}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <div className="order-3 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
+
                 <Link
                   to={hrefFor("lp.kickstarter", lang)}
                   onClick={() => {
