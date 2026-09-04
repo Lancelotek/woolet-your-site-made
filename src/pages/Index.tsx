@@ -751,7 +751,7 @@ const Index = () => {
 
               {/* Trust strip */}
               <div
-                className="order-4 lg:order-none flex flex-wrap items-center gap-x-6 gap-y-2 lg:pt-1 text-cream-dim"
+                className="order-4 lg:order-none flex flex-wrap items-center gap-x-3 sm:gap-x-6 gap-y-1 lg:pt-1 text-cream-dim"
                 style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
               >
                 <span>{copy.trustFit}</span>
