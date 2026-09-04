@@ -623,19 +623,15 @@ html[lang="fr"] {
 
 /* Hero headline A/B test — reserve space for the longest variant so the CTA
    never shifts between variants. Remove together with src/lib/hero-experiment.ts. */
-.woolet-hero-copy {
-  min-height: 316px;
-}
-@media (min-width: 768px) {
-  .woolet-hero-copy {
-    min-height: 300px;
-  }
-}
+/* Reserve space for the longest headline variant only where the two-column
+   hero can shift the CTA. On phones the copy stacks, so a min-height only
+   creates dead space above the fold. */
 @media (min-width: 1024px) {
   .woolet-hero-copy {
     min-height: 340px;
   }
 }
+
 
 /* Bespoke configurator: the floating WhatsApp bubble covers swatches on phones */
 body.cfg-hide-whatsapp a[aria-label="Chat with us on WhatsApp"] { display: none; }
