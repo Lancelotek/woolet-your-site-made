@@ -750,54 +750,6 @@ const BespokePage = () => {
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
-        {/* Pricing */}
-        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="woolet-eyebrow mb-5">
-              <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">PRICING · LIMITED TO 100 BACKERS</span>
-            </div>
-            <div
-              className="block"
-              style={{
-                border: "1px solid hsl(var(--gold) / 0.55)",
-                background: "linear-gradient(180deg, hsl(var(--gold) / 0.07) 0%, hsl(var(--gold) / 0.02) 100%)",
-                boxShadow: "0 0 0 1px hsl(var(--gold) / 0.08) inset",
-              }}
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-8">
-                <div>
-                  <div className="text-cream-dim uppercase tracking-[0.2em] mb-2" style={{ fontSize: "0.6rem" }}>
-                    Kickstarter price
-                  </div>
-                  <div className="font-display text-gold-light" style={{ fontSize: "3rem", fontWeight: 300, lineHeight: 1 }}>
-                    $299
-                  </div>
-                  <div className="text-cream-dim mt-2" style={{ fontSize: "0.8rem" }}>
-                    First 100 backers · frame only
-                  </div>
-                </div>
-                <div>
-                  <div className="text-cream-dim uppercase tracking-[0.2em] mb-2" style={{ fontSize: "0.6rem" }}>
-                    SRP after launch
-                  </div>
-                  <div className="font-display" style={{ fontSize: "3rem", fontWeight: 300, lineHeight: 1, color: "hsl(var(--cream-dim))", textDecoration: "line-through" }}>
-                    $480
-                  </div>
-                  <div className="text-cream-dim mt-2" style={{ fontSize: "0.8rem" }}>
-                    Standard retail price
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p className="text-cream-dim leading-relaxed mt-6" style={{ fontSize: "0.85rem" }}>
-              Reservation is $1 to hold your spot. Full $299 charged when production starts. Prescription lenses are ordered separately at your local optician.
-            </p>
-          </div>
-        </section>
-
-        <div className="woolet-divider max-w-5xl mx-auto" />
-
         {/* FAQ */}
         <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
           <div className="max-w-3xl mx-auto">
