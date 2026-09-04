@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
-import { Check, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
 import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
@@ -47,7 +48,19 @@ const ConfiguratorPage = () => {
   });
   const [saved, setSaved] = useState(false);
   const [fitOpen, setFitOpen] = useState(false);
+  const [noticeOpen, setNoticeOpen] = useState(false);
+  // A step only earns a tick once the buyer has actually been there — steps 4–6
+  // carry defaults, so completeness alone would show false progress.
+  const [visited, setVisited] = useState<number[]>([step]);
   const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace });
+  const isMobile = useIsMobile();
+
+  // Inside the configurator the floating WhatsApp bubble covers the swatch grid
+  // on phones — suppress it for the lifetime of this page.
+  useEffect(() => {
+    document.body.classList.add("cfg-hide-whatsapp");
+    return () => document.body.classList.remove("cfg-hide-whatsapp");
+  }, []);
 
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
@@ -85,6 +98,7 @@ const ConfiguratorPage = () => {
 
   const goTo = (n: StepId) => {
     setStep(n);
+    setVisited((prev) => (prev.includes(n) ? prev : [...prev, n]));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -134,11 +148,14 @@ const ConfiguratorPage = () => {
         </header>
 
         {/* ── Stepper ── */}
-        <div className="cfg-container pt-8">
+        <div className="cfg-container cfg-stepper-wrap">
+          <div className="cfg-stepnow lg:hidden">
+            Step {step} of {STEPS.length} · <strong>{STEPS[step - 1].label}</strong>
+          </div>
           <ol className="cfg-stepper" role="list">
             {STEPS.map((s, i) => {
               const isCurrent = s.id === step;
-              const isDone = isStepComplete(s.id, config) && s.id !== step;
+              const isDone = isStepComplete(s.id, config) && visited.includes(s.id) && s.id !== step;
               return (
                 <li key={s.id} className="flex items-center">
                   <button
@@ -158,42 +175,61 @@ const ConfiguratorPage = () => {
           </ol>
         </div>
 
-        {/* ── Pay-first notice ── */}
-        <div className="cfg-container mt-6">
-          <div
-            role="note"
-            style={{
-              display: "flex",
-              gap: 14,
-              alignItems: "flex-start",
-              border: "1px solid rgba(194,160,90,0.35)",
-              background: "linear-gradient(180deg, rgba(194,160,90,0.08), rgba(194,160,90,0.02))",
-              padding: "14px 18px",
-              borderRadius: 2,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Archivo', sans-serif",
-                fontSize: 10,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "#C2A05A",
-                whiteSpace: "nowrap",
-                paddingTop: 3,
-                fontWeight: 600,
-              }}
-            >
-              Pay → Measure
-            </span>
-            <p style={{ margin: 0, color: "#C4BDAF", fontSize: 14, lineHeight: 1.55 }}>
-              <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
-              The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
-              once your measurements are confirmed, your frame is cut in the EU to the exact millimetres of your face.{" "}
-              <span style={{ color: "#D8B86A" }}>Free worldwide shipping included.</span>
-            </p>
+        {/* ── Mobile live preview — the buyer must see what they are composing ── */}
+        <div className="cfg-mobilepreview lg:hidden">
+          <div className="cfg-mobilepreview__stage">
+            {aiPreviewUrl && step >= 2 ? (
+              <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
+            ) : frame ? (
+              <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`} />
+            ) : (
+              <span className="cfg-mobilepreview__place">Select a pattern</span>
+            )}
+          </div>
+          <div className="cfg-mobilepreview__meta">
+            <span>{frame ? frame.name : "No pattern yet"}</span>
+            {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
+            {temple && <span className="cfg-mobilepreview__dot" style={{ background: temple.hex }} aria-hidden />}
+            {finish && <span className="cfg-mobilepreview__finish">{finish.name}</span>}
           </div>
         </div>
+
+        {/* ── Pay-first notice ── */}
+        <div className="cfg-container mt-6">
+          <div role="note" className="cfg-note">
+            <span className="cfg-note__tag">Pay → Measure</span>
+            {isMobile ? (
+              <div style={{ minWidth: 0 }}>
+                <p className="cfg-note__body" style={{ margin: 0 }}>
+                  <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>Pay first, measure after.</strong>{" "}
+                  <span style={{ color: "#D8B86A" }}>Free worldwide shipping.</span>
+                </p>
+                {noticeOpen && (
+                  <p className="cfg-note__body" style={{ margin: "8px 0 0" }}>
+                    The made-to-measure fit scan is scheduled after your payment clears — once your measurements are
+                    confirmed, your frame is cut in the EU to the exact millimetres of your face.
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setNoticeOpen((v) => !v)}
+                  className="cfg-note__more"
+                  aria-expanded={noticeOpen}
+                >
+                  {noticeOpen ? "Less" : "How it works"}
+                </button>
+              </div>
+            ) : (
+              <p className="cfg-note__body" style={{ margin: 0 }}>
+                <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
+                The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
+                once your measurements are confirmed, your frame is cut in the EU to the exact millimetres of your face.{" "}
+                <span style={{ color: "#D8B86A" }}>Free worldwide shipping included.</span>
+              </p>
+            )}
+          </div>
+        </div>
+
 
 
 
@@ -292,19 +328,24 @@ const ConfiguratorPage = () => {
 
         {/* ── Mobile sticky CTA ── */}
         <div className="cfg-mobilebar lg:hidden">
-          <div className="cfg-mobilebar__thumb">
-            {aiPreviewUrl && step >= 2 ? <img src={aiPreviewUrl} alt="" /> : frame ? <img src={frame.url} alt="" /> : <span>Frame</span>}
-          </div>
+          <button
+            onClick={() => goTo(Math.max(1, step - 1) as StepId)}
+            disabled={step === 1}
+            className="cfg-mobilebar__back"
+            aria-label="Previous step"
+          >
+            <ChevronLeft size={16} />
+          </button>
           <div className="cfg-mobilebar__meta">
-            <div className="cfg-mobilebar__name">{frame ? frame.name : "Pick a frame"}</div>
             <div className="cfg-mobilebar__price">{formatEur(stepTotal)}</div>
+            <div className="cfg-mobilebar__note">2-week build · free shipping</div>
           </div>
           <button
             onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
             disabled={!isStepComplete(step, config) || step === STEPS.length}
             className="cfg-cta cfg-cta--mobile"
           >
-            {step === STEPS.length ? "Done" : "Next"}
+            {step === STEPS.length ? "Done" : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
           </button>
         </div>
       </div>
@@ -969,7 +1010,129 @@ const ConfiguratorStyles = () => (
       color: var(--cfg-cream);
       line-height: 1.1;
     }
-    .cfg-cta--mobile { width: auto; padding: 11px 16px; }
+    .cfg-cta--mobile { width: auto; padding: 12px 18px; white-space: nowrap; }
+    .cfg-mobilebar__back {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--cfg-border-strong);
+      background: transparent;
+      color: var(--cfg-text);
+      border-radius: 2px;
+    }
+    .cfg-mobilebar__back:disabled { opacity: .3; }
+    .cfg-mobilebar__note {
+      font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cfg-muted); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    @media (max-width: 400px) { .cfg-mobilebar__note { font-size: 9px; letter-spacing: .06em; } }
+
+    /* Pay → Measure notice */
+    .cfg-note {
+      display: flex; gap: 14px; align-items: flex-start;
+      border: 1px solid rgba(194,160,90,0.35);
+      background: linear-gradient(180deg, rgba(194,160,90,0.08), rgba(194,160,90,0.02));
+      padding: 14px 18px;
+      border-radius: 2px;
+    }
+    .cfg-note__tag {
+      font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--cfg-gold); white-space: nowrap; padding-top: 3px;
+    }
+    .cfg-note__body { color: var(--cfg-text); font-size: 14px; line-height: 1.55; }
+    .cfg-note__more {
+      margin-top: 6px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--cfg-gold); background: none; border: 0; padding: 0;
+    }
+
+    /* Stepper — honest, single scrollable row on phones */
+    .cfg-stepper-wrap { padding-top: 32px; }
+    .cfg-stepnow { display: none; }
+    @media (max-width: 1023px) {
+      .cfg-stepper-wrap { padding-top: 14px; }
+      .cfg-stepnow {
+        display: block;
+        font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+        color: var(--cfg-muted); margin-bottom: 10px;
+      }
+      .cfg-stepnow strong { color: var(--cfg-cream); font-weight: 500; }
+      .cfg-stepper {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        margin-inline: -20px; padding-inline: 20px;
+      }
+      .cfg-stepper::-webkit-scrollbar { display: none; }
+      .cfg-step { flex-shrink: 0; padding: 8px 11px; gap: 7px; }
+      .cfg-step__label { display: none; }
+      .cfg-step--current .cfg-step__label { display: inline; }
+    }
+
+    /* Mobile live preview — sticky under the top bar */
+    .cfg-mobilepreview { display: none; }
+    @media (max-width: 1023px) {
+      .cfg-mobilepreview {
+        display: block;
+        position: sticky; top: 54px; z-index: 25;
+        background: var(--cfg-ink);
+        border-bottom: 1px solid var(--cfg-border);
+        padding: 10px 20px 12px;
+        margin-top: 12px;
+      }
+      .cfg-mobilepreview__stage {
+        height: 26vh; min-height: 150px; max-height: 230px;
+        background: var(--cfg-cream);
+        border-radius: 2px;
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden;
+      }
+      .cfg-mobilepreview__stage img { max-height: 88%; max-width: 88%; object-fit: contain; }
+      .cfg-mobilepreview__place {
+        font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8F897B;
+      }
+      .cfg-mobilepreview__meta {
+        display: flex; align-items: center; gap: 8px;
+        margin-top: 8px;
+        font-family: 'Newsreader', serif; font-size: 13px; color: var(--cfg-cream);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .cfg-mobilepreview__dot {
+        width: 11px; height: 11px; border-radius: 999px; flex-shrink: 0;
+        box-shadow: inset 0 0 0 1px rgba(239,233,223,0.22);
+      }
+      .cfg-mobilepreview__finish {
+        font-family: 'Archivo', sans-serif; font-size: 10px;
+        letter-spacing: .14em; text-transform: uppercase; color: var(--cfg-muted);
+      }
+
+      /* Compact top bar: logo + sync only */
+      .cfg-topbar { padding: 12px 0; }
+      .cfg-topbar .cfg-divider, .cfg-topbar .cfg-back { display: none; }
+      .cfg-mark { width: 28px; height: 28px; }
+
+      /* Bottom bar clears the iPhone gesture area */
+      .cfg-mobilebar { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+    }
+
+    /* Horizontal swatch strips on phones (single DOM, CSS-only switch) */
+    @media (max-width: 1023px) {
+      .cfg-scope .cfg-swatchstrip {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        margin-inline: -20px;
+        padding: 2px 20px 6px;
+      }
+      .cfg-scope .cfg-swatchstrip::-webkit-scrollbar { display: none; }
+      .cfg-scope .cfg-swatchstrip > * {
+        flex: 0 0 42%;
+        scroll-snap-align: start;
+      }
+    }
 
     /* StepNav inherits Tailwind from steps.tsx — give it breathing room */
     .cfg-scope .step-nav, .cfg-scope nav[aria-label="step navigation"] { margin-top: 36px; }
