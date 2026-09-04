@@ -131,7 +131,7 @@ export const initMetaPixelDirect = (): void => {
   })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
-  window.fbq?.("init", PIXEL_ID);
+  if (typeof window.fbq === "function") window.fbq("init", PIXEL_ID);
   window.__wooletMetaDirect = true;
 
   bridgeDataLayer();
