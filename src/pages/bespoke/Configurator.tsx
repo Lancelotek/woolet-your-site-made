@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
-import { Check, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
 import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
