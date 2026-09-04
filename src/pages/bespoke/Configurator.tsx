@@ -147,11 +147,14 @@ const ConfiguratorPage = () => {
         </header>
 
         {/* ── Stepper ── */}
-        <div className="cfg-container pt-8">
+        <div className="cfg-container cfg-stepper-wrap">
+          <div className="cfg-stepnow lg:hidden">
+            Step {step} of {STEPS.length} · <strong>{STEPS[step - 1].label}</strong>
+          </div>
           <ol className="cfg-stepper" role="list">
             {STEPS.map((s, i) => {
               const isCurrent = s.id === step;
-              const isDone = isStepComplete(s.id, config) && s.id !== step;
+              const isDone = isStepComplete(s.id, config) && visited.includes(s.id) && s.id !== step;
               return (
                 <li key={s.id} className="flex items-center">
                   <button
@@ -171,42 +174,61 @@ const ConfiguratorPage = () => {
           </ol>
         </div>
 
-        {/* ── Pay-first notice ── */}
-        <div className="cfg-container mt-6">
-          <div
-            role="note"
-            style={{
-              display: "flex",
-              gap: 14,
-              alignItems: "flex-start",
-              border: "1px solid rgba(194,160,90,0.35)",
-              background: "linear-gradient(180deg, rgba(194,160,90,0.08), rgba(194,160,90,0.02))",
-              padding: "14px 18px",
-              borderRadius: 2,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Archivo', sans-serif",
-                fontSize: 10,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "#C2A05A",
-                whiteSpace: "nowrap",
-                paddingTop: 3,
-                fontWeight: 600,
-              }}
-            >
-              Pay → Measure
-            </span>
-            <p style={{ margin: 0, color: "#C4BDAF", fontSize: 14, lineHeight: 1.55 }}>
-              <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
-              The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
-              once your measurements are confirmed, your frame is cut in the EU to the exact millimetres of your face.{" "}
-              <span style={{ color: "#D8B86A" }}>Free worldwide shipping included.</span>
-            </p>
+        {/* ── Mobile live preview — the buyer must see what they are composing ── */}
+        <div className="cfg-mobilepreview lg:hidden">
+          <div className="cfg-mobilepreview__stage">
+            {aiPreviewUrl && step >= 2 ? (
+              <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
+            ) : frame ? (
+              <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`} />
+            ) : (
+              <span className="cfg-mobilepreview__place">Select a pattern</span>
+            )}
+          </div>
+          <div className="cfg-mobilepreview__meta">
+            <span>{frame ? frame.name : "No pattern yet"}</span>
+            {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
+            {temple && <span className="cfg-mobilepreview__dot" style={{ background: temple.hex }} aria-hidden />}
+            {finish && <span className="cfg-mobilepreview__finish">{finish.name}</span>}
           </div>
         </div>
+
+        {/* ── Pay-first notice ── */}
+        <div className="cfg-container mt-6">
+          <div role="note" className="cfg-note">
+            <span className="cfg-note__tag">Pay → Measure</span>
+            {isMobile ? (
+              <div style={{ minWidth: 0 }}>
+                <p className="cfg-note__body" style={{ margin: 0 }}>
+                  <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>Pay first, measure after.</strong>{" "}
+                  <span style={{ color: "#D8B86A" }}>Free worldwide shipping.</span>
+                </p>
+                {noticeOpen && (
+                  <p className="cfg-note__body" style={{ margin: "8px 0 0" }}>
+                    The made-to-measure fit scan is scheduled after your payment clears — once your measurements are
+                    confirmed, your frame is cut in the EU to the exact millimetres of your face.
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setNoticeOpen((v) => !v)}
+                  className="cfg-note__more"
+                  aria-expanded={noticeOpen}
+                >
+                  {noticeOpen ? "Less" : "How it works"}
+                </button>
+              </div>
+            ) : (
+              <p className="cfg-note__body" style={{ margin: 0 }}>
+                <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
+                The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
+                once your measurements are confirmed, your frame is cut in the EU to the exact millimetres of your face.{" "}
+                <span style={{ color: "#D8B86A" }}>Free worldwide shipping included.</span>
+              </p>
+            )}
+          </div>
+        </div>
+
 
 
 
