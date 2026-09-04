@@ -627,13 +627,17 @@ const Index = () => {
         <Navbar />
 
         {/* HERO */}
-        <section className="relative px-5 sm:px-8 lg:px-16 pt-10 lg:pt-14 pb-10 lg:pb-14">
-          <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-stretch">
-            {/* LEFT — copy */}
-            <div className="flex flex-col gap-6 lg:gap-7 lg:py-2">
+        <section className="relative px-5 sm:px-8 lg:px-16 pt-8 lg:pt-14 pb-10 lg:pb-14">
+          <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-7 lg:gap-14 items-stretch">
+            {/* LEFT — copy.
+                On phones the column dissolves (display: contents) so the
+                portrait can slot between the headline and the CTAs; from lg
+                up it behaves as a normal flex column again. */}
+            <div className="contents lg:flex lg:flex-col lg:gap-7 lg:py-2">
               {/* Copy block gets a min-height sized to the longest variant so
                   switching headlines never moves the CTA (see .woolet-hero-copy). */}
-              <div className="woolet-hero-copy flex flex-col gap-6 lg:gap-7">
+              <div className="woolet-hero-copy order-1 lg:order-none flex flex-col gap-5 lg:gap-7">
+
                 <div className="woolet-eyebrow">
                   <div className="woolet-eyebrow-line" />
                   <span className="woolet-eyebrow-text">
@@ -674,7 +678,7 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="pt-1">
+              <div className="order-5 lg:order-none pt-1">
                 {lang === "en" ? (
                   <HeroSymptoms meter={<FrameWidthMeter copy={copy} />} />
                 ) : (
@@ -682,7 +686,8 @@ const Index = () => {
                 )}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <div className="order-3 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
+
                 <Link
                   to={hrefFor("lp.kickstarter", lang)}
                   onClick={() => {
@@ -739,16 +744,14 @@ const Index = () => {
 
               {/* Founding-member benefits — mirrors /en/lp/kickstarter */}
               {lang === "en" && (
-                <div className="pt-3 max-w-[520px]">
+                <div className="order-6 lg:order-none lg:pt-3 max-w-[520px]">
                   <FoundingBenefits />
                 </div>
               )}
 
-
-
               {/* Trust strip */}
               <div
-                className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1 text-cream-dim"
+                className="order-4 lg:order-none flex flex-wrap items-center gap-x-3 sm:gap-x-6 gap-y-1 lg:pt-1 text-cream-dim"
                 style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}
               >
                 <span>{copy.trustFit}</span>
@@ -758,10 +761,11 @@ const Index = () => {
                 <span>{copy.trustHandmade}</span>
               </div>
 
+
               {/* JP-only SEO landing links */}
               {lang === "ja" && (
                 <div
-                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  className="order-7 lg:order-none flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
                   style={{ fontSize: "0.8rem", fontFamily: "Barlow, 'Noto Sans JP', sans-serif" }}
                 >
                   <Link
@@ -782,7 +786,7 @@ const Index = () => {
               {/* FR-only SEO landing link */}
               {lang === "fr" && (
                 <div
-                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  className="order-7 lg:order-none flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
                   style={{ fontSize: "0.8rem", fontFamily: "Barlow, sans-serif" }}
                 >
                   <Link
@@ -797,7 +801,7 @@ const Index = () => {
               {/* PL-only SEO landing link */}
               {lang === "pl" && (
                 <div
-                  className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
+                  className="order-7 lg:order-none flex flex-wrap items-center gap-x-5 gap-y-2 pt-3"
                   style={{ fontSize: "0.8rem", fontFamily: "Barlow, sans-serif" }}
                 >
                   <Link
@@ -815,7 +819,7 @@ const Index = () => {
             {/* RIGHT — portrait card, stretches to match left column */}
 
             <div
-              className="relative w-full aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] xl:min-h-[600px] lg:self-stretch overflow-hidden max-h-[58vh] sm:max-h-[680px] lg:max-h-none rounded-sm"
+              className="order-2 lg:order-none relative w-full aspect-[4/3] sm:aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] xl:min-h-[600px] lg:self-stretch overflow-hidden max-h-[58vh] sm:max-h-[680px] lg:max-h-none rounded-sm"
               style={{
                 border: "1px solid hsl(0 0% 100% / 0.08)",
                 background:
@@ -1022,7 +1026,7 @@ const Index = () => {
               — or go straight to{" "}
               <Link to={`${hrefFor("bespoke", lang)}#bespoke-glasses-for-wide-faces`} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
                 bespoke glasses for wide faces
-              </Link>. Bespoke covers any width from 145 to 162 mm, 4 frame shapes, 60 colour &amp; size
+              </Link>. Bespoke covers any width from 145 to 172 mm, 4 frame shapes, 60 colour &amp; size
               combinations — built to measure, for everyone.
             </p>
 
