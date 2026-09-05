@@ -35,6 +35,8 @@ Two shapes, ONE precise size each (158 mm), plus a bespoke tier. All measurement
 | Face range    | 155–161 mm (core), bespoke for outliers |
 | Colours       | Dark Tortoise, Black, Honey    |
 
+Real on-face photos (founder, 158 mm face, no retouching): https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/ - files `woolet-007-round-panto-{black|havana|silver-clear}-on-face-0N-3x4-1500x2000.jpg` and `-1x1-1200.jpg`.
+
 ### Woolet 009 — Soft Square
 
 | Spec          | Value                          |
@@ -47,6 +49,8 @@ Two shapes, ONE precise size each (158 mm), plus a bespoke tier. All measurement
 | Material      | Italian Mazzucchelli acetate   |
 | Face range    | 155–161 mm (core), bespoke for outliers |
 | Colours       | Black, Dark Tortoise, Smoke Grey |
+
+Real on-face photos (founder, 158 mm face, no retouching): https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/ - files `woolet-009-soft-square-{black|havana|silver-clear}-on-face-0N-3x4-1500x2000.jpg` and `-1x1-1200.jpg`.
 
 ### Bespoke
 

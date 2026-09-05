@@ -10,6 +10,8 @@ import LensOptions from "@/components/LensOptions";
 import { lensOffers } from "@/data/lensOptions";
 import { ColourSwatches, useColourGallery, type FrameColour } from "@/components/ProductColourGallery";
 import ProductGalleryStage from "@/components/ProductGalleryStage";
+import RealFitGallery from "@/components/RealFitGallery";
+import { onFaceSwatchPreviews } from "@/data/on-face-photos";
 import imgHavana from "@/assets/frames-2026/oval-havana.asset.json";
 import imgBlackAsset from "@/assets/frames-2026/oval-black.asset.json";
 import imgCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
@@ -222,9 +224,16 @@ const ProductPage007 = () => {
                 Prescription, blue-light and polarized options are chosen later — after your frame ships. Nothing extra is charged today.
               </div>
 
-              <ColourSwatches colours={launchColors} index={gallery.index} onSelect={gallery.select} />
+              <ColourSwatches
+                colours={launchColors}
+                index={gallery.index}
+                onSelect={gallery.select}
+                previews={onFaceSwatchPreviews("007")}
+              />
             </section>
           </div>
+
+          <RealFitGallery model="007" colourId={gallery.active.id} colourName={gallery.active.name} />
         </div>
 
         {/* ============ BELOW THE FOLD ============ */}

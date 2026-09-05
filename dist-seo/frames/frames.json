@@ -1,770 +1,1282 @@
 {
-  "version": 1,
-  "updated": "2026-08-18",
-  "baseUrl": "https://woolet.co/frames/",
-  "note": "Woolet 007 (Round / Panto) and 009 (Soft Square) product imagery. Every image carries a descriptive alt. Specs: 007 front 158 mm, bridge 21 mm, lens 52x52 mm, temple 150 mm. 009 front 158 mm, bridge 22 mm, lens 54x50 mm, temple 150 mm. Both fit faces 155-161 mm.",
-  "specs": {
-    "007": {
-      "shape": "Round / Panto",
-      "frontMm": 158,
-      "bridgeMm": 21,
-      "lensWidthMm": 52,
-      "lensHeightMm": 52,
-      "templeMm": 150,
-      "fitRangeMm": "155-161"
-    },
-    "009": {
-      "shape": "Soft Square",
-      "frontMm": 158,
-      "bridgeMm": 22,
-      "lensWidthMm": 54,
-      "lensHeightMm": 50,
-      "templeMm": 150,
-      "fitRangeMm": "155-161"
-    }
+ "version": 1,
+ "updated": "2026-09-05",
+ "baseUrl": "https://woolet.co/frames/",
+ "note": "Woolet 007 (Round / Panto) and 009 (Soft Square) product imagery. Every image carries a descriptive alt. Specs: 007 front 158 mm, bridge 21 mm, lens 52x52 mm, temple 150 mm. 009 front 158 mm, bridge 22 mm, lens 54x50 mm, temple 150 mm. Both fit faces 155-161 mm.",
+ "specs": {
+  "007": {
+   "shape": "Round / Panto",
+   "frontMm": 158,
+   "bridgeMm": 21,
+   "lensWidthMm": 52,
+   "lensHeightMm": 52,
+   "templeMm": 150,
+   "fitRangeMm": "155-161"
   },
-  "products": [
+  "009": {
+   "shape": "Soft Square",
+   "frontMm": 158,
+   "bridgeMm": 22,
+   "lensWidthMm": 54,
+   "lensHeightMm": 50,
+   "templeMm": 150,
+   "fitRangeMm": "155-161"
+  }
+ },
+ "products": [
+  {
+   "handle": "woolet-007-round-panto-black",
+   "title": "Woolet 007 Round / Panto — Black",
+   "model": "007",
+   "shape": "Round / Panto",
+   "colour": "Black",
+   "category": "eyeglasses",
+   "sku": "W007-EYE-BLK",
+   "priceUsd": 190,
+   "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-black",
+   "images": [
     {
-      "handle": "woolet-007-round-panto-black",
-      "title": "Woolet 007 Round / Panto — Black",
-      "model": "007",
-      "shape": "Round / Panto",
-      "colour": "Black",
-      "category": "eyeglasses",
-      "sku": "W007-EYE-BLK",
-      "priceUsd": 190,
-      "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-black",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-eyeglasses.jpg",
-          "file": "woolet-007-round-panto-black-eyeglasses.jpg",
-          "alt": "Woolet 007 Round / Panto eyeglasses in black Mazzucchelli acetate — 158 mm wide-fit frame",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-eyeglasses-on-face.jpg",
-          "file": "woolet-007-round-panto-black-eyeglasses-on-face.jpg",
-          "alt": "Man with a wide face wearing Woolet 007 Round / Panto eyeglasses in black",
-          "width": 1611,
-          "height": 2000,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-detail-1.jpg",
-          "file": "woolet-007-round-panto-black-detail-1.jpg",
-          "alt": "Woolet 007 Round / Panto in black — panto brow line and keyhole bridge in Mazzucchelli acetate",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-detail-2.jpg",
-          "file": "woolet-007-round-panto-black-detail-2.jpg",
-          "alt": "Woolet 007 Round / Panto in black — side profile showing 150 mm temples",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-on-face-2.jpg",
-          "file": "woolet-007-round-panto-black-on-face-2.jpg",
-          "alt": "Man wearing Woolet 007 Round / Panto black eyeglasses — 158 mm frame on a wide face",
-          "width": 1611,
-          "height": 2000,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-worn.jpg",
-          "file": "woolet-007-round-panto-black-worn.jpg",
-          "alt": "Woolet 007 Round / Panto in black worn by a man with a wide face",
-          "width": 1920,
-          "height": 1920,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-blue-light-office.jpg",
-          "file": "woolet-007-round-panto-black-blue-light-office.jpg",
-          "alt": "Woolet 007 Round / Panto black worn at a desk in the evening with blue-light lenses",
-          "width": 1080,
-          "height": 1350,
-          "role": "lifestyle"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-angle-34.jpg",
-          "file": "woolet-007-round-panto-black-angle-34.jpg",
-          "alt": "Woolet 007 Round / Panto black — three-quarter view on light background",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-angle-side.jpg",
-          "file": "woolet-007-round-panto-black-angle-side.jpg",
-          "alt": "Woolet 007 Round / Panto black — side view showing the 150 mm temple",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-side"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-angle-top.jpg",
-          "file": "woolet-007-round-panto-black-angle-top.jpg",
-          "alt": "Woolet 007 Round / Panto black — elevated view showing the 158 mm front",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-top"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-eyeglasses.jpg",
+     "file": "woolet-007-round-panto-black-eyeglasses.jpg",
+     "alt": "Woolet 007 Round / Panto eyeglasses in black Mazzucchelli acetate — 158 mm wide-fit frame",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
     },
     {
-      "handle": "woolet-007-round-panto-havana",
-      "title": "Woolet 007 Round / Panto — Havana",
-      "model": "007",
-      "shape": "Round / Panto",
-      "colour": "Havana",
-      "category": "eyeglasses",
-      "sku": "W007-EYE-HAV",
-      "priceUsd": 190,
-      "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-havana",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-eyeglasses.jpg",
-          "file": "woolet-007-round-panto-havana-eyeglasses.jpg",
-          "alt": "Woolet 007 Round / Panto eyeglasses in havana tortoise acetate — 158 mm wide-fit frame",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-eyeglasses-on-face.jpg",
-          "file": "woolet-007-round-panto-havana-eyeglasses-on-face.jpg",
-          "alt": "Man with a wide face wearing Woolet 007 Round / Panto eyeglasses in havana",
-          "width": 1611,
-          "height": 2000,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-detail-1.jpg",
-          "file": "woolet-007-round-panto-havana-detail-1.jpg",
-          "alt": "Woolet 007 Round / Panto in havana tortoise acetate — pattern runs through the material",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-detail-2.jpg",
-          "file": "woolet-007-round-panto-havana-detail-2.jpg",
-          "alt": "Woolet 007 Round / Panto havana — side profile showing 150 mm temples",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-angle-34.jpg",
-          "file": "woolet-007-round-panto-havana-angle-34.jpg",
-          "alt": "Woolet 007 Round / Panto havana — three-quarter view on light background",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-angle-side.jpg",
-          "file": "woolet-007-round-panto-havana-angle-side.jpg",
-          "alt": "Woolet 007 Round / Panto havana — side view showing the 150 mm temple",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-side"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-angle-top.jpg",
-          "file": "woolet-007-round-panto-havana-angle-top.jpg",
-          "alt": "Woolet 007 Round / Panto havana — elevated view showing the 158 mm front",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-top"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-eyeglasses-on-face.jpg",
+     "file": "woolet-007-round-panto-black-eyeglasses-on-face.jpg",
+     "alt": "Man with a wide face wearing Woolet 007 Round / Panto eyeglasses in black",
+     "width": 1611,
+     "height": 2000,
+     "role": "on-face"
     },
     {
-      "handle": "woolet-007-round-panto-silver-clear",
-      "title": "Woolet 007 Round / Panto — Silver Clear",
-      "model": "007",
-      "shape": "Round / Panto",
-      "colour": "Silver Clear",
-      "category": "eyeglasses",
-      "sku": "W007-EYE-SLV",
-      "priceUsd": 190,
-      "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-silver-clear",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-eyeglasses.jpg",
-          "file": "woolet-007-round-panto-silver-clear-eyeglasses.jpg",
-          "alt": "Woolet 007 Round / Panto eyeglasses in silver clear transparent acetate — 158 mm wide-fit frame",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-detail-1.jpg",
-          "file": "woolet-007-round-panto-silver-clear-detail-1.jpg",
-          "alt": "Woolet 007 Round / Panto in silver clear transparent acetate — hinge pins visible through the frame",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-detail-2.jpg",
-          "file": "woolet-007-round-panto-silver-clear-detail-2.jpg",
-          "alt": "Woolet 007 Round / Panto silver clear — side profile showing acetate thickness",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-angle-34.jpg",
-          "file": "woolet-007-round-panto-silver-clear-angle-34.jpg",
-          "alt": "Woolet 007 Round / Panto silver clear — three-quarter view on light background",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-angle-top.jpg",
-          "file": "woolet-007-round-panto-silver-clear-angle-top.jpg",
-          "alt": "Woolet 007 Round / Panto silver clear — elevated view showing the 158 mm front",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-top"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-detail-1.jpg",
+     "file": "woolet-007-round-panto-black-detail-1.jpg",
+     "alt": "Woolet 007 Round / Panto in black — panto brow line and keyhole bridge in Mazzucchelli acetate",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
     },
     {
-      "handle": "woolet-009-soft-square-black",
-      "title": "Woolet 009 Soft Square — Black",
-      "model": "009",
-      "shape": "Soft Square",
-      "colour": "Black",
-      "category": "eyeglasses",
-      "sku": "W009-EYE-BLK",
-      "priceUsd": 190,
-      "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-black",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-eyeglasses.jpg",
-          "file": "woolet-009-soft-square-black-eyeglasses.jpg",
-          "alt": "Woolet 009 Soft Square eyeglasses in black Mazzucchelli acetate — 158 mm wide-fit frame",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-eyeglasses-on-face.jpg",
-          "file": "woolet-009-soft-square-black-eyeglasses-on-face.jpg",
-          "alt": "Man with a wide face wearing Woolet 009 Soft Square eyeglasses in black",
-          "width": 1611,
-          "height": 2000,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-detail-1.jpg",
-          "file": "woolet-009-soft-square-black-detail-1.jpg",
-          "alt": "Woolet 009 Soft Square in black — softened square front in Mazzucchelli acetate",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-detail-2.jpg",
-          "file": "woolet-009-soft-square-black-detail-2.jpg",
-          "alt": "Woolet 009 Soft Square in black — side profile showing 150 mm temples",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-blue-light-office.jpg",
-          "file": "woolet-009-soft-square-black-blue-light-office.jpg",
-          "alt": "Man wearing Woolet 009 Soft Square black at a desk in the evening with blue-light lenses",
-          "width": 1080,
-          "height": 1350,
-          "role": "lifestyle"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-angle-34.jpg",
-          "file": "woolet-009-soft-square-black-angle-34.jpg",
-          "alt": "Woolet 009 Soft Square black — three-quarter view on light background",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-angle-side.jpg",
-          "file": "woolet-009-soft-square-black-angle-side.jpg",
-          "alt": "Woolet 009 Soft Square black — side view showing the 150 mm temple",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-side"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-angle-top.jpg",
-          "file": "woolet-009-soft-square-black-angle-top.jpg",
-          "alt": "Woolet 009 Soft Square black — elevated view showing the 158 mm front",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-top"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-detail-2.jpg",
+     "file": "woolet-007-round-panto-black-detail-2.jpg",
+     "alt": "Woolet 007 Round / Panto in black — side profile showing 150 mm temples",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
     },
     {
-      "handle": "woolet-009-soft-square-havana",
-      "title": "Woolet 009 Soft Square — Havana",
-      "model": "009",
-      "shape": "Soft Square",
-      "colour": "Havana",
-      "category": "eyeglasses",
-      "sku": "W009-EYE-HAV",
-      "priceUsd": 190,
-      "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-havana",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-eyeglasses.jpg",
-          "file": "woolet-009-soft-square-havana-eyeglasses.jpg",
-          "alt": "Woolet 009 Soft Square eyeglasses in havana tortoise acetate — 158 mm wide-fit frame",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-eyeglasses-on-face.jpg",
-          "file": "woolet-009-soft-square-havana-eyeglasses-on-face.jpg",
-          "alt": "Man with a wide face wearing Woolet 009 Soft Square eyeglasses in havana",
-          "width": 1611,
-          "height": 2000,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-detail-1.jpg",
-          "file": "woolet-009-soft-square-havana-detail-1.jpg",
-          "alt": "Woolet 009 Soft Square in havana tortoise acetate — pattern runs through the material",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-detail-2.jpg",
-          "file": "woolet-009-soft-square-havana-detail-2.jpg",
-          "alt": "Woolet 009 Soft Square havana — side profile showing 150 mm temples",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-worn.jpg",
-          "file": "woolet-009-soft-square-havana-worn.jpg",
-          "alt": "Woolet 009 Soft Square in havana worn by a man with a wide face",
-          "width": 1920,
-          "height": 1920,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-angle-34.jpg",
-          "file": "woolet-009-soft-square-havana-angle-34.jpg",
-          "alt": "Woolet 009 Soft Square havana — three-quarter view on light background",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-angle-top.jpg",
-          "file": "woolet-009-soft-square-havana-angle-top.jpg",
-          "alt": "Woolet 009 Soft Square havana — elevated view showing the 158 mm front",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-top"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-on-face-2.jpg",
+     "file": "woolet-007-round-panto-black-on-face-2.jpg",
+     "alt": "Man wearing Woolet 007 Round / Panto black eyeglasses — 158 mm frame on a wide face",
+     "width": 1611,
+     "height": 2000,
+     "role": "on-face"
     },
     {
-      "handle": "woolet-009-soft-square-silver-clear",
-      "title": "Woolet 009 Soft Square — Silver Clear",
-      "model": "009",
-      "shape": "Soft Square",
-      "colour": "Silver Clear",
-      "category": "eyeglasses",
-      "sku": "W009-EYE-SLV",
-      "priceUsd": 190,
-      "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-silver-clear",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-eyeglasses.jpg",
-          "file": "woolet-009-soft-square-silver-clear-eyeglasses.jpg",
-          "alt": "Woolet 009 Soft Square eyeglasses in silver clear transparent acetate — 158 mm wide-fit frame",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-eyeglasses-on-face.jpg",
-          "file": "woolet-009-soft-square-silver-clear-eyeglasses-on-face.jpg",
-          "alt": "Man with a wide face wearing Woolet 009 Soft Square eyeglasses in silver clear",
-          "width": 1611,
-          "height": 2000,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-detail-1.jpg",
-          "file": "woolet-009-soft-square-silver-clear-detail-1.jpg",
-          "alt": "Woolet 009 Soft Square in silver clear transparent acetate — hinge pins visible through the frame",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-detail-2.jpg",
-          "file": "woolet-009-soft-square-silver-clear-detail-2.jpg",
-          "alt": "Woolet 009 Soft Square silver clear — side profile showing acetate thickness",
-          "width": 2000,
-          "height": 1000,
-          "role": "detail"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-angle-34.jpg",
-          "file": "woolet-009-soft-square-silver-clear-angle-34.jpg",
-          "alt": "Woolet 009 Soft Square silver clear — three-quarter view on light background",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-angle-side.jpg",
-          "file": "woolet-009-soft-square-silver-clear-angle-side.jpg",
-          "alt": "Woolet 009 Soft Square silver clear — side view showing the 150 mm temple",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-side"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-angle-top.jpg",
-          "file": "woolet-009-soft-square-silver-clear-angle-top.jpg",
-          "alt": "Woolet 009 Soft Square silver clear — elevated view showing the 158 mm front",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-top"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-worn.jpg",
+     "file": "woolet-007-round-panto-black-worn.jpg",
+     "alt": "Woolet 007 Round / Panto in black worn by a man with a wide face",
+     "width": 1920,
+     "height": 1920,
+     "role": "on-face"
     },
     {
-      "handle": "woolet-007-round-sunglasses",
-      "title": "Woolet 007 Round / Panto — Sunglasses",
-      "model": "007",
-      "shape": "Round / Panto",
-      "colour": "Black · Havana · Silver Clear",
-      "category": "sunglasses",
-      "sku": "W007-SUN-*",
-      "priceUsd": 190,
-      "shopUrl": "https://shop.woolet.co/products/woolet-007-round-sunglasses",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-sunglasses-black.jpg",
-          "file": "woolet-007-round-panto-sunglasses-black.jpg",
-          "alt": "Woolet 007 Round / Panto sunglasses in black Mazzucchelli acetate, 158 mm front, UV400",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-sunglasses-havana.jpg",
-          "file": "woolet-007-round-panto-sunglasses-havana.jpg",
-          "alt": "Woolet 007 Round / Panto sunglasses in havana Mazzucchelli acetate, 158 mm front, UV400",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-sunglasses-silver-clear.jpg",
-          "file": "woolet-007-round-panto-sunglasses-silver-clear.jpg",
-          "alt": "Woolet 007 Round / Panto sunglasses in silver clear transparent acetate, 158 mm front, UV400",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-sunglasses-black-on-face.jpg",
-          "file": "woolet-007-round-panto-sunglasses-black-on-face.jpg",
-          "alt": "Man wearing Woolet 007 Round / Panto in black — 158 mm wide-fit acetate frame",
-          "width": 1611,
-          "height": 2000,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-sun-34.jpg",
-          "file": "woolet-007-round-panto-black-sun-34.jpg",
-          "alt": "Woolet 007 Round / Panto sunglasses in black with UV400 lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-sun-34.jpg",
-          "file": "woolet-007-round-panto-havana-sun-34.jpg",
-          "alt": "Woolet 007 Round / Panto sunglasses in havana with UV400 lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-sun-34.jpg",
-          "file": "woolet-007-round-panto-silver-clear-sun-34.jpg",
-          "alt": "Woolet 007 Round / Panto sunglasses in silver clear with UV400 lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-blue-light-office.jpg",
+     "file": "woolet-007-round-panto-black-blue-light-office.jpg",
+     "alt": "Woolet 007 Round / Panto black worn at a desk in the evening with blue-light lenses",
+     "width": 1080,
+     "height": 1350,
+     "role": "lifestyle"
     },
     {
-      "handle": "woolet-009-square-sunglasses",
-      "title": "Woolet 009 Soft Square — Sunglasses",
-      "model": "009",
-      "shape": "Soft Square",
-      "colour": "Black · Havana · Silver Clear",
-      "category": "sunglasses",
-      "sku": "W009-SUN-*",
-      "priceUsd": 190,
-      "shopUrl": "https://shop.woolet.co/products/woolet-009-square-sunglasses",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-sunglasses-black.jpg",
-          "file": "woolet-009-soft-square-sunglasses-black.jpg",
-          "alt": "Woolet 009 Soft Square sunglasses in black Mazzucchelli acetate, 158 mm front, UV400",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-sunglasses-havana.jpg",
-          "file": "woolet-009-soft-square-sunglasses-havana.jpg",
-          "alt": "Woolet 009 Soft Square sunglasses in havana Mazzucchelli acetate, 158 mm front, UV400",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-sunglasses-silver-clear.jpg",
-          "file": "woolet-009-soft-square-sunglasses-silver-clear.jpg",
-          "alt": "Woolet 009 Soft Square sunglasses in silver clear transparent acetate, 158 mm front, UV400",
-          "width": 1080,
-          "height": 1080,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-sunglasses-havana-on-face.jpg",
-          "file": "woolet-009-soft-square-sunglasses-havana-on-face.jpg",
-          "alt": "Man wearing Woolet 009 Soft Square in havana — 158 mm wide-fit acetate frame",
-          "width": 1611,
-          "height": 2000,
-          "role": "on-face"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-sun-34.jpg",
-          "file": "woolet-009-soft-square-black-sun-34.jpg",
-          "alt": "Woolet 009 Soft Square sunglasses in black with UV400 lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-sun-34.jpg",
-          "file": "woolet-009-soft-square-havana-sun-34.jpg",
-          "alt": "Woolet 009 Soft Square sunglasses in havana with UV400 lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-sun-34.jpg",
-          "file": "woolet-009-soft-square-silver-clear-sun-34.jpg",
-          "alt": "Woolet 009 Soft Square sunglasses in silver clear with UV400 lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-angle-34.jpg",
+     "file": "woolet-007-round-panto-black-angle-34.jpg",
+     "alt": "Woolet 007 Round / Panto black — three-quarter view on light background",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
     },
     {
-      "handle": "woolet-007-round-panto-black-blue-light",
-      "title": "Woolet 007 Round / Panto — Black · Blue Light",
-      "model": "007",
-      "shape": "Round / Panto",
-      "colour": "Black",
-      "category": "blue-light",
-      "sku": "W007-BLF-BLK",
-      "priceUsd": 210,
-      "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-black-blue-light",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-blue-light-front.jpg",
-          "file": "woolet-007-round-panto-black-blue-light-front.jpg",
-          "alt": "Woolet 007 Round / Panto black with blue-light filtering lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-black-blue-light-angle.jpg",
-          "file": "woolet-007-round-panto-black-blue-light-angle.jpg",
-          "alt": "Woolet 007 Round / Panto black blue-light glasses — three-quarter view",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-angle-side.jpg",
+     "file": "woolet-007-round-panto-black-angle-side.jpg",
+     "alt": "Woolet 007 Round / Panto black — side view showing the 150 mm temple",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-side"
     },
     {
-      "handle": "woolet-007-round-panto-havana-blue-light",
-      "title": "Woolet 007 Round / Panto — Havana · Blue Light",
-      "model": "007",
-      "shape": "Round / Panto",
-      "colour": "Havana",
-      "category": "blue-light",
-      "sku": "W007-BLF-HAV",
-      "priceUsd": 210,
-      "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-havana-blue-light",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-blue-light-front.jpg",
-          "file": "woolet-007-round-panto-havana-blue-light-front.jpg",
-          "alt": "Woolet 007 Round / Panto havana with blue-light filtering lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-havana-blue-light-angle.jpg",
-          "file": "woolet-007-round-panto-havana-blue-light-angle.jpg",
-          "alt": "Woolet 007 Round / Panto havana blue-light glasses — three-quarter view",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        }
-      ]
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-angle-top.jpg",
+     "file": "woolet-007-round-panto-black-angle-top.jpg",
+     "alt": "Woolet 007 Round / Panto black — elevated view showing the 158 mm front",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-top"
     },
     {
-      "handle": "woolet-007-round-panto-silver-clear-blue-light",
-      "title": "Woolet 007 Round / Panto — Silver Clear · Blue Light",
-      "model": "007",
-      "shape": "Round / Panto",
-      "colour": "Silver Clear",
-      "category": "blue-light",
-      "sku": "W007-BLF-SLV",
-      "priceUsd": 210,
-      "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-silver-clear-blue-light",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-blue-light-front.jpg",
-          "file": "woolet-007-round-panto-silver-clear-blue-light-front.jpg",
-          "alt": "Woolet 007 Round / Panto silver clear with blue-light filtering lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-blue-light-angle.jpg",
-          "file": "woolet-007-round-panto-silver-clear-blue-light-angle.jpg",
-          "alt": "Woolet 007 Round / Panto silver clear blue-light glasses — three-quarter view",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        }
-      ]
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-black-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-black-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Black worn on a 158 mm wide face - real fit, front view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
     },
     {
-      "handle": "woolet-009-soft-square-black-blue-light",
-      "title": "Woolet 009 Soft Square — Black · Blue Light",
-      "model": "009",
-      "shape": "Soft Square",
-      "colour": "Black",
-      "category": "blue-light",
-      "sku": "W009-BLF-BLK",
-      "priceUsd": 210,
-      "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-black-blue-light",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-blue-light-front.jpg",
-          "file": "woolet-009-soft-square-black-blue-light-front.jpg",
-          "alt": "Woolet 009 Soft Square black with blue-light filtering lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-black-blue-light-angle.jpg",
-          "file": "woolet-009-soft-square-black-blue-light-angle.jpg",
-          "alt": "Woolet 009 Soft Square black blue-light glasses — three-quarter view",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        }
-      ]
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-black-on-face-01-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-black-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Black worn on a 158 mm wide face - real fit, front view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
     },
     {
-      "handle": "woolet-009-soft-square-havana-blue-light",
-      "title": "Woolet 009 Soft Square — Havana · Blue Light",
-      "model": "009",
-      "shape": "Soft Square",
-      "colour": "Havana",
-      "category": "blue-light",
-      "sku": "W009-BLF-HAV",
-      "priceUsd": 210,
-      "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-havana-blue-light",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-blue-light-front.jpg",
-          "file": "woolet-009-soft-square-havana-blue-light-front.jpg",
-          "alt": "Woolet 009 Soft Square havana with blue-light filtering lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-havana-blue-light-angle.jpg",
-          "file": "woolet-009-soft-square-havana-blue-light-angle.jpg",
-          "alt": "Woolet 009 Soft Square havana blue-light glasses — three-quarter view",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        }
-      ]
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-black-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-black-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Black worn on a 158 mm wide face - real fit, front view, closer",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
     },
     {
-      "handle": "woolet-009-soft-square-silver-clear-blue-light",
-      "title": "Woolet 009 Soft Square — Silver Clear · Blue Light",
-      "model": "009",
-      "shape": "Soft Square",
-      "colour": "Silver Clear",
-      "category": "blue-light",
-      "sku": "W009-BLF-SLV",
-      "priceUsd": 210,
-      "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-silver-clear-blue-light",
-      "images": [
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-blue-light-front.jpg",
-          "file": "woolet-009-soft-square-silver-clear-blue-light-front.jpg",
-          "alt": "Woolet 009 Soft Square silver clear with blue-light filtering lenses — 158 mm wide-fit frame",
-          "width": 1600,
-          "height": 1600,
-          "role": "packshot"
-        },
-        {
-          "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-blue-light-angle.jpg",
-          "file": "woolet-009-soft-square-silver-clear-blue-light-angle.jpg",
-          "alt": "Woolet 009 Soft Square silver clear blue-light glasses — three-quarter view",
-          "width": 1600,
-          "height": 1600,
-          "role": "angle-34"
-        }
-      ]
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-black-on-face-02-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-black-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Black worn on a 158 mm wide face - real fit, front view, closer",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
     }
-  ]
+   ]
+  },
+  {
+   "handle": "woolet-007-round-panto-havana",
+   "title": "Woolet 007 Round / Panto — Havana",
+   "model": "007",
+   "shape": "Round / Panto",
+   "colour": "Havana",
+   "category": "eyeglasses",
+   "sku": "W007-EYE-HAV",
+   "priceUsd": 190,
+   "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-havana",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-eyeglasses.jpg",
+     "file": "woolet-007-round-panto-havana-eyeglasses.jpg",
+     "alt": "Woolet 007 Round / Panto eyeglasses in havana tortoise acetate — 158 mm wide-fit frame",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-eyeglasses-on-face.jpg",
+     "file": "woolet-007-round-panto-havana-eyeglasses-on-face.jpg",
+     "alt": "Man with a wide face wearing Woolet 007 Round / Panto eyeglasses in havana",
+     "width": 1611,
+     "height": 2000,
+     "role": "on-face"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-detail-1.jpg",
+     "file": "woolet-007-round-panto-havana-detail-1.jpg",
+     "alt": "Woolet 007 Round / Panto in havana tortoise acetate — pattern runs through the material",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-detail-2.jpg",
+     "file": "woolet-007-round-panto-havana-detail-2.jpg",
+     "alt": "Woolet 007 Round / Panto havana — side profile showing 150 mm temples",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-angle-34.jpg",
+     "file": "woolet-007-round-panto-havana-angle-34.jpg",
+     "alt": "Woolet 007 Round / Panto havana — three-quarter view on light background",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-angle-side.jpg",
+     "file": "woolet-007-round-panto-havana-angle-side.jpg",
+     "alt": "Woolet 007 Round / Panto havana — side view showing the 150 mm temple",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-side"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-angle-top.jpg",
+     "file": "woolet-007-round-panto-havana-angle-top.jpg",
+     "alt": "Woolet 007 Round / Panto havana — elevated view showing the 158 mm front",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-top"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-havana-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-havana-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-havana-on-face-01-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-havana-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-havana-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-havana-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, three-quarter view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-havana-on-face-02-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-havana-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, three-quarter view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-007-round-panto-silver-clear",
+   "title": "Woolet 007 Round / Panto — Silver Clear",
+   "model": "007",
+   "shape": "Round / Panto",
+   "colour": "Silver Clear",
+   "category": "eyeglasses",
+   "sku": "W007-EYE-SLV",
+   "priceUsd": 190,
+   "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-silver-clear",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-eyeglasses.jpg",
+     "file": "woolet-007-round-panto-silver-clear-eyeglasses.jpg",
+     "alt": "Woolet 007 Round / Panto eyeglasses in silver clear transparent acetate — 158 mm wide-fit frame",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-detail-1.jpg",
+     "file": "woolet-007-round-panto-silver-clear-detail-1.jpg",
+     "alt": "Woolet 007 Round / Panto in silver clear transparent acetate — hinge pins visible through the frame",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-detail-2.jpg",
+     "file": "woolet-007-round-panto-silver-clear-detail-2.jpg",
+     "alt": "Woolet 007 Round / Panto silver clear — side profile showing acetate thickness",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-angle-34.jpg",
+     "file": "woolet-007-round-panto-silver-clear-angle-34.jpg",
+     "alt": "Woolet 007 Round / Panto silver clear — three-quarter view on light background",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-angle-top.jpg",
+     "file": "woolet-007-round-panto-silver-clear-angle-top.jpg",
+     "alt": "Woolet 007 Round / Panto silver clear — elevated view showing the 158 mm front",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-top"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, front view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-01-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, front view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, side angle",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-02-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, side angle",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-03-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-03-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, three-quarter view, smiling",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-03-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-03-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, three-quarter view, smiling",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-009-soft-square-black",
+   "title": "Woolet 009 Soft Square — Black",
+   "model": "009",
+   "shape": "Soft Square",
+   "colour": "Black",
+   "category": "eyeglasses",
+   "sku": "W009-EYE-BLK",
+   "priceUsd": 190,
+   "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-black",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-eyeglasses.jpg",
+     "file": "woolet-009-soft-square-black-eyeglasses.jpg",
+     "alt": "Woolet 009 Soft Square eyeglasses in black Mazzucchelli acetate — 158 mm wide-fit frame",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-eyeglasses-on-face.jpg",
+     "file": "woolet-009-soft-square-black-eyeglasses-on-face.jpg",
+     "alt": "Man with a wide face wearing Woolet 009 Soft Square eyeglasses in black",
+     "width": 1611,
+     "height": 2000,
+     "role": "on-face"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-detail-1.jpg",
+     "file": "woolet-009-soft-square-black-detail-1.jpg",
+     "alt": "Woolet 009 Soft Square in black — softened square front in Mazzucchelli acetate",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-detail-2.jpg",
+     "file": "woolet-009-soft-square-black-detail-2.jpg",
+     "alt": "Woolet 009 Soft Square in black — side profile showing 150 mm temples",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-blue-light-office.jpg",
+     "file": "woolet-009-soft-square-black-blue-light-office.jpg",
+     "alt": "Man wearing Woolet 009 Soft Square black at a desk in the evening with blue-light lenses",
+     "width": 1080,
+     "height": 1350,
+     "role": "lifestyle"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-angle-34.jpg",
+     "file": "woolet-009-soft-square-black-angle-34.jpg",
+     "alt": "Woolet 009 Soft Square black — three-quarter view on light background",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-angle-side.jpg",
+     "file": "woolet-009-soft-square-black-angle-side.jpg",
+     "alt": "Woolet 009 Soft Square black — side view showing the 150 mm temple",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-side"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-angle-top.jpg",
+     "file": "woolet-009-soft-square-black-angle-top.jpg",
+     "alt": "Woolet 009 Soft Square black — elevated view showing the 158 mm front",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-top"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-black-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-black-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Black worn on a 158 mm wide face - real fit, front view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-black-on-face-01-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-black-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Black worn on a 158 mm wide face - real fit, front view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-009-soft-square-havana",
+   "title": "Woolet 009 Soft Square — Havana",
+   "model": "009",
+   "shape": "Soft Square",
+   "colour": "Havana",
+   "category": "eyeglasses",
+   "sku": "W009-EYE-HAV",
+   "priceUsd": 190,
+   "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-havana",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-eyeglasses.jpg",
+     "file": "woolet-009-soft-square-havana-eyeglasses.jpg",
+     "alt": "Woolet 009 Soft Square eyeglasses in havana tortoise acetate — 158 mm wide-fit frame",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-eyeglasses-on-face.jpg",
+     "file": "woolet-009-soft-square-havana-eyeglasses-on-face.jpg",
+     "alt": "Man with a wide face wearing Woolet 009 Soft Square eyeglasses in havana",
+     "width": 1611,
+     "height": 2000,
+     "role": "on-face"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-detail-1.jpg",
+     "file": "woolet-009-soft-square-havana-detail-1.jpg",
+     "alt": "Woolet 009 Soft Square in havana tortoise acetate — pattern runs through the material",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-detail-2.jpg",
+     "file": "woolet-009-soft-square-havana-detail-2.jpg",
+     "alt": "Woolet 009 Soft Square havana — side profile showing 150 mm temples",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-worn.jpg",
+     "file": "woolet-009-soft-square-havana-worn.jpg",
+     "alt": "Woolet 009 Soft Square in havana worn by a man with a wide face",
+     "width": 1920,
+     "height": 1920,
+     "role": "on-face"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-angle-34.jpg",
+     "file": "woolet-009-soft-square-havana-angle-34.jpg",
+     "alt": "Woolet 009 Soft Square havana — three-quarter view on light background",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-angle-top.jpg",
+     "file": "woolet-009-soft-square-havana-angle-top.jpg",
+     "alt": "Woolet 009 Soft Square havana — elevated view showing the 158 mm front",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-top"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-havana-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-havana-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Havana worn on a 158 mm wide face - real fit, front view, smiling",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-havana-on-face-01-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-havana-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Havana worn on a 158 mm wide face - real fit, front view, smiling",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-havana-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-havana-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Havana worn on a 158 mm wide face - real fit, three-quarter view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-havana-on-face-02-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-havana-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Havana worn on a 158 mm wide face - real fit, three-quarter view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-009-soft-square-silver-clear",
+   "title": "Woolet 009 Soft Square — Silver Clear",
+   "model": "009",
+   "shape": "Soft Square",
+   "colour": "Silver Clear",
+   "category": "eyeglasses",
+   "sku": "W009-EYE-SLV",
+   "priceUsd": 190,
+   "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-silver-clear",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-eyeglasses.jpg",
+     "file": "woolet-009-soft-square-silver-clear-eyeglasses.jpg",
+     "alt": "Woolet 009 Soft Square eyeglasses in silver clear transparent acetate — 158 mm wide-fit frame",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-eyeglasses-on-face.jpg",
+     "file": "woolet-009-soft-square-silver-clear-eyeglasses-on-face.jpg",
+     "alt": "Man with a wide face wearing Woolet 009 Soft Square eyeglasses in silver clear",
+     "width": 1611,
+     "height": 2000,
+     "role": "on-face"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-detail-1.jpg",
+     "file": "woolet-009-soft-square-silver-clear-detail-1.jpg",
+     "alt": "Woolet 009 Soft Square in silver clear transparent acetate — hinge pins visible through the frame",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-detail-2.jpg",
+     "file": "woolet-009-soft-square-silver-clear-detail-2.jpg",
+     "alt": "Woolet 009 Soft Square silver clear — side profile showing acetate thickness",
+     "width": 2000,
+     "height": 1000,
+     "role": "detail"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-angle-34.jpg",
+     "file": "woolet-009-soft-square-silver-clear-angle-34.jpg",
+     "alt": "Woolet 009 Soft Square silver clear — three-quarter view on light background",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-angle-side.jpg",
+     "file": "woolet-009-soft-square-silver-clear-angle-side.jpg",
+     "alt": "Woolet 009 Soft Square silver clear — side view showing the 150 mm temple",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-side"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-angle-top.jpg",
+     "file": "woolet-009-soft-square-silver-clear-angle-top.jpg",
+     "alt": "Woolet 009 Soft Square silver clear — elevated view showing the 158 mm front",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-top"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, indoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-01-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, indoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, three-quarter view, indoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-02-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, three-quarter view, indoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-03-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-03-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, side view, indoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-03-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-03-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, side view, indoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-04-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-04-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-04-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-04-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-05-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-05-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-05-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-05-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-06-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-06-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-06-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-06-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-007-round-sunglasses",
+   "title": "Woolet 007 Round / Panto — Sunglasses",
+   "model": "007",
+   "shape": "Round / Panto",
+   "colour": "Black · Havana · Silver Clear",
+   "category": "sunglasses",
+   "sku": "W007-SUN-*",
+   "priceUsd": 190,
+   "shopUrl": "https://shop.woolet.co/products/woolet-007-round-sunglasses",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-sunglasses-black.jpg",
+     "file": "woolet-007-round-panto-sunglasses-black.jpg",
+     "alt": "Woolet 007 Round / Panto sunglasses in black Mazzucchelli acetate, 158 mm front, UV400",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-sunglasses-havana.jpg",
+     "file": "woolet-007-round-panto-sunglasses-havana.jpg",
+     "alt": "Woolet 007 Round / Panto sunglasses in havana Mazzucchelli acetate, 158 mm front, UV400",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-sunglasses-silver-clear.jpg",
+     "file": "woolet-007-round-panto-sunglasses-silver-clear.jpg",
+     "alt": "Woolet 007 Round / Panto sunglasses in silver clear transparent acetate, 158 mm front, UV400",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-sunglasses-black-on-face.jpg",
+     "file": "woolet-007-round-panto-sunglasses-black-on-face.jpg",
+     "alt": "Man wearing Woolet 007 Round / Panto in black — 158 mm wide-fit acetate frame",
+     "width": 1611,
+     "height": 2000,
+     "role": "on-face"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-sun-34.jpg",
+     "file": "woolet-007-round-panto-black-sun-34.jpg",
+     "alt": "Woolet 007 Round / Panto sunglasses in black with UV400 lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-sun-34.jpg",
+     "file": "woolet-007-round-panto-havana-sun-34.jpg",
+     "alt": "Woolet 007 Round / Panto sunglasses in havana with UV400 lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-sun-34.jpg",
+     "file": "woolet-007-round-panto-silver-clear-sun-34.jpg",
+     "alt": "Woolet 007 Round / Panto sunglasses in silver clear with UV400 lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-009-square-sunglasses",
+   "title": "Woolet 009 Soft Square — Sunglasses",
+   "model": "009",
+   "shape": "Soft Square",
+   "colour": "Black · Havana · Silver Clear",
+   "category": "sunglasses",
+   "sku": "W009-SUN-*",
+   "priceUsd": 190,
+   "shopUrl": "https://shop.woolet.co/products/woolet-009-square-sunglasses",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-sunglasses-black.jpg",
+     "file": "woolet-009-soft-square-sunglasses-black.jpg",
+     "alt": "Woolet 009 Soft Square sunglasses in black Mazzucchelli acetate, 158 mm front, UV400",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-sunglasses-havana.jpg",
+     "file": "woolet-009-soft-square-sunglasses-havana.jpg",
+     "alt": "Woolet 009 Soft Square sunglasses in havana Mazzucchelli acetate, 158 mm front, UV400",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-sunglasses-silver-clear.jpg",
+     "file": "woolet-009-soft-square-sunglasses-silver-clear.jpg",
+     "alt": "Woolet 009 Soft Square sunglasses in silver clear transparent acetate, 158 mm front, UV400",
+     "width": 1080,
+     "height": 1080,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-sunglasses-havana-on-face.jpg",
+     "file": "woolet-009-soft-square-sunglasses-havana-on-face.jpg",
+     "alt": "Man wearing Woolet 009 Soft Square in havana — 158 mm wide-fit acetate frame",
+     "width": 1611,
+     "height": 2000,
+     "role": "on-face"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-sun-34.jpg",
+     "file": "woolet-009-soft-square-black-sun-34.jpg",
+     "alt": "Woolet 009 Soft Square sunglasses in black with UV400 lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-sun-34.jpg",
+     "file": "woolet-009-soft-square-havana-sun-34.jpg",
+     "alt": "Woolet 009 Soft Square sunglasses in havana with UV400 lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-sun-34.jpg",
+     "file": "woolet-009-soft-square-silver-clear-sun-34.jpg",
+     "alt": "Woolet 009 Soft Square sunglasses in silver clear with UV400 lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-007-round-panto-black-blue-light",
+   "title": "Woolet 007 Round / Panto — Black · Blue Light",
+   "model": "007",
+   "shape": "Round / Panto",
+   "colour": "Black",
+   "category": "blue-light",
+   "sku": "W007-BLF-BLK",
+   "priceUsd": 210,
+   "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-black-blue-light",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-blue-light-front.jpg",
+     "file": "woolet-007-round-panto-black-blue-light-front.jpg",
+     "alt": "Woolet 007 Round / Panto black with blue-light filtering lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-black-blue-light-angle.jpg",
+     "file": "woolet-007-round-panto-black-blue-light-angle.jpg",
+     "alt": "Woolet 007 Round / Panto black blue-light glasses — three-quarter view",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-black-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-black-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Black worn on a 158 mm wide face - real fit, front view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-black-on-face-01-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-black-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Black worn on a 158 mm wide face - real fit, front view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-black-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-black-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Black worn on a 158 mm wide face - real fit, front view, closer",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-black-on-face-02-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-black-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Black worn on a 158 mm wide face - real fit, front view, closer",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-007-round-panto-havana-blue-light",
+   "title": "Woolet 007 Round / Panto — Havana · Blue Light",
+   "model": "007",
+   "shape": "Round / Panto",
+   "colour": "Havana",
+   "category": "blue-light",
+   "sku": "W007-BLF-HAV",
+   "priceUsd": 210,
+   "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-havana-blue-light",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-blue-light-front.jpg",
+     "file": "woolet-007-round-panto-havana-blue-light-front.jpg",
+     "alt": "Woolet 007 Round / Panto havana with blue-light filtering lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-havana-blue-light-angle.jpg",
+     "file": "woolet-007-round-panto-havana-blue-light-angle.jpg",
+     "alt": "Woolet 007 Round / Panto havana blue-light glasses — three-quarter view",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-havana-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-havana-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-havana-on-face-01-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-havana-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-havana-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-havana-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, three-quarter view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-havana-on-face-02-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-havana-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, three-quarter view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-007-round-panto-silver-clear-blue-light",
+   "title": "Woolet 007 Round / Panto — Silver Clear · Blue Light",
+   "model": "007",
+   "shape": "Round / Panto",
+   "colour": "Silver Clear",
+   "category": "blue-light",
+   "sku": "W007-BLF-SLV",
+   "priceUsd": 210,
+   "shopUrl": "https://shop.woolet.co/products/woolet-007-round-panto-silver-clear-blue-light",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-blue-light-front.jpg",
+     "file": "woolet-007-round-panto-silver-clear-blue-light-front.jpg",
+     "alt": "Woolet 007 Round / Panto silver clear with blue-light filtering lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-007-round-panto-silver-clear-blue-light-angle.jpg",
+     "file": "woolet-007-round-panto-silver-clear-blue-light-angle.jpg",
+     "alt": "Woolet 007 Round / Panto silver clear blue-light glasses — three-quarter view",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, front view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-01-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, front view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, side angle",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-02-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, side angle",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-03-3x4-1500x2000.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-03-3x4-1500x2000.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, three-quarter view, smiling",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-007-round-panto-silver-clear-on-face-03-1x1-1200.jpg",
+     "file": "woolet-007-round-panto-silver-clear-on-face-03-1x1-1200.jpg",
+     "alt": "Woolet 007 Round / Panto in Silver Clear worn on a 158 mm wide face - real fit, three-quarter view, smiling",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-009-soft-square-black-blue-light",
+   "title": "Woolet 009 Soft Square — Black · Blue Light",
+   "model": "009",
+   "shape": "Soft Square",
+   "colour": "Black",
+   "category": "blue-light",
+   "sku": "W009-BLF-BLK",
+   "priceUsd": 210,
+   "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-black-blue-light",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-blue-light-front.jpg",
+     "file": "woolet-009-soft-square-black-blue-light-front.jpg",
+     "alt": "Woolet 009 Soft Square black with blue-light filtering lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-black-blue-light-angle.jpg",
+     "file": "woolet-009-soft-square-black-blue-light-angle.jpg",
+     "alt": "Woolet 009 Soft Square black blue-light glasses — three-quarter view",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-black-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-black-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Black worn on a 158 mm wide face - real fit, front view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-black-on-face-01-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-black-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Black worn on a 158 mm wide face - real fit, front view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-009-soft-square-havana-blue-light",
+   "title": "Woolet 009 Soft Square — Havana · Blue Light",
+   "model": "009",
+   "shape": "Soft Square",
+   "colour": "Havana",
+   "category": "blue-light",
+   "sku": "W009-BLF-HAV",
+   "priceUsd": 210,
+   "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-havana-blue-light",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-blue-light-front.jpg",
+     "file": "woolet-009-soft-square-havana-blue-light-front.jpg",
+     "alt": "Woolet 009 Soft Square havana with blue-light filtering lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-havana-blue-light-angle.jpg",
+     "file": "woolet-009-soft-square-havana-blue-light-angle.jpg",
+     "alt": "Woolet 009 Soft Square havana blue-light glasses — three-quarter view",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-havana-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-havana-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Havana worn on a 158 mm wide face - real fit, front view, smiling",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-havana-on-face-01-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-havana-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Havana worn on a 158 mm wide face - real fit, front view, smiling",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-havana-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-havana-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Havana worn on a 158 mm wide face - real fit, three-quarter view",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-havana-on-face-02-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-havana-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Havana worn on a 158 mm wide face - real fit, three-quarter view",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  },
+  {
+   "handle": "woolet-009-soft-square-silver-clear-blue-light",
+   "title": "Woolet 009 Soft Square — Silver Clear · Blue Light",
+   "model": "009",
+   "shape": "Soft Square",
+   "colour": "Silver Clear",
+   "category": "blue-light",
+   "sku": "W009-BLF-SLV",
+   "priceUsd": 210,
+   "shopUrl": "https://shop.woolet.co/products/woolet-009-soft-square-silver-clear-blue-light",
+   "images": [
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-blue-light-front.jpg",
+     "file": "woolet-009-soft-square-silver-clear-blue-light-front.jpg",
+     "alt": "Woolet 009 Soft Square silver clear with blue-light filtering lenses — 158 mm wide-fit frame",
+     "width": 1600,
+     "height": 1600,
+     "role": "packshot"
+    },
+    {
+     "url": "https://woolet.co/frames/woolet-009-soft-square-silver-clear-blue-light-angle.jpg",
+     "file": "woolet-009-soft-square-silver-clear-blue-light-angle.jpg",
+     "alt": "Woolet 009 Soft Square silver clear blue-light glasses — three-quarter view",
+     "width": 1600,
+     "height": 1600,
+     "role": "angle-34"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-01-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-01-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, indoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-01-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-01-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, indoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-02-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-02-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, three-quarter view, indoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-02-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-02-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, three-quarter view, indoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-03-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-03-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, side view, indoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-03-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-03-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, side view, indoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-04-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-04-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-04-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-04-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-05-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-05-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-05-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-05-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-06-3x4-1500x2000.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-06-3x4-1500x2000.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1500,
+     "height": 2000,
+     "role": "on-face-real"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/woolet-009-soft-square-silver-clear-on-face-06-1x1-1200.jpg",
+     "file": "woolet-009-soft-square-silver-clear-on-face-06-1x1-1200.jpg",
+     "alt": "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view, outdoors",
+     "width": 1200,
+     "height": 1200,
+     "role": "on-face-real"
+    }
+   ]
+  }
+ ]
 }

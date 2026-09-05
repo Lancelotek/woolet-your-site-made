@@ -53,6 +53,8 @@ Italian Mazzucchelli acetate from Milan, round / panto silhouette, hand made in 
 | Face range    | 155–161 mm core (bespoke for outliers) |
 | Colours       | Dark Tortoise, Black, Honey    |
 
+Real on-face photos (founder, 158 mm face, no retouching): https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/ - files `woolet-007-round-panto-{black|havana|silver-clear}-on-face-0N-3x4-1500x2000.jpg` and `-1x1-1200.jpg`.
+
 URL: https://woolet.co/en/products/007
 
 ### 2.2 Woolet 009 — Soft Square
@@ -68,6 +70,8 @@ Italian Mazzucchelli acetate from Milan, soft-square silhouette, hand made in EU
 | Hinges        | 5-barrel PVD Gunmetal          |
 | Face range    | 155–161 mm core (bespoke for outliers) |
 | Colours       | Black, Dark Tortoise, Smoke Grey |
+
+Real on-face photos (founder, 158 mm face, no retouching): https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/ - files `woolet-009-soft-square-{black|havana|silver-clear}-on-face-0N-3x4-1500x2000.jpg` and `-1x1-1200.jpg`.
 
 URL: https://woolet.co/en/products/009
 
