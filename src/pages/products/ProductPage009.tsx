@@ -10,8 +10,6 @@ import LensOptions from "@/components/LensOptions";
 import { lensOffers } from "@/data/lensOptions";
 import { ColourSwatches, useColourGallery, type FrameColour } from "@/components/ProductColourGallery";
 import ProductGalleryStage from "@/components/ProductGalleryStage";
-import RealFitGallery from "@/components/RealFitGallery";
-import { onFaceSwatchPreviews } from "@/data/on-face-photos";
 import sqHavana from "@/assets/frames-2026/square-havana.asset.json";
 import sqBlack from "@/assets/frames-2026/square-black.asset.json";
 import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
@@ -218,12 +216,12 @@ const ProductPage009 = () => {
                 colours={launchColors}
                 index={gallery.index}
                 onSelect={gallery.select}
-                previews={onFaceSwatchPreviews("009")}
+                
               />
             </section>
           </div>
 
-          <RealFitGallery model="009" colourId={gallery.active.id} colourName={gallery.active.name} />
+          
         </div>
 
         <div className="mx-auto" style={{ maxWidth: 980, padding: "72px 20px 0" }}>
