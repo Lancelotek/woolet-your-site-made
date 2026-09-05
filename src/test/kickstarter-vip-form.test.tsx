@@ -81,4 +81,52 @@ describe("Kickstarter VIP form — email-only submission", () => {
     expect(signup!.user_first_name).toBe("");
     expect(typeof signup!.user_first_name).toBe("string");
   });
+
+  it("keeps UTM attribution when localStorage is blocked (iOS in-app browser)", async () => {
+    // Simulate blocked storage (Instagram/Facebook in-app browser on iOS).
+    const getItemSpy = vi
+      .spyOn(Storage.prototype, "getItem")
+      .mockImplementation(() => {
+        throw new DOMException("Access is denied", "SecurityError");
+      });
+    const setItemSpy = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(() => {
+        throw new DOMException("Access is denied", "SecurityError");
+      });
+
+    try {
+      render(
+        <HelmetProvider>
+          <MemoryRouter
+            initialEntries={[
+              "/en/lp/kickstarter?utm_source=ig&utm_medium=paid&utm_campaign=ks_vip&utm_content=reel_a",
+            ]}
+          >
+            <KickstarterPrelaunch />
+          </MemoryRouter>
+        </HelmetProvider>,
+      );
+
+      const form = document.getElementById("vip-form-hero") as HTMLFormElement;
+      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+      fireEvent.change(emailInput, { target: { value: "ios@example.com" } });
+      await waitFor(() => expect(submitBtn.disabled).toBe(false));
+      fireEvent.click(submitBtn);
+
+      const { supabase } = await import("@/integrations/supabase/client");
+      const invoke = supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>;
+      await waitFor(() => expect(invoke).toHaveBeenCalled());
+
+      const body = invoke.mock.calls[0][1]?.body as Record<string, unknown>;
+      expect(body.utm_source).toBe("ig");
+      expect(body.utm_campaign).toBe("ks_vip");
+      expect(body.utm_content).toBe("reel_a");
+    } finally {
+      getItemSpy.mockRestore();
+      setItemSpy.mockRestore();
+    }
+  });
 });
