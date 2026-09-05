@@ -203,19 +203,40 @@ export function ColourSwatches({
               aria-label={`Show ${c.name}`}
               onClick={() => onSelect(i)}
             >
-              <span
-                aria-hidden
-                className="wl-dot"
-                style={{
-                  width: 26,
-                  height: 26,
-                  borderRadius: "50%",
-                  background: c.dot,
-                  boxShadow: activeState
-                    ? `0 0 0 1px #f3ece0, 0 0 0 3px ${T.gold}`
-                    : `0 0 0 1px ${T.hairStrong}`,
-                }}
-              />
+              {previews?.[c.id] ? (
+                <img
+                  className="wl-dot"
+                  src={previews[c.id]}
+                  alt={previewAlt ? previewAlt(c) : `${c.name} worn on a 158 mm wide face`}
+                  width={1200}
+                  height={1200}
+                  loading="lazy"
+                  decoding="async"
+                  style={{
+                    width: 52,
+                    height: 52,
+                    objectFit: "cover",
+                    borderRadius: 3,
+                    boxShadow: activeState
+                      ? `0 0 0 1px #f3ece0, 0 0 0 2px ${T.gold}`
+                      : `0 0 0 1px ${T.hairStrong}`,
+                  }}
+                />
+              ) : (
+                <span
+                  aria-hidden
+                  className="wl-dot"
+                  style={{
+                    width: 26,
+                    height: 26,
+                    borderRadius: "50%",
+                    background: c.dot,
+                    boxShadow: activeState
+                      ? `0 0 0 1px #f3ece0, 0 0 0 3px ${T.gold}`
+                      : `0 0 0 1px ${T.hairStrong}`,
+                  }}
+                />
+              )}
               <span
                 style={{
                   fontFamily: SANS,
