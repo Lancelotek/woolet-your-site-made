@@ -125,9 +125,14 @@ describe("Kickstarter VIP form — email-only submission", () => {
 
       const { supabase } = await import("@/integrations/supabase/client");
       const invoke = supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>;
-      await waitFor(() => expect(invoke).toHaveBeenCalled());
+      await waitFor(() =>
+        expect(
+          invoke.mock.calls.some((c) => c[0] === "mailerlite-subscribe"),
+        ).toBe(true),
+      );
 
-      const body = invoke.mock.calls.at(-1)?.[1]?.body as Record<string, unknown>;
+      const mlCall = invoke.mock.calls.find((c) => c[0] === "mailerlite-subscribe");
+      const body = mlCall?.[1]?.body as Record<string, unknown>;
       expect(body.utm_source).toBe("ig");
       expect(body.utm_campaign).toBe("ks_vip");
       expect(body.utm_content).toBe("reel_a");
