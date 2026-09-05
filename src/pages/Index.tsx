@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import gregHeroAsset from "@/assets/greg-woolet-009.webp.asset.json";
 import woolet007Asset from "@/assets/frames-2026/oval-crystal.asset.json";
 import woolet009Asset from "@/assets/frames-2026/square-crystal.asset.json";
+import { homeOnFaceCard } from "@/data/on-face-photos";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -592,8 +593,8 @@ const Index = () => {
   const copy = homeCopy[lang];
 
   const models = [
-    { id: "007", name: "Woolet 007", shape: copy.shapeRound, img: woolet007Asset.url, alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 21 mm keyhole bridge, for wide faces 155 mm+" },
-    { id: "009", name: "Woolet 009", shape: copy.shapeSquare, img: woolet009Asset.url, alt: "Woolet 009 — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 22 mm keyhole bridge, for wide faces 155 mm+" },
+    { id: "007", name: "Woolet 007", shape: copy.shapeRound, onFace: homeOnFaceCard["007"], onFaceAlt: "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view", img: woolet007Asset.url, alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 21 mm keyhole bridge, for wide faces 155 mm+" },
+    { id: "009", name: "Woolet 009", shape: copy.shapeSquare, onFace: homeOnFaceCard["009"], onFaceAlt: "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view", img: woolet009Asset.url, alt: "Woolet 009 — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 22 mm keyhole bridge, for wide faces 155 mm+" },
   ];
 
   return (
@@ -950,6 +951,18 @@ const Index = () => {
                       decoding="async"
                       width={1600}
                       height={1000}
+                      sizes="(min-width: 640px) 46vw, 90vw"
+                    />
+
+                    {/* Real on-face shot revealed on hover / focus */}
+                    <img
+                      src={m.onFace}
+                      alt={m.onFaceAlt}
+                      className="absolute inset-0 block w-full h-full object-cover object-center opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100"
+                      loading="lazy"
+                      decoding="async"
+                      width={1200}
+                      height={1200}
                       sizes="(min-width: 640px) 46vw, 90vw"
                     />
 
