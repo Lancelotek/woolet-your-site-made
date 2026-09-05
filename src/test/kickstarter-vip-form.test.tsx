@@ -40,9 +40,11 @@ const renderPage = () =>
   );
 
 describe("Kickstarter VIP form — email-only submission", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     navigateMock.mockReset();
     (window as unknown as { dataLayer?: unknown[] }).dataLayer = [];
+    const { supabase } = await import("@/integrations/supabase/client");
+    (supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>).mockClear();
   });
 
   it("submits with only email + inline consent, advances to step 2, and pushes empty user_first_name", async () => {
