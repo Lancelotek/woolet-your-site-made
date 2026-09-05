@@ -26,6 +26,9 @@ export type MediaItem = {
   caption: string;
   /** Light canvas suits packshots; darker canvas suits lifestyle shots */
   cover?: boolean;
+  /** Natural pixel size when it differs from the default 800x600 */
+  width?: number;
+  height?: number;
 };
 
 export type ProductId = "007" | "009";
@@ -108,5 +111,21 @@ export function mediaFor(model: ProductId, colourId: string, colourName: string)
         },
       ]
     : [];
-  return [...head, ...shared[model]];
+  // Real on-face shot of the founder, one per colour, right after the packshot.
+  // Rendered at natural 3:4 - no cropping, no overlay.
+  const onFace = galleryOnFace[model][colourId as OnFaceColourId];
+  const onFaceItem: MediaItem[] = onFace
+    ? [
+        {
+          id: `on-face-real-${colourId}`,
+          kind: "on-face",
+          src: onFace.src,
+          alt: onFace.alt,
+          caption: "Worn at 158 mm - the founder, no retouching",
+          width: onFace.width,
+          height: onFace.height,
+        },
+      ]
+    : [];
+  return [...head, ...onFaceItem, ...shared[model]];
 }

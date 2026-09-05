@@ -96,8 +96,8 @@ const ProductGalleryStage = ({ model, colourId, colourName }: Props) => {
           key={active.src}
           src={active.src}
           alt={active.alt}
-          width={800}
-          height={600}
+          width={active.width ?? 800}
+          height={active.height ?? 600}
           loading={idx === 0 ? "eager" : "lazy"}
           fetchPriority={idx === 0 ? "high" : "auto"}
           decoding="async"
