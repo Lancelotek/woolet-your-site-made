@@ -22,6 +22,8 @@ async function saveAttribution(
     rdt_uuid?: string;
     event_source_url?: string;
     meta_event_id?: string;
+    landing_url?: string;
+    referrer?: string;
   },
   req: Request,
 ) {
@@ -40,6 +42,8 @@ async function saveAttribution(
       rdt_uuid: payload.rdt_uuid || null,
       event_source_url: payload.event_source_url?.slice(0, 500) || null,
       meta_event_id: payload.meta_event_id || null,
+      landing_url: payload.landing_url?.slice(0, 500) || null,
+      referrer: payload.referrer?.slice(0, 500) || null,
     };
     const { error } = await supabase
       .from("waitlist_attribution")
@@ -230,6 +234,8 @@ async function ensureCustomFields(apiKey: string) {
     { name: "utm_campaign", type: "text" },
     { name: "utm_content", type: "text" },
     { name: "utm_term", type: "text" },
+    { name: "landing_url", type: "text" },
+    { name: "referrer", type: "text" },
   ];
 
   for (const field of fields) {
@@ -277,6 +283,8 @@ export const handler = async (req: Request): Promise<Response> => {
       rdt_uuid,
       event_source_url,
       meta_event_id,
+      landing_url,
+      referrer,
     } = await req.json();
 
     if (!email) {
@@ -290,7 +298,7 @@ export const handler = async (req: Request): Promise<Response> => {
     // so payments-webhook can match a later Stripe Purchase back to this lead.
     await saveAttribution(
       email,
-      { fbp, fbc, ttclid, rdt_uuid, event_source_url, meta_event_id },
+      { fbp, fbc, ttclid, rdt_uuid, event_source_url, meta_event_id, landing_url, referrer },
       req,
     );
 
@@ -330,6 +338,8 @@ export const handler = async (req: Request): Promise<Response> => {
     if (utm_term) subscriberFields.utm_term = String(utm_term);
     if (country) subscriberFields.country = String(country);
     if (country_code) subscriberFields.country_code = String(country_code);
+    if (landing_url) subscriberFields.landing_url = String(landing_url).slice(0, 500);
+    if (referrer) subscriberFields.referrer = String(referrer).slice(0, 500);
 
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,

@@ -40,9 +40,11 @@ const renderPage = () =>
   );
 
 describe("Kickstarter VIP form — email-only submission", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     navigateMock.mockReset();
     (window as unknown as { dataLayer?: unknown[] }).dataLayer = [];
+    const { supabase } = await import("@/integrations/supabase/client");
+    (supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>).mockClear();
   });
 
   it("submits with only email + inline consent, advances to step 2, and pushes empty user_first_name", async () => {
@@ -80,5 +82,65 @@ describe("Kickstarter VIP form — email-only submission", () => {
     expect(signup!.user_email).toBe("wide@example.com");
     expect(signup!.user_first_name).toBe("");
     expect(typeof signup!.user_first_name).toBe("string");
+  });
+
+  it("keeps UTM attribution when localStorage is blocked (iOS in-app browser)", async () => {
+    // Simulate blocked storage (Instagram/Facebook in-app browser on iOS).
+    const getItemSpy = vi
+      .spyOn(Storage.prototype, "getItem")
+      .mockImplementation(() => {
+        throw new DOMException("Access is denied", "SecurityError");
+      });
+    const setItemSpy = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(() => {
+        throw new DOMException("Access is denied", "SecurityError");
+      });
+
+    // Attribution is read from the real URL, so put the UTMs there.
+    window.history.pushState(
+      {},
+      "",
+      "/en/lp/kickstarter?utm_source=ig&utm_medium=paid&utm_campaign=ks_vip&utm_content=reel_a",
+    );
+
+    try {
+      render(
+        <HelmetProvider>
+          <MemoryRouter
+            initialEntries={[
+              "/en/lp/kickstarter?utm_source=ig&utm_medium=paid&utm_campaign=ks_vip&utm_content=reel_a",
+            ]}
+          >
+            <KickstarterPrelaunch />
+          </MemoryRouter>
+        </HelmetProvider>,
+      );
+
+      const form = document.getElementById("vip-form-hero") as HTMLFormElement;
+      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+      fireEvent.change(emailInput, { target: { value: "ios@example.com" } });
+      await waitFor(() => expect(submitBtn.disabled).toBe(false));
+      fireEvent.click(submitBtn);
+
+      const { supabase } = await import("@/integrations/supabase/client");
+      const invoke = supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>;
+      await waitFor(() =>
+        expect(
+          invoke.mock.calls.some((c) => c[0] === "mailerlite-subscribe"),
+        ).toBe(true),
+      );
+
+      const mlCall = invoke.mock.calls.find((c) => c[0] === "mailerlite-subscribe");
+      const body = mlCall?.[1]?.body as Record<string, unknown>;
+      expect(body.utm_source).toBe("ig");
+      expect(body.utm_campaign).toBe("ks_vip");
+      expect(body.utm_content).toBe("reel_a");
+    } finally {
+      getItemSpy.mockRestore();
+      setItemSpy.mockRestore();
+    }
   });
 });
