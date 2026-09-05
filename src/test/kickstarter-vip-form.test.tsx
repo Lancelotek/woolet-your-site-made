@@ -95,6 +95,13 @@ describe("Kickstarter VIP form — email-only submission", () => {
         throw new DOMException("Access is denied", "SecurityError");
       });
 
+    // Attribution is read from the real URL, so put the UTMs there.
+    window.history.pushState(
+      {},
+      "",
+      "/en/lp/kickstarter?utm_source=ig&utm_medium=paid&utm_campaign=ks_vip&utm_content=reel_a",
+    );
+
     try {
       render(
         <HelmetProvider>
