@@ -91,6 +91,8 @@ Deno.test("fires Meta CAPI Lead after successful subscription with hashed PII, f
       fbp: "fb.1.1700000000.111",
       fbc: "fb.1.1700000000.AbCd",
       event_source_url: "https://woolet.co/en/blog/x",
+      landing_url: "https://woolet.co/en/lp/kickstarter?utm_source=ig",
+      referrer: "https://instagram.com/",
       meta_event_id,
     });
 
@@ -98,6 +100,16 @@ Deno.test("fires Meta CAPI Lead after successful subscription with hashed PII, f
     const json = await res.json();
     assertEquals(res.status, 200);
     assertEquals(json.success, true);
+
+    // MailerLite subscriber call carries landing_url + referrer as custom fields
+    const mlCall = stub.calls.find((c) => c.url.includes("/api/subscribers"));
+    assertExists(mlCall, "Expected MailerLite subscriber request");
+    const mlBody = mlCall.body as { fields?: Record<string, string> };
+    assertEquals(
+      mlBody.fields?.landing_url,
+      "https://woolet.co/en/lp/kickstarter?utm_source=ig",
+    );
+    assertEquals(mlBody.fields?.referrer, "https://instagram.com/");
 
     const capiCall = stub.calls.find((c) => c.url.includes("graph.facebook.com"));
     assertExists(capiCall, "Expected Meta CAPI request to be sent");
