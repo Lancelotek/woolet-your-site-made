@@ -324,16 +324,20 @@ const VipForm = ({
         source: utmSource,
       });
 
-      void trackMetaEvent("Lead", {
-        eventId: metaEventId,
-        user: { email: normalizedEmail },
-        custom: {
+      // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
+      // mailerlite-subscribe with the same event_id, so Meta dedupes them.
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "meta_lead",
+          meta_event_name: "Lead",
+          event_id: metaEventId,
           content_name: "kickstarter_vip",
           content_category: "waitlist",
           source: utmSource,
           form_location: formLocation,
-        },
-      });
+        });
+      }
       pushGtmEvent("kickstarter_form_submit_success", {
         form_location: formLocation,
         source: utmSource,
