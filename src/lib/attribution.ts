@@ -6,6 +6,10 @@
  * `getAttribution()` for outgoing MailerLite subscribe calls.
  *
  * SSR/prerender safe: all window/document/localStorage access is guarded.
+ *
+ * iOS in-app browsers (Instagram/Facebook webviews) intermittently block
+ * localStorage, so `getAttribution()` merges three sources with fallback:
+ * current URL params → in-memory cache → localStorage.
  */
 
 const STORAGE_KEY = "woolet_attribution";
@@ -26,8 +30,15 @@ type UtmKey = (typeof UTM_KEYS)[number];
 type ClickIdKey = (typeof CLICK_ID_KEYS)[number];
 
 export type Attribution = Partial<
-  Record<UtmKey | ClickIdKey | "event_source_url", string>
+  Record<
+    UtmKey | ClickIdKey | "event_source_url" | "landing_url" | "referrer",
+    string
+  >
 >;
+
+// In-memory fallback for environments where localStorage is blocked
+// (iOS Instagram/Facebook in-app browser).
+let memoryAttribution: Attribution = {};
 
 function readCookie(name: string): string | undefined {
   if (typeof document === "undefined") return undefined;
@@ -62,12 +73,13 @@ function writeStored(data: Attribution): void {
  * Capture attribution from the current URL + cookies.
  * - UTM keys: first-touch only (never overwritten).
  * - Click IDs (fbp/fbc/ttclid/rdt_uuid): backfilled if currently empty.
+ * - landing_url / referrer: captured once, never overwritten.
  * - event_source_url: always the most recent URL.
  */
 export function captureAttribution(): void {
   if (typeof window === "undefined") return;
 
-  const stored = readStored();
+  const stored = { ...readStored(), ...memoryAttribution };
   const next: Attribution = { ...stored };
 
   const params = new URLSearchParams(window.location.search);
@@ -99,24 +111,57 @@ export function captureAttribution(): void {
     if (v && !next[k]) next[k] = v;
   }
 
+  // First-capture-only context fields.
+  if (!next.landing_url) next.landing_url = window.location.href;
+  if (!next.referrer && typeof document !== "undefined" && document.referrer) {
+    next.referrer = document.referrer;
+  }
+
   // Always refresh the landing URL (useful for CAPI event_source_url).
   next.event_source_url = window.location.href;
 
+  memoryAttribution = next;
   writeStored(next);
 }
 
 /**
  * Returns a compact object suitable for merging into a mailerlite-subscribe
- * request body. Empty/undefined keys are omitted.
+ * request body. Merges three sources — current URL params, in-memory cache,
+ * localStorage — later sources fill only keys that are still empty.
+ * Empty/undefined keys are omitted. Never throws.
  */
 export function getAttribution(): Attribution {
   if (typeof window === "undefined") return {};
-  const stored = readStored();
-  const out: Attribution = {};
-  for (const [k, v] of Object.entries(stored)) {
-    if (typeof v === "string" && v.length > 0) {
-      out[k as keyof Attribution] = v;
+  try {
+    const merged: Attribution = {};
+
+    const fill = (source: Attribution) => {
+      for (const [k, v] of Object.entries(source)) {
+        if (typeof v === "string" && v.length > 0 && !merged[k as keyof Attribution]) {
+          merged[k as keyof Attribution] = v;
+        }
+      }
+    };
+
+    // a) current URL params
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const fromUrl: Attribution = {};
+      for (const k of [...UTM_KEYS, "utm_id", "fbclid"] as const) {
+        const v = params.get(k);
+        if (v) (fromUrl as Record<string, string>)[k] = v;
+      }
+      fill(fromUrl);
+    } catch {
+      /* ignore */
     }
+
+    // b) in-memory cache, c) localStorage
+    fill(memoryAttribution);
+    fill(readStored());
+
+    return merged;
+  } catch {
+    return {};
   }
-  return out;
 }

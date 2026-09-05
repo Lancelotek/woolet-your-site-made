@@ -22,6 +22,8 @@ async function saveAttribution(
     rdt_uuid?: string;
     event_source_url?: string;
     meta_event_id?: string;
+    landing_url?: string;
+    referrer?: string;
   },
   req: Request,
 ) {
@@ -40,6 +42,8 @@ async function saveAttribution(
       rdt_uuid: payload.rdt_uuid || null,
       event_source_url: payload.event_source_url?.slice(0, 500) || null,
       meta_event_id: payload.meta_event_id || null,
+      landing_url: payload.landing_url?.slice(0, 500) || null,
+      referrer: payload.referrer?.slice(0, 500) || null,
     };
     const { error } = await supabase
       .from("waitlist_attribution")
@@ -230,6 +234,8 @@ async function ensureCustomFields(apiKey: string) {
     { name: "utm_campaign", type: "text" },
     { name: "utm_content", type: "text" },
     { name: "utm_term", type: "text" },
+    { name: "landing_url", type: "text" },
+    { name: "referrer", type: "text" },
   ];
 
   for (const field of fields) {
