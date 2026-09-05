@@ -283,6 +283,8 @@ export const handler = async (req: Request): Promise<Response> => {
       rdt_uuid,
       event_source_url,
       meta_event_id,
+      landing_url,
+      referrer,
     } = await req.json();
 
     if (!email) {
@@ -296,7 +298,7 @@ export const handler = async (req: Request): Promise<Response> => {
     // so payments-webhook can match a later Stripe Purchase back to this lead.
     await saveAttribution(
       email,
-      { fbp, fbc, ttclid, rdt_uuid, event_source_url, meta_event_id },
+      { fbp, fbc, ttclid, rdt_uuid, event_source_url, meta_event_id, landing_url, referrer },
       req,
     );
 
@@ -336,6 +338,8 @@ export const handler = async (req: Request): Promise<Response> => {
     if (utm_term) subscriberFields.utm_term = String(utm_term);
     if (country) subscriberFields.country = String(country);
     if (country_code) subscriberFields.country_code = String(country_code);
+    if (landing_url) subscriberFields.landing_url = String(landing_url).slice(0, 500);
+    if (referrer) subscriberFields.referrer = String(referrer).slice(0, 500);
 
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
