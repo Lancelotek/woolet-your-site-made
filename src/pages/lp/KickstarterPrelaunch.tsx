@@ -300,9 +300,6 @@ const VipForm = ({
 
 
 
-      // One event_id shared by the GTM Meta Lead tag and the Conversions API.
-      const metaEventId = uuid();
-
       if (typeof window !== "undefined") {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
