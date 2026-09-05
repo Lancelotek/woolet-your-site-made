@@ -130,19 +130,19 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
 
       rdtLead({ value: 114, currency: "USD" });
 
-      // Meta CAPI — server-side Lead with hashed PII + fbp/fbc + IP/UA
-      void trackMetaEvent("Lead", {
-        eventId: meta_event_id,
-        user: {
-          email: formData.email,
-          first_name: formData.name,
-        },
-        custom: {
+      // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
+      // mailerlite-subscribe with the same meta_event_id, so Meta dedupes them.
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "meta_lead",
+          meta_event_name: "Lead",
+          event_id: meta_event_id,
           value: 114,
           currency: "USD",
           content_name: "Waitlist signup",
-        },
-      });
+        });
+      }
 
       setSubmitted(true);
       setCount((c) => c + 1);
