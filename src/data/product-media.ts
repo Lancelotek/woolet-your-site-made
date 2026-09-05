@@ -13,6 +13,7 @@ import greg009 from "@/assets/greg-woolet-009.webp.asset.json";
 import onFace007 from "@/assets/woolet-007-on-face-havana.jpg.asset.json";
 import detail007 from "@/assets/woolet-007-detail-hinge.jpg";
 import gregTester from "@/assets/testimonials/greg-woolet-tester.webp";
+import { galleryOnFace, type OnFaceColourId } from "@/data/on-face-photos";
 
 export type MediaKind = "packshot" | "on-face" | "detail" | "scale";
 
