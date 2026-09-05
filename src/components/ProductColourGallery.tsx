@@ -158,12 +158,17 @@ export function ColourSwatches({
   onSelect,
   label = "Launch colours",
   note = "Pick yours after the campaign",
+  previews,
+  previewAlt,
 }: {
   colours: FrameColour[];
   index: number;
   onSelect: (i: number) => void;
   label?: string;
   note?: string;
+  /** Optional square on-face preview per colour id */
+  previews?: Record<string, string>;
+  previewAlt?: (colour: FrameColour) => string;
 }) {
   const ids = useMemo(() => colours.map((c) => c.id).join("|"), [colours]);
   return (
