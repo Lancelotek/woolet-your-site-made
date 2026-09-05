@@ -785,8 +785,10 @@ export type Database = {
           fbc: string | null
           fbp: string | null
           ip_address: string | null
+          landing_url: string | null
           meta_event_id: string | null
           rdt_uuid: string | null
+          referrer: string | null
           ttclid: string | null
           updated_at: string
           user_agent: string | null
@@ -799,8 +801,10 @@ export type Database = {
           fbc?: string | null
           fbp?: string | null
           ip_address?: string | null
+          landing_url?: string | null
           meta_event_id?: string | null
           rdt_uuid?: string | null
+          referrer?: string | null
           ttclid?: string | null
           updated_at?: string
           user_agent?: string | null
@@ -813,8 +817,10 @@ export type Database = {
           fbc?: string | null
           fbp?: string | null
           ip_address?: string | null
+          landing_url?: string | null
           meta_event_id?: string | null
           rdt_uuid?: string | null
+          referrer?: string | null
           ttclid?: string | null
           updated_at?: string
           user_agent?: string | null
