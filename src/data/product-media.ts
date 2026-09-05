@@ -10,7 +10,7 @@ import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
 import dims007 from "@/assets/woolet-007-dimensions.png.asset.json";
 import dims009 from "@/assets/woolet-009-dimensions.png.asset.json";
 import greg009 from "@/assets/greg-woolet-009.webp.asset.json";
-import onFace007 from "@/assets/woolet-007-on-face-havana.jpg.asset.json";
+
 import detail007 from "@/assets/woolet-007-detail-hinge.jpg";
 import gregTester from "@/assets/testimonials/greg-woolet-tester.webp";
 import { galleryOnFace, type OnFaceColourId } from "@/data/on-face-photos";
@@ -47,14 +47,6 @@ const bridge: Record<ProductId, string> = { "007": "20 mm keyhole bridge", "009"
 
 const shared: Record<ProductId, MediaItem[]> = {
   "007": [
-    {
-      id: "on-face",
-      kind: "on-face",
-      src: onFace007.url,
-      alt: "Man with a wide face wearing Woolet 007 round panto glasses in honey tortoise acetate — front view showing the 158 mm frame sitting flush at the temples",
-      caption: "On a 156 mm face — temples flush, no pinch",
-      cover: true,
-    },
     {
       id: "detail",
       kind: "detail",
