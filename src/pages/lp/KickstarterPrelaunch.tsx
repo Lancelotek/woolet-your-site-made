@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
-import { trackMetaEvent, uuid } from "@/lib/meta-capi";
+import { uuid } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
