@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
-import { trackMetaEvent, uuid } from "@/lib/meta-capi";
+import { uuid } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
@@ -276,6 +276,10 @@ const VipForm = ({
         return;
       }
 
+      // One event_id shared by the server CAPI Lead (mailerlite-subscribe),
+      // the browser Meta Lead tag and the GTM waitlist_signup push.
+      const metaEventId = uuid();
+
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           ...getAttribution(),
@@ -283,6 +287,7 @@ const VipForm = ({
           name: "",
           source: "kickstarter",
           referred_by: resolvedRef,
+          meta_event_id: metaEventId,
         },
       });
       if (fnError) throw fnError;
@@ -294,9 +299,6 @@ const VipForm = ({
         .catch((e) => console.error("VIP confirmation email failed:", e));
 
 
-
-      // One event_id shared by the GTM Meta Lead tag and the Conversions API.
-      const metaEventId = uuid();
 
       if (typeof window !== "undefined") {
         window.dataLayer = window.dataLayer || [];
@@ -322,16 +324,20 @@ const VipForm = ({
         source: utmSource,
       });
 
-      void trackMetaEvent("Lead", {
-        eventId: metaEventId,
-        user: { email: normalizedEmail },
-        custom: {
+      // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
+      // mailerlite-subscribe with the same event_id, so Meta dedupes them.
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "meta_lead",
+          meta_event_name: "Lead",
+          event_id: metaEventId,
           content_name: "kickstarter_vip",
           content_category: "waitlist",
           source: utmSource,
           form_location: formLocation,
-        },
-      });
+        });
+      }
       pushGtmEvent("kickstarter_form_submit_success", {
         form_location: formLocation,
         source: utmSource,

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
-import { trackMetaEvent, uuid } from "@/lib/meta-capi";
+import { uuid } from "@/lib/meta-capi";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
@@ -130,24 +130,30 @@ const ListiclePage = () => {
     if (!email) return;
     setLoading(true);
     try {
+      // One event_id shared by the server CAPI Lead (mailerlite-subscribe),
+      // the browser Meta Lead tag and the GTM waitlist_signup push.
+      const metaEventId = uuid();
       const { data, error } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: { ...getAttribution(), email, name: "", face_width: "", models: "Woolet 007, Woolet 009" },
+        body: { ...getAttribution(), email, name: "", face_width: "", models: "Woolet 007, Woolet 009", meta_event_id: metaEventId },
       });
       if (error) throw error;
       if (data && !data.success) throw new Error(data.error);
-      const metaEventId = uuid();
       pushGtmEvent("waitlist_signup", { waitlist_email: email, waitlist_models: "Woolet 007, Woolet 009", event_id: metaEventId });
       pushGtmEvent("generate_lead", { awareness_stage: "solution_aware", source: "listicle" });
-      void trackMetaEvent("Lead", {
-        eventId: metaEventId,
-        user: { email },
-        custom: {
+      // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
+      // mailerlite-subscribe with the same event_id, so Meta dedupes them.
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "meta_lead",
+          meta_event_name: "Lead",
+          event_id: metaEventId,
           content_name: "listicle_waitlist",
           content_category: "waitlist",
           source: "listicle",
           form_location: "listicle_inline",
-        },
-      });
+        });
+      }
       setSubmitted(true);
     } catch (err) {
       console.error("Listicle subscribe error:", err);
