@@ -7,7 +7,7 @@ import { t, type Lang } from "@/lib/i18n";
 import { pushGtmEvent } from "@/lib/gtm";
 import { trackWaitlistSignupExperiment } from "@/lib/hero-experiment";
 import { rdtLead } from "@/lib/reddit-pixel";
-import { trackMetaEvent } from "@/lib/meta-capi";
+
 
 const inputStyle: React.CSSProperties = {
   fontSize: "12px",
