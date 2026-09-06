@@ -54,6 +54,23 @@ const BRONZE = "#8A6E2E";
 const HAIRLINE = "rgba(255,255,255,0.10)";
 const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
 
+// ---------- Message-match tokens ----------
+/** Renders {{40off}} as the cream inline span used in the hero paragraph. */
+const renderSubTokens = (text: string) =>
+  text.split("{{40off}}").reduce<React.ReactNode[]>((acc, part, i) => {
+    if (i > 0) acc.push(<span key={`o${i}`} style={{ color: CREAM }}>40% off</span>);
+    acc.push(<span key={`t${i}`}>{part}</span>);
+    return acc;
+  }, []);
+
+/** Renders {{40OFF}} and {{$1}} with the existing gold/strong styling. */
+const renderReserveTokens = (text: string) =>
+  text.split(/(\{\{40OFF\}\}|\{\{\$1\}\})/g).map((part, i) => {
+    if (part === "{{40OFF}}") return <strong key={i} style={{ color: GOLD }}>40% OFF</strong>;
+    if (part === "{{$1}}") return <strong key={i}>$1</strong>;
+    return <span key={i}>{part}</span>;
+  });
+
 // ---------- Kickstarter follow ----------
 // Official prelaunch page. Do not alter the Kickstarter wordmark asset (brand policy).
 const KICKSTARTER_URL =
