@@ -965,6 +965,14 @@ const KickstarterPrelaunch = () => {
   const utmSource = params.get("utm_source") || "direct";
   const referredBy = params.get("ref");
 
+  // Message match: pick the hero/step-2 copy from utm_content. Falls back to
+  // the stored first-touch value so the variant survives in-page navigation.
+  const utmContentParam = params.get("utm_content");
+  const { key: heroVariantKey, variant: heroVariant } = useMemo(
+    () => resolveHeroVariant(utmContentParam || getAttribution().utm_content),
+    [utmContentParam],
+  );
+
   const [activeImg, setActiveImg] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -1046,8 +1054,9 @@ const KickstarterPrelaunch = () => {
     pushGtmEvent("page_view", {
       page_type: "kickstarter_prelaunch",
       awareness_stage: "solution_aware",
+      hero_variant: heroVariantKey,
     });
-  }, []);
+  }, [heroVariantKey]);
 
   const faqs = useMemo(
     () => [
@@ -1328,7 +1337,7 @@ const KickstarterPrelaunch = () => {
 
           {/* Right on desktop, first on mobile — headline + email field above the fold */}
           <div className="order-1 md:order-2">
-            <Eyebrow>VIP Early Access</Eyebrow>
+            <Eyebrow>{heroVariant.eyebrow}</Eyebrow>
             <h1
               style={{
                 fontFamily: "'Cormorant Garamond', 'Newsreader', serif",
@@ -1340,7 +1349,7 @@ const KickstarterPrelaunch = () => {
                 letterSpacing: "-0.01em",
               }}
             >
-              Eyewear built for wide faces.
+              {heroVariant.h1}
             </h1>
             <p
               style={{
@@ -1351,11 +1360,11 @@ const KickstarterPrelaunch = () => {
                 maxWidth: 520,
               }}
             >
-              Premium Milanese acetate, hand made in the EU, engineered for faces the industry forgot — 155 mm and up. Launching soon on Kickstarter. Join the VIP list for early access and up to <span style={{ color: CREAM }}>40% off</span>.
+              {renderSubTokens(heroVariant.sub)}
             </p>
 
             <div id="vip-form-hero" style={{ marginTop: 28 }}>
-              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} onJoined={() => setHasJoined(true)} />
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} onJoined={() => setHasJoined(true)} />
             </div>
 
             {/* Trust row */}
@@ -1716,7 +1725,7 @@ const KickstarterPrelaunch = () => {
             Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
           </h2>
           <div id="vip-form-mid">
-            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
+            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => setHasJoined(true)} />
           </div>
         </div>
       </section>
@@ -2025,7 +2034,7 @@ const KickstarterPrelaunch = () => {
             One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
           <div id="vip-form-final">
-            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
+            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => setHasJoined(true)} />
           </div>
           {hasJoined ? (
             <div className="mt-8 flex flex-col items-center gap-3">
