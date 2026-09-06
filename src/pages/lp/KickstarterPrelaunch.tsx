@@ -217,12 +217,16 @@ const VipForm = ({
   referredBy,
   compact = false,
   onJoined,
+  reserveLead,
+  heroVariant = "default",
 }: {
   utmSource: string;
   idSuffix?: string;
   referredBy?: string | null;
   compact?: boolean;
   onJoined?: () => void;
+  reserveLead?: string;
+  heroVariant?: string;
 }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
