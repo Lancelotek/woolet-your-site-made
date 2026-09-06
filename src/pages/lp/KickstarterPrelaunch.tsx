@@ -331,6 +331,7 @@ const VipForm = ({
           waitlist_models: models,
           referred_by: resolvedRef,
           event_id: metaEventId,
+          hero_variant: heroVariant,
         });
         try {
           sessionStorage.setItem(
