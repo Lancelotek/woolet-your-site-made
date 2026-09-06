@@ -236,6 +236,7 @@ async function ensureCustomFields(apiKey: string) {
     { name: "utm_term", type: "text" },
     { name: "landing_url", type: "text" },
     { name: "referrer", type: "text" },
+    { name: "hero_variant", type: "text" },
   ];
 
   for (const field of fields) {
@@ -285,6 +286,7 @@ export const handler = async (req: Request): Promise<Response> => {
       meta_event_id,
       landing_url,
       referrer,
+      hero_variant,
     } = await req.json();
 
     if (!email) {
@@ -340,6 +342,7 @@ export const handler = async (req: Request): Promise<Response> => {
     if (country_code) subscriberFields.country_code = String(country_code);
     if (landing_url) subscriberFields.landing_url = String(landing_url).slice(0, 500);
     if (referrer) subscriberFields.referrer = String(referrer).slice(0, 500);
+    if (hero_variant) subscriberFields.hero_variant = String(hero_variant).slice(0, 100);
 
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
