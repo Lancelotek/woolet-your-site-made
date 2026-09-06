@@ -429,9 +429,7 @@ const VipForm = ({
             margin: 0,
           }}
         >
-          You're on the VIP list. Lock your <strong style={{ color: GOLD }}>40% OFF</strong> founding
-          price with a refundable <strong>$1</strong> reservation — it holds your spot when the
-          campaign opens.
+          {renderReserveTokens(reserveLead || DEFAULT_HERO_VARIANT.reserveLead)}
         </p>
         <p
           style={{
