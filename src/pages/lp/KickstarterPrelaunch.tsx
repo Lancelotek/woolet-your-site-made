@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import { uuid } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
+import { DEFAULT_HERO_VARIANT, resolveHeroVariant } from "@/content/ksHeroVariants";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
@@ -53,6 +54,23 @@ const GOLD = "#CAA449";
 const BRONZE = "#8A6E2E";
 const HAIRLINE = "rgba(255,255,255,0.10)";
 const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
+
+// ---------- Message-match tokens ----------
+/** Renders {{40off}} as the cream inline span used in the hero paragraph. */
+const renderSubTokens = (text: string) =>
+  text.split("{{40off}}").reduce<React.ReactNode[]>((acc, part, i) => {
+    if (i > 0) acc.push(<span key={`o${i}`} style={{ color: CREAM }}>40% off</span>);
+    acc.push(<span key={`t${i}`}>{part}</span>);
+    return acc;
+  }, []);
+
+/** Renders {{40OFF}} and {{$1}} with the existing gold/strong styling. */
+const renderReserveTokens = (text: string) =>
+  text.split(/(\{\{40OFF\}\}|\{\{\$1\}\})/g).map((part, i) => {
+    if (part === "{{40OFF}}") return <strong key={i} style={{ color: GOLD }}>40% OFF</strong>;
+    if (part === "{{$1}}") return <strong key={i}>$1</strong>;
+    return <span key={i}>{part}</span>;
+  });
 
 // ---------- Kickstarter follow ----------
 // Official prelaunch page. Do not alter the Kickstarter wordmark asset (brand policy).
@@ -200,12 +218,16 @@ const VipForm = ({
   referredBy,
   compact = false,
   onJoined,
+  reserveLead,
+  heroVariant = "default",
 }: {
   utmSource: string;
   idSuffix?: string;
   referredBy?: string | null;
   compact?: boolean;
   onJoined?: () => void;
+  reserveLead?: string;
+  heroVariant?: string;
 }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -288,6 +310,7 @@ const VipForm = ({
           source: "kickstarter",
           referred_by: resolvedRef,
           meta_event_id: metaEventId,
+          hero_variant: heroVariant,
         },
       });
       if (fnError) throw fnError;
@@ -309,6 +332,7 @@ const VipForm = ({
           waitlist_models: models,
           referred_by: resolvedRef,
           event_id: metaEventId,
+          hero_variant: heroVariant,
         });
         try {
           sessionStorage.setItem(
@@ -406,9 +430,7 @@ const VipForm = ({
             margin: 0,
           }}
         >
-          You're on the VIP list. Lock your <strong style={{ color: GOLD }}>40% OFF</strong> founding
-          price with a refundable <strong>$1</strong> reservation — it holds your spot when the
-          campaign opens.
+          {renderReserveTokens(reserveLead || DEFAULT_HERO_VARIANT.reserveLead)}
         </p>
         <p
           style={{
@@ -429,6 +451,7 @@ const VipForm = ({
             pushGtmEvent("kickstarter_reserve_click", {
               form_location: formLocation,
               source: utmSource,
+              hero_variant: heroVariant,
             });
           }}
           style={ctaButtonStyle}
@@ -942,6 +965,14 @@ const KickstarterPrelaunch = () => {
   const utmSource = params.get("utm_source") || "direct";
   const referredBy = params.get("ref");
 
+  // Message match: pick the hero/step-2 copy from utm_content. Falls back to
+  // the stored first-touch value so the variant survives in-page navigation.
+  const utmContentParam = params.get("utm_content");
+  const { key: heroVariantKey, variant: heroVariant } = useMemo(
+    () => resolveHeroVariant(utmContentParam || getAttribution().utm_content),
+    [utmContentParam],
+  );
+
   const [activeImg, setActiveImg] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -1023,8 +1054,9 @@ const KickstarterPrelaunch = () => {
     pushGtmEvent("page_view", {
       page_type: "kickstarter_prelaunch",
       awareness_stage: "solution_aware",
+      hero_variant: heroVariantKey,
     });
-  }, []);
+  }, [heroVariantKey]);
 
   const faqs = useMemo(
     () => [
@@ -1305,7 +1337,7 @@ const KickstarterPrelaunch = () => {
 
           {/* Right on desktop, first on mobile — headline + email field above the fold */}
           <div className="order-1 md:order-2">
-            <Eyebrow>VIP Early Access</Eyebrow>
+            <Eyebrow>{heroVariant.eyebrow}</Eyebrow>
             <h1
               style={{
                 fontFamily: "'Cormorant Garamond', 'Newsreader', serif",
@@ -1317,7 +1349,7 @@ const KickstarterPrelaunch = () => {
                 letterSpacing: "-0.01em",
               }}
             >
-              Eyewear built for wide faces.
+              {heroVariant.h1}
             </h1>
             <p
               style={{
@@ -1328,11 +1360,11 @@ const KickstarterPrelaunch = () => {
                 maxWidth: 520,
               }}
             >
-              Premium Milanese acetate, hand made in the EU, engineered for faces the industry forgot — 155 mm and up. Launching soon on Kickstarter. Join the VIP list for early access and up to <span style={{ color: CREAM }}>40% off</span>.
+              {renderSubTokens(heroVariant.sub)}
             </p>
 
             <div id="vip-form-hero" style={{ marginTop: 28 }}>
-              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} onJoined={() => setHasJoined(true)} />
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} onJoined={() => setHasJoined(true)} />
             </div>
 
             {/* Trust row */}
@@ -1693,7 +1725,7 @@ const KickstarterPrelaunch = () => {
             Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
           </h2>
           <div id="vip-form-mid">
-            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
+            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => setHasJoined(true)} />
           </div>
         </div>
       </section>
@@ -2002,7 +2034,7 @@ const KickstarterPrelaunch = () => {
             One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
           <div id="vip-form-final">
-            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} compact onJoined={() => setHasJoined(true)} />
+            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => setHasJoined(true)} />
           </div>
           {hasJoined ? (
             <div className="mt-8 flex flex-col items-center gap-3">
