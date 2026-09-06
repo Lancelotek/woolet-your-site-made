@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import { uuid } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
+import { DEFAULT_HERO_VARIANT, resolveHeroVariant } from "@/content/ksHeroVariants";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
@@ -450,6 +451,7 @@ const VipForm = ({
             pushGtmEvent("kickstarter_reserve_click", {
               form_location: formLocation,
               source: utmSource,
+              hero_variant: heroVariant,
             });
           }}
           style={ctaButtonStyle}
