@@ -309,6 +309,7 @@ const VipForm = ({
           source: "kickstarter",
           referred_by: resolvedRef,
           meta_event_id: metaEventId,
+          hero_variant: heroVariant,
         },
       });
       if (fnError) throw fnError;
