@@ -335,7 +335,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     console.error("[payments-webhook] inventory decrement failed", updateError);
   }
 
-  await tagMailerLiteFoundingMember(email, recommendedSku ?? undefined);
+  await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined);
 
   try {
     const amountCents = session.amount_total ?? 100;
