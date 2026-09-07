@@ -108,6 +108,22 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
         >
           ×
         </button>
+        <p
+          style={{
+            background: "#F8F6F1",
+            color: "#1F1B16",
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 22,
+            fontWeight: 600,
+            lineHeight: 1.3,
+            textAlign: "center",
+            padding: "16px 20px",
+            margin: "12px 0 0",
+            borderRadius: 2,
+          }}
+        >
+          <span style={{ color: "#CAA449" }}>$1 today</span> = founder price locked
+        </p>
         <div id="checkout">
           <EmbeddedCheckoutProvider stripe={getStripe()} options={{ fetchClientSecret }}>
             <EmbeddedCheckout />
