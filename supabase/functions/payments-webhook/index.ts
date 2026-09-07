@@ -14,7 +14,7 @@ function getSupabase() {
   return _supabase;
 }
 
-const MAILERLITE_GROUP_FOUNDING_MEMBER = "165640938657777595";
+const MAILERLITE_GROUP_FOUNDING_MEMBER = "192253863081805451";
 const META_GRAPH_VERSION = "v21.0";
 
 const sha256Hex = async (input: string): Promise<string> => {
@@ -149,7 +149,11 @@ async function fireMetaPurchase(session: any) {
   }
 }
 
-async function tagMailerLiteFoundingMember(email: string, recommendedSku?: string) {
+async function tagMailerLiteFoundingMember(
+  email: string,
+  sessionId: string,
+  recommendedSku?: string,
+) {
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
   try {
@@ -162,12 +166,27 @@ async function tagMailerLiteFoundingMember(email: string, recommendedSku?: strin
       body: JSON.stringify({
         email,
         groups: [MAILERLITE_GROUP_FOUNDING_MEMBER],
-        fields: recommendedSku ? { recommended_sku: recommendedSku } : undefined,
+        fields: {
+          ...(recommendedSku ? { recommended_sku: recommendedSku } : {}),
+          paid_ref: sessionId,
+        },
         status: "active",
       }),
     });
     if (!res.ok) {
-      console.error("[mailerlite] non-ok", res.status, await res.text());
+      const bodyText = await res.text();
+      console.error("[mailerlite] non-ok", res.status, bodyText);
+      try {
+        await getSupabase().from("server_event_log").insert({
+          source: "payments-webhook",
+          event_name: "MailerLiteTagFailed",
+          status: "error",
+          request_summary: { stripe_session_id: sessionId },
+          error: bodyText,
+        });
+      } catch (logErr) {
+        console.error("[server_event_log] insert failed", logErr);
+      }
     }
   } catch (e) {
     console.error("[mailerlite] error", e);
@@ -316,7 +335,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     console.error("[payments-webhook] inventory decrement failed", updateError);
   }
 
-  await tagMailerLiteFoundingMember(email, recommendedSku ?? undefined);
+  await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined);
 
   try {
     const amountCents = session.amount_total ?? 100;
