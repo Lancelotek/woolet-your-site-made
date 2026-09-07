@@ -14,7 +14,7 @@ function getSupabase() {
   return _supabase;
 }
 
-const MAILERLITE_GROUP_FOUNDING_MEMBER = "165640938657777595";
+const MAILERLITE_GROUP_FOUNDING_MEMBER = "192253863081805451";
 const META_GRAPH_VERSION = "v21.0";
 
 const sha256Hex = async (input: string): Promise<string> => {
