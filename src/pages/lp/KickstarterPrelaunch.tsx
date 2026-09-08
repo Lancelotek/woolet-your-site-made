@@ -474,8 +474,8 @@ const VipForm = ({
             margin: 0,
           }}
         >
-          This $1 reservation is with Woolet, not a Kickstarter pledge. Fully refundable, or applied
-          to your order.
+          This $1 reservation is with Woolet, not a Kickstarter pledge. One-time, not a subscription.
+          Fully refundable, or applied to your order.
         </p>
         <button
           type="button"
@@ -491,7 +491,7 @@ const VipForm = ({
           onMouseEnter={(e) => (e.currentTarget.style.background = BRONZE)}
           onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
         >
-          Reserve 40% OFF — $1
+          Lock $114 — pay $1 now
         </button>
         <button
           type="button"
@@ -501,26 +501,24 @@ const VipForm = ({
             border: "none",
             color: TAUPE,
             fontFamily: "Barlow, sans-serif",
-            fontSize: 12,
-            textDecoration: "underline",
+            fontSize: 11,
+            textDecoration: skipVisible ? "underline" : "none",
             textUnderlineOffset: 3,
             cursor: "pointer",
             padding: 0,
             textAlign: compact ? "center" : "left",
+            opacity: skipVisible ? 1 : 0,
+            transition: "opacity 200ms ease",
+            height: skipVisible ? "auto" : 0,
+            overflow: "hidden",
           }}
+          onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+          onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "underline")}
+          onFocus={(e) => (e.currentTarget.style.textDecoration = "underline")}
+          onBlur={(e) => (e.currentTarget.style.textDecoration = "underline")}
         >
           Skip for now — stay on the free VIP list
         </button>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            flexWrap: "wrap",
-          }}
-        >
-          <KickstarterFollowCta slot="post_signup" label="You're on the list. Now follow on" />
-        </div>
         <p
           style={{
             fontFamily: "Barlow, sans-serif",
