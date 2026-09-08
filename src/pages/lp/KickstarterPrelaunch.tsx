@@ -246,6 +246,22 @@ const VipForm = ({
 
   const formLocation = idSuffix ? idSuffix.replace(/^-/, "") : "default";
 
+  useEffect(() => {
+    if (step !== 2 || step2ViewedRef.current) return;
+    step2ViewedRef.current = true;
+    pushGtmEvent("kickstarter_reserve_step_view", {
+      form_location: formLocation,
+      source: utmSource,
+      hero_variant: heroVariant,
+    });
+  }, [step, formLocation, utmSource, heroVariant]);
+
+  useEffect(() => {
+    if (step !== 2) return;
+    const timer = setTimeout(() => setSkipVisible(true), 8000);
+    return () => clearTimeout(timer);
+  }, [step]);
+
   const returnUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}`
