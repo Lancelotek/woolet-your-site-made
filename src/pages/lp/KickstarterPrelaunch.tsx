@@ -495,6 +495,7 @@ const VipForm = ({
         </button>
         <button
           type="button"
+          tabIndex={skipVisible ? 0 : -1}
           onClick={() => navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } })}
           style={{
             background: "transparent",
@@ -502,20 +503,20 @@ const VipForm = ({
             color: TAUPE,
             fontFamily: "Barlow, sans-serif",
             fontSize: 11,
-            textDecoration: skipVisible ? "underline" : "none",
+            textDecoration: "none",
             textUnderlineOffset: 3,
             cursor: "pointer",
             padding: 0,
             textAlign: compact ? "center" : "left",
             opacity: skipVisible ? 1 : 0,
-            transition: "opacity 200ms ease",
-            height: skipVisible ? "auto" : 0,
+            maxHeight: skipVisible ? 40 : 0,
+            transition: "opacity 200ms ease, max-height 200ms ease",
             overflow: "hidden",
           }}
           onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-          onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "underline")}
+          onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
           onFocus={(e) => (e.currentTarget.style.textDecoration = "underline")}
-          onBlur={(e) => (e.currentTarget.style.textDecoration = "underline")}
+          onBlur={(e) => (e.currentTarget.style.textDecoration = "none")}
         >
           Skip for now — stay on the free VIP list
         </button>
