@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
+import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
 import vipBespokePreview from "@/assets/vip-bespoke-preview.png.asset.json";
 const logo = logoAsset.url;
