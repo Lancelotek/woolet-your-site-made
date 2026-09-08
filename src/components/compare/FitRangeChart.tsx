@@ -6,7 +6,7 @@ interface FitRangeChartProps {
 
 const AXIS_MIN = 120;
 const AXIS_MAX = 175;
-const WOOLET_MIN = 150;
+const WOOLET_MIN = 145;
 const WOOLET_MAX = 172;
 
 const CHART_LEFT = 60;
@@ -24,7 +24,7 @@ const FitRangeChart = ({ competitorMin, competitorMax, competitorLabel }: FitRan
   const compX = toX(competitorMin);
   const compW = toX(competitorMax) - compX;
 
-  const ariaLabel = `Face-width coverage chart. Woolet covers 145 to 162 millimetres. ${competitorLabel} covers ${competitorMin} to ${competitorMax} millimetres.`;
+  const ariaLabel = `Face-width coverage chart. Woolet covers 145 to 172 millimetres. ${competitorLabel} covers ${competitorMin} to ${competitorMax} millimetres.`;
 
   const ticks = [120, 130, 140, 150, 160, 170];
 
