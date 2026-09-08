@@ -67,6 +67,15 @@ Deno.serve(async (req) => {
       mode: "payment",
       ui_mode: "embedded_page",
       return_url: body.returnUrl,
+      // 1 hour, not the 24h default: the recovery URL only exists once the
+      // session has expired, and the recovery email sequence starts at T+1h.
+      expires_at: Math.floor(Date.now() / 1000) + 60 * 60,
+      after_expiration: {
+        recovery: {
+          enabled: true,
+          allow_promotion_codes: false,
+        },
+      },
       ...(body.customerEmail && { customer_email: body.customerEmail }),
       ...(Object.keys(cleanMeta).length && {
         metadata: cleanMeta,
