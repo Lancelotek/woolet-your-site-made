@@ -98,6 +98,29 @@ export interface TrackOptions {
   serverOnly?: boolean;
 }
 
+/** Every event_id already dispatched in this page session. */
+const dispatchedEventIds = new Set<string>();
+
+/**
+ * Once-per-checkout guard shared across component re-mounts and tabs.
+ * Returns false when the same key was already used within the TTL.
+ */
+const CHECKOUT_GUARD_TTL_MS = 30 * 60 * 1000;
+const claimOnce = (key: string): boolean => {
+  const storageKey = `woolet_meta_once:${key}`;
+  const now = Date.now();
+  try {
+    const raw = window.sessionStorage.getItem(storageKey);
+    if (raw && now - Number(raw) < CHECKOUT_GUARD_TTL_MS) return false;
+    window.sessionStorage.setItem(storageKey, String(now));
+  } catch {
+    // Storage blocked (in-app browsers) — fall back to the in-memory set.
+    if (dispatchedEventIds.has(storageKey)) return false;
+    dispatchedEventIds.add(storageKey);
+  }
+  return true;
+};
+
 /**
  * Fire a Meta event to both the browser Pixel (via GTM) and the Conversions
  * API (via our edge function). Safe to call from any environment — no-ops
