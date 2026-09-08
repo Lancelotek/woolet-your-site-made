@@ -163,6 +163,9 @@ const eyebrowStyle: React.CSSProperties = {
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 const VIP_JOINED_KEY = "wlt_ks_vip_joined";
+// Set when the visitor resolves the $1 step (paid OR explicitly skipped).
+// Gates every Kickstarter follow CTA that sits at the decision moment.
+export const VIP_RESOLVED_KEY = "wlt_ks_vip_resolved";
 
 
 const StepBar = ({ step }: { step: 1 | 2 }) => {
