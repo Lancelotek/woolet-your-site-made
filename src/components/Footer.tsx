@@ -109,6 +109,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
     { label: "YouTube", href: "https://www.youtube.com/@wooleteyewear" },
     { label: "TikTok", href: "https://www.tiktok.com/@wooletai" },
     { label: "Pinterest", href: "https://www.pinterest.com/Bestwoolet/" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/woolet-inc-/" },
   ];
 
   return (
