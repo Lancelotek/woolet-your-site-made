@@ -4,7 +4,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
-import { uuid } from "@/lib/meta-capi";
+import { buildLeadAttribution } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { DEFAULT_HERO_VARIANT, resolveHeroVariant } from "@/content/ksHeroVariants";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
