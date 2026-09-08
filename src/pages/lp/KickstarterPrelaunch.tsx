@@ -166,7 +166,7 @@ const VIP_JOINED_KEY = "wlt_ks_vip_joined";
 
 
 const StepBar = ({ step }: { step: 1 | 2 }) => {
-  const steps = ["Your email", "Reserve 40% OFF"];
+  const steps = ["Your email", "Lock $114"];
   return (
     <div className="flex items-center gap-3" style={{ marginBottom: 4 }}>
       {steps.map((label, i) => {
