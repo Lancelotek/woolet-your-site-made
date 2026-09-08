@@ -4,7 +4,7 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "./PaymentTestModeBanner";
 import { rdtAddToCart } from "@/lib/reddit-pixel";
-import { trackMetaEvent, buildPurchaseAttribution } from "@/lib/meta-capi";
+import { trackInitiateCheckoutOnce, buildPurchaseAttribution } from "@/lib/meta-capi";
 
 interface Props {
   priceId: string;
@@ -42,12 +42,14 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
     if (!addToCartFired.current) {
       addToCartFired.current = true;
       rdtAddToCart({ value: 114, currency: "USD", itemCount: 1 });
-      // Meta CAPI — InitiateCheckout (browser pixel + server side)
-      void trackMetaEvent("InitiateCheckout", {
+      // Meta InitiateCheckout — one browser pixel event + one server CAPI
+      // event sharing one event_id, guarded against re-mounts.
+      trackInitiateCheckoutOnce(`stripe:${priceId}`, {
         user: customerEmail ? { email: customerEmail } : undefined,
         custom: { value: 114, currency: "USD", num_items: 1 },
       });
     }
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };

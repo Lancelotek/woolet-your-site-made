@@ -98,6 +98,29 @@ export interface TrackOptions {
   serverOnly?: boolean;
 }
 
+/** Every event_id already dispatched in this page session. */
+const dispatchedEventIds = new Set<string>();
+
+/**
+ * Once-per-checkout guard shared across component re-mounts and tabs.
+ * Returns false when the same key was already used within the TTL.
+ */
+const CHECKOUT_GUARD_TTL_MS = 30 * 60 * 1000;
+const claimOnce = (key: string): boolean => {
+  const storageKey = `woolet_meta_once:${key}`;
+  const now = Date.now();
+  try {
+    const raw = window.sessionStorage.getItem(storageKey);
+    if (raw && now - Number(raw) < CHECKOUT_GUARD_TTL_MS) return false;
+    window.sessionStorage.setItem(storageKey, String(now));
+  } catch {
+    // Storage blocked (in-app browsers) — fall back to the in-memory set.
+    if (dispatchedEventIds.has(storageKey)) return false;
+    dispatchedEventIds.add(storageKey);
+  }
+  return true;
+};
+
 /**
  * Fire a Meta event to both the browser Pixel (via GTM) and the Conversions
  * API (via our edge function). Safe to call from any environment — no-ops
@@ -110,6 +133,12 @@ export const trackMetaEvent = async (
   if (!isProdHost()) return;
 
   const eventId = opts.eventId ?? uuid();
+  // Idempotency: an event_id must never be dispatched twice (re-mounts,
+  // re-renders, back-navigation). Meta counts non-deduped repeats as
+  // separate events.
+  if (dispatchedEventIds.has(eventId)) return;
+  dispatchedEventIds.add(eventId);
+
   const fbp = readCookie(COOKIE_KEYS.fbp);
   const fbc = readCookie(COOKIE_KEYS.fbc) ?? synthesizeFbcFromFbclid();
   const eventSourceUrl =
@@ -171,4 +200,43 @@ export const buildPurchaseAttribution = (): Record<string, string> => {
   if (fbp) out.meta_fbp = fbp;
   if (fbc) out.meta_fbc = fbc;
   return out;
+};
+
+/**
+ * Browser-side signals every server-side Lead must carry so Meta can match
+ * the event: the _fbp cookie, the _fbc cookie (or one synthesized from a
+ * ?fbclid= parameter) and the page URL. Spread this into the
+ * `mailerlite-subscribe` body — that edge function is the ONLY sender of a
+ * server-side Lead, and it reads IP + User-Agent from the request headers.
+ */
+export const buildLeadAttribution = (): {
+  meta_event_id: string;
+  fbp?: string;
+  fbc?: string;
+  event_source_url?: string;
+} => {
+  const fbp = readCookie(COOKIE_KEYS.fbp);
+  const fbc = readCookie(COOKIE_KEYS.fbc) ?? synthesizeFbcFromFbclid();
+  return {
+    meta_event_id: uuid(),
+    ...(fbp ? { fbp } : {}),
+    ...(fbc ? { fbc } : {}),
+    ...(typeof window !== "undefined"
+      ? { event_source_url: window.location.href }
+      : {}),
+  };
+};
+
+/**
+ * The single entry point for InitiateCheckout. Sends exactly one browser
+ * pixel event and exactly one server CAPI event sharing one event_id, at
+ * most once per `key` per session. Fire-and-forget.
+ */
+export const trackInitiateCheckoutOnce = (
+  key: string,
+  opts: TrackOptions = {},
+): void => {
+  if (typeof window === "undefined") return;
+  if (!claimOnce(`initiatecheckout:${key}`)) return;
+  void trackMetaEvent("InitiateCheckout", opts);
 };
