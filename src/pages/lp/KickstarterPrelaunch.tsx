@@ -26,8 +26,8 @@ import w009HavanaAsset from "@/assets/woolet-009-havana-front.png.asset.json";
 import marek from "@/assets/author-marek.png";
 import gregSquare from "@/assets/testimonials/greg-woolet-tester-square.webp";
 import gregPortrait from "@/assets/testimonials/greg-woolet-tester.webp";
-import kickstarterWordmark from "@/assets/kickstarter-wordmark-white.png";
 import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, BESPOKE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
+import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
 
 // Bespoke gallery photos
 import bespokeAviatorTortoiseSun from "@/assets/bespoke/aviator-tortoise-sun.png.asset.json";
@@ -73,13 +73,6 @@ const renderReserveTokens = (text: string) =>
     return <span key={i}>{part}</span>;
   });
 
-// ---------- Kickstarter follow ----------
-// Official prelaunch page. Do not alter the Kickstarter wordmark asset (brand policy).
-const KICKSTARTER_URL =
-  "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces";
-
-const kickstarterFollowHref = (slot: string) =>
-  `${KICKSTARTER_URL}?utm_source=woolet_site&utm_medium=lp&utm_campaign=ks_prelaunch&utm_content=${slot}`;
 
 // ---------- Tester testimonial ----------
 // DRAFT — quote and attribution pending written approval from the tester.
@@ -173,7 +166,7 @@ const VIP_JOINED_KEY = "wlt_ks_vip_joined";
 
 
 const StepBar = ({ step }: { step: 1 | 2 }) => {
-  const steps = ["Your email", "Reserve 40% OFF"];
+  const steps = ["Your email", "Lock $114"];
   return (
     <div className="flex items-center gap-3" style={{ marginBottom: 4 }}>
       {steps.map((label, i) => {
@@ -247,9 +240,27 @@ const VipForm = ({
 
   const [step, setStep] = useState<1 | 2>(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [skipVisible, setSkipVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const step2ViewedRef = useRef(false);
 
   const formLocation = idSuffix ? idSuffix.replace(/^-/, "") : "default";
+
+  useEffect(() => {
+    if (step !== 2 || step2ViewedRef.current) return;
+    step2ViewedRef.current = true;
+    pushGtmEvent("kickstarter_reserve_step_view", {
+      form_location: formLocation,
+      source: utmSource,
+      hero_variant: heroVariant,
+    });
+  }, [step, formLocation, utmSource, heroVariant]);
+
+  useEffect(() => {
+    if (step !== 2) return;
+    const timer = setTimeout(() => setSkipVisible(true), 8000);
+    return () => clearTimeout(timer);
+  }, [step]);
 
   const returnUrl =
     typeof window !== "undefined"
@@ -463,8 +474,8 @@ const VipForm = ({
             margin: 0,
           }}
         >
-          This $1 reservation is with Woolet, not a Kickstarter pledge. Fully refundable, or applied
-          to your order.
+          This $1 reservation is with Woolet, not a Kickstarter pledge. One-time, not a subscription.
+          Fully refundable, or applied to your order.
         </p>
         <button
           type="button"
@@ -480,36 +491,35 @@ const VipForm = ({
           onMouseEnter={(e) => (e.currentTarget.style.background = BRONZE)}
           onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
         >
-          Reserve 40% OFF — $1
+          Lock $114 — pay $1 now
         </button>
         <button
           type="button"
+          tabIndex={skipVisible ? 0 : -1}
           onClick={() => navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } })}
           style={{
             background: "transparent",
             border: "none",
             color: TAUPE,
             fontFamily: "Barlow, sans-serif",
-            fontSize: 12,
-            textDecoration: "underline",
+            fontSize: 11,
+            textDecoration: "none",
             textUnderlineOffset: 3,
             cursor: "pointer",
             padding: 0,
             textAlign: compact ? "center" : "left",
+            opacity: skipVisible ? 1 : 0,
+            maxHeight: skipVisible ? 40 : 0,
+            transition: "opacity 200ms ease, max-height 200ms ease",
+            overflow: "hidden",
           }}
+          onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+          onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+          onFocus={(e) => (e.currentTarget.style.textDecoration = "underline")}
+          onBlur={(e) => (e.currentTarget.style.textDecoration = "none")}
         >
           Skip for now — stay on the free VIP list
         </button>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            flexWrap: "wrap",
-          }}
-        >
-          <KickstarterFollowCta slot="post_signup" label="You're on the list. Now follow on" />
-        </div>
         <p
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -710,7 +720,7 @@ const VipForm = ({
           marginTop: 2,
         }}
       >
-        Step 1 of 2 · Email now, optional $1 reservation next.
+        Step 1 of 2 · Email now, reservation next.
       </p>
     </form>
   );
@@ -725,56 +735,6 @@ const Hairline = () => (
   <div style={{ height: 1, background: HAIRLINE, width: "100%" }} />
 );
 
-// ---------- Kickstarter follow CTA ----------
-// The wordmark PNG is the official white Kickstarter wordmark, used unmodified.
-const KickstarterFollowCta = ({
-  slot,
-  variant = "outline",
-  label = "Follow us on",
-}: {
-  slot: string;
-  variant?: "outline" | "quiet";
-  label?: string;
-}) => {
-  const quiet = variant === "quiet";
-  return (
-    <a
-      href={kickstarterFollowHref(slot)}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={() => pushGtmEvent("kickstarter_follow_click", { slot, source: "ks_lp" })}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 10,
-        minHeight: 44,
-        padding: quiet ? "8px 12px" : "12px 18px",
-        border: `1px solid ${quiet ? HAIRLINE : HAIRLINE_STRONG}`,
-        background: "transparent",
-        color: CREAM,
-        textDecoration: "none",
-        fontFamily: "Barlow, sans-serif",
-        fontSize: 11,
-        fontWeight: 600,
-        letterSpacing: "0.16em",
-        textTransform: "uppercase",
-        whiteSpace: "nowrap",
-      }}
-    >
-      <span style={{ opacity: 0.75 }}>{label}</span>
-      {/* Official white Kickstarter wordmark — never recolour, crop or restyle. */}
-      <img
-        src={kickstarterWordmark}
-        alt="Kickstarter"
-        width={960}
-        height={102}
-        loading="lazy"
-        decoding="async"
-        style={{ height: 12, width: "auto", display: "block" }}
-      />
-    </a>
-  );
-};
 
 // ---------- Market width chart ----------
 // Widest published frame widths, from each brand's own size guide or product
