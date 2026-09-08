@@ -149,6 +149,90 @@ async function fireMetaPurchase(session: any) {
   }
 }
 
+// MailerLite date fields expect "YYYY-MM-DD HH:mm:ss" (UTC).
+function mlDate(d = new Date()): string {
+  return d.toISOString().slice(0, 19).replace("T", " ");
+}
+
+/**
+ * Abandoned $1 checkout: store the Stripe recovery URL (always the newest) and
+ * the FIRST abandonment timestamp (never overwritten — the sequence keys off it).
+ * Fire-and-forget: failures are logged, never thrown.
+ */
+async function markMailerLiteAbandonedCheckout(
+  email: string,
+  recoveryUrl: string,
+  sessionId: string,
+  expiredAt: Date,
+) {
+  const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+  if (!apiKey) return;
+  try {
+    // Look up the subscriber so we don't clobber an existing first-abandon stamp.
+    let existingStart: string | null = null;
+    try {
+      const lookup = await fetch(
+        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`,
+        { headers: { Authorization: `Bearer ${apiKey}` } },
+      );
+      if (lookup.ok) {
+        const json = await lookup.json();
+        const v = json?.data?.fields?.started_1usd_checkout;
+        if (typeof v === "string" && v.trim()) existingStart = v;
+      }
+    } catch (e) {
+      console.error("[mailerlite] abandon lookup failed", e);
+    }
+
+    const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        email,
+        fields: {
+          usd1_recovery_url: recoveryUrl,
+          ...(existingStart ? {} : { started_1usd_checkout: mlDate(expiredAt) }),
+        },
+      }),
+    });
+    if (!res.ok) {
+      const bodyText = await res.text();
+      console.error("[mailerlite] abandon non-ok", res.status, bodyText);
+      try {
+        await getSupabase().from("server_event_log").insert({
+          source: "payments-webhook",
+          event_name: "MailerLiteAbandonUpdateFailed",
+          status: "error",
+          request_summary: { stripe_session_id: sessionId },
+          error: bodyText,
+        });
+      } catch (logErr) {
+        console.error("[server_event_log] insert failed", logErr);
+      }
+    }
+  } catch (e) {
+    console.error("[mailerlite] abandon error", e);
+  }
+}
+
+async function handleCheckoutExpired(session: any) {
+  if (session?.metadata?.flow === "bespoke") return;
+  const email: string | undefined =
+    session?.customer_details?.email ||
+    session?.customer_email ||
+    session?.metadata?.email;
+  const recoveryUrl: string | undefined = session?.after_expiration?.recovery?.url;
+  if (!email || !recoveryUrl) {
+    console.log("[payments-webhook] expired session without email/recovery url", session?.id);
+    return;
+  }
+  const expiredAt = session?.expires_at ? new Date(session.expires_at * 1000) : new Date();
+  await markMailerLiteAbandonedCheckout(email, recoveryUrl, session.id, expiredAt);
+}
+
 async function tagMailerLiteFoundingMember(
   email: string,
   sessionId: string,
@@ -169,6 +253,9 @@ async function tagMailerLiteFoundingMember(
         fields: {
           ...(recommendedSku ? { recommended_sku: recommendedSku } : {}),
           paid_ref: sessionId,
+          // Exit condition for the abandoned-checkout recovery sequence.
+          paid_1usd: mlDate(),
+          usd1_recovery_url: "",
         },
         status: "active",
       }),
