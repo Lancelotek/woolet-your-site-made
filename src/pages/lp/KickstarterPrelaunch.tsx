@@ -240,7 +240,9 @@ const VipForm = ({
 
   const [step, setStep] = useState<1 | 2>(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [skipVisible, setSkipVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const step2ViewedRef = useRef(false);
 
   const formLocation = idSuffix ? idSuffix.replace(/^-/, "") : "default";
 
