@@ -465,6 +465,9 @@ Deno.serve(async (req) => {
       case "checkout.session.completed":
         await handleCheckoutCompleted(event.data.object, env);
         break;
+      case "checkout.session.expired":
+        await handleCheckoutExpired(event.data.object);
+        break;
       default:
         console.log("[payments-webhook] unhandled event:", event.type);
     }
