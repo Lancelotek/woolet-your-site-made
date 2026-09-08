@@ -2167,7 +2167,31 @@ const KickstarterPrelaunch = () => {
           pointerEvents: stickyVisible && !inputFocused ? "auto" : "none",
         }}
       >
-        {hasJoined ? (
+        {hasJoined && !hasResolved ? (
+          <button
+            type="button"
+            onClick={() => {
+              pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" });
+              const target =
+                document.getElementById(`vip-form${activeFormSuffix}`) ??
+                document.getElementById("vip-form-final");
+              target?.scrollIntoView({ block: "center", behavior: "smooth" });
+            }}
+            style={{
+              ...ctaButtonStyle,
+              flex: 1,
+              textAlign: "center",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: 48,
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Lock $114 — pay $1 now
+          </button>
+        ) : hasJoined ? (
           <KickstarterFollowCta slot="sticky_mobile" label="Follow us on" />
         ) : (
           <a
