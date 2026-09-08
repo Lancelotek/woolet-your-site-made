@@ -120,6 +120,9 @@ const KickstarterVipConfirmed = () => {
               $1 reservation confirmed · Refundable · Applied to your pledge
             </p>
           )}
+          <div className="mt-6">
+            <KickstarterFollowCta slot="post_signup" label="You're on the list. Now follow on" />
+          </div>
         </div>
 
         {/* Bespoke preview — what VIPs see first */}
