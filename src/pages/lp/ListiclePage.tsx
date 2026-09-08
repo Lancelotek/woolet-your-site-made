@@ -132,9 +132,10 @@ const ListiclePage = () => {
     try {
       // One event_id shared by the server CAPI Lead (mailerlite-subscribe),
       // the browser Meta Lead tag and the GTM waitlist_signup push.
-      const metaEventId = uuid();
+      const leadAttribution = buildLeadAttribution();
+      const metaEventId = leadAttribution.meta_event_id;
       const { data, error } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: { ...getAttribution(), email, name: "", face_width: "", models: "Woolet 007, Woolet 009", meta_event_id: metaEventId },
+        body: { ...getAttribution(), ...leadAttribution, email, name: "", face_width: "", models: "Woolet 007, Woolet 009", meta_event_id: metaEventId },
       });
       if (error) throw error;
       if (data && !data.success) throw new Error(data.error);

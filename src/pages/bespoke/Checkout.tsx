@@ -27,7 +27,7 @@ import {
 } from "@/pages/bespoke/steps";
 import { pushGtmEvent } from "@/lib/gtm";
 import { readConsentSnapshot } from "@/lib/consent";
-import { trackMetaEvent, trackInitiateCheckoutOnce } from "@/lib/meta-capi";
+import { trackInitiateCheckoutOnce } from "@/lib/meta-capi";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { useAuth } from "@/lib/auth-context";
 

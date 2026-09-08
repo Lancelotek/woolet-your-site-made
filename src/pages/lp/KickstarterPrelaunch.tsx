@@ -320,11 +320,13 @@ const VipForm = ({
 
       // One event_id shared by the server CAPI Lead (mailerlite-subscribe),
       // the browser Meta Lead tag and the GTM waitlist_signup push.
-      const metaEventId = uuid();
+      const leadAttribution = buildLeadAttribution();
+      const metaEventId = leadAttribution.meta_event_id;
 
       const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
           ...getAttribution(),
+          ...leadAttribution,
           email: normalizedEmail,
           name: "",
           source: "kickstarter",

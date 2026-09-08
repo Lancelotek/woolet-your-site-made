@@ -118,6 +118,7 @@ const BespokeWaitlistGate = () => {
       const country_code = detectCountryCode();
       const body: Record<string, unknown> = {
         ...getAttribution(),
+        ...buildLeadAttribution(),
         email: email.trim(),
         source: "bespoke",
         event_source_url: typeof window !== "undefined" ? window.location.href : undefined,
