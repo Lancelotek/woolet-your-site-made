@@ -4,7 +4,7 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "./PaymentTestModeBanner";
 import { rdtAddToCart } from "@/lib/reddit-pixel";
-import { trackMetaEvent, buildPurchaseAttribution } from "@/lib/meta-capi";
+import { trackInitiateCheckoutOnce, buildPurchaseAttribution } from "@/lib/meta-capi";
 
 interface Props {
   priceId: string;
