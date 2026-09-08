@@ -201,3 +201,42 @@ export const buildPurchaseAttribution = (): Record<string, string> => {
   if (fbc) out.meta_fbc = fbc;
   return out;
 };
+
+/**
+ * Browser-side signals every server-side Lead must carry so Meta can match
+ * the event: the _fbp cookie, the _fbc cookie (or one synthesized from a
+ * ?fbclid= parameter) and the page URL. Spread this into the
+ * `mailerlite-subscribe` body — that edge function is the ONLY sender of a
+ * server-side Lead, and it reads IP + User-Agent from the request headers.
+ */
+export const buildLeadAttribution = (): {
+  meta_event_id: string;
+  fbp?: string;
+  fbc?: string;
+  event_source_url?: string;
+} => {
+  const fbp = readCookie(COOKIE_KEYS.fbp);
+  const fbc = readCookie(COOKIE_KEYS.fbc) ?? synthesizeFbcFromFbclid();
+  return {
+    meta_event_id: uuid(),
+    ...(fbp ? { fbp } : {}),
+    ...(fbc ? { fbc } : {}),
+    ...(typeof window !== "undefined"
+      ? { event_source_url: window.location.href }
+      : {}),
+  };
+};
+
+/**
+ * The single entry point for InitiateCheckout. Sends exactly one browser
+ * pixel event and exactly one server CAPI event sharing one event_id, at
+ * most once per `key` per session. Fire-and-forget.
+ */
+export const trackInitiateCheckoutOnce = (
+  key: string,
+  opts: TrackOptions = {},
+): void => {
+  if (typeof window === "undefined") return;
+  if (!claimOnce(`initiatecheckout:${key}`)) return;
+  void trackMetaEvent("InitiateCheckout", opts);
+};
