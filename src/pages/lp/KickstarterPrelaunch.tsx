@@ -223,6 +223,7 @@ const VipForm = ({
   referredBy,
   compact = false,
   onJoined,
+  onResolved,
   reserveLead,
   heroVariant = "default",
 }: {
@@ -231,6 +232,7 @@ const VipForm = ({
   referredBy?: string | null;
   compact?: boolean;
   onJoined?: () => void;
+  onResolved?: () => void;
   reserveLead?: string;
   heroVariant?: string;
 }) => {
@@ -499,7 +501,15 @@ const VipForm = ({
         <button
           type="button"
           tabIndex={skipVisible ? 0 : -1}
-          onClick={() => navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } })}
+            onClick={() => {
+              try {
+                localStorage.setItem(VIP_RESOLVED_KEY, "1");
+              } catch {
+                /* ignore */
+              }
+              onResolved?.();
+              navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } });
+            }}
           style={{
             background: "transparent",
             border: "none",
