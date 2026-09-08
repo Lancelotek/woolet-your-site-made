@@ -33,6 +33,17 @@ const KickstarterVipConfirmed = () => {
   const email = state?.email || fallback.email || "";
   const name = state?.name || fallback.name || "";
 
+  // A completed $1 checkout (paid=1 in the return URL) resolves the $1 step,
+  // so the Kickstarter follow CTAs unlock when the visitor returns to the LP.
+  useEffect(() => {
+    if (!paid) return;
+    try {
+      localStorage.setItem("wlt_ks_vip_resolved", "1");
+    } catch {
+      /* ignore */
+    }
+  }, [paid]);
+
   useEffect(() => {
     if (!email) {
       // No signup context — bounce back to the LP

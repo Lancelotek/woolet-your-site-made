@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet-async";
@@ -163,6 +163,9 @@ const eyebrowStyle: React.CSSProperties = {
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 const VIP_JOINED_KEY = "wlt_ks_vip_joined";
+// Set when the visitor resolves the $1 step (paid OR explicitly skipped).
+// Gates every Kickstarter follow CTA that sits at the decision moment.
+export const VIP_RESOLVED_KEY = "wlt_ks_vip_resolved";
 
 
 const StepBar = ({ step }: { step: 1 | 2 }) => {
@@ -220,6 +223,7 @@ const VipForm = ({
   referredBy,
   compact = false,
   onJoined,
+  onResolved,
   reserveLead,
   heroVariant = "default",
 }: {
@@ -228,6 +232,7 @@ const VipForm = ({
   referredBy?: string | null;
   compact?: boolean;
   onJoined?: () => void;
+  onResolved?: () => void;
   reserveLead?: string;
   heroVariant?: string;
 }) => {
@@ -496,7 +501,15 @@ const VipForm = ({
         <button
           type="button"
           tabIndex={skipVisible ? 0 : -1}
-          onClick={() => navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } })}
+            onClick={() => {
+              try {
+                localStorage.setItem(VIP_RESOLVED_KEY, "1");
+              } catch {
+                /* ignore */
+              }
+              onResolved?.();
+              navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } });
+            }}
           style={{
             background: "transparent",
             border: "none",
@@ -972,13 +985,29 @@ const KickstarterPrelaunch = () => {
   const [stickyVisible, setStickyVisible] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
 
-  // Gate Kickstarter follow CTAs behind the email capture.
+  // Gate Kickstarter follow CTAs behind the email capture — and, at the
+  // decision moment, behind the $1 step being resolved (paid or skipped).
   const [hasJoined, setHasJoined] = useState(false);
+  const [hasResolved, setHasResolved] = useState(false);
+  // Which form the visitor joined through, so the sticky bar can scroll
+  // back to that form's step-2 block.
+  const [activeFormSuffix, setActiveFormSuffix] = useState("-final");
   useEffect(() => {
     try {
       setHasJoined(localStorage.getItem(VIP_JOINED_KEY) === "1");
+      setHasResolved(localStorage.getItem(VIP_RESOLVED_KEY) === "1");
     } catch {
       setHasJoined(false);
+      setHasResolved(false);
+    }
+  }, []);
+
+  const markResolved = useCallback(() => {
+    setHasResolved(true);
+    try {
+      localStorage.setItem(VIP_RESOLVED_KEY, "1");
+    } catch {
+      /* ignore */
     }
   }, []);
 
@@ -1390,7 +1419,7 @@ const KickstarterPrelaunch = () => {
             </p>
 
             <div id="vip-form-hero" style={{ marginTop: 28 }}>
-              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} onJoined={() => setHasJoined(true)} />
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} />
             </div>
 
             {/* Trust row */}
@@ -1751,7 +1780,7 @@ const KickstarterPrelaunch = () => {
             Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
           </h2>
           <div id="vip-form-mid">
-            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => setHasJoined(true)} />
+            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-mid"); }} onResolved={markResolved} />
           </div>
         </div>
       </section>
@@ -2092,9 +2121,9 @@ const KickstarterPrelaunch = () => {
             One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
           <div id="vip-form-final">
-            <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => setHasJoined(true)} />
+<VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-final"); }} onResolved={markResolved} />
           </div>
-          {hasJoined ? (
+          {hasJoined && hasResolved ? (
             <div className="mt-8 flex flex-col items-center gap-3">
               <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
               <KickstarterFollowCta slot="final_cta" label="Follow us on" />
@@ -2138,7 +2167,31 @@ const KickstarterPrelaunch = () => {
           pointerEvents: stickyVisible && !inputFocused ? "auto" : "none",
         }}
       >
-        {hasJoined ? (
+        {hasJoined && !hasResolved ? (
+          <button
+            type="button"
+            onClick={() => {
+              pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" });
+              const target =
+                document.getElementById(`vip-form${activeFormSuffix}`) ??
+                document.getElementById("vip-form-final");
+              target?.scrollIntoView({ block: "center", behavior: "smooth" });
+            }}
+            style={{
+              ...ctaButtonStyle,
+              flex: 1,
+              textAlign: "center",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: 48,
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Lock $114 — pay $1 now
+          </button>
+        ) : hasJoined ? (
           <KickstarterFollowCta slot="sticky_mobile" label="Follow us on" />
         ) : (
           <a
