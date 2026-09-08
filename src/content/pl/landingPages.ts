@@ -67,7 +67,7 @@ export const plPages: Record<string, PlPageConfig> = {
     slug: "okulary-na-zamowienie",
     eyebrow: "Woolet · Okulary na zamówienie",
     h1: "Okulary na zamówienie — szyte na twoją twarz, co do milimetra",
-    sub: "Szerokość frontu od 145 do 162 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
+    sub: "Szerokość frontu od 145 do 172 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
     metaTitle: "Okulary na zamówienie 145–172 mm | Woolet — włoski octan",
     metaDescription:
       "Okulary na zamówienie dla szerszych twarzy: front 145–172 mm, mostek 20–24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
@@ -135,7 +135,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     'Większość osób dobiera okulary „na oko" — i dlatego oprawki uciskają skronie, zsuwają się z nosa albo wyglądają na za małe. 90% opraw w salonach ma szerokość frontu 135–148 mm, projektowaną pod przeciętną twarz. Jeśli twoja szerokość między skrońmi przekracza 150 mm, standardowa oprawa dosłownie „siedzi na skroniach" — zostawia ślady, spycha nos i po godzinie boli.',
   proofH2: "Rozmiar w milimetrach jest ważniejszy niż kształt twarzy",
   proofBody:
-    "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 145 do 162 mm co 1 mm.",
+    "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 145 do 172 mm co 1 mm.",
   proofBullets: [
     { label: "Poniżej 145 mm", value: "Standardowe oprawki z salonów" },
     { label: "145 – 154 mm", value: "Bespoke Woolet (150–154 mm)" },

@@ -221,7 +221,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
             </table>
           </div>
           <p style={{ fontSize: 12, color: "#666", lineHeight: 1.6, margin: "12px 0 0" }}>
-            Bridge width scales with front width. Bespoke pairs 20–24 mm bridges with any front from 145 to 162 mm.
+            Bridge width scales with front width. Bespoke pairs 20–24 mm bridges with any front from 145 to 172 mm.
           </p>
         </section>
 

@@ -38,7 +38,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "how-to-measure-face-width-for-glasses": {
     metaTitle: "Measure Your Face Width With Your Phone Camera | Woolet",
     metaDescription:
-      "Point your phone camera and get your temple-to-temple width in millimetres — then see which frame size, 145 to 162 mm, actually fits. No ruler, no optician.",
+      "Point your phone camera and get your temple-to-temple width in millimetres — then see which frame size, 145 to 172 mm, actually fits. No ruler, no optician.",
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",
@@ -106,7 +106,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "bespoke-eyewear-size-range-150-172mm-guide": {
     metaTitle: "Bespoke Eyewear 145–172 mm — Complete Size Guide",
     metaDescription:
-      "Why bespoke eyewear lives between 150 and 162 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you.",
+      "Why bespoke eyewear lives between 145 and 172 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you.",
   },
   "made-to-measure-glasses-explained": {
     metaTitle: "Made-to-Measure Glasses: How They Work & Who Needs Them",

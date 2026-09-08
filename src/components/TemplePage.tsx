@@ -348,7 +348,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
             </table>
           </div>
           <p style={{ fontSize: 12, color: "#666", lineHeight: 1.6, margin: "12px 0 0" }}>
-            Temple length scales with head circumference. Bespoke pairs 145–155 mm temples with any front from 145 to 162 mm.
+            Temple length scales with head circumference. Bespoke pairs 145–155 mm temples with any front from 145 to 172 mm.
           </p>
         </section>
 

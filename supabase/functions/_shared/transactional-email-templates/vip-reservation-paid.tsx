@@ -70,7 +70,7 @@ const Email = ({
           2. You pledge at $114 and pick 007 (round) or 009 (square), both 158 mm.
         </Text>
         <Text style={body}>
-          3. Need a wider or narrower front? Bespoke covers 145–162 mm.
+          3. Need a wider or narrower front? Bespoke covers 145–172 mm.
         </Text>
 
         {orderRef ? <Text style={small}>Reference: {orderRef}</Text> : null}

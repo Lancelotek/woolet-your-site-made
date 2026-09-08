@@ -59,7 +59,7 @@ const Email = ({
 
         <Heading as="h3" style={h3}>Why Woolet</Heading>
         <Text style={body}>
-          158 mm signature front, keyhole bridge and a 145–162 mm bespoke range —
+          158 mm signature front, keyhole bridge and a 145–172 mm bespoke range —
           built for faces that standard eyewear pinches. Hand made in EU from
           Italian Mazzucchelli acetate.
         </Text>

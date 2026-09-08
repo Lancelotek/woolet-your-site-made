@@ -120,7 +120,7 @@ export const BRIDGES: BridgeEntry[] = [
     metaDescription:
       "21 mm keyhole bridge glasses: the Woolet 007 signature. Italian Mazzucchelli acetate. Signature 158 mm front · Bespoke 145–172 mm.",
     bespokeNote:
-      "Bespoke lets you keep the 21 mm bridge on any shape, at any front width from 145 to 162 mm.",
+      "Bespoke lets you keep the 21 mm bridge on any shape, at any front width from 145 to 172 mm.",
     bestFor: "Wide noses on 155–161 mm faces — the canonical Woolet fit.",
     faq: [
       { q: "What's a keyhole bridge?", a: "An open, notched bridge shape (vs a rounded saddle bridge) that rests on the sides of the nose rather than the top. Better for wider noses because it distributes weight without pinching." },
@@ -144,7 +144,7 @@ export const BRIDGES: BridgeEntry[] = [
     metaDescription:
       "22 mm bridge glasses: the Woolet 009 signature. Soft-square Italian acetate. Signature 158 mm front · Bespoke 145–172 mm.",
     bespokeNote:
-      "Bespoke lets you keep the 22 mm bridge on the 007 Round, or on any bespoke front from 145 to 162 mm.",
+      "Bespoke lets you keep the 22 mm bridge on the 007 Round, or on any bespoke front from 145 to 172 mm.",
     bestFor: "Wider noses on 155–161 mm faces who want the larger soft-square lens.",
     faq: [
       { q: "Is 22 mm a very wide bridge?", a: "Yes. Standard bridges run 16–18 mm; wide bridges start at 20 mm. 22 mm is firmly in wide-bridge territory, sized for wider noses." },
@@ -167,7 +167,7 @@ export const BRIDGES: BridgeEntry[] = [
     metaDescription:
       "24 mm bridge glasses: bespoke wide-bridge in Italian Mazzucchelli acetate. Hand made in EU. Signature 158 mm · Bespoke 145–172 mm front.",
     bespokeNote:
-      "24 mm is the widest bridge we build. Pairs with any front width from 145 to 162 mm, in either the round or soft-square shape.",
+      "24 mm is the widest bridge we build. Pairs with any front width from 145 to 172 mm, in either the round or soft-square shape.",
     bestFor: "Widest noses on 158–162 mm faces — bespoke-only territory.",
     faq: [
       { q: "How wide is a 24 mm bridge?", a: "Very wide. Standard is 16–18 mm; wide is 20–22 mm; 24 mm is specialist wide-bridge sizing, typically only available bespoke." },

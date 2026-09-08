@@ -38,7 +38,7 @@ const BUCKETS: Record<BucketKey, Bucket> = {
     range: "145–154 mm",
     description:
       "Wider than average, narrower than our signature 158 mm front. Off-the-shelf wide frames rarely land here cleanly.",
-    recommendation: "Bespoke, built to your millimetre — 145 to 162 mm front width with a 20–24 mm bridge.",
+    recommendation: "Bespoke, built to your millimetre — 145 to 172 mm front width with a 20–24 mm bridge.",
     cta: { label: "See bespoke options →", href: "/en/bespoke" },
   },
   b155_160: {

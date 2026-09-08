@@ -134,7 +134,7 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Ordering at 152 mm",
       body: [
-        "152 mm is a bespoke specification and can be paired with any front width from 145 to 162 mm, though it is most often ordered with 158 and 160 mm fronts. Lead time is six to eight weeks behind the standard batch.",
+        "152 mm is a bespoke specification and can be paired with any front width from 145 to 172 mm, though it is most often ordered with 158 and 160 mm fronts. Lead time is six to eight weeks behind the standard batch.",
       ],
     },
   ],
@@ -222,7 +222,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
       h2: "19 mm against the Woolet range",
       body: [
         "We start at 21 mm, so a 19 mm measurement sits 2 mm below our narrowest signature bridge. In practice a 2 mm gap is small enough that the 007 keyhole often still works: the keyhole shape carries its contact lower on the sides of the nose than a saddle bridge does, which tolerates a slightly narrower root than the nominal number suggests.",
-        "If you want it exact, bespoke can specify a 19 mm bridge on any front width from 145 to 162 mm.",
+        "If you want it exact, bespoke can specify a 19 mm bridge on any front width from 145 to 172 mm.",
       ],
       table: {
         head: ["Your bridge", "Best route"],

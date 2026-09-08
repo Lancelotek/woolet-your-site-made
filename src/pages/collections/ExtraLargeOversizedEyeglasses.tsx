@@ -34,7 +34,7 @@ const ExtraLargeOversizedEyeglasses = () => (
       {
         question: "Can I go larger than 158 mm?",
         answer:
-          "Yes. Bespoke covers 145 to 162 mm of front width in either shape, with a 20–24 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in EU to your measurement. Lead time is 6–8 weeks beyond standard.",
+          "Yes. Bespoke covers 145 to 172 mm of front width in either shape, with a 20–24 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in EU to your measurement. Lead time is 6–8 weeks beyond standard.",
       },
       {
         question: "How do I know if I need extra large?",

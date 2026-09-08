@@ -75,7 +75,7 @@ export const competitors: Competitor[] = [
       },
       {
         title: "Bespoke sizing up to 162 mm",
-        text: "Fatheadz stops where its size chart stops. Woolet's Bespoke tier is made to order for face widths from 145 to 162 mm — the widths the rest of the industry pretends don't exist.",
+        text: "Fatheadz stops where its size chart stops. Woolet's Bespoke tier is made to order for face widths from 145 to 172 mm — the widths the rest of the industry pretends don't exist.",
       },
       {
         title: "Proof of fit before you pay",
@@ -119,7 +119,7 @@ export const competitors: Competitor[] = [
       "EYESHELLS alternative for wide faces: handmade in the EU from Italian acetate frames, bespoke sizing to 172mm, 20-second fit scan and 30-day guarantee.",
     heroH1: "EYESHELLS Alternative for Wide Faces & Big Heads",
     heroSub:
-      "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 145 to 162 mm, and a fit scan that proves it fits before you order.",
+      "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 145 to 172 mm, and a fit scan that proves it fits before you order.",
     verdict:
       "Choose EYESHELLS if you need functional extra-wide frames at factory-direct prices. Choose Woolet if your face deserves more than a budget frame — made-to-order Italian acetate with verified fit, engraving, and a 30-day fit guarantee.",
     table: {
@@ -251,7 +251,7 @@ export const competitors: Competitor[] = [
       "The Warby Parker alternative engineered for 145–172mm faces — handmade in the EU from Italian acetate, 20-second fit scan, 30-day fit guarantee.",
     heroH1: "Warby Parker Alternative for Wide Faces & Big Heads",
     heroSub:
-      "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 145 to 162 mm, handmade in the EU from Italian acetate, fit verified by a 20-second scan.",
+      "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 145 to 172 mm, handmade in the EU from Italian acetate, fit verified by a 20-second scan.",
     verdict:
       "Choose Warby Parker for affordable, well-styled glasses if you're near the middle of their size range. Choose Woolet if you're the person who tried their widest frame and still felt the temples flex — because scaling a standard design up is not the same as designing for a wide face.",
     table: {
@@ -311,7 +311,7 @@ export const competitors: Competitor[] = [
       },
       {
         title: "Bespoke to 162 mm",
-        text: "When extra-wide isn't extra enough, Warby has nothing left to offer. Woolet's Bespoke tier is made to order for face widths from 145 to 162 mm.",
+        text: "When extra-wide isn't extra enough, Warby has nothing left to offer. Woolet's Bespoke tier is made to order for face widths from 145 to 172 mm.",
       },
       {
         title: "Measured fit, not try-on roulette",
@@ -420,7 +420,7 @@ export const competitors: Competitor[] = [
       "Persol craftsmanship, built for wide faces. Woolet is the Persol alternative for 145–172mm faces: Mazzucchelli 1849 acetate, Hand Finished in the EU, bespoke sizing.",
     heroH1: "Persol Alternative for Wide Faces & Big Heads",
     heroSub:
-      "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 162 mm wide, the range where even the most beautiful Persol starts to pinch.",
+      "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 172 mm wide, the range where even the most beautiful Persol starts to pinch.",
     verdict:
       "Choose Persol if you want a heritage icon and your face fits standard proportions. Choose Woolet if you've picked up a Persol, loved everything about it, and put it back because it sat crooked or gripped your temples — Woolet exists precisely for you.",
     table: {

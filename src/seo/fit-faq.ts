@@ -27,7 +27,7 @@ export const FIT_FAQ: FitFaqItem[] = [
   },
   {
     q: "What if the scan says I am outside the standard range?",
-    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 162 mm. Above 162 mm we do not build a frame and we will tell you that instead of selling you one.",
+    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 172 mm. Above 162 mm we do not build a frame and we will tell you that instead of selling you one.",
   },
   {
     q: "Can I measure without the camera?",

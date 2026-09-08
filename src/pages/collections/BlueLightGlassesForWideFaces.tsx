@@ -83,7 +83,7 @@ const faqs = [
   },
   {
     q: "What is the widest blue-light frame you make?",
-    a: "The signature runs 158 mm. Beyond that, bespoke covers any front width from 145 to 162 mm in the same Mazzucchelli acetate, hand made in EU. 162 mm is our ceiling — we would rather say no than sell you a frame that does not fit.",
+    a: "The signature runs 158 mm. Beyond that, bespoke covers any front width from 145 to 172 mm in the same Mazzucchelli acetate, hand made in EU. 162 mm is our ceiling — we would rather say no than sell you a frame that does not fit.",
   },
   {
     q: "Can I get a blue-light filter with my prescription?",
@@ -389,7 +389,7 @@ const BlueLightGlassesForWideFaces = () => {
               to="/en/bespoke"
               style={{ display: "block", background: T.dark, border: "1px solid rgba(202,164,73,0.4)", borderRadius: 4, padding: "18px 20px", textDecoration: "none", color: T.cream }}
             >
-              <div style={{ fontFamily: SERIF, fontSize: 20, marginBottom: 6 }}>Build it bespoke — 145 to 162 mm</div>
+              <div style={{ fontFamily: SERIF, fontSize: 20, marginBottom: 6 }}>Build it bespoke — 145 to 172 mm</div>
               <div style={{ fontSize: 13, color: "rgba(237,231,217,0.7)", lineHeight: 1.55, marginBottom: 12 }}>
                 Outside the 155–161 mm signature range? Same Mazzucchelli acetate, your front width, hand made in EU.
               </div>

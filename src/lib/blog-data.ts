@@ -477,7 +477,7 @@ const blogPostsEN: BlogPost[] = [
     faq: [
       { q: "What counts as a wide nose bridge in glasses?", a: "Bridge widths under 17 mm are narrow, 17–20 mm is the mainstream range, and 21 mm and above is wide. Most brands top out at 18 mm. Anyone with a wider or higher nose typically needs 21 mm or more for the frame to sit on the bone instead of pinching cartilage." },
       { q: "What does the bridge measurement actually mean?", a: "It's the distance in millimeters between the two lenses, measured at the narrowest point of the bridge. It's the second number on the inside of the temple — e.g. 52□18 means a 52 mm lens and an 18 mm bridge. Bridge width determines where the frame sits on the nose and how evenly weight is distributed." },
-      { q: "What's the widest standard bridge Woolet makes?", a: "21 mm on the round Woolet 007 and 22 mm on the soft-square Woolet 009. Bespoke covers 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 162 mm." },
+      { q: "What's the widest standard bridge Woolet makes?", a: "21 mm on the round Woolet 007 and 22 mm on the soft-square Woolet 009. Bespoke covers 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 172 mm." },
       { q: "Are glasses for big noses the same as wide nose bridge glasses?", a: "Almost always, yes. A big nose usually means a wider bridge, a higher bridge, or both — and the fit fix is the same: more bridge width and a keyhole shape so the frame rests on the top ridge instead of pressing the sides." },
       { q: "Will a 21–22 mm bridge fit a higher nose too?", a: "Yes. The keyhole geometry lifts the frame off the sides of the nose, which solves the height problem as well as the width problem. A bespoke 23–26 mm bridge with extra crest height is the next step up for the largest noses." },
       { q: "How do I measure my own bridge width at home?", a: "Pinch a credit card flat across the top of your nose where glasses normally sit, mark the contact width with a pen, then measure it with a ruler in millimeters. Add 1–2 mm for breathing room. The AI Fit Wizard does this from a single photo." },
@@ -552,7 +552,7 @@ const blogPostsEN: BlogPost[] = [
 <li><strong><a href="/en/products/009">Woolet 009</a></strong> — soft square, 22 mm keyhole bridge. Slightly more architectural, slightly wider bridge. For broader noses or anyone who prefers a squared silhouette.</li>
 </ul>
 
-<p>Bespoke covers any bridge from 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 162 mm.</p>
+<p>Bespoke covers any bridge from 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 172 mm.</p>
 
 <h2>How to know before you buy</h2>
 
@@ -1542,7 +1542,7 @@ const blogPostsEN: BlogPost[] = [
 
 <ul>
 <li><strong>Premium daily-wear prescription frame at 155–161 mm:</strong> Woolet stock — 158 mm front, Mazzucchelli acetate from Milan, hand made in the EU, lens-less shipping to your optician.</li>
-<li><strong>A width outside 155–161 mm:</strong> Woolet bespoke, any width from 145 to 162 mm, 4 shapes and 60 colour and size combinations.</li>
+<li><strong>A width outside 155–161 mm:</strong> Woolet bespoke, any width from 145 to 172 mm, 4 shapes and 60 colour and size combinations.</li>
 <li><strong>Casual sunglasses under $155:</strong> Faded Days.</li>
 <li><strong>Prescription at the lowest price:</strong> SizeGlasses or BXL TR-90, accepting the material trade-off.</li>
 <li><strong>Traditional bespoke with an in-person fitter:</strong> Tom Davies.</li>
@@ -1629,7 +1629,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>How Woolet sizes apply to an oval face</h2>
 
-<p>Woolet ships each shape in one precise size — 158 mm front width with a 21–22 mm keyhole bridge — and a bespoke tier from 145 to 162 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the <a href="/en/fit">AI Fit Wizard</a> or the <a href="/en/fit/manual">credit-card method</a> to confirm 158 mm is right for you, then choose between shapes on aesthetic preference.</p>
+<p>Woolet ships each shape in one precise size — 158 mm front width with a 21–22 mm keyhole bridge — and a bespoke tier from 145 to 172 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the <a href="/en/fit">AI Fit Wizard</a> or the <a href="/en/fit/manual">credit-card method</a> to confirm 158 mm is right for you, then choose between shapes on aesthetic preference.</p>
 
 <h3>Woolet 007 round / panto</h3>
 
@@ -1803,7 +1803,7 @@ const blogPostsEN: BlogPost[] = [
   <li><strong>UV400 as a baseline, polarized as an option.</strong></li>
 </ol>
 
-<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 20 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 162 mm.</p>
+<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 20 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 172 mm.</p>
 
 <h2>Polarized or not?</h2>
 
@@ -1904,7 +1904,7 @@ const blogPostsEN: BlogPost[] = [
 <ul>
 <li><strong>Face width 150–154 mm — medium-wide.</strong> A standard-large sunglass at 148–152 mm front width will work. Most mainstream "wide fit" lines (Ray-Ban Justin XL, Warby Parker Wide) hit this range.</li>
 <li><strong>Face width 155–161 mm — wide.</strong> Standard mainstream sunglasses won't fit. You need a specialist wide-face brand. Woolet's 007 and 009 ship at 158 mm with a 21–22 mm bridge and 150 mm temples, designed exactly for this range.</li>
-<li><strong>Face width 161–162 mm — extra wide.</strong> Off-the-shelf options are very limited. Bespoke is usually the only honest answer. Woolet's bespoke tier covers 145 to 162 mm of front width in either shape.</li>
+<li><strong>Face width 161–162 mm — extra wide.</strong> Off-the-shelf options are very limited. Bespoke is usually the only honest answer. Woolet's bespoke tier covers 145 to 172 mm of front width in either shape.</li>
 <li><strong>Face width 162 mm+ — XXL.</strong> Custom only. Most bespoke programs stop at 162 mm.</li>
 </ul>
 
@@ -1939,7 +1939,7 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "bespoke-eyewear-size-range-150-172mm-guide",
     title: "Bespoke Eyewear 145–172 mm — The Complete Size Guide (2026)",
-    excerpt: "Why bespoke exists between 150 and 162 mm, how the sizing actually works, and how to know whether a stock 155–161 mm Woolet or a made-to-measure frame is the right call.",
+    excerpt: "Why bespoke exists between 145 and 172 mm, how the sizing actually works, and how to know whether a stock 155–161 mm Woolet or a made-to-measure frame is the right call.",
     date: "2026-06-16",
     readTime: 12,
     tags: ["Bespoke", "Sizing", "Wide Face", "2026"],
@@ -1998,17 +1998,17 @@ const blogPostsEN: BlogPost[] = [
 </tr>
 </thead>
 <tbody>
-<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>150–154 mm</strong></td><td style="padding:14px 16px;">16–20 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
+<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>145–154 mm</strong></td><td style="padding:14px 16px;">16–20 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
 <tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">21 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 (S)</td><td style="padding:14px 16px;color:#555;">Round/panto, narrow stock size</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>158 mm</strong></td><td style="padding:14px 16px;">21–22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 / 009 (M)</td><td style="padding:14px 16px;color:#555;">Core size, covers most 155 mm+ buyers</td></tr>
 <tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 009 (L)</td><td style="padding:14px 16px;color:#555;">Square, top of stock range</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>162–166 mm</strong></td><td style="padding:14px 16px;">22–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Above stock ceiling</td></tr>
-<tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>167–162 mm</strong></td><td style="padding:14px 16px;">23–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
+<tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>167–172 mm</strong></td><td style="padding:14px 16px;">23–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>The pattern is clean: <strong>three stock sizes</strong> (158 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 150–154 mm gap below and the 162–162 mm range above.</p>
+<p>The pattern is clean: <strong>three stock sizes</strong> (158 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 145–154 mm gap below and the 162–172 mm range above.</p>
 
 <h2>What "bespoke" actually controls (and what it doesn't)</h2>
 
@@ -2077,7 +2077,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Next steps</h2>
 
-<p>Start with the <a href="/en/fit">AI Fit Scan</a> — it tells you in 90 seconds whether you're in stock territory (155–161 mm) or bespoke (150–154 mm or 162–162 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">reserve a $299 spot</a>.</p>
+<p>Start with the <a href="/en/fit">AI Fit Scan</a> — it tells you in 90 seconds whether you're in stock territory (155–161 mm) or bespoke (145–154 mm or 162–172 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">reserve a $299 spot</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2628,7 +2628,7 @@ const blogPostsEN: BlogPost[] = [
 <li><strong>Face width 130–145 mm:</strong> most mainstream frames fit. Front width 130–145 mm.</li>
 <li><strong>Face width 145–155 mm:</strong> look for "wide fit" lines. Front width 145–155 mm.</li>
 <li><strong>Face width 155–161 mm:</strong> specialist wide-face brands only. Front width 155–161 mm. Woolet 007 and 009 are designed exactly here at 158 mm.</li>
-<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–162 mm. Woolet bespoke covers this range at $299.</li>
+<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–172 mm. Woolet bespoke covers this range at $299.</li>
 </ul>
 
 <p>The most precise way to measure is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds with your phone and a credit card, accurate to within 2 mm.</p>
@@ -2719,7 +2719,7 @@ const blogPostsEN: BlogPost[] = [
 <h3>Bracket 4 — Face width 162+ mm: "Bespoke territory"</h3>
 <p>Above 161 mm, stock production effectively stops. Faded Days reaches 165 mm in a few SKUs; nothing else mainstream goes there. Bespoke is the answer. Look for:</p>
 <ul>
-<li>Front width: 162–162 mm (or whatever your face requires + 0–3 mm)</li>
+<li>Front width: 162–172 mm (or whatever your face requires + 0–3 mm)</li>
 <li>Bridge: 20–24 mm</li>
 <li>Temples: 150–158 mm</li>
 </ul>
@@ -2925,7 +2925,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>If you're between sizes</h2>
 
-<p>If your face is 150–154 mm or 162–162 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
+<p>If your face is 145–154 mm or 162–172 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
 
 <h2>Quick FAQ</h2>
 
