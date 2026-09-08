@@ -720,7 +720,7 @@ const VipForm = ({
           marginTop: 2,
         }}
       >
-        Step 1 of 2 · Email now, optional $1 reservation next.
+        Step 1 of 2 · Email now, reservation next.
       </p>
     </form>
   );
