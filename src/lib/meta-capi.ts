@@ -110,6 +110,12 @@ export const trackMetaEvent = async (
   if (!isProdHost()) return;
 
   const eventId = opts.eventId ?? uuid();
+  // Idempotency: an event_id must never be dispatched twice (re-mounts,
+  // re-renders, back-navigation). Meta counts non-deduped repeats as
+  // separate events.
+  if (dispatchedEventIds.has(eventId)) return;
+  dispatchedEventIds.add(eventId);
+
   const fbp = readCookie(COOKIE_KEYS.fbp);
   const fbc = readCookie(COOKIE_KEYS.fbc) ?? synthesizeFbcFromFbclid();
   const eventSourceUrl =
