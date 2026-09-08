@@ -985,13 +985,29 @@ const KickstarterPrelaunch = () => {
   const [stickyVisible, setStickyVisible] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
 
-  // Gate Kickstarter follow CTAs behind the email capture.
+  // Gate Kickstarter follow CTAs behind the email capture — and, at the
+  // decision moment, behind the $1 step being resolved (paid or skipped).
   const [hasJoined, setHasJoined] = useState(false);
+  const [hasResolved, setHasResolved] = useState(false);
+  // Which form the visitor joined through, so the sticky bar can scroll
+  // back to that form's step-2 block.
+  const [activeFormSuffix, setActiveFormSuffix] = useState("-final");
   useEffect(() => {
     try {
       setHasJoined(localStorage.getItem(VIP_JOINED_KEY) === "1");
+      setHasResolved(localStorage.getItem(VIP_RESOLVED_KEY) === "1");
     } catch {
       setHasJoined(false);
+      setHasResolved(false);
+    }
+  }, []);
+
+  const markResolved = useCallback(() => {
+    setHasResolved(true);
+    try {
+      localStorage.setItem(VIP_RESOLVED_KEY, "1");
+    } catch {
+      /* ignore */
     }
   }, []);
 
