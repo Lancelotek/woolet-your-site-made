@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
@@ -117,6 +118,14 @@ const bespokeGallery = [
   { src: bespokePantoHoney.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in warm honey translucent acetate" },
   { src: bespokePantoGreenStripe.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in green striped Mazzucchelli acetate" },
 ];
+
+// Every image that renders in a gallery on this page belongs to one lightbox
+// array, so prev/next walks through all of them.
+const lightboxImages: { src: string; alt: string }[] = [
+  ...heroGallery,
+  ...bespokeGallery.map(({ src, alt }) => ({ src, alt })),
+];
+const BESPOKE_LIGHTBOX_OFFSET = heroGallery.length;
 
 // ---------- CTA button ----------
 const ctaButtonStyle: React.CSSProperties = {
@@ -238,6 +247,7 @@ const VipForm = ({
 
   const [step, setStep] = useState<1 | 2>(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const formLocation = idSuffix ? idSuffix.replace(/^-/, "") : "default";
 
@@ -259,9 +269,19 @@ const VipForm = ({
     e.preventDefault();
     const normalizedEmail = email.trim().toLowerCase();
 
+    if (!email.trim()) {
+      setErrorKind("invalid");
+      setError("Enter your email to claim early access.");
+      inputRef.current?.focus();
+      inputRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+      pushGtmEvent("vip_form_error", { form_location: formLocation, reason: "empty" });
+      return;
+    }
+
     if (!EMAIL_RE.test(normalizedEmail) || normalizedEmail.length > 320) {
       setErrorKind("invalid");
       setError("That email doesn't look right. Check the address and try again.");
+      pushGtmEvent("vip_form_error", { form_location: formLocation, reason: "invalid" });
       return;
     }
 
@@ -597,6 +617,7 @@ const VipForm = ({
     <form
       id={`vip-form${idSuffix}`}
       onSubmit={onSubmit}
+      noValidate
       className="flex flex-col gap-3"
       style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
     >
@@ -606,6 +627,7 @@ const VipForm = ({
           Your email address
         </label>
         <input
+          ref={inputRef}
           id={`vip-email${idSuffix}`}
           name="email"
           type="email"
@@ -638,6 +660,7 @@ const VipForm = ({
         <button
           type="submit"
           disabled={loading}
+          aria-busy={loading ? "true" : undefined}
           style={{
             ...ctaButtonStyle,
             background: GOLD,
@@ -656,15 +679,13 @@ const VipForm = ({
         </button>
       </div>
 
-      {consent}
-
       {error && (
         <p
           id={`vip-form-error${idSuffix}`}
           role="alert"
           style={{
             fontFamily: "Barlow, sans-serif",
-            fontSize: 12,
+            fontSize: 13,
             color: "#e25555",
             lineHeight: 1.5,
             margin: 0,
@@ -673,6 +694,8 @@ const VipForm = ({
           {error}
         </p>
       )}
+
+      {consent}
 
 
       <p
@@ -975,7 +998,12 @@ const KickstarterPrelaunch = () => {
 
   const [activeImg, setActiveImg] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxClosing, setLightboxClosing] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const isMobile = useIsMobile();
+  const lightboxTriggerRef = useRef<HTMLElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   // Sticky mobile CTA — appears after the hero scrolls away, hides while typing.
@@ -1020,34 +1048,57 @@ const KickstarterPrelaunch = () => {
   }, [referredBy]);
 
 
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    setLightboxClosing(true);
+    window.setTimeout(() => setLightboxClosing(false), 250);
+    const trigger = lightboxTriggerRef.current;
+    lightboxTriggerRef.current = null;
+    window.setTimeout(() => trigger?.focus?.(), 0);
+  };
+  const showPrev = () =>
+    setLightboxIndex((i) => (i - 1 + lightboxImages.length) % lightboxImages.length);
+  const showNext = () => setLightboxIndex((i) => (i + 1) % lightboxImages.length);
+
   useEffect(() => {
+    if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (!lightboxOpen) return;
-      if (e.key === "Escape") setLightboxOpen(false);
-      if (e.key === "ArrowLeft") {
-        setLightboxIndex((i) => (i - 1 + heroGallery.length) % heroGallery.length);
-      }
-      if (e.key === "ArrowRight") {
-        setLightboxIndex((i) => (i + 1) % heroGallery.length);
-      }
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") showPrev();
+      if (e.key === "ArrowRight") showNext();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [lightboxOpen]);
 
   useEffect(() => {
-    if (lightboxOpen) {
-      const original = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = original;
-      };
-    }
+    if (!lightboxOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
   }, [lightboxOpen]);
 
-  const openLightbox = (index: number) => {
+  // Focus the close button on open; focus returns to the trigger in closeLightbox.
+  useEffect(() => {
+    if (lightboxOpen) closeButtonRef.current?.focus();
+  }, [lightboxOpen]);
+
+  const openLightbox = (
+    index: number,
+    source: "gallery" | "thumbnail" = "gallery",
+    trigger?: HTMLElement | null,
+  ) => {
+    lightboxTriggerRef.current = trigger ?? null;
     setLightboxIndex(index);
+    setLightboxClosing(false);
     setLightboxOpen(true);
+    pushGtmEvent("lightbox_open", {
+      image_alt: lightboxImages[index]?.alt ?? "",
+      index,
+      source,
+    });
   };
 
   useEffect(() => {
@@ -1267,8 +1318,10 @@ const KickstarterPrelaunch = () => {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 md:items-center min-w-0">
           {/* Left on desktop, second on mobile — gallery */}
           <div className="order-2 md:order-1">
-            <div
-              onClick={() => openLightbox(activeImg)}
+            <button
+              type="button"
+              onClick={(e) => openLightbox(activeImg, "gallery", e.currentTarget)}
+              aria-label={`Enlarge: ${heroGallery[activeImg].alt}`}
               className="ks-hero-image"
               style={{
                 width: "100%",
@@ -1277,6 +1330,8 @@ const KickstarterPrelaunch = () => {
                 border: `1px solid ${HAIRLINE}`,
                 overflow: "hidden",
                 cursor: "zoom-in",
+                padding: 0,
+                display: "block",
               }}
             >
               <img
@@ -1285,7 +1340,7 @@ const KickstarterPrelaunch = () => {
                 loading="eager"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
-            </div>
+            </button>
             <div
               className="mt-4 flex gap-2 overflow-x-auto"
               style={{ scrollbarWidth: "thin" }}
@@ -1294,20 +1349,29 @@ const KickstarterPrelaunch = () => {
                 <button
                   key={img.src}
                   type="button"
-                  onClick={() => {
+                  onClick={(e) => {
                     setActiveImg(i);
-                    openLightbox(i);
+                    // On phones the hero image sits off-screen after the tap, so the
+                    // swap would be invisible — open the lightbox at that index instead.
+                    if (isMobile) openLightbox(i, "thumbnail", e.currentTarget);
                   }}
-                  aria-label={`Open image ${i + 1} in lightbox`}
+                  aria-label={
+                    isMobile ? `Enlarge: ${img.alt}` : `Show image ${i + 1}: ${img.alt}`
+                  }
+                  aria-pressed={!isMobile ? i === activeImg : undefined}
                   style={{
                     flex: "0 0 72px",
                     width: 72,
                     height: 72,
                     padding: 0,
-                    border: `1px solid ${i === activeImg ? GOLD : HAIRLINE}`,
+                    border:
+                      i === activeImg
+                        ? `2px solid ${GOLD}`
+                        : `1px solid ${HAIRLINE}`,
                     background: "#0f0e0c",
                     cursor: "pointer",
                     overflow: "hidden",
+                    opacity: i === activeImg ? 1 : 0.6,
                   }}
                 >
                   <img
@@ -1764,7 +1828,23 @@ const KickstarterPrelaunch = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-12">
             {bespokeGallery.map((f, i) => (
               <div key={i} style={{ border: `1px solid ${HAIRLINE}` }}>
-                <div style={{ background: CREAM, aspectRatio: "1 / 1", overflow: "hidden" }}>
+                <button
+                  type="button"
+                  onClick={(e) =>
+                    openLightbox(BESPOKE_LIGHTBOX_OFFSET + i, "gallery", e.currentTarget)
+                  }
+                  aria-label={`Enlarge: ${f.alt}`}
+                  style={{
+                    padding: 0,
+                    border: "none",
+                    background: CREAM,
+                    cursor: "zoom-in",
+                    display: "block",
+                    width: "100%",
+                    aspectRatio: "1 / 1",
+                    overflow: "hidden",
+                  }}
+                >
                   <img
                     src={f.src}
                     alt={f.alt}
@@ -1773,7 +1853,7 @@ const KickstarterPrelaunch = () => {
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
-                </div>
+                </button>
                 <div className="flex items-center justify-between" style={{ padding: "12px 14px" }}>
                   <span style={{ fontSize: 13, color: CREAM }}>{f.shape}</span>
                   <span
@@ -1864,6 +1944,22 @@ const KickstarterPrelaunch = () => {
               "I'm 161 mm across. For twenty years I gave up on glasses that actually fit. So I built the brand I wanted to buy from — Milanese acetate, made wide from the first millimetre. Kickstarter is how we get the first pairs to the people who need them most."
             </blockquote>
             <p style={{ ...eyebrowStyle, color: TAUPE, marginTop: 20 }}>— Marek Ciesla, Founder</p>
+            <Link
+              to="/en/about"
+              style={{
+                color: GOLD,
+                fontFamily: "Barlow, sans-serif",
+                fontSize: 13,
+                letterSpacing: "0.04em",
+                textDecoration: "underline",
+                textUnderlineOffset: 3,
+                display: "inline-flex",
+                alignItems: "center",
+                minHeight: 44,
+              }}
+            >
+              Read the full story →
+            </Link>
           </div>
         </div>
       </section>
@@ -2130,12 +2226,18 @@ const KickstarterPrelaunch = () => {
         </div>
       </footer>
       {/* Lightbox */}
-      {lightboxOpen && (
+      {(lightboxOpen || lightboxClosing) && (
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Image gallery lightbox"
-          onClick={() => setLightboxOpen(false)}
+          // Close on pointerdown, not click: on iOS the synthesized click after
+          // touchend would otherwise land on the zoom-in image underneath.
+          onPointerDown={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeLightbox();
+          }}
           style={{
             position: "fixed",
             inset: 0,
@@ -2145,87 +2247,122 @@ const KickstarterPrelaunch = () => {
             alignItems: "center",
             justifyContent: "center",
             padding: "24px",
+            opacity: lightboxOpen ? 1 : 0,
+            pointerEvents: lightboxOpen ? "auto" : "none",
+            transition: "opacity 200ms ease",
           }}
         >
           <button
+            ref={closeButtonRef}
             type="button"
-            onClick={() => setLightboxOpen(false)}
+            onPointerDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              closeLightbox();
+            }}
             aria-label="Close lightbox"
             style={{
               position: "absolute",
-              top: 16,
-              right: 16,
-              width: 44,
-              height: 44,
-              background: "transparent",
-              border: "none",
+              top: "calc(12px + env(safe-area-inset-top))",
+              right: 12,
+              width: 48,
+              height: 48,
+              background: "rgba(255,255,255,0.10)",
+              border: "1px solid rgba(255,255,255,0.18)",
               color: CREAM,
               fontSize: 28,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              zIndex: 2,
             }}
           >
             ×
           </button>
 
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightboxIndex((i) => (i - 1 + heroGallery.length) % heroGallery.length);
-            }}
-            aria-label="Previous image"
-            style={{
-              position: "absolute",
-              left: 16,
-              top: "50%",
-              transform: "translateY(-50%)",
-              width: 48,
-              height: 48,
-              background: "rgba(255,255,255,0.08)",
-              border: `1px solid ${HAIRLINE}`,
-              color: CREAM,
-              fontSize: 24,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            ‹
-          </button>
+          {!isMobile && (
+            <>
+              <button
+                type="button"
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  showPrev();
+                }}
+                aria-label="Previous image"
+                style={{
+                  position: "absolute",
+                  left: 16,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: 48,
+                  height: 48,
+                  background: "rgba(255,255,255,0.08)",
+                  border: `1px solid ${HAIRLINE}`,
+                  color: CREAM,
+                  fontSize: 24,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                ‹
+              </button>
 
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightboxIndex((i) => (i + 1) % heroGallery.length);
-            }}
-            aria-label="Next image"
-            style={{
-              position: "absolute",
-              right: 16,
-              top: "50%",
-              transform: "translateY(-50%)",
-              width: 48,
-              height: 48,
-              background: "rgba(255,255,255,0.08)",
-              border: `1px solid ${HAIRLINE}`,
-              color: CREAM,
-              fontSize: 24,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            ›
-          </button>
+              <button
+                type="button"
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  showNext();
+                }}
+                aria-label="Next image"
+                style={{
+                  position: "absolute",
+                  right: 16,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: 48,
+                  height: 48,
+                  background: "rgba(255,255,255,0.08)",
+                  border: `1px solid ${HAIRLINE}`,
+                  color: CREAM,
+                  fontSize: 24,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                ›
+              </button>
+            </>
+          )}
 
           <div
-            onClick={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => {
+              const t = e.touches[0];
+              touchStartRef.current = { x: t.clientX, y: t.clientY };
+            }}
+            onTouchEnd={(e) => {
+              const start = touchStartRef.current;
+              touchStartRef.current = null;
+              if (!start) return;
+              const t = e.changedTouches[0];
+              const dx = t.clientX - start.x;
+              const dy = t.clientY - start.y;
+              if (dy > 80 && Math.abs(dy) > Math.abs(dx)) {
+                closeLightbox();
+                return;
+              }
+              if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                if (dx < 0) showNext();
+                else showPrev();
+              }
+            }}
             style={{
               maxWidth: "min(100%, 900px)",
               maxHeight: "min(90vh, 100%)",
@@ -2236,27 +2373,91 @@ const KickstarterPrelaunch = () => {
             }}
           >
             <img
-              src={heroGallery[lightboxIndex].src}
-              alt={heroGallery[lightboxIndex].alt}
+              src={lightboxImages[lightboxIndex].src}
+              alt={lightboxImages[lightboxIndex].alt}
               style={{
                 maxWidth: "100%",
-                maxHeight: "calc(90vh - 80px)",
+                maxHeight: isMobile ? "calc(80vh - 80px)" : "calc(90vh - 80px)",
                 objectFit: "contain",
                 display: "block",
                 border: `1px solid ${HAIRLINE}`,
               }}
             />
-            <p
-              style={{
-                color: TAUPE,
-                fontSize: 13,
-                letterSpacing: "0.04em",
-                fontFamily: "Barlow, sans-serif",
-                textAlign: "center",
-              }}
-            >
-              {lightboxIndex + 1} / {heroGallery.length}
-            </p>
+            {isMobile ? (
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <button
+                  type="button"
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showPrev();
+                  }}
+                  aria-label="Previous image"
+                  style={{
+                    width: 48,
+                    height: 48,
+                    background: "rgba(255,255,255,0.08)",
+                    border: `1px solid ${HAIRLINE}`,
+                    color: CREAM,
+                    fontSize: 24,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  ‹
+                </button>
+                <p
+                  style={{
+                    color: TAUPE,
+                    fontSize: 13,
+                    letterSpacing: "0.04em",
+                    fontFamily: "Barlow, sans-serif",
+                    textAlign: "center",
+                    margin: 0,
+                    minWidth: 64,
+                  }}
+                >
+                  {lightboxIndex + 1} / {lightboxImages.length}
+                </p>
+                <button
+                  type="button"
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showNext();
+                  }}
+                  aria-label="Next image"
+                  style={{
+                    width: 48,
+                    height: 48,
+                    background: "rgba(255,255,255,0.08)",
+                    border: `1px solid ${HAIRLINE}`,
+                    color: CREAM,
+                    fontSize: 24,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  ›
+                </button>
+              </div>
+            ) : (
+              <p
+                style={{
+                  color: TAUPE,
+                  fontSize: 13,
+                  letterSpacing: "0.04em",
+                  fontFamily: "Barlow, sans-serif",
+                  textAlign: "center",
+                }}
+              >
+                {lightboxIndex + 1} / {lightboxImages.length}
+              </p>
+            )}
           </div>
         </div>
       )}
