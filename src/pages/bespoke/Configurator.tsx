@@ -62,6 +62,18 @@ const ConfiguratorPage = () => {
     return () => document.body.classList.remove("cfg-hide-whatsapp");
   }, []);
 
+  // Deep link from the collection cards: /en/bespoke/configurator?shape=aviator
+  // Unknown or missing shape keeps whatever is already selected.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const shape = new URLSearchParams(window.location.search).get("shape");
+    if (!shape) return;
+    if (!findFrame(shape)) return;
+    update("frameId", shape);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
   const temple = COLORS.find((c) => c.id === config.templeColorId);
