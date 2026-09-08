@@ -275,6 +275,7 @@ const SocialIconLink = ({ label, href }: { label: string; href: string }) => {
       {label === "YouTube" && <YouTubeIcon className={iconClass} />}
       {label === "TikTok" && <TikTokIcon className={iconClass} />}
       {label === "Pinterest" && <PinterestIcon className={iconClass} />}
+      {label === "LinkedIn" && <LinkedInIcon className={iconClass} />}
     </a>
   );
 };
