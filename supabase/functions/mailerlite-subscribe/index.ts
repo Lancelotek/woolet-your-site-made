@@ -373,8 +373,9 @@ export const handler = async (req: Request): Promise<Response> => {
       "| models:", models || "-",
     );
 
-    // Fire server-side Meta CAPI Lead event (deduped with browser pixel via meta_event_id)
-    await sendMetaCapiLead({
+    // Fire server-side Meta CAPI Lead event (deduped with browser pixel via
+    // meta_event_id). Fire-and-forget — never blocks the form submit.
+    const capiLead = sendMetaCapiLead({
       email,
       phone,
       country_code,
@@ -385,7 +386,11 @@ export const handler = async (req: Request): Promise<Response> => {
       source,
       correlation_id,
       req,
-    });
+    }).catch((e) => console.error("[meta-capi lead] dispatch failed", e));
+    const waitUntil = (globalThis as { EdgeRuntime?: { waitUntil?: (p: Promise<unknown>) => void } })
+      .EdgeRuntime?.waitUntil;
+    if (waitUntil) waitUntil(capiLead);
+    else void capiLead;
 
     return new Response(
       JSON.stringify({ success: true, correlation_id, subscriber: { email: data.data?.email } }),
