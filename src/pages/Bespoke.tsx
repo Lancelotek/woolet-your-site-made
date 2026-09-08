@@ -547,7 +547,7 @@ const BespokePage = () => {
               The only bespoke glasses <em className="italic text-gold-light">built around wide faces.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              Most bespoke workshops treat wide-face wearers as edge cases: they can go wider than stock, but the geometry is scaled up from a narrow-face pattern. Woolet is built the other way round. Every pattern — stock and bespoke — starts at 155 mm and works outward. Bespoke covers 145 to 162 mm of front width, with 20–24 mm bridges and temples up to 155 mm. If your face measures 155 mm or more temple-to-temple, this is the size range designed for you.
+              Most bespoke workshops treat wide-face wearers as edge cases: they can go wider than stock, but the geometry is scaled up from a narrow-face pattern. Woolet is built the other way round. Every pattern — stock and bespoke — starts at 155 mm and works outward. Bespoke covers 145 to 172 mm of front width, with 20–24 mm bridges and temples up to 155 mm. If your face measures 155 mm or more temple-to-temple, this is the size range designed for you.
             </p>
 
             <div

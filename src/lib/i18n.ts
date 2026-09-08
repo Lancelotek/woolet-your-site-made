@@ -48,7 +48,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "matrix.intro_2": " with a ",
     "matrix.intro_b2": "21–22 mm keyhole bridge",
     "matrix.intro_3": " — engineered for faces in the 155-161 mm range. Outside that, bespoke spans ",
-    "matrix.intro_b3": "145 to 162 mm",
+    "matrix.intro_b3": "145 to 172 mm",
     "matrix.intro_4": " — every width in between, same 21–22 mm bridge, made to your AI scan.",
     "matrix.col_model": "Model",
     "matrix.col_shape": "Shape",

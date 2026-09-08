@@ -116,7 +116,7 @@ export const TEMPLES: TempleEntry[] = [
     faq: [
       { q: "Why 150 mm and not 145 mm?", a: "150 mm matches a 158 mm front on a wider head. Shorter temples on a wider front push the tip in front of the ear; longer temples overshoot." },
       { q: "What's the tip bend angle on the signature 150 mm temple?", a: "11°. Enough to hook the ear on a wider head without the tip poking straight back." },
-      { q: "Can I get 150 mm temples on a bespoke front width?", a: "Yes. Bespoke lets you keep 150 mm temples on any front from 145 to 162 mm." },
+      { q: "Can I get 150 mm temples on a bespoke front width?", a: "Yes. Bespoke lets you keep 150 mm temples on any front from 145 to 172 mm." },
       { q: "How does 150 mm compare to Ray-Ban temples?", a: "Ray-Ban runs 140–150 mm across their line; 145 mm is typical. 150 mm is at the top of standard eyewear and specifically matched to a 158 mm front." },
     ],
   },

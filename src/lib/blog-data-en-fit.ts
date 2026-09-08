@@ -332,7 +332,7 @@ ${FITLENS_CTA(
 
 <p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 54□21 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> at 51□20, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU.</p>
 
-<p><strong>Go bespoke between 145 and 162 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
+<p><strong>Go bespoke between 145 and 172 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
 <p><strong>Above 162 mm, look at made-to-order metal.</strong> We do not build past 162 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
 
