@@ -687,7 +687,7 @@ const Index = () => {
                 )}
               </div>
 
-              <div className="order-3 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
+              <div className="order-2 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
 
                 <Link
                   to={hrefFor("lp.kickstarter", lang)}
