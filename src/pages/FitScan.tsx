@@ -367,8 +367,15 @@ function WelcomeStep({
   isMobile: boolean;
   onFitLensOpen?: () => void;
 }) {
-  useFitLensScript();
+  const isFitLensReady = useFitLensScript();
   const fitlensBtnRef = useRef<HTMLButtonElement>(null);
+  const pendingFitLensOpenRef = useRef(false);
+
+  useEffect(() => {
+    if (!isFitLensReady || !pendingFitLensOpenRef.current) return;
+    pendingFitLensOpenRef.current = false;
+    fitlensBtnRef.current?.click();
+  }, [isFitLensReady]);
   // QR handoff target: the same page opened on a phone (sid marks the handoff).
   const [handoffSid] = useState(() =>
     typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -517,6 +524,10 @@ function WelcomeStep({
               data-fitlens="open"
               disabled={disabled}
               onClick={() => {
+                if (!isFitLensReady) {
+                  pendingFitLensOpenRef.current = true;
+                  return;
+                }
                 onFitLensOpen?.();
                 pushEvent("fit_fitlens_open", { device: isMobile ? "mobile" : "desktop" });
               }}
