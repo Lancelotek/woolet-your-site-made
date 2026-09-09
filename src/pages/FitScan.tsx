@@ -4465,6 +4465,8 @@ export default function FitScan() {
       if (error) throw error;
       if (data?.glassesDetected === true) {
         pushEvent("scan_error", { error_type: "glasses_detected" });
+        // CLARITY EVENT: scan_error
+        clarityEvent("scan_error");
         setErrorMsg(tFit(lang, "page.err_glasses"));
         setErrorKind("recoverable");
         setStep("welcome");
