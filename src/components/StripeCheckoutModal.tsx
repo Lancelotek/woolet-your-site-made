@@ -35,6 +35,7 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
       },
     });
     if (error || !data?.clientSecret) {
+      setFailed(true);
       throw new Error(error?.message || "Failed to create checkout session");
     }
     return data.clientSecret as string;
