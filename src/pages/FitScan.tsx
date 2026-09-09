@@ -4920,22 +4920,6 @@ export default function FitScan() {
                           {tFit(lang, "page.err_try_again")}
                         </button>
                       )}
-                      <button
-                        onClick={() => navigate(hrefFor("fit", lang))}
-                        style={{
-                          background: "transparent",
-                          border: "1px solid hsl(var(--border))",
-                          color: "hsl(var(--cream-dim))",
-                          fontFamily: "Barlow, sans-serif",
-                          fontSize: "0.7rem",
-                          padding: "12px 20px",
-                          letterSpacing: "0.2em",
-                          textTransform: "uppercase",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {tFit(lang, "page.err_use_manual")}
-                      </button>
                     </div>
                   </div>
                 )}
