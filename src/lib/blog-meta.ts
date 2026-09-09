@@ -51,9 +51,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Glasses pinch your temples? It isn't your head — it's the industry. Here's why most frames stop at 148 mm and how the 155 mm problem gets fixed.",
   },
   "round-vs-square-glasses-wide-face": {
-    metaTitle: "Round vs Square Glasses: Which Suits Your Face? | Woolet",
+    metaTitle: "Round vs Square Glasses: Which Suits a Wide Face? | Woolet",
     metaDescription:
-      "Round or square? See both shapes on round, square and wide faces — plus the one measurement that decides whether either will actually fit. Hand made in EU.",
+      "Do square glasses suit round faces? Round vs square guide for wide faces — see which shape wins, real 158 mm specs, and the 30-second fit check.",
   },
   "wide-frame-glasses-professionals": {
     metaTitle: "Wide Frame Glasses for Professionals (155 mm+)",
