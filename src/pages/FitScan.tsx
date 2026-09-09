@@ -1287,13 +1287,27 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         setReady(true);
         pushEvent("scan_camera_active");
       } catch (err) {
-        const reason = err instanceof Error && err.name === "NotAllowedError" ? "permission_denied" : "camera_error";
+        const name = err instanceof Error ? err.name : "";
+        let reason: string;
+        let msgKey: string;
+        if (name === "NotAllowedError" || name === "SecurityError") {
+          reason = "permission_denied";
+          msgKey = "camera.err_permission";
+        } else if (name === "NotFoundError" || name === "DevicesNotFoundError") {
+          reason = "no_camera";
+          msgKey = "camera.err_no_camera";
+        } else if (name === "OverconstrainedError" || name === "ConstraintNotSatisfiedError") {
+          reason = "camera_constraints";
+          msgKey = "camera.err_constraints";
+        } else {
+          reason = "camera_error";
+          msgKey = "camera.err_generic";
+        }
         pushEvent("scan_error", { error_type: reason });
-        onError(
-          reason === "permission_denied"
-            ? tFit(lang, "camera.err_permission")
-            : tFit(lang, "camera.err_generic"),
-        );
+        // CLARITY EVENT: scan_error — mirror the dataLayer push so camera
+        // failures are measurable in Clarity too.
+        clarityEvent("scan_error");
+        onError(tFit(lang, msgKey));
         return;
       }
 
