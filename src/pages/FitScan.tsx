@@ -4916,7 +4916,7 @@ export default function FitScan() {
                         onClick={() => {
                           pushEvent("scan_error", { error_type: cameraErrorType, source: "camera_error" });
                           clarityEvent("scan_error");
-                          navigate(hrefFor("fit", lang));
+                          navigate(localePath(lang, "/fit/manual"));
                         }}
                         style={{
                           display: "block",
