@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SCRIPT_SRC = "https://fitlens-web-production.up.railway.app/v1/embed.js";
 const SCRIPT_INTEGRITY =
@@ -11,8 +11,10 @@ const FITLENS_KEY = "pk_live_OuBrFjXWKeNygZku6WyJHeFW_8d55SVqIrleeFfrzuQ";
  */
 export function useFitLensScript() {
   const scriptRef = useRef<HTMLScriptElement | null>(null);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    setIsReady(false);
     // Remove any previous instance so the widget re-attaches to the current
     // trigger element when the component remounts (e.g. SPA navigation).
     const existing = document.querySelector(`script[src="${SCRIPT_SRC}"]`);
@@ -29,6 +31,7 @@ export function useFitLensScript() {
     script.dataset.key = FITLENS_KEY;
     script.dataset.label = "Find my fit";
     script.dataset.color = "#3B4A66";
+    script.addEventListener("load", () => setIsReady(true), { once: true });
 
     document.body.appendChild(script);
     scriptRef.current = script;
@@ -39,4 +42,6 @@ export function useFitLensScript() {
       }
     };
   }, []);
+
+  return isReady;
 }
