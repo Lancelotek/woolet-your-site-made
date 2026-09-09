@@ -855,7 +855,7 @@ const Index = () => {
                 />
                 {/* Customer badge */}
                 <div
-                  className="pointer-events-none absolute left-4 bottom-4 z-10 sm:left-5 sm:bottom-5 md:left-6 md:bottom-6 flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 backdrop-blur-md rounded-sm max-w-[calc(100%-2rem)]"
+                  className="pointer-events-none [&>*]:pointer-events-none absolute left-4 bottom-4 z-10 sm:left-5 sm:bottom-5 md:left-6 md:bottom-6 flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 backdrop-blur-md rounded-sm max-w-[calc(100%-2rem)]"
                   style={{
                     background: "hsl(var(--background) / 0.78)",
                     border: "1px solid hsl(0 0% 100% / 0.1)",
