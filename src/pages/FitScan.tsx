@@ -4910,27 +4910,55 @@ export default function FitScan() {
                     </p>
                     {/* Manual fallback — the only path left when the camera
                         cannot work (permissions, no device, in-app browsers). */}
-                    <button
-                      type="button"
-                      onClick={() => navigate(hrefFor("fit", lang))}
-                      style={{
-                        display: "block",
-                        width: "100%",
-                        marginTop: 14,
-                        background: "transparent",
-                        border: "1px solid hsl(var(--border))",
-                        color: "hsl(var(--cream-dim))",
-                        fontFamily: "Barlow, sans-serif",
-                        fontSize: "0.72rem",
-                        padding: "15px 20px",
-                        letterSpacing: "0.18em",
-                        textTransform: "uppercase",
-                        cursor: "pointer",
-                        minHeight: 48,
-                      }}
-                    >
-                      {tFit(lang, "camera.manual_cta")}
-                    </button>
+                    {cameraErrorType ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          pushEvent("scan_error", { error_type: cameraErrorType, source: "camera_error" });
+                          clarityEvent("scan_error");
+                          navigate(hrefFor("fit", lang));
+                        }}
+                        style={{
+                          display: "block",
+                          width: "100%",
+                          marginTop: 14,
+                          background: "transparent",
+                          border: "1px solid #CAA449",
+                          color: "#CAA449",
+                          fontFamily: "Barlow, sans-serif",
+                          fontSize: "0.72rem",
+                          padding: "15px 20px",
+                          letterSpacing: "0.18em",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                          minHeight: 48,
+                        }}
+                      >
+                        {tFit(lang, "camera.manual_link")}
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => navigate(hrefFor("fit", lang))}
+                        style={{
+                          display: "block",
+                          width: "100%",
+                          marginTop: 14,
+                          background: "transparent",
+                          border: "1px solid hsl(var(--border))",
+                          color: "hsl(var(--cream-dim))",
+                          fontFamily: "Barlow, sans-serif",
+                          fontSize: "0.72rem",
+                          padding: "15px 20px",
+                          letterSpacing: "0.18em",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                          minHeight: 48,
+                        }}
+                      >
+                        {tFit(lang, "camera.manual_cta")}
+                      </button>
+                    )}
                     {!blockingMessage && errorMsg && (
                       <div
                         style={{
