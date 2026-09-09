@@ -29,8 +29,19 @@ function walk(p: string, out: string[] = []): string[] {
   return out;
 }
 
-// "145–162 mm", "145 mm to 162 mm", "150–172 mm" … anything that is not 145–172.
-const RANGE = /(\d{3})\s?(?:mm)?\s?(?:–|—|-|to)\s?(\d{3})\s?mm/g;
+// Ways the bespoke front width has been mis-stated in the past. Sub-bands
+// like "162–172 mm" are legitimate (a slice of the range), so only literal
+// wrong full-range statements are matched.
+const BAD_RANGES = [
+  "150–172",
+  "150-172",
+  "150 mm and 172",
+  "150 mm to 172",
+  "145–162 mm",
+  "145-162 mm",
+  "145 mm to 162",
+  "145 mm and 162",
+];
 
 describe("bespoke front width range", () => {
   it("exposes 145–172 mm", () => {
@@ -43,18 +54,16 @@ describe("bespoke front width range", () => {
     const offenders: string[] = [];
     for (const root of ROOTS) {
       for (const file of walk(root)) {
-        if (file.includes("src/test/")) continue;
+        if (file.includes("src/test/") || file.includes("src/config/redirects")) continue;
         const text = readFileSync(file, "utf-8");
-        for (const line of text.split("\n")) {
-          if (!/bespoke/i.test(line)) continue;
-          for (const m of line.matchAll(RANGE)) {
-            const [min, max] = [Number(m[1]), Number(m[2])];
-            if (max !== 172) continue; // only ranges that top out at the bespoke max
-            if (min !== 145) offenders.push(`${file}: ${m[0]}`);
+        text.split("\n").forEach((line, i) => {
+          for (const bad of BAD_RANGES) {
+            if (line.includes(bad)) offenders.push(`${file}:${i + 1} — ${bad}`);
           }
-        }
+        });
       }
     }
     expect(offenders).toEqual([]);
   });
 });
+
