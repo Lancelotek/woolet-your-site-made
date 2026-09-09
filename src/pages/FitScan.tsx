@@ -4294,6 +4294,7 @@ export default function FitScan() {
     clarityEvent("scan_started");
     setErrorMsg("");
     setErrorKind(null);
+    setCameraErrorType(null);
     setStep("camera");
   };
 
