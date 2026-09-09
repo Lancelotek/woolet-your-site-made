@@ -4626,9 +4626,14 @@ export default function FitScan() {
     }
   };
 
-  const handleError = (msg: string, kind: "recoverable" | "unsupported" = "recoverable") => {
+  const handleError = (
+    msg: string,
+    kind: "recoverable" | "unsupported" = "recoverable",
+    cameraErr?: CameraErrorType,
+  ) => {
     setErrorMsg(msg);
     setErrorKind(kind);
+    setCameraErrorType(cameraErr ?? null);
     setStep("welcome");
   };
 
