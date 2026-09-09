@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-02T16:51:51.746Z",
-  "totalRoutes": 309,
+  "generatedAt": "2026-09-09T07:57:19.377Z",
+  "totalRoutes": 310,
   "blogSlugs": {
     "de": [
       "beste-brillen-fuer-grosse-koepfe-2026",
@@ -9,7 +9,7 @@
     "en": [
       "acetate-vs-tr90-glasses",
       "are-my-glasses-too-small-for-my-face",
-      "bespoke-eyewear-size-range-150-172mm-guide",
+      "bespoke-eyewear-size-range-145-172mm-guide",
       "best-glasses-for-big-heads-2026",
       "best-glasses-for-oval-face",
       "best-oversized-sunglasses-big-heads-2026",
@@ -119,7 +119,7 @@
     "/en/blog",
     "/en/blog/acetate-vs-tr90-glasses",
     "/en/blog/are-my-glasses-too-small-for-my-face",
-    "/en/blog/bespoke-eyewear-size-range-150-172mm-guide",
+    "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
     "/en/blog/best-glasses-for-big-heads-2026",
     "/en/blog/best-glasses-for-oval-face",
     "/en/blog/best-oversized-sunglasses-big-heads-2026",
@@ -212,6 +212,7 @@
     "/en/ref/009-havana",
     "/en/ref/009-silver-clear",
     "/en/ref/bespoke",
+    "/en/ref/the-box",
     "/en/return-policy",
     "/en/shop",
     "/en/size/145mm",
