@@ -231,6 +231,47 @@
       var LOADER_ID = '__fitlens-loader';
       var timer = null;
 
+      /* Chrome (unlike Safari) refuses camera access inside a cross-origin
+         iframe that has no allow="camera" attribute. The embed does not always
+         set it, so patch every FitLens iframe as soon as it appears. */
+      function grantCamera(node) {
+        if (!node || node.tagName !== 'IFRAME') return;
+        var src = node.getAttribute('src') || '';
+        if (src.indexOf(ALLOWED) !== 0) return;
+        var allow = node.getAttribute('allow') || '';
+        if (allow.indexOf('camera') !== -1) return;
+        node.setAttribute(
+          'allow',
+          (allow ? allow + '; ' : '') + 'camera; microphone; fullscreen'
+        );
+        /* the attribute only takes effect on load, so re-trigger it */
+        node.setAttribute('src', src);
+      }
+
+      function scanForFrames(root) {
+        if (!root || root.nodeType !== 1) return;
+        grantCamera(root);
+        if (root.querySelectorAll) {
+          var frames = root.querySelectorAll('iframe');
+          for (var i = 0; i < frames.length; i++) grantCamera(frames[i]);
+        }
+      }
+
+      function startFrameWatch() {
+        scanForFrames(document.body);
+        new MutationObserver(function (records) {
+          for (var i = 0; i < records.length; i++) {
+            var added = records[i].addedNodes;
+            for (var j = 0; j < added.length; j++) scanForFrames(added[j]);
+          }
+        }).observe(document.body, { childList: true, subtree: true });
+      }
+
+      if (document.body) startFrameWatch();
+      else document.addEventListener('DOMContentLoaded', startFrameWatch);
+
+
+
       function hideLoader() {
         if (timer) { clearTimeout(timer); timer = null; }
         var el = document.getElementById(LOADER_ID);
