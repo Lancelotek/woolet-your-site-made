@@ -178,7 +178,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    const productFilter = body.product && ["007", "009", "bespoke"].includes(body.product)
+    const productFilter = body.product && ["007", "009", "bespoke", "ks_reservation"].includes(body.product)
       ? body.product
       : null;
 
@@ -280,6 +280,7 @@ Deno.serve(async (req) => {
         "007": rows.filter((r) => r.product === "007").length,
         "009": rows.filter((r) => r.product === "009").length,
         bespoke: rows.filter((r) => r.product === "bespoke").length,
+        ks_reservation: rows.filter((r) => r.product === "ks_reservation").length,
       },
     };
 
