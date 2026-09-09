@@ -755,10 +755,12 @@ function WelcomeStep({
 
 /* ─────────────── Camera ─────────────── */
 
+type CameraErrorType = "permission_denied" | "no_camera" | "camera_constraints" | "camera_error";
+
 interface CameraStepProps {
   lang: Lang;
   onCaptured: (frame: CapturedFrame) => void;
-  onError: (msg: string) => void;
+  onError: (msg: string, kind?: "recoverable" | "unsupported", cameraErrorType?: CameraErrorType) => void;
   isMobile: boolean;
 }
 
@@ -911,7 +913,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     if (capturedRef.current || busy || stabilizing) return;
     const v = videoRef.current;
     if (!v || v.readyState < 2) {
-      onError(tFit(lang, "camera.err_not_ready"));
+      onError(tFit(lang, "camera.err_not_ready"), "recoverable", "camera_error");
       return;
     }
 
@@ -931,7 +933,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       console.warn("[scan] landmarker init failed", err);
       setBusy(false);
       setStabilizing(false);
-      onError(tFit(lang, "camera.err_init"));
+      onError(tFit(lang, "camera.err_init"), "recoverable", "camera_error");
       return;
     }
 
@@ -1005,7 +1007,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       const ctx = cv.getContext("2d");
       if (!ctx) {
         setBusy(false);
-        onError(tFit(lang, "camera.err_capture_failed"));
+        onError(tFit(lang, "camera.err_capture_failed"), "recoverable", "camera_error");
         return;
       }
       ctx.drawImage(v, 0, 0, w, h);
@@ -1307,7 +1309,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         // CLARITY EVENT: scan_error — mirror the dataLayer push so camera
         // failures are measurable in Clarity too.
         clarityEvent("scan_error");
-        onError(tFit(lang, msgKey));
+        onError(tFit(lang, msgKey), "recoverable", reason as CameraErrorType);
         return;
       }
 
@@ -4153,6 +4155,7 @@ export default function FitScan() {
   // When the current FitLens run was opened — used to discard replayed results.
   const fitLensOpenedAtRef = useRef<number | null>(null);
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
+  const [cameraErrorType, setCameraErrorType] = useState<CameraErrorType | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
@@ -4291,6 +4294,7 @@ export default function FitScan() {
     clarityEvent("scan_started");
     setErrorMsg("");
     setErrorKind(null);
+    setCameraErrorType(null);
     setStep("camera");
   };
 
@@ -4622,9 +4626,14 @@ export default function FitScan() {
     }
   };
 
-  const handleError = (msg: string, kind: "recoverable" | "unsupported" = "recoverable") => {
+  const handleError = (
+    msg: string,
+    kind: "recoverable" | "unsupported" = "recoverable",
+    cameraErr?: CameraErrorType,
+  ) => {
     setErrorMsg(msg);
     setErrorKind(kind);
+    setCameraErrorType(cameraErr ?? null);
     setStep("welcome");
   };
 
@@ -4901,27 +4910,55 @@ export default function FitScan() {
                     </p>
                     {/* Manual fallback — the only path left when the camera
                         cannot work (permissions, no device, in-app browsers). */}
-                    <button
-                      type="button"
-                      onClick={() => navigate(hrefFor("fit", lang))}
-                      style={{
-                        display: "block",
-                        width: "100%",
-                        marginTop: 14,
-                        background: "transparent",
-                        border: "1px solid hsl(var(--border))",
-                        color: "hsl(var(--cream-dim))",
-                        fontFamily: "Barlow, sans-serif",
-                        fontSize: "0.72rem",
-                        padding: "15px 20px",
-                        letterSpacing: "0.18em",
-                        textTransform: "uppercase",
-                        cursor: "pointer",
-                        minHeight: 48,
-                      }}
-                    >
-                      {tFit(lang, "camera.manual_cta")}
-                    </button>
+                    {cameraErrorType ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          pushEvent("scan_error", { error_type: cameraErrorType, source: "camera_error" });
+                          clarityEvent("scan_error");
+                          navigate(localePath(lang, "/fit/manual"));
+                        }}
+                        style={{
+                          display: "block",
+                          width: "100%",
+                          marginTop: 14,
+                          background: "transparent",
+                          border: "1px solid #CAA449",
+                          color: "#CAA449",
+                          fontFamily: "Barlow, sans-serif",
+                          fontSize: "0.72rem",
+                          padding: "15px 20px",
+                          letterSpacing: "0.18em",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                          minHeight: 48,
+                        }}
+                      >
+                        {tFit(lang, "camera.manual_link")}
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => navigate(hrefFor("fit", lang))}
+                        style={{
+                          display: "block",
+                          width: "100%",
+                          marginTop: 14,
+                          background: "transparent",
+                          border: "1px solid hsl(var(--border))",
+                          color: "hsl(var(--cream-dim))",
+                          fontFamily: "Barlow, sans-serif",
+                          fontSize: "0.72rem",
+                          padding: "15px 20px",
+                          letterSpacing: "0.18em",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                          minHeight: 48,
+                        }}
+                      >
+                        {tFit(lang, "camera.manual_cta")}
+                      </button>
+                    )}
                     {!blockingMessage && errorMsg && (
                       <div
                         style={{
