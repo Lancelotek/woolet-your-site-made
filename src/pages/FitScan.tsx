@@ -3728,13 +3728,15 @@ function EmailGateStep({
           style={{
             display: "flex",
             gap: 10,
-            alignItems: "flex-start",
+            alignItems: "center",
             color: MUTED,
             fontFamily: "Barlow, sans-serif",
             fontSize: "0.78rem",
             lineHeight: 1.5,
             cursor: "pointer",
             margin: "4px 0 0",
+            minHeight: 44,
+            padding: "6px 0",
           }}
         >
           <input
@@ -3743,10 +3745,9 @@ function EmailGateStep({
             checked={agree}
             onChange={(e) => setAgree(e.target.checked)}
             style={{
-              marginTop: 3,
               accentColor: GOLD,
-              width: 14,
-              height: 14,
+              width: 20,
+              height: 20,
               flexShrink: 0,
             }}
           />
@@ -3756,16 +3757,22 @@ function EmailGateStep({
         </label>
 
         {error && (
-          <span style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}>
+          <span
+            ref={errorRef}
+            role="alert"
+            aria-live="assertive"
+            style={{ color: "#C13A2E", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}
+          >
             {error}
           </span>
         )}
         <button
           type="submit"
           disabled={submitting}
+          aria-busy={submitting || undefined}
           style={{
             marginTop: 4,
-            background: submitting ? "rgba(202,164,73,0.4)" : GOLD,
+            background: submitting || !agree ? "rgba(202,164,73,0.4)" : GOLD,
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
@@ -3780,6 +3787,19 @@ function EmailGateStep({
         >
           {submitting ? tFit(lang, "email.submitting") : tFit(lang, "email.submit")}
         </button>
+        {!agree && (
+          <p
+            style={{
+              color: MUTED,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.75rem",
+              margin: "2px 0 0",
+              textAlign: "center",
+            }}
+          >
+            {tFit(lang, "email.agree_hint")}
+          </p>
+        )}
         <p
           style={{
             color: MUTED,
