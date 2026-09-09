@@ -427,7 +427,7 @@ const blogPostsEN: BlogPost[] = [
 <h2>Frequently asked questions</h2>
 
 <h3>What face width do I need for Woolet glasses?</h3>
-<p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 162 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
+<p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 145 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
 
 <h3>Do Woolet frames work with progressive lenses?</h3>
 <p>Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require.</p>
@@ -444,7 +444,7 @@ const blogPostsEN: BlogPost[] = [
 <h3>Is Woolet the same as the Woolet smart wallet?</h3>
 <p>No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company.</p>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What face width do I need for Woolet glasses?","acceptedAnswer":{"@type":"Answer","text":"Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 162 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones."}},{"@type":"Question","name":"Do Woolet frames work with progressive lenses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require."}},{"@type":"Question","name":"Why don't standard glasses fit wide faces?","acceptedAnswer":{"@type":"Answer","text":"Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement."}},{"@type":"Question","name":"How is Woolet different from Zenni Extended Fit or Warby Parker Wide?","acceptedAnswer":{"@type":"Answer","text":"Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate Hand made in EU. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement."}},{"@type":"Question","name":"What is Mazzucchelli acetate and why does it matter for wide-face eyewear?","acceptedAnswer":{"@type":"Answer","text":"Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm."}},{"@type":"Question","name":"Is Woolet the same as the Woolet smart wallet?","acceptedAnswer":{"@type":"Answer","text":"No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What face width do I need for Woolet glasses?","acceptedAnswer":{"@type":"Answer","text":"Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 145 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones."}},{"@type":"Question","name":"Do Woolet frames work with progressive lenses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require."}},{"@type":"Question","name":"Why don't standard glasses fit wide faces?","acceptedAnswer":{"@type":"Answer","text":"Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement."}},{"@type":"Question","name":"How is Woolet different from Zenni Extended Fit or Warby Parker Wide?","acceptedAnswer":{"@type":"Answer","text":"Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate Hand made in EU. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement."}},{"@type":"Question","name":"What is Mazzucchelli acetate and why does it matter for wide-face eyewear?","acceptedAnswer":{"@type":"Answer","text":"Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm."}},{"@type":"Question","name":"Is Woolet the same as the Woolet smart wallet?","acceptedAnswer":{"@type":"Answer","text":"No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company."}}]}</script>
 
 <div style="background:#F8F6F1;color:#1F1B16;border:1px solid #E8E4DC;border-radius:8px;padding:28px;margin:40px 0 12px;display:flex;gap:20px;align-items:flex-start;font-family:'Barlow',sans-serif;">
   <div style="flex-shrink:0;width:56px;height:56px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;letter-spacing:0.5px;">MC</div>
@@ -1937,7 +1937,7 @@ const blogPostsEN: BlogPost[] = [
 `,
   },
   {
-    slug: "bespoke-eyewear-size-range-150-172mm-guide",
+    slug: "bespoke-eyewear-size-range-145-172mm-guide",
     title: "Bespoke Eyewear 145–172 mm — The Complete Size Guide (2026)",
     excerpt: "Why bespoke exists between 145 and 172 mm, how the sizing actually works, and how to know whether a stock 155–161 mm Woolet or a made-to-measure frame is the right call.",
     date: "2026-06-16",
@@ -2166,7 +2166,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — line-by-line price breakdown.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — what your $299 actually buys.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — where the difference is real.</li>
@@ -2257,7 +2257,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses: the complete guide</a> — stock-frame options first.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — get the input right before ordering.</li>
 <li><a href="/en/blog/glasses-for-wide-nose-bridge-21-22mm-explained">Wide nose-bridge glasses (21–22 mm)</a> — the second axis after face width.</li>
@@ -2375,7 +2375,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — definitions and who actually needs it.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — where the cost comes from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — which premium is worth paying.</li>
@@ -2457,7 +2457,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — the material the atelier starts from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — what handwork actually changes.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — how bespoke fits into the wider market.</li>
@@ -2559,7 +2559,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — step-by-step inside the atelier.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — why the material matters before the method.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — the price of handwork, line by line.</li>
@@ -2651,7 +2651,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — what to do if stock won't fit.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — what to do if stock won't fit.</li>
 <li><a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> — the industry sizing gap.</li>
 <li><a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head?</a> — the size grid you actually need.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — diagnose it yourself in 60 seconds.</li>
@@ -2750,7 +2750,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — curated wide-fit picks.</li>
 <li><a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> — diagnose it before reordering.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — every brand selling a 150 mm+ front width, compared.</li>
@@ -3909,7 +3909,7 @@ Related guides:
 Related guides:
 <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure face width</a> ·
 <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">wide-face fit guide</a> ·
-<a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide" style="color:#A07A2A;">bespoke size range 145–172 mm</a> ·
+<a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide" style="color:#A07A2A;">bespoke size range 145–172 mm</a> ·
 <a href="/en/fit" style="color:#A07A2A;">AI Fit Wizard</a>.
 </p>
 `,

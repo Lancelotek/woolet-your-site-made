@@ -70,7 +70,7 @@ export default function FitBespoke() {
     <>
       <SEO
         title="Bespoke Sizing 145–172 mm — Woolet Made-to-Measure"
-        description="Made-to-measure Woolet frames from 145 mm to 162 mm front width, 20–24 mm bridge. Hand made in EU from Mazzucchelli acetate from Milan."
+        description="Made-to-measure Woolet frames from 145 mm to 172 mm front width, 20–24 mm bridge. Hand made in EU from Mazzucchelli acetate from Milan."
         lang="en"
         path="/fit/bespoke"
         jsonLd={JSON_LD}
@@ -106,7 +106,7 @@ export default function FitBespoke() {
             </h1>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "1rem" }}>
               The reference for everyone deciding between the signature Woolet (158 mm) and a made-to-measure
-              frame. Total frame width from <span className="text-foreground">145 mm to 162 mm</span>, bridge
+              frame. Total frame width from <span className="text-foreground">145 mm to 172 mm</span>, bridge
               20 to 24 mm, hand-cut in the EU from Mazzucchelli acetate from Milan.
             </p>
           </div>

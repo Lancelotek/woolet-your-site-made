@@ -12,7 +12,7 @@ These already rank on page 1 for our main keywords. Native, helpful answers — 
 
 | Subreddit | Why | Action |
 |---|---|---|
-| r/bigmenfashionadvice | Currently ranks #5 for "glasses for wide faces" | Reply to threads asking about 150 mm+ frames with a sizing breakdown + soft mention of Woolet 158 mm + bespoke 150–172 mm tier |
+| r/bigmenfashionadvice | Currently ranks #5 for "glasses for wide faces" | Reply to threads asking about 150 mm+ frames with a sizing breakdown + soft mention of Woolet 158 mm + bespoke 145–172 mm tier |
 | r/glasses | Active sizing-question community | Answer "are my glasses too wide" / "what size for 150 mm face" threads with measurement guide link to `/en/blog/how-to-measure-face-width-for-glasses` |
 | r/malefashionadvice | Broader reach | Only respond to direct fit questions — moderators are strict |
 | r/bald | Wide-face overlap (no temples to hide width) | Respond to eyewear-fit threads |
@@ -40,7 +40,7 @@ Targets that review/list frames for unusual sizes. Each has a contact form or vi
 >
 > Hi [name],
 >
-> I read your piece on [specific article]. Quick note: I just launched Woolet — Italian Mazzucchelli acetate frames built for faces 155 mm+, which is the gap most brands (Persol, Ray-Ban, Tom Ford) top out below. One precise 158 mm size, plus a bespoke tier (150–172 mm).
+> I read your piece on [specific article]. Quick note: I just launched Woolet — Italian Mazzucchelli acetate frames built for faces 155 mm+, which is the gap most brands (Persol, Ray-Ban, Tom Ford) top out below. One precise 158 mm size, plus a bespoke tier (145–172 mm).
 >
 > Happy to ship a sample pair for review (007 round or 009 square, no strings). Or if you're working on a "frames for bigger faces" roundup, I'd love to be considered.
 >
