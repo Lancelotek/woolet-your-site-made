@@ -1235,21 +1235,28 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
     const start = async () => {
       try {
-        // Force a consistent 1280x720 stream across browsers. Without these
-        // constraints Chrome iOS often falls back to 640x480 while Safari
-        // gives 1280x720 — different pixel counts → different mmPerPx →
-        // different face widths. `aspectRatio: 16/9` + `frameRate` lock the
-        // tor optyczny so the same physical camera is selected on both.
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: "user",
-            width: { ideal: 1280, min: 1280 },
-            height: { ideal: 720, min: 720 },
-            aspectRatio: { ideal: 16 / 9 },
-            frameRate: { ideal: 30 },
-          },
-          audio: false,
-        });
+        // Ask for 1280x720 as a preference only. Hard `min` values threw
+        // OverconstrainedError on devices (Android portrait reports 720x1280)
+        // whose front camera can't satisfy them. Real track settings are read
+        // below and drive the measurement scaling, so ideals are enough.
+        let stream: MediaStream;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: "user",
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+              frameRate: { ideal: 30 },
+            },
+            audio: false,
+          });
+        } catch {
+          // Last-chance retry with the barest possible constraints.
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user" },
+            audio: false,
+          });
+        }
         if (cancelled) {
           stream.getTracks().forEach((t) => t.stop());
           return;
@@ -1280,13 +1287,27 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         setReady(true);
         pushEvent("scan_camera_active");
       } catch (err) {
-        const reason = err instanceof Error && err.name === "NotAllowedError" ? "permission_denied" : "camera_error";
+        const name = err instanceof Error ? err.name : "";
+        let reason: string;
+        let msgKey: string;
+        if (name === "NotAllowedError" || name === "SecurityError") {
+          reason = "permission_denied";
+          msgKey = "camera.err_permission";
+        } else if (name === "NotFoundError" || name === "DevicesNotFoundError") {
+          reason = "no_camera";
+          msgKey = "camera.err_no_camera";
+        } else if (name === "OverconstrainedError" || name === "ConstraintNotSatisfiedError") {
+          reason = "camera_constraints";
+          msgKey = "camera.err_constraints";
+        } else {
+          reason = "camera_error";
+          msgKey = "camera.err_generic";
+        }
         pushEvent("scan_error", { error_type: reason });
-        onError(
-          reason === "permission_denied"
-            ? tFit(lang, "camera.err_permission")
-            : tFit(lang, "camera.err_generic"),
-        );
+        // CLARITY EVENT: scan_error — mirror the dataLayer push so camera
+        // failures are measurable in Clarity too.
+        clarityEvent("scan_error");
+        onError(tFit(lang, msgKey));
         return;
       }
 
@@ -3549,11 +3570,17 @@ function EmailGateStep({
   const [agree, setAgree] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const errorRef = useRef<HTMLSpanElement | null>(null);
+
+  // Mobile keyboards frequently push the error off-screen — pull it back.
+  useEffect(() => {
+    if (error) errorRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, [error]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    const parsed = emailSchema.safeParse(email);
+    const parsed = z.string().trim().toLowerCase().email("Enter a valid email address").max(255).safeParse(email);
     if (!parsed.success) {
       setError(parsed.error.issues[0]?.message ?? tFit(lang, "email.err_invalid"));
       clarityEvent("scan_email_failed");
@@ -3584,16 +3611,21 @@ function EmailGateStep({
           if (insErr) console.warn("[scan email gate] scan_sessions insert failed", insErr);
         });
 
-      const { error: mlErr } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: {
-          ...getAttribution(),
-          email: parsed.data,
-          face_width: String(Math.round(faceWidthMm)),
-          source: "scan",
-          device,
-        },
-      });
-      if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
+      // Fire-and-forget — a slow MailerLite response must never hold the
+      // button in the submitting state; its failure is non-blocking anyway.
+      supabase.functions
+        .invoke("mailerlite-subscribe", {
+          body: {
+            ...getAttribution(),
+            email: parsed.data,
+            face_width: String(Math.round(faceWidthMm)),
+            source: "scan",
+            device,
+          },
+        })
+        .then(({ error: mlErr }) => {
+          if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
+        });
 
       // Fire-and-forget: send measurements + fit recommendation by email via a
       // whitelisted server-side proxy. send-transactional-email itself is
@@ -3696,13 +3728,15 @@ function EmailGateStep({
           style={{
             display: "flex",
             gap: 10,
-            alignItems: "flex-start",
+            alignItems: "center",
             color: MUTED,
             fontFamily: "Barlow, sans-serif",
             fontSize: "0.78rem",
             lineHeight: 1.5,
             cursor: "pointer",
             margin: "4px 0 0",
+            minHeight: 44,
+            padding: "6px 0",
           }}
         >
           <input
@@ -3711,10 +3745,9 @@ function EmailGateStep({
             checked={agree}
             onChange={(e) => setAgree(e.target.checked)}
             style={{
-              marginTop: 3,
               accentColor: GOLD,
-              width: 14,
-              height: 14,
+              width: 20,
+              height: 20,
               flexShrink: 0,
             }}
           />
@@ -3724,16 +3757,22 @@ function EmailGateStep({
         </label>
 
         {error && (
-          <span style={{ color: "#fca5a5", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}>
+          <span
+            ref={errorRef}
+            role="alert"
+            aria-live="assertive"
+            style={{ color: "#C13A2E", fontFamily: "Barlow, sans-serif", fontSize: "0.85rem" }}
+          >
             {error}
           </span>
         )}
         <button
           type="submit"
           disabled={submitting}
+          aria-busy={submitting || undefined}
           style={{
             marginTop: 4,
-            background: submitting ? "rgba(202,164,73,0.4)" : GOLD,
+            background: submitting || !agree ? "rgba(202,164,73,0.4)" : GOLD,
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
@@ -3748,6 +3787,19 @@ function EmailGateStep({
         >
           {submitting ? tFit(lang, "email.submitting") : tFit(lang, "email.submit")}
         </button>
+        {!agree && (
+          <p
+            style={{
+              color: MUTED,
+              fontFamily: "Barlow, sans-serif",
+              fontSize: "0.75rem",
+              margin: "2px 0 0",
+              textAlign: "center",
+            }}
+          >
+            {tFit(lang, "email.agree_hint")}
+          </p>
+        )}
         <p
           style={{
             color: MUTED,
@@ -4351,6 +4403,8 @@ export default function FitScan() {
       setErrorMsg(msg);
       setErrorKind("recoverable");
       pushEvent("scan_error", { error_type: "calculation", reason: kind });
+      // CLARITY EVENT: scan_error
+      clarityEvent("scan_error");
       return false;
     }
   };
@@ -4411,6 +4465,8 @@ export default function FitScan() {
       if (error) throw error;
       if (data?.glassesDetected === true) {
         pushEvent("scan_error", { error_type: "glasses_detected" });
+        // CLARITY EVENT: scan_error
+        clarityEvent("scan_error");
         setErrorMsg(tFit(lang, "page.err_glasses"));
         setErrorKind("recoverable");
         setStep("welcome");
@@ -4843,6 +4899,29 @@ export default function FitScan() {
                     <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
                       {blockingMessage || errorMsg}
                     </p>
+                    {/* Manual fallback — the only path left when the camera
+                        cannot work (permissions, no device, in-app browsers). */}
+                    <button
+                      type="button"
+                      onClick={() => navigate(hrefFor("fit", lang))}
+                      style={{
+                        display: "block",
+                        width: "100%",
+                        marginTop: 14,
+                        background: "transparent",
+                        border: "1px solid hsl(var(--border))",
+                        color: "hsl(var(--cream-dim))",
+                        fontFamily: "Barlow, sans-serif",
+                        fontSize: "0.72rem",
+                        padding: "15px 20px",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        cursor: "pointer",
+                        minHeight: 48,
+                      }}
+                    >
+                      {tFit(lang, "camera.manual_cta")}
+                    </button>
                     {!blockingMessage && errorMsg && (
                       <div
                         style={{
@@ -4899,22 +4978,6 @@ export default function FitScan() {
                           {tFit(lang, "page.err_try_again")}
                         </button>
                       )}
-                      <button
-                        onClick={() => navigate(hrefFor("fit", lang))}
-                        style={{
-                          background: "transparent",
-                          border: "1px solid hsl(var(--border))",
-                          color: "hsl(var(--cream-dim))",
-                          fontFamily: "Barlow, sans-serif",
-                          fontSize: "0.7rem",
-                          padding: "12px 20px",
-                          letterSpacing: "0.2em",
-                          textTransform: "uppercase",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {tFit(lang, "page.err_use_manual")}
-                      </button>
                     </div>
                   </div>
                 )}

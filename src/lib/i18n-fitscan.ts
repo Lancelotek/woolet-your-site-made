@@ -114,6 +114,9 @@ const en: Dict = {
   "camera.err_capture_failed": "Capture failed — please try again.",
   "camera.err_permission": "We need camera access to scan. Allow it in your browser, or use the manual wizard.",
   "camera.err_generic": "Couldn't start the camera. Try a different browser or device.",
+  "camera.err_no_camera": "No camera found on this device.",
+  "camera.err_constraints": "This camera can't run the scan.",
+  "camera.manual_cta": "Enter my measurements instead",
 
   // Annotate
   "annotate.retake": "← Retake",
@@ -174,6 +177,7 @@ const en: Dict = {
   "email.placeholder": "you@example.com",
   "email.aria_label": "Your email address",
   "email.agree": "Email me my measurements and create a Woolet account so I can find them later. I can unsubscribe anytime.",
+  "email.agree_hint": "Tick the box to get your result",
   "email.err_invalid": "Enter a valid email address",
   "email.err_accept": "Please accept to receive your measurements by email.",
   "email.submit": "Reveal my results →",
