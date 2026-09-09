@@ -177,7 +177,7 @@ const Navbar = () => {
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-          <div className="flex flex-col gap-6 px-6 py-8">
+          <div className="flex flex-col gap-2 px-6 py-8">
             <Link
               to={hrefFor("collection", lang)}
               className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
