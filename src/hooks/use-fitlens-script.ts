@@ -57,14 +57,6 @@ export function useFitLensScript() {
         frameRef.current = null;
       }
 
-      if (event.data.type === "result") {
-        document.dispatchEvent(
-          new CustomEvent("fitlens:result", {
-            detail: event.data.measurement,
-            bubbles: true,
-          }),
-        );
-      }
     };
 
     window.addEventListener("message", onMessage);
