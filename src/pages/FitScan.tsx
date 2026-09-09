@@ -913,7 +913,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
     if (capturedRef.current || busy || stabilizing) return;
     const v = videoRef.current;
     if (!v || v.readyState < 2) {
-      onError(tFit(lang, "camera.err_not_ready"));
+      onError(tFit(lang, "camera.err_not_ready"), "recoverable", "camera_error");
       return;
     }
 
@@ -933,7 +933,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       console.warn("[scan] landmarker init failed", err);
       setBusy(false);
       setStabilizing(false);
-      onError(tFit(lang, "camera.err_init"));
+      onError(tFit(lang, "camera.err_init"), "recoverable", "camera_error");
       return;
     }
 
@@ -1007,7 +1007,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       const ctx = cv.getContext("2d");
       if (!ctx) {
         setBusy(false);
-        onError(tFit(lang, "camera.err_capture_failed"));
+        onError(tFit(lang, "camera.err_capture_failed"), "recoverable", "camera_error");
         return;
       }
       ctx.drawImage(v, 0, 0, w, h);
