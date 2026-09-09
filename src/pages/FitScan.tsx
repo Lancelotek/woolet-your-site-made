@@ -4403,6 +4403,8 @@ export default function FitScan() {
       setErrorMsg(msg);
       setErrorKind("recoverable");
       pushEvent("scan_error", { error_type: "calculation", reason: kind });
+      // CLARITY EVENT: scan_error
+      clarityEvent("scan_error");
       return false;
     }
   };
