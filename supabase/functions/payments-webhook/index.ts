@@ -413,13 +413,13 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     throw error;
   }
 
-  const { error: updateError } = await getSupabase()
-    .from("inventory")
-    .update({ spots_remaining: getSupabase().rpc('decrement_spots', { amount: 1 }) })
-    .eq('sku', recommendedSku);
+  if (recommendedSku) {
+    const { error: updateError } = await getSupabase()
+      .rpc("decrement_spots", { p_sku: recommendedSku, p_amount: 1 });
 
-  if (updateError) {
-    console.error("[payments-webhook] inventory decrement failed", updateError);
+    if (updateError) {
+      console.error("[payments-webhook] inventory decrement failed", updateError);
+    }
   }
 
   await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined);
@@ -467,6 +467,9 @@ Deno.serve(async (req) => {
         break;
       case "checkout.session.expired":
         await handleCheckoutExpired(event.data.object);
+        break;
+      case "payment_intent.payment_failed":
+        await handlePaymentFailed(event.data.object);
         break;
       default:
         console.log("[payments-webhook] unhandled event:", event.type);
