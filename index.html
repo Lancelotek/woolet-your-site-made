@@ -232,21 +232,47 @@
       var timer = null;
 
       /* Chrome (unlike Safari) refuses camera access inside a cross-origin
-         iframe that has no allow="camera" attribute. The embed does not always
-         set it, so patch every FitLens iframe as soon as it appears. */
+         iframe that has no allow="camera" attribute — and on Chrome for
+         Android re-setting src after load also throws away the user gesture,
+         so the permission prompt never appears. Patch the attribute BEFORE
+         the frame ever loads by intercepting iframe creation, and only fall
+         back to the src re-trigger for frames we somehow missed. */
+      var PERMS = 'camera; microphone; fullscreen';
+
+      var nativeCreate = document.createElement.bind(document);
+      document.createElement = function (tag) {
+        var el = nativeCreate.apply(null, arguments);
+        try {
+          if (String(tag).toLowerCase() === 'iframe') {
+            var nativeSet = el.setAttribute.bind(el);
+            el.setAttribute = function (name, value) {
+              if (
+                String(name).toLowerCase() === 'src' &&
+                String(value).indexOf(ALLOWED) === 0 &&
+                (el.getAttribute('allow') || '').indexOf('camera') === -1
+              ) {
+                nativeSet('allow', PERMS);
+                nativeSet('allowfullscreen', '');
+              }
+              return nativeSet(name, value);
+            };
+          }
+        } catch (err) { /* non-fatal */ }
+        return el;
+      };
+
       function grantCamera(node) {
         if (!node || node.tagName !== 'IFRAME') return;
         var src = node.getAttribute('src') || '';
         if (src.indexOf(ALLOWED) !== 0) return;
         var allow = node.getAttribute('allow') || '';
         if (allow.indexOf('camera') !== -1) return;
-        node.setAttribute(
-          'allow',
-          (allow ? allow + '; ' : '') + 'camera; microphone; fullscreen'
-        );
-        /* the attribute only takes effect on load, so re-trigger it */
+        node.setAttribute('allow', PERMS);
+        node.setAttribute('allowfullscreen', '');
+        /* attribute only applies on load — reload as a last resort */
         node.setAttribute('src', src);
       }
+
 
       function scanForFrames(root) {
         if (!root || root.nodeType !== 1) return;
