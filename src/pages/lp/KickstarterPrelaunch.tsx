@@ -555,6 +555,8 @@ const VipForm = ({
               campaign: "kickstarter_vip",
               form_location: formLocation,
               utm_source: utmSource,
+              utm_medium: getAttribution().utm_medium || "",
+              utm_campaign: getAttribution().utm_campaign || "",
             }}
             onClose={() => setCheckoutOpen(false)}
           />
