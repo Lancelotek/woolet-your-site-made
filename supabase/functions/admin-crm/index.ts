@@ -83,6 +83,7 @@ Deno.serve(async (req) => {
         { id: "181841182994728358", label: "Waitlist ENG" },
         { id: "189356132351870087", label: "AI Scan" },
         { id: "189449279680546761", label: "Bespoke" },
+        { id: "192253863081805451", label: "Woolet Paid" },
       ];
       const days = Math.min(Math.max(Number((body as { days?: number }).days ?? 30), 1), 90);
       const cutoff = new Date();

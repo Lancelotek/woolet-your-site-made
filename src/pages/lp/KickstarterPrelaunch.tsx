@@ -960,7 +960,8 @@ const MarketWidthChart = () => {
 // ---------- Page ----------
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
-  const utmSource = params.get("utm_source") || "direct";
+  const attribution = getAttribution();
+  const utmSource = attribution.utm_source || "direct";
   const referredBy = params.get("ref");
 
   // Message match: pick the hero/step-2 copy from utm_content. Falls back to
