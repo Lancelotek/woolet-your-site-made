@@ -114,6 +114,23 @@ const ConfiguratorPage = () => {
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const [navHint, setNavHint] = useState(false);
+  const stepComplete = isStepComplete(step, config);
+
+  const handleMobileNext = () => {
+    if (step === STEPS.length) return;
+    if (!stepComplete) {
+      const grid = document.querySelector<HTMLElement>(
+        "main.cfg-container .cfg-swatchstrip, main.cfg-container .cfg-choicegrid"
+      );
+      grid?.scrollIntoView({ behavior: "smooth", block: "center" });
+      setNavHint(true);
+      window.setTimeout(() => setNavHint(false), 3000);
+      return;
+    }
+    goTo(Math.min(STEPS.length, step + 1) as StepId);
+  };
+
   const handleSave = () => setSaved(true);
   const handleReset = () => {
     if (typeof window !== "undefined" && !window.confirm("Start a new build? Your current configuration will be cleared.")) return;
@@ -207,7 +224,7 @@ const ConfiguratorPage = () => {
         </div>
 
         {/* ── Pay-first notice ── */}
-        <div className="cfg-container mt-6">
+        <div className="cfg-container mt-6 cfg-notewrap">
           <div role="note" className="cfg-note">
             <span className="cfg-note__tag">Pay → Measure</span>
             {isMobile ? (
@@ -350,11 +367,17 @@ const ConfiguratorPage = () => {
           </button>
           <div className="cfg-mobilebar__meta">
             <div className="cfg-mobilebar__price">{formatEur(stepTotal)}</div>
-            <div className="cfg-mobilebar__note">2-week build · free shipping</div>
+            {navHint ? (
+              <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
+                Pick an option to continue
+              </div>
+            ) : (
+              <div className="cfg-mobilebar__note">2-week build · free shipping</div>
+            )}
           </div>
           <button
-            onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
-            disabled={!isStepComplete(step, config) || step === STEPS.length}
+            onClick={handleMobileNext}
+            aria-disabled={!stepComplete || step === STEPS.length}
             className="cfg-cta cfg-cta--mobile"
           >
             {step === STEPS.length ? "Done" : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
@@ -979,9 +1002,9 @@ const ConfiguratorStyles = () => (
       width: 100%;
       transition: background .2s, transform .15s;
     }
-    .cfg-cta:hover:not(:disabled) { background: var(--cfg-gold-bright); }
-    .cfg-cta:active:not(:disabled) { transform: translateY(1px); }
-    .cfg-cta:disabled {
+    .cfg-cta:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--cfg-gold-bright); }
+    .cfg-cta:active:not(:disabled):not([aria-disabled="true"]) { transform: translateY(1px); }
+    .cfg-cta:disabled, .cfg-cta[aria-disabled="true"] {
       background: var(--cfg-panel-2);
       color: var(--cfg-muted);
       cursor: not-allowed;
@@ -1090,24 +1113,25 @@ const ConfiguratorStyles = () => (
         position: sticky; top: 54px; z-index: 25;
         background: var(--cfg-ink);
         border-bottom: 1px solid var(--cfg-border);
-        padding: 10px 20px 12px;
-        margin-top: 12px;
+        padding: 5px 20px 5px;
+        margin-top: 8px;
+        max-height: 120px; overflow: hidden;
       }
       .cfg-mobilepreview__stage {
-        height: 26vh; min-height: 150px; max-height: 230px;
+        height: 92px;
         background: var(--cfg-cream);
         border-radius: 2px;
         display: flex; align-items: center; justify-content: center;
         overflow: hidden;
       }
-      .cfg-mobilepreview__stage img { max-height: 88%; max-width: 88%; object-fit: contain; }
+      .cfg-mobilepreview__stage img { max-height: 100%; max-width: 92%; object-fit: contain; }
       .cfg-mobilepreview__place {
         font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8F897B;
       }
       .cfg-mobilepreview__meta {
         display: flex; align-items: center; gap: 8px;
-        margin-top: 8px;
-        font-family: 'Newsreader', serif; font-size: 13px; color: var(--cfg-cream);
+        margin-top: 3px; line-height: 15px;
+        font-family: 'Newsreader', serif; font-size: 12px; color: var(--cfg-cream);
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       }
       .cfg-mobilepreview__dot {
@@ -1126,6 +1150,12 @@ const ConfiguratorStyles = () => (
 
       /* Bottom bar clears the iPhone gesture area */
       .cfg-mobilebar { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+
+      /* Reassurance copy sits below the step content on phones/tablets */
+      .cfg-scope > div { display: flex; flex-direction: column; }
+      .cfg-scope > div > main.cfg-container { order: 4; }
+      .cfg-scope > div > .cfg-notewrap { order: 5; margin-top: 0; margin-bottom: 28px; }
+      .cfg-scope > div > .cfg-mobilebar { order: 6; }
     }
 
     /* Horizontal swatch strips on phones (single DOM, CSS-only switch) */
