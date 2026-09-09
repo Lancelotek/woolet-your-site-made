@@ -114,6 +114,9 @@ const en: Dict = {
   "camera.err_capture_failed": "Capture failed — please try again.",
   "camera.err_permission": "We need camera access to scan. Allow it in your browser, or use the manual wizard.",
   "camera.err_generic": "Couldn't start the camera. Try a different browser or device.",
+  "camera.err_no_camera": "No camera found on this device.",
+  "camera.err_constraints": "This camera can't run the scan.",
+  "camera.manual_cta": "Enter my measurements instead",
 
   // Annotate
   "annotate.retake": "← Retake",
