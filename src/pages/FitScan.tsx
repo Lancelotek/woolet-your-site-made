@@ -3570,11 +3570,17 @@ function EmailGateStep({
   const [agree, setAgree] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const errorRef = useRef<HTMLSpanElement | null>(null);
+
+  // Mobile keyboards frequently push the error off-screen — pull it back.
+  useEffect(() => {
+    if (error) errorRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, [error]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    const parsed = emailSchema.safeParse(email);
+    const parsed = z.string().trim().toLowerCase().email("Enter a valid email address").max(255).safeParse(email);
     if (!parsed.success) {
       setError(parsed.error.issues[0]?.message ?? tFit(lang, "email.err_invalid"));
       clarityEvent("scan_email_failed");
