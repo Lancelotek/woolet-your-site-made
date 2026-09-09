@@ -755,10 +755,12 @@ function WelcomeStep({
 
 /* ─────────────── Camera ─────────────── */
 
+type CameraErrorType = "permission_denied" | "no_camera" | "camera_constraints" | "camera_error";
+
 interface CameraStepProps {
   lang: Lang;
   onCaptured: (frame: CapturedFrame) => void;
-  onError: (msg: string) => void;
+  onError: (msg: string, kind?: "recoverable" | "unsupported", cameraErrorType?: CameraErrorType) => void;
   isMobile: boolean;
 }
 
