@@ -4155,6 +4155,7 @@ export default function FitScan() {
   // When the current FitLens run was opened — used to discard replayed results.
   const fitLensOpenedAtRef = useRef<number | null>(null);
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
+  const [cameraErrorType, setCameraErrorType] = useState<CameraErrorType | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
   const [secureCtx, setSecureCtx] = useState<boolean>(true);
   const [retryCount, setRetryCount] = useState(0);
