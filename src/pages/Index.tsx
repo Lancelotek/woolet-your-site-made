@@ -839,7 +839,7 @@ const Index = () => {
                   src={gregHeroAsset.url}
                   sizes="(min-width: 1024px) 48vw, 100vw"
                   alt="Greg wearing Woolet 009 soft-square tortoise acetate glasses — 158 mm wide-fit frame for medium-to-large faces"
-                  className="absolute inset-0 w-full h-full object-cover object-[center_25%]"
+                  className="absolute inset-0 w-full h-full object-cover object-[center_25%] pointer-events-none"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
