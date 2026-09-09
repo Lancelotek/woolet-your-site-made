@@ -1151,6 +1151,12 @@ const ConfiguratorStyles = () => (
       /* Bottom bar clears the iPhone gesture area */
       .cfg-mobilebar { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
 
+      /* Tighter step intro so the first choice sits above the fold */
+      .cfg-scope main.cfg-container { padding-top: 14px; }
+      .cfg-scope main.cfg-container .space-y-10 > * + * { margin-top: 18px; }
+      .cfg-scope main.cfg-container header .cfg-h1 { font-size: 26px; margin-top: 8px; }
+      .cfg-scope main.cfg-container header .cfg-body { font-size: 13px; line-height: 1.5; margin-top: 10px; }
+
       /* Reassurance copy sits below the step content on phones/tablets */
       .cfg-scope > div { display: flex; flex-direction: column; }
       .cfg-scope > div > main.cfg-container { order: 4; }
