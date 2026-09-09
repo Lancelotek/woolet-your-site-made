@@ -233,6 +233,114 @@ async function handleCheckoutExpired(session: any) {
   await markMailerLiteAbandonedCheckout(email, recoveryUrl, session.id, expiredAt);
 }
 
+/**
+ * Declined $1 payment: field-only MailerLite update (no group, no status) so we
+ * can never clobber group membership. Fire-and-forget: never rethrows.
+ */
+async function handlePaymentFailed(paymentIntent: any) {
+  if (paymentIntent?.metadata?.flow === "bespoke") return;
+
+  const charge = paymentIntent?.charges?.data?.[0] ?? paymentIntent?.latest_charge ?? null;
+  const email: string | undefined =
+    paymentIntent?.receipt_email ||
+    paymentIntent?.metadata?.email ||
+    (typeof charge === "object" ? charge?.billing_details?.email : undefined);
+
+  const declineCode: string =
+    (typeof charge === "object" ? charge?.outcome?.reason : undefined) ||
+    (typeof charge === "object" ? charge?.outcome?.network_decline_code : undefined) ||
+    paymentIntent?.last_payment_error?.decline_code ||
+    "unknown";
+
+  if (!email) {
+    console.log("[payments-webhook] payment_intent.payment_failed without email", paymentIntent?.id);
+    return;
+  }
+
+  try {
+    await getSupabase().from("server_event_log").insert({
+      source: "payments-webhook",
+      event_name: "PaymentDeclined",
+      status: "ok",
+      request_summary: {
+        payment_intent_id: paymentIntent?.id ?? null,
+        decline_code: declineCode,
+        email_domain: email.split("@")[1] ?? null,
+      },
+    });
+  } catch (logErr) {
+    console.error("[server_event_log] insert failed", logErr);
+  }
+
+  const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+  if (!apiKey) return;
+  try {
+    // Idempotent field creation (MailerLite 422s when a field already exists).
+    for (const field of [
+      { name: "usd1_declined_at", type: "text" },
+      { name: "usd1_decline_code", type: "text" },
+    ]) {
+      try {
+        await fetch("https://connect.mailerlite.com/api/fields", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+          body: JSON.stringify(field),
+        });
+      } catch (e) {
+        console.error("[mailerlite] field ensure failed", field.name, e);
+      }
+    }
+
+    // Don't overwrite the first decline timestamp.
+    let existingDeclined: string | null = null;
+    try {
+      const lookup = await fetch(
+        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`,
+        { headers: { Authorization: `Bearer ${apiKey}` } },
+      );
+      if (lookup.ok) {
+        const json = await lookup.json();
+        const v = json?.data?.fields?.usd1_declined_at;
+        if (typeof v === "string" && v.trim()) existingDeclined = v;
+      }
+    } catch (e) {
+      console.error("[mailerlite] decline lookup failed", e);
+    }
+
+    const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        email,
+        fields: {
+          ...(existingDeclined ? {} : { usd1_declined_at: mlDate() }),
+          usd1_decline_code: declineCode,
+        },
+      }),
+    });
+    if (!res.ok) {
+      const bodyText = await res.text();
+      console.error("[mailerlite] decline non-ok", res.status, bodyText);
+      try {
+        await getSupabase().from("server_event_log").insert({
+          source: "payments-webhook",
+          event_name: "MailerLiteDeclineUpdateFailed",
+          status: "error",
+          request_summary: { payment_intent_id: paymentIntent?.id ?? null },
+          error: bodyText,
+        });
+      } catch (logErr) {
+        console.error("[server_event_log] insert failed", logErr);
+      }
+    }
+  } catch (e) {
+    console.error("[mailerlite] decline error", e);
+  }
+}
+
 async function tagMailerLiteFoundingMember(
   email: string,
   sessionId: string,
@@ -413,13 +521,13 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     throw error;
   }
 
-  const { error: updateError } = await getSupabase()
-    .from("inventory")
-    .update({ spots_remaining: getSupabase().rpc('decrement_spots', { amount: 1 }) })
-    .eq('sku', recommendedSku);
+  if (recommendedSku) {
+    const { error: updateError } = await getSupabase()
+      .rpc("decrement_spots", { p_sku: recommendedSku, p_amount: 1 });
 
-  if (updateError) {
-    console.error("[payments-webhook] inventory decrement failed", updateError);
+    if (updateError) {
+      console.error("[payments-webhook] inventory decrement failed", updateError);
+    }
   }
 
   await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined);
@@ -467,6 +575,9 @@ Deno.serve(async (req) => {
         break;
       case "checkout.session.expired":
         await handleCheckoutExpired(event.data.object);
+        break;
+      case "payment_intent.payment_failed":
+        await handlePaymentFailed(event.data.object);
         break;
       default:
         console.log("[payments-webhook] unhandled event:", event.type);

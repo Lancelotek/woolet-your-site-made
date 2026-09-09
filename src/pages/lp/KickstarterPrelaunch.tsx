@@ -555,6 +555,8 @@ const VipForm = ({
               campaign: "kickstarter_vip",
               form_location: formLocation,
               utm_source: utmSource,
+              utm_medium: getAttribution().utm_medium || "",
+              utm_campaign: getAttribution().utm_campaign || "",
             }}
             onClose={() => setCheckoutOpen(false)}
           />
@@ -960,7 +962,8 @@ const MarketWidthChart = () => {
 // ---------- Page ----------
 const KickstarterPrelaunch = () => {
   const [params] = useSearchParams();
-  const utmSource = params.get("utm_source") || "direct";
+  const attribution = getAttribution();
+  const utmSource = attribution.utm_source || "direct";
   const referredBy = params.get("ref");
 
   // Message match: pick the hero/step-2 copy from utm_content. Falls back to

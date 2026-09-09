@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,6 +15,9 @@ interface Props {
 }
 
 export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadata, onClose }: Props) {
+  const [failed, setFailed] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
+
   const fetchClientSecret = useCallback(async (): Promise<string> => {
     // Inject Meta attribution (fbp, fbc, UA, event_id) into Stripe metadata so
     // the payments-webhook can fire Purchase to Meta CAPI with the original
@@ -32,6 +35,7 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
       },
     });
     if (error || !data?.clientSecret) {
+      setFailed(true);
       throw new Error(error?.message || "Failed to create checkout session");
     }
     return data.clientSecret as string;
@@ -126,11 +130,71 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
         >
           <span style={{ color: "#CAA449" }}>$1 today</span> = founder price locked
         </p>
-        <div id="checkout">
-          <EmbeddedCheckoutProvider stripe={getStripe()} options={{ fetchClientSecret }}>
-            <EmbeddedCheckout />
-          </EmbeddedCheckoutProvider>
-        </div>
+        {failed ? (
+          <div
+            style={{
+              background: "#080807",
+              color: "#EDE7D9",
+              borderRadius: 12,
+              margin: 12,
+              padding: "28px 22px",
+              fontFamily: "Barlow, sans-serif",
+            }}
+          >
+            <h3 style={{ fontSize: 20, fontWeight: 600, margin: "0 0 10px", color: "#EDE7D9" }}>
+              We couldn't open the payment window.
+            </h3>
+            <p style={{ fontSize: 15, lineHeight: 1.5, margin: "0 0 20px", color: "#EDE7D9", opacity: 0.85 }}>
+              Your spot on the VIP list is already saved - this only affects the $1 reservation.
+            </p>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setFailed(false);
+                  setRetryKey((k) => k + 1);
+                }}
+                style={{
+                  background: "#CAA449",
+                  color: "#1F1B16",
+                  border: "none",
+                  borderRadius: 12,
+                  padding: "12px 20px",
+                  fontSize: 15,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                Try again
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                style={{
+                  background: "transparent",
+                  color: "#EDE7D9",
+                  border: "1px solid rgba(237,231,217,0.35)",
+                  borderRadius: 12,
+                  padding: "12px 20px",
+                  fontSize: 15,
+                  cursor: "pointer",
+                }}
+              >
+                Skip for now
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div id="checkout">
+            <EmbeddedCheckoutProvider
+              key={retryKey}
+              stripe={getStripe()}
+              options={{ fetchClientSecret }}
+            >
+              <EmbeddedCheckout />
+            </EmbeddedCheckoutProvider>
+          </div>
+        )}
       </div>
     </div>
   );
