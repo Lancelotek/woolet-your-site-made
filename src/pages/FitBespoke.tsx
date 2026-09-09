@@ -3,6 +3,7 @@ import SEO from "@/components/SEO";
 import { FitClusterNav } from "@/components/FitToolContent";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { BESPOKE_FRONT_WIDTH_RANGE, BESPOKE_BRIDGE_RANGE } from "@/lib/bespoke-spec";
 
 const SIZE_ROWS: Array<{
   width: string;
@@ -69,8 +70,8 @@ export default function FitBespoke() {
   return (
     <>
       <SEO
-        title="Bespoke Sizing 145–172 mm — Woolet Made-to-Measure"
-        description="Made-to-measure Woolet frames from 145 mm to 172 mm front width, 20–24 mm bridge. Hand made in EU from Mazzucchelli acetate from Milan."
+        title={`Bespoke Sizing ${BESPOKE_FRONT_WIDTH_RANGE} — Woolet Made-to-Measure`}
+        description={`Made-to-measure Woolet frames from ${BESPOKE_FRONT_WIDTH_RANGE} front width, ${BESPOKE_BRIDGE_RANGE} bridge. Hand made in EU from Mazzucchelli acetate from Milan.`}
         lang="en"
         path="/fit/bespoke"
         jsonLd={JSON_LD}
@@ -95,7 +96,7 @@ export default function FitBespoke() {
 
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">BESPOKE · 145–172 MM</span>
+              <span className="woolet-eyebrow-text">BESPOKE · {BESPOKE_FRONT_WIDTH_RANGE.toUpperCase()}</span>
             </div>
 
             <h1
@@ -106,7 +107,7 @@ export default function FitBespoke() {
             </h1>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "1rem" }}>
               The reference for everyone deciding between the signature Woolet (158 mm) and a made-to-measure
-              frame. Total frame width from <span className="text-foreground">145 mm to 172 mm</span>, bridge
+              frame. Total frame width from <span className="text-foreground">{BESPOKE_FRONT_WIDTH_RANGE}</span>, bridge
               20 to 24 mm, hand-cut in the EU from Mazzucchelli acetate from Milan.
             </p>
           </div>
