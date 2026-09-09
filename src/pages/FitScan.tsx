@@ -1309,7 +1309,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         // CLARITY EVENT: scan_error — mirror the dataLayer push so camera
         // failures are measurable in Clarity too.
         clarityEvent("scan_error");
-        onError(tFit(lang, msgKey));
+        onError(tFit(lang, msgKey), "recoverable", reason as CameraErrorType);
         return;
       }
 
