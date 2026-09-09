@@ -3611,16 +3611,21 @@ function EmailGateStep({
           if (insErr) console.warn("[scan email gate] scan_sessions insert failed", insErr);
         });
 
-      const { error: mlErr } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: {
-          ...getAttribution(),
-          email: parsed.data,
-          face_width: String(Math.round(faceWidthMm)),
-          source: "scan",
-          device,
-        },
-      });
-      if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
+      // Fire-and-forget — a slow MailerLite response must never hold the
+      // button in the submitting state; its failure is non-blocking anyway.
+      supabase.functions
+        .invoke("mailerlite-subscribe", {
+          body: {
+            ...getAttribution(),
+            email: parsed.data,
+            face_width: String(Math.round(faceWidthMm)),
+            source: "scan",
+            device,
+          },
+        })
+        .then(({ error: mlErr }) => {
+          if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
+        });
 
       // Fire-and-forget: send measurements + fit recommendation by email via a
       // whitelisted server-side proxy. send-transactional-email itself is
