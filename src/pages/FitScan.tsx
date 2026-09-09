@@ -1235,21 +1235,28 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
 
     const start = async () => {
       try {
-        // Force a consistent 1280x720 stream across browsers. Without these
-        // constraints Chrome iOS often falls back to 640x480 while Safari
-        // gives 1280x720 — different pixel counts → different mmPerPx →
-        // different face widths. `aspectRatio: 16/9` + `frameRate` lock the
-        // tor optyczny so the same physical camera is selected on both.
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: "user",
-            width: { ideal: 1280, min: 1280 },
-            height: { ideal: 720, min: 720 },
-            aspectRatio: { ideal: 16 / 9 },
-            frameRate: { ideal: 30 },
-          },
-          audio: false,
-        });
+        // Ask for 1280x720 as a preference only. Hard `min` values threw
+        // OverconstrainedError on devices (Android portrait reports 720x1280)
+        // whose front camera can't satisfy them. Real track settings are read
+        // below and drive the measurement scaling, so ideals are enough.
+        let stream: MediaStream;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: "user",
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+              frameRate: { ideal: 30 },
+            },
+            audio: false,
+          });
+        } catch {
+          // Last-chance retry with the barest possible constraints.
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user" },
+            audio: false,
+          });
+        }
         if (cancelled) {
           stream.getTracks().forEach((t) => t.stop());
           return;
