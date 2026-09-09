@@ -177,6 +177,7 @@ const en: Dict = {
   "email.placeholder": "you@example.com",
   "email.aria_label": "Your email address",
   "email.agree": "Email me my measurements and create a Woolet account so I can find them later. I can unsubscribe anytime.",
+  "email.agree_hint": "Tick the box to get your result",
   "email.err_invalid": "Enter a valid email address",
   "email.err_accept": "Please accept to receive your measurements by email.",
   "email.submit": "Reveal my results →",
