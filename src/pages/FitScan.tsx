@@ -4864,6 +4864,29 @@ export default function FitScan() {
                     <p style={{ color: "hsl(var(--cream-dim))", fontSize: "0.92rem", fontWeight: 300, lineHeight: 1.55, margin: 0 }}>
                       {blockingMessage || errorMsg}
                     </p>
+                    {/* Manual fallback — the only path left when the camera
+                        cannot work (permissions, no device, in-app browsers). */}
+                    <button
+                      type="button"
+                      onClick={() => navigate(hrefFor("fit", lang))}
+                      style={{
+                        display: "block",
+                        width: "100%",
+                        marginTop: 14,
+                        background: "transparent",
+                        border: "1px solid hsl(var(--border))",
+                        color: "hsl(var(--cream-dim))",
+                        fontFamily: "Barlow, sans-serif",
+                        fontSize: "0.72rem",
+                        padding: "15px 20px",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        cursor: "pointer",
+                        minHeight: 48,
+                      }}
+                    >
+                      {tFit(lang, "camera.manual_cta")}
+                    </button>
                     {!blockingMessage && errorMsg && (
                       <div
                         style={{
