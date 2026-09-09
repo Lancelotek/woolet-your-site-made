@@ -180,7 +180,7 @@ const Navbar = () => {
           <div className="flex flex-col gap-2 px-6 py-8">
             <Link
               to={hrefFor("collection", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -192,7 +192,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("fit", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -204,7 +204,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("bespoke", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -216,7 +216,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("process", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -228,7 +228,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("blog", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -240,7 +240,7 @@ const Navbar = () => {
 
             <Link
               to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
