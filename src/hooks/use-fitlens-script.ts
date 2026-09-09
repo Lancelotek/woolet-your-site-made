@@ -11,6 +11,7 @@ const FITLENS_KEY = "pk_live_OuBrFjXWKeNygZku6WyJHeFW_8d55SVqIrleeFfrzuQ";
  */
 export function useFitLensScript() {
   const scriptRef = useRef<HTMLScriptElement | null>(null);
+  const frameRef = useRef<HTMLIFrameElement | null>(null);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -37,11 +38,58 @@ export function useFitLensScript() {
     scriptRef.current = script;
 
     return () => {
+      frameRef.current?.remove();
+      frameRef.current = null;
       if (scriptRef.current && scriptRef.current.parentNode) {
         scriptRef.current.parentNode.removeChild(scriptRef.current);
       }
     };
   }, []);
 
-  return isReady;
+  useEffect(() => {
+    const origin = new URL(SCRIPT_SRC).origin;
+
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== origin || event.data?.source !== "fitlens") return;
+
+      if (event.data.type === "close") {
+        frameRef.current?.remove();
+        frameRef.current = null;
+      }
+
+      if (event.data.type === "result") {
+        document.dispatchEvent(
+          new CustomEvent("fitlens:result", {
+            detail: event.data.measurement,
+            bubbles: true,
+          }),
+        );
+      }
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
+
+  const openFitLens = () => {
+    if (frameRef.current) return;
+
+    const origin = new URL(SCRIPT_SRC).origin;
+    const frame = document.createElement("iframe");
+    frame.title = "FitLens - measure your fit";
+    frame.setAttribute("allow", `camera ${origin}; microphone ${origin}; fullscreen`);
+    frame.setAttribute("allowfullscreen", "");
+    frame.setAttribute("aria-modal", "true");
+    frame.style.cssText =
+      "position:fixed;inset:0;width:100%;height:100%;border:0;z-index:2147483647;background:rgba(11,18,32,.32)";
+
+    const debug = /[?&]debug=1\b/.test(window.location.search) ? "&debug=1" : "";
+    frame.src =
+      `${origin}/w/intro?k=${encodeURIComponent(FITLENS_KEY)}` +
+      `&host=${encodeURIComponent(window.location.origin)}${debug}`;
+    document.body.appendChild(frame);
+    frameRef.current = frame;
+  };
+
+  return { isReady, openFitLens };
 }
