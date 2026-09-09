@@ -275,6 +275,22 @@ async function handlePaymentFailed(paymentIntent: any) {
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
   try {
+    // Idempotent field creation (MailerLite 422s when a field already exists).
+    for (const field of [
+      { name: "usd1_declined_at", type: "text" },
+      { name: "usd1_decline_code", type: "text" },
+    ]) {
+      try {
+        await fetch("https://connect.mailerlite.com/api/fields", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+          body: JSON.stringify(field),
+        });
+      } catch (e) {
+        console.error("[mailerlite] field ensure failed", field.name, e);
+      }
+    }
+
     // Don't overwrite the first decline timestamp.
     let existingDeclined: string | null = null;
     try {
