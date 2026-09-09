@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,6 +15,9 @@ interface Props {
 }
 
 export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadata, onClose }: Props) {
+  const [failed, setFailed] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
+
   const fetchClientSecret = useCallback(async (): Promise<string> => {
     // Inject Meta attribution (fbp, fbc, UA, event_id) into Stripe metadata so
     // the payments-webhook can fire Purchase to Meta CAPI with the original
