@@ -521,15 +521,6 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     throw error;
   }
 
-  if (recommendedSku) {
-    const { error: updateError } = await getSupabase()
-      .rpc("decrement_spots", { p_sku: recommendedSku, p_amount: 1 });
-
-    if (updateError) {
-      console.error("[payments-webhook] inventory decrement failed", updateError);
-    }
-  }
-
   await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined);
 
   try {

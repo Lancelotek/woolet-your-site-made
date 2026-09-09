@@ -554,6 +554,7 @@ const VipForm = ({
             metadata={{
               campaign: "kickstarter_vip",
               form_location: formLocation,
+              recommended_sku: "ks_reservation_1usd",
               utm_source: utmSource,
               utm_medium: getAttribution().utm_medium || "",
               utm_campaign: getAttribution().utm_campaign || "",

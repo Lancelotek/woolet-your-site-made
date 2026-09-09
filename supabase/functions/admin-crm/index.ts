@@ -34,6 +34,7 @@ function detectProduct(row: { recommended_sku?: string | null; metadata?: Record
     meta.product ?? meta.item_id ?? meta.product_id ?? meta.sku ?? row.recommended_sku ?? "",
   ).toLowerCase();
   if (raw.includes("bespoke")) return "bespoke";
+  if (raw.includes("ks_reservation")) return "ks_reservation";
   if (raw.includes("009")) return "009";
   if (raw.includes("007")) return "007";
   return "unknown";
