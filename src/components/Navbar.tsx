@@ -287,7 +287,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("lp.kickstarter", lang)}
-              className="text-primary uppercase tracking-[0.2em] border border-primary/40 px-3 py-2 text-center no-underline hover:bg-primary/10 transition-colors"
+              className="block w-full py-3.5 text-primary uppercase tracking-[0.2em] border border-primary/40 px-3 text-center no-underline hover:bg-primary/10 transition-colors"
               style={{ fontSize: "0.72rem" }}
               onClick={() => {
                 setMenuOpen(false);
