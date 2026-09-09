@@ -57,7 +57,7 @@ export function StepFrame({ config, update }: StepProps) {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+      <div className="cfg-choicegrid grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {FRAMES.map((f) => {
           const active = config.frameId === f.id;
           return (
@@ -127,10 +127,11 @@ function ColorSwatchGrid({
             key={c.id}
             onClick={() => onSelect(c.id)}
             title={c.name}
-            className={`group relative overflow-hidden border text-left transition ${
+            aria-pressed={active}
+            className={`group relative overflow-hidden text-left transition ${
               active
-                ? "border-gold ring-2 ring-gold/40"
-                : "border-cream/10 hover:border-cream/30"
+                ? "border-2 border-[#CAA449]"
+                : "border border-cream/10 hover:border-cream/30"
             }`}
             style={{ borderRadius: 2 }}
           >
@@ -143,10 +144,10 @@ function ColorSwatchGrid({
               />
               {active && (
                 <span
-                  className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-5 h-5 bg-[color:var(--cfg-gold)]"
-                  style={{ borderRadius: 2 }}
+                  className="absolute inline-flex items-center justify-center"
+                  style={{ top: 6, right: 6, width: 22, height: 22, borderRadius: 999, background: "#CAA449" }}
                 >
-                  <Check size={11} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
+                  <Check size={13} strokeWidth={3} color="#1F1B16" />
                 </span>
               )}
             </div>
@@ -582,10 +583,11 @@ export function StepColor({ config, update }: StepProps) {
               <button
                 key={f.id}
                 onClick={() => update("finishId", f.id)}
-                className={`group relative overflow-hidden border text-left transition ${
+                aria-pressed={active}
+                className={`group relative overflow-hidden text-left transition ${
                   active
-                    ? "border-gold ring-2 ring-gold/40"
-                    : "border-cream/10 hover:border-cream/30"
+                    ? "border-2 border-[#CAA449]"
+                    : "border border-cream/10 hover:border-cream/30"
                 }`}
                 style={{ borderRadius: 2 }}
               >
@@ -604,10 +606,10 @@ export function StepColor({ config, update }: StepProps) {
                 </div>
                 {active && (
                   <span
-                    className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-5 h-5 bg-[color:var(--cfg-gold)]"
-                    style={{ borderRadius: 2 }}
+                    className="absolute inline-flex items-center justify-center"
+                    style={{ top: 6, right: 6, width: 22, height: 22, borderRadius: 999, background: "#CAA449" }}
                   >
-                    <Check size={11} className="text-[color:var(--cfg-ink)]" strokeWidth={2.5} />
+                    <Check size={13} strokeWidth={3} color="#1F1B16" />
                   </span>
                 )}
               </button>
@@ -1726,9 +1728,9 @@ export function StepNav({
       </div>
       {!isLast && (
         <button
-          onClick={onNext}
-          disabled={!canNext}
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium hover:bg-gold-light disabled:opacity-40 disabled:cursor-not-allowed transition"
+          onClick={() => { if (canNext) onNext(); }}
+          aria-disabled={!canNext}
+          className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium transition ${canNext ? "hover:bg-gold-light" : "opacity-40 cursor-not-allowed"}`}
         >
           Next <ChevronRight size={14} />
         </button>
