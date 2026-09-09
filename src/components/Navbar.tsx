@@ -270,7 +270,7 @@ const Navbar = () => {
                       try { window.localStorage.setItem("woolet_lang", l); } catch {}
                       pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l });
                     }}
-                    className={`no-underline uppercase tracking-[0.2em] px-3 py-1.5 border transition-colors ${
+                    className={`no-underline uppercase tracking-[0.2em] px-3 py-2.5 min-h-[44px] inline-flex items-center border transition-colors ${
                       l === lang
                         ? "text-primary border-primary/40"
                         : "text-cream-dim border-border-sub hover:text-foreground hover:border-primary/20"
