@@ -177,10 +177,10 @@ const Navbar = () => {
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-          <div className="flex flex-col gap-6 px-6 py-8">
+          <div className="flex flex-col gap-2 px-6 py-8">
             <Link
               to={hrefFor("collection", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -192,7 +192,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("fit", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -204,7 +204,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("bespoke", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -216,7 +216,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("process", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -228,7 +228,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("blog", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -240,7 +240,7 @@ const Navbar = () => {
 
             <Link
               to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
-              className="text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
               style={{ fontSize: "0.75rem" }}
               onClick={() => {
                 setMenuOpen(false);
@@ -270,7 +270,7 @@ const Navbar = () => {
                       try { window.localStorage.setItem("woolet_lang", l); } catch {}
                       pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l });
                     }}
-                    className={`no-underline uppercase tracking-[0.2em] px-3 py-1.5 border transition-colors ${
+                    className={`no-underline uppercase tracking-[0.2em] px-3 py-2.5 min-h-[44px] inline-flex items-center border transition-colors ${
                       l === lang
                         ? "text-primary border-primary/40"
                         : "text-cream-dim border-border-sub hover:text-foreground hover:border-primary/20"
@@ -287,7 +287,7 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("lp.kickstarter", lang)}
-              className="text-primary uppercase tracking-[0.2em] border border-primary/40 px-3 py-2 text-center no-underline hover:bg-primary/10 transition-colors"
+              className="block w-full py-3.5 text-primary uppercase tracking-[0.2em] border border-primary/40 px-3 text-center no-underline hover:bg-primary/10 transition-colors"
               style={{ fontSize: "0.72rem" }}
               onClick={() => {
                 setMenuOpen(false);

@@ -687,7 +687,7 @@ const Index = () => {
                 )}
               </div>
 
-              <div className="order-3 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
+              <div className="order-2 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
 
                 <Link
                   to={hrefFor("lp.kickstarter", lang)}
@@ -820,61 +820,70 @@ const Index = () => {
             {/* RIGHT — portrait card, stretches to match left column */}
 
             <div
-              className="order-2 lg:order-none relative w-full aspect-[4/3] sm:aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] xl:min-h-[600px] lg:self-stretch overflow-hidden max-h-[58vh] sm:max-h-[680px] lg:max-h-none rounded-sm"
+              className="order-3 lg:order-none relative w-full aspect-[16/10] sm:aspect-[4/5] lg:aspect-auto lg:h-auto lg:min-h-[560px] xl:min-h-[600px] lg:self-stretch overflow-hidden max-h-[58vh] sm:max-h-[680px] lg:max-h-none rounded-sm"
               style={{
                 border: "1px solid hsl(0 0% 100% / 0.08)",
                 background:
                   "linear-gradient(180deg, hsl(0 0% 100% / 0.02) 0%, hsl(0 0% 100% / 0.005) 100%)",
               }}
             >
-              <img
-                src={gregHeroAsset.url}
-                sizes="(min-width: 1024px) 48vw, 100vw"
-                alt="Greg wearing Woolet 009 soft-square tortoise acetate glasses — 158 mm wide-fit frame for medium-to-large faces"
-                className="absolute inset-0 w-full h-full object-cover object-[center_25%]"
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                width={1000}
-                height={1250}
-              />
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "linear-gradient(180deg, hsl(var(--background) / 0) 55%, hsl(var(--background) / 0.55) 100%)",
-                }}
-              />
-              {/* Customer badge */}
-              <div
-                className="absolute left-4 bottom-4 sm:left-5 sm:bottom-5 md:left-6 md:bottom-6 flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 backdrop-blur-md rounded-sm max-w-[calc(100%-2rem)]"
-                style={{
-                  background: "hsl(var(--background) / 0.78)",
-                  border: "1px solid hsl(0 0% 100% / 0.1)",
-                  padding: "10px 14px",
-                }}
+              <Link
+                to={hrefFor("collection", lang)}
+                aria-label="View the Woolet collection"
+                className="absolute inset-0 block"
+                onClick={() =>
+                  pushGtmEvent("hero_image_click", { location: "home_hero", dest: "collection" })
+                }
               >
-                <span
-                  className="text-foreground text-xs sm:text-[0.85rem]"
-                  style={{ fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
-                >
-                  Greg
-                </span>
-                <span
-                  className="hidden sm:block w-px h-3"
-                  style={{ background: "hsl(0 0% 100% / 0.18)" }}
+                <img
+                  src={gregHeroAsset.url}
+                  sizes="(min-width: 1024px) 48vw, 100vw"
+                  alt="Greg wearing Woolet 009 soft-square tortoise acetate glasses — 158 mm wide-fit frame for medium-to-large faces"
+                  className="absolute inset-0 w-full h-full object-cover object-[center_25%] pointer-events-none"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  width={1000}
+                  height={1250}
                 />
-                <span
-                  className="tracking-wider text-xs sm:text-[0.85rem]"
+                <div
+                  className="absolute inset-0 pointer-events-none"
                   style={{
-                    color: "hsl(var(--gold-light))",
-                    fontFamily: "Barlow, sans-serif",
-                    fontWeight: 600,
+                    background:
+                      "linear-gradient(180deg, hsl(var(--background) / 0) 55%, hsl(var(--background) / 0.55) 100%)",
+                  }}
+                />
+                {/* Customer badge */}
+                <div
+                  className="pointer-events-none [&>*]:pointer-events-none absolute left-4 bottom-4 z-10 sm:left-5 sm:bottom-5 md:left-6 md:bottom-6 flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 backdrop-blur-md rounded-sm max-w-[calc(100%-2rem)]"
+                  style={{
+                    background: "hsl(var(--background) / 0.78)",
+                    border: "1px solid hsl(0 0% 100% / 0.1)",
+                    padding: "10px 14px",
                   }}
                 >
-                  user of <span className="font-wordmark">WOOLET</span> 009
-                </span>
-              </div>
+                  <span
+                    className="text-foreground text-xs sm:text-[0.85rem]"
+                    style={{ fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
+                  >
+                    Greg
+                  </span>
+                  <span
+                    className="hidden sm:block w-px h-3"
+                    style={{ background: "hsl(0 0% 100% / 0.18)" }}
+                  />
+                  <span
+                    className="tracking-wider text-xs sm:text-[0.85rem]"
+                    style={{
+                      color: "hsl(var(--gold-light))",
+                      fontFamily: "Barlow, sans-serif",
+                      fontWeight: 600,
+                    }}
+                  >
+                    user of <span className="font-wordmark">WOOLET</span> 009
+                  </span>
+                </div>
+              </Link>
             </div>
           </div>
         </section>
