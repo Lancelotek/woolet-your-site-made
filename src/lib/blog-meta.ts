@@ -103,7 +103,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
 
 
   // ── EN: bespoke / process ────────────────────────────────────────────
-  "bespoke-eyewear-size-range-150-172mm-guide": {
+  "bespoke-eyewear-size-range-145-172mm-guide": {
     metaTitle: "Bespoke Eyewear 145–172 mm — Complete Size Guide",
     metaDescription:
       "Why bespoke eyewear lives between 145 and 172 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you.",

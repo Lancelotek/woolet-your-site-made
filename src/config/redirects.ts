@@ -38,7 +38,17 @@ export const EXACT: Record<string, string> = {
   "/en/compare/warby-parker": "/en/compare/warby-parker-alternative",
   "/en/blue-light-glasses-wide-faces": "/en/collections/blue-light-glasses-for-wide-faces",
   "/blue-light-glasses-wide-faces": "/en/collections/blue-light-glasses-for-wide-faces",
+
+  // Bespoke size guide: slug corrected 150→145 to match the page's own H1.
+  ...Object.fromEntries(
+    ["en", "pl", "de", "fr", "nl", "es", "ja", "ar"].map((l) => [
+      `/${l}/blog/bespoke-eyewear-size-range-150-172mm-guide`,
+      "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
+    ]),
+  ),
+  "/blog/bespoke-eyewear-size-range-150-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
 };
+
 
 export interface RedirectRule {
   test: RegExp;

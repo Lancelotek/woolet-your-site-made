@@ -15,7 +15,7 @@ const blogMetaBySlug = {
   },
   "how-to-measure-face-width-for-glasses": {
     metaTitle: "Measure Your Face Width With Your Phone Camera | Woolet",
-    metaDescription: "Point your phone camera and get your temple-to-temple width in millimetres — then see which frame size, 145 to 162 mm, actually fits. No ruler, no optician."
+    metaDescription: "Point your phone camera and get your temple-to-temple width in millimetres — then see which frame size, 145 to 172 mm, actually fits. No ruler, no optician."
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",
@@ -26,8 +26,8 @@ const blogMetaBySlug = {
     metaDescription: "Glasses pinch your temples? It isn't your head — it's the industry. Here's why most frames stop at 148 mm and how the 155 mm problem gets fixed."
   },
   "round-vs-square-glasses-wide-face": {
-    metaTitle: "Round vs Square Glasses: Which Suits Your Face? | Woolet",
-    metaDescription: "Round or square? See both shapes on round, square and wide faces — plus the one measurement that decides whether either will actually fit. Hand made in EU."
+    metaTitle: "Round vs Square Glasses: Which Suits a Wide Face? | Woolet",
+    metaDescription: "Do square glasses suit round faces? Round vs square guide for wide faces — see which shape wins, real 158 mm specs, and the 30-second fit check."
   },
   "wide-frame-glasses-professionals": {
     metaTitle: "Wide Frame Glasses for Professionals (155 mm+)",
@@ -66,9 +66,9 @@ const blogMetaBySlug = {
     metaDescription: "Acetate glasses vs plastic and TR90, compared on weight, adjustability, colour and repair — and why a 155 mm+ face needs a frame an optician can reshape."
   },
   // ── EN: bespoke / process ────────────────────────────────────────────
-  "bespoke-eyewear-size-range-150-172mm-guide": {
+  "bespoke-eyewear-size-range-145-172mm-guide": {
     metaTitle: "Bespoke Eyewear 145–172 mm — Complete Size Guide",
-    metaDescription: "Why bespoke eyewear lives between 150 and 162 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you."
+    metaDescription: "Why bespoke eyewear lives between 145 and 172 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you."
   },
   "made-to-measure-glasses-explained": {
     metaTitle: "Made-to-Measure Glasses: How They Work & Who Needs Them",
@@ -467,7 +467,7 @@ const BYLINE = (published, updated) => `
   </div>
 </div>`;
 const ANSWER = (html) => `
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;">${html}</p>`;
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;">${html}</p>`;
 const FITLENS_CTA = (intro, anchor) => `
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">FitLens · 20 seconds, phone camera</div>
@@ -572,7 +572,7 @@ ${ANSWER(
 
 <p><strong>Ear cushions.</strong> Silicone sleeves spread the load behind the ear over a larger area, which is exactly the right treatment for a pressure sore behind the ear. They do nothing for temple pressure — in fact they slightly increase it, because they add material to an arm that is already being pushed outward.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Being honest about opticians</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A skilled optician can change temple angle, temple bend, pantoscopic tilt, nose pads, and the splay of the arms. They can add 3–6 mm of practical comfort on a frame that is marginal. They cannot change lens width, bridge width, or the hinge-to-hinge front width. If they tell you the frame is too small, they are not brushing you off — they are telling you the truth that a shop with a sales target usually skips.</p>
 </div>
@@ -725,7 +725,7 @@ ${ANSWER(
 
 <p style="font-size:13px;color:#666;">*Woolet publishes temple length as the straight arm measurement to the start of the bend (103 mm), not the total including the drop. See the note on measurement conventions in <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a>.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The hook nobody prints on the chart</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">The standard chart stops at about 150 mm of front width, fitting a face of roughly 154 mm. Faces do not stop there. A meaningful share of adult men measure 155–165 mm temple to temple, and for them every row above is a compromise. That gap — not style, not budget — is why this article exists and why Woolet builds at 158 mm.</p>
 </div>
@@ -772,7 +772,7 @@ ${FITLENS_CTA(
 
 <p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 54□21 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> at 51□20, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU.</p>
 
-<p><strong>Go bespoke between 145 and 162 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
+<p><strong>Go bespoke between 145 and 172 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
 <p><strong>Above 162 mm, look at made-to-order metal.</strong> We do not build past 162 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
 
@@ -982,7 +982,7 @@ ${ANSWER(
 
 <p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-103</strong>, sometimes written 54-21-103 or 54▫21▫103.</p>
 
-<div style="background:#F8F6F1;border:1px solid #E8E4DC;padding:22px 24px;margin:24px 0;border-radius:4px;font-family:'Barlow',sans-serif;">
+<div style="background:#F8F6F1;color:#1F1B16;border:1px solid #E8E4DC;padding:22px 24px;margin:24px 0;border-radius:4px;font-family:'Barlow',sans-serif;">
   <div style="font-size:26px;letter-spacing:2px;color:#1a1a1a;margin-bottom:18px;"><strong>54</strong> <span style="color:#c9a84c;">□</span> <strong>21</strong> <span style="color:#999;">-</span> <strong>103</strong></div>
   <div style="font-size:14px;line-height:1.9;color:#1a1a1a;">
     <div><strong>54</strong> — <span style="color:#555;">lens width (eye size): across one lens at its widest point</span></div>
@@ -2022,7 +2022,7 @@ const blogPostsEN = [
   </div>
 </div>
 
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face measures 150 mm or more temple-to-temple, and it needs glasses with a total front width of 155 mm or more.</strong> Most frames sold as "wide" or "oversized" stop at 138–148 mm, which is why they still pinch after an hour. Buy to front width, not to lens size or style: 150–154 mm faces fit a 152–156 mm front, 155–159 mm faces need 157–160 mm, and 160 mm+ faces need 161 mm or bespoke up to 162 mm.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face measures 150 mm or more temple-to-temple, and it needs glasses with a total front width of 155 mm or more.</strong> Most frames sold as "wide" or "oversized" stop at 138–148 mm, which is why they still pinch after an hour. Buy to front width, not to lens size or style: 150–154 mm faces fit a 152–156 mm front, 155–159 mm faces need 157–160 mm, and 160 mm+ faces need 161 mm or bespoke up to 162 mm.</p>
 
 <p>The short version if you are here from a search for wide-face frames or <a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">glasses for big heads</a>: measure your temple-to-temple width with a ruler or your phone, add 2–5 mm, and shop only frames that publish a total front width in that range. Woolet 007 (round) and 009 (soft square) both run a 158 mm front with a 21–22 mm keyhole bridge — see the <a href="/en/collections/wide-face-glasses" style="color:#A07A2A;">wide-face collection</a> or jump to the <a href="#size-chart" style="color:#A07A2A;">size chart below</a>.</p>
 
@@ -2042,7 +2042,7 @@ const blogPostsEN = [
 <p>Almost every sizing mistake in eyewear comes from shopping by the wrong number. The three digits printed inside the temple — 52▫16 145 — are lens width, bridge and temple length. None of them is the total front width, and total front width is the only measurement that decides whether a frame fits a wide face. A 58 mm lens on a narrow bridge can still produce a 142 mm front.</p>
 
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;">
-  <thead><tr style="background:#F8F6F1;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Your face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Front width to buy</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Where to buy it</th></tr></thead>
+  <thead><tr style="background:#F8F6F1;color:#1F1B16;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Your face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Front width to buy</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Where to buy it</th></tr></thead>
   <tbody>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Any mainstream retailer. Nothing here applies to you.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Extended-fit lines, or Woolet bespoke from 145 mm. Signature 158 mm is too wide.</td></tr>
@@ -2058,7 +2058,7 @@ const blogPostsEN = [
 <p>Here is the market for glasses frames for wide faces, measured rather than described. Widest front width is as listed by each brand on its own widest model; where a brand publishes lens and bridge only, the front width is the sum of lens, bridge and rim allowance.</p>
 
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;">
-  <thead><tr style="background:#F8F6F1;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Brand</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Widest front</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Material</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Prescription</th></tr></thead>
+  <thead><tr style="background:#F8F6F1;color:#1F1B16;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Brand</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Widest front</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Material</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Prescription</th></tr></thead>
   <tbody>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Zenni Extended Fit</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">~145 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">TR90, mixed plastic</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Yes</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Warby Parker Wide</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">~145 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Cellulose acetate</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Yes</td></tr>
@@ -2098,7 +2098,7 @@ const blogPostsEN = [
 <p>It shouldn't. And the rest of this guide is here to fix that.</p>
 
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Definition</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A wide face in eyewear terms means a face width above 145 mm measured temple-to-temple. Standard eyewear frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Woolet frames start at 158 mm — built for the faces that standard sizing cannot accommodate.</p>
 </div>
@@ -2408,7 +2408,7 @@ const blogPostsEN = [
 <h2>Frequently asked questions</h2>
 
 <h3>What face width do I need for Woolet glasses?</h3>
-<p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 162 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
+<p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 145 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
 
 <h3>Do Woolet frames work with progressive lenses?</h3>
 <p>Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require.</p>
@@ -2425,9 +2425,9 @@ const blogPostsEN = [
 <h3>Is Woolet the same as the Woolet smart wallet?</h3>
 <p>No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company.</p>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What face width do I need for Woolet glasses?","acceptedAnswer":{"@type":"Answer","text":"Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 162 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones."}},{"@type":"Question","name":"Do Woolet frames work with progressive lenses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require."}},{"@type":"Question","name":"Why don't standard glasses fit wide faces?","acceptedAnswer":{"@type":"Answer","text":"Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement."}},{"@type":"Question","name":"How is Woolet different from Zenni Extended Fit or Warby Parker Wide?","acceptedAnswer":{"@type":"Answer","text":"Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate Hand made in EU. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement."}},{"@type":"Question","name":"What is Mazzucchelli acetate and why does it matter for wide-face eyewear?","acceptedAnswer":{"@type":"Answer","text":"Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm."}},{"@type":"Question","name":"Is Woolet the same as the Woolet smart wallet?","acceptedAnswer":{"@type":"Answer","text":"No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company."}}]}<\/script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What face width do I need for Woolet glasses?","acceptedAnswer":{"@type":"Answer","text":"Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 145 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones."}},{"@type":"Question","name":"Do Woolet frames work with progressive lenses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require."}},{"@type":"Question","name":"Why don't standard glasses fit wide faces?","acceptedAnswer":{"@type":"Answer","text":"Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement."}},{"@type":"Question","name":"How is Woolet different from Zenni Extended Fit or Warby Parker Wide?","acceptedAnswer":{"@type":"Answer","text":"Zenni Extended Fit starts at 138 mm and Warby Parker Wide tops out around 140 mm. Woolet starts where they stop: 158 mm, built from Mazzucchelli acetate Hand made in EU. Woolet is not a size filter within a broad catalog — it is a brand built exclusively for one precise measurement."}},{"@type":"Question","name":"What is Mazzucchelli acetate and why does it matter for wide-face eyewear?","acceptedAnswer":{"@type":"Answer","text":"Mazzucchelli is Italy's premium acetate manufacturer, used by brands including Oliver Peoples and Persol. Acetate holds its shape at larger widths without warping or losing tension at the temples — critical for frames at 158 mm."}},{"@type":"Question","name":"Is Woolet the same as the Woolet smart wallet?","acceptedAnswer":{"@type":"Answer","text":"No. Woolet eyewear is a separate brand making premium Italian acetate glasses for wide faces. The Woolet smart wallet was a discontinued Bluetooth wallet product from an unrelated company."}}]}<\/script>
 
-<div style="background:#F8F6F1;border:1px solid #E8E4DC;border-radius:8px;padding:28px;margin:40px 0 12px;display:flex;gap:20px;align-items:flex-start;font-family:'Barlow',sans-serif;">
+<div style="background:#F8F6F1;color:#1F1B16;border:1px solid #E8E4DC;border-radius:8px;padding:28px;margin:40px 0 12px;display:flex;gap:20px;align-items:flex-start;font-family:'Barlow',sans-serif;">
   <div style="flex-shrink:0;width:56px;height:56px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;letter-spacing:0.5px;">MC</div>
   <div style="flex:1;min-width:0;">
     <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:#0f0f0f;line-height:1.2;">Marek Cieśla</div>
@@ -2458,7 +2458,7 @@ const blogPostsEN = [
     faq: [
       { q: "What counts as a wide nose bridge in glasses?", a: "Bridge widths under 17 mm are narrow, 17–20 mm is the mainstream range, and 21 mm and above is wide. Most brands top out at 18 mm. Anyone with a wider or higher nose typically needs 21 mm or more for the frame to sit on the bone instead of pinching cartilage." },
       { q: "What does the bridge measurement actually mean?", a: "It's the distance in millimeters between the two lenses, measured at the narrowest point of the bridge. It's the second number on the inside of the temple — e.g. 52□18 means a 52 mm lens and an 18 mm bridge. Bridge width determines where the frame sits on the nose and how evenly weight is distributed." },
-      { q: "What's the widest standard bridge Woolet makes?", a: "21 mm on the round Woolet 007 and 22 mm on the soft-square Woolet 009. Bespoke covers 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 162 mm." },
+      { q: "What's the widest standard bridge Woolet makes?", a: "21 mm on the round Woolet 007 and 22 mm on the soft-square Woolet 009. Bespoke covers 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 172 mm." },
       { q: "Are glasses for big noses the same as wide nose bridge glasses?", a: "Almost always, yes. A big nose usually means a wider bridge, a higher bridge, or both — and the fit fix is the same: more bridge width and a keyhole shape so the frame rests on the top ridge instead of pressing the sides." },
       { q: "Will a 21–22 mm bridge fit a higher nose too?", a: "Yes. The keyhole geometry lifts the frame off the sides of the nose, which solves the height problem as well as the width problem. A bespoke 23–26 mm bridge with extra crest height is the next step up for the largest noses." },
       { q: "How do I measure my own bridge width at home?", a: "Pinch a credit card flat across the top of your nose where glasses normally sit, mark the contact width with a pen, then measure it with a ruler in millimeters. Add 1–2 mm for breathing room. The AI Fit Wizard does this from a single photo." },
@@ -2533,7 +2533,7 @@ const blogPostsEN = [
 <li><strong><a href="/en/products/009">Woolet 009</a></strong> — soft square, 22 mm keyhole bridge. Slightly more architectural, slightly wider bridge. For broader noses or anyone who prefers a squared silhouette.</li>
 </ul>
 
-<p>Bespoke covers any bridge from 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 162 mm.</p>
+<p>Bespoke covers any bridge from 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 172 mm.</p>
 
 <h2>How to know before you buy</h2>
 
@@ -2613,10 +2613,10 @@ const blogPostsEN = [
       ]
     },
     content: `
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 24px;border-radius:4px;"><strong>To measure your face width, hold a ruler flat and level across the widest part of your head at eye level — just in front of the ears — and read temple to temple in millimetres.</strong> That single number, not lens size, decides which frames fit. Under 145 mm is average; 155 mm and above needs a wide-face frame.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 24px;border-radius:4px;"><strong>To measure your face width, hold a ruler flat and level across the widest part of your head at eye level — just in front of the ears — and read temple to temple in millimetres.</strong> That single number, not lens size, decides which frames fit. Under 145 mm is average; 155 mm and above needs a wide-face frame.</p>
 
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:0 0 28px;">
-  <thead><tr style="background:#F8F6F1;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Frame front width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Size band</th></tr></thead>
+  <thead><tr style="background:#F8F6F1;color:#1F1B16;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Frame front width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Size band</th></tr></thead>
   <tbody>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Standard</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Large / extended fit</td></tr>
@@ -3235,7 +3235,7 @@ const blogPostsEN = [
 
 <p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm) — Italian acetate frames designed for 155mm+ faces. Join the waitlist at woolet.co.</em></p>
 
-<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Shape is taste; width is arithmetic. Before you choose between round and soft-square, <a href="/en/fit" style="color:#A07A2A;"><strong>measure your face with FitLens</strong></a> — 20 seconds on your phone camera, and you will know whether 158 mm is your number.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Shape is taste; width is arithmetic. Before you choose between round and soft-square, <a href="/en/fit" style="color:#A07A2A;"><strong>measure your face with FitLens</strong></a> — 20 seconds on your phone camera, and you will know whether 158 mm is your number.</p>
 
 `
   },
@@ -3360,7 +3360,7 @@ const blogPostsEN = [
 
 <p><em>Woolet makes premium Italian acetate eyewear engineered for professionals with 155mm+ face widths. Two models: 007 (round, 158mm) and 009 (square, 158mm). Join the waitlist at woolet.co.</em></p>
 
-<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Not sure where you land? <a href="/en/fit" style="color:#A07A2A;"><strong>Get your number in 20 seconds</strong></a> with FitLens — your phone camera, a credit card for scale, and a face width in millimetres.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Not sure where you land? <a href="/en/fit" style="color:#A07A2A;"><strong>Get your number in 20 seconds</strong></a> with FitLens — your phone camera, a credit card for scale, and a face width in millimetres.</p>
 
 `
   },
@@ -3523,7 +3523,7 @@ const blogPostsEN = [
 
 <ul>
 <li><strong>Premium daily-wear prescription frame at 155–161 mm:</strong> Woolet stock — 158 mm front, Mazzucchelli acetate from Milan, hand made in the EU, lens-less shipping to your optician.</li>
-<li><strong>A width outside 155–161 mm:</strong> Woolet bespoke, any width from 145 to 162 mm, 4 shapes and 60 colour and size combinations.</li>
+<li><strong>A width outside 155–161 mm:</strong> Woolet bespoke, any width from 145 to 172 mm, 4 shapes and 60 colour and size combinations.</li>
 <li><strong>Casual sunglasses under $155:</strong> Faded Days.</li>
 <li><strong>Prescription at the lowest price:</strong> SizeGlasses or BXL TR-90, accepting the material trade-off.</li>
 <li><strong>Traditional bespoke with an in-person fitter:</strong> Tom Davies.</li>
@@ -3576,7 +3576,7 @@ const blogPostsEN = [
 
 <p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm). Italian acetate. Engineered for 155mm+ faces. Join the waitlist at woolet.co for priority access and 15% off at launch.</em></p>
 
-<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Every recommendation above depends on one number you probably do not have yet. <a href="/en/fit" style="color:#A07A2A;"><strong>Scan your face with your phone</strong></a> — FitLens returns your temple-to-temple width and the front width that fits it.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Every recommendation above depends on one number you probably do not have yet. <a href="/en/fit" style="color:#A07A2A;"><strong>Scan your face with your phone</strong></a> — FitLens returns your temple-to-temple width and the front width that fits it.</p>
 
 `
   },
@@ -3610,7 +3610,7 @@ const blogPostsEN = [
 
 <h2>How Woolet sizes apply to an oval face</h2>
 
-<p>Woolet ships each shape in one precise size — 158 mm front width with a 21–22 mm keyhole bridge — and a bespoke tier from 145 to 162 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the <a href="/en/fit">AI Fit Wizard</a> or the <a href="/en/fit/manual">credit-card method</a> to confirm 158 mm is right for you, then choose between shapes on aesthetic preference.</p>
+<p>Woolet ships each shape in one precise size — 158 mm front width with a 21–22 mm keyhole bridge — and a bespoke tier from 145 to 172 mm. For an oval face, the size question reduces to a single measurement (temple to temple) without any shape compensation. Run the <a href="/en/fit">AI Fit Wizard</a> or the <a href="/en/fit/manual">credit-card method</a> to confirm 158 mm is right for you, then choose between shapes on aesthetic preference.</p>
 
 <h3>Woolet 007 round / panto</h3>
 
@@ -3717,7 +3717,7 @@ const blogPostsEN = [
 
 <p><a href="/en/collections/oversized-blue-light-glasses">Oversized blue-light glasses (158 mm)</a> | <a href="/en/collections/blue-light-glasses-for-wide-faces">Blue-light glasses for wide faces</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 
-<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 20 seconds, no app.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 20 seconds, no app.</p>
 
 `
   },
@@ -3784,7 +3784,7 @@ const blogPostsEN = [
   <li><strong>UV400 as a baseline, polarized as an option.</strong></li>
 </ol>
 
-<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 20 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 162 mm.</p>
+<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 20 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 172 mm.</p>
 
 <h2>Polarized or not?</h2>
 
@@ -3814,7 +3814,7 @@ const blogPostsEN = [
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 
-<p style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Before you buy any pair on this list, <a href="/en/fit" style="color:#A07A2A;"><strong>get your number in 20 seconds</strong></a>. FitLens measures your face width from your phone camera and tells you whether 158 mm fits.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Before you buy any pair on this list, <a href="/en/fit" style="color:#A07A2A;"><strong>get your number in 20 seconds</strong></a>. FitLens measures your face width from your phone camera and tells you whether 158 mm fits.</p>
 
 `
   },
@@ -3885,7 +3885,7 @@ const blogPostsEN = [
 <ul>
 <li><strong>Face width 150–154 mm — medium-wide.</strong> A standard-large sunglass at 148–152 mm front width will work. Most mainstream "wide fit" lines (Ray-Ban Justin XL, Warby Parker Wide) hit this range.</li>
 <li><strong>Face width 155–161 mm — wide.</strong> Standard mainstream sunglasses won't fit. You need a specialist wide-face brand. Woolet's 007 and 009 ship at 158 mm with a 21–22 mm bridge and 150 mm temples, designed exactly for this range.</li>
-<li><strong>Face width 161–162 mm — extra wide.</strong> Off-the-shelf options are very limited. Bespoke is usually the only honest answer. Woolet's bespoke tier covers 145 to 162 mm of front width in either shape.</li>
+<li><strong>Face width 161–162 mm — extra wide.</strong> Off-the-shelf options are very limited. Bespoke is usually the only honest answer. Woolet's bespoke tier covers 145 to 172 mm of front width in either shape.</li>
 <li><strong>Face width 162 mm+ — XXL.</strong> Custom only. Most bespoke programs stop at 162 mm.</li>
 </ul>
 
@@ -3918,9 +3918,9 @@ const blogPostsEN = [
 `
   },
   {
-    slug: "bespoke-eyewear-size-range-150-172mm-guide",
+    slug: "bespoke-eyewear-size-range-145-172mm-guide",
     title: "Bespoke Eyewear 145–172 mm — The Complete Size Guide (2026)",
-    excerpt: "Why bespoke exists between 150 and 162 mm, how the sizing actually works, and how to know whether a stock 155–161 mm Woolet or a made-to-measure frame is the right call.",
+    excerpt: "Why bespoke exists between 145 and 172 mm, how the sizing actually works, and how to know whether a stock 155–161 mm Woolet or a made-to-measure frame is the right call.",
     date: "2026-06-16",
     readTime: 12,
     tags: ["Bespoke", "Sizing", "Wide Face", "2026"],
@@ -3951,7 +3951,7 @@ const blogPostsEN = [
 
 <p>This guide explains where bespoke actually starts (it's not at 155 mm), why the 145–172 mm range exists, and how to know whether a stock Woolet 155–161 mm frame will work for you — or whether you need a made-to-measure pair.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">In one line</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces stock catalogs can't fit — below 150 mm, above 161 mm, or with a bridge outside the 21–22 mm keyhole standard. Woolet bespoke covers 145–172 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
 </div>
@@ -3979,17 +3979,17 @@ const blogPostsEN = [
 </tr>
 </thead>
 <tbody>
-<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>150–154 mm</strong></td><td style="padding:14px 16px;">16–20 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
-<tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">21 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 (S)</td><td style="padding:14px 16px;color:#555;">Round/panto, narrow stock size</td></tr>
+<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>145–154 mm</strong></td><td style="padding:14px 16px;">16–20 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">21 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 (S)</td><td style="padding:14px 16px;color:#555;">Round/panto, narrow stock size</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>158 mm</strong></td><td style="padding:14px 16px;">21–22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 / 009 (M)</td><td style="padding:14px 16px;color:#555;">Core size, covers most 155 mm+ buyers</td></tr>
-<tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 009 (L)</td><td style="padding:14px 16px;color:#555;">Square, top of stock range</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 009 (L)</td><td style="padding:14px 16px;color:#555;">Square, top of stock range</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>162–166 mm</strong></td><td style="padding:14px 16px;">22–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Above stock ceiling</td></tr>
-<tr style="background:#F8F6F1;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>167–162 mm</strong></td><td style="padding:14px 16px;">23–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>167–172 mm</strong></td><td style="padding:14px 16px;">23–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>The pattern is clean: <strong>three stock sizes</strong> (158 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 150–154 mm gap below and the 162–162 mm range above.</p>
+<p>The pattern is clean: <strong>three stock sizes</strong> (158 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 145–154 mm gap below and the 162–172 mm range above.</p>
 
 <h2>What "bespoke" actually controls (and what it doesn't)</h2>
 
@@ -4058,7 +4058,7 @@ const blogPostsEN = [
 
 <h2>Next steps</h2>
 
-<p>Start with the <a href="/en/fit">AI Fit Scan</a> — it tells you in 90 seconds whether you're in stock territory (155–161 mm) or bespoke (150–154 mm or 162–162 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">reserve a $299 spot</a>.</p>
+<p>Start with the <a href="/en/fit">AI Fit Scan</a> — it tells you in 90 seconds whether you're in stock territory (155–161 mm) or bespoke (145–154 mm or 162–172 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">reserve a $299 spot</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -4147,7 +4147,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — line-by-line price breakdown.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — what your $299 actually buys.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — where the difference is real.</li>
@@ -4238,7 +4238,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses: the complete guide</a> — stock-frame options first.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — get the input right before ordering.</li>
 <li><a href="/en/blog/glasses-for-wide-nose-bridge-21-22mm-explained">Wide nose-bridge glasses (21–22 mm)</a> — the second axis after face width.</li>
@@ -4356,7 +4356,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — definitions and who actually needs it.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — where the cost comes from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — which premium is worth paying.</li>
@@ -4438,7 +4438,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — the material the atelier starts from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — what handwork actually changes.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — how bespoke fits into the wider market.</li>
@@ -4540,7 +4540,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — step-by-step inside the atelier.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — why the material matters before the method.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — the price of handwork, line by line.</li>
@@ -4609,7 +4609,7 @@ const blogPostsEN = [
 <li><strong>Face width 130–145 mm:</strong> most mainstream frames fit. Front width 130–145 mm.</li>
 <li><strong>Face width 145–155 mm:</strong> look for "wide fit" lines. Front width 145–155 mm.</li>
 <li><strong>Face width 155–161 mm:</strong> specialist wide-face brands only. Front width 155–161 mm. Woolet 007 and 009 are designed exactly here at 158 mm.</li>
-<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–162 mm. Woolet bespoke covers this range at $299.</li>
+<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–172 mm. Woolet bespoke covers this range at $299.</li>
 </ul>
 
 <p>The most precise way to measure is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds with your phone and a credit card, accurate to within 2 mm.</p>
@@ -4632,7 +4632,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — what to do if stock won't fit.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — what to do if stock won't fit.</li>
 <li><a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> — the industry sizing gap.</li>
 <li><a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head?</a> — the size grid you actually need.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — diagnose it yourself in 60 seconds.</li>
@@ -4700,7 +4700,7 @@ const blogPostsEN = [
 <h3>Bracket 4 — Face width 162+ mm: "Bespoke territory"</h3>
 <p>Above 161 mm, stock production effectively stops. Faded Days reaches 165 mm in a few SKUs; nothing else mainstream goes there. Bespoke is the answer. Look for:</p>
 <ul>
-<li>Front width: 162–162 mm (or whatever your face requires + 0–3 mm)</li>
+<li>Front width: 162–172 mm (or whatever your face requires + 0–3 mm)</li>
 <li>Bridge: 20–24 mm</li>
 <li>Temples: 150–158 mm</li>
 </ul>
@@ -4731,7 +4731,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — curated wide-fit picks.</li>
 <li><a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> — diagnose it before reordering.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — every brand selling a 150 mm+ front width, compared.</li>
@@ -4906,7 +4906,7 @@ const blogPostsEN = [
 
 <h2>If you're between sizes</h2>
 
-<p>If your face is 150–154 mm or 162–162 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
+<p>If your face is 145–154 mm or 162–172 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
 
 <h2>Quick FAQ</h2>
 
@@ -4953,7 +4953,7 @@ const blogPostsEN = [
 
 <p>This guide is for women who already know the routine: pulling frame after frame off the wall, watching the arms bow before they ever reach the ears, being told to try "a different shape" when the issue was never the shape. The answer is a number, not a style.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Definition</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A wide face in eyewear terms means a face width above 140 mm measured temple-to-temple. The average adult woman's face measures roughly 134 mm wide; standard women's frames are built for 128–138 mm. Above 145 mm, mainstream women's eyewear stops fitting.</p>
 </div>
@@ -5109,7 +5109,7 @@ const blogPostsEN = [
 
 <p>This is the part most retailers skip. If a shop cannot tell you the hinge-to-hinge measurement of a frame, they cannot tell you whether it fits.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <p style="margin:0;font-size:15px;line-height:1.6;color:#1a1a1a;">Not sure about your measurements? Our <a href="/en/fit" style="color:#A07A2A;font-weight:600;">Fit Wizard</a> tells you in 60 seconds — one front-facing photo, no tape measure required.</p>
 </div>
 
@@ -5290,7 +5290,7 @@ const blogPostsEN = [
 
 <p>This guide fixes that in about a minute. No specialist tools, no visit to a hatter, no returning three sizes in a row. Just a string, a ruler, and the chart below.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The one number that matters</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Your <strong>head circumference</strong> — measured in centimetres around the widest part of your skull, roughly 2.5&nbsp;cm above your eyebrows and ears. Every hat size in every country converts directly from this single number. Get it right once and you never guess a size again.</p>
 </div>
@@ -5320,7 +5320,7 @@ const blogPostsEN = [
 <div style="overflow-x:auto;margin:24px 0;">
 <table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
   <thead>
-    <tr style="background:#F8F6F1;">
+    <tr style="background:#F8F6F1;color:#1F1B16;">
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Head (cm)</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Head (in)</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">US</th>
@@ -5470,7 +5470,7 @@ More on fit for bigger heads and wider faces:
 
 <p>One more thing the chart will tell you, if you know where to look: your hat size is the single best off-the-shelf predictor of whether glasses will fit you. The two measurements sit on the same ring of your skull. <a href="#your-hat-size-predicts-your-glasses-size" style="color:#c9a84c;">Skip to the hat size → glasses size conversion ↓</a></p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule that fixes 90% of confusion</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Every hat size in the world is derived from one number: your <strong>head circumference in centimetres</strong>. US, UK and EU sizes are just three different ways of labelling the same measurement. Get the cm right and the rest is arithmetic.</p>
 </div>
@@ -5482,7 +5482,7 @@ More on fit for bigger heads and wider faces:
 <div style="overflow-x:auto;margin:24px 0;">
 <table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;min-width:640px;">
   <thead>
-    <tr style="background:#F8F6F1;">
+    <tr style="background:#F8F6F1;color:#1F1B16;">
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Head (cm)</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Head (in)</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">US</th>
@@ -5517,12 +5517,12 @@ More on fit for bigger heads and wider faces:
 
 <p>Hat size is a circumference. Glasses size is a breadth. They are not the same measurement — but they are measured on the same ring of your skull, roughly a centimetre above your ears, and they move together. In the ANSUR II anthropometric survey (n = 4,082 men) the two correlate at <strong>r = 0.55</strong>, tight enough that your hat size narrows your frame width to a 4&nbsp;mm window before you try anything on.</p>
 
-<p style="background:#F8F6F1;padding:14px 18px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:15px;">The arithmetic, if you want it: <strong>temple width (mm) ≈ 1.91 × head circumference (cm) + 44.7</strong></p>
+<p style="background:#F8F6F1;color:#1F1B16;padding:14px 18px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:15px;">The arithmetic, if you want it: <strong>temple width (mm) ≈ 1.91 × head circumference (cm) + 44.7</strong></p>
 
 <div style="overflow-x:auto;margin:24px 0;">
 <table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;min-width:640px;">
   <thead>
-    <tr style="background:#F8F6F1;">
+    <tr style="background:#F8F6F1;color:#1F1B16;">
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Hat size (US)</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Head (cm)</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Your temple width</th>
@@ -5542,7 +5542,7 @@ More on fit for bigger heads and wider faces:
 
 <p style="font-size:13px;color:#666;margin-top:-8px;"><em>Frame front width = total width of the frame, hinge to hinge — not lens width. It is the number that decides whether the arms run straight back or splay. Most mainstream brands top out around 148&nbsp;mm; a handful of “XL” lines reach 152&nbsp;mm.</em></p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Where Woolet sits on this table</div>
   <p style="margin:0 0 10px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">We build one front width: <strong>158&nbsp;mm</strong>. That is deliberate — it covers the 58–61&nbsp;cm band (US 7¼ to 7⅝) properly rather than covering everything badly.</p>
   <p style="margin:0 0 10px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat is 7 or smaller, you do not need us. A mainstream frame labelled “wide” or “XL” will fit you, and we would rather tell you that than sell you 158&nbsp;mm you will have to push back up your nose. If you are 62&nbsp;cm and above, 158&nbsp;mm is still short for you — that is what bespoke is for.</p>
@@ -5561,7 +5561,7 @@ More on fit for bigger heads and wider faces:
 
 <p>The US size is not arbitrary — it's the hat's <strong>internal diameter in inches</strong>, assuming the head is a perfect circle. To convert from any circumference:</p>
 
-<p style="background:#F8F6F1;padding:14px 18px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:15px;"><strong>US size</strong> = head circumference (in) ÷ π <em>(≈ 3.1416)</em></p>
+<p style="background:#F8F6F1;color:#1F1B16;padding:14px 18px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:15px;"><strong>US size</strong> = head circumference (in) ÷ π <em>(≈ 3.1416)</em></p>
 
 <p>A 60&nbsp;cm head is 23.62&nbsp;in ÷ 3.1416 = 7.52 → rounded to the nearest eighth = <strong>7½</strong>. That's why the chart moves in 1/8-inch increments: it mirrors the way felt hat blocks and fitted-cap moulds are actually manufactured.</p>
 
@@ -5606,7 +5606,7 @@ More on fit for bigger heads and wider faces:
 
 <p>That is the gap Woolet was built to fill: frames engineered from the front width outward, starting at 158&nbsp;mm and going up to 162&nbsp;mm bespoke — for exactly the crowd that shops for hats in XL and XXL.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">For the same crowd</div>
   <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat size is 7¼ or larger, mainstream frames are pinching your temples whether or not you have noticed. Woolet 007 and 009 ship at 158&nbsp;mm front width, in Italian Mazzucchelli acetate, hand made in EU.</p>
   <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">Glasses for big heads →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke up to 162 mm →</a></p>
@@ -5692,7 +5692,7 @@ Related guides:
 
 <p>If every "one size fits most" cap slides straight back to the crown of your skull, and every fitted-cap chart tops out one size below yours, this is the guide. No fluff, no chart you have to hunt down — just the numbers, the brands, and the honest answer to "what size hat do I wear?" when your head is on the bigger end of the bell curve.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The short version</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your head measures <strong>60&nbsp;cm or more</strong>, you wear a US 7½ or larger — and mainstream brands stop stocking your size right there. Above 62&nbsp;cm (7¾), you're in specialist territory: 4–5 brands worldwide will actually fit you off-the-shelf.</p>
 </div>
@@ -5704,7 +5704,7 @@ Related guides:
 <div style="overflow-x:auto;margin:24px 0;">
 <table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;min-width:560px;">
   <thead>
-    <tr style="background:#F8F6F1;">
+    <tr style="background:#F8F6F1;color:#1F1B16;">
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Your head</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">US size</th>
       <th style="text-align:left;padding:12px 14px;border-bottom:2px solid #0f0f0f;font-weight:600;">Letter</th>
@@ -5775,7 +5775,7 @@ Related guides:
 
 <p>That's the gap Woolet was built for: frames starting at 158&nbsp;mm front width in Italian Mazzucchelli acetate, with bespoke sizing up to 172&nbsp;mm. Same crowd, adjacent problem.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Sized out of eyewear too?</div>
   <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">Woolet 007 and 009 ship at 158&nbsp;mm — designed for exactly the group that shops for hats in XL and XXL.</p>
   <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">Glasses for big heads →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke up to 172&nbsp;mm →</a></p>
@@ -5817,7 +5817,7 @@ Related guides:
 
 <p>This guide gives you a 30-second self-test, a clear four-band classification, and — honestly — tells you when Woolet is the answer and when it isn't.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The one number that matters</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Face width = the horizontal distance between the two most outward points of your cheekbones, measured in millimetres. This is the number opticians <em>should</em> match to frame front width — but rarely publish.</p>
 </div>
@@ -5890,7 +5890,7 @@ Related guides:
 Related guides:
 <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure face width</a> ·
 <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">wide-face fit guide</a> ·
-<a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide" style="color:#A07A2A;">bespoke size range 145–172 mm</a> ·
+<a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide" style="color:#A07A2A;">bespoke size range 145–172 mm</a> ·
 <a href="/en/fit" style="color:#A07A2A;">AI Fit Wizard</a>.
 </p>
 `
@@ -5915,7 +5915,7 @@ Related guides:
 
 <p>This is not a marketing piece — TR90 has real strengths and we will name them. But if your face is 155 mm+ and you want a frame that fits <em>you</em>, not the mould it came out of, the answer is not close.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The single deciding factor</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Italian Mazzucchelli acetate can be reheated and reshaped at the bench — front curvature, temple splay, bridge angle. TR90 cannot. It is engineered to snap back to its factory shape. On a 155 mm+ face, that difference decides whether the frame sits level or forever tilts.</p>
 </div>
@@ -6001,7 +6001,7 @@ Related guides:
 <p><strong>Face 145–154 mm:</strong> acetate is worth the premium for the adjustment margin alone. TR90 will fit but never <em>settle</em>.</p>
 <p><strong>Face 155 mm+:</strong> acetate is not really optional. This is the range where post-purchase adjustment is the difference between "wearable" and "unwearable" — and where the wide-fit market only exists in acetate anyway.</p>
 
-<div style="background:#F8F6F1;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Not sure which band you're in?</div>
   <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">Run the <a href="/en/fit" style="color:#A07A2A;text-decoration:underline;">AI Fit Wizard</a> — one selfie, face width in millimetres, and a straight recommendation on which material bracket you're in.</p>
   <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 (Italian acetate, 158 mm) →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke (145–172 mm) →</a></p>
@@ -6284,7 +6284,7 @@ const competitors = [
       },
       {
         title: "Bespoke sizing up to 162 mm",
-        text: "Fatheadz stops where its size chart stops. Woolet's Bespoke tier is made to order for face widths from 145 to 162 mm — the widths the rest of the industry pretends don't exist."
+        text: "Fatheadz stops where its size chart stops. Woolet's Bespoke tier is made to order for face widths from 145 to 172 mm — the widths the rest of the industry pretends don't exist."
       },
       {
         title: "Proof of fit before you pay",
@@ -6326,7 +6326,7 @@ const competitors = [
     seoTitle: "EYESHELLS Alternative: Premium Wide-Face Glasses | Woolet",
     metaDescription: "EYESHELLS alternative for wide faces: handmade in the EU from Italian acetate frames, bespoke sizing to 172mm, 20-second fit scan and 30-day guarantee.",
     heroH1: "EYESHELLS Alternative for Wide Faces & Big Heads",
-    heroSub: "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 145 to 162 mm, and a fit scan that proves it fits before you order.",
+    heroSub: "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 145 to 172 mm, and a fit scan that proves it fits before you order.",
     verdict: "Choose EYESHELLS if you need functional extra-wide frames at factory-direct prices. Choose Woolet if your face deserves more than a budget frame — made-to-order Italian acetate with verified fit, engraving, and a 30-day fit guarantee.",
     table: {
       "Designed for": "Big heads & wide faces — factory-direct budget frames",
@@ -6451,7 +6451,7 @@ const competitors = [
     seoTitle: "Warby Parker Alternative for Wide Faces | Woolet",
     metaDescription: "The Warby Parker alternative engineered for 145–172mm faces — handmade in the EU from Italian acetate, 20-second fit scan, 30-day fit guarantee.",
     heroH1: "Warby Parker Alternative for Wide Faces & Big Heads",
-    heroSub: "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 145 to 162 mm, handmade in the EU from Italian acetate, fit verified by a 20-second scan.",
+    heroSub: "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 145 to 172 mm, handmade in the EU from Italian acetate, fit verified by a 20-second scan.",
     verdict: "Choose Warby Parker for affordable, well-styled glasses if you're near the middle of their size range. Choose Woolet if you're the person who tried their widest frame and still felt the temples flex — because scaling a standard design up is not the same as designing for a wide face.",
     table: {
       "Designed for": "Average faces, offered in up to five widths (extra narrow → extra wide) + Low Bridge Fit",
@@ -6508,7 +6508,7 @@ const competitors = [
       },
       {
         title: "Bespoke to 162 mm",
-        text: "When extra-wide isn't extra enough, Warby has nothing left to offer. Woolet's Bespoke tier is made to order for face widths from 145 to 162 mm."
+        text: "When extra-wide isn't extra enough, Warby has nothing left to offer. Woolet's Bespoke tier is made to order for face widths from 145 to 172 mm."
       },
       {
         title: "Measured fit, not try-on roulette",
@@ -6612,7 +6612,7 @@ const competitors = [
     seoTitle: "Persol Alternative for Wide Faces (145–172mm) | Woolet",
     metaDescription: "Persol craftsmanship, built for wide faces. Woolet is the Persol alternative for 145–172mm faces: Mazzucchelli 1849 acetate, Hand Finished in the EU, bespoke sizing.",
     heroH1: "Persol Alternative for Wide Faces & Big Heads",
-    heroSub: "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 162 mm wide, the range where even the most beautiful Persol starts to pinch.",
+    heroSub: "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 172 mm wide, the range where even the most beautiful Persol starts to pinch.",
     verdict: "Choose Persol if you want a heritage icon and your face fits standard proportions. Choose Woolet if you've picked up a Persol, loved everything about it, and put it back because it sat crooked or gripped your temples — Woolet exists precisely for you.",
     table: {
       "Designed for": "Average faces — heritage Italian designs since 1917",
@@ -7344,7 +7344,7 @@ const FIT_FAQ = [
   },
   {
     q: "What if the scan says I am outside the standard range?",
-    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 162 mm. Above 162 mm we do not build a frame and we will tell you that instead of selling you one."
+    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 172 mm. Above 162 mm we do not build a frame and we will tell you that instead of selling you one."
   },
   {
     q: "Can I measure without the camera?",
@@ -7470,7 +7470,7 @@ const BRIDGES = [
     intro: "21 mm is the bridge on the 007 Round in signature 158 mm. Keyhole shape — an open notch rather than a saddle — distributes weight along the sides of the nose instead of the top, which matters on a wider face where the frame is heavier. Italian Mazzucchelli acetate, hand made in the EU.",
     fitVerdict: "Yes — 21 mm is exactly the signature keyhole bridge on the 007 Round. No bespoke, no upcharge. This is the fit.",
     metaDescription: "21 mm keyhole bridge glasses: the Woolet 007 signature. Italian Mazzucchelli acetate. Signature 158 mm front · Bespoke 145–172 mm.",
-    bespokeNote: "Bespoke lets you keep the 21 mm bridge on any shape, at any front width from 145 to 162 mm.",
+    bespokeNote: "Bespoke lets you keep the 21 mm bridge on any shape, at any front width from 145 to 172 mm.",
     bestFor: "Wide noses on 155–161 mm faces — the canonical Woolet fit.",
     faq: [
       { q: "What's a keyhole bridge?", a: "An open, notched bridge shape (vs a rounded saddle bridge) that rests on the sides of the nose rather than the top. Better for wider noses because it distributes weight without pinching." },
@@ -7489,7 +7489,7 @@ const BRIDGES = [
     intro: "22 mm is the bridge on the 009 Soft Square in signature 158 mm. Slightly wider than the 007 keyhole, matched to the larger 54 × 50 mm lens area. Italian Mazzucchelli acetate, hand made in the EU.",
     fitVerdict: "Yes — 22 mm is exactly the signature bridge on the 009 Soft Square. No bespoke needed. This is the fit.",
     metaDescription: "22 mm bridge glasses: the Woolet 009 signature. Soft-square Italian acetate. Signature 158 mm front · Bespoke 145–172 mm.",
-    bespokeNote: "Bespoke lets you keep the 22 mm bridge on the 007 Round, or on any bespoke front from 145 to 162 mm.",
+    bespokeNote: "Bespoke lets you keep the 22 mm bridge on the 007 Round, or on any bespoke front from 145 to 172 mm.",
     bestFor: "Wider noses on 155–161 mm faces who want the larger soft-square lens.",
     faq: [
       { q: "Is 22 mm a very wide bridge?", a: "Yes. Standard bridges run 16–18 mm; wide bridges start at 20 mm. 22 mm is firmly in wide-bridge territory, sized for wider noses." },
@@ -7507,7 +7507,7 @@ const BRIDGES = [
     intro: "24 mm bridges are for the widest noses that come with 160+ mm faces. This isn't a stock size; we build it in bespoke on either shape, matched to a signature or bespoke front width. Same Italian Mazzucchelli acetate as the standard line.",
     fitVerdict: "Bespoke only. Signature caps at 22 mm; 24 mm is 2 mm above that. If you measure at 24 mm, mainstream eyewear won't fit at all — bespoke is the answer.",
     metaDescription: "24 mm bridge glasses: bespoke wide-bridge in Italian Mazzucchelli acetate. Hand made in EU. Signature 158 mm · Bespoke 145–172 mm front.",
-    bespokeNote: "24 mm is the widest bridge we build. Pairs with any front width from 145 to 162 mm, in either the round or soft-square shape.",
+    bespokeNote: "24 mm is the widest bridge we build. Pairs with any front width from 145 to 172 mm, in either the round or soft-square shape.",
     bestFor: "Widest noses on 158–162 mm faces — bespoke-only territory.",
     faq: [
       { q: "How wide is a 24 mm bridge?", a: "Very wide. Standard is 16–18 mm; wide is 20–22 mm; 24 mm is specialist wide-bridge sizing, typically only available bespoke." },
@@ -7581,7 +7581,7 @@ const TEMPLES = [
     faq: [
       { q: "Why 150 mm and not 145 mm?", a: "150 mm matches a 158 mm front on a wider head. Shorter temples on a wider front push the tip in front of the ear; longer temples overshoot." },
       { q: "What's the tip bend angle on the signature 150 mm temple?", a: "11°. Enough to hook the ear on a wider head without the tip poking straight back." },
-      { q: "Can I get 150 mm temples on a bespoke front width?", a: "Yes. Bespoke lets you keep 150 mm temples on any front from 145 to 162 mm." },
+      { q: "Can I get 150 mm temples on a bespoke front width?", a: "Yes. Bespoke lets you keep 150 mm temples on any front from 145 to 172 mm." },
       { q: "How does 150 mm compare to Ray-Ban temples?", a: "Ray-Ban runs 140–150 mm across their line; 145 mm is typical. 150 mm is at the top of standard eyewear and specifically matched to a 158 mm front." }
     ]
   },
@@ -7958,7 +7958,7 @@ const plPages = {
     slug: "okulary-na-zamowienie",
     eyebrow: "Woolet · Okulary na zamówienie",
     h1: "Okulary na zamówienie — szyte na twoją twarz, co do milimetra",
-    sub: "Szerokość frontu od 145 do 162 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
+    sub: "Szerokość frontu od 145 do 172 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
     metaTitle: "Okulary na zamówienie 145–172 mm | Woolet — włoski octan",
     metaDescription: "Okulary na zamówienie dla szerszych twarzy: front 145–172 mm, mostek 20–24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
     primaryKeyword: "okulary na zamówienie",
@@ -8018,7 +8018,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
   problemH2: "Dlaczego okulary zsuwają się z nosa albo uciskają skronie",
   problemBody: 'Większość osób dobiera okulary „na oko" — i dlatego oprawki uciskają skronie, zsuwają się z nosa albo wyglądają na za małe. 90% opraw w salonach ma szerokość frontu 135–148 mm, projektowaną pod przeciętną twarz. Jeśli twoja szerokość między skrońmi przekracza 150 mm, standardowa oprawa dosłownie „siedzi na skroniach" — zostawia ślady, spycha nos i po godzinie boli.',
   proofH2: "Rozmiar w milimetrach jest ważniejszy niż kształt twarzy",
-  proofBody: "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 145 do 162 mm co 1 mm.",
+  proofBody: "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 145 do 172 mm co 1 mm.",
   proofBullets: [
     { label: "Poniżej 145 mm", value: "Standardowe oprawki z salonów" },
     { label: "145 – 154 mm", value: "Bespoke Woolet (150–154 mm)" },

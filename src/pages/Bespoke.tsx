@@ -15,6 +15,7 @@ import craft7 from "@/assets/bespoke-craft/woolet-bespoke-jigsaw-cutting-acetate
 import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-bridge.jpg.asset.json";
 import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
 import { BESPOKE_PRICE, PRICE_CURRENCY, PRICE_VALID_UNTIL, RETURN_POLICY, shippingDetails } from "@/seo/commerce-schema";
+import { BESPOKE_FRONT_WIDTH_RANGE, BESPOKE_BRIDGE_RANGE } from "@/lib/bespoke-spec";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
 type AtelierCopy = {
@@ -181,7 +182,7 @@ const FAQS = [
   },
   {
     q: "What are bespoke glasses?",
-    a: "Bespoke glasses are eyewear made specifically for one person's face — frame width, bridge, temple length, and lens shape are all set from the wearer's measurements rather than chosen from a fixed size range. Woolet bespoke covers face widths from 145 mm to 162 mm, with a 21 mm keyhole bridge, hand-crafted in the EU from Italian Mazzucchelli acetate.",
+    a: "Bespoke glasses are eyewear made specifically for one person's face — frame width, bridge, temple length, and lens shape are all set from the wearer's measurements rather than chosen from a fixed size range. Woolet bespoke covers face widths from 145 mm to 172 mm, with a 21 mm keyhole bridge, hand-crafted in the EU from Italian Mazzucchelli acetate.",
   },
   {
     q: "Do bespoke glasses work for wide faces?",
@@ -316,9 +317,9 @@ const BespokePage = () => {
   return (
     <>
       <SEO
-        title="Bespoke Glasses for Wide Faces — 145–172 mm | Woolet"
-        description="Bespoke glasses for wide faces, 145–172 mm. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers."
-        ogDescription="Bespoke glasses for wide faces, 145–172 mm. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers."
+        title={`Bespoke Glasses for Wide Faces — ${BESPOKE_FRONT_WIDTH_RANGE} | Woolet`}
+        description={`Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
+        ogDescription={`Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
         lang="en"
         path="/bespoke"
 
@@ -337,7 +338,7 @@ const BespokePage = () => {
             <div>
               <div className="woolet-eyebrow mb-5">
                 <div className="woolet-eyebrow-line" />
-                <span className="woolet-eyebrow-text">BESPOKE · 145–172 MM</span>
+                <span className="woolet-eyebrow-text">BESPOKE · {BESPOKE_FRONT_WIDTH_RANGE.toUpperCase()}</span>
               </div>
               <h1
                 className="font-display text-woolet-white leading-[0.95] mb-6"
@@ -347,7 +348,7 @@ const BespokePage = () => {
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "1.05rem" }}>
                 Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted in the EU from your AI face scan.
-                Frame widths from <span className="text-foreground">145 mm to 162 mm</span>, 20–24 mm bridge, temples to 155 mm,
+                Frame widths from <span className="text-foreground">{BESPOKE_FRONT_WIDTH_RANGE}</span>, {BESPOKE_BRIDGE_RANGE} bridge, temples to 155 mm,
                 ready for any lens — prescription, progressive, blue-light, or polarized sun.
               </p>
 

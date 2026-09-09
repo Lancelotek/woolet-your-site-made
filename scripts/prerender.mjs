@@ -105,7 +105,7 @@ const NOSCRIPT_OVERRIDES = {
 <section id="faq">
   <h2>Frequently asked questions</h2>
   <h3>What face width do I need for Woolet glasses?</h3>
-  <p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 150 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
+  <p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 145 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
   <h3>Do Woolet frames work with progressive lenses?</h3>
   <p>Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require.</p>
   <h3>Why don't standard glasses fit wide faces?</h3>
