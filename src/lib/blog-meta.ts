@@ -61,9 +61,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Office-ready eyewear for 155 mm+ faces. What to look for in wide frames that fit AND command respect — materials, silhouettes, and picks that survive Zoom.",
   },
   "best-glasses-for-big-heads-2026": {
-    metaTitle: "Glasses for Big Heads 2026 — Every 150 mm+ Brand",
+    metaTitle: "Glasses for Big & Large Heads 2026 — Extra Wide Frames",
     metaDescription:
-      "Big head glasses frames compared: every brand selling a 150 mm+ front width, by measurement, material and price — plus the 158 mm option built for the size.",
+      "Glasses for large heads compared: extra wide frames (150 mm+ front) by fit, material and price — plus the 158 mm pair built for wide faces.",
   },
   "best-glasses-for-oval-face": {
     metaTitle: "Best Glasses for an Oval (and Wide) Face — 2026",
