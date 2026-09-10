@@ -281,9 +281,19 @@ export default function BespokeMeasurements() {
                         Our optician will review your build and confirm the spec by email within one
                         business day. You can resubmit this form any time before we start cutting.
                       </p>
+                      <a
+                        href={`/en/bespoke/photo?sid=${encodeURIComponent(sid)}`}
+                        className="mt-5 inline-flex min-h-[48px] items-center justify-center bg-gold px-6 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
+                      >
+                        Add a fit photo
+                      </a>
+                      <p className="mt-3 text-cream-dim text-xs leading-relaxed">
+                        Optional. One photo with a bank card held to your cheek lets us double-check
+                        your width and show you the frames on your own face before we cut them.
+                      </p>
                       <button
                         onClick={() => setSubmitted(false)}
-                        className="mt-4 text-[11px] uppercase tracking-[0.2em] text-cream underline underline-offset-4 hover:text-gold"
+                        className="mt-4 block text-[11px] uppercase tracking-[0.2em] text-cream underline underline-offset-4 hover:text-gold"
                       >
                         Edit measurements
                       </button>
