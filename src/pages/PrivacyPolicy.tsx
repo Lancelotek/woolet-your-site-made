@@ -264,8 +264,6 @@ const PrivacyPolicy = () => {
     },
   ];
 
-  const { lang: paramLang } = useParams<{ lang: string }>();
-  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
 
   return (
     <>
