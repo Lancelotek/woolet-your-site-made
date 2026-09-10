@@ -8,10 +8,11 @@
 // Data controller: JAY23 LLC (Wyoming, USA).
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Camera, Check, CreditCard, ScanFace, ShieldCheck, Sun, Upload } from "lucide-react";
 
 import SEO from "@/components/SEO";
+import type { Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { findFrame } from "@/data/frames";
 import { useBespokeConfig } from "@/lib/bespoke-state";
@@ -28,12 +29,16 @@ import {
 const CONSENT_VERSION = "bespoke-photo-v1";
 
 // v1 consent wording. Shown verbatim, stored byte for byte with the record.
-const CONSENT_TEXT =
-  "I agree that JAY23 LLC may store the photograph I upload and use it only to " +
-  "check the fit of my made-to-measure frames, to generate a try-on preview, and " +
-  "to share it with the workshop building my frames. I understand the photograph " +
-  "is not used for marketing, is never made public, and that I can withdraw this " +
-  "consent at any time, after which the photograph is deleted.";
+// Polish version is shown on the PL route; English is the default.
+const CONSENT_TEXT: Record<string, string> = {
+  en: "I agree that JAY23 LLC (Woolet) stores this photograph and my face measurements and shares them with its manufacturing partner in Greece for the sole purpose of producing and verifying my bespoke frame. The photograph and the virtual try-on render are deleted 90 days after delivery. I can withdraw this consent at any time at support@woolet.co; withdrawal stops production of the frame.",
+  pl: "Wyrażam zgodę na przechowywanie przez JAY23 LLC (Woolet) tego zdjęcia oraz moich wymiarów twarzy i przekazanie ich partnerowi produkcyjnemu w Grecji wyłącznie w celu wykonania i weryfikacji mojej oprawki bespoke. Zdjęcie i wizualizacja przymiarki są usuwane 90 dni po dostawie. Zgodę mogę wycofać w każdej chwili pod adresem support@woolet.co; wycofanie zatrzymuje produkcję oprawki.",
+};
+
+const AGREE_LABEL: Record<string, string> = {
+  en: "I agree to the above.",
+  pl: "Wyrażam zgodę na powyższe.",
+};
 
 /** Anything beyond this gap between photo and scan pauses production. */
 const DELTA_WARN_MM = 4;
@@ -50,11 +55,14 @@ const INSTRUCTIONS = [
 ];
 
 export default function BespokePhoto() {
+  const { lang = "en" } = useParams<{ lang?: string }>();
   const [params] = useSearchParams();
   const sid = params.get("sid") ?? "";
   const { config } = useBespokeConfig();
   const frame = findFrame(config.frameId) ?? findFrame("round")!;
   const scanTempleToTempleMm = config.measurements?.templeToTemple ?? null;
+  const locale = (lang === "pl" ? "pl" : "en") as keyof typeof CONSENT_TEXT;
+  const consentText = CONSENT_TEXT[locale];
 
   const front = useMemo(
     () => frameFrontWidthMm({ scanTempleToTempleMm, configuratorWidthMm: frame.widthMm }),
@@ -261,12 +269,12 @@ export default function BespokePhoto() {
       }
 
       const { data, error: subErr } = await supabase.functions.invoke("bespoke-photo-submit", {
-        body: {
+          body: {
           sid,
           consentGiven: true,
-          consentText: CONSENT_TEXT,
+          consentText,
           consentVersion: CONSENT_VERSION,
-          locale: document.documentElement.lang || "en",
+          locale,
           photoPath: signed.uploads.photo.path,
           geometryPath: signed.uploads.geometry.path,
           vtoPath: signed.uploads.vto.path,
@@ -320,7 +328,7 @@ export default function BespokePhoto() {
 
   return (
     <>
-      <SEO title="Fit photo — Woolet Bespoke" description="Confirm the fit of your made-to-measure frames." noindex />
+      <SEO title="Fit photo — Woolet Bespoke" description="Confirm the fit of your made-to-measure frames." lang={locale as Lang} noindex />
       <main className="min-h-screen bg-[#080807] px-5 py-12 text-cream sm:px-8">
         <div className="mx-auto max-w-3xl">
           <p className={eyebrow}>Photo for the workshop · optional</p>
@@ -345,7 +353,7 @@ export default function BespokePhoto() {
                 <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden />
                 <div>
                   <h2 className="font-display text-xl font-light text-[#F8F8F6]">Your photo, your call</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-cream-dim">{CONSENT_TEXT}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-cream-dim">{consentText}</p>
                 </div>
               </div>
               <label className="mt-6 flex min-h-[48px] cursor-pointer items-start gap-3 text-sm text-cream">
@@ -355,7 +363,7 @@ export default function BespokePhoto() {
                   onChange={(e) => setConsent(e.target.checked)}
                   className="mt-1 h-5 w-5 accent-[#CAA449]"
                 />
-                <span>I agree to the above.</span>
+                <span>{AGREE_LABEL[locale]}</span>
               </label>
               <button
                 type="button"
