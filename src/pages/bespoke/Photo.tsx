@@ -114,54 +114,19 @@ export default function BespokePhoto() {
   }, [templeToTempleMm, scanTempleToTempleMm]);
 
   // ---- canvas -------------------------------------------------------------
-  /** Draws the measurement handles onto any context, at photo resolution. */
-  const drawGuides = useCallback(
-    (ctx: CanvasRenderingContext2D, width: number) => {
-      const dot = (p: Point, color: string) => {
-        const r = Math.max(6, width / 120);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.fill();
-        ctx.lineWidth = Math.max(2, r / 4);
-        ctx.strokeStyle = "rgba(0,0,0,0.55)";
-        ctx.stroke();
-      };
-      const line = (a: Point, b: Point, color: string) => {
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = color;
-        ctx.lineWidth = Math.max(2, width / 350);
-        ctx.stroke();
-      };
-      if (cardPoints.length === 2) line(cardPoints[0], cardPoints[1], "#CAA449");
-      cardPoints.forEach((p) => dot(p, "#CAA449"));
-      if (templePoints.length === 2) line(templePoints[0], templePoints[1], "#36C46A");
-      templePoints.forEach((p) => dot(p, "#36C46A"));
-    },
+  // Drawing lives in bespoke-photo-geometry so the configurator's "On your
+  // face" panel and this page can never disagree about the geometry.
+  const guides = useCallback(
+    (ctx: CanvasRenderingContext2D, width: number) => drawGuides(ctx, width, cardPoints, templePoints),
     [cardPoints, templePoints],
   );
 
-  /** Draws the keyed-out frame outline at its real width on the face. */
-  const drawOutline = useCallback(
+  const overlay = useCallback(
     (ctx: CanvasRenderingContext2D) => {
-      const overlay = frameImgRef.current;
-      if (!overlay || !mmPerPx || templePoints.length !== 2) return;
-      const widthPx = front.mm / mmPerPx;
-      const outline = keyOutOutline(overlay, widthPx, "#0B0A09");
-      const cx = (templePoints[0].x + templePoints[1].x) / 2;
-      const cy = (templePoints[0].y + templePoints[1].y) / 2;
-      const angle = Math.atan2(
-        templePoints[1].y - templePoints[0].y,
-        templePoints[1].x - templePoints[0].x,
-      );
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(angle);
-      ctx.globalAlpha = 0.95;
-      ctx.drawImage(outline, -outline.width / 2, -outline.height / 2);
-      ctx.restore();
+      const img = frameImgRef.current;
+      const anchor = outlineAnchor(templePoints);
+      if (!img || !mmPerPx || !anchor) return;
+      drawOutline(ctx, img, front.mm / mmPerPx, anchor, "#0B0A09");
     },
     [mmPerPx, templePoints, front.mm],
   );
@@ -174,9 +139,9 @@ export default function BespokePhoto() {
     canvas.width = imageEl.naturalWidth;
     canvas.height = imageEl.naturalHeight;
     ctx.drawImage(imageEl, 0, 0);
-    drawGuides(ctx, canvas.width);
-    drawOutline(ctx);
-  }, [imageEl, drawGuides, drawOutline]);
+    guides(ctx, canvas.width);
+    overlay(ctx);
+  }, [imageEl, guides, overlay]);
 
   useEffect(() => {
     draw();
