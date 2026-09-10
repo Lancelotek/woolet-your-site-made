@@ -19,10 +19,14 @@ import { useBespokeConfig } from "@/lib/bespoke-state";
 import {
   CARD_WIDTH_MM,
   MIN_CARD_PX,
+  buildExportCanvases,
+  canvasToBlob,
   distance,
+  drawGuides,
+  drawOutline,
   frameFrontWidthMm,
-  keyOutOutline,
   mmPerPxFromCard,
+  outlineAnchor,
   type Point,
 } from "@/lib/bespoke-photo-geometry";
 
@@ -190,39 +194,21 @@ export default function BespokePhoto() {
       );
       if (signErr || !signed?.uploads) throw new Error("We could not prepare the upload.");
 
-      const toBlob = (canvas: HTMLCanvasElement, type: string, quality?: number) =>
-        new Promise<Blob>((resolve, reject) =>
-          canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("encode_failed"))), type, quality),
-        );
-
       const w = imageEl.naturalWidth;
       const h = imageEl.naturalHeight;
 
-      // 1. photo.jpg — the original frame, no guides drawn on it.
-      const plain = document.createElement("canvas");
-      plain.width = w;
-      plain.height = h;
-      plain.getContext("2d")!.drawImage(imageEl, 0, 0);
-
-      // 2. geometry.png — handles only, transparent, at original resolution.
-      const geometry = document.createElement("canvas");
-      geometry.width = w;
-      geometry.height = h;
-      drawGuides(geometry.getContext("2d")!, w);
-
-      // 3. vto.png — photo + outline + handles, at original resolution.
-      const vto = document.createElement("canvas");
-      vto.width = w;
-      vto.height = h;
-      const vctx = vto.getContext("2d")!;
-      vctx.drawImage(imageEl, 0, 0);
-      drawGuides(vctx, w);
-      drawOutline(vctx);
+      const exports = buildExportCanvases({
+        image: imageEl,
+        cardPoints,
+        templePoints,
+        overlay: frameImgRef.current,
+        frameWidthPx: mmPerPx ? front.mm / mmPerPx : null,
+      });
 
       const uploads: Array<[string, Blob, string]> = [
-        ["photo", await toBlob(plain, "image/jpeg", 0.92), "image/jpeg"],
-        ["geometry", await toBlob(geometry, "image/png"), "image/png"],
-        ["vto", await toBlob(vto, "image/png"), "image/png"],
+        ["photo", await canvasToBlob(exports.photo, "image/jpeg", 0.92), "image/jpeg"],
+        ["geometry", await canvasToBlob(exports.geometry, "image/png"), "image/png"],
+        ["vto", await canvasToBlob(exports.vto, "image/png"), "image/png"],
       ];
 
       for (const [kind, blob, contentType] of uploads) {
