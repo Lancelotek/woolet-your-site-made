@@ -231,7 +231,7 @@ export const savePreviewHistory = (history: PreviewHistory): SaveResult => {
   }
 };
 
-function AiPreviewPanel({ config }: { config: BespokeConfig }) {
+export function AiPreviewPanel({ config }: { config: BespokeConfig }) {
   const { session, loading: authLoading } = useAuth();
   const isSignedIn = Boolean(session);
   const signInHref =
@@ -618,7 +618,6 @@ export function StepColor({ config, update }: StepProps) {
         </div>
       </div>
 
-      <AiPreviewPanel config={config} />
     </div>
   );
 }
@@ -1287,7 +1286,7 @@ export function StepTempleLength({ config, update }: StepProps) {
   return (
     <div className="space-y-8">
       <header>
-        <div className="cfg-eyebrow">Step 3 — Temple length</div>
+        <div className="cfg-eyebrow">Step 4 — Temple length</div>
         <h2 className="cfg-h1 mt-3">
           Choose your <em className="cfg-em">temple length</em>
         </h2>
@@ -1617,7 +1616,7 @@ export function StepReview({
   return (
     <div className="space-y-8">
       <header>
-        <div className={sectionKicker}>Step 6 — Review &amp; pay</div>
+        <div className={sectionKicker}>Step 7 — Review &amp; pay</div>
         <h2 className={sectionTitle}>Confirm your <em className="italic text-gold-light">pattern</em></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.

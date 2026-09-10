@@ -447,6 +447,29 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     console.error("[payments-webhook:bespoke] upsert failed", upsertErr);
   }
 
+  // A photo taken in the configurator before paying belongs to this order now.
+  const scanRef = UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null;
+  if (scanRef) {
+    try {
+      const db = getSupabase();
+      const { data: order } = await db
+        .from("bespoke_orders")
+        .select("id")
+        .eq("stripe_session_id", session.id)
+        .maybeSingle();
+      if (order) {
+        await db
+          .from("bespoke_order_photos")
+          .update({ order_id: order.id, status: "submitted" })
+          .eq("session_ref", scanRef)
+          .is("order_id", null)
+          .eq("status", "pre_order");
+      }
+    } catch (e) {
+      console.error("[payments-webhook:bespoke] photo attach failed", e);
+    }
+  }
+
   const templateData = {
     customerName: customerName ?? "",
     customerEmail: email,

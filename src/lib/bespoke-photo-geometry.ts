@@ -98,3 +98,114 @@ function hexToRgb(hex: string): [number, number, number] {
   const n = Number.parseInt(v.length === 3 ? v.replace(/./g, (c) => c + c) : v, 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
+
+/* ───── Shared drawing + export helpers ─────
+ * Used by both the pre-purchase configurator step ("On your face") and the
+ * post-purchase photo page, so the geometry can never drift between them.
+ */
+
+/** Draws the calibration handles at photo resolution. */
+export function drawGuides(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  cardPoints: Point[],
+  templePoints: Point[],
+) {
+  const dot = (p: Point, color: string) => {
+    const r = Math.max(6, width / 120);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.lineWidth = Math.max(2, r / 4);
+    ctx.strokeStyle = "rgba(0,0,0,0.55)";
+    ctx.stroke();
+  };
+  const line = (a: Point, b: Point, color: string) => {
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = Math.max(2, width / 350);
+    ctx.stroke();
+  };
+  if (cardPoints.length === 2) line(cardPoints[0], cardPoints[1], "#CAA449");
+  cardPoints.forEach((p) => dot(p, "#CAA449"));
+  if (templePoints.length === 2) line(templePoints[0], templePoints[1], "#36C46A");
+  templePoints.forEach((p) => dot(p, "#36C46A"));
+}
+
+/**
+ * Draws the keyed-out frame outline at its real width on the face.
+ * `widthPx` is the on-photo width of the frame front in pixels.
+ */
+export function drawOutline(
+  ctx: CanvasRenderingContext2D,
+  overlay: HTMLImageElement,
+  widthPx: number,
+  anchor: { cx: number; cy: number; angle: number },
+  ink = "#0B0A09",
+) {
+  if (!Number.isFinite(widthPx) || widthPx <= 0) return;
+  const outline = keyOutOutline(overlay, widthPx, ink);
+  ctx.save();
+  ctx.translate(anchor.cx, anchor.cy);
+  ctx.rotate(anchor.angle);
+  ctx.globalAlpha = 0.95;
+  ctx.drawImage(outline, -outline.width / 2, -outline.height / 2);
+  ctx.restore();
+}
+
+/** Anchor for the outline from two temple handles. */
+export function outlineAnchor(templePoints: Point[]) {
+  if (templePoints.length !== 2) return null;
+  const [a, b] = templePoints;
+  return {
+    cx: (a.x + b.x) / 2,
+    cy: (a.y + b.y) / 2,
+    angle: Math.atan2(b.y - a.y, b.x - a.x),
+  };
+}
+
+export const canvasToBlob = (canvas: HTMLCanvasElement, type: string, quality?: number) =>
+  new Promise<Blob>((resolve, reject) =>
+    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("encode_failed"))), type, quality),
+  );
+
+/**
+ * The three artefacts the workshop reads: the untouched photo, the handles on
+ * transparent ground, and the try-on render. All at the photo's own resolution.
+ */
+export function buildExportCanvases(args: {
+  image: HTMLImageElement;
+  cardPoints: Point[];
+  templePoints: Point[];
+  overlay: HTMLImageElement | null;
+  frameWidthPx: number | null;
+  ink?: string;
+}): { photo: HTMLCanvasElement; geometry: HTMLCanvasElement; vto: HTMLCanvasElement } {
+  const w = args.image.naturalWidth;
+  const h = args.image.naturalHeight;
+  const make = () => {
+    const c = document.createElement("canvas");
+    c.width = w;
+    c.height = h;
+    return c;
+  };
+
+  const photo = make();
+  photo.getContext("2d")!.drawImage(args.image, 0, 0);
+
+  const geometry = make();
+  drawGuides(geometry.getContext("2d")!, w, args.cardPoints, args.templePoints);
+
+  const vto = make();
+  const vctx = vto.getContext("2d")!;
+  vctx.drawImage(args.image, 0, 0);
+  drawGuides(vctx, w, args.cardPoints, args.templePoints);
+  const anchor = outlineAnchor(args.templePoints);
+  if (args.overlay && args.frameWidthPx && anchor) {
+    drawOutline(vctx, args.overlay, args.frameWidthPx, anchor, args.ink);
+  }
+  return { photo, geometry, vto };
+}

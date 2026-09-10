@@ -19,10 +19,14 @@ import { useBespokeConfig } from "@/lib/bespoke-state";
 import {
   CARD_WIDTH_MM,
   MIN_CARD_PX,
+  buildExportCanvases,
+  canvasToBlob,
   distance,
+  drawGuides,
+  drawOutline,
   frameFrontWidthMm,
-  keyOutOutline,
   mmPerPxFromCard,
+  outlineAnchor,
   type Point,
 } from "@/lib/bespoke-photo-geometry";
 
@@ -74,6 +78,23 @@ export default function BespokePhoto() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<{ deltaMm: number | null; needsReview: boolean } | null>(null);
+  // A photo may already exist — taken in the configurator before paying, and
+  // attached to this order by the payment webhook.
+  const [photoOnFile, setPhotoOnFile] = useState<{ status: string; uploaded_at: string | null } | null>(null);
+
+  useEffect(() => {
+    if (!sid) return;
+    let live = true;
+    supabase.functions
+      .invoke("bespoke-photo-upload-url", { body: { sid, probe: true } })
+      .then(({ data }) => {
+        if (live && data?.existing) setPhotoOnFile(data.existing);
+      })
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [sid]);
 
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [imageEl, setImageEl] = useState<HTMLImageElement | null>(null);
@@ -114,54 +135,19 @@ export default function BespokePhoto() {
   }, [templeToTempleMm, scanTempleToTempleMm]);
 
   // ---- canvas -------------------------------------------------------------
-  /** Draws the measurement handles onto any context, at photo resolution. */
-  const drawGuides = useCallback(
-    (ctx: CanvasRenderingContext2D, width: number) => {
-      const dot = (p: Point, color: string) => {
-        const r = Math.max(6, width / 120);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.fill();
-        ctx.lineWidth = Math.max(2, r / 4);
-        ctx.strokeStyle = "rgba(0,0,0,0.55)";
-        ctx.stroke();
-      };
-      const line = (a: Point, b: Point, color: string) => {
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = color;
-        ctx.lineWidth = Math.max(2, width / 350);
-        ctx.stroke();
-      };
-      if (cardPoints.length === 2) line(cardPoints[0], cardPoints[1], "#CAA449");
-      cardPoints.forEach((p) => dot(p, "#CAA449"));
-      if (templePoints.length === 2) line(templePoints[0], templePoints[1], "#36C46A");
-      templePoints.forEach((p) => dot(p, "#36C46A"));
-    },
+  // Drawing lives in bespoke-photo-geometry so the configurator's "On your
+  // face" panel and this page can never disagree about the geometry.
+  const guides = useCallback(
+    (ctx: CanvasRenderingContext2D, width: number) => drawGuides(ctx, width, cardPoints, templePoints),
     [cardPoints, templePoints],
   );
 
-  /** Draws the keyed-out frame outline at its real width on the face. */
-  const drawOutline = useCallback(
+  const overlay = useCallback(
     (ctx: CanvasRenderingContext2D) => {
-      const overlay = frameImgRef.current;
-      if (!overlay || !mmPerPx || templePoints.length !== 2) return;
-      const widthPx = front.mm / mmPerPx;
-      const outline = keyOutOutline(overlay, widthPx, "#0B0A09");
-      const cx = (templePoints[0].x + templePoints[1].x) / 2;
-      const cy = (templePoints[0].y + templePoints[1].y) / 2;
-      const angle = Math.atan2(
-        templePoints[1].y - templePoints[0].y,
-        templePoints[1].x - templePoints[0].x,
-      );
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(angle);
-      ctx.globalAlpha = 0.95;
-      ctx.drawImage(outline, -outline.width / 2, -outline.height / 2);
-      ctx.restore();
+      const img = frameImgRef.current;
+      const anchor = outlineAnchor(templePoints);
+      if (!img || !mmPerPx || !anchor) return;
+      drawOutline(ctx, img, front.mm / mmPerPx, anchor, "#0B0A09");
     },
     [mmPerPx, templePoints, front.mm],
   );
@@ -174,9 +160,9 @@ export default function BespokePhoto() {
     canvas.width = imageEl.naturalWidth;
     canvas.height = imageEl.naturalHeight;
     ctx.drawImage(imageEl, 0, 0);
-    drawGuides(ctx, canvas.width);
-    drawOutline(ctx);
-  }, [imageEl, drawGuides, drawOutline]);
+    guides(ctx, canvas.width);
+    overlay(ctx);
+  }, [imageEl, guides, overlay]);
 
   useEffect(() => {
     draw();
@@ -225,39 +211,21 @@ export default function BespokePhoto() {
       );
       if (signErr || !signed?.uploads) throw new Error("We could not prepare the upload.");
 
-      const toBlob = (canvas: HTMLCanvasElement, type: string, quality?: number) =>
-        new Promise<Blob>((resolve, reject) =>
-          canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("encode_failed"))), type, quality),
-        );
-
       const w = imageEl.naturalWidth;
       const h = imageEl.naturalHeight;
 
-      // 1. photo.jpg — the original frame, no guides drawn on it.
-      const plain = document.createElement("canvas");
-      plain.width = w;
-      plain.height = h;
-      plain.getContext("2d")!.drawImage(imageEl, 0, 0);
-
-      // 2. geometry.png — handles only, transparent, at original resolution.
-      const geometry = document.createElement("canvas");
-      geometry.width = w;
-      geometry.height = h;
-      drawGuides(geometry.getContext("2d")!, w);
-
-      // 3. vto.png — photo + outline + handles, at original resolution.
-      const vto = document.createElement("canvas");
-      vto.width = w;
-      vto.height = h;
-      const vctx = vto.getContext("2d")!;
-      vctx.drawImage(imageEl, 0, 0);
-      drawGuides(vctx, w);
-      drawOutline(vctx);
+      const exports = buildExportCanvases({
+        image: imageEl,
+        cardPoints,
+        templePoints,
+        overlay: frameImgRef.current,
+        frameWidthPx: mmPerPx ? front.mm / mmPerPx : null,
+      });
 
       const uploads: Array<[string, Blob, string]> = [
-        ["photo", await toBlob(plain, "image/jpeg", 0.92), "image/jpeg"],
-        ["geometry", await toBlob(geometry, "image/png"), "image/png"],
-        ["vto", await toBlob(vto, "image/png"), "image/png"],
+        ["photo", await canvasToBlob(exports.photo, "image/jpeg", 0.92), "image/jpeg"],
+        ["geometry", await canvasToBlob(exports.geometry, "image/png"), "image/png"],
+        ["vto", await canvasToBlob(exports.vto, "image/png"), "image/png"],
       ];
 
       for (const [kind, blob, contentType] of uploads) {
@@ -347,7 +315,27 @@ export default function BespokePhoto() {
             </p>
           )}
 
-          {stage === "consent" && (
+          {stage === "consent" && photoOnFile && photoOnFile.status !== "purged" && (
+            <section className={`mt-8 ${card}`}>
+              <div className="flex items-start gap-3">
+                <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#36C46A]" aria-hidden />
+                <div>
+                  <h2 className="font-display text-xl font-light text-[#F8F8F6]">
+                    Photo already on file — retake?
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-cream-dim">
+                    You saved a fit photo while designing your frame, and it is attached to this order.
+                    You only need a new one if something has changed.
+                  </p>
+                </div>
+              </div>
+              <button type="button" className={`mt-6 ${secondaryBtn}`} onClick={() => setPhotoOnFile(null)}>
+                Take a new photo
+              </button>
+            </section>
+          )}
+
+          {stage === "consent" && !photoOnFile && (
             <section className={`mt-8 ${card}`}>
               <div className="flex items-start gap-3">
                 <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden />

@@ -64,3 +64,14 @@ export function getSessionRef(options?: { fresh?: boolean }): string {
   writeConfig({ ...readConfig(), sessionRef, updatedAt: new Date().toISOString() });
   return sessionRef;
 }
+
+/**
+ * Continues an attempt started on another device (QR hand-off): adopts the
+ * reference carried in the link so both devices write to the same session.
+ */
+export function adoptSessionRef(sessionRef: string): void {
+  if (typeof window === "undefined") return;
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(sessionRef)) return;
+  if (readSessionRef() === sessionRef) return;
+  writeConfig({ ...readConfig(), sessionRef, updatedAt: new Date().toISOString() });
+}

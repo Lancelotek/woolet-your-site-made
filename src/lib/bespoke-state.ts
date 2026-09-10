@@ -30,8 +30,14 @@ export interface BespokeConfig {
   lensMaterialId: string | null;
   lensCoatingId: string | null;
   prescriptionFileName: string | null;
+  /** "On your face" panel (step 3) — calibration only; the photo itself lives
+   *  in its own localStorage key, never in the synced config. */
+  facePhotoCardPoints: { x: number; y: number }[] | null;
+  facePhotoTemplePoints: { x: number; y: number }[] | null;
+  facePhotoSavedAt: string | null;
   updatedAt: string;
 }
+
 
 export const INITIAL_CONFIG: BespokeConfig = {
   frameId: null,
@@ -60,6 +66,9 @@ export const INITIAL_CONFIG: BespokeConfig = {
   lensMaterialId: null,
   lensCoatingId: "none",
   prescriptionFileName: null,
+  facePhotoCardPoints: null,
+  facePhotoTemplePoints: null,
+  facePhotoSavedAt: null,
   updatedAt: new Date().toISOString(),
 };
 
@@ -133,7 +142,7 @@ export const formatEur = (n: number) =>
 /** Consistent add-on display: "Included" at zero, otherwise "+ $10". */
 export const formatAddOn = (n: number) => (n === 0 ? "Included" : `+ ${formatEur(n)}`);
 
-export type StepId = 1 | 2 | 3 | 4 | 5 | 6;
+export type StepId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export interface StepMeta {
   id: StepId;
@@ -143,22 +152,25 @@ export interface StepMeta {
 
 // Measurement is intentionally NOT a pre-payment step — it happens after the
 // buyer pays for their chosen pattern. See StepReview + configurator banner.
+// Step 3 (Preview) is always passable: seeing the render is optional.
 export const STEPS: StepMeta[] = [
   { id: 1, label: "Choose pattern",        shortLabel: "Pattern" },
   { id: 2, label: "Choose acetate",        shortLabel: "Acetate" },
-  { id: 3, label: "Temple length",         shortLabel: "Temples" },
-  { id: 4, label: "Engraving",             shortLabel: "Engraving" },
-  { id: 5, label: "Lenses & prescription", shortLabel: "Lenses" },
-  { id: 6, label: "Review & pay",          shortLabel: "Review" },
+  { id: 3, label: "Preview",               shortLabel: "Preview" },
+  { id: 4, label: "Temple length",         shortLabel: "Temples" },
+  { id: 5, label: "Engraving",             shortLabel: "Engraving" },
+  { id: 6, label: "Lenses & prescription", shortLabel: "Lenses" },
+  { id: 7, label: "Review & pay",          shortLabel: "Review" },
 ];
 
 export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
   switch (step) {
     case 1: return Boolean(config.frameId);
     case 2: return Boolean(config.frontColorId && config.templeColorId && config.finishId);
-    case 3: return isValidTempleLength(config.templeLengthMm);
-    case 4: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
-    case 5: return Boolean(config.lensTypeId);
-    case 6: return true;
+    case 3: return true;
+    case 4: return isValidTempleLength(config.templeLengthMm);
+    case 5: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
+    case 6: return Boolean(config.lensTypeId);
+    case 7: return true;
   }
 }
