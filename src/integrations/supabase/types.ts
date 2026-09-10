@@ -228,6 +228,8 @@ export type Database = {
           customer_email: string
           customer_name: string | null
           delivered_at: string | null
+          dossier_path: string | null
+          dossier_rev: number
           engraving_text: string | null
           environment: string
           finish_id: string | null
@@ -270,6 +272,8 @@ export type Database = {
           customer_email: string
           customer_name?: string | null
           delivered_at?: string | null
+          dossier_path?: string | null
+          dossier_rev?: number
           engraving_text?: string | null
           environment?: string
           finish_id?: string | null
@@ -312,6 +316,8 @@ export type Database = {
           customer_email?: string
           customer_name?: string | null
           delivered_at?: string | null
+          dossier_path?: string | null
+          dossier_rev?: number
           engraving_text?: string | null
           environment?: string
           finish_id?: string | null

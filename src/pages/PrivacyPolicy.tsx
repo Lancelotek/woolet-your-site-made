@@ -14,21 +14,41 @@ const BulletList = ({ items }: { items: string[] }) => (
 );
 
 const PrivacyPolicy = () => {
+  const { lang: paramLang } = useParams<{ lang: string }>();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+
+  const fitScanSection =
+    lang === "pl"
+      ? {
+          num: "00",
+          title: "Skan dopasowania i produkcja na miarę",
+          content: (
+            <>
+              <p><strong className="text-foreground font-normal">JAY23 LLC</strong> (Wyoming, USA) jest administratorem danych opisanych w tej sekcji. Dostawca narzędzia do skanowania twarzy (FitLens) oraz pracownia w Grecji, która wykonuje oprawy, działają wyłącznie jako podmioty przetwarzające, na nasze polecenie.</p>
+              <p><strong className="text-foreground font-normal">Skan.</strong> Narzędzie do pomiaru twarzy otrzymuje wyłącznie losowy numer referencyjny sesji oraz język strony. Nigdy nie otrzymuje imienia, adresu e-mail ani numeru zamówienia. Powiązanie skanu z klientem powstaje dopiero w naszych własnych systemach.</p>
+              <p><strong className="text-foreground font-normal">Zdjęcie do pracowni.</strong> Po zakupie opraw na miarę możesz dobrowolnie przesłać jedno zdjęcie twarzy z kartą płatniczą przyłożoną do policzka, która daje nam rzeczywistą skalę. Jest to opcjonalne — oprawy powstaną tak czy inaczej. Zdjęcie jest zapisywane i przetwarzane wyłącznie na naszej infrastrukturze i służy tylko do sprawdzenia szerokości twarzy względem pomiarów, wygenerowania podglądu przymiarki i przekazania pracowni. Nie jest używane w marketingu i nigdy nie jest publikowane.</p>
+              <p><strong className="text-foreground font-normal">Przechowywanie.</strong> Zdjęcia i podglądy trafiają do prywatnego magazynu, dostępnego wyłącznie przez krótkotrwałe, podpisane linki. Zapisujemy również dokładną treść zgody, jej wersję, czas, język oraz jednokierunkowy skrót adresu IP jako dowód udzielenia zgody.</p>
+              <p><strong className="text-foreground font-normal">Jak długo.</strong> Zdjęcia są usuwane najpóźniej 90 dni po dostarczeniu zamówienia. Zgodę możesz wycofać w każdej chwili — na stronie zdjęcia dla swojego zamówienia albo pisząc na <a className="underline" href="mailto:support@woolet.co">support@woolet.co</a>. Zdjęcie i podgląd są wtedy usuwane natychmiast; zachowujemy jedynie sam zapis zgody.</p>
+            </>
+          ),
+        }
+      : {
+          num: "00",
+          title: "Fit scan and bespoke production",
+          content: (
+            <>
+              <p><strong className="text-foreground font-normal">JAY23 LLC</strong> (Wyoming, USA) is the data controller for everything described in this section. Our fit-scan provider (FitLens) and the workshop in Greece that builds your frames act only as processors, on our instructions.</p>
+              <p><strong className="text-foreground font-normal">The fit scan.</strong> When you measure your face with our on-site scanning tool, the tool receives a random session reference and the language of the page — nothing else. It never receives your name, your email address or your order number. The link between a scan and a customer is made afterwards, inside our own systems.</p>
+              <p><strong className="text-foreground font-normal">The fit photo.</strong> After a made-to-measure purchase you may choose to upload one photograph of your face, held next to a bank card that gives us a true scale. This is optional and your frames are built either way. The photograph is captured, stored and rendered entirely on our own infrastructure. We use it only to check the width of your face against your measurements, to generate a try-on preview, and to share it with the workshop building your frames. It is never used for marketing and is never made public.</p>
+              <p><strong className="text-foreground font-normal">How it is stored.</strong> Photographs and try-on previews live in private storage, reachable only through short-lived signed links. We also record the exact consent wording you were shown, its version, the time, the language and a one-way hash of your IP address, as proof that consent was given.</p>
+              <p><strong className="text-foreground font-normal">The workshop.</strong> The workshop that hand-makes your frames in the EU sees only what it needs to build them: a build reference, the measurements, the fit photo and the try-on preview. It never sees your name, your email address or your delivery address.</p>
+              <p><strong className="text-foreground font-normal">How long we keep it.</strong> Fit photographs are deleted no later than 90 days after your order is delivered. You can withdraw your consent at any time — from the photo page for your order, or by writing to <a className="underline" href="mailto:support@woolet.co">support@woolet.co</a>. The photograph and the preview are then deleted immediately, and only the consent record itself is kept as proof.</p>
+            </>
+          ),
+        };
+
   const sections = [
-    {
-      num: "00",
-      title: "Fit Scanning, Fit Photos and Made-to-Measure Frames",
-      content: (
-        <>
-          <p><strong className="text-foreground font-normal">JAY23 LLC</strong> (Wyoming, USA) is the data controller for everything described in this section. Our fit-scan provider and the workshop that builds your frames act only as processors, on our instructions.</p>
-          <p><strong className="text-foreground font-normal">The fit scan.</strong> When you measure your face with our on-site scanning tool, the tool receives a random reference number and the language of the page — nothing else. It never receives your name, your email address or your order number. The link between a scan and a customer is made afterwards, inside our own systems.</p>
-          <p><strong className="text-foreground font-normal">The fit photo.</strong> After a made-to-measure purchase you may choose to upload one photograph of your face, held next to a bank card that gives us a true scale. This is optional and your frames are built either way. The photograph is captured, stored and rendered entirely on our own infrastructure. We use it only to check the width of your face against your measurements, to generate a try-on preview, and to share it with the workshop building your frames. It is never used for marketing and is never made public.</p>
-          <p><strong className="text-foreground font-normal">How it is stored.</strong> Photographs and try-on previews live in private storage. They are reachable only through short-lived links issued to your order and to the workshop. We also record the exact consent wording you were shown, its version, the time, the language and a one-way hash of your IP address, as proof that consent was given.</p>
-          <p><strong className="text-foreground font-normal">The workshop.</strong> The workshop that hand-makes your frames in the EU sees only what it needs to build them: a build reference, the measurements, the fit photo and the try-on preview. It never sees your name, your email address or your delivery address, and it reads and writes only inside our system.</p>
-          <p><strong className="text-foreground font-normal">How long we keep it.</strong> Fit photographs are deleted automatically once the retention period for your order has passed. You can withdraw your consent at any time from the photo page for your order; the photograph and the preview are then deleted immediately, and only the consent record itself is kept as proof. You can also write to us at the address in the Contact section.</p>
-        </>
-      ),
-    },
+    fitScanSection,
     {
       num: "01",
       title: "Who We Are",
@@ -244,8 +264,6 @@ const PrivacyPolicy = () => {
     },
   ];
 
-  const { lang: paramLang } = useParams<{ lang: string }>();
-  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
 
   return (
     <>
