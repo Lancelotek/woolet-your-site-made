@@ -133,17 +133,19 @@ export type Database = {
           id: string
           mapping_version: string | null
           mm_per_px: number | null
-          order_id: string
+          order_id: string | null
           photo_height_px: number | null
           photo_path: string | null
           photo_temple_to_temple_mm: number | null
           photo_width_px: number | null
           scan_temple_to_temple_mm: number | null
+          session_ref: string | null
           shape_id: string | null
           status: string
           temple_left_px: number | null
           temple_right_px: number | null
           updated_at: string
+          uploaded_at: string
           vto_path: string | null
         }
         Insert: {
@@ -162,17 +164,19 @@ export type Database = {
           id?: string
           mapping_version?: string | null
           mm_per_px?: number | null
-          order_id: string
+          order_id?: string | null
           photo_height_px?: number | null
           photo_path?: string | null
           photo_temple_to_temple_mm?: number | null
           photo_width_px?: number | null
           scan_temple_to_temple_mm?: number | null
+          session_ref?: string | null
           shape_id?: string | null
           status?: string
           temple_left_px?: number | null
           temple_right_px?: number | null
           updated_at?: string
+          uploaded_at?: string
           vto_path?: string | null
         }
         Update: {
@@ -191,17 +195,19 @@ export type Database = {
           id?: string
           mapping_version?: string | null
           mm_per_px?: number | null
-          order_id?: string
+          order_id?: string | null
           photo_height_px?: number | null
           photo_path?: string | null
           photo_temple_to_temple_mm?: number | null
           photo_width_px?: number | null
           scan_temple_to_temple_mm?: number | null
+          session_ref?: string | null
           shape_id?: string | null
           status?: string
           temple_left_px?: number | null
           temple_right_px?: number | null
           updated_at?: string
+          uploaded_at?: string
           vto_path?: string | null
         }
         Relationships: [
