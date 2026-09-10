@@ -116,6 +116,104 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_order_photos: {
+        Row: {
+          card_px: number | null
+          consent_at: string
+          consent_ip_hash: string | null
+          consent_locale: string | null
+          consent_text: string
+          consent_version: string
+          consent_withdrawn_at: string | null
+          created_at: string
+          delta_mm: number | null
+          frame_bridge_mm: number | null
+          frame_front_width_mm: number | null
+          geometry_path: string | null
+          id: string
+          mapping_version: string | null
+          mm_per_px: number | null
+          order_id: string
+          photo_height_px: number | null
+          photo_path: string | null
+          photo_temple_to_temple_mm: number | null
+          photo_width_px: number | null
+          scan_temple_to_temple_mm: number | null
+          shape_id: string | null
+          status: string
+          temple_left_px: number | null
+          temple_right_px: number | null
+          updated_at: string
+          vto_path: string | null
+        }
+        Insert: {
+          card_px?: number | null
+          consent_at: string
+          consent_ip_hash?: string | null
+          consent_locale?: string | null
+          consent_text: string
+          consent_version: string
+          consent_withdrawn_at?: string | null
+          created_at?: string
+          delta_mm?: number | null
+          frame_bridge_mm?: number | null
+          frame_front_width_mm?: number | null
+          geometry_path?: string | null
+          id?: string
+          mapping_version?: string | null
+          mm_per_px?: number | null
+          order_id: string
+          photo_height_px?: number | null
+          photo_path?: string | null
+          photo_temple_to_temple_mm?: number | null
+          photo_width_px?: number | null
+          scan_temple_to_temple_mm?: number | null
+          shape_id?: string | null
+          status?: string
+          temple_left_px?: number | null
+          temple_right_px?: number | null
+          updated_at?: string
+          vto_path?: string | null
+        }
+        Update: {
+          card_px?: number | null
+          consent_at?: string
+          consent_ip_hash?: string | null
+          consent_locale?: string | null
+          consent_text?: string
+          consent_version?: string
+          consent_withdrawn_at?: string | null
+          created_at?: string
+          delta_mm?: number | null
+          frame_bridge_mm?: number | null
+          frame_front_width_mm?: number | null
+          geometry_path?: string | null
+          id?: string
+          mapping_version?: string | null
+          mm_per_px?: number | null
+          order_id?: string
+          photo_height_px?: number | null
+          photo_path?: string | null
+          photo_temple_to_temple_mm?: number | null
+          photo_width_px?: number | null
+          scan_temple_to_temple_mm?: number | null
+          shape_id?: string | null
+          status?: string
+          temple_left_px?: number | null
+          temple_right_px?: number | null
+          updated_at?: string
+          vto_path?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bespoke_order_photos_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "bespoke_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bespoke_orders: {
         Row: {
           ai_bridge_width_mm: number | null
@@ -129,6 +227,7 @@ export type Database = {
           currency: string | null
           customer_email: string
           customer_name: string | null
+          delivered_at: string | null
           engraving_text: string | null
           environment: string
           finish_id: string | null
@@ -147,10 +246,16 @@ export type Database = {
           manual_temple_to_temple_mm: number | null
           measurements_submitted_at: string | null
           metadata: Json | null
+          production_blocked: boolean
+          purge_after: string | null
+          purged_at: string | null
+          scan_id: string | null
+          session_ref: string | null
           stripe_payment_intent_id: string | null
           stripe_session_id: string
           temple_code: string | null
           updated_at: string
+          workshop_token: string
         }
         Insert: {
           ai_bridge_width_mm?: number | null
@@ -164,6 +269,7 @@ export type Database = {
           currency?: string | null
           customer_email: string
           customer_name?: string | null
+          delivered_at?: string | null
           engraving_text?: string | null
           environment?: string
           finish_id?: string | null
@@ -182,10 +288,16 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          production_blocked?: boolean
+          purge_after?: string | null
+          purged_at?: string | null
+          scan_id?: string | null
+          session_ref?: string | null
           stripe_payment_intent_id?: string | null
           stripe_session_id: string
           temple_code?: string | null
           updated_at?: string
+          workshop_token?: string
         }
         Update: {
           ai_bridge_width_mm?: number | null
@@ -199,6 +311,7 @@ export type Database = {
           currency?: string | null
           customer_email?: string
           customer_name?: string | null
+          delivered_at?: string | null
           engraving_text?: string | null
           environment?: string
           finish_id?: string | null
@@ -217,12 +330,74 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          production_blocked?: boolean
+          purge_after?: string | null
+          purged_at?: string | null
+          scan_id?: string | null
+          session_ref?: string | null
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
           temple_code?: string | null
           updated_at?: string
+          workshop_token?: string
         }
         Relationships: []
+      }
+      bespoke_report_verifications: {
+        Row: {
+          cad_image_path: string | null
+          cad_values_frame: Json | null
+          created_at: string
+          deltas: Json | null
+          id: string
+          notes: string | null
+          order_id: string
+          qc_checklist: Json | null
+          revision: number
+          signed_off_at: string | null
+          signed_off_by: string | null
+          updated_at: string
+          verdict: string | null
+        }
+        Insert: {
+          cad_image_path?: string | null
+          cad_values_frame?: Json | null
+          created_at?: string
+          deltas?: Json | null
+          id?: string
+          notes?: string | null
+          order_id: string
+          qc_checklist?: Json | null
+          revision?: number
+          signed_off_at?: string | null
+          signed_off_by?: string | null
+          updated_at?: string
+          verdict?: string | null
+        }
+        Update: {
+          cad_image_path?: string | null
+          cad_values_frame?: Json | null
+          created_at?: string
+          deltas?: Json | null
+          id?: string
+          notes?: string | null
+          order_id?: string
+          qc_checklist?: Json | null
+          revision?: number
+          signed_off_at?: string | null
+          signed_off_by?: string | null
+          updated_at?: string
+          verdict?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bespoke_report_verifications_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "bespoke_orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       bespoke_scan_profiles: {
         Row: {
@@ -238,6 +413,7 @@ export type Database = {
           pantoscopic_angle_deg: number | null
           pd_mm: number | null
           raw_frames: Json
+          session_ref: string | null
           status: string
           temple_length_left_mm: number | null
           temple_length_right_mm: number | null
@@ -257,6 +433,7 @@ export type Database = {
           pantoscopic_angle_deg?: number | null
           pd_mm?: number | null
           raw_frames?: Json
+          session_ref?: string | null
           status?: string
           temple_length_left_mm?: number | null
           temple_length_right_mm?: number | null
@@ -276,6 +453,7 @@ export type Database = {
           pantoscopic_angle_deg?: number | null
           pd_mm?: number | null
           raw_frames?: Json
+          session_ref?: string | null
           status?: string
           temple_length_left_mm?: number | null
           temple_length_right_mm?: number | null

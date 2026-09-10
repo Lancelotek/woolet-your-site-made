@@ -30,6 +30,7 @@ import { readConsentSnapshot } from "@/lib/consent";
 import { trackInitiateCheckoutOnce } from "@/lib/meta-capi";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { useAuth } from "@/lib/auth-context";
+import { readSessionRef } from "@/lib/scan-session-ref";
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
@@ -123,6 +124,8 @@ export default function BespokeCheckout() {
     engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
     lens_type: lens?.name ?? "",
     ai_preview_url: (aiPreviewUrl ?? fallbackPreviewUrl ?? "").slice(0, 500),
+    // Pseudonymous link back to the fit scan. Carries no personal detail.
+    scan_session_ref: readSessionRef() ?? "",
   };
 
   // --- Analytics: shared payload builders ------------------------------------
