@@ -15,7 +15,7 @@ const SID_RE = /^[A-Za-z0-9_-]{20,200}$/;
 const KINDS = ["photo", "geometry", "vto"] as const;
 type Kind = (typeof KINDS)[number];
 
-const EXT: Record<Kind, string> = { photo: "jpg", geometry: "json", vto: "png" };
+const EXT: Record<Kind, string> = { photo: "jpg", geometry: "png", vto: "png" };
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -51,6 +51,20 @@ Deno.serve(async (req) => {
       if (signErr || !data) throw signErr ?? new Error("sign_failed");
       uploads[kind] = { path, token: data.token };
     }
+
+    // Open the record as `pending`; bespoke-photo-submit flips it to `submitted`.
+    await supabase
+      .from("bespoke_order_photos")
+      .upsert(
+        {
+          order_id: order.id,
+          status: "pending",
+          consent_text: "",
+          consent_version: "bespoke-photo-v1",
+          consent_at: new Date().toISOString(),
+        },
+        { onConflict: "order_id", ignoreDuplicates: true },
+      );
 
     return json({ orderId: order.id, frameId: order.frame_id, uploads });
   } catch (err) {

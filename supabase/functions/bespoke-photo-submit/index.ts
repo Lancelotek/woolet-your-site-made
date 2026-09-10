@@ -12,7 +12,6 @@ const supabase = createClient(
 
 const SID_RE = /^[A-Za-z0-9_-]{20,200}$/;
 const CONSENT_VERSION = "bespoke-photo-v1";
-const RETENTION_DAYS = Number(Deno.env.get("PHOTO_RETENTION_DAYS") ?? "180");
 const IP_SALT = Deno.env.get("CONSENT_IP_SALT") ?? "";
 /** Anything beyond this gap between photo and scan pauses production. */
 const DELTA_BLOCK_MM = 4;
@@ -112,13 +111,10 @@ Deno.serve(async (req) => {
       .upsert(row, { onConflict: "order_id" });
     if (upsertErr) throw upsertErr;
 
-    const purgeAfter = new Date(Date.now() + RETENTION_DAYS * 86_400_000).toISOString();
+    // purge_after is stamped at delivery (90 days later), not here.
     await supabase
       .from("bespoke_orders")
-      .update({
-        purge_after: purgeAfter,
-        production_blocked: delta != null && delta > DELTA_BLOCK_MM,
-      })
+      .update({ production_blocked: delta != null && delta > DELTA_BLOCK_MM })
       .eq("id", order.id);
 
     return json({
