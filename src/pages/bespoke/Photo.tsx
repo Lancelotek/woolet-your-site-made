@@ -315,7 +315,27 @@ export default function BespokePhoto() {
             </p>
           )}
 
-          {stage === "consent" && (
+          {stage === "consent" && photoOnFile && photoOnFile.status !== "purged" && (
+            <section className={`mt-8 ${card}`}>
+              <div className="flex items-start gap-3">
+                <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#36C46A]" aria-hidden />
+                <div>
+                  <h2 className="font-display text-xl font-light text-[#F8F8F6]">
+                    Photo already on file — retake?
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-cream-dim">
+                    You saved a fit photo while designing your frame, and it is attached to this order.
+                    You only need a new one if something has changed.
+                  </p>
+                </div>
+              </div>
+              <button type="button" className={`mt-6 ${secondaryBtn}`} onClick={() => setPhotoOnFile(null)}>
+                Take a new photo
+              </button>
+            </section>
+          )}
+
+          {stage === "consent" && !photoOnFile && (
             <section className={`mt-8 ${card}`}>
               <div className="flex items-start gap-3">
                 <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden />
