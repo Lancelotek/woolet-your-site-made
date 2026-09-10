@@ -129,7 +129,7 @@ function AnalyzingStep({ previewUrl, lang }: { previewUrl?: string; lang: Lang }
         >
           <img
             src={previewUrl}
-            alt="Captured frame"
+            alt="Preview of your captured face photo for the fit scan"
             style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.75)" }}
           />
           <div
