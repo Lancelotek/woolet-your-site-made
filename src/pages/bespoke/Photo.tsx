@@ -8,7 +8,7 @@
 // Data controller: JAY23 LLC (Wyoming, USA).
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Camera, Check, CreditCard, ScanFace, ShieldCheck, Sun, Upload } from "lucide-react";
 
 import SEO from "@/components/SEO";
