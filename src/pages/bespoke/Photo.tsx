@@ -54,11 +54,14 @@ const INSTRUCTIONS = [
 ];
 
 export default function BespokePhoto() {
+  const { lang = "en" } = useParams<{ lang?: string }>();
   const [params] = useSearchParams();
   const sid = params.get("sid") ?? "";
   const { config } = useBespokeConfig();
   const frame = findFrame(config.frameId) ?? findFrame("round")!;
   const scanTempleToTempleMm = config.measurements?.templeToTemple ?? null;
+  const locale = (lang === "pl" ? "pl" : "en") as keyof typeof CONSENT_TEXT;
+  const consentText = CONSENT_TEXT[locale];
 
   const front = useMemo(
     () => frameFrontWidthMm({ scanTempleToTempleMm, configuratorWidthMm: frame.widthMm }),
