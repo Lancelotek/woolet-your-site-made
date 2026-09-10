@@ -1,55 +1,58 @@
-## Cel
+# Bespoke v3 — what's missing before this can be built
 
-Zbudować holenderską warstwę SEO na parytecie z DE, żeby ~60% ruchu z NL do `/en` konwertowało lepiej na natywnym `/nl`.
+## The blocker
 
-## Zakres tej tury (potwierdzony)
+This brief builds on work that is not in this project. I checked the whole codebase and none of these exist:
 
-1. **Hub `/nl`** — dedykowana strona listująca istniejące NL landing pages, wzorowana na `DeHub`.
-2. **2 blogi NL** (tłumaczenia z DE dla spójności — te same posty, które już się dobrze indeksują):
-   - `beste-brillen-voor-brede-hoofden-2026` (odpowiednik `best-glasses-for-big-heads-2026`)
-   - `welke-maat-zonnebril-voor-breed-gezicht` (odpowiednik `what-size-sunglasses-for-wide-faces`)
-3. **`/nl/products/007`, `/nl/products/009`, `/nl/products/bespoke`** — routing, żeby przestały robić 301 do `/en`. Strony renderują istniejące komponenty (`ProductPage007/009/Bespoke`) z `lang="nl"` z URL. Tylko meta/H1/CTA copy zostaje przetłumaczone; reszta UI już jest sterowana przez `t(lang, …)` w `i18n.ts` (NL translations są kompletne).
-4. **`/nl/collection`** — audyt: strona już istnieje przez `/:lang/collection`. Uzupełnić brakujące klucze NL w `i18n.ts` jeśli jakieś wyjdą (spot check).
-5. **SEO wiring**: hreflang (`nl`, `nl-NL`, `nl-BE`), sitemap, redirect z EN slugów blogów na non-NL, meta title/description w `blog-meta.ts`, JSON-LD Article/FAQ/Breadcrumb (już obsługiwane w `BlogPost.tsx`).
+- No Measurement Report and no Production Build Sheet — no component, no page, no data.
+- No `frame-mapping.ts` / "map-v2" — nothing maps a face measurement to a FRAME front width or bridge.
+- No FitLens webhook and no signed-result verification. The scan today is a third-party widget in an iframe; nothing calls us back, and nothing writes a scan into an order.
+- No verification form and no report purge job — so there is nothing to "extend".
+- No `bespoke_report_verifications` table, no `scan_id` on orders.
 
-## Poza zakresem (świadomie)
+About half of the brief (sections 3, 5, and parts of 1 and 4) is written as "extend the existing X". There is no existing X. So I can't do it additively — those pieces have to be built from scratch first, and that is a much bigger job than the one described.
 
-- Tłumaczenie *treści* stron produktowych (`ProductPage007/009`) — copy jest w większości hardkodowane po angielsku. Pełna i18n wymaga osobnej tury (kilkaset stringów). W tej turze produkty NL dostają natywny URL, poprawny `<html lang="nl">`, hreflang i lokalne meta, ale body pozostaje po angielsku (lepsze niż redirect, ale nie idealnie).
-- Tłumaczenie kolekcji collection.tsx — bazuje na `i18n.ts` i NL translations już są.
-- Pozostałe 2 blogi z EN katalogu (poza parytetem z DE).
+Two possibilities: either that earlier work was done in a different Woolet project, or it was planned and never shipped here. Worth confirming before anything is written.
 
-## Techniczna realizacja
+## What I can build now, in order
 
-**Nowe pliki:**
-- `src/lib/blog-data-nl.ts` — 2 posty NL (tłumaczone przez `lovable_ai.py` skrypt Gemini z DE, ręczna redakcja tytułów/H1).
-- `src/pages/nl/NlHub.tsx` — mirror `DeHub.tsx` z holenderskim copy.
+Each stage is independently useful and ends in something you can look at.
 
-**Edytowane:**
-- `src/lib/blog-data.ts` — dodać `nl: blogPostsNL` do mapy.
-- `src/lib/blog-slug-map.ts` — dodać `nl` do dwóch grup slugów.
-- `src/lib/blog-meta.ts` — dodać `metaTitle`/`metaDescription` dla 2 slugów NL.
-- `src/App.tsx`:
-  - Nowa trasa `/nl` → `NlHub` (przed `/:lang` catch-all — jak DE).
-  - Legacy EN slug redirects: `/nl/blog/best-glasses-for-big-heads-2026` → NL slug (i drugi).
-  - Wykluczyć `nl` z `RedirectProductToEn`: dodać jawne `/nl/products/007|009|bespoke` przed generic `/:lang/products/:slug`.
-- `public/sitemap.xml` — dodać hreflang `nl` do klastrów, wpis dla `/nl` huba, 2 blogów NL, 3 produktów NL.
-- `public/robots.txt` — bez zmian (już zezwala).
+### Stage 1 — Identity out of the widget (small, do first)
+- Generate a random `sessionRef` per scan attempt, keep it in the saved bespoke config, pass only `sessionRef` + language to the scan widget. No email, no name, no order number.
+- Attach `sessionRef` to the payment record so the link between scan and customer only ever exists on our side.
+- Add the "Fit scan and bespoke production" section to the privacy policy (English and Polish): JAY23 LLC as controller, the scan provider and the Greek workshop as processors, 90-day deletion, withdrawal by email.
 
-**Struktura routes w App.tsx (kolejność):**
-```
-/nl                          → NlHub                 (nowe, przed /:lang)
-/nl/products/007|009|bespoke → ProductPageXxx        (nowe, przed /:lang/products)
-/nl/blog/<legacy>            → Navigate do NL slugu  (nowe)
-… reszta istniejących route bez zmian …
-```
+Nothing here needs the missing foundations.
 
-## Weryfikacja
+### Stage 2 — Photo step for the customer
+Route `/:lang/bespoke/photo/:orderToken`, reached after the measurements step.
+- Four illustrated instructions, dark brand styling, gold buttons.
+- Separate unchecked consent box; the exact text shown is stored word for word, with version, time, language and a hashed IP. Upload stays locked until it is ticked.
+- After upload: drag two handles to the edges of a bank card held at the brow, then two more at the temples. This gives millimetres-per-pixel and a face width from the photo, shown beside the scan value with the difference. More than 4 mm apart shows a warning; both numbers are kept.
+- Three images are produced in the browser and stored privately: the plain photo, a version with the measuring marks drawn on, and a try-on view with the frame outline.
+- Storage: two private buckets, uploads through short-lived signed links, nothing publicly readable.
 
-- `bunx tsgo` — czysto.
-- Ręcznie: `/nl`, `/nl/blog/beste-brillen-voor-brede-hoofden-2026`, `/nl/products/007`, `/nl/collection` renderują się z `<html lang="nl">` i poprawnymi meta.
-- Test `src/test/de-internal-links.test.ts` — zaadaptować szybko dla NL (opcjonalnie w kolejnej turze).
+The try-on outline needs a real front width per order. Without map-v2 I would use the width already chosen in the configurator instead. That is a reasonable stand-in, and swaps to map-v2 later in one place.
 
-## Ryzyko
+### Stage 3 — Workshop package
+A single token link showing the order, the photos, and a form where the workshop enters its CAD numbers, uploads a CAD drawing, and signs off. Deliberately shows no email, phone or payment identifiers, and only reveals the full address once the order is in production.
 
-- Tłumaczenia LLM (~2000 słów × 2) mogą wymagać ręcznej korekty tytułów CTA/H1 — zrobię pass po generacji.
-- Strony produktowe NL renderują angielski body — akceptowalne w tej turze, oznaczyć jako TODO na następną iterację.
+This is where the two reports would be embedded. Until they exist, the page shows the order specification and the photos, and I leave the two slots ready.
+
+### Stage 4 — Emails and retention
+- Workshop notification when a photo arrives, reminders to the customer at 24h and 72h if it hasn't.
+- Delivery date recorded, files erased 90 days later, numbers and the consent record kept.
+- Consent withdrawal wipes the files at once and stops production.
+
+## Technical notes
+
+- New table for the order photo row plus the columns listed in the brief; two private buckets, service-role only, all access through backend functions returning signed links.
+- New backend functions: signed upload links, workshop package fetch, token rotation, consent withdrawal, purge, reminder sender.
+- The try-on outline is drawn in the browser from the existing four pattern images — light pixels dropped to transparent, the remaining ink scaled and tinted. No new image files.
+- Settings needed: workshop name, a salt for hashing the consent IP, retention days.
+
+## What I need from you
+
+1. Was the report/map-v2 work done somewhere else? If yes, point me at it and I can follow the brief as written.
+2. If not — shall I start with Stage 1 and 2, and treat the reports as a separate job?
