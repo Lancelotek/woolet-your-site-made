@@ -378,8 +378,12 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
   const gold = `${primaryBtn} bg-[#CAA449] text-[#1F1B16] hover:brightness-110`;
   const ghost = `${primaryBtn} border border-[#CAA449]/60 text-[#CAA449] hover:border-[#CAA449]`;
 
+  // The phone must land on the same build and the same pseudonymous session,
+  // so a photo taken there attaches to this configuration.
   const qrUrl =
-    typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}?step=3` : "";
+    typeof window !== "undefined"
+      ? `${window.location.origin}${window.location.pathname}?step=3&sref=${encodeURIComponent(getSessionRef())}`
+      : "";
 
   return (
     <section
