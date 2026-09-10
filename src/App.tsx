@@ -34,6 +34,7 @@ const FitBespoke = lazy(() => import("./pages/FitBespoke.tsx"));
 const FitScan = lazy(() => import("./pages/FitScan.tsx"));
 const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
 const ThankYouFb = lazy(() => import("./pages/ThankYouFb.tsx"));
+const ThankYouReserved = lazy(() => import("./pages/ThankYouReserved.tsx"));
 const Payments = lazy(() => import("./pages/Payments.tsx"));
 const Crm = lazy(() => import("./pages/Crm.tsx"));
 const CrmGsc = lazy(() => import("./pages/CrmGsc.tsx"));
