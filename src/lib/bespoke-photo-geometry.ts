@@ -3,7 +3,7 @@
 // Data controller: JAY23 LLC. Nothing here leaves the browser except through
 // Woolet's own private storage — the scan provider never sees a photograph.
 
-import { BESPOKE_FRONT_WIDTH_MIN_MM, BESPOKE_FRONT_WIDTH_MAX_MM } from "@/lib/bespoke-spec";
+import { BESPOKE_SPEC } from "@/lib/bespoke-spec";
 
 /** ISO/IEC 7810 ID-1 — the long edge of every bank card, worldwide. */
 export const CARD_WIDTH_MM = 85.6;
@@ -36,8 +36,8 @@ export function frameFrontWidthMm(args: {
   const scan = args.scanTempleToTempleMm;
   if (typeof scan === "number" && Number.isFinite(scan) && scan > 0) {
     const clamped = Math.min(
-      BESPOKE_FRONT_WIDTH_MAX_MM,
-      Math.max(BESPOKE_FRONT_WIDTH_MIN_MM, scan + 2),
+      BESPOKE_SPEC.frontWidthMax,
+      Math.max(BESPOKE_SPEC.frontWidthMin, scan + 2),
     );
     return { mm: Math.round(clamped * 10) / 10, source: "scan+2mm", mappingVersion: "frame-dimensions-v0" };
   }

@@ -59,7 +59,7 @@ const BespokeScan = lazy(() => import("./pages/bespoke/Scan.tsx"));
 const BespokeCheckout = lazy(() => import("./pages/bespoke/Checkout.tsx"));
 const BespokeMeasurements = lazy(() => import("./pages/bespoke/Measurements.tsx"));
 const BespokePhoto = lazy(() => import("./pages/bespoke/Photo.tsx"));
-const BespokeWorkshop = lazy(() => import("./pages/bespoke/Workshop.tsx"));
+
 const VipJoin = lazy(() => import("./pages/VipJoin.tsx"));
 const Gone = lazy(() => import("./pages/Gone.tsx"));
 const WideFaceGlasses = lazy(() => import("./pages/collections/WideFaceGlasses.tsx"));
@@ -261,8 +261,6 @@ const App = () => (
           <Route path="/:lang/bespoke/measurements" element={<BespokeMeasurements />} />
           <Route path="/en/bespoke/photo" element={<BespokePhoto />} />
           <Route path="/:lang/bespoke/photo" element={<BespokePhoto />} />
-          <Route path="/en/bespoke/workshop" element={<BespokeWorkshop />} />
-          <Route path="/:lang/bespoke/workshop" element={<BespokeWorkshop />} />
           <Route path="/:lang/bespoke" element={<Bespoke />} />
           {/* Legacy /:lang/pages/bespoke -> /:lang/bespoke */}
           <Route path="/en/pages/bespoke" element={<Navigate to="/en/bespoke" replace />} />
