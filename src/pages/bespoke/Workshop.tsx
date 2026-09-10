@@ -75,32 +75,26 @@ export default function BespokeWorkshop() {
   const [cadFile, setCadFile] = useState<File | null>(null);
 
   const load = useCallback(async () => {
-    if (!token) return setError("This link is missing its access token.");
-    const { data, error: err } = await supabase.functions.invoke("bespoke-workshop-package", {
-      method: "GET",
-      body: undefined,
-      headers: {},
-      // functions.invoke has no query support; pass the token in the path
-    } as never).catch(() => ({ data: null, error: new Error("failed") }));
-    // Fall back to a direct fetch so the token can travel as a query parameter.
-    if (!data) {
-      try {
-        const base = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/bespoke-workshop-package?token=${encodeURIComponent(token)}`;
-        const res = await fetch(base, {
-          headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string },
-        });
-        const body = await res.json();
-        if (!res.ok) throw new Error(body?.error ?? "failed");
-        setPkg(body);
-        setError(null);
-        return;
-      } catch {
-        setError("This build sheet could not be opened. The link may have been rotated.");
-        return;
-      }
+    if (!token) {
+      setError("This link is missing its access token.");
+      return;
     }
-    if (err) setError("This build sheet could not be opened.");
-    else setPkg(data as Package);
+    // The token travels as a query parameter, so this read is a plain GET
+    // rather than a functions.invoke call.
+    try {
+      const url =
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/bespoke-workshop-package` +
+        `?token=${encodeURIComponent(token)}`;
+      const res = await fetch(url, {
+        headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string },
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error ?? "failed");
+      setPkg(body as Package);
+      setError(null);
+    } catch {
+      setError("This build sheet could not be opened. The link may have been rotated.");
+    }
   }, [token]);
 
   useEffect(() => {
