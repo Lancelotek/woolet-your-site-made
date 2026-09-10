@@ -30,8 +30,14 @@ export interface BespokeConfig {
   lensMaterialId: string | null;
   lensCoatingId: string | null;
   prescriptionFileName: string | null;
+  /** "On your face" panel (step 3) — calibration only; the photo itself lives
+   *  in its own localStorage key, never in the synced config. */
+  facePhotoCardPoints: { x: number; y: number }[] | null;
+  facePhotoTemplePoints: { x: number; y: number }[] | null;
+  facePhotoSavedAt: string | null;
   updatedAt: string;
 }
+
 
 export const INITIAL_CONFIG: BespokeConfig = {
   frameId: null,
@@ -60,6 +66,9 @@ export const INITIAL_CONFIG: BespokeConfig = {
   lensMaterialId: null,
   lensCoatingId: "none",
   prescriptionFileName: null,
+  facePhotoCardPoints: null,
+  facePhotoTemplePoints: null,
+  facePhotoSavedAt: null,
   updatedAt: new Date().toISOString(),
 };
 
