@@ -12,6 +12,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Camera, Check, CreditCard, ScanFace, ShieldCheck, Sun, Upload } from "lucide-react";
 
 import SEO from "@/components/SEO";
+import type { Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { findFrame } from "@/data/frames";
 import { useBespokeConfig } from "@/lib/bespoke-state";
