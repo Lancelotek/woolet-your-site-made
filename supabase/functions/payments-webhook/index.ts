@@ -390,6 +390,8 @@ async function tagMailerLiteFoundingMember(
 
 const SITE_ORIGIN = "https://woolet.co";
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 function formatAmount(cents: number | null | undefined, currency: string | null | undefined): string {
   const c = cents ?? 0;
   const cur = (currency ?? "usd").toUpperCase();
@@ -436,6 +438,7 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         lens_type: meta.lens_type ?? null,
         engraving_text: meta.engraving || null,
         ai_preview_url: meta.ai_preview_url ?? null,
+        session_ref: UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null,
         metadata: session.metadata ?? null,
       },
       { onConflict: "stripe_session_id" },

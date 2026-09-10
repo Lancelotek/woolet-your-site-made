@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+import { getSessionRef } from "@/lib/scan-session-ref";
+
 const SCRIPT_SRC = "https://fitlens-web-production.up.railway.app/v1/embed.js";
 const SCRIPT_INTEGRITY =
   "sha384-/oLuzB2402AcbPCZLgkjIH28E3YXlys9k+0FuYU08cwj0cjk7cRtG5ErHW376fSv";
@@ -76,9 +78,16 @@ export function useFitLensScript() {
       "position:fixed;inset:0;width:100%;height:100%;border:0;z-index:2147483647;background:rgba(11,18,32,.32)";
 
     const debug = /[?&]debug=1\b/.test(window.location.search) ? "&debug=1" : "";
+    // Pseudonymous only: a random per-attempt reference and the page language.
+    // Never an email, a name or an order number — the widget is a processor and
+    // must not receive anything that identifies the person being measured.
+    const sessionRef = getSessionRef();
+    const locale = (document.documentElement.lang || "en").slice(0, 5);
     frame.src =
       `${origin}/w/intro?k=${encodeURIComponent(FITLENS_KEY)}` +
-      `&host=${encodeURIComponent(window.location.origin)}${debug}`;
+      `&host=${encodeURIComponent(window.location.origin)}` +
+      `&sessionId=${encodeURIComponent(sessionRef)}` +
+      `&locale=${encodeURIComponent(locale)}${debug}`;
     document.body.appendChild(frame);
     frameRef.current = frame;
   };
