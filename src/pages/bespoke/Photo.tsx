@@ -80,7 +80,7 @@ export default function BespokePhoto() {
   const [result, setResult] = useState<{ deltaMm: number | null; needsReview: boolean } | null>(null);
   // A photo may already exist — taken in the configurator before paying, and
   // attached to this order by the payment webhook.
-  const [onFile, setOnFile] = useState<{ status: string; uploaded_at: string | null } | null>(null);
+  const [photoOnFile, setPhotoOnFile] = useState<{ status: string; uploaded_at: string | null } | null>(null);
 
   useEffect(() => {
     if (!sid) return;
@@ -88,7 +88,7 @@ export default function BespokePhoto() {
     supabase.functions
       .invoke("bespoke-photo-upload-url", { body: { sid, probe: true } })
       .then(({ data }) => {
-        if (live && data?.existing) setOnFile(data.existing);
+        if (live && data?.existing) setPhotoOnFile(data.existing);
       })
       .catch(() => undefined);
     return () => {
