@@ -16,6 +16,20 @@ const BulletList = ({ items }: { items: string[] }) => (
 const PrivacyPolicy = () => {
   const sections = [
     {
+      num: "00",
+      title: "Fit Scanning, Fit Photos and Made-to-Measure Frames",
+      content: (
+        <>
+          <p><strong className="text-foreground font-normal">JAY23 LLC</strong> (Wyoming, USA) is the data controller for everything described in this section. Our fit-scan provider and the workshop that builds your frames act only as processors, on our instructions.</p>
+          <p><strong className="text-foreground font-normal">The fit scan.</strong> When you measure your face with our on-site scanning tool, the tool receives a random reference number and the language of the page — nothing else. It never receives your name, your email address or your order number. The link between a scan and a customer is made afterwards, inside our own systems.</p>
+          <p><strong className="text-foreground font-normal">The fit photo.</strong> After a made-to-measure purchase you may choose to upload one photograph of your face, held next to a bank card that gives us a true scale. This is optional and your frames are built either way. The photograph is captured, stored and rendered entirely on our own infrastructure. We use it only to check the width of your face against your measurements, to generate a try-on preview, and to share it with the workshop building your frames. It is never used for marketing and is never made public.</p>
+          <p><strong className="text-foreground font-normal">How it is stored.</strong> Photographs and try-on previews live in private storage. They are reachable only through short-lived links issued to your order and to the workshop. We also record the exact consent wording you were shown, its version, the time, the language and a one-way hash of your IP address, as proof that consent was given.</p>
+          <p><strong className="text-foreground font-normal">The workshop.</strong> The workshop that hand-makes your frames in the EU sees only what it needs to build them: a build reference, the measurements, the fit photo and the try-on preview. It never sees your name, your email address or your delivery address, and it reads and writes only inside our system.</p>
+          <p><strong className="text-foreground font-normal">How long we keep it.</strong> Fit photographs are deleted automatically once the retention period for your order has passed. You can withdraw your consent at any time from the photo page for your order; the photograph and the preview are then deleted immediately, and only the consent record itself is kept as proof. You can also write to us at the address in the Contact section.</p>
+        </>
+      ),
+    },
+    {
       num: "01",
       title: "Who We Are",
       content: (
