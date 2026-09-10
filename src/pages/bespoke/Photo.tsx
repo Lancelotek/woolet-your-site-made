@@ -327,7 +327,7 @@ export default function BespokePhoto() {
 
   return (
     <>
-      <SEO title="Fit photo — Woolet Bespoke" description="Confirm the fit of your made-to-measure frames." noindex />
+      <SEO title="Fit photo — Woolet Bespoke" description="Confirm the fit of your made-to-measure frames." lang={locale as any} noindex />
       <main className="min-h-screen bg-[#080807] px-5 py-12 text-cream sm:px-8">
         <div className="mx-auto max-w-3xl">
           <p className={eyebrow}>Photo for the workshop · optional</p>
