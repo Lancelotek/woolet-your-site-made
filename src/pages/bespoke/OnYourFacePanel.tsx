@@ -12,7 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { findFrame } from "@/data/frames";
 import { COLORS } from "@/data/bespoke-options";
 import type { BespokeConfig } from "@/lib/bespoke-state";
-import { getSessionRef } from "@/lib/scan-session-ref";
+import { adoptSessionRef, getSessionRef } from "@/lib/scan-session-ref";
 import {
   CARD_WIDTH_MM,
   MIN_CARD_PX,
@@ -377,6 +377,12 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
     "inline-flex min-h-[48px] items-center justify-center gap-2 px-6 text-[12px] uppercase tracking-[0.18em] transition-colors disabled:opacity-40";
   const gold = `${primaryBtn} bg-[#CAA449] text-[#1F1B16] hover:brightness-110`;
   const ghost = `${primaryBtn} border border-[#CAA449]/60 text-[#CAA449] hover:border-[#CAA449]`;
+
+  // Arriving from the QR hand-off: continue the session the desktop started.
+  useEffect(() => {
+    const sref = new URLSearchParams(window.location.search).get("sref");
+    if (sref) adoptSessionRef(sref);
+  }, []);
 
   // The phone must land on the same build and the same pseudonymous session,
   // so a photo taken there attaches to this configuration.
