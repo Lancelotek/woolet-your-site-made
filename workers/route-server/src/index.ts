@@ -83,6 +83,7 @@ const EXTRA_ROUTES: ReadonlySet<string> = new Set([
   "/en/fit/manual",
   "/en/fit/bespoke",
   "/en/thank-you",
+  "/en/thank-you/reserved",
   "/en/upvote",
   "/en/crm",
 ]);
