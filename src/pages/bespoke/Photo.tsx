@@ -28,12 +28,16 @@ import {
 const CONSENT_VERSION = "bespoke-photo-v1";
 
 // v1 consent wording. Shown verbatim, stored byte for byte with the record.
-const CONSENT_TEXT =
-  "I agree that JAY23 LLC may store the photograph I upload and use it only to " +
-  "check the fit of my made-to-measure frames, to generate a try-on preview, and " +
-  "to share it with the workshop building my frames. I understand the photograph " +
-  "is not used for marketing, is never made public, and that I can withdraw this " +
-  "consent at any time, after which the photograph is deleted.";
+// Polish version is shown on the PL route; English is the default.
+const CONSENT_TEXT: Record<string, string> = {
+  en: "I agree that JAY23 LLC (Woolet) stores this photograph and my face measurements and shares them with its manufacturing partner in Greece for the sole purpose of producing and verifying my bespoke frame. The photograph and the virtual try-on render are deleted 90 days after delivery. I can withdraw this consent at any time at support@woolet.co; withdrawal stops production of the frame.",
+  pl: "Wyrażam zgodę na przechowywanie przez JAY23 LLC (Woolet) tego zdjęcia oraz moich wymiarów twarzy i przekazanie ich partnerowi produkcyjnemu w Grecji wyłącznie w celu wykonania i weryfikacji mojej oprawki bespoke. Zdjęcie i wizualizacja przymiarki są usuwane 90 dni po dostawie. Zgodę mogę wycofać w każdej chwili pod adresem support@woolet.co; wycofanie zatrzymuje produkcję oprawki.",
+};
+
+const AGREE_LABEL: Record<string, string> = {
+  en: "I agree to the above.",
+  pl: "Wyrażam zgodę na powyższe.",
+};
 
 /** Anything beyond this gap between photo and scan pauses production. */
 const DELTA_WARN_MM = 4;
