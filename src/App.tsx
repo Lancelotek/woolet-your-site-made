@@ -356,6 +356,7 @@ const App = () => (
           <Route path="/:lang/collections/:slug" element={<RedirectCollectionToEn />} />
 
           <Route path="/:lang/fit/scan" element={<FitScanRedirect />} />
+          <Route path="/en/thank-you/reserved" element={<ThankYouReserved />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
           <Route path="/thank-you" element={<ThankYouFb />} />
           <Route path="/thank-you-fb" element={<ThankYouFb />} />
