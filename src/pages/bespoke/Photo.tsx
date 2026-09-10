@@ -352,7 +352,7 @@ export default function BespokePhoto() {
                 <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden />
                 <div>
                   <h2 className="font-display text-xl font-light text-[#F8F8F6]">Your photo, your call</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-cream-dim">{CONSENT_TEXT}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-cream-dim">{consentText}</p>
                 </div>
               </div>
               <label className="mt-6 flex min-h-[48px] cursor-pointer items-start gap-3 text-sm text-cream">
@@ -362,7 +362,7 @@ export default function BespokePhoto() {
                   onChange={(e) => setConsent(e.target.checked)}
                   className="mt-1 h-5 w-5 accent-[#CAA449]"
                 />
-                <span>I agree to the above.</span>
+                <span>{AGREE_LABEL[locale]}</span>
               </label>
               <button
                 type="button"
