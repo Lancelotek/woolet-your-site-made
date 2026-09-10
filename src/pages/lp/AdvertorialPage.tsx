@@ -1254,7 +1254,7 @@ const AdvertorialPage = () => {
                   marginBottom: 14,
                 }}
               >
-                Read More
+                Wide-face fit guides
               </div>
               <div
                 style={{
