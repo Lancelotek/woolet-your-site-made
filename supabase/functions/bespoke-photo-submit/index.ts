@@ -11,6 +11,7 @@ const supabase = createClient(
 );
 
 const SID_RE = /^[A-Za-z0-9_-]{20,200}$/;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const CONSENT_VERSION = "bespoke-photo-v1";
 const IP_SALT = Deno.env.get("CONSENT_IP_SALT") ?? "";
 /** Anything beyond this gap between photo and scan pauses production. */
