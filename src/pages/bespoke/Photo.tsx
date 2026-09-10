@@ -268,10 +268,10 @@ export default function BespokePhoto() {
       }
 
       const { data, error: subErr } = await supabase.functions.invoke("bespoke-photo-submit", {
-        body: {
+          body: {
           sid,
           consentGiven: true,
-          consentText: CONSENT_TEXT,
+          consentText,
           consentVersion: CONSENT_VERSION,
           locale: document.documentElement.lang || "en",
           photoPath: signed.uploads.photo.path,
