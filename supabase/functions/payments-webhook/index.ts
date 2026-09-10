@@ -558,8 +558,39 @@ Deno.serve(async (req) => {
     });
   }
   const env: StripeEnv = rawEnv;
+
+  // 1. Signature verification — the only failure mode that returns 400.
+  let event: { id?: string; type: string; data: { object: any } };
   try {
-    const event = await verifyWebhook(req, env);
+    event = await verifyWebhook(req, env) as typeof event;
+  } catch (e) {
+    console.error("[payments-webhook] signature verification failed", e);
+    return new Response("Webhook signature verification failed", { status: 400 });
+  }
+
+  const ok = (body: Record<string, unknown>) =>
+    new Response(JSON.stringify(body), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+
+  // 2. Idempotency — a replayed event id is acknowledged without processing.
+  const eventId = event.id;
+  if (eventId) {
+    const { error: dedupeErr } = await getSupabase()
+      .from("stripe_events")
+      .insert({ event_id: eventId, event_type: event.type, environment: env });
+    if (dedupeErr) {
+      if (dedupeErr.code === "23505") {
+        console.log("[payments-webhook] duplicate event ignored:", eventId);
+        return ok({ received: true, duplicate: true });
+      }
+      console.error("[payments-webhook] stripe_events insert failed", dedupeErr);
+    }
+  }
+
+  // 3. Processing never yields a non-200 after a valid signature.
+  try {
     switch (event.type) {
       case "checkout.session.completed":
         await handleCheckoutCompleted(event.data.object, env);
@@ -573,12 +604,13 @@ Deno.serve(async (req) => {
       default:
         console.log("[payments-webhook] unhandled event:", event.type);
     }
-    return new Response(JSON.stringify({ received: true }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return ok({ received: true });
   } catch (e) {
-    console.error("[payments-webhook] error", e);
-    return new Response("Webhook error", { status: 400 });
+    console.error("[payments-webhook] handler error", e);
+    // Allow a manual replay of this event to be processed again.
+    if (eventId) {
+      await getSupabase().from("stripe_events").delete().eq("event_id", eventId);
+    }
+    return ok({ received: true, handled: false });
   }
 });
