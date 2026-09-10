@@ -1,4 +1,4 @@
-// Post-purchase photo step.
+// Post-purchase photo step — "Photo for the workshop".
 //
 // Principle: FitLens measures, Woolet identifies. This page runs entirely on
 // Woolet's own infrastructure — the photo is captured here, scaled against a
@@ -9,18 +9,25 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Camera, Check, ShieldCheck, Upload } from "lucide-react";
+import { Camera, Check, CreditCard, ScanFace, ShieldCheck, Sun, Upload } from "lucide-react";
 
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { findFrame } from "@/data/frames";
 import { useBespokeConfig } from "@/lib/bespoke-state";
+import {
+  CARD_WIDTH_MM,
+  MIN_CARD_PX,
+  distance,
+  frameFrontWidthMm,
+  keyOutOutline,
+  mmPerPxFromCard,
+  type Point,
+} from "@/lib/bespoke-photo-geometry";
 
-/** ISO/IEC 7810 ID-1 — the width of every bank card, worldwide. */
-const CARD_WIDTH_MM = 85.6;
 const CONSENT_VERSION = "bespoke-photo-v1";
 
-// v1 consent wording. Shown verbatim, stored verbatim with the record.
+// v1 consent wording. Shown verbatim, stored byte for byte with the record.
 const CONSENT_TEXT =
   "I agree that JAY23 LLC may store the photograph I upload and use it only to " +
   "check the fit of my made-to-measure frames, to generate a try-on preview, and " +
@@ -28,17 +35,31 @@ const CONSENT_TEXT =
   "is not used for marketing, is never made public, and that I can withdraw this " +
   "consent at any time, after which the photograph is deleted.";
 
-type Point = { x: number; y: number };
+/** Anything beyond this gap between photo and scan pauses production. */
+const DELTA_WARN_MM = 4;
+
 type Stage = "consent" | "capture" | "card" | "temples" | "review" | "done";
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
-const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
+
+const INSTRUCTIONS = [
+  { icon: Sun, title: "Even light, face on", body: "Stand facing a window. No hard shadow across one cheek." },
+  { icon: CreditCard, title: "Bank card on your cheek", body: "Hold it flat against your cheek, long edge horizontal, numbers facing out." },
+  { icon: ScanFace, title: "Both ears in frame", body: "Chin level, glasses off, hair tucked behind the ears." },
+  { icon: Camera, title: "One straight-on shot", body: "Arm's length, camera at eye height. Do not crop it afterwards." },
+];
 
 export default function BespokePhoto() {
   const [params] = useSearchParams();
   const sid = params.get("sid") ?? "";
   const { config } = useBespokeConfig();
   const frame = findFrame(config.frameId) ?? findFrame("round")!;
+  const scanTempleToTempleMm = config.measurements?.templeToTemple ?? null;
+
+  const front = useMemo(
+    () => frameFrontWidthMm({ scanTempleToTempleMm, configuratorWidthMm: frame.widthMm }),
+    [scanTempleToTempleMm, frame.widthMm],
+  );
 
   const [stage, setStage] = useState<Stage>("consent");
   const [consent, setConsent] = useState(false);
@@ -55,7 +76,7 @@ export default function BespokePhoto() {
   const fileRef = useRef<HTMLInputElement | null>(null);
   const frameImgRef = useRef<HTMLImageElement | null>(null);
 
-  // Preload the silhouette used for the try-on overlay.
+  // Preload the configurator pattern used for the try-on outline.
   useEffect(() => {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -67,68 +88,87 @@ export default function BespokePhoto() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frame.url]);
 
-  const mmPerPx = useMemo(() => {
-    if (cardPoints.length < 2) return null;
-    const px = distance(cardPoints[0], cardPoints[1]);
-    return px > 4 ? CARD_WIDTH_MM / px : null;
-  }, [cardPoints]);
+  const cardPx = useMemo(
+    () => (cardPoints.length < 2 ? null : distance(cardPoints[0], cardPoints[1])),
+    [cardPoints],
+  );
+  const mmPerPx = useMemo(() => (cardPx ? mmPerPxFromCard(cardPx) : null), [cardPx]);
+  const cardTooShort = cardPx != null && cardPx < MIN_CARD_PX;
 
   const templeToTempleMm = useMemo(() => {
     if (!mmPerPx || templePoints.length < 2) return null;
     return round1(distance(templePoints[0], templePoints[1]) * mmPerPx);
   }, [mmPerPx, templePoints]);
 
+  const deltaMm = useMemo(() => {
+    if (templeToTempleMm == null || scanTempleToTempleMm == null) return null;
+    return round1(Math.abs(templeToTempleMm - scanTempleToTempleMm));
+  }, [templeToTempleMm, scanTempleToTempleMm]);
+
   // ---- canvas -------------------------------------------------------------
+  /** Draws the measurement handles onto any context, at photo resolution. */
+  const drawGuides = useCallback(
+    (ctx: CanvasRenderingContext2D, width: number) => {
+      const dot = (p: Point, color: string) => {
+        const r = Math.max(6, width / 120);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.lineWidth = Math.max(2, r / 4);
+        ctx.strokeStyle = "rgba(0,0,0,0.55)";
+        ctx.stroke();
+      };
+      const line = (a: Point, b: Point, color: string) => {
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = Math.max(2, width / 350);
+        ctx.stroke();
+      };
+      if (cardPoints.length === 2) line(cardPoints[0], cardPoints[1], "#CAA449");
+      cardPoints.forEach((p) => dot(p, "#CAA449"));
+      if (templePoints.length === 2) line(templePoints[0], templePoints[1], "#36C46A");
+      templePoints.forEach((p) => dot(p, "#36C46A"));
+    },
+    [cardPoints, templePoints],
+  );
+
+  /** Draws the keyed-out frame outline at its real width on the face. */
+  const drawOutline = useCallback(
+    (ctx: CanvasRenderingContext2D) => {
+      const overlay = frameImgRef.current;
+      if (!overlay || !mmPerPx || templePoints.length !== 2) return;
+      const widthPx = front.mm / mmPerPx;
+      const outline = keyOutOutline(overlay, widthPx, "#0B0A09");
+      const cx = (templePoints[0].x + templePoints[1].x) / 2;
+      const cy = (templePoints[0].y + templePoints[1].y) / 2;
+      const angle = Math.atan2(
+        templePoints[1].y - templePoints[0].y,
+        templePoints[1].x - templePoints[0].x,
+      );
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(angle);
+      ctx.globalAlpha = 0.95;
+      ctx.drawImage(outline, -outline.width / 2, -outline.height / 2);
+      ctx.restore();
+    },
+    [mmPerPx, templePoints, front.mm],
+  );
+
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas || !imageEl) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
     canvas.width = imageEl.naturalWidth;
     canvas.height = imageEl.naturalHeight;
     ctx.drawImage(imageEl, 0, 0);
-
-    const dot = (p: Point, color: string) => {
-      const r = Math.max(6, canvas.width / 120);
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-      ctx.lineWidth = Math.max(2, r / 4);
-      ctx.strokeStyle = "rgba(0,0,0,0.55)";
-      ctx.stroke();
-    };
-    const line = (a: Point, b: Point, color: string) => {
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = color;
-      ctx.lineWidth = Math.max(2, canvas.width / 350);
-      ctx.stroke();
-    };
-
-    if (cardPoints.length === 2) line(cardPoints[0], cardPoints[1], "#CAA449");
-    cardPoints.forEach((p) => dot(p, "#CAA449"));
-    if (templePoints.length === 2) line(templePoints[0], templePoints[1], "#36C46A");
-    templePoints.forEach((p) => dot(p, "#36C46A"));
-
-    // Try-on preview: silhouette scaled to the frame's real front width.
-    const overlay = frameImgRef.current;
-    if (overlay && mmPerPx && templePoints.length === 2) {
-      const widthPx = frame.widthMm / mmPerPx;
-      const heightPx = widthPx * (overlay.naturalHeight / overlay.naturalWidth);
-      const cx = (templePoints[0].x + templePoints[1].x) / 2;
-      const cy = (templePoints[0].y + templePoints[1].y) / 2;
-      const angle = Math.atan2(templePoints[1].y - templePoints[0].y, templePoints[1].x - templePoints[0].x);
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(angle);
-      ctx.globalAlpha = 0.92;
-      ctx.drawImage(overlay, -widthPx / 2, -heightPx / 2, widthPx, heightPx);
-      ctx.restore();
-    }
-  }, [imageEl, cardPoints, templePoints, mmPerPx, frame.widthMm]);
+    drawGuides(ctx, canvas.width);
+    drawOutline(ctx);
+  }, [imageEl, drawGuides, drawOutline]);
 
   useEffect(() => {
     draw();
@@ -167,7 +207,7 @@ export default function BespokePhoto() {
   // ---- submit -------------------------------------------------------------
   const submit = async () => {
     if (!sid) return setError("This link is missing its order reference.");
-    if (!canvasRef.current || !imageEl || !mmPerPx || !templeToTempleMm) return;
+    if (!canvasRef.current || !imageEl || !mmPerPx || !templeToTempleMm || !cardPx) return;
     setBusy(true);
     setError(null);
     try {
@@ -182,28 +222,34 @@ export default function BespokePhoto() {
           canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("encode_failed"))), type, quality),
         );
 
-      // Original photo, without the guides drawn on it.
+      const w = imageEl.naturalWidth;
+      const h = imageEl.naturalHeight;
+
+      // 1. photo.jpg — the original frame, no guides drawn on it.
       const plain = document.createElement("canvas");
-      plain.width = imageEl.naturalWidth;
-      plain.height = imageEl.naturalHeight;
+      plain.width = w;
+      plain.height = h;
       plain.getContext("2d")!.drawImage(imageEl, 0, 0);
 
-      const geometry = {
-        cardWidthMm: CARD_WIDTH_MM,
-        cardPoints,
-        templePoints,
-        mmPerPx,
-        templeToTempleMm,
-        photoWidthPx: imageEl.naturalWidth,
-        photoHeightPx: imageEl.naturalHeight,
-        frame: { id: frame.id, shape: frame.shape, widthMm: frame.widthMm, bridgeMm: frame.bridgeMm },
-        mappingVersion: "frame-dimensions-v0",
-      };
+      // 2. geometry.png — handles only, transparent, at original resolution.
+      const geometry = document.createElement("canvas");
+      geometry.width = w;
+      geometry.height = h;
+      drawGuides(geometry.getContext("2d")!, w);
+
+      // 3. vto.png — photo + outline + handles, at original resolution.
+      const vto = document.createElement("canvas");
+      vto.width = w;
+      vto.height = h;
+      const vctx = vto.getContext("2d")!;
+      vctx.drawImage(imageEl, 0, 0);
+      drawGuides(vctx, w);
+      drawOutline(vctx);
 
       const uploads: Array<[string, Blob, string]> = [
-        ["photo", await toBlob(plain, "image/jpeg", 0.9), "image/jpeg"],
-        ["vto", await toBlob(canvasRef.current, "image/png"), "image/png"],
-        ["geometry", new Blob([JSON.stringify(geometry)], { type: "application/json" }), "application/json"],
+        ["photo", await toBlob(plain, "image/jpeg", 0.92), "image/jpeg"],
+        ["geometry", await toBlob(geometry, "image/png"), "image/png"],
+        ["vto", await toBlob(vto, "image/png"), "image/png"],
       ];
 
       for (const [kind, blob, contentType] of uploads) {
@@ -222,23 +268,24 @@ export default function BespokePhoto() {
           consentVersion: CONSENT_VERSION,
           locale: document.documentElement.lang || "en",
           photoPath: signed.uploads.photo.path,
-          vtoPath: signed.uploads.vto.path,
           geometryPath: signed.uploads.geometry.path,
-          photoWidthPx: imageEl.naturalWidth,
-          photoHeightPx: imageEl.naturalHeight,
-          cardPx: distance(cardPoints[0], cardPoints[1]),
+          vtoPath: signed.uploads.vto.path,
+          photoWidthPx: w,
+          photoHeightPx: h,
+          cardPx,
+          cardWidthMm: CARD_WIDTH_MM,
           mmPerPx,
           templeLeftPx: templePoints[0].x,
           templeRightPx: templePoints[1].x,
           photoTempleToTempleMm: templeToTempleMm,
-          frameFrontWidthMm: frame.widthMm,
+          frameFrontWidthMm: front.mm,
           frameBridgeMm: frame.bridgeMm,
           shapeId: frame.id,
-          mappingVersion: "frame-dimensions-v0",
+          mappingVersion: front.mappingVersion,
         },
       });
       if (subErr) throw subErr;
-      setResult({ deltaMm: data?.deltaMm ?? null, needsReview: Boolean(data?.needsReview) });
+      setResult({ deltaMm: data?.deltaMm ?? deltaMm, needsReview: Boolean(data?.needsReview) });
       setStage("done");
     } catch (err) {
       console.error("[bespoke-photo]", err);
@@ -276,7 +323,7 @@ export default function BespokePhoto() {
       <SEO title="Fit photo — Woolet Bespoke" description="Confirm the fit of your made-to-measure frames." noindex />
       <main className="min-h-screen bg-[#080807] px-5 py-12 text-cream sm:px-8">
         <div className="mx-auto max-w-3xl">
-          <p className={eyebrow}>Step 2 of 2 · after your measurements</p>
+          <p className={eyebrow}>Photo for the workshop · optional</p>
           <h1 className="mt-3 font-display text-3xl font-light text-[#F8F8F6] sm:text-4xl">
             One photo, and we cut to your face
           </h1>
@@ -328,11 +375,20 @@ export default function BespokePhoto() {
           {stage === "capture" && (
             <section className={`mt-8 ${card}`}>
               <h2 className="font-display text-xl font-light text-[#F8F8F6]">Take the photo</h2>
-              <ul className="mt-3 space-y-1.5 text-sm text-cream-dim">
-                <li>· Face the camera straight on, in even light.</li>
-                <li>· Hold a bank card flat against your cheek, long edge horizontal.</li>
-                <li>· Keep both ears visible. No glasses on.</li>
-              </ul>
+              <ol className="mt-5 grid gap-4 sm:grid-cols-2">
+                {INSTRUCTIONS.map(({ icon: Icon, title, body }, i) => (
+                  <li key={title} className="border border-cream/10 bg-[#080807] p-4">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-gold/50 text-gold">
+                        <Icon className="h-4 w-4" aria-hidden />
+                      </span>
+                      <span className="text-[11px] uppercase tracking-[0.18em] text-gold">Step {i + 1}</span>
+                    </div>
+                    <p className="mt-3 text-sm text-cream">{title}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-cream-dim">{body}</p>
+                  </li>
+                ))}
+              </ol>
               <div className="mt-6 flex flex-wrap gap-3">
                 <button type="button" className={primaryBtn} onClick={() => fileRef.current?.click()}>
                   <Camera className="h-4 w-4" aria-hidden /> Take a photo
@@ -379,7 +435,21 @@ export default function BespokePhoto() {
                 className="mt-5 w-full cursor-crosshair border border-cream/10"
               />
 
-              <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
+              {cardTooShort && (
+                <p role="alert" className="mt-4 border border-gold/40 bg-gold/10 p-3 text-sm text-cream">
+                  The card reads only {Math.round(cardPx!)} px wide. We need at least {MIN_CARD_PX} px
+                  to scale accurately — move closer, or take the photo again at full resolution.
+                </p>
+              )}
+
+              {stage === "review" && deltaMm != null && deltaMm > DELTA_WARN_MM && (
+                <p role="alert" className="mt-4 border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">
+                  This photo reads {templeToTempleMm} mm across, {deltaMm} mm away from the{" "}
+                  {scanTempleToTempleMm} mm on file. We will check it by hand before anything is cut.
+                </p>
+              )}
+
+              <dl className="mt-5 grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
                 <div>
                   <dt className="text-[11px] uppercase tracking-[0.16em] text-cream-dim">Scale</dt>
                   <dd className="text-cream">{mmPerPx ? `${round1(1 / mmPerPx)} px per mm` : "—"}</dd>
@@ -388,11 +458,20 @@ export default function BespokePhoto() {
                   <dt className="text-[11px] uppercase tracking-[0.16em] text-cream-dim">Temple to temple</dt>
                   <dd className="text-cream">{templeToTempleMm ? `${templeToTempleMm} mm` : "—"}</dd>
                 </div>
+                <div>
+                  <dt className="text-[11px] uppercase tracking-[0.16em] text-cream-dim">Front width</dt>
+                  <dd className="text-cream">{front.mm} mm · bridge {frame.bridgeMm} mm</dd>
+                </div>
               </dl>
 
               <div className="mt-6 flex flex-wrap gap-3">
                 {stage === "card" && (
-                  <button type="button" className={primaryBtn} disabled={!mmPerPx} onClick={() => setStage("temples")}>
+                  <button
+                    type="button"
+                    className={primaryBtn}
+                    disabled={!mmPerPx}
+                    onClick={() => setStage("temples")}
+                  >
                     Next
                   </button>
                 )}
