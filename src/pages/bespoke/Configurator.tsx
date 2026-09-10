@@ -19,6 +19,7 @@ import {
   getLatestPreviewUrl,
   PREVIEW_UPDATED_EVENT,
 } from "./steps";
+import StepPreview from "./StepPreview";
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
 const FONT_HREF =
@@ -82,8 +83,8 @@ const ConfiguratorPage = () => {
 
   // Step-aware total: only show add-ons once the user has reached those steps.
   const stepTotal =
-    step === 1 || step === 2 || step === 3 ? pricing.basePriceEur :
-    step === 4 ? pricing.basePriceEur + pricing.engravingEur :
+    step <= 4 ? pricing.basePriceEur :
+    step === 5 ? pricing.basePriceEur + pricing.engravingEur :
     pricing.totalEur;
 
   // Fit numbers — from scan if present, else brand reference defaults.
@@ -142,9 +143,10 @@ const ConfiguratorPage = () => {
   const StepBody =
     step === 1 ? <StepFrame config={config} update={update} /> :
     step === 2 ? <StepColor config={config} update={update} /> :
-    step === 3 ? <StepTempleLength config={config} update={update} /> :
-    step === 4 ? <StepEngraving config={config} update={update} /> :
-    step === 5 ? <StepLenses config={config} update={update} /> :
+    step === 3 ? <StepPreview config={config} update={update} /> :
+    step === 4 ? <StepTempleLength config={config} update={update} /> :
+    step === 5 ? <StepEngraving config={config} update={update} /> :
+    step === 6 ? <StepLenses config={config} update={update} /> :
                  <StepReview config={config} onSave={handleSave} saved={saved} />;
 
   return (
