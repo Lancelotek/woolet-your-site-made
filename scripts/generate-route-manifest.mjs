@@ -74,6 +74,7 @@ const EXTRA_APP_ROUTES = [
   // Conversion pages (noindex, still 200)
   "/thank-you",
   "/thank-you-fb",
+  "/en/thank-you/reserved",
   "/en/thank-you",
   "/en/thank-you-fb",
   "/pl/thank-you",
