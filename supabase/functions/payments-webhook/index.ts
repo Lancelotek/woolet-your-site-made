@@ -607,6 +607,10 @@ Deno.serve(async (req) => {
     return ok({ received: true });
   } catch (e) {
     console.error("[payments-webhook] handler error", e);
+    // Allow a manual replay of this event to be processed again.
+    if (eventId) {
+      await getSupabase().from("stripe_events").delete().eq("event_id", eventId);
+    }
     return ok({ received: true, handled: false });
   }
 });
