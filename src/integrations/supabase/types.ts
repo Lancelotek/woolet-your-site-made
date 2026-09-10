@@ -752,6 +752,27 @@ export type Database = {
         }
         Relationships: []
       }
+      stripe_events: {
+        Row: {
+          environment: string | null
+          event_id: string
+          event_type: string | null
+          received_at: string
+        }
+        Insert: {
+          environment?: string | null
+          event_id: string
+          event_type?: string | null
+          received_at?: string
+        }
+        Update: {
+          environment?: string | null
+          event_id?: string
+          event_type?: string | null
+          received_at?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
