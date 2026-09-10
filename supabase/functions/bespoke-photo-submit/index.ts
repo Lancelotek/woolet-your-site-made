@@ -44,19 +44,30 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json().catch(() => ({}));
     const sid = typeof body?.sid === "string" ? body.sid : "";
-    if (!SID_RE.test(sid)) return json({ error: "invalid_sid" }, 400);
+    const sessionRef = typeof body?.sessionRef === "string" && UUID_RE.test(body.sessionRef)
+      ? body.sessionRef
+      : null;
+    // Two callers: the post-purchase page (sid) and the configurator's
+    // pre-purchase "On your face" panel (sessionRef, no order yet).
+    if (!sid && !sessionRef) return json({ error: "invalid_sid" }, 400);
+    if (sid && !SID_RE.test(sid)) return json({ error: "invalid_sid" }, 400);
 
     const consentText = str(body?.consentText, 2000);
     if (!consentText || body?.consentGiven !== true) return json({ error: "consent_required" }, 400);
 
-    const { data: order, error } = await supabase
-      .from("bespoke_orders")
-      .select("id, session_ref, purged_at")
-      .eq("stripe_session_id", sid)
-      .maybeSingle();
-    if (error) throw error;
-    if (!order) return json({ error: "not_found" }, 404);
-    if (order.purged_at) return json({ error: "purged" }, 410);
+    let order: { id: string; session_ref: string | null; purged_at: string | null } | null = null;
+    if (sid) {
+      const { data, error } = await supabase
+        .from("bespoke_orders")
+        .select("id, session_ref, purged_at")
+        .eq("stripe_session_id", sid)
+        .maybeSingle();
+      if (error) throw error;
+      if (!data) return json({ error: "not_found" }, 404);
+      if (data.purged_at) return json({ error: "purged" }, 410);
+      order = data;
+    }
+
 
     // Cross-check the photo against the scan, when we have one to compare to.
     let scanTt: number | null = null;
