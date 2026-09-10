@@ -274,7 +274,7 @@ export default function BespokePhoto() {
           consentGiven: true,
           consentText,
           consentVersion: CONSENT_VERSION,
-          locale: document.documentElement.lang || "en",
+          locale,
           photoPath: signed.uploads.photo.path,
           geometryPath: signed.uploads.geometry.path,
           vtoPath: signed.uploads.vto.path,
