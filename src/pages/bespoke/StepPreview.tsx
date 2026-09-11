@@ -38,7 +38,7 @@ export default function StepPreview({ config, update, locale = "en" }: Props) {
 
       <TryOnPanel config={config} unlocked={Boolean(framePreviewUrl)} />
 
-      <OnYourFacePanel config={config} update={update} locale={locale} />
+      <OnYourFacePanel config={config} update={update} locale={locale} renderUrl={framePreviewUrl} />
     </div>
   );
 }
