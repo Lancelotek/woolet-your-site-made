@@ -574,6 +574,11 @@ export default function BespokeCheckout() {
                         {formatEur(Math.round(pricing.totalEur * (100 - couponPercent)) / 100)}
                       </div>
                     </div>
+                    {couponPercent === 100 && (
+                      <p className="mt-2 text-[11px] text-cream-dim/80">
+                        Test order — a $1 minimum is charged because payments cannot be processed at zero.
+                      </p>
+                    )}
                   </div>
                 </div>
 
