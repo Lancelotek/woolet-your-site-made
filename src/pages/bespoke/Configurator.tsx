@@ -236,24 +236,27 @@ const ConfiguratorPage = () => {
           </ol>
         </div>
 
-        {/* ── Mobile live preview — the buyer must see what they are composing ── */}
-        <div className="cfg-mobilepreview lg:hidden">
-          <div className="cfg-mobilepreview__stage">
-            {aiPreviewUrl && step >= 2 ? (
-              <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
-            ) : frame ? (
-              <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`} />
-            ) : (
-              <span className="cfg-mobilepreview__place">Select a pattern</span>
-            )}
+        {/* ── Mobile live preview — hidden on steps that already show a large image ── */}
+        {step !== 3 && step !== STEPS.length && (
+          <div className="cfg-mobilepreview lg:hidden">
+            <div className="cfg-mobilepreview__stage">
+              {aiPreviewUrl && step >= 2 ? (
+                <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
+              ) : frame ? (
+                <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`} />
+              ) : (
+                <span className="cfg-mobilepreview__place">Select a pattern</span>
+              )}
+            </div>
+            <div className="cfg-mobilepreview__meta">
+              <span>{frame ? frame.name : "No pattern yet"}</span>
+              {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
+              {temple && <span className="cfg-mobilepreview__dot" style={{ background: temple.hex }} aria-hidden />}
+              {finish && <span className="cfg-mobilepreview__finish">{finish.name}</span>}
+            </div>
           </div>
-          <div className="cfg-mobilepreview__meta">
-            <span>{frame ? frame.name : "No pattern yet"}</span>
-            {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
-            {temple && <span className="cfg-mobilepreview__dot" style={{ background: temple.hex }} aria-hidden />}
-            {finish && <span className="cfg-mobilepreview__finish">{finish.name}</span>}
-          </div>
-        </div>
+        )}
+
 
         {/* ── Pay-first notice ── */}
         <div className="cfg-container mt-6 cfg-notewrap">
