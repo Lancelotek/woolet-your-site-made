@@ -110,10 +110,11 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const cameraFileRef = useRef<HTMLInputElement | null>(null);
   const overlayImgRef = useRef<HTMLImageElement | null>(null);
   const [overlayReady, setOverlayReady] = useState(0);
 
-  const mobile = isCoarsePointer() && typeof navigator !== "undefined" && !!navigator.mediaDevices;
+  const mobile = isCoarsePointer();
 
   // Restore any photo saved on this device.
   useEffect(() => {
@@ -220,6 +221,10 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
 
   const startCamera = async () => {
     setError(null);
+    if (!navigator.mediaDevices?.getUserMedia) {
+      cameraFileRef.current?.click();
+      return;
+    }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "user" },
@@ -227,26 +232,40 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
       });
       streamRef.current = stream;
       setCameraOn(true);
-      window.setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play().catch(() => undefined);
-        }
-      }, 0);
     } catch {
-      setError("We could not open the camera. Upload a photo instead.");
+      // iOS/Chrome can refuse the inline stream; the native camera always works.
+      cameraFileRef.current?.click();
     }
   };
+
+  // Attach the stream once the <video> element is actually in the DOM.
+  useEffect(() => {
+    const video = videoRef.current;
+    const stream = streamRef.current;
+    if (!cameraOn || !video || !stream) return;
+    video.srcObject = stream;
+    const play = () => void video.play().catch(() => undefined);
+    video.onloadedmetadata = play;
+    play();
+    return () => {
+      video.onloadedmetadata = null;
+    };
+  }, [cameraOn]);
 
   const stopCamera = () => {
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
+    if (videoRef.current) videoRef.current.srcObject = null;
     setCameraOn(false);
   };
 
   const capture = async () => {
     const video = videoRef.current;
     if (!video) return;
+    if (!video.videoWidth || !video.videoHeight) {
+      setError("The camera is still warming up — try again in a second.");
+      return;
+    }
     const c = document.createElement("canvas");
     c.width = video.videoWidth;
     c.height = video.videoHeight;
@@ -487,14 +506,29 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
         }}
       />
 
+      {/* Native camera — the reliable path when the inline stream is refused. */}
+      <input
+        ref={cameraFileRef}
+        type="file"
+        accept="image/*"
+        capture="user"
+        className="sr-only"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) acceptImage(URL.createObjectURL(f));
+          e.target.value = "";
+        }}
+      />
+
       {cameraOn && (
         <div className="mt-6">
           <video
             ref={videoRef}
             playsInline
+            autoPlay
             muted
             className="w-full border border-cream/10"
-            style={{ transform: "scaleX(-1)" }}
+            style={{ transform: "scaleX(-1)", minHeight: 220, background: "#000" }}
           />
           <div className="mt-4 flex flex-wrap gap-3">
             <button type="button" className={gold} onClick={capture}>
