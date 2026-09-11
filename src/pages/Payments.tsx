@@ -222,23 +222,18 @@ export default function Payments() {
                   <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "rgba(15,15,15,0.6)", marginBottom: 14 }}>
                     Confirmation will be sent to <strong>{email}</strong>
                   </div>
-                  {/* @ts-expect-error - Stripe web component */}
-                  <stripe-buy-button
-                    buy-button-id={BUY_BUTTON_ID}
-                    publishable-key={PUBLISHABLE_KEY}
-                    customer-email={email}
-                  />
-                  <div style={{ marginTop: 18, fontFamily: "'Barlow', sans-serif", fontSize: 11, color: "rgba(15,15,15,0.55)" }}>
-                    Button not loading?{" "}
-                    <a
-                      href={`${STRIPE_FALLBACK_URL}?prefilled_email=${encodeURIComponent(email)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: "#0f0f0f", textDecoration: "underline" }}
-                    >
-                      Continue to Stripe →
-                    </a>
-                  </div>
+                  <a
+                    href={`${STRIPE_FALLBACK_URL}?prefilled_email=${encodeURIComponent(email)}`}
+                    style={{
+                      display: "block", width: "100%", padding: "14px 0",
+                      background: "#CAA449", color: "#1F1B16", border: "none",
+                      borderRadius: 9999, textAlign: "center", textDecoration: "none",
+                      fontFamily: "'Barlow', sans-serif", fontWeight: 600,
+                      fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase",
+                    }}
+                  >
+                    Reserve for $1 →
+                  </a>
                 </div>
               )}
             </div>
