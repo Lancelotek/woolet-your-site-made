@@ -170,10 +170,56 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
     [scanTempleToTempleMm],
   );
 
+  /**
+   * Where the frame actually belongs: the face's own temples at eye height.
+   * MediaPipe landmarks 234 / 454 are the left and right temple points; 33 / 263
+   * are the outer eye corners, which give the vertical line to sit on.
+   */
+  const seedTemplesFromFace = useCallback(
+    async (img: HTMLImageElement, perPx: number | null): Promise<boolean> => {
+      try {
+        const { getImageLandmarker } = await import("@/lib/face-landmarker");
+        const landmarker = await getImageLandmarker();
+        const res = landmarker.detect(img);
+        const lm = res?.faceLandmarks?.[0];
+        if (!lm) return false;
+        const w = img.naturalWidth;
+        const h = img.naturalHeight;
+        const left = { x: lm[234].x * w, y: lm[234].y * h };
+        const right = { x: lm[454].x * w, y: lm[454].y * h };
+        const eyeY = ((lm[33].y + lm[263].y) / 2) * h;
+        const cx = (left.x + right.x) / 2;
+        const angle = Math.atan2(right.y - left.y, right.x - left.x);
+        // Keep the measured face width unless a calibrated scale says otherwise.
+        const widthPx = perPx
+          ? (scanTempleToTempleMm ?? DEFAULT_TEMPLE_TO_TEMPLE_MM) / perPx
+          : Math.hypot(right.x - left.x, right.y - left.y);
+        const dx = (Math.cos(angle) * widthPx) / 2;
+        const dy = (Math.sin(angle) * widthPx) / 2;
+        setTemplePoints([
+          { x: cx - dx, y: eyeY - dy },
+          { x: cx + dx, y: eyeY + dy },
+        ]);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    [scanTempleToTempleMm],
+  );
+
   useEffect(() => {
-    if (imageEl && templePoints.length !== 2) seedTemples(imageEl, mmPerPx);
+    if (!imageEl || templePoints.length === 2) return;
+    let live = true;
+    void seedTemplesFromFace(imageEl, mmPerPx).then((ok) => {
+      if (live && !ok) seedTemples(imageEl, mmPerPx);
+    });
+    return () => {
+      live = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageEl, mmPerPx]);
+
 
   // ---- drawing ------------------------------------------------------------
   const draw = useCallback(() => {
