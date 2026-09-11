@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     const { data, error } = await supabase
       .from("bespoke_orders")
       .select(
-        "stripe_session_id, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, ai_preview_url, measurements_submitted_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_bridge_width_mm, ai_pd_mm, ai_notes, manual_face_width_mm, manual_temple_to_temple_mm, manual_bridge_width_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm, manual_notes",
+        "id, stripe_session_id, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, ai_preview_url, measurements_submitted_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_bridge_width_mm, ai_pd_mm, ai_notes, manual_face_width_mm, manual_temple_to_temple_mm, manual_bridge_width_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm, manual_notes, created_at",
       )
       .eq("stripe_session_id", sid)
       .maybeSingle();
@@ -40,8 +40,22 @@ Deno.serve(async (req) => {
     // guessed session ID can't leak the buyer's address.
     const em = (data as any).customer_email as string;
     const masked = em ? em.replace(/^(.).*(@.*)$/, "$1***$2") : null;
+    const { data: photoConsent, error: consentError } = await supabase
+      .from("bespoke_order_photos")
+      .select("consent_at, consent_withdrawn_at, consent_version, consent_locale")
+      .eq("order_id", data.id)
+      .order("consent_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (consentError) throw consentError;
+    const { id: _id, ...safeOrder } = data;
     return new Response(
-      JSON.stringify({ ...data, customer_email_masked: masked, customer_email: undefined }),
+      JSON.stringify({
+        ...safeOrder,
+        customer_email_masked: masked,
+        customer_email: undefined,
+        photo_consent: photoConsent ?? null,
+      }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   } catch (err) {
