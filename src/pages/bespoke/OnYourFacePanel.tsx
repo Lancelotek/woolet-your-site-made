@@ -114,7 +114,7 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
   const overlayImgRef = useRef<HTMLImageElement | null>(null);
   const [overlayReady, setOverlayReady] = useState(0);
 
-  const mobile = isCoarsePointer() && typeof navigator !== "undefined" && !!navigator.mediaDevices;
+  const mobile = isCoarsePointer();
 
   // Restore any photo saved on this device.
   useEffect(() => {
