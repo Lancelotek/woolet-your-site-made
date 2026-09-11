@@ -20,7 +20,7 @@ import {
   PREVIEW_UPDATED_EVENT,
 } from "./steps";
 import StepPreview from "./StepPreview";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
 const FONT_HREF =
