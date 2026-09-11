@@ -5,9 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
 
-const BUY_BUTTON_ID = "buy_btn_1Tf0naLEPUSL9e9mbcfVXmQb";
-const PUBLISHABLE_KEY = "pk_live_51IZBv9LEPUSL9e9m7dWKqimMZLNFxfjVfjAlLlXaSVqJ3emyB9v12FRo2ytUn9WszI84SRDb3kQxJmzKy7Qcoeih00lUJL9roa";
-const STRIPE_FALLBACK_URL = "https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n";
+const STRIPE_FALLBACK_URL = "https://buy.stripe.com/aFa7sM2LP8dQ3ER5gFfbq0o";
 
 type Product = "007" | "009" | "bespoke";
 
