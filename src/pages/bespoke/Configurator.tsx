@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
 import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
-import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
 import {
   StepColor,
@@ -56,7 +56,25 @@ const ConfiguratorPage = () => {
   // A step only earns a tick once the buyer has actually been there — steps 4–6
   // carry defaults, so completeness alone would show false progress.
   const [visited, setVisited] = useState<number[]>([step]);
-  const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace });
+  // Selections carried in the URL (QR hand-off / deep links). Parsed once so the
+  // phone keeps the build shown on the desktop even after the cloud config loads.
+  const urlOverrides = useMemo<Partial<BespokeConfig>>(() => {
+    if (typeof window === "undefined") return {};
+    const params = new URLSearchParams(window.location.search);
+    const next: Partial<BespokeConfig> = {};
+    const shape = params.get("shape");
+    if (shape && findFrame(shape)) next.frameId = shape;
+    const frontId = params.get("front");
+    if (frontId && COLORS.some((c) => c.id === frontId)) next.frontColorId = frontId;
+    const templeId = params.get("temple");
+    if (templeId && COLORS.some((c) => c.id === templeId)) next.templeColorId = templeId;
+    const finishParam = params.get("finish");
+    if (finishParam && FINISHES.some((f) => f.id === finishParam)) next.finishId = finishParam;
+    const tl = Number(params.get("tl"));
+    if (Number.isFinite(tl) && tl > 0) next.templeLengthMm = tl;
+    return next;
+  }, []);
+  const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace, overrides: urlOverrides });
   const isMobile = useIsMobile();
 
   // Inside the configurator the floating WhatsApp bubble covers the swatch grid
