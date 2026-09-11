@@ -281,12 +281,23 @@ export default function BespokeMeasurements() {
                         Our optician will review your build and confirm the spec by email within one
                         business day. You can resubmit this form any time before we start cutting.
                       </p>
-                      <a
-                        href={`/en/bespoke/photo?sid=${encodeURIComponent(sid)}`}
-                        className="mt-5 inline-flex min-h-[48px] items-center justify-center bg-gold px-6 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
-                      >
-                        Add a fit photo
-                      </a>
+                      <div className="mt-5 flex flex-col sm:flex-row gap-3">
+                        <a
+                          href={`/en/bespoke/photo?sid=${encodeURIComponent(sid)}`}
+                          className="inline-flex min-h-[48px] items-center justify-center bg-gold px-6 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
+                        >
+                          Add a fit photo
+                        </a>
+                        <button
+                          type="button"
+                          onClick={handleWorkshopPdf}
+                          disabled={pdfBusy}
+                          className="inline-flex min-h-[48px] items-center justify-center gap-2 border border-cream/25 px-6 text-[12px] uppercase tracking-[0.18em] text-cream transition-colors hover:border-gold hover:text-gold disabled:opacity-60"
+                        >
+                          {pdfBusy && <Loader2 size={14} className="animate-spin" />}
+                          {pdfBusy ? "Preparing…" : "Workshop report (PDF)"}
+                        </button>
+                      </div>
                       <p className="mt-3 text-cream-dim text-xs leading-relaxed">
                         Optional. One photo with a bank card held to your cheek lets us double-check
                         your width and show you the frames on your own face before we cut them.
