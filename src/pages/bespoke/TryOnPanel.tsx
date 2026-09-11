@@ -19,12 +19,43 @@ const signInHref = () =>
     typeof window !== "undefined" ? `${window.location.pathname}?step=3` : "/en/bespoke/configurator?step=3",
   );
 
-const readAsDataUrl = (file: File) =>
+/**
+ * Flattens the browser-corrected EXIF orientation into the actual pixels.
+ * iPhone photographs often keep portrait orientation only in EXIF metadata;
+ * the browser displays that correctly, while an image model may read the raw,
+ * sideways pixels. Drawing through canvas gives both the preview and model the
+ * same upright image.
+ */
+const readAsUprightDataUrl = (file: File) =>
   new Promise<string>((resolve, reject) => {
-    const fr = new FileReader();
-    fr.onload = () => resolve(String(fr.result));
-    fr.onerror = () => reject(new Error("Could not read that file"));
-    fr.readAsDataURL(file);
+    const objectUrl = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      try {
+        const naturalWidth = image.naturalWidth;
+        const naturalHeight = image.naturalHeight;
+        if (!naturalWidth || !naturalHeight) throw new Error("Could not read that file");
+
+        const maxEdge = 2400;
+        const scale = Math.min(1, maxEdge / Math.max(naturalWidth, naturalHeight));
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(naturalWidth * scale));
+        canvas.height = Math.max(1, Math.round(naturalHeight * scale));
+        const context = canvas.getContext("2d");
+        if (!context) throw new Error("Could not prepare that photo");
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL("image/jpeg", 0.92));
+      } catch (error) {
+        reject(error);
+      } finally {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Could not read that file"));
+    };
+    image.src = objectUrl;
   });
 
 export default function TryOnPanel({ config, unlocked }: { config: BespokeConfig; unlocked: boolean }) {
@@ -66,7 +97,7 @@ export default function TryOnPanel({ config, unlocked }: { config: BespokeConfig
     if (!/^image\//.test(file.type)) return setError("Please choose a photo.");
     if (file.size > MAX_BYTES) return setError("That photo is larger than 6 MB — try a smaller one.");
     try {
-      setPhoto(await readAsDataUrl(file));
+      setPhoto(await readAsUprightDataUrl(file));
       setResult(null);
     } catch (e) {
       setError((e as Error).message);
