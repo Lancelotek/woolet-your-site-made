@@ -202,9 +202,9 @@ ${FITLENS_CTA(
   /* ─────────────────────────── POST 2 ─────────────────────────── */
   {
     slug: "eyeglass-frame-size-chart",
-    title: "Eyeglass Frame Size Chart (2026) — and Why It Stops at 150 mm",
+    title: "Eyeglass Frame Size Chart: XS to XXL (Including 155mm+ Wide Fit)",
     excerpt:
-      "A real eyeglass frame size chart in millimetres: XS to XXL mapped to front width, lens width, bridge, temple length and the face width each band actually fits — plus what to do when the standard chart ends before your face begins.",
+      "A real eyeglass frame size chart in millimetres: XS to XXL mapped to front width, lens width, bridge and temple length — including the 155–161 mm wide-fit band most charts leave out.",
     date: "2026-07-29",
     readTime: 9,
     tags: ["Sizing", "Guide", "Frame Size"],
