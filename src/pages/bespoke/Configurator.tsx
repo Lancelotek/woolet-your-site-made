@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
