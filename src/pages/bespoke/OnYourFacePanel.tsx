@@ -110,6 +110,7 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const cameraFileRef = useRef<HTMLInputElement | null>(null);
   const overlayImgRef = useRef<HTMLImageElement | null>(null);
   const [overlayReady, setOverlayReady] = useState(0);
 
