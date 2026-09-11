@@ -322,7 +322,11 @@ export function AiPreviewPanel({
           frontColor: `${front.name} (${front.code})`,
           templeColor: `${temple.name} (${temple.code})`,
           finish: finish.name,
+          patternUrl: frame.url,
+          widthMm: frame.widthMm,
+          bridgeMm: frame.bridgeMm,
         },
+
       });
       if (fnErr) throw fnErr;
       const url = (data as { imageUrl?: string })?.imageUrl;
