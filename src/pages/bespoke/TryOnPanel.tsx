@@ -191,7 +191,10 @@ export default function TryOnPanel({ config, unlocked }: { config: BespokeConfig
           <div className="mt-4 grid grid-cols-2 gap-2">
             <button
               type="button"
-              onClick={() => cameraRef.current?.click()}
+              onClick={() => {
+                setPendingAction("camera");
+                setNoticeOpen(true);
+              }}
               className="border border-cream/20 text-cream text-[11px] uppercase tracking-[0.18em] py-3 hover:border-gold/60 transition-colors"
               style={{ borderRadius: 2 }}
             >
@@ -199,13 +202,73 @@ export default function TryOnPanel({ config, unlocked }: { config: BespokeConfig
             </button>
             <button
               type="button"
-              onClick={() => fileRef.current?.click()}
+              onClick={() => {
+                setPendingAction("upload");
+                setNoticeOpen(true);
+              }}
               className="border border-cream/20 text-cream text-[11px] uppercase tracking-[0.18em] py-3 hover:border-gold/60 transition-colors"
               style={{ borderRadius: 2 }}
             >
               Upload a photo
             </button>
           </div>
+
+          {noticeOpen && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              style={{ background: "rgba(11,10,9,0.85)" }}
+              onClick={(e) => {
+                if (e.target === e.currentTarget) setNoticeOpen(false);
+              }}
+            >
+              <div
+                className="w-full max-w-sm border border-gold/30 bg-[#0c0c0c] p-6"
+                style={{ borderRadius: 2 }}
+              >
+                <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light mb-3">
+                  Before the photo
+                </div>
+                <p className="text-cream text-sm leading-relaxed">
+                  For the most accurate try-on, please take your photo{" "}
+                  <strong className="text-gold-light">without glasses on</strong>. Keep your face
+                  well-lit and looking straight at the camera.
+                </p>
+                <div className="mt-6 flex flex-col gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNoticeOpen(false);
+                      if (pendingAction === "camera") cameraRef.current?.click();
+                      else if (pendingAction === "upload") fileRef.current?.click();
+                      setPendingAction(null);
+                    }}
+                    className="w-full inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors"
+                    style={{
+                      background: "hsl(var(--gold))",
+                      color: "hsl(var(--background))",
+                      fontFamily: "Barlow, sans-serif",
+                      fontWeight: 500,
+                      fontSize: "0.72rem",
+                      padding: "14px 24px",
+                      borderRadius: 2,
+                    }}
+                  >
+                    Got it — continue
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNoticeOpen(false);
+                      setPendingAction(null);
+                    }}
+                    className="w-full inline-flex items-center justify-center text-[11px] uppercase tracking-[0.18em] text-cream-dim py-3 hover:text-cream transition-colors"
+                  >
+                    Go back
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           <input
             ref={cameraRef}
             type="file"
