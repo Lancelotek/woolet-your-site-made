@@ -1173,7 +1173,10 @@ const ConfiguratorStyles = () => (
         display: flex; align-items: center; justify-content: center;
         overflow: hidden;
       }
-      .cfg-mobilepreview__stage img { max-height: 100%; max-width: 92%; object-fit: contain; }
+      .cfg-mobilepreview__stage img {
+        max-height: 100%; max-width: 92%; object-fit: contain;
+        mix-blend-mode: multiply;
+      }
       .cfg-mobilepreview__place {
         font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8F897B;
       }
