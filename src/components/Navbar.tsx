@@ -75,14 +75,6 @@ const Navbar = () => {
           >
             {t(lang, "nav.bespoke")}
           </Link>
-          <Link
-            to={hrefFor("blog", lang)}
-            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-            style={{ fontSize: "0.72rem" }}
-            onClick={() => pushGtmEvent("nav_click", { nav_item: "blog", nav_lang: lang })}
-          >
-            {t(lang, "nav.blog")}
-          </Link>
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
@@ -204,18 +196,6 @@ const Navbar = () => {
               }}
             >
               {t(lang, "nav.bespoke")}
-            </Link>
-
-            <Link
-              to={hrefFor("blog", lang)}
-              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-              style={{ fontSize: "0.75rem" }}
-              onClick={() => {
-                setMenuOpen(false);
-                pushGtmEvent("nav_click", { nav_item: "blog", nav_lang: lang });
-              }}
-            >
-              {t(lang, "nav.blog")}
             </Link>
 
             <Link
