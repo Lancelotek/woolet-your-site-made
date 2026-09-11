@@ -151,12 +151,18 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
 
   const mobile = isCoarsePointer();
 
-  // Restore any photo saved on this device.
+  // Restore a photo taken during this visit; drop anything older, handles included.
   useEffect(() => {
     const stored = readStoredPhoto();
-    if (!stored) return;
+    if (!stored) {
+      setCardPoints([]);
+      setTemplePoints([]);
+      return;
+    }
     loadImage(stored).then(setImageEl).catch(() => undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   // Pattern artwork used for the outline.
   useEffect(() => {
