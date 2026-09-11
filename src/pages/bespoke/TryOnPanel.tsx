@@ -73,7 +73,6 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const selectionKey = [frame?.id, front?.id, temple?.id, finish?.id].join("|");
 
-  const fileRef = useRef<HTMLInputElement | null>(null);
   const cameraRef = useRef<HTMLInputElement | null>(null);
   const [exactPreview, setExactPreview] = useState<string | null>(framePreviewUrl);
   const [photo, setPhoto] = useState<string | null>(null);
@@ -82,7 +81,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [noticeOpen, setNoticeOpen] = useState(false);
-  const [pendingAction, setPendingAction] = useState<"camera" | "upload" | null>(null);
+  const [pendingAction, setPendingAction] = useState<"camera" | null>(null);
   const [consent, setConsent] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -263,18 +262,14 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
           </div>
         ) : (
           <>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <button type="button" onClick={() => { setPendingAction("camera"); setNoticeOpen(true); }} className="min-h-[48px] border border-cream/20 text-cream text-[11px] uppercase tracking-[0.18em]">Take a photo</button>
-              <button type="button" onClick={() => { setPendingAction("upload"); setNoticeOpen(true); }} className="min-h-[48px] border border-cream/20 text-cream text-[11px] uppercase tracking-[0.18em]">Upload a photo</button>
-            </div>
+            <button type="button" onClick={() => { setPendingAction("camera"); setNoticeOpen(true); }} className="mt-4 min-h-[48px] w-full border border-cream/20 text-cream text-[11px] uppercase tracking-[0.18em]">{locale === "pl" ? "Zrób zdjęcie" : "Take a photo"}</button>
             <input ref={cameraRef} type="file" accept="image/*" capture="user" className="sr-only" onChange={(e) => { void pick(e.target.files?.[0]); e.target.value = ""; }} />
-            <input ref={fileRef} type="file" accept="image/*" className="sr-only" onChange={(e) => { void pick(e.target.files?.[0]); e.target.value = ""; }} />
 
             {noticeOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 p-4" role="dialog" aria-modal="true" aria-labelledby="photo-notice-title">
               <div className="w-full max-w-sm border border-gold/30 bg-panel p-6">
                 <div id="photo-notice-title" className="text-[10px] uppercase tracking-[0.22em] text-gold-light">Before the photo</div>
                 <p className="mt-3 text-sm leading-relaxed text-cream">Take the photo <strong className="text-gold-light">without glasses</strong>, in good light, looking straight at the camera.</p>
-                <button type="button" onClick={() => { setNoticeOpen(false); pendingAction === "camera" ? cameraRef.current?.click() : fileRef.current?.click(); setPendingAction(null); }} className="mt-6 min-h-[48px] w-full bg-gold text-background text-xs uppercase tracking-[0.18em]">Got it — continue</button>
+                <button type="button" onClick={() => { setNoticeOpen(false); cameraRef.current?.click(); setPendingAction(null); }} className="mt-6 min-h-[48px] w-full bg-gold text-background text-xs uppercase tracking-[0.18em]">Got it — continue</button>
                 <button type="button" onClick={() => { setNoticeOpen(false); setPendingAction(null); }} className="min-h-[44px] w-full text-xs uppercase tracking-[0.18em] text-cream-dim">Go back</button>
               </div>
             </div>}
