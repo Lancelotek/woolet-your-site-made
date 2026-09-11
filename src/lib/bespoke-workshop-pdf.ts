@@ -80,7 +80,7 @@ export async function downloadWorkshopReport(data: WorkshopReportData): Promise<
   y = 60;
 
   const heading = (label: string) => {
-    if (y > 258) {
+    if (y > 250) {
       doc.addPage();
       y = 24;
     }
@@ -139,6 +139,8 @@ export async function downloadWorkshopReport(data: WorkshopReportData): Promise<
     ["Lenses", data.lensType || "—"],
     ["Engraving", data.engravingText ? `"${data.engravingText}"` : "None"],
     ["Temple length requested", data.requestedTempleLength || "—"],
+    ["Order value", data.amountLabel || "—"],
+    ["Customer reference", data.customerRef || "—"],
   ]);
 
   const aiPairs = Object.entries(data.measurements.ai).filter(([, v]) => v) as [string, string][];
