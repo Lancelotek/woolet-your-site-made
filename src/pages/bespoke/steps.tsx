@@ -273,6 +273,13 @@ export function AiPreviewPanel({
     setCloudSaveState("idle");
   }, [selectionKey, history]);
 
+  // Let the step host know whether a frame render exists (gates the try-on).
+  useEffect(() => {
+    onRenderChange?.(activeUrl);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeUrl]);
+
+
   if (!ready || !frame || !front || !temple || !finish) {
     return (
       <div className="border border-cream/10 p-6 text-cream-dim text-xs leading-relaxed" style={{ borderRadius: 2 }}>
