@@ -246,7 +246,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
       <h3 className="font-display text-cream text-xl leading-tight mt-1">Your frame, on your <em className="italic text-gold-light">face</em></h3>
       <p className="text-cream-dim text-xs leading-relaxed mt-2">Use a phone for a straight-on photo without glasses. We place the exact frame visualised above on your face.</p>
 
-      <div className="hidden lg:block mt-6 border border-cream/10 p-6 text-center">
+      <div className="hidden md:block mt-6 border border-cream/10 p-6 text-center">
         <Smartphone className="mx-auto text-gold-light" aria-hidden />
         <h4 className="mt-3 font-display text-lg text-cream">Continue on your phone</h4>
         <p className="mx-auto mt-2 max-w-sm text-xs leading-relaxed text-cream-dim">Scan this code with your phone. Your selected pattern, acetate, finish and private session continue there.</p>
@@ -254,7 +254,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
         {!isSignedIn && <Link to={signInHref()} className="mt-5 inline-flex min-h-[44px] items-center border border-gold/60 px-5 text-[11px] uppercase tracking-[0.18em] text-gold-light">Sign in first to carry the exact AI frame to your phone</Link>}
       </div>
 
-      <div className="lg:hidden">
+      <div className="md:hidden">
         {!isSignedIn ? (
           <div className="mt-4 border border-gold/25 p-4 bg-gold/5">
             <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light">Free with an account</div>
