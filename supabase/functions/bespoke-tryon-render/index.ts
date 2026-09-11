@@ -27,6 +27,7 @@ interface Body {
   templeColor?: string;
   finish?: string;
   selectionKey?: string;
+  framePreviewUrl?: string;
   probe?: boolean;
 }
 
@@ -71,6 +72,12 @@ Deno.serve(async (req) => {
     // ~8 MB of base64 payload ceiling.
     if (photo.length > 8_000_000) return json({ error: "Photo too large" }, 413);
 
+    const framePreviewUrl = String(body?.framePreviewUrl ?? "");
+    if (!/^https:\/\//.test(framePreviewUrl) && !/^data:image\/(jpeg|jpg|png|webp);base64,/.test(framePreviewUrl)) {
+      return json({ error: "Invalid frame preview" }, 400);
+    }
+    if (framePreviewUrl.length > 8_000_000) return json({ error: "Frame preview too large" }, 413);
+
     const shape = String(body?.shape ?? "").slice(0, 60);
     const frontColor = String(body?.frontColor ?? "").slice(0, 120);
     const templeColor = String(body?.templeColor ?? "").slice(0, 120);
@@ -83,13 +90,14 @@ Deno.serve(async (req) => {
     if (!apiKey) return json({ error: "AI gateway not configured" }, 500);
 
     const prompt = [
-      `Edit this photograph so the person is wearing a single pair of premium bespoke eyeglasses,`,
-      `shape: ${shape}. Frame front in Italian Mazzucchelli acetate "${frontColor}",`,
-      `temples in "${templeColor}", finish: ${finish}. Wide 155 mm+ silhouette, keyhole bridge.`,
-      `Keep the person's face, skin, hair, expression, pose, lighting and background exactly as they are —`,
-      `change nothing except adding the glasses. Realistic placement on the nose bridge and ears,`,
-      `correct perspective, natural shadows and clear lenses with subtle reflections.`,
-      `No text, no logos, no watermarks. Photorealistic result.`,
+      `The first image is the person's portrait. The second image is the exact approved bespoke eyeglass frame render.`,
+      `Edit only the first image so the person wears precisely the frame shown in the second image.`,
+      `Do not redesign, simplify, reinterpret or substitute the frame. Preserve its exact lens silhouette, bridge and brow-bar count,`,
+      `rim thickness, end pieces, temple placement, acetate pattern and colour distribution, finish and proportions.`,
+      `Selection reference: ${shape}; front ${frontColor}; temples ${templeColor}; finish ${finish}.`,
+      `Fit the frame naturally to the nose and ears with correct perspective, clear lenses, subtle reflections and realistic shadows.`,
+      `Keep the person's face, skin, hair, expression, pose, orientation, lighting, crop and background unchanged.`,
+      `No text, no logos, no watermarks. Return one upright photorealistic portrait.`,
     ].join(" ");
 
     const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -103,6 +111,7 @@ Deno.serve(async (req) => {
             content: [
               { type: "text", text: prompt },
               { type: "image_url", image_url: { url: photo } },
+              { type: "image_url", image_url: { url: framePreviewUrl } },
             ],
           },
         ],
@@ -125,7 +134,8 @@ Deno.serve(async (req) => {
     await admin.from("bespoke_tryon_renders").insert({
       user_id: user.id,
       selection_key: String(body?.selectionKey ?? "").slice(0, 200) || null,
-      image_url: imageUrl,
+      // Count the render without retaining either image before workshop consent.
+      image_url: "",
       description,
     });
 

@@ -20,6 +20,7 @@ import {
   PREVIEW_UPDATED_EVENT,
 } from "./steps";
 import StepPreview from "./StepPreview";
+import { useParams } from "react-router-dom";
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
 const FONT_HREF =
@@ -40,6 +41,8 @@ const useConfiguratorFonts = () => {
 const ConfiguratorPage = () => {
   useConfiguratorFonts();
   const { config, update, pricing, reset, replace } = useBespokeConfig();
+  const { lang: routeLang } = useParams<{ lang?: string }>();
+  const previewLocale: "en" | "pl" = routeLang === "pl" ? "pl" : "en";
   const [step, setStep] = useState<StepId>(() => {
     if (typeof window === "undefined") return 1;
     const raw = new URLSearchParams(window.location.search).get("step");
@@ -151,7 +154,7 @@ const ConfiguratorPage = () => {
   const StepBody =
     step === 1 ? <StepFrame config={config} update={update} /> :
     step === 2 ? <StepColor config={config} update={update} /> :
-    step === 3 ? <StepPreview config={config} update={update} /> :
+    step === 3 ? <StepPreview config={config} update={update} locale={previewLocale} /> :
     step === 4 ? <StepTempleLength config={config} update={update} /> :
     step === 5 ? <StepEngraving config={config} update={update} /> :
     step === 6 ? <StepLenses config={config} update={update} /> :
