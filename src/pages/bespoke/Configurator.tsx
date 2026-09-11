@@ -401,7 +401,9 @@ const ConfiguratorPage = () => {
             <ChevronLeft size={16} />
           </button>
           <div className="cfg-mobilebar__meta">
-            <div className="cfg-mobilebar__price">{formatEur(stepTotal)}</div>
+            <div className="cfg-mobilebar__price">
+              <span className="cfg-mobilebar__pricelabel">Total</span> {formatEur(stepTotal)}
+            </div>
             {navHint ? (
               <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
                 Pick an option to continue
@@ -411,11 +413,18 @@ const ConfiguratorPage = () => {
             )}
           </div>
           <button
-            onClick={handleMobileNext}
-            aria-disabled={!stepComplete || step === STEPS.length}
+            onClick={() => {
+              if (step === STEPS.length) {
+                handleSave();
+                navigate("/en/bespoke/checkout");
+                return;
+              }
+              handleMobileNext();
+            }}
+            aria-disabled={step !== STEPS.length && !stepComplete}
             className="cfg-cta cfg-cta--mobile"
           >
-            {step === STEPS.length ? "Done" : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
+            {step === STEPS.length ? "Pay now" : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
           </button>
         </div>
       </div>
