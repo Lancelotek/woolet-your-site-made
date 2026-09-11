@@ -5,7 +5,7 @@ import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Ruler } fro
 import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
-import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
 import {
   StepColor,
