@@ -292,6 +292,9 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
       const img = await loadImage(dataUrl);
       try {
         window.localStorage.setItem(PHOTO_KEY, dataUrl);
+        const owner = currentSessionId();
+        if (owner) window.localStorage.setItem(`${PHOTO_KEY}:owner`, owner);
+
       } catch {
         /* quota — the photo simply will not survive a reload */
       }
