@@ -64,13 +64,21 @@ const ConfiguratorPage = () => {
   }, []);
 
   // Deep link from the collection cards: /en/bespoke/configurator?shape=aviator
-  // Unknown or missing shape keeps whatever is already selected.
+  // and from the QR hand-off, which also carries the acetates, finish and
+  // temple length so the phone shows the build chosen on the desktop.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const shape = new URLSearchParams(window.location.search).get("shape");
-    if (!shape) return;
-    if (!findFrame(shape)) return;
-    update("frameId", shape);
+    const params = new URLSearchParams(window.location.search);
+    const shape = params.get("shape");
+    if (shape && findFrame(shape)) update("frameId", shape);
+    const front = params.get("front");
+    if (front && COLORS.some((c) => c.id === front)) update("frontColorId", front);
+    const temple = params.get("temple");
+    if (temple && COLORS.some((c) => c.id === temple)) update("templeColorId", temple);
+    const finishId = params.get("finish");
+    if (finishId && FINISHES.some((f) => f.id === finishId)) update("finishId", finishId);
+    const tl = Number(params.get("tl"));
+    if (Number.isFinite(tl) && tl > 0) update("templeLengthMm", tl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
