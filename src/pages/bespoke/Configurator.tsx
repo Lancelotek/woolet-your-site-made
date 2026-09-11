@@ -1089,10 +1089,15 @@ const ConfiguratorStyles = () => (
       color: var(--cfg-cream);
       line-height: 1.1;
     }
-    .cfg-cta--mobile { width: auto; padding: 12px 18px; white-space: nowrap; }
+    .cfg-mobilebar__pricelabel {
+      font-family: 'Archivo', sans-serif;
+      font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--cfg-muted); margin-right: 4px; vertical-align: 2px;
+    }
+    .cfg-cta--mobile { width: auto; min-height: 48px; padding: 12px 18px; white-space: nowrap; }
     .cfg-mobilebar__back {
       flex-shrink: 0;
-      width: 42px; height: 42px;
+      width: 48px; height: 48px;
       display: inline-flex; align-items: center; justify-content: center;
       border: 1px solid var(--cfg-border-strong);
       background: transparent;
