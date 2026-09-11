@@ -20,7 +20,7 @@ import {
   PREVIEW_UPDATED_EVENT,
 } from "./steps";
 import StepPreview from "./StepPreview";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
 const FONT_HREF =
@@ -76,6 +76,7 @@ const ConfiguratorPage = () => {
   }, []);
   const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace, overrides: urlOverrides });
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   // Inside the configurator the floating WhatsApp bubble covers the swatch grid
   // on phones — suppress it for the lifetime of this page.
@@ -235,24 +236,27 @@ const ConfiguratorPage = () => {
           </ol>
         </div>
 
-        {/* ── Mobile live preview — the buyer must see what they are composing ── */}
-        <div className="cfg-mobilepreview lg:hidden">
-          <div className="cfg-mobilepreview__stage">
-            {aiPreviewUrl && step >= 2 ? (
-              <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
-            ) : frame ? (
-              <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`} />
-            ) : (
-              <span className="cfg-mobilepreview__place">Select a pattern</span>
-            )}
+        {/* ── Mobile live preview — hidden on steps that already show a large image ── */}
+        {step !== 3 && step !== STEPS.length && (
+          <div className="cfg-mobilepreview lg:hidden">
+            <div className="cfg-mobilepreview__stage">
+              {aiPreviewUrl && step >= 2 ? (
+                <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
+              ) : frame ? (
+                <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`} />
+              ) : (
+                <span className="cfg-mobilepreview__place">Select a pattern</span>
+              )}
+            </div>
+            <div className="cfg-mobilepreview__meta">
+              <span>{frame ? frame.name : "No pattern yet"}</span>
+              {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
+              {temple && <span className="cfg-mobilepreview__dot" style={{ background: temple.hex }} aria-hidden />}
+              {finish && <span className="cfg-mobilepreview__finish">{finish.name}</span>}
+            </div>
           </div>
-          <div className="cfg-mobilepreview__meta">
-            <span>{frame ? frame.name : "No pattern yet"}</span>
-            {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
-            {temple && <span className="cfg-mobilepreview__dot" style={{ background: temple.hex }} aria-hidden />}
-            {finish && <span className="cfg-mobilepreview__finish">{finish.name}</span>}
-          </div>
-        </div>
+        )}
+
 
         {/* ── Pay-first notice ── */}
         <div className="cfg-container mt-6 cfg-notewrap">
@@ -397,7 +401,9 @@ const ConfiguratorPage = () => {
             <ChevronLeft size={16} />
           </button>
           <div className="cfg-mobilebar__meta">
-            <div className="cfg-mobilebar__price">{formatEur(stepTotal)}</div>
+            <div className="cfg-mobilebar__price">
+              <span className="cfg-mobilebar__pricelabel">Total</span> {formatEur(stepTotal)}
+            </div>
             {navHint ? (
               <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
                 Pick an option to continue
@@ -407,11 +413,18 @@ const ConfiguratorPage = () => {
             )}
           </div>
           <button
-            onClick={handleMobileNext}
-            aria-disabled={!stepComplete || step === STEPS.length}
+            onClick={() => {
+              if (step === STEPS.length) {
+                handleSave();
+                navigate("/en/bespoke/checkout");
+                return;
+              }
+              handleMobileNext();
+            }}
+            aria-disabled={step !== STEPS.length && !stepComplete}
             className="cfg-cta cfg-cta--mobile"
           >
-            {step === STEPS.length ? "Done" : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
+            {step === STEPS.length ? "Pay now" : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
           </button>
         </div>
       </div>
@@ -1076,10 +1089,15 @@ const ConfiguratorStyles = () => (
       color: var(--cfg-cream);
       line-height: 1.1;
     }
-    .cfg-cta--mobile { width: auto; padding: 12px 18px; white-space: nowrap; }
+    .cfg-mobilebar__pricelabel {
+      font-family: 'Archivo', sans-serif;
+      font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--cfg-muted); margin-right: 4px; vertical-align: 2px;
+    }
+    .cfg-cta--mobile { width: auto; min-height: 48px; padding: 12px 18px; white-space: nowrap; }
     .cfg-mobilebar__back {
       flex-shrink: 0;
-      width: 42px; height: 42px;
+      width: 48px; height: 48px;
       display: inline-flex; align-items: center; justify-content: center;
       border: 1px solid var(--cfg-border-strong);
       background: transparent;
@@ -1155,7 +1173,10 @@ const ConfiguratorStyles = () => (
         display: flex; align-items: center; justify-content: center;
         overflow: hidden;
       }
-      .cfg-mobilepreview__stage img { max-height: 100%; max-width: 92%; object-fit: contain; }
+      .cfg-mobilepreview__stage img {
+        max-height: 100%; max-width: 92%; object-fit: contain;
+        mix-blend-mode: multiply;
+      }
       .cfg-mobilepreview__place {
         font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8F897B;
       }
@@ -1191,8 +1212,14 @@ const ConfiguratorStyles = () => (
       /* Reassurance copy sits below the step content on phones/tablets */
       .cfg-scope > div { display: flex; flex-direction: column; }
       .cfg-scope > div > main.cfg-container { order: 4; }
-      .cfg-scope > div > .cfg-notewrap { order: 5; margin-top: 0; margin-bottom: 28px; }
+      .cfg-scope > div > .cfg-notewrap {
+        order: 5; margin-top: 0;
+        margin-bottom: calc(104px + env(safe-area-inset-bottom));
+      }
       .cfg-scope > div > .cfg-mobilebar { order: 6; }
+      .cfg-scope main.cfg-container { padding-bottom: 8px; }
+      /* Tap targets on choices stay finger-sized */
+      .cfg-scope main.cfg-container button { min-height: 44px; }
     }
 
     /* Horizontal swatch strips on phones (single DOM, CSS-only switch) */
