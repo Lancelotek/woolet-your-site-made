@@ -42,19 +42,37 @@ Deno.serve(async (req) => {
     const masked = em ? em.replace(/^(.).*(@.*)$/, "$1***$2") : null;
     const { data: photoConsent, error: consentError } = await supabase
       .from("bespoke_order_photos")
-      .select("consent_at, consent_withdrawn_at, consent_version, consent_locale")
+      .select("consent_at, consent_withdrawn_at, consent_version, consent_locale, vto_path")
       .eq("order_id", data.id)
       .order("consent_at", { ascending: false })
       .limit(1)
       .maybeSingle();
     if (consentError) throw consentError;
+    // Signed, short-lived link to the approved on-face visualisation so the
+    // workshop report can embed it. Never returned after consent withdrawal.
+    let tryOnUrl: string | null = null;
+    const vtoPath = (photoConsent as any)?.vto_path as string | null | undefined;
+    if (vtoPath && !photoConsent?.consent_withdrawn_at) {
+      const { data: signed } = await supabase.storage
+        .from("bespoke-photos")
+        .createSignedUrl(vtoPath, 60 * 15);
+      tryOnUrl = signed?.signedUrl ?? null;
+    }
     const { id: _id, ...safeOrder } = data;
     return new Response(
       JSON.stringify({
         ...safeOrder,
         customer_email_masked: masked,
         customer_email: undefined,
-        photo_consent: photoConsent ?? null,
+        photo_consent: photoConsent
+          ? {
+              consent_at: photoConsent.consent_at,
+              consent_withdrawn_at: photoConsent.consent_withdrawn_at,
+              consent_version: photoConsent.consent_version,
+              consent_locale: photoConsent.consent_locale,
+            }
+          : null,
+        try_on_url: tryOnUrl,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );

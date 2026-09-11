@@ -52,6 +52,7 @@ type OrderSummary = {
     consent_version: string | null;
     consent_locale: string | null;
   } | null;
+  try_on_url?: string | null;
 };
 
 type FormState = {
@@ -185,6 +186,7 @@ export default function BespokeMeasurements() {
         customerRef: order?.customer_email_masked ?? null,
         requestedTempleLength,
         aiPreviewUrl: order?.ai_preview_url ?? null,
+        tryOnUrl: order?.try_on_url ?? null,
         consent: order?.photo_consent
           ? {
               grantedAt: order.photo_consent.consent_at,

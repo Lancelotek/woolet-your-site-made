@@ -16,6 +16,7 @@ export type WorkshopReportData = {
   customerRef?: string | null;
   requestedTempleLength?: string | null;
   aiPreviewUrl?: string | null;
+  tryOnUrl?: string | null;
   consent?: {
     grantedAt?: string | null;
     withdrawnAt?: string | null;
@@ -74,6 +75,7 @@ export async function downloadWorkshopReport(data: WorkshopReportData): Promise<
   let y = 0;
 
   const preview = data.aiPreviewUrl ? await loadImage(data.aiPreviewUrl) : null;
+  const tryOn = data.tryOnUrl ? await loadImage(data.tryOnUrl) : null;
 
   // Header band
   doc.setFillColor(8, 8, 7);
@@ -202,6 +204,23 @@ export async function downloadWorkshopReport(data: WorkshopReportData): Promise<
     doc.addImage(preview.dataUrl, "JPEG", M + (CW - w) / 2, y, w, h);
     y += h + 14;
   }
+
+  if (tryOn) {
+    heading("Customer wearing the frame");
+    const maxH = 95;
+    const scale = Math.min(CW / tryOn.w, maxH / tryOn.h);
+    const w = tryOn.w * scale;
+    const h = tryOn.h * scale;
+    if (y + h > 278) {
+      doc.addPage();
+      y = 24;
+    }
+    doc.setFillColor(239, 233, 223);
+    doc.rect(M, y - 4, CW, h + 8, "F");
+    doc.addImage(tryOn.dataUrl, "JPEG", M + (CW - w) / 2, y, w, h);
+    y += h + 14;
+  }
+
 
   const pages = doc.getNumberOfPages();
   for (let i = 1; i <= pages; i += 1) {
