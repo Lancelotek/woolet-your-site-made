@@ -157,6 +157,54 @@ export default function BespokeMeasurements() {
   const update = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
+  const [pdfBusy, setPdfBusy] = useState(false);
+
+  const handleWorkshopPdf = async () => {
+    if (pdfBusy) return;
+    setPdfBusy(true);
+    try {
+      const mm = (v: string) => (v ? `${v} mm` : "");
+      const { downloadWorkshopReport } = await import("@/lib/bespoke-workshop-pdf");
+      await downloadWorkshopReport({
+        sessionId: sid,
+        frameName: order?.frame_name ?? null,
+        frontCode: order?.front_code ?? null,
+        templeCode: order?.temple_code ?? null,
+        finishId: order?.finish_id ?? null,
+        lensType: order?.lens_type ?? null,
+        engravingText: order?.engraving_text ?? null,
+        amountLabel: priceLabel,
+        customerRef: order?.customer_email_masked ?? null,
+        requestedTempleLength,
+        aiPreviewUrl: order?.ai_preview_url ?? null,
+        measurements: {
+          ai: {
+            "Face width": mm(form.ai_face_width_mm),
+            "Temple-to-temple": mm(form.ai_temple_to_temple_mm),
+            "Bridge width": mm(form.ai_bridge_width_mm),
+            "Pupillary distance": mm(form.ai_pd_mm),
+          },
+          manual: {
+            "Face width": mm(form.manual_face_width_mm),
+            "Temple-to-temple": mm(form.manual_temple_to_temple_mm),
+            "Bridge width": mm(form.manual_bridge_width_mm),
+            "Pupillary distance": mm(form.manual_pd_mm),
+            "Temple length": mm(form.manual_temple_length_mm),
+            "Head circumference": mm(form.manual_head_circumference_mm),
+            "Ear-to-ear over crown": mm(form.manual_ear_to_ear_mm),
+          },
+          aiNotes: form.ai_notes || null,
+          manualNotes: form.manual_notes || null,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      setError("Couldn't build the workshop PDF. Please try again.");
+    } finally {
+      setPdfBusy(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -281,12 +329,23 @@ export default function BespokeMeasurements() {
                         Our optician will review your build and confirm the spec by email within one
                         business day. You can resubmit this form any time before we start cutting.
                       </p>
-                      <a
-                        href={`/en/bespoke/photo?sid=${encodeURIComponent(sid)}`}
-                        className="mt-5 inline-flex min-h-[48px] items-center justify-center bg-gold px-6 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
-                      >
-                        Add a fit photo
-                      </a>
+                      <div className="mt-5 flex flex-col sm:flex-row gap-3">
+                        <a
+                          href={`/en/bespoke/photo?sid=${encodeURIComponent(sid)}`}
+                          className="inline-flex min-h-[48px] items-center justify-center bg-gold px-6 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
+                        >
+                          Add a fit photo
+                        </a>
+                        <button
+                          type="button"
+                          onClick={handleWorkshopPdf}
+                          disabled={pdfBusy}
+                          className="inline-flex min-h-[48px] items-center justify-center gap-2 border border-cream/25 px-6 text-[12px] uppercase tracking-[0.18em] text-cream transition-colors hover:border-gold hover:text-gold disabled:opacity-60"
+                        >
+                          {pdfBusy && <Loader2 size={14} className="animate-spin" />}
+                          {pdfBusy ? "Preparing…" : "Workshop report (PDF)"}
+                        </button>
+                      </div>
                       <p className="mt-3 text-cream-dim text-xs leading-relaxed">
                         Optional. One photo with a bank card held to your cheek lets us double-check
                         your width and show you the frames on your own face before we cut them.

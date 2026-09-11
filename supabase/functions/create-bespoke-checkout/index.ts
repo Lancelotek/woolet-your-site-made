@@ -20,6 +20,9 @@ interface Body {
 // Server-side coupon table — never trust a client-supplied discount.
 const COUPONS: Record<string, { percentOff: number }> = {
   KICKSTARTER2026: { percentOff: 40 },
+  // Internal end-to-end test code. Stripe cannot charge $0, so the order is
+  // created at the $1 platform minimum.
+  MAREK: { percentOff: 100 },
 };
 
 Deno.serve(async (req) => {
