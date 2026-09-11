@@ -74,6 +74,7 @@ export async function downloadWorkshopReport(data: WorkshopReportData): Promise<
   let y = 0;
 
   const preview = data.aiPreviewUrl ? await loadImage(data.aiPreviewUrl) : null;
+  const tryOn = data.tryOnUrl ? await loadImage(data.tryOnUrl) : null;
 
   // Header band
   doc.setFillColor(8, 8, 7);
