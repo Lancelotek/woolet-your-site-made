@@ -79,10 +79,9 @@ export default function HeroSymptoms({ meter }: Props) {
           <li
             key={s.title}
             className={[
-              "flex flex-col gap-3 py-5",
+              "flex flex-col items-center text-center gap-3 py-5 px-4 sm:items-start sm:text-left sm:px-0",
               i > 0 ? "sm:pl-4 sm:border-l" : "",
               i > 0 ? "border-t sm:border-t-0" : "",
-              "pr-3",
             ].join(" ")}
             style={{ borderColor: "hsl(0 0% 100% / 0.1)" }}
           >
