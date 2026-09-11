@@ -16,6 +16,7 @@ export type WorkshopReportData = {
   customerRef?: string | null;
   requestedTempleLength?: string | null;
   aiPreviewUrl?: string | null;
+  tryOnUrl?: string | null;
   consent?: {
     grantedAt?: string | null;
     withdrawnAt?: string | null;
