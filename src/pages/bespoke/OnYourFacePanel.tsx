@@ -506,14 +506,29 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
         }}
       />
 
+      {/* Native camera — the reliable path when the inline stream is refused. */}
+      <input
+        ref={cameraFileRef}
+        type="file"
+        accept="image/*"
+        capture="user"
+        className="sr-only"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) acceptImage(URL.createObjectURL(f));
+          e.target.value = "";
+        }}
+      />
+
       {cameraOn && (
         <div className="mt-6">
           <video
             ref={videoRef}
             playsInline
+            autoPlay
             muted
             className="w-full border border-cream/10"
-            style={{ transform: "scaleX(-1)" }}
+            style={{ transform: "scaleX(-1)", minHeight: 220, background: "#000" }}
           />
           <div className="mt-4 flex flex-wrap gap-3">
             <button type="button" className={gold} onClick={capture}>
