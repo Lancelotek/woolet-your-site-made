@@ -5,9 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
 
-const BUY_BUTTON_ID = "buy_btn_1Tf0naLEPUSL9e9mbcfVXmQb";
-const PUBLISHABLE_KEY = "pk_live_51IZBv9LEPUSL9e9m7dWKqimMZLNFxfjVfjAlLlXaSVqJ3emyB9v12FRo2ytUn9WszI84SRDb3kQxJmzKy7Qcoeih00lUJL9roa";
-const STRIPE_FALLBACK_URL = "https://buy.stripe.com/6oU8wQfyBgKm3ERgZnfbq0n";
+const STRIPE_FALLBACK_URL = "https://buy.stripe.com/aFa7sM2LP8dQ3ER5gFfbq0o";
 
 type Product = "007" | "009" | "bespoke";
 
@@ -52,14 +50,6 @@ export default function Payments() {
   const [error, setError] = useState<string | null>(null);
   const [ready, setReady] = useState(false); // once true → show Stripe button
 
-  useEffect(() => {
-    if (!ready) return;
-    if (document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) return;
-    const s = document.createElement("script");
-    s.src = "https://js.stripe.com/v3/buy-button.js";
-    s.async = true;
-    document.head.appendChild(s);
-  }, [ready]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -232,23 +222,18 @@ export default function Payments() {
                   <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "rgba(15,15,15,0.6)", marginBottom: 14 }}>
                     Confirmation will be sent to <strong>{email}</strong>
                   </div>
-                  {/* @ts-expect-error - Stripe web component */}
-                  <stripe-buy-button
-                    buy-button-id={BUY_BUTTON_ID}
-                    publishable-key={PUBLISHABLE_KEY}
-                    customer-email={email}
-                  />
-                  <div style={{ marginTop: 18, fontFamily: "'Barlow', sans-serif", fontSize: 11, color: "rgba(15,15,15,0.55)" }}>
-                    Button not loading?{" "}
-                    <a
-                      href={`${STRIPE_FALLBACK_URL}?prefilled_email=${encodeURIComponent(email)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: "#0f0f0f", textDecoration: "underline" }}
-                    >
-                      Continue to Stripe →
-                    </a>
-                  </div>
+                  <a
+                    href={`${STRIPE_FALLBACK_URL}?prefilled_email=${encodeURIComponent(email)}`}
+                    style={{
+                      display: "block", width: "100%", padding: "14px 0",
+                      background: "#CAA449", color: "#1F1B16", border: "none",
+                      borderRadius: 9999, textAlign: "center", textDecoration: "none",
+                      fontFamily: "'Barlow', sans-serif", fontWeight: 600,
+                      fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase",
+                    }}
+                  >
+                    Reserve for $1 →
+                  </a>
                 </div>
               )}
             </div>
