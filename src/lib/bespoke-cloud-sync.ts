@@ -59,7 +59,7 @@ export function useBespokeCloudSync({ config, setConfig, overrides }: Options) {
         return;
       }
       if (data?.config) {
-        const remote = { ...INITIAL_CONFIG, ...(data.config as Partial<BespokeConfig>) };
+        const remote = { ...INITIAL_CONFIG, ...(data.config as Partial<BespokeConfig>), ...(overrides ?? {}) };
         // Server wins on resume unless local is more recent and remote is empty.
         if (!sameConfig(remote, config)) setConfig(remote);
         setRowId(data.id);
