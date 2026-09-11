@@ -494,11 +494,21 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
   }, []);
 
   // The phone must land on the same build and the same pseudonymous session,
-  // so a photo taken there attaches to this configuration.
-  const qrUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}${window.location.pathname}?step=3&sref=${encodeURIComponent(getSessionRef())}`
-      : "";
+  // so a photo taken there attaches to this configuration. The selection is
+  // carried in the link — the phone has its own local storage and would
+  // otherwise show whatever build it last saw.
+  const qrUrl = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    const params = new URLSearchParams();
+    params.set("step", "3");
+    params.set("sref", getSessionRef());
+    if (config.frameId) params.set("shape", config.frameId);
+    if (config.frontColorId) params.set("front", config.frontColorId);
+    if (config.templeColorId) params.set("temple", config.templeColorId);
+    if (config.finishId) params.set("finish", config.finishId);
+    if (config.templeLengthMm) params.set("tl", String(config.templeLengthMm));
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.templeLengthMm]);
 
   return (
     <section
