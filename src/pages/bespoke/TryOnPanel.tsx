@@ -75,6 +75,8 @@ export default function TryOnPanel({ config, unlocked }: { config: BespokeConfig
   const [remaining, setRemaining] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [noticeOpen, setNoticeOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"camera" | "upload" | null>(null);
 
   // How many renders this account has left.
   useEffect(() => {
