@@ -474,6 +474,33 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_tryon_renders: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string
+          selection_key: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url: string
+          selection_key?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string
+          selection_key?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
