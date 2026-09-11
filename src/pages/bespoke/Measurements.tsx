@@ -52,6 +52,7 @@ type OrderSummary = {
     consent_version: string | null;
     consent_locale: string | null;
   } | null;
+  try_on_url?: string | null;
 };
 
 type FormState = {
