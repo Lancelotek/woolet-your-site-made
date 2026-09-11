@@ -5,6 +5,7 @@
 
 export type WorkshopReportData = {
   sessionId: string;
+  orderCreatedAt?: string | null;
   frameName?: string | null;
   frontCode?: string | null;
   templeCode?: string | null;
@@ -15,6 +16,12 @@ export type WorkshopReportData = {
   customerRef?: string | null;
   requestedTempleLength?: string | null;
   aiPreviewUrl?: string | null;
+  consent?: {
+    grantedAt?: string | null;
+    withdrawnAt?: string | null;
+    version?: string | null;
+    locale?: string | null;
+  } | null;
   measurements: {
     ai: Record<string, string>;
     manual: Record<string, string>;
@@ -26,6 +33,17 @@ export type WorkshopReportData = {
 const INK: [number, number, number] = [31, 27, 22];
 const GOLD: [number, number, number] = [202, 164, 73];
 const MUTED: [number, number, number] = [122, 112, 98];
+
+const formatDateTime = (value?: string | null): string => {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "UTC",
+  }).format(date) + " UTC";
+};
 
 async function loadImage(url: string): Promise<{ dataUrl: string; w: number; h: number } | null> {
   try {
@@ -72,7 +90,7 @@ export async function downloadWorkshopReport(data: WorkshopReportData): Promise<
   doc.setFontSize(8);
   doc.setTextColor(154, 142, 126);
   doc.text(
-    `Order ref ${data.sessionId}    ·    Issued ${new Date().toISOString().slice(0, 10)}`,
+    `Order ref ${data.sessionId}    ·    Report issued ${formatDateTime(new Date().toISOString())}`,
     M,
     40,
   );
@@ -141,6 +159,16 @@ export async function downloadWorkshopReport(data: WorkshopReportData): Promise<
     ["Temple length requested", data.requestedTempleLength || "—"],
     ["Order value", data.amountLabel || "—"],
     ["Customer reference", data.customerRef || "—"],
+    ["Order date", formatDateTime(data.orderCreatedAt)],
+  ]);
+
+  heading("Customer consent record");
+  rows([
+    ["Consent status", data.consent?.grantedAt && !data.consent.withdrawnAt ? "Granted" : data.consent?.withdrawnAt ? "Withdrawn" : "Not recorded"],
+    ["Consent recorded at", formatDateTime(data.consent?.grantedAt)],
+    ["Consent withdrawn at", formatDateTime(data.consent?.withdrawnAt)],
+    ["Consent version", data.consent?.version || "—"],
+    ["Displayed language", data.consent?.locale?.toUpperCase() || "—"],
   ]);
 
   const aiPairs = Object.entries(data.measurements.ai).filter(([, v]) => v) as [string, string][];

@@ -21,6 +21,7 @@ function readRequestedTempleLength(): string | null {
 
 type OrderSummary = {
   stripe_session_id: string;
+  created_at: string | null;
   customer_email_masked: string | null;
   frame_name: string | null;
   front_code: string | null;
@@ -45,6 +46,12 @@ type OrderSummary = {
   manual_head_circumference_mm: number | null;
   manual_ear_to_ear_mm: number | null;
   manual_notes: string | null;
+  photo_consent: {
+    consent_at: string | null;
+    consent_withdrawn_at: string | null;
+    consent_version: string | null;
+    consent_locale: string | null;
+  } | null;
 };
 
 type FormState = {
@@ -167,6 +174,7 @@ export default function BespokeMeasurements() {
       const { downloadWorkshopReport } = await import("@/lib/bespoke-workshop-pdf");
       await downloadWorkshopReport({
         sessionId: sid,
+        orderCreatedAt: order?.created_at ?? null,
         frameName: order?.frame_name ?? null,
         frontCode: order?.front_code ?? null,
         templeCode: order?.temple_code ?? null,
@@ -177,6 +185,14 @@ export default function BespokeMeasurements() {
         customerRef: order?.customer_email_masked ?? null,
         requestedTempleLength,
         aiPreviewUrl: order?.ai_preview_url ?? null,
+        consent: order?.photo_consent
+          ? {
+              grantedAt: order.photo_consent.consent_at,
+              withdrawnAt: order.photo_consent.consent_withdrawn_at,
+              version: order.photo_consent.consent_version,
+              locale: order.photo_consent.consent_locale,
+            }
+          : null,
         measurements: {
           ai: {
             "Face width": mm(form.ai_face_width_mm),
