@@ -157,6 +157,54 @@ export default function BespokeMeasurements() {
   const update = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
+  const [pdfBusy, setPdfBusy] = useState(false);
+
+  const handleWorkshopPdf = async () => {
+    if (pdfBusy) return;
+    setPdfBusy(true);
+    try {
+      const mm = (v: string) => (v ? `${v} mm` : "");
+      const { downloadWorkshopReport } = await import("@/lib/bespoke-workshop-pdf");
+      await downloadWorkshopReport({
+        sessionId: sid,
+        frameName: order?.frame_name ?? null,
+        frontCode: order?.front_code ?? null,
+        templeCode: order?.temple_code ?? null,
+        finishId: order?.finish_id ?? null,
+        lensType: order?.lens_type ?? null,
+        engravingText: order?.engraving_text ?? null,
+        amountLabel: priceLabel,
+        customerRef: order?.customer_email_masked ?? null,
+        requestedTempleLength,
+        aiPreviewUrl: order?.ai_preview_url ?? null,
+        measurements: {
+          ai: {
+            "Face width": mm(form.ai_face_width_mm),
+            "Temple-to-temple": mm(form.ai_temple_to_temple_mm),
+            "Bridge width": mm(form.ai_bridge_width_mm),
+            "Pupillary distance": mm(form.ai_pd_mm),
+          },
+          manual: {
+            "Face width": mm(form.manual_face_width_mm),
+            "Temple-to-temple": mm(form.manual_temple_to_temple_mm),
+            "Bridge width": mm(form.manual_bridge_width_mm),
+            "Pupillary distance": mm(form.manual_pd_mm),
+            "Temple length": mm(form.manual_temple_length_mm),
+            "Head circumference": mm(form.manual_head_circumference_mm),
+            "Ear-to-ear over crown": mm(form.manual_ear_to_ear_mm),
+          },
+          aiNotes: form.ai_notes || null,
+          manualNotes: form.manual_notes || null,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      setError("Couldn't build the workshop PDF. Please try again.");
+    } finally {
+      setPdfBusy(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
