@@ -83,9 +83,11 @@ interface Props {
   config: BespokeConfig;
   update: <K extends keyof BespokeConfig>(key: K, value: BespokeConfig[K]) => void;
   locale?: "en" | "pl";
+  /** AI render of the exact build — preferred overlay over the static pattern art. */
+  renderUrl?: string | null;
 }
 
-export default function OnYourFacePanel({ config, update, locale = "en" }: Props) {
+export default function OnYourFacePanel({ config, update, locale = "en", renderUrl = null }: Props) {
   const frame = findFrame(config.frameId) ?? findFrame("round")!;
   const frontColor = COLORS.find((c) => c.id === config.frontColorId);
   const ink = frontColor?.hex ?? "#0B0A09";
@@ -123,16 +125,18 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
     loadImage(stored).then(setImageEl).catch(() => undefined);
   }, []);
 
-  // Pattern artwork used for the outline.
+  // The overlay on the face is the AI render of the exact build when one
+  // exists; the static pattern artwork is only a fallback.
   useEffect(() => {
+    overlayImgRef.current = null;
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.src = frame.url;
+    img.src = renderUrl ?? frame.url;
     img.onload = () => {
       overlayImgRef.current = img;
       setOverlayReady((n) => n + 1);
     };
-  }, [frame.url]);
+  }, [renderUrl, frame.url]);
 
   useEffect(() => () => streamRef.current?.getTracks().forEach((t) => t.stop()), []);
 
