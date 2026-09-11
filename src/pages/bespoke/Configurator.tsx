@@ -76,6 +76,7 @@ const ConfiguratorPage = () => {
   }, []);
   const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace, overrides: urlOverrides });
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   // Inside the configurator the floating WhatsApp bubble covers the swatch grid
   // on phones — suppress it for the lifetime of this page.
