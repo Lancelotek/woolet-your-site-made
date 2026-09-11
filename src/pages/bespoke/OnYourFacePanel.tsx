@@ -699,6 +699,22 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
             >
               Retake
             </button>
+            <button
+              type="button"
+              className={ghost}
+              onClick={() => {
+                clearStoredPhoto();
+                setImageEl(null);
+                setCardPoints([]);
+                setTemplePoints([]);
+                setPicking("card");
+                setSavedState("idle");
+                setError(null);
+              }}
+            >
+              Remove photo
+            </button>
+
           </div>
 
           {/* Consent + save */}
