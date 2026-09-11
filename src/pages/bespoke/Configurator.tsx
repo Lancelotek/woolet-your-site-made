@@ -1212,8 +1212,14 @@ const ConfiguratorStyles = () => (
       /* Reassurance copy sits below the step content on phones/tablets */
       .cfg-scope > div { display: flex; flex-direction: column; }
       .cfg-scope > div > main.cfg-container { order: 4; }
-      .cfg-scope > div > .cfg-notewrap { order: 5; margin-top: 0; margin-bottom: 28px; }
+      .cfg-scope > div > .cfg-notewrap {
+        order: 5; margin-top: 0;
+        margin-bottom: calc(104px + env(safe-area-inset-bottom));
+      }
       .cfg-scope > div > .cfg-mobilebar { order: 6; }
+      .cfg-scope main.cfg-container { padding-bottom: 8px; }
+      /* Tap targets on choices stay finger-sized */
+      .cfg-scope main.cfg-container button { min-height: 44px; }
     }
 
     /* Horizontal swatch strips on phones (single DOM, CSS-only switch) */
