@@ -231,12 +231,21 @@ export const savePreviewHistory = (history: PreviewHistory): SaveResult => {
   }
 };
 
-export function AiPreviewPanel({ config }: { config: BespokeConfig }) {
+export function AiPreviewPanel({
+  config,
+  onRenderChange,
+}: {
+  config: BespokeConfig;
+  onRenderChange?: (url: string | null) => void;
+}) {
   const { session, loading: authLoading } = useAuth();
   const isSignedIn = Boolean(session);
+  // Come back to this very step after the email code — the build is remembered.
   const signInHref =
     "/en/account/sign-in?next=" +
-    encodeURIComponent(typeof window !== "undefined" ? window.location.pathname + window.location.search : "/en/bespoke/configurator");
+    encodeURIComponent(
+      typeof window !== "undefined" ? `${window.location.pathname}?step=3` : "/en/bespoke/configurator?step=3",
+    );
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
   const temple = COLORS.find((c) => c.id === config.templeColorId);
