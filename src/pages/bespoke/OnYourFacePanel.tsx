@@ -51,13 +51,48 @@ const PROTOCOL = [
 const isCoarsePointer = () =>
   typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches;
 
+/**
+ * The photo lives on the device, but only for the visit that took it. A photo
+ * left over from an earlier visit would come back with its old handles and
+ * outline still drawn on it, which reads as a stale artefact under the page.
+ */
+const SESSION_KEY = `${PHOTO_KEY}:session`;
+
+const currentSessionId = (): string | null => {
+  try {
+    let id = window.sessionStorage.getItem(SESSION_KEY);
+    if (!id) {
+      id = Math.random().toString(36).slice(2);
+      window.sessionStorage.setItem(SESSION_KEY, id);
+    }
+    return id;
+  } catch {
+    return null;
+  }
+};
+
+const clearStoredPhoto = () => {
+  try {
+    window.localStorage.removeItem(PHOTO_KEY);
+    window.localStorage.removeItem(`${PHOTO_KEY}:owner`);
+  } catch {
+    /* nothing to clear */
+  }
+};
+
 const readStoredPhoto = (): string | null => {
   try {
+    const owner = window.localStorage.getItem(`${PHOTO_KEY}:owner`);
+    if (!owner || owner !== currentSessionId()) {
+      clearStoredPhoto();
+      return null;
+    }
     return window.localStorage.getItem(PHOTO_KEY);
   } catch {
     return null;
   }
 };
+
 
 /** Keeps the stored copy small enough for localStorage without losing scale. */
 async function downscaleToDataUrl(img: HTMLImageElement): Promise<string> {
@@ -116,12 +151,18 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
 
   const mobile = isCoarsePointer();
 
-  // Restore any photo saved on this device.
+  // Restore a photo taken during this visit; drop anything older, handles included.
   useEffect(() => {
     const stored = readStoredPhoto();
-    if (!stored) return;
+    if (!stored) {
+      setCardPoints([]);
+      setTemplePoints([]);
+      return;
+    }
     loadImage(stored).then(setImageEl).catch(() => undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   // Pattern artwork used for the outline.
   useEffect(() => {
@@ -251,6 +292,9 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
       const img = await loadImage(dataUrl);
       try {
         window.localStorage.setItem(PHOTO_KEY, dataUrl);
+        const owner = currentSessionId();
+        if (owner) window.localStorage.setItem(`${PHOTO_KEY}:owner`, owner);
+
       } catch {
         /* quota — the photo simply will not survive a reload */
       }
@@ -655,6 +699,22 @@ export default function OnYourFacePanel({ config, update, locale = "en" }: Props
             >
               Retake
             </button>
+            <button
+              type="button"
+              className={ghost}
+              onClick={() => {
+                clearStoredPhoto();
+                setImageEl(null);
+                setCardPoints([]);
+                setTemplePoints([]);
+                setPicking("card");
+                setSavedState("idle");
+                setError(null);
+              }}
+            >
+              Remove photo
+            </button>
+
           </div>
 
           {/* Consent + save */}
