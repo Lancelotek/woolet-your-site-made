@@ -50,14 +50,6 @@ export default function Payments() {
   const [error, setError] = useState<string | null>(null);
   const [ready, setReady] = useState(false); // once true → show Stripe button
 
-  useEffect(() => {
-    if (!ready) return;
-    if (document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) return;
-    const s = document.createElement("script");
-    s.src = "https://js.stripe.com/v3/buy-button.js";
-    s.async = true;
-    document.head.appendChild(s);
-  }, [ready]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
