@@ -266,9 +266,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Temple pressure means the frame front is too narrow — and no adjustment fixes that. Diagnose where it hurts, what an optician can change, and the 30-second width check.",
   },
   "eyeglass-frame-size-chart": {
-    metaTitle: "Eyeglass Frame Size Chart 2026 (XS–XXL, in mm)",
+    metaTitle: "Eyeglass Frame Size Chart: XS to XXL (155mm+ Wide Fit)",
     metaDescription:
-      "A real frame size chart: XS to XXL mapped to front width, lens, bridge and temple length in mm — plus the face width each band fits, and what to do past 150 mm.",
+      "A real eyeglass frame size chart in millimetres: XS to XXL, including the 155–161 mm wide-fit band most charts miss. Find front width, lens, bridge, temple and face-width fit.",
   },
   "temple-to-temple-measurement": {
     metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
