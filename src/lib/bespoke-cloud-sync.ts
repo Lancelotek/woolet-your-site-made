@@ -19,9 +19,14 @@ const sameConfig = (a: BespokeConfig, b: BespokeConfig) =>
 interface Options {
   config: BespokeConfig;
   setConfig: (next: BespokeConfig) => void;
+  /**
+   * Selections carried in the URL (QR hand-off, deep links). They describe what
+   * the buyer is looking at right now, so they must survive cloud hydration.
+   */
+  overrides?: Partial<BespokeConfig>;
 }
 
-export function useBespokeCloudSync({ config, setConfig }: Options) {
+export function useBespokeCloudSync({ config, setConfig, overrides }: Options) {
   const { user, loading: authLoading } = useAuth();
   const [status, setStatus] = useState<CloudSyncStatus>("idle");
   const [rowId, setRowId] = useState<string | null>(null);
