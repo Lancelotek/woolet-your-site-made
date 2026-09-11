@@ -35,7 +35,7 @@ import { readSessionRef } from "@/lib/scan-session-ref";
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
 // Client-side mirror of the server coupon table (server is the source of truth).
-const COUPONS: Record<string, number> = { KICKSTARTER2026: 40 };
+const COUPONS: Record<string, number> = { KICKSTARTER2026: 40, MAREK: 100 };
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-cream/10 last:border-b-0">
