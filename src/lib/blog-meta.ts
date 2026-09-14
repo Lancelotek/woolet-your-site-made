@@ -20,9 +20,10 @@ export interface PostMetaOverride {
 export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   // ── EN: wide-face core ───────────────────────────────────────────────
   "glasses-for-wide-faces-guide": {
-    metaTitle: "Glasses for Wide Faces & Big Heads: 155–161 mm Fit Guide",
+    metaTitle: "Glasses for Wide Faces: 155-165 mm Sizes That Fit (2026)",
+    exactTitle: true,
     metaDescription:
-      "Stop the temple squeeze. Find 155 mm+ frames for wide faces and big heads with a 30-second size chart, real measurements, and the styles that actually fit.",
+      "Face 155 mm or wider? Most frames stop at 140. See the 145-165 mm size chart, the three numbers to check and the frames built for your width. Measure in 20 s.",
   },
 
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
@@ -36,9 +37,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Oversized means big lenses. Wide-fit means a big front. Most oversized frames stop at 130–145 mm — see the 158 mm specs and how to measure which one you need.",
   },
   "how-to-measure-face-width-for-glasses": {
-    metaTitle: "Measure Your Face Width With Your Phone Camera | Woolet",
+    metaTitle: "Face Width Measurement: Average Sizes + 60-Second Method",
+    exactTitle: true,
     metaDescription:
-      "Point your phone camera and get your temple-to-temple width in millimetres — then see which frame size, 145 to 172 mm, actually fits. No ruler, no optician.",
+      "Average face width is 140-150 mm temple to temple; wide starts at 155 mm. Measure yours with a ruler or your phone camera in 60 seconds and match a frame size.",
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",
@@ -51,9 +53,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Glasses pinch your temples? It isn't your head — it's the industry. Here's why most frames stop at 148 mm and how the 155 mm problem gets fixed.",
   },
   "round-vs-square-glasses-wide-face": {
-    metaTitle: "Round vs Square Glasses: Which Suits a Wide Face? | Woolet",
+    metaTitle: "Do Square Glasses Suit Round Faces? Round vs Square Guide",
+    exactTitle: true,
     metaDescription:
-      "Do square glasses suit round faces? Round vs square guide for wide faces — see which shape wins, real 158 mm specs, and the 30-second fit check.",
+      "Yes - square frames add angles a round face lacks. Round frames soften a square jaw. The rule, the exceptions, and what changes when your face is 155 mm+ wide.",
   },
   "wide-frame-glasses-professionals": {
     metaTitle: "Wide Frame Glasses for Professionals (155 mm+)",
@@ -83,10 +86,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "what-size-sunglasses-for-wide-faces": {
     // Intentionally no " | Woolet" suffix — adding it pushes the title past
     // the mobile SERP truncation limit. `exactTitle` suppresses the suffix.
-    metaTitle: "What Size Sunglasses for a Wide Face? 155mm+ Fit Guide",
+    metaTitle: "What Size Sunglasses for a Wide Face? 155 mm+ Answer",
     exactTitle: true,
     metaDescription:
-      "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 148mm temples. Measure in 60 seconds and find frames that fit.",
+      "Wide face = 155 mm+. You need a 155-160 mm front, a 21-22 mm bridge and 148 mm+ temples. The one-line answer, the size math and sunglasses built in 158 mm.",
   },
   "how-to-tell-if-your-face-is-wide-or-narrow": {
     metaTitle: "Is Your Face Wide or Narrow? Get Your Number in mm | Woolet",
@@ -266,9 +269,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Temple pressure means the frame front is too narrow — and no adjustment fixes that. Diagnose where it hurts, what an optician can change, and the 30-second width check.",
   },
   "eyeglass-frame-size-chart": {
-    metaTitle: "Eyeglass Frame Size Chart: XS to XXL (155mm+ Wide Fit)",
+    metaTitle: "Eyeglass Frame Size Chart in mm: XS to XXL (155 mm+)",
+    exactTitle: true,
     metaDescription:
-      "A real eyeglass frame size chart in millimetres: XS to XXL, including the 155–161 mm wide-fit band most charts miss. Find front width, lens, bridge, temple and face-width fit.",
+      "The only frame size chart with the 155-161 mm wide band. Lens, bridge, temple and total front width in millimetres, and how to read the numbers on your frame.",
   },
   "temple-to-temple-measurement": {
     metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
@@ -276,8 +280,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit. A clear table, common lengths, and why Woolet lists a 103 mm temple.",
   },
   "numbers-on-glasses-frames-meaning": {
-    metaTitle: "Numbers on Glasses Frames Explained (54□21-103)",
+    metaTitle: "What Do the Numbers on Glasses Mean? 54□21-145 Explained",
+    exactTitle: true,
     metaDescription:
-      "Lens width, bridge and temple length decoded — and why none of the three printed numbers is your frame's total width. Worked examples on real 158 mm frames.",
+      "54□21-145 = lens 54 mm, bridge 21 mm, temple 145 mm. None of them is your frame's total width. Decode your frame and see whether it is wide enough in 2 minutes.",
   },
 };
