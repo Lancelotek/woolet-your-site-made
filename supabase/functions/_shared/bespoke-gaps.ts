@@ -71,12 +71,13 @@ export function bespokeOrderGaps(order: BespokeGapSource): string[] {
 
 /** Bridge values (from either source) that sit outside the cuttable range. */
 export function bridgeOutOfRange(order: BespokeGapSource): number[] {
-  const out: number[] = [];
+  const out = new Set<number>();
   for (const key of ["ai_bridge_width_mm", "manual_bridge_width_mm"]) {
     const bridge = num((order as Record<string, unknown>)[key]);
-    if (bridge != null && (bridge < BRIDGE_MIN_MM || bridge > BRIDGE_MAX_MM)) out.push(bridge);
+    if (bridge != null && (bridge < BRIDGE_MIN_MM || bridge > BRIDGE_MAX_MM)) out.add(bridge);
   }
-  return out;
+  return Array.from(out);
+
 }
 
 /** Scan/manual pairs that differ by more than the tolerance, in millimetres. */
