@@ -30,6 +30,8 @@ import progressiveImg from "@/assets/configurator/lenses/progressive.jpg";
 import sunTintedImg from "@/assets/configurator/lenses/sun-tinted.jpg";
 import blueLightImg from "@/assets/configurator/lenses/blue-light.jpg";
 
+export type ColorFamily = "tortoise" | "black" | "grey" | "colour" | "translucent";
+
 export interface ColorSwatch {
   id: string;
   /** Internal factory stock code — NEVER surfaced to the customer. */
@@ -42,6 +44,8 @@ export interface ColorSwatch {
   image: string;
   /** Optional short note (translucent, layered, etc.). */
   note?: string;
+  /** Visual family used to group similar-looking acetates in the picker. */
+  family: ColorFamily;
   /**
    * Sheet thickness in millimetres.
    * Front acetate is cut from 6 mm plates; TEMPLES must be 4 mm.
@@ -53,25 +57,25 @@ export interface ColorSwatch {
 
 export const COLORS: ColorSwatch[] = [
   // Atelier confirmed: all sheets below are stocked in both 4 mm (temples) and 6 mm (front) plates.
-  { id: "p632-0006", code: "P632 0006", name: "Dark tortoise",          hex: "#3a1a05", image: p632.url,      thicknessMm: 4 },
-  { id: "p601-0009", code: "P601 0009", name: "Amber tortoise",         hex: "#4a2306", image: p601.url,      thicknessMm: 4 },
-  { id: "p554-1365", code: "P554 1365", name: "Bordeaux marble",        hex: "#4b1210", image: p554.url,      thicknessMm: 4 },
-  { id: "p610-3013", code: "P610 3013", name: "Honey tortoise",         hex: "#a26b26", image: p610.url,      thicknessMm: 4 },
-  { id: "p634-0813", code: "P634 0813", name: "Amber mint chip",        hex: "#b46a12", image: p634.url,      thicknessMm: 4 },
-  { id: "p649-2301", code: "P649 2301", name: "Ember sparkle",          hex: "#2a1a10", image: p649.url,      thicknessMm: 4 },
-  { id: "p685-1583", code: "P685 1583", name: "Emerald rose",           hex: "#2a3a2a", image: p685.url,      thicknessMm: 4 },
-  { id: "3096-1110", code: "3096 1110", name: "Piano black",            hex: "#0a0a0a", image: ace3096.url,   thicknessMm: 4 },
-  { id: "a305-2826", code: "A305 2826", name: "Deep matte black",       hex: "#050505", image: a305.url,      thicknessMm: 4 },
-  { id: "a423-1176", code: "A423 1176", name: "Black · red core",       hex: "#0d0505", image: a423.url,      note: "Red layer inside", thicknessMm: 4 },
-  { id: "p668-6006", code: "P668 6006", name: "Slate grain",            hex: "#2a2c30", image: p668.url,      thicknessMm: 4 },
-  { id: "a132-1960", code: "A132 1960", name: "Smoke translucent",      hex: "#8892a0", image: a132.url,      note: "Translucent", thicknessMm: 4 },
-  { id: "3102-7110", code: "3102 7110", name: "Ice translucent",        hex: "#e7e6e2", image: ace3102w.url,  note: "Translucent", thicknessMm: 4 },
-  { id: "a102-8421", code: "A102 8421", name: "Nude beige",             hex: "#e6d3c0", image: a102.url,      note: "Translucent", thicknessMm: 4 },
-  { id: "a332-1203", code: "A332 1203", name: "British racing green",   hex: "#0f4c34", image: a332.url,      thicknessMm: 4 },
-  { id: "a078-5208", code: "A078 5208", name: "Navy",                   hex: "#0f1a5a", image: a078.url,      thicknessMm: 4 },
-  { id: "a090-0135", code: "A090 0135", name: "Rouge",                  hex: "#a02030", image: a090.url,      thicknessMm: 4 },
-  { id: "3102-1106", code: "3102 1106", name: "Sunflower",              hex: "#f4b410", image: ace3102y.url,  thicknessMm: 4 },
-  { id: "p844-5962", code: "P844 5962", name: "Olive marble",           hex: "#8a7a1a", image: p844.url,      thicknessMm: 4 },
+  { id: "p632-0006", code: "P632 0006", name: "Dark tortoise",          hex: "#3a1a05", image: p632.url,      family: "tortoise", thicknessMm: 4 },
+  { id: "p601-0009", code: "P601 0009", name: "Amber tortoise",         hex: "#4a2306", image: p601.url,      family: "tortoise", thicknessMm: 4 },
+  { id: "p554-1365", code: "P554 1365", name: "Bordeaux marble",        hex: "#4b1210", image: p554.url,      family: "tortoise", thicknessMm: 4 },
+  { id: "p610-3013", code: "P610 3013", name: "Honey tortoise",         hex: "#a26b26", image: p610.url,      family: "tortoise", thicknessMm: 4 },
+  { id: "p634-0813", code: "P634 0813", name: "Amber mint chip",        hex: "#b46a12", image: p634.url,      family: "tortoise", thicknessMm: 4 },
+  { id: "p649-2301", code: "P649 2301", name: "Ember sparkle",          hex: "#2a1a10", image: p649.url,      family: "tortoise", thicknessMm: 4 },
+  { id: "p685-1583", code: "P685 1583", name: "Emerald rose",           hex: "#2a3a2a", image: p685.url,      family: "colour",   thicknessMm: 4 },
+  { id: "3096-1110", code: "3096 1110", name: "Piano black",            hex: "#0a0a0a", image: ace3096.url,   family: "black",    thicknessMm: 4 },
+  { id: "a305-2826", code: "A305 2826", name: "Deep matte black",       hex: "#050505", image: a305.url,      family: "black",    thicknessMm: 4 },
+  { id: "a423-1176", code: "A423 1176", name: "Black · red core",       hex: "#0d0505", image: a423.url,      family: "black",    note: "Red layer inside", thicknessMm: 4 },
+  { id: "p668-6006", code: "P668 6006", name: "Slate grain",            hex: "#2a2c30", image: p668.url,      family: "grey",     thicknessMm: 4 },
+  { id: "a132-1960", code: "A132 1960", name: "Smoke translucent",      hex: "#8892a0", image: a132.url,      family: "translucent", note: "Translucent", thicknessMm: 4 },
+  { id: "3102-7110", code: "3102 7110", name: "Ice translucent",        hex: "#e7e6e2", image: ace3102w.url,  family: "translucent", note: "Translucent", thicknessMm: 4 },
+  { id: "a102-8421", code: "A102 8421", name: "Nude beige",             hex: "#e6d3c0", image: a102.url,      family: "translucent", note: "Translucent", thicknessMm: 4 },
+  { id: "a332-1203", code: "A332 1203", name: "British racing green",   hex: "#0f4c34", image: a332.url,      family: "colour",   thicknessMm: 4 },
+  { id: "a078-5208", code: "A078 5208", name: "Navy",                   hex: "#0f1a5a", image: a078.url,      family: "colour",   thicknessMm: 4 },
+  { id: "a090-0135", code: "A090 0135", name: "Rouge",                  hex: "#a02030", image: a090.url,      family: "colour",   thicknessMm: 4 },
+  { id: "3102-1106", code: "3102 1106", name: "Sunflower",              hex: "#f4b410", image: ace3102y.url,  family: "colour",   thicknessMm: 4 },
+  { id: "p844-5962", code: "P844 5962", name: "Olive marble",           hex: "#8a7a1a", image: p844.url,      family: "colour",   thicknessMm: 4 },
 ];
 
 /** Front plates are 6 mm; temples must be 4 mm (only sheets stocked at 4 mm show up in the temple grid). */

@@ -1231,6 +1231,41 @@ const ConfiguratorStyles = () => (
       .cfg-scope main.cfg-container button { min-height: 44px; }
     }
 
+    /* Acetate swatch preview — larger, readable loupe above the grid */
+    .cfg-swatch-preview {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px; margin-bottom: 14px;
+      background: var(--cfg-panel);
+      border: 1px solid var(--cfg-border-strong);
+      border-radius: 2px;
+    }
+    .cfg-swatch-preview img {
+      width: 112px; height: 84px; object-fit: cover; flex-shrink: 0;
+      border-radius: 2px;
+      box-shadow: inset 0 0 0 1px rgba(239,233,223,0.10);
+    }
+    .cfg-swatch-preview__text { min-width: 0; }
+    .cfg-swatch-preview__name {
+      font-family: 'Newsreader', serif; font-weight: 500; font-size: 18px;
+      color: var(--cfg-cream); line-height: 1.2;
+    }
+    .cfg-swatch-preview__note {
+      font-size: 12px; font-style: italic; color: var(--cfg-muted);
+      margin-top: 4px;
+    }
+    .cfg-swatch-preview__family {
+      display: inline-block; margin-top: 8px;
+      font-size: 9.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--cfg-gold);
+      padding: 3px 7px;
+      background: rgba(194,160,90,0.10);
+      border: 1px solid rgba(194,160,90,0.35);
+      border-radius: 2px;
+    }
+    @media (max-width: 1023px) {
+      .cfg-swatch-preview { display: none; }
+    }
+
     /* Horizontal swatch strips on phones (single DOM, CSS-only switch) */
     @media (max-width: 1023px) {
       .cfg-scope .cfg-swatchstrip {

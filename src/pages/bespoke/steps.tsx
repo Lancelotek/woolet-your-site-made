@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
 
@@ -20,6 +20,7 @@ import {
   TEMPLE_LENGTHS,
   TEMPLE_LENGTH_CUSTOM_RANGE,
   isValidTempleLength,
+  type ColorFamily,
   type MeasurementKey,
 } from "@/data/bespoke-options";
 import { FRAMES, findFrame } from "@/data/frames";
@@ -106,6 +107,15 @@ export function StepFrame({ config, update }: StepProps) {
 
 
 /* ───── Step 2 · Acetate ───── */
+const FAMILY_LABEL: Record<ColorFamily, string> = {
+  tortoise: "Tortoises",
+  black: "Blacks",
+  grey: "Greys",
+  translucent: "Translucents",
+  colour: "Colours",
+};
+const FAMILY_ORDER: ColorFamily[] = ["tortoise", "black", "grey", "translucent", "colour"];
+
 function ColorSwatchGrid({
   selected,
   onSelect,
@@ -116,50 +126,109 @@ function ColorSwatchGrid({
   /** When set, only swatches with matching `thicknessMm` are shown. Falls back to full list if none are marked. */
   thicknessMm?: 4 | 6;
 }) {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [family, setFamily] = useState<ColorFamily | "all">("all");
+
   const filtered = thicknessMm ? COLORS.filter((c) => c.thicknessMm === thicknessMm) : COLORS;
-  const list = filtered.length > 0 ? filtered : COLORS;
+  const families = useMemo(
+    () =>
+      FAMILY_ORDER.filter((f) => filtered.some((c) => c.family === f)),
+    [filtered]
+  );
+  const list = family === "all" ? filtered : filtered.filter((c) => c.family === family);
+
+  const preview =
+    list.find((c) => c.id === hoveredId) ??
+    list.find((c) => c.id === selected) ??
+    null;
+
   return (
-    <div className="cfg-swatchstrip grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-      {list.map((c) => {
-        const active = selected === c.id;
-        return (
+    <div>
+      {families.length > 1 && (
+        <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="Filter acetates">
           <button
-            key={c.id}
-            onClick={() => onSelect(c.id)}
-            title={c.name}
-            aria-pressed={active}
-            className={`group relative overflow-hidden text-left transition ${
-              active
-                ? "border-2 border-[#CAA449]"
-                : "border border-cream/10 hover:border-cream/30"
-            }`}
-            style={{ borderRadius: 2 }}
+            type="button"
+            onClick={() => setFamily("all")}
+            className={`cfg-chip ${family === "all" ? "cfg-chip--active" : ""}`}
           >
-            <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
-              <img
-                src={c.image}
-                alt={`Italian acetate — ${c.name}`}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-              />
-              {active && (
-                <span
-                  className="absolute inline-flex items-center justify-center"
-                  style={{ top: 6, right: 6, width: 22, height: 22, borderRadius: 999, background: "#CAA449" }}
-                >
-                  <Check size={13} strokeWidth={3} color="#1F1B16" />
-                </span>
-              )}
-            </div>
-            <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
-              <div className="text-cream text-[12px] truncate">{c.name}</div>
-              {c.note && (
-                <div className="text-cream-dim text-[10px] italic truncate">{c.note}</div>
-              )}
-            </div>
+            All
           </button>
-        );
-      })}
+          {families.map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setFamily(f)}
+              className={`cfg-chip ${family === f ? "cfg-chip--active" : ""}`}
+            >
+              {FAMILY_LABEL[f]}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {preview && (
+        <div className="cfg-swatch-preview">
+          <img
+            src={preview.image}
+            alt={`${preview.name} acetate — enlarged preview`}
+            loading="eager"
+          />
+          <div className="cfg-swatch-preview__text">
+            <div className="cfg-swatch-preview__name">{preview.name}</div>
+            {preview.note && (
+              <div className="cfg-swatch-preview__note">{preview.note}</div>
+            )}
+            <div className="cfg-swatch-preview__family">{FAMILY_LABEL[preview.family]}</div>
+          </div>
+        </div>
+      )}
+
+      <div className="cfg-swatchstrip grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        {list.map((c) => {
+          const active = selected === c.id;
+          return (
+            <button
+              key={c.id}
+              onClick={() => onSelect(c.id)}
+              onMouseEnter={() => setHoveredId(c.id)}
+              onMouseLeave={() => setHoveredId((id) => (id === c.id ? null : id))}
+              onFocus={() => setHoveredId(c.id)}
+              onBlur={() => setHoveredId((id) => (id === c.id ? null : id))}
+              title={c.name}
+              aria-pressed={active}
+              className={`group relative overflow-hidden text-left transition ${
+                active
+                  ? "border-2 border-[#CAA449] ring-1 ring-[#CAA449]/40"
+                  : "border border-cream/15 hover:border-cream/40 hover:shadow-[inset_0_0_0_1px_rgba(239,233,223,0.08)]"
+              }`}
+              style={{ borderRadius: 2 }}
+            >
+              <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
+                <img
+                  src={c.image}
+                  alt={`Italian acetate — ${c.name}`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05] group-hover:brightness-110 group-hover:contrast-110"
+                />
+                {active && (
+                  <span
+                    className="absolute inline-flex items-center justify-center"
+                    style={{ top: 6, right: 6, width: 22, height: 22, borderRadius: 999, background: "#CAA449" }}
+                  >
+                    <Check size={13} strokeWidth={3} color="#1F1B16" />
+                  </span>
+                )}
+              </div>
+              <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
+                <div className="text-cream text-[12px] truncate">{c.name}</div>
+                {c.note && (
+                  <div className="text-cream-dim text-[10px] italic truncate">{c.note}</div>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
