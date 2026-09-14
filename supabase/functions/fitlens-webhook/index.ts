@@ -49,21 +49,46 @@ async function signBody(secret: string, timestamp: string, rawBody: string): Pro
   return toHex(mac);
 }
 
+// Where the shared signing secret lives. The environment variable is the
+// preferred home; the `integration_secrets` table is a fallback for plans where
+// secrets cannot be added. Public-key verification against FitLens's JWKS would
+// remove the shared secret entirely and is the better long-term answer.
+let cachedSecret: string | null = null;
+
+async function resolveWebhookSecret(): Promise<string | null> {
+  if (cachedSecret) return cachedSecret;
+  const fromEnv = Deno.env.get("FITLENS_WEBHOOK_SECRET");
+  if (fromEnv) {
+    cachedSecret = fromEnv;
+    return cachedSecret;
+  }
+  // RLS is on with no policies, so only this service-role client can read it.
+  const { data } = await supabase
+    .from("integration_secrets")
+    .select("value")
+    .eq("name", "fitlens_webhook_secret")
+    .maybeSingle();
+  const value = typeof data?.value === "string" && data.value ? data.value : null;
+  if (value) cachedSecret = value;
+  return value;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
 
-  const secret = Deno.env.get("FITLENS_WEBHOOK_SECRET");
+  const secret = await resolveWebhookSecret();
   if (!secret) {
     return json(
       {
         error: "not_configured",
         message:
-          "FITLENS_WEBHOOK_SECRET is not set. Add the shared signing secret in Project Settings → Secrets before FitLens starts posting.",
+          "No FitLens signing secret. Set FITLENS_WEBHOOK_SECRET in Project Settings → Secrets, or save the row 'fitlens_webhook_secret' in the integration_secrets table from the Bespoke admin panel.",
       },
       501,
     );
   }
+
 
   const rawBody = await req.text();
 
