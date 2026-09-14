@@ -44,6 +44,9 @@ interface Row {
   [key: string]: unknown;
 }
 
+import { compareRepeatability, sortScans, type ScanRow } from "@/lib/scan-repeatability";
+import { SCAN_SOURCE_LABEL } from "@/lib/fitlens-verify";
+
 type OrderRecord = Record<string, unknown>;
 
 interface Detail {
@@ -545,6 +548,57 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
     <section style={{ marginTop: 22 }}>
       <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>{title}</h3>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "0 20px" }}>{children}</div>
+    </section>
+  );
+}
+
+function ScansBlock({ scans }: { scans: ScanRow[] }) {
+  if (!scans.length) return null;
+  const ordered = sortScans(scans);
+  const rep = compareRepeatability(ordered);
+  const verdict = rep.kind === "compared" ? rep.verdict : null;
+  return (
+    <section style={{ marginTop: 22 }}>
+      <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 8px" }}>
+        Measurements · {ordered.length}
+      </h3>
+      <p
+        style={{
+          margin: "0 0 12px",
+          fontSize: 13,
+          lineHeight: 1.7,
+          color: verdict === "disagree" ? "#e2725b" : T.dim,
+          fontWeight: verdict === "disagree" ? 600 : 400,
+        }}
+      >
+        {rep.line}
+      </p>
+      <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+        {ordered.map((sc, i) => (
+          <li
+            key={(sc.measurement_ref ?? sc.scan_id ?? String(i)) as string}
+            style={{
+              borderTop: `1px solid ${T.hair}`,
+              padding: "10px 0",
+              fontSize: 13,
+              color: T.dim,
+              lineHeight: 1.7,
+            }}
+          >
+            <strong style={{ color: T.ink, letterSpacing: "0.06em" }}>
+              {sc.measurement_ref ?? "—"}
+            </strong>
+            {" · "}
+            {sc.created_at ? fmtDate(sc.created_at) : "—"}
+            {" · "}
+            {SCAN_SOURCE_LABEL[(sc.source ?? "") as keyof typeof SCAN_SOURCE_LABEL] ?? sc.source ?? "—"}
+            {" · "}
+            {sc.status ?? "—"}
+            {" · "}
+            {sc.temple_to_temple_mm != null ? `temple-to-temple ${sc.temple_to_temple_mm} mm` : "no fit measurement"}
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
