@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
 
@@ -20,6 +20,7 @@ import {
   TEMPLE_LENGTHS,
   TEMPLE_LENGTH_CUSTOM_RANGE,
   isValidTempleLength,
+  type ColorFamily,
   type MeasurementKey,
 } from "@/data/bespoke-options";
 import { FRAMES, findFrame } from "@/data/frames";
