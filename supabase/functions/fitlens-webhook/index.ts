@@ -194,24 +194,47 @@ Deno.serve(async (req) => {
     return json({ error: "persist_failed" }, 500);
   }
 
+  const measurementRef = await assignMeasurementRef(supabase, scanId);
+
   // Answer as soon as the row is safe; attaching it to an order is follow-up
   // work the partner should not have to wait for.
-  const response = json({ ok: true, scanId });
-  if (sessionId) {
-    const attach = async () => {
-      try {
+  const response = json({ ok: true, scanId, measurementRef });
+  const attach = async () => {
+    try {
+      let orderId: string | null = null;
+      if (sessionId) {
         const { data: order } = await supabase
           .from("bespoke_orders")
           .select("id")
           .eq("session_ref", sessionId)
           .maybeSingle();
-        if (!order) return;
-        await supabase.from("bespoke_scan_profiles").update({ order_id: order.id }).eq("scan_id", scanId);
-        await supabase.from("bespoke_orders").update({ scan_id: scanId }).eq("id", order.id);
-      } catch (e) {
-        console.error("[fitlens-webhook] order attach failed", e);
+        orderId = order?.id ?? null;
       }
-    };
+      if (!orderId && clientRef) {
+        // A known reference, or nothing — never a guess.
+        const { data: prior } = await supabase
+          .from("bespoke_scan_profiles")
+          .select("order_id, session_ref")
+          .eq("measurement_ref", clientRef)
+          .maybeSingle();
+        if (prior?.order_id) orderId = prior.order_id;
+        if (prior?.session_ref) {
+          await supabase
+            .from("bespoke_scan_profiles")
+            .update({ session_ref: prior.session_ref })
+            .eq("scan_id", scanId);
+        }
+      }
+      if (!orderId) return;
+      await supabase.from("bespoke_scan_profiles").update({ order_id: orderId }).eq("scan_id", scanId);
+      // The order points at the most recent scan; older ones stay reachable
+      // through order_id / session_ref.
+      await supabase.from("bespoke_orders").update({ scan_id: scanId }).eq("id", orderId);
+    } catch (e) {
+      console.error("[fitlens-webhook] order attach failed", e);
+    }
+  };
+  if (sessionId || clientRef) {
     // deno-lint-ignore no-explicit-any
     const waitUntil = (globalThis as any).EdgeRuntime?.waitUntil;
     if (typeof waitUntil === "function") waitUntil(attach());
