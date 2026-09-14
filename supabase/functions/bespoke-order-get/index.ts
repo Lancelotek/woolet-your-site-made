@@ -125,6 +125,7 @@ Deno.serve(async (req) => {
         order_ref: `WLT-${String(_id).slice(0, 8).toUpperCase()}`,
         session_ref: sessionRef,
         scan,
+        scans,
         ai_preview_url: previewUrl,
         customer_email_masked: masked,
         customer_email: undefined,
