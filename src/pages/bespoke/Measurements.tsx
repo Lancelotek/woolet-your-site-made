@@ -54,6 +54,9 @@ type OrderSummary = {
   ai_face_width_mm: number | null;
   ai_temple_to_temple_mm: number | null;
   ai_bridge_width_mm: number | null;
+  /** Face measurement (eye corner to eye corner) from the scan. */
+  ai_inner_canthal_mm?: number | null;
+
   ai_pd_mm: number | null;
   ai_notes: string | null;
   manual_face_width_mm: number | null;
