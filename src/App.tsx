@@ -367,6 +367,7 @@ const App = () => (
           <Route path="/thank-you-fb" element={<ThankYouFb />} />
           <Route path="/:lang/thank-you-fb" element={<ThankYouFb />} />
           <Route path="/:lang/payments" element={<Payments />} />
+          <Route path="/:lang/admin/bespoke" element={<BespokeAdmin />} />
           <Route path="/:lang/crm" element={<NotFound />} />
           <Route path="/:lang/crm/acquisition" element={<NotFound />} />
           <Route path="/:lang/crm/gsc" element={<NotFound />} />
