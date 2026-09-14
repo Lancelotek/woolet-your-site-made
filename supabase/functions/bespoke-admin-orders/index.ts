@@ -101,6 +101,7 @@ Deno.serve(async (req) => {
         order,
         photo: photo ?? null,
         scan: scan ?? null,
+        scans,
         files: {
           photo_url: await sign(photo?.photo_path),
           vto_url: await sign(photo?.vto_path),
