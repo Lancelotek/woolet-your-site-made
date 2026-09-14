@@ -287,6 +287,8 @@ export default function BespokeMeasurements() {
           ai_face_width_mm: num(data.ai_face_width_mm),
           ai_temple_to_temple_mm: num(data.ai_temple_to_temple_mm),
           ai_bridge_width_mm: num(data.ai_bridge_width_mm),
+          ai_inner_canthal_mm: num(data.ai_inner_canthal_mm ?? null),
+
           ai_pd_mm: num(data.ai_pd_mm),
           ai_notes: data.ai_notes ?? "",
           manual_face_width_mm: num(data.manual_face_width_mm),
