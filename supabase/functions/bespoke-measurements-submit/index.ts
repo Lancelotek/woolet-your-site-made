@@ -20,9 +20,12 @@ type Body = {
     face_width_mm?: number | null;
     temple_to_temple_mm?: number | null;
     bridge_width_mm?: number | null;
+    /** Face measurement (eye corner to eye corner) — never a frame bridge. */
+    inner_canthal_mm?: number | null;
     pd_mm?: number | null;
     notes?: string | null;
   };
+
   manual?: {
     face_width_mm?: number | null;
     temple_to_temple_mm?: number | null;
@@ -96,6 +99,9 @@ Deno.serve(async (req) => {
       ai_face_width_mm: clampNum(ai.face_width_mm),
       ai_temple_to_temple_mm: clampNum(ai.temple_to_temple_mm),
       ai_bridge_width_mm: clampNum(ai.bridge_width_mm, 5, 60),
+      // Face measurement, kept apart from the frame bridge on purpose.
+      ai_inner_canthal_mm: clampNum(ai.inner_canthal_mm, 25, 45),
+
       ai_pd_mm: clampNum(ai.pd_mm, 40, 90),
       ai_notes: clampText(ai.notes),
       manual_face_width_mm: clampNum(manual.face_width_mm),
@@ -193,7 +199,9 @@ Deno.serve(async (req) => {
       const measurements = [
         { label: "Scan · Face width", value: mm(order.ai_face_width_mm) },
         { label: "Scan · Temple-to-temple", value: mm(order.ai_temple_to_temple_mm) },
-        { label: "Scan · Bridge width", value: mm(order.ai_bridge_width_mm) },
+        { label: "Scan · Frame bridge", value: mm(order.ai_bridge_width_mm) },
+        { label: "Inner-canthal distance (face)", value: mm(order.ai_inner_canthal_mm) },
+
         { label: "Scan · Pupillary distance", value: mm(order.ai_pd_mm) },
         { label: "Scan notes", value: order.ai_notes ?? "" },
         { label: "Manual · Face width", value: mm(order.manual_face_width_mm) },

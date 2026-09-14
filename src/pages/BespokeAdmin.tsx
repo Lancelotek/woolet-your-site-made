@@ -193,8 +193,10 @@ export default function BespokeAdmin() {
         ai: {
           "Face width": mm(o.ai_face_width_mm),
           "Temple-to-temple": mm(o.ai_temple_to_temple_mm),
-          "Bridge width": mm(o.ai_bridge_width_mm),
+          "Frame bridge": mm(o.ai_bridge_width_mm),
+          "Inner-canthal distance (face)": mm(o.ai_inner_canthal_mm),
           "Pupillary distance": mm(o.ai_pd_mm),
+
         },
         manual: {
           "Face width": mm(o.manual_face_width_mm),
@@ -407,7 +409,10 @@ export default function BespokeAdmin() {
             </tbody>
           </table>
         </div>
+
+        <IntegrationSecretBlock password={password} />
       </div>
+
 
       {(detail || detailBusy) && (
         <div
@@ -438,7 +443,90 @@ export default function BespokeAdmin() {
   );
 }
 
+/**
+ * FitLens webhook signing secret. The environment variable is the preferred
+ * home; this writes the database fallback row. The value is never read back —
+ * only whether one is set and when it last changed.
+ */
+function IntegrationSecretBlock({ password }: { password: string }) {
+  const [value, setValue] = useState("");
+  const [status, setStatus] = useState<{ is_set: boolean; source: string; updated_at: string | null } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const call = async (action: "status" | "save", secret?: string) => {
+    setBusy(true);
+    setMsg(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("bespoke-integration-secret", {
+        body: { password, action, name: "fitlens_webhook_secret", value: secret },
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      setStatus(data as any);
+      if (action === "save") {
+        setValue("");
+        setMsg("Saved. FitLens can start posting.");
+      }
+    } catch (err) {
+      setMsg(err instanceof Error ? err.message : "Failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  useEffect(() => {
+    void call("status");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const generate = () => {
+    const bytes = new Uint8Array(32);
+    crypto.getRandomValues(bytes);
+    setValue(Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join(""));
+  };
+
+  return (
+    <section style={{ marginTop: 40, border: `1px solid ${T.hair}`, borderRadius: 3, background: T.panel, padding: 20, maxWidth: 620 }}>
+      <h2 style={{ fontFamily: SERIF, fontSize: 22, margin: "0 0 6px" }}>FitLens signing secret</h2>
+      <p style={{ color: T.dim, fontSize: 13, margin: "0 0 14px", lineHeight: 1.6 }}>
+        {status
+          ? status.is_set
+            ? `Set (${status.source}${status.updated_at ? `, last changed ${fmtDate(status.updated_at)}` : ""}). The value is never shown again.`
+            : "Not set — FitLens cannot post measurements yet."
+          : "Checking…"}
+      </p>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <input
+          type="password"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="New secret"
+          style={{ flex: "1 1 260px", padding: "10px 12px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink, borderRadius: 2, fontFamily: SANS }}
+        />
+        <button
+          type="button"
+          onClick={generate}
+          style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "10px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}
+        >
+          Generate
+        </button>
+        <button
+          type="button"
+          disabled={busy || value.trim().length < 16}
+          onClick={() => void call("save", value.trim())}
+          style={{ background: T.gold, border: "none", color: "#1f1b16", padding: "10px 16px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600, cursor: "pointer" }}
+        >
+          {busy ? "Saving…" : "Save"}
+        </button>
+      </div>
+      {msg && <p style={{ color: T.dim, fontSize: 12, marginTop: 10 }}>{msg}</p>}
+    </section>
+  );
+}
+
 function Field({ label, value }: { label: string; value: unknown }) {
+
   return (
     <div style={{ borderTop: `1px solid ${T.hair}`, padding: "8px 0" }}>
       <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute }}>{label}</div>
@@ -517,15 +605,34 @@ function DetailView({
       <Group title="Measurements from the form">
         <Field label="Face width" value={mm(o.ai_face_width_mm)} />
         <Field label="Temple-to-temple" value={mm(o.ai_temple_to_temple_mm)} />
-        <Field label="Bridge width" value={mm(o.ai_bridge_width_mm)} />
+        <Field label="Frame bridge" value={mm(o.ai_bridge_width_mm)} />
+        <Field label="Inner-canthal distance (face)" value={mm(o.ai_inner_canthal_mm)} />
         <Field label="Pupillary distance" value={mm(o.ai_pd_mm)} />
         <Field label="Notes" value={o.ai_notes} />
       </Group>
 
+      {/* Typed before the inner-canthal split existed — nobody knows which
+          measurement the customer took, so flag it instead of moving it. */}
+      {o.ai_bridge_width_mm != null && new Date(o.created_at as string) < new Date("2026-09-20") && (
+        <p
+          style={{
+            marginTop: 10,
+            padding: "10px 12px",
+            border: "1px solid rgba(226,114,91,0.45)",
+            background: "rgba(226,114,91,0.08)",
+            color: "#e2725b",
+            fontSize: 13,
+            lineHeight: 1.6,
+          }}
+        >
+          Bridge value predates the inner-canthal split - confirm with the customer before cutting.
+        </p>
+      )}
+
       <Group title="Measured by hand">
         <Field label="Face width" value={mm(o.manual_face_width_mm)} />
         <Field label="Temple-to-temple" value={mm(o.manual_temple_to_temple_mm)} />
-        <Field label="Bridge width" value={mm(o.manual_bridge_width_mm)} />
+        <Field label="Bridge of best-fitting glasses" value={mm(o.manual_bridge_width_mm)} />
         <Field label="Pupillary distance" value={mm(o.manual_pd_mm)} />
         <Field label="Temple length" value={mm(o.manual_temple_length_mm)} />
         <Field label="Head circumference" value={mm(o.manual_head_circumference_mm)} />
@@ -533,6 +640,7 @@ function DetailView({
         <Field label="Notes" value={o.manual_notes} />
         <Field label="Submitted" value={o.measurements_submitted_at ? fmtDate(o.measurements_submitted_at) : "Not submitted yet"} />
       </Group>
+
 
       <Group title="Shipping address">
         <Field label="Recipient" value={o.shipping_name} />

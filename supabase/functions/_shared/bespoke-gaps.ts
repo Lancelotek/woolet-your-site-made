@@ -4,6 +4,11 @@
 
 export const BRIDGE_MIN_MM = 16;
 export const BRIDGE_MAX_MM = 26;
+// Inner-canthal distance is a FACE measurement (eye corner to eye corner),
+// typically 30-35 mm in an adult. It is never a frame bridge.
+export const INNER_CANTHAL_MIN_MM = 25;
+export const INNER_CANTHAL_MAX_MM = 45;
+
 
 const MANUAL_MEASUREMENT_FIELDS = [
   "manual_face_width_mm",
@@ -38,6 +43,7 @@ export function bespokeOrderGaps(order: BespokeGapSource): string[] {
     gaps.push("Address not confirmed by the customer");
   }
 
+  // Frame bridge only — the scan's inner-canthal value never lands here.
   for (const key of ["ai_bridge_width_mm", "manual_bridge_width_mm"]) {
     const bridge = num(order[key]);
     if (bridge != null && (bridge < BRIDGE_MIN_MM || bridge > BRIDGE_MAX_MM)) {
@@ -45,22 +51,33 @@ export function bespokeOrderGaps(order: BespokeGapSource): string[] {
     }
   }
 
+  // Quieter: a face measurement to re-check, not a reason to stop cutting.
+  const canthal = num(order.ai_inner_canthal_mm);
+  if (canthal != null && (canthal < INNER_CANTHAL_MIN_MM || canthal > INNER_CANTHAL_MAX_MM)) {
+    gaps.push(
+      `Inner-canthal distance ${canthal} mm looks unusual (${INNER_CANTHAL_MIN_MM}-${INNER_CANTHAL_MAX_MM} mm expected) - worth re-checking the scan`,
+    );
+  }
+
   const hasManual = MANUAL_MEASUREMENT_FIELDS.some((f) => num(order[f]) != null);
   if (!hasManual) {
     gaps.push("No manual measurements to check the scan against");
   }
 
-  return gaps;
+  // One problem, one sentence — the badge counts gaps, not sources.
+  return Array.from(new Set(gaps));
 }
+
 
 /** Bridge values (from either source) that sit outside the cuttable range. */
 export function bridgeOutOfRange(order: BespokeGapSource): number[] {
-  const out: number[] = [];
+  const out = new Set<number>();
   for (const key of ["ai_bridge_width_mm", "manual_bridge_width_mm"]) {
     const bridge = num((order as Record<string, unknown>)[key]);
-    if (bridge != null && (bridge < BRIDGE_MIN_MM || bridge > BRIDGE_MAX_MM)) out.push(bridge);
+    if (bridge != null && (bridge < BRIDGE_MIN_MM || bridge > BRIDGE_MAX_MM)) out.add(bridge);
   }
-  return out;
+  return Array.from(out);
+
 }
 
 /** Scan/manual pairs that differ by more than the tolerance, in millimetres. */

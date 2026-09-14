@@ -224,6 +224,7 @@ export type Database = {
         Row: {
           ai_bridge_width_mm: number | null
           ai_face_width_mm: number | null
+          ai_inner_canthal_mm: number | null
           ai_notes: string | null
           ai_overrides: Json | null
           ai_pd_mm: number | null
@@ -288,6 +289,7 @@ export type Database = {
         Insert: {
           ai_bridge_width_mm?: number | null
           ai_face_width_mm?: number | null
+          ai_inner_canthal_mm?: number | null
           ai_notes?: string | null
           ai_overrides?: Json | null
           ai_pd_mm?: number | null
@@ -352,6 +354,7 @@ export type Database = {
         Update: {
           ai_bridge_width_mm?: number | null
           ai_face_width_mm?: number | null
+          ai_inner_canthal_mm?: number | null
           ai_notes?: string | null
           ai_overrides?: Json | null
           ai_pd_mm?: number | null
@@ -827,6 +830,24 @@ export type Database = {
           snapshot_date?: string
           threshold_ctr?: number | null
           threshold_met?: boolean | null
+        }
+        Relationships: []
+      }
+      integration_secrets: {
+        Row: {
+          name: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          name: string
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          name?: string
+          updated_at?: string
+          value?: string
         }
         Relationships: []
       }

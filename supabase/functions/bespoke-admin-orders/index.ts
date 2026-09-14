@@ -129,7 +129,7 @@ Deno.serve(async (req) => {
     const { data: orders, error: listError } = await admin
       .from("bespoke_orders")
       .select(
-        "id, created_at, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, environment, measurements_submitted_at, session_ref, production_blocked, stripe_session_id, metadata, delivered_at, shipping_submitted_at, shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, courier, tracking_number, parcel_weight_kg, shipped_at, dispatch_note, ai_bridge_width_mm, manual_bridge_width_mm, manual_face_width_mm, manual_temple_to_temple_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm",
+        "id, created_at, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, environment, measurements_submitted_at, session_ref, production_blocked, stripe_session_id, metadata, delivered_at, shipping_submitted_at, shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, courier, tracking_number, parcel_weight_kg, shipped_at, dispatch_note, ai_bridge_width_mm, ai_inner_canthal_mm, manual_bridge_width_mm, manual_face_width_mm, manual_temple_to_temple_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm",
       )
       .order("created_at", { ascending: false })
       .limit(200);

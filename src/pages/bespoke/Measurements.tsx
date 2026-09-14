@@ -54,6 +54,9 @@ type OrderSummary = {
   ai_face_width_mm: number | null;
   ai_temple_to_temple_mm: number | null;
   ai_bridge_width_mm: number | null;
+  /** Face measurement (eye corner to eye corner) from the scan. */
+  ai_inner_canthal_mm?: number | null;
+
   ai_pd_mm: number | null;
   ai_notes: string | null;
   manual_face_width_mm: number | null;
@@ -121,6 +124,8 @@ type FormState = {
   ai_face_width_mm: string;
   ai_temple_to_temple_mm: string;
   ai_bridge_width_mm: string;
+  /** Face measurement (eye corner to eye corner) — never a frame bridge. */
+  ai_inner_canthal_mm: string;
   ai_pd_mm: string;
   ai_notes: string;
   manual_face_width_mm: string;
@@ -137,6 +142,7 @@ const EMPTY: FormState = {
   ai_face_width_mm: "",
   ai_temple_to_temple_mm: "",
   ai_bridge_width_mm: "",
+  ai_inner_canthal_mm: "",
   ai_pd_mm: "",
   ai_notes: "",
   manual_face_width_mm: "",
@@ -148,6 +154,7 @@ const EMPTY: FormState = {
   manual_ear_to_ear_mm: "",
   manual_notes: "",
 };
+
 
 const num = (v: number | null) => (v === null || v === undefined ? "" : String(v));
 
@@ -217,24 +224,27 @@ export default function BespokeMeasurements() {
       setScanSource("fitlens_client");
       setScanLocked(true);
       setForm((f) => {
+        // The scan's `bridge` is the inner-canthal distance (a face
+        // measurement). It must never land in ai_bridge_width_mm, which means
+        // the bridge of a physical frame. The scan's temple length stays in the
+        // scan payload so it cannot pollute the manual column.
         const next = {
           ...f,
           ai_face_width_mm: measurements.faceWidth != null ? String(measurements.faceWidth) : f.ai_face_width_mm,
           ai_temple_to_temple_mm:
             measurements.templeToTemple != null ? String(measurements.templeToTemple) : f.ai_temple_to_temple_mm,
-          ai_bridge_width_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_bridge_width_mm,
+          ai_inner_canthal_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_inner_canthal_mm,
           ai_pd_mm: measurements.pd != null ? String(measurements.pd) : f.ai_pd_mm,
-          manual_temple_length_mm:
-            measurements.templeLength != null ? String(measurements.templeLength) : f.manual_temple_length_mm,
         };
         setScanOriginal({
           ai_face_width_mm: next.ai_face_width_mm,
           ai_temple_to_temple_mm: next.ai_temple_to_temple_mm,
-          ai_bridge_width_mm: next.ai_bridge_width_mm,
+          ai_inner_canthal_mm: next.ai_inner_canthal_mm,
           ai_pd_mm: next.ai_pd_mm,
         });
         return next;
       });
+
       clarityEvent("bespoke_scan_completed");
 
       // Verify (or, failing that, record) the result server-side. The banner
@@ -280,6 +290,8 @@ export default function BespokeMeasurements() {
           ai_face_width_mm: num(data.ai_face_width_mm),
           ai_temple_to_temple_mm: num(data.ai_temple_to_temple_mm),
           ai_bridge_width_mm: num(data.ai_bridge_width_mm),
+          ai_inner_canthal_mm: num(data.ai_inner_canthal_mm ?? null),
+
           ai_pd_mm: num(data.ai_pd_mm),
           ai_notes: data.ai_notes ?? "",
           manual_face_width_mm: num(data.manual_face_width_mm),
@@ -302,9 +314,10 @@ export default function BespokeMeasurements() {
           const prefilled = {
             ai_face_width_mm: num(scan.face_width_mm ?? fit),
             ai_temple_to_temple_mm: num(fit),
-            ai_bridge_width_mm: num(scan.nose_bridge_width_mm),
+            ai_inner_canthal_mm: num(scan.nose_bridge_width_mm),
             ai_pd_mm: num(scan.pd_mm),
           };
+
           setForm((f) => ({ ...f, ...prefilled }));
           setScanOriginal(prefilled);
           setScanSource((scan.source as ScanSource) ?? "fitlens_client");
@@ -445,6 +458,8 @@ export default function BespokeMeasurements() {
             face_width_mm: form.ai_face_width_mm || null,
             temple_to_temple_mm: form.ai_temple_to_temple_mm || null,
             bridge_width_mm: form.ai_bridge_width_mm || null,
+            inner_canthal_mm: form.ai_inner_canthal_mm || null,
+
             pd_mm: form.ai_pd_mm || null,
             notes: form.ai_notes || null,
           },
@@ -559,8 +574,9 @@ export default function BespokeMeasurements() {
                   One last step — your <em className="text-gold not-italic italic">measurements</em>.
                 </h1>
                 <p className="text-cream-dim mt-3 max-w-xl leading-relaxed">
-                  Two things before the workshop cuts: where to ship, and a second set of numbers
-                  from a ruler.
+                  Two things before the workshop cuts: where to ship, and your measurements -
+                  twenty seconds with your phone camera.
+
                 </p>
 
               </section>
@@ -771,6 +787,9 @@ export default function BespokeMeasurements() {
                             scanMono?.right != null && `PD right ${scanMono.right} mm`,
                             scanResult.bridge != null &&
                               `inner-canthal distance ${scanResult.bridge} mm`,
+                            scanResult.templeLength != null &&
+                              `temple length ${scanResult.templeLength} mm`,
+
                           ]
                             .filter(Boolean)
                             .join(" · ")}
@@ -822,7 +841,9 @@ export default function BespokeMeasurements() {
                         >
                           <Field label="Face width (mm)" value={form.ai_face_width_mm} onChange={update("ai_face_width_mm")} placeholder="e.g. 158" />
                           <Field label="Temple-to-temple (mm)" value={form.ai_temple_to_temple_mm} onChange={update("ai_temple_to_temple_mm")} placeholder="e.g. 160" />
-                          <Field label="Bridge width (mm)" value={form.ai_bridge_width_mm} onChange={update("ai_bridge_width_mm")} placeholder="e.g. 21" />
+                          <Field label="Frame bridge (mm)" value={form.ai_bridge_width_mm} onChange={update("ai_bridge_width_mm")} placeholder="e.g. 21" note="Bridge of a physical frame - not a face measurement." />
+                          <Field label="Inner-canthal distance (mm)" value={form.ai_inner_canthal_mm} onChange={update("ai_inner_canthal_mm")} placeholder="e.g. 33" note="Eye corner to eye corner, a measurement of your face." />
+
                           <Field label="Pupillary distance / PD (mm)" value={form.ai_pd_mm} onChange={update("ai_pd_mm")} placeholder="e.g. 66" />
                           <Textarea label="AI scan notes" value={form.ai_notes} onChange={update("ai_notes")} placeholder="Anything the AI flagged (asymmetry, low confidence, etc.)" />
                         </FieldGroup>
@@ -849,7 +870,14 @@ export default function BespokeMeasurements() {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Field label="Face width (mm)" value={form.manual_face_width_mm} onChange={update("manual_face_width_mm")} placeholder="e.g. 155" />
                             <Field label="Temple-to-temple (mm)" value={form.manual_temple_to_temple_mm} onChange={update("manual_temple_to_temple_mm")} placeholder="e.g. 158" />
-                            <Field label="Bridge width (mm)" value={form.manual_bridge_width_mm} onChange={update("manual_bridge_width_mm")} placeholder="e.g. 20" />
+                            <Field
+                              label="Bridge of your best-fitting glasses (mm)"
+                              value={form.manual_bridge_width_mm}
+                              onChange={update("manual_bridge_width_mm")}
+                              placeholder="e.g. 20"
+                              note="The number printed inside the arm, between the lenses - not a measurement of your nose."
+                            />
+
                             <Field label="PD (mm)" value={form.manual_pd_mm} onChange={update("manual_pd_mm")} placeholder="e.g. 65" />
                             <Field
                               label="Temple length (mm)"
