@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
+import { bespokeOrderGaps } from "@/lib/bespoke-gaps";
+import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
 
 const T = {
   bg: "#0b0a09",
@@ -39,7 +41,7 @@ interface Row {
   shipping_submitted_at: string | null;
   shipping_city: string | null;
   shipping_country: string | null;
-
+  [key: string]: unknown;
 }
 
 type OrderRecord = Record<string, unknown>;
@@ -123,6 +125,20 @@ export default function BespokeAdmin() {
     if (password && !authed) void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Exports exactly the rows currently loaded in the panel.
+  const exportShipping = async (format: "xlsx" | "csv") => {
+    setBusy(format);
+    setError(null);
+    try {
+      if (format === "csv") exportShippingCsv(rows);
+      else await exportShippingXlsx(rows);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Export failed");
+    } finally {
+      setBusy(null);
+    }
+  };
 
   const openDetail = async (id: string) => {
     setDetailBusy(true);
@@ -315,11 +331,27 @@ export default function BespokeAdmin() {
       </Helmet>
 
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "32px 20px 80px" }}>
-        <header style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, marginBottom: 24 }}>
+        <header style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
           <h1 style={{ fontFamily: SERIF, fontSize: 32, margin: 0 }}>Bespoke production</h1>
-          <button onClick={() => load()} style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "8px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}>
-            Refresh
-          </button>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <button
+              onClick={() => void exportShipping("xlsx")}
+              disabled={busy === "xlsx" || rows.length === 0}
+              style={{ background: T.gold, border: "none", color: "#1f1b16", padding: "8px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600, cursor: "pointer" }}
+            >
+              {busy === "xlsx" ? "Building…" : "Export shipping (XLSX)"}
+            </button>
+            <button
+              onClick={() => void exportShipping("csv")}
+              disabled={busy === "csv" || rows.length === 0}
+              style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "8px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}
+            >
+              Export shipping (CSV)
+            </button>
+            <button onClick={() => load()} style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "8px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}>
+              Refresh
+            </button>
+          </div>
         </header>
 
         {error && <div style={{ color: "#e2725b", fontSize: 13, marginBottom: 16 }}>{error}</div>}
@@ -345,9 +377,18 @@ export default function BespokeAdmin() {
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
                   <td style={{ padding: "12px 14px" }}>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {(() => {
+                        const gaps = bespokeOrderGaps(r as Record<string, unknown>);
+                        return gaps.length > 0 ? (
+                          <span
+                            title={gaps.join(" | ")}
+                            style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", padding: "3px 8px", borderRadius: 2, border: "1px solid rgba(193,58,46,0.55)", color: "#e2725b" }}
+                          >
+                            On hold · {gaps.length}
+                          </span>
+                        ) : null;
+                      })()}
                       {pill("Measurements", Boolean(r.measurements_submitted_at))}
-                      {!r.shipping_submitted_at && pill("No address", true)}
-
                       {pill("Photo", r.has_photo)}
                       {pill("On-face", r.has_tryon)}
                       {r.production_blocked && pill("Check fit", true)}
@@ -382,6 +423,7 @@ export default function BespokeAdmin() {
             ) : (
               <DetailView
                 detail={detail}
+                password={password}
                 onClose={() => setDetail(null)}
                 onPdf={() => downloadPdf(detail)}
                 onZip={() => downloadBundle(detail)}
@@ -417,9 +459,10 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 }
 
 function DetailView({
-  detail, onClose, onPdf, onZip, onRender, busy,
+  detail, password, onClose, onPdf, onZip, onRender, busy,
 }: {
   detail: Detail;
+  password: string;
   onClose: () => void;
   onPdf: () => void;
   onZip: () => void;
@@ -429,6 +472,7 @@ function DetailView({
   const o = detail.order as Record<string, any>;
   const p = detail.photo as Record<string, any> | null;
   const consentState = !p ? "Not recorded" : p.consent_withdrawn_at ? "Withdrawn" : "Granted";
+  const gaps = bespokeOrderGaps(o);
 
   return (
     <div>
@@ -505,6 +549,19 @@ function DetailView({
         />
       </Group>
 
+      {gaps.length > 0 && (
+        <section style={{ marginTop: 22 }}>
+          <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px", color: "#e2725b" }}>
+            On hold · {gaps.length}
+          </h3>
+          <ul style={{ margin: 0, paddingLeft: 18, color: T.dim, fontSize: 13, lineHeight: 1.7 }}>
+            {gaps.map((g) => <li key={g}>{g}</li>)}
+          </ul>
+        </section>
+      )}
+
+      <DispatchBlock order={o} password={password} />
+
       <Group title="Photo & consent">
 
         <Field label="Consent" value={consentState} />
@@ -537,5 +594,86 @@ function DetailView({
         </section>
       )}
     </div>
+  );
+}
+
+const DISPATCH_FIELDS = [
+  { key: "courier", label: "Courier", placeholder: "DHL Express" },
+  { key: "tracking_number", label: "Tracking number", placeholder: "1234567890" },
+  { key: "parcel_weight_kg", label: "Weight (kg)", placeholder: "0.6" },
+  { key: "shipped_at", label: "Ship date", placeholder: "2026-09-16", type: "date" },
+  { key: "dispatch_note", label: "Note", placeholder: "Left with reception" },
+] as const;
+
+// Writes only the five dispatch columns, debounced, through the admin-guarded
+// edge function. Measurements, address and consent are never touched here.
+function DispatchBlock({ order, password }: { order: Record<string, any>; password: string }) {
+  const [form, setForm] = useState(() => ({
+    courier: order.courier ?? "",
+    tracking_number: order.tracking_number ?? "",
+    parcel_weight_kg: order.parcel_weight_kg == null ? "" : String(order.parcel_weight_kg),
+    shipped_at: order.shipped_at ? String(order.shipped_at).slice(0, 10) : "",
+    dispatch_note: order.dispatch_note ?? "",
+  }));
+  const [savedAt, setSavedAt] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dirty = useRef(false);
+
+  useEffect(() => {
+    if (!dirty.current) return;
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(async () => {
+      setSaving(true);
+      setSaveError(null);
+      try {
+        const { data, error } = await supabase.functions.invoke("bespoke-dispatch-update", {
+          body: { password, id: order.id, ...form },
+        });
+        if (error) throw error;
+        if ((data as { error?: string })?.error) throw new Error((data as { error?: string }).error);
+        setSavedAt(new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }));
+      } catch (err) {
+        setSaveError(err instanceof Error ? err.message : "Save failed");
+      } finally {
+        setSaving(false);
+      }
+    }, 800);
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, [form, order.id, password]);
+
+  const set = (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    dirty.current = true;
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+  };
+
+  return (
+    <section style={{ marginTop: 22 }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
+        <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Dispatch</h3>
+        <span style={{ fontSize: 11, color: saveError ? "#e2725b" : T.mute }}>
+          {saveError ? saveError : saving ? "Saving…" : savedAt ? `Saved ${savedAt}` : ""}
+        </span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
+        {DISPATCH_FIELDS.map((f) => (
+          <label key={f.key} style={{ display: "block" }}>
+            <span style={{ display: "block", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute, marginBottom: 5 }}>
+              {f.label}
+            </span>
+            <input
+              type={"type" in f ? f.type : "text"}
+              value={(form as Record<string, string>)[f.key]}
+              onChange={set(f.key)}
+              placeholder={f.placeholder}
+              style={{ width: "100%", minHeight: 44, padding: "10px 12px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink, borderRadius: 2, fontFamily: SANS, fontSize: 13 }}
+            />
+          </label>
+        ))}
+      </div>
+    </section>
   );
 }
