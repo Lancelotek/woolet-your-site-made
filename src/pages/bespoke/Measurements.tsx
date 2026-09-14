@@ -194,7 +194,18 @@ export default function BespokeMeasurements() {
           manual_ear_to_ear_mm: num(data.manual_ear_to_ear_mm),
           manual_notes: data.manual_notes ?? "",
         });
+        setShipping({
+          name: data.shipping_name ?? "",
+          phone: data.shipping_phone ?? "",
+          line1: data.shipping_line1 ?? "",
+          line2: data.shipping_line2 ?? "",
+          city: data.shipping_city ?? "",
+          state: data.shipping_state ?? "",
+          postal_code: data.shipping_postal_code ?? "",
+          country: (data.shipping_country ?? "").toUpperCase(),
+        });
         if (data.measurements_submitted_at) setSubmitted(true);
+
       } catch (e) {
         console.error(e);
         setError("Something went wrong loading your order. Please refresh, or write to support@woolet.co.");
