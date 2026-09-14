@@ -346,6 +346,7 @@ export default function BespokeAdmin() {
                 onClose={() => setDetail(null)}
                 onPdf={() => downloadPdf(detail)}
                 onZip={() => downloadBundle(detail)}
+                onRender={() => renderPreview(detail)}
                 busy={busy}
               />
             )}
@@ -378,12 +379,12 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 
 function DetailView({
   detail, onClose, onPdf, onZip, onRender, busy,
-
 }: {
   detail: Detail;
   onClose: () => void;
   onPdf: () => void;
   onZip: () => void;
+  onRender: () => void;
   busy: string | null;
 }) {
   const o = detail.order as Record<string, any>;
