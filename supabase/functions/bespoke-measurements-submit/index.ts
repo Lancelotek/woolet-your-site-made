@@ -8,6 +8,7 @@ import {
   bridgeOutOfRange,
   measurementDisagreements,
 } from "../_shared/bespoke-gaps.ts";
+import { compareRepeatability, sortScans } from "../_shared/scan-repeatability.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
