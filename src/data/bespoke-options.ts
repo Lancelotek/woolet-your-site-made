@@ -30,6 +30,8 @@ import progressiveImg from "@/assets/configurator/lenses/progressive.jpg";
 import sunTintedImg from "@/assets/configurator/lenses/sun-tinted.jpg";
 import blueLightImg from "@/assets/configurator/lenses/blue-light.jpg";
 
+export type ColorFamily = "tortoise" | "black" | "grey" | "colour" | "translucent";
+
 export interface ColorSwatch {
   id: string;
   /** Internal factory stock code — NEVER surfaced to the customer. */
@@ -42,6 +44,8 @@ export interface ColorSwatch {
   image: string;
   /** Optional short note (translucent, layered, etc.). */
   note?: string;
+  /** Visual family used to group similar-looking acetates in the picker. */
+  family: ColorFamily;
   /**
    * Sheet thickness in millimetres.
    * Front acetate is cut from 6 mm plates; TEMPLES must be 4 mm.
