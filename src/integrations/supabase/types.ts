@@ -226,6 +226,7 @@ export type Database = {
           ai_face_width_mm: number | null
           ai_notes: string | null
           ai_pd_mm: number | null
+          ai_preview_path: string | null
           ai_preview_url: string | null
           ai_temple_to_temple_mm: number | null
           amount_cents: number | null
@@ -270,6 +271,7 @@ export type Database = {
           ai_face_width_mm?: number | null
           ai_notes?: string | null
           ai_pd_mm?: number | null
+          ai_preview_path?: string | null
           ai_preview_url?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
@@ -314,6 +316,7 @@ export type Database = {
           ai_face_width_mm?: number | null
           ai_notes?: string | null
           ai_pd_mm?: number | null
+          ai_preview_path?: string | null
           ai_preview_url?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
