@@ -519,15 +519,34 @@ function DetailView({
       <Group title="Measurements from the form">
         <Field label="Face width" value={mm(o.ai_face_width_mm)} />
         <Field label="Temple-to-temple" value={mm(o.ai_temple_to_temple_mm)} />
-        <Field label="Bridge width" value={mm(o.ai_bridge_width_mm)} />
+        <Field label="Frame bridge" value={mm(o.ai_bridge_width_mm)} />
+        <Field label="Inner-canthal distance (face)" value={mm(o.ai_inner_canthal_mm)} />
         <Field label="Pupillary distance" value={mm(o.ai_pd_mm)} />
         <Field label="Notes" value={o.ai_notes} />
       </Group>
 
+      {/* Typed before the inner-canthal split existed — nobody knows which
+          measurement the customer took, so flag it instead of moving it. */}
+      {o.ai_bridge_width_mm != null && new Date(o.created_at as string) < new Date("2026-09-20") && (
+        <p
+          style={{
+            marginTop: 10,
+            padding: "10px 12px",
+            border: "1px solid rgba(226,114,91,0.45)",
+            background: "rgba(226,114,91,0.08)",
+            color: "#e2725b",
+            fontSize: 13,
+            lineHeight: 1.6,
+          }}
+        >
+          Bridge value predates the inner-canthal split - confirm with the customer before cutting.
+        </p>
+      )}
+
       <Group title="Measured by hand">
         <Field label="Face width" value={mm(o.manual_face_width_mm)} />
         <Field label="Temple-to-temple" value={mm(o.manual_temple_to_temple_mm)} />
-        <Field label="Bridge width" value={mm(o.manual_bridge_width_mm)} />
+        <Field label="Bridge of best-fitting glasses" value={mm(o.manual_bridge_width_mm)} />
         <Field label="Pupillary distance" value={mm(o.manual_pd_mm)} />
         <Field label="Temple length" value={mm(o.manual_temple_length_mm)} />
         <Field label="Head circumference" value={mm(o.manual_head_circumference_mm)} />
@@ -535,6 +554,7 @@ function DetailView({
         <Field label="Notes" value={o.manual_notes} />
         <Field label="Submitted" value={o.measurements_submitted_at ? fmtDate(o.measurements_submitted_at) : "Not submitted yet"} />
       </Group>
+
 
       <Group title="Shipping address">
         <Field label="Recipient" value={o.shipping_name} />
