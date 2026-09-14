@@ -193,8 +193,10 @@ export default function BespokeAdmin() {
         ai: {
           "Face width": mm(o.ai_face_width_mm),
           "Temple-to-temple": mm(o.ai_temple_to_temple_mm),
-          "Bridge width": mm(o.ai_bridge_width_mm),
+          "Frame bridge": mm(o.ai_bridge_width_mm),
+          "Inner-canthal distance (face)": mm(o.ai_inner_canthal_mm),
           "Pupillary distance": mm(o.ai_pd_mm),
+
         },
         manual: {
           "Face width": mm(o.manual_face_width_mm),
