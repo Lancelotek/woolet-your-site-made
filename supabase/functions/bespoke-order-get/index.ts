@@ -80,6 +80,25 @@ Deno.serve(async (req) => {
         .createSignedUrl(previewPath, 60 * 15);
       previewUrl = signed?.signedUrl ?? previewUrl;
     }
+    // Scan result attached to this order, if FitLens has sent one. `source`
+    // tells the page (and the customer) how much the numbers can be trusted.
+    let scan: Record<string, unknown> | null = null;
+    {
+      const scanId = (data as any).scan_id as string | null;
+      let query = supabase
+        .from("bespoke_scan_profiles")
+        .select(
+          "scan_id, source, status, semantics_version, confidence_tier, spread_mm, temple_to_temple_mm, face_width_mm, pd_mm, pd_left_mm, pd_right_mm, nose_bridge_width_mm, created_at",
+        )
+        .order("created_at", { ascending: false })
+        .limit(1);
+      query = scanId
+        ? query.eq("scan_id", scanId)
+        : query.eq("order_id", (data as any).id);
+      const { data: scanRow } = await query.maybeSingle();
+      scan = (scanRow as Record<string, unknown>) ?? null;
+    }
+
     const { id: _id, ...safeOrder } = data;
     return new Response(
       JSON.stringify({
@@ -88,6 +107,7 @@ Deno.serve(async (req) => {
         // to show the customer and to tag analytics with; not the raw uuid.
         order_ref: `WLT-${String(_id).slice(0, 8).toUpperCase()}`,
         session_ref: sessionRef,
+        scan,
         ai_preview_url: previewUrl,
         customer_email_masked: masked,
         customer_email: undefined,
