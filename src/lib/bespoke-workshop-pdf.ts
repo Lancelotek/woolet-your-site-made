@@ -235,5 +235,15 @@ async function buildWorkshopDoc(data: WorkshopReportData) {
     );
   }
 
+  return doc;
+}
+
+export async function downloadWorkshopReport(data: WorkshopReportData): Promise<void> {
+  const doc = await buildWorkshopDoc(data);
   doc.save(`Woolet-Bespoke-Workshop-${data.sessionId.slice(-10)}.pdf`);
+}
+
+export async function buildWorkshopReportBlob(data: WorkshopReportData): Promise<Blob> {
+  const doc = await buildWorkshopDoc(data);
+  return doc.output("blob") as Blob;
 }
