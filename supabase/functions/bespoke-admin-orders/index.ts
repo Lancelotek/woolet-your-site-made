@@ -35,7 +35,10 @@ Deno.serve(async (req) => {
       id?: string;
     };
     const provided = body.password ?? req.headers.get("x-admin-password") ?? "";
-    if (!ADMIN_PASSWORD || provided !== ADMIN_PASSWORD) {
+    const ok =
+      (!!ADMIN_PASSWORD && provided === ADMIN_PASSWORD) ||
+      (!!BESPOKE_PASSWORD && provided === BESPOKE_PASSWORD);
+    if (!ok) {
       return json({ error: "Invalid password" }, 401);
     }
 
