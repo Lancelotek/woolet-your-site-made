@@ -245,6 +245,17 @@ export default function BespokeMeasurements() {
         requestedTempleLength,
         aiPreviewUrl: order?.ai_preview_url ?? null,
         tryOnUrl: order?.try_on_url ?? null,
+        shipping: {
+          name: shipping.name || null,
+          line1: shipping.line1 || null,
+          line2: shipping.line2 || null,
+          city: shipping.city || null,
+          state: shipping.state || null,
+          postalCode: shipping.postal_code || null,
+          country: shipping.country || null,
+          submittedAt: order?.shipping_submitted_at ?? null,
+        },
+
         consent: order?.photo_consent
           ? {
               grantedAt: order.photo_consent.consent_at,
