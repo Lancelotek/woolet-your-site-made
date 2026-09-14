@@ -22,6 +22,8 @@ interface Props {
   orderRef?: string
   customerEmailMasked?: string
   source?: string
+  /** How far the scan was verified: Verified scan / Signed scan / unverified. */
+  verificationLabel?: string
   frameName?: string
   measurements?: Row[]
   /** Bridge values already judged out of range by the shared gap rules. */
