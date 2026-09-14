@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
+import { bespokeOrderGaps } from "@/lib/bespoke-gaps";
+import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
 
 const T = {
   bg: "#0b0a09",
@@ -39,7 +41,7 @@ interface Row {
   shipping_submitted_at: string | null;
   shipping_city: string | null;
   shipping_country: string | null;
-
+  [key: string]: unknown;
 }
 
 type OrderRecord = Record<string, unknown>;
