@@ -443,7 +443,90 @@ export default function BespokeAdmin() {
   );
 }
 
+/**
+ * FitLens webhook signing secret. The environment variable is the preferred
+ * home; this writes the database fallback row. The value is never read back —
+ * only whether one is set and when it last changed.
+ */
+function IntegrationSecretBlock({ password }: { password: string }) {
+  const [value, setValue] = useState("");
+  const [status, setStatus] = useState<{ is_set: boolean; source: string; updated_at: string | null } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const call = async (action: "status" | "save", secret?: string) => {
+    setBusy(true);
+    setMsg(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("bespoke-integration-secret", {
+        body: { password, action, name: "fitlens_webhook_secret", value: secret },
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      setStatus(data as any);
+      if (action === "save") {
+        setValue("");
+        setMsg("Saved. FitLens can start posting.");
+      }
+    } catch (err) {
+      setMsg(err instanceof Error ? err.message : "Failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  useEffect(() => {
+    void call("status");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const generate = () => {
+    const bytes = new Uint8Array(32);
+    crypto.getRandomValues(bytes);
+    setValue(Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join(""));
+  };
+
+  return (
+    <section style={{ marginTop: 40, border: `1px solid ${T.hair}`, borderRadius: 3, background: T.panel, padding: 20, maxWidth: 620 }}>
+      <h2 style={{ fontFamily: SERIF, fontSize: 22, margin: "0 0 6px" }}>FitLens signing secret</h2>
+      <p style={{ color: T.dim, fontSize: 13, margin: "0 0 14px", lineHeight: 1.6 }}>
+        {status
+          ? status.is_set
+            ? `Set (${status.source}${status.updated_at ? `, last changed ${fmtDate(status.updated_at)}` : ""}). The value is never shown again.`
+            : "Not set — FitLens cannot post measurements yet."
+          : "Checking…"}
+      </p>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <input
+          type="password"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="New secret"
+          style={{ flex: "1 1 260px", padding: "10px 12px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink, borderRadius: 2, fontFamily: SANS }}
+        />
+        <button
+          type="button"
+          onClick={generate}
+          style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "10px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}
+        >
+          Generate
+        </button>
+        <button
+          type="button"
+          disabled={busy || value.trim().length < 16}
+          onClick={() => void call("save", value.trim())}
+          style={{ background: T.gold, border: "none", color: "#1f1b16", padding: "10px 16px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600, cursor: "pointer" }}
+        >
+          {busy ? "Saving…" : "Save"}
+        </button>
+      </div>
+      {msg && <p style={{ color: T.dim, fontSize: 12, marginTop: 10 }}>{msg}</p>}
+    </section>
+  );
+}
+
 function Field({ label, value }: { label: string; value: unknown }) {
+
   return (
     <div style={{ borderTop: `1px solid ${T.hair}`, padding: "8px 0" }}>
       <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute }}>{label}</div>
