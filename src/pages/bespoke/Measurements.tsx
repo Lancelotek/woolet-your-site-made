@@ -416,9 +416,10 @@ export default function BespokeMeasurements() {
                   One last step — your <em className="text-gold not-italic italic">measurements</em>.
                 </h1>
                 <p className="text-cream-dim mt-3 max-w-xl leading-relaxed">
-                  Bespoke is only Bespoke when it fits you. Submit your AI scan values, your
-                  manual measurements, or both — the workshop uses the tighter of the two before cutting.
+                  Two things before the workshop cuts: where to ship, and a second set of numbers
+                  from a ruler.
                 </p>
+
               </section>
 
               {order && (
