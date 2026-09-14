@@ -26,7 +26,18 @@ type Body = {
     ear_to_ear_mm?: number | null;
     notes?: string | null;
   };
+  shipping?: {
+    name?: string | null;
+    phone?: string | null;
+    line1?: string | null;
+    line2?: string | null;
+    city?: string | null;
+    state?: string | null;
+    postal_code?: string | null;
+    country?: string | null;
+  };
 };
+
 
 const clampNum = (v: unknown, min = 20, max = 400): number | null => {
   if (v === null || v === undefined || v === "") return null;
