@@ -170,40 +170,64 @@ export default function BespokeMeasurements() {
   const [scanResult, setScanResult] = useState<FitLensMeasurements | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
   const [manualOpen, setManualOpen] = useState(false);
+  const [scanSource, setScanSource] = useState<ScanSource | null>(null);
+  const [scanLocked, setScanLocked] = useState(false);
+  const [scanOriginal, setScanOriginal] = useState<Record<string, string> | null>(null);
 
+  const sessionRef = order?.session_ref ?? null;
   // The scan reference is the order's, not the browser's, so a customer who
   // opens the emailed link on a second device still measures against this order.
-  const { openFitLens } = useFitLensScript({ sessionRef: order?.session_ref ?? null });
+  const { openFitLens } = useFitLensScript({ sessionRef });
 
   // TRUST NOTE: this result arrives as a browser CustomEvent, which anyone can
-  // dispatch from a devtools console — nothing here proves the numbers came
-  // from FitLens. The real fix is the server-to-server signed webhook specced
-  // in lovable-prompts/2026-09-10-fitlens-webhook-signed-event.md, pending
-  // FitLens implementing their half. No fake integrity check is added here.
-  const handleScanResult = useCallback((event: Event) => {
-    const detail = (event as CustomEvent).detail;
-    const measurements = normalizeFitLensResult(detail);
-    if (Object.keys(measurements).length === 0) {
-      setScanResult(null);
-      setScanError("The scan did not return usable numbers");
-      setManualOpen(true);
-      clarityEvent("bespoke_scan_empty");
-      return;
-    }
-    setScanError(null);
-    setScanResult(measurements);
-    setForm((f) => ({
-      ...f,
-      ai_face_width_mm: measurements.faceWidth != null ? String(measurements.faceWidth) : f.ai_face_width_mm,
-      ai_temple_to_temple_mm:
-        measurements.templeToTemple != null ? String(measurements.templeToTemple) : f.ai_temple_to_temple_mm,
-      ai_bridge_width_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_bridge_width_mm,
-      ai_pd_mm: measurements.pd != null ? String(measurements.pd) : f.ai_pd_mm,
-      manual_temple_length_mm:
-        measurements.templeLength != null ? String(measurements.templeLength) : f.manual_temple_length_mm,
-    }));
-    clarityEvent("bespoke_scan_completed");
-  }, []);
+  // dispatch from a devtools console — the event alone proves nothing. What we
+  // trust instead: the `signedPayload` JWT (verified server-side against
+  // FitLens's JWKS) and, above it, the server-to-server webhook at
+  // `fitlens-webhook`. Numbers with neither are stored as `fitlens_client` /
+  // unverified and labelled as such. No fake integrity check is added here.
+  const handleScanResult = useCallback(
+    (event: Event) => {
+      const detail = (event as CustomEvent).detail;
+      const parsed = parseFitLensEvent(detail);
+      const measurements = parsed.measurements;
+      if (Object.keys(measurements).length === 0) {
+        setScanResult(null);
+        setScanError("The scan did not return usable numbers");
+        setManualOpen(true);
+        clarityEvent("bespoke_scan_empty");
+        return;
+      }
+      setScanError(null);
+      setScanResult(measurements);
+      setScanSource("fitlens_client");
+      setScanLocked(true);
+      setForm((f) => {
+        const next = {
+          ...f,
+          ai_face_width_mm: measurements.faceWidth != null ? String(measurements.faceWidth) : f.ai_face_width_mm,
+          ai_temple_to_temple_mm:
+            measurements.templeToTemple != null ? String(measurements.templeToTemple) : f.ai_temple_to_temple_mm,
+          ai_bridge_width_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_bridge_width_mm,
+          ai_pd_mm: measurements.pd != null ? String(measurements.pd) : f.ai_pd_mm,
+          manual_temple_length_mm:
+            measurements.templeLength != null ? String(measurements.templeLength) : f.manual_temple_length_mm,
+        };
+        setScanOriginal({
+          ai_face_width_mm: next.ai_face_width_mm,
+          ai_temple_to_temple_mm: next.ai_temple_to_temple_mm,
+          ai_bridge_width_mm: next.ai_bridge_width_mm,
+          ai_pd_mm: next.ai_pd_mm,
+        });
+        return next;
+      });
+      clarityEvent("bespoke_scan_completed");
+
+      // Verify (or, failing that, record) the result server-side. The banner
+      // upgrades itself once the server says which source it ended up as.
+      void recordFitLensEvent(parsed, sessionRef).then(({ source }) => setScanSource(source));
+    },
+    [sessionRef],
+  );
 
   useEffect(() => {
     window.addEventListener("fitlens:result", handleScanResult as EventListener);
