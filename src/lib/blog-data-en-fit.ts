@@ -509,7 +509,7 @@ ${FITLENS_CTA(
   /* ─────────────────────────── POST 4 ─────────────────────────── */
   {
     slug: "numbers-on-glasses-frames-meaning",
-    title: "What Do the Numbers on Glasses Frames Mean? (54□21-103 Explained)",
+    title: "What Do the Numbers on Glasses Frames Mean? (54□21-145 Explained)",
     excerpt:
       "The three numbers inside your temple arm are lens width, bridge width and temple length. None of them is the total width of the frame — which is why so many people buy glasses that don't fit.",
     date: "2026-07-29",
@@ -518,7 +518,7 @@ ${FITLENS_CTA(
     faq: [
       {
         q: "What do the numbers on glasses frames mean?",
-        a: "They are three measurements in millimetres: lens width, bridge width and temple length, printed inside the left temple arm as something like 54□21-103. The square symbol between the first two numbers marks the distance between lenses. Together they describe the parts of the frame, not the total width of the frame.",
+        a: "They are three measurements in millimetres: lens width, bridge width and temple length, printed inside the left temple arm as something like 54□21-145. The square symbol between the first two numbers marks the distance between lenses. Together they describe the parts of the frame, not the total width of the frame.",
       },
       {
         q: "What does 55 17 mean on glasses?",
@@ -539,20 +539,20 @@ ${FITLENS_CTA(
     ],
     content: `${BYLINE("29 July 2026", "29 July 2026")}
 ${ANSWER(
-      `<strong>The three numbers inside your temple arm are lens width, bridge width and temple length in millimetres — for example 54□21-103.</strong> None of them is the total front width of the frame. That total is roughly lens × 2 + bridge + 6 mm, and it is the only number that decides whether a frame will fit your face.`,
+      `<strong>The three numbers inside your temple arm are lens width, bridge width and temple length in millimetres — for example 54□21-145.</strong> None of them is the total front width of the frame. That total is roughly lens × 2 + bridge + 6 mm, and it is the only number that decides whether a frame will fit your face.`,
     )}
 
 <h2>The marking, decoded</h2>
 
-<p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-103</strong>, sometimes written 54-21-103 or 54▫21▫103.</p>
+<p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-145</strong>, sometimes written 54-21-145 or 54▫21▫145.</p>
 
 <div style="background:#F8F6F1;color:#1F1B16;border:1px solid #E8E4DC;padding:22px 24px;margin:24px 0;border-radius:4px;font-family:'Barlow',sans-serif;">
-  <div style="font-size:26px;letter-spacing:2px;color:#1a1a1a;margin-bottom:18px;"><strong>54</strong> <span style="color:#c9a84c;">□</span> <strong>21</strong> <span style="color:#999;">-</span> <strong>103</strong></div>
+  <div style="font-size:26px;letter-spacing:2px;color:#1a1a1a;margin-bottom:18px;"><strong>54</strong> <span style="color:#c9a84c;">□</span> <strong>21</strong> <span style="color:#999;">-</span> <strong>145</strong></div>
   <div style="font-size:14px;line-height:1.9;color:#1a1a1a;">
     <div><strong>54</strong> — <span style="color:#555;">lens width (eye size): across one lens at its widest point</span></div>
     <div><strong>□</strong> — <span style="color:#555;">the DBL marker: "distance between lenses" follows</span></div>
     <div><strong>21</strong> — <span style="color:#555;">bridge width: the gap between the lenses at their closest point</span></div>
-    <div><strong>103</strong> — <span style="color:#555;">temple length: the arm, from hinge screw toward the tip</span></div>
+    <div><strong>145</strong> — <span style="color:#555;">temple length: the arm, from hinge screw toward the tip</span></div>
   </div>
 </div>
 
@@ -628,7 +628,7 @@ ${FITLENS_CTA(
 <h2>FAQ</h2>
 
 <h3>What do the numbers on glasses frames mean?</h3>
-<p>They are three measurements in millimetres: lens width, bridge width and temple length, printed inside the left temple arm as something like 54□21-103. The square symbol between the first two numbers marks the distance between lenses. Together they describe the parts of the frame, not the total width of the frame.</p>
+<p>They are three measurements in millimetres: lens width, bridge width and temple length, printed inside the left temple arm as something like 54□21-145. The square symbol between the first two numbers marks the distance between lenses. Together they describe the parts of the frame, not the total width of the frame.</p>
 
 <h3>What does 55 17 mean on glasses?</h3>
 <p>A 55 mm lens width and a 17 mm bridge. Doubling the lens, adding the bridge and allowing about 6 mm for rims and hinges gives a front width near 133 mm — a medium frame, despite the large-sounding lens number.</p>

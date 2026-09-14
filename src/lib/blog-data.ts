@@ -1118,6 +1118,12 @@ const blogPostsEN: BlogPost[] = [
 
 <p>This guide will walk through both shapes honestly — what each does visually, who each suits, and how the two models in the Woolet collection — the 007 (round) and the 009 (square) — were designed around these principles.</p>
 
+<h2>Do square glasses suit round faces? The short answer</h2>
+
+<p>Yes. A round face has soft, continuous curves, and square or rectangular frames introduce the straight lines and defined corners it lacks — the contrast is what makes the face read as structured rather than flat. The reverse holds too: round frames soften a square jaw and a strong brow.</p>
+
+<p>That rule decides shape. It does not decide fit. A square frame that suits your face shape still fails when it is 140 mm wide and your face is 158 mm — it will leave red marks on your temples and splay outward within weeks. Shape first, then width: the rest of this guide covers both.</p>
+
 <h2>The Visual Logic of Frame Shapes</h2>
 
 <p>Before getting to specific shapes, it helps to understand the underlying principle that governs how glasses interact with faces: <strong>contrast and complement</strong>.</p>
