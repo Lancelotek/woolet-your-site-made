@@ -36,6 +36,10 @@ interface Row {
   has_tryon: boolean;
   consent_at: string | null;
   consent_withdrawn_at: string | null;
+  shipping_submitted_at: string | null;
+  shipping_city: string | null;
+  shipping_country: string | null;
+
 }
 
 type OrderRecord = Record<string, unknown>;
