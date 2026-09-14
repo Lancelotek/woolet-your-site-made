@@ -482,6 +482,20 @@ export default function BespokeMeasurements() {
                         Optional. One photo with a bank card held to your cheek lets us double-check
                         your width and show you the frames on your own face before we cut them.
                       </p>
+                      {shipping.line1 && (
+                        <p className="mt-4 text-cream-dim text-sm leading-relaxed">
+                          Shipping to: {shipping.name}, {shipping.line1}, {shipping.city}{" "}
+                          {shipping.postal_code}, {shipping.country}{" "}
+                          <button
+                            type="button"
+                            onClick={() => setSubmitted(false)}
+                            className="text-cream underline underline-offset-4 hover:text-gold"
+                          >
+                            Edit
+                          </button>
+                        </p>
+                      )}
+
                       <button
                         onClick={() => setSubmitted(false)}
                         className="mt-4 block text-[11px] uppercase tracking-[0.2em] text-cream underline underline-offset-4 hover:text-gold"
