@@ -164,6 +164,13 @@ export default function BespokeMeasurements() {
   const [submitted, setSubmitted] = useState(false);
   const requestedTempleLength = useMemo(() => readRequestedTempleLength(), []);
 
+  // Clarity: paid customers only ever land here, so keep every session
+  // (upgrade) instead of letting Clarity sample it away. No personal data.
+  useEffect(() => {
+    clarityEvent("bespoke_measurements_view");
+    clarityUpgrade("bespoke_paid");
+  }, []);
+
   useEffect(() => {
     if (!sid) {
       setLoading(false);
@@ -183,6 +190,7 @@ export default function BespokeMeasurements() {
         if (!res.ok) throw new Error(`http_${res.status}`);
         const data = (await res.json()) as OrderSummary;
         setOrder(data);
+        if (data.order_ref) claritySet("bespoke_order_ref", data.order_ref);
         setForm({
           ai_face_width_mm: num(data.ai_face_width_mm),
           ai_temple_to_temple_mm: num(data.ai_temple_to_temple_mm),
