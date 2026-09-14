@@ -787,6 +787,9 @@ export default function BespokeMeasurements() {
                             scanMono?.right != null && `PD right ${scanMono.right} mm`,
                             scanResult.bridge != null &&
                               `inner-canthal distance ${scanResult.bridge} mm`,
+                            scanResult.templeLength != null &&
+                              `temple length ${scanResult.templeLength} mm`,
+
                           ]
                             .filter(Boolean)
                             .join(" · ")}
