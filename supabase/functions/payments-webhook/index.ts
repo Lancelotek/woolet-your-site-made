@@ -1,6 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { type StripeEnv, verifyWebhook } from "../_shared/stripe.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
+import { generateOrderPreview } from "../_shared/bespoke-preview.ts";
 
 
 let _supabase: ReturnType<typeof createClient> | null = null;
@@ -468,6 +469,22 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     } catch (e) {
       console.error("[payments-webhook:bespoke] photo attach failed", e);
     }
+  }
+
+  // Production visualisation of exactly what was bought — rendered from the
+  // order's own specification and stored privately for the workshop PDF.
+  try {
+    const db = getSupabase();
+    const { data: order } = await db
+      .from("bespoke_orders")
+      .select("id, frame_name, front_code, temple_code, finish_id, ai_preview_path")
+      .eq("stripe_session_id", session.id)
+      .maybeSingle();
+    if (order && !(order as any).ai_preview_path) {
+      await generateOrderPreview(db as any, order as any);
+    }
+  } catch (e) {
+    console.error("[payments-webhook:bespoke] preview render failed", e);
   }
 
   const templateData = {

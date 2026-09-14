@@ -44,7 +44,12 @@ interface Detail {
   order: OrderRecord;
   photo: OrderRecord | null;
   scan: OrderRecord | null;
-  files: { photo_url: string | null; vto_url: string | null; geometry_url: string | null };
+  files: {
+    photo_url: string | null;
+    vto_url: string | null;
+    geometry_url: string | null;
+    preview_url?: string | null;
+  };
 }
 
 const fmtDate = (v?: string | null) =>
@@ -143,7 +148,7 @@ export default function BespokeAdmin() {
       amountLabel: fmtAmount(o.amount_cents as number | null, o.currency as string | null),
       customerRef: s(o.customer_email),
       requestedTempleLength: s((o.metadata as Record<string, unknown> | null)?.temple_length),
-      aiPreviewUrl: s(o.ai_preview_url),
+      aiPreviewUrl: d.files.preview_url ?? s(o.ai_preview_url),
       tryOnUrl: d.files.vto_url,
       consent: photo
         ? {
@@ -186,6 +191,23 @@ export default function BespokeAdmin() {
       setBusy(null);
     }
   };
+
+  // Re-renders the frame visualisation from the order's own specification and
+  // refreshes the detail view so the new image reaches the workshop PDF.
+  const renderPreview = async (d: Detail) => {
+    setBusy("render");
+    setError(null);
+    try {
+      await call({ action: "render_preview", id: String(d.order.id ?? "") });
+      await openDetail(String(d.order.id ?? ""));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Render failed");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+
 
   const downloadBundle = async (d: Detail) => {
     setBusy("zip");
@@ -346,6 +368,7 @@ export default function BespokeAdmin() {
                 onClose={() => setDetail(null)}
                 onPdf={() => downloadPdf(detail)}
                 onZip={() => downloadBundle(detail)}
+                onRender={() => renderPreview(detail)}
                 busy={busy}
               />
             )}
@@ -377,12 +400,13 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 }
 
 function DetailView({
-  detail, onClose, onPdf, onZip, busy,
+  detail, onClose, onPdf, onZip, onRender, busy,
 }: {
   detail: Detail;
   onClose: () => void;
   onPdf: () => void;
   onZip: () => void;
+  onRender: () => void;
   busy: string | null;
 }) {
   const o = detail.order as Record<string, any>;
@@ -400,6 +424,10 @@ function DetailView({
       </div>
 
       <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>
+        <button onClick={onRender} disabled={busy !== null} style={{ background: "none", color: T.dim, border: `1px solid ${T.hair}`, padding: "11px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}>
+          {busy === "render" ? "Rendering…" : detail.files.preview_url ? "Re-render frame image" : "Generate frame image"}
+        </button>
+
         <button onClick={onPdf} disabled={busy !== null} style={{ background: T.gold, color: "#1f1b16", border: "none", padding: "11px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600, cursor: "pointer" }}>
           {busy === "pdf" ? "Building…" : "Workshop PDF"}
         </button>
@@ -455,12 +483,12 @@ function DetailView({
         <Field label="Production" value={o.production_blocked ? "Paused — fit needs review" : "Clear"} />
       </Group>
 
-      {(detail.files.photo_url || detail.files.vto_url || o.ai_preview_url) && (
+      {(detail.files.photo_url || detail.files.vto_url || detail.files.preview_url || o.ai_preview_url) && (
         <section style={{ marginTop: 22 }}>
           <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 10px" }}>Images</h3>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             {[
-              { url: o.ai_preview_url as string | null, label: "Frame preview" },
+              { url: (detail.files.preview_url ?? o.ai_preview_url) as string | null, label: "Frame preview" },
               { url: detail.files.photo_url, label: "Customer photo" },
               { url: detail.files.vto_url, label: "On the face" },
               { url: detail.files.geometry_url, label: "Geometry" },

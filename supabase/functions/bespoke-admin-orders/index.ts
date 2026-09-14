@@ -3,6 +3,7 @@
 // short-lived signed links to the private photo files.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
+import { PREVIEW_BUCKET, generateOrderPreview } from "../_shared/bespoke-preview.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -85,6 +86,13 @@ Deno.serve(async (req) => {
         const { data } = await admin.storage.from("bespoke-photos").createSignedUrl(path, SIGNED_TTL);
         return data?.signedUrl ?? null;
       };
+      const signPreview = async (path?: string | null) => {
+        if (!path) return null;
+        const { data } = await admin.storage
+          .from(PREVIEW_BUCKET)
+          .createSignedUrl(path, SIGNED_TTL);
+        return data?.signedUrl ?? null;
+      };
 
       return json({
         order,
@@ -94,8 +102,28 @@ Deno.serve(async (req) => {
           photo_url: await sign(photo?.photo_path),
           vto_url: await sign(photo?.vto_path),
           geometry_url: await sign(photo?.geometry_path),
+          preview_url: await signPreview((order as any).ai_preview_path),
         },
       });
+    }
+
+    if (body.action === "render_preview") {
+      const id = body.id ?? "";
+      if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
+      const { data: order, error } = await admin
+        .from("bespoke_orders")
+        .select("id, frame_name, front_code, temple_code, finish_id")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      if (!order) return json({ error: "not_found" }, 404);
+
+      const path = await generateOrderPreview(admin as any, order as any);
+      if (!path) return json({ error: "render_failed" }, 502);
+      const { data: signed } = await admin.storage
+        .from(PREVIEW_BUCKET)
+        .createSignedUrl(path, SIGNED_TTL);
+      return json({ preview_url: signed?.signedUrl ?? null });
     }
 
     const { data: orders, error: listError } = await admin

@@ -58,10 +58,20 @@ Deno.serve(async (req) => {
         .createSignedUrl(vtoPath, 60 * 15);
       tryOnUrl = signed?.signedUrl ?? null;
     }
+    // The frame visualisation generated from the order's own specification.
+    let previewUrl: string | null = (data as any).ai_preview_url ?? null;
+    const previewPath = (data as any).ai_preview_path as string | null | undefined;
+    if (previewPath) {
+      const { data: signed } = await supabase.storage
+        .from("bespoke-cad")
+        .createSignedUrl(previewPath, 60 * 15);
+      previewUrl = signed?.signedUrl ?? previewUrl;
+    }
     const { id: _id, ...safeOrder } = data;
     return new Response(
       JSON.stringify({
         ...safeOrder,
+        ai_preview_url: previewUrl,
         customer_email_masked: masked,
         customer_email: undefined,
         photo_consent: photoConsent
