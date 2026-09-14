@@ -8,6 +8,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { qualityVerdict } from "../_shared/fitlens-quality.ts";
+import { assignMeasurementRef, normalizeMeasurementRef } from "../_shared/measurement-ref.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
