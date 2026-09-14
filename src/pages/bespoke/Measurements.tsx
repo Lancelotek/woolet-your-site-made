@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { CheckCircle2, Loader2, Ruler, Sparkles } from "lucide-react";
+import { CheckCircle2, Loader2, Ruler, Sparkles, Truck } from "lucide-react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
