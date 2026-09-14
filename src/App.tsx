@@ -443,6 +443,7 @@ const App = () => (
         </Suspense>
         </AuthProvider>
         <WhatsAppButtonWrapper />
+        <ClarityRouteGuard />
       </BrowserRouter>
       <CookieBanner />
       </ErrorBoundary>
