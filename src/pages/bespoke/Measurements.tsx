@@ -289,6 +289,36 @@ export default function BespokeMeasurements() {
           manual_ear_to_ear_mm: num(data.manual_ear_to_ear_mm),
           manual_notes: data.manual_notes ?? "",
         });
+
+        // A scan already attached to this order (webhook, signed or client)
+        // prefills the scan block read-only. `nose_bridge_width_mm` is the
+        // inner-canthal distance, never a frame bridge — it is labelled as such
+        // in the UI and carried through untouched.
+        const scan = data.scan;
+        if (scan && data.ai_source !== "manual") {
+          const fit = scan.temple_to_temple_mm ?? scan.face_width_mm;
+          const prefilled = {
+            ai_face_width_mm: num(scan.face_width_mm ?? fit),
+            ai_temple_to_temple_mm: num(fit),
+            ai_bridge_width_mm: num(scan.nose_bridge_width_mm),
+            ai_pd_mm: num(scan.pd_mm),
+          };
+          setForm((f) => ({ ...f, ...prefilled }));
+          setScanOriginal(prefilled);
+          setScanSource((scan.source as ScanSource) ?? "fitlens_client");
+          setScanLocked(true);
+          setScanResult({
+            faceWidth: scan.face_width_mm ?? undefined,
+            templeToTemple: fit ?? undefined,
+            bridge: scan.nose_bridge_width_mm ?? undefined,
+            pd: scan.pd_mm ?? undefined,
+          });
+          setScanMono(
+            scan.pd_left_mm != null || scan.pd_right_mm != null
+              ? { left: scan.pd_left_mm, right: scan.pd_right_mm }
+              : null,
+          );
+        }
         setShipping({
           name: data.shipping_name ?? "",
           phone: data.shipping_phone ?? "",
