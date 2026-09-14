@@ -150,6 +150,10 @@ Deno.serve(async (req) => {
 
   const client = (payload.client ?? {}) as Record<string, unknown>;
   const sessionId = typeof client.sessionId === "string" ? client.sessionId : null;
+  // Fallback for a customer who scanned outside our link and quoted their
+  // measurement reference instead. FitLens has not shipped the field that would
+  // carry this yet — the path below is ready and waiting on the partner.
+  const clientRef = normalizeMeasurementRef(client.reference);
 
   // Idempotent on scan_id — the partner retries, and a retry must not create a
   // second row or a second downstream notification.
