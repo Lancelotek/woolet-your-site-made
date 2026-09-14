@@ -87,7 +87,8 @@ const Email = ({
         <Heading style={h1}>Measurements received</Heading>
         <Text style={body}>
           {orderRef} · {frameName} · {customerEmailMasked} · numbers came{' '}
-          {source === 'fitlens' ? 'from the phone scan' : 'in by hand'}.
+          {source === 'fitlens' ? 'from the phone scan' : 'in by hand'}
+          {verificationLabel ? ` · ${verificationLabel}` : ''}.
         </Text>
 
         <Section style={card}>
