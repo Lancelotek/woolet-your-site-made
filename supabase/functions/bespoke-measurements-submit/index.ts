@@ -103,6 +103,18 @@ Deno.serve(async (req) => {
       measurements_submitted_at: new Date().toISOString(),
     };
 
+    // Where the numbers came from. `scan_payload` holds the normalised
+    // measurement object only — numbers, never an image or a face landmark.
+    const scanSource = body.scan?.source === "fitlens" ? "fitlens" : "manual";
+    const scanPayload =
+      scanSource === "fitlens" && body.scan?.payload && typeof body.scan.payload === "object"
+        ? Object.fromEntries(
+            Object.entries(body.scan.payload)
+              .filter(([, v]) => typeof v === "number" && Number.isFinite(v))
+              .slice(0, 20),
+          )
+        : null;
+
     const hasAny = Object.entries(patch).some(([k, v]) => k !== "measurements_submitted_at" && v !== null && v !== undefined);
     if (!hasAny) {
       return new Response(JSON.stringify({ error: "no_measurements" }), {
