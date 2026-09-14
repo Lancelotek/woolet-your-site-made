@@ -34,6 +34,8 @@ export type WorkshopReportData = {
     version?: string | null;
     locale?: string | null;
   } | null;
+  /** Our own short reference for the measurement this build is cut to. */
+  measurementRef?: string | null;
   measurements: {
     ai: Record<string, string>;
     manual: Record<string, string>;
@@ -202,6 +204,7 @@ async function buildWorkshopDoc(data: WorkshopReportData) {
 
   const aiPairs = Object.entries(data.measurements.ai).filter(([, v]) => v) as [string, string][];
   heading("Customer measurements — AI scan");
+  rows([["Measurement reference", data.measurementRef || "—"]]);
   rows(aiPairs.length ? aiPairs : [["No AI scan values submitted", "—"]]);
   if (data.measurements.aiNotes) paragraph(`Scan notes: ${data.measurements.aiNotes}`);
 
