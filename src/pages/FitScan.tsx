@@ -39,6 +39,7 @@ import {
   readResultTimestamp,
   type FitLensMeasurements,
 } from "@/lib/fitlens-result";
+import { recordFitLensEvent } from "@/lib/fitlens-verify";
 import { QRCodeSVG } from "qrcode.react";
 
 import { toast } from "sonner";
