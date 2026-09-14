@@ -56,8 +56,16 @@ const fmtAmount = (cents?: number | null, currency?: string | null) =>
 const mm = (v: unknown) => (v == null || v === "" ? "" : `${v} mm`);
 const s = (v: unknown) => (v == null ? null : String(v));
 
+const PW_KEY = "wlt_bespoke_admin_pw";
+
 export default function BespokeAdmin() {
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(() => {
+    try {
+      return localStorage.getItem(PW_KEY) ?? "";
+    } catch {
+      return "";
+    }
+  });
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
