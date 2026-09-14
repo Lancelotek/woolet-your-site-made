@@ -645,6 +645,8 @@ function DetailView({
       </Group>
 
 
+      <ScansBlock scans={(detail.scans ?? (detail.scan ? [detail.scan] : [])) as ScanRow[]} />
+
       <Group title="Shipping address">
         <Field label="Recipient" value={o.shipping_name} />
         <Field label="Phone" value={o.shipping_phone} />
