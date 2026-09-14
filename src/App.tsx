@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, Navigate, useParams, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -10,6 +10,7 @@ import PageViewTracker from "@/components/PageViewTracker";
 import Redirects from "@/components/Redirects";
 import { AuthProvider } from "@/lib/auth-context";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { clarityStop } from "@/lib/clarity";
 
 import { resolveCompetitorSlug } from "@/data/competitors";
 
