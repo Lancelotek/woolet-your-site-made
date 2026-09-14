@@ -483,12 +483,12 @@ function DetailView({
         <Field label="Production" value={o.production_blocked ? "Paused — fit needs review" : "Clear"} />
       </Group>
 
-      {(detail.files.photo_url || detail.files.vto_url || o.ai_preview_url) && (
+      {(detail.files.photo_url || detail.files.vto_url || detail.files.preview_url || o.ai_preview_url) && (
         <section style={{ marginTop: 22 }}>
           <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 10px" }}>Images</h3>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             {[
-              { url: o.ai_preview_url as string | null, label: "Frame preview" },
+              { url: (detail.files.preview_url ?? o.ai_preview_url) as string | null, label: "Frame preview" },
               { url: detail.files.photo_url, label: "Customer photo" },
               { url: detail.files.vto_url, label: "On the face" },
               { url: detail.files.geometry_url, label: "Geometry" },
