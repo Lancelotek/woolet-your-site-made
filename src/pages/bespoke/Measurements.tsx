@@ -154,6 +154,8 @@ export default function BespokeMeasurements() {
   const [error, setError] = useState<string | null>(null);
   const [order, setOrder] = useState<OrderSummary | null>(null);
   const [form, setForm] = useState<FormState>(EMPTY);
+  const [shipping, setShipping] = useState<ShippingState>(EMPTY_SHIPPING);
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const requestedTempleLength = useMemo(() => readRequestedTempleLength(), []);
