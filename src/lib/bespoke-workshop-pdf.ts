@@ -66,7 +66,7 @@ async function loadImage(url: string): Promise<{ dataUrl: string; w: number; h: 
   }
 }
 
-export async function downloadWorkshopReport(data: WorkshopReportData): Promise<void> {
+async function buildWorkshopDoc(data: WorkshopReportData) {
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
   const M = 18;
@@ -235,5 +235,15 @@ export async function downloadWorkshopReport(data: WorkshopReportData): Promise<
     );
   }
 
+  return doc;
+}
+
+export async function downloadWorkshopReport(data: WorkshopReportData): Promise<void> {
+  const doc = await buildWorkshopDoc(data);
   doc.save(`Woolet-Bespoke-Workshop-${data.sessionId.slice(-10)}.pdf`);
+}
+
+export async function buildWorkshopReportBlob(data: WorkshopReportData): Promise<Blob> {
+  const doc = await buildWorkshopDoc(data);
+  return doc.output("blob") as Blob;
 }
