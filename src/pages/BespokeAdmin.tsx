@@ -154,8 +154,6 @@ export default function BespokeAdmin() {
       requestedTempleLength: s((o.metadata as Record<string, unknown> | null)?.temple_length),
       aiPreviewUrl: d.files.preview_url ?? s(o.ai_preview_url),
       tryOnUrl: d.files.vto_url,
-      consent: photo
-        ? {
       shipping: {
         name: s(o.shipping_name),
         line1: s(o.shipping_line1),
@@ -169,8 +167,8 @@ export default function BespokeAdmin() {
       consent: photo
         ? {
             grantedAt: s(photo.consent_at),
-
             withdrawnAt: s(photo.consent_withdrawn_at),
+
             version: s(photo.consent_version),
             locale: s(photo.consent_locale),
           }
