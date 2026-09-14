@@ -423,6 +423,7 @@ export default function BespokeAdmin() {
             ) : (
               <DetailView
                 detail={detail}
+                password={password}
                 onClose={() => setDetail(null)}
                 onPdf={() => downloadPdf(detail)}
                 onZip={() => downloadBundle(detail)}
