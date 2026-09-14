@@ -399,6 +399,9 @@ export default function BespokeMeasurements() {
             postal_code: shipping.postal_code,
             country: shipping.country,
           },
+          scan: scanResult
+            ? { source: "fitlens", payload: scanResult }
+            : { source: "manual", payload: null },
         },
       });
       if (fnErr) throw fnErr;
