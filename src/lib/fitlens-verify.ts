@@ -20,7 +20,9 @@ export const SCAN_SOURCE_LABEL: Record<ScanSource, string> = {
 export async function recordFitLensEvent(
   event: FitLensEvent,
   sessionRef?: string | null,
-): Promise<{ source: ScanSource; scanId: string | null }> {
+  /** Customer-quoted measurement reference — a fallback when there is no session. */
+  reference?: string | null,
+): Promise<{ source: ScanSource; scanId: string | null; measurementRef?: string | null }> {
   if (event.signedPayload) {
     try {
       const { data, error } = await supabase.functions.invoke("fitlens-verify-result", {
@@ -30,6 +32,7 @@ export async function recordFitLensEvent(
         return {
           source: ((data as any).source as ScanSource) ?? "fitlens_signed",
           scanId: (data as any).scanId ?? event.measurementId,
+          measurementRef: (data as any).measurementRef ?? null,
         };
       }
       // A refused token stores nothing — fall through to the unverified path so
@@ -45,6 +48,7 @@ export async function recordFitLensEvent(
       body: {
         scanId: event.measurementId,
         sessionRef: sessionRef ?? null,
+        reference: reference ?? null,
         semanticsVersion: event.semanticsVersion,
         tier: event.confidence.tier,
         spreadMm: event.confidence.spreadMm,
@@ -56,7 +60,11 @@ export async function recordFitLensEvent(
         },
       },
     });
-    return { source: "fitlens_client", scanId: (data as any)?.scanId ?? event.measurementId };
+    return {
+      source: "fitlens_client",
+      scanId: (data as any)?.scanId ?? event.measurementId,
+      measurementRef: (data as any)?.measurementRef ?? null,
+    };
   } catch (e) {
     console.warn("[fitlens] client-side scan store failed", e);
     return { source: "fitlens_client", scanId: event.measurementId };
