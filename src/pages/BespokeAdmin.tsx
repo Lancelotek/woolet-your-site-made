@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -56,8 +56,16 @@ const fmtAmount = (cents?: number | null, currency?: string | null) =>
 const mm = (v: unknown) => (v == null || v === "" ? "" : `${v} mm`);
 const s = (v: unknown) => (v == null ? null : String(v));
 
+const PW_KEY = "wlt_bespoke_admin_pw";
+
 export default function BespokeAdmin() {
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(() => {
+    try {
+      return localStorage.getItem(PW_KEY) ?? "";
+    } catch {
+      return "";
+    }
+  });
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -85,12 +93,27 @@ export default function BespokeAdmin() {
       const data = await call({ action: "list" });
       setRows((data.rows as Row[]) ?? []);
       setAuthed(true);
+      try {
+        localStorage.setItem(PW_KEY, password);
+      } catch {
+        /* ignore */
+      }
     } catch (err) {
+      try {
+        localStorage.removeItem(PW_KEY);
+      } catch {
+        /* ignore */
+      }
       setError(err instanceof Error ? err.message : "Failed to load");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (password && !authed) void load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const openDetail = async (id: string) => {
     setDetailBusy(true);

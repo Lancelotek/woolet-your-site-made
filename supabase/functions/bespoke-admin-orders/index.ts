@@ -13,6 +13,7 @@ const corsHeaders = {
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ADMIN_PASSWORD = Deno.env.get("ADMIN_CRM_PASSWORD") ?? "";
+const BESPOKE_PASSWORD = Deno.env.get("BESPOKE_ADMIN_PASSWORD") ?? "";
 
 const SIGNED_TTL = 60 * 15;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -34,7 +35,10 @@ Deno.serve(async (req) => {
       id?: string;
     };
     const provided = body.password ?? req.headers.get("x-admin-password") ?? "";
-    if (!ADMIN_PASSWORD || provided !== ADMIN_PASSWORD) {
+    const ok =
+      (!!ADMIN_PASSWORD && provided === ADMIN_PASSWORD) ||
+      (!!BESPOKE_PASSWORD && provided === BESPOKE_PASSWORD);
+    if (!ok) {
       return json({ error: "Invalid password" }, 401);
     }
 
