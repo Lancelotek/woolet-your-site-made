@@ -33,5 +33,13 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.vip-waitlist-email]
     verify_jwt = false
+  [functions.bespoke-integration-secret]
+    verify_jwt = false
+  [functions.fitlens-webhook]
+    verify_jwt = false
+  [functions.fitlens-verify-result]
+    verify_jwt = false
+  [functions.fitlens-scan-client]
+    verify_jwt = false
 
 
