@@ -1,6 +1,13 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
+import {
+  BRIDGE_MAX_MM,
+  BRIDGE_MIN_MM,
+  bespokeOrderGaps,
+  bridgeOutOfRange,
+  measurementDisagreements,
+} from "../_shared/bespoke-gaps.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -35,6 +42,10 @@ type Body = {
     state?: string | null;
     postal_code?: string | null;
     country?: string | null;
+  };
+  scan?: {
+    source?: string | null;
+    payload?: Record<string, unknown> | null;
   };
 };
 
