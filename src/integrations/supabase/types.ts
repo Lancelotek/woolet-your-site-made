@@ -262,6 +262,9 @@ export type Database = {
           purge_after: string | null
           purged_at: string | null
           scan_id: string | null
+          scan_payload: Json | null
+          scan_received_at: string | null
+          scan_source: string | null
           session_ref: string | null
           shipped_at: string | null
           shipping_city: string | null
@@ -321,6 +324,9 @@ export type Database = {
           purge_after?: string | null
           purged_at?: string | null
           scan_id?: string | null
+          scan_payload?: Json | null
+          scan_received_at?: string | null
+          scan_source?: string | null
           session_ref?: string | null
           shipped_at?: string | null
           shipping_city?: string | null
@@ -380,6 +386,9 @@ export type Database = {
           purge_after?: string | null
           purged_at?: string | null
           scan_id?: string | null
+          scan_payload?: Json | null
+          scan_received_at?: string | null
+          scan_source?: string | null
           session_ref?: string | null
           shipped_at?: string | null
           shipping_city?: string | null

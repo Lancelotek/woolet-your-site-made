@@ -11,7 +11,10 @@ const FITLENS_KEY = "pk_live_OuBrFjXWKeNygZku6WyJHeFW_8d55SVqIrleeFfrzuQ";
  * Load the external FitLens embed script once per mount.
  * Use `data-fitlens="open"` on a button to open the widget.
  */
-export function useFitLensScript() {
+export function useFitLensScript(options?: { sessionRef?: string | null }) {
+  // Callers that own a session (e.g. a paid Bespoke order) pass their own
+  // reference so the scan ties back to the order rather than to this browser.
+  const externalSessionRef = options?.sessionRef ?? null;
   const scriptRef = useRef<HTMLScriptElement | null>(null);
   const frameRef = useRef<HTMLIFrameElement | null>(null);
   const [isReady, setIsReady] = useState(false);
@@ -81,7 +84,7 @@ export function useFitLensScript() {
     // Pseudonymous only: a random per-attempt reference and the page language.
     // Never an email, a name or an order number — the widget is a processor and
     // must not receive anything that identifies the person being measured.
-    const sessionRef = getSessionRef();
+    const sessionRef = externalSessionRef || getSessionRef();
     const locale = (document.documentElement.lang || "en").slice(0, 5);
     frame.src =
       `${origin}/w/intro?k=${encodeURIComponent(FITLENS_KEY)}` +
