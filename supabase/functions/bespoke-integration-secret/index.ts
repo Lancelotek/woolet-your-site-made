@@ -32,11 +32,15 @@ Deno.serve(async (req) => {
     return json({ error: "invalid_json" }, 400);
   }
 
-  const expected = Deno.env.get("ADMIN_CRM_PASSWORD") ?? Deno.env.get("BESPOKE_ADMIN_PASSWORD");
+  // Either admin password opens this panel: the Bespoke console and the CRM
+  // are the same operator, and they are not always the same string.
+  const accepted = [Deno.env.get("ADMIN_CRM_PASSWORD"), Deno.env.get("BESPOKE_ADMIN_PASSWORD")].filter(
+    (v): v is string => typeof v === "string" && v.length > 0,
+  );
   const supplied =
     (typeof body.password === "string" ? body.password : "") ||
     (req.headers.get("x-admin-password") ?? "");
-  if (!expected || supplied !== expected) return json({ error: "unauthorized" }, 401);
+  if (accepted.length === 0 || !accepted.includes(supplied)) return json({ error: "unauthorized" }, 401);
 
   const name = typeof body.name === "string" ? body.name : "fitlens_webhook_secret";
   if (!ALLOWED.has(name)) return json({ error: "unknown_secret" }, 400);
