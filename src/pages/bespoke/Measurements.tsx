@@ -29,6 +29,7 @@ type OrderSummary = {
   session_ref?: string | null;
   ai_source?: string | null;
   scan?: {
+    measurement_ref?: string | null;
     scan_id: string | null;
     source: string | null;
     status: string | null;
@@ -39,6 +40,18 @@ type OrderSummary = {
     pd_right_mm: number | null;
     nose_bridge_width_mm: number | null;
   } | null;
+  /** Every scan taken for this order, newest first. */
+  scans?: Array<{
+    measurement_ref?: string | null;
+    scan_id: string | null;
+    source: string | null;
+    status: string | null;
+    created_at: string | null;
+    temple_to_temple_mm: number | null;
+    face_width_mm: number | null;
+    pd_mm: number | null;
+    nose_bridge_width_mm: number | null;
+  }>;
   created_at: string | null;
   customer_email_masked: string | null;
   frame_name: string | null;
@@ -174,6 +187,8 @@ function formatAmount(cents: number | null, currency: string | null) {
 export default function BespokeMeasurements() {
   const [params] = useSearchParams();
   const sid = params.get("sid") ?? "";
+  // Arrives from the "Measure again" button in the measurement summary email.
+  const remeasure = params.get("remeasure") === "1";
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -195,6 +210,12 @@ export default function BespokeMeasurements() {
   const [scanOriginal, setScanOriginal] = useState<Record<string, string> | null>(null);
   /** Per-eye pupillary distance, when the scan measured it. */
   const [scanMono, setScanMono] = useState<{ left: number | null; right: number | null } | null>(null);
+  /** Reference of the scan we already hold — shown when measuring a second time. */
+  const [priorRef, setPriorRef] = useState<string | null>(null);
+  /** Fallback only: a reference the customer types when they scanned elsewhere. */
+  const [typedRef, setTypedRef] = useState("");
+  const scanSectionRef = useRef<HTMLElement | null>(null);
+  const remeasureOpened = useRef(false);
 
   const sessionRef = order?.session_ref ?? null;
   // The scan reference is the order's, not the browser's, so a customer who
@@ -249,9 +270,11 @@ export default function BespokeMeasurements() {
 
       // Verify (or, failing that, record) the result server-side. The banner
       // upgrades itself once the server says which source it ended up as.
-      void recordFitLensEvent(parsed, sessionRef).then(({ source }) => setScanSource(source));
+      void recordFitLensEvent(parsed, sessionRef, typedRef || null).then(({ source }) =>
+        setScanSource(source),
+      );
     },
-    [sessionRef],
+    [sessionRef, typedRef],
   );
 
   useEffect(() => {
@@ -334,6 +357,7 @@ export default function BespokeMeasurements() {
               : null,
           );
         }
+        setPriorRef(data.scan?.measurement_ref ?? data.scans?.[0]?.measurement_ref ?? null);
         setShipping({
           name: data.shipping_name ?? "",
           phone: data.shipping_phone ?? "",
