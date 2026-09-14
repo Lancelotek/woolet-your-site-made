@@ -420,6 +420,29 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
   const amountFormatted = formatAmount(amountCents, currency);
   const measurementsUrl = `${SITE_ORIGIN}/en/bespoke/measurements?sid=${encodeURIComponent(session.id)}`;
 
+  // Prefill the shipping block from Stripe, but never overwrite a value the
+  // customer already confirmed on the measurements page.
+  const addr = (session?.customer_details?.address ?? {}) as Record<string, string | null>;
+  const { data: existingOrder } = await getSupabase()
+    .from("bespoke_orders")
+    .select(
+      "shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country",
+    )
+    .eq("stripe_session_id", session.id)
+    .maybeSingle();
+  const keep = (column: string, incoming: string | null | undefined) =>
+    ((existingOrder as Record<string, string | null> | null)?.[column] ?? null) || incoming || null;
+  const shippingPatch = {
+    shipping_name: keep("shipping_name", customerName ?? null),
+    shipping_phone: keep("shipping_phone", session?.customer_details?.phone ?? null),
+    shipping_line1: keep("shipping_line1", addr.line1 ?? null),
+    shipping_line2: keep("shipping_line2", addr.line2 ?? null),
+    shipping_city: keep("shipping_city", addr.city ?? null),
+    shipping_state: keep("shipping_state", addr.state ?? null),
+    shipping_postal_code: keep("shipping_postal_code", addr.postal_code ?? null),
+    shipping_country: keep("shipping_country", addr.country ?? null),
+  };
+
   const { error: upsertErr } = await getSupabase()
     .from("bespoke_orders")
     .upsert(
@@ -441,12 +464,42 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         ai_preview_url: meta.ai_preview_url ?? null,
         session_ref: UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null,
         metadata: session.metadata ?? null,
+        ...shippingPatch,
       },
       { onConflict: "stripe_session_id" },
     );
   if (upsertErr) {
     console.error("[payments-webhook:bespoke] upsert failed", upsertErr);
   }
+
+  // Bespoke buyers get their own onboarding sequence — never the $1 group.
+  if (env !== "sandbox") {
+    try {
+      const { data: createdOrder } = await getSupabase()
+        .from("bespoke_orders")
+        .select("id")
+        .eq("stripe_session_id", session.id)
+        .maybeSingle();
+      await tagMailerLiteBespokePaid({
+        email,
+        name: customerName ?? "",
+        country: addr.country ?? "",
+        sessionId: session.id,
+        orderId: ((createdOrder as { id?: string } | null)?.id) ?? null,
+        summary: [
+          meta.frame_name ?? (meta.frame ? `Woolet Bespoke — ${meta.frame}` : "Woolet Bespoke"),
+          `${meta.front ?? "—"}, ${meta.finish ?? "—"} finish`,
+          `${meta.lens_type ?? "—"} lenses`,
+          `Temple ${meta.temple_length ?? "—"}`,
+          `Engraving: ${meta.engraving || "none"}`,
+        ].join(" · "),
+      });
+    } catch (e) {
+      console.error("[payments-webhook:bespoke] mailerlite tag failed", e);
+    }
+  }
+
+
 
   // A photo taken in the configurator before paying belongs to this order now.
   const scanRef = UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null;
