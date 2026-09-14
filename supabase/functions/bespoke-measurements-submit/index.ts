@@ -100,6 +100,32 @@ Deno.serve(async (req) => {
       });
     }
 
+    const ship = body.shipping;
+    if (ship) {
+      const name = clampText(ship.name, 120);
+      const phone = clampText(ship.phone, 40);
+      const line1 = clampText(ship.line1, 200);
+      const city = clampText(ship.city, 120);
+      const postal = clampText(ship.postal_code, 30);
+      const country = (clampText(ship.country, 2) ?? "").toUpperCase();
+      if (!name || !phone || !line1 || !city || !postal || !/^[A-Z]{2}$/.test(country)) {
+        return new Response(JSON.stringify({ error: "incomplete_shipping" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      patch.shipping_name = name;
+      patch.shipping_phone = phone;
+      patch.shipping_line1 = line1;
+      patch.shipping_line2 = clampText(ship.line2, 200);
+      patch.shipping_city = city;
+      patch.shipping_state = clampText(ship.state, 120);
+      patch.shipping_postal_code = postal;
+      patch.shipping_country = country;
+      patch.shipping_submitted_at = new Date().toISOString();
+    }
+
+
     const { data, error } = await supabase
       .from("bespoke_orders")
       .update(patch)
