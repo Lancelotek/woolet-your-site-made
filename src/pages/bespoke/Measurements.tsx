@@ -167,6 +167,49 @@ export default function BespokeMeasurements() {
   const [submitted, setSubmitted] = useState(false);
   const requestedTempleLength = useMemo(() => readRequestedTempleLength(), []);
 
+  const [scanResult, setScanResult] = useState<FitLensMeasurements | null>(null);
+  const [scanError, setScanError] = useState<string | null>(null);
+  const [manualOpen, setManualOpen] = useState(false);
+
+  // The scan reference is the order's, not the browser's, so a customer who
+  // opens the emailed link on a second device still measures against this order.
+  const { openFitLens } = useFitLensScript({ sessionRef: order?.session_ref ?? null });
+
+  // TRUST NOTE: this result arrives as a browser CustomEvent, which anyone can
+  // dispatch from a devtools console — nothing here proves the numbers came
+  // from FitLens. The real fix is the server-to-server signed webhook specced
+  // in lovable-prompts/2026-09-10-fitlens-webhook-signed-event.md, pending
+  // FitLens implementing their half. No fake integrity check is added here.
+  const handleScanResult = useCallback((event: Event) => {
+    const detail = (event as CustomEvent).detail;
+    const measurements = normalizeFitLensResult(detail);
+    if (Object.keys(measurements).length === 0) {
+      setScanResult(null);
+      setScanError("The scan did not return usable numbers");
+      setManualOpen(true);
+      clarityEvent("bespoke_scan_empty");
+      return;
+    }
+    setScanError(null);
+    setScanResult(measurements);
+    setForm((f) => ({
+      ...f,
+      ai_face_width_mm: measurements.faceWidth != null ? String(measurements.faceWidth) : f.ai_face_width_mm,
+      ai_temple_to_temple_mm:
+        measurements.templeToTemple != null ? String(measurements.templeToTemple) : f.ai_temple_to_temple_mm,
+      ai_bridge_width_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_bridge_width_mm,
+      ai_pd_mm: measurements.pd != null ? String(measurements.pd) : f.ai_pd_mm,
+      manual_temple_length_mm:
+        measurements.templeLength != null ? String(measurements.templeLength) : f.manual_temple_length_mm,
+    }));
+    clarityEvent("bespoke_scan_completed");
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("fitlens:result", handleScanResult as EventListener);
+    return () => window.removeEventListener("fitlens:result", handleScanResult as EventListener);
+  }, [handleScanResult]);
+
   // Clarity: paid customers only ever land here, so keep every session
   // (upgrade) instead of letting Clarity sample it away. No personal data.
   useEffect(() => {
