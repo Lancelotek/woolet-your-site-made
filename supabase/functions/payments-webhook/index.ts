@@ -155,6 +155,62 @@ function mlDate(d = new Date()): string {
   return d.toISOString().slice(0, 19).replace("T", " ");
 }
 
+const MAILERLITE_GROUP_BESPOKE_PAID = "198574811187774976";
+
+/** Fire-and-forget: add a paid Bespoke buyer to the Bespoke onboarding group. */
+async function tagMailerLiteBespokePaid(input: {
+  email: string;
+  name: string;
+  country: string;
+  sessionId: string;
+  orderId: string | null;
+  summary: string;
+}) {
+  const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+  if (!apiKey) return;
+  try {
+    const onboardingUrl =
+      `https://woolet.co/en/bespoke/measurements?sid=${encodeURIComponent(input.sessionId)}` +
+      `&utm_source=ml&utm_medium=email&utm_campaign=bespoke_onboarding`;
+    const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        email: input.email,
+        status: "active",
+        groups: [MAILERLITE_GROUP_BESPOKE_PAID],
+        fields: {
+          name: input.name,
+          country: input.country,
+          paid_ref: input.sessionId,
+          bespoke_order_ref: input.orderId ? `WLT-${input.orderId.slice(0, 8).toUpperCase()}` : "",
+          bespoke_onboarding_url: onboardingUrl,
+          bespoke_order_summary: input.summary,
+          bespoke_paid_at: mlDate(),
+        },
+      }),
+    });
+    if (!res.ok) {
+      const bodyText = await res.text();
+      console.error("[mailerlite:bespoke] non-ok", res.status, bodyText);
+      try {
+        await getSupabase().from("server_event_log").insert({
+          source: "payments-webhook",
+          event_name: "MailerLiteBespokeTagFailed",
+          status: "error",
+          request_summary: { stripe_session_id: input.sessionId },
+          error: bodyText,
+        });
+      } catch (logErr) {
+        console.error("[server_event_log] insert failed", logErr);
+      }
+    }
+  } catch (e) {
+    console.error("[mailerlite:bespoke] error", e);
+  }
+}
+
+
 /**
  * Abandoned $1 checkout: store the Stripe recovery URL (always the newest) and
  * the FIRST abandonment timestamp (never overwritten — the sequence keys off it).
