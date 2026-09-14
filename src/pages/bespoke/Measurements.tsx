@@ -458,6 +458,8 @@ export default function BespokeMeasurements() {
             face_width_mm: form.ai_face_width_mm || null,
             temple_to_temple_mm: form.ai_temple_to_temple_mm || null,
             bridge_width_mm: form.ai_bridge_width_mm || null,
+            inner_canthal_mm: form.ai_inner_canthal_mm || null,
+
             pd_mm: form.ai_pd_mm || null,
             notes: form.ai_notes || null,
           },
