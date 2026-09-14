@@ -317,6 +317,7 @@ export default function BespokeMeasurements() {
     if (!shippingComplete) {
       setShippingError("Add the full shipping address — name, phone, street, city, postal code and country.");
       document.getElementById("shipping-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      clarityEvent("bespoke_form_incomplete");
       return;
     }
     setSubmitting(true);
@@ -358,11 +359,13 @@ export default function BespokeMeasurements() {
       if ((data as any)?.error === "incomplete_shipping") {
         setShippingError("Add the full shipping address — name, phone, street, city, postal code and country.");
         setSubmitting(false);
+        clarityEvent("bespoke_form_incomplete");
         return;
       }
       if ((data as any)?.error === "no_measurements") {
         setError("Please fill in at least one measurement before submitting.");
         setSubmitting(false);
+        clarityEvent("bespoke_form_incomplete");
         return;
       }
       setOrder((o) =>
@@ -379,6 +382,8 @@ export default function BespokeMeasurements() {
           : o,
       );
       setSubmitted(true);
+      clarityEvent("bespoke_shipping_saved");
+      clarityEvent("bespoke_measurements_submitted");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
 
