@@ -186,6 +186,8 @@ export default function BespokeMeasurements() {
   const [scanSource, setScanSource] = useState<ScanSource | null>(null);
   const [scanLocked, setScanLocked] = useState(false);
   const [scanOriginal, setScanOriginal] = useState<Record<string, string> | null>(null);
+  /** Per-eye pupillary distance, when the scan measured it. */
+  const [scanMono, setScanMono] = useState<{ left: number | null; right: number | null } | null>(null);
 
   const sessionRef = order?.session_ref ?? null;
   // The scan reference is the order's, not the browser's, so a customer who
