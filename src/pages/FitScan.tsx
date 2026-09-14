@@ -4253,6 +4253,13 @@ export default function FitScan() {
       setFitLensMeasurements(mapped);
       pushEvent("fit_fitlens_result", { usable: keys.length, fields: keys.join(","), stored: stored ? 1 : 0 });
 
+      // A signed token is verified server-side; without one the numbers are
+      // recorded as reported-by-the-widget. Never blocks the UI.
+      void recordFitLensEvent(parsed, sessionId ?? null).then(({ source }) =>
+        pushEvent("fit_fitlens_verified", { source }),
+      );
+
+
       if (sessionId && sessionToken) {
         supabase.functions
           .invoke("scan-session-update", {
