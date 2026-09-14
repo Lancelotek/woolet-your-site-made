@@ -97,6 +97,20 @@ const Email = ({
           {verificationLabel ? ` · ${verificationLabel}` : ''}.
         </Text>
 
+        {repeatabilityLine ? (
+          <Section style={repeatCard}>
+            <Text
+              style={{
+                ...specValue,
+                fontWeight: repeatabilityVerdict === 'disagree' ? 600 : 400,
+                color: repeatabilityVerdict === 'disagree' ? RED : INK,
+              }}
+            >
+              {repeatabilityLine}
+            </Text>
+          </Section>
+        ) : null}
+
         <Section style={card}>
           <Text style={cardTitle}>Submitted measurements</Text>
           {measurements.length ? (
