@@ -66,7 +66,7 @@ async function loadImage(url: string): Promise<{ dataUrl: string; w: number; h: 
   }
 }
 
-export async function downloadWorkshopReport(data: WorkshopReportData): Promise<void> {
+async function buildWorkshopDoc(data: WorkshopReportData) {
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
   const M = 18;
