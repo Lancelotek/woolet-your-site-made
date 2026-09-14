@@ -493,9 +493,80 @@ export default function BespokeMeasurements() {
                 </section>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-10">
+                  <div id="shipping-section">
+                    <FieldGroup
+                      icon={<Truck size={16} />}
+                      title="1 · Where do we ship?"
+                      hint="The courier delivers to this address. We can still change it before the frames leave the workshop."
+                    >
+                      <TextField
+                        label="Full name"
+                        value={shipping.name}
+                        onChange={(e) => setShipping((s) => ({ ...s, name: e.target.value }))}
+                        autoComplete="name"
+                        required
+                      />
+                      <TextField
+                        label="Phone"
+                        value={shipping.phone}
+                        onChange={(e) => setShipping((s) => ({ ...s, phone: e.target.value }))}
+                        autoComplete="tel"
+                        inputMode="tel"
+                        type="tel"
+                        placeholder="+48 600 000 000"
+                        note="With country code — for the courier."
+                        required
+                      />
+                      <TextField
+                        label="Street + number"
+                        value={shipping.line1}
+                        onChange={(e) => setShipping((s) => ({ ...s, line1: e.target.value }))}
+                        autoComplete="address-line1"
+                        required
+                        full
+                      />
+                      <TextField
+                        label="Apartment / floor (optional)"
+                        value={shipping.line2}
+                        onChange={(e) => setShipping((s) => ({ ...s, line2: e.target.value }))}
+                        autoComplete="address-line2"
+                        full
+                      />
+                      <TextField
+                        label="City"
+                        value={shipping.city}
+                        onChange={(e) => setShipping((s) => ({ ...s, city: e.target.value }))}
+                        autoComplete="address-level2"
+                        required
+                      />
+                      <TextField
+                        label="State / province (optional)"
+                        value={shipping.state}
+                        onChange={(e) => setShipping((s) => ({ ...s, state: e.target.value }))}
+                        autoComplete="address-level1"
+                      />
+                      <TextField
+                        label="Postal code"
+                        value={shipping.postal_code}
+                        onChange={(e) => setShipping((s) => ({ ...s, postal_code: e.target.value }))}
+                        autoComplete="postal-code"
+                        required
+                      />
+                      <CountryField
+                        value={shipping.country}
+                        onChange={(e) => setShipping((s) => ({ ...s, country: e.target.value }))}
+                      />
+                    </FieldGroup>
+                    {shippingError && (
+                      <p className="mt-4 text-sm text-red-300/90 bg-red-500/10 border border-red-500/30 rounded px-3 py-2">
+                        {shippingError}
+                      </p>
+                    )}
+                  </div>
+
                   <FieldGroup
                     icon={<Sparkles size={16} />}
-                    title="AI face-scan values"
+                    title="2 · Your measurements — AI face-scan values"
                     hint="If you used the AI scan during checkout, paste the numbers it returned. Skip any you didn't get."
                   >
                     <Field label="Face width (mm)" value={form.ai_face_width_mm} onChange={update("ai_face_width_mm")} placeholder="e.g. 158" />
@@ -505,11 +576,27 @@ export default function BespokeMeasurements() {
                     <Textarea label="AI scan notes" value={form.ai_notes} onChange={update("ai_notes")} placeholder="Anything the AI flagged (asymmetry, low confidence, etc.)" />
                   </FieldGroup>
 
-                  <FieldGroup
-                    icon={<Ruler size={16} />}
-                    title="Manual measurements"
-                    hint="Measured with a ruler or your current glasses. These help the optician cross-check the AI values."
-                  >
+                  <section>
+                    <div className="flex items-center gap-2 text-cream mb-1">
+                      <span className="text-gold"><Ruler size={16} /></span>
+                      <h2 className="text-lg font-medium">2 · Your measurements — manual</h2>
+                    </div>
+                    <ol className="text-cream-dim text-sm mb-5 max-w-xl leading-relaxed list-decimal pl-5 space-y-1.5">
+                      <li>
+                        Temple to temple: ruler flat across your face at eye level, from the soft
+                        spot in front of one ear to the other.
+                      </li>
+                      <li>
+                        Your best-fitting pair: front width outer edge to outer edge, arm from hinge
+                        to tip. Put both in the notes with what is wrong with that pair.
+                      </li>
+                      <li>
+                        Photo with a card: after you submit, add one photo with a bank card flat on
+                        your forehead, glasses off, facing the camera in daylight.
+                      </li>
+                    </ol>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
                     <Field label="Face width (mm)" value={form.manual_face_width_mm} onChange={update("manual_face_width_mm")} placeholder="e.g. 155" />
                     <Field label="Temple-to-temple (mm)" value={form.manual_temple_to_temple_mm} onChange={update("manual_temple_to_temple_mm")} placeholder="e.g. 158" />
                     <Field label="Bridge width (mm)" value={form.manual_bridge_width_mm} onChange={update("manual_bridge_width_mm")} placeholder="e.g. 20" />
