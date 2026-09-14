@@ -17,6 +17,17 @@ export type WorkshopReportData = {
   requestedTempleLength?: string | null;
   aiPreviewUrl?: string | null;
   tryOnUrl?: string | null;
+  shipping?: {
+    name?: string | null;
+    line1?: string | null;
+    line2?: string | null;
+    city?: string | null;
+    state?: string | null;
+    postalCode?: string | null;
+    country?: string | null;
+    submittedAt?: string | null;
+  } | null;
+
   consent?: {
     grantedAt?: string | null;
     withdrawnAt?: string | null;
