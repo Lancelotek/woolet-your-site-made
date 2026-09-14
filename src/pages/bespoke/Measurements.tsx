@@ -453,9 +453,9 @@ export default function BespokeMeasurements() {
                     {order.lens_type && <Spec label="Lenses" value={order.lens_type} />}
                     {order.engraving_text && <Spec label="Engraving" value={`"${order.engraving_text}"`} />}
                     {order.customer_email_masked && (
-                      <span data-clarity-mask="true">
+                      <div data-clarity-mask="true">
                         <Spec label="Confirmation" value={order.customer_email_masked} />
-                      </span>
+                      </div>
                     )}
                   </dl>
                   {order.ai_preview_url && (
