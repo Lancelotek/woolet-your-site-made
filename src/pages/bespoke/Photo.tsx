@@ -16,6 +16,7 @@ import type { Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { findFrame } from "@/data/frames";
 import { useBespokeConfig } from "@/lib/bespoke-state";
+import { clarityEvent, clarityUpgrade } from "@/lib/clarity";
 import {
   CARD_WIDTH_MM,
   MIN_CARD_PX,
@@ -81,6 +82,12 @@ export default function BespokePhoto() {
   // A photo may already exist — taken in the configurator before paying, and
   // attached to this order by the payment webhook.
   const [photoOnFile, setPhotoOnFile] = useState<{ status: string; uploaded_at: string | null } | null>(null);
+
+  // Paid customers only — keep the session (upgrade) and mark the page view.
+  useEffect(() => {
+    clarityEvent("bespoke_photo_view");
+    clarityUpgrade("bespoke_paid");
+  }, []);
 
   useEffect(() => {
     if (!sid) return;
@@ -262,6 +269,7 @@ export default function BespokePhoto() {
       });
       if (subErr) throw subErr;
       setResult({ deltaMm: data?.deltaMm ?? deltaMm, needsReview: Boolean(data?.needsReview) });
+      clarityEvent("bespoke_photo_uploaded");
       setStage("done");
     } catch (err) {
       console.error("[bespoke-photo]", err);
@@ -348,7 +356,10 @@ export default function BespokePhoto() {
                 <input
                   type="checkbox"
                   checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
+                  onChange={(e) => {
+                    setConsent(e.target.checked);
+                    if (e.target.checked) clarityEvent("bespoke_photo_consent_given");
+                  }}
                   className="mt-1 h-5 w-5 accent-[#CAA449]"
                 />
                 <span>{AGREE_LABEL[locale]}</span>
