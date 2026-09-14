@@ -223,6 +223,14 @@ Deno.serve(async (req) => {
           orderRef: `WLT-${String(order.id).slice(0, 8).toUpperCase()}`,
           customerEmailMasked: email ? email.replace(/^(.).*(@.*)$/, "$1***$2") : "",
           source: scanSource,
+          verificationLabel:
+            verification === "fitlens_webhook"
+              ? "Verified scan (server-to-server)"
+              : verification === "fitlens_signed"
+                ? "Signed scan (token verified)"
+                : verification === "fitlens_client"
+                  ? "Reported by the scan widget - unverified"
+                  : "",
           frameName: order.frame_name ?? "Woolet Bespoke",
           measurements,
           bridgeAlerts: bridgeOutOfRange(order),
