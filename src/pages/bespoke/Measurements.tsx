@@ -616,6 +616,76 @@ function Field({
   );
 }
 
+function TextField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  note,
+  autoComplete,
+  inputMode,
+  type = "text",
+  required,
+  full,
+}: {
+  label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  note?: string;
+  autoComplete?: string;
+  inputMode?: "text" | "tel";
+  type?: string;
+  required?: boolean;
+  full?: boolean;
+}) {
+  return (
+    <label className={`block ${full ? "sm:col-span-2" : ""}`}>
+      <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        required={required}
+        className="w-full min-h-[48px] bg-cream/[0.04] border border-cream/15 rounded-sm px-3 py-2.5 text-cream text-sm focus:outline-none focus:border-gold/60 transition"
+      />
+      {note && <span className="block text-[11px] text-cream-dim/80 mt-1.5">{note}</span>}
+    </label>
+  );
+}
+
+function CountryField({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">Country</span>
+      <select
+        value={value}
+        onChange={onChange}
+        autoComplete="country"
+        required
+        className="w-full min-h-[48px] bg-cream/[0.04] border border-cream/15 rounded-sm px-3 py-2.5 text-cream text-sm focus:outline-none focus:border-gold/60 transition"
+      >
+        <option value="">Select a country</option>
+        {COUNTRY_CODES.map((code) => (
+          <option key={code} value={code} className="text-ink">
+            {countryLabel(code)}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+
 function Textarea({
   label,
   value,
