@@ -178,6 +178,17 @@ const WhatsAppButtonWrapper = () => {
   return <WhatsAppButton />;
 };
 
+// Admin screens render customer names, full addresses and phone numbers.
+// Stop Clarity recording there — that data must not leave for a third party.
+const ADMIN_PATH_RE = /^\/[a-z]{2}\/(admin|crm|payments)(\/|$)/;
+const ClarityRouteGuard = () => {
+  const location = useLocation();
+  useEffect(() => {
+    if (ADMIN_PATH_RE.test(location.pathname)) clarityStop();
+  }, [location.pathname]);
+  return null;
+};
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
