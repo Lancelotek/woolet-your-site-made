@@ -225,6 +225,13 @@ const h3: React.CSSProperties = { fontSize: 14, fontWeight: 600, letterSpacing: 
 const body: React.CSSProperties = { fontSize: 14, lineHeight: 1.55, color: '#333', margin: '0 0 12px' }
 const gapLine: React.CSSProperties = { fontSize: 13, lineHeight: 1.5, color: '#333', margin: '0 0 4px' }
 const card: React.CSSProperties = { background: PAPER, borderRadius: 6, padding: '18px 20px', margin: '16px 0 20px' }
+const repeatCard: React.CSSProperties = {
+  background: '#fff',
+  border: '1px solid rgba(11,10,9,0.16)',
+  borderRadius: 6,
+  padding: '12px 16px',
+  margin: '16px 0 0',
+}
 const cardTitle: React.CSSProperties = { fontSize: 18, fontWeight: 500, color: INK, margin: '0 0 12px' }
 const specRow: React.CSSProperties = { borderTop: '1px solid rgba(11,10,9,0.08)', padding: '6px 0' }
 const specLabel: React.CSSProperties = { fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#666', margin: '0 0 2px' }
