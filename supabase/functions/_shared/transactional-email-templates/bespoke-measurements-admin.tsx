@@ -34,6 +34,10 @@ interface Props {
   disagreements?: Array<{ label: string; scan: number; manual: number; delta: number }>
   /** Gap sentences from the shared rules — not restated here. */
   gaps?: string[]
+  /** One-line comparison of the two most recent scans for this order. */
+  repeatabilityLine?: string
+  /** agree | review | disagree — empty when only one scan exists. */
+  repeatabilityVerdict?: string
   shippingStatus?: string
   shippingAddress?: string
   adminUrl?: string
