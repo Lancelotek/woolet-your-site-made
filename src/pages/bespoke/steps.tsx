@@ -111,9 +111,10 @@ const FAMILY_LABEL: Record<ColorFamily, string> = {
   tortoise: "Tortoises",
   black: "Blacks",
   grey: "Greys",
-  colour: "Colours",
   translucent: "Translucents",
+  colour: "Colours",
 };
+const FAMILY_ORDER: ColorFamily[] = ["tortoise", "black", "grey", "translucent", "colour"];
 
 function ColorSwatchGrid({
   selected,
