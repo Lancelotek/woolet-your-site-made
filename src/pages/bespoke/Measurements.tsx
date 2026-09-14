@@ -452,7 +452,11 @@ export default function BespokeMeasurements() {
                     {order.finish_id && <Spec label="Finish" value={order.finish_id} />}
                     {order.lens_type && <Spec label="Lenses" value={order.lens_type} />}
                     {order.engraving_text && <Spec label="Engraving" value={`"${order.engraving_text}"`} />}
-                    {order.customer_email_masked && <Spec label="Confirmation" value={order.customer_email_masked} />}
+                    {order.customer_email_masked && (
+                      <span data-clarity-mask="true">
+                        <Spec label="Confirmation" value={order.customer_email_masked} />
+                      </span>
+                    )}
                   </dl>
                   {order.ai_preview_url && (
                     <div className="mt-5 rounded bg-[#EFE9DF] p-3 flex items-center justify-center">
@@ -498,7 +502,7 @@ export default function BespokeMeasurements() {
                         your width and show you the frames on your own face before we cut them.
                       </p>
                       {shipping.line1 && (
-                        <p className="mt-4 text-cream-dim text-sm leading-relaxed">
+                        <p data-clarity-mask="true" className="mt-4 text-cream-dim text-sm leading-relaxed">
                           Shipping to: {shipping.name}, {shipping.line1}, {shipping.city}{" "}
                           {shipping.postal_code}, {shipping.country}{" "}
                           <button
