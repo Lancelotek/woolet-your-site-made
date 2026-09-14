@@ -596,3 +596,84 @@ function DetailView({
     </div>
   );
 }
+
+const DISPATCH_FIELDS = [
+  { key: "courier", label: "Courier", placeholder: "DHL Express" },
+  { key: "tracking_number", label: "Tracking number", placeholder: "1234567890" },
+  { key: "parcel_weight_kg", label: "Weight (kg)", placeholder: "0.6" },
+  { key: "shipped_at", label: "Ship date", placeholder: "2026-09-16", type: "date" },
+  { key: "dispatch_note", label: "Note", placeholder: "Left with reception" },
+] as const;
+
+// Writes only the five dispatch columns, debounced, through the admin-guarded
+// edge function. Measurements, address and consent are never touched here.
+function DispatchBlock({ order, password }: { order: Record<string, any>; password: string }) {
+  const [form, setForm] = useState(() => ({
+    courier: order.courier ?? "",
+    tracking_number: order.tracking_number ?? "",
+    parcel_weight_kg: order.parcel_weight_kg == null ? "" : String(order.parcel_weight_kg),
+    shipped_at: order.shipped_at ? String(order.shipped_at).slice(0, 10) : "",
+    dispatch_note: order.dispatch_note ?? "",
+  }));
+  const [savedAt, setSavedAt] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dirty = useRef(false);
+
+  useEffect(() => {
+    if (!dirty.current) return;
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(async () => {
+      setSaving(true);
+      setSaveError(null);
+      try {
+        const { data, error } = await supabase.functions.invoke("bespoke-dispatch-update", {
+          body: { password, id: order.id, ...form },
+        });
+        if (error) throw error;
+        if ((data as { error?: string })?.error) throw new Error((data as { error?: string }).error);
+        setSavedAt(new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }));
+      } catch (err) {
+        setSaveError(err instanceof Error ? err.message : "Save failed");
+      } finally {
+        setSaving(false);
+      }
+    }, 800);
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, [form, order.id, password]);
+
+  const set = (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    dirty.current = true;
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+  };
+
+  return (
+    <section style={{ marginTop: 22 }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
+        <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Dispatch</h3>
+        <span style={{ fontSize: 11, color: saveError ? "#e2725b" : T.mute }}>
+          {saveError ? saveError : saving ? "Saving…" : savedAt ? `Saved ${savedAt}` : ""}
+        </span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
+        {DISPATCH_FIELDS.map((f) => (
+          <label key={f.key} style={{ display: "block" }}>
+            <span style={{ display: "block", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute, marginBottom: 5 }}>
+              {f.label}
+            </span>
+            <input
+              type={"type" in f ? f.type : "text"}
+              value={(form as Record<string, string>)[f.key]}
+              onChange={set(f.key)}
+              placeholder={f.placeholder}
+              style={{ width: "100%", minHeight: 44, padding: "10px 12px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink, borderRadius: 2, fontFamily: SANS, fontSize: 13 }}
+            />
+          </label>
+        ))}
+      </div>
+    </section>
+  );
+}
