@@ -469,8 +469,18 @@ export default function BespokeMeasurements() {
             country: shipping.country,
           },
           scan: scanResult
-            ? { source: "fitlens", payload: scanResult }
-            : { source: "manual", payload: null },
+            ? {
+                source: "fitlens",
+                payload: scanResult,
+                // How much the numbers can be trusted, carried into the
+                // workshop email so Marek sees it without opening the panel.
+                verification: scanSource,
+                // Set when the customer overrode the scan by hand; the scan's
+                // own numbers are kept so nothing is lost.
+                ai_source: scanLocked ? "scan" : "manual",
+                overrides: scanLocked ? null : scanOriginal,
+              }
+            : { source: "manual", payload: null, ai_source: "manual" },
         },
       });
       if (fnErr) throw fnErr;
