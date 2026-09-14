@@ -611,7 +611,9 @@ export default function BespokeMeasurements() {
                     <Field label="Head circumference (mm)" value={form.manual_head_circumference_mm} onChange={update("manual_head_circumference_mm")} placeholder="e.g. 580" />
                     <Field label="Ear-to-ear over crown (mm)" value={form.manual_ear_to_ear_mm} onChange={update("manual_ear_to_ear_mm")} placeholder="e.g. 200" />
                     <Textarea label="Notes for the workshop" value={form.manual_notes} onChange={update("manual_notes")} placeholder="Preferred fit (snug / relaxed), sensitivities, current frame model that fits well…" />
-                  </FieldGroup>
+                    </div>
+                  </section>
+
 
                   {error && (
                     <p className="text-sm text-red-300/90 bg-red-500/10 border border-red-500/30 rounded px-3 py-2">
