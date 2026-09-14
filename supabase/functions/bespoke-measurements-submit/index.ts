@@ -149,11 +149,15 @@ Deno.serve(async (req) => {
     }
 
 
+    patch.scan_source = scanSource;
+    patch.scan_payload = scanPayload;
+    if (scanSource === "fitlens") patch.scan_received_at = new Date().toISOString();
+
     const { data, error } = await supabase
       .from("bespoke_orders")
       .update(patch)
       .eq("stripe_session_id", sid)
-      .select("stripe_session_id, customer_email, frame_name, measurements_submitted_at")
+      .select("*")
       .maybeSingle();
 
     if (error) throw error;
@@ -164,20 +168,61 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Notify admin that measurements landed.
+    // Notify the workshop with the numbers themselves, not just "they arrived".
     try {
-      await sendTemplateEmailAndLog("bespoke-purchase-admin", undefined, {
-        idempotencyKey: `bespoke-measurements-${sid}`,
+      const order = data as Record<string, any>;
+      const mm = (v: unknown) => (v === null || v === undefined ? "" : `${v} mm`);
+      const measurements = [
+        { label: "Scan · Face width", value: mm(order.ai_face_width_mm) },
+        { label: "Scan · Temple-to-temple", value: mm(order.ai_temple_to_temple_mm) },
+        { label: "Scan · Bridge width", value: mm(order.ai_bridge_width_mm) },
+        { label: "Scan · Pupillary distance", value: mm(order.ai_pd_mm) },
+        { label: "Scan notes", value: order.ai_notes ?? "" },
+        { label: "Manual · Face width", value: mm(order.manual_face_width_mm) },
+        { label: "Manual · Temple-to-temple", value: mm(order.manual_temple_to_temple_mm) },
+        { label: "Manual · Bridge width", value: mm(order.manual_bridge_width_mm) },
+        { label: "Manual · Pupillary distance", value: mm(order.manual_pd_mm) },
+        { label: "Manual · Temple length", value: mm(order.manual_temple_length_mm) },
+        { label: "Manual · Head circumference", value: mm(order.manual_head_circumference_mm) },
+        { label: "Manual · Ear-to-ear over crown", value: mm(order.manual_ear_to_ear_mm) },
+        { label: "Workshop notes", value: order.manual_notes ?? "" },
+      ].filter((row) => row.value);
+
+      const email = (order.customer_email as string) ?? "";
+      const shippingLine = [
+        order.shipping_name,
+        [order.shipping_line1, order.shipping_line2].filter(Boolean).join(" "),
+        order.shipping_city,
+        order.shipping_postal_code,
+        order.shipping_country,
+      ]
+        .filter(Boolean)
+        .join(", ");
+
+      await sendTemplateEmailAndLog("bespoke-measurements-admin", undefined, {
+        idempotencyKey: `bespoke-measurements-${sid}-${order.measurements_submitted_at}`,
         templateData: {
-          customerEmail: (data as any).customer_email,
-          frameName: (data as any).frame_name ?? "Woolet Bespoke",
-          amountFormatted: "measurements received",
-          orderRef: sid,
+          orderRef: `WLT-${String(order.id).slice(0, 8).toUpperCase()}`,
+          customerEmailMasked: email ? email.replace(/^(.).*(@.*)$/, "$1***$2") : "",
+          source: scanSource,
+          frameName: order.frame_name ?? "Woolet Bespoke",
+          measurements,
+          bridgeAlerts: bridgeOutOfRange(order),
+          bridgeMin: BRIDGE_MIN_MM,
+          bridgeMax: BRIDGE_MAX_MM,
+          disagreements: measurementDisagreements(order),
+          gaps: bespokeOrderGaps(order),
+          shippingStatus: order.shipping_submitted_at
+            ? "Address confirmed by the customer"
+            : "Address not confirmed yet",
+          shippingAddress: shippingLine,
+          adminUrl: "https://woolet.co/en/admin/bespoke",
         },
       });
     } catch (e) {
       console.error("[bespoke-measurements-submit] admin notify failed", e);
     }
+
 
 
     return new Response(JSON.stringify({ ok: true, submitted_at: (data as any).measurements_submitted_at }), {
