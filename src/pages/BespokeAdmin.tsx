@@ -317,11 +317,27 @@ export default function BespokeAdmin() {
       </Helmet>
 
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "32px 20px 80px" }}>
-        <header style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, marginBottom: 24 }}>
+        <header style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
           <h1 style={{ fontFamily: SERIF, fontSize: 32, margin: 0 }}>Bespoke production</h1>
-          <button onClick={() => load()} style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "8px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}>
-            Refresh
-          </button>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <button
+              onClick={() => void exportShipping("xlsx")}
+              disabled={busy === "xlsx" || rows.length === 0}
+              style={{ background: T.gold, border: "none", color: "#1f1b16", padding: "8px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600, cursor: "pointer" }}
+            >
+              {busy === "xlsx" ? "Building…" : "Export shipping (XLSX)"}
+            </button>
+            <button
+              onClick={() => void exportShipping("csv")}
+              disabled={busy === "csv" || rows.length === 0}
+              style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "8px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}
+            >
+              Export shipping (CSV)
+            </button>
+            <button onClick={() => load()} style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "8px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}>
+              Refresh
+            </button>
+          </div>
         </header>
 
         {error && <div style={{ color: "#e2725b", fontSize: 13, marginBottom: 16 }}>{error}</div>}
