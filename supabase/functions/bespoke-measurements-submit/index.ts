@@ -99,6 +99,9 @@ Deno.serve(async (req) => {
       ai_face_width_mm: clampNum(ai.face_width_mm),
       ai_temple_to_temple_mm: clampNum(ai.temple_to_temple_mm),
       ai_bridge_width_mm: clampNum(ai.bridge_width_mm, 5, 60),
+      // Face measurement, kept apart from the frame bridge on purpose.
+      ai_inner_canthal_mm: clampNum(ai.inner_canthal_mm, 25, 45),
+
       ai_pd_mm: clampNum(ai.pd_mm, 40, 90),
       ai_notes: clampText(ai.notes),
       manual_face_width_mm: clampNum(manual.face_width_mm),
