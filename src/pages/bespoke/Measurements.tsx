@@ -838,7 +838,9 @@ export default function BespokeMeasurements() {
                         >
                           <Field label="Face width (mm)" value={form.ai_face_width_mm} onChange={update("ai_face_width_mm")} placeholder="e.g. 158" />
                           <Field label="Temple-to-temple (mm)" value={form.ai_temple_to_temple_mm} onChange={update("ai_temple_to_temple_mm")} placeholder="e.g. 160" />
-                          <Field label="Bridge width (mm)" value={form.ai_bridge_width_mm} onChange={update("ai_bridge_width_mm")} placeholder="e.g. 21" />
+                          <Field label="Frame bridge (mm)" value={form.ai_bridge_width_mm} onChange={update("ai_bridge_width_mm")} placeholder="e.g. 21" note="Bridge of a physical frame - not a face measurement." />
+                          <Field label="Inner-canthal distance (mm)" value={form.ai_inner_canthal_mm} onChange={update("ai_inner_canthal_mm")} placeholder="e.g. 33" note="Eye corner to eye corner, a measurement of your face." />
+
                           <Field label="Pupillary distance / PD (mm)" value={form.ai_pd_mm} onChange={update("ai_pd_mm")} placeholder="e.g. 66" />
                           <Textarea label="AI scan notes" value={form.ai_notes} onChange={update("ai_notes")} placeholder="Anything the AI flagged (asymmetry, low confidence, etc.)" />
                         </FieldGroup>
