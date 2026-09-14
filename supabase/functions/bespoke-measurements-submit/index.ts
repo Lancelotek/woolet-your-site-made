@@ -197,6 +197,26 @@ Deno.serve(async (req) => {
     try {
       const order = data as Record<string, any>;
       const mm = (v: unknown) => (v === null || v === undefined ? "" : `${v} mm`);
+
+      // Every scan ever taken for this order — a second scan is a new row, so
+      // the two most recent ones can be compared instead of overwritten.
+      const orFilter = [
+        `order_id.eq.${order.id}`,
+        order.session_ref ? `session_ref.eq.${order.session_ref}` : null,
+      ]
+        .filter(Boolean)
+        .join(",");
+      const { data: scanRows } = await supabase
+        .from("bespoke_scan_profiles")
+        .select(
+          "measurement_ref, scan_id, created_at, source, status, temple_to_temple_mm, face_width_mm, pd_mm, nose_bridge_width_mm",
+        )
+        .or(orFilter)
+        .order("created_at", { ascending: false })
+        .limit(10);
+      const scans = sortScans(scanRows ?? []);
+      const repeatability = compareRepeatability(scans);
+      const measurementRef = scans[0]?.measurement_ref ?? "";
       const measurements = [
         { label: "Scan · Face width", value: mm(order.ai_face_width_mm) },
         { label: "Scan · Temple-to-temple", value: mm(order.ai_temple_to_temple_mm) },
