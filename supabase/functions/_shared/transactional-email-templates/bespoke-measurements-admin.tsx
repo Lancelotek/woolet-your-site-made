@@ -47,6 +47,7 @@ const Email = ({
   orderRef = '',
   customerEmailMasked = '',
   source = 'manual',
+  verificationLabel = '',
   frameName = 'Woolet Bespoke',
   measurements = [],
   bridgeAlerts = [],
