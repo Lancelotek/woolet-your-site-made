@@ -17,6 +17,17 @@ export type WorkshopReportData = {
   requestedTempleLength?: string | null;
   aiPreviewUrl?: string | null;
   tryOnUrl?: string | null;
+  shipping?: {
+    name?: string | null;
+    line1?: string | null;
+    line2?: string | null;
+    city?: string | null;
+    state?: string | null;
+    postalCode?: string | null;
+    country?: string | null;
+    submittedAt?: string | null;
+  } | null;
+
   consent?: {
     grantedAt?: string | null;
     withdrawnAt?: string | null;
@@ -163,6 +174,22 @@ async function buildWorkshopDoc(data: WorkshopReportData) {
     ["Customer reference", data.customerRef || "—"],
     ["Order date", formatDateTime(data.orderCreatedAt)],
   ]);
+
+  if (data.shipping) {
+    heading("Shipping address");
+    rows([
+      ["Recipient", data.shipping.name || "—"],
+      ["Street", data.shipping.line1 || "—"],
+      ["Apartment / floor", data.shipping.line2 || "—"],
+      ["City", data.shipping.city || "—"],
+      ["State / province", data.shipping.state || "—"],
+      ["Postal code", data.shipping.postalCode || "—"],
+      ["Country", data.shipping.country || "—"],
+      ["Confirmed by customer", data.shipping.submittedAt ? formatDateTime(data.shipping.submittedAt) : "Not confirmed"],
+    ]);
+  }
+
+
 
   heading("Customer consent record");
   rows([

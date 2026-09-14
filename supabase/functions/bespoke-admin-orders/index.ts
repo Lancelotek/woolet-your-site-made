@@ -129,7 +129,7 @@ Deno.serve(async (req) => {
     const { data: orders, error: listError } = await admin
       .from("bespoke_orders")
       .select(
-        "id, created_at, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, environment, measurements_submitted_at, session_ref, production_blocked, stripe_session_id",
+        "id, created_at, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, environment, measurements_submitted_at, session_ref, production_blocked, stripe_session_id, shipping_submitted_at, shipping_city, shipping_country",
       )
       .order("created_at", { ascending: false })
       .limit(200);

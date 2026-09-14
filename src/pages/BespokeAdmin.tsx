@@ -36,6 +36,10 @@ interface Row {
   has_tryon: boolean;
   consent_at: string | null;
   consent_withdrawn_at: string | null;
+  shipping_submitted_at: string | null;
+  shipping_city: string | null;
+  shipping_country: string | null;
+
 }
 
 type OrderRecord = Record<string, unknown>;
@@ -150,10 +154,21 @@ export default function BespokeAdmin() {
       requestedTempleLength: s((o.metadata as Record<string, unknown> | null)?.temple_length),
       aiPreviewUrl: d.files.preview_url ?? s(o.ai_preview_url),
       tryOnUrl: d.files.vto_url,
+      shipping: {
+        name: s(o.shipping_name),
+        line1: s(o.shipping_line1),
+        line2: s(o.shipping_line2),
+        city: s(o.shipping_city),
+        state: s(o.shipping_state),
+        postalCode: s(o.shipping_postal_code),
+        country: s(o.shipping_country),
+        submittedAt: s(o.shipping_submitted_at),
+      },
       consent: photo
         ? {
             grantedAt: s(photo.consent_at),
             withdrawnAt: s(photo.consent_withdrawn_at),
+
             version: s(photo.consent_version),
             locale: s(photo.consent_locale),
           }
@@ -331,6 +346,8 @@ export default function BespokeAdmin() {
                   <td style={{ padding: "12px 14px" }}>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {pill("Measurements", Boolean(r.measurements_submitted_at))}
+                      {!r.shipping_submitted_at && pill("No address", true)}
+
                       {pill("Photo", r.has_photo)}
                       {pill("On-face", r.has_tryon)}
                       {r.production_blocked && pill("Check fit", true)}
@@ -473,7 +490,23 @@ function DetailView({
         <Field label="Submitted" value={o.measurements_submitted_at ? fmtDate(o.measurements_submitted_at) : "Not submitted yet"} />
       </Group>
 
+      <Group title="Shipping address">
+        <Field label="Recipient" value={o.shipping_name} />
+        <Field label="Phone" value={o.shipping_phone} />
+        <Field label="Street" value={o.shipping_line1} />
+        <Field label="Apartment / floor" value={o.shipping_line2} />
+        <Field label="City" value={o.shipping_city} />
+        <Field label="State / province" value={o.shipping_state} />
+        <Field label="Postal code" value={o.shipping_postal_code} />
+        <Field label="Country" value={o.shipping_country} />
+        <Field
+          label="Confirmed by customer"
+          value={o.shipping_submitted_at ? fmtDate(o.shipping_submitted_at as string) : "No address"}
+        />
+      </Group>
+
       <Group title="Photo & consent">
+
         <Field label="Consent" value={consentState} />
         <Field label="Consent given" value={p?.consent_at ? fmtDate(p.consent_at) : "—"} />
         <Field label="Consent withdrawn" value={p?.consent_withdrawn_at ? fmtDate(p.consent_withdrawn_at) : "—"} />

@@ -155,6 +155,62 @@ function mlDate(d = new Date()): string {
   return d.toISOString().slice(0, 19).replace("T", " ");
 }
 
+const MAILERLITE_GROUP_BESPOKE_PAID = "198574811187774976";
+
+/** Fire-and-forget: add a paid Bespoke buyer to the Bespoke onboarding group. */
+async function tagMailerLiteBespokePaid(input: {
+  email: string;
+  name: string;
+  country: string;
+  sessionId: string;
+  orderId: string | null;
+  summary: string;
+}) {
+  const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+  if (!apiKey) return;
+  try {
+    const onboardingUrl =
+      `https://woolet.co/en/bespoke/measurements?sid=${encodeURIComponent(input.sessionId)}` +
+      `&utm_source=ml&utm_medium=email&utm_campaign=bespoke_onboarding`;
+    const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        email: input.email,
+        status: "active",
+        groups: [MAILERLITE_GROUP_BESPOKE_PAID],
+        fields: {
+          name: input.name,
+          country: input.country,
+          paid_ref: input.sessionId,
+          bespoke_order_ref: input.orderId ? `WLT-${input.orderId.slice(0, 8).toUpperCase()}` : "",
+          bespoke_onboarding_url: onboardingUrl,
+          bespoke_order_summary: input.summary,
+          bespoke_paid_at: mlDate(),
+        },
+      }),
+    });
+    if (!res.ok) {
+      const bodyText = await res.text();
+      console.error("[mailerlite:bespoke] non-ok", res.status, bodyText);
+      try {
+        await getSupabase().from("server_event_log").insert({
+          source: "payments-webhook",
+          event_name: "MailerLiteBespokeTagFailed",
+          status: "error",
+          request_summary: { stripe_session_id: input.sessionId },
+          error: bodyText,
+        });
+      } catch (logErr) {
+        console.error("[server_event_log] insert failed", logErr);
+      }
+    }
+  } catch (e) {
+    console.error("[mailerlite:bespoke] error", e);
+  }
+}
+
+
 /**
  * Abandoned $1 checkout: store the Stripe recovery URL (always the newest) and
  * the FIRST abandonment timestamp (never overwritten — the sequence keys off it).
@@ -420,6 +476,29 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
   const amountFormatted = formatAmount(amountCents, currency);
   const measurementsUrl = `${SITE_ORIGIN}/en/bespoke/measurements?sid=${encodeURIComponent(session.id)}`;
 
+  // Prefill the shipping block from Stripe, but never overwrite a value the
+  // customer already confirmed on the measurements page.
+  const addr = (session?.customer_details?.address ?? {}) as Record<string, string | null>;
+  const { data: existingOrder } = await getSupabase()
+    .from("bespoke_orders")
+    .select(
+      "shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country",
+    )
+    .eq("stripe_session_id", session.id)
+    .maybeSingle();
+  const keep = (column: string, incoming: string | null | undefined) =>
+    ((existingOrder as Record<string, string | null> | null)?.[column] ?? null) || incoming || null;
+  const shippingPatch = {
+    shipping_name: keep("shipping_name", customerName ?? null),
+    shipping_phone: keep("shipping_phone", session?.customer_details?.phone ?? null),
+    shipping_line1: keep("shipping_line1", addr.line1 ?? null),
+    shipping_line2: keep("shipping_line2", addr.line2 ?? null),
+    shipping_city: keep("shipping_city", addr.city ?? null),
+    shipping_state: keep("shipping_state", addr.state ?? null),
+    shipping_postal_code: keep("shipping_postal_code", addr.postal_code ?? null),
+    shipping_country: keep("shipping_country", addr.country ?? null),
+  };
+
   const { error: upsertErr } = await getSupabase()
     .from("bespoke_orders")
     .upsert(
@@ -441,12 +520,42 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         ai_preview_url: meta.ai_preview_url ?? null,
         session_ref: UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null,
         metadata: session.metadata ?? null,
+        ...shippingPatch,
       },
       { onConflict: "stripe_session_id" },
     );
   if (upsertErr) {
     console.error("[payments-webhook:bespoke] upsert failed", upsertErr);
   }
+
+  // Bespoke buyers get their own onboarding sequence — never the $1 group.
+  if (env !== "sandbox") {
+    try {
+      const { data: createdOrder } = await getSupabase()
+        .from("bespoke_orders")
+        .select("id")
+        .eq("stripe_session_id", session.id)
+        .maybeSingle();
+      await tagMailerLiteBespokePaid({
+        email,
+        name: customerName ?? "",
+        country: addr.country ?? "",
+        sessionId: session.id,
+        orderId: ((createdOrder as { id?: string } | null)?.id) ?? null,
+        summary: [
+          meta.frame_name ?? (meta.frame ? `Woolet Bespoke — ${meta.frame}` : "Woolet Bespoke"),
+          `${meta.front ?? "—"}, ${meta.finish ?? "—"} finish`,
+          `${meta.lens_type ?? "—"} lenses`,
+          `Temple ${meta.temple_length ?? "—"}`,
+          `Engraving: ${meta.engraving || "none"}`,
+        ].join(" · "),
+      });
+    } catch (e) {
+      console.error("[payments-webhook:bespoke] mailerlite tag failed", e);
+    }
+  }
+
+
 
   // A photo taken in the configurator before paying belongs to this order now.
   const scanRef = UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null;

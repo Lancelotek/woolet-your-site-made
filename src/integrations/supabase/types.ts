@@ -226,6 +226,7 @@ export type Database = {
           ai_face_width_mm: number | null
           ai_notes: string | null
           ai_pd_mm: number | null
+          ai_preview_path: string | null
           ai_preview_url: string | null
           ai_temple_to_temple_mm: number | null
           amount_cents: number | null
@@ -259,6 +260,15 @@ export type Database = {
           purged_at: string | null
           scan_id: string | null
           session_ref: string | null
+          shipping_city: string | null
+          shipping_country: string | null
+          shipping_line1: string | null
+          shipping_line2: string | null
+          shipping_name: string | null
+          shipping_phone: string | null
+          shipping_postal_code: string | null
+          shipping_state: string | null
+          shipping_submitted_at: string | null
           stripe_payment_intent_id: string | null
           stripe_session_id: string
           temple_code: string | null
@@ -270,6 +280,7 @@ export type Database = {
           ai_face_width_mm?: number | null
           ai_notes?: string | null
           ai_pd_mm?: number | null
+          ai_preview_path?: string | null
           ai_preview_url?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
@@ -303,6 +314,15 @@ export type Database = {
           purged_at?: string | null
           scan_id?: string | null
           session_ref?: string | null
+          shipping_city?: string | null
+          shipping_country?: string | null
+          shipping_line1?: string | null
+          shipping_line2?: string | null
+          shipping_name?: string | null
+          shipping_phone?: string | null
+          shipping_postal_code?: string | null
+          shipping_state?: string | null
+          shipping_submitted_at?: string | null
           stripe_payment_intent_id?: string | null
           stripe_session_id: string
           temple_code?: string | null
@@ -314,6 +334,7 @@ export type Database = {
           ai_face_width_mm?: number | null
           ai_notes?: string | null
           ai_pd_mm?: number | null
+          ai_preview_path?: string | null
           ai_preview_url?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
@@ -347,6 +368,15 @@ export type Database = {
           purged_at?: string | null
           scan_id?: string | null
           session_ref?: string | null
+          shipping_city?: string | null
+          shipping_country?: string | null
+          shipping_line1?: string | null
+          shipping_line2?: string | null
+          shipping_name?: string | null
+          shipping_phone?: string | null
+          shipping_postal_code?: string | null
+          shipping_state?: string | null
+          shipping_submitted_at?: string | null
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
           temple_code?: string | null
