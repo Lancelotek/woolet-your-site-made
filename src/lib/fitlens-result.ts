@@ -11,6 +11,28 @@ import { STORAGE_KEY } from "@/lib/bespoke-state";
 
 export type FitLensMeasurements = Partial<Record<MeasurementKey, number>>;
 
+/**
+ * Everything the embed hands over, not just the six numbers.
+ * `measurements` stays the validated six-number object existing callers use.
+ */
+export type FitLensEvent = {
+  measurements: FitLensMeasurements;
+  /** Stable scan reference (`measurementId` in the event). */
+  measurementId: string | null;
+  /** JWT signed by FitLens — the only part we can actually verify. */
+  signedPayload: string | null;
+  confidence: { tier: string | null; spreadMm: number | null };
+  /** Unknown/extra fields, kept verbatim. */
+  raw: Record<string, unknown>;
+  /**
+   * `faceWidthMm` changed meaning on 2026-09-08 (now temple-to-temple at eye
+   * level, 9-12 mm smaller). Anything stamped before that is `legacy`.
+   */
+  semanticsVersion: "current" | "legacy";
+};
+
+export const FITLENS_SEMANTICS_CUTOVER_MS = Date.parse("2026-09-08T00:00:00Z");
+
 const ALIASES: Record<MeasurementKey, string[]> = {
   faceWidth: ["facewidth", "facewidthmm", "face_width", "facepx", "width", "faceWidthMm"],
   bridge: ["bridge", "bridgewidth", "bridgewidthmm", "nosebridge", "nosebridgewidth", "nosewidth"],
@@ -118,4 +140,52 @@ export function readResultTimestamp(detail: unknown): number | null {
     }
   }
   return null;
+}
+
+/**
+ * Full read of a `fitlens:result` detail: the validated six numbers plus the
+ * scan id, the signed token and the confidence/raw blocks. Unknown fields are
+ * preserved in `raw` instead of being dropped — the partner adds fields
+ * without warning and the workshop report benefits from them.
+ */
+export function parseFitLensEvent(detail: unknown): FitLensEvent {
+  const flat = flatten(detail);
+  const pick = (...keys: string[]): unknown => {
+    for (const k of keys) {
+      const c = canon(k);
+      if (c in flat && flat[c] !== null && flat[c] !== "") return flat[c];
+    }
+    return null;
+  };
+
+  const measurementId = ((): string | null => {
+    const v = pick("measurementId", "scanId", "id");
+    return typeof v === "string" && v.length > 0 && v.length <= 200 ? v : null;
+  })();
+
+  const signedPayload = ((): string | null => {
+    const v = pick("signedPayload", "signedToken", "jwt", "token");
+    // A JWT and nothing else — never forward an arbitrary string to the verifier.
+    return typeof v === "string" && /^[\w-]+\.[\w-]+\.[\w-]+$/.test(v) ? v : null;
+  })();
+
+  const tierRaw = pick("tier", "confidenceTier", "quality");
+  const spreadRaw = pick("spreadMm", "spread");
+  const spread = toNumber(spreadRaw);
+
+  const stamp = readResultTimestamp(detail);
+  const semanticsVersion: "current" | "legacy" =
+    stamp != null && stamp < FITLENS_SEMANTICS_CUTOVER_MS ? "legacy" : "current";
+
+  return {
+    measurements: normalizeFitLensResult(detail),
+    measurementId,
+    signedPayload,
+    confidence: {
+      tier: typeof tierRaw === "string" && tierRaw ? tierRaw.toLowerCase() : null,
+      spreadMm: spread,
+    },
+    raw: detail && typeof detail === "object" ? ({ ...(detail as Record<string, unknown>) }) : {},
+    semanticsVersion,
+  };
 }

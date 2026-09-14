@@ -3,8 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { getSessionRef } from "@/lib/scan-session-ref";
 
 const SCRIPT_SRC = "https://fitlens-web-production.up.railway.app/v1/embed.js";
-const SCRIPT_INTEGRITY =
-  "sha384-/oLuzB2402AcbPCZLgkjIH28E3YXlys9k+0FuYU08cwj0cjk7cRtG5ErHW376fSv";
+// No `integrity` hash on purpose: FitLens redeploys /v1/embed.js without
+// warning, and a pinned hash makes the browser refuse the new file — the scan
+// button then dies silently. `crossorigin="anonymous"` stays so load errors
+// stay readable.
 const FITLENS_KEY = "pk_live_OuBrFjXWKeNygZku6WyJHeFW_8d55SVqIrleeFfrzuQ";
 
 /**
@@ -31,13 +33,17 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
     script.async = true;
     script.defer = true;
     script.crossOrigin = "anonymous";
-    // Keep this explicit attribute assignment in the emitted FitScan chunk so
-    // production deployments can be verified against the FitLens install hash.
-    script.setAttribute("integrity", SCRIPT_INTEGRITY);
     script.dataset.key = FITLENS_KEY;
     script.dataset.label = "Find my fit";
     script.dataset.color = "#3B4A66";
     script.addEventListener("load", () => setIsReady(true), { once: true });
+    // The widget is opened by building the iframe ourselves, so a failed embed
+    // load must not block the button — log it and carry on.
+    script.addEventListener(
+      "error",
+      () => console.warn("[fitlens] embed.js failed to load; opening the widget directly"),
+      { once: true },
+    );
 
     document.body.appendChild(script);
     scriptRef.current = script;

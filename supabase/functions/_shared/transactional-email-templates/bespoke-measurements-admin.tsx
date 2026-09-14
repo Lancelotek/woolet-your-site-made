@@ -22,6 +22,8 @@ interface Props {
   orderRef?: string
   customerEmailMasked?: string
   source?: string
+  /** How far the scan was verified: Verified scan / Signed scan / unverified. */
+  verificationLabel?: string
   frameName?: string
   measurements?: Row[]
   /** Bridge values already judged out of range by the shared gap rules. */
@@ -45,6 +47,7 @@ const Email = ({
   orderRef = '',
   customerEmailMasked = '',
   source = 'manual',
+  verificationLabel = '',
   frameName = 'Woolet Bespoke',
   measurements = [],
   bridgeAlerts = [],
@@ -84,7 +87,8 @@ const Email = ({
         <Heading style={h1}>Measurements received</Heading>
         <Text style={body}>
           {orderRef} · {frameName} · {customerEmailMasked} · numbers came{' '}
-          {source === 'fitlens' ? 'from the phone scan' : 'in by hand'}.
+          {source === 'fitlens' ? 'from the phone scan' : 'in by hand'}
+          {verificationLabel ? ` · ${verificationLabel}` : ''}.
         </Text>
 
         <Section style={card}>

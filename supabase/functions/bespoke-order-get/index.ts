@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     const { data, error } = await supabase
       .from("bespoke_orders")
       .select(
-        "id, session_ref, stripe_session_id, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, ai_preview_url, ai_preview_path, measurements_submitted_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_bridge_width_mm, ai_pd_mm, ai_notes, manual_face_width_mm, manual_temple_to_temple_mm, manual_bridge_width_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm, manual_notes, shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, shipping_submitted_at, created_at",
+        "id, session_ref, scan_id, ai_source, ai_overrides, stripe_session_id, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, ai_preview_url, ai_preview_path, measurements_submitted_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_bridge_width_mm, ai_pd_mm, ai_notes, manual_face_width_mm, manual_temple_to_temple_mm, manual_bridge_width_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm, manual_notes, shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, shipping_submitted_at, created_at",
       )
       .eq("stripe_session_id", sid)
       .maybeSingle();
@@ -80,6 +80,25 @@ Deno.serve(async (req) => {
         .createSignedUrl(previewPath, 60 * 15);
       previewUrl = signed?.signedUrl ?? previewUrl;
     }
+    // Scan result attached to this order, if FitLens has sent one. `source`
+    // tells the page (and the customer) how much the numbers can be trusted.
+    let scan: Record<string, unknown> | null = null;
+    {
+      const scanId = (data as any).scan_id as string | null;
+      let query = supabase
+        .from("bespoke_scan_profiles")
+        .select(
+          "scan_id, source, status, semantics_version, confidence_tier, spread_mm, temple_to_temple_mm, face_width_mm, pd_mm, pd_left_mm, pd_right_mm, nose_bridge_width_mm, created_at",
+        )
+        .order("created_at", { ascending: false })
+        .limit(1);
+      query = scanId
+        ? query.eq("scan_id", scanId)
+        : query.eq("order_id", (data as any).id);
+      const { data: scanRow } = await query.maybeSingle();
+      scan = (scanRow as Record<string, unknown>) ?? null;
+    }
+
     const { id: _id, ...safeOrder } = data;
     return new Response(
       JSON.stringify({
@@ -88,6 +107,7 @@ Deno.serve(async (req) => {
         // to show the customer and to tag analytics with; not the raw uuid.
         order_ref: `WLT-${String(_id).slice(0, 8).toUpperCase()}`,
         session_ref: sessionRef,
+        scan,
         ai_preview_url: previewUrl,
         customer_email_masked: masked,
         customer_email: undefined,

@@ -46,6 +46,12 @@ type Body = {
   scan?: {
     source?: string | null;
     payload?: Record<string, unknown> | null;
+    /** fitlens_webhook | fitlens_signed | fitlens_client — how far it was verified. */
+    verification?: string | null;
+    /** "scan" when the shown numbers were accepted as measured, "manual" when corrected. */
+    ai_source?: string | null;
+    /** The scan's own numbers, kept when the customer corrected them by hand. */
+    overrides?: Record<string, unknown> | null;
   };
 };
 
@@ -153,6 +159,18 @@ Deno.serve(async (req) => {
     patch.scan_payload = scanPayload;
     if (scanSource === "fitlens") patch.scan_received_at = new Date().toISOString();
 
+    // Verified server-side, or merely reported by the browser widget? The
+    // workshop must be able to tell the two apart at a glance.
+    const VERIFICATION = ["fitlens_webhook", "fitlens_signed", "fitlens_client"];
+    const verification =
+      typeof body.scan?.verification === "string" && VERIFICATION.includes(body.scan.verification)
+        ? body.scan.verification
+        : null;
+    patch.ai_source = body.scan?.ai_source === "manual" ? "manual" : scanSource === "fitlens" ? "scan" : "manual";
+    if (body.scan?.overrides && typeof body.scan.overrides === "object") {
+      patch.ai_overrides = body.scan.overrides;
+    }
+
     const { data, error } = await supabase
       .from("bespoke_orders")
       .update(patch)
@@ -205,6 +223,14 @@ Deno.serve(async (req) => {
           orderRef: `WLT-${String(order.id).slice(0, 8).toUpperCase()}`,
           customerEmailMasked: email ? email.replace(/^(.).*(@.*)$/, "$1***$2") : "",
           source: scanSource,
+          verificationLabel:
+            verification === "fitlens_webhook"
+              ? "Verified scan (server-to-server)"
+              : verification === "fitlens_signed"
+                ? "Signed scan (token verified)"
+                : verification === "fitlens_client"
+                  ? "Reported by the scan widget - unverified"
+                  : "",
           frameName: order.frame_name ?? "Woolet Bespoke",
           measurements,
           bridgeAlerts: bridgeOutOfRange(order),

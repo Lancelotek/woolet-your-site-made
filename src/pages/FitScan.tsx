@@ -35,10 +35,11 @@ import { useFitLensScript } from "@/hooks/use-fitlens-script";
 import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options";
 import {
   applyFitLensToBespokeConfig,
-  normalizeFitLensResult,
+  parseFitLensEvent,
   readResultTimestamp,
   type FitLensMeasurements,
 } from "@/lib/fitlens-result";
+import { recordFitLensEvent } from "@/lib/fitlens-verify";
 import { QRCodeSVG } from "qrcode.react";
 
 import { toast } from "sonner";
@@ -4238,7 +4239,8 @@ export default function FitScan() {
         return;
       }
 
-      const mapped = normalizeFitLensResult(detail);
+      const parsed = parseFitLensEvent(detail);
+      const mapped = parsed.measurements;
       const keys = Object.keys(mapped);
       if (keys.length === 0) {
         console.warn("[fitlens] result had no usable measurements", detail);
@@ -4251,6 +4253,13 @@ export default function FitScan() {
       const stored = applyFitLensToBespokeConfig(mapped);
       setFitLensMeasurements(mapped);
       pushEvent("fit_fitlens_result", { usable: keys.length, fields: keys.join(","), stored: stored ? 1 : 0 });
+
+      // A signed token is verified server-side; without one the numbers are
+      // recorded as reported-by-the-widget. Never blocks the UI.
+      void recordFitLensEvent(parsed, sessionId ?? null).then(({ source }) =>
+        pushEvent("fit_fitlens_verified", { source }),
+      );
+
 
       if (sessionId && sessionToken) {
         supabase.functions

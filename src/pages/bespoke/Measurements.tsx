@@ -6,7 +6,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet, clarityUpgrade } from "@/lib/clarity";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
-import { normalizeFitLensResult, type FitLensMeasurements } from "@/lib/fitlens-result";
+import { parseFitLensEvent, type FitLensMeasurements } from "@/lib/fitlens-result";
+import { recordFitLensEvent, SCAN_SOURCE_LABEL, type ScanSource } from "@/lib/fitlens-verify";
 
 /** Temple length the customer asked for at checkout — shown for reference only. */
 function readRequestedTempleLength(): string | null {
@@ -26,6 +27,18 @@ type OrderSummary = {
   stripe_session_id: string;
   order_ref?: string | null;
   session_ref?: string | null;
+  ai_source?: string | null;
+  scan?: {
+    scan_id: string | null;
+    source: string | null;
+    status: string | null;
+    temple_to_temple_mm: number | null;
+    face_width_mm: number | null;
+    pd_mm: number | null;
+    pd_left_mm: number | null;
+    pd_right_mm: number | null;
+    nose_bridge_width_mm: number | null;
+  } | null;
   created_at: string | null;
   customer_email_masked: string | null;
   frame_name: string | null;
@@ -170,40 +183,66 @@ export default function BespokeMeasurements() {
   const [scanResult, setScanResult] = useState<FitLensMeasurements | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
   const [manualOpen, setManualOpen] = useState(false);
+  const [scanSource, setScanSource] = useState<ScanSource | null>(null);
+  const [scanLocked, setScanLocked] = useState(false);
+  const [scanOriginal, setScanOriginal] = useState<Record<string, string> | null>(null);
+  /** Per-eye pupillary distance, when the scan measured it. */
+  const [scanMono, setScanMono] = useState<{ left: number | null; right: number | null } | null>(null);
 
+  const sessionRef = order?.session_ref ?? null;
   // The scan reference is the order's, not the browser's, so a customer who
   // opens the emailed link on a second device still measures against this order.
-  const { openFitLens } = useFitLensScript({ sessionRef: order?.session_ref ?? null });
+  const { openFitLens } = useFitLensScript({ sessionRef });
 
   // TRUST NOTE: this result arrives as a browser CustomEvent, which anyone can
-  // dispatch from a devtools console — nothing here proves the numbers came
-  // from FitLens. The real fix is the server-to-server signed webhook specced
-  // in lovable-prompts/2026-09-10-fitlens-webhook-signed-event.md, pending
-  // FitLens implementing their half. No fake integrity check is added here.
-  const handleScanResult = useCallback((event: Event) => {
-    const detail = (event as CustomEvent).detail;
-    const measurements = normalizeFitLensResult(detail);
-    if (Object.keys(measurements).length === 0) {
-      setScanResult(null);
-      setScanError("The scan did not return usable numbers");
-      setManualOpen(true);
-      clarityEvent("bespoke_scan_empty");
-      return;
-    }
-    setScanError(null);
-    setScanResult(measurements);
-    setForm((f) => ({
-      ...f,
-      ai_face_width_mm: measurements.faceWidth != null ? String(measurements.faceWidth) : f.ai_face_width_mm,
-      ai_temple_to_temple_mm:
-        measurements.templeToTemple != null ? String(measurements.templeToTemple) : f.ai_temple_to_temple_mm,
-      ai_bridge_width_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_bridge_width_mm,
-      ai_pd_mm: measurements.pd != null ? String(measurements.pd) : f.ai_pd_mm,
-      manual_temple_length_mm:
-        measurements.templeLength != null ? String(measurements.templeLength) : f.manual_temple_length_mm,
-    }));
-    clarityEvent("bespoke_scan_completed");
-  }, []);
+  // dispatch from a devtools console — the event alone proves nothing. What we
+  // trust instead: the `signedPayload` JWT (verified server-side against
+  // FitLens's JWKS) and, above it, the server-to-server webhook at
+  // `fitlens-webhook`. Numbers with neither are stored as `fitlens_client` /
+  // unverified and labelled as such. No fake integrity check is added here.
+  const handleScanResult = useCallback(
+    (event: Event) => {
+      const detail = (event as CustomEvent).detail;
+      const parsed = parseFitLensEvent(detail);
+      const measurements = parsed.measurements;
+      if (Object.keys(measurements).length === 0) {
+        setScanResult(null);
+        setScanError("The scan did not return usable numbers");
+        setManualOpen(true);
+        clarityEvent("bespoke_scan_empty");
+        return;
+      }
+      setScanError(null);
+      setScanResult(measurements);
+      setScanSource("fitlens_client");
+      setScanLocked(true);
+      setForm((f) => {
+        const next = {
+          ...f,
+          ai_face_width_mm: measurements.faceWidth != null ? String(measurements.faceWidth) : f.ai_face_width_mm,
+          ai_temple_to_temple_mm:
+            measurements.templeToTemple != null ? String(measurements.templeToTemple) : f.ai_temple_to_temple_mm,
+          ai_bridge_width_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_bridge_width_mm,
+          ai_pd_mm: measurements.pd != null ? String(measurements.pd) : f.ai_pd_mm,
+          manual_temple_length_mm:
+            measurements.templeLength != null ? String(measurements.templeLength) : f.manual_temple_length_mm,
+        };
+        setScanOriginal({
+          ai_face_width_mm: next.ai_face_width_mm,
+          ai_temple_to_temple_mm: next.ai_temple_to_temple_mm,
+          ai_bridge_width_mm: next.ai_bridge_width_mm,
+          ai_pd_mm: next.ai_pd_mm,
+        });
+        return next;
+      });
+      clarityEvent("bespoke_scan_completed");
+
+      // Verify (or, failing that, record) the result server-side. The banner
+      // upgrades itself once the server says which source it ended up as.
+      void recordFitLensEvent(parsed, sessionRef).then(({ source }) => setScanSource(source));
+    },
+    [sessionRef],
+  );
 
   useEffect(() => {
     window.addEventListener("fitlens:result", handleScanResult as EventListener);
@@ -252,6 +291,36 @@ export default function BespokeMeasurements() {
           manual_ear_to_ear_mm: num(data.manual_ear_to_ear_mm),
           manual_notes: data.manual_notes ?? "",
         });
+
+        // A scan already attached to this order (webhook, signed or client)
+        // prefills the scan block read-only. `nose_bridge_width_mm` is the
+        // inner-canthal distance, never a frame bridge — it is labelled as such
+        // in the UI and carried through untouched.
+        const scan = data.scan;
+        if (scan && data.ai_source !== "manual") {
+          const fit = scan.temple_to_temple_mm ?? scan.face_width_mm;
+          const prefilled = {
+            ai_face_width_mm: num(scan.face_width_mm ?? fit),
+            ai_temple_to_temple_mm: num(fit),
+            ai_bridge_width_mm: num(scan.nose_bridge_width_mm),
+            ai_pd_mm: num(scan.pd_mm),
+          };
+          setForm((f) => ({ ...f, ...prefilled }));
+          setScanOriginal(prefilled);
+          setScanSource((scan.source as ScanSource) ?? "fitlens_client");
+          setScanLocked(true);
+          setScanResult({
+            faceWidth: scan.face_width_mm ?? undefined,
+            templeToTemple: fit ?? undefined,
+            bridge: scan.nose_bridge_width_mm ?? undefined,
+            pd: scan.pd_mm ?? undefined,
+          });
+          setScanMono(
+            scan.pd_left_mm != null || scan.pd_right_mm != null
+              ? { left: scan.pd_left_mm, right: scan.pd_right_mm }
+              : null,
+          );
+        }
         setShipping({
           name: data.shipping_name ?? "",
           phone: data.shipping_phone ?? "",
@@ -400,8 +469,18 @@ export default function BespokeMeasurements() {
             country: shipping.country,
           },
           scan: scanResult
-            ? { source: "fitlens", payload: scanResult }
-            : { source: "manual", payload: null },
+            ? {
+                source: "fitlens",
+                payload: scanResult,
+                // How much the numbers can be trusted, carried into the
+                // workshop email so Marek sees it without opening the panel.
+                verification: scanSource,
+                // Set when the customer overrode the scan by hand; the scan's
+                // own numbers are kept so nothing is lost.
+                ai_source: scanLocked ? "scan" : "manual",
+                overrides: scanLocked ? null : scanOriginal,
+              }
+            : { source: "manual", payload: null, ai_source: "manual" },
         },
       });
       if (fnErr) throw fnErr;
@@ -671,18 +750,47 @@ export default function BespokeMeasurements() {
 
                     {scanResult && (
                       <div className="mt-5 rounded-md border border-gold/40 bg-gold/[0.06] p-5">
+                        {scanSource && (
+                          <p
+                            className={`mb-3 inline-flex items-center gap-2 rounded-sm px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] ${
+                              scanSource === "fitlens_client"
+                                ? "bg-cream/10 text-cream-dim"
+                                : "bg-gold/15 text-gold"
+                            }`}
+                          >
+                            {SCAN_SOURCE_LABEL[scanSource]}
+                          </p>
+                        )}
                         <p className="text-cream text-sm leading-relaxed">
                           Your scan:{" "}
                           {[
-                            scanResult.faceWidth != null && `face width ${scanResult.faceWidth} mm`,
                             scanResult.templeToTemple != null &&
                               `temple-to-temple ${scanResult.templeToTemple} mm`,
-                            scanResult.bridge != null && `bridge ${scanResult.bridge} mm`,
                             scanResult.pd != null && `PD ${scanResult.pd} mm`,
+                            scanMono?.left != null && `PD left ${scanMono.left} mm`,
+                            scanMono?.right != null && `PD right ${scanMono.right} mm`,
+                            scanResult.bridge != null &&
+                              `inner-canthal distance ${scanResult.bridge} mm`,
                           ]
                             .filter(Boolean)
                             .join(" · ")}
                         </p>
+                        <p className="mt-2 text-cream-dim/70 text-xs leading-relaxed">
+                          The inner-canthal distance is a face measurement (eye corner to eye corner).
+                          Your frame's bridge comes from the shape you chose.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setScanLocked(false);
+                            setManualOpen(true);
+                          }}
+                          className="mt-3 block text-xs text-cream-dim underline underline-offset-4 hover:text-gold"
+                        >
+                          {scanLocked
+                            ? "These numbers look wrong - correct manually"
+                            : "Correcting by hand - the scan's own numbers are kept on the order"}
+                        </button>
                         <button
                           type="submit"
                           disabled={submitting}
