@@ -103,8 +103,6 @@ Deno.serve(async (req) => {
       .limit(200);
     if (listError) throw listError;
 
-    const refs = (orders ?? []).map((o) => o.session_ref).filter(Boolean) as string[];
-    const ids = (orders ?? []).map((o) => o.id);
     const { data: photos } = await admin
       .from("bespoke_order_photos")
       .select("order_id, session_ref, photo_path, vto_path, consent_at, consent_withdrawn_at");
@@ -129,7 +127,6 @@ Deno.serve(async (req) => {
         with_measurements: rows.filter((r) => r.measurements_submitted_at).length,
         with_photo: rows.filter((r) => r.has_photo).length,
         blocked: rows.filter((r) => r.production_blocked).length,
-        unused: { refs: refs.length, ids: ids.length },
       },
     });
   } catch (err) {
