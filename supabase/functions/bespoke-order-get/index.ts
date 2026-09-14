@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     const { data, error } = await supabase
       .from("bespoke_orders")
       .select(
-        "id, stripe_session_id, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, ai_preview_url, ai_preview_path, measurements_submitted_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_bridge_width_mm, ai_pd_mm, ai_notes, manual_face_width_mm, manual_temple_to_temple_mm, manual_bridge_width_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm, manual_notes, shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, shipping_submitted_at, created_at",
+        "id, session_ref, stripe_session_id, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, ai_preview_url, ai_preview_path, measurements_submitted_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_bridge_width_mm, ai_pd_mm, ai_notes, manual_face_width_mm, manual_temple_to_temple_mm, manual_bridge_width_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm, manual_notes, shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, shipping_submitted_at, created_at",
       )
       .eq("stripe_session_id", sid)
       .maybeSingle();
@@ -35,6 +35,19 @@ Deno.serve(async (req) => {
         status: 404,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+    }
+    // The scan reference belongs to the order, not to the browser: the same
+    // customer may open the emailed link on a phone. Mint one on first read so
+    // a scan started on any device ties back to this order. Pseudonymous —
+    // never the email, the name or the Stripe session id.
+    let sessionRef = (data as any).session_ref as string | null;
+    if (!sessionRef) {
+      sessionRef = crypto.randomUUID();
+      const { error: refError } = await supabase
+        .from("bespoke_orders")
+        .update({ session_ref: sessionRef })
+        .eq("id", (data as any).id);
+      if (refError) console.error("[bespoke-order-get] session_ref mint failed", refError);
     }
     // Redact full email in response — return only the masked version so a
     // guessed session ID can't leak the buyer's address.
