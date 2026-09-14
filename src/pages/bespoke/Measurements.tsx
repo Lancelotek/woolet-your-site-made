@@ -865,7 +865,14 @@ export default function BespokeMeasurements() {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Field label="Face width (mm)" value={form.manual_face_width_mm} onChange={update("manual_face_width_mm")} placeholder="e.g. 155" />
                             <Field label="Temple-to-temple (mm)" value={form.manual_temple_to_temple_mm} onChange={update("manual_temple_to_temple_mm")} placeholder="e.g. 158" />
-                            <Field label="Bridge width (mm)" value={form.manual_bridge_width_mm} onChange={update("manual_bridge_width_mm")} placeholder="e.g. 20" />
+                            <Field
+                              label="Bridge of your best-fitting glasses (mm)"
+                              value={form.manual_bridge_width_mm}
+                              onChange={update("manual_bridge_width_mm")}
+                              placeholder="e.g. 20"
+                              note="The number printed inside the arm, between the lenses - not a measurement of your nose."
+                            />
+
                             <Field label="PD (mm)" value={form.manual_pd_mm} onChange={update("manual_pd_mm")} placeholder="e.g. 65" />
                             <Field
                               label="Temple length (mm)"
