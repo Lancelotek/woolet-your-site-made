@@ -155,6 +155,8 @@ export default function BespokeMeasurements() {
   const [order, setOrder] = useState<OrderSummary | null>(null);
   const [form, setForm] = useState<FormState>(EMPTY);
   const [shipping, setShipping] = useState<ShippingState>(EMPTY_SHIPPING);
+  const [shippingError, setShippingError] = useState<string | null>(null);
+
 
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
