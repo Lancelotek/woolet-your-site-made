@@ -192,6 +192,23 @@ export default function BespokeAdmin() {
     }
   };
 
+  // Re-renders the frame visualisation from the order's own specification and
+  // refreshes the detail view so the new image reaches the workshop PDF.
+  const renderPreview = async (d: Detail) => {
+    setBusy("render");
+    setError(null);
+    try {
+      await call({ action: "render_preview", id: String(d.order.id ?? "") });
+      await openDetail(String(d.order.id ?? ""));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Render failed");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+
+
   const downloadBundle = async (d: Detail) => {
     setBusy("zip");
     try {
