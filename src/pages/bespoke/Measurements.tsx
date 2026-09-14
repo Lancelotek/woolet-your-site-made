@@ -294,6 +294,19 @@ export default function BespokeMeasurements() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setShippingError(null);
+    const shippingComplete =
+      shipping.name.trim() &&
+      shipping.phone.trim() &&
+      shipping.line1.trim() &&
+      shipping.city.trim() &&
+      shipping.postal_code.trim() &&
+      shipping.country.trim();
+    if (!shippingComplete) {
+      setShippingError("Add the full shipping address — name, phone, street, city, postal code and country.");
+      document.getElementById("shipping-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -317,17 +330,46 @@ export default function BespokeMeasurements() {
             ear_to_ear_mm: form.manual_ear_to_ear_mm || null,
             notes: form.manual_notes || null,
           },
+          shipping: {
+            name: shipping.name,
+            phone: shipping.phone,
+            line1: shipping.line1,
+            line2: shipping.line2 || null,
+            city: shipping.city,
+            state: shipping.state || null,
+            postal_code: shipping.postal_code,
+            country: shipping.country,
+          },
         },
       });
       if (fnErr) throw fnErr;
+      if ((data as any)?.error === "incomplete_shipping") {
+        setShippingError("Add the full shipping address — name, phone, street, city, postal code and country.");
+        setSubmitting(false);
+        return;
+      }
       if ((data as any)?.error === "no_measurements") {
         setError("Please fill in at least one measurement before submitting.");
         setSubmitting(false);
         return;
       }
+      setOrder((o) =>
+        o
+          ? {
+              ...o,
+              shipping_name: shipping.name,
+              shipping_line1: shipping.line1,
+              shipping_city: shipping.city,
+              shipping_postal_code: shipping.postal_code,
+              shipping_country: shipping.country,
+              shipping_submitted_at: new Date().toISOString(),
+            }
+          : o,
+      );
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
+
       console.error(err);
       setError("Couldn't save your measurements. Please try again, or email them to support@woolet.co.");
     } finally {
