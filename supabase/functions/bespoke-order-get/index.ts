@@ -71,6 +71,9 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify({
         ...safeOrder,
+        // Public order reference (same format as the shipping export) — safe
+        // to show the customer and to tag analytics with; not the raw uuid.
+        order_ref: `WLT-${String(_id).slice(0, 8).toUpperCase()}`,
         ai_preview_url: previewUrl,
         customer_email_masked: masked,
         customer_email: undefined,

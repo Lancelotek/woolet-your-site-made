@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, Navigate, useParams, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -10,6 +10,7 @@ import PageViewTracker from "@/components/PageViewTracker";
 import Redirects from "@/components/Redirects";
 import { AuthProvider } from "@/lib/auth-context";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { clarityStop } from "@/lib/clarity";
 
 import { resolveCompetitorSlug } from "@/data/competitors";
 
@@ -176,6 +177,17 @@ const WhatsAppButtonWrapper = () => {
   const hideOnPaths = ["/en/lp/kickstarter"];
   if (hideOnPaths.some((path) => location.pathname.startsWith(path))) return null;
   return <WhatsAppButton />;
+};
+
+// Admin screens render customer names, full addresses and phone numbers.
+// Stop Clarity recording there — that data must not leave for a third party.
+const ADMIN_PATH_RE = /^\/[a-z]{2}\/(admin|crm|payments)(\/|$)/;
+const ClarityRouteGuard = () => {
+  const location = useLocation();
+  useEffect(() => {
+    if (ADMIN_PATH_RE.test(location.pathname)) clarityStop();
+  }, [location.pathname]);
+  return null;
 };
 
 
@@ -431,6 +443,7 @@ const App = () => (
         </Suspense>
         </AuthProvider>
         <WhatsAppButtonWrapper />
+        <ClarityRouteGuard />
       </BrowserRouter>
       <CookieBanner />
       </ErrorBoundary>

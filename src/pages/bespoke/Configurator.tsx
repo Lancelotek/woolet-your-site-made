@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { clarityEvent, claritySet } from "@/lib/clarity";
 import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
 import {
   StepColor,
@@ -144,6 +145,14 @@ const ConfiguratorPage = () => {
     setVisited((prev) => (prev.includes(n) ? prev : [...prev, n]));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // Clarity funnel: tag every step change, and mark the session complete when
+  // the buyer reaches the final review step. No personal data is ever sent.
+  useEffect(() => {
+    const name = STEPS[step - 1]?.shortLabel.toLowerCase() ?? "unknown";
+    claritySet("bespoke_step", `${step}-${name}`);
+    if (step === STEPS.length) clarityEvent("bespoke_configurator_complete");
+  }, [step]);
 
   const [navHint, setNavHint] = useState(false);
   const stepComplete = isStepComplete(step, config);

@@ -4,6 +4,7 @@ import { CheckCircle2, Loader2, Ruler, Sparkles, Truck } from "lucide-react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
+import { clarityEvent, claritySet, clarityUpgrade } from "@/lib/clarity";
 
 /** Temple length the customer asked for at checkout — shown for reference only. */
 function readRequestedTempleLength(): string | null {
@@ -21,6 +22,7 @@ function readRequestedTempleLength(): string | null {
 
 type OrderSummary = {
   stripe_session_id: string;
+  order_ref?: string | null;
   created_at: string | null;
   customer_email_masked: string | null;
   frame_name: string | null;
@@ -162,6 +164,13 @@ export default function BespokeMeasurements() {
   const [submitted, setSubmitted] = useState(false);
   const requestedTempleLength = useMemo(() => readRequestedTempleLength(), []);
 
+  // Clarity: paid customers only ever land here, so keep every session
+  // (upgrade) instead of letting Clarity sample it away. No personal data.
+  useEffect(() => {
+    clarityEvent("bespoke_measurements_view");
+    clarityUpgrade("bespoke_paid");
+  }, []);
+
   useEffect(() => {
     if (!sid) {
       setLoading(false);
@@ -181,6 +190,7 @@ export default function BespokeMeasurements() {
         if (!res.ok) throw new Error(`http_${res.status}`);
         const data = (await res.json()) as OrderSummary;
         setOrder(data);
+        if (data.order_ref) claritySet("bespoke_order_ref", data.order_ref);
         setForm({
           ai_face_width_mm: num(data.ai_face_width_mm),
           ai_temple_to_temple_mm: num(data.ai_temple_to_temple_mm),
@@ -307,6 +317,7 @@ export default function BespokeMeasurements() {
     if (!shippingComplete) {
       setShippingError("Add the full shipping address — name, phone, street, city, postal code and country.");
       document.getElementById("shipping-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      clarityEvent("bespoke_form_incomplete");
       return;
     }
     setSubmitting(true);
@@ -348,11 +359,13 @@ export default function BespokeMeasurements() {
       if ((data as any)?.error === "incomplete_shipping") {
         setShippingError("Add the full shipping address — name, phone, street, city, postal code and country.");
         setSubmitting(false);
+        clarityEvent("bespoke_form_incomplete");
         return;
       }
       if ((data as any)?.error === "no_measurements") {
         setError("Please fill in at least one measurement before submitting.");
         setSubmitting(false);
+        clarityEvent("bespoke_form_incomplete");
         return;
       }
       setOrder((o) =>
@@ -369,6 +382,8 @@ export default function BespokeMeasurements() {
           : o,
       );
       setSubmitted(true);
+      clarityEvent("bespoke_shipping_saved");
+      clarityEvent("bespoke_measurements_submitted");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
 
@@ -437,7 +452,11 @@ export default function BespokeMeasurements() {
                     {order.finish_id && <Spec label="Finish" value={order.finish_id} />}
                     {order.lens_type && <Spec label="Lenses" value={order.lens_type} />}
                     {order.engraving_text && <Spec label="Engraving" value={`"${order.engraving_text}"`} />}
-                    {order.customer_email_masked && <Spec label="Confirmation" value={order.customer_email_masked} />}
+                    {order.customer_email_masked && (
+                      <div data-clarity-mask="true">
+                        <Spec label="Confirmation" value={order.customer_email_masked} />
+                      </div>
+                    )}
                   </dl>
                   {order.ai_preview_url && (
                     <div className="mt-5 rounded bg-[#EFE9DF] p-3 flex items-center justify-center">
@@ -483,7 +502,7 @@ export default function BespokeMeasurements() {
                         your width and show you the frames on your own face before we cut them.
                       </p>
                       {shipping.line1 && (
-                        <p className="mt-4 text-cream-dim text-sm leading-relaxed">
+                        <p data-clarity-mask="true" className="mt-4 text-cream-dim text-sm leading-relaxed">
                           Shipping to: {shipping.name}, {shipping.line1}, {shipping.city}{" "}
                           {shipping.postal_code}, {shipping.country}{" "}
                           <button
