@@ -7,6 +7,7 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { assignMeasurementRef, normalizeMeasurementRef } from "../_shared/measurement-ref.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -83,17 +84,34 @@ Deno.serve(async (req) => {
     return json({ error: "persist_failed" }, 500);
   }
 
+  const measurementRef = await assignMeasurementRef(supabase, row.scan_id);
+
+  // A customer-quoted reference is only a fallback: it attaches the scan when
+  // the widget had no session, and it is matched exactly or not at all.
+  const clientRef = normalizeMeasurementRef(body.reference);
+  let orderId: string | null = null;
   if (sessionRef) {
     const { data: order } = await supabase
       .from("bespoke_orders")
       .select("id")
       .eq("session_ref", sessionRef)
       .maybeSingle();
-    if (order) {
-      await supabase.from("bespoke_scan_profiles").update({ order_id: order.id }).eq("scan_id", row.scan_id);
-      await supabase.from("bespoke_orders").update({ scan_id: row.scan_id }).eq("id", order.id);
-    }
+    orderId = order?.id ?? null;
+  }
+  if (!orderId && clientRef) {
+    const { data: prior } = await supabase
+      .from("bespoke_scan_profiles")
+      .select("order_id")
+      .eq("measurement_ref", clientRef)
+      .maybeSingle();
+    if (!prior) return json({ error: "unknown_reference", scanId: row.scan_id, measurementRef }, 404);
+    orderId = prior.order_id ?? null;
+  }
+  if (orderId) {
+    await supabase.from("bespoke_scan_profiles").update({ order_id: orderId }).eq("scan_id", row.scan_id);
+    // Newest scan wins the pointer; the earlier rows stay attached to the order.
+    await supabase.from("bespoke_orders").update({ scan_id: row.scan_id }).eq("id", orderId);
   }
 
-  return json({ ok: true, scanId: row.scan_id, source: "fitlens_client", status: "unverified" });
+  return json({ ok: true, scanId: row.scan_id, measurementRef, source: "fitlens_client", status: "unverified" });
 });

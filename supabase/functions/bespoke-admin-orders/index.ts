@@ -69,17 +69,20 @@ Deno.serve(async (req) => {
         .limit(1)
         .maybeSingle();
 
-      const scan = order.session_ref
-        ? (
-            await admin
-              .from("bespoke_scan_profiles")
-              .select("*")
-              .eq("session_ref", order.session_ref)
-              .order("created_at", { ascending: false })
-              .limit(1)
-              .maybeSingle()
-          ).data
-        : null;
+      // Every scan of this order, newest first — a second scan never replaces
+      // the first, so the two can be compared before anything is cut.
+      const { data: scanRows } = await admin
+        .from("bespoke_scan_profiles")
+        .select("*")
+        .or(
+          order.session_ref
+            ? `order_id.eq.${order.id},session_ref.eq.${order.session_ref}`
+            : `order_id.eq.${order.id}`,
+        )
+        .order("created_at", { ascending: false })
+        .limit(20);
+      const scans = scanRows ?? [];
+      const scan = scans[0] ?? null;
 
       const sign = async (path?: string | null) => {
         if (!path || photo?.consent_withdrawn_at) return null;
@@ -98,6 +101,7 @@ Deno.serve(async (req) => {
         order,
         photo: photo ?? null,
         scan: scan ?? null,
+        scans,
         files: {
           photo_url: await sign(photo?.photo_path),
           vto_url: await sign(photo?.vto_path),

@@ -9,6 +9,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { createRemoteJWKSet, jwtVerify } from "npm:jose@5.9.6";
 import { qualityVerdict } from "../_shared/fitlens-quality.ts";
+import { assignMeasurementRef } from "../_shared/measurement-ref.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -133,6 +134,8 @@ Deno.serve(async (req) => {
     return json({ error: "persist_failed" }, 500);
   }
 
+  const measurementRef = await assignMeasurementRef(supabase, scanId);
+
   if (sessionRef) {
     try {
       const { data: order } = await supabase
@@ -149,5 +152,5 @@ Deno.serve(async (req) => {
     }
   }
 
-  return json({ ok: true, scanId, source: "fitlens_signed", claims });
+  return json({ ok: true, scanId, measurementRef, source: "fitlens_signed", claims });
 });

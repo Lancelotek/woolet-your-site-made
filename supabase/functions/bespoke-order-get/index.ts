@@ -83,20 +83,37 @@ Deno.serve(async (req) => {
     // Scan result attached to this order, if FitLens has sent one. `source`
     // tells the page (and the customer) how much the numbers can be trusted.
     let scan: Record<string, unknown> | null = null;
+    let scans: Record<string, unknown>[] = [];
     {
+      const SCAN_COLUMNS =
+        "measurement_ref, scan_id, source, status, semantics_version, confidence_tier, spread_mm, temple_to_temple_mm, face_width_mm, pd_mm, pd_left_mm, pd_right_mm, nose_bridge_width_mm, created_at";
       const scanId = (data as any).scan_id as string | null;
-      let query = supabase
+      // Every scan of this order, newest first — a second scan is a new row, so
+      // the page can show both instead of pretending the first never happened.
+      const orFilter = [
+        `order_id.eq.${(data as any).id}`,
+        sessionRef ? `session_ref.eq.${sessionRef}` : null,
+      ]
+        .filter(Boolean)
+        .join(",");
+      const { data: scanRows } = await supabase
         .from("bespoke_scan_profiles")
-        .select(
-          "scan_id, source, status, semantics_version, confidence_tier, spread_mm, temple_to_temple_mm, face_width_mm, pd_mm, pd_left_mm, pd_right_mm, nose_bridge_width_mm, created_at",
-        )
+        .select(SCAN_COLUMNS)
+        .or(orFilter)
         .order("created_at", { ascending: false })
-        .limit(1);
-      query = scanId
-        ? query.eq("scan_id", scanId)
-        : query.eq("order_id", (data as any).id);
-      const { data: scanRow } = await query.maybeSingle();
-      scan = (scanRow as Record<string, unknown>) ?? null;
+        .limit(10);
+      scans = (scanRows as Record<string, unknown>[]) ?? [];
+      scan =
+        (scanId ? scans.find((r) => r.scan_id === scanId) : undefined) ?? scans[0] ?? null;
+      if (!scan && scanId) {
+        const { data: byId } = await supabase
+          .from("bespoke_scan_profiles")
+          .select(SCAN_COLUMNS)
+          .eq("scan_id", scanId)
+          .maybeSingle();
+        scan = (byId as Record<string, unknown>) ?? null;
+        if (scan) scans = [scan];
+      }
     }
 
     const { id: _id, ...safeOrder } = data;
@@ -108,6 +125,7 @@ Deno.serve(async (req) => {
         order_ref: `WLT-${String(_id).slice(0, 8).toUpperCase()}`,
         session_ref: sessionRef,
         scan,
+        scans,
         ai_preview_url: previewUrl,
         customer_email_masked: masked,
         customer_email: undefined,

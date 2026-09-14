@@ -8,6 +8,7 @@ import {
   bridgeOutOfRange,
   measurementDisagreements,
 } from "../_shared/bespoke-gaps.ts";
+import { compareRepeatability, sortScans } from "../_shared/scan-repeatability.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -196,6 +197,26 @@ Deno.serve(async (req) => {
     try {
       const order = data as Record<string, any>;
       const mm = (v: unknown) => (v === null || v === undefined ? "" : `${v} mm`);
+
+      // Every scan ever taken for this order — a second scan is a new row, so
+      // the two most recent ones can be compared instead of overwritten.
+      const orFilter = [
+        `order_id.eq.${order.id}`,
+        order.session_ref ? `session_ref.eq.${order.session_ref}` : null,
+      ]
+        .filter(Boolean)
+        .join(",");
+      const { data: scanRows } = await supabase
+        .from("bespoke_scan_profiles")
+        .select(
+          "measurement_ref, scan_id, created_at, source, status, temple_to_temple_mm, face_width_mm, pd_mm, nose_bridge_width_mm",
+        )
+        .or(orFilter)
+        .order("created_at", { ascending: false })
+        .limit(10);
+      const scans = sortScans(scanRows ?? []);
+      const repeatability = compareRepeatability(scans);
+      const measurementRef = scans[0]?.measurement_ref ?? "";
       const measurements = [
         { label: "Scan · Face width", value: mm(order.ai_face_width_mm) },
         { label: "Scan · Temple-to-temple", value: mm(order.ai_temple_to_temple_mm) },
@@ -246,6 +267,8 @@ Deno.serve(async (req) => {
           bridgeMax: BRIDGE_MAX_MM,
           disagreements: measurementDisagreements(order),
           gaps: bespokeOrderGaps(order),
+          repeatabilityLine: repeatability.line,
+          repeatabilityVerdict: repeatability.kind === "compared" ? repeatability.verdict : "",
           shippingStatus: order.shipping_submitted_at
             ? "Address confirmed by the customer"
             : "Address not confirmed yet",
@@ -253,8 +276,44 @@ Deno.serve(async (req) => {
           adminUrl: "https://woolet.co/en/admin/bespoke",
         },
       });
+
+      // The customer gets their own copy: the reference, the numbers we hold,
+      // and one ask to measure a second time so the two can be compared.
+      if (email) {
+        const byScan = (v: unknown) => scanSource === "fitlens" && v !== null && v !== undefined;
+        const rows = [
+          { label: "Temple-to-temple", value: mm(order.ai_temple_to_temple_mm), source: "scan" },
+          { label: "Face width", value: mm(order.ai_face_width_mm), source: "scan" },
+          { label: "Pupillary distance", value: mm(order.ai_pd_mm), source: "scan" },
+          {
+            label: "Inner-canthal distance (a face measurement)",
+            value: mm(order.ai_inner_canthal_mm),
+            source: byScan(order.ai_inner_canthal_mm) ? "scan" : "by hand",
+          },
+          { label: "Frame bridge", value: mm(order.ai_bridge_width_mm), source: "by hand" },
+          { label: "Temple-to-temple", value: mm(order.manual_temple_to_temple_mm), source: "by hand" },
+          { label: "Face width", value: mm(order.manual_face_width_mm), source: "by hand" },
+          { label: "Pupillary distance", value: mm(order.manual_pd_mm), source: "by hand" },
+          {
+            label: "Bridge of best-fitting glasses",
+            value: mm(order.manual_bridge_width_mm),
+            source: "by hand",
+          },
+          { label: "Temple length", value: mm(order.manual_temple_length_mm), source: "by hand" },
+        ].filter((row) => row.value);
+
+        await sendTemplateEmailAndLog("bespoke-measurement-summary", email, {
+          idempotencyKey: `bespoke-measurement-summary-${sid}-${order.measurements_submitted_at}`,
+          templateData: {
+            customerName: (order.customer_name as string)?.split(" ")[0] ?? "",
+            measurementRef,
+            rows,
+            remeasureUrl: `https://woolet.co/en/bespoke/measurements?sid=${encodeURIComponent(sid)}&remeasure=1`,
+          },
+        });
+      }
     } catch (e) {
-      console.error("[bespoke-measurements-submit] admin notify failed", e);
+      console.error("[bespoke-measurements-submit] notify failed", e);
     }
 
 

@@ -34,6 +34,10 @@ interface Props {
   disagreements?: Array<{ label: string; scan: number; manual: number; delta: number }>
   /** Gap sentences from the shared rules — not restated here. */
   gaps?: string[]
+  /** One-line comparison of the two most recent scans for this order. */
+  repeatabilityLine?: string
+  /** agree | review | disagree — empty when only one scan exists. */
+  repeatabilityVerdict?: string
   shippingStatus?: string
   shippingAddress?: string
   adminUrl?: string
@@ -55,6 +59,8 @@ const Email = ({
   bridgeMax = 26,
   disagreements = [],
   gaps = [],
+  repeatabilityLine = '',
+  repeatabilityVerdict = '',
   shippingStatus = '',
   shippingAddress = '',
   adminUrl = '',
@@ -90,6 +96,20 @@ const Email = ({
           {source === 'fitlens' ? 'from the phone scan' : 'in by hand'}
           {verificationLabel ? ` · ${verificationLabel}` : ''}.
         </Text>
+
+        {repeatabilityLine ? (
+          <Section style={repeatCard}>
+            <Text
+              style={{
+                ...specValue,
+                fontWeight: repeatabilityVerdict === 'disagree' ? 600 : 400,
+                color: repeatabilityVerdict === 'disagree' ? RED : INK,
+              }}
+            >
+              {repeatabilityLine}
+            </Text>
+          </Section>
+        ) : null}
 
         <Section style={card}>
           <Text style={cardTitle}>Submitted measurements</Text>
@@ -205,6 +225,13 @@ const h3: React.CSSProperties = { fontSize: 14, fontWeight: 600, letterSpacing: 
 const body: React.CSSProperties = { fontSize: 14, lineHeight: 1.55, color: '#333', margin: '0 0 12px' }
 const gapLine: React.CSSProperties = { fontSize: 13, lineHeight: 1.5, color: '#333', margin: '0 0 4px' }
 const card: React.CSSProperties = { background: PAPER, borderRadius: 6, padding: '18px 20px', margin: '16px 0 20px' }
+const repeatCard: React.CSSProperties = {
+  background: '#fff',
+  border: '1px solid rgba(11,10,9,0.16)',
+  borderRadius: 6,
+  padding: '12px 16px',
+  margin: '16px 0 0',
+}
 const cardTitle: React.CSSProperties = { fontSize: 18, fontWeight: 500, color: INK, margin: '0 0 12px' }
 const specRow: React.CSSProperties = { borderTop: '1px solid rgba(11,10,9,0.08)', padding: '6px 0' }
 const specLabel: React.CSSProperties = { fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#666', margin: '0 0 2px' }

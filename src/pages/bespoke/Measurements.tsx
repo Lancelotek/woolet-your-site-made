@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Loader2, Ruler, ScanFace, Sparkles, Truck } from "lucide-react";
 import SEO from "@/components/SEO";
@@ -29,6 +29,7 @@ type OrderSummary = {
   session_ref?: string | null;
   ai_source?: string | null;
   scan?: {
+    measurement_ref?: string | null;
     scan_id: string | null;
     source: string | null;
     status: string | null;
@@ -39,6 +40,18 @@ type OrderSummary = {
     pd_right_mm: number | null;
     nose_bridge_width_mm: number | null;
   } | null;
+  /** Every scan taken for this order, newest first. */
+  scans?: Array<{
+    measurement_ref?: string | null;
+    scan_id: string | null;
+    source: string | null;
+    status: string | null;
+    created_at: string | null;
+    temple_to_temple_mm: number | null;
+    face_width_mm: number | null;
+    pd_mm: number | null;
+    nose_bridge_width_mm: number | null;
+  }>;
   created_at: string | null;
   customer_email_masked: string | null;
   frame_name: string | null;
@@ -174,6 +187,8 @@ function formatAmount(cents: number | null, currency: string | null) {
 export default function BespokeMeasurements() {
   const [params] = useSearchParams();
   const sid = params.get("sid") ?? "";
+  // Arrives from the "Measure again" button in the measurement summary email.
+  const remeasure = params.get("remeasure") === "1";
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -195,6 +210,12 @@ export default function BespokeMeasurements() {
   const [scanOriginal, setScanOriginal] = useState<Record<string, string> | null>(null);
   /** Per-eye pupillary distance, when the scan measured it. */
   const [scanMono, setScanMono] = useState<{ left: number | null; right: number | null } | null>(null);
+  /** Reference of the scan we already hold — shown when measuring a second time. */
+  const [priorRef, setPriorRef] = useState<string | null>(null);
+  /** Fallback only: a reference the customer types when they scanned elsewhere. */
+  const [typedRef, setTypedRef] = useState("");
+  const scanSectionRef = useRef<HTMLElement | null>(null);
+  const remeasureOpened = useRef(false);
 
   const sessionRef = order?.session_ref ?? null;
   // The scan reference is the order's, not the browser's, so a customer who
@@ -249,15 +270,27 @@ export default function BespokeMeasurements() {
 
       // Verify (or, failing that, record) the result server-side. The banner
       // upgrades itself once the server says which source it ended up as.
-      void recordFitLensEvent(parsed, sessionRef).then(({ source }) => setScanSource(source));
+      void recordFitLensEvent(parsed, sessionRef, typedRef || null).then(({ source }) =>
+        setScanSource(source),
+      );
     },
-    [sessionRef],
+    [sessionRef, typedRef],
   );
 
   useEffect(() => {
     window.addEventListener("fitlens:result", handleScanResult as EventListener);
     return () => window.removeEventListener("fitlens:result", handleScanResult as EventListener);
   }, [handleScanResult]);
+
+  // The emailed "Measure again" link should need no typing: scroll to the
+  // measurement section and open the scanner as soon as the order is loaded.
+  useEffect(() => {
+    if (!remeasure || !order || remeasureOpened.current) return;
+    remeasureOpened.current = true;
+    scanSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const t = window.setTimeout(() => openFitLens(), 600);
+    return () => window.clearTimeout(t);
+  }, [remeasure, order, openFitLens]);
 
   // Clarity: paid customers only ever land here, so keep every session
   // (upgrade) instead of letting Clarity sample it away. No personal data.
@@ -334,6 +367,7 @@ export default function BespokeMeasurements() {
               : null,
           );
         }
+        setPriorRef(data.scan?.measurement_ref ?? data.scans?.[0]?.measurement_ref ?? null);
         setShipping({
           name: data.shipping_name ?? "",
           phone: data.shipping_phone ?? "",
@@ -741,11 +775,16 @@ export default function BespokeMeasurements() {
                     )}
                   </div>
 
-                  <section>
+                  <section ref={scanSectionRef}>
                     <div className="flex items-center gap-2 text-cream mb-1">
                       <span className="text-gold"><ScanFace size={16} /></span>
                       <h2 className="text-lg font-medium">2 · Measure your face</h2>
                     </div>
+                    {remeasure && (
+                      <p className="mb-3 inline-flex rounded-sm bg-gold/15 px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-gold">
+                        Second measurement{priorRef ? ` for ${priorRef}` : ""}
+                      </p>
+                    )}
                     <p className="text-cream-dim text-sm mb-5 max-w-xl leading-relaxed">
                       Twenty seconds with your phone camera and any bank card. The workshop cuts to
                       these numbers.
@@ -757,6 +796,23 @@ export default function BespokeMeasurements() {
                     >
                       Start the scan
                     </button>
+
+                    <details className="mt-4">
+                      <summary className="cursor-pointer text-xs text-cream-dim underline underline-offset-4 hover:text-gold">
+                        I have a measurement reference
+                      </summary>
+                      <input
+                        type="text"
+                        value={typedRef}
+                        onChange={(e) => setTypedRef(e.target.value.toUpperCase())}
+                        placeholder="M-7KQ4X2"
+                        aria-label="Measurement reference"
+                        className="mt-2 w-48 rounded-sm border border-cream/20 bg-transparent px-3 py-2 text-sm uppercase tracking-[0.12em] text-cream placeholder:text-cream-dim/50"
+                      />
+                      <p className="mt-1 text-[11px] leading-relaxed text-cream-dim/70">
+                        Only needed if you scanned outside the link we emailed you.
+                      </p>
+                    </details>
 
                     {scanError && (
                       <p className="mt-4 text-sm text-red-300/90 bg-red-500/10 border border-red-500/30 rounded px-3 py-2">

@@ -44,12 +44,17 @@ interface Row {
   [key: string]: unknown;
 }
 
+import { compareRepeatability, sortScans, type ScanRow } from "@/lib/scan-repeatability";
+import { SCAN_SOURCE_LABEL } from "@/lib/fitlens-verify";
+
 type OrderRecord = Record<string, unknown>;
 
 interface Detail {
   order: OrderRecord;
   photo: OrderRecord | null;
   scan: OrderRecord | null;
+  /** Every scan for this order, newest first. */
+  scans?: OrderRecord[];
   files: {
     photo_url: string | null;
     vto_url: string | null;
@@ -169,6 +174,7 @@ export default function BespokeAdmin() {
       customerRef: s(o.customer_email),
       requestedTempleLength: s((o.metadata as Record<string, unknown> | null)?.temple_length),
       aiPreviewUrl: d.files.preview_url ?? s(o.ai_preview_url),
+      measurementRef: s((d.scans?.[0] ?? d.scan)?.measurement_ref),
       tryOnUrl: d.files.vto_url,
       shipping: {
         name: s(o.shipping_name),
@@ -546,6 +552,57 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
   );
 }
 
+function ScansBlock({ scans }: { scans: ScanRow[] }) {
+  if (!scans.length) return null;
+  const ordered = sortScans(scans);
+  const rep = compareRepeatability(ordered);
+  const verdict = rep.kind === "compared" ? rep.verdict : null;
+  return (
+    <section style={{ marginTop: 22 }}>
+      <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 8px" }}>
+        Measurements · {ordered.length}
+      </h3>
+      <p
+        style={{
+          margin: "0 0 12px",
+          fontSize: 13,
+          lineHeight: 1.7,
+          color: verdict === "disagree" ? "#e2725b" : T.dim,
+          fontWeight: verdict === "disagree" ? 600 : 400,
+        }}
+      >
+        {rep.line}
+      </p>
+      <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+        {ordered.map((sc, i) => (
+          <li
+            key={(sc.measurement_ref ?? sc.scan_id ?? String(i)) as string}
+            style={{
+              borderTop: `1px solid ${T.hair}`,
+              padding: "10px 0",
+              fontSize: 13,
+              color: T.dim,
+              lineHeight: 1.7,
+            }}
+          >
+            <strong style={{ color: T.ink, letterSpacing: "0.06em" }}>
+              {sc.measurement_ref ?? "—"}
+            </strong>
+            {" · "}
+            {sc.created_at ? fmtDate(sc.created_at) : "—"}
+            {" · "}
+            {SCAN_SOURCE_LABEL[(sc.source ?? "") as keyof typeof SCAN_SOURCE_LABEL] ?? sc.source ?? "—"}
+            {" · "}
+            {sc.status ?? "—"}
+            {" · "}
+            {sc.temple_to_temple_mm != null ? `temple-to-temple ${sc.temple_to_temple_mm} mm` : "no fit measurement"}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function DetailView({
   detail, password, onClose, onPdf, onZip, onRender, busy,
 }: {
@@ -641,6 +698,8 @@ function DetailView({
         <Field label="Submitted" value={o.measurements_submitted_at ? fmtDate(o.measurements_submitted_at) : "Not submitted yet"} />
       </Group>
 
+
+      <ScansBlock scans={(detail.scans ?? (detail.scan ? [detail.scan] : [])) as ScanRow[]} />
 
       <Group title="Shipping address">
         <Field label="Recipient" value={o.shipping_name} />
