@@ -20,9 +20,12 @@ type Body = {
     face_width_mm?: number | null;
     temple_to_temple_mm?: number | null;
     bridge_width_mm?: number | null;
+    /** Face measurement (eye corner to eye corner) — never a frame bridge. */
+    inner_canthal_mm?: number | null;
     pd_mm?: number | null;
     notes?: string | null;
   };
+
   manual?: {
     face_width_mm?: number | null;
     temple_to_temple_mm?: number | null;
