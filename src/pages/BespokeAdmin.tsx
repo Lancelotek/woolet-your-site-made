@@ -44,7 +44,12 @@ interface Detail {
   order: OrderRecord;
   photo: OrderRecord | null;
   scan: OrderRecord | null;
-  files: { photo_url: string | null; vto_url: string | null; geometry_url: string | null };
+  files: {
+    photo_url: string | null;
+    vto_url: string | null;
+    geometry_url: string | null;
+    preview_url?: string | null;
+  };
 }
 
 const fmtDate = (v?: string | null) =>
@@ -143,7 +148,7 @@ export default function BespokeAdmin() {
       amountLabel: fmtAmount(o.amount_cents as number | null, o.currency as string | null),
       customerRef: s(o.customer_email),
       requestedTempleLength: s((o.metadata as Record<string, unknown> | null)?.temple_length),
-      aiPreviewUrl: s(o.ai_preview_url),
+      aiPreviewUrl: d.files.preview_url ?? s(o.ai_preview_url),
       tryOnUrl: d.files.vto_url,
       consent: photo
         ? {
