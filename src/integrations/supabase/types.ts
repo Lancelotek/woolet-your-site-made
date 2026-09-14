@@ -225,9 +225,11 @@ export type Database = {
           ai_bridge_width_mm: number | null
           ai_face_width_mm: number | null
           ai_notes: string | null
+          ai_overrides: Json | null
           ai_pd_mm: number | null
           ai_preview_path: string | null
           ai_preview_url: string | null
+          ai_source: string | null
           ai_temple_to_temple_mm: number | null
           amount_cents: number | null
           courier: string | null
@@ -287,9 +289,11 @@ export type Database = {
           ai_bridge_width_mm?: number | null
           ai_face_width_mm?: number | null
           ai_notes?: string | null
+          ai_overrides?: Json | null
           ai_pd_mm?: number | null
           ai_preview_path?: string | null
           ai_preview_url?: string | null
+          ai_source?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
           courier?: string | null
@@ -349,9 +353,11 @@ export type Database = {
           ai_bridge_width_mm?: number | null
           ai_face_width_mm?: number | null
           ai_notes?: string | null
+          ai_overrides?: Json | null
           ai_pd_mm?: number | null
           ai_preview_path?: string | null
           ai_preview_url?: string | null
+          ai_source?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
           courier?: string | null
@@ -468,65 +474,106 @@ export type Database = {
       bespoke_scan_profiles: {
         Row: {
           asymmetry_mm: number | null
-          capture_method: string
+          capture_method: string | null
           confidence: Json
+          confidence_tier: string | null
           created_at: string
           email: string | null
           face_width_mm: number | null
           id: string
           nose_bridge_height_mm: number | null
           nose_bridge_width_mm: number | null
+          order_id: string | null
           pantoscopic_angle_deg: number | null
+          payload_version: string | null
+          pd_left_mm: number | null
           pd_mm: number | null
+          pd_right_mm: number | null
           raw_frames: Json
+          raw_payload: Json | null
+          scan_id: string | null
+          semantics_version: string | null
           session_ref: string | null
+          source: string | null
+          spread_mm: number | null
           status: string
           temple_length_left_mm: number | null
           temple_length_right_mm: number | null
+          temple_to_temple_mm: number | null
           updated_at: string
           user_id: string | null
         }
         Insert: {
           asymmetry_mm?: number | null
-          capture_method?: string
+          capture_method?: string | null
           confidence?: Json
+          confidence_tier?: string | null
           created_at?: string
           email?: string | null
           face_width_mm?: number | null
           id?: string
           nose_bridge_height_mm?: number | null
           nose_bridge_width_mm?: number | null
+          order_id?: string | null
           pantoscopic_angle_deg?: number | null
+          payload_version?: string | null
+          pd_left_mm?: number | null
           pd_mm?: number | null
+          pd_right_mm?: number | null
           raw_frames?: Json
+          raw_payload?: Json | null
+          scan_id?: string | null
+          semantics_version?: string | null
           session_ref?: string | null
+          source?: string | null
+          spread_mm?: number | null
           status?: string
           temple_length_left_mm?: number | null
           temple_length_right_mm?: number | null
+          temple_to_temple_mm?: number | null
           updated_at?: string
           user_id?: string | null
         }
         Update: {
           asymmetry_mm?: number | null
-          capture_method?: string
+          capture_method?: string | null
           confidence?: Json
+          confidence_tier?: string | null
           created_at?: string
           email?: string | null
           face_width_mm?: number | null
           id?: string
           nose_bridge_height_mm?: number | null
           nose_bridge_width_mm?: number | null
+          order_id?: string | null
           pantoscopic_angle_deg?: number | null
+          payload_version?: string | null
+          pd_left_mm?: number | null
           pd_mm?: number | null
+          pd_right_mm?: number | null
           raw_frames?: Json
+          raw_payload?: Json | null
+          scan_id?: string | null
+          semantics_version?: string | null
           session_ref?: string | null
+          source?: string | null
+          spread_mm?: number | null
           status?: string
           temple_length_left_mm?: number | null
           temple_length_right_mm?: number | null
+          temple_to_temple_mm?: number | null
           updated_at?: string
           user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "bespoke_scan_profiles_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "bespoke_orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       bespoke_tryon_renders: {
         Row: {
