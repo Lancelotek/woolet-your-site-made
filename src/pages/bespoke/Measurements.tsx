@@ -314,9 +314,10 @@ export default function BespokeMeasurements() {
           const prefilled = {
             ai_face_width_mm: num(scan.face_width_mm ?? fit),
             ai_temple_to_temple_mm: num(fit),
-            ai_bridge_width_mm: num(scan.nose_bridge_width_mm),
+            ai_inner_canthal_mm: num(scan.nose_bridge_width_mm),
             ai_pd_mm: num(scan.pd_mm),
           };
+
           setForm((f) => ({ ...f, ...prefilled }));
           setScanOriginal(prefilled);
           setScanSource((scan.source as ScanSource) ?? "fitlens_client");
