@@ -230,11 +230,13 @@ export type Database = {
           ai_preview_url: string | null
           ai_temple_to_temple_mm: number | null
           amount_cents: number | null
+          courier: string | null
           created_at: string
           currency: string | null
           customer_email: string
           customer_name: string | null
           delivered_at: string | null
+          dispatch_note: string | null
           dossier_path: string | null
           dossier_rev: number
           engraving_text: string | null
@@ -255,11 +257,13 @@ export type Database = {
           manual_temple_to_temple_mm: number | null
           measurements_submitted_at: string | null
           metadata: Json | null
+          parcel_weight_kg: number | null
           production_blocked: boolean
           purge_after: string | null
           purged_at: string | null
           scan_id: string | null
           session_ref: string | null
+          shipped_at: string | null
           shipping_city: string | null
           shipping_country: string | null
           shipping_line1: string | null
@@ -272,6 +276,7 @@ export type Database = {
           stripe_payment_intent_id: string | null
           stripe_session_id: string
           temple_code: string | null
+          tracking_number: string | null
           updated_at: string
           workshop_token: string
         }
@@ -284,11 +289,13 @@ export type Database = {
           ai_preview_url?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
+          courier?: string | null
           created_at?: string
           currency?: string | null
           customer_email: string
           customer_name?: string | null
           delivered_at?: string | null
+          dispatch_note?: string | null
           dossier_path?: string | null
           dossier_rev?: number
           engraving_text?: string | null
@@ -309,11 +316,13 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          parcel_weight_kg?: number | null
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
           scan_id?: string | null
           session_ref?: string | null
+          shipped_at?: string | null
           shipping_city?: string | null
           shipping_country?: string | null
           shipping_line1?: string | null
@@ -326,6 +335,7 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_session_id: string
           temple_code?: string | null
+          tracking_number?: string | null
           updated_at?: string
           workshop_token?: string
         }
@@ -338,11 +348,13 @@ export type Database = {
           ai_preview_url?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
+          courier?: string | null
           created_at?: string
           currency?: string | null
           customer_email?: string
           customer_name?: string | null
           delivered_at?: string | null
+          dispatch_note?: string | null
           dossier_path?: string | null
           dossier_rev?: number
           engraving_text?: string | null
@@ -363,11 +375,13 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          parcel_weight_kg?: number | null
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
           scan_id?: string | null
           session_ref?: string | null
+          shipped_at?: string | null
           shipping_city?: string | null
           shipping_country?: string | null
           shipping_line1?: string | null
@@ -380,6 +394,7 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
           temple_code?: string | null
+          tracking_number?: string | null
           updated_at?: string
           workshop_token?: string
         }
