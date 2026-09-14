@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { bespokeOrderGaps } from "@/lib/bespoke-gaps";
 import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
@@ -458,6 +459,7 @@ function IntegrationSecretBlock({ password }: { password: string }) {
   const [value, setValue] = useState("");
   const [status, setStatus] = useState<{ is_set: boolean; source: string; updated_at: string | null } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
   const call = async (action: "status" | "save", secret?: string) => {
@@ -471,8 +473,7 @@ function IntegrationSecretBlock({ password }: { password: string }) {
       if ((data as any)?.error) throw new Error((data as any).error);
       setStatus(data as any);
       if (action === "save") {
-        setValue("");
-        setMsg("Saved. FitLens can start posting.");
+        setMsg("Saved. Copy this value to FitLens before leaving this page.");
       }
     } catch (err) {
       setMsg(err instanceof Error ? err.message : "Failed");
@@ -486,10 +487,25 @@ function IntegrationSecretBlock({ password }: { password: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const copyValue = async (secret = value) => {
+    if (!secret) return;
+    try {
+      await navigator.clipboard.writeText(secret);
+      setCopied(true);
+      setMsg("Copied to clipboard.");
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setMsg("Copy was blocked by the browser. Select the value and copy it manually.");
+    }
+  };
+
   const generate = () => {
     const bytes = new Uint8Array(32);
     crypto.getRandomValues(bytes);
-    setValue(Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join(""));
+    const secret = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    setValue(secret);
+    setCopied(false);
+    setMsg("Generated. Copy this exact value to FitLens, then save it here.");
   };
 
   return (
@@ -507,7 +523,9 @@ function IntegrationSecretBlock({ password }: { password: string }) {
           type="password"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onFocus={(e) => e.currentTarget.select()}
           placeholder="New secret"
+          aria-label="FitLens signing secret"
           style={{ flex: "1 1 260px", padding: "10px 12px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink, borderRadius: 2, fontFamily: SANS }}
         />
         <button
@@ -516,6 +534,17 @@ function IntegrationSecretBlock({ password }: { password: string }) {
           style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "10px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}
         >
           Generate
+        </button>
+        <button
+          type="button"
+          disabled={!value}
+          onClick={() => void copyValue()}
+          aria-label="Copy FitLens signing secret"
+          title="Copy secret"
+          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 7, background: "none", border: `1px solid ${T.hair}`, color: T.ink, padding: "10px 14px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: value ? "pointer" : "not-allowed", opacity: value ? 1 : 0.45 }}
+        >
+          {copied ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
+          {copied ? "Copied" : "Copy"}
         </button>
         <button
           type="button"
