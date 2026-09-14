@@ -409,7 +409,10 @@ export default function BespokeAdmin() {
             </tbody>
           </table>
         </div>
+
+        <IntegrationSecretBlock password={password} />
       </div>
+
 
       {(detail || detailBusy) && (
         <div
