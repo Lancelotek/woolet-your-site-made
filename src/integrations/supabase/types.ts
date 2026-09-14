@@ -260,6 +260,15 @@ export type Database = {
           purged_at: string | null
           scan_id: string | null
           session_ref: string | null
+          shipping_city: string | null
+          shipping_country: string | null
+          shipping_line1: string | null
+          shipping_line2: string | null
+          shipping_name: string | null
+          shipping_phone: string | null
+          shipping_postal_code: string | null
+          shipping_state: string | null
+          shipping_submitted_at: string | null
           stripe_payment_intent_id: string | null
           stripe_session_id: string
           temple_code: string | null
@@ -305,6 +314,15 @@ export type Database = {
           purged_at?: string | null
           scan_id?: string | null
           session_ref?: string | null
+          shipping_city?: string | null
+          shipping_country?: string | null
+          shipping_line1?: string | null
+          shipping_line2?: string | null
+          shipping_name?: string | null
+          shipping_phone?: string | null
+          shipping_postal_code?: string | null
+          shipping_state?: string | null
+          shipping_submitted_at?: string | null
           stripe_payment_intent_id?: string | null
           stripe_session_id: string
           temple_code?: string | null
@@ -350,6 +368,15 @@ export type Database = {
           purged_at?: string | null
           scan_id?: string | null
           session_ref?: string | null
+          shipping_city?: string | null
+          shipping_country?: string | null
+          shipping_line1?: string | null
+          shipping_line2?: string | null
+          shipping_name?: string | null
+          shipping_phone?: string | null
+          shipping_postal_code?: string | null
+          shipping_state?: string | null
+          shipping_submitted_at?: string | null
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
           temple_code?: string | null
