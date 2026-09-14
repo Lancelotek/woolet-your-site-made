@@ -199,7 +199,9 @@ Deno.serve(async (req) => {
       const measurements = [
         { label: "Scan · Face width", value: mm(order.ai_face_width_mm) },
         { label: "Scan · Temple-to-temple", value: mm(order.ai_temple_to_temple_mm) },
-        { label: "Scan · Bridge width", value: mm(order.ai_bridge_width_mm) },
+        { label: "Scan · Frame bridge", value: mm(order.ai_bridge_width_mm) },
+        { label: "Inner-canthal distance (face)", value: mm(order.ai_inner_canthal_mm) },
+
         { label: "Scan · Pupillary distance", value: mm(order.ai_pd_mm) },
         { label: "Scan notes", value: order.ai_notes ?? "" },
         { label: "Manual · Face width", value: mm(order.manual_face_width_mm) },
