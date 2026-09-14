@@ -156,7 +156,20 @@ export default function BespokeAdmin() {
       tryOnUrl: d.files.vto_url,
       consent: photo
         ? {
+      shipping: {
+        name: s(o.shipping_name),
+        line1: s(o.shipping_line1),
+        line2: s(o.shipping_line2),
+        city: s(o.shipping_city),
+        state: s(o.shipping_state),
+        postalCode: s(o.shipping_postal_code),
+        country: s(o.shipping_country),
+        submittedAt: s(o.shipping_submitted_at),
+      },
+      consent: photo
+        ? {
             grantedAt: s(photo.consent_at),
+
             withdrawnAt: s(photo.consent_withdrawn_at),
             version: s(photo.consent_version),
             locale: s(photo.consent_locale),
