@@ -50,6 +50,8 @@ interface Detail {
   order: OrderRecord;
   photo: OrderRecord | null;
   scan: OrderRecord | null;
+  /** Every scan for this order, newest first. */
+  scans?: OrderRecord[];
   files: {
     photo_url: string | null;
     vto_url: string | null;
@@ -169,6 +171,7 @@ export default function BespokeAdmin() {
       customerRef: s(o.customer_email),
       requestedTempleLength: s((o.metadata as Record<string, unknown> | null)?.temple_length),
       aiPreviewUrl: d.files.preview_url ?? s(o.ai_preview_url),
+      measurementRef: s((d.scans?.[0] ?? d.scan)?.measurement_ref),
       tryOnUrl: d.files.vto_url,
       shipping: {
         name: s(o.shipping_name),
