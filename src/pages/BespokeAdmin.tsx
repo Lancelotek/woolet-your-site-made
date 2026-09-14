@@ -377,7 +377,8 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 }
 
 function DetailView({
-  detail, onClose, onPdf, onZip, busy,
+  detail, onClose, onPdf, onZip, onRender, busy,
+
 }: {
   detail: Detail;
   onClose: () => void;
