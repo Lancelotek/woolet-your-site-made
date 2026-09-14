@@ -6,7 +6,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet, clarityUpgrade } from "@/lib/clarity";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
-import { normalizeFitLensResult, type FitLensMeasurements } from "@/lib/fitlens-result";
+import { parseFitLensEvent, type FitLensMeasurements } from "@/lib/fitlens-result";
+import { recordFitLensEvent, SCAN_SOURCE_LABEL, type ScanSource } from "@/lib/fitlens-verify";
 
 /** Temple length the customer asked for at checkout — shown for reference only. */
 function readRequestedTempleLength(): string | null {
