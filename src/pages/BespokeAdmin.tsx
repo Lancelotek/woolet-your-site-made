@@ -126,6 +126,20 @@ export default function BespokeAdmin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Exports exactly the rows currently loaded in the panel.
+  const exportShipping = async (format: "xlsx" | "csv") => {
+    setBusy(format);
+    setError(null);
+    try {
+      if (format === "csv") exportShippingCsv(rows);
+      else await exportShippingXlsx(rows);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Export failed");
+    } finally {
+      setBusy(null);
+    }
+  };
+
   const openDetail = async (id: string) => {
     setDetailBusy(true);
     setError(null);
