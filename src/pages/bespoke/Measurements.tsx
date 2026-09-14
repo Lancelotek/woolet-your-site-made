@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { CheckCircle2, Loader2, Ruler, Sparkles, Truck } from "lucide-react";
+import { CheckCircle2, Loader2, Ruler, ScanFace, Sparkles, Truck } from "lucide-react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet, clarityUpgrade } from "@/lib/clarity";
+import { useFitLensScript } from "@/hooks/use-fitlens-script";
+import { normalizeFitLensResult, type FitLensMeasurements } from "@/lib/fitlens-result";
 
 /** Temple length the customer asked for at checkout — shown for reference only. */
 function readRequestedTempleLength(): string | null {
@@ -23,6 +25,7 @@ function readRequestedTempleLength(): string | null {
 type OrderSummary = {
   stripe_session_id: string;
   order_ref?: string | null;
+  session_ref?: string | null;
   created_at: string | null;
   customer_email_masked: string | null;
   frame_name: string | null;
