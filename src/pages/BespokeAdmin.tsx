@@ -459,9 +459,10 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 }
 
 function DetailView({
-  detail, onClose, onPdf, onZip, onRender, busy,
+  detail, password, onClose, onPdf, onZip, onRender, busy,
 }: {
   detail: Detail;
+  password: string;
   onClose: () => void;
   onPdf: () => void;
   onZip: () => void;
@@ -471,6 +472,7 @@ function DetailView({
   const o = detail.order as Record<string, any>;
   const p = detail.photo as Record<string, any> | null;
   const consentState = !p ? "Not recorded" : p.consent_withdrawn_at ? "Withdrawn" : "Granted";
+  const gaps = bespokeOrderGaps(o);
 
   return (
     <div>
