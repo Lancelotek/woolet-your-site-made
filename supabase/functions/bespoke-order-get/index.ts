@@ -87,6 +87,7 @@ Deno.serve(async (req) => {
         // Public order reference (same format as the shipping export) — safe
         // to show the customer and to tag analytics with; not the raw uuid.
         order_ref: `WLT-${String(_id).slice(0, 8).toUpperCase()}`,
+        session_ref: sessionRef,
         ai_preview_url: previewUrl,
         customer_email_masked: masked,
         customer_email: undefined,
