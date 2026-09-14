@@ -646,55 +646,119 @@ export default function BespokeMeasurements() {
                     )}
                   </div>
 
-                  <FieldGroup
-                    icon={<Sparkles size={16} />}
-                    title="2 · Your measurements — AI face-scan values"
-                    hint="If you used the AI scan during checkout, paste the numbers it returned. Skip any you didn't get."
-                  >
-                    <Field label="Face width (mm)" value={form.ai_face_width_mm} onChange={update("ai_face_width_mm")} placeholder="e.g. 158" />
-                    <Field label="Temple-to-temple (mm)" value={form.ai_temple_to_temple_mm} onChange={update("ai_temple_to_temple_mm")} placeholder="e.g. 160" />
-                    <Field label="Bridge width (mm)" value={form.ai_bridge_width_mm} onChange={update("ai_bridge_width_mm")} placeholder="e.g. 21" />
-                    <Field label="Pupillary distance / PD (mm)" value={form.ai_pd_mm} onChange={update("ai_pd_mm")} placeholder="e.g. 66" />
-                    <Textarea label="AI scan notes" value={form.ai_notes} onChange={update("ai_notes")} placeholder="Anything the AI flagged (asymmetry, low confidence, etc.)" />
-                  </FieldGroup>
-
                   <section>
                     <div className="flex items-center gap-2 text-cream mb-1">
-                      <span className="text-gold"><Ruler size={16} /></span>
-                      <h2 className="text-lg font-medium">2 · Your measurements — manual</h2>
+                      <span className="text-gold"><ScanFace size={16} /></span>
+                      <h2 className="text-lg font-medium">2 · Measure your face</h2>
                     </div>
-                    <ol className="text-cream-dim text-sm mb-5 max-w-xl leading-relaxed list-decimal pl-5 space-y-1.5">
-                      <li>
-                        Temple to temple: ruler flat across your face at eye level, from the soft
-                        spot in front of one ear to the other.
-                      </li>
-                      <li>
-                        Your best-fitting pair: front width outer edge to outer edge, arm from hinge
-                        to tip. Put both in the notes with what is wrong with that pair.
-                      </li>
-                      <li>
-                        Photo with a card: after you submit, add one photo with a bank card flat on
-                        your forehead, glasses off, facing the camera in daylight.
-                      </li>
-                    </ol>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <p className="text-cream-dim text-sm mb-5 max-w-xl leading-relaxed">
+                      Twenty seconds with your phone camera and any bank card. The workshop cuts to
+                      these numbers.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => openFitLens()}
+                      className="inline-flex min-h-[48px] items-center justify-center bg-gold px-7 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
+                    >
+                      Start the scan
+                    </button>
 
-                    <Field label="Face width (mm)" value={form.manual_face_width_mm} onChange={update("manual_face_width_mm")} placeholder="e.g. 155" />
-                    <Field label="Temple-to-temple (mm)" value={form.manual_temple_to_temple_mm} onChange={update("manual_temple_to_temple_mm")} placeholder="e.g. 158" />
-                    <Field label="Bridge width (mm)" value={form.manual_bridge_width_mm} onChange={update("manual_bridge_width_mm")} placeholder="e.g. 20" />
-                    <Field label="PD (mm)" value={form.manual_pd_mm} onChange={update("manual_pd_mm")} placeholder="e.g. 65" />
-                    <Field
-                      label="Temple length (mm)"
-                      value={form.manual_temple_length_mm}
-                      onChange={update("manual_temple_length_mm")}
-                      placeholder="e.g. 145"
-                      note={requestedTempleLength ? `Requested at checkout: ${requestedTempleLength}` : undefined}
-                    />
-                    <Field label="Head circumference (mm)" value={form.manual_head_circumference_mm} onChange={update("manual_head_circumference_mm")} placeholder="e.g. 580" />
-                    <Field label="Ear-to-ear over crown (mm)" value={form.manual_ear_to_ear_mm} onChange={update("manual_ear_to_ear_mm")} placeholder="e.g. 200" />
-                    <Textarea label="Notes for the workshop" value={form.manual_notes} onChange={update("manual_notes")} placeholder="Preferred fit (snug / relaxed), sensitivities, current frame model that fits well…" />
-                    </div>
+                    {scanError && (
+                      <p className="mt-4 text-sm text-red-300/90 bg-red-500/10 border border-red-500/30 rounded px-3 py-2">
+                        {scanError}. Enter them by hand below.
+                      </p>
+                    )}
+
+                    {scanResult && (
+                      <div className="mt-5 rounded-md border border-gold/40 bg-gold/[0.06] p-5">
+                        <p className="text-cream text-sm leading-relaxed">
+                          Your scan:{" "}
+                          {[
+                            scanResult.faceWidth != null && `face width ${scanResult.faceWidth} mm`,
+                            scanResult.templeToTemple != null &&
+                              `temple-to-temple ${scanResult.templeToTemple} mm`,
+                            scanResult.bridge != null && `bridge ${scanResult.bridge} mm`,
+                            scanResult.pd != null && `PD ${scanResult.pd} mm`,
+                          ]
+                            .filter(Boolean)
+                            .join(" · ")}
+                        </p>
+                        <button
+                          type="submit"
+                          disabled={submitting}
+                          className="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 bg-cream px-6 text-[12px] uppercase tracking-[0.22em] font-medium text-ink transition hover:bg-gold disabled:opacity-60"
+                        >
+                          {submitting && <Loader2 size={14} className="animate-spin" />}
+                          These are my numbers - send to the workshop
+                        </button>
+                        <p className="mt-3 text-cream-dim/80 text-xs leading-relaxed">
+                          An optician checks these against your order before anything is cut.
+                        </p>
+                      </div>
+                    )}
+
+                    <details
+                      open={manualOpen}
+                      onToggle={(e) => setManualOpen((e.currentTarget as HTMLDetailsElement).open)}
+                      className="mt-6 border-t border-cream/12 pt-5"
+                    >
+                      <summary className="cursor-pointer list-none text-cream text-sm underline underline-offset-4 hover:text-gold">
+                        No camera? Enter the numbers by hand
+                      </summary>
+
+                      <div className="mt-6 space-y-8">
+                        <FieldGroup
+                          icon={<Sparkles size={16} />}
+                          title="Scan values"
+                          hint="If you already ran the scan somewhere else, paste the numbers it returned. Skip any you didn't get."
+                        >
+                          <Field label="Face width (mm)" value={form.ai_face_width_mm} onChange={update("ai_face_width_mm")} placeholder="e.g. 158" />
+                          <Field label="Temple-to-temple (mm)" value={form.ai_temple_to_temple_mm} onChange={update("ai_temple_to_temple_mm")} placeholder="e.g. 160" />
+                          <Field label="Bridge width (mm)" value={form.ai_bridge_width_mm} onChange={update("ai_bridge_width_mm")} placeholder="e.g. 21" />
+                          <Field label="Pupillary distance / PD (mm)" value={form.ai_pd_mm} onChange={update("ai_pd_mm")} placeholder="e.g. 66" />
+                          <Textarea label="AI scan notes" value={form.ai_notes} onChange={update("ai_notes")} placeholder="Anything the AI flagged (asymmetry, low confidence, etc.)" />
+                        </FieldGroup>
+
+                        <section>
+                          <div className="flex items-center gap-2 text-cream mb-1">
+                            <span className="text-gold"><Ruler size={16} /></span>
+                            <h2 className="text-lg font-medium">Measured with a ruler</h2>
+                          </div>
+                          <ol className="text-cream-dim text-sm mb-5 max-w-xl leading-relaxed list-decimal pl-5 space-y-1.5">
+                            <li>
+                              Temple to temple: ruler flat across your face at eye level, from the soft
+                              spot in front of one ear to the other.
+                            </li>
+                            <li>
+                              Your best-fitting pair: front width outer edge to outer edge, arm from hinge
+                              to tip. Put both in the notes with what is wrong with that pair.
+                            </li>
+                            <li>
+                              Photo with a card: after you submit, add one photo with a bank card flat on
+                              your forehead, glasses off, facing the camera in daylight.
+                            </li>
+                          </ol>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <Field label="Face width (mm)" value={form.manual_face_width_mm} onChange={update("manual_face_width_mm")} placeholder="e.g. 155" />
+                            <Field label="Temple-to-temple (mm)" value={form.manual_temple_to_temple_mm} onChange={update("manual_temple_to_temple_mm")} placeholder="e.g. 158" />
+                            <Field label="Bridge width (mm)" value={form.manual_bridge_width_mm} onChange={update("manual_bridge_width_mm")} placeholder="e.g. 20" />
+                            <Field label="PD (mm)" value={form.manual_pd_mm} onChange={update("manual_pd_mm")} placeholder="e.g. 65" />
+                            <Field
+                              label="Temple length (mm)"
+                              value={form.manual_temple_length_mm}
+                              onChange={update("manual_temple_length_mm")}
+                              placeholder="e.g. 145"
+                              note={requestedTempleLength ? `Requested at checkout: ${requestedTempleLength}` : undefined}
+                            />
+                            <Field label="Head circumference (mm)" value={form.manual_head_circumference_mm} onChange={update("manual_head_circumference_mm")} placeholder="e.g. 580" />
+                            <Field label="Ear-to-ear over crown (mm)" value={form.manual_ear_to_ear_mm} onChange={update("manual_ear_to_ear_mm")} placeholder="e.g. 200" />
+                            <Textarea label="Notes for the workshop" value={form.manual_notes} onChange={update("manual_notes")} placeholder="Preferred fit (snug / relaxed), sensitivities, current frame model that fits well…" />
+                          </div>
+                        </section>
+                      </div>
+                    </details>
                   </section>
+
 
 
                   {error && (
