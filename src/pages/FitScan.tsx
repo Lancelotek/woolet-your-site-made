@@ -35,7 +35,7 @@ import { useFitLensScript } from "@/hooks/use-fitlens-script";
 import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options";
 import {
   applyFitLensToBespokeConfig,
-  normalizeFitLensResult,
+  parseFitLensEvent,
   readResultTimestamp,
   type FitLensMeasurements,
 } from "@/lib/fitlens-result";
@@ -4238,7 +4238,8 @@ export default function FitScan() {
         return;
       }
 
-      const mapped = normalizeFitLensResult(detail);
+      const parsed = parseFitLensEvent(detail);
+      const mapped = parsed.measurements;
       const keys = Object.keys(mapped);
       if (keys.length === 0) {
         console.warn("[fitlens] result had no usable measurements", detail);
