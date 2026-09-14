@@ -131,7 +131,8 @@ function ColorSwatchGrid({
 
   const filtered = thicknessMm ? COLORS.filter((c) => c.thicknessMm === thicknessMm) : COLORS;
   const families = useMemo(
-    () => Array.from(new Set<ColorFamily>(filtered.map((c) => c.family))),
+    () =>
+      FAMILY_ORDER.filter((f) => filtered.some((c) => c.family === f)),
     [filtered]
   );
   const list = family === "all" ? filtered : filtered.filter((c) => c.family === family);
