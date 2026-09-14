@@ -243,6 +243,10 @@ export default function BespokeCheckout() {
     // --- Analytics: Payment initiated (fires when Stripe requests secret) ---
     pushGtmEvent("payment_initiated", buildEventPayload());
     clarityEvent("bespoke_payment_initiated");
+    // The Stripe checkout runs on Stripe's own origin, which Clarity cannot
+    // see — the funnel goes dark between bespoke_checkout_start and the
+    // customer's return to woolet.co.
+    clarityEvent("bespoke_checkout_start");
 
     const { data, error } = await supabase.functions.invoke("create-bespoke-checkout", {
       body: {
