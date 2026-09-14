@@ -424,6 +424,10 @@ function DetailView({
       </div>
 
       <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>
+        <button onClick={onRender} disabled={busy !== null} style={{ background: "none", color: T.dim, border: `1px solid ${T.hair}`, padding: "11px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}>
+          {busy === "render" ? "Rendering…" : detail.files.preview_url ? "Re-render frame image" : "Generate frame image"}
+        </button>
+
         <button onClick={onPdf} disabled={busy !== null} style={{ background: T.gold, color: "#1f1b16", border: "none", padding: "11px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600, cursor: "pointer" }}>
           {busy === "pdf" ? "Building…" : "Workshop PDF"}
         </button>
