@@ -121,6 +121,8 @@ type FormState = {
   ai_face_width_mm: string;
   ai_temple_to_temple_mm: string;
   ai_bridge_width_mm: string;
+  /** Face measurement (eye corner to eye corner) — never a frame bridge. */
+  ai_inner_canthal_mm: string;
   ai_pd_mm: string;
   ai_notes: string;
   manual_face_width_mm: string;
@@ -137,6 +139,7 @@ const EMPTY: FormState = {
   ai_face_width_mm: "",
   ai_temple_to_temple_mm: "",
   ai_bridge_width_mm: "",
+  ai_inner_canthal_mm: "",
   ai_pd_mm: "",
   ai_notes: "",
   manual_face_width_mm: "",
@@ -148,6 +151,7 @@ const EMPTY: FormState = {
   manual_ear_to_ear_mm: "",
   manual_notes: "",
 };
+
 
 const num = (v: number | null) => (v === null || v === undefined ? "" : String(v));
 
