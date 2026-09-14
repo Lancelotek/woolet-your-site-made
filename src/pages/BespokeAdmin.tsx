@@ -93,12 +93,27 @@ export default function BespokeAdmin() {
       const data = await call({ action: "list" });
       setRows((data.rows as Row[]) ?? []);
       setAuthed(true);
+      try {
+        localStorage.setItem(PW_KEY, password);
+      } catch {
+        /* ignore */
+      }
     } catch (err) {
+      try {
+        localStorage.removeItem(PW_KEY);
+      } catch {
+        /* ignore */
+      }
       setError(err instanceof Error ? err.message : "Failed to load");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (password && !authed) void load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const openDetail = async (id: string) => {
     setDetailBusy(true);
