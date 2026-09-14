@@ -175,6 +175,22 @@ async function buildWorkshopDoc(data: WorkshopReportData) {
     ["Order date", formatDateTime(data.orderCreatedAt)],
   ]);
 
+  if (data.shipping) {
+    heading("Shipping address");
+    rows([
+      ["Recipient", data.shipping.name || "—"],
+      ["Street", data.shipping.line1 || "—"],
+      ["Apartment / floor", data.shipping.line2 || "—"],
+      ["City", data.shipping.city || "—"],
+      ["State / province", data.shipping.state || "—"],
+      ["Postal code", data.shipping.postalCode || "—"],
+      ["Country", data.shipping.country || "—"],
+      ["Confirmed by customer", data.shipping.submittedAt ? formatDateTime(data.shipping.submittedAt) : "Not confirmed"],
+    ]);
+  }
+
+
+
   heading("Customer consent record");
   rows([
     ["Consent status", data.consent?.grantedAt && !data.consent.withdrawnAt ? "Granted" : data.consent?.withdrawnAt ? "Withdrawn" : "Not recorded"],
