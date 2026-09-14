@@ -27,6 +27,18 @@ type OrderSummary = {
   stripe_session_id: string;
   order_ref?: string | null;
   session_ref?: string | null;
+  ai_source?: string | null;
+  scan?: {
+    scan_id: string | null;
+    source: string | null;
+    status: string | null;
+    temple_to_temple_mm: number | null;
+    face_width_mm: number | null;
+    pd_mm: number | null;
+    pd_left_mm: number | null;
+    pd_right_mm: number | null;
+    nose_bridge_width_mm: number | null;
+  } | null;
   created_at: string | null;
   customer_email_masked: string | null;
   frame_name: string | null;
