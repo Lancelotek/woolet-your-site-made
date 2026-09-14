@@ -549,6 +549,19 @@ function DetailView({
         />
       </Group>
 
+      {gaps.length > 0 && (
+        <section style={{ marginTop: 22 }}>
+          <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px", color: "#e2725b" }}>
+            On hold · {gaps.length}
+          </h3>
+          <ul style={{ margin: 0, paddingLeft: 18, color: T.dim, fontSize: 13, lineHeight: 1.7 }}>
+            {gaps.map((g) => <li key={g}>{g}</li>)}
+          </ul>
+        </section>
+      )}
+
+      <DispatchBlock order={o} password={password} />
+
       <Group title="Photo & consent">
 
         <Field label="Consent" value={consentState} />
