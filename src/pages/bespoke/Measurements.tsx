@@ -221,24 +221,27 @@ export default function BespokeMeasurements() {
       setScanSource("fitlens_client");
       setScanLocked(true);
       setForm((f) => {
+        // The scan's `bridge` is the inner-canthal distance (a face
+        // measurement). It must never land in ai_bridge_width_mm, which means
+        // the bridge of a physical frame. The scan's temple length stays in the
+        // scan payload so it cannot pollute the manual column.
         const next = {
           ...f,
           ai_face_width_mm: measurements.faceWidth != null ? String(measurements.faceWidth) : f.ai_face_width_mm,
           ai_temple_to_temple_mm:
             measurements.templeToTemple != null ? String(measurements.templeToTemple) : f.ai_temple_to_temple_mm,
-          ai_bridge_width_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_bridge_width_mm,
+          ai_inner_canthal_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_inner_canthal_mm,
           ai_pd_mm: measurements.pd != null ? String(measurements.pd) : f.ai_pd_mm,
-          manual_temple_length_mm:
-            measurements.templeLength != null ? String(measurements.templeLength) : f.manual_temple_length_mm,
         };
         setScanOriginal({
           ai_face_width_mm: next.ai_face_width_mm,
           ai_temple_to_temple_mm: next.ai_temple_to_temple_mm,
-          ai_bridge_width_mm: next.ai_bridge_width_mm,
+          ai_inner_canthal_mm: next.ai_inner_canthal_mm,
           ai_pd_mm: next.ai_pd_mm,
         });
         return next;
       });
+
       clarityEvent("bespoke_scan_completed");
 
       // Verify (or, failing that, record) the result server-side. The banner
