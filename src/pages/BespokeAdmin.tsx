@@ -377,9 +377,18 @@ export default function BespokeAdmin() {
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
                   <td style={{ padding: "12px 14px" }}>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {(() => {
+                        const gaps = bespokeOrderGaps(r as Record<string, unknown>);
+                        return gaps.length > 0 ? (
+                          <span
+                            title={gaps.join(" | ")}
+                            style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", padding: "3px 8px", borderRadius: 2, border: "1px solid rgba(193,58,46,0.55)", color: "#e2725b" }}
+                          >
+                            On hold · {gaps.length}
+                          </span>
+                        ) : null;
+                      })()}
                       {pill("Measurements", Boolean(r.measurements_submitted_at))}
-                      {!r.shipping_submitted_at && pill("No address", true)}
-
                       {pill("Photo", r.has_photo)}
                       {pill("On-face", r.has_tryon)}
                       {r.production_blocked && pill("Check fit", true)}
