@@ -750,18 +750,47 @@ export default function BespokeMeasurements() {
 
                     {scanResult && (
                       <div className="mt-5 rounded-md border border-gold/40 bg-gold/[0.06] p-5">
+                        {scanSource && (
+                          <p
+                            className={`mb-3 inline-flex items-center gap-2 rounded-sm px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] ${
+                              scanSource === "fitlens_client"
+                                ? "bg-cream/10 text-cream-dim"
+                                : "bg-gold/15 text-gold"
+                            }`}
+                          >
+                            {SCAN_SOURCE_LABEL[scanSource]}
+                          </p>
+                        )}
                         <p className="text-cream text-sm leading-relaxed">
                           Your scan:{" "}
                           {[
-                            scanResult.faceWidth != null && `face width ${scanResult.faceWidth} mm`,
                             scanResult.templeToTemple != null &&
                               `temple-to-temple ${scanResult.templeToTemple} mm`,
-                            scanResult.bridge != null && `bridge ${scanResult.bridge} mm`,
                             scanResult.pd != null && `PD ${scanResult.pd} mm`,
+                            scanMono?.left != null && `PD left ${scanMono.left} mm`,
+                            scanMono?.right != null && `PD right ${scanMono.right} mm`,
+                            scanResult.bridge != null &&
+                              `inner-canthal distance ${scanResult.bridge} mm`,
                           ]
                             .filter(Boolean)
                             .join(" · ")}
                         </p>
+                        <p className="mt-2 text-cream-dim/70 text-xs leading-relaxed">
+                          The inner-canthal distance is a face measurement (eye corner to eye corner).
+                          Your frame's bridge comes from the shape you chose.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setScanLocked(false);
+                            setManualOpen(true);
+                          }}
+                          className="mt-3 block text-xs text-cream-dim underline underline-offset-4 hover:text-gold"
+                        >
+                          {scanLocked
+                            ? "These numbers look wrong - correct manually"
+                            : "Correcting by hand - the scan's own numbers are kept on the order"}
+                        </button>
                         <button
                           type="submit"
                           disabled={submitting}
