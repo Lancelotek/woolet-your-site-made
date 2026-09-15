@@ -187,6 +187,20 @@ async function sendScanInvite(order: OrderRow, startIso: string, timezone: strin
     console.error("[calendly-webhook] scan invite failed", e);
     // Leave the guard set: a failed send is investigated, never auto-repeated
     // into the customer's inbox by the next Calendly retry.
+    // But it must not stay silent either — support gets the link so a human
+    // can send it by hand.
+    await alertSupport(
+      "Scan invite failed to send",
+      [
+        order.case_no ?? order.id,
+        order.customer_email ?? "—",
+        `Interview: ${when.date} at ${when.time} ${when.tz}`,
+        `Error: ${e instanceof Error ? e.message : String(e)}`,
+        `Scan link: ${scanUrl}`,
+        "The send guard is set, so no retry will fire. Send the scan link by hand.",
+      ],
+      `calendly-alert-scan-invite-failed-${order.id}`,
+    );
   }
 }
 
