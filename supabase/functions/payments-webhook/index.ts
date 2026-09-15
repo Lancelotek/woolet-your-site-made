@@ -165,6 +165,8 @@ async function tagMailerLiteBespokePaid(input: {
   sessionId: string;
   orderId: string | null;
   summary: string;
+  caseNo: string | null;
+  bookingUrl: string | null;
 }) {
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
