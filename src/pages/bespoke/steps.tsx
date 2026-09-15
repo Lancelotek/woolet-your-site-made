@@ -210,7 +210,7 @@ function ColorSwatchGrid({
           return (
             <button
               key={c.id}
-              onClick={() => onSelect(c.id)}
+              onClick={() => (active ? pulseMobilePreview() : onSelect(c.id))}
               onMouseEnter={() => setHoveredId(c.id)}
               onMouseLeave={() => setHoveredId((id) => (id === c.id ? null : id))}
               onFocus={() => setHoveredId(c.id)}
