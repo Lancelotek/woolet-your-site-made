@@ -492,6 +492,10 @@ export function AiPreviewPanel({
     }
   };
 
+  generateRef.current = () => void generate();
+
+
+
   return (
     <div className="border border-gold/25 bg-[#0c0c0c]/40 p-5 sm:p-6" style={{ borderRadius: 2 }}>
       <div className="flex items-baseline justify-between gap-3 mb-3">
