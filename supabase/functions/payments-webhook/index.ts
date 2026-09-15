@@ -534,20 +534,48 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     console.error("[payments-webhook:bespoke] upsert failed", upsertErr);
   }
 
+  // The case number: one per order, drawn once. `assign_bespoke_case` only
+  // touches the counter when the order has no number yet, so a replayed Stripe
+  // event returns the same case and burns nothing.
+  let orderId: string | null = null;
+  let caseNo: string | null = null;
+  let bookingUrl: string | null = null;
+  try {
+    const db = getSupabase();
+    const { data: paidOrder } = await db
+      .from("bespoke_orders")
+      .select("id")
+      .eq("stripe_session_id", session.id)
+      .maybeSingle();
+    orderId = ((paidOrder as { id?: string } | null)?.id) ?? null;
+    if (orderId) {
+      const { data: assigned, error: caseErr } = await db.rpc("assign_bespoke_case", {
+        p_order_id: orderId,
+      });
+      if (caseErr) console.error("[payments-webhook:bespoke] case assign failed", caseErr);
+      caseNo =
+        (Array.isArray(assigned) ? (assigned[0] as { case_no?: string } | undefined) : null)
+          ?.case_no ?? null;
+      if (caseNo) {
+        bookingUrl = buildInterviewBookingUrl({ caseNo, name: customerName, email });
+      }
+      await ensurePaidStage(db as any, orderId, { stripe_session_id: session.id, environment: env });
+    }
+  } catch (e) {
+    console.error("[payments-webhook:bespoke] case number failed", e);
+  }
+
   // Bespoke buyers get their own onboarding sequence — never the $1 group.
   if (env !== "sandbox") {
     try {
-      const { data: createdOrder } = await getSupabase()
-        .from("bespoke_orders")
-        .select("id")
-        .eq("stripe_session_id", session.id)
-        .maybeSingle();
       await tagMailerLiteBespokePaid({
         email,
         name: customerName ?? "",
         country: addr.country ?? "",
         sessionId: session.id,
-        orderId: ((createdOrder as { id?: string } | null)?.id) ?? null,
+        orderId,
+        caseNo,
+        bookingUrl,
         summary: [
           meta.frame_name ?? (meta.frame ? `Woolet Bespoke — ${meta.frame}` : "Woolet Bespoke"),
           `${meta.front ?? "—"}, ${meta.finish ?? "—"} finish`,
