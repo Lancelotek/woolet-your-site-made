@@ -155,16 +155,48 @@ const ConfiguratorPage = () => {
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const goNext = () => {
+    pushCfg("cfg_next_click", { from_step: step });
+    goTo(Math.min(STEPS.length, step + 1) as StepId);
+  };
+
   // Clarity funnel: tag every step change, and mark the session complete when
   // the buyer reaches the final review step. No personal data is ever sent.
   useEffect(() => {
     const name = STEPS[step - 1]?.shortLabel.toLowerCase() ?? "unknown";
     claritySet("bespoke_step", `${step}-${name}`);
+    pushCfg("cfg_step_view", { step });
     if (step === STEPS.length) clarityEvent("bespoke_configurator_complete");
   }, [step]);
 
   const [navHint, setNavHint] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const stepComplete = isStepComplete(step, config);
+
+  // The preview stage is the most-tapped element on the page. Every state it can
+  // be in has to answer the tap: a picture opens larger, an empty stage sends the
+  // buyer to the choice that fills it.
+  const stageSrc = aiPreviewUrl && step >= 2 ? aiPreviewUrl : frame ? frame.url : null;
+  const stageAlt = aiPreviewUrl && step >= 2
+    ? (frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration")
+    : frame
+      ? `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`
+      : "";
+  const lightboxCaption = `${frame ? frame.name : "Your pattern"} · ${front ? front.name : "acetate to choose"} · cut to your face`;
+
+  const handleStageTap = () => {
+    if (stageSrc) {
+      pushCfg("cfg_preview_open", { step });
+      setLightboxOpen(true);
+      return;
+    }
+    if (!frame) {
+      goTo(1);
+      return;
+    }
+    goTo(3);
+    window.setTimeout(() => window.dispatchEvent(new CustomEvent(REQUEST_PREVIEW_EVENT)), 350);
+  };
 
   const handleMobileNext = () => {
     if (step === STEPS.length) return;
@@ -177,8 +209,9 @@ const ConfiguratorPage = () => {
       window.setTimeout(() => setNavHint(false), 3000);
       return;
     }
-    goTo(Math.min(STEPS.length, step + 1) as StepId);
+    goNext();
   };
+
 
   const handleSave = () => setSaved(true);
   const handleReset = () => {
