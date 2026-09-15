@@ -1760,8 +1760,12 @@ export function StepReview({
         )}
         <Row label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
         <div className="flex items-baseline justify-between gap-4 py-4">
-          <div className="text-cream text-xs uppercase tracking-[0.2em]">Total due today</div>
-          <div className="text-cream text-lg font-display">{formatEur(total)}</div>
+          <div className="text-cream text-xs uppercase tracking-[0.2em]">
+            <CfgInfoTrigger section="price">Total due today</CfgInfoTrigger>
+          </div>
+          <div className="text-cream text-lg font-display">
+            <CfgInfoTrigger section="price">{formatEur(total)}</CfgInfoTrigger>
+          </div>
         </div>
       </div>
 
