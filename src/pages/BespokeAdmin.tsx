@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { STAGE_LABELS, type BespokeStage } from "@/lib/bespoke-case";
 import { bespokeOrderGaps } from "@/lib/bespoke-gaps";
 import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
 
@@ -20,6 +21,9 @@ const SERIF = "'Cormorant Garamond', Georgia, serif";
 interface Row {
   id: string;
   created_at: string;
+  case_no: string | null;
+  case_seq: number | null;
+  stage: string | null;
   customer_email: string;
   customer_name: string | null;
   frame_name: string | null;
@@ -380,6 +384,11 @@ export default function BespokeAdmin() {
                   <td style={{ padding: "12px 14px", color: T.dim, whiteSpace: "nowrap" }}>{fmtDate(r.created_at)}</td>
                   <td style={{ padding: "12px 14px" }}>
                     <div>{r.customer_name || "—"}</div>
+                    {r.case_no && (
+                      <div style={{ color: T.gold, fontSize: 11, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", letterSpacing: "0.06em" }}>
+                        {r.case_no}
+                      </div>
+                    )}
                     <div style={{ color: T.mute, fontSize: 12 }}>{r.customer_email}</div>
                   </td>
                   <td style={{ padding: "12px 14px", color: T.dim }}>{r.frame_name || "—"}</td>
@@ -670,6 +679,25 @@ function DetailView({
           {busy === "zip" ? "Packing…" : "Download bundle (ZIP)"}
         </button>
       </div>
+
+      <Group title="Case">
+        <Field
+          label="Case number"
+          value={
+            o.case_no ? (
+              <span style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", color: T.gold, letterSpacing: "0.06em" }}>
+                {o.case_no}
+              </span>
+            ) : (
+              "Not assigned"
+            )
+          }
+        />
+        <Field label="Stage" value={STAGE_LABELS[(o.stage as BespokeStage) ?? "paid"] ?? o.stage} />
+        {/* Legacy alias — kept visible here only, so older paperwork and
+            MailerLite records still match. */}
+        <Field label="Legacy reference" value={`WLT-${String(o.id).slice(0, 8).toUpperCase()}`} />
+      </Group>
 
       <Group title="Customer">
         <Field label="Name" value={o.customer_name} />

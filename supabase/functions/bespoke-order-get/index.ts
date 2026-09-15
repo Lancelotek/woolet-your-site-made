@@ -1,5 +1,6 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -25,7 +26,7 @@ Deno.serve(async (req) => {
     const { data, error } = await supabase
       .from("bespoke_orders")
       .select(
-        "id, session_ref, scan_id, ai_source, ai_overrides, stripe_session_id, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, ai_preview_url, ai_preview_path, measurements_submitted_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_bridge_width_mm, ai_inner_canthal_mm, ai_pd_mm, ai_notes, manual_face_width_mm, manual_temple_to_temple_mm, manual_bridge_width_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm, manual_notes, shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, shipping_submitted_at, created_at",
+        "id, case_no, case_seq, stage, session_ref, scan_id, ai_source, ai_overrides, stripe_session_id, customer_email, customer_name, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, amount_cents, currency, ai_preview_url, ai_preview_path, measurements_submitted_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_bridge_width_mm, ai_inner_canthal_mm, ai_pd_mm, ai_notes, manual_face_width_mm, manual_temple_to_temple_mm, manual_bridge_width_mm, manual_pd_mm, manual_temple_length_mm, manual_head_circumference_mm, manual_ear_to_ear_mm, manual_notes, shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, shipping_submitted_at, created_at",
       )
       .eq("stripe_session_id", sid)
       .maybeSingle();
@@ -123,6 +124,16 @@ Deno.serve(async (req) => {
         // Public order reference (same format as the shipping export) — safe
         // to show the customer and to tag analytics with; not the raw uuid.
         order_ref: `WLT-${String(_id).slice(0, 8).toUpperCase()}`,
+        // The case number follows the order to delivery. The booking link is
+        // built server-side so the buyer's real email never leaves this
+        // function unmasked while Calendly still gets it prefilled.
+        booking_url: (data as any).case_no
+          ? buildInterviewBookingUrl({
+              caseNo: (data as any).case_no as string,
+              name: (data as any).customer_name as string | null,
+              email: em,
+            })
+          : null,
         session_ref: sessionRef,
         scan,
         scans,

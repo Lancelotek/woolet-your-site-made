@@ -2,6 +2,8 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { type StripeEnv, verifyWebhook } from "../_shared/stripe.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 import { generateOrderPreview } from "../_shared/bespoke-preview.ts";
+import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
+import { ensurePaidStage } from "../_shared/bespoke-stage.ts";
 
 
 let _supabase: ReturnType<typeof createClient> | null = null;
@@ -165,6 +167,8 @@ async function tagMailerLiteBespokePaid(input: {
   sessionId: string;
   orderId: string | null;
   summary: string;
+  caseNo: string | null;
+  bookingUrl: string | null;
 }) {
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
@@ -184,6 +188,10 @@ async function tagMailerLiteBespokePaid(input: {
           country: input.country,
           paid_ref: input.sessionId,
           bespoke_order_ref: input.orderId ? `WLT-${input.orderId.slice(0, 8).toUpperCase()}` : "",
+          // The case number follows the order to delivery; the ref above is a
+          // legacy alias kept so existing automations keep matching.
+          bespoke_case_no: input.caseNo ?? "",
+          bespoke_booking_url: input.bookingUrl ?? "",
           bespoke_onboarding_url: onboardingUrl,
           bespoke_order_summary: input.summary,
           bespoke_paid_at: mlDate(),
@@ -528,20 +536,48 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     console.error("[payments-webhook:bespoke] upsert failed", upsertErr);
   }
 
+  // The case number: one per order, drawn once. `assign_bespoke_case` only
+  // touches the counter when the order has no number yet, so a replayed Stripe
+  // event returns the same case and burns nothing.
+  let orderId: string | null = null;
+  let caseNo: string | null = null;
+  let bookingUrl: string | null = null;
+  try {
+    const db = getSupabase();
+    const { data: paidOrder } = await db
+      .from("bespoke_orders")
+      .select("id")
+      .eq("stripe_session_id", session.id)
+      .maybeSingle();
+    orderId = ((paidOrder as { id?: string } | null)?.id) ?? null;
+    if (orderId) {
+      const { data: assigned, error: caseErr } = await db.rpc("assign_bespoke_case", {
+        p_order_id: orderId,
+      });
+      if (caseErr) console.error("[payments-webhook:bespoke] case assign failed", caseErr);
+      caseNo =
+        (Array.isArray(assigned) ? (assigned[0] as { case_no?: string } | undefined) : null)
+          ?.case_no ?? null;
+      if (caseNo) {
+        bookingUrl = buildInterviewBookingUrl({ caseNo, name: customerName, email });
+      }
+      await ensurePaidStage(db as any, orderId, { stripe_session_id: session.id, environment: env });
+    }
+  } catch (e) {
+    console.error("[payments-webhook:bespoke] case number failed", e);
+  }
+
   // Bespoke buyers get their own onboarding sequence — never the $1 group.
   if (env !== "sandbox") {
     try {
-      const { data: createdOrder } = await getSupabase()
-        .from("bespoke_orders")
-        .select("id")
-        .eq("stripe_session_id", session.id)
-        .maybeSingle();
       await tagMailerLiteBespokePaid({
         email,
         name: customerName ?? "",
         country: addr.country ?? "",
         sessionId: session.id,
-        orderId: ((createdOrder as { id?: string } | null)?.id) ?? null,
+        orderId,
+        caseNo,
+        bookingUrl,
         summary: [
           meta.frame_name ?? (meta.frame ? `Woolet Bespoke — ${meta.frame}` : "Woolet Bespoke"),
           `${meta.front ?? "—"}, ${meta.finish ?? "—"} finish`,

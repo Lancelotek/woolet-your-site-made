@@ -31,6 +31,7 @@ import { trackInitiateCheckoutOnce } from "@/lib/meta-capi";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { useAuth } from "@/lib/auth-context";
 import { readSessionRef } from "@/lib/scan-session-ref";
+import BespokeCaseHero from "@/components/BespokeCaseHero";
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
@@ -214,6 +215,13 @@ export default function BespokeCheckout() {
     });
   }, [ready, buildEventPayload, pricing.totalEur, frame?.id, productName]);
 
+  // The case number panel shows only on the return from a completed payment.
+  const paidSessionId = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    const params = new URLSearchParams(window.location.search);
+    return params.get("paid") === "1" ? params.get("session_id") || "" : "";
+  }, []);
+
   // --- Analytics: Purchase completed (once, on ?paid=1) ----------------------
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -291,6 +299,7 @@ export default function BespokeCheckout() {
         </header>
 
         <main className="max-w-6xl mx-auto px-5 sm:px-8 py-10 lg:py-16">
+          {paidSessionId && <BespokeCaseHero sessionId={paidSessionId} />}
           {!ready ? (
             <div className="max-w-xl mx-auto text-center py-24">
               <h1 className="font-display text-3xl mb-4">
