@@ -328,10 +328,12 @@ export type Database = {
           manual_temple_to_temple_mm: number | null
           measurements_submitted_at: string | null
           metadata: Json | null
+          mr_no: string | null
           parcel_weight_kg: number | null
           production_blocked: boolean
           purge_after: string | null
           purged_at: string | null
+          scan_email_sent_at: string | null
           scan_id: string | null
           scan_payload: Json | null
           scan_received_at: string | null
@@ -404,10 +406,12 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          mr_no?: string | null
           parcel_weight_kg?: number | null
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
+          scan_email_sent_at?: string | null
           scan_id?: string | null
           scan_payload?: Json | null
           scan_received_at?: string | null
@@ -480,10 +484,12 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          mr_no?: string | null
           parcel_weight_kg?: number | null
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
+          scan_email_sent_at?: string | null
           scan_id?: string | null
           scan_payload?: Json | null
           scan_received_at?: string | null
@@ -559,6 +565,38 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "bespoke_report_verifications_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "bespoke_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bespoke_scan_contexts: {
+        Row: {
+          case_no: string
+          created_at: string
+          id: string
+          order_id: string | null
+          session_ref: string | null
+        }
+        Insert: {
+          case_no: string
+          created_at?: string
+          id?: string
+          order_id?: string | null
+          session_ref?: string | null
+        }
+        Update: {
+          case_no?: string
+          created_at?: string
+          id?: string
+          order_id?: string | null
+          session_ref?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bespoke_scan_contexts_order_id_fkey"
             columns: ["order_id"]
             isOneToOne: false
             referencedRelation: "bespoke_orders"
@@ -735,6 +773,42 @@ export type Database = {
           image_url?: string
           selection_key?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      calendly_unmatched: {
+        Row: {
+          created_at: string
+          email: string | null
+          event_type: string
+          event_uri: string | null
+          id: string
+          invitee_uri: string | null
+          payload: Json
+          reason: string | null
+          resolved_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          event_type: string
+          event_uri?: string | null
+          id?: string
+          invitee_uri?: string | null
+          payload: Json
+          reason?: string | null
+          resolved_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          event_type?: string
+          event_uri?: string | null
+          id?: string
+          invitee_uri?: string | null
+          payload?: Json
+          reason?: string | null
+          resolved_at?: string | null
         }
         Relationships: []
       }
