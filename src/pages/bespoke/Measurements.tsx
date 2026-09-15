@@ -852,7 +852,8 @@ export default function BespokeMeasurements() {
                         </p>
                         <p className="mt-2 text-cream-dim/70 text-xs leading-relaxed">
                           The inner-canthal distance is a face measurement (eye corner to eye corner).
-                          Your frame's bridge comes from the shape you chose.
+                          It is not the width of your nose where the frame rests, and not a frame
+                          bridge. Your frame's bridge comes from the shape you chose.
                         </p>
                         <button
                           type="button"
