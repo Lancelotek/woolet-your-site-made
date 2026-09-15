@@ -82,6 +82,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
   const [consent, setConsent] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
 
   useEffect(() => {
     const sref = new URLSearchParams(window.location.search).get("sref");
