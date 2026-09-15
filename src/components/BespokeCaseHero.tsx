@@ -76,16 +76,21 @@ export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
         This number stays on every document from here to delivery.
       </p>
 
-      <a
-        href={bookingUrl ?? buildInterviewBookingUrl({ caseNo })}
-        target="_blank"
-        rel="noopener"
-        className="mt-6 inline-flex items-center justify-center px-8 py-3 text-xs uppercase tracking-[0.22em] font-medium"
-        style={{ background: "#CAA449", color: "#1F1B16", borderRadius: 2 }}
-      >
-        Book your fitting interview
-      </a>
-      <p className="mt-3 text-[12px]" style={{ color: "rgba(239,233,223,0.45)" }}>
+      <CalendlyInlineScheduler url={embedUrl} caseNo={caseNo} />
+
+      <p className="mt-4 text-[12px]" style={{ color: "rgba(239,233,223,0.45)" }}>
+        Prefer to book later?{" "}
+        <a
+          href={embedUrl}
+          target="_blank"
+          rel="noopener"
+          className="underline underline-offset-4"
+          style={{ color: "#C2A05A" }}
+        >
+          Use this link
+        </a>
+      </p>
+      <p className="mt-1 text-[12px]" style={{ color: "rgba(239,233,223,0.45)" }}>
         You will also get this link by email.
       </p>
     </section>
