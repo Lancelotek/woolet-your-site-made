@@ -39,7 +39,20 @@ export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
     };
   }, [sessionId]);
 
+  // Never initialise the scheduler before the case number lands — a booking
+  // without it breaks the binding chain the webhook depends on.
   if (!caseNo) return null;
+
+  const baseUrl = bookingUrl ?? buildInterviewBookingUrl({ caseNo });
+  const embedUrl = (() => {
+    const u = new URL(baseUrl);
+    u.searchParams.set("utm_medium", "thankyou");
+    u.searchParams.set("hide_gdpr_banner", "1");
+    u.searchParams.set("background_color", "080807");
+    u.searchParams.set("text_color", "EDE7D9");
+    u.searchParams.set("primary_color", "CAA449");
+    return u.toString();
+  })();
 
   return (
     <section
