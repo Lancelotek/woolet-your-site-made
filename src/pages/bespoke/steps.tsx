@@ -368,6 +368,14 @@ export function AiPreviewPanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeUrl]);
 
+  // The mini preview stage elsewhere on the page can ask for a render.
+  const generateRef = useRef<() => void>(() => {});
+  useEffect(() => {
+    const handler = () => generateRef.current();
+    window.addEventListener(REQUEST_PREVIEW_EVENT, handler);
+    return () => window.removeEventListener(REQUEST_PREVIEW_EVENT, handler);
+  }, []);
+
 
   if (!ready || !frame || !front || !temple || !finish) {
     return (
