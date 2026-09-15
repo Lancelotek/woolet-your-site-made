@@ -292,11 +292,16 @@ export type Database = {
           ai_source: string | null
           ai_temple_to_temple_mm: number | null
           amount_cents: number | null
+          calendly_event_uri: string | null
+          calendly_invitee_uri: string | null
+          case_no: string | null
+          case_seq: number | null
           courier: string | null
           created_at: string
           currency: string | null
           customer_email: string
           customer_name: string | null
+          customer_token: string
           delivered_at: string | null
           dispatch_note: string | null
           dossier_path: string | null
@@ -308,6 +313,10 @@ export type Database = {
           frame_name: string | null
           front_code: string | null
           id: string
+          interview_answers: Json | null
+          interview_at: string | null
+          interview_completed_at: string | null
+          interview_timezone: string | null
           lens_type: string | null
           manual_bridge_width_mm: number | null
           manual_ear_to_ear_mm: number | null
@@ -327,6 +336,7 @@ export type Database = {
           scan_payload: Json | null
           scan_received_at: string | null
           scan_source: string | null
+          scan_token: string
           session_ref: string | null
           shipped_at: string | null
           shipping_city: string | null
@@ -338,6 +348,7 @@ export type Database = {
           shipping_postal_code: string | null
           shipping_state: string | null
           shipping_submitted_at: string | null
+          stage: string
           stripe_payment_intent_id: string | null
           stripe_session_id: string
           temple_code: string | null
@@ -357,11 +368,16 @@ export type Database = {
           ai_source?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
+          calendly_event_uri?: string | null
+          calendly_invitee_uri?: string | null
+          case_no?: string | null
+          case_seq?: number | null
           courier?: string | null
           created_at?: string
           currency?: string | null
           customer_email: string
           customer_name?: string | null
+          customer_token?: string
           delivered_at?: string | null
           dispatch_note?: string | null
           dossier_path?: string | null
@@ -373,6 +389,10 @@ export type Database = {
           frame_name?: string | null
           front_code?: string | null
           id?: string
+          interview_answers?: Json | null
+          interview_at?: string | null
+          interview_completed_at?: string | null
+          interview_timezone?: string | null
           lens_type?: string | null
           manual_bridge_width_mm?: number | null
           manual_ear_to_ear_mm?: number | null
@@ -392,6 +412,7 @@ export type Database = {
           scan_payload?: Json | null
           scan_received_at?: string | null
           scan_source?: string | null
+          scan_token?: string
           session_ref?: string | null
           shipped_at?: string | null
           shipping_city?: string | null
@@ -403,6 +424,7 @@ export type Database = {
           shipping_postal_code?: string | null
           shipping_state?: string | null
           shipping_submitted_at?: string | null
+          stage?: string
           stripe_payment_intent_id?: string | null
           stripe_session_id: string
           temple_code?: string | null
@@ -422,11 +444,16 @@ export type Database = {
           ai_source?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
+          calendly_event_uri?: string | null
+          calendly_invitee_uri?: string | null
+          case_no?: string | null
+          case_seq?: number | null
           courier?: string | null
           created_at?: string
           currency?: string | null
           customer_email?: string
           customer_name?: string | null
+          customer_token?: string
           delivered_at?: string | null
           dispatch_note?: string | null
           dossier_path?: string | null
@@ -438,6 +465,10 @@ export type Database = {
           frame_name?: string | null
           front_code?: string | null
           id?: string
+          interview_answers?: Json | null
+          interview_at?: string | null
+          interview_completed_at?: string | null
+          interview_timezone?: string | null
           lens_type?: string | null
           manual_bridge_width_mm?: number | null
           manual_ear_to_ear_mm?: number | null
@@ -457,6 +488,7 @@ export type Database = {
           scan_payload?: Json | null
           scan_received_at?: string | null
           scan_source?: string | null
+          scan_token?: string
           session_ref?: string | null
           shipped_at?: string | null
           shipping_city?: string | null
@@ -468,6 +500,7 @@ export type Database = {
           shipping_postal_code?: string | null
           shipping_state?: string | null
           shipping_submitted_at?: string | null
+          stage?: string
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
           temple_code?: string | null
@@ -633,6 +666,44 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "bespoke_scan_profiles_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "bespoke_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bespoke_stage_history: {
+        Row: {
+          actor: string
+          created_at: string
+          from_stage: string | null
+          id: string
+          meta: Json | null
+          order_id: string | null
+          to_stage: string
+        }
+        Insert: {
+          actor: string
+          created_at?: string
+          from_stage?: string | null
+          id?: string
+          meta?: Json | null
+          order_id?: string | null
+          to_stage: string
+        }
+        Update: {
+          actor?: string
+          created_at?: string
+          from_stage?: string | null
+          id?: string
+          meta?: Json | null
+          order_id?: string | null
+          to_stage?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bespoke_stage_history_order_id_fkey"
             columns: ["order_id"]
             isOneToOne: false
             referencedRelation: "bespoke_orders"
