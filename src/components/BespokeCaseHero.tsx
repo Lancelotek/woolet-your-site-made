@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { buildInterviewBookingUrl } from "@/lib/bespoke-case";
 
 /**
@@ -17,12 +16,15 @@ export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
     // The webhook may land a second after the redirect, so retry briefly
     // rather than telling the customer the number does not exist.
     const attempt = async (left: number) => {
-      const { data } = await supabase.functions.invoke("bespoke-order-get", {
-        method: "GET",
-        // @ts-expect-error query params are supported by the functions client
-        query: { sid: sessionId },
-      });
-      const d = data as { case_no?: string | null; booking_url?: string | null } | null;
+      let d: { case_no?: string | null; booking_url?: string | null } | null = null;
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/bespoke-order-get?sid=${encodeURIComponent(sessionId)}`,
+        );
+        if (res.ok) d = await res.json();
+      } catch {
+        /* the retry below covers a flaky first second after redirect */
+      }
       if (cancelled) return;
       if (d?.case_no) {
         setCaseNo(d.case_no);
