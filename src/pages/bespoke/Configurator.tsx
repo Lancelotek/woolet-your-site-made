@@ -1373,6 +1373,111 @@ const ConfiguratorStyles = () => (
 
     /* StepNav inherits Tailwind from steps.tsx — give it breathing room */
     .cfg-scope .step-nav, .cfg-scope nav[aria-label="step navigation"] { margin-top: 36px; }
+
+    /* ── Tappable preview stage ── */
+    .cfg-mobilepreview__stage, .cfg-stage--tappable { position: relative; cursor: pointer; }
+    .cfg-stage__badge {
+      position: absolute; right: 6px; bottom: 6px;
+      width: 24px; height: 24px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #CAA449; color: #1F1B16;
+      box-shadow: 0 1px 4px rgba(8,8,7,0.30);
+      pointer-events: none;
+    }
+    .cfg-mobilepreview--pulse {
+      animation: cfg-pulse 150ms ease-out 2;
+    }
+    @keyframes cfg-pulse {
+      from { box-shadow: inset 0 0 0 0 rgba(202,164,73,0); }
+      to   { box-shadow: inset 0 0 0 2px #CAA449; }
+    }
+    @media (prefers-reduced-motion: reduce) { .cfg-mobilepreview--pulse { animation: none; box-shadow: inset 0 0 0 2px #CAA449; } }
+
+    /* ── Info triggers: dotted underline, 44px hit area, no layout shift ── */
+    .cfg-info-trigger {
+      position: relative;
+      display: inline;
+      cursor: pointer;
+      text-decoration: underline dotted;
+      text-decoration-color: #8A6E2C;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1.5px;
+    }
+    .cfg-info-trigger::after {
+      content: ""; position: absolute; inset: -14px -6px; display: block;
+    }
+    .cfg-info-trigger:hover { text-decoration-color: #CAA449; }
+    .cfg-info-trigger:focus-visible { outline: 2px solid #CAA449; outline-offset: 3px; }
+
+    /* ── Bottom sheet (mobile) / centred panel (desktop) ── */
+    .cfg-sheet { position: fixed; inset: 0; z-index: 90; display: flex; align-items: flex-end; justify-content: center; }
+    .cfg-sheet__scrim { position: absolute; inset: 0; background: rgba(8,8,7,0.82); }
+    .cfg-sheet__panel {
+      position: relative; width: 100%; max-width: 560px;
+      background: #12110F; border: 1px solid rgba(239,233,223,0.12);
+      border-radius: 2px 2px 0 0;
+      max-height: 84vh; display: flex; flex-direction: column;
+      font-family: 'Archivo', sans-serif;
+    }
+    .cfg-sheet__head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; border-bottom: 1px solid rgba(239,233,223,0.10);
+    }
+    .cfg-sheet__eyebrow {
+      font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #CAA449;
+    }
+    .cfg-sheet__close {
+      width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+      background: none; border: 0; color: #EDE7D9; cursor: pointer; margin: -10px -12px -10px 0;
+    }
+    .cfg-sheet__body { overflow-y: auto; padding: 4px 18px 26px; scroll-behavior: smooth; }
+    .cfg-sheet__body section { padding: 18px 0; border-bottom: 1px solid rgba(239,233,223,0.08); }
+    .cfg-sheet__body section:last-child { border-bottom: 0; }
+    .cfg-sheet__body h3 {
+      font-family: 'Newsreader', serif; font-size: 19px; font-weight: 500; color: #EFE9DF; margin: 0 0 8px;
+    }
+    .cfg-sheet__body p, .cfg-sheet__body li { color: #B9B1A3; font-size: 14px; line-height: 1.6; margin: 0 0 8px; }
+    .cfg-sheet__body ul { margin: 0; padding-left: 18px; }
+    .cfg-sheet__body section.is-target h3 { color: #CAA449; }
+    .cfg-authform { display: flex; flex-direction: column; gap: 12px; padding-top: 14px; }
+    .cfg-authform input {
+      background: rgba(239,233,223,0.04); border: 1px solid rgba(239,233,223,0.16);
+      color: #EFE9DF; padding: 14px 16px; border-radius: 2px; font-size: 16px;
+    }
+    .cfg-authform__error { color: #E8A0A0; font-size: 13px; }
+    @media (min-width: 768px) {
+      .cfg-sheet { align-items: center; }
+      .cfg-sheet__panel { border-radius: 2px; max-height: 76vh; }
+    }
+
+    /* ── Full-screen preview lightbox ── */
+    .cfg-lightbox { position: fixed; inset: 0; z-index: 95; display: flex; align-items: center; justify-content: center; }
+    .cfg-lightbox__scrim { position: absolute; inset: 0; background: rgba(8,8,7,0.92); }
+    .cfg-lightbox__close {
+      position: absolute; top: 8px; right: 8px; z-index: 2;
+      width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(8,8,7,0.6); border: 1px solid rgba(239,233,223,0.18); border-radius: 2px;
+      color: #EDE7D9; cursor: pointer;
+    }
+    .cfg-lightbox__inner {
+      position: relative; padding: 16px; width: 100%; max-width: 860px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .cfg-lightbox__img {
+      max-width: 100%; max-height: 66vh; object-fit: contain;
+      background: #EFE9DF; border-radius: 2px;
+    }
+    .cfg-lightbox__caption {
+      color: #EDE7D9; font-family: 'Archivo', sans-serif; font-size: 13px;
+      letter-spacing: .04em; text-align: center;
+    }
+    .cfg-lightbox__next {
+      background: #CAA449; color: #1F1B16; border: 0; border-radius: 999px;
+      font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 11px;
+      letter-spacing: .2em; text-transform: uppercase;
+      padding: 14px 26px; min-height: 44px; cursor: pointer;
+    }
+    .cfg-lightbox__next:hover { background: #D8B86A; }
   `}</style>
 );
 
