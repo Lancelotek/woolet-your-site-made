@@ -409,6 +409,13 @@ export function AiPreviewPanel({
   };
 
   const generate = async () => {
+    if (loading) return;
+    if (budget.remaining <= 0) {
+      setError(`You have used all ${RENDERS_PER_SESSION} renders for this session.`);
+      return;
+    }
+    pushCfg("cfg_generate_click");
+    budget.consume();
     setLoading(true);
     setError(null);
     setCloudSaveState("idle");
