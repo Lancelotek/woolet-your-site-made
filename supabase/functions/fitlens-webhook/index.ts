@@ -9,6 +9,8 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { qualityVerdict } from "../_shared/fitlens-quality.ts";
 import { assignMeasurementRef, normalizeMeasurementRef } from "../_shared/measurement-ref.ts";
+import { formatMrNo } from "../_shared/bespoke-case.ts";
+import { recordStage } from "../_shared/bespoke-stage.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -203,13 +205,35 @@ Deno.serve(async (req) => {
   const attach = async () => {
     try {
       let orderId: string | null = null;
-      if (sessionId) {
+      // A scan started from the emailed link carries the case number as its
+      // session id — that is the strongest binding we have.
+      if (sessionId && /^WLT-BSP-\d{4}-\d{4}$/i.test(sessionId.trim())) {
+        const { data: caseOrder } = await supabase
+          .from("bespoke_orders")
+          .select("id")
+          .eq("case_no", sessionId.trim().toUpperCase())
+          .maybeSingle();
+        orderId = caseOrder?.id ?? null;
+      }
+      if (!orderId && sessionId) {
         const { data: order } = await supabase
           .from("bespoke_orders")
           .select("id")
           .eq("session_ref", sessionId)
           .maybeSingle();
         orderId = order?.id ?? null;
+      }
+      if (!orderId && sessionId) {
+        // Fallback: the scan-context row written when the customer opened the
+        // link, for a widget that rewrote the session id.
+        const { data: ctx } = await supabase
+          .from("bespoke_scan_contexts")
+          .select("order_id")
+          .eq("session_ref", sessionId)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        orderId = ctx?.order_id ?? null;
       }
       if (!orderId && clientRef) {
         // A known reference, or nothing — never a guess.
@@ -230,7 +254,23 @@ Deno.serve(async (req) => {
       await supabase.from("bespoke_scan_profiles").update({ order_id: orderId }).eq("scan_id", scanId);
       // The order points at the most recent scan; older ones stay reachable
       // through order_id / session_ref.
-      await supabase.from("bespoke_orders").update({ scan_id: scanId }).eq("id", orderId);
+      const { data: orderRow } = await supabase
+        .from("bespoke_orders")
+        .select("id, case_seq, mr_no")
+        .eq("id", orderId)
+        .maybeSingle();
+      // The Measurement Report shares the case's suffix — one counter per case,
+      // never a second sequence.
+      const mrNo = orderRow?.mr_no ??
+        (orderRow?.case_seq ? formatMrNo(new Date().getUTCFullYear(), orderRow.case_seq) : null);
+      await supabase
+        .from("bespoke_orders")
+        .update({ scan_id: scanId, ...(mrNo ? { mr_no: mrNo } : {}) })
+        .eq("id", orderId);
+      await recordStage(supabase as any, orderId, "scan_received", "customer", {
+        scan_id: scanId,
+        source: "fitlens_webhook",
+      });
     } catch (e) {
       console.error("[fitlens-webhook] order attach failed", e);
     }
