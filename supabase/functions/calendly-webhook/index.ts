@@ -8,7 +8,6 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
-import { formatCaseNo } from "../_shared/bespoke-case.ts";
 import { recordStage } from "../_shared/bespoke-stage.ts";
 
 const supabase = createClient(
@@ -133,15 +132,11 @@ async function resolveOrder(payload: Record<string, any>): Promise<OrderRow | nu
   return null;
 }
 
-async function alertSupport(subject: string, lines: string[]) {
+async function alertSupport(heading: string, lines: string[]) {
   try {
-    await sendTemplateEmailAndLog("bespoke-measurements-admin", SUPPORT_EMAIL, {
-      templateData: {
-        heading: subject,
-        orderReference: lines[0] ?? "",
-        notes: lines.join("\n"),
-      },
-      idempotencyKey: `calendly-alert-${subject}-${lines[0] ?? ""}`.slice(0, 120),
+    await sendTemplateEmailAndLog("bespoke-support-alert", SUPPORT_EMAIL, {
+      templateData: { heading, lines },
+      idempotencyKey: `calendly-alert-${heading}-${lines[0] ?? ""}`.slice(0, 120),
     });
   } catch (e) {
     console.error("[calendly-webhook] support alert failed", e);
