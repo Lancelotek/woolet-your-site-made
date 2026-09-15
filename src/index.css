@@ -635,3 +635,9 @@ html[lang="fr"] {
 
 /* Bespoke configurator: the floating WhatsApp bubble covers swatches on phones */
 body.cfg-hide-whatsapp a[aria-label="Chat with us on WhatsApp"] { display: none; }
+
+
+/* Calendly inline scheduler on the bespoke success page. Calendly's own layout
+   needs the taller box on phones — anything shorter scrolls inside the iframe. */
+.calendly-inline-host { min-width: 320px; height: 1000px; }
+@media (min-width: 768px) { .calendly-inline-host { height: 700px; } }

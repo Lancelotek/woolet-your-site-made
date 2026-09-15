@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { buildInterviewBookingUrl } from "@/lib/bespoke-case";
+import CalendlyInlineScheduler from "@/components/CalendlyInlineScheduler";
 
 /**
  * Shown the moment a bespoke order is paid: the case number, and the one
@@ -39,7 +40,20 @@ export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
     };
   }, [sessionId]);
 
+  // Never initialise the scheduler before the case number lands — a booking
+  // without it breaks the binding chain the webhook depends on.
   if (!caseNo) return null;
+
+  const baseUrl = bookingUrl ?? buildInterviewBookingUrl({ caseNo });
+  const embedUrl = (() => {
+    const u = new URL(baseUrl);
+    u.searchParams.set("utm_medium", "thankyou");
+    u.searchParams.set("hide_gdpr_banner", "1");
+    u.searchParams.set("background_color", "080807");
+    u.searchParams.set("text_color", "EDE7D9");
+    u.searchParams.set("primary_color", "CAA449");
+    return u.toString();
+  })();
 
   return (
     <section
@@ -63,16 +77,21 @@ export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
         This number stays on every document from here to delivery.
       </p>
 
-      <a
-        href={bookingUrl ?? buildInterviewBookingUrl({ caseNo })}
-        target="_blank"
-        rel="noopener"
-        className="mt-6 inline-flex items-center justify-center px-8 py-3 text-xs uppercase tracking-[0.22em] font-medium"
-        style={{ background: "#CAA449", color: "#1F1B16", borderRadius: 2 }}
-      >
-        Book your fitting interview
-      </a>
-      <p className="mt-3 text-[12px]" style={{ color: "rgba(239,233,223,0.45)" }}>
+      <CalendlyInlineScheduler url={embedUrl} caseNo={caseNo} />
+
+      <p className="mt-4 text-[12px]" style={{ color: "rgba(239,233,223,0.45)" }}>
+        Prefer to book later?{" "}
+        <a
+          href={embedUrl}
+          target="_blank"
+          rel="noopener"
+          className="underline underline-offset-4"
+          style={{ color: "#C2A05A" }}
+        >
+          Use this link
+        </a>
+      </p>
+      <p className="mt-1 text-[12px]" style={{ color: "rgba(239,233,223,0.45)" }}>
         You will also get this link by email.
       </p>
     </section>
