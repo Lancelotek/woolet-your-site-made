@@ -118,6 +118,9 @@ export type Database = {
       }
       bespoke_measure_invites: {
         Row: {
+          consent_at: string | null
+          consent_locale: string | null
+          consent_version: string | null
           created_at: string
           expires_at: string
           id: string
@@ -131,6 +134,9 @@ export type Database = {
           used_at: string | null
         }
         Insert: {
+          consent_at?: string | null
+          consent_locale?: string | null
+          consent_version?: string | null
           created_at?: string
           expires_at: string
           id?: string
@@ -144,6 +150,9 @@ export type Database = {
           used_at?: string | null
         }
         Update: {
+          consent_at?: string | null
+          consent_locale?: string | null
+          consent_version?: string | null
           created_at?: string
           expires_at?: string
           id?: string
