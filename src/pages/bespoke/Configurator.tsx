@@ -455,18 +455,18 @@ const ConfiguratorPage = () => {
                 <div className="cfg-rail__total">
                   <div className="flex items-baseline justify-between">
                     <span className="cfg-eyebrow">Total</span>
-                    <span className="cfg-rail__price">{formatEur(stepTotal)}</span>
+                    <CfgInfoTrigger section="price" className="cfg-rail__price">{formatEur(stepTotal)}</CfgInfoTrigger>
                   </div>
                   <ul className="cfg-rail__lines">
                     <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
                     {step >= 5 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>{formatAddOn(pricing.engravingEur)}</span></li>}
                     {step >= 6 && pricing.lensEur > 0 && <li><span>Lenses</span><span>{formatAddOn(pricing.lensEur)}</span></li>}
-                    <li><span>Shipping</span><span style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</span></li>
+                    <li><span>Shipping</span><CfgInfoTrigger section="price" style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</CfgInfoTrigger></li>
                   </ul>
                 </div>
 
                 <button
-                  onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
+                  onClick={goNext}
                   disabled={!isStepComplete(step, config) || step === STEPS.length}
                   className="cfg-cta mt-5"
                 >
