@@ -75,7 +75,15 @@ export function StepFrame({ config, update }: StepProps) {
           return (
             <button
               key={f.id}
-              onClick={() => update("frameId", f.id)}
+              onClick={() => {
+                if (active) {
+                  // Re-tap on the current choice: answer it with the preview
+                  // instead of silence.
+                  pulseMobilePreview();
+                  return;
+                }
+                update("frameId", f.id);
+              }}
               className={`cfg-card group text-left ${active ? "cfg-card--active" : ""}`}
             >
               <div
@@ -100,7 +108,9 @@ export function StepFrame({ config, update }: StepProps) {
 
               <div className="px-4 py-4">
                 <div className="cfg-card__name" style={{ fontSize: 17 }}>{f.name}</div>
-                <div className="cfg-card__code mt-1">Cut to your face · reference {f.widthMm} mm</div>
+                <div className="cfg-card__code mt-1">
+                  <CfgInfoTrigger section="fit">Cut to your face · reference {f.widthMm} mm</CfgInfoTrigger>
+                </div>
               </div>
             </button>
           );
