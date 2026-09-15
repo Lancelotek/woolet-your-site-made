@@ -188,3 +188,4 @@ const cta: React.CSSProperties = {
 }
 const hr: React.CSSProperties = { borderColor: '#e6e6e6', margin: '28px 0' }
 const footer: React.CSSProperties = { fontSize: 12, color: '#888', lineHeight: 1.55, margin: '0 0 8px' }
+const note: React.CSSProperties = { fontSize: 12, lineHeight: 1.55, color: '#777', margin: '14px 0 0' }
