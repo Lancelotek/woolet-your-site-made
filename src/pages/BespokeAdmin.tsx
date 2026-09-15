@@ -760,6 +760,8 @@ function DetailView({
         </section>
       )}
 
+      <MeasureInviteBlock order={o} password={password} />
+
       <DispatchBlock order={o} password={password} />
 
       <Group title="Photo & consent">
