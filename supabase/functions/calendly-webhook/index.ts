@@ -132,11 +132,12 @@ async function resolveOrder(payload: Record<string, any>): Promise<OrderRow | nu
   return null;
 }
 
-async function alertSupport(heading: string, lines: string[]) {
+async function alertSupport(heading: string, lines: string[], idempotencyKey?: string) {
   try {
     await sendTemplateEmailAndLog("bespoke-support-alert", SUPPORT_EMAIL, {
       templateData: { heading, lines },
-      idempotencyKey: `calendly-alert-${heading}-${lines[0] ?? ""}`.slice(0, 120),
+      idempotencyKey:
+        idempotencyKey ?? `calendly-alert-${heading}-${lines[0] ?? ""}`.slice(0, 120),
     });
   } catch (e) {
     console.error("[calendly-webhook] support alert failed", e);
@@ -186,6 +187,20 @@ async function sendScanInvite(order: OrderRow, startIso: string, timezone: strin
     console.error("[calendly-webhook] scan invite failed", e);
     // Leave the guard set: a failed send is investigated, never auto-repeated
     // into the customer's inbox by the next Calendly retry.
+    // But it must not stay silent either — support gets the link so a human
+    // can send it by hand.
+    await alertSupport(
+      "Scan invite failed to send",
+      [
+        order.case_no ?? order.id,
+        order.customer_email ?? "—",
+        `Interview: ${when.date} at ${when.time} ${when.tz}`,
+        `Error: ${e instanceof Error ? e.message : String(e)}`,
+        `Scan link: ${scanUrl}`,
+        "The send guard is set, so no retry will fire. Send the scan link by hand.",
+      ],
+      `calendly-alert-scan-invite-failed-${order.id}`,
+    );
   }
 }
 
@@ -217,7 +232,8 @@ Deno.serve(async (req) => {
   const v1 = parts.v1;
   if (!t || !v1) return json({ error: "missing_signature" }, 401);
   const skew = Math.abs(Date.now() / 1000 - Number(t));
-  if (!Number.isFinite(skew) || skew > 300) return json({ error: "stale_signature" }, 401);
+  // Calendly's own recommendation: three-minute replay tolerance.
+  if (!Number.isFinite(skew) || skew > 180) return json({ error: "stale_signature" }, 401);
   const expected = await signBody(secret, t, rawBody);
   if (!constantTimeEqual(expected, v1.toLowerCase())) return json({ error: "bad_signature" }, 401);
 
