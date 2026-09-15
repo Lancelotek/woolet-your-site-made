@@ -80,6 +80,12 @@ const Email = ({
           we cut. When they differ, I write to you before anything is cut.
         </Text>
 
+        <Text style={note}>
+          The inner-canthal distance is the gap between the inner corners of your
+          eyes. It is not the width of your nose and not a frame bridge, and we do
+          not treat it as a finished production number.
+        </Text>
+
         <Section style={ctaWrap}>
           <Link href={remeasureUrl} style={cta}>
             Measure again
