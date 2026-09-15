@@ -1404,8 +1404,11 @@ const ConfiguratorStyles = () => (
       text-decoration-thickness: 1.5px;
     }
     .cfg-info-trigger::after {
-      content: ""; position: absolute; inset: -14px -6px; display: block;
+      content: ""; position: absolute; inset: -6px -8px; display: block;
     }
+    /* Stand-alone triggers (own line) get the full 44px target; inline ones
+       stay tight so neighbouring triggers never steal each other's taps. */
+    .cfg-info-trigger--block::after { inset: -15px -10px; }
     .cfg-info-trigger:hover { text-decoration-color: #CAA449; }
     .cfg-info-trigger:focus-visible { outline: 2px solid #CAA449; outline-offset: 3px; }
 
