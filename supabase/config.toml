@@ -49,3 +49,7 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.measure-attach]
     verify_jwt = false
+  [functions.calendly-webhook]
+    verify_jwt = false
+  [functions.bespoke-scan-context]
+    verify_jwt = false
