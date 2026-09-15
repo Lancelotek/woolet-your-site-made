@@ -358,10 +358,12 @@ const ConfiguratorPage = () => {
               </div>
             ) : (
               <p className="cfg-note__body" style={{ margin: 0 }}>
-                <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
+                <CfgInfoTrigger section="measure">
+                  <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>
+                </CfgInfoTrigger>{" "}
                 The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
                 once your measurements are confirmed, your frame is cut in the EU to the exact millimetres of your face.{" "}
-                <span style={{ color: "#D8B86A" }}>Free worldwide shipping included.</span>
+                <CfgInfoTrigger section="price" style={{ color: "#D8B86A" }}>Free worldwide shipping included.</CfgInfoTrigger>
               </p>
             )}
           </div>
