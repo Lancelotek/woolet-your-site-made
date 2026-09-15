@@ -32,6 +32,12 @@ import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
+import {
+  normalizeCaseNo,
+  readScanContext,
+  writeScanContext,
+  type BespokeScanContext,
+} from "@/lib/bespoke-scan-context";
 import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options";
 import {
   applyFitLensToBespokeConfig,
@@ -361,14 +367,22 @@ function WelcomeStep({
   disabled = false,
   isMobile,
   onFitLensOpen,
+  caseContext = null,
+  onCaseEntered,
 }: {
   lang: Lang;
   onStart: () => void;
   disabled?: boolean;
   isMobile: boolean;
   onFitLensOpen?: () => void;
+  caseContext?: BespokeScanContext | null;
+  onCaseEntered?: (caseNo: string) => void;
 }) {
-  const { openFitLens } = useFitLensScript();
+  // A bespoke case ties the scan to an order; without one the widget gets a
+  // random per-attempt reference, exactly as before.
+  const { openFitLens } = useFitLensScript({ sessionRef: caseContext?.caseNo ?? null });
+  const [caseInput, setCaseInput] = useState("");
+  const [caseError, setCaseError] = useState(false);
   const fitlensBtnRef = useRef<HTMLButtonElement>(null);
   // QR handoff target: the same page opened on a phone (sid marks the handoff).
   const [handoffSid] = useState(() =>
@@ -511,6 +525,88 @@ function WelcomeStep({
                 </li>
               ))}
             </ul>
+
+            {caseContext ? (
+              <div
+                style={{
+                  border: `1px solid ${GOLD}`,
+                  borderRadius: 2,
+                  padding: "10px 14px",
+                  fontFamily: "Barlow, sans-serif",
+                  fontSize: "0.8rem",
+                  color: "#f0ece4",
+                  letterSpacing: "0.02em",
+                }}
+              >
+                Scanning for <strong style={{ color: GOLD }}>{caseContext.caseNo}</strong>
+                {caseContext.firstName ? ` — ${caseContext.firstName}` : ""}
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                <label
+                  htmlFor="bespoke-case-no"
+                  style={{
+                    fontFamily: "Barlow, sans-serif",
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "rgba(240,236,228,0.55)",
+                  }}
+                >
+                  Bespoke order number (optional)
+                </label>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <input
+                    id="bespoke-case-no"
+                    value={caseInput}
+                    onChange={(e) => {
+                      setCaseInput(e.target.value);
+                      setCaseError(false);
+                    }}
+                    placeholder="WLT-BSP-…"
+                    style={{
+                      flex: 1,
+                      minWidth: 0,
+                      background: "transparent",
+                      border: `1px solid ${caseError ? "#C13A2E" : "rgba(240,236,228,0.22)"}`,
+                      borderRadius: 2,
+                      padding: "10px 12px",
+                      color: "#f0ece4",
+                      fontFamily: "Barlow, sans-serif",
+                      fontSize: "0.85rem",
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const normalized = normalizeCaseNo(caseInput);
+                      if (!normalized) {
+                        setCaseError(true);
+                        return;
+                      }
+                      onCaseEntered?.(normalized);
+                    }}
+                    style={{
+                      border: `1px solid ${GOLD}`,
+                      background: "transparent",
+                      color: GOLD,
+                      fontFamily: "Barlow, sans-serif",
+                      fontSize: "0.78rem",
+                      padding: "10px 16px",
+                      borderRadius: 2,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Attach
+                  </button>
+                </div>
+                {caseError && (
+                  <span style={{ color: "#C13A2E", fontSize: "0.74rem", fontFamily: "Barlow, sans-serif" }}>
+                    That is not a Woolet order number. It looks like WLT-BSP-2026-0001.
+                  </span>
+                )}
+              </div>
+            )}
 
             <button
               ref={fitlensBtnRef}
@@ -4145,6 +4241,32 @@ export default function FitScan() {
   // skip the email gate — we already have a verified address for them.
   const emailAlreadyCaptured = !!sidParam || !!sessionId || !!user;
 
+  // `bsp` + `t` arrive with the scan link we email after the interview is
+  // booked. The pair is checked server-side; the case number alone never
+  // reveals a name.
+  const bspParam = searchParams.get("bsp");
+  const [caseContext, setCaseContext] = useState<BespokeScanContext | null>(() => readScanContext());
+  useEffect(() => {
+    if (!bspParam || !sessionToken) return;
+    let cancelled = false;
+    supabase.functions
+      .invoke("bespoke-scan-context", { body: { caseNo: bspParam, token: sessionToken } })
+      .then(({ data, error }) => {
+        if (cancelled || error || data?.status !== "ready") return;
+        const ctx: BespokeScanContext = {
+          caseNo: data.caseNo,
+          firstName: data.firstName ?? null,
+          stage: data.stage ?? null,
+          verified: true,
+        };
+        setCaseContext(ctx);
+        writeScanContext(ctx);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [bspParam, sessionToken]);
+
   const [step, setStep] = useState<Step>("welcome");
   const [frame, setFrame] = useState<CapturedFrame | null>(null);
   const [measurements, setMeasurements] = useState<Measurements | null>(null);
@@ -5067,6 +5189,12 @@ export default function FitScan() {
                     onStart={startScan}
                     disabled={!!blockingMessage}
                     isMobile={isMobile}
+                    caseContext={caseContext}
+                    onCaseEntered={(caseNo) => {
+                      const ctx: BespokeScanContext = { caseNo, verified: false };
+                      setCaseContext(ctx);
+                      writeScanContext(ctx);
+                    }}
                     onFitLensOpen={() => {
                       // Fresh run: drop the previous card so nothing older can
                       // linger on screen while the new scan is in progress.

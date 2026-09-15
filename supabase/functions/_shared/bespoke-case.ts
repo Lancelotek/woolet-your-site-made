@@ -96,6 +96,10 @@ export function canAdvance(
   if (PAIR.includes(to) && PAIR.includes(from)) return { ok: true };
   if (PAIR.includes(to) && a <= stageIndex("interview_done")) return { ok: true };
 
+  // The one allowed step backwards: the customer cancelled the Calendly
+  // booking, so the order returns to the state it was in before it.
+  if (from === "interview_booked" && to === "paid") return { ok: true };
+
   if (b <= a) return { ok: false, reason: "backwards" };
 
   if (to === "report_ready" && !(flags.scanReceived && flags.interviewDone)) {
