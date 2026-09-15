@@ -295,7 +295,19 @@ const ConfiguratorPage = () => {
         {/* ── Mobile live preview — hidden on steps that already show a large image ── */}
         {step !== 3 && step !== STEPS.length && (
           <div className="cfg-mobilepreview lg:hidden">
-            <div className="cfg-mobilepreview__stage">
+            <div
+              className="cfg-mobilepreview__stage"
+              role="button"
+              tabIndex={0}
+              aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
+              onClick={handleStageTap}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleStageTap();
+                }
+              }}
+            >
               {aiPreviewUrl && step >= 2 ? (
                 <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
               ) : frame ? (
@@ -303,6 +315,9 @@ const ConfiguratorPage = () => {
               ) : (
                 <span className="cfg-mobilepreview__place">Select a pattern</span>
               )}
+              <span className="cfg-stage__badge" aria-hidden>
+                {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
+              </span>
             </div>
             <div className="cfg-mobilepreview__meta">
               <span>{frame ? frame.name : "No pattern yet"}</span>
