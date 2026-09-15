@@ -234,19 +234,20 @@ export function PreviewLightbox({
   }, [onClose]);
 
   return (
-    <div className="cfg-lightbox" role="dialog" aria-modal="true" aria-label="Larger preview">
-      <div className="cfg-lightbox__scrim" onClick={onClose} />
+    <div className="cfg-lightbox" role="dialog" aria-modal="true" aria-label="Larger preview" onClick={onClose}>
+      <div className="cfg-lightbox__scrim" />
       <button type="button" className="cfg-lightbox__close" aria-label="Close preview" onClick={onClose}>
         <X size={20} />
       </button>
       <div className="cfg-lightbox__inner">
-        <img src={src} alt={alt} className="cfg-lightbox__img" />
+        <img src={src} alt={alt} className="cfg-lightbox__img" onClick={(e) => e.stopPropagation()} />
         <div className="cfg-lightbox__caption">{caption}</div>
         {nextLabel && onNext && (
           <button
             type="button"
             className="cfg-lightbox__next"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               onClose();
               onNext();
             }}
