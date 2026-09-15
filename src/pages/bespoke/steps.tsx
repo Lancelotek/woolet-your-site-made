@@ -1790,6 +1790,7 @@ export function StepReview({
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <button
           onClick={() => {
+            pushCfg("cfg_pay_click");
             onSave();
             navigate("/en/bespoke/checkout");
           }}
