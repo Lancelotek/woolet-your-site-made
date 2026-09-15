@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { buildInterviewBookingUrl } from "@/lib/bespoke-case";
+import CalendlyInlineScheduler from "@/components/CalendlyInlineScheduler";
 
 /**
  * Shown the moment a bespoke order is paid: the case number, and the one
