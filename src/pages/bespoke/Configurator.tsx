@@ -336,8 +336,10 @@ const ConfiguratorPage = () => {
             {isMobile ? (
               <div style={{ minWidth: 0 }}>
                 <p className="cfg-note__body" style={{ margin: 0 }}>
-                  <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>Pay first, measure after.</strong>{" "}
-                  <span style={{ color: "#D8B86A" }}>Free worldwide shipping.</span>
+                  <CfgInfoTrigger section="measure">
+                    <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>Pay first, measure after.</strong>
+                  </CfgInfoTrigger>{" "}
+                  <CfgInfoTrigger section="price" style={{ color: "#D8B86A" }}>Free worldwide shipping.</CfgInfoTrigger>
                 </p>
                 {noticeOpen && (
                   <p className="cfg-note__body" style={{ margin: "8px 0 0" }}>
