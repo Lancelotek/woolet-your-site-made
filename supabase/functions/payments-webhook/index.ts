@@ -186,6 +186,10 @@ async function tagMailerLiteBespokePaid(input: {
           country: input.country,
           paid_ref: input.sessionId,
           bespoke_order_ref: input.orderId ? `WLT-${input.orderId.slice(0, 8).toUpperCase()}` : "",
+          // The case number follows the order to delivery; the ref above is a
+          // legacy alias kept so existing automations keep matching.
+          bespoke_case_no: input.caseNo ?? "",
+          bespoke_booking_url: input.bookingUrl ?? "",
           bespoke_onboarding_url: onboardingUrl,
           bespoke_order_summary: input.summary,
           bespoke_paid_at: mlDate(),
