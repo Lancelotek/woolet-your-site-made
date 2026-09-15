@@ -485,6 +485,8 @@ const ConfiguratorPage = () => {
         </div>
       </div>
     </div>
+    </CfgNavProvider>
+    </CfgInfoProvider>
   );
 };
 
