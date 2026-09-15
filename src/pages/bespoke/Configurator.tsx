@@ -493,7 +493,9 @@ const ConfiguratorPage = () => {
           </button>
           <div className="cfg-mobilebar__meta">
             <div className="cfg-mobilebar__price">
-              <span className="cfg-mobilebar__pricelabel">Total</span> {formatEur(stepTotal)}
+              <CfgInfoTrigger section="price">
+                <span className="cfg-mobilebar__pricelabel">Total</span> {formatEur(stepTotal)}
+              </CfgInfoTrigger>
             </div>
             {navHint ? (
               <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
@@ -506,6 +508,7 @@ const ConfiguratorPage = () => {
           <button
             onClick={() => {
               if (step === STEPS.length) {
+                pushCfg("cfg_pay_click");
                 handleSave();
                 navigate("/en/bespoke/checkout");
                 return;
