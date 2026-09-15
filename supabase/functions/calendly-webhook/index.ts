@@ -132,11 +132,12 @@ async function resolveOrder(payload: Record<string, any>): Promise<OrderRow | nu
   return null;
 }
 
-async function alertSupport(heading: string, lines: string[]) {
+async function alertSupport(heading: string, lines: string[], idempotencyKey?: string) {
   try {
     await sendTemplateEmailAndLog("bespoke-support-alert", SUPPORT_EMAIL, {
       templateData: { heading, lines },
-      idempotencyKey: `calendly-alert-${heading}-${lines[0] ?? ""}`.slice(0, 120),
+      idempotencyKey:
+        idempotencyKey ?? `calendly-alert-${heading}-${lines[0] ?? ""}`.slice(0, 120),
     });
   } catch (e) {
     console.error("[calendly-webhook] support alert failed", e);
@@ -217,7 +218,8 @@ Deno.serve(async (req) => {
   const v1 = parts.v1;
   if (!t || !v1) return json({ error: "missing_signature" }, 401);
   const skew = Math.abs(Date.now() / 1000 - Number(t));
-  if (!Number.isFinite(skew) || skew > 300) return json({ error: "stale_signature" }, 401);
+  // Calendly's own recommendation: three-minute replay tolerance.
+  if (!Number.isFinite(skew) || skew > 180) return json({ error: "stale_signature" }, 401);
   const expected = await signBody(secret, t, rawBody);
   if (!constantTimeEqual(expected, v1.toLowerCase())) return json({ error: "bad_signature" }, 401);
 
