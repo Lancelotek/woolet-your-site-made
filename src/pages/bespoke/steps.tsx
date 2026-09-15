@@ -442,6 +442,7 @@ export function AiPreviewPanel({
       const droppedOldRenderTs = combined.length > MAX_PER_KEY ? combined[combined.length - 1].ts : null;
       persist({ ...history, [selectionKey]: nextList }, { droppedOldRenderTs });
       setActiveUrl(url);
+      pushCfg("cfg_render_ready");
 
       // If the buyer is signed in, mirror the render to their account so it
       // shows up on the /account panel later. Non-blocking — surface the
