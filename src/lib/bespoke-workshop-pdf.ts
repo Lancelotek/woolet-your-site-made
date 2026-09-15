@@ -206,6 +206,9 @@ async function buildWorkshopDoc(data: WorkshopReportData) {
   heading("Customer measurements — AI scan");
   rows([["Measurement reference", data.measurementRef || "—"]]);
   rows(aiPairs.length ? aiPairs : [["No AI scan values submitted", "—"]]);
+  paragraph(
+    "Inner-canthal distance is the gap between the inner corners of the eyes. It is not the nose width at the pad contact, not the frame bridge (DBL), and is not an approved production dimension. Confirm any nose or bridge dimension with the optician before milling.",
+  );
   if (data.measurements.aiNotes) paragraph(`Scan notes: ${data.measurements.aiNotes}`);
 
   const manualPairs = Object.entries(data.measurements.manual).filter(([, v]) => v) as [string, string][];
