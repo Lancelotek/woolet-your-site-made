@@ -423,7 +423,7 @@ const ConfiguratorPage = () => {
 
                 <dl className="cfg-rail__specs">
                   <SpecRow label="Pattern" value={frame ? `${frame.name}` : "—"} />
-                  <SpecRow label="Ref width" value={frame ? <CfgInfoTrigger section="fit">{frame.widthMm} mm · cut to face</CfgInfoTrigger> : "—"} />
+                  <SpecRow label="Ref width" value={frame ? <CfgInfoTrigger section="fit" className="cfg-info-trigger--block">{frame.widthMm} mm · cut to face</CfgInfoTrigger> : "—"} />
                   <SpecRow label="Temple length" value={formatTempleLength(config.templeLengthMm, config.templeLengthIsCustom)} />
                   <SpecRow
                     label="Front"
@@ -455,13 +455,13 @@ const ConfiguratorPage = () => {
                 <div className="cfg-rail__total">
                   <div className="flex items-baseline justify-between">
                     <span className="cfg-eyebrow">Total</span>
-                    <CfgInfoTrigger section="price" className="cfg-rail__price">{formatEur(stepTotal)}</CfgInfoTrigger>
+                    <CfgInfoTrigger section="price" className="cfg-rail__price cfg-info-trigger--block">{formatEur(stepTotal)}</CfgInfoTrigger>
                   </div>
                   <ul className="cfg-rail__lines">
                     <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
                     {step >= 5 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>{formatAddOn(pricing.engravingEur)}</span></li>}
                     {step >= 6 && pricing.lensEur > 0 && <li><span>Lenses</span><span>{formatAddOn(pricing.lensEur)}</span></li>}
-                    <li><span>Shipping</span><CfgInfoTrigger section="price" style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</CfgInfoTrigger></li>
+                    <li><span>Shipping</span><CfgInfoTrigger section="price" className="cfg-info-trigger--block" style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</CfgInfoTrigger></li>
                   </ul>
                 </div>
 

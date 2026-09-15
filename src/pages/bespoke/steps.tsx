@@ -1791,10 +1791,10 @@ export function StepReview({
         <Row label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
         <div className="flex items-baseline justify-between gap-4 py-4">
           <div className="text-cream text-xs uppercase tracking-[0.2em]">
-            <CfgInfoTrigger section="price">Total due today</CfgInfoTrigger>
+            <CfgInfoTrigger section="price" className="cfg-info-trigger--block">Total due today</CfgInfoTrigger>
           </div>
           <div className="text-cream text-lg font-display">
-            <CfgInfoTrigger section="price">{formatEur(total)}</CfgInfoTrigger>
+            <CfgInfoTrigger section="price" className="cfg-info-trigger--block">{formatEur(total)}</CfgInfoTrigger>
           </div>
         </div>
       </div>
