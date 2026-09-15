@@ -695,6 +695,10 @@ function DetailView({
         <Field label="Inner-canthal distance (face)" value={mm(o.ai_inner_canthal_mm)} />
         <Field label="Pupillary distance" value={mm(o.ai_pd_mm)} />
         <Field label="Notes" value={o.ai_notes} />
+        <p className="col-span-full text-[11px] leading-relaxed text-cream-dim/60">
+          Inner-canthal distance is eye corner to eye corner — not nose width at the pads,
+          not the frame bridge (DBL), and not an approved production dimension.
+        </p>
       </Group>
 
       {/* Typed before the inner-canthal split existed — nobody knows which

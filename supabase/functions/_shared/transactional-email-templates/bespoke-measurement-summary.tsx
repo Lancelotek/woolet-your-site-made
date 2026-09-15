@@ -80,6 +80,12 @@ const Email = ({
           we cut. When they differ, I write to you before anything is cut.
         </Text>
 
+        <Text style={note}>
+          The inner-canthal distance is the gap between the inner corners of your
+          eyes. It is not the width of your nose and not a frame bridge, and we do
+          not treat it as a finished production number.
+        </Text>
+
         <Section style={ctaWrap}>
           <Link href={remeasureUrl} style={cta}>
             Measure again
@@ -182,3 +188,4 @@ const cta: React.CSSProperties = {
 }
 const hr: React.CSSProperties = { borderColor: '#e6e6e6', margin: '28px 0' }
 const footer: React.CSSProperties = { fontSize: 12, color: '#888', lineHeight: 1.55, margin: '0 0 8px' }
+const note: React.CSSProperties = { fontSize: 12, lineHeight: 1.55, color: '#777', margin: '14px 0 0' }

@@ -120,6 +120,12 @@ const Email = ({
           )}
         </Section>
 
+        <Text style={gapLine}>
+          Inner-canthal distance is eye corner to eye corner — not nose width at the
+          pads, not the frame bridge (DBL), and not an approved production dimension.
+          The new nose-bridge landmarks have not shipped at FitLens yet.
+        </Text>
+
         <Heading as="h3" style={h3}>Shipping</Heading>
         <Text style={body}>
           {shippingStatus}
