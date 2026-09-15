@@ -59,6 +59,9 @@ Deno.serve(async (req) => {
       used_at: now.toISOString(),
       session_hash: await hashSession(sessionToken),
       session_expires_at: sessionExpires.toISOString(),
+      consent_at: now.toISOString(),
+      consent_version: typeof consent.version === "string" ? consent.version.slice(0, 40) : "measure-v1",
+      consent_locale: typeof consent.locale === "string" ? consent.locale.slice(0, 5) : "en",
     })
     .eq("token_hash", tokenHash)
     .is("used_at", null)
@@ -68,16 +71,6 @@ Deno.serve(async (req) => {
     .maybeSingle();
 
   if (!consumed) return json({ status: "unavailable" }, 409);
-
-  await admin
-    .from("bespoke_orders")
-    .update({
-      metadata_consent_measure: undefined,
-    } as never)
-    .eq("id", consumed.order_id)
-    .select("id")
-    .maybeSingle()
-    .then(() => undefined, () => undefined);
 
   return json({
     status: "ready",
