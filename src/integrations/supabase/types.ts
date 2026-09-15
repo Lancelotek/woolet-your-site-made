@@ -1325,6 +1325,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      assign_bespoke_case: {
+        Args: { p_order_id: string }
+        Returns: {
+          case_no: string
+          case_seq: number
+        }[]
+      }
       founding_members_count: { Args: { check_env?: string }; Returns: number }
       link_user_data_by_email: { Args: never; Returns: Json }
     }
