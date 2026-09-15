@@ -395,7 +395,20 @@ const ConfiguratorPage = () => {
               <div className="cfg-rail">
                 <div className="cfg-rail__eyebrow">Your build</div>
 
-                <div className="cfg-rail__photo" style={{ background: "#EFE9DF" }}>
+                <div
+                  className="cfg-rail__photo cfg-stage--tappable"
+                  style={{ background: "#EFE9DF" }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
+                  onClick={handleStageTap}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleStageTap();
+                    }
+                  }}
+                >
                   {aiPreviewUrl && step >= 2 ? (
                     <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name} — ${frame.shape} pattern, made-to-measure for wide faces` : "AI visualisation of Woolet Bespoke eyewear configuration"} className="max-h-full max-w-full object-contain" />
                   ) : frame ? (
@@ -403,6 +416,9 @@ const ConfiguratorPage = () => {
                   ) : (
                     <div className="cfg-rail__placeholder">Select a pattern</div>
                   )}
+                  <span className="cfg-stage__badge" aria-hidden>
+                    {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
+                  </span>
                 </div>
 
                 <dl className="cfg-rail__specs">
