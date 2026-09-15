@@ -383,7 +383,7 @@ const ConfiguratorPage = () => {
                   step={step}
                   total={STEPS.length}
                   onBack={() => goTo(Math.max(1, step - 1) as StepId)}
-                  onNext={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
+                  onNext={goNext}
                   canNext={isStepComplete(step, config)}
                   isLast={step === STEPS.length}
                 />
