@@ -28,6 +28,17 @@ import { type BespokeConfig, formatEur, formatAddOn } from "@/lib/bespoke-state"
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
+import { getSessionRef } from "@/lib/scan-session-ref";
+import {
+  CfgInfoTrigger,
+  PreviewLightbox,
+  REQUEST_PREVIEW_EVENT,
+  RENDERS_PER_SESSION,
+  pulseMobilePreview,
+  pushCfg,
+  useRenderBudget,
+} from "./cfg-shell";
+
 
 
 interface StepProps {
