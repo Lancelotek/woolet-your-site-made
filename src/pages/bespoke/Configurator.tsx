@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Ruler } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, Ruler, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
@@ -21,7 +21,16 @@ import {
   PREVIEW_UPDATED_EVENT,
 } from "./steps";
 import StepPreview from "./StepPreview";
+import {
+  CfgInfoProvider,
+  CfgInfoTrigger,
+  CfgNavProvider,
+  PreviewLightbox,
+  REQUEST_PREVIEW_EVENT,
+  pushCfg,
+} from "./cfg-shell";
 import { useParams, useNavigate } from "react-router-dom";
+
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
 const FONT_HREF =
@@ -146,16 +155,48 @@ const ConfiguratorPage = () => {
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const goNext = () => {
+    pushCfg("cfg_next_click", { from_step: step });
+    goTo(Math.min(STEPS.length, step + 1) as StepId);
+  };
+
   // Clarity funnel: tag every step change, and mark the session complete when
   // the buyer reaches the final review step. No personal data is ever sent.
   useEffect(() => {
     const name = STEPS[step - 1]?.shortLabel.toLowerCase() ?? "unknown";
     claritySet("bespoke_step", `${step}-${name}`);
+    pushCfg("cfg_step_view", { step });
     if (step === STEPS.length) clarityEvent("bespoke_configurator_complete");
   }, [step]);
 
   const [navHint, setNavHint] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const stepComplete = isStepComplete(step, config);
+
+  // The preview stage is the most-tapped element on the page. Every state it can
+  // be in has to answer the tap: a picture opens larger, an empty stage sends the
+  // buyer to the choice that fills it.
+  const stageSrc = aiPreviewUrl && step >= 2 ? aiPreviewUrl : frame ? frame.url : null;
+  const stageAlt = aiPreviewUrl && step >= 2
+    ? (frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration")
+    : frame
+      ? `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`
+      : "";
+  const lightboxCaption = `${frame ? frame.name : "Your pattern"} · ${front ? front.name : "acetate to choose"} · cut to your face`;
+
+  const handleStageTap = () => {
+    if (stageSrc) {
+      pushCfg("cfg_preview_open", { step });
+      setLightboxOpen(true);
+      return;
+    }
+    if (!frame) {
+      goTo(1);
+      return;
+    }
+    goTo(3);
+    window.setTimeout(() => window.dispatchEvent(new CustomEvent(REQUEST_PREVIEW_EVENT)), 350);
+  };
 
   const handleMobileNext = () => {
     if (step === STEPS.length) return;
@@ -168,8 +209,9 @@ const ConfiguratorPage = () => {
       window.setTimeout(() => setNavHint(false), 3000);
       return;
     }
-    goTo(Math.min(STEPS.length, step + 1) as StepId);
+    goNext();
   };
+
 
   const handleSave = () => setSaved(true);
   const handleReset = () => {
@@ -189,6 +231,11 @@ const ConfiguratorPage = () => {
                  <StepReview config={config} onSave={handleSave} saved={saved} />;
 
   return (
+    <CfgInfoProvider>
+    <CfgNavProvider value={{ nextLabel: step === STEPS.length ? null : STEPS[step]?.shortLabel ?? null, onNext: goNext }}>
+    {lightboxOpen && stageSrc && (
+      <PreviewLightbox src={stageSrc} alt={stageAlt} caption={lightboxCaption} onClose={() => setLightboxOpen(false)} />
+    )}
     <div className="cfg-scope min-h-screen">
       <SEO
         title="Bespoke Configurator — Woolet"
@@ -248,7 +295,19 @@ const ConfiguratorPage = () => {
         {/* ── Mobile live preview — hidden on steps that already show a large image ── */}
         {step !== 3 && step !== STEPS.length && (
           <div className="cfg-mobilepreview lg:hidden">
-            <div className="cfg-mobilepreview__stage">
+            <div
+              className="cfg-mobilepreview__stage"
+              role="button"
+              tabIndex={0}
+              aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
+              onClick={handleStageTap}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleStageTap();
+                }
+              }}
+            >
               {aiPreviewUrl && step >= 2 ? (
                 <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
               ) : frame ? (
@@ -256,6 +315,9 @@ const ConfiguratorPage = () => {
               ) : (
                 <span className="cfg-mobilepreview__place">Select a pattern</span>
               )}
+              <span className="cfg-stage__badge" aria-hidden>
+                {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
+              </span>
             </div>
             <div className="cfg-mobilepreview__meta">
               <span>{frame ? frame.name : "No pattern yet"}</span>
@@ -274,8 +336,10 @@ const ConfiguratorPage = () => {
             {isMobile ? (
               <div style={{ minWidth: 0 }}>
                 <p className="cfg-note__body" style={{ margin: 0 }}>
-                  <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>Pay first, measure after.</strong>{" "}
-                  <span style={{ color: "#D8B86A" }}>Free worldwide shipping.</span>
+                  <CfgInfoTrigger section="measure">
+                    <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>Pay first, measure after.</strong>
+                  </CfgInfoTrigger>{" "}
+                  <CfgInfoTrigger section="price" style={{ color: "#D8B86A" }}>Free worldwide shipping.</CfgInfoTrigger>
                 </p>
                 {noticeOpen && (
                   <p className="cfg-note__body" style={{ margin: "8px 0 0" }}>
@@ -294,10 +358,12 @@ const ConfiguratorPage = () => {
               </div>
             ) : (
               <p className="cfg-note__body" style={{ margin: 0 }}>
-                <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>{" "}
+                <CfgInfoTrigger section="measure">
+                  <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>
+                </CfgInfoTrigger>{" "}
                 The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
                 once your measurements are confirmed, your frame is cut in the EU to the exact millimetres of your face.{" "}
-                <span style={{ color: "#D8B86A" }}>Free worldwide shipping included.</span>
+                <CfgInfoTrigger section="price" style={{ color: "#D8B86A" }}>Free worldwide shipping included.</CfgInfoTrigger>
               </p>
             )}
           </div>
@@ -317,7 +383,7 @@ const ConfiguratorPage = () => {
                   step={step}
                   total={STEPS.length}
                   onBack={() => goTo(Math.max(1, step - 1) as StepId)}
-                  onNext={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
+                  onNext={goNext}
                   canNext={isStepComplete(step, config)}
                   isLast={step === STEPS.length}
                 />
@@ -329,7 +395,20 @@ const ConfiguratorPage = () => {
               <div className="cfg-rail">
                 <div className="cfg-rail__eyebrow">Your build</div>
 
-                <div className="cfg-rail__photo" style={{ background: "#EFE9DF" }}>
+                <div
+                  className="cfg-rail__photo cfg-stage--tappable"
+                  style={{ background: "#EFE9DF" }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
+                  onClick={handleStageTap}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleStageTap();
+                    }
+                  }}
+                >
                   {aiPreviewUrl && step >= 2 ? (
                     <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name} — ${frame.shape} pattern, made-to-measure for wide faces` : "AI visualisation of Woolet Bespoke eyewear configuration"} className="max-h-full max-w-full object-contain" />
                   ) : frame ? (
@@ -337,11 +416,14 @@ const ConfiguratorPage = () => {
                   ) : (
                     <div className="cfg-rail__placeholder">Select a pattern</div>
                   )}
+                  <span className="cfg-stage__badge" aria-hidden>
+                    {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
+                  </span>
                 </div>
 
                 <dl className="cfg-rail__specs">
                   <SpecRow label="Pattern" value={frame ? `${frame.name}` : "—"} />
-                  <SpecRow label="Ref width" value={frame ? `${frame.widthMm} mm · cut to face` : "—"} />
+                  <SpecRow label="Ref width" value={frame ? <CfgInfoTrigger section="fit" className="cfg-info-trigger--block">{frame.widthMm} mm · cut to face</CfgInfoTrigger> : "—"} />
                   <SpecRow label="Temple length" value={formatTempleLength(config.templeLengthMm, config.templeLengthIsCustom)} />
                   <SpecRow
                     label="Front"
@@ -373,18 +455,18 @@ const ConfiguratorPage = () => {
                 <div className="cfg-rail__total">
                   <div className="flex items-baseline justify-between">
                     <span className="cfg-eyebrow">Total</span>
-                    <span className="cfg-rail__price">{formatEur(stepTotal)}</span>
+                    <CfgInfoTrigger section="price" className="cfg-rail__price cfg-info-trigger--block">{formatEur(stepTotal)}</CfgInfoTrigger>
                   </div>
                   <ul className="cfg-rail__lines">
                     <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
                     {step >= 5 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>{formatAddOn(pricing.engravingEur)}</span></li>}
                     {step >= 6 && pricing.lensEur > 0 && <li><span>Lenses</span><span>{formatAddOn(pricing.lensEur)}</span></li>}
-                    <li><span>Shipping</span><span style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</span></li>
+                    <li><span>Shipping</span><CfgInfoTrigger section="price" className="cfg-info-trigger--block" style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</CfgInfoTrigger></li>
                   </ul>
                 </div>
 
                 <button
-                  onClick={() => goTo(Math.min(STEPS.length, step + 1) as StepId)}
+                  onClick={goNext}
                   disabled={!isStepComplete(step, config) || step === STEPS.length}
                   className="cfg-cta mt-5"
                 >
@@ -411,7 +493,9 @@ const ConfiguratorPage = () => {
           </button>
           <div className="cfg-mobilebar__meta">
             <div className="cfg-mobilebar__price">
-              <span className="cfg-mobilebar__pricelabel">Total</span> {formatEur(stepTotal)}
+              <CfgInfoTrigger section="price">
+                <span className="cfg-mobilebar__pricelabel">Total</span> {formatEur(stepTotal)}
+              </CfgInfoTrigger>
             </div>
             {navHint ? (
               <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
@@ -424,6 +508,7 @@ const ConfiguratorPage = () => {
           <button
             onClick={() => {
               if (step === STEPS.length) {
+                pushCfg("cfg_pay_click");
                 handleSave();
                 navigate("/en/bespoke/checkout");
                 return;
@@ -438,6 +523,8 @@ const ConfiguratorPage = () => {
         </div>
       </div>
     </div>
+    </CfgNavProvider>
+    </CfgInfoProvider>
   );
 };
 
@@ -1286,6 +1373,114 @@ const ConfiguratorStyles = () => (
 
     /* StepNav inherits Tailwind from steps.tsx — give it breathing room */
     .cfg-scope .step-nav, .cfg-scope nav[aria-label="step navigation"] { margin-top: 36px; }
+
+    /* ── Tappable preview stage ── */
+    .cfg-mobilepreview__stage, .cfg-stage--tappable { position: relative; cursor: pointer; }
+    .cfg-stage__badge {
+      position: absolute; right: 6px; bottom: 6px;
+      width: 24px; height: 24px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #CAA449; color: #1F1B16;
+      box-shadow: 0 1px 4px rgba(8,8,7,0.30);
+      pointer-events: none;
+    }
+    .cfg-mobilepreview--pulse {
+      animation: cfg-pulse 150ms ease-out 2;
+    }
+    @keyframes cfg-pulse {
+      from { box-shadow: inset 0 0 0 0 rgba(202,164,73,0); }
+      to   { box-shadow: inset 0 0 0 2px #CAA449; }
+    }
+    @media (prefers-reduced-motion: reduce) { .cfg-mobilepreview--pulse { animation: none; box-shadow: inset 0 0 0 2px #CAA449; } }
+
+    /* ── Info triggers: dotted underline, 44px hit area, no layout shift ── */
+    .cfg-info-trigger {
+      position: relative;
+      display: inline;
+      cursor: pointer;
+      text-decoration: underline dotted;
+      text-decoration-color: #8A6E2C;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1.5px;
+    }
+    .cfg-info-trigger::after {
+      content: ""; position: absolute; inset: -6px -8px; display: block;
+    }
+    /* Stand-alone triggers (own line) get the full 44px target; inline ones
+       stay tight so neighbouring triggers never steal each other's taps. */
+    .cfg-info-trigger--block::after { inset: -15px -10px; }
+    .cfg-info-trigger:hover { text-decoration-color: #CAA449; }
+    .cfg-info-trigger:focus-visible { outline: 2px solid #CAA449; outline-offset: 3px; }
+
+    /* ── Bottom sheet (mobile) / centred panel (desktop) ── */
+    .cfg-sheet { position: fixed; inset: 0; z-index: 90; display: flex; align-items: flex-end; justify-content: center; }
+    .cfg-sheet__scrim { position: absolute; inset: 0; background: rgba(8,8,7,0.82); }
+    .cfg-sheet__panel {
+      position: relative; width: 100%; max-width: 560px;
+      background: #12110F; border: 1px solid rgba(239,233,223,0.12);
+      border-radius: 2px 2px 0 0;
+      max-height: 84vh; display: flex; flex-direction: column;
+      font-family: 'Archivo', sans-serif;
+    }
+    .cfg-sheet__head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; border-bottom: 1px solid rgba(239,233,223,0.10);
+    }
+    .cfg-sheet__eyebrow {
+      font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #CAA449;
+    }
+    .cfg-sheet__close {
+      width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+      background: none; border: 0; color: #EDE7D9; cursor: pointer; margin: -10px -12px -10px 0;
+    }
+    .cfg-sheet__body { overflow-y: auto; padding: 4px 18px 26px; scroll-behavior: smooth; }
+    .cfg-sheet__body section { padding: 18px 0; border-bottom: 1px solid rgba(239,233,223,0.08); }
+    .cfg-sheet__body section:last-child { border-bottom: 0; }
+    .cfg-sheet__body h3 {
+      font-family: 'Newsreader', serif; font-size: 19px; font-weight: 500; color: #EFE9DF; margin: 0 0 8px;
+    }
+    .cfg-sheet__body p, .cfg-sheet__body li { color: #B9B1A3; font-size: 14px; line-height: 1.6; margin: 0 0 8px; }
+    .cfg-sheet__body ul { margin: 0; padding-left: 18px; }
+    .cfg-sheet__body section.is-target h3 { color: #CAA449; }
+    .cfg-authform { display: flex; flex-direction: column; gap: 12px; padding-top: 14px; }
+    .cfg-authform input {
+      background: rgba(239,233,223,0.04); border: 1px solid rgba(239,233,223,0.16);
+      color: #EFE9DF; padding: 14px 16px; border-radius: 2px; font-size: 16px;
+    }
+    .cfg-authform__error { color: #E8A0A0; font-size: 13px; }
+    @media (min-width: 768px) {
+      .cfg-sheet { align-items: center; }
+      .cfg-sheet__panel { border-radius: 2px; max-height: 76vh; }
+    }
+
+    /* ── Full-screen preview lightbox ── */
+    .cfg-lightbox { position: fixed; inset: 0; z-index: 95; display: flex; align-items: center; justify-content: center; }
+    .cfg-lightbox__scrim { position: absolute; inset: 0; background: rgba(8,8,7,0.92); }
+    .cfg-lightbox__close {
+      position: absolute; top: 8px; right: 8px; z-index: 2;
+      width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(8,8,7,0.6); border: 1px solid rgba(239,233,223,0.18); border-radius: 2px;
+      color: #EDE7D9; cursor: pointer;
+    }
+    .cfg-lightbox__inner {
+      position: relative; padding: 16px; width: 100%; max-width: 860px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .cfg-lightbox__img {
+      max-width: 100%; max-height: 66vh; object-fit: contain;
+      background: #EFE9DF; border-radius: 2px;
+    }
+    .cfg-lightbox__caption {
+      color: #EDE7D9; font-family: 'Archivo', sans-serif; font-size: 13px;
+      letter-spacing: .04em; text-align: center;
+    }
+    .cfg-lightbox__next {
+      background: #CAA449; color: #1F1B16; border: 0; border-radius: 999px;
+      font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 11px;
+      letter-spacing: .2em; text-transform: uppercase;
+      padding: 14px 26px; min-height: 44px; cursor: pointer;
+    }
+    .cfg-lightbox__next:hover { background: #D8B86A; }
   `}</style>
 );
 

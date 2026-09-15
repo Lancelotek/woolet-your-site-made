@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Lock, Unlock, Upload } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Lock, Maximize2, Sparkles, Unlock, Upload } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
@@ -28,6 +28,17 @@ import { type BespokeConfig, formatEur, formatAddOn } from "@/lib/bespoke-state"
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
+import { getSessionRef } from "@/lib/scan-session-ref";
+import {
+  CfgInfoTrigger,
+  PreviewLightbox,
+  REQUEST_PREVIEW_EVENT,
+  RENDERS_PER_SESSION,
+  pulseMobilePreview,
+  pushCfg,
+  useRenderBudget,
+} from "./cfg-shell";
+
 
 
 interface StepProps {
@@ -64,7 +75,15 @@ export function StepFrame({ config, update }: StepProps) {
           return (
             <button
               key={f.id}
-              onClick={() => update("frameId", f.id)}
+              onClick={() => {
+                if (active) {
+                  // Re-tap on the current choice: answer it with the preview
+                  // instead of silence.
+                  pulseMobilePreview();
+                  return;
+                }
+                update("frameId", f.id);
+              }}
               className={`cfg-card group text-left ${active ? "cfg-card--active" : ""}`}
             >
               <div
@@ -89,7 +108,9 @@ export function StepFrame({ config, update }: StepProps) {
 
               <div className="px-4 py-4">
                 <div className="cfg-card__name" style={{ fontSize: 17 }}>{f.name}</div>
-                <div className="cfg-card__code mt-1">Cut to your face · reference {f.widthMm} mm</div>
+                <div className="cfg-card__code mt-1">
+                  <CfgInfoTrigger section="fit">Cut to your face · reference {f.widthMm} mm</CfgInfoTrigger>
+                </div>
               </div>
             </button>
           );
@@ -189,7 +210,7 @@ function ColorSwatchGrid({
           return (
             <button
               key={c.id}
-              onClick={() => onSelect(c.id)}
+              onClick={() => (active ? pulseMobilePreview() : onSelect(c.id))}
               onMouseEnter={() => setHoveredId(c.id)}
               onMouseLeave={() => setHoveredId((id) => (id === c.id ? null : id))}
               onFocus={() => setHoveredId(c.id)}
@@ -307,14 +328,13 @@ export function AiPreviewPanel({
   config: BespokeConfig;
   onRenderChange?: (url: string | null) => void;
 }) {
-  const { session, loading: authLoading } = useAuth();
-  const isSignedIn = Boolean(session);
-  // Come back to this very step after the email code — the build is remembered.
-  const signInHref =
-    "/en/account/sign-in?next=" +
-    encodeURIComponent(
-      typeof window !== "undefined" ? `${window.location.pathname}?step=3` : "/en/bespoke/configurator?step=3",
-    );
+  // No account needed to see your own frame. The render runs against the
+  // pseudonymous scan session and is capped per session; sign-in is asked for
+  // later, at Save and at Pay.
+  const sessionRef = useMemo(() => (typeof window === "undefined" ? "" : getSessionRef()), []);
+  const budget = useRenderBudget(sessionRef);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
   const temple = COLORS.find((c) => c.id === config.templeColorId);
@@ -347,6 +367,14 @@ export function AiPreviewPanel({
     onRenderChange?.(activeUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeUrl]);
+
+  // The mini preview stage elsewhere on the page can ask for a render.
+  const generateRef = useRef<() => void>(() => {});
+  useEffect(() => {
+    const handler = () => generateRef.current();
+    window.addEventListener(REQUEST_PREVIEW_EVENT, handler);
+    return () => window.removeEventListener(REQUEST_PREVIEW_EVENT, handler);
+  }, []);
 
 
   if (!ready || !frame || !front || !temple || !finish) {
@@ -381,6 +409,13 @@ export function AiPreviewPanel({
   };
 
   const generate = async () => {
+    if (loading) return;
+    if (budget.remaining <= 0) {
+      setError(`You have used all ${RENDERS_PER_SESSION} renders for this session.`);
+      return;
+    }
+    pushCfg("cfg_generate_click");
+    budget.consume();
     setLoading(true);
     setError(null);
     setCloudSaveState("idle");
@@ -407,6 +442,7 @@ export function AiPreviewPanel({
       const droppedOldRenderTs = combined.length > MAX_PER_KEY ? combined[combined.length - 1].ts : null;
       persist({ ...history, [selectionKey]: nextList }, { droppedOldRenderTs });
       setActiveUrl(url);
+      pushCfg("cfg_render_ready");
 
       // If the buyer is signed in, mirror the render to their account so it
       // shows up on the /account panel later. Non-blocking — surface the
@@ -456,6 +492,10 @@ export function AiPreviewPanel({
     }
   };
 
+  generateRef.current = () => void generate();
+
+
+
   return (
     <div className="border border-gold/25 bg-[#0c0c0c]/40 p-5 sm:p-6" style={{ borderRadius: 2 }}>
       <div className="flex items-baseline justify-between gap-3 mb-3">
@@ -465,7 +505,7 @@ export function AiPreviewPanel({
             See your <em className="italic text-gold-light">{frame.shape}</em> before you build
           </div>
         </div>
-        {activeUrl && !loading && isSignedIn && (
+        {activeUrl && !loading && budget.remaining > 0 && (
           <button
             onClick={generate}
             className="text-[11px] uppercase tracking-[0.18em] text-gold-light hover:text-gold underline underline-offset-4"
@@ -482,8 +522,27 @@ export function AiPreviewPanel({
       </p>
 
       <div
-        className="relative w-full overflow-hidden bg-[#EFE9DF] flex items-center justify-center"
+        className="cfg-stage--tappable relative w-full overflow-hidden bg-[#EFE9DF] flex items-center justify-center"
         style={{ aspectRatio: "4 / 3", borderRadius: 2 }}
+        role="button"
+        tabIndex={0}
+        aria-label={activeUrl ? "Open larger preview" : "Generate AI preview"}
+        onClick={() => {
+          if (loading) return;
+          if (activeUrl) {
+            pushCfg("cfg_preview_open", { step: 3 });
+            setLightboxOpen(true);
+            return;
+          }
+          void generate();
+        }}
+        onKeyDown={(e) => {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          e.preventDefault();
+          if (loading) return;
+          if (activeUrl) setLightboxOpen(true);
+          else void generate();
+        }}
       >
         {activeUrl ? (
           <img
@@ -494,14 +553,28 @@ export function AiPreviewPanel({
         ) : loading ? (
           <div className="flex flex-col items-center gap-3 text-[color:var(--cfg-ink)]/70">
             <div className="h-8 w-8 border-2 border-[color:var(--cfg-ink)]/30 border-t-[color:var(--cfg-ink)] rounded-full animate-spin" />
-            <div className="text-[11px] uppercase tracking-[0.2em]">Rendering your pair…</div>
+            <div className="text-[11px] uppercase tracking-[0.2em]">Rendering your {frame.shape}… ~20 s</div>
           </div>
         ) : (
           <div className="text-[color:var(--cfg-ink)]/50 text-xs uppercase tracking-[0.2em]">
             Preview will appear here
           </div>
         )}
+        {!loading && (
+          <span className="cfg-stage__badge" aria-hidden>
+            {activeUrl ? <Maximize2 size={13} /> : <Sparkles size={13} />}
+          </span>
+        )}
       </div>
+
+      {lightboxOpen && activeUrl && (
+        <PreviewLightbox
+          src={activeUrl}
+          alt={`AI preview of ${frame.shape} in ${front.name} / ${temple.name}, ${finish.name}`}
+          caption={`${frame.name} · ${front.name} · cut to your face`}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
 
       {currentList.length > 0 && (
         <div className="mt-3">
@@ -548,38 +621,10 @@ export function AiPreviewPanel({
         </div>
       )}
 
-      {!activeUrl && !isSignedIn && (
-        <div
-          className="mt-4 border border-gold/25 p-4"
-          style={{ borderRadius: 2, background: "rgba(194,160,90,0.05)" }}
-        >
-          <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light">Sign in required</div>
-          <p className="text-cream-dim text-[12px] leading-relaxed mt-2">
-            Configuring and ordering is open to everyone. The AI visualisation runs on your account so your
-            renders are saved and tied to your build — sign in to generate it.
-          </p>
-          <Link
-            to={signInHref}
-            className="mt-3 w-full inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors"
-            style={{
-              background: "hsl(var(--gold))",
-              color: "hsl(var(--background))",
-              fontFamily: "Barlow, sans-serif",
-              fontWeight: 500,
-              fontSize: "0.72rem",
-              padding: "16px 24px",
-              borderRadius: 2,
-            }}
-          >
-            {authLoading ? "Checking…" : "Sign in to generate AI preview"}
-          </Link>
-        </div>
-      )}
-
-      {!activeUrl && isSignedIn && (
+      {!activeUrl && (
         <button
           onClick={generate}
-          disabled={loading}
+          disabled={loading || budget.remaining <= 0}
           className="mt-4 w-full inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors disabled:opacity-50"
           style={{
             background: "hsl(var(--gold))",
@@ -594,6 +639,12 @@ export function AiPreviewPanel({
           {loading ? "Generating…" : "Generate AI preview"}
         </button>
       )}
+
+      <p className="mt-2 text-[10px] text-cream-dim/70">
+        {budget.remaining > 0
+          ? `${budget.remaining} of ${RENDERS_PER_SESSION} renders left in this session — no account needed.`
+          : `All ${RENDERS_PER_SESSION} renders for this session have been used.`}
+      </p>
 
       {error && (
         <p role="alert" className="mt-3 text-[11px] text-red-400/90">
@@ -1552,7 +1603,7 @@ export function StepLenses({ config, update }: StepProps) {
         <div className={sectionKicker}>Step 5</div>
         <h2 className={sectionTitle}>Lenses & prescription</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Every frame ships with lenses cut and fitted — plano (no correction) starts at €20, same as sun lenses. Choose plano if you plan to send the frame to your own optician for prescription lenses.
+          Every frame ships with lenses cut and fitted — <CfgInfoTrigger section="plano">plano (no correction) lens</CfgInfoTrigger> starts at €20, same as sun lenses. Choose plano if you plan to send the frame to your own optician for prescription lenses.
         </p>
       </header>
 
@@ -1739,8 +1790,12 @@ export function StepReview({
         )}
         <Row label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
         <div className="flex items-baseline justify-between gap-4 py-4">
-          <div className="text-cream text-xs uppercase tracking-[0.2em]">Total due today</div>
-          <div className="text-cream text-lg font-display">{formatEur(total)}</div>
+          <div className="text-cream text-xs uppercase tracking-[0.2em]">
+            <CfgInfoTrigger section="price" className="cfg-info-trigger--block">Total due today</CfgInfoTrigger>
+          </div>
+          <div className="text-cream text-lg font-display">
+            <CfgInfoTrigger section="price" className="cfg-info-trigger--block">{formatEur(total)}</CfgInfoTrigger>
+          </div>
         </div>
       </div>
 
@@ -1765,6 +1820,7 @@ export function StepReview({
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <button
           onClick={() => {
+            pushCfg("cfg_pay_click");
             onSave();
             navigate("/en/bespoke/checkout");
           }}

@@ -10,6 +10,7 @@ import { findFrame } from "@/data/frames";
 import type { BespokeConfig } from "@/lib/bespoke-state";
 import { adoptSessionRef, getSessionRef } from "@/lib/scan-session-ref";
 import { frameFrontWidthMm } from "@/lib/bespoke-photo-geometry";
+import { CfgSignInModal } from "./cfg-shell";
 
 const MAX_RENDERS = 2;
 const MAX_BYTES = 6 * 1024 * 1024;
@@ -19,9 +20,6 @@ const CONSENT_TEXT: Record<"en" | "pl", string> = {
   pl: "Wyrażam zgodę na przechowywanie przez JAY23 LLC (Woolet) mojego oryginalnego zdjęcia i tej wizualizacji przymiarki AI oraz przekazanie obu partnerowi produkcyjnemu w Grecji wyłącznie w celu wykonania i weryfikacji mojej oprawki bespoke. Oba obrazy są usuwane 90 dni po dostawie albo 30 dni po przesłaniu, jeśli nie dojdzie do zamówienia. Zgodę mogę wycofać w każdej chwili pod adresem support@woolet.co; wycofanie zatrzymuje produkcję oprawki.",
 };
 
-const signInHref = () =>
-  "/en/account/sign-in?next=" +
-  encodeURIComponent(typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "/en/bespoke/configurator?step=3");
 
 const readAsUprightDataUrl = (file: File) =>
   new Promise<string>((resolve, reject) => {
@@ -85,6 +83,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
   const [consent, setConsent] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
 
   useEffect(() => {
     const sref = new URLSearchParams(window.location.search).get("sref");
@@ -241,6 +240,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
 
   return (
     <section className="border border-gold/25 bg-panel/40 p-5 sm:p-6">
+      {signInOpen && <CfgSignInModal onClose={() => setSignInOpen(false)} />}
       <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light">See them on you</div>
       <h3 className="font-display text-cream text-xl leading-tight mt-1">Your frame, on your <em className="italic text-gold-light">face</em></h3>
       <p className="text-cream-dim text-xs leading-relaxed mt-2">Use a phone for a straight-on photo without glasses. We place the exact frame visualised above on your face.</p>
@@ -250,7 +250,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
         <h4 className="mt-3 font-display text-lg text-cream">Continue on your phone</h4>
         <p className="mx-auto mt-2 max-w-sm text-xs leading-relaxed text-cream-dim">Scan this code with your phone. Your selected pattern, acetate, finish and private session continue there.</p>
         <div className="mx-auto mt-5 w-fit bg-cream p-3"><QRCodeSVG value={qrUrl} size={156} bgColor="#EFE9DF" fgColor="#1F1B16" /></div>
-        {!isSignedIn && <Link to={signInHref()} className="mt-5 inline-flex min-h-[44px] items-center border border-gold/60 px-5 text-[11px] uppercase tracking-[0.18em] text-gold-light">Sign in first to carry the exact AI frame to your phone</Link>}
+        {!isSignedIn && <button type="button" onClick={() => setSignInOpen(true)} className="mt-5 inline-flex min-h-[44px] items-center border border-gold/60 px-5 text-[11px] uppercase tracking-[0.18em] text-gold-light">Sign in first to carry the exact AI frame to your phone</button>}
       </div>
 
       <div className="md:hidden">
@@ -258,7 +258,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
           <div className="mt-4 border border-gold/25 p-4 bg-gold/5">
             <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light">Free with an account</div>
             <p className="text-cream-dim text-xs leading-relaxed mt-2">Sign in by email code to restore your saved build and use up to two try-on renders.</p>
-            <Link to={signInHref()} className="mt-3 w-full inline-flex min-h-[48px] items-center justify-center bg-gold text-background text-xs uppercase tracking-[0.18em]">{authLoading ? "Checking…" : "Create account / sign in"}</Link>
+            <button type="button" onClick={() => setSignInOpen(true)} className="mt-3 w-full inline-flex min-h-[48px] items-center justify-center bg-gold text-background text-xs uppercase tracking-[0.18em]">{authLoading ? "Checking…" : "Create account / sign in"}</button>
           </div>
         ) : (
           <>
