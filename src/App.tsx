@@ -273,6 +273,8 @@ const App = () => (
           <Route path="/:lang/bespoke/checkout" element={<Navigate to="/en/bespoke/checkout" replace />} />
           <Route path="/en/bespoke/measurements" element={<BespokeMeasurements />} />
           <Route path="/:lang/bespoke/measurements" element={<BespokeMeasurements />} />
+          <Route path="/en/measure" element={<BespokeMeasure />} />
+          <Route path="/:lang/measure" element={<BespokeMeasure />} />
           <Route path="/en/bespoke/photo" element={<BespokePhoto />} />
           <Route path="/:lang/bespoke/photo" element={<BespokePhoto />} />
           <Route path="/:lang/bespoke" element={<Bespoke />} />
