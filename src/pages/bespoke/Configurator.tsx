@@ -231,6 +231,11 @@ const ConfiguratorPage = () => {
                  <StepReview config={config} onSave={handleSave} saved={saved} />;
 
   return (
+    <CfgInfoProvider>
+    <CfgNavProvider value={{ nextLabel: step === STEPS.length ? null : STEPS[step]?.shortLabel ?? null, onNext: goNext }}>
+    {lightboxOpen && stageSrc && (
+      <PreviewLightbox src={stageSrc} alt={stageAlt} caption={lightboxCaption} onClose={() => setLightboxOpen(false)} />
+    )}
     <div className="cfg-scope min-h-screen">
       <SEO
         title="Bespoke Configurator — Woolet"
