@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -760,6 +760,8 @@ function DetailView({
         </section>
       )}
 
+      <MeasureInviteBlock order={o} password={password} />
+
       <DispatchBlock order={o} password={password} />
 
       <Group title="Photo & consent">
@@ -794,6 +796,107 @@ function DetailView({
         </section>
       )}
     </div>
+  );
+}
+
+// One-time measurement invitations. The link is shown once, here, for the
+// operator to copy; the database only ever holds its hash.
+function MeasureInviteBlock({ order, password }: { order: Record<string, any>; password: string }) {
+  const [invites, setInvites] = useState<Array<Record<string, any>>>([]);
+  const [link, setLink] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const call = useCallback(
+    async (action: "list" | "create" | "revoke", sendEmail = true) => {
+      setBusy(true);
+      setMsg(null);
+      try {
+        const { data, error } = await supabase.functions.invoke("measure-invite-create", {
+          body: { password, orderId: order.id, action, sendEmail },
+        });
+        if (error) throw error;
+        const payload = (data ?? {}) as Record<string, any>;
+        if (payload.error) throw new Error(payload.error);
+        if (payload.url) {
+          setLink(payload.url);
+          setMsg(sendEmail ? "Invitation sent to the customer." : "Link created.");
+        }
+        if (action !== "list") await refresh();
+        else setInvites(payload.invites ?? []);
+      } catch (err) {
+        setMsg(err instanceof Error ? err.message : "Failed");
+      } finally {
+        setBusy(false);
+      }
+    },
+    [order.id, password],
+  );
+
+  const refresh = useCallback(async () => {
+    const { data } = await supabase.functions.invoke("measure-invite-create", {
+      body: { password, orderId: order.id, action: "list" },
+    });
+    setInvites(((data ?? {}) as Record<string, any>).invites ?? []);
+  }, [order.id, password]);
+
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
+
+  const state = (i: Record<string, any>) =>
+    i.measurement_scan_id ? "Measured" : i.used_at ? "Opened" : i.revoked_at ? "Cancelled" : Date.parse(i.expires_at) < Date.now() ? "Expired" : "Live";
+
+  return (
+    <section style={{ marginTop: 22 }}>
+      <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Measurement invitation</h3>
+      <p style={{ color: T.dim, fontSize: 12, margin: "0 0 10px", lineHeight: 1.6 }}>
+        A personal link, good for one measurement and seven days. Sending a new one cancels the old.
+      </p>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => void call("create", true)}
+          style={{ minHeight: 40, padding: "0 16px", background: "#C2A05A", color: "#0B0A09", border: 0, borderRadius: 2, fontFamily: SANS, fontSize: 13, fontWeight: 700, cursor: "pointer" }}
+        >
+          Send invitation
+        </button>
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => void call("create", false)}
+          style={{ minHeight: 40, padding: "0 16px", background: "transparent", color: T.ink, border: `1px solid ${T.hair}`, borderRadius: 2, fontFamily: SANS, fontSize: 13, cursor: "pointer" }}
+        >
+          Create link only
+        </button>
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => void call("revoke")}
+          style={{ minHeight: 40, padding: "0 16px", background: "transparent", color: T.dim, border: `1px solid ${T.hair}`, borderRadius: 2, fontFamily: SANS, fontSize: 13, cursor: "pointer" }}
+        >
+          Cancel open links
+        </button>
+      </div>
+      {msg && <p style={{ color: T.dim, fontSize: 12, marginTop: 10 }}>{msg}</p>}
+      {link && (
+        <p style={{ marginTop: 8, fontSize: 12, wordBreak: "break-all", color: T.ink }}>
+          {link}
+          <br />
+          <span style={{ color: T.mute }}>Shown once — copy it now if you want to send it yourself.</span>
+        </p>
+      )}
+      {invites.length > 0 && (
+        <ul style={{ margin: "12px 0 0", padding: 0, listStyle: "none", color: T.dim, fontSize: 12, lineHeight: 1.8 }}>
+          {invites.map((i) => (
+            <li key={i.id}>
+              {state(i)} · created {fmtDate(i.created_at)} · expires {fmtDate(i.expires_at)}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 

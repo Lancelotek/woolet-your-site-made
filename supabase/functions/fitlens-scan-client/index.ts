@@ -86,32 +86,27 @@ Deno.serve(async (req) => {
 
   const measurementRef = await assignMeasurementRef(supabase, row.scan_id);
 
-  // A customer-quoted reference is only a fallback: it attaches the scan when
-  // the widget had no session, and it is matched exactly or not at all.
+  // Production rule: an unsigned number never becomes a production number.
+  // The row is kept so the customer sees what the widget reported and so we can
+  // tell a failed scan from no scan at all, but it is deliberately NOT attached
+  // to a bespoke order and never moves `bespoke_orders.scan_id`. Only
+  // `measure-attach` (signature verified against FitLens's JWKS) does that.
   const clientRef = normalizeMeasurementRef(body.reference);
-  let orderId: string | null = null;
-  if (sessionRef) {
-    const { data: order } = await supabase
-      .from("bespoke_orders")
-      .select("id")
-      .eq("session_ref", sessionRef)
-      .maybeSingle();
-    orderId = order?.id ?? null;
-  }
-  if (!orderId && clientRef) {
+  if (clientRef) {
     const { data: prior } = await supabase
       .from("bespoke_scan_profiles")
-      .select("order_id")
+      .select("id")
       .eq("measurement_ref", clientRef)
       .maybeSingle();
     if (!prior) return json({ error: "unknown_reference", scanId: row.scan_id, measurementRef }, 404);
-    orderId = prior.order_id ?? null;
-  }
-  if (orderId) {
-    await supabase.from("bespoke_scan_profiles").update({ order_id: orderId }).eq("scan_id", row.scan_id);
-    // Newest scan wins the pointer; the earlier rows stay attached to the order.
-    await supabase.from("bespoke_orders").update({ scan_id: row.scan_id }).eq("id", orderId);
   }
 
-  return json({ ok: true, scanId: row.scan_id, measurementRef, source: "fitlens_client", status: "unverified" });
+  return json({
+    ok: true,
+    scanId: row.scan_id,
+    measurementRef,
+    source: "fitlens_client",
+    status: "unverified",
+    accepted_for_production: false,
+  });
 });

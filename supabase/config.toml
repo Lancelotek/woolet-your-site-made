@@ -41,5 +41,11 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.fitlens-scan-client]
     verify_jwt = false
-
-
+  [functions.measure-invite-create]
+    verify_jwt = false
+  [functions.measure-invite-begin]
+    verify_jwt = false
+  [functions.measure-invite-exchange]
+    verify_jwt = false
+  [functions.measure-attach]
+    verify_jwt = false

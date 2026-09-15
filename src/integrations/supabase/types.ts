@@ -116,6 +116,65 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_measure_invites: {
+        Row: {
+          consent_at: string | null
+          consent_locale: string | null
+          consent_version: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          measurement_scan_id: string | null
+          order_id: string
+          revoked_at: string | null
+          sent_to: string | null
+          session_expires_at: string | null
+          session_hash: string | null
+          token_hash: string
+          used_at: string | null
+        }
+        Insert: {
+          consent_at?: string | null
+          consent_locale?: string | null
+          consent_version?: string | null
+          created_at?: string
+          expires_at: string
+          id?: string
+          measurement_scan_id?: string | null
+          order_id: string
+          revoked_at?: string | null
+          sent_to?: string | null
+          session_expires_at?: string | null
+          session_hash?: string | null
+          token_hash: string
+          used_at?: string | null
+        }
+        Update: {
+          consent_at?: string | null
+          consent_locale?: string | null
+          consent_version?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          measurement_scan_id?: string | null
+          order_id?: string
+          revoked_at?: string | null
+          sent_to?: string | null
+          session_expires_at?: string | null
+          session_hash?: string | null
+          token_hash?: string
+          used_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bespoke_measure_invites_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "bespoke_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bespoke_order_photos: {
         Row: {
           card_px: number | null

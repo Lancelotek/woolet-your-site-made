@@ -4,6 +4,7 @@ import { template as bespokePurchaseCustomer } from './bespoke-purchase-customer
 import { template as bespokePurchaseAdmin } from './bespoke-purchase-admin.tsx'
 import { template as bespokeMeasurementsAdmin } from './bespoke-measurements-admin.tsx'
 import { template as bespokeMeasurementSummary } from './bespoke-measurement-summary.tsx'
+import { template as bespokeMeasureInvite } from './bespoke-measure-invite.tsx'
 import { template as vipWaitlistConfirmation } from './vip-waitlist-confirmation.tsx'
 import { template as vipReservationPaid } from './vip-reservation-paid.tsx'
 
@@ -22,6 +23,7 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'bespoke-purchase-admin': bespokePurchaseAdmin,
   'bespoke-measurements-admin': bespokeMeasurementsAdmin,
   'bespoke-measurement-summary': bespokeMeasurementSummary,
+  'bespoke-measure-invite': bespokeMeasureInvite,
   'vip-waitlist-confirmation': vipWaitlistConfirmation,
   'vip-reservation-paid': vipReservationPaid,
 }
