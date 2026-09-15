@@ -501,7 +501,7 @@ export function AiPreviewPanel({
             See your <em className="italic text-gold-light">{frame.shape}</em> before you build
           </div>
         </div>
-        {activeUrl && !loading && isSignedIn && (
+        {activeUrl && !loading && budget.remaining > 0 && (
           <button
             onClick={generate}
             className="text-[11px] uppercase tracking-[0.18em] text-gold-light hover:text-gold underline underline-offset-4"
@@ -518,8 +518,27 @@ export function AiPreviewPanel({
       </p>
 
       <div
-        className="relative w-full overflow-hidden bg-[#EFE9DF] flex items-center justify-center"
+        className="cfg-stage--tappable relative w-full overflow-hidden bg-[#EFE9DF] flex items-center justify-center"
         style={{ aspectRatio: "4 / 3", borderRadius: 2 }}
+        role="button"
+        tabIndex={0}
+        aria-label={activeUrl ? "Open larger preview" : "Generate AI preview"}
+        onClick={() => {
+          if (loading) return;
+          if (activeUrl) {
+            pushCfg("cfg_preview_open", { step: 3 });
+            setLightboxOpen(true);
+            return;
+          }
+          void generate();
+        }}
+        onKeyDown={(e) => {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          e.preventDefault();
+          if (loading) return;
+          if (activeUrl) setLightboxOpen(true);
+          else void generate();
+        }}
       >
         {activeUrl ? (
           <img
@@ -530,14 +549,28 @@ export function AiPreviewPanel({
         ) : loading ? (
           <div className="flex flex-col items-center gap-3 text-[color:var(--cfg-ink)]/70">
             <div className="h-8 w-8 border-2 border-[color:var(--cfg-ink)]/30 border-t-[color:var(--cfg-ink)] rounded-full animate-spin" />
-            <div className="text-[11px] uppercase tracking-[0.2em]">Rendering your pair…</div>
+            <div className="text-[11px] uppercase tracking-[0.2em]">Rendering your {frame.shape}… ~20 s</div>
           </div>
         ) : (
           <div className="text-[color:var(--cfg-ink)]/50 text-xs uppercase tracking-[0.2em]">
             Preview will appear here
           </div>
         )}
+        {!loading && (
+          <span className="cfg-stage__badge" aria-hidden>
+            {activeUrl ? <Maximize2 size={13} /> : <Sparkles size={13} />}
+          </span>
+        )}
       </div>
+
+      {lightboxOpen && activeUrl && (
+        <PreviewLightbox
+          src={activeUrl}
+          alt={`AI preview of ${frame.shape} in ${front.name} / ${temple.name}, ${finish.name}`}
+          caption={`${frame.name} · ${front.name} · cut to your face`}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
 
       {currentList.length > 0 && (
         <div className="mt-3">
