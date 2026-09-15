@@ -617,38 +617,10 @@ export function AiPreviewPanel({
         </div>
       )}
 
-      {!activeUrl && !isSignedIn && (
-        <div
-          className="mt-4 border border-gold/25 p-4"
-          style={{ borderRadius: 2, background: "rgba(194,160,90,0.05)" }}
-        >
-          <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light">Sign in required</div>
-          <p className="text-cream-dim text-[12px] leading-relaxed mt-2">
-            Configuring and ordering is open to everyone. The AI visualisation runs on your account so your
-            renders are saved and tied to your build — sign in to generate it.
-          </p>
-          <Link
-            to={signInHref}
-            className="mt-3 w-full inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors"
-            style={{
-              background: "hsl(var(--gold))",
-              color: "hsl(var(--background))",
-              fontFamily: "Barlow, sans-serif",
-              fontWeight: 500,
-              fontSize: "0.72rem",
-              padding: "16px 24px",
-              borderRadius: 2,
-            }}
-          >
-            {authLoading ? "Checking…" : "Sign in to generate AI preview"}
-          </Link>
-        </div>
-      )}
-
-      {!activeUrl && isSignedIn && (
+      {!activeUrl && (
         <button
           onClick={generate}
-          disabled={loading}
+          disabled={loading || budget.remaining <= 0}
           className="mt-4 w-full inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors disabled:opacity-50"
           style={{
             background: "hsl(var(--gold))",
@@ -663,6 +635,12 @@ export function AiPreviewPanel({
           {loading ? "Generating…" : "Generate AI preview"}
         </button>
       )}
+
+      <p className="mt-2 text-[10px] text-cream-dim/70">
+        {budget.remaining > 0
+          ? `${budget.remaining} of ${RENDERS_PER_SESSION} renders left in this session — no account needed.`
+          : `All ${RENDERS_PER_SESSION} renders for this session have been used.`}
+      </p>
 
       {error && (
         <p role="alert" className="mt-3 text-[11px] text-red-400/90">
