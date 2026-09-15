@@ -423,7 +423,7 @@ const ConfiguratorPage = () => {
 
                 <dl className="cfg-rail__specs">
                   <SpecRow label="Pattern" value={frame ? `${frame.name}` : "—"} />
-                  <SpecRow label="Ref width" value={frame ? `${frame.widthMm} mm · cut to face` : "—"} />
+                  <SpecRow label="Ref width" value={frame ? <CfgInfoTrigger section="fit">{frame.widthMm} mm · cut to face</CfgInfoTrigger> : "—"} />
                   <SpecRow label="Temple length" value={formatTempleLength(config.templeLengthMm, config.templeLengthIsCustom)} />
                   <SpecRow
                     label="Front"
