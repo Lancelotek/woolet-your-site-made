@@ -239,6 +239,7 @@ export default function TryOnPanel({ config, framePreviewUrl, locale = "en", onS
 
   return (
     <section className="border border-gold/25 bg-panel/40 p-5 sm:p-6">
+      {signInOpen && <CfgSignInModal onClose={() => setSignInOpen(false)} />}
       <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light">See them on you</div>
       <h3 className="font-display text-cream text-xl leading-tight mt-1">Your frame, on your <em className="italic text-gold-light">face</em></h3>
       <p className="text-cream-dim text-xs leading-relaxed mt-2">Use a phone for a straight-on photo without glasses. We place the exact frame visualised above on your face.</p>
