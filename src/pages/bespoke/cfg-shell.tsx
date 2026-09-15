@@ -412,3 +412,6 @@ export function useRenderBudget(sessionRef: string) {
   const consume = useCallback(() => setUsed(bumpRenderCount(sessionRef)), [sessionRef]);
   return useMemo(() => ({ used, remaining, consume }), [used, remaining, consume]);
 }
+
+/** Fired when the mini preview stage asks the AI panel to render. */
+export const REQUEST_PREVIEW_EVENT = "woolet:bespoke:requestPreview";
