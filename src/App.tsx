@@ -60,6 +60,7 @@ const BespokeConfigurator = lazy(() => import("./pages/bespoke/Configurator.tsx"
 const BespokeScan = lazy(() => import("./pages/bespoke/Scan.tsx"));
 const BespokeCheckout = lazy(() => import("./pages/bespoke/Checkout.tsx"));
 const BespokeMeasurements = lazy(() => import("./pages/bespoke/Measurements.tsx"));
+const BespokeMeasure = lazy(() => import("./pages/bespoke/Measure.tsx"));
 const BespokePhoto = lazy(() => import("./pages/bespoke/Photo.tsx"));
 
 const VipJoin = lazy(() => import("./pages/VipJoin.tsx"));
