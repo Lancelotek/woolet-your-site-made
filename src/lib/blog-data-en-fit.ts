@@ -670,7 +670,7 @@ ${FITLENS_CTA(
       },
       {
         q: "What size are oversized square blue light glasses?",
-        a: "There is no standard. Brands apply the label to lens widths from roughly 52 mm upward, with front widths that vary widely and are often not published. The Woolet 009 Soft Square is 158 mm across the front with 54 mm lens width, a 22 mm keyhole bridge and 148 mm temples, and blue-light filtering is offered as a lens option.",
+        a: "There is no standard. Brands apply the label to lens widths from roughly 52 mm upward, with front widths that vary widely and are often not published. The Woolet 009 Soft Square is 158 mm across the front with 54 mm lens width, a 22 mm keyhole bridge and 150 mm temples, and blue-light filtering is offered as a lens option.",
       },
       {
         q: "Do blue light glasses actually do anything?",
@@ -783,7 +783,7 @@ ${ANSWER(
 <p>If the shape you want is square, the <a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a> is the one that is oversized and wide at the same time: 54 mm lens width for the look, 158 mm front width for the fit, softened corners so a strong jaw is not doubled by a hard rectangle. The 50 mm lens height keeps a square frame from dominating a long face, and the 22 mm keyhole bridge spreads weight across a broader nasal base instead of two pressure points.</p>
 
 <figure style="margin:24px 0;">
-  <img src="/images/woolet-009-square-glasses-wide-face.webp" alt="Woolet 009 Soft Square acetate frame for wide faces — 158 mm front width, 54 × 50 mm lenses, 22 mm keyhole bridge, 148 mm temples, shown front-on and in profile" width="1200" height="630" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:6px;display:block;" />
+  <img src="/images/woolet-009-square-glasses-wide-face.webp" alt="Woolet 009 Soft Square acetate frame for wide faces — 158 mm front width, 54 × 50 mm lenses, 22 mm keyhole bridge, 150 mm temples, shown front-on and in profile" width="1200" height="630" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:6px;display:block;" />
   <figcaption style="font-size:0.72rem;opacity:0.55;text-align:center;margin-top:8px;">Woolet 009 Soft Square — 158 mm front, 54 × 50 mm lens, 22 mm keyhole bridge. Oversized look, wide-fit geometry.</figcaption>
 </figure>
 
@@ -818,7 +818,7 @@ ${FITLENS_CTA(
 <p>Measure temple-to-temple: the straight-line distance across your face at its widest point, just in front of your ears. Under 145 mm is standard, 145–155 mm is the upper end of mainstream, above 155 mm is outside most catalogues. Woolet's front width is 158 mm; bespoke covers 145–172 mm.</p>
 
 <h3>What size are oversized square blue light glasses?</h3>
-<p>There is no standard. The label gets applied from roughly 52 mm lens width upward, with front widths that vary and are often unpublished. The Woolet 009 Soft Square is 158 mm across the front, 54 mm lens width, 22 mm keyhole bridge, 148 mm temples, with blue-light filtering offered as a lens option.</p>
+<p>There is no standard. The label gets applied from roughly 52 mm lens width upward, with front widths that vary and are often unpublished. The Woolet 009 Soft Square is 158 mm across the front, 54 mm lens width, 22 mm keyhole bridge, 150 mm temples, with blue-light filtering offered as a lens option.</p>
 
 <h3>Do blue light glasses actually do anything?</h3>
 <p>A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality versus standard lenses. We treat the filter as an optional coating and a matter of preference — not a health product. The millimetres are the part we stand behind.</p>

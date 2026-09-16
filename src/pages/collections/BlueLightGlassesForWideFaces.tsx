@@ -201,7 +201,7 @@ const BlueLightGlassesForWideFaces = () => {
       <SEO
         title="Blue Light Glasses for Wide Faces — 158 mm Fit | Woolet"
         exactTitle
-        description="Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 148 mm temples, blue-light filter optional. Bespoke 145–172 mm. Hand made in EU."
+        description="Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 150 mm temples, blue-light filter optional. Bespoke 145–172 mm. Hand made in EU."
         lang="en"
         path={PATH}
         jsonLd={[collectionLd, breadcrumbLd, faqLd]}

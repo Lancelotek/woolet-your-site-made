@@ -1846,7 +1846,7 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "what-size-sunglasses-for-wide-faces",
     title: "What Size Sunglasses for a Wide Face? 155mm+ Fit Guide",
-    excerpt: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 148mm temples. Measure in 60 seconds and find frames that fit.",
+    excerpt: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 150mm temples. Measure in 60 seconds and find frames that fit.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Sizing", "Sunglasses", "Wide Face"],
@@ -2923,8 +2923,8 @@ const blogPostsEN: BlogPost[] = [
 <p>Woolet makes two shapes, both engineered for wider faces (155–161 mm) at one precise 158 mm front width. Bespoke covers anything outside that, up to 162 mm.</p>
 
 <ul>
-  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
-  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
+  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 150 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
+  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 150 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
 </ul>
 
 <p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same EU atelier, same hand-finishing, same geometry — pick on shape, not on size.</p>
@@ -3018,7 +3018,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Where Woolet fits</h2>
 
-<p>Woolet is built around one precise measurement: 158 mm of front width, with a 21–22 mm keyhole bridge and 148 mm temples. Two shapes, both unisex by geometry — fit, not styling, decides whether they work:</p>
+<p>Woolet is built around one precise measurement: 158 mm of front width, with a 21–22 mm keyhole bridge and 150 mm temples. Two shapes, both unisex by geometry — fit, not styling, decides whether they work:</p>
 
 <ul>
   <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Soft round panto in Italian Mazzucchelli acetate. Reads less architectural; the shape consistently picked by women buyers in our pre-order data. Available in Honey tortoise, Piano black, and Crystal.</li>

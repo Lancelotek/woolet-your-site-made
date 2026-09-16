@@ -135,7 +135,7 @@ export const XXL_PAGES: XxlEntry[] = [
     metaDescription:
       "XXL glasses for big heads 62–64 cm circumference. Bespoke 160–162 mm front, 150–155 mm temples. Italian Mazzucchelli acetate, hand made in EU.",
     intro:
-      "Head circumference and face width are different measurements. A 160 mm face on a 62–64 cm head needs both a wider front AND longer temples — that's the XXL tier. Signature 148 mm temples end in front of the ear on a 63 cm head; XXL bespoke moves them to 150–155 mm so the tip hooks behind the ear cleanly.",
+      "Head circumference and face width are different measurements. A 160 mm face on a 62–64 cm head needs both a wider front AND longer temples — that's the XXL tier. Signature 150 mm temples end in front of the ear on a 63 cm head; XXL bespoke moves them to 150–155 mm so the tip hooks behind the ear cleanly.",
     spec: [
       { label: "Head circumference", value: "62–64 cm" },
       { label: "Front width", value: "160–162 mm bespoke" },
@@ -145,7 +145,7 @@ export const XXL_PAGES: XxlEntry[] = [
       { label: "Hinges", value: "5-barrel PVD Gunmetal" },
     ],
     faq: [
-      { q: "What glasses fit a 63 cm head?", a: "You need 150+ mm temples and a 160+ mm front. Mainstream tops out around 148 mm temples on a 148 mm front — the arms overshoot before they reach the ear." },
+      { q: "What glasses fit a 63 cm head?", a: "You need 150+ mm temples and a 160+ mm front. Mainstream tops out around 145 mm temples on a 148 mm front — the arms overshoot before they reach the ear." },
       { q: "Is head circumference the same as face width?", a: "No. Face width is temple-to-temple across the front; circumference wraps the whole head. A wide face doesn't always mean a large head, and vice versa — but XXL usually needs both." },
       { q: "How do I measure my head circumference?", a: "Wrap a soft tape just above the ears, across the forehead. Use the hat-size calculator to convert to US/EU hat sizes." },
     ],
