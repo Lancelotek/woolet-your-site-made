@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { langFromPath, productBreadcrumbJsonLd, SITE_URL, localeCtx } from "@/seo/product-collection-jsonld";
 import { pushGtmEvent } from "@/lib/gtm";
+import { trackMetaEventOnce } from "@/lib/meta-capi";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import aviatorImg from "@/assets/configurator/frames/aviator.png.asset.json";
@@ -74,7 +75,13 @@ const ProductPageBespoke = () => {
     });
     // Meta upper funnel — browser pixel + CAPI on one event_id, once per session.
     trackMetaEventOnce("ViewContent", "viewcontent:bespoke-product", {
-      custom: BESPOKE_VIEW_CONTENT,
+      custom: {
+        content_type: "product",
+        content_ids: ["bespoke"],
+        content_name: "Woolet Bespoke",
+        value: 480,
+        currency: "USD",
+      },
     });
   }, []);
 
