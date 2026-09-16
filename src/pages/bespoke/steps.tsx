@@ -270,7 +270,11 @@ export const buildPreviewKey = (
   frontId: string | null | undefined,
   templeId: string | null | undefined,
   finishId: string | null | undefined,
-) => [frameId, frontId, templeId, finishId].join("|");
+  /** Optional lens variant. Plano keeps the base key so the clear render is reused. */
+  lensId?: string | null,
+) =>
+  [frameId, frontId, templeId, finishId].join("|") +
+  (lensId && lensId !== "plano" ? `|${lensId}` : "");
 
 export const loadPreviewHistory = (): PreviewHistory => {
   if (typeof window === "undefined") return {};
