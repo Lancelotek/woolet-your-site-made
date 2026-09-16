@@ -23,7 +23,43 @@ interface Body {
   patternUrl?: string;    // the technical outline drawing of the chosen pattern
   widthMm?: number;       // front width the pattern is cut to
   bridgeMm?: number;      // reference bridge width
+  lensType?: string | null; // "plano" | "sun-uv400" | "photochromic" | "blue-light" | "reading"
+  lensName?: string | null;
 }
+
+// The finish is the single most visible material property in the render, and
+// the model ignores a bare adjective. Describe the surface physically instead.
+const FINISH_DESCRIPTIONS: Record<string, string> = {
+  "shiny hand-polished":
+    "Surface finish: high-gloss hand-polished acetate — mirror-bright specular highlights, sharp reflections of the softbox on the front and on the temples, glassy polished edges with visible depth in the translucent layers.",
+  matte:
+    "Surface finish: fully matte acetate — completely non-reflective, soft velvety diffuse surface with no specular highlight anywhere, no gloss on the edges, colour reads slightly deeper and more muted than polished acetate.",
+  "scratched / brushed":
+    "Surface finish: brushed / scratched acetate — a fine directional satin grain running horizontally across the front and along the temples, low semi-matte sheen that breaks the highlight into a soft streak, no mirror reflections, edges lightly satin rather than glassy.",
+};
+
+const finishInstruction = (finish: string): string =>
+  FINISH_DESCRIPTIONS[finish.trim().toLowerCase()] ??
+  `Surface finish: ${finish}, rendered as a physically accurate acetate surface.`;
+
+const LENS_DESCRIPTIONS: Record<string, string> = {
+  plano: "Lenses: clear neutral demo lenses, no tint, only faint anti-reflective bloom.",
+  "blue-light":
+    "Lenses: essentially clear lenses with a very subtle cool blue-violet anti-reflective sheen visible at grazing angles; the lenses stay transparent and the frame colour behind them is unchanged.",
+  reading: "Lenses: clear lenses with a slightly thicker edge profile, no tint.",
+  photochromic:
+    "Lenses: photochromic lenses in a partially activated state — a light neutral grey tint, darker at the top and fading lighter toward the bottom, still transparent enough to read the temples through the lens.",
+  "sun-uv400":
+    "Lenses: solid tinted sun lenses in a deep neutral grey-brown, clearly darker than the frame, with a crisp specular highlight across the lens surface and the temple only faintly visible through them.",
+};
+
+const lensInstruction = (lensType?: string | null, lensName?: string | null): string => {
+  if (!lensType) return LENS_DESCRIPTIONS.plano;
+  return (
+    LENS_DESCRIPTIONS[lensType] ??
+    `Lenses: ${lensName ?? lensType}, rendered physically accurately and clearly distinguishable from the acetate.`
+  );
+};
 
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), {
