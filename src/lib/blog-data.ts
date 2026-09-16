@@ -804,7 +804,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Keep going: sizing references</h2>
 
-<p>Once you have your number, three companion references turn it into a purchase. The <a href="/en/blog/eyeglass-frame-size-chart" style="color:#A07A2A;">eyeglass frame size chart</a> maps XS–XXL bands to real front widths in millimetres. <a href="/en/blog/numbers-on-glasses-frames-meaning" style="color:#A07A2A;">What the numbers on glasses frames mean</a> decodes the 54□21-103 marking and shows why none of those digits is the frame's total width. And <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a> separates temple length (the arm) from temple-to-temple width (your head) — the two are constantly confused.</p>
+<p>Once you have your number, three companion references turn it into a purchase. The <a href="/en/blog/eyeglass-frame-size-chart" style="color:#A07A2A;">eyeglass frame size chart</a> maps XS–XXL bands to real front widths in millimetres. <a href="/en/blog/numbers-on-glasses-frames-meaning" style="color:#A07A2A;">What the numbers on glasses frames mean</a> decodes the 54□21-145 marking and shows why none of those digits is the frame's total width. And <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a> separates temple length (the arm) from temple-to-temple width (your head) — the two are constantly confused.</p>
 
 <h2>FAQ: Measuring Face Width for Glasses</h2>
 
@@ -1809,7 +1809,7 @@ const blogPostsEN: BlogPost[] = [
   <li><strong>UV400 as a baseline, polarized as an option.</strong></li>
 </ol>
 
-<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 20 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 172 mm.</p>
+<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 22 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 172 mm.</p>
 
 <h2>Polarized or not?</h2>
 

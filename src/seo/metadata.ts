@@ -1869,7 +1869,7 @@ ${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escap
               "@type": "Product",
               name: "Woolet 009 — Soft-Square",
               description:
-                "Soft-square Milanese acetate frame, 158 mm wide with a 20 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+                "Soft-square Milanese acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
               offers: {
