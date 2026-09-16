@@ -241,3 +241,22 @@ export const trackInitiateCheckoutOnce = (
   if (!claimOnce(`initiatecheckout:${key}`)) return;
   void trackMetaEvent("InitiateCheckout", opts);
 };
+
+/**
+ * Generic once-per-session wrapper around `trackMetaEvent`, used by the upper
+ * funnel (ViewContent, CustomizeProduct). `key` is the full guard key, e.g.
+ * "viewcontent:bespoke-landing". Returns the event_id when the event was
+ * dispatched, so callers can mirror it into their own dataLayer push.
+ */
+export const trackMetaEventOnce = (
+  eventName: MetaEventName,
+  key: string,
+  opts: TrackOptions = {},
+): string | null => {
+  if (typeof window === "undefined") return null;
+  if (!isProdHost()) return null;
+  if (!claimOnce(key)) return null;
+  const eventId = opts.eventId ?? uuid();
+  void trackMetaEvent(eventName, { ...opts, eventId });
+  return eventId;
+};
