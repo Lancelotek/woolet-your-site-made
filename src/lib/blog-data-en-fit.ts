@@ -23,11 +23,11 @@ const BYLINE = (published: string, updated: string) => `
 const ANSWER = (html: string) => `
 <p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;">${html}</p>`;
 
-const FITLENS_CTA = (intro: string, anchor: string) => `
+const FITLENS_CTA = (intro: string, anchor: string, href = "/en/fit", eyebrow = "FitLens · 20 seconds, phone camera") => `
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
-  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">FitLens · 20 seconds, phone camera</div>
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">${eyebrow}</div>
   <p style="margin:0 0 14px 0;font-size:15px;line-height:1.65;">${intro}</p>
-  <a href="/en/fit" style="display:inline-block;background:#CAA449;color:#1F1B16;text-decoration:none;padding:12px 22px;border-radius:2px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;">${anchor}</a>
+  <a href="${href}" style="display:inline-block;background:#CAA449;color:#1F1B16;text-decoration:none;padding:12px 22px;border-radius:2px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;">${anchor}</a>
 </div>`;
 
 const TH = `padding:12px 14px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;`;
