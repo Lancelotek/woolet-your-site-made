@@ -130,6 +130,8 @@ Deno.serve(async (req) => {
     const suppliedPatternUrl = String(body?.patternUrl || "").slice(0, 2000);
     const widthMm = Number(body?.widthMm) || 158;
     const bridgeMm = Number(body?.bridgeMm) || 22;
+    const lensType = body?.lensType ? String(body.lensType).slice(0, 40) : null;
+    const lensName = body?.lensName ? String(body.lensName).slice(0, 60) : null;
 
     if (!shape || !frontColor || !templeColor || !finish) {
       return json({ error: "Missing shape / frontColor / templeColor / finish" }, 400);
