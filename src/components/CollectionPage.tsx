@@ -12,6 +12,8 @@ export interface CollectionFAQ {
 export interface CollectionExtraSection {
   heading: string;
   paragraphs: string[];
+  /** Raw block-level HTML (tables, lists) rendered under the heading, before the paragraphs. */
+  html?: string;
 }
 
 export interface CollectionImage {
