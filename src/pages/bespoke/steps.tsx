@@ -347,8 +347,10 @@ export function AiPreviewPanel({
   const temple = COLORS.find((c) => c.id === config.templeColorId);
   const finish = FINISHES.find((f) => f.id === config.finishId);
 
+  const lens = includeLens ? LENS_TYPES.find((l) => l.id === config.lensTypeId) : undefined;
+
   // Recompute a stable key so a new selection invalidates the previous render.
-  const selectionKey = [frame?.id, front?.id, temple?.id, finish?.id].join("|");
+  const selectionKey = buildPreviewKey(frame?.id, front?.id, temple?.id, finish?.id, lens?.id);
   const [history, setHistory] = useState<PreviewHistory>(() => loadPreviewHistory());
   const currentList = history[selectionKey] ?? [];
   const [activeUrl, setActiveUrl] = useState<string | null>(currentList[0]?.url ?? null);
