@@ -75,7 +75,7 @@ export default function BespokeCheckout() {
     return latest?.url ?? null;
   };
 
-  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(resolvePreview);
   const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => findLatestPreview(loadPreviewHistory()));
   const [isGenerating, setIsGenerating] = useState(false);
 
