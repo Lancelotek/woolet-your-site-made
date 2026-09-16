@@ -197,7 +197,7 @@ const ConfiguratorPage = () => {
     if (eventId) {
       pushGtmEvent("bespoke_customize_started", {
         event_id: eventId,
-        content_ids: [chosen.id],
+        content_id: chosen.id,
         content_name: `Woolet Bespoke - ${chosen.name}`,
         value: pricing.totalEur,
         currency: "USD",
