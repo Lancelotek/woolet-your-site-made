@@ -328,9 +328,12 @@ export const savePreviewHistory = (history: PreviewHistory): SaveResult => {
 export function AiPreviewPanel({
   config,
   onRenderChange,
+  includeLens = false,
 }: {
   config: BespokeConfig;
   onRenderChange?: (url: string | null) => void;
+  /** Render the frame with the chosen lens tint (step 6) instead of clear demo lenses. */
+  includeLens?: boolean;
 }) {
   // No account needed to see your own frame. The render runs against the
   // pseudonymous scan session and is capped per session; sign-in is asked for
