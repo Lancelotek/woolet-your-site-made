@@ -329,7 +329,7 @@ ${FITLENS_CTA(
 
 <p>If your face measures more than about 154 mm, the six-band chart has run out. Three honest options remain.</p>
 
-<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 54□21 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> at 51□20, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU.</p>
+<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU.</p>
 
 <p><strong>Go bespoke between 145 and 172 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
@@ -359,7 +359,7 @@ ${FITLENS_CTA(
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/numbers-on-glasses-frames-meaning">What do the numbers on glasses frames mean?</a> — 54□21-103 decoded, with the arithmetic.</li>
+<li><a href="/en/blog/numbers-on-glasses-frames-meaning">What do the numbers on glasses frames mean?</a> — 54□21-145 decoded, with the arithmetic.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — the measurement the chart is built around.</li>
 <li><a href="/en/blog/extra-wide-glasses-158mm">Extra-wide glasses at 158 mm</a> — what exists past the end of the chart.</li>
 </ul>
@@ -393,8 +393,8 @@ ${FITLENS_CTA(
         a: "It is your own face measurement: the distance across the widest part of your head, just above and in front of the ears, measured in millimetres. It is the number a frame's total front width should match within about 3 mm. Average is under 140 mm; 155 mm and above is a wide face.",
       },
       {
-        q: "Why is the Woolet temple length only 103 mm?",
-        a: "Because Woolet publishes the straight arm section to the start of the bend, not the total path length around the drop. Adding the 52 mm tip drop gives an effective reach comparable with a conventional 145–150 mm marking. Different convention, same fit — it is listed alongside the tip drop for exactly that reason.",
+        q: "What temple length do Woolet frames use?",
+        a: "150 mm on both the 007 Round and the 009 Soft Square, with a 52 mm tip drop, matched to a 158 mm front for faces 155–161 mm wide.",
       },
     ],
     content: `${BYLINE("29 July 2026", "29 July 2026")}
@@ -445,7 +445,7 @@ ${ANSWER(
     <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="${TD}"><strong>140 mm</strong></td><td style="${TD}">The default for most adults</td><td style="${TD}">Paired with 132–142 mm fronts. If a shop has one length in stock, it is this.</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="${TD}"><strong>145 mm</strong></td><td style="${TD}">Larger heads, ears set further back</td><td style="${TD}">The usual upgrade when a 140 mm arm bends too early.</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="${TD}"><strong>150 mm</strong></td><td style="${TD}">Long-skulled or high-circumference heads</td><td style="${TD}">Rare in stock. Often special order.</td></tr>
-    <tr style="background:#F5EFDD;"><td style="${TD}"><strong>103 mm + 52 mm drop</strong><br><span style="color:#666;font-size:12px;">Woolet 007 / 009</span></td><td style="${TD}">155–161 mm faces</td><td style="${TD}">Different convention — see below. Effective reach is comparable to 145–150 mm.</td></tr>
+    <tr style="background:#F5EFDD;"><td style="${TD}"><strong>150 mm (52 mm tip drop)</strong><br><span style="color:#666;font-size:12px;">Woolet 007 / 009</span></td><td style="${TD}">155–161 mm faces</td><td style="${TD}">Matched to a 158 mm front.</td></tr>
   </tbody>
 </table>
 </div>
