@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronLeft, Sparkles, ShieldCheck, Lock, RefreshCcw, Scissors, Truck } from "lucide-react";
+import { ChevronLeft, Sparkles, ShieldCheck, Lock, Scissors, Truck } from "lucide-react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
@@ -336,7 +336,7 @@ export default function BespokeCheckout() {
                   <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
                     <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
                     <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Fit guaranteed</li>
-                    <li className="inline-flex items-center gap-1.5"><RefreshCcw size={12} className="text-gold-light" /> 30-day remake</li>
+                    
                     <li className="inline-flex items-center gap-1.5"><Scissors size={12} className="text-gold-light" /> Cut in the EU</li>
                     <li className="inline-flex items-center gap-1.5"><Truck size={12} className="text-gold-light" /> Free shipping</li>
                   </ul>
