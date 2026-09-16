@@ -116,7 +116,7 @@ ${ANSWER(
 </table>
 </div>
 
-<p>The single most useful distinction in that table is temples versus behind the ears. Behind-the-ear pain is a fitting problem and a good optician solves it in ten minutes. Temple pain is a geometry problem and no amount of bench work solves it.</p>
+<p>The single most useful distinction in that table is temples versus behind the ears. Behind-the-ear pain is a fitting problem and a good optician solves it in ten minutes — the five causes and their fixes are in <a href="/en/blog/glasses-hurt-behind-ears" style="color:#A07A2A;">glasses that hurt behind the ears</a>. Temple pain is a geometry problem and no amount of bench work solves it.</p>
 
 <h2>What you can fix at home</h2>
 
