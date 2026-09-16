@@ -72,6 +72,10 @@ const ProductPageBespoke = () => {
       awareness_stage: "most_aware",
       item_variant: "Founders Bespoke",
     });
+    // Meta upper funnel — browser pixel + CAPI on one event_id, once per session.
+    trackMetaEventOnce("ViewContent", "viewcontent:bespoke-product", {
+      custom: BESPOKE_VIEW_CONTENT,
+    });
   }, []);
 
   useEffect(() => {
