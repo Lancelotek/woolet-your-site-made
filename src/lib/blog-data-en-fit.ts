@@ -283,7 +283,6 @@ ${ANSWER(
 </table>
 </div>
 
-<p style="font-size:13px;color:#666;">*Woolet publishes temple length as the straight arm measurement to the start of the bend (103 mm), not the total including the drop. See the note on measurement conventions in <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a>.</p>
 
 <div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The hook nobody prints on the chart</div>
