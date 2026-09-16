@@ -1713,6 +1713,16 @@ export function StepLenses({ config, update }: StepProps) {
         </>
       )}
 
+      <div>
+        <div className={labelClass}>Your frame with these lenses</div>
+        <p className="text-cream-dim text-xs leading-relaxed mt-2 max-w-xl">
+          Generate the final visualisation with the lens you picked. This is the image that travels with your order.
+        </p>
+        <div className="mt-3">
+          <AiPreviewPanel config={config} includeLens />
+        </div>
+      </div>
+
       {needsRx && (
         <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5">
           <div className={labelClass}>Prescription</div>
