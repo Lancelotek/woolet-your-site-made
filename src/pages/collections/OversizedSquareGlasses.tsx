@@ -40,12 +40,12 @@ const OversizedSquareGlasses = () => (
       {
         question: "How is the 009 different from the round 007?",
         answer:
-          "Same front width (158 mm), same Italian acetate, same 21 mm keyhole bridge — different silhouette. The 009 (soft-square) reads as structured and architectural; the 007 (round) reads as softer and more classic. Pick by face shape and personal style.",
+          "Same front width (158 mm), same Italian acetate, same 150 mm temples — different silhouette and bridge. The 009 (soft-square) has a 22 mm keyhole bridge and reads as structured; the 007 (round) has a 21 mm bridge and reads as softer and more classic. Pick by face shape and personal style.",
       },
       {
-        question: "When do pre-orders ship?",
+        question: "What do oversized square glasses cost?",
         answer:
-          "Founding-member pre-orders ship in waves through 2026 — your exact wave appears on the order confirmation.",
+          "$190 for eyeglasses with demo lenses ready for your prescription, $210 with UV400 sun, blue light or reading lenses. Bespoke at any width from 145 to 172 mm starts at $480 with lenses included.",
       },
     ]}
   />
