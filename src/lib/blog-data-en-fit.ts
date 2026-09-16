@@ -58,7 +58,7 @@ export const blogPostsENFit: BlogPost[] = [
       },
       {
         q: "Can glasses cause a pressure sore behind the ear?",
-        a: "Yes. A temple arm with too tight a bend concentrates load on a few square millimetres of skin over bone, which reddens, then breaks down. Silicone ear cushions and a shallower bend fix most cases. If the sore returns within a week of every adjustment, the arm is being asked to hold a frame the front cannot hold on its own.",
+        a: "Yes. A temple arm with too tight a bend concentrates load on a few square millimetres of skin over bone, which reddens, then breaks down. Silicone ear cushions and a shallower bend fix most cases. If the sore returns within a week of every adjustment, the arm is being asked to hold a frame the front cannot hold on its own. Full guide: glasses that hurt behind the ears.",
       },
       {
         q: "Do glasses stretch out over time?",
