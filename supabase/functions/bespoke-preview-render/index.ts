@@ -23,7 +23,43 @@ interface Body {
   patternUrl?: string;    // the technical outline drawing of the chosen pattern
   widthMm?: number;       // front width the pattern is cut to
   bridgeMm?: number;      // reference bridge width
+  lensType?: string | null; // "plano" | "sun-uv400" | "photochromic" | "blue-light" | "reading"
+  lensName?: string | null;
 }
+
+// The finish is the single most visible material property in the render, and
+// the model ignores a bare adjective. Describe the surface physically instead.
+const FINISH_DESCRIPTIONS: Record<string, string> = {
+  "shiny hand-polished":
+    "Surface finish: high-gloss hand-polished acetate — mirror-bright specular highlights, sharp reflections of the softbox on the front and on the temples, glassy polished edges with visible depth in the translucent layers.",
+  matte:
+    "Surface finish: fully matte acetate — completely non-reflective, soft velvety diffuse surface with no specular highlight anywhere, no gloss on the edges, colour reads slightly deeper and more muted than polished acetate.",
+  "scratched / brushed":
+    "Surface finish: brushed / scratched acetate — a fine directional satin grain running horizontally across the front and along the temples, low semi-matte sheen that breaks the highlight into a soft streak, no mirror reflections, edges lightly satin rather than glassy.",
+};
+
+const finishInstruction = (finish: string): string =>
+  FINISH_DESCRIPTIONS[finish.trim().toLowerCase()] ??
+  `Surface finish: ${finish}, rendered as a physically accurate acetate surface.`;
+
+const LENS_DESCRIPTIONS: Record<string, string> = {
+  plano: "Lenses: clear neutral demo lenses, no tint, only faint anti-reflective bloom.",
+  "blue-light":
+    "Lenses: essentially clear lenses with a very subtle cool blue-violet anti-reflective sheen visible at grazing angles; the lenses stay transparent and the frame colour behind them is unchanged.",
+  reading: "Lenses: clear lenses with a slightly thicker edge profile, no tint.",
+  photochromic:
+    "Lenses: photochromic lenses in a partially activated state — a light neutral grey tint, darker at the top and fading lighter toward the bottom, still transparent enough to read the temples through the lens.",
+  "sun-uv400":
+    "Lenses: solid tinted sun lenses in a deep neutral grey-brown, clearly darker than the frame, with a crisp specular highlight across the lens surface and the temple only faintly visible through them.",
+};
+
+const lensInstruction = (lensType?: string | null, lensName?: string | null): string => {
+  if (!lensType) return LENS_DESCRIPTIONS.plano;
+  return (
+    LENS_DESCRIPTIONS[lensType] ??
+    `Lenses: ${lensName ?? lensType}, rendered physically accurately and clearly distinguishable from the acetate.`
+  );
+};
 
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -94,6 +130,8 @@ Deno.serve(async (req) => {
     const suppliedPatternUrl = String(body?.patternUrl || "").slice(0, 2000);
     const widthMm = Number(body?.widthMm) || 158;
     const bridgeMm = Number(body?.bridgeMm) || 22;
+    const lensType = body?.lensType ? String(body.lensType).slice(0, 40) : null;
+    const lensName = body?.lensName ? String(body.lensName).slice(0, 60) : null;
 
     if (!shape || !frontColor || !templeColor || !finish) {
       return json({ error: "Missing shape / frontColor / templeColor / finish" }, 400);
@@ -127,14 +165,17 @@ Deno.serve(async (req) => {
         ? [
             `Images 2–7 are photographs of the same physical Aviator construction from different angles. Use them only to understand real thickness, edge polish, bridge depth, end-piece geometry, hinge placement, two-pin temple attachment, temple taper and how each temple joins the front without a gap or invented connector.`,
             `The technical drawing in image 1 remains the authority for the front silhouette. The photographs are the authority for three-dimensional construction and photographic quality.`,
-            `Do not copy the photographs' clear front, black temples, sunglass tint, engraving or branding. Apply the buyer's selected front acetate, temple acetate, finish and clear demo lenses stated below.`,
+            `Do not copy the photographs' clear front, black temples, sunglass tint, engraving or branding. Apply the buyer's selected front acetate, temple acetate, finish and lenses stated below.`,
           ]
         : []),
       `Render it as an editorial product photograph of one real pair of premium bespoke eyeglasses,`,
       `frame front cut from Italian Mazzucchelli acetate in "${frontColor}",`,
-      `temples in acetate "${templeColor}". Finish: ${finish}.`,
+      `temples in acetate "${templeColor}".`,
+      finishInstruction(finish),
+      `The finish must be unmistakable at a glance and applied consistently to the front, the temples and the edges.`,
       `Front width about ${widthMm} mm with a bridge of about ${bridgeMm} mm, so the pair reads wide and generously proportioned.`,
-      `Clear neutral demo lenses without tint, correctly seated hinges and rivets, hand-polished acetate edge detail,`,
+      lensInstruction(lensType, lensName),
+      `Correctly seated hinges and rivets, accurate acetate edge detail,`,
       `high-key professional product photography on a clean warm off-white seamless background, controlled softbox reflections, precise transparency and refraction where the acetate is translucent, crisp natural contact shadow,`,
       `three-quarter front angle with the entire frame and both temples legible, no face, no model, no branding, no text, no logos,`,
       `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,

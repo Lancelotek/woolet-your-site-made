@@ -60,7 +60,10 @@ export default function BespokeCheckout() {
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
-  const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const baseKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const lensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId);
+  const previewKey = `${lensKey}::${baseKey}`;
+  const resolvePreview = () => getLatestPreviewUrl(lensKey) ?? getLatestPreviewUrl(baseKey);
 
   const findLatestPreview = (history: ReturnType<typeof loadPreviewHistory>): string | null => {
     let latest: { url: string; ts: number } | null = null;
@@ -72,7 +75,7 @@ export default function BespokeCheckout() {
     return latest?.url ?? null;
   };
 
-  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(resolvePreview);
   const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => findLatestPreview(loadPreviewHistory()));
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -83,7 +86,7 @@ export default function BespokeCheckout() {
   const couponPercent = appliedCoupon ? COUPONS[appliedCoupon] ?? 0 : 0;
   useEffect(() => {
     const refresh = () => {
-      setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+      setAiPreviewUrl(resolvePreview());
       setFallbackPreviewUrl(findLatestPreview(loadPreviewHistory()));
     };
     refresh();

@@ -270,7 +270,11 @@ export const buildPreviewKey = (
   frontId: string | null | undefined,
   templeId: string | null | undefined,
   finishId: string | null | undefined,
-) => [frameId, frontId, templeId, finishId].join("|");
+  /** Optional lens variant. Plano keeps the base key so the clear render is reused. */
+  lensId?: string | null,
+) =>
+  [frameId, frontId, templeId, finishId].join("|") +
+  (lensId && lensId !== "plano" ? `|${lensId}` : "");
 
 export const loadPreviewHistory = (): PreviewHistory => {
   if (typeof window === "undefined") return {};
@@ -324,9 +328,12 @@ export const savePreviewHistory = (history: PreviewHistory): SaveResult => {
 export function AiPreviewPanel({
   config,
   onRenderChange,
+  includeLens = false,
 }: {
   config: BespokeConfig;
   onRenderChange?: (url: string | null) => void;
+  /** Render the frame with the chosen lens tint (step 6) instead of clear demo lenses. */
+  includeLens?: boolean;
 }) {
   // No account needed to see your own frame. The render runs against the
   // pseudonymous scan session and is capped per session; sign-in is asked for
@@ -340,8 +347,10 @@ export function AiPreviewPanel({
   const temple = COLORS.find((c) => c.id === config.templeColorId);
   const finish = FINISHES.find((f) => f.id === config.finishId);
 
+  const lens = includeLens ? LENS_TYPES.find((l) => l.id === config.lensTypeId) : undefined;
+
   // Recompute a stable key so a new selection invalidates the previous render.
-  const selectionKey = [frame?.id, front?.id, temple?.id, finish?.id].join("|");
+  const selectionKey = buildPreviewKey(frame?.id, front?.id, temple?.id, finish?.id, lens?.id);
   const [history, setHistory] = useState<PreviewHistory>(() => loadPreviewHistory());
   const currentList = history[selectionKey] ?? [];
   const [activeUrl, setActiveUrl] = useState<string | null>(currentList[0]?.url ?? null);
@@ -429,6 +438,8 @@ export function AiPreviewPanel({
           patternUrl: frame.url,
           widthMm: frame.widthMm,
           bridgeMm: frame.bridgeMm,
+          lensType: lens?.id ?? null,
+          lensName: lens?.name ?? null,
         },
 
       });
@@ -519,6 +530,11 @@ export function AiPreviewPanel({
         Front: <span className="text-cream">{front.name}</span> · Temples:{" "}
         <span className="text-cream">{temple.name}</span> · Finish:{" "}
         <span className="text-cream">{finish.name}</span>
+        {lens && (
+          <>
+            {" "}· Lenses: <span className="text-cream">{lens.name}</span>
+          </>
+        )}
       </p>
 
       <div
@@ -1696,6 +1712,16 @@ export function StepLenses({ config, update }: StepProps) {
           )}
         </>
       )}
+
+      <div>
+        <div className={labelClass}>Your frame with these lenses</div>
+        <p className="text-cream-dim text-xs leading-relaxed mt-2 max-w-xl">
+          Generate the final visualisation with the lens you picked. This is the image that travels with your order.
+        </p>
+        <div className="mt-3">
+          <AiPreviewPanel config={config} includeLens />
+        </div>
+      </div>
 
       {needsRx && (
         <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5">
