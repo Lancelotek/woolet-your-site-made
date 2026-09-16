@@ -1716,7 +1716,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Woolet 007 (round) and 009 (soft square) ship at a <strong>158 mm front width with a 21–22 mm keyhole bridge</strong>. The blue-light filter is available as a <strong>lens upgrade (+$40)</strong> on either model, alongside polarized sunglass lenses (+$60) and a combined polarized + blue-light option (+$80). The same Italian Mazzucchelli acetate frame works for all of them — you choose the lens, not the frame.</p>
 
-<p>For a 155 mm+ face, this collapses two problems (fit and coating) into one purchase, and gets the geometry right before layering on the lens. <a href="/en/collections/oversized-blue-light-glasses">Oversized blue-light glasses for wide faces</a> walks through the size logic in more detail.</p>
+<p>For a 155 mm+ face, this collapses two problems (fit and coating) into one purchase, and gets the geometry right before layering on the lens. <a href="/en/collections/blue-light-glasses-for-wide-faces">oversized blue light glasses</a> walks through the size logic in more detail.</p>
 
 <h2>Should you buy a blue-light frame?</h2>
 
@@ -1740,7 +1740,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Blue-light glasses are a useful comfort feature with modest, mostly evening-and-glare-related benefits. They are not a medical product. The biggest mistake wide-faced buyers make is not in choosing the wrong coating — it is in buying a frame that doesn't fit, and then blaming the lens when their head still hurts. Get the 158 mm frame first. Then choose the lens.</p>
 
-<p><a href="/en/collections/oversized-blue-light-glasses">Oversized blue-light glasses (158 mm)</a> | <a href="/en/collections/blue-light-glasses-for-wide-faces">Blue-light glasses for wide faces</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+<p><a href="/en/collections/blue-light-glasses-for-wide-faces">oversized blue light glasses</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 
 <p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 20 seconds, no app.</p>
 

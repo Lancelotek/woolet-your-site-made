@@ -74,11 +74,9 @@ const GlassesForBigHeads = lazy(() => import("./pages/collections/GlassesForBigH
 const ExtraWideGlasses = lazy(() => import("./pages/collections/ExtraWideGlasses.tsx"));
 const WideBridgeGlasses = lazy(() => import("./pages/collections/WideBridgeGlasses.tsx"));
 const KeyholeBridgeGlasses = lazy(() => import("./pages/collections/KeyholeBridgeGlasses.tsx"));
-const OversizedBlueLightGlasses = lazy(() => import("./pages/collections/OversizedBlueLightGlasses.tsx"));
 const BlueLightGlassesForWideFaces = lazy(() => import("./pages/collections/BlueLightGlassesForWideFaces.tsx"));
 const ExtraLargeOversizedEyeglasses = lazy(() => import("./pages/collections/ExtraLargeOversizedEyeglasses.tsx"));
 const BigGlassesFrames = lazy(() => import("./pages/collections/BigGlassesFrames.tsx"));
-const OversizedPrescriptionGlasses = lazy(() => import("./pages/collections/OversizedPrescriptionGlasses.tsx"));
 const WideFrameReadingGlasses = lazy(() => import("./pages/collections/WideFrameReadingGlasses.tsx"));
 const OversizedSquareGlasses = lazy(() => import("./pages/collections/OversizedSquareGlasses.tsx"));
 const OversizedRoundGlasses = lazy(() => import("./pages/collections/OversizedRoundGlasses.tsx"));
@@ -293,14 +291,12 @@ const App = () => (
           <Route path="/en/collections/extra-wide-glasses" element={<ExtraWideGlasses />} />
           <Route path="/en/collections/wide-bridge-glasses" element={<WideBridgeGlasses />} />
           <Route path="/en/collections/keyhole-bridge-glasses" element={<KeyholeBridgeGlasses />} />
-          <Route path="/en/collections/oversized-blue-light-glasses" element={<OversizedBlueLightGlasses />} />
           <Route path="/en/collections/blue-light-glasses-for-wide-faces" element={<BlueLightGlassesForWideFaces />} />
           {/* One page per intent: the standalone blue-light URL folds into the collection route. */}
           <Route path="/en/blue-light-glasses-wide-faces" element={<Navigate to="/en/collections/blue-light-glasses-for-wide-faces" replace />} />
           <Route path="/blue-light-glasses-wide-faces" element={<Navigate to="/en/collections/blue-light-glasses-for-wide-faces" replace />} />
           <Route path="/en/collections/extra-large-oversized-eyeglasses" element={<ExtraLargeOversizedEyeglasses />} />
           <Route path="/en/collections/big-glasses-frames" element={<BigGlassesFrames />} />
-          <Route path="/en/collections/oversized-prescription-glasses" element={<OversizedPrescriptionGlasses />} />
           <Route path="/en/collections/wide-frame-reading-glasses" element={<WideFrameReadingGlasses />} />
           <Route path="/en/collections/oversized-square-glasses" element={<OversizedSquareGlasses />} />
           <Route path="/en/collections/oversized-round-glasses" element={<OversizedRoundGlasses />} />

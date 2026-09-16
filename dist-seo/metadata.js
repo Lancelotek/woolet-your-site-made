@@ -2,8 +2,9 @@ const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl", "ko"];
 const blogMetaBySlug = {
   // ── EN: wide-face core ───────────────────────────────────────────────
   "glasses-for-wide-faces-guide": {
-    metaTitle: "Glasses for Wide Faces & Big Heads: 155–161 mm Fit Guide",
-    metaDescription: "Stop the temple squeeze. Find 155 mm+ frames for wide faces and big heads with a 30-second size chart, real measurements, and the styles that actually fit."
+    metaTitle: "Glasses for Wide Faces: 155-165 mm Sizes That Fit (2026)",
+    exactTitle: true,
+    metaDescription: "Face 155 mm or wider? Most frames stop at 140. See the 145-165 mm size chart, the three numbers to check and the frames built for your width. Measure in 20 s."
   },
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
     metaTitle: "Glasses for a Wide Nose Bridge (21–22 mm Explained)",
@@ -14,8 +15,9 @@ const blogMetaBySlug = {
     metaDescription: "Oversized means big lenses. Wide-fit means a big front. Most oversized frames stop at 130–145 mm — see the 158 mm specs and how to measure which one you need."
   },
   "how-to-measure-face-width-for-glasses": {
-    metaTitle: "Measure Your Face Width With Your Phone Camera | Woolet",
-    metaDescription: "Point your phone camera and get your temple-to-temple width in millimetres — then see which frame size, 145 to 172 mm, actually fits. No ruler, no optician."
+    metaTitle: "Face Width Measurement: Average Sizes + 60-Second Method",
+    exactTitle: true,
+    metaDescription: "Average face width is 140-150 mm temple to temple; wide starts at 155 mm. Measure yours with a ruler or your phone camera in 60 seconds and match a frame size."
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",
@@ -26,16 +28,17 @@ const blogMetaBySlug = {
     metaDescription: "Glasses pinch your temples? It isn't your head — it's the industry. Here's why most frames stop at 148 mm and how the 155 mm problem gets fixed."
   },
   "round-vs-square-glasses-wide-face": {
-    metaTitle: "Round vs Square Glasses: Which Suits a Wide Face? | Woolet",
-    metaDescription: "Do square glasses suit round faces? Round vs square guide for wide faces — see which shape wins, real 158 mm specs, and the 30-second fit check."
+    metaTitle: "Do Square Glasses Suit Round Faces? Round vs Square Guide",
+    exactTitle: true,
+    metaDescription: "Yes - square frames add angles a round face lacks. Round frames soften a square jaw. The rule, the exceptions, and what changes when your face is 155 mm+ wide."
   },
   "wide-frame-glasses-professionals": {
     metaTitle: "Wide Frame Glasses for Professionals (155 mm+)",
     metaDescription: "Office-ready eyewear for 155 mm+ faces. What to look for in wide frames that fit AND command respect — materials, silhouettes, and picks that survive Zoom."
   },
   "best-glasses-for-big-heads-2026": {
-    metaTitle: "Glasses for Big Heads 2026 — Every 150 mm+ Brand",
-    metaDescription: "Big head glasses frames compared: every brand selling a 150 mm+ front width, by measurement, material and price — plus the 158 mm option built for the size."
+    metaTitle: "Glasses for Big & Large Heads 2026 — Extra Wide Frames",
+    metaDescription: "Glasses for large heads compared: extra wide frames (150 mm+ front) by fit, material and price — plus the 158 mm pair built for wide faces."
   },
   "best-glasses-for-oval-face": {
     metaTitle: "Best Glasses for an Oval (and Wide) Face — 2026",
@@ -52,9 +55,9 @@ const blogMetaBySlug = {
   "what-size-sunglasses-for-wide-faces": {
     // Intentionally no " | Woolet" suffix — adding it pushes the title past
     // the mobile SERP truncation limit. `exactTitle` suppresses the suffix.
-    metaTitle: "What Size Sunglasses for a Wide Face? 155mm+ Fit Guide",
+    metaTitle: "What Size Sunglasses for a Wide Face? 155 mm+ Answer",
     exactTitle: true,
-    metaDescription: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 148mm temples. Measure in 60 seconds and find frames that fit."
+    metaDescription: "Wide face = 155 mm+. You need a 155-160 mm front, a 21-22 mm bridge and 148 mm+ temples. The one-line answer, the size math and sunglasses built in 158 mm."
   },
   "how-to-tell-if-your-face-is-wide-or-narrow": {
     metaTitle: "Is Your Face Wide or Narrow? Get Your Number in mm | Woolet",
@@ -193,16 +196,18 @@ const blogMetaBySlug = {
     metaDescription: "Temple pressure means the frame front is too narrow — and no adjustment fixes that. Diagnose where it hurts, what an optician can change, and the 30-second width check."
   },
   "eyeglass-frame-size-chart": {
-    metaTitle: "Eyeglass Frame Size Chart 2026 (XS–XXL, in mm)",
-    metaDescription: "A real frame size chart: XS to XXL mapped to front width, lens, bridge and temple length in mm — plus the face width each band fits, and what to do past 150 mm."
+    metaTitle: "Eyeglass Frame Size Chart in mm: XS to XXL (155 mm+)",
+    exactTitle: true,
+    metaDescription: "The only frame size chart with the 155-161 mm wide band. Lens, bridge, temple and total front width in millimetres, and how to read the numbers on your frame."
   },
   "temple-to-temple-measurement": {
     metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
-    metaDescription: "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit. A clear table, common lengths, and why Woolet lists a 103 mm temple."
+    metaDescription: "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit — a clear table and why Woolet uses a 150 mm temple."
   },
   "numbers-on-glasses-frames-meaning": {
-    metaTitle: "Numbers on Glasses Frames Explained (54□21-103)",
-    metaDescription: "Lens width, bridge and temple length decoded — and why none of the three printed numbers is your frame's total width. Worked examples on real 158 mm frames."
+    metaTitle: "What Do the Numbers on Glasses Mean? 54□21-145 Explained",
+    exactTitle: true,
+    metaDescription: "54□21-145 = lens 54 mm, bridge 21 mm, temple 145 mm. None of them is your frame's total width. Decode your frame and see whether it is wide enough in 2 minutes."
   }
 };
 const ROUTES = {
@@ -608,7 +613,7 @@ ${FITLENS_CTA(
 
 <p>The full explanation of why the industry stops where it does — and what it means for pricing, tooling and availability — is in <a href="/en/blog/why-glasses-dont-fit-155mm-problem" style="color:#A07A2A;">why glasses don't fit at 155 mm</a>. If you want the practical version, with what to buy and what to skip, start with the <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">complete wide-face fit guide</a>.</p>
 
-<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 54□21 with a 103 mm temple, and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> at 51□20 with the same 103 mm temple. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, bespoke covers 145–172 mm in four shapes.</p>
+<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, Bespoke covers 145–172 mm in four shapes.</p>
 
 <p>The point is not that you need a particular frame. It is that the pain you are feeling has a number attached to it, and once you know that number the problem stops being mysterious.</p>
 
@@ -643,8 +648,8 @@ ${FITLENS_CTA(
   /* ─────────────────────────── POST 2 ─────────────────────────── */
   {
     slug: "eyeglass-frame-size-chart",
-    title: "Eyeglass Frame Size Chart (2026) — and Why It Stops at 150 mm",
-    excerpt: "A real eyeglass frame size chart in millimetres: XS to XXL mapped to front width, lens width, bridge, temple length and the face width each band actually fits — plus what to do when the standard chart ends before your face begins.",
+    title: "Eyeglass Frame Size Chart: XS to XXL (Including 155mm+ Wide Fit)",
+    excerpt: "A real eyeglass frame size chart in millimetres: XS to XXL mapped to front width, lens width, bridge and temple length — including the 155–161 mm wide-fit band most charts leave out.",
     date: "2026-07-29",
     readTime: 9,
     tags: ["Sizing", "Guide", "Frame Size"],
@@ -717,13 +722,12 @@ ${ANSWER(
       <td style="${TD}"><strong>XXL</strong><br><span style="color:#666;font-size:12px;">rare, few makers</span></td><td style="${TD}">148–150 mm</td><td style="${TD}">58–60 mm</td><td style="${TD}">20–22 mm</td><td style="${TD}">148–150 mm</td><td style="${TD}">152–154 mm</td>
     </tr>
     <tr style="background:#F5EFDD;">
-      <td style="${TD}"><strong>Woolet 158</strong><br><span style="color:#666;font-size:12px;">off the standard chart</span></td><td style="${TD}"><strong>158 mm</strong></td><td style="${TD}">51–54 mm</td><td style="${TD}">20–21 mm</td><td style="${TD}">103 mm*</td><td style="${TD}"><strong>155–161 mm</strong></td>
+      <td style="${TD}"><strong>Woolet 158</strong><br><span style="color:#666;font-size:12px;">off the standard chart</span></td><td style="${TD}"><strong>158 mm</strong></td><td style="${TD}">52–54 mm</td><td style="${TD}">21–22 mm</td><td style="${TD}">150 mm</td><td style="${TD}"><strong>155–161 mm</strong></td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<p style="font-size:13px;color:#666;">*Woolet publishes temple length as the straight arm measurement to the start of the bend (103 mm), not the total including the drop. See the note on measurement conventions in <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a>.</p>
 
 <div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The hook nobody prints on the chart</div>
@@ -770,7 +774,7 @@ ${FITLENS_CTA(
 
 <p>If your face measures more than about 154 mm, the six-band chart has run out. Three honest options remain.</p>
 
-<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 54□21 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> at 51□20, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU.</p>
+<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU.</p>
 
 <p><strong>Go bespoke between 145 and 172 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
@@ -800,7 +804,7 @@ ${FITLENS_CTA(
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/numbers-on-glasses-frames-meaning">What do the numbers on glasses frames mean?</a> — 54□21-103 decoded, with the arithmetic.</li>
+<li><a href="/en/blog/numbers-on-glasses-frames-meaning">What do the numbers on glasses frames mean?</a> — 54□21-145 decoded, with the arithmetic.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — the measurement the chart is built around.</li>
 <li><a href="/en/blog/extra-wide-glasses-158mm">Extra-wide glasses at 158 mm</a> — what exists past the end of the chart.</li>
 </ul>
@@ -832,8 +836,8 @@ ${FITLENS_CTA(
         a: "It is your own face measurement: the distance across the widest part of your head, just above and in front of the ears, measured in millimetres. It is the number a frame's total front width should match within about 3 mm. Average is under 140 mm; 155 mm and above is a wide face."
       },
       {
-        q: "Why is the Woolet temple length only 103 mm?",
-        a: "Because Woolet publishes the straight arm section to the start of the bend, not the total path length around the drop. Adding the 52 mm tip drop gives an effective reach comparable with a conventional 145–150 mm marking. Different convention, same fit — it is listed alongside the tip drop for exactly that reason."
+        q: "What temple length do Woolet frames use?",
+        a: "150 mm on both the 007 Round and the 009 Soft Square, with a 52 mm tip drop, matched to a 158 mm front for faces 155–161 mm wide."
       }
     ],
     content: `${BYLINE("29 July 2026", "29 July 2026")}
@@ -884,18 +888,14 @@ ${ANSWER(
     <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="${TD}"><strong>140 mm</strong></td><td style="${TD}">The default for most adults</td><td style="${TD}">Paired with 132–142 mm fronts. If a shop has one length in stock, it is this.</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="${TD}"><strong>145 mm</strong></td><td style="${TD}">Larger heads, ears set further back</td><td style="${TD}">The usual upgrade when a 140 mm arm bends too early.</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="${TD}"><strong>150 mm</strong></td><td style="${TD}">Long-skulled or high-circumference heads</td><td style="${TD}">Rare in stock. Often special order.</td></tr>
-    <tr style="background:#F5EFDD;"><td style="${TD}"><strong>103 mm + 52 mm drop</strong><br><span style="color:#666;font-size:12px;">Woolet 007 / 009</span></td><td style="${TD}">155–161 mm faces</td><td style="${TD}">Different convention — see below. Effective reach is comparable to 145–150 mm.</td></tr>
+    <tr style="background:#F5EFDD;"><td style="${TD}"><strong>150 mm (52 mm tip drop)</strong><br><span style="color:#666;font-size:12px;">Woolet 007 / 009</span></td><td style="${TD}">155–161 mm faces</td><td style="${TD}">Matched to a 158 mm front.</td></tr>
   </tbody>
 </table>
 </div>
 
-<h2>Why Woolet publishes 103 mm</h2>
+<h2>Why Woolet uses a 150 mm temple</h2>
 
-<p>Both signature frames — the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> (54□21, front 158 mm, lens height 42 mm, front height 52 mm) and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> (51□20, front 158 mm, lens height 45 mm, front height 54 mm) — list a 103 mm temple and a 52 mm tip drop.</p>
-
-<p>That 103 mm is the straight section from hinge to the start of the bend. The conventional marking on a mass-market frame folds the whole curved path into one number, which is why it reads 140 or 145. Add Woolet's 103 mm straight run to the 52 mm drop and the arm reaches as far back as a conventionally marked 145–150 mm temple.</p>
-
-<p>We publish it split because on a wide front the two parts do different jobs. The straight run has to clear a wider skull before it turns; the drop has to sit behind an ear that is further back than the average. Reporting a single fused number hides which of the two is short when a frame does not fit — and on a 158 mm front that distinction matters.</p>
+<p>Both signature frames — the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> (52□21-150) and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> (54□22-150) — use a 150 mm temple with a 52 mm tip drop on a 158 mm front. 150 mm is long enough to clear the widest part of a larger head before the arm bends, so the bend sits behind the ear instead of on top of it. Mainstream frames usually mark 140 or 145 mm, which suits a narrower head.</p>
 
 <h2>Temple length and head circumference</h2>
 
@@ -932,12 +932,12 @@ ${FITLENS_CTA(
 <h3>What does temple-to-temple mean?</h3>
 <p>It is your own face measurement: the distance across the widest part of your head, just above and in front of the ears, measured in millimetres. It is the number a frame's total front width should match within about 3 mm. Average is under 140 mm; 155 mm and above is a wide face.</p>
 
-<h3>Why is the Woolet temple length only 103 mm?</h3>
-<p>Because Woolet publishes the straight arm section to the start of the bend, not the total path length around the drop. Adding the 52 mm tip drop gives an effective reach comparable with a conventional 145–150 mm marking. Different convention, same fit — it is listed alongside the tip drop for exactly that reason.</p>
+<h3>What temple length do Woolet frames use?</h3>
+<p>150 mm on both the 007 Round and the 009 Soft Square, with a 52 mm tip drop, matched to a 158 mm front for faces 155–161 mm wide.</p>
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/numbers-on-glasses-frames-meaning">What do the numbers on glasses frames mean?</a> — the full 54□21-103 breakdown.</li>
+<li><a href="/en/blog/numbers-on-glasses-frames-meaning">What do the numbers on glasses frames mean?</a> — the full 54□21-145 breakdown.</li>
 <li><a href="/en/blog/eyeglass-frame-size-chart">Eyeglass frame size chart (2026)</a> — XS to XXL in real millimetres.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — the temple-to-temple method.</li>
 </ul>
@@ -946,7 +946,7 @@ ${FITLENS_CTA(
   /* ─────────────────────────── POST 4 ─────────────────────────── */
   {
     slug: "numbers-on-glasses-frames-meaning",
-    title: "What Do the Numbers on Glasses Frames Mean? (54□21-103 Explained)",
+    title: "What Do the Numbers on Glasses Frames Mean? (54□21-145 Explained)",
     excerpt: "The three numbers inside your temple arm are lens width, bridge width and temple length. None of them is the total width of the frame — which is why so many people buy glasses that don't fit.",
     date: "2026-07-29",
     readTime: 7,
@@ -954,7 +954,7 @@ ${FITLENS_CTA(
     faq: [
       {
         q: "What do the numbers on glasses frames mean?",
-        a: "They are three measurements in millimetres: lens width, bridge width and temple length, printed inside the left temple arm as something like 54□21-103. The square symbol between the first two numbers marks the distance between lenses. Together they describe the parts of the frame, not the total width of the frame."
+        a: "They are three measurements in millimetres: lens width, bridge width and temple length, printed inside the left temple arm as something like 54□21-145. The square symbol between the first two numbers marks the distance between lenses. Together they describe the parts of the frame, not the total width of the frame."
       },
       {
         q: "What does 55 17 mean on glasses?",
@@ -975,20 +975,20 @@ ${FITLENS_CTA(
     ],
     content: `${BYLINE("29 July 2026", "29 July 2026")}
 ${ANSWER(
-      `<strong>The three numbers inside your temple arm are lens width, bridge width and temple length in millimetres — for example 54□21-103.</strong> None of them is the total front width of the frame. That total is roughly lens × 2 + bridge + 6 mm, and it is the only number that decides whether a frame will fit your face.`
+      `<strong>The three numbers inside your temple arm are lens width, bridge width and temple length in millimetres — for example 54□21-145.</strong> None of them is the total front width of the frame. That total is roughly lens × 2 + bridge + 6 mm, and it is the only number that decides whether a frame will fit your face.`
     )}
 
 <h2>The marking, decoded</h2>
 
-<p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-103</strong>, sometimes written 54-21-103 or 54▫21▫103.</p>
+<p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-145</strong>, sometimes written 54-21-145 or 54▫21▫145.</p>
 
 <div style="background:#F8F6F1;color:#1F1B16;border:1px solid #E8E4DC;padding:22px 24px;margin:24px 0;border-radius:4px;font-family:'Barlow',sans-serif;">
-  <div style="font-size:26px;letter-spacing:2px;color:#1a1a1a;margin-bottom:18px;"><strong>54</strong> <span style="color:#c9a84c;">□</span> <strong>21</strong> <span style="color:#999;">-</span> <strong>103</strong></div>
+  <div style="font-size:26px;letter-spacing:2px;color:#1a1a1a;margin-bottom:18px;"><strong>54</strong> <span style="color:#c9a84c;">□</span> <strong>21</strong> <span style="color:#999;">-</span> <strong>145</strong></div>
   <div style="font-size:14px;line-height:1.9;color:#1a1a1a;">
     <div><strong>54</strong> — <span style="color:#555;">lens width (eye size): across one lens at its widest point</span></div>
     <div><strong>□</strong> — <span style="color:#555;">the DBL marker: "distance between lenses" follows</span></div>
     <div><strong>21</strong> — <span style="color:#555;">bridge width: the gap between the lenses at their closest point</span></div>
-    <div><strong>103</strong> — <span style="color:#555;">temple length: the arm, from hinge screw toward the tip</span></div>
+    <div><strong>145</strong> — <span style="color:#555;">temple length: the arm, from hinge screw toward the tip</span></div>
   </div>
 </div>
 
@@ -1012,16 +1012,16 @@ ${ANSWER(
   </thead>
   <tbody>
     <tr style="border-bottom:1px solid #E8E4DC;">
-      <td style="${TD}"><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 Round</a></strong></td><td style="${TD}">54□21-103</td><td style="${TD}">54 mm</td><td style="${TD}">21 mm</td><td style="${TD}">42 mm</td><td style="${TD}"><strong>158 mm</strong></td>
+      <td style="${TD}"><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 Round</a></strong></td><td style="${TD}">52□21-150</td><td style="${TD}">52 mm</td><td style="${TD}">21 mm</td><td style="${TD}">52 mm</td><td style="${TD}"><strong>158 mm</strong></td>
     </tr>
     <tr style="background:#FAF7F0;">
-      <td style="${TD}"><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft-Square</a></strong></td><td style="${TD}">51□20-103</td><td style="${TD}">51 mm</td><td style="${TD}">20 mm</td><td style="${TD}">45 mm</td><td style="${TD}"><strong>158 mm</strong></td>
+      <td style="${TD}"><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a></strong></td><td style="${TD}">54□22-150</td><td style="${TD}">54 mm</td><td style="${TD}">22 mm</td><td style="${TD}">50 mm</td><td style="${TD}"><strong>158 mm</strong></td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<p>Note what just happened. The 009 has a <em>smaller</em> lens and a <em>narrower</em> bridge than the 007, and both frames are exactly the same width across the front. The difference is absorbed in rim thickness and the width of the hinge blocks either side. Nothing in the printed marking would tell you they are the same size on a face.</p>
+<p>Note what just happened. The 007 has a <em>smaller</em> lens and a <em>narrower</em> bridge than the 009, and both frames are exactly the same width across the front. The difference is absorbed in rim thickness and the width of the hinge blocks either side. Nothing in the printed marking would tell you they are the same size on a face.</p>
 
 <h2>The arithmetic: getting from three numbers to front width</h2>
 
@@ -1040,7 +1040,7 @@ ${ANSWER(
   <li><strong>58□16-145</strong> → 58 × 2 + 16 + 6 = <strong>~138 mm</strong>. Marketed as oversized; fits a 136–140 mm face.</li>
 </ul>
 
-<p>And the counter-example that makes the point: a 54□21 with wide rims and generous hinge blocks reaches 158 mm. The three printed numbers account for 129 mm of that; the remaining 29 mm is material either side of the lenses that the marking simply never mentions.</p>
+<p>And the counter-example that makes the point: a 54□22 with wide rims and generous hinge blocks reaches 158 mm. The three printed numbers account for 130 mm of that; the remaining 28 mm is material either side of the lenses that the marking simply never mentions.</p>
 
 <h2>Why the printed numbers hide the number that matters</h2>
 
@@ -1052,7 +1052,7 @@ ${ANSWER(
 
 <h2>What the numbers don't cover at all</h2>
 
-<p>Four dimensions matter for fit and never appear in the marking: total front width, lens height, front height, and temple tip drop. Woolet publishes all of them — the 007 at 42 mm lens height and 52 mm front height, the 009 at 45 mm and 54 mm, both with a 52 mm tip drop — because on a wide face each one changes whether the frame sits level.</p>
+<p>Four dimensions matter for fit and never appear in the marking: total front width, lens height, front height, and temple tip drop. Woolet publishes all of them — the 007 at 52 mm lens height and 52 mm front height, the 009 at 50 mm and 54 mm, both with a 52 mm tip drop — because on a wide face each one changes whether the frame sits level.</p>
 
 <p>Bridge deserves one extra note. A 21 mm keyhole bridge is not just a wider gap; it is a different load path, spreading weight across a broader nasal base instead of pinching two points. Detail on that in the <a href="/en/bridge/21mm" style="color:#A07A2A;">21 mm bridge reference</a>.</p>
 
@@ -1064,7 +1064,7 @@ ${FITLENS_CTA(
 <h2>FAQ</h2>
 
 <h3>What do the numbers on glasses frames mean?</h3>
-<p>They are three measurements in millimetres: lens width, bridge width and temple length, printed inside the left temple arm as something like 54□21-103. The square symbol between the first two numbers marks the distance between lenses. Together they describe the parts of the frame, not the total width of the frame.</p>
+<p>They are three measurements in millimetres: lens width, bridge width and temple length, printed inside the left temple arm as something like 54□21-145. The square symbol between the first two numbers marks the distance between lenses. Together they describe the parts of the frame, not the total width of the frame.</p>
 
 <h3>What does 55 17 mean on glasses?</h3>
 <p>A 55 mm lens width and a 17 mm bridge. Doubling the lens, adding the bridge and allowing about 6 mm for rims and hinges gives a front width near 133 mm — a medium frame, despite the large-sounding lens number.</p>
@@ -1109,7 +1109,7 @@ ${FITLENS_CTA(
       },
       {
         q: "What size are oversized square blue light glasses?",
-        a: "There is no standard. Brands apply the label to lens widths from roughly 52 mm upward, with front widths that vary widely and are often not published. The Woolet 009 Soft Square is 158 mm across the front with 54 mm lens width, a 22 mm keyhole bridge and 148 mm temples, and blue-light filtering is offered as a lens option."
+        a: "There is no standard. Brands apply the label to lens widths from roughly 52 mm upward, with front widths that vary widely and are often not published. The Woolet 009 Soft Square is 158 mm across the front with 54 mm lens width, a 22 mm keyhole bridge and 150 mm temples, and blue-light filtering is offered as a lens option."
       },
       {
         q: "Do blue light glasses actually do anything?",
@@ -1222,7 +1222,7 @@ ${ANSWER(
 <p>If the shape you want is square, the <a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a> is the one that is oversized and wide at the same time: 54 mm lens width for the look, 158 mm front width for the fit, softened corners so a strong jaw is not doubled by a hard rectangle. The 50 mm lens height keeps a square frame from dominating a long face, and the 22 mm keyhole bridge spreads weight across a broader nasal base instead of two pressure points.</p>
 
 <figure style="margin:24px 0;">
-  <img src="/images/woolet-009-square-glasses-wide-face.webp" alt="Woolet 009 Soft Square acetate frame for wide faces — 158 mm front width, 54 × 50 mm lenses, 22 mm keyhole bridge, 148 mm temples, shown front-on and in profile" width="1200" height="630" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:6px;display:block;" />
+  <img src="/images/woolet-009-square-glasses-wide-face.webp" alt="Woolet 009 Soft Square acetate frame for wide faces — 158 mm front width, 54 × 50 mm lenses, 22 mm keyhole bridge, 150 mm temples, shown front-on and in profile" width="1200" height="630" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:6px;display:block;" />
   <figcaption style="font-size:0.72rem;opacity:0.55;text-align:center;margin-top:8px;">Woolet 009 Soft Square — 158 mm front, 54 × 50 mm lens, 22 mm keyhole bridge. Oversized look, wide-fit geometry.</figcaption>
 </figure>
 
@@ -1257,7 +1257,7 @@ ${FITLENS_CTA(
 <p>Measure temple-to-temple: the straight-line distance across your face at its widest point, just in front of your ears. Under 145 mm is standard, 145–155 mm is the upper end of mainstream, above 155 mm is outside most catalogues. Woolet's front width is 158 mm; bespoke covers 145–172 mm.</p>
 
 <h3>What size are oversized square blue light glasses?</h3>
-<p>There is no standard. The label gets applied from roughly 52 mm lens width upward, with front widths that vary and are often unpublished. The Woolet 009 Soft Square is 158 mm across the front, 54 mm lens width, 22 mm keyhole bridge, 148 mm temples, with blue-light filtering offered as a lens option.</p>
+<p>There is no standard. The label gets applied from roughly 52 mm lens width upward, with front widths that vary and are often unpublished. The Woolet 009 Soft Square is 158 mm across the front, 54 mm lens width, 22 mm keyhole bridge, 150 mm temples, with blue-light filtering offered as a lens option.</p>
 
 <h3>Do blue light glasses actually do anything?</h3>
 <p>A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality versus standard lenses. We treat the filter as an optional coating and a matter of preference — not a health product. The millimetres are the part we stand behind.</p>
@@ -2785,7 +2785,7 @@ const blogPostsEN = [
 
 <h2>Keep going: sizing references</h2>
 
-<p>Once you have your number, three companion references turn it into a purchase. The <a href="/en/blog/eyeglass-frame-size-chart" style="color:#A07A2A;">eyeglass frame size chart</a> maps XS–XXL bands to real front widths in millimetres. <a href="/en/blog/numbers-on-glasses-frames-meaning" style="color:#A07A2A;">What the numbers on glasses frames mean</a> decodes the 54□21-103 marking and shows why none of those digits is the frame's total width. And <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a> separates temple length (the arm) from temple-to-temple width (your head) — the two are constantly confused.</p>
+<p>Once you have your number, three companion references turn it into a purchase. The <a href="/en/blog/eyeglass-frame-size-chart" style="color:#A07A2A;">eyeglass frame size chart</a> maps XS–XXL bands to real front widths in millimetres. <a href="/en/blog/numbers-on-glasses-frames-meaning" style="color:#A07A2A;">What the numbers on glasses frames mean</a> decodes the 54□21-145 marking and shows why none of those digits is the frame's total width. And <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a> separates temple length (the arm) from temple-to-temple width (your head) — the two are constantly confused.</p>
 
 <h2>FAQ: Measuring Face Width for Glasses</h2>
 
@@ -3098,6 +3098,12 @@ const blogPostsEN = [
 <p>But for faces measuring 155mm and above, the question has an additional dimension: it's not just about aesthetics. It's about proportion, balance, and how each shape interacts with the specific geometry of a wide face.</p>
 
 <p>This guide will walk through both shapes honestly — what each does visually, who each suits, and how the two models in the Woolet collection — the 007 (round) and the 009 (square) — were designed around these principles.</p>
+
+<h2>Do square glasses suit round faces? The short answer</h2>
+
+<p>Yes. A round face has soft, continuous curves, and square or rectangular frames introduce the straight lines and defined corners it lacks — the contrast is what makes the face read as structured rather than flat. The reverse holds too: round frames soften a square jaw and a strong brow.</p>
+
+<p>That rule decides shape. It does not decide fit. A square frame that suits your face shape still fails when it is 140 mm wide and your face is 158 mm — it will leave red marks on your temples and splay outward within weeks. Shape first, then width: the rest of this guide covers both.</p>
 
 <h2>The Visual Logic of Frame Shapes</h2>
 
@@ -3691,7 +3697,7 @@ const blogPostsEN = [
 
 <p>Woolet 007 (round) and 009 (soft square) ship at a <strong>158 mm front width with a 21–22 mm keyhole bridge</strong>. The blue-light filter is available as a <strong>lens upgrade (+$40)</strong> on either model, alongside polarized sunglass lenses (+$60) and a combined polarized + blue-light option (+$80). The same Italian Mazzucchelli acetate frame works for all of them — you choose the lens, not the frame.</p>
 
-<p>For a 155 mm+ face, this collapses two problems (fit and coating) into one purchase, and gets the geometry right before layering on the lens. <a href="/en/collections/oversized-blue-light-glasses">Oversized blue-light glasses for wide faces</a> walks through the size logic in more detail.</p>
+<p>For a 155 mm+ face, this collapses two problems (fit and coating) into one purchase, and gets the geometry right before layering on the lens. <a href="/en/collections/blue-light-glasses-for-wide-faces">oversized blue light glasses</a> walks through the size logic in more detail.</p>
 
 <h2>Should you buy a blue-light frame?</h2>
 
@@ -3715,7 +3721,7 @@ const blogPostsEN = [
 
 <p>Blue-light glasses are a useful comfort feature with modest, mostly evening-and-glare-related benefits. They are not a medical product. The biggest mistake wide-faced buyers make is not in choosing the wrong coating — it is in buying a frame that doesn't fit, and then blaming the lens when their head still hurts. Get the 158 mm frame first. Then choose the lens.</p>
 
-<p><a href="/en/collections/oversized-blue-light-glasses">Oversized blue-light glasses (158 mm)</a> | <a href="/en/collections/blue-light-glasses-for-wide-faces">Blue-light glasses for wide faces</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
+<p><a href="/en/collections/blue-light-glasses-for-wide-faces">oversized blue light glasses</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 
 <p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 20 seconds, no app.</p>
 
@@ -3784,7 +3790,7 @@ const blogPostsEN = [
   <li><strong>UV400 as a baseline, polarized as an option.</strong></li>
 </ol>
 
-<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 20 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 172 mm.</p>
+<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 22 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 172 mm.</p>
 
 <h2>Polarized or not?</h2>
 
@@ -3821,7 +3827,7 @@ const blogPostsEN = [
   {
     slug: "what-size-sunglasses-for-wide-faces",
     title: "What Size Sunglasses for a Wide Face? 155mm+ Fit Guide",
-    excerpt: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 148mm temples. Measure in 60 seconds and find frames that fit.",
+    excerpt: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 150mm temples. Measure in 60 seconds and find frames that fit.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Sizing", "Sunglasses", "Wide Face"],
@@ -4898,8 +4904,8 @@ const blogPostsEN = [
 <p>Woolet makes two shapes, both engineered for wider faces (155–161 mm) at one precise 158 mm front width. Bespoke covers anything outside that, up to 162 mm.</p>
 
 <ul>
-  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
-  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
+  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 150 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
+  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 150 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
 </ul>
 
 <p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same EU atelier, same hand-finishing, same geometry — pick on shape, not on size.</p>
@@ -4993,7 +4999,7 @@ const blogPostsEN = [
 
 <h2>Where Woolet fits</h2>
 
-<p>Woolet is built around one precise measurement: 158 mm of front width, with a 21–22 mm keyhole bridge and 148 mm temples. Two shapes, both unisex by geometry — fit, not styling, decides whether they work:</p>
+<p>Woolet is built around one precise measurement: 158 mm of front width, with a 21–22 mm keyhole bridge and 150 mm temples. Two shapes, both unisex by geometry — fit, not styling, decides whether they work:</p>
 
 <ul>
   <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Soft round panto in Italian Mazzucchelli acetate. Reads less architectural; the shape consistently picked by women buyers in our pre-order data. Available in Honey tortoise, Piano black, and Crystal.</li>
@@ -5012,7 +5018,7 @@ const blogPostsEN = [
 
 <h3>1. Woolet 007 — Round Panto, 158 mm (best overall)</h3>
 
-<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Lens width:</strong> 54 mm · <strong>Lens height:</strong> 42 mm · <strong>Front height:</strong> 52 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
+<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Lens width:</strong> 52 mm · <strong>Lens height:</strong> 52 mm · <strong>Front height:</strong> 52 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
 
 <p>Soft round panto, deliberately unfussy. This is the shape women pick most often once width is no longer the deciding constraint. Honey translucent keeps the 158 mm width without adding visual weight. Ships with clear demo lenses; single-vision, progressive, or blue-light added in cart.</p>
 
@@ -5020,9 +5026,9 @@ const blogPostsEN = [
 
 <h3>2. Woolet 009 — Soft Square, 158 mm (best for rounder face shapes)</h3>
 
-<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 20 mm keyhole · <strong>Lens width:</strong> 51 mm · <strong>Lens height:</strong> 45 mm · <strong>Front height:</strong> 54 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
+<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 22 mm keyhole · <strong>Lens width:</strong> 54 mm · <strong>Lens height:</strong> 50 mm · <strong>Front height:</strong> 54 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
 
-<p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes, where a full-round frame can flatten the vertical. The 45 mm lens height gives more vertical lens area than the 007 — useful if you wear progressives.</p>
+<p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes, where a full-round frame can flatten the vertical. The 54 mm lens width gives more horizontal lens area than the 007 — useful if you wear progressives.</p>
 
 <p><a href="/en/products/009" style="color:#A07A2A;">Shop Woolet 009 →</a></p>
 
@@ -6866,7 +6872,7 @@ const SIZES = [
       { q: "What bridge width comes with a 158 mm front?", a: "The 007 Round uses a 21 mm keyhole bridge; the 009 Soft Square uses a 22 mm bridge. Both are shaped for weight distribution across a wider nose." },
       { q: "Are 158 mm glasses only for men?", a: "No. Frame width is face width, not gender. Women with a 155–161 mm face wear the same signature 158 mm frame." },
       { q: "What lens size comes with 158 mm frames?", a: "007 Round: 52 × 52 mm lens. 009 Soft Square: 54 × 50 mm lens. Both accept single-vision, progressive, blue-light and polarised sunglass lenses." },
-      { q: "What temple length pairs with a 158 mm front?", a: "148 mm temples at an 11° drop, standard on both shapes. Bespoke can extend to 155 mm." }
+      { q: "What temple length pairs with a 158 mm front?", a: "150 mm temples at an 11° drop, standard on both shapes. Bespoke can extend to 155 mm." }
     ]
   },
   {
@@ -7717,7 +7723,7 @@ const XXL_PAGES = [
     subhead: "The tier above 'big head' — for 62–64 cm circumferences where mainstream even in XL stops fitting.",
     metaTitle: "XXL Glasses for Big Heads (62–64 cm) — Bespoke Fit — Woolet",
     metaDescription: "XXL glasses for big heads 62–64 cm circumference. Bespoke 160–162 mm front, 150–155 mm temples. Italian Mazzucchelli acetate, hand made in EU.",
-    intro: "Head circumference and face width are different measurements. A 160 mm face on a 62–64 cm head needs both a wider front AND longer temples — that's the XXL tier. Signature 148 mm temples end in front of the ear on a 63 cm head; XXL bespoke moves them to 150–155 mm so the tip hooks behind the ear cleanly.",
+    intro: "Head circumference and face width are different measurements. A 160 mm face on a 62–64 cm head needs both a wider front AND longer temples — that's the XXL tier. Signature 150 mm temples end in front of the ear on a 63 cm head; XXL bespoke moves them to 150–155 mm so the tip hooks behind the ear cleanly.",
     spec: [
       { label: "Head circumference", value: "62–64 cm" },
       { label: "Front width", value: "160–162 mm bespoke" },
@@ -7727,7 +7733,7 @@ const XXL_PAGES = [
       { label: "Hinges", value: "5-barrel PVD Gunmetal" }
     ],
     faq: [
-      { q: "What glasses fit a 63 cm head?", a: "You need 150+ mm temples and a 160+ mm front. Mainstream tops out around 148 mm temples on a 148 mm front — the arms overshoot before they reach the ear." },
+      { q: "What glasses fit a 63 cm head?", a: "You need 150+ mm temples and a 160+ mm front. Mainstream tops out around 145 mm temples on a 148 mm front — the arms overshoot before they reach the ear." },
       { q: "Is head circumference the same as face width?", a: "No. Face width is temple-to-temple across the front; circumference wraps the whole head. A wide face doesn't always mean a large head, and vice versa — but XXL usually needs both." },
       { q: "How do I measure my head circumference?", a: "Wrap a soft tape just above the ears, across the forehead. Use the hat-size calculator to convert to US/EU hat sizes." }
     ],
@@ -9549,10 +9555,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   }
   if (path === "/collections/oversized-sunglasses-men") {
     return base(route, lang, {
-      title: "Oversized Men's Sunglasses — 158 mm Wide | Woolet",
-      description: "Properly oversized men's sunglasses: 158 mm front, 21–22 mm bridge, Italian acetate. Built for 155 mm+ faces.",
+      title: "Oversized Sunglasses for Big Heads — 158 mm UV400 | Woolet",
+      description: "UV400 sunglasses for big heads: 158 mm front, 21–22 mm bridge, 150 mm temples, Italian Mazzucchelli acetate. $210. Built for 155 mm+ faces.",
       noscriptHtml: `<h1>Oversized Sunglasses for Men</h1>
-<p>Properly oversized men's sunglasses for wide faces (155 mm+). 158 mm front width, 21–22 mm keyhole bridge, Italian Mazzucchelli acetate. Two shapes (Woolet 007 round, 009 soft square). Bespoke 145–172 mm. From $114 pre-order.</p>`
+<p>Properly oversized men's sunglasses for wide faces (155 mm+). 158 mm front width, 21–22 mm keyhole bridge, 150 mm temples, Italian Mazzucchelli acetate, hand made in EU. Two shapes (Woolet 007 round, 009 soft square), $210 with UV400 sun lenses. Bespoke 145–172 mm from $480. See all <a href="/en/collections/big-glasses-frames">oversized glasses</a>.</p>`
     });
   }
   if (path === "/collections/sunglasses-for-big-heads") {
@@ -9632,26 +9638,13 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       { name: "Wide Bridge Glasses", url: `${SITE_URL}${route}` }
     ])]);
   }
-  if (path === "/collections/oversized-blue-light-glasses") {
-    return base(route, lang, {
-      title: "Oversized Blue Light Glasses — 158 mm Acetate | Woolet",
-      description: "Truly oversized blue light glasses for wide faces (155 mm+). 158 mm front, 21–22 mm bridge, Italian acetate. HEV 380–460 nm filter lens upgrade.",
-      noscriptHtml: `<h1>Oversized Blue Light Glasses for Wide Faces — 158 mm</h1>
-<p>Truly oversized blue-light glasses for wide faces (155 mm+). Woolet 007 (round) and 009 (soft square) ship at 158 mm front width with a 21–22 mm keyhole bridge, Italian Mazzucchelli acetate. The HEV 380–460 nm filter is an in-line lens upgrade (+$40), compatible with prescription or plano lenses. Bespoke 145–172 mm available.</p>
-<p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a> · <a href="/en/collections/blue-light-glasses-for-wide-faces">Blue light glasses for wide faces</a></p>`
-    }, {}, [breadcrumbJsonLd([
-      { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
-      { name: "Oversized Blue Light Glasses", url: `${SITE_URL}${route}` }
-    ])]);
-  }
   if (path === "/collections/blue-light-glasses-for-wide-faces") {
     return base(route, lang, {
       title: "Blue Light Glasses for Wide Faces — 158 mm Fit | Woolet",
-      description: "Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 148 mm temples, blue-light filter optional. Bespoke 145–172 mm. Hand made in EU.",
+      description: "Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 150 mm temples, blue-light filter optional. Bespoke 145–172 mm. Hand made in EU.",
       noscriptHtml: `<h1>Blue Light Glasses for Wide Faces — 158 mm Fit</h1>
-<p>Most blue-light frames are built 130–145 mm across, which is why they pinch a wide face. Woolet's front is 158 mm with 148 mm temples and a 21–22 mm keyhole bridge, and the blue-light filter is a lens option on both shapes (007 Round, 009 Soft Square). Bespoke covers 145–172 mm. Mazzucchelli acetate, hand made in EU. A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain or sleep — we sell the measurement, not the coating.</p>
-<p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a> · <a href="/en/collections/oversized-blue-light-glasses">Oversized blue light glasses</a></p>`
+<p>Most blue-light frames are built 130–145 mm across, which is why they pinch a wide face. Woolet's front is 158 mm with 150 mm temples and a 21–22 mm keyhole bridge, and the blue-light filter is a lens option on both shapes (007 Round, 009 Soft Square). Bespoke covers 145–172 mm. Mazzucchelli acetate, hand made in EU. A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain or sleep — we sell the measurement, not the coating.</p>
+<p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a></p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -9678,12 +9671,6 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       h1: "Big Glasses Frames for Wide Faces & Big Heads",
       intro: "Most 'big' frames at mainstream retailers are 140–148 mm hinge-to-hinge — a larger lens on a standard front. Woolet builds at 158 mm of actual front width with a 21 mm keyhole bridge, in hand made in EU from Italian Mazzucchelli acetate. Bespoke covers 145–172 mm for XXL heads."
     },
-    "/collections/oversized-prescription-glasses": {
-      title: "Oversized Prescription Glasses for Wide Faces | Woolet",
-      description: "Oversized prescription glasses sized for 155 mm+ faces: 158 mm Italian acetate front, 21–22 mm keyhole bridge, single-vision or progressive lenses.",
-      h1: "Oversized Prescription Glasses for Wide Faces & Big Heads",
-      intro: "Oversized prescription frames that actually fit a wider face. One precise 158 mm front width with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate Hand made in EU. Single-vision, progressive and blue-light lens upgrades available. Bespoke 145–172 mm for everything outside the standard range."
-    },
     "/collections/wide-frame-reading-glasses": {
       title: "Wide Frame Reading Glasses for Wide Faces | Woolet",
       description: "Wide frame reading glasses for 155 mm+ faces: 158 mm Italian acetate front, 21–22 mm keyhole bridge, +0.50 to +3.00 readers. Hand made in EU.",
@@ -9691,26 +9678,26 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       intro: "Reading glasses don't have to mean drugstore frames that pinch. Woolet builds wide-frame readers at 158 mm hinge-to-hinge with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate, with reading powers from +0.50 to +3.00. Same frame as the optical line — just dispensed as readers."
     },
     "/collections/oversized-square-glasses": {
-      title: "Oversized Square Glasses for Wide Faces & Big Heads | Woolet",
-      description: "Properly oversized square glasses: 158 mm front, 22 mm keyhole bridge, Italian Mazzucchelli acetate. Built for 155 mm+ faces. Bespoke to 165 mm.",
+      title: "Oversized Square Glasses That Fit a 155 mm+ Face | Woolet",
+      description: "The 009 Soft Square: 158 mm front, 22 mm bridge, 150 mm temples. Oversized square glasses that stop pressing on wide faces. From $190, bespoke 145–172 mm.",
       h1: "Oversized Square Glasses for Wide Faces & Big Heads",
-      intro: "Soft-square Italian acetate glasses sized for wider faces. The Woolet 009 ships at a 158 mm front width with a 22 mm keyhole bridge — the geometry that makes a square shape sit balanced on a wider face instead of sliding or pinching. Hand made in EU. Bespoke 145–172 mm available."
+      intro: "Soft-square Italian Mazzucchelli acetate glasses sized for wider faces. The Woolet 009 ships at a 158 mm front width with a 22 mm keyhole bridge and 150 mm temples — the geometry that makes a square shape sit balanced on a wider face instead of sliding or pinching. Hand made in EU. Bespoke 145–172 mm available."
     },
     "/collections/oversized-round-glasses": {
       title: "Oversized Round Glasses for Wide Faces & Big Heads | Woolet",
-      description: "Properly oversized round glasses: 158 mm front, 21 mm keyhole bridge, Italian Mazzucchelli acetate. Built for 155 mm+ faces. Bespoke to 165 mm.",
+      description: "Properly oversized round glasses: 158 mm front, 21 mm keyhole bridge, Italian Mazzucchelli acetate. Built for 155 mm+ faces. Bespoke 145–172 mm.",
       h1: "Oversized Round Glasses for Wide Faces & Big Heads",
-      intro: "Round Italian-acetate glasses that read as round, not undersized. The Woolet 007 ships at a 158 mm front width with a 21 mm keyhole bridge — the front-and-bridge combination most round frames lack. Hand made in EU. Bespoke 145–172 mm available."
+      intro: "Round Italian-acetate glasses that read as round, not undersized. The Woolet 007 ships at a 158 mm front width with a 21 mm keyhole bridge — the front-and-bridge combination most round frames lack. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm available."
     },
     "/collections/extra-large-oversized-eyeglasses": {
-      title: "Extra Large Oversized Eyeglasses — 158 mm Frames | Woolet",
-      description: "Genuinely oversized: 158 mm front, 54 mm lens, 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Built for faces 155 mm and wider.",
-      h1: "Extra Large Oversized Eyeglasses — 158 mm Front, Italian Acetate",
-      intro: "Extra large at most online opticians means a slightly bigger lens on the same 140 mm front. Woolet's extra large oversized eyeglasses are properly large: 158 mm front-to-front, 21 mm keyhole bridge, and lens area sized to match. Two shapes — round 007 and soft-square 009 — both prescription-ready. Bespoke covers 145–172 mm."
+      title: "Extra Large Oversized Eyeglasses: 158 mm Rx Frames | Woolet",
+      description: "Extra large oversized eyeglasses with a real 158 mm front, 150 mm temples and a 21–22 mm bridge. Ready for prescription lenses, $190. For faces 155 mm+.",
+      h1: "Extra Large Oversized Eyeglasses for Prescription Lenses",
+      intro: "Extra large at most online opticians means a bigger lens on a standard front. These frames measure 158 mm across the front with 150 mm temples, so prescription lenses sit centred on a face 155 mm or wider. Two shapes, 007 Round and 009 Soft Square, $190 with demo lenses ready for your prescription."
     },
     "/collections/oversized-black-glasses": {
       title: "Oversized Black Glasses — 158 mm for Wide Faces | Woolet",
-      description: "Oversized black glasses in hand made in EU from Italian Mazzucchelli acetate. 158 mm front, 21 mm keyhole bridge, built for 155 mm+ faces. Round 007 and soft-square 009.",
+      description: "Oversized black glasses in Italian Mazzucchelli acetate, hand made in EU. 158 mm front, 21 mm keyhole bridge, built for 155 mm+ faces. Round 007 and soft-square 009.",
       h1: "Oversized Black Glasses — 158 mm Italian Acetate",
       intro: "Black is the default oversized colourway for a reason — it sharpens the silhouette and pairs with everything. The catch is that black exaggerates every flaw in the acetate, every uneven bevel, every injection-mould seam. The Woolet oversized black glasses are cut from a single block of Italian Mazzucchelli acetate and hand-polished, so the black surface stays deep and even instead of going grey at the edges. 158 mm front, round 007 or soft-square 009."
     },
@@ -10393,7 +10380,7 @@ ${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escap
             {
               "@type": "Product",
               name: "Woolet 009 — Soft-Square",
-              description: "Soft-square Milanese acetate frame, 158 mm wide with a 20 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              description: "Soft-square Milanese acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
               offers: {
@@ -10548,11 +10535,9 @@ const STATIC_ROUTES = [
   "/en/collections/glasses-for-big-heads",
   "/en/collections/extra-wide-glasses",
   "/en/collections/wide-bridge-glasses",
-  "/en/collections/oversized-blue-light-glasses",
   "/en/collections/blue-light-glasses-for-wide-faces",
   "/en/collections/thick-frame-glasses",
   "/en/collections/big-glasses-frames",
-  "/en/collections/oversized-prescription-glasses",
   "/en/collections/wide-frame-reading-glasses",
   "/en/collections/oversized-square-glasses",
   "/en/collections/oversized-round-glasses",

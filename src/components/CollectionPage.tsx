@@ -192,8 +192,7 @@ const CollectionPage = ({
                 </div>
                 <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5, marginBottom: 10 }}>{p.blurb}</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 16 }}>$114</span>
-                  <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
+                  <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 16 }}>$190</span>
                   <span style={{ marginLeft: "auto", fontSize: 12, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
                 </div>
               </Link>
@@ -288,6 +287,7 @@ const CollectionPage = ({
           </h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {[
+              { slug: "big-glasses-frames", label: "Oversized Glasses" },
               { slug: "wide-face-glasses", label: "Wide-Face Glasses" },
               { slug: "glasses-for-big-heads", label: "Glasses for Big Heads" },
               { slug: "extra-wide-glasses", label: "Extra Wide Glasses" },
@@ -297,11 +297,8 @@ const CollectionPage = ({
               { slug: "italian-mazzucchelli-acetate", label: "Italian Mazzucchelli Acetate" },
               { slug: "oversized-sunglasses-men", label: "Oversized Sunglasses for Men" },
               { slug: "sunglasses-for-big-heads", label: "Sunglasses for Big Heads" },
-              { slug: "oversized-blue-light-glasses", label: "Oversized Blue Light Glasses" },
               { slug: "blue-light-glasses-for-wide-faces", label: "Blue Light Glasses for Wide Faces" },
-              { slug: "oversized-prescription-glasses", label: "Oversized Prescription Glasses" },
               { slug: "extra-large-oversized-eyeglasses", label: "Extra Large Oversized Eyeglasses" },
-              { slug: "big-glasses-frames", label: "Big Glasses Frames" },
               { slug: "wide-frame-reading-glasses", label: "Wide Frame Reading Glasses" },
               { slug: "oversized-square-glasses", label: "Oversized Square Glasses" },
               { slug: "oversized-round-glasses", label: "Oversized Round Glasses" },

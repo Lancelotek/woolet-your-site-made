@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-09T07:57:19.377Z",
-  "totalRoutes": 310,
+  "generatedAt": "2026-09-16T14:59:35.100Z",
+  "totalRoutes": 309,
   "blogSlugs": {
     "de": [
       "beste-brillen-fuer-grosse-koepfe-2026",
@@ -169,8 +169,6 @@
     "/en/collections/italian-mazzucchelli-acetate",
     "/en/collections/keyhole-bridge-glasses",
     "/en/collections/oversized-black-glasses",
-    "/en/collections/oversized-blue-light-glasses",
-    "/en/collections/oversized-prescription-glasses",
     "/en/collections/oversized-round-glasses",
     "/en/collections/oversized-square-glasses",
     "/en/collections/oversized-sunglasses-men",
@@ -233,6 +231,7 @@
     "/en/temple/155mm",
     "/en/thank-you",
     "/en/thank-you-fb",
+    "/en/thank-you/reserved",
     "/en/upvote",
     "/en/vip-join",
     "/en/xxl",

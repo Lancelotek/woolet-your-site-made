@@ -100,7 +100,7 @@ const faqs = [
 ];
 
 const relatedLinks = [
-  { href: "/en/collections/oversized-blue-light-glasses", label: "oversized vs wide-fit blue light glasses" },
+  { href: "/en/blog/oversized-blue-light-glasses-vs-wide-fit", label: "oversized blue light glasses vs a true wide fit" },
   { href: "/en/blog/extra-wide-glasses-158mm", label: "extra wide glasses 158 mm" },
   { href: "/en/blog/glasses-too-tight-on-side-of-head", label: "glasses too tight on the side of the head" },
   { href: "/en/blog/do-blue-light-glasses-work-wide-face", label: "do blue light glasses work on a wide face" },
@@ -321,7 +321,7 @@ const BlueLightGlassesForWideFaces = () => {
 
         {/* 5 — Lens options (single source of truth) */}
         <section aria-label="Lens options" style={{ ...wrap, padding: "20px 20px 0" }}>
-          <LensOptions productId="007" specs={[["Frame Width", `${S007.frameWidth} mm`], ["Lens", `${S007.lensWidth} × ${S007.lensHeight} mm`]]} framePrice="114" />
+          <LensOptions productId="007" specs={[["Frame Width", `${S007.frameWidth} mm`], ["Lens", `${S007.lensWidth} × ${S007.lensHeight} mm`]]} framePrice="190" />
         </section>
 
         {/* 6 — Honesty section */}
@@ -343,11 +343,18 @@ const BlueLightGlassesForWideFaces = () => {
             Read the fit breakdown:{" "}
             <Link to="/en/blog/oversized-blue-light-glasses-vs-wide-fit" style={{ color: T.goldDim, textUnderlineOffset: 3 }}>
               oversized blue-light glasses vs a true wide fit
-            </Link>{" "}
-            ·{" "}
-            <Link to="/en/collections/oversized-blue-light-glasses" style={{ color: T.goldDim, textUnderlineOffset: 3 }}>
-              oversized blue light glasses
             </Link>
+          </p>
+
+          <h2 style={{ ...h2, fontSize: 24, marginTop: 28 }}>Oversized blue light glasses that actually fit</h2>
+          <p style={{ ...p, maxWidth: 660 }}>
+            Most oversized blue light glasses get their size from the lenses while the front stays narrow, so the arms
+            still press on a wide face. Both Woolet shapes are 158 mm across the front with 150 mm temples, and the
+            blue light lens is a $210 option on either. Read the full comparison:{" "}
+            <Link to="/en/blog/oversized-blue-light-glasses-vs-wide-fit" style={{ color: T.goldDim, textUnderlineOffset: 3 }}>
+              oversized blue light glasses vs a true wide fit
+            </Link>
+            .
           </p>
           <p style={{ ...p, fontSize: 13, color: "#7A7263", maxWidth: 660 }}>
             Source:{" "}
@@ -379,8 +386,8 @@ const BlueLightGlassesForWideFaces = () => {
                 </div>
                 <div style={{ fontSize: 12.5, color: T.goldDim, marginBottom: 12 }}>Blue-light filter available as a lens option.</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ color: T.goldDim, fontWeight: 700, fontSize: 16 }}>$114</span>
-                  <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
+                  <span style={{ color: T.goldDim, fontWeight: 700, fontSize: 16 }}>$210</span>
+                  <span style={{ color: "#8A7F6C", fontSize: 12 }}>with blue light lenses</span>
                   <span style={{ marginLeft: "auto", fontSize: 11, color: T.goldDim, letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
                 </div>
               </Link>

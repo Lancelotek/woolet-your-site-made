@@ -39,6 +39,10 @@ export const EXACT: Record<string, string> = {
   "/en/blue-light-glasses-wide-faces": "/en/collections/blue-light-glasses-for-wide-faces",
   "/blue-light-glasses-wide-faces": "/en/collections/blue-light-glasses-for-wide-faces",
 
+  // Oversized collection cluster merge (thin duplicates folded into the stronger URL).
+  "/en/collections/oversized-prescription-glasses": "/en/collections/extra-large-oversized-eyeglasses",
+  "/en/collections/oversized-blue-light-glasses": "/en/collections/blue-light-glasses-for-wide-faces",
+
   // Bespoke size guide: slug corrected 150→145 to match the page's own H1.
   ...Object.fromEntries(
     ["en", "pl", "de", "fr", "nl", "es", "ja", "ar"].map((l) => [
