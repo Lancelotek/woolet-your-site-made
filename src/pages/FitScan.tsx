@@ -3683,11 +3683,13 @@ function EmailGateStep({
     const parsed = z.string().trim().toLowerCase().email("Enter a valid email address").max(255).safeParse(email);
     if (!parsed.success) {
       setError(parsed.error.issues[0]?.message ?? tFit(lang, "email.err_invalid"));
+      pushEvent("scan_email_failed", { device });
       clarityEvent("scan_email_failed");
       return;
     }
     if (!agree) {
       setError(tFit(lang, "email.err_accept"));
+      pushEvent("scan_email_failed", { device });
       clarityEvent("scan_email_failed");
       return;
     }
@@ -3748,11 +3750,15 @@ function EmailGateStep({
         });
 
       pushEvent("fit_email_captured", { device, face_width: Math.round(faceWidthMm) });
+      // Mirror for GA4/dataLayer reconciliation (fit_email_captured stays as-is
+      // — it may be wired to Google Ads conversions in the GTM container).
+      pushEvent("scan_email_submitted", { device, face_width: Math.round(faceWidthMm) });
       // CLARITY EVENT: scan_email_submitted — fired after successful submit.
       clarityEvent("scan_email_submitted");
       onSubmitted(parsed.data);
     } catch (err) {
       console.error("[scan email gate] submit failed", err);
+      pushEvent("scan_email_failed", { device });
       clarityEvent("scan_email_failed");
       toast.error(tFit(lang, "email.toast_save_failed"));
     } finally {
@@ -4168,11 +4174,14 @@ function FitLensEmailCapture({
 
       setStatus("sent");
       pushEvent("fit_fitlens_email_captured", { device });
+      // Mirror for GA4/dataLayer reconciliation; original event stays unchanged.
+      pushEvent("scan_email_submitted", { device });
       clarityEvent("scan_email_submitted");
       toast.success(tFit(lang, "email.toast_sent"));
     } catch (err) {
       console.error("[fitlens email] send failed", err);
       setStatus("idle");
+      pushEvent("scan_email_failed", { device });
       clarityEvent("scan_email_failed");
       toast.error(tFit(lang, "email.toast_save_failed"));
     }
