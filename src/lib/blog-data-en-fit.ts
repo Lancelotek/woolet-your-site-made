@@ -450,13 +450,9 @@ ${ANSWER(
 </table>
 </div>
 
-<h2>Why Woolet publishes 103 mm</h2>
+<h2>Why Woolet uses a 150 mm temple</h2>
 
-<p>Both signature frames — the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> (54□21, front 158 mm, lens height 42 mm, front height 52 mm) and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> (51□20, front 158 mm, lens height 45 mm, front height 54 mm) — list a 103 mm temple and a 52 mm tip drop.</p>
-
-<p>That 103 mm is the straight section from hinge to the start of the bend. The conventional marking on a mass-market frame folds the whole curved path into one number, which is why it reads 140 or 145. Add Woolet's 103 mm straight run to the 52 mm drop and the arm reaches as far back as a conventionally marked 145–150 mm temple.</p>
-
-<p>We publish it split because on a wide front the two parts do different jobs. The straight run has to clear a wider skull before it turns; the drop has to sit behind an ear that is further back than the average. Reporting a single fused number hides which of the two is short when a frame does not fit — and on a 158 mm front that distinction matters.</p>
+<p>Both signature frames — the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> (52□21-150) and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> (54□22-150) — use a 150 mm temple with a 52 mm tip drop on a 158 mm front. 150 mm is long enough to clear the widest part of a larger head before the arm bends, so the bend sits behind the ear instead of on top of it. Mainstream frames usually mark 140 or 145 mm, which suits a narrower head.</p>
 
 <h2>Temple length and head circumference</h2>
 
