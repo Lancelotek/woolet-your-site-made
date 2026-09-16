@@ -276,14 +276,21 @@ export const buildPreviewKey = (
   [frameId, frontId, templeId, finishId].join("|") +
   (lensId && lensId !== "plano" ? `|${lensId}` : "");
 
+// Renders are large base64 data URLs, so localStorage can refuse them. The
+// in-memory mirror keeps the current session's renders available to every
+// later step even when nothing can be written to the device.
+const memoryPreviews: PreviewHistory = {};
+
 export const loadPreviewHistory = (): PreviewHistory => {
   if (typeof window === "undefined") return {};
+  let stored: PreviewHistory = {};
   try {
     const raw = localStorage.getItem(PREVIEW_HISTORY_KEY);
-    return raw ? (JSON.parse(raw) as PreviewHistory) : {};
+    stored = raw ? (JSON.parse(raw) as PreviewHistory) : {};
   } catch {
-    return {};
+    stored = {};
   }
+  return { ...stored, ...memoryPreviews };
 };
 
 export const getLatestPreviewUrl = (key: string): string | null => {
@@ -296,33 +303,47 @@ type SaveResult =
   | { ok: false; error: string; reason: "quota" | "blocked" };
 
 export const savePreviewHistory = (history: PreviewHistory): SaveResult => {
-  const evictedKeys: string[] = [];
-  try {
-    // Trim keys if we exceed the cap (evict oldest configurations first,
-    // scored by their newest-entry timestamp so recently-used configs stay).
-    const entries = Object.entries(history);
-    if (entries.length > MAX_KEYS) {
-      entries.sort((a, b) => (b[1][0]?.ts ?? 0) - (a[1][0]?.ts ?? 0));
-      const kept = entries.slice(0, MAX_KEYS);
-      const dropped = entries.slice(MAX_KEYS);
-      evictedKeys.push(...dropped.map(([k]) => k));
-      history = Object.fromEntries(kept);
-    }
-    localStorage.setItem(PREVIEW_HISTORY_KEY, JSON.stringify(history));
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent(PREVIEW_UPDATED_EVENT));
-    }
-    return { ok: true, evictedKeys };
-  } catch (e) {
-    const isQuota = (e as Error)?.name === "QuotaExceededError";
-    return {
-      ok: false,
-      reason: isQuota ? "quota" : "blocked",
-      error: isQuota
-        ? `Device storage is full — this preview couldn't be saved locally. To make room we drop the oldest configuration first (cap: ${MAX_KEYS}), then the oldest of its ${MAX_PER_KEY} renders. Sign in to keep an unlimited history in your account.`
-        : `Local storage is disabled on this device (private browsing?). Nothing is remembered here — sign in to save previews to your account.`,
-    };
+  // Always mirror in memory first: the step summary, review and checkout read
+  // the newest render from here, so a full device never loses the picture.
+  for (const key of Object.keys(memoryPreviews)) delete memoryPreviews[key];
+  Object.assign(memoryPreviews, history);
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent(PREVIEW_UPDATED_EVENT));
   }
+
+  const evictedKeys: string[] = [];
+  // Trim keys if we exceed the cap (evict oldest configurations first,
+  // scored by their newest-entry timestamp so recently-used configs stay).
+  let entries = Object.entries(history).sort((a, b) => (b[1][0]?.ts ?? 0) - (a[1][0]?.ts ?? 0));
+  if (entries.length > MAX_KEYS) {
+    evictedKeys.push(...entries.slice(MAX_KEYS).map(([k]) => k));
+    entries = entries.slice(0, MAX_KEYS);
+  }
+
+  // On a full device, keep dropping the least-recently used configuration and
+  // retry, so the newest render still lands on disk instead of nothing at all.
+  while (entries.length) {
+    try {
+      localStorage.setItem(PREVIEW_HISTORY_KEY, JSON.stringify(Object.fromEntries(entries)));
+      return { ok: true, evictedKeys };
+    } catch (e) {
+      if ((e as Error)?.name !== "QuotaExceededError") {
+        return {
+          ok: false,
+          reason: "blocked",
+          error: `Local storage is disabled on this device (private browsing?). This render stays visible for the rest of your visit — sign in to keep it in your account.`,
+        };
+      }
+      const dropped = entries.pop();
+      if (dropped) evictedKeys.push(dropped[0]);
+    }
+  }
+
+  return {
+    ok: false,
+    reason: "quota",
+    error: `Device storage is full, so this render isn't kept for a future visit. It stays visible through the rest of your build — sign in to keep an unlimited history in your account.`,
+  };
 };
 
 export function AiPreviewPanel({
