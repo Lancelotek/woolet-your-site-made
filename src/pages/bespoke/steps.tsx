@@ -530,6 +530,11 @@ export function AiPreviewPanel({
         Front: <span className="text-cream">{front.name}</span> · Temples:{" "}
         <span className="text-cream">{temple.name}</span> · Finish:{" "}
         <span className="text-cream">{finish.name}</span>
+        {lens && (
+          <>
+            {" "}· Lenses: <span className="text-cream">{lens.name}</span>
+          </>
+        )}
       </p>
 
       <div
