@@ -1405,6 +1405,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         pushEvent("scan_error", { error_type: reason });
         // CLARITY EVENT: scan_error — mirror the dataLayer push so camera
         // failures are measurable in Clarity too.
+        claritySet("scan_error_type", reason);
         clarityEvent("scan_error");
         onError(tFit(lang, msgKey), "recoverable", reason as CameraErrorType);
         return;
@@ -4539,6 +4540,7 @@ export default function FitScan() {
       setErrorKind("recoverable");
       pushEvent("scan_error", { error_type: "calculation", reason: kind });
       // CLARITY EVENT: scan_error
+      claritySet("scan_error_type", "calculation");
       clarityEvent("scan_error");
       return false;
     }
@@ -4601,6 +4603,7 @@ export default function FitScan() {
       if (data?.glassesDetected === true) {
         pushEvent("scan_error", { error_type: "glasses_detected" });
         // CLARITY EVENT: scan_error
+        claritySet("scan_error_type", "glasses_detected");
         clarityEvent("scan_error");
         setErrorMsg(tFit(lang, "page.err_glasses"));
         setErrorKind("recoverable");
@@ -5046,6 +5049,10 @@ export default function FitScan() {
                         type="button"
                         onClick={() => {
                           pushEvent("scan_error", { error_type: cameraErrorType, source: "camera_error" });
+                          claritySet("scan_error_type", cameraErrorType);
+                          // CLARITY EVENT: scan_error — this tag marks the manual
+                          // fallback escape hatch, not just any error occurrence.
+                          claritySet("scan_error_source", "camera_error");
                           clarityEvent("scan_error");
                           navigate(localePath(lang, "/fit/manual"));
                         }}
