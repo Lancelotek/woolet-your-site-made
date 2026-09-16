@@ -182,7 +182,7 @@ ${FITLENS_CTA(
 <p>Look at where the pressure is. Pain in front of the ears, at the temples, means the front is too narrow. Pain behind the ears, on the mastoid bone, usually means the temple arms are bent too steeply or are too short — that is adjustable. Red indentations on both temples after four hours of wear is the clearest sign the frame itself is too small.</p>
 
 <h3>Can glasses cause a pressure sore behind the ear?</h3>
-<p>Yes. A temple arm with too tight a bend concentrates load on a few square millimetres of skin over bone, which reddens, then breaks down. Silicone ear cushions and a shallower bend fix most cases. If the sore returns within a week of every adjustment, the arm is being asked to hold a frame the front cannot hold on its own.</p>
+<p>Yes. A temple arm with too tight a bend concentrates load on a few square millimetres of skin over bone, which reddens, then breaks down. Silicone ear cushions and a shallower bend fix most cases. If the sore returns within a week of every adjustment, the arm is being asked to hold a frame the front cannot hold on its own. Full guide: <a href="/en/blog/glasses-hurt-behind-ears" style="color:#A07A2A;">glasses that hurt behind the ears</a>.</p>
 
 <h3>Do glasses stretch out over time?</h3>
 <p>Acetate relaxes slightly with body heat — perhaps 1–2 mm of effective width over months, and only at the temples, not across the front. It is not a plan. Buying a frame that is 10 mm too narrow and waiting for it to give will produce months of headaches and a frame that eventually cracks at the hinge.</p>
