@@ -610,9 +610,9 @@ export default function BespokeCheckout() {
                   </div>
                   <ol className="mt-2 space-y-1.5 text-cream-dim text-[12px] leading-relaxed">
                     <li>01 · Order confirmed and paid.</li>
-                    <li>02 · Private link emailed for your AI fit scan.</li>
-                    <li>03 · Optician verifies measurements within 24 h.</li>
-                    <li>04 · Cut in the EU — 3–4 weeks to ship, free worldwide.</li>
+                    <li>02 · You get WhatsApp access and a private link to your measurement interview.</li>
+                    <li>03 · After you confirm your measurements and product, we send the 3D model design for your approval.</li>
+                    <li>04 · Once approved, production takes two weeks — then it ships, free worldwide.</li>
                   </ol>
                 </div>
               </aside>
