@@ -3,6 +3,12 @@
 // it in the private `bespoke-cad` bucket. The workshop PDF embeds it from a
 // short-lived signed URL, so nothing is ever publicly readable.
 
+import {
+  AVIATOR_CONSTRUCTION_REFERENCES,
+  AVIATOR_REFERENCE_URLS,
+  isAviatorShape,
+} from "./aviator-references.ts";
+
 type Db = {
   from: (t: string) => any;
   storage: { from: (b: string) => any };
@@ -19,16 +25,24 @@ export interface PreviewSpec {
 
 function buildPrompt(spec: PreviewSpec): string {
   const shape = (spec.frameName || "Woolet Bespoke").replace(/^Woolet Bespoke\s*[—-]\s*/i, "");
+  const aviator = isAviatorShape(shape);
   return [
+    ...(aviator
+      ? [
+          `Image 1 is the exact technical blueprint for the front silhouette. Images 2–7 show the same physical Aviator construction from several angles.`,
+          `Keep the blueprint's lens outline, single bridge and top line exactly. From the photographs preserve the real acetate thickness, bridge depth, end pieces, hinge placement, two-pin temple attachment, tapered temples and the precise joint between temples and front.`,
+          `Use the photographs only for construction and studio quality. Do not copy their clear front, black temples, sunglass tint, engraving or branding; use the order specification below.`,
+        ]
+      : []),
     `Editorial product photograph of one real pair of premium bespoke eyeglasses.`,
     `Classic ${shape} silhouette, wide and generously proportioned (about 158 mm front width, 22 mm bridge).`,
     `Frame front cut from Italian Mazzucchelli acetate in "${spec.frontCode || "dark tortoise"}",`,
     `temples in acetate "${spec.templeCode || spec.frontCode || "dark tortoise"}".`,
     `Finish: ${spec.finish || "shiny hand-polished"}.`,
-    `Clear demo lenses, thin metal hinge rivets, hand-polished acetate edge detail,`,
-    `soft warm studio light on a neutral cream background (#EFE9DF), crisp soft shadow,`,
-    `three-quarter front angle, no face, no model, no branding, no text, no logos,`,
-    `no drawing lines, no sketch, ultra-realistic 4k product still.`,
+    `Clear neutral demo lenses, correctly seated hinges and rivets, hand-polished acetate edge detail,`,
+    `high-key professional product photography on a clean warm off-white seamless background, controlled softbox reflections, precise translucent acetate refraction and a crisp natural contact shadow,`,
+    `three-quarter front angle with the complete frame and both temples legible, no face, no model, no branding, no text, no logos,`,
+    `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
   ].join(" ");
 }
 
@@ -36,12 +50,22 @@ async function generatePngBytes(spec: PreviewSpec): Promise<Uint8Array> {
   const apiKey = Deno.env.get("LOVABLE_API_KEY");
   if (!apiKey) throw new Error("LOVABLE_API_KEY missing");
 
+  const shape = (spec.frameName || "").replace(/^Woolet Bespoke\s*[—-]\s*/i, "");
+  const aviator = isAviatorShape(shape);
+  const content = aviator
+    ? [
+        { type: "text", text: buildPrompt(spec) },
+        { type: "image_url", image_url: { url: AVIATOR_REFERENCE_URLS.pattern } },
+        ...AVIATOR_CONSTRUCTION_REFERENCES.map((url) => ({ type: "image_url", image_url: { url } })),
+      ]
+    : buildPrompt(spec);
+
   const resp = await fetch("https://ai.gateway.lovable.dev/v1/images/generations", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       model: "google/gemini-3-pro-image",
-      messages: [{ role: "user", content: buildPrompt(spec) }],
+      messages: [{ role: "user", content }],
       modalities: ["image", "text"],
     }),
   });

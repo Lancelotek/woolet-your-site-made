@@ -1,7 +1,7 @@
 // Bespoke frame templates. Four canonical silhouettes rendered as line-drawing
 // references — the frame is cut to the buyer's measurements after payment.
 
-import aviatorImg from "@/assets/configurator/frames/aviator.png.asset.json";
+import aviatorImg from "@/assets/configurator/frames/aviator-reference.jpg.asset.json";
 import rectangleImg from "@/assets/configurator/frames/rectangle.png.asset.json";
 import crownPantoImg from "@/assets/configurator/frames/crown-panto.png.asset.json";
 import roundImg from "@/assets/configurator/frames/round.png.asset.json";
