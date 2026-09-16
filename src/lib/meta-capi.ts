@@ -16,6 +16,7 @@ export type MetaEventName =
   | "PageView"
   | "ViewContent"
   | "AddToCart"
+  | "CustomizeProduct"
   | "InitiateCheckout"
   | "Lead"
   | "CompleteRegistration"
