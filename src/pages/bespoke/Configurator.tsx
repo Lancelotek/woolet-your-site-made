@@ -7,6 +7,8 @@ import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke
 import { findFrame } from "@/data/frames";
 import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet } from "@/lib/clarity";
+import { trackMetaEventOnce } from "@/lib/meta-capi";
+import { pushGtmEvent } from "@/lib/gtm";
 import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
 import {
   StepColor,
@@ -175,6 +177,34 @@ const ConfiguratorPage = () => {
   const [navHint, setNavHint] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const stepComplete = isStepComplete(step, config);
+
+  // Meta mid funnel: the first time a pattern is actually chosen (step 1 complete),
+  // not on page load. One event_id shared by the browser pixel, the Conversions
+  // API and the GTM tag that serves the EU consent path.
+  useEffect(() => {
+    if (!isStepComplete(1, config)) return;
+    const chosen = findFrame(config.frameId);
+    if (!chosen) return;
+    const eventId = trackMetaEventOnce("CustomizeProduct", "customizeproduct:bespoke", {
+      custom: {
+        content_type: "product",
+        content_ids: [chosen.id],
+        content_name: `Woolet Bespoke - ${chosen.name}`,
+        value: pricing.totalEur,
+        currency: "USD",
+      },
+    });
+    if (eventId) {
+      pushGtmEvent("bespoke_customize_started", {
+        event_id: eventId,
+        content_ids: [chosen.id],
+        content_name: `Woolet Bespoke - ${chosen.name}`,
+        value: pricing.totalEur,
+        currency: "USD",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config.frameId]);
 
   // The preview stage is the most-tapped element on the page. Every state it can
   // be in has to answer the tap: a picture opens larger, an empty stage sends the

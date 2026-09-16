@@ -33,6 +33,7 @@ const ALLOWED_EVENTS = new Set([
   "PageView",
   "ViewContent",
   "AddToCart",
+  "CustomizeProduct",
   "InitiateCheckout",
   "Lead",
   "CompleteRegistration",
