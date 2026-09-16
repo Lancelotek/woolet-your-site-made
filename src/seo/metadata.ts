@@ -1024,20 +1024,6 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       { name: "Wide Bridge Glasses", url: `${SITE_URL}${route}` },
     ])]);
   }
-  if (path === "/collections/oversized-blue-light-glasses") {
-    return base(route, lang, {
-      title: "Oversized Blue Light Glasses — 158 mm Acetate | Woolet",
-      description:
-        "Truly oversized blue light glasses for wide faces (155 mm+). 158 mm front, 21–22 mm bridge, Italian acetate. HEV 380–460 nm filter lens upgrade.",
-      noscriptHtml: `<h1>Oversized Blue Light Glasses for Wide Faces — 158 mm</h1>
-<p>Truly oversized blue-light glasses for wide faces (155 mm+). Woolet 007 (round) and 009 (soft square) ship at 158 mm front width with a 21–22 mm keyhole bridge, Italian Mazzucchelli acetate. The HEV 380–460 nm filter is an in-line lens upgrade (+$40), compatible with prescription or plano lenses. Bespoke 145–172 mm available.</p>
-<p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a> · <a href="/en/collections/blue-light-glasses-for-wide-faces">Blue light glasses for wide faces</a></p>`,
-    }, {}, [breadcrumbJsonLd([
-      { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
-      { name: "Oversized Blue Light Glasses", url: `${SITE_URL}${route}` },
-    ])]);
-  }
   if (path === "/collections/blue-light-glasses-for-wide-faces") {
     return base(route, lang, {
       title: "Blue Light Glasses for Wide Faces — 158 mm Fit | Woolet",
@@ -1046,7 +1032,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         "Most blue-light frames stop at 145 mm. Woolet's front is 158 mm with 150 mm temples, blue-light filter optional. Bespoke 145–172 mm. Hand made in EU.",
       noscriptHtml: `<h1>Blue Light Glasses for Wide Faces — 158 mm Fit</h1>
 <p>Most blue-light frames are built 130–145 mm across, which is why they pinch a wide face. Woolet's front is 158 mm with 150 mm temples and a 21–22 mm keyhole bridge, and the blue-light filter is a lens option on both shapes (007 Round, 009 Soft Square). Bespoke covers 145–172 mm. Mazzucchelli acetate, hand made in EU. A 2023 Cochrane review found blue-light filtering lenses probably make no measurable difference to eye strain or sleep — we sell the measurement, not the coating.</p>
-<p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a> · <a href="/en/collections/oversized-blue-light-glasses">Oversized blue light glasses</a></p>`,
+<p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -1076,12 +1062,6 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       h1: "Big Glasses Frames for Wide Faces & Big Heads",
       intro: "Most 'big' frames at mainstream retailers are 140–148 mm hinge-to-hinge — a larger lens on a standard front. Woolet builds at 158 mm of actual front width with a 21 mm keyhole bridge, in hand made in EU from Italian Mazzucchelli acetate. Bespoke covers 145–172 mm for XXL heads.",
     },
-    "/collections/oversized-prescription-glasses": {
-      title: "Oversized Prescription Glasses for Wide Faces | Woolet",
-      description: "Oversized prescription glasses sized for 155 mm+ faces: 158 mm Italian acetate front, 21–22 mm keyhole bridge, single-vision or progressive lenses.",
-      h1: "Oversized Prescription Glasses for Wide Faces & Big Heads",
-      intro: "Oversized prescription frames that actually fit a wider face. One precise 158 mm front width with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate Hand made in EU. Single-vision, progressive and blue-light lens upgrades available. Bespoke 145–172 mm for everything outside the standard range.",
-    },
     "/collections/wide-frame-reading-glasses": {
       title: "Wide Frame Reading Glasses for Wide Faces | Woolet",
       description: "Wide frame reading glasses for 155 mm+ faces: 158 mm Italian acetate front, 21–22 mm keyhole bridge, +0.50 to +3.00 readers. Hand made in EU.",
@@ -1089,26 +1069,26 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       intro: "Reading glasses don't have to mean drugstore frames that pinch. Woolet builds wide-frame readers at 158 mm hinge-to-hinge with a 21–22 mm keyhole bridge, in Italian Mazzucchelli acetate, with reading powers from +0.50 to +3.00. Same frame as the optical line — just dispensed as readers.",
     },
     "/collections/oversized-square-glasses": {
-      title: "Oversized Square Glasses for Wide Faces & Big Heads | Woolet",
-      description: "Properly oversized square glasses: 158 mm front, 22 mm keyhole bridge, Italian Mazzucchelli acetate. Built for 155 mm+ faces. Bespoke to 165 mm.",
+      title: "Oversized Square Glasses That Fit a 155 mm+ Face | Woolet",
+      description: "The 009 Soft Square: 158 mm front, 22 mm bridge, 150 mm temples. Oversized square glasses that stop pressing on wide faces. From $190, bespoke 145–172 mm.",
       h1: "Oversized Square Glasses for Wide Faces & Big Heads",
-      intro: "Soft-square Italian acetate glasses sized for wider faces. The Woolet 009 ships at a 158 mm front width with a 22 mm keyhole bridge — the geometry that makes a square shape sit balanced on a wider face instead of sliding or pinching. Hand made in EU. Bespoke 145–172 mm available.",
+      intro: "Soft-square Italian Mazzucchelli acetate glasses sized for wider faces. The Woolet 009 ships at a 158 mm front width with a 22 mm keyhole bridge and 150 mm temples — the geometry that makes a square shape sit balanced on a wider face instead of sliding or pinching. Hand made in EU. Bespoke 145–172 mm available.",
     },
     "/collections/oversized-round-glasses": {
       title: "Oversized Round Glasses for Wide Faces & Big Heads | Woolet",
-      description: "Properly oversized round glasses: 158 mm front, 21 mm keyhole bridge, Italian Mazzucchelli acetate. Built for 155 mm+ faces. Bespoke to 165 mm.",
+      description: "Properly oversized round glasses: 158 mm front, 21 mm keyhole bridge, Italian Mazzucchelli acetate. Built for 155 mm+ faces. Bespoke 145–172 mm.",
       h1: "Oversized Round Glasses for Wide Faces & Big Heads",
-      intro: "Round Italian-acetate glasses that read as round, not undersized. The Woolet 007 ships at a 158 mm front width with a 21 mm keyhole bridge — the front-and-bridge combination most round frames lack. Hand made in EU. Bespoke 145–172 mm available.",
+      intro: "Round Italian-acetate glasses that read as round, not undersized. The Woolet 007 ships at a 158 mm front width with a 21 mm keyhole bridge — the front-and-bridge combination most round frames lack. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm available.",
     },
     "/collections/extra-large-oversized-eyeglasses": {
-      title: "Extra Large Oversized Eyeglasses — 158 mm Frames | Woolet",
-      description: "Genuinely oversized: 158 mm front, 54 mm lens, 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Built for faces 155 mm and wider.",
-      h1: "Extra Large Oversized Eyeglasses — 158 mm Front, Italian Acetate",
-      intro: "Extra large at most online opticians means a slightly bigger lens on the same 140 mm front. Woolet's extra large oversized eyeglasses are properly large: 158 mm front-to-front, 21 mm keyhole bridge, and lens area sized to match. Two shapes — round 007 and soft-square 009 — both prescription-ready. Bespoke covers 145–172 mm.",
+      title: "Extra Large Oversized Eyeglasses: 158 mm Rx Frames | Woolet",
+      description: "Extra large oversized eyeglasses with a real 158 mm front, 150 mm temples and a 21–22 mm bridge. Ready for prescription lenses, $190. For faces 155 mm+.",
+      h1: "Extra Large Oversized Eyeglasses for Prescription Lenses",
+      intro: "Extra large at most online opticians means a bigger lens on a standard front. These frames measure 158 mm across the front with 150 mm temples, so prescription lenses sit centred on a face 155 mm or wider. Two shapes, 007 Round and 009 Soft Square, $190 with demo lenses ready for your prescription.",
     },
     "/collections/oversized-black-glasses": {
       title: "Oversized Black Glasses — 158 mm for Wide Faces | Woolet",
-      description: "Oversized black glasses in hand made in EU from Italian Mazzucchelli acetate. 158 mm front, 21 mm keyhole bridge, built for 155 mm+ faces. Round 007 and soft-square 009.",
+      description: "Oversized black glasses in Italian Mazzucchelli acetate, hand made in EU. 158 mm front, 21 mm keyhole bridge, built for 155 mm+ faces. Round 007 and soft-square 009.",
       h1: "Oversized Black Glasses — 158 mm Italian Acetate",
       intro: "Black is the default oversized colourway for a reason — it sharpens the silhouette and pairs with everything. The catch is that black exaggerates every flaw in the acetate, every uneven bevel, every injection-mould seam. The Woolet oversized black glasses are cut from a single block of Italian Mazzucchelli acetate and hand-polished, so the black surface stays deep and even instead of going grey at the edges. 158 mm front, round 007 or soft-square 009.",
     },
@@ -2059,11 +2039,11 @@ const STATIC_ROUTES = [
   "/en/collections/glasses-for-big-heads",
   "/en/collections/extra-wide-glasses",
   "/en/collections/wide-bridge-glasses",
-  "/en/collections/oversized-blue-light-glasses",
+  
   "/en/collections/blue-light-glasses-for-wide-faces",
   "/en/collections/thick-frame-glasses",
   "/en/collections/big-glasses-frames",
-  "/en/collections/oversized-prescription-glasses",
+  
   "/en/collections/wide-frame-reading-glasses",
   "/en/collections/oversized-square-glasses",
   "/en/collections/oversized-round-glasses",
