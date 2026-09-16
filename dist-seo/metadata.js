@@ -200,6 +200,11 @@ const blogMetaBySlug = {
     exactTitle: true,
     metaDescription: "Pain behind your ears comes from the temples: too short, too tight or bent too early. Find which one it is, fix it at home, and the size that stops it."
   },
+  "glasses-that-turn-into-sunglasses-wide-face": {
+    metaTitle: "Glasses That Turn Into Sunglasses for Wide Faces",
+    exactTitle: true,
+    metaDescription: "Photochromic lenses darken outdoors and clear up inside. How they work, the real downsides, and two ways to get them in a 145-172 mm frame for wide faces."
+  },
   "eyeglass-frame-size-chart": {
     metaTitle: "Eyeglass Frame Size Chart in mm: XS to XXL (155 mm+)",
     exactTitle: true,
@@ -478,11 +483,11 @@ const BYLINE = (published, updated) => `
 </div>`;
 const ANSWER = (html) => `
 <p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;">${html}</p>`;
-const FITLENS_CTA = (intro, anchor) => `
+const FITLENS_CTA = (intro, anchor, href = "/en/fit", eyebrow = "FitLens · 20 seconds, phone camera") => `
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
-  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">FitLens · 20 seconds, phone camera</div>
+  <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">${eyebrow}</div>
   <p style="margin:0 0 14px 0;font-size:15px;line-height:1.65;">${intro}</p>
-  <a href="/en/fit" style="display:inline-block;background:#CAA449;color:#1F1B16;text-decoration:none;padding:12px 22px;border-radius:2px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;">${anchor}</a>
+  <a href="${href}" style="display:inline-block;background:#CAA449;color:#1F1B16;text-decoration:none;padding:12px 22px;border-radius:2px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;">${anchor}</a>
 </div>`;
 const TH = `padding:12px 14px;text-align:left;font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:11px;`;
 const TD = `padding:13px 14px;vertical-align:top;`;
@@ -1473,6 +1478,131 @@ ${FITLENS_CTA(
 <li><a href="/en/blog/glasses-too-tight-on-side-of-head">Glasses too tight on the side of your head</a> - the pressure that no adjustment fixes.</li>
 <li><a href="/en/temple/150mm">150 mm temple length</a> - what the third number on your frame does.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> - the number behind all of this.</li>
+</ul>
+`
+  },
+  /* ─────────────────────────── POST 7 ─────────────────────────── */
+  {
+    slug: "glasses-that-turn-into-sunglasses-wide-face",
+    title: "Glasses That Turn Into Sunglasses for Wide Faces",
+    excerpt: "Photochromic lenses stay clear indoors and darken in daylight, so one pair covers the office and the street. How they work, where they fall short, and two ways to get them in a frame that fits a face 155 mm or wider.",
+    date: "2026-09-16",
+    readTime: 6,
+    tags: ["Lenses", "Wide Face", "Guide"],
+    faq: [
+      {
+        q: "Are glasses that turn into sunglasses worth it?",
+        a: "Yes, when you move between indoors and outdoors all day, because one pair replaces two. They are less useful when you drive a lot, since most windscreens block the UV that darkens the lenses."
+      },
+      {
+        q: "What are the disadvantages of photochromic lenses?",
+        a: "They stay light behind a car windscreen, they clear more slowly than they darken, they get lighter in hot weather, and standard versions are not polarised. They are not a replacement for sports glasses or ski goggles."
+      },
+      {
+        q: "Are transition lenses the same as photochromic lenses?",
+        a: "Yes. Photochromic is the type of lens; Transitions is a brand name that many people use for all of them."
+      },
+      {
+        q: "Can I get prescription glasses that turn into sunglasses in a wide frame?",
+        a: "Yes. Order a Woolet 007 or 009 with a 158 mm front for $190 and have your optician fit prescription photochromic lenses."
+      },
+      {
+        q: "Can I get photochromic glasses wider than 160 mm?",
+        a: "Yes. Woolet Bespoke is built to any front width from 145 to 172 mm with a photochromic lens option, from $480."
+      },
+      {
+        q: "Do photochromic lenses work for cycling to work?",
+        a: "For commuting and everyday rides, yes: they darken outside and clear when you arrive. For sport riding at speed, use dedicated cycling glasses with a wraparound shape."
+      }
+    ],
+    content: `${BYLINE("16 September 2026", "16 September 2026")}
+${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often called transition lenses. They stay clear indoors and darken when UV light hits them, so one pair works at your desk and outside. On a wide face the lens is the easy part - the frame has to be 155 mm or wider, or the arms press all day.")}
+
+<figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 Round in acetate, 158 mm front, ready for photochromic lenses fitted by an optician" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 Round - 158 mm front, Italian Mazzucchelli acetate</figcaption></figure>
+
+<h2>How photochromic lenses work</h2>
+<p>Photochromic lenses carry light-reactive molecules inside the lens material itself. When ultraviolet light hits the lens, those molecules change shape and absorb more visible light, so the lens darkens. Indoors there is almost no UV, the molecules relax, and the lens clears again.</p>
+<p>The reaction is not symmetrical. The lenses darken faster than they clear, so stepping inside from bright sun you wait a moment for full clarity. Temperature plays a role too: cold weather makes them darker, heat makes them lighter. That is why the same pair can look slightly different on a hot July afternoon and a cold January morning.</p>
+<p>Because the darkening is driven by UV, not by brightness, the lens responds to daylight even when the sky is overcast - and it barely responds behind glass that blocks UV, which brings us to the honest limitations.</p>
+
+<h2>Are glasses that turn into sunglasses worth it?</h2>
+<p>They earn their place when your day moves constantly between indoors and outdoors: walking to work, cycling to the office, running errands, travelling through airports and stations. One pair replaces the two-pair shuffle, and you never stand on a sunny pavement digging through a bag for your sunglasses.</p>
+<p>They are less useful when you drive a lot, or when you need sunglasses for long hours on water or snow. In those situations a dedicated sunglass lens does the job better - the next section explains why.</p>
+
+<h2>The downsides nobody puts on the box</h2>
+<p>Photochromic lenses are genuinely useful, but four limits matter before you buy:</p>
+<ul>
+<li><strong>They stay light in the car.</strong> Most windscreens block the UV that drives the darkening, so the lenses remain almost clear while you drive. Keep regular sunglasses in the car.</li>
+<li><strong>They clear more slowly than they darken.</strong> Coming in from bright sun, expect a short wait before the lenses are fully transparent again.</li>
+<li><strong>Standard versions are not polarised.</strong> Photochromic and polarisation are different technologies. Standard photochromic lenses do not cut the reflected glare from water, wet roads or snow.</li>
+<li><strong>They are everyday eyewear.</strong> They do not replace sports glasses or ski goggles, which need a wraparound shape, impact protection and dedicated tints.</li>
+</ul>
+
+<h2>Why the frame matters more on a wide face</h2>
+<p>Here is the part that catches wide-faced buyers: the lens technology is identical in every frame, but the frame is not. A frame narrower than your face pushes the temple arms outward, and the arms press the sides of your head all day - photochromic lenses or not. Comfort is decided by width, not by the lens.</p>
+<p>So measure before you shop. Measure your face temple to temple; at 155 mm or more, look for a front of 155 mm or more. The method is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure face width for glasses</a>, and the sunglass-specific numbers are in <a href="/en/blog/what-size-sunglasses-for-wide-faces" style="color:#A07A2A;">what size sunglasses for a wide face</a>. Both Woolet stock shapes - the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> - are 158 mm across the front with 150 mm temples, sized for faces between 155 and 161 mm.</p>
+
+<h2>Two ways to get photochromic glasses that fit</h2>
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-size:14px;">
+<thead>
+<tr>
+<th style="${TH}border-bottom:1px solid #E8E4DC;">Option</th>
+<th style="${TH}border-bottom:1px solid #E8E4DC;">Width</th>
+<th style="${TH}border-bottom:1px solid #E8E4DC;">Lenses</th>
+<th style="${TH}border-bottom:1px solid #E8E4DC;">Price</th>
+<th style="${TH}border-bottom:1px solid #E8E4DC;">Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="${TD}border-bottom:1px solid #F0EBE1;"><a href="/en/products/007" style="color:#A07A2A;">Woolet 007</a> or <a href="/en/products/009" style="color:#A07A2A;">009</a> + your optician</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">158 mm</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">Your optician fits prescription photochromic lenses</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">Frame $190 + your optician's lenses</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">You need a prescription and fit 155-161 mm</td>
+</tr>
+<tr>
+<td style="${TD}border-bottom:1px solid #F0EBE1;"><a href="/en/bespoke" style="color:#A07A2A;">Woolet Bespoke</a></td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">Any width 145-172 mm, 4 shapes</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">Photochromic lens option</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">From $480</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">You fall outside 155-161 mm or want a shape built to your face</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Both Woolet stock frames ship with demo lenses, ready for your optician to glaze with prescription photochromic lenses. Bespoke goes the other way: you pick the photochromic option in the configurator, and the frame arrives with its lenses fitted. Every oversized option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> page.</p>
+
+<h2>How long does Bespoke take?</h2>
+<p>Production takes two weeks after you approve the 3D model of your frame. Each Bespoke frame is hand made in Greece from Italian Mazzucchelli acetate, cut to the measurements of one face - yours.</p>
+
+${FITLENS_CTA("Your face width decides which of the two paths above is yours. Bespoke covers any front width from 145 to 172 mm, in four shapes, with photochromic as a lens option - and it starts from your measurements, not a size chart.", "Design your Bespoke frame - 145 to 172 mm", "/en/bespoke", "Bespoke · hand made in Greece")}
+
+<h2>FAQ</h2>
+<h3>Are glasses that turn into sunglasses worth it?</h3>
+<p>Yes, when you move between indoors and outdoors all day, because one pair replaces two. They are less useful when you drive a lot, since most windscreens block the UV that darkens the lenses.</p>
+
+<h3>What are the disadvantages of photochromic lenses?</h3>
+<p>They stay light behind a car windscreen, they clear more slowly than they darken, they get lighter in hot weather, and standard versions are not polarised. They are not a replacement for sports glasses or ski goggles.</p>
+
+<h3>Are transition lenses the same as photochromic lenses?</h3>
+<p>Yes. Photochromic is the type of lens; Transitions is a brand name that many people use for all of them.</p>
+
+<h3>Can I get prescription glasses that turn into sunglasses in a wide frame?</h3>
+<p>Yes. Order a Woolet 007 or 009 with a 158 mm front for $190 and have your optician fit prescription photochromic lenses.</p>
+
+<h3>Can I get photochromic glasses wider than 160 mm?</h3>
+<p>Yes. Woolet Bespoke is built to any front width from 145 to 172 mm with a photochromic lens option, from $480.</p>
+
+<h3>Do photochromic lenses work for cycling to work?</h3>
+<p>For commuting and everyday rides, yes: they darken outside and clear when you arrive. For sport riding at speed, use dedicated cycling glasses with a wraparound shape.</p>
+
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/what-size-sunglasses-for-wide-faces">What size sunglasses for a wide face</a> - the three numbers that decide sunglass fit.</li>
+<li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> - the measurement behind every row of the table above.</li>
+<li><a href="/en/collections/big-glasses-frames">Oversized glasses for wide faces</a> - every 158 mm option in one place.</li>
 </ul>
 `
   }
@@ -4125,6 +4255,8 @@ const blogPostsEN = [
 
 <h3>Where do I buy sunglasses that actually fit a wide face?</h3>
 <p>Specialist brands. Woolet 007 and 009 are 158 mm Italian-acetate sunglasses with bespoke up to 162 mm. <a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads (158 mm)</a> has the full collection.</p>
+
+<p>Want one pair for indoors and outdoors? See <a href="/en/blog/glasses-that-turn-into-sunglasses-wide-face">glasses that turn into sunglasses</a> - how photochromic lenses work on a wide face, and where they fall short.</p>
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 `
