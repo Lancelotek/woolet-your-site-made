@@ -268,6 +268,12 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "Temple pressure means the frame front is too narrow — and no adjustment fixes that. Diagnose where it hurts, what an optician can change, and the 30-second width check.",
   },
+  "glasses-hurt-behind-ears": {
+    metaTitle: "Glasses Hurt Behind Your Ears? 5 Causes and the Fix",
+    exactTitle: true,
+    metaDescription:
+      "Pain behind your ears comes from the temples: too short, too tight or bent too early. Find which one it is, fix it at home, and the size that stops it.",
+  },
   "eyeglass-frame-size-chart": {
     metaTitle: "Eyeglass Frame Size Chart in mm: XS to XXL (155 mm+)",
     exactTitle: true,
