@@ -1793,6 +1793,24 @@ export function StepReview({
 
   const navigate = useNavigate();
 
+  // Show the AI render the buyer generated (lens variant first, clear frame as
+  // fallback) instead of the technical line drawing.
+  const reviewBaseKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const reviewLensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId);
+  const [renderUrl, setRenderUrl] = useState<string | null>(
+    () => getLatestPreviewUrl(reviewLensKey) ?? getLatestPreviewUrl(reviewBaseKey),
+  );
+  useEffect(() => {
+    const sync = () => setRenderUrl(getLatestPreviewUrl(reviewLensKey) ?? getLatestPreviewUrl(reviewBaseKey));
+    sync();
+    window.addEventListener(PREVIEW_UPDATED_EVENT, sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener(PREVIEW_UPDATED_EVENT, sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, [reviewLensKey, reviewBaseKey]);
+
   const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
     <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10">
       <div className="text-cream-dim text-xs uppercase tracking-[0.16em]">{label}</div>
