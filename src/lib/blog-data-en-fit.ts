@@ -166,7 +166,7 @@ ${FITLENS_CTA(
 
 <p>The full explanation of why the industry stops where it does — and what it means for pricing, tooling and availability — is in <a href="/en/blog/why-glasses-dont-fit-155mm-problem" style="color:#A07A2A;">why glasses don't fit at 155 mm</a>. If you want the practical version, with what to buy and what to skip, start with the <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">complete wide-face fit guide</a>.</p>
 
-<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 54□21 with a 103 mm temple, and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a> at 51□20 with the same 103 mm temple. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, bespoke covers 145–172 mm in four shapes.</p>
+<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, Bespoke covers 145–172 mm in four shapes.</p>
 
 <p>The point is not that you need a particular frame. It is that the pain you are feeling has a number attached to it, and once you know that number the problem stops being mysterious.</p>
 
@@ -277,7 +277,7 @@ ${ANSWER(
       <td style="${TD}"><strong>XXL</strong><br><span style="color:#666;font-size:12px;">rare, few makers</span></td><td style="${TD}">148–150 mm</td><td style="${TD}">58–60 mm</td><td style="${TD}">20–22 mm</td><td style="${TD}">148–150 mm</td><td style="${TD}">152–154 mm</td>
     </tr>
     <tr style="background:#F5EFDD;">
-      <td style="${TD}"><strong>Woolet 158</strong><br><span style="color:#666;font-size:12px;">off the standard chart</span></td><td style="${TD}"><strong>158 mm</strong></td><td style="${TD}">51–54 mm</td><td style="${TD}">20–21 mm</td><td style="${TD}">103 mm*</td><td style="${TD}"><strong>155–161 mm</strong></td>
+      <td style="${TD}"><strong>Woolet 158</strong><br><span style="color:#666;font-size:12px;">off the standard chart</span></td><td style="${TD}"><strong>158 mm</strong></td><td style="${TD}">52–54 mm</td><td style="${TD}">21–22 mm</td><td style="${TD}">150 mm</td><td style="${TD}"><strong>155–161 mm</strong></td>
     </tr>
   </tbody>
 </table>
