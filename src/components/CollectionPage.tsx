@@ -12,6 +12,8 @@ export interface CollectionFAQ {
 export interface CollectionExtraSection {
   heading: string;
   paragraphs: string[];
+  /** Raw block-level HTML (tables, lists) rendered under the heading, before the paragraphs. */
+  html?: string;
 }
 
 export interface CollectionImage {
@@ -235,6 +237,12 @@ const CollectionPage = ({
                 <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 26, margin: "0 0 14px" }}>
                   {s.heading}
                 </h2>
+                {s.html && (
+                  <div
+                    style={{ overflowX: "auto", margin: "0 0 16px", fontSize: 14, lineHeight: 1.7, color: "#222" }}
+                    dangerouslySetInnerHTML={{ __html: s.html }}
+                  />
+                )}
                 {s.paragraphs.map((p, j) => (
                   <p key={j} style={{ fontSize: 14, lineHeight: 1.7, color: "#222", margin: "0 0 14px" }} dangerouslySetInnerHTML={{ __html: p }} />
                 ))}

@@ -9666,10 +9666,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   }
   const extraCollections = {
     "/collections/big-glasses-frames": {
-      title: "Big Glasses Frames for Wide Faces & Big Heads | Woolet",
-      description: "Truly big glasses frames: 158 mm front, 21 mm keyhole bridge, hand made in EU from Italian Mazzucchelli acetate. For 155 mm+ faces and 58 cm+ heads.",
-      h1: "Big Glasses Frames for Wide Faces & Big Heads",
-      intro: "Most 'big' frames at mainstream retailers are 140–148 mm hinge-to-hinge — a larger lens on a standard front. Woolet builds at 158 mm of actual front width with a 21 mm keyhole bridge, in hand made in EU from Italian Mazzucchelli acetate. Bespoke covers 145–172 mm for XXL heads."
+      title: "Oversized Glasses for Wide Faces: 158 mm Frames | Woolet",
+      description: "Oversized is a look. 158 mm is a size. Round and square frames 158 mm across with 150 mm temples, for faces 155 mm+. From $190. Measure in 20 s.",
+      h1: "Oversized Glasses That Fit a 155 mm+ Face",
+      intro: "Most oversized glasses get their size from the lenses, while the front stays close to standard width, so the arms still press on a wide face. Woolet frames measure 158 mm across the front with 150 mm temples, in two shapes: 007 Round and 009 Soft Square. Italian Mazzucchelli acetate, hand made in EU, from $190."
     },
     "/collections/wide-frame-reading-glasses": {
       title: "Wide Frame Reading Glasses for Wide Faces | Woolet",
