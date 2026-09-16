@@ -438,6 +438,8 @@ export function AiPreviewPanel({
           patternUrl: frame.url,
           widthMm: frame.widthMm,
           bridgeMm: frame.bridgeMm,
+          lensType: lens?.id ?? null,
+          lensName: lens?.name ?? null,
         },
 
       });
