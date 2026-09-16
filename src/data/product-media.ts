@@ -43,7 +43,7 @@ const shapeLabel: Record<ProductId, string> = {
   "009": "soft-square",
 };
 
-const bridge: Record<ProductId, string> = { "007": "20 mm keyhole bridge", "009": "21 mm bridge" };
+const bridge: Record<ProductId, string> = { "007": "21 mm keyhole bridge", "009": "22 mm bridge" };
 
 const shared: Record<ProductId, MediaItem[]> = {
   "007": [
@@ -59,8 +59,8 @@ const shared: Record<ProductId, MediaItem[]> = {
       id: "scale",
       kind: "scale",
       src: dims009.url,
-      alt: "Measurement diagram of Woolet 007 round panto: 158 mm total front width, 51 mm lens width, 45 mm lens height, 20 mm bridge, 103 mm temple length",
-      caption: "158 mm front · 51 × 45 mm lens · 20 mm bridge · 103 mm temples",
+      alt: "Measurement diagram of Woolet 007 round panto: 158 mm total front width, 52 mm lens width, 52 mm lens height, 21 mm bridge, 150 mm temple length",
+      caption: "158 mm front · 52 × 52 mm lens · 21 mm bridge · 150 mm temples",
     },
   ],
   "009": [
@@ -84,8 +84,8 @@ const shared: Record<ProductId, MediaItem[]> = {
       id: "scale",
       kind: "scale",
       src: dims007.url,
-      alt: "Measurement diagram of Woolet 009 soft-square: 158 mm total front width, 54 mm lens width, 42 mm lens height, 21 mm bridge, 103 mm temple length",
-      caption: "158 mm front · 54 × 42 mm lens · 21 mm bridge · 103 mm temples",
+      alt: "Measurement diagram of Woolet 009 soft-square: 158 mm total front width, 54 mm lens width, 50 mm lens height, 22 mm bridge, 150 mm temple length",
+      caption: "158 mm front · 54 × 50 mm lens · 22 mm bridge · 150 mm temples",
     },
   ],
 };

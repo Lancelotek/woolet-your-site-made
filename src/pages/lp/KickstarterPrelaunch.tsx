@@ -1592,8 +1592,8 @@ const KickstarterPrelaunch = () => {
                 specs: [
                   ["Front width", "158 mm"],
                   ["Bridge", "21 mm keyhole"],
-                  ["Lens", "54 × 42 mm"],
-                  ["Temple", "103 mm"],
+                  ["Lens", "52 × 52 mm"],
+                  ["Temple", "150 mm"],
                   ["Front height", "52 mm"],
                 ],
               },
@@ -1606,9 +1606,9 @@ const KickstarterPrelaunch = () => {
                 kickstarter: 114,
                 specs: [
                   ["Front width", "158 mm"],
-                  ["Bridge", "20 mm keyhole"],
-                  ["Lens", "51 × 45 mm"],
-                  ["Temple", "103 mm"],
+                  ["Bridge", "22 mm keyhole"],
+                  ["Lens", "54 × 50 mm"],
+                  ["Temple", "150 mm"],
                   ["Front height", "54 mm"],
                 ],
               },
