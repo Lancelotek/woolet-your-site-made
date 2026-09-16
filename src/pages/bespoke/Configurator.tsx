@@ -136,11 +136,14 @@ const ConfiguratorPage = () => {
   // Latest AI-generated preview for the current selection (frame + acetates + finish).
   // Reads from the same localStorage store used by AiPreviewPanel and re-checks
   // whenever the panel dispatches PREVIEW_UPDATED_EVENT.
-  const previewKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
-  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(() => getLatestPreviewUrl(previewKey));
+  const baseKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
+  const lensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId);
+  const previewKey = `${lensKey}::${baseKey}`;
+  const resolvePreview = () => getLatestPreviewUrl(lensKey) ?? getLatestPreviewUrl(baseKey);
+  const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(resolvePreview);
   useEffect(() => {
-    setAiPreviewUrl(getLatestPreviewUrl(previewKey));
-    const refresh = () => setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+    setAiPreviewUrl(resolvePreview());
+    const refresh = () => setAiPreviewUrl(resolvePreview());
     window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
     window.addEventListener("storage", refresh);
     return () => {
