@@ -86,7 +86,7 @@ export default function BespokeCheckout() {
   const couponPercent = appliedCoupon ? COUPONS[appliedCoupon] ?? 0 : 0;
   useEffect(() => {
     const refresh = () => {
-      setAiPreviewUrl(getLatestPreviewUrl(previewKey));
+      setAiPreviewUrl(resolvePreview());
       setFallbackPreviewUrl(findLatestPreview(loadPreviewHistory()));
     };
     refresh();
