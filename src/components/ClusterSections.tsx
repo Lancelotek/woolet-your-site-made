@@ -29,9 +29,11 @@ const ClusterSections = ({ sections }: { sections?: Section[] }) => {
             {s.h2}
           </h2>
           {s.body.map((p, j) => (
-            <p key={j} style={{ fontSize: 15, lineHeight: 1.75, color: "#333", margin: "0 0 14px", maxWidth: 660 }}>
-              {p}
-            </p>
+            <p
+              key={j}
+              style={{ fontSize: 15, lineHeight: 1.75, color: "#333", margin: "0 0 14px", maxWidth: 660 }}
+              dangerouslySetInnerHTML={{ __html: p }}
+            />
           ))}
           {s.table && (
             <div style={{ overflowX: "auto", border: "1px solid #E0D5C5", borderRadius: 4, background: "#FFF", marginTop: 6 }}>

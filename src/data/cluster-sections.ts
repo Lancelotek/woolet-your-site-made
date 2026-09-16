@@ -88,6 +88,7 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
       body: [
         "If your face measures 155–161 mm temple-to-temple and your head circumference is roughly 58–60 cm, yes — 150 mm is the fit and no bespoke specification will improve it. Below 155 mm face width, 150 mm arms usually overshoot. Above 61 cm head circumference, they usually come up short and 152–155 mm is the answer.",
         "The quickest way to know is to measure both numbers at once. FitLens returns face width and temple length from one phone photo in about twenty seconds.",
+        "Pain on top of or behind the ear is the classic sign of a temple that is too short - see <a href=\"/en/blog/glasses-hurt-behind-ears\" style=\"color:#A07A2A;\">why glasses hurt behind your ears</a>.",
       ],
       table: {
         head: ["Your measurement", "Verdict on 150 mm arms"],

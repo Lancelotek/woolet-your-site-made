@@ -58,7 +58,7 @@ export const blogPostsENFit: BlogPost[] = [
       },
       {
         q: "Can glasses cause a pressure sore behind the ear?",
-        a: "Yes. A temple arm with too tight a bend concentrates load on a few square millimetres of skin over bone, which reddens, then breaks down. Silicone ear cushions and a shallower bend fix most cases. If the sore returns within a week of every adjustment, the arm is being asked to hold a frame the front cannot hold on its own.",
+        a: "Yes. A temple arm with too tight a bend concentrates load on a few square millimetres of skin over bone, which reddens, then breaks down. Silicone ear cushions and a shallower bend fix most cases. If the sore returns within a week of every adjustment, the arm is being asked to hold a frame the front cannot hold on its own. Full guide: glasses that hurt behind the ears.",
       },
       {
         q: "Do glasses stretch out over time?",
@@ -116,7 +116,7 @@ ${ANSWER(
 </table>
 </div>
 
-<p>The single most useful distinction in that table is temples versus behind the ears. Behind-the-ear pain is a fitting problem and a good optician solves it in ten minutes. Temple pain is a geometry problem and no amount of bench work solves it.</p>
+<p>The single most useful distinction in that table is temples versus behind the ears. Behind-the-ear pain is a fitting problem and a good optician solves it in ten minutes — the five causes and their fixes are in <a href="/en/blog/glasses-hurt-behind-ears" style="color:#A07A2A;">glasses that hurt behind the ears</a>. Temple pain is a geometry problem and no amount of bench work solves it.</p>
 
 <h2>What you can fix at home</h2>
 
@@ -182,7 +182,7 @@ ${FITLENS_CTA(
 <p>Look at where the pressure is. Pain in front of the ears, at the temples, means the front is too narrow. Pain behind the ears, on the mastoid bone, usually means the temple arms are bent too steeply or are too short — that is adjustable. Red indentations on both temples after four hours of wear is the clearest sign the frame itself is too small.</p>
 
 <h3>Can glasses cause a pressure sore behind the ear?</h3>
-<p>Yes. A temple arm with too tight a bend concentrates load on a few square millimetres of skin over bone, which reddens, then breaks down. Silicone ear cushions and a shallower bend fix most cases. If the sore returns within a week of every adjustment, the arm is being asked to hold a frame the front cannot hold on its own.</p>
+<p>Yes. A temple arm with too tight a bend concentrates load on a few square millimetres of skin over bone, which reddens, then breaks down. Silicone ear cushions and a shallower bend fix most cases. If the sore returns within a week of every adjustment, the arm is being asked to hold a frame the front cannot hold on its own. Full guide: <a href="/en/blog/glasses-hurt-behind-ears" style="color:#A07A2A;">glasses that hurt behind the ears</a>.</p>
 
 <h3>Do glasses stretch out over time?</h3>
 <p>Acetate relaxes slightly with body heat — perhaps 1–2 mm of effective width over months, and only at the temples, not across the front. It is not a plan. Buying a frame that is 10 mm too narrow and waiting for it to give will produce months of headaches and a frame that eventually cracks at the hinge.</p>
@@ -831,5 +831,210 @@ ${FITLENS_CTA(
 </ul>
 `,
   },
+
+  /* ─────────────────────────── POST 6 ─────────────────────────── */
+  {
+    slug: "glasses-hurt-behind-ears",
+    title: "Glasses Hurt Behind Your Ears? 5 Causes and the Fix",
+    excerpt:
+      "Pain behind your ears comes from the temple arms: too short, bent too tightly, or pushed outward by a front that is too narrow. Find which one you have, what an optician can fix in five minutes, and when only a wider frame helps.",
+    date: "2026-09-16",
+    readTime: 7,
+    tags: ["Fit", "Comfort", "Guide"],
+    faq: [
+      {
+        q: "Why do behind my ears hurt when I wear glasses?",
+        a: "The temple arms press where they should only rest. Most often the temples are too short or the bend grips too tightly, both adjustable. When the pain comes with red marks at the temples, the frame front is too narrow for your face, and only a wider frame fixes it.",
+      },
+      {
+        q: "How do I fix glasses that hurt behind the ears?",
+        a: "Find where it hurts. Pressure on the bone behind the ear or a tilted frame: an optician re-bends the temple tips in minutes. Pain on top of the ear: the temples are too short. Pressure on the sides of the head: the front is too narrow and you need a wider frame.",
+      },
+      {
+        q: "How should glasses fit behind your ears?",
+        a: "The arms run straight back without touching the sides of your head, the bend starts just behind the top of the ear, and the tip rests lightly along the back of the ear. After a full day there should be no marks.",
+      },
+      {
+        q: "How can I stop my glasses rubbing behind my ears?",
+        a: "Have the temple tips adjusted so they rest instead of grip, and slide silicone sleeves over the tips for short-term relief. When rubbing returns after every adjustment, check the frame width against your face.",
+      },
+      {
+        q: "Can glasses cause a pressure sore behind the ear?",
+        a: "Yes. A tip that grips too tightly presses the same spot for hours. Get the temples adjusted, and see an optician or a doctor when the skin stays red or broken for more than a few days.",
+      },
+      {
+        q: "Do longer temples stop glasses hurting behind the ears?",
+        a: "When the bend currently lands on top of your ear, yes. Longer temples move the bend behind the ear. When the pain sits on the sides of your head, longer temples do not help, because the front is too narrow.",
+      },
+    ],
+    howTo: {
+      name: "How to fix glasses that hurt behind the ears",
+      description:
+        "Locate the pressure point, read your frame's temple length, check it against your face width, and decide whether an adjustment or a wider frame is the fix.",
+      totalTime: "PT10M",
+      step: [
+        {
+          name: "Find the pressure point",
+          text: "Wear the glasses for a few hours, take them off and look in a mirror. Note whether the mark sits on top of the ear, on the bone behind it, on the sides of your head, or on one side only.",
+        },
+        {
+          name: "Read the temple length",
+          text: "Read the three numbers printed on the inside of the temple, for example 54 - 18 - 145. The last one is temple length in millimetres.",
+        },
+        {
+          name: "Check the front width against your face",
+          text: "Measure your face temple to temple with FitLens or a ruler. At 155 mm or more, a frame front under 150 mm is too narrow for you, whatever the lenses look like.",
+        },
+        {
+          name: "Ask an optician to adjust the tips",
+          text: "For a bend that grips too tightly or a frame that sits tilted, an optician re-bends the temple tips in minutes. Do not heat or bend acetate at home.",
+        },
+        {
+          name: "Use silicone sleeves for short-term relief",
+          text: "Slide silicone sleeves over the temple tips. They spread the load behind the ear while you arrange an adjustment or a new frame.",
+        },
+        {
+          name: "Replace the frame when the front is too narrow",
+          text: "No adjustment changes front width. When the front is narrower than your face, replace the frame with one as wide as your face measures.",
+        },
+      ],
+    },
+    content: `${BYLINE("16 September 2026", "16 September 2026")}
+${ANSWER(
+      `Glasses hurt behind the ears when the temple arms press where they should only rest. Five things cause it: temples that are too short, a bend that grips too tightly, a front too narrow for your face, ears at different heights, or a reaction to the frame material. The first two an optician fixes in minutes. The third needs a wider frame.`,
+    )}
+
+<p>The ache usually arrives late in the day. You take the glasses off, rub the spot behind your ear, and the relief is immediate - which is the clue. Pressure that disappears the second the frame comes off is mechanical, not medical. The job is to work out which part of the frame is doing the pressing.</p>
+
+<h2>Where exactly does it hurt?</h2>
+
+<p>Wear the glasses for a few hours, then take them off in front of a mirror and find the mark before you read the table. The location, not the intensity, tells you which of the five causes you have.</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
+  <thead>
+    <tr style="background:#0f0f0f;color:#f0ece4;">
+      <th style="${TH}">Where it hurts</th>
+      <th style="${TH}">Most likely cause</th>
+      <th style="${TH}">Fixable by adjustment?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #E8E4DC;">
+      <td style="${TD}"><strong>Top of the ear</strong><br><span style="color:#666;">where the arm bends</span></td>
+      <td style="${TD}">Temples too short, so the bend lands on the ear</td>
+      <td style="${TD}">Sometimes - longer temples solve it</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;">
+      <td style="${TD}"><strong>Behind the ear</strong><br><span style="color:#666;">on the bone</span></td>
+      <td style="${TD}">Bend too tight or angled too steeply</td>
+      <td style="${TD}">Yes</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;">
+      <td style="${TD}"><strong>Sides of the head above the ears</strong><br><span style="color:#666;">plus red marks at the temples</span></td>
+      <td style="${TD}">Front too narrow, arms pushed outward</td>
+      <td style="${TD}">No</td>
+    </tr>
+    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;">
+      <td style="${TD}"><strong>One ear only</strong></td>
+      <td style="${TD}">Ears at different heights, frame sits tilted</td>
+      <td style="${TD}">Yes</td>
+    </tr>
+    <tr>
+      <td style="${TD}"><strong>Itching or redness</strong><br><span style="color:#666;">rather than pressure</span></td>
+      <td style="${TD}">Material sensitivity</td>
+      <td style="${TD}">Change of frame or temple sleeves</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>1. The temples are too short</h2>
+
+<p>Temple length is the third number printed on the inside of the arm - in a marking like 54 - 18 - 145, it is the 145. It measures the arm from the hinge to the tip, and it decides where the bend lands on your head.</p>
+
+<p>When that number is too short for your head, the bend arrives early. Instead of curving just behind the ear, it sits on top of it, and the whole weight of the frame rides on a few millimetres of cartilage. Every time you look down, chew or push the glasses back up, the arm pulls against that same point. The result is a tender ridge on the top of the ear rather than a sore spot behind it.</p>
+
+<p>Mainstream arms usually run 140 to 145 mm. A wider face generally sits on a deeper skull, so the arm has further to travel before it reaches the ear at all. Both Woolet shapes use 150 mm temples with a 52 mm tip drop, matched to the 158 mm front, so the bend clears the top of the ear and the tip follows the bone behind it. More detail on the number itself: <a href="/en/temple/150mm" style="color:#A07A2A;">temple length explained</a>.</p>
+
+<h2>2. The bend grips too tightly</h2>
+
+<p>The curved end of the arm is meant to rest along the back of the ear, following the bone without gripping it. Bent too steeply, it does the opposite: it hooks in and squeezes. For the first hour you feel nothing. After four or five hours you have the sore spot that sends people searching for this article in the first place.</p>
+
+<p>This is the easiest of the five to fix and the one most often left unfixed, because people assume a new frame is the only answer. An optician warms the tip, opens the curve a few degrees, and checks it against your ear on the bench. It usually takes minutes and costs nothing at the shop that sold you the frame. Do not attempt it yourself - acetate needs controlled heat, and a home hairdryer is how a good frame ends up cloudy or cracked at the hinge.</p>
+
+<p>If redness, broken skin or a sore lasts more than a few days, see an optician or a doctor rather than waiting it out.</p>
+
+<h2>3. The front is too narrow for your face</h2>
+
+<p>This is the cause no adjustment reaches. Front width is the distance across the frame from hinge to hinge, and it is fixed when the acetate is cut. When the front is narrower than your face, the arms leave the hinges already bent outward and work as springs for as long as you wear them. They press on the sides of the head, and that load carries backward until it lands behind the ears.</p>
+
+<p>The giveaway is a second set of marks: red lines at the temples, in front of the ears, alongside the pain behind them. Sleeves and re-bends move the symptom around but never remove it, because the geometry is unchanged. The full diagnosis of that pattern is here: <a href="/en/blog/glasses-too-tight-on-side-of-head" style="color:#A07A2A;">glasses too tight on the side of your head</a>.</p>
+
+<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 52 x 52 mm lenses with a 21 mm bridge, the 009 Soft Square at 54 x 50 mm with a 22 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 172 mm, hand made in Greece.</p>
+
+<h2>4. Your ears sit at different heights</h2>
+
+<p>Almost nobody has perfectly symmetrical ears, and a difference of a few millimetres is enough to tilt a frame. The tilted frame then rests unevenly: one ear carries more of the weight, one lens sits lower than the other, and the sore spot appears on one side only while the other side feels fine.</p>
+
+<p>This is a bench fix. An optician bends one temple slightly more than the other so the front sits level and both ears share the load. Ask them to check the frame against your eyebrows rather than your ears - that is how they see the tilt you have stopped noticing.</p>
+
+<p>Where the difference is large, adjustment can only go so far before one arm looks visibly wrong. <a href="/en/bespoke" style="color:#A07A2A;">Bespoke</a> builds each side to your measurement instead, which is the cleaner answer for a pronounced asymmetry.</p>
+
+<h2>5. The material irritates the skin</h2>
+
+<p>Itching, flaking or redness without any sense of pressure is a different problem. It points to a reaction to something the skin is touching - commonly metal parts such as hinges, tips or core wires, or a surface coating - rather than to how the frame is bent.</p>
+
+<p>Silicone temple sleeves put a barrier between the arm and the skin and help in the short term. Acetate frames keep metal away from the skin along most of the arm, which is why they are the usual recommendation for sensitive skin. If the irritation persists, see a doctor.</p>
+
+<h2>How to fix glasses that hurt behind the ears</h2>
+
+<ol>
+<li><strong>Find the pressure point</strong> using the table above: top of the ear, behind the ear, the sides of the head, or one side only.</li>
+<li><strong>Read the three numbers</strong> on the inside of the temple and note the last one - temple length.</li>
+<li><strong>Check the front.</strong> Measure your face temple to temple with FitLens or a ruler. At 155 mm or more, a frame under 150 mm is too narrow.</li>
+<li><strong>For a tight bend or a tilted frame,</strong> ask an optician to adjust the temple tips. Do not heat or bend acetate at home.</li>
+<li><strong>For short-term relief,</strong> slide silicone sleeves over the temple tips.</li>
+<li><strong>When the front is too narrow,</strong> replace the frame with one as wide as your face.</li>
+</ol>
+
+<h2>How should glasses fit behind your ears?</h2>
+
+<p>The arms should run straight back from the hinges without touching the sides of your head. The bend starts just behind the top of the ear, not on it. From there the tip follows the back of the ear with light contact along its length, holding the frame in place without hooking into the bone. After a full day of wear there should be no marks - neither on the ear nor at the temples. And when you look down at your phone or a book, the frame should stay level rather than sliding forward.</p>
+
+${FITLENS_CTA(
+      "Before you buy another frame, get the number that decides all of this. FitLens measures face width and bridge width from your phone camera - no app, no appointment, and the image never leaves your device.",
+      "Measure my face with FitLens - 20 seconds, no app",
+    )}
+
+<h2>FAQ</h2>
+
+<h3>Why do behind my ears hurt when I wear glasses?</h3>
+<p>The temple arms press where they should only rest. Most often the temples are too short or the bend grips too tightly, both adjustable. When the pain comes with red marks at the temples, the frame front is too narrow for your face, and only a wider frame fixes it.</p>
+
+<h3>How do I fix glasses that hurt behind the ears?</h3>
+<p>Find where it hurts. Pressure on the bone behind the ear or a tilted frame: an optician re-bends the temple tips in minutes. Pain on top of the ear: the temples are too short. Pressure on the sides of the head: the front is too narrow and you need a wider frame.</p>
+
+<h3>How should glasses fit behind your ears?</h3>
+<p>The arms run straight back without touching the sides of your head, the bend starts just behind the top of the ear, and the tip rests lightly along the back of the ear. After a full day there should be no marks.</p>
+
+<h3>How can I stop my glasses rubbing behind my ears?</h3>
+<p>Have the temple tips adjusted so they rest instead of grip, and slide silicone sleeves over the tips for short-term relief. When rubbing returns after every adjustment, check the frame width against your face.</p>
+
+<h3>Can glasses cause a pressure sore behind the ear?</h3>
+<p>Yes. A tip that grips too tightly presses the same spot for hours. Get the temples adjusted, and see an optician or a doctor when the skin stays red or broken for more than a few days.</p>
+
+<h3>Do longer temples stop glasses hurting behind the ears?</h3>
+<p>When the bend currently lands on top of your ear, yes. Longer temples move the bend behind the ear. When the pain sits on the sides of your head, longer temples do not help, because the front is too narrow.</p>
+
+<h2>Related articles</h2>
+<ul>
+<li><a href="/en/blog/glasses-too-tight-on-side-of-head">Glasses too tight on the side of your head</a> - the pressure that no adjustment fixes.</li>
+<li><a href="/en/temple/150mm">150 mm temple length</a> - what the third number on your frame does.</li>
+<li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> - the number behind all of this.</li>
+</ul>
+`,
+  },
 ];
+
 
