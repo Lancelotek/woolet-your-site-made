@@ -67,7 +67,10 @@ async function readGeneratedImage(resp: Response): Promise<string> {
       if (eventName === "error" || payload.type === "error") {
         streamError = payload.error?.message || "Image generation failed";
       }
-      if (eventName === "image_generation.completed" && payload.b64_json) {
+      if (
+        (eventName === "image_generation.completed" || payload.type === "image_generation.completed") &&
+        payload.b64_json
+      ) {
         finalB64 = payload.b64_json;
       }
     }
