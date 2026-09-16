@@ -171,7 +171,7 @@ export const SIZES: SizeEntry[] = [
       { q: "What bridge width comes with a 158 mm front?", a: "The 007 Round uses a 21 mm keyhole bridge; the 009 Soft Square uses a 22 mm bridge. Both are shaped for weight distribution across a wider nose." },
       { q: "Are 158 mm glasses only for men?", a: "No. Frame width is face width, not gender. Women with a 155–161 mm face wear the same signature 158 mm frame." },
       { q: "What lens size comes with 158 mm frames?", a: "007 Round: 52 × 52 mm lens. 009 Soft Square: 54 × 50 mm lens. Both accept single-vision, progressive, blue-light and polarised sunglass lenses." },
-      { q: "What temple length pairs with a 158 mm front?", a: "148 mm temples at an 11° drop, standard on both shapes. Bespoke can extend to 155 mm." },
+      { q: "What temple length pairs with a 158 mm front?", a: "150 mm temples at an 11° drop, standard on both shapes. Bespoke can extend to 155 mm." },
     ],
   },
   {

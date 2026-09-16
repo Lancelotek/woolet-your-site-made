@@ -804,7 +804,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Keep going: sizing references</h2>
 
-<p>Once you have your number, three companion references turn it into a purchase. The <a href="/en/blog/eyeglass-frame-size-chart" style="color:#A07A2A;">eyeglass frame size chart</a> maps XS–XXL bands to real front widths in millimetres. <a href="/en/blog/numbers-on-glasses-frames-meaning" style="color:#A07A2A;">What the numbers on glasses frames mean</a> decodes the 54□21-103 marking and shows why none of those digits is the frame's total width. And <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a> separates temple length (the arm) from temple-to-temple width (your head) — the two are constantly confused.</p>
+<p>Once you have your number, three companion references turn it into a purchase. The <a href="/en/blog/eyeglass-frame-size-chart" style="color:#A07A2A;">eyeglass frame size chart</a> maps XS–XXL bands to real front widths in millimetres. <a href="/en/blog/numbers-on-glasses-frames-meaning" style="color:#A07A2A;">What the numbers on glasses frames mean</a> decodes the 54□21-145 marking and shows why none of those digits is the frame's total width. And <a href="/en/blog/temple-to-temple-measurement" style="color:#A07A2A;">temple-to-temple explained</a> separates temple length (the arm) from temple-to-temple width (your head) — the two are constantly confused.</p>
 
 <h2>FAQ: Measuring Face Width for Glasses</h2>
 
@@ -1809,7 +1809,7 @@ const blogPostsEN: BlogPost[] = [
   <li><strong>UV400 as a baseline, polarized as an option.</strong></li>
 </ol>
 
-<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 20 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 172 mm.</p>
+<p>Woolet does not make a metal teardrop aviator. The <a href="/en/products/007">007 round panto</a> (158 mm front, 21 mm keyhole bridge) is the closest silhouette without the metal fatigue, and the <a href="/en/products/009">009 soft square</a> (158 mm front, 22 mm keyhole bridge) is the squared-off equivalent. Both take the polarized lens upgrade. For a custom aviator-style front outside standard sizing, bespoke covers any width from 145 to 172 mm.</p>
 
 <h2>Polarized or not?</h2>
 
@@ -1846,7 +1846,7 @@ const blogPostsEN: BlogPost[] = [
   {
     slug: "what-size-sunglasses-for-wide-faces",
     title: "What Size Sunglasses for a Wide Face? 155mm+ Fit Guide",
-    excerpt: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 148mm temples. Measure in 60 seconds and find frames that fit.",
+    excerpt: "Stop pinching sunglasses. Wide faces (155mm+) need 155mm+ front width, a 20–22mm bridge and 150mm temples. Measure in 60 seconds and find frames that fit.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Sizing", "Sunglasses", "Wide Face"],
@@ -2923,8 +2923,8 @@ const blogPostsEN: BlogPost[] = [
 <p>Woolet makes two shapes, both engineered for wider faces (155–161 mm) at one precise 158 mm front width. Bespoke covers anything outside that, up to 162 mm.</p>
 
 <ul>
-  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
-  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 148 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
+  <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 150 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
+  <li><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 — Soft Square, 158 mm</a>.</strong> Soft-square Italian acetate, 22 mm keyhole bridge, 150 mm temples. Polarized lens upgrade available. Reads more architectural; works on rounder faces.</li>
 </ul>
 
 <p>Both are pre-order at $114 for founding members ($190 MSRP at full launch). Same EU atelier, same hand-finishing, same geometry — pick on shape, not on size.</p>
@@ -3018,7 +3018,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Where Woolet fits</h2>
 
-<p>Woolet is built around one precise measurement: 158 mm of front width, with a 21–22 mm keyhole bridge and 148 mm temples. Two shapes, both unisex by geometry — fit, not styling, decides whether they work:</p>
+<p>Woolet is built around one precise measurement: 158 mm of front width, with a 21–22 mm keyhole bridge and 150 mm temples. Two shapes, both unisex by geometry — fit, not styling, decides whether they work:</p>
 
 <ul>
   <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Soft round panto in Italian Mazzucchelli acetate. Reads less architectural; the shape consistently picked by women buyers in our pre-order data. Available in Honey tortoise, Piano black, and Crystal.</li>
@@ -3037,7 +3037,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>1. Woolet 007 — Round Panto, 158 mm (best overall)</h3>
 
-<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Lens width:</strong> 54 mm · <strong>Lens height:</strong> 42 mm · <strong>Front height:</strong> 52 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
+<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 21 mm keyhole · <strong>Lens width:</strong> 52 mm · <strong>Lens height:</strong> 52 mm · <strong>Front height:</strong> 52 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
 
 <p>Soft round panto, deliberately unfussy. This is the shape women pick most often once width is no longer the deciding constraint. Honey translucent keeps the 158 mm width without adding visual weight. Ships with clear demo lenses; single-vision, progressive, or blue-light added in cart.</p>
 
@@ -3045,9 +3045,9 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>2. Woolet 009 — Soft Square, 158 mm (best for rounder face shapes)</h3>
 
-<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 20 mm keyhole · <strong>Lens width:</strong> 51 mm · <strong>Lens height:</strong> 45 mm · <strong>Front height:</strong> 54 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
+<p><strong>Frame width:</strong> 158 mm · <strong>Bridge:</strong> 22 mm keyhole · <strong>Lens width:</strong> 54 mm · <strong>Lens height:</strong> 50 mm · <strong>Front height:</strong> 54 mm · <strong>Material:</strong> Mazzucchelli acetate from Milan, hand made in the EU · <strong>Colours:</strong> Honey tortoise, Piano black, Crystal · <strong>Price:</strong> $114 pre-order ($190 launch).</p>
 
-<p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes, where a full-round frame can flatten the vertical. The 45 mm lens height gives more vertical lens area than the 007 — useful if you wear progressives.</p>
+<p>Soft square with a slightly higher brow line. Sits more deliberate on rounder face shapes, where a full-round frame can flatten the vertical. The 54 mm lens width gives more horizontal lens area than the 007 — useful if you wear progressives.</p>
 
 <p><a href="/en/products/009" style="color:#A07A2A;">Shop Woolet 009 →</a></p>
 

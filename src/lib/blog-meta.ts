@@ -277,7 +277,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "temple-to-temple-measurement": {
     metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
     metaDescription:
-      "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit. A clear table, common lengths, and why Woolet lists a 103 mm temple.",
+      "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit — a clear table and why Woolet uses a 150 mm temple.",
   },
   "numbers-on-glasses-frames-meaning": {
     metaTitle: "What Do the Numbers on Glasses Mean? 54□21-145 Explained",

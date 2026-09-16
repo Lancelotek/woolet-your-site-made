@@ -258,7 +258,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 Woolet 007 — Round
               </div>
               <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                21 mm keyhole bridge · 158 mm front · 52 × 52 mm lens · 148 mm temples.
+                21 mm keyhole bridge · 158 mm front · 52 × 52 mm lens · 150 mm temples.
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
@@ -284,7 +284,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 Woolet 009 — Soft Square
               </div>
               <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                22 mm bridge · 158 mm front · 54 × 50 mm lens · 148 mm temples.
+                22 mm bridge · 158 mm front · 54 × 50 mm lens · 150 mm temples.
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>

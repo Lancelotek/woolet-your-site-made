@@ -96,7 +96,7 @@ const About = () => {
             54–58mm with a bridge of 17–20mm. Temple length should be 145–150mm minimum. A frame
             that is too narrow — even by 5mm — will flare outward at the temples, creating an
             inconsistent gap between temple and skull that worsens throughout the day. Woolet 007
-            and 009 are engineered at 158mm total frame width with a 19mm bridge and 148mm temples,
+            and 009 are engineered at 158mm total frame width with a 21–22mm bridge and 150mm temples,
             positioned precisely for the 155–161mm face width range.
           </p>
         </section>
