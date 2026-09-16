@@ -16,6 +16,7 @@ import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-b
 import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
 import { BESPOKE_PRICE, PRICE_CURRENCY, PRICE_VALID_UNTIL, RETURN_POLICY, shippingDetails } from "@/seo/commerce-schema";
 import { BESPOKE_FRONT_WIDTH_RANGE, BESPOKE_BRIDGE_RANGE } from "@/lib/bespoke-spec";
+import { trackMetaEventOnce } from "@/lib/meta-capi";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
 type AtelierCopy = {
@@ -217,6 +218,19 @@ const FAQS = [
 const BespokePage = () => {
   const { lang } = useParams();
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
+
+  // Meta upper funnel — browser pixel + CAPI on one event_id, once per session.
+  useEffect(() => {
+    trackMetaEventOnce("ViewContent", "viewcontent:bespoke-landing", {
+      custom: {
+        content_type: "product",
+        content_ids: ["bespoke"],
+        content_name: "Woolet Bespoke",
+        value: 480,
+        currency: "USD",
+      },
+    });
+  }, []);
 
   const [lightbox, setLightbox] = useState<number | null>(null);
   const closeLightbox = useCallback(() => setLightbox(null), []);
