@@ -274,6 +274,12 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaDescription:
       "Pain behind your ears comes from the temples: too short, too tight or bent too early. Find which one it is, fix it at home, and the size that stops it.",
   },
+  "glasses-that-turn-into-sunglasses-wide-face": {
+    metaTitle: "Glasses That Turn Into Sunglasses for Wide Faces",
+    exactTitle: true,
+    metaDescription:
+      "Photochromic lenses darken outdoors and clear up inside. How they work, the real downsides, and two ways to get them in a 145-172 mm frame for wide faces.",
+  },
   "eyeglass-frame-size-chart": {
     metaTitle: "Eyeglass Frame Size Chart in mm: XS to XXL (155 mm+)",
     exactTitle: true,
