@@ -360,10 +360,16 @@ const BespokePage = () => {
               >
                 Bespoke eyewear. <em className="italic text-gold-light">Made to your face.</em>
               </h1>
-              <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "1.05rem" }}>
+              <p className="text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
                 Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted in the EU from your AI face scan.
                 Frame widths from <span className="text-foreground">{BESPOKE_FRONT_WIDTH_RANGE}</span>, {BESPOKE_BRIDGE_RANGE} bridge, temples to 155 mm,
-                ready for any lens — prescription, progressive, blue-light, or polarized sun.
+                ready for any lens — prescription, progressive, blue-light, photochromic, or polarized sun.
+              </p>
+              <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
+                Photochromic lenses, often called transition lenses, darken outdoors and clear inside — see{" "}
+                <Link to="/en/blog/glasses-that-turn-into-sunglasses-wide-face" className="text-gold-light underline underline-offset-4">
+                  how photochromic glasses work on a wide face
+                </Link>.
               </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">

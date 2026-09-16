@@ -1939,6 +1939,8 @@ const blogPostsEN: BlogPost[] = [
 <h3>Where do I buy sunglasses that actually fit a wide face?</h3>
 <p>Specialist brands. Woolet 007 and 009 are 158 mm Italian-acetate sunglasses with bespoke up to 162 mm. <a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads (158 mm)</a> has the full collection.</p>
 
+<p>Want one pair for indoors and outdoors? See <a href="/en/blog/glasses-that-turn-into-sunglasses-wide-face">glasses that turn into sunglasses</a> - how photochromic lenses work on a wide face, and where they fall short.</p>
+
 <p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 `,
   },
