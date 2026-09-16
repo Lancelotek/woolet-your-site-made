@@ -489,12 +489,12 @@ ${FITLENS_CTA(
 <h3>What does temple-to-temple mean?</h3>
 <p>It is your own face measurement: the distance across the widest part of your head, just above and in front of the ears, measured in millimetres. It is the number a frame's total front width should match within about 3 mm. Average is under 140 mm; 155 mm and above is a wide face.</p>
 
-<h3>Why is the Woolet temple length only 103 mm?</h3>
-<p>Because Woolet publishes the straight arm section to the start of the bend, not the total path length around the drop. Adding the 52 mm tip drop gives an effective reach comparable with a conventional 145–150 mm marking. Different convention, same fit — it is listed alongside the tip drop for exactly that reason.</p>
+<h3>What temple length do Woolet frames use?</h3>
+<p>150 mm on both the 007 Round and the 009 Soft Square, with a 52 mm tip drop, matched to a 158 mm front for faces 155–161 mm wide.</p>
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/numbers-on-glasses-frames-meaning">What do the numbers on glasses frames mean?</a> — the full 54□21-103 breakdown.</li>
+<li><a href="/en/blog/numbers-on-glasses-frames-meaning">What do the numbers on glasses frames mean?</a> — the full 54□21-145 breakdown.</li>
 <li><a href="/en/blog/eyeglass-frame-size-chart">Eyeglass frame size chart (2026)</a> — XS to XXL in real millimetres.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — the temple-to-temple method.</li>
 </ul>
