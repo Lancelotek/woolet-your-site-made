@@ -1831,7 +1831,11 @@ export function StepReview({
       {frame && (
         <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-background/40">
           <div className="aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
-            <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`} className="max-h-full max-w-[60%] object-contain" />
+            <img
+              src={renderUrl ?? frame.url}
+              alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`}
+              className={renderUrl ? "h-full w-full object-contain" : "max-h-full max-w-[60%] object-contain"}
+            />
           </div>
           <div className="p-5">
             <div className="font-display text-cream text-2xl font-light">{frame.name}</div>
