@@ -1205,7 +1205,7 @@ const KickstarterPrelaunch = () => {
             {
               "@type": "Product",
               name: "Woolet 009 — Soft-Square",
-              description: "Soft-square Milanese acetate frame, 158 mm wide with a 20 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              description: "Soft-square Milanese acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
               image: w009BlackFrontAsset.url,
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
