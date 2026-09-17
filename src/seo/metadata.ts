@@ -21,6 +21,7 @@ export { hreflangAlternates } from "@/i18n/routeRegistry";
 import { getBlogPosts } from "@/lib/blog-data";
 import { competitors, wooletColumn } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
+import { PRODUCT_FAQ_I18N } from "@/i18n/productPageCopy";
 import { getProductReviews } from "@/data/product-reviews";
 import { getSizeBySlug, SIZES } from "@/data/sizes";
 import { REF_PRODUCTS, refProductBySlug } from "@/data/reference-products";
@@ -634,7 +635,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           { name: "Products", url: `${SITE_URL}/${lang}` },
           { name: "Woolet 007", url: `${SITE_URL}/${lang}/products/007` },
         ]),
-        faqPageJsonLd(PRODUCT_FAQ),
+        faqPageJsonLd(lang === "fr" || lang === "nl" ? PRODUCT_FAQ_I18N[lang] : PRODUCT_FAQ),
       ],
     );
   }
@@ -676,7 +677,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           { name: "Products", url: `${SITE_URL}/${lang}` },
           { name: "Woolet 009", url: `${SITE_URL}/${lang}/products/009` },
         ]),
-        faqPageJsonLd(PRODUCT_FAQ),
+        faqPageJsonLd(lang === "fr" || lang === "nl" ? PRODUCT_FAQ_I18N[lang] : PRODUCT_FAQ),
       ],
     );
   }

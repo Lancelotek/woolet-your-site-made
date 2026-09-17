@@ -10,6 +10,7 @@ import LensOptions from "@/components/LensOptions";
 import { lensOffers } from "@/data/lensOptions";
 import { ColourSwatches, useColourGallery, type FrameColour } from "@/components/ProductColourGallery";
 import ProductGalleryStage from "@/components/ProductGalleryStage";
+import { PDP_COPY, pdpLang, usd } from "@/i18n/productPageCopy";
 import imgHavana from "@/assets/frames-2026/oval-havana.asset.json";
 import imgBlackAsset from "@/assets/frames-2026/oval-black.asset.json";
 import imgCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
@@ -36,33 +37,24 @@ const launchColors: FrameColour[] = [
   { id: "crystal", name: "Crystal", dot: "#E8E4DA", img: imgCrystal.url },
 ];
 
-const specs: [string, string][] = [
-  ["Material", "Mazzucchelli acetate from Milan"],
-  ["Frame Width", "158 mm (hinge to hinge)"],
-  ["Lens", "52 × 52 mm (round panto)"],
-  ["Bridge", "Keyhole 21 mm"],
-  ["Temples", "148 mm, 11° angle"],
-  ["Hinges", "5-barrel PVD Gunmetal"],
-  ["Rivets", "Double, PVD Gunmetal"],
-];
-
-const benefits = [
-  "Mazzucchelli acetate from Milan — hand made in EU",
-  "158 mm — engineered for 155 mm+ faces",
-  "5-barrel PVD Gunmetal hinges — built for years of daily wear",
-  "Keyhole bridge 21 mm — zero slipping",
-  "Hand polish + bevel cut — not machine polish",
-];
-
 const ProductPage007 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = langFromPath(location.pathname);
   const ctx = localeCtx(lang);
   const canonical = `${SITE_URL}/${lang}/products/007`;
+  const gallery = useColourGallery("007", launchColors);
+  const pl = pdpLang(lang);
+  const c = PDP_COPY[pl];
+  const m = c.models["007"];
+  const specs = m.specs;
+  const enSpecs = PDP_COPY.en.models["007"].specs;
+  const benefits = m.benefits;
+  const localColours = launchColors.map((col) => ({ ...col, name: c.colourNames[col.id] ?? col.name }));
+  const activeColourName = c.colourNames[gallery.active.id] ?? gallery.active.name;
+  const productPath = (id: string) => (pl === "en" ? `/en/products/${id}` : `/${lang}/products/${id}`);
   const [showSticky, setShowSticky] = useState(false);
   const [specsOpen, setSpecsOpen] = useState(false);
-  const gallery = useColourGallery("007", launchColors);
 
   useEffect(() => {
     pushGtmEvent("view_item", { item_name: "Woolet 007", awareness_stage: "most_aware" });
@@ -105,21 +97,21 @@ const ProductPage007 = () => {
     <>
       <Helmet>
         <html lang={lang} />
-        <title>{({ en: "Woolet 007 — Round Panto Acetate Glasses, 158 mm", nl: "Woolet 007 — ronde panto acetaatbril, 158 mm", fr: "Woolet 007 — lunettes rondes panto en acétate, 158 mm" } as Record<string,string>)[lang] ?? "Woolet 007 — Round Panto Acetate Glasses, 158 mm"}</title>
-        <meta name="description" content={({ en: "Round panto acetate frame, 158 mm wide with 21 mm keyhole bridge. Engineered for 155 mm+ faces. Reserve for $1, locks $114 founding price.", nl: "Ronde panto in acetaat, 158 mm breed met 21 mm brug. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.", fr: "Monture ronde panto en acétate, 158 mm de large avec pont keyhole 21 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $." } as Record<string,string>)[lang] ?? "Round panto acetate frame, 158 mm wide with 21 mm keyhole bridge. Engineered for 155 mm+ faces. Reserve for $1, locks $114 founding price."} />
+        <title>{m.title}</title>
+        <meta name="description" content={m.metaDescription} />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/007`} />
         <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/007`} />
         <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr/products/007`} />
         <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/007`} />
         <meta property="og:type" content="product" />
-        <meta property="og:title" content="Woolet 007 — Round Panto Acetate Glasses, 158 mm" />
-        <meta property="og:description" content="Reserve for $1, refundable. Locks $114 founding price (SRP $190). 158 mm front, 21 mm keyhole bridge." />
+        <meta property="og:title" content={m.title} />
+        <meta property="og:description" content={m.ogDescription} />
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content="https://woolet.co/og-007.png" />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, { id: "007", name: "Woolet 007", description: "Round panto acetate frame, 158 mm wide with a 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.", image: "https://woolet.co/og-007.png", price: "114.00", variantOffers: lensOffers(canonical, "114.00", "USD") }))}</script>
+        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, { id: "007", name: "Woolet 007", description: m.jsonLdDescription, image: "https://woolet.co/og-007.png", price: "114.00", variantOffers: lensOffers(canonical, "114.00", "USD") }))}</script>
         <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet 007", "007"))}</script>
       </Helmet>
 
@@ -127,7 +119,7 @@ const ProductPage007 = () => {
 
       <div style={{ background: T.dark, borderBottom: "1px solid rgba(216,184,106,0.10)" }}>
         <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 20px", fontFamily: SANS, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(243,236,224,0.55)" }}>
-          <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
+          <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>{ctx.homeLabel}</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
           <Link to={ctx.collection} style={{ color: "inherit", textDecoration: "none" }}>{ctx.framesLabel}</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
@@ -153,7 +145,7 @@ const ProductPage007 = () => {
           <div className="pdp-grid grid" style={{ gap: 40, gridTemplateColumns: "minmax(0,1fr)" }}>
             {/* GALLERY */}
             <section className="pdp-gallery">
-              <ProductGalleryStage model="007" colourId={gallery.active.id} colourName={gallery.active.name} />
+              <ProductGalleryStage model="007" colourId={gallery.active.id} colourName={activeColourName} lang={pl} />
             </section>
 
             {/* BUY PANEL */}
@@ -162,70 +154,73 @@ const ProductPage007 = () => {
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
                 <span style={{ width: 7, height: 7, borderRadius: "50%", background: T.gold, boxShadow: `0 0 0 3px rgba(202,164,73,0.18)` }} />
                 <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.16em", textTransform: "uppercase", color: T.goldDim, fontWeight: 600 }}>
-                  4,900+ on the waitlist · Founding run limited to 300 pairs
+                  {c.scarcity}
                 </span>
               </div>
 
               {/* b) Name */}
               <h1 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(34px, 4vw, 46px)", lineHeight: 1.05, color: T.ink, margin: "0 0 8px", letterSpacing: "-0.01em" }}>
-                Woolet 007 <em style={{ fontStyle: "italic", color: T.gold }}>Panto</em>
+                Woolet 007 <em style={{ fontStyle: "italic", color: T.gold }}>{m.shapeEm}</em>
               </h1>
               <div style={{ fontFamily: SANS, fontSize: 13, color: T.inkDim, marginBottom: 6, letterSpacing: "0.02em" }}>
-                158 mm · Hand made in EU · Mazzucchelli acetate from Milan
+                {c.subline}
               </div>
               <div style={{ marginBottom: 24 }}>
-                <button onClick={() => navigate("/en/products/009")} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 13, color: T.goldDim, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 3 }}>
-                  Prefer a soft-square shape? See the Woolet 009 →
+                <button onClick={() => navigate(productPath("009"))} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 13, color: T.goldDim, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 3 }}>
+                  {m.crossLink}
                 </button>
               </div>
 
               {/* c) Fit-first headline */}
               <div style={{ marginBottom: 24 }}>
                 <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(28px, 3.2vw, 36px)", lineHeight: 1.12, color: T.ink, margin: "0 0 10px", letterSpacing: "-0.005em" }}>
-                  Finally, glasses that don't <em style={{ fontStyle: "italic", color: T.gold }}>pinch</em>.
+                  {c.headlinePre}<em style={{ fontStyle: "italic", color: T.gold }}>{c.headlineEm}</em>{c.headlinePost}
                 </h2>
                 <p style={{ fontFamily: SANS, fontSize: 15, color: T.inkDim, margin: 0, lineHeight: 1.55 }}>
-                  Engineered for faces 155 mm and wider. 158 mm front, 21 mm keyhole bridge.
+                  {m.intro}
                 </p>
               </div>
 
               {/* d) Price block — two numbers */}
               <div style={{ padding: "20px 0", borderTop: `1px solid ${T.hair}`, borderBottom: `1px solid ${T.hair}`, margin: "0 0 20px" }}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 56, lineHeight: 1, color: T.ink }}>$1</span>
-                  <span style={{ fontFamily: SANS, fontSize: 15, color: T.inkDim, letterSpacing: "0.04em" }}>today</span>
+                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 56, lineHeight: 1, color: T.ink }}>{usd(pl, 1)}</span>
+                  <span style={{ fontFamily: SANS, fontSize: 15, color: T.inkDim, letterSpacing: "0.04em" }}>{c.today}</span>
                 </div>
                 <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 14, color: T.inkDim, lineHeight: 1.5 }}>
-                  locks your founding price of <strong style={{ color: T.ink }}>$114</strong> — SRP <span style={{ textDecoration: "line-through", color: T.inkMute }}>$190</span> at launch
+                  {c.locksPre}<strong style={{ color: T.ink }}>{usd(pl, 114)}</strong>{c.locksMid}<span style={{ textDecoration: "line-through", color: T.inkMute }}>{usd(pl, 190)}</span>{c.locksPost}
                 </div>
               </div>
 
               {/* e) Primary CTA */}
               <button onClick={handleReserve} className="pdp-cta" style={{ width: "100%", minHeight: 60, background: T.gold, color: "#1F1B16", border: "none", padding: "18px 0", borderRadius: 2, fontFamily: SANS, fontWeight: 700, fontSize: 14, letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer" }}>
-                Reserve your pair — $1
+                {c.cta}
               </button>
 
               {/* f) Trust microcopy */}
               <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 13, color: T.inkDim, lineHeight: 1.5 }}>
-                Fully refundable, anytime · No further charge today · Founding price locked for good
+                {c.trust}
               </div>
 
               {/* g) Fit quiz link */}
               <div style={{ marginTop: 14 }}>
                 <button onClick={handleFitQuiz} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 13, color: T.goldDim, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 3 }}>
-                  Not sure about your size? Check your fit in 30 seconds →
+                  {c.fitQuiz}
                 </button>
               </div>
 
               {/* h) Lens reassurance */}
               <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 12.5, color: T.inkMute, lineHeight: 1.55 }}>
-                Prescription, blue-light and polarized options are chosen later — after your frame ships. Nothing extra is charged today.
+                {c.lensReassure}
               </div>
 
               <ColourSwatches
-                colours={launchColors}
+                colours={localColours}
                 index={gallery.index}
                 onSelect={gallery.select}
+                label={c.coloursLabel}
+                note={c.coloursNote}
+                showLabel={c.showColour}
               />
             </section>
           </div>
@@ -238,7 +233,7 @@ const ProductPage007 = () => {
 
           {/* 1. Feature list */}
           <section style={{ marginTop: 56 }}>
-            <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 14 }}>What you get</div>
+            <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 14 }}>{c.whatYouGet}</div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 12 }}>
               {benefits.map((b, i) => (
                 <li key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start", fontFamily: SANS, fontSize: 15, lineHeight: 1.55, color: T.ink }}>
@@ -255,7 +250,7 @@ const ProductPage007 = () => {
           <section style={{ marginTop: 40, borderTop: `1px solid ${T.hair}`, borderBottom: `1px solid ${T.hair}` }}>
             <button onClick={() => setSpecsOpen((v) => !v)} style={{ width: "100%", background: "none", border: "none", padding: "18px 0", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}>
               <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.24em", textTransform: "uppercase", color: T.ink, fontWeight: 600 }}>
-                Full specifications & dimensions
+                {c.specsTitle}
               </span>
               <span style={{ fontFamily: SANS, fontSize: 22, color: T.inkDim, lineHeight: 1 }}>{specsOpen ? "–" : "+"}</span>
             </button>
@@ -272,22 +267,18 @@ const ProductPage007 = () => {
           </section>
 
           {/* 3b. Lens options */}
-          <LensOptions productId="007" specs={specs} framePrice="114" />
+          <LensOptions productId="007" specs={enSpecs} framePrice="114" lang={pl} />
 
 
           {/* 4. What happens after your $1 */}
           <section style={{ marginTop: 56 }}>
             <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 30, color: T.ink, margin: "0 0 24px", lineHeight: 1.15 }}>
-              What happens after your <em style={{ color: T.gold, fontStyle: "italic" }}>$1</em>
+              {c.afterTitlePre}<em style={{ color: T.gold, fontStyle: "italic" }}>{usd(pl, 1)}</em>
             </h3>
             <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 20, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
-              {[
-                ["Today", "You pay $1. Fully refundable. Your founding price is locked."],
-                ["At launch", "We email you. You choose colour, lens type and prescription."],
-                ["Q3 2026", "Your frame ships. The $1 is deducted from the final price."],
-              ].map(([step, body], i) => (
+              {c.steps.map(([step, body], i) => (
                 <li key={i} style={{ borderTop: `1px solid ${T.gold}`, paddingTop: 16 }}>
-                  <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 8 }}>Step {i + 1} · {step}</div>
+                  <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 8 }}>{c.stepLabel} {i + 1} · {step}</div>
                   <div style={{ fontFamily: SANS, fontSize: 14, color: T.ink, lineHeight: 1.55 }}>{body}</div>
                 </li>
               ))}
@@ -296,17 +287,17 @@ const ProductPage007 = () => {
 
           {/* 5. Cross-links */}
           <section style={{ marginTop: 56, paddingTop: 28, borderTop: `1px solid ${T.hair}`, display: "flex", gap: 24, flexWrap: "wrap" }}>
-            <button onClick={() => navigate("/en/products/009")} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 14, color: T.ink, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 4 }}>
-              Prefer a soft-square shape? See the Woolet 009 →
+            <button onClick={() => navigate(productPath("009"))} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 14, color: T.ink, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 4 }}>
+              {m.crossLink}
             </button>
             <button onClick={() => navigate("/en/bespoke")} style={{ background: "none", border: "none", padding: 0, fontFamily: SANS, fontSize: 14, color: T.inkDim, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 4 }}>
-              Need a different width? Explore Bespoke →
+              {c.crossBespoke}
             </button>
           </section>
         </div>
 
         <div style={{ borderTop: `1px solid ${T.hair}`, marginTop: 56 }}>
-          <ProductFAQ productId="007" />
+          <ProductFAQ productId="007" lang={pl} />
         </div>
       </main>
 
@@ -325,13 +316,13 @@ const ProductPage007 = () => {
         <div style={{ padding: "10px 14px calc(10px + env(safe-area-inset-bottom, 0px))", display: "flex", alignItems: "center", gap: 12, height: "100%" }}>
           <div style={{ minWidth: 0, flex: 1 }}>
             <div style={{ fontFamily: SANS, fontSize: 13, color: T.darkText, lineHeight: 1.25 }}>
-              <strong style={{ fontWeight: 700 }}>$1 today</strong>
-              <span style={{ opacity: 0.7 }}> · locks $114</span>
+              <strong style={{ fontWeight: 700 }}>{c.stickyToday}</strong>
+              <span style={{ opacity: 0.7 }}>{c.stickyLocks}</span>
             </div>
-            <div style={{ fontFamily: SANS, fontSize: 11, color: "rgba(237,231,217,0.55)", marginTop: 2 }}>Fully refundable</div>
+            <div style={{ fontFamily: SANS, fontSize: 11, color: "rgba(237,231,217,0.55)", marginTop: 2 }}>{c.stickyRefundable}</div>
           </div>
           <button onClick={handleReserve} style={{ background: T.gold, color: "#1F1B16", border: "none", padding: "12px 20px", borderRadius: 2, cursor: "pointer", fontFamily: SANS, fontWeight: 700, fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
-            Reserve
+            {c.stickyReserve}
           </button>
         </div>
       </div>

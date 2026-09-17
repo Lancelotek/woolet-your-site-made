@@ -1,3 +1,5 @@
+import { LENS_UI_COPY, type PdpLang } from "@/i18n/productPageCopy";
+
 /**
  * Lens options — single source of truth for both PDPs (/en/products/007, /009).
  *
@@ -60,13 +62,30 @@ export const lensOptions: LensOption[] = [
   },
 ];
 
+/** Lens options with FR/NL labels and descriptions. EN returns `lensOptions` unchanged. */
+export function localizedLensOptions(lang: PdpLang = "en"): LensOption[] {
+  if (lang === "en") return lensOptions;
+  const t = LENS_UI_COPY[lang];
+  return lensOptions.map((o) => {
+    if (o.id === "clear") return { ...o, label: t.labels.clear, description: t.descriptions.clear };
+    if (o.id === "prescription") return { ...o, label: t.labels.prescription, description: t.descriptions.prescription };
+    return {
+      ...o,
+      label: blueLightReady ? t.labels["blue-light"] : t.labels["blue-light-soon"],
+      description: blueLightReady ? t.blueLightReadyDescription(FILTER_SPEC as string) : t.descriptions["blue-light-soon"],
+    };
+  });
+}
+
 export const defaultLensOptionId = (lensOptions.find((o) => o.default) ?? lensOptions[0]).id;
 
 /** USD formatting shared with the PDP price block. */
-export function formatPriceDelta(delta: number | null): string {
-  if (delta === null) return "Quoted separately";
-  if (delta === 0) return "Included";
-  return `+$${delta.toFixed(delta % 1 === 0 ? 0 : 2)}`;
+export function formatPriceDelta(delta: number | null, lang: PdpLang = "en"): string {
+  const t = lang === "en" ? null : LENS_UI_COPY[lang];
+  if (delta === null) return t ? t.quotedSeparately : "Quoted separately";
+  if (delta === 0) return t ? t.included : "Included";
+  const amount = delta.toFixed(delta % 1 === 0 ? 0 : 2);
+  return lang === "fr" ? `+${amount} $` : `+$${amount}`;
 }
 
 /**

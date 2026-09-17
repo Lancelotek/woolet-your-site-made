@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  lensOptions,
+  localizedLensOptions,
   defaultLensOptionId,
   formatPriceDelta,
   blueLightArticleLink,
   type LensOption,
 } from "@/data/lensOptions";
+import { LENS_UI_COPY, usd, type PdpLang } from "@/i18n/productPageCopy";
 
 const T = {
   ink: "#16140f",
@@ -27,6 +28,8 @@ type Props = {
   specs: [string, string][];
   /** Frame price actually charged, e.g. "114". */
   framePrice: string;
+  /** UI language; defaults to EN. Spec keys stay EN for parsing. */
+  lang?: PdpLang;
 };
 
 /** Pull the first millimetre figure out of a spec value like "52 × 52 mm". */
@@ -36,7 +39,9 @@ function mm(specs: [string, string][], key: string): string | null {
   return match ? match[1] : null;
 }
 
-const LensOptions = ({ productId, specs, framePrice }: Props) => {
+const LensOptions = ({ productId, specs, framePrice, lang = "en" }: Props) => {
+  const lensOptions = localizedLensOptions(lang);
+  const t = lang === "en" ? null : LENS_UI_COPY[lang];
   const [selected, setSelected] = useState<LensOption["id"]>(defaultLensOptionId);
   const active = lensOptions.find((o) => o.id === selected) ?? lensOptions[0];
 
@@ -49,14 +54,14 @@ const LensOptions = ({ productId, specs, framePrice }: Props) => {
       style={{ marginTop: 40, background: T.surface, border: `1px solid ${T.hair}`, borderRadius: 4, padding: "26px 24px" }}
     >
       <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 10 }}>
-        Lenses
+        {t ? t.eyebrow : "Lenses"}
       </div>
       <h3 id="lens-options-heading" style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 28, color: "#1F1B16", margin: "0 0 18px", lineHeight: 1.15 }}>
-        Lens options
+        {t ? t.heading : "Lens options"}
       </h3>
 
       {/* Segmented selector */}
-      <div role="radiogroup" aria-label="Lens options" style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+      <div role="radiogroup" aria-label={t ? t.heading : "Lens options"} style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
         {lensOptions.map((o) => {
           const isActive = o.id === selected && !o.disabled;
           return (
@@ -82,7 +87,7 @@ const LensOptions = ({ productId, specs, framePrice }: Props) => {
             >
               <span style={{ display: "block", fontSize: 14, fontWeight: 600, color: T.ink, lineHeight: 1.3 }}>{o.label}</span>
               <span style={{ display: "block", marginTop: 4, fontSize: 12.5, color: o.disabled ? T.inkMute : T.goldDim, letterSpacing: "0.04em" }}>
-                {o.disabled ? "Not yet available" : formatPriceDelta(o.priceDelta)}
+                {o.disabled ? (t ? t.notYetAvailable : "Not yet available") : formatPriceDelta(o.priceDelta, lang)}
               </span>
             </button>
           );
@@ -92,10 +97,10 @@ const LensOptions = ({ productId, specs, framePrice }: Props) => {
       {/* Selected option description + inline price */}
       <div style={{ marginTop: 16, display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
         <span style={{ fontFamily: SANS, fontSize: 14, color: T.ink, fontWeight: 600 }}>
-          ${framePrice}
+          {usd(lang, framePrice)}
         </span>
         <span style={{ fontFamily: SANS, fontSize: 13, color: T.inkDim }}>
-          frame · {formatPriceDelta(active.priceDelta).toLowerCase()} for {active.label.toLowerCase()}
+          {t ? t.frame : "frame"} · {formatPriceDelta(active.priceDelta, lang).toLowerCase()} {t ? t.forWord : "for"} {active.label.toLowerCase()}
         </span>
       </div>
       <p style={{ fontFamily: SANS, fontSize: 14.5, color: T.inkDim, lineHeight: 1.6, margin: "8px 0 0" }}>
@@ -104,7 +109,7 @@ const LensOptions = ({ productId, specs, framePrice }: Props) => {
           <>
             {" "}
             <Link to={active.href} style={{ color: T.goldDim, textUnderlineOffset: 3 }}>
-              Start with your fit →
+              {t ? t.startWithFit : "Start with your fit →"}
             </Link>
           </>
         )}
@@ -113,19 +118,19 @@ const LensOptions = ({ productId, specs, framePrice }: Props) => {
       {/* Always-visible fit line, numbers pulled from product specs */}
       {frontWidth && lensWidth && (
         <p style={{ fontFamily: SANS, fontSize: 13.5, color: T.ink, lineHeight: 1.6, margin: "16px 0 0" }}>
-          Every Woolet lens is cut to a {frontWidth} mm front — Lens Width {lensWidth} mm ({productId}).
+          {t ? t.fitLine(frontWidth, lensWidth, productId) : `Every Woolet lens is cut to a ${frontWidth} mm front — Lens Width ${lensWidth} mm (${productId}).`}
         </p>
       )}
 
       {/* Honest note */}
       <p style={{ fontFamily: SANS, fontSize: 13, color: T.goldDim, lineHeight: 1.6, margin: "14px 0 0", maxWidth: 620 }}>
-        A blue-light filter is a lens option, not a health claim. The research on eye strain and sleep is inconclusive. What we can guarantee is the fit.
+        {t ? t.honestNote : "A blue-light filter is a lens option, not a health claim. The research on eye strain and sleep is inconclusive. What we can guarantee is the fit."}
       </p>
 
       {blueLightArticleLink.enabled && (
         <p style={{ margin: "14px 0 0" }}>
           <Link to={blueLightArticleLink.href} style={{ fontFamily: SANS, fontSize: 13.5, color: T.goldDim, textUnderlineOffset: 3 }}>
-            {blueLightArticleLink.label} →
+            {t ? t.blueLightLinkLabel : blueLightArticleLink.label} →
           </Link>
         </p>
       )}

@@ -6,6 +6,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { BESPOKE_COPY, pdpLang, usd } from "@/i18n/productPageCopy";
 import aviatorImg from "@/assets/configurator/frames/aviator.png.asset.json";
 import rectangleImg from "@/assets/configurator/frames/rectangle.png.asset.json";
 import crownPantoImg from "@/assets/configurator/frames/crown-panto.png.asset.json";
@@ -33,37 +34,16 @@ const galleryBespoke = [
   roundImg.url,
 ];
 
-const specs: [string, string][] = [
-  ["Material", "Italian Mazzucchelli Acetate"],
-  ["Frame Width", "Cut to your face (145–172 mm)"],
-  ["Shapes", "Aviator · Rectangle · Crown Panto · Round"],
-  ["Bridge", "Cut to your nose"],
-  ["Temples", "Cut to your temple length"],
-  ["Hinges", "5-barrel PVD Gunmetal"],
-  ["Rivets", "Double, PVD Gunmetal"],
-];
-
-const benefits = [
-  "Cut to your exact face — no fit compromises",
-  "Choose one of four silhouettes: Aviator, Rectangle, Crown Panto, Round",
-  "Italian Mazzucchelli acetate — cotton, not plastic",
-  "5-barrel PVD Gunmetal hinges — built for years of daily wear",
-  "Optional laser engraving on the temple",
-];
-
-const guarantees: [string, string][] = [
-  ["30-Day Returns", "No questions asked. Full refund if the frames don't meet expectations."],
-  ["Fit Guarantee", "Cut to your measurements — if the frame doesn't fit, free re-cut."],
-  ["Mazzucchelli Since 1849", "Italian acetate used by Tom Ford and Oliver Peoples."],
-  ["Free Shipping + Insurance", "Insured courier delivery with real-time tracking."],
-];
-
 const ProductPageBespoke = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = langFromPath(location.pathname);
   const ctx = localeCtx(lang);
   const canonical = `${SITE_URL}/${lang}/products/bespoke`;
+  const pl = pdpLang(lang);
+  const b = BESPOKE_COPY[pl];
+  const { specs, benefits, guarantees } = b;
+  const productPath = (id: string) => `/${pl === "en" ? "en" : lang}/products/${id}`;
   const [activeImg, setActiveImg] = useState<string>(galleryBespoke[0]);
   const [showSticky, setShowSticky] = useState(false);
 
@@ -115,16 +95,16 @@ const ProductPageBespoke = () => {
     <>
       <Helmet>
         <html lang={lang} />
-        <title>{({ en: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face", nl: "Woolet Bespoke — acetaatbril op maat van je gezicht", fr: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage" } as Record<string,string>)[lang] ?? "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face"}</title>
-        <meta name="description" content={({ en: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–172 mm. From $299 pre-order.", nl: "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145–172 mm. Vanaf $299 in pre-order.", fr: "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Quatre silhouettes, tailles 145–172 mm. Dès 299 $ en pré-commande." } as Record<string,string>)[lang] ?? "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–172 mm. From $299 pre-order."} />
+        <title>{b.title}</title>
+        <meta name="description" content={b.metaDescription} />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/bespoke`} />
         <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/bespoke`} />
         <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr/products/bespoke`} />
         <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/bespoke`} />
         <meta property="og:type" content="product" />
-        <meta property="og:title" content={({ en: "Woolet Bespoke — Custom Acetate Glasses", nl: "Woolet Bespoke — acetaatbril op maat", fr: "Woolet Bespoke — lunettes en acétate sur mesure" } as Record<string,string>)[lang] ?? "Woolet Bespoke — Custom Acetate Glasses"} />
-        <meta property="og:description" content={({ en: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. From $299 pre-order.", nl: "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vanaf $299 in pre-order.", fr: "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Dès 299 $ en pré-commande." } as Record<string,string>)[lang] ?? "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. From $299 pre-order."} />
+        <meta property="og:title" content={b.ogTitle} />
+        <meta property="og:description" content={b.ogDescription} />
         <meta property="og:url" content={canonical} />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
@@ -144,7 +124,7 @@ const ProductPageBespoke = () => {
             textTransform: "uppercase", color: "rgba(243,236,224,0.55)",
           }}
         >
-          <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
+          <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>{ctx.homeLabel}</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
           <Link to={ctx.collection} style={{ color: "inherit", textDecoration: "none" }}>{ctx.framesLabel}</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
@@ -187,7 +167,7 @@ const ProductPageBespoke = () => {
               >
                 <img
                   src={activeImg}
-                  alt="Woolet Bespoke — custom acetate frame silhouette"
+                  alt={b.heroAlt}
                   width={800}
                   height={600}
                   fetchPriority="high"
@@ -204,7 +184,7 @@ const ProductPageBespoke = () => {
                       key={src}
                       onClick={() => setActiveImg(src)}
                       className="pdp-thumb"
-                      aria-label={`View ${shapeName}`}
+                      aria-label={b.viewShape(shapeName)}
                       style={{
                         width: 84, height: 64, flexShrink: 0, padding: 6,
                         background: "#f3ece0",
@@ -213,7 +193,7 @@ const ProductPageBespoke = () => {
                         borderRadius: 3, cursor: "pointer",
                       }}
                     >
-                      <img src={src} alt={`Woolet Bespoke ${shapeName} silhouette`} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                      <img src={src} alt={b.thumbAlt(shapeName)} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                     </button>
                   );
                 })}
@@ -223,7 +203,7 @@ const ProductPageBespoke = () => {
             {/* RIGHT — Buy panel */}
             <section style={{ maxWidth: 520 }}>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
-                {["Rx / Progressive", "Blue Light", "Polarized Sun"].map((tag) => (
+                {b.tags.map((tag) => (
                   <span key={tag} style={{
                     fontFamily: SANS, fontSize: 11, letterSpacing: "0.12em",
                     textTransform: "uppercase", padding: "4px 10px",
@@ -234,14 +214,14 @@ const ProductPageBespoke = () => {
                   fontFamily: SANS, fontSize: 11, letterSpacing: "0.12em",
                   textTransform: "uppercase", padding: "4px 10px",
                   color: T.gold, borderRadius: 999,
-                }}>· Cut to your face</span>
+                }}>{b.cutToFace}</span>
               </div>
 
               <div style={{
                 fontFamily: SANS, fontSize: 11, letterSpacing: "0.28em",
                 textTransform: "uppercase", color: T.gold, marginBottom: 10,
               }}>
-                Pre-order · Founders Bespoke · Ships Q4 2026
+                {b.eyebrow}
               </div>
 
               <h1 style={{
@@ -252,14 +232,14 @@ const ProductPageBespoke = () => {
                 Woolet <em style={{ fontStyle: "italic", color: T.gold }}>Bespoke</em>
               </h1>
               <div style={{ fontFamily: SANS, fontSize: 14, color: T.inkDim, marginBottom: 10 }}>
-                Custom · 145–172 mm · Italian acetate
+                {b.subline}
               </div>
               <h2 style={{
                 fontFamily: SANS, fontWeight: 500, fontSize: 13,
                 letterSpacing: "0.04em", color: T.inkDim,
                 margin: "0 0 22px", lineHeight: 1.5,
               }}>
-                Bespoke Italian Mazzucchelli acetate glasses cut to your exact face — four silhouettes, front width 145–172&nbsp;mm, bridge and temples cut to your measurements.
+                {b.h2}
               </h2>
 
               {/* Price hierarchy */}
@@ -272,10 +252,10 @@ const ProductPageBespoke = () => {
                 <div style={{
                   fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.gold, marginBottom: 8,
-                }}>Founding Price</div>
+                }}>{b.foundingPrice}</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 48, lineHeight: 1, color: T.ink }}>$299</span>
-                  <span style={{ fontFamily: SANS, fontSize: 18, color: T.inkMute, textDecoration: "line-through" }}>$480</span>
+                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 48, lineHeight: 1, color: T.ink }}>{usd(pl, 299)}</span>
+                  <span style={{ fontFamily: SANS, fontSize: 18, color: T.inkMute, textDecoration: "line-through" }}>{usd(pl, 480)}</span>
                   <span style={{
                     background: T.gold, color: T.dark, fontFamily: SANS, fontWeight: 600,
                     fontSize: 11, letterSpacing: "0.14em", padding: "4px 9px", borderRadius: 2,
@@ -284,7 +264,7 @@ const ProductPageBespoke = () => {
                 <div style={{
                   marginTop: 10, fontFamily: SANS, fontSize: 13, color: T.inkDim, lineHeight: 1.55,
                 }}>
-                  Reserve today for <strong style={{ color: T.ink }}>$1</strong> — fully refundable deposit. Locks in the founding price; SRP $480 at launch.
+                  {b.reservePre}<strong style={{ color: T.ink }}>{usd(pl, 1)}</strong>{b.reservePost}
                 </div>
               </div>
 
@@ -293,10 +273,10 @@ const ProductPageBespoke = () => {
                 <div style={{
                   fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.inkMute, marginBottom: 8,
-                }}>Model</div>
+                }}>{b.modelLabel}</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   <button
-                    onClick={() => navigate("/en/products/007")}
+                    onClick={() => navigate(productPath("007"))}
                     style={{
                       flex: "1 1 120px", padding: "11px 14px", cursor: "pointer",
                       background: "transparent", color: T.inkDim,
@@ -307,7 +287,7 @@ const ProductPageBespoke = () => {
                     007 Panto
                   </button>
                   <button
-                    onClick={() => navigate("/en/products/009")}
+                    onClick={() => navigate(productPath("009"))}
                     style={{
                       flex: "1 1 120px", padding: "11px 14px", cursor: "pointer",
                       background: "transparent", color: T.inkDim,
@@ -315,7 +295,7 @@ const ProductPageBespoke = () => {
                       fontFamily: SERIF, fontSize: 16,
                     }}
                   >
-                    009 Square
+                    {b.model009}
                   </button>
                   <button
                     style={{
@@ -342,7 +322,7 @@ const ProductPageBespoke = () => {
                   letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer",
                 }}
               >
-                Reserve for $1 — Lock $299
+                {b.cta}
               </button>
               <button
                 onClick={() => navigate("/en/fit")}
@@ -355,7 +335,7 @@ const ProductPageBespoke = () => {
                   textTransform: "uppercase", cursor: "pointer",
                 }}
               >
-                Check your fit — Free quiz
+                {b.fitCta}
               </button>
 
               {/* Benefits */}
@@ -379,7 +359,7 @@ const ProductPageBespoke = () => {
                 <div style={{
                   fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.gold, marginBottom: 12,
-                }}>Specifications</div>
+                }}>{b.specsTitle}</div>
                 <dl style={{ margin: 0, display: "grid", gap: 0 }}>
                   {specs.map(([k, v], i) => (
                     <div key={k} style={{
@@ -403,7 +383,7 @@ const ProductPageBespoke = () => {
                 <div style={{
                   fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.gold, marginBottom: 14,
-                }}>Woolet Guarantee</div>
+                }}>{b.guaranteeTitle}</div>
                 <div style={{ display: "grid", gap: 14 }}>
                   {guarantees.map(([title, desc]) => (
                     <div key={title} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
@@ -421,14 +401,14 @@ const ProductPageBespoke = () => {
 
               <div style={{ marginTop: 22 }}>
                 <Link
-                  to="/en#collection"
+                  to={pl === "en" ? "/en#collection" : ctx.collection}
                   style={{
                     fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em",
                     textTransform: "uppercase", color: T.inkDim, textDecoration: "none",
                     borderBottom: `1px solid ${T.hairStrong}`, paddingBottom: 2,
                   }}
                 >
-                  ← Back to collection
+                  {b.backToCollection}
                 </Link>
               </div>
             </section>
@@ -454,8 +434,8 @@ const ProductPageBespoke = () => {
               Woolet <em style={{ color: T.goldHi, fontStyle: "italic" }}>Bespoke</em>
             </div>
             <div style={{ fontFamily: SANS, fontSize: 12, color: "rgba(243,236,224,0.62)" }}>
-              <span style={{ color: "#f3ece0", fontWeight: 600 }}>$299</span>
-              <span style={{ textDecoration: "line-through", margin: "0 6px" }}>$480</span>
+              <span style={{ color: "#f3ece0", fontWeight: 600 }}>{usd(pl, 299)}</span>
+              <span style={{ textDecoration: "line-through", margin: "0 6px" }}>{usd(pl, 480)}</span>
               <span style={{ color: T.goldHi }}>−38%</span>
             </div>
           </div>
@@ -468,7 +448,7 @@ const ProductPageBespoke = () => {
               letterSpacing: "0.22em", textTransform: "uppercase", whiteSpace: "nowrap",
             }}
           >
-            Reserve for $1
+            {b.stickyReserve}
           </button>
         </div>
       </div>

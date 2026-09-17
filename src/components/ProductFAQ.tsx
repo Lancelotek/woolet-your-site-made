@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
-import { PRODUCT_FAQ as faqItems } from "@/seo/faq-data";
+import { PRODUCT_FAQ } from "@/seo/faq-data";
+import { PRODUCT_FAQ_I18N, type PdpLang } from "@/i18n/productPageCopy";
+
+const FAQ_HEADING: Record<PdpLang, string> = {
+  en: "Frequently Asked Questions",
+  fr: "Questions fréquentes",
+  nl: "Veelgestelde vragen",
+};
 
 interface ProductFAQProps {
   productId: string;
+  lang?: PdpLang;
 }
 
-const ProductFAQ = ({ productId }: ProductFAQProps) => {
+const ProductFAQ = ({ productId, lang = "en" }: ProductFAQProps) => {
+  const faqItems = lang === "en" ? PRODUCT_FAQ : PRODUCT_FAQ_I18N[lang];
   const [openIndices, setOpenIndices] = useState<number[]>([]);
 
   const toggle = (index: number) => {
@@ -15,7 +24,8 @@ const ProductFAQ = ({ productId }: ProductFAQProps) => {
         return prev.filter((i) => i !== index);
       }
       pushGtmEvent("faq_expand", {
-        question: faqItems[index].q,
+        // analytics keep the EN question so reports stay comparable across locales
+        question: PRODUCT_FAQ[index]?.q ?? faqItems[index].q,
         page_type: "product",
         product_id: productId,
       });
@@ -40,7 +50,7 @@ const ProductFAQ = ({ productId }: ProductFAQProps) => {
             marginTop: 0,
           }}
         >
-          Frequently Asked Questions
+          {FAQ_HEADING[lang]}
         </h2>
 
         {faqItems.map((item, i) => {
