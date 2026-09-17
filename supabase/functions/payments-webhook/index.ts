@@ -524,6 +524,10 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         temple_code: meta.temple ?? null,
         finish_id: meta.finish ?? null,
         lens_type: meta.lens_type ?? null,
+        reading_strength_mode: meta.reading_strength_mode || null,
+        reading_strength: meta.reading_strength || null,
+        reading_strength_left: meta.reading_strength_left || null,
+        reading_strength_right: meta.reading_strength_right || null,
         engraving_text: meta.engraving || null,
         ai_preview_url: meta.ai_preview_url ?? null,
         session_ref: UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null,
@@ -581,7 +585,11 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         summary: [
           meta.frame_name ?? (meta.frame ? `Woolet Bespoke — ${meta.frame}` : "Woolet Bespoke"),
           `${meta.front ?? "—"}, ${meta.finish ?? "—"} finish`,
-          `${meta.lens_type ?? "—"} lenses`,
+          `${meta.lens_type ?? "—"} lenses${
+            meta.reading_strength
+              ? ` · ${meta.reading_strength === "confirm_later" ? "strength to confirm" : meta.reading_strength}`
+              : ""
+          }`,
           `Temple ${meta.temple_length ?? "—"}`,
           `Engraving: ${meta.engraving || "none"}`,
         ].join(" · "),
@@ -639,7 +647,11 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     frontCode: meta.front ?? "",
     templeCode: meta.temple ?? "",
     finishName: meta.finish ?? "",
-    lensName: meta.lens_type ?? "",
+    lensName: `${meta.lens_type ?? ""}${
+      meta.reading_strength
+        ? ` · ${meta.reading_strength === "confirm_later" ? "strength to confirm" : meta.reading_strength}`
+        : ""
+    }`,
     engravingText: meta.engraving || "",
     amountFormatted,
     orderRef: session.id,

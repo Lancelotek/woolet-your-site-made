@@ -74,3 +74,26 @@ export function bespokeShippingStatus(order: BespokeGapSource): string {
   if (order.shipped_at) return "Shipped";
   return bespokeOrderGaps(order).length > 0 ? "On hold" : "Ready to ship";
 }
+
+/** Reading strength on a paid order row: "+2.00", "L +1.75 / R +2.25", "to confirm". */
+export const readingStrengthLabel = (o: Record<string, any>): string => {
+  const mode = o?.reading_strength_mode ?? null;
+  if (mode === "confirm_later") return "to confirm";
+  if (mode === "different") {
+    const l = o?.reading_strength_left;
+    const r = o?.reading_strength_right;
+    return l && r ? `L ${l} / R ${r}` : "";
+  }
+  return o?.reading_strength ?? "";
+};
+
+/** Lens type with the reading strength appended, when there is one. */
+export const lensWithStrength = (o: Record<string, any>): string => {
+  const lens = o?.lens_type ?? "";
+  const strength = readingStrengthLabel(o);
+  return strength ? `${lens} · ${strength}` : lens;
+};
+
+/** True when a reading order still owes us its strength. */
+export const needsReadingStrength = (o: Record<string, any>): boolean =>
+  o?.reading_strength_mode === "confirm_later";

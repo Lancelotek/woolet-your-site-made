@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { STAGE_LABELS, type BespokeStage } from "@/lib/bespoke-case";
-import { bespokeOrderGaps } from "@/lib/bespoke-gaps";
+import { bespokeOrderGaps, lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
 import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
 
 const T = {
@@ -31,6 +31,10 @@ interface Row {
   temple_code: string | null;
   finish_id: string | null;
   lens_type: string | null;
+  reading_strength_mode: string | null;
+  reading_strength: string | null;
+  reading_strength_left: string | null;
+  reading_strength_right: string | null;
   engraving_text: string | null;
   amount_cents: number | null;
   currency: string | null;
@@ -173,7 +177,7 @@ export default function BespokeAdmin() {
       frontCode: s(o.front_code),
       templeCode: s(o.temple_code),
       finishId: s(o.finish_id),
-      lensType: s(o.lens_type),
+      lensType: lensWithStrength(o as Record<string, any>),
       engravingText: s(o.engraving_text),
       amountLabel: fmtAmount(o.amount_cents as number | null, o.currency as string | null),
       customerRef: s(o.customer_email),
@@ -711,7 +715,15 @@ function DetailView({
         <Field label="Front acetate" value={o.front_code} />
         <Field label="Temple acetate" value={o.temple_code} />
         <Field label="Finish" value={o.finish_id} />
-        <Field label="Lenses" value={o.lens_type} />
+        <Field label="Lenses" value={lensWithStrength(o as Record<string, any>)} />
+        {needsReadingStrength(o as Record<string, any>) && (
+          <div
+            className="inline-flex items-center px-2 py-1 text-[11px] uppercase tracking-[0.14em]"
+            style={{ background: "rgba(217,145,32,0.14)", color: "#D99120", border: "1px solid rgba(217,145,32,0.4)" }}
+          >
+            Reading strength to confirm
+          </div>
+        )}
         <Field label="Engraving" value={o.engraving_text} />
         <Field label="Temple length" value={(o.metadata as any)?.temple_length} />
       </Group>

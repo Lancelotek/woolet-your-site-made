@@ -16,6 +16,7 @@ import {
   LENS_COATINGS,
   LENS_MATERIALS,
   LENS_TYPES,
+  READING_STRENGTHS,
   MEASUREMENT_RANGES,
   TEMPLE_LENGTHS,
   TEMPLE_LENGTH_CUSTOM_RANGE,
@@ -24,7 +25,14 @@ import {
   type MeasurementKey,
 } from "@/data/bespoke-options";
 import { FRAMES, findFrame } from "@/data/frames";
-import { type BespokeConfig, formatEur, formatAddOn } from "@/lib/bespoke-state";
+import {
+  type BespokeConfig,
+  formatEur,
+  formatAddOn,
+  formatLensWithStrength,
+  isReadingStrengthComplete,
+} from "@/lib/bespoke-state";
+import { claritySet } from "@/lib/clarity";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
@@ -1631,6 +1639,122 @@ export function StepEngraving({ config, update }: StepProps) {
   );
 }
 
+/* ───── Reading strength (reading lens only) ───── */
+
+const READING_MODES = [
+  { id: "same", label: "Same for both eyes" },
+  { id: "different", label: "Different for each eye" },
+  { id: "confirm_later", label: "I'll confirm after payment" },
+] as const;
+
+function ReadingStrengthPanel({ config, update }: StepProps) {
+  const mode = config.readingStrengthMode ?? "same";
+
+  const track = (nextMode: string, strength: string) => {
+    pushCfg("bespoke_reading_strength_selected", { mode: nextMode, strength });
+    claritySet("bespoke_reading_strength", `${nextMode}:${strength || "—"}`);
+  };
+
+  const chip = (active: boolean) =>
+    `min-h-[48px] px-3 rounded-[10px] text-sm border transition ${
+      active ? "border-gold text-gold-light bg-gold/10" : "border-cream/15 text-cream-dim hover:border-cream/30"
+    }`;
+
+  const selectClass =
+    "mt-2 w-full min-h-[48px] rounded-[10px] border border-cream/15 bg-background/60 px-3 text-sm text-cream";
+
+  return (
+    <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5 animate-in fade-in slide-in-from-top-2 duration-300">
+      <div className={labelClass}>Reading strength</div>
+      <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2 max-w-xl">
+        Reading lenses come in strengths from +0.75 to +4.00. The higher the number, the stronger the
+        lens. Your current reading glasses show it inside one arm or on the lens sticker, e.g. +2.0.
+        From an optician? Look for ADD or Near on your prescription.
+      </p>
+
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+        {READING_MODES.map((m) => (
+          <button
+            key={m.id}
+            onClick={() => {
+              update("readingStrengthMode", m.id);
+              if (m.id !== "same") update("readingStrength", null);
+              if (m.id !== "different") {
+                update("readingStrengthLeft", null);
+                update("readingStrengthRight", null);
+              }
+              track(m.id, "");
+            }}
+            aria-pressed={mode === m.id}
+            className={chip(mode === m.id)}
+          >
+            {m.label}
+          </button>
+        ))}
+      </div>
+
+      {mode === "same" && (
+        <div className="mt-5">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+            {READING_STRENGTHS.map((s) => (
+              <button
+                key={s}
+                onClick={() => {
+                  update("readingStrength", s);
+                  track("same", s);
+                }}
+                aria-pressed={config.readingStrength === s}
+                className={chip(config.readingStrength === s)}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {mode === "different" && (
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {([
+            ["Left eye", "readingStrengthLeft"],
+            ["Right eye", "readingStrengthRight"],
+          ] as const).map(([label, key]) => (
+            <label key={key} className="block">
+              <span className="text-cream-dim text-[0.78rem] uppercase tracking-[0.18em]">{label}</span>
+              <select
+                className={selectClass}
+                value={config[key] ?? ""}
+                onChange={(e) => {
+                  const value = (e.target.value || null) as typeof config.readingStrength;
+                  update(key, value);
+                  track("different", value ?? "");
+                }}
+              >
+                <option value="">Choose strength</option>
+                {READING_STRENGTHS.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </label>
+          ))}
+        </div>
+      )}
+
+      {mode === "confirm_later" && (
+        <p className="text-cream-dim text-sm mt-5">
+          We ask for your strength before the workshop cuts the lenses.
+        </p>
+      )}
+
+      {!isReadingStrengthComplete(config) && (
+        <p className="text-[0.8rem] mt-4" style={{ color: "#C13A2E" }} role="status">
+          Choose your reading strength to continue.
+        </p>
+      )}
+    </div>
+  );
+}
+
 /* ───── Step 5 ───── */
 export function StepLenses({ config, update }: StepProps) {
   const needsRx = ["single-vision", "progressive"].includes(config.lensTypeId ?? "");
@@ -1652,7 +1776,17 @@ export function StepLenses({ config, update }: StepProps) {
             return (
               <button
                 key={l.id}
-                onClick={() => update("lensTypeId", l.id)}
+                onClick={() => {
+                  update("lensTypeId", l.id);
+                  if (l.id !== "reading") {
+                    update("readingStrengthMode", null);
+                    update("readingStrength", null);
+                    update("readingStrengthLeft", null);
+                    update("readingStrengthRight", null);
+                  } else if (!config.readingStrengthMode) {
+                    update("readingStrengthMode", "same");
+                  }
+                }}
                 className={`${cardOuter} ${active ? cardActive : "hover:border-cream/25"} text-left p-3 flex gap-3 items-center`}
               >
                 <div
@@ -1680,6 +1814,8 @@ export function StepLenses({ config, update }: StepProps) {
           })}
         </div>
       </div>
+
+      {config.lensTypeId === "reading" && <ReadingStrengthPanel config={config} update={update} />}
 
       {config.lensTypeId !== "plano" && (
         <>
@@ -1850,7 +1986,10 @@ export function StepReview({
         <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
         <Row label="Finish" value={finish?.name} />
         <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "None"} />
-        <Row label="Lenses" value={lens ? `${lens.name} · ${formatAddOn(lens.priceEur)}` : null} />
+        <Row
+          label="Lenses"
+          value={lens ? `${formatLensWithStrength(lens.name, config)} · ${formatAddOn(lens.priceEur)}` : null}
+        />
         {config.lensTypeId !== "plano" && (
           <>
             <Row label="Material" value={LENS_MATERIALS.find((m) => m.id === config.lensMaterialId)?.name} />

@@ -5,7 +5,7 @@ import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, 
 import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
-import { STEPS, formatEur, formatAddOn, isStepComplete, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { STEPS, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
@@ -482,7 +482,7 @@ const ConfiguratorPage = () => {
                   />
                   <SpecRow label="Finish" value={finish?.name ?? "—"} />
                   <SpecRow label="Engraving" value={config.engravingEnabled ? `“${config.engravingText || "…"}”` : "—"} />
-                  <SpecRow label="Lenses" value={lens?.name ?? "—"} />
+                  <SpecRow label="Lenses" value={lens ? formatLensWithStrength(lens.name, config) : "—"} />
                 </dl>
 
                 <div className="cfg-rail__total">

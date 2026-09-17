@@ -4,6 +4,8 @@ import { CheckCircle2, Loader2, Ruler, ScanFace, Sparkles, Truck } from "lucide-
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
+import { READING_STRENGTHS } from "@/data/bespoke-options";
+import { lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
 import { clarityEvent, claritySet, clarityUpgrade } from "@/lib/clarity";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
 import { parseFitLensEvent, type FitLensMeasurements } from "@/lib/fitlens-result";
@@ -59,6 +61,10 @@ type OrderSummary = {
   temple_code: string | null;
   finish_id: string | null;
   lens_type: string | null;
+  reading_strength_mode?: string | null;
+  reading_strength?: string | null;
+  reading_strength_left?: string | null;
+  reading_strength_right?: string | null;
   engraving_text: string | null;
   amount_cents: number | null;
   currency: string | null;
@@ -200,6 +206,13 @@ export default function BespokeMeasurements() {
 
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Reading lenses bought with "I'll confirm after payment" — the strength is
+  // still owed, so we ask for it here before the workshop cuts.
+  const [readingMode, setReadingMode] = useState<"same" | "different">("same");
+  const [readingStrength, setReadingStrength] = useState<string>("");
+  const [readingLeft, setReadingLeft] = useState<string>("");
+  const [readingRight, setReadingRight] = useState<string>("");
   const requestedTempleLength = useMemo(() => readRequestedTempleLength(), []);
 
   const [scanResult, setScanResult] = useState<FitLensMeasurements | null>(null);
@@ -394,6 +407,12 @@ export default function BespokeMeasurements() {
     [order],
   );
 
+  // Reading order that still owes us a strength.
+  const needsStrength = Boolean(order && needsReadingStrength(order as unknown as Record<string, any>));
+  const readingValid =
+    !needsStrength ||
+    (readingMode === "same" ? Boolean(readingStrength) : Boolean(readingLeft && readingRight));
+
   const update = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -412,7 +431,7 @@ export default function BespokeMeasurements() {
         frontCode: order?.front_code ?? null,
         templeCode: order?.temple_code ?? null,
         finishId: order?.finish_id ?? null,
-        lensType: order?.lens_type ?? null,
+        lensType: order ? lensWithStrength(order as unknown as Record<string, any>) : null,
         engravingText: order?.engraving_text ?? null,
         amountLabel: priceLabel,
         customerRef: order?.customer_email_masked ?? null,
@@ -469,6 +488,11 @@ export default function BespokeMeasurements() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setShippingError(null);
+    if (!readingValid) {
+      setError("Choose your reading strength to continue.");
+      document.getElementById("reading-strength-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     const shippingComplete =
       shipping.name.trim() &&
       shipping.phone.trim() &&
@@ -507,6 +531,14 @@ export default function BespokeMeasurements() {
             ear_to_ear_mm: form.manual_ear_to_ear_mm || null,
             notes: form.manual_notes || null,
           },
+          reading: needsStrength
+            ? {
+                mode: readingMode,
+                strength: readingMode === "same" ? readingStrength : null,
+                left: readingMode === "different" ? readingLeft : null,
+                right: readingMode === "different" ? readingRight : null,
+              }
+            : null,
           shipping: {
             name: shipping.name,
             phone: shipping.phone,
@@ -615,6 +647,77 @@ export default function BespokeMeasurements() {
 
               </section>
 
+              {needsStrength && !submitted && (
+                <section
+                  id="reading-strength-section"
+                  className="rounded-md border border-gold/40 bg-gold/[0.06] p-5 sm:p-6 mb-8"
+                >
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-gold">Reading strength</p>
+                  <p className="text-cream-dim text-sm leading-relaxed mt-2 max-w-xl">
+                    Reading lenses come in strengths from +0.75 to +4.00. The higher the number, the
+                    stronger the lens. Your current reading glasses show it inside one arm or on the lens
+                    sticker, e.g. +2.0. From an optician? Look for ADD or Near on your prescription.
+                  </p>
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {(["same", "different"] as const).map((m) => (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => setReadingMode(m)}
+                        aria-pressed={readingMode === m}
+                        className={`min-h-[48px] px-3 text-sm border transition ${
+                          readingMode === m
+                            ? "border-gold text-gold bg-gold/10"
+                            : "border-cream/20 text-cream-dim hover:border-cream/40"
+                        }`}
+                      >
+                        {m === "same" ? "Same for both eyes" : "Different for each eye"}
+                      </button>
+                    ))}
+                  </div>
+                  {readingMode === "same" ? (
+                    <div className="mt-4 grid grid-cols-3 sm:grid-cols-5 gap-2">
+                      {READING_STRENGTHS.map((s) => (
+                        <button
+                          key={s}
+                          type="button"
+                          onClick={() => setReadingStrength(s)}
+                          aria-pressed={readingStrength === s}
+                          className={`min-h-[48px] px-2 text-sm border transition ${
+                            readingStrength === s
+                              ? "border-gold text-gold bg-gold/10"
+                              : "border-cream/20 text-cream-dim hover:border-cream/40"
+                          }`}
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {([
+                        ["Left eye", readingLeft, setReadingLeft],
+                        ["Right eye", readingRight, setReadingRight],
+                      ] as const).map(([label, value, setter]) => (
+                        <label key={label} className="block">
+                          <span className="text-[11px] uppercase tracking-[0.18em] text-cream-dim">{label}</span>
+                          <select
+                            value={value}
+                            onChange={(e) => setter(e.target.value)}
+                            className="mt-2 w-full min-h-[48px] border border-cream/20 bg-transparent px-3 text-sm text-cream"
+                          >
+                            <option value="">Choose strength</option>
+                            {READING_STRENGTHS.map((s) => (
+                              <option key={s} value={s}>{s}</option>
+                            ))}
+                          </select>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </section>
+              )}
+
               {order && (
                 <section className="rounded-md border border-cream/12 bg-cream/[0.03] p-5 sm:p-6 mb-8">
                   <div className="flex items-baseline justify-between gap-4 mb-4">
@@ -628,7 +731,9 @@ export default function BespokeMeasurements() {
                     {order.front_code && <Spec label="Front" value={order.front_code} />}
                     {order.temple_code && <Spec label="Temple" value={order.temple_code} />}
                     {order.finish_id && <Spec label="Finish" value={order.finish_id} />}
-                    {order.lens_type && <Spec label="Lenses" value={order.lens_type} />}
+                    {order.lens_type && (
+                      <Spec label="Lenses" value={lensWithStrength(order as unknown as Record<string, any>)} />
+                    )}
                     {order.engraving_text && <Spec label="Engraving" value={`"${order.engraving_text}"`} />}
                     {order.customer_email_masked && (
                       <div data-clarity-mask="true">
