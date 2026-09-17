@@ -14,6 +14,7 @@ import greg009 from "@/assets/greg-woolet-009.webp.asset.json";
 import detail007 from "@/assets/woolet-007-detail-hinge.jpg";
 import gregTester from "@/assets/testimonials/greg-woolet-tester.webp";
 import { galleryOnFace, type OnFaceColourId } from "@/data/on-face-photos";
+import { GALLERY_COPY, type PdpLang } from "@/i18n/productPageCopy";
 
 export type MediaKind = "packshot" | "on-face" | "detail" | "scale";
 
@@ -90,7 +91,19 @@ const shared: Record<ProductId, MediaItem[]> = {
   ],
 };
 
-export function mediaFor(model: ProductId, colourId: string, colourName: string): MediaItem[] {
+export function mediaFor(model: ProductId, colourId: string, colourName: string, lang: PdpLang = "en"): MediaItem[] {
+  const items = mediaForEn(model, colourId, colourName);
+  if (lang === "en") return items;
+  const t = GALLERY_COPY[lang];
+  return items.map((it) => {
+    if (it.kind === "packshot") return { ...it, alt: t.packshotAlt(model, colourName), caption: t.packshotCaption(model, colourName) };
+    if (it.id.startsWith("on-face-real-")) return { ...it, alt: t.founderAlt(model, colourName), caption: t.founderCaption };
+    const tr = t.shared[`${model}:${it.id}`];
+    return tr ? { ...it, ...tr } : it;
+  });
+}
+
+function mediaForEn(model: ProductId, colourId: string, colourName: string): MediaItem[] {
   const packshot = packshots[model][colourId];
   const head: MediaItem[] = packshot
     ? [

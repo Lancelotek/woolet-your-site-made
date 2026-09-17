@@ -158,12 +158,14 @@ export function ColourSwatches({
   onSelect,
   label = "Launch colours",
   note = "Pick yours after the campaign",
+  showLabel = (name: string) => `Show ${name}`,
 }: {
   colours: FrameColour[];
   index: number;
   onSelect: (i: number) => void;
   label?: string;
   note?: string;
+  showLabel?: (name: string) => string;
 }) {
   const ids = useMemo(() => colours.map((c) => c.id).join("|"), [colours]);
   return (
@@ -195,7 +197,7 @@ export function ColourSwatches({
               type="button"
               className="wl-swatch"
               aria-pressed={activeState}
-              aria-label={`Show ${c.name}`}
+              aria-label={showLabel(c.name)}
               onClick={() => onSelect(i)}
             >
               <span

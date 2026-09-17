@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { mediaFor, type ProductId } from "@/data/product-media";
 import { clarityEvent } from "@/lib/clarity";
 import { pushGtmEvent } from "@/lib/gtm";
+import { GALLERY_COPY, type PdpLang } from "@/i18n/productPageCopy";
 
 const T = {
   ink: "#16140f",
@@ -16,11 +17,13 @@ type Props = {
   model: ProductId;
   colourId: string;
   colourName: string;
+  lang?: PdpLang;
 };
 
 /** PDP gallery: packshot of the active colour + on-face, detail and scale shots. */
-const ProductGalleryStage = ({ model, colourId, colourName }: Props) => {
-  const items = useMemo(() => mediaFor(model, colourId, colourName), [model, colourId, colourName]);
+const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props) => {
+  const items = useMemo(() => mediaFor(model, colourId, colourName, lang), [model, colourId, colourName, lang]);
+  const t = lang === "en" ? null : GALLERY_COPY[lang];
   const [idx, setIdx] = useState(0);
   const prevColour = useRef(colourId);
 
@@ -116,7 +119,7 @@ const ProductGalleryStage = ({ model, colourId, colourName }: Props) => {
               type="button"
               className="wl-gal-arrow"
               style={{ left: 12 }}
-              aria-label="Previous photo"
+              aria-label={t ? t.prev : "Previous photo"}
               onClick={() => go(idx - 1, "arrow")}
             >
               <ChevronLeft size={18} />
@@ -125,7 +128,7 @@ const ProductGalleryStage = ({ model, colourId, colourName }: Props) => {
               type="button"
               className="wl-gal-arrow"
               style={{ right: 12 }}
-              aria-label="Next photo"
+              aria-label={t ? t.next : "Next photo"}
               onClick={() => go(idx + 1, "arrow")}
             >
               <ChevronRight size={18} />
@@ -144,7 +147,7 @@ const ProductGalleryStage = ({ model, colourId, colourName }: Props) => {
       {items.length > 1 && (
         <div
           role="group"
-          aria-label={`Woolet ${model} photos`}
+          aria-label={t ? t.photosGroup(model) : `Woolet ${model} photos`}
           style={{ marginTop: 12, display: "grid", gridTemplateColumns: `repeat(${Math.min(items.length, 5)}, minmax(0,1fr))`, gap: 8 }}
         >
           {items.map((m, i) => (
@@ -153,7 +156,7 @@ const ProductGalleryStage = ({ model, colourId, colourName }: Props) => {
               type="button"
               className="wl-gal-thumb"
               aria-current={i === idx}
-              aria-label={`Show photo ${i + 1} of ${items.length} — ${m.caption}`}
+              aria-label={t ? t.showPhoto(i + 1, items.length, m.caption) : `Show photo ${i + 1} of ${items.length} — ${m.caption}`}
               onClick={() => go(i, "thumb")}
             >
               <img
