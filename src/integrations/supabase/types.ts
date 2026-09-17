@@ -333,6 +333,10 @@ export type Database = {
           production_blocked: boolean
           purge_after: string | null
           purged_at: string | null
+          reading_strength: string | null
+          reading_strength_left: string | null
+          reading_strength_mode: string | null
+          reading_strength_right: string | null
           scan_email_sent_at: string | null
           scan_id: string | null
           scan_payload: Json | null
@@ -411,6 +415,10 @@ export type Database = {
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
+          reading_strength?: string | null
+          reading_strength_left?: string | null
+          reading_strength_mode?: string | null
+          reading_strength_right?: string | null
           scan_email_sent_at?: string | null
           scan_id?: string | null
           scan_payload?: Json | null
@@ -489,6 +497,10 @@ export type Database = {
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
+          reading_strength?: string | null
+          reading_strength_left?: string | null
+          reading_strength_mode?: string | null
+          reading_strength_right?: string | null
           scan_email_sent_at?: string | null
           scan_id?: string | null
           scan_payload?: Json | null

@@ -47,6 +47,12 @@ type Body = {
     postal_code?: string | null;
     country?: string | null;
   };
+  reading?: {
+    mode?: string | null;
+    strength?: string | null;
+    left?: string | null;
+    right?: string | null;
+  } | null;
   scan?: {
     source?: string | null;
     payload?: Record<string, unknown> | null;
@@ -161,6 +167,28 @@ Deno.serve(async (req) => {
       patch.shipping_submitted_at = new Date().toISOString();
     }
 
+
+    // Reading strength confirmed after payment ("I'll confirm after payment").
+    const STRENGTHS = [
+      "+0.75", "+1.00", "+1.25", "+1.50", "+1.75", "+2.00", "+2.25",
+      "+2.50", "+2.75", "+3.00", "+3.25", "+3.50", "+3.75", "+4.00",
+    ];
+    const strength = (v: unknown): string | null =>
+      typeof v === "string" && STRENGTHS.includes(v) ? v : null;
+    const reading = body.reading;
+    if (reading) {
+      if (reading.mode === "same" && strength(reading.strength)) {
+        patch.reading_strength_mode = "same";
+        patch.reading_strength = strength(reading.strength);
+        patch.reading_strength_left = null;
+        patch.reading_strength_right = null;
+      } else if (reading.mode === "different" && strength(reading.left) && strength(reading.right)) {
+        patch.reading_strength_mode = "different";
+        patch.reading_strength = null;
+        patch.reading_strength_left = strength(reading.left);
+        patch.reading_strength_right = strength(reading.right);
+      }
+    }
 
     patch.scan_source = scanSource;
     patch.scan_payload = scanPayload;

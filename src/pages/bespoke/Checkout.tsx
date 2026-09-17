@@ -6,7 +6,7 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
-import { useBespokeConfig, computePricing, formatEur } from "@/lib/bespoke-state";
+import { useBespokeConfig, computePricing, formatEur, formatLensWithStrength, readingStrengthMetaValue } from "@/lib/bespoke-state";
 import { findFrame } from "@/data/frames";
 import {
   COLORS,
@@ -127,6 +127,10 @@ export default function BespokeCheckout() {
     temple_length: config.templeLengthMm ? `${config.templeLengthMm} mm${config.templeLengthIsCustom ? " (custom)" : ""}` : "",
     engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
     lens_type: lens?.name ?? "",
+    reading_strength: readingStrengthMetaValue(config),
+    reading_strength_mode: config.lensTypeId === "reading" ? config.readingStrengthMode ?? "" : "",
+    reading_strength_left: config.readingStrengthLeft ?? "",
+    reading_strength_right: config.readingStrengthRight ?? "",
     ai_preview_url: (aiPreviewUrl ?? fallbackPreviewUrl ?? "").slice(0, 500),
     // Pseudonymous link back to the fit scan. Carries no personal detail.
     scan_session_ref: readSessionRef() ?? "",
@@ -506,7 +510,7 @@ export default function BespokeCheckout() {
                             : "None"
                         }
                       />
-                      <SummaryRow label="Lenses" value={lens?.name} />
+                      <SummaryRow label="Lenses" value={lens ? formatLensWithStrength(lens.name, config) : undefined} />
                       {config.lensTypeId !== "plano" && (
                         <>
                           <SummaryRow label="Material" value={LENS_MATERIALS.find((m) => m.id === config.lensMaterialId)?.name} />

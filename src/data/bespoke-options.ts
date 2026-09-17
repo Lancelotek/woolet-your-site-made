@@ -126,6 +126,15 @@ export const LENS_TYPES: LensType[] = [
   { id: "sun-uv400",   name: "Sun lenses (UV400)",                priceEur: 40, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg },
 ];
 
+/* ───── Reading strength (dioptre) ─────
+   Only applies to the "reading" lens type. No price impact. */
+export const READING_STRENGTHS = [
+  "+0.75", "+1.00", "+1.25", "+1.50", "+1.75", "+2.00", "+2.25",
+  "+2.50", "+2.75", "+3.00", "+3.25", "+3.50", "+3.75", "+4.00",
+] as const;
+
+export type ReadingStrength = (typeof READING_STRENGTHS)[number];
+
 export const LENS_MATERIALS = [
   { id: "cr-39",         name: "CR-39 (standard)" },
   { id: "polycarbonate", name: "Polycarbonate (impact)" },

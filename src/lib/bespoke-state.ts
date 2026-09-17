@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, isValidTempleLength, LENS_TYPES, type MeasurementKey } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, isValidTempleLength, LENS_TYPES, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
@@ -27,6 +27,11 @@ export interface BespokeConfig {
   engravingFontId: string | null;
   engravingOffset: { x: number; y: number };
   lensTypeId: string | null;
+  /** Reading lens only — dioptre strength. */
+  readingStrengthMode: "same" | "different" | "confirm_later" | null;
+  readingStrength: ReadingStrength | null;
+  readingStrengthLeft: ReadingStrength | null;
+  readingStrengthRight: ReadingStrength | null;
   lensMaterialId: string | null;
   lensCoatingId: string | null;
   prescriptionFileName: string | null;
@@ -63,6 +68,10 @@ export const INITIAL_CONFIG: BespokeConfig = {
   engravingFontId: null,
   engravingOffset: { x: 0, y: 0 },
   lensTypeId: "plano",
+  readingStrengthMode: null,
+  readingStrength: null,
+  readingStrengthLeft: null,
+  readingStrengthRight: null,
   lensMaterialId: null,
   lensCoatingId: "none",
   prescriptionFileName: null,
@@ -170,7 +179,49 @@ export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
     case 3: return true;
     case 4: return isValidTempleLength(config.templeLengthMm);
     case 5: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
-    case 6: return Boolean(config.lensTypeId);
+    case 6: {
+      if (!config.lensTypeId) return false;
+      if (config.lensTypeId !== "reading") return true;
+      return isReadingStrengthComplete(config);
+    }
     case 7: return true;
   }
 }
+
+/* ───── Reading strength ───── */
+
+export const isReadingStrengthComplete = (config: BespokeConfig): boolean => {
+  switch (config.readingStrengthMode) {
+    case "same": return Boolean(config.readingStrength);
+    case "different": return Boolean(config.readingStrengthLeft && config.readingStrengthRight);
+    case "confirm_later": return true;
+    default: return false;
+  }
+};
+
+/** Short label for summaries: "+2.00", "L +1.75 / R +2.25", "strength to confirm". */
+export const formatReadingStrength = (config: BespokeConfig): string | null => {
+  if (config.lensTypeId !== "reading") return null;
+  switch (config.readingStrengthMode) {
+    case "same": return config.readingStrength;
+    case "different":
+      return config.readingStrengthLeft && config.readingStrengthRight
+        ? `L ${config.readingStrengthLeft} / R ${config.readingStrengthRight}`
+        : null;
+    case "confirm_later": return "strength to confirm";
+    default: return null;
+  }
+};
+
+/** Machine value for Stripe metadata / database: "+2.00", "L .. / R ..", "confirm_later". */
+export const readingStrengthMetaValue = (config: BespokeConfig): string => {
+  if (config.lensTypeId !== "reading") return "";
+  if (config.readingStrengthMode === "confirm_later") return "confirm_later";
+  return formatReadingStrength(config) ?? "";
+};
+
+/** Lens name with the strength appended, for order summaries. */
+export const formatLensWithStrength = (lensName: string, config: BespokeConfig): string => {
+  const strength = formatReadingStrength(config);
+  return strength ? `${lensName} · ${strength}` : lensName;
+};

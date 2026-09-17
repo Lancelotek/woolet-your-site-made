@@ -3,7 +3,7 @@
 // deliberately: the community SheetJS build drops cell styling, so the header
 // fill, the MISSING markers and the hand-filled columns would ship unformatted.
 
-import { bespokeOrderGaps, bespokeShippingStatus } from "./bespoke-gaps";
+import { bespokeOrderGaps, bespokeShippingStatus, lensWithStrength } from "./bespoke-gaps";
 
 const FONT = { name: "Arial", size: 10 } as const;
 const HEADER_FILL = "FFCAA449";
@@ -95,7 +95,7 @@ function rowValues(o: Order): (string | number)[] {
     s(o.front_code),
     s(o.temple_code),
     s(o.finish_id),
-    s(o.lens_type),
+    lensWithStrength(o),
     s(o.engraving_text),
     s(o.metadata?.temple_length),
     o.amount_cents == null ? "" : Number(o.amount_cents) / 100,
