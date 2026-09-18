@@ -4,6 +4,7 @@
 // fill, the MISSING markers and the hand-filled columns would ship unformatted.
 
 import { bespokeOrderGaps, bespokeShippingStatus, lensWithStrength } from "./bespoke-gaps";
+import { crmStageLabel, crmStageOf } from "./bespoke-crm";
 
 const FONT = { name: "Arial", size: 10 } as const;
 const HEADER_FILL = "FFCAA449";
