@@ -281,10 +281,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Photochromic lenses darken outdoors and clear up inside. How they work, the real downsides, and two ways to get them in a 145-172 mm frame for wide faces.",
   },
   "eyeglass-frame-size-chart": {
-    metaTitle: "Eyeglass Frame Size Chart in mm: XS to XXL (155 mm+)",
+    metaTitle: "Eyeglass Frame Size Chart (mm): XS-XXL + 155 mm Wide Fit",
     exactTitle: true,
     metaDescription:
-      "The only frame size chart with the 155-161 mm wide band. Lens, bridge, temple and total front width in millimetres, and how to read the numbers on your frame.",
+      "The standard chart stops at 150 mm. See XS to XXL in real millimetres, how each band compares, and the 155-161 mm wide-fit row most charts leave out.",
   },
   "temple-to-temple-measurement": {
     metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
