@@ -95,6 +95,13 @@ export function StageCell({
           type="button"
           disabled={busy}
           onClick={onNext}
+          // The label names the destination, so nobody has to remember what
+          // step four was before they click.
+          title={
+            stage + 1 === SHIPPED_STAGE
+              ? "Opens the order — shipping needs a tracking number"
+              : `Move to ${crmStageLabel(stage + 1)}`
+          }
           style={{
             justifySelf: "start",
             background: "none",
@@ -107,9 +114,14 @@ export function StageCell({
             textTransform: "uppercase",
             cursor: busy ? "wait" : "pointer",
             fontFamily: SANS,
+            opacity: busy ? 0.6 : 1,
           }}
         >
-          Next step →
+          {busy
+            ? "Saving…"
+            : stage + 1 === SHIPPED_STAGE
+              ? "Ship…"
+              : `Next: ${crmStageShort(stage + 1)} →`}
         </button>
       )}
     </div>
