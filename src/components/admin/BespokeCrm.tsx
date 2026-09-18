@@ -415,7 +415,10 @@ export function PipelinePanel({
     <section style={{ marginTop: 22 }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
         <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Pipeline</h3>
-        <span style={{ fontSize: 11, color: T.mute }}>{crmStageSummary(stage)}</span>
+        <span style={{ fontSize: 11, color: T.mute }}>
+          {crmStageSummary(stage)}
+          {stage > 1 ? " · click a done step to move back" : ""}
+        </span>
       </div>
 
       <ol style={{ listStyle: "none", margin: "10px 0 0", padding: 0 }}>
@@ -454,15 +457,43 @@ export function PipelinePanel({
                 {done ? "✓" : s.id}
               </span>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div
-                  style={{
-                    fontSize: 13,
-                    color: done ? T.gold : current ? T.ink : T.mute,
-                    fontWeight: current ? 600 : 400,
-                  }}
-                >
-                  {s.label}
-                </div>
+                {/* Done steps are clickable: a click jumps straight back to that
+                    stage, with the wipe-of-later-dates confirmation in moveTo. */}
+                {done ? (
+                  <button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => void moveTo(s.id)}
+                    title={`Move back to ${s.label}`}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      fontSize: 13,
+                      color: T.gold,
+                      fontWeight: 400,
+                      cursor: busy ? "wait" : "pointer",
+                      fontFamily: SANS,
+                      textAlign: "left",
+                      textDecoration: "underline",
+                      textDecorationStyle: "dotted",
+                      textUnderlineOffset: 3,
+                      textDecorationColor: "rgba(194,160,90,0.45)",
+                    }}
+                  >
+                    {s.label}
+                  </button>
+                ) : (
+                  <div
+                    style={{
+                      fontSize: 13,
+                      color: current ? T.ink : T.mute,
+                      fontWeight: current ? 600 : 400,
+                    }}
+                  >
+                    {s.label}
+                  </div>
+                )}
                 <div style={{ fontSize: 11, color: T.mute }}>
                   {reached ? fmtDate(reached) : current ? "Current step" : "Not reached"}
                 </div>
