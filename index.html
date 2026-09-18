@@ -39,11 +39,9 @@
     <link rel="alternate" type="text/plain" title="LLMs reference" href="/llms.txt">
     <link rel="alternate" type="text/plain" title="LLMs full reference" href="/llms-full.txt">
 
-    <!-- Bespoke engraving preview font (Malgun Gothic equivalent for non-Windows) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
+    <!-- Noto Sans KR is no longer requested globally. It is injected
+         non-blocking only on /ko/* routes and in the Bespoke engraving
+         preview (see src/lib/noto-sans-kr.ts). -->
     
     <!-- hreflang is emitted per-route by react-helmet-async (see src/components/SEO.tsx).
          Static tags were removed because they always pointed at homepages and
@@ -61,7 +59,7 @@
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cormorant-italic-latin.woff2">
 
     <!-- Preload hero LCP image (home) -->
-    <link rel="preload" as="image" type="image/webp" href="/hero-man.webp" fetchpriority="high" imagesrcset="/hero-man.webp 622w, /hero-man@2x.webp 1244w" imagesizes="(min-width: 1024px) 48vw, 100vw">
+    <link rel="preload" as="image" type="image/webp" href="/hero-greg-1000.webp" fetchpriority="high" imagesrcset="/hero-greg-648.webp 648w, /hero-greg-1000.webp 1000w" imagesizes="(min-width: 1024px) 48vw, 100vw">
 
     <script type="application/ld+json" data-seo="prerender">
 
@@ -156,25 +154,37 @@
         var isProd = host === 'woolet.co' || host === 'www.woolet.co';
 
         if (isProd) {
-          // Google Tag Manager
-          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-WTJLN2KX');
+          // Google Tag Manager - deferred until the page has loaded or the
+          // visitor interacts, whichever comes first, so it never competes
+          // with the LCP image on mobile.
+          var gtmLoaded = false;
+          var loadGtm = function () {
+            if (gtmLoaded) return;
+            gtmLoaded = true;
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-WTJLN2KX');
+          };
 
-          // Google Ads gtag
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18213714775';
-          document.head.appendChild(s);
+          var events = ['pointerdown', 'touchstart', 'keydown', 'scroll'];
+          var onInteract = function () {
+            for (var i = 0; i < events.length; i++) {
+              window.removeEventListener(events[i], onInteract);
+            }
+            loadGtm();
+          };
+          for (var i = 0; i < events.length; i++) {
+            window.addEventListener(events[i], onInteract, { once: true, passive: true });
+          }
 
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'AW-18213714775');
+          if (document.readyState === 'complete') setTimeout(loadGtm, 0);
+          else window.addEventListener('load', function () { setTimeout(loadGtm, 0); });
 
-
+          // Google Ads (AW-18213714775) is configured inside GTM-WTJLN2KX -
+          // the direct gtag.js loader was removed to save a render-blocking
+          // request on mobile.
 
           // On-page Google Ads conversion snippet removed — VIP signup conversion is
           // measured exclusively through GTM (waitlist_signup dataLayer event, label jEJW).
