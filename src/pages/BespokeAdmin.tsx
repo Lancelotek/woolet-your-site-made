@@ -517,6 +517,7 @@ export default function BespokeAdmin() {
                 onPdf={() => downloadPdf(detail)}
                 onZip={() => downloadBundle(detail)}
                 onRender={() => renderPreview(detail)}
+                onOrderChange={(patch) => applyOrderPatch(String(detail.order.id), patch)}
                 busy={busy}
               />
             )}
@@ -710,7 +711,7 @@ function ScansBlock({ scans }: { scans: ScanRow[] }) {
 }
 
 function DetailView({
-  detail, password, onClose, onPdf, onZip, onRender, busy,
+  detail, password, onClose, onPdf, onZip, onRender, onOrderChange, busy,
 }: {
   detail: Detail;
   password: string;
@@ -718,6 +719,7 @@ function DetailView({
   onPdf: () => void;
   onZip: () => void;
   onRender: () => void;
+  onOrderChange: (patch: Record<string, unknown>) => void;
   busy: string | null;
 }) {
   const o = detail.order as Record<string, any>;
