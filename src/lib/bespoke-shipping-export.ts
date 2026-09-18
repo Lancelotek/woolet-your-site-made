@@ -143,7 +143,7 @@ export async function exportShippingXlsx(orders: Order[]) {
   orders.forEach((o) => sheet.addRow(rowValues(o)));
 
   const lastRow = Math.max(2, sheet.rowCount);
-  const missingCols = [5, 8]; // Phone, City
+  const missingCols = [6, 9]; // Phone, City
 
   for (let r = 2; r <= sheet.rowCount; r += 1) {
     const row = sheet.getRow(r);
@@ -175,10 +175,10 @@ export async function exportShippingXlsx(orders: Order[]) {
     ["On hold", { formula: `COUNTIF(${statusRange},"On hold")` }],
     ["Shipped", { formula: `COUNTIF(${statusRange},"Shipped")` }],
     ["Delivered", { formula: `COUNTIF(${statusRange},"Delivered")` }],
-    ["Total declared value", { formula: `SUM(Shipping!$U$2:$U$${lastRow})` }],
-    ["Missing a phone number", { formula: `COUNTIF(Shipping!$E$2:$E$${lastRow},"MISSING")` }],
-    ["Missing a city", { formula: `COUNTIF(Shipping!$H$2:$H$${lastRow},"MISSING")` }],
-    ["Addresses not confirmed", { formula: `COUNTIF(Shipping!$L$2:$L$${lastRow},"no")` }],
+    ["Total declared value", { formula: `SUM(Shipping!$V$2:$V$${lastRow})` }],
+    ["Missing a phone number", { formula: `COUNTIF(Shipping!$F$2:$F$${lastRow},"MISSING")` }],
+    ["Missing a city", { formula: `COUNTIF(Shipping!$I$2:$I$${lastRow},"MISSING")` }],
+    ["Addresses not confirmed", { formula: `COUNTIF(Shipping!$M$2:$M$${lastRow},"no")` }],
   ];
   rows.forEach(([label, value]) => {
     const row = sum.addRow([label, value]);
