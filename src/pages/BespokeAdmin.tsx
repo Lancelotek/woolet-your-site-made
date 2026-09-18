@@ -10,6 +10,7 @@ import {
   PipelinePanel,
   StageCell,
   StageFilterBar,
+  UndoBar,
   type CrmEvent,
 } from "@/components/admin/BespokeCrm";
 
