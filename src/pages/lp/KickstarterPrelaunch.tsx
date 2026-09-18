@@ -163,6 +163,22 @@ const eyebrowStyle: React.CSSProperties = {
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 const VIP_JOINED_KEY = "wlt_ks_vip_joined";
+
+/**
+ * Scroll a VIP form into view and focus its email field so the mobile
+ * keyboard opens. Works on every tap (unlike a hash link, which is a
+ * no-op once the hash is already set).
+ */
+const scrollToEmailInput = (formId: string) => {
+  const form =
+    document.getElementById(formId) ?? document.getElementById("vip-form-final") ?? document.getElementById("vip-form-hero");
+  if (!form) return;
+  const emailInput = form.querySelector<HTMLInputElement>('input[type="email"]');
+  form.scrollIntoView({ block: "center", behavior: "smooth" });
+  window.setTimeout(() => {
+    emailInput?.focus({ preventScroll: true });
+  }, 350);
+};
 // Set when the visitor resolves the $1 step (paid OR explicitly skipped).
 // Gates every Kickstarter follow CTA that sits at the decision moment.
 export const VIP_RESOLVED_KEY = "wlt_ks_vip_resolved";
@@ -1422,7 +1438,7 @@ const KickstarterPrelaunch = () => {
               {renderSubTokens(heroVariant.sub)}
             </p>
 
-            <div id="vip-form-hero" style={{ marginTop: 28 }}>
+            <div id="vip-section-hero" style={{ marginTop: 28 }}>
               <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} />
             </div>
 
@@ -1783,7 +1799,7 @@ const KickstarterPrelaunch = () => {
           >
             Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
           </h2>
-          <div id="vip-form-mid">
+          <div id="vip-section-mid">
             <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-mid"); }} onResolved={markResolved} />
           </div>
         </div>
@@ -2124,7 +2140,7 @@ const KickstarterPrelaunch = () => {
           <p style={{ color: TAUPE, fontSize: 15, lineHeight: 1.6, marginBottom: 28, maxWidth: 520, marginInline: "auto" }}>
             One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
-          <div id="vip-form-final">
+          <div id="vip-section-final">
 <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-final"); }} onResolved={markResolved} />
           </div>
           {hasJoined && hasResolved ? (
@@ -2176,10 +2192,7 @@ const KickstarterPrelaunch = () => {
             type="button"
             onClick={() => {
               pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" });
-              const target =
-                document.getElementById(`vip-form${activeFormSuffix}`) ??
-                document.getElementById("vip-form-final");
-              target?.scrollIntoView({ block: "center", behavior: "smooth" });
+              scrollToEmailInput(`vip-form${activeFormSuffix}`);
             }}
             style={{
               ...ctaButtonStyle,
@@ -2198,22 +2211,26 @@ const KickstarterPrelaunch = () => {
         ) : hasJoined ? (
           <KickstarterFollowCta slot="sticky_mobile" label="Follow us on" />
         ) : (
-          <a
-            href="#vip-form-final"
-            onClick={() => pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" })}
+          <button
+            type="button"
+            onClick={() => {
+              pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" });
+              scrollToEmailInput("vip-form-final");
+            }}
             style={{
               ...ctaButtonStyle,
               flex: 1,
               textAlign: "center",
-              textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
               minHeight: 48,
+              border: "none",
+              cursor: "pointer",
             }}
           >
             Get Early Access
-          </a>
+          </button>
         )}
       </div>
 
