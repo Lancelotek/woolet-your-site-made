@@ -140,21 +140,122 @@ export function StageFilterBar({
   onChange: (v: number | "all") => void;
 }) {
   const count = (id: number) => orders.filter((o) => crmStageOf(o) === id).length;
+  const shown = value === "all" ? orders.length : count(value);
   return (
-    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "0 0 14px" }}>
-      <button type="button" onClick={() => onChange("all")} style={chip(value === "all")}>
-        All ({orders.length})
-      </button>
-      {CRM_STAGES.map((s) => (
-        <button
-          key={s.id}
-          type="button"
-          onClick={() => onChange(s.id)}
-          style={chip(value === s.id)}
-        >
-          {s.id} {s.short} ({count(s.id)})
+    <div style={{ margin: "0 0 14px" }}>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <button type="button" onClick={() => onChange("all")} style={chip(value === "all")}>
+          All ({orders.length})
         </button>
-      ))}
+        {CRM_STAGES.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            onClick={() => onChange(s.id)}
+            style={chip(value === s.id)}
+          >
+            {s.id} {s.short} ({count(s.id)})
+          </button>
+        ))}
+      </div>
+      {/* A filtered table looks identical to an empty one, so say what is hidden. */}
+      {value !== "all" && (
+        <p
+          role="status"
+          style={{ fontSize: 11, color: T.mute, margin: "9px 0 0", fontFamily: SANS }}
+        >
+          Showing {shown} of {orders.length} orders · {crmStageLabel(value)}{" "}
+          <button
+            type="button"
+            onClick={() => onChange("all")}
+            style={{
+              background: "none",
+              border: "none",
+              color: T.gold,
+              cursor: "pointer",
+              fontSize: 11,
+              textDecoration: "underline",
+              padding: 0,
+              fontFamily: SANS,
+            }}
+          >
+            Clear filter
+          </button>
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Undo bar                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * A stage moves on a single click, so the click has to be reversible. The bar
+ * sits above everything for a few seconds and then leaves quietly.
+ */
+export function UndoBar({
+  label,
+  onUndo,
+  onDismiss,
+  busy,
+}: {
+  label: string;
+  onUndo: () => void;
+  onDismiss: () => void;
+  busy: boolean;
+}) {
+  useEffect(() => {
+    const t = window.setTimeout(onDismiss, 9000);
+    return () => window.clearTimeout(t);
+  }, [label, onDismiss]);
+
+  return (
+    <div
+      role="status"
+      style={{
+        position: "fixed",
+        left: "50%",
+        bottom: 22,
+        transform: "translateX(-50%)",
+        zIndex: 90,
+        display: "flex",
+        alignItems: "center",
+        gap: 14,
+        background: T.panel,
+        border: `1px solid rgba(194,160,90,0.4)`,
+        borderRadius: 3,
+        padding: "11px 14px",
+        boxShadow: "0 18px 40px -18px rgba(0,0,0,0.9)",
+        fontFamily: SANS,
+        maxWidth: "calc(100vw - 32px)",
+      }}
+    >
+      <span style={{ fontSize: 12, color: T.ink }}>{label}</span>
+      <button
+        type="button"
+        disabled={busy}
+        onClick={onUndo}
+        style={{ ...chip(true), padding: "6px 12px", cursor: busy ? "wait" : "pointer" }}
+      >
+        {busy ? "Undoing…" : "Undo"}
+      </button>
+      <button
+        type="button"
+        aria-label="Dismiss"
+        onClick={onDismiss}
+        style={{
+          background: "none",
+          border: "none",
+          color: T.mute,
+          cursor: "pointer",
+          fontSize: 16,
+          lineHeight: 1,
+        }}
+      >
+        ×
+      </button>
     </div>
   );
 }
