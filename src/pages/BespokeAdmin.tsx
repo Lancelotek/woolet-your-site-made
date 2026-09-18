@@ -449,6 +449,13 @@ export default function BespokeAdmin() {
                   <td style={{ padding: "12px 14px", color: T.dim }}>{r.frame_name || "—"}</td>
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
                   <td style={{ padding: "12px 14px" }}>
+                    <StageCell
+                      order={r as unknown as Record<string, unknown>}
+                      busy={busy === `stage:${r.id}`}
+                      onNext={() => void quickNext(r)}
+                    />
+                  </td>
+                  <td style={{ padding: "12px 14px" }}>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {(() => {
                         const gaps = bespokeOrderGaps(r as Record<string, unknown>);
@@ -474,8 +481,10 @@ export default function BespokeAdmin() {
                   </td>
                 </tr>
               ))}
-              {rows.length === 0 && (
-                <tr><td colSpan={6} style={{ padding: 28, color: T.mute, textAlign: "center" }}>No bespoke orders yet.</td></tr>
+              {visibleRows.length === 0 && (
+                <tr><td colSpan={7} style={{ padding: 28, color: T.mute, textAlign: "center" }}>
+                  {rows.length === 0 ? "No bespoke orders yet." : "No orders at this stage."}
+                </td></tr>
               )}
             </tbody>
           </table>
