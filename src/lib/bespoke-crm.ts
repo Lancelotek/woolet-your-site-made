@@ -36,3 +36,21 @@ export const crmStageReachedAt = (
   order: Record<string, unknown> | null | undefined,
   stage: number,
 ) => (order?.[`crm_stage_${stage}_at`] as string | null | undefined) ?? null;
+
+/**
+ * Server codes read like machine output. The panel is used under time
+ * pressure, so every message here says what to do next in plain words.
+ */
+const CRM_ERRORS: Record<string, string> = {
+  tracking_required: "Add a tracking number before marking the order shipped.",
+  invalid_stage: "That stage does not exist.",
+  invalid_id: "That order could not be found.",
+  order_not_found: "That order could not be found.",
+  "Invalid password": "Your session expired. Reload the page and sign in again.",
+  server_error: "The server could not save the change. Try again in a moment.",
+};
+
+export const crmErrorMessage = (err: unknown) => {
+  const raw = err instanceof Error ? err.message : String(err ?? "");
+  return CRM_ERRORS[raw] ?? (raw ? `Could not save the change: ${raw}` : "Could not save the change.");
+};
