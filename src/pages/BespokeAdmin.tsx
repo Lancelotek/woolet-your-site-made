@@ -5,6 +5,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { STAGE_LABELS, type BespokeStage } from "@/lib/bespoke-case";
 import { bespokeOrderGaps, lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
 import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
+import { crmStageOf, SHIPPED_STAGE } from "@/lib/bespoke-crm";
+import {
+  PipelinePanel,
+  StageCell,
+  StageFilterBar,
+  type CrmEvent,
+} from "@/components/admin/BespokeCrm";
 
 const T = {
   bg: "#0b0a09",
@@ -64,6 +71,8 @@ interface Detail {
   scan: OrderRecord | null;
   /** Every scan for this order, newest first. */
   scans?: OrderRecord[];
+  /** Pipeline history, newest first. */
+  crm_events?: CrmEvent[];
   files: {
     photo_url: string | null;
     vto_url: string | null;
