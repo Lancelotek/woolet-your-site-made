@@ -611,24 +611,38 @@ export function PipelinePanel({
           style={{ position: "fixed", inset: 0, background: "rgba(5,4,3,0.8)", display: "grid", placeItems: "center", padding: 16, zIndex: 80 }}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="crm-ship-title"
             onClick={(e) => e.stopPropagation()}
             style={{ background: T.panel, border: `1px solid ${T.hair}`, borderRadius: 3, padding: 20, width: "100%", maxWidth: 380 }}
           >
-            <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Mark as shipped</h3>
+            <h3 id="crm-ship-title" style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>
+              Mark as shipped
+            </h3>
             <p style={{ color: T.dim, fontSize: 12, margin: "0 0 14px", lineHeight: 1.6 }}>
-              A tracking number is required before an order reaches Shipped.
+              A tracking number is required before an order reaches Shipped. Press Esc to close.
             </p>
             {[
-              { label: "Carrier", value: carrier, set: setCarrier, placeholder: "DHL Express" },
-              { label: "Tracking number", value: tracking, set: setTracking, placeholder: "1234567890" },
+              { label: "Carrier", value: carrier, set: setCarrier, placeholder: "DHL Express", ref: carrierRef },
+              { label: "Tracking number", value: tracking, set: setTracking, placeholder: "1234567890", ref: undefined },
             ].map((f) => (
               <label key={f.label} style={{ display: "block", marginBottom: 10 }}>
                 <span style={{ display: "block", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute, marginBottom: 5 }}>
                   {f.label}
                 </span>
                 <input
+                  ref={f.ref}
                   value={f.value}
                   onChange={(e) => f.set(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && tracking.trim() && !busy) {
+                      void moveTo(SHIPPED_STAGE, {
+                        carrier: carrier.trim(),
+                        tracking_number: tracking.trim(),
+                      });
+                    }
+                  }}
                   placeholder={f.placeholder}
                   style={{ width: "100%", minHeight: 44, padding: "10px 12px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink, borderRadius: 2, fontFamily: SANS, fontSize: 13 }}
                 />
