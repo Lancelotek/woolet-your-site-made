@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { STAGE_LABELS, type BespokeStage } from "@/lib/bespoke-case";
 import { bespokeOrderGaps, lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
 import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
-import { crmStageOf, SHIPPED_STAGE } from "@/lib/bespoke-crm";
+import { crmErrorMessage, crmStageLabel, crmStageOf, SHIPPED_STAGE } from "@/lib/bespoke-crm";
 import {
   PipelinePanel,
   StageCell,
