@@ -50,8 +50,8 @@ describe("Kickstarter VIP form — email-only submission", () => {
   it("submits with only email + inline consent, advances to step 2, and pushes empty user_first_name", async () => {
     renderPage();
 
-    // Hero form has idSuffix="-hero"
-    const form = document.getElementById("vip-form-hero") as HTMLFormElement;
+    // Hero form lives in the vip-section-hero wrapper and has idSuffix="-hero"
+    const form = document.getElementById("vip-section-hero") as HTMLFormElement;
     expect(form).toBeTruthy();
 
     const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
@@ -117,7 +117,7 @@ describe("Kickstarter VIP form — email-only submission", () => {
         </HelmetProvider>,
       );
 
-      const form = document.getElementById("vip-form-hero") as HTMLFormElement;
+      const form = document.getElementById("vip-section-hero") as HTMLFormElement;
       const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
       const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 
