@@ -1422,7 +1422,7 @@ const KickstarterPrelaunch = () => {
               {renderSubTokens(heroVariant.sub)}
             </p>
 
-            <div id="vip-form-hero" style={{ marginTop: 28 }}>
+            <div id="vip-section-hero" style={{ marginTop: 28 }}>
               <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} />
             </div>
 
@@ -1783,7 +1783,7 @@ const KickstarterPrelaunch = () => {
           >
             Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
           </h2>
-          <div id="vip-form-mid">
+          <div id="vip-section-mid">
             <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-mid"); }} onResolved={markResolved} />
           </div>
         </div>
@@ -2124,7 +2124,7 @@ const KickstarterPrelaunch = () => {
           <p style={{ color: TAUPE, fontSize: 15, lineHeight: 1.6, marginBottom: 28, maxWidth: 520, marginInline: "auto" }}>
             One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
-          <div id="vip-form-final">
+          <div id="vip-section-final">
 <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-final"); }} onResolved={markResolved} />
           </div>
           {hasJoined && hasResolved ? (
