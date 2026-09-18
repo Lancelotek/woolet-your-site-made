@@ -2176,10 +2176,7 @@ const KickstarterPrelaunch = () => {
             type="button"
             onClick={() => {
               pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" });
-              const target =
-                document.getElementById(`vip-form${activeFormSuffix}`) ??
-                document.getElementById("vip-form-final");
-              target?.scrollIntoView({ block: "center", behavior: "smooth" });
+              scrollToEmailInput(`vip-form${activeFormSuffix}`);
             }}
             style={{
               ...ctaButtonStyle,
@@ -2198,22 +2195,26 @@ const KickstarterPrelaunch = () => {
         ) : hasJoined ? (
           <KickstarterFollowCta slot="sticky_mobile" label="Follow us on" />
         ) : (
-          <a
-            href="#vip-form-final"
-            onClick={() => pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" })}
+          <button
+            type="button"
+            onClick={() => {
+              pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile" });
+              scrollToEmailInput("vip-form-final");
+            }}
             style={{
               ...ctaButtonStyle,
               flex: 1,
               textAlign: "center",
-              textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
               minHeight: 48,
+              border: "none",
+              cursor: "pointer",
             }}
           >
             Get Early Access
-          </a>
+          </button>
         )}
       </div>
 
