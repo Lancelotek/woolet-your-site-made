@@ -418,17 +418,23 @@ export default function BespokeAdmin() {
 
         {error && <div style={{ color: "#e2725b", fontSize: 13, marginBottom: 16 }}>{error}</div>}
 
+        <StageFilterBar
+          orders={rows as unknown as Record<string, unknown>[]}
+          value={stageFilter}
+          onChange={setStageFilter}
+        />
+
         <div style={{ border: `1px solid ${T.hair}`, borderRadius: 3, overflowX: "auto", background: T.panel }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ color: T.mute, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase" }}>
-                {["Date", "Customer", "Frame", "Paid", "Status", ""].map((h) => (
+                {["Date", "Customer", "Frame", "Paid", "Stage", "Status", ""].map((h) => (
                   <th key={h} style={{ textAlign: "left", padding: "12px 14px", borderBottom: `1px solid ${T.hair}`, fontWeight: 500 }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {rows.map((r) => (
+              {visibleRows.map((r) => (
                 <tr key={r.id} style={{ borderBottom: `1px solid ${T.hair}` }}>
                   <td style={{ padding: "12px 14px", color: T.dim, whiteSpace: "nowrap" }}>{fmtDate(r.created_at)}</td>
                   <td style={{ padding: "12px 14px" }}>
