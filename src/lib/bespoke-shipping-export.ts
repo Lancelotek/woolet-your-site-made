@@ -20,6 +20,7 @@ type Order = Record<string, any>;
 const COLUMNS: { header: string; width: number; wrap?: boolean; handFilled?: boolean }[] = [
   { header: "Order ref", width: 14 },
   { header: "Status", width: 14 },
+  { header: "Pipeline stage", width: 24 },
   { header: "Paid on", width: 12 },
   { header: "Recipient", width: 24 },
   { header: "Phone", width: 18 },
@@ -81,6 +82,7 @@ function rowValues(o: Order): (string | number)[] {
   return [
     orderRef(o.id),
     bespokeShippingStatus(o),
+    `${crmStageOf(o)}/6 ${crmStageLabel(crmStageOf(o))}`,
     dateOnly(o.created_at),
     s(o.shipping_name),
     s(o.shipping_phone) || MISSING,
