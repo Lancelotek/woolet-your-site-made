@@ -205,6 +205,7 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
   const enAlt = config.englishEquivalent ? `${SITE}${config.englishEquivalent}` : `${SITE}/en`;
 
   useEffect(() => {
+    loadNotoSansKr();
     document.documentElement.lang = "ko";
     document.documentElement.dir = "ltr";
     return () => {
