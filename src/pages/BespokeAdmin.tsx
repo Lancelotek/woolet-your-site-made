@@ -5,6 +5,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { STAGE_LABELS, type BespokeStage } from "@/lib/bespoke-case";
 import { bespokeOrderGaps, lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
 import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
+import { crmStageOf, SHIPPED_STAGE } from "@/lib/bespoke-crm";
+import {
+  PipelinePanel,
+  StageCell,
+  StageFilterBar,
+  type CrmEvent,
+} from "@/components/admin/BespokeCrm";
 
 const T = {
   bg: "#0b0a09",
@@ -64,6 +71,8 @@ interface Detail {
   scan: OrderRecord | null;
   /** Every scan for this order, newest first. */
   scans?: OrderRecord[];
+  /** Pipeline history, newest first. */
+  crm_events?: CrmEvent[];
   files: {
     photo_url: string | null;
     vto_url: string | null;
@@ -98,6 +107,46 @@ export default function BespokeAdmin() {
   const [detail, setDetail] = useState<Detail | null>(null);
   const [detailBusy, setDetailBusy] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
+  const [stageFilter, setStageFilter] = useState<number | "all">("all");
+  const visibleRows =
+    stageFilter === "all"
+      ? rows
+      : rows.filter((r) => crmStageOf(r as unknown as Record<string, unknown>) === stageFilter);
+
+  // Keeps the row, the open detail view and the exports on the same numbers
+  // after a stage moves — no reload needed.
+  const applyOrderPatch = (id: string, patch: Record<string, unknown>) => {
+    setRows((prev) => prev.map((r) => (r.id === id ? ({ ...r, ...patch } as Row) : r)));
+    setDetail((d) =>
+      d && String(d.order.id) === id ? { ...d, order: { ...d.order, ...patch } } : d,
+    );
+  };
+
+  // Row shortcut. The last step needs a tracking number, so it opens the
+  // order instead of moving silently.
+  const quickNext = async (r: Row) => {
+    const next = crmStageOf(r as Record<string, unknown>) + 1;
+    if (next > SHIPPED_STAGE) return;
+    if (next === SHIPPED_STAGE) {
+      await openDetail(r.id);
+      return;
+    }
+    setBusy(`stage:${r.id}`);
+    setError(null);
+    try {
+      const { data, error: fnErr } = await supabase.functions.invoke("bespoke-crm-update", {
+        body: { password, id: r.id, action: "stage", stage: next },
+      });
+      if (fnErr) throw fnErr;
+      const payload = (data ?? {}) as Record<string, any>;
+      if (payload.error) throw new Error(payload.error);
+      applyOrderPatch(r.id, { ...(payload.patch ?? {}), crm_stage: next });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Stage change failed");
+    } finally {
+      setBusy(null);
+    }
+  };
 
   const call = async (body: Record<string, unknown>) => {
     const { data, error: fnErr } = await supabase.functions.invoke("bespoke-admin-orders", {
@@ -373,17 +422,23 @@ export default function BespokeAdmin() {
 
         {error && <div style={{ color: "#e2725b", fontSize: 13, marginBottom: 16 }}>{error}</div>}
 
+        <StageFilterBar
+          orders={rows as unknown as Record<string, unknown>[]}
+          value={stageFilter}
+          onChange={setStageFilter}
+        />
+
         <div style={{ border: `1px solid ${T.hair}`, borderRadius: 3, overflowX: "auto", background: T.panel }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ color: T.mute, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase" }}>
-                {["Date", "Customer", "Frame", "Paid", "Status", ""].map((h) => (
+                {["Date", "Customer", "Frame", "Paid", "Stage", "Status", ""].map((h) => (
                   <th key={h} style={{ textAlign: "left", padding: "12px 14px", borderBottom: `1px solid ${T.hair}`, fontWeight: 500 }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {rows.map((r) => (
+              {visibleRows.map((r) => (
                 <tr key={r.id} style={{ borderBottom: `1px solid ${T.hair}` }}>
                   <td style={{ padding: "12px 14px", color: T.dim, whiteSpace: "nowrap" }}>{fmtDate(r.created_at)}</td>
                   <td style={{ padding: "12px 14px" }}>
@@ -397,6 +452,13 @@ export default function BespokeAdmin() {
                   </td>
                   <td style={{ padding: "12px 14px", color: T.dim }}>{r.frame_name || "—"}</td>
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
+                  <td style={{ padding: "12px 14px" }}>
+                    <StageCell
+                      order={r as unknown as Record<string, unknown>}
+                      busy={busy === `stage:${r.id}`}
+                      onNext={() => void quickNext(r)}
+                    />
+                  </td>
                   <td style={{ padding: "12px 14px" }}>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {(() => {
@@ -423,8 +485,10 @@ export default function BespokeAdmin() {
                   </td>
                 </tr>
               ))}
-              {rows.length === 0 && (
-                <tr><td colSpan={6} style={{ padding: 28, color: T.mute, textAlign: "center" }}>No bespoke orders yet.</td></tr>
+              {visibleRows.length === 0 && (
+                <tr><td colSpan={7} style={{ padding: 28, color: T.mute, textAlign: "center" }}>
+                  {rows.length === 0 ? "No bespoke orders yet." : "No orders at this stage."}
+                </td></tr>
               )}
             </tbody>
           </table>
@@ -453,6 +517,7 @@ export default function BespokeAdmin() {
                 onPdf={() => downloadPdf(detail)}
                 onZip={() => downloadBundle(detail)}
                 onRender={() => renderPreview(detail)}
+                onOrderChange={(patch) => applyOrderPatch(String(detail.order.id), patch)}
                 busy={busy}
               />
             )}
@@ -646,7 +711,7 @@ function ScansBlock({ scans }: { scans: ScanRow[] }) {
 }
 
 function DetailView({
-  detail, password, onClose, onPdf, onZip, onRender, busy,
+  detail, password, onClose, onPdf, onZip, onRender, onOrderChange, busy,
 }: {
   detail: Detail;
   password: string;
@@ -654,6 +719,7 @@ function DetailView({
   onPdf: () => void;
   onZip: () => void;
   onRender: () => void;
+  onOrderChange: (patch: Record<string, unknown>) => void;
   busy: string | null;
 }) {
   const o = detail.order as Record<string, any>;
@@ -799,6 +865,13 @@ function DetailView({
           </ul>
         </section>
       )}
+
+      <PipelinePanel
+        order={o}
+        password={password}
+        initialEvents={detail.crm_events ?? []}
+        onOrderChange={onOrderChange}
+      />
 
       <MeasureInviteBlock order={o} password={password} />
 

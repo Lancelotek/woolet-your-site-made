@@ -4,6 +4,7 @@
 // fill, the MISSING markers and the hand-filled columns would ship unformatted.
 
 import { bespokeOrderGaps, bespokeShippingStatus, lensWithStrength } from "./bespoke-gaps";
+import { crmStageLabel, crmStageOf } from "./bespoke-crm";
 
 const FONT = { name: "Arial", size: 10 } as const;
 const HEADER_FILL = "FFCAA449";
@@ -19,6 +20,7 @@ type Order = Record<string, any>;
 const COLUMNS: { header: string; width: number; wrap?: boolean; handFilled?: boolean }[] = [
   { header: "Order ref", width: 14 },
   { header: "Status", width: 14 },
+  { header: "Pipeline stage", width: 24 },
   { header: "Paid on", width: 12 },
   { header: "Recipient", width: 24 },
   { header: "Phone", width: 18 },
@@ -80,6 +82,7 @@ function rowValues(o: Order): (string | number)[] {
   return [
     orderRef(o.id),
     bespokeShippingStatus(o),
+    `${crmStageOf(o)}/6 ${crmStageLabel(crmStageOf(o))}`,
     dateOnly(o.created_at),
     s(o.shipping_name),
     s(o.shipping_phone) || MISSING,
@@ -140,7 +143,7 @@ export async function exportShippingXlsx(orders: Order[]) {
   orders.forEach((o) => sheet.addRow(rowValues(o)));
 
   const lastRow = Math.max(2, sheet.rowCount);
-  const missingCols = [5, 8]; // Phone, City
+  const missingCols = [6, 9]; // Phone, City
 
   for (let r = 2; r <= sheet.rowCount; r += 1) {
     const row = sheet.getRow(r);
@@ -172,10 +175,10 @@ export async function exportShippingXlsx(orders: Order[]) {
     ["On hold", { formula: `COUNTIF(${statusRange},"On hold")` }],
     ["Shipped", { formula: `COUNTIF(${statusRange},"Shipped")` }],
     ["Delivered", { formula: `COUNTIF(${statusRange},"Delivered")` }],
-    ["Total declared value", { formula: `SUM(Shipping!$U$2:$U$${lastRow})` }],
-    ["Missing a phone number", { formula: `COUNTIF(Shipping!$E$2:$E$${lastRow},"MISSING")` }],
-    ["Missing a city", { formula: `COUNTIF(Shipping!$H$2:$H$${lastRow},"MISSING")` }],
-    ["Addresses not confirmed", { formula: `COUNTIF(Shipping!$L$2:$L$${lastRow},"no")` }],
+    ["Total declared value", { formula: `SUM(Shipping!$V$2:$V$${lastRow})` }],
+    ["Missing a phone number", { formula: `COUNTIF(Shipping!$F$2:$F$${lastRow},"MISSING")` }],
+    ["Missing a city", { formula: `COUNTIF(Shipping!$I$2:$I$${lastRow},"MISSING")` }],
+    ["Addresses not confirmed", { formula: `COUNTIF(Shipping!$M$2:$M$${lastRow},"no")` }],
   ];
   rows.forEach(([label, value]) => {
     const row = sum.addRow([label, value]);

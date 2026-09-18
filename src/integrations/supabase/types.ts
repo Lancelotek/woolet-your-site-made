@@ -116,6 +116,44 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_crm_events: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          from_stage: number | null
+          id: string
+          note: string | null
+          order_id: string
+          to_stage: number | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          from_stage?: number | null
+          id?: string
+          note?: string | null
+          order_id: string
+          to_stage?: number | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          from_stage?: number | null
+          id?: string
+          note?: string | null
+          order_id?: string
+          to_stage?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bespoke_crm_events_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "bespoke_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bespoke_measure_invites: {
         Row: {
           consent_at: string | null
@@ -298,6 +336,14 @@ export type Database = {
           case_seq: number | null
           courier: string | null
           created_at: string
+          crm_notes: string | null
+          crm_stage: number
+          crm_stage_1_at: string | null
+          crm_stage_2_at: string | null
+          crm_stage_3_at: string | null
+          crm_stage_4_at: string | null
+          crm_stage_5_at: string | null
+          crm_stage_6_at: string | null
           currency: string | null
           customer_email: string
           customer_name: string | null
@@ -380,6 +426,14 @@ export type Database = {
           case_seq?: number | null
           courier?: string | null
           created_at?: string
+          crm_notes?: string | null
+          crm_stage?: number
+          crm_stage_1_at?: string | null
+          crm_stage_2_at?: string | null
+          crm_stage_3_at?: string | null
+          crm_stage_4_at?: string | null
+          crm_stage_5_at?: string | null
+          crm_stage_6_at?: string | null
           currency?: string | null
           customer_email: string
           customer_name?: string | null
@@ -462,6 +516,14 @@ export type Database = {
           case_seq?: number | null
           courier?: string | null
           created_at?: string
+          crm_notes?: string | null
+          crm_stage?: number
+          crm_stage_1_at?: string | null
+          crm_stage_2_at?: string | null
+          crm_stage_3_at?: string | null
+          crm_stage_4_at?: string | null
+          crm_stage_5_at?: string | null
+          crm_stage_6_at?: string | null
           currency?: string | null
           customer_email?: string
           customer_name?: string | null
