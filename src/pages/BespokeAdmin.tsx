@@ -108,6 +108,10 @@ export default function BespokeAdmin() {
   const [detailBusy, setDetailBusy] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
   const [stageFilter, setStageFilter] = useState<number | "all">("all");
+  const visibleRows =
+    stageFilter === "all"
+      ? rows
+      : rows.filter((r) => crmStageOf(r as unknown as Record<string, unknown>) === stageFilter);
 
   // Keeps the row, the open detail view and the exports on the same numbers
   // after a stage moves — no reload needed.
