@@ -2,7 +2,7 @@
 // cell in the table, the filter bar above it and the pipeline panel inside the
 // order detail. Manual tracking only — nothing here sends a message.
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
