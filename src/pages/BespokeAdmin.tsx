@@ -88,6 +88,14 @@ const fmtDate = (v?: string | null) =>
 const fmtAmount = (cents?: number | null, currency?: string | null) =>
   cents == null ? "—" : `${(cents / 100).toFixed(2)} ${(currency ?? "usd").toUpperCase()}`;
 
+const countryNames = new Intl.DisplayNames(["en"], { type: "region" });
+const fmtCountry = (country?: string | null) => {
+  if (!country) return "Not provided";
+  const code = country.trim().toUpperCase();
+  if (code.length !== 2) return country;
+  return `${countryNames.of(code) ?? code} · ${code}`;
+};
+
 const mm = (v: unknown) => (v == null || v === "" ? "" : `${v} mm`);
 const s = (v: unknown) => (v == null ? null : String(v));
 
@@ -483,7 +491,7 @@ export default function BespokeAdmin() {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ color: T.mute, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase" }}>
-                {["Date", "Customer", "Frame", "Paid", "Stage", "Status", ""].map((h) => (
+                {["Date", "Customer", "Country", "Frame", "Paid", "Stage", "Status", ""].map((h) => (
                   <th key={h} style={{ textAlign: "left", padding: "12px 14px", borderBottom: `1px solid ${T.hair}`, fontWeight: 500 }}>{h}</th>
                 ))}
               </tr>
@@ -500,6 +508,9 @@ export default function BespokeAdmin() {
                       </div>
                     )}
                     <div style={{ color: T.mute, fontSize: 12 }}>{r.customer_email}</div>
+                  </td>
+                  <td style={{ padding: "12px 14px", color: r.shipping_country ? T.dim : T.mute, whiteSpace: "nowrap" }}>
+                    {fmtCountry(r.shipping_country)}
                   </td>
                   <td style={{ padding: "12px 14px", color: T.dim }}>{r.frame_name || "—"}</td>
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
@@ -537,7 +548,7 @@ export default function BespokeAdmin() {
                 </tr>
               ))}
               {visibleRows.length === 0 && (
-                <tr><td colSpan={7} style={{ padding: 28, color: T.mute, textAlign: "center" }}>
+                <tr><td colSpan={8} style={{ padding: 28, color: T.mute, textAlign: "center" }}>
                   {rows.length === 0 ? "No bespoke orders yet." : "No orders at this stage."}
                 </td></tr>
               )}
