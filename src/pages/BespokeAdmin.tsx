@@ -866,6 +866,13 @@ function DetailView({
         </section>
       )}
 
+      <PipelinePanel
+        order={o}
+        password={password}
+        initialEvents={detail.crm_events ?? []}
+        onOrderChange={onOrderChange}
+      />
+
       <MeasureInviteBlock order={o} password={password} />
 
       <DispatchBlock order={o} password={password} />
