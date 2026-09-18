@@ -5,11 +5,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { STAGE_LABELS, type BespokeStage } from "@/lib/bespoke-case";
 import { bespokeOrderGaps, lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
 import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
-import { crmStageOf, SHIPPED_STAGE } from "@/lib/bespoke-crm";
+import { crmErrorMessage, crmStageLabel, crmStageOf, SHIPPED_STAGE } from "@/lib/bespoke-crm";
 import {
   PipelinePanel,
   StageCell,
   StageFilterBar,
+  UndoBar,
   type CrmEvent,
 } from "@/components/admin/BespokeCrm";
 
@@ -91,6 +92,7 @@ const mm = (v: unknown) => (v == null || v === "" ? "" : `${v} mm`);
 const s = (v: unknown) => (v == null ? null : String(v));
 
 const PW_KEY = "wlt_bespoke_admin_pw";
+const STAGE_FILTER_KEY = "wlt_bespoke_stage_filter";
 
 export default function BespokeAdmin() {
   const [password, setPassword] = useState(() => {
@@ -107,7 +109,31 @@ export default function BespokeAdmin() {
   const [detail, setDetail] = useState<Detail | null>(null);
   const [detailBusy, setDetailBusy] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
-  const [stageFilter, setStageFilter] = useState<number | "all">("all");
+  // The filter survives a reload: the console is usually reopened to carry on
+  // with the same batch of orders.
+  const [stageFilter, setStageFilter] = useState<number | "all">(() => {
+    try {
+      const raw = localStorage.getItem(STAGE_FILTER_KEY);
+      if (!raw || raw === "all") return "all";
+      const n = Number(raw);
+      return n >= 1 && n <= SHIPPED_STAGE ? n : "all";
+    } catch {
+      return "all";
+    }
+  });
+  const [undoState, setUndoState] = useState<
+    { id: string; from: number; to: number; label: string } | null
+  >(null);
+  const [undoBusy, setUndoBusy] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STAGE_FILTER_KEY, String(stageFilter));
+    } catch {
+      /* ignore */
+    }
+  }, [stageFilter]);
+
   const visibleRows =
     stageFilter === "all"
       ? rows
@@ -122,10 +148,21 @@ export default function BespokeAdmin() {
     );
   };
 
-  // Row shortcut. The last step needs a tracking number, so it opens the
-  // order instead of moving silently.
+  const setStage = async (id: string, to: number) => {
+    const { data, error: fnErr } = await supabase.functions.invoke("bespoke-crm-update", {
+      body: { password, id, action: "stage", stage: to },
+    });
+    if (fnErr) throw fnErr;
+    const payload = (data ?? {}) as Record<string, any>;
+    if (payload.error) throw new Error(payload.error);
+    applyOrderPatch(id, { ...(payload.patch ?? {}), crm_stage: to });
+  };
+
+  // Row shortcut. One click moves the order and offers a few seconds to take
+  // it back. The last step needs a tracking number, so it opens the order.
   const quickNext = async (r: Row) => {
-    const next = crmStageOf(r as Record<string, unknown>) + 1;
+    const from = crmStageOf(r as Record<string, unknown>);
+    const next = from + 1;
     if (next > SHIPPED_STAGE) return;
     if (next === SHIPPED_STAGE) {
       await openDetail(r.id);
@@ -134,17 +171,31 @@ export default function BespokeAdmin() {
     setBusy(`stage:${r.id}`);
     setError(null);
     try {
-      const { data, error: fnErr } = await supabase.functions.invoke("bespoke-crm-update", {
-        body: { password, id: r.id, action: "stage", stage: next },
+      await setStage(r.id, next);
+      setUndoState({
+        id: r.id,
+        from,
+        to: next,
+        label: `${r.customer_name || r.customer_email || "Order"} → ${crmStageLabel(next)}`,
       });
-      if (fnErr) throw fnErr;
-      const payload = (data ?? {}) as Record<string, any>;
-      if (payload.error) throw new Error(payload.error);
-      applyOrderPatch(r.id, { ...(payload.patch ?? {}), crm_stage: next });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Stage change failed");
+      setError(crmErrorMessage(err));
     } finally {
       setBusy(null);
+    }
+  };
+
+  const undoStage = async () => {
+    if (!undoState) return;
+    setUndoBusy(true);
+    setError(null);
+    try {
+      await setStage(undoState.id, undoState.from);
+      setUndoState(null);
+    } catch (err) {
+      setError(crmErrorMessage(err));
+    } finally {
+      setUndoBusy(false);
     }
   };
 
@@ -496,6 +547,16 @@ export default function BespokeAdmin() {
 
         <IntegrationSecretBlock password={password} />
       </div>
+
+      {undoState && (
+        <UndoBar
+          label={undoState.label}
+          busy={undoBusy}
+          onUndo={() => void undoStage()}
+          onDismiss={() => setUndoState(null)}
+        />
+      )}
+
 
 
       {(detail || detailBusy) && (

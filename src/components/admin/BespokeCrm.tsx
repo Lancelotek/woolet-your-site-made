@@ -2,16 +2,18 @@
 // cell in the table, the filter bar above it and the pipeline panel inside the
 // order detail. Manual tracking only — nothing here sends a message.
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   CRM_STAGES,
   CRM_STAGE_COUNT,
   SHIPPED_STAGE,
+  crmErrorMessage,
   crmStageLabel,
   crmStageOf,
   crmStageReachedAt,
+  crmStageShort,
   crmStageSummary,
 } from "@/lib/bespoke-crm";
 
@@ -95,6 +97,13 @@ export function StageCell({
           type="button"
           disabled={busy}
           onClick={onNext}
+          // The label names the destination, so nobody has to remember what
+          // step four was before they click.
+          title={
+            stage + 1 === SHIPPED_STAGE
+              ? "Opens the order — shipping needs a tracking number"
+              : `Move to ${crmStageLabel(stage + 1)}`
+          }
           style={{
             justifySelf: "start",
             background: "none",
@@ -107,9 +116,14 @@ export function StageCell({
             textTransform: "uppercase",
             cursor: busy ? "wait" : "pointer",
             fontFamily: SANS,
+            opacity: busy ? 0.6 : 1,
           }}
         >
-          Next step →
+          {busy
+            ? "Saving…"
+            : stage + 1 === SHIPPED_STAGE
+              ? "Ship…"
+              : `Next: ${crmStageShort(stage + 1)} →`}
         </button>
       )}
     </div>
@@ -126,21 +140,122 @@ export function StageFilterBar({
   onChange: (v: number | "all") => void;
 }) {
   const count = (id: number) => orders.filter((o) => crmStageOf(o) === id).length;
+  const shown = value === "all" ? orders.length : count(value);
   return (
-    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "0 0 14px" }}>
-      <button type="button" onClick={() => onChange("all")} style={chip(value === "all")}>
-        All ({orders.length})
-      </button>
-      {CRM_STAGES.map((s) => (
-        <button
-          key={s.id}
-          type="button"
-          onClick={() => onChange(s.id)}
-          style={chip(value === s.id)}
-        >
-          {s.id} {s.short} ({count(s.id)})
+    <div style={{ margin: "0 0 14px" }}>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <button type="button" onClick={() => onChange("all")} style={chip(value === "all")}>
+          All ({orders.length})
         </button>
-      ))}
+        {CRM_STAGES.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            onClick={() => onChange(s.id)}
+            style={chip(value === s.id)}
+          >
+            {s.id} {s.short} ({count(s.id)})
+          </button>
+        ))}
+      </div>
+      {/* A filtered table looks identical to an empty one, so say what is hidden. */}
+      {value !== "all" && (
+        <p
+          role="status"
+          style={{ fontSize: 11, color: T.mute, margin: "9px 0 0", fontFamily: SANS }}
+        >
+          Showing {shown} of {orders.length} orders · {crmStageLabel(value)}{" "}
+          <button
+            type="button"
+            onClick={() => onChange("all")}
+            style={{
+              background: "none",
+              border: "none",
+              color: T.gold,
+              cursor: "pointer",
+              fontSize: 11,
+              textDecoration: "underline",
+              padding: 0,
+              fontFamily: SANS,
+            }}
+          >
+            Clear filter
+          </button>
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Undo bar                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * A stage moves on a single click, so the click has to be reversible. The bar
+ * sits above everything for a few seconds and then leaves quietly.
+ */
+export function UndoBar({
+  label,
+  onUndo,
+  onDismiss,
+  busy,
+}: {
+  label: string;
+  onUndo: () => void;
+  onDismiss: () => void;
+  busy: boolean;
+}) {
+  useEffect(() => {
+    const t = window.setTimeout(onDismiss, 9000);
+    return () => window.clearTimeout(t);
+  }, [label, onDismiss]);
+
+  return (
+    <div
+      role="status"
+      style={{
+        position: "fixed",
+        left: "50%",
+        bottom: 22,
+        transform: "translateX(-50%)",
+        zIndex: 90,
+        display: "flex",
+        alignItems: "center",
+        gap: 14,
+        background: T.panel,
+        border: `1px solid rgba(194,160,90,0.4)`,
+        borderRadius: 3,
+        padding: "11px 14px",
+        boxShadow: "0 18px 40px -18px rgba(0,0,0,0.9)",
+        fontFamily: SANS,
+        maxWidth: "calc(100vw - 32px)",
+      }}
+    >
+      <span style={{ fontSize: 12, color: T.ink }}>{label}</span>
+      <button
+        type="button"
+        disabled={busy}
+        onClick={onUndo}
+        style={{ ...chip(true), padding: "6px 12px", cursor: busy ? "wait" : "pointer" }}
+      >
+        {busy ? "Undoing…" : "Undo"}
+      </button>
+      <button
+        type="button"
+        aria-label="Dismiss"
+        onClick={onDismiss}
+        style={{
+          background: "none",
+          border: "none",
+          color: T.mute,
+          cursor: "pointer",
+          fontSize: 16,
+          lineHeight: 1,
+        }}
+      >
+        ×
+      </button>
     </div>
   );
 }
@@ -199,16 +314,47 @@ export function PipelinePanel({
 }) {
   const [events, setEvents] = useState<CrmEvent[]>(initialEvents);
   const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState<string | null>(null);
+  const [msg, setMsg] = useState<{ text: string; tone: "ok" | "bad" } | null>(null);
+  const [savedNotes, setSavedNotes] = useState<string>(order.crm_notes ?? "");
   const [notes, setNotes] = useState<string>(order.crm_notes ?? "");
   const [shipOpen, setShipOpen] = useState(false);
   const [carrier, setCarrier] = useState<string>(order.courier ?? "");
   const [tracking, setTracking] = useState<string>(order.tracking_number ?? "");
+  const carrierRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     setEvents(initialEvents);
+    setSavedNotes(order.crm_notes ?? "");
     setNotes(order.crm_notes ?? "");
   }, [initialEvents, order.crm_notes]);
+
+  // A confirmation that never leaves starts to read like part of the layout.
+  useEffect(() => {
+    if (!msg || msg.tone !== "ok") return;
+    const t = window.setTimeout(() => setMsg(null), 4000);
+    return () => window.clearTimeout(t);
+  }, [msg]);
+
+  // Escape closes the shipping dialog, and the cursor starts in the first field.
+  useEffect(() => {
+    if (!shipOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShipOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    carrierRef.current?.focus();
+    return () => window.removeEventListener("keydown", onKey);
+  }, [shipOpen]);
+
+  const notesDirty = notes !== savedNotes;
+
+  // Leaving with unsaved notes loses them, so the browser asks first.
+  useEffect(() => {
+    if (!notesDirty) return;
+    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [notesDirty]);
 
   const stage = crmStageOf(order);
 
@@ -224,7 +370,7 @@ export function PipelinePanel({
       if (payload.error) throw new Error(payload.error);
       return payload;
     } catch (err) {
-      setMsg(err instanceof Error ? err.message : "Failed");
+      setMsg({ text: crmErrorMessage(err), tone: "bad" });
       return null;
     } finally {
       setBusy(false);
@@ -236,19 +382,32 @@ export function PipelinePanel({
       setShipOpen(true);
       return;
     }
+    // Stepping back wipes the dates of every step above it — that cannot be
+    // recovered, so it is the one move that asks first.
+    if (to < stage) {
+      const losing = CRM_STAGES.filter((s) => s.id > to && crmStageReachedAt(order, s.id));
+      const list = losing.map((s) => s.label).join(", ");
+      const ok = window.confirm(
+        `Move back to ${crmStageLabel(to)}?` +
+          (list ? `\n\nThis clears the date recorded for: ${list}. That cannot be undone.` : ""),
+      );
+      if (!ok) return;
+    }
     const payload = await call({ action: "stage", stage: to, ...extra });
     if (!payload) return;
     setEvents((payload.events as CrmEvent[]) ?? []);
     onOrderChange({ ...(payload.patch as Record<string, unknown>), crm_stage: to });
     setShipOpen(false);
-    setMsg(`Moved to ${to}/${CRM_STAGE_COUNT} · ${crmStageLabel(to)}.`);
+    setMsg({ text: `Moved to ${to}/${CRM_STAGE_COUNT} · ${crmStageLabel(to)}.`, tone: "ok" });
   };
 
   const saveNotes = async () => {
     const payload = await call({ action: "notes", crm_notes: notes });
     if (payload) {
+      const saved = (payload.crm_notes as string | null) ?? "";
+      setSavedNotes(saved);
       onOrderChange({ crm_notes: payload.crm_notes ?? null });
-      setMsg("Notes saved.");
+      setMsg({ text: "Notes saved.", tone: "ok" });
     }
   };
 
@@ -395,28 +554,39 @@ export function PipelinePanel({
           }}
         />
       </label>
-      <button
-        type="button"
-        disabled={busy}
-        onClick={() => void saveNotes()}
-        style={{
-          marginTop: 8,
-          background: T.gold,
-          border: "none",
-          color: "#1f1b16",
-          padding: "9px 16px",
-          borderRadius: 2,
-          fontSize: 11,
-          letterSpacing: "0.14em",
-          textTransform: "uppercase",
-          fontWeight: 600,
-          cursor: busy ? "wait" : "pointer",
-          fontFamily: SANS,
-        }}
-      >
-        Save notes
-      </button>
-      {msg && <p style={{ color: T.dim, fontSize: 12, marginTop: 10 }}>{msg}</p>}
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 8, flexWrap: "wrap" }}>
+        <button
+          type="button"
+          disabled={busy || !notesDirty}
+          onClick={() => void saveNotes()}
+          style={{
+            background: notesDirty ? T.gold : "none",
+            border: notesDirty ? "none" : `1px solid ${T.hair}`,
+            color: notesDirty ? "#1f1b16" : T.mute,
+            padding: "9px 16px",
+            borderRadius: 2,
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            cursor: busy ? "wait" : notesDirty ? "pointer" : "default",
+            fontFamily: SANS,
+          }}
+        >
+          {busy ? "Saving…" : notesDirty ? "Save notes" : "Saved"}
+        </button>
+        {notesDirty && (
+          <span style={{ fontSize: 11, color: T.gold, fontFamily: SANS }}>Unsaved changes</span>
+        )}
+      </div>
+      {msg && (
+        <p
+          role="status"
+          style={{ color: msg.tone === "bad" ? "#e2725b" : T.dim, fontSize: 12, marginTop: 10 }}
+        >
+          {msg.text}
+        </p>
+      )}
 
       <h4 style={{ fontFamily: SERIF, fontSize: 17, margin: "20px 0 4px" }}>Activity</h4>
       {events.length === 0 ? (
@@ -425,8 +595,10 @@ export function PipelinePanel({
         <ul style={{ margin: 0, padding: 0, listStyle: "none", fontSize: 12, color: T.dim, lineHeight: 1.8 }}>
           {events.map((e) => (
             <li key={e.id} style={{ borderTop: `1px solid ${T.hair}`, padding: "7px 0" }}>
-              {fmtDate(e.created_at)} · {e.from_stage ?? "—"} → {e.to_stage ?? "—"}{" "}
-              {crmStageLabel(Number(e.to_stage ?? 1))}
+              {fmtDate(e.created_at)} ·{" "}
+              {e.from_stage ? `${crmStageShort(e.from_stage)} → ` : "Started at "}
+              <span style={{ color: T.ink }}>{crmStageLabel(Number(e.to_stage ?? 1))}</span>
+              {e.created_by ? ` · ${e.created_by}` : ""}
               {e.note ? ` · ${e.note}` : ""}
             </li>
           ))}
@@ -439,24 +611,38 @@ export function PipelinePanel({
           style={{ position: "fixed", inset: 0, background: "rgba(5,4,3,0.8)", display: "grid", placeItems: "center", padding: 16, zIndex: 80 }}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="crm-ship-title"
             onClick={(e) => e.stopPropagation()}
             style={{ background: T.panel, border: `1px solid ${T.hair}`, borderRadius: 3, padding: 20, width: "100%", maxWidth: 380 }}
           >
-            <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Mark as shipped</h3>
+            <h3 id="crm-ship-title" style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>
+              Mark as shipped
+            </h3>
             <p style={{ color: T.dim, fontSize: 12, margin: "0 0 14px", lineHeight: 1.6 }}>
-              A tracking number is required before an order reaches Shipped.
+              A tracking number is required before an order reaches Shipped. Press Esc to close.
             </p>
             {[
-              { label: "Carrier", value: carrier, set: setCarrier, placeholder: "DHL Express" },
-              { label: "Tracking number", value: tracking, set: setTracking, placeholder: "1234567890" },
+              { label: "Carrier", value: carrier, set: setCarrier, placeholder: "DHL Express", ref: carrierRef },
+              { label: "Tracking number", value: tracking, set: setTracking, placeholder: "1234567890", ref: undefined },
             ].map((f) => (
               <label key={f.label} style={{ display: "block", marginBottom: 10 }}>
                 <span style={{ display: "block", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute, marginBottom: 5 }}>
                   {f.label}
                 </span>
                 <input
+                  ref={f.ref}
                   value={f.value}
                   onChange={(e) => f.set(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && tracking.trim() && !busy) {
+                      void moveTo(SHIPPED_STAGE, {
+                        carrier: carrier.trim(),
+                        tracking_number: tracking.trim(),
+                      });
+                    }
+                  }}
                   placeholder={f.placeholder}
                   style={{ width: "100%", minHeight: 44, padding: "10px 12px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink, borderRadius: 2, fontFamily: SANS, fontSize: 13 }}
                 />
