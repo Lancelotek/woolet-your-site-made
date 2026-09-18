@@ -314,16 +314,47 @@ export function PipelinePanel({
 }) {
   const [events, setEvents] = useState<CrmEvent[]>(initialEvents);
   const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState<string | null>(null);
+  const [msg, setMsg] = useState<{ text: string; tone: "ok" | "bad" } | null>(null);
+  const [savedNotes, setSavedNotes] = useState<string>(order.crm_notes ?? "");
   const [notes, setNotes] = useState<string>(order.crm_notes ?? "");
   const [shipOpen, setShipOpen] = useState(false);
   const [carrier, setCarrier] = useState<string>(order.courier ?? "");
   const [tracking, setTracking] = useState<string>(order.tracking_number ?? "");
+  const carrierRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     setEvents(initialEvents);
+    setSavedNotes(order.crm_notes ?? "");
     setNotes(order.crm_notes ?? "");
   }, [initialEvents, order.crm_notes]);
+
+  // A confirmation that never leaves starts to read like part of the layout.
+  useEffect(() => {
+    if (!msg || msg.tone !== "ok") return;
+    const t = window.setTimeout(() => setMsg(null), 4000);
+    return () => window.clearTimeout(t);
+  }, [msg]);
+
+  // Escape closes the shipping dialog, and the cursor starts in the first field.
+  useEffect(() => {
+    if (!shipOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShipOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    carrierRef.current?.focus();
+    return () => window.removeEventListener("keydown", onKey);
+  }, [shipOpen]);
+
+  const notesDirty = notes !== savedNotes;
+
+  // Leaving with unsaved notes loses them, so the browser asks first.
+  useEffect(() => {
+    if (!notesDirty) return;
+    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [notesDirty]);
 
   const stage = crmStageOf(order);
 
@@ -339,7 +370,7 @@ export function PipelinePanel({
       if (payload.error) throw new Error(payload.error);
       return payload;
     } catch (err) {
-      setMsg(err instanceof Error ? err.message : "Failed");
+      setMsg({ text: crmErrorMessage(err), tone: "bad" });
       return null;
     } finally {
       setBusy(false);
@@ -351,19 +382,32 @@ export function PipelinePanel({
       setShipOpen(true);
       return;
     }
+    // Stepping back wipes the dates of every step above it — that cannot be
+    // recovered, so it is the one move that asks first.
+    if (to < stage) {
+      const losing = CRM_STAGES.filter((s) => s.id > to && crmStageReachedAt(order, s.id));
+      const list = losing.map((s) => s.label).join(", ");
+      const ok = window.confirm(
+        `Move back to ${crmStageLabel(to)}?` +
+          (list ? `\n\nThis clears the date recorded for: ${list}. That cannot be undone.` : ""),
+      );
+      if (!ok) return;
+    }
     const payload = await call({ action: "stage", stage: to, ...extra });
     if (!payload) return;
     setEvents((payload.events as CrmEvent[]) ?? []);
     onOrderChange({ ...(payload.patch as Record<string, unknown>), crm_stage: to });
     setShipOpen(false);
-    setMsg(`Moved to ${to}/${CRM_STAGE_COUNT} · ${crmStageLabel(to)}.`);
+    setMsg({ text: `Moved to ${to}/${CRM_STAGE_COUNT} · ${crmStageLabel(to)}.`, tone: "ok" });
   };
 
   const saveNotes = async () => {
     const payload = await call({ action: "notes", crm_notes: notes });
     if (payload) {
+      const saved = (payload.crm_notes as string | null) ?? "";
+      setSavedNotes(saved);
       onOrderChange({ crm_notes: payload.crm_notes ?? null });
-      setMsg("Notes saved.");
+      setMsg({ text: "Notes saved.", tone: "ok" });
     }
   };
 
