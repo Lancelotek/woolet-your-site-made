@@ -548,6 +548,16 @@ export default function BespokeAdmin() {
         <IntegrationSecretBlock password={password} />
       </div>
 
+      {undoState && (
+        <UndoBar
+          label={undoState.label}
+          busy={undoBusy}
+          onUndo={() => void undoStage()}
+          onDismiss={() => setUndoState(null)}
+        />
+      )}
+
+
 
       {(detail || detailBusy) && (
         <div
