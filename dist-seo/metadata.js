@@ -15,7 +15,7 @@ const blogMetaBySlug = {
     metaDescription: "Oversized means big lenses. Wide-fit means a big front. Most oversized frames stop at 130–145 mm — see the 158 mm specs and how to measure which one you need."
   },
   "how-to-measure-face-width-for-glasses": {
-    metaTitle: "Face Width Measurement: Average Sizes + 60-Second Method",
+    metaTitle: "How to Measure Face Width for Glasses + Average Sizes",
     exactTitle: true,
     metaDescription: "Average face width is 140-150 mm temple to temple; wide starts at 155 mm. Measure yours with a ruler or your phone camera in 60 seconds and match a frame size."
   },
@@ -28,9 +28,9 @@ const blogMetaBySlug = {
     metaDescription: "Glasses pinch your temples? It isn't your head — it's the industry. Here's why most frames stop at 148 mm and how the 155 mm problem gets fixed."
   },
   "round-vs-square-glasses-wide-face": {
-    metaTitle: "Do Square Glasses Suit Round Faces? Round vs Square Guide",
+    metaTitle: "Round vs Square Glasses: Which Suits Your Face Shape?",
     exactTitle: true,
-    metaDescription: "Yes - square frames add angles a round face lacks. Round frames soften a square jaw. The rule, the exceptions, and what changes when your face is 155 mm+ wide."
+    metaDescription: "Round or square glasses? Square frames add angles a round face lacks; round frames soften a square jaw. The rule, the exceptions and the 155 mm+ wide-face fix."
   },
   "wide-frame-glasses-professionals": {
     metaTitle: "Wide Frame Glasses for Professionals (155 mm+)",
@@ -215,9 +215,9 @@ const blogMetaBySlug = {
     metaDescription: "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit — a clear table and why Woolet uses a 150 mm temple."
   },
   "numbers-on-glasses-frames-meaning": {
-    metaTitle: "What Do the Numbers on Glasses Mean? 54□21-145 Explained",
+    metaTitle: "What Do the Numbers on Glasses Mean? 54-21-145 Explained",
     exactTitle: true,
-    metaDescription: "54□21-145 = lens 54 mm, bridge 21 mm, temple 145 mm. None of them is your frame's total width. Decode your frame and see whether it is wide enough in 2 minutes."
+    metaDescription: "54-21-145 = lens 54 mm, bridge 21 mm, temple 145 mm. None of them is your frame's total width. Decode your frame and see whether it is wide enough in 2 minutes."
   }
 };
 const ROUTES = {
