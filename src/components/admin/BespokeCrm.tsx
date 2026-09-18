@@ -415,7 +415,10 @@ export function PipelinePanel({
     <section style={{ marginTop: 22 }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
         <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Pipeline</h3>
-        <span style={{ fontSize: 11, color: T.mute }}>{crmStageSummary(stage)}</span>
+        <span style={{ fontSize: 11, color: T.mute }}>
+          {crmStageSummary(stage)}
+          {stage > 1 ? " · click a done step to move back" : ""}
+        </span>
       </div>
 
       <ol style={{ listStyle: "none", margin: "10px 0 0", padding: 0 }}>
