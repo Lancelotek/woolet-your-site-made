@@ -86,15 +86,16 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "what-size-sunglasses-for-wide-faces": {
     // Intentionally no " | Woolet" suffix — adding it pushes the title past
     // the mobile SERP truncation limit. `exactTitle` suppresses the suffix.
-    metaTitle: "What Size Sunglasses for a Wide Face? 155 mm+ Answer",
+    metaTitle: "What Size Sunglasses for a Wide Face? mm Size Chart",
     exactTitle: true,
     metaDescription:
-      "Wide face = 155 mm+. You need a 155-160 mm front, a 21-22 mm bridge and 148 mm+ temples. The one-line answer, the size math and sunglasses built in 158 mm.",
+      "Wide face = 155 mm+. Buy a 155-160 mm front, a 20-22 mm bridge and 148 mm+ temples. Size chart by face width, how to read 52-19-145 and frames built at 158 mm.",
   },
   "how-to-tell-if-your-face-is-wide-or-narrow": {
-    metaTitle: "Is Your Face Wide or Narrow? Get Your Number in mm | Woolet",
+    metaTitle: "Wide vs Narrow Face: Average Face Width Chart in mm",
+    exactTitle: true,
     metaDescription:
-      "Narrow under 140 mm, average 140–154, wide 155–161, extra-wide 162+. Take the camera test, get your millimetres, then see the frame size that fits them.",
+      "Narrow under 138 mm, average 138-154, wide 155-161, extra-wide 162+. The average male face is ~142 mm. Take the 30-second test and see which frame size fits.",
     ogImage: "/og-how-to-tell-if-your-face-is-wide-or-narrow.jpg",
   },
   "acetate-vs-tr90-glasses": {
@@ -281,7 +282,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Photochromic lenses darken outdoors and clear up inside. How they work, the real downsides, and two ways to get them in a 145-172 mm frame for wide faces.",
   },
   "eyeglass-frame-size-chart": {
-    metaTitle: "Eyeglass Frame Size Chart (mm): XS-XXL + 155 mm Wide Fit",
+    metaTitle: "Eyeglass Frame Size Chart (2026): XS-XXL in mm + Wide Fit",
     exactTitle: true,
     metaDescription:
       "The standard chart stops at 150 mm. See XS to XXL in real millimetres, how each band compares, and the 155-161 mm wide-fit row most charts leave out.",

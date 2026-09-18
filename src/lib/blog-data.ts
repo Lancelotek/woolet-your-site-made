@@ -1873,6 +1873,8 @@ const blogPostsEN: BlogPost[] = [
       },
     ],
     content: `
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face (155 mm or more temple to temple) needs sunglasses with a 155-160 mm front width, a 20-22 mm bridge and temples of 148 mm or more.</strong> Most sunglasses stop at 140-148 mm, so they pinch within an hour. Bigger lenses do not fix it - only a wider front does.</p>
+
 <p>The single most common question we get from wide-faced buyers is also the simplest: <em>what size sunglasses do I actually need?</em> The short answer fits in one line — a front width of 155 mm or more, a 20–22 mm bridge, and temples of at least 148 mm. The long answer is what this guide is for: how to read the three numbers on a sunglass frame, how to measure your own face in under a minute, and how to avoid the most common sizing mistake.</p>
 
 <h2>The one-line answer</h2>
@@ -1899,20 +1901,23 @@ const blogPostsEN: BlogPost[] = [
 <ol>
 <li>Stand in front of a mirror in good light, looking straight ahead.</li>
 <li>Find the widest point of your face — usually across the cheekbones, just below your eyes.</li>
-<li>Hold the credit card horizontally against one cheekbone. Note where the other end falls relative to your other cheekbone.</li>
-<li>Roughly: card fully across face = ~85 mm half-width, so total face width ≈ 145–150 mm. Card plus an inch of overlap on either side = 165 mm+ territory.</li>
+<li>Hold the credit card flat and level against your forehead, just above the eyebrows, and take a straight-on photo at arm's length.</li>
+<li>On the photo, compare the card with your face at the widest point: face width = (face width ÷ card width) × 85.6 mm. A face 1.8 times wider than the card measures about 154 mm.</li>
 </ol>
 
 <p>For a precise number, our <a href="/en/fit">AI Fit Wizard</a> uses your phone camera and a credit card to give you a measurement accurate to within 2 mm. Or use the <a href="/en/fit/manual">manual credit-card method</a> if you prefer not to use the camera.</p>
 
 <h2>Wide-face sunglass size brackets</h2>
 
-<ul>
-<li><strong>Face width 150–154 mm — medium-wide.</strong> A standard-large sunglass at 148–152 mm front width will work. Most mainstream "wide fit" lines (Ray-Ban Justin XL, Warby Parker Wide) hit this range.</li>
-<li><strong>Face width 155–161 mm — wide.</strong> Standard mainstream sunglasses won't fit. You need a specialist wide-face brand. Woolet's 007 and 009 ship at 158 mm with a 21–22 mm bridge and 150 mm temples, designed exactly for this range.</li>
-<li><strong>Face width 161–162 mm — extra wide.</strong> Off-the-shelf options are very limited. Bespoke is usually the only honest answer. Woolet's bespoke tier covers 145 to 172 mm of front width in either shape.</li>
-<li><strong>Face width 162 mm+ — XXL.</strong> Custom only. Most bespoke programs stop at 162 mm.</li>
-</ul>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;">
+  <thead><tr style="background:#F8F6F1;color:#1F1B16;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Your face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Sunglass front width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Bridge</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">What to buy</th></tr></thead>
+  <tbody>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 150 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135-148 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">17-19 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Any mainstream brand.</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">150-154 mm (medium-wide)</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">148-152 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">19-20 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Mainstream "wide fit" lines, e.g. Ray-Ban Justin XL.</td></tr>
+    <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155-161 mm (wide)</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155-160 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">20-22 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Specialist wide-face brands. <a href="/en/products/007" style="color:#A07A2A;">Woolet 007</a> and <a href="/en/products/009" style="color:#A07A2A;">009</a> run a 158 mm front, 21-22 mm keyhole bridge, 150 mm temples.</td></tr>
+    <tr><td style="padding:10px 12px;">162 mm and above (extra-wide)</td><td style="padding:10px 12px;">162 mm+</td><td style="padding:10px 12px;">21-24 mm</td><td style="padding:10px 12px;">Made to measure only - see <a href="/en/bespoke" style="color:#A07A2A;">Woolet Bespoke</a>.</td></tr>
+  </tbody>
+</table>
 
 <h2>The most common sizing mistake</h2>
 
@@ -3840,6 +3845,8 @@ Related guides:
       { q: "What if my face is above 162 mm?", a: "Off-the-shelf 158 mm will still pinch. Woolet Bespoke is cut to your exact face width and bridge (145–172 mm, 20–24 mm bridge)." },
     ],
     content: `
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>Your face is wide if it measures 155 mm or more temple to temple, across the widest point of the cheekbones.</strong> Narrow is under 138 mm, average 138-154 mm, wide 155-161 mm and extra-wide 162 mm and above. The average adult male face is about 142 mm (plus or minus 5 mm), so most frames are built for 135-150 mm.</p>
+
 <p>Most fit advice online skips the one thing that actually decides whether a frame will pinch or float on your face: <strong>your face width in millimetres</strong>. Not your face <em>shape</em>. Not your head circumference. The temple-to-temple distance, measured across the widest part of your cheekbones.</p>
 
 <p>This guide gives you a 30-second self-test, a clear four-band classification, and — honestly — tells you when Woolet is the answer and when it isn't.</p>
