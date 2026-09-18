@@ -91,6 +91,7 @@ const mm = (v: unknown) => (v == null || v === "" ? "" : `${v} mm`);
 const s = (v: unknown) => (v == null ? null : String(v));
 
 const PW_KEY = "wlt_bespoke_admin_pw";
+const STAGE_FILTER_KEY = "wlt_bespoke_stage_filter";
 
 export default function BespokeAdmin() {
   const [password, setPassword] = useState(() => {
