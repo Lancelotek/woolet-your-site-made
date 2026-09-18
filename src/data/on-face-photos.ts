@@ -1,10 +1,19 @@
 // Real on-face photography of the founder wearing Woolet 007 / 009.
-// Served locally as WebP from /public/on-face (previously hot-linked from
-// raw.githubusercontent.com, which blocked LCP on slow mobile connections).
+// Self-hosted WebP (src/assets/on-face) - Vite fingerprints them into /assets/*
+// so they are served from woolet.co with a 1-year immutable cache.
+// Originals (JPG): github.com/Lancelotek/woolet-marketing/real-fit-marek/on-face
 
-export const ON_FACE_BASE = "/on-face/";
+import b007Black from "@/assets/on-face/woolet-007-round-panto-black-on-face-01-3x4-1200x1600.webp";
+import b007Havana from "@/assets/on-face/woolet-007-round-panto-havana-on-face-01-3x4-1200x1600.webp";
+import b007Crystal from "@/assets/on-face/woolet-007-round-panto-silver-clear-on-face-01-3x4-1200x1600.webp";
+import b009Black from "@/assets/on-face/woolet-009-soft-square-black-on-face-01-3x4-1200x1600.webp";
+import b009Havana from "@/assets/on-face/woolet-009-soft-square-havana-on-face-01-3x4-1200x1600.webp";
+import b009Crystal from "@/assets/on-face/woolet-009-soft-square-silver-clear-on-face-04-3x4-1200x1600.webp";
+import card007 from "@/assets/on-face/woolet-007-round-panto-havana-on-face-01-1x1-1000.webp";
+import card009 from "@/assets/on-face/woolet-009-soft-square-silver-clear-on-face-04-1x1-1000.webp";
 
 export type OnFaceModel = "007" | "009";
+
 /** Colour ids used by the PDP swatches */
 export type OnFaceColourId = "black" | "havana" | "crystal";
 
@@ -29,28 +38,28 @@ const colourLabel: Record<OnFaceColourId, string> = {
 /** One on-face slide per model + colour, for the PDP gallery (natural 3:4). */
 export const galleryOnFace: Record<OnFaceModel, Record<OnFaceColourId, OnFaceSlide>> = {
   "007": {
-    black: slide("007", "black", "woolet-007-round-panto-black-on-face-01"),
-    havana: slide("007", "havana", "woolet-007-round-panto-havana-on-face-01"),
-    crystal: slide("007", "crystal", "woolet-007-round-panto-silver-clear-on-face-01"),
+    black: slide("007", "black", b007Black),
+    havana: slide("007", "havana", b007Havana),
+    crystal: slide("007", "crystal", b007Crystal),
   },
   "009": {
-    black: slide("009", "black", "woolet-009-soft-square-black-on-face-01"),
-    havana: slide("009", "havana", "woolet-009-soft-square-havana-on-face-01"),
-    crystal: slide("009", "crystal", "woolet-009-soft-square-silver-clear-on-face-04"),
+    black: slide("009", "black", b009Black),
+    havana: slide("009", "havana", b009Havana),
+    crystal: slide("009", "crystal", b009Crystal),
   },
 };
 
-function slide(model: OnFaceModel, colour: OnFaceColourId, name: string): OnFaceSlide {
+function slide(model: OnFaceModel, colour: OnFaceColourId, src: string): OnFaceSlide {
   return {
-    src: `${ON_FACE_BASE}${name}-3x4-1500x2000.webp`,
-    width: 1500,
-    height: 2000,
+    src,
+    width: 1200,
+    height: 1600,
     alt: `${modelLabel[model]} in ${colourLabel[colour]} worn on a 158 mm wide face - real fit, front view`,
   };
 }
 
 /** Home page shape cards (square 1:1, hover reveal) */
 export const homeOnFaceCard: Record<OnFaceModel, string> = {
-  "007": `${ON_FACE_BASE}woolet-007-round-panto-havana-on-face-01-1x1-1200.webp`,
-  "009": `${ON_FACE_BASE}woolet-009-soft-square-silver-clear-on-face-04-1x1-1200.webp`,
+  "007": card007,
+  "009": card009,
 };
