@@ -163,6 +163,22 @@ const eyebrowStyle: React.CSSProperties = {
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 const VIP_JOINED_KEY = "wlt_ks_vip_joined";
+
+/**
+ * Scroll a VIP form into view and focus its email field so the mobile
+ * keyboard opens. Works on every tap (unlike a hash link, which is a
+ * no-op once the hash is already set).
+ */
+const scrollToEmailInput = (formId: string) => {
+  const form =
+    document.getElementById(formId) ?? document.getElementById("vip-form-final") ?? document.getElementById("vip-form-hero");
+  if (!form) return;
+  const emailInput = form.querySelector<HTMLInputElement>('input[type="email"]');
+  form.scrollIntoView({ block: "center", behavior: "smooth" });
+  window.setTimeout(() => {
+    emailInput?.focus({ preventScroll: true });
+  }, 350);
+};
 // Set when the visitor resolves the $1 step (paid OR explicitly skipped).
 // Gates every Kickstarter follow CTA that sits at the decision moment.
 export const VIP_RESOLVED_KEY = "wlt_ks_vip_resolved";
