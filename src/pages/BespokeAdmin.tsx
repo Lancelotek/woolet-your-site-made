@@ -147,10 +147,21 @@ export default function BespokeAdmin() {
     );
   };
 
-  // Row shortcut. The last step needs a tracking number, so it opens the
-  // order instead of moving silently.
+  const setStage = async (id: string, to: number) => {
+    const { data, error: fnErr } = await supabase.functions.invoke("bespoke-crm-update", {
+      body: { password, id, action: "stage", stage: to },
+    });
+    if (fnErr) throw fnErr;
+    const payload = (data ?? {}) as Record<string, any>;
+    if (payload.error) throw new Error(payload.error);
+    applyOrderPatch(id, { ...(payload.patch ?? {}), crm_stage: to });
+  };
+
+  // Row shortcut. One click moves the order and offers a few seconds to take
+  // it back. The last step needs a tracking number, so it opens the order.
   const quickNext = async (r: Row) => {
-    const next = crmStageOf(r as Record<string, unknown>) + 1;
+    const from = crmStageOf(r as Record<string, unknown>);
+    const next = from + 1;
     if (next > SHIPPED_STAGE) return;
     if (next === SHIPPED_STAGE) {
       await openDetail(r.id);
@@ -159,17 +170,31 @@ export default function BespokeAdmin() {
     setBusy(`stage:${r.id}`);
     setError(null);
     try {
-      const { data, error: fnErr } = await supabase.functions.invoke("bespoke-crm-update", {
-        body: { password, id: r.id, action: "stage", stage: next },
+      await setStage(r.id, next);
+      setUndoState({
+        id: r.id,
+        from,
+        to: next,
+        label: `${r.customer_name || r.customer_email || "Order"} → ${crmStageLabel(next)}`,
       });
-      if (fnErr) throw fnErr;
-      const payload = (data ?? {}) as Record<string, any>;
-      if (payload.error) throw new Error(payload.error);
-      applyOrderPatch(r.id, { ...(payload.patch ?? {}), crm_stage: next });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Stage change failed");
+      setError(crmErrorMessage(err));
     } finally {
       setBusy(null);
+    }
+  };
+
+  const undoStage = async () => {
+    if (!undoState) return;
+    setUndoBusy(true);
+    setError(null);
+    try {
+      await setStage(undoState.id, undoState.from);
+      setUndoState(null);
+    } catch (err) {
+      setError(crmErrorMessage(err));
+    } finally {
+      setUndoBusy(false);
     }
   };
 
