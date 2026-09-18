@@ -32,6 +32,7 @@ import {
   pushCfg,
 } from "./cfg-shell";
 import { useParams, useNavigate } from "react-router-dom";
+import { loadNotoSansKr } from "@/lib/noto-sans-kr";
 
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
@@ -41,6 +42,8 @@ const FONT_HREF =
 const useConfiguratorFonts = () => {
   useEffect(() => {
     if (typeof document === "undefined") return;
+    // Engraving preview offers a Malgun Gothic equivalent (Noto Sans KR).
+    loadNotoSansKr();
     if (document.querySelector(`link[data-cfg-fonts="1"]`)) return;
     const link = document.createElement("link");
     link.rel = "stylesheet";

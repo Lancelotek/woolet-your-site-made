@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { koPages, koPageOrder, type KoPageConfig, type KoSection } from "@/content/ko/landingPages";
+import { loadNotoSansKr } from "@/lib/noto-sans-kr";
 
 const SITE = "https://woolet.co";
 
-// Noto Sans KR is already requested once in index.html — never add a second
-// Google Fonts request.
+// Noto Sans KR is requested here only (Korean routes), non-blocking.
 const KO_SANS = "'Archivo', 'Noto Sans KR', sans-serif";
 const KO_SERIF = "'Newsreader', 'Noto Sans KR', serif";
 
