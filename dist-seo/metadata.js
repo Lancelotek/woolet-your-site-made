@@ -206,9 +206,9 @@ const blogMetaBySlug = {
     metaDescription: "Photochromic lenses darken outdoors and clear up inside. How they work, the real downsides, and two ways to get them in a 145-172 mm frame for wide faces."
   },
   "eyeglass-frame-size-chart": {
-    metaTitle: "Eyeglass Frame Size Chart in mm: XS to XXL (155 mm+)",
+    metaTitle: "Eyeglass Frame Size Chart (mm): XS-XXL + 155 mm Wide Fit",
     exactTitle: true,
-    metaDescription: "The only frame size chart with the 155-161 mm wide band. Lens, bridge, temple and total front width in millimetres, and how to read the numbers on your frame."
+    metaDescription: "The standard chart stops at 150 mm. See XS to XXL in real millimetres, how each band compares, and the 155-161 mm wide-fit row most charts leave out."
   },
   "temple-to-temple-measurement": {
     metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
@@ -700,10 +700,15 @@ ${ANSWER(
 
 <p>Front width is the total outer edge-to-outer edge measurement of the frame front. Face width is temple-to-temple, measured across the widest part of your head just in front of the ears. A good fit puts the two within about 3 mm of each other.</p>
 
-<div style="overflow-x:auto;margin:24px 0;">
-<table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:13.5px;">
+<style>
+.frame-size-chart th, .frame-size-chart td { white-space:nowrap; }
+.frame-size-chart td { color:#EDE9DE; }
+.frame-size-chart .fsc-note { color:#8F877A; font-size:12px; }
+</style>
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:24px 0;">
+<table class="frame-size-chart" style="width:100%;min-width:540px;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:13.5px;">
   <thead>
-    <tr style="background:#0f0f0f;color:#f0ece4;">
+    <tr style="background:#16140F;color:#EDE9DE;border-bottom:1px solid #C9A84C;">
       <th style="${TH}">Band</th>
       <th style="${TH}">Front width</th>
       <th style="${TH}">Lens width</th>
@@ -713,26 +718,26 @@ ${ANSWER(
     </tr>
   </thead>
   <tbody>
-    <tr style="border-bottom:1px solid #E8E4DC;">
+    <tr style="border-bottom:1px solid #2A251C;">
       <td style="${TD}"><strong>XS</strong></td><td style="${TD}">122–127 mm</td><td style="${TD}">42–45 mm</td><td style="${TD}">16–18 mm</td><td style="${TD}">130–135 mm</td><td style="${TD}">up to 126 mm</td>
     </tr>
-    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;">
+    <tr style="border-bottom:1px solid #2A251C;background:#191611;">
       <td style="${TD}"><strong>S</strong></td><td style="${TD}">127–132 mm</td><td style="${TD}">46–49 mm</td><td style="${TD}">17–19 mm</td><td style="${TD}">135–140 mm</td><td style="${TD}">127–133 mm</td>
     </tr>
-    <tr style="border-bottom:1px solid #E8E4DC;">
+    <tr style="border-bottom:1px solid #2A251C;">
       <td style="${TD}"><strong>M</strong></td><td style="${TD}">132–140 mm</td><td style="${TD}">50–53 mm</td><td style="${TD}">18–20 mm</td><td style="${TD}">140–145 mm</td><td style="${TD}">134–142 mm</td>
     </tr>
-    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;">
+    <tr style="border-bottom:1px solid #2A251C;background:#191611;">
       <td style="${TD}"><strong>L</strong></td><td style="${TD}">140–145 mm</td><td style="${TD}">54–56 mm</td><td style="${TD}">19–21 mm</td><td style="${TD}">145–148 mm</td><td style="${TD}">143–147 mm</td>
     </tr>
-    <tr style="border-bottom:1px solid #E8E4DC;">
+    <tr style="border-bottom:1px solid #2A251C;">
       <td style="${TD}"><strong>XL</strong></td><td style="${TD}">145–148 mm</td><td style="${TD}">56–58 mm</td><td style="${TD}">20–22 mm</td><td style="${TD}">145–150 mm</td><td style="${TD}">148–152 mm</td>
     </tr>
-    <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;">
-      <td style="${TD}"><strong>XXL</strong><br><span style="color:#666;font-size:12px;">rare, few makers</span></td><td style="${TD}">148–150 mm</td><td style="${TD}">58–60 mm</td><td style="${TD}">20–22 mm</td><td style="${TD}">148–150 mm</td><td style="${TD}">152–154 mm</td>
+    <tr style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>XXL</strong><br><span class="fsc-note">rare, few makers</span></td><td style="${TD}">148–150 mm</td><td style="${TD}">58–60 mm</td><td style="${TD}">20–22 mm</td><td style="${TD}">148–150 mm</td><td style="${TD}">152–154 mm</td>
     </tr>
-    <tr style="background:#F5EFDD;">
-      <td style="${TD}"><strong>Woolet 158</strong><br><span style="color:#666;font-size:12px;">off the standard chart</span></td><td style="${TD}"><strong>158 mm</strong></td><td style="${TD}">52–54 mm</td><td style="${TD}">21–22 mm</td><td style="${TD}">150 mm</td><td style="${TD}"><strong>155–161 mm</strong></td>
+    <tr style="background:#201A0E;border-left:3px solid #C9A84C;">
+      <td style="${TD}"><strong>Woolet 158</strong><br><span class="fsc-note">off the standard chart</span></td><td style="${TD}"><strong style="color:#C9A84C;">158 mm</strong></td><td style="${TD}">52–54 mm</td><td style="${TD}">21–22 mm</td><td style="${TD}">150 mm</td><td style="${TD}"><strong style="color:#C9A84C;">155–161 mm</strong></td>
     </tr>
   </tbody>
 </table>
@@ -784,7 +789,7 @@ ${FITLENS_CTA(
 
 <p>If your face measures more than about 154 mm, the six-band chart has run out. Three honest options remain.</p>
 
-<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU.</p>
+<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU. Every 158 mm option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> collection page, sized for faces of 155 mm and up.</p>
 
 <p><strong>Go bespoke between 145 and 172 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
@@ -7117,6 +7122,52 @@ const GUIDE_FAQS = {
     }
   ]
 };
+const PRODUCT_FAQ_I18N = {
+  fr: [
+    {
+      q: "Comment savoir si la monture ira à mon visage ?",
+      a: "Mesurez la largeur de votre visage d'une tempe à l'autre. Si le résultat atteint 155 mm ou plus, Woolet est conçue précisément pour vous. Notre quiz d'ajustement sur /en/fit vous aide à confirmer votre taille en 60 secondes. Si la monture ne vous va toujours pas, nous l'échangeons gratuitement grâce à notre Garantie d'ajustement."
+    },
+    {
+      q: "Puis-je retourner les lunettes si elles ne me conviennent pas ?",
+      a: "Oui. Vous disposez de 30 jours pour les retourner, sans justification. Nous remboursons l'intégralité du montant sur votre moyen de paiement d'origine. Renvoyez simplement la monture dans son emballage d'origine."
+    },
+    {
+      q: "En quoi Woolet diffère-t-elle des lunettes pour visage large moins chères ?",
+      a: "La plupart des marques de montures larges (Fatheadz, BXL, Zenni) utilisent du plastique TR90 ou un acétate bon marché. Woolet utilise l'acétate italien Mazzucchelli, le même matériau que les montures à plus de 500 $. Nous y ajoutons des charnières 5 barils PVD Gunmetal, un pont keyhole de 21 mm et un polissage à la main. Une qualité premium au prix Membre fondateur de 114 $ (prix normal 190 $, soit 40 % d'économie)."
+    },
+    {
+      q: "Quand vais-je recevoir ma commande ?",
+      a: "En tant que Membre fondateur, vous recevez votre monture dès la première série de production. Expédition par transporteur, avec assurance complète et suivi. Délai de livraison estimé : 5 à 7 jours ouvrés (UE), 7 à 12 jours (reste du monde)."
+    },
+    {
+      q: "Woolet propose-t-elle des verres correcteurs (Rx) ?",
+      a: "Oui, les montures Woolet sont compatibles avec des verres correcteurs. Vous pouvez les faire monter chez n'importe quel opticien. La base 4 convient à la plupart des corrections. Nous prévoyons aussi un service Rx intégré à l'avenir."
+    }
+  ],
+  nl: [
+    {
+      q: "Hoe weet ik of het montuur bij mijn gezicht past?",
+      a: "Meet de breedte van je gezicht van slaap tot slaap. Kom je uit op 155 mm of meer, dan is Woolet speciaal voor jou ontworpen. Met onze pasvormquiz op /en/fit bevestig je je maat in 60 seconden. Past het montuur toch niet, dan ruilen we het gratis om onder onze pasvormgarantie."
+    },
+    {
+      q: "Kan ik de bril retourneren als hij me niet bevalt?",
+      a: "Ja. Je hebt 30 dagen om hem zonder opgaaf van reden terug te sturen. We betalen het volledige bedrag terug via je oorspronkelijke betaalmethode. Stuur het montuur gewoon terug in de originele verpakking."
+    },
+    {
+      q: "Waarin verschilt Woolet van goedkopere brillen voor brede gezichten?",
+      a: "De meeste merken met brede monturen (Fatheadz, BXL, Zenni) gebruiken TR90-kunststof of goedkoop acetaat. Woolet gebruikt Italiaans Mazzucchelli-acetaat, hetzelfde materiaal als in monturen van $500+. Daar komen 5-barrel PVD Gunmetal-scharnieren, een keyhole-brug van 21 mm en handmatig polijsten bij. Premium kwaliteit voor de Founding Member-prijs van $114 (normaal $190, 40% korting)."
+    },
+    {
+      q: "Wanneer ontvang ik mijn bestelling?",
+      a: "Als Founding Member ontvang je je montuur uit de eerste productieserie. Verzonden per koerier, volledig verzekerd en met track & trace. Geschatte levertijd: 5-7 werkdagen (EU), 7-12 dagen (rest van de wereld)."
+    },
+    {
+      q: "Biedt Woolet glazen op sterkte (Rx) aan?",
+      a: "Ja, Woolet-monturen zijn geschikt voor glazen op sterkte. Je kunt de glazen bij elke opticien laten plaatsen. De basiscurve 4 is geschikt voor de meeste sterktes. We plannen in de toekomst ook een eigen Rx-service."
+    }
+  ]
+};
 const empty = { reviews: [], ratingValue: 0, reviewCount: 0 };
 const PRODUCT_REVIEWS = {
   "007": empty,
@@ -9626,7 +9677,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           { name: "Products", url: `${SITE_URL}/${lang}` },
           { name: "Woolet 007", url: `${SITE_URL}/${lang}/products/007` }
         ]),
-        faqPageJsonLd(PRODUCT_FAQ)
+        faqPageJsonLd(lang === "fr" || lang === "nl" ? PRODUCT_FAQ_I18N[lang] : PRODUCT_FAQ)
       ]
     );
   }
@@ -9664,7 +9715,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           { name: "Products", url: `${SITE_URL}/${lang}` },
           { name: "Woolet 009", url: `${SITE_URL}/${lang}/products/009` }
         ]),
-        faqPageJsonLd(PRODUCT_FAQ)
+        faqPageJsonLd(lang === "fr" || lang === "nl" ? PRODUCT_FAQ_I18N[lang] : PRODUCT_FAQ)
       ]
     );
   }

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
-import gregHeroAsset from "@/assets/greg-woolet-009.webp.asset.json";
 import woolet007Asset from "@/assets/frames-2026/oval-crystal.asset.json";
 import woolet009Asset from "@/assets/frames-2026/square-crystal.asset.json";
 import { homeOnFaceCard } from "@/data/on-face-photos";
@@ -20,6 +19,12 @@ import {
   trackHeroExposure,
   trackHeroCtaClick,
 } from "@/lib/hero-experiment";
+
+// Homepage LCP portrait, exported at 648w / 1000w WebP (q72) into /public so
+// index.html can preload the exact same URLs before hydration.
+const HERO_SRC = "/hero-greg-1000.webp";
+const HERO_SRCSET = "/hero-greg-648.webp 648w, /hero-greg-1000.webp 1000w";
+const HERO_SIZES = "(min-width: 1024px) 48vw, 100vw";
 
 const seoData: Record<Lang, { title: string; description: string; ogDescription: string }> = {
   en: {
@@ -604,9 +609,14 @@ const Index = () => {
       <link
         rel="preload"
         as="image"
-        href={gregHeroAsset.url}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        {...({ fetchpriority: "high" } as any)}
+        type="image/webp"
+        href={HERO_SRC}
+        {...({
+          fetchpriority: "high",
+          imagesrcset: HERO_SRCSET,
+          imagesizes: HERO_SIZES,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } as any)}
       />
 
 
@@ -836,8 +846,9 @@ const Index = () => {
                 }
               >
                 <img
-                  src={gregHeroAsset.url}
-                  sizes="(min-width: 1024px) 48vw, 100vw"
+                  src={HERO_SRC}
+                  srcSet={HERO_SRCSET}
+                  sizes={HERO_SIZES}
                   alt="Greg wearing Woolet 009 soft-square tortoise acetate glasses — 158 mm wide-fit frame for medium-to-large faces"
                   className="absolute inset-0 w-full h-full object-cover object-[center_25%] pointer-events-none"
                   loading="eager"

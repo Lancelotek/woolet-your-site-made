@@ -1,8 +1,8 @@
 // Real on-face photography of the founder wearing Woolet 007 / 009.
-// Hosted on GitHub raw - referenced by URL, never re-hosted or renamed.
+// Served locally as WebP from /public/on-face (previously hot-linked from
+// raw.githubusercontent.com, which blocked LCP on slow mobile connections).
 
-export const ON_FACE_BASE =
-  "https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/";
+export const ON_FACE_BASE = "/on-face/";
 
 export type OnFaceModel = "007" | "009";
 /** Colour ids used by the PDP swatches */
@@ -42,7 +42,7 @@ export const galleryOnFace: Record<OnFaceModel, Record<OnFaceColourId, OnFaceSli
 
 function slide(model: OnFaceModel, colour: OnFaceColourId, name: string): OnFaceSlide {
   return {
-    src: `${ON_FACE_BASE}${name}-3x4-1500x2000.jpg`,
+    src: `${ON_FACE_BASE}${name}-3x4-1500x2000.webp`,
     width: 1500,
     height: 2000,
     alt: `${modelLabel[model]} in ${colourLabel[colour]} worn on a 158 mm wide face - real fit, front view`,
@@ -51,6 +51,6 @@ function slide(model: OnFaceModel, colour: OnFaceColourId, name: string): OnFace
 
 /** Home page shape cards (square 1:1, hover reveal) */
 export const homeOnFaceCard: Record<OnFaceModel, string> = {
-  "007": `${ON_FACE_BASE}woolet-007-round-panto-havana-on-face-01-1x1-1200.jpg`,
-  "009": `${ON_FACE_BASE}woolet-009-soft-square-silver-clear-on-face-04-1x1-1200.jpg`,
+  "007": `${ON_FACE_BASE}woolet-007-round-panto-havana-on-face-01-1x1-1200.webp`,
+  "009": `${ON_FACE_BASE}woolet-009-soft-square-silver-clear-on-face-04-1x1-1200.webp`,
 };
