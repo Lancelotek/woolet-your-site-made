@@ -554,28 +554,39 @@ export function PipelinePanel({
           }}
         />
       </label>
-      <button
-        type="button"
-        disabled={busy}
-        onClick={() => void saveNotes()}
-        style={{
-          marginTop: 8,
-          background: T.gold,
-          border: "none",
-          color: "#1f1b16",
-          padding: "9px 16px",
-          borderRadius: 2,
-          fontSize: 11,
-          letterSpacing: "0.14em",
-          textTransform: "uppercase",
-          fontWeight: 600,
-          cursor: busy ? "wait" : "pointer",
-          fontFamily: SANS,
-        }}
-      >
-        Save notes
-      </button>
-      {msg && <p style={{ color: T.dim, fontSize: 12, marginTop: 10 }}>{msg}</p>}
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 8, flexWrap: "wrap" }}>
+        <button
+          type="button"
+          disabled={busy || !notesDirty}
+          onClick={() => void saveNotes()}
+          style={{
+            background: notesDirty ? T.gold : "none",
+            border: notesDirty ? "none" : `1px solid ${T.hair}`,
+            color: notesDirty ? "#1f1b16" : T.mute,
+            padding: "9px 16px",
+            borderRadius: 2,
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            cursor: busy ? "wait" : notesDirty ? "pointer" : "default",
+            fontFamily: SANS,
+          }}
+        >
+          {busy ? "Saving…" : notesDirty ? "Save notes" : "Saved"}
+        </button>
+        {notesDirty && (
+          <span style={{ fontSize: 11, color: T.gold, fontFamily: SANS }}>Unsaved changes</span>
+        )}
+      </div>
+      {msg && (
+        <p
+          role="status"
+          style={{ color: msg.tone === "bad" ? "#e2725b" : T.dim, fontSize: 12, marginTop: 10 }}
+        >
+          {msg.text}
+        </p>
+      )}
 
       <h4 style={{ fontFamily: SERIF, fontSize: 17, margin: "20px 0 4px" }}>Activity</h4>
       {events.length === 0 ? (
