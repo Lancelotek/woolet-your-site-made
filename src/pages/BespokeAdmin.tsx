@@ -107,7 +107,31 @@ export default function BespokeAdmin() {
   const [detail, setDetail] = useState<Detail | null>(null);
   const [detailBusy, setDetailBusy] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
-  const [stageFilter, setStageFilter] = useState<number | "all">("all");
+  // The filter survives a reload: the console is usually reopened to carry on
+  // with the same batch of orders.
+  const [stageFilter, setStageFilter] = useState<number | "all">(() => {
+    try {
+      const raw = localStorage.getItem(STAGE_FILTER_KEY);
+      if (!raw || raw === "all") return "all";
+      const n = Number(raw);
+      return n >= 1 && n <= SHIPPED_STAGE ? n : "all";
+    } catch {
+      return "all";
+    }
+  });
+  const [undoState, setUndoState] = useState<
+    { id: string; from: number; to: number; label: string } | null
+  >(null);
+  const [undoBusy, setUndoBusy] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STAGE_FILTER_KEY, String(stageFilter));
+    } catch {
+      /* ignore */
+    }
+  }, [stageFilter]);
+
   const visibleRows =
     stageFilter === "all"
       ? rows
