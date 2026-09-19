@@ -11,6 +11,7 @@ import { FIT_JSONLD } from "@/seo/fit-jsonld";
 import fitScanTip from "@/assets/fit-scan-tip.png";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getAttribution } from "@/lib/attribution";
+import { buildLeadAttribution } from "@/lib/meta-capi";
 import { tFit } from "@/lib/i18n-fitscan";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
@@ -3671,6 +3672,8 @@ function EmailGateStep({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const errorRef = useRef<HTMLSpanElement | null>(null);
+  // Exactly one Meta Lead per email submission (double submit / re-render safe).
+  const leadFiredRef = useRef(false);
 
   // Mobile keyboards frequently push the error off-screen — pull it back.
   useEffect(() => {
@@ -3713,6 +3716,11 @@ function EmailGateStep({
           if (insErr) console.warn("[scan email gate] scan_sessions insert failed", insErr);
         });
 
+      // Meta Lead attribution: same pattern as WaitlistForm — one event_id
+      // shared by the browser push (below) and the server-side CAPI Lead that
+      // mailerlite-subscribe sends.
+      const leadAttribution = buildLeadAttribution();
+
       // Fire-and-forget — a slow MailerLite response must never hold the
       // button in the submitting state; its failure is non-blocking anyway.
       supabase.functions
@@ -3723,11 +3731,26 @@ function EmailGateStep({
             face_width: String(Math.round(faceWidthMm)),
             source: "scan",
             device,
+            ...leadAttribution,
           },
         })
         .then(({ error: mlErr }) => {
           if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
         });
+
+      // Browser Meta Lead (GTM pixel bridge) — deduped with the server Lead
+      // via meta_event_id. Exactly once per submission.
+      if (!leadFiredRef.current && typeof window !== "undefined") {
+        leadFiredRef.current = true;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "meta_lead",
+          meta_event_name: "Lead",
+          event_id: leadAttribution.meta_event_id,
+          content_name: "Fit scan email",
+          content_category: "fit_scan",
+        });
+      }
 
       // Fire-and-forget: send measurements + fit recommendation by email via a
       // whitelisted server-side proxy. send-transactional-email itself is
@@ -4130,6 +4153,8 @@ function FitLensEmailCapture({
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const inputId = `fitlens-email-${lang}`;
+  // Exactly one Meta Lead per email submission (double submit / re-render safe).
+  const leadFiredRef = useRef(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -4157,6 +4182,11 @@ function FitLensEmailCapture({
       });
       if (error) throw error;
 
+      // Meta Lead attribution: same pattern as WaitlistForm — one event_id
+      // shared by the browser push (below) and the server-side CAPI Lead that
+      // mailerlite-subscribe sends.
+      const leadAttribution = buildLeadAttribution();
+
       supabase.functions
         .invoke("mailerlite-subscribe", {
           body: {
@@ -4166,6 +4196,7 @@ function FitLensEmailCapture({
               measurements.faceWidth != null ? String(Math.round(measurements.faceWidth)) : undefined,
             source: "fitlens",
             device,
+            ...leadAttribution,
           },
         })
         .then(({ error: mlErr }) => {
@@ -4173,6 +4204,19 @@ function FitLensEmailCapture({
         });
 
       setStatus("sent");
+      // Browser Meta Lead (GTM pixel bridge) — fired only after the email was
+      // sent successfully, deduped with the server Lead via meta_event_id.
+      if (!leadFiredRef.current && typeof window !== "undefined") {
+        leadFiredRef.current = true;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "meta_lead",
+          meta_event_name: "Lead",
+          event_id: leadAttribution.meta_event_id,
+          content_name: "FitLens email",
+          content_category: "fitlens",
+        });
+      }
       pushEvent("fit_fitlens_email_captured", { device });
       // Mirror for GA4/dataLayer reconciliation; original event stays unchanged.
       pushEvent("scan_email_submitted", { device });
