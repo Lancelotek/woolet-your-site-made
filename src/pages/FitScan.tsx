@@ -4182,6 +4182,11 @@ function FitLensEmailCapture({
       });
       if (error) throw error;
 
+      // Meta Lead attribution: same pattern as WaitlistForm — one event_id
+      // shared by the browser push (below) and the server-side CAPI Lead that
+      // mailerlite-subscribe sends.
+      const leadAttribution = buildLeadAttribution();
+
       supabase.functions
         .invoke("mailerlite-subscribe", {
           body: {
@@ -4191,6 +4196,7 @@ function FitLensEmailCapture({
               measurements.faceWidth != null ? String(Math.round(measurements.faceWidth)) : undefined,
             source: "fitlens",
             device,
+            ...leadAttribution,
           },
         })
         .then(({ error: mlErr }) => {
@@ -4198,6 +4204,19 @@ function FitLensEmailCapture({
         });
 
       setStatus("sent");
+      // Browser Meta Lead (GTM pixel bridge) — fired only after the email was
+      // sent successfully, deduped with the server Lead via meta_event_id.
+      if (!leadFiredRef.current && typeof window !== "undefined") {
+        leadFiredRef.current = true;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "meta_lead",
+          meta_event_name: "Lead",
+          event_id: leadAttribution.meta_event_id,
+          content_name: "FitLens email",
+          content_category: "fitlens",
+        });
+      }
       pushEvent("fit_fitlens_email_captured", { device });
       // Mirror for GA4/dataLayer reconciliation; original event stays unchanged.
       pushEvent("scan_email_submitted", { device });
