@@ -308,7 +308,7 @@ Deno.serve(async (req) => {
       console.error("[fitlens-webhook] order attach failed", e);
     }
   };
-  if (sessionId || clientRef) {
+  if (sessionId || clientRef || caseNoFromPayload) {
     // deno-lint-ignore no-explicit-any
     const waitUntil = (globalThis as any).EdgeRuntime?.waitUntil;
     if (typeof waitUntil === "function") waitUntil(attach());
