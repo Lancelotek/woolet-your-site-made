@@ -77,7 +77,7 @@ export const RULES: RedirectRule[] = [
   },
   // d) Locale-prefixed EN-only sections → same path under /en
   {
-    test: /^\/(pl|de|fr|nl|ja|es|ar)(\/(?:compare|lp|xxl|collections)(?:\/[a-z0-9-]+)*|\/(?:size|bridge|temple)\/\d{2,3}mm)$/,
+    test: /^\/(pl|fr|nl|ja|es|ar)(\/(?:compare|lp|xxl|collections)(?:\/[a-z0-9-]+)*|\/(?:size|bridge|temple)\/\d{2,3}mm)$/,
     to: (m) => `/en${m[2]}`,
   },
 ];

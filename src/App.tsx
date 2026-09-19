@@ -86,6 +86,9 @@ const Unsubscribe = lazy(() => import("./pages/Unsubscribe.tsx"));
 const DeHub = lazy(() => import("./pages/de/DeHub.tsx"));
 const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
 const BlaulichtfilterBrilleHerren = lazy(() => import("./pages/de/BlaulichtfilterBrilleHerren.tsx"));
+const DeKickstarter = lazy(() => import("./pages/de/DeKickstarter.tsx"));
+const Impressum = lazy(() => import("./pages/de/Impressum.tsx"));
+const Widerruf = lazy(() => import("./pages/de/Widerruf.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const KoLandingRoute = lazy(() => import("./pages/ko/KoLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
@@ -240,6 +243,7 @@ const App = () => (
           <Route path="/en/lp/wide-bridge-fit-guide" element={<WideBridgeFitGuide />} />
           <Route path="/en/lp/5-reasons" element={<ListiclePage />} />
           <Route path="/en/lp/kickstarter" element={<KickstarterPrelaunch />} />
+           <Route path="/de/lp/kickstarter" element={<DeKickstarter />} />
           <Route path="/en/lp/kickstarter/vip-confirmed" element={<KickstarterVipConfirmed />} />
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
@@ -406,6 +410,8 @@ const App = () => (
 
          {/* DE market SEO landing pages */}
          <Route path="/de" element={<DeHub />} />
+         <Route path="/de/impressum" element={<Impressum />} />
+         <Route path="/de/widerruf" element={<Widerruf />} />
          <Route path="/de/blaulichtfilter-brille-herren" element={<BlaulichtfilterBrilleHerren />} />
          <Route path="/de/:slug" element={<DeLandingRoute />} />
 
