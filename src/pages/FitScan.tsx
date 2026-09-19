@@ -3716,6 +3716,11 @@ function EmailGateStep({
           if (insErr) console.warn("[scan email gate] scan_sessions insert failed", insErr);
         });
 
+      // Meta Lead attribution: same pattern as WaitlistForm — one event_id
+      // shared by the browser push (below) and the server-side CAPI Lead that
+      // mailerlite-subscribe sends.
+      const leadAttribution = buildLeadAttribution();
+
       // Fire-and-forget — a slow MailerLite response must never hold the
       // button in the submitting state; its failure is non-blocking anyway.
       supabase.functions
@@ -3726,11 +3731,26 @@ function EmailGateStep({
             face_width: String(Math.round(faceWidthMm)),
             source: "scan",
             device,
+            ...leadAttribution,
           },
         })
         .then(({ error: mlErr }) => {
           if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
         });
+
+      // Browser Meta Lead (GTM pixel bridge) — deduped with the server Lead
+      // via meta_event_id. Exactly once per submission.
+      if (!leadFiredRef.current && typeof window !== "undefined") {
+        leadFiredRef.current = true;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "meta_lead",
+          meta_event_name: "Lead",
+          event_id: leadAttribution.meta_event_id,
+          content_name: "Fit scan email",
+          content_category: "fit_scan",
+        });
+      }
 
       // Fire-and-forget: send measurements + fit recommendation by email via a
       // whitelisted server-side proxy. send-transactional-email itself is
