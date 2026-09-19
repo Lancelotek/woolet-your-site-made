@@ -228,9 +228,19 @@ Deno.serve(async (req) => {
   const attach = async () => {
     try {
       let orderId: string | null = null;
+      // A case number typed as the producer code binds the scan just as firmly
+      // as one carried by our own link.
+      if (caseNoFromPayload) {
+        const { data: codeOrder } = await supabase
+          .from("bespoke_orders")
+          .select("id")
+          .eq("case_no", caseNoFromPayload)
+          .maybeSingle();
+        orderId = codeOrder?.id ?? null;
+      }
       // A scan started from the emailed link carries the case number as its
       // session id — that is the strongest binding we have.
-      if (sessionId && /^WLT-BSP-\d{4}-\d{4}$/i.test(sessionId.trim())) {
+      if (!orderId && sessionId && /^WLT-BSP-\d{4}-\d{4}$/i.test(sessionId.trim())) {
         const { data: caseOrder } = await supabase
           .from("bespoke_orders")
           .select("id")
