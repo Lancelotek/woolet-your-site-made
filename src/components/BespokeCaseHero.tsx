@@ -10,6 +10,7 @@ import CalendlyInlineScheduler from "@/components/CalendlyInlineScheduler";
 export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
   const [caseNo, setCaseNo] = useState<string | null>(null);
   const [bookingUrl, setBookingUrl] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -73,8 +74,23 @@ export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
       >
         {caseNo}
       </div>
+      <button
+        type="button"
+        onClick={() => {
+          void navigator.clipboard?.writeText(caseNo).then(
+            () => setCopied(true),
+            () => setCopied(false),
+          );
+        }}
+        className="mt-3 px-3 py-2 text-[11px] uppercase tracking-[0.18em]"
+        style={{ border: "1px solid rgba(194,160,90,0.45)", color: "#C2A05A", borderRadius: 2 }}
+      >
+        {copied ? "Copied" : "Copy number"}
+      </button>
       <p className="mt-3 text-cream-dim text-[13px] leading-relaxed">
-        This number stays on every document from here to delivery.
+        This number stays on every document from here to delivery. If you measure your face in
+        FitLens outside our link, paste it into the <strong>Producer code</strong> field so the
+        measurement reaches your order.
       </p>
 
       <CalendlyInlineScheduler url={embedUrl} caseNo={caseNo} />

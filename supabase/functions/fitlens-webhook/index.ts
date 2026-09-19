@@ -158,6 +158,29 @@ Deno.serve(async (req) => {
   // carry this yet — the path below is ready and waiting on the partner.
   const clientRef = normalizeMeasurementRef(client.reference);
 
+  // "Producer code" — the case number the customer types into FitLens when the
+  // scan was taken outside our link. FitLens has not settled on one field name,
+  // so every plausible spelling is read; only a well-formed case number counts.
+  const caseNoFromPayload = (() => {
+    const candidates = [
+      client.producerCode,
+      client.producer_code,
+      client.code,
+      client.caseNo,
+      client.reference,
+      payload.producerCode,
+      payload.producer_code,
+      payload.code,
+      payload.reference,
+    ];
+    for (const raw of candidates) {
+      if (typeof raw !== "string") continue;
+      const value = raw.trim().toUpperCase().replace(/\s+/g, "");
+      if (/^WLT-BSP-\d{4}-\d{4}$/.test(value)) return value;
+    }
+    return null;
+  })();
+
   // Idempotent on scan_id — the partner retries, and a retry must not create a
   // second row or a second downstream notification.
   const { data: existing } = await supabase
@@ -205,9 +228,19 @@ Deno.serve(async (req) => {
   const attach = async () => {
     try {
       let orderId: string | null = null;
+      // A case number typed as the producer code binds the scan just as firmly
+      // as one carried by our own link.
+      if (caseNoFromPayload) {
+        const { data: codeOrder } = await supabase
+          .from("bespoke_orders")
+          .select("id")
+          .eq("case_no", caseNoFromPayload)
+          .maybeSingle();
+        orderId = codeOrder?.id ?? null;
+      }
       // A scan started from the emailed link carries the case number as its
       // session id — that is the strongest binding we have.
-      if (sessionId && /^WLT-BSP-\d{4}-\d{4}$/i.test(sessionId.trim())) {
+      if (!orderId && sessionId && /^WLT-BSP-\d{4}-\d{4}$/i.test(sessionId.trim())) {
         const { data: caseOrder } = await supabase
           .from("bespoke_orders")
           .select("id")
@@ -275,7 +308,7 @@ Deno.serve(async (req) => {
       console.error("[fitlens-webhook] order attach failed", e);
     }
   };
-  if (sessionId || clientRef) {
+  if (sessionId || clientRef || caseNoFromPayload) {
     // deno-lint-ignore no-explicit-any
     const waitUntil = (globalThis as any).EdgeRuntime?.waitUntil;
     if (typeof waitUntil === "function") waitUntil(attach());
