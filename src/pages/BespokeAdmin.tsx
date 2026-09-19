@@ -824,7 +824,7 @@ function DetailView({
 
       <Group title="Case">
         <Field
-          label="Case number"
+          label="Case number / FitLens producer code"
           value={
             o.case_no ? (
               <span style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", color: T.gold, letterSpacing: "0.06em" }}>
