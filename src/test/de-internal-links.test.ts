@@ -164,15 +164,18 @@ function collectDeLinks(): { source: string; url: string }[] {
   // DeLandingPage — hard-coded links.
   push("DeLandingPage header logo", "/de");
   push("DeLandingPage footer home", "/de");
+  push("DeLandingPage impressum", "/de/impressum");
   push("DeLandingPage privacy", "/de/privacy-policy");
+  push("DeLandingPage widerruf", "/de/widerruf");
   push("DeLandingPage scan CTA", "/de/fit");
+  push("DeLandingPage reservation details", "/de/lp/kickstarter");
 
   // Footer rendered with lang="de" (used on DeHub / DE landings).
   const footerDe: string[] = [
     "/de/collection",
     "/de/fit",
     "/de/bespoke",
-    "/en/lp/kickstarter",
+    "/de/lp/kickstarter",
     "/de/process",
     "/de/the-box",
     "/de/lp/why-glasses-fail",
@@ -193,6 +196,8 @@ function collectDeLinks(): { source: string; url: string }[] {
     "/de/blog",
     "/de/privacy-policy",
     "/de/return-policy",
+    "/de/impressum",
+    "/de/widerruf",
   ];
   for (const url of footerDe) push(`Footer(lang=de) ${url}`, url);
 

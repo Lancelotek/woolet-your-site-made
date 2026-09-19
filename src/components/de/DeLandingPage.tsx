@@ -1,9 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
+import DeReservationCta from "@/components/de/DeReservationCta";
+import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
 import {
@@ -13,7 +15,6 @@ import {
   dePages,
   type DePageConfig,
 } from "@/content/de/landingPages";
-import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
 const SITE = "https://woolet.co";
 const SCAN_HREF = "/de/fit";
@@ -153,7 +154,7 @@ function VipForm() {
           fontSize: 12,
         }}
       >
-        {loading ? "Wird gesendet…" : "Auf die VIP-Liste"}
+        {loading ? "Wird gesendet..." : "Auf die VIP-Liste"}
       </button>
     </form>
   );
@@ -250,15 +251,18 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
     offers: {
       "@type": "Offer",
       url: canonical,
-      priceCurrency: PRICE_CURRENCY,
-      price: SALE_PRICE,
-      priceValidUntil: PRICE_VALID_UNTIL,
+      priceCurrency: "EUR",
+      price: DE_PRICING.founderPriceEur.toFixed(2),
+      priceValidUntil: DE_PRICING.priceValidUntil,
       availability: "https://schema.org/PreOrder",
       itemCondition: "https://schema.org/NewCondition",
-      priceSpecification: LIST_PRICE_SPEC,
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        priceType: "https://schema.org/ListPrice",
+        price: DE_PRICING.regularPriceEur.toFixed(2),
+        priceCurrency: "EUR",
+      },
       seller: { "@type": "Organization", name: "Woolet", url: `${SITE}` },
-      hasMerchantReturnPolicy: RETURN_POLICY,
-      shippingDetails: shippingDetails(false),
     },
   };
 
@@ -270,12 +274,6 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
-  };
-
-  const vipRef = useRef<HTMLDivElement>(null);
-  const scrollToVip = (e: React.MouseEvent) => {
-    e.preventDefault();
-    vipRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   useEffect(() => {
@@ -318,7 +316,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
           style={{ background: "transparent" }}
         >
           <div className="max-w-6xl mx-auto flex items-center justify-between py-5">
-            <Link to="/de" aria-label="Woolet — Startseite" className="inline-flex items-center">
+             <Link to="/de" aria-label="Woolet - Startseite" className="inline-flex items-center">
               <img
                 src={wooletLogo}
                 alt="Woolet"
@@ -375,25 +373,13 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               >
                 {config.sub}
               </p>
-              <div className="flex flex-wrap gap-4 mt-2">
-                <CtaButton to={SCAN_HREF}>Gesicht in 20 Sekunden messen</CtaButton>
-                <a
-                  href="#vip"
-                  onClick={scrollToVip}
-                  className="inline-flex items-center"
-                  style={{
-                    color: colors.gold,
-                    fontFamily: "'Barlow', sans-serif",
-                    fontSize: 12,
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    padding: "16px 8px",
-                    textDecoration: "none",
-                  }}
-                >
-                  Zur VIP-Liste →
-                </a>
-              </div>
+               <div className="mt-2 flex flex-col items-start gap-4">
+                 <DeReservationCta source={config.slug} />
+                 <CtaButton to={SCAN_HREF} variant="ghost">Gesicht in 20 Sekunden messen</CtaButton>
+                 <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">
+                   {formatDePrice(DE_PRICING.reservationEur)} sichert dir eine nummerierte Founders Edition (max. {DE_PRICING.founderLimit}). Voll anrechenbar, jederzeit erstattbar.
+                 </p>
+               </div>
             </div>
 
             <div className="hidden md:block">
@@ -433,7 +419,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                 color: colors.creamDim,
               }}
             >
-              Die meisten Fassungen enden bei 135–145 mm. Wenn dein Gesicht breiter ist, gibt es von der Stange keine echte Passform — du gibst auf, schickst zurück oder trägst etwas, das drückt. Das liegt nicht an dir. Es ist eine Lücke im Markt.
+               Die meisten Fassungen enden bei 135-145 mm. Wenn dein Gesicht breiter ist, gibt es von der Stange keine echte Passform - du gibst auf, schickst zurück oder trägst etwas, das drückt. Das liegt nicht an dir. Es ist eine Lücke im Markt.
             </p>
           </div>
         </Section>
@@ -450,7 +436,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               marginBottom: 12,
             }}
           >
-            Drei exakte Breiten — entwickelt für Köpfe, die Standardfassungen ignorieren.
+             Drei exakte Breiten - entwickelt für Köpfe, die Standardfassungen ignorieren.
           </h2>
           <p
             style={{
@@ -461,7 +447,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               maxWidth: 620,
             }}
           >
-            155, 158 und 161 mm Frontbreite. Keine „large", keine Schätzung — Millimeter, die wirklich passen.
+             155, 158 und 161 mm Frontbreite. Keine „large", keine Schätzung - Millimeter, die wirklich passen.
           </p>
           <div className="grid sm:grid-cols-3 gap-5">
             <SizeCard mm="155" label="schmaler" />
@@ -501,10 +487,11 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                 margin: 0,
               }}
             >
-              FitLens misst dein Gesicht mit der Handykamera und empfiehlt die richtige Größe — keine Schätzung, keine Rücksendung.
+               FitLens misst dein Gesicht mit der Handykamera und empfiehlt die richtige Größe - keine Schätzung, keine Rücksendung.
             </p>
-            <div className="mt-2">
-              <CtaButton to={SCAN_HREF}>Jetzt messen</CtaButton>
+             <div className="mt-2 flex flex-col items-center gap-4">
+               <DeReservationCta source={`${config.slug}_middle`} />
+               <CtaButton to={SCAN_HREF} variant="ghost">Erst Gesicht messen</CtaButton>
             </div>
           </div>
         </section>
@@ -558,10 +545,23 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
           </div>
         </Section>
 
+         {/* FOUNDING PRICE */}
+         <section className="border-y border-border-sub bg-secondary px-6 py-20 text-center md:px-10 md:py-24">
+           <div className="mx-auto max-w-3xl">
+             <h2 className="text-4xl font-normal text-foreground md:text-5xl">Founding-Preis für die ersten {DE_PRICING.founderLimit}</h2>
+             <div className="mt-6 flex items-baseline justify-center gap-4">
+               <span className="font-display text-3xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span>
+               <strong className="font-display text-6xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong>
+             </div>
+             <p className="mt-2 font-body text-sm text-cream-dim">inkl. MwSt.</p>
+             <p className="mx-auto mt-5 max-w-xl font-body text-[15px] leading-7 text-cream-dim">Rahmen 158 mm, Mazzucchelli-Acetat, handgefertigt in der EU.</p>
+             <DeReservationCta source={`${config.slug}_pricing`} className="mt-8" />
+           </div>
+         </section>
+
         {/* VIP */}
         <section
           id="vip"
-          ref={vipRef}
           className="px-6 md:px-10"
           style={{
             background: colors.inkSoft,
@@ -591,7 +591,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                 marginBottom: 12,
               }}
             >
-              Sichere dir den Founding-Preis vor allen anderen
+               Noch nicht bereit? Hol dir den Founding-Preis per E-Mail
             </h2>
             <p
               style={{
@@ -602,8 +602,9 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                 marginBottom: 32,
               }}
             >
-              VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang und den exklusiven Founding-Preis.
+               VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang und den exklusiven Founding-Preis.
             </p>
+             <DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" />
             <VipForm />
           </div>
         </section>
@@ -713,20 +714,15 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               Woolet
             </Link>
             <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: colors.creamDim }}>
-              Made in the EU · Mazzucchelli 1849 Acetat
+               Handgefertigt in der EU · Mazzucchelli 1849 Acetat
             </div>
-            <Link
-              to="/de/privacy-policy"
-              style={{
-                fontFamily: "'Barlow', sans-serif",
-                fontSize: 12,
-                color: colors.creamDim,
-                textDecoration: "underline",
-                textUnderlineOffset: 4,
-              }}
-            >
-              Datenschutz
-            </Link>
+             <div className="flex flex-wrap gap-3 font-body text-xs text-cream-dim">
+               <Link to="/de/impressum" className="text-inherit underline underline-offset-4">Impressum</Link>
+               <span>·</span>
+               <Link to="/de/privacy-policy" className="text-inherit underline underline-offset-4">Datenschutz</Link>
+               <span>·</span>
+               <Link to="/de/widerruf" className="text-inherit underline underline-offset-4">Widerruf</Link>
+             </div>
           </div>
         </footer>
       </main>

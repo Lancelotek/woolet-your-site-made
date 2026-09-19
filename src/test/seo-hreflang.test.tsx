@@ -32,14 +32,14 @@ beforeEach(() => {
 afterEach(() => cleanup());
 
 describe("SEO hreflang", () => {
-  it("homepage (path='') emits the full 7-locale cluster + x-default → /en", async () => {
+  it("homepage (path='') emits the full locale cluster + x-default → /en", async () => {
     renderSEO({ title: "Home", description: "d", lang: "en", path: "" });
     await waitFor(() => expect(readAlternates().length).toBeGreaterThan(0));
 
     const alts = readAlternates();
     const langs = alts.map((a) => a.hreflang).sort();
     expect(langs).toEqual(
-      ["ar", "de", "en", "es", "fr", "ja", "nl", "pl", "x-default"].sort()
+      ["ar", "de", "en", "es", "fr", "ja", "ko", "nl", "pl", "x-default"].sort()
     );
     expect(alts.find((a) => a.hreflang === "x-default")?.href).toBe(`${SITE}/en`);
     expect(alts.find((a) => a.hreflang === "en")?.href).toBe(`${SITE}/en`);

@@ -73,15 +73,18 @@ export const ROUTES = {
     pl: "/pl/process",
   },
 
-  // Legal — pl has real translations, no other locale does.
+  // Legal pages with real localized routes.
   privacyPolicy: {
     en: "/en/privacy-policy",
     pl: "/pl/privacy-policy",
+    de: "/de/privacy-policy",
   },
   returnPolicy: {
     en: "/en/return-policy",
     pl: "/pl/return-policy",
+    de: "/de/widerruf",
   },
+  impressum: { de: "/de/impressum" },
 
   // Products — native routes exist in en, fr, nl only.
   "products.007":     { en: "/en/products/007",     fr: "/fr/products/007",     nl: "/nl/products/007" },
@@ -108,7 +111,7 @@ export const ROUTES = {
   "compare.warbyParker": { en: "/en/compare/warby-parker-alternative" },
   "compare.rayBan":      { en: "/en/compare/ray-ban-alternative" },
   "compare.persol":      { en: "/en/compare/persol-alternative" },
-  "lp.kickstarter":      { en: "/en/lp/kickstarter" },
+  "lp.kickstarter":      { en: "/en/lp/kickstarter", de: "/de/lp/kickstarter" },
   "lp.whyGlassesFail":   { en: "/en/lp/why-glasses-fail" },
   "lp.5reasons":         { en: "/en/lp/5-reasons" },
   "lp.wideBridgeFitGuide": { en: "/en/lp/wide-bridge-fit-guide" },
@@ -265,7 +268,6 @@ const ALL_LOCALES_PATHS: ReadonlySet<string> = new Set([
  *  against ROUTES so a real translation cannot silently be masked. */
 const EN_ONLY_PATH_PREFIXES: readonly string[] = [
   "/the-box",
-  "/lp/",
   "/collections/",
   "/compare",
   "/bridge/",
