@@ -60,6 +60,11 @@ export const dePages: Record<string, DePageConfig> = {
     metaDescription:
       "Drückt jede Brille an den Schläfen? Woolet fertigt Brillen für breite Gesichter und große Köpfe - 155, 158, 161 mm, in der EU handgefertigt aus italienischem Mazzucchelli-Acetat. Miss dein Gesicht in 20 Sekunden.",
     primaryKeyword: "brille für breites gesicht",
+    faqs: [
+      { q: "Welche Brille passt zu einem breiten Gesicht?", a: "Entscheidend ist die gesamte Frontbreite. Woolet bietet 155, 158 und 161 mm, dazu 21 oder 22 mm Keyhole-Steg und 150 mm lange Bügel." },
+      { q: "Wie messe ich die Breite meines Gesichts?", a: "FitLens misst deine Gesichtsbreite mit der Handykamera im Browser und empfiehlt 155, 158 oder 161 mm. Alternativ kannst du eine gut sitzende Brille von außen nach außen messen." },
+      ...DEFAULT_FAQS.slice(2),
+    ],
   },
   "breite-brille": {
     slug: "breite-brille",
@@ -78,6 +83,11 @@ export const dePages: Record<string, DePageConfig> = {
     metaDescription:
       "Breite Brillen von 155 bis 161 mm, in der EU handgefertigt aus italienischem Acetat. Für breite Gesichter und große Köpfe. Finde deine Größe mit FitLens in 20 Sekunden.",
     primaryKeyword: "breite brille",
+    faqs: [
+      { q: "Was bedeutet breite Brille in Millimetern?", a: "Gemeint ist die gesamte Breite der Fassungsfront. Woolet beginnt bei 155 mm und reicht bei den Standardmodellen bis 161 mm." },
+      { q: "Warum sind Nasensteg und Bügellänge wichtig?", a: "Eine breite Front passt nur als Gesamtsystem. Woolet kombiniert sie mit 21 oder 22 mm Keyhole-Steg und 150 mm langen Bügeln." },
+      ...DEFAULT_FAQS.slice(2),
+    ],
   },
   "brille-grosse-koepfe": {
     slug: "brille-grosse-koepfe",
@@ -96,6 +106,11 @@ export const dePages: Record<string, DePageConfig> = {
     metaDescription:
       "Brillen für große Köpfe, die nicht drücken. 155/158/161 mm aus italienischem Mazzucchelli-Acetat, in der EU handgefertigt. Miss deinen Kopf mit FitLens in 20 Sekunden.",
     primaryKeyword: "brille für große köpfe",
+    faqs: [
+      { q: "Welche Brillengröße passt bei einem großen Kopf?", a: "Als Orientierung sind 155-158 mm häufig bei etwa 58-60 cm Kopfumfang sinnvoll. Bei etwa 60-62 cm kommen 158-161 mm infrage. FitLens misst direkt am Gesicht." },
+      { q: "Ist eine Brille für große Köpfe automatisch oversized?", a: "Nein. Eine breite Fassung kann ausgewogene Proportionen haben. Woolet 007 und 009 sind breit konstruiert, ohne nur die Gläser optisch zu vergrößern." },
+      ...DEFAULT_FAQS.slice(2),
+    ],
   },
   "xxl-brille-herren": {
     slug: "xxl-brille-herren",
@@ -114,6 +129,11 @@ export const dePages: Record<string, DePageConfig> = {
     metaDescription:
       "XXL Brillen für Herren mit breitem Gesicht oder großem Kopf. 155-161 mm, italienisches Acetat, in der EU handgefertigt. Größe per FitLens-Scan in 20 Sekunden bestimmen.",
     primaryKeyword: "xxl brille herren",
+    faqs: [
+      { q: "Welche Form gibt es bei der XXL Brille für Herren?", a: "Woolet 007 ist eine runde Panto-Form. Woolet 009 ist weich-eckig. Beide Modelle sind für breite Gesichter konstruiert." },
+      { q: "Gibt es die XXL Herrenbrille auch als Sonnenbrille?", a: "Ja. Beide Fassungen können mit UV400-Sonnengläsern oder mit Korrektionsgläsern ausgestattet werden." },
+      ...DEFAULT_FAQS.slice(2),
+    ],
   },
   "brille-breite-160-mm": {
     slug: "brille-breite-160-mm",
@@ -132,6 +152,11 @@ export const dePages: Record<string, DePageConfig> = {
     metaDescription:
       "Brille mit ca. 160 mm Breite für breite Gesichter. Woolet bietet 155, 158 und 161 mm aus italienischem Acetat. Mit FitLens die exakte Breite messen - in 20 Sekunden.",
     primaryKeyword: "brille breite 160 mm",
+    faqs: [
+      { q: "Gibt es bei Woolet eine Brille mit genau 160 mm Breite?", a: "Die nächsten Standardgrößen sind 158 und 161 mm. Für ein exaktes Sondermaß zwischen 145 und 172 mm gibt es Woolet Bespoke." },
+      { q: "Soll ich 158 oder 161 mm wählen?", a: "161 mm bietet 3 mm mehr Raum an der Front. FitLens misst deine Gesichtsbreite und empfiehlt den passenderen Ausgangspunkt." },
+      ...DEFAULT_FAQS.slice(2),
+    ],
   },
 };
 
