@@ -268,7 +268,6 @@ const ALL_LOCALES_PATHS: ReadonlySet<string> = new Set([
  *  against ROUTES so a real translation cannot silently be masked. */
 const EN_ONLY_PATH_PREFIXES: readonly string[] = [
   "/the-box",
-  "/lp/",
   "/collections/",
   "/compare",
   "/bridge/",

@@ -16,6 +16,7 @@ import {
   keyForPath,
   keysForPath,
   hreflangAlternates,
+  hrefFor,
   localePath,
 } from "@/i18n/routeRegistry";
 
@@ -88,6 +89,6 @@ describe("routeRegistry — DEFECT 2 (EN_ONLY vs ROUTES contradiction)", () => {
 
   it("keeps the native German Kickstarter and legal routes", () => {
     expect(localePath("de", "/lp/kickstarter")).toBe("/de/lp/kickstarter");
-    expect(localePath("de", "/return-policy")).toBe("/de/widerruf");
+    expect(hrefFor("returnPolicy", "de")).toBe("/de/widerruf");
   });
 });
