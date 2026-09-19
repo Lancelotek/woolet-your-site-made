@@ -7,9 +7,10 @@ import { trackMetaEvent } from "@/lib/meta-capi";
 type Props = {
   source: string;
   className?: string;
+  variant?: "button" | "link";
 };
 
-export default function DeReservationCta({ source, className }: Props) {
+export default function DeReservationCta({ source, className, variant = "button" }: Props) {
   const clickedRef = useRef(false);
   const href = deReservationUrl(source);
 
@@ -24,6 +25,14 @@ export default function DeReservationCta({ source, className }: Props) {
     void trackMetaEvent("Lead", { custom });
     pushGtmEvent("reservation_de", { ...custom, source });
   };
+
+  if (variant === "link") {
+    return (
+      <a href={href} onClick={onClick} className={className ?? "font-body text-sm text-primary underline underline-offset-4"}>
+        Oder direkt für {formatDePrice(DE_PRICING.reservationEur)} reservieren →
+      </a>
+    );
+  }
 
   return (
     <div className={className}>

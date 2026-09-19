@@ -5,7 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import DeReservationCta from "@/components/de/DeReservationCta";
-import { DE_PRICING, deReservationUrl, formatDePrice } from "@/content/de/pricing";
+import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
 import {
@@ -604,9 +604,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
             >
                VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang und den exklusiven Founding-Preis.
             </p>
-             <a href={deReservationUrl(`${config.slug}_vip`)} className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4">
-               Oder direkt für {formatDePrice(DE_PRICING.reservationEur)} reservieren →
-             </a>
+             <DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" />
             <VipForm />
           </div>
         </section>
