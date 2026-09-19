@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { DE_PRICING, deReservationUrl, formatDePrice } from "@/content/de/pricing";
 import { pushGtmEvent } from "@/lib/gtm";
-import { trackMetaEvent } from "@/lib/meta-capi";
+import { trackMetaEvent, uuid } from "@/lib/meta-capi";
 
 type Props = {
   source: string;
@@ -22,8 +22,9 @@ export default function DeReservationCta({ source, className, variant = "button"
       currency: "EUR",
       value: DE_PRICING.reservationEur,
     };
-    void trackMetaEvent("Lead", { custom });
-    pushGtmEvent("reservation_de", { ...custom, source });
+    const eventId = uuid();
+    void trackMetaEvent("Lead", { custom, eventId });
+    pushGtmEvent("generate_lead", { ...custom, source, event_id: eventId });
   };
 
   if (variant === "link") {
