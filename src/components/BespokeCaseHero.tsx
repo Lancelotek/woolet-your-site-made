@@ -10,6 +10,7 @@ import CalendlyInlineScheduler from "@/components/CalendlyInlineScheduler";
 export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
   const [caseNo, setCaseNo] = useState<string | null>(null);
   const [bookingUrl, setBookingUrl] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!sessionId) return;
