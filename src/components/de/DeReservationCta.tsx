@@ -30,7 +30,7 @@ export default function DeReservationCta({ source, className, variant = "button"
   if (variant === "link") {
     return (
       <a href={href} onClick={onClick} className={className ?? "font-body text-sm text-primary underline underline-offset-4"}>
-        Oder direkt für {formatDePrice(DE_PRICING.reservationEur)} reservieren →
+        Oder direkt für {formatDePrice(DE_PRICING.reservationEur)} reservieren
       </a>
     );
   }

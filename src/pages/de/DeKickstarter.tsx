@@ -63,7 +63,7 @@ export default function DeKickstarter() {
           <div className="max-w-2xl">
             <p className="mb-5 font-body text-xs uppercase tracking-[0.24em] text-primary">Kickstarter · Founders Edition</p>
             <h1 className="text-5xl font-normal leading-[1.02] text-foreground md:text-7xl">Die Brille, die breite Gesichter endlich ernst nimmt.</h1>
-            <p className="mt-6 max-w-xl font-body text-base leading-7 text-cream-dim md:text-lg">158 mm Frontbreite, 21 oder 22 mm Keyhole-Steg und 150 mm Bügel. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU.</p>
+            <p className="mt-6 max-w-xl font-body text-base leading-7 text-cream-dim md:text-lg">158 mm Frontbreite, 21 oder 22 mm Keyhole-Steg und 150 mm Bügel. Mazzucchelli-Acetat, handgefertigt in der EU.</p>
             <DeReservationCta source="kickstarter_hero" className="mt-8" />
             <p className="mt-4 max-w-lg font-body text-[13px] leading-5 text-cream-dim">1 € sichert dir eine nummerierte Founders Edition (max. {DE_PRICING.founderLimit}). Voll anrechenbar, jederzeit erstattbar.</p>
           </div>
