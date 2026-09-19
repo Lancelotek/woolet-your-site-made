@@ -11,6 +11,7 @@ import { FIT_JSONLD } from "@/seo/fit-jsonld";
 import fitScanTip from "@/assets/fit-scan-tip.png";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { getAttribution } from "@/lib/attribution";
+import { buildLeadAttribution } from "@/lib/meta-capi";
 import { tFit } from "@/lib/i18n-fitscan";
 import { getImageLandmarker, getVideoLandmarker, hasWebGL, resetLandmarkers } from "@/lib/face-landmarker";
 import { detectCardCornersInRegion } from "@/lib/card-corner-detection";
@@ -3671,6 +3672,8 @@ function EmailGateStep({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const errorRef = useRef<HTMLSpanElement | null>(null);
+  // Exactly one Meta Lead per email submission (double submit / re-render safe).
+  const leadFiredRef = useRef(false);
 
   // Mobile keyboards frequently push the error off-screen — pull it back.
   useEffect(() => {
