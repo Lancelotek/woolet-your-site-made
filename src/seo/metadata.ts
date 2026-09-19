@@ -38,6 +38,7 @@ import { collectionSeo, COLLECTION_ITEMS } from "./collection-copy";
 import { collectionJsonLd } from "./product-collection-jsonld";
 import { HAT_SIZE_FAQ } from "./hat-size-faq";
 import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
+import { DE_PRICING } from "@/content/de/pricing";
 import {
   RETURN_POLICY,
   shippingDetails,
@@ -590,6 +591,59 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   if (route === "/ko" || route.startsWith("/ko/")) {
     const ko = koMetadata(route);
     if (ko) return ko;
+  }
+
+  if (route === "/de/lp/kickstarter") {
+    const canonical = `${SITE_URL}${route}`;
+    return base(
+      route,
+      "de",
+      {
+        title: "Woolet Founders Edition - Für 1 € reservieren",
+        description: "Reserviere eine von 100 Woolet Founders Editions für 1 €. 158 mm breite Acetatfassungen für breite Gesichter, handgefertigt in der EU.",
+        noscriptHtml: `<h1>Woolet Founders Edition für breite Gesichter</h1><p>Reserviere eine von ${DE_PRICING.founderLimit} Founders Editions für ${DE_PRICING.reservationEur} € inkl. MwSt. Der Founding-Preis beträgt ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt.</p><p><a href="/de/fit">Gesicht messen</a> · <a href="/de/impressum">Impressum</a> · <a href="/de/widerruf">Widerruf</a></p>`,
+      },
+      { image: `${SITE_URL}${ksHeroAsset.url}`, type: "website" },
+      [
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/de` },
+          { name: "Founders Edition", url: canonical },
+        ]),
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: "Woolet Founders Edition",
+          brand: { "@type": "Brand", name: "Woolet" },
+          material: "Italienisches Mazzucchelli-Acetat",
+          offers: {
+            "@type": "Offer",
+            url: canonical,
+            price: DE_PRICING.founderPriceEur.toFixed(2),
+            priceCurrency: "EUR",
+            priceValidUntil: DE_PRICING.priceValidUntil,
+            availability: "https://schema.org/PreOrder",
+          },
+        },
+      ],
+    );
+  }
+
+  if (route === "/de/impressum" || route === "/de/widerruf") {
+    const isImpressum = route.endsWith("/impressum");
+    return base(
+      route,
+      "de",
+      {
+        title: `${isImpressum ? "Impressum" : "Widerrufsbelehrung"} | Woolet`,
+        description: isImpressum
+          ? "Impressum und Anbieterinformationen von Woolet, einer Marke der JAY23 LLC."
+          : "Informationen zum 14-tägigen Widerrufsrecht für Woolet Reservierungen und Vorbestellungen.",
+        noscriptHtml: isImpressum
+          ? "<h1>Impressum</h1><p>JAY23 LLC, 412 N. Main Street, STE 100, Buffalo, Wyoming 82834, USA. Vertreten durch Marek Cieśla. E-Mail: support@woolet.co.</p>"
+          : `<h1>Widerrufsbelehrung</h1><p>Für Reservierungen und Vorbestellungen gilt ein 14-tägiges Widerrufsrecht. Die Reservierungsgebühr von ${DE_PRICING.reservationEur} € wird vollständig auf den Kaufpreis angerechnet und auf Anfrage jederzeit erstattet.</p>`,
+      },
+      { image: DEFAULT_OG, type: "website" },
+    );
   }
 
   // Homepage
@@ -2057,6 +2111,9 @@ const STATIC_ROUTES = [
   "/de/xxl-brille-herren",
   "/de/blaulichtfilter-brille-herren",
   "/de/brille-breite-160-mm",
+  "/de/impressum",
+  "/de/widerruf",
+  "/de/lp/kickstarter",
   "/en/lp/why-glasses-fail",
   "/en/lp/5-reasons",
   "/en/privacy-policy",

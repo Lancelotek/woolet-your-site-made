@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -15,7 +15,6 @@ import {
   dePages,
   type DePageConfig,
 } from "@/content/de/landingPages";
-import { RETURN_POLICY, shippingDetails } from "@/seo/commerce-schema";
 
 const SITE = "https://woolet.co";
 const SCAN_HREF = "/de/fit";
@@ -264,8 +263,6 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         priceCurrency: "EUR",
       },
       seller: { "@type": "Organization", name: "Woolet", url: `${SITE}` },
-      hasMerchantReturnPolicy: RETURN_POLICY,
-      shippingDetails: shippingDetails(false),
     },
   };
 
@@ -277,12 +274,6 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
-  };
-
-  const vipRef = useRef<HTMLDivElement>(null);
-  const scrollToVip = (e: React.MouseEvent) => {
-    e.preventDefault();
-    vipRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   useEffect(() => {
@@ -571,7 +562,6 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         {/* VIP */}
         <section
           id="vip"
-          ref={vipRef}
           className="px-6 md:px-10"
           style={{
             background: colors.inkSoft,

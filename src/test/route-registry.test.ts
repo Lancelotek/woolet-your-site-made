@@ -85,4 +85,9 @@ describe("routeRegistry — DEFECT 2 (EN_ONLY vs ROUTES contradiction)", () => {
     expect(localePath("nl", "/collection")).toBe("/nl/collection");
     expect(localePath("de", "/collection")).toBe("/en/collection");
   });
+
+  it("keeps the native German Kickstarter and legal routes", () => {
+    expect(localePath("de", "/lp/kickstarter")).toBe("/de/lp/kickstarter");
+    expect(localePath("de", "/return-policy")).toBe("/de/widerruf");
+  });
 });

@@ -94,7 +94,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
       links: [
         { label: "Blog", href: hrefFor("blog", lang) },
         { label: t(lang, "footer.privacy"), href: hrefFor("privacyPolicy", lang) },
-        { label: t(lang, "footer.return"), href: hrefFor("returnPolicy", lang) },
+        { label: lang === "de" ? "Widerruf" : t(lang, "footer.return"), href: hrefFor("returnPolicy", lang) },
         ...(lang === "de" ? [{ label: "Impressum", href: hrefFor("impressum", lang) }] : []),
         { label: "support@woolet.co", href: "mailto:support@woolet.co" },
         { label: "Bespoke production", href: `/${lang}/admin/bespoke` },
