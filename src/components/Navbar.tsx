@@ -134,7 +134,7 @@ const Navbar = () => {
             style={{ fontSize: "0.72rem", padding: "6px 12px", borderRadius: 2 }}
             onClick={() => pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang })}
           >
-            VIP — 40% off
+            {lang === "de" ? "VIP - 40% Rabatt" : "VIP — 40% off"}
           </Link>
           {/* Top "Scan your face" CTA hidden — primary CTA is now waitlist */}
 
@@ -207,7 +207,7 @@ const Navbar = () => {
                 pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session });
               }}
             >
-              {session ? "Account" : "Sign in"}
+              {session ? (lang === "de" ? "Konto" : "Account") : (lang === "de" ? "Anmelden" : "Sign in")}
             </Link>
 
             <div className="woolet-divider" />
@@ -217,7 +217,7 @@ const Navbar = () => {
                 className="text-cream-dim uppercase tracking-[0.2em]"
                 style={{ fontSize: "0.72rem" }}
               >
-                Language
+                {lang === "de" ? "Sprache" : "Language"}
               </span>
               <div className="flex flex-wrap gap-2">
                 {SUPPORTED_LANGS.map((l) => (
@@ -254,7 +254,7 @@ const Navbar = () => {
                 pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang });
               }}
             >
-              VIP — 40% off
+              {lang === "de" ? "VIP - 40% Rabatt" : "VIP — 40% off"}
             </Link>
           </div>
         </div>

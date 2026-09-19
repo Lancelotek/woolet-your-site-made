@@ -1,23 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import DeReservationCta from "@/components/de/DeReservationCta";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
-import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
-const wooletLogo = wooletLogoAsset.url;
-import {
-  DEFAULT_FAQS,
-  dePageOrder,
-  dePageTitles,
-  dePages,
-  type DePageConfig,
-} from "@/content/de/landingPages";
+import frame007 from "@/assets/frames-2026/oval-crystal.asset.json";
+import frame009 from "@/assets/frames-2026/square-crystal.asset.json";
+import { homeOnFaceCard } from "@/data/on-face-photos";
+import { DEFAULT_FAQS, dePageTitles, dePages, type DePageConfig } from "@/content/de/landingPages";
 
 const SITE = "https://woolet.co";
-const SCAN_HREF = "/de/fit";
+const HERO_SRC = "/hero-greg-1000.webp";
+const HERO_SRCSET = "/hero-greg-648.webp 648w, /hero-greg-1000.webp 1000w";
+const HERO_SIZES = "(min-width: 1024px) 48vw, 100vw";
 
 const ENGLISH_EQUIVALENT: Record<string, string> = {
   "brille-fuer-breites-gesicht": "/en/collections/wide-face-glasses",
@@ -27,16 +27,6 @@ const ENGLISH_EQUIVALENT: Record<string, string> = {
   "brille-breite-160-mm": "/en/collections/extra-wide-glasses",
 };
 
-const colors = {
-  ink: "#080807",
-  inkSoft: "#121110",
-  cream: "#EDE7D9",
-  creamDim: "#9A8E7E",
-  gold: "#CAA449",
-  goldDim: "#A07A2A",
-  line: "#2a2520",
-};
-
 function VipForm() {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
@@ -44,194 +34,115 @@ function VipForm() {
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     if (!consent) return;
     setLoading(true);
     setError(null);
     try {
-      const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
+      const { data, error: functionError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
-          ...getAttribution(),
-          email,
-          source: "DE",
-          country: "Germany",
-          country_code: "DE",
-          utm_source: "de-landing",
-          utm_campaign: "de-seo",
+          ...getAttribution(), email, source: "DE", country: "Germany", country_code: "DE",
+          utm_source: "de-landing", utm_campaign: "de-seo",
         },
       });
-      if (fnError) throw fnError;
+      if (functionError) throw functionError;
       if (data && !data.success) throw new Error(data.error || "Anmeldung fehlgeschlagen");
       setDone(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Etwas ist schiefgelaufen.");
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "Etwas ist schiefgelaufen.");
     } finally {
       setLoading(false);
     }
   };
 
   if (done) {
-    return (
-      <div
-        className="p-6 border max-w-xl mx-auto"
-        style={{ background: "rgba(202,164,73,0.06)", borderColor: "rgba(202,164,73,0.25)" }}
-      >
-        <p style={{ color: colors.cream, fontFamily: "'Barlow', sans-serif" }}>
-          Du stehst auf der VIP-Liste. Wir melden uns zum Kickstarter-Start mit deinem Founding-Preis.
-        </p>
-      </div>
-    );
+    return <div className="mx-auto max-w-xl border border-primary/25 bg-primary/5 p-6 font-body text-foreground">Du stehst auf der VIP-Liste. Wir melden uns zum Kickstarter-Start mit deinem Founding-Preis.</div>;
   }
 
   return (
-    <form onSubmit={onSubmit} className="max-w-xl mx-auto flex flex-col gap-3">
+    <form onSubmit={onSubmit} className="mx-auto flex max-w-xl flex-col gap-3 text-left">
       <label className="flex flex-col gap-2">
-        <span
-          style={{
-            fontSize: 11,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: colors.creamDim,
-            fontFamily: "'Barlow', sans-serif",
-          }}
-        >
-          E-Mail
-        </span>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="du@beispiel.de"
-          className="w-full px-0 py-3 bg-transparent outline-none"
-          style={{
-            color: colors.cream,
-            borderBottom: `1px solid ${colors.line}`,
-            fontFamily: "'Barlow', sans-serif",
-            fontSize: 15,
-          }}
-        />
+        <span className="font-body text-[11px] uppercase tracking-[0.22em] text-cream-dim">E-Mail</span>
+        <input type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="du@beispiel.de" className="w-full border-0 border-b border-border-sub bg-transparent px-0 py-3 font-body text-[15px] text-foreground outline-none focus:border-primary" />
       </label>
-
-      <label className="flex items-start gap-3 cursor-pointer mt-1" style={{ color: colors.creamDim, fontSize: 12, fontFamily: "'Barlow', sans-serif" }}>
-        <input type="checkbox" checked={consent} onChange={() => setConsent((v) => !v)} className="hidden" />
-        <span
-          className="flex items-center justify-center flex-shrink-0 mt-[2px]"
-          style={{
-            width: 14,
-            height: 14,
-            backgroundColor: consent ? colors.gold : "transparent",
-            border: `1px solid ${consent ? colors.gold : colors.line}`,
-          }}
-        >
-          {consent && (
-            <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
-              <path d="M1 3L3 5L7 1" stroke="#0f0f0f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          )}
-        </span>
-        <span>
-          Ja, schickt mir das Founding-Angebot und Launch-Updates per E-Mail. Abmeldung jederzeit möglich.
-        </span>
+      <label className="mt-1 flex cursor-pointer items-start gap-3 font-body text-xs text-cream-dim">
+        <input type="checkbox" checked={consent} onChange={() => setConsent((value) => !value)} className="mt-0.5 h-4 w-4 accent-primary" />
+        <span>Ja, schickt mir das Founding-Angebot und Launch-Updates per E-Mail. Abmeldung jederzeit möglich.</span>
       </label>
-
-      {error && (
-        <p style={{ color: "#e25555", fontSize: 12, fontFamily: "'Barlow', sans-serif" }}>{error}</p>
-      )}
-
-      <button
-        type="submit"
-        disabled={loading || !consent}
-        className="w-full py-4 disabled:opacity-60 transition-colors"
-        style={{
-          background: colors.gold,
-          color: colors.ink,
-          fontFamily: "'Barlow', sans-serif",
-          fontWeight: 600,
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          fontSize: 12,
-        }}
-      >
+      {error && <p className="font-body text-xs text-destructive">{error}</p>}
+      <Button type="submit" disabled={loading || !consent} className="h-auto rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]">
         {loading ? "Wird gesendet..." : "Auf die VIP-Liste"}
-      </button>
+      </Button>
     </form>
   );
 }
 
-function Section({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
-  return (
-    <section className="px-6 md:px-10" style={style}>
-      <div className="max-w-5xl mx-auto py-20 md:py-28">{children}</div>
-    </section>
-  );
+function Section({ children, bordered = false }: { children: ReactNode; bordered?: boolean }) {
+  return <section className={`relative px-5 py-16 sm:px-8 lg:px-16 lg:py-24 ${bordered ? "border-t border-border-sub" : ""}`}><div className="mx-auto max-w-[1100px]">{children}</div></section>;
 }
 
-function SizeCard({ mm, label }: { mm: string; label: string }) {
+const symptoms = [
+  { title: "Druckstellen an den Schläfen", note: "Die Fassung klemmt, statt locker aufzuliegen.", icon: "((◉))" },
+  { title: "Bügel stehen nach außen", note: "Sie werden aufgebogen und mit der Zeit immer lockerer.", icon: "↙ ─ ↘" },
+  { title: "Die Front endet zu früh", note: "Die Gläser sitzen innerhalb deiner Augenlinie.", icon: "⊣ ◎ ⊢" },
+];
+
+function FitSymptoms() {
+  const [open, setOpen] = useState(false);
   return (
-    <div
-      className="p-8 flex flex-col gap-3"
-      style={{ border: `1px solid ${colors.line}`, background: colors.inkSoft }}
-    >
-      <div
-        style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontSize: 56,
-          lineHeight: 1,
-          color: colors.gold,
-          fontWeight: 400,
-        }}
-      >
-        {mm}
-        <span style={{ fontSize: 18, marginLeft: 6, color: colors.creamDim }}>mm</span>
-      </div>
-      <div
-        style={{
-          color: colors.cream,
-          fontFamily: "'Barlow', sans-serif",
-          fontSize: 14,
-          letterSpacing: "0.04em",
-        }}
-      >
-        {label}
-      </div>
-      <div
-        style={{
-          color: colors.creamDim,
-          fontSize: 11,
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          fontFamily: "'Barlow', sans-serif",
-        }}
-      >
-        gemessen, nicht geraten
+    <div className="flex w-full max-w-[520px] flex-col gap-5">
+      <p className="m-0 font-display text-[1.35rem] italic text-woolet-white">Kommt dir das bekannt vor?</p>
+      <ul className="m-0 grid list-none grid-cols-1 border-y border-border-sub p-0 text-woolet-white sm:grid-cols-3">
+        {symptoms.map((symptom, index) => (
+          <li key={symptom.title} className={`flex flex-col items-center gap-3 px-4 py-5 text-center sm:items-start sm:px-0 sm:text-left ${index > 0 ? "border-t border-border-sub sm:border-l sm:border-t-0 sm:pl-4" : ""}`}>
+            <span className="font-body text-xl text-primary" aria-hidden="true">{symptom.icon}</span>
+            <span className="font-body text-sm font-medium leading-snug">{symptom.title}</span>
+            <span className="font-body text-xs leading-relaxed text-cream-dim">{symptom.note}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="m-0 font-body text-sm leading-relaxed text-cream-dim">Alle drei Zeichen bedeuten dasselbe: <strong className="font-semibold text-primary">Deine Fassung ist etwa 10-15 mm zu schmal.</strong> Woolet beginnt dort, wo andere aufhören.</p>
+      <div className="border border-border-sub">
+        <Button type="button" variant="ghost" aria-expanded={open} onClick={() => setOpen((value) => !value)} className="h-auto w-full justify-between rounded-none px-4 py-3 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim hover:bg-secondary hover:text-foreground">
+          Kennst du dein Maß? Zahlen ansehen <span className="text-primary">{open ? "-" : "+"}</span>
+        </Button>
+        {open && <div className="px-4 pb-5"><WidthMeter /></div>}
       </div>
     </div>
   );
 }
 
-function CtaButton({ to, children, variant = "primary" }: { to: string; children: React.ReactNode; variant?: "primary" | "ghost" }) {
-  const isPrimary = variant === "primary";
+function WidthMeter() {
   return (
-    <Link
-      to={to}
-      className="inline-flex items-center justify-center transition-colors"
-      style={{
-        padding: "16px 28px",
-        background: isPrimary ? colors.gold : "transparent",
-        color: isPrimary ? colors.ink : colors.gold,
-        border: isPrimary ? "none" : `1px solid ${colors.gold}`,
-        fontFamily: "'Barlow', sans-serif",
-        fontWeight: 600,
-        fontSize: 12,
-        letterSpacing: "0.24em",
-        textTransform: "uppercase",
-        textDecoration: "none",
-      }}
-    >
-      {children}
-    </Link>
+    <div className="space-y-5 pt-3 font-body">
+      <div className="flex justify-between text-[10px] uppercase tracking-[0.22em] text-cream-dim"><span>Frontbreite</span><span>mm</span></div>
+      <div className="relative h-6 border-y border-border-sub">
+        <div className="absolute left-[8%] top-1/2 h-3 w-[28%] -translate-y-1/2 border border-border-sub bg-secondary" />
+        <div className="absolute left-1/2 top-0 h-full w-[30%] bg-primary" />
+      </div>
+      <div className="flex justify-between text-[11px] text-cream-dim"><span>135</span><span>155</span><span>161</span><span>175</span></div>
+      <div className="flex justify-between text-xs"><span className="text-cream-dim">Standard 138-148</span><span className="font-semibold text-primary">Woolet 155-161</span></div>
+    </div>
+  );
+}
+
+function FoundingBenefitsDe() {
+  const benefits = [
+    ["Founding-Preis 109 €", "statt 179 € - bei der Bestellung gesichert"],
+    ["Kostenloser Versand nach Deutschland", "Kein Mindestbestellwert"],
+    ["48 Stunden früher Zugang", "Farben und Modelle vor dem öffentlichen Start wählen"],
+  ];
+  return (
+    <div className="overflow-hidden border border-primary/25 bg-primary/5" aria-label="Vorteile für Founding Member">
+      <div className="border-b border-primary/20 bg-primary/5 px-4 py-2 font-body text-[10px] font-semibold uppercase tracking-[0.28em] text-primary">Founding Member</div>
+      {benefits.map(([title, text], index) => (
+        <div key={title} className={`flex items-start gap-3 px-4 py-3 ${index < benefits.length - 1 ? "border-b border-border-sub" : ""}`}>
+          <span className="flex h-[18px] w-[18px] shrink-0 items-center justify-center border border-primary/45 text-[10px] text-primary">✓</span>
+          <div><div className="font-body text-[13px] font-medium text-woolet-white">{title}</div><div className="mt-0.5 font-body text-xs leading-relaxed text-cream-dim">{text}</div></div>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -239,492 +150,90 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
   const faqs = config.faqs ?? DEFAULT_FAQS;
   const canonical = `${SITE}/de/${config.slug}`;
   const englishAlt = ENGLISH_EQUIVALENT[config.slug] || "/en";
-
   const productJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: "Woolet",
-    description: config.metaDescription,
-    brand: { "@type": "Brand", name: "Woolet" },
-    material: "Italienisches Acetat (Mazzucchelli 1849)",
-    image: `${SITE}/og-image.png`,
-    offers: {
-      "@type": "Offer",
-      url: canonical,
-      priceCurrency: "EUR",
-      price: DE_PRICING.founderPriceEur.toFixed(2),
-      priceValidUntil: DE_PRICING.priceValidUntil,
-      availability: "https://schema.org/PreOrder",
-      itemCondition: "https://schema.org/NewCondition",
-      priceSpecification: {
-        "@type": "UnitPriceSpecification",
-        priceType: "https://schema.org/ListPrice",
-        price: DE_PRICING.regularPriceEur.toFixed(2),
-        priceCurrency: "EUR",
-      },
-      seller: { "@type": "Organization", name: "Woolet", url: `${SITE}` },
-    },
+    "@context": "https://schema.org", "@type": "Product", name: `Woolet - ${config.h1}`,
+    description: config.metaDescription, brand: { "@type": "Brand", name: "Woolet" },
+    material: "Italienisches Acetat (Mazzucchelli 1849)", image: `${SITE}${HERO_SRC}`,
+    offers: { "@type": "Offer", url: canonical, priceCurrency: "EUR", price: DE_PRICING.founderPriceEur.toFixed(2), priceValidUntil: DE_PRICING.priceValidUntil, availability: "https://schema.org/PreOrder", itemCondition: "https://schema.org/NewCondition", seller: { "@type": "Organization", name: "Woolet", url: SITE } },
   };
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
+  const faqJsonLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) };
 
   useEffect(() => {
     document.documentElement.lang = "de";
-    return () => {
-      document.documentElement.lang = "en";
-    };
+    return () => { document.documentElement.lang = "en"; };
   }, []);
 
-  const related = dePageOrder.filter((s) => s !== config.slug);
+  const models = [
+    { id: "007", shape: "Rund / Panto", specs: "52□21-150", image: frame007.url, onFace: homeOnFaceCard["007"] },
+    { id: "009", shape: "Weiches Quadrat", specs: "54□22-150", image: frame009.url, onFace: homeOnFaceCard["009"] },
+  ];
 
   return (
     <>
       <Helmet>
-        <html lang="de" />
-        <title>{config.metaTitle}</title>
-        <meta name="description" content={config.metaDescription} />
-        <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="de" href={canonical} />
-        <link rel="alternate" hrefLang="en" href={`${SITE}${englishAlt}`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE}${englishAlt}`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:locale" content="de_DE" />
-        <meta property="og:title" content={config.metaTitle} />
-        <meta property="og:description" content={config.metaDescription} />
-        <meta property="og:url" content={canonical} />
-        <meta property="og:image" content={`${SITE}/og-image.png`} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={config.metaTitle} />
-        <meta name="twitter:description" content={config.metaDescription} />
-        <meta name="twitter:image" content={`${SITE}/og-image.png`} />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+        <html lang="de" /><title>{config.metaTitle}</title><meta name="description" content={config.metaDescription} />
+        <link rel="canonical" href={canonical} /><link rel="alternate" hrefLang="de" href={canonical} /><link rel="alternate" hrefLang="en" href={`${SITE}${englishAlt}`} /><link rel="alternate" hrefLang="x-default" href={`${SITE}${englishAlt}`} />
+        <meta property="og:type" content="website" /><meta property="og:locale" content="de_DE" /><meta property="og:title" content={config.metaTitle} /><meta property="og:description" content={config.metaDescription} /><meta property="og:url" content={canonical} /><meta property="og:image" content={`${SITE}${HERO_SRC}`} />
+        <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={config.metaTitle} /><meta name="twitter:description" content={config.metaDescription} />
+        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script><script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
+      <link rel="preload" as="image" type="image/webp" href={HERO_SRC} imageSrcSet={HERO_SRCSET} imageSizes={HERO_SIZES} />
 
-      <main style={{ background: colors.ink, color: colors.cream, minHeight: "100vh" }}>
-        {/* TOP BAR */}
-        <header
-          className="px-6 md:px-10 absolute top-0 left-0 right-0 z-20"
-          style={{ background: "transparent" }}
-        >
-          <div className="max-w-6xl mx-auto flex items-center justify-between py-5">
-             <Link to="/de" aria-label="Woolet - Startseite" className="inline-flex items-center">
-              <img
-                src={wooletLogo}
-                alt="Woolet"
-                className="h-8 md:h-9 w-auto"
-              />
-            </Link>
-          </div>
-        </header>
+      <main className="min-h-screen overflow-hidden bg-background text-foreground">
+        <Navbar />
+        <section className="relative px-5 pb-10 pt-8 sm:px-8 lg:px-16 lg:pb-14 lg:pt-14">
+          <div className="mx-auto grid max-w-[1320px] grid-cols-1 items-stretch gap-7 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+            <div className="contents lg:flex lg:flex-col lg:gap-7 lg:py-2">
+              <div className="order-1 flex flex-col gap-5 lg:order-none lg:gap-7">
+                <div className="woolet-eyebrow"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">155-161 mm - handgefertigt in der EU</span></div>
+                <h1 className="max-w-[650px] font-display text-woolet-white" style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)", fontWeight: 300, lineHeight: 1.02 }}>
+                  {config.h1Pre}<em className="text-gold-light">{config.h1Em}</em>{config.h1Post}
+                </h1>
+                <p className="max-w-[560px] font-body text-[1.02rem] leading-relaxed text-cream-dim">{config.sub}</p>
+              </div>
 
-        {/* HERO */}
-        <section
-          className="px-6 md:px-10 relative overflow-hidden"
-          style={{
-            background: `radial-gradient(1200px 600px at 80% -10%, rgba(202,164,73,0.08), transparent 60%), ${colors.ink}`,
-            borderBottom: `1px solid ${colors.line}`,
-          }}
-        >
-          <div className="max-w-6xl mx-auto pt-24 md:pt-32 pb-20 md:pb-28 grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
-            <div className="flex flex-col gap-7">
-              <span
-                style={{
-                  fontFamily: "'Barlow', sans-serif",
-                  fontSize: 11,
-                  letterSpacing: "0.28em",
-                  textTransform: "uppercase",
-                  color: colors.gold,
-                }}
-              >
-                Woolet · Made in the EU
-              </span>
-              <h1
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 400,
-                  lineHeight: 1.08,
-                  fontSize: "clamp(2.4rem, 5vw, 4.2rem)",
-                  color: colors.cream,
-                  letterSpacing: "-0.01em",
-                  margin: 0,
-                }}
-              >
-                {config.h1}
-              </h1>
-              <p
-                style={{
-                  fontFamily: "'Barlow', sans-serif",
-                  fontWeight: 300,
-                  fontSize: "clamp(1rem, 1.6vw, 1.2rem)",
-                  lineHeight: 1.6,
-                  color: colors.creamDim,
-                  maxWidth: 560,
-                  margin: 0,
-                }}
-              >
-                {config.sub}
-              </p>
-               <div className="mt-2 flex flex-col items-start gap-4">
-                 <DeReservationCta source={config.slug} />
-                 <CtaButton to={SCAN_HREF} variant="ghost">Gesicht in 20 Sekunden messen</CtaButton>
-                 <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">
-                   {formatDePrice(DE_PRICING.reservationEur)} sichert dir eine nummerierte Founders Edition (max. {DE_PRICING.founderLimit}). Voll anrechenbar, jederzeit erstattbar.
-                 </p>
-               </div>
+              <div className="order-5 lg:order-none"><FitSymptoms /></div>
+
+              <div className="order-2 flex flex-col items-start gap-4 lg:order-none">
+                <DeReservationCta source={config.slug} />
+                <Button asChild variant="outline" className="h-auto rounded-sm border-border-sub bg-transparent px-7 py-4 font-body text-xs font-semibold uppercase tracking-[0.22em] text-cream-dim hover:border-primary/40 hover:bg-transparent hover:text-foreground"><Link to="/de/fit">Erst Gesicht messen</Link></Button>
+                <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">1 € sichert dir eine nummerierte Founders Edition. Voll anrechenbar und jederzeit erstattbar.</p>
+              </div>
+
+              <div className="order-6 max-w-[520px] lg:order-none"><FoundingBenefitsDe /></div>
+              <div className="order-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-[0.78rem] text-cream-dim lg:order-none sm:gap-x-6"><span>Passform-Garantie</span><span aria-hidden="true">·</span><span>Mazzucchelli-Acetat</span><span aria-hidden="true">·</span><span>Handgefertigt in der EU</span></div>
             </div>
 
-            <div className="hidden md:block">
-              <img
-                src="/og-image.png"
-                alt={`Woolet Brillen für ${config.primaryKeyword}`}
-                loading="lazy"
-                width={520}
-                height={520}
-                style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }}
-              />
+            <div className="order-3 relative max-h-[58vh] min-h-[360px] w-full overflow-hidden rounded-sm border border-border-sub sm:aspect-[4/5] sm:max-h-[680px] lg:order-none lg:aspect-auto lg:max-h-none lg:min-h-[600px]">
+              <img src={HERO_SRC} srcSet={HERO_SRCSET} sizes={HERO_SIZES} alt={config.heroAlt} className="absolute inset-0 h-full w-full object-cover object-[center_25%]" loading="eager" fetchPriority="high" width={1000} height={1250} />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/55" />
+              <div className="absolute bottom-4 left-4 flex max-w-[calc(100%-2rem)] items-center gap-3 rounded-sm border border-border-sub bg-background/80 px-3 py-2 font-body text-xs backdrop-blur-md sm:bottom-5 sm:left-5"><span>Greg</span><span className="text-primary">Nutzer von WOOLET 009</span></div>
             </div>
           </div>
         </section>
 
-        {/* PROBLEM */}
-        <Section>
-          <div className="max-w-3xl">
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
-                fontWeight: 400,
-                lineHeight: 1.15,
-                color: colors.cream,
-                margin: 0,
-              }}
-            >
-              Drückt jede Brille nach einer Stunde an den Schläfen?
-            </h2>
-            <p
-              style={{
-                marginTop: 20,
-                fontFamily: "'Barlow', sans-serif",
-                fontSize: 16,
-                lineHeight: 1.7,
-                color: colors.creamDim,
-              }}
-            >
-               Die meisten Fassungen enden bei 135-145 mm. Wenn dein Gesicht breiter ist, gibt es von der Stange keine echte Passform - du gibst auf, schickst zurück oder trägst etwas, das drückt. Das liegt nicht an dir. Es ist eine Lücke im Markt.
-            </p>
+        <Section bordered>
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+            <div><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Passform verstehen</span></div><h2 className="font-display text-4xl leading-tight text-woolet-white lg:text-5xl">{config.problemTitle}</h2></div>
+            <div className="space-y-8 font-body text-base leading-8 text-cream-dim"><p>{config.problemBody}</p><div className="border-l border-primary pl-6"><h3 className="mb-3 font-display text-2xl text-foreground">{config.detailTitle}</h3><p>{config.detailBody}</p></div></div>
           </div>
         </Section>
 
-        {/* SIZE EXPLAINER */}
-        <Section style={{ borderTop: `1px solid ${colors.line}` }}>
-          <h2
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
-              fontWeight: 400,
-              color: colors.cream,
-              margin: 0,
-              marginBottom: 12,
-            }}
-          >
-             Drei exakte Breiten - entwickelt für Köpfe, die Standardfassungen ignorieren.
-          </h2>
-          <p
-            style={{
-              fontFamily: "'Barlow', sans-serif",
-              color: colors.creamDim,
-              fontSize: 15,
-              marginBottom: 36,
-              maxWidth: 620,
-            }}
-          >
-             155, 158 und 161 mm Frontbreite. Keine „large", keine Schätzung - Millimeter, die wirklich passen.
-          </p>
-          <div className="grid sm:grid-cols-3 gap-5">
-            <SizeCard mm="155" label="schmaler" />
-            <SizeCard mm="158" label="Standard" />
-            <SizeCard mm="161" label="breit" />
+        <Section bordered>
+          <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><div className="woolet-eyebrow mb-4"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Die Kollektion</span></div><h2 className="font-display text-3xl text-woolet-white lg:text-4xl">Zwei Formen. <em className="text-gold-light">Eine ehrliche Breite.</em></h2></div><Link to="/de/collection" className="font-body text-xs uppercase tracking-[0.22em] text-cream-dim no-underline hover:text-foreground">Kollektion ansehen -&gt;</Link></div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:gap-6">
+            {models.map((model) => <Link key={model.id} to="/de/collection" className="group block border border-border-sub bg-secondary no-underline transition-all hover:-translate-y-1 hover:border-primary/50"><div className="relative aspect-[4/3] overflow-hidden bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape} breite Brille`} className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-0" loading="lazy" /><img src={model.onFace} alt={`Woolet ${model.id} ${model.shape} auf einem breiten Gesicht`} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" loading="lazy" /></div><div className="flex items-end justify-between gap-4 px-5 py-4"><div><div className="font-body text-[11px] uppercase tracking-[0.28em] text-primary">{model.id}</div><div className="mt-1 font-display text-xl text-woolet-white">Woolet {model.id}</div><div className="mt-1 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{model.shape} · {model.specs}</div></div><span className="font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">Ansehen -&gt;</span></div></Link>)}
           </div>
         </Section>
 
-        {/* FITLENS BAND */}
-        <section
-          className="px-6 md:px-10"
-          style={{
-            background: colors.inkSoft,
-            borderTop: `1px solid ${colors.line}`,
-            borderBottom: `1px solid ${colors.line}`,
-          }}
-        >
-          <div className="max-w-4xl mx-auto py-20 md:py-24 text-center flex flex-col items-center gap-6">
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
-                fontWeight: 400,
-                color: colors.cream,
-                margin: 0,
-              }}
-            >
-              Kenne deine Gesichtsbreite in 20 Sekunden
-            </h2>
-            <p
-              style={{
-                fontFamily: "'Barlow', sans-serif",
-                color: colors.creamDim,
-                fontSize: 16,
-                lineHeight: 1.7,
-                maxWidth: 580,
-                margin: 0,
-              }}
-            >
-               FitLens misst dein Gesicht mit der Handykamera und empfiehlt die richtige Größe - keine Schätzung, keine Rücksendung.
-            </p>
-             <div className="mt-2 flex flex-col items-center gap-4">
-               <DeReservationCta source={`${config.slug}_middle`} />
-               <CtaButton to={SCAN_HREF} variant="ghost">Erst Gesicht messen</CtaButton>
-            </div>
-          </div>
-        </section>
+        <section className="border-y border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Founding-Preis</p><h2 className="mt-4 font-display text-4xl text-foreground md:text-5xl">Breite Passform. Klarer Preis.</h2><div className="mt-6 flex items-baseline justify-center gap-4"><span className="font-display text-3xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span><strong className="font-display text-6xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong></div><p className="mt-3 font-body text-sm text-cream-dim">inkl. MwSt. · Kostenloser Versand nach Deutschland</p><DeReservationCta source={`${config.slug}_pricing`} className="mt-8" /></div></section>
 
-        {/* MATERIAL */}
-        <Section>
-          <div className="grid md:grid-cols-[1fr_1fr] gap-10 items-start">
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
-                fontWeight: 400,
-                color: colors.cream,
-                margin: 0,
-                lineHeight: 1.15,
-              }}
-            >
-              Italienisches Mazzucchelli-1849-Acetat, in der EU handgefertigt
-            </h2>
-            <ul className="flex flex-col gap-4" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {[
-                "Keyhole-Steg für breitere Nasen",
-                "Zwei Formen: 007 rund, 009 eckig",
-                "Verglasungsfertig (Sehstärke möglich)",
-              ].map((item) => (
-                <li
-                  key={item}
-                  style={{
-                    fontFamily: "'Barlow', sans-serif",
-                    color: colors.cream,
-                    fontSize: 16,
-                    lineHeight: 1.6,
-                    paddingLeft: 22,
-                    position: "relative",
-                  }}
-                >
-                  <span
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      top: 10,
-                      width: 10,
-                      height: 1,
-                      background: colors.gold,
-                    }}
-                  />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Section>
+        <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Kickstarter · Founding Member</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founding-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><VipForm /></div></section>
 
-         {/* FOUNDING PRICE */}
-         <section className="border-y border-border-sub bg-secondary px-6 py-20 text-center md:px-10 md:py-24">
-           <div className="mx-auto max-w-3xl">
-             <h2 className="text-4xl font-normal text-foreground md:text-5xl">Founding-Preis für die ersten {DE_PRICING.founderLimit}</h2>
-             <div className="mt-6 flex items-baseline justify-center gap-4">
-               <span className="font-display text-3xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span>
-               <strong className="font-display text-6xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong>
-             </div>
-             <p className="mt-2 font-body text-sm text-cream-dim">inkl. MwSt.</p>
-             <p className="mx-auto mt-5 max-w-xl font-body text-[15px] leading-7 text-cream-dim">Rahmen 158 mm, Mazzucchelli-Acetat, handgefertigt in der EU.</p>
-             <DeReservationCta source={`${config.slug}_pricing`} className="mt-8" />
-           </div>
-         </section>
+        <Section bordered><h2 className="mb-6 font-display text-4xl text-foreground">Häufige Fragen</h2><Accordion type="single" collapsible>{faqs.map((faq, index) => <AccordionItem key={faq.q} value={`item-${index}`} className="border-border-sub"><AccordionTrigger className="text-left font-body text-base font-medium text-foreground">{faq.q}</AccordionTrigger><AccordionContent className="font-body text-[15px] leading-7 text-cream-dim">{faq.a}</AccordionContent></AccordionItem>)}</Accordion></Section>
 
-        {/* VIP */}
-        <section
-          id="vip"
-          className="px-6 md:px-10"
-          style={{
-            background: colors.inkSoft,
-            borderTop: `1px solid ${colors.line}`,
-            borderBottom: `1px solid ${colors.line}`,
-          }}
-        >
-          <div className="max-w-3xl mx-auto py-20 md:py-24 text-center">
-            <span
-              style={{
-                fontFamily: "'Barlow', sans-serif",
-                fontSize: 11,
-                letterSpacing: "0.28em",
-                textTransform: "uppercase",
-                color: colors.gold,
-              }}
-            >
-              Kickstarter · Founding Member
-            </span>
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
-                fontWeight: 400,
-                color: colors.cream,
-                marginTop: 16,
-                marginBottom: 12,
-              }}
-            >
-               Noch nicht bereit? Hol dir den Founding-Preis per E-Mail
-            </h2>
-            <p
-              style={{
-                fontFamily: "'Barlow', sans-serif",
-                color: colors.creamDim,
-                fontSize: 15,
-                lineHeight: 1.7,
-                marginBottom: 32,
-              }}
-            >
-               VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang und den exklusiven Founding-Preis.
-            </p>
-             <DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" />
-            <VipForm />
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <Section>
-          <h2
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
-              fontWeight: 400,
-              color: colors.cream,
-              margin: 0,
-              marginBottom: 24,
-            }}
-          >
-            Häufige Fragen
-          </h2>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((f, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                style={{ borderBottom: `1px solid ${colors.line}` }}
-              >
-                <AccordionTrigger
-                  className="text-left"
-                  style={{
-                    fontFamily: "'Barlow', sans-serif",
-                    color: colors.cream,
-                    fontSize: 16,
-                    fontWeight: 500,
-                  }}
-                >
-                  {f.q}
-                </AccordionTrigger>
-                <AccordionContent
-                  style={{
-                    fontFamily: "'Barlow', sans-serif",
-                    color: colors.creamDim,
-                    fontSize: 15,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {f.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </Section>
-
-        {/* RELATED */}
-        <Section style={{ borderTop: `1px solid ${colors.line}` }}>
-          <h2
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "clamp(1.6rem, 2.5vw, 2.1rem)",
-              fontWeight: 400,
-              color: colors.cream,
-              margin: 0,
-              marginBottom: 24,
-            }}
-          >
-            Verwandte Seiten
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {related.map((slug) => (
-              <Link
-                key={slug}
-                to={`/de/${slug}`}
-                className="block p-6 transition-colors hover:bg-[rgba(202,164,73,0.05)]"
-                style={{
-                  border: `1px solid ${colors.line}`,
-                  color: colors.cream,
-                  fontFamily: "'Barlow', sans-serif",
-                  textDecoration: "none",
-                }}
-              >
-                <div style={{ fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 8 }}>
-                  Woolet · DE
-                </div>
-                <div style={{ fontSize: 17, color: colors.cream }}>{dePages[slug].h1}</div>
-                <div style={{ marginTop: 10, fontSize: 12, color: colors.creamDim, letterSpacing: "0.18em", textTransform: "uppercase" }}>
-                  {dePageTitles[slug]} →
-                </div>
-              </Link>
-            ))}
-          </div>
-        </Section>
-
-        {/* FOOTER STRIP */}
-        <footer
-          className="px-6 md:px-10"
-          style={{ background: colors.ink, borderTop: `1px solid ${colors.line}` }}
-        >
-          <div className="max-w-5xl mx-auto py-10 flex flex-wrap items-center justify-between gap-4">
-            <Link
-              to="/de"
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 22,
-                color: colors.cream,
-                textDecoration: "none",
-                letterSpacing: "0.02em",
-              }}
-            >
-              Woolet
-            </Link>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: colors.creamDim }}>
-               Handgefertigt in der EU · Mazzucchelli 1849 Acetat
-            </div>
-             <div className="flex flex-wrap gap-3 font-body text-xs text-cream-dim">
-               <Link to="/de/impressum" className="text-inherit underline underline-offset-4">Impressum</Link>
-               <span>·</span>
-               <Link to="/de/privacy-policy" className="text-inherit underline underline-offset-4">Datenschutz</Link>
-               <span>·</span>
-               <Link to="/de/widerruf" className="text-inherit underline underline-offset-4">Widerruf</Link>
-             </div>
-          </div>
-        </footer>
+        <Section bordered><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Weiterlesen</span></div><h2 className="mb-7 font-display text-3xl text-foreground">Passende Ratgeber</h2><div className="grid gap-4 sm:grid-cols-2">{config.related.map((slug) => <Link key={slug} to={`/de/${slug}`} className="border border-border-sub bg-secondary p-6 no-underline transition-colors hover:border-primary/50"><div className="font-body text-[10px] uppercase tracking-[0.22em] text-primary">Woolet · DE</div><div className="mt-3 font-display text-2xl text-foreground">{dePages[slug].h1}</div><div className="mt-4 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{dePageTitles[slug]} -&gt;</div></Link>)}</div></Section>
+        <Footer lang="de" />
       </main>
     </>
   );
