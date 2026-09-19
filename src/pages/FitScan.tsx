@@ -4153,6 +4153,8 @@ function FitLensEmailCapture({
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const inputId = `fitlens-email-${lang}`;
+  // Exactly one Meta Lead per email submission (double submit / re-render safe).
+  const leadFiredRef = useRef(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
