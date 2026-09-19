@@ -146,6 +146,14 @@ async function sendMetaCapiLead(params: {
           currency: "USD",
           value: 5,
           lead_source: params.source || "waitlist",
+          // Match the browser pixel's content_name so both sides of the
+          // deduplicated Lead describe the same capture point.
+          content_name:
+            params.source === "scan"
+              ? "Fit scan email"
+              : params.source === "fitlens"
+                ? "FitLens email"
+                : params.source || "waitlist",
         },
       }],
     };
