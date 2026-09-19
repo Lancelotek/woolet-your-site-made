@@ -86,6 +86,22 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
+    <loc>https://woolet.co/de/impressum</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/de/lp/kickstarter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/lp/kickstarter"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/lp/kickstarter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/lp/kickstarter"/>
+  </url>
+  <url>
+    <loc>https://woolet.co/de/widerruf</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/return-policy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/return-policy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/widerruf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/return-policy"/>
+  </url>
+  <url>
     <loc>https://woolet.co/de/xxl-brille-herren</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/xxl-brille-herren"/>
@@ -413,6 +429,9 @@
   </url>
   <url>
     <loc>https://woolet.co/en/lp/kickstarter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/lp/kickstarter"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/lp/kickstarter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/lp/kickstarter"/>
   </url>
   <url>
     <loc>https://woolet.co/en/lp/why-glasses-fail</loc>
@@ -424,6 +443,7 @@
     <loc>https://woolet.co/en/privacy-policy</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/privacy-policy"/>
     <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/privacy-policy"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/privacy-policy"/>
   </url>
   <url>
@@ -484,6 +504,7 @@
     <loc>https://woolet.co/en/return-policy</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/return-policy"/>
     <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/return-policy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/widerruf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/return-policy"/>
   </url>
   <url>
@@ -862,6 +883,7 @@
     <loc>https://woolet.co/pl/privacy-policy</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/privacy-policy"/>
     <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/privacy-policy"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/privacy-policy"/>
   </url>
   <url>
@@ -874,6 +896,7 @@
     <loc>https://woolet.co/pl/return-policy</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/return-policy"/>
     <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/return-policy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/widerruf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/return-policy"/>
   </url>
 </urlset>
