@@ -158,6 +158,29 @@ Deno.serve(async (req) => {
   // carry this yet — the path below is ready and waiting on the partner.
   const clientRef = normalizeMeasurementRef(client.reference);
 
+  // "Producer code" — the case number the customer types into FitLens when the
+  // scan was taken outside our link. FitLens has not settled on one field name,
+  // so every plausible spelling is read; only a well-formed case number counts.
+  const caseNoFromPayload = (() => {
+    const candidates = [
+      client.producerCode,
+      client.producer_code,
+      client.code,
+      client.caseNo,
+      client.reference,
+      payload.producerCode,
+      payload.producer_code,
+      payload.code,
+      payload.reference,
+    ];
+    for (const raw of candidates) {
+      if (typeof raw !== "string") continue;
+      const value = raw.trim().toUpperCase().replace(/\s+/g, "");
+      if (/^WLT-BSP-\d{4}-\d{4}$/.test(value)) return value;
+    }
+    return null;
+  })();
+
   // Idempotent on scan_id — the partner retries, and a retry must not create a
   // second row or a second downstream notification.
   const { data: existing } = await supabase
