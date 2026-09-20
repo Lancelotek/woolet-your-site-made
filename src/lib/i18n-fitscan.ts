@@ -216,6 +216,47 @@ const en: Dict = {
   "page.err_no_camera": "Your browser doesn't expose camera access. Try Chrome, Safari, or Firefox — or use the manual wizard.",
 };
 
+const de: Dict = {
+  ...en,
+  "seo.title": "Brillenfinder für breite Gesichter - Gesicht in 20 Sekunden messen",
+  "seo.desc": "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde in etwa 20 Sekunden die passende Woolet Fassung.",
+  "welcome.eyebrow": "FITLENS · MESSUNG IN ETWA 20 SEKUNDEN",
+  "welcome.h1_pre": "Brillenfinder für breite Gesichter - Gesicht in",
+  "welcome.h1_em": "20 Sekunden messen",
+  "welcome.subtitle": "Drei Schritte. Dein Foto bleibt auf deinem Gerät, bis du auslöst.",
+  "welcome.cta_fitlens": "Passform messen",
+  "welcome.cta_unavailable": "Messung nicht verfügbar",
+  "welcome.cta_note": "Bitte zuerst die Brille absetzen. Die Erkennung startet nach dem Auslösen.",
+  "welcome.manual_link": "Keine Kamera? Maße manuell eingeben →",
+  "analyzing.title": "Deine Maße werden ausgewertet",
+  "analyzing.stage1": "Foto wird sicher verarbeitet...",
+  "analyzing.stage2": "Referenz wird erkannt...",
+  "analyzing.stage3": "Gesichtspunkte werden bestimmt...",
+  "analyzing.stage4": "Gesichtsbreite und Steg werden berechnet...",
+  "analyzing.stage5": "Fast fertig - Empfehlung wird erstellt...",
+  "analyzing.footnote": "Das dauert normalerweise 8-15 Sekunden. Bitte lasse diese Seite geöffnet.",
+  "camera.lighting_good": "Gutes Licht", "camera.lighting_ok": "Licht ausreichend", "camera.lighting_dark": "Zu dunkel",
+  "camera.card_confirmed": "Karte bestätigt", "camera.card_detected": "Karte erkannt", "camera.card_rotate": "Karte flach und waagerecht halten", "camera.card_place": "Karte an die Stirn halten",
+  "camera.distance_too_close": "Weiter von der Kamera entfernen", "camera.distance_too_far": "Näher an die Kamera gehen", "camera.distance_ok": "Guter Abstand", "camera.distance_center": "Gesicht im Oval zentrieren",
+  "camera.pose_ok": "Blick zur Kamera", "camera.pose_off": "Geradeaus schauen", "camera.pose_center": "Gesicht zentrieren",
+  "camera.lens_ok": "Objektiv geeignet", "camera.lens_wide": "2x- oder 3x-Zoom verwenden", "camera.lens_tip_title": "2x- oder 3x-Zoom verwenden", "camera.lens_tip_warn": "Weitwinkel erkannt", "camera.lens_tip_body": "Vermeide 0,5x und 1x, da Weitwinkel das Gesicht verzerrt. Nutze 2x oder 3x und halte etwa 1-1,5 m Abstand.",
+  "camera.level_ok": "Smartphone gerade", "camera.level_off": "Smartphone gerade halten", "camera.level_enable": "Ausrichtung startet beim Auslösen", "camera.level_unavailable": "Ausrichtung nicht verfügbar",
+  "camera.card_override_mobile": "Karte liegt an der Stirn - bestätigen", "camera.card_override_desktop": "Karte liegt an der Stirn",
+  "camera.aria_capture": "Foto aufnehmen", "camera.aria_capturing": "Aufnahme in {n}", "camera.timer_cancel": "Timer abbrechen", "camera.timer_start_mobile": "3-Sekunden-Timer", "camera.timer_start_desktop": "3-Sekunden-Timer verwenden", "camera.manual_link": "Maße manuell eingeben →",
+  "camera.step_label": "Schritt 2 von 4 - Foto aufnehmen", "camera.measuring": "Messung läuft... ruhig halten", "camera.btn_measuring": "Messung... {pct}%", "camera.btn_analyzing": "Auswertung...", "camera.btn_capturing": "Aufnahme in {n}...", "camera.btn_capture": "Jetzt aufnehmen",
+  "camera.tips_heading": "Tipps für eine genaue Messung", "camera.tip1": "Haare von der Stirn zurücknehmen.", "camera.tip2": "Brille vor der Messung absetzen.", "camera.tip3": "Karte flach und waagerecht an die Stirn legen.", "camera.tip4": "Karte am oberen Rand halten und Ecken freilassen.", "camera.tip5": "Karte und Kamera nicht neigen.", "camera.tip6": "Gerade in die Kamera schauen.", "camera.like_this": "So ist es richtig", "camera.like_this_body": "Karte flach an die Stirn, lange Kante waagerecht. Am oberen Rand halten.", "camera.device_tip_mobile": "Smartphone auf Armlänge und auf Augenhöhe halten.", "camera.device_tip_desktop": "Etwa 50-70 cm vor der Webcam sitzen.",
+  "camera.err_not_ready": "Die Kamera ist noch nicht bereit. Bitte kurz warten.", "camera.err_init": "Gesichtserkennung konnte nicht gestartet werden.", "camera.err_capture_failed": "Aufnahme fehlgeschlagen. Bitte erneut versuchen.", "camera.err_permission": "Wir benötigen Kamerazugriff. Erlaube ihn im Browser oder gib deine Maße manuell ein.", "camera.err_generic": "Kamera konnte nicht gestartet werden. Probiere einen anderen Browser.", "camera.err_no_camera": "Auf diesem Gerät wurde keine Kamera gefunden.", "camera.err_constraints": "Diese Kamera unterstützt die Messung nicht.", "camera.manual_cta": "Maße manuell eingeben",
+  "annotate.retake": "← Neu aufnehmen", "annotate.step_card": "Kartenecken markieren ({n}/2)", "annotate.step_face": "Gesichtsränder markieren ({n}/2)", "annotate.all_placed": "Alle 4 Punkte gesetzt ✓", "annotate.reset": "Zurücksetzen", "annotate.fallback_hint": "Markiere zwei untere Kartenecken und danach die breitesten Gesichtsränder.", "annotate.drag_hint": "Punkt zum Anpassen ziehen", "annotate.card_corner": "Kartenecke", "annotate.face_edge": "Gesichtsrand", "annotate.aria_adjust": "zum Anpassen ziehen", "annotate.calc_pending_one": "Noch {n} Punkt markieren", "annotate.calc_pending_many": "Noch {n} Punkte markieren", "annotate.calc_ready": "Maße berechnen", "annotate.alt_captured": "Aufnahme für die Gesichtsmessung", "annotate.zoom_in": "Vergrößern", "annotate.zoom_out": "Verkleinern",
+  "result.step_label": "Schritt 4 von 4 - Deine Maße", "result.frame_reco_label": "Empfohlene Fassungsbreite", "result.frame_reco_body": "Achte beim Brillenkauf auf eine Gesamtbreite von {min} bis {max} mm. Schmalere Fassungen drücken, deutlich breitere können rutschen.", "result.head_width": "Gesichtsbreite", "result.raw": "(Rohwert {n} mm)",
+  "result.conf_high": "Hohe Genauigkeit", "result.conf_high_body": "Gesichts- und Referenzpunkte wurden klar erkannt.", "result.conf_medium": "Mittlere Genauigkeit", "result.conf_medium_body": "Brauchbares Ergebnis - wenn möglich mit einer gut sitzenden Brille vergleichen.", "result.conf_low": "Geringe Genauigkeit", "result.conf_low_body": "Bitte erneut messen und die Referenz flach an die Haut halten.",
+  "result.where_you_fall": "Deine Einordnung", "result.narrow": "Schmal (120)", "result.wide": "Breit (180+)", "result.nose_width": "Nasenbreite", "result.card_offset_label": "Die Karte war nicht ganz an der Haut", "result.approx_gap": "Ungefährer Abstand", "result.touching": "Anliegend", "result.held_out": "Mit Abstand", "result.correction_note": "Korrektur +{pct}% - angepasst von {raw} auf {adj} mm.",
+  "result.low_title": "Dieses Ergebnis wirkt zu niedrig", "result.low_body": "{n} mm liegt unter dem typischen Erwachsenenbereich. Miss erneut und halte die Karte flach an die Stirn.", "result.rescan_flat": "Mit flacher Karte erneut messen →", "result.face_shape_label": "Gesichtsform ·", "result.face_shape_h_pre": "Passende Form:", "result.face_shape_extra": "Deine Gesichtsbreite beträgt {n} mm. Woolet 007 und 009 haben 158 mm Frontbreite.", "result.see_woolet": "Woolet {model} ansehen →", "result.cta_account": "Zu meinem Konto →", "result.cta_prefill": "Passform ansehen →", "result.save": "Maße speichern", "result.rescan": "Erneut messen",
+  "email.eyebrow": "LETZTER SCHRITT · ERGEBNIS ANZEIGEN", "email.h2_pre": "Wohin sollen wir deine", "email.h2_em": "Maße senden?", "email.desc": "Wir zeigen dir Gesichtsbreite und passende Größe und senden dir eine Kopie per E-Mail.", "email.placeholder": "du@beispiel.de", "email.aria_label": "Deine E-Mail-Adresse", "email.agree": "Meine Maße per E-Mail senden und ein Woolet Konto anlegen. Abmeldung jederzeit möglich.", "email.agree_hint": "Bitte bestätigen, um das Ergebnis zu erhalten", "email.err_invalid": "Gib eine gültige E-Mail-Adresse ein", "email.err_accept": "Bitte stimme dem Versand deiner Maße zu.", "email.submit": "Ergebnis anzeigen →", "email.submitting": "Wird gesendet...", "email.footer": "Kein Spam · Wir geben deine E-Mail-Adresse nicht weiter.", "email.toast_save_failed": "E-Mail konnte nicht gespeichert werden.", "email.toast_sent": "Gesendet - prüfe deinen Posteingang.",
+  "fitlens.email_prompt": "Möchtest du diese Maße speichern? Wir senden dir die Werte und die passende Woolet Empfehlung.", "fitlens.email_cta": "Maße per E-Mail senden", "fitlens.email_sending": "Wird gesendet...", "fitlens.email_sent": "Gesendet. Deine Maße sind unterwegs - prüfe auch den Spam-Ordner.", "fitlens.email_consent": "Eine E-Mail mit deinem Ergebnis und gelegentliche Passform- und Launch-Updates. Abmeldung jederzeit möglich.", "email.toast_meas_rejected": "Messung abgelehnt", "email.toast_meas_failed": "Berechnung fehlgeschlagen.",
+  "sent.eyebrow": "DEINE MAßE", "sent.h1_pre": "Deine Gesichtsbreite:", "sent.h1_post": "", "sent.face_width": "Gesichtsbreite", "sent.bridge_width": "Stegbreite", "sent.copy_sent": "Eine Kopie wurde an {email} gesendet. Prüfe bitte auch den Spam-Ordner.", "sent.see_frame": "Empfehlung ansehen →",
+  "page.err_unavailable": "Messung nicht verfügbar", "page.err_didnt_complete": "Messung wurde nicht abgeschlossen", "page.err_before_retry": "Vor dem nächsten Versuch", "page.err_tip1": "Haare von der Stirn zurücknehmen", "page.err_tip2": "Karte am oberen Rand halten", "page.err_tip3": "Karte flach und waagerecht anlegen", "page.err_try_again": "Erneut versuchen", "page.err_use_manual": "Maße manuell eingeben", "page.err_glasses": "Bitte Brille absetzen und das Foto erneut aufnehmen.", "page.err_insecure": "Die Gesichtsmessung benötigt eine sichere HTTPS-Verbindung. Nutze alternativ die manuelle Eingabe.", "page.err_no_camera": "Dein Browser erlaubt keinen Kamerazugriff. Probiere Chrome, Safari oder Firefox oder gib deine Maße manuell ein.",
+};
+
 const pl: Dict = {
   "seo.title": "Skan twarzy — Woolet AI Fit",
   "seo.desc": "Zmierz szerokość twarzy i nosa kamerą i kartą kredytową. Lokalnie, prywatnie, z dokładnością ~2 mm. Sprawdź, czy oprawki Woolet na szeroką twarz pasują na Ciebie.",
@@ -780,7 +821,7 @@ const es: Dict = {
   "page.err_no_camera": "Tu navegador no expone acceso a la cámara. Prueba Chrome, Safari o Firefox — o usa el asistente manual.",
 };
 
-const dicts: Record<Lang, Dict> = { en, pl, fr, es, de: en, ar: en, ja: en, nl: en, ko: en };
+const dicts: Record<Lang, Dict> = { en, pl, fr, es, de, ar: en, ja: en, nl: en, ko: en };
 
 export function tFit(lang: Lang, key: string, vars?: Record<string, string | number>): string {
   const raw = dicts[lang]?.[key] ?? en[key] ?? key;
