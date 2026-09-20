@@ -51,7 +51,7 @@ export default function DeReservationCta({ source, className, variant = "button"
         </a>
       </Button>
       <div className="mt-3 flex flex-col gap-1 font-body text-[13px] leading-5 text-cream-dim">
-        <span>Sichere Zahlung über Stripe · {formatDePrice(DE_PRICING.reservationEur)} inkl. MwSt.</span>
+        <span>Sichere Zahlung über Stripe - {formatDePrice(DE_PRICING.reservationEur)} inkl. MwSt.</span>
         <span>Kostenloser Versand nach Deutschland</span>
       </div>
     </div>
