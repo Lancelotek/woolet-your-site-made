@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RelatedGuides from "@/components/RelatedGuides";
+import DeReservationCta from "@/components/de/DeReservationCta";
 import FitToolContent, { FitBreadcrumbs } from "@/components/FitToolContent";
 import { FIT_JSONLD } from "@/seo/fit-jsonld";
 import fitScanTip from "@/assets/fit-scan-tip.png";
@@ -197,9 +198,10 @@ interface BridgeQuizProps {
   onSubmit: () => void;
   onSkip: () => void;
   analyzingReady: boolean;
+  lang: Lang;
 }
 
-function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }: BridgeQuizProps) {
+function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady, lang }: BridgeQuizProps) {
   const questions: Array<{
     key: keyof BridgeQuizAnswers;
     q: string;
@@ -207,28 +209,28 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }:
   }> = [
     {
       key: "slipping",
-      q: "Do your glasses slide down your nose?",
+      q: lang === "de" ? "Rutscht deine Brille auf der Nase nach unten?" : "Do your glasses slide down your nose?",
       options: [
-        { value: "yes", label: "Yes, often" },
-        { value: "sometimes", label: "Sometimes" },
-        { value: "no", label: "No" },
+        { value: "yes", label: lang === "de" ? "Ja, oft" : "Yes, often" },
+        { value: "sometimes", label: lang === "de" ? "Manchmal" : "Sometimes" },
+        { value: "no", label: lang === "de" ? "Nein" : "No" },
       ],
     },
     {
       key: "marks",
-      q: "Do frames leave marks or pinch the sides of your nose?",
+      q: lang === "de" ? "Hinterlässt die Brille Abdrücke oder drückt sie an der Nase?" : "Do frames leave marks or pinch the sides of your nose?",
       options: [
-        { value: "yes", label: "Yes, red marks" },
-        { value: "a_bit", label: "A little" },
-        { value: "no", label: "No" },
+        { value: "yes", label: lang === "de" ? "Ja, rote Abdrücke" : "Yes, red marks" },
+        { value: "a_bit", label: lang === "de" ? "Ein wenig" : "A little" },
+        { value: "no", label: lang === "de" ? "Nein" : "No" },
       ],
     },
     {
       key: "lashes",
-      q: "Do your lashes brush against the lenses?",
+      q: lang === "de" ? "Berühren deine Wimpern die Gläser?" : "Do your lashes brush against the lenses?",
       options: [
-        { value: "yes", label: "Yes" },
-        { value: "no", label: "No" },
+        { value: "yes", label: lang === "de" ? "Ja" : "Yes" },
+        { value: "no", label: lang === "de" ? "Nein" : "No" },
       ],
     },
   ];
@@ -249,10 +251,10 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }:
       }}
     >
       <div style={{ fontSize: 11, letterSpacing: 1.4, color: GOLD, marginBottom: 6, textTransform: "uppercase" }}>
-        While we measure — 3 quick questions
+        {lang === "de" ? "Während der Messung - 3 kurze Fragen" : "While we measure — 3 quick questions"}
       </div>
       <div style={{ fontSize: 13, color: "#c9c4bb", marginBottom: 14, lineHeight: 1.45 }}>
-        Answers help us route you to the right bridge width (007, 009 or bespoke).
+        {lang === "de" ? "Deine Antworten helfen uns, die richtige Stegbreite zu empfehlen." : "Answers help us route you to the right bridge width (007, 009 or bespoke)."}
       </div>
 
       {questions.map((q) => (
@@ -307,7 +309,7 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }:
             fontFamily: "inherit",
           }}
         >
-          {analyzingReady ? "See my recommendation" : "Save answers"}
+          {analyzingReady ? (lang === "de" ? "Empfehlung ansehen" : "See my recommendation") : (lang === "de" ? "Antworten speichern" : "Save answers")}
         </button>
         <button
           type="button"
@@ -323,12 +325,12 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }:
             fontFamily: "inherit",
           }}
         >
-          Skip
+          {lang === "de" ? "Überspringen" : "Skip"}
         </button>
       </div>
       {analyzingReady && (
         <div style={{ fontSize: 11, color: GOLD, marginTop: 10, textAlign: "center" }}>
-          ✓ Scan finished — submit or skip to see your fit.
+          {lang === "de" ? "✓ Messung abgeschlossen - absenden oder überspringen." : "✓ Scan finished — submit or skip to see your fit."}
         </div>
       )}
     </div>
@@ -393,7 +395,11 @@ function WelcomeStep({
   );
   const phoneUrl =
     typeof window === "undefined" ? "" : `${window.location.origin}/${lang}/fit?sid=${handoffSid}`;
-  const steps = [
+  const steps = lang === "de" ? [
+    { n: "01", title: "Passform messen antippen", body: "FitLens öffnet ein sicheres Fenster und fragt nach dem Kamerazugriff." },
+    { n: "02", title: isMobile ? "Smartphone auf Armlänge halten" : "Auf Augenhöhe vor die Webcam setzen", body: "Gerade in die Kamera schauen, Haare zurücknehmen und Brille absetzen. Keine Karte, kein Lineal." },
+    { n: "03", title: "Maße erhalten", body: "Gesichtsbreite, Steg und PD in etwa 20 Sekunden - danach empfehlen wir 007, 009 oder Maßanfertigung." },
+  ] : [
     { n: "01", title: "Tap “Find my fit”", body: "FitLens opens in a secure window and asks for camera access." },
     { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your webcam at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
     { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 20 seconds — then we route you to 007, 009 or bespoke." },
@@ -467,7 +473,7 @@ function WelcomeStep({
               borderRadius: 2,
             }}
           >
-            Recommended
+            {lang === "de" ? "Empfohlen" : "Recommended"}
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 14 : 12, minWidth: 0 }}>
@@ -481,7 +487,7 @@ function WelcomeStep({
                 margin: 0,
               }}
             >
-              FitLens <em style={{ color: GOLD }}>· ~20 seconds</em>
+              FitLens <em style={{ color: GOLD }}>· ~20 {lang === "de" ? "Sekunden" : "seconds"}</em>
             </h2>
             <ul
               style={{
@@ -494,12 +500,17 @@ function WelcomeStep({
                 fontFamily: "Barlow, sans-serif",
               }}
             >
-              {[
+              {(lang === "de" ? [
+                "Genauigkeit bis ±1,5 mm - ein Maßband erreicht meist nur ±5 mm",
+                "Erfasst Gesichtsbreite, Steg und PD in einer Messung",
+                "Empfiehlt automatisch 007, 009 oder Maßanfertigung (150-172 mm)",
+                "Läuft im Browser. Es wird nichts hochgeladen.",
+              ] : [
                 "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
                 "Captures face width, bridge and PD in one shot",
                 "Auto-routes to 007, 009 or bespoke (145–172 mm)",
                 "Runs in your browser. Nothing uploaded.",
-              ].map((b) => (
+              ]).map((b) => (
                 <li
                   key={b}
                   style={{
@@ -539,8 +550,8 @@ function WelcomeStep({
                   letterSpacing: "0.02em",
                 }}
               >
-                Scanning for <strong style={{ color: GOLD }}>{caseContext.caseNo}</strong>
-                {caseContext.firstName ? ` — ${caseContext.firstName}` : ""}
+                 {lang === "de" ? "Messung für" : "Scanning for"} <strong style={{ color: GOLD }}>{caseContext.caseNo}</strong>
+                 {caseContext.firstName ? ` - ${caseContext.firstName}` : ""}
               </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -554,7 +565,7 @@ function WelcomeStep({
                     color: "rgba(240,236,228,0.55)",
                   }}
                 >
-                  Bespoke order number (optional)
+                   {lang === "de" ? "Nummer der Maßanfertigung (optional)" : "Bespoke order number (optional)"}
                 </label>
                 <div style={{ display: "flex", gap: 8 }}>
                   <input
