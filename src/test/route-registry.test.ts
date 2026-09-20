@@ -38,11 +38,12 @@ describe("routeRegistry — DEFECT 1 (many-to-one anchors)", () => {
     expect(keyForPath("/en/collection")).toBe("collection");
   });
 
-  it("hreflangAlternates('/en/collection') emits en + fr + nl + x-default (no DE landing leaks in)", () => {
+  it("hreflangAlternates('/en/collection') includes the native German collection", () => {
     const alts = hreflangAlternates("/en/collection", SITE);
     expect(alts).not.toBeNull();
     const langs = alts!.map((a) => a.lang).sort();
-    expect(langs).toEqual(["en", "fr", "nl", "x-default"].sort());
+    expect(langs).toEqual(["de", "en", "fr", "nl", "x-default"].sort());
+    expect(alts!.find((a) => a.lang === "de")?.href).toBe(`${SITE}/de/kollektion`);
     expect(alts!.find((a) => a.lang === "fr")?.href).toBe(`${SITE}/fr/collection`);
     expect(alts!.find((a) => a.lang === "nl")?.href).toBe(`${SITE}/nl/collection`);
     expect(alts!.find((a) => a.lang === "x-default")?.href).toBe(
@@ -54,7 +55,7 @@ describe("routeRegistry — DEFECT 1 (many-to-one anchors)", () => {
     const alts = hreflangAlternates("/en/bespoke", SITE);
     expect(alts).not.toBeNull();
     const langs = alts!.map((a) => a.lang).sort();
-    expect(langs).toEqual(["en", "ja", "x-default"].sort());
+    expect(langs).toEqual(["de", "en", "ja", "x-default"].sort());
   });
 
   it("hreflangAlternates('/de/breite-brille') → de + en + x-default (its own landing pair)", () => {
@@ -84,11 +85,17 @@ describe("routeRegistry — DEFECT 2 (EN_ONLY vs ROUTES contradiction)", () => {
   it("localePath honours partial clusters derived from ROUTES", () => {
     expect(localePath("fr", "/collection")).toBe("/fr/collection");
     expect(localePath("nl", "/collection")).toBe("/nl/collection");
-    expect(localePath("de", "/collection")).toBe("/en/collection");
+    expect(localePath("de", "/collection")).toBe("/de/kollektion");
   });
 
   it("keeps the native German Kickstarter and legal routes", () => {
     expect(localePath("de", "/lp/kickstarter")).toBe("/de/lp/kickstarter");
     expect(hrefFor("returnPolicy", "de")).toBe("/de/widerruf");
+  });
+
+  it("keeps native German collection, fit and bespoke routes", () => {
+    expect(hrefFor("collection", "de")).toBe("/de/kollektion");
+    expect(hrefFor("fit", "de")).toBe("/de/fit");
+    expect(hrefFor("bespoke", "de")).toBe("/de/bespoke");
   });
 });

@@ -172,30 +172,12 @@ function collectDeLinks(): { source: string; url: string }[] {
 
   // Footer rendered with lang="de" (used on DeHub / DE landings).
   const footerDe: string[] = [
-    "/de/collection",
+    "/de/kollektion",
     "/de/fit",
     "/de/bespoke",
     "/de/lp/kickstarter",
-    "/de/process",
-    "/de/the-box",
-    "/de/lp/why-glasses-fail",
-    "/de/lp/5-reasons",
-    "/de/lp/wide-bridge-fit-guide",
-    "/en/blog/glasses-for-wide-faces-guide",
-    "/en/blog/how-to-measure-face-width-for-glasses",
-    "/en/blog/best-sunglasses-for-wide-faces",
-    "/en/collections/wide-face-glasses",
-    "/en/collections/glasses-for-big-heads",
-    "/de/compare",
-    "/de/compare/fatheadz-alternative",
-    "/de/compare/eyeshells-alternative",
-    "/de/compare/zenni-alternative",
-    "/de/compare/warby-parker-alternative",
-    "/de/compare/ray-ban-alternative",
-    "/de/compare/persol-alternative",
     "/de/blog",
     "/de/privacy-policy",
-    "/de/return-policy",
     "/de/impressum",
     "/de/widerruf",
   ];
@@ -234,5 +216,13 @@ describe("DE internal links", () => {
     }
     // Guard against silent >2-hop redirect chains that hurt SEO.
     expect(result.chain.length).toBeLessThanOrEqual(3);
+  });
+
+  it("keeps German navigation and Fit guides out of English routes", () => {
+    const footerSource = readFileSync(path.join(ROOT, "src/components/Footer.tsx"), "utf8");
+    const fitGuidesSource = readFileSync(path.join(ROOT, "src/components/RelatedGuides.tsx"), "utf8");
+    expect(footerSource).toContain('lang === "de"');
+    expect(footerSource).toContain('href: "/de/kollektion"');
+    expect(fitGuidesSource).toContain('href: "/de/brille-breite-160-mm"');
   });
 });
