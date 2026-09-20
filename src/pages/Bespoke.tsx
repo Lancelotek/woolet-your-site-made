@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
+import { isValidLang, type Lang } from "@/lib/i18n";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -216,7 +217,8 @@ const FAQS = [
 ];
 
 const BespokePage = () => {
-  const { lang } = useParams();
+  const { lang: paramLang } = useParams();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
 
   // Meta upper funnel — browser pixel + CAPI on one event_id, once per session.
