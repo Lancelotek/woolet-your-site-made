@@ -13,6 +13,7 @@ import frame007 from "@/assets/frames-2026/oval-crystal.asset.json";
 import frame009 from "@/assets/frames-2026/square-crystal.asset.json";
 import { homeOnFaceCard } from "@/data/on-face-photos";
 import { DEFAULT_FAQS, dePageTitles, dePages, type DePageConfig } from "@/content/de/landingPages";
+import DeMobileReservationBar from "@/components/de/DeMobileReservationBar";
 
 const SITE = "https://woolet.co";
 const HERO_SRC = "/hero-greg-1000.webp";
@@ -194,7 +195,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
 
               <div className="order-5 lg:order-none"><FitSymptoms /></div>
 
-              <div className="order-2 flex flex-col items-start gap-4 lg:order-none">
+              <div data-de-hero-reservation className="order-2 flex flex-col items-start gap-4 lg:order-none">
                 <DeReservationCta source={config.slug} />
                 <Button asChild variant="outline" className="h-auto rounded-sm border-border-sub bg-transparent px-7 py-4 font-body text-xs font-semibold uppercase tracking-[0.22em] text-cream-dim hover:border-primary/40 hover:bg-transparent hover:text-foreground"><Link to="/de/fit">Erst Gesicht messen</Link></Button>
                 <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">1 € sichert dir eine nummerierte Founders Edition. Voll anrechenbar und jederzeit erstattbar.</p>
@@ -220,9 +221,9 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         </Section>
 
         <Section bordered>
-          <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><div className="woolet-eyebrow mb-4"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Die Kollektion</span></div><h2 className="font-display text-3xl text-woolet-white lg:text-4xl">Zwei Formen. <em className="text-gold-light">Eine ehrliche Breite.</em></h2></div><Link to="/de/collection" className="font-body text-xs uppercase tracking-[0.22em] text-cream-dim no-underline hover:text-foreground">Kollektion ansehen -&gt;</Link></div>
+          <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><div className="woolet-eyebrow mb-4"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Die Kollektion</span></div><h2 className="font-display text-3xl text-woolet-white lg:text-4xl">Zwei Formen. <em className="text-gold-light">Eine ehrliche Breite.</em></h2></div><Link to="/de/kollektion" className="font-body text-xs uppercase tracking-[0.22em] text-cream-dim no-underline hover:text-foreground">Kollektion ansehen -&gt;</Link></div>
           <div className="grid gap-4 sm:grid-cols-2 lg:gap-6">
-            {models.map((model) => <Link key={model.id} to="/de/collection" className="group block border border-border-sub bg-secondary no-underline transition-all hover:-translate-y-1 hover:border-primary/50"><div className="relative aspect-[4/3] overflow-hidden bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape} breite Brille`} className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-0" loading="lazy" /><img src={model.onFace} alt={`Woolet ${model.id} ${model.shape} auf einem breiten Gesicht`} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" loading="lazy" /></div><div className="flex items-end justify-between gap-4 px-5 py-4"><div><div className="font-body text-[11px] uppercase tracking-[0.28em] text-primary">{model.id}</div><div className="mt-1 font-display text-xl text-woolet-white">Woolet {model.id}</div><div className="mt-1 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{model.shape} · {model.specs}</div></div><span className="font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">Ansehen -&gt;</span></div></Link>)}
+            {models.map((model) => <Link key={model.id} to="/de/kollektion" className="group block border border-border-sub bg-secondary no-underline transition-all hover:-translate-y-1 hover:border-primary/50"><div className="relative aspect-[4/3] overflow-hidden bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape} breite Brille`} className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-0" loading="lazy" /><img src={model.onFace} alt={`Woolet ${model.id} ${model.shape} auf einem breiten Gesicht`} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" loading="lazy" /></div><div className="flex items-end justify-between gap-4 px-5 py-4"><div><div className="font-body text-[11px] uppercase tracking-[0.28em] text-primary">{model.id}</div><div className="mt-1 font-display text-xl text-woolet-white">Woolet {model.id}</div><div className="mt-1 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{model.shape} · {model.specs}</div></div><span className="font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">Ansehen -&gt;</span></div></Link>)}
           </div>
         </Section>
 
@@ -234,6 +235,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
 
         <Section bordered><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Weiterlesen</span></div><h2 className="mb-7 font-display text-3xl text-foreground">Passende Ratgeber</h2><div className="grid gap-4 sm:grid-cols-2">{config.related.map((slug) => <Link key={slug} to={`/de/${slug}`} className="border border-border-sub bg-secondary p-6 no-underline transition-colors hover:border-primary/50"><div className="font-body text-[10px] uppercase tracking-[0.22em] text-primary">Woolet · DE</div><div className="mt-3 font-display text-2xl text-foreground">{dePages[slug].h1}</div><div className="mt-4 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{dePageTitles[slug]} -&gt;</div></Link>)}</div></Section>
         <Footer lang="de" />
+        <DeMobileReservationBar />
       </main>
     </>
   );

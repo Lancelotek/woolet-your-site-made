@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import DeReservationCta from "@/components/de/DeReservationCta";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 import heroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import frame007 from "@/assets/products/woolet-007-round-black-card.webp.asset.json";
@@ -52,12 +53,10 @@ export default function DeKickstarter() {
         <script type="application/ld+json">{JSON.stringify(offer)}</script>
       </Helmet>
 
-      <header className="absolute inset-x-0 top-0 z-20 px-6 py-5 md:px-10">
-        <Link to="/de" className="font-display text-2xl text-foreground no-underline">Woolet</Link>
-      </header>
+      <Navbar />
 
       <section className="relative min-h-[92svh] border-b border-border-sub">
-        <img src={heroAsset.url} alt="Woolet Founders Edition Brille für breite Gesichter" className="absolute inset-0 h-full w-full object-cover object-center opacity-55" fetchPriority="high" />
+        <img src={heroAsset.url} alt="Woolet Founders Edition Brille für breite Gesichter" className="absolute inset-0 h-full w-full object-cover object-center opacity-55" fetchPriority="high" width={1920} height={1080} />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
         <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-6xl items-end px-6 pb-14 pt-28 md:items-center md:px-10 md:pb-20">
           <div className="max-w-2xl">
