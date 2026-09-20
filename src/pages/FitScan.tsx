@@ -3601,7 +3601,20 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
       )}
 
       <div className="scan-cta-primary flex flex-col gap-2">
-        <Link
+        {lang === "de" ? (
+          adjustedFace >= 155 && adjustedFace <= 161 ? (
+            <>
+              <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
+              <DeReservationCta source="fit_result" />
+              <Link to="/de/kollektion" className="text-center font-body text-sm text-primary underline underline-offset-4">Kollektion ansehen</Link>
+            </>
+          ) : (
+            <>
+              <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+              <Link to="/de/bespoke" className="flex h-12 items-center justify-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-background no-underline">Maßanfertigung ansehen</Link>
+            </>
+          )
+        ) : <><Link
           to={localePath(lang, "/products/009")}
           onClick={handleCta}
           style={{
@@ -3640,7 +3653,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           }}
         >
           {recommendation.primaryCta}
-        </Link>
+        </Link></>}
 
         <button
           onClick={downloadCard}
@@ -4121,7 +4134,20 @@ function ResultSentStep({
         {tFit(lang, "sent.copy_sent", { email })}
       </p>
 
-      <Link
+      {lang === "de" ? (
+        faceWidthMm >= 155 && faceWidthMm <= 161 ? (
+          <div className="flex flex-col gap-3">
+            <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
+            <DeReservationCta source="fit_result" />
+            <Link to="/de/kollektion" className="text-center font-body text-sm text-primary underline underline-offset-4">Kollektion ansehen</Link>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-3">
+            <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+            <Link to="/de/bespoke" className="flex h-12 items-center justify-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-background no-underline">Maßanfertigung ansehen</Link>
+          </div>
+        )
+      ) : <Link
         to={primaryHref}
         style={{
           display: "inline-block",
@@ -4139,7 +4165,7 @@ function ResultSentStep({
         }}
       >
         {tFit(lang, "sent.see_frame")}
-      </Link>
+      </Link>}
     </div>
   );
 }
@@ -5230,7 +5256,7 @@ export default function FitScan() {
                       className="mb-3 text-[11px] uppercase tracking-[0.22em]"
                       style={{ color: GOLD, fontFamily: "Barlow, sans-serif" }}
                     >
-                      Measurements received
+                      {lang === "de" ? "Maße empfangen" : "Measurements received"}
                     </p>
                     <ul className="mb-4 grid gap-1 text-[14px]" style={{ color: "#EFE9DF" }}>
                       {(Object.keys(fitLensMeasurements) as MeasurementKey[]).map((k) => (
@@ -5245,13 +5271,22 @@ export default function FitScan() {
                       measurements={fitLensMeasurements}
                       device={isMobile ? "mobile" : "desktop"}
                     />
-                    <Link
-                      to={`/${lang}/bespoke/configurator`}
-                      className="inline-flex items-center justify-center border px-5 py-3 text-[11px] uppercase tracking-[0.2em]"
-                      style={{ borderColor: GOLD, color: GOLD, fontFamily: "Barlow, sans-serif" }}
-                    >
-                      Use these in bespoke
-                    </Link>
+                    {lang === "de" ? (
+                      fitLensMeasurements.faceWidth != null && fitLensMeasurements.faceWidth >= 155 && fitLensMeasurements.faceWidth <= 161 ? (
+                        <div className="flex flex-col gap-3">
+                          <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
+                          <DeReservationCta source="fit_result" />
+                          <Link to="/de/kollektion" className="font-body text-sm text-primary underline underline-offset-4">Kollektion ansehen</Link>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col gap-3">
+                          <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+                          <Link to="/de/bespoke" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 font-body text-[11px] uppercase tracking-[0.2em] text-background">Maßanfertigung ansehen</Link>
+                        </div>
+                      )
+                    ) : (
+                      <Link to={`/${lang}/bespoke/configurator`} className="inline-flex items-center justify-center border px-5 py-3 text-[11px] uppercase tracking-[0.2em]" style={{ borderColor: GOLD, color: GOLD, fontFamily: "Barlow, sans-serif" }}>Use these in bespoke</Link>
+                    )}
                   </div>
                 )}
                 {step === "welcome" && (
@@ -5299,7 +5334,7 @@ export default function FitScan() {
                     )}
                     {bridgeQuizDone && analyzingReady === false && (
                       <div style={{ fontSize: 12, color: MUTED, marginTop: 4 }}>
-                        Thanks — finishing the measurement…
+                        {lang === "de" ? "Danke - die Messung wird abgeschlossen..." : "Thanks — finishing the measurement…"}
                       </div>
                     )}
                   </div>
@@ -5390,7 +5425,7 @@ export default function FitScan() {
         <div className="px-5 sm:px-8 lg:px-16 pb-10 sm:pb-16">
           {lang === "en" && <FitToolContent />}
           <div className="max-w-2xl mx-auto">
-            <RelatedGuides variant="dark" />
+            <RelatedGuides variant="dark" lang={lang === "de" ? "de" : "en"} />
           </div>
         </div>
 
@@ -5404,8 +5439,8 @@ export default function FitScan() {
               className="font-display text-woolet-white"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300, lineHeight: 1.1, margin: 0 }}
             >
-              Measure your face in{" "}
-              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>20 seconds</em>
+              {lang === "de" ? "Gesicht messen in " : "Measure your face in "}
+              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>{lang === "de" ? "20 Sekunden" : "20 seconds"}</em>
             </h2>
             <p
               style={{
@@ -5418,7 +5453,7 @@ export default function FitScan() {
                 color: MUTED,
               }}
             >
-              Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–172 mm).
+              {lang === "de" ? "Gesichtsbreite, Steg und PD per Kamera - danach empfehlen wir 007, 009 oder Maßanfertigung (150-172 mm)." : "Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–172 mm)."}
             </p>
             <button
               type="button"
