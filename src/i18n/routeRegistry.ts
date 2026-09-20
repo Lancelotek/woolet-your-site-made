@@ -245,10 +245,10 @@ const SUFFIX_TO_LOCALES: Map<string, Partial<Record<Lang, string>>> = (() => {
     const suffix = stripLang(enUrl);
     const prev = m.get(suffix) ?? {};
     for (const [lang, url] of Object.entries(entry) as [Lang, string][]) {
-      // Only accept a locale's URL when the suffix under its own prefix
-      // matches the EN suffix — otherwise it's a landing page with a
-      // different slug and belongs to its own cluster, not this suffix.
-      if (stripLang(url) === suffix) prev[lang] = url;
+      // Keep the first canonical mapping for each locale. Localized slugs
+      // intentionally differ (for example /collection -> /de/kollektion),
+      // while later SEO landing clusters may share the same English anchor.
+      if (!prev[lang]) prev[lang] = url;
     }
     m.set(suffix, prev);
   }
