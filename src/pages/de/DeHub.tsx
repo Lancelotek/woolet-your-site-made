@@ -6,8 +6,6 @@ import Footer from "@/components/Footer";
 import DeReservationCta from "@/components/de/DeReservationCta";
 import DeMobileReservationBar from "@/components/de/DeMobileReservationBar";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
-import frame007 from "@/assets/frames-2026/oval-crystal.asset.json";
-import frame009 from "@/assets/frames-2026/square-crystal.asset.json";
 
 const SITE = "https://woolet.co";
 const HERO_SRC = "/hero-greg-1000.webp";
@@ -22,8 +20,8 @@ export default function DeHub() {
   const title = "Brillen für breite Gesichter und große Köpfe | Woolet";
   const description = `Woolet Brillen mit 158 mm Frontbreite. Mazzucchelli-Acetat, handgefertigt in der EU. Founding-Preis ${formatDePrice(DE_PRICING.founderPriceEur)} inkl. MwSt.`;
   const models = [
-    { id: "007", shape: "Rund / Panto", specs: "52□21-150", image: frame007.url },
-    { id: "009", shape: "Weiches Quadrat", specs: "54□22-150", image: frame009.url },
+    { id: "007", shape: "Rund / Panto", specs: "52□21-150", image: "/frames/woolet-007-round-panto-black-angle-34.jpg" },
+    { id: "009", shape: "Weiches Quadrat", specs: "54□22-150", image: "/frames/woolet-009-soft-square-black-angle-34.jpg" },
   ];
 
   return (
