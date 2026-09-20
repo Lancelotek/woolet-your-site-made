@@ -521,10 +521,10 @@ const CookieBanner = () => {
         margin: "0 auto",
         background: BG,
         color: TEXT,
-        borderRadius: 12,
+        borderRadius: isDesktop ? 12 : 8,
         border: `1px solid ${BORDER}`,
         boxShadow: "0 24px 60px rgba(0,0,0,0.45)",
-        padding: isDesktop ? 32 : 22,
+        padding: isDesktop ? 32 : 16,
         fontFamily: "'Archivo', system-ui, sans-serif",
         fontSize: isDesktop ? 15 : 14,
         lineHeight: 1.55,
@@ -537,7 +537,7 @@ const CookieBanner = () => {
               margin: 0,
               marginBottom: isDesktop ? 10 : 8,
               fontFamily: "'Newsreader', 'Archivo', serif",
-              fontSize: isDesktop ? 26 : 20,
+              fontSize: isDesktop ? 26 : 19,
               lineHeight: 1.2,
               color: TEXT,
               letterSpacing: "-0.005em",
@@ -545,7 +545,7 @@ const CookieBanner = () => {
           >
             {t.headline}
           </p>
-          <p style={{ margin: 0, marginBottom: isDesktop ? 22 : 18, color: MUTED, fontSize: isDesktop ? 14.5 : 13.5 }}>
+          <p style={{ margin: 0, marginBottom: isDesktop ? 22 : 14, color: MUTED, fontSize: isDesktop ? 14.5 : 13, lineHeight: isDesktop ? 1.55 : 1.45 }}>
             {t.body}{" "}
             <a href={`/${locale}/privacy-policy`} style={linkStyle}>
               {t.policy}
@@ -558,16 +558,16 @@ const CookieBanner = () => {
             style={{
               ...btnPrimary,
               width: "100%",
-              padding: isDesktop ? "16px 22px" : "14px 18px",
+              padding: isDesktop ? "16px 22px" : "12px 14px",
               fontSize: isDesktop ? 14 : 13,
-              marginBottom: 12,
+              marginBottom: isDesktop ? 12 : 8,
             }}
             type="button"
           >
             {t.accept}
           </button>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
             <button onClick={rejectAll} style={btnSecondary} type="button">
               {t.reject}
             </button>

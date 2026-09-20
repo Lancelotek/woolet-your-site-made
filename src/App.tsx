@@ -90,6 +90,8 @@ const DeKickstarter = lazy(() => import("./pages/de/DeKickstarter.tsx"));
 const Impressum = lazy(() => import("./pages/de/Impressum.tsx"));
 const Widerruf = lazy(() => import("./pages/de/Widerruf.tsx"));
 const DeCollection = lazy(() => import("./pages/de/DeCollection.tsx"));
+const DeFitManual = lazy(() => import("./pages/de/DeFitManual.tsx"));
+const DeFitQuick = lazy(() => import("./pages/de/DeFitQuick.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const KoLandingRoute = lazy(() => import("./pages/ko/KoLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
@@ -367,9 +369,9 @@ const App = () => (
           <Route path="/:lang/fit" element={<FitScan />} />
           <Route path="/:lang/fit/wizard" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
-          <Route path="/de/fit/manual" element={<Navigate to="/de/fit" replace />} />
+           <Route path="/de/fit/manual" element={<DeFitManual />} />
           <Route path="/en/fit/quick" element={<FitQuick />} />
-          <Route path="/de/fit/quick" element={<Navigate to="/de/fit" replace />} />
+           <Route path="/de/fit/quick" element={<DeFitQuick />} />
           <Route path="/en/fit/bespoke" element={<FitBespoke />} />
           {/* Non-EN locales of EN-only pages → redirect to /en equivalent */}
           <Route path="/:lang/fit/manual" element={<RedirectToEn to="/fit/manual" />} />

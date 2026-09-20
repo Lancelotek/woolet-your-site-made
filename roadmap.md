@@ -9,9 +9,12 @@
 - [x] Match five German SEO pages to the English visual experience
 - [x] Verify all five German pages on mobile and desktop
 ## German experience
-- [ ] Remove DE header/footer links to English routes
-- [ ] Add /de/kollektion with localized products, SEO, hreflang, redirect and sitemap
-- [ ] Localize /de/fit and add localized result actions
-- [ ] Add DE mobile sticky reservation bar
-- [ ] Resolve DE CLS and dead-click issues
+- [x] Remove DE header/footer links to English routes
+- [x] Add /de/kollektion with localized products, SEO, hreflang, redirect and sitemap
+- [x] Localize /de/fit and add localized result actions
+- [x] Add DE mobile sticky reservation bar
+- [x] Resolve DE CLS and dead-click issues
 - [ ] Verify typecheck, tests and mobile behavior
+- [ ] Replace the DE article-directory homepage with a German commercial homepage
+- [ ] Add native German manual and quick fit fallbacks
+- [ ] Verify language-switch return paths and cookie-banner mobile UX
