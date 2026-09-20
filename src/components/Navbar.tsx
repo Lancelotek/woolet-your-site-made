@@ -10,8 +10,13 @@ import DeReservationCta from "@/components/de/DeReservationCta";
 
 const Navbar = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
-  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const location = useLocation();
+  const pathLang = location.pathname.split("/")[1];
+  const lang: Lang = paramLang && isValidLang(paramLang)
+    ? paramLang
+    : pathLang && isValidLang(pathLang)
+      ? pathLang
+      : "en";
   const currentKey = keyForPath(location.pathname);
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -121,14 +126,16 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <Link
-            to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
-            aria-label={session ? "Your account" : "Sign in"}
-            className="text-cream-dim hover:text-primary transition-colors flex items-center"
-            onClick={() => pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session })}
-          >
-            <User size={15} strokeWidth={1.5} />
-          </Link>
+          {lang !== "de" && (
+            <Link
+              to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
+              aria-label={session ? "Your account" : "Sign in"}
+              className="text-cream-dim hover:text-primary transition-colors flex items-center"
+              onClick={() => pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session })}
+            >
+              <User size={15} strokeWidth={1.5} />
+            </Link>
+          )}
           {lang === "de" ? (
             <DeReservationCta source="header" variant="compact" />
           ) : (
@@ -203,17 +210,19 @@ const Navbar = () => {
               {t(lang, "nav.bespoke")}
             </Link>
 
-            <Link
-              to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
-              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
-              style={{ fontSize: "0.75rem" }}
-              onClick={() => {
-                setMenuOpen(false);
-                pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session });
-              }}
-            >
-              {session ? (lang === "de" ? "Konto" : "Account") : (lang === "de" ? "Anmelden" : "Sign in")}
-            </Link>
+            {lang !== "de" && (
+              <Link
+                to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
+                className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+                style={{ fontSize: "0.75rem" }}
+                onClick={() => {
+                  setMenuOpen(false);
+                  pushGtmEvent("nav_click", { nav_item: "account", nav_lang: lang, signed_in: !!session });
+                }}
+              >
+                {session ? "Account" : "Sign in"}
+              </Link>
+            )}
 
             <div className="woolet-divider" />
 
