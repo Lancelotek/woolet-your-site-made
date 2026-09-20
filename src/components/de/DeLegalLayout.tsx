@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 type Section = { title: string; content: React.ReactNode };
 
@@ -25,12 +25,7 @@ export default function DeLegalLayout({ title, description, sections }: { title:
         <meta property="og:url" content={`https://woolet.co/de/${slug}`} />
         <meta name="twitter:card" content="summary" />
       </Helmet>
-      <header className="border-b border-border-sub px-6 py-5 md:px-10">
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <Link to="/de" className="font-display text-2xl text-foreground no-underline">Woolet</Link>
-          <Link to="/de" className="font-body text-xs uppercase tracking-[0.2em] text-cream-dim no-underline hover:text-primary">Zurück</Link>
-        </div>
-      </header>
+      <Navbar />
       <article className="mx-auto w-full max-w-3xl px-6 py-16 md:py-24">
         <p className="mb-4 font-body text-xs uppercase tracking-[0.24em] text-primary">Rechtliches</p>
         <h1 className="mb-12 text-5xl font-normal text-foreground md:text-6xl">{title}</h1>

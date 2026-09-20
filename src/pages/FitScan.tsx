@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RelatedGuides from "@/components/RelatedGuides";
+import DeReservationCta from "@/components/de/DeReservationCta";
 import FitToolContent, { FitBreadcrumbs } from "@/components/FitToolContent";
 import { FIT_JSONLD } from "@/seo/fit-jsonld";
 import fitScanTip from "@/assets/fit-scan-tip.png";
@@ -197,9 +198,10 @@ interface BridgeQuizProps {
   onSubmit: () => void;
   onSkip: () => void;
   analyzingReady: boolean;
+  lang: Lang;
 }
 
-function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }: BridgeQuizProps) {
+function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady, lang }: BridgeQuizProps) {
   const questions: Array<{
     key: keyof BridgeQuizAnswers;
     q: string;
@@ -207,28 +209,28 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }:
   }> = [
     {
       key: "slipping",
-      q: "Do your glasses slide down your nose?",
+      q: lang === "de" ? "Rutscht deine Brille auf der Nase nach unten?" : "Do your glasses slide down your nose?",
       options: [
-        { value: "yes", label: "Yes, often" },
-        { value: "sometimes", label: "Sometimes" },
-        { value: "no", label: "No" },
+        { value: "yes", label: lang === "de" ? "Ja, oft" : "Yes, often" },
+        { value: "sometimes", label: lang === "de" ? "Manchmal" : "Sometimes" },
+        { value: "no", label: lang === "de" ? "Nein" : "No" },
       ],
     },
     {
       key: "marks",
-      q: "Do frames leave marks or pinch the sides of your nose?",
+      q: lang === "de" ? "Hinterlässt die Brille Abdrücke oder drückt sie an der Nase?" : "Do frames leave marks or pinch the sides of your nose?",
       options: [
-        { value: "yes", label: "Yes, red marks" },
-        { value: "a_bit", label: "A little" },
-        { value: "no", label: "No" },
+        { value: "yes", label: lang === "de" ? "Ja, rote Abdrücke" : "Yes, red marks" },
+        { value: "a_bit", label: lang === "de" ? "Ein wenig" : "A little" },
+        { value: "no", label: lang === "de" ? "Nein" : "No" },
       ],
     },
     {
       key: "lashes",
-      q: "Do your lashes brush against the lenses?",
+      q: lang === "de" ? "Berühren deine Wimpern die Gläser?" : "Do your lashes brush against the lenses?",
       options: [
-        { value: "yes", label: "Yes" },
-        { value: "no", label: "No" },
+        { value: "yes", label: lang === "de" ? "Ja" : "Yes" },
+        { value: "no", label: lang === "de" ? "Nein" : "No" },
       ],
     },
   ];
@@ -249,10 +251,10 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }:
       }}
     >
       <div style={{ fontSize: 11, letterSpacing: 1.4, color: GOLD, marginBottom: 6, textTransform: "uppercase" }}>
-        While we measure — 3 quick questions
+        {lang === "de" ? "Während der Messung - 3 kurze Fragen" : "While we measure — 3 quick questions"}
       </div>
       <div style={{ fontSize: 13, color: "#c9c4bb", marginBottom: 14, lineHeight: 1.45 }}>
-        Answers help us route you to the right bridge width (007, 009 or bespoke).
+        {lang === "de" ? "Deine Antworten helfen uns, die richtige Stegbreite zu empfehlen." : "Answers help us route you to the right bridge width (007, 009 or bespoke)."}
       </div>
 
       {questions.map((q) => (
@@ -307,7 +309,7 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }:
             fontFamily: "inherit",
           }}
         >
-          {analyzingReady ? "See my recommendation" : "Save answers"}
+          {analyzingReady ? (lang === "de" ? "Empfehlung ansehen" : "See my recommendation") : (lang === "de" ? "Antworten speichern" : "Save answers")}
         </button>
         <button
           type="button"
@@ -323,12 +325,12 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady }:
             fontFamily: "inherit",
           }}
         >
-          Skip
+          {lang === "de" ? "Überspringen" : "Skip"}
         </button>
       </div>
       {analyzingReady && (
         <div style={{ fontSize: 11, color: GOLD, marginTop: 10, textAlign: "center" }}>
-          ✓ Scan finished — submit or skip to see your fit.
+          {lang === "de" ? "✓ Messung abgeschlossen - absenden oder überspringen." : "✓ Scan finished — submit or skip to see your fit."}
         </div>
       )}
     </div>
@@ -393,7 +395,11 @@ function WelcomeStep({
   );
   const phoneUrl =
     typeof window === "undefined" ? "" : `${window.location.origin}/${lang}/fit?sid=${handoffSid}`;
-  const steps = [
+  const steps = lang === "de" ? [
+    { n: "01", title: "Passform messen antippen", body: "FitLens öffnet ein sicheres Fenster und fragt nach dem Kamerazugriff." },
+    { n: "02", title: isMobile ? "Smartphone auf Armlänge halten" : "Auf Augenhöhe vor die Webcam setzen", body: "Gerade in die Kamera schauen, Haare zurücknehmen und Brille absetzen. Keine Karte, kein Lineal." },
+    { n: "03", title: "Maße erhalten", body: "Gesichtsbreite, Steg und PD in etwa 20 Sekunden - danach empfehlen wir 007, 009 oder Maßanfertigung." },
+  ] : [
     { n: "01", title: "Tap “Find my fit”", body: "FitLens opens in a secure window and asks for camera access." },
     { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your webcam at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
     { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 20 seconds — then we route you to 007, 009 or bespoke." },
@@ -467,7 +473,7 @@ function WelcomeStep({
               borderRadius: 2,
             }}
           >
-            Recommended
+            {lang === "de" ? "Empfohlen" : "Recommended"}
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 14 : 12, minWidth: 0 }}>
@@ -481,7 +487,7 @@ function WelcomeStep({
                 margin: 0,
               }}
             >
-              FitLens <em style={{ color: GOLD }}>· ~20 seconds</em>
+              FitLens <em style={{ color: GOLD }}>· ~20 {lang === "de" ? "Sekunden" : "seconds"}</em>
             </h2>
             <ul
               style={{
@@ -494,12 +500,17 @@ function WelcomeStep({
                 fontFamily: "Barlow, sans-serif",
               }}
             >
-              {[
+              {(lang === "de" ? [
+                "Genauigkeit bis ±1,5 mm - ein Maßband erreicht meist nur ±5 mm",
+                "Erfasst Gesichtsbreite, Steg und PD in einer Messung",
+                "Empfiehlt automatisch 007, 009 oder Maßanfertigung (150-172 mm)",
+                "Läuft im Browser. Es wird nichts hochgeladen.",
+              ] : [
                 "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
                 "Captures face width, bridge and PD in one shot",
                 "Auto-routes to 007, 009 or bespoke (145–172 mm)",
                 "Runs in your browser. Nothing uploaded.",
-              ].map((b) => (
+              ]).map((b) => (
                 <li
                   key={b}
                   style={{
@@ -539,8 +550,8 @@ function WelcomeStep({
                   letterSpacing: "0.02em",
                 }}
               >
-                Scanning for <strong style={{ color: GOLD }}>{caseContext.caseNo}</strong>
-                {caseContext.firstName ? ` — ${caseContext.firstName}` : ""}
+                 {lang === "de" ? "Messung für" : "Scanning for"} <strong style={{ color: GOLD }}>{caseContext.caseNo}</strong>
+                 {caseContext.firstName ? ` - ${caseContext.firstName}` : ""}
               </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -554,7 +565,7 @@ function WelcomeStep({
                     color: "rgba(240,236,228,0.55)",
                   }}
                 >
-                  Bespoke order number (optional)
+                   {lang === "de" ? "Nummer der Maßanfertigung (optional)" : "Bespoke order number (optional)"}
                 </label>
                 <div style={{ display: "flex", gap: 8 }}>
                   <input
@@ -598,12 +609,12 @@ function WelcomeStep({
                       cursor: "pointer",
                     }}
                   >
-                    Attach
+                    {lang === "de" ? "Verknüpfen" : "Attach"}
                   </button>
                 </div>
                 {caseError && (
                   <span style={{ color: "#C13A2E", fontSize: "0.74rem", fontFamily: "Barlow, sans-serif" }}>
-                    That is not a Woolet order number. It looks like WLT-BSP-2026-0001.
+                    {lang === "de" ? "Das ist keine gültige Woolet Bestellnummer. Beispiel: WLT-BSP-2026-0001." : "That is not a Woolet order number. It looks like WLT-BSP-2026-0001."}
                   </span>
                 )}
               </div>
@@ -648,9 +659,9 @@ function WelcomeStep({
                 lineHeight: 1.5,
               }}
             >
-              {isMobile
-                ? "Opens right here and uses your front camera. Needs good light — no card, no ruler."
-                : "Opens right here and uses your webcam. Needs good light — no card, no ruler."}
+              {lang === "de"
+                ? (isMobile ? "Öffnet sich hier und nutzt deine Frontkamera. Gutes Licht genügt - keine Karte, kein Lineal." : "Öffnet sich hier und nutzt deine Webcam. Gutes Licht genügt - keine Karte, kein Lineal.")
+                : (isMobile ? "Opens right here and uses your front camera. Needs good light — no card, no ruler." : "Opens right here and uses your webcam. Needs good light — no card, no ruler.")}
             </p>
           </div>
 
@@ -676,7 +687,7 @@ function WelcomeStep({
                   fontWeight: 600,
                 }}
               >
-                Or use your phone
+                {lang === "de" ? "Oder Smartphone verwenden" : "Or use your phone"}
               </span>
               <div style={{ background: "#fff", padding: 10, borderRadius: 8, lineHeight: 0 }}>
                 {phoneUrl && <QRCodeSVG value={phoneUrl} size={132} level="M" includeMargin={false} />}
@@ -691,7 +702,7 @@ function WelcomeStep({
                   lineHeight: 1.45,
                 }}
               >
-                Scan to open this page on your phone camera.
+                {lang === "de" ? "QR-Code scannen und diese Seite auf dem Smartphone öffnen." : "Scan to open this page on your phone camera."}
               </span>
             </div>
           )}
@@ -722,7 +733,7 @@ function WelcomeStep({
             lineHeight: 1.6,
           }}
         >
-          No camera?{" "}
+          {lang === "de" ? "Keine Kamera? " : "No camera? "}
           <Link
             to={localePath(lang, "/fit/manual")}
             onClick={() => pushEvent("fit_manual_alt_click", { source: "welcome_text_link" })}
@@ -756,14 +767,14 @@ function WelcomeStep({
             fontFamily: "Barlow, sans-serif", fontSize: isMobile ? "1rem" : "0.95rem",
             fontWeight: 500, color: "#f0ece4",
           }}>
-            Not ready to measure?
+            {lang === "de" ? "Noch nicht bereit für die Messung?" : "Not ready to measure?"}
           </span>
           <span style={{
             color: MUTED, fontFamily: "Barlow, sans-serif",
             fontSize: isMobile ? "0.9rem" : "0.82rem", fontWeight: 300,
             lineHeight: 1.45,
           }}>
-            Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec.
+            {lang === "de" ? "Beantworte 2-3 kurze Fragen für eine ungefähre Größe in 30 Sekunden." : "Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec."}
           </span>
         </div>
         <span style={{
@@ -772,7 +783,7 @@ function WelcomeStep({
           whiteSpace: "nowrap",
           flexShrink: 0,
         }}>
-          Take quiz →
+          {lang === "de" ? "Quiz starten →" : "Take quiz →"}
         </span>
       </Link>
 
@@ -801,8 +812,8 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
-          face straight from the camera — works on a laptop webcam or a phone.
+          <strong style={{ color: "#fff", fontWeight: 500 }}>{lang === "de" ? "Keine Karte nötig." : "No card needed."}</strong>{" "}
+          {lang === "de" ? "FitLens misst direkt über die Kamera und funktioniert mit Smartphone oder Webcam." : "FitLens scales your face straight from the camera — works on a laptop webcam or a phone."}
         </p>
       </div>
 
@@ -3590,7 +3601,20 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
       )}
 
       <div className="scan-cta-primary flex flex-col gap-2">
-        <Link
+        {lang === "de" ? (
+          adjustedFace >= 155 && adjustedFace <= 161 ? (
+            <>
+              <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
+              <DeReservationCta source="fit_result" />
+              <Link to="/de/kollektion" className="text-center font-body text-sm text-primary underline underline-offset-4">Kollektion ansehen</Link>
+            </>
+          ) : (
+            <>
+              <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+              <Link to="/de/bespoke" className="flex h-12 items-center justify-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-background no-underline">Maßanfertigung ansehen</Link>
+            </>
+          )
+        ) : <><Link
           to={localePath(lang, "/products/009")}
           onClick={handleCta}
           style={{
@@ -3629,7 +3653,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           }}
         >
           {recommendation.primaryCta}
-        </Link>
+        </Link></>}
 
         <button
           onClick={downloadCard}
@@ -4110,7 +4134,20 @@ function ResultSentStep({
         {tFit(lang, "sent.copy_sent", { email })}
       </p>
 
-      <Link
+      {lang === "de" ? (
+        faceWidthMm >= 155 && faceWidthMm <= 161 ? (
+          <div className="flex flex-col gap-3">
+            <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
+            <DeReservationCta source="fit_result" />
+            <Link to="/de/kollektion" className="text-center font-body text-sm text-primary underline underline-offset-4">Kollektion ansehen</Link>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-3">
+            <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+            <Link to="/de/bespoke" className="flex h-12 items-center justify-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-background no-underline">Maßanfertigung ansehen</Link>
+          </div>
+        )
+      ) : <Link
         to={primaryHref}
         style={{
           display: "inline-block",
@@ -4128,7 +4165,7 @@ function ResultSentStep({
         }}
       >
         {tFit(lang, "sent.see_frame")}
-      </Link>
+      </Link>}
     </div>
   );
 }
@@ -4837,7 +4874,7 @@ export default function FitScan() {
         description={tFit(lang, "seo.desc")}
         lang={lang}
         path="/fit"
-        noindex={lang !== "en"}
+        noindex={lang !== "en" && lang !== "de"}
         jsonLd={lang === "en" ? FIT_JSONLD : undefined}
       />
 
@@ -5219,7 +5256,7 @@ export default function FitScan() {
                       className="mb-3 text-[11px] uppercase tracking-[0.22em]"
                       style={{ color: GOLD, fontFamily: "Barlow, sans-serif" }}
                     >
-                      Measurements received
+                      {lang === "de" ? "Maße empfangen" : "Measurements received"}
                     </p>
                     <ul className="mb-4 grid gap-1 text-[14px]" style={{ color: "#EFE9DF" }}>
                       {(Object.keys(fitLensMeasurements) as MeasurementKey[]).map((k) => (
@@ -5234,13 +5271,22 @@ export default function FitScan() {
                       measurements={fitLensMeasurements}
                       device={isMobile ? "mobile" : "desktop"}
                     />
-                    <Link
-                      to={`/${lang}/bespoke/configurator`}
-                      className="inline-flex items-center justify-center border px-5 py-3 text-[11px] uppercase tracking-[0.2em]"
-                      style={{ borderColor: GOLD, color: GOLD, fontFamily: "Barlow, sans-serif" }}
-                    >
-                      Use these in bespoke
-                    </Link>
+                    {lang === "de" ? (
+                      fitLensMeasurements.faceWidth != null && fitLensMeasurements.faceWidth >= 155 && fitLensMeasurements.faceWidth <= 161 ? (
+                        <div className="flex flex-col gap-3">
+                          <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
+                          <DeReservationCta source="fit_result" />
+                          <Link to="/de/kollektion" className="font-body text-sm text-primary underline underline-offset-4">Kollektion ansehen</Link>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col gap-3">
+                          <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+                          <Link to="/de/bespoke" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 font-body text-[11px] uppercase tracking-[0.2em] text-background">Maßanfertigung ansehen</Link>
+                        </div>
+                      )
+                    ) : (
+                      <Link to={`/${lang}/bespoke/configurator`} className="inline-flex items-center justify-center border px-5 py-3 text-[11px] uppercase tracking-[0.2em]" style={{ borderColor: GOLD, color: GOLD, fontFamily: "Barlow, sans-serif" }}>Use these in bespoke</Link>
+                    )}
                   </div>
                 )}
                 {step === "welcome" && (
@@ -5278,6 +5324,7 @@ export default function FitScan() {
                     <AnalyzingStep previewUrl={frame?.dataUrl} lang={lang} />
                     {!bridgeQuizDone && (
                       <BridgeQuizStep
+                        lang={lang}
                         answers={bridgeAnswers}
                         onChange={setBridgeAnswers}
                         onSubmit={() => finishBridgeQuiz(true)}
@@ -5287,7 +5334,7 @@ export default function FitScan() {
                     )}
                     {bridgeQuizDone && analyzingReady === false && (
                       <div style={{ fontSize: 12, color: MUTED, marginTop: 4 }}>
-                        Thanks — finishing the measurement…
+                        {lang === "de" ? "Danke - die Messung wird abgeschlossen..." : "Thanks — finishing the measurement…"}
                       </div>
                     )}
                   </div>
@@ -5378,7 +5425,7 @@ export default function FitScan() {
         <div className="px-5 sm:px-8 lg:px-16 pb-10 sm:pb-16">
           {lang === "en" && <FitToolContent />}
           <div className="max-w-2xl mx-auto">
-            <RelatedGuides variant="dark" />
+            <RelatedGuides variant="dark" lang={lang === "de" ? "de" : "en"} />
           </div>
         </div>
 
@@ -5392,8 +5439,8 @@ export default function FitScan() {
               className="font-display text-woolet-white"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300, lineHeight: 1.1, margin: 0 }}
             >
-              Measure your face in{" "}
-              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>20 seconds</em>
+              {lang === "de" ? "Gesicht messen in " : "Measure your face in "}
+              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>{lang === "de" ? "20 Sekunden" : "20 seconds"}</em>
             </h2>
             <p
               style={{
@@ -5406,7 +5453,7 @@ export default function FitScan() {
                 color: MUTED,
               }}
             >
-              Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–172 mm).
+              {lang === "de" ? "Gesichtsbreite, Steg und PD per Kamera - danach empfehlen wir 007, 009 oder Maßanfertigung (150-172 mm)." : "Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–172 mm)."}
             </p>
             <button
               type="button"

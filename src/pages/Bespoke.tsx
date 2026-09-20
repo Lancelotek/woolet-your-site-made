@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
+import { isValidLang, type Lang } from "@/lib/i18n";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -216,7 +217,8 @@ const FAQS = [
 ];
 
 const BespokePage = () => {
-  const { lang } = useParams();
+  const { lang: paramLang } = useParams();
+  const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
 
   // Meta upper funnel — browser pixel + CAPI on one event_id, once per session.
@@ -331,10 +333,10 @@ const BespokePage = () => {
   return (
     <>
       <SEO
-        title={`Bespoke Glasses for Wide Faces — ${BESPOKE_FRONT_WIDTH_RANGE} | Woolet`}
-        description={`Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
-        ogDescription={`Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
-        lang="en"
+        title={lang === "de" ? "Maßanfertigung für breite Gesichter 150-172 mm | Woolet" : `Bespoke Glasses for Wide Faces — ${BESPOKE_FRONT_WIDTH_RANGE} | Woolet`}
+        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 150-172 mm. Mazzucchelli-Acetat, handgefertigt in der EU." : `Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
+        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 150-172 mm. Mazzucchelli-Acetat, handgefertigt in der EU." : `Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
+        lang={lang}
         path="/bespoke"
 
         availableLangs={["en", "pl", "fr", "es", "de", "ar", "ja"]}

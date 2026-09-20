@@ -7,7 +7,7 @@ import { trackMetaEvent, uuid } from "@/lib/meta-capi";
 type Props = {
   source: string;
   className?: string;
-  variant?: "button" | "link";
+  variant?: "button" | "link" | "compact";
 };
 
 export default function DeReservationCta({ source, className, variant = "button" }: Props) {
@@ -32,6 +32,14 @@ export default function DeReservationCta({ source, className, variant = "button"
       <a href={href} onClick={onClick} className={className ?? "font-body text-sm text-primary underline underline-offset-4"}>
         Oder direkt für {formatDePrice(DE_PRICING.reservationEur)} reservieren
       </a>
+    );
+  }
+
+  if (variant === "compact") {
+    return (
+      <Button asChild className={className ?? "h-10 shrink-0 rounded-sm px-4 font-body text-[10px] font-semibold uppercase tracking-[0.16em]"}>
+        <a href={href} onClick={onClick}>Für {formatDePrice(DE_PRICING.reservationEur)} reservieren</a>
+      </Button>
     );
   }
 

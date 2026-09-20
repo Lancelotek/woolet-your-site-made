@@ -393,7 +393,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.back": "← Zurück zur Startseite",
     "nav.blog": "Blog",
     "nav.collection": "Fassungen",
-    "nav.fit_quiz": "Passform finden",
+    "nav.fit_quiz": "Passform messen",
     "nav.bespoke": "Maßanfertigung",
     "hero.eyebrow": "40 % Rabatt + Gratisversand - nur Warteliste",
     "hero.title_1": "Endlich Brillen, ",

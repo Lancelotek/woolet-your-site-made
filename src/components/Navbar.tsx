@@ -6,6 +6,7 @@ import { useState } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
 import { Menu, X, User } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
+import DeReservationCta from "@/components/de/DeReservationCta";
 
 const Navbar = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
@@ -128,14 +129,18 @@ const Navbar = () => {
           >
             <User size={15} strokeWidth={1.5} />
           </Link>
-          <Link
-            to={hrefFor("lp.kickstarter", lang)}
-            className="text-primary no-underline uppercase tracking-[0.2em] border border-primary/40 hover:bg-primary/10 transition-colors"
-            style={{ fontSize: "0.72rem", padding: "6px 12px", borderRadius: 2 }}
-            onClick={() => pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang })}
-          >
-            {lang === "de" ? "VIP - 40% Rabatt" : "VIP — 40% off"}
-          </Link>
+          {lang === "de" ? (
+            <DeReservationCta source="header" variant="compact" />
+          ) : (
+            <Link
+              to={hrefFor("lp.kickstarter", lang)}
+              className="text-primary no-underline uppercase tracking-[0.2em] border border-primary/40 hover:bg-primary/10 transition-colors"
+              style={{ fontSize: "0.72rem", padding: "6px 12px", borderRadius: 2 }}
+              onClick={() => pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang })}
+            >
+              VIP — 40% off
+            </Link>
+          )}
           {/* Top "Scan your face" CTA hidden — primary CTA is now waitlist */}
 
         </div>
@@ -245,17 +250,21 @@ const Navbar = () => {
 
             <div className="woolet-divider" />
 
-            <Link
-              to={hrefFor("lp.kickstarter", lang)}
-              className="block w-full py-3.5 text-primary uppercase tracking-[0.2em] border border-primary/40 px-3 text-center no-underline hover:bg-primary/10 transition-colors"
-              style={{ fontSize: "0.72rem" }}
-              onClick={() => {
-                setMenuOpen(false);
-                pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang });
-              }}
-            >
-              {lang === "de" ? "VIP - 40% Rabatt" : "VIP — 40% off"}
-            </Link>
+            {lang === "de" ? (
+              <DeReservationCta source="header" variant="compact" className="h-12 w-full rounded-sm font-body text-[11px] font-semibold uppercase tracking-[0.18em]" />
+            ) : (
+              <Link
+                to={hrefFor("lp.kickstarter", lang)}
+                className="block w-full py-3.5 text-primary uppercase tracking-[0.2em] border border-primary/40 px-3 text-center no-underline hover:bg-primary/10 transition-colors"
+                style={{ fontSize: "0.72rem" }}
+                onClick={() => {
+                  setMenuOpen(false);
+                  pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang });
+                }}
+              >
+                VIP — 40% off
+              </Link>
+            )}
           </div>
         </div>
       )}

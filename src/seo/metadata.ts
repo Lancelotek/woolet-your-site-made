@@ -628,6 +628,14 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     );
   }
 
+  if (route === "/de/kollektion") {
+    return base(route, "de", {
+      title: "Brillen für breite Gesichter - 158 mm Frontbreite | Woolet",
+      description: `Woolet 007 und 009 für breite Gesichter: 158 mm Frontbreite, 21-22 mm Steg. ${DE_PRICING.founderPriceEur} € inkl. MwSt.`,
+      noscriptHtml: `<h1>Brillen für breite Gesichter - 158 mm Frontbreite</h1><p>Woolet 007 rund und Woolet 009 eckig aus Mazzucchelli-Acetat, handgefertigt in der EU.</p>`,
+    }, {}, undefined, { en: `${SITE_URL}/en/collection`, de: `${SITE_URL}/de/kollektion`, "x-default": `${SITE_URL}/en/collection` });
+  }
+
   if (route === "/de/impressum" || route === "/de/widerruf") {
     const isImpressum = route.endsWith("/impressum");
     return base(
@@ -889,6 +897,13 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 
   // ----- Fit
   if (path === "/fit") {
+    if (lang === "de") {
+      return base(route, lang, {
+        title: "Brillenfinder für breite Gesichter - Gesicht in 20 Sekunden messen",
+        description: "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde die passende Woolet Fassung in etwa 20 Sekunden.",
+        noscriptHtml: `<h1>Brillenfinder für breite Gesichter - Gesicht in 20 Sekunden messen</h1><p>FitLens misst Gesichtsbreite, Steg und PD und empfiehlt 007, 009 oder eine Maßanfertigung.</p>`,
+      });
+    }
     return base(
       route,
       lang,
@@ -2105,6 +2120,8 @@ const STATIC_ROUTES = [
   "/en/collections/keyhole-bridge-glasses",
   "/en/bespoke",
   "/de",
+  "/de/kollektion",
+  "/de/fit",
   "/de/brille-fuer-breites-gesicht",
   "/de/breite-brille",
   "/de/brille-grosse-koepfe",

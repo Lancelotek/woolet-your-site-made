@@ -29,6 +29,7 @@ interface RelatedGuidesProps {
   heading?: string;
   excludeHref?: string;
   className?: string;
+  lang?: "en" | "de";
 }
 
 export const RelatedGuides = ({
@@ -36,10 +37,16 @@ export const RelatedGuides = ({
   heading = "Related guides",
   excludeHref,
   className = "",
+  lang = "en",
 }: RelatedGuidesProps) => {
+  const localizedGuides: GuideLink[] = lang === "de" ? [
+    { label: "Brille Breite 160 mm", href: "/de/brille-breite-160-mm", description: "Maße und Passform für besonders breite Fassungen." },
+    { label: "Brillen für große Köpfe", href: "/de/brille-grosse-koepfe", description: "So findest du eine Fassung ohne Druck an den Schläfen." },
+    { label: "XXL Brillen für Herren", href: "/de/xxl-brille-herren", description: "Breite Herrenfassungen mit klaren Größenangaben." },
+  ] : defaultGuides;
   const guides = excludeHref
-    ? defaultGuides.filter((g) => g.href !== excludeHref)
-    : defaultGuides;
+    ? localizedGuides.filter((g) => g.href !== excludeHref)
+    : localizedGuides;
 
   if (guides.length === 0) return null;
 
@@ -62,7 +69,7 @@ export const RelatedGuides = ({
       <h3
         className="font-display text-[1.15rem] font-light mb-4 text-[var(--rg-heading)]"
       >
-        {heading}
+        {lang === "de" && heading === "Related guides" ? "Passende Ratgeber" : heading}
       </h3>
       <div
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"

@@ -21,10 +21,7 @@ const SITE = "https://woolet.co";
 const PATH = "/blaulichtfilter-brille-herren";
 const CANONICAL = `${SITE}/de${PATH}`;
 
-// /de/fit rendert derzeit die englische FitLens-Oberfläche (kein DE-Dictionary
-// in src/lib/i18n-fitscan.ts) und steht nicht als eigene Locale in der Route-
-// Registry. Deshalb zeigt der CTA bewusst auf /en/fit.
-const FIT_HREF = "/en/fit";
+const FIT_HREF = "/de/fit";
 
 const T = {
   ink: "#0B0A09",
@@ -113,8 +110,6 @@ const relatedLinks = [
   { href: "/de/brille-breite-160-mm", label: "Brille mit ca. 160 mm Breite" },
   { href: "/de/blog/beste-brillen-fuer-grosse-koepfe-2026", label: "Beste Brillen für große Köpfe 2026" },
   { href: "/de/blog/welche-groesse-sonnenbrille-breites-gesicht", label: "Welche Größe Sonnenbrille bei breitem Gesicht?" },
-  { href: "/en/blog/how-to-measure-face-width-for-glasses", label: "Gesichtsbreite messen (englisch)" },
-  { href: "/en/collections/blue-light-glasses-for-wide-faces", label: "Blue light glasses for wide faces (englisch)" },
 ];
 
 const h2: React.CSSProperties = {
@@ -409,7 +404,7 @@ const BlaulichtfilterBrilleHerren = () => {
               </Link>
             ))}
             <Link
-              to="/en/bespoke"
+              to="/de/bespoke"
               style={{ display: "block", background: T.dark, border: "1px solid rgba(202,164,73,0.4)", borderRadius: 4, padding: "18px 20px", textDecoration: "none", color: T.cream }}
             >
               <div style={{ fontFamily: SERIF, fontSize: 20, marginBottom: 6 }}>Maßanfertigung — 145 bis 162 mm</div>

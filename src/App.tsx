@@ -89,6 +89,7 @@ const BlaulichtfilterBrilleHerren = lazy(() => import("./pages/de/Blaulichtfilte
 const DeKickstarter = lazy(() => import("./pages/de/DeKickstarter.tsx"));
 const Impressum = lazy(() => import("./pages/de/Impressum.tsx"));
 const Widerruf = lazy(() => import("./pages/de/Widerruf.tsx"));
+const DeCollection = lazy(() => import("./pages/de/DeCollection.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const KoLandingRoute = lazy(() => import("./pages/ko/KoLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
@@ -244,6 +245,8 @@ const App = () => (
           <Route path="/en/lp/5-reasons" element={<ListiclePage />} />
           <Route path="/en/lp/kickstarter" element={<KickstarterPrelaunch />} />
            <Route path="/de/lp/kickstarter" element={<DeKickstarter />} />
+          <Route path="/de/kollektion" element={<DeCollection />} />
+          <Route path="/de/collection" element={<Navigate to="/de/kollektion" replace />} />
           <Route path="/en/lp/kickstarter/vip-confirmed" element={<KickstarterVipConfirmed />} />
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
@@ -364,7 +367,9 @@ const App = () => (
           <Route path="/:lang/fit" element={<FitScan />} />
           <Route path="/:lang/fit/wizard" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
+          <Route path="/de/fit/manual" element={<FitManual />} />
           <Route path="/en/fit/quick" element={<FitQuick />} />
+          <Route path="/de/fit/quick" element={<FitQuick />} />
           <Route path="/en/fit/bespoke" element={<FitBespoke />} />
           {/* Non-EN locales of EN-only pages → redirect to /en equivalent */}
           <Route path="/:lang/fit/manual" element={<RedirectToEn to="/fit/manual" />} />
