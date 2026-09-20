@@ -3518,7 +3518,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
           className="font-display text-woolet-white"
           style={{ fontSize: "clamp(1.8rem, 4vw, 2.4rem)", fontWeight: 300, lineHeight: 1.05 }}
         >
-          {adjustedFace}<span style={{ color: GOLD }}>–</span>{adjustedFace + 6}<span style={{ color: "rgba(240,236,228,0.6)", fontSize: "0.6em", marginLeft: 6 }}>mm</span>
+          {adjustedFace}<span style={{ color: GOLD }}>{lang === "de" ? "-" : "–"}</span>{adjustedFace + 6}<span style={{ color: "rgba(240,236,228,0.6)", fontSize: "0.6em", marginLeft: 6 }}>mm</span>
         </div>
         <p
           className="text-cream-dim"
@@ -4883,7 +4883,7 @@ export default function FitScan() {
       <main className="bg-background text-foreground" style={{ minHeight: "100vh" }}>
         <style>{`
           @media (max-width: 767px) {
-            .scan-camera { aspect-ratio: 3/4; max-height: calc(100svh - 220px); }
+            .scan-camera { aspect-ratio: 3/4; width: 100%; max-height: calc(100svh - 220px); }
             .scan-result-number { font-size: 48px; }
             .scan-cta-primary > a:first-child { position: sticky; bottom: 16px; z-index: 10; }
             .scan-tips-accordion { font-size: 13px; }

@@ -367,9 +367,9 @@ const App = () => (
           <Route path="/:lang/fit" element={<FitScan />} />
           <Route path="/:lang/fit/wizard" element={<FitWizard />} />
           <Route path="/en/fit/manual" element={<FitManual />} />
-          <Route path="/de/fit/manual" element={<FitManual />} />
+          <Route path="/de/fit/manual" element={<Navigate to="/de/fit" replace />} />
           <Route path="/en/fit/quick" element={<FitQuick />} />
-          <Route path="/de/fit/quick" element={<FitQuick />} />
+          <Route path="/de/fit/quick" element={<Navigate to="/de/fit" replace />} />
           <Route path="/en/fit/bespoke" element={<FitBespoke />} />
           {/* Non-EN locales of EN-only pages → redirect to /en equivalent */}
           <Route path="/:lang/fit/manual" element={<RedirectToEn to="/fit/manual" />} />

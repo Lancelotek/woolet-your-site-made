@@ -239,16 +239,17 @@ const stripLang = (url: string): string => {
  *  locales that have a real translated page, plus the per-locale URL. */
 const SUFFIX_TO_LOCALES: Map<string, Partial<Record<Lang, string>>> = (() => {
   const m = new Map<string, Partial<Record<Lang, string>>>();
-  for (const entry of Object.values(ROUTES)) {
+  for (const [routeKey, entry] of Object.entries(ROUTES)) {
     const enUrl = (entry as Partial<Record<Lang, string>>).en;
     if (!enUrl) continue;
     const suffix = stripLang(enUrl);
     const prev = m.get(suffix) ?? {};
     for (const [lang, url] of Object.entries(entry) as [Lang, string][]) {
-      // Only accept a locale's URL when the suffix under its own prefix
-      // matches the EN suffix — otherwise it's a landing page with a
-      // different slug and belongs to its own cluster, not this suffix.
-      if (stripLang(url) === suffix) prev[lang] = url;
+      // Canonical routes may use translated slugs (for example
+      // /collection -> /de/kollektion). SEO landing clusters remain separate
+      // unless their localized suffix matches the English anchor.
+      const canonicalRoute = !routeKey.startsWith("landing.");
+      if (!prev[lang] && (canonicalRoute || stripLang(url) === suffix)) prev[lang] = url;
     }
     m.set(suffix, prev);
   }
