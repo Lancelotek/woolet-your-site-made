@@ -47,7 +47,28 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = langProp ?? (paramLang && isValidLang(paramLang) ? paramLang : "en");
 
-  const groups: { heading: string; links: FooterLinkItem[] }[] = [
+  const groups: { heading: string; links: FooterLinkItem[] }[] = lang === "de" ? [
+    {
+      heading: "Shop",
+      links: [
+        { label: "Kollektion", href: "/de/kollektion" },
+        { label: "Passform messen", href: "/de/fit" },
+        { label: "Maßanfertigung", href: "/de/bespoke" },
+        { label: "Kickstarter", href: "/de/lp/kickstarter" },
+      ],
+    },
+    {
+      heading: "Unternehmen",
+      links: [
+        { label: "Blog", href: "/de/blog" },
+        { label: "Impressum", href: "/de/impressum" },
+        { label: "Datenschutz", href: "/de/privacy-policy" },
+        { label: "Widerruf", href: "/de/widerruf" },
+        { label: "support@woolet.co", href: "mailto:support@woolet.co" },
+        { label: "Bespoke production", href: "/de/admin/bespoke" },
+      ],
+    },
+  ] : [
     {
       heading: "Shop",
       links: [
@@ -121,7 +142,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
     >
       <div className="max-w-[1320px] mx-auto">
         {/* Top: brand + groups */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(5,1fr)] gap-10 md:gap-8 pb-10">
+         <div className={`grid grid-cols-1 gap-10 pb-10 md:gap-8 ${lang === "de" ? "md:grid-cols-[1.4fr_repeat(2,1fr)]" : "md:grid-cols-[1.4fr_repeat(5,1fr)]"}`}>
           {/* Brand */}
           <div className="flex flex-col gap-3">
             <Link to={`/${lang}`} aria-label="Woolet home" className="self-start no-underline">
@@ -139,7 +160,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
               className="text-cream-dim/70 max-w-[280px] leading-relaxed"
               style={{ fontSize: "0.78rem" }}
             >
-              Italian Mazzucchelli acetate eyewear for wide faces (155–161 mm). Hand made in EU.
+              {lang === "de" ? "Mazzucchelli-Acetat für breite Gesichter (155-161 mm), handgefertigt in der EU." : "Italian Mazzucchelli acetate eyewear for wide faces (155–161 mm). Hand made in EU."}
             </p>
             <div className="flex gap-4 mt-2">
               {socials.map((s) => (

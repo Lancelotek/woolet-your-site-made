@@ -49,6 +49,7 @@ export const ROUTES = {
   // render the EN component and canonicalise to /en (soft 404).
   collection: {
     en: "/en/collection",
+    de: "/de/kollektion",
     fr: "/fr/collection",
     nl: "/nl/collection",
   },
@@ -64,6 +65,7 @@ export const ROUTES = {
   // landing pages (e.g. /pl/okulary-na-zamowienie), tracked separately.
   bespoke: {
     en: "/en/bespoke",
+    de: "/de/bespoke",
     ja: "/ja/bespoke",
   },
 
@@ -96,7 +98,7 @@ export const ROUTES = {
   // -----------------------------------------------------------------------
   about:                 { en: "/en/about" },
   theBox:                { en: "/en/the-box" },
-  fit:                   { en: "/en/fit" },
+  fit:                   { en: "/en/fit", de: "/de/fit" },
   fitWizard:             { en: "/en/fit/wizard" },
   bespokeScan:           { en: "/en/bespoke/scan" },
   bespokeMeasurements:   { en: "/en/bespoke/measurements" },

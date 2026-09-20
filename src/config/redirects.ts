@@ -33,6 +33,7 @@ export const EXACT: Record<string, string> = {
   "/pl/blog/najlepsze-okulary-dla-duzych-glow-2026": "/pl/blog/najlepsze-okulary-na-duza-glowe-2026",
   "/pl/blog/best-glasses-for-big-heads-2026": "/pl/blog/najlepsze-okulary-na-duza-glowe-2026",
   "/de/blog/best-glasses-for-big-heads-2026": "/de/blog/beste-brillen-fuer-grosse-koepfe-2026",
+  "/de/collection": "/de/kollektion",
   "/ar/blog/best-glasses-for-big-heads-2026": "/en/blog/best-glasses-for-big-heads-2026",
   "/ja/size/145mm": "/en/size/145mm",
   "/en/compare/warby-parker": "/en/compare/warby-parker-alternative",
