@@ -6,8 +6,8 @@ import Footer from "@/components/Footer";
 import DeReservationCta from "@/components/de/DeReservationCta";
 import DeMobileReservationBar from "@/components/de/DeMobileReservationBar";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
-import frame007 from "@/assets/frames-2026/oval-crystal.asset.json";
-import frame009 from "@/assets/frames-2026/square-crystal.asset.json";
+import frame007 from "@/assets/products/woolet-007-round-black-card.webp.asset.json";
+import frame009 from "@/assets/products/woolet-009-square-black-card.webp.asset.json";
 
 const SITE = "https://woolet.co";
 const HERO_SRC = "/hero-greg-1000.webp";
