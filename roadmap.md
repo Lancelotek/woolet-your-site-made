@@ -14,7 +14,7 @@
 - [x] Localize /de/fit and add localized result actions
 - [x] Add DE mobile sticky reservation bar
 - [x] Resolve DE CLS and dead-click issues
-- [ ] Verify typecheck, tests and mobile behavior
-- [ ] Replace the DE article-directory homepage with a German commercial homepage
-- [ ] Add native German manual and quick fit fallbacks
-- [ ] Verify language-switch return paths and cookie-banner mobile UX
+- [x] Verify typecheck, tests and mobile behavior
+- [x] Replace the DE article-directory homepage with a German commercial homepage
+- [x] Add native German manual and quick fit fallbacks
+- [x] Verify language-switch return paths and cookie-banner mobile UX
