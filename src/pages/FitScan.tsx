@@ -5289,6 +5289,7 @@ export default function FitScan() {
                     <AnalyzingStep previewUrl={frame?.dataUrl} lang={lang} />
                     {!bridgeQuizDone && (
                       <BridgeQuizStep
+                        lang={lang}
                         answers={bridgeAnswers}
                         onChange={setBridgeAnswers}
                         onSubmit={() => finishBridgeQuiz(true)}
