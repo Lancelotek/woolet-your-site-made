@@ -609,12 +609,12 @@ function WelcomeStep({
                       cursor: "pointer",
                     }}
                   >
-                    Attach
+                    {lang === "de" ? "Verknüpfen" : "Attach"}
                   </button>
                 </div>
                 {caseError && (
                   <span style={{ color: "#C13A2E", fontSize: "0.74rem", fontFamily: "Barlow, sans-serif" }}>
-                    That is not a Woolet order number. It looks like WLT-BSP-2026-0001.
+                    {lang === "de" ? "Das ist keine gültige Woolet Bestellnummer. Beispiel: WLT-BSP-2026-0001." : "That is not a Woolet order number. It looks like WLT-BSP-2026-0001."}
                   </span>
                 )}
               </div>
@@ -659,9 +659,9 @@ function WelcomeStep({
                 lineHeight: 1.5,
               }}
             >
-              {isMobile
-                ? "Opens right here and uses your front camera. Needs good light — no card, no ruler."
-                : "Opens right here and uses your webcam. Needs good light — no card, no ruler."}
+              {lang === "de"
+                ? (isMobile ? "Öffnet sich hier und nutzt deine Frontkamera. Gutes Licht genügt - keine Karte, kein Lineal." : "Öffnet sich hier und nutzt deine Webcam. Gutes Licht genügt - keine Karte, kein Lineal.")
+                : (isMobile ? "Opens right here and uses your front camera. Needs good light — no card, no ruler." : "Opens right here and uses your webcam. Needs good light — no card, no ruler.")}
             </p>
           </div>
 
@@ -687,7 +687,7 @@ function WelcomeStep({
                   fontWeight: 600,
                 }}
               >
-                Or use your phone
+                {lang === "de" ? "Oder Smartphone verwenden" : "Or use your phone"}
               </span>
               <div style={{ background: "#fff", padding: 10, borderRadius: 8, lineHeight: 0 }}>
                 {phoneUrl && <QRCodeSVG value={phoneUrl} size={132} level="M" includeMargin={false} />}
@@ -702,7 +702,7 @@ function WelcomeStep({
                   lineHeight: 1.45,
                 }}
               >
-                Scan to open this page on your phone camera.
+                {lang === "de" ? "QR-Code scannen und diese Seite auf dem Smartphone öffnen." : "Scan to open this page on your phone camera."}
               </span>
             </div>
           )}
@@ -733,7 +733,7 @@ function WelcomeStep({
             lineHeight: 1.6,
           }}
         >
-          No camera?{" "}
+          {lang === "de" ? "Keine Kamera? " : "No camera? "}
           <Link
             to={localePath(lang, "/fit/manual")}
             onClick={() => pushEvent("fit_manual_alt_click", { source: "welcome_text_link" })}
@@ -767,14 +767,14 @@ function WelcomeStep({
             fontFamily: "Barlow, sans-serif", fontSize: isMobile ? "1rem" : "0.95rem",
             fontWeight: 500, color: "#f0ece4",
           }}>
-            Not ready to measure?
+            {lang === "de" ? "Noch nicht bereit für die Messung?" : "Not ready to measure?"}
           </span>
           <span style={{
             color: MUTED, fontFamily: "Barlow, sans-serif",
             fontSize: isMobile ? "0.9rem" : "0.82rem", fontWeight: 300,
             lineHeight: 1.45,
           }}>
-            Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec.
+            {lang === "de" ? "Beantworte 2-3 kurze Fragen für eine ungefähre Größe in 30 Sekunden." : "Answer 2–3 quick questions (hat size, nose width) for a rough size in 30 sec."}
           </span>
         </div>
         <span style={{
@@ -783,7 +783,7 @@ function WelcomeStep({
           whiteSpace: "nowrap",
           flexShrink: 0,
         }}>
-          Take quiz →
+          {lang === "de" ? "Quiz starten →" : "Take quiz →"}
         </span>
       </Link>
 
@@ -812,8 +812,8 @@ function WelcomeStep({
             margin: 0,
           }}
         >
-          <strong style={{ color: "#fff", fontWeight: 500 }}>No card needed.</strong> FitLens scales your
-          face straight from the camera — works on a laptop webcam or a phone.
+          <strong style={{ color: "#fff", fontWeight: 500 }}>{lang === "de" ? "Keine Karte nötig." : "No card needed."}</strong>{" "}
+          {lang === "de" ? "FitLens misst direkt über die Kamera und funktioniert mit Smartphone oder Webcam." : "FitLens scales your face straight from the camera — works on a laptop webcam or a phone."}
         </p>
       </div>
 
@@ -4874,7 +4874,7 @@ export default function FitScan() {
         description={tFit(lang, "seo.desc")}
         lang={lang}
         path="/fit"
-        noindex={lang !== "en"}
+        noindex={lang !== "en" && lang !== "de"}
         jsonLd={lang === "en" ? FIT_JSONLD : undefined}
       />
 

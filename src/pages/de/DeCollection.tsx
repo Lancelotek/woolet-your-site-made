@@ -65,7 +65,7 @@ export default function DeCollection() {
                 <div className="p-6 sm:p-8">
                   <p className="font-body text-[10px] uppercase tracking-[0.24em] text-primary">Woolet {product.id}</p>
                   <h2 className="mt-2 font-display text-3xl font-normal text-foreground">{product.shape}</h2>
-                  <p className="mt-3 font-body text-sm text-cream-dim">158 mm Frontbreite · Steg {product.bridge} mm · Havana Founder Acetate</p>
+                  <p className="mt-3 font-body text-sm text-cream-dim">158 mm Frontbreite · Steg {product.bridge} mm · Havana Founder Acetat</p>
                   <div className="mt-6 flex items-baseline gap-3"><span className="font-display text-xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span><strong className="font-display text-4xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong><span className="font-body text-xs text-cream-dim">inkl. MwSt.</span></div>
                   <DeReservationCta source={`kollektion_${product.id}`} className="mt-6" />
                   <Link to="/de/fit" className="mt-5 inline-block font-body text-sm text-primary underline underline-offset-4">Erst Gesicht messen →</Link>
