@@ -735,7 +735,7 @@ function WelcomeStep({
         >
           {lang === "de" ? "Keine Kamera? " : "No camera? "}
           <Link
-            to={localePath(lang, "/fit/manual")}
+            to={lang === "de" ? "/de/fit/manual" : localePath(lang, "/fit/manual")}
             onClick={() => pushEvent("fit_manual_alt_click", { source: "welcome_text_link" })}
             style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 3 }}
           >
@@ -746,7 +746,7 @@ function WelcomeStep({
 
       {/* Third path — no measurement, just a quick quiz */}
       <Link
-        to={localePath(lang, "/fit/quick")}
+        to={lang === "de" ? "/de/fit/quick" : localePath(lang, "/fit/quick")}
         onClick={() => pushEvent("fit_quick_open", { source: "welcome_compare" })}
         style={{
           display: "flex",
@@ -5101,8 +5101,8 @@ export default function FitScan() {
           }
           .scan-mobile-secondary button:disabled { opacity: 0.4; cursor: not-allowed; }
         `}</style>
-        <div id="fit-scan-panel" className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
-          <div className="max-w-xl mx-auto">
+         <div id="fit-scan-panel" className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
+           <div className={`${step === "welcome" ? "max-w-4xl" : "max-w-xl"} mx-auto`}>
             {
               <>
 
@@ -5144,7 +5144,7 @@ export default function FitScan() {
                           // fallback escape hatch, not just any error occurrence.
                           claritySet("scan_error_source", "camera_error");
                           clarityEvent("scan_error");
-                          navigate(localePath(lang, "/fit/manual"));
+                           navigate(lang === "de" ? "/de/fit/manual" : localePath(lang, "/fit/manual"));
                         }}
                         style={{
                           display: "block",

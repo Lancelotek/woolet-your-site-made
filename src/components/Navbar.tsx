@@ -27,8 +27,22 @@ const Navbar = () => {
   // Otherwise link to that locale's homepage (labelled as "site in <lang>"),
   // never a URL that would redirect.
   const switcherHref = (targetLang: Lang): string => {
+    if (typeof window !== "undefined" && targetLang !== lang) {
+      try {
+        const remembered = window.localStorage.getItem(`woolet_last_${targetLang}_path`);
+        if (remembered?.startsWith(`/${targetLang}`)) {
+          const rememberedKey = keyForPath(remembered);
+          const rememberedRoutes = rememberedKey
+            ? ROUTES[rememberedKey] as Partial<Record<Lang, string>>
+            : null;
+          if (rememberedRoutes?.[lang] === location.pathname) return remembered;
+        }
+      } catch {
+        // Storage can be unavailable in strict privacy modes.
+      }
+    }
     if (currentKey && hasLocalized(currentKey, targetLang)) {
-      return (ROUTES[currentKey] as Partial<Record<Lang, string>>)[targetLang]!;
+      return (ROUTES[currentKey] as Partial<Record<Lang, string>>)[targetLang] ?? ROUTES.home[targetLang];
     }
     return ROUTES.home[targetLang];
   };
@@ -84,7 +98,7 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              aria-label="Select language"
+              aria-label={lang === "de" ? "Sprache wählen" : "Select language"}
               aria-expanded={langOpen}
               aria-haspopup="listbox"
               className="text-cream-dim uppercase tracking-[0.2em] bg-transparent cursor-pointer transition-colors hover:text-primary hover:border-primary/40"
@@ -114,7 +128,10 @@ const Navbar = () => {
                     title={switcherTitle(l)}
                     onClick={() => {
                       setLangOpen(false);
-                      try { window.localStorage.setItem("woolet_lang", l); } catch {}
+                       try {
+                         window.localStorage.setItem("woolet_lang", l);
+                         window.localStorage.setItem(`woolet_last_${lang}_path`, location.pathname);
+                       } catch {}
                       pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l });
                     }}
                     className={`no-underline px-4 py-2.5 tracking-wider hover:bg-surface-2 transition-colors ${l === lang ? "text-primary" : "text-cream-dim hover:text-foreground"}`}
@@ -156,7 +173,7 @@ const Navbar = () => {
         <button
           className="md:hidden text-foreground bg-transparent border-none cursor-pointer p-1"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={lang === "de" ? (menuOpen ? "Menü schließen" : "Menü öffnen") : (menuOpen ? "Close menu" : "Open menu")}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav-menu"
         >
@@ -241,7 +258,10 @@ const Navbar = () => {
                     title={switcherTitle(l)}
                     onClick={() => {
                       setMenuOpen(false);
-                      try { window.localStorage.setItem("woolet_lang", l); } catch {}
+                      try {
+                        window.localStorage.setItem("woolet_lang", l);
+                        window.localStorage.setItem(`woolet_last_${lang}_path`, location.pathname);
+                      } catch {}
                       pushGtmEvent("lang_switch", { lang_from: lang, lang_to: l });
                     }}
                     className={`no-underline uppercase tracking-[0.2em] px-3 py-2.5 min-h-[44px] inline-flex items-center border transition-colors ${

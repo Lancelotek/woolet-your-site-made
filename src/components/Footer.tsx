@@ -65,7 +65,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
         { label: "Datenschutz", href: "/de/privacy-policy" },
         { label: "Widerruf", href: "/de/widerruf" },
         { label: "support@woolet.co", href: "mailto:support@woolet.co" },
-        { label: "Bespoke production", href: "/de/admin/bespoke" },
+        { label: "Maßanfertigung Produktion", href: "/de/admin/bespoke" },
       ],
     },
   ] : [
