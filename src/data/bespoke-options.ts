@@ -29,6 +29,9 @@ import singleVisionImg from "@/assets/configurator/lenses/single-vision.jpg";
 import progressiveImg from "@/assets/configurator/lenses/progressive.jpg";
 import sunTintedImg from "@/assets/configurator/lenses/sun-tinted.jpg";
 import blueLightImg from "@/assets/configurator/lenses/blue-light.jpg";
+import tintBrownImg from "@/assets/configurator/lenses/tint-brown.jpg";
+import tintGreenImg from "@/assets/configurator/lenses/tint-green.jpg";
+import tintGreyImg from "@/assets/configurator/lenses/tint-grey.jpg";
 
 export type ColorFamily = "tortoise" | "black" | "grey" | "colour" | "translucent";
 
@@ -137,6 +140,8 @@ export interface LensTint {
   name: string;
   /** Darkest activated shade, used for the swatch gradient. */
   hex: string;
+  /** Frame with activated lens + clear-to-dark lens progression. */
+  image: string;
   short: string;
   description: string;
 }
@@ -145,6 +150,7 @@ export const LENS_TINTS: LensTint[] = [
   {
     id: "brown",
     code: "PH-BRN",
+    image: tintBrownImg,
     name: "Espresso Brown",
     hex: "#4a2c17",
     short: "Warm contrast that sharpens every edge.",
@@ -154,6 +160,7 @@ export const LENS_TINTS: LensTint[] = [
   {
     id: "green",
     code: "PH-GRN",
+    image: tintGreenImg,
     name: "Bottle Green",
     hex: "#243d29",
     short: "The classic tint. True colour, calm eyes.",
@@ -163,6 +170,7 @@ export const LENS_TINTS: LensTint[] = [
   {
     id: "grey",
     code: "PH-GRY",
+    image: tintGreyImg,
     name: "Graphite Grey",
     hex: "#2e3032",
     short: "Neutral tint. Colours stay exactly as they are.",

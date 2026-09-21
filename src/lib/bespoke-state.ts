@@ -227,7 +227,7 @@ export const readingStrengthMetaValue = (config: BespokeConfig): string => {
 /** Lens name with the strength appended, for order summaries. */
 export const formatLensWithStrength = (lensName: string, config: BespokeConfig): string => {
   const tint = config.lensTypeId === "photochromic" ? findLensTint(config.lensTintId) : undefined;
-  const name = tint ? `${lensName} · ${tint.name}` : lensName;
+  const name = tint ? `${lensName} · ${tint.name} (${tint.code})` : lensName;
   const strength = formatReadingStrength(config);
   return strength ? `${name} · ${strength}` : name;
 };

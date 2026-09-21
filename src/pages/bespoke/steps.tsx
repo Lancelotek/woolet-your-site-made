@@ -1657,7 +1657,7 @@ function LensTintPanel({ config, update }: StepProps) {
       <div className={labelClass}>Lens colour</div>
       <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2 max-w-xl">{LENS_TINT_NOTE}</p>
 
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
         {LENS_TINTS.map((t) => {
           const active = config.lensTintId === t.id;
           return (
@@ -1669,26 +1669,37 @@ function LensTintPanel({ config, update }: StepProps) {
                 claritySet("bespoke_lens_tint", t.code);
               }}
               aria-pressed={active}
-              className={`min-h-[48px] p-3 rounded-[10px] border text-left transition flex gap-3 items-center ${
+              className={`overflow-hidden rounded-[10px] border text-left transition flex flex-col ${
                 active ? "border-gold bg-gold/10" : "border-cream/15 hover:border-cream/30"
               }`}
             >
-              <span
-                aria-hidden
-                className="w-9 h-9 shrink-0 rounded-full border border-cream/20"
-                style={{ background: `linear-gradient(135deg, #f4f2ec 0%, #f4f2ec 22%, ${t.hex} 100%)` }}
-              />
-              <span className="min-w-0">
-                <span className={`block text-sm ${active ? "text-gold-light" : "text-cream"}`}>{t.name}</span>
-                <span className="block text-cream-dim text-[0.72rem] mt-0.5 leading-snug">{t.short}</span>
-              </span>
+              <div className="relative w-full aspect-[5/1] bg-white">
+                <img
+                  src={t.image}
+                  alt={`${t.name} photochromic lens on a Woolet frame, shown from clear to fully darkened`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
+              </div>
+              <div className="p-3">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className={`text-sm ${active ? "text-gold-light" : "text-cream"}`}>{t.name}</span>
+                  <span className="text-cream-dim/70 text-[0.68rem] tracking-[0.12em] font-mono shrink-0">{t.code}</span>
+                </div>
+                <div className="text-cream-dim text-[0.72rem] mt-1 leading-snug">{t.short}</div>
+              </div>
             </button>
           );
         })}
       </div>
 
       {selected ? (
-        <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-4 max-w-xl">{selected.description}</p>
+        <div className="mt-4 max-w-xl">
+          <p className="text-cream-dim text-[0.8rem] leading-relaxed">{selected.description}</p>
+          <p className="text-cream-dim/70 text-[0.72rem] mt-2">
+            Lens code <span className="font-mono text-gold-light tracking-[0.12em]">{selected.code}</span> - quoted on your order and workshop sheet.
+          </p>
+        </div>
       ) : (
         <p className="text-gold-light/80 text-[0.78rem] mt-4">Choose a lens colour to continue.</p>
       )}
