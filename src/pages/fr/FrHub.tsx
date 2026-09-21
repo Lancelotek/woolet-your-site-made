@@ -23,7 +23,7 @@ const secondaryLinks: { to: string; label: string; sub: string }[] = [
   { to: "/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large", label: "Quelle taille de solaires pour un visage large ?", sub: "Guide rapide : largeur de face, pont, branches" },
   { to: "/fr/products/007", label: "Woolet 007 — rond, 158 mm", sub: "Pont keyhole, acétate italien Mazzucchelli" },
   { to: "/fr/products/009", label: "Woolet 009 — carré adouci, 158 mm", sub: "Pour visages larges en contexte professionnel" },
-  { to: "/fr/products/bespoke", label: "Bespoke — 145 à 162 mm sur mesure", sub: "Face, pont et branches au millimètre" },
+  { to: "/fr/products/bespoke", label: "Bespoke — 145 à 172 mm sur mesure", sub: "Face, pont et branches au millimètre" },
 ];
 
 export default function FrHub() {

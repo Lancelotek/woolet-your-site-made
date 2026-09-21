@@ -205,7 +205,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Do you need bespoke at 158 mm?",
       body: [
-        "No. 158 mm is the middle of the 155–161 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 162 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
+        "No. 158 mm is the middle of the 155–161 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 172 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
         "If your face is 158 mm and your bridge is 21 or 22 mm, order the signature 007 or 009 and skip the scan queue entirely.",
       ],
     },
@@ -259,7 +259,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Who a 162 mm face width actually is",
       body: [
-        "162 mm is the ceiling of everything we build. It is one millimetre above the top of the signature range and the widest front we can produce in acetate without compromising the structure at the hinge. A 162 mm face generally carries a head circumference of 61–62 cm and a bridge of 22–24 mm — dimensions where the bridge often becomes the binding constraint before the front width does.",
+        "162 mm is one millimetre above the top of the signature fit range and sits within our 145–172 mm bespoke range. A 162 mm face generally carries a head circumference of 61–62 cm and a bridge of 22–24 mm — dimensions where the bridge often becomes the binding constraint before the front width does.",
         "If you measure 162 mm you are in the top fraction of a percent of adult face widths. There is no shortcut available to you in retail, and there is no point pretending otherwise.",
       ],
     },
@@ -273,8 +273,8 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
         head: ["At 162 mm", "Outcome"],
         rows: [
           ["Signature 158 mm", "4 mm too narrow — temple pressure"],
-          ["Bespoke 162 mm", "Correct. Our maximum width."],
-          ["Above 162 mm", "We do not build it"],
+          ["Bespoke 162 mm", "Correct. Within our bespoke range."],
+          ["Above 162 mm", "Bespoke remains available up to 172 mm"],
         ],
       },
     },

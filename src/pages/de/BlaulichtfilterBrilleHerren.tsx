@@ -78,11 +78,11 @@ const segments = [
 const faqs = [
   {
     q: "Welche Brillenbreite brauche ich bei einem breiten Kopf?",
-    a: `Miss von Schläfe zu Schläfe an der breitesten Stelle. Ab 155 mm Gesichtsbreite brauchst du eine Fassungsbreite ab 155 mm — nicht nur ein größeres Glas. Woolet baut ${S007.frameWidth} mm Front mit ${S007.bridge}–${S009.bridge} mm Keyhole-Steg und ${S007.templeLength} mm Bügeln, Maßanfertigung von 145 bis 162 mm.`,
+    a: `Miss von Schläfe zu Schläfe an der breitesten Stelle. Ab 155 mm Gesichtsbreite brauchst du eine Fassungsbreite ab 155 mm — nicht nur ein größeres Glas. Woolet baut ${S007.frameWidth} mm Front mit ${S007.bridge}–${S009.bridge} mm Keyhole-Steg und ${S007.templeLength} mm Bügeln, Maßanfertigung von 145 bis 172 mm.`,
   },
   {
     q: "Gibt es Blaulichtfilter-Brillen in XXL für Herren?",
-    a: `Ja. Beide Herrenmodelle — 007 Rund und 009 Soft Square — haben ${S007.frameWidth} mm Frontbreite, was etwa 58–62 cm Kopfumfang abdeckt. Der Blaulichtfilter ist bei beiden eine Glasoption. Über 161 mm Gesichtsbreite geht es in die Maßanfertigung bis 162 mm.`,
+    a: `Ja. Beide Herrenmodelle — 007 Rund und 009 Soft Square — haben ${S007.frameWidth} mm Frontbreite, was etwa 58–62 cm Kopfumfang abdeckt. Der Blaulichtfilter ist bei beiden eine Glasoption. Über 161 mm Gesichtsbreite geht es in die Maßanfertigung bis 172 mm.`,
   },
   {
     q: "Wie breit ist die Woolet-Fassung genau?",
@@ -98,7 +98,7 @@ const faqs = [
   },
   {
     q: "Woher weiß ich, ob 158 mm zu mir passen?",
-    a: "158 mm passen typischerweise bei 155–161 mm Gesichtsbreite. Miss mit einem Lineal vor dem Spiegel von Schläfe zu Schläfe, oder lass FitLens das mit der Handykamera erledigen — rund eine Minute. Außerhalb von 155–161 mm greift die Maßanfertigung von 145 bis 162 mm.",
+    a: "158 mm passen typischerweise bei 155–161 mm Gesichtsbreite. Miss mit einem Lineal vor dem Spiegel von Schläfe zu Schläfe, oder lass FitLens das mit der Handykamera erledigen — rund eine Minute. Außerhalb von 155–161 mm greift die Maßanfertigung von 145 bis 172 mm.",
   },
 ];
 
@@ -407,7 +407,7 @@ const BlaulichtfilterBrilleHerren = () => {
               to="/de/bespoke"
               style={{ display: "block", background: T.dark, border: "1px solid rgba(202,164,73,0.4)", borderRadius: 4, padding: "18px 20px", textDecoration: "none", color: T.cream }}
             >
-              <div style={{ fontFamily: SERIF, fontSize: 20, marginBottom: 6 }}>Maßanfertigung — 145 bis 162 mm</div>
+              <div style={{ fontFamily: SERIF, fontSize: 20, marginBottom: 6 }}>Maßanfertigung — 145 bis 172 mm</div>
               <div style={{ fontSize: 13, color: "rgba(237,231,217,0.7)", lineHeight: 1.55, marginBottom: 12 }}>
                 Außerhalb von 155–161 mm? Gleiches Mazzucchelli-Acetat, deine Frontbreite, handgefertigt in der EU.
               </div>

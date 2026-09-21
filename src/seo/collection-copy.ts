@@ -11,7 +11,7 @@ export const collectionSeo: Record<Lang, { title: string; description: string }>
   en: {
     title: "Collection — Woolet 007 & 009 for Wide Faces | 155–161 mm",
     description:
-      "Two shapes — round 007 and soft-square 009 — in 158 mm widths, plus bespoke up to 162 mm. Italian Mazzucchelli acetate, handmade in the EU.",
+      "Two shapes — round 007 and soft-square 009 — in 158 mm widths, plus bespoke from 145–172 mm. Italian Mazzucchelli acetate, hand made in Greece (EU).",
   },
   pl: { title: "Kolekcja Woolet — 007 & 009 dla szerokich twarzy", description: "Dwa kształty, szerokości 155–161 mm. Włoski octan Mazzucchelli, ręcznie w UE." },
   fr: { title: "Collection Woolet — 007 & 009 pour visages larges", description: "Deux formes, largeurs 155–161 mm. Acétate italien Mazzucchelli, fait main en UE." },

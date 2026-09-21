@@ -42,8 +42,8 @@ const CHAPTERS: EditorialChapter[] = [
     index: "04",
     eyebrow: "The Build / 04",
     src: build04.url,
-    alt: "Italian craftsman hand-polishing a tortoise Mazzucchelli acetate Woolet frame on a workbench in Milano, acetate shavings visible — hand-finished, not injection-molded.",
-    caption: "Hand-finished, not molded. Cheap frames are injection-molded and brittle. Woolet is cut from Italian Mazzucchelli acetate, finished by hand in Milano.",
+    alt: "Craftsman hand-polishing a tortoise Mazzucchelli acetate Woolet frame on a workbench in Greece, acetate shavings visible — hand-finished, not injection-molded.",
+    caption: "Hand-finished, not molded. Cheap frames are injection-molded and brittle. Woolet is cut from Italian Mazzucchelli acetate, hand-finished in Greece (EU).",
   },
 ];
 

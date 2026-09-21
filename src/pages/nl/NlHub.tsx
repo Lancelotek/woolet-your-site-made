@@ -23,7 +23,7 @@ const secondaryLinks: { to: string; label: string; sub: string }[] = [
   { to: "/nl/blog/welke-maat-zonnebril-voor-breed-gezicht", label: "Welke maat zonnebril voor een breed gezicht?", sub: "Snelle maatgids: frontbreedte, brug, veren" },
   { to: "/nl/products/007", label: "Woolet 007 — rond, 158 mm", sub: "Sleutelgatbrug, Italiaans Mazzucchelli-acetaat" },
   { to: "/nl/products/009", label: "Woolet 009 — zacht vierkant, 158 mm", sub: "Voor bredere gezichten in professionele context" },
-  { to: "/nl/products/bespoke", label: "Bespoke — 145 tot 162 mm op maat", sub: "Front, brug en veren tot op de millimeter" },
+  { to: "/nl/products/bespoke", label: "Bespoke — 145 tot 172 mm op maat", sub: "Front, brug en veren tot op de millimeter" },
 ];
 
 export default function NlHub() {

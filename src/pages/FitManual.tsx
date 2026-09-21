@@ -55,8 +55,8 @@ const BUCKETS: Record<BucketKey, Bucket> = {
     label: "Above signature",
     range: "162 mm and above",
     description:
-      "Most brands stop at 150 mm. Our signature covers up to 161 mm and made-to-measure tops out at 162 mm.",
-    recommendation: "At 162 mm, bespoke is your frame. Above 162 mm we do not build — there is no frame we can make honestly.",
+      "Most brands stop at 150 mm. Our signature fits faces up to 161 mm and made-to-measure extends to 172 mm.",
+    recommendation: "From 162–172 mm, bespoke is your frame. Above 172 mm we do not build — there is no frame we can make honestly.",
     cta: { label: "Join the VIP list →", href: "/en/lp/kickstarter" },
   },
 };

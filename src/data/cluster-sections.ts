@@ -340,7 +340,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Who a 24 mm bridge fits",
       body: [
-        "24 mm is the widest bridge we build and it is a bespoke specification only. It suits a very broad nasal root, usually paired with a face width at the top of our range — 160 to 162 mm — and it is the measurement where every stock frame on the market has already failed by a wide margin.",
+        "24 mm is the widest bridge we build and it is a bespoke specification only. It suits a very broad nasal root, usually paired with a face width above the 155–161 mm stock fit band, and it is the measurement where every stock frame on the market has already failed by a wide margin.",
         "At this width the bridge stops being a detail and becomes the primary fit constraint. Front width can be approximately right and the frame will still be unwearable if the bridge is four millimetres narrow.",
       ],
     },

@@ -183,7 +183,7 @@ export const SIZES: SizeEntry[] = [
     subhead:
       "Comfortably inside the signature band. The 158 mm frame is built for exactly this face width.",
     intro:
-      "160 mm sits in the middle of our signature range. Our 158 mm frame is engineered for the 155–161 mm band, and 160 mm is where fit is most forgiving. If you want a millimetre-exact match, bespoke goes to 162 mm — but you don't need it at 160.",
+      "160 mm sits in the middle of our signature range. Our 158 mm frame is engineered for the 155–161 mm band, and 160 mm is where fit is most forgiving. If you want a millimetre-exact match, bespoke covers 145–172 mm — but you don't need it at 160.",
     fitVerdict:
       "Yes — 160 mm is dead centre of our signature 155–161 mm fit range. The 158 mm frame is the fit.",
     metaDescription:
