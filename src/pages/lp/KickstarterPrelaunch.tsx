@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet-async";
@@ -7,7 +7,8 @@ import { getAttribution } from "@/lib/attribution";
 import { buildLeadAttribution } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { DEFAULT_HERO_VARIANT, resolveHeroVariant } from "@/content/ksHeroVariants";
-import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
+import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
+const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
 import ksFit150 from "@/assets/ks-fit/woolet-150-bespoke-fit.jpg.asset.json";
@@ -260,7 +261,6 @@ const VipForm = ({
   const [errorKind, setErrorKind] = useState<"invalid" | "duplicate" | "generic" | null>(null);
 
   const [step, setStep] = useState<1 | 2>(1);
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [skipVisible, setSkipVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const step2ViewedRef = useRef(false);
@@ -498,22 +498,30 @@ const VipForm = ({
           This $1 reservation is with Woolet, not a Kickstarter pledge. One-time, not a subscription.
           Fully refundable, or applied to your order.
         </p>
-        <button
-          type="button"
-          onClick={() => {
-            setCheckoutOpen(true);
-            pushGtmEvent("kickstarter_reserve_click", {
-              form_location: formLocation,
-              source: utmSource,
-              hero_variant: heroVariant,
-            });
+        <ReserveCheckoutButton
+          id={`vip-reserve${idSuffix}`}
+          label="Lock $114 — pay $1 now"
+          priceId={RESERVATION_PRICE_ID}
+          customerEmail={email}
+          returnUrl={returnUrl}
+          metadata={{
+            campaign: "kickstarter_vip",
+            form_location: formLocation,
+            recommended_sku: "ks_reservation_1usd",
+            utm_source: utmSource,
+            utm_medium: getAttribution().utm_medium || "",
+            utm_campaign: getAttribution().utm_campaign || "",
+          }}
+          clickEvent="kickstarter_reserve_click"
+          readyEvent="kickstarter_reserve_modal_ready"
+          errorEvent="kickstarter_reserve_error"
+          eventParams={{
+            form_location: formLocation,
+            source: utmSource,
+            hero_variant: heroVariant,
           }}
           style={ctaButtonStyle}
-          onMouseEnter={(e) => (e.currentTarget.style.background = BRONZE)}
-          onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
-        >
-          Lock $114 — pay $1 now
-        </button>
+        />
         <button
           type="button"
           tabIndex={skipVisible ? 0 : -1}
@@ -561,23 +569,6 @@ const VipForm = ({
         >
           $1 today · Fully refundable · Applied to your pledge.
         </p>
-
-        {checkoutOpen && (
-          <StripeCheckoutModal
-            priceId={RESERVATION_PRICE_ID}
-            customerEmail={email}
-            returnUrl={returnUrl}
-            metadata={{
-              campaign: "kickstarter_vip",
-              form_location: formLocation,
-              recommended_sku: "ks_reservation_1usd",
-              utm_source: utmSource,
-              utm_medium: getAttribution().utm_medium || "",
-              utm_campaign: getAttribution().utm_campaign || "",
-            }}
-            onClose={() => setCheckoutOpen(false)}
-          />
-        )}
       </div>
     );
   }
@@ -997,8 +988,6 @@ const KickstarterPrelaunch = () => {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const isMobile = useIsMobile();
   const lightboxTriggerRef = useRef<HTMLElement | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   // Sticky mobile CTA — appears after the hero scrolls away, hides while typing.
@@ -1067,35 +1056,6 @@ const KickstarterPrelaunch = () => {
     lightboxTriggerRef.current = null;
     window.setTimeout(() => trigger?.focus?.(), 0);
   };
-  const showPrev = () =>
-    setLightboxIndex((i) => (i - 1 + lightboxImages.length) % lightboxImages.length);
-  const showNext = () => setLightboxIndex((i) => (i + 1) % lightboxImages.length);
-
-  useEffect(() => {
-    if (!lightboxOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") showPrev();
-      if (e.key === "ArrowRight") showNext();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxOpen]);
-
-  useEffect(() => {
-    if (!lightboxOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [lightboxOpen]);
-
-  // Focus the close button on open; focus returns to the trigger in closeLightbox.
-  useEffect(() => {
-    if (lightboxOpen) closeButtonRef.current?.focus();
-  }, [lightboxOpen]);
-
   const openLightbox = (
     index: number,
     source: "gallery" | "thumbnail" = "gallery",
@@ -1110,6 +1070,33 @@ const KickstarterPrelaunch = () => {
       index,
       source,
     });
+  };
+
+  // Gallery CTA: close, then send the visitor to the right next action —
+  // the email field, or the $1 button if they already joined the VIP list.
+  const handleLightboxCta = (index: number) => {
+    pushGtmEvent("kickstarter_lightbox_cta_click", {
+      index,
+      image_alt: lightboxImages[index]?.alt ?? "",
+    });
+    lightboxTriggerRef.current = null;
+    closeLightbox();
+    window.setTimeout(() => {
+      if (hasJoined) {
+        const reserve = document.getElementById(`vip-reserve${activeFormSuffix}`);
+        if (reserve) {
+          reserve.scrollIntoView({ block: "center", behavior: "smooth" });
+          window.setTimeout(() => {
+            reserve.focus({ preventScroll: true });
+            reserve.style.transition = "box-shadow 200ms ease";
+            reserve.style.boxShadow = `0 0 0 3px ${GOLD}55`;
+            window.setTimeout(() => (reserve.style.boxShadow = "none"), 1600);
+          }, 400);
+          return;
+        }
+      }
+      scrollToEmailInput("vip-form-hero");
+    }, 60);
   };
 
   useEffect(() => {
@@ -1349,6 +1336,9 @@ const KickstarterPrelaunch = () => {
                 src={heroGallery[activeImg].src}
                 alt={heroGallery[activeImg].alt}
                 loading="eager"
+                decoding="async"
+                width={1000}
+                height={1000}
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
             </button>
@@ -1390,6 +1380,8 @@ const KickstarterPrelaunch = () => {
                     alt={img.alt}
                     loading={i === 0 ? "eager" : "lazy"}
                     decoding="async"
+                    width={72}
+                    height={72}
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
                 </button>
@@ -2263,239 +2255,22 @@ const KickstarterPrelaunch = () => {
       </footer>
       {/* Lightbox */}
       {(lightboxOpen || lightboxClosing) && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Image gallery lightbox"
-          // Close on pointerdown, not click: on iOS the synthesized click after
-          // touchend would otherwise land on the zoom-in image underneath.
-          onPointerDown={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            closeLightbox();
-          }}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 100,
-            background: "rgba(8,8,7,0.96)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "24px",
-            opacity: lightboxOpen ? 1 : 0,
-            pointerEvents: lightboxOpen ? "auto" : "none",
-            transition: "opacity 200ms ease",
-          }}
-        >
-          <button
-            ref={closeButtonRef}
-            type="button"
-            onPointerDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              closeLightbox();
+        <Suspense fallback={null}>
+          <ImageLightbox
+            images={lightboxImages}
+            index={lightboxIndex}
+            onIndexChange={setLightboxIndex}
+            onClose={closeLightbox}
+            isMobile={isMobile}
+            visible={lightboxOpen}
+            endCard={{ headline: "Your size exists." }}
+            cta={{
+              label: "Reserve founder price — $1",
+              caption: "158 mm · Italian Mazzucchelli acetate · 100 Founders Editions",
+              onClick: handleLightboxCta,
             }}
-            aria-label="Close lightbox"
-            style={{
-              position: "absolute",
-              top: "calc(12px + env(safe-area-inset-top))",
-              right: 12,
-              width: 48,
-              height: 48,
-              background: "rgba(255,255,255,0.10)",
-              border: "1px solid rgba(255,255,255,0.18)",
-              color: CREAM,
-              fontSize: 28,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 2,
-            }}
-          >
-            ×
-          </button>
-
-          {!isMobile && (
-            <>
-              <button
-                type="button"
-                onPointerDown={(e) => e.stopPropagation()}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  showPrev();
-                }}
-                aria-label="Previous image"
-                style={{
-                  position: "absolute",
-                  left: 16,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  width: 48,
-                  height: 48,
-                  background: "rgba(255,255,255,0.08)",
-                  border: `1px solid ${HAIRLINE}`,
-                  color: CREAM,
-                  fontSize: 24,
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                ‹
-              </button>
-
-              <button
-                type="button"
-                onPointerDown={(e) => e.stopPropagation()}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  showNext();
-                }}
-                aria-label="Next image"
-                style={{
-                  position: "absolute",
-                  right: 16,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  width: 48,
-                  height: 48,
-                  background: "rgba(255,255,255,0.08)",
-                  border: `1px solid ${HAIRLINE}`,
-                  color: CREAM,
-                  fontSize: 24,
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                ›
-              </button>
-            </>
-          )}
-
-          <div
-            onPointerDown={(e) => e.stopPropagation()}
-            onTouchStart={(e) => {
-              const t = e.touches[0];
-              touchStartRef.current = { x: t.clientX, y: t.clientY };
-            }}
-            onTouchEnd={(e) => {
-              const start = touchStartRef.current;
-              touchStartRef.current = null;
-              if (!start) return;
-              const t = e.changedTouches[0];
-              const dx = t.clientX - start.x;
-              const dy = t.clientY - start.y;
-              if (dy > 80 && Math.abs(dy) > Math.abs(dx)) {
-                closeLightbox();
-                return;
-              }
-              if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-                if (dx < 0) showNext();
-                else showPrev();
-              }
-            }}
-            style={{
-              maxWidth: "min(100%, 900px)",
-              maxHeight: "min(90vh, 100%)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 16,
-            }}
-          >
-            <img
-              src={lightboxImages[lightboxIndex].src}
-              alt={lightboxImages[lightboxIndex].alt}
-              style={{
-                maxWidth: "100%",
-                maxHeight: isMobile ? "calc(80vh - 80px)" : "calc(90vh - 80px)",
-                objectFit: "contain",
-                display: "block",
-                border: `1px solid ${HAIRLINE}`,
-              }}
-            />
-            {isMobile ? (
-              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                <button
-                  type="button"
-                  onPointerDown={(e) => e.stopPropagation()}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    showPrev();
-                  }}
-                  aria-label="Previous image"
-                  style={{
-                    width: 48,
-                    height: 48,
-                    background: "rgba(255,255,255,0.08)",
-                    border: `1px solid ${HAIRLINE}`,
-                    color: CREAM,
-                    fontSize: 24,
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  ‹
-                </button>
-                <p
-                  style={{
-                    color: TAUPE,
-                    fontSize: 13,
-                    letterSpacing: "0.04em",
-                    fontFamily: "Barlow, sans-serif",
-                    textAlign: "center",
-                    margin: 0,
-                    minWidth: 64,
-                  }}
-                >
-                  {lightboxIndex + 1} / {lightboxImages.length}
-                </p>
-                <button
-                  type="button"
-                  onPointerDown={(e) => e.stopPropagation()}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    showNext();
-                  }}
-                  aria-label="Next image"
-                  style={{
-                    width: 48,
-                    height: 48,
-                    background: "rgba(255,255,255,0.08)",
-                    border: `1px solid ${HAIRLINE}`,
-                    color: CREAM,
-                    fontSize: 24,
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  ›
-                </button>
-              </div>
-            ) : (
-              <p
-                style={{
-                  color: TAUPE,
-                  fontSize: 13,
-                  letterSpacing: "0.04em",
-                  fontFamily: "Barlow, sans-serif",
-                  textAlign: "center",
-                }}
-              >
-                {lightboxIndex + 1} / {lightboxImages.length}
-              </p>
-            )}
-          </div>
-        </div>
+          />
+        </Suspense>
       )}
     </div>
   );

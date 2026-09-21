@@ -12,13 +12,36 @@ interface Props {
   returnUrl: string;
   metadata?: Record<string, string>;
   onClose: () => void;
+  /**
+   * Optional pre-created client secret (warmed up in the background before the
+   * user taps), so the embedded checkout mounts without a round trip.
+   */
+  prefetchedClientSecret?: () => Promise<string>;
+  /** Fired once the Stripe iframe is actually mounted, with load time in ms. */
+  onReady?: (loadMs: number) => void;
 }
 
-export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadata, onClose }: Props) {
+export function StripeCheckoutModal({
+  priceId,
+  customerEmail,
+  returnUrl,
+  metadata,
+  onClose,
+  prefetchedClientSecret,
+  onReady,
+}: Props) {
   const [failed, setFailed] = useState(false);
   const [retryKey, setRetryKey] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   const fetchClientSecret = useCallback(async (): Promise<string> => {
+    if (prefetchedClientSecret) {
+      try {
+        return await prefetchedClientSecret();
+      } catch {
+        // fall through to a fresh session below
+      }
+    }
     // Inject Meta attribution (fbp, fbc, UA, event_id) into Stripe metadata so
     // the payments-webhook can fire Purchase to Meta CAPI with the original
     // visitor signals attached.
@@ -39,7 +62,7 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
       throw new Error(error?.message || "Failed to create checkout session");
     }
     return data.clientSecret as string;
-  }, [priceId, customerEmail, returnUrl, metadata]);
+  }, [priceId, customerEmail, returnUrl, metadata, prefetchedClientSecret]);
 
   const addToCartFired = useRef(false);
   useEffect(() => {
@@ -64,6 +87,28 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
       document.body.style.overflow = "";
     };
   }, [onClose]);
+
+  // Poll for the Stripe iframe so we can hide the skeleton only once the
+  // embedded checkout is genuinely painted (no empty overlay, ever).
+  const readyFired = useRef(false);
+  useEffect(() => {
+    if (failed) return;
+    const started = performance.now();
+    const timer = window.setInterval(() => {
+      const iframe = document.querySelector("#checkout iframe");
+      if (iframe) {
+        window.clearInterval(timer);
+        setMounted(true);
+        if (!readyFired.current) {
+          readyFired.current = true;
+          onReady?.(Math.round(performance.now() - started));
+        }
+      }
+    }, 100);
+    return () => window.clearInterval(timer);
+  }, [failed, retryKey, onReady]);
+
+
 
   return (
     <div
@@ -185,14 +230,47 @@ export function StripeCheckoutModal({ priceId, customerEmail, returnUrl, metadat
             </div>
           </div>
         ) : (
-          <div id="checkout">
-            <EmbeddedCheckoutProvider
-              key={retryKey}
-              stripe={getStripe()}
-              options={{ fetchClientSecret }}
-            >
-              <EmbeddedCheckout />
-            </EmbeddedCheckoutProvider>
+          <div style={{ position: "relative", minHeight: 320 }}>
+            {!mounted && (
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "#fff",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 14,
+                  zIndex: 1,
+                }}
+              >
+                <span
+                  style={{
+                    width: 26,
+                    height: 26,
+                    border: "2px solid rgba(31,27,22,0.18)",
+                    borderTopColor: "#CAA449",
+                    borderRadius: "50%",
+                    animation: "wlSpin 0.8s linear infinite",
+                  }}
+                />
+                <span style={{ fontFamily: "Barlow, sans-serif", fontSize: 14, color: "#6B6357" }}>
+                  Loading secure checkout…
+                </span>
+                <style>{`@keyframes wlSpin { to { transform: rotate(360deg) } }`}</style>
+              </div>
+            )}
+            <div id="checkout">
+              <EmbeddedCheckoutProvider
+                key={retryKey}
+                stripe={getStripe()}
+                options={{ fetchClientSecret }}
+              >
+                <EmbeddedCheckout />
+              </EmbeddedCheckoutProvider>
+            </div>
           </div>
         )}
       </div>
