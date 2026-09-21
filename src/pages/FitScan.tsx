@@ -503,7 +503,7 @@ function WelcomeStep({
               {(lang === "de" ? [
                 "Genauigkeit bis ±1,5 mm - ein Maßband erreicht meist nur ±5 mm",
                 "Erfasst Gesichtsbreite, Steg und PD in einer Messung",
-                "Empfiehlt automatisch 007, 009 oder Maßanfertigung (150-172 mm)",
+                "Empfiehlt automatisch 007, 009 oder Maßanfertigung (145-172 mm)",
                 "Läuft im Browser. Es wird nichts hochgeladen.",
               ] : [
                 "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
@@ -3610,7 +3610,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             </>
           ) : (
             <>
-              <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+              <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 172 mm</p>
               <Link to="/de/bespoke" className="flex h-12 items-center justify-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-background no-underline">Maßanfertigung ansehen</Link>
             </>
           )
@@ -4143,7 +4143,7 @@ function ResultSentStep({
           </div>
         ) : (
           <div className="flex flex-col gap-3">
-            <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+            <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 172 mm</p>
             <Link to="/de/bespoke" className="flex h-12 items-center justify-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-background no-underline">Maßanfertigung ansehen</Link>
           </div>
         )
@@ -5280,7 +5280,7 @@ export default function FitScan() {
                         </div>
                       ) : (
                         <div className="flex flex-col gap-3">
-                          <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 150 bis 172 mm</p>
+                          <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 172 mm</p>
                           <Link to="/de/bespoke" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 font-body text-[11px] uppercase tracking-[0.2em] text-background">Maßanfertigung ansehen</Link>
                         </div>
                       )
@@ -5453,7 +5453,7 @@ export default function FitScan() {
                 color: MUTED,
               }}
             >
-              {lang === "de" ? "Gesichtsbreite, Steg und PD per Kamera - danach empfehlen wir 007, 009 oder Maßanfertigung (150-172 mm)." : "Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–172 mm)."}
+              {lang === "de" ? "Gesichtsbreite, Steg und PD per Kamera - danach empfehlen wir 007, 009 oder Maßanfertigung (145-172 mm)." : "Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–172 mm)."}
             </p>
             <button
               type="button"

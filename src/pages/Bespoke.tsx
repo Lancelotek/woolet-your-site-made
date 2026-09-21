@@ -346,9 +346,9 @@ const BespokePage = () => {
   return (
     <>
       <SEO
-        title={lang === "de" ? "Maßanfertigung für breite Gesichter 150-172 mm | Woolet" : `Bespoke Glasses for Wide Faces — ${BESPOKE_FRONT_WIDTH_RANGE} | Woolet`}
-        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 150-172 mm. Mazzucchelli-Acetat, handgefertigt in der EU." : `Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
-        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 150-172 mm. Mazzucchelli-Acetat, handgefertigt in der EU." : `Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand-crafted in the EU from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
+        title={lang === "de" ? "Maßanfertigung für breite Gesichter 145-172 mm | Woolet" : `Bespoke Glasses for Wide Faces — ${BESPOKE_FRONT_WIDTH_RANGE} | Woolet`}
+        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : `Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand made in Greece (EU) from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
+        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : `Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand made in Greece (EU) from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
         lang={lang}
         path="/bespoke"
 

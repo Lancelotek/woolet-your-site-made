@@ -77,7 +77,7 @@ export default function DeCollection() {
       </section>
 
       <section className="border-y border-border-sub bg-secondary px-5 py-16 sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-3xl"><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Maßanfertigung</p><h2 className="mt-4 font-display text-4xl font-normal text-foreground">Außerhalb der Standardbreite?</h2><p className="mt-4 font-body leading-7 text-cream-dim">Für individuelle Maße fertigen wir Fassungen von 150 bis 172 mm.</p><Link to="/de/bespoke" className="mt-5 inline-block font-body text-sm text-primary underline underline-offset-4">Maßanfertigung ansehen →</Link></div>
+        <div className="mx-auto max-w-3xl"><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Maßanfertigung</p><h2 className="mt-4 font-display text-4xl font-normal text-foreground">Außerhalb der Standardbreite?</h2><p className="mt-4 font-body leading-7 text-cream-dim">Für individuelle Maße fertigen wir Fassungen von 145 bis 172 mm.</p><Link to="/de/bespoke" className="mt-5 inline-block font-body text-sm text-primary underline underline-offset-4">Maßanfertigung ansehen →</Link></div>
       </section>
       <Footer lang="de" />
       <DeMobileReservationBar />

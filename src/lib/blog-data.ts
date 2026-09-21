@@ -1963,7 +1963,7 @@ const blogPostsEN: BlogPost[] = [
       },
       {
         q: "What face width counts as bespoke territory?",
-        a: "Most mainstream brands cap at 145–148 mm. Specialist wide-face brands cover roughly 155–161 mm with stock sizes. Anything below 150 mm or above 161 mm is bespoke territory — the size range where stock catalogs no longer carry an option that fits.",
+        a: "Most mainstream brands cap at 145–148 mm. Woolet's stock 158 mm frames fit faces from 155–161 mm. Within Woolet's 145–172 mm bespoke range, widths below 155 mm or above 161 mm are bespoke territory.",
       },
       {
         q: "How much do bespoke glasses cost?",
@@ -1985,16 +1985,16 @@ const blogPostsEN: BlogPost[] = [
 
 <div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">In one line</div>
-  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces stock catalogs can't fit — below 150 mm, above 161 mm, or with a bridge outside the 21–22 mm keyhole standard. Woolet bespoke covers 145–172 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces Woolet's stock frames can't fit — below 155 mm, above 161 mm, or with a bridge outside the 21–22 mm keyhole standard. Woolet bespoke covers 145–172 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
 </div>
 
-<h2>Why bespoke starts at 150 mm and ends at 162 mm</h2>
+<h2>Why Woolet Bespoke runs from 145 mm to 172 mm</h2>
 
 <p>The mainstream eyewear industry tops out at roughly 148 mm total frame width — that's Persol, Ray-Ban, Tom Ford, and almost every brand sold in mall opticals. Specialist wide-face brands extend that ceiling to around 155–161 mm with stock sizes. Above 161 mm, the catalog options collapse to almost zero.</p>
 
-<p>The lower bound matters too. Faces measuring 150–154 mm are often <em>too wide for mainstream and too narrow for wide-face specialists</em>. They sit in a gap where no stock frame fits cleanly.</p>
+<p>The lower bound matters too. Faces measuring 145–154 mm can fall between mainstream sizing and Woolet's 155–161 mm stock fit band. Bespoke covers that gap to the millimetre.</p>
 
-<p>162 mm is the practical upper limit of a single-block acetate cut — beyond that, the frame's structural integrity drops and the temples need a metal core to stay rigid. Below 150 mm, mainstream "wide" frames already cover the range, so bespoke isn't economically justified.</p>
+<p>Woolet Bespoke extends to 172 mm while preserving the front, bridge and temple geometry as one measured system. At the lower end, it starts at 145 mm so customers outside the 155–161 mm stock fit band still have a precise Woolet option.</p>
 
 <h2>The complete 145–172 mm size table</h2>
 
@@ -2115,7 +2115,7 @@ const blogPostsEN: BlogPost[] = [
       { q: "Are made-to-measure glasses the same as bespoke?", a: "Functionally yes. 'Bespoke' is the British term, 'made-to-measure' the international one. Both describe a frame cut to a single buyer rather than a standard size grid." },
       { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet's bespoke tier starts at $299 because the order is handled digitally and the frame is cut in our partner European atelier — no in-person fitter visits." },
       { q: "Do I need to fly somewhere to get measured?", a: "No. Woolet bespoke runs from an AI face scan on your phone. The atelier receives the digitized measurements and a CAD approval — no fitter visit required." },
-      { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside the 145–158 mm stock range — either narrower than 150 mm or wider than 161 mm — and people with an asymmetric bridge or strong temple curve that no stock size accommodates." },
+      { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside Woolet's 155–161 mm stock fit band, within the 145–172 mm bespoke range, and people with an asymmetric bridge or strong temple curve that no stock size accommodates." },
     ],
     content: `
 <p>Most eyewear is built for the average face. The average face is 138–142 mm wide. If yours is not, you have probably already spent years compensating — pinching frames at the temples, sliding them up your nose, or accepting the only "wide fit" your local store stocks. <strong>Made-to-measure glasses</strong> are the way out: a frame cut to your face, not to a size grid.</p>
@@ -2233,7 +2233,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>The frame itself is cut to your face. Woolet's bespoke tier covers 145–172 mm of front width with a matching bridge and temple grid. The frame still ships lens-less to your local optician. Cost: $299 frame + standard lens fee.</p>
 
-<p>Right path if your face is below 150 mm or above 161 mm, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
+<p>Right path if your face is below 155 mm or above 161 mm within Woolet's 145–172 mm bespoke range, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
 
 <h3>3. Full custom (frame + lens cut together)</h3>
 
@@ -3090,7 +3090,7 @@ const blogPostsEN: BlogPost[] = [
 <p>Roughly 134 mm bizygomatic width across published adult anthropometric studies (Gordon et al., ANSUR II). Standard deviation is around ±5 mm, which means a meaningful share of women sit at 140 mm or above — outside the standard women's eyewear range.</p>
 
 <h3>Is there a "petite wide-face" category?</h3>
-<p>Not as a real product line. Women between 150 and 154 mm of face width are the most under-served group in eyewear — too wide for women's frames, too narrow for men's wide lines. Bespoke (Woolet covers it from 150 mm) is currently the cleanest answer.</p>
+<p>Not as a real product line. Women between 150 and 154 mm of face width are the most under-served group in eyewear — too wide for women's frames, too narrow for men's wide lines. Bespoke (Woolet covers 145–172 mm) is currently the cleanest answer.</p>
 
 <h3>Are men's wide-fit frames acceptable for women?</h3>
 <p>Sometimes. The width works, but watch the bridge height and the temple drop. Men's wide frames are often built with a flatter brow line and a longer drop behind the ear, which can sit awkwardly on a face with a higher brow. Geometry over styling is the right test — try the men's wide frame, but don't accept a frame just because the width is finally right.</p>
