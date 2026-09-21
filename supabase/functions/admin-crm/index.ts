@@ -178,6 +178,31 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Reservations grouped by paid_source (last 30 days).
+    if (body.action === "paid_sources") {
+      const since = new Date(Date.now() - 30 * 24 * 3600 * 1000).toISOString();
+      const { data, error } = await admin
+        .from("founding_members")
+        .select("metadata, created_at")
+        .gte("created_at", since)
+        .limit(5000);
+      if (error) throw error;
+      const counts: Record<string, number> = {};
+      for (const row of data ?? []) {
+        const meta = (row.metadata ?? {}) as Record<string, unknown>;
+        const raw = meta.paid_source;
+        const key = typeof raw === "string" && raw.trim() ? raw.trim() : "unknown";
+        counts[key] = (counts[key] ?? 0) + 1;
+      }
+      const sources = Object.entries(counts)
+        .map(([source, count]) => ({ source, count }))
+        .sort((a, b) => b.count - a.count);
+      return new Response(JSON.stringify({ sources, days: 30 }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const productFilter = body.product && ["007", "009", "bespoke", "ks_reservation"].includes(body.product)
       ? body.product
       : null;

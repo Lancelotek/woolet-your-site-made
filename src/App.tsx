@@ -36,6 +36,7 @@ const FitScan = lazy(() => import("./pages/FitScan.tsx"));
 const ThankYou = lazy(() => import("./pages/ThankYou.tsx"));
 const ThankYouFb = lazy(() => import("./pages/ThankYouFb.tsx"));
 const ThankYouReserved = lazy(() => import("./pages/ThankYouReserved.tsx"));
+const Reserve = lazy(() => import("./pages/Reserve.tsx"));
 const Payments = lazy(() => import("./pages/Payments.tsx"));
 const Crm = lazy(() => import("./pages/Crm.tsx"));
 const CrmGsc = lazy(() => import("./pages/CrmGsc.tsx"));
@@ -384,6 +385,7 @@ const App = () => (
 
           <Route path="/:lang/fit/scan" element={<FitScanRedirect />} />
           <Route path="/en/thank-you/reserved" element={<ThankYouReserved />} />
+          <Route path="/en/reserve" element={<Reserve />} />
           <Route path="/:lang/thank-you" element={<ThankYou />} />
           <Route path="/thank-you" element={<ThankYouFb />} />
           <Route path="/thank-you-fb" element={<ThankYouFb />} />

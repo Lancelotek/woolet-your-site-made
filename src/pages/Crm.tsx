@@ -86,6 +86,19 @@ export default function Crm() {
   const [mlData, setMlData] = useState<MailerLiteDaily | null>(null);
   const [mlLoading, setMlLoading] = useState(false);
   const [mlError, setMlError] = useState<string | null>(null);
+  const [sources, setSources] = useState<Array<{ source: string; count: number }> | null>(null);
+
+  const fetchSources = async (pwd: string) => {
+    try {
+      const { data, error: fnErr } = await supabase.functions.invoke("admin-crm", {
+        body: { password: pwd, action: "paid_sources" },
+      });
+      if (fnErr) throw fnErr;
+      setSources((data?.sources ?? []) as Array<{ source: string; count: number }>);
+    } catch {
+      setSources(null);
+    }
+  };
 
   const fetchMailerLite = async (pwd: string) => {
     setMlLoading(true);
@@ -142,6 +155,7 @@ export default function Crm() {
       setSummary(data.summary as Summary);
       setAuthed(true);
       fetchMailerLite(pwd);
+      fetchSources(pwd);
 
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Failed to load";
@@ -254,6 +268,27 @@ export default function Crm() {
                       <div style={{ fontFamily: SERIF, fontSize: 26, color: T.ink }}>{val}</div>
                     </div>
                   ))}
+                </div>
+              )}
+
+              {/* Reservations by source (last 30 days) */}
+              {sources && sources.length > 0 && (
+                <div style={{ marginBottom: 28, background: T.panel, border: `1px solid ${T.hair}`, borderRadius: 4, padding: "18px 20px" }}>
+                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: T.inkMute, marginBottom: 12 }}>
+                    Reservations by source — last 30 days
+                  </div>
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", maxWidth: 420, borderCollapse: "collapse", fontSize: 13 }}>
+                      <tbody>
+                        {sources.map((s) => (
+                          <tr key={s.source}>
+                            <td style={{ padding: "7px 10px", borderBottom: `1px solid ${T.hair}`, color: T.inkDim }}>{s.source}</td>
+                            <td style={{ padding: "7px 10px", borderBottom: `1px solid ${T.hair}`, textAlign: "right", color: T.ink }}>{s.count}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               )}
 

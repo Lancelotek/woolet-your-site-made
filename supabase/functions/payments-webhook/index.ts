@@ -1,5 +1,5 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { type StripeEnv, verifyWebhook } from "../_shared/stripe.ts";
+import { type StripeEnv, createStripeClient, verifyWebhook } from "../_shared/stripe.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 import { generateOrderPreview } from "../_shared/bespoke-preview.ts";
 import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
@@ -94,6 +94,7 @@ async function fireMetaPurchase(session: any) {
       content_ids: meta.recommended_sku ? [meta.recommended_sku] : undefined,
       content_type: "product",
       num_items: 1,
+      ...(meta.paid_source ? { paid_source: meta.paid_source } : {}),
     },
   };
 
@@ -410,10 +411,29 @@ async function tagMailerLiteFoundingMember(
   email: string,
   sessionId: string,
   recommendedSku?: string,
+  paidSource?: string,
 ) {
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
   try {
+    // Only stamp paid_source when the subscriber has none yet (same
+    // "first wins" pattern as started_1usd_checkout).
+    let setPaidSource = Boolean(paidSource);
+    if (paidSource) {
+      try {
+        const lookup = await fetch(
+          `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`,
+          { headers: { Authorization: `Bearer ${apiKey}` } },
+        );
+        if (lookup.ok) {
+          const json = await lookup.json();
+          const v = json?.data?.fields?.paid_source;
+          if (typeof v === "string" && v.trim()) setPaidSource = false;
+        }
+      } catch (e) {
+        console.error("[mailerlite] paid_source lookup failed", e);
+      }
+    }
     const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
       method: "POST",
       headers: {
@@ -426,6 +446,7 @@ async function tagMailerLiteFoundingMember(
         fields: {
           ...(recommendedSku ? { recommended_sku: recommendedSku } : {}),
           paid_ref: sessionId,
+          ...(setPaidSource && paidSource ? { paid_source: paidSource } : {}),
           // Exit condition for the abandoned-checkout recovery sequence.
           paid_1usd: mlDate(),
           usd1_recovery_url: "",
@@ -681,6 +702,46 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
   ]);
 }
 
+/**
+ * Works out which MailerLite email (or other channel) drove the payment, and
+ * restores the original attribution metadata for Stripe-recovered sessions.
+ */
+async function resolvePaidSource(
+  session: any,
+  stripe: any,
+): Promise<{ paidSource: string; metadata: Record<string, string>; recoveredFrom?: string }> {
+  const meta = { ...((session?.metadata ?? {}) as Record<string, string>) };
+  const recoveredFrom: string | undefined = session?.recovered_from || undefined;
+
+  if (recoveredFrom) {
+    let originalMeta: Record<string, string> = {};
+    try {
+      const original = await stripe.checkout.sessions.retrieve(recoveredFrom);
+      originalMeta = (original?.metadata ?? {}) as Record<string, string>;
+    } catch (e) {
+      console.error("[payments-webhook] recovered session lookup failed", recoveredFrom, e);
+    }
+    // New session wins on conflicts, original fills the gaps.
+    const merged = { ...originalMeta, ...meta };
+    const originalTouch = originalMeta.touch_source || meta.touch_source || "";
+    const paidSource = originalTouch.startsWith("ml-")
+      ? `${originalTouch}+recovery`
+      : "ml-recovery";
+    return { paidSource, metadata: merged, recoveredFrom };
+  }
+
+  if (typeof meta.touch_source === "string" && meta.touch_source.startsWith("ml-")) {
+    return { paidSource: meta.touch_source, metadata: meta };
+  }
+
+  if (session?.payment_link) {
+    const ref: string = session?.client_reference_id || "";
+    return { paidSource: ref.startsWith("ml-") ? ref : "payment_link", metadata: meta };
+  }
+
+  return { paidSource: meta.utm_source || "direct", metadata: meta };
+}
+
 async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   const flow = session?.metadata?.flow;
   if (flow === "bespoke") {
@@ -700,6 +761,20 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     return;
   }
 
+  const stripe = createStripeClient(env);
+  const { paidSource, metadata: resolvedMeta, recoveredFrom } = await resolvePaidSource(
+    session,
+    stripe,
+  );
+  console.log(`[payments-webhook] paid_source=${paidSource} session=${session.id}`);
+  const storedMetadata: Record<string, string> = {
+    ...resolvedMeta,
+    paid_source: paidSource,
+    ...(recoveredFrom ? { recovered_from: recoveredFrom } : {}),
+  };
+  // Keep the Purchase CAPI event on the restored attribution too.
+  session.metadata = storedMetadata;
+
   const { error } = await getSupabase()
     .from("founding_members")
     .upsert(
@@ -711,7 +786,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
         amount_cents: session.amount_total ?? 100,
         currency: (session.currency ?? "usd").toLowerCase(),
         environment: env,
-        metadata: session.metadata ?? null,
+        metadata: storedMetadata,
       },
       { onConflict: "stripe_session_id" },
     );
@@ -721,7 +796,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     throw error;
   }
 
-  await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined);
+  await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined, paidSource);
 
   try {
     const amountCents = session.amount_total ?? 100;
