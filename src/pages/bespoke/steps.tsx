@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Lock, Maximize2, Sparkles, Unlock, Upload } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Lock, Maximize2, Sparkles, Unlock } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
@@ -13,8 +13,6 @@ import {
   ENGRAVING_MAX_CHARS,
   ENGRAVING_POSITIONS,
   FINISHES,
-  LENS_COATINGS,
-  LENS_MATERIALS,
   LENS_TINTS,
   LENS_TINT_NOTE,
   LENS_TYPES,
@@ -1865,14 +1863,13 @@ function ReadingStrengthPanel({ config, update }: StepProps) {
 
 /* ───── Step 5 ───── */
 export function StepLenses({ config, update }: StepProps) {
-  const needsRx = ["single-vision", "progressive"].includes(config.lensTypeId ?? "");
   return (
     <div className="space-y-10">
       <header>
         <div className={sectionKicker}>Step 5</div>
         <h2 className={sectionTitle}>Lenses & prescription</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          Every frame ships with lenses cut and fitted — <CfgInfoTrigger section="plano">plano (no correction) lens</CfgInfoTrigger> starts at €20, same as sun lenses. Choose plano if you plan to send the frame to your own optician for prescription lenses.
+          Choose how you want to use your glasses. We will confirm the technical lens specification with you before production.
         </p>
       </header>
 
@@ -1886,6 +1883,8 @@ export function StepLenses({ config, update }: StepProps) {
                 key={l.id}
                 onClick={() => {
                   update("lensTypeId", l.id);
+                  update("lensMaterialId", null);
+                  update("lensCoatingId", null);
                   if (l.id !== "photochromic") update("lensTintId", null);
                   if (l.id !== "reading") {
                     update("readingStrengthMode", null);
@@ -1927,59 +1926,6 @@ export function StepLenses({ config, update }: StepProps) {
       {config.lensTypeId === "reading" && <ReadingStrengthPanel config={config} update={update} />}
       {config.lensTypeId === "photochromic" && <LensTintPanel config={config} update={update} />}
 
-      {config.lensTypeId !== "plano" && (
-        <>
-          <div>
-            <div className={labelClass}>Material</div>
-            <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {LENS_MATERIALS.map((m) => {
-                const active = config.lensMaterialId === m.id;
-                return (
-                  <button
-                    key={m.id}
-                    onClick={() => update("lensMaterialId", m.id)}
-                    className={`px-3 py-2.5 rounded-[10px] text-xs border transition ${
-                      active
-                        ? "border-gold text-gold-light bg-gold/10"
-                        : "border-cream/15 text-cream-dim hover:border-cream/30"
-                    }`}
-                  >
-                    {m.name}
-                  </button>
-                );
-              })}
-            </div>
-            {!config.lensMaterialId && (
-              <p className="text-cream-dim/70 text-[0.78rem] mt-2">Pick a material to unlock coatings.</p>
-            )}
-          </div>
-
-          {config.lensMaterialId && (
-            <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-              <div className={labelClass}>Coating</div>
-              <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {LENS_COATINGS.map((c) => {
-                  const active = config.lensCoatingId === c.id;
-                  return (
-                    <button
-                      key={c.id}
-                      onClick={() => update("lensCoatingId", c.id)}
-                      className={`px-3 py-2.5 rounded-[10px] text-xs border transition ${
-                        active
-                          ? "border-gold text-gold-light bg-gold/10"
-                          : "border-cream/15 text-cream-dim hover:border-cream/30"
-                      }`}
-                    >
-                      {c.name}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </>
-      )}
-
       <div>
         <div className={labelClass}>Your frame with these lenses</div>
         <p className="text-cream-dim text-xs leading-relaxed mt-2 max-w-xl">
@@ -1990,29 +1936,6 @@ export function StepLenses({ config, update }: StepProps) {
         </div>
       </div>
 
-      {needsRx && (
-        <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5">
-          <div className={labelClass}>Prescription</div>
-          <label className="mt-3 flex items-center gap-3 px-4 py-3 rounded-[10px] border border-dashed border-cream/20 text-cream-dim text-sm hover:border-cream/40 transition cursor-pointer">
-            <Upload size={16} />
-            <span>{config.prescriptionFileName ?? "Upload PDF or photo of your Rx"}</span>
-            <input
-              type="file"
-              accept="image/*,application/pdf"
-              className="hidden"
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                if (f) update("prescriptionFileName", f.name);
-              }}
-            />
-          </label>
-          {config.lensTypeId === "progressive" && (
-            <p className="text-[0.78rem] text-gold-light/90 mt-3">
-              Progressive lenses are flagged for an additional optician review before production.
-            </p>
-          )}
-        </div>
-      )}
     </div>
   );
 }
@@ -2100,12 +2023,6 @@ export function StepReview({
           label="Lenses"
           value={lens ? `${formatLensWithStrength(lens.name, config)} · ${formatAddOn(lens.priceEur)}` : null}
         />
-        {config.lensTypeId !== "plano" && (
-          <>
-            <Row label="Material" value={LENS_MATERIALS.find((m) => m.id === config.lensMaterialId)?.name} />
-            <Row label="Coating" value={LENS_COATINGS.find((c) => c.id === config.lensCoatingId)?.name} />
-          </>
-        )}
         <Row label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
         <div className="flex items-baseline justify-between gap-4 py-4">
           <div className="text-cream text-xs uppercase tracking-[0.2em]">
