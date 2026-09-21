@@ -61,17 +61,17 @@ function recommend(state: QuizState): Recommendation {
     const w = state.currentFrameMm;
     const bridge = state.currentBridgeMm ?? (state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22);
     if (w >= 165) return mk(w, bridge, "bespoke", "high",
-      "You need bespoke (up to 162 mm).",
-      "Off-the-shelf wide frames top out around 158–161 mm. We make bespoke up to 162 mm with the same Italian acetate — above 162 mm we don't build.");
+      "You need bespoke (up to 172 mm).",
+      "Off-the-shelf wide frames fit faces around 155–161 mm. We make bespoke from 145–172 mm with the same Italian acetate.");
     if (w >= 156) return mk(w, bridge, "009", "high",
       "Woolet 009 at 158 mm is your size.",
       "009 (soft square) sits at 158 mm with a 22 mm keyhole bridge — built for your width.");
-    if (w >= 150) return mk(w, bridge, "007", "high",
-      "Woolet 007 at 155 mm is your size.",
-      "007 (round) at 155 mm covers exactly this range. Bespoke down to 150 mm if you want a tighter sit.");
+    if (w >= 150) return mk(w, bridge, "bespoke", "high",
+      "Bespoke is the right path.",
+      "Woolet Bespoke starts at 145 mm. Stock Woolet 007 and 009 have a 158 mm front and fit faces from 155–161 mm.");
     return mk(w, bridge, "off-brand", "high",
       "You're inside standard sizing.",
-      "Most off-the-shelf frames will fit. Woolet is built for 150 mm+ faces — you don't need us.");
+      "Most off-the-shelf frames will fit. Woolet Bespoke starts at 145 mm; stock Woolet fits faces from 155–161 mm.");
   }
 
   // Hat-driven estimate. Rough mapping based on head circumference → face width.
@@ -85,7 +85,7 @@ function recommend(state: QuizState): Recommendation {
 
   if (hat === "xxl") return mk(w, bridge, "bespoke", conf,
     "Bespoke is the right path.",
-    "XXL hat size suggests a face wider than 161 mm. Off-the-shelf maxes out here; bespoke goes to 162 mm.");
+    "XXL hat size suggests a face wider than 161 mm. Off-the-shelf maxes out here; bespoke goes to 172 mm.");
   if (hat === "xl") return mk(w, bridge, "009", conf,
     "Start with Woolet 009 at 158 mm.",
     "XL hat size usually maps to ~158–161 mm face. 009 fits this range; verify with a scan before ordering.");
@@ -94,7 +94,7 @@ function recommend(state: QuizState): Recommendation {
     "L hat size usually maps to ~152–156 mm face. 007 fits this range; 009 at 155 mm if you prefer square.");
   if (hat === "m") return mk(w, bridge, "off-brand", conf,
     "You're inside standard sizing.",
-    "M hat size usually means a 145–150 mm face. Most off-the-shelf frames will fit — Woolet starts at 150 mm.");
+    "M hat size usually means a 145–150 mm face. Woolet Bespoke starts at 145 mm; stock Woolet fits faces from 155–161 mm.");
   if (hat === "s") return mk(w, bridge, "off-brand", conf,
     "You don't need wide frames.",
     "S hat size usually means a 135–144 mm face. Standard eyewear is built for you.");

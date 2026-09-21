@@ -72,8 +72,8 @@ const Collection = () => {
                 className="text-cream-dim leading-relaxed max-w-2xl"
                 style={{ fontSize: "1rem" }}
               >
-                Two shapes — round 007 and soft-square 009 — in 155, 158 and 161 mm widths,
-                with bespoke up to 162 mm. Italian Mazzucchelli acetate, hand made in EU.
+                Two shapes — round 007 and soft-square 009 — with a 158 mm front,
+                plus bespoke from 145–172 mm. Italian Mazzucchelli acetate, hand made in Greece (EU).
               </p>
             </div>
           </section>
