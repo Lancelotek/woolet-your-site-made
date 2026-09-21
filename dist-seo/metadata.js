@@ -7131,7 +7131,7 @@ const GUIDE_FAQS = {
     },
     {
       q: "What if my measurement falls between sizes?",
-      a: "If you're between 150–154 mm or above 161 mm, you fall outside the 158 mm standard size. Woolet bespoke covers the full 145–172 mm range to the millimetre."
+      a: "If you're between 145–154 mm or 162–172 mm, you fall outside the 158 mm standard size. Woolet bespoke covers the full 145–172 mm range to the millimetre."
     }
   ]
 };
@@ -8521,9 +8521,9 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
   proofBody: "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 145 do 172 mm co 1 mm.",
   proofBullets: [
     { label: "Poniżej 145 mm", value: "Standardowe oprawki z salonów" },
-    { label: "145 – 154 mm", value: "Bespoke Woolet (150–154 mm)" },
+    { label: "145 – 154 mm", value: "Bespoke Woolet (145–154 mm)" },
     { label: "155 mm i więcej", value: "Woolet 007 / 009 — 158 mm" },
-    { label: "Powyżej 165 mm", value: "Bespoke Woolet (do 165 mm)" }
+    { label: "162 – 172 mm", value: "Bespoke Woolet (do 172 mm)" }
   ],
   closingH2: "Zmierz raz, zamawiaj bez ryzyka",
   closingBody: "FitLens używa aparatu w telefonie i wyznacza szerokość twarzy, mostka i rozstaw źrenic z jednego zdjęcia — w około 20 sekund. Bez instalacji, bez wysyłania zdjęć. Zdjęcie zostaje w twojej przeglądarce.",
@@ -10142,7 +10142,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   <thead><tr><th>Face / head measurement</th><th>Recommended frame</th></tr></thead>
   <tbody>
     <tr><td>Face width 155–161 mm (head 58–62 cm)</td><td>Woolet 158 mm</td></tr>
-    <tr><td>Face width 150–154 mm or 162–165 mm (head 56–58 cm or 62 cm+)</td><td>Bespoke</td></tr>
+    <tr><td>Face width 145–154 mm or 162–172 mm (head 56–58 cm or 62 cm+)</td><td>Bespoke</td></tr>
   </tbody>
 </table>
 <h2>Frequently asked</h2>
