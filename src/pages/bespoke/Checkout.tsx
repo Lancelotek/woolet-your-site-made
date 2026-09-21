@@ -6,7 +6,7 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
-import { useBespokeConfig, computePricing, formatEur, formatLensWithStrength, readingStrengthMetaValue } from "@/lib/bespoke-state";
+import { useBespokeConfig, computePricing, formatEur, formatLensWithStrength, lensOrderValue, lensTintCode, readingStrengthMetaValue } from "@/lib/bespoke-state";
 import { findFrame } from "@/data/frames";
 import {
   COLORS,
@@ -109,9 +109,9 @@ export default function BespokeCheckout() {
     if (finish) parts.push(finish.name);
     if (config.templeLengthMm) parts.push(`Temples ${config.templeLengthMm} mm${config.templeLengthIsCustom ? " (custom)" : ""}`);
     if (config.engravingEnabled && config.engravingText) parts.push(`Engraving "${config.engravingText}"`);
-    if (lens) parts.push(lens.name);
+    if (lens) parts.push(lensOrderValue(lens.name, config));
     return parts.join(" · ");
-  }, [front, temple, finish, lens, config.engravingEnabled, config.engravingText, config.templeLengthMm, config.templeLengthIsCustom]);
+  }, [front, temple, finish, lens, config.lensTypeId, config.lensTintId, config.engravingEnabled, config.engravingText, config.templeLengthMm, config.templeLengthIsCustom]);
 
   const returnUrl =
     typeof window !== "undefined"
@@ -126,7 +126,8 @@ export default function BespokeCheckout() {
     finish: finish?.name ?? "",
     temple_length: config.templeLengthMm ? `${config.templeLengthMm} mm${config.templeLengthIsCustom ? " (custom)" : ""}` : "",
     engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
-    lens_type: lens?.name ?? "",
+    lens_type: lens ? lensOrderValue(lens.name, config) : "",
+    lens_tint: lensTintCode(config),
     reading_strength: readingStrengthMetaValue(config),
     reading_strength_mode: config.lensTypeId === "reading" ? config.readingStrengthMode ?? "" : "",
     reading_strength_left: config.readingStrengthLeft ?? "",
@@ -149,6 +150,7 @@ export default function BespokeCheckout() {
         finish_id: finish?.id ?? "",
         temple_length_mm: config.templeLengthMm ?? "",
         lens_type: lens?.id ?? "",
+        lens_tint: lensTintCode(config),
         engraving_enabled: config.engravingEnabled,
         ai_preview_present: Boolean(aiPreviewUrl),
         value: pricing.totalEur,

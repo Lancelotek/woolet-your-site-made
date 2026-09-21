@@ -29,6 +29,9 @@ import singleVisionImg from "@/assets/configurator/lenses/single-vision.jpg";
 import progressiveImg from "@/assets/configurator/lenses/progressive.jpg";
 import sunTintedImg from "@/assets/configurator/lenses/sun-tinted.jpg";
 import blueLightImg from "@/assets/configurator/lenses/blue-light.jpg";
+import tintBrownImg from "@/assets/configurator/lenses/tint-brown.jpg";
+import tintGreenImg from "@/assets/configurator/lenses/tint-green.jpg";
+import tintGreyImg from "@/assets/configurator/lenses/tint-grey.jpg";
 
 export type ColorFamily = "tortoise" | "black" | "grey" | "colour" | "translucent";
 
@@ -125,6 +128,62 @@ export const LENS_TYPES: LensType[] = [
   { id: "photochromic",name: "Photochromic / Transition",         priceEur: 84, description: "Clear indoors, darkens in daylight.",            image: progressiveImg },
   { id: "sun-uv400",   name: "Sun lenses (UV400)",                priceEur: 48, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg },
 ];
+
+/* ───── Photochromic lens tint ─────
+   Only applies to the "photochromic" lens type. No price impact.
+   `code` is the production code: it goes into the order (Stripe metadata
+   `lens_tint` + `lens_type` string, DB column lens_type, admin + emails)
+   so the lab knows exactly which tint to fit. Never change an existing code. */
+export interface LensTint {
+  id: string;
+  code: string;
+  name: string;
+  /** Darkest activated shade, used for the swatch gradient. */
+  hex: string;
+  /** Frame with activated lens + clear-to-dark lens progression. */
+  image: string;
+  short: string;
+  description: string;
+}
+
+export const LENS_TINTS: LensTint[] = [
+  {
+    id: "brown",
+    code: "PH-BRN",
+    image: tintBrownImg,
+    name: "Espresso Brown",
+    hex: "#4a2c17",
+    short: "Warm contrast that sharpens every edge.",
+    description:
+      "Clear indoors, a deep espresso tint outdoors. Brown pulls up contrast and depth, so road markings, terrain and faces read sharper in shifting light. The natural partner for Havana and tortoise acetate - warm on warm, no clash.",
+  },
+  {
+    id: "green",
+    code: "PH-GRN",
+    image: tintGreenImg,
+    name: "Bottle Green",
+    hex: "#243d29",
+    short: "The classic tint. True colour, calm eyes.",
+    description:
+      "The tint behind the most iconic sunglasses of the last century. Green cuts glare and keeps colours close to how you see them, with a touch of added contrast. Clear at your desk, rich green in full sun. Looks deliberate against Havana, Noir and Crystal frames.",
+  },
+  {
+    id: "grey",
+    code: "PH-GRY",
+    image: tintGreyImg,
+    name: "Graphite Grey",
+    hex: "#2e3032",
+    short: "Neutral tint. Colours stay exactly as they are.",
+    description:
+      "The purist's choice. Grey lowers brightness evenly across the spectrum, so a blue sky stays blue and a red light stays red. Built for hard sun, water and long days outdoors. Clear inside, graphite outside - one pair from morning coffee to afternoon on the terrace.",
+  },
+];
+
+export const LENS_TINT_NOTE =
+  "Photochromic - clear indoors, darkens in UV light in under a minute, back to clear in a few minutes. 100% UV400 protection.";
+
+export const findLensTint = (id: string | null | undefined): LensTint | undefined =>
+  id ? LENS_TINTS.find((t) => t.id === id) : undefined;
 
 /* ───── Reading strength (dioptre) ─────
    Only applies to the "reading" lens type. No price impact. */

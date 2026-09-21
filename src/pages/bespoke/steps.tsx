@@ -15,8 +15,11 @@ import {
   FINISHES,
   LENS_COATINGS,
   LENS_MATERIALS,
+  LENS_TINTS,
+  LENS_TINT_NOTE,
   LENS_TYPES,
   READING_STRENGTHS,
+  findLensTint,
   MEASUREMENT_RANGES,
   TEMPLE_LENGTHS,
   TEMPLE_LENGTH_CUSTOM_RANGE,
@@ -1647,6 +1650,63 @@ const READING_MODES = [
   { id: "confirm_later", label: "I'll confirm after payment" },
 ] as const;
 
+function LensTintPanel({ config, update }: StepProps) {
+  const selected = findLensTint(config.lensTintId);
+  return (
+    <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5 animate-in fade-in slide-in-from-top-2 duration-300">
+      <div className={labelClass}>Lens colour</div>
+      <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2 max-w-xl">{LENS_TINT_NOTE}</p>
+
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {LENS_TINTS.map((t) => {
+          const active = config.lensTintId === t.id;
+          return (
+            <button
+              key={t.id}
+              onClick={() => {
+                update("lensTintId", t.id);
+                pushCfg("bespoke_lens_tint_selected", { tint: t.id, code: t.code });
+                claritySet("bespoke_lens_tint", t.code);
+              }}
+              aria-pressed={active}
+              className={`overflow-hidden rounded-[10px] border text-left transition flex flex-col ${
+                active ? "border-gold bg-gold/10" : "border-cream/15 hover:border-cream/30"
+              }`}
+            >
+              <div className="relative w-full aspect-[5/1] bg-white">
+                <img
+                  src={t.image}
+                  alt={`${t.name} photochromic lens on a Woolet frame, shown from clear to fully darkened`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
+              </div>
+              <div className="p-3">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className={`text-sm ${active ? "text-gold-light" : "text-cream"}`}>{t.name}</span>
+                  <span className="text-cream-dim/70 text-[0.68rem] tracking-[0.12em] font-mono shrink-0">{t.code}</span>
+                </div>
+                <div className="text-cream-dim text-[0.72rem] mt-1 leading-snug">{t.short}</div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {selected ? (
+        <div className="mt-4 max-w-xl">
+          <p className="text-cream-dim text-[0.8rem] leading-relaxed">{selected.description}</p>
+          <p className="text-cream-dim/70 text-[0.72rem] mt-2">
+            Lens code <span className="font-mono text-gold-light tracking-[0.12em]">{selected.code}</span> - quoted on your order and workshop sheet.
+          </p>
+        </div>
+      ) : (
+        <p className="text-gold-light/80 text-[0.78rem] mt-4">Choose a lens colour to continue.</p>
+      )}
+    </div>
+  );
+}
+
 function ReadingStrengthPanel({ config, update }: StepProps) {
   const mode = config.readingStrengthMode ?? "same";
 
@@ -1778,6 +1838,7 @@ export function StepLenses({ config, update }: StepProps) {
                 key={l.id}
                 onClick={() => {
                   update("lensTypeId", l.id);
+                  if (l.id !== "photochromic") update("lensTintId", null);
                   if (l.id !== "reading") {
                     update("readingStrengthMode", null);
                     update("readingStrength", null);
@@ -1816,6 +1877,7 @@ export function StepLenses({ config, update }: StepProps) {
       </div>
 
       {config.lensTypeId === "reading" && <ReadingStrengthPanel config={config} update={update} />}
+      {config.lensTypeId === "photochromic" && <LensTintPanel config={config} update={update} />}
 
       {config.lensTypeId !== "plano" && (
         <>
