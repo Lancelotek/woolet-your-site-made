@@ -808,12 +808,25 @@ const MarketWidthChart = () => {
         .mkt-row { display: grid; grid-template-columns: 190px 1fr 84px; align-items: center; column-gap: 18px; }
         .mkt-bar { width: 0; transition: width 700ms cubic-bezier(0.2,0.7,0.2,1); }
         .mkt-shown .mkt-bar { width: var(--w); }
-        @media (max-width: 639px) {
-          .mkt-row { grid-template-columns: 1fr auto; column-gap: 12px; row-gap: 8px; }
-          .mkt-brand { grid-column: 1; }
-          .mkt-value { grid-column: 2; }
-          .mkt-track-cell { grid-column: 1 / -1; }
-        }
+          @media (max-width: 639px) {
+            .mkt-row { grid-template-columns: 1fr auto; column-gap: 12px; row-gap: 8px; }
+            .mkt-brand { grid-column: 1; }
+            .mkt-value { grid-column: 2; }
+            .mkt-track-cell { grid-column: 1 / -1; }
+            /* Label sits left-aligned above the bar on phones — the
+               71.43% offset + nowrap pushed the page 100px+ sideways. */
+            .mkt-threshold-label {
+              white-space: normal;
+              margin-left: 0;
+              transform: none;
+              max-width: 100%;
+            }
+          }
+          .mkt-threshold-label {
+            white-space: nowrap;
+            margin-left: 71.4286%;
+            transform: translateX(-6px);
+          }
         @media (prefers-reduced-motion: reduce) {
           .mkt-bar { width: var(--w); transition: none; }
         }
@@ -844,13 +857,11 @@ const MarketWidthChart = () => {
             <div className="mkt-brand" aria-hidden="true" />
             <div className="mkt-track-cell" style={{ position: "relative" }}>
               <div
+                className="mkt-threshold-label"
                 style={{
                   ...eyebrowStyle,
                   color: TAUPE,
                   fontSize: 10,
-                  marginLeft: `${pctOf(155)}%`,
-                  transform: "translateX(-6px)",
-                  whiteSpace: "nowrap",
                 }}
               >
                 155 mm — where a wide face starts
