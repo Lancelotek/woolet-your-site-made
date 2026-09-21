@@ -31,6 +31,8 @@ export type CfgEvent =
   | "cfg_render_ready"
   | "cfg_signin_gate_shown"
   | "cfg_pay_click"
+  | "cfg_render_failed"
+  | "cfg_preview_skip"
   | "bespoke_reading_strength_selected"
   | "bespoke_lens_tint_selected";
 
@@ -407,13 +409,25 @@ export function bumpRenderCount(sessionRef: string): number {
   return next;
 }
 
+/** Give a render back when the request failed — a failed render must not eat the budget. */
+export function refundRenderCount(sessionRef: string): number {
+  const next = Math.max(0, readRenderCount(sessionRef) - 1);
+  try {
+    localStorage.setItem(renderKey(sessionRef), String(next));
+  } catch {
+    /* private mode */
+  }
+  return next;
+}
+
 export const RENDERS_PER_SESSION = RENDER_CAP;
 
 export function useRenderBudget(sessionRef: string) {
   const [used, setUsed] = useState(() => readRenderCount(sessionRef));
   const remaining = Math.max(0, RENDER_CAP - used);
   const consume = useCallback(() => setUsed(bumpRenderCount(sessionRef)), [sessionRef]);
-  return useMemo(() => ({ used, remaining, consume }), [used, remaining, consume]);
+  const refund = useCallback(() => setUsed(refundRenderCount(sessionRef)), [sessionRef]);
+  return useMemo(() => ({ used, remaining, consume, refund }), [used, remaining, consume, refund]);
 }
 
 /** Fired when the mini preview stage asks the AI panel to render. */
