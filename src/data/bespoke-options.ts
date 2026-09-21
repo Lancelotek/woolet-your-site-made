@@ -122,11 +122,10 @@ export interface LensType {
 
 // Prices are USD. Each lens = supplier price (EUR) + $20 fitting, converted to USD.
 export const LENS_TYPES: LensType[] = [
-  { id: "plano",       name: "Plano (no correction)",             priceEur: 0,  description: "Frame-ready clear lenses, fitted and cut.",     image: planoImg },
-  { id: "blue-light",  name: "Blue light",                        priceEur: 84, description: "Screen filter for long hours on displays.",     image: blueLightImg },
-  { id: "reading",     name: "Reading",                           priceEur: 60, description: "Single-vision magnification for near work.",     image: singleVisionImg },
-  { id: "photochromic",name: "Photochromic / Transition",         priceEur: 84, description: "Clear indoors, darkens in daylight.",            image: progressiveImg },
-  { id: "sun-uv400",   name: "Sun lenses (UV400)",                priceEur: 48, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg },
+  { id: "blue-light",  name: "Blue Light Lenses",                 priceEur: 84, description: "Optional filter coating for screen use.",        image: blueLightImg },
+  { id: "reading",     name: "Reading Lenses",                    priceEur: 60, description: "Single-vision magnification for near work.",     image: singleVisionImg },
+  { id: "photochromic",name: "Photochromic",                      priceEur: 84, description: "Clear indoors, darkens in daylight.",            image: progressiveImg },
+  { id: "sun-uv400",   name: "Sun Lenses (UV400)",                priceEur: 48, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg },
 ];
 
 /* ───── Photochromic lens tint ─────

@@ -12,8 +12,6 @@ import {
   COLORS,
   FINISHES,
   LENS_TYPES,
-  LENS_MATERIALS,
-  LENS_COATINGS,
   ENGRAVING_POSITIONS,
   formatTempleLength,
 } from "@/data/bespoke-options";
@@ -521,12 +519,6 @@ export default function BespokeCheckout() {
                         }
                       />
                       <SummaryRow label="Lenses" value={lens ? formatLensWithStrength(lens.name, config) : undefined} />
-                      {config.lensTypeId !== "plano" && (
-                        <>
-                          <SummaryRow label="Material" value={LENS_MATERIALS.find((m) => m.id === config.lensMaterialId)?.name} />
-                          <SummaryRow label="Coating" value={LENS_COATINGS.find((c) => c.id === config.lensCoatingId)?.name} />
-                        </>
-                      )}
                       <SummaryRow label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
                     </div>
 
