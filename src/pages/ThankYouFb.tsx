@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
 
 const FB_GROUP_URL = "https://www.facebook.com/groups/867413636043717";
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces";
+/** Same $1 reservation price as the Kickstarter landing page. */
+const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 
 const C = {
   bg: "#080807",
@@ -207,7 +210,7 @@ export default function ThankYouFb() {
 
           <div style={{ ...eyebrow, marginBottom: 18 }}>YOUR SPOT IS SAVED</div>
           <h1 style={{ ...h1, fontSize: "clamp(38px, 6vw, 56px)", margin: 0 }}>
-            Two steps and you're set.
+            Three steps and you're set.
           </h1>
           <p
             style={{
@@ -233,8 +236,9 @@ export default function ThankYouFb() {
           />
         </section>
 
-        {/* Step 01 */}
+        {/* Step 01 — $1 founder reservation */}
         <section
+          id="ty-step-reserve"
           className="ty-fb-a ty-fb-a2 ty-fb-card"
           style={{
             marginTop: 40,
@@ -268,36 +272,60 @@ export default function ThankYouFb() {
             <div>
               <div style={{ ...eyebrow, marginBottom: 12 }}>STEP ONE</div>
               <h2 style={{ ...h2, fontSize: 32, margin: "0 0 16px" }}>
-                Join the private Woolet VIP group.
+                Lock the founder price.
               </h2>
-              <p style={{ ...body, margin: 0 }}>
-                This is where the frames actually get decided. Vote on the
-                final colors and shapes, see acetate samples before anyone
-                else, and talk straight to the people building them. No
-                surveys, no guessing.
+              <p style={{ ...body, margin: "0 0 32px" }}>
+                Reserve your Founders Edition frame for $1. Fully refundable, or applied to your
+                order. Only 100 numbered frames.
               </p>
 
-              <div style={{ marginBottom: 32 }} />
-
-
-              <a
-                href={FB_GROUP_URL}
-                target="_blank"
-                rel="noopener"
-                onClick={() => track("ty_join_group")}
-                onAuxClick={() => track("ty_join_group")}
+              <ReserveCheckoutButton
+                label="Lock $114 - pay $1 now"
+                priceId={RESERVATION_PRICE_ID}
+                returnUrl={`${typeof window === "undefined" ? "" : window.location.origin}/en/lp/kickstarter/vip-confirmed`}
+                metadata={{
+                  campaign: "fb_instant_form",
+                  form_location: "thank_you_fb",
+                  ...(captureUtms() as Record<string, string>),
+                }}
+                clickEvent="thankyou_fb_reserve_click"
+                readyEvent="thankyou_fb_reserve_modal_ready"
+                errorEvent="thankyou_fb_reserve_error"
+                style={{ ...btnPrimary, cursor: "pointer" }}
                 className="ty-fb-btn-primary"
-                style={btnPrimary}
-              >
-                Join the group
-              </a>
+              />
+
+              <div style={{ marginTop: 18 }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    document
+                      .getElementById("ty-step-group")
+                      ?.scrollIntoView({ block: "start", behavior: "smooth" });
+                  }}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    padding: 0,
+                    color: C.muted,
+                    fontFamily: "'Barlow', sans-serif",
+                    fontSize: 12.5,
+                    textDecoration: "underline",
+                    textUnderlineOffset: 3,
+                    cursor: "pointer",
+                  }}
+                >
+                  Skip - I'll just follow the launch
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Step 02 */}
         <section
-          className="ty-fb-a ty-fb-a3 ty-fb-card"
+          id="ty-step-group"
+          className="ty-fb-a ty-fb-a2 ty-fb-card"
           style={{
             marginTop: 24,
             background: C.surface,
@@ -329,6 +357,68 @@ export default function ThankYouFb() {
             </div>
             <div>
               <div style={{ ...eyebrow, marginBottom: 12 }}>STEP TWO</div>
+              <h2 style={{ ...h2, fontSize: 32, margin: "0 0 16px" }}>
+                Join the private Woolet VIP group.
+              </h2>
+              <p style={{ ...body, margin: 0 }}>
+                This is where the frames actually get decided. Vote on the
+                final colors and shapes, see acetate samples before anyone
+                else, and talk straight to the people building them. No
+                surveys, no guessing.
+              </p>
+
+              <div style={{ marginBottom: 32 }} />
+
+
+              <a
+                href={FB_GROUP_URL}
+                target="_blank"
+                rel="noopener"
+                onClick={() => track("ty_join_group")}
+                onAuxClick={() => track("ty_join_group")}
+                className="ty-fb-btn-primary"
+                style={btnPrimary}
+              >
+                Join the group
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Step 03 */}
+        <section
+          className="ty-fb-a ty-fb-a3 ty-fb-card"
+          style={{
+            marginTop: 24,
+            background: C.surface,
+            border: `1px solid ${C.hair}`,
+            borderTop: `1px solid ${C.gold}`,
+            padding: "40px 32px",
+          }}
+        >
+          <div
+            className="ty-fb-card-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "80px 1fr",
+              gap: 24,
+              alignItems: "start",
+            }}
+          >
+            <div
+              className="ty-fb-step-num"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 300,
+                fontSize: 64,
+                color: C.gold,
+                lineHeight: 1,
+              }}
+            >
+              03
+            </div>
+            <div>
+              <div style={{ ...eyebrow, marginBottom: 12 }}>STEP THREE</div>
               <h2 style={{ ...h2, fontSize: 32, margin: "0 0 16px" }}>
                 Follow the launch on Kickstarter.
               </h2>

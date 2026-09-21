@@ -1,9 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { mediaFor, type ProductId } from "@/data/product-media";
 import { clarityEvent } from "@/lib/clarity";
 import { pushGtmEvent } from "@/lib/gtm";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { GALLERY_COPY, type PdpLang } from "@/i18n/productPageCopy";
+
+const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 
 const T = {
   ink: "#16140f",
@@ -25,6 +28,8 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
   const items = useMemo(() => mediaFor(model, colourId, colourName, lang), [model, colourId, colourName, lang]);
   const t = lang === "en" ? null : GALLERY_COPY[lang];
   const [idx, setIdx] = useState(0);
+  const [zoomOpen, setZoomOpen] = useState(false);
+  const isMobile = useIsMobile();
   const prevColour = useRef(colourId);
 
   // switching colour always returns to that colour's packshot
@@ -94,24 +99,54 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
           padding: active.cover ? 0 : "48px 40px",
         }}
       >
-        <img
-          className="pdp-hero-img"
-          key={active.src}
-          src={active.src}
-          alt={active.alt}
-          width={active.width ?? 800}
-          height={active.height ?? 600}
-          loading={idx === 0 ? "eager" : "lazy"}
-          fetchPriority={idx === 0 ? "high" : "auto"}
-          decoding="async"
+        <button
+          type="button"
+          aria-label={t ? t.showPhoto(idx + 1, items.length, active.caption) : `Open full-screen photo ${idx + 1} of ${items.length}`}
+          onClick={() => {
+            setZoomOpen(true);
+            clarityEvent("pdp_gallery_zoom");
+            pushGtmEvent("pdp_gallery_zoom", { product_id: model, media_id: active.id, index: idx });
+          }}
           style={{
+            all: "unset",
+            display: "block",
             width: "100%",
             height: active.cover ? "100%" : "auto",
-            maxWidth: active.cover ? "none" : 560,
-            objectFit: active.cover ? "cover" : "contain",
-            display: "block",
+            cursor: "zoom-in",
           }}
-        />
+        >
+          <img
+            className="pdp-hero-img"
+            key={active.src}
+            src={active.src}
+            alt={active.alt}
+            width={active.width ?? 800}
+            height={active.height ?? 600}
+            loading={idx === 0 ? "eager" : "lazy"}
+            fetchPriority={idx === 0 ? "high" : "auto"}
+            decoding="async"
+            style={{
+              width: "100%",
+              height: active.cover ? "100%" : "auto",
+              maxWidth: active.cover ? "none" : 560,
+              margin: "0 auto",
+              objectFit: active.cover ? "cover" : "contain",
+              display: "block",
+            }}
+          />
+        </button>
+
+        {zoomOpen && (
+          <Suspense fallback={null}>
+            <ImageLightbox
+              images={items.map((m) => ({ src: m.src, alt: m.alt }))}
+              index={idx}
+              onIndexChange={setIdx}
+              onClose={() => setZoomOpen(false)}
+              isMobile={isMobile}
+            />
+          </Suspense>
+        )}
 
         {items.length > 1 && (
           <>

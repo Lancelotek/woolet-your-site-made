@@ -131,17 +131,19 @@ const Collection = () => {
                           backgroundRepeat: "no-repeat",
                         }}
                       />
-                      <div
-                        className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-4 text-center"
+                      <Link
+                        to={hrefFor("fit", lang)}
+                        aria-label={`${panel.eyebrow} - find your fit`}
+                        className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-4 text-center block no-underline group"
                         style={{
                           background: "linear-gradient(to top, rgba(11,10,9,0.78) 0%, rgba(11,10,9,0) 100%)",
                         }}
                       >
                         <div
-                          className="text-gold-light/80"
+                          className="text-gold-light/80 group-hover:underline"
                           style={{ fontSize: 9.5, letterSpacing: "0.22em", textTransform: "uppercase" }}
                         >
-                          {panel.eyebrow}
+                          {panel.eyebrow} →
                         </div>
                         <div
                           className="text-cream mt-1"
@@ -149,7 +151,7 @@ const Collection = () => {
                         >
                           {panel.label}
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   ))}
                 </div>

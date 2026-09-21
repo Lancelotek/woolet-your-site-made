@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import ovalHavana from "@/assets/frames-2026/oval-havana.asset.json";
 import ovalBlack from "@/assets/frames-2026/oval-black.asset.json";
 import ovalCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
@@ -29,6 +29,7 @@ type ModelPillsProps = {
 
 const ModelPills = (_props: ModelPillsProps = {}) => {
   const { lang: paramLang } = useParams<{ lang: string }>();
+  const navigate = useNavigate();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [idx007, setIdx007] = useState(0);
   const [idx009, setIdx009] = useState(0);
@@ -56,7 +57,13 @@ const ModelPills = (_props: ModelPillsProps = {}) => {
 
     return (
       <div
-        className="flex-1 border p-4 flex flex-col gap-1 transition-colors hover:border-primary/20 relative overflow-hidden group"
+        // The whole card is tappable - links inside still handle keyboard use.
+        onClick={(e) => {
+          if ((e.target as HTMLElement).closest("a,button")) return;
+          track("card");
+          navigate(pdpHref);
+        }}
+        className="flex-1 border p-4 flex flex-col gap-1 transition-colors hover:border-primary/20 relative overflow-hidden group cursor-pointer"
         style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
       >
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
