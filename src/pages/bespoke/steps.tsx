@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Lock, Maximize2, Sparkles, Unlock, Upload } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Lock, Maximize2, Sparkles, Unlock } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";

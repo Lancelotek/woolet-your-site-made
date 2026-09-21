@@ -92,7 +92,13 @@ const loadInitial = (): BespokeConfig => {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return INITIAL_CONFIG;
     const parsed = JSON.parse(raw) as BespokeConfig;
-    return { ...INITIAL_CONFIG, ...parsed };
+    const next = { ...INITIAL_CONFIG, ...parsed };
+    if (!["blue-light", "reading", "photochromic", "sun-uv400"].includes(next.lensTypeId ?? "")) {
+      next.lensTypeId = null;
+      next.lensMaterialId = null;
+      next.lensCoatingId = null;
+    }
+    return next;
   } catch {
     return INITIAL_CONFIG;
   }

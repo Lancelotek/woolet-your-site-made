@@ -24,7 +24,6 @@ import shinyImg from "@/assets/configurator/finishes/shiny.jpg";
 import matteImg from "@/assets/configurator/finishes/matte.jpg";
 import brushedImg from "@/assets/configurator/finishes/brushed.jpg";
 
-import planoImg from "@/assets/configurator/lenses/plano.jpg";
 import singleVisionImg from "@/assets/configurator/lenses/single-vision.jpg";
 import progressiveImg from "@/assets/configurator/lenses/progressive.jpg";
 import sunTintedImg from "@/assets/configurator/lenses/sun-tinted.jpg";
