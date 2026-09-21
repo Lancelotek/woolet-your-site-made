@@ -162,7 +162,7 @@ ${FITLENS_CTA(
 
 <h2>If your face is 155 mm or wider</h2>
 
-<p>Then you have run into what we call the 155 mm problem, and it is structural rather than personal. Frame moulds are cut for the middle of the distribution. Zenni's extended fit tops out around 145 mm, Warby Parker's wide range around 145 mm, EyeBuyDirect around 146 mm. Even most brands marketing to "big heads" stop before 150 mm. Above 155 mm the market thins to a handful of makers, and above 162 mm it is bespoke or nothing.</p>
+<p>Then you have run into what we call the 155 mm problem, and it is structural rather than personal. Frame moulds are cut for the middle of the distribution. Zenni's extended fit tops out around 145 mm, Warby Parker's wide range around 145 mm, EyeBuyDirect around 146 mm. Even most brands marketing to "big heads" stop before 150 mm. Above 155 mm the market thins to a handful of makers, and the widest faces typically require bespoke.</p>
 
 <p>The full explanation of why the industry stops where it does — and what it means for pricing, tooling and availability — is in <a href="/en/blog/why-glasses-dont-fit-155mm-problem" style="color:#A07A2A;">why glasses don't fit at 155 mm</a>. If you want the practical version, with what to buy and what to skip, start with the <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">complete wide-face fit guide</a>.</p>
 
@@ -338,7 +338,7 @@ ${FITLENS_CTA(
 
 <p><strong>Go bespoke between 145 and 172 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
-<p><strong>Above 162 mm, look at made-to-order metal.</strong> We do not build past 162 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
+<p><strong>Above 172 mm, look at made-to-order metal.</strong> We do not build past 172 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
 
 <p>Individual width reference pages, each with fit notes and frame recommendations: <a href="/en/size/145mm" style="color:#A07A2A;">145 mm</a> · <a href="/en/size/150mm" style="color:#A07A2A;">150 mm</a> · <a href="/en/size/155mm" style="color:#A07A2A;">155 mm</a> · <a href="/en/size/158mm" style="color:#A07A2A;">158 mm</a> · <a href="/en/size/160mm" style="color:#A07A2A;">160 mm</a> · <a href="/en/size/162mm" style="color:#A07A2A;">162 mm</a> · <a href="/en/size/165mm" style="color:#A07A2A;">165 mm</a>.</p>
 

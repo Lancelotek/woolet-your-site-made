@@ -194,7 +194,7 @@ export default function FitBespoke() {
             <p className="text-cream-dim leading-relaxed mt-8 max-w-2xl" style={{ fontSize: "0.85rem" }}>
               "Face width" is the total horizontal width of the frame (lens + bridge + lens + hinge allowance),
               not just lens width. Bespoke covers everything the signature 158 mm can't — 145–154 mm below and
-              162 mm above. Wider than 162 mm we do not build.
+              162–172 mm above. Wider than 172 mm we do not build.
             </p>
           </div>
         </section>
