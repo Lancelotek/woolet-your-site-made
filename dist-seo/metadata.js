@@ -70,7 +70,7 @@ const blogMetaBySlug = {
     metaDescription: "Acetate glasses vs plastic and TR90, compared on weight, adjustability, colour and repair — and why a 155 mm+ face needs a frame an optician can reshape."
   },
   // ── EN: bespoke / process ────────────────────────────────────────────
-  "bespoke-eyewear-size-range-145-172mm-guide": {
+  "bespoke-eyewear-size-range-150-172mm-guide": {
     metaTitle: "Bespoke Eyewear 145–172 mm — Complete Size Guide",
     metaDescription: "Why bespoke eyewear lives between 145 and 172 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you."
   },
@@ -241,6 +241,7 @@ const ROUTES = {
   // render the EN component and canonicalise to /en (soft 404).
   collection: {
     en: "/en/collection",
+    de: "/de/kollektion",
     fr: "/fr/collection",
     nl: "/nl/collection"
   },
@@ -254,6 +255,7 @@ const ROUTES = {
   // landing pages (e.g. /pl/okulary-na-zamowienie), tracked separately.
   bespoke: {
     en: "/en/bespoke",
+    de: "/de/bespoke",
     ja: "/ja/bespoke"
   },
   // /process — real translation in pl (/pl/process).
@@ -282,7 +284,7 @@ const ROUTES = {
   // -----------------------------------------------------------------------
   about: { en: "/en/about" },
   theBox: { en: "/en/the-box" },
-  fit: { en: "/en/fit" },
+  fit: { en: "/en/fit", de: "/de/fit" },
   fitWizard: { en: "/en/fit/wizard" },
   bespokeScan: { en: "/en/bespoke/scan" },
   bespokeMeasurements: { en: "/en/bespoke/measurements" },
@@ -399,13 +401,14 @@ const stripLang = (url2) => {
 };
 const SUFFIX_TO_LOCALES = (() => {
   const m = /* @__PURE__ */ new Map();
-  for (const entry of Object.values(ROUTES)) {
+  for (const [routeKey, entry] of Object.entries(ROUTES)) {
     const enUrl = entry.en;
     if (!enUrl) continue;
     const suffix = stripLang(enUrl);
     const prev = m.get(suffix) ?? {};
     for (const [lang, url2] of Object.entries(entry)) {
-      if (stripLang(url2) === suffix) prev[lang] = url2;
+      const canonicalRoute = !routeKey.startsWith("landing.");
+      if (!prev[lang] && (canonicalRoute || stripLang(url2) === suffix)) prev[lang] = url2;
     }
     m.set(suffix, prev);
   }
@@ -622,7 +625,7 @@ ${FITLENS_CTA(
 
 <h2>If your face is 155 mm or wider</h2>
 
-<p>Then you have run into what we call the 155 mm problem, and it is structural rather than personal. Frame moulds are cut for the middle of the distribution. Zenni's extended fit tops out around 145 mm, Warby Parker's wide range around 145 mm, EyeBuyDirect around 146 mm. Even most brands marketing to "big heads" stop before 150 mm. Above 155 mm the market thins to a handful of makers, and above 162 mm it is bespoke or nothing.</p>
+<p>Then you have run into what we call the 155 mm problem, and it is structural rather than personal. Frame moulds are cut for the middle of the distribution. Zenni's extended fit tops out around 145 mm, Warby Parker's wide range around 145 mm, EyeBuyDirect around 146 mm. Even most brands marketing to "big heads" stop before 150 mm. Above 155 mm the market thins to a handful of makers, and the widest faces typically require bespoke.</p>
 
 <p>The full explanation of why the industry stops where it does — and what it means for pricing, tooling and availability — is in <a href="/en/blog/why-glasses-dont-fit-155mm-problem" style="color:#A07A2A;">why glasses don't fit at 155 mm</a>. If you want the practical version, with what to buy and what to skip, start with the <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">complete wide-face fit guide</a>.</p>
 
@@ -796,7 +799,7 @@ ${FITLENS_CTA(
 
 <p><strong>Go bespoke between 145 and 172 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
-<p><strong>Above 162 mm, look at made-to-order metal.</strong> We do not build past 162 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
+<p><strong>Above 172 mm, look at made-to-order metal.</strong> We do not build past 172 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
 
 <p>Individual width reference pages, each with fit notes and frame recommendations: <a href="/en/size/145mm" style="color:#A07A2A;">145 mm</a> · <a href="/en/size/150mm" style="color:#A07A2A;">150 mm</a> · <a href="/en/size/155mm" style="color:#A07A2A;">155 mm</a> · <a href="/en/size/158mm" style="color:#A07A2A;">158 mm</a> · <a href="/en/size/160mm" style="color:#A07A2A;">160 mm</a> · <a href="/en/size/162mm" style="color:#A07A2A;">162 mm</a> · <a href="/en/size/165mm" style="color:#A07A2A;">165 mm</a>.</p>
 
@@ -1831,8 +1834,8 @@ const blogPostsDE = [
 <ul>
 <li><strong>Gesichtsbreite 150–154 mm — mittelbreit.</strong> Eine standardmäßig-große Sonnenbrille mit 148–152 mm Frontbreite wird hier passen. Die meisten „Wide Fit“-Linien von Mainstream-Marken (Ray-Ban Justin XL, Warby Parker Wide) fallen in diesen Bereich.</li>
 <li><strong>Gesichtsbreite 155–161 mm — breit.</strong> Standard-Sonnenbrillen von Mainstream-Marken werden nicht passen. Sie benötigen eine spezialisierte Marke für breite Gesichter. Die Modelle 007 und 009 von Woolet werden mit einer Frontbreite von 158 mm, einem Steg von 21–22 mm und 150 mm langen Bügeln geliefert – genau für diesen Bereich konzipiert.</li>
-<li><strong>Gesichtsbreite 161–162 mm — extrabreit.</strong> Die Auswahl an Standardmodellen ist sehr begrenzt. Eine Maßanfertigung ist hier oft die einzig ehrliche Antwort. Der Maßanfertigungs-Service von Woolet deckt Frontbreiten von 150 bis 162 mm für beide Formen ab.</li>
-<li><strong>Gesichtsbreite 162 mm+ — XXL.</strong> Nur als Einzelanfertigung. Die meisten Maßanfertigungsprogramme enden bei 162 mm.</li>
+<li><strong>Gesichtsbreite 162–172 mm — extrabreit.</strong> Die Auswahl an Standardmodellen ist sehr begrenzt. Eine Maßanfertigung ist hier oft die einzig ehrliche Antwort. Der Maßanfertigungs-Service von Woolet deckt Frontbreiten von 145 bis 172 mm für beide Formen ab.</li>
+<li><strong>Gesichtsbreite über 172 mm — außerhalb unseres Bereichs.</strong> Woolet fertigt keine Frontbreiten über 172 mm.</li>
 </ul>
 
 <h2>Der häufigste Fehler bei der Größenwahl</h2>
@@ -2032,7 +2035,7 @@ const blogPostsNL = [
       },
       {
         q: "Waar koop ik zonnebrillen die echt passen op een breed gezicht?",
-        a: "Bij gespecialiseerde merken. Woolet 007 en 009 zijn 158 mm zonnebrillen van Italiaans acetaat, met bespoke tot 162 mm."
+        a: "Bij gespecialiseerde merken. Woolet 007 en 009 zijn 158 mm zonnebrillen van Italiaans acetaat, met bespoke van 145 tot 172 mm."
       }
     ],
     content: `
@@ -2073,8 +2076,8 @@ const blogPostsNL = [
 <ul>
 <li><strong>Gezichtsbreedte 150–154 mm — matig breed.</strong> Een standaard-grote zonnebril met 148–152 mm frontbreedte past hier. De meeste "Wide Fit"-lijnen van mainstream-merken (Ray-Ban Justin XL, Warby Parker Wide) vallen in dit bereik.</li>
 <li><strong>Gezichtsbreedte 155–161 mm — breed.</strong> Standaardzonnebrillen van mainstream-merken passen niet. Je hebt een gespecialiseerd merk nodig. De modellen 007 en 009 van Woolet komen met 158 mm frontbreedte, een 21–22 mm brug en 150 mm-veren — precies voor dit bereik ontworpen.</li>
-<li><strong>Gezichtsbreedte 161–162 mm — extra breed.</strong> Het standaardaanbod is zeer beperkt. Maatwerk is hier vaak het enige eerlijke antwoord. Woolet Bespoke dekt frontbreedtes van 150 tot 162 mm voor beide vormen.</li>
-<li><strong>Gezichtsbreedte 162 mm+ — XXL.</strong> Alleen op individuele bestelling. De meeste bespoke-programma's stoppen bij 162 mm.</li>
+<li><strong>Gezichtsbreedte 162–172 mm — extra breed.</strong> Het standaardaanbod is zeer beperkt. Maatwerk is hier vaak het enige eerlijke antwoord. Woolet Bespoke dekt frontbreedtes van 145 tot 172 mm voor beide vormen.</li>
+<li><strong>Gezichtsbreedte boven 172 mm — buiten ons bereik.</strong> Woolet bouwt geen fronten breder dan 172 mm.</li>
 </ul>
 
 <h2>De meest gemaakte maatfout</h2>
@@ -2100,7 +2103,7 @@ const blogPostsNL = [
 <p>Nee. "Oversized" betekent meestal een groter glas op een standaardfront van 140 mm. Zonnebrillen voor brede gezichten schalen de frontbreedte zelf op naar 155 mm of meer. Lees onze <a href="/nl/blog/beste-brillen-voor-brede-hoofden-2026">gids voor de beste brillen voor grote hoofden in 2026</a> voor het gedetailleerde verschil.</p>
 
 <h3>Waar koop ik zonnebrillen die echt passen op een breed gezicht?</h3>
-<p>Bij gespecialiseerde merken. Woolet 007 en 009 zijn 158 mm zonnebrillen van Italiaans acetaat, met bespoke tot 162 mm. De volledige collectie vind je onder <a href="/en/collections/sunglasses-for-big-heads">Zonnebrillen voor grote hoofden (158 mm)</a>.</p>
+<p>Bij gespecialiseerde merken. Woolet 007 en 009 zijn 158 mm zonnebrillen van Italiaans acetaat, met bespoke van 145 tot 172 mm. De volledige collectie vind je onder <a href="/en/collections/sunglasses-for-big-heads">Zonnebrillen voor grote hoofden (158 mm)</a>.</p>
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Zonnebrillen voor grote hoofden — hele collectie</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized zonnebrillen voor heren</a> | <a href="/nl/products/007">Woolet 007 (rond)</a> | <a href="/nl/products/009">Woolet 009 (vierkant)</a></p>
 `
@@ -2274,7 +2277,7 @@ const blogPostsFR = [
       },
       {
         q: "Où acheter des solaires qui vont vraiment sur un visage large ?",
-        a: "Chez les marques spécialisées. Les Woolet 007 et 009 sont des solaires de 158 mm en acétate italien, avec un service bespoke jusqu'à 162 mm."
+        a: "Chez les marques spécialisées. Les Woolet 007 et 009 sont des solaires de 158 mm en acétate italien, avec un service bespoke de 145 à 172 mm."
       }
     ],
     content: `
@@ -2315,8 +2318,8 @@ const blogPostsFR = [
 <ul>
 <li><strong>Largeur de visage 150–154 mm — modérément large.</strong> Des solaires large standard avec 148–152 mm de face conviennent. La plupart des lignes « Wide Fit » mainstream (Ray-Ban Justin XL, Warby Parker Wide) tombent dans cette plage.</li>
 <li><strong>Largeur de visage 155–161 mm — large.</strong> Les solaires standard des marques mainstream ne conviennent pas. Il vous faut une marque spécialisée. Les modèles 007 et 009 de Woolet arrivent avec 158 mm de face, un pont 21–22 mm et des branches 150 mm — conçus exactement pour cette plage.</li>
-<li><strong>Largeur de visage 161–162 mm — extra large.</strong> L'offre standard est très limitée. Le sur-mesure est souvent la seule réponse honnête. Woolet Bespoke couvre les faces de 150 à 162 mm pour les deux formes.</li>
-<li><strong>Largeur de visage 162 mm+ — XXL.</strong> Uniquement sur commande individuelle. La plupart des programmes bespoke s'arrêtent à 162 mm.</li>
+<li><strong>Largeur de visage 162–172 mm — extra large.</strong> L'offre standard est très limitée. Le sur-mesure est souvent la seule réponse honnête. Woolet Bespoke couvre les faces de 145 à 172 mm pour les deux formes.</li>
+<li><strong>Largeur de visage supérieure à 172 mm — hors de notre plage.</strong> Woolet ne fabrique pas de face supérieure à 172 mm.</li>
 </ul>
 
 <h2>L'erreur de taille la plus fréquente</h2>
@@ -2342,7 +2345,7 @@ const blogPostsFR = [
 <p>Non. « Oversized » désigne en général un verre plus grand sur une face standard de 140 mm. Les solaires pour visages larges augmentent la largeur de la face elle-même à 155 mm ou plus. Lisez notre <a href="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026">guide des meilleures lunettes pour grosses têtes en 2026</a> pour le détail.</p>
 
 <h3>Où acheter des solaires qui vont vraiment sur un visage large ?</h3>
-<p>Chez les marques spécialisées. Les Woolet 007 et 009 sont des solaires de 158 mm en acétate italien, avec bespoke jusqu'à 162 mm. La collection complète est sur <a href="/en/collections/sunglasses-for-big-heads">Solaires pour grosses têtes (158 mm)</a>.</p>
+<p>Chez les marques spécialisées. Les Woolet 007 et 009 sont des solaires de 158 mm en acétate italien, avec bespoke de 145 à 172 mm. La collection complète est sur <a href="/en/collections/sunglasses-for-big-heads">Solaires pour grosses têtes (158 mm)</a>.</p>
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Solaires pour grosses têtes — collection complète</a> | <a href="/en/collections/oversized-sunglasses-men">Solaires oversized pour hommes</a> | <a href="/fr/products/007">Woolet 007 (rond)</a> | <a href="/fr/products/009">Woolet 009 (carré)</a></p>
 `
@@ -2366,7 +2369,7 @@ const blogPostsEN = [
   </div>
 </div>
 
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face measures 150 mm or more temple-to-temple, and it needs glasses with a total front width of 155 mm or more.</strong> Most frames sold as "wide" or "oversized" stop at 138–148 mm, which is why they still pinch after an hour. Buy to front width, not to lens size or style: 150–154 mm faces fit a 152–156 mm front, 155–159 mm faces need 157–160 mm, and 160 mm+ faces need 161 mm or bespoke up to 162 mm.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face measures 150 mm or more temple-to-temple, and it needs glasses with a total front width of 155 mm or more.</strong> Most frames sold as "wide" or "oversized" stop at 138–148 mm, which is why they still pinch after an hour. Buy to front width, not to lens size or style: 150–154 mm faces fit a 152–156 mm front, 155–159 mm faces need 157–160 mm, and 160 mm+ faces need 161 mm or bespoke from 145–172 mm.</p>
 
 <p>The short version if you are here from a search for wide-face frames or <a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">glasses for big heads</a>: measure your temple-to-temple width with a ruler or your phone, add 2–5 mm, and shop only frames that publish a total front width in that range. Woolet 007 (round) and 009 (soft square) both run a 158 mm front with a 21–22 mm keyhole bridge — see the <a href="/en/collections/wide-face-glasses" style="color:#A07A2A;">wide-face collection</a> or jump to the <a href="#size-chart" style="color:#A07A2A;">size chart below</a>.</p>
 
@@ -2391,7 +2394,7 @@ const blogPostsEN = [
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Any mainstream retailer. Nothing here applies to you.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Extended-fit lines, or Woolet bespoke from 145 mm. Signature 158 mm is too wide.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">The Woolet signature range. <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> or <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a>, both cut at 158 mm.</td></tr>
-    <tr><td style="padding:10px 12px;">162 mm and above</td><td style="padding:10px 12px;">162 mm max</td><td style="padding:10px 12px;">Bespoke only, to 162 mm. Above that we do not build — a made-to-order metal frame is the honest answer.</td></tr>
+<tr><td style="padding:10px 12px;">162–172 mm</td><td style="padding:10px 12px;">Made to measure</td><td style="padding:10px 12px;">Bespoke only, within the 145–172 mm range. Above 172 mm we do not build.</td></tr>
   </tbody>
 </table>
 
@@ -2965,7 +2968,7 @@ const blogPostsEN = [
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Standard</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Large / extended fit</td></tr>
     <tr style="background:#FBF7EE;"><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Wide — <a href="/en/size/158mm" style="color:#A07A2A;">Woolet signature</a></td></tr>
-    <tr><td style="padding:10px 12px;">162 mm+</td><td style="padding:10px 12px;">162 mm max</td><td style="padding:10px 12px;">Bespoke (145–172 mm)</td></tr>
+<tr><td style="padding:10px 12px;">162–172 mm</td><td style="padding:10px 12px;">Made to measure</td><td style="padding:10px 12px;">Bespoke (145–172 mm)</td></tr>
   </tbody>
 </table>
 
@@ -4194,7 +4197,7 @@ const blogPostsEN = [
       },
       {
         q: "Where do I buy sunglasses that actually fit a wide face?",
-        a: "Specialist brands. Woolet 007 and 009 are 158 mm Italian-acetate sunglasses with bespoke up to 162 mm."
+        a: "Specialist brands. Woolet 007 and 009 are 158 mm Italian-acetate sunglasses with bespoke from 145–172 mm."
       }
     ],
     content: `
@@ -4267,7 +4270,7 @@ const blogPostsEN = [
 <p>No. "Oversized" usually means a larger lens on a standard 140 mm front. Wide-face sunglasses scale the front width itself to 155 mm or more. See our <a href="/en/blog/best-oversized-sunglasses-big-heads-2026">2026 oversized sunglasses guide</a> for the difference in detail.</p>
 
 <h3>Where do I buy sunglasses that actually fit a wide face?</h3>
-<p>Specialist brands. Woolet 007 and 009 are 158 mm Italian-acetate sunglasses with bespoke up to 162 mm. <a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads (158 mm)</a> has the full collection.</p>
+<p>Specialist brands. Woolet 007 and 009 are 158 mm Italian-acetate sunglasses with bespoke from 145–172 mm. <a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads (158 mm)</a> has the full collection.</p>
 
 <p>Want one pair for indoors and outdoors? See <a href="/en/blog/glasses-that-turn-into-sunglasses-wide-face">glasses that turn into sunglasses</a> - how photochromic lenses work on a wide face, and where they fall short.</p>
 
@@ -4275,7 +4278,7 @@ const blogPostsEN = [
 `
   },
   {
-    slug: "bespoke-eyewear-size-range-145-172mm-guide",
+    slug: "bespoke-eyewear-size-range-150-172mm-guide",
     title: "Bespoke Eyewear 145–172 mm — The Complete Size Guide (2026)",
     excerpt: "Why bespoke exists between 145 and 172 mm, how the sizing actually works, and how to know whether a stock 155–161 mm Woolet or a made-to-measure frame is the right call.",
     date: "2026-06-16",
@@ -4288,7 +4291,7 @@ const blogPostsEN = [
       },
       {
         q: "What face width counts as bespoke territory?",
-        a: "Most mainstream brands cap at 145–148 mm. Specialist wide-face brands cover roughly 155–161 mm with stock sizes. Anything below 150 mm or above 161 mm is bespoke territory — the size range where stock catalogs no longer carry an option that fits."
+        a: "Most mainstream brands cap at 145–148 mm. Woolet's stock 158 mm frames fit faces from 155–161 mm. Within Woolet's 145–172 mm bespoke range, widths below 155 mm or above 161 mm are bespoke territory."
       },
       {
         q: "How much do bespoke glasses cost?",
@@ -4310,16 +4313,16 @@ const blogPostsEN = [
 
 <div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">In one line</div>
-  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces stock catalogs can't fit — below 150 mm, above 161 mm, or with a bridge outside the 21–22 mm keyhole standard. Woolet bespoke covers 145–172 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces Woolet's stock frames can't fit — below 155 mm, above 161 mm, or with a bridge outside the 21–22 mm keyhole standard. Woolet bespoke covers 145–172 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
 </div>
 
-<h2>Why bespoke starts at 150 mm and ends at 162 mm</h2>
+<h2>Why Woolet Bespoke runs from 145 mm to 172 mm</h2>
 
 <p>The mainstream eyewear industry tops out at roughly 148 mm total frame width — that's Persol, Ray-Ban, Tom Ford, and almost every brand sold in mall opticals. Specialist wide-face brands extend that ceiling to around 155–161 mm with stock sizes. Above 161 mm, the catalog options collapse to almost zero.</p>
 
-<p>The lower bound matters too. Faces measuring 150–154 mm are often <em>too wide for mainstream and too narrow for wide-face specialists</em>. They sit in a gap where no stock frame fits cleanly.</p>
+<p>The lower bound matters too. Faces measuring 145–154 mm can fall between mainstream sizing and Woolet's 155–161 mm stock fit band. Bespoke covers that gap to the millimetre.</p>
 
-<p>162 mm is the practical upper limit of a single-block acetate cut — beyond that, the frame's structural integrity drops and the temples need a metal core to stay rigid. Below 150 mm, mainstream "wide" frames already cover the range, so bespoke isn't economically justified.</p>
+<p>Woolet Bespoke extends to 172 mm while preserving the front, bridge and temple geometry as one measured system. At the lower end, it starts at 145 mm so customers outside the 155–161 mm stock fit band still have a precise Woolet option.</p>
 
 <h2>The complete 145–172 mm size table</h2>
 
@@ -4440,7 +4443,7 @@ const blogPostsEN = [
       { q: "Are made-to-measure glasses the same as bespoke?", a: "Functionally yes. 'Bespoke' is the British term, 'made-to-measure' the international one. Both describe a frame cut to a single buyer rather than a standard size grid." },
       { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet's bespoke tier starts at $299 because the order is handled digitally and the frame is cut in our partner European atelier — no in-person fitter visits." },
       { q: "Do I need to fly somewhere to get measured?", a: "No. Woolet bespoke runs from an AI face scan on your phone. The atelier receives the digitized measurements and a CAD approval — no fitter visit required." },
-      { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside the 145–158 mm stock range — either narrower than 150 mm or wider than 161 mm — and people with an asymmetric bridge or strong temple curve that no stock size accommodates." }
+      { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside Woolet's 155–161 mm stock fit band, within the 145–172 mm bespoke range, and people with an asymmetric bridge or strong temple curve that no stock size accommodates." }
     ],
     content: `
 <p>Most eyewear is built for the average face. The average face is 138–142 mm wide. If yours is not, you have probably already spent years compensating — pinching frames at the temples, sliding them up your nose, or accepting the only "wide fit" your local store stocks. <strong>Made-to-measure glasses</strong> are the way out: a frame cut to your face, not to a size grid.</p>
@@ -4504,7 +4507,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — line-by-line price breakdown.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — what your $299 actually buys.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — where the difference is real.</li>
@@ -4558,7 +4561,7 @@ const blogPostsEN = [
 
 <p>The frame itself is cut to your face. Woolet's bespoke tier covers 145–172 mm of front width with a matching bridge and temple grid. The frame still ships lens-less to your local optician. Cost: $299 frame + standard lens fee.</p>
 
-<p>Right path if your face is below 150 mm or above 161 mm, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
+<p>Right path if your face is below 155 mm or above 161 mm within Woolet's 145–172 mm bespoke range, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
 
 <h3>3. Full custom (frame + lens cut together)</h3>
 
@@ -4595,7 +4598,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses: the complete guide</a> — stock-frame options first.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — get the input right before ordering.</li>
 <li><a href="/en/blog/glasses-for-wide-nose-bridge-21-22mm-explained">Wide nose-bridge glasses (21–22 mm)</a> — the second axis after face width.</li>
@@ -4713,7 +4716,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — definitions and who actually needs it.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — where the cost comes from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — which premium is worth paying.</li>
@@ -4795,7 +4798,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — the material the atelier starts from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — what handwork actually changes.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — how bespoke fits into the wider market.</li>
@@ -4897,7 +4900,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — step-by-step inside the atelier.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — why the material matters before the method.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — the price of handwork, line by line.</li>
@@ -4989,7 +4992,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — what to do if stock won't fit.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — what to do if stock won't fit.</li>
 <li><a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> — the industry sizing gap.</li>
 <li><a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head?</a> — the size grid you actually need.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — diagnose it yourself in 60 seconds.</li>
@@ -5009,7 +5012,7 @@ const blogPostsEN = [
       { q: "What size glasses do I need for a large head?", a: "Measure the widest point of your face. 150–154 mm face → 150–155 mm frame. 155–161 mm face → 155–161 mm frame (specialist wide-fit). 162+ mm face → 162 mm+ frame, usually bespoke. The front width of the frame should match your face width within 3 mm." },
       { q: "Is a 58 mm lens width considered large?", a: "It depends on the bridge. A 58–18 frame is roughly 134–140 mm of front width — large for an average face, but not actually large for a wide face. The number on the temple is lens width, not total frame width." },
       { q: "Are XL glasses real or marketing?", a: "Both. Some brands genuinely scale the front width (Faded Days, BXL, Woolet). Most mainstream 'XL' lines just enlarge the lens cut-out on a standard 140 mm front. Ask for the hinge-to-hinge measurement before buying." },
-      { q: "What's the largest frame size made?", a: "Stock production tops out around 165 mm in specialist wide-face brands. Above that, bespoke is the only option. Woolet bespoke covers up to 162 mm of front width." }
+      { q: "What's the largest frame size made?", a: "Stock production tops out around 165 mm in specialist wide-face brands. Above that, bespoke is the only option. Woolet bespoke covers 145–172 mm of front width." }
     ],
     content: `
 <p>"Large head" is a useful description in conversation and a useless one when buying glasses. The question that actually gets you a frame that fits is: <em>what is my face width in millimetres?</em> This guide translates "large" into the four sizing brackets that matter, and tells you what to look for in each.</p>
@@ -5088,7 +5091,7 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — curated wide-fit picks.</li>
 <li><a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> — diagnose it before reordering.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — every brand selling a 150 mm+ front width, compared.</li>
@@ -5252,7 +5255,7 @@ const blogPostsEN = [
 
 <h2>The Woolet shortlist</h2>
 
-<p>Woolet makes two shapes, both engineered for wider faces (155–161 mm) at one precise 158 mm front width. Bespoke covers anything outside that, up to 162 mm.</p>
+<p>Woolet makes two shapes, both engineered for wider faces (155–161 mm) at one precise 158 mm front width. Bespoke covers widths outside that stock fit band from 145–172 mm.</p>
 
 <ul>
   <li><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 — Round Panto, 158 mm</a>.</strong> Round Italian Mazzucchelli acetate, 21 mm keyhole bridge, 150 mm temples. Polarized lens upgrade available. Good for softer features and squarer face shapes.</li>
@@ -5415,7 +5418,7 @@ const blogPostsEN = [
 <p>Roughly 134 mm bizygomatic width across published adult anthropometric studies (Gordon et al., ANSUR II). Standard deviation is around ±5 mm, which means a meaningful share of women sit at 140 mm or above — outside the standard women's eyewear range.</p>
 
 <h3>Is there a "petite wide-face" category?</h3>
-<p>Not as a real product line. Women between 150 and 154 mm of face width are the most under-served group in eyewear — too wide for women's frames, too narrow for men's wide lines. Bespoke (Woolet covers it from 150 mm) is currently the cleanest answer.</p>
+<p>Not as a real product line. Women between 150 and 154 mm of face width are the most under-served group in eyewear — too wide for women's frames, too narrow for men's wide lines. Bespoke (Woolet covers 145–172 mm) is currently the cleanest answer.</p>
 
 <h3>Are men's wide-fit frames acceptable for women?</h3>
 <p>Sometimes. The width works, but watch the bridge height and the temple drop. Men's wide frames are often built with a flatter brow line and a longer drop behind the ear, which can sit awkwardly on a face with a higher brow. Geometry over styling is the right test — try the men's wide frame, but don't accept a frame just because the width is finally right.</p>
@@ -5903,7 +5906,7 @@ More on fit for bigger heads and wider faces:
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Where Woolet sits on this table</div>
   <p style="margin:0 0 10px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">We build one front width: <strong>158&nbsp;mm</strong>. That is deliberate — it covers the 58–61&nbsp;cm band (US 7¼ to 7⅝) properly rather than covering everything badly.</p>
   <p style="margin:0 0 10px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat is 7 or smaller, you do not need us. A mainstream frame labelled “wide” or “XL” will fit you, and we would rather tell you that than sell you 158&nbsp;mm you will have to push back up your nose. If you are 62&nbsp;cm and above, 158&nbsp;mm is still short for you — that is what bespoke is for.</p>
-  <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/wide-face-glasses" style="color:#A07A2A;">See the 158 mm frames →</a> · <a href="/en/fit/bespoke" style="color:#A07A2A;">Bespoke up to 162 mm →</a></p>
+<p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/wide-face-glasses" style="color:#A07A2A;">See the 158 mm frames →</a> · <a href="/en/fit/bespoke" style="color:#A07A2A;">Bespoke 145–172 mm →</a></p>
 </div>
 
 <p>The line to remember: <strong>7¼</strong>. Not 7½. A US 7¼ hat means a 58&nbsp;cm head, and at 58&nbsp;cm the median temple width is already 155&nbsp;mm — seven millimetres past where most eyewear brands stop designing. If you have ever bought a hat in 7¼ or larger and separately assumed your glasses were “just a bit tight”, those are the same fact.</p>
@@ -5961,12 +5964,12 @@ More on fit for bigger heads and wider faces:
 
 <p>So it is not that a handful of unusually large people struggle to buy glasses. It is that roughly a third of adult men are being fitted from a size range that was never cut for them, and have quietly decided the marks behind their ears are normal. Hat retail solved this decades ago — that is why XL and XXL exist on the shelf, and why the specialist shops linked above have a business. Eyewear never did.</p>
 
-<p>That is the gap Woolet was built to fill: frames engineered from the front width outward, starting at 158&nbsp;mm and going up to 162&nbsp;mm bespoke — for exactly the crowd that shops for hats in XL and XXL.</p>
+<p>That is the gap Woolet was built to fill: a 158&nbsp;mm stock front for faces 155–161&nbsp;mm, plus bespoke from 145–172&nbsp;mm — for exactly the crowd that shops for hats in XL and XXL.</p>
 
 <div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">For the same crowd</div>
   <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat size is 7¼ or larger, mainstream frames are pinching your temples whether or not you have noticed. Woolet 007 and 009 ship at 158&nbsp;mm front width, in Italian Mazzucchelli acetate, hand made in EU.</p>
-  <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">Glasses for big heads →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke up to 162 mm →</a></p>
+<p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">Glasses for big heads →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke 145–172 mm →</a></p>
 </div>
 
 <h2>Hat Size and Glasses Size: Common Questions</h2>
@@ -6223,7 +6226,7 @@ Related guides:
 
 <h3 style="margin-top:28px;">If you're extra-wide (162 mm+)</h3>
 
-<p>Even our stock 158 mm will bow at the temples. This is <a href="/en/bespoke" style="color:#A07A2A;text-decoration:underline;">Woolet Bespoke</a> territory — every frame is cut to your exact face width (up to 162 mm) and bridge (20–24 mm), same Italian Mazzucchelli acetate, hand made in EU. It's the only path that actually fits above 162 mm.</p>
+<p>Even our stock 158 mm will bow at the temples. This is <a href="/en/bespoke" style="color:#A07A2A;text-decoration:underline;">Woolet Bespoke</a> territory — every frame is cut to your exact face width within 145–172 mm and bridge (20–24 mm), using Italian Mazzucchelli acetate and hand made in Greece (EU).</p>
 
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">Not sure which band you're in?</div>
@@ -6249,7 +6252,7 @@ Related guides:
 Related guides:
 <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure face width</a> ·
 <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">wide-face fit guide</a> ·
-<a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide" style="color:#A07A2A;">bespoke size range 145–172 mm</a> ·
+<a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide" style="color:#A07A2A;">bespoke size range 145–172 mm</a> ·
 <a href="/en/fit" style="color:#A07A2A;">AI Fit Wizard</a>.
 </p>
 `
@@ -6642,7 +6645,7 @@ const competitors = [
         text: "Fatheadz leans on TR90 nylon and monel — durable, but utilitarian. Woolet frames are cut from Mazzucchelli 1849 bio-acetate, the same Italian acetate used by the world's top luxury houses, and Hand Finished in the EU."
       },
       {
-        title: "Bespoke sizing up to 162 mm",
+        title: "Bespoke sizing from 145–172 mm",
         text: "Fatheadz stops where its size chart stops. Woolet's Bespoke tier is made to order for face widths from 145 to 172 mm — the widths the rest of the industry pretends don't exist."
       },
       {
@@ -6666,7 +6669,7 @@ const competitors = [
       },
       {
         q: "How is Woolet's fit different from Fatheadz?",
-        a: "Fatheadz sells off-the-shelf oversized sizes. Woolet designs every frame for wide faces from scratch and offers a Bespoke tier made to your measurements — up to 162 mm face width."
+        a: "Fatheadz sells off-the-shelf oversized sizes. Woolet designs every frame for wide faces from scratch and offers a Bespoke tier made to your measurements — from 145–172 mm face width."
       },
       {
         q: "Is Woolet more expensive than Fatheadz?",
@@ -6728,7 +6731,7 @@ const competitors = [
       },
       {
         q: "Is Woolet wider than EYESHELLS?",
-        a: "EYESHELLS publishes frame widths of roughly 150–160 mm. Woolet's Bespoke tier is made to order up to 162 mm."
+        a: "EYESHELLS publishes frame widths of roughly 150–160 mm. Woolet's Bespoke tier is made to order from 145–172 mm."
       },
       {
         q: "Why is Woolet more expensive than EYESHELLS?",
@@ -6775,7 +6778,7 @@ const competitors = [
       },
       {
         title: "Made for 145–172 mm faces",
-        text: "Zenni's extended sizing helps up to a point. Woolet's Bespoke tier is built to order for faces up to 162 mm wide — with a 30-day fit guarantee."
+        text: "Zenni's extended sizing helps up to a point. Woolet's Bespoke tier is built to order for faces from 145–172 mm wide — with a 30-day fit guarantee."
       }
     ],
     whereTheyWin: [
@@ -6790,7 +6793,7 @@ const competitors = [
       },
       {
         q: "Are Zenni Extended Fit frames wide enough for a 160 mm face?",
-        a: "Sometimes — Zenni recommends ~138 mm+ total width for larger heads, and select frames go wider. For faces 155 mm and up, purpose-built wide-face frames like Woolet's (up to 162 mm bespoke) fit without temple pressure."
+        a: "Sometimes — Zenni recommends ~138 mm+ total width for larger heads, and select frames go wider. For faces 155 mm and up, purpose-built wide-face frames like Woolet's (145–172 mm bespoke) fit without temple pressure."
       },
       {
         q: "Why choose a $190 frame over a $7 frame?",
@@ -6866,7 +6869,7 @@ const competitors = [
         text: "Warby Parker's wide and extra-wide frames are wider cuts of designs proportioned for average faces. Woolet frames are engineered from scratch for wide faces and broader nose bridges — the proportions, bridge, and temple geometry all start at 150 mm."
       },
       {
-        title: "Bespoke to 162 mm",
+        title: "Bespoke from 145–172 mm",
         text: "When extra-wide isn't extra enough, Warby has nothing left to offer. Woolet's Bespoke tier is made to order for face widths from 145 to 172 mm."
       },
       {
@@ -6890,7 +6893,7 @@ const competitors = [
       },
       {
         q: "Are Warby Parker extra-wide frames big enough for a 160 mm face?",
-        a: "Often not — their extra-wide line extends standard designs, and many wearers above ~155 mm still report temple pressure. Woolet builds for exactly this range, up to 162 mm bespoke."
+        a: "Often not — their extra-wide line extends standard designs, and many wearers above ~155 mm still report temple pressure. Woolet builds for exactly this range, with bespoke from 145–172 mm."
       },
       {
         q: "Is Woolet more expensive than Warby Parker?",
@@ -6991,7 +6994,7 @@ const competitors = [
       },
       {
         title: "145–172 mm, guaranteed",
-        text: "Persol's most generous sizes still follow standard proportions. Woolet's Bespoke tier is made to order up to 162 mm face width — with a 30-day fit guarantee."
+        text: "Persol's most generous sizes still follow standard proportions. Woolet's Bespoke tier is made to order from 145–172 mm face width — with a 30-day fit guarantee."
       },
       {
         title: "Made to order, numbered, engravable",
@@ -7281,7 +7284,7 @@ const SIZES = [
     verdictKind: "signature-range",
     h1: "160 mm Wide Glasses — What Actually Fits a 160 mm Face",
     subhead: "Comfortably inside the signature band. The 158 mm frame is built for exactly this face width.",
-    intro: "160 mm sits in the middle of our signature range. Our 158 mm frame is engineered for the 155–161 mm band, and 160 mm is where fit is most forgiving. If you want a millimetre-exact match, bespoke goes to 162 mm — but you don't need it at 160.",
+    intro: "160 mm sits in the middle of our signature range. Our 158 mm frame is engineered for the 155–161 mm band, and 160 mm is where fit is most forgiving. If you want a millimetre-exact match, bespoke covers 145–172 mm — but you don't need it at 160.",
     fitVerdict: "Yes — 160 mm is dead centre of our signature 155–161 mm fit range. The 158 mm frame is the fit.",
     metaDescription: "160 mm wide glasses: our signature 158 mm fits perfectly. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–172 mm.",
     bespokeNote: "Optional at 160 mm. Bespoke 160 mm gives a millimetre-exact match; signature 158 mm gives a designed-in 2 mm of ease that most wearers prefer.",
@@ -7749,7 +7752,7 @@ const FIT_FAQ = [
   },
   {
     q: "What if the scan says I am outside the standard range?",
-    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 172 mm. Above 162 mm we do not build a frame and we will tell you that instead of selling you one."
+    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 172 mm. Above 172 mm we do not build a frame and we will tell you that instead of selling you one."
   },
   {
     q: "Can I measure without the camera?",
@@ -7760,8 +7763,8 @@ const FIT_BANDS = [
   { range: "Under 145 mm", verdict: "Narrow to average — mainstream frames fit you", size: "Not a Woolet fit" },
   { range: "145–154 mm", verdict: "Wider than average, narrower than our signature", size: "Bespoke, built to your millimetre" },
   { range: "155–161 mm", verdict: "Signature range — the frame is designed for this", size: "158 mm — Woolet 007 or 009" },
-  { range: "162 mm", verdict: "One millimetre above signature; ceiling of made-to-measure", size: "Bespoke 162 mm" },
-  { range: "Above 162 mm", verdict: "Wider than we build — we will say so", size: "No frame we can make honestly" }
+  { range: "162–172 mm", verdict: "Above the signature fit band", size: "Bespoke, built to your millimetre" },
+  { range: "Above 172 mm", verdict: "Wider than we build — we will say so", size: "No frame we can make honestly" }
 ];
 const SITE_URL$2 = "https://woolet.co";
 const fitSoftwareApplicationJsonLd = {
@@ -8038,8 +8041,8 @@ const XXL_HUB = {
   eyebrow: "XXL Sizing Hub",
   subhead: "Woolet's XXL tier: 160–162 mm fronts, 148–155 mm temples, 21–24 mm bridges. Built for faces 160 mm+ and heads 62–64 cm — where mainstream stops.",
   metaTitle: "XXL Glasses & Sunglasses for Wide Faces | Sizing Hub — Woolet",
-  metaDescription: "XXL eyewear for the widest 5% of faces (160 mm+) and largest heads (62–64 cm). Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm · Bespoke to 162 mm.",
-  intro: "XXL isn't a marketing label at Woolet — it's the top of our bespoke range. Signature runs 158 mm; XXL bespoke goes to 162 mm with 148–155 mm temples and 21–24 mm bridges. Same Italian Mazzucchelli acetate, hand made in EU, matched to your measurements from an AI scan or manual sizing.",
+  metaDescription: "XXL eyewear for the widest 5% of faces (160 mm+) and largest heads (62–64 cm). Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm · Bespoke 145–172 mm.",
+  intro: "XXL isn't a marketing label at Woolet — it is a wide slice of our bespoke range. Signature runs 158 mm; this XXL guide covers 160–162 mm fronts with 148–155 mm temples and 21–24 mm bridges. Woolet Bespoke as a whole spans 145–172 mm.",
   spec: [
     { label: "Front width", value: "160–162 mm (bespoke)" },
     { label: "Temple length", value: "148–155 mm (bespoke)" },
@@ -8081,7 +8084,7 @@ const XXL_PAGES = [
     secondaryCta: { label: "Measure with FitLens", to: "/en/fit" },
     related: [
       { label: "158 mm signature glasses", to: "/en/size/158mm", note: "One size below XXL." },
-      { label: "162 mm bespoke frames", to: "/en/size/162mm", note: "XXL front-width ceiling." },
+      { label: "162 mm bespoke frames", to: "/en/size/162mm", note: "A specific XXL bespoke width." },
       { label: "155 mm bespoke temples", to: "/en/temple/155mm", note: "Longest arm we build." },
       { label: "24 mm bridge glasses", to: "/en/bridge/24mm", note: "Widest keyhole bridge." }
     ]
@@ -8148,20 +8151,20 @@ const XXL_PAGES = [
     slug: "extra-wide-frames",
     eyebrow: "XXL Front Width",
     h1: "Extra-Wide Frames — 160–162 mm XXL Front",
-    subhead: "The widest fronts Woolet builds. Bespoke 160–162 mm, matched with bespoke bridge and temples so the whole frame scales together.",
+    subhead: "A focused XXL slice of Woolet Bespoke: 160–162 mm, matched with bespoke bridge and temples so the whole frame scales together.",
     metaTitle: "Extra-Wide Frames 160–162 mm — XXL Bespoke — Woolet",
-    metaDescription: "Extra-wide 160–162 mm bespoke frames in Italian Mazzucchelli acetate. XXL front width for faces at the top of the wide-face range.",
-    intro: "160 mm is dead centre of Woolet's XXL bespoke range; 162 mm is the ceiling. Above 162 mm the frame stops being structurally sound — we don't build wider. Below 160 mm signature 158 mm usually fits, so XXL is specifically for 160–162 mm faces that measurably exceed signature.",
+    metaDescription: "Extra-wide 160–162 mm bespoke frames in Italian Mazzucchelli acetate. A focused slice of the full 145–172 mm bespoke range.",
+    intro: "This page focuses on the 160–162 mm slice of Woolet's 145–172 mm bespoke range. Below 160 mm the signature 158 mm front often fits, while wider bespoke fronts remain available up to 172 mm.",
     spec: [
       { label: "Front width range", value: "160–162 mm" },
       { label: "Signature reference", value: "158 mm (2–4 mm below XXL)" },
-      { label: "Absolute maximum", value: "162 mm — we don't build wider" },
+      { label: "Full Bespoke range", value: "145–172 mm" },
       { label: "Bridge", value: "21–24 mm keyhole (bespoke)" },
       { label: "Temple", value: "148–155 mm (bespoke)" },
       { label: "Best for face width", value: "160–162 mm measured" }
     ],
     faq: [
-      { q: "What's the widest glasses front you make?", a: "162 mm bespoke. Above that, the front becomes unstable on our hinge geometry — we honestly don't build it." },
+      { q: "What's the widest glasses front you make?", a: "172 mm bespoke. The complete Woolet Bespoke front-width range is 145–172 mm." },
       { q: "Is 160 mm the same as extra-wide?", a: "In our terms, 160 mm is XXL. 'Extra-wide' collections typically span 155–160 mm; XXL is the 160–162 mm slice at the top." },
       { q: "Do I need XXL or is 158 mm signature enough?", a: "FitLens or manual measurement decides. If your face measures 158–160 mm, signature works. Only measured 160 mm+ needs XXL bespoke." }
     ],
@@ -8169,55 +8172,147 @@ const XXL_PAGES = [
     secondaryCta: { label: "Measure with FitLens", to: "/en/fit" },
     related: [
       { label: "Extra-wide glasses (155–160 mm)", to: "/en/collections/extra-wide-glasses", note: "One tier below XXL." },
-      { label: "162 mm bespoke", to: "/en/size/162mm", note: "XXL front-width ceiling." },
+      { label: "162 mm bespoke", to: "/en/size/162mm", note: "A specific XXL bespoke width." },
       { label: "160 mm bespoke", to: "/en/size/160mm", note: "XXL centre." },
-      { label: "165 mm — out of range", to: "/en/size/165mm", note: "Above the ceiling — honest verdict." }
+      { label: "165 mm bespoke", to: "/en/size/165mm", note: "Within the 145–172 mm bespoke range." }
     ]
   }
 ];
 function getXxlBySlug(slug) {
   return XXL_PAGES.find((x) => x.slug === slug);
 }
+const DEFAULT_FAQS = [
+  {
+    q: "Woher weiß ich, welche Größe ich brauche?",
+    a: "Nutze FitLens: Die Kamera misst deine Gesichtsbreite in Millimetern und empfiehlt 155, 158 oder 161 mm. Dauert etwa 20 Sekunden, läuft komplett im Browser."
+  },
+  {
+    q: "Ab welcher Gesichtsbreite ist Woolet sinnvoll?",
+    a: "Standardfassungen enden meist bei 135-145 mm. Ab ca. 150 mm Gesichtsbreite lohnt sich Woolet - dann sitzen normale Brillen nicht mehr."
+  },
+  {
+    q: "Aus welchem Material sind die Fassungen?",
+    a: "Italienisches Mazzucchelli-1849-Acetat, in der EU handgefertigt, mit Keyhole-Steg für breitere Nasen."
+  },
+  {
+    q: "Kann ich Sehstärke einsetzen lassen?",
+    a: "Ja. Alle Fassungen sind verglasungsfertig (Einstärken- und Gleitsichtgläser möglich)."
+  },
+  {
+    q: "Wann ist Woolet erhältlich?",
+    a: "Wir starten auf Kickstarter. Trag dich auf die VIP-Liste ein und sichere dir den Founding-Preis vor allen anderen."
+  }
+];
 const dePages = {
   "brille-fuer-breites-gesicht": {
     slug: "brille-fuer-breites-gesicht",
     h1: "Brillen für breite Gesichter - endlich eine Passform, die sitzt",
+    h1Pre: "Brillen für ",
+    h1Em: "breite Gesichter",
+    h1Post: " - endlich eine Passform, die sitzt.",
     sub: "Italienisches Acetat, entwickelt für breitere Gesichter: 155, 158 und 161 mm. Schluss mit Brillen, die nach einer Stunde an den Schläfen drücken.",
+    heroAlt: "Greg trägt die 158 mm breite Woolet 009 Brille für ein breites Gesicht",
+    problemTitle: "Warum normale Brillen auf breiten Gesichtern drücken",
+    problemBody: "Viele Standardfassungen enden bei 135-145 mm. Auf einem breiteren Gesicht klemmen sie an den Schläfen, die Bügel stehen nach außen oder die Gläser enden vor der Gesichtskante. Woolet beginnt bei 155 mm und wurde von Grund auf für breite Gesichter konstruiert.",
+    detailTitle: "Welche Brillenbreite passt zu einem breiten Gesicht?",
+    detailBody: "Woolet bietet 155, 158 und 161 mm Frontbreite. Der 21 oder 22 mm Keyhole-Steg und 150 mm lange Bügel sind auf dieselbe breite Passform abgestimmt. Außerhalb dieses Bereichs deckt Woolet Bespoke 145-172 mm ab.",
+    related: ["breite-brille", "brille-grosse-koepfe"],
     metaTitle: "Brille für breites Gesicht | Woolet - 155/158/161 mm aus italienischem Acetat",
     metaDescription: "Drückt jede Brille an den Schläfen? Woolet fertigt Brillen für breite Gesichter und große Köpfe - 155, 158, 161 mm, in der EU handgefertigt aus italienischem Mazzucchelli-Acetat. Miss dein Gesicht in 20 Sekunden.",
-    primaryKeyword: "brille für breites gesicht"
+    primaryKeyword: "brille für breites gesicht",
+    faqs: [
+      { q: "Welche Brille passt zu einem breiten Gesicht?", a: "Entscheidend ist die gesamte Frontbreite. Woolet bietet 155, 158 und 161 mm, dazu 21 oder 22 mm Keyhole-Steg und 150 mm lange Bügel." },
+      { q: "Wie messe ich die Breite meines Gesichts?", a: "FitLens misst deine Gesichtsbreite mit der Handykamera im Browser und empfiehlt 155, 158 oder 161 mm. Alternativ kannst du eine gut sitzende Brille von außen nach außen messen." },
+      ...DEFAULT_FAQS.slice(2)
+    ]
   },
   "breite-brille": {
     slug: "breite-brille",
     h1: "Breite Brille: 155, 158 und 161 mm für größere Köpfe",
+    h1Pre: "Breite Brille in ",
+    h1Em: "155, 158 und 161 mm",
+    h1Post: " - nicht nur large im Namen.",
     sub: "Fassungen, die wirklich breit sind - nicht „large“ im Namen, sondern in Millimetern. Gemessen, nicht geraten.",
+    heroAlt: "Greg trägt eine breite Woolet 009 Acetatbrille mit 158 mm Frontbreite",
+    problemTitle: "Was eine breite Brille wirklich breit macht",
+    problemBody: "Nicht die Bezeichnung XL entscheidet, sondern die gesamte Frontbreite. Dazu kommen ein passender Nasensteg und lange Bügel. Woolet kombiniert 155-161 mm Frontbreite mit 21 oder 22 mm Keyhole-Steg und 150 mm Bügellänge.",
+    detailTitle: "Frontbreite, Steg und Bügel müssen zusammenpassen",
+    detailBody: "Eine breite Front allein reicht nicht. Modell 007 misst 52□21-150, Modell 009 misst 54□22-150. So bleiben Proportionen, Auflage und Bügelverlauf auf eine breite Passform abgestimmt.",
+    related: ["brille-breite-160-mm", "brille-fuer-breites-gesicht"],
     metaTitle: "Breite Brille (155-161 mm) | Woolet - Fassungen für breite Gesichter",
     metaDescription: "Breite Brillen von 155 bis 161 mm, in der EU handgefertigt aus italienischem Acetat. Für breite Gesichter und große Köpfe. Finde deine Größe mit FitLens in 20 Sekunden.",
-    primaryKeyword: "breite brille"
+    primaryKeyword: "breite brille",
+    faqs: [
+      { q: "Was bedeutet breite Brille in Millimetern?", a: "Gemeint ist die gesamte Breite der Fassungsfront. Woolet beginnt bei 155 mm und reicht bei den Standardmodellen bis 161 mm." },
+      { q: "Warum sind Nasensteg und Bügellänge wichtig?", a: "Eine breite Front passt nur als Gesamtsystem. Woolet kombiniert sie mit 21 oder 22 mm Keyhole-Steg und 150 mm langen Bügeln." },
+      ...DEFAULT_FAQS.slice(2)
+    ]
   },
   "brille-grosse-koepfe": {
     slug: "brille-grosse-koepfe",
     h1: "Brillen für große Köpfe - ohne Druck an den Schläfen",
+    h1Pre: "Brillen für ",
+    h1Em: "große Köpfe",
+    h1Post: " - ohne Druck an den Schläfen.",
     sub: "Wenn dir jede Fassung zu eng ist: Woolet ist von Grund auf für größere Köpfe gebaut. Bis 161 mm Frontbreite.",
+    heroAlt: "Greg trägt eine Woolet 009 Brille für einen großen Kopf und ein breites Gesicht",
+    problemTitle: "Welche Brillengröße eignet sich für einen großen Kopf?",
+    problemBody: "Bei einem großen Kopf ist die Frontbreite aussagekräftiger als ein unklarer XL-Aufdruck. Als Orientierung passen 155-158 mm häufig zu etwa 58-60 cm Kopfumfang. Bei etwa 60-62 cm sind 158-161 mm ein sinnvoller Startpunkt. FitLens misst direkt am Gesicht.",
+    detailTitle: "Großer Kopf ist nicht dasselbe wie Oversized-Look",
+    detailBody: "Eine passende Brille folgt der tatsächlichen Kopf- und Gesichtsbreite. Sie muss nicht überzeichnet wirken. Woolet 007 und 009 verbinden eine breite Konstruktion mit klaren, ausgewogenen Proportionen und 150 mm langen Bügeln.",
+    related: ["xxl-brille-herren", "brille-fuer-breites-gesicht"],
     metaTitle: "Brille für große Köpfe | Woolet - bis 161 mm, italienisches Acetat",
     metaDescription: "Brillen für große Köpfe, die nicht drücken. 155/158/161 mm aus italienischem Mazzucchelli-Acetat, in der EU handgefertigt. Miss deinen Kopf mit FitLens in 20 Sekunden.",
-    primaryKeyword: "brille für große köpfe"
+    primaryKeyword: "brille für große köpfe",
+    faqs: [
+      { q: "Welche Brillengröße passt bei einem großen Kopf?", a: "Als Orientierung sind 155-158 mm häufig bei etwa 58-60 cm Kopfumfang sinnvoll. Bei etwa 60-62 cm kommen 158-161 mm infrage. FitLens misst direkt am Gesicht." },
+      { q: "Ist eine Brille für große Köpfe automatisch oversized?", a: "Nein. Eine breite Fassung kann ausgewogene Proportionen haben. Woolet 007 und 009 sind breit konstruiert, ohne nur die Gläser optisch zu vergrößern." },
+      ...DEFAULT_FAQS.slice(2)
+    ]
   },
   "xxl-brille-herren": {
     slug: "xxl-brille-herren",
     h1: "XXL Brille für Herren - breite Fassungen bis 161 mm",
+    h1Pre: "XXL Brille für Herren - ",
+    h1Em: "bis 161 mm",
+    h1Post: " echte Frontbreite.",
     sub: "Männliche Gesichter, echte Breite: Woolet-Fassungen in 155, 158 und 161 mm. Italienisches Acetat, klare Formen.",
+    heroAlt: "Greg trägt die XXL Herrenbrille Woolet 009 aus Havanna-Acetat",
+    problemTitle: "XXL-Herrenbrillen brauchen mehr als große Gläser",
+    problemBody: "Bei vielen Oversized-Fassungen wachsen nur die Gläser, während Steg und Bügel für Standardköpfe bleiben. Woolet stimmt Frontbreite, Keyhole-Steg und 150 mm lange Bügel als ein System auf größere Köpfe ab.",
+    detailTitle: "007 rund oder 009 eckig?",
+    detailBody: "Woolet 007 ist eine runde Panto-Form mit 52□21-150. Woolet 009 ist eine weiche eckige Form mit 54□22-150. Beide sind als Korrektionsbrille oder mit UV400-Sonnengläsern erhältlich.",
+    related: ["brille-grosse-koepfe", "breite-brille"],
     metaTitle: "XXL Brille Herren | Woolet - breite Herrenfassungen bis 161 mm",
     metaDescription: "XXL Brillen für Herren mit breitem Gesicht oder großem Kopf. 155-161 mm, italienisches Acetat, in der EU handgefertigt. Größe per FitLens-Scan in 20 Sekunden bestimmen.",
-    primaryKeyword: "xxl brille herren"
+    primaryKeyword: "xxl brille herren",
+    faqs: [
+      { q: "Welche Form gibt es bei der XXL Brille für Herren?", a: "Woolet 007 ist eine runde Panto-Form. Woolet 009 ist weich-eckig. Beide Modelle sind für breite Gesichter konstruiert." },
+      { q: "Gibt es die XXL Herrenbrille auch als Sonnenbrille?", a: "Ja. Beide Fassungen können mit UV400-Sonnengläsern oder mit Korrektionsgläsern ausgestattet werden." },
+      ...DEFAULT_FAQS.slice(2)
+    ]
   },
   "brille-breite-160-mm": {
     slug: "brille-breite-160-mm",
     h1: "Brille mit ~160 mm Breite - die Größe, die der Markt ignoriert",
+    h1Pre: "Brille mit ",
+    h1Em: "rund 160 mm Breite",
+    h1Post: " - präzise statt ungefähr.",
     sub: "Du suchst nach einer Brille mit 150-160 mm Frontbreite? Genau dafür gibt es Woolet: 155, 158 und 161 mm.",
+    heroAlt: "Greg trägt eine 158 mm breite Woolet 009 als Alternative zur 160 mm Brille",
+    problemTitle: "Gibt es eine Brille mit genau 160 mm Breite?",
+    problemBody: "Woolet bietet keine Standardfassung mit exakt 160 mm, sondern die nahen Größen 158 und 161 mm. Damit kannst du die passendere Seite wählen, statt dich auf eine ungenaue XL-Bezeichnung zu verlassen. Für exakte Sondermaße gibt es Bespoke von 145-172 mm.",
+    detailTitle: "158 oder 161 mm - welche Größe liegt näher?",
+    detailBody: "158 mm eignet sich als mittlere Woolet-Breite. 161 mm gibt zusätzlich 3 mm Raum an der Front. FitLens misst deine Gesichtsbreite im Browser und empfiehlt den sinnvolleren Ausgangspunkt.",
+    related: ["breite-brille", "brille-fuer-breites-gesicht"],
     metaTitle: "Brille 160 mm Breite (Herren) | Woolet - 155/158/161 mm Fassungen",
     metaDescription: "Brille mit ca. 160 mm Breite für breite Gesichter. Woolet bietet 155, 158 und 161 mm aus italienischem Acetat. Mit FitLens die exakte Breite messen - in 20 Sekunden.",
-    primaryKeyword: "brille breite 160 mm"
+    primaryKeyword: "brille breite 160 mm",
+    faqs: [
+      { q: "Gibt es bei Woolet eine Brille mit genau 160 mm Breite?", a: "Die nächsten Standardgrößen sind 158 und 161 mm. Für ein exaktes Sondermaß zwischen 145 und 172 mm gibt es Woolet Bespoke." },
+      { q: "Soll ich 158 oder 161 mm wählen?", a: "161 mm bietet 3 mm mehr Raum an der Front. FitLens misst deine Gesichtsbreite und empfiehlt den passenderen Ausgangspunkt." },
+      ...DEFAULT_FAQS.slice(2)
+    ]
   }
 };
 const nlPages = {
@@ -8238,7 +8333,7 @@ const nlPages = {
     proofH2: "Italiaans acetaat, met de hand afgewerkt",
     proofBody: "We werken met Mazzucchelli 1849 acetaat, al ruim 70 jaar geproduceerd in Italië. Europese ateliers frezen, polijsten en zetten scharnieren per montuur afzonderlijk. Reken op circa 4–6 weken productie na bevestiging van de bestelling.",
     proofBullets: [
-      { label: "Frontbreedte", value: "145 – 162 mm" },
+      { label: "Frontbreedte", value: "145 – 172 mm" },
       { label: "Op maat", value: "front / brug / veren / hoogte" },
       { label: "Materiaal", value: "Mazzucchelli 1849, Italiaans acetaat" },
       { label: "Doorlooptijd", value: "4 – 6 weken, handmatig in EU" }
@@ -8287,7 +8382,7 @@ const nlPages = {
     proofBody: "De 007 (rond) en 009 (zacht vierkant) worden geleverd in drie precieze maten — 155, 158 en 161 mm — met een 21–22 mm keyhole-brug en veren van 148 mm. Wie erboven of eronder valt, gaat naar Bespoke: 145–172 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
     proofBullets: [
       { label: "Standaardbreedte", value: "158 mm" },
-      { label: "Bespoke bereik", value: "145 – 162 mm" },
+      { label: "Bespoke bereik", value: "145 – 172 mm" },
       { label: "Brug", value: "21 – 22 mm keyhole" },
       { label: "Veren", value: "148 mm, hoek 11°" }
     ],
@@ -8376,7 +8471,7 @@ const plPages = {
     proofH2: "Włoski octan, wykończony ręcznie",
     proofBody: "Używamy octanu Mazzucchelli 1849, produkowanego we Włoszech od ponad 70 lat. Europejskie warsztaty frezują, polerują i osadzają zawiasy w każdej oprawie osobno. Realizacja zajmuje około 4–6 tygodni od potwierdzenia zamówienia.",
     proofBullets: [
-      { label: "Szerokość frontu", value: "145 – 162 mm" },
+      { label: "Szerokość frontu", value: "145 – 172 mm" },
       { label: "Personalizacja", value: "front / mostek / zauszniki / wysokość" },
       { label: "Materiał", value: "Mazzucchelli 1849, włoski octan" },
       { label: "Realizacja", value: "4 – 6 tygodni, ręcznie w UE" }
@@ -9052,7 +9147,7 @@ for (const [path, cfg] of Object.entries(koPages)) {
 const collectionSeo = {
   en: {
     title: "Collection — Woolet 007 & 009 for Wide Faces | 155–161 mm",
-    description: "Two shapes — round 007 and soft-square 009 — in 158 mm widths, plus bespoke up to 162 mm. Italian Mazzucchelli acetate, handmade in the EU."
+    description: "Two shapes — round 007 and soft-square 009 — in 158 mm widths, plus bespoke from 145–172 mm. Italian Mazzucchelli acetate, hand made in Greece (EU)."
   },
   pl: { title: "Kolekcja Woolet — 007 & 009 dla szerokich twarzy", description: "Dwa kształty, szerokości 155–161 mm. Włoski octan Mazzucchelli, ręcznie w UE." },
   fr: { title: "Collection Woolet — 007 & 009 pour visages larges", description: "Deux formes, largeurs 155–161 mm. Acétate italien Mazzucchelli, fait main en UE." },
@@ -9692,6 +9787,13 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       ]
     );
   }
+  if (route === "/de/kollektion") {
+    return base(route, "de", {
+      title: "Brillen für breite Gesichter - 158 mm Frontbreite | Woolet",
+      description: `Woolet 007 und 009 für breite Gesichter: 158 mm Frontbreite, 21-22 mm Steg. ${DE_PRICING.founderPriceEur} € inkl. MwSt.`,
+      noscriptHtml: `<h1>Brillen für breite Gesichter - 158 mm Frontbreite</h1><p>Woolet 007 rund und Woolet 009 eckig aus Mazzucchelli-Acetat, handgefertigt in der EU.</p>`
+    }, {}, void 0, { en: `${SITE_URL}/en/collection`, de: `${SITE_URL}/de/kollektion`, "x-default": `${SITE_URL}/en/collection` });
+  }
   if (route === "/de/impressum" || route === "/de/widerruf") {
     const isImpressum = route.endsWith("/impressum");
     return base(
@@ -9916,6 +10018,13 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     return meta;
   }
   if (path === "/fit") {
+    if (lang === "de") {
+      return base(route, lang, {
+        title: "Brillenfinder für breite Gesichter - Gesicht in 20 Sekunden messen",
+        description: "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde die passende Woolet Fassung in etwa 20 Sekunden.",
+        noscriptHtml: `<h1>Brillenfinder für breite Gesichter - Gesicht in 20 Sekunden messen</h1><p>FitLens misst Gesichtsbreite, Steg und PD und empfiehlt 007, 009 oder eine Maßanfertigung.</p>`
+      });
+    }
     return base(
       route,
       lang,
@@ -10366,7 +10475,7 @@ ${post.content}
       "ja",
       {
         title: "オーダーメイド メガネ 145–172mm | Woolet イタリア製アセテート",
-        description: "オーダーメイド メガネを145〜162mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
+        description: "オーダーメイド メガネを145〜172mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
         noscriptHtml: `<h1>オーダーメイド メガネ — Woolet bespoke 145–172 mm</h1>
 <p>Wooletのbespokeはフロント幅、ブリッジ幅、テンプル長、レンズ高さをミリ単位で指定可能。素材はMazzucchelli 1849のイタリア製アセテート、EUで職人が手作業仕上げ。納期は約4〜6週間。</p>`
       },
@@ -10998,6 +11107,8 @@ const STATIC_ROUTES = [
   "/en/collections/keyhole-bridge-glasses",
   "/en/bespoke",
   "/de",
+  "/de/kollektion",
+  "/de/fit",
   "/de/brille-fuer-breites-gesicht",
   "/de/breite-brille",
   "/de/brille-grosse-koepfe",

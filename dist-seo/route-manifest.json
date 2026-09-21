@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-19T12:35:17.470Z",
-  "totalRoutes": 311,
+  "generatedAt": "2026-09-21T16:44:33.994Z",
+  "totalRoutes": 315,
   "blogSlugs": {
     "de": [
       "beste-brillen-fuer-grosse-koepfe-2026",
@@ -102,11 +102,14 @@
     "/de/fit/scan",
     "/de/fit/wizard",
     "/de/hat-size-calculator",
+    "/de/impressum",
+    "/de/lp/kickstarter",
     "/de/payments",
     "/de/thank-you",
     "/de/thank-you-fb",
     "/de/the-box",
     "/de/vip-join",
+    "/de/widerruf",
     "/de/xxl-brille-herren",
     "/en",
     "/en/about",
@@ -215,6 +218,7 @@
     "/en/ref/009-silver-clear",
     "/en/ref/bespoke",
     "/en/ref/the-box",
+    "/en/reserve",
     "/en/return-policy",
     "/en/shop",
     "/en/size/145mm",

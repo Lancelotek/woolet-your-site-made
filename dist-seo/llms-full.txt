@@ -82,7 +82,7 @@ For face widths outside the 155–161 mm core range, or for buyers who want a cu
 - Frame width: 145–172 mm (custom)
 - Bridge: 20–24 mm
 - Lens: custom dimensions
-- Face range: any face width from 150 mm
+- Face range: any face width from 145 mm to 172 mm
 - Either shape (007 or 009)
 
 URL: https://woolet.co/en/fit/bespoke

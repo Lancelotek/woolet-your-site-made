@@ -86,7 +86,21 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
+    <loc>https://woolet.co/de/fit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/fit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/fit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/fit"/>
+  </url>
+  <url>
     <loc>https://woolet.co/de/impressum</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/de/kollektion</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/kollektion"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/collection"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/collection"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
     <loc>https://woolet.co/de/lp/kickstarter</loc>
@@ -126,6 +140,7 @@
   <url>
     <loc>https://woolet.co/en/bespoke</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/bespoke"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja/bespoke"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
@@ -145,7 +160,7 @@
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
-    <loc>https://woolet.co/en/blog/bespoke-eyewear-size-range-145-172mm-guide</loc>
+    <loc>https://woolet.co/en/blog/bespoke-eyewear-size-range-150-172mm-guide</loc>
     <lastmod>2026-06-16</lastmod>
   </url>
   <url>
@@ -333,6 +348,7 @@
   <url>
     <loc>https://woolet.co/en/collection</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/kollektion"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/collection"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/collection"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
@@ -414,6 +430,9 @@
   </url>
   <url>
     <loc>https://woolet.co/en/fit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/fit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/fit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/fit"/>
   </url>
   <url>
     <loc>https://woolet.co/en/fit/bespoke</loc>
@@ -627,6 +646,7 @@
   <url>
     <loc>https://woolet.co/fr/collection</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/kollektion"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/collection"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/collection"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
@@ -674,6 +694,7 @@
   <url>
     <loc>https://woolet.co/ja/bespoke</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/bespoke"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja/bespoke"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
@@ -764,6 +785,7 @@
   <url>
     <loc>https://woolet.co/nl/collection</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/kollektion"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/collection"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/collection"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
