@@ -2,11 +2,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.svg";
 import { SUPPORTED_LANGS, langNames, t, isValidLang, type Lang } from "@/lib/i18n";
 import { hrefFor, keyForPath, hasLocalized, ROUTES } from "@/i18n/routeRegistry";
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
 import { Menu, X, User } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import DeReservationCta from "@/components/de/DeReservationCta";
+import ResumeBuildBar from "@/components/bespoke/ResumeBuildBar";
 
 const Navbar = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
@@ -46,6 +47,15 @@ const Navbar = () => {
     }
     return ROUTES.home[targetLang];
   };
+  // Clicking the nav item of the page you are already on used to do nothing
+  // (Clarity: 8 dead clicks on "Bespoke" from /en/bespoke). Scroll to top instead.
+  const isCurrent = (href: string) => location.pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
+  const sameSite = (href: string) => (e: MouseEvent) => {
+    if (!isCurrent(href)) return;
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const switcherTitle = (targetLang: Lang): string =>
     currentKey && hasLocalized(currentKey, targetLang)
       ? `${langNames[targetLang]}`
@@ -73,25 +83,37 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-5">
           <Link
             to={hrefFor("collection", lang)}
-            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            aria-current={isCurrent(hrefFor("collection", lang)) ? "page" : undefined}
+            className={`no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("collection", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
-            onClick={() => pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang })}
+            onClick={(e) => {
+              pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang });
+              sameSite(hrefFor("collection", lang))(e);
+            }}
           >
             {t(lang, "nav.collection")}
           </Link>
           <Link
             to={hrefFor("fit", lang)}
-            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            aria-current={isCurrent(hrefFor("fit", lang)) ? "page" : undefined}
+            className={`no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("fit", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
-            onClick={() => pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang })}
+            onClick={(e) => {
+              pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang });
+              sameSite(hrefFor("fit", lang))(e);
+            }}
           >
             {t(lang, "nav.fit_quiz")}
           </Link>
           <Link
             to={hrefFor("bespoke", lang)}
-            className="text-cream-dim no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+            aria-current={isCurrent(hrefFor("bespoke", lang)) ? "page" : undefined}
+            className={`no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("bespoke", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
-            onClick={() => pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang })}
+            onClick={(e) => {
+              pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang });
+              sameSite(hrefFor("bespoke", lang))(e);
+            }}
           >
             {t(lang, "nav.bespoke")}
           </Link>
@@ -180,6 +202,7 @@ const Navbar = () => {
           {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
         </button>
       </nav>
+      <ResumeBuildBar />
 
       {/* Mobile menu overlay */}
       {menuOpen && (
@@ -193,9 +216,11 @@ const Navbar = () => {
           <div className="flex flex-col gap-2 px-6 py-8">
             <Link
               to={hrefFor("collection", lang)}
-              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              aria-current={isCurrent(hrefFor("collection", lang)) ? "page" : undefined}
+              className={`block w-full py-3.5 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("collection", lang)) ? "text-primary" : "text-foreground"}`}
               style={{ fontSize: "0.75rem" }}
-              onClick={() => {
+              onClick={(e) => {
+                sameSite(hrefFor("collection", lang))(e);
                 setMenuOpen(false);
                 pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang });
               }}
@@ -205,9 +230,11 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("fit", lang)}
-              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              aria-current={isCurrent(hrefFor("fit", lang)) ? "page" : undefined}
+              className={`block w-full py-3.5 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("fit", lang)) ? "text-primary" : "text-foreground"}`}
               style={{ fontSize: "0.75rem" }}
-              onClick={() => {
+              onClick={(e) => {
+                sameSite(hrefFor("fit", lang))(e);
                 setMenuOpen(false);
                 pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang });
               }}
@@ -217,9 +244,11 @@ const Navbar = () => {
 
             <Link
               to={hrefFor("bespoke", lang)}
-              className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+              aria-current={isCurrent(hrefFor("bespoke", lang)) ? "page" : undefined}
+              className={`block w-full py-3.5 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("bespoke", lang)) ? "text-primary" : "text-foreground"}`}
               style={{ fontSize: "0.75rem" }}
-              onClick={() => {
+              onClick={(e) => {
+                sameSite(hrefFor("bespoke", lang))(e);
                 setMenuOpen(false);
                 pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang });
               }}

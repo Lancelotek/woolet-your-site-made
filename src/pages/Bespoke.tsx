@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -221,6 +221,19 @@ const BespokePage = () => {
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
 
+  const heroCtaRef = useRef<HTMLDivElement>(null);
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  useEffect(() => {
+    const el = heroCtaRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([entry]) => setShowStickyCta(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+      { threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // Meta upper funnel — browser pixel + CAPI on one event_id, once per session.
   useEffect(() => {
     trackMetaEventOnce("ViewContent", "viewcontent:bespoke-landing", {
@@ -374,7 +387,7 @@ const BespokePage = () => {
                 </Link>.
               </p>
 
-              <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
+              <div ref={heroCtaRef} className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
                 <Link
                   to="/en/bespoke/configurator"
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
@@ -401,13 +414,16 @@ const BespokePage = () => {
                   boxShadow: "0 30px 80px -30px hsl(0 0% 0% / 0.6)",
                 }}
               >
-                <img
-                  src={bespokeHero.url}
-                  alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
-                  loading="eager"
-                  fetchPriority="high"
-                  className="w-full h-full object-cover"
-                />
+                {/* Clarity: people tap the hero image — make it a way in. */}
+                <Link to="/en/bespoke/configurator" aria-label="Start your bespoke build" className="block w-full h-full">
+                  <img
+                    src={bespokeHero.url}
+                    alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
+                    loading="eager"
+                    fetchPriority="high"
+                    className="w-full h-full object-cover"
+                  />
+                </Link>
               </div>
             </div>
           </div>
@@ -624,6 +640,26 @@ const BespokePage = () => {
                 </div>
               ))}
             </div>
+            {/* Clarity: visitors tap the gold spec values (dead clicks on /en and /de). */}
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+              <Link
+                to="/en/bespoke/configurator"
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline"
+                style={{
+                  background: "hsl(var(--gold))",
+                  color: "hsl(var(--background))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.72rem",
+                  padding: "16px 28px",
+                }}
+              >
+                Build yours · {BESPOKE_FRONT_WIDTH_RANGE} →
+              </Link>
+              <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
+                Not sure of your width? Take the 90-second scan
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -796,6 +832,26 @@ const BespokePage = () => {
         </section>
 
       </main>
+
+      {/* Mobile: 47% of page views ended with no click — keep the way in on screen once the hero CTA scrolls away. */}
+      {showStickyCta && (
+        <div className="md:hidden fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 bg-background/95 backdrop-blur-xl border-t" style={{ borderTopColor: "hsl(var(--gold) / 0.2)" }}>
+          <Link
+            to="/en/bespoke/configurator"
+            className="flex w-full items-center justify-center uppercase tracking-[0.22em] no-underline"
+            style={{
+              background: "hsl(var(--gold))",
+              color: "hsl(var(--background))",
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 500,
+              fontSize: "0.72rem",
+              padding: "16px 24px",
+            }}
+          >
+            Start your build →
+          </Link>
+        </div>
+      )}
       <Footer />
     </>
   );

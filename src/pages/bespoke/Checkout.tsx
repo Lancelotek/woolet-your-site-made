@@ -30,6 +30,7 @@ import { readConsentSnapshot } from "@/lib/consent";
 import { trackInitiateCheckoutOnce } from "@/lib/meta-capi";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { useAuth } from "@/lib/auth-context";
+import { BESPOKE_PURCHASED_KEY } from "@/components/bespoke/ResumeBuildBar";
 import { readSessionRef } from "@/lib/scan-session-ref";
 import BespokeCaseHero from "@/components/BespokeCaseHero";
 
@@ -236,6 +237,11 @@ export default function BespokeCheckout() {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     if (params.get("paid") !== "1") return;
+    try {
+      localStorage.setItem(BESPOKE_PURCHASED_KEY, new Date().toISOString());
+    } catch {
+      /* private mode */
+    }
     const sessionId = params.get("session_id") || "";
     let alreadyTracked = false;
     try {
