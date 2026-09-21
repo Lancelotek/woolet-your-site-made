@@ -114,7 +114,7 @@ const ImageLightbox = ({
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 100,
+        zIndex: 10050,
         background: "rgba(8,8,7,0.96)",
         display: "flex",
         alignItems: "center",
