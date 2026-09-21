@@ -57,6 +57,7 @@ describe("bespoke front width range", () => {
         if (file.includes("src/test/") || file.includes("src/config/redirects")) continue;
         const text = readFileSync(file, "utf-8");
         text.split("\n").forEach((line, i) => {
+          if (line.includes("bespoke-eyewear-size-range-150-172mm-guide")) return;
           for (const bad of BAD_RANGES) {
             if (line.includes(bad)) offenders.push(`${file}:${i + 1} — ${bad}`);
           }

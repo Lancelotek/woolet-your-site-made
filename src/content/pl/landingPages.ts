@@ -138,9 +138,9 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 145 do 172 mm co 1 mm.",
   proofBullets: [
     { label: "Poniżej 145 mm", value: "Standardowe oprawki z salonów" },
-    { label: "145 – 154 mm", value: "Bespoke Woolet (150–154 mm)" },
+    { label: "145 – 154 mm", value: "Bespoke Woolet (145–154 mm)" },
     { label: "155 mm i więcej", value: "Woolet 007 / 009 — 158 mm" },
-    { label: "Powyżej 165 mm", value: "Bespoke Woolet (do 165 mm)" },
+    { label: "162 – 172 mm", value: "Bespoke Woolet (do 172 mm)" },
   ],
   closingH2: "Zmierz raz, zamawiaj bez ryzyka",
   closingBody:
