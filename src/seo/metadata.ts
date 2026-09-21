@@ -1032,7 +1032,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   <thead><tr><th>Face / head measurement</th><th>Recommended frame</th></tr></thead>
   <tbody>
     <tr><td>Face width 155–161 mm (head 58–62 cm)</td><td>Woolet 158 mm</td></tr>
-    <tr><td>Face width 150–154 mm or 162–165 mm (head 56–58 cm or 62 cm+)</td><td>Bespoke</td></tr>
+    <tr><td>Face width 145–154 mm or 162–172 mm (head 56–58 cm or 62 cm+)</td><td>Bespoke</td></tr>
   </tbody>
 </table>
 <h2>Frequently asked</h2>

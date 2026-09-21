@@ -86,12 +86,12 @@ One-shot opportunities for high-AS editorial:
 - coolhunting.com (design)
 - core77.com (design / industrial)
 - highsnobiety.com (only if you have a strong launch hook)
-- dezeen.com (design — if positioned as Italian-craft story)
+- dezeen.com (design — if positioned around Italian Mazzucchelli acetate and EU craftsmanship)
 
 **Hook options to test**:
 1. "The eyewear gap nobody fixed: why frames stop at 148 mm and what we did about it"
 2. "AI-fit eyewear — how we measure faces from a webcam photo"
-3. Italian-craft angle: Mazzucchelli acetate + hand-finishing in Italy
+3. European-craft angle: Italian Mazzucchelli acetate + hand-finishing in Greece (EU)
 
 ---
 

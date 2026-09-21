@@ -110,7 +110,7 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
     },
     {
       q: "What if my measurement falls between sizes?",
-      a: "If you're between 150–154 mm or above 161 mm, you fall outside the 158 mm standard size. Woolet bespoke covers the full 145–172 mm range to the millimetre.",
+      a: "If you're between 145–154 mm or 162–172 mm, you fall outside the 158 mm standard size. Woolet bespoke covers the full 145–172 mm range to the millimetre.",
     },
   ],
 };
