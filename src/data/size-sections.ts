@@ -205,7 +205,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Do you need bespoke at 158 mm?",
       body: [
-        "No. 158 mm is the middle of the 155–161 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 162 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
+        "No. 158 mm is the middle of the 155–161 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 172 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
         "If your face is 158 mm and your bridge is 21 or 22 mm, order the signature 007 or 009 and skip the scan queue entirely.",
       ],
     },
