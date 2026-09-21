@@ -423,7 +423,9 @@ export default function BespokeCheckout() {
                     </div>
                   )}
 
-                  {!aiPreviewUrl && frame && (
+                  {/* Signed-out buyers never get pushed off checkout to a sign-in page
+                      just to render a preview (Clarity: half of them left there). */}
+                  {!aiPreviewUrl && frame && isSignedIn && (
                     <div className="border-t border-cream/10 p-4" style={{ background: "rgba(239,233,223,0.03)" }}>
                       <div className="flex items-start gap-3">
                         <Sparkles size={18} className="text-gold-light shrink-0 mt-0.5" />

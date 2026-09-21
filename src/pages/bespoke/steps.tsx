@@ -44,6 +44,7 @@ import {
   CfgInfoTrigger,
   PreviewLightbox,
   REQUEST_PREVIEW_EVENT,
+  useCfgNav,
   RENDERS_PER_SESSION,
   pulseMobilePreview,
   pushCfg,
@@ -372,6 +373,7 @@ export function AiPreviewPanel({
   // later, at Save and at Pay.
   const sessionRef = useMemo(() => (typeof window === "undefined" ? "" : getSessionRef()), []);
   const budget = useRenderBudget(sessionRef);
+  const { nextLabel, onNext } = useCfgNav();
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const frame = findFrame(config.frameId);
@@ -514,7 +516,23 @@ export function AiPreviewPanel({
         setCloudSaveState("error");
       }
     } catch (e) {
-      setError((e as Error).message || "Preview failed. Please try again in a moment.");
+      // A failed render never costs the buyer a try, and never shows raw
+      // backend text (e.g. "Workspace credit limit reached") to a customer.
+      budget.refund();
+      let reason = (e as Error)?.message || "unknown";
+      try {
+        const ctx = (e as { context?: Response })?.context;
+        if (ctx && typeof ctx.json === "function") {
+          const body = await ctx.clone().json();
+          reason = (body as { error?: string })?.error || reason;
+        }
+      } catch {
+        /* body not JSON — keep the generic reason */
+      }
+      console.warn("[bespoke] preview render failed", reason);
+      pushCfg("cfg_render_failed", { reason: String(reason).slice(0, 80) });
+      claritySet("bespoke_render_failed", String(reason).slice(0, 80));
+      setError("The AI preview is unavailable right now. Your build is saved - the preview is optional, so you can carry on.");
     } finally {
       setLoading(false);
     }
@@ -605,7 +623,7 @@ export function AiPreviewPanel({
           </div>
         ) : (
           <div className="text-[color:var(--cfg-ink)]/50 text-xs uppercase tracking-[0.2em]">
-            Preview will appear here
+            {budget.remaining > 0 ? "Tap to generate your preview · ~20 s" : "Preview limit reached for this session"}
           </div>
         )}
         {!loading && (
@@ -688,6 +706,19 @@ export function AiPreviewPanel({
         </button>
       )}
 
+      {!activeUrl && !error && !includeLens && nextLabel && onNext && (
+        <button
+          type="button"
+          onClick={() => {
+            pushCfg("cfg_preview_skip", { reason: "skip" });
+            onNext();
+          }}
+          className="mt-3 w-full text-center text-[11px] uppercase tracking-[0.18em] text-cream-dim hover:text-cream underline underline-offset-4"
+        >
+          Skip the preview - continue to {nextLabel} →
+        </button>
+      )}
+
       <p className="mt-2 text-[10px] text-cream-dim/70">
         {budget.remaining > 0
           ? `${budget.remaining} of ${RENDERS_PER_SESSION} renders left in this session — no account needed.`
@@ -695,16 +726,33 @@ export function AiPreviewPanel({
       </p>
 
       {error && (
-        <p role="alert" className="mt-3 text-[11px] text-red-400/90">
-          {error}{" "}
-          <button
-            type="button"
-            onClick={generate}
-            className="underline underline-offset-2 hover:text-red-300"
-          >
-            Try again
-          </button>
-        </p>
+        <div role="alert" className="mt-4 border border-cream/15 bg-cream/[0.03] p-4" style={{ borderRadius: 2 }}>
+          <p className="text-[12px] leading-relaxed text-cream-dim">{error}</p>
+          <div className="mt-3 flex flex-wrap items-center gap-4">
+            {!includeLens && nextLabel && onNext && (
+              <button
+                type="button"
+                onClick={() => {
+                  pushCfg("cfg_preview_skip", { reason: "render_failed" });
+                  onNext();
+                }}
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] bg-gold text-background hover:bg-gold-light transition-colors"
+                style={{ fontFamily: "Barlow, sans-serif", fontWeight: 500, fontSize: "0.72rem", padding: "14px 20px", borderRadius: 2 }}
+              >
+                Continue to {nextLabel} →
+              </button>
+            )}
+            {budget.remaining > 0 && (
+              <button
+                type="button"
+                onClick={generate}
+                className="text-[11px] uppercase tracking-[0.18em] text-cream-dim hover:text-cream underline underline-offset-4"
+              >
+                Try again
+              </button>
+            )}
+          </div>
+        </div>
       )}
 
       {storageWarning && (
