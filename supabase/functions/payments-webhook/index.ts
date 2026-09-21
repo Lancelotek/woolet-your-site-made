@@ -552,7 +552,7 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         engraving_text: meta.engraving || null,
         ai_preview_url: meta.ai_preview_url ?? null,
         session_ref: UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null,
-        metadata: storedMetadata,
+        metadata: session.metadata ?? null,
         ...shippingPatch,
       },
       { onConflict: "stripe_session_id" },
@@ -786,7 +786,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
         amount_cents: session.amount_total ?? 100,
         currency: (session.currency ?? "usd").toLowerCase(),
         environment: env,
-        metadata: session.metadata ?? null,
+        metadata: storedMetadata,
       },
       { onConflict: "stripe_session_id" },
     );
