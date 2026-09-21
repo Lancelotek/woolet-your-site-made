@@ -82,19 +82,26 @@ const Collection = () => {
           <section className="px-5 sm:px-8 lg:px-16 pb-10">
             <div className="max-w-5xl mx-auto">
               <figure className="m-0">
-                {/* Tablet & desktop: single triptych, aspect reserved to prevent CLS */}
-                <img
-                  src={fitTriptych.url}
-                  alt="Three men wearing Woolet frames side by side — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 162 mm bespoke extra wide on a large head with a broad face."
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                  width={1920}
-                  height={787}
-                  sizes="(min-width: 1024px) 960px, (min-width: 640px) 92vw, 100vw"
-                  className="hidden sm:block w-full h-auto"
-                  style={{ aspectRatio: "1920 / 787", borderRadius: 2 }}
-                />
+                {/* Tablet & desktop: single triptych, aspect reserved to prevent CLS.
+                    Linked to /en/fit — the mobile panels below already link there. */}
+                <Link
+                  to={hrefFor("fit", lang)}
+                  aria-label="Three men wearing Woolet frames — find your fit"
+                  className="hidden sm:block no-underline"
+                >
+                  <img
+                    src={fitTriptych.url}
+                    alt="Three men wearing Woolet frames side by side — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 162 mm bespoke extra wide on a large head with a broad face."
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    width={1920}
+                    height={787}
+                    sizes="(min-width: 1024px) 960px, (min-width: 640px) 92vw, 100vw"
+                    className="w-full h-auto"
+                    style={{ aspectRatio: "1920 / 787", borderRadius: 2 }}
+                  />
+                </Link>
 
                 {/* Mobile: stack the three portraits with individual alts, each slot pre-sized */}
                 <div className="grid sm:hidden grid-cols-1 gap-2">

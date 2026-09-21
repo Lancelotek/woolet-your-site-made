@@ -1272,6 +1272,8 @@ const KickstarterPrelaunch = () => {
 
       {/* Mobile refinements — scoped to this LP */}
       <style>{`
+        /* Safety net: nothing inside the LP may widen the document. */
+        .ks-lp { overflow-x: clip; }
         @media (min-width: 768px) {
           .ks-hero-image { aspect-ratio: 4 / 5 !important; }
         }
