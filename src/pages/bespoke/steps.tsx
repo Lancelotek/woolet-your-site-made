@@ -15,8 +15,11 @@ import {
   FINISHES,
   LENS_COATINGS,
   LENS_MATERIALS,
+  LENS_TINTS,
+  LENS_TINT_NOTE,
   LENS_TYPES,
   READING_STRENGTHS,
+  findLensTint,
   MEASUREMENT_RANGES,
   TEMPLE_LENGTHS,
   TEMPLE_LENGTH_CUSTOM_RANGE,
@@ -1647,6 +1650,52 @@ const READING_MODES = [
   { id: "confirm_later", label: "I'll confirm after payment" },
 ] as const;
 
+function LensTintPanel({ config, update }: StepProps) {
+  const selected = findLensTint(config.lensTintId);
+  return (
+    <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5 animate-in fade-in slide-in-from-top-2 duration-300">
+      <div className={labelClass}>Lens colour</div>
+      <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2 max-w-xl">{LENS_TINT_NOTE}</p>
+
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+        {LENS_TINTS.map((t) => {
+          const active = config.lensTintId === t.id;
+          return (
+            <button
+              key={t.id}
+              onClick={() => {
+                update("lensTintId", t.id);
+                pushCfg("bespoke_lens_tint_selected", { tint: t.id, code: t.code });
+                claritySet("bespoke_lens_tint", t.code);
+              }}
+              aria-pressed={active}
+              className={`min-h-[48px] p-3 rounded-[10px] border text-left transition flex gap-3 items-center ${
+                active ? "border-gold bg-gold/10" : "border-cream/15 hover:border-cream/30"
+              }`}
+            >
+              <span
+                aria-hidden
+                className="w-9 h-9 shrink-0 rounded-full border border-cream/20"
+                style={{ background: `linear-gradient(135deg, #f4f2ec 0%, #f4f2ec 22%, ${t.hex} 100%)` }}
+              />
+              <span className="min-w-0">
+                <span className={`block text-sm ${active ? "text-gold-light" : "text-cream"}`}>{t.name}</span>
+                <span className="block text-cream-dim text-[0.72rem] mt-0.5 leading-snug">{t.short}</span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {selected ? (
+        <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-4 max-w-xl">{selected.description}</p>
+      ) : (
+        <p className="text-gold-light/80 text-[0.78rem] mt-4">Choose a lens colour to continue.</p>
+      )}
+    </div>
+  );
+}
+
 function ReadingStrengthPanel({ config, update }: StepProps) {
   const mode = config.readingStrengthMode ?? "same";
 
@@ -1778,6 +1827,7 @@ export function StepLenses({ config, update }: StepProps) {
                 key={l.id}
                 onClick={() => {
                   update("lensTypeId", l.id);
+                  if (l.id !== "photochromic") update("lensTintId", null);
                   if (l.id !== "reading") {
                     update("readingStrengthMode", null);
                     update("readingStrength", null);
@@ -1816,6 +1866,7 @@ export function StepLenses({ config, update }: StepProps) {
       </div>
 
       {config.lensTypeId === "reading" && <ReadingStrengthPanel config={config} update={update} />}
+      {config.lensTypeId === "photochromic" && <LensTintPanel config={config} update={update} />}
 
       {config.lensTypeId !== "plano" && (
         <>

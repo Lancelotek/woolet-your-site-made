@@ -31,7 +31,8 @@ export type CfgEvent =
   | "cfg_render_ready"
   | "cfg_signin_gate_shown"
   | "cfg_pay_click"
-  | "bespoke_reading_strength_selected";
+  | "bespoke_reading_strength_selected"
+  | "bespoke_lens_tint_selected";
 
 export const pushCfg = (event: CfgEvent, data?: Record<string, string | number | boolean>) =>
   pushGtmEvent(event, data);

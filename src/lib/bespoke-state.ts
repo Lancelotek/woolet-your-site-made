@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, isValidTempleLength, LENS_TYPES, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, findLensTint, isValidTempleLength, LENS_TYPES, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
@@ -32,6 +32,8 @@ export interface BespokeConfig {
   readingStrength: ReadingStrength | null;
   readingStrengthLeft: ReadingStrength | null;
   readingStrengthRight: ReadingStrength | null;
+  /** Photochromic lens only — tint id from LENS_TINTS. */
+  lensTintId: string | null;
   lensMaterialId: string | null;
   lensCoatingId: string | null;
   prescriptionFileName: string | null;
@@ -72,6 +74,7 @@ export const INITIAL_CONFIG: BespokeConfig = {
   readingStrength: null,
   readingStrengthLeft: null,
   readingStrengthRight: null,
+  lensTintId: null,
   lensMaterialId: null,
   lensCoatingId: "none",
   prescriptionFileName: null,
@@ -181,6 +184,7 @@ export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
     case 5: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
     case 6: {
       if (!config.lensTypeId) return false;
+      if (config.lensTypeId === "photochromic") return Boolean(findLensTint(config.lensTintId));
       if (config.lensTypeId !== "reading") return true;
       return isReadingStrengthComplete(config);
     }
@@ -222,6 +226,19 @@ export const readingStrengthMetaValue = (config: BespokeConfig): string => {
 
 /** Lens name with the strength appended, for order summaries. */
 export const formatLensWithStrength = (lensName: string, config: BespokeConfig): string => {
+  const tint = config.lensTypeId === "photochromic" ? findLensTint(config.lensTintId) : undefined;
+  const name = tint ? `${lensName} · ${tint.name}` : lensName;
   const strength = formatReadingStrength(config);
-  return strength ? `${lensName} · ${strength}` : lensName;
+  return strength ? `${name} · ${strength}` : name;
 };
+
+/** Production string for the order: lens name + tint name + tint code,
+ *  e.g. "Photochromic / Transition · Espresso Brown (PH-BRN)". */
+export const lensOrderValue = (lensName: string, config: BespokeConfig): string => {
+  const tint = config.lensTypeId === "photochromic" ? findLensTint(config.lensTintId) : undefined;
+  return tint ? `${lensName} · ${tint.name} (${tint.code})` : lensName;
+};
+
+/** Tint code only (empty when not photochromic) — Stripe metadata `lens_tint`. */
+export const lensTintCode = (config: BespokeConfig): string =>
+  config.lensTypeId === "photochromic" ? findLensTint(config.lensTintId)?.code ?? "" : "";
