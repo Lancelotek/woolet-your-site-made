@@ -400,6 +400,7 @@ export type Database = {
           shipping_postal_code: string | null
           shipping_state: string | null
           shipping_submitted_at: string | null
+          source: string | null
           stage: string
           stripe_payment_intent_id: string | null
           stripe_session_id: string
@@ -490,6 +491,7 @@ export type Database = {
           shipping_postal_code?: string | null
           shipping_state?: string | null
           shipping_submitted_at?: string | null
+          source?: string | null
           stage?: string
           stripe_payment_intent_id?: string | null
           stripe_session_id: string
@@ -580,6 +582,7 @@ export type Database = {
           shipping_postal_code?: string | null
           shipping_state?: string | null
           shipping_submitted_at?: string | null
+          source?: string | null
           stage?: string
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
