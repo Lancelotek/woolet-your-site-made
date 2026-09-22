@@ -9,6 +9,7 @@ import RelatedGuides from "@/components/RelatedGuides";
 import RelatedPosts from "@/components/RelatedPosts";
 import FaceWidthQuiz from "@/components/FaceWidthQuiz";
 import BlogFitLensHook from "@/components/BlogFitLensHook";
+import { BLOG_FITLENS_HOOK_POSTS } from "@/content/blog-fitlens-hook";
 import { getBlogPost } from "@/lib/blog-data";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
@@ -85,15 +86,6 @@ function processContent(html: string, lang: Lang): string {
   return processed;
 }
 
-const FITLENS_HOOK_POSTS = new Set([
-  "round-vs-square-glasses-wide-face",
-  "glasses-for-wide-faces-guide",
-  "how-to-measure-face-width-for-glasses",
-  "how-to-tell-if-your-face-is-wide-or-narrow",
-  "what-size-sunglasses-for-wide-faces",
-  "eyeglass-frame-size-chart",
-]);
-
 function splitBeforeFirstH2(html: string): [string, string] {
   const firstH2 = html.search(/<h2\b/i);
   return firstH2 < 0 ? [html, ""] : [html.slice(0, firstH2), html.slice(firstH2)];
@@ -164,7 +156,7 @@ const BlogPost = () => {
 
   const headings = useMemo(() => post ? extractH2s(post.content) : [], [post]);
   const processedContent = useMemo(() => post ? processContent(post.content, currentLang) : "", [post, currentLang]);
-  const showFitLensHook = currentLang === "en" && FITLENS_HOOK_POSTS.has(slug);
+  const showFitLensHook = currentLang === "en" && BLOG_FITLENS_HOOK_POSTS.has(slug);
   const [introContent, remainingContent] = useMemo(
     () => (showFitLensHook ? splitBeforeFirstH2(processedContent) : [processedContent, ""]),
     [processedContent, showFitLensHook],

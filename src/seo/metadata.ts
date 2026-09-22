@@ -39,6 +39,7 @@ import { collectionJsonLd } from "./product-collection-jsonld";
 import { HAT_SIZE_FAQ } from "./hat-size-faq";
 import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import { DE_PRICING } from "@/content/de/pricing";
+import { BLOG_FITLENS_HOOK_POSTS, insertBlogFitLensHook } from "@/content/blog-fitlens-hook";
 import {
   RETURN_POLICY,
   shippingDetails,
@@ -395,21 +396,26 @@ function base(
   alternates?: Record<string, string>,
 ): RouteMeta {
   const canonical = `${SITE_URL}${route}`;
+  const cleanSnippet = (value: string) => value.replace(/\s*[—–]\s*/g, " - ");
+  const cleanNoscriptHeadings = (value?: string) => value?.replace(
+    /(<h1\b[^>]*>)([\s\S]*?)(<\/h1>)/gi,
+    (_match, open: string, text: string, close: string) => `${open}${cleanSnippet(text)}${close}`,
+  );
   return {
-    title: copy.title,
-    description: copy.description,
+    title: cleanSnippet(copy.title),
+    description: cleanSnippet(copy.description),
     canonical,
     lang,
     og: {
-      title: copy.title,
-      description: copy.description,
+      title: cleanSnippet(copy.title),
+      description: cleanSnippet(copy.description),
       image: og.image || DEFAULT_OG,
       type: og.type || "website",
       locale: ogLocale(lang),
     },
     jsonLd: jsonLd,
     lastmod: copy.lastmod,
-    noscriptHtml: copy.noscriptHtml,
+    noscriptHtml: cleanNoscriptHeadings(copy.noscriptHtml),
     alternates,
   };
 }
@@ -1338,7 +1344,7 @@ ${links}
 <h1>${escapeHtml(post.title)}</h1>
 <p><em>${escapeHtml(post.excerpt)}</em></p>
 <p><small>Published ${escapeHtml(post.date)} · ${post.readTime} min read</small></p>
-${post.content}
+${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) : post.content}
 </article>`,
         },
         { type: "article", image: ogImage },
@@ -1369,7 +1375,11 @@ ${post.content}
             { name: "Blog", url: `${SITE_URL}/${lang}/blog` },
             { name: post.title, url: `${SITE_URL}${route}` },
           ]),
-          ...(GUIDE_FAQS[slug] ? [faqPageJsonLd(GUIDE_FAQS[slug])] : []),
+          ...(post.faq?.length
+            ? [faqPageJsonLd(post.faq)]
+            : GUIDE_FAQS[slug]
+              ? [faqPageJsonLd(GUIDE_FAQS[slug])]
+              : []),
         ],
       );
     }

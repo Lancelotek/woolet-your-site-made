@@ -84,8 +84,10 @@ const SEO = ({
   availableLangs,
   alternates,
 }: SEOProps) => {
-  const fullTitle = exactTitle || title.includes("Woolet") ? title : `${title} | Woolet`;
-  const socialDescription = ogDescription || description;
+  const cleanSnippet = (value: string) => value.replace(/\s*[—–]\s*/g, " - ");
+  const fullTitle = cleanSnippet(exactTitle || title.includes("Woolet") ? title : `${title} | Woolet`);
+  const cleanDescription = cleanSnippet(description);
+  const socialDescription = cleanSnippet(ogDescription || description);
   const canonical = `${SITE_URL}/${lang}${path}`;
   const geo = geoMeta[lang] || geoMeta.en;
   const ogImage = image
@@ -237,7 +239,7 @@ const SEO = ({
     <Helmet>
       <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} />
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      <meta name="description" content={cleanDescription} />
       <link rel="canonical" href={canonical} />
       <meta name="robots" content={robotsContent} />
 

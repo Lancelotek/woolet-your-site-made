@@ -403,7 +403,7 @@
     text-transform: uppercase;
     transition: background 0.2s ease;
   }
-  .blog-fitlens-hook a:hover { background: hsl(var(--gold-hover)); }
+  .blog-fitlens-hook a:hover { background: hsl(var(--gold-light)); }
   @media (max-width: 560px) {
     .blog-fitlens-hook { align-items: flex-start; flex-direction: column; }
   }

@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import { BLOG_FITLENS_HOOK } from "@/content/blog-fitlens-hook";
 
 const BlogFitLensHook = () => (
   <aside className="blog-fitlens-hook" aria-labelledby="blog-fitlens-hook-title">
     <div>
-      <h2 id="blog-fitlens-hook-title">Know your size in 20 seconds</h2>
-      <p>Your phone camera measures your face width and matches you to a frame. Free, no signup.</p>
+      <h2 id="blog-fitlens-hook-title">{BLOG_FITLENS_HOOK.title}</h2>
+      <p>{BLOG_FITLENS_HOOK.body}</p>
     </div>
-    <Link to="/en/fit">Measure my face</Link>
+    <Link to={BLOG_FITLENS_HOOK.href}>{BLOG_FITLENS_HOOK.label}</Link>
   </aside>
 );
 
