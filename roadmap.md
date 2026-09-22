@@ -25,3 +25,8 @@
 - [ ] Usunąć Unicode dash z title/meta/H1/OG dla EN/DE/FR/PL/KO/JA
 - [ ] Zbudować i zweryfikować surowy prerenderowany HTML, JSON-LD i długości
 
+## Google Ads - rezerwacja Kickstarter $1
+- [ ] Dodać regionalnie zgodny bazowy tag Google Ads AW-18213714775
+- [ ] Wysłać jedną konwersję po opłaceniu rezerwacji na wszystkich istniejących ekranach sukcesu
+- [ ] Dodać trwałą deduplikację po identyfikatorze płatności i zweryfikować zdarzenia
+
