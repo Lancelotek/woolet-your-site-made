@@ -71,11 +71,11 @@ const NOSCRIPT_OVERRIDES = {
   <p style="font-size:13px;color:#888;">By Marek Cieśla, Founder — Woolet Eyewear · Last updated: June 2025</p>
   <h1>Glasses That Fit a 155 mm+ Face: Complete Buying Guide</h1>
 </header>
-<aside class="blog-fitlens-hook"><h2>Know your size in 20 seconds</h2><p>Your phone camera measures your face width and matches you to a frame. Free, no signup.</p><a href="/en/fit">Measure my face</a></aside>
 <div>
   <p><strong>DEFINITION</strong><br>
   A wide face in eyewear terms means a face width above 145 mm measured temple-to-temple. Standard eyewear frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Woolet frames start at 158 mm — built for the faces that standard sizing cannot accommodate.</p>
 </div>
+<aside class="blog-fitlens-hook"><h2>Know your size in 20 seconds</h2><p>Your phone camera measures your face width and matches you to a frame. Free, no signup.</p><a href="/en/fit">Measure my face</a></aside>
 <section>
   <h2>BY THE NUMBERS</h2>
   <ul>
