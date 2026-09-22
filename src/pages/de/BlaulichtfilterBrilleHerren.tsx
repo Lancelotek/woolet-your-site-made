@@ -222,7 +222,7 @@ const BlaulichtfilterBrilleHerren = () => {
 
           <div style={{ ...wrap, padding: "26px 20px 44px" }}>
             <h1 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: 42, lineHeight: 1.08, letterSpacing: "-0.6px", margin: "0 0 14px", color: T.cream }}>
-              Blaulichtfilter-Brille Herren — <em style={{ fontStyle: "italic", color: T.gold }}>158 mm</em> für breite Köpfe
+              Blaulichtfilter-Brille Herren - <em style={{ fontStyle: "italic", color: T.gold }}>158 mm</em> für breite Köpfe
             </h1>
             <p style={{ fontFamily: SANS, fontSize: 16.5, lineHeight: 1.6, color: "rgba(237,231,217,0.82)", margin: "0 0 22px", maxWidth: 620 }}>
               Die meisten Blaulichtfilter-Brillen enden bei 145 mm Frontbreite. Unsere fängt dort an, wo deine anfängt zu drücken.

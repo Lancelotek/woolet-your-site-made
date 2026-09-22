@@ -27,9 +27,9 @@ export const jaPages: Record<string, JaPageConfig> = {
   "big-face-glasses": {
     slug: "big-face-glasses",
     eyebrow: "Woolet · 大きい顔のためのメガネ",
-    h1: "大きい顔のメガネ — 締めつけない、本当に合うフレーム",
+    h1: "大きい顔のメガネ - 締めつけない、本当に合うフレーム",
     sub: "標準フレームの幅は135〜145mm。顔幅が155mm以上なら、市販のメガネは「Mサイズ」しか存在しません。Wooletは155・158・161mmの実寸で、イタリア製マッツケリ・アセテートをEUで手作業仕立てします。",
-    metaTitle: "大きい顔 メガネ 155–161mm | Woolet 幅広イタリア製アセテート",
+    metaTitle: "大きい顔 メガネ 155-161mm | Woolet 幅広イタリア製アセテート",
     metaDescription:
       "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで、EUで手作り。FitLensスキャンで20秒、自分のサイズが分かります。",
     primaryKeyword: "大きい顔 メガネ",
@@ -79,9 +79,9 @@ export const jaPages: Record<string, JaPageConfig> = {
   bespoke: {
     slug: "bespoke",
     eyebrow: "Woolet · オーダーメイド メガネ",
-    h1: "オーダーメイド メガネ — 顔に合わせて作る、本当の一本",
+    h1: "オーダーメイド メガネ - 顔に合わせて作る、本当の一本",
     sub: "顔幅145〜172mmまでミリ単位で対応。ブリッジ幅、テンプル長、レンズ高さも個別調整。イタリア製マッツケリ・アセテートを使い、EUの職人が一本ずつ手作業で仕立てます。",
-    metaTitle: "オーダーメイド メガネ 145–172mm | Woolet イタリア製アセテート",
+    metaTitle: "オーダーメイド メガネ 145-172mm | Woolet イタリア製アセテート",
     metaDescription:
       "オーダーメイド メガネを145〜172mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
     primaryKeyword: "オーダーメイド メガネ",
