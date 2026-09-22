@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 
 const wooletLogo = wooletLogoAsset.url;
@@ -49,6 +51,9 @@ const STEPS = [
 ];
 
 export default function ThankYouReserved() {
+  const [params] = useSearchParams();
+  const paid = params.get("paid") === "1";
+  const paymentRef = params.get("session_id") || undefined;
   const [preparing, setPreparing] = useState(false);
   const fired = useRef(false);
 
@@ -65,6 +70,11 @@ export default function ThankYouReserved() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (!paid) return;
+    trackGoogleAdsConversion(paymentRef);
+  }, [paid, paymentRef]);
 
   const downloadPdf = async () => {
     if (preparing) return;

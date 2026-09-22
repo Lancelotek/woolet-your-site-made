@@ -282,7 +282,7 @@ export default function ThankYouFb() {
               <ReserveCheckoutButton
                 label="Lock $114 - pay $1 now"
                 priceId={RESERVATION_PRICE_ID}
-                returnUrl={`${typeof window === "undefined" ? "" : window.location.origin}/en/lp/kickstarter/vip-confirmed`}
+                returnUrl={`${typeof window === "undefined" ? "https://woolet.co" : window.location.origin}/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}`}
                 metadata={{
                   campaign: "fb_instant_form",
                   form_location: "thank_you_fb",

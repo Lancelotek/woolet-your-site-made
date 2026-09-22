@@ -19,9 +19,14 @@
 - [x] Add native German manual and quick fit fallbacks
 - [x] Verify language-switch return paths and cookie-banner mobile UX
 ## CTR organiczny - 2026-09-22
-- [ ] Zaktualizować snippety pięciu artykułów i H1 poradnika wide-face
-- [ ] Dodać wspólny blok FitLens do sześciu artykułów
-- [ ] Zweryfikować i poprawić tabele, FAQ oraz schematy produktów
-- [ ] Usunąć Unicode dash z title/meta/H1/OG dla EN/DE/FR/PL/KO/JA
-- [ ] Zbudować i zweryfikować surowy prerenderowany HTML, JSON-LD i długości
+- [x] Zaktualizować snippety pięciu artykułów i H1 poradnika wide-face
+- [x] Dodać wspólny blok FitLens do sześciu artykułów
+- [x] Zweryfikować i poprawić tabele, FAQ oraz schematy produktów
+- [x] Usunąć Unicode dash z title/meta/H1/OG dla EN/DE/FR/PL/KO/JA
+- [x] Zbudować i zweryfikować surowy prerenderowany HTML, JSON-LD i długości
+
+## Google Ads - rezerwacja Kickstarter $1
+- [x] Dodać regionalnie zgodny bazowy tag Google Ads AW-18213714775
+- [x] Wysłać jedną konwersję po opłaceniu rezerwacji na wszystkich istniejących ekranach sukcesu
+- [x] Dodać trwałą deduplikację po identyfikatorze płatności i zweryfikować zdarzenia
 

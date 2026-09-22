@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router-do
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
+import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
 import vipBespokePreview from "@/assets/vip-bespoke-preview.png.asset.json";
 const logo = logoAsset.url;
@@ -16,6 +17,7 @@ const KickstarterVipConfirmed = () => {
   const location = useLocation();
   const [params] = useSearchParams();
   const paid = params.get("paid") === "1";
+  const paymentRef = params.get("session_id") || undefined;
   const state = (location.state as LocationState) || null;
 
 
@@ -42,7 +44,8 @@ const KickstarterVipConfirmed = () => {
     } catch {
       /* ignore */
     }
-  }, [paid]);
+    trackGoogleAdsConversion(paymentRef);
+  }, [paid, paymentRef]);
 
   useEffect(() => {
     if (!email) {
