@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { rdtPageVisit, rdtCustom } from "@/lib/reddit-pixel";
 import { trackMetaEvent } from "@/lib/meta-capi";
 import { initMetaPixelDirect, trackMetaPixelPageView } from "@/lib/meta-pixel";
+import { initGoogleAds } from "@/lib/google-ads";
 
 const isProdHost = () => {
   if (typeof window === "undefined") return false;
@@ -20,6 +21,7 @@ const PageViewTracker = () => {
   // PageView on init, so the route effect below skips the initial pathname.
   useEffect(() => {
     initMetaPixelDirect();
+    initGoogleAds();
   }, []);
   useEffect(() => {
     if (isProdHost()) {

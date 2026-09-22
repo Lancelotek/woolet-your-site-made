@@ -60,8 +60,8 @@ export default function Reserve() {
 
   const returnUrl =
     typeof window !== "undefined"
-      ? `${window.location.origin}/en/thank-you/reserved`
-      : "https://woolet.co/en/thank-you/reserved";
+      ? `${window.location.origin}/en/thank-you/reserved?paid=1&session_id={CHECKOUT_SESSION_ID}`
+      : "https://woolet.co/en/thank-you/reserved?paid=1&session_id={CHECKOUT_SESSION_ID}";
 
   const metadata = useMemo(() => {
     const attribution = getAttribution();
