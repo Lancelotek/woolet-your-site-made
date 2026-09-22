@@ -8,6 +8,8 @@ import SEO from "@/components/SEO";
 import RelatedGuides from "@/components/RelatedGuides";
 import RelatedPosts from "@/components/RelatedPosts";
 import FaceWidthQuiz from "@/components/FaceWidthQuiz";
+import BlogFitLensHook from "@/components/BlogFitLensHook";
+import { BLOG_FITLENS_HOOK_POSTS } from "@/content/blog-fitlens-hook";
 import { getBlogPost } from "@/lib/blog-data";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
@@ -84,6 +86,15 @@ function processContent(html: string, lang: Lang): string {
   return processed;
 }
 
+function splitBeforeFirstH2(html: string): [string, string] {
+  const firstH2 = html.search(/<h2\b/i);
+  return firstH2 < 0 ? [html, ""] : [html.slice(0, firstH2), html.slice(firstH2)];
+}
+
+function withoutLongDashes(text: string): string {
+  return text.replace(/\s*[—–]\s*/g, " - ");
+}
+
 /* ── Reading Progress Bar ── */
 const ReadingProgress = () => {
   const [width, setWidth] = useState(0);
@@ -145,6 +156,11 @@ const BlogPost = () => {
 
   const headings = useMemo(() => post ? extractH2s(post.content) : [], [post]);
   const processedContent = useMemo(() => post ? processContent(post.content, currentLang) : "", [post, currentLang]);
+  const showFitLensHook = currentLang === "en" && BLOG_FITLENS_HOOK_POSTS.has(slug);
+  const [introContent, remainingContent] = useMemo(
+    () => (showFitLensHook ? splitBeforeFirstH2(processedContent) : [processedContent, ""]),
+    [processedContent, showFitLensHook],
+  );
 
   // Instrument FitLens CTAs inside the injected article HTML. Runs after the
   // body is in the DOM and re-runs whenever the article changes.
@@ -338,7 +354,7 @@ const BlogPost = () => {
 
         {/* Title */}
         <h1 className="font-display text-woolet-white leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-          {post.title}
+          {withoutLongDashes(post.title)}
         </h1>
 
         {/* Meta bar */}
@@ -357,11 +373,11 @@ const BlogPost = () => {
         {post.slug === "how-to-tell-if-your-face-is-wide-or-narrow" && <FaceWidthQuiz />}
 
         {/* Article body */}
-        <div
-          ref={bodyRef}
-          className="woolet-blog-content"
-          dangerouslySetInnerHTML={{ __html: processedContent }}
-        />
+        <div ref={bodyRef} className="woolet-blog-content">
+          <div dangerouslySetInnerHTML={{ __html: introContent }} />
+          {showFitLensHook && <BlogFitLensHook />}
+          {remainingContent && <div dangerouslySetInnerHTML={{ __html: remainingContent }} />}
+        </div>
 
         <RelatedPosts currentSlug={post.slug} lang={currentLang} />
 

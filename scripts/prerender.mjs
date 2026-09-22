@@ -69,12 +69,13 @@ const NOSCRIPT_OVERRIDES = {
 <article>
 <header>
   <p style="font-size:13px;color:#888;">By Marek Cieśla, Founder — Woolet Eyewear · Last updated: June 2025</p>
-  <h1>Glasses for Wide Faces — Complete Fit and Buying Guide</h1>
+  <h1>Glasses That Fit a 155 mm+ Face: Complete Buying Guide</h1>
 </header>
 <div>
   <p><strong>DEFINITION</strong><br>
   A wide face in eyewear terms means a face width above 145 mm measured temple-to-temple. Standard eyewear frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Woolet frames start at 158 mm — built for the faces that standard sizing cannot accommodate.</p>
 </div>
+<aside class="blog-fitlens-hook"><h2>Know your size in 20 seconds</h2><p>Your phone camera measures your face width and matches you to a frame. Free, no signup.</p><a href="/en/fit">Measure my face</a></aside>
 <section>
   <h2>BY THE NUMBERS</h2>
   <ul>
@@ -90,7 +91,7 @@ const NOSCRIPT_OVERRIDES = {
       <tr><th>Brand</th><th>Frame width</th><th>Material</th><th>Bridge</th><th>Rx available</th><th>Starting price</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Woolet</strong></td><td><strong>158 mm (bespoke 145–172 mm)</strong></td><td><strong>Mazzucchelli acetate, Italy</strong></td><td><strong>21 mm keyhole</strong></td><td><strong>Yes</strong></td><td><strong>$133 pre-order</strong></td></tr>
+      <tr><td><strong>Woolet</strong></td><td><strong>158 mm (bespoke 145-172 mm)</strong></td><td><strong>Mazzucchelli acetate, Italy</strong></td><td><strong>21 mm keyhole</strong></td><td><strong>Yes</strong></td><td><strong>$114 pre-order</strong></td></tr>
       <tr><td>SizeGlasses</td><td>155–165 mm</td><td>TR90</td><td>up to 20 mm</td><td>Yes</td><td>$99</td></tr>
       <tr><td>BXL Eyewear</td><td>145–165 mm</td><td>TR90</td><td>up to 20 mm</td><td>Yes</td><td>$105</td></tr>
       <tr><td>Zenni Extended Fit</td><td>~138–148 mm</td><td>Various</td><td>up to 18 mm</td><td>Yes</td><td>$6.95</td></tr>
@@ -289,9 +290,9 @@ async function main() {
       `<link rel="canonical" href="https://woolet.co/en" data-seo="prerender" />`,
       `<meta name="robots" content="noindex, follow" data-seo="prerender" />`,
       `<meta property="og:url" content="https://woolet.co/en" data-seo="prerender" />`,
-      `<meta property="og:title" content="Woolet — Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
+      `<meta property="og:title" content="Woolet - Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
       `<meta property="og:description" content="Premium frames engineered for wide faces (155 mm+). Mazzucchelli acetate, hand made in EU." data-seo="prerender" />`,
-      `<meta name="twitter:title" content="Woolet — Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
+      `<meta name="twitter:title" content="Woolet - Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
       `<meta name="twitter:description" content="Premium frames engineered for wide faces (155 mm+). Mazzucchelli acetate, hand made in EU." data-seo="prerender" />`,
     ].join("\n    ");
     fallback = fallback.replace("</head>", `    ${softHead}\n    <!-- fallback: soft-404 + root redirect -->\n  </head>`);

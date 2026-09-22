@@ -66,11 +66,11 @@ export const plPages: Record<string, PlPageConfig> = {
   "okulary-na-zamowienie": {
     slug: "okulary-na-zamowienie",
     eyebrow: "Woolet · Okulary na zamówienie",
-    h1: "Okulary na zamówienie — szyte na twoją twarz, co do milimetra",
+    h1: "Okulary na zamówienie - szyte na twoją twarz, co do milimetra",
     sub: "Szerokość frontu od 145 do 172 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
-    metaTitle: "Okulary na zamówienie 145–172 mm | Woolet — włoski octan",
+    metaTitle: "Okulary na zamówienie 145-172 mm | Woolet - włoski octan",
     metaDescription:
-      "Okulary na zamówienie dla szerszych twarzy: front 145–172 mm, mostek 20–24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
+      "Okulary na zamówienie dla szerszych twarzy: front 145-172 mm, mostek 20-24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
     primaryKeyword: "okulary na zamówienie",
     ctaPrimaryLabel: "Zmierz twarz (20 s)",
     ctaPrimaryHref: "/pl/fit",
@@ -120,7 +120,7 @@ export const plPages: Record<string, PlPageConfig> = {
 plPages["jak-dobrac-okulary-do-twarzy"] = {
   slug: "jak-dobrac-okulary-do-twarzy",
   eyebrow: "Woolet · Poradnik doboru",
-  h1: "Jak dobrać okulary do twarzy — kształt, rozmiar i dopasowanie",
+  h1: "Jak dobrać okulary do twarzy - kształt, rozmiar i dopasowanie",
   sub: "Dobór okularów to dwie rzeczy: kształt (estetyka) i rozmiar w milimetrach (komfort). Ten poradnik prowadzi przez obie — plus skan FitLens telefonem w około 20 sekund.",
   metaTitle: "Jak dobrać okulary do twarzy: kształt, rozmiar w mm, dopasowanie (2026) | Woolet",
   metaDescription:

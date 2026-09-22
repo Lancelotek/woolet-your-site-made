@@ -18,3 +18,10 @@
 - [x] Replace the DE article-directory homepage with a German commercial homepage
 - [x] Add native German manual and quick fit fallbacks
 - [x] Verify language-switch return paths and cookie-banner mobile UX
+## CTR organiczny - 2026-09-22
+- [ ] Zaktualizować snippety pięciu artykułów i H1 poradnika wide-face
+- [ ] Dodać wspólny blok FitLens do sześciu artykułów
+- [ ] Zweryfikować i poprawić tabele, FAQ oraz schematy produktów
+- [ ] Usunąć Unicode dash z title/meta/H1/OG dla EN/DE/FR/PL/KO/JA
+- [ ] Zbudować i zweryfikować surowy prerenderowany HTML, JSON-LD i długości
+
