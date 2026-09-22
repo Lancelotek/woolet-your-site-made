@@ -17,6 +17,7 @@ const supabase = createClient(
 
 type Body = {
   sid?: string;
+  source?: string | null;
   ai?: {
     face_width_mm?: number | null;
     temple_to_temple_mm?: number | null;
@@ -121,6 +122,14 @@ Deno.serve(async (req) => {
       manual_notes: clampText(manual.notes),
       measurements_submitted_at: new Date().toISOString(),
     };
+
+    const SOURCES = [
+      "ChatGPT", "Other AI assistant (Perplexity, Gemini, Claude)", "Google", "Instagram",
+      "TikTok", "Facebook", "Friend", "Other",
+    ];
+    if (typeof body.source === "string" && SOURCES.includes(body.source)) {
+      patch.source = body.source;
+    }
 
     // Where the numbers came from. `scan_payload` holds the normalised
     // measurement object only — numbers, never an image or a face landmark.

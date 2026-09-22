@@ -175,6 +175,7 @@ const RefProductPage = () => {
         <html lang="en" />
         <title>{product.metaTitle}</title>
         <meta name="description" content={product.metaDescription} />
+        {isBespoke && <meta name="robots" content="noindex, follow" />}
         <link rel="canonical" href={canonical} />
         <meta property="og:type" content="product" />
         <meta property="og:title" content={product.metaTitle} />
