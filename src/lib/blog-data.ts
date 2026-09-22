@@ -26,7 +26,7 @@ export interface BlogPost {
 const blogPostsEN: BlogPost[] = [
   {
     slug: "glasses-for-wide-faces-guide",
-    title: "Glasses for Wide Faces: The Complete 2026 Fit Guide",
+    title: "Glasses That Fit a 155 mm+ Face: Complete Buying Guide",
     excerpt: "Can't find glasses that fit a wide face? Learn how to measure, what frame width to look for (155 mm+), and which styles actually work. An honest 2026 guide.",
     date: "2026-03-09",
     readTime: 14,

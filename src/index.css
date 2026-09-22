@@ -363,6 +363,51 @@
     border-color: hsl(var(--gold));
   }
 
+  .blog-fitlens-hook {
+    border-left: 3px solid hsl(var(--gold));
+    background: hsl(42 20% 8%);
+    padding: 20px;
+    margin: 28px 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-radius: 4px;
+  }
+  .blog-fitlens-hook h2 {
+    margin: 0 0 5px;
+    color: hsl(var(--cream));
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+  .blog-fitlens-hook p {
+    margin: 0;
+    color: hsl(var(--cream-dim));
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .blog-fitlens-hook a {
+    flex: 0 0 auto;
+    background: hsl(var(--gold));
+    color: hsl(var(--ink));
+    padding: 11px 18px;
+    border-radius: 2px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+  }
+  .blog-fitlens-hook a:hover { background: hsl(var(--gold-hover)); }
+  @media (max-width: 560px) {
+    .blog-fitlens-hook { align-items: flex-start; flex-direction: column; }
+  }
+
   /* TOC */
   .woolet-toc {
     background: hsl(42 20% 8%);
