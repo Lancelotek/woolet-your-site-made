@@ -30,3 +30,10 @@
 - [x] Wysłać jedną konwersję po opłaceniu rezerwacji na wszystkich istniejących ekranach sukcesu
 - [x] Dodać trwałą deduplikację po identyfikatorze płatności i zweryfikować zdarzenia
 
+
+## Bespoke GEO - 2026-09-22
+- [ ] Create shared canonical facts and align all Bespoke surfaces
+- [ ] Expand /en/bespoke answer-first content and structured data
+- [ ] Consolidate duplicate-page indexing and migrate the guide slug
+- [ ] Add required discovery-source attribution through checkout and CRM
+- [ ] Regenerate and verify prerender, sitemap, tests, and output
