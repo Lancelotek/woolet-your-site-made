@@ -305,14 +305,14 @@ export const REF_PRODUCTS: RefProduct[] = [
     colour: "Any Mazzucchelli colour",
     colourDot: "#CAA449",
     priceUsd: 480,
-    tagline: "Four shapes, 60 colour and size combinations, any width 145-172 mm. Hand made in Greece. Lenses included.",
+    tagline: "Four shapes, any width 145-172 mm. Hand made in Greece (EU). Prescription lenses and worldwide shipping included at $480 USD.",
     intro: "The signature frames are 158 mm and fit faces from 155 to 161 mm. When you sit outside that - narrower, or wider than 161 - this is the one built to your numbers instead of to a size chart. An AI-Fit measurement reads your temple-to-temple width, bridge and temple length, and the frame is cut to those figures.",
     body: [
       "Crown Panto - a straight brow line gives you the structure of a rectangle across the top, then the lens curves away underneath. On a wide face with a strong jaw it is the most reliable shape in the range. This is the silhouette the Woolet 007 is drawn from.",
       "Round - fully circular lenses, a keyhole bridge, no horizontal line anywhere. Because nothing runs straight across your brow, nothing marks the width.",
       "Rectangle - a heavy flat brow and tall squared lens openings. The least apologetic option: it does not soften the width, it frames it.",
       "Aviator - the double bridge draws a horizontal line across the top of your face, and a wide face reads that line as balance rather than width. Cut in acetate, not wire.",
-      "Every frame is cut by hand from Italian Mazzucchelli acetate in Greece. Production time: 2 weeks from order to shipping. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect.",
+      "Every frame is cut by hand from Italian Mazzucchelli 1849 cellulose acetate in Greece. Production takes 2 weeks from approval of the 3D model, then shipping. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect.",
     ],
     specs: [
       ["Shapes", "Crown Panto, Round, Rectangle, Aviator"],
@@ -322,7 +322,10 @@ export const REF_PRODUCTS: RefProduct[] = [
       ["Measurement", "AI-Fit scan from your phone camera"],
       ["Material", "Italian Mazzucchelli acetate, milled in Milan"],
       ["Production", "Hand made in Greece"],
-      ["Lead time", "2 weeks from order to shipping"],
+      ["Bridge", "20-24 mm, built to measure"],
+      ["Temples", "145-155 mm, built to measure"],
+      ["Warranty", "10 years"],
+      ["Lead time", "2 weeks of production from 3D model approval, then shipping"],
     ],
     lensOptions: [
       { name: "Reading", priceUsd: 480, note: "Single-vision magnification to your strength. Included." },

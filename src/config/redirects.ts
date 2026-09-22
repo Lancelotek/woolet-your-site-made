@@ -44,15 +44,10 @@ export const EXACT: Record<string, string> = {
   "/en/collections/oversized-prescription-glasses": "/en/collections/extra-large-oversized-eyeglasses",
   "/en/collections/oversized-blue-light-glasses": "/en/collections/blue-light-glasses-for-wide-faces",
 
-  // Bespoke size guide: preserve the established 150 slug while visible copy states 145–172 mm.
-  ...Object.fromEntries(
-    ["en", "pl", "de", "fr", "nl", "es", "ja", "ar"].map((l) => [
-      `/${l}/blog/bespoke-eyewear-size-range-145-172mm-guide`,
-      "/en/blog/bespoke-eyewear-size-range-150-172mm-guide",
-    ]),
-  ),
-  "/blog/bespoke-eyewear-size-range-150-172mm-guide": "/en/blog/bespoke-eyewear-size-range-150-172mm-guide",
-  "/blog/bespoke-eyewear-size-range-145-172mm-guide": "/en/blog/bespoke-eyewear-size-range-150-172mm-guide",
+  // Bespoke size guide: the corrected 145-172 mm slug is canonical.
+  "/en/blog/bespoke-eyewear-size-range-150-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
+  "/blog/bespoke-eyewear-size-range-150-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
+  "/blog/bespoke-eyewear-size-range-145-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
 };
 
 

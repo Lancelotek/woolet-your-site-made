@@ -559,7 +559,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p><a href="/en/fit">Check your fit in 30 seconds</a></p>`,
         },
         { image: p.images[0].src, type: "product" },
-        [
+        p.model === "bespoke" ? bespokeProductJsonLd("en") : [
           {
             "@context": "https://schema.org",
             "@type": "Product",
@@ -1754,17 +1754,7 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
 <p>Choose the 007 round-panto or 009 soft-square silhouette, submit measurements from the AI Fit Scan, and we build a single frame around your exact face. <a href="/en/fit/bespoke">Start the bespoke fit scan</a>.</p>`,
       },
       { image: DEFAULT_OG, type: "website" },
-      [
-        breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/en` },
-          { name: "Bespoke", url: `${SITE_URL}/en/bespoke` },
-        ]),
-        faqPageJsonLd([
-          { q: "What face widths does Woolet Bespoke cover?", a: "Bespoke covers 145–172 mm front width, 20–24 mm bridge, and 145–155 mm temples — outside the 155–161 mm core range." },
-          { q: "How much does bespoke cost?", a: "$299 USD for the first 100 backers, $480 MSRP after. Includes measurements review, one production run, and free shipping." },
-          { q: "How long does bespoke take?", a: "About 6 weeks from confirmed measurements to shipped frame — 13 stages, hand made in the EU from Italian Mazzucchelli acetate." },
-        ]),
-      ],
+      bespokeProductJsonLd("en"),
     );
   }
 

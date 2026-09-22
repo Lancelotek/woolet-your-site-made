@@ -15,8 +15,7 @@ import craft6 from "@/assets/bespoke-craft/woolet-bespoke-mirror-polish-finish.j
 import craft7 from "@/assets/bespoke-craft/woolet-bespoke-jigsaw-cutting-acetate-front.jpg.asset.json";
 import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-bridge.jpg.asset.json";
 import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
-import { BESPOKE_PRICE, PRICE_CURRENCY, PRICE_VALID_UNTIL, RETURN_POLICY, shippingDetails } from "@/seo/commerce-schema";
-import { BESPOKE_FRONT_WIDTH_RANGE, BESPOKE_BRIDGE_RANGE } from "@/lib/bespoke-spec";
+import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_META_DESCRIPTION, bespokeFaqJsonLd, bespokeProductJsonLd } from "@/content/bespokeFacts";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
@@ -177,44 +176,7 @@ const GALLERY_LAYOUT = [
   { key: "craft6", src: craft6.url, span: "md:col-span-2", ratio: "aspect-[3/2]" },
 ];
 
-const FAQS = [
-  {
-    q: "What is bespoke eyewear?",
-    a: "Bespoke eyewear is glasses built to one person's measurements rather than picked from stock sizes. Frame width, bridge width, temple length, and lens shape are all set from the wearer's face — usually captured by a scan or in-atelier measurement. The result is a single frame that fits one person, not a size range.",
-  },
-  {
-    q: "What are bespoke glasses?",
-    a: "Bespoke glasses are eyewear made specifically for one person's face — frame width, bridge, temple length, and lens shape are all set from the wearer's measurements rather than chosen from a fixed size range. Woolet bespoke covers face widths from 145 mm to 172 mm, with a 21 mm keyhole bridge, hand-crafted in the EU from Italian Mazzucchelli acetate.",
-  },
-  {
-    q: "Do bespoke glasses work for wide faces?",
-    a: "Yes — bespoke is often the only option for wide faces. Most premium eyewear brands top out around 145–148 mm of frame width. Woolet bespoke covers 145–172 mm with a 20–24 mm bridge and temples to 155 mm, specifically for faces measuring 155 mm and above where stock frames pinch at the temples and slide down the nose.",
-  },
-  {
-    q: "Bespoke glasses vs custom glasses — what's the difference?",
-    a: "Custom glasses usually means choosing colour, engraving, or a preset variant of a stock frame. Bespoke means the frame geometry itself is cut to your measurements — front width, bridge, temple length, pantoscopic tilt. Woolet is bespoke: every frame is milled from a single block of acetate for one wearer.",
-  },
-  {
-    q: "How much do bespoke glasses cost?",
-    a: "Woolet bespoke frames are $299 for the first 100 Kickstarter backers (frame only, prescription lenses ordered separately at your local optician). Comparable atelier-made bespoke acetate frames typically retail at $900–$3,300 — E.B. Meyrowitz in London starts around $650 and can exceed $3,000 for horn or gold.",
-  },
-  {
-    q: "Can you really get glasses custom made to my face?",
-    a: "Yes. We use an AI face scan (taken from your phone) that captures face width, bridge width, temple-to-temple distance, and ear position. The atelier translates those measurements into a frame cut from a single block of Italian acetate. Total lead time is roughly 8–10 weeks.",
-  },
-  {
-    q: "Who should choose bespoke over the stock Woolet widths?",
-    a: "Stock Woolet comes in three frame widths — 158 mm — with a 21–22 mm keyhole bridge. If your ideal frame width falls outside that stock range (below 155 mm or above 161 mm), bespoke covers the full 145–172 mm spectrum. The /en/fit scan tells you which path applies in 90 seconds.",
-  },
-  {
-    q: "Where are Woolet bespoke frames made?",
-    a: "Hand-crafted by a small atelier in the EU using Mazzucchelli acetate from Milan, Italy. Each frame is cut, milled, and polished by hand — not CNC-finished — which is what allows the sub-millimeter custom dimensions.",
-  },
-  {
-    q: "Can I get prescription, blue-light, or polarized lenses?",
-    a: "Yes. The bespoke frame ships ready for any lens type — single vision, progressive, blue-light filter, or polarized sun (Cat 3). Lenses are fitted by your local optician using the standard PD and prescription details.",
-  },
-];
+const FAQS = BESPOKE_FAQS;
 
 const BespokePage = () => {
   const { lang: paramLang } = useParams();
@@ -274,41 +236,8 @@ const BespokePage = () => {
   }, [lightbox, closeLightbox, showPrev, showNext]);
 
   const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Woolet Bespoke Eyewear",
-      serviceType: "Custom prescription eyewear",
-      provider: {
-        "@type": "Organization",
-        name: "Woolet",
-        url: "https://woolet.co",
-      },
-      areaServed: "Worldwide",
-      description:
-        "Bespoke (made-to-measure) acetate eyewear for face widths 145–172 mm. Italian Mazzucchelli acetate, 21 mm keyhole bridge, built from your AI face scan.",
-      offers: {
-        "@type": "Offer",
-        price: BESPOKE_PRICE,
-        priceCurrency: PRICE_CURRENCY,
-        priceValidUntil: PRICE_VALID_UNTIL,
-        availability: "https://schema.org/PreOrder",
-        itemCondition: "https://schema.org/NewCondition",
-        url: "https://woolet.co/en/bespoke",
-        seller: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
-        hasMerchantReturnPolicy: RETURN_POLICY,
-        shippingDetails: shippingDetails(true),
-      },
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: FAQS.map((f) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-    },
+    bespokeProductJsonLd(),
+    bespokeFaqJsonLd(),
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -346,9 +275,9 @@ const BespokePage = () => {
   return (
     <>
       <SEO
-        title={lang === "de" ? "Maßanfertigung für breite Gesichter 145-172 mm | Woolet" : `Bespoke Glasses for Wide Faces — ${BESPOKE_FRONT_WIDTH_RANGE} | Woolet`}
-        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : `Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand made in Greece (EU) from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
-        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : `Bespoke glasses for wide faces, ${BESPOKE_FRONT_WIDTH_RANGE}. Hand made in Greece (EU) from Italian Mazzucchelli acetate. $299 for the first 100 backers.`}
+        title={lang === "de" ? "Maßanfertigung für breite Gesichter 145-172 mm | Woolet" : "Woolet Bespoke - Made-to-Measure Glasses"}
+        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
+        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
         lang={lang}
         path="/bespoke"
 
@@ -367,18 +296,16 @@ const BespokePage = () => {
             <div>
               <div className="woolet-eyebrow mb-5">
                 <div className="woolet-eyebrow-line" />
-                <span className="woolet-eyebrow-text">BESPOKE · {BESPOKE_FRONT_WIDTH_RANGE.toUpperCase()}</span>
+                 <span className="woolet-eyebrow-text">BESPOKE · {BESPOKE_FACTS.frontWidth.toUpperCase()}</span>
               </div>
               <h1
                 className="font-display text-woolet-white leading-[0.95] mb-6"
                 style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", fontWeight: 300 }}
               >
-                Bespoke eyewear. <em className="italic text-gold-light">Made to your face.</em>
+                 {BESPOKE_FACTS.h1}
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
-                Custom glasses cut from a single block of Italian Mazzucchelli acetate, hand-crafted in the EU from your AI face scan.
-                Frame widths from <span className="text-foreground">{BESPOKE_FRONT_WIDTH_RANGE}</span>, {BESPOKE_BRIDGE_RANGE} bridge, temples to 155 mm,
-                ready for any lens — prescription, progressive, blue-light, photochromic, or polarized sun.
+                 Woolet Bespoke is made-to-measure eyewear in any front width from {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in Greece (EU) for $480 USD including prescription lenses and free worldwide shipping.
               </p>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
                 Photochromic lenses, often called transition lenses, darken outdoors and clear inside — see{" "}
@@ -389,7 +316,7 @@ const BespokePage = () => {
 
               <div ref={heroCtaRef} className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
                 <Link
-                  to="/en/bespoke/configurator"
+                   to="/en/fit/bespoke"
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                   style={{
                     background: "hsl(var(--gold))",
@@ -400,7 +327,7 @@ const BespokePage = () => {
                     padding: "18px 32px",
                   }}
                 >
-                  Start your build →
+                   Start the bespoke fit scan
                 </Link>
               </div>
             </div>
@@ -415,7 +342,7 @@ const BespokePage = () => {
                 }}
               >
                 {/* Clarity: people tap the hero image — make it a way in. */}
-                <Link to="/en/bespoke/configurator" aria-label="Start your bespoke build" className="block w-full h-full">
+                 <div className="block w-full h-full">
                   <img
                     src={bespokeHero.url}
                     alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
@@ -423,7 +350,7 @@ const BespokePage = () => {
                     fetchPriority="high"
                     className="w-full h-full object-cover"
                   />
-                </Link>
+                 </div>
               </div>
             </div>
           </div>

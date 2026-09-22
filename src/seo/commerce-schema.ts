@@ -26,7 +26,7 @@ export const SHIP_COUNTRIES = [
 /** Canonical pricing (USD) — checkout charges USD in every locale. */
 export const LIST_PRICE = "190.00";      // regular price, shown struck through
 export const SALE_PRICE = "114.00";      // current pre-order price actually charged
-export const BESPOKE_PRICE = "299.00";   // bespoke pre-order price
+export const BESPOKE_PRICE = "480.00";   // regular Woolet Bespoke price
 export const BESPOKE_LIST_PRICE = "480.00";
 export const PRICE_CURRENCY = "USD";
 export const PRICE_VALID_UNTIL = "2027-12-31";

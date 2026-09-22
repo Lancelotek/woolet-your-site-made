@@ -31,6 +31,7 @@ import { useAuth } from "@/lib/auth-context";
 import { BESPOKE_PURCHASED_KEY } from "@/components/bespoke/ResumeBuildBar";
 import { readSessionRef } from "@/lib/scan-session-ref";
 import BespokeCaseHero from "@/components/BespokeCaseHero";
+import { BESPOKE_DISCOVERY_SOURCES, type BespokeDiscoverySource } from "@/content/bespokeFacts";
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
@@ -82,6 +83,11 @@ export default function BespokeCheckout() {
   const [couponInput, setCouponInput] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
+  const [source, setSource] = useState<BespokeDiscoverySource | "">(() => {
+    try { return (localStorage.getItem("wlt_bespoke_source") as BespokeDiscoverySource | null) ?? ""; }
+    catch { return ""; }
+  });
+  const [sourceError, setSourceError] = useState(false);
   const couponPercent = appliedCoupon ? COUPONS[appliedCoupon] ?? 0 : 0;
   useEffect(() => {
     const refresh = () => {
@@ -134,6 +140,7 @@ export default function BespokeCheckout() {
     ai_preview_url: (aiPreviewUrl ?? fallbackPreviewUrl ?? "").slice(0, 500),
     // Pseudonymous link back to the fit scan. Carries no personal detail.
     scan_session_ref: readSessionRef() ?? "",
+    source,
   };
 
   // --- Analytics: shared payload builders ------------------------------------
@@ -261,6 +268,10 @@ export default function BespokeCheckout() {
   }, [buildEventPayload]);
 
   const fetchClientSecret = useCallback(async (): Promise<string> => {
+    if (!source) {
+      setSourceError(true);
+      throw new Error("Choose how you found Woolet before continuing");
+    }
     // --- Analytics: Payment initiated (fires when Stripe requests secret) ---
     pushGtmEvent("payment_initiated", buildEventPayload());
     clarityEvent("bespoke_payment_initiated");
@@ -289,7 +300,7 @@ export default function BespokeCheckout() {
     }
     return data.clientSecret as string;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pricing.totalEur, productName, description, returnUrl, buildEventPayload, appliedCoupon]);
+  }, [pricing.totalEur, productName, description, returnUrl, buildEventPayload, appliedCoupon, source]);
 
   return (
     <>
@@ -352,11 +363,40 @@ export default function BespokeCheckout() {
                   </ul>
                 </div>
 
-                <div className="bg-white text-[#0B0A09] overflow-hidden" style={{ borderRadius: 4 }}>
-                  <EmbeddedCheckoutProvider key={appliedCoupon ?? "no-coupon"} stripe={getStripe()} options={{ fetchClientSecret }}>
-                    <EmbeddedCheckout />
-                  </EmbeddedCheckoutProvider>
+                <div className="mb-6 border border-cream/15 p-5" style={{ borderRadius: 4 }}>
+                  <label htmlFor="bespoke-source" className="block text-[11px] uppercase tracking-[0.2em] text-cream mb-2">
+                    How did you find Woolet? <span className="text-gold-light">*</span>
+                  </label>
+                  <select
+                    id="bespoke-source"
+                    required
+                    value={source}
+                    onChange={(event) => {
+                      const next = event.target.value as BespokeDiscoverySource | "";
+                      setSource(next);
+                      setSourceError(false);
+                      try { if (next) localStorage.setItem("wlt_bespoke_source", next); }
+                      catch { /* storage can be blocked */ }
+                    }}
+                    className="min-h-[48px] w-full border border-cream/20 bg-background px-3 text-sm text-cream outline-none focus:border-gold"
+                  >
+                    <option value="">Select one</option>
+                    {BESPOKE_DISCOVERY_SOURCES.map((option) => <option key={option} value={option}>{option}</option>)}
+                  </select>
+                  {sourceError && <p className="mt-2 text-sm text-red-300">Choose one option to continue.</p>}
                 </div>
+
+                {source ? (
+                  <div className="bg-white text-[#0B0A09] overflow-hidden" style={{ borderRadius: 4 }}>
+                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}`} stripe={getStripe()} options={{ fetchClientSecret }}>
+                      <EmbeddedCheckout />
+                    </EmbeddedCheckoutProvider>
+                  </div>
+                ) : (
+                  <button type="button" onClick={() => { setSourceError(true); document.getElementById("bespoke-source")?.focus(); }} className="min-h-[56px] w-full bg-gold text-background text-xs uppercase tracking-[0.2em]">
+                    Choose source to continue
+                  </button>
+                )}
 
                 {/* Guarantee block */}
                 <div
