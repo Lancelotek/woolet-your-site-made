@@ -290,9 +290,9 @@ async function main() {
       `<link rel="canonical" href="https://woolet.co/en" data-seo="prerender" />`,
       `<meta name="robots" content="noindex, follow" data-seo="prerender" />`,
       `<meta property="og:url" content="https://woolet.co/en" data-seo="prerender" />`,
-      `<meta property="og:title" content="Woolet — Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
+      `<meta property="og:title" content="Woolet - Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
       `<meta property="og:description" content="Premium frames engineered for wide faces (155 mm+). Mazzucchelli acetate, hand made in EU." data-seo="prerender" />`,
-      `<meta name="twitter:title" content="Woolet — Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
+      `<meta name="twitter:title" content="Woolet - Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
       `<meta name="twitter:description" content="Premium frames engineered for wide faces (155 mm+). Mazzucchelli acetate, hand made in EU." data-seo="prerender" />`,
     ].join("\n    ");
     fallback = fallback.replace("</head>", `    ${softHead}\n    <!-- fallback: soft-404 + root redirect -->\n  </head>`);

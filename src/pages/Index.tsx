@@ -28,68 +28,68 @@ const HERO_SIZES = "(min-width: 1024px) 48vw, 100vw";
 
 const seoData: Record<Lang, { title: string; description: string; ogDescription: string }> = {
   en: {
-    title: "Woolet — Mazzucchelli Acetate Eyewear for Wide Faces (155 mm+)",
+    title: "Woolet - Mazzucchelli Acetate Eyewear for Wide Faces (155 mm+)",
     description:
       "Too wide for Ray-Ban or Warby Parker? Woolet glasses finally fit. Mazzucchelli acetate, hand made in the EU. Pre-order for $114 (40% off).",
     ogDescription:
-      "Woolet — Mazzucchelli acetate eyewear for wide faces (155–161 mm). Hand made in the EU. Pre-order for $114 and save 40%.",
+      "Woolet - Mazzucchelli acetate eyewear for wide faces (155–161 mm). Hand made in the EU. Pre-order for $114 and save 40%.",
 
   },
   pl: {
-    title: "Woolet — Oprawy z octanu Mazzucchelli dla szerokich twarzy (155 mm+)",
+    title: "Woolet - Oprawy z octanu Mazzucchelli dla szerokich twarzy (155 mm+)",
     description:
       "Za szeroka twarz na Ray-Ban czy Warby Parker? Oprawy Woolet wreszcie pasują. Octan Mazzucchelli, ręcznie w UE. Pre-order za $114 (40% zniżki).",
     ogDescription:
-      "Woolet — oprawy z octanu Mazzucchelli dla szerokich twarzy (155–161 mm). Ręcznie w UE. Pre-order za $114 z 40% rabatem.",
+      "Woolet - oprawy z octanu Mazzucchelli dla szerokich twarzy (155–161 mm). Ręcznie w UE. Pre-order za $114 z 40% rabatem.",
   },
   fr: {
-    title: "Woolet — Montures en acétate Mazzucchelli pour visages larges (155 mm+)",
+    title: "Woolet - Montures en acétate Mazzucchelli pour visages larges (155 mm+)",
     description:
       "Trop large pour Ray-Ban ou Warby Parker ? Les montures Woolet s'ajustent enfin. Acétate Mazzucchelli, fabriqué à la main dans l'UE. Précommande à $114 (-40%).",
     ogDescription:
-      "Woolet — montures en acétate Mazzucchelli pour visages larges (155–161 mm). Fabriquées à la main dans l'UE. Précommande à $114 (-40%).",
+      "Woolet - montures en acétate Mazzucchelli pour visages larges (155–161 mm). Fabriquées à la main dans l'UE. Précommande à $114 (-40%).",
   },
   es: {
-    title: "Woolet — Monturas de acetato Mazzucchelli para caras anchas (155 mm+)",
+    title: "Woolet - Monturas de acetato Mazzucchelli para caras anchas (155 mm+)",
     description:
       "¿Demasiado ancho para Ray-Ban o Warby Parker? Las monturas Woolet por fin encajan. Acetato Mazzucchelli, hecho a mano en la UE. Reserva por $114 (40% off).",
     ogDescription:
-      "Woolet — monturas de acetato Mazzucchelli para caras anchas (155–161 mm). Hechas a mano en la UE. Reserva por $114 (40% de descuento).",
+      "Woolet - monturas de acetato Mazzucchelli para caras anchas (155–161 mm). Hechas a mano en la UE. Reserva por $114 (40% de descuento).",
   },
   de: {
-    title: "Woolet — Brillen aus Mazzucchelli-Acetat für breite Gesichter (ab 155 mm)",
+    title: "Woolet - Brillen aus Mazzucchelli-Acetat für breite Gesichter (ab 155 mm)",
     description:
       "Zu breit für Ray-Ban oder Warby Parker? Woolet-Brillen passen endlich. Mazzucchelli-Acetat, handgefertigt in der EU. Vorbestellen für $114 (40% Rabatt).",
     ogDescription:
-      "Woolet — Brillen aus Mazzucchelli-Acetat für breite Gesichter (155–161 mm). Handgefertigt in der EU. Vorbestellen für $114 (40% Rabatt).",
+      "Woolet - Brillen aus Mazzucchelli-Acetat für breite Gesichter (155–161 mm). Handgefertigt in der EU. Vorbestellen für $114 (40% Rabatt).",
   },
   ar: {
-    title: "Woolet — نظارات أسيتات Mazzucchelli للوجوه العريضة (155 ملم+)",
+    title: "Woolet - نظارات أسيتات Mazzucchelli للوجوه العريضة (155 ملم+)",
     description:
       "وجهك عريض على Ray-Ban أو Warby Parker؟ نظارات Woolet تناسبك أخيراً. أسيتات Mazzucchelli، صناعة يدوية في الاتحاد الأوروبي. احجز مسبقاً بـ $114 (خصم 40%).",
     ogDescription:
-      "Woolet — نظارات أسيتات Mazzucchelli للوجوه العريضة (155–161 ملم). صناعة يدوية في الاتحاد الأوروبي. احجز مسبقاً بـ $114 (خصم 40%).",
+      "Woolet - نظارات أسيتات Mazzucchelli للوجوه العريضة (155–161 ملم). صناعة يدوية في الاتحاد الأوروبي. احجز مسبقاً بـ $114 (خصم 40%).",
   },
   ja: {
-    title: "Woolet — 幅広い顔のためのMazzucchelliアセテートアイウェア (155mm以上)",
+    title: "Woolet - 幅広い顔のためのMazzucchelliアセテートアイウェア (155mm以上)",
     description:
       "Ray-BanやWarby Parkerが幅広すぎ？ Wooletメガネがついにフィット。Mazzucchelliアセテート、EUで手作り。$114で先行予約（40%オフ）。",
     ogDescription:
-      "Woolet — 幅広い顔のためのMazzucchelliアセテートアイウェア (155–161mm)。EUで手作り。$114で先行予約（40%オフ）。",
+      "Woolet - 幅広い顔のためのMazzucchelliアセテートアイウェア (155–161mm)。EUで手作り。$114で先行予約（40%オフ）。",
   },
   nl: {
-    title: "Woolet — Mazzucchelli-acetaatmonturen voor brede gezichten (155 mm+)",
+    title: "Woolet - Mazzucchelli-acetaatmonturen voor brede gezichten (155 mm+)",
     description:
       "Te breed voor Ray-Ban of Warby Parker? Woolet-monturen passen eindelijk. Mazzucchelli-acetaat, handgemaakt in de EU. Pre-order voor $114 (40% korting).",
     ogDescription:
-      "Woolet — Mazzucchelli-acetaatbrillen voor brede gezichten (155–161 mm). Handgemaakt in de EU. Pre-order voor $114 (40% korting).",
+      "Woolet - Mazzucchelli-acetaatbrillen voor brede gezichten (155–161 mm). Handgemaakt in de EU. Pre-order voor $114 (40% korting).",
   },
   ko: {
-    title: "Woolet — 대두 안경테, 마주켈리 아세테이트 (155mm+)",
+    title: "Woolet - 대두 안경테, 마주켈리 아세테이트 (155mm+)",
     description:
       "레이밴이나 와비파커가 좁게 느껴지나요? Woolet 프레임은 마침내 맞습니다. 이탈리아 마주켈리 아세테이트, EU 수제 제작. $114 선주문 (40% 할인).",
     ogDescription:
-      "Woolet — 대두 안경테, 마주켈리 아세테이트 (155–161mm). EU 수제 제작. $114 선주문 (40% 할인).",
+      "Woolet - 대두 안경테, 마주켈리 아세테이트 (155–161mm). EU 수제 제작. $114 선주문 (40% 할인).",
   },
 };
 
