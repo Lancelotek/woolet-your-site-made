@@ -559,7 +559,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p><a href="/en/fit">Check your fit in 30 seconds</a></p>`,
         },
         { image: p.images[0].src, type: "product" },
-        p.model === "bespoke" ? bespokeProductJsonLd("en") : [
+         p.model === "bespoke" ? [bespokeProductJsonLd("en")] : [
           {
             "@context": "https://schema.org",
             "@type": "Product",
@@ -1754,7 +1754,7 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
 <p>Choose the 007 round-panto or 009 soft-square silhouette, submit measurements from the AI Fit Scan, and we build a single frame around your exact face. <a href="/en/fit/bespoke">Start the bespoke fit scan</a>.</p>`,
       },
       { image: DEFAULT_OG, type: "website" },
-      bespokeProductJsonLd("en"),
+       [bespokeProductJsonLd("en")],
     );
   }
 

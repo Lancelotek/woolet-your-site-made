@@ -412,26 +412,21 @@ async function tagMailerLiteFoundingMember(
   sessionId: string,
   recommendedSku?: string,
   paidSource?: string,
+  paidMeta: Record<string, string> = {},
 ) {
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
   try {
-    // Only stamp paid_source when the subscriber has none yet (same
-    // "first wins" pattern as started_1usd_checkout).
-    let setPaidSource = Boolean(paidSource);
-    if (paidSource) {
+    for (const name of ["paid_source", "paid_utm_content", "paid_gclid"]) {
       try {
-        const lookup = await fetch(
-          `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`,
-          { headers: { Authorization: `Bearer ${apiKey}` } },
-        );
-        if (lookup.ok) {
-          const json = await lookup.json();
-          const v = json?.data?.fields?.paid_source;
-          if (typeof v === "string" && v.trim()) setPaidSource = false;
-        }
+        const field = await fetch("https://connect.mailerlite.com/api/fields", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+          body: JSON.stringify({ name, type: "text" }),
+        });
+        if (!field.ok && field.status !== 422) console.error("[mailerlite] field ensure failed", name, field.status);
       } catch (e) {
-        console.error("[mailerlite] paid_source lookup failed", e);
+        console.error("[mailerlite] field ensure failed", name, e);
       }
     }
     const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
@@ -446,7 +441,9 @@ async function tagMailerLiteFoundingMember(
         fields: {
           ...(recommendedSku ? { recommended_sku: recommendedSku } : {}),
           paid_ref: sessionId,
-          ...(setPaidSource && paidSource ? { paid_source: paidSource } : {}),
+          paid_source: paidSource ?? "direct",
+          paid_utm_content: paidMeta.lt_utm_content ?? "",
+          paid_gclid: paidMeta.lt_gclid || paidMeta.lt_gbraid || paidMeta.lt_wbraid || "",
           // Exit condition for the abandoned-checkout recovery sequence.
           paid_1usd: mlDate(),
           usd1_recovery_url: "",
@@ -740,7 +737,13 @@ async function resolvePaidSource(
     return { paidSource: ref.startsWith("ml-") ? ref : "payment_link", metadata: meta };
   }
 
-  return { paidSource: meta.utm_source || "direct", metadata: meta };
+  // Last-touch fields take precedence; older checkout UTM fields remain the
+  // fallback for payments created before last-touch capture was added.
+  const clickId = meta.lt_gclid || meta.lt_gbraid || meta.lt_wbraid;
+  const source = meta.lt_utm_source || meta.utm_source || (clickId ? "google" : "direct");
+  const medium = meta.lt_utm_medium || meta.utm_medium || (!meta.lt_utm_source && !meta.utm_source && clickId ? "cpc" : "");
+  const campaign = meta.lt_utm_campaign || meta.utm_campaign || (!meta.lt_utm_source && !meta.utm_source && clickId ? "(gclid)" : "");
+  return { paidSource: [source, medium, campaign].filter(Boolean).join("/"), metadata: meta };
 }
 
 async function handleCheckoutCompleted(session: any, env: StripeEnv) {
@@ -797,7 +800,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     throw error;
   }
 
-  await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined, paidSource);
+  await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined, paidSource, resolvedMeta);
 
   try {
     const amountCents = session.amount_total ?? 100;

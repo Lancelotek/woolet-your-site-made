@@ -13,6 +13,50 @@
  */
 
 const STORAGE_KEY = "woolet_attribution";
+const LAST_TOUCH_KEY = "wlt_last_touch";
+const LAST_TOUCH_MAX_AGE = 30 * 24 * 60 * 60 * 1000;
+const LAST_TOUCH_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "gbraid", "wbraid", "fbclid"] as const;
+
+/** One campaign landing, kept together. Never mix parameters from separate visits. */
+export function captureLastTouch(): void {
+  if (typeof window === "undefined") return;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const values: Record<string, string> = {};
+    for (const key of LAST_TOUCH_KEYS) {
+      const value = params.get(key);
+      if (value) values[key] = value.slice(0, 500);
+    }
+    if (Object.keys(values).length) {
+      window.localStorage.setItem(LAST_TOUCH_KEY, JSON.stringify({ ...values, touch_at: new Date().toISOString() }));
+    }
+  } catch { /* storage blocked */ }
+}
+
+export function getLastTouchCheckoutMetadata(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  try {
+    // Capture the checkout URL too, even if the route effect has not run yet.
+    captureLastTouch();
+    const raw = window.localStorage.getItem(LAST_TOUCH_KEY);
+    if (!raw) return {};
+    const data: unknown = JSON.parse(raw);
+    if (!data || typeof data !== "object") return {};
+    const touch = data as Record<string, unknown>;
+    const at = typeof touch.touch_at === "string" ? Date.parse(touch.touch_at) : NaN;
+    if (!Number.isFinite(at) || at > Date.now() || Date.now() - at > LAST_TOUCH_MAX_AGE) {
+      window.localStorage.removeItem(LAST_TOUCH_KEY);
+      return {};
+    }
+    const metadata: Record<string, string> = { lt_touch_at: touch.touch_at as string };
+    for (const key of LAST_TOUCH_KEYS) {
+      if (key === "fbclid") continue; // stored for attribution, not sent as checkout metadata
+      const value = touch[key];
+      if (typeof value === "string" && value) metadata[`lt_${key}`] = value.slice(0, 500);
+    }
+    return metadata;
+  } catch { return {}; }
+}
 
 // Keys where FIRST touch wins (never overwrite once set).
 const UTM_KEYS = [
@@ -78,6 +122,7 @@ function writeStored(data: Attribution): void {
  */
 export function captureAttribution(): void {
   if (typeof window === "undefined") return;
+  captureLastTouch();
 
   const stored = { ...readStored(), ...memoryAttribution };
   const next: Attribution = { ...stored };

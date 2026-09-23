@@ -5,7 +5,7 @@ import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { buildPurchaseAttribution, trackInitiateCheckoutOnce } from "@/lib/meta-capi";
-import { getAttribution } from "@/lib/attribution";
+import { getAttribution, getLastTouchCheckoutMetadata } from "@/lib/attribution";
 import { pushGtmEvent } from "@/lib/gtm";
 import { claritySet } from "@/lib/clarity";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
@@ -94,7 +94,7 @@ export default function Reserve() {
   }, [touch]);
 
   const createSession = useCallback((): Promise<string> => {
-    const merged = { ...metadata, ...buildPurchaseAttribution() };
+    const merged = { ...metadata, ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata() };
     return supabase.functions
       .invoke("create-checkout", {
         body: {

@@ -342,7 +342,7 @@ const BespokePage = () => {
                 }}
               >
                 {/* Clarity: people tap the hero image — make it a way in. */}
-                 <div className="block w-full h-full">
+                  <Link to="/en/bespoke/configurator" aria-label="Start your bespoke build" className="block w-full h-full">
                   <img
                     src={bespokeHero.url}
                     alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
@@ -350,7 +350,7 @@ const BespokePage = () => {
                     fetchPriority="high"
                     className="w-full h-full object-cover"
                   />
-                 </div>
+                  </Link>
               </div>
             </div>
           </div>
@@ -487,10 +487,10 @@ const BespokePage = () => {
               Bespoke eyewear, <em className="italic text-gold-light">defined properly.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
-              Bespoke eyewear means the frame geometry itself — front width, bridge, temple length, pantoscopic tilt — is cut to one wearer's measurements. It is not a colour swap, not a preset variant, not a larger lens on the same stock front. A frame is bespoke only when no two are the same.
+              Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145-172 mm, bridges from 20-24 mm and temples from 145-155 mm. The finished frame is made for one wearer.
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-              Traditional bespoke ateliers — E.B. Meyrowitz in London, Tom Davies, a handful of independent workshops — measure in person and price frames from $650 to over $3,300. Woolet keeps the same hand-made process and Italian Mazzucchelli acetate, but replaces the studio visit with a 90-second AI face scan taken on your phone. Same category, one-tenth the price.
+              The regular price is $480 USD with prescription lenses and free worldwide shipping. $299 is a Kickstarter backer price only during the campaign, not a Woolet shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
             </p>
           </div>
         </section>
@@ -513,7 +513,7 @@ const BespokePage = () => {
               The only bespoke glasses <em className="italic text-gold-light">built around wide faces.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              Most bespoke workshops treat wide-face wearers as edge cases: they can go wider than stock, but the geometry is scaled up from a narrow-face pattern. Woolet is built the other way round. Every pattern — stock and bespoke — starts at 155 mm and works outward. Bespoke covers 145 to 172 mm of front width, with 20–24 mm bridges and temples up to 155 mm. If your face measures 155 mm or more temple-to-temple, this is the size range designed for you.
+              Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145-172 mm, whether narrower, wider or inside the stock band.
             </p>
 
             <div
@@ -524,9 +524,9 @@ const BespokePage = () => {
                 { label: "Frame width range", woolet: "145–172 mm", stock: "138–148 mm typical" },
                 { label: "Bridge width range", woolet: "20–24 mm keyhole", stock: "18–20 mm fixed" },
                 { label: "Temple length", woolet: "up to 155 mm", stock: "140–145 mm standard" },
-                { label: "Measurement method", woolet: "AI face scan (90 s)", stock: "In-atelier or none" },
-                { label: "Price", woolet: "$299 Kickstarter", stock: "$650–3,300 atelier" },
-                { label: "Made in", woolet: "EU · Italian acetate", stock: "Varies" },
+                { label: "Measurement method", woolet: "Phone-camera scan and model approval", stock: "Fixed dimensions" },
+                { label: "Regular price", woolet: "$480 USD, prescription lenses included", stock: "See stock product pages" },
+                { label: "Made in", woolet: "Greece (EU), Italian acetate", stock: "EU" },
               ].map((row, i) => (
                 <div
                   key={row.label}
@@ -581,7 +581,7 @@ const BespokePage = () => {
                   padding: "16px 28px",
                 }}
               >
-                Build yours · {BESPOKE_FRONT_WIDTH_RANGE} →
+                 Build yours · {BESPOKE_FACTS.frontWidth} →
               </Link>
               <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
                 Not sure of your width? Take the 90-second scan
@@ -606,12 +606,12 @@ const BespokePage = () => {
               Bespoke without the <em className="italic text-gold-light">atelier visit.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              Traditional bespoke requires a studio appointment — often only available in London, Paris, or Tokyo. Our AI face scan captures the same measurements a bench optician takes with calipers, in 90 seconds, from any modern phone. Face width, bridge width, temple-to-temple, ear position, pantoscopic angle. Sub-millimeter precision, calibrated against a credit card held to the face for scale.
+              A phone-camera scan starts the remote measurement process. We review the dimensions with you before cutting the frame, and you approve the made-to-measure 3D model before production.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {[
-                { n: "±0.5 mm", t: "Measurement precision", d: "Verified against optician calipers across 400+ test scans." },
-                { n: "90 s", t: "Scan time", d: "One take on your phone. No app to install." },
+                { n: "145-172 mm", t: "Front width", d: "A continuous made-to-measure range." },
+                { n: "4", t: "Shapes", d: "Aviator, Rectangle, Crown Panto and Round." },
                 { n: "$0", t: "Consultation cost", d: "No studio visit, no travel, no measurement fee." },
               ].map((s) => (
                 <div key={s.t} className="border-t pt-5" style={{ borderTopColor: "hsl(var(--gold) / 0.3)" }}>
@@ -638,7 +638,7 @@ const BespokePage = () => {
               Who bespoke is <em className="italic text-gold-light">actually for</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.95rem" }}>
-              Most wide-face wearers fit the stock Woolet range — three frame widths (158 mm) with a 21–22 mm keyhole bridge, engineered for faces around 155 mm and above. Bespoke exists for the people the stock range cannot serve: anyone whose ideal frame width sits below 155 mm or above 161 mm, covering 145–172 mm in total.
+              Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145-172 mm, including narrower faces and customers seeking a one-of-one frame.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
               {[
@@ -667,50 +667,20 @@ const BespokePage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">THE PROCESS · 8–10 WEEKS</span>
+              <span className="woolet-eyebrow-text">THE SIX-STEP PROCESS</span>
             </div>
             <h2
               className="font-display text-woolet-white mb-10"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              Four steps from your face to a finished frame.
+              Six steps from your scan to a finished frame.
             </h2>
             <ol className="space-y-8">
-              {[
-                {
-                  n: "01",
-                  t: "AI face scan",
-                  d: "Take a 90-second scan from your phone. We capture face width, bridge, temple-to-temple, and ear position to sub-millimeter precision.",
-                },
-                {
-                  n: "02",
-                  t: "Frame design",
-                  d: "Pick a shape — round/panto (007) or soft square (009). We translate your measurements into a CAD drawing and send it back for approval.",
-                },
-                {
-                  n: "03",
-                  t: "European atelier",
-                  d: "The frame is cut, milled, and hand-polished from a single block of Mazzucchelli acetate from Milan. No CNC finishing — each piece is shaped by hand.",
-                },
-                {
-                  n: "04",
-                  t: "Shipped to you",
-                  d: "Frame arrives ready for lenses. Take it to your local optician with your prescription, PD, and preferred lens type (clear, blue-light, polarized, or progressive).",
-                },
-              ].map((s) => (
-                <li key={s.n} className="grid grid-cols-[auto_1fr] gap-6 sm:gap-10">
-                  <span
-                    className="font-display text-gold-light"
-                    style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}
-                  >
-                    {s.n}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>
-                      {s.t}
-                    </h3>
-                    <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>{s.d}</p>
-                  </div>
+              {BESPOKE_FACTS.process.map((step, i) => (
+                <li key={step} className="grid grid-cols-[auto_1fr] gap-6 sm:gap-10">
+                  <span className="font-display text-gold-light" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>{String(i + 1).padStart(2, "0")}</span>
+                  <div><h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>{step}</h3>
+                  {i === 3 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Production takes 2 weeks after 3D model approval, then shipping begins.</p>}</div>
                 </li>
               ))}
             </ol>
@@ -726,10 +696,10 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              <em className="italic text-gold-light">Mazzucchelli</em> acetate. Hand made in EU.
+              <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in Greece (EU).
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-              Every bespoke frame uses Mazzucchelli acetate from Milan — the same material used by Cutler &amp; Gross, Jacques Marie Mage, and most premium Italian houses. It is denser and heavier than TR90 thermoplastic, but it can be heat-adjusted by any optician for ongoing fit corrections. That post-purchase adjustability is the difference between a frame that fits for a week and one that fits for a decade.
+              The frame is hand made in Greece (EU) from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes prescription lenses, free worldwide shipping and a 10-year warranty.
             </p>
           </div>
         </section>
