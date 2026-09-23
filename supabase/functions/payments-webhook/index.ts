@@ -168,12 +168,23 @@ async function tagMailerLiteBespokePaid(input: {
   sessionId: string;
   orderId: string | null;
   summary: string;
+  lensTint: string;
   caseNo: string | null;
   bookingUrl: string | null;
 }) {
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
   try {
+    try {
+      const field = await fetch("https://connect.mailerlite.com/api/fields", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+        body: JSON.stringify({ name: "bespoke_lens_tint", type: "text" }),
+      });
+      if (!field.ok && field.status !== 422) console.error("[mailerlite:bespoke] field ensure failed", field.status);
+    } catch (e) {
+      console.error("[mailerlite:bespoke] field ensure failed", e);
+    }
     const onboardingUrl =
       `https://woolet.co/en/bespoke/measurements?sid=${encodeURIComponent(input.sessionId)}` +
       `&utm_source=ml&utm_medium=email&utm_campaign=bespoke_onboarding`;
@@ -195,6 +206,7 @@ async function tagMailerLiteBespokePaid(input: {
           bespoke_booking_url: input.bookingUrl ?? "",
           bespoke_onboarding_url: onboardingUrl,
           bespoke_order_summary: input.summary,
+          bespoke_lens_tint: input.lensTint,
           bespoke_paid_at: mlDate(),
         },
       }),
@@ -542,6 +554,7 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         temple_code: meta.temple ?? null,
         finish_id: meta.finish ?? null,
         lens_type: meta.lens_type ?? null,
+        lens_tint_code: /^(PH-(BRN|GRN|GRY)|SUN-(GRY|BRN|G15|BGR))$/.test(meta.lens_tint ?? "") ? meta.lens_tint : null,
         reading_strength_mode: meta.reading_strength_mode || null,
         reading_strength: meta.reading_strength || null,
         reading_strength_left: meta.reading_strength_left || null,
@@ -601,6 +614,7 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         orderId,
         caseNo,
         bookingUrl,
+        lensTint: meta.lens_type?.match(/(?:^| - | · )([^()]+ \((?:PH|SUN)-[A-Z0-9]+\))$/)?.[1]?.trim() ?? "",
         summary: [
           meta.frame_name ?? (meta.frame ? `Woolet Bespoke — ${meta.frame}` : "Woolet Bespoke"),
           `${meta.front ?? "—"}, ${meta.finish ?? "—"} finish`,
@@ -649,7 +663,7 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     const db = getSupabase();
     const { data: order } = await db
       .from("bespoke_orders")
-      .select("id, frame_name, front_code, temple_code, finish_id, ai_preview_path")
+      .select("id, frame_name, front_code, temple_code, finish_id, lens_type, lens_tint_code, ai_preview_path")
       .eq("stripe_session_id", session.id)
       .maybeSingle();
     if (order && !(order as any).ai_preview_path) {

@@ -11,6 +11,7 @@ export type WorkshopReportData = {
   templeCode?: string | null;
   finishId?: string | null;
   lensType?: string | null;
+  lensTint?: string | null;
   engravingText?: string | null;
   amountLabel?: string | null;
   customerRef?: string | null;
@@ -170,6 +171,7 @@ async function buildWorkshopDoc(data: WorkshopReportData) {
     ["Temple acetate", data.templeCode || "—"],
     ["Finish", data.finishId || "—"],
     ["Lenses", data.lensType || "—"],
+    ["Lens colour", data.lensTint || "—"],
     ["Engraving", data.engravingText ? `"${data.engravingText}"` : "None"],
     ["Temple length requested", data.requestedTempleLength || "—"],
     ["Order value", data.amountLabel || "—"],

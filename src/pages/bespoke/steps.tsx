@@ -15,9 +15,12 @@ import {
   FINISHES,
   LENS_TINTS,
   LENS_TINT_NOTE,
+  SUN_TINTS,
+  SUN_TINT_NOTE,
   LENS_TYPES,
   READING_STRENGTHS,
   findLensTint,
+  findSunTint,
   MEASUREMENT_RANGES,
   TEMPLE_LENGTHS,
   TEMPLE_LENGTH_CUSTOM_RANGE,
@@ -31,6 +34,8 @@ import {
   formatEur,
   formatAddOn,
   formatLensWithStrength,
+  selectedLensTint,
+  lensTintCode,
   isReadingStrengthComplete,
 } from "@/lib/bespoke-state";
 import { claritySet } from "@/lib/clarity";
@@ -282,9 +287,10 @@ export const buildPreviewKey = (
   finishId: string | null | undefined,
   /** Optional lens variant. Plano keeps the base key so the clear render is reused. */
   lensId?: string | null,
+  tintCode?: string | null,
 ) =>
   [frameId, frontId, templeId, finishId].join("|") +
-  (lensId && lensId !== "plano" ? `|${lensId}` : "");
+  (lensId && lensId !== "plano" ? `|${lensId}${tintCode ? `|${tintCode}` : ""}` : "");
 
 // Renders are large base64 data URLs, so localStorage can refuse them. The
 // in-memory mirror keeps the current session's renders available to every
@@ -382,7 +388,7 @@ export function AiPreviewPanel({
   const lens = includeLens ? LENS_TYPES.find((l) => l.id === config.lensTypeId) : undefined;
 
   // Recompute a stable key so a new selection invalidates the previous render.
-  const selectionKey = buildPreviewKey(frame?.id, front?.id, temple?.id, finish?.id, lens?.id);
+  const selectionKey = buildPreviewKey(frame?.id, front?.id, temple?.id, finish?.id, lens?.id, lens ? lensTintCode(config) : null);
   const [history, setHistory] = useState<PreviewHistory>(() => loadPreviewHistory());
   const currentList = history[selectionKey] ?? [];
   const [activeUrl, setActiveUrl] = useState<string | null>(currentList[0]?.url ?? null);
@@ -472,6 +478,7 @@ export function AiPreviewPanel({
           bridgeMm: frame.bridgeMm,
           lensType: lens?.id ?? null,
           lensName: lens?.name ?? null,
+          lensTint: lens ? lensTintCode(config) : null,
         },
 
       });
@@ -580,7 +587,7 @@ export function AiPreviewPanel({
         <span className="text-cream">{finish.name}</span>
         {lens && (
           <>
-            {" "}· Lenses: <span className="text-cream">{lens.name}</span>
+            {" "}· Lenses: <span className="text-cream">{formatLensWithStrength(lens.name, config)}</span>
           </>
         )}
       </p>
@@ -1697,14 +1704,16 @@ const READING_MODES = [
 ] as const;
 
 function LensTintPanel({ config, update }: StepProps) {
-  const selected = findLensTint(config.lensTintId);
+  const sun = config.lensTypeId === "sun-uv400";
+  const tints = sun ? SUN_TINTS : LENS_TINTS;
+  const selected = sun ? findSunTint(config.lensTintId) : findLensTint(config.lensTintId);
   return (
     <div className="rounded-[14px] border border-cream/10 bg-background/40 p-5 animate-in fade-in slide-in-from-top-2 duration-300">
       <div className={labelClass}>Lens colour</div>
-      <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2 max-w-xl">{LENS_TINT_NOTE}</p>
+      <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2 max-w-xl">{sun ? SUN_TINT_NOTE : LENS_TINT_NOTE}</p>
 
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {LENS_TINTS.map((t) => {
+        {tints.map((t) => {
           const active = config.lensTintId === t.id;
           return (
             <button
@@ -1722,7 +1731,7 @@ function LensTintPanel({ config, update }: StepProps) {
               <div className="relative w-full aspect-[5/1] bg-white">
                 <img
                   src={t.image}
-                  alt={`${t.name} photochromic lens on a Woolet frame, shown from clear to fully darkened`}
+                  alt={sun ? `${t.name} sun lens on a Woolet frame` : `${t.name} photochromic lens on a Woolet frame, shown from clear to fully darkened`}
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-contain"
                 />
@@ -1885,7 +1894,8 @@ export function StepLenses({ config, update }: StepProps) {
                   update("lensTypeId", l.id);
                   update("lensMaterialId", null);
                   update("lensCoatingId", null);
-                  if (l.id !== "photochromic") update("lensTintId", null);
+                  if (l.id === "sun-uv400") update("lensTintId", config.lensTypeId === "sun-uv400" && findSunTint(config.lensTintId) ? config.lensTintId : "grey");
+                  else if (l.id !== "photochromic" || config.lensTypeId === "sun-uv400") update("lensTintId", null);
                   if (l.id !== "reading") {
                     update("readingStrengthMode", null);
                     update("readingStrength", null);
@@ -1924,7 +1934,7 @@ export function StepLenses({ config, update }: StepProps) {
       </div>
 
       {config.lensTypeId === "reading" && <ReadingStrengthPanel config={config} update={update} />}
-      {config.lensTypeId === "photochromic" && <LensTintPanel config={config} update={update} />}
+      {(config.lensTypeId === "photochromic" || config.lensTypeId === "sun-uv400") && <LensTintPanel config={config} update={update} />}
 
       <div>
         <div className={labelClass}>Your frame with these lenses</div>
@@ -1965,7 +1975,7 @@ export function StepReview({
   // Show the AI render the buyer generated (lens variant first, clear frame as
   // fallback) instead of the technical line drawing.
   const reviewBaseKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
-  const reviewLensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId);
+  const reviewLensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId, lensTintCode(config));
   const [renderUrl, setRenderUrl] = useState<string | null>(
     () => getLatestPreviewUrl(reviewLensKey) ?? getLatestPreviewUrl(reviewBaseKey),
   );
@@ -2021,7 +2031,7 @@ export function StepReview({
         <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "None"} />
         <Row
           label="Lenses"
-          value={lens ? `${formatLensWithStrength(lens.name, config)} · ${formatAddOn(lens.priceEur)}` : null}
+          value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)} · {formatAddOn(lens.priceEur)}</span> : null}
         />
         <Row label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
         <div className="flex items-baseline justify-between gap-4 py-4">

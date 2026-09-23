@@ -40,6 +40,7 @@ interface Row {
   temple_code: string | null;
   finish_id: string | null;
   lens_type: string | null;
+  lens_tint_code: string | null;
   reading_strength_mode: string | null;
   reading_strength: string | null;
   reading_strength_left: string | null;
@@ -118,6 +119,7 @@ export default function BespokeAdmin() {
   const [detail, setDetail] = useState<Detail | null>(null);
   const [detailBusy, setDetailBusy] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
+  const [tintFilter, setTintFilter] = useState("all");
   // The filter survives a reload: the console is usually reopened to carry on
   // with the same batch of orders.
   const [stageFilter, setStageFilter] = useState<number | "all">(() => {
@@ -143,10 +145,11 @@ export default function BespokeAdmin() {
     }
   }, [stageFilter]);
 
-  const visibleRows =
+  const stageRows =
     stageFilter === "all"
       ? rows
       : rows.filter((r) => crmStageOf(r as unknown as Record<string, unknown>) === stageFilter);
+  const visibleRows = tintFilter === "all" ? stageRows : stageRows.filter((r) => r.lens_tint_code === tintFilter);
 
   // Keeps the row, the open detail view and the exports on the same numbers
   // after a stage moves — no reload needed.
@@ -287,6 +290,7 @@ export default function BespokeAdmin() {
       templeCode: s(o.temple_code),
       finishId: s(o.finish_id),
       lensType: lensWithStrength(o as Record<string, any>),
+      lensTint: s(o.lens_tint_code) ? (s(o.lens_type)?.match(/([^()]+ \((?:SUN|PH)-[A-Z0-9]+\))$/)?.[1]?.trim() ?? s(o.lens_tint_code)) : null,
       engravingText: s(o.engraving_text),
       amountLabel: fmtAmount(o.amount_cents as number | null, o.currency as string | null),
       customerRef: s(o.customer_email),
@@ -487,12 +491,21 @@ export default function BespokeAdmin() {
           value={stageFilter}
           onChange={setStageFilter}
         />
+        <label style={{ display: "inline-flex", alignItems: "center", gap: 8, margin: "12px 0 18px", color: T.dim, fontSize: 12 }}>
+          Lens colour
+          <select aria-label="Filter by lens colour" value={tintFilter} onChange={(e) => setTintFilter(e.target.value)} style={{ background: T.panel, color: T.ink, border: `1px solid ${T.hair}`, padding: "8px 10px", borderRadius: 2 }}>
+            <option value="all">All colours</option>
+            {Array.from(new Set(rows.map((r) => r.lens_tint_code).filter((code): code is string => Boolean(code)))).sort().map((code) => (
+              <option key={code} value={code}>{code}</option>
+            ))}
+          </select>
+        </label>
 
         <div style={{ border: `1px solid ${T.hair}`, borderRadius: 3, overflowX: "auto", background: T.panel }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ color: T.mute, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase" }}>
-                {["Date", "Customer", "Country", "Discovery source", "Frame", "Paid", "Stage", "Status", ""].map((h) => (
+                {["Date", "Customer", "Country", "Discovery source", "Frame", "Lenses", "Paid", "Stage", "Status", ""].map((h) => (
                   <th key={h} style={{ textAlign: "left", padding: "12px 14px", borderBottom: `1px solid ${T.hair}`, fontWeight: 500 }}>{h}</th>
                 ))}
               </tr>
@@ -515,6 +528,7 @@ export default function BespokeAdmin() {
                   </td>
                   <td style={{ padding: "12px 14px", color: r.source ? T.dim : T.mute }}>{r.source || "Not provided"}</td>
                   <td style={{ padding: "12px 14px", color: T.dim }}>{r.frame_name || "—"}</td>
+                  <td style={{ padding: "12px 14px", color: T.dim, minWidth: 180 }}>{lensWithStrength(r as Record<string, any>) || "—"}</td>
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
                   <td style={{ padding: "12px 14px" }}>
                     <StageCell
@@ -857,6 +871,7 @@ function DetailView({
         <Field label="Temple acetate" value={o.temple_code} />
         <Field label="Finish" value={o.finish_id} />
         <Field label="Lenses" value={lensWithStrength(o as Record<string, any>)} />
+        <Field label="Lens colour code" value={o.lens_tint_code} />
         {needsReadingStrength(o as Record<string, any>) && (
           <div
             className="inline-flex items-center px-2 py-1 text-[11px] uppercase tracking-[0.14em]"

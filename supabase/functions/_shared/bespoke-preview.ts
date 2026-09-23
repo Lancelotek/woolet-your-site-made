@@ -21,6 +21,8 @@ export interface PreviewSpec {
   frontCode?: string | null;
   templeCode?: string | null;
   finish?: string | null;
+  lensType?: string | null;
+  lensTintCode?: string | null;
 }
 
 function buildPrompt(spec: PreviewSpec): string {
@@ -39,7 +41,11 @@ function buildPrompt(spec: PreviewSpec): string {
     `Frame front cut from Italian Mazzucchelli acetate in "${spec.frontCode || "dark tortoise"}",`,
     `temples in acetate "${spec.templeCode || spec.frontCode || "dark tortoise"}".`,
     `Finish: ${spec.finish || "shiny hand-polished"}.`,
-    `Clear neutral demo lenses, correctly seated hinges and rivets, hand-polished acetate edge detail,`,
+    spec.lensTintCode?.startsWith("SUN-")
+      ? `UV400 sun lenses in ${({ "SUN-GRY": "solid smoke grey", "SUN-BRN": "solid espresso brown", "SUN-G15": "solid G-15 green", "SUN-BGR": "brown gradient, dark on top fading to light brown at the bottom" } as Record<string, string>)[spec.lensTintCode] ?? "smoke grey"}, visibly tinted on both lenses; correctly seated hinges and rivets, hand-polished acetate edge detail,`
+      : spec.lensTintCode?.startsWith("PH-")
+        ? `Partially activated photochromic lenses in ${({ "PH-BRN": "espresso brown", "PH-GRN": "bottle green", "PH-GRY": "graphite grey" } as Record<string, string>)[spec.lensTintCode] ?? "grey"}; correctly seated hinges and rivets, hand-polished acetate edge detail,`
+        : `Clear neutral demo lenses, correctly seated hinges and rivets, hand-polished acetate edge detail,`,
     `high-key professional product photography on a clean warm off-white seamless background, controlled softbox reflections, precise translucent acetate refraction and a crisp natural contact shadow,`,
     `three-quarter front angle with the complete frame and both temples legible, no face, no model, no branding, no text, no logos,`,
     `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
@@ -94,7 +100,7 @@ async function generatePngBytes(spec: PreviewSpec): Promise<Uint8Array> {
  */
 export async function generateOrderPreview(
   db: Db,
-  order: { id: string; frame_name?: string | null; front_code?: string | null; temple_code?: string | null; finish_id?: string | null },
+  order: { id: string; frame_name?: string | null; front_code?: string | null; temple_code?: string | null; finish_id?: string | null; lens_type?: string | null; lens_tint_code?: string | null },
 ): Promise<string | null> {
   try {
     const bytes = await generatePngBytes({
@@ -102,6 +108,8 @@ export async function generateOrderPreview(
       frontCode: order.front_code,
       templeCode: order.temple_code,
       finish: order.finish_id,
+      lensType: order.lens_type,
+      lensTintCode: order.lens_tint_code,
     });
     const path = `previews/${order.id}.png`;
     const { error: upErr } = await db.storage
