@@ -4,10 +4,10 @@ import { INITIAL_CONFIG, isStepComplete, lensOrderValue, lensTintCode, selectedL
 
 describe("Bespoke sun lens colours", () => {
   it("keeps stable production codes and distinct swatches", () => {
-    expect(SUN_TINTS.map((t) => t.code)).toEqual(["SUN-GRY", "SUN-BRN", "SUN-G15", "SUN-BGR"]);
-    expect(new Set(SUN_TINTS.map((t) => t.image)).size).toBe(4);
-    expect(findSunTint("brown-gradient")?.hex).toContain("linear-gradient");
-    expect(SUN_TINT_NOTE).toContain("category 2-3");
+    expect(SUN_TINTS.map((t) => t.code)).toEqual(["SUN-GRY", "SUN-BRN", "SUN-G15"]);
+    expect(new Set(SUN_TINTS.map((t) => t.image)).size).toBe(3);
+    expect(SUN_TINT_NOTE).toContain("category 3");
+    expect(findSunTint("brown-gradient")).toBeUndefined();
   });
 
   it("requires a sun tint and includes its name and code in the order", () => {
