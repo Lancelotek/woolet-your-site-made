@@ -177,7 +177,7 @@ export async function exportShippingXlsx(orders: Order[]) {
     ["On hold", { formula: `COUNTIF(${statusRange},"On hold")` }],
     ["Shipped", { formula: `COUNTIF(${statusRange},"Shipped")` }],
     ["Delivered", { formula: `COUNTIF(${statusRange},"Delivered")` }],
-    ["Total declared value", { formula: `SUM(Shipping!$V$2:$V$${lastRow})` }],
+    ["Total declared value", { formula: `SUM(Shipping!$W$2:$W$${lastRow})` }],
     ["Missing a phone number", { formula: `COUNTIF(Shipping!$F$2:$F$${lastRow},"MISSING")` }],
     ["Missing a city", { formula: `COUNTIF(Shipping!$I$2:$I$${lastRow},"MISSING")` }],
     ["Addresses not confirmed", { formula: `COUNTIF(Shipping!$M$2:$M$${lastRow},"no")` }],
