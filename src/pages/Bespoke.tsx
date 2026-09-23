@@ -581,7 +581,7 @@ const BespokePage = () => {
                   padding: "16px 28px",
                 }}
               >
-                Build yours · {BESPOKE_FRONT_WIDTH_RANGE} →
+                 Build yours · {BESPOKE_FACTS.frontWidth} →
               </Link>
               <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
                 Not sure of your width? Take the 90-second scan
