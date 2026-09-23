@@ -350,7 +350,7 @@ const BespokePage = () => {
                     fetchPriority="high"
                     className="w-full h-full object-cover"
                   />
-                 </div>
+                  </Link>
               </div>
             </div>
           </div>
@@ -545,7 +545,7 @@ const BespokePage = () => {
                     >
                       {row.label}
                     </div>
-                  </Link>
+                  </div>
                   <div
                     className="px-5 py-4 border-t"
                     style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
