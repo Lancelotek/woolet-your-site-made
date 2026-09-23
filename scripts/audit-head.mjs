@@ -75,6 +75,8 @@ const routeMetaByFile = new Map(); // file -> { route, lang, title, description 
 const DUPLICATE_ALLOW_LIST = [
   // Locale root aliases of the same page.
   ["/en", "/"],
+  // Bespoke PDP canonicalizes to /en/bespoke (same facts, intentional twin).
+  ["/en/bespoke", "/en/products/bespoke"],
 ];
 
 const isAllowedDuplicate = (routes) =>
