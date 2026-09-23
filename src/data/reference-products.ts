@@ -3,6 +3,7 @@
  * Read-only product cards for creator platforms (Influee, Billo, Grin, TikTok Shop briefs).
  * No cart, no checkout. Every image is a public file under https://woolet.co/frames/.
  */
+import { BESPOKE_FACTS } from "@/content/bespokeFacts";
 
 export type RefImage = { src: string; alt: string; caption: string };
 
@@ -304,15 +305,15 @@ export const REF_PRODUCTS: RefProduct[] = [
     shortName: "Bespoke",
     colour: "Any Mazzucchelli colour",
     colourDot: "#CAA449",
-    priceUsd: 480,
-    tagline: "Four shapes, any width 145-172 mm. Hand made in Greece (EU). Prescription lenses and worldwide shipping included at $480 USD.",
+    priceUsd: BESPOKE_FACTS.regularPrice,
+    tagline: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}. ${BESPOKE_FACTS.origin}. Standard prescription lenses and worldwide shipping included at ${BESPOKE_FACTS.regularPriceLabel}. Specialty upgrades cost extra.`,
     intro: "The signature frames are 158 mm and fit faces from 155 to 161 mm. When you sit outside that - narrower, or wider than 161 - this is the one built to your numbers instead of to a size chart. An AI-Fit measurement reads your temple-to-temple width, bridge and temple length, and the frame is cut to those figures.",
     body: [
       "Crown Panto - a straight brow line gives you the structure of a rectangle across the top, then the lens curves away underneath. This is a separate Bespoke design from the standard Woolet 007.",
       "Round - fully circular lenses, a keyhole bridge, no horizontal line anywhere. Because nothing runs straight across your brow, nothing marks the width.",
       "Rectangle - a heavy flat brow and tall squared lens openings. The least apologetic option: it does not soften the width, it frames it.",
       "Aviator - the double bridge draws a horizontal line across the top of your face, and a wide face reads that line as balance rather than width. Cut in acetate, not wire.",
-      "Every frame is cut by hand from Italian Mazzucchelli 1849 cellulose acetate in Greece. Production takes 2 weeks from approval of the 3D model, then shipping. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect.",
+      `Every frame is cut by hand from ${BESPOKE_FACTS.material} in Greece. Production takes ${BESPOKE_FACTS.leadTime}. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect.`,
     ],
     specs: [
       ["Shapes", "Aviator, Rectangle, Crown Panto, Round"],
@@ -320,12 +321,12 @@ export const REF_PRODUCTS: RefProduct[] = [
       ["Colours", "Full Mazzucchelli range - 60 colour and size combinations"],
       ["Lenses", "Standard prescription lenses included; specialty upgrades such as photochromic and progressive cost extra in the configurator"],
       ["Measurement", "AI-Fit scan from your phone camera"],
-      ["Material", "Italian Mazzucchelli 1849 cellulose acetate"],
-      ["Production", "Hand made in Greece"],
-      ["Bridge", "20-24 mm, built to measure"],
-      ["Temples", "145-155 mm, built to measure"],
-      ["Warranty", "10 years"],
-      ["Lead time", "2 weeks of production from 3D model approval, then shipping"],
+      ["Material", BESPOKE_FACTS.material],
+      ["Production", BESPOKE_FACTS.origin],
+      ["Bridge", `${BESPOKE_FACTS.bridge}, built to measure`],
+      ["Temples", `${BESPOKE_FACTS.temples}, built to measure`],
+      ["Warranty", BESPOKE_FACTS.warranty],
+      ["Lead time", BESPOKE_FACTS.leadTime],
     ],
     lensOptions: [
       { name: "Reading", priceUsd: 480, note: "Single-vision magnification to your strength. Consult the configurator for any applicable lens upgrade price." },
@@ -345,8 +346,8 @@ export const REF_PRODUCTS: RefProduct[] = [
     included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: [],
     shopUrl: "https://shop.woolet.co/products/woolet-bespoke-custom-fit-eyewear",
-    metaTitle: "Woolet Bespoke - Made-to-measure acetate glasses, 145-172 mm",
-    metaDescription: "Four shapes, any width 145-172 mm, Italian Mazzucchelli acetate, hand made in Greece, lenses included at $480. Reference product page.",
+    metaTitle: `Woolet Bespoke - Made-to-measure acetate glasses, ${BESPOKE_FACTS.frontWidth}`,
+    metaDescription: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}, ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, standard prescription lenses included at ${BESPOKE_FACTS.regularPriceLabel}; specialty upgrades cost extra. Reference product page.`,
   },
   // ---------- The Box ----------
   {

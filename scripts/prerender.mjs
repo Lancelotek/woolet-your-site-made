@@ -224,6 +224,22 @@ async function main() {
     process.exit(failExit);
   }
 
+  // Keep both public AI summaries and their built copies synchronized with the
+  // same facts used by the landing page and its structured data.
+  const facts = mod.BESPOKE_FACTS;
+  if (facts) {
+    const block = `<!-- BESPOKE_FACTS_START -->\n## Woolet Bespoke - canonical facts\n\n- ${facts.name}: front width ${facts.frontWidth}, bridge ${facts.bridge}, temples ${facts.temples}.\n- Four Bespoke shapes: ${facts.shapes.join(", ")}. Standard 007 and 009 are separate 158 mm designs for 155-161 mm faces.\n- Regular Woolet price: ${facts.regularPriceLabel}, standard prescription lenses and ${facts.shipping.toLowerCase()} included. Specialty lens upgrades such as photochromic and progressive are paid add-ons.\n- ${facts.kickstarterLabel} at ${facts.kickstarterPath} - not a Woolet shop offer.\n- ${facts.material}; ${facts.origin.toLowerCase()}. Production: ${facts.leadTime}. Warranty: ${facts.warranty}.\n- Process: ${facts.process.join("; ")}.\n- Source of truth: https://woolet.co/en/bespoke\n<!-- BESPOKE_FACTS_END -->`;
+    for (const name of ["llms.txt", "llms-full.txt"]) {
+      const source = resolve(ROOT, "public", name);
+      let text = await readFile(source, "utf8");
+      text = /<!-- BESPOKE_FACTS_START -->[\s\S]*?<!-- BESPOKE_FACTS_END -->/.test(text)
+        ? text.replace(/<!-- BESPOKE_FACTS_START -->[\s\S]*?<!-- BESPOKE_FACTS_END -->/, block)
+        : `${text.trimEnd()}\n\n${block}\n`;
+      await writeFile(source, text, "utf8");
+      await writeFile(resolve(DIST, name), text, "utf8");
+    }
+  }
+
   const template = await readFile(resolve(DIST, "index.html"), "utf8");
   const routes = getAllRoutes();
   console.log(`[prerender] rendering ${routes.length} routes…`);

@@ -13,16 +13,16 @@ const SIZE_ROWS: Array<{
   pathLabel: string;
   note: string;
 }> = [
-  { width: "145–154 mm", bridge: "20–22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
-  { width: "155–161 mm", bridge: "21–22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front — the signature fit" },
-  { width: "162–172 mm", bridge: "22–24 mm", path: "bespoke", pathLabel: "Bespoke", note: "Above the signature front" },
-  { width: "Above 172 mm", bridge: "—", path: "bespoke", pathLabel: "Not built", note: "Wider than we build" },
+  { width: "145-154 mm", bridge: "20-22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
+  { width: "155-161 mm", bridge: "21-22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front - the signature fit" },
+  { width: "162-172 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke", note: "Above the signature front" },
+  { width: "Above 172 mm", bridge: "-", path: "bespoke", pathLabel: "Not built", note: "Wider than we build" },
 ];
 
 const FAQS = [
   {
     q: "How do I know if I need bespoke instead of stock?",
-    a: "Run the AI Fit Scan. If it returns a face width between 155 and 161 mm with a 21–22 mm bridge, stock Woolet 007 or 009 will fit. Below 155 mm, above 161 mm, or any bridge outside 21–22 mm — bespoke is the only path that fits cleanly.",
+    a: "Run the AI Fit Scan. If it returns a face width between 155 and 161 mm with a 21-22 mm bridge, stock Woolet 007 or 009 may fit. Below 155 mm, above 161 mm, or with a bridge outside 21-22 mm, Bespoke may be a better fit within its available range.",
   },
   {
     q: "What does bespoke actually control?",
@@ -38,7 +38,7 @@ const FAQS = [
   },
   {
     q: "Do I need to visit a fitter in person?",
-    a: "No. The entire process runs from the fit scan on your phone. The atelier receives digitized measurements plus a CAD approval — no in-person fitting needed.",
+    a: "No. The process runs from the fit scan on your phone. The atelier receives digitized measurements and your approval of the 3D model - no in-person fitting needed.",
   },
   {
     q: "What if it doesn't fit when it arrives?",
@@ -194,8 +194,8 @@ export default function FitBespoke() {
 
             <p className="text-cream-dim leading-relaxed mt-8 max-w-2xl" style={{ fontSize: "0.85rem" }}>
               "Face width" is the total horizontal width of the frame (lens + bridge + lens + hinge allowance),
-              not just lens width. Bespoke covers everything the signature 158 mm can't — 145–154 mm below and
-              162–172 mm above. Wider than 172 mm we do not build.
+               not just lens width. Bespoke covers widths outside the signature 158 mm fit - 145-154 mm below and
+               162-172 mm above. Wider than 172 mm we do not build.
             </p>
           </div>
         </section>
@@ -220,12 +220,12 @@ export default function FitBespoke() {
                 },
                 {
                   title: "Bespoke wins",
-                  body: "Face outside 155–161 mm or bridge outside 21–22 mm. Asymmetric ears. Unusual pantoscopic tilt. Stock can't fit. See why our bespoke glasses for wide faces are the right path.",
+                  body: `Face outside 155-161 mm or bridge outside 21-22 mm. Asymmetric ears. Unusual pantoscopic tilt. Bespoke covers ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.bridge} bridge and ${BESPOKE_FACTS.temples} temples.`,
                   cta: { label: "Bespoke glasses for wide faces", to: "/en/bespoke#bespoke-glasses-for-wide-faces" },
                 },
                 {
                   title: "Not sure",
-                  body: "Run the 90-second AI Fit Scan. It returns your face width and bridge, then routes you to stock or bespoke automatically.",
+                  body: "Run the AI Fit Scan. It returns your face width and bridge, then routes you to stock or bespoke automatically.",
                   cta: { label: "Start AI Fit Scan", to: "/en/fit" },
                 },
               ].map((c) => (
@@ -324,7 +324,7 @@ export default function FitBespoke() {
               className="text-cream-dim leading-relaxed max-w-2xl mb-8"
               style={{ fontSize: "1rem" }}
             >
-              See how Woolet defines bespoke eyewear and why our 145–172 mm range is made for faces standard brands ignore.
+              See how Woolet defines bespoke eyewear and why our {BESPOKE_FACTS.frontWidth} range is made for faces standard brands ignore.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link

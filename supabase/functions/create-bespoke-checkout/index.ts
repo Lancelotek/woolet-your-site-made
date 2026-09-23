@@ -25,6 +25,11 @@ const COUPONS: Record<string, { percentOff: number }> = {
   MAREK: { percentOff: 100 },
 };
 
+const DISCOVERY_SOURCES = new Set([
+  "ChatGPT", "Other AI assistant (Perplexity, Gemini, Claude)", "Google", "Instagram",
+  "TikTok", "Facebook", "Friend", "Other",
+]);
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") {
@@ -65,6 +70,9 @@ Deno.serve(async (req) => {
       for (const [k, v] of Object.entries(body.metadata)) {
         if (typeof v === "string" && v.length <= 500) cleanMeta[k] = v;
       }
+    }
+    if (cleanMeta.source && !DISCOVERY_SOURCES.has(cleanMeta.source)) {
+      throw new Error("Invalid discovery source");
     }
 
     if (coupon) {

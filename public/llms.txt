@@ -15,7 +15,7 @@ Woolet (https://woolet.co) is an Italian Mazzucchelli acetate eyewear brand for 
 - Category: Eyewear / Optical frames / Sunglasses
 - Specialization: Wide-face frames (155 mm and above)
 - Material: Mazzucchelli acetate (Milan, Italy), hand made in EU (bespoke: hand made in Greece)
-- Bespoke lead time: 2 weeks from order to shipping.
+- Bespoke lead time: 2 weeks of production after 3D model approval, then shipping.
 - Not related to: Woolet smart wallet (2015–2017, discontinued and unrelated company)
 
 ## Products
@@ -60,7 +60,7 @@ For face widths outside the 155–161 mm core range, or for buyers who want a cu
 - Bridge: 20–24 mm (custom)
 - Lens: custom dimensions
 - Face range: any face width from 145 mm to 172 mm
-- Either shape (007 or 009)
+- Four Bespoke shapes: Aviator, Rectangle, Crown Panto, Round. The 007 and 009 are separate standard 158 mm designs.
 
 ## Pricing (USD)
 
@@ -68,7 +68,7 @@ For face widths outside the 155–161 mm core range, or for buyers who want a cu
 - Sunglasses — UV400: $210
 - Blue light: $210
 - Readers +1.00 to +3.00: $210
-- Bespoke: $480, lenses included
+- Bespoke: $480 USD with standard prescription lenses and free worldwide shipping included; specialty lens upgrades cost extra
 - Kickstarter tiers are campaign only — not the shop price.
 
 ## Target customer

@@ -1253,7 +1253,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>When none of the four shapes fits: Bespoke</h2>
 
-<p>The 007 and 009 cover the two shapes most wide faces need. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four shapes to your own face width, anywhere from 145 to 172 mm, in the same Italian Mazzucchelli acetate. Hand made in Greece, two weeks from order to shipping, $480 with lenses included.</p>
+<p>The 007 and 009 are standard 158 mm designs. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four distinct shapes to your own face width, anywhere from 145 to 172 mm, in the same Italian Mazzucchelli acetate. Hand made in Greece, with two weeks of production after 3D model approval followed by shipping. The regular $480 price includes standard prescription lenses and worldwide shipping; specialty upgrades cost extra.</p>
 
 <p><a class="blog-gold-button" href="/en/bespoke">Start a Bespoke frame</a></p>
 
@@ -2187,7 +2187,7 @@ const blogPostsEN: BlogPost[] = [
 <ul>
 <li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — line-by-line price breakdown.</li>
-<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — what your $299 actually buys.</li>
+<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> - how the frames are made.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — where the difference is real.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — 90-second check before you go bespoke.</li>
 <li><a href="/en/bespoke">Explore Woolet Bespoke</a> — custom width from 145–172 mm.</li>
@@ -4218,7 +4218,7 @@ const blogPostsPL: BlogPost[] = [
 
 <h2>Gdy żaden z czterech kształtów nie pasuje: Bespoke</h2>
 
-<p>007 i 009 pokrywają dwa kształty, których potrzebuje większość szerokich twarzy. Gdy chcesz innej geometrii - belki aviatora, pełnego koła, prostego prostokąta - Bespoke wycina jeden z czterech kształtów pod twoją szerokość twarzy, od 145 do 172 mm, z tego samego włoskiego acetatu Mazzucchelli. Ręcznie wykonane w Grecji, dwa tygodnie od zamówienia do wysyłki, 480 USD z soczewkami w cenie.</p>
+<p>007 i 009 to standardowe modele o szerokości frontu 158 mm. Gdy chcesz innej geometrii - belki aviatora, pełnego koła, prostego prostokąta - Bespoke wycina jeden z czterech odrębnych kształtów pod twoją szerokość twarzy, od 145 do 172 mm, z włoskiego acetatu Mazzucchelli. Ręcznie wykonane w Grecji; produkcja trwa dwa tygodnie od zatwierdzenia modelu 3D, a wysyłka następuje później. Regularna cena 480 USD obejmuje standardowe soczewki korekcyjne i darmową wysyłkę na cały świat; specjalne warianty soczewek są dodatkowo płatne.</p>
 
 <p><a class="blog-gold-button" href="/pl/bespoke">Zaprojektuj oprawkę Bespoke</a></p>
 `,

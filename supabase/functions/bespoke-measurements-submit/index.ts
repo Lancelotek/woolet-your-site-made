@@ -127,6 +127,12 @@ Deno.serve(async (req) => {
       "ChatGPT", "Other AI assistant (Perplexity, Gemini, Claude)", "Google", "Instagram",
       "TikTok", "Facebook", "Friend", "Other",
     ];
+    if (body.source != null && (typeof body.source !== "string" || !SOURCES.includes(body.source))) {
+      return new Response(JSON.stringify({ error: "invalid_discovery_source" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
     if (typeof body.source === "string" && SOURCES.includes(body.source)) {
       patch.source = body.source;
     }
