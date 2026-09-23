@@ -1532,7 +1532,7 @@ const blogPostsEN: BlogPost[] = [
   </thead>
   <tbody>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (stock)</td><td style="padding:8px 10px;">158</td><td style="padding:8px 10px;">Mazzucchelli acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$114–$190</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (bespoke)</td><td style="padding:8px 10px;">145–172</td><td style="padding:8px 10px;">Mazzucchelli acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$299–$480</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (bespoke)</td><td style="padding:8px 10px;">145–172</td><td style="padding:8px 10px;">Mazzucchelli acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$480</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Faded Days</td><td style="padding:8px 10px;">155–165 (as listed by the brand)</td><td style="padding:8px 10px;">TR-90</td><td style="padding:8px 10px;">No</td><td style="padding:8px 10px;">$50–$155</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">BXL Eyewear</td><td style="padding:8px 10px;">145–165 (as listed by the brand)</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$79–$125</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">SizeGlasses</td><td style="padding:8px 10px;">140–165 (as listed by the brand)</td><td style="padding:8px 10px;">TR-90 blend</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$59–$99</td></tr>
@@ -2118,9 +2118,9 @@ const blogPostsEN: BlogPost[] = [
     readTime: 9,
     tags: ["Bespoke", "Made to Measure", "Guide"],
     faq: [
-      { q: "What does made-to-measure glasses mean?", a: "Made-to-measure glasses are eyewear frames built to a single customer's face measurements — front width, bridge, temple length and tilt — rather than picked off a stock size run. The lenses are added separately by an optician." },
+      { q: "What does made-to-measure glasses mean?", a: "Made-to-measure glasses are eyewear frames built to a single customer's face measurements — front width, bridge, temple length and tilt — rather than picked off a stock size run. Woolet Bespoke includes standard prescription lenses; specialty upgrades cost extra." },
       { q: "Are made-to-measure glasses the same as bespoke?", a: "Functionally yes. 'Bespoke' is the British term, 'made-to-measure' the international one. Both describe a frame cut to a single buyer rather than a standard size grid." },
-      { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet's bespoke tier starts at $299 because the order is handled digitally and the frame is cut in our partner European atelier — no in-person fitter visits." },
+      { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet Bespoke is $480 including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra." },
       { q: "Do I need to fly somewhere to get measured?", a: "No. Woolet bespoke runs from an AI face scan on your phone. The atelier receives the digitized measurements and a CAD approval — no fitter visit required." },
       { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside Woolet's 155–161 mm stock fit band, within the 145–172 mm bespoke range, and people with an asymmetric bridge or strong temple curve that no stock size accommodates." },
     ],
@@ -2129,7 +2129,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>The plain-English definition</h2>
 
-<p>A made-to-measure frame is built to a single customer's measurements. The front width, bridge width, temple length, and pantoscopic tilt are all set to your face before the acetate is cut. The lenses are added separately by your local optician, the same way they would be for any frame.</p>
+<p>A made-to-measure frame is built to a single customer's measurements. The front width, bridge width, temple length, and pantoscopic tilt are all set to your face before the acetate is cut. Woolet Bespoke includes standard prescription lenses at $480; specialty upgrades cost extra.</p>
 
 <p>This is distinct from <em>customised</em> glasses (where you pick a colour or engraving on a stock size) and from <em>"wide fit"</em> lines (where the brand has one larger stock size, not a frame cut to you).</p>
 
@@ -2146,14 +2146,14 @@ const blogPostsEN: BlogPost[] = [
 <li><strong>CAD design.</strong> The atelier turns your measurements into a CAD file in the chosen shape (round, square, panto, aviator). You approve the renders before any material is cut.</li>
 <li><strong>Cutting.</strong> A block of Italian Mazzucchelli acetate is milled to your CAD on a 5-axis CNC. The cut takes 20–40 minutes per frame.</li>
 <li><strong>Hand finishing.</strong> The cut frame is tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling. This is what makes the difference between a CNC blank and a finished frame.</li>
-<li><strong>Delivery.</strong> The frame ships without lenses to your address. You take it to any local optician for prescription, polarized or blue-light lenses.</li>
+<li><strong>Delivery.</strong> The frame and standard prescription lenses ship to your address free worldwide. Specialty lens upgrades cost extra.</li>
 </ol>
 
 <h2>Made-to-measure vs stock — who should buy what</h2>
 
 <ul>
-<li><strong>Face width 145–158 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cover this range at $190 launch ($114 pre-order).</li>
-<li><strong>Face width &lt; 145 mm or &gt; 161 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet bespoke runs 145–172 mm.</li>
+<li><strong>Face width 155–161 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cost $190.</li>
+<li><strong>Face width 145–154 mm or 162–172 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet Bespoke runs 145–172 mm.</li>
 <li><strong>Strongly asymmetric face or unusual bridge:</strong> made-to-measure is the only path. Even a "wide fit" stock frame assumes symmetry.</li>
 <li><strong>You just want a unique frame:</strong> a customised stock frame (engraved, custom colour) is usually a better value than full bespoke unless the geometry actually requires it.</li>
 </ul>
@@ -2162,16 +2162,15 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Traditional made-to-measure ateliers — Tom Davies in London, Nakanishi in Tokyo, several Italian houses in Cadore — charge $800–$3,000 per frame. The cost reflects two in-person fitter visits, hand drafting, and bench labour at a workshop rate that hasn't shifted in two decades.</p>
 
-<p>Woolet bespoke starts at <strong>$299</strong>. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and Hand made in EU — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
+<p>Woolet Bespoke is <strong>$480 including standard prescription lenses and free worldwide shipping</strong>. Specialty upgrades cost extra. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and Hand made in EU — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
 
 <h2>The realistic timeline</h2>
 
-<p>From scan to delivery, a Woolet bespoke order takes 4–6 weeks. The breakdown:</p>
+<p>Woolet Bespoke production takes 2 weeks from your approval of the 3D model, then shipping. The steps are:</p>
 <ul>
 <li><strong>Days 1–3:</strong> CAD design and your render approval.</li>
-<li><strong>Week 2:</strong> CNC cut from your acetate block.</li>
-<li><strong>Weeks 3–4:</strong> Tumbling and hand finishing.</li>
-<li><strong>Week 5:</strong> Quality check and shipping.</li>
+<li><strong>After 3D model approval:</strong> 2 weeks of cutting, finishing and quality checks in Greece (EU).</li>
+<li><strong>After production:</strong> free worldwide shipping; transit time depends on destination.</li>
 </ul>
 
 <p>Traditional made-to-measure ateliers usually quote 8–14 weeks. The shorter cycle is the second benefit of removing the fitter visits.</p>
@@ -2182,7 +2181,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Next step</h2>
 
-<p>The fastest way to find out whether you need made-to-measure or whether stock will fit is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds, no commitment. If you already know you're outside the 155–161 mm stock range, the <a href="/en/fit/bespoke">bespoke size reference</a> shows the full 145–172 mm grid, and <a href="/en/bespoke">$299 reservations</a> are open.</p>
+<p>The fastest way to find out whether you need made-to-measure or whether stock will fit is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds, no commitment. If you already know you're outside the 155–161 mm stock range, the <a href="/en/fit/bespoke">bespoke size reference</a> shows the full 145–172 mm grid, and <a href="/en/bespoke">Woolet Bespoke</a> is $480 with standard prescription lenses and free worldwide shipping.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2191,7 +2190,7 @@ const blogPostsEN: BlogPost[] = [
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — what your $299 actually buys.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — where the difference is real.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — 90-second check before you go bespoke.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 145–172 mm.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke</a> — custom width from 145–172 mm.</li>
 </ul>
 `,
   },
@@ -2238,7 +2237,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h3>2. Made-to-measure frame + custom prescription lens (precision route)</h3>
 
-<p>The frame itself is cut to your face. Woolet's bespoke tier covers 145–172 mm of front width with a matching bridge and temple grid. The frame still ships lens-less to your local optician. Cost: $299 frame + standard lens fee.</p>
+<p>The frame itself is cut to your face. Woolet's bespoke tier covers 145–172 mm of front width with a matching bridge and temple grid. The $480 regular price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra.</p>
 
 <p>Right path if your face is below 155 mm or above 161 mm within Woolet's 145–172 mm bespoke range, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
 
@@ -2273,7 +2272,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>The frame is the part we control. Woolet 007 and 009 are designed front-out for 155 mm+ faces, both ship lens-less, and your local optician handles the prescription using the lenses they already stock. You pay $190 for a frame that fits — your optician charges you the same lens price they would for any frame.</p>
 
-<p>Next step: <a href="/en/fit">measure your face</a> · <a href="/en/products/009">view 009</a> · <a href="/en/bespoke">bespoke at $299</a>.</p>
+<p>Next step: <a href="/en/fit">measure your face</a> · <a href="/en/products/009">view 009</a> · <a href="/en/bespoke">Woolet Bespoke at $480</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2282,7 +2281,7 @@ const blogPostsEN: BlogPost[] = [
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — get the input right before ordering.</li>
 <li><a href="/en/blog/glasses-for-wide-nose-bridge-21-22mm-explained">Wide nose-bridge glasses (21–22 mm)</a> — the second axis after face width.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — your measurements in 90 seconds.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — for prescriptions outside the stock grid.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke at $480</a> — for prescriptions outside the stock grid.</li>
 </ul>
 `,
   },
@@ -2294,10 +2293,10 @@ const blogPostsEN: BlogPost[] = [
     readTime: 9,
     tags: ["Bespoke", "Pricing", "Buying Guide"],
     faq: [
-      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet's digital bespoke starts at $299 because the order is handled remotely — the frame is still milled and Hand made in EU." },
+      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet Bespoke costs $480 with standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. It is hand made in Greece (EU)." },
       { q: "How much do Tom Davies bespoke glasses cost?", a: "Tom Davies bespoke runs roughly £950–£2,500 (about $1,200–$3,200) depending on material and complexity. The price includes two in-person fitter consultations and the workshop labour, which is most of the cost." },
       { q: "Why are bespoke glasses so expensive?", a: "Most of the cost is human labour — fitter visits, CAD drafting, bench finishing — not material. The acetate block itself costs about $25–$60. Cutting it costs $40–$120 of CNC time. Everything else is people: typically 8–16 hours of skilled labour per frame at workshop rates." },
-      { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 145–158 mm stock range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." },
+      { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 155–161 mm stock fit range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." },
     ],
     content: `
 <p>Search for "bespoke glasses cost" and you'll see numbers from $300 to $15,000 quoted for what sounds like the same thing — a frame cut to your face from Italian acetate. The spread is real, and once you understand what drives it, you can pick the right tier instead of overpaying or underbuying.</p>
@@ -2316,7 +2315,7 @@ const blogPostsEN: BlogPost[] = [
     <tr style="border-bottom:1px solid #E8E4DC;">
       <td style="padding:10px 12px;">Digital bespoke</td>
       <td style="padding:10px 12px;">Woolet (145–172 mm)</td>
-      <td style="padding:10px 12px;">$299–$499</td>
+      <td style="padding:10px 12px;">$480 with standard prescription lenses</td>
     </tr>
     <tr style="border-bottom:1px solid #E8E4DC;">
       <td style="padding:10px 12px;">Independent atelier</td>
@@ -2336,7 +2335,7 @@ const blogPostsEN: BlogPost[] = [
   </tbody>
 </table>
 
-<p>Lenses are extra at every tier and are typically added by your local optician — $80–$300 for standard prescription, more for premium progressives.</p>
+<p>Traditional ateliers may quote lenses separately. Woolet Bespoke includes standard prescription lenses and free worldwide shipping at $480; specialty upgrades cost extra.</p>
 
 <h2>What you are actually paying for</h2>
 
@@ -2354,13 +2353,13 @@ const blogPostsEN: BlogPost[] = [
 
 <p>At luxury tiers, additional cost is brand margin, retail-store overhead, and premium material specifications (gold leaf, buffalo horn). The frame is not meaningfully better optically.</p>
 
-<h2>Why Woolet bespoke is $299</h2>
+<h2>Why Woolet Bespoke costs $480</h2>
 
 <p>We removed the part that dominates traditional pricing: the in-person consultations. The AI face scan captures the measurements remotely. CAD approval happens by email. The atelier — the same European workshop tradition, the same Mazzucchelli acetate, the same hand-finishing — receives a complete digital order and cuts the frame.</p>
 
 <p>The bench labour is the same. The fitter labour is not in the price because there is no fitter visit. That single change cuts the cost by roughly $500–$700 per frame.</p>
 
-<p>The $299 price is a Kickstarter price for the first 100 backers; the regular bespoke price afterward is $499, still well below traditional ateliers.</p>
+<p>The regular Woolet Bespoke price is $480 with standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. <a href="/en/lp/kickstarter">Kickstarter backer price: $299 (campaign only)</a> is not an offer on woolet.co.</p>
 
 <h2>How to decide which tier you actually need</h2>
 
@@ -2368,7 +2367,7 @@ const blogPostsEN: BlogPost[] = [
 
 <ul>
 <li><strong>Face width 155–161 mm, no special requirements:</strong> a stock wide-fit frame ($190 Woolet 007 or 009) is the right buy. Bespoke is not necessary.</li>
-<li><strong>Face width &lt;150 mm or &gt;161 mm, or asymmetric face:</strong> bespoke is necessary. Start at the $299 digital tier; only step up if the digital process can't accommodate a specific feature you need.</li>
+<li><strong>Face width &lt;150 mm or &gt;161 mm, or asymmetric face:</strong> bespoke is necessary. Choose the $480 Woolet Bespoke option; only step up if the digital process can't accommodate a specific feature you need.</li>
 <li><strong>You want a unique material (buffalo horn, real tortoise, gold inlay):</strong> traditional atelier or heritage commission is the only path. Plan on $2,000+.</li>
 <li><strong>You want the brand experience (Cartier C de Cartier, Chrome Hearts):</strong> this is fashion, not eyewear engineering. Buy on those terms and budget accordingly.</li>
 </ul>
@@ -2382,16 +2381,16 @@ const blogPostsEN: BlogPost[] = [
 <li>Italian acetate (Mazzucchelli M49 or equivalent) or a clearly named alternative material</li>
 <li>Hand-finishing — not just CNC-cut and shipped</li>
 <li>A remake guarantee if the dimensional fit is wrong on delivery</li>
-<li>Lens-free shipping so your local optician fits the prescription</li>
+<li>Clear terms for standard prescription lenses and paid specialty upgrades</li>
 </ul>
 
 <p>If any of these is missing at any price point, ask why.</p>
 
 <h2>The hidden cost most people forget</h2>
 
-<p>If you have a wide face and you've been buying stock glasses that don't quite fit, the real cost is the cycle: $200 frame, return, $250 frame, return, $300 frame, keep and tolerate. We've seen waitlist members tell us they've spent $1,500+ over five years on frames they no longer wear. At that point a single $299 bespoke frame that actually fits is the cheap option, not the expensive one.</p>
+<p>If you have a wide face and you've been buying stock glasses that don't quite fit, the real cost is the cycle: $200 frame, return, $250 frame, return, $300 frame, keep and tolerate. We've seen waitlist members tell us they've spent $1,500+ over five years on frames they no longer wear. At that point a $480 Woolet Bespoke pair with standard prescription lenses that actually fits is the cheap option, not the expensive one.</p>
 
-<p>Next step: <a href="/en/fit">measure your face</a> to find out whether you're inside or outside the 155–161 mm stock range, then either <a href="/en/products/009">009 stock at $190</a> or <a href="/en/bespoke">bespoke at $299</a>.</p>
+<p>Next step: <a href="/en/fit">measure your face</a> to find out whether you're inside or outside the 155–161 mm stock range, then either <a href="/en/products/009">009 stock at $190</a> or <a href="/en/bespoke">Woolet Bespoke at $480</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2400,7 +2399,7 @@ const blogPostsEN: BlogPost[] = [
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — where the cost comes from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — which premium is worth paying.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — confirm stock vs bespoke in 90 seconds.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 145–172 mm.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke</a> — custom width from 145–172 mm.</li>
 </ul>
 `,
   },
@@ -2482,7 +2481,7 @@ const blogPostsEN: BlogPost[] = [
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — what handwork actually changes.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — how bespoke fits into the wider market.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — start the bespoke flow from your phone.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 145–172 mm.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke</a> — custom width from 145–172 mm.</li>
 </ul>
 `,
   },
@@ -2584,7 +2583,7 @@ const blogPostsEN: BlogPost[] = [
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — why the material matters before the method.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — the price of handwork, line by line.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — see whether handmade bespoke is right for your face.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — Hand made in EU, pre-launch pricing.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke at $480</a> — Hand made in EU, pre-launch pricing.</li>
 </ul>
 `,
   },
@@ -2648,7 +2647,7 @@ const blogPostsEN: BlogPost[] = [
 <li><strong>Face width 130–145 mm:</strong> most mainstream frames fit. Front width 130–145 mm.</li>
 <li><strong>Face width 145–155 mm:</strong> look for "wide fit" lines. Front width 145–155 mm.</li>
 <li><strong>Face width 155–161 mm:</strong> specialist wide-face brands only. Front width 155–161 mm. Woolet 007 and 009 are designed exactly here at 158 mm.</li>
-<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–172 mm. Woolet bespoke covers this range at $299.</li>
+<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–172 mm. Woolet Bespoke covers this range at $480 with standard prescription lenses and free worldwide shipping.</li>
 </ul>
 
 <p>The most precise way to measure is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds with your phone and a credit card, accurate to within 2 mm.</p>
@@ -2666,7 +2665,7 @@ const blogPostsEN: BlogPost[] = [
 <ol>
 <li><a href="/en/fit">Run the Fit Scan</a> to confirm your actual face width.</li>
 <li>If you fall in the 155–161 mm bracket, <a href="/en/products/009">view Woolet 009</a> or 007 at 158 mm.</li>
-<li>If you fall outside that bracket, <a href="/en/bespoke">bespoke at $299</a> covers 145–172 mm.</li>
+<li>If you fall outside that bracket, <a href="/en/bespoke">Woolet Bespoke at $480</a> covers 145–172 mm.</li>
 </ol>
 
 <h2>Related articles</h2>
@@ -2676,7 +2675,7 @@ const blogPostsEN: BlogPost[] = [
 <li><a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head?</a> — the size grid you actually need.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — diagnose it yourself in 60 seconds.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — confirm your real face width in 90 seconds.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — when stock is genuinely too small.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke at $480</a> — when stock is genuinely too small.</li>
 </ul>
 `,
   },
@@ -2743,7 +2742,7 @@ const blogPostsEN: BlogPost[] = [
 <li>Bridge: 20–24 mm</li>
 <li>Temples: 150–158 mm</li>
 </ul>
-<p>Available at: Woolet bespoke ($299, digital scan + European atelier), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
+<p>Available at: Woolet Bespoke ($480 with standard prescription lenses, hand made in Greece), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
 
 <h2>Why "the number on the temple" is misleading</h2>
 
@@ -2766,7 +2765,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>What to do next</h2>
 
-<p>If you are unsure which bracket you sit in, <a href="/en/fit">run the AI Fit Scan</a> — it tells you the exact face width and the right bracket in 90 seconds. If you already know you are in bracket 3 (155–161 mm), <a href="/en/products/009">Woolet 009</a> ships at 158 mm with the right bridge and temple to match. For bracket 4, <a href="/en/bespoke">bespoke at $299</a> covers 145–172 mm.</p>
+<p>If you are unsure which bracket you sit in, <a href="/en/fit">run the AI Fit Scan</a> — it tells you the exact face width and the right bracket in 90 seconds. If you already know you are in bracket 3 (155–161 mm), <a href="/en/products/009">Woolet 009</a> ships at 158 mm with the right bridge and temple to match. For bracket 4, <a href="/en/bespoke">Woolet Bespoke at $480</a> covers 145–172 mm.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2775,7 +2774,7 @@ const blogPostsEN: BlogPost[] = [
 <li><a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> — diagnose it before reordering.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — every brand selling a 150 mm+ front width, compared.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — your real face width in 90 seconds.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — built for 145–172 mm faces.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke at $480</a> — built for 145–172 mm faces.</li>
 </ul>
 `,
   },
@@ -2909,7 +2908,7 @@ const blogPostsEN: BlogPost[] = [
       { q: "What size sunglasses do I need for a wide face?", a: "If your temple-to-temple measurement is 155 mm or more, you need a frame with a front width of at least 155 mm — measured hinge-to-hinge across the front. Most mainstream 'oversized' sunglasses are 138–148 mm, which is a larger lens on a standard front. Woolet's standard size is 158 mm with a 21–22 mm keyhole bridge." },
       { q: "Are oversized sunglasses the same as wide sunglasses?", a: "No. Oversized usually refers to lens area; wide refers to front width. A pair can be oversized and still narrow at the temples. For a wide face, front width is the dimension that matters." },
       { q: "Can I get polarized lenses on Woolet sunglasses?", a: "Yes. Polarized is a lens-level upgrade on both the 007 round and 009 soft-square. Standard lenses are CR-39 with UV400 protection." },
-      { q: "What if my face is wider than 161 mm?", a: "Bespoke covers 145–172 mm of front width with a 20–24 mm bridge, in the same Italian Mazzucchelli acetate. Lead time is 4–6 weeks after the standard batch." },
+      { q: "What if my face is wider than 161 mm?", a: "Bespoke covers 145–172 mm of front width with a 20–24 mm bridge, in the same Italian Mazzucchelli acetate. Production takes 2 weeks from 3D model approval, then shipping." },
     ],
     content: `
 <p>Most "oversized" sunglasses are not actually wide. They're standard frames with a larger lens — same hinge-to-hinge measurement, same temple length, same pinch by the end of the afternoon. If your face is 155 mm across or more, the problem isn't the lens. It's the front.</p>
@@ -2945,7 +2944,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>If you're between sizes</h2>
 
-<p>If your face is 145–154 mm or 162–172 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
+<p>If your face is 145–154 mm or 162–172 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. Production takes 2 weeks from 3D model approval, then shipping.</p>
 
 <h2>Quick FAQ</h2>
 
@@ -2976,7 +2975,7 @@ const blogPostsEN: BlogPost[] = [
       { q: "What styles work best on a wider face?", a: "Soft-square and rounded panto shapes both work. The deciding number is width, not shape. Avoid very small cat-eyes — the lens area gets dwarfed by the face and the frame reads as an accessory rather than eyewear." },
       { q: "Do Woolet frames come in feminine colourways?", a: "Both 007 (round) and 009 (soft square) ship in Honey tortoise, Piano black and Crystal. Bespoke opens the full Mazzucchelli colour palette, including translucent and crystal acetates often chosen by women buyers." },
       { q: "Do wide-face glasses for women come with prescription lenses?", a: "Yes. Both Woolet 007 and 009 ship prescription-ready — single-vision, progressive, and blue-light coatings. The 20–21 mm keyhole bridge is deep enough for the progressive corridor that narrow bridges cannot carry." },
-      { q: "What do premium wide-face glasses for women cost?", a: "Woolet 007 and 009 are $114 during pre-order, against a $190 launch price. Bespoke — for face widths outside the 155–161 mm standard range — is $299 during pre-order and $480 at launch." },
+      { q: "What do premium wide-face glasses for women cost?", a: "Woolet 007 and 009 are $114 during pre-order, against a $190 launch price. Bespoke is $480 including standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. $299 is a Kickstarter backer price only during the campaign." },
     ],
     content: `
 <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
