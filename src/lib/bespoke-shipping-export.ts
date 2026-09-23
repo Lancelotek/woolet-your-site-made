@@ -107,6 +107,7 @@ function rowValues(o: Order): (string | number)[] {
     s(o.currency).toUpperCase(),
     ORIGIN_LINE,
     HS_CODE,
+    s(o.courier),
     s(o.tracking_number),
     o.parcel_weight_kg == null || o.parcel_weight_kg === "" ? "" : Number(o.parcel_weight_kg),
     dateOnly(o.shipped_at),
