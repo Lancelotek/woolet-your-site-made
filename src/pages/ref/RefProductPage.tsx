@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { pushGtmEvent } from "@/lib/gtm";
 import { REF_PRODUCTS, refProductBySlug, type RefProduct, type RefImage } from "@/data/reference-products";
-import { bespokeProductJsonLd } from "@/content/bespokeFacts";
+import { BESPOKE_FACTS, bespokeProductJsonLd } from "@/content/bespokeFacts";
 
 const NotFound = lazy(() => import("@/pages/NotFound.tsx"));
 
@@ -313,7 +313,7 @@ const RefProductPage = () => {
                 <h2 style={h2}>Lens options</h2>
                 <p style={{ fontSize: 13, lineHeight: 1.6, color: T.inkMute, margin: "0 0 16px" }}>
                   {isBespoke
-                    ? "Standard prescription lenses and free worldwide shipping included at $480. Specialty lens upgrades cost extra."
+                    ? `${BESPOKE_FACTS.lenses}. ${BESPOKE_FACTS.shipping} at ${BESPOKE_FACTS.regularPriceLabel}.`
                     : "Frame with demo lens $190. Any lens that does something (sun, blue light, reading) is $210."}
                 </p>
                 <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
@@ -321,7 +321,7 @@ const RefProductPage = () => {
                     <li key={l.name} style={{ padding: "12px 0", borderBottom: `1px solid ${T.hair}` }}>
                       <div style={{ display: "flex", justifyContent: "space-between", gap: 16, alignItems: "baseline" }}>
                         <span style={{ fontSize: 14, color: T.ink }}>{l.name}</span>
-                        <span style={{ fontFamily: SERIF, fontSize: 17 }}>${l.priceUsd}</span>
+                        <span style={{ fontFamily: SERIF, fontSize: 17 }}>{isBespoke ? "See configurator" : `$${l.priceUsd}`}</span>
                       </div>
                       <div style={{ fontSize: 13, lineHeight: 1.55, color: T.inkMute, marginTop: 4 }}>{l.note}</div>
                     </li>
