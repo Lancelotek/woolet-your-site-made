@@ -724,8 +724,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     const copy: Partial<Record<Lang, Copy>> = {
       en: {
         title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
-        description:
-           BESPOKE_META_DESCRIPTION,
+         description:
+           `Explore Woolet Bespoke's four made-to-measure shapes and lens options. ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.regularPriceLabel} with standard prescription lenses and shipping.`,
         noscriptHtml: `<h1>Woolet Bespoke — Custom Acetate Glasses</h1>
  <p>${BESPOKE_FACTS.name}. ${BESPOKE_META_DESCRIPTION} ${BESPOKE_FACTS.lenses}. ${BESPOKE_FACTS.leadTime}.</p>`,
       },
