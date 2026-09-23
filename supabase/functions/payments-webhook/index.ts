@@ -737,15 +737,12 @@ async function resolvePaidSource(
     return { paidSource: ref.startsWith("ml-") ? ref : "payment_link", metadata: meta };
   }
 
-  // Keep one campaign together: never combine a last-touch source with
-  // first-touch signup medium/campaign when the later URL was only partial.
-  const hasLastTouch = ["lt_utm_source", "lt_utm_medium", "lt_utm_campaign", "lt_gclid", "lt_gbraid", "lt_wbraid"]
-    .some((key) => Boolean(meta[key]));
-  const touch = hasLastTouch ? "lt_" : "";
+  // Last-touch fields take precedence; older checkout UTM fields remain the
+  // fallback for payments created before last-touch capture was added.
   const clickId = meta.lt_gclid || meta.lt_gbraid || meta.lt_wbraid;
-  const source = meta[`${touch}utm_source`] || (clickId ? "google" : "direct");
-  const medium = meta[`${touch}utm_medium`] || (!meta[`${touch}utm_source`] && clickId ? "cpc" : "");
-  const campaign = meta[`${touch}utm_campaign`] || (!meta[`${touch}utm_source`] && clickId ? "(gclid)" : "");
+  const source = meta.lt_utm_source || meta.utm_source || (clickId ? "google" : "direct");
+  const medium = meta.lt_utm_medium || meta.utm_medium || (!meta.lt_utm_source && !meta.utm_source && clickId ? "cpc" : "");
+  const campaign = meta.lt_utm_campaign || meta.utm_campaign || (!meta.lt_utm_source && !meta.utm_source && clickId ? "(gclid)" : "");
   return { paidSource: [source, medium, campaign].filter(Boolean).join("/"), metadata: meta };
 }
 
