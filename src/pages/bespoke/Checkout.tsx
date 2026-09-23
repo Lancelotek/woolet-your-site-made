@@ -6,7 +6,7 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
-import { useBespokeConfig, computePricing, formatEur, formatLensWithStrength, lensOrderValue, lensTintCode, readingStrengthMetaValue } from "@/lib/bespoke-state";
+import { useBespokeConfig, computePricing, formatEur, formatLensWithStrength, lensOrderValue, lensTintCode, selectedLensTint, isStepComplete, readingStrengthMetaValue } from "@/lib/bespoke-state";
 import { findFrame } from "@/data/frames";
 import {
   COLORS,
@@ -61,7 +61,7 @@ export default function BespokeCheckout() {
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
   const baseKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
-  const lensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId);
+  const lensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId, lensTintCode(config));
   const previewKey = `${lensKey}::${baseKey}`;
   const resolvePreview = () => getLatestPreviewUrl(lensKey) ?? getLatestPreviewUrl(baseKey);
 
@@ -76,7 +76,7 @@ export default function BespokeCheckout() {
   };
 
   const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(resolvePreview);
-  const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => findLatestPreview(loadPreviewHistory()));
+  const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => lensTintCode(config) ? getLatestPreviewUrl(baseKey) : findLatestPreview(loadPreviewHistory()));
   const [isGenerating, setIsGenerating] = useState(false);
 
   // --- Coupon -----------------------------------------------------------
@@ -92,7 +92,7 @@ export default function BespokeCheckout() {
   useEffect(() => {
     const refresh = () => {
       setAiPreviewUrl(resolvePreview());
-      setFallbackPreviewUrl(findLatestPreview(loadPreviewHistory()));
+      setFallbackPreviewUrl(lensTintCode(config) ? getLatestPreviewUrl(baseKey) : findLatestPreview(loadPreviewHistory()));
     };
     refresh();
     window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
@@ -104,7 +104,7 @@ export default function BespokeCheckout() {
   }, [previewKey]);
 
 
-  const ready = Boolean(frame && front && temple && finish && lens && pricing.totalEur > 0);
+  const ready = Boolean(frame && front && temple && finish && lens && isStepComplete(6, config) && pricing.totalEur > 0);
 
   const productName = frame ? `Woolet Bespoke — ${frame.name}` : "Woolet Bespoke";
   const description = useMemo(() => {
@@ -558,7 +558,7 @@ export default function BespokeCheckout() {
                             : "None"
                         }
                       />
-                      <SummaryRow label="Lenses" value={lens ? formatLensWithStrength(lens.name, config) : undefined} />
+                      <SummaryRow label="Lenses" value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)}</span> : undefined} />
                       <SummaryRow label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
                     </div>
 

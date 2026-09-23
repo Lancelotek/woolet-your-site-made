@@ -363,6 +363,7 @@ export type Database = {
           interview_at: string | null
           interview_completed_at: string | null
           interview_timezone: string | null
+          lens_tint_code: string | null
           lens_type: string | null
           manual_bridge_width_mm: number | null
           manual_ear_to_ear_mm: number | null
@@ -454,6 +455,7 @@ export type Database = {
           interview_at?: string | null
           interview_completed_at?: string | null
           interview_timezone?: string | null
+          lens_tint_code?: string | null
           lens_type?: string | null
           manual_bridge_width_mm?: number | null
           manual_ear_to_ear_mm?: number | null
@@ -545,6 +547,7 @@ export type Database = {
           interview_at?: string | null
           interview_completed_at?: string | null
           interview_timezone?: string | null
+          lens_tint_code?: string | null
           lens_type?: string | null
           manual_bridge_width_mm?: number | null
           manual_ear_to_ear_mm?: number | null

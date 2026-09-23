@@ -63,6 +63,7 @@ type OrderSummary = {
   temple_code: string | null;
   finish_id: string | null;
   lens_type: string | null;
+  lens_tint_code?: string | null;
   reading_strength_mode?: string | null;
   reading_strength?: string | null;
   reading_strength_left?: string | null;
@@ -435,6 +436,7 @@ export default function BespokeMeasurements() {
         templeCode: order?.temple_code ?? null,
         finishId: order?.finish_id ?? null,
         lensType: order ? lensWithStrength(order as unknown as Record<string, any>) : null,
+        lensTint: order?.lens_tint_code ? (order.lens_type?.match(/([^()]+ \((?:SUN|PH)-[A-Z0-9]+\))$/)?.[1]?.trim() ?? order.lens_tint_code) : null,
         engravingText: order?.engraving_text ?? null,
         amountLabel: priceLabel,
         customerRef: order?.customer_email_masked ?? null,

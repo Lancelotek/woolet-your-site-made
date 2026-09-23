@@ -43,3 +43,8 @@
 - [x] Include last touch in every $1 reservation checkout metadata
 - [x] Resolve payment source from last touch and overwrite MailerLite paid fields
 - [x] Verify checkout paths, webhook behavior and tests without changing UI
+
+## Bespoke sun lens colours
+- [ ] Add four swatches and shared tint state, picker, preview and checkout
+- [ ] Persist/backfill tint code and show in CRM, workshop, shipping and emails
+- [ ] Deploy changed functions and verify order flow

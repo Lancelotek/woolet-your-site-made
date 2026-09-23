@@ -25,6 +25,7 @@ interface Body {
   bridgeMm?: number;      // reference bridge width
   lensType?: string | null; // "plano" | "sun-uv400" | "photochromic" | "blue-light" | "reading"
   lensName?: string | null;
+  lensTint?: string | null;
 }
 
 // The finish is the single most visible material property in the render, and
@@ -53,8 +54,26 @@ const LENS_DESCRIPTIONS: Record<string, string> = {
     "Lenses: solid tinted sun lenses in a deep neutral grey-brown, clearly darker than the frame, with a crisp specular highlight across the lens surface and the temple only faintly visible through them.",
 };
 
-const lensInstruction = (lensType?: string | null, lensName?: string | null): string => {
+const SUN_LENS_TINTS: Record<string, string> = {
+  "SUN-GRY": "solid deep smoke grey (#2d2f31)",
+  "SUN-BRN": "solid deep espresso brown (#3e2616)",
+  "SUN-G15": "solid classic G-15 green (#2f3b2c)",
+  "SUN-BGR": "brown gradient, dark espresso brown (#3a2616) at the top fading vertically to light brown (#c9b39a) at the bottom",
+};
+const PHOTO_LENS_TINTS: Record<string, string> = {
+  "PH-BRN": "espresso brown",
+  "PH-GRN": "bottle green",
+  "PH-GRY": "graphite grey",
+};
+
+const lensInstruction = (lensType?: string | null, lensName?: string | null, lensTint?: string | null): string => {
   if (!lensType) return LENS_DESCRIPTIONS.plano;
+  if (lensType === "sun-uv400" && lensTint && SUN_LENS_TINTS[lensTint]) {
+    return `Lenses: UV400 sun lenses in ${SUN_LENS_TINTS[lensTint]}; render the selected tint visibly on both lenses, with a crisp specular highlight and temples faintly visible through them.`;
+  }
+  if (lensType === "photochromic" && lensTint && PHOTO_LENS_TINTS[lensTint]) {
+    return `Lenses: partially activated photochromic lenses in ${PHOTO_LENS_TINTS[lensTint]}, still transparent enough to see the temples behind them.`;
+  }
   return (
     LENS_DESCRIPTIONS[lensType] ??
     `Lenses: ${lensName ?? lensType}, rendered physically accurately and clearly distinguishable from the acetate.`
@@ -132,6 +151,7 @@ Deno.serve(async (req) => {
     const bridgeMm = Number(body?.bridgeMm) || 22;
     const lensType = body?.lensType ? String(body.lensType).slice(0, 40) : null;
     const lensName = body?.lensName ? String(body.lensName).slice(0, 60) : null;
+    const lensTint = body?.lensTint ? String(body.lensTint).slice(0, 12) : null;
 
     if (!shape || !frontColor || !templeColor || !finish) {
       return json({ error: "Missing shape / frontColor / templeColor / finish" }, 400);
@@ -174,7 +194,7 @@ Deno.serve(async (req) => {
       finishInstruction(finish),
       `The finish must be unmistakable at a glance and applied consistently to the front, the temples and the edges.`,
       `Front width about ${widthMm} mm with a bridge of about ${bridgeMm} mm, so the pair reads wide and generously proportioned.`,
-      lensInstruction(lensType, lensName),
+      lensInstruction(lensType, lensName, lensTint),
       `Correctly seated hinges and rivets, accurate acetate edge detail,`,
       `high-key professional product photography on a clean warm off-white seamless background, controlled softbox reflections, precise transparency and refraction where the acetate is translucent, crisp natural contact shadow,`,
       `three-quarter front angle with the entire frame and both temples legible, no face, no model, no branding, no text, no logos,`,

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, findLensTint, isValidTempleLength, LENS_TYPES, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, findLensTint, findSunTint, isValidTempleLength, LENS_TYPES, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
@@ -32,7 +32,7 @@ export interface BespokeConfig {
   readingStrength: ReadingStrength | null;
   readingStrengthLeft: ReadingStrength | null;
   readingStrengthRight: ReadingStrength | null;
-  /** Photochromic lens only — tint id from LENS_TINTS. */
+  /** Photochromic or sun lens tint id, resolved by lens type. */
   lensTintId: string | null;
   lensMaterialId: string | null;
   lensCoatingId: string | null;
@@ -98,6 +98,9 @@ const loadInitial = (): BespokeConfig => {
       next.lensMaterialId = null;
       next.lensCoatingId = null;
     }
+    if (next.lensTypeId === "sun-uv400" && !findSunTint(next.lensTintId)) next.lensTintId = "grey";
+    if (next.lensTypeId === "photochromic" && !findLensTint(next.lensTintId)) next.lensTintId = null;
+    if (next.lensTypeId !== "sun-uv400" && next.lensTypeId !== "photochromic") next.lensTintId = null;
     return next;
   } catch {
     return INITIAL_CONFIG;
@@ -191,6 +194,7 @@ export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
     case 6: {
       if (!config.lensTypeId) return false;
       if (config.lensTypeId === "photochromic") return Boolean(findLensTint(config.lensTintId));
+      if (config.lensTypeId === "sun-uv400") return Boolean(findSunTint(config.lensTintId));
       if (config.lensTypeId !== "reading") return true;
       return isReadingStrengthComplete(config);
     }
@@ -232,7 +236,7 @@ export const readingStrengthMetaValue = (config: BespokeConfig): string => {
 
 /** Lens name with the strength appended, for order summaries. */
 export const formatLensWithStrength = (lensName: string, config: BespokeConfig): string => {
-  const tint = config.lensTypeId === "photochromic" ? findLensTint(config.lensTintId) : undefined;
+  const tint = selectedLensTint(config);
   const name = tint ? `${lensName} · ${tint.name} (${tint.code})` : lensName;
   const strength = formatReadingStrength(config);
   return strength ? `${name} · ${strength}` : name;
@@ -241,10 +245,14 @@ export const formatLensWithStrength = (lensName: string, config: BespokeConfig):
 /** Production string for the order: lens name + tint name + tint code,
  *  e.g. "Photochromic / Transition · Espresso Brown (PH-BRN)". */
 export const lensOrderValue = (lensName: string, config: BespokeConfig): string => {
-  const tint = config.lensTypeId === "photochromic" ? findLensTint(config.lensTintId) : undefined;
-  return tint ? `${lensName} · ${tint.name} (${tint.code})` : lensName;
+  const tint = selectedLensTint(config);
+  return tint ? `${lensName} - ${tint.name} (${tint.code})` : lensName;
 };
 
-/** Tint code only (empty when not photochromic) — Stripe metadata `lens_tint`. */
+export const selectedLensTint = (config: BespokeConfig): LensTint | undefined =>
+  config.lensTypeId === "sun-uv400" ? findSunTint(config.lensTintId) :
+    config.lensTypeId === "photochromic" ? findLensTint(config.lensTintId) : undefined;
+
+/** Tint code only (empty when no tint selected) — Stripe metadata `lens_tint`. */
 export const lensTintCode = (config: BespokeConfig): string =>
-  config.lensTypeId === "photochromic" ? findLensTint(config.lensTintId)?.code ?? "" : "";
+  selectedLensTint(config)?.code ?? "";

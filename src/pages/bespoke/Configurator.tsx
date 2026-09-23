@@ -5,7 +5,7 @@ import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, 
 import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
-import { STEPS, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { STEPS, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, lensTintCode, selectedLensTint, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
@@ -142,7 +142,7 @@ const ConfiguratorPage = () => {
   // Reads from the same localStorage store used by AiPreviewPanel and re-checks
   // whenever the panel dispatches PREVIEW_UPDATED_EVENT.
   const baseKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
-  const lensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId);
+  const lensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId, lensTintCode(config));
   const previewKey = `${lensKey}::${baseKey}`;
   const resolvePreview = () => getLatestPreviewUrl(lensKey) ?? getLatestPreviewUrl(baseKey);
   const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(resolvePreview);
@@ -485,7 +485,7 @@ const ConfiguratorPage = () => {
                   />
                   <SpecRow label="Finish" value={finish?.name ?? "—"} />
                   <SpecRow label="Engraving" value={config.engravingEnabled ? `“${config.engravingText || "…"}”` : "—"} />
-                  <SpecRow label="Lenses" value={lens ? formatLensWithStrength(lens.name, config) : "—"} />
+                  <SpecRow label="Lenses" value={lens ? <span className="inline-flex items-center gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)}</span> : "—"} />
                 </dl>
 
                 <div className="cfg-rail__total">
