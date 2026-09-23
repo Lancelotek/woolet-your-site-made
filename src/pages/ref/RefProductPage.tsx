@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { pushGtmEvent } from "@/lib/gtm";
 import { REF_PRODUCTS, refProductBySlug, type RefProduct, type RefImage } from "@/data/reference-products";
+import { bespokeProductJsonLd } from "@/content/bespokeFacts";
 
 const NotFound = lazy(() => import("@/pages/NotFound.tsx"));
 
@@ -118,7 +119,7 @@ const RefProductPage = () => {
 
   if (!product) return <NotFound />;
 
-  const canonical = `${SITE_URL}/en/ref/${product.slug}`;
+  const canonical = product.model === "bespoke" ? `${SITE_URL}/en/bespoke` : `${SITE_URL}/en/ref/${product.slug}`;
   const hero = product.images[0];
   const isBespoke = product.model === "bespoke";
   const swatches = [product.slug, ...product.siblings]
@@ -126,7 +127,7 @@ const RefProductPage = () => {
     .filter(Boolean) as RefProduct[];
 
   const isBox = product.model === "box";
-  const productJsonLd = {
+  const productJsonLd = product.model === "bespoke" ? bespokeProductJsonLd() : {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
