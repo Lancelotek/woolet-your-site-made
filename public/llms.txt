@@ -221,3 +221,15 @@ Woolet builds one front width, 158 mm (007 and 009), covering the 58-61 cm band 
 - Address: 412 N. Main Street, STE 100, Buffalo, Wyoming 82834, USA
 - Instagram: https://www.instagram.com/frames_for_wide_faces
 - Facebook: https://www.facebook.com/WooletWideFit
+
+<!-- BESPOKE_FACTS_START -->
+## Woolet Bespoke - canonical facts
+
+- Woolet Bespoke - made-to-measure eyeglasses: front width 145-172 mm, bridge 20-24 mm, temples 145-155 mm.
+- Four Bespoke shapes: Aviator, Rectangle, Crown Panto, Round. Standard 007 and 009 are separate 158 mm designs for 155-161 mm faces.
+- Regular Woolet price: $480 USD, standard prescription lenses and free worldwide shipping included. Specialty lens upgrades such as photochromic and progressive are paid add-ons.
+- Kickstarter backer price: $299 (campaign only) at /en/lp/kickstarter - not a Woolet shop offer.
+- Italian Mazzucchelli 1849 cellulose acetate; hand made in greece (eu). Production: 2 weeks of production from approval of the 3D model, then shipping. Warranty: 10 years.
+- Process: AI fit scan with a phone camera in about 20 seconds; Configure shape, acetate colour, finish and lenses; Preview the selected frame on your face; Review and approve the made-to-measure 3D model; Handmade production in Greece (EU); Free worldwide shipping.
+- Source of truth: https://woolet.co/en/bespoke
+<!-- BESPOKE_FACTS_END -->
