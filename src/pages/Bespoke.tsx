@@ -342,7 +342,7 @@ const BespokePage = () => {
                 }}
               >
                 {/* Clarity: people tap the hero image — make it a way in. */}
-                 <div className="block w-full h-full">
+                  <Link to="/en/bespoke/configurator" aria-label="Start your bespoke build" className="block w-full h-full">
                   <img
                     src={bespokeHero.url}
                     alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
@@ -545,7 +545,7 @@ const BespokePage = () => {
                     >
                       {row.label}
                     </div>
-                  </div>
+                  </Link>
                   <div
                     className="px-5 py-4 border-t"
                     style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
@@ -682,7 +682,8 @@ const BespokePage = () => {
                   <div><h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>{step}</h3>
                   {i === 3 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Production takes 2 weeks after 3D model approval, then shipping begins.</p>}</div>
                 </li>
-              ))}            </ol>
+              ))}
+            </ol>
           </div>
         </section>
 
