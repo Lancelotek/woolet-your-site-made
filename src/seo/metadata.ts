@@ -1020,11 +1020,11 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <h3>Where do you buy sunglasses for big heads?</h3>
 <p>Specialist makers like Woolet design at 158 mm front width with bespoke above. Mass-market brands mostly cap at 145 to 148 mm even on oversized models, so the lenses are larger but the front is the same.</p>
 <h3>Can I get sunglasses custom-made for my head size?</h3>
-<p>Yes. Bespoke covers 145 to 172 mm of front width in either shape, with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.</p>
+<p>Yes. Bespoke covers 145 to 172 mm of front width in Aviator, Rectangle, Crown Panto or Round, with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.</p>
 <h3>Are Woolet sunglasses polarized?</h3>
 <p>Polarised lenses are available as an upgrade on both 007 and 009. Standard lenses are CR-39 with UV400 protection.</p>
 <h3>How long is the bespoke wait time?</h3>
-<p>Bespoke ships approximately 6 to 8 weeks after the standard pre-order batch.</p>
+<p>Bespoke production takes 2 weeks from approval of the 3D model, then shipping.</p>
 <p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (square)</a> | <a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -1511,7 +1511,7 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
 <p>${s.intro}</p>
 <h2>Bespoke at ${s.width} mm</h2>
 <p>${s.bespokeNote}</p>
-<p>Bespoke: 4 shapes, 60 colour and size combinations, any width 145–172 mm (172 mm maximum), 2 weeks from order to shipping, $480 with lenses included, hand made in Greece. Signature 158 mm $190, fits 155–161 mm faces, hand made in EU from Mazzucchelli acetate milled in Milan.</p>
+<p>Bespoke: ${BESPOKE_FACTS.shapes.join(", ")}, ${BESPOKE_FACTS.frontWidth} front, ${BESPOKE_FACTS.bridge} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra. ${BESPOKE_FACTS.leadTime}. ${BESPOKE_FACTS.origin} from ${BESPOKE_FACTS.material}. Signature 158 mm frames fit 155-161 mm faces.</p>
 <h2>Every width we cover — 145 to 172 mm</h2>
 <p>${SIZES.map((r) => `<a href="/en/size/${r.slug}">${r.width} mm${r.width === 158 ? " (signature)" : r.width >= 155 && r.width <= 161 ? " (signature fit)" : " (bespoke)"}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Measure my face with FitLens</a> · <a href="/en/products/007">Woolet 007 Round</a> · <a href="/en/products/009">Woolet 009 Soft Square</a> · <a href="/en/fit/bespoke">Bespoke 145–172 mm</a></p>`,
