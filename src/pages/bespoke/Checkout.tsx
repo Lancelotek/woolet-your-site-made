@@ -31,7 +31,7 @@ import { useAuth } from "@/lib/auth-context";
 import { BESPOKE_PURCHASED_KEY } from "@/components/bespoke/ResumeBuildBar";
 import { readSessionRef } from "@/lib/scan-session-ref";
 import BespokeCaseHero from "@/components/BespokeCaseHero";
-import { BESPOKE_DISCOVERY_SOURCES, type BespokeDiscoverySource } from "@/content/bespokeFacts";
+import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscoverySource } from "@/content/bespokeFacts";
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
@@ -84,7 +84,7 @@ export default function BespokeCheckout() {
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
   const [source, setSource] = useState<BespokeDiscoverySource | "">(() => {
-    try { return (localStorage.getItem("wlt_bespoke_source") as BespokeDiscoverySource | null) ?? ""; }
+    try { const saved = localStorage.getItem("wlt_bespoke_source"); return isBespokeDiscoverySource(saved) ? saved : ""; }
     catch { return ""; }
   });
   const [sourceError, setSourceError] = useState(false);

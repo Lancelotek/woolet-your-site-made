@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { WOOLET_BRAND_PROFILES } from "@/content/brandProfiles";
 import RelatedGuides from "@/components/RelatedGuides";
 import RelatedPosts from "@/components/RelatedPosts";
 import FaceWidthQuiz from "@/components/FaceWidthQuiz";
@@ -216,10 +217,7 @@ const BlogPost = () => {
                 name: "Woolet Editorial Team",
                 id: "https://woolet.co/#organization",
                 url: "https://woolet.co",
-                sameAs: [
-                  "https://www.facebook.com/wooleteyewear",
-                  "https://www.instagram.com/wooleteyewear/",
-                ],
+                sameAs: [...WOOLET_BRAND_PROFILES],
               }
         }
         jsonLd={(() => {

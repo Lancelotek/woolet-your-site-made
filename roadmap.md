@@ -32,11 +32,11 @@
 
 
 ## Bespoke GEO - 2026-09-22
-- [ ] Create shared canonical facts and align all Bespoke surfaces
-- [ ] Expand /en/bespoke answer-first content and structured data
-- [ ] Consolidate duplicate-page indexing and migrate the guide slug
-- [ ] Add required discovery-source attribution through checkout and CRM
-- [ ] Regenerate and verify prerender, sitemap, tests, and output
+- [x] Create shared canonical facts and align all Bespoke surfaces
+- [x] Expand /en/bespoke answer-first content and structured data
+- [x] Consolidate duplicate-page indexing and migrate the guide slug
+- [x] Add required discovery-source attribution through checkout and CRM
+- [x] Regenerate and verify prerender, sitemap, tests, and output
 
 ## $1 reservation payment attribution - 2026-09-23
 - [x] Capture expiring last-touch campaign parameters on each page load

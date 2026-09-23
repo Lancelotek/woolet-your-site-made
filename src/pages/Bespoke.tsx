@@ -5,7 +5,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import bespokeHero from "@/assets/woolet-overlay-full-scan.png.asset.json";
+import bespokeHero from "@/assets/hero-man.jpg";
 import craft1 from "@/assets/bespoke-craft/woolet-bespoke-hand-filing-acetate-frame.jpg.asset.json";
 import craft2 from "@/assets/bespoke-craft/woolet-bespoke-acetate-template-frame-blank.jpg.asset.json";
 import craft3 from "@/assets/bespoke-craft/woolet-bespoke-milling-acetate-bridge.jpg.asset.json";
@@ -15,7 +15,7 @@ import craft6 from "@/assets/bespoke-craft/woolet-bespoke-mirror-polish-finish.j
 import craft7 from "@/assets/bespoke-craft/woolet-bespoke-jigsaw-cutting-acetate-front.jpg.asset.json";
 import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-bridge.jpg.asset.json";
 import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
-import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_META_DESCRIPTION, bespokeFaqJsonLd, bespokeProductJsonLd } from "@/content/bespokeFacts";
+import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeFaqJsonLd, bespokeProductJsonLd } from "@/content/bespokeFacts";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
@@ -305,7 +305,7 @@ const BespokePage = () => {
                  {BESPOKE_FACTS.h1}
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
-                 Woolet Bespoke is made-to-measure eyewear in any front width from {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in Greece (EU) for $480 USD including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra.
+                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in Greece (EU) for $480 USD including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra.
               </p>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
                 Photochromic lenses, often called transition lenses, darken outdoors and clear inside — see{" "}
@@ -344,8 +344,8 @@ const BespokePage = () => {
                 {/* Clarity: people tap the hero image — make it a way in. */}
                   <Link to="/en/fit/bespoke" aria-label="Start the bespoke fit scan" className="block w-full h-full">
                   <img
-                    src={bespokeHero.url}
-                    alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
+                    src={bespokeHero}
+                    alt="Woolet frame worn on a face, showing the fit across the front and temples"
                     loading="eager"
                     fetchPriority="high"
                     className="w-full h-full object-cover"
@@ -494,6 +494,19 @@ const BespokePage = () => {
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20" aria-label="Woolet Bespoke guide">
+          <div className="max-w-4xl mx-auto space-y-9">
+            {BESPOKE_GUIDE.map(({ heading, text }) => (
+              <div key={heading}>
+                <h2 className="font-display text-woolet-white text-3xl mb-4">{heading}</h2>
+                <p className="text-cream-dim leading-relaxed">{text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
         {/* What is bespoke eyewear — SEO keyword: "bespoke eyewear" */}
         <section id="bespoke-eyewear" className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto">
@@ -540,9 +553,9 @@ const BespokePage = () => {
               style={{ borderColor: "hsl(var(--gold) / 0.25)" }}
             >
               {[
-                { label: "Frame width range", woolet: BESPOKE_FACTS.frontWidth, stock: "138-148 mm typical" },
-                { label: "Bridge width range", woolet: BESPOKE_FACTS.bridge, stock: "18-20 mm fixed" },
-                { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "140-145 mm standard" },
+                { label: "Frame width", woolet: BESPOKE_FACTS.frontWidth, stock: "158 mm (007 and 009)" },
+                { label: "Bridge width", woolet: BESPOKE_FACTS.bridge, stock: "21 mm (007), 22 mm (009)" },
+                { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "150 mm (007 and 009)" },
                 { label: "Measurement method", woolet: "Phone-camera scan and model approval", stock: "Fixed dimensions" },
                 { label: "Regular price", woolet: "$480 USD, standard prescription lenses and worldwide shipping included; specialty upgrades cost extra", stock: "See stock product pages" },
                 { label: "Made in", woolet: "Greece (EU), Italian acetate", stock: "EU" },
@@ -579,7 +592,7 @@ const BespokePage = () => {
                     style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
                   >
                     <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.55rem" }}>
-                      Typical premium eyewear
+                      Standard Woolet 007 and 009
                     </div>
                     <div className="text-cream-dim" style={{ fontSize: "0.92rem" }}>{row.stock}</div>
                   </div>

@@ -30,6 +30,41 @@ export const BESPOKE_FACTS = {
 export const BESPOKE_META_DESCRIPTION =
   "Made-to-measure glasses in any width from 145-172 mm. $480 with prescription lenses and worldwide shipping. Hand made in Greece from Italian acetate.";
 
+export const BESPOKE_GUIDE = [
+  {
+    heading: "A frame built around your measurements",
+    text: "Made to measure means the front width, bridge and temples are chosen for one person, not picked from an existing shelf size. Woolet Bespoke covers front widths from 145-172 mm, bridges from 20-24 mm and temple lengths from 145-155 mm. Those numbers describe the frame, not a guarantee that every face of the same width needs identical glasses. The measurement and model-review steps establish the dimensions for your individual build. If you are deciding between a stock frame and a custom one, start with a face-width measurement rather than guessing from your hat size or an old pair of glasses.",
+  },
+  {
+    heading: "When a standard Woolet frame is enough",
+    text: "The standard Woolet 007 Round/Panto and 009 Soft Square both have a 158 mm front and generally fit face widths around 155-161 mm. Their bridges measure 21 mm and 22 mm respectively, and both have 150 mm temples. If those fixed dimensions suit your face, a standard frame may be the simpler choice. Bespoke is not a larger version of either stock silhouette. Its four available shapes - Aviator, Rectangle, Crown Panto and Round - are distinct configurator designs. The fit scan helps you compare your own numbers with the standard dimensions before you commit to a made-to-measure order.",
+  },
+  {
+    heading: "A narrower or wider face can need the same process",
+    text: "Bespoke is not limited to people who find regular glasses too small. A 145 mm front can be made for a narrower fit, while a 172 mm front covers the upper end of the available build range. Between those limits, the bridge and temple dimensions also matter. A frame may be wide enough at the front but still sit poorly if its bridge or temples are wrong for the wearer. Conversely, someone in the typical stock face-width band may choose a custom shape or need a different bridge. The recommended path depends on the complete set of measurements rather than one number in isolation.",
+  },
+  {
+    heading: "How the remote fitting works",
+    text: "The process begins with a phone-camera fit scan. Measurements provide a starting point for the frame geometry, and the order flow allows you to confirm or supplement them. The scan is not a substitute for reviewing the proposed fit: the made-to-measure 3D model is prepared and shown for approval before production starts. If a measurement needs clarification, it can be checked during that review instead of silently treated as final. The production clock begins only after the 3D model has been approved. The goal is a frame made to a verified specification, not a stock frame chosen by an algorithm alone.",
+  },
+  {
+    heading: "Choosing among the four shapes",
+    text: "Aviator, Rectangle, Crown Panto and Round are the four live Woolet Bespoke configurator shapes. Shape is an aesthetic choice made after you establish the fit. An Aviator has a different outline from a Round, and a Rectangle is not the same design as the standard 009 Soft Square. Likewise, Crown Panto is not the standard 007 Round/Panto. The configurator lets you review the available acetate colours, finish and lens choices with your selected shape. Whichever silhouette you choose, the front width, bridge and temples remain tied to the measurements agreed for your individual frame.",
+  },
+  {
+    heading: "What the regular price includes",
+    text: "The regular Woolet Bespoke price is $480 USD. Standard prescription lenses and free worldwide shipping are included in that price. Specialty lens choices, including photochromic and progressive options, are paid add-ons in the configurator; check the total shown there before paying. The $299 amount is a Kickstarter backer price during the campaign only, not a regular offer on the Woolet site and not the price of the product in search results. The order summary shows your selected lens options and any applicable upgrade charges separately, so the quoted total reflects what you actually chose.",
+  },
+  {
+    heading: "Material and place of manufacture",
+    text: "Woolet Bespoke uses Italian Mazzucchelli 1849 cellulose acetate. Italian describes the material's origin, not where the finished frame is made. The frame is hand made in Greece, within the EU, then checked against the approved model before dispatch. Acetate is selected for its appearance and suitability for shaping a measured frame; choosing it does not replace accurate fitting. The finished frame carries a 10-year warranty. If you are comparing brands, distinguish a material-origin claim from a manufacturing-origin claim and look at the actual frame dimensions, lens inclusion and production process rather than a broad description such as custom or premium.",
+  },
+  {
+    heading: "Approval, production and delivery",
+    text: "The six steps are a phone-camera fit scan, configuration, a preview, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular $480 USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.",
+  },
+] as const;
+
 export const BESPOKE_DISCOVERY_SOURCES = [
   "ChatGPT", "Other AI assistant (Perplexity, Gemini, Claude)", "Google", "Instagram",
   "TikTok", "Facebook", "Friend", "Other",

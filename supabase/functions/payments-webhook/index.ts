@@ -546,7 +546,7 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         reading_strength: meta.reading_strength || null,
         reading_strength_left: meta.reading_strength_left || null,
         reading_strength_right: meta.reading_strength_right || null,
-        source: meta.source || null,
+        source: ["ChatGPT", "Other AI assistant (Perplexity, Gemini, Claude)", "Google", "Instagram", "TikTok", "Facebook", "Friend", "Other"].includes(meta.source) ? meta.source : null,
         engraving_text: meta.engraving || null,
         ai_preview_url: meta.ai_preview_url ?? null,
         session_ref: UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null,

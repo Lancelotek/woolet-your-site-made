@@ -70,9 +70,9 @@ const blogMetaBySlug = {
     metaDescription: "Acetate glasses vs plastic and TR90, compared on weight, adjustability, colour and repair — and why a 155 mm+ face needs a frame an optician can reshape."
   },
   // ── EN: bespoke / process ────────────────────────────────────────────
-  "bespoke-eyewear-size-range-150-172mm-guide": {
-    metaTitle: "Bespoke Eyewear 145–172 mm — Complete Size Guide",
-    metaDescription: "Why bespoke eyewear lives between 145 and 172 mm, how sizing really works, and how to know if stock 155–161 mm or a made-to-measure frame is right for you."
+  "bespoke-eyewear-size-range-145-172mm-guide": {
+    metaTitle: "Bespoke Eyewear 145-172 mm - Complete Size Guide",
+    metaDescription: "Why bespoke eyewear lives between 145 and 172 mm, how sizing really works, and how to know if stock 155-161 mm or a made-to-measure frame is right for you."
   },
   "made-to-measure-glasses-explained": {
     metaTitle: "Made-to-Measure Glasses: How They Work & Who Needs Them",
@@ -3581,7 +3581,7 @@ const blogPostsEN = [
 
 <h2>When none of the four shapes fits: Bespoke</h2>
 
-<p>The 007 and 009 cover the two shapes most wide faces need. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four shapes to your own face width, anywhere from 145 to 172 mm, in the same Italian Mazzucchelli acetate. Hand made in Greece, two weeks from order to shipping, $480 with lenses included.</p>
+<p>The 007 and 009 are standard 158 mm designs. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four distinct shapes to your own face width, anywhere from 145 to 172 mm, in the same Italian Mazzucchelli acetate. Hand made in Greece, with two weeks of production after 3D model approval followed by shipping. The regular $480 price includes standard prescription lenses and worldwide shipping; specialty upgrades cost extra.</p>
 
 <p><a class="blog-gold-button" href="/en/bespoke">Start a Bespoke frame</a></p>
 
@@ -3860,7 +3860,7 @@ const blogPostsEN = [
   </thead>
   <tbody>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (stock)</td><td style="padding:8px 10px;">158</td><td style="padding:8px 10px;">Mazzucchelli acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$114–$190</td></tr>
-    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (bespoke)</td><td style="padding:8px 10px;">145–172</td><td style="padding:8px 10px;">Mazzucchelli acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$299–$480</td></tr>
+    <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Woolet (bespoke)</td><td style="padding:8px 10px;">145–172</td><td style="padding:8px 10px;">Mazzucchelli acetate</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$480</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">Faded Days</td><td style="padding:8px 10px;">155–165 (as listed by the brand)</td><td style="padding:8px 10px;">TR-90</td><td style="padding:8px 10px;">No</td><td style="padding:8px 10px;">$50–$155</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">BXL Eyewear</td><td style="padding:8px 10px;">145–165 (as listed by the brand)</td><td style="padding:8px 10px;">Mixed</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$79–$125</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:8px 10px;">SizeGlasses</td><td style="padding:8px 10px;">140–165 (as listed by the brand)</td><td style="padding:8px 10px;">TR-90 blend</td><td style="padding:8px 10px;">Yes</td><td style="padding:8px 10px;">$59–$99</td></tr>
@@ -4288,7 +4288,7 @@ const blogPostsEN = [
 `
   },
   {
-    slug: "bespoke-eyewear-size-range-150-172mm-guide",
+    slug: "bespoke-eyewear-size-range-145-172mm-guide",
     title: "Bespoke Eyewear 145–172 mm — The Complete Size Guide (2026)",
     excerpt: "Why bespoke exists between 145 and 172 mm, how the sizing actually works, and how to know whether a stock 155–161 mm Woolet or a made-to-measure frame is the right call.",
     date: "2026-06-16",
@@ -4305,11 +4305,11 @@ const blogPostsEN = [
       },
       {
         q: "How much do bespoke glasses cost?",
-        a: "Atelier-made bespoke acetate frames typically retail at $900–$2,500. Woolet bespoke is $299 for the first 100 Kickstarter backers (frame only); prescription lenses are ordered separately at a local optician."
+        a: "Atelier-made bespoke acetate frames typically retail at $900–$2,500. Woolet Bespoke costs $480 USD with standard prescription lenses and free worldwide shipping. Specialty lens upgrades are paid add-ons. $299 is a Kickstarter backer price available only during the campaign."
       },
       {
         q: "How long does bespoke production take?",
-        a: "About 8–10 weeks from approved measurements to delivery: scan and CAD approval in week 1, hand-finishing at the European atelier over 6–8 weeks, shipping in the final week."
+        a: "Production takes 2 weeks from approval of the 3D model, then shipping. Transit time depends on the destination."
       },
       {
         q: "Bespoke vs stock — how do I decide?",
@@ -4349,17 +4349,17 @@ const blogPostsEN = [
 </tr>
 </thead>
 <tbody>
-<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>145–154 mm</strong></td><td style="padding:14px 16px;">16–20 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
-<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">21 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 (S)</td><td style="padding:14px 16px;color:#555;">Round/panto, narrow stock size</td></tr>
-<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>158 mm</strong></td><td style="padding:14px 16px;">21–22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 007 / 009 (M)</td><td style="padding:14px 16px;color:#555;">Core size, covers most 155 mm+ buyers</td></tr>
-<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock — Woolet 009 (L)</td><td style="padding:14px 16px;color:#555;">Square, top of stock range</td></tr>
+<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>145–154 mm</strong></td><td style="padding:14px 16px;">20–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">21 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
+<tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>158 mm</strong></td><td style="padding:14px 16px;">21–22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock Woolet 007 / 009 (158 mm)</td><td style="padding:14px 16px;color:#555;">Core size, covers most 155 mm+ buyers</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>162–166 mm</strong></td><td style="padding:14px 16px;">22–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Above stock ceiling</td></tr>
-<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>167–172 mm</strong></td><td style="padding:14px 16px;">23–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>167–172 mm</strong></td><td style="padding:14px 16px;">20–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>The pattern is clean: <strong>three stock sizes</strong> (158 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 145–154 mm gap below and the 162–172 mm range above.</p>
+<p>The pattern is clean: <strong>two stock shapes at one 158 mm front width</strong> (158 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 145–154 mm gap below and the 162–172 mm range above.</p>
 
 <h2>What "bespoke" actually controls (and what it doesn't)</h2>
 
@@ -4372,11 +4372,11 @@ const blogPostsEN = [
 <li><strong>Pantoscopic tilt</strong> — the forward angle of the lens plane, useful if you have asymmetric ear height.</li>
 </ul>
 
-<p>Bespoke does <em>not</em> change the lens shape catalog. You still choose between the 007 round/panto silhouette and the 009 soft-square. The shape is the design language; bespoke just scales it precisely to your face.</p>
+<p>Bespoke does <em>not</em> change the lens shape catalog. Choose Aviator, Rectangle, Crown Panto or Round in Bespoke. The 007 and 009 signature frames are separate designs available in standard 158 mm.</p>
 
 <h2>How the AI scan translates to bespoke dimensions</h2>
 
-<p>The <a href="/en/fit">AI Fit Scan</a> captures four measurements from a 90-second phone scan: face width, bridge width, temple-to-temple distance, and ear position. Those four numbers map directly to the four bespoke dimensions above.</p>
+<p>The <a href="/en/fit">AI Fit Scan</a> captures four measurements from a phone-camera scan: face width, bridge width, temple-to-temple distance, and ear position. Those four numbers map directly to the four bespoke dimensions above.</p>
 
 <p>If the scan returns a face width inside 155–161 mm with a 21–22 mm bridge, you get a stock recommendation (007 or 009) and your bespoke decision is over. If any measurement falls outside that window, the scan routes you to the bespoke path with your numbers pre-filled — no re-measuring, no guesswork at the atelier.</p>
 
@@ -4385,7 +4385,7 @@ const blogPostsEN = [
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:28px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">Decision matrix</div>
   <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;">
-    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Stock wins when</strong> your face is 155–161 mm with a 21–22 mm bridge. You get the same Mazzucchelli acetate at $114–$190, with a 2–3 week lead time instead of 8–10.</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Stock wins when</strong> your face is 155–161 mm with a 21–22 mm bridge. You get the same Mazzucchelli acetate at $114–$190, at its listed production schedule rather than a made-to-measure build.</li>
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Bespoke wins when</strong> stock can't physically fit — face width outside 155–161 mm, bridge outside 21–22 mm, asymmetric ears, or unusual pantoscopic-tilt needs.</li>
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;"><strong style="color:#fff;">Neither wins when</strong> you're inside the stock range but want a one-of-one piece for aesthetic reasons. That's a legitimate use of bespoke, but the fit gain is zero.</li>
   </ul>
@@ -4397,20 +4397,17 @@ const blogPostsEN = [
 
 <p>That adjustability is the difference between a frame that fits for a week and one that fits for a decade. For deeper background, see <a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate</a>.</p>
 
-<h2>The bespoke process — week by week</h2>
+<h2>The six steps from scan to delivery</h2>
 
 <ol>
-<li><strong>Week 1:</strong> Take the AI Fit Scan. CAD drawing is generated from your measurements and sent for approval.</li>
-<li><strong>Weeks 2–7:</strong> The atelier cuts the frame from a single block of Mazzucchelli acetate, mills the lens slots, and hand-polishes the surface. No CNC finishing.</li>
-<li><strong>Week 8:</strong> QC and final fitting check. Frame ships ready for lenses.</li>
-<li><strong>Week 9–10:</strong> You take the frame to your local optician with your prescription, PD, and lens preference (clear, blue-light, polarized, or progressive).</li>
+<li>Take the phone-camera AI fit scan.</li><li>Configure Aviator, Rectangle, Crown Panto or Round and your lenses.</li><li>Preview the selected frame on your face.</li><li>Review and approve the made-to-measure 3D model.</li><li>Production takes 2 weeks after model approval, hand made in Greece (EU).</li><li>Receive your glasses with free worldwide shipping; transit follows production.</li>
 </ol>
 
 <h2>Pricing — bespoke vs the market</h2>
 
 <p>Comparable atelier-made bespoke acetate frames retail at $900–$2,500. Tom Davies bespoke starts around $1,800. Lindberg semi-custom titanium runs $1,200–$2,000. Cubitts bespoke is roughly $1,500.</p>
 
-<p>Woolet bespoke is <strong>$299 for the first 100 Kickstarter backers</strong> (frame only; lenses ordered separately). The $1 reservation holds your spot; full charge happens when production starts.</p>
+<p>Woolet Bespoke is <strong>$480 USD including standard prescription lenses and free worldwide shipping</strong>. Specialty lens upgrades such as photochromic and progressive cost extra in the configurator. <a href="/en/lp/kickstarter">Kickstarter backer price: $299 (campaign only)</a> is not an offer on woolet.co.</p>
 
 <h2>FAQ</h2>
 
@@ -4418,7 +4415,7 @@ const blogPostsEN = [
 <p>Custom usually means choosing options from a fixed menu — color, lens type, engraving — while the underlying frame dimensions stay the same. Bespoke means the dimensions themselves (frame width, bridge, temples) are made to one person's face. Most "custom" eyewear is not bespoke.</p>
 
 <h3>Can bespoke frames be remade if my prescription changes?</h3>
-<p>Yes. The frame is delivered without lenses, so any future prescription change is a lens swap at your optician — the frame itself stays. Acetate also reshapes with heat, so minor fit corrections happen at the optician too.</p>
+<p>Yes. Standard prescription lenses are included at $480. Specialty upgrades cost extra. For a future prescription change, consult an optician about replacement lenses. Acetate also reshapes with heat, so minor fit corrections happen at the optician too.</p>
 
 <h3>Do I need to fly to Italy or visit a fitter?</h3>
 <p>No. The entire process runs from the AI scan on your phone. The atelier receives the digitized measurements and a CAD approval — no in-person fitting needed.</p>
@@ -4428,7 +4425,7 @@ const blogPostsEN = [
 
 <h2>Next steps</h2>
 
-<p>Start with the <a href="/en/fit">AI Fit Scan</a> — it tells you in 90 seconds whether you're in stock territory (155–161 mm) or bespoke (145–154 mm or 162–172 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">reserve a $299 spot</a>.</p>
+<p>Start with the <a href="/en/fit">AI Fit Scan</a> - it helps determine whether you're in stock territory (155–161 mm) or bespoke (145–154 mm or 162–172 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">explore Woolet Bespoke</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -4437,7 +4434,7 @@ const blogPostsEN = [
 <li><a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses: the complete guide</a> — stock options before you commit to bespoke.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — the material every bespoke frame is cut from.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — 90-second check whether you're in stock or bespoke territory.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 145–172 mm.</li>
+<li><a href="/en/bespoke">Woolet Bespoke</a> - $480 with standard prescription lenses and worldwide shipping.</li>
 </ul>
 `
   },
@@ -4449,9 +4446,9 @@ const blogPostsEN = [
     readTime: 9,
     tags: ["Bespoke", "Made to Measure", "Guide"],
     faq: [
-      { q: "What does made-to-measure glasses mean?", a: "Made-to-measure glasses are eyewear frames built to a single customer's face measurements — front width, bridge, temple length and tilt — rather than picked off a stock size run. The lenses are added separately by an optician." },
+      { q: "What does made-to-measure glasses mean?", a: "Made-to-measure glasses are eyewear frames built to a single customer's face measurements — front width, bridge, temple length and tilt — rather than picked off a stock size run. Woolet Bespoke includes standard prescription lenses; specialty upgrades cost extra." },
       { q: "Are made-to-measure glasses the same as bespoke?", a: "Functionally yes. 'Bespoke' is the British term, 'made-to-measure' the international one. Both describe a frame cut to a single buyer rather than a standard size grid." },
-      { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet's bespoke tier starts at $299 because the order is handled digitally and the frame is cut in our partner European atelier — no in-person fitter visits." },
+      { q: "How much do made-to-measure glasses cost?", a: "Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet Bespoke is $480 including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra." },
       { q: "Do I need to fly somewhere to get measured?", a: "No. Woolet bespoke runs from an AI face scan on your phone. The atelier receives the digitized measurements and a CAD approval — no fitter visit required." },
       { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside Woolet's 155–161 mm stock fit band, within the 145–172 mm bespoke range, and people with an asymmetric bridge or strong temple curve that no stock size accommodates." }
     ],
@@ -4460,7 +4457,7 @@ const blogPostsEN = [
 
 <h2>The plain-English definition</h2>
 
-<p>A made-to-measure frame is built to a single customer's measurements. The front width, bridge width, temple length, and pantoscopic tilt are all set to your face before the acetate is cut. The lenses are added separately by your local optician, the same way they would be for any frame.</p>
+<p>A made-to-measure frame is built to a single customer's measurements. The front width, bridge width, temple length, and pantoscopic tilt are all set to your face before the acetate is cut. Woolet Bespoke includes standard prescription lenses at $480; specialty upgrades cost extra.</p>
 
 <p>This is distinct from <em>customised</em> glasses (where you pick a colour or engraving on a stock size) and from <em>"wide fit"</em> lines (where the brand has one larger stock size, not a frame cut to you).</p>
 
@@ -4477,14 +4474,14 @@ const blogPostsEN = [
 <li><strong>CAD design.</strong> The atelier turns your measurements into a CAD file in the chosen shape (round, square, panto, aviator). You approve the renders before any material is cut.</li>
 <li><strong>Cutting.</strong> A block of Italian Mazzucchelli acetate is milled to your CAD on a 5-axis CNC. The cut takes 20–40 minutes per frame.</li>
 <li><strong>Hand finishing.</strong> The cut frame is tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling. This is what makes the difference between a CNC blank and a finished frame.</li>
-<li><strong>Delivery.</strong> The frame ships without lenses to your address. You take it to any local optician for prescription, polarized or blue-light lenses.</li>
+<li><strong>Delivery.</strong> The frame and standard prescription lenses ship to your address free worldwide. Specialty lens upgrades cost extra.</li>
 </ol>
 
 <h2>Made-to-measure vs stock — who should buy what</h2>
 
 <ul>
-<li><strong>Face width 145–158 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cover this range at $190 launch ($114 pre-order).</li>
-<li><strong>Face width &lt; 145 mm or &gt; 161 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet bespoke runs 145–172 mm.</li>
+<li><strong>Face width 155–161 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cost $190.</li>
+<li><strong>Face width 145–154 mm or 162–172 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet Bespoke runs 145–172 mm.</li>
 <li><strong>Strongly asymmetric face or unusual bridge:</strong> made-to-measure is the only path. Even a "wide fit" stock frame assumes symmetry.</li>
 <li><strong>You just want a unique frame:</strong> a customised stock frame (engraved, custom colour) is usually a better value than full bespoke unless the geometry actually requires it.</li>
 </ul>
@@ -4493,16 +4490,15 @@ const blogPostsEN = [
 
 <p>Traditional made-to-measure ateliers — Tom Davies in London, Nakanishi in Tokyo, several Italian houses in Cadore — charge $800–$3,000 per frame. The cost reflects two in-person fitter visits, hand drafting, and bench labour at a workshop rate that hasn't shifted in two decades.</p>
 
-<p>Woolet bespoke starts at <strong>$299</strong>. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and Hand made in EU — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
+<p>Woolet Bespoke is <strong>$480 including standard prescription lenses and free worldwide shipping</strong>. Specialty upgrades cost extra. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and Hand made in EU — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
 
 <h2>The realistic timeline</h2>
 
-<p>From scan to delivery, a Woolet bespoke order takes 4–6 weeks. The breakdown:</p>
+<p>Woolet Bespoke production takes 2 weeks from your approval of the 3D model, then shipping. The steps are:</p>
 <ul>
 <li><strong>Days 1–3:</strong> CAD design and your render approval.</li>
-<li><strong>Week 2:</strong> CNC cut from your acetate block.</li>
-<li><strong>Weeks 3–4:</strong> Tumbling and hand finishing.</li>
-<li><strong>Week 5:</strong> Quality check and shipping.</li>
+<li><strong>After 3D model approval:</strong> 2 weeks of cutting, finishing and quality checks in Greece (EU).</li>
+<li><strong>After production:</strong> free worldwide shipping; transit time depends on destination.</li>
 </ul>
 
 <p>Traditional made-to-measure ateliers usually quote 8–14 weeks. The shorter cycle is the second benefit of removing the fitter visits.</p>
@@ -4513,16 +4509,16 @@ const blogPostsEN = [
 
 <h2>Next step</h2>
 
-<p>The fastest way to find out whether you need made-to-measure or whether stock will fit is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds, no commitment. If you already know you're outside the 155–161 mm stock range, the <a href="/en/fit/bespoke">bespoke size reference</a> shows the full 145–172 mm grid, and <a href="/en/bespoke">$299 reservations</a> are open.</p>
+<p>The fastest way to find out whether you need made-to-measure or whether stock will fit is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds, no commitment. If you already know you're outside the 155–161 mm stock range, the <a href="/en/fit/bespoke">bespoke size reference</a> shows the full 145–172 mm grid, and <a href="/en/bespoke">Woolet Bespoke</a> is $480 with standard prescription lenses and free worldwide shipping.</p>
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — line-by-line price breakdown.</li>
-<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — what your $299 actually buys.</li>
+<li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> - how the frames are made.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — where the difference is real.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — 90-second check before you go bespoke.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 145–172 mm.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke</a> — custom width from 145–172 mm.</li>
 </ul>
 `
   },
@@ -4569,7 +4565,7 @@ const blogPostsEN = [
 
 <h3>2. Made-to-measure frame + custom prescription lens (precision route)</h3>
 
-<p>The frame itself is cut to your face. Woolet's bespoke tier covers 145–172 mm of front width with a matching bridge and temple grid. The frame still ships lens-less to your local optician. Cost: $299 frame + standard lens fee.</p>
+<p>The frame itself is cut to your face. Woolet's bespoke tier covers 145–172 mm of front width with a matching bridge and temple grid. The $480 regular price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra.</p>
 
 <p>Right path if your face is below 155 mm or above 161 mm within Woolet's 145–172 mm bespoke range, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
 
@@ -4604,16 +4600,16 @@ const blogPostsEN = [
 
 <p>The frame is the part we control. Woolet 007 and 009 are designed front-out for 155 mm+ faces, both ship lens-less, and your local optician handles the prescription using the lenses they already stock. You pay $190 for a frame that fits — your optician charges you the same lens price they would for any frame.</p>
 
-<p>Next step: <a href="/en/fit">measure your face</a> · <a href="/en/products/009">view 009</a> · <a href="/en/bespoke">bespoke at $299</a>.</p>
+<p>Next step: <a href="/en/fit">measure your face</a> · <a href="/en/products/009">view 009</a> · <a href="/en/bespoke">Woolet Bespoke at $480</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses: the complete guide</a> — stock-frame options first.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — get the input right before ordering.</li>
 <li><a href="/en/blog/glasses-for-wide-nose-bridge-21-22mm-explained">Wide nose-bridge glasses (21–22 mm)</a> — the second axis after face width.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — your measurements in 90 seconds.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — for prescriptions outside the stock grid.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke at $480</a> — for prescriptions outside the stock grid.</li>
 </ul>
 `
   },
@@ -4625,10 +4621,10 @@ const blogPostsEN = [
     readTime: 9,
     tags: ["Bespoke", "Pricing", "Buying Guide"],
     faq: [
-      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet's digital bespoke starts at $299 because the order is handled remotely — the frame is still milled and Hand made in EU." },
+      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet Bespoke costs $480 with standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. It is hand made in Greece (EU)." },
       { q: "How much do Tom Davies bespoke glasses cost?", a: "Tom Davies bespoke runs roughly £950–£2,500 (about $1,200–$3,200) depending on material and complexity. The price includes two in-person fitter consultations and the workshop labour, which is most of the cost." },
       { q: "Why are bespoke glasses so expensive?", a: "Most of the cost is human labour — fitter visits, CAD drafting, bench finishing — not material. The acetate block itself costs about $25–$60. Cutting it costs $40–$120 of CNC time. Everything else is people: typically 8–16 hours of skilled labour per frame at workshop rates." },
-      { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 145–158 mm stock range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." }
+      { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 155–161 mm stock fit range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." }
     ],
     content: `
 <p>Search for "bespoke glasses cost" and you'll see numbers from $300 to $15,000 quoted for what sounds like the same thing — a frame cut to your face from Italian acetate. The spread is real, and once you understand what drives it, you can pick the right tier instead of overpaying or underbuying.</p>
@@ -4647,7 +4643,7 @@ const blogPostsEN = [
     <tr style="border-bottom:1px solid #E8E4DC;">
       <td style="padding:10px 12px;">Digital bespoke</td>
       <td style="padding:10px 12px;">Woolet (145–172 mm)</td>
-      <td style="padding:10px 12px;">$299–$499</td>
+      <td style="padding:10px 12px;">$480 with standard prescription lenses</td>
     </tr>
     <tr style="border-bottom:1px solid #E8E4DC;">
       <td style="padding:10px 12px;">Independent atelier</td>
@@ -4667,7 +4663,7 @@ const blogPostsEN = [
   </tbody>
 </table>
 
-<p>Lenses are extra at every tier and are typically added by your local optician — $80–$300 for standard prescription, more for premium progressives.</p>
+<p>Traditional ateliers may quote lenses separately. Woolet Bespoke includes standard prescription lenses and free worldwide shipping at $480; specialty upgrades cost extra.</p>
 
 <h2>What you are actually paying for</h2>
 
@@ -4685,13 +4681,13 @@ const blogPostsEN = [
 
 <p>At luxury tiers, additional cost is brand margin, retail-store overhead, and premium material specifications (gold leaf, buffalo horn). The frame is not meaningfully better optically.</p>
 
-<h2>Why Woolet bespoke is $299</h2>
+<h2>Why Woolet Bespoke costs $480</h2>
 
 <p>We removed the part that dominates traditional pricing: the in-person consultations. The AI face scan captures the measurements remotely. CAD approval happens by email. The atelier — the same European workshop tradition, the same Mazzucchelli acetate, the same hand-finishing — receives a complete digital order and cuts the frame.</p>
 
 <p>The bench labour is the same. The fitter labour is not in the price because there is no fitter visit. That single change cuts the cost by roughly $500–$700 per frame.</p>
 
-<p>The $299 price is a Kickstarter price for the first 100 backers; the regular bespoke price afterward is $499, still well below traditional ateliers.</p>
+<p>The regular Woolet Bespoke price is $480 with standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. <a href="/en/lp/kickstarter">Kickstarter backer price: $299 (campaign only)</a> is not an offer on woolet.co.</p>
 
 <h2>How to decide which tier you actually need</h2>
 
@@ -4699,7 +4695,7 @@ const blogPostsEN = [
 
 <ul>
 <li><strong>Face width 155–161 mm, no special requirements:</strong> a stock wide-fit frame ($190 Woolet 007 or 009) is the right buy. Bespoke is not necessary.</li>
-<li><strong>Face width &lt;150 mm or &gt;161 mm, or asymmetric face:</strong> bespoke is necessary. Start at the $299 digital tier; only step up if the digital process can't accommodate a specific feature you need.</li>
+<li><strong>Face width &lt;150 mm or &gt;161 mm, or asymmetric face:</strong> bespoke is necessary. Choose the $480 Woolet Bespoke option; only step up if the digital process can't accommodate a specific feature you need.</li>
 <li><strong>You want a unique material (buffalo horn, real tortoise, gold inlay):</strong> traditional atelier or heritage commission is the only path. Plan on $2,000+.</li>
 <li><strong>You want the brand experience (Cartier C de Cartier, Chrome Hearts):</strong> this is fashion, not eyewear engineering. Buy on those terms and budget accordingly.</li>
 </ul>
@@ -4713,25 +4709,25 @@ const blogPostsEN = [
 <li>Italian acetate (Mazzucchelli M49 or equivalent) or a clearly named alternative material</li>
 <li>Hand-finishing — not just CNC-cut and shipped</li>
 <li>A remake guarantee if the dimensional fit is wrong on delivery</li>
-<li>Lens-free shipping so your local optician fits the prescription</li>
+<li>Clear terms for standard prescription lenses and paid specialty upgrades</li>
 </ul>
 
 <p>If any of these is missing at any price point, ask why.</p>
 
 <h2>The hidden cost most people forget</h2>
 
-<p>If you have a wide face and you've been buying stock glasses that don't quite fit, the real cost is the cycle: $200 frame, return, $250 frame, return, $300 frame, keep and tolerate. We've seen waitlist members tell us they've spent $1,500+ over five years on frames they no longer wear. At that point a single $299 bespoke frame that actually fits is the cheap option, not the expensive one.</p>
+<p>If you have a wide face and you've been buying stock glasses that don't quite fit, the real cost is the cycle: $200 frame, return, $250 frame, return, $300 frame, keep and tolerate. We've seen waitlist members tell us they've spent $1,500+ over five years on frames they no longer wear. At that point a $480 Woolet Bespoke pair with standard prescription lenses that actually fits is the cheap option, not the expensive one.</p>
 
-<p>Next step: <a href="/en/fit">measure your face</a> to find out whether you're inside or outside the 155–161 mm stock range, then either <a href="/en/products/009">009 stock at $190</a> or <a href="/en/bespoke">bespoke at $299</a>.</p>
+<p>Next step: <a href="/en/fit">measure your face</a> to find out whether you're inside or outside the 155–161 mm stock range, then either <a href="/en/products/009">009 stock at $190</a> or <a href="/en/bespoke">Woolet Bespoke at $480</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — definitions and who actually needs it.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — where the cost comes from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — which premium is worth paying.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — confirm stock vs bespoke in 90 seconds.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 145–172 mm.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke</a> — custom width from 145–172 mm.</li>
 </ul>
 `
   },
@@ -4808,12 +4804,12 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — the material the atelier starts from.</li>
 <li><a href="/en/blog/handcrafted-vs-machine-made-glasses">Handcrafted vs machine-made glasses</a> — what handwork actually changes.</li>
 <li><a href="/en/blog/made-to-measure-glasses-explained">Made-to-measure glasses explained</a> — how bespoke fits into the wider market.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — start the bespoke flow from your phone.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — pre-launch pricing for 145–172 mm.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke</a> — custom width from 145–172 mm.</li>
 </ul>
 `
   },
@@ -4910,12 +4906,12 @@ const blogPostsEN = [
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/handmade-italian-acetate-eyewear-process">The handmade in the EU from Italian acetate process</a> — step-by-step inside the atelier.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — why the material matters before the method.</li>
 <li><a href="/en/blog/how-much-do-bespoke-glasses-cost">How much do bespoke glasses cost?</a> — the price of handwork, line by line.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — see whether handmade bespoke is right for your face.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — Hand made in EU, pre-launch pricing.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke at $480</a> — Hand made in EU, pre-launch pricing.</li>
 </ul>
 `
   },
@@ -4979,7 +4975,7 @@ const blogPostsEN = [
 <li><strong>Face width 130–145 mm:</strong> most mainstream frames fit. Front width 130–145 mm.</li>
 <li><strong>Face width 145–155 mm:</strong> look for "wide fit" lines. Front width 145–155 mm.</li>
 <li><strong>Face width 155–161 mm:</strong> specialist wide-face brands only. Front width 155–161 mm. Woolet 007 and 009 are designed exactly here at 158 mm.</li>
-<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–172 mm. Woolet bespoke covers this range at $299.</li>
+<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–172 mm. Woolet Bespoke covers this range at $480 with standard prescription lenses and free worldwide shipping.</li>
 </ul>
 
 <p>The most precise way to measure is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds with your phone and a credit card, accurate to within 2 mm.</p>
@@ -4997,17 +4993,17 @@ const blogPostsEN = [
 <ol>
 <li><a href="/en/fit">Run the Fit Scan</a> to confirm your actual face width.</li>
 <li>If you fall in the 155–161 mm bracket, <a href="/en/products/009">view Woolet 009</a> or 007 at 158 mm.</li>
-<li>If you fall outside that bracket, <a href="/en/bespoke">bespoke at $299</a> covers 145–172 mm.</li>
+<li>If you fall outside that bracket, <a href="/en/bespoke">Woolet Bespoke at $480</a> covers 145–172 mm.</li>
 </ol>
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — what to do if stock won't fit.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — what to do if stock won't fit.</li>
 <li><a href="/en/blog/why-glasses-dont-fit-155mm-problem">Why glasses don't fit at 155 mm+</a> — the industry sizing gap.</li>
 <li><a href="/en/blog/what-size-glasses-for-a-large-head">What size glasses for a large head?</a> — the size grid you actually need.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> — diagnose it yourself in 60 seconds.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — confirm your real face width in 90 seconds.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — when stock is genuinely too small.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke at $480</a> — when stock is genuinely too small.</li>
 </ul>
 `
   },
@@ -5074,7 +5070,7 @@ const blogPostsEN = [
 <li>Bridge: 20–24 mm</li>
 <li>Temples: 150–158 mm</li>
 </ul>
-<p>Available at: Woolet bespoke ($299, digital scan + European atelier), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
+<p>Available at: Woolet Bespoke ($480 with standard prescription lenses, hand made in Greece), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
 
 <h2>Why "the number on the temple" is misleading</h2>
 
@@ -5097,16 +5093,16 @@ const blogPostsEN = [
 
 <h2>What to do next</h2>
 
-<p>If you are unsure which bracket you sit in, <a href="/en/fit">run the AI Fit Scan</a> — it tells you the exact face width and the right bracket in 90 seconds. If you already know you are in bracket 3 (155–161 mm), <a href="/en/products/009">Woolet 009</a> ships at 158 mm with the right bridge and temple to match. For bracket 4, <a href="/en/bespoke">bespoke at $299</a> covers 145–172 mm.</p>
+<p>If you are unsure which bracket you sit in, <a href="/en/fit">run the AI Fit Scan</a> — it tells you the exact face width and the right bracket in 90 seconds. If you already know you are in bracket 3 (155–161 mm), <a href="/en/products/009">Woolet 009</a> ships at 158 mm with the right bridge and temple to match. For bracket 4, <a href="/en/bespoke">Woolet Bespoke at $480</a> covers 145–172 mm.</p>
 
 <h2>Related articles</h2>
 <ul>
-<li><a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
+<li><a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide">Bespoke eyewear size guide (145–172 mm)</a> — the full pillar reference.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — curated wide-fit picks.</li>
 <li><a href="/en/blog/are-my-glasses-too-small-for-my-face">Are my glasses too small for my face?</a> — diagnose it before reordering.</li>
 <li><a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> — every brand selling a 150 mm+ front width, compared.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — your real face width in 90 seconds.</li>
-<li><a href="/en/bespoke">Reserve a $299 bespoke spot</a> — built for 145–172 mm faces.</li>
+<li><a href="/en/bespoke">Explore Woolet Bespoke at $480</a> — built for 145–172 mm faces.</li>
 </ul>
 `
   },
@@ -5240,7 +5236,7 @@ const blogPostsEN = [
       { q: "What size sunglasses do I need for a wide face?", a: "If your temple-to-temple measurement is 155 mm or more, you need a frame with a front width of at least 155 mm — measured hinge-to-hinge across the front. Most mainstream 'oversized' sunglasses are 138–148 mm, which is a larger lens on a standard front. Woolet's standard size is 158 mm with a 21–22 mm keyhole bridge." },
       { q: "Are oversized sunglasses the same as wide sunglasses?", a: "No. Oversized usually refers to lens area; wide refers to front width. A pair can be oversized and still narrow at the temples. For a wide face, front width is the dimension that matters." },
       { q: "Can I get polarized lenses on Woolet sunglasses?", a: "Yes. Polarized is a lens-level upgrade on both the 007 round and 009 soft-square. Standard lenses are CR-39 with UV400 protection." },
-      { q: "What if my face is wider than 161 mm?", a: "Bespoke covers 145–172 mm of front width with a 20–24 mm bridge, in the same Italian Mazzucchelli acetate. Lead time is 4–6 weeks after the standard batch." }
+      { q: "What if my face is wider than 161 mm?", a: "Bespoke covers 145–172 mm of front width with a 20–24 mm bridge, in the same Italian Mazzucchelli acetate. Production takes 2 weeks from 3D model approval, then shipping." }
     ],
     content: `
 <p>Most "oversized" sunglasses are not actually wide. They're standard frames with a larger lens — same hinge-to-hinge measurement, same temple length, same pinch by the end of the afternoon. If your face is 155 mm across or more, the problem isn't the lens. It's the front.</p>
@@ -5276,7 +5272,7 @@ const blogPostsEN = [
 
 <h2>If you're between sizes</h2>
 
-<p>If your face is 145–154 mm or 162–172 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. The wait is roughly 4–6 weeks after the standard production batch.</p>
+<p>If your face is 145–154 mm or 162–172 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. Production takes 2 weeks from 3D model approval, then shipping.</p>
 
 <h2>Quick FAQ</h2>
 
@@ -5307,7 +5303,7 @@ const blogPostsEN = [
       { q: "What styles work best on a wider face?", a: "Soft-square and rounded panto shapes both work. The deciding number is width, not shape. Avoid very small cat-eyes — the lens area gets dwarfed by the face and the frame reads as an accessory rather than eyewear." },
       { q: "Do Woolet frames come in feminine colourways?", a: "Both 007 (round) and 009 (soft square) ship in Honey tortoise, Piano black and Crystal. Bespoke opens the full Mazzucchelli colour palette, including translucent and crystal acetates often chosen by women buyers." },
       { q: "Do wide-face glasses for women come with prescription lenses?", a: "Yes. Both Woolet 007 and 009 ship prescription-ready — single-vision, progressive, and blue-light coatings. The 20–21 mm keyhole bridge is deep enough for the progressive corridor that narrow bridges cannot carry." },
-      { q: "What do premium wide-face glasses for women cost?", a: "Woolet 007 and 009 are $114 during pre-order, against a $190 launch price. Bespoke — for face widths outside the 155–161 mm standard range — is $299 during pre-order and $480 at launch." }
+      { q: "What do premium wide-face glasses for women cost?", a: "Woolet 007 and 009 are $114 during pre-order, against a $190 launch price. Bespoke is $480 including standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. $299 is a Kickstarter backer price only during the campaign." }
     ],
     content: `
 <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
@@ -6262,7 +6258,7 @@ Related guides:
 Related guides:
 <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure face width</a> ·
 <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">wide-face fit guide</a> ·
-<a href="/en/blog/bespoke-eyewear-size-range-150-172mm-guide" style="color:#A07A2A;">bespoke size range 145–172 mm</a> ·
+<a href="/en/blog/bespoke-eyewear-size-range-145-172mm-guide" style="color:#A07A2A;">bespoke size range 145–172 mm</a> ·
 <a href="/en/fit" style="color:#A07A2A;">AI Fit Wizard</a>.
 </p>
 `
@@ -6547,7 +6543,7 @@ const blogPostsPL = [
 
 <h2>Gdy żaden z czterech kształtów nie pasuje: Bespoke</h2>
 
-<p>007 i 009 pokrywają dwa kształty, których potrzebuje większość szerokich twarzy. Gdy chcesz innej geometrii - belki aviatora, pełnego koła, prostego prostokąta - Bespoke wycina jeden z czterech kształtów pod twoją szerokość twarzy, od 145 do 172 mm, z tego samego włoskiego acetatu Mazzucchelli. Ręcznie wykonane w Grecji, dwa tygodnie od zamówienia do wysyłki, 480 USD z soczewkami w cenie.</p>
+<p>007 i 009 to standardowe modele o szerokości frontu 158 mm. Gdy chcesz innej geometrii - belki aviatora, pełnego koła, prostego prostokąta - Bespoke wycina jeden z czterech odrębnych kształtów pod twoją szerokość twarzy, od 145 do 172 mm, z włoskiego acetatu Mazzucchelli. Ręcznie wykonane w Grecji; produkcja trwa dwa tygodnie od zatwierdzenia modelu 3D, a wysyłka następuje później. Regularna cena 480 USD obejmuje standardowe soczewki korekcyjne i darmową wysyłkę na cały świat; specjalne warianty soczewek są dodatkowo płatne.</p>
 
 <p><a class="blog-gold-button" href="/pl/bespoke">Zaprojektuj oprawkę Bespoke</a></p>
 `
@@ -7394,6 +7390,118 @@ const SIZES = [
 function getSizeBySlug(slug) {
   return SIZES.find((s) => s.slug === slug);
 }
+const BESPOKE_FACTS = {
+  name: "Woolet Bespoke - made-to-measure eyeglasses",
+  h1: "Woolet Bespoke - glasses made to your exact face",
+  frontWidth: "145-172 mm",
+  bridge: "20-24 mm",
+  temples: "145-155 mm",
+  regularPrice: 480,
+  regularPriceLabel: "$480 USD",
+  kickstarterPrice: 299,
+  kickstarterPriceLabel: "$299 USD",
+  kickstarterLabel: "Kickstarter backer price: $299 (campaign only)",
+  kickstarterPath: "/en/lp/kickstarter",
+  leadTime: "2 weeks of production from approval of the 3D model, then shipping",
+  material: "Italian Mazzucchelli 1849 cellulose acetate",
+  origin: "Hand made in Greece (EU)",
+  warranty: "10 years",
+  shipping: "Free worldwide shipping",
+  lenses: "Standard prescription lenses included; specialty lens upgrades such as photochromic and progressive are paid add-ons",
+  shapes: ["Aviator", "Rectangle", "Crown Panto", "Round"],
+  process: [
+    "AI fit scan with a phone camera in about 20 seconds",
+    "Configure shape, acetate colour, finish and lenses",
+    "Preview the selected frame on your face",
+    "Review and approve the made-to-measure 3D model",
+    "Handmade production in Greece (EU)",
+    "Free worldwide shipping"
+  ]
+};
+const BESPOKE_META_DESCRIPTION = "Made-to-measure glasses in any width from 145-172 mm. $480 with prescription lenses and worldwide shipping. Hand made in Greece from Italian acetate.";
+const BESPOKE_GUIDE = [
+  {
+    heading: "A frame built around your measurements",
+    text: "Made to measure means the front width, bridge and temples are chosen for one person, not picked from an existing shelf size. Woolet Bespoke covers front widths from 145-172 mm, bridges from 20-24 mm and temple lengths from 145-155 mm. Those numbers describe the frame, not a guarantee that every face of the same width needs identical glasses. The measurement and model-review steps establish the dimensions for your individual build. If you are deciding between a stock frame and a custom one, start with a face-width measurement rather than guessing from your hat size or an old pair of glasses."
+  },
+  {
+    heading: "When a standard Woolet frame is enough",
+    text: "The standard Woolet 007 Round/Panto and 009 Soft Square both have a 158 mm front and generally fit face widths around 155-161 mm. Their bridges measure 21 mm and 22 mm respectively, and both have 150 mm temples. If those fixed dimensions suit your face, a standard frame may be the simpler choice. Bespoke is not a larger version of either stock silhouette. Its four available shapes - Aviator, Rectangle, Crown Panto and Round - are distinct configurator designs. The fit scan helps you compare your own numbers with the standard dimensions before you commit to a made-to-measure order."
+  },
+  {
+    heading: "A narrower or wider face can need the same process",
+    text: "Bespoke is not limited to people who find regular glasses too small. A 145 mm front can be made for a narrower fit, while a 172 mm front covers the upper end of the available build range. Between those limits, the bridge and temple dimensions also matter. A frame may be wide enough at the front but still sit poorly if its bridge or temples are wrong for the wearer. Conversely, someone in the typical stock face-width band may choose a custom shape or need a different bridge. The recommended path depends on the complete set of measurements rather than one number in isolation."
+  },
+  {
+    heading: "How the remote fitting works",
+    text: "The process begins with a phone-camera fit scan. Measurements provide a starting point for the frame geometry, and the order flow allows you to confirm or supplement them. The scan is not a substitute for reviewing the proposed fit: the made-to-measure 3D model is prepared and shown for approval before production starts. If a measurement needs clarification, it can be checked during that review instead of silently treated as final. The production clock begins only after the 3D model has been approved. The goal is a frame made to a verified specification, not a stock frame chosen by an algorithm alone."
+  },
+  {
+    heading: "Choosing among the four shapes",
+    text: "Aviator, Rectangle, Crown Panto and Round are the four live Woolet Bespoke configurator shapes. Shape is an aesthetic choice made after you establish the fit. An Aviator has a different outline from a Round, and a Rectangle is not the same design as the standard 009 Soft Square. Likewise, Crown Panto is not the standard 007 Round/Panto. The configurator lets you review the available acetate colours, finish and lens choices with your selected shape. Whichever silhouette you choose, the front width, bridge and temples remain tied to the measurements agreed for your individual frame."
+  },
+  {
+    heading: "What the regular price includes",
+    text: "The regular Woolet Bespoke price is $480 USD. Standard prescription lenses and free worldwide shipping are included in that price. Specialty lens choices, including photochromic and progressive options, are paid add-ons in the configurator; check the total shown there before paying. The $299 amount is a Kickstarter backer price during the campaign only, not a regular offer on the Woolet site and not the price of the product in search results. The order summary shows your selected lens options and any applicable upgrade charges separately, so the quoted total reflects what you actually chose."
+  },
+  {
+    heading: "Material and place of manufacture",
+    text: "Woolet Bespoke uses Italian Mazzucchelli 1849 cellulose acetate. Italian describes the material's origin, not where the finished frame is made. The frame is hand made in Greece, within the EU, then checked against the approved model before dispatch. Acetate is selected for its appearance and suitability for shaping a measured frame; choosing it does not replace accurate fitting. The finished frame carries a 10-year warranty. If you are comparing brands, distinguish a material-origin claim from a manufacturing-origin claim and look at the actual frame dimensions, lens inclusion and production process rather than a broad description such as custom or premium."
+  },
+  {
+    heading: "Approval, production and delivery",
+    text: "The six steps are a phone-camera fit scan, configuration, a preview, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular $480 USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts."
+  }
+];
+const BESPOKE_FAQS = [
+  { q: "Can I get custom-fit glasses online without visiting a store?", a: "Yes. Woolet Bespoke uses a phone-camera fit scan that takes about 20 seconds. We use the measurements to prepare a made-to-measure 3D model for your approval, so no store or atelier visit is required." },
+  { q: "How much do custom-made glasses cost?", a: "Woolet Bespoke costs $480 USD including standard prescription lenses and free worldwide shipping. Specialty lens upgrades such as photochromic and progressive remain paid add-ons in the configurator. During the Kickstarter campaign, backers get Bespoke for $299. The $299 Kickstarter backer price is available only through the campaign and is not sold as a $299 offer on woolet.co." },
+  { q: "Are bespoke glasses worth it?", a: "Bespoke can be worth it when standard frames pinch, slide, sit crooked or never align correctly with your face. It also suits someone who wants a one-of-one frame. The value is the individually set width, bridge and temple length rather than a logo or a stock size." },
+  { q: "Can you make glasses for an asymmetrical face?", a: "Yes. The scan and review process can account for differences between the two sides of a face, including ear height and how a frame sits. The final geometry is reviewed before the 3D model is approved and production begins." },
+  { q: "Can I order custom glasses for a narrow face?", a: "Yes. Woolet Bespoke is not only for wide faces. It covers any front width from 145-172 mm, including narrower measurements below the stock Woolet fit range." },
+  { q: "How do you measure my face remotely?", a: "A phone-camera AI fit scan measures the face in about 20 seconds. The order flow also lets you confirm measurements and provide supporting information before the workshop cuts the frame." },
+  { q: "Can I use my prescription?", a: "Yes. The $480 regular price includes standard prescription lenses and free worldwide shipping. Specialty lens upgrades such as photochromic and progressive cost extra as shown in the configurator. You provide the required prescription details before production." },
+  { q: "What if my bespoke glasses do not fit?", a: "Woolet checks the scan, measurements and approved 3D model before cutting. The frame is covered by the Woolet Fit Promise and a 10-year warranty. Contact support if the delivered fit does not match the approved specification." },
+  { q: "Do you ship bespoke glasses to my country?", a: "Woolet Bespoke includes free worldwide shipping. First Bespoke pairs have already shipped to customers abroad, including Vietnam." },
+  { q: "How long does Woolet Bespoke take?", a: "Production takes 2 weeks from your approval of the made-to-measure 3D model. Shipping starts after production, and transit time depends on the destination." }
+];
+function bespokeProductJsonLd$1(url2 = "https://woolet.co/en/bespoke", image = "https://woolet.co/og-image.png") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${url2}#product`,
+    name: BESPOKE_FACTS.name,
+    url: url2,
+    description: `${BESPOKE_FACTS.frontWidth} made-to-measure eyeglasses in ${BESPOKE_FACTS.material}, hand made in Greece (EU). Standard prescription lenses and free worldwide shipping included; specialty lens upgrades cost extra.`,
+    image: [image],
+    brand: { "@type": "Brand", name: "Woolet" },
+    material: BESPOKE_FACTS.material,
+    sku: "WOOLET-BESPOKE",
+    warranty: { "@type": "WarrantyPromise", durationOfWarranty: { "@type": "QuantitativeValue", value: 10, unitCode: "ANN" } },
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Front width", value: BESPOKE_FACTS.frontWidth },
+      { "@type": "PropertyValue", name: "Bridge", value: BESPOKE_FACTS.bridge },
+      { "@type": "PropertyValue", name: "Temples", value: BESPOKE_FACTS.temples },
+      { "@type": "PropertyValue", name: "Production time", value: BESPOKE_FACTS.leadTime }
+    ],
+    offers: {
+      "@type": "Offer",
+      price: "480.00",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: url2,
+      itemCondition: "https://schema.org/NewCondition",
+      eligibleRegion: { "@type": "Place", name: "Worldwide" },
+      shippingDetails: { "@type": "OfferShippingDetails", shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" }, shippingDestination: { "@type": "DefinedRegion", addressCountry: "Worldwide" }, deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" } } },
+      hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted", applicableCountry: "Worldwide" }
+    }
+  };
+}
+const bespokeFaqJsonLd = () => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: BESPOKE_FAQS.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } }))
+});
 const F = "https://woolet.co/frames/";
 const SPECS_007 = [
   ["Shape", "Round / Panto"],
@@ -7661,31 +7769,34 @@ const REF_PRODUCTS = [
     shortName: "Bespoke",
     colour: "Any Mazzucchelli colour",
     colourDot: "#CAA449",
-    priceUsd: 480,
-    tagline: "Four shapes, 60 colour and size combinations, any width 145-172 mm. Hand made in Greece. Lenses included.",
+    priceUsd: BESPOKE_FACTS.regularPrice,
+    tagline: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}. ${BESPOKE_FACTS.origin}. Standard prescription lenses and worldwide shipping included at ${BESPOKE_FACTS.regularPriceLabel}. Specialty upgrades cost extra.`,
     intro: "The signature frames are 158 mm and fit faces from 155 to 161 mm. When you sit outside that - narrower, or wider than 161 - this is the one built to your numbers instead of to a size chart. An AI-Fit measurement reads your temple-to-temple width, bridge and temple length, and the frame is cut to those figures.",
     body: [
-      "Crown Panto - a straight brow line gives you the structure of a rectangle across the top, then the lens curves away underneath. On a wide face with a strong jaw it is the most reliable shape in the range. This is the silhouette the Woolet 007 is drawn from.",
+      "Crown Panto - a straight brow line gives you the structure of a rectangle across the top, then the lens curves away underneath. This is a separate Bespoke design from the standard Woolet 007.",
       "Round - fully circular lenses, a keyhole bridge, no horizontal line anywhere. Because nothing runs straight across your brow, nothing marks the width.",
       "Rectangle - a heavy flat brow and tall squared lens openings. The least apologetic option: it does not soften the width, it frames it.",
       "Aviator - the double bridge draws a horizontal line across the top of your face, and a wide face reads that line as balance rather than width. Cut in acetate, not wire.",
-      "Every frame is cut by hand from Italian Mazzucchelli acetate in Greece. Production time: 2 weeks from order to shipping. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect."
+      `Every frame is cut by hand from ${BESPOKE_FACTS.material} in Greece. Production takes ${BESPOKE_FACTS.leadTime}. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect.`
     ],
     specs: [
-      ["Shapes", "Crown Panto, Round, Rectangle, Aviator"],
+      ["Shapes", "Aviator, Rectangle, Crown Panto, Round"],
       ["Width", "Any width 145-172 mm, built to measure"],
       ["Colours", "Full Mazzucchelli range - 60 colour and size combinations"],
-      ["Lenses", "Reading, sun UV400, blue light or photochromic - included"],
+      ["Lenses", "Standard prescription lenses included; specialty upgrades such as photochromic and progressive cost extra in the configurator"],
       ["Measurement", "AI-Fit scan from your phone camera"],
-      ["Material", "Italian Mazzucchelli acetate, milled in Milan"],
-      ["Production", "Hand made in Greece"],
-      ["Lead time", "2 weeks from order to shipping"]
+      ["Material", BESPOKE_FACTS.material],
+      ["Production", BESPOKE_FACTS.origin],
+      ["Bridge", `${BESPOKE_FACTS.bridge}, built to measure`],
+      ["Temples", `${BESPOKE_FACTS.temples}, built to measure`],
+      ["Warranty", BESPOKE_FACTS.warranty],
+      ["Lead time", BESPOKE_FACTS.leadTime]
     ],
     lensOptions: [
-      { name: "Reading", priceUsd: 480, note: "Single-vision magnification to your strength. Included." },
-      { name: "Sun UV400", priceUsd: 480, note: "Full UVA and UVB block. Included." },
-      { name: "Blue light", priceUsd: 480, note: "Filtering with a faint warm tint, anti-reflective coated. Included." },
-      { name: "Photochromic", priceUsd: 480, note: "Clear indoors, darkens in sunlight. Included." }
+      { name: "Reading", priceUsd: 480, note: "Single-vision magnification to your strength. Consult the configurator for any applicable lens upgrade price." },
+      { name: "Sun UV400", priceUsd: 480, note: "Full UVA and UVB block. Consult the configurator for any applicable lens upgrade price." },
+      { name: "Blue light", priceUsd: 480, note: "Filtering with a faint warm tint. Consult the configurator for any applicable lens upgrade price." },
+      { name: "Photochromic", priceUsd: 480, note: "Clear indoors, darkens in sunlight. Paid upgrade in the configurator." }
     ],
     images: [
       { src: `${F}woolet-bespoke-shape-crown-panto-black.jpg`, alt: "Woolet Bespoke Crown Panto shape in black acetate", caption: "Crown Panto" },
@@ -7699,8 +7810,8 @@ const REF_PRODUCTS = [
     included: ["Rigid magnetic gift box, 180 x 80 x 55 mm ($45 value)", "Charcoal felt pouch with the yellow w", "Microfiber cleaning pouch on a clip"],
     siblings: [],
     shopUrl: "https://shop.woolet.co/products/woolet-bespoke-custom-fit-eyewear",
-    metaTitle: "Woolet Bespoke - Made-to-measure acetate glasses, 145-172 mm",
-    metaDescription: "Four shapes, any width 145-172 mm, Italian Mazzucchelli acetate, hand made in Greece, lenses included at $480. Reference product page."
+    metaTitle: `Woolet Bespoke - Made-to-measure acetate glasses, ${BESPOKE_FACTS.frontWidth}`,
+    metaDescription: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}, ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, standard prescription lenses included at ${BESPOKE_FACTS.regularPriceLabel}; specialty upgrades cost extra. Reference product page.`
   },
   // ---------- The Box ----------
   {
@@ -9188,7 +9299,7 @@ const SHIP_COUNTRIES = [
 ];
 const LIST_PRICE = "190.00";
 const SALE_PRICE = "114.00";
-const BESPOKE_PRICE = "299.00";
+const BESPOKE_PRICE = "480.00";
 const PRICE_CURRENCY = "USD";
 const PRICE_VALID_UNTIL = "2027-12-31";
 const PRICE_VALID_FROM = "2026-06-20";
@@ -9434,40 +9545,7 @@ function productJsonLd(model, shape, lensSize, lang = "en") {
   return base2;
 }
 function bespokeProductJsonLd(lang = "en") {
-  const url2 = `${SITE_URL}/${lang}/products/bespoke`;
-  return {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": url2,
-    url: url2,
-    inLanguage: lang,
-    name: "Woolet Bespoke — Custom Acetate Glasses",
-    description: "Bespoke Italian Mazzucchelli acetate glasses cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–172 mm.",
-    brand: { "@type": "Brand", name: "Woolet" },
-    image: [`${SITE_URL}/og-image.png`],
-    sku: "WOOLET-BESPOKE",
-    mpn: "WOOLET-BESPOKE",
-    material: "Italian Mazzucchelli Acetate",
-    category: "Eyewear > Optical frames > Bespoke",
-    additionalProperty: [
-      { "@type": "PropertyValue", name: "Frame width", value: "145–172 mm" },
-      { "@type": "PropertyValue", name: "Fit", value: "Cut to your face" },
-      { "@type": "PropertyValue", name: "Frame origin", value: "Hand made in EU" }
-    ],
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/PreOrder",
-      priceCurrency: PRICE_CURRENCY,
-      price: BESPOKE_PRICE,
-      priceValidUntil: PRICE_VALID_UNTIL,
-      url: url2,
-      seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
-      itemCondition: "https://schema.org/NewCondition",
-      eligibleRegion: { "@type": "Place", name: "Worldwide" },
-      hasMerchantReturnPolicy: RETURN_POLICY,
-      shippingDetails: shippingDetails(true)
-    }
-  };
+  return bespokeProductJsonLd$1(`${SITE_URL}/en/bespoke`);
 }
 function breadcrumbJsonLd(parts) {
   return {
@@ -9735,8 +9813,8 @@ function getMetadata(route) {
     }
     const p = refProductBySlug(path.replace("/ref/", ""));
     if (p) {
-      const canonical = `${SITE_URL}/en/ref/${p.slug}`;
-      return base(
+      const canonical = p.slug === "bespoke" ? `${SITE_URL}/en/bespoke` : `${SITE_URL}/en/ref/${p.slug}`;
+      const meta = base(
         `/en/ref/${p.slug}`,
         "en",
         {
@@ -9750,12 +9828,12 @@ ${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
 <h2>Specifications</h2>
 <ul>${p.specs.map(([k, v]) => `<li>${escapeHtml(k)}: ${escapeHtml(v)}</li>`).join("")}</ul>
 ${p.included ? `<h2>In the box</h2><ul>${p.included.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>` : ""}
-${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - $${l.priceUsd}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
+${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - ${p.model === "bespoke" ? "See configurator" : `$${l.priceUsd}`}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
 <p>${REF_PRODUCTS.filter((o) => o.slug !== p.slug).map((o) => `<a href="/en/ref/${o.slug}">${escapeHtml(o.name)}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Check your fit in 30 seconds</a></p>`
         },
         { image: p.images[0].src, type: "product" },
-        [
+        p.model === "bespoke" ? [bespokeProductJsonLd("en")] : [
           {
             "@context": "https://schema.org",
             "@type": "Product",
@@ -9784,6 +9862,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           }
         ]
       );
+      if (p.slug === "bespoke") meta.robots = "noindex, follow";
+      return meta;
     }
   }
   if (route === "/ko" || route.startsWith("/ko/")) {
@@ -9927,24 +10007,24 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     const copy = {
       en: {
         title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
-        description: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–172 mm. From $299 pre-order.",
+        description: `Explore Woolet Bespoke's four made-to-measure shapes and lens options. ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.regularPriceLabel} with standard prescription lenses and shipping.`,
         noscriptHtml: `<h1>Woolet Bespoke — Custom Acetate Glasses</h1>
-<p>Bespoke Italian Mazzucchelli acetate frames cut to your face in four silhouettes: Aviator, Rectangle, Crown Panto and Round. Sizes 145–172 mm. Founding-member pre-order $299; $480 MSRP at full launch.</p>`
+ <p>${BESPOKE_FACTS.name}. ${BESPOKE_META_DESCRIPTION} ${BESPOKE_FACTS.lenses}. ${BESPOKE_FACTS.leadTime}.</p>`
       },
       nl: {
         title: "Woolet Bespoke — acetaatbril op maat van je gezicht",
-        description: "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145–172 mm. Vanaf $299 in pre-order.",
+        description: "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145-172 mm. $480 inclusief standaard glazen op sterkte en wereldwijde verzending.",
         noscriptHtml: `<h1>Woolet Bespoke — acetaatbril op maat</h1>
-<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145–172 mm. Handgemaakt in de EU. Vanaf $299 in pre-order ($480 adviesprijs).</p>`
+<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145-172 mm. Handgemaakt in Griekenland (EU). $480 inclusief standaard glazen op sterkte en gratis wereldwijde verzending. Speciale glazen kosten extra.</p>`
       },
       fr: {
         title: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage",
-        description: "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Quatre silhouettes, tailles 145–172 mm. Dès 299 $ en pré-commande.",
+        description: "Lunettes sur mesure en acétate italien Mazzucchelli. Quatre formes, largeur 145-172 mm. 480 $ avec verres correcteurs standard et livraison mondiale gratuite.",
         noscriptHtml: `<h1>Woolet Bespoke — lunettes en acétate sur mesure</h1>
-<p>Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage, en quatre silhouettes : Aviator, Rectangle, Crown Panto et Round. Tailles 145–172 mm. Façonnées à la main dans l'Union européenne. Dès 299 $ en pré-commande (prix public 480 $).</p>`
+<p>Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage, en quatre formes : Aviator, Rectangle, Crown Panto et Round. Largeur 145-172 mm. Fabriquées à la main en Grèce (UE). 480 $ avec verres correcteurs standard et livraison mondiale gratuite. Les verres spéciaux sont en supplément.</p>`
       }
     };
-    return base(
+    const meta = base(
       route,
       lang,
       copy[lang] ?? copy.en,
@@ -9958,6 +10038,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         ])
       ]
     );
+    if (lang === "en") meta.canonical = `${SITE_URL}/en/bespoke`;
+    return meta;
   }
   if (path === "/about") {
     return base(route, lang, {
@@ -10190,11 +10272,11 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <h3>Where do you buy sunglasses for big heads?</h3>
 <p>Specialist makers like Woolet design at 158 mm front width with bespoke above. Mass-market brands mostly cap at 145 to 148 mm even on oversized models, so the lenses are larger but the front is the same.</p>
 <h3>Can I get sunglasses custom-made for my head size?</h3>
-<p>Yes. Bespoke covers 145 to 172 mm of front width in either shape, with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.</p>
+<p>Yes. Bespoke covers 145 to 172 mm of front width in Aviator, Rectangle, Crown Panto or Round, with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.</p>
 <h3>Are Woolet sunglasses polarized?</h3>
 <p>Polarised lenses are available as an upgrade on both 007 and 009. Standard lenses are CR-39 with UV400 protection.</p>
 <h3>How long is the bespoke wait time?</h3>
-<p>Bespoke ships approximately 6 to 8 weeks after the standard pre-order batch.</p>
+<p>Bespoke production takes 2 weeks from approval of the 3D model, then shipping.</p>
 <p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (square)</a> | <a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a></p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -10621,7 +10703,7 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
 <p>${s.intro}</p>
 <h2>Bespoke at ${s.width} mm</h2>
 <p>${s.bespokeNote}</p>
-<p>Bespoke: 4 shapes, 60 colour and size combinations, any width 145–172 mm (172 mm maximum), 2 weeks from order to shipping, $480 with lenses included, hand made in Greece. Signature 158 mm $190, fits 155–161 mm faces, hand made in EU from Mazzucchelli acetate milled in Milan.</p>
+<p>Bespoke: ${BESPOKE_FACTS.shapes.join(", ")}, ${BESPOKE_FACTS.frontWidth} front, ${BESPOKE_FACTS.bridge} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra. ${BESPOKE_FACTS.leadTime}. ${BESPOKE_FACTS.origin} from ${BESPOKE_FACTS.material}. Signature 158 mm frames fit 155-161 mm faces.</p>
 <h2>Every width we cover — 145 to 172 mm</h2>
 <p>${SIZES.map((r) => `<a href="/en/size/${r.slug}">${r.width} mm${r.width === 158 ? " (signature)" : r.width >= 155 && r.width <= 161 ? " (signature fit)" : " (bespoke)"}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Measure my face with FitLens</a> · <a href="/en/products/007">Woolet 007 Round</a> · <a href="/en/products/009">Woolet 009 Soft Square</a> · <a href="/en/fit/bespoke">Bespoke 145–172 mm</a></p>`
@@ -10817,24 +10899,21 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
       route,
       lang,
       {
-        title: "Bespoke Glasses for Wide Faces — 145–172 mm | Woolet",
-        description: "Bespoke eyewear for wide faces, 145–172 mm front width. Italian Mazzucchelli acetate, hand made in the EU. From $299 for the first 100 backers.",
-        noscriptHtml: `<h1>Woolet Bespoke — 145–172 mm</h1>
-<p>Woolet Bespoke is made-to-measure eyewear for faces outside the 155–161 mm core range. Front width covers 145–172 mm, bridge 20–24 mm, temples 145–155 mm. Same Italian Mazzucchelli 1849 cellulose acetate, hand made in the EU. Founding price $299 for the first 100 backers ($480 MSRP).</p>
-<p>Choose the 007 round-panto or 009 soft-square silhouette, submit measurements from the AI Fit Scan, and we build a single frame around your exact face. <a href="/en/fit/bespoke">Start the bespoke fit scan</a>.</p>`
+        title: BESPOKE_FACTS.h1 + " | Woolet",
+        description: BESPOKE_META_DESCRIPTION,
+        noscriptHtml: `<article><h1>${BESPOKE_FACTS.h1}</h1>
+<p>${BESPOKE_FACTS.name} spans ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.bridge} bridge and ${BESPOKE_FACTS.temples} temples. At ${BESPOKE_FACTS.regularPriceLabel}, standard prescription lenses and free worldwide shipping are included; specialty lens upgrades cost extra. ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, ${BESPOKE_FACTS.warranty} warranty. ${BESPOKE_FACTS.leadTime}.</p>
+<h2>Who is Woolet Bespoke for?</h2><p>If stock frames pinch at the temples, slide down the nose or sit crooked, a made-to-measure frame solves the dimensional mismatch. Bespoke is for narrow and wide faces within the measured range. Standard Woolet 007 and 009 signature frames have a 158 mm front and fit approximately 155-161 mm faces. They are different designs from the four Bespoke shapes. A phone-camera scan helps determine whether a standard frame fits before you choose a made-to-measure shape.</p>
+<h2>Specifications</h2><table><thead><tr><th>Specification</th><th>Woolet Bespoke</th></tr></thead><tbody>${[["Front width", BESPOKE_FACTS.frontWidth], ["Bridge", BESPOKE_FACTS.bridge], ["Temples", BESPOKE_FACTS.temples], ["Shapes", BESPOKE_FACTS.shapes.join(", ")], ["Material", BESPOKE_FACTS.material], ["Made in", BESPOKE_FACTS.origin], ["Regular price", BESPOKE_FACTS.regularPriceLabel], ["Lenses", BESPOKE_FACTS.lenses], ["Shipping", BESPOKE_FACTS.shipping], ["Warranty", BESPOKE_FACTS.warranty], ["Production", BESPOKE_FACTS.leadTime]].map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("")}</tbody></table>
+<h2>Six steps from scan to delivery</h2><ol>${BESPOKE_FACTS.process.map((s) => `<li>${s}</li>`).join("")}</ol><p>The production clock starts only once you approve your made-to-measure 3D model. Production takes two weeks after approval, and shipping begins afterward. Worldwide shipping is free. Transit time varies by destination.</p>
+<h2>Bespoke compared with standard frames</h2><table><thead><tr><th>Feature</th><th>Bespoke</th><th>Standard 007 and 009</th></tr></thead><tbody><tr><th>Front width</th><td>145-172 mm to measure</td><td>158 mm</td></tr><tr><th>Bridge</th><td>20-24 mm</td><td>21 mm (007), 22 mm (009)</td></tr><tr><th>Shapes</th><td>Aviator, Rectangle, Crown Panto, Round</td><td>007 Round/Panto, 009 Soft Square</td></tr><tr><th>Fit</th><td>Dimensions set to you</td><td>Approximately 155-161 mm faces</td></tr></tbody></table>
+<h2>Crafted and shipped worldwide</h2><p>Italian Mazzucchelli 1849 cellulose acetate is shaped and finished by hand in Greece (EU). The material originates in Italy; the frames are not made there. The first Bespoke pairs have already shipped to customers abroad, including Vietnam. The fit is checked against the approved model before dispatch, and a 10-year warranty backs the frame.</p>
+${BESPOKE_GUIDE.map(({ heading, text }) => `<section><h2>${heading}</h2><p>${text}</p></section>`).join("")}
+<h2>Questions about Woolet Bespoke</h2>${BESPOKE_FAQS.map(({ q, a }) => `<section><h3>${q}</h3><p>${a}</p></section>`).join("")}
+<p><a href="/en/fit/bespoke">Start the Bespoke fit scan</a></p></article>`
       },
       { image: DEFAULT_OG, type: "website" },
-      [
-        breadcrumbJsonLd([
-          { name: "Woolet", url: `${SITE_URL}/en` },
-          { name: "Bespoke", url: `${SITE_URL}/en/bespoke` }
-        ]),
-        faqPageJsonLd([
-          { q: "What face widths does Woolet Bespoke cover?", a: "Bespoke covers 145–172 mm front width, 20–24 mm bridge, and 145–155 mm temples — outside the 155–161 mm core range." },
-          { q: "How much does bespoke cost?", a: "$299 USD for the first 100 backers, $480 MSRP after. Includes measurements review, one production run, and free shipping." },
-          { q: "How long does bespoke take?", a: "About 6 weeks from confirmed measurements to shipped frame — 13 stages, hand made in the EU from Italian Mazzucchelli acetate." }
-        ])
-      ]
+      [bespokeProductJsonLd("en"), bespokeFaqJsonLd(), breadcrumbJsonLd([{ name: "Woolet", url: `${SITE_URL}/en` }, { name: "Bespoke", url: `${SITE_URL}/en/bespoke` }])]
     );
   }
   if (route === "/de/blaulichtfilter-brille-herren") {
@@ -11297,6 +11376,8 @@ function renderHeadHtml(meta) {
   return tags.join("\n    ");
 }
 export {
+  BESPOKE_FACTS,
+  BESPOKE_FAQS,
   SITE_URL,
   getAllRoutes,
   getMetadata,
