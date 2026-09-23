@@ -45,6 +45,6 @@
 - [x] Verify checkout paths, webhook behavior and tests without changing UI
 
 ## Bespoke sun lens colours
-- [ ] Add four swatches and shared tint state, picker, preview and checkout
-- [ ] Persist/backfill tint code and show in CRM, workshop, shipping and emails
-- [ ] Deploy changed functions and verify order flow
+- [x] Add four swatches and shared tint state, picker, preview and checkout
+- [x] Persist/backfill tint code and show in CRM, workshop, shipping and emails
+- [x] Deploy changed functions and verify typecheck and focused order-data tests
