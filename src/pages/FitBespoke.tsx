@@ -221,7 +221,7 @@ export default function FitBespoke() {
                 {
                   title: "Bespoke wins",
                   body: `Face outside 155-161 mm or bridge outside 21-22 mm. Asymmetric ears. Unusual pantoscopic tilt. Bespoke covers ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.bridge} bridge and ${BESPOKE_FACTS.temples} temples.`,
-                  cta: { label: "Bespoke glasses for wide faces", to: "/en/bespoke#bespoke-glasses-for-wide-faces" },
+                  cta: { label: "Build your bespoke frame", to: "/en/bespoke/configurator" },
                 },
                 {
                   title: "Not sure",
@@ -376,13 +376,27 @@ export default function FitBespoke() {
             <p className="text-cream-dim leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontSize: "0.95rem" }}>
               The AI Fit Scan tells you stock or bespoke before you commit to anything.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
               <Link
-                to="/en/fit"
+                to="/en/bespoke/configurator"
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   background: "hsl(var(--gold))",
                   color: "hsl(var(--background))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.72rem",
+                  padding: "18px 32px",
+                }}
+              >
+                Build your bespoke frame
+              </Link>
+              <Link
+                to="/en/fit"
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                style={{
+                  border: "1px solid hsl(var(--gold) / 0.5)",
+                  color: "hsl(var(--gold-light))",
                   fontFamily: "Barlow, sans-serif",
                   fontWeight: 500,
                   fontSize: "0.72rem",
