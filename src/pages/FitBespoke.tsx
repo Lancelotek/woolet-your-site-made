@@ -4,6 +4,7 @@ import { FitClusterNav } from "@/components/FitToolContent";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { BESPOKE_FRONT_WIDTH_RANGE, BESPOKE_BRIDGE_RANGE } from "@/lib/bespoke-spec";
+import { BESPOKE_FACTS, BESPOKE_FAQS } from "@/content/bespokeFacts";
 
 const SIZE_ROWS: Array<{
   width: string;
@@ -25,15 +26,15 @@ const FAQS = [
   },
   {
     q: "What does bespoke actually control?",
-    a: "Four dimensions: frame width, bridge width, temple length, and pantoscopic tilt. The lens shape catalog is unchanged — you still pick between 007 round/panto or 009 soft-square. Bespoke scales the chosen shape to your face.",
+    a: `Front width ${BESPOKE_FACTS.frontWidth}, bridge ${BESPOKE_FACTS.bridge} and temples ${BESPOKE_FACTS.temples} are made to measure. Choose Aviator, Rectangle, Crown Panto or Round. The standard 007 and 009 are separate 158 mm designs.`,
   },
   {
     q: "What's the lead time?",
-    a: "Roughly 8–10 weeks. Week 1: scan and CAD approval. Weeks 2–7: hand-cut and polished at the European atelier. Week 8: QC and shipping. Weeks 9–10: lens fitting at your local optician.",
+    a: BESPOKE_FAQS[9].a,
   },
   {
     q: "How much do bespoke glasses cost?",
-    a: "$299 for the first 100 Kickstarter backers (frame only). Comparable atelier-made bespoke acetate frames retail at $900–$2,500. Prescription lenses are ordered separately at your local optician.",
+    a: BESPOKE_FAQS[1].a,
   },
   {
     q: "Do I need to visit a fitter in person?",
@@ -71,7 +72,7 @@ export default function FitBespoke() {
     <>
       <SEO
         title={`Bespoke Sizing ${BESPOKE_FRONT_WIDTH_RANGE} — Woolet Made-to-Measure`}
-        description={`Made-to-measure Woolet frames from ${BESPOKE_FRONT_WIDTH_RANGE} front width, ${BESPOKE_BRIDGE_RANGE} bridge. Hand made in EU from Mazzucchelli acetate from Milan.`}
+        description={`Woolet Bespoke: ${BESPOKE_FRONT_WIDTH_RANGE} front, ${BESPOKE_BRIDGE_RANGE} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} with standard prescription lenses and free worldwide shipping. Hand made in Greece from Italian Mazzucchelli acetate.`}
         lang="en"
         path="/fit/bespoke"
         jsonLd={JSON_LD}
@@ -108,7 +109,7 @@ export default function FitBespoke() {
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "1rem" }}>
               The reference for everyone deciding between the signature Woolet (158 mm) and a made-to-measure
               frame. Total frame width from <span className="text-foreground">{BESPOKE_FRONT_WIDTH_RANGE}</span>, bridge
-              20 to 24 mm, hand-cut in the EU from Mazzucchelli acetate from Milan.
+              {BESPOKE_FACTS.bridge} and {BESPOKE_FACTS.temples} temples, hand made in Greece (EU) from Italian Mazzucchelli 1849 cellulose acetate. <Link to="/en/bespoke" className="text-gold-light underline">Explore Woolet Bespoke</Link>.
             </p>
           </div>
         </section>
@@ -391,7 +392,7 @@ export default function FitBespoke() {
                 Start AI Fit Scan
               </Link>
               <Link
-                to="/en/blog/bespoke-eyewear-size-range-150-172mm-guide"
+                to="/en/blog/bespoke-eyewear-size-range-145-172mm-guide"
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   border: "1px solid hsl(var(--gold) / 0.5)",
