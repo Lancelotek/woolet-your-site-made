@@ -234,7 +234,7 @@ const RefProductPage = () => {
                 ) : (
                   <>
                     <span style={{ fontFamily: SERIF, fontSize: 34, lineHeight: 1 }}>${product.priceUsd}</span>
-                    <span style={{ fontSize: 13, color: T.inkMute }}>{isBespoke ? "lenses included" : "frame with demo lens"}</span>
+                    <span style={{ fontSize: 13, color: T.inkMute }}>{isBespoke ? "standard prescription lenses included; specialty upgrades cost extra" : "frame with demo lens"}</span>
                   </>
                 )}
               </div>
@@ -312,7 +312,7 @@ const RefProductPage = () => {
                 <h2 style={h2}>Lens options</h2>
                 <p style={{ fontSize: 13, lineHeight: 1.6, color: T.inkMute, margin: "0 0 16px" }}>
                   {isBespoke
-                    ? "All lens types included at $480."
+                    ? "Standard prescription lenses and free worldwide shipping included at $480. Specialty lens upgrades cost extra."
                     : "Frame with demo lens $190. Any lens that does something (sun, blue light, reading) is $210."}
                 </p>
                 <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
