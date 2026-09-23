@@ -37,3 +37,9 @@
 - [ ] Consolidate duplicate-page indexing and migrate the guide slug
 - [ ] Add required discovery-source attribution through checkout and CRM
 - [ ] Regenerate and verify prerender, sitemap, tests, and output
+
+## $1 reservation payment attribution - 2026-09-23
+- [ ] Capture expiring last-touch campaign parameters on each page load
+- [ ] Include last touch in every $1 reservation checkout metadata
+- [ ] Resolve payment source from last touch and overwrite MailerLite paid fields
+- [ ] Verify checkout paths, webhook behavior and tests without changing UI
