@@ -316,7 +316,7 @@ const BespokePage = () => {
 
               <div ref={heroCtaRef} className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
                 <Link
-                   to="/en/fit/bespoke"
+                   to="/en/bespoke/configurator"
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                   style={{
                     background: "hsl(var(--gold))",
@@ -327,7 +327,10 @@ const BespokePage = () => {
                     padding: "18px 32px",
                   }}
                 >
-                   Start the bespoke fit scan
+                   Build your frame →
+                </Link>
+                <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
+                  Not sure of your width? Take the fit scan
                 </Link>
               </div>
             </div>
@@ -342,7 +345,7 @@ const BespokePage = () => {
                 }}
               >
                 {/* Clarity: people tap the hero image — make it a way in. */}
-                  <Link to="/en/fit/bespoke" aria-label="Start the bespoke fit scan" className="block w-full h-full">
+                  <Link to="/en/bespoke/configurator" aria-label="Build your bespoke frame" className="block w-full h-full">
                   <img
                     src={bespokeHero}
                     alt="Woolet frame worn on a face, showing the fit across the front and temples"
@@ -524,7 +527,7 @@ const BespokePage = () => {
               Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145-172 mm, bridges from 20-24 mm and temples from 145-155 mm. The finished frame is made for one wearer.
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-              The regular price is $480 USD with standard prescription lenses and free worldwide shipping. Specialty lens upgrades cost extra in the configurator. <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">{BESPOKE_FACTS.kickstarterLabel}</Link> is not a Woolet shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
+              The regular price is $480 USD with standard prescription lenses and free worldwide shipping. Specialty lens upgrades cost extra in the configurator. The $299 price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
             </p>
           </div>
         </section>
@@ -598,6 +601,26 @@ const BespokePage = () => {
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+              <Link
+                to="/en/bespoke/configurator"
+                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                style={{
+                  background: "hsl(var(--gold))",
+                  color: "hsl(var(--background))",
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.72rem",
+                  padding: "16px 28px",
+                }}
+              >
+                Build yours · {BESPOKE_FACTS.frontWidth} →
+              </Link>
+              <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
+                Not sure of your width? Take the fit scan
+              </Link>
             </div>
           </div>
         </section>
@@ -746,7 +769,7 @@ const BespokePage = () => {
       {showStickyCta && (
         <div className="md:hidden fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 bg-background/95 backdrop-blur-xl border-t" style={{ borderTopColor: "hsl(var(--gold) / 0.2)" }}>
           <Link
-            to="/en/fit/bespoke"
+            to="/en/bespoke/configurator"
             className="flex w-full items-center justify-center uppercase tracking-[0.22em] no-underline"
             style={{
               background: "hsl(var(--gold))",
@@ -757,7 +780,7 @@ const BespokePage = () => {
               padding: "16px 24px",
             }}
           >
-            Start the bespoke fit scan
+            Build your frame →
           </Link>
         </div>
       )}
