@@ -7,6 +7,7 @@ import { trackMetaEventOnce } from "@/lib/meta-capi";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { BESPOKE_COPY, pdpLang, usd } from "@/i18n/productPageCopy";
+import { BESPOKE_FACTS } from "@/content/bespokeFacts";
 import aviatorImg from "@/assets/configurator/frames/aviator.png.asset.json";
 import rectangleImg from "@/assets/configurator/frames/rectangle.png.asset.json";
 import crownPantoImg from "@/assets/configurator/frames/crown-panto.png.asset.json";
@@ -39,7 +40,7 @@ const ProductPageBespoke = () => {
   const location = useLocation();
   const lang = langFromPath(location.pathname);
   const ctx = localeCtx(lang);
-  const canonical = `${SITE_URL}/${lang}/products/bespoke`;
+  const canonical = `${SITE_URL}/en/bespoke`;
   const pl = pdpLang(lang);
   const b = BESPOKE_COPY[pl];
   const { specs, benefits, guarantees } = b;
@@ -76,15 +77,15 @@ const ProductPageBespoke = () => {
     pushGtmEvent("click_reserve", {
       product_id: "bespoke",
       item_name: "Woolet Bespoke",
-      item_variant: "Founders Bespoke",
-      total_price: 299,
+      item_variant: "Bespoke",
+      total_price: BESPOKE_FACTS.regularPrice,
       value: 1,
       currency: "USD",
     });
     pushGtmEvent("begin_checkout", {
       item_name: "Woolet Bespoke",
-      item_variant: "Founders Bespoke",
-      total_price: 299,
+      item_variant: "Bespoke",
+      total_price: BESPOKE_FACTS.regularPrice,
       value: 1,
       currency: "USD",
     });
@@ -98,10 +99,8 @@ const ProductPageBespoke = () => {
         <title>{b.title}</title>
         <meta name="description" content={b.metaDescription} />
         <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/products/bespoke`} />
-        <link rel="alternate" hrefLang="nl" href={`${SITE_URL}/nl/products/bespoke`} />
-        <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr/products/bespoke`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/products/bespoke`} />
+        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/bespoke`} />
+        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/bespoke`} />
         <meta property="og:type" content="product" />
         <meta property="og:title" content={b.ogTitle} />
         <meta property="og:description" content={b.ogDescription} />
@@ -252,19 +251,14 @@ const ProductPageBespoke = () => {
                 <div style={{
                   fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.gold, marginBottom: 8,
-                }}>{b.foundingPrice}</div>
+                }}>Regular price</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 48, lineHeight: 1, color: T.ink }}>{usd(pl, 299)}</span>
-                  <span style={{ fontFamily: SANS, fontSize: 18, color: T.inkMute, textDecoration: "line-through" }}>{usd(pl, 480)}</span>
-                  <span style={{
-                    background: T.gold, color: T.dark, fontFamily: SANS, fontWeight: 600,
-                    fontSize: 11, letterSpacing: "0.14em", padding: "4px 9px", borderRadius: 2,
-                  }}>−38%</span>
+                  <span style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 48, lineHeight: 1, color: T.ink }}>{usd(pl, BESPOKE_FACTS.regularPrice)}</span>
                 </div>
                 <div style={{
                   marginTop: 10, fontFamily: SANS, fontSize: 13, color: T.inkDim, lineHeight: 1.55,
                 }}>
-                  {b.reservePre}<strong style={{ color: T.ink }}>{usd(pl, 1)}</strong>{b.reservePost}
+                  {BESPOKE_FACTS.lenses}. {BESPOKE_FACTS.shipping}. <Link to={BESPOKE_FACTS.kickstarterPath}>{BESPOKE_FACTS.kickstarterLabel}</Link>.
                 </div>
               </div>
 
@@ -322,7 +316,7 @@ const ProductPageBespoke = () => {
                   letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer",
                 }}
               >
-                {b.cta}
+                Explore Woolet Bespoke
               </button>
               <button
                 onClick={() => navigate("/en/fit")}
@@ -434,9 +428,7 @@ const ProductPageBespoke = () => {
               Woolet <em style={{ color: T.goldHi, fontStyle: "italic" }}>Bespoke</em>
             </div>
             <div style={{ fontFamily: SANS, fontSize: 12, color: "rgba(243,236,224,0.62)" }}>
-              <span style={{ color: "#f3ece0", fontWeight: 600 }}>{usd(pl, 299)}</span>
-              <span style={{ textDecoration: "line-through", margin: "0 6px" }}>{usd(pl, 480)}</span>
-              <span style={{ color: T.goldHi }}>−38%</span>
+              <span style={{ color: "#f3ece0", fontWeight: 600 }}>{usd(pl, BESPOKE_FACTS.regularPrice)}</span>
             </div>
           </div>
           <button

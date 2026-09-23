@@ -40,6 +40,7 @@ import { HAT_SIZE_FAQ } from "./hat-size-faq";
 import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import { DE_PRICING } from "@/content/de/pricing";
 import { BLOG_FITLENS_HOOK_POSTS, insertBlogFitLensHook } from "@/content/blog-fitlens-hook";
+import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_META_DESCRIPTION, bespokeProductJsonLd as canonicalBespokeProduct, bespokeFaqJsonLd } from "@/content/bespokeFacts";
 import {
   RETURN_POLICY,
   shippingDetails,
@@ -176,41 +177,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string, la
 }
 
 function bespokeProductJsonLd(lang: Lang = "en") {
-  const url = `${SITE_URL}/${lang}/products/bespoke`;
-  return {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": url,
-    url,
-    inLanguage: lang,
-    name: "Woolet Bespoke — Custom Acetate Glasses",
-    description:
-      "Bespoke Italian Mazzucchelli acetate glasses cut to the buyer's face. Four silhouettes: Aviator, Rectangle, Crown Panto, Round. Sizes 145–172 mm.",
-    brand: { "@type": "Brand", name: "Woolet" },
-    image: [`${SITE_URL}/og-image.png`],
-    sku: "WOOLET-BESPOKE",
-    mpn: "WOOLET-BESPOKE",
-    material: "Italian Mazzucchelli Acetate",
-    category: "Eyewear > Optical frames > Bespoke",
-    additionalProperty: [
-      { "@type": "PropertyValue", name: "Frame width", value: "145–172 mm" },
-      { "@type": "PropertyValue", name: "Fit", value: "Cut to your face" },
-      { "@type": "PropertyValue", name: "Frame origin", value: "Hand made in EU" },
-    ],
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/PreOrder",
-      priceCurrency: PRICE_CURRENCY,
-      price: BESPOKE_PRICE,
-      priceValidUntil: PRICE_VALID_UNTIL,
-      url,
-      seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
-      itemCondition: "https://schema.org/NewCondition",
-      eligibleRegion: { "@type": "Place", name: "Worldwide" },
-      hasMerchantReturnPolicy: RETURN_POLICY,
-      shippingDetails: shippingDetails(true),
-    },
-  };
+  return canonicalBespokeProduct(`${SITE_URL}/en/bespoke`);
 }
 
 function breadcrumbJsonLd(parts: { name: string; url: string }[]) {
@@ -538,9 +505,9 @@ export function getMetadata(route: string): RouteMeta {
       return meta;
     }
     const p = refProductBySlug(path.replace("/ref/", ""));
-    if (p) {
-      const canonical = `${SITE_URL}/en/ref/${p.slug}`;
-      return base(
+     if (p) {
+      const canonical = p.slug === "bespoke" ? `${SITE_URL}/en/bespoke` : `${SITE_URL}/en/ref/${p.slug}`;
+       const meta = base(
         `/en/ref/${p.slug}`,
         "en",
         {
@@ -554,7 +521,7 @@ ${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
 <h2>Specifications</h2>
 <ul>${p.specs.map(([k, v]) => `<li>${escapeHtml(k)}: ${escapeHtml(v)}</li>`).join("")}</ul>
 ${p.included ? `<h2>In the box</h2><ul>${p.included.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>` : ""}
-${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - $${l.priceUsd}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
+${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - ${p.model === "bespoke" ? "See configurator" : `$${l.priceUsd}`}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
 <p>${REF_PRODUCTS.filter((o) => o.slug !== p.slug).map((o) => `<a href="/en/ref/${o.slug}">${escapeHtml(o.name)}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Check your fit in 30 seconds</a></p>`,
         },
@@ -587,7 +554,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
             ],
           },
         ],
-      );
+       );
+       if (p.slug === "bespoke") meta.robots = "noindex, follow";
+       return meta;
     }
   }
 
@@ -755,31 +724,31 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       en: {
         title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
         description:
-          "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face. Four silhouettes, sizes 145–172 mm. From $299 pre-order.",
+           BESPOKE_META_DESCRIPTION,
         noscriptHtml: `<h1>Woolet Bespoke — Custom Acetate Glasses</h1>
-<p>Bespoke Italian Mazzucchelli acetate frames cut to your face in four silhouettes: Aviator, Rectangle, Crown Panto and Round. Sizes 145–172 mm. Founding-member pre-order $299; $480 MSRP at full launch.</p>`,
+ <p>${BESPOKE_FACTS.name}. ${BESPOKE_META_DESCRIPTION} ${BESPOKE_FACTS.lenses}. ${BESPOKE_FACTS.leadTime}.</p>`,
       },
       nl: {
         title: "Woolet Bespoke — acetaatbril op maat van je gezicht",
         description:
-          "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145–172 mm. Vanaf $299 in pre-order.",
+          "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145-172 mm. $480 inclusief standaard glazen op sterkte en wereldwijde verzending.",
         noscriptHtml: `<h1>Woolet Bespoke — acetaatbril op maat</h1>
-<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145–172 mm. Handgemaakt in de EU. Vanaf $299 in pre-order ($480 adviesprijs).</p>`,
+<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145-172 mm. Handgemaakt in Griekenland (EU). $480 inclusief standaard glazen op sterkte en gratis wereldwijde verzending. Speciale glazen kosten extra.</p>`,
       },
       fr: {
         title: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage",
         description:
-          "Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage. Quatre silhouettes, tailles 145–172 mm. Dès 299 $ en pré-commande.",
+          "Lunettes sur mesure en acétate italien Mazzucchelli. Quatre formes, largeur 145-172 mm. 480 $ avec verres correcteurs standard et livraison mondiale gratuite.",
         noscriptHtml: `<h1>Woolet Bespoke — lunettes en acétate sur mesure</h1>
-<p>Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage, en quatre silhouettes : Aviator, Rectangle, Crown Panto et Round. Tailles 145–172 mm. Façonnées à la main dans l'Union européenne. Dès 299 $ en pré-commande (prix public 480 $).</p>`,
+<p>Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage, en quatre formes : Aviator, Rectangle, Crown Panto et Round. Largeur 145-172 mm. Fabriquées à la main en Grèce (UE). 480 $ avec verres correcteurs standard et livraison mondiale gratuite. Les verres spéciaux sont en supplément.</p>`,
       },
     };
-    return base(
+    const meta = base(
       route,
       lang,
       copy[lang] ?? copy.en!,
       { image: DEFAULT_OG, type: "product" },
-      [
+       [
         bespokeProductJsonLd(lang),
         breadcrumbJsonLd([
           { name: "Woolet", url: `${SITE_URL}/${lang}` },
@@ -787,7 +756,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           { name: "Woolet Bespoke", url: `${SITE_URL}/${lang}/products/bespoke` },
         ]),
       ],
-    );
+     );
+    if (lang === "en") meta.canonical = `${SITE_URL}/en/bespoke`;
+    return meta;
   }
 
   // ----- About
@@ -1049,11 +1020,11 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <h3>Where do you buy sunglasses for big heads?</h3>
 <p>Specialist makers like Woolet design at 158 mm front width with bespoke above. Mass-market brands mostly cap at 145 to 148 mm even on oversized models, so the lenses are larger but the front is the same.</p>
 <h3>Can I get sunglasses custom-made for my head size?</h3>
-<p>Yes. Bespoke covers 145 to 172 mm of front width in either shape, with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.</p>
+<p>Yes. Bespoke covers 145 to 172 mm of front width in Aviator, Rectangle, Crown Panto or Round, with temples up to 155 mm. Same Italian Mazzucchelli acetate as the standard line, made to your measurement.</p>
 <h3>Are Woolet sunglasses polarized?</h3>
 <p>Polarised lenses are available as an upgrade on both 007 and 009. Standard lenses are CR-39 with UV400 protection.</p>
 <h3>How long is the bespoke wait time?</h3>
-<p>Bespoke ships approximately 6 to 8 weeks after the standard pre-order batch.</p>
+<p>Bespoke production takes 2 weeks from approval of the 3D model, then shipping.</p>
 <p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (square)</a> | <a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -1540,7 +1511,7 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
 <p>${s.intro}</p>
 <h2>Bespoke at ${s.width} mm</h2>
 <p>${s.bespokeNote}</p>
-<p>Bespoke: 4 shapes, 60 colour and size combinations, any width 145–172 mm (172 mm maximum), 2 weeks from order to shipping, $480 with lenses included, hand made in Greece. Signature 158 mm $190, fits 155–161 mm faces, hand made in EU from Mazzucchelli acetate milled in Milan.</p>
+<p>Bespoke: ${BESPOKE_FACTS.shapes.join(", ")}, ${BESPOKE_FACTS.frontWidth} front, ${BESPOKE_FACTS.bridge} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra. ${BESPOKE_FACTS.leadTime}. ${BESPOKE_FACTS.origin} from ${BESPOKE_FACTS.material}. Signature 158 mm frames fit 155-161 mm faces.</p>
 <h2>Every width we cover — 145 to 172 mm</h2>
 <p>${SIZES.map((r) => `<a href="/en/size/${r.slug}">${r.width} mm${r.width === 158 ? " (signature)" : r.width >= 155 && r.width <= 161 ? " (signature fit)" : " (bespoke)"}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Measure my face with FitLens</a> · <a href="/en/products/007">Woolet 007 Round</a> · <a href="/en/products/009">Woolet 009 Soft Square</a> · <a href="/en/fit/bespoke">Bespoke 145–172 mm</a></p>`,
@@ -1746,15 +1717,20 @@ ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join
       route,
       lang,
       {
-        title: "Bespoke Glasses for Wide Faces — 145–172 mm | Woolet",
-        description:
-          "Bespoke eyewear for wide faces, 145–172 mm front width. Italian Mazzucchelli acetate, hand made in the EU. From $299 for the first 100 backers.",
-        noscriptHtml: `<h1>Woolet Bespoke — 145–172 mm</h1>
-<p>Woolet Bespoke is made-to-measure eyewear for faces outside the 155–161 mm core range. Front width covers 145–172 mm, bridge 20–24 mm, temples 145–155 mm. Same Italian Mazzucchelli 1849 cellulose acetate, hand made in the EU. Founding price $299 for the first 100 backers ($480 MSRP).</p>
-<p>Choose the 007 round-panto or 009 soft-square silhouette, submit measurements from the AI Fit Scan, and we build a single frame around your exact face. <a href="/en/fit/bespoke">Start the bespoke fit scan</a>.</p>`,
+        title: BESPOKE_FACTS.h1 + " | Woolet",
+        description: BESPOKE_META_DESCRIPTION,
+        noscriptHtml: `<article><h1>${BESPOKE_FACTS.h1}</h1>
+<p>${BESPOKE_FACTS.name} spans ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.bridge} bridge and ${BESPOKE_FACTS.temples} temples. At ${BESPOKE_FACTS.regularPriceLabel}, standard prescription lenses and free worldwide shipping are included; specialty lens upgrades cost extra. ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, ${BESPOKE_FACTS.warranty} warranty. ${BESPOKE_FACTS.leadTime}.</p>
+<h2>Who is Woolet Bespoke for?</h2><p>If stock frames pinch at the temples, slide down the nose or sit crooked, a made-to-measure frame solves the dimensional mismatch. Bespoke is for narrow and wide faces within the measured range. Standard Woolet 007 and 009 signature frames have a 158 mm front and fit approximately 155-161 mm faces. They are different designs from the four Bespoke shapes. A phone-camera scan helps determine whether a standard frame fits before you choose a made-to-measure shape.</p>
+<h2>Specifications</h2><table><thead><tr><th>Specification</th><th>Woolet Bespoke</th></tr></thead><tbody>${[["Front width",BESPOKE_FACTS.frontWidth],["Bridge",BESPOKE_FACTS.bridge],["Temples",BESPOKE_FACTS.temples],["Shapes",BESPOKE_FACTS.shapes.join(", ")],["Material",BESPOKE_FACTS.material],["Made in",BESPOKE_FACTS.origin],["Regular price",BESPOKE_FACTS.regularPriceLabel],["Lenses",BESPOKE_FACTS.lenses],["Shipping",BESPOKE_FACTS.shipping],["Warranty",BESPOKE_FACTS.warranty],["Production",BESPOKE_FACTS.leadTime]].map(([k,v])=>`<tr><th>${k}</th><td>${v}</td></tr>`).join("")}</tbody></table>
+<h2>Six steps from scan to delivery</h2><ol>${BESPOKE_FACTS.process.map(s=>`<li>${s}</li>`).join("")}</ol><p>The production clock starts only once you approve your made-to-measure 3D model. Production takes two weeks after approval, and shipping begins afterward. Worldwide shipping is free. Transit time varies by destination.</p>
+<h2>Bespoke compared with standard frames</h2><table><thead><tr><th>Feature</th><th>Bespoke</th><th>Standard 007 and 009</th></tr></thead><tbody><tr><th>Front width</th><td>145-172 mm to measure</td><td>158 mm</td></tr><tr><th>Bridge</th><td>20-24 mm</td><td>21 mm (007), 22 mm (009)</td></tr><tr><th>Shapes</th><td>Aviator, Rectangle, Crown Panto, Round</td><td>007 Round/Panto, 009 Soft Square</td></tr><tr><th>Fit</th><td>Dimensions set to you</td><td>Approximately 155-161 mm faces</td></tr></tbody></table>
+<h2>Crafted and shipped worldwide</h2><p>Italian Mazzucchelli 1849 cellulose acetate is shaped and finished by hand in Greece (EU). The material originates in Italy; the frames are not made there. The first Bespoke pairs have already shipped to customers abroad, including Vietnam. The fit is checked against the approved model before dispatch, and a 10-year warranty backs the frame.</p>
+<h2>Questions about Woolet Bespoke</h2>${BESPOKE_FAQS.map(({q,a})=>`<section><h3>${q}</h3><p>${a}</p></section>`).join("")}
+<p><a href="/en/fit/bespoke">Start the Bespoke fit scan</a></p></article>`,
       },
       { image: DEFAULT_OG, type: "website" },
-       [bespokeProductJsonLd("en")],
+       [bespokeProductJsonLd("en"), bespokeFaqJsonLd(), breadcrumbJsonLd([{ name: "Woolet", url: `${SITE_URL}/en` }, { name: "Bespoke", url: `${SITE_URL}/en/bespoke` }])],
     );
   }
 

@@ -10,6 +10,7 @@ import { clarityEvent, claritySet, clarityUpgrade } from "@/lib/clarity";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
 import { parseFitLensEvent, type FitLensMeasurements } from "@/lib/fitlens-result";
 import { recordFitLensEvent, SCAN_SOURCE_LABEL, type ScanSource } from "@/lib/fitlens-verify";
+import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscoverySource } from "@/content/bespokeFacts";
 
 /** Temple length the customer asked for at checkout — shown for reference only. */
 function readRequestedTempleLength(): string | null {
@@ -27,6 +28,7 @@ function readRequestedTempleLength(): string | null {
 
 type OrderSummary = {
   stripe_session_id: string;
+  source?: string | null;
   order_ref?: string | null;
   session_ref?: string | null;
   ai_source?: string | null;
@@ -199,6 +201,7 @@ export default function BespokeMeasurements() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [order, setOrder] = useState<OrderSummary | null>(null);
+  const [discoverySource, setDiscoverySource] = useState<BespokeDiscoverySource | "">("");
   const [form, setForm] = useState<FormState>(EMPTY);
   const [shipping, setShipping] = useState<ShippingState>(EMPTY_SHIPPING);
   const [shippingError, setShippingError] = useState<string | null>(null);
@@ -506,12 +509,18 @@ export default function BespokeMeasurements() {
       clarityEvent("bespoke_form_incomplete");
       return;
     }
+    if (!order?.source && !isBespokeDiscoverySource(discoverySource)) {
+      setError("Choose how you found Woolet before submitting.");
+      document.getElementById("measurement-discovery-source")?.focus();
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-measurements-submit", {
         body: {
           sid,
+          source: order?.source || discoverySource,
           ai: {
             face_width_mm: form.ai_face_width_mm || null,
             temple_to_temple_mm: form.ai_temple_to_temple_mm || null,
@@ -715,6 +724,16 @@ export default function BespokeMeasurements() {
                       ))}
                     </div>
                   )}
+                </section>
+              )}
+
+              {order && !order.source && (
+                <section className="border border-cream/20 p-5 mb-8">
+                  <label htmlFor="measurement-discovery-source" className="block text-sm text-cream mb-3">How did you find Woolet? *</label>
+                  <select id="measurement-discovery-source" required value={discoverySource} onChange={(e) => setDiscoverySource(isBespokeDiscoverySource(e.target.value) ? e.target.value : "")} className="min-h-[48px] w-full border border-cream/20 bg-background px-3 text-cream">
+                    <option value="">Select one</option>
+                    {BESPOKE_DISCOVERY_SOURCES.map((item) => <option key={item} value={item}>{item}</option>)}
+                  </select>
                 </section>
               )}
 

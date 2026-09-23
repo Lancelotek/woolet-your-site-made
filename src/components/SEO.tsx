@@ -1,3 +1,4 @@
+import { WOOLET_BRAND_PROFILES } from "@/content/brandProfiles";
 import { Helmet } from "react-helmet-async";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
 import { hreflangAlternates } from "@/i18n/routeRegistry";
@@ -116,10 +117,7 @@ const SEO = ({
     name: "Woolet",
     id: ORG_ID,
     url: SITE_URL,
-    sameAs: [
-      "https://www.facebook.com/wooleteyewear",
-      "https://www.instagram.com/wooleteyewear/",
-    ],
+    sameAs: [...WOOLET_BRAND_PROFILES],
   };
   const authorId = resolvedAuthor.id
     ?? (resolvedAuthor.type === "Organization"
@@ -184,10 +182,7 @@ const SEO = ({
       name: "Woolet",
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.ico` },
-      sameAs: [
-        "https://www.facebook.com/wooleteyewear",
-        "https://www.instagram.com/wooleteyewear/",
-      ],
+      sameAs: [...WOOLET_BRAND_PROFILES],
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
     isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}#website`, url: SITE_URL, name: "Woolet" },

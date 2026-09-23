@@ -305,7 +305,7 @@ const BespokePage = () => {
                  {BESPOKE_FACTS.h1}
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
-                 Woolet Bespoke is made-to-measure eyewear in any front width from {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in Greece (EU) for $480 USD including prescription lenses and free worldwide shipping.
+                 Woolet Bespoke is made-to-measure eyewear in any front width from {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in Greece (EU) for $480 USD including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra.
               </p>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
                 Photochromic lenses, often called transition lenses, darken outdoors and clear inside — see{" "}
@@ -342,7 +342,7 @@ const BespokePage = () => {
                 }}
               >
                 {/* Clarity: people tap the hero image — make it a way in. */}
-                  <Link to="/en/bespoke/configurator" aria-label="Start your bespoke build" className="block w-full h-full">
+                  <Link to="/en/fit/bespoke" aria-label="Start the bespoke fit scan" className="block w-full h-full">
                   <img
                     src={bespokeHero.url}
                     alt="Woolet Bespoke face scan overlay showing 12 measurement points — frame width, bridge, lens diameter, PD and temple length — engineered to exact measurements."
@@ -473,6 +473,27 @@ const BespokePage = () => {
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20" aria-labelledby="bespoke-specifications">
+          <div className="max-w-4xl mx-auto">
+            <h2 id="bespoke-specifications" className="font-display text-woolet-white mb-5 text-3xl">Specifications at a glance</h2>
+            <p className="text-cream-dim leading-relaxed mb-6">Woolet Bespoke is measured for each wearer, not selected from a fixed-width inventory. The four configurator shapes are Aviator, Rectangle, Crown Panto and Round. The standard Woolet 007 and 009 signature frames are different designs with a fixed 158 mm front.</p>
+            <div className="overflow-x-auto border" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
+              <table className="w-full text-left text-sm text-cream-dim" style={{ minWidth: 420 }}>
+                <thead><tr className="text-gold-light"><th className="p-4">Specification</th><th className="p-4">Woolet Bespoke</th></tr></thead>
+                <tbody>{[
+                  ["Front width", BESPOKE_FACTS.frontWidth], ["Bridge", BESPOKE_FACTS.bridge], ["Temples", BESPOKE_FACTS.temples],
+                  ["Shapes", BESPOKE_FACTS.shapes.join(", ")], ["Regular price", BESPOKE_FACTS.regularPriceLabel],
+                  ["Lenses", BESPOKE_FACTS.lenses], ["Shipping", BESPOKE_FACTS.shipping],
+                  ["Material", BESPOKE_FACTS.material], ["Origin", BESPOKE_FACTS.origin],
+                  ["Production", BESPOKE_FACTS.leadTime], ["Warranty", BESPOKE_FACTS.warranty],
+                ].map(([label, value]) => <tr key={label} className="border-t" style={{ borderColor: "hsl(var(--gold) / 0.2)" }}><th scope="row" className="p-4 font-medium text-woolet-white">{label}</th><td className="p-4">{value}</td></tr>)}</tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <div className="woolet-divider max-w-5xl mx-auto" />
+
         {/* What is bespoke eyewear — SEO keyword: "bespoke eyewear" */}
         <section id="bespoke-eyewear" className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto">
@@ -490,12 +511,10 @@ const BespokePage = () => {
               Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145-172 mm, bridges from 20-24 mm and temples from 145-155 mm. The finished frame is made for one wearer.
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-              The regular price is $480 USD with prescription lenses and free worldwide shipping. $299 is a Kickstarter backer price only during the campaign, not a Woolet shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
+              The regular price is $480 USD with standard prescription lenses and free worldwide shipping. Specialty lens upgrades cost extra in the configurator. <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">{BESPOKE_FACTS.kickstarterLabel}</Link> is not a Woolet shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
             </p>
           </div>
         </section>
-
-        <div className="woolet-divider max-w-5xl mx-auto" />
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
@@ -521,11 +540,11 @@ const BespokePage = () => {
               style={{ borderColor: "hsl(var(--gold) / 0.25)" }}
             >
               {[
-                { label: "Frame width range", woolet: "145–172 mm", stock: "138–148 mm typical" },
-                { label: "Bridge width range", woolet: "20–24 mm keyhole", stock: "18–20 mm fixed" },
-                { label: "Temple length", woolet: "up to 155 mm", stock: "140–145 mm standard" },
+                { label: "Frame width range", woolet: BESPOKE_FACTS.frontWidth, stock: "138-148 mm typical" },
+                { label: "Bridge width range", woolet: BESPOKE_FACTS.bridge, stock: "18-20 mm fixed" },
+                { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "140-145 mm standard" },
                 { label: "Measurement method", woolet: "Phone-camera scan and model approval", stock: "Fixed dimensions" },
-                { label: "Regular price", woolet: "$480 USD, prescription lenses included", stock: "See stock product pages" },
+                { label: "Regular price", woolet: "$480 USD, standard prescription lenses and worldwide shipping included; specialty upgrades cost extra", stock: "See stock product pages" },
                 { label: "Made in", woolet: "Greece (EU), Italian acetate", stock: "EU" },
               ].map((row, i) => (
                 <div
@@ -566,26 +585,6 @@ const BespokePage = () => {
                   </div>
                 </div>
               ))}
-            </div>
-            {/* Clarity: visitors tap the gold spec values (dead clicks on /en and /de). */}
-            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
-              <Link
-                to="/en/bespoke/configurator"
-                className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline"
-                style={{
-                  background: "hsl(var(--gold))",
-                  color: "hsl(var(--background))",
-                  fontFamily: "Barlow, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.72rem",
-                  padding: "16px 28px",
-                }}
-              >
-                 Build yours · {BESPOKE_FACTS.frontWidth} →
-              </Link>
-              <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
-                Not sure of your width? Take the 90-second scan
-              </Link>
             </div>
           </div>
         </section>
@@ -642,9 +641,9 @@ const BespokePage = () => {
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
               {[
-                "Frame width 145–172 mm (outside the stock 158 mm widths)",
+                "Frame width 145-172 mm (outside the stock 158 mm front)",
                 "Asymmetric ears or significant pantoscopic-tilt needs",
-                "Very high or very low nose bridge — beyond what acetate reshaping can correct",
+                "Bridge width 20-24 mm, measured for the wearer's nose",
                 "Wearers who simply want a one-of-one frame, cut to their face",
               ].map((item) => (
                 <li
@@ -680,7 +679,7 @@ const BespokePage = () => {
                 <li key={step} className="grid grid-cols-[auto_1fr] gap-6 sm:gap-10">
                   <span className="font-display text-gold-light" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>{String(i + 1).padStart(2, "0")}</span>
                   <div><h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>{step}</h3>
-                  {i === 3 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Production takes 2 weeks after 3D model approval, then shipping begins.</p>}</div>
+                  {i === 4 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Production takes 2 weeks after 3D model approval, then shipping begins.</p>}</div>
                 </li>
               ))}
             </ol>
@@ -699,7 +698,7 @@ const BespokePage = () => {
               <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in Greece (EU).
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-              The frame is hand made in Greece (EU) from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes prescription lenses, free worldwide shipping and a 10-year warranty.
+               The frame is hand made in Greece (EU) from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 10-year warranty.
             </p>
           </div>
         </section>
@@ -734,7 +733,7 @@ const BespokePage = () => {
       {showStickyCta && (
         <div className="md:hidden fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 bg-background/95 backdrop-blur-xl border-t" style={{ borderTopColor: "hsl(var(--gold) / 0.2)" }}>
           <Link
-            to="/en/bespoke/configurator"
+            to="/en/fit/bespoke"
             className="flex w-full items-center justify-center uppercase tracking-[0.22em] no-underline"
             style={{
               background: "hsl(var(--gold))",
@@ -745,7 +744,7 @@ const BespokePage = () => {
               padding: "16px 24px",
             }}
           >
-            Start your build →
+            Start the bespoke fit scan
           </Link>
         </div>
       )}

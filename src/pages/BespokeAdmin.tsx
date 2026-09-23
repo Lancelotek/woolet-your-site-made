@@ -34,6 +34,7 @@ interface Row {
   stage: string | null;
   customer_email: string;
   customer_name: string | null;
+  source: string | null;
   frame_name: string | null;
   front_code: string | null;
   temple_code: string | null;
@@ -491,7 +492,7 @@ export default function BespokeAdmin() {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ color: T.mute, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase" }}>
-                {["Date", "Customer", "Country", "Frame", "Paid", "Stage", "Status", ""].map((h) => (
+                {["Date", "Customer", "Country", "Discovery source", "Frame", "Paid", "Stage", "Status", ""].map((h) => (
                   <th key={h} style={{ textAlign: "left", padding: "12px 14px", borderBottom: `1px solid ${T.hair}`, fontWeight: 500 }}>{h}</th>
                 ))}
               </tr>
@@ -512,6 +513,7 @@ export default function BespokeAdmin() {
                   <td style={{ padding: "12px 14px", color: r.shipping_country ? T.dim : T.mute, whiteSpace: "nowrap" }}>
                     {fmtCountry(r.shipping_country)}
                   </td>
+                  <td style={{ padding: "12px 14px", color: r.source ? T.dim : T.mute }}>{r.source || "Not provided"}</td>
                   <td style={{ padding: "12px 14px", color: T.dim }}>{r.frame_name || "—"}</td>
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
                   <td style={{ padding: "12px 14px" }}>
@@ -548,7 +550,7 @@ export default function BespokeAdmin() {
                 </tr>
               ))}
               {visibleRows.length === 0 && (
-                <tr><td colSpan={8} style={{ padding: 28, color: T.mute, textAlign: "center" }}>
+                <tr><td colSpan={9} style={{ padding: 28, color: T.mute, textAlign: "center" }}>
                   {rows.length === 0 ? "No bespoke orders yet." : "No orders at this stage."}
                 </td></tr>
               )}
@@ -843,6 +845,7 @@ function DetailView({
 
       <Group title="Customer">
         <Field label="Name" value={o.customer_name} />
+        <Field label="Discovery source" value={o.source || "Not provided"} />
         <Field label="Email" value={o.customer_email} />
         <Field label="Paid" value={fmtAmount(o.amount_cents, o.currency)} />
         <Field label="Stripe session" value={o.stripe_session_id} />
