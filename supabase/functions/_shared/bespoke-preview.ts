@@ -42,7 +42,7 @@ function buildPrompt(spec: PreviewSpec): string {
     `temples in acetate "${spec.templeCode || spec.frontCode || "dark tortoise"}".`,
     `Finish: ${spec.finish || "shiny hand-polished"}.`,
     spec.lensTintCode?.startsWith("SUN-")
-      ? `UV400 sun lenses in ${({ "SUN-GRY": "solid smoke grey", "SUN-BRN": "solid espresso brown", "SUN-G15": "solid G-15 green", "SUN-BGR": "brown gradient, dark on top fading to light brown at the bottom" } as Record<string, string>)[spec.lensTintCode] ?? "smoke grey"}, visibly tinted on both lenses; correctly seated hinges and rivets, hand-polished acetate edge detail,`
+      ? `UV400 sun lenses in ${({ "SUN-GRY": "solid smoke grey", "SUN-BRN": "solid espresso brown", "SUN-G15": "solid G-15 green" } as Record<string, string>)[spec.lensTintCode] ?? "smoke grey"}, visibly tinted on both lenses; correctly seated hinges and rivets, hand-polished acetate edge detail,`
       : spec.lensTintCode?.startsWith("PH-")
         ? `Partially activated photochromic lenses in ${({ "PH-BRN": "espresso brown", "PH-GRN": "bottle green", "PH-GRY": "graphite grey" } as Record<string, string>)[spec.lensTintCode] ?? "grey"}; correctly seated hinges and rivets, hand-polished acetate edge detail,`
         : `Clear neutral demo lenses, correctly seated hinges and rivets, hand-polished acetate edge detail,`,

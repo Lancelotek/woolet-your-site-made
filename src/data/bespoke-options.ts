@@ -34,7 +34,6 @@ import tintGreyImg from "@/assets/configurator/lenses/tint-grey.jpg";
 import sunGrey from "@/assets/configurator/lenses/sun-grey.png.asset.json";
 import sunBrown from "@/assets/configurator/lenses/sun-brown.png.asset.json";
 import sunG15 from "@/assets/configurator/lenses/sun-g15.png.asset.json";
-import sunBrownGradient from "@/assets/configurator/lenses/sun-brown-gradient.png.asset.json";
 
 export type ColorFamily = "tortoise" | "black" | "grey" | "colour" | "translucent";
 
@@ -198,12 +197,9 @@ export const SUN_TINTS: LensTint[] = [
   { id: "g15", code: "SUN-G15", name: "G-15 Green", hex: "#2f3b2c", image: sunG15.url,
     short: "The classic. Calm eyes, true colour.",
     description: "The tint behind the most iconic sunglasses of the last century. Green cuts glare, keeps colours close to natural and adds a touch of contrast. Looks deliberate against black, green and crystal frames." },
-  { id: "brown-gradient", code: "SUN-BGR", name: "Brown Gradient", hex: "linear-gradient(#3a2616, #c9b39a)", image: sunBrownGradient.url,
-    short: "Dark on top, clear at the bottom.",
-    description: "Full shade where the sun hits, a lighter lower half for reading your phone, a menu or a dashboard. The most wanted fashion lens this season - built for the city, cafés and travel." },
 ];
 
-export const SUN_TINT_NOTE = "All sun lenses: 100% UV400 protection, category 3 tint (gradient: category 2-3).";
+export const SUN_TINT_NOTE = "All sun lenses: 100% UV400 protection, category 3 tint.";
 export const findSunTint = (id: string | null | undefined): LensTint | undefined =>
   id ? SUN_TINTS.find((t) => t.id === id) : undefined;
 
