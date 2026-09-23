@@ -315,7 +315,7 @@ export const REF_PRODUCTS: RefProduct[] = [
       "Every frame is cut by hand from Italian Mazzucchelli 1849 cellulose acetate in Greece. Production takes 2 weeks from approval of the 3D model, then shipping. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect.",
     ],
     specs: [
-      ["Shapes", "Crown Panto, Round, Rectangle, Aviator"],
+      ["Shapes", "Aviator, Rectangle, Crown Panto, Round"],
       ["Width", "Any width 145-172 mm, built to measure"],
       ["Colours", "Full Mazzucchelli range - 60 colour and size combinations"],
       ["Lenses", "Standard prescription lenses included; specialty upgrades such as photochromic and progressive cost extra in the configurator"],

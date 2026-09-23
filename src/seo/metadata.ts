@@ -177,7 +177,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string, la
 }
 
 function bespokeProductJsonLd(lang: Lang = "en") {
-  return canonicalBespokeProduct(SITE_URL);
+  return canonicalBespokeProduct(`${SITE_URL}/en/bespoke`);
 }
 
 function breadcrumbJsonLd(parts: { name: string; url: string }[]) {
