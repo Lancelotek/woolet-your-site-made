@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "./PaymentTestModeBanner";
 import { rdtAddToCart } from "@/lib/reddit-pixel";
 import { trackInitiateCheckoutOnce, buildPurchaseAttribution } from "@/lib/meta-capi";
+import { getLastTouchCheckoutMetadata } from "@/lib/attribution";
 
 interface Props {
   priceId: string;
@@ -46,7 +47,7 @@ export function StripeCheckoutModal({
     // the payments-webhook can fire Purchase to Meta CAPI with the original
     // visitor signals attached.
     const metaAttribution = buildPurchaseAttribution();
-    const mergedMetadata = { ...(metadata ?? {}), ...metaAttribution };
+    const mergedMetadata = { ...(metadata ?? {}), ...metaAttribution, ...getLastTouchCheckoutMetadata() };
 
     const { data, error } = await supabase.functions.invoke("create-checkout", {
       body: {

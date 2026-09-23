@@ -4,6 +4,7 @@ import { rdtPageVisit, rdtCustom } from "@/lib/reddit-pixel";
 import { trackMetaEvent } from "@/lib/meta-capi";
 import { initMetaPixelDirect, trackMetaPixelPageView } from "@/lib/meta-pixel";
 import { initGoogleAds } from "@/lib/google-ads";
+import { captureLastTouch } from "@/lib/attribution";
 
 const isProdHost = () => {
   if (typeof window === "undefined") return false;
@@ -24,6 +25,7 @@ const PageViewTracker = () => {
     initGoogleAds();
   }, []);
   useEffect(() => {
+    captureLastTouch();
     if (isProdHost()) {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
