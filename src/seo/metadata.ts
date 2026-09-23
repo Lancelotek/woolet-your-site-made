@@ -506,7 +506,7 @@ export function getMetadata(route: string): RouteMeta {
     }
     const p = refProductBySlug(path.replace("/ref/", ""));
      if (p) {
-      const canonical = `${SITE_URL}/en/ref/${p.slug}`;
+      const canonical = p.slug === "bespoke" ? `${SITE_URL}/en/bespoke` : `${SITE_URL}/en/ref/${p.slug}`;
        const meta = base(
         `/en/ref/${p.slug}`,
         "en",
@@ -521,7 +521,7 @@ ${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
 <h2>Specifications</h2>
 <ul>${p.specs.map(([k, v]) => `<li>${escapeHtml(k)}: ${escapeHtml(v)}</li>`).join("")}</ul>
 ${p.included ? `<h2>In the box</h2><ul>${p.included.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>` : ""}
-${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - $${l.priceUsd}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
+${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - ${p.model === "bespoke" ? "See configurator" : `$${l.priceUsd}`}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
 <p>${REF_PRODUCTS.filter((o) => o.slug !== p.slug).map((o) => `<a href="/en/ref/${o.slug}">${escapeHtml(o.name)}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Check your fit in 30 seconds</a></p>`,
         },

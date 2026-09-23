@@ -328,9 +328,9 @@ export const REF_PRODUCTS: RefProduct[] = [
       ["Lead time", "2 weeks of production from 3D model approval, then shipping"],
     ],
     lensOptions: [
-      { name: "Reading", priceUsd: 480, note: "Single-vision magnification to your strength. Included." },
-      { name: "Sun UV400", priceUsd: 480, note: "Full UVA and UVB block. Included." },
-      { name: "Blue light", priceUsd: 480, note: "Filtering with a faint warm tint, anti-reflective coated. Included." },
+      { name: "Reading", priceUsd: 480, note: "Single-vision magnification to your strength. Consult the configurator for any applicable lens upgrade price." },
+      { name: "Sun UV400", priceUsd: 480, note: "Full UVA and UVB block. Consult the configurator for any applicable lens upgrade price." },
+      { name: "Blue light", priceUsd: 480, note: "Filtering with a faint warm tint. Consult the configurator for any applicable lens upgrade price." },
       { name: "Photochromic", priceUsd: 480, note: "Clear indoors, darkens in sunlight. Paid upgrade in the configurator." },
     ],
     images: [
