@@ -3,7 +3,7 @@
 
 export const CRM_STAGES = [
   { id: 1, label: "Interview / form", short: "Interview" },
-  { id: 2, label: "WhatsApp", short: "WhatsApp" },
+  { id: 2, label: "Live chat", short: "Live chat" },
   { id: 3, label: "Spec sent to production", short: "Spec sent" },
   { id: 4, label: "Graphics to client", short: "Graphics" },
   { id: 5, label: "In production", short: "In production" },

@@ -96,8 +96,8 @@ const ConfiguratorPage = () => {
   // Inside the configurator the floating chat bubble (Tawk.to) covers the
   // swatch grid on phones - suppress it for the lifetime of this page.
   useEffect(() => {
-    document.body.classList.add("cfg-hide-whatsapp");
-    return () => document.body.classList.remove("cfg-hide-whatsapp");
+    document.body.classList.add("cfg-hide-chat");
+    return () => document.body.classList.remove("cfg-hide-chat");
   }, []);
 
   // Deep link from the collection cards: /en/bespoke/configurator?shape=aviator
