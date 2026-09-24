@@ -71,12 +71,20 @@ const TawkChat = () => {
     document.body.appendChild(s1);
   }, []);
 
-  // Hide the bubble on routes that opt out.
+  // Hide the bubble on routes that opt out, and react to the configurator's
+  // body class being added/removed while this component stays mounted.
   useEffect(() => {
-    pendingHidden = HIDE_PATH_PREFIXES.some((p) =>
-      location.pathname.startsWith(p),
-    );
+    pendingHidden = shouldHide(location.pathname);
     applyVisibility();
+    const observer = new MutationObserver(() => {
+      const next = shouldHide(location.pathname);
+      if (next !== pendingHidden) {
+        pendingHidden = next;
+        applyVisibility();
+      }
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
   }, [location.pathname]);
 
   return null;
