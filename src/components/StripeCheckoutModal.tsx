@@ -47,7 +47,7 @@ export function StripeCheckoutModal({
     // the payments-webhook can fire Purchase to Meta CAPI with the original
     // visitor signals attached.
     const metaAttribution = buildPurchaseAttribution();
-    const mergedMetadata = { ...(metadata ?? {}), ...metaAttribution, ...getLastTouchCheckoutMetadata() };
+    const mergedMetadata = { ...(metadata ?? {}), ...metaAttribution, ...getLastTouchCheckoutMetadata(), user_initiated: "1" };
 
     const { data, error } = await supabase.functions.invoke("create-checkout", {
       body: {

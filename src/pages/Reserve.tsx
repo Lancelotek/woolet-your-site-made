@@ -94,7 +94,7 @@ export default function Reserve() {
   }, [touch]);
 
   const createSession = useCallback((): Promise<string> => {
-    const merged = { ...metadata, ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata() };
+    const merged = { ...metadata, ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata(), user_initiated: "1" };
     return supabase.functions
       .invoke("create-checkout", {
         body: {
