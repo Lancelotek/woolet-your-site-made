@@ -674,10 +674,10 @@ const SyncBadge = ({
 }) => {
   if (!isSignedIn) {
     return (
-      <Link to="/en/account/signin?next=/en/bespoke/configurator" className="cfg-sync cfg-sync--off">
+      <span className="cfg-sync cfg-sync--off">
         <CloudOff size={11} />
-        <span>Sign in to save</span>
-      </Link>
+        <span>Saved on this device</span>
+      </span>
     );
   }
   const label =
