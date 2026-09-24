@@ -777,8 +777,8 @@ const ListiclePage = () => {
                 Eyewear engineered for wide faces. Italian acetate, handmade in the EU.
               </p>
               <div style={{ display: "flex", gap: 18, marginTop: 22, fontSize: 11, letterSpacing: "0.22em", color: C.inkMute, textTransform: "uppercase" }}>
-                <a href="https://www.instagram.com/woolet.co" target="_blank" rel="noopener" style={footLink}>Instagram</a>
-                <a href="https://www.facebook.com/woolet.co" target="_blank" rel="noopener" style={footLink}>Facebook</a>
+                <a href="https://www.instagram.com/frames_for_wide_faces" target="_blank" rel="noopener" style={footLink}>Instagram</a>
+                <a href="https://www.facebook.com/WooletWideFit" target="_blank" rel="noopener" style={footLink}>Facebook</a>
               </div>
             </div>
 
@@ -795,10 +795,10 @@ const ListiclePage = () => {
               ["Blog", "/en/blog"],
             ]} />
             <FooterCol title="Company" links={[
-              ["Support", "/en/contact"],
+              ["Support", "mailto:support@woolet.co"],
               ["Return policy", "/en/return-policy"],
               ["Privacy", "/en/privacy-policy"],
-              ["Cookie settings", "/en/cookie-policy"],
+              ["Cookie settings", "/en/privacy-policy#cookies"],
             ]} />
           </div>
 
@@ -848,9 +848,15 @@ const FooterCol = ({ title, links }: { title: string; links: [string, string][] 
     <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 12 }}>
       {links.map(([label, href]) => (
         <li key={href}>
-          <Link to={href} style={{ color: C.inkDim, textDecoration: "none", fontSize: 13 }}>
-            {label}
-          </Link>
+          {href.startsWith("mailto:") ? (
+            <a href={href} style={{ color: C.inkDim, textDecoration: "none", fontSize: 13 }}>
+              {label}
+            </a>
+          ) : (
+            <Link to={href} style={{ color: C.inkDim, textDecoration: "none", fontSize: 13 }}>
+              {label}
+            </Link>
+          )}
         </li>
       ))}
     </ul>

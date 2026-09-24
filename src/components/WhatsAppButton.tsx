@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
 
 // WhatsApp number in international format (no "+", spaces or dashes)
-const WHATSAPP_HREF = "https://api.whatsapp.com/message/QLWFC245WLBAK1?autoload=1&app_absent=0";
+const WHATSAPP_HREF = "https://wa.me/48501390551";
 
 const WhatsAppButton = () => {
   const [mounted, setMounted] = useState(false);

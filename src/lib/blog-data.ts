@@ -3962,7 +3962,7 @@ Related guides:
 
 <h2>What each material actually is</h2>
 
-<p><strong>Italian acetate</strong> — cellulose acetate is a plant-based plastic made from cotton and wood pulp. The Italian standard is <a href="https://www.mazzucchelli1849.it/en/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Mazzucchelli 1849</a>, which supplies the vast majority of premium eyewear ateliers in Cadore and Belluno. It arrives as a solid block. Every frame is milled, tumbled, polished and hand-finished — a 5–7 week process.</p>
+<p><strong>Italian acetate</strong> — cellulose acetate is a plant-based plastic made from cotton and wood pulp. The Italian standard is <a href="https://www.mazzucchelli1849.it/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Mazzucchelli 1849</a>, which supplies the vast majority of premium eyewear ateliers in Cadore and Belluno. It arrives as a solid block. Every frame is milled, tumbled, polished and hand-finished — a 5–7 week process.</p>
 
 <p><strong>TR90</strong> — a nylon-based thermoplastic (polyamide) developed by Swiss chemists in the 1980s, originally for ski boots and safety eyewear. It is <em>injection-moulded</em>: molten plastic is shot into a metal cavity, cooled in seconds, ejected. No hand-finishing. A frame that takes 5 weeks in acetate takes 90 seconds in TR90.</p>
 

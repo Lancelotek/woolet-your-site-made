@@ -118,8 +118,14 @@ const bespokeGallery = [
 const lightboxImages: { src: string; alt: string }[] = [
   ...heroGallery,
   ...bespokeGallery.map(({ src, alt }) => ({ src, alt })),
+  { src: w007CardAsset.url, alt: "Woolet 007 round frame in black acetate, front view" },
+  { src: w009CardAsset.url, alt: "Woolet 009 soft-square frame in black acetate, front view" },
 ];
 const BESPOKE_LIGHTBOX_OFFSET = heroGallery.length;
+const CARD_LIGHTBOX_INDEX: Record<string, number> = {
+  "Woolet 007": heroGallery.length + bespokeGallery.length,
+  "Woolet 009": heroGallery.length + bespokeGallery.length + 1,
+};
 
 // ---------- CTA button ----------
 const ctaButtonStyle: React.CSSProperties = {
@@ -303,7 +309,7 @@ const VipForm = ({
 
     if (!email.trim()) {
       setErrorKind("invalid");
-      setError("Enter your email to claim early access.");
+      setError("Enter your email to lock $114");
       inputRef.current?.focus();
       inputRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
       pushGtmEvent("vip_form_error", { form_location: formLocation, reason: "empty" });
@@ -684,6 +690,7 @@ const VipForm = ({
             ...inputStyle,
             flex: 1,
             borderColor: errorKind === "invalid" ? "#e25555" : inputStyle.borderColor,
+            animation: errorKind === "invalid" ? "wlShake 320ms ease" : undefined,
           }}
           onFocus={(e) => (e.currentTarget.style.borderColor = GOLD)}
           onBlur={(e) =>
@@ -1635,12 +1642,20 @@ const KickstarterPrelaunch = () => {
               },
             ].map((m) => (
               <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
-                <div
+                <button
+                  type="button"
+                  aria-label="View larger image"
+                  onClick={(e) => openLightbox(CARD_LIGHTBOX_INDEX[m.name], "gallery", e.currentTarget)}
                   style={{
                     background: INK,
                     aspectRatio: "4 / 3",
                     overflow: "hidden",
                     borderBottom: `1px solid ${HAIRLINE}`,
+                    cursor: "zoom-in",
+                    padding: 0,
+                    border: "none",
+                    display: "block",
+                    width: "100%",
                   }}
                 >
                   <img
@@ -1651,7 +1666,7 @@ const KickstarterPrelaunch = () => {
                     sizes="(min-width: 768px) 50vw, 100vw"
                     style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
                   />
-                </div>
+                </button>
 
                 <div style={{ padding: "28px 24px" }}>
                   <div style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</div>
@@ -1714,7 +1729,18 @@ const KickstarterPrelaunch = () => {
                       {m.specs.map(([k, v]) => (
                         <div key={k} style={{ display: "contents" }}>
                           <dt style={{ ...eyebrowStyle, color: TAUPE }}>{k}</dt>
-                          <dd style={{ fontSize: 14, color: CREAM, textAlign: "right" }}>{v}</dd>
+                          <dd style={{ fontSize: 14, color: CREAM, textAlign: "right" }}>
+                            {k === "Front width" ? (
+                              <button
+                                type="button"
+                                aria-label="View larger image"
+                                onClick={(e) => openLightbox(0, "gallery", e.currentTarget)}
+                                style={{ background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", cursor: "zoom-in" }}
+                              >
+                                {v}
+                              </button>
+                            ) : v}
+                          </dd>
                         </div>
                       ))}
                     </dl>
@@ -1813,7 +1839,7 @@ const KickstarterPrelaunch = () => {
       {/* BESPOKE GALLERY */}
       <section>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24">
-          <Eyebrow>Bespoke</Eyebrow>
+          <Link to="/en/bespoke" style={{ textDecoration: "none" }}><Eyebrow>Bespoke</Eyebrow></Link>
           <h2
             style={{
               fontFamily: "'Cormorant Garamond', serif",
@@ -2172,7 +2198,7 @@ const KickstarterPrelaunch = () => {
 
       {/* Sticky mobile CTA — hidden while a field has focus so it never covers the keyboard target */}
       <div
-        className="md:hidden"
+        className="md:hidden wl-sticky-cta"
         aria-hidden={!stickyVisible || inputFocused}
         style={{
           position: "fixed",

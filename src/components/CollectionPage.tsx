@@ -127,7 +127,7 @@ const CollectionPage = ({
       creator: { "@type": "Organization", name: "Woolet", url: "https://woolet.co" },
       copyrightNotice: `© ${new Date().getFullYear()} Woolet`,
       license: "https://woolet.co/en/terms",
-      acquireLicensePage: "https://woolet.co/en/contact",
+      acquireLicensePage: "https://woolet.co/en/about",
     }));
 
   return (

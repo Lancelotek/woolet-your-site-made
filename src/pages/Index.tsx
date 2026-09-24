@@ -1026,6 +1026,59 @@ const Index = () => {
           </div>
         </section>
 
+        {/* PRODUCTS — crawlable links to the two product pages */}
+        <section
+          className="relative px-5 sm:px-8 lg:px-16 py-12 lg:py-16"
+          style={{ borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}
+        >
+          <div className="max-w-[1320px] mx-auto">
+            <h2
+              className="font-display text-woolet-white leading-tight mb-8"
+              style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)", fontWeight: 300 }}
+            >
+              Two frames. <em className="text-gold-light" style={{ fontStyle: "italic" }}>One</em> precise size.
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+              {models.map((m) => (
+                <Link
+                  key={`pdp-${m.id}`}
+                  to={hrefFor(m.id === "007" ? "products.007" : "products.009", lang)}
+                  className="group block no-underline transition-colors"
+                  style={{ border: "1px solid hsl(0 0% 100% / 0.08)", background: "#16140f" }}
+                >
+                  <div className="w-full aspect-[16/10] overflow-hidden" style={{ background: "#000" }}>
+                    <img
+                      src={m.img}
+                      alt={m.alt}
+                      className="block w-full h-full object-contain"
+                      loading="lazy"
+                      decoding="async"
+                      width={1600}
+                      height={1000}
+                    />
+                  </div>
+                  <div className="flex items-end justify-between px-5 py-4 gap-4">
+                    <div>
+                      <div className="font-display text-woolet-white" style={{ fontSize: "1.25rem" }}>
+                        {m.id === "007" ? "007 Round" : "009 Square"}
+                      </div>
+                      <div className="text-cream-dim mt-1" style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}>
+                        158 mm front · <span style={{ color: "hsl(var(--gold))" }}>$190</span>
+                      </div>
+                    </div>
+                    <span
+                      className="uppercase tracking-[0.22em] text-cream-dim group-hover:text-gold-light transition-colors"
+                      style={{ fontSize: "0.68rem", fontFamily: "Barlow, sans-serif" }}
+                    >
+                      See the frame →
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* BESPOKE — outside the standard range */}
         <section
           aria-label="Bespoke"

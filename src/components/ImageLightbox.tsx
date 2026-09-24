@@ -76,13 +76,27 @@ const ImageLightbox = ({
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.body.classList.add("wl-lightbox-open");
     closeButtonRef.current?.focus();
     return () => {
       document.body.style.overflow = prev;
+      document.body.classList.remove("wl-lightbox-open");
     };
   }, []);
 
   const current = images[Math.min(index, images.length - 1)];
+
+  // Preload neighbours so prev/next paint instantly; show a fade until loaded.
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
+  useEffect(() => {
+    const n = images.length;
+    if (!n) return;
+    [index - 1, index + 1].forEach((i) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = images[(i + n) % n].src;
+    });
+  }, [index, images]);
   const ctaBarHeight = cta ? (cta.caption ? 118 : 86) : 0;
 
   const arrowStyle: React.CSSProperties = {
