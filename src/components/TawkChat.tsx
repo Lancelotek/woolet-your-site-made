@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
 
 // Tawk.to live chat (property 6ab578a42c323b344704c665, widget 1k3adugr8).
-// Replaces WhatsApp site-wide. Injected once, after the page is interactive.
+// Desktop only for now — the script is not injected on mobile.
 const TAWK_SRC = "https://embed.tawk.to/6ab578a42c323b344704c665/1k3adugr8";
 
 // Body classes that hide the bubble: photo lightbox + Bespoke configurator.
-const HIDE_CLASSES = ["wl-lightbox-open", "cfg-hide-whatsapp"];
+const HIDE_CLASSES = ["wl-lightbox-open", "cfg-hide-chat"];
 
 let widgetReady = false;
 let hidden = false;
@@ -19,7 +19,9 @@ declare global {
   }
 }
 
-const shouldHide = () => HIDE_CLASSES.some((c) => document.body.classList.contains(c));
+const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
+
+const shouldHide = () => isMobile() || HIDE_CLASSES.some((c) => document.body.classList.contains(c));
 
 const applyVisibility = () => {
   const api = window.Tawk_API;
@@ -37,7 +39,6 @@ const injectTawk = () => {
   const api = (window.Tawk_API = window.Tawk_API || {});
   window.Tawk_LoadStart = new Date();
 
-  // Mobile: lift the bubble above sticky bottom bars (LP sticky CTA, DE bar etc.).
   api.customStyle = {
     visibility: {
       desktop: { position: "br", xOffset: 20, yOffset: 20 },
@@ -66,6 +67,8 @@ const injectTawk = () => {
 const TawkChat = () => {
   useEffect(() => {
     const schedule = () => {
+      // Mobile: do not load the chat at all for now.
+      if (isMobile()) return;
       const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
       if (w.requestIdleCallback) w.requestIdleCallback(injectTawk, { timeout: 4000 });
       else setTimeout(injectTawk, 1500);
@@ -82,8 +85,20 @@ const TawkChat = () => {
       }
     });
     observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    // Handle rotating a tablet / resizing a window across the mobile breakpoint.
+    const onResize = () => {
+      const next = shouldHide();
+      if (next === hidden) return;
+      hidden = next;
+      if (!hidden) schedule();
+      applyVisibility();
+    };
+    window.addEventListener("resize", onResize);
+
     return () => {
       window.removeEventListener("load", schedule);
+      window.removeEventListener("resize", onResize);
       observer.disconnect();
     };
   }, []);

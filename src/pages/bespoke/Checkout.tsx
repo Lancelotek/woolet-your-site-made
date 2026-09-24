@@ -656,7 +656,7 @@ export default function BespokeCheckout() {
                   </div>
                   <ol className="mt-2 space-y-1.5 text-cream-dim text-[12px] leading-relaxed">
                     <li>01 · Order confirmed and paid.</li>
-                    <li>02 · You get WhatsApp access and a private link to your measurement interview.</li>
+                    <li>02 · You get live chat access and a private link to your measurement interview.</li>
                     <li>03 · After you confirm your measurements and product, we send the 3D model design for your approval.</li>
                     <li>04 · Once approved, production takes two weeks — then it ships, free worldwide.</li>
                   </ol>
