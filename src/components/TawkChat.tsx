@@ -18,7 +18,8 @@ let widgetReady = false;
 
 declare global {
   interface Window {
-    Tawk_API?: Record<string, unknown> & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Tawk_API?: any & {
       onLoad?: () => void;
       onChatWindowMaximized?: () => void;
       hideWidget?: () => void;
