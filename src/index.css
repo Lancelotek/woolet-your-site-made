@@ -678,8 +678,9 @@ html[lang="fr"] {
 }
 
 
-/* Bespoke configurator: the floating WhatsApp bubble covers swatches on phones */
-body.cfg-hide-whatsapp a[aria-label="Chat with us on WhatsApp"] { display: none; }
+/* Bespoke configurator: the floating chat bubble (Tawk.to) covers swatches on phones */
+body.cfg-hide-whatsapp [id^="tawkchat"],
+body.cfg-hide-whatsapp [id^="tawk"] { display: none !important; }
 
 
 /* Calendly inline scheduler on the bespoke success page. Calendly's own layout
