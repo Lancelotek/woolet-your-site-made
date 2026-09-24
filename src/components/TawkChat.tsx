@@ -21,8 +21,9 @@ declare global {
     Tawk_API?: Record<string, unknown> & {
       onLoad?: () => void;
       onChatWindowMaximized?: () => void;
-      hide?: () => void;
-      show?: () => void;
+      hideWidget?: () => void;
+      showWidget?: () => void;
+      isChatHidden?: () => boolean;
     };
   }
 }
