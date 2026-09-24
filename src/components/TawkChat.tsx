@@ -7,7 +7,8 @@ import { pushGtmEvent } from "@/lib/gtm";
 const TAWK_SRC = "https://embed.tawk.to/6ab578a42c323b344704c665/1k3adugr8";
 
 // Routes where the chat bubble must not appear (same rule the WhatsApp
-// bubble used — it competed with the LP's own CTAs).
+// bubble used - it competed with the LP's own CTAs). The configurator
+// additionally toggles the body class "cfg-hide-whatsapp" while mounted.
 const HIDE_PATH_PREFIXES = ["/en/lp/kickstarter"];
 
 // Visibility is applied as soon as the widget finishes loading, or
@@ -30,12 +31,16 @@ const applyVisibility = () => {
   const api = window.Tawk_API;
   if (!api || !widgetReady) return;
   try {
-    if (pendingHidden) api.hide?.();
-    else api.show?.();
+    if (pendingHidden) api.hideWidget?.();
+    else api.showWidget?.();
   } catch {
     // widget API unavailable — ignore
   }
 };
+
+const shouldHide = (pathname: string): boolean =>
+  HIDE_PATH_PREFIXES.some((p) => pathname.startsWith(p)) ||
+  document.body.classList.contains("cfg-hide-whatsapp");
 
 const TawkChat = () => {
   const location = useLocation();
