@@ -93,8 +93,8 @@ const ConfiguratorPage = () => {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
-  // Inside the configurator the floating WhatsApp bubble covers the swatch grid
-  // on phones — suppress it for the lifetime of this page.
+  // Inside the configurator the floating chat bubble (Tawk.to) covers the
+  // swatch grid on phones - suppress it for the lifetime of this page.
   useEffect(() => {
     document.body.classList.add("cfg-hide-whatsapp");
     return () => document.body.classList.remove("cfg-hide-whatsapp");

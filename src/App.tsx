@@ -9,7 +9,7 @@ import CookieBanner from "@/components/CookieBanner";
 import PageViewTracker from "@/components/PageViewTracker";
 import Redirects from "@/components/Redirects";
 import { AuthProvider } from "@/lib/auth-context";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import TawkChat from "@/components/TawkChat";
 import { clarityStop } from "@/lib/clarity";
 
 import { resolveCompetitorSlug } from "@/data/competitors";
@@ -178,11 +178,11 @@ const RedirectTempleToEn = () => {
   return <Navigate to={`/en/temple/${slug}`} replace />;
 };
 
-const WhatsAppButtonWrapper = () => {
+const TawkChatWrapper = () => {
   const location = useLocation();
   const hideOnPaths = ["/en/lp/kickstarter"];
   if (hideOnPaths.some((path) => location.pathname.startsWith(path))) return null;
-  return <WhatsAppButton />;
+  return <TawkChat />;
 };
 
 // Admin screens render customer names, full addresses and phone numbers.
@@ -456,7 +456,7 @@ const App = () => (
         </Routes>
         </Suspense>
         </AuthProvider>
-        <WhatsAppButtonWrapper />
+        <TawkChatWrapper />
         <ClarityRouteGuard />
       </BrowserRouter>
       <CookieBanner />
