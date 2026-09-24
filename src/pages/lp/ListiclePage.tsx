@@ -848,9 +848,15 @@ const FooterCol = ({ title, links }: { title: string; links: [string, string][] 
     <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 12 }}>
       {links.map(([label, href]) => (
         <li key={href}>
-          <Link to={href} style={{ color: C.inkDim, textDecoration: "none", fontSize: 13 }}>
-            {label}
-          </Link>
+          {href.startsWith("mailto:") ? (
+            <a href={href} style={{ color: C.inkDim, textDecoration: "none", fontSize: 13 }}>
+              {label}
+            </a>
+          ) : (
+            <Link to={href} style={{ color: C.inkDim, textDecoration: "none", fontSize: 13 }}>
+              {label}
+            </Link>
+          )}
         </li>
       ))}
     </ul>
