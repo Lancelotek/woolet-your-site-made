@@ -678,9 +678,8 @@ html[lang="fr"] {
 }
 
 
-/* Bespoke configurator hides the floating chat bubble via body.cfg-hide-whatsapp;
-   the Tawk.to widget itself is toggled from src/components/TawkChat.tsx. */
-body.cfg-hide-whatsapp { --chat-suppressed: 1; }
+/* Bespoke configurator hides the floating chat bubble (Tawk.to) via
+   body.cfg-hide-whatsapp — the widget is toggled in TawkChat.tsx. */
 
 
 /* Calendly inline scheduler on the bespoke success page. Calendly's own layout
