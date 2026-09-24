@@ -303,7 +303,7 @@ const VipForm = ({
 
     if (!email.trim()) {
       setErrorKind("invalid");
-      setError("Enter your email to claim early access.");
+      setError("Enter your email to lock $114");
       inputRef.current?.focus();
       inputRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
       pushGtmEvent("vip_form_error", { form_location: formLocation, reason: "empty" });
@@ -2172,7 +2172,7 @@ const KickstarterPrelaunch = () => {
 
       {/* Sticky mobile CTA — hidden while a field has focus so it never covers the keyboard target */}
       <div
-        className="md:hidden"
+        className="md:hidden wl-sticky-cta"
         aria-hidden={!stickyVisible || inputFocused}
         style={{
           position: "fixed",

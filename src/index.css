@@ -688,5 +688,5 @@ body.cfg-hide-whatsapp a[aria-label="Chat with us on WhatsApp"] { display: none;
 @media (min-width: 768px) { .calendly-inline-host { height: 700px; } }
 
 /* Hide cookie banner and sticky mobile CTAs while the photo lightbox is open */
-body.wl-lightbox-open [data-wl-cookie-banner],
+body.wl-lightbox-open [data-woolet-cookie-banner],
 body.wl-lightbox-open .wl-sticky-cta { display: none !important; }
