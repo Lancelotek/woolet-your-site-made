@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import ovalHavana from "@/assets/frames-2026/oval-havana.asset.json";
 import ovalBlack from "@/assets/frames-2026/oval-black.asset.json";
 import ovalCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
@@ -29,7 +29,6 @@ type ModelPillsProps = {
 
 const ModelPills = (_props: ModelPillsProps = {}) => {
   const { lang: paramLang } = useParams<{ lang: string }>();
-  const navigate = useNavigate();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const [idx007, setIdx007] = useState(0);
   const [idx009, setIdx009] = useState(0);
@@ -56,22 +55,16 @@ const ModelPills = (_props: ModelPillsProps = {}) => {
       });
 
     return (
-      <div
-        // The whole card is tappable - links inside still handle keyboard use.
-        onClick={(e) => {
-          if ((e.target as HTMLElement).closest("a,button")) return;
-          track("card");
-          navigate(pdpHref);
-        }}
-        className="flex-1 border p-4 flex flex-col gap-1 transition-colors hover:border-primary/20 relative overflow-hidden group cursor-pointer"
+      <Link
+        to={pdpHref}
+        onClick={() => track("card")}
+        aria-label={`${name} — view product page`}
+        className="flex-1 border p-4 flex flex-col gap-1 transition-colors hover:border-primary/20 relative overflow-hidden group cursor-pointer no-underline"
         style={{ borderColor: "hsl(0 0% 100% / 0.055)" }}
       >
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" />
 
-        <Link
-          to={pdpHref}
-          onClick={() => track("image")}
-          aria-label={`Woolet ${sku} — view product page`}
+        <div
           className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-1.5 overflow-hidden rounded-sm bg-black block no-underline"
         >
           {slides.map((s, i) => (
@@ -89,17 +82,15 @@ const ModelPills = (_props: ModelPillsProps = {}) => {
               sizes="(min-width: 640px) 480px, 90vw"
             />
           ))}
-        </Link>
+        </div>
 
         <div className="text-primary uppercase tracking-[0.28em]" style={{ fontSize: "0.72rem" }}>{sku}</div>
-        <Link
-          to={pdpHref}
-          onClick={() => track("title")}
+        <span
           className="font-display text-woolet-white no-underline hover:text-primary transition-colors"
           style={{ fontSize: "1.25rem" }}
         >
           {name}
-        </Link>
+        </span>
 
         <div className="flex items-baseline gap-2" style={{ fontFamily: "Barlow, sans-serif" }}>
           <span className="text-primary" style={{ fontSize: "1rem", fontWeight: 500 }}>$114</span>
@@ -110,9 +101,7 @@ const ModelPills = (_props: ModelPillsProps = {}) => {
 
         <div className="text-cream-dim" style={{ fontSize: "0.78rem" }}>{t(lang, specsKey)}</div>
 
-        <Link
-          to={pdpHref}
-          onClick={() => track("primary_cta")}
+        <span
           className="mt-2 inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors self-start no-underline"
           style={{
             background: "hsl(var(--gold))",
@@ -124,8 +113,8 @@ const ModelPills = (_props: ModelPillsProps = {}) => {
           }}
         >
           See {sku} — $114
-        </Link>
-      </div>
+        </span>
+      </Link>
     );
   };
 

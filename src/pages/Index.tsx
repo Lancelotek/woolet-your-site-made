@@ -1040,9 +1040,9 @@ const Index = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
               {models.map((m) => (
-                <a
+                <Link
                   key={`pdp-${m.id}`}
-                  href={hrefFor(m.id === "007" ? "products.007" : "products.009", lang)}
+                  to={hrefFor(m.id === "007" ? "products.007" : "products.009", lang)}
                   className="group block no-underline transition-colors"
                   style={{ border: "1px solid hsl(0 0% 100% / 0.08)", background: "#16140f" }}
                 >
@@ -1073,7 +1073,7 @@ const Index = () => {
                       See the frame →
                     </span>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
