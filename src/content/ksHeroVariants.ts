@@ -62,6 +62,16 @@ export const VARIANTS: Record<string, HeroVariant> = {
 const PREFIXES = ["m1-", "m2-", "m3-", "m4b-", "m4-", "m5-", "p1-", "p4-", "r1-", "r2-", "r3-", "r4-"];
 const SUFFIXES = ["-man", "-real", "-greybeard", "-lead"];
 
+export function heroVariantKeyFromUtm(utmContent: string | null | undefined): string {
+  const v = String(utmContent || "").trim().toLowerCase();
+  if (!v) return "default";
+  if (/^m2/.test(v) || v.includes("too-small") || v.includes("too_small")) return "too-small";
+  if (/^m4/.test(v) || /^r2/.test(v) || v.includes("not-the-style")) return "not-the-style";
+  if (/^m3/.test(v) || /^r4/.test(v) || v.includes("temples")) return "temples-bent";
+  if (/^m5/.test(v) || v.includes("digging")) return "digging-in";
+  return "default";
+}
+
 export function resolveHeroVariant(
   utmContent: string | null | undefined,
 ): { key: string; variant: HeroVariant } {
@@ -84,5 +94,7 @@ export function resolveHeroVariant(
   for (const key of Object.keys(VARIANTS)) {
     if (value.startsWith(key)) return { key, variant: VARIANTS[key] };
   }
+  const fallback = heroVariantKeyFromUtm(utmContent);
+  if (fallback !== "default" && VARIANTS[fallback]) return { key: fallback, variant: VARIANTS[fallback] };
   return { key: "default", variant: DEFAULT_HERO_VARIANT };
 }

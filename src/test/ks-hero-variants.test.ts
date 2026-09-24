@@ -18,6 +18,12 @@ describe("resolveHeroVariant", () => {
     [null, "default"],
     [undefined, "default"],
     ["M4-Not-The-Style-Man", "not-the-style"],
+    ["m2d-too-small-bearded", "too-small"],
+    ["m2_too_small_009", "too-small"],
+    ["m2-too-small-story", "too-small"],
+    ["r4-temples-bent-man", "temples-bent"],
+    ["cloudwise", "default"],
+    ["r5-ugc-video", "default"],
   ];
 
   for (const [input, expected] of cases) {
