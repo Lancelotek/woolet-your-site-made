@@ -350,8 +350,10 @@ export const handler = async (req: Request): Promise<Response> => {
     if (country_code) subscriberFields.country_code = String(country_code);
     if (landing_url) subscriberFields.landing_url = String(landing_url).slice(0, 500);
     if (referrer) subscriberFields.referrer = String(referrer).slice(0, 500);
-    if (hero_variant) subscriberFields.hero_variant = String(hero_variant).slice(0, 100);
-
+    const heroRaw = String(hero_variant || "").trim();
+    const heroResolved = !heroRaw || heroRaw === "default" ? heroVariantKeyFromUtm(utm_content) : heroRaw;
+    if (heroResolved) subscriberFields.hero_variant = heroResolved.slice(0, 100);
+    
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
       fields: subscriberFields,
@@ -415,3 +417,13 @@ export const handler = async (req: Request): Promise<Response> => {
 };
 
 serve(handler);
+
+export function heroVariantKeyFromUtm(utmContent: string | null | undefined): string {
+  const v = String(utmContent || "").trim().toLowerCase();
+  if (!v) return "default";
+  if (/^m2/.test(v) || v.includes("too-small") || v.includes("too_small")) return "too-small";
+  if (/^m4/.test(v) || /^r2/.test(v) || v.includes("not-the-style")) return "not-the-style";
+  if (/^m3/.test(v) || /^r4/.test(v) || v.includes("temples")) return "temples-bent";
+  if (/^m5/.test(v) || v.includes("digging")) return "digging-in";
+  return "default";
+}

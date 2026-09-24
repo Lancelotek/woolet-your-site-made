@@ -54,6 +54,7 @@ export default function Reserve() {
   const [failed, setFailed] = useState<string | null>(null);
   const [retryKey, setRetryKey] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [started, setStarted] = useState(false);
   const sessionRef = useRef<Promise<string> | null>(null);
 
   const touch = useMemo(readTouch, []);
@@ -94,7 +95,7 @@ export default function Reserve() {
   }, [touch]);
 
   const createSession = useCallback((): Promise<string> => {
-    const merged = { ...metadata, ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata() };
+    const merged = { ...metadata, ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata(), user_initiated: "1" };
     return supabase.functions
       .invoke("create-checkout", {
         body: {
@@ -139,8 +140,8 @@ export default function Reserve() {
   // Wait for the Stripe iframe; fail visibly if it never mounts.
   const readyFired = useRef(false);
   useEffect(() => {
-    if (failed) return;
-    const started = performance.now();
+    if (failed || !started) return;
+    const t0 = performance.now();
     const timer = window.setInterval(() => {
       const iframe = document.querySelector("#reserve-checkout iframe");
       if (iframe) {
@@ -150,7 +151,7 @@ export default function Reserve() {
         if (!readyFired.current) {
           readyFired.current = true;
           pushGtmEvent("reserve_checkout_ready", {
-            load_ms: Math.round(performance.now() - started),
+            load_ms: Math.round(performance.now() - t0),
           });
         }
       }
@@ -166,7 +167,7 @@ export default function Reserve() {
       window.clearInterval(timer);
       window.clearTimeout(bail);
     };
-  }, [failed, retryKey]);
+  }, [failed, retryKey, started]);
 
   const retry = () => {
     sessionRef.current = null;
@@ -205,6 +206,30 @@ export default function Reserve() {
           ))}
         </ul>
 
+        {!started ? (
+          <button
+            type="button"
+            id="reserve-pay"
+            onClick={() => {
+              pushGtmEvent("reserve_pay_click", { touch_source: touch.touch_source ?? "" });
+              setStarted(true);
+            }}
+            style={{
+              width: "100%",
+              background: C.gold,
+              color: C.ink,
+              border: "none",
+              borderRadius: 2,
+              padding: "18px 24px",
+              fontSize: 13,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+            }}
+          >
+            Lock $114 - pay $1 now
+          </button>
+        ) : (
         <div style={{ background: "#fff", borderRadius: 2, overflow: "hidden", position: "relative", minHeight: 320 }}>
           <PaymentTestModeBanner />
           {failed ? (
@@ -276,6 +301,7 @@ export default function Reserve() {
             </>
           )}
         </div>
+        )}
 
         <p style={{ margin: "22px 0 0", fontSize: 14 }}>
           <Link to="/en/lp/kickstarter" style={{ color: C.gold, textDecoration: "underline" }}>

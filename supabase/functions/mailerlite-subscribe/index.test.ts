@@ -204,3 +204,13 @@ Deno.test("skips Meta CAPI when META_PIXEL_ID / access token are not configured"
     if (savedToken) Deno.env.set("META_CAPI_ACCESS_TOKEN", savedToken);
   }
 });
+
+Deno.test("heroVariantKeyFromUtm maps utm_content prefixes", async () => {
+  const { heroVariantKeyFromUtm } = await import("./index.ts");
+  const cases: Array<[string, string]> = [
+    ["m2d-too-small-bearded", "too-small"], ["m2_too_small_009", "too-small"], ["m2-too-small-story", "too-small"],
+    ["m4-not-the-style-man", "not-the-style"], ["r4-temples-bent-man", "temples-bent"],
+    ["cloudwise", "default"], ["r5-ugc-video", "default"], ["", "default"],
+  ];
+  for (const [i, e] of cases) assertEquals(heroVariantKeyFromUtm(i), e);
+});

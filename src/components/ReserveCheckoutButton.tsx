@@ -61,7 +61,7 @@ export function ReserveCheckoutButton({
   const sessionRef = useRef<Promise<string> | null>(null);
 
   const createSession = useCallback((): Promise<string> => {
-    const merged = { ...(metadata ?? {}), ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata() };
+    const merged = { ...(metadata ?? {}), ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata(), user_initiated: "1" };
     return supabase.functions
       .invoke("create-checkout", {
         body: {
@@ -94,11 +94,16 @@ export function ReserveCheckoutButton({
     return p;
   }, [createSession]);
 
-  // Preload Stripe + the checkout session as soon as the button is on screen.
+  // Preload Stripe.js + modal code only. The checkout session is created on
+  // click, so an expired session means the visitor actually chose to pay.
   useEffect(() => {
     void import("@/components/StripeCheckoutModal");
-    warm();
-  }, [warm]);
+    try {
+      void getStripe();
+    } catch {
+      /* surfaced by the modal */
+    }
+  }, []);
 
   const prefetchedClientSecret = useCallback(() => warm(), [warm]);
 
