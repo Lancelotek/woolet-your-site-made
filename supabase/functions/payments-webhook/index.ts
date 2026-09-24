@@ -298,6 +298,31 @@ async function markMailerLiteAbandonedCheckout(
 
 async function handleCheckoutExpired(session: any) {
   if (session?.metadata?.flow === "bespoke") return;
+  // Only count a $1 checkout as abandoned when the visitor clicked pay AND
+  // engaged with the Stripe form. Pre-created sessions are ignored.
+  const cd = session?.customer_details ?? {};
+  const addr = cd?.address ?? {};
+  const engaged = Boolean(
+    cd?.email || cd?.name || cd?.phone ||
+    (addr && Object.values(addr).some((v) => typeof v === "string" && v.trim())),
+  );
+  const userInitiated = session?.metadata?.user_initiated === "1";
+  if (!userInitiated || !engaged) {
+    try {
+      await getSupabase().from("server_event_log").insert({
+        source: "payments-webhook",
+        event_name: "CheckoutExpiredIgnored",
+        status: "skipped",
+        request_summary: {
+          stripe_session_id: session?.id,
+          reason: !userInitiated ? "not_user_initiated" : "no_engagement",
+        },
+      });
+    } catch (e) {
+      console.error("[server_event_log] insert failed", e);
+    }
+    return;
+  }
   const email: string | undefined =
     session?.customer_details?.email ||
     session?.customer_email ||
