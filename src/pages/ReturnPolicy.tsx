@@ -132,7 +132,7 @@ const ReturnPolicy = () => {
             <div className="woolet-contact-line">412 N. Main Street, STE 100</div>
             <div className="woolet-contact-line">Buffalo, Wyoming 82834, USA</div>
             <div className="woolet-contact-line">Email: <a href="mailto:support@woolet.co">support@woolet.co</a></div>
-            <div className="woolet-contact-line">Website: <Link to="/en">woolet.co</a></div>
+            <div className="woolet-contact-line">Website: <a href={`/${(typeof window !== "undefined" && window.location.pathname.split("/")[1]) || "en"}`}>woolet.co</a></div>
           </div>
         </>
       ),
