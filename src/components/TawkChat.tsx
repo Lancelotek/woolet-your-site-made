@@ -1,93 +1,92 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { pushGtmEvent } from "@/lib/gtm";
 
-// Tawk.to live chat — replaces the floating WhatsApp bubble.
-// The script is injected once; the widget provides its own bubble.
+// Tawk.to live chat (property 6ab578a42c323b344704c665, widget 1k3adugr8).
+// Replaces WhatsApp site-wide. Injected once, after the page is interactive.
 const TAWK_SRC = "https://embed.tawk.to/6ab578a42c323b344704c665/1k3adugr8";
 
-// Routes where the chat bubble must not appear (same rule the WhatsApp
-// bubble used - it competed with the LP's own CTAs). The configurator
-// additionally toggles the body class "cfg-hide-whatsapp" while mounted.
-const HIDE_PATH_PREFIXES = ["/en/lp/kickstarter"];
+// Body classes that hide the bubble: photo lightbox + Bespoke configurator.
+const HIDE_CLASSES = ["wl-lightbox-open", "cfg-hide-whatsapp"];
 
-// Visibility is applied as soon as the widget finishes loading, or
-// immediately on route change if it is already loaded.
-let pendingHidden = false;
 let widgetReady = false;
+let hidden = false;
 
 declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Tawk_API?: any & {
-      onLoad?: () => void;
-      onChatWindowMaximized?: () => void;
-      hideWidget?: () => void;
-      showWidget?: () => void;
-      isChatHidden?: () => boolean;
-    };
+    Tawk_API?: any;
+    Tawk_LoadStart?: Date;
   }
 }
+
+const shouldHide = () => HIDE_CLASSES.some((c) => document.body.classList.contains(c));
 
 const applyVisibility = () => {
   const api = window.Tawk_API;
   if (!api || !widgetReady) return;
   try {
-    if (pendingHidden) api.hideWidget?.();
+    if (hidden) api.hideWidget?.();
     else api.showWidget?.();
   } catch {
-    // widget API unavailable — ignore
+    /* widget API unavailable */
   }
 };
 
-const shouldHide = (pathname: string): boolean =>
-  HIDE_PATH_PREFIXES.some((p) => pathname.startsWith(p)) ||
-  document.body.classList.contains("cfg-hide-whatsapp");
+const injectTawk = () => {
+  if (document.getElementById("tawk-script")) return;
+  const api = (window.Tawk_API = window.Tawk_API || {});
+  window.Tawk_LoadStart = new Date();
+
+  // Mobile: lift the bubble above sticky bottom bars (LP sticky CTA, DE bar etc.).
+  api.customStyle = {
+    visibility: {
+      desktop: { position: "br", xOffset: 20, yOffset: 20 },
+      mobile: { position: "br", xOffset: 12, yOffset: 96 },
+    },
+  };
+  api.onLoad = () => {
+    widgetReady = true;
+    applyVisibility();
+  };
+  api.onChatMaximized = () => {
+    pushGtmEvent("chat_open", { channel: "tawk", location: window.location.pathname });
+  };
+
+  const s1 = document.createElement("script");
+  const s0 = document.getElementsByTagName("script")[0];
+  s1.id = "tawk-script";
+  s1.async = true;
+  s1.src = TAWK_SRC;
+  s1.charset = "UTF-8";
+  s1.setAttribute("crossorigin", "*");
+  if (s0?.parentNode) s0.parentNode.insertBefore(s1, s0);
+  else document.head.appendChild(s1);
+};
 
 const TawkChat = () => {
-  const location = useLocation();
-
-  // Load the Tawk.to script exactly once.
   useEffect(() => {
-    if (document.getElementById("tawk-script")) return;
-
-    window.Tawk_API = window.Tawk_API || {};
-    window.Tawk_API.onLoad = () => {
-      widgetReady = true;
-      applyVisibility();
+    const schedule = () => {
+      const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+      if (w.requestIdleCallback) w.requestIdleCallback(injectTawk, { timeout: 4000 });
+      else setTimeout(injectTawk, 1500);
     };
-    // Analytics parity with the old whatsapp_click GTM event.
-    window.Tawk_API.onChatWindowMaximized = () => {
-      pushGtmEvent("chat_open", {
-        channel: "tawk",
-        location: typeof window !== "undefined" ? window.location.pathname : "",
-      });
-    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
 
-    const s1 = document.createElement("script");
-    s1.id = "tawk-script";
-    s1.async = true;
-    s1.src = TAWK_SRC;
-    s1.charset = "UTF-8";
-    s1.setAttribute("crossorigin", "*");
-    document.body.appendChild(s1);
-  }, []);
-
-  // Hide the bubble on routes that opt out, and react to the configurator's
-  // body class being added/removed while this component stays mounted.
-  useEffect(() => {
-    pendingHidden = shouldHide(location.pathname);
-    applyVisibility();
+    hidden = shouldHide();
     const observer = new MutationObserver(() => {
-      const next = shouldHide(location.pathname);
-      if (next !== pendingHidden) {
-        pendingHidden = next;
+      const next = shouldHide();
+      if (next !== hidden) {
+        hidden = next;
         applyVisibility();
       }
     });
     observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, [location.pathname]);
+    return () => {
+      window.removeEventListener("load", schedule);
+      observer.disconnect();
+    };
+  }, []);
 
   return null;
 };
