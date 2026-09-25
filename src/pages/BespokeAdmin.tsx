@@ -556,7 +556,16 @@ export default function BespokeAdmin() {
                       {r.production_blocked && pill("Check fit", true)}
                     </div>
                   </td>
-                  <td style={{ padding: "12px 14px", textAlign: "right" }}>
+                  <td style={{ padding: "12px 14px", textAlign: "right", whiteSpace: "nowrap" }}>
+                    {(r as any).brief_path ? (
+                      <button
+                        onClick={() => downloadBrief(password, r.id).catch((err) => setError(err instanceof Error ? err.message : "Download failed"))}
+                        title={(r as any).brief_filename ?? "Production brief"}
+                        style={{ background: "none", border: `1px solid rgba(194,160,90,0.45)`, color: T.gold, padding: "7px 10px", borderRadius: 2, fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer", marginRight: 8 }}
+                      >
+                        Brief PDF ↓
+                      </button>
+                    ) : null}
                     <button onClick={() => openDetail(r.id)} style={{ background: "none", border: `1px solid rgba(194,160,90,0.45)`, color: T.gold, padding: "7px 12px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}>
                       Open
                     </button>
@@ -857,6 +866,8 @@ function DetailView({
         <Field label="Legacy reference" value={`WLT-${String(o.id).slice(0, 8).toUpperCase()}`} />
       </Group>
 
+      <BriefBlock order={o} password={password} onOrderChange={onOrderChange} />
+
       <Group title="Customer">
         <Field label="Name" value={o.customer_name} />
         <Field label="Discovery source" value={o.source || "Not provided"} />
@@ -1004,6 +1015,124 @@ function DetailView({
 
 // One-time measurement invitations. The link is shown once, here, for the
 // operator to copy; the database only ever holds its hash.
+const BRIEF_MAX = 15 * 1024 * 1024;
+
+const BRIEF_ERRORS: Record<string, string> = {
+  pdf_only: "Only PDF files can be uploaded.",
+  too_large: "The PDF is larger than 15 MB.",
+  no_brief: "No production brief uploaded yet.",
+  upload_missing: "The upload did not finish. Try again.",
+};
+
+async function briefCall(password: string, body: Record<string, unknown>) {
+  const { data, error } = await supabase.functions.invoke("bespoke-admin-orders", { body: { password, ...body } });
+  const code = (data as { error?: string } | null)?.error;
+  if (code) throw new Error(BRIEF_ERRORS[code] ?? code);
+  if (error) throw error;
+  return data as Record<string, any>;
+}
+
+async function downloadBrief(password: string, id: string) {
+  const data = await briefCall(password, { action: "brief_download", id });
+  if (!data.url) throw new Error("Could not create a download link.");
+  const a = document.createElement("a");
+  a.href = data.url;
+  a.rel = "noopener";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function BriefBlock({
+  order, password, onOrderChange,
+}: {
+  order: Record<string, any>;
+  password: string;
+  onOrderChange: (patch: Record<string, unknown>) => void;
+}) {
+  const [busy, setBusy] = useState<"upload" | "download" | null>(null);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setMsg(null);
+    if (file.type !== "application/pdf" && !/\.pdf$/i.test(file.name)) {
+      setMsg({ ok: false, text: BRIEF_ERRORS.pdf_only });
+      return;
+    }
+    if (file.size > BRIEF_MAX) {
+      setMsg({ ok: false, text: BRIEF_ERRORS.too_large });
+      return;
+    }
+    setBusy("upload");
+    try {
+      const up = await briefCall(password, { action: "brief_upload_url", id: order.id, filename: file.name, size: file.size });
+      const { error } = await supabase.storage
+        .from("bespoke-cad")
+        .uploadToSignedUrl(up.path, up.token, file, { contentType: "application/pdf", upsert: true });
+      if (error) throw error;
+      const done = await briefCall(password, { action: "brief_confirm", id: order.id, filename: file.name });
+      onOrderChange({
+        brief_path: done.brief_path,
+        brief_filename: done.brief_filename,
+        brief_uploaded_at: done.brief_uploaded_at,
+      });
+      setMsg({ ok: true, text: "Production brief saved." });
+    } catch (err) {
+      setMsg({ ok: false, text: err instanceof Error ? err.message : "Upload failed." });
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const onDownload = async () => {
+    setBusy("download");
+    setMsg(null);
+    try {
+      await downloadBrief(password, order.id);
+    } catch (err) {
+      setMsg({ ok: false, text: err instanceof Error ? err.message : "Download failed." });
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const btn: React.CSSProperties = {
+    background: "none", color: T.gold, border: `1px solid rgba(194,160,90,0.45)`, padding: "9px 14px",
+    borderRadius: 2, fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", cursor: "pointer",
+  };
+
+  return (
+    <Group title="Production brief">
+      <Field label="File" value={order.brief_filename || "No brief uploaded"} />
+      <Field label="Uploaded" value={order.brief_uploaded_at ? fmtDate(order.brief_uploaded_at) : "—"} />
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", marginTop: 8, gridColumn: "1 / -1" }}>
+        {order.brief_path ? (
+          <button type="button" onClick={onDownload} disabled={busy !== null} style={btn}>
+            {busy === "download" ? "Preparing…" : "Download"}
+          </button>
+        ) : null}
+        <label style={{ ...btn, opacity: busy ? 0.6 : 1, position: "relative", overflow: "hidden" }}>
+          {busy === "upload" ? "Uploading…" : order.brief_path ? "Replace PDF" : "Upload PDF"}
+          <input
+            ref={inputRef}
+            type="file"
+            accept="application/pdf"
+            aria-label={order.brief_path ? "Replace production brief PDF" : "Upload production brief PDF"}
+            onChange={onFile}
+            disabled={busy !== null}
+            style={{ position: "absolute", inset: 0, opacity: 0, cursor: "pointer", width: "100%" }}
+          />
+        </label>
+        {msg && <span style={{ fontSize: 12, color: msg.ok ? T.gold : "#e2725b" }}>{msg.text}</span>}
+      </div>
+    </Group>
+  );
+}
+
 function MeasureInviteBlock({ order, password }: { order: Record<string, any>; password: string }) {
   const [invites, setInvites] = useState<Array<Record<string, any>>>([]);
   const [link, setLink] = useState<string | null>(null);
