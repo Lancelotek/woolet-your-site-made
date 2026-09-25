@@ -9465,6 +9465,99 @@ function insertBlogFitLensHook(html) {
   if (firstH2 < 0) return `${html}${blogFitLensHookHtml()}`;
   return `${html.slice(0, firstH2)}${blogFitLensHookHtml()}${html.slice(firstH2)}`;
 }
+const BLOG_AIO_UPDATED = "2026-09-25";
+const tableStyle = "width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;";
+const thStyle = "text-align:left;padding:10px 12px;border-bottom:1px solid #C2A05A;";
+const tdStyle = "padding:10px 12px;border-bottom:1px solid #2A251C;";
+const BLOG_AIO_ENHANCEMENTS = {
+  "how-to-tell-if-your-face-is-wide-or-narrow": {
+    quickAnswer: "For eyewear sizing, a face under 130 mm is Narrow; 130–137 mm is Standard; 138–144 mm is Wide; 145–154 mm is Extra-wide; and 155 mm or more is XL / specialty wide. Measure temple to temple, then compare that number with total frame front width rather than lens width.",
+    question: "How wide is a wide face?",
+    directAnswer: "A face under 130 mm is Narrow, 130–137 mm is Standard, 138–144 mm is Wide, 145–154 mm is Extra-wide, and 155 mm or more is XL / specialty wide.",
+    anchor: "extra wide glasses",
+    linkSentence: 'If your measurement is 155 mm or above, compare it with our guide to <a href="/en/collections/extra-wide-glasses">extra wide glasses</a> before choosing a frame.'
+  },
+  "round-vs-square-glasses-wide-face": {
+    quickAnswer: "Square glasses add definition to a round wide face, while round glasses soften angular features; either shape must still match the face in width. For a face measuring 155 mm or more, start with a front near 158 mm, then choose square or round according to the contrast you want.",
+    question: "Are round or square glasses better for a wide face?",
+    directAnswer: "Square glasses usually add structure, while round glasses soften angles, but both need a front width close to the wearer's measurement.",
+    anchor: "extra wide eyeglass frames",
+    linkSentence: 'See the available shapes among our <a href="/en/collections/extra-wide-glasses">extra wide eyeglass frames</a> after you choose the visual effect you prefer.',
+    table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Face shape</th><th style="${thStyle}">Frame shape</th><th style="${thStyle}">Minimum front width (mm)</th></tr></thead><tbody><tr><td style="${tdStyle}">Round</td><td style="${tdStyle}">Soft square</td><td style="${tdStyle}">Match measured face width</td></tr><tr><td style="${tdStyle}">Angular</td><td style="${tdStyle}">Round / panto</td><td style="${tdStyle}">Match measured face width</td></tr><tr><td style="${tdStyle}">Wide, 155 mm+</td><td style="${tdStyle}">Either</td><td style="${tdStyle}">155 mm+</td></tr></tbody></table>`
+  },
+  "eyeglass-frame-size-chart": {
+    quickAnswer: "Eyeglass frame sizes run from roughly 122 mm at XS to about 150 mm at XXL, measured across the total front. Match the frame front to your face within about 3 mm; faces measuring 155–161 mm sit beyond the standard chart and need a front around 158 mm.",
+    question: "What eyeglass frame size matches my face width?",
+    directAnswer: "Choose a total frame front within about 3 mm of your temple-to-temple face width.",
+    anchor: "frames for 155 mm and wider faces",
+    linkSentence: 'The standard chart ends before our <a href="/en/collections/extra-wide-glasses">frames for 155 mm and wider faces</a>, which start with a 158 mm front.'
+  },
+  "glasses-for-wide-faces-guide": {
+    quickAnswer: "A face measuring 155 mm or more needs a frame with a total front width of at least 155 mm; a 158 mm front fits the common 155–161 mm range. Measure temple to temple and ignore vague labels such as wide or oversized unless the product page publishes total front width.",
+    question: "What frame width fits a wide face?",
+    directAnswer: "A wide face needs a frame front close to its temple-to-temple width, with 158 mm fitting the 155–161 mm range.",
+    anchor: "genuinely extra wide glasses",
+    linkSentence: 'Use the measurements on our <a href="/en/collections/extra-wide-glasses">genuinely extra wide glasses</a> page as a practical reference when comparing brands.'
+  },
+  "numbers-on-glasses-frames-meaning": {
+    quickAnswer: "The three numbers on glasses mean lens width, bridge width and temple length, all in millimetres; 52□21-150 means a 52 mm lens, 21 mm bridge and 150 mm temple. They do not state total front width, so measure the frame outer edge to outer edge before judging fit.",
+    question: "What do the three numbers on glasses mean?",
+    directAnswer: "The three numbers show lens width, bridge width and temple length in millimetres, not the frame's total front width.",
+    anchor: "158 mm extra wide frames",
+    linkSentence: 'For a complete published front measurement, compare those markings with our <a href="/en/collections/extra-wide-glasses">158 mm extra wide frames</a>.'
+  },
+  "how-to-measure-face-width-for-glasses": {
+    quickAnswer: "Measure face width in millimetres from temple to temple across the widest point, keeping the ruler level and looking straight ahead. Under 130 mm is Narrow, 130–137 mm is Standard, 138–144 mm is Wide, 145–154 mm is Extra-wide, and 155 mm or more is XL / specialty wide.",
+    question: "How do you measure face width for glasses?",
+    directAnswer: "Measure horizontally from temple to temple at the widest point and record the result in millimetres.",
+    anchor: "glasses built for wider faces",
+    linkSentence: `Once you have the number, compare it with <a href="/en/collections/extra-wide-glasses">glasses built for wider faces</a> rather than relying on a retailer's size label.`
+  },
+  "are-my-glasses-too-small-for-my-face": {
+    quickAnswer: "Glasses are too small when the temples bow outward, the frame leaves marks in front of your ears, or pressure builds at the sides within one to two hours. Compare face width with total frame width; lens width alone cannot show whether the overall frame fits.",
+    question: "How can I tell if my glasses are too small?",
+    directAnswer: "Your glasses are too small if the arms bow outward at the hinges, the frame leaves pressure marks, or it pinches within one to two hours.",
+    anchor: "properly sized extra wide frames",
+    linkSentence: 'If the mismatch is structural, review <a href="/en/collections/extra-wide-glasses">properly sized extra wide frames</a> instead of repeatedly adjusting the arms.',
+    table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Observed sign</th><th style="${thStyle}">Measurement check</th><th style="${thStyle}">Likely cause</th></tr></thead><tbody><tr><td style="${tdStyle}">Arms bow outward</td><td style="${tdStyle}">Compare face and front widths</td><td style="${tdStyle}">Front too small</td></tr><tr><td style="${tdStyle}">Marks at temples</td><td style="${tdStyle}">Compare face and front widths</td><td style="${tdStyle}">Side pressure</td></tr><tr><td style="${tdStyle}">Pain behind ears</td><td style="${tdStyle}">Check temple length</td><td style="${tdStyle}">Arm bend or length</td></tr></tbody></table>`
+  },
+  "glasses-for-wide-nose-bridge-21-22mm-explained": {
+    quickAnswer: "A 21–22 mm bridge is a useful starting point for a wider nose when common 17–19 mm bridges pinch, sit high or leave pressure marks. Bridge width is the gap between the lenses, not total frame width, so it must be evaluated alongside the full front measurement.",
+    question: "What bridge width fits a wide nose?",
+    directAnswer: "A 21–22 mm bridge often fits a wider nose better than the common 17–19 mm range, provided the bridge shape also matches.",
+    anchor: "extra wide frames with wider bridges",
+    linkSentence: 'Compare both measurements on our <a href="/en/collections/extra-wide-glasses">extra wide frames with wider bridges</a> page.',
+    table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Bridge width (mm)</th><th style="${thStyle}">Typical fit</th><th style="${thStyle}">What to check</th></tr></thead><tbody><tr><td style="${tdStyle}">17–19 mm</td><td style="${tdStyle}">Mainstream range</td><td style="${tdStyle}">Pinching or high sitting</td></tr><tr><td style="${tdStyle}">20 mm</td><td style="${tdStyle}">Bespoke lower range</td><td style="${tdStyle}">Bridge shape</td></tr><tr><td style="${tdStyle}">21–22 mm</td><td style="${tdStyle}">Wider nose starting point</td><td style="${tdStyle}">Keyhole contact</td></tr><tr><td style="${tdStyle}">23–24 mm</td><td style="${tdStyle}">Bespoke wider range</td><td style="${tdStyle}">Custom measurement</td></tr></tbody></table>`
+  },
+  "what-size-glasses-for-a-large-head": {
+    quickAnswer: "For a large head, choose glasses by measured face width: 150–154 mm usually needs an extra-large front, while 155–161 mm is best matched by a front around 158 mm. The printed lens-bridge-temple code does not reveal total width, so measure the frame across its outer edges.",
+    question: "What size glasses fit a large head?",
+    directAnswer: "A 155–161 mm face generally fits a frame front around 158 mm, while other widths should be matched as closely as possible.",
+    anchor: "wide glasses measured in millimetres",
+    linkSentence: 'Compare your result with <a href="/en/collections/extra-wide-glasses">wide glasses measured in millimetres</a> before buying by an XL label.',
+    table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Face width (mm)</th><th style="${thStyle}">Suggested front width (mm)</th><th style="${thStyle}">Fit category</th></tr></thead><tbody><tr><td style="${tdStyle}">140–149 mm</td><td style="${tdStyle}">Within about 3 mm</td><td style="${tdStyle}">Large-average</td></tr><tr><td style="${tdStyle}">150–154 mm</td><td style="${tdStyle}">150–157 mm</td><td style="${tdStyle}">Extra large</td></tr><tr><td style="${tdStyle}">155–161 mm</td><td style="${tdStyle}">158 mm</td><td style="${tdStyle}">Specialty wide</td></tr><tr><td style="${tdStyle}">162–172 mm</td><td style="${tdStyle}">Made to measure</td><td style="${tdStyle}">Bespoke</td></tr></tbody></table>`
+  },
+  "what-size-sunglasses-for-wide-faces": {
+    quickAnswer: "Wide-face sunglasses should match temple-to-temple width, with a 155–161 mm face typically needing a front around 158 mm. Sunglass lenses may be larger for coverage, but lens width is not total frame width; check the outer edge-to-outer edge measurement and bridge width before buying.",
+    question: "What size sunglasses fit a wide face?",
+    directAnswer: "A face measuring 155–161 mm generally needs sunglasses with a total front width around 158 mm.",
+    anchor: "extra wide sunglasses-ready frames",
+    linkSentence: 'The same sizing logic applies to our <a href="/en/collections/extra-wide-glasses">extra wide sunglasses-ready frames</a> with UV400 lens options.'
+  }
+};
+function enrichBlogContent(slug, content) {
+  const enhancement = BLOG_AIO_ENHANCEMENTS[slug];
+  if (!enhancement) return content;
+  const section = `<h2>${enhancement.question}</h2>
+<p>${enhancement.directAnswer}</p>
+${enhancement.table ?? ""}
+<p>${enhancement.linkSentence}</p>`;
+  return `${section}
+${content}`;
+}
+function blogModifiedDate(slug, publishedDate) {
+  return BLOG_AIO_ENHANCEMENTS[slug] ? BLOG_AIO_UPDATED : publishedDate;
+}
 const SITE_URL = "https://woolet.co";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
 const websiteJsonLd = {
@@ -10301,7 +10394,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       title: "Extra Wide Glasses — 158 mm Italian Acetate Frames | Woolet",
       description: "Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21–22 mm bridge, Italian Mazzucchelli acetate. Bespoke 145–172 mm.",
       noscriptHtml: `<h1>Extra Wide Glasses</h1>
-<p>Extra wide optical frames built at 158 mm front width with a 21–22 mm keyhole bridge — properly extra wide, not a stretched standard size. Italian Mazzucchelli acetate, Hand made in EU. Bespoke 145–172 mm available. From $114 pre-order.</p>`
+<h2>What counts as extra wide glasses?</h2>
+<p>In this sizing scale, Extra-wide means frames for faces measuring 145–154 mm. Faces measuring 155 mm or more are XL / specialty wide and need a purpose-built front; Woolet uses a 158 mm front for its 155–161 mm standard fit range.</p>
+<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–154 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>155–161 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>162–172 mm</td><td>162–172 mm</td><td>Bespoke</td></tr></tbody></table>
+<p>Both shapes are prescription-ready, with 52 × 52 mm and 54 × 50 mm lens areas for single-vision or progressive lenses. Italian Mazzucchelli acetate, hand made in EU. The shop is sold out until the Kickstarter campaign ends; a $1 reservation locks the $114 founding-member price against the $190 MSRP.</p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -10392,7 +10488,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   };
   if (extraCollections[path]) {
     const c = extraCollections[path];
-    return base(route, lang, {
+    const meta = base(route, lang, {
       title: c.title,
       description: c.description,
       noscriptHtml: `<h1>${escapeHtml(c.h1)}</h1>
@@ -10402,6 +10498,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       { name: "Collections", url: `${SITE_URL}/en` },
       { name: c.h1, url: `${SITE_URL}${route}` }
     ])]);
+    if (path === "/collections/extra-large-oversized-eyeglasses") {
+      meta.canonical = `${SITE_URL}/en/collections/extra-wide-glasses`;
+    }
+    return meta;
   }
   if (path === "/lp/why-glasses-fail") {
     return base(route, lang, {
@@ -10512,6 +10612,9 @@ ${links}
       const override = blogMetaBySlug[post.slug];
       const headTitle = override ? override.exactTitle || override.metaTitle.includes("Woolet") ? override.metaTitle : `${override.metaTitle} | Woolet` : `${post.title} | Woolet`;
       const headDescription = (override == null ? void 0 : override.metaDescription) ?? post.excerpt;
+      const enhancement = BLOG_AIO_ENHANCEMENTS[post.slug];
+      const enrichedContent = enrichBlogContent(post.slug, post.content);
+      const modifiedDate = blogModifiedDate(post.slug, post.date);
       return base(
         route,
         lang,
@@ -10520,15 +10623,16 @@ ${links}
           description: headDescription,
           // post.date is a real publication date, so it is a legitimate
           // <lastmod> signal for the sitemap.
-          lastmod: /^\d{4}-\d{2}-\d{2}$/.test(post.date) ? post.date : void 0,
+          lastmod: /^\d{4}-\d{2}-\d{2}$/.test(modifiedDate) ? modifiedDate : void 0,
           // Inject the full article body so Googlebot / ChatGPT-User / no-JS
           // crawlers receive real content in the first response, not the SPA
           // shell. Helmet on the client hydrates the same head on top.
           noscriptHtml: `<article>
 <h1>${escapeHtml(post.title)}</h1>
+${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><p>${escapeHtml(enhancement.quickAnswer)}</p></aside>` : ""}
 <p><em>${escapeHtml(post.excerpt)}</em></p>
 <p><small>Published ${escapeHtml(post.date)} · ${post.readTime} min read</small></p>
-${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) : post.content}
+${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent) : enrichedContent}
 </article>`
         },
         { type: "article", image: ogImage },
@@ -10541,7 +10645,7 @@ ${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) :
             image: ogImage,
             url: `${SITE_URL}${route}`,
             datePublished: post.date,
-            dateModified: post.date,
+            dateModified: modifiedDate,
             author: { "@type": "Organization", name: "Woolet", url: SITE_URL },
             publisher: {
               "@type": "Organization",
@@ -10679,6 +10783,7 @@ ${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) :
 <ul>${c.whereTheyWin.map((w) => `<li>${escapeHtml(w)}</li>`).join("")}</ul>
 <h2>Frequently asked questions</h2>
 ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join("")}
+${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $190. The shop is sold out until the Kickstarter campaign ends; order now with a $1 reservation that locks the $114 founding-member price.</p>` : ""}
 <p>Woolet: 158 mm signature front width (fit range 155–161 mm), bespoke 145–172 mm, Mazzucchelli acetate from Milan, Italy, hand made in EU. <a href="/en/fit">Check your fit in 20 seconds</a> · <a href="/en/compare">All comparisons</a></p>`
         },
         { image: `${SITE_URL}/og-compare-${c.slug}.png`, type: "website" },
