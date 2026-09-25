@@ -1,0 +1,1 @@
+alter table public.bespoke_orders add column if not exists shipping_admin_edited_at timestamptz;
