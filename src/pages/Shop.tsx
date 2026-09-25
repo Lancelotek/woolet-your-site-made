@@ -199,7 +199,7 @@ const faqs = [
   },
   {
     q: "How long is shipping?",
-    a: "Standard frames ship worldwide within 3–5 business days from our EU warehouse. Bespoke takes 4–6 weeks because each front is cut and finished to order.",
+    a: "Standard frames ship worldwide within 3–5 business days from our EU warehouse. Bespoke takes 2 weeks of production after you approve the 3D model, then shipping - each front is cut and finished to order.",
   },
 ];
 
@@ -797,8 +797,8 @@ const Shop = () => {
             {
               eb: "Bespoke tier",
               h: "145–172 mm. Cut to your face.",
-              p: "If you're outside the 155–161 mm standard range, we cut a bespoke front from the same Mazzucchelli sheet. Same craft, same 4–6 weeks. Yours only.",
-              bullets: ["Range: 145–172 mm", "Cut from Mazzucchelli 1849 sheet", "4–6 weeks, made to order"],
+              p: "If you're outside the 155–161 mm standard range, we cut a bespoke front from the same Mazzucchelli sheet. Same craft, 2 weeks of production after you approve the 3D model. Yours only.",
+              bullets: ["Range: 145–172 mm", "Cut from Mazzucchelli 1849 sheet", "2 weeks of production, made to order"],
               img: "Feature — bespoke acetate block being milled",
               reverse: true,
             },
