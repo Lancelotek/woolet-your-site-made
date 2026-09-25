@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
+import { getLastTouchUtms } from "@/lib/attribution";
 
 const FB_GROUP_URL = "https://www.facebook.com/groups/867413636043717";
 const KICKSTARTER_URL =
@@ -47,11 +48,16 @@ const captureUtms = (): UtmParams => {
   });
   try {
     if (Object.keys(fromUrl).length > 0) {
-      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(fromUrl));
+      const json = JSON.stringify(fromUrl);
+      try { sessionStorage.setItem(UTM_STORAGE_KEY, json); } catch { /* ignore */ }
+      try { localStorage.setItem(UTM_STORAGE_KEY, json); } catch { /* ignore */ }
       return fromUrl;
     }
-    const stored = sessionStorage.getItem(UTM_STORAGE_KEY);
+    let stored: string | null = null;
+    try { stored = sessionStorage.getItem(UTM_STORAGE_KEY); } catch { /* ignore */ }
+    if (!stored) { try { stored = localStorage.getItem(UTM_STORAGE_KEY); } catch { /* ignore */ } }
     if (stored) return JSON.parse(stored) as UtmParams;
+    return getLastTouchUtms() as UtmParams;
   } catch {
     /* ignore */
   }
