@@ -179,9 +179,9 @@ export const competitors: Competitor[] = [
     slug: "zenni-alternative",
     name: "Zenni",
     keyword: "Zenni alternative",
-    seoTitle: "Zenni Alternative for Wide Faces & Big Heads | Woolet",
+    seoTitle: "Zenni Alternative for Wide Faces: 158 mm Frames That Fit | Woolet",
     metaDescription:
-      "Looking for a Zenni alternative that actually fits a wide face? Woolet builds handmade in the EU from Italian acetate frames for 145–172mm faces, with a 20-second fit scan.",
+      "Zenni's widest frames stop around 152 mm. Woolet makes 158 mm Italian acetate frames for 155 mm+ faces, bespoke 145-172 mm. Check your fit in 20 seconds.",
     heroH1: "Zenni Alternative for Wide Faces & Big Heads",
     heroSub:
       "Zenni's Extended Fit is a big catalogue stretched a little wider. Woolet is the opposite: one obsession — faces 150 mm and up — served with handmade in the EU from Italian acetate and a fit scan that ends the guesswork.",
@@ -415,9 +415,9 @@ export const competitors: Competitor[] = [
     slug: "persol-alternative",
     name: "Persol",
     keyword: "Persol alternative",
-    seoTitle: "Persol Alternative for Wide Faces (145–172mm) | Woolet",
+    seoTitle: "Persol Alternative for Wide Faces: 158 mm Italian Acetate | Woolet",
     metaDescription:
-      "Persol craftsmanship, built for wide faces. Woolet is the Persol alternative for 145–172mm faces: Mazzucchelli 1849 acetate, Hand Finished in the EU, bespoke sizing.",
+      "Love Persol but it pinches at the temples? Most Persol frames top out near 148 mm. Woolet: Mazzucchelli acetate, 158 mm front, keyhole bridge, from $190.",
     heroH1: "Persol Alternative for Wide Faces & Big Heads",
     heroSub:
       "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 172 mm wide, the range where even the most beautiful Persol starts to pinch.",
@@ -437,7 +437,7 @@ export const competitors: Competitor[] = [
     advantages: [
       {
         title: "The same acetate heritage — sized for you",
-        text: "Woolet uses Mazzucchelli 1849 bio-acetate, the benchmark Italian acetate, Hand Finished in the EU. The craft language of Persol, redrawn around wide-face geometry from the first sketch.",
+        text: "Woolet uses Mazzucchelli 1849 bio-acetate, the benchmark Italian acetate, and is hand made in EU. The craft language of Persol, redrawn around wide-face geometry from the first sketch.",
       },
       {
         title: "145–172 mm, guaranteed",
@@ -468,7 +468,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Is Woolet real Italian acetate like Persol?",
-        a: "Yes — Woolet frames are cut from Mazzucchelli 1849 bio-acetate, the Italian acetate used by top luxury houses, and Hand Finished in the EU.",
+        a: "Yes — Woolet frames are cut from Mazzucchelli 1849 bio-acetate, the Italian acetate used by top luxury houses, and hand made in EU.",
       },
       {
         q: "Is Woolet cheaper than Persol?",

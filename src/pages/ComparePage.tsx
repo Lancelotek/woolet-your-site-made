@@ -138,7 +138,9 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
             Scan your fit in 20 seconds →
           </Link>
           <div style={{ fontSize: 11, color: "#888", marginTop: 14, letterSpacing: 0.3 }}>
-            Free worldwide shipping · 30-day fit guarantee · From $190
+            {c.slug === "persol-alternative"
+              ? "From $190 · Order now with a $1 reservation — the shop is sold out until the Kickstarter campaign ends"
+              : "Free worldwide shipping · 30-day fit guarantee · From $190"}
           </div>
         </header>
 

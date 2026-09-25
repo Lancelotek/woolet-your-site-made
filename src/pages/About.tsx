@@ -21,6 +21,9 @@ const About = () => {
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-foreground">
             About Woolet
           </h1>
+          <h2 className="text-lg sm:text-xl font-semibold tracking-tight mb-5 text-foreground">
+            Our story
+          </h2>
           <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
             Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued
             2016). Eyewear for wide faces is the brand&apos;s second chapter, launched in 2026 by
@@ -136,24 +139,6 @@ const About = () => {
           }}
         />
 
-        {/* Canonical brand history */}
-        <section className="max-w-3xl mx-auto px-5 pb-16">
-          <p
-            className="italic"
-            style={{
-              color: "hsl(var(--cream-dim))",
-              fontFamily: "Barlow, sans-serif",
-              fontWeight: 300,
-              fontSize: "0.875rem",
-              lineHeight: 1.6,
-            }}
-          >
-            Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued
-            2016). Eyewear for wide faces is the brand&apos;s second chapter, launched in 2026 by
-            the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The
-            Next Web) refers to the wallet.
-          </p>
-        </section>
       </main>
 
       <Footer />
