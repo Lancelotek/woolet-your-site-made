@@ -4,6 +4,7 @@ import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { STAGE_LABELS, type BespokeStage } from "@/lib/bespoke-case";
 import { bespokeOrderGaps, lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
+import { COUNTRY_CODES, countryLabel } from "@/data/shipping-countries";
 import { exportShippingCsv, exportShippingXlsx } from "@/lib/bespoke-shipping-export";
 import { crmErrorMessage, crmStageLabel, crmStageOf, SHIPPED_STAGE } from "@/lib/bespoke-crm";
 import {
@@ -981,6 +982,7 @@ function DetailView({
   const p = detail.photo as Record<string, any> | null;
   const consentState = !p ? "Not recorded" : p.consent_withdrawn_at ? "Withdrawn" : "Granted";
   const gaps = bespokeOrderGaps(o);
+  const [editing, setEditing] = useState<string | null>(null);
 
   return (
     <div>
@@ -1026,15 +1028,18 @@ function DetailView({
 
       <BriefBlock order={o} password={password} onOrderChange={onOrderChange} />
 
-      <Group title="Customer">
+      <Group title="Customer" action={editing === null ? <button type="button" style={editBtn} onClick={() => setEditing("customer")}>Edit</button> : null}>
+        {editing === "customer" ? <EditForm section="customer" order={o} password={password} onCancel={() => setEditing(null)} onSaved={(patch) => { onOrderChange(patch); setEditing(null); }} /> : <>
         <Field label="Name" value={o.customer_name} />
         <Field label="Discovery source" value={o.source || "Not provided"} />
         <Field label="Email" value={o.customer_email} />
         <Field label="Paid" value={fmtAmount(o.amount_cents, o.currency)} />
         <Field label="Stripe session" value={o.stripe_session_id} />
+        </>}
       </Group>
 
-      <Group title="Specification">
+      <Group title="Specification" action={editing === null ? <button type="button" style={editBtn} onClick={() => setEditing("specification")}>Edit</button> : null}>
+        {editing === "specification" ? <EditForm section="specification" order={o} password={password} onCancel={() => setEditing(null)} onSaved={(patch) => { onOrderChange(patch); setEditing(null); }} /> : <>
         <Field label="Pattern" value={o.frame_name} />
         <Field label="Front acetate" value={o.front_code} />
         <Field label="Temple acetate" value={o.temple_code} />
@@ -1051,9 +1056,11 @@ function DetailView({
         )}
         <Field label="Engraving" value={o.engraving_text} />
         <Field label="Temple length" value={(o.metadata as any)?.temple_length} />
+        </>}
       </Group>
 
-      <Group title="Measurements from the form">
+      <Group title="Measurements from the form" action={editing === null ? <button type="button" style={editBtn} onClick={() => setEditing("form")}>Edit</button> : null}>
+        {editing === "form" ? <EditForm section="form" order={o} password={password} onCancel={() => setEditing(null)} onSaved={(patch) => { onOrderChange(patch); setEditing(null); }} /> : <>
         <Field label="Face width" value={mm(o.ai_face_width_mm)} />
         <Field label="Temple-to-temple" value={mm(o.ai_temple_to_temple_mm)} />
         <Field label="Frame bridge" value={mm(o.ai_bridge_width_mm)} />
@@ -1064,6 +1071,7 @@ function DetailView({
           Inner-canthal distance is eye corner to eye corner — not nose width at the pads,
           not the frame bridge (DBL), and not an approved production dimension.
         </p>
+        </>}
       </Group>
 
       {/* Typed before the inner-canthal split existed — nobody knows which
@@ -1084,7 +1092,8 @@ function DetailView({
         </p>
       )}
 
-      <Group title="Measured by hand">
+      <Group title="Measured by hand" action={editing === null ? <button type="button" style={editBtn} onClick={() => setEditing("manual")}>Edit</button> : null}>
+        {editing === "manual" ? <EditForm section="manual" order={o} password={password} onCancel={() => setEditing(null)} onSaved={(patch) => { onOrderChange(patch); setEditing(null); }} /> : <>
         <Field label="Face width" value={mm(o.manual_face_width_mm)} />
         <Field label="Temple-to-temple" value={mm(o.manual_temple_to_temple_mm)} />
         <Field label="Bridge of best-fitting glasses" value={mm(o.manual_bridge_width_mm)} />
@@ -1094,12 +1103,14 @@ function DetailView({
         <Field label="Ear-to-ear over crown" value={mm(o.manual_ear_to_ear_mm)} />
         <Field label="Notes" value={o.manual_notes} />
         <Field label="Submitted" value={o.measurements_submitted_at ? fmtDate(o.measurements_submitted_at) : "Not submitted yet"} />
+        </>}
       </Group>
 
 
       <ScansBlock scans={(detail.scans ?? (detail.scan ? [detail.scan] : [])) as ScanRow[]} />
 
-      <Group title="Shipping address">
+      <Group title="Shipping address" action={editing === null ? <button type="button" style={editBtn} onClick={() => setEditing("shipping")}>Edit</button> : null}>
+        {editing === "shipping" ? <EditForm section="shipping" order={o} password={password} onCancel={() => setEditing(null)} onSaved={(patch) => { onOrderChange(patch); setEditing(null); }} /> : <>
         <Field label="Recipient" value={o.shipping_name} />
         <Field label="Phone" value={o.shipping_phone} />
         <Field label="Street" value={o.shipping_line1} />
@@ -1116,7 +1127,11 @@ function DetailView({
           label="Shipping consent"
           value={o.shipping_consent_at ? `${fmtDate(o.shipping_consent_at as string)} · ${o.shipping_consent_version ?? ""}` : "Not given"}
         />
+        {o.shipping_admin_edited_at && (!o.shipping_submitted_at || o.shipping_admin_edited_at > o.shipping_submitted_at) && (
+          <Field label="Edited by admin" value={fmtDate(o.shipping_admin_edited_at as string)} />
+        )}
         <ShippingLink order={o} />
+        </>}
       </Group>
 
       {gaps.length > 0 && (
