@@ -1,9 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { captureLastTouch, getLastTouchCheckoutMetadata } from "./attribution";
+import { captureLastTouch, getLastTouchCheckoutMetadata, __resetLastTouchMemory } from "./attribution";
 
 describe("reservation last-touch attribution", () => {
   beforeEach(() => {
     localStorage.clear();
+    __resetLastTouchMemory();
+    document.cookie = "wlt_lt=; max-age=0; path=/";
     window.history.replaceState({}, "", "/en");
     vi.useRealTimers();
   });
@@ -30,5 +32,20 @@ describe("reservation last-touch attribution", () => {
   it("caps campaign metadata values at 500 characters", () => {
     window.history.replaceState({}, "", `/en?utm_campaign=${"x".repeat(530)}`);
     expect(getLastTouchCheckoutMetadata().lt_utm_campaign).toHaveLength(500);
+  });
+});
+describe("last touch without storage", () => {
+  it("keeps UTMs in memory when localStorage throws", async () => {
+    const mod = await import("./attribution");
+    mod.__resetLastTouchMemory();
+    localStorage.clear();
+    const spy = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new Error("blocked"); });
+    window.history.replaceState({}, "", "/thank-you-fb?utm_source=fb&utm_medium=paid&utm_campaign=120254116607430039&utm_term=120254116607440039&utm_id=x");
+    mod.captureLastTouch();
+    window.history.replaceState({}, "", "/en/lp/kickstarter/vip-confirmed");
+    const meta = mod.getLastTouchCheckoutMetadata();
+    expect(meta).toMatchObject({ lt_utm_campaign: "120254116607430039", lt_utm_term: "120254116607440039", lt_utm_id: "x" });
+    expect(mod.getAttribution()).toMatchObject({ utm_campaign: "120254116607430039" });
+    spy.mockRestore();
   });
 });
