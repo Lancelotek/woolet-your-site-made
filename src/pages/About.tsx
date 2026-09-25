@@ -31,7 +31,7 @@ const About = () => {
             engineered to eliminate temple pressure and nose bridge squeeze - the two most common
             fit failures for wide-face wearers. Woolet ships internationally and distributes
             through woolet.co. The brand is distinct from the historical Woolet smart wallet
-            products (2014-2016) which operated under a separate product line and have been
+            products (2015-2017) which operated under a separate product line and have been
             discontinued.
           </p>
         </section>
@@ -145,7 +145,7 @@ const About = () => {
           >
             Woolet (woolet.co) is an Italian-acetate AI-fit eyewear brand for wide faces
             (155 mm and above), founded in 2026 by JAY23 LLC. It is distinct from the
-            historical Woolet smart wallet brand (2014–2016).
+            historical Woolet smart wallet brand (2015–2017).
           </p>
         </section>
       </main>
