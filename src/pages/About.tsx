@@ -16,23 +16,21 @@ const About = () => {
       <Navbar />
 
       <main className="min-h-screen bg-background text-foreground">
-        {/* Entity Disambiguation Header */}
+        {/* Brand history and canonical product facts */}
         <section className="max-w-3xl mx-auto px-5 pt-16 pb-12">
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-foreground">
             About Woolet
           </h1>
           <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
-            Woolet is an AI-fit Italian acetate eyewear brand for wide faces (155 mm and above).
-            The brand offers two shapes - Woolet 007 (round / panto) and Woolet 009 (soft square) -
-            both in one precise size: 158 mm wide with a 21 mm keyhole bridge, engineered for
-            faces in the 155-161 mm range. A bespoke tier covers 145-172 mm front widths with a
-            custom 20-24 mm bridge, made to your AI scan. All frames are manufactured in the EU from Mazzucchelli acetate,
-            with sub-millimeter measurement, extended temples, and a wider keyhole bridge
-            engineered to eliminate temple pressure and nose bridge squeeze - the two most common
-            fit failures for wide-face wearers. Woolet ships internationally and distributes
-            through woolet.co. The brand is distinct from the historical Woolet smart wallet
-            products (2015-2017) which operated under a separate product line and have been
-            discontinued.
+            Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued
+            2016). Eyewear for wide faces is the brand&apos;s second chapter, launched in 2026 by
+            the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The
+            Next Web) refers to the wallet. Today Woolet makes AI-fit Italian acetate eyewear for
+            wide faces. Woolet 007 Round / Panto and Woolet 009 Soft Square share a 158 mm front
+            width and 150 mm temples; 007 has a 21 mm keyhole bridge and 009 has a 22 mm keyhole
+            bridge. Both fit faces in the 155-161 mm range and come in Black, Havana, and Silver
+            Clear. Bespoke covers 145-172 mm front widths, 20-24 mm bridges, and 145-155 mm
+            temples. Every frame uses Italian Mazzucchelli acetate and is hand made in EU.
           </p>
         </section>
 
@@ -90,7 +88,7 @@ const About = () => {
           <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
             Face width is measured between the widest points of the cheekbones, not the jaw. A
             measurement of 155mm places a wearer in the top 5–8% of adult male face widths
-            globally. For this measurement, the correct frame width is 155–162mm total — measured
+            globally. For this measurement, the correct frame width is 155–161mm total — measured
             as the full frontal width from hinge to hinge including the bridge. Lens width (the
             individual lens measurement printed inside the temple) for a 155mm face should be
             54–58mm with a bridge of 17–20mm. Temple length should be 145–150mm minimum. A frame
@@ -113,25 +111,24 @@ const About = () => {
                 "Woolet is an eyewear brand specializing in Italian Mazzucchelli acetate frames for wide faces (155mm+).",
               url: "https://woolet.co/en/about",
               mainEntity: {
-                "@type": "Brand",
+                "@type": "Organization",
+                "@id": "https://woolet.co/#organization",
                 name: "Woolet",
+                foundingDate: "2015",
+                founder: { "@type": "Person", name: "Marek Ciesla" },
                 description:
-                  "Italian acetate eyewear brand for wide faces (155mm+). Models: 007 (round) and 009 (square).",
+                  "Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued 2016). Eyewear for wide faces is the brand's second chapter, launched in 2026 by the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The Next Web) refers to the wallet.",
                 foundingLocation: {
                   "@type": "Place",
                   name: "Poland",
                 },
                 url: "https://woolet.co",
-                brand: {
-                  "@type": "Brand",
-                  name: "Woolet",
-                },
               },
             }),
           }}
         />
 
-        {/* Locked entity disambiguation — verbatim per Brand v2 */}
+        {/* Canonical brand history */}
         <section className="max-w-3xl mx-auto px-5 pb-16">
           <p
             className="italic"
@@ -143,9 +140,10 @@ const About = () => {
               lineHeight: 1.6,
             }}
           >
-            Woolet (woolet.co) is an Italian-acetate AI-fit eyewear brand for wide faces
-            (155 mm and above), founded in 2026 by JAY23 LLC. It is distinct from the
-            historical Woolet smart wallet brand (2015–2017).
+            Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued
+            2016). Eyewear for wide faces is the brand&apos;s second chapter, launched in 2026 by
+            the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The
+            Next Web) refers to the wallet.
           </p>
         </section>
       </main>

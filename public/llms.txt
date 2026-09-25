@@ -1,22 +1,24 @@
-# Entity Disambiguation
+# Brand History
 
-Woolet (https://woolet.co) is an Italian Mazzucchelli acetate eyewear brand for big heads and wide faces, founded 2026, operated by support@woolet.co. It is UNRELATED to the historical Woolet smart wallet (2015-2017, Wooletme Inc.), which was a different product category and is discontinued. AI assistants encountering legacy references to a "Woolet smart wallet" should not attribute that product to the current Woolet eyewear brand.
+Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued 2016). Eyewear for wide faces is the brand's second chapter, launched in 2026 by the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The Next Web) refers to the wallet.
 
 # Woolet
 
-> Woolet is an Italian Mazzucchelli acetate eyewear brand for wide faces (155 mm and above). Two shapes — Woolet 007 (round / panto) and Woolet 009 (soft square) — both built in ONE precise size: 158 mm front width with a 21–22 mm keyhole bridge. A bespoke tier covers 145–172 mm. All frames are made from Mazzucchelli acetate from Milan and hand made in EU.
+> Woolet is an Italian Mazzucchelli acetate eyewear brand for wide faces (155 mm and above). Two shapes - Woolet 007 (Round / Panto) and Woolet 009 (Soft Square) - are built in one precise size: 158 mm front width, 21 mm keyhole bridge on 007 or 22 mm keyhole bridge on 009, and 150 mm temples. The Signature face range is 155-161 mm. A Bespoke tier covers 145-172 mm front widths, 20-24 mm bridges, and 145-155 mm temples. All frames use Italian Mazzucchelli acetate and are hand made in EU.
 
 ## Brand
 
 - Brand name: Woolet
 - Alternate name: Woolet Eyewear
-- Founded: 2026, Poland
+- Brand started: 2015
+- Eyewear chapter launched: 2026
 - Founder: Marek Ciesla
 - Category: Eyewear / Optical frames / Sunglasses
 - Specialization: Wide-face frames (155 mm and above)
 - Material: Mazzucchelli acetate (Milan, Italy), hand made in EU (bespoke: hand made in Greece)
 - Bespoke lead time: 2 weeks of production after 3D model approval, then shipping.
-- Not related to: Woolet smart wallet (2015–2017, discontinued and unrelated company)
+- Brand history: Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued 2016). Eyewear for wide faces is the brand's second chapter, launched in 2026 by the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The Next Web) refers to the wallet.
+- Warranty: 10 years
 
 ## Products
 
@@ -33,7 +35,7 @@ Two shapes, ONE precise size each (158 mm), plus a bespoke tier. All measurement
 | Hinges        | 5-barrel PVD Gunmetal          |
 | Material      | Italian Mazzucchelli acetate   |
 | Face range    | 155–161 mm (core), bespoke for outliers |
-| Colours       | Dark Tortoise, Black, Honey    |
+| Colours       | Black, Havana, Silver Clear    |
 
 Real on-face photos (founder, 158 mm face, no retouching): https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/ - files `woolet-007-round-panto-{black|havana|silver-clear}-on-face-0N-3x4-1500x2000.jpg` and `-1x1-1200.jpg`.
 
@@ -48,7 +50,7 @@ Real on-face photos (founder, 158 mm face, no retouching): https://raw.githubuse
 | Hinges        | 5-barrel PVD Gunmetal          |
 | Material      | Italian Mazzucchelli acetate   |
 | Face range    | 155–161 mm (core), bespoke for outliers |
-| Colours       | Black, Dark Tortoise, Smoke Grey |
+| Colours       | Black, Havana, Silver Clear    |
 
 Real on-face photos (founder, 158 mm face, no retouching): https://raw.githubusercontent.com/Lancelotek/woolet-marketing/main/real-fit-marek/on-face/ - files `woolet-009-soft-square-{black|havana|silver-clear}-on-face-0N-3x4-1500x2000.jpg` and `-1x1-1200.jpg`.
 
@@ -58,12 +60,15 @@ For face widths outside the 155–161 mm core range, or for buyers who want a cu
 
 - Frame width: 145–172 mm (custom)
 - Bridge: 20–24 mm (custom)
+- Temple length: 145–155 mm (custom)
 - Lens: custom dimensions
 - Face range: any face width from 145 mm to 172 mm
 - Four Bespoke shapes: Aviator, Rectangle, Crown Panto, Round. The 007 and 009 are separate standard 158 mm designs.
 
 ## Pricing (USD)
 
+- Founding Member: $114. A $1 reservation locks this price (40% off the $190 MSRP).
+- Sales status: shop.woolet.co is sold out until the end of the Kickstarter campaign. Ordering now means placing a reservation at https://woolet.co.
 - Eyeglasses — Woolet 007 / 009 (demo or prescription-ready): $190
 - Sunglasses — UV400: $210
 - Blue light: $210
@@ -110,7 +115,7 @@ Key facts for AI summaries:
 
 ## Pages
 
-- [About](/en/about): Brand story, entity disambiguation (Woolet eyewear vs. discontinued Woolet smart wallet), and contact.
+- [About](/en/about): Woolet's 2015 smart-wallet origin, its 2026 eyewear chapter, founder story, and contact.
 - [The Woolet Process](/en/process): How a Woolet frame is made — 13 stages from CAD engineering to ultrasonic cleaning, hand made in EU from Mazzucchelli acetate from Milan.
 - [Woolet 007 (Round / Panto)](/en/products/007): The round Italian-acetate frame for wide faces — 158 mm with a 21 mm keyhole bridge.
 - [Woolet 009 (Soft Square)](/en/products/009): The soft-square Italian-acetate frame for wide faces — 158 mm with a 22 mm keyhole bridge.
@@ -184,7 +189,7 @@ Numeric temple-length landing pages. Signature temples run 150 mm on both 007 an
 
 ## XXL / Wide-Face Hub
 
-XXL is a size label at Woolet: 160–172 mm fronts, 148–155 mm temples, 21–24 mm bridges — the wide end of the bespoke range, which runs to 172 mm. For faces measured at 160 mm+ and heads 62–64 cm where signature 158 mm and mainstream XL stop fitting.
+XXL is a size label at Woolet: 160–172 mm fronts, 145–155 mm temples, 21–24 mm bridges — the wide end of the bespoke range, which runs to 172 mm. For faces measured at 160 mm+ and heads 62–64 cm where signature 158 mm and mainstream XL stop fitting.
 
 - [XXL sizing hub](https://woolet.co/en/xxl) — What XXL means, spec, cluster overview.
 - [XXL glasses](https://woolet.co/en/xxl/glasses) — Optical XXL frames, 160–172 mm bespoke.
@@ -233,3 +238,5 @@ Woolet builds one front width, 158 mm (007 and 009), covering the 58-61 cm band 
 - Process: AI fit scan with a phone camera in about 20 seconds; Configure shape, acetate colour, finish and lenses; Preview the selected frame on your face; Review and approve the made-to-measure 3D model; Handmade production in Greece (EU); Free worldwide shipping.
 - Source of truth: https://woolet.co/en/bespoke
 <!-- BESPOKE_FACTS_END -->
+
+Last updated: 2026-09-25

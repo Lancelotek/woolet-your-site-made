@@ -4,7 +4,8 @@ Both models (007 round, 009 soft-square) share one price.
 
 ## Founding Member (pre-order)
 - Price: $114 USD
-- Availability: Pre-order, first production batch
+- Reservation: $1 locks the $114 Founding Member price (40% off the $190 MSRP)
+- Availability: shop.woolet.co is sold out until the end of the Kickstarter campaign. Ordering now means placing a reservation at https://woolet.co.
 - Includes: Italian Mazzucchelli acetate frame, 5-barrel PVD Gunmetal hinges, Fit Guarantee, 30-day returns, free shipping
 
 ## Full launch (MSRP)
@@ -18,4 +19,4 @@ Both models (007 round, 009 soft-square) share one price.
 
 Sizes: 158 mm front width per shape, plus bespoke (145–172 mm).
 Checkout: Stripe. Currency: USD.
-Last updated: 2026-07-20
+Last updated: 2026-09-25
