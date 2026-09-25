@@ -3,6 +3,7 @@ import CollectionPage from "@/components/CollectionPage";
 const ExtraLargeOversizedEyeglasses = () => (
   <CollectionPage
     slug="extra-large-oversized-eyeglasses"
+    canonicalUrl="https://woolet.co/en/collections/extra-wide-glasses"
     breadcrumbName="Extra Large Oversized Eyeglasses"
     h1="Extra Large Oversized Eyeglasses for Prescription Lenses"
     metaTitle="Extra Large Oversized Eyeglasses: 158 mm Rx Frames | Woolet"

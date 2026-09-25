@@ -13,6 +13,8 @@ interface SEOProps {
   ogDescription?: string;
   lang?: Lang;
   path?: string;
+  /** Absolute canonical override for a page being consolidated into another URL. */
+  canonicalUrl?: string;
   type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
@@ -72,6 +74,7 @@ const SEO = ({
   ogDescription,
   lang = "en",
   path = "",
+  canonicalUrl,
   type = "website",
   publishedTime,
   modifiedTime,
@@ -89,7 +92,7 @@ const SEO = ({
   const fullTitle = cleanSnippet(exactTitle || title.includes("Woolet") ? title : `${title} | Woolet`);
   const cleanDescription = cleanSnippet(description);
   const socialDescription = cleanSnippet(ogDescription || description);
-  const canonical = `${SITE_URL}/${lang}${path}`;
+  const canonical = canonicalUrl || `${SITE_URL}/${lang}${path}`;
   const geo = geoMeta[lang] || geoMeta.en;
   const ogImage = image
     ? (image.startsWith("http") ? image : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`)

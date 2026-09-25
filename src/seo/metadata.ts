@@ -40,6 +40,7 @@ import { HAT_SIZE_FAQ } from "./hat-size-faq";
 import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import { DE_PRICING } from "@/content/de/pricing";
 import { BLOG_FITLENS_HOOK_POSTS, insertBlogFitLensHook } from "@/content/blog-fitlens-hook";
+import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeProductJsonLd as canonicalBespokeProduct, bespokeFaqJsonLd } from "@/content/bespokeFacts";
 export { BESPOKE_FACTS, BESPOKE_FAQS } from "@/content/bespokeFacts";
 import {
@@ -1052,7 +1053,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       description:
         "Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21–22 mm bridge, Italian Mazzucchelli acetate. Bespoke 145–172 mm.",
       noscriptHtml: `<h1>Extra Wide Glasses</h1>
-<p>Extra wide optical frames built at 158 mm front width with a 21–22 mm keyhole bridge — properly extra wide, not a stretched standard size. Italian Mazzucchelli acetate, Hand made in EU. Bespoke 145–172 mm available. From $114 pre-order.</p>`,
+<h2>What counts as extra wide glasses?</h2>
+<p>Extra wide glasses have a total front width of at least 150 mm. Faces measuring 155 mm or more usually need a purpose-built extra-wide fit; Woolet's standard front is 158 mm for the 155–161 mm face range.</p>
+<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–154 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>155–161 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>162–172 mm</td><td>162–172 mm</td><td>Bespoke</td></tr></tbody></table>
+<p>Both shapes are prescription-ready, with 52 × 52 mm and 54 × 50 mm lens areas for single-vision or progressive lenses. Italian Mazzucchelli acetate, hand made in EU. The shop is sold out until the Kickstarter campaign ends; a $1 reservation locks the $114 founding-member price against the $190 MSRP.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -1149,7 +1153,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   };
   if (extraCollections[path]) {
     const c = extraCollections[path];
-    return base(route, lang, {
+    const meta = base(route, lang, {
       title: c.title,
       description: c.description,
       noscriptHtml: `<h1>${escapeHtml(c.h1)}</h1>\n<p>${escapeHtml(c.intro)}</p>`,
@@ -1158,6 +1162,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       { name: "Collections", url: `${SITE_URL}/en` },
       { name: c.h1, url: `${SITE_URL}${route}` },
     ])]);
+    if (path === "/collections/extra-large-oversized-eyeglasses") {
+      meta.canonical = `${SITE_URL}/en/collections/extra-wide-glasses`;
+    }
+    return meta;
   }
 
 
@@ -1300,6 +1308,9 @@ ${links}
             : `${override.metaTitle} | Woolet`)
         : `${post.title} | Woolet`;
       const headDescription = override?.metaDescription ?? post.excerpt;
+      const enhancement = BLOG_AIO_ENHANCEMENTS[post.slug];
+      const enrichedContent = enrichBlogContent(post.slug, post.content);
+      const modifiedDate = blogModifiedDate(post.slug, post.date);
       return base(
         route,
         lang,
@@ -1308,15 +1319,16 @@ ${links}
           description: headDescription,
           // post.date is a real publication date, so it is a legitimate
           // <lastmod> signal for the sitemap.
-          lastmod: /^\d{4}-\d{2}-\d{2}$/.test(post.date) ? post.date : undefined,
+          lastmod: /^\d{4}-\d{2}-\d{2}$/.test(modifiedDate) ? modifiedDate : undefined,
           // Inject the full article body so Googlebot / ChatGPT-User / no-JS
           // crawlers receive real content in the first response, not the SPA
           // shell. Helmet on the client hydrates the same head on top.
           noscriptHtml: `<article>
 <h1>${escapeHtml(post.title)}</h1>
+${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><p>${escapeHtml(enhancement.quickAnswer)}</p></aside>` : ""}
 <p><em>${escapeHtml(post.excerpt)}</em></p>
 <p><small>Published ${escapeHtml(post.date)} · ${post.readTime} min read</small></p>
-${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) : post.content}
+${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent) : enrichedContent}
 </article>`,
         },
         { type: "article", image: ogImage },
@@ -1329,7 +1341,7 @@ ${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) :
             image: ogImage,
             url: `${SITE_URL}${route}`,
             datePublished: post.date,
-            dateModified: post.date,
+            dateModified: modifiedDate,
             author: { "@type": "Organization", name: "Woolet", url: SITE_URL },
             publisher: {
               "@type": "Organization",
@@ -1484,6 +1496,7 @@ ${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) :
 <ul>${c.whereTheyWin.map((w) => `<li>${escapeHtml(w)}</li>`).join("")}</ul>
 <h2>Frequently asked questions</h2>
 ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join("")}
+${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $190. The shop is sold out until the Kickstarter campaign ends; order now with a $1 reservation that locks the $114 founding-member price.</p>` : ""}
 <p>Woolet: 158 mm signature front width (fit range 155–161 mm), bespoke 145–172 mm, Mazzucchelli acetate from Milan, Italy, hand made in EU. <a href="/en/fit">Check your fit in 20 seconds</a> · <a href="/en/compare">All comparisons</a></p>`,
         },
         { image: `${SITE_URL}/og-compare-${c.slug}.png`, type: "website" },
