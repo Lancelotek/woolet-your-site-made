@@ -36,6 +36,8 @@ export interface CollectionPageProps {
   extraSections?: CollectionExtraSection[];
   heroImage?: CollectionImage;
   inlineImage?: CollectionImage;
+  answerBlock?: { heading: string; text: string };
+  canonicalUrl?: string;
 }
 
 const SITE = "https://woolet.co";
@@ -67,9 +69,11 @@ const CollectionPage = ({
   extraSections,
   heroImage,
   inlineImage,
+  answerBlock,
+  canonicalUrl,
 }: CollectionPageProps) => {
   const path = `/collections/${slug}`;
-  const canonical = `${SITE}/en${path}`;
+  const canonical = canonicalUrl || `${SITE}/en${path}`;
   const absUrl = (u: string) => (u.startsWith("http") ? u : `${SITE}${u.startsWith("/") ? u : `/${u}`}`);
 
   const breadcrumbLd = {
@@ -137,6 +141,7 @@ const CollectionPage = ({
         description={metaDescription}
         lang="en"
         path={path}
+        canonicalUrl={canonicalUrl}
         image={heroImage?.src}
         jsonLd={[collectionLd, breadcrumbLd, faqLd, ...imageLd]}
       />
@@ -156,6 +161,12 @@ const CollectionPage = ({
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 36, lineHeight: 1.15, margin: "0 0 16px" }}>
             {h1}
           </h1>
+          {answerBlock && (
+            <aside aria-label={answerBlock.heading} style={{ borderLeft: "2px solid #A07A2A", padding: "2px 0 2px 14px", margin: "0 0 18px" }}>
+              <strong style={{ display: "block", fontSize: 12, letterSpacing: "0.08em", marginBottom: 6 }}>{answerBlock.heading}</strong>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: "#333", margin: 0 }}>{answerBlock.text}</p>
+            </aside>
+          )}
           {heroImage && (
             <figure style={{ margin: "0 0 18px" }}>
               <img
@@ -306,7 +317,6 @@ const CollectionPage = ({
               { slug: "oversized-sunglasses-men", label: "Oversized Sunglasses for Men" },
               { slug: "sunglasses-for-big-heads", label: "Sunglasses for Big Heads" },
               { slug: "blue-light-glasses-for-wide-faces", label: "Blue Light Glasses for Wide Faces" },
-              { slug: "extra-large-oversized-eyeglasses", label: "Extra Large Oversized Eyeglasses" },
               { slug: "wide-frame-reading-glasses", label: "Wide Frame Reading Glasses" },
               { slug: "oversized-square-glasses", label: "Oversized Square Glasses" },
               { slug: "oversized-round-glasses", label: "Oversized Round Glasses" },

@@ -11,6 +11,7 @@ Plan do wdrożenia dopiero po uruchomieniu O2O. Do tego czasu nie zmieniać Work
 - `/about-us` -> `/en/about`
 - `/collections/all-products` -> `/en/collection`
 - `/blog/what-does-a-smart-wallet-do` -> `/en/about`
+- `/en/collections/extra-large-oversized-eyeglasses` -> `/en/collections/extra-wide-glasses`
 - `/blogs/news/*` -> `/en/about`; dodać regułę prefiksową przed kontrolą znanej trasy, obejmującą `/blogs/news` i każdy segment podrzędny, bez przechwytywania podobnych ścieżek.
 
 ## Walidacja celów

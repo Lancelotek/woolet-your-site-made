@@ -40,6 +40,7 @@ import { HAT_SIZE_FAQ } from "./hat-size-faq";
 import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import { DE_PRICING } from "@/content/de/pricing";
 import { BLOG_FITLENS_HOOK_POSTS, insertBlogFitLensHook } from "@/content/blog-fitlens-hook";
+import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeProductJsonLd as canonicalBespokeProduct, bespokeFaqJsonLd } from "@/content/bespokeFacts";
 export { BESPOKE_FACTS, BESPOKE_FAQS } from "@/content/bespokeFacts";
 import {
@@ -1300,6 +1301,9 @@ ${links}
             : `${override.metaTitle} | Woolet`)
         : `${post.title} | Woolet`;
       const headDescription = override?.metaDescription ?? post.excerpt;
+      const enhancement = BLOG_AIO_ENHANCEMENTS[post.slug];
+      const enrichedContent = enrichBlogContent(post.slug, post.content);
+      const modifiedDate = blogModifiedDate(post.slug, post.date);
       return base(
         route,
         lang,
@@ -1308,15 +1312,16 @@ ${links}
           description: headDescription,
           // post.date is a real publication date, so it is a legitimate
           // <lastmod> signal for the sitemap.
-          lastmod: /^\d{4}-\d{2}-\d{2}$/.test(post.date) ? post.date : undefined,
+          lastmod: /^\d{4}-\d{2}-\d{2}$/.test(modifiedDate) ? modifiedDate : undefined,
           // Inject the full article body so Googlebot / ChatGPT-User / no-JS
           // crawlers receive real content in the first response, not the SPA
           // shell. Helmet on the client hydrates the same head on top.
           noscriptHtml: `<article>
 <h1>${escapeHtml(post.title)}</h1>
+${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><p>${escapeHtml(enhancement.quickAnswer)}</p></aside>` : ""}
 <p><em>${escapeHtml(post.excerpt)}</em></p>
 <p><small>Published ${escapeHtml(post.date)} · ${post.readTime} min read</small></p>
-${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) : post.content}
+${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent) : enrichedContent}
 </article>`,
         },
         { type: "article", image: ogImage },
@@ -1329,7 +1334,7 @@ ${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(post.content) :
             image: ogImage,
             url: `${SITE_URL}${route}`,
             datePublished: post.date,
-            dateModified: post.date,
+            dateModified: modifiedDate,
             author: { "@type": "Organization", name: "Woolet", url: SITE_URL },
             publisher: {
               "@type": "Organization",

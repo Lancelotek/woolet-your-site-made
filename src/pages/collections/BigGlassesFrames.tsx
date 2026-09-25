@@ -42,7 +42,7 @@ const BigGlassesFrames = () => (
       {
         heading: "Oversized collections by shape and lens",
         paragraphs: [
-          "<a href=\"/en/collections/oversized-square-glasses\" style=\"color:#A07A2A;\">Oversized square glasses</a> · <a href=\"/en/collections/oversized-round-glasses\" style=\"color:#A07A2A;\">Oversized round glasses</a> · <a href=\"/en/collections/oversized-black-glasses\" style=\"color:#A07A2A;\">Oversized black glasses</a> · <a href=\"/en/collections/extra-large-oversized-eyeglasses\" style=\"color:#A07A2A;\">Extra large oversized eyeglasses for prescription lenses</a> · <a href=\"/en/collections/oversized-sunglasses-men\" style=\"color:#A07A2A;\">Oversized sunglasses for men</a> · <a href=\"/en/collections/blue-light-glasses-for-wide-faces\" style=\"color:#A07A2A;\">Oversized blue light glasses</a>",
+          "<a href=\"/en/collections/oversized-square-glasses\" style=\"color:#A07A2A;\">Oversized square glasses</a> · <a href=\"/en/collections/oversized-round-glasses\" style=\"color:#A07A2A;\">Oversized round glasses</a> · <a href=\"/en/collections/oversized-black-glasses\" style=\"color:#A07A2A;\">Oversized black glasses</a> · <a href=\"/en/collections/oversized-sunglasses-men\" style=\"color:#A07A2A;\">Oversized sunglasses for men</a> · <a href=\"/en/collections/blue-light-glasses-for-wide-faces\" style=\"color:#A07A2A;\">Oversized blue light glasses</a>",
         ],
       },
     ]}

@@ -16,6 +16,7 @@ import { blogMetaBySlug } from "@/lib/blog-meta";
 import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { trackFitCtas } from "@/lib/blog-cta-tracking";
+import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
 
 /* ── helpers ── */
 
@@ -155,8 +156,12 @@ const BlogPost = () => {
   const currentLang: Lang = isValidLang(lang) ? lang : "en";
   const post = getBlogPost(currentLang, slug);
 
-  const headings = useMemo(() => post ? extractH2s(post.content) : [], [post]);
-  const processedContent = useMemo(() => post ? processContent(post.content, currentLang) : "", [post, currentLang]);
+  const enhancedContent = useMemo(
+    () => post ? enrichBlogContent(post.slug, post.content) : "",
+    [post],
+  );
+  const headings = useMemo(() => extractH2s(enhancedContent), [enhancedContent]);
+  const processedContent = useMemo(() => processContent(enhancedContent, currentLang), [enhancedContent, currentLang]);
   const showFitLensHook = currentLang === "en" && BLOG_FITLENS_HOOK_POSTS.has(slug);
   const [introContent, remainingContent] = useMemo(
     () => (showFitLensHook ? splitBeforeFirstH2(processedContent) : [processedContent, ""]),
@@ -197,9 +202,10 @@ const BlogPost = () => {
         path={`/blog/${post.slug}`}
         type="article"
         publishedTime={post.date}
+        modifiedTime={blogModifiedDate(post.slug, post.date)}
         image={blogMetaBySlug[post.slug]?.ogImage ?? post.image ?? `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
-        articleBody={post.content.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim()}
+        articleBody={enhancedContent.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim()}
         availableLangs={alternateLangsFor(currentLang, post.slug)}
         alternates={alternatesFor(currentLang, post.slug)}
         author={
@@ -329,7 +335,7 @@ const BlogPost = () => {
 
       <Helmet>
         <meta name="author" content={post.slug === "glasses-for-wide-faces-guide" ? "Marek Cieśla" : "Woolet Editorial Team"} />
-        <meta name="last-modified" content={post.slug === "glasses-for-wide-faces-guide" ? "2026-08-24" : post.date} />
+        <meta name="last-modified" content={blogModifiedDate(post.slug, post.date)} />
       </Helmet>
 
 
@@ -354,6 +360,13 @@ const BlogPost = () => {
         <h1 className="font-display text-woolet-white leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
           {withoutLongDashes(post.title)}
         </h1>
+
+        {BLOG_AIO_ENHANCEMENTS[post.slug] && (
+          <aside aria-label="Quick answer" className="mb-6 border-l-2 border-primary pl-4 py-1">
+            <strong className="block text-primary uppercase tracking-[0.16em] mb-2" style={{ fontSize: "0.72rem" }}>Quick answer</strong>
+            <p className="m-0 text-woolet-white" style={{ lineHeight: 1.65 }}>{BLOG_AIO_ENHANCEMENTS[post.slug].quickAnswer}</p>
+          </aside>
+        )}
 
         {/* Meta bar */}
         <div className="flex items-center gap-2 mb-8" style={{ color: "hsl(var(--cream-dim))", fontSize: "0.8125rem", textTransform: "uppercase", letterSpacing: "0.15em" }}>
