@@ -627,8 +627,12 @@ export function PipelinePanel({
           {events.map((e) => (
             <li key={e.id} style={{ borderTop: `1px solid ${T.hair}`, padding: "7px 0" }}>
               {fmtDate(e.created_at)} ·{" "}
-              {e.from_stage ? `${crmStageShort(e.from_stage)} → ` : "Started at "}
-              <span style={{ color: T.ink }}>{crmStageLabel(Number(e.to_stage ?? 1))}</span>
+              {e.to_stage == null ? null : (
+                <>
+                  {e.from_stage ? `${crmStageShort(e.from_stage)} → ` : "Started at "}
+                  <span style={{ color: T.ink }}>{crmStageLabel(Number(e.to_stage))}</span>
+                </>
+              )}
               {e.created_by ? ` · ${e.created_by}` : ""}
               {e.note ? ` · ${e.note}` : ""}
             </li>
