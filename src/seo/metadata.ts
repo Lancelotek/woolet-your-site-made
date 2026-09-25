@@ -1053,7 +1053,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       description:
         "Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21–22 mm bridge, Italian Mazzucchelli acetate. Bespoke 145–172 mm.",
       noscriptHtml: `<h1>Extra Wide Glasses</h1>
-<p>Extra wide optical frames built at 158 mm front width with a 21–22 mm keyhole bridge — properly extra wide, not a stretched standard size. Italian Mazzucchelli acetate, Hand made in EU. Bespoke 145–172 mm available. From $114 pre-order.</p>`,
+<h2>What counts as extra wide glasses?</h2>
+<p>Extra wide glasses have a total front width of at least 150 mm. Faces measuring 155 mm or more usually need a purpose-built extra-wide fit; Woolet's standard front is 158 mm for the 155–161 mm face range.</p>
+<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–154 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>155–161 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>162–172 mm</td><td>162–172 mm</td><td>Bespoke</td></tr></tbody></table>
+<p>Both shapes are prescription-ready, with 52 × 52 mm and 54 × 50 mm lens areas for single-vision or progressive lenses. Italian Mazzucchelli acetate, hand made in EU. The shop is sold out until the Kickstarter campaign ends; a $1 reservation locks the $114 founding-member price against the $190 MSRP.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -1493,6 +1496,7 @@ ${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent
 <ul>${c.whereTheyWin.map((w) => `<li>${escapeHtml(w)}</li>`).join("")}</ul>
 <h2>Frequently asked questions</h2>
 ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join("")}
+${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $190. The shop is sold out until the Kickstarter campaign ends; order now with a $1 reservation that locks the $114 founding-member price.</p>` : ""}
 <p>Woolet: 158 mm signature front width (fit range 155–161 mm), bespoke 145–172 mm, Mazzucchelli acetate from Milan, Italy, hand made in EU. <a href="/en/fit">Check your fit in 20 seconds</a> · <a href="/en/compare">All comparisons</a></p>`,
         },
         { image: `${SITE_URL}/og-compare-${c.slug}.png`, type: "website" },
