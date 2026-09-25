@@ -747,12 +747,170 @@ function Field({ label, value }: { label: string; value: unknown }) {
   );
 }
 
-function Group({ title, children }: { title: string; children: React.ReactNode }) {
+function Group({ title, children, action }: { title: string; children: React.ReactNode; action?: React.ReactNode }) {
   return (
     <section style={{ marginTop: 22 }}>
-      <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>{title}</h3>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, margin: "0 0 6px" }}>
+        <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: 0 }}>{title}</h3>
+        {action}
+      </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "0 20px" }}>{children}</div>
     </section>
+  );
+}
+
+type EditField = {
+  key: string;
+  label: string;
+  kind?: "text" | "number" | "textarea" | "select";
+  options?: { value: string; label: string }[];
+  show?: (v: Record<string, string>) => boolean;
+};
+
+const SOURCE_OPTIONS = [
+  "ChatGPT", "Other AI assistant (Perplexity, Gemini, Claude)", "Google", "Instagram", "TikTok", "Facebook", "Friend", "Other",
+].map((s) => ({ value: s, label: s }));
+const COUNTRY_OPTIONS = COUNTRY_CODES.map((c) => ({ value: c, label: `${countryLabel(c)} (${c})` }));
+const READING_MODE_OPTIONS = [
+  { value: "same", label: "Same both eyes" },
+  { value: "different", label: "Different per eye" },
+  { value: "confirm_later", label: "Confirm later" },
+];
+const isReading = (v: Record<string, string>) => /reading/i.test(v.lens_type ?? "");
+
+const EDIT_SECTIONS: Record<string, EditField[]> = {
+  customer: [
+    { key: "customer_name", label: "Name" },
+    { key: "customer_email", label: "Email" },
+    { key: "source", label: "Discovery source", kind: "select", options: SOURCE_OPTIONS },
+  ],
+  specification: [
+    { key: "frame_name", label: "Pattern" },
+    { key: "front_code", label: "Front acetate" },
+    { key: "temple_code", label: "Temple acetate" },
+    { key: "finish_id", label: "Finish" },
+    { key: "lens_type", label: "Lenses" },
+    { key: "lens_tint_code", label: "Lens colour code" },
+    { key: "engraving_text", label: "Engraving" },
+    { key: "reading_strength_mode", label: "Reading strength mode", kind: "select", options: READING_MODE_OPTIONS, show: isReading },
+    { key: "reading_strength", label: "Reading strength", show: isReading },
+    { key: "reading_strength_left", label: "Reading strength left", show: isReading },
+    { key: "reading_strength_right", label: "Reading strength right", show: isReading },
+  ],
+  form: [
+    { key: "ai_face_width_mm", label: "Face width (mm)", kind: "number" },
+    { key: "ai_temple_to_temple_mm", label: "Temple-to-temple (mm)", kind: "number" },
+    { key: "ai_bridge_width_mm", label: "Frame bridge (mm)", kind: "number" },
+    { key: "ai_inner_canthal_mm", label: "Inner-canthal distance (mm)", kind: "number" },
+    { key: "ai_pd_mm", label: "Pupillary distance (mm)", kind: "number" },
+    { key: "ai_notes", label: "Notes", kind: "textarea" },
+  ],
+  manual: [
+    { key: "manual_face_width_mm", label: "Face width (mm)", kind: "number" },
+    { key: "manual_temple_to_temple_mm", label: "Temple-to-temple (mm)", kind: "number" },
+    { key: "manual_bridge_width_mm", label: "Bridge of best-fitting glasses (mm)", kind: "number" },
+    { key: "manual_pd_mm", label: "Pupillary distance (mm)", kind: "number" },
+    { key: "manual_temple_length_mm", label: "Temple length (mm)", kind: "number" },
+    { key: "manual_head_circumference_mm", label: "Head circumference (mm)", kind: "number" },
+    { key: "manual_ear_to_ear_mm", label: "Ear-to-ear over crown (mm)", kind: "number" },
+    { key: "manual_notes", label: "Notes", kind: "textarea" },
+  ],
+  shipping: [
+    { key: "shipping_name", label: "Recipient" },
+    { key: "shipping_phone", label: "Phone" },
+    { key: "shipping_line1", label: "Street" },
+    { key: "shipping_line2", label: "Apartment / floor" },
+    { key: "shipping_city", label: "City" },
+    { key: "shipping_state", label: "State / province" },
+    { key: "shipping_postal_code", label: "Postal code" },
+    { key: "shipping_country", label: "Country", kind: "select", options: COUNTRY_OPTIONS },
+  ],
+};
+
+const editBtn: React.CSSProperties = {
+  background: "none", color: T.gold, border: "1px solid rgba(194,160,90,0.45)", padding: "5px 12px",
+  borderRadius: 2, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", cursor: "pointer",
+};
+const inputStyle: React.CSSProperties = {
+  width: "100%", padding: "8px 10px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink,
+  borderRadius: 2, fontFamily: SANS, fontSize: 14, marginTop: 4,
+};
+
+function EditForm({
+  section, order, password, onSaved, onCancel,
+}: {
+  section: string;
+  order: Record<string, any>;
+  password: string;
+  onSaved: (patch: Record<string, unknown>) => void;
+  onCancel: () => void;
+}) {
+  const fields = EDIT_SECTIONS[section];
+  const [vals, setVals] = useState<Record<string, string>>(() =>
+    Object.fromEntries(fields.map((f) => [f.key, order[f.key] == null ? "" : String(order[f.key])])),
+  );
+  const [saving, setSaving] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const [bad, setBad] = useState<string[]>([]);
+  const ctx = { ...Object.fromEntries(Object.entries(order).map(([k, v]) => [k, v == null ? "" : String(v)])), ...vals };
+
+  const save = async () => {
+    setSaving(true); setErr(null); setBad([]);
+    try {
+      const { data, error } = await supabase.functions.invoke("bespoke-admin-orders", {
+        body: { password, action: "edit", id: order.id, section, values: vals },
+      });
+      const payload = (data ?? {}) as Record<string, any>;
+      if (error || payload.error) {
+        let body: any = payload;
+        try { body = (error as any)?.context ? await (error as any).context.json() : payload; } catch { /* ignore */ }
+        if (body?.fields) { setBad(body.fields); setErr("Check the highlighted fields."); }
+        else setErr("Save failed - try again.");
+        return;
+      }
+      onSaved(payload.patch ?? {});
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <>
+      {fields.filter((f) => !f.show || f.show(ctx)).map((f) => {
+        const style = { ...inputStyle, borderColor: bad.includes(f.key) ? "#e2725b" : T.hair };
+        const set = (v: string) => setVals((p) => ({ ...p, [f.key]: v }));
+        return (
+          <label key={f.key} style={{ borderTop: `1px solid ${T.hair}`, padding: "8px 0", display: "block", gridColumn: f.kind === "textarea" ? "1 / -1" : undefined }}>
+            <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute }}>{f.label}</span>
+            {f.kind === "select" ? (
+              <select value={vals[f.key]} onChange={(e) => set(e.target.value)} style={style} name={f.key}>
+                <option value="">-</option>
+                {f.options!.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            ) : f.kind === "textarea" ? (
+              <textarea value={vals[f.key]} onChange={(e) => set(e.target.value)} rows={3} maxLength={2000} style={style} name={f.key} />
+            ) : (
+              <input
+                type={f.kind === "number" ? "number" : f.key === "customer_email" ? "email" : "text"}
+                step={f.kind === "number" ? "0.1" : undefined}
+                value={vals[f.key]}
+                onChange={(e) => set(e.target.value)}
+                maxLength={200}
+                style={style}
+                name={f.key}
+              />
+            )}
+          </label>
+        );
+      })}
+      <div style={{ gridColumn: "1 / -1", display: "flex", gap: 10, alignItems: "center", padding: "10px 0" }}>
+        <button onClick={() => void save()} disabled={saving} style={{ ...editBtn, background: T.gold, color: "#1f1b16", border: "none", fontWeight: 600 }}>
+          {saving ? "Saving…" : "Save"}
+        </button>
+        <button onClick={onCancel} disabled={saving} style={{ ...editBtn, color: T.dim, borderColor: T.hair }}>Cancel</button>
+        {err && <span style={{ color: "#e2725b", fontSize: 12 }}>{err}</span>}
+      </div>
+    </>
   );
 }
 
