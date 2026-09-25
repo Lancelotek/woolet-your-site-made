@@ -72,7 +72,7 @@ const EXCLUDED_PATH_PATTERNS = [
   /^\/(?:[a-z]{2}\/)?upvote(?:$|\/)/,
   /^\/(?:[a-z]{2}\/)?account(?:$|\/)/,
   /^\/(?:[a-z]{2}\/)?crm(?:$|\/)/,
-  /^\/(?:[a-z]{2}\/)?bespoke\/(?:configurator|checkout|scan|measurements)(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?bespoke\/(?:configurator|checkout|scan|measurements|shipping)(?:$|\/)/,
 ];
 
 const isExcludedPath = (p) => EXCLUDED_PATH_PATTERNS.some((r) => r.test(p));

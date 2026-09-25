@@ -139,6 +139,14 @@ const EXTRA_APP_ROUTES = [
   "/ja/bespoke/measurements",
   "/ar/bespoke/measurements",
   "/es/bespoke/measurements",
+  "/en/bespoke/shipping",
+  "/pl/bespoke/shipping",
+  "/de/bespoke/shipping",
+  "/fr/bespoke/shipping",
+  "/nl/bespoke/shipping",
+  "/ja/bespoke/shipping",
+  "/ar/bespoke/shipping",
+  "/es/bespoke/shipping",
 
   // Account (auth-gated, noindex)
   "/en/account",
