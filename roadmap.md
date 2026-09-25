@@ -52,3 +52,7 @@
 ## Bespoke shipping + admin editing - 2026-09-25
 - [x] Publish shipping page; test link on a test order; confirm save + admin row
 - [x] Admin order modal: in-place Edit per section (whitelist, validation, CRM log, shipping_admin_edited_at)
+
+## AI source-of-truth alignment - 2026-09-25
+- [x] Align llms, pricing, Organization JSON-LD, and About facts with 150 mm Signature temples
+- [x] Prepare the legacy redirect and shared-route-source plan without changing Worker, routes, or DNS
