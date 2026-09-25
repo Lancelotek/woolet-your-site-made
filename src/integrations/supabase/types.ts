@@ -330,6 +330,9 @@ export type Database = {
           ai_source: string | null
           ai_temple_to_temple_mm: number | null
           amount_cents: number | null
+          brief_filename: string | null
+          brief_path: string | null
+          brief_uploaded_at: string | null
           calendly_event_uri: string | null
           calendly_invitee_uri: string | null
           case_no: string | null
@@ -422,6 +425,9 @@ export type Database = {
           ai_source?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
+          brief_filename?: string | null
+          brief_path?: string | null
+          brief_uploaded_at?: string | null
           calendly_event_uri?: string | null
           calendly_invitee_uri?: string | null
           case_no?: string | null
@@ -514,6 +520,9 @@ export type Database = {
           ai_source?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
+          brief_filename?: string | null
+          brief_path?: string | null
+          brief_uploaded_at?: string | null
           calendly_event_uri?: string | null
           calendly_invitee_uri?: string | null
           case_no?: string | null

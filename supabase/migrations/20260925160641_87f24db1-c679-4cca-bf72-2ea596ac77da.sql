@@ -1,0 +1,1 @@
+ALTER TABLE public.bespoke_orders ADD COLUMN IF NOT EXISTS brief_path text, ADD COLUMN IF NOT EXISTS brief_filename text, ADD COLUMN IF NOT EXISTS brief_uploaded_at timestamptz;
