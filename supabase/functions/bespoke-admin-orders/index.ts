@@ -120,6 +120,68 @@ Deno.serve(async (req) => {
       });
     }
 
+    // ---- Production brief PDF (bespoke-cad/briefs/{order_id}/{filename}) ----
+    const act = (body as any).action as string | undefined;
+    if (act === "brief_upload_url" || act === "brief_confirm" || act === "brief_download") {
+      const id = body.id ?? "";
+      if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
+      const { data: order, error } = await admin
+        .from("bespoke_orders")
+        .select("id, brief_path, brief_filename")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      if (!order) return json({ error: "not_found" }, 404);
+      const bucket = admin.storage.from(PREVIEW_BUCKET);
+
+      if (act === "brief_download") {
+        if (!order.brief_path) return json({ error: "no_brief" }, 404);
+        const { data } = await bucket.createSignedUrl(order.brief_path, 120, {
+          download: order.brief_filename || "production-brief.pdf",
+        });
+        return json({ url: data?.signedUrl ?? null });
+      }
+
+      const raw = String((body as any).filename ?? "").trim();
+      const safe = raw.replace(/[^A-Za-z0-9._ -]/g, "_").replace(/\s+/g, " ").slice(0, 120);
+      if (!safe || !/\.pdf$/i.test(safe)) return json({ error: "pdf_only" }, 400);
+      const path = `briefs/${id}/${safe}`;
+
+      if (act === "brief_upload_url") {
+        const size = Number((body as any).size ?? 0);
+        if (size > 15 * 1024 * 1024) return json({ error: "too_large" }, 400);
+        const { data, error: upErr } = await bucket.createSignedUploadUrl(path, { upsert: true });
+        if (upErr) throw upErr;
+        return json({ path, token: data.token });
+      }
+
+      // brief_confirm: validate the uploaded object, clean old files, save columns.
+      const { data: listed } = await bucket.list(`briefs/${id}`, { limit: 100 });
+      const obj = (listed ?? []).find((f) => f.name === safe);
+      if (!obj) return json({ error: "upload_missing" }, 400);
+      const meta = (obj.metadata ?? {}) as { size?: number; mimetype?: string };
+      if ((meta.size ?? 0) > 15 * 1024 * 1024 || (meta.mimetype && meta.mimetype !== "application/pdf")) {
+        await bucket.remove([path]);
+        return json({ error: meta.mimetype !== "application/pdf" ? "pdf_only" : "too_large" }, 400);
+      }
+      const stale = (listed ?? []).filter((f) => f.name !== safe).map((f) => `briefs/${id}/${f.name}`);
+      if (stale.length) await bucket.remove(stale);
+      const now = new Date().toISOString();
+      const { error: updErr } = await admin
+        .from("bespoke_orders")
+        .update({ brief_path: path, brief_filename: safe, brief_uploaded_at: now })
+        .eq("id", id);
+      if (updErr) throw updErr;
+      await admin.from("bespoke_crm_events").insert({
+        order_id: id,
+        from_stage: null,
+        to_stage: null,
+        note: `Production brief uploaded: ${safe}`,
+        created_by: "admin",
+      });
+      return json({ ok: true, brief_path: path, brief_filename: safe, brief_uploaded_at: now });
+    }
+
     if (body.action === "render_preview") {
       const id = body.id ?? "";
       if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
