@@ -954,6 +954,11 @@ function DetailView({
           label="Confirmed by customer"
           value={o.shipping_submitted_at ? fmtDate(o.shipping_submitted_at as string) : "No address"}
         />
+        <Field
+          label="Shipping consent"
+          value={o.shipping_consent_at ? `${fmtDate(o.shipping_consent_at as string)} · ${o.shipping_consent_version ?? ""}` : "Not given"}
+        />
+        <ShippingLink order={o} />
       </Group>
 
       {gaps.length > 0 && (
@@ -1015,6 +1020,33 @@ function DetailView({
 
 // One-time measurement invitations. The link is shown once, here, for the
 // operator to copy; the database only ever holds its hash.
+function ShippingLink({ order }: { order: Record<string, any> }) {
+  const [copied, setCopied] = useState(false);
+  if (!order.case_no || !order.shipping_token) {
+    return <Field label="Shipping form link" value="Needs a case number" />;
+  }
+  const url = `https://woolet.co/en/bespoke/shipping?ref=${encodeURIComponent(order.case_no)}&t=${order.shipping_token}`;
+  return (
+    <div style={{ borderTop: `1px solid ${T.hair}`, padding: "8px 0", gridColumn: "1 / -1" }}>
+      <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute }}>Shipping form link</div>
+      <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 4, flexWrap: "wrap" }}>
+        <code style={{ fontSize: 12, color: T.ink, wordBreak: "break-all", flex: "1 1 320px" }}>{url}</code>
+        <button
+          type="button"
+          onClick={async () => {
+            await navigator.clipboard.writeText(url);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1800);
+          }}
+          style={{ background: "none", border: `1px solid rgba(194,160,90,0.45)`, color: T.gold, padding: "7px 12px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", cursor: "pointer" }}
+        >
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 const BRIEF_MAX = 15 * 1024 * 1024;
 
 const BRIEF_ERRORS: Record<string, string> = {

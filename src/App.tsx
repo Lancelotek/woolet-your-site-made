@@ -61,6 +61,7 @@ const BespokeConfigurator = lazy(() => import("./pages/bespoke/Configurator.tsx"
 const BespokeScan = lazy(() => import("./pages/bespoke/Scan.tsx"));
 const BespokeCheckout = lazy(() => import("./pages/bespoke/Checkout.tsx"));
 const BespokeMeasurements = lazy(() => import("./pages/bespoke/Measurements.tsx"));
+const BespokeShipping = lazy(() => import("./pages/bespoke/Shipping.tsx"));
 const BespokeMeasure = lazy(() => import("./pages/bespoke/Measure.tsx"));
 const BespokePhoto = lazy(() => import("./pages/bespoke/Photo.tsx"));
 
@@ -182,12 +183,14 @@ const TawkChatWrapper = () => {
   const location = useLocation();
   const hideOnPaths = ["/en/lp/kickstarter"];
   if (hideOnPaths.some((path) => location.pathname.startsWith(path))) return null;
+  // Shipping form shows the customer's address and phone - no third-party chat.
+  if (/^\/[a-z]{2}\/bespoke\/shipping(\/|$)/.test(location.pathname)) return null;
   return <TawkChat />;
 };
 
 // Admin screens render customer names, full addresses and phone numbers.
 // Stop Clarity recording there — that data must not leave for a third party.
-const ADMIN_PATH_RE = /^\/[a-z]{2}\/(admin|crm|payments)(\/|$)/;
+const ADMIN_PATH_RE = /^\/[a-z]{2}\/(admin|crm|payments|bespoke\/shipping)(\/|$)/;
 const ClarityRouteGuard = () => {
   const location = useLocation();
   useEffect(() => {
@@ -281,6 +284,8 @@ const App = () => (
           <Route path="/:lang/bespoke/checkout" element={<Navigate to="/en/bespoke/checkout" replace />} />
           <Route path="/en/bespoke/measurements" element={<BespokeMeasurements />} />
           <Route path="/:lang/bespoke/measurements" element={<BespokeMeasurements />} />
+          <Route path="/en/bespoke/shipping" element={<BespokeShipping />} />
+          <Route path="/:lang/bespoke/shipping" element={<BespokeShipping />} />
           <Route path="/en/measure" element={<BespokeMeasure />} />
           <Route path="/:lang/measure" element={<BespokeMeasure />} />
           <Route path="/en/bespoke/photo" element={<BespokePhoto />} />

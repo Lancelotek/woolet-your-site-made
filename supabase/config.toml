@@ -15,6 +15,8 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.bespoke-measurements-submit]
     verify_jwt = false
+  [functions.bespoke-shipping-form]
+    verify_jwt = false
   [functions.fit-scan-detect]
     verify_jwt = true
   [functions.bespoke-scan-detect]

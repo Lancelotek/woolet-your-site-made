@@ -396,7 +396,11 @@ export type Database = {
           session_ref: string | null
           shipped_at: string | null
           shipping_city: string | null
+          shipping_consent_at: string | null
+          shipping_consent_text: string | null
+          shipping_consent_version: string | null
           shipping_country: string | null
+          shipping_form_attempts: Json
           shipping_line1: string | null
           shipping_line2: string | null
           shipping_name: string | null
@@ -404,6 +408,7 @@ export type Database = {
           shipping_postal_code: string | null
           shipping_state: string | null
           shipping_submitted_at: string | null
+          shipping_token: string
           source: string | null
           stage: string
           stripe_payment_intent_id: string | null
@@ -491,7 +496,11 @@ export type Database = {
           session_ref?: string | null
           shipped_at?: string | null
           shipping_city?: string | null
+          shipping_consent_at?: string | null
+          shipping_consent_text?: string | null
+          shipping_consent_version?: string | null
           shipping_country?: string | null
+          shipping_form_attempts?: Json
           shipping_line1?: string | null
           shipping_line2?: string | null
           shipping_name?: string | null
@@ -499,6 +508,7 @@ export type Database = {
           shipping_postal_code?: string | null
           shipping_state?: string | null
           shipping_submitted_at?: string | null
+          shipping_token?: string
           source?: string | null
           stage?: string
           stripe_payment_intent_id?: string | null
@@ -586,7 +596,11 @@ export type Database = {
           session_ref?: string | null
           shipped_at?: string | null
           shipping_city?: string | null
+          shipping_consent_at?: string | null
+          shipping_consent_text?: string | null
+          shipping_consent_version?: string | null
           shipping_country?: string | null
+          shipping_form_attempts?: Json
           shipping_line1?: string | null
           shipping_line2?: string | null
           shipping_name?: string | null
@@ -594,6 +608,7 @@ export type Database = {
           shipping_postal_code?: string | null
           shipping_state?: string | null
           shipping_submitted_at?: string | null
+          shipping_token?: string
           source?: string | null
           stage?: string
           stripe_payment_intent_id?: string | null
