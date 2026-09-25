@@ -56,3 +56,4 @@
 ## AI source-of-truth alignment - 2026-09-25
 - [x] Align llms, pricing, Organization JSON-LD, and About facts with 150 mm Signature temples
 - [x] Prepare the legacy redirect and shared-route-source plan without changing Worker, routes, or DNS
+- [x] Update Persol and Zenni compare metadata in crawler-visible prerendered HTML
