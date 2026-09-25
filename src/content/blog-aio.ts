@@ -15,9 +15,9 @@ const tdStyle = "padding:10px 12px;border-bottom:1px solid #2A251C;";
 
 export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
   "how-to-tell-if-your-face-is-wide-or-narrow": {
-    quickAnswer: "A face is generally wide for eyewear when it measures 155 mm or more from temple to temple; below 140 mm is narrow, while 140–154 mm is average to broad. Measure straight across the widest point, then compare that number with the frame's total front width rather than its lens width.",
+    quickAnswer: "For eyewear sizing, a face under 130 mm is Narrow; 130–137 mm is Standard; 138–144 mm is Wide; 145–154 mm is Extra-wide; and 155 mm or more is XL / specialty wide. Measure temple to temple, then compare that number with total frame front width rather than lens width.",
     question: "How wide is a wide face?",
-    directAnswer: "A wide face measures 155 mm or more from temple to temple, while a narrow face is below 140 mm.",
+    directAnswer: "A face under 130 mm is Narrow, 130–137 mm is Standard, 138–144 mm is Wide, 145–154 mm is Extra-wide, and 155 mm or more is XL / specialty wide.",
     anchor: "extra wide glasses",
     linkSentence: "If your measurement is 155 mm or above, compare it with our guide to <a href=\"/en/collections/extra-wide-glasses\">extra wide glasses</a> before choosing a frame.",
   },
@@ -51,19 +51,19 @@ export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
     linkSentence: "For a complete published front measurement, compare those markings with our <a href=\"/en/collections/extra-wide-glasses\">158 mm extra wide frames</a>.",
   },
   "how-to-measure-face-width-for-glasses": {
-    quickAnswer: "Measure face width in millimetres from temple to temple across the widest point, keeping the ruler level and looking straight ahead. Under 138 mm is narrow, 138–154 mm spans standard to extra-wide, and 155 mm or more usually requires a purpose-built frame front of similar width.",
+    quickAnswer: "Measure face width in millimetres from temple to temple across the widest point, keeping the ruler level and looking straight ahead. Under 130 mm is Narrow, 130–137 mm is Standard, 138–144 mm is Wide, 145–154 mm is Extra-wide, and 155 mm or more is XL / specialty wide.",
     question: "How do you measure face width for glasses?",
     directAnswer: "Measure horizontally from temple to temple at the widest point and record the result in millimetres.",
     anchor: "glasses built for wider faces",
     linkSentence: "Once you have the number, compare it with <a href=\"/en/collections/extra-wide-glasses\">glasses built for wider faces</a> rather than relying on a retailer's size label.",
   },
   "are-my-glasses-too-small-for-my-face": {
-    quickAnswer: "Glasses are too small when the front is about 6 mm or more narrower than your face, the temples bow outward, or the frame leaves marks in front of your ears. Measure both face width and total frame width; lens width alone cannot show whether the overall frame fits.",
+    quickAnswer: "Glasses are too small when the temples bow outward, the frame leaves marks in front of your ears, or pressure builds at the sides within one to two hours. Compare face width with total frame width; lens width alone cannot show whether the overall frame fits.",
     question: "How can I tell if my glasses are too small?",
-    directAnswer: "Your glasses are too small if the front is about 6 mm or more narrower than your face or the arms bow outward at the hinges.",
+    directAnswer: "Your glasses are too small if the arms bow outward at the hinges, the frame leaves pressure marks, or it pinches within one to two hours.",
     anchor: "properly sized extra wide frames",
     linkSentence: "If the mismatch is structural, review <a href=\"/en/collections/extra-wide-glasses\">properly sized extra wide frames</a> instead of repeatedly adjusting the arms.",
-    table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Observed sign</th><th style="${thStyle}">Measurement check (mm)</th><th style="${thStyle}">Likely cause</th></tr></thead><tbody><tr><td style="${tdStyle}">Arms bow outward</td><td style="${tdStyle}">Frame 6 mm+ narrower</td><td style="${tdStyle}">Front too small</td></tr><tr><td style="${tdStyle}">Marks at temples</td><td style="${tdStyle}">Compare face and front widths</td><td style="${tdStyle}">Side pressure</td></tr><tr><td style="${tdStyle}">Pain behind ears</td><td style="${tdStyle}">Check temple length</td><td style="${tdStyle}">Arm bend or length</td></tr></tbody></table>`,
+    table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Observed sign</th><th style="${thStyle}">Measurement check</th><th style="${thStyle}">Likely cause</th></tr></thead><tbody><tr><td style="${tdStyle}">Arms bow outward</td><td style="${tdStyle}">Compare face and front widths</td><td style="${tdStyle}">Front too small</td></tr><tr><td style="${tdStyle}">Marks at temples</td><td style="${tdStyle}">Compare face and front widths</td><td style="${tdStyle}">Side pressure</td></tr><tr><td style="${tdStyle}">Pain behind ears</td><td style="${tdStyle}">Check temple length</td><td style="${tdStyle}">Arm bend or length</td></tr></tbody></table>`,
   },
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
     quickAnswer: "A 21–22 mm bridge is a useful starting point for a wider nose when common 17–19 mm bridges pinch, sit high or leave pressure marks. Bridge width is the gap between the lenses, not total frame width, so it must be evaluated alongside the full front measurement.",
