@@ -182,6 +182,50 @@ Deno.serve(async (req) => {
       return json({ ok: true, brief_path: path, brief_filename: safe, brief_uploaded_at: now });
     }
 
+    if (act === "edit") {
+      const id = body.id ?? "";
+      if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
+      const section = String((body as any).section ?? "");
+      const fields = SECTIONS[section];
+      if (!fields) return json({ error: "invalid_section" }, 400);
+      const input = ((body as any).values ?? {}) as Record<string, unknown>;
+      const { data: order, error } = await admin
+        .from("bespoke_orders")
+        .select(fields.join(", ") + ", id")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      if (!order) return json({ error: "not_found" }, 404);
+
+      const patch: Record<string, unknown> = {};
+      const errors: string[] = [];
+      for (const k of fields) {
+        if (!(k in input)) continue;
+        const res = validateField(k, input[k]);
+        if (!res.ok) { errors.push(k); continue; }
+        const prev = (order as any)[k] ?? null;
+        if (String(prev ?? "") !== String(res.value ?? "")) patch[k] = res.value;
+      }
+      if (errors.length) return json({ error: "invalid_fields", fields: errors }, 400);
+      const changed = Object.keys(patch);
+      if (!changed.length) return json({ ok: true, patch: {} });
+      if (section === "shipping") patch.shipping_admin_edited_at = new Date().toISOString();
+
+      const { error: updErr } = await admin.from("bespoke_orders").update(patch).eq("id", id);
+      if (updErr) throw updErr;
+      const show = (k: string, v: unknown) => {
+        const s = v == null ? "" : String(v);
+        return k === "customer_email" ? maskEmail(s) : s.slice(0, 80);
+      };
+      const note =
+        "Edited by admin: " +
+        changed.map((k) => `${k} '${show(k, (order as any)[k])}' -> '${show(k, patch[k])}'`).join(", ");
+      await admin.from("bespoke_crm_events").insert({
+        order_id: id, from_stage: null, to_stage: null, note: note.slice(0, 2000), created_by: "admin",
+      });
+      return json({ ok: true, patch });
+    }
+
     if (body.action === "render_preview") {
       const id = body.id ?? "";
       if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
