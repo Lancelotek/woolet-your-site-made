@@ -466,6 +466,32 @@ async function tagMailerLiteFoundingMember(
         console.error("[mailerlite] field ensure failed", name, e);
       }
     }
+    // Fill-if-empty UTM fields from the session's last touch (instant-form
+    // leads never went through mailerlite-subscribe, so these stay blank).
+    const utmFill: Record<string, string> = {};
+    const candidates: Record<string, string | undefined> = {
+      utm_source: paidMeta.lt_utm_source || paidMeta.utm_source,
+      utm_medium: paidMeta.lt_utm_medium || paidMeta.utm_medium,
+      utm_campaign: paidMeta.lt_utm_campaign || paidMeta.utm_campaign,
+      utm_content: paidMeta.lt_utm_content || paidMeta.utm_content,
+      utm_term: paidMeta.lt_utm_term || paidMeta.utm_term,
+    };
+    if (Object.values(candidates).some(Boolean)) {
+      let existing: Record<string, unknown> = {};
+      try {
+        const g = await fetch(`https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`, {
+          headers: { Authorization: `Bearer ${apiKey}` },
+        });
+        if (g.ok) existing = (await g.json())?.data?.fields ?? {};
+        else await g.text();
+      } catch (e) {
+        console.error("[mailerlite] subscriber lookup failed", e);
+      }
+      for (const [k, v] of Object.entries(candidates)) {
+        const cur = existing[k];
+        if (v && (cur === null || cur === undefined || cur === "")) utmFill[k] = String(v).slice(0, 500);
+      }
+    }
     const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
       method: "POST",
       headers: {
@@ -476,6 +502,7 @@ async function tagMailerLiteFoundingMember(
         email,
         groups: [MAILERLITE_GROUP_FOUNDING_MEMBER],
         fields: {
+          ...utmFill,
           ...(recommendedSku ? { recommended_sku: recommendedSku } : {}),
           paid_ref: sessionId,
           paid_source: paidSource ?? "direct",
