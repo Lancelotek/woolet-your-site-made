@@ -48,3 +48,7 @@
 - [x] Add four swatches and shared tint state, picker, preview and checkout
 - [x] Persist/backfill tint code and show in CRM, workshop, shipping and emails
 - [x] Deploy changed functions and verify typecheck and focused order-data tests
+
+## Bespoke shipping + admin editing - 2026-09-25
+- [x] Publish shipping page; test link on a test order; confirm save + admin row
+- [x] Admin order modal: in-place Edit per section (whitelist, validation, CRM log, shipping_admin_edited_at)

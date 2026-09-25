@@ -19,6 +19,74 @@ const BESPOKE_PASSWORD = Deno.env.get("BESPOKE_ADMIN_PASSWORD") ?? "";
 const SIGNED_TTL = 60 * 15;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+// ---- Admin in-place edit: whitelist per modal section ----
+const SECTIONS: Record<string, string[]> = {
+  customer: ["customer_name", "customer_email", "source"],
+  specification: [
+    "frame_name", "front_code", "temple_code", "finish_id", "lens_type", "lens_tint_code", "engraving_text",
+    "reading_strength_mode", "reading_strength", "reading_strength_left", "reading_strength_right",
+  ],
+  form: ["ai_face_width_mm", "ai_temple_to_temple_mm", "ai_bridge_width_mm", "ai_inner_canthal_mm", "ai_pd_mm", "ai_notes"],
+  manual: [
+    "manual_face_width_mm", "manual_temple_to_temple_mm", "manual_bridge_width_mm", "manual_pd_mm",
+    "manual_temple_length_mm", "manual_head_circumference_mm", "manual_ear_to_ear_mm", "manual_notes",
+  ],
+  shipping: [
+    "shipping_name", "shipping_phone", "shipping_line1", "shipping_line2", "shipping_city",
+    "shipping_state", "shipping_postal_code", "shipping_country",
+  ],
+};
+// Mirrors MEASUREMENT_RANGES in src/data/bespoke-options.ts (+ fields it doesn't cover).
+const RANGES: Record<string, [number, number]> = {
+  face_width_mm: [125, 175],
+  temple_to_temple_mm: [120, 160],
+  bridge_width_mm: [14, 26],
+  pd_mm: [50, 80],
+  temple_length_mm: [120, 160],
+  inner_canthal_mm: [20, 45],
+  head_circumference_mm: [480, 680],
+  ear_to_ear_mm: [250, 450],
+};
+const SOURCES = [
+  "ChatGPT", "Other AI assistant (Perplexity, Gemini, Claude)", "Google", "Instagram", "TikTok", "Facebook", "Friend", "Other",
+];
+const COUNTRIES = new Set(
+  "AE AR AT AU BE BG BR CA CH CL CN CO CY CZ DE DK EE EG ES FI FR GB GR HK HR HU ID IE IL IN IS IT JP KR LT LU LV MA MT MX MY NL NO NZ PE PH PL PT RO RS SA SE SG SI SK TH TR TW UA US VN ZA".split(" "),
+);
+const READING_MODES = ["same", "different", "confirm_later"];
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function validateField(k: string, raw: unknown): { ok: boolean; value?: unknown } {
+  const s = raw == null ? "" : String(raw).trim();
+  const range = Object.entries(RANGES).find(([suf]) => /^(ai|manual)_/.test(k) && k.endsWith(suf));
+  if (range) {
+    if (s === "") return { ok: true, value: null };
+    const n = Number(s.replace(",", "."));
+    if (!Number.isFinite(n) || n < range[1][0] || n > range[1][1]) return { ok: false };
+    return { ok: true, value: Math.round(n * 10) / 10 };
+  }
+  if (k === "customer_email") {
+    const e = s.toLowerCase();
+    return e.length <= 254 && EMAIL_RE.test(e) ? { ok: true, value: e } : { ok: false };
+  }
+  if (k === "source") return s === "" ? { ok: true, value: null } : SOURCES.includes(s) ? { ok: true, value: s } : { ok: false };
+  if (k === "shipping_country") {
+    const c = s.toUpperCase();
+    return c === "" ? { ok: true, value: null } : COUNTRIES.has(c) ? { ok: true, value: c } : { ok: false };
+  }
+  if (k === "reading_strength_mode") return s === "" ? { ok: true, value: null } : READING_MODES.includes(s) ? { ok: true, value: s } : { ok: false };
+  if (k === "shipping_phone" && s !== "" && !/^\+?[\d\s().-]{6,30}$/.test(s)) return { ok: false };
+  const cap = /notes$/.test(k) ? 2000 : /line|name/.test(k) ? 200 : 120;
+  if (s.length > cap) return { ok: false };
+  return { ok: true, value: s === "" ? null : s };
+}
+
+function maskEmail(e: string): string {
+  const [u, d] = e.split("@");
+  if (!d) return e ? "***" : "";
+  return `${u.slice(0, 1)}***@${d}`;
+}
+
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
@@ -180,6 +248,50 @@ Deno.serve(async (req) => {
         created_by: "admin",
       });
       return json({ ok: true, brief_path: path, brief_filename: safe, brief_uploaded_at: now });
+    }
+
+    if (act === "edit") {
+      const id = body.id ?? "";
+      if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
+      const section = String((body as any).section ?? "");
+      const fields = SECTIONS[section];
+      if (!fields) return json({ error: "invalid_section" }, 400);
+      const input = ((body as any).values ?? {}) as Record<string, unknown>;
+      const { data: order, error } = await admin
+        .from("bespoke_orders")
+        .select(fields.join(", ") + ", id")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      if (!order) return json({ error: "not_found" }, 404);
+
+      const patch: Record<string, unknown> = {};
+      const errors: string[] = [];
+      for (const k of fields) {
+        if (!(k in input)) continue;
+        const res = validateField(k, input[k]);
+        if (!res.ok) { errors.push(k); continue; }
+        const prev = (order as any)[k] ?? null;
+        if (String(prev ?? "") !== String(res.value ?? "")) patch[k] = res.value;
+      }
+      if (errors.length) return json({ error: "invalid_fields", fields: errors }, 400);
+      const changed = Object.keys(patch);
+      if (!changed.length) return json({ ok: true, patch: {} });
+      if (section === "shipping") patch.shipping_admin_edited_at = new Date().toISOString();
+
+      const { error: updErr } = await admin.from("bespoke_orders").update(patch).eq("id", id);
+      if (updErr) throw updErr;
+      const show = (k: string, v: unknown) => {
+        const s = v == null ? "" : String(v);
+        return k === "customer_email" ? maskEmail(s) : s.slice(0, 80);
+      };
+      const note =
+        "Edited by admin: " +
+        changed.map((k) => `${k} '${show(k, (order as any)[k])}' -> '${show(k, patch[k])}'`).join(", ");
+      await admin.from("bespoke_crm_events").insert({
+        order_id: id, from_stage: null, to_stage: null, note: note.slice(0, 2000), created_by: "admin",
+      });
+      return json({ ok: true, patch });
     }
 
     if (body.action === "render_preview") {

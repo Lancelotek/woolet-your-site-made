@@ -395,6 +395,7 @@ export type Database = {
           scan_token: string
           session_ref: string | null
           shipped_at: string | null
+          shipping_admin_edited_at: string | null
           shipping_city: string | null
           shipping_consent_at: string | null
           shipping_consent_text: string | null
@@ -495,6 +496,7 @@ export type Database = {
           scan_token?: string
           session_ref?: string | null
           shipped_at?: string | null
+          shipping_admin_edited_at?: string | null
           shipping_city?: string | null
           shipping_consent_at?: string | null
           shipping_consent_text?: string | null
@@ -595,6 +597,7 @@ export type Database = {
           scan_token?: string
           session_ref?: string | null
           shipped_at?: string | null
+          shipping_admin_edited_at?: string | null
           shipping_city?: string | null
           shipping_consent_at?: string | null
           shipping_consent_text?: string | null
