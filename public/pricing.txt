@@ -2,6 +2,14 @@
 
 Both models (007 round, 009 soft-square) share one price.
 
+## Signature specification
+- Woolet 007 Round / Panto: 158 mm front, 21 mm keyhole bridge, 150 mm temples
+- Woolet 009 Soft Square: 158 mm front, 22 mm keyhole bridge, 150 mm temples
+- Face range: 155-161 mm
+- Colours: Black, Havana, Silver Clear
+- Material and production: Italian Mazzucchelli acetate, hand made in EU
+- Warranty: 10 years
+
 ## Founding Member (pre-order)
 - Price: $114 USD
 - Reservation: $1 locks the $114 Founding Member price (40% off the $190 MSRP)
@@ -19,4 +27,8 @@ Both models (007 round, 009 soft-square) share one price.
 
 Sizes: 158 mm front width per shape, plus bespoke (145–172 mm).
 Checkout: Stripe. Currency: USD.
+
+## Brand history
+Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued 2016). Eyewear for wide faces is the brand's second chapter, launched in 2026 by the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The Next Web) refers to the wallet.
+
 Last updated: 2026-09-25

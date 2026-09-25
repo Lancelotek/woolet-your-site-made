@@ -32,6 +32,14 @@ const About = () => {
             Clear. Bespoke covers 145-172 mm front widths, 20-24 mm bridges, and 145-155 mm
             temples. Every frame uses Italian Mazzucchelli acetate and is hand made in EU.
           </p>
+          <p className="mt-5 text-sm sm:text-base leading-relaxed text-muted-foreground">
+            Signature frames have a $190 MSRP. A $1 reservation at woolet.co locks the $114
+            Founding Member price, 40% off MSRP, while shop.woolet.co remains sold out through the
+            Kickstarter campaign. Bespoke is $480, including standard prescription lenses and free
+            worldwide shipping; the Kickstarter backer price is $299. Bespoke production takes two
+            weeks after approval of the 3D model, then shipping. Woolet frames carry a 10-year
+            warranty.
+          </p>
         </section>
 
         <div className="woolet-divider max-w-3xl mx-auto" />
