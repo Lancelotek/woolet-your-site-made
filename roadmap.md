@@ -50,5 +50,5 @@
 - [x] Deploy changed functions and verify typecheck and focused order-data tests
 
 ## Bespoke shipping + admin editing - 2026-09-25
-- [ ] Publish shipping page; test link on a test order; confirm save + admin row
-- [ ] Admin order modal: in-place Edit per section (whitelist, validation, CRM log, shipping_admin_edited_at)
+- [x] Publish shipping page; test link on a test order; confirm save + admin row
+- [x] Admin order modal: in-place Edit per section (whitelist, validation, CRM log, shipping_admin_edited_at)
