@@ -1150,7 +1150,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   };
   if (extraCollections[path]) {
     const c = extraCollections[path];
-    return base(route, lang, {
+    const meta = base(route, lang, {
       title: c.title,
       description: c.description,
       noscriptHtml: `<h1>${escapeHtml(c.h1)}</h1>\n<p>${escapeHtml(c.intro)}</p>`,
@@ -1159,6 +1159,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       { name: "Collections", url: `${SITE_URL}/en` },
       { name: c.h1, url: `${SITE_URL}${route}` },
     ])]);
+    if (path === "/collections/extra-large-oversized-eyeglasses") {
+      meta.canonical = `${SITE_URL}/en/collections/extra-wide-glasses`;
+    }
+    return meta;
   }
 
 
