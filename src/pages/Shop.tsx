@@ -199,7 +199,7 @@ const faqs = [
   },
   {
     q: "How long is shipping?",
-    a: "Standard frames ship worldwide within 3–5 business days from our EU warehouse. Bespoke takes 4–6 weeks because each front is cut and finished to order.",
+    a: "Standard frames ship worldwide within 3–5 business days from our EU warehouse. Bespoke takes 2 weeks of production after you approve the 3D model, then shipping - each front is cut and finished to order.",
   },
 ];
 
