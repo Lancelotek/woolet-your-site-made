@@ -30,7 +30,32 @@ import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
-import { dePages, dePageOrder } from "@/content/de/landingPages";
+import { dePages, dePageOrder, dePageTitles, deWidthSlugs, type DePageConfig } from "@/content/de/landingPages";
+
+function renderDeLandingNoscript(de: DePageConfig): string {
+  const e = escapeHtml;
+  const parts: string[] = [`<h1>${e(de.h1)}</h1>`];
+  if (de.quickAnswer) parts.push(`<aside><p><strong>Kurze Antwort</strong></p><p>${e(de.quickAnswer)}</p></aside>`);
+  parts.push(`<p>${e(de.sub)}</p>`);
+  parts.push(`<h2>${e(de.problemTitle)}</h2><p>${e(de.problemBody)}</p>`);
+  if (de.contextLink) {
+    const c = de.contextLink;
+    parts.push(`<p>${e(c.before)}<a href="${c.href}">${e(c.anchor)}</a>${e(c.after)}</p>`);
+  }
+  parts.push(`<h3>${e(de.detailTitle)}</h3><p>${e(de.detailBody)}</p>`);
+  if (de.table) {
+    const t = de.table;
+    parts.push(`<table><caption>${e(t.caption)}</caption><thead><tr>${t.headers.map((h) => `<th scope="col">${e(h)}</th>`).join("")}</tr></thead><tbody>${t.rows.map((r) => `<tr>${r.map((c) => `<td>${e(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`);
+  }
+  if (de.extraSection) parts.push(`<h2>${e(de.extraSection.title)}</h2><p>${e(de.extraSection.body)}</p>`);
+  parts.push(`<p>Founding-Member: Reservierung für 1 € sichert den Founding-Preis. <a href="/de/fit">Erst Gesicht messen</a> · <a href="/de/kollektion">Kollektion ansehen</a></p>`);
+  if (de.faqs?.length) parts.push(`<h2>Häufige Fragen</h2>${de.faqs.map((f) => `<h3>${e(f.q)}</h3><p>${e(f.a)}</p>`).join("")}`);
+  if ((deWidthSlugs as readonly string[]).includes(de.slug)) {
+    parts.push(`<h2>Andere Breiten</h2><ul>${deWidthSlugs.filter((s) => s !== de.slug).map((s) => `<li><a href="/de/${s}">${e(dePageTitles[s])}</a></li>`).join("")}</ul>`);
+  }
+  parts.push(`<h2>Passende Ratgeber</h2><ul>${de.related.map((s) => `<li><a href="/de/${s}">${e(dePageTitles[s] ?? s)}</a></li>`).join("")}</ul>`);
+  return parts.join("\n");
+}
 import { nlPages } from "@/content/nl/landingPages";
 import { plPages } from "@/content/pl/landingPages";
 import { koPages, KO_ROUTES } from "@/content/ko/landingPages";
@@ -332,7 +357,7 @@ const homeCopy: Record<Lang, Copy> = {
     // JS-free HTML — all six must be listed here or they stay orphaned.
     noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
 <p>Woolet fertigt Brillen für breite Gesichter und große Köpfe: 158 mm Frontbreite, 21–22 mm Keyhole-Steg, italienisches Mazzucchelli-Acetat, in der EU handgefertigt. Founding-Preis 114 $ (statt 190 $).</p>
-<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a>.</p>`,
+<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a> · <a href="/de/brillen-fuer-grosse-koepfe">Brillen für große Köpfe (Herren)</a> · <a href="/de/brille-breite-150-mm">Brille Breite 150 mm</a> · <a href="/de/brille-breite-155-mm">Brille Breite 155 mm</a> · <a href="/de/brille-breite-158-mm">Brille Breite 158 mm</a>.</p>`,
   },
   ar: {
     title: "Woolet — نظارات فاخرة للوجوه العريضة (155 ملم+)",
@@ -1795,7 +1820,7 @@ ${BESPOKE_GUIDE.map(({heading,text})=>`<section><h2>${heading}</h2><p>${text}</p
         {
           title: de.metaTitle,
           description: de.metaDescription,
-          noscriptHtml: `<h1>${escapeHtml(de.h1)}</h1><p>${escapeHtml(de.sub)}</p>`,
+          noscriptHtml: renderDeLandingNoscript(de),
         },
         { image: DEFAULT_OG, type: "website" },
         [
@@ -2119,6 +2144,10 @@ const STATIC_ROUTES = [
   "/de/xxl-brille-herren",
   "/de/blaulichtfilter-brille-herren",
   "/de/brille-breite-160-mm",
+  "/de/brillen-fuer-grosse-koepfe",
+  "/de/brille-breite-150-mm",
+  "/de/brille-breite-155-mm",
+  "/de/brille-breite-158-mm",
   "/de/impressum",
   "/de/widerruf",
   "/de/lp/kickstarter",
