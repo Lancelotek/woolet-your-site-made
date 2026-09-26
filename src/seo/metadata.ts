@@ -30,7 +30,7 @@ import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
-import { dePages, dePageOrder } from "@/content/de/landingPages";
+import { dePages, dePageOrder, dePageTitles, WIDTH_SLUGS } from "@/content/de/landingPages";
 import { nlPages } from "@/content/nl/landingPages";
 import { plPages } from "@/content/pl/landingPages";
 import { koPages, KO_ROUTES } from "@/content/ko/landingPages";
@@ -1795,7 +1795,7 @@ ${BESPOKE_GUIDE.map(({heading,text})=>`<section><h2>${heading}</h2><p>${text}</p
         {
           title: de.metaTitle,
           description: de.metaDescription,
-          noscriptHtml: `<h1>${escapeHtml(de.h1)}</h1><p>${escapeHtml(de.sub)}</p>${de.kurzeAntwort ? `<aside><p><strong>Kurze Antwort</strong></p><p>${escapeHtml(de.kurzeAntwort)}</p></aside>` : ""}`,
+          noscriptHtml: `<h1>${escapeHtml(de.h1)}</h1><p>${escapeHtml(de.sub)}</p>${de.kurzeAntwort ? `<aside><p><strong>Kurze Antwort</strong></p><p>${escapeHtml(de.kurzeAntwort)}</p></aside>` : ""}${de.widthTable ? `<h2>${escapeHtml(de.widthTable.title)}</h2><table><thead><tr><th>Gesichtsbreite (mm)</th><th>Kategorie</th><th>Empfohlene Frontbreite</th></tr></thead><tbody>${de.widthTable.rows.map((r) => `<tr>${r.map((c) => `<td>${escapeHtml(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>` : ""}${(WIDTH_SLUGS as readonly string[]).includes(slug) ? `<h2>Andere Breiten</h2><ul>${WIDTH_SLUGS.filter((w) => w !== slug).map((w) => `<li><a href="/de/${w}">${escapeHtml(dePageTitles[w])}</a></li>`).join("")}</ul>` : ""}`,
         },
         { image: DEFAULT_OG, type: "website" },
         [
@@ -2122,6 +2122,9 @@ const STATIC_ROUTES = [
   "/de/xxl-brille-herren",
   "/de/blaulichtfilter-brille-herren",
   "/de/brille-breite-160-mm",
+  "/de/brille-breite-150-mm",
+  "/de/brille-breite-155-mm",
+  "/de/brille-breite-158-mm",
   "/de/impressum",
   "/de/widerruf",
   "/de/lp/kickstarter",
