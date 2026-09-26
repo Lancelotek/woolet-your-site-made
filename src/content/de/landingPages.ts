@@ -20,6 +20,7 @@ export type DePageConfig = {
   kurzeAntwort?: string;
   widthTable?: { title: string; rows: [string, string, string][] };
   canonicalOverride?: string;
+  contextualLink?: { before: string; label: string; after: string };
 };
 
 export const DEFAULT_FAQS: DeFaq[] = [
@@ -58,6 +59,7 @@ export const dePages: Record<string, DePageConfig> = {
     problemBody: "Viele Standardfassungen enden bei 135-145 mm. Auf einem breiteren Gesicht klemmen sie an den Schläfen, die Bügel stehen nach außen oder die Gläser enden vor der Gesichtskante. Woolet beginnt bei 155 mm und wurde von Grund auf für breite Gesichter konstruiert.",
     detailTitle: "Welche Brillenbreite passt zu einem breiten Gesicht?",
     detailBody: "Woolet fertigt 158 mm Frontbreite als Standard für 155-161 mm Gesichtsbreite. Der 21 oder 22 mm Keyhole-Steg und 150 mm lange Bügel sind auf dieselbe breite Passform abgestimmt. Außerhalb dieses Bereichs deckt Woolet Bespoke 145-172 mm ab.",
+    contextualLink: { before: "Wenn nicht nur das Gesicht breit ist, hilft unser Ratgeber zu ", label: "Fassungen für breite Köpfe", after: " bei der Wahl der richtigen Frontbreite." },
     related: ["breite-brille", "brillen-fuer-grosse-koepfe"],
     metaTitle: "Brille für breites Gesicht | Woolet - 155/158/161 mm aus italienischem Acetat",
     metaDescription:
@@ -81,6 +83,7 @@ export const dePages: Record<string, DePageConfig> = {
     problemBody: "Nicht die Bezeichnung XL entscheidet, sondern die gesamte Frontbreite. Dazu kommen ein passender Nasensteg und lange Bügel. Woolet kombiniert 155-161 mm Frontbreite mit 21 oder 22 mm Keyhole-Steg und 150 mm Bügellänge.",
     detailTitle: "Frontbreite, Steg und Bügel müssen zusammenpassen",
     detailBody: "Eine breite Front allein reicht nicht. Modell 007 misst 52□21-150, Modell 009 misst 54□22-150. So bleiben Proportionen, Auflage und Bügelverlauf auf eine breite Passform abgestimmt.",
+    contextualLink: { before: "Worauf es bei einer ", label: "Brille für einen großen Kopf", after: " außerdem ankommt, zeigt unser Größenratgeber." },
     related: ["brille-breite-160-mm", "brille-fuer-breites-gesicht"],
     metaTitle: "Breite Brille (155-161 mm) | Woolet - Fassungen für breite Gesichter",
     metaDescription:
@@ -99,14 +102,14 @@ export const dePages: Record<string, DePageConfig> = {
     h1Pre: "Brillen für ",
     h1Em: "große Köpfe",
     h1Post: " - ohne Druck an den Schläfen.",
-    sub: "Wenn dir jede Fassung zu eng ist: Woolet ist von Grund auf für größere Köpfe gebaut. Bis 161 mm Frontbreite.",
+    sub: "Wenn dir jede Fassung zu eng ist: Woolet ist von Grund auf für größere Köpfe gebaut. 158 mm Standardfront, Bespoke 145-172 mm.",
     heroAlt: "Greg trägt eine Woolet 009 Brille für einen großen Kopf und ein breites Gesicht",
     problemTitle: "Welche Brillengröße eignet sich für einen großen Kopf?",
     problemBody: "Bei einem großen Kopf ist die Frontbreite aussagekräftiger als ein unklarer XL-Aufdruck. Als Orientierung passen 155-158 mm häufig zu etwa 58-60 cm Kopfumfang. Bei etwa 60-62 cm sind 158-161 mm ein sinnvoller Startpunkt. FitLens misst direkt am Gesicht.",
     detailTitle: "Großer Kopf ist nicht dasselbe wie Oversized-Look",
     detailBody: "Eine passende Brille folgt der tatsächlichen Kopf- und Gesichtsbreite. Sie muss nicht überzeichnet wirken. Woolet 007 und 009 verbinden eine breite Konstruktion mit klaren, ausgewogenen Proportionen und 150 mm langen Bügeln.",
     related: ["xxl-brille-herren", "brille-fuer-breites-gesicht"],
-    metaTitle: "Brille für große Köpfe | Woolet - bis 161 mm, italienisches Acetat",
+    metaTitle: "Brille für große Köpfe | Woolet 158 mm & Bespoke bis 172 mm",
     metaDescription:
       "Brillen für große Köpfe, die nicht drücken. 155/158/161 mm aus italienischem Mazzucchelli-Acetat, in der EU handgefertigt. Miss deinen Kopf mit FitLens in 20 Sekunden.",
     primaryKeyword: "brille für große köpfe",
@@ -153,6 +156,7 @@ export const dePages: Record<string, DePageConfig> = {
     problemBody: "Bei vielen Oversized-Fassungen wachsen nur die Gläser, während Steg und Bügel für Standardköpfe bleiben. Woolet stimmt Frontbreite, Keyhole-Steg und 150 mm lange Bügel als ein System auf größere Köpfe ab.",
     detailTitle: "007 rund oder 009 eckig?",
     detailBody: "Woolet 007 ist eine runde Panto-Form mit 52□21-150. Woolet 009 ist eine weiche eckige Form mit 54□22-150. Beide sind als Korrektionsbrille oder mit UV400-Sonnengläsern erhältlich.",
+    contextualLink: { before: "Mehr zur Passform jenseits der Modellform findest du unter ", label: "Brillen für große Köpfe", after: "." },
     related: ["brillen-fuer-grosse-koepfe", "breite-brille"],
     metaTitle: "XXL Brille Herren | Woolet - breite Herrenfassungen bis 161 mm",
     metaDescription:
@@ -176,6 +180,7 @@ export const dePages: Record<string, DePageConfig> = {
     problemBody: "Woolet bietet keine Standardfassung mit exakt 160 mm. Der Standard hat 158 mm Front und passt bei 155-161 mm Gesichtsbreite. Für exakt 160 mm oder jedes andere Maß gibt es Bespoke von 145-172 mm.",
     detailTitle: "158 mm Standard oder Bespoke?",
     detailBody: "158 mm Front deckt 155-161 mm Gesichtsbreite ab. Wer darüber liegt oder exakt 160 mm will, wählt Bespoke (145-172 mm). FitLens misst deine Gesichtsbreite im Browser und empfiehlt den sinnvolleren Ausgangspunkt.",
+    contextualLink: { before: "Wenn du vor allem wegen eines großen Kopfs nach 160 mm suchst, lies auch ", label: "unseren Ratgeber für große Köpfe", after: "." },
     related: ["brille-breite-150-mm", "brille-breite-155-mm", "brille-breite-158-mm", "breite-brille"],
     metaTitle: "Brille 160 mm Breite (Herren) | Woolet 158 mm & Bespoke",
     metaDescription:

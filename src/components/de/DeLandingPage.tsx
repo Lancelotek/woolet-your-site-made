@@ -228,7 +228,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <Section bordered>
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <div><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Passform verstehen</span></div><h2 className="font-display text-4xl leading-tight text-woolet-white lg:text-5xl">{config.problemTitle}</h2></div>
-            <div className="space-y-8 font-body text-base leading-8 text-cream-dim"><p>{config.problemBody}</p><div className="border-l border-primary pl-6"><h3 className="mb-3 font-display text-2xl text-foreground">{config.detailTitle}</h3><p>{config.detailBody}</p></div></div>
+            <div className="space-y-8 font-body text-base leading-8 text-cream-dim"><p>{config.problemBody}</p><div className="border-l border-primary pl-6"><h3 className="mb-3 font-display text-2xl text-foreground">{config.detailTitle}</h3><p>{config.detailBody}</p>{config.contextualLink && <p className="mt-4">{config.contextualLink.before}<Link to="/de/brillen-fuer-grosse-koepfe" className="text-primary underline underline-offset-4 hover:text-foreground">{config.contextualLink.label}</Link>{config.contextualLink.after}</p>}</div></div>
           </div>
         </Section>
 
