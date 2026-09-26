@@ -115,6 +115,31 @@ export const dePages: Record<string, DePageConfig> = {
       ...DEFAULT_FAQS.slice(2),
     ],
   },
+  "brillen-fuer-grosse-koepfe": {
+    slug: "brillen-fuer-grosse-koepfe",
+    h1: "Brillen für große Köpfe - ohne Druck an den Schläfen",
+    h1Pre: "Brillen für ",
+    h1Em: "große Köpfe",
+    h1Post: " - ohne Druck an den Schläfen.",
+    sub: "Wenn dir jede Fassung zu eng ist: Woolet ist von Grund auf für größere Köpfe gebaut. 158 mm Frontbreite, Bespoke bis 172 mm.",
+    heroAlt: "Greg trägt eine Woolet 009 Brille für einen großen Kopf und ein breites Gesicht",
+    kurzeAntwort: "Für einen großen Kopf zählt die Gesichtsbreite von Schläfe zu Schläfe: Ab 155 mm brauchst du eine Front von rund 158 mm - große Marken wie Persol, Ray-Ban und Warby Parker enden bei etwa 148-150 mm Frontbreite. Woolet fertigt 158 mm als Standard und 145-172 mm als Bespoke-Maßanfertigung.",
+    problemTitle: "Welche Brillengröße eignet sich für einen großen Kopf?",
+    problemBody: "Bei einem großen Kopf ist die Frontbreite aussagekräftiger als ein unklarer XL-Aufdruck. Als Orientierung passen 155-158 mm häufig zu etwa 58-60 cm Kopfumfang. Bei etwa 60-62 cm sind 158-161 mm ein sinnvoller Startpunkt. FitLens misst direkt am Gesicht.",
+    detailTitle: "Großer Kopf ist nicht dasselbe wie Oversized-Look",
+    detailBody: "Eine passende Brille folgt der tatsächlichen Kopf- und Gesichtsbreite. Sie muss nicht überzeichnet wirken. Woolet 007 und 009 verbinden eine breite Konstruktion mit klaren, ausgewogenen Proportionen und 150 mm langen Bügeln.",
+    related: ["xxl-brille-herren", "brille-fuer-breites-gesicht"],
+    metaTitle: "Brillen für große Köpfe (Herren) | 158 mm Front | Woolet",
+    metaDescription:
+      "Brillen für große und breite Köpfe: 158 mm Front für 155-161 mm Gesichtsbreite, Bespoke 145-172 mm. Auch als Sonnenbrille. Mit Maßtabelle und FitLens.",
+    primaryKeyword: "brillen für große köpfe",
+    faqs: [
+      { q: "Welche Brillengröße passt bei einem großen Kopf?", a: "Als Orientierung sind 155-158 mm häufig bei etwa 58-60 cm Kopfumfang sinnvoll. Bei etwa 60-62 cm kommen 158-161 mm infrage. FitLens misst direkt am Gesicht." },
+      { q: "Ist eine Brille für große Köpfe automatisch oversized?", a: "Nein. Eine breite Fassung kann ausgewogene Proportionen haben. Woolet 007 und 009 sind breit konstruiert, ohne nur die Gläser optisch zu vergrößern." },
+      { q: "Gibt es die Brille für große Köpfe auch als Sonnenbrille?", a: "Ja. Beide Fassungen können mit UV400-Sonnengläsern oder mit Korrektionsgläsern ausgestattet werden." },
+      ...DEFAULT_FAQS.slice(2),
+    ],
+  },
   "xxl-brille-herren": {
     slug: "xxl-brille-herren",
     h1: "XXL Brille für Herren - breite Fassungen bis 161 mm",
@@ -167,6 +192,7 @@ export const dePageOrder = [
   "brille-fuer-breites-gesicht",
   "breite-brille",
   "brille-grosse-koepfe",
+  "brillen-fuer-grosse-koepfe",
   "xxl-brille-herren",
   "brille-breite-160-mm",
 ] as const;
@@ -175,6 +201,7 @@ export const dePageTitles: Record<string, string> = {
   "brille-fuer-breites-gesicht": "Brille für breites Gesicht",
   "breite-brille": "Breite Brille (155-161 mm)",
   "brille-grosse-koepfe": "Brille für große Köpfe",
+  "brillen-fuer-grosse-koepfe": "Brillen für große Köpfe",
   "xxl-brille-herren": "XXL Brille Herren",
   "brille-breite-160-mm": "Brille Breite 160 mm",
 };
