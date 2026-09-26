@@ -18,7 +18,7 @@ export const blogPostsDE: BlogPost[] = [
 
 <h2>Welche Brillengröße benötigen Sie für einen großen Kopf?</h2>
 
-<p>Bevor Sie eine Fassung bewerten, benötigen Sie Ihre Gesichtsbreite in Millimetern. Stellen Sie sich vor einen Spiegel und messen Sie vom äußersten Rand Ihrer linken Schläfe bis zum äußersten Rand Ihrer rechten Schläfe.</p>
+<p>Bevor Sie eine Fassung bewerten, benötigen Sie Ihre Gesichtsbreite in Millimetern. Stellen Sie sich vor einen Spiegel und messen Sie vom äußersten Rand Ihrer linken Schläfe bis zum äußersten Rand Ihrer rechten Schläfe. Wie dieses Maß bei <a href="/de/brillen-fuer-grosse-koepfe">Brillen für große Köpfe</a> zur passenden Frontbreite führt, zeigt unser Größenratgeber.</p>
 
 <ul>
 <li><strong>Unter 145 mm</strong> – Extra-breit. Spezialisierte Marken helfen, aber auch Mainstream-Marken könnten passen.</li>
