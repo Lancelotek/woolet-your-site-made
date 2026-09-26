@@ -153,7 +153,7 @@ export const ROUTES = {
   // cluster back to EN.
   "landing.collection.de.breite-brille":            { en: "/en/collection", de: "/de/breite-brille" },
   "landing.collection.de.brille-fuer-breites-gesicht": { en: "/en/collection", de: "/de/brille-fuer-breites-gesicht" },
-  "landing.collection.de.brille-grosse-koepfe":     { en: "/en/collection", de: "/de/brille-grosse-koepfe" },
+  "landing.collection.de.brillen-fuer-grosse-koepfe": { en: "/en/collection", de: "/de/brillen-fuer-grosse-koepfe" },
   "landing.collection.de.xxl-brille-herren":        { en: "/en/collection", de: "/de/xxl-brille-herren" },
   "landing.collection.de.brille-breite-160-mm":     { en: "/en/collection", de: "/de/brille-breite-160-mm" },
 
