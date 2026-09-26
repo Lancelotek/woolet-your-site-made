@@ -1,3 +1,5 @@
+import { SHIP_COUNTRIES, shippingDetails } from "@/seo/commerce-schema";
+
 export const BESPOKE_FACTS = {
   name: "Woolet Bespoke - made-to-measure eyeglasses",
   h1: "Woolet Bespoke - glasses made to your exact face",
@@ -102,8 +104,9 @@ export function bespokeProductJsonLd(url = "https://woolet.co/en/bespoke", image
     offers: {
       "@type": "Offer", price: "480.00", priceCurrency: "USD", availability: "https://schema.org/InStock", url,
       itemCondition: "https://schema.org/NewCondition", eligibleRegion: { "@type": "Place", name: "Worldwide" },
-      shippingDetails: { "@type": "OfferShippingDetails", shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" }, shippingDestination: { "@type": "DefinedRegion", addressCountry: "Worldwide" }, deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" } } },
-      hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted", applicableCountry: "Worldwide" },
+      // ISO 3166-1 alpha-2 codes + transitTime via the shared helper (GSC Merchant listings).
+      shippingDetails: shippingDetails(true),
+      hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted", applicableCountry: SHIP_COUNTRIES },
     },
   };
 }
