@@ -28,6 +28,8 @@ export const blogPostsDE: BlogPost[] = [
 
 <p>Wenn Sie von Brillen regelmäßig Kopfschmerzen bekommen oder feststellen, dass sich „breite“ Optionen von Mainstream-Marken immer noch eng anfühlen, misst Ihr Gesicht wahrscheinlich 155 mm oder mehr. Dieser Ratgeber richtet sich hauptsächlich an Sie.</p>
 
+<p>Eine kompakte Maßtabelle von unter 130 bis über 155 mm, inklusive Sonnenbrillen, finden Sie auf unserer Seite <a href="/de/brillen-fuer-grosse-koepfe">Brillen für große und breite Köpfe</a>.</p>
+
 <h2>Der Markt für Brillen für breite Gesichter 2026: Ein ehrlicher Überblick</h2>
 
 <p>Die gute Nachricht: Es gibt mehr Optionen als noch vor fünf Jahren. Die ehrliche Nachricht: Die meisten dieser Optionen konzentrieren sich nach wie vor auf das Budget-Segment, und viele „breite“ Versprechungen von Mainstream-Marken sind nach wie vor übertrieben.</p>

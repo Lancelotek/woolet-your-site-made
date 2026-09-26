@@ -153,11 +153,31 @@
     </script>
 
     <script>
+      // Bot / headless filter. Runs before GTM and before the app bundle
+      // (src/lib/bot-detect.ts reads window.__wooletBot). Bots get no GTM,
+      // no Meta Pixel and no trackMetaEvent. Real visitors are unaffected.
+      window.isLikelyBot = function () {
+        try {
+          var n = window.navigator || {};
+          if (n.webdriver === true) return true;
+          var ua = n.userAgent || '';
+          if (/HeadlessChrome|Lighthouse|PTST|bot|crawl|spider|slurp|prerender|preview/i.test(ua)) return true;
+          var hasTouch = (n.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+          var s = window.screen || {};
+          if (!hasTouch && s.width === 800 && s.height === 600) return true;
+          if (document.documentElement.getAttribute('data-seo') === 'prerender' && !document.getElementById('root')) return true;
+        } catch (e) { return false; }
+        return false;
+      };
+      window.__wooletBot = window.isLikelyBot();
+    </script>
+
+    <script>
       (function () {
         var host = window.location.hostname;
         var isProd = host === 'woolet.co' || host === 'www.woolet.co';
 
-        if (isProd) {
+        if (isProd && !window.__wooletBot) {
           // Google Tag Manager - deferred until the page has loaded or the
           // visitor interacts, whichever comes first, so it never competes
           // with the LCP image on mobile.

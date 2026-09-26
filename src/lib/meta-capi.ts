@@ -1,3 +1,4 @@
+import { isLikelyBot } from "@/lib/bot-detect";
 // Meta Conversions API — server-side event mirror.
 // Generates an event_id, reads _fbp/_fbc cookies, then sends the same event_id
 // to BOTH (a) the browser Pixel via GTM dataLayer (for native deduplication on
@@ -132,6 +133,7 @@ export const trackMetaEvent = async (
   opts: TrackOptions = {},
 ): Promise<void> => {
   if (!isProdHost()) return;
+  if (isLikelyBot()) return;
 
   const eventId = opts.eventId ?? uuid();
   // Idempotency: an event_id must never be dispatched twice (re-mounts,

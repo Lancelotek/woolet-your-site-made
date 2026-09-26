@@ -105,7 +105,7 @@ const faqs = [
 // Interne Links: DE-Ziele, wo eine echte deutsche Seite existiert; sonst EN.
 const relatedLinks = [
   { href: "/de/xxl-brille-herren", label: "XXL Brille Herren — breite Fassungen" },
-  { href: "/de/breite-brille", label: "Breite Brille: 155, 158 und 161 mm" },
+  { href: "/de/breite-brille", label: "Breite Brille: 158 mm Standard" },
   { href: "/de/brille-grosse-koepfe", label: "Brille für große Köpfe" },
   { href: "/de/brille-breite-160-mm", label: "Brille mit ca. 160 mm Breite" },
   { href: "/de/blog/beste-brillen-fuer-grosse-koepfe-2026", label: "Beste Brillen für große Köpfe 2026" },
