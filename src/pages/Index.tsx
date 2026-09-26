@@ -3,6 +3,8 @@ import { useParams, useLocation, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import woolet007Asset from "@/assets/frames-2026/oval-crystal.asset.json";
 import woolet009Asset from "@/assets/frames-2026/square-crystal.asset.json";
+import woolet007BlackCard from "@/assets/products/woolet-007-round-black-card.webp.asset.json";
+import woolet009BlackCard from "@/assets/products/woolet-009-square-black-card.webp.asset.json";
 import { homeOnFaceCard } from "@/data/on-face-photos";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -25,6 +27,19 @@ import {
 const HERO_SRC = "/hero-greg-1000.webp";
 const HERO_SRCSET = "/hero-greg-648.webp 648w, /hero-greg-1000.webp 1000w";
 const HERO_SIZES = "(min-width: 1024px) 48vw, 100vw";
+
+// Colourway label under each model name in the "Two frames" section.
+const COLOUR_BLACK: Record<Lang, string> = {
+  en: "Black",
+  pl: "Czarny",
+  fr: "Noir",
+  es: "Negro",
+  de: "Schwarz",
+  ar: "أسود",
+  ja: "ブラック",
+  nl: "Zwart",
+  ko: "블랙",
+};
 
 const seoData: Record<Lang, { title: string; description: string; ogDescription: string }> = {
   en: {
@@ -598,8 +613,28 @@ const Index = () => {
   const copy = homeCopy[lang];
 
   const models = [
-    { id: "007", name: "Woolet 007", shape: copy.shapeRound, onFace: homeOnFaceCard["007"], onFaceAlt: "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view", img: woolet007Asset.url, alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 21 mm keyhole bridge, for wide faces 155 mm+" },
-    { id: "009", name: "Woolet 009", shape: copy.shapeSquare, onFace: homeOnFaceCard["009"], onFaceAlt: "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view", img: woolet009Asset.url, alt: "Woolet 009 — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 22 mm keyhole bridge, for wide faces 155 mm+" },
+    {
+      id: "007",
+      name: "Woolet 007",
+      shape: copy.shapeRound,
+      onFace: homeOnFaceCard["007"],
+      onFaceAlt: "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view",
+      img: woolet007Asset.url,
+      alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 21 mm keyhole bridge, for wide faces 155 mm+",
+      blackImg: woolet007BlackCard.url,
+      blackAlt: "Woolet 007 in black — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 21 mm keyhole bridge, front view",
+    },
+    {
+      id: "009",
+      name: "Woolet 009",
+      shape: copy.shapeSquare,
+      onFace: homeOnFaceCard["009"],
+      onFaceAlt: "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view",
+      img: woolet009Asset.url,
+      alt: "Woolet 009 — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 22 mm keyhole bridge, for wide faces 155 mm+",
+      blackImg: woolet009BlackCard.url,
+      blackAlt: "Woolet 009 in black — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 22 mm keyhole bridge, front view",
+    },
   ];
 
   return (
@@ -1048,13 +1083,14 @@ const Index = () => {
                 >
                   <div className="w-full aspect-[16/10] overflow-hidden" style={{ background: "#000" }}>
                     <img
-                      src={m.img}
-                      alt={m.alt}
-                      className="block w-full h-full object-contain"
+                      src={m.blackImg}
+                      alt={m.blackAlt}
+                      className="block w-full h-full object-cover"
                       loading="lazy"
                       decoding="async"
-                      width={1600}
-                      height={1000}
+                      width={1200}
+                      height={900}
+                      sizes="(min-width: 640px) 50vw, 100vw"
                     />
                   </div>
                   <div className="flex items-end justify-between px-5 py-4 gap-4">
@@ -1062,7 +1098,13 @@ const Index = () => {
                       <div className="font-display text-woolet-white" style={{ fontSize: "1.25rem" }}>
                         {m.id === "007" ? "007 Round" : "009 Square"}
                       </div>
-                      <div className="text-cream-dim mt-1" style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}>
+                      <div
+                        className="text-cream-dim uppercase tracking-[0.22em] mt-1"
+                        style={{ fontSize: "0.62rem", fontFamily: "Barlow, sans-serif" }}
+                      >
+                        {COLOUR_BLACK[lang]}
+                      </div>
+                      <div className="text-cream-dim mt-2" style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}>
                         158 mm front · <span style={{ color: "hsl(var(--gold))" }}>$190</span>
                       </div>
                     </div>
