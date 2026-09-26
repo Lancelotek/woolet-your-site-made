@@ -337,7 +337,7 @@ const ROUTES = {
   // cluster back to EN.
   "landing.collection.de.breite-brille": { en: "/en/collection", de: "/de/breite-brille" },
   "landing.collection.de.brille-fuer-breites-gesicht": { en: "/en/collection", de: "/de/brille-fuer-breites-gesicht" },
-  "landing.collection.de.brille-grosse-koepfe": { en: "/en/collection", de: "/de/brille-grosse-koepfe" },
+  "landing.collection.de.brillen-fuer-grosse-koepfe": { en: "/en/collection", de: "/de/brillen-fuer-grosse-koepfe" },
   "landing.collection.de.xxl-brille-herren": { en: "/en/collection", de: "/de/xxl-brille-herren" },
   "landing.collection.de.brille-breite-160-mm": { en: "/en/collection", de: "/de/brille-breite-160-mm" },
   // Blue-light + wide-head cluster. Reciprocal 1:1 pair (EN anchor is not
@@ -7390,6 +7390,72 @@ const SIZES = [
 function getSizeBySlug(slug) {
   return SIZES.find((s) => s.slug === slug);
 }
+const SHIP_COUNTRIES = [
+  "US",
+  "GB",
+  "PL",
+  "DE",
+  "FR",
+  "IT",
+  "ES",
+  "NL",
+  "BE",
+  "AT",
+  "IE"
+];
+const LIST_PRICE = "190.00";
+const SALE_PRICE = "114.00";
+const BESPOKE_PRICE = "480.00";
+const PRICE_CURRENCY = "USD";
+const PRICE_VALID_UNTIL = "2027-12-31";
+const PRICE_VALID_FROM = "2026-06-20";
+const RETURN_POLICY = {
+  "@type": "MerchantReturnPolicy",
+  applicableCountry: SHIP_COUNTRIES,
+  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+  merchantReturnDays: 30,
+  returnMethod: "https://schema.org/ReturnByMail",
+  returnFees: "https://schema.org/ReturnShippingFees",
+  returnShippingFeesAmount: {
+    "@type": "MonetaryAmount",
+    value: "10.00",
+    currency: PRICE_CURRENCY
+  }
+};
+function shippingDetails(isBespoke = false) {
+  return SHIP_COUNTRIES.map((country) => ({
+    "@type": "OfferShippingDetails",
+    shippingRate: {
+      "@type": "MonetaryAmount",
+      value: "0",
+      currency: PRICE_CURRENCY
+    },
+    shippingDestination: {
+      "@type": "DefinedRegion",
+      addressCountry: country
+    },
+    deliveryTime: {
+      "@type": "ShippingDeliveryTime",
+      handlingTime: isBespoke ? { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" } : { "@type": "QuantitativeValue", minValue: 1, maxValue: 2, unitCode: "DAY" },
+      transitTime: {
+        "@type": "QuantitativeValue",
+        minValue: 3,
+        maxValue: 7,
+        unitCode: "DAY"
+      }
+    }
+  }));
+}
+const LIST_PRICE_SPEC = [
+  {
+    "@type": "UnitPriceSpecification",
+    priceType: "https://schema.org/ListPrice",
+    price: LIST_PRICE,
+    priceCurrency: PRICE_CURRENCY,
+    validFrom: PRICE_VALID_FROM,
+    validThrough: PRICE_VALID_UNTIL
+  }
+];
 const BESPOKE_FACTS = {
   name: "Woolet Bespoke - made-to-measure eyeglasses",
   h1: "Woolet Bespoke - glasses made to your exact face",
@@ -7492,8 +7558,9 @@ function bespokeProductJsonLd$1(url2 = "https://woolet.co/en/bespoke", image = "
       url: url2,
       itemCondition: "https://schema.org/NewCondition",
       eligibleRegion: { "@type": "Place", name: "Worldwide" },
-      shippingDetails: { "@type": "OfferShippingDetails", shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" }, shippingDestination: { "@type": "DefinedRegion", addressCountry: "Worldwide" }, deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" } } },
-      hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted", applicableCountry: "Worldwide" }
+      // ISO 3166-1 alpha-2 codes + transitTime via the shared helper (GSC Merchant listings).
+      shippingDetails: shippingDetails(true),
+      hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted", applicableCountry: SHIP_COUNTRIES }
     }
   };
 }
@@ -8337,7 +8404,7 @@ const dePages = {
     problemBody: "Viele Standardfassungen enden bei 135-145 mm. Auf einem breiteren Gesicht klemmen sie an den Schläfen, die Bügel stehen nach außen oder die Gläser enden vor der Gesichtskante. Woolet beginnt bei 155 mm und wurde von Grund auf für breite Gesichter konstruiert.",
     detailTitle: "Welche Brillenbreite passt zu einem breiten Gesicht?",
     detailBody: "Woolet bietet 155, 158 und 161 mm Frontbreite. Der 21 oder 22 mm Keyhole-Steg und 150 mm lange Bügel sind auf dieselbe breite Passform abgestimmt. Außerhalb dieses Bereichs deckt Woolet Bespoke 145-172 mm ab.",
-    related: ["breite-brille", "brille-grosse-koepfe"],
+    related: ["breite-brille", "brillen-fuer-grosse-koepfe"],
     metaTitle: "Brille für breites Gesicht | Woolet - 155/158/161 mm aus italienischem Acetat",
     metaDescription: "Drückt jede Brille an den Schläfen? Woolet fertigt Brillen für breite Gesichter und große Köpfe - 155, 158, 161 mm, in der EU handgefertigt aus italienischem Mazzucchelli-Acetat. Miss dein Gesicht in 20 Sekunden.",
     primaryKeyword: "brille für breites gesicht",
@@ -8371,6 +8438,7 @@ const dePages = {
   },
   "brille-grosse-koepfe": {
     slug: "brille-grosse-koepfe",
+    canonicalOverride: "https://woolet.co/de/brillen-fuer-grosse-koepfe",
     h1: "Brillen für große Köpfe - ohne Druck an den Schläfen",
     h1Pre: "Brillen für ",
     h1Em: "große Köpfe",
@@ -8391,6 +8459,30 @@ const dePages = {
       ...DEFAULT_FAQS.slice(2)
     ]
   },
+  "brillen-fuer-grosse-koepfe": {
+    slug: "brillen-fuer-grosse-koepfe",
+    h1: "Brillen für große Köpfe - ohne Druck an den Schläfen",
+    h1Pre: "Brillen für ",
+    h1Em: "große Köpfe",
+    h1Post: " - ohne Druck an den Schläfen.",
+    sub: "Wenn dir jede Fassung zu eng ist: Woolet ist von Grund auf für größere Köpfe gebaut. 158 mm Frontbreite, Bespoke bis 172 mm.",
+    heroAlt: "Greg trägt eine Woolet 009 Brille für einen großen Kopf und ein breites Gesicht",
+    kurzeAntwort: "Für einen großen Kopf zählt die Gesichtsbreite von Schläfe zu Schläfe: Ab 155 mm brauchst du eine Front von rund 158 mm - große Marken wie Persol, Ray-Ban und Warby Parker enden bei etwa 148-150 mm Frontbreite. Woolet fertigt 158 mm als Standard und 145-172 mm als Bespoke-Maßanfertigung.",
+    problemTitle: "Welche Brillengröße eignet sich für einen großen Kopf?",
+    problemBody: "Bei einem großen Kopf ist die Frontbreite aussagekräftiger als ein unklarer XL-Aufdruck. Als Orientierung passen 155-158 mm häufig zu etwa 58-60 cm Kopfumfang. Bei etwa 60-62 cm sind 158-161 mm ein sinnvoller Startpunkt. FitLens misst direkt am Gesicht.",
+    detailTitle: "Großer Kopf ist nicht dasselbe wie Oversized-Look",
+    detailBody: "Eine passende Brille folgt der tatsächlichen Kopf- und Gesichtsbreite. Sie muss nicht überzeichnet wirken. Woolet 007 und 009 verbinden eine breite Konstruktion mit klaren, ausgewogenen Proportionen und 150 mm langen Bügeln.",
+    related: ["xxl-brille-herren", "brille-fuer-breites-gesicht"],
+    metaTitle: "Brillen für große Köpfe (Herren) | 158 mm Front | Woolet",
+    metaDescription: "Brillen für große und breite Köpfe: 158 mm Front für 155-161 mm Gesichtsbreite, Bespoke 145-172 mm. Auch als Sonnenbrille. Mit Maßtabelle und FitLens.",
+    primaryKeyword: "brillen für große köpfe",
+    faqs: [
+      { q: "Welche Brillengröße passt bei einem großen Kopf?", a: "Als Orientierung sind 155-158 mm häufig bei etwa 58-60 cm Kopfumfang sinnvoll. Bei etwa 60-62 cm kommen 158-161 mm infrage. FitLens misst direkt am Gesicht." },
+      { q: "Ist eine Brille für große Köpfe automatisch oversized?", a: "Nein. Eine breite Fassung kann ausgewogene Proportionen haben. Woolet 007 und 009 sind breit konstruiert, ohne nur die Gläser optisch zu vergrößern." },
+      { q: "Gibt es die Brille für große Köpfe auch als Sonnenbrille?", a: "Ja. Beide Fassungen können mit UV400-Sonnengläsern oder mit Korrektionsgläsern ausgestattet werden." },
+      ...DEFAULT_FAQS.slice(2)
+    ]
+  },
   "xxl-brille-herren": {
     slug: "xxl-brille-herren",
     h1: "XXL Brille für Herren - breite Fassungen bis 161 mm",
@@ -8403,7 +8495,7 @@ const dePages = {
     problemBody: "Bei vielen Oversized-Fassungen wachsen nur die Gläser, während Steg und Bügel für Standardköpfe bleiben. Woolet stimmt Frontbreite, Keyhole-Steg und 150 mm lange Bügel als ein System auf größere Köpfe ab.",
     detailTitle: "007 rund oder 009 eckig?",
     detailBody: "Woolet 007 ist eine runde Panto-Form mit 52□21-150. Woolet 009 ist eine weiche eckige Form mit 54□22-150. Beide sind als Korrektionsbrille oder mit UV400-Sonnengläsern erhältlich.",
-    related: ["brille-grosse-koepfe", "breite-brille"],
+    related: ["brillen-fuer-grosse-koepfe", "breite-brille"],
     metaTitle: "XXL Brille Herren | Woolet - breite Herrenfassungen bis 161 mm",
     metaDescription: "XXL Brillen für Herren mit breitem Gesicht oder großem Kopf. 155-161 mm, italienisches Acetat, in der EU handgefertigt. Größe per FitLens-Scan in 20 Sekunden bestimmen.",
     primaryKeyword: "xxl brille herren",
@@ -9284,72 +9376,6 @@ const COLLECTION_ITEMS = [
   { id: "009", name: "Woolet 009 — Soft Square" },
   { id: "bespoke", name: "Woolet Bespoke — Custom" }
 ];
-const SHIP_COUNTRIES = [
-  "US",
-  "GB",
-  "PL",
-  "DE",
-  "FR",
-  "IT",
-  "ES",
-  "NL",
-  "BE",
-  "AT",
-  "IE"
-];
-const LIST_PRICE = "190.00";
-const SALE_PRICE = "114.00";
-const BESPOKE_PRICE = "480.00";
-const PRICE_CURRENCY = "USD";
-const PRICE_VALID_UNTIL = "2027-12-31";
-const PRICE_VALID_FROM = "2026-06-20";
-const RETURN_POLICY = {
-  "@type": "MerchantReturnPolicy",
-  applicableCountry: SHIP_COUNTRIES,
-  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-  merchantReturnDays: 30,
-  returnMethod: "https://schema.org/ReturnByMail",
-  returnFees: "https://schema.org/ReturnShippingFees",
-  returnShippingFeesAmount: {
-    "@type": "MonetaryAmount",
-    value: "10.00",
-    currency: PRICE_CURRENCY
-  }
-};
-function shippingDetails(isBespoke = false) {
-  return SHIP_COUNTRIES.map((country) => ({
-    "@type": "OfferShippingDetails",
-    shippingRate: {
-      "@type": "MonetaryAmount",
-      value: "0",
-      currency: PRICE_CURRENCY
-    },
-    shippingDestination: {
-      "@type": "DefinedRegion",
-      addressCountry: country
-    },
-    deliveryTime: {
-      "@type": "ShippingDeliveryTime",
-      handlingTime: isBespoke ? { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" } : { "@type": "QuantitativeValue", minValue: 1, maxValue: 2, unitCode: "DAY" },
-      transitTime: {
-        "@type": "QuantitativeValue",
-        minValue: 3,
-        maxValue: 7,
-        unitCode: "DAY"
-      }
-    }
-  }));
-}
-const LIST_PRICE_SPEC = [
-  {
-    "@type": "UnitPriceSpecification",
-    priceType: "https://schema.org/ListPrice",
-    price: LIST_PRICE,
-    priceCurrency: PRICE_CURRENCY,
-    validFrom: PRICE_VALID_FROM,
-    validThrough: PRICE_VALID_UNTIL
-  }
-];
 const SITE_URL$1 = "https://woolet.co";
 const productBaseByLang = {
   en: { home: "/en", collection: "/en/collection", collectionLabel: "Collection", framesLabel: "Frames", homeLabel: "Home" },
@@ -9769,7 +9795,7 @@ const homeCopy = {
     // JS-free HTML — all six must be listed here or they stay orphaned.
     noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
 <p>Woolet fertigt Brillen für breite Gesichter und große Köpfe: 158 mm Frontbreite, 21–22 mm Keyhole-Steg, italienisches Mazzucchelli-Acetat, in der EU handgefertigt. Founding-Preis 114 $ (statt 190 $).</p>
-<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a>.</p>`
+<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brillen-fuer-grosse-koepfe">Brillen für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a>.</p>`
   },
   ar: {
     title: "Woolet — نظارات فاخرة للوجوه العريضة (155 ملم+)",
@@ -11054,13 +11080,13 @@ ${BESPOKE_GUIDE.map(({ heading, text }) => `<section><h2>${heading}</h2><p>${tex
     const slug = path.replace(/^\//, "");
     const de = dePages[slug];
     if (de) {
-      return base(
+      const meta = base(
         route,
         lang,
         {
           title: de.metaTitle,
           description: de.metaDescription,
-          noscriptHtml: `<h1>${escapeHtml(de.h1)}</h1><p>${escapeHtml(de.sub)}</p>`
+          noscriptHtml: `<h1>${escapeHtml(de.h1)}</h1><p>${escapeHtml(de.sub)}</p>${de.kurzeAntwort ? `<aside><p><strong>Kurze Antwort</strong></p><p>${escapeHtml(de.kurzeAntwort)}</p></aside>` : ""}`
         },
         { image: DEFAULT_OG, type: "website" },
         [
@@ -11071,6 +11097,8 @@ ${BESPOKE_GUIDE.map(({ heading, text }) => `<section><h2>${heading}</h2><p>${tex
           ...de.faqs && de.faqs.length ? [faqPageJsonLd(de.faqs.map((f) => ({ q: f.q, a: f.a })))] : []
         ]
       );
+      if (de.canonicalOverride) meta.canonical = de.canonicalOverride;
+      return meta;
     }
   }
   if (path === "/collection") {
@@ -11333,6 +11361,7 @@ const STATIC_ROUTES = [
   "/de/brille-fuer-breites-gesicht",
   "/de/breite-brille",
   "/de/brille-grosse-koepfe",
+  "/de/brillen-fuer-grosse-koepfe",
   "/de/xxl-brille-herren",
   "/de/blaulichtfilter-brille-herren",
   "/de/brille-breite-160-mm",
