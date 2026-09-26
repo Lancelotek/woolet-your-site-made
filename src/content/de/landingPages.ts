@@ -93,6 +93,7 @@ export const dePages: Record<string, DePageConfig> = {
   },
   "brille-grosse-koepfe": {
     slug: "brille-grosse-koepfe",
+    canonicalOverride: "https://woolet.co/de/brillen-fuer-grosse-koepfe",
     h1: "Brillen für große Köpfe - ohne Druck an den Schläfen",
     h1Pre: "Brillen für ",
     h1Em: "große Köpfe",
