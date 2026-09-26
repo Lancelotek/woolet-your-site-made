@@ -9,6 +9,7 @@
 // pass it as `eventID` to fbq().
 
 import { supabase } from "@/integrations/supabase/client";
+import { isLikelyBot } from "@/lib/bot-detect";
 
 type Json = string | number | boolean | null | { [k: string]: Json } | Json[];
 
@@ -132,6 +133,8 @@ export const trackMetaEvent = async (
   opts: TrackOptions = {},
 ): Promise<void> => {
   if (!isProdHost()) return;
+  // Browser-side only: skip headless / automated traffic (window.__wooletBot).
+  if (typeof window !== "undefined" && isLikelyBot()) return;
 
   const eventId = opts.eventId ?? uuid();
   // Idempotency: an event_id must never be dispatched twice (re-mounts,
