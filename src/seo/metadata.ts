@@ -332,7 +332,7 @@ const homeCopy: Record<Lang, Copy> = {
     // JS-free HTML — all six must be listed here or they stay orphaned.
     noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
 <p>Woolet fertigt Brillen für breite Gesichter und große Köpfe: 158 mm Frontbreite, 21–22 mm Keyhole-Steg, italienisches Mazzucchelli-Acetat, in der EU handgefertigt. Founding-Preis 114 $ (statt 190 $).</p>
-<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brille-grosse-koepfe">Brille für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a>.</p>`,
+<p>Landingpages: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a> · <a href="/de/breite-brille">Breite Brille</a> · <a href="/de/brillen-fuer-grosse-koepfe">Brillen für große Köpfe</a> · <a href="/de/xxl-brille-herren">XXL Brille Herren</a> · <a href="/de/blaulichtfilter-brille-herren">Blaulichtfilter-Brille Herren</a> · <a href="/de/brille-breite-160-mm">Brille Breite 160 mm</a>.</p>`,
   },
   ar: {
     title: "Woolet — نظارات فاخرة للوجوه العريضة (155 ملم+)",
@@ -1789,13 +1789,13 @@ ${BESPOKE_GUIDE.map(({heading,text})=>`<section><h2>${heading}</h2><p>${text}</p
     const slug = path.replace(/^\//, "");
     const de = dePages[slug];
     if (de) {
-      return base(
+      const meta = base(
         route,
         lang,
         {
           title: de.metaTitle,
           description: de.metaDescription,
-          noscriptHtml: `<h1>${escapeHtml(de.h1)}</h1><p>${escapeHtml(de.sub)}</p>`,
+          noscriptHtml: `<h1>${escapeHtml(de.h1)}</h1><p>${escapeHtml(de.sub)}</p>${de.kurzeAntwort ? `<aside><p><strong>Kurze Antwort</strong></p><p>${escapeHtml(de.kurzeAntwort)}</p></aside>` : ""}`,
         },
         { image: DEFAULT_OG, type: "website" },
         [
@@ -1806,6 +1806,8 @@ ${BESPOKE_GUIDE.map(({heading,text})=>`<section><h2>${heading}</h2><p>${text}</p
           ...(de.faqs && de.faqs.length ? [faqPageJsonLd(de.faqs.map((f) => ({ q: f.q, a: f.a })))] : []),
         ],
       );
+      if (de.canonicalOverride) meta.canonical = de.canonicalOverride;
+      return meta;
     }
   }
 
@@ -2116,6 +2118,7 @@ const STATIC_ROUTES = [
   "/de/brille-fuer-breites-gesicht",
   "/de/breite-brille",
   "/de/brille-grosse-koepfe",
+  "/de/brillen-fuer-grosse-koepfe",
   "/de/xxl-brille-herren",
   "/de/blaulichtfilter-brille-herren",
   "/de/brille-breite-160-mm",

@@ -24,6 +24,7 @@ const ENGLISH_EQUIVALENT: Record<string, string> = {
   "brille-fuer-breites-gesicht": "/en/collections/wide-face-glasses",
   "breite-brille": "/en/collections/extra-wide-glasses",
   "brille-grosse-koepfe": "/en/collections/glasses-for-big-heads",
+  "brillen-fuer-grosse-koepfe": "/en/collections/glasses-for-big-heads",
   "xxl-brille-herren": "/en/collections/oversized-sunglasses-men",
   "brille-breite-160-mm": "/en/collections/extra-wide-glasses",
 };
@@ -149,7 +150,7 @@ function FoundingBenefitsDe() {
 
 export default function DeLandingPage({ config }: { config: DePageConfig }) {
   const faqs = config.faqs ?? DEFAULT_FAQS;
-  const canonical = `${SITE}/de/${config.slug}`;
+  const canonical = config.canonicalOverride ?? `${SITE}/de/${config.slug}`;
   const englishAlt = ENGLISH_EQUIVALENT[config.slug] || "/en";
   const productJsonLd = {
     "@context": "https://schema.org", "@type": "Product", name: `Woolet - ${config.h1}`,
@@ -191,6 +192,12 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                   {config.h1Pre}<em className="text-gold-light">{config.h1Em}</em>{config.h1Post}
                 </h1>
                 <p className="max-w-[560px] font-body text-[1.02rem] leading-relaxed text-cream-dim">{config.sub}</p>
+                {config.kurzeAntwort && (
+                  <aside className="max-w-[560px] border-l-2 border-primary bg-primary/5 px-5 py-4">
+                    <p className="m-0 font-body text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">Kurze Antwort</p>
+                    <p className="m-0 mt-2 font-body text-[15px] leading-7 text-foreground">{config.kurzeAntwort}</p>
+                  </aside>
+                )}
               </div>
 
               <div className="order-5 lg:order-none"><FitSymptoms /></div>
