@@ -156,6 +156,9 @@ export const ROUTES = {
   "landing.collection.de.brillen-fuer-grosse-koepfe": { en: "/en/collection", de: "/de/brillen-fuer-grosse-koepfe" },
   "landing.collection.de.xxl-brille-herren":        { en: "/en/collection", de: "/de/xxl-brille-herren" },
   "landing.collection.de.brille-breite-160-mm":     { en: "/en/collection", de: "/de/brille-breite-160-mm" },
+  "landing.size.de.brille-breite-150-mm": { en: "/en/size/150mm", de: "/de/brille-breite-150-mm" },
+  "landing.size.de.brille-breite-155-mm": { en: "/en/size/155mm", de: "/de/brille-breite-155-mm" },
+  "landing.size.de.brille-breite-158-mm": { en: "/en/size/158mm", de: "/de/brille-breite-158-mm" },
 
   // Blue-light + wide-head cluster. Reciprocal 1:1 pair (EN anchor is not
   // shared with any other entry), so both sides emit en + de + x-default.

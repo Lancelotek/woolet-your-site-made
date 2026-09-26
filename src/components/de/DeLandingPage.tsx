@@ -12,7 +12,7 @@ import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 import frame007 from "@/assets/frames-2026/oval-crystal.asset.json";
 import frame009 from "@/assets/frames-2026/square-crystal.asset.json";
 import { homeOnFaceCard } from "@/data/on-face-photos";
-import { DEFAULT_FAQS, dePageTitles, dePages, type DePageConfig } from "@/content/de/landingPages";
+import { DEFAULT_FAQS, WIDTH_SLUGS, dePageTitles, dePages, type DePageConfig } from "@/content/de/landingPages";
 import DeMobileReservationBar from "@/components/de/DeMobileReservationBar";
 
 const SITE = "https://woolet.co";
@@ -27,6 +27,9 @@ const ENGLISH_EQUIVALENT: Record<string, string> = {
   "brillen-fuer-grosse-koepfe": "/en/collections/glasses-for-big-heads",
   "xxl-brille-herren": "/en/collections/oversized-sunglasses-men",
   "brille-breite-160-mm": "/en/collections/extra-wide-glasses",
+  "brille-breite-150-mm": "/en/size/150mm",
+  "brille-breite-155-mm": "/en/size/155mm",
+  "brille-breite-158-mm": "/en/size/158mm",
 };
 
 function VipForm() {
@@ -158,6 +161,8 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
     material: "Italienisches Acetat (Mazzucchelli 1849)", image: `${SITE}${HERO_SRC}`,
     offers: { "@type": "Offer", url: canonical, priceCurrency: "EUR", price: DE_PRICING.founderPriceEur.toFixed(2), priceValidUntil: DE_PRICING.priceValidUntil, availability: "https://schema.org/PreOrder", itemCondition: "https://schema.org/NewCondition", seller: { "@type": "Organization", name: "Woolet", url: SITE } },
   };
+  const breadcrumbJsonLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Woolet", item: `${SITE}/de` }, { "@type": "ListItem", position: 2, name: config.h1, item: canonical }] };
+  const isWidthPage = (WIDTH_SLUGS as readonly string[]).includes(config.slug);
   const faqJsonLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) };
 
   useEffect(() => {
@@ -177,7 +182,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <link rel="canonical" href={canonical} /><link rel="alternate" hrefLang="de" href={canonical} /><link rel="alternate" hrefLang="en" href={`${SITE}${englishAlt}`} /><link rel="alternate" hrefLang="x-default" href={`${SITE}${englishAlt}`} />
         <meta property="og:type" content="website" /><meta property="og:locale" content="de_DE" /><meta property="og:title" content={config.metaTitle} /><meta property="og:description" content={config.metaDescription} /><meta property="og:url" content={canonical} /><meta property="og:image" content={`${SITE}${HERO_SRC}`} />
         <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={config.metaTitle} /><meta name="twitter:description" content={config.metaDescription} />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script><script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script><script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script><script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
       <link rel="preload" as="image" type="image/webp" href={HERO_SRC} imageSrcSet={HERO_SRCSET} imageSizes={HERO_SIZES} />
 
@@ -237,6 +242,14 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <section className="border-y border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Founding-Preis</p><h2 className="mt-4 font-display text-4xl text-foreground md:text-5xl">Breite Passform. Klarer Preis.</h2><div className="mt-6 flex items-baseline justify-center gap-4"><span className="font-display text-3xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span><strong className="font-display text-6xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong></div><p className="mt-3 font-body text-sm text-cream-dim">inkl. MwSt. · Kostenloser Versand nach Deutschland</p><DeReservationCta source={`${config.slug}_pricing`} className="mt-8" /></div></section>
 
         <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Kickstarter · Founding Member</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founding-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><VipForm /></div></section>
+
+        {config.widthTable && (
+          <Section bordered><h2 className="mb-6 font-display text-3xl text-foreground">{config.widthTable.title}</h2><div className="overflow-x-auto"><table className="w-full border-collapse font-body text-[15px]"><thead><tr className="border-b border-border-sub text-left text-[10px] uppercase tracking-[0.22em] text-cream-dim"><th className="py-3 pr-4 font-medium">Gesichtsbreite (mm)</th><th className="py-3 pr-4 font-medium">Kategorie</th><th className="py-3 font-medium">Empfohlene Frontbreite</th></tr></thead><tbody>{config.widthTable.rows.map((row) => <tr key={row[0]} className="border-b border-border-sub text-foreground"><td className="py-3 pr-4">{row[0]}</td><td className="py-3 pr-4 text-cream-dim">{row[1]}</td><td className="py-3">{row[2]}</td></tr>)}</tbody></table></div></Section>
+        )}
+
+        {isWidthPage && (
+          <Section bordered><h2 className="mb-6 font-display text-3xl text-foreground">Andere Breiten</h2><ul className="m-0 flex list-none flex-wrap gap-3 p-0">{WIDTH_SLUGS.filter((slug) => slug !== config.slug).map((slug) => <li key={slug}><Link to={`/de/${slug}`} className="inline-block rounded-sm border border-border-sub px-4 py-3 font-body text-sm text-foreground no-underline hover:border-primary/50">{dePageTitles[slug]}</Link></li>)}</ul></Section>
+        )}
 
         <Section bordered><h2 className="mb-6 font-display text-4xl text-foreground">Häufige Fragen</h2><Accordion type="single" collapsible>{faqs.map((faq, index) => <AccordionItem key={faq.q} value={`item-${index}`} className="border-border-sub"><AccordionTrigger className="text-left font-body text-base font-medium text-foreground">{faq.q}</AccordionTrigger><AccordionContent className="font-body text-[15px] leading-7 text-cream-dim">{faq.a}</AccordionContent></AccordionItem>)}</Accordion></Section>
 
