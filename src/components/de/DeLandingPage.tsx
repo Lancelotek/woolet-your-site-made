@@ -12,7 +12,7 @@ import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 import frame007 from "@/assets/frames-2026/oval-crystal.asset.json";
 import frame009 from "@/assets/frames-2026/square-crystal.asset.json";
 import { homeOnFaceCard } from "@/data/on-face-photos";
-import { DEFAULT_FAQS, dePageTitles, dePages, deWidthSlugs, type DePageConfig } from "@/content/de/landingPages";
+import { DEFAULT_FAQS, dePageTitles, dePages, type DePageConfig } from "@/content/de/landingPages";
 import DeMobileReservationBar from "@/components/de/DeMobileReservationBar";
 
 const SITE = "https://woolet.co";
@@ -24,6 +24,7 @@ const ENGLISH_EQUIVALENT: Record<string, string> = {
   "brille-fuer-breites-gesicht": "/en/collections/wide-face-glasses",
   "breite-brille": "/en/collections/extra-wide-glasses",
   "brille-grosse-koepfe": "/en/collections/glasses-for-big-heads",
+  "brillen-fuer-grosse-koepfe": "/en/collections/glasses-for-big-heads",
   "xxl-brille-herren": "/en/collections/oversized-sunglasses-men",
   "brille-breite-160-mm": "/en/collections/extra-wide-glasses",
 };
@@ -149,9 +150,8 @@ function FoundingBenefitsDe() {
 
 export default function DeLandingPage({ config }: { config: DePageConfig }) {
   const faqs = config.faqs ?? DEFAULT_FAQS;
-  const canonical = `${SITE}/de/${config.slug}`;
-  const englishAlt = config.englishEquivalent || ENGLISH_EQUIVALENT[config.slug] || "/en";
-  const isWidthPage = (deWidthSlugs as readonly string[]).includes(config.slug);
+  const canonical = config.canonicalOverride ?? `${SITE}/de/${config.slug}`;
+  const englishAlt = ENGLISH_EQUIVALENT[config.slug] || "/en";
   const productJsonLd = {
     "@context": "https://schema.org", "@type": "Product", name: `Woolet - ${config.h1}`,
     description: config.metaDescription, brand: { "@type": "Brand", name: "Woolet" },
@@ -191,13 +191,13 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                 <h1 className="max-w-[650px] font-display text-woolet-white" style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)", fontWeight: 300, lineHeight: 1.02 }}>
                   {config.h1Pre}<em className="text-gold-light">{config.h1Em}</em>{config.h1Post}
                 </h1>
-                {config.quickAnswer && (
-                  <aside aria-label="Kurze Antwort" className="max-w-[600px] border-l-2 border-primary bg-secondary/60 px-5 py-4">
-                    <p className="m-0 mb-2 font-body text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">Kurze Antwort</p>
-                    <p className="m-0 font-body text-[0.98rem] leading-relaxed text-foreground">{config.quickAnswer}</p>
+                <p className="max-w-[560px] font-body text-[1.02rem] leading-relaxed text-cream-dim">{config.sub}</p>
+                {config.kurzeAntwort && (
+                  <aside className="max-w-[560px] border-l-2 border-primary bg-primary/5 px-5 py-4">
+                    <p className="m-0 font-body text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">Kurze Antwort</p>
+                    <p className="m-0 mt-2 font-body text-[15px] leading-7 text-foreground">{config.kurzeAntwort}</p>
                   </aside>
                 )}
-                <p className="max-w-[560px] font-body text-[1.02rem] leading-relaxed text-cream-dim">{config.sub}</p>
               </div>
 
               <div className="order-5 lg:order-none"><FitSymptoms /></div>
@@ -223,32 +223,9 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <Section bordered>
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <div><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Passform verstehen</span></div><h2 className="font-display text-4xl leading-tight text-woolet-white lg:text-5xl">{config.problemTitle}</h2></div>
-            <div className="space-y-8 font-body text-base leading-8 text-cream-dim">
-              <p>{config.problemBody}</p>
-              {config.contextLink && <p>{config.contextLink.before}<Link to={config.contextLink.href} className="text-primary underline underline-offset-4">{config.contextLink.anchor}</Link>{config.contextLink.after}</p>}
-              <div className="border-l border-primary pl-6"><h3 className="mb-3 font-display text-2xl text-foreground">{config.detailTitle}</h3><p>{config.detailBody}</p></div>
-            </div>
+            <div className="space-y-8 font-body text-base leading-8 text-cream-dim"><p>{config.problemBody}</p><div className="border-l border-primary pl-6"><h3 className="mb-3 font-display text-2xl text-foreground">{config.detailTitle}</h3><p>{config.detailBody}</p></div></div>
           </div>
         </Section>
-
-        {config.table && (
-          <Section bordered>
-            <div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Maßtabelle</span></div>
-            <h2 className="mb-7 font-display text-3xl text-woolet-white lg:text-4xl">{config.table.caption}</h2>
-            <div className="overflow-x-auto border border-border-sub">
-              <table className="w-full border-collapse text-left font-body text-sm">
-                <thead><tr className="bg-secondary">{config.table.headers.map((h) => <th key={h} scope="col" className="border-b border-border-sub px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">{h}</th>)}</tr></thead>
-                <tbody>{config.table.rows.map((row) => <tr key={row.join("|")} className="border-b border-border-sub last:border-b-0">{row.map((cell, i) => <td key={i} className={`px-4 py-3 ${i === 0 ? "font-medium text-foreground" : "text-cream-dim"}`}>{cell}</td>)}</tr>)}</tbody>
-              </table>
-            </div>
-          </Section>
-        )}
-
-        {config.extraSection && (
-          <Section bordered>
-            <div className="max-w-3xl"><h2 className="mb-5 font-display text-3xl text-woolet-white lg:text-4xl">{config.extraSection.title}</h2><p className="font-body text-base leading-8 text-cream-dim">{config.extraSection.body}</p></div>
-          </Section>
-        )}
 
         <Section bordered>
           <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><div className="woolet-eyebrow mb-4"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Die Kollektion</span></div><h2 className="font-display text-3xl text-woolet-white lg:text-4xl">Zwei Formen. <em className="text-gold-light">Eine ehrliche Breite.</em></h2></div><Link to="/de/kollektion" className="font-body text-xs uppercase tracking-[0.22em] text-cream-dim no-underline hover:text-foreground">Kollektion ansehen -&gt;</Link></div>
@@ -262,10 +239,6 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Kickstarter · Founding Member</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founding-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><VipForm /></div></section>
 
         <Section bordered><h2 className="mb-6 font-display text-4xl text-foreground">Häufige Fragen</h2><Accordion type="single" collapsible>{faqs.map((faq, index) => <AccordionItem key={faq.q} value={`item-${index}`} className="border-border-sub"><AccordionTrigger className="text-left font-body text-base font-medium text-foreground">{faq.q}</AccordionTrigger><AccordionContent className="font-body text-[15px] leading-7 text-cream-dim">{faq.a}</AccordionContent></AccordionItem>)}</Accordion></Section>
-
-        {isWidthPage && (
-          <Section bordered><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Andere Breiten</span></div><nav aria-label="Andere Breiten" className="flex flex-wrap gap-3">{deWidthSlugs.filter((s) => s !== config.slug).map((s) => <Link key={s} to={`/de/${s}`} className="border border-border-sub bg-secondary px-5 py-3 font-body text-xs uppercase tracking-[0.2em] text-cream-dim no-underline transition-colors hover:border-primary/50 hover:text-foreground">{dePageTitles[s]}</Link>)}</nav></Section>
-        )}
 
         <Section bordered><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Weiterlesen</span></div><h2 className="mb-7 font-display text-3xl text-foreground">Passende Ratgeber</h2><div className="grid gap-4 sm:grid-cols-2">{config.related.map((slug) => <Link key={slug} to={`/de/${slug}`} className="border border-border-sub bg-secondary p-6 no-underline transition-colors hover:border-primary/50"><div className="font-body text-[10px] uppercase tracking-[0.22em] text-primary">Woolet · DE</div><div className="mt-3 font-display text-2xl text-foreground">{dePages[slug].h1}</div><div className="mt-4 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{dePageTitles[slug]} -&gt;</div></Link>)}</div></Section>
         <Footer lang="de" />

@@ -41,7 +41,7 @@ export const RelatedGuides = ({
 }: RelatedGuidesProps) => {
   const localizedGuides: GuideLink[] = lang === "de" ? [
     { label: "Brille Breite 160 mm", href: "/de/brille-breite-160-mm", description: "Maße und Passform für besonders breite Fassungen." },
-    { label: "Brillen für große Köpfe", href: "/de/brille-grosse-koepfe", description: "So findest du eine Fassung ohne Druck an den Schläfen." },
+    { label: "Brillen für große Köpfe", href: "/de/brillen-fuer-grosse-koepfe", description: "So findest du eine Fassung ohne Druck an den Schläfen." },
     { label: "XXL Brillen für Herren", href: "/de/xxl-brille-herren", description: "Breite Herrenfassungen mit klaren Größenangaben." },
   ] : defaultGuides;
   const guides = excludeHref

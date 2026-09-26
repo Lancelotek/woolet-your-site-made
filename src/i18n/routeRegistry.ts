@@ -153,12 +153,9 @@ export const ROUTES = {
   // cluster back to EN.
   "landing.collection.de.breite-brille":            { en: "/en/collection", de: "/de/breite-brille" },
   "landing.collection.de.brille-fuer-breites-gesicht": { en: "/en/collection", de: "/de/brille-fuer-breites-gesicht" },
-  "landing.collection.de.brille-grosse-koepfe":     { en: "/en/collection", de: "/de/brille-grosse-koepfe" },
+  "landing.collection.de.brillen-fuer-grosse-koepfe": { en: "/en/collection", de: "/de/brillen-fuer-grosse-koepfe" },
   "landing.collection.de.xxl-brille-herren":        { en: "/en/collection", de: "/de/xxl-brille-herren" },
   "landing.collection.de.brille-breite-160-mm":     { en: "/en/collection", de: "/de/brille-breite-160-mm" },
-  "landing.bigHeads.de":    { en: "/en/collections/glasses-for-big-heads", de: "/de/brillen-fuer-grosse-koepfe" },
-  "landing.size155.de":     { en: "/en/size/155mm", de: "/de/brille-breite-155-mm" },
-  "landing.size158.de":     { en: "/en/size/158mm", de: "/de/brille-breite-158-mm" },
 
   // Blue-light + wide-head cluster. Reciprocal 1:1 pair (EN anchor is not
   // shared with any other entry), so both sides emit en + de + x-default.
@@ -170,7 +167,7 @@ export const ROUTES = {
   // KO size pages — paired 1:1 with their EN equivalents. Only these three
   // numeric sizes have a Korean translation; every other /en/size/* page
   // stays EN-only and therefore emits no hreflang cluster.
-  "size.150mm": { en: "/en/size/150mm", ko: "/ko/size/150mm", de: "/de/brille-breite-150-mm" },
+  "size.150mm": { en: "/en/size/150mm", ko: "/ko/size/150mm" },
   "size.160mm": { en: "/en/size/160mm", ko: "/ko/size/160mm" },
   "size.165mm": { en: "/en/size/165mm", ko: "/ko/size/165mm" },
 

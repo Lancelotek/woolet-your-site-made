@@ -68,25 +68,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
-    <loc>https://woolet.co/de/brille-breite-150-mm</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/150mm"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/150mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-150-mm"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/150mm"/>
-  </url>
-  <url>
-    <loc>https://woolet.co/de/brille-breite-155-mm</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/155mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-155-mm"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/155mm"/>
-  </url>
-  <url>
-    <loc>https://woolet.co/de/brille-breite-158-mm</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/158mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-158-mm"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/158mm"/>
-  </url>
-  <url>
     <loc>https://woolet.co/de/brille-breite-160-mm</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-160-mm"/>
@@ -99,16 +80,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
-    <loc>https://woolet.co/de/brille-grosse-koepfe</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-grosse-koepfe"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
-  </url>
-  <url>
     <loc>https://woolet.co/de/brillen-fuer-grosse-koepfe</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brillen-fuer-grosse-koepfe"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
     <loc>https://woolet.co/de/fit</loc>
@@ -392,9 +367,6 @@
   </url>
   <url>
     <loc>https://woolet.co/en/collections/glasses-for-big-heads</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brillen-fuer-grosse-koepfe"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
   </url>
   <url>
     <loc>https://woolet.co/en/collections/italian-acetate-sunglasses</loc>
@@ -555,7 +527,6 @@
     <loc>https://woolet.co/en/size/150mm</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/150mm"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/150mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-150-mm"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/150mm"/>
   </url>
   <url>
@@ -563,15 +534,9 @@
   </url>
   <url>
     <loc>https://woolet.co/en/size/155mm</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/155mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-155-mm"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/155mm"/>
   </url>
   <url>
     <loc>https://woolet.co/en/size/158mm</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/158mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-158-mm"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/158mm"/>
   </url>
   <url>
     <loc>https://woolet.co/en/size/160mm</loc>
@@ -756,7 +721,6 @@
     <loc>https://woolet.co/ko/size/150mm</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/150mm"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/150mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-150-mm"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/150mm"/>
   </url>
   <url>

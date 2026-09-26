@@ -4,7 +4,6 @@
 // Production hosts only. Deduplicates with the Conversions API via event_id.
 
 import { trackMetaEvent, uuid, isProdHost } from "@/lib/meta-capi";
-import { isLikelyBot } from "@/lib/bot-detect";
 
 const PIXEL_ID = "1951914478320328";
 
@@ -109,7 +108,6 @@ export const initMetaPixelDirect = (): void => {
   if (initialized) return;
   if (typeof window === "undefined") return;
   if (!isProdHost()) return;
-  if (isLikelyBot()) return;
   if (isEuLikeVisitor()) return;
   if (typeof window.fbq !== "undefined") return;
   initialized = true;
