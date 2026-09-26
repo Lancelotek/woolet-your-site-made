@@ -17,6 +17,8 @@ export type DePageConfig = {
   metaDescription: string;
   primaryKeyword: string;
   faqs?: DeFaq[];
+  kurzeAntwort?: string;
+  canonicalOverride?: string;
 };
 
 export const DEFAULT_FAQS: DeFaq[] = [
@@ -55,7 +57,7 @@ export const dePages: Record<string, DePageConfig> = {
     problemBody: "Viele Standardfassungen enden bei 135-145 mm. Auf einem breiteren Gesicht klemmen sie an den Schläfen, die Bügel stehen nach außen oder die Gläser enden vor der Gesichtskante. Woolet beginnt bei 155 mm und wurde von Grund auf für breite Gesichter konstruiert.",
     detailTitle: "Welche Brillenbreite passt zu einem breiten Gesicht?",
     detailBody: "Woolet bietet 155, 158 und 161 mm Frontbreite. Der 21 oder 22 mm Keyhole-Steg und 150 mm lange Bügel sind auf dieselbe breite Passform abgestimmt. Außerhalb dieses Bereichs deckt Woolet Bespoke 145-172 mm ab.",
-    related: ["breite-brille", "brille-grosse-koepfe"],
+    related: ["breite-brille", "brillen-fuer-grosse-koepfe"],
     metaTitle: "Brille für breites Gesicht | Woolet - 155/158/161 mm aus italienischem Acetat",
     metaDescription:
       "Drückt jede Brille an den Schläfen? Woolet fertigt Brillen für breite Gesichter und große Köpfe - 155, 158, 161 mm, in der EU handgefertigt aus italienischem Mazzucchelli-Acetat. Miss dein Gesicht in 20 Sekunden.",
@@ -124,7 +126,7 @@ export const dePages: Record<string, DePageConfig> = {
     problemBody: "Bei vielen Oversized-Fassungen wachsen nur die Gläser, während Steg und Bügel für Standardköpfe bleiben. Woolet stimmt Frontbreite, Keyhole-Steg und 150 mm lange Bügel als ein System auf größere Köpfe ab.",
     detailTitle: "007 rund oder 009 eckig?",
     detailBody: "Woolet 007 ist eine runde Panto-Form mit 52□21-150. Woolet 009 ist eine weiche eckige Form mit 54□22-150. Beide sind als Korrektionsbrille oder mit UV400-Sonnengläsern erhältlich.",
-    related: ["brille-grosse-koepfe", "breite-brille"],
+    related: ["brillen-fuer-grosse-koepfe", "breite-brille"],
     metaTitle: "XXL Brille Herren | Woolet - breite Herrenfassungen bis 161 mm",
     metaDescription:
       "XXL Brillen für Herren mit breitem Gesicht oder großem Kopf. 155-161 mm, italienisches Acetat, in der EU handgefertigt. Größe per FitLens-Scan in 20 Sekunden bestimmen.",
