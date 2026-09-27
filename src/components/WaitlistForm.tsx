@@ -207,7 +207,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         <div className="flex justify-between items-center">
           <span style={{ ...labelStyle, fontSize: "12px", letterSpacing: "0.24em" }}>Waitlist</span>
           <span className="text-primary tracking-wider" style={{ fontSize: "12px" }}>
-            {count} / 100 spots
+            30 frames at $114
           </span>
         </div>
         <div className="h-px relative overflow-visible" style={{ background: "#2a2520" }}>
@@ -242,7 +242,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
             className="relative z-10 font-bold tracking-wider"
             style={{ fontSize: "13px", color: "#0f0f0f" }}
           >
-            {count} of 100 founding member spots remaining
+            Only 30 frames at $114 - then $190
           </span>
         </div>
       </div>

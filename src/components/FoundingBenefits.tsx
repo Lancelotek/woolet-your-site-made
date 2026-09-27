@@ -121,7 +121,7 @@ export const FoundingUrgency = ({ initial = 23 }: { initial?: number }) => {
           className="relative z-10 font-bold tracking-wider"
           style={{ fontSize: "12px", color: "#0f0f0f", fontFamily: "Barlow, sans-serif" }}
         >
-          {count} of 100 founding member spots remaining
+          Only 30 frames at $114 - then $190
         </span>
       </div>
       <p

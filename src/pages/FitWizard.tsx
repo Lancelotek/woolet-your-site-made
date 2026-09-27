@@ -1012,11 +1012,11 @@ const FOMO_COPY: Record<FomoVariant, {
       </>
     ),
     footnote: (
-      <>Hard commit: your $1 deposit secures all three perks. Mazzucchelli acetate runs in 100-frame batches per model — once founding spots fill, retail returns to <span className="line-through">$190</span>.</>
+      <>Hard commit: your $1 deposit secures all three perks. Only 30 frames go at $114 on Kickstarter - after that, retail returns to <span className="line-through">$190</span>.</>
     ),
   },
   B: {
-    badge: "Last founding batch · 100 frames",
+    badge: "30 frames at $114",
     headline: "$1 holds 40% off + priority shipping + free lens kit",
     priceLine: () => (
       <>
@@ -1026,7 +1026,7 @@ const FOMO_COPY: Record<FomoVariant, {
       </>
     ),
     footnote: (
-      <>Hard commit — refundable any time, but the three perks disappear when founding spots fill. Only 100 frames per model in this Mazzucchelli run before retail returns to <span className="line-through">$190</span>.</>
+      <>Hard commit — refundable any time, but the three perks disappear when founding spots fill. Only 30 frames go at $114 before retail returns to <span className="line-through">$190</span>.</>
     ),
   },
 };

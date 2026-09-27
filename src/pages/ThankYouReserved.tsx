@@ -105,7 +105,7 @@ export default function ThankYouReserved() {
       doc.setFont("helvetica", "normal");
       doc.setFontSize(11);
       doc.setTextColor(154, 142, 126);
-      doc.text("You hold a numbered spot in the first run of 100 Woolet frames.", M, 68);
+      doc.text("Your $114 founder price is locked - only 30 frames go at this price.", M, 68);
 
       let y = 108;
       const section = (label: string, lines: string[], dimLast = false) => {
@@ -219,7 +219,7 @@ export default function ThankYouReserved() {
             $1 received. 40% off retail is yours for the whole Kickstarter campaign - $190 becomes $114 on any Woolet frame.
           </p>
           <p style={{ color: T.goldDim, fontSize: 13, marginTop: 16 }}>
-            Numbered spot in the first run of 100. Fully refundable until launch.
+            $114 locked - only 30 frames go at this price on Kickstarter. Fully refundable until launch.
           </p>
         </section>
 

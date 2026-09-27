@@ -282,7 +282,7 @@ export default function ThankYouFb() {
               </h2>
               <p style={{ ...body, margin: "0 0 32px" }}>
                 Reserve your Founders Edition frame for $1. Fully refundable, or applied to your
-                order. Only 100 numbered frames.
+                order. Only 30 frames go at $114 - then $190.
               </p>
 
               <ReserveCheckoutButton
