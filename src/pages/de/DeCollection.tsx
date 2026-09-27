@@ -61,14 +61,18 @@ export default function DeCollection() {
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {products.map((product) => (
               <article key={product.id} className="border border-border-sub bg-secondary">
+                <Link to={`/en/products/${product.id}`} aria-label={`Woolet ${product.id} ${product.shape} ansehen`} className="block no-underline">
                 <div className="aspect-[4/3] overflow-hidden bg-cream"><img src={product.image} alt={`Woolet ${product.id} ${product.shape} in Havana Founder Acetate`} width={1200} height={900} className="h-full w-full object-contain" loading="lazy" /></div>
-                <div className="p-6 sm:p-8">
+                <div className="px-6 pt-6 sm:px-8 sm:pt-8">
                   <p className="font-body text-[10px] uppercase tracking-[0.24em] text-primary">Woolet {product.id}</p>
                   <h2 className="mt-2 font-display text-3xl font-normal text-foreground">{product.shape}</h2>
                   <p className="mt-3 font-body text-sm text-cream-dim">158 mm Frontbreite - Steg {product.bridge} mm - Havana Founder Acetat</p>
+                </div>
+                </Link>
+                <div className="px-6 pb-6 sm:px-8 sm:pb-8">
                   <div className="mt-6 flex items-baseline gap-3"><span className="font-display text-xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span><strong className="font-display text-4xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong><span className="font-body text-xs text-cream-dim">inkl. MwSt.</span></div>
                   <DeReservationCta source={`kollektion_${product.id}`} className="mt-6" />
-                  <Link to="/de/fit" className="mt-5 inline-block font-body text-sm text-primary underline underline-offset-4">Erst Gesicht messen →</Link>
+                  <Link to="/de/fit" className="relative z-10 mt-3 inline-flex min-h-[44px] items-center font-body text-sm text-primary underline underline-offset-4">Erst Gesicht messen →</Link>
                 </div>
               </article>
             ))}
