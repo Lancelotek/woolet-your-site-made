@@ -66,7 +66,7 @@ type PdpCopy = {
 
 export const PDP_COPY: Record<PdpLang, PdpCopy> = {
   en: {
-    scarcity: "4,900+ on the waitlist · Founding run limited to 300 pairs",
+    scarcity: "4,900+ on the waitlist · Only 30 frames at $114 on Kickstarter - then $190",
     subline: "158 mm · Hand made in EU · Mazzucchelli acetate from Milan",
     headlinePre: "Finally, glasses that don't ",
     headlineEm: "pinch",
@@ -152,7 +152,7 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
   },
 
   fr: {
-    scarcity: "4 900+ inscrits sur la liste d'attente · Première série limitée à 300 paires",
+    scarcity: "4 900+ inscrits sur la liste d'attente · Seulement 30 montures à 114 $ sur Kickstarter - puis 190 $",
     subline: "158 mm · Fait main dans l'UE · Acétate Mazzucchelli de Milan",
     headlinePre: "Enfin des lunettes qui ne ",
     headlineEm: "serrent",
@@ -238,7 +238,7 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
   },
 
   nl: {
-    scarcity: "4.900+ op de wachtlijst · Eerste serie beperkt tot 300 stuks",
+    scarcity: "4.900+ op de wachtlijst · Slechts 30 monturen voor $114 op Kickstarter - daarna $190",
     subline: "158 mm · Handgemaakt in de EU · Mazzucchelli-acetaat uit Milaan",
     headlinePre: "Eindelijk een bril die niet ",
     headlineEm: "knelt",
