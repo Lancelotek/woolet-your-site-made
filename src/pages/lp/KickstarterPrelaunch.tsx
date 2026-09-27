@@ -121,6 +121,7 @@ const lightboxImages: { src: string; alt: string }[] = [
   { src: w007CardAsset.url, alt: "Woolet 007 round frame in black acetate, front view" },
   { src: w009CardAsset.url, alt: "Woolet 009 soft-square frame in black acetate, front view" },
 ];
+const GREG_LIGHTBOX_INDEX = heroGallery.findIndex((g) => g.src === gregSquare);
 const BESPOKE_LIGHTBOX_OFFSET = heroGallery.length;
 const CARD_LIGHTBOX_INDEX: Record<string, number> = {
   "Woolet 007": heroGallery.length + bespokeGallery.length,
@@ -191,7 +192,7 @@ const scrollToEmailInput = (formId: string) => {
 export const VIP_RESOLVED_KEY = "wlt_ks_vip_resolved";
 
 
-const StepBar = ({ step }: { step: 1 | 2 }) => {
+const StepBar = ({ step, emailInputId }: { step: 1 | 2; emailInputId?: string }) => {
   const steps = ["Your email", "Lock $114"];
   return (
     <div className="flex items-center gap-3" style={{ marginBottom: 4 }}>
@@ -230,7 +231,11 @@ const StepBar = ({ step }: { step: 1 | 2 }) => {
                 whiteSpace: "nowrap",
               }}
             >
-              {label}
+              {index === 1 && emailInputId ? (
+                <label htmlFor={emailInputId} style={{ cursor: "text" }}>{label}</label>
+              ) : (
+                label
+              )}
             </span>
             <span style={{ flex: 1, height: 1, background: done ? GOLD : HAIRLINE }} />
           </div>
@@ -662,7 +667,7 @@ const VipForm = ({
       className="flex flex-col gap-3"
       style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
     >
-      <StepBar step={1} />
+      <StepBar step={1} emailInputId={`vip-email${idSuffix}`} />
       <div className={compact ? "flex flex-col sm:flex-row gap-2" : "flex flex-col gap-2"}>
         <label htmlFor={`vip-email${idSuffix}`} className="sr-only">
           Your email address
@@ -1921,6 +1926,12 @@ const KickstarterPrelaunch = () => {
       <section>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 md:items-center">
           <figure style={{ margin: 0, border: `1px solid ${HAIRLINE}`, overflow: "hidden" }}>
+            <button
+              type="button"
+              onClick={(e) => openLightbox(GREG_LIGHTBOX_INDEX, "gallery", e.currentTarget)}
+              aria-label="See more photos of Greg wearing Woolet"
+              style={{ display: "block", width: "100%", padding: 0, border: "none", background: "none", cursor: "zoom-in" }}
+            >
             <img
               src={gregPortrait}
               alt="Greg, a Woolet tester, wearing a wide-fit Woolet frame outdoors"
@@ -1930,6 +1941,7 @@ const KickstarterPrelaunch = () => {
               decoding="async"
               style={{ width: "100%", height: "auto", display: "block", aspectRatio: "4 / 5", objectFit: "cover" }}
             />
+            </button>
           </figure>
           <div>
             <Eyebrow>From a tester</Eyebrow>
@@ -2302,7 +2314,6 @@ const KickstarterPrelaunch = () => {
             onClose={closeLightbox}
             isMobile={isMobile}
             visible={lightboxOpen}
-            endCard={{ headline: "Your size exists." }}
             cta={{
               label: "Reserve founder price — $1",
               caption: "158 mm · Italian Mazzucchelli acetate · 100 Founders Editions",

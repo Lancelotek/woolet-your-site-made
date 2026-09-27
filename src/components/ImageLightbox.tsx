@@ -42,6 +42,7 @@ const ImageLightbox = ({
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
+  // Arrows are never inert: every tap moves. From the end card, › wraps to the first image.
   const showPrev = () => {
     if (atEnd) {
       setAtEnd(false);
@@ -51,7 +52,11 @@ const ImageLightbox = ({
   };
 
   const showNext = () => {
-    if (atEnd) return;
+    if (atEnd) {
+      setAtEnd(false);
+      onIndexChange(0);
+      return;
+    }
     if (index === images.length - 1) {
       if (endCard) {
         setAtEnd(true);
@@ -289,12 +294,18 @@ const ImageLightbox = ({
             src={current.src}
             alt={current.alt}
             decoding="async"
+            onClick={(e) => {
+              e.stopPropagation();
+              showNext();
+            }}
             style={{
               maxWidth: "100%",
               maxHeight: isMobile ? "calc(78vh - 80px)" : "calc(88vh - 80px)",
               objectFit: "contain",
               display: "block",
               border: `1px solid ${HAIRLINE}`,
+              cursor: "pointer",
+              touchAction: "pan-y",
             }}
           />
         )}
