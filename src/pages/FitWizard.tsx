@@ -1125,10 +1125,10 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
           style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.72rem" }}
         >
           <span className="text-cream-dim">
-            {claimed} / {FOUNDING_TOTAL} founding spots claimed
+            30 frames at $114
           </span>
           <span style={{ color: "hsl(var(--gold))", fontWeight: 600 }}>
-            {left} left for Woolet {sku}
+            then $190
           </span>
         </div>
         <div
@@ -1138,7 +1138,7 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
           aria-valuenow={pct}
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-label={`${claimed} of ${FOUNDING_TOTAL} founding spots claimed`}
+          aria-label="30 frames at $114, then $190"
         >
           <div
             style={{

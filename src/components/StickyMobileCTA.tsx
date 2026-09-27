@@ -61,7 +61,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
     window.location.href = hrefFor("lp.kickstarter", lang);
   }, [lang]);
 
-  const spotsText = t(lang, "sticky.spots").replace("{count}", String(count));
+  const spotsText = t(lang, "sticky.spots");
   const ctaText = t(lang, "sticky.cta");
 
   return (
