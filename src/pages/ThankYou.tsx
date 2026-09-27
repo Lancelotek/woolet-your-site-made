@@ -196,11 +196,7 @@ export default function ThankYou() {
           <div className="ty-a1" style={{ maxWidth: 300, width: "100%", marginBottom: 32 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
               <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", color: T.muted, fontFamily: "'DM Sans', sans-serif" }}>
-                FOUNDING SPOTS CLAIMED
-              </span>
-              <span style={{ fontSize: 14, fontFamily: "'Cormorant Garamond', serif" }}>
-                <span style={{ color: T.goldLight }}>{spotNum}</span>
-                <span style={{ color: "rgba(245,241,235,0.5)" }}> / {totalSpots}</span>
+                Only 30 frames at $114 - then $190
               </span>
             </div>
             <div style={{ height: 2, background: "rgba(245,241,235,0.08)", borderRadius: 1, overflow: "hidden" }}>
