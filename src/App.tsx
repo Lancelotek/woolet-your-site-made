@@ -134,6 +134,12 @@ const RedirectToEn = ({ to }: { to: string }) => {
   return <Navigate to={`/en${to}`} replace />;
 };
 
+/** Replace-redirect that keeps the query string (utm_source etc.) and hash. */
+const RedirectKeepQuery = ({ to }: { to: string }) => {
+  const { search, hash } = useLocation();
+  return <Navigate to={`${to}${search}${hash}`} replace />;
+};
+
 const RedirectCollectionToEn = () => {
   const { lang, slug } = useParams();
   if (lang === "en") return <NotFound />;
@@ -253,6 +259,9 @@ const App = () => (
            <Route path="/de/lp/kickstarter" element={<DeKickstarter />} />
           <Route path="/de/kollektion" element={<DeCollection />} />
           <Route path="/de/collection" element={<Navigate to="/de/kollektion" replace />} />
+          {/* Cited by AI assistants but never existed as DE pages. */}
+          <Route path="/de/xxl" element={<RedirectKeepQuery to="/de/brillen-fuer-grosse-koepfe" />} />
+          <Route path="/de/xxl/extra-wide-frames" element={<RedirectKeepQuery to="/de/brillen-fuer-grosse-koepfe" />} />
           <Route path="/en/lp/kickstarter/vip-confirmed" element={<KickstarterVipConfirmed />} />
           <Route path="/en/products/007" element={<ProductPage007 />} />
           <Route path="/en/products/009" element={<ProductPage009 />} />
