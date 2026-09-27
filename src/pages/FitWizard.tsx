@@ -1012,11 +1012,11 @@ const FOMO_COPY: Record<FomoVariant, {
       </>
     ),
     footnote: (
-      <>Hard commit: your $1 deposit secures all three perks. Mazzucchelli acetate runs in 100-frame batches per model — once founding spots fill, retail returns to <span className="line-through">$190</span>.</>
+      <>Hard commit: your $1 deposit secures all three perks. Only 30 frames go at $114 on Kickstarter - after that, retail returns to <span className="line-through">$190</span>.</>
     ),
   },
   B: {
-    badge: "Last founding batch · 100 frames",
+    badge: "30 frames at $114",
     headline: "$1 holds 40% off + priority shipping + free lens kit",
     priceLine: () => (
       <>
@@ -1026,7 +1026,7 @@ const FOMO_COPY: Record<FomoVariant, {
       </>
     ),
     footnote: (
-      <>Hard commit — refundable any time, but the three perks disappear when founding spots fill. Only 100 frames per model in this Mazzucchelli run before retail returns to <span className="line-through">$190</span>.</>
+      <>Hard commit — refundable any time, but the three perks disappear when founding spots fill. Only 30 frames go at $114 before retail returns to <span className="line-through">$190</span>.</>
     ),
   },
 };
@@ -1125,10 +1125,10 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
           style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.72rem" }}
         >
           <span className="text-cream-dim">
-            {claimed} / {FOUNDING_TOTAL} founding spots claimed
+            30 frames at $114
           </span>
           <span style={{ color: "hsl(var(--gold))", fontWeight: 600 }}>
-            {left} left for Woolet {sku}
+            then $190
           </span>
         </div>
         <div
@@ -1138,7 +1138,7 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
           aria-valuenow={pct}
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-label={`${claimed} of ${FOUNDING_TOTAL} founding spots claimed`}
+          aria-label="30 frames at $114, then $190"
         >
           <div
             style={{
