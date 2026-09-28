@@ -223,6 +223,21 @@ export default function BespokeAdmin() {
     return data as Record<string, unknown>;
   };
 
+  const deleteOrder = async (id: string, label: string) => {
+    if (!window.confirm(`Delete order ${label}? This removes the order and its events, scans, photos and invites. This cannot be undone.`)) return;
+    setBusy(`delete:${id}`);
+    setError(null);
+    try {
+      await call({ action: "delete", id });
+      setDetail(null);
+      setRows((prev) => prev.filter((r) => r.id !== id));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Delete failed");
+    } finally {
+      setBusy(null);
+    }
+  };
+
   const load = async (e?: React.FormEvent) => {
     e?.preventDefault();
     setLoading(true);
@@ -513,7 +528,13 @@ export default function BespokeAdmin() {
             </thead>
             <tbody>
               {visibleRows.map((r) => (
-                <tr key={r.id} style={{ borderBottom: `1px solid ${T.hair}` }}>
+                <tr
+                  key={r.id}
+                  onClick={() => void openDetail(r.id)}
+                  style={{ borderBottom: `1px solid ${T.hair}`, cursor: "pointer" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(194,160,90,0.05)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                >
                   <td style={{ padding: "12px 14px", color: T.dim, whiteSpace: "nowrap" }}>{fmtDate(r.created_at)}</td>
                   <td style={{ padding: "12px 14px" }}>
                     <div>{r.customer_name || "—"}</div>
@@ -531,7 +552,7 @@ export default function BespokeAdmin() {
                   <td style={{ padding: "12px 14px", color: T.dim }}>{r.frame_name || "—"}</td>
                   <td style={{ padding: "12px 14px", color: T.dim, minWidth: 180 }}>{lensWithStrength(r as Record<string, any>) || "—"}</td>
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
-                  <td style={{ padding: "12px 14px" }}>
+                  <td style={{ padding: "12px 14px" }} onClick={(e) => e.stopPropagation()}>
                     <StageCell
                       order={r as unknown as Record<string, unknown>}
                       busy={busy === `stage:${r.id}`}
@@ -565,7 +586,7 @@ export default function BespokeAdmin() {
                       {r.production_blocked && pill("Check fit", true)}
                     </div>
                   </td>
-                  <td style={{ padding: "12px 14px", textAlign: "right", whiteSpace: "nowrap" }}>
+                  <td style={{ padding: "12px 14px", textAlign: "right", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
                     {(r as any).brief_path ? (
                       <button
                         onClick={() => downloadBrief(password, r.id).catch((err) => setError(err instanceof Error ? err.message : "Download failed"))}
@@ -624,6 +645,7 @@ export default function BespokeAdmin() {
                 onZip={() => downloadBundle(detail)}
                 onRender={() => renderPreview(detail)}
                 onOrderChange={(patch) => applyOrderPatch(String(detail.order.id), patch)}
+                onDelete={() => void deleteOrder(String(detail.order.id), String(detail.order.case_no ?? detail.order.customer_email ?? ""))}
                 busy={busy}
               />
             )}
@@ -975,7 +997,7 @@ function ScansBlock({ scans }: { scans: ScanRow[] }) {
 }
 
 function DetailView({
-  detail, password, onClose, onPdf, onZip, onRender, onOrderChange, busy,
+  detail, password, onClose, onPdf, onZip, onRender, onOrderChange, onDelete, busy,
 }: {
   detail: Detail;
   password: string;
@@ -984,6 +1006,7 @@ function DetailView({
   onZip: () => void;
   onRender: () => void;
   onOrderChange: (patch: Record<string, unknown>) => void;
+  onDelete: () => void;
   busy: string | null;
 }) {
   const o = detail.order as Record<string, any>;
@@ -999,7 +1022,16 @@ function DetailView({
           <h2 style={{ fontFamily: SERIF, fontSize: 26, margin: 0 }}>{o.frame_name || "Bespoke order"}</h2>
           <div style={{ color: T.mute, fontSize: 12, marginTop: 4 }}>{fmtDate(o.created_at)} · {o.environment}</div>
         </div>
-        <button onClick={onClose} style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "6px 12px", borderRadius: 2, cursor: "pointer" }}>Close</button>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button
+            onClick={onDelete}
+            disabled={busy !== null}
+            style={{ background: "none", border: "1px solid rgba(193,58,46,0.55)", color: "#e2725b", padding: "6px 12px", borderRadius: 2, cursor: "pointer" }}
+          >
+            {busy?.startsWith("delete:") ? "Deleting…" : "Delete"}
+          </button>
+          <button onClick={onClose} style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "6px 12px", borderRadius: 2, cursor: "pointer" }}>Close</button>
+        </div>
       </div>
 
       <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>

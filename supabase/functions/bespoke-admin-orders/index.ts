@@ -313,6 +313,55 @@ Deno.serve(async (req) => {
       return json({ preview_url: signed?.signedUrl ?? null });
     }
 
+    // ---- Delete an order (test rows, duplicates). Removes dependent rows
+    // first, then the order itself; storage cleanup is best-effort.
+    if (act === "delete") {
+      const id = body.id ?? "";
+      if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
+      const { data: order, error } = await admin
+        .from("bespoke_orders")
+        .select("id, case_no, brief_path, dossier_path, ai_preview_path")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      if (!order) return json({ error: "not_found" }, 404);
+
+      const { data: photoRows } = await admin
+        .from("bespoke_order_photos")
+        .select("photo_path, geometry_path, vto_path")
+        .eq("order_id", id);
+
+      for (const table of [
+        "bespoke_crm_events",
+        "bespoke_measure_invites",
+        "bespoke_order_photos",
+        "bespoke_report_verifications",
+        "bespoke_scan_contexts",
+        "bespoke_scan_profiles",
+        "bespoke_stage_history",
+      ]) {
+        const { error: delErr } = await admin.from(table).delete().eq("order_id", id);
+        if (delErr) throw delErr;
+      }
+      const { error: orderDelErr } = await admin.from("bespoke_orders").delete().eq("id", id);
+      if (orderDelErr) throw orderDelErr;
+
+      // Best-effort storage cleanup — failures here must not fail the delete.
+      try {
+        const photoPaths = (photoRows ?? [])
+          .flatMap((r) => [r.photo_path, r.geometry_path, r.vto_path])
+          .filter((p): p is string => Boolean(p));
+        if (photoPaths.length) await admin.storage.from("bespoke-photos").remove(photoPaths);
+        if (order.brief_path) await admin.storage.from("bespoke-cad").remove([order.brief_path]);
+        if (order.dossier_path) await admin.storage.from("bespoke-cad").remove([order.dossier_path]);
+        if (order.ai_preview_path) await admin.storage.from(PREVIEW_BUCKET).remove([order.ai_preview_path]);
+      } catch (e) {
+        console.warn("[bespoke-admin-orders] storage cleanup after delete", e);
+      }
+
+      return json({ ok: true, deleted: id, case_no: order.case_no ?? null });
+    }
+
     const { data: orders, error: listError } = await admin
       .from("bespoke_orders")
       .select(
