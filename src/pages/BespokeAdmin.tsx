@@ -543,12 +543,20 @@ export default function BespokeAdmin() {
                       {(() => {
                         const gaps = bespokeOrderGaps(r as Record<string, unknown>);
                         return gaps.length > 0 ? (
-                          <span
-                            title={gaps.join(" | ")}
-                            style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", padding: "3px 8px", borderRadius: 2, border: "1px solid rgba(193,58,46,0.55)", color: "#e2725b" }}
-                          >
-                            On hold · {gaps.length}
-                          </span>
+                          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                            <span
+                              style={{ alignSelf: "flex-start", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", padding: "3px 8px", borderRadius: 2, border: "1px solid rgba(193,58,46,0.55)", color: "#e2725b" }}
+                            >
+                              On hold · {gaps.length}
+                            </span>
+                            <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                              {gaps.map((g) => (
+                                <li key={g} style={{ fontSize: 11, lineHeight: 1.45, color: "#e2725b", maxWidth: 240 }}>
+                                  · {g}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         ) : null;
                       })()}
                       {pill("Measurements", Boolean(r.measurements_submitted_at))}
