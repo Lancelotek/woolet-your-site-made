@@ -997,7 +997,7 @@ function ScansBlock({ scans }: { scans: ScanRow[] }) {
 }
 
 function DetailView({
-  detail, password, onClose, onPdf, onZip, onRender, onOrderChange, busy,
+  detail, password, onClose, onPdf, onZip, onRender, onOrderChange, onDelete, busy,
 }: {
   detail: Detail;
   password: string;
@@ -1006,6 +1006,7 @@ function DetailView({
   onZip: () => void;
   onRender: () => void;
   onOrderChange: (patch: Record<string, unknown>) => void;
+  onDelete: () => void;
   busy: string | null;
 }) {
   const o = detail.order as Record<string, any>;
@@ -1021,7 +1022,16 @@ function DetailView({
           <h2 style={{ fontFamily: SERIF, fontSize: 26, margin: 0 }}>{o.frame_name || "Bespoke order"}</h2>
           <div style={{ color: T.mute, fontSize: 12, marginTop: 4 }}>{fmtDate(o.created_at)} · {o.environment}</div>
         </div>
-        <button onClick={onClose} style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "6px 12px", borderRadius: 2, cursor: "pointer" }}>Close</button>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button
+            onClick={onDelete}
+            disabled={busy !== null}
+            style={{ background: "none", border: "1px solid rgba(193,58,46,0.55)", color: "#e2725b", padding: "6px 12px", borderRadius: 2, cursor: "pointer" }}
+          >
+            {busy?.startsWith("delete:") ? "Deleting…" : "Delete"}
+          </button>
+          <button onClick={onClose} style={{ background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "6px 12px", borderRadius: 2, cursor: "pointer" }}>Close</button>
+        </div>
       </div>
 
       <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>
