@@ -223,6 +223,21 @@ export default function BespokeAdmin() {
     return data as Record<string, unknown>;
   };
 
+  const deleteOrder = async (id: string, label: string) => {
+    if (!window.confirm(`Delete order ${label}? This removes the order and its events, scans, photos and invites. This cannot be undone.`)) return;
+    setBusy(`delete:${id}`);
+    setError(null);
+    try {
+      await call({ action: "delete", id });
+      setDetail(null);
+      setRows((prev) => prev.filter((r) => r.id !== id));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Delete failed");
+    } finally {
+      setBusy(null);
+    }
+  };
+
   const load = async (e?: React.FormEvent) => {
     e?.preventDefault();
     setLoading(true);
@@ -630,6 +645,7 @@ export default function BespokeAdmin() {
                 onZip={() => downloadBundle(detail)}
                 onRender={() => renderPreview(detail)}
                 onOrderChange={(patch) => applyOrderPatch(String(detail.order.id), patch)}
+                onDelete={() => void deleteOrder(String(detail.order.id), String(detail.order.case_no ?? detail.order.customer_email ?? ""))}
                 busy={busy}
               />
             )}
