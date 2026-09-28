@@ -513,7 +513,13 @@ export default function BespokeAdmin() {
             </thead>
             <tbody>
               {visibleRows.map((r) => (
-                <tr key={r.id} style={{ borderBottom: `1px solid ${T.hair}` }}>
+                <tr
+                  key={r.id}
+                  onClick={() => void openDetail(r.id)}
+                  style={{ borderBottom: `1px solid ${T.hair}`, cursor: "pointer" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(194,160,90,0.05)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                >
                   <td style={{ padding: "12px 14px", color: T.dim, whiteSpace: "nowrap" }}>{fmtDate(r.created_at)}</td>
                   <td style={{ padding: "12px 14px" }}>
                     <div>{r.customer_name || "—"}</div>
@@ -531,7 +537,7 @@ export default function BespokeAdmin() {
                   <td style={{ padding: "12px 14px", color: T.dim }}>{r.frame_name || "—"}</td>
                   <td style={{ padding: "12px 14px", color: T.dim, minWidth: 180 }}>{lensWithStrength(r as Record<string, any>) || "—"}</td>
                   <td style={{ padding: "12px 14px", whiteSpace: "nowrap" }}>{fmtAmount(r.amount_cents, r.currency)}</td>
-                  <td style={{ padding: "12px 14px" }}>
+                  <td style={{ padding: "12px 14px" }} onClick={(e) => e.stopPropagation()}>
                     <StageCell
                       order={r as unknown as Record<string, unknown>}
                       busy={busy === `stage:${r.id}`}
@@ -565,7 +571,7 @@ export default function BespokeAdmin() {
                       {r.production_blocked && pill("Check fit", true)}
                     </div>
                   </td>
-                  <td style={{ padding: "12px 14px", textAlign: "right", whiteSpace: "nowrap" }}>
+                  <td style={{ padding: "12px 14px", textAlign: "right", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
                     {(r as any).brief_path ? (
                       <button
                         onClick={() => downloadBrief(password, r.id).catch((err) => setError(err instanceof Error ? err.message : "Download failed"))}
