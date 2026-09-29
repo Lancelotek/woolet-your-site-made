@@ -1004,6 +1004,7 @@ const KickstarterPrelaunch = () => {
     [utmContentParam],
   );
 
+  const pageNavigate = useNavigate();
   const [activeImg, setActiveImg] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxClosing, setLightboxClosing] = useState(false);
@@ -1876,15 +1877,13 @@ const KickstarterPrelaunch = () => {
               <div key={i} style={{ border: `1px solid ${HAIRLINE}` }}>
                 <button
                   type="button"
-                  onClick={(e) =>
-                    openLightbox(BESPOKE_LIGHTBOX_OFFSET + i, "gallery", e.currentTarget)
-                  }
-                  aria-label={`Enlarge: ${f.alt}`}
+                  onClick={() => pageNavigate("/en/bespoke")}
+                  aria-label={`Bespoke: ${f.alt}`}
                   style={{
                     padding: 0,
                     border: "none",
                     background: CREAM,
-                    cursor: "zoom-in",
+                    cursor: "pointer",
                     display: "block",
                     width: "100%",
                     aspectRatio: "1 / 1",
