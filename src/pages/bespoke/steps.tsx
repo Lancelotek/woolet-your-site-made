@@ -37,6 +37,7 @@ import {
   selectedLensTint,
   lensTintCode,
   isReadingStrengthComplete,
+  computePricing,
 } from "@/lib/bespoke-state";
 import { claritySet } from "@/lib/clarity";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
