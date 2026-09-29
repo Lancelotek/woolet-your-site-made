@@ -9,6 +9,7 @@ import { template as bespokeScanInvite } from './bespoke-scan-invite.tsx'
 import { template as bespokeSupportAlert } from './bespoke-support-alert.tsx'
 import { template as vipWaitlistConfirmation } from './vip-waitlist-confirmation.tsx'
 import { template as vipReservationPaid } from './vip-reservation-paid.tsx'
+import { template as hatSizeCard } from './hat-size-card.tsx'
 
 
 export interface TemplateEntry {
@@ -30,5 +31,6 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'bespoke-support-alert': bespokeSupportAlert,
   'vip-waitlist-confirmation': vipWaitlistConfirmation,
   'vip-reservation-paid': vipReservationPaid,
+  'hat-size-card': hatSizeCard,
 }
 

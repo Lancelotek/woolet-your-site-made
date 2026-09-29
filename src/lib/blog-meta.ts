@@ -172,19 +172,22 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
 
   // ── EN: hats (face-measurement crossover) ────────────────────────────
   "how-to-measure-your-head-for-a-hat": {
-    metaTitle: "How to Measure Your Head for a Hat (60 sec, No Tape)",
+    metaTitle: "How to Measure Your Head for a Hat (60 Seconds, Tape or String)",
+    exactTitle: true,
     metaDescription:
-      "Measure your head circumference in 60 seconds and find your true hat size — with or without a tape. Full cm ↔ inches chart, built for 7¾+ heads.",
+      "Wrap a tape 1 cm above your ears and eyebrows, read the cm, round up. Then convert to US, UK and EU sizes with the chart.",
   },
   "hat-size-chart-guide-cm-inches-us-uk-eu": {
-    metaTitle: "Hat Size Chart: US, UK, EU, cm & inches (Full Guide)",
+    metaTitle: "Hat Size Chart: cm, Inches, US, UK & EU (53–66 cm)",
+    exactTitle: true,
     metaDescription:
-      "Hat size chart converting US, UK, EU, cm and inches — plus what your hat size tells you about the glasses width you need (58 cm = 155 mm temples).",
+      "58 cm = 7¼ US, 60 cm = 7½, 61 cm = 7⅝, 62 cm = 7¾. Full chart in cm and inches, plus the glasses width each hat size needs.",
   },
   "what-size-hat-do-i-wear-big-heads-guide": {
-    metaTitle: "What Size Hat Do I Wear? Big Heads Guide (7¾ and Up)",
+    metaTitle: "What Size Hat Do I Wear? Big Head Sizes 7¼–8 (58–64 cm)",
+    exactTitle: true,
     metaDescription:
-      "A no-guessing hat size guide for bigger heads. What 7¾, 7⅞ and 8 really mean in cm and inches, how head size tracks height, and where to buy XL fits.",
+      "Measure 1 cm above your ears. 58 cm = 7¼, 60 cm = 7½, 62 cm = 7¾, 64 cm = 8. Where to buy XL hats — and why your glasses feel tight too.",
   },
 
   // ── PL ───────────────────────────────────────────────────────────────
