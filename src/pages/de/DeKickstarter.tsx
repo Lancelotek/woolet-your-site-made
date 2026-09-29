@@ -1,3 +1,4 @@
+import { commerceJson } from "@/lib/schema-offer";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -50,7 +51,7 @@ export default function DeKickstarter() {
         <meta property="og:url" content={`${SITE}/de/lp/kickstarter`} />
         <meta property="og:image" content={`${SITE}${heroAsset.url}`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(offer)}</script>
+        <script type="application/ld+json">{commerceJson(offer)}</script>
       </Helmet>
 
       <Navbar />

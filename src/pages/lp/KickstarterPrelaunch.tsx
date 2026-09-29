@@ -1,3 +1,4 @@
+import { commerceJson } from "@/lib/schema-offer";
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -1194,7 +1195,7 @@ const KickstarterPrelaunch = () => {
         <meta name="twitter:title" content="Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)" />
         <meta name="twitter:description" content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. VIP early access and up to 40% off." />
         <meta name="twitter:image" content={heroManAsset.url} />
-        <script type="application/ld+json">{JSON.stringify({
+        <script type="application/ld+json">{commerceJson({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
@@ -1202,7 +1203,7 @@ const KickstarterPrelaunch = () => {
             { "@type": "ListItem", position: 2, name: "Kickstarter VIP", item: "https://woolet.co/en/lp/kickstarter" },
           ],
         })}</script>
-        <script type="application/ld+json">{JSON.stringify({
+        <script type="application/ld+json">{commerceJson({
           "@context": "https://schema.org",
           "@type": "ItemList",
           name: "Woolet Kickstarter — signature frames",
@@ -1271,7 +1272,7 @@ const KickstarterPrelaunch = () => {
             },
           ],
         })}</script>
-        <script type="application/ld+json">{JSON.stringify({
+        <script type="application/ld+json">{commerceJson({
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: faqs.map((f) => ({

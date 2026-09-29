@@ -1,3 +1,4 @@
+import { commerceJson } from "@/lib/schema-offer";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -112,8 +113,8 @@ const ProductPage007 = () => {
         <meta property="og:image" content="https://woolet.co/og-007.png" />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd(lang, { id: "007", name: "Woolet 007", description: m.jsonLdDescription, image: "https://woolet.co/og-007.png", price: "114.00", variantOffers: lensOffers(canonical, "114.00", "USD") }))}</script>
-        <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet 007", "007"))}</script>
+        <script type="application/ld+json">{commerceJson(productJsonLd(lang, { id: "007", name: "Woolet 007", description: m.jsonLdDescription, image: "https://woolet.co/og-007.png", price: "114.00", variantOffers: lensOffers(canonical, "114.00", "USD") }))}</script>
+        <script type="application/ld+json">{commerceJson(productBreadcrumbJsonLd(lang, "Woolet 007", "007"))}</script>
       </Helmet>
 
       <Navbar />
