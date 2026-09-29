@@ -19,6 +19,13 @@ import { trackFitCtas } from "@/lib/blog-cta-tracking";
 import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
 import BridgeFitExplainer from "@/components/BridgeFitExplainer";
 import { BRIDGE_BLOG_INTRO_START } from "@/content/bridgeFit";
+import HatGlassesCard from "@/components/HatGlassesCard";
+
+const HAT_BRIDGE_POSTS = new Set([
+  "hat-size-chart-guide-cm-inches-us-uk-eu",
+  "what-size-hat-do-i-wear-big-heads-guide",
+  "how-to-measure-your-head-for-a-hat",
+]);
 
 /* ── helpers ── */
 
@@ -170,6 +177,19 @@ const BlogPost = () => {
     () => (showFitLensHook ? splitBeforeFirstH2(processedContent) : [processedContent, ""]),
     [processedContent, showFitLensHook],
   );
+  const showHatBridge = currentLang === "en" && HAT_BRIDGE_POSTS.has(slug);
+  // Card goes right after the first table, or before the first H2 when the
+  // table sits lower (first answer block).
+  const hatSplit = useMemo(() => {
+    if (!showHatBridge) return -1;
+    const h2 = introContent.search(/<h2[\s>]/i);
+    const t = introContent.indexOf("</table>");
+    if (t >= 0 && (h2 < 0 || t < h2)) {
+      const d = introContent.indexOf("</div>", t);
+      return d >= 0 ? d + 6 : t + 8;
+    }
+    return h2;
+  }, [introContent, showHatBridge]);
   const bridgeIntroEnd = showBridgeFit ? introContent.indexOf("</p>", introContent.indexOf(BRIDGE_BLOG_INTRO_START)) + 4 : -1;
 
   // Instrument FitLens CTAs inside the injected article HTML. Runs after the
@@ -389,7 +409,11 @@ const BlogPost = () => {
 
         {/* Article body */}
         <div ref={bodyRef} className="woolet-blog-content">
-          {showBridgeFit && bridgeIntroEnd > 3 ? <>
+          {showHatBridge && hatSplit > 0 ? <>
+            <div dangerouslySetInnerHTML={{ __html: introContent.slice(0, hatSplit) }} />
+            <HatGlassesCard variant="compact" />
+            <div dangerouslySetInnerHTML={{ __html: introContent.slice(hatSplit) }} />
+          </> : showBridgeFit && bridgeIntroEnd > 3 ? <>
             <div dangerouslySetInnerHTML={{ __html: introContent.slice(0, bridgeIntroEnd) }} />
             <BridgeFitExplainer />
             <div dangerouslySetInnerHTML={{ __html: introContent.slice(bridgeIntroEnd) }} />
