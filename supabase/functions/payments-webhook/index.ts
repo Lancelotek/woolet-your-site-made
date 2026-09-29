@@ -905,6 +905,14 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   if (flow === "bespoke") {
     await handleBespokeCheckoutCompleted(session, env);
     await fireMetaPurchase(session);
+    if (env === "live") {
+      try {
+        const { paidSource, metadata } = await resolvePaidSource(session, createStripeClient(env));
+        await fireGa4Conversion({ ...session, metadata }, env, "bespoke", paidSource);
+      } catch (e) {
+        console.error("[ga4] bespoke attribution failed", e);
+      }
+    }
     return;
   }
 
@@ -975,7 +983,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   }
 
   await fireMetaPurchase(session);
-
+  await fireGa4Conversion(session, env, "reservation", paidSource);
 }
 
 Deno.serve(async (req) => {
