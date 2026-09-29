@@ -1,3 +1,4 @@
+import { commerceJson } from "@/lib/schema-offer";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -106,9 +107,9 @@ export default function NlLandingPage({ config }: { config: NlPageConfig }) {
         <meta name="twitter:description" content={config.metaDescription} />
         <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
-        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+        <script type="application/ld+json">{commerceJson(productJsonLd)}</script>
+        <script type="application/ld+json">{commerceJson(faqJsonLd)}</script>
+        <script type="application/ld+json">{commerceJson(breadcrumbJsonLd)}</script>
       </Helmet>
 
       <main style={{ background: colors.ink, color: colors.cream, minHeight: "100vh" }}>

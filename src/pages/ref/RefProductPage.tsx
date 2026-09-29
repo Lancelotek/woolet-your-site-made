@@ -1,3 +1,4 @@
+import { commerceJson } from "@/lib/schema-offer";
 import { useEffect, useState, lazy } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -184,8 +185,8 @@ const RefProductPage = () => {
         <meta property="og:image" content={hero.src} />
         <meta property="og:url" content={canonical} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+        <script type="application/ld+json">{commerceJson(productJsonLd)}</script>
+        <script type="application/ld+json">{commerceJson(breadcrumbJsonLd)}</script>
       </Helmet>
 
       <Navbar />

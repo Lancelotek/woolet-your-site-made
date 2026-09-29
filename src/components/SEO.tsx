@@ -1,3 +1,4 @@
+import { commerceJson } from "@/lib/schema-offer";
 import { WOOLET_BRAND_PROFILES } from "@/content/brandProfiles";
 import { Helmet } from "react-helmet-async";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
@@ -270,16 +271,16 @@ const SEO = ({
 
       {/* Organization, WebSite, and Product schemas live in index.html (single source) */}
       {articleJsonLd && (
-        <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
+        <script type="application/ld+json">{commerceJson(articleJsonLd)}</script>
       )}
       {featuredImageNode && (
-        <script type="application/ld+json">{JSON.stringify(featuredImageNode)}</script>
+        <script type="application/ld+json">{commerceJson(featuredImageNode)}</script>
       )}
       {authorNode && (
-        <script type="application/ld+json">{JSON.stringify(authorNode)}</script>
+        <script type="application/ld+json">{commerceJson(authorNode)}</script>
       )}
       {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((obj, i) => (
-        <script key={i} type="application/ld+json">{JSON.stringify(obj)}</script>
+        <script key={i} type="application/ld+json">{commerceJson(obj)}</script>
       ))}
     </Helmet>
   );

@@ -1,3 +1,4 @@
+import { commerceJson } from "@/lib/schema-offer";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -107,7 +108,7 @@ const ProductPageBespoke = () => {
         <meta property="og:url" content={canonical} />
         <meta property="og:locale" content={lang === "nl" ? "nl_NL" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(productBreadcrumbJsonLd(lang, "Woolet Bespoke", "bespoke"))}</script>
+        <script type="application/ld+json">{commerceJson(productBreadcrumbJsonLd(lang, "Woolet Bespoke", "bespoke"))}</script>
 
       </Helmet>
 

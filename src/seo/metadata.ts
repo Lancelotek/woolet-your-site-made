@@ -12,6 +12,7 @@
  * `getMetadata()`. Anything not matched falls back to the homepage meta.
  */
 
+import { commerceJson } from "../lib/schema-offer";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { hreflangAlternates } from "@/i18n/routeRegistry";
@@ -2304,7 +2305,7 @@ export function renderHeadHtml(meta: RouteMeta): string {
   tags.push(`<meta name="twitter:site" content="@WooletEyewear"${D} />`);
 
   for (const obj of meta.jsonLd) {
-    tags.push(`<script type="application/ld+json"${D}>${JSON.stringify(obj)}</script>`);
+    tags.push(`<script type="application/ld+json"${D}>${commerceJson(obj)}</script>`);
   }
 
   return tags.join("\n    ");

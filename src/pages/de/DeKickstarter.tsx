@@ -1,3 +1,4 @@
+import { commerceJson } from "@/lib/schema-offer";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -22,7 +23,7 @@ export default function DeKickstarter() {
     "@type": "Product",
     name: "Woolet Founders Edition",
     description: "Breite Acetatbrille in 158 mm, handgefertigt in der EU. Founding-Preis für die ersten 100 Reservierungen.",
-    image: `${SITE}${heroAsset.url}`,
+    image: ["https://woolet.co/og-image.png", "https://woolet.co/og-007.png", "https://woolet.co/og-009.png"],
     brand: { "@type": "Brand", name: "Woolet" },
     offers: {
       "@type": "Offer",
@@ -50,7 +51,7 @@ export default function DeKickstarter() {
         <meta property="og:url" content={`${SITE}/de/lp/kickstarter`} />
         <meta property="og:image" content={`${SITE}${heroAsset.url}`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(offer)}</script>
+        <script type="application/ld+json">{commerceJson(offer)}</script>
       </Helmet>
 
       <Navbar />
