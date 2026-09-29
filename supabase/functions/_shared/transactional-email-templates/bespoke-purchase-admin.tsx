@@ -117,7 +117,7 @@ export const template = {
   subject: (data: Record<string, any>) =>
     `[Woolet Bespoke] New order — ${data.frameName ?? 'made-to-measure'} — ${data.amountFormatted ?? ''}`.trim(),
   displayName: 'Bespoke — Internal Order Alert',
-  to: 'marek@woolet.co',
+  to: 'support@woolet.co',
   previewData: {
     customerEmail: 'jane@example.com',
     customerName: 'Jane Doe',
