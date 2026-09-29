@@ -17,6 +17,8 @@ import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { trackFitCtas } from "@/lib/blog-cta-tracking";
 import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
+import BridgeFitExplainer from "@/components/BridgeFitExplainer";
+import { BRIDGE_BLOG_INTRO_START } from "@/content/bridgeFit";
 
 /* ── helpers ── */
 
@@ -163,10 +165,12 @@ const BlogPost = () => {
   const headings = useMemo(() => extractH2s(enhancedContent), [enhancedContent]);
   const processedContent = useMemo(() => processContent(enhancedContent, currentLang), [enhancedContent, currentLang]);
   const showFitLensHook = currentLang === "en" && BLOG_FITLENS_HOOK_POSTS.has(slug);
+  const showBridgeFit = currentLang === "en" && slug === "glasses-for-wide-nose-bridge-21-22mm-explained";
   const [introContent, remainingContent] = useMemo(
     () => (showFitLensHook ? splitBeforeFirstH2(processedContent) : [processedContent, ""]),
     [processedContent, showFitLensHook],
   );
+  const bridgeIntroEnd = showBridgeFit ? introContent.indexOf("</p>", introContent.indexOf(BRIDGE_BLOG_INTRO_START)) + 4 : -1;
 
   // Instrument FitLens CTAs inside the injected article HTML. Runs after the
   // body is in the DOM and re-runs whenever the article changes.
@@ -385,9 +389,17 @@ const BlogPost = () => {
 
         {/* Article body */}
         <div ref={bodyRef} className="woolet-blog-content">
-          <div dangerouslySetInnerHTML={{ __html: introContent }} />
+          {showBridgeFit && bridgeIntroEnd > 3 ? <>
+            <div dangerouslySetInnerHTML={{ __html: introContent.slice(0, bridgeIntroEnd) }} />
+            <BridgeFitExplainer />
+            <div dangerouslySetInnerHTML={{ __html: introContent.slice(bridgeIntroEnd) }} />
+          </> : <div dangerouslySetInnerHTML={{ __html: introContent }} />}
           {showFitLensHook && <BlogFitLensHook />}
           {remainingContent && <div dangerouslySetInnerHTML={{ __html: remainingContent }} />}
+          {showBridgeFit && <section aria-label="Bridge fit questions" className="my-12">
+            <h2>Wide nose bridge fit questions</h2>
+            {post.faq?.map((item) => <div key={item.q} className="my-5"><h3>{item.q}</h3><p>{item.a}</p></div>)}
+          </section>}
         </div>
 
         <RelatedPosts currentSlug={post.slug} lang={currentLang} />

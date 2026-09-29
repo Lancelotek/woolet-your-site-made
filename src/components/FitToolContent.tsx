@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FIT_FAQ, FIT_BANDS } from "@/seo/fit-faq";
+import BridgeFitExplainer from "@/components/BridgeFitExplainer";
 
 /* ─────────────────────────────────────────────
    Shared primitives
@@ -416,6 +417,8 @@ export default function FitToolContent() {
       </Section>
 
       {/* Privacy */}
+      <BridgeFitExplainer hideButton />
+
       <Section>
         <Eyebrow>Privacy</Eyebrow>
         <SectionTitle>What happens to the photo</SectionTitle>

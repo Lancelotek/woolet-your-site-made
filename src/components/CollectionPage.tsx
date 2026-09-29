@@ -3,6 +3,7 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RelatedGuides from "@/components/RelatedGuides";
+import BridgeFitExplainer from "@/components/BridgeFitExplainer";
 
 export interface CollectionFAQ {
   question: string;
@@ -187,6 +188,8 @@ const CollectionPage = ({
           )}
           <p style={{ fontSize: 15, lineHeight: 1.65, color: "#333", margin: 0 }}>{intro}</p>
         </header>
+
+        {slug === "keyhole-bridge-glasses" && <div style={{ maxWidth: 860, margin: "0 auto" }}><BridgeFitExplainer variant="compact" /></div>}
 
         {/* Product cards */}
         <section aria-label="Featured frames" style={{ maxWidth: 760, margin: "0 auto", padding: "24px 20px" }}>

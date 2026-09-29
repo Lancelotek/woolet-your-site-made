@@ -14,6 +14,7 @@ import { PDP_COPY, pdpLang, usd } from "@/i18n/productPageCopy";
 import sqHavana from "@/assets/frames-2026/square-havana.asset.json";
 import sqBlack from "@/assets/frames-2026/square-black.asset.json";
 import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
+import BridgeFitExplainer from "@/components/BridgeFitExplainer";
 
 const T = {
   canvas: "#efe9df",
@@ -255,6 +256,8 @@ const ProductPage009 = () => {
           </section>
 
           {/* Lens options */}
+          {lang === "en" && <BridgeFitExplainer variant="compact" />}
+
           <LensOptions productId="009" specs={enSpecs} framePrice="114" lang={pl} />
 
 

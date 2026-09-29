@@ -27,7 +27,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   },
 
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
-    metaTitle: "Glasses for a Wide Nose Bridge (21–22 mm Explained)",
+    metaTitle: "Wide Nose Bridge Glasses (21–22 mm Explained)",
     metaDescription:
       "Most frames cap at 18 mm. See what a 21–22 mm bridge changes for a wide nose, why keyhole beats saddle, and which brands actually stock it.",
   },

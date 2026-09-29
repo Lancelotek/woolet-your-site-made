@@ -1,4 +1,5 @@
 import type { Lang } from "./i18n";
+import { BRIDGE_FIT_FAQ } from "@/content/bridgeFit";
 
 export interface BlogPost {
   slug: string;
@@ -474,12 +475,13 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "glasses-for-wide-nose-bridge-21-22mm-explained",
-    title: "Glasses for a Wide Nose Bridge: What 21–22 mm Actually Means",
+    title: "Wide Nose Bridge Glasses: What 21–22 mm Actually Means",
     excerpt: "Most brands cap the bridge at 18 mm. Here's what 21–22 mm changes for wide nose bridges, big noses, and keyhole vs saddle fit.",
     date: "2026-06-12",
     readTime: 11,
     tags: ["Guide", "Wide Nose Bridge", "Fit"],
     faq: [
+      ...BRIDGE_FIT_FAQ,
       { q: "What counts as a wide nose bridge in glasses?", a: "Bridge widths under 17 mm are narrow, 17–20 mm is the mainstream range, and 21 mm and above is wide. Most brands top out at 18 mm. Anyone with a wider or higher nose typically needs 21 mm or more for the frame to sit on the bone instead of pinching cartilage." },
       { q: "What does the bridge measurement actually mean?", a: "It's the distance in millimeters between the two lenses, measured at the narrowest point of the bridge. It's the second number on the inside of the temple — e.g. 52□18 means a 52 mm lens and an 18 mm bridge. Bridge width determines where the frame sits on the nose and how evenly weight is distributed." },
       { q: "What's the widest standard bridge Woolet makes?", a: "21 mm on the round Woolet 007 and 22 mm on the soft-square Woolet 009. Bespoke covers 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 172 mm." },
@@ -489,7 +491,7 @@ const blogPostsEN: BlogPost[] = [
       { q: "Why don't mainstream brands offer wider bridges?", a: "Inventory economics. Running a tight 17/18/19 mm bridge range covers the statistical median and keeps SKUs low. Wider bridges mean slower-moving stock, so most brands ignore the category — which is the gap Woolet was built to fill." },
     ],
     content: `
-<p>If your glasses slide down within an hour, leave deep red marks on the sides of your nose, or sit visibly crooked, the cause is almost never the lens size or the temple length. It's the bridge — the small piece of acetate or metal between the two lenses — and specifically, that the bridge is too narrow for your nose.</p>
+<p>If you're looking for glasses for wide nose bridge fit because your glasses slide down within an hour, leave deep red marks on the sides of your nose, or sit visibly crooked, the cause is almost never the lens size or the temple length. It's the bridge — the small piece of acetate or metal between the two lenses — and specifically, that the bridge is too narrow for your nose.</p>
 
 <p>This is the most common fit problem in eyewear, and it's also the one mainstream brands solve worst. Walk into almost any optical store and the wide-bridge glasses cap around 17 or 18 mm. If your nose needs more, you've been quietly ignored by the industry.</p>
 

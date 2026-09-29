@@ -28,6 +28,8 @@ import { REF_PRODUCTS, refProductBySlug } from "@/data/reference-products";
 import { FIT_FAQ, FIT_BANDS } from "./fit-faq";
 import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
+import { BRIDGE_FIT_FAQ, bridgeFitPrerenderHtml, insertBridgeAfterBlogIntro } from "@/content/bridgeFit";
+import { WIDE_BRIDGE_GUIDE_FAQ } from "@/content/wideBridgeGuideFaq";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
 import { dePages, dePageOrder, dePageTitles, WIDTH_SLUGS } from "@/content/de/landingPages";
@@ -645,7 +647,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
 <p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
-<p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–172 mm available.</p>`,
+ <p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–172 mm available.</p>${bridgeFitPrerenderHtml("compact")}`,
       },
       nl: {
         title: "Woolet 007 — ronde panto acetaatbril, 158 mm",
@@ -687,7 +689,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
-<p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–172 mm available.</p>`,
+ <p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–172 mm available.</p>${bridgeFitPrerenderHtml("compact")}`,
       },
       nl: {
         title: "Woolet 009 — vierkante acetaatbril, 158 mm",
@@ -905,6 +907,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>A virtual try-on shows how frames look. FitLens shows whether they will actually fit a 155&nbsp;mm+ face. Appearance is subjective; fit is a number in millimetres.</p>
 <h2>Your result explained</h2>
 <ul>${FIT_BANDS.map((b) => `<li><strong>${escapeHtml(b.range)}</strong> — ${escapeHtml(b.verdict)}. ${escapeHtml(b.size)}.</li>`).join("")}</ul>
+ ${bridgeFitPrerenderHtml("full", true)}
 <h2>Privacy</h2>
 <p>The camera frame is processed to extract measurements and is not kept as an identifiable profile. Only the resulting numbers persist, and only if you save or email your result.</p>
 <h2>FAQ</h2>
@@ -1156,7 +1159,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     const meta = base(route, lang, {
       title: c.title,
       description: c.description,
-      noscriptHtml: `<h1>${escapeHtml(c.h1)}</h1>\n<p>${escapeHtml(c.intro)}</p>`,
+      noscriptHtml: `<h1>${escapeHtml(c.h1)}</h1>\n<p>${escapeHtml(c.intro)}</p>${path === "/collections/keyhole-bridge-glasses" ? bridgeFitPrerenderHtml("compact") : ""}`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -1212,14 +1215,16 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         "A wide nose bridge changes where glasses sit, pinch and slide. How to size one, what bridge width to look for, and why Woolet uses a 20–21 mm keyhole bridge on a 158 mm front. Hand made in EU.",
       noscriptHtml: `<h1>Wide Bridge Fit Guide</h1>
 <p>A wide nose bridge changes where a frame sits, where it pinches and how fast it slides. Most mainstream frames use a 16–18 mm bridge; a wider or higher nose usually needs 20–22 mm before the frame stops sliding or leaving marks.</p>
+ ${bridgeFitPrerenderHtml()}
 <h2>How to measure your bridge width</h2>
 <p>Measure the gap between the inner edges of your lenses on a pair that already sits well, or measure across the top of your nose where the frame rests. Under 17 mm is narrow, 17–20 mm is mainstream, 21 mm and above is wide.</p>
 <h2>Why a keyhole bridge works on a wide nose</h2>
 <p>A keyhole bridge rides on the top ridge of the nose instead of pinching the sides, so the weight sits on bone rather than cartilage. That removes the two usual failure modes: sliding and red pressure marks.</p>
 <h2>Woolet's bridge specs</h2>
 <p>Woolet 007 ships with a 21 mm keyhole bridge, Woolet 009 with 22 mm, both on a 158 mm signature front width (fit range 155–161 mm). Bespoke covers fronts from 145 to 172 mm with bridges from 20 to 24 mm. Cut from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
-<p><a href="/en/fit">Measure your bridge in 20 seconds</a> · <a href="/en/collections/wide-bridge-glasses">See wide bridge glasses</a></p>`,
-    }, { type: "article" });
+ <p><a href="/en/fit">Measure your bridge in 20 seconds</a> · <a href="/en/collections/wide-bridge-glasses">See wide bridge glasses</a></p>
+ <h2>FAQ</h2><dl>${WIDE_BRIDGE_GUIDE_FAQ.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>`,
+    }, { type: "article" }, [faqPageJsonLd(WIDE_BRIDGE_GUIDE_FAQ)]);
   }
 
 
@@ -1328,7 +1333,8 @@ ${links}
 ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><p>${escapeHtml(enhancement.quickAnswer)}</p></aside>` : ""}
 <p><em>${escapeHtml(post.excerpt)}</em></p>
 <p><small>Published ${escapeHtml(post.date)} · ${post.readTime} min read</small></p>
-${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent) : enrichedContent}
+ ${post.slug === "glasses-for-wide-nose-bridge-21-22mm-explained" ? insertBridgeAfterBlogIntro(enrichedContent) : BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent) : enrichedContent}
+ ${post.slug === "glasses-for-wide-nose-bridge-21-22mm-explained" ? `<section><h2>Wide nose bridge fit questions</h2><dl>${post.faq?.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("") ?? ""}</dl></section>` : ""}
 </article>`,
         },
         { type: "article", image: ogImage },
@@ -1569,18 +1575,19 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
           description: b.metaDescription,
           noscriptHtml: `<h1>${b.h1}</h1>
 <p>${b.subhead}</p>
+ ${b.slug === "19mm" ? `<p>19 mm is a standard bridge. On a wider nose it perches - see what happens.</p>${bridgeFitPrerenderHtml()}` : ""}
 <h2>Does Woolet fit a ${b.width} mm bridge?</h2>
 <p>${b.fitVerdict}</p>
 <p>${b.intro}</p>
 <p>Signature bridges: 21 mm keyhole (007) · 22 mm (009). Bespoke 20–24 mm.</p>
-<p><a href="/en/products/007">Woolet 007 · 21 mm keyhole</a> · <a href="/en/products/009">Woolet 009 · 22 mm</a> · <a href="/en/bespoke">Bespoke bridge</a> · <a href="/en/collections/wide-bridge-glasses">Wide-bridge hub</a></p>`,
+ <p><a href="/en/products/007">Woolet 007 · 21 mm keyhole</a> · <a href="/en/products/009">Woolet 009 · 22 mm</a> · <a href="/en/bespoke">Bespoke bridge</a> · <a href="/en/collections/wide-bridge-glasses">Wide-bridge hub</a></p>${b.slug === "19mm" ? `<h2>Frequently asked</h2><dl>${[...b.faq, ...BRIDGE_FIT_FAQ].map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>` : ""}`,
         },
         { image: DEFAULT_OG, type: "website" },
         [
           {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: b.faq.map((f) => ({
+             mainEntity: (b.slug === "19mm" ? [...b.faq, ...BRIDGE_FIT_FAQ] : b.faq).map((f) => ({
               "@type": "Question",
               name: f.q,
               acceptedAnswer: { "@type": "Answer", text: f.a },

@@ -5,6 +5,7 @@
  *   - src/components/FitToolContent.tsx (visible UI)
  *   - src/seo/metadata.ts (prerendered FAQPage JSON-LD + noscript body)
  */
+import { BRIDGE_FIT_FAQ } from "@/content/bridgeFit";
 
 export type FitFaqItem = { q: string; a: string };
 
@@ -33,6 +34,7 @@ export const FIT_FAQ: FitFaqItem[] = [
     q: "Can I measure without the camera?",
     a: "Yes. The manual route at /en/fit/manual walks you through your face width with a soft tape measure — no camera, no card. It gives you the same size recommendation, but only the face-width figure; for bridge width and pupillary distance you need the scan.",
   },
+  ...BRIDGE_FIT_FAQ,
 ];
 
 export const FIT_BANDS: { range: string; verdict: string; size: string }[] = [
