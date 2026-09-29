@@ -10,6 +10,28 @@ import SEO from "@/components/SEO";
 import { toast } from "sonner";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { MEASUREMENT_RANGES, type MeasurementKey } from "@/data/bespoke-options";
+import { FRAMES } from "@/data/frames";
+import { COLORS, FINISHES } from "@/data/bespoke-options";
+
+/** Rebuilds a configurator URL from a saved preview so the build reopens as saved. */
+const configuratorUrlFor = (pv: { shape: string | null; front_color: string | null; temple_color: string | null; finish: string | null }) => {
+  const q = new URLSearchParams();
+  const frame = FRAMES.find((f) => f.shape === pv.shape || f.name === pv.shape);
+  if (frame) q.set("shape", frame.id);
+  const colorId = (label: string | null) => {
+    if (!label) return undefined;
+    const code = label.match(/\(([^)]+)\)\s*$/)?.[1];
+    return COLORS.find((c) => (code && c.code === code) || label.startsWith(c.name))?.id;
+  };
+  const front = colorId(pv.front_color);
+  const temple = colorId(pv.temple_color);
+  if (front) q.set("front", front);
+  if (temple) q.set("temple", temple);
+  const finish = FINISHES.find((f) => f.name === pv.finish);
+  if (finish) q.set("finish", finish.id);
+  const qs = q.toString();
+  return `/en/bespoke/configurator${qs ? `?${qs}` : ""}`;
+};
 
 function pickModel(faceWidthMm: number, noseWidthMm: number): "007" | "009" {
   // 009 has the wider keyhole bridge; recommend it when the nose is wider.
@@ -631,14 +653,18 @@ export default function Account() {
                         transition: "opacity 0.2s",
                       }}
                     >
-                      <div style={{ background: "#EFE9DF", aspectRatio: "4 / 3", overflow: "hidden" }}>
+                      <Link
+                        to={configuratorUrlFor(pv)}
+                        aria-label="Continue this build in the configurator"
+                        style={{ display: "block", background: "#EFE9DF", aspectRatio: "4 / 3", overflow: "hidden" }}
+                      >
                         <img
                           src={pv.image_url}
                           alt={pv.description ?? "Bespoke AI preview"}
                           style={{ width: "100%", height: "100%", objectFit: "cover" }}
                           loading="lazy"
                         />
-                      </div>
+                      </Link>
                       <div className="flex flex-col gap-2 p-3">
                         <p className="text-foreground" style={{ fontSize: "0.82rem", lineHeight: 1.45 }}>
                           {pv.description ??
@@ -646,6 +672,13 @@ export default function Account() {
                               .filter(Boolean)
                               .join(" · ")}
                         </p>
+                        <Link
+                          to={configuratorUrlFor(pv)}
+                          className="uppercase tracking-[0.18em] text-gold-light hover:text-gold no-underline"
+                          style={{ fontSize: "0.66rem", minHeight: 44, display: "inline-flex", alignItems: "center" }}
+                        >
+                          Continue this build →
+                        </Link>
                         <div className="flex items-center justify-between gap-2">
                           <span className="text-cream-dim" style={{ fontSize: "0.68rem" }}>
                             {new Date(pv.created_at).toLocaleDateString()}
