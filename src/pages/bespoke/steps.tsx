@@ -393,6 +393,15 @@ export function AiPreviewPanel({
   const currentList = history[selectionKey] ?? [];
   const [activeUrl, setActiveUrl] = useState<string | null>(currentList[0]?.url ?? null);
   const [loading, setLoading] = useState(false);
+  // After the first failed render in a session the preview is parked, so
+  // buyers aren't invited to keep retrying an unavailable service.
+  const [renderDown, setRenderDown] = useState<boolean>(() => {
+    try { return sessionStorage.getItem("wlt_cfg_render_down") === "1"; } catch { return false; }
+  });
+  const markRenderDown = () => {
+    setRenderDown(true);
+    try { sessionStorage.setItem("wlt_cfg_render_down", "1"); } catch { /* ignore */ }
+  };
   const [error, setError] = useState<string | null>(null);
   const [storageWarning, setStorageWarning] = useState<string | null>(null);
   const [cloudSaveState, setCloudSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
