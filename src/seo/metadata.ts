@@ -29,6 +29,7 @@ import { FIT_FAQ, FIT_BANDS } from "./fit-faq";
 import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
 import { BRIDGE_FIT_FAQ, bridgeFitPrerenderHtml, insertBridgeAfterBlogIntro } from "@/content/bridgeFit";
+import { WIDE_BRIDGE_GUIDE_FAQ } from "@/content/wideBridgeGuideFaq";
 import { getTempleBySlug } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
 import { dePages, dePageOrder, dePageTitles, WIDTH_SLUGS } from "@/content/de/landingPages";
@@ -1222,8 +1223,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <h2>Woolet's bridge specs</h2>
 <p>Woolet 007 ships with a 21 mm keyhole bridge, Woolet 009 with 22 mm, both on a 158 mm signature front width (fit range 155–161 mm). Bespoke covers fronts from 145 to 172 mm with bridges from 20 to 24 mm. Cut from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
  <p><a href="/en/fit">Measure your bridge in 20 seconds</a> · <a href="/en/collections/wide-bridge-glasses">See wide bridge glasses</a></p>
- <h2>FAQ</h2><dl>${BRIDGE_FIT_FAQ.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>`,
-    }, { type: "article" }, [faqPageJsonLd(BRIDGE_FIT_FAQ)]);
+ <h2>FAQ</h2><dl>${WIDE_BRIDGE_GUIDE_FAQ.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>`,
+    }, { type: "article" }, [faqPageJsonLd(WIDE_BRIDGE_GUIDE_FAQ)]);
   }
 
 
