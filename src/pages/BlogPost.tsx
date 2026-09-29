@@ -394,6 +394,10 @@ const BlogPost = () => {
           </> : <div dangerouslySetInnerHTML={{ __html: introContent }} />}
           {showFitLensHook && <BlogFitLensHook />}
           {remainingContent && <div dangerouslySetInnerHTML={{ __html: remainingContent }} />}
+          {showBridgeFit && <section aria-label="Bridge fit questions" className="my-12">
+            <h2>Wide nose bridge fit questions</h2>
+            {post.faq?.map((item) => <div key={item.q} className="my-5"><h3>{item.q}</h3><p>{item.a}</p></div>)}
+          </section>}
         </div>
 
         <RelatedPosts currentSlug={post.slug} lang={currentLang} />

@@ -1,4 +1,5 @@
 import type { Lang } from "./i18n";
+import { BRIDGE_FIT_FAQ } from "@/content/bridgeFit";
 
 export interface BlogPost {
   slug: string;
