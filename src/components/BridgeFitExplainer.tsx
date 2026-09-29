@@ -20,7 +20,7 @@ export default function BridgeFitExplainer({ variant = "full", hideButton = fals
         <BridgePicture image={bridgeFitImages.gap} />
         <figcaption className="mt-4"><ol className="grid gap-3 p-0 sm:grid-cols-2">
           {BRIDGE_FIT_LEGEND.map((item) => <li key={item.number} className="flex items-start gap-3 font-body text-sm leading-relaxed text-cream-dim">
-            <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-woolet-red font-semibold text-foreground">{item.number}</span>
+            <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-semibold text-white" style={{ backgroundColor: "#E2533D" }}>{item.number}</span>
             <span><strong className="text-foreground">{item.title}</strong> - {item.text}</span>
           </li>)}
         </ol></figcaption>
@@ -29,7 +29,7 @@ export default function BridgeFitExplainer({ variant = "full", hideButton = fals
         {BRIDGE_FIT_CARDS.map((card, index) => <div key={card.title} className="border border-border bg-card">
           <BridgePicture image={card.image} />
           <div className="p-5 sm:p-6">
-            <h3 className={`font-display text-2xl ${index === 0 ? "text-woolet-red" : "text-primary"}`}>{card.title}</h3>
+            <h3 className={`font-display text-2xl ${index === 0 ? "" : "text-primary"}`} style={index === 0 ? { color: "#E2533D" } : undefined}>{card.title}</h3>
             <p className="mt-1 font-body text-sm text-cream-dim">{card.subtitle}</p>
             <ul className="mt-5 grid gap-2 pl-5 font-body text-sm leading-relaxed text-foreground" style={{ listStyleType: "disc" }}>
               {card.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
