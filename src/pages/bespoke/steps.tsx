@@ -2003,9 +2003,7 @@ export function StepReview({
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
-  const engravingEur = config.engravingEnabled ? ENGRAVING_FEE_EUR : 0;
-  const lensEur = lens?.priceEur ?? 0;
-  const total = (frame?.basePriceEur ?? 0) + engravingEur + lensEur;
+  const { engravingEur, lensEur, totalEur: total } = computePricing(config);
 
   const navigate = useNavigate();
 
