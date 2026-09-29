@@ -456,7 +456,7 @@ export function AiPreviewPanel({
   };
 
   const generate = async () => {
-    if (loading) return;
+    if (loading || renderDown) return;
     if (budget.remaining <= 0) {
       setError(`You have used all ${RENDERS_PER_SESSION} renders for this session.`);
       return;
@@ -537,7 +537,8 @@ export function AiPreviewPanel({
       console.warn("[bespoke] preview render failed", reason);
       pushCfg("cfg_render_failed", { reason: String(reason).slice(0, 80) });
       claritySet("bespoke_render_failed", String(reason).slice(0, 80));
-      setError("The AI preview is unavailable right now. Your build is saved - the preview is optional, so you can carry on.");
+      markRenderDown();
+      setError(null);
     } finally {
       setLoading(false);
     }
@@ -560,6 +561,33 @@ export function AiPreviewPanel({
 
   generateRef.current = () => void generate();
 
+  if (renderDown && !activeUrl) {
+    return (
+      <div className="border border-gold/25 bg-[#0c0c0c]/40 p-5 sm:p-6" style={{ borderRadius: 2 }} role="status">
+        <p className="text-[13px] leading-relaxed text-cream-dim" style={{ cursor: "default" }}>
+          Preview is taking a break - your build is saved.
+          {nextLabel && onNext ? (
+            <>
+              {" "}
+              <button
+                type="button"
+                onClick={() => {
+                  pushCfg("cfg_preview_skip", { reason: "render_unavailable" });
+                  onNext();
+                }}
+                className="text-gold-light hover:text-gold underline underline-offset-4"
+              >
+                Continue to {nextLabel} →
+              </button>
+            </>
+          ) : (
+            " Continue to the next step →"
+          )}
+        </p>
+      </div>
+    );
+  }
+
 
 
   return (
@@ -581,7 +609,7 @@ export function AiPreviewPanel({
         )}
       </div>
 
-      <p className="text-cream-dim text-xs leading-relaxed mb-4">
+      <p className="text-cream-dim text-xs leading-relaxed mb-4 select-text" style={{ cursor: "default" }}>
         Front: <span className="text-cream">{front.name}</span> · Temples:{" "}
         <span className="text-cream">{temple.name}</span> · Finish:{" "}
         <span className="text-cream">{finish.name}</span>
