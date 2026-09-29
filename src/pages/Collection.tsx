@@ -110,18 +110,21 @@ const Collection = () => {
                       pos: "0% 0%",
                       eyebrow: "Average-to-wide faces",
                       label: "150 mm · Bespoke fit",
+                      to: "/en/bespoke",
                       alt: "Man with average-to-wide face wearing Woolet 150 mm bespoke acetate glasses.",
                     },
                     {
                       pos: "50% 0%",
                       eyebrow: "Medium-to-large heads",
                       label: "158 mm · The Signature",
+                      to: "#collection-grid",
                       alt: "Bearded man with medium-to-large head wearing Woolet 158 mm signature acetate glasses.",
                     },
                     {
                       pos: "100% 0%",
                       eyebrow: "Large heads & broad faces",
                       label: "162 mm · Bespoke extra wide",
+                      to: "/en/bespoke",
                       alt: "Bearded man with a large head and broad face wearing Woolet 162 mm bespoke extra-wide acetate glasses.",
                     },
                   ].map((panel) => (
@@ -139,8 +142,13 @@ const Collection = () => {
                         }}
                       />
                       <Link
-                        to={hrefFor("fit", lang)}
-                        aria-label={`${panel.eyebrow} - find your fit`}
+                        to={panel.to}
+                        onClick={(e) => {
+                          if (!panel.to.startsWith("#")) return;
+                          e.preventDefault();
+                          document.getElementById("collection-grid")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }}
+                        aria-label={`${panel.eyebrow} - ${panel.label}`}
                         className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-4 text-center block no-underline group"
                         style={{
                           background: "linear-gradient(to top, rgba(11,10,9,0.78) 0%, rgba(11,10,9,0) 100%)",
@@ -163,6 +171,15 @@ const Collection = () => {
                   ))}
                 </div>
 
+                <p className="text-center mt-4 mb-0" style={{ fontSize: 13 }}>
+                  <Link
+                    to={hrefFor("fit", lang)}
+                    className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors"
+                  >
+                    Not sure which? Scan your face in 20 seconds →
+                  </Link>
+                </p>
+
                 <figcaption
                   className="text-cream-dim/80 mt-4 text-center hidden sm:block"
                   style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" }}
@@ -175,7 +192,7 @@ const Collection = () => {
 
 
           {/* Models */}
-          <section className="px-5 sm:px-8 lg:px-16 pb-4">
+          <section id="collection-grid" className="px-5 sm:px-8 lg:px-16 pb-4" style={{ scrollMarginTop: 80 }}>
             <div className="max-w-5xl mx-auto">
               <ModelPills />
             </div>

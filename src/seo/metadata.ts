@@ -579,7 +579,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       "de",
       {
         title: "Woolet Founders Edition - Für 1 € reservieren",
-        description: "Reserviere eine von 100 Woolet Founders Editions für 1 €. 158 mm breite Acetatfassungen für breite Gesichter, handgefertigt in der EU.",
+        description: "Reserviere für 1 € den Founding-Preis: 30 Fassungen für 109 €, danach 179 €. 158 mm breite Acetatfassungen für breite Gesichter, handgefertigt in der EU.",
         noscriptHtml: `<h1>Woolet Founders Edition für breite Gesichter</h1><p>Reserviere eine von ${DE_PRICING.founderLimit} Founders Editions für ${DE_PRICING.reservationEur} € inkl. MwSt. Der Founding-Preis beträgt ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt.</p><p><a href="/de/fit">Gesicht messen</a> · <a href="/de/impressum">Impressum</a> · <a href="/de/widerruf">Widerruf</a></p>`,
       },
       { image: `${SITE_URL}${ksHeroAsset.url}`, type: "website" },

@@ -126,11 +126,9 @@ const ConfiguratorPage = () => {
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
-  // Step-aware total: only show add-ons once the user has reached those steps.
-  const stepTotal =
-    step <= 4 ? pricing.basePriceEur :
-    step === 5 ? pricing.basePriceEur + pricing.engravingEur :
-    pricing.totalEur;
+  // One shared total for rail, mobile bar and review: always the full sum of
+  // every current selection, whichever step is open.
+  const stepTotal = pricing.totalEur;
 
   // Fit numbers — from scan if present, else brand reference defaults.
   const faceMm = config.measurements.faceWidth ?? 161;
@@ -467,7 +465,7 @@ const ConfiguratorPage = () => {
                       front ? (
                         <span className="inline-flex items-center gap-2">
                           <Swatch hex={front.hex} />
-                          <span className="font-mono text-[10px]">{front.code}</span>
+                          <span>{front.name}</span>
                         </span>
                       ) : "—"
                     }
@@ -478,7 +476,7 @@ const ConfiguratorPage = () => {
                       temple ? (
                         <span className="inline-flex items-center gap-2">
                           <Swatch hex={temple.hex} />
-                          <span className="font-mono text-[10px]">{temple.code}</span>
+                          <span>{temple.name}</span>
                         </span>
                       ) : "—"
                     }

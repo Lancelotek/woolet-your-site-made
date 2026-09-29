@@ -85,17 +85,11 @@ const GREG_ATTRIBUTION = "— Greg · Woolet tester";
 // ---------- Hero gallery ----------
 const heroGallery: { src: string; alt: string }[] = [
   { src: ksFit158.url, alt: "158 mm — The Signature: Woolet frames on a medium-to-large head" },
-  { src: ksFit150.url, alt: "150 mm — Bespoke Fit: Woolet frames on an average-to-wide face" },
-  { src: ksFit162.url, alt: "162 mm — Bespoke Extra Wide: Woolet frames on a large head and broad face" },
   { src: gregSquare, alt: "Greg, a Woolet tester, wearing a wide-fit Woolet frame in tortoise acetate" },
   { src: w009BlackAsset.url, alt: "Woolet 009 Soft-Square — black" },
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
   { src: w009TaupeAsset.url, alt: "Woolet 009 Soft-Square — taupe" },
   { src: w009HavanaAsset.url, alt: "Woolet 009 Soft-Square — havana" },
-  { src: bespokeAviatorTortoiseSun.url, alt: "Woolet Bespoke Aviator — tortoise sun" },
-  { src: bespokeAviatorHavana.url, alt: "Woolet Bespoke Aviator — havana" },
-  { src: bespokeAviatorCaramel.url, alt: "Woolet Bespoke Aviator — caramel" },
-  { src: bespokeAviatorGreyStripe.url, alt: "Woolet Bespoke Aviator — grey stripe" },
 ];
 
 const bespokeGallery = [
@@ -113,19 +107,17 @@ const bespokeGallery = [
   { src: bespokePantoGreenStripe.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in green striped Mazzucchelli acetate" },
 ];
 
-// Every image that renders in a gallery on this page belongs to one lightbox
-// array, so prev/next walks through all of them.
+// LP lightbox: Signature 158 mm + 007 / 009 only (max 10). Bespoke is a
+// different offer and stays out of this gallery.
 const lightboxImages: { src: string; alt: string }[] = [
   ...heroGallery,
-  ...bespokeGallery.map(({ src, alt }) => ({ src, alt })),
   { src: w007CardAsset.url, alt: "Woolet 007 round frame in black acetate, front view" },
   { src: w009CardAsset.url, alt: "Woolet 009 soft-square frame in black acetate, front view" },
 ];
 const GREG_LIGHTBOX_INDEX = heroGallery.findIndex((g) => g.src === gregSquare);
-const BESPOKE_LIGHTBOX_OFFSET = heroGallery.length;
 const CARD_LIGHTBOX_INDEX: Record<string, number> = {
-  "Woolet 007": heroGallery.length + bespokeGallery.length,
-  "Woolet 009": heroGallery.length + bespokeGallery.length + 1,
+  "Woolet 007": heroGallery.length,
+  "Woolet 009": heroGallery.length + 1,
 };
 
 // ---------- CTA button ----------
@@ -438,6 +430,13 @@ const VipForm = ({
       setLoading(false);
       markJoined();
       setStep(2);
+      // Move the visitor straight to the $1 step and focus its button.
+      window.setTimeout(() => {
+        const reserve = document.getElementById(`vip-reserve${idSuffix}`);
+        if (!reserve) return;
+        reserve.scrollIntoView({ block: "center", behavior: "smooth" });
+        window.setTimeout(() => reserve.focus({ preventScroll: true }), 450);
+      }, 80);
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
@@ -1005,6 +1004,7 @@ const KickstarterPrelaunch = () => {
     [utmContentParam],
   );
 
+  const pageNavigate = useNavigate();
   const [activeImg, setActiveImg] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxClosing, setLightboxClosing] = useState(false);
@@ -1877,15 +1877,13 @@ const KickstarterPrelaunch = () => {
               <div key={i} style={{ border: `1px solid ${HAIRLINE}` }}>
                 <button
                   type="button"
-                  onClick={(e) =>
-                    openLightbox(BESPOKE_LIGHTBOX_OFFSET + i, "gallery", e.currentTarget)
-                  }
-                  aria-label={`Enlarge: ${f.alt}`}
+                  onClick={() => pageNavigate("/en/bespoke")}
+                  aria-label={`Bespoke: ${f.alt}`}
                   style={{
                     padding: 0,
                     border: "none",
                     background: CREAM,
-                    cursor: "zoom-in",
+                    cursor: "pointer",
                     display: "block",
                     width: "100%",
                     aspectRatio: "1 / 1",
@@ -2316,7 +2314,7 @@ const KickstarterPrelaunch = () => {
             visible={lightboxOpen}
             cta={{
               label: "Reserve founder price — $1",
-              caption: "158 mm · Italian Mazzucchelli acetate · 100 Founders Editions",
+              caption: "158 mm · Italian Mazzucchelli acetate · 30 frames at $114, then $190",
               onClick: handleLightboxCta,
             }}
           />

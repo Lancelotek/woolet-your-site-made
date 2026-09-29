@@ -289,7 +289,6 @@ const ImageLightbox = ({
           </div>
         ) : (
           <img
-            className="wl-lb-img"
             key={current.src}
             src={current.src}
             alt={current.alt}
