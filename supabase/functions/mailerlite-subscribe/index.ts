@@ -1,3 +1,5 @@
+import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
+import { templeWidthMm } from "../_shared/hat-to-glasses.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
@@ -245,6 +247,9 @@ async function ensureCustomFields(apiKey: string) {
     { name: "landing_url", type: "text" },
     { name: "referrer", type: "text" },
     { name: "hero_variant", type: "text" },
+    { name: "head_cm", type: "text" },
+    { name: "temple_width_est", type: "text" },
+    { name: "form_location", type: "text" },
   ];
 
   for (const field of fields) {
@@ -295,6 +300,8 @@ export const handler = async (req: Request): Promise<Response> => {
       landing_url,
       referrer,
       hero_variant,
+      form_location,
+      head_cm,
     } = await req.json();
 
     if (!email) {
@@ -354,6 +361,15 @@ export const handler = async (req: Request): Promise<Response> => {
     const heroResolved = !heroRaw || heroRaw === "default" ? heroVariantKeyFromUtm(utm_content) : heroRaw;
     if (heroResolved) subscriberFields.hero_variant = heroResolved.slice(0, 100);
     
+    // Hat size card: temple width is recomputed server-side from head_cm.
+    const headCmNum = Number(head_cm);
+    const isHatCard = form_location === "hat_size_card" && Number.isFinite(headCmNum) && headCmNum >= 50 && headCmNum <= 68;
+    if (form_location) subscriberFields.form_location = String(form_location).slice(0, 100);
+    if (isHatCard) {
+      subscriberFields.head_cm = String(Math.round(headCmNum * 10) / 10);
+      subscriberFields.temple_width_est = String(templeWidthMm(headCmNum));
+    }
+
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,
       fields: subscriberFields,
@@ -401,6 +417,17 @@ export const handler = async (req: Request): Promise<Response> => {
       .EdgeRuntime?.waitUntil;
     if (waitUntil) waitUntil(capiLead);
     else void capiLead;
+
+    if (isHatCard) {
+      try {
+        await sendTemplateEmailAndLog("hat-size-card", String(email), {
+          templateData: { headCm: headCmNum },
+          idempotencyKey: `hat-size-card-${String(email).toLowerCase()}-${Math.round(headCmNum * 10)}`,
+        });
+      } catch (e) {
+        console.error("[hat-size-card] send failed", e);
+      }
+    }
 
     return new Response(
       JSON.stringify({ success: true, correlation_id, subscriber: { email: data.data?.email } }),
