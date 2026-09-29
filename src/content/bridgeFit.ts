@@ -38,7 +38,7 @@ export function bridgeFitPrerenderHtml(variant: "full" | "compact" = "full", hid
 ${variant === "full" ? `<p>Width is not only temple to temple. FitLens measures your bridge too.</p>${hideButton ? "" : `<a href="/en/fit">Scan your fit</a>`}` : ""}</section>`;
 }
 
-export const BRIDGE_BLOG_INTRO_START = "<p>If your glasses slide down within an hour";
+export const BRIDGE_BLOG_INTRO_START = "<p>If you're looking for glasses for wide nose bridge fit";
 export function insertBridgeAfterBlogIntro(html: string): string {
   const start = html.indexOf(BRIDGE_BLOG_INTRO_START);
   if (start < 0) return html;
