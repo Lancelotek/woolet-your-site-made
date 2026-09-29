@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from "react";
+import { getGaCheckoutMetadata } from "@/lib/ga-ids";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
@@ -31,7 +32,7 @@ export function BespokeCheckoutModal({
         description,
         customerEmail,
         returnUrl,
-        metadata,
+        metadata: { ...metadata, ...getGaCheckoutMetadata() },
         environment: getStripeEnvironment(),
       },
     });

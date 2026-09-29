@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { getGaCheckoutMetadata } from "@/lib/ga-ids";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, Sparkles, ShieldCheck, Lock, Scissors, Truck } from "lucide-react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
@@ -287,7 +288,7 @@ export default function BespokeCheckout() {
         productName,
         description,
         returnUrl,
-        metadata,
+        metadata: { ...metadata, ...getGaCheckoutMetadata() },
         environment: getStripeEnvironment(),
       },
     });

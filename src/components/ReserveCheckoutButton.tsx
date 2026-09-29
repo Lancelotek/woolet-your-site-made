@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { buildPurchaseAttribution } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { getLastTouchCheckoutMetadata } from "@/lib/attribution";
+import { getGaCheckoutMetadata } from "@/lib/ga-ids";
 
 const StripeCheckoutModalLazy = lazy(() =>
   import("@/components/StripeCheckoutModal").then((m) => ({ default: m.StripeCheckoutModal })),
@@ -61,7 +62,7 @@ export function ReserveCheckoutButton({
   const sessionRef = useRef<Promise<string> | null>(null);
 
   const createSession = useCallback((): Promise<string> => {
-    const merged = { ...(metadata ?? {}), ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata(), user_initiated: "1" };
+    const merged = { ...(metadata ?? {}), ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata(), ...getGaCheckoutMetadata(), user_initiated: "1" };
     return supabase.functions
       .invoke("create-checkout", {
         body: {
