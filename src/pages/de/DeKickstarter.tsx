@@ -23,7 +23,7 @@ export default function DeKickstarter() {
     "@type": "Product",
     name: "Woolet Founders Edition",
     description: "Breite Acetatbrille in 158 mm, handgefertigt in der EU. Founding-Preis für die ersten 100 Reservierungen.",
-    image: `${SITE}${heroAsset.url}`,
+    image: ["https://woolet.co/og-image.png", "https://woolet.co/og-007.png", "https://woolet.co/og-009.png"],
     brand: { "@type": "Brand", name: "Woolet" },
     offers: {
       "@type": "Offer",
