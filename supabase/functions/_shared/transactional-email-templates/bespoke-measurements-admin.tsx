@@ -178,7 +178,7 @@ export const template = {
       data.orderRef ?? ''
     }`.trim(),
   displayName: 'Bespoke — Measurements Received',
-  to: 'marek@woolet.co',
+  to: 'support@woolet.co',
   previewData: {
     orderRef: 'WLT-02345C42',
     customerEmailMasked: 'h***@icloud.com',
