@@ -1844,9 +1844,9 @@ ${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escap
       route,
       lang,
       {
-        title: "Hat Size Calculator — Head Circumference to US, UK, EU & cm | Woolet",
+        title: "Hat Size Calculator: cm or Inches to US, UK & EU (+ Glasses Width)",
         description:
-          "Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads.",
+          "Enter your head circumference, get your US, UK, EU and letter hat size instantly — and the glasses frame width that fits a head your size.",
         noscriptHtml: `<h1>Hat Size Calculator — Head Circumference to US, UK, EU &amp; cm</h1>
 <p>Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads.</p>
 <p>Bigger head? Frame width matters too: <a href="/en/collections/glasses-for-big-heads">glasses for big heads</a> · <a href="/en/fit">measure your face width in 20 seconds</a>.</p>`,
