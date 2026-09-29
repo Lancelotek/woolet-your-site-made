@@ -153,6 +153,94 @@ async function fireMetaPurchase(session: any) {
   }
 }
 
+/**
+ * Server-side GA4 Measurement Protocol conversion. Live only, never throws.
+ * Uses the browser's GA ids from Stripe metadata when present so the
+ * conversion joins the visitor's real session; otherwise a stable
+ * email-derived client_id (counted but unattributed).
+ */
+async function fireGa4Conversion(
+  session: any,
+  env: StripeEnv,
+  flow: "reservation" | "bespoke",
+  paidSource: string,
+) {
+  if (env !== "live") return;
+  const eventName = flow === "bespoke" ? "purchase" : "reservation_paid";
+  const logName = flow === "bespoke" ? "GA4Purchase" : "GA4Reservation";
+  let status: "sent" | "error" | "skipped" = "sent";
+  let http: number | null = null;
+  let email: string | undefined;
+  try {
+    const measurementId = Deno.env.get("GA4_MEASUREMENT_ID");
+    const apiSecret = Deno.env.get("GA4_API_SECRET");
+    const meta = (session?.metadata ?? {}) as Record<string, string>;
+    email = session?.customer_details?.email || session?.customer_email || meta.email;
+    if (!measurementId || !apiSecret) {
+      status = "skipped";
+      console.warn("[ga4] not configured, skipping", session?.id);
+    } else {
+      const clientId = meta.ga_client_id ||
+        `${(await sha256Hex((email ?? session.id).trim().toLowerCase())).slice(0, 10)}.${Math.floor(Date.now() / 1000)}`;
+      const value = (session?.amount_total ?? 0) / 100;
+      const currency = String(session?.currency ?? "usd").toUpperCase();
+      const params: Record<string, unknown> = {
+        transaction_id: session.id,
+        value,
+        currency,
+        engagement_time_msec: 1,
+        paid_source: paidSource,
+      };
+      const sid = Number(meta.ga_session_id);
+      if (meta.ga_session_id && Number.isFinite(sid)) params.session_id = sid;
+      if (flow === "bespoke") {
+        params.items = [{
+          item_id: meta.frame || "bespoke",
+          item_name: meta.frame_name || "Woolet Bespoke",
+          price: value,
+          quantity: 1,
+        }];
+      }
+      const res = await fetch(
+        `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(apiSecret)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ client_id: clientId, events: [{ name: eventName, params }] }),
+        },
+      );
+      http = res.status;
+      await res.text().catch(() => "");
+      if (!res.ok) status = "error";
+      console.log(`[ga4] ${eventName} ${session.id} http=${res.status}`);
+    }
+  } catch (err) {
+    status = "error";
+    console.error("[ga4] send failed", err);
+  }
+  try {
+    await getSupabase().from("server_event_log").insert({
+      source: "payments-webhook",
+      event_name: logName,
+      event_id: session?.id ?? null,
+      email_hash: email ? await sha256Hex(email.trim().toLowerCase()) : null,
+      custom_data: { paid_source: paidSource, value: (session?.amount_total ?? 0) / 100 },
+      destinations: { ga4: { status, http } },
+      request_summary: {
+        stripe_session_id: session?.id ?? null,
+        amount_total: session?.amount_total ?? null,
+        currency: session?.currency ?? null,
+        has_ga_client_id: Boolean(session?.metadata?.ga_client_id),
+        has_ga_session_id: Boolean(session?.metadata?.ga_session_id),
+      },
+      status,
+    });
+  } catch (logErr) {
+    console.error("[server_event_log] insert failed", logErr);
+  }
+}
+
+
 // MailerLite date fields expect "YYYY-MM-DD HH:mm:ss" (UTC).
 function mlDate(d = new Date()): string {
   return d.toISOString().slice(0, 19).replace("T", " ");
