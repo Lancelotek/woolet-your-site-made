@@ -39,13 +39,13 @@ export default function DeKickstarter() {
       <Helmet>
         <html lang="de" />
         <title>Woolet Founders Edition - Für 1 € reservieren</title>
-        <meta name="description" content="Reserviere eine von 100 Woolet Founders Editions für 1 €. 158 mm breite Acetatfassungen für breite Gesichter, handgefertigt in der EU." />
+        <meta name="description" content="Reserviere für 1 € den Founding-Preis: 30 Fassungen für 109 €, danach 179 €. 158 mm breite Acetatfassungen für breite Gesichter, handgefertigt in der EU." />
         <link rel="canonical" href={`${SITE}/de/lp/kickstarter`} />
         <link rel="alternate" hrefLang="de" href={`${SITE}/de/lp/kickstarter`} />
         <link rel="alternate" hrefLang="en" href={`${SITE}/en/lp/kickstarter`} />
         <link rel="alternate" hrefLang="x-default" href={`${SITE}/en/lp/kickstarter`} />
         <meta property="og:title" content="Woolet Founders Edition - Für 1 € reservieren" />
-        <meta property="og:description" content="Eine von 100 Founders Editions sichern. 1 € inkl. MwSt., vollständig anrechenbar und jederzeit erstattbar." />
+        <meta property="og:description" content="30 Fassungen für 109 €, danach 179 €. 1 € inkl. MwSt., vollständig anrechenbar und jederzeit erstattbar." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${SITE}/de/lp/kickstarter`} />
         <meta property="og:image" content={`${SITE}${heroAsset.url}`} />
