@@ -5,37 +5,8 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { HAT_SIZE_FAQ } from "@/seo/hat-size-faq";
 
-/* ── Size table (single source of truth) ── */
-type Row = { cm: number; inches: string; us: string; uk: string; letter: string; band: "S" | "M" | "L" | "XL" | "XXL"; note?: string };
-
-const ROWS: Row[] = [
-  { cm: 53, inches: "20⅞", us: "6⅝", uk: "6½", letter: "XXS", band: "S" },
-  { cm: 54, inches: "21¼", us: "6¾", uk: "6⅝", letter: "XS", band: "S" },
-  { cm: 55, inches: "21⅝", us: "6⅞", uk: "6¾", letter: "S", band: "S" },
-  { cm: 56, inches: "22", us: "7", uk: "6⅞", letter: "S / M", band: "M" },
-  { cm: 57, inches: "22⅜", us: "7⅛", uk: "7", letter: "M", band: "M" },
-  { cm: 58, inches: "22¾", us: "7¼", uk: "7⅛", letter: "M", band: "M" },
-  { cm: 59, inches: "23¼", us: "7⅜", uk: "7¼", letter: "L", band: "L" },
-  { cm: 60, inches: "23⅝", us: "7½", uk: "7⅜", letter: "L / XL", band: "L", note: "Top of mainstream range." },
-  { cm: 61, inches: "24", us: "7⅝", uk: "7½", letter: "XL", band: "XL", note: "Specialist territory for felt hats." },
-  { cm: 62, inches: "24⅜", us: "7¾", uk: "7⅝", letter: "XL", band: "XL", note: "Above most brand catalogues." },
-  { cm: 63, inches: "24¾", us: "7⅞", uk: "7¾", letter: "XXL", band: "XXL", note: "Specialist / DTC only." },
-  { cm: 64, inches: "25¼", us: "8", uk: "7⅞", letter: "XXL", band: "XXL", note: "3–4 brands worldwide off-the-shelf." },
-  { cm: 65, inches: "25⅝", us: "8⅛", uk: "8", letter: "XXXL", band: "XXL", note: "Custom / made-to-order." },
-  { cm: 66, inches: "26", us: "8¼", uk: "8⅛", letter: "XXXL", band: "XXL", note: "Custom / made-to-order." },
-];
-
-const MIN_CM = 50;
-const MAX_CM = 68;
-
-/* ── helpers ── */
-function findRow(cm: number): Row {
-  const rounded = Math.max(MIN_CM, Math.min(MAX_CM, Math.round(cm)));
-  const exact = ROWS.find(r => r.cm === rounded);
-  if (exact) return exact;
-  if (rounded < ROWS[0].cm) return ROWS[0];
-  return ROWS[ROWS.length - 1];
-}
+import HatGlassesCard from "@/components/HatGlassesCard";
+import { HAT_ROWS as ROWS, HAT_MIN_CM as MIN_CM, HAT_MAX_CM as MAX_CM, findHatRow as findRow } from "@/lib/hat-to-glasses";
 
 function cmToInches(cm: number) {
   return cm / 2.54;
@@ -300,8 +271,9 @@ const HatSizeCalculator = () => {
   return (
     <>
       <SEO
-        title="Hat Size Calculator — Head Circumference to US, UK, EU & cm"
-        description="Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads."
+        title="Hat Size Calculator: cm or Inches to US, UK & EU (+ Glasses Width)"
+        exactTitle
+        description="Enter your head circumference, get your US, UK, EU and letter hat size instantly — and the glasses frame width that fits a head your size."
         lang="en"
         path="/hat-size-calculator"
         jsonLd={jsonLd}
@@ -431,20 +403,8 @@ const HatSizeCalculator = () => {
                 {" "}Between sizes? Always size up and pad with a sizing strip.
               </div>
 
-              {isBig && (
-                <div style={{ marginTop: 18 }}>
-                  <p style={{ fontSize: 14, lineHeight: 1.6, color: "#EFE9DF", margin: "0 0 6px 0" }}>
-                    Head this size usually means glasses don't fit either. Woolet frames start at 158&nbsp;mm — built for exactly this crowd.
-                  </p>
-                  <Link to="/en/collections/glasses-for-big-heads" style={S.cta}>
-                    Glasses for big heads →
-                  </Link>
-                  <Link to="/en/fit/wizard" style={S.ctaGhost}>
-                    Try AI Fit Wizard
-                  </Link>
-                </div>
-              )}
             </div>
+            <HatGlassesCard variant="full" headCm={clamped} />
           </div>
 
           {/* How the math works */}
