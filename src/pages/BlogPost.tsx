@@ -17,6 +17,7 @@ import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { trackFitCtas } from "@/lib/blog-cta-tracking";
 import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
+import BridgeFitExplainer from "@/components/BridgeFitExplainer";
 
 /* ── helpers ── */
 
@@ -163,6 +164,7 @@ const BlogPost = () => {
   const headings = useMemo(() => extractH2s(enhancedContent), [enhancedContent]);
   const processedContent = useMemo(() => processContent(enhancedContent, currentLang), [enhancedContent, currentLang]);
   const showFitLensHook = currentLang === "en" && BLOG_FITLENS_HOOK_POSTS.has(slug);
+  const showBridgeFit = currentLang === "en" && slug === "glasses-for-wide-nose-bridge-21-22mm-explained";
   const [introContent, remainingContent] = useMemo(
     () => (showFitLensHook ? splitBeforeFirstH2(processedContent) : [processedContent, ""]),
     [processedContent, showFitLensHook],
@@ -385,7 +387,11 @@ const BlogPost = () => {
 
         {/* Article body */}
         <div ref={bodyRef} className="woolet-blog-content">
-          <div dangerouslySetInnerHTML={{ __html: introContent }} />
+          {showBridgeFit ? <>
+            <div dangerouslySetInnerHTML={{ __html: introContent.slice(0, introContent.indexOf("</p>") + 4) }} />
+            <BridgeFitExplainer />
+            <div dangerouslySetInnerHTML={{ __html: introContent.slice(introContent.indexOf("</p>") + 4) }} />
+          </> : <div dangerouslySetInnerHTML={{ __html: introContent }} />}
           {showFitLensHook && <BlogFitLensHook />}
           {remainingContent && <div dangerouslySetInnerHTML={{ __html: remainingContent }} />}
         </div>

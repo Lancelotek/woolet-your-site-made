@@ -3,12 +3,15 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import noseBridgeAsset from "@/assets/nose-bridge-comparison.png.asset.json";
+import BridgeFitExplainer from "@/components/BridgeFitExplainer";
+import { BRIDGE_FIT_FAQ } from "@/content/bridgeFit";
 
 const SITE = "https://woolet.co";
 const PATH = "/lp/wide-bridge-fit-guide";
 const CANONICAL = `${SITE}/en${PATH}`;
 
 const FAQS = [
+  ...BRIDGE_FIT_FAQ,
   {
     q: "How do I know if I need a wider bridge?",
     a: "Three quick signs: your current glasses leave red marks on the sides of your nose (not the top), they slide down within an hour of wearing them, or they sit so high that you keep looking through the upper edge of the lens. Any of those points to a bridge that's too narrow — usually 18 mm or under — for the width of your nose.",
@@ -152,6 +155,8 @@ const WideBridgeFitGuide = () => {
             level and stable — no slide, no red marks, no overtightened temples.
           </figcaption>
         </figure>
+
+        <BridgeFitExplainer />
 
         {/* Section 1 */}
         <section className="mb-16">

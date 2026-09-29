@@ -12,6 +12,8 @@ import {
 import NotFound from "@/pages/NotFound";
 import ClusterSections from "@/components/ClusterSections";
 import { BRIDGE_SECTIONS } from "@/data/cluster-sections";
+import BridgeFitExplainer from "@/components/BridgeFitExplainer";
+import { BRIDGE_FIT_FAQ } from "@/content/bridgeFit";
 
 const SITE = "https://woolet.co";
 
@@ -176,6 +178,11 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
         </section>
 
         {/* Bridge sizing table */}
+        {b.slug === "19mm" && <div style={{ maxWidth: 860, margin: "0 auto" }}>
+          <p className="px-5 pt-7 font-body text-foreground">19 mm is a standard bridge. On a wider nose it perches - see what happens.</p>
+          <BridgeFitExplainer />
+        </div>}
+
         <section aria-labelledby="bridge-table" style={{ ...wrap, padding: "32px 20px 8px" }}>
           <h2
             id="bridge-table"
@@ -395,7 +402,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
           >
             Frequently asked
           </h2>
-          {b.faq.map((f, i) => (
+          {(b.slug === "19mm" ? [...b.faq, ...BRIDGE_FIT_FAQ] : b.faq).map((f, i) => (
             <details key={i} style={{ borderBottom: "1px solid #E0D5C5", padding: "14px 0" }}>
               <summary style={{ cursor: "pointer", fontSize: 14, fontWeight: 500, color: "#0B0A09", listStyle: "none" }}>
                 {f.q}
