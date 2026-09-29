@@ -155,7 +155,7 @@ export default function HatGlassesCard(props: Props) {
             </div>
             <label style={{ display: "flex", gap: 8, alignItems: "flex-start", marginTop: 10, fontSize: 12, color: DIM, lineHeight: 1.5 }}>
               <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} style={{ marginTop: 3 }} />
-              <span>I agree to the <a href="/en/privacy" style={{ color: GOLD }}>privacy policy</a> and to receive Woolet emails.</span>
+              <span>I agree to the <a href="/en/privacy-policy" style={{ color: GOLD }}>privacy policy</a> and to receive Woolet emails.</span>
             </label>
             {status === "error" && <p style={{ fontSize: 12, color: "#E2725B", margin: "8px 0 0" }}>Something went wrong. Try again.</p>}
           </form>
