@@ -31,7 +31,6 @@ export default function HatGlassesCard(props: Props) {
   const headRounded = Math.round(headCm * 10) / 10;
 
   const [email, setEmail] = useState("");
-  const [agree, setAgree] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
 
   const path = typeof window !== "undefined" ? window.location.pathname : "";
@@ -47,7 +46,7 @@ export default function HatGlassesCard(props: Props) {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !agree || status === "loading") return;
+    if (!email || status === "loading") return;
     setStatus("loading");
     try {
       const leadAttribution = buildLeadAttribution();
@@ -148,15 +147,16 @@ export default function HatGlassesCard(props: Props) {
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               <input id={`hat-card-email-${medium}`} type="email" required autoComplete="email" value={email}
                 onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com" style={{ ...input, flex: "1 1 200px" }} />
-              <button type="submit" disabled={status === "loading" || !agree}
-                style={{ minHeight: 46, padding: "0 18px", borderRadius: 2, border: `1px solid ${GOLD}`, background: "transparent", color: GOLD, fontSize: 14, cursor: agree ? "pointer" : "not-allowed", opacity: agree ? 1 : 0.55 }}>
+              <button type="submit" disabled={status === "loading"}
+                style={{ minHeight: 46, padding: "0 18px", borderRadius: 2, border: `1px solid ${GOLD}`, background: "transparent", color: GOLD, fontSize: 14, cursor: status === "loading" ? "not-allowed" : "pointer" }}>
                 {status === "loading" ? "Sending…" : "Send"}
               </button>
             </div>
-            <label style={{ display: "flex", gap: 8, alignItems: "flex-start", marginTop: 10, fontSize: 12, color: DIM, lineHeight: 1.5 }}>
-              <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} style={{ marginTop: 3 }} />
-              <span>I agree to the <a href="/en/privacy-policy" style={{ color: GOLD }}>privacy policy</a> and to receive Woolet emails.</span>
-            </label>
+            <p style={{ fontSize: 12, color: DIM, lineHeight: 1.5, margin: "10px 0 0" }}>
+              By getting your size card you accept our{" "}
+              <a href="/en/privacy-policy" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 2 }}>Privacy Policy</a>{" "}
+              and agree to emails from Woolet. No spam. Unsubscribe anytime.
+            </p>
             {status === "error" && <p style={{ fontSize: 12, color: "#E2725B", margin: "8px 0 0" }}>Something went wrong. Try again.</p>}
           </form>
         )}
