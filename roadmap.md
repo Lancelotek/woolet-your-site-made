@@ -61,4 +61,4 @@
 ## Kickstarter step-2 focus
 - [x] Show a focused reservation view after signup and preload its checkout session
 - [x] Add looping/swipe/counter to the hero gallery and remove the Bespoke gallery tiles
-- [ ] Verify desktop/mobile gallery and step-2 interactions
+- [x] Verify desktop/mobile gallery and step-2 interactions

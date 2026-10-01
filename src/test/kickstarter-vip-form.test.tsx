@@ -76,6 +76,12 @@ describe("Kickstarter VIP form — email-only submission", () => {
       expect(screen.getByRole("dialog", { name: /\$1 today locks your/ })).toBeTruthy();
       expect(screen.getByRole("button", { name: /Lock \$114 - pay \$1 now/ })).toBeTruthy();
     });
+    expect(screen.getByRole("dialog", { name: /\$1 today locks your/ }).querySelectorAll("img")).toHaveLength(1);
+    await waitFor(() => {
+      expect((supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>).mock.calls.some(([name]) => name === "create-checkout")).toBe(true);
+    });
+    const { pushGtmEvent } = await import("@/lib/gtm");
+    expect((pushGtmEvent as ReturnType<typeof vi.fn>).mock.calls.filter(([name]) => name === "kickstarter_reserve_step_view")).toHaveLength(1);
 
     const dl = (window as unknown as { dataLayer: Array<Record<string, unknown>> }).dataLayer;
     const signup = dl.find((e) => e.event === "waitlist_signup");
