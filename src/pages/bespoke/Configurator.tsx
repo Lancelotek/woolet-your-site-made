@@ -176,8 +176,18 @@ const ConfiguratorPage = () => {
   }, [step]);
 
   const [navHint, setNavHint] = useState(false);
+  const [payPending, setPayPending] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const stepComplete = isStepComplete(step, config);
+  const acetateMissing = [
+    !config.frontColorId && "front acetate",
+    !config.templeColorId && "temple acetate",
+    !config.finishId && "finish",
+  ].filter(Boolean).join(", ");
+  const showMissing = () => {
+    setNavHint(true);
+    document.querySelector<HTMLElement>("main.cfg-container .cfg-acetate-missing")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   // Meta mid funnel: the first time a pattern is actually chosen (step 1 complete),
   // not on page load. One event_id shared by the browser pixel, the Conversions
@@ -235,6 +245,7 @@ const ConfiguratorPage = () => {
   const handleMobileNext = () => {
     if (step === STEPS.length) return;
     if (!stepComplete) {
+      if (step === 2) { showMissing(); return; }
       const grid = document.querySelector<HTMLElement>(
         "main.cfg-container .cfg-swatchstrip, main.cfg-container .cfg-choicegrid"
       );
@@ -262,7 +273,7 @@ const ConfiguratorPage = () => {
     step === 4 ? <StepTempleLength config={config} update={update} /> :
     step === 5 ? <StepEngraving config={config} update={update} /> :
     step === 6 ? <StepLenses config={config} update={update} /> :
-                 <StepReview config={config} onSave={handleSave} saved={saved} />;
+                 <StepReview config={config} onSave={handleSave} saved={saved} onEdit={(n) => goTo(n as StepId)} />;
 
   return (
     <CfgInfoProvider>
@@ -413,14 +424,15 @@ const ConfiguratorPage = () => {
             <section>
               {StepBody}
               <div className="hidden lg:block">
-                <StepNav
+                 <StepNav
                   step={step}
                   total={STEPS.length}
                   onBack={() => goTo(Math.max(1, step - 1) as StepId)}
-                  onNext={goNext}
+                  onNext={step === 2 && !stepComplete ? showMissing : goNext}
                   canNext={isStepComplete(step, config)}
                   isLast={step === STEPS.length}
                 />
+                {step === 2 && !stepComplete && <p className="cfg-acetate-missing text-sm text-gold-light mt-3" role="status">Choose {acetateMissing} to continue.</p>}
               </div>
             </section>
 
@@ -531,10 +543,12 @@ const ConfiguratorPage = () => {
                 <span className="cfg-mobilebar__pricelabel">Total</span> {formatEur(stepTotal)}
               </CfgInfoTrigger>
             </div>
-            {navHint ? (
+            {navHint && step !== 2 ? (
               <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
                 Pick an option to continue
               </div>
+            ) : step === 2 && !stepComplete ? (
+              <div className="cfg-mobilebar__note text-gold-light" role="status">Choose {acetateMissing} to continue.</div>
             ) : (
               <div className="cfg-mobilebar__note">2-week build · free shipping</div>
             )}
@@ -542,6 +556,8 @@ const ConfiguratorPage = () => {
           <button
             onClick={() => {
               if (step === STEPS.length) {
+                if (payPending) return;
+                setPayPending(true);
                 pushCfg("cfg_pay_click");
                 handleSave();
                 navigate("/en/bespoke/checkout");
@@ -550,9 +566,10 @@ const ConfiguratorPage = () => {
               handleMobileNext();
             }}
             aria-disabled={step !== STEPS.length && !stepComplete}
+            disabled={payPending}
             className="cfg-cta cfg-cta--mobile"
           >
-            {step === STEPS.length ? "Pay now" : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
+            {step === STEPS.length ? (payPending ? <><Loader2 size={14} className="animate-spin" /> Opening checkout…</> : "Pay now") : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
           </button>
         </div>
       </div>
@@ -789,7 +806,6 @@ const ConfiguratorStyles = () => (
       text-transform: uppercase;
       border-radius: 2px;
     }
-    .cfg-sync--off:hover { color: var(--cfg-cream); border-color: var(--cfg-gold); }
 
     /* Stepper */
     .cfg-stepper { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }

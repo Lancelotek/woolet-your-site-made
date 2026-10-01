@@ -62,3 +62,8 @@
 - [x] Show a focused reservation view after signup and preload its checkout session
 - [x] Add looping/swipe/counter to the hero gallery and remove the Bespoke gallery tiles
 - [x] Verify desktop/mobile gallery and step-2 interactions
+
+## Clarity dead-click follow-up
+- [x] Fix confirmed configurator taps, preview feedback, editing and payment navigation
+- [x] Fix Kickstarter image/text/FAQ taps and collection card links
+- [x] Resolve missing DE blog URL and test A1, A2, A4, D on mobile

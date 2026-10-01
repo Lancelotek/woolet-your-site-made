@@ -128,7 +128,18 @@ const Collection = () => {
                       alt: "Bearded man with a large head and broad face wearing Woolet 162 mm bespoke extra-wide acetate glasses.",
                     },
                   ].map((panel) => (
-                    <div key={panel.label} className="relative w-full overflow-hidden" style={{ borderRadius: 2 }}>
+                    <Link
+                      key={panel.label}
+                      to={panel.to}
+                      onClick={(e) => {
+                        if (!panel.to.startsWith("#")) return;
+                        e.preventDefault();
+                        document.getElementById("collection-grid")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
+                      aria-label={`${panel.eyebrow} - ${panel.label}`}
+                      className="relative block w-full overflow-hidden no-underline group"
+                      style={{ borderRadius: 2 }}
+                    >
                       <div
                         role="img"
                         aria-label={panel.alt}
@@ -141,14 +152,7 @@ const Collection = () => {
                           backgroundRepeat: "no-repeat",
                         }}
                       />
-                      <Link
-                        to={panel.to}
-                        onClick={(e) => {
-                          if (!panel.to.startsWith("#")) return;
-                          e.preventDefault();
-                          document.getElementById("collection-grid")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                        }}
-                        aria-label={`${panel.eyebrow} - ${panel.label}`}
+                      <div
                         className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-4 text-center block no-underline group"
                         style={{
                           background: "linear-gradient(to top, rgba(11,10,9,0.78) 0%, rgba(11,10,9,0) 100%)",
@@ -166,8 +170,8 @@ const Collection = () => {
                         >
                           {panel.label}
                         </div>
-                      </Link>
-                    </div>
+                      </div>
+                    </Link>
                   ))}
                 </div>
 

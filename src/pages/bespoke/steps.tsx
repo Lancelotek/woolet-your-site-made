@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Lock, Maximize2, Sparkles, Unlock } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Loader2, Lock, Maximize2, Sparkles, Unlock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
@@ -165,6 +166,12 @@ function ColorSwatchGrid({
 }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [family, setFamily] = useState<ColorFamily | "all">("all");
+  const listRef = useRef<HTMLDivElement>(null);
+  const chooseFamily = (next: ColorFamily | "all") => {
+    setFamily(next);
+    setHoveredId(null);
+    if (window.matchMedia("(max-width: 1023px)").matches) requestAnimationFrame(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  };
 
   const filtered = thicknessMm ? COLORS.filter((c) => c.thicknessMm === thicknessMm) : COLORS;
   const families = useMemo(
@@ -185,7 +192,8 @@ function ColorSwatchGrid({
         <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="Filter acetates">
           <button
             type="button"
-            onClick={() => setFamily("all")}
+            onClick={() => chooseFamily("all")}
+            aria-pressed={family === "all"}
             className={`cfg-chip ${family === "all" ? "cfg-chip--active" : ""}`}
           >
             All
@@ -194,7 +202,8 @@ function ColorSwatchGrid({
             <button
               key={f}
               type="button"
-              onClick={() => setFamily(f)}
+              onClick={() => chooseFamily(f)}
+              aria-pressed={family === f}
               className={`cfg-chip ${family === f ? "cfg-chip--active" : ""}`}
             >
               {FAMILY_LABEL[f]}
@@ -220,7 +229,7 @@ function ColorSwatchGrid({
         </div>
       )}
 
-      <div className="cfg-swatchstrip grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div ref={listRef} className="cfg-swatchstrip grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {list.map((c) => {
           const active = selected === c.id;
           return (
@@ -394,15 +403,7 @@ export function AiPreviewPanel({
   const currentList = history[selectionKey] ?? [];
   const [activeUrl, setActiveUrl] = useState<string | null>(currentList[0]?.url ?? null);
   const [loading, setLoading] = useState(false);
-  // After the first failed render in a session the preview is parked, so
-  // buyers aren't invited to keep retrying an unavailable service.
-  const [renderDown, setRenderDown] = useState<boolean>(() => {
-    try { return sessionStorage.getItem("wlt_cfg_render_down") === "1"; } catch { return false; }
-  });
-  const markRenderDown = () => {
-    setRenderDown(true);
-    try { sessionStorage.setItem("wlt_cfg_render_down", "1"); } catch { /* ignore */ }
-  };
+  const generatingRef = useRef(false);
   const [error, setError] = useState<string | null>(null);
   const [storageWarning, setStorageWarning] = useState<string | null>(null);
   const [cloudSaveState, setCloudSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
@@ -466,19 +467,25 @@ export function AiPreviewPanel({
   };
 
   const generate = async () => {
-    if (loading || renderDown) return;
+    if (generatingRef.current) return;
     if (budget.remaining <= 0) {
       setError(`You have used all ${RENDERS_PER_SESSION} renders for this session.`);
       return;
     }
-    pushCfg("cfg_generate_click");
-    budget.consume();
+    generatingRef.current = true;
     setLoading(true);
     setError(null);
     setCloudSaveState("idle");
     try {
-      const { data, error: fnErr } = await supabase.functions.invoke("bespoke-preview-render", {
-        body: {
+      pushCfg("cfg_generate_click");
+      budget.consume();
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 35000);
+      let result: Awaited<ReturnType<typeof supabase.functions.invoke>>;
+      try {
+        result = await supabase.functions.invoke("bespoke-preview-render", {
+          signal: controller.signal,
+          body: {
           shape: frame.shape,
           frontColor: `${front.name} (${front.code})`,
           templeColor: `${temple.name} (${temple.code})`,
@@ -489,9 +496,10 @@ export function AiPreviewPanel({
           lensType: lens?.id ?? null,
           lensName: lens?.name ?? null,
           lensTint: lens ? lensTintCode(config) : null,
-        },
-
-      });
+          },
+        });
+      } finally { window.clearTimeout(timeout); }
+      const { data, error: fnErr } = result;
       if (fnErr) throw fnErr;
       const url = (data as { imageUrl?: string })?.imageUrl;
       if (!url) throw new Error("No preview returned");
@@ -547,9 +555,9 @@ export function AiPreviewPanel({
       console.warn("[bespoke] preview render failed", reason);
       pushCfg("cfg_render_failed", { reason: String(reason).slice(0, 80) });
       claritySet("bespoke_render_failed", String(reason).slice(0, 80));
-      markRenderDown();
-      setError(null);
+      setError("Preview could not be generated. You can retry or skip this step.");
     } finally {
+      generatingRef.current = false;
       setLoading(false);
     }
   };
@@ -571,32 +579,6 @@ export function AiPreviewPanel({
 
   generateRef.current = () => void generate();
 
-  if (renderDown && !activeUrl) {
-    return (
-      <div className="border border-gold/25 bg-[#0c0c0c]/40 p-5 sm:p-6" style={{ borderRadius: 2 }} role="status">
-        <p className="text-[13px] leading-relaxed text-cream-dim" style={{ cursor: "default" }}>
-          Preview is taking a break - your build is saved.
-          {nextLabel && onNext ? (
-            <>
-              {" "}
-              <button
-                type="button"
-                onClick={() => {
-                  pushCfg("cfg_preview_skip", { reason: "render_unavailable" });
-                  onNext();
-                }}
-                className="text-gold-light hover:text-gold underline underline-offset-4"
-              >
-                Continue to {nextLabel} →
-              </button>
-            </>
-          ) : (
-            " Continue to the next step →"
-          )}
-        </p>
-      </div>
-    );
-  }
 
 
 
@@ -631,10 +613,11 @@ export function AiPreviewPanel({
       </p>
 
       <div
-        className="cfg-stage--tappable relative w-full overflow-hidden bg-[#EFE9DF] flex items-center justify-center"
+        className={`relative w-full overflow-hidden bg-[#EFE9DF] flex items-center justify-center ${loading ? "cursor-wait" : "cfg-stage--tappable"}`}
         style={{ aspectRatio: "4 / 3", borderRadius: 2 }}
         role="button"
-        tabIndex={0}
+        tabIndex={loading ? -1 : 0}
+        aria-disabled={loading}
         aria-label={activeUrl ? "Open larger preview" : "Generate AI preview"}
         onClick={() => {
           if (loading) return;
@@ -662,7 +645,7 @@ export function AiPreviewPanel({
         ) : loading ? (
           <div className="flex flex-col items-center gap-3 text-[color:var(--cfg-ink)]/70">
             <div className="h-8 w-8 border-2 border-[color:var(--cfg-ink)]/30 border-t-[color:var(--cfg-ink)] rounded-full animate-spin" />
-            <div className="text-[11px] uppercase tracking-[0.2em]">Rendering your {frame.shape}… ~20 s</div>
+            <div role="status" className="text-[11px] uppercase tracking-[0.2em]">Generating your preview — about 20 seconds</div>
           </div>
         ) : (
           <div className="text-[color:var(--cfg-ink)]/50 text-xs uppercase tracking-[0.2em]">
@@ -730,7 +713,7 @@ export function AiPreviewPanel({
         </div>
       )}
 
-      {!activeUrl && (
+      {!activeUrl && !error && (
         <button
           onClick={generate}
           disabled={loading || budget.remaining <= 0}
@@ -745,11 +728,11 @@ export function AiPreviewPanel({
             borderRadius: 2,
           }}
         >
-          {loading ? "Generating…" : "Generate AI preview"}
+          {loading ? <><Loader2 size={14} className="animate-spin inline mr-2" />Generating your preview…</> : "Generate AI preview"}
         </button>
       )}
 
-      {!activeUrl && !error && !includeLens && nextLabel && onNext && (
+      {!activeUrl && !includeLens && nextLabel && onNext && (
         <button
           type="button"
           onClick={() => {
@@ -1993,11 +1976,14 @@ export function StepReview({
   config,
   onSave,
   saved,
+  onEdit,
 }: {
   config: BespokeConfig;
   onSave: () => void;
   saved: boolean;
+  onEdit: (step: number) => void;
 }) {
+  const [payPending, setPayPending] = useState(false);
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
   const temple = COLORS.find((c) => c.id === config.templeColorId);
@@ -2026,18 +2012,18 @@ export function StepReview({
     };
   }, [reviewLensKey, reviewBaseKey]);
 
-  const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
-    <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10">
+  const Row = ({ label, value, step }: { label: string; value: React.ReactNode; step: number }) => (
+    <Button type="button" variant="ghost" onClick={() => onEdit(step)} className="h-auto w-full rounded-none flex items-baseline justify-between gap-4 py-3 px-0 border-b border-cream/10 hover:bg-transparent text-left">
       <div className="text-cream-dim text-xs uppercase tracking-[0.16em]">{label}</div>
-      <div className="text-cream text-sm text-right">{value || <span className="text-cream-dim/60">—</span>}</div>
-    </div>
+      <div className="text-cream text-sm text-right whitespace-normal">{value || <span className="text-cream-dim/60">—</span>} <span className="text-gold-light text-xs ml-2">Edit</span></div>
+    </Button>
   );
 
   return (
     <div className="space-y-8">
       <header>
         <div className={sectionKicker}>Step 7 — Review &amp; pay</div>
-        <h2 className={sectionTitle}>Confirm your <em className="italic text-gold-light">pattern</em></h2>
+        <h2 className={sectionTitle}><Button type="button" variant="ghost" onClick={() => onEdit(1)} className="h-auto p-0 font-display text-cream text-[inherit] hover:bg-transparent hover:text-cream">Confirm your <em className="italic text-gold-light">pattern</em> <span className="text-gold-light text-xs ml-2">Edit</span></Button></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.
         </p>
@@ -2053,23 +2039,23 @@ export function StepReview({
             />
           </div>
           <div className="p-5">
-            <div className="font-display text-cream text-2xl font-light">{frame.name}</div>
+            <Button variant="ghost" onClick={() => onEdit(1)} className="h-auto p-0 text-left font-display text-cream text-2xl font-light hover:bg-transparent">{frame.name} <span className="text-gold-light text-xs ml-2">Edit</span></Button>
             <div className="text-cream-dim text-xs uppercase tracking-[0.16em] mt-1">Pattern · {frame.shape}</div>
           </div>
         </div>
       )}
 
       <div className="rounded-[14px] border border-cream/10 bg-background/40 px-5">
-        <Row label="Pattern" value={frame ? `${frame.name}` : null} />
-        <Row label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
-        <Row label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
-        <Row label="Finish" value={finish?.name} />
-        <Row label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "None"} />
+        <Row step={1} label="Pattern" value={frame ? `${frame.name}` : null} />
+        <Row step={2} label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
+        <Row step={2} label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
+        <Row step={2} label="Finish" value={finish?.name} />
+        <Row step={5} label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "None"} />
         <Row
-          label="Lenses"
+          step={6} label="Lenses"
           value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)} · {formatAddOn(lens.priceEur)}</span> : null}
         />
-        <Row label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
+        <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10"><span className="text-cream-dim text-xs uppercase tracking-[0.16em]">Shipping</span><span className="text-gold-light text-sm">Free · worldwide</span></div>
         <div className="flex items-baseline justify-between gap-4 py-4">
           <div className="text-cream text-xs uppercase tracking-[0.2em]">
             <CfgInfoTrigger section="price" className="cfg-info-trigger--block">Total due today</CfgInfoTrigger>
@@ -2101,13 +2087,16 @@ export function StepReview({
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <button
           onClick={() => {
+            if (payPending) return;
+            setPayPending(true);
             pushCfg("cfg_pay_click");
             onSave();
             navigate("/en/bespoke/checkout");
           }}
-          className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
+          disabled={payPending}
+          className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition disabled:opacity-60"
         >
-          Pay {formatEur(total)} — secure your pattern
+          {payPending ? <><Loader2 size={14} className="animate-spin inline mr-2" />Opening checkout…</> : <>Pay {formatEur(total)} — secure your pattern</>}
         </button>
         <span className="text-cream-dim text-[0.78rem] uppercase tracking-[0.18em]">
           Free worldwide shipping · Stripe secure checkout

@@ -446,7 +446,7 @@ const VipForm = ({
         <div id={`vip-form${idSuffix}`} className="w-full min-h-[100dvh] md:min-h-0 md:max-w-[540px] md:border md:border-border md:bg-card px-6 py-8 md:px-12 md:py-10 flex flex-col justify-center gap-5">
         <StepBar step={2} />
         <h2 id="ks-step2-title" className="text-[2.25rem] leading-[1.08] md:text-[3rem] text-foreground">
-          $1 today locks your <em className="text-primary">$114</em> founder price (then $190).
+          <button type="button" className="text-left cursor-pointer" onClick={() => document.getElementById(`vip-reserve${idSuffix}`)?.focus({ preventScroll: false })}>$1 today locks your <em className="text-primary">$114</em> founder price (then $190).</button>
         </h2>
         <figure className="flex items-center gap-4 m-0 py-3 border-y border-border">
           <img src={gregSquare} alt="Greg wearing a Woolet frame" width={80} height={80} className="w-20 h-20 object-cover shrink-0" />
@@ -1351,17 +1351,22 @@ const KickstarterPrelaunch = () => {
               ))}
             </div>
             {/* Caption sits below the thumbnails so the strip stays adjacent to the hero image */}
-            <p
+            <button type="button" onClick={(e) => openLightbox(activeImg, "gallery", e.currentTarget)} aria-label={`Enlarge: ${heroGallery[activeImg].alt}`}
               style={{
                 marginTop: 12,
                 fontSize: 12.5,
                 lineHeight: 1.5,
                 color: TAUPE,
                 letterSpacing: "0.02em",
+                cursor: "zoom-in",
+                background: "transparent",
+                border: 0,
+                padding: 0,
+                textAlign: "left",
               }}
             >
               {heroGallery[activeImg].alt}
-            </p>
+            </button>
           </div>
 
 
