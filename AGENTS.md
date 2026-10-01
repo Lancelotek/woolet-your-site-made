@@ -1,0 +1,1 @@
+- Multi-touch journey (first/last/10 touches) lives in src/lib/journey.ts (localStorage wlt_attr, memory-only for EU until analytics consent); flows into Stripe metadata via getGaCheckoutMetadata and into signups via getAttribution — one place feeds every checkout and form.
