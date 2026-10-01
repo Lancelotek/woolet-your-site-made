@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import HeardFromQuestion from "@/components/HeardFromQuestion";
 import { useSearchParams } from "react-router-dom";
 import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
@@ -221,6 +222,7 @@ export default function ThankYouReserved() {
           <p style={{ color: T.goldDim, fontSize: 13, marginTop: 16 }}>
             $114 locked - only 30 frames go at this price on Kickstarter. Fully refundable until launch.
           </p>
+          {paid && <div style={{ maxWidth: 520, margin: "0 auto" }}><HeardFromQuestion sessionId={paymentRef} /></div>}
         </section>
 
         {/* 3. What happens next */}

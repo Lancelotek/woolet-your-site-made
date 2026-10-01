@@ -250,6 +250,12 @@ async function ensureCustomFields(apiKey: string) {
     { name: "head_cm", type: "text" },
     { name: "temple_width_est", type: "text" },
     { name: "form_location", type: "text" },
+    { name: "first_touch", type: "text" },
+    { name: "first_landing", type: "text" },
+    { name: "first_seen_at", type: "text" },
+    { name: "last_touch", type: "text" },
+    { name: "heard_from", type: "text" },
+    { name: "days_to_pay", type: "text" },
   ];
 
   for (const field of fields) {
@@ -276,6 +282,8 @@ export const handler = async (req: Request): Promise<Response> => {
       throw new Error("MAILERLITE_API_KEY is not configured");
     }
 
+    // deno-lint-ignore no-explicit-any
+    let reqBody: Record<string, any> = {};
     const {
       email,
       name,
@@ -302,7 +310,7 @@ export const handler = async (req: Request): Promise<Response> => {
       hero_variant,
       form_location,
       head_cm,
-    } = await req.json();
+    } = (reqBody = await req.json());
 
     if (!email) {
       return new Response(
@@ -360,7 +368,7 @@ export const handler = async (req: Request): Promise<Response> => {
     const heroRaw = String(hero_variant || "").trim();
     const heroResolved = !heroRaw || heroRaw === "default" ? heroVariantKeyFromUtm(utm_content) : heroRaw;
     if (heroResolved) subscriberFields.hero_variant = heroResolved.slice(0, 100);
-    
+
     // Hat size card: temple width is recomputed server-side from head_cm.
     const headCmNum = Number(head_cm);
     const isHatCard = form_location === "hat_size_card" && Number.isFinite(headCmNum) && headCmNum >= 50 && headCmNum <= 68;
@@ -369,6 +377,29 @@ export const handler = async (req: Request): Promise<Response> => {
       subscriberFields.head_cm = String(Math.round(headCmNum * 10) / 10);
       subscriberFields.temple_width_est = String(templeWidthMm(headCmNum));
     }
+
+    // Journey attribution: first_* fill-if-empty, last_touch always overwrites.
+    const s = (v: unknown) => (typeof v === "string" ? v.slice(0, 500) : "");
+    const journeyFirst: Record<string, string> = {
+      first_touch: s(reqBody.wlt_first_touch),
+      first_landing: s(reqBody.wlt_first_landing),
+      first_seen_at: s(reqBody.wlt_first_seen_at),
+    };
+    if (s(reqBody.wlt_last_touch)) subscriberFields.last_touch = s(reqBody.wlt_last_touch);
+    if (Object.values(journeyFirst).some(Boolean)) {
+      let existing: Record<string, unknown> = {};
+      try {
+        const r = await mlFetch(apiKey, `/subscribers/${encodeURIComponent(email)}`, "GET");
+        if (r.status === 200) existing = r.data?.data?.fields ?? {};
+      } catch (e) {
+        console.error("[journey] subscriber lookup failed", e);
+      }
+      for (const [k, v] of Object.entries(journeyFirst)) {
+        const cur = existing[k];
+        if (v && (cur === null || cur === undefined || cur === "")) subscriberFields[k] = v;
+      }
+    }
+
 
     const { status, data } = await mlFetch(apiKey, "/subscribers", "POST", {
       email,

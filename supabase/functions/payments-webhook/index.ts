@@ -166,7 +166,7 @@ async function fireGa4Conversion(
   paidSource: string,
 ) {
   if (env !== "live") return;
-  const eventName = flow === "bespoke" ? "purchase" : "reservation_paid";
+  const eventName = "purchase";
   const logName = flow === "bespoke" ? "GA4Purchase" : "GA4Reservation";
   let status: "sent" | "error" | "skipped" = "sent";
   let http: number | null = null;
@@ -180,7 +180,8 @@ async function fireGa4Conversion(
       status = "skipped";
       console.warn("[ga4] not configured, skipping", session?.id);
     } else {
-      const clientId = meta.ga_client_id ||
+      const fallback = !meta.ga_client_id;
+      const clientId = meta.ga_client_id || meta.wlt_visitor_id ||
         `${(await sha256Hex((email ?? session.id).trim().toLowerCase())).slice(0, 10)}.${Math.floor(Date.now() / 1000)}`;
       const value = (session?.amount_total ?? 0) / 100;
       const currency = String(session?.currency ?? "usd").toUpperCase();
@@ -191,8 +192,12 @@ async function fireGa4Conversion(
         engagement_time_msec: 1,
         paid_source: paidSource,
       };
+      if (fallback) params.attr_fallback = true;
       const sid = Number(meta.ga_session_id);
       if (meta.ga_session_id && Number.isFinite(sid)) params.session_id = sid;
+      if (flow === "reservation") {
+        params.items = [{ item_id: "reservation_1usd", item_name: "Founder reservation $1", price: value, quantity: 1 }];
+      }
       if (flow === "bespoke") {
         params.items = [{
           item_id: meta.frame || "bespoke",
@@ -532,6 +537,39 @@ async function handlePaymentFailed(paymentIntent: any) {
   }
 }
 
+function daysToPay(firstSeen?: string, paidAt = Date.now()): number | null {
+  const t = firstSeen ? Date.parse(firstSeen) : NaN;
+  if (!Number.isFinite(t) || t > paidAt) return null;
+  return Math.floor((paidAt - t) / 86400000);
+}
+
+async function saveReservationAttribution(session: any, email: string, meta: Record<string, string>, env: StripeEnv) {
+  try {
+    const paidAt = session?.created ? session.created * 1000 : Date.now();
+    const fs = meta.first_seen_at && Number.isFinite(Date.parse(meta.first_seen_at)) ? meta.first_seen_at : null;
+    const tc = Number(meta.touch_count);
+    const row = {
+      session_id: session.id,
+      email,
+      amount: session.amount_total ?? null,
+      currency: (session.currency ?? "usd").toLowerCase(),
+      paid_at: new Date(paidAt).toISOString(),
+      environment: env,
+      visitor_id: meta.wlt_visitor_id || null,
+      first_touch: meta.first_touch || null,
+      last_touch: meta.last_touch || null,
+      first_landing: meta.first_landing || null,
+      first_seen_at: fs,
+      days_to_pay: daysToPay(fs ?? undefined, paidAt),
+      touch_count: Number.isFinite(tc) && tc > 0 ? tc : null,
+    };
+    const { error } = await getSupabase().from("reservation_attribution").upsert(row, { onConflict: "session_id" });
+    if (error) console.error("[reservation_attribution] upsert failed", error);
+  } catch (e) {
+    console.error("[reservation_attribution] error", e);
+  }
+}
+
 async function tagMailerLiteFoundingMember(
   email: string,
   sessionId: string,
@@ -580,6 +618,34 @@ async function tagMailerLiteFoundingMember(
         if (v && (cur === null || cur === undefined || cur === "")) utmFill[k] = String(v).slice(0, 500);
       }
     }
+    // Journey: first_* only if empty, last_touch/days_to_pay always.
+    const journeyMl: Record<string, string> = {};
+    for (const name of ["first_touch", "first_landing", "first_seen_at", "last_touch", "days_to_pay"]) {
+      try {
+        const f = await fetch("https://connect.mailerlite.com/api/fields", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+          body: JSON.stringify({ name, type: "text" }),
+        });
+        await f.text();
+      } catch { /* ignore */ }
+    }
+    if (paidMeta.first_touch || paidMeta.last_touch) {
+      let ex: Record<string, unknown> = {};
+      try {
+        const g = await fetch(`https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`, {
+          headers: { Authorization: `Bearer ${apiKey}` },
+        });
+        if (g.ok) ex = (await g.json())?.data?.fields ?? {}; else await g.text();
+      } catch { /* ignore */ }
+      for (const k of ["first_touch", "first_landing", "first_seen_at"]) {
+        const cur = ex[k];
+        if (paidMeta[k] && (cur === null || cur === undefined || cur === "")) journeyMl[k] = paidMeta[k].slice(0, 500);
+      }
+      if (paidMeta.last_touch) journeyMl.last_touch = paidMeta.last_touch.slice(0, 500);
+      const d = daysToPay(paidMeta.first_seen_at);
+      if (d !== null) journeyMl.days_to_pay = String(d);
+    }
     const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
       method: "POST",
       headers: {
@@ -592,6 +658,7 @@ async function tagMailerLiteFoundingMember(
         fields: {
           ...utmFill,
           ...(recommendedSku ? { recommended_sku: recommendedSku } : {}),
+          ...journeyMl,
           paid_ref: sessionId,
           paid_source: paidSource ?? "direct",
           paid_utm_content: paidMeta.lt_utm_content ?? "",
@@ -962,6 +1029,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     throw error;
   }
 
+  await saveReservationAttribution(session, email, resolvedMeta, env);
   await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined, paidSource, resolvedMeta);
 
   try {

@@ -2,6 +2,8 @@
 // Protocol events join the visitor's real session. Returns null when the
 // cookie is absent (e.g. consent denied) — never invents values.
 
+import { getJourneyFields } from "@/lib/journey";
+
 const GA_SESSION_COOKIE = "_ga_SYJZL72DWB";
 
 function readCookie(name: string): string | null {
@@ -32,7 +34,7 @@ export function getGaSessionId(): string | null {
 
 /** Stripe metadata fields; keys only present when the cookie exists. */
 export function getGaCheckoutMetadata(): Record<string, string> {
-  const out: Record<string, string> = {};
+  const out: Record<string, string> = { ...getJourneyFields() };
   const cid = getGaClientId();
   const sid = getGaSessionId();
   if (cid) out.ga_client_id = cid;

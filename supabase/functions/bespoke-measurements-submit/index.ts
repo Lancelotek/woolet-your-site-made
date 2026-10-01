@@ -236,6 +236,22 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Mirror the "how did you find Woolet" answer into MailerLite heard_from.
+    try {
+      const mlKey = Deno.env.get("MAILERLITE_API_KEY");
+      const em = (data.customer_email as string | null) ?? "";
+      if (mlKey && em && typeof patch.source === "string") {
+        const r = await fetch(`https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(em)}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${mlKey}` },
+          body: JSON.stringify({ fields: { heard_from: patch.source } }),
+        });
+        await r.text();
+      }
+    } catch (e) {
+      console.error("[bespoke-measurements-submit] heard_from sync failed", e);
+    }
+
     // Notify the workshop with the numbers themselves, not just "they arrived".
     try {
       const order = data as Record<string, any>;
