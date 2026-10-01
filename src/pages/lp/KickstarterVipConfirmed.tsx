@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import HeardFromQuestion from "@/components/HeardFromQuestion";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
@@ -134,6 +135,7 @@ const KickstarterVipConfirmed = () => {
               $1 reservation confirmed · Refundable · Applied to your pledge
             </p>
           )}
+          {paid && <HeardFromQuestion sessionId={paymentRef} />}
           <div className="mt-6">
             <KickstarterFollowCta slot="post_signup" label="You're on the list. Now follow on" />
           </div>
