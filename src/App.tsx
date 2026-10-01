@@ -371,6 +371,7 @@ const App = () => (
           {/* Non-EN blog posts: redirect legacy EN slugs to their translated slug */}
           <Route path="/de/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/de/blog/beste-brillen-fuer-grosse-koepfe-2026" replace />} />
           <Route path="/de/blog/what-size-sunglasses-for-wide-faces" element={<Navigate to="/de/blog/welche-groesse-sonnenbrille-breites-gesicht" replace />} />
+          <Route path="/de/blog/glasses-for-wide-faces-guide" element={<RedirectKeepQuery to="/en/blog/glasses-for-wide-faces-guide" />} />
           <Route path="/nl/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/nl/blog/beste-brillen-voor-brede-hoofden-2026" replace />} />
           <Route path="/nl/blog/what-size-sunglasses-for-wide-faces" element={<Navigate to="/nl/blog/welke-maat-zonnebril-voor-breed-gezicht" replace />} />
           <Route path="/fr/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026" replace />} />
