@@ -57,3 +57,8 @@
 - [x] Align llms, pricing, Organization JSON-LD, and About facts with 150 mm Signature temples
 - [x] Prepare the legacy redirect and shared-route-source plan without changing Worker, routes, or DNS
 - [x] Update Persol and Zenni compare metadata in crawler-visible prerendered HTML
+
+## Kickstarter step-2 focus
+- [x] Show a focused reservation view after signup and preload its checkout session
+- [x] Add looping/swipe/counter to the hero gallery and remove the Bespoke gallery tiles
+- [ ] Verify desktop/mobile gallery and step-2 interactions

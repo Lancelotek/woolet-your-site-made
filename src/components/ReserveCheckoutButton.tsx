@@ -5,6 +5,7 @@ import { buildPurchaseAttribution } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { getLastTouchCheckoutMetadata } from "@/lib/attribution";
 import { getGaCheckoutMetadata } from "@/lib/ga-ids";
+import { Button } from "@/components/ui/button";
 
 const StripeCheckoutModalLazy = lazy(() =>
   import("@/components/StripeCheckoutModal").then((m) => ({ default: m.StripeCheckoutModal })),
@@ -30,6 +31,8 @@ type Props = {
   id?: string;
   onOpen?: () => void;
   onClosed?: () => void;
+  /** Begin creating a checkout session as soon as this post-signup action mounts. */
+  prefetchOnMount?: boolean;
 };
 
 /**
@@ -55,6 +58,7 @@ export function ReserveCheckoutButton({
   id,
   onOpen,
   onClosed,
+  prefetchOnMount = false,
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -95,8 +99,8 @@ export function ReserveCheckoutButton({
     return p;
   }, [createSession]);
 
-  // Preload Stripe.js + modal code only. The checkout session is created on
-  // click, so an expired session means the visitor actually chose to pay.
+  // Preload code for all buttons; only the post-signup reservation opts in
+  // to creating its session before the visitor taps.
   useEffect(() => {
     void import("@/components/StripeCheckoutModal");
     try {
@@ -105,6 +109,13 @@ export function ReserveCheckoutButton({
       /* surfaced by the modal */
     }
   }, []);
+
+  useEffect(() => {
+    if (prefetchOnMount) void warm();
+    // The initial mount is the moment step 1 has completed. Do not start
+    // another session on parent re-renders while this button is visible.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prefetchOnMount]);
 
   const prefetchedClientSecret = useCallback(() => warm(), [warm]);
 
@@ -138,11 +149,12 @@ export function ReserveCheckoutButton({
 
   return (
     <>
-      <button
+      <Button
         type="button"
         id={id}
         className={className}
         onClick={handleClick}
+        disabled={loading || open}
         aria-busy={loading}
         style={{ ...style, opacity: loading ? 0.85 : 1, cursor: loading ? "wait" : "pointer" }}
       >
@@ -166,7 +178,7 @@ export function ReserveCheckoutButton({
         ) : (
           label
         )}
-      </button>
+      </Button>
 
       {error && (
         <p
