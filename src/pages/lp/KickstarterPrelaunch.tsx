@@ -1,13 +1,15 @@
 import { commerceJson } from "@/lib/schema-offer";
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { createPortal } from "react-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import { buildLeadAttribution } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
-import { DEFAULT_HERO_VARIANT, resolveHeroVariant } from "@/content/ksHeroVariants";
+import { resolveHeroVariant } from "@/content/ksHeroVariants";
+import { Button } from "@/components/ui/button";
 import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
 const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 import { persistRef, resolveReferredBy } from "@/lib/referral";
@@ -31,19 +33,6 @@ import gregPortrait from "@/assets/testimonials/greg-woolet-tester.webp";
 import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, BESPOKE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
 
-// Bespoke gallery photos
-import bespokeAviatorTortoiseSun from "@/assets/bespoke/aviator-tortoise-sun.png.asset.json";
-import bespokeAviatorHavana from "@/assets/bespoke/aviator-havana.png.asset.json";
-import bespokeAviatorCaramel from "@/assets/bespoke/aviator-caramel.png.asset.json";
-import bespokeAviatorGreyStripe from "@/assets/bespoke/aviator-grey-stripe.png.asset.json";
-import bespokeGreenRectangle from "@/assets/bespoke/green-rectangle.png.asset.json";
-import bespokeGreenPinkPattern from "@/assets/bespoke/green-pink-pattern.png.asset.json";
-import bespokeGreyStripeRect from "@/assets/bespoke/grey-stripe-rect.png.asset.json";
-import bespokeBurgundy from "@/assets/bespoke/burgundy.png.asset.json";
-import bespokePantoBlackRed from "@/assets/bespoke/panto-black-red.png.asset.json";
-import bespokePantoNavy from "@/assets/bespoke/panto-navy.png.asset.json";
-import bespokePantoHoney from "@/assets/bespoke/panto-honey.png.asset.json";
-import bespokePantoGreenStripe from "@/assets/bespoke/panto-green-stripe.png.asset.json";
 import wr29 from "@/assets/frames/wr-29.jpg.asset.json";
 import wr31 from "@/assets/frames/wr-31.jpg.asset.json";
 import wr34 from "@/assets/frames/wr-34.jpg.asset.json";
@@ -67,15 +56,6 @@ const renderSubTokens = (text: string) =>
     return acc;
   }, []);
 
-/** Renders {{40OFF}} and {{$1}} with the existing gold/strong styling. */
-const renderReserveTokens = (text: string) =>
-  text.split(/(\{\{40OFF\}\}|\{\{\$1\}\})/g).map((part, i) => {
-    if (part === "{{40OFF}}") return <strong key={i} style={{ color: GOLD }}>40% OFF</strong>;
-    if (part === "{{$1}}") return <strong key={i}>$1</strong>;
-    return <span key={i}>{part}</span>;
-  });
-
-
 // ---------- Tester testimonial ----------
 // DRAFT — quote and attribution pending written approval from the tester.
 // Ship verbatim. Do not append a model name, colour or millimetre figure to the attribution.
@@ -93,20 +73,6 @@ const heroGallery: { src: string; alt: string }[] = [
   { src: w009HavanaAsset.url, alt: "Woolet 009 Soft-Square — havana" },
 ];
 
-const bespokeGallery = [
-  { src: bespokeAviatorTortoiseSun.url, shape: "Aviator", alt: "Woolet Bespoke Aviator sunglasses in tortoise acetate with warm amber lenses" },
-  { src: bespokeAviatorHavana.url, shape: "Aviator", alt: "Woolet Bespoke Aviator glasses in classic Havana Mazzucchelli acetate" },
-  { src: bespokeAviatorCaramel.url, shape: "Aviator", alt: "Woolet Bespoke Aviator glasses in caramel translucent acetate" },
-  { src: bespokeAviatorGreyStripe.url, shape: "Aviator", alt: "Woolet Bespoke Aviator glasses in grey layered stripe acetate" },
-  { src: bespokeGreenRectangle.url, shape: "Rectangle", alt: "Woolet Bespoke Rectangle glasses in deep green Italian acetate" },
-  { src: bespokeGreenPinkPattern.url, shape: "Rectangle", alt: "Woolet Bespoke Rectangle glasses in green and pink marbled acetate pattern" },
-  { src: bespokeGreyStripeRect.url, shape: "Rectangle", alt: "Woolet Bespoke Rectangle glasses in grey pinstripe layered acetate" },
-  { src: bespokeBurgundy.url, shape: "Soft-Square", alt: "Woolet Bespoke Soft-Square glasses in rich burgundy acetate" },
-  { src: bespokePantoBlackRed.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in black with red interior acetate" },
-  { src: bespokePantoNavy.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in navy blue Italian acetate" },
-  { src: bespokePantoHoney.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in warm honey translucent acetate" },
-  { src: bespokePantoGreenStripe.url, shape: "Panto", alt: "Woolet Bespoke Panto glasses in green striped Mazzucchelli acetate" },
-];
 
 // LP lightbox: Signature 158 mm + 007 / 009 only (max 10). Bespoke is a
 // different offer and stays out of this gallery.
@@ -245,7 +211,6 @@ const VipForm = ({
   compact = false,
   onJoined,
   onResolved,
-  reserveLead,
   heroVariant = "default",
 }: {
   utmSource: string;
@@ -254,7 +219,6 @@ const VipForm = ({
   compact?: boolean;
   onJoined?: () => void;
   onResolved?: () => void;
-  reserveLead?: string;
   heroVariant?: string;
 }) => {
   const navigate = useNavigate();
@@ -265,7 +229,6 @@ const VipForm = ({
   const [errorKind, setErrorKind] = useState<"invalid" | "duplicate" | "generic" | null>(null);
 
   const [step, setStep] = useState<1 | 2>(1);
-  const [skipVisible, setSkipVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const step2ViewedRef = useRef(false);
 
@@ -283,8 +246,9 @@ const VipForm = ({
 
   useEffect(() => {
     if (step !== 2) return;
-    const timer = setTimeout(() => setSkipVisible(true), 8000);
-    return () => clearTimeout(timer);
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previous; };
   }, [step]);
 
   const returnUrl =
@@ -431,12 +395,10 @@ const VipForm = ({
       setLoading(false);
       markJoined();
       setStep(2);
-      // Move the visitor straight to the $1 step and focus its button.
+      // Focus the dedicated $1 view after it mounts.
       window.setTimeout(() => {
         const reserve = document.getElementById(`vip-reserve${idSuffix}`);
-        if (!reserve) return;
-        reserve.scrollIntoView({ block: "center", behavior: "smooth" });
-        window.setTimeout(() => reserve.focus({ preventScroll: true }), 450);
+        reserve?.focus({ preventScroll: true });
       }, 80);
     } catch (err: unknown) {
       console.error("KS VIP error:", err);
@@ -479,39 +441,21 @@ const VipForm = ({
   );
 
   if (step === 2) {
-    return (
-      <div
-        id={`vip-form${idSuffix}`}
-        className="flex flex-col gap-3"
-        style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
-      >
+    return createPortal(
+      <div className="fixed inset-0 z-[9995] overflow-y-auto bg-background text-foreground flex items-center justify-center p-0 md:p-8" role="dialog" aria-modal="true" aria-labelledby="ks-step2-title">
+        <div id={`vip-form${idSuffix}`} className="w-full min-h-[100dvh] md:min-h-0 md:max-w-[540px] md:border md:border-border md:bg-card px-6 py-8 md:px-12 md:py-10 flex flex-col justify-center gap-5">
         <StepBar step={2} />
-        <p
-          style={{
-            fontFamily: "Barlow, sans-serif",
-            fontSize: 13,
-            color: CREAM,
-            lineHeight: 1.6,
-            margin: 0,
-          }}
-        >
-          {renderReserveTokens(reserveLead || DEFAULT_HERO_VARIANT.reserveLead)}
-        </p>
-        <p
-          style={{
-            fontFamily: "Barlow, sans-serif",
-            fontSize: 12,
-            color: TAUPE,
-            lineHeight: 1.6,
-            margin: 0,
-          }}
-        >
-          This $1 reservation is with Woolet, not a Kickstarter pledge. One-time, not a subscription.
-          Fully refundable, or applied to your order.
-        </p>
+        <h2 id="ks-step2-title" className="text-[2.25rem] leading-[1.08] md:text-[3rem] text-foreground">
+          $1 today locks your <em className="text-primary">$114</em> founder price (then $190).
+        </h2>
+        <figure className="flex items-center gap-4 m-0 py-3 border-y border-border">
+          <img src={gregSquare} alt="Greg wearing a Woolet frame" width={80} height={80} className="w-20 h-20 object-cover shrink-0" />
+          <figcaption className="text-sm leading-relaxed text-muted-foreground italic">“{GREG_QUOTE}” <span className="block not-italic text-xs mt-1">{GREG_ATTRIBUTION}</span></figcaption>
+        </figure>
         <ReserveCheckoutButton
           id={`vip-reserve${idSuffix}`}
-          label="Lock $114 — pay $1 now"
+          label="Lock $114 - pay $1 now"
+          prefetchOnMount
           priceId={RESERVATION_PRICE_ID}
           customerEmail={email}
           returnUrl={returnUrl}
@@ -533,55 +477,30 @@ const VipForm = ({
           }}
           style={ctaButtonStyle}
         />
-        <button
-          type="button"
-          tabIndex={skipVisible ? 0 : -1}
-            onClick={() => {
+        <div className="text-sm leading-relaxed text-muted-foreground space-y-2" aria-label="Reservation details">
+          <p>Prescription lenses? Available when you choose your frames.</p>
+          <p>What if 158 mm doesn't fit? Check your size with FitLens before you pledge.</p>
+          <p>$1 is fully refundable, or applied to your order.</p>
+        </div>
+        <p className="text-xs text-muted-foreground">This is a one-time Woolet reservation, not a Kickstarter pledge or subscription.</p>
+        <Link
+          to="/en/lp/kickstarter/vip-confirmed"
+          state={{ email, name: "" }}
+          onClick={() => {
               try {
                 localStorage.setItem(VIP_RESOLVED_KEY, "1");
               } catch {
                 /* ignore */
               }
               onResolved?.();
-              navigate("/en/lp/kickstarter/vip-confirmed", { state: { email, name: "" } });
             }}
-          style={{
-            background: "transparent",
-            border: "none",
-            color: TAUPE,
-            fontFamily: "Barlow, sans-serif",
-            fontSize: 11,
-            textDecoration: "none",
-            textUnderlineOffset: 3,
-            cursor: "pointer",
-            padding: 0,
-            textAlign: compact ? "center" : "left",
-            opacity: skipVisible ? 1 : 0,
-            maxHeight: skipVisible ? 40 : 0,
-            transition: "opacity 200ms ease, max-height 200ms ease",
-            overflow: "hidden",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-          onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
-          onFocus={(e) => (e.currentTarget.style.textDecoration = "underline")}
-          onBlur={(e) => (e.currentTarget.style.textDecoration = "none")}
+          className="mt-auto md:mt-4 self-center max-w-full text-center text-xs text-muted-foreground underline underline-offset-4 py-3"
         >
           Skip for now — stay on the free VIP list
-        </button>
-        <p
-          style={{
-            fontFamily: "Barlow, sans-serif",
-            fontSize: 11,
-            color: TAUPE,
-            letterSpacing: "0.04em",
-            textAlign: compact ? "center" : "left",
-            margin: 0,
-          }}
-        >
-          $1 today · Fully refundable · Applied to your pledge.
-        </p>
+        </Link>
+        </div>
       </div>
-    );
+    , document.body);
   }
 
   if (errorKind === "duplicate") {
@@ -1005,8 +924,10 @@ const KickstarterPrelaunch = () => {
     [utmContentParam],
   );
 
-  const pageNavigate = useNavigate();
   const [activeImg, setActiveImg] = useState(0);
+  const galleryTouch = useRef<{ x: number; y: number } | null>(null);
+  const gallerySwiped = useRef(false);
+  const moveGallery = (direction: number) => setActiveImg((current) => (current + direction + heroGallery.length) % heroGallery.length);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxClosing, setLightboxClosing] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -1342,9 +1263,21 @@ const KickstarterPrelaunch = () => {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 md:items-center min-w-0">
           {/* Left on desktop, second on mobile — gallery */}
           <div className="order-2 md:order-1">
+            <div className="relative" onTouchStart={(e) => { galleryTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }} onTouchEnd={(e) => {
+              const start = galleryTouch.current;
+              galleryTouch.current = null;
+              if (!start) return;
+              const dx = e.changedTouches[0].clientX - start.x;
+              const dy = e.changedTouches[0].clientY - start.y;
+              if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                gallerySwiped.current = true;
+                moveGallery(dx < 0 ? 1 : -1);
+                window.setTimeout(() => { gallerySwiped.current = false; }, 350);
+              }
+            }}>
             <button
               type="button"
-              onClick={(e) => openLightbox(activeImg, "gallery", e.currentTarget)}
+              onClick={(e) => { if (!gallerySwiped.current) openLightbox(activeImg, "gallery", e.currentTarget); }}
               aria-label={`Enlarge: ${heroGallery[activeImg].alt}`}
               className="ks-hero-image"
               style={{
@@ -1368,6 +1301,10 @@ const KickstarterPrelaunch = () => {
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
             </button>
+            <Button type="button" aria-label="Previous image" onClick={() => moveGallery(-1)} className="absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 border border-border bg-background/90 text-foreground text-2xl rounded-none">‹</Button>
+            <Button type="button" aria-label="Next image" onClick={() => moveGallery(1)} className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 border border-border bg-background/90 text-foreground text-2xl rounded-none">›</Button>
+            <span className="absolute bottom-3 right-3 bg-background/90 text-foreground text-xs px-3 py-2" aria-live="polite">{activeImg + 1} / {heroGallery.length}</span>
+            </div>
             <div
               className="mt-4 flex gap-2 overflow-x-auto"
               style={{ scrollbarWidth: "thin" }}
@@ -1457,7 +1394,7 @@ const KickstarterPrelaunch = () => {
             </p>
 
             <div id="vip-section-hero" style={{ marginTop: 28 }}>
-              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} />
+              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} />
             </div>
 
             {/* Trust row */}
@@ -1837,88 +1774,9 @@ const KickstarterPrelaunch = () => {
             Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
           </h2>
           <div id="vip-section-mid">
-            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-mid"); }} onResolved={markResolved} />
+            <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-mid"); }} onResolved={markResolved} />
           </div>
         </div>
-      </section>
-
-      {/* BESPOKE GALLERY */}
-      <section>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24">
-          <Link to="/en/bespoke" style={{ textDecoration: "none" }}><Eyebrow>Bespoke</Eyebrow></Link>
-          <h2
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 300,
-              fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
-              lineHeight: 1.1,
-              color: CREAM,
-              marginTop: 12,
-              maxWidth: 720,
-            }}
-          >
-            Nothing wide enough? <em style={{ color: GOLD, fontStyle: "italic" }}>We build yours to measure.</em>
-          </h2>
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2" style={{ fontSize: 13, color: TAUPE, letterSpacing: "0.02em" }}>
-            <span>4 shapes</span>
-            <span>·</span>
-            <span>60 colour and size combinations</span>
-            <span>·</span>
-            <span>Any width 145–172 mm</span>
-            <span>·</span>
-            <span>Built to measure with FitLens</span>
-            <span style={{ color: CREAM, marginLeft: 4 }}>
-              Kickstarter Early Bird <span style={{ color: GOLD, fontWeight: 600 }}>$299</span>
-            </span>
-            <span style={{ textDecoration: "line-through" }}>SRP $480</span>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-12">
-            {bespokeGallery.map((f, i) => (
-              <div key={i} style={{ border: `1px solid ${HAIRLINE}` }}>
-                <button
-                  type="button"
-                  onClick={() => pageNavigate("/en/bespoke")}
-                  aria-label={`Bespoke: ${f.alt}`}
-                  style={{
-                    padding: 0,
-                    border: "none",
-                    background: CREAM,
-                    cursor: "pointer",
-                    display: "block",
-                    width: "100%",
-                    aspectRatio: "1 / 1",
-                    overflow: "hidden",
-                  }}
-                >
-                  <img
-                    src={f.src}
-                    alt={f.alt}
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                </button>
-                <div className="flex items-center justify-between" style={{ padding: "12px 14px" }}>
-                  <span style={{ fontSize: 13, color: CREAM }}>{f.shape}</span>
-                  <span
-                    style={{
-                      ...eyebrowStyle,
-                      color: GOLD,
-                      border: `1px solid ${GOLD}`,
-                      padding: "3px 8px",
-                      fontSize: 11,
-                    }}
-                  >
-                    Bespoke
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <Hairline />
       </section>
 
       {/* TESTER TESTIMONIAL — DRAFT copy, pending written approval. */}
@@ -2183,7 +2041,7 @@ const KickstarterPrelaunch = () => {
             One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
           </p>
           <div id="vip-section-final">
-<VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} reserveLead={heroVariant.reserveLead} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-final"); }} onResolved={markResolved} />
+<VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-final"); }} onResolved={markResolved} />
           </div>
           {hasJoined && hasResolved ? (
             <div className="mt-8 flex flex-col items-center gap-3">
@@ -2300,6 +2158,7 @@ const KickstarterPrelaunch = () => {
           <div className="flex gap-2">
             <Link to="/en/privacy-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Privacy</Link>
             <Link to="/en/return-policy" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Terms</Link>
+            <Link to="/en/bespoke" style={{ color: TAUPE, fontSize: 13, padding: "12px 14px", display: "inline-flex", alignItems: "center", minHeight: 44 }}>Bespoke</Link>
           </div>
         </div>
       </footer>
