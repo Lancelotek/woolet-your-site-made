@@ -64,6 +64,6 @@
 - [x] Verify desktop/mobile gallery and step-2 interactions
 
 ## Clarity dead-click follow-up
-- [ ] Fix confirmed configurator taps, preview feedback, editing and payment navigation
-- [ ] Fix Kickstarter image/text/FAQ taps and collection card links
-- [ ] Resolve missing DE blog URL and test A1, A2, A4, D on mobile
+- [x] Fix confirmed configurator taps, preview feedback, editing and payment navigation
+- [x] Fix Kickstarter image/text/FAQ taps and collection card links
+- [x] Resolve missing DE blog URL and test A1, A2, A4, D on mobile
