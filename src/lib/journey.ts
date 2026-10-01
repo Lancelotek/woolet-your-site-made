@@ -100,6 +100,7 @@ export function captureJourney(): void {
     if (canStore()) window.sessionStorage.setItem(SESSION_KEY, "1");
   } catch { /* blocked */ }
   sessionCounted = true;
+  try { window.addEventListener("woolet-consent-updated", flushJourneyOnConsent); } catch { /* ignore */ }
   const existing = memory ?? readStored();
   if (!isNewSession && existing) { memory = existing; return; }
   const touch = classifyTouch(window.location.search, document.referrer, window.location.pathname);
@@ -112,7 +113,9 @@ export function captureJourney(): void {
 
 /** Flush the in-memory journey once consent arrives. */
 export function flushJourneyOnConsent(): void {
-  if (memory) persist(memory);
+  if (!memory) return;
+  persist(memory);
+  try { if (canStore()) window.sessionStorage.setItem(SESSION_KEY, "1"); } catch { /* ignore */ }
 }
 
 export function getJourney(): { visitor_id: string; first: Touch; last: Touch; touch_count: number; first_seen_at: string } | null {
