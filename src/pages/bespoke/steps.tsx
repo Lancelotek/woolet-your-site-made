@@ -2023,7 +2023,7 @@ export function StepReview({
     <div className="space-y-8">
       <header>
         <div className={sectionKicker}>Step 7 — Review &amp; pay</div>
-        <h2 className={sectionTitle}>Confirm your <em className="italic text-gold-light">pattern</em></h2>
+        <h2 className={sectionTitle}><Button type="button" variant="ghost" onClick={() => onEdit(1)} className="h-auto p-0 font-inherit text-inherit hover:bg-transparent hover:text-inherit">Confirm your <em className="italic text-gold-light">pattern</em> <span className="text-gold-light text-xs ml-2">Edit</span></Button></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.
         </p>
@@ -2055,7 +2055,7 @@ export function StepReview({
           step={6} label="Lenses"
           value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)} · {formatAddOn(lens.priceEur)}</span> : null}
         />
-        <Row step={7} label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
+        <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10"><span className="text-cream-dim text-xs uppercase tracking-[0.16em]">Shipping</span><span className="text-gold-light text-sm">Free · worldwide</span></div>
         <div className="flex items-baseline justify-between gap-4 py-4">
           <div className="text-cream text-xs uppercase tracking-[0.2em]">
             <CfgInfoTrigger section="price" className="cfg-info-trigger--block">Total due today</CfgInfoTrigger>
