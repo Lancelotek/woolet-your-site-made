@@ -1243,6 +1243,60 @@ export type Database = {
         }
         Relationships: []
       }
+      reservation_attribution: {
+        Row: {
+          amount: number | null
+          created_at: string
+          currency: string | null
+          days_to_pay: number | null
+          email: string | null
+          environment: string | null
+          first_landing: string | null
+          first_seen_at: string | null
+          first_touch: string | null
+          heard_from: string | null
+          last_touch: string | null
+          paid_at: string
+          session_id: string
+          touch_count: number | null
+          visitor_id: string | null
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          days_to_pay?: number | null
+          email?: string | null
+          environment?: string | null
+          first_landing?: string | null
+          first_seen_at?: string | null
+          first_touch?: string | null
+          heard_from?: string | null
+          last_touch?: string | null
+          paid_at?: string
+          session_id: string
+          touch_count?: number | null
+          visitor_id?: string | null
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          days_to_pay?: number | null
+          email?: string | null
+          environment?: string | null
+          first_landing?: string | null
+          first_seen_at?: string | null
+          first_touch?: string | null
+          heard_from?: string | null
+          last_touch?: string | null
+          paid_at?: string
+          session_id?: string
+          touch_count?: number | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       reservation_leads: {
         Row: {
           created_at: string
