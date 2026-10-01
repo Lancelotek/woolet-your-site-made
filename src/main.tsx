@@ -6,6 +6,7 @@ import "@fontsource/archivo/500.css";
 import "@fontsource/archivo/600.css";
 import { initRedditPixel } from "./lib/reddit-pixel";
 import { captureAttribution } from "./lib/attribution";
+import { captureJourney } from "./lib/journey";
 import { stripPrerenderedSeoHead } from "./lib/strip-prerender-seo";
 
 // Remove prerender-owned <head> tags before React (and Helmet) mount, so
@@ -16,6 +17,7 @@ stripPrerenderedSeoHead();
 
 initRedditPixel();
 captureAttribution();
+captureJourney();
 
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>

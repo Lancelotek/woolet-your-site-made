@@ -12,6 +12,8 @@
  * current URL params → in-memory cache → localStorage.
  */
 
+import { getJourneyFields } from "@/lib/journey";
+
 const STORAGE_KEY = "woolet_attribution";
 const LAST_TOUCH_KEY = "wlt_last_touch";
 const LAST_TOUCH_MAX_AGE = 30 * 24 * 60 * 60 * 1000;
@@ -258,6 +260,13 @@ export function getAttribution(): Attribution {
     fill(readStored());
     // d) last touch fills anything still empty (e.g. /thank-you-fb landing)
     fill(getLastTouchUtms() as Attribution);
+
+    // e) multi-touch journey (mailerlite-subscribe writes first_* only if empty)
+    const jf = getJourneyFields();
+    const out = merged as Record<string, string>;
+    for (const k of ["first_touch", "last_touch", "first_landing", "first_seen_at", "wlt_visitor_id"]) {
+      if (jf[k]) out[k.startsWith("wlt_") ? k : `wlt_${k}`] = jf[k];
+    }
 
     return merged;
   } catch {
