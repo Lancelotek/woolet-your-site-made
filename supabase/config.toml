@@ -55,3 +55,9 @@ project_id = "wmefczrhnsqicikveuhz"
     verify_jwt = false
   [functions.bespoke-scan-context]
     verify_jwt = false
+
+[functions.save-heard-from]
+verify_jwt = false
+
+[functions.attribution-admin]
+verify_jwt = false
