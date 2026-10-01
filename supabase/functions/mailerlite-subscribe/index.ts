@@ -282,6 +282,8 @@ export const handler = async (req: Request): Promise<Response> => {
       throw new Error("MAILERLITE_API_KEY is not configured");
     }
 
+    // deno-lint-ignore no-explicit-any
+    let reqBody: Record<string, any> = {};
     const {
       email,
       name,
