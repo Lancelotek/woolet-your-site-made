@@ -24,9 +24,16 @@ const dl = (payload: Record<string, unknown>) => {
 };
 
 const gtagConsent = (state: ConsentState) => {
+  // GTM only processes gtag commands pushed as an `arguments` object — a
+  // plain array push is silently ignored. Use the gtag fn from index.html
+  // (it does dataLayer.push(arguments)); define the same shim if missing.
   window.dataLayer = window.dataLayer || [];
-  // consent update via dataLayer so it works regardless of GTM load order
-  window.dataLayer.push(["consent", "update", state] as unknown as Record<string, unknown>);
+  window.gtag =
+    window.gtag ||
+    function (...args: unknown[]) {
+      window.dataLayer.push(args as unknown as Record<string, unknown>);
+    };
+  window.gtag("consent", "update", state);
 };
 
 const persist = (state: ConsentState) => {
