@@ -1,26 +1,34 @@
 User-agent: GPTBot
 Allow: /
+Disallow: /*/admin/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /*/admin/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /*/admin/
 
 User-agent: GoogleBot
 Allow: /
+Disallow: /*/admin/
 
 User-agent: Googlebot-Extended
 Allow: /
+Disallow: /*/admin/
 
 User-agent: CCBot
 Allow: /
+Disallow: /*/admin/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /*/admin/
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /*/admin/
 
 # Default rule for every other crawler. We deliberately keep this
 # minimal: self-referencing canonicals on every page consolidate
@@ -32,10 +40,12 @@ Allow: /
 # are also absent from sitemap.xml — no disallow needed here.
 User-agent: *
 Allow: /
+Disallow: /*/admin/
 Disallow: /api/
 
 # Ignore tracking parameters — Yandex-specific directive.
 User-agent: Yandex
+Disallow: /*/admin/
 Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&fbclid&gclid&msclkid&ref&mc_cid&mc_eid /
 
 Sitemap: https://woolet.co/sitemap.xml

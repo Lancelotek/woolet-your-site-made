@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, Navigate, useParams, useLocation } from "react-router-dom";
@@ -407,7 +408,7 @@ const App = () => (
           <Route path="/thank-you-fb" element={<ThankYouFb />} />
           <Route path="/:lang/thank-you-fb" element={<ThankYouFb />} />
           <Route path="/:lang/payments" element={<Payments />} />
-          <Route path="/:lang/admin/bespoke" element={<BespokeAdmin />} />
+          <Route path="/:lang/admin/bespoke" element={<><Helmet><meta name="robots" content="noindex, nofollow" /></Helmet><BespokeAdmin /></>} />
           <Route path="/:lang/admin/attribution" element={<AttributionAdmin />} />
           <Route path="/:lang/crm" element={<NotFound />} />
           <Route path="/:lang/crm/acquisition" element={<NotFound />} />

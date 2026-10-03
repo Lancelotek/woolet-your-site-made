@@ -2149,7 +2149,6 @@ const STATIC_ROUTES = [
   "/en/compare/ray-ban-alternative",
   "/en/compare/persol-alternative",
   "/pl",
-  "/pl/process",
   "/pl/blog",
   "/pl/privacy-policy",
   "/pl/return-policy",

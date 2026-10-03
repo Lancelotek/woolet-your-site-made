@@ -1,9 +1,9 @@
+import { KICKSTARTER_URL } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
 import kickstarterWordmark from "@/assets/kickstarter-wordmark-white.png";
 
 // Official prelaunch page. Do not alter the Kickstarter wordmark asset (brand policy).
-const KICKSTARTER_URL =
-  "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces";
+
 
 const HAIRLINE = "rgba(255,255,255,0.10)";
 const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
