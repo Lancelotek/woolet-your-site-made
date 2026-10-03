@@ -1,3 +1,152 @@
+const SHIP_COUNTRIES = [
+  "US",
+  "GB",
+  "PL",
+  "DE",
+  "FR",
+  "IT",
+  "ES",
+  "NL",
+  "BE",
+  "AT",
+  "IE"
+];
+const LIST_PRICE = "190.00";
+const SALE_PRICE = "114.00";
+const BESPOKE_PRICE = "480.00";
+const PRICE_CURRENCY = "USD";
+const PRICE_VALID_UNTIL = "2027-12-31";
+const PRICE_VALID_FROM = "2026-06-20";
+const RETURN_POLICY = {
+  "@type": "MerchantReturnPolicy",
+  applicableCountry: SHIP_COUNTRIES,
+  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+  merchantReturnDays: 30,
+  returnMethod: "https://schema.org/ReturnByMail",
+  returnFees: "https://schema.org/ReturnShippingFees",
+  returnShippingFeesAmount: {
+    "@type": "MonetaryAmount",
+    value: "10.00",
+    currency: PRICE_CURRENCY
+  }
+};
+function shippingDetails(isBespoke = false) {
+  return SHIP_COUNTRIES.map((country) => ({
+    "@type": "OfferShippingDetails",
+    shippingRate: {
+      "@type": "MonetaryAmount",
+      value: "0",
+      currency: PRICE_CURRENCY
+    },
+    shippingDestination: {
+      "@type": "DefinedRegion",
+      addressCountry: country
+    },
+    deliveryTime: {
+      "@type": "ShippingDeliveryTime",
+      handlingTime: isBespoke ? { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" } : { "@type": "QuantitativeValue", minValue: 1, maxValue: 2, unitCode: "DAY" },
+      transitTime: {
+        "@type": "QuantitativeValue",
+        minValue: 3,
+        maxValue: 7,
+        unitCode: "DAY"
+      }
+    }
+  }));
+}
+const LIST_PRICE_SPEC = [
+  {
+    "@type": "UnitPriceSpecification",
+    priceType: "https://schema.org/ListPrice",
+    price: LIST_PRICE,
+    priceCurrency: PRICE_CURRENCY,
+    validFrom: PRICE_VALID_FROM,
+    validThrough: PRICE_VALID_UNTIL
+  }
+];
+const SITE = "https://woolet.co";
+const PRODUCT_IMAGES = {
+  "007": [`${SITE}/og-007.png`, `${SITE}/og-image.png`],
+  "009": [`${SITE}/og-009.png`, `${SITE}/og-image.png`],
+  generic: [`${SITE}/og-image.png`, `${SITE}/og-007.png`, `${SITE}/og-009.png`]
+};
+const isType = (n, t) => (n == null ? void 0 : n["@type"]) === t || Array.isArray(n == null ? void 0 : n["@type"]) && n["@type"].includes(t);
+const isAbs = (v) => typeof v === "string" && /^https?:\/\//.test(v);
+function imagesFor(n) {
+  const key = `${n.name ?? ""} ${n.sku ?? ""} ${n.productID ?? ""}`;
+  if (/009/.test(key)) return PRODUCT_IMAGES["009"];
+  if (/007/.test(key)) return PRODUCT_IMAGES["007"];
+  return PRODUCT_IMAGES.generic;
+}
+function hasGoodImage(img) {
+  if (Array.isArray(img)) return img.length > 0 && img.every((i) => isAbs(typeof i === "object" ? i == null ? void 0 : i.url : i));
+  if (img && typeof img === "object") return isAbs(img.url);
+  return isAbs(img);
+}
+const iso2 = (c) => {
+  const v = typeof c === "object" && c ? c.name ?? c.addressCountry : c;
+  return typeof v === "string" && /^[A-Z]{2}$/.test(v.trim()) ? v.trim() : null;
+};
+function fixShipping(details, bespoke) {
+  const list = (Array.isArray(details) ? details : [details]).filter(Boolean);
+  const out = [];
+  for (const d of list) {
+    const dest = d.shippingDestination;
+    const dests = (Array.isArray(dest) ? dest : [dest]).filter(Boolean);
+    const countries = dests.flatMap((r) => {
+      const c = r == null ? void 0 : r.addressCountry;
+      return (Array.isArray(c) ? c : [c]).map(iso2).filter(Boolean);
+    });
+    if (!countries.length) continue;
+    const dt = { ...d.deliveryTime ?? { "@type": "ShippingDeliveryTime" } };
+    const q = (min, max) => ({ "@type": "QuantitativeValue", minValue: min, maxValue: max, unitCode: "DAY" });
+    if (!dt.handlingTime) dt.handlingTime = bespoke ? q(10, 14) : q(1, 2);
+    if (!dt.transitTime) dt.transitTime = q(3, 7);
+    for (const c of countries) {
+      out.push({ ...d, shippingDestination: { "@type": "DefinedRegion", addressCountry: c }, deliveryTime: dt });
+    }
+  }
+  return out.length ? out : shippingDetails(bespoke);
+}
+function fixReturnPolicy(p) {
+  if (!p || typeof p !== "object") return { ...RETURN_POLICY };
+  const pol = { ...p };
+  const ac = Array.isArray(pol.applicableCountry) ? pol.applicableCountry : [pol.applicableCountry];
+  const codes = ac.map(iso2).filter(Boolean);
+  pol.applicableCountry = codes.length ? codes : [...SHIP_COUNTRIES];
+  return pol;
+}
+function fixOffer(o, bespoke) {
+  const out = { ...o };
+  if (!out.validFrom) out.validFrom = PRICE_VALID_FROM;
+  out.hasMerchantReturnPolicy = fixReturnPolicy(out.hasMerchantReturnPolicy);
+  out.shippingDetails = out.shippingDetails ? fixShipping(out.shippingDetails, bespoke) : shippingDetails(bespoke);
+  return out;
+}
+function walk(v, bespoke) {
+  if (Array.isArray(v)) return v.map((x) => walk(x, bespoke));
+  if (!v || typeof v !== "object") return v;
+  let n = { ...v };
+  let isBespoke = bespoke;
+  if (isType(n, "Product")) {
+    isBespoke = /bespoke/i.test(`${n.name ?? ""} ${n.sku ?? ""}`);
+    if (!hasGoodImage(n.image)) n.image = imagesFor(n);
+  }
+  for (const k of Object.keys(n)) {
+    if (k === "hasMerchantReturnPolicy" || k === "shippingDetails") continue;
+    n[k] = walk(n[k], isBespoke);
+  }
+  if (isType(n, "Offer") || isType(n, "AggregateOffer")) n = fixOffer(n, isBespoke);
+  return n;
+}
+function normalizeCommerceJsonLd(obj) {
+  try {
+    return walk(obj, false);
+  } catch {
+    return obj;
+  }
+}
+const commerceJson = (obj) => JSON.stringify(normalizeCommerceJsonLd(obj));
 const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl", "ko"];
 const blogMetaBySlug = {
   // ── EN: wide-face core ───────────────────────────────────────────────
@@ -7,7 +156,7 @@ const blogMetaBySlug = {
     metaDescription: "Face 155 mm or wider? See the size chart, why standard frames pinch and how 158 mm frames fit. Measure free with your phone in 20 seconds."
   },
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
-    metaTitle: "Glasses for a Wide Nose Bridge (21–22 mm Explained)",
+    metaTitle: "Wide Nose Bridge Glasses (21–22 mm Explained)",
     metaDescription: "Most frames cap at 18 mm. See what a 21–22 mm bridge changes for a wide nose, why keyhole beats saddle, and which brands actually stock it."
   },
   "oversized-blue-light-glasses-vs-wide-fit": {
@@ -121,16 +270,19 @@ const blogMetaBySlug = {
   },
   // ── EN: hats (face-measurement crossover) ────────────────────────────
   "how-to-measure-your-head-for-a-hat": {
-    metaTitle: "How to Measure Your Head for a Hat (60 sec, No Tape)",
-    metaDescription: "Measure your head circumference in 60 seconds and find your true hat size — with or without a tape. Full cm ↔ inches chart, built for 7¾+ heads."
+    metaTitle: "How to Measure Your Head for a Hat (60 Seconds, Tape or String)",
+    exactTitle: true,
+    metaDescription: "Wrap a tape 1 cm above your ears and eyebrows, read the cm, round up. Then convert to US, UK and EU sizes with the chart."
   },
   "hat-size-chart-guide-cm-inches-us-uk-eu": {
-    metaTitle: "Hat Size Chart: US, UK, EU, cm & inches (Full Guide)",
-    metaDescription: "Hat size chart converting US, UK, EU, cm and inches — plus what your hat size tells you about the glasses width you need (58 cm = 155 mm temples)."
+    metaTitle: "Hat Size Chart: cm, Inches, US, UK & EU (53–66 cm)",
+    exactTitle: true,
+    metaDescription: "58 cm = 7¼ US, 60 cm = 7½, 61 cm = 7⅝, 62 cm = 7¾. Full chart in cm and inches, plus the glasses width each hat size needs."
   },
   "what-size-hat-do-i-wear-big-heads-guide": {
-    metaTitle: "What Size Hat Do I Wear? Big Heads Guide (7¾ and Up)",
-    metaDescription: "A no-guessing hat size guide for bigger heads. What 7¾, 7⅞ and 8 really mean in cm and inches, how head size tracks height, and where to buy XL fits."
+    metaTitle: "What Size Hat Do I Wear? Big Head Sizes 7¼–8 (58–64 cm)",
+    exactTitle: true,
+    metaDescription: "Measure 1 cm above your ears. 58 cm = 7¼, 60 cm = 7½, 62 cm = 7¾, 64 cm = 8. Where to buy XL hats — and why your glasses feel tight too."
   },
   // ── PL ───────────────────────────────────────────────────────────────
   "okulary-na-szeroka-twarz-przewodnik": {
@@ -258,10 +410,9 @@ const ROUTES = {
     de: "/de/bespoke",
     ja: "/ja/bespoke"
   },
-  // /process — real translation in pl (/pl/process).
+  // /process — EN only (/pl/process redirects to /en/process).
   process: {
-    en: "/en/process",
-    pl: "/pl/process"
+    en: "/en/process"
   },
   // Legal pages with real localized routes.
   privacyPolicy: {
@@ -479,6 +630,160 @@ function hreflangAlternates(pathname, siteUrl) {
   }));
   if (entry.en) list.push({ lang: "x-default", href: `${siteUrl}${entry.en}` });
   return list;
+}
+const version$8 = 1;
+const asset_id$8 = "cb34b465-9de6-4841-a6a2-8851187757b2";
+const project_id$8 = "db6d8b13-643f-4791-aab7-db9fbd5ea35d";
+const url$8 = "/__l5e/assets-v1/cb34b465-9de6-4841-a6a2-8851187757b2/woolet-bridge-gap-annotated-1600.jpg";
+const r2_key$8 = "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/cb34b465-9de6-4841-a6a2-8851187757b2/woolet-bridge-gap-annotated-1600.jpg";
+const original_filename$8 = "woolet-bridge-gap-annotated-1600.jpg";
+const size$8 = 116281;
+const content_type$8 = "image/jpeg";
+const created_at$8 = "2026-09-29T09:15:06Z";
+const gapOriginal = {
+  version: version$8,
+  asset_id: asset_id$8,
+  project_id: project_id$8,
+  url: url$8,
+  r2_key: r2_key$8,
+  original_filename: original_filename$8,
+  size: size$8,
+  content_type: content_type$8,
+  created_at: created_at$8
+};
+const version$7 = 1;
+const asset_id$7 = "40a6d3e0-f006-4700-8877-65e9f931f500";
+const project_id$7 = "db6d8b13-643f-4791-aab7-db9fbd5ea35d";
+const url$7 = "/__l5e/assets-v1/40a6d3e0-f006-4700-8877-65e9f931f500/woolet-bridge-gap-annotated-1600.webp";
+const r2_key$7 = "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/40a6d3e0-f006-4700-8877-65e9f931f500/woolet-bridge-gap-annotated-1600.webp";
+const original_filename$7 = "woolet-bridge-gap-annotated-1600.webp";
+const size$7 = 77906;
+const content_type$7 = "image/webp";
+const created_at$7 = "2026-09-29T09:15:13Z";
+const gapWebp = {
+  version: version$7,
+  asset_id: asset_id$7,
+  project_id: project_id$7,
+  url: url$7,
+  r2_key: r2_key$7,
+  original_filename: original_filename$7,
+  size: size$7,
+  content_type: content_type$7,
+  created_at: created_at$7
+};
+const version$6 = 1;
+const asset_id$6 = "237b5f10-97f8-4e05-8962-a9bacf3e9b7f";
+const project_id$6 = "db6d8b13-643f-4791-aab7-db9fbd5ea35d";
+const url$6 = "/__l5e/assets-v1/237b5f10-97f8-4e05-8962-a9bacf3e9b7f/woolet-bridge-19mm-too-narrow-980.png";
+const r2_key$6 = "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/237b5f10-97f8-4e05-8962-a9bacf3e9b7f/woolet-bridge-19mm-too-narrow-980.png";
+const original_filename$6 = "woolet-bridge-19mm-too-narrow-980.png";
+const size$6 = 37096;
+const content_type$6 = "image/png";
+const created_at$6 = "2026-09-29T09:15:03Z";
+const narrowOriginal = {
+  version: version$6,
+  asset_id: asset_id$6,
+  project_id: project_id$6,
+  url: url$6,
+  r2_key: r2_key$6,
+  original_filename: original_filename$6,
+  size: size$6,
+  content_type: content_type$6,
+  created_at: created_at$6
+};
+const version$5 = 1;
+const asset_id$5 = "f3e63be8-bf28-4668-ad0a-ed1b6597bb34";
+const project_id$5 = "db6d8b13-643f-4791-aab7-db9fbd5ea35d";
+const url$5 = "/__l5e/assets-v1/f3e63be8-bf28-4668-ad0a-ed1b6597bb34/woolet-bridge-19mm-too-narrow-980.webp";
+const r2_key$5 = "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/f3e63be8-bf28-4668-ad0a-ed1b6597bb34/woolet-bridge-19mm-too-narrow-980.webp";
+const original_filename$5 = "woolet-bridge-19mm-too-narrow-980.webp";
+const size$5 = 13550;
+const content_type$5 = "image/webp";
+const created_at$5 = "2026-09-29T09:15:11Z";
+const narrowWebp = {
+  version: version$5,
+  asset_id: asset_id$5,
+  project_id: project_id$5,
+  url: url$5,
+  r2_key: r2_key$5,
+  original_filename: original_filename$5,
+  size: size$5,
+  content_type: content_type$5,
+  created_at: created_at$5
+};
+const version$4 = 1;
+const asset_id$4 = "52d41eff-c847-42c9-bf3d-a0001d87ab5b";
+const project_id$4 = "db6d8b13-643f-4791-aab7-db9fbd5ea35d";
+const url$4 = "/__l5e/assets-v1/52d41eff-c847-42c9-bf3d-a0001d87ab5b/woolet-bridge-keyhole-fit-980.png";
+const r2_key$4 = "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/52d41eff-c847-42c9-bf3d-a0001d87ab5b/woolet-bridge-keyhole-fit-980.png";
+const original_filename$4 = "woolet-bridge-keyhole-fit-980.png";
+const size$4 = 32114;
+const content_type$4 = "image/png";
+const created_at$4 = "2026-09-29T09:15:08Z";
+const keyholeOriginal = {
+  version: version$4,
+  asset_id: asset_id$4,
+  project_id: project_id$4,
+  url: url$4,
+  r2_key: r2_key$4,
+  original_filename: original_filename$4,
+  size: size$4,
+  content_type: content_type$4,
+  created_at: created_at$4
+};
+const version$3 = 1;
+const asset_id$3 = "26858556-afb7-4a09-9e98-78a42ad84708";
+const project_id$3 = "db6d8b13-643f-4791-aab7-db9fbd5ea35d";
+const url$3 = "/__l5e/assets-v1/26858556-afb7-4a09-9e98-78a42ad84708/woolet-bridge-keyhole-fit-980.webp";
+const r2_key$3 = "a/v1/db6d8b13-643f-4791-aab7-db9fbd5ea35d/26858556-afb7-4a09-9e98-78a42ad84708/woolet-bridge-keyhole-fit-980.webp";
+const original_filename$3 = "woolet-bridge-keyhole-fit-980.webp";
+const size$3 = 10660;
+const content_type$3 = "image/webp";
+const created_at$3 = "2026-09-29T09:15:16Z";
+const keyholeWebp = {
+  version: version$3,
+  asset_id: asset_id$3,
+  project_id: project_id$3,
+  url: url$3,
+  r2_key: r2_key$3,
+  original_filename: original_filename$3,
+  size: size$3,
+  content_type: content_type$3,
+  created_at: created_at$3
+};
+const bridgeFitImages = {
+  gap: { original: gapOriginal.url, webp: gapWebp.url, width: 1600, height: 687, alt: "Close-up of wide-face glasses with a 19 mm bridge: a visible gap between the bridge and the nose, and the top rim sitting on the eyebrow line" },
+  narrow: { original: narrowOriginal.url, webp: narrowWebp.url, width: 980, height: 540, alt: "Diagram: a 19 mm bridge touches a wider nose at two points, leaves a gap and lifts the frame into the eyebrows" },
+  keyhole: { original: keyholeOriginal.url, webp: keyholeWebp.url, width: 980, height: 540, alt: "Diagram: the Woolet keyhole bridge rests along the sides of a wide nose bridge, keeping the eyes centred in the lenses and the eyebrows clear" }
+};
+const BRIDGE_FIT_FAQ = [
+  { q: "Should glasses cover your eyebrows?", a: "No. The top rim should sit at or just below your brow line. When your glasses cover your eyebrows, the bridge is usually too narrow for your nose: the frame rests on two points high on the nose, so the whole front lifts. A bridge that matches your nose, like Woolet's 21-22 mm keyhole bridge, lets the frame sit lower with your eyes centred in the lenses." },
+  { q: "Why do my glasses sit high on my nose?", a: "The bridge is narrower than your nose. Instead of resting along the sides of the nose, the frame touches at two pinch points and leaves a gap above them. Measure your bridge width (FitLens does it in 20 seconds) and pick a frame with a matching bridge." },
+  { q: "What bridge width do I need for a wide nose?", a: "Most standard frames use a 16-19 mm bridge. A wide nose usually needs 21 mm or more. Woolet frames use a 21-22 mm keyhole bridge, and Bespoke frames are cut to your measured bridge." }
+];
+const BRIDGE_FIT_INTRO = "Face width is only half the fit. When the bridge is narrower than your nose, the frame can't sit down. It rests on two pinch points, leaves a gap above them and lifts the top rim into your eyebrows.";
+const BRIDGE_FIT_LEGEND = [
+  { number: "1", title: "Gap under the bridge", text: "The bridge arches over the nose, not onto it." },
+  { number: "2", title: "Frame rides up", text: "The top rim lands on the brow line." }
+];
+const BRIDGE_FIT_CARDS = [
+  { image: bridgeFitImages.narrow, title: "19 mm bridge", subtitle: "too narrow for a wider nose", bullets: ["Touches at two pinch points", "Gap above them", "Frame lifts into the brows"] },
+  { image: bridgeFitImages.keyhole, title: "Woolet keyhole bridge", subtitle: "21-22 mm, built for wider noses", bullets: ["Rests along the whole flank", "No gap, no pressure points", "Eyes centred, brows clear"] }
+];
+const escape = (value) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const picture = (image) => `<picture><source srcset="${image.webp}" type="image/webp"><img src="${image.original}" alt="${escape(image.alt)}" width="${image.width}" height="${image.height}" loading="lazy"></picture>`;
+function bridgeFitPrerenderHtml(variant = "full", hideButton = false) {
+  return `<section aria-label="The nose bridge">${variant === "full" ? `<p>THE NOSE BRIDGE</p>` : ""}<h2>Wide enough frame. Wrong bridge.</h2>${variant === "full" ? `<p>${escape(BRIDGE_FIT_INTRO)}</p>` : ""}
+<figure>${picture(bridgeFitImages.gap)}<figcaption><ol>${BRIDGE_FIT_LEGEND.map((item) => `<li><strong>${item.number} · ${escape(item.title)}</strong> - ${escape(item.text)}</li>`).join("")}</ol></figcaption></figure>
+<div>${BRIDGE_FIT_CARDS.map((card) => `<section>${picture(card.image)}<h3>${escape(card.title)}</h3><p>${escape(card.subtitle)}</p><ul>${card.bullets.map((bullet) => `<li>${escape(bullet)}</li>`).join("")}</ul></section>`).join("")}</div>
+${variant === "full" ? `<p>Width is not only temple to temple. FitLens measures your bridge too.</p>${hideButton ? "" : `<a href="/en/fit">Scan your fit</a>`}` : ""}</section>`;
+}
+const BRIDGE_BLOG_INTRO_START = "<p>If you're looking for glasses for wide nose bridge fit";
+function insertBridgeAfterBlogIntro(html) {
+  const start = html.indexOf(BRIDGE_BLOG_INTRO_START);
+  if (start < 0) return html;
+  const end = html.indexOf("</p>", start);
+  return end < 0 ? html : `${html.slice(0, end + 4)}${bridgeFitPrerenderHtml()}${html.slice(end + 4)}`;
 }
 const BYLINE = (published, updated) => `
 <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
@@ -2466,7 +2771,7 @@ const blogPostsEN = [
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:16px;font-weight:500;">By the numbers</div>
   <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;">
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">The average adult male face measures <strong style="color:#fff;">141.9 mm in width</strong> (±5.1 mm standard deviation), per peer-reviewed anthropometric research published in the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">Cleft Palate and Craniofacial Journal</a> (PMC4496583, Gordon et al.).</li>
-    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Standard adult eyewear frames range from <strong style="color:#fff;">125–145 mm in total width</strong>, as defined by the <a href="https://www.iso.org/standard/31811.html" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ISO 8624</a> spectacle frame measuring system. Woolet starts at 158 mm — <strong style="color:#fff;">13 mm beyond</strong> where the mainstream market ends.</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Standard adult eyewear frames range from <strong style="color:#fff;">125–145 mm in total width</strong>, as defined by the <a href="https://www.iso.org/standard/75385.html" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ISO 8624</a> spectacle frame measuring system. Woolet starts at 158 mm — <strong style="color:#fff;">13 mm beyond</strong> where the mainstream market ends.</li>
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Face widths between <strong style="color:#fff;">131–165 mm</strong> have been recorded in anthropometric studies of adult populations (<a href="https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ANSUR II, US Army, 2012</a>).</li>
   </ul>
 </div>
@@ -2804,12 +3109,13 @@ const blogPostsEN = [
   },
   {
     slug: "glasses-for-wide-nose-bridge-21-22mm-explained",
-    title: "Glasses for a Wide Nose Bridge: What 21–22 mm Actually Means",
+    title: "Wide Nose Bridge Glasses: What 21–22 mm Actually Means",
     excerpt: "Most brands cap the bridge at 18 mm. Here's what 21–22 mm changes for wide nose bridges, big noses, and keyhole vs saddle fit.",
     date: "2026-06-12",
     readTime: 11,
     tags: ["Guide", "Wide Nose Bridge", "Fit"],
     faq: [
+      ...BRIDGE_FIT_FAQ,
       { q: "What counts as a wide nose bridge in glasses?", a: "Bridge widths under 17 mm are narrow, 17–20 mm is the mainstream range, and 21 mm and above is wide. Most brands top out at 18 mm. Anyone with a wider or higher nose typically needs 21 mm or more for the frame to sit on the bone instead of pinching cartilage." },
       { q: "What does the bridge measurement actually mean?", a: "It's the distance in millimeters between the two lenses, measured at the narrowest point of the bridge. It's the second number on the inside of the temple — e.g. 52□18 means a 52 mm lens and an 18 mm bridge. Bridge width determines where the frame sits on the nose and how evenly weight is distributed." },
       { q: "What's the widest standard bridge Woolet makes?", a: "21 mm on the round Woolet 007 and 22 mm on the soft-square Woolet 009. Bespoke covers 20 to 24 mm in 1 mm increments, paired with any front width from 145 to 172 mm." },
@@ -2819,7 +3125,7 @@ const blogPostsEN = [
       { q: "Why don't mainstream brands offer wider bridges?", a: "Inventory economics. Running a tight 17/18/19 mm bridge range covers the statistical median and keeps SKUs low. Wider bridges mean slower-moving stock, so most brands ignore the category — which is the gap Woolet was built to fill." }
     ],
     content: `
-<p>If your glasses slide down within an hour, leave deep red marks on the sides of your nose, or sit visibly crooked, the cause is almost never the lens size or the temple length. It's the bridge — the small piece of acetate or metal between the two lenses — and specifically, that the bridge is too narrow for your nose.</p>
+<p>If you're looking for glasses for wide nose bridge fit because your glasses slide down within an hour, leave deep red marks on the sides of your nose, or sit visibly crooked, the cause is almost never the lens size or the temple length. It's the bridge — the small piece of acetate or metal between the two lenses — and specifically, that the bridge is too narrow for your nose.</p>
 
 <p>This is the most common fit problem in eyewear, and it's also the one mainstream brands solve worst. Walk into almost any optical store and the wide-bridge glasses cap around 17 or 18 mm. If your nose needs more, you've been quietly ignored by the industry.</p>
 
@@ -5825,27 +6131,7 @@ More on fit for bigger heads and wider faces:
       }
     ],
     content: `
-<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
-  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
-  <div style="flex:1;min-width:0;">
-    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
-    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
-    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: August 2026</div>
-  </div>
-</div>
-
-<p>Hat sizing is one of the last places in fashion where four different measurement systems are still in daily use — cm, inches, fractional US sizes, and letter sizes — and nobody at the shop counter agrees on the conversion. This is the single chart that reconciles all four, plus the context you need to read it correctly the first time.</p>
-
-<p>One more thing the chart will tell you, if you know where to look: your hat size is the single best off-the-shelf predictor of whether glasses will fit you. The two measurements sit on the same ring of your skull. <a href="#your-hat-size-predicts-your-glasses-size" style="color:#c9a84c;">Skip to the hat size → glasses size conversion ↓</a></p>
-
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
-  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule that fixes 90% of confusion</div>
-  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Every hat size in the world is derived from one number: your <strong>head circumference in centimetres</strong>. US, UK and EU sizes are just three different ways of labelling the same measurement. Get the cm right and the rest is arithmetic.</p>
-</div>
-
-<h2>The Master Hat Size Chart</h2>
-
-<p>Read across the row. If your circumference lands between two rows, use the larger one — see <a href="#between-sizes" style="color:#c9a84c;">between sizes</a> below. Don't know your circumference yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a>.</p>
+<p class="hat-answer"><strong>58 cm = 7¼ US, 60 cm = 7½, 61 cm = 7⅝, 62 cm = 7¾ — find your head circumference in the left column and read across.</strong></p>
 
 <div style="overflow-x:auto;margin:24px 0;">
 <table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;min-width:640px;">
@@ -5878,6 +6164,30 @@ More on fit for bigger heads and wider faces:
   </tbody>
 </table>
 </div>
+
+<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
+    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: August 2026</div>
+  </div>
+</div>
+
+<p>Hat sizing is one of the last places in fashion where four different measurement systems are still in daily use — cm, inches, fractional US sizes, and letter sizes — and nobody at the shop counter agrees on the conversion. This is the single chart that reconciles all four, plus the context you need to read it correctly the first time.</p>
+
+<p>One more thing the chart will tell you, if you know where to look: your hat size is the single best off-the-shelf predictor of whether glasses will fit you. The two measurements sit on the same ring of your skull. <a href="#your-hat-size-predicts-your-glasses-size" style="color:#c9a84c;">Skip to the hat size → glasses size conversion ↓</a></p>
+
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule that fixes 90% of confusion</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Every hat size in the world is derived from one number: your <strong>head circumference in centimetres</strong>. US, UK and EU sizes are just three different ways of labelling the same measurement. Get the cm right and the rest is arithmetic.</p>
+</div>
+
+<h2>The Master Hat Size Chart</h2>
+
+<p>Read across the row. If your circumference lands between two rows, use the larger one — see <a href="#between-sizes" style="color:#c9a84c;">between sizes</a> below. Don't know your circumference yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a>.</p>
+
+
 
 <p style="font-size:13px;color:#666;margin-top:-8px;"><em>*Temple width = distance across the widest point of your skull, where glasses arms sit. Median values from ANSUR II (n = 4,082 men); 63&nbsp;cm and above are extrapolated. Rows highlighted in cream (58&nbsp;cm+, US 7¼ and up) are where mainstream hats and mainstream eyewear both start running out — see the conversion table below.</em></p>
 
@@ -6049,25 +6359,7 @@ Related guides:
       }
     ],
     content: `
-<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
-  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
-  <div style="flex:1;min-width:0;">
-    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
-    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
-    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: March 2026</div>
-  </div>
-</div>
-
-<p>If every "one size fits most" cap slides straight back to the crown of your skull, and every fitted-cap chart tops out one size below yours, this is the guide. No fluff, no chart you have to hunt down — just the numbers, the brands, and the honest answer to "what size hat do I wear?" when your head is on the bigger end of the bell curve.</p>
-
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
-  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The short version</div>
-  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your head measures <strong>60&nbsp;cm or more</strong>, you wear a US 7½ or larger — and mainstream brands stop stocking your size right there. Above 62&nbsp;cm (7¾), you're in specialist territory: 4–5 brands worldwide will actually fit you off-the-shelf.</p>
-</div>
-
-<h2>The Big-Head Sizing Ladder</h2>
-
-<p>Every number below is a real head circumference matched to the size you'll see on the label. No conversions to memorize.</p>
+<p class="hat-answer"><strong>Measure 1 cm above your ears: 58 cm = 7¼, 60 cm = 7½, 62 cm = 7¾, 64 cm = 8.</strong></p>
 
 <div style="overflow-x:auto;margin:24px 0;">
 <table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;min-width:560px;">
@@ -6089,6 +6381,28 @@ Related guides:
   </tbody>
 </table>
 </div>
+
+<div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
+  <div style="flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#0f0f0f;color:#c9a84c;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:0.5px;">MC</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
+    <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: March 2026</div>
+  </div>
+</div>
+
+<p>If every "one size fits most" cap slides straight back to the crown of your skull, and every fitted-cap chart tops out one size below yours, this is the guide. No fluff, no chart you have to hunt down — just the numbers, the brands, and the honest answer to "what size hat do I wear?" when your head is on the bigger end of the bell curve.</p>
+
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The short version</div>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your head measures <strong>60&nbsp;cm or more</strong>, you wear a US 7½ or larger — and mainstream brands stop stocking your size right there. Above 62&nbsp;cm (7¾), you're in specialist territory: 4–5 brands worldwide will actually fit you off-the-shelf.</p>
+</div>
+
+<h2>The Big-Head Sizing Ladder</h2>
+
+<p>Every number below is a real head circumference matched to the size you'll see on the label. No conversions to memorize.</p>
+
+
 
 <p>Not sure what your circumference is yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a> — a piece of string is enough. Or see the <a href="/en/blog/hat-size-chart-guide-cm-inches-us-uk-eu" style="color:#c9a84c;">full US/UK/EU hat size chart</a>.</p>
 
@@ -7392,72 +7706,6 @@ const SIZES = [
 function getSizeBySlug(slug) {
   return SIZES.find((s) => s.slug === slug);
 }
-const SHIP_COUNTRIES = [
-  "US",
-  "GB",
-  "PL",
-  "DE",
-  "FR",
-  "IT",
-  "ES",
-  "NL",
-  "BE",
-  "AT",
-  "IE"
-];
-const LIST_PRICE = "190.00";
-const SALE_PRICE = "114.00";
-const BESPOKE_PRICE = "480.00";
-const PRICE_CURRENCY = "USD";
-const PRICE_VALID_UNTIL = "2027-12-31";
-const PRICE_VALID_FROM = "2026-06-20";
-const RETURN_POLICY = {
-  "@type": "MerchantReturnPolicy",
-  applicableCountry: SHIP_COUNTRIES,
-  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-  merchantReturnDays: 30,
-  returnMethod: "https://schema.org/ReturnByMail",
-  returnFees: "https://schema.org/ReturnShippingFees",
-  returnShippingFeesAmount: {
-    "@type": "MonetaryAmount",
-    value: "10.00",
-    currency: PRICE_CURRENCY
-  }
-};
-function shippingDetails(isBespoke = false) {
-  return SHIP_COUNTRIES.map((country) => ({
-    "@type": "OfferShippingDetails",
-    shippingRate: {
-      "@type": "MonetaryAmount",
-      value: "0",
-      currency: PRICE_CURRENCY
-    },
-    shippingDestination: {
-      "@type": "DefinedRegion",
-      addressCountry: country
-    },
-    deliveryTime: {
-      "@type": "ShippingDeliveryTime",
-      handlingTime: isBespoke ? { "@type": "QuantitativeValue", minValue: 10, maxValue: 14, unitCode: "DAY" } : { "@type": "QuantitativeValue", minValue: 1, maxValue: 2, unitCode: "DAY" },
-      transitTime: {
-        "@type": "QuantitativeValue",
-        minValue: 3,
-        maxValue: 7,
-        unitCode: "DAY"
-      }
-    }
-  }));
-}
-const LIST_PRICE_SPEC = [
-  {
-    "@type": "UnitPriceSpecification",
-    priceType: "https://schema.org/ListPrice",
-    price: LIST_PRICE,
-    priceCurrency: PRICE_CURRENCY,
-    validFrom: PRICE_VALID_FROM,
-    validThrough: PRICE_VALID_UNTIL
-  }
-];
 const BESPOKE_FACTS = {
   name: "Woolet Bespoke - made-to-measure eyeglasses",
   h1: "Woolet Bespoke - glasses made to your exact face",
@@ -7947,7 +8195,8 @@ const FIT_FAQ = [
   {
     q: "Can I measure without the camera?",
     a: "Yes. The manual route at /en/fit/manual walks you through your face width with a soft tape measure — no camera, no card. It gives you the same size recommendation, but only the face-width figure; for bridge width and pupillary distance you need the scan."
-  }
+  },
+  ...BRIDGE_FIT_FAQ
 ];
 const FIT_BANDS = [
   { range: "Under 145 mm", verdict: "Narrow to average — mainstream frames fit you", size: "Not a Woolet fit" },
@@ -8117,6 +8366,33 @@ const BRIDGES = [
 function getBridgeBySlug(slug) {
   return BRIDGES.find((b) => b.slug === slug);
 }
+const WIDE_BRIDGE_GUIDE_FAQ = [
+  ...BRIDGE_FIT_FAQ,
+  {
+    q: "How do I know if I need a wider bridge?",
+    a: "Three quick signs: your current glasses leave red marks on the sides of your nose (not the top), they slide down within an hour of wearing them, or they sit so high that you keep looking through the upper edge of the lens. Any of those points to a bridge that's too narrow — usually 18 mm or under — for the width of your nose."
+  },
+  {
+    q: "What's a wide bridge measurement in mm?",
+    a: "Mainstream eyewear sits at 17–20 mm. We call 21 mm and above a wide bridge. 21–22 mm fits most wide noses; 23–26 mm is bespoke territory for high or unusually broad bridges."
+  },
+  {
+    q: "Keyhole or saddle bridge for a wide nose?",
+    a: "Keyhole. A saddle bridge wraps the sides of the nose and pinches anything broader than average. A keyhole bridge lifts the frame onto the bone at the top of the nose, so weight sits on hard tissue instead of cartilage — that's what stops the slide and the red marks."
+  },
+  {
+    q: "Why do my glasses slide down even when the bridge feels okay?",
+    a: "Sliding is usually a bridge-width problem before it's a temple-tightness problem. If the bridge is too narrow, the frame floats on cartilage with no real anchor and gravity wins. Widening the bridge by 2–4 mm and switching to a keyhole shape fixes it without overtightening the temples behind your ears."
+  },
+  {
+    q: "Can I just have an optician adjust my current frames?",
+    a: "An optician can widen nose pads on metal frames a millimetre or two, and re-bend temples. They can't widen the bridge itself on an acetate frame — the geometry is cut into the block. If the bridge is too narrow, adjustment delays the problem, it doesn't solve it."
+  },
+  {
+    q: "How do I measure my own nose bridge?",
+    a: "Take a straight-on photo at eye level with a credit card held against your forehead for scale. Measure the width of your nose at the point where glasses would rest (about 12 mm below the eyebrow line). That number is your minimum bridge width. Our AI Fit Wizard does the same measurement from a single photo automatically."
+  }
+];
 const TEMPLES = [
   {
     length: 140,
@@ -9564,7 +9840,7 @@ const DE_PRICING = {
   founderPriceEur: 109,
   regularPriceEur: 179,
   stripeReservationUrl: "https://buy.stripe.com/6oU3cwdqt9hUgrDbF3fbq0p",
-  founderLimit: 100,
+  founderLimit: 30,
   priceValidUntil: "2027-12-31"
 };
 const BLOG_FITLENS_HOOK_POSTS = /* @__PURE__ */ new Set([
@@ -10009,7 +10285,7 @@ ${faqBlock}
   return meta;
 }
 function getMetadata(route) {
-  var _a, _b;
+  var _a, _b, _c;
   const lang = langFromRoute(route);
   const path = route.replace(/^\/[a-z]{2}/, "") || "/";
   if (path === "/ref" || path.startsWith("/ref/")) {
@@ -10094,7 +10370,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       "de",
       {
         title: "Woolet Founders Edition - Für 1 € reservieren",
-        description: "Reserviere eine von 100 Woolet Founders Editions für 1 €. 158 mm breite Acetatfassungen für breite Gesichter, handgefertigt in der EU.",
+        description: "Reserviere für 1 € den Founding-Preis: 30 Fassungen für 109 €, danach 179 €. 158 mm breite Acetatfassungen für breite Gesichter, handgefertigt in der EU.",
         noscriptHtml: `<h1>Woolet Founders Edition für breite Gesichter</h1><p>Reserviere eine von ${DE_PRICING.founderLimit} Founders Editions für ${DE_PRICING.reservationEur} € inkl. MwSt. Der Founding-Preis beträgt ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt.</p><p><a href="/de/fit">Gesicht messen</a> · <a href="/de/impressum">Impressum</a> · <a href="/de/widerruf">Widerruf</a></p>`
       },
       { image: `${SITE_URL}${ksHeroAsset.url}`, type: "website" },
@@ -10151,7 +10427,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         description: "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
 <p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 21 mm keyhole bridge. Lens 52 × 52 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
-<p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–172 mm available.</p>`
+ <p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–172 mm available.</p>${bridgeFitPrerenderHtml("compact")}`
       },
       nl: {
         title: "Woolet 007 — ronde panto acetaatbril, 158 mm",
@@ -10189,7 +10465,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         description: "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 22 mm keyhole bridge. Lens 54 × 50 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
-<p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–172 mm available.</p>`
+ <p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–172 mm available.</p>${bridgeFitPrerenderHtml("compact")}`
       },
       nl: {
         title: "Woolet 009 — vierkante acetaatbril, 158 mm",
@@ -10382,6 +10658,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>A virtual try-on shows how frames look. FitLens shows whether they will actually fit a 155&nbsp;mm+ face. Appearance is subjective; fit is a number in millimetres.</p>
 <h2>Your result explained</h2>
 <ul>${FIT_BANDS.map((b) => `<li><strong>${escapeHtml(b.range)}</strong> — ${escapeHtml(b.verdict)}. ${escapeHtml(b.size)}.</li>`).join("")}</ul>
+ ${bridgeFitPrerenderHtml("full", true)}
 <h2>Privacy</h2>
 <p>The camera frame is processed to extract measurements and is not kept as an identifiable profile. Only the resulting numbers persist, and only if you save or email your result.</p>
 <h2>FAQ</h2>
@@ -10616,7 +10893,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       title: c.title,
       description: c.description,
       noscriptHtml: `<h1>${escapeHtml(c.h1)}</h1>
-<p>${escapeHtml(c.intro)}</p>`
+<p>${escapeHtml(c.intro)}</p>${path === "/collections/keyhole-bridge-glasses" ? bridgeFitPrerenderHtml("compact") : ""}`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en` },
@@ -10665,14 +10942,16 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       description: "A wide nose bridge changes where glasses sit, pinch and slide. How to size one, what bridge width to look for, and why Woolet uses a 20–21 mm keyhole bridge on a 158 mm front. Hand made in EU.",
       noscriptHtml: `<h1>Wide Bridge Fit Guide</h1>
 <p>A wide nose bridge changes where a frame sits, where it pinches and how fast it slides. Most mainstream frames use a 16–18 mm bridge; a wider or higher nose usually needs 20–22 mm before the frame stops sliding or leaving marks.</p>
+ ${bridgeFitPrerenderHtml()}
 <h2>How to measure your bridge width</h2>
 <p>Measure the gap between the inner edges of your lenses on a pair that already sits well, or measure across the top of your nose where the frame rests. Under 17 mm is narrow, 17–20 mm is mainstream, 21 mm and above is wide.</p>
 <h2>Why a keyhole bridge works on a wide nose</h2>
 <p>A keyhole bridge rides on the top ridge of the nose instead of pinching the sides, so the weight sits on bone rather than cartilage. That removes the two usual failure modes: sliding and red pressure marks.</p>
 <h2>Woolet's bridge specs</h2>
 <p>Woolet 007 ships with a 21 mm keyhole bridge, Woolet 009 with 22 mm, both on a 158 mm signature front width (fit range 155–161 mm). Bespoke covers fronts from 145 to 172 mm with bridges from 20 to 24 mm. Cut from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
-<p><a href="/en/fit">Measure your bridge in 20 seconds</a> · <a href="/en/collections/wide-bridge-glasses">See wide bridge glasses</a></p>`
-    }, { type: "article" });
+ <p><a href="/en/fit">Measure your bridge in 20 seconds</a> · <a href="/en/collections/wide-bridge-glasses">See wide bridge glasses</a></p>
+ <h2>FAQ</h2><dl>${WIDE_BRIDGE_GUIDE_FAQ.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>`
+    }, { type: "article" }, [faqPageJsonLd(WIDE_BRIDGE_GUIDE_FAQ)]);
   }
   if (path === "/privacy-policy") {
     const copy = {
@@ -10756,7 +11035,8 @@ ${links}
 ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><p>${escapeHtml(enhancement.quickAnswer)}</p></aside>` : ""}
 <p><em>${escapeHtml(post.excerpt)}</em></p>
 <p><small>Published ${escapeHtml(post.date)} · ${post.readTime} min read</small></p>
-${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent) : enrichedContent}
+ ${post.slug === "glasses-for-wide-nose-bridge-21-22mm-explained" ? insertBridgeAfterBlogIntro(enrichedContent) : BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent) : enrichedContent}
+ ${post.slug === "glasses-for-wide-nose-bridge-21-22mm-explained" ? `<section><h2>Wide nose bridge fit questions</h2><dl>${((_a = post.faq) == null ? void 0 : _a.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")) ?? ""}</dl></section>` : ""}
 </article>`
         },
         { type: "article", image: ogImage },
@@ -10779,7 +11059,7 @@ ${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent
             },
             mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${route}` },
             inLanguage: lang,
-            ...((_a = post.tags) == null ? void 0 : _a.length) ? { keywords: post.tags.join(", ") } : {},
+            ...((_b = post.tags) == null ? void 0 : _b.length) ? { keywords: post.tags.join(", ") } : {},
             wordCount: post.readTime * 220
           },
           breadcrumbJsonLd([
@@ -10787,7 +11067,7 @@ ${BLOG_FITLENS_HOOK_POSTS.has(post.slug) ? insertBlogFitLensHook(enrichedContent
             { name: "Blog", url: `${SITE_URL}/${lang}/blog` },
             { name: post.title, url: `${SITE_URL}${route}` }
           ]),
-          ...((_b = post.faq) == null ? void 0 : _b.length) ? [faqPageJsonLd(post.faq)] : GUIDE_FAQS[slug] ? [faqPageJsonLd(GUIDE_FAQS[slug])] : []
+          ...((_c = post.faq) == null ? void 0 : _c.length) ? [faqPageJsonLd(post.faq)] : GUIDE_FAQS[slug] ? [faqPageJsonLd(GUIDE_FAQS[slug])] : []
         ]
       );
     }
@@ -10973,18 +11253,19 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
           description: b.metaDescription,
           noscriptHtml: `<h1>${b.h1}</h1>
 <p>${b.subhead}</p>
+ ${b.slug === "19mm" ? `<p>19 mm is a standard bridge. On a wider nose it perches - see what happens.</p>${bridgeFitPrerenderHtml()}` : ""}
 <h2>Does Woolet fit a ${b.width} mm bridge?</h2>
 <p>${b.fitVerdict}</p>
 <p>${b.intro}</p>
 <p>Signature bridges: 21 mm keyhole (007) · 22 mm (009). Bespoke 20–24 mm.</p>
-<p><a href="/en/products/007">Woolet 007 · 21 mm keyhole</a> · <a href="/en/products/009">Woolet 009 · 22 mm</a> · <a href="/en/bespoke">Bespoke bridge</a> · <a href="/en/collections/wide-bridge-glasses">Wide-bridge hub</a></p>`
+ <p><a href="/en/products/007">Woolet 007 · 21 mm keyhole</a> · <a href="/en/products/009">Woolet 009 · 22 mm</a> · <a href="/en/bespoke">Bespoke bridge</a> · <a href="/en/collections/wide-bridge-glasses">Wide-bridge hub</a></p>${b.slug === "19mm" ? `<h2>Frequently asked</h2><dl>${[...b.faq, ...BRIDGE_FIT_FAQ].map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>` : ""}`
         },
         { image: DEFAULT_OG, type: "website" },
         [
           {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: b.faq.map((f) => ({
+            mainEntity: (b.slug === "19mm" ? [...b.faq, ...BRIDGE_FIT_FAQ] : b.faq).map((f) => ({
               "@type": "Question",
               name: f.q,
               acceptedAnswer: { "@type": "Answer", text: f.a }
@@ -11222,8 +11503,8 @@ ${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escap
       route,
       lang,
       {
-        title: "Hat Size Calculator — Head Circumference to US, UK, EU & cm | Woolet",
-        description: "Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads.",
+        title: "Hat Size Calculator: cm or Inches to US, UK & EU (+ Glasses Width)",
+        description: "Enter your head circumference, get your US, UK, EU and letter hat size instantly — and the glasses frame width that fits a head your size.",
         noscriptHtml: `<h1>Hat Size Calculator — Head Circumference to US, UK, EU &amp; cm</h1>
 <p>Free hat size calculator. Enter your head circumference in cm or inches and get your US, UK, EU and letter hat size instantly — with sizing advice for bigger heads.</p>
 <p>Bigger head? Frame width matters too: <a href="/en/collections/glasses-for-big-heads">glasses for big heads</a> · <a href="/en/fit">measure your face width in 20 seconds</a>.</p>`
@@ -11482,7 +11763,6 @@ const STATIC_ROUTES = [
   "/en/compare/ray-ban-alternative",
   "/en/compare/persol-alternative",
   "/pl",
-  "/pl/process",
   "/pl/blog",
   "/pl/privacy-policy",
   "/pl/return-policy",
@@ -11606,7 +11886,7 @@ function renderHeadHtml(meta) {
   tags.push(`<meta name="twitter:image" content="${meta.og.image}"${D} />`);
   tags.push(`<meta name="twitter:site" content="@WooletEyewear"${D} />`);
   for (const obj of meta.jsonLd) {
-    tags.push(`<script type="application/ld+json"${D}>${JSON.stringify(obj)}<\/script>`);
+    tags.push(`<script type="application/ld+json"${D}>${commerceJson(obj)}<\/script>`);
   }
   return tags.join("\n    ");
 }

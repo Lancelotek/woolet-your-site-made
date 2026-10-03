@@ -69,10 +69,9 @@ export const ROUTES = {
     ja: "/ja/bespoke",
   },
 
-  // /process — real translation in pl (/pl/process).
+  // /process — EN only (/pl/process redirects to /en/process).
   process: {
     en: "/en/process",
-    pl: "/pl/process",
   },
 
   // Legal pages with real localized routes.

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { KICKSTARTER_URL } from "@/config/kickstarter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { isValidLang, type Lang } from "@/lib/i18n";
@@ -9,8 +10,7 @@ const GOLD = "#CAA449";
 const BG = "#080807";
 const MUTED = "#888888";
 
-const KICKSTARTER_PUBLIC_URL =
-  "https://www.kickstarter.com/projects/wooletco/your-public-prelaunch-url";
+const KICKSTARTER_PUBLIC_URL = KICKSTARTER_URL;
 
 const SESSION_KEY = "woolet_vip_signup_fired";
 

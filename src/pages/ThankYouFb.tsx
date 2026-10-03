@@ -1,3 +1,4 @@
+import { KICKSTARTER_URL } from "@/config/kickstarter";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -5,8 +6,6 @@ import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
 import { getLastTouchUtms } from "@/lib/attribution";
 
 const FB_GROUP_URL = "https://www.facebook.com/groups/867413636043717";
-const KICKSTARTER_URL =
-  "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces";
 /** Same $1 reservation price as the Kickstarter landing page. */
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 
