@@ -6,7 +6,6 @@ import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
 import { getLastTouchUtms } from "@/lib/attribution";
 
 const FB_GROUP_URL = "https://www.facebook.com/groups/867413636043717";
-const KICKSTARTER_URL = KICKSTARTER_URL;
 /** Same $1 reservation price as the Kickstarter landing page. */
 const RESERVATION_PRICE_ID = "founding_member_deposit_1usd";
 
