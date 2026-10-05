@@ -22,8 +22,11 @@ export const initGoogleAds = (): boolean => {
 
   w.dataLayer = w.dataLayer || [];
   if (typeof w.gtag !== "function") {
-    w.gtag = (...args: unknown[]) => {
-      w.dataLayer?.push(args);
+    // GTM/gtag only read commands pushed as an `arguments` object; a plain
+    // array push is silently ignored (same bug fixed in CookieBanner).
+    w.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      w.dataLayer?.push(arguments);
     };
   }
 

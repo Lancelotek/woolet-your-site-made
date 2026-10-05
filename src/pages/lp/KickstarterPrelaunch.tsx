@@ -136,12 +136,26 @@ const VIP_JOINED_KEY = "wlt_ks_vip_joined";
  * keyboard opens. Works on every tap (unlike a hash link, which is a
  * no-op once the hash is already set).
  */
+// Brief gold ring on the element a tap scrolled to. A scroll alone is not a
+// visible change, so without it the tap feels (and is logged) as dead.
+const flashTarget = (el: Element | null) => {
+  if (!el) return;
+  el.removeAttribute("data-wl-flash");
+  // Force a reflow so a repeat tap restarts the animation.
+  void (el as HTMLElement).offsetWidth;
+  el.setAttribute("data-wl-flash", "on");
+  window.setTimeout(() => {
+    if (el.getAttribute("data-wl-flash") === "on") el.removeAttribute("data-wl-flash");
+  }, 1700);
+};
+
 const scrollToEmailInput = (formId: string) => {
   const form =
     document.getElementById(formId) ?? document.getElementById("vip-form-final") ?? document.getElementById("vip-form-hero");
   if (!form) return;
   const emailInput = form.querySelector<HTMLInputElement>('input[type="email"]');
   form.scrollIntoView({ block: "center", behavior: "smooth" });
+  flashTarget(form);
   window.setTimeout(() => {
     emailInput?.focus({ preventScroll: true });
   }, 350);
@@ -227,6 +241,9 @@ const VipForm = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [errorKind, setErrorKind] = useState<"invalid" | "duplicate" | "generic" | null>(null);
+  // Bumped on every failed validation so a repeat tap on the CTA replays the
+  // shake (same state twice = no re-render = a tap with no visible effect).
+  const [errorNonce, setErrorNonce] = useState(0);
 
   const [step, setStep] = useState<1 | 2>(1);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -270,6 +287,7 @@ const VipForm = ({
     const normalizedEmail = email.trim().toLowerCase();
 
     if (!email.trim()) {
+      setErrorNonce((n) => n + 1);
       setErrorKind("invalid");
       setError("Enter your email to lock $114");
       inputRef.current?.focus();
@@ -279,6 +297,7 @@ const VipForm = ({
     }
 
     if (!EMAIL_RE.test(normalizedEmail) || normalizedEmail.length > 320) {
+      setErrorNonce((n) => n + 1);
       setErrorKind("invalid");
       setError("That email doesn't look right. Check the address and try again.");
       pushGtmEvent("vip_form_error", { form_location: formLocation, reason: "invalid" });
@@ -614,7 +633,10 @@ const VipForm = ({
             ...inputStyle,
             flex: 1,
             borderColor: errorKind === "invalid" ? "#e25555" : inputStyle.borderColor,
-            animation: errorKind === "invalid" ? "wlShake 320ms ease" : undefined,
+            animation:
+              errorKind === "invalid"
+                ? `${errorNonce % 2 ? "wlShake" : "wlShakeB"} 320ms ease`
+                : undefined,
           }}
           onFocus={(e) => (e.currentTarget.style.borderColor = GOLD)}
           onBlur={(e) =>
@@ -712,6 +734,20 @@ const pctOf = (mm: number) => ((mm - SCALE_MIN) / (SCALE_MAX - SCALE_MIN)) * 100
 const MarketWidthChart = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [shown, setShown] = useState(false);
+  // Visitors tap these rows (Clarity: the Woolet row was the top dead-click
+  // target). Competitor rows expand a one-line note; the Woolet row jumps to
+  // the Signature shapes section.
+  const [openRow, setOpenRow] = useState<string | null>(null);
+  const onRowTap = (r: (typeof MARKET_ROWS)[number]) => {
+    pushGtmEvent("market_row_tap", { brand: r.brand });
+    if (r.isWoolet) {
+      const target = document.getElementById("signature-shapes");
+      target?.scrollIntoView({ block: "start", behavior: "smooth" });
+      flashTarget(target);
+      return;
+    }
+    setOpenRow((cur) => (cur === r.brand ? null : r.brand));
+  };
 
   useEffect(() => {
     const el = ref.current;
@@ -738,6 +774,9 @@ const MarketWidthChart = () => {
       <style>{`
         .mkt-row { display: grid; grid-template-columns: 190px 1fr 84px; align-items: center; column-gap: 18px; }
         .mkt-bar { width: 0; transition: width 700ms cubic-bezier(0.2,0.7,0.2,1); }
+        .mkt-row-btn { width: 100%; background: transparent; border: 0; padding: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: rgba(202,164,73,0.15); }
+        .mkt-row-btn:focus-visible { outline: 2px solid rgba(202,164,73,0.85); outline-offset: 4px; }
+        .mkt-detail { grid-column: 1 / -1; }
         .mkt-shown .mkt-bar { width: var(--w); }
         .mkt-threshold-label {
           white-space: nowrap;
@@ -803,9 +842,13 @@ const MarketWidthChart = () => {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             {MARKET_ROWS.map((r, i) => (
-              <div
+              <button
+                type="button"
                 key={r.brand}
-                className="mkt-row"
+                className="mkt-row mkt-row-btn"
+                aria-expanded={r.isWoolet ? undefined : openRow === r.brand}
+                aria-controls={r.isWoolet ? "signature-shapes" : `mkt-detail-${i}`}
+                onClick={() => onRowTap(r)}
                 style={
                   r.isWoolet
                     ? { borderTop: `1px solid ${HAIRLINE}`, paddingTop: 18 }
@@ -892,8 +935,31 @@ const MarketWidthChart = () => {
                   }}
                 >
                   {r.label}
+                  <span aria-hidden="true" style={{ marginLeft: 6, color: TAUPE }}>
+                    {r.isWoolet ? "↓" : openRow === r.brand ? "−" : "+"}
+                  </span>
                 </div>
-              </div>
+
+                {!r.isWoolet && openRow === r.brand && (
+                  <div
+                    id={`mkt-detail-${i}`}
+                    className="mkt-detail"
+                    style={{ color: TAUPE, fontSize: 12, lineHeight: 1.6, textAlign: "left" }}
+                  >
+                    {r.brand} {r.tier}: {r.label}, {r.material}.{" "}
+                    {r.open
+                      ? "Published as a minimum, with no exact upper width listed."
+                      : r.mm < 155
+                        ? "Stops below the 155 mm wide-face line."
+                        : "Clears 155 mm, but not in acetate."}
+                  </div>
+                )}
+                {r.isWoolet && (
+                  <div className="mkt-detail" style={{ color: GOLD, fontSize: 12, textAlign: "left" }}>
+                    See the two Signature shapes
+                  </div>
+                )}
+              </button>
             ))}
           </div>
         </div>
@@ -928,6 +994,16 @@ const KickstarterPrelaunch = () => {
   const galleryTouch = useRef<{ x: number; y: number } | null>(null);
   const gallerySwiped = useRef(false);
   const moveGallery = (direction: number) => setActiveImg((current) => (current + direction + heroGallery.length) % heroGallery.length);
+  // Warm the neighbouring slides so ‹ › show the next photo immediately.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const n = heroGallery.length;
+    [activeImg + 1, activeImg - 1].forEach((i) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = heroGallery[(i + n) % n].src;
+    });
+  }, [activeImg]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxClosing, setLightboxClosing] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -1292,6 +1368,10 @@ const KickstarterPrelaunch = () => {
               }}
             >
               <img
+                // New node per slide: an instant, visible swap even while the
+                // next file is still decoding (the old <img> kept showing the
+                // previous photo, so ‹ › taps looked dead on slow phones).
+                key={activeImg}
                 src={heroGallery[activeImg].src}
                 alt={heroGallery[activeImg].alt}
                 loading="eager"
@@ -1539,7 +1619,7 @@ const KickstarterPrelaunch = () => {
 
 
       {/* SIGNATURE SHAPES */}
-      <section>
+      <section id="signature-shapes" style={{ scrollMarginTop: 72 }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-24">
           <Eyebrow>Signature shapes</Eyebrow>
           <h2

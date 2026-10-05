@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
 import { trackGoogleAdsConversion } from "@/lib/google-ads";
+import { trackReservationPurchase } from "@/lib/ga4-purchase";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
 import vipBespokePreview from "@/assets/vip-bespoke-preview.png.asset.json";
 const logo = logoAsset.url;
@@ -46,6 +47,7 @@ const KickstarterVipConfirmed = () => {
       /* ignore */
     }
     trackGoogleAdsConversion(paymentRef);
+    trackReservationPurchase(paymentRef, "kickstarter_vip_confirmed");
   }, [paid, paymentRef]);
 
   useEffect(() => {

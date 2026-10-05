@@ -692,3 +692,18 @@ body.wl-lightbox-open [data-woolet-cookie-banner],
 body.wl-lightbox-open .wl-sticky-cta { display: none !important; }
 
 @keyframes wlShake { 0%,100% { transform: translateX(0) } 25% { transform: translateX(-5px) } 75% { transform: translateX(5px) } }
+/* Second copy of wlShake so a repeated invalid submit can restart the
+   animation by swapping names (same name = browser won't replay it). */
+@keyframes wlShakeB { 0%,100% { transform: translateX(0) } 25% { transform: translateX(-5px) } 75% { transform: translateX(5px) } }
+
+/* Visible landing cue after a tap scrolls the visitor to a section/form,
+   so the tap reads as "something happened" (and isn't a Clarity dead click). */
+@keyframes wlFlash {
+  0% { box-shadow: 0 0 0 0 rgba(202, 164, 73, 0); }
+  20% { box-shadow: 0 0 0 3px rgba(202, 164, 73, 0.85); }
+  100% { box-shadow: 0 0 0 0 rgba(202, 164, 73, 0); }
+}
+[data-wl-flash="on"] { animation: wlFlash 1.6s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  [data-wl-flash="on"] { animation: none; outline: 2px solid rgba(202, 164, 73, 0.85); outline-offset: 4px; }
+}
