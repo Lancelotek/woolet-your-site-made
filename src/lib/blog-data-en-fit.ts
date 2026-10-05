@@ -166,7 +166,7 @@ ${FITLENS_CTA(
 
 <p>The full explanation of why the industry stops where it does — and what it means for pricing, tooling and availability — is in <a href="/en/blog/why-glasses-dont-fit-155mm-problem" style="color:#A07A2A;">why glasses don't fit at 155 mm</a>. If you want the practical version, with what to buy and what to skip, start with the <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">complete wide-face fit guide</a>.</p>
 
-<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, Bespoke covers 145–172 mm in four shapes.</p>
+<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, Bespoke covers 145–160 mm in four shapes.</p>
 
 <p>The point is not that you need a particular frame. It is that the pain you are feeling has a number attached to it, and once you know that number the problem stops being mysterious.</p>
 
@@ -336,9 +336,9 @@ ${FITLENS_CTA(
 
 <p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU. Every 158 mm option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> collection page, sized for faces of 155 mm and up.</p>
 
-<p><strong>Go bespoke between 145 and 172 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
+<p><strong>Go bespoke between 145 and 160 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
-<p><strong>Above 172 mm, look at made-to-order metal.</strong> We do not build past 172 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
+<p><strong>Above 160 mm, look at made-to-order metal.</strong> We do not build past 160 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
 
 <p>Individual width reference pages, each with fit notes and frame recommendations: <a href="/en/size/145mm" style="color:#A07A2A;">145 mm</a> · <a href="/en/size/150mm" style="color:#A07A2A;">150 mm</a> · <a href="/en/size/155mm" style="color:#A07A2A;">155 mm</a> · <a href="/en/size/158mm" style="color:#A07A2A;">158 mm</a> · <a href="/en/size/160mm" style="color:#A07A2A;">160 mm</a> · <a href="/en/size/162mm" style="color:#A07A2A;">162 mm</a> · <a href="/en/size/165mm" style="color:#A07A2A;">165 mm</a>.</p>
 
@@ -671,7 +671,7 @@ ${FITLENS_CTA(
       },
       {
         q: "How do I measure whether I need a wide fit?",
-        a: "Measure temple-to-temple: the straight-line distance across your face at the widest point, just in front of your ears. Under 145 mm is standard sizing, 145–155 mm is the upper end of mainstream, and above 155 mm you are outside most catalogues. Woolet's front width is 158 mm, with bespoke covering 145–172 mm.",
+        a: "Measure temple-to-temple: the straight-line distance across your face at the widest point, just in front of your ears. Under 145 mm is standard sizing, 145–155 mm is the upper end of mainstream, and above 155 mm you are outside most catalogues. Woolet's front width is 158 mm, with bespoke covering 145–160 mm.",
       },
       {
         q: "What size are oversized square blue light glasses?",
@@ -774,8 +774,8 @@ ${ANSWER(
     </tr>
     <tr>
       <th style="${TD}" scope="row">Fit range</th>
-      <td style="${TD}">155–161 mm (bespoke 145–172 mm)</td>
-      <td style="${TD}">155–161 mm (bespoke 145–172 mm)</td>
+      <td style="${TD}">155–161 mm (bespoke 145–160 mm)</td>
+      <td style="${TD}">155–161 mm (bespoke 145–160 mm)</td>
     </tr>
   </tbody>
 </table>
@@ -820,7 +820,7 @@ ${FITLENS_CTA(
 <p>Only if the front width is also large. Most oversized frames sit around 130–145 mm front width as listed by the brands, under the 155 mm+ a wide face needs. Above 155 mm temple-to-temple, the lenses can be as big as you like and the frame will still press on your temples.</p>
 
 <h3>How do I measure whether I need a wide fit?</h3>
-<p>Measure temple-to-temple: the straight-line distance across your face at its widest point, just in front of your ears. Under 145 mm is standard, 145–155 mm is the upper end of mainstream, above 155 mm is outside most catalogues. Woolet's front width is 158 mm; bespoke covers 145–172 mm.</p>
+<p>Measure temple-to-temple: the straight-line distance across your face at its widest point, just in front of your ears. Under 145 mm is standard, 145–155 mm is the upper end of mainstream, above 155 mm is outside most catalogues. Woolet's front width is 158 mm; bespoke covers 145–160 mm.</p>
 
 <h3>What size are oversized square blue light glasses?</h3>
 <p>There is no standard. The label gets applied from roughly 52 mm lens width upward, with front widths that vary and are often unpublished. The Woolet 009 Soft Square is 158 mm across the front, 54 mm lens width, 22 mm keyhole bridge, 150 mm temples, with blue-light filtering offered as a lens option.</p>
@@ -976,7 +976,7 @@ ${ANSWER(
 
 <p>The giveaway is a second set of marks: red lines at the temples, in front of the ears, alongside the pain behind them. Sleeves and re-bends move the symptom around but never remove it, because the geometry is unchanged. The full diagnosis of that pattern is here: <a href="/en/blog/glasses-too-tight-on-side-of-head" style="color:#A07A2A;">glasses too tight on the side of your head</a>.</p>
 
-<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 52 x 52 mm lenses with a 21 mm bridge, the 009 Soft Square at 54 x 50 mm with a 22 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 172 mm, hand made in Greece.</p>
+<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 52 x 52 mm lenses with a 21 mm bridge, the 009 Soft Square at 54 x 50 mm with a 22 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in Greece.</p>
 
 <h2>4. Your ears sit at different heights</h2>
 
@@ -1068,7 +1068,7 @@ ${FITLENS_CTA(
       },
       {
         q: "Can I get photochromic glasses wider than 160 mm?",
-        a: "Yes. Woolet Bespoke is built to any front width from 145 to 172 mm with a photochromic lens option, from $480.",
+        a: "Yes. Woolet Bespoke is built to any front width from 145 to 160 mm with a photochromic lens option, from $480.",
       },
       {
         q: "Do photochromic lenses work for cycling to work?",
@@ -1124,7 +1124,7 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 </tr>
 <tr>
 <td style="${TD}border-bottom:1px solid #F0EBE1;"><a href="/en/bespoke" style="color:#A07A2A;">Woolet Bespoke</a></td>
-<td style="${TD}border-bottom:1px solid #F0EBE1;">Any width 145-172 mm, 4 shapes</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">Any width 145-160 mm, 4 shapes</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">Photochromic lens option</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">From $480</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">You fall outside 155-161 mm or want a shape built to your face</td>
@@ -1137,7 +1137,7 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 <h2>How long does Bespoke take?</h2>
 <p>Production takes two weeks after you approve the 3D model of your frame. Each Bespoke frame is hand made in Greece from Italian Mazzucchelli acetate, cut to the measurements of one face - yours.</p>
 
-${FITLENS_CTA("Your face width decides which of the two paths above is yours. Bespoke covers any front width from 145 to 172 mm, in four shapes, with photochromic as a lens option - and it starts from your measurements, not a size chart.", "Design your Bespoke frame - 145 to 172 mm", "/en/bespoke", "Bespoke · hand made in Greece")}
+${FITLENS_CTA("Your face width decides which of the two paths above is yours. Bespoke covers any front width from 145 to 160 mm, in four shapes, with photochromic as a lens option - and it starts from your measurements, not a size chart.", "Design your Bespoke frame - 145 to 160 mm", "/en/bespoke", "Bespoke · hand made in Greece")}
 
 <h2>FAQ</h2>
 <h3>Are glasses that turn into sunglasses worth it?</h3>
@@ -1153,7 +1153,7 @@ ${FITLENS_CTA("Your face width decides which of the two paths above is yours. Be
 <p>Yes. Order a Woolet 007 or 009 with a 158 mm front for $190 and have your optician fit prescription photochromic lenses.</p>
 
 <h3>Can I get photochromic glasses wider than 160 mm?</h3>
-<p>Yes. Woolet Bespoke is built to any front width from 145 to 172 mm with a photochromic lens option, from $480.</p>
+<p>Yes. Woolet Bespoke is built to any front width from 145 to 160 mm with a photochromic lens option, from $480.</p>
 
 <h3>Do photochromic lenses work for cycling to work?</h3>
 <p>For commuting and everyday rides, yes: they darken outside and clear when you arrive. For sport riding at speed, use dedicated cycling glasses with a wraparound shape.</p>

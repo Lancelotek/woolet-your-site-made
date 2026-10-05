@@ -120,7 +120,7 @@ export const koPages: Record<string, KoPageConfig> = {
     sub: "렌즈 크기가 아니라 전면부 총길이로 고르는 안경",
     metaTitle: "대두 안경테 158mm - 이탈리아 아세테이트 | Woolet",
     metaDescription:
-      "전면부 총길이 158mm 단일 사이즈. 이탈리아 마주켈리 아세테이트, EU 핸드메이드. 비스포크는 145-172mm까지 맞춤 제작, 주문 후 2주.",
+      "전면부 총길이 158mm 단일 사이즈. 이탈리아 마주켈리 아세테이트, EU 핸드메이드. 비스포크는 145-160mm까지 맞춤 제작, 주문 후 2주.",
     sections: [
       {
         h2: "사이즈를 고를 필요가 없습니다",
@@ -143,7 +143,7 @@ export const koPages: Record<string, KoPageConfig> = {
       {
         h2: "155-161mm은 시그니처, 그 밖은 비스포크",
         body:
-          "실측 155-161mm이라면 시그니처 158mm가 맞습니다. 그 범위를 벗어나면 비스포크로 만듭니다 - 145mm부터 172mm까지, 원하는 폭 그대로.",
+          "실측 155-161mm이라면 시그니처 158mm가 맞습니다. 그 범위를 벗어나면 비스포크로 만듭니다 - 145mm부터 160mm까지, 원하는 폭 그대로.",
         list: [
           "4가지 모양, 60가지 색상과 사이즈 조합",
           "주문 후 2주면 발송",
@@ -180,7 +180,7 @@ export const koPages: Record<string, KoPageConfig> = {
       },
       {
         q: "158mm보다 넓게 만들 수 있나요?",
-        a: "비스포크로 145mm부터 172mm까지 제작합니다. 주문 후 2주, 렌즈 포함 $480입니다.",
+        a: "비스포크로 145mm부터 160mm까지 제작합니다. 주문 후 2주, 렌즈 포함 $480입니다.",
       },
     ],
     englishEquivalent: "/en",
@@ -206,7 +206,7 @@ export const koPages: Record<string, KoPageConfig> = {
         link: { label: "안경 사이즈 재는 법", href: "/ko/guide/frame-size" },
       },
       {
-        h2: "비스포크 145-172mm",
+        h2: "비스포크 145-160mm",
         body: "원하는 폭을 그대로 지정합니다. 150mm도 같은 방식으로 만듭니다.",
         list: BESPOKE_BULLETS,
         ctas: FIT_CTAS,
@@ -257,7 +257,7 @@ export const koPages: Record<string, KoPageConfig> = {
       {
         h2: "실측 162mm 이상이라면 비스포크",
         body:
-          "비스포크는 145mm부터 172mm까지 원하는 폭으로 만듭니다. 4가지 모양, 60가지 색상과 사이즈 조합, 주문 후 2주, 렌즈 포함 $480.",
+          "비스포크는 145mm부터 160mm까지 원하는 폭으로 만듭니다. 4가지 모양, 60가지 색상과 사이즈 조합, 주문 후 2주, 렌즈 포함 $480.",
         ctas: FIT_CTAS,
       },
       {
@@ -287,10 +287,10 @@ export const koPages: Record<string, KoPageConfig> = {
     path: "/ko/size/165mm",
     eyebrow: "Woolet · 비스포크",
     h1: "165mm 안경테는 비스포크로 만듭니다",
-    sub: "165mm 전면부 총길이는 비스포크 범위(145-172mm) 안에 있습니다.",
+    sub: "165mm 전면부 총길이는 비스포크 범위(145-160mm) 안에 있습니다.",
     metaTitle: "대두 안경테 165mm - 비스포크 맞춤 제작 | Woolet",
     metaDescription:
-      "165mm 전면부 총길이는 비스포크 범위(145-172mm) 안에 있습니다. 4가지 모양, 60가지 조합, 주문 후 2주, 렌즈 포함 $480.",
+      "165mm 전면부 총길이는 비스포크 범위(145-160mm) 안에 있습니다. 4가지 모양, 60가지 조합, 주문 후 2주, 렌즈 포함 $480.",
     sections: [
       {
         h2: "165mm는 기성품에 없습니다",
@@ -299,9 +299,9 @@ export const koPages: Record<string, KoPageConfig> = {
         link: { label: "안경 사이즈 재는 법", href: "/ko/guide/frame-size" },
       },
       {
-        h2: "비스포크는 145mm부터 172mm까지",
+        h2: "비스포크는 145mm부터 160mm까지",
         body:
-          "원하는 폭을 그대로 지정합니다. 165mm도, 168mm도, 172mm도 같은 방식입니다. 172mm가 Woolet이 만드는 최대 폭입니다.",
+          "원하는 폭을 그대로 지정합니다. 165mm도, 168mm도, 160mm도 같은 방식입니다. 160mm가 Woolet이 만드는 최대 폭입니다.",
         list: BESPOKE_BULLETS,
       },
       {
@@ -314,7 +314,7 @@ export const koPages: Record<string, KoPageConfig> = {
     faqs: [
       {
         q: "165mm보다 넓게 제작할 수 있나요?",
-        a: "172mm까지 제작합니다. 그 이상은 만들지 않습니다.",
+        a: "160mm까지 제작합니다. 그 이상은 만들지 않습니다.",
       },
     ],
     englishEquivalent: "/en/size/165mm",
@@ -356,7 +356,7 @@ export const koPages: Record<string, KoPageConfig> = {
       },
       {
         h2: "더 넓은 폭이 필요하다면",
-        body: "비스포크로 145-172mm까지 만듭니다. 선글라스 렌즈 포함 $480, 주문 후 2주.",
+        body: "비스포크로 145-160mm까지 만듭니다. 선글라스 렌즈 포함 $480, 주문 후 2주.",
       },
       {
         h2: "한국 배송",
@@ -494,7 +494,7 @@ export const koPages: Record<string, KoPageConfig> = {
           head: ["브랜드", "전면부 총길이", "소재", "맞춤 제작"],
           rows: [
             ["Woolet 시그니처", "158mm", "이탈리아 마주켈리 아세테이트", "-"],
-            ["Woolet 비스포크", "145-172mm", "이탈리아 마주켈리 아세테이트", "4가지 모양, 60가지 조합"],
+            ["Woolet 비스포크", "145-160mm", "이탈리아 마주켈리 아세테이트", "4가지 모양, 60가지 조합"],
             // TODO(ko/brands): a figure may only be filled in from that brand's OWN
             // published spec page — never from an AI summary, a forum post, or a
             // retailer listing. Until then every competitor cell stays "확인 중"

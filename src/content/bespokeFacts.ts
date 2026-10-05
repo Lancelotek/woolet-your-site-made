@@ -3,7 +3,7 @@ import { SHIP_COUNTRIES, shippingDetails, priceValidUntil } from "@/seo/commerce
 export const BESPOKE_FACTS = {
   name: "Woolet Bespoke - made-to-measure eyeglasses",
   h1: "Woolet Bespoke - glasses made to your exact face",
-  frontWidth: "145-172 mm",
+  frontWidth: "145-160 mm",
   bridge: "20-24 mm",
   temples: "145-155 mm",
   regularPrice: 480,
@@ -30,12 +30,12 @@ export const BESPOKE_FACTS = {
 } as const;
 
 export const BESPOKE_META_DESCRIPTION =
-  "Made-to-measure glasses in any width from 145-172 mm. $480 with prescription lenses and worldwide shipping. Hand made in Greece from Italian acetate.";
+  "Made-to-measure glasses in any width from 145-160 mm. $480 with prescription lenses and worldwide shipping. Hand made in Greece from Italian acetate.";
 
 export const BESPOKE_GUIDE = [
   {
     heading: "A frame built around your measurements",
-    text: "Made to measure means the front width, bridge and temples are chosen for one person, not picked from an existing shelf size. Woolet Bespoke covers front widths from 145-172 mm, bridges from 20-24 mm and temple lengths from 145-155 mm. Those numbers describe the frame, not a guarantee that every face of the same width needs identical glasses. The measurement and model-review steps establish the dimensions for your individual build. If you are deciding between a stock frame and a custom one, start with a face-width measurement rather than guessing from your hat size or an old pair of glasses.",
+    text: "Made to measure means the front width, bridge and temples are chosen for one person, not picked from an existing shelf size. Woolet Bespoke covers front widths from 145-160 mm, bridges from 20-24 mm and temple lengths from 145-155 mm. Those numbers describe the frame, not a guarantee that every face of the same width needs identical glasses. The measurement and model-review steps establish the dimensions for your individual build. If you are deciding between a stock frame and a custom one, start with a face-width measurement rather than guessing from your hat size or an old pair of glasses.",
   },
   {
     heading: "When a standard Woolet frame is enough",
@@ -43,7 +43,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "A narrower or wider face can need the same process",
-    text: "Bespoke is not limited to people who find regular glasses too small. A 145 mm front can be made for a narrower fit, while a 172 mm front covers the upper end of the available build range. Between those limits, the bridge and temple dimensions also matter. A frame may be wide enough at the front but still sit poorly if its bridge or temples are wrong for the wearer. Conversely, someone in the typical stock face-width band may choose a custom shape or need a different bridge. The recommended path depends on the complete set of measurements rather than one number in isolation.",
+    text: "Bespoke is not limited to people who find regular glasses too small. A 145 mm front can be made for a narrower fit, while a 160 mm front covers the upper end of the available build range. Between those limits, the bridge and temple dimensions also matter. A frame may be wide enough at the front but still sit poorly if its bridge or temples are wrong for the wearer. Conversely, someone in the typical stock face-width band may choose a custom shape or need a different bridge. The recommended path depends on the complete set of measurements rather than one number in isolation.",
   },
   {
     heading: "How the remote fitting works",
@@ -80,7 +80,7 @@ export const BESPOKE_FAQS = [
   { q: "How much do custom-made glasses cost?", a: "Woolet Bespoke costs $480 USD including standard prescription lenses and free worldwide shipping. Specialty lens upgrades such as photochromic and progressive remain paid add-ons in the configurator. During the Kickstarter campaign, backers get Bespoke for $299. The $299 Kickstarter backer price is available only through the campaign and is not sold as a $299 offer on woolet.co." },
   { q: "Are bespoke glasses worth it?", a: "Bespoke can be worth it when standard frames pinch, slide, sit crooked or never align correctly with your face. It also suits someone who wants a one-of-one frame. The value is the individually set width, bridge and temple length rather than a logo or a stock size." },
   { q: "Can you make glasses for an asymmetrical face?", a: "Yes. The scan and review process can account for differences between the two sides of a face, including ear height and how a frame sits. The final geometry is reviewed before the 3D model is approved and production begins." },
-  { q: "Can I order custom glasses for a narrow face?", a: "Yes. Woolet Bespoke is not only for wide faces. It covers any front width from 145-172 mm, including narrower measurements below the stock Woolet fit range." },
+  { q: "Can I order custom glasses for a narrow face?", a: "Yes. Woolet Bespoke is not only for wide faces. It covers any front width from 145-160 mm, including narrower measurements below the stock Woolet fit range." },
   { q: "How do you measure my face remotely?", a: "A phone-camera AI fit scan measures the face in about 20 seconds. The order flow also lets you confirm measurements and provide supporting information before the workshop cuts the frame." },
   { q: "Can I use my prescription?", a: "Yes. The $480 regular price includes standard prescription lenses and free worldwide shipping. Specialty lens upgrades such as photochromic and progressive cost extra as shown in the configurator. You provide the required prescription details before production." },
   { q: "What if my bespoke glasses do not fit?", a: "Woolet checks the scan, measurements and approved 3D model before cutting. The frame is covered by the Woolet Fit Promise and a 10-year warranty. Contact support if the delivered fit does not match the approved specification." },

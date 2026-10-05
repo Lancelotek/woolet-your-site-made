@@ -21,7 +21,7 @@ const GlassesForBigHeads = () => (
           "Head circumference is measured around the widest part — above the ears and across the brow. Frame front width is the outside-to-outside measurement across the two lenses.",
           "<strong>L · 58–60 cm head</strong> → 152–158 mm front. Woolet 158 mm standard fits the upper end of this range.",
           "<strong>XL · 60–62 cm head</strong> → 158–164 mm front. Woolet 158 mm standard for the lower end; bespoke 160–164 mm for a precise fit.",
-          "<strong>XXL · 62 cm and above</strong> → 164–172 mm front. Bespoke only — same Italian Mazzucchelli acetate, hand made in EU to your measurement.",
+          "<strong>XXL · 62 cm and above</strong> → above 160 mm may be needed; the widest Woolet front is 160 mm (bespoke) — measure first before ordering.",
           "If you are between sizes, go to the next size up. A frame that is slightly wider than your head sits correctly; a frame narrower than your head pinches at the temples and slides on the bridge.",
         ],
       },
@@ -34,7 +34,7 @@ const GlassesForBigHeads = () => (
       },
     ]}
     faqs={[
-      { question: "What size glasses for a big head?", answer: "For a 58–60 cm head, a 152–158 mm front. For 60–62 cm, 158–164 mm. For 62 cm and above, 164–172 mm may be needed. Woolet's standard 158 mm front covers most large to XL heads; bespoke handles 145–160 mm." },
+      { question: "What size glasses for a big head?", answer: "For a 58–60 cm head, a 152–158 mm front. For 60–62 cm, 158–164 mm. For 62 cm and above, more than 160 mm may be needed — the widest Woolet front is 160 mm (bespoke); measure first. Woolet's standard 158 mm front covers most large to XL heads; bespoke handles 145–160 mm." },
       { question: "What head size is considered big for glasses?", answer: "Roughly 58 cm and up. 58–60 cm is large, 60–62 cm is XL, above 62 cm is XXL. Mainstream frames at 138–148 mm pinch at any of these sizes." },
       { question: "Where to buy glasses for big heads?", answer: "A small group of brands actually fits 58 cm+ heads — most direct-to-consumer eyewear caps around 148 mm. Woolet offers a 158 mm stock front with bespoke from 145–160 mm in Italian Mazzucchelli acetate, prescription-ready." },
       { question: "How is this different from oversized glasses?", answer: "Oversized at most brands means a larger lens on the same 138–148 mm front. Woolet's front itself is 158 mm — both lens and front scale together, so the frame fits the head, not just the eyes." },
