@@ -415,10 +415,10 @@ export const competitors: Competitor[] = [
     slug: "persol-alternative",
     name: "Persol",
     keyword: "Persol alternative",
-    seoTitle: "Persol Alternative for Wide Faces: 158 mm Italian Acetate | Woolet",
+    seoTitle: "Persol Alternative: Handmade Italian Acetate Frames from $190 | Woolet",
     metaDescription:
-      "Love Persol but it pinches at the temples? Most Persol frames top out near 148 mm. Woolet: Mazzucchelli acetate, 158 mm front, keyhole bridge, from $190.",
-    heroH1: "Persol Alternative for Wide Faces & Big Heads",
+      "Looking for a Persol alternative? Mazzucchelli acetate, keyhole bridge, hand made in EU - with a 158 mm front for faces Persol doesn't fit. From $190.",
+    heroH1: "Persol Alternative - Italian Acetate, Built Wider",
     heroSub:
       "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 160 mm wide, the range where even the most beautiful Persol starts to pinch.",
     verdict:
