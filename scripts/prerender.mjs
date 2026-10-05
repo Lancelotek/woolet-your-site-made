@@ -276,7 +276,7 @@ async function main() {
   const legacy = mod.LEGACY_REDIRECTS ?? {};
   let legacyCount = 0;
   for (const [from, to] of Object.entries(legacy)) {
-    if (from === "/") continue;
+    if (from === "/index.html" || from === "/") continue;
     const target = `https://woolet.co${to}`;
     const page = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8" />
@@ -295,11 +295,6 @@ async function main() {
     ]);
     for (const v of variants) {
       if (routes.includes(v)) continue;
-      if (v === "/index.html") {
-        await writeFile(resolve(DIST, "index.html"), page, "utf8");
-        legacyCount += 1;
-        continue;
-      }
       const dir = resolve(DIST, "." + v);
       await mkdir(dir, { recursive: true });
       await writeFile(resolve(dir, "index.html"), page, "utf8");
@@ -326,12 +321,6 @@ async function main() {
   try {
     const fallbackPath = resolve(DIST, "index.html");
     let fallback = await readFile(fallbackPath, "utf8");
-    // /index.html is an explicit legacy URL. Its redirect stub was written
-    // above and must retain canonical + refresh with no robots noindex.
-    if (fallback.includes('name="woolet-legacy-redirect"')) {
-      console.log(`[prerender] kept dist/index.html as a legacy redirect to /en`);
-      return;
-    }
     // Strip any existing canonical/robots so we don't double up.
     fallback = fallback.replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, "");
     fallback = fallback.replace(/<meta\s+name=["']robots["'][^>]*>\s*/gi, "");
@@ -368,6 +357,26 @@ async function main() {
     }
     await writeFile(fallbackPath, fallback, "utf8");
     console.log(`[prerender] patched dist/index.html with soft-404 head + noscript refresh`);
+
+    // /index.html is an explicit legacy URL rather than the unknown-route
+    // fallback. Emit its redirect last so it has canonical + refresh and no
+    // noindex directive, matching every other known legacy redirect.
+    const indexTarget = legacy["/index.html"];
+    if (indexTarget) {
+      const target = `https://woolet.co${indexTarget}`;
+      const page = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<meta name="woolet-legacy-redirect" content="1" />
+<title>Moved - Woolet</title>
+<link rel="canonical" href="${target}" />
+<meta http-equiv="refresh" content="0; url=${target}" />
+<script>window.location.replace(${JSON.stringify(indexTarget)} + window.location.search + window.location.hash);</script>
+</head><body><p>This page has moved to <a href="${target}">${target}</a>.</p></body></html>
+`;
+      await writeFile(fallbackPath, page, "utf8");
+      legacyCount += 1;
+      console.log(`[prerender] wrote dist/index.html as a legacy redirect to ${indexTarget}`);
+    }
   } catch (err) {
     console.warn(`[prerender] could not patch dist/index.html — ${err.message}`);
   }

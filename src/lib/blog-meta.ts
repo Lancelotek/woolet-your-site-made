@@ -37,7 +37,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Oversized means big lenses. Wide-fit means a big front. Most oversized frames stop at 130–145 mm — see the 158 mm specs and how to measure which one you need.",
   },
   "how-to-measure-face-width-for-glasses": {
-    metaTitle: "How to Measure Face Width for Glasses (Free 20-Second Scan)",
+    metaTitle: "How to Measure Face Width for Glasses (Free 60-Second Scan)",
     exactTitle: true,
     metaDescription:
       "Skip the ruler. Your phone camera measures your face width in 60 seconds and gives you your frame size. Plus the manual method and a size chart.",

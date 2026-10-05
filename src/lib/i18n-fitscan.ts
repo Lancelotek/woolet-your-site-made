@@ -261,7 +261,7 @@ const pl: Dict = {
   "seo.title": "Skan twarzy — Woolet AI Fit",
   "seo.desc": "Zmierz szerokość twarzy i nosa kamerą i kartą kredytową. Lokalnie, prywatnie, z dokładnością ~2 mm. Sprawdź, czy oprawki Woolet na szeroką twarz pasują na Ciebie.",
 
-  "welcome.eyebrow": "SKAN DOPASOWANIA W 30 SEKUND",
+  "welcome.eyebrow": "SKAN DOPASOWANIA W 60 SEKUND",
   "welcome.h1_pre": "Zmierz twarz w",
   "welcome.h1_em": "30 sekund",
   "welcome.subtitle": "Trzy kroki. Zdjęcie nie opuszcza urządzenia, dopóki go nie wykonasz.",
@@ -453,7 +453,7 @@ const fr: Dict = {
   "seo.title": "Scan du visage — Woolet AI Fit",
   "seo.desc": "Mesurez la largeur de votre visage et de votre nez avec votre caméra et une carte bancaire. Local, privé, précis à ~2 mm. Découvrez si les montures Woolet pour visages larges vous vont.",
 
-  "welcome.eyebrow": "SCAN DE TAILLE EN 30 SECONDES",
+  "welcome.eyebrow": "SCAN DE TAILLE EN 60 SECONDES",
   "welcome.h1_pre": "Mesurez votre visage en",
   "welcome.h1_em": "30 secondes",
   "welcome.subtitle": "Trois étapes. La photo ne quitte pas votre appareil avant la capture.",
@@ -639,7 +639,7 @@ const es: Dict = {
   "seo.title": "Escaneo de cara — Woolet AI Fit",
   "seo.desc": "Mide el ancho de tu cara y nariz con tu cámara y una tarjeta de crédito. Local, privado y con precisión de ~2 mm. Descubre si las monturas Woolet para caras anchas te quedan.",
 
-  "welcome.eyebrow": "ESCANEO DE TALLA EN 30 SEGUNDOS",
+  "welcome.eyebrow": "ESCANEO DE TALLA EN 60 SEGUNDOS",
   "welcome.h1_pre": "Mide tu cara en",
   "welcome.h1_em": "30 segundos",
   "welcome.subtitle": "Tres pasos. La foto no sale de tu dispositivo hasta que la capturas.",
