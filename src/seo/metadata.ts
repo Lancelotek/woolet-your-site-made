@@ -1487,7 +1487,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
         {
           title: c.seoTitle,
           description: c.metaDescription,
-          noscriptHtml: `<h1>${escapeHtml(c.name)} Alternative for Wide Faces &amp; Big Heads</h1>
+          noscriptHtml: `<h1>${escapeHtml(c.heroH1)}</h1>
 <p>${escapeHtml(c.heroSub)}</p>
 <h2>Woolet vs ${escapeHtml(c.name)} — the specs</h2>
 <ul>${Object.entries(c.table)
