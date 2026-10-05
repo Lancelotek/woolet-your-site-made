@@ -102,8 +102,6 @@ const ProductPageBespoke = () => {
         <meta name="description" content={b.metaDescription} />
         <link rel="canonical" href={canonical} />
         {hreflangLinks("/en/bespoke")}
-        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/bespoke`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/bespoke`} />
         <meta property="og:type" content="product" />
         <meta property="og:title" content={b.ogTitle} />
         <meta property="og:description" content={b.ogDescription} />

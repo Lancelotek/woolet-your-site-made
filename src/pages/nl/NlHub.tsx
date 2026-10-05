@@ -49,12 +49,7 @@ export default function NlHub() {
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
         <link rel="canonical" href={`${SITE}/nl`} />
-        <link rel="alternate" hrefLang="nl" href={`${SITE}/nl`} />
-        <link rel="alternate" hrefLang="nl-NL" href={`${SITE}/nl`} />
-        <link rel="alternate" hrefLang="nl-BE" href={`${SITE}/nl`} />
-        <link rel="alternate" hrefLang="en" href={`${SITE}/en`} />
-        <link rel="alternate" hrefLang="de" href={`${SITE}/de`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE}/en`} />
+        {hreflangLinks("/nl")}
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Woolet" />

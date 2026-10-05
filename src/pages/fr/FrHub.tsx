@@ -49,15 +49,7 @@ export default function FrHub() {
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
         <link rel="canonical" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr-FR" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr-BE" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr-CH" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr-CA" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="en" href={`${SITE}/en`} />
-        <link rel="alternate" hrefLang="de" href={`${SITE}/de`} />
-        <link rel="alternate" hrefLang="nl" href={`${SITE}/nl`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE}/en`} />
+        {hreflangLinks("/fr")}
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Woolet" />

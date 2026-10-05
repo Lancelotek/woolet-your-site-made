@@ -32,9 +32,7 @@ export default function DeHub() {
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={`${SITE}/de`} />
-        <link rel="alternate" hrefLang="de" href={`${SITE}/de`} />
-        <link rel="alternate" hrefLang="en" href={`${SITE}/en`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE}/en`} />
+        {hreflangLinks("/de")}
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="de_DE" />
         <meta property="og:title" content={title} />

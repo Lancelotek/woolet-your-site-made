@@ -33,9 +33,7 @@ export default function DeCollection() {
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={`${SITE}/de/kollektion`} />
-        <link rel="alternate" hrefLang="de" href={`${SITE}/de/kollektion`} />
-        <link rel="alternate" hrefLang="en" href={`${SITE}/en/collection`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE}/en/collection`} />
+        {hreflangLinks("/de/kollektion")}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
