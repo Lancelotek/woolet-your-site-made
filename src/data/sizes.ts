@@ -189,7 +189,7 @@ export const SIZES: SizeEntry[] = [
     metaDescription:
       "160 mm wide glasses: our signature 158 mm fits perfectly. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–160 mm.",
     bespokeNote:
-      "Optional at 160 mm. Bespoke 160 mm gives a millimetre-exact match; signature 158 mm gives a designed-in 2 mm of ease that most wearers prefer.",
+      "Optional at 160 mm. Bespoke 160 mm gives a millimetre-exact match; signature 158 mm gives a designed-in 2 mm of ease that most wearers prefer. 160 mm is also the widest front width Woolet currently builds, bespoke or signature.",
     faq: [
       { q: "Are 160 mm glasses considered wide?", a: "Yes, well above mainstream sizing. Standard retail stops at 145–148 mm; 160 mm is specialist territory." },
       { q: "What temple length goes with a 160 mm frame?", a: "148 mm standard, at an 11° drop. That pairs correctly with 155–161 mm face widths." },
