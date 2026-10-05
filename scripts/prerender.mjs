@@ -270,6 +270,35 @@ async function main() {
     }
   }
 
+  // Legacy redirects (single source: src/seo/legacyRedirects.ts). Each
+  // legacy path gets a tiny HTML page: canonical=TARGET, meta refresh,
+  // window.location.replace — and NO noindex, so link equity follows.
+  const legacy = mod.LEGACY_REDIRECTS ?? {};
+  let legacyCount = 0;
+  for (const [from, to] of Object.entries(legacy)) {
+    if (from === "/index.html" || from === "/") continue; // SPA shell — router handles it
+    const target = `https://woolet.co${to}`;
+    const page = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>Moved - Woolet</title>
+<link rel="canonical" href="${target}" />
+<meta http-equiv="refresh" content="0; url=${target}" />
+<script>window.location.replace(${JSON.stringify(to)} + window.location.search + window.location.hash);</script>
+</head><body><p>This page has moved to <a href="${target}">${target}</a>.</p></body></html>
+`;
+    const variants = new Set([from, from.toLowerCase()]);
+    for (const v of variants) {
+      if (routes.includes(v)) continue;
+      const dir = resolve(DIST, "." + v);
+      await mkdir(dir, { recursive: true });
+      await writeFile(resolve(dir, "index.html"), page, "utf8");
+      await mkdir(dirname(dir), { recursive: true });
+      await writeFile(dir + ".html", page, "utf8");
+      legacyCount += 1;
+    }
+  }
+  console.log(`[prerender] wrote ${legacyCount} legacy redirect pages`);
+
   console.log(`[prerender] done: ${ok} ok, ${fail} failed, ${routes.length} total`);
   console.log(`[prerender] wrote ${ok} route files to dist/`);
 
