@@ -91,7 +91,7 @@ const Collection = () => {
                 >
                   <img
                     src={fitTriptych.url}
-                    alt="Three men wearing Woolet frames side by side — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 162 mm bespoke extra wide on a large head with a broad face."
+                    alt="Three men wearing Woolet frames side by side — 150 mm bespoke fit on an average-to-wide face, 158 mm signature on a medium-to-large head, and 160 mm bespoke extra wide on a large head with a broad face."
                     loading="eager"
                     fetchPriority="high"
                     decoding="async"
@@ -123,9 +123,9 @@ const Collection = () => {
                     {
                       pos: "100% 0%",
                       eyebrow: "Large heads & broad faces",
-                      label: "162 mm · Bespoke extra wide",
+                      label: "160 mm · Bespoke extra wide",
                       to: "/en/bespoke",
-                      alt: "Bearded man with a large head and broad face wearing Woolet 162 mm bespoke extra-wide acetate glasses.",
+                      alt: "Bearded man with a large head and broad face wearing Woolet 160 mm bespoke extra-wide acetate glasses.",
                     },
                   ].map((panel) => (
                     <Link
@@ -188,7 +188,7 @@ const Collection = () => {
                   className="text-cream-dim/80 mt-4 text-center hidden sm:block"
                   style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" }}
                 >
-                  150 mm bespoke · 158 mm signature · 162 mm bespoke extra wide
+                  150 mm bespoke · 158 mm signature · 160 mm bespoke extra wide
                 </figcaption>
               </figure>
             </div>
@@ -223,7 +223,7 @@ const Collection = () => {
                 style={{ fontSize: "1rem" }}
               >
                 Every frame can be made to your exact measurements — from 145 mm up to
-                162 mm front width, with a bridge tailored to your nose. Learn more about{" "}
+                160 mm front width, with a bridge tailored to your nose. Learn more about{" "}
                 <Link to="/en/bespoke#bespoke-eyewear" className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
                   bespoke eyewear
                 </Link>{" "}
