@@ -93,7 +93,7 @@ const loadInitial = (): BespokeConfig => {
     if (!raw) return INITIAL_CONFIG;
     const parsed = JSON.parse(raw) as BespokeConfig;
     const next = { ...INITIAL_CONFIG, ...parsed };
-    if (!["blue-light", "reading", "photochromic", "sun-uv400"].includes(next.lensTypeId ?? "")) {
+    if (!["plano", "blue-light", "reading", "photochromic", "sun-uv400"].includes(next.lensTypeId ?? "")) {
       next.lensTypeId = null;
       next.lensMaterialId = null;
       next.lensCoatingId = null;
@@ -246,6 +246,7 @@ export const formatLensWithStrength = (lensName: string, config: BespokeConfig):
  *  e.g. "Photochromic / Transition · Espresso Brown (PH-BRN)". */
 export const lensOrderValue = (lensName: string, config: BespokeConfig): string => {
   const tint = selectedLensTint(config);
+  if (config.lensTypeId === "plano") return `${lensName} (no Rx)`;
   return tint ? `${lensName} - ${tint.name} (${tint.code})` : lensName;
 };
 

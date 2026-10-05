@@ -1973,9 +1973,6 @@ export function StepLenses({ config, update }: StepProps) {
             );
           })}
         </div>
-        <p className="mt-4 text-cream-dim text-xs leading-relaxed">
-          Plano (no correction) lens: clear lenses with no optical correction, cut and fitted to the frame. Ask us about plano if you plan to take the frame to your own optician for prescription lenses.
-        </p>
       </div>
 
       {config.lensTypeId === "reading" && <ReadingStrengthPanel config={config} update={update} />}
