@@ -1,3 +1,5 @@
 - Multi-touch journey (first/last/10 touches) lives in src/lib/journey.ts (localStorage wlt_attr, memory-only for EU until analytics consent); flows into Stripe metadata via getGaCheckoutMetadata and into signups via getAttribution — one place feeds every checkout and form.
 - GA4_API_SECRET is server-side only: use it exclusively in supabase/functions/payments-webhook, never in client code, .env files, or committed files, and never print secret values in chat.
 - Kickstarter signup's paid decision view renders in a body portal so it can occupy the screen independently of any of the three signup locations; the existing checkout button owns the session and tracking to avoid duplicate events.
+- Legacy URL redirects live only in src/seo/legacyRedirects.ts, consumed by both the router (config/redirects.ts) and the prerender stub pages — one map so router and static HTML never drift.
+- hreflang comes only from src/i18n/routeRegistry.ts (prerender head, Helmet via seo/hreflangLinks, sitemap); the registry drops non-reciprocal clusters and generate-sitemap fails the build on any one-way pair — Google ignores non-reciprocal annotations.

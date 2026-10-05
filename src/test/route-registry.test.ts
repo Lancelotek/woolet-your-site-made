@@ -27,10 +27,9 @@ describe("routeRegistry — DEFECT 1 (many-to-one anchors)", () => {
     const keys = keysForPath("/en/collection");
     // canonical `collection` entry MUST be present (was clobbered before)
     expect(keys).toContain("collection");
-    // and the five DE landings that also anchor /en/collection
-    expect(keys).toContain("landing.collection.de.breite-brille");
-    expect(keys).toContain("landing.collection.de.xxl-brille-herren");
-    // NL landing too
+    // DE landings now pair 1:1 with their own EN twins (05.10.2026);
+    // only the NL many-to-one landing still references /en/collection.
+    expect(keys).not.toContain("landing.collection.de.breite-brille");
     expect(keys).toContain("landing.collection.nl");
   });
 
@@ -51,21 +50,26 @@ describe("routeRegistry — DEFECT 1 (many-to-one anchors)", () => {
     );
   });
 
-  it("hreflangAlternates('/en/bespoke') emits en + ja + x-default only", () => {
+  it("hreflangAlternates('/en/bespoke') emits en + de + fr + ja + x-default", () => {
     const alts = hreflangAlternates("/en/bespoke", SITE);
     expect(alts).not.toBeNull();
     const langs = alts!.map((a) => a.lang).sort();
-    expect(langs).toEqual(["de", "en", "ja", "x-default"].sort());
+    expect(langs).toEqual(["de", "en", "fr", "ja", "x-default"].sort());
   });
 
-  it("hreflangAlternates('/de/breite-brille') → de + en + x-default (its own landing pair)", () => {
+  it("hreflangAlternates('/de/breite-brille') → de + en + x-default (1:1 with /en/collections/extra-wide-glasses)", () => {
     const alts = hreflangAlternates("/de/breite-brille", SITE);
     expect(alts).not.toBeNull();
     const map = Object.fromEntries(alts!.map((a) => [a.lang, a.href]));
     expect(map.de).toBe(`${SITE}/de/breite-brille`);
-    expect(map.en).toBe(`${SITE}/en/collection`);
-    expect(map["x-default"]).toBe(`${SITE}/en/collection`);
+    expect(map.en).toBe(`${SITE}/en/collections/extra-wide-glasses`);
+    expect(map["x-default"]).toBe(`${SITE}/en/collections/extra-wide-glasses`);
     expect(Object.keys(map).sort()).toEqual(["de", "en", "x-default"].sort());
+  });
+
+  it("many-to-one landings emit no hreflang (/nl/grote-brillen-heren, /ja/big-face-glasses)", () => {
+    expect(hreflangAlternates("/nl/grote-brillen-heren", SITE)).toBeNull();
+    expect(hreflangAlternates("/ja/big-face-glasses", SITE)).toBeNull();
   });
 
   it("hreflangAlternates('/en/about') returns null (single-locale page, no cluster)", () => {
