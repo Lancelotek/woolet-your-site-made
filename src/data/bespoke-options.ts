@@ -124,6 +124,7 @@ export interface LensType {
 
 // Prices are USD. Each lens = supplier price (EUR) + $20 fitting, converted to USD.
 export const LENS_TYPES: LensType[] = [
+  { id: "plano",       name: "Plano - clear, no correction",      priceEur: 0,  description: "Clear lenses with no optical correction, cut and fitted to your frame. Ideal when your optician will fit prescription lenses later.", image: singleVisionImg },
   { id: "blue-light",  name: "Blue Light Lenses",                 priceEur: 84, description: "Optional filter coating for screen use.",        image: blueLightImg },
   { id: "reading",     name: "Reading Lenses",                    priceEur: 60, description: "Single-vision magnification for near work.",     image: singleVisionImg },
   { id: "photochromic",name: "Photochromic",                      priceEur: 84, description: "Clear indoors, darkens in daylight.",            image: progressiveImg },

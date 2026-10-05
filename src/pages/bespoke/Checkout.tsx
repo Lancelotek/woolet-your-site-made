@@ -133,6 +133,7 @@ export default function BespokeCheckout() {
     temple_length: config.templeLengthMm ? `${config.templeLengthMm} mm${config.templeLengthIsCustom ? " (custom)" : ""}` : "",
     engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
     lens_type: lens ? lensOrderValue(lens.name, config) : "",
+    lens_id: lens?.id ?? "",
     lens_tint: lensTintCode(config),
     reading_strength: readingStrengthMetaValue(config),
     reading_strength_mode: config.lensTypeId === "reading" ? config.readingStrengthMode ?? "" : "",
