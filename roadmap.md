@@ -68,3 +68,8 @@
 - [x] Fix Kickstarter image/text/FAQ taps and collection card links
 - [x] Resolve missing DE blog URL and test A1, A2, A4, D on mobile
 
+## SEO leftovers - 2026-10-05
+- [x] Correct Organization schema and all localized FitLens duration claims
+- [x] Generate encoded and decoded legacy redirect files plus `/index.html`
+- [x] Regenerate sitemap and verify generated redirect output
+
