@@ -1,3 +1,4 @@
+import { hreflangLinks } from "@/seo/hreflangLinks";
 import { commerceJson } from "@/lib/schema-offer";
 import { useEffect, useState, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
@@ -180,7 +181,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
     <>
       <Helmet>
         <html lang="de" /><title>{config.metaTitle}</title><meta name="description" content={config.metaDescription} />
-        <link rel="canonical" href={canonical} /><link rel="alternate" hrefLang="de" href={canonical} /><link rel="alternate" hrefLang="en" href={`${SITE}${englishAlt}`} /><link rel="alternate" hrefLang="x-default" href={`${SITE}${englishAlt}`} />
+        <link rel="canonical" href={canonical} />{config.canonicalOverride ? null : hreflangLinks(`/de/${config.slug}`)}
         <meta property="og:type" content="website" /><meta property="og:locale" content="de_DE" /><meta property="og:title" content={config.metaTitle} /><meta property="og:description" content={config.metaDescription} /><meta property="og:url" content={canonical} /><meta property="og:image" content={`${SITE}${HERO_SRC}`} />
         <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={config.metaTitle} /><meta name="twitter:description" content={config.metaDescription} />
         <script type="application/ld+json">{commerceJson(productJsonLd)}</script><script type="application/ld+json">{commerceJson(faqJsonLd)}</script><script type="application/ld+json">{commerceJson(breadcrumbJsonLd)}</script>
