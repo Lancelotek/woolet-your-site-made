@@ -46,7 +46,7 @@ const BAD_RANGES = [
 describe("bespoke front width range", () => {
   it("exposes 145–160 mm", () => {
     expect(BESPOKE_SPEC.frontWidthMin).toBe(145);
-    expect(BESPOKE_SPEC.frontWidthMax).toBe(172);
+    expect(BESPOKE_SPEC.frontWidthMax).toBe(160);
     expect(BESPOKE_FRONT_WIDTH_RANGE).toBe("145–160 mm");
   });
 
