@@ -63,9 +63,9 @@
   </url>
   <url>
     <loc>https://woolet.co/de/breite-brille</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/extra-wide-glasses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/breite-brille"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/extra-wide-glasses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
     <loc>https://woolet.co/de/brille-breite-150-mm</loc>
@@ -88,22 +88,21 @@
   </url>
   <url>
     <loc>https://woolet.co/de/brille-breite-160-mm</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/160mm"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/160mm"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-160-mm"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/160mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
     <loc>https://woolet.co/de/brille-fuer-breites-gesicht</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/wide-face-glasses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-fuer-breites-gesicht"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/wide-face-glasses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
     <loc>https://woolet.co/de/brillen-fuer-grosse-koepfe</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brillen-fuer-grosse-koepfe"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
     <loc>https://woolet.co/de/fit</loc>
@@ -137,9 +136,9 @@
   </url>
   <url>
     <loc>https://woolet.co/de/xxl-brille-herren</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl/glasses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/xxl-brille-herren"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl/glasses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
     <loc>https://woolet.co/en</loc>
@@ -161,7 +160,6 @@
     <loc>https://woolet.co/en/bespoke</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/bespoke"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/lunettes-sur-mesure"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja/bespoke"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
@@ -181,7 +179,7 @@
     <lastmod>2026-09-25</lastmod>
   </url>
   <url>
-    <loc>https://woolet.co/en/blog/bespoke-eyewear-size-range-145-160mm-guide</loc>
+    <loc>https://woolet.co/en/blog/bespoke-eyewear-size-range-145-172mm-guide</loc>
     <lastmod>2026-06-16</lastmod>
   </url>
   <url>
@@ -385,15 +383,9 @@
   </url>
   <url>
     <loc>https://woolet.co/en/collections/extra-wide-glasses</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/extra-wide-glasses"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/breite-brille"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/extra-wide-glasses"/>
   </url>
   <url>
     <loc>https://woolet.co/en/collections/glasses-for-big-heads</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brillen-fuer-grosse-koepfe"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/glasses-for-big-heads"/>
   </url>
   <url>
     <loc>https://woolet.co/en/collections/italian-acetate-sunglasses</loc>
@@ -427,9 +419,6 @@
   </url>
   <url>
     <loc>https://woolet.co/en/collections/wide-face-glasses</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/wide-face-glasses"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-fuer-breites-gesicht"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/wide-face-glasses"/>
   </url>
   <url>
     <loc>https://woolet.co/en/collections/wide-frame-reading-glasses</loc>
@@ -576,8 +565,25 @@
     <loc>https://woolet.co/en/size/160mm</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/160mm"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/160mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-160-mm"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/160mm"/>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/162mm</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/165mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/165mm"/>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/168mm</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/170mm</loc>
+  </url>
+  <url>
+    <loc>https://woolet.co/en/size/172mm</loc>
   </url>
   <url>
     <loc>https://woolet.co/en/temple/140mm</loc>
@@ -605,9 +611,6 @@
   </url>
   <url>
     <loc>https://woolet.co/en/xxl/glasses</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl/glasses"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/xxl-brille-herren"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl/glasses"/>
   </url>
   <url>
     <loc>https://woolet.co/en/xxl/sunglasses</loc>
@@ -668,9 +671,7 @@
   <url>
     <loc>https://woolet.co/fr/lunettes-sur-mesure</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/bespoke"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/lunettes-sur-mesure"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja/bespoke"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
   <url>
@@ -711,12 +712,14 @@
     <loc>https://woolet.co/ja/bespoke</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/bespoke"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/lunettes-sur-mesure"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja/bespoke"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
   <url>
     <loc>https://woolet.co/ja/big-face-glasses</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://woolet.co/ja/big-face-glasses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
   <url>
     <loc>https://woolet.co/ko</loc>
@@ -748,8 +751,13 @@
     <loc>https://woolet.co/ko/size/160mm</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/160mm"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/160mm"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/brille-breite-160-mm"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/160mm"/>
+  </url>
+  <url>
+    <loc>https://woolet.co/ko/size/165mm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://woolet.co/ko/size/165mm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/size/165mm"/>
   </url>
   <url>
     <loc>https://woolet.co/ko/sunglasses</loc>
@@ -769,6 +777,9 @@
   </url>
   <url>
     <loc>https://woolet.co/nl/acetaat-bril-op-maat</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/acetaat-bril-op-maat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
   <url>
     <loc>https://woolet.co/nl/blog/beste-brillen-voor-brede-hoofden-2026</loc>
@@ -799,6 +810,9 @@
   </url>
   <url>
     <loc>https://woolet.co/nl/grote-brillen-heren</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collection"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/grote-brillen-heren"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
     <loc>https://woolet.co/nl/products/007</loc>
@@ -895,9 +909,15 @@
   </url>
   <url>
     <loc>https://woolet.co/pl/jak-dobrac-okulary-do-twarzy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/fit"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/jak-dobrac-okulary-do-twarzy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/fit"/>
   </url>
   <url>
     <loc>https://woolet.co/pl/okulary-na-zamowienie</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/bespoke"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/okulary-na-zamowienie"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/bespoke"/>
   </url>
   <url>
     <loc>https://woolet.co/pl/privacy-policy</loc>
