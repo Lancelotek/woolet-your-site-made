@@ -184,6 +184,15 @@ const ConfiguratorPage = () => {
     !config.templeColorId && "temple acetate",
     !config.finishId && "finish",
   ].filter(Boolean).join(", ");
+  const showPatternMissing = () => {
+    setNavHint(true);
+    const grid = document.querySelector<HTMLElement>("main.cfg-container .cfg-choicegrid");
+    grid?.scrollIntoView({ behavior: "smooth", block: "center" });
+    grid?.classList.remove("cfg-choicegrid--attention");
+    if (grid) void grid.offsetWidth;
+    grid?.classList.add("cfg-choicegrid--attention");
+    window.setTimeout(() => grid?.classList.remove("cfg-choicegrid--attention"), 1300);
+  };
   const showMissing = () => {
     setNavHint(true);
     document.querySelector<HTMLElement>("main.cfg-container .cfg-acetate-missing")?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -245,6 +254,7 @@ const ConfiguratorPage = () => {
   const handleMobileNext = () => {
     if (step === STEPS.length) return;
     if (!stepComplete) {
+      if (step === 1) { showPatternMissing(); return; }
       if (step === 2) { showMissing(); return; }
       const grid = document.querySelector<HTMLElement>(
         "main.cfg-container .cfg-swatchstrip, main.cfg-container .cfg-choicegrid"
@@ -340,18 +350,11 @@ const ConfiguratorPage = () => {
         {/* ── Mobile live preview — hidden on steps that already show a large image ── */}
         {step !== 3 && step !== STEPS.length && (
           <div className="cfg-mobilepreview lg:hidden">
-            <div
+             <button
+               type="button"
               className="cfg-mobilepreview__stage"
-              role="button"
-              tabIndex={0}
               aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
-              onClick={handleStageTap}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handleStageTap();
-                }
-              }}
+               onClick={stageSrc ? handleStageTap : showPatternMissing}
             >
               {aiPreviewUrl && step >= 2 ? (
                 <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
@@ -363,7 +366,7 @@ const ConfiguratorPage = () => {
               <span className="cfg-stage__badge" aria-hidden>
                 {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
               </span>
-            </div>
+             </button>
             <div className="cfg-mobilepreview__meta">
               <span>{frame ? frame.name : "No pattern yet"}</span>
               {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
@@ -428,11 +431,12 @@ const ConfiguratorPage = () => {
                   step={step}
                   total={STEPS.length}
                   onBack={() => goTo(Math.max(1, step - 1) as StepId)}
-                  onNext={step === 2 && !stepComplete ? showMissing : goNext}
+                   onNext={!stepComplete && step === 1 ? showPatternMissing : !stepComplete && step === 2 ? showMissing : goNext}
                   canNext={isStepComplete(step, config)}
                   isLast={step === STEPS.length}
                 />
-                {step === 2 && !stepComplete && <p className="cfg-acetate-missing text-sm text-gold-light mt-3" role="status">Choose {acetateMissing} to continue.</p>}
+                 {step === 1 && !stepComplete && navHint && <p className="text-sm text-gold-light mt-3" role="status">Choose a pattern to continue.</p>}
+                 {step === 2 && !stepComplete && <p className="cfg-acetate-missing text-sm text-gold-light mt-3" role="status">Choose {acetateMissing} to continue.</p>}
               </div>
             </section>
 
@@ -543,7 +547,9 @@ const ConfiguratorPage = () => {
                 <span className="cfg-mobilebar__pricelabel">Total</span> {formatEur(stepTotal)}
               </CfgInfoTrigger>
             </div>
-            {navHint && step !== 2 ? (
+             {navHint && step === 1 && !stepComplete ? (
+               <div className="cfg-mobilebar__note text-gold-light" role="status">Choose a pattern to continue.</div>
+             ) : navHint && step !== 2 ? (
               <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
                 Pick an option to continue
               </div>
@@ -1025,6 +1031,14 @@ const ConfiguratorStyles = () => (
     .cfg-card--active {
       border-color: var(--cfg-gold);
       box-shadow: 0 0 0 1px var(--cfg-gold);
+    }
+    .cfg-scope .cfg-choice--pressed { animation: cfg-choice-tap 400ms ease-out; }
+    .cfg-scope .cfg-choicegrid--attention { animation: cfg-choice-tap 650ms ease-out 2; }
+    @keyframes cfg-choice-tap {
+      50% { box-shadow: 0 0 0 3px var(--cfg-gold); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cfg-scope .cfg-choice--pressed, .cfg-scope .cfg-choicegrid--attention { animation: none; outline: 2px solid var(--cfg-gold); }
     }
     .cfg-card--dim { opacity: 0.62; }
     .cfg-card--dim:hover { opacity: 1; }

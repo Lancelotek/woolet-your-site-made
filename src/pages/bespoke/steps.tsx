@@ -70,6 +70,14 @@ const labelClass = "uppercase tracking-[0.18em] text-[0.78rem] text-cream-dim";
 const cardOuter = "rounded-[14px] border border-cream/10 bg-background/40 transition-all";
 const cardActive = "border-gold/60 bg-gold/[0.04] ring-1 ring-gold/30";
 
+// A re-tap on a selected choice should acknowledge the tap without rewriting the build.
+function acknowledgeChoice(button: HTMLButtonElement) {
+  button.classList.remove("cfg-choice--pressed");
+  void button.offsetWidth;
+  button.classList.add("cfg-choice--pressed");
+  window.setTimeout(() => button.classList.remove("cfg-choice--pressed"), 450);
+}
+
 /* ───── Step 1 · Pattern ───── */
 
 export function StepFrame({ config, update }: StepProps) {
@@ -92,7 +100,8 @@ export function StepFrame({ config, update }: StepProps) {
           return (
             <button
               key={f.id}
-              onClick={() => {
+              onClick={(e) => {
+                acknowledgeChoice(e.currentTarget);
                 if (active) {
                   // Re-tap on the current choice: answer it with the preview
                   // instead of silence.
@@ -102,6 +111,7 @@ export function StepFrame({ config, update }: StepProps) {
                 update("frameId", f.id);
               }}
               className={`cfg-card group text-left ${active ? "cfg-card--active" : ""}`}
+              aria-pressed={active}
             >
               <div
                 className="cfg-card__photo relative"
@@ -235,7 +245,11 @@ function ColorSwatchGrid({
           return (
             <button
               key={c.id}
-              onClick={() => (active ? pulseMobilePreview() : onSelect(c.id))}
+              onClick={(e) => {
+                acknowledgeChoice(e.currentTarget);
+                if (active) pulseMobilePreview();
+                else onSelect(c.id);
+              }}
               onMouseEnter={() => setHoveredId(c.id)}
               onMouseLeave={() => setHoveredId((id) => (id === c.id ? null : id))}
               onFocus={() => setHoveredId(c.id)}
@@ -254,7 +268,7 @@ function ColorSwatchGrid({
                   src={c.image}
                   alt={`Italian acetate — ${c.name}`}
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05] group-hover:brightness-110 group-hover:contrast-110"
+                  className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-transform duration-500 group-hover:scale-[1.05] group-hover:brightness-110 group-hover:contrast-110"
                 />
                 {active && (
                   <span
@@ -844,7 +858,10 @@ export function StepColor({ config, update }: StepProps) {
             return (
               <button
                 key={f.id}
-                onClick={() => update("finishId", f.id)}
+                onClick={(e) => {
+                  acknowledgeChoice(e.currentTarget);
+                  if (!active) update("finishId", f.id);
+                }}
                 aria-pressed={active}
                 className={`group relative overflow-hidden text-left transition ${
                   active
@@ -858,7 +875,7 @@ export function StepColor({ config, update }: StepProps) {
                     src={f.image}
                     alt={`${f.name} acetate finish sample for Woolet Bespoke made-to-measure eyewear`}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="w-full h-full object-cover pointer-events-none transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
                 <div className="px-3 py-2.5 bg-[#0c0c0c]/40">
@@ -1911,7 +1928,9 @@ export function StepLenses({ config, update }: StepProps) {
             return (
               <button
                 key={l.id}
-                onClick={() => {
+                onClick={(e) => {
+                  acknowledgeChoice(e.currentTarget);
+                  if (active) return;
                   update("lensTypeId", l.id);
                   update("lensMaterialId", null);
                   update("lensCoatingId", null);
@@ -1926,6 +1945,7 @@ export function StepLenses({ config, update }: StepProps) {
                     update("readingStrengthMode", "same");
                   }
                 }}
+                aria-pressed={active}
                 className={`${cardOuter} ${active ? cardActive : "hover:border-cream/25"} text-left p-3 flex gap-3 items-center`}
               >
                 <div
@@ -1936,12 +1956,13 @@ export function StepLenses({ config, update }: StepProps) {
                     src={l.image}
                     alt={`${l.name} lens option for Woolet Bespoke wide-face eyewear — ${l.description}`}
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                   />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline justify-between gap-3">
                     <span className="text-cream text-sm truncate">{l.name}</span>
+                    {active && <Check size={15} className="text-gold-light shrink-0" aria-hidden />}
                     <span className="text-gold-light text-xs shrink-0">
                       {formatAddOn(l.priceEur)}
                     </span>
@@ -2142,7 +2163,7 @@ export function StepNav({
       </div>
       {!isLast && (
         <button
-          onClick={() => { if (canNext) onNext(); }}
+          onClick={onNext}
           aria-disabled={!canNext}
           className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium transition ${canNext ? "hover:bg-gold-light" : "opacity-40 cursor-not-allowed"}`}
         >
