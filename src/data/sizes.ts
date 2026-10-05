@@ -8,7 +8,7 @@
  * Data-accuracy rules (do not violate):
  *   - Signature 158 mm, designed fit range 155–161 mm.
  *   - Bespoke range 145–160 mm (160 mm is the maximum we build).
- *   - Widths above 161 mm up to 160 mm are bespoke builds; above 160 mm is out of range.
+ *   - Above 160 mm is out of range: 160 mm (bespoke) is the widest Woolet front.
  *   - "Hand made in EU" + material = "Mazzucchelli acetate from Milan, Italy".
  */
 
