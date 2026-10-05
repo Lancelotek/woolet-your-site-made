@@ -15,8 +15,7 @@ const SIZE_ROWS: Array<{
 }> = [
   { width: "145-154 mm", bridge: "20-22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
   { width: "155-161 mm", bridge: "21-22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front - the signature fit" },
-  { width: "162-172 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke", note: "Above the signature front" },
-  { width: "Above 172 mm", bridge: "-", path: "bespoke", pathLabel: "Not built", note: "Wider than we build" },
+  { width: "Above 161 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke (max 160 mm)", note: "Widest Woolet front is 160 mm (bespoke); measure first" },
 ];
 
 const FAQS = [
@@ -195,7 +194,7 @@ export default function FitBespoke() {
             <p className="text-cream-dim leading-relaxed mt-8 max-w-2xl" style={{ fontSize: "0.85rem" }}>
                "Face width" is the total horizontal width of the frame (lens + bridge + lens + hinge allowance),
                not just lens width. Bespoke covers 145–160 mm, including widths below and above the signature
-               158 mm front. Wider than 172 mm we do not build.
+               158 mm front. Wider than 160 mm we do not build — measure first.
             </p>
           </div>
         </section>
