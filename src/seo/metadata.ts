@@ -529,7 +529,7 @@ ${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
 ${p.included ? `<h2>In the box</h2><ul>${p.included.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>` : ""}
 ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - ${p.model === "bespoke" ? "See configurator" : `$${l.priceUsd}`}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
 <p>${REF_PRODUCTS.filter((o) => o.slug !== p.slug).map((o) => `<a href="/en/ref/${o.slug}">${escapeHtml(o.name)}</a>`).join(" · ")}</p>
-<p><a href="/en/fit">Check your fit in 30 seconds</a></p>`,
+<p><a href="/en/fit">Check your fit in 60 seconds</a></p>`,
         },
         { image: p.images[0].src, type: "product" },
          p.model === "bespoke" ? [bespokeProductJsonLd("en")] : [
