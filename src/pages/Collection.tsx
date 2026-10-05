@@ -117,7 +117,7 @@ const Collection = () => {
                       pos: "50% 0%",
                       eyebrow: "Medium-to-large heads",
                       label: "158 mm · The Signature",
-                      to: "#collection-grid",
+                      to: hrefFor("fit", lang),
                       alt: "Bearded man with medium-to-large head wearing Woolet 158 mm signature acetate glasses.",
                     },
                     {

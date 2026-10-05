@@ -67,3 +67,9 @@
 - [x] Fix confirmed configurator taps, preview feedback, editing and payment navigation
 - [x] Fix Kickstarter image/text/FAQ taps and collection card links
 - [x] Resolve missing DE blog URL and test A1, A2, A4, D on mobile
+
+## Clarity dead-click third round
+- [ ] Acknowledge selected configurator cards and guide missing pattern choices
+- [ ] Fix Kickstarter caption, pricing and product text taps
+- [ ] Link collection fit label and redirect legacy mousepad URL; leave /admin as 404
+- [ ] Verify mobile lens, missing-pattern and pricing interactions
