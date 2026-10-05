@@ -146,6 +146,29 @@ async function main() {
     });
   }
 
+  // Build-time hreflang reciprocity check: every alternate a page declares
+  // must declare the same cluster back. Fails the build otherwise.
+  const errors = [];
+  const sig = (alts) => (alts ?? []).map((a) => `${a.lang}=${a.href}`).sort().join("|");
+  for (const route of routes) {
+    const alts = hreflangAlternates(route, SITE_URL);
+    if (!alts) continue;
+    const mine = sig(alts);
+    if (!alts.some((a) => a.href === `${SITE_URL}${route}` && a.lang !== "x-default")) {
+      errors.push(`${route}: cluster does not include itself`);
+    }
+    for (const a of alts) {
+      if (a.lang === "x-default") continue;
+      const back = hreflangAlternates(a.href.replace(SITE_URL, ""), SITE_URL);
+      if (sig(back) !== mine) errors.push(`${route} -> ${a.href} (${a.lang}) is not reciprocal`);
+    }
+  }
+  if (errors.length) {
+    console.error(`[generate-sitemap] hreflang reciprocity check FAILED:\n  ${errors.join("\n  ")}`);
+    process.exit(1);
+  }
+  console.log("[generate-sitemap] hreflang reciprocity check passed");
+
   // De-dupe by <loc> (STATIC_ROUTES currently has a couple of intentional
   // duplicates like /en/fit and /fr; a sitemap URL must appear once).
   const seen = new Set();
