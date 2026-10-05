@@ -1722,12 +1722,9 @@ const KickstarterPrelaunch = () => {
                 </button>
 
                 <div style={{ padding: "28px 24px" }}>
-                  <button type="button" onClick={(e) => openLightbox(CARD_LIGHTBOX_INDEX[m.name], "gallery", e.currentTarget)} className="block text-left cursor-zoom-in" aria-label={`View larger image of ${m.name}`}>
-                    <span style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</span>
-                    <span className="block font-display text-foreground text-[1.75rem]">{m.name}</span>
-                    <span className="block text-muted-foreground text-xs">Mazzucchelli acetate, hand finished</span>
-                  </button>
-                  <div className="flex items-start justify-between gap-4" style={{ marginTop: 4 }}>
+                  <div className="flex items-start justify-between gap-4">
+                    <button type="button" onClick={(e) => openLightbox(CARD_LIGHTBOX_INDEX[m.name], "gallery", e.currentTarget)} className="text-left cursor-zoom-in min-w-0" aria-label={`View larger image of ${m.name}`}>
+                      <span className="block" style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</span>
                     <h3
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
@@ -1736,8 +1733,9 @@ const KickstarterPrelaunch = () => {
                         color: CREAM,
                       }}
                     >
-                      <span className="sr-only">{m.name}</span>
+                      {m.name}
                     </h3>
+                    </button>
                     <button type="button" onClick={focusSignupOrReserve} aria-label={`Join the VIP list for ${m.name}`} style={{ textAlign: "right", flexShrink: 0, cursor: "pointer" }}>
                       <div style={{ display: "flex", alignItems: "baseline", gap: 8, justifyContent: "flex-end" }}>
                         <span
