@@ -1,8 +1,8 @@
 export const wooletColumn: Record<string, string> = {
-  "Designed for": "Wide faces first — every frame engineered for 145–172 mm faces",
-  "Fit range": "145–172 mm (Bespoke tier), frames built from scratch for wide faces",
+  "Designed for": "Wide faces first — every frame engineered for 145–160 mm faces",
+  "Fit range": "145–160 mm (Bespoke tier), frames built from scratch for wide faces",
   "Material": "Italian Mazzucchelli acetate, hand made in EU",
-  "Fit technology": "FitLens — 20-second phone face scan that confirms your fit before you buy",
+  "Fit technology": "FitLens — 60-second phone face scan that confirms your fit before you buy",
   "Made to order": "Yes — bespoke sizing, optional laser engraving",
   "Fit guarantee": "30-day fit guarantee",
   "Shipping": "Free worldwide shipping",
@@ -51,10 +51,10 @@ export const competitors: Competitor[] = [
     keyword: "Fatheadz alternative",
     seoTitle: "Fatheadz Alternative for Wide Faces: Woolet vs Fatheadz (2026)",
     metaDescription:
-      "Looking for a Fatheadz alternative? Compare Fatheadz vs Woolet — Italian Mazzucchelli acetate, frames engineered for 145–172mm faces, and a 20-second fit scan.",
+      "Looking for a Fatheadz alternative? Compare Fatheadz vs Woolet — Italian Mazzucchelli acetate, frames engineered for 145–160 mm faces, and a 60-second fit scan.",
     heroH1: "Fatheadz Alternative for Wide Faces & Big Heads",
     heroSub:
-      "Fatheadz proved that big heads deserve real eyewear. Woolet takes the same mission upmarket: Mazzucchelli 1849 acetate, bespoke sizing for 145–172 mm faces, and a fit you can verify with a 20-second phone scan.",
+      "Fatheadz proved that big heads deserve real eyewear. Woolet takes the same mission upmarket: Mazzucchelli 1849 acetate, bespoke sizing for 145–160 mm faces, and a fit you can verify with a 60-second phone scan.",
     verdict:
       "Choose Fatheadz if you want a proven, affordable oversized frame for sport and everyday utility. Choose Woolet if you want the wide-face fit <em>and</em> the craftsmanship of a premium Italian frame — designed from scratch for your measurements, not scaled up from a standard mold.",
     table: {
@@ -74,12 +74,12 @@ export const competitors: Competitor[] = [
         text: "Fatheadz leans on TR90 nylon and monel — durable, but utilitarian. Woolet frames are cut from Italian Mazzucchelli acetate, the same material used by the world's top luxury houses, and hand made in EU.",
       },
       {
-        title: "Bespoke sizing from 145–172 mm",
-        text: "Fatheadz stops where its size chart stops. Woolet's Bespoke tier is made to order for face widths from 145 to 172 mm — the widths the rest of the industry pretends don't exist.",
+        title: "Bespoke sizing from 145–160 mm",
+        text: "Fatheadz stops where its size chart stops. Woolet's Bespoke tier is made to order for face widths from 145 to 160 mm — the widths the rest of the industry pretends don't exist.",
       },
       {
         title: "Proof of fit before you pay",
-        text: "No guessing from a size chart: FitLens scans your face from your phone in 20 seconds and tells you exactly which frame and size fits.",
+        text: "No guessing from a size chart: FitLens scans your face from your phone in 60 seconds and tells you exactly which frame and size fits.",
       },
       {
         title: "Editorial style, not sport-shop style",
@@ -94,11 +94,11 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "Is Woolet a good alternative to Fatheadz?",
-        a: "Yes — if you want a premium option. Both brands build for wide faces, but Woolet frames are made to order from Italian Mazzucchelli 1849 acetate for face widths of 145–172 mm, verified with a 20-second phone fit scan, and covered by a 30-day fit guarantee.",
+        a: "Yes — if you want a premium option. Both brands build for wide faces, but Woolet frames are made to order from Italian Mazzucchelli 1849 acetate for face widths of 145–160 mm, verified with a 60-second phone fit scan, and covered by a 30-day fit guarantee.",
       },
       {
         q: "How is Woolet's fit different from Fatheadz?",
-        a: "Fatheadz sells off-the-shelf oversized sizes. Woolet designs every frame for wide faces from scratch and offers a Bespoke tier made to your measurements — from 145–172 mm face width.",
+        a: "Fatheadz sells off-the-shelf oversized sizes. Woolet designs every frame for wide faces from scratch and offers a Bespoke tier made to your measurements — from 145–160 mm face width.",
       },
       {
         q: "Is Woolet more expensive than Fatheadz?",
@@ -116,10 +116,10 @@ export const competitors: Competitor[] = [
     keyword: "EYESHELLS alternative",
     seoTitle: "EYESHELLS Alternative: Premium Wide-Face Glasses | Woolet",
     metaDescription:
-      "EYESHELLS alternative for wide faces: handmade in the EU from Italian acetate frames, bespoke sizing to 172mm, 20-second fit scan and 30-day guarantee.",
+      "EYESHELLS alternative for wide faces: handmade in the EU from Italian acetate frames, bespoke sizing to 172mm, 60-second fit scan and 30-day guarantee.",
     heroH1: "EYESHELLS Alternative for Wide Faces & Big Heads",
     heroSub:
-      "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 145 to 172 mm, and a fit scan that proves it fits before you order.",
+      "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 145 to 160 mm, and a fit scan that proves it fits before you order.",
     verdict:
       "Choose EYESHELLS if you need functional extra-wide frames at factory-direct prices. Choose Woolet if your face deserves more than a budget frame — made-to-order Italian acetate with verified fit, engraving, and a 30-day fit guarantee.",
     table: {
@@ -140,11 +140,11 @@ export const competitors: Competitor[] = [
       },
       {
         title: "12 mm more head room",
-        text: "EYESHELLS tops out around 160 mm. Woolet's Bespoke tier covers 145–172 mm — made to your actual measurements, not the widest stock size.",
+        text: "EYESHELLS tops out around 160 mm. Woolet's Bespoke tier covers 145–160 mm — made to your actual measurements, not the widest stock size.",
       },
       {
         title: "FitLens verified fit",
-        text: "A 20-second phone scan measures your face and matches it to your frame before you pay — no ordering three sizes to try.",
+        text: "A 60-second phone scan measures your face and matches it to your frame before you pay — no ordering three sizes to try.",
       },
       {
         title: "A frame you'd wear to a board meeting",
@@ -159,11 +159,11 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What is the best premium alternative to EYESHELLS?",
-        a: "Woolet — frames engineered exclusively for wide faces (145–172 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, with a 20-second phone fit scan and a 30-day fit guarantee.",
+        a: "Woolet — frames engineered exclusively for wide faces (145–160 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, with a 60-second phone fit scan and a 30-day fit guarantee.",
       },
       {
         q: "Is Woolet wider than EYESHELLS?",
-        a: "EYESHELLS publishes frame widths of roughly 150–160 mm. Woolet's Bespoke tier is made to order from 145–172 mm.",
+        a: "EYESHELLS publishes frame widths of roughly 150–160 mm. Woolet's Bespoke tier is made to order from 145–160 mm.",
       },
       {
         q: "Why is Woolet more expensive than EYESHELLS?",
@@ -171,7 +171,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Can I check the fit before buying a Woolet frame?",
-        a: "Yes — FitLens scans your face from your phone in about 20 seconds and confirms which frame fits your measurements.",
+        a: "Yes — FitLens scans your face from your phone in about 60 seconds and confirms which frame fits your measurements.",
       },
     ],
   },
@@ -181,7 +181,7 @@ export const competitors: Competitor[] = [
     keyword: "Zenni alternative",
     seoTitle: "Zenni Alternative for Wide Faces: 158 mm Frames That Fit | Woolet",
     metaDescription:
-      "Zenni's widest frames stop around 152 mm. Woolet makes 158 mm Italian acetate frames for 155 mm+ faces, bespoke 145-172 mm. Check your fit in 20 seconds.",
+      "Zenni's widest frames stop around 152 mm. Woolet makes 158 mm Italian acetate frames for 155 mm+ faces, bespoke 145–160 mm. Check your fit in 60 seconds.",
     heroH1: "Zenni Alternative for Wide Faces & Big Heads",
     heroSub:
       "Zenni's Extended Fit is a big catalogue stretched a little wider. Woolet is the opposite: one obsession — faces 150 mm and up — served with handmade in the EU from Italian acetate and a fit scan that ends the guesswork.",
@@ -209,11 +209,11 @@ export const competitors: Competitor[] = [
       },
       {
         title: "A real fit measurement, not a filter",
-        text: "Zenni gives you width filters and a mirror-style try-on. FitLens measures your actual face in 20 seconds and tells you what fits — before you spend anything.",
+        text: "Zenni gives you width filters and a mirror-style try-on. FitLens measures your actual face in 60 seconds and tells you what fits — before you spend anything.",
       },
       {
-        title: "Made for 145–172 mm faces",
-        text: "Zenni's extended sizing helps up to a point. Woolet's Bespoke tier is built to order for faces from 145–172 mm wide — with a 30-day fit guarantee.",
+        title: "Made for 145–160 mm faces",
+        text: "Zenni's extended sizing helps up to a point. Woolet's Bespoke tier is built to order for faces from 145–160 mm wide — with a 30-day fit guarantee.",
       },
     ],
     whereTheyWin: [
@@ -224,11 +224,11 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What's a good Zenni alternative for big heads?",
-        a: "Woolet — a premium brand that only makes frames for wide faces (145–172 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, from $190 with free worldwide shipping and a 30-day fit guarantee.",
+        a: "Woolet — a premium brand that only makes frames for wide faces (145–160 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, from $190 with free worldwide shipping and a 30-day fit guarantee.",
       },
       {
         q: "Are Zenni Extended Fit frames wide enough for a 160 mm face?",
-        a: "Sometimes — Zenni recommends ~138 mm+ total width for larger heads, and select frames go wider. For faces 155 mm and up, purpose-built wide-face frames like Woolet's (145–172 mm bespoke) fit without temple pressure.",
+        a: "Sometimes — Zenni recommends ~138 mm+ total width for larger heads, and select frames go wider. For faces 155 mm and up, purpose-built wide-face frames like Woolet's (145–160 mm bespoke) fit without temple pressure.",
       },
       {
         q: "Why choose a $190 frame over a $7 frame?",
@@ -236,7 +236,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Does Woolet offer a try-on like Zenni?",
-        a: "Better — FitLens is a 20-second phone face scan that measures your face and confirms the fit, rather than overlaying a picture of glasses on your photo.",
+        a: "Better — FitLens is a 60-second phone face scan that measures your face and confirms the fit, rather than overlaying a picture of glasses on your photo.",
       },
     ],
   },
@@ -248,10 +248,10 @@ export const competitors: Competitor[] = [
     keyword: "Warby Parker alternative",
     seoTitle: "Warby Parker Alternative for Wide Faces | Woolet",
     metaDescription:
-      "The Warby Parker alternative engineered for 145–172mm faces — handmade in the EU from Italian acetate, 20-second fit scan, 30-day fit guarantee.",
+      "The Warby Parker alternative engineered for 145–160 mm faces — handmade in the EU from Italian acetate, 60-second fit scan, 30-day fit guarantee.",
     heroH1: "Warby Parker Alternative for Wide Faces & Big Heads",
     heroSub:
-      "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 145 to 172 mm, handmade in the EU from Italian acetate, fit verified by a 20-second scan.",
+      "Warby Parker offers up to five widths of frames designed for the average face. Woolet designs for one face type only — wide — from the first millimetre: 145 to 160 mm, handmade in the EU from Italian acetate, fit verified by a 60-second scan.",
     verdict:
       "Choose Warby Parker for affordable, well-styled glasses if you're near the middle of their size range. Choose Woolet if you're the person who tried their widest frame and still felt the temples flex — because scaling a standard design up is not the same as designing for a wide face.",
     table: {
@@ -276,7 +276,7 @@ export const competitors: Competitor[] = [
         },
         {
           label: "Face width served",
-          woolet: "155–161 mm signature · 145–172 mm bespoke",
+          woolet: "155–161 mm signature · 145–160 mm bespoke",
           competitor: "≈ 138–148 mm",
         },
         {
@@ -297,7 +297,7 @@ export const competitors: Competitor[] = [
         },
         {
           label: "Sizing method",
-          woolet: "FitLens — 20-second phone face scan returns your measurement in mm",
+          woolet: "FitLens — 60-second phone face scan returns your measurement in mm",
           competitor: "Virtual try-on and home try-on — visual, not measured",
         },
       ],
@@ -310,12 +310,12 @@ export const competitors: Competitor[] = [
         text: "Warby Parker's wide and extra-wide frames are wider cuts of designs proportioned for average faces. Woolet frames are engineered from scratch for wide faces and broader nose bridges — the proportions, bridge, and temple geometry all start at 150 mm.",
       },
       {
-        title: "Bespoke from 145–172 mm",
-        text: "When extra-wide isn't extra enough, Warby has nothing left to offer. Woolet's Bespoke tier is made to order for face widths from 145 to 172 mm.",
+        title: "Bespoke from 145–160 mm",
+        text: "When extra-wide isn't extra enough, Warby has nothing left to offer. Woolet's Bespoke tier is made to order for face widths from 145 to 160 mm.",
       },
       {
         title: "Measured fit, not try-on roulette",
-        text: "Home try-on is five guesses. FitLens is one answer: a 20-second phone scan that measures your face and confirms your size before you order.",
+        text: "Home try-on is five guesses. FitLens is one answer: a 60-second phone scan that measures your face and confirms your size before you order.",
       },
       {
         title: "Italian hands, luxury acetate",
@@ -330,11 +330,11 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What's the best Warby Parker alternative for wide faces?",
-        a: "Woolet — every frame is designed exclusively for wide faces (145–172 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, with a 20-second FitLens face scan, free worldwide shipping and a 30-day fit guarantee. From $190.",
+        a: "Woolet — every frame is designed exclusively for wide faces (145–160 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU, with a 60-second FitLens face scan, free worldwide shipping and a 30-day fit guarantee. From $190.",
       },
       {
         q: "Are Warby Parker extra-wide frames big enough for a 160 mm face?",
-        a: "Often not — their extra-wide line extends standard designs, and many wearers above ~155 mm still report temple pressure. Woolet builds for exactly this range, with bespoke from 145–172 mm.",
+        a: "Often not — their extra-wide line extends standard designs, and many wearers above ~155 mm still report temple pressure. Woolet builds for exactly this range, with bespoke from 145–160 mm.",
       },
       {
         q: "Is Woolet more expensive than Warby Parker?",
@@ -342,7 +342,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "Does Woolet have home try-on?",
-        a: "No — it has something more precise: FitLens, a 20-second phone face scan that measures your face and confirms which frame fits, plus a 30-day fit guarantee after delivery.",
+        a: "No — it has something more precise: FitLens, a 60-second phone face scan that measures your face and confirms which frame fits, plus a 30-day fit guarantee after delivery.",
       },
     ],
   },
@@ -352,10 +352,10 @@ export const competitors: Competitor[] = [
     keyword: "Ray-Ban alternative",
     seoTitle: "Ray-Ban Alternative for Wide Faces & Big Heads | Woolet",
     metaDescription:
-      "Ray-Ban pinching? Woolet is the Ray-Ban alternative for wide faces: handmade in the EU from Italian acetate, 145–172mm sizing, 20-second fit scan.",
+      "Ray-Ban pinching? Woolet is the Ray-Ban alternative for wide faces: handmade in the EU from Italian acetate, 145–160 mm sizing, 60-second fit scan.",
     heroH1: "Ray-Ban Alternative for Wide Faces & Big Heads",
     heroSub:
-      "Ray-Ban sizes run XXS to XXL — of frames proportioned for the average head. If Wayfarers leave marks at your temples, the problem isn't you. Woolet builds classic shapes for faces 145–172 mm wide, hand made in EU from Italian acetate.",
+      "Ray-Ban sizes run XXS to XXL — of frames proportioned for the average head. If Wayfarers leave marks at your temples, the problem isn't you. Woolet builds classic shapes for faces 145–160 mm wide, hand made in EU from Italian acetate.",
     verdict:
       "Choose Ray-Ban for iconic styling at standard sizes. Choose Woolet if you love those silhouettes but your face is 150 mm or wider — you get the classic shapes, cut for your actual head, with fit verified before you buy.",
     table: {
@@ -372,14 +372,14 @@ export const competitors: Competitor[] = [
     advantages: [
       {
         title: "Classic shapes, wide-face geometry",
-        text: "A Wayfarer scaled to XXL is still a Wayfarer proportioned for a standard skull. Woolet redraws classic silhouettes — square, panto, browline — around wide-face geometry: broader bridges, longer temples, wider frame fronts (145–172 mm).",
+        text: "A Wayfarer scaled to XXL is still a Wayfarer proportioned for a standard skull. Woolet redraws classic silhouettes — square, panto, browline — around wide-face geometry: broader bridges, longer temples, wider frame fronts (145–160 mm).",
       },
       {
         title: "Hand-finished vs mass-produced",
         text: "Ray-Ban is a brilliant industrial product. Woolet is a craft product: Italian Mazzucchelli acetate, hand made in EU, made to order in numbered batches.",
       },
       {
-        title: "Fit you can verify in 20 seconds",
+        title: "Fit you can verify in 60 seconds",
         text: "Instead of hoping the 'L' fits differently than the 'M' did, FitLens scans your face from your phone and confirms your exact fit before checkout.",
       },
       {
@@ -395,7 +395,7 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What's a good Ray-Ban alternative for a big head?",
-        a: "Woolet — classic silhouettes engineered for wide faces (145–172 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU. From $190 with free worldwide shipping and a 30-day fit guarantee.",
+        a: "Woolet — classic silhouettes engineered for wide faces (145–160 mm), handmade from Mazzucchelli 1849 acetate, finished in the EU. From $190 with free worldwide shipping and a 30-day fit guarantee.",
       },
       {
         q: "Do Ray-Bans come in wide sizes?",
@@ -407,7 +407,7 @@ export const competitors: Competitor[] = [
       },
       {
         q: "How do I know a Woolet frame will fit before ordering?",
-        a: "FitLens — a 20-second phone face scan that measures your face width, nose bridge and temples and tells you exactly which frame and size fits.",
+        a: "FitLens — a 60-second phone face scan that measures your face width, nose bridge and temples and tells you exactly which frame and size fits.",
       },
     ],
   },
@@ -420,7 +420,7 @@ export const competitors: Competitor[] = [
       "Love Persol but it pinches at the temples? Most Persol frames top out near 148 mm. Woolet: Mazzucchelli acetate, 158 mm front, keyhole bridge, from $190.",
     heroH1: "Persol Alternative for Wide Faces & Big Heads",
     heroSub:
-      "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 172 mm wide, the range where even the most beautiful Persol starts to pinch.",
+      "Same Italian soul — Mazzucchelli acetate, hand finishing, quiet luxury. One difference: Woolet frames are engineered for faces 145 to 160 mm wide, the range where even the most beautiful Persol starts to pinch.",
     verdict:
       "Choose Persol if you want a heritage icon and your face fits standard proportions. Choose Woolet if you've picked up a Persol, loved everything about it, and put it back because it sat crooked or gripped your temples — Woolet exists precisely for you.",
     table: {
@@ -440,8 +440,8 @@ export const competitors: Competitor[] = [
         text: "Woolet uses Mazzucchelli 1849 bio-acetate, the benchmark Italian acetate, and is hand made in EU. The craft language of Persol, redrawn around wide-face geometry from the first sketch.",
       },
       {
-        title: "145–172 mm, guaranteed",
-        text: "Persol's most generous sizes still follow standard proportions. Woolet's Bespoke tier is made to order from 145–172 mm face width — with a 30-day fit guarantee.",
+        title: "145–160 mm, guaranteed",
+        text: "Persol's most generous sizes still follow standard proportions. Woolet's Bespoke tier is made to order from 145–160 mm face width — with a 30-day fit guarantee.",
       },
       {
         title: "Made to order, numbered, engravable",
@@ -449,7 +449,7 @@ export const competitors: Competitor[] = [
       },
       {
         title: "Fit verified before you spend $190",
-        text: "FitLens scans your face in 20 seconds from your phone. You see what fits before you order — something no heritage house offers.",
+        text: "FitLens scans your face in 60 seconds from your phone. You see what fits before you order — something no heritage house offers.",
       },
     ],
     whereTheyWin: [
@@ -460,11 +460,11 @@ export const competitors: Competitor[] = [
     faqs: [
       {
         q: "What is the best Persol alternative for wide faces?",
-        a: "Woolet — the same Italian materials (Mazzucchelli 1849 acetate, hand finishing) engineered specifically for faces 145–172 mm wide, made to order from $190 with a 30-day fit guarantee.",
+        a: "Woolet — the same Italian materials (Mazzucchelli 1849 acetate, hand finishing) engineered specifically for faces 145–160 mm wide, made to order from $190 with a 30-day fit guarantee.",
       },
       {
         q: "Do Persol frames fit wide faces?",
-        a: "Persol offers larger calibers, but the designs follow standard facial proportions; wearers above ~150 mm often find them tight at the temples. Woolet builds exclusively for that 145–172 mm range.",
+        a: "Persol offers larger calibers, but the designs follow standard facial proportions; wearers above ~150 mm often find them tight at the temples. Woolet builds exclusively for that 145–160 mm range.",
       },
       {
         q: "Is Woolet real Italian acetate like Persol?",

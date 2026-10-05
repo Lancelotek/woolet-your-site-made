@@ -20,7 +20,7 @@ export const FIT_FAQ: FitFaqItem[] = [
   },
   {
     q: "Do I need to download an app?",
-    a: "No. FitLens runs in your phone browser at woolet.co/en/fit. There is nothing to install, no account and no appointment. The scan takes about 20 seconds.",
+    a: "No. FitLens runs in your phone browser at woolet.co/en/fit. There is nothing to install, no account and no appointment. The scan takes about 60 seconds.",
   },
   {
     q: "Is my photo stored?",
@@ -28,7 +28,7 @@ export const FIT_FAQ: FitFaqItem[] = [
   },
   {
     q: "What if the scan says I am outside the standard range?",
-    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 172 mm. Above 172 mm we do not build a frame and we will tell you that instead of selling you one.",
+    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 160 mm. Above 172 mm we do not build a frame and we will tell you that instead of selling you one.",
   },
   {
     q: "Can I measure without the camera?",

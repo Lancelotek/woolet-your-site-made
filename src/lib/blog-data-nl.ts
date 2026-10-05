@@ -214,7 +214,7 @@ export const blogPostsNL: BlogPost[] = [
 <ul>
 <li><strong>Gezichtsbreedte 150–154 mm — matig breed.</strong> Een standaard-grote zonnebril met 148–152 mm frontbreedte past hier. De meeste "Wide Fit"-lijnen van mainstream-merken (Ray-Ban Justin XL, Warby Parker Wide) vallen in dit bereik.</li>
 <li><strong>Gezichtsbreedte 155–161 mm — breed.</strong> Standaardzonnebrillen van mainstream-merken passen niet. Je hebt een gespecialiseerd merk nodig. De modellen 007 en 009 van Woolet komen met 158 mm frontbreedte, een 21–22 mm brug en 150 mm-veren — precies voor dit bereik ontworpen.</li>
-<li><strong>Gezichtsbreedte 162–160 mm — extra breed.</strong> Het standaardaanbod is zeer beperkt. Maatwerk is hier vaak het enige eerlijke antwoord. Woolet Bespoke dekt frontbreedtes van 145 tot 160 mm voor beide vormen.</li>
+<li><strong>Gezichtsbreedte boven 161 mm — breedste Woolet front is 160 mm (bespoke); meet eerst.</strong> Het standaardaanbod is zeer beperkt. Maatwerk is hier vaak het enige eerlijke antwoord. Woolet Bespoke dekt frontbreedtes van 145 tot 160 mm voor beide vormen.</li>
 <li><strong>Gezichtsbreedte boven 160 mm — buiten ons bereik.</strong> Woolet bouwt geen fronten breder dan 160 mm.</li>
 </ul>
 

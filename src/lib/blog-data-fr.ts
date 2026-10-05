@@ -214,7 +214,7 @@ export const blogPostsFR: BlogPost[] = [
 <ul>
 <li><strong>Largeur de visage 150–154 mm — modérément large.</strong> Des solaires large standard avec 148–152 mm de face conviennent. La plupart des lignes « Wide Fit » mainstream (Ray-Ban Justin XL, Warby Parker Wide) tombent dans cette plage.</li>
 <li><strong>Largeur de visage 155–161 mm — large.</strong> Les solaires standard des marques mainstream ne conviennent pas. Il vous faut une marque spécialisée. Les modèles 007 et 009 de Woolet arrivent avec 158 mm de face, un pont 21–22 mm et des branches 150 mm — conçus exactement pour cette plage.</li>
-<li><strong>Largeur de visage 162–160 mm — extra large.</strong> L'offre standard est très limitée. Le sur-mesure est souvent la seule réponse honnête. Woolet Bespoke couvre les faces de 145 à 160 mm pour les deux formes.</li>
+<li><strong>Largeur de visage supérieure à 161 mm — la face Woolet la plus large est 160 mm (sur mesure) ; mesurez d'abord.</strong> L'offre standard est très limitée. Le sur-mesure est souvent la seule réponse honnête. Woolet Bespoke couvre les faces de 145 à 160 mm pour les deux formes.</li>
 <li><strong>Largeur de visage supérieure à 160 mm — hors de notre plage.</strong> Woolet ne fabrique pas de face supérieure à 160 mm.</li>
 </ul>
 

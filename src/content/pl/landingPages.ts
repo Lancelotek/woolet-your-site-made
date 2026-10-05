@@ -140,7 +140,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     { label: "Poniżej 145 mm", value: "Standardowe oprawki z salonów" },
     { label: "145 – 154 mm", value: "Bespoke Woolet (145–154 mm)" },
     { label: "155 mm i więcej", value: "Woolet 007 / 009 — 158 mm" },
-    { label: "162 – 160 mm", value: "Bespoke Woolet (do 160 mm)" },
+    { label: "Powyżej 161 mm", value: "Najszersza oprawka Woolet to 160 mm (bespoke); najpierw zmierz" },
   ],
   closingH2: "Zmierz raz, zamawiaj bez ryzyka",
   closingBody:

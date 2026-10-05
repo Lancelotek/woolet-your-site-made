@@ -11,7 +11,7 @@ const RECS = [
   {
     minFaceWidthMm: 159,
     maxFaceWidthMm: 172,
-    recommendation: "Woolet Bespoke — cut to your exact face width (145–172 mm).",
+    recommendation: "Woolet Bespoke — cut to your exact face width (145–160 mm).",
     url: "https://woolet.co/en/bespoke",
   },
 ];

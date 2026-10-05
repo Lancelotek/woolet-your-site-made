@@ -317,7 +317,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     ],
     specs: [
       ["Shapes", "Aviator, Rectangle, Crown Panto, Round"],
-      ["Width", "Any width 145-172 mm, built to measure"],
+      ["Width", "Any width 145–160 mm, built to measure"],
       ["Colours", "Full Mazzucchelli range - 60 colour and size combinations"],
       ["Lenses", "Standard prescription lenses included; specialty upgrades such as photochromic and progressive cost extra in the configurator"],
       ["Measurement", "AI-Fit scan from your phone camera"],
