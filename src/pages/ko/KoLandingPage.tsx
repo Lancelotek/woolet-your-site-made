@@ -1,3 +1,4 @@
+import { hreflangLinks } from "@/seo/hreflangLinks";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -233,9 +234,7 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
         <title>{config.metaTitle}</title>
         <meta name="description" content={config.metaDescription} />
         <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="ko" href={canonical} />
-        {config.englishEquivalent ? <link rel="alternate" hrefLang="en" href={enAlt} /> : null}
-        <link rel="alternate" hrefLang="x-default" href={enAlt} />
+        {hreflangLinks(config.path)}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Woolet" />
         <meta property="og:locale" content="ko_KR" />

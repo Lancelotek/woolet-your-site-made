@@ -1,3 +1,4 @@
+import { hreflangLinks } from "@/seo/hreflangLinks";
 import { commerceJson } from "@/lib/schema-offer";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -85,10 +86,7 @@ export default function JaLandingPage({ config }: { config: JaPageConfig }) {
         <meta name="keywords" content={`${config.primaryKeyword}, 幅広 メガネ, オーダーメイド メガネ, イタリア製 アセテート, マッツケリ, 155mm メガネ, 158mm メガネ, 161mm メガネ`} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="ja" href={canonical} />
-        <link rel="alternate" hrefLang="ja-JP" href={canonical} />
-        <link rel="alternate" hrefLang="en" href={englishAlt} />
-        <link rel="alternate" hrefLang="x-default" href={englishAlt} />
+        {hreflangLinks(`/ja/${config.slug}`)}
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Woolet" />

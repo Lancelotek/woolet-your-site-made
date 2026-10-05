@@ -1,3 +1,4 @@
+import { hreflangLinks } from "@/seo/hreflangLinks";
 import { commerceJson } from "@/lib/schema-offer";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -85,10 +86,7 @@ export default function FrLandingPage({ config }: { config: FrPageConfig }) {
         <meta name="keywords" content={`${config.primaryKeyword}, lunettes grand visage, monture large, acétate italien, Mazzucchelli, lunettes 155 mm, lunettes 158 mm, lunettes 161 mm`} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="fr" href={canonical} />
-        <link rel="alternate" hrefLang="fr-FR" href={canonical} />
-        <link rel="alternate" hrefLang="en" href={englishAlt} />
-        <link rel="alternate" hrefLang="x-default" href={englishAlt} />
+        {hreflangLinks(`/fr/${config.slug}`)}
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Woolet" />
