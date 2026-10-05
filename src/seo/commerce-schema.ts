@@ -29,7 +29,13 @@ export const SALE_PRICE = "114.00";      // current pre-order price actually cha
 export const BESPOKE_PRICE = "480.00";   // regular Woolet Bespoke price
 export const BESPOKE_LIST_PRICE = "480.00";
 export const PRICE_CURRENCY = "USD";
-export const PRICE_VALID_UNTIL = "2027-12-31";
+/**
+ * Last day of the NEXT calendar year relative to the render/build date
+ * (e.g. rendered 2026-10-05 → "2027-12-31"). Shared by every Offer so
+ * `priceValidUntil` never expires and never needs a manual bump.
+ */
+export const priceValidUntil = (): string => `${new Date().getFullYear() + 1}-12-31`;
+export const PRICE_VALID_UNTIL = priceValidUntil();
 /**
  * Start of the founding-member pre-order campaign — the date the $114 price
  * became live. Google flags `priceSpecification` without `validFrom` as a

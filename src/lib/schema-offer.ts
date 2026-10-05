@@ -70,6 +70,7 @@ function fixReturnPolicy(p: unknown): Node {
 function fixOffer(o: Node, bespoke: boolean): Node {
   const out = { ...o };
   if (!out.validFrom) out.validFrom = PRICE_VALID_FROM;
+  if (!out.priceValidUntil) out.priceValidUntil = priceValidUntil();
   out.hasMerchantReturnPolicy = fixReturnPolicy(out.hasMerchantReturnPolicy);
   out.shippingDetails = out.shippingDetails ? fixShipping(out.shippingDetails, bespoke) : shippingDetails(bespoke);
   return out;
