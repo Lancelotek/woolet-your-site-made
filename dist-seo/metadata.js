@@ -166,7 +166,7 @@ const blogMetaBySlug = {
     metaDescription: "Oversized means big lenses. Wide-fit means a big front. Most oversized frames stop at 130–145 mm — see the 158 mm specs and how to measure which one you need."
   },
   "how-to-measure-face-width-for-glasses": {
-    metaTitle: "How to Measure Face Width for Glasses (Free 20-Second Scan)",
+    metaTitle: "How to Measure Face Width for Glasses (Free 60-Second Scan)",
     exactTitle: true,
     metaDescription: "Skip the ruler. Your phone camera measures your face width in 60 seconds and gives you your frame size. Plus the manual method and a size chart."
   },
@@ -8150,7 +8150,7 @@ const FIT_FAQ = [
   },
   {
     q: "What if the scan says I am outside the standard range?",
-    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 160 mm. Above 172 mm we do not build a frame and we will tell you that instead of selling you one."
+    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 160 mm. Above 160 mm we do not build a frame and we will tell you that instead of selling you one."
   },
   {
     q: "Can I measure without the camera?",
@@ -10247,7 +10247,7 @@ ${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
 ${p.included ? `<h2>In the box</h2><ul>${p.included.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>` : ""}
 ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<li>${escapeHtml(l.name)} - ${p.model === "bespoke" ? "See configurator" : `$${l.priceUsd}`}. ${escapeHtml(l.note)}</li>`).join("")}</ul>` : ""}
 <p>${REF_PRODUCTS.filter((o) => o.slug !== p.slug).map((o) => `<a href="/en/ref/${o.slug}">${escapeHtml(o.name)}</a>`).join(" · ")}</p>
-<p><a href="/en/fit">Check your fit in 30 seconds</a></p>`
+<p><a href="/en/fit">Check your fit in 60 seconds</a></p>`
         },
         { image: p.images[0].src, type: "product" },
         p.model === "bespoke" ? [bespokeProductJsonLd("en")] : [
@@ -10567,7 +10567,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       {
         title: "Frame Finder for Wide Faces — 155 mm+ | Woolet FitLens",
         description: "A frame finder built for wide faces. Scan with your phone camera and get your face width in millimetres plus the frame size that fits, in about 60 seconds.",
-        noscriptHtml: `<h1>Frame Finder for Wide Faces — Measure Your Face in 20 Seconds</h1>
+        noscriptHtml: `<h1>Frame Finder for Wide Faces — Measure Your Face in 60 Seconds</h1>
 <p>FitLens is a frame finder for 155&nbsp;mm+ faces: it returns your face width in millimetres and the frame front width that fits, instead of guessing from photos.</p>
 <p>FitLens is a virtual fit tool, not a virtual try-on. It uses your phone camera and a credit card (85.6&nbsp;mm) as a scale reference to return your temple-to-temple face width, your nose bridge width and your pupillary distance in millimetres — then tells you whether our 158&nbsp;mm front width fits. No app, no account, about 60 seconds.</p>
 <h2>How it works</h2>
@@ -10839,7 +10839,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <h2>What a frame built for a wide face looks like</h2>
 <p>A 158 mm front, a 21–22 mm keyhole bridge and long temples, cut from Mazzucchelli acetate from Milan, Italy and hand made in EU — acetate holds tension at that width where thinner plastics relax over time. If your arms feel short before they reach your ears, the temple length matters as much as the front: see what <a href="/en/temple/150mm">150 mm temple arms</a> change day to day, and read the wider context in the <a href="/en/blog/glasses-for-wide-faces-guide">complete guide to glasses for wide faces</a>.</p>
 <h2>Find your size</h2>
-<p>Once you know your number, <a href="/en/products/007">Woolet 007</a> gives you the rounded 158 mm front and <a href="/en/products/009">Woolet 009</a> the squared one. <a href="/en/fit">Run the 20-second FitLens scan</a> · <a href="/en/collection">See the collection</a></p>`
+<p>Once you know your number, <a href="/en/products/007">Woolet 007</a> gives you the rounded 158 mm front and <a href="/en/products/009">Woolet 009</a> the squared one. <a href="/en/fit">Run the 60-second FitLens scan</a> · <a href="/en/collection">See the collection</a></p>`
     }, { type: "article" });
   }
   if (path === "/lp/5-reasons") {
@@ -11082,7 +11082,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
           (c) => `<li><a href="/en/compare/${c.slug}">${escapeHtml(c.name)} Alternative for Wide Faces &amp; Big Heads</a> — ${escapeHtml(c.metaDescription)}</li>`
         ).join("")}</ul>
 <h2>How we compare</h2>
-<p>Every comparison covers materials, fit range in millimetres, sizing, price and where the competitor still wins. Not sure of your own measurement? <a href="/en/fit">Run the 20-second FitLens scan</a>.</p>`
+<p>Every comparison covers materials, fit range in millimetres, sizing, price and where the competitor still wins. Not sure of your own measurement? <a href="/en/fit">Run the 60-second FitLens scan</a>.</p>`
       },
       { image: `${SITE_URL}/og-compare-index.png`, type: "website" },
       [compareIndexBreadcrumbJsonLd(), compareIndexItemListJsonLd()]

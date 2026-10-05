@@ -357,26 +357,9 @@ async function main() {
     }
     await writeFile(fallbackPath, fallback, "utf8");
     console.log(`[prerender] patched dist/index.html with soft-404 head + noscript refresh`);
-
-    // /index.html is an explicit legacy URL rather than the unknown-route
-    // fallback. Emit its redirect last so it has canonical + refresh and no
-    // noindex directive, matching every other known legacy redirect.
-    const indexTarget = legacy["/index.html"];
-    if (indexTarget) {
-      const target = `https://woolet.co${indexTarget}`;
-      const page = `<!doctype html>
-<html lang="en"><head><meta charset="utf-8" />
-<meta name="woolet-legacy-redirect" content="1" />
-<title>Moved - Woolet</title>
-<link rel="canonical" href="${target}" />
-<meta http-equiv="refresh" content="0; url=${target}" />
-<script>window.location.replace(${JSON.stringify(indexTarget)} + window.location.search + window.location.hash);</script>
-</head><body><p>This page has moved to <a href="${target}">${target}</a>.</p></body></html>
-`;
-      await writeFile(fallbackPath, page, "utf8");
-      legacyCount += 1;
-      console.log(`[prerender] wrote dist/index.html as a legacy redirect to ${indexTarget}`);
-    }
+    // NOTE: dist/index.html is the SPA shell + host fallback for every
+    // non-prerendered route. Never overwrite it with a redirect stub —
+    // /index.html → /en is handled only by the router (legacyRedirects.ts).
   } catch (err) {
     console.warn(`[prerender] could not patch dist/index.html — ${err.message}`);
   }
