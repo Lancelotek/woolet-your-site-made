@@ -43,7 +43,7 @@ const Email = ({ headCm = 61 }: Props) => {
           </Section>
 
           <Text style={small}>
-            This is an estimate from head size and can be off by 4–5 mm. Measure your exact width in 20 seconds: <Link href={FIT_URL} style={{ color: INK, textDecoration: 'underline' }}>woolet.co/en/fit</Link>
+            This is an estimate from head size and can be off by 4–5 mm. Measure your exact width in about 60 seconds: <Link href={FIT_URL} style={{ color: INK, textDecoration: 'underline' }}>woolet.co/en/fit</Link>
           </Text>
 
           <Hr style={{ borderColor: '#e5e0d6', margin: '28px 0 16px' }} />
