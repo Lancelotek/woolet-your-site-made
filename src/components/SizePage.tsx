@@ -154,7 +154,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
               Signature 158 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              Bespoke 145–172 mm
+              Bespoke 145–160 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
               Hand made in EU
@@ -279,7 +279,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
             </table>
           </div>
           <p style={{ fontSize: 12, color: "#666", lineHeight: 1.6, margin: "12px 0 0" }}>
-            Bespoke: 4 frame shapes, 60 colour and size combinations, any width 145–172 mm, built to measure.
+            Bespoke: 4 frame shapes, 60 colour and size combinations, any width 145–160 mm, built to measure.
           </p>
         </section>
 
@@ -427,7 +427,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
               letterSpacing: "-0.2px",
             }}
           >
-            Every width we cover — 145 to 172 mm
+            Every width we cover — 145 to 160 mm
           </h2>
           <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6, margin: "0 0 14px" }}>
             Signature 158 mm fits 155–161 mm faces. Everything outside that band is a bespoke build,

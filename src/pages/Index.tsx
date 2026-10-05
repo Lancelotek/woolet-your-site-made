@@ -1154,7 +1154,7 @@ const Index = () => {
               — or go straight to{" "}
               <Link to={`${hrefFor("bespoke", lang)}#bespoke-glasses-for-wide-faces`} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
                 bespoke glasses for wide faces
-              </Link>. Bespoke covers any width from 145 to 172 mm, 4 frame shapes, 60 colour &amp; size
+              </Link>. Bespoke covers any width from 145 to 160 mm, 4 frame shapes, 60 colour &amp; size
               combinations — built to measure, for everyone.
             </p>
 
@@ -1164,7 +1164,7 @@ const Index = () => {
               style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
             >
               {[
-                { v: "145–172", unit: "mm", label: "Any width" },
+                { v: "145–160", unit: "mm", label: "Any width" },
                 { v: "4", unit: "", label: "Frame shapes" },
                 { v: "60", unit: "", label: "Colour & size combos" },
               ].map((s) => (

@@ -194,7 +194,7 @@ export default function FitBespoke() {
 
             <p className="text-cream-dim leading-relaxed mt-8 max-w-2xl" style={{ fontSize: "0.85rem" }}>
                "Face width" is the total horizontal width of the frame (lens + bridge + lens + hinge allowance),
-               not just lens width. Bespoke covers 145-172 mm, including widths below and above the signature
+               not just lens width. Bespoke covers 145–160 mm, including widths below and above the signature
                158 mm front. Wider than 172 mm we do not build.
             </p>
           </div>
@@ -406,7 +406,7 @@ export default function FitBespoke() {
                 Start AI Fit Scan
               </Link>
               <Link
-                to="/en/blog/bespoke-eyewear-size-range-145-172mm-guide"
+                to="/en/blog/bespoke-eyewear-size-range-145–160 mm-guide"
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   border: "1px solid hsl(var(--gold) / 0.5)",

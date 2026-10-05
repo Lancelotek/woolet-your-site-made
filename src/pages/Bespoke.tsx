@@ -275,9 +275,9 @@ const BespokePage = () => {
   return (
     <>
       <SEO
-        title={lang === "de" ? "Maßanfertigung für breite Gesichter 145-172 mm | Woolet" : "Woolet Bespoke - Made-to-Measure Glasses"}
-        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
-        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
+        title={lang === "de" ? "Maßanfertigung für breite Gesichter 145–160 mm | Woolet" : "Woolet Bespoke - Made-to-Measure Glasses"}
+        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145–160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
+        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145–160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
         lang={lang}
         path="/bespoke"
 
@@ -524,7 +524,7 @@ const BespokePage = () => {
               Bespoke eyewear, <em className="italic text-gold-light">defined properly.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
-              Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145-172 mm, bridges from 20-24 mm and temples from 145-155 mm. The finished frame is made for one wearer.
+              Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-24 mm and temples from 145-155 mm. The finished frame is made for one wearer.
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
               The regular price is $480 USD with standard prescription lenses and free worldwide shipping. Specialty lens upgrades cost extra in the configurator. The $299 price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
@@ -548,7 +548,7 @@ const BespokePage = () => {
               The only bespoke glasses <em className="italic text-gold-light">built around wide faces.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145-172 mm, whether narrower, wider or inside the stock band.
+              Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145–160 mm, whether narrower, wider or inside the stock band.
             </p>
 
             <div
@@ -645,7 +645,7 @@ const BespokePage = () => {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {[
-                { n: "145-172 mm", t: "Front width", d: "A continuous made-to-measure range." },
+                { n: "145–160 mm", t: "Front width", d: "A continuous made-to-measure range." },
                 { n: "4", t: "Shapes", d: "Aviator, Rectangle, Crown Panto and Round." },
                 { n: "$0", t: "Consultation cost", d: "No studio visit, no travel, no measurement fee." },
               ].map((s) => (
@@ -673,11 +673,11 @@ const BespokePage = () => {
               Who bespoke is <em className="italic text-gold-light">actually for</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.95rem" }}>
-              Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145-172 mm, including narrower faces and customers seeking a one-of-one frame.
+              Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145–160 mm, including narrower faces and customers seeking a one-of-one frame.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
               {[
-                "Frame width 145-172 mm (outside the stock 158 mm front)",
+                "Frame width 145–160 mm (outside the stock 158 mm front)",
                 "Asymmetric ears or significant pantoscopic-tilt needs",
                 "Bridge width 20-24 mm, measured for the wearer's nose",
                 "Wearers who simply want a one-of-one frame, cut to their face",

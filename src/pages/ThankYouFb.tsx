@@ -490,7 +490,7 @@ export default function ThankYouFb() {
             "Hand made in EU",
             "Mazzucchelli acetate from Milan",
             "158 mm signature fit",
-            "Bespoke 145–172 mm",
+            "Bespoke 145–160 mm",
           ].map((t, i, arr) => (
             <span
               key={t}

@@ -61,8 +61,8 @@ function recommend(state: QuizState): Recommendation {
     const w = state.currentFrameMm;
     const bridge = state.currentBridgeMm ?? (state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22);
     if (w >= 165) return mk(w, bridge, "bespoke", "high",
-      "You need bespoke (up to 172 mm).",
-      "Off-the-shelf wide frames fit faces around 155–161 mm. We make bespoke from 145–172 mm with the same Italian acetate.");
+      "You need bespoke (up to 160 mm).",
+      "Off-the-shelf wide frames fit faces around 155–161 mm. We make bespoke from 145–160 mm with the same Italian acetate.");
     if (w >= 156) return mk(w, bridge, "009", "high",
       "Woolet 009 at 158 mm is your size.",
       "009 (soft square) sits at 158 mm with a 22 mm keyhole bridge — built for your width.");

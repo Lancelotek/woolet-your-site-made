@@ -98,7 +98,7 @@ const SECTIONS: { id: CfgInfoSection; title: string; body: ReactNode }[] = [
     title: "Cut to your face · reference 158 mm",
     body: (
       <p>
-        158 mm is the reference drawing only. The build range is 145–172 mm, and your frame is cut to your scan.
+        158 mm is the reference drawing only. The build range is 145–160 mm, and your frame is cut to your scan.
       </p>
     ),
   },

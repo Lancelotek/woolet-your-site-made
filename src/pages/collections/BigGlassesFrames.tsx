@@ -20,7 +20,7 @@ const BigGlassesFrames = () => (
       "<strong>Arms that reach your ears.</strong> 150 mm temples clear the widest part of a larger head before they bend, so the bend sits behind the ear instead of pressing above it.",
       "<strong>A bridge for a wider nose.</strong> 21 mm on the 007 Round, 22 mm on the 009 Soft Square.",
       "<strong>Italian Mazzucchelli acetate, hand made in EU.</strong> Acetate holds the shape an optician sets, which matters more the wider the frame.",
-      "<strong>Eyeglasses $190. Sunglasses, blue light or readers $210.</strong> Outside 155-161 mm? <a href=\"/en/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers any width from 145 to 172 mm, hand made in Greece. Check your width with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a> in 20 seconds.",
+      "<strong>Eyeglasses $190. Sunglasses, blue light or readers $210.</strong> Outside 155-161 mm? <a href=\"/en/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers any width from 145 to 160 mm, hand made in Greece. Check your width with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a> in 20 seconds.",
     ]}
     extraSections={[
       {
@@ -65,7 +65,7 @@ const BigGlassesFrames = () => (
       {
         question: "Where can I buy oversized glasses for a big head?",
         answer:
-          "Look for a listed front width of 150 mm or more rather than the word oversized. Woolet 007 and 009 are 158 mm with 150 mm temples, and Bespoke covers any width from 145 to 172 mm.",
+          "Look for a listed front width of 150 mm or more rather than the word oversized. Woolet 007 and 009 are 158 mm with 150 mm temples, and Bespoke covers any width from 145 to 160 mm.",
       },
       {
         question: "Can I put prescription lenses in Woolet oversized glasses?",
@@ -75,7 +75,7 @@ const BigGlassesFrames = () => (
       {
         question: "What if 158 mm is too wide or too narrow for me?",
         answer:
-          "Bespoke is built to your measurement: any front width from 145 to 172 mm, four frame shapes, hand made in Greece. Production takes 2 weeks after you approve the 3D model.",
+          "Bespoke is built to your measurement: any front width from 145 to 160 mm, four frame shapes, hand made in Greece. Production takes 2 weeks after you approve the 3D model.",
       },
     ]}
   />
