@@ -635,7 +635,7 @@ const AdvertorialPage = () => {
                     { label: "Zenni", value: 140, display: "140mm", tone: "muted" as const },
                     { label: "Warby Parker", value: 148, display: "148mm", tone: "muted" as const },
                     { label: "Woolet 007 / 009", value: 158, display: "158mm", tone: "gold" as const },
-                    { label: "Woolet Bespoke", value: 172, display: "145–172mm", tone: "outline" as const },
+                    { label: "Woolet Bespoke", value: 160, display: "145–160 mm", tone: "outline" as const },
                   ].map((row) => {
                     const pct = (row.value / 180) * 100;
                     const barBg =
@@ -731,7 +731,7 @@ const AdvertorialPage = () => {
                 }}
               >
                 Figure 02 — Woolet 007 and 009 are made in one precise wide size: 158mm.
-                Bespoke goes up to 172mm.
+                Bespoke goes up to 160 mm.
               </figcaption>
             </figure>
 

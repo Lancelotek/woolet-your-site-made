@@ -61,8 +61,8 @@ function recommend(state: QuizState): Recommendation {
     const w = state.currentFrameMm;
     const bridge = state.currentBridgeMm ?? (state.nose === "wide" ? 23 : state.nose === "narrow" ? 21 : 22);
     if (w >= 165) return mk(w, bridge, "bespoke", "high",
-      "You need bespoke (up to 172 mm).",
-      "Off-the-shelf wide frames fit faces around 155–161 mm. We make bespoke from 145–172 mm with the same Italian acetate.");
+      "You need bespoke (up to 160 mm).",
+      "Off-the-shelf wide frames fit faces around 155–161 mm. We make bespoke from 145–160 mm with the same Italian acetate.");
     if (w >= 156) return mk(w, bridge, "009", "high",
       "Woolet 009 at 158 mm is your size.",
       "009 (soft square) sits at 158 mm with a 22 mm keyhole bridge — built for your width.");
@@ -85,7 +85,7 @@ function recommend(state: QuizState): Recommendation {
 
   if (hat === "xxl") return mk(w, bridge, "bespoke", conf,
     "Bespoke is the right path.",
-    "XXL hat size suggests a face wider than 161 mm. Off-the-shelf maxes out here; bespoke goes to 172 mm.");
+    "XXL hat size suggests a face wider than 161 mm. Off-the-shelf maxes out here; bespoke goes up to 160 mm — measure first.");
   if (hat === "xl") return mk(w, bridge, "009", conf,
     "Start with Woolet 009 at 158 mm.",
     "XL hat size usually maps to ~158–161 mm face. 009 fits this range; verify with a scan before ordering.");

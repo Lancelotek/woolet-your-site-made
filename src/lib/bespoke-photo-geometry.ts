@@ -52,7 +52,7 @@ export function frameFrontWidthMm(args: {
  * Turns a configurator pattern image (dark line drawing on a light ground)
  * into a coloured outline with no background, by keying out everything above a
  * luminance threshold. The ink is then scaled with the frame so a 158 mm front
- * and a 172 mm front carry visually the same line weight.
+ * and a 160 mm front carry visually the same line weight.
  */
 export function keyOutOutline(
   source: HTMLImageElement,

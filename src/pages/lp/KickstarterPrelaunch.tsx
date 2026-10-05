@@ -1161,7 +1161,7 @@ const KickstarterPrelaunch = () => {
       },
       {
         q: "What if 158 mm doesn't fit me?",
-        a: "Bespoke covers any width from 145 to 172 mm, built to measure with FitLens — our AI fit app that measures your face with your phone camera.",
+        a: "Bespoke covers any width from 145 to 160 mm, built to measure with FitLens — our AI fit app that measures your face with your phone camera.",
       },
       {
         q: "Can I get prescription lenses?",
@@ -1275,7 +1275,7 @@ const KickstarterPrelaunch = () => {
             {
               "@type": "Product",
               name: "Woolet Bespoke — built to measure",
-              description: "Bespoke Milanese acetate frames, 4 shapes, 60 colour and size combinations, any width from 145 to 172 mm.",
+              description: "Bespoke Milanese acetate frames, 4 shapes, 60 colour and size combinations, any width from 145 to 160 mm.",
               image: heroManAsset.url,
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
@@ -1552,7 +1552,7 @@ const KickstarterPrelaunch = () => {
               },
               {
                 t: "Bespoke configurator",
-                d: "Design your own frame: 4 shapes, 60 colour and size combinations, any width from 145 to 172 mm, built to measure.",
+                d: "Design your own frame: 4 shapes, 60 colour and size combinations, any width from 145 to 160 mm, built to measure.",
               },
               {
                 t: "Up to 40% off",

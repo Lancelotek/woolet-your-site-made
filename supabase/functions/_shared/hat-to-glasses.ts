@@ -63,7 +63,7 @@ export const BAND_VERDICT: Record<GlassesBand, { title: string; body: string }> 
   },
   bespoke: {
     title: "Bespoke is your fit.",
-    body: "Beyond standard sizing — Woolet Bespoke is cut to your measured width (145–172 mm).",
+    body: "Beyond standard sizing — Woolet Bespoke is cut to your measured width (145–160 mm).",
   },
 };
 

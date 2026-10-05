@@ -66,6 +66,7 @@ export const ROUTES = {
   bespoke: {
     en: "/en/bespoke",
     de: "/de/bespoke",
+    fr: "/fr/lunettes-sur-mesure",
     ja: "/ja/bespoke",
   },
 
@@ -150,11 +151,12 @@ export const ROUTES = {
   // DE variant self-canonicalises; the EN side is a many-to-one anchor,
   // so we still expose the pair so the DE page carries a proper hreflang
   // cluster back to EN.
-  "landing.collection.de.breite-brille":            { en: "/en/collection", de: "/de/breite-brille" },
-  "landing.collection.de.brille-fuer-breites-gesicht": { en: "/en/collection", de: "/de/brille-fuer-breites-gesicht" },
-  "landing.collection.de.brillen-fuer-grosse-koepfe": { en: "/en/collection", de: "/de/brillen-fuer-grosse-koepfe" },
-  "landing.collection.de.xxl-brille-herren":        { en: "/en/collection", de: "/de/xxl-brille-herren" },
-  "landing.collection.de.brille-breite-160-mm":     { en: "/en/collection", de: "/de/brille-breite-160-mm" },
+  // 1:1 reciprocal pairs (decision 05.10.2026). /de/brille-breite-160-mm
+  // pairs with /en/size/160mm inside the "size.160mm" entry below.
+  "landing.collection.de.breite-brille":            { en: "/en/collections/extra-wide-glasses", de: "/de/breite-brille" },
+  "landing.collection.de.brille-fuer-breites-gesicht": { en: "/en/collections/wide-face-glasses", de: "/de/brille-fuer-breites-gesicht" },
+  "landing.collection.de.brillen-fuer-grosse-koepfe": { en: "/en/collections/glasses-for-big-heads", de: "/de/brillen-fuer-grosse-koepfe" },
+  "landing.collection.de.xxl-brille-herren":        { en: "/en/xxl/glasses", de: "/de/xxl-brille-herren" },
   "landing.size.de.brille-breite-155-mm": { en: "/en/size/155mm", de: "/de/brille-breite-155-mm" },
   "landing.size.de.brille-breite-158-mm": { en: "/en/size/158mm", de: "/de/brille-breite-158-mm" },
 
@@ -169,8 +171,7 @@ export const ROUTES = {
   // numeric sizes have a Korean translation; every other /en/size/* page
   // stays EN-only and therefore emits no hreflang cluster.
   "size.150mm": { en: "/en/size/150mm", ko: "/ko/size/150mm", de: "/de/brille-breite-150-mm" },
-  "size.160mm": { en: "/en/size/160mm", ko: "/ko/size/160mm" },
-  "size.165mm": { en: "/en/size/165mm", ko: "/ko/size/165mm" },
+  "size.160mm": { en: "/en/size/160mm", ko: "/ko/size/160mm", de: "/de/brille-breite-160-mm" },
 
   // -----------------------------------------------------------------------
   // Translated blog posts. Sourced from public/sitemap.xml alternates and
@@ -410,6 +411,16 @@ export function keyForPath(pathname: string): RouteKey | undefined {
  *     NOT get merged in, because five different DE landings cannot all
  *     be "the" German version of /en/collection.
  */
+function clusterKeyForPath(pathname: string): RouteKey | undefined {
+  const keys = keysForPath(pathname);
+  if (keys.length === 0) return undefined;
+  const nonEnMatch = keys.find((k) => {
+    const entry = ROUTES[k] as Partial<Record<Lang, string>>;
+    return Object.entries(entry).some(([l, u]) => l !== "en" && u === pathname);
+  });
+  return nonEnMatch ?? keys.find((k) => !String(k).startsWith("landing.")) ?? keys[0];
+}
+
 export function hreflangAlternates(
   pathname: string,
   siteUrl: string,
@@ -417,21 +428,20 @@ export function hreflangAlternates(
   const keys = keysForPath(pathname);
   if (keys.length === 0) return null;
 
-  // 1. Non-EN URL match wins.
-  const nonEnMatch = keys.find((k) => {
-    const entry = ROUTES[k] as Partial<Record<Lang, string>>;
-    return Object.entries(entry).some(([l, u]) => l !== "en" && u === pathname);
-  });
-
-  // 2. Otherwise treat as EN anchor and prefer the non-landing entry.
-  const chosenKey =
-    nonEnMatch ??
-    keys.find((k) => !String(k).startsWith("landing.")) ??
-    keys[0];
+  // Non-EN URL match wins; otherwise EN anchor → non-landing entry.
+  const chosenKey = clusterKeyForPath(pathname)!;
 
   const entry = ROUTES[chosenKey] as Partial<Record<Lang, string>>;
   const langs = Object.keys(entry) as Lang[];
   if (langs.length < 2) return null;
+
+  // Reciprocity guard: every member of the cluster must resolve back to
+  // the SAME entry. Many-to-one landing pages (e.g. /nl/grote-brillen-heren
+  // claiming /en/collection) fail this and emit NO hreflang block —
+  // Google ignores non-reciprocal annotations anyway.
+  for (const url of Object.values(entry)) {
+    if (url && clusterKeyForPath(url) !== chosenKey) return null;
+  }
 
   const list: { lang: string; href: string }[] = langs.map((l) => ({
     lang: l,

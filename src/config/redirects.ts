@@ -1,3 +1,4 @@
+import { resolveLegacyRedirect } from "@/seo/legacyRedirects";
 /**
  * Centralized redirect layer.
  *
@@ -45,10 +46,7 @@ export const EXACT: Record<string, string> = {
   "/en/collections/oversized-prescription-glasses": "/en/collections/extra-large-oversized-eyeglasses",
   "/en/collections/oversized-blue-light-glasses": "/en/collections/blue-light-glasses-for-wide-faces",
 
-  // Bespoke size guide: the corrected 145-172 mm slug is canonical.
-  "/en/blog/bespoke-eyewear-size-range-150-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
-  "/blog/bespoke-eyewear-size-range-150-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
-  "/blog/bespoke-eyewear-size-range-145-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-172mm-guide",
+  // Bespoke size guide redirects live in src/seo/legacyRedirects.ts.
 };
 
 
@@ -85,6 +83,9 @@ export const RULES: RedirectRule[] = [
  * Checks EXACT first, then RULES in order. Never returns the input path itself.
  */
 export function resolveRedirect(path: string): string | null {
+  const legacy = resolveLegacyRedirect(path);
+  if (legacy) return legacy;
+
   const exact = EXACT[path];
   if (exact && exact !== path) return exact;
 

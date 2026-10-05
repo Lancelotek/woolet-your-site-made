@@ -1,3 +1,4 @@
+import { hreflangLinks } from "@/seo/hreflangLinks";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -23,7 +24,7 @@ const secondaryLinks: { to: string; label: string; sub: string }[] = [
   { to: "/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large", label: "Quelle taille de solaires pour un visage large ?", sub: "Guide rapide : largeur de face, pont, branches" },
   { to: "/fr/products/007", label: "Woolet 007 — rond, 158 mm", sub: "Pont keyhole, acétate italien Mazzucchelli" },
   { to: "/fr/products/009", label: "Woolet 009 — carré adouci, 158 mm", sub: "Pour visages larges en contexte professionnel" },
-  { to: "/fr/products/bespoke", label: "Bespoke — 145 à 172 mm sur mesure", sub: "Face, pont et branches au millimètre" },
+  { to: "/fr/products/bespoke", label: "Bespoke — 145 à 160 mm sur mesure", sub: "Face, pont et branches au millimètre" },
 ];
 
 export default function FrHub() {
@@ -42,28 +43,20 @@ export default function FrHub() {
         <title>Lunettes pour visages larges et grosses têtes 155–161 mm | Woolet</title>
         <meta
           name="description"
-          content="Woolet — lunettes larges pour grosses têtes en 155, 158 et 161 mm. Acétate italien Mazzucchelli 1849, fait main en UE. Mesurez votre visage en 20 secondes."
+          content="Woolet — lunettes larges pour grosses têtes en 155, 158 et 161 mm. Acétate italien Mazzucchelli 1849, fait main en UE. Mesurez votre visage en 60 secondes."
         />
         <meta name="keywords" content="lunettes pour visages larges, lunettes larges, lunettes grosses têtes, lunettes XXL homme, lunettes 161 mm, lunettes 160 mm, acétate Mazzucchelli, lunettes nez large" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
         <link rel="canonical" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr-FR" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr-BE" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr-CH" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="fr-CA" href={`${SITE}/fr`} />
-        <link rel="alternate" hrefLang="en" href={`${SITE}/en`} />
-        <link rel="alternate" hrefLang="de" href={`${SITE}/de`} />
-        <link rel="alternate" hrefLang="nl" href={`${SITE}/nl`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE}/en`} />
+        {hreflangLinks("/fr")}
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Woolet" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:title" content="Lunettes pour visages larges et grosses têtes — Woolet 155–161 mm" />
-        <meta property="og:description" content="Acétate italien Mazzucchelli. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 20 secondes." />
+        <meta property="og:description" content="Acétate italien Mazzucchelli. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 60 secondes." />
         <meta property="og:url" content={`${SITE}/fr`} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
         <meta property="og:image:width" content="1200" />
@@ -72,7 +65,7 @@ export default function FrHub() {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Lunettes pour visages larges et grosses têtes — Woolet" />
-        <meta name="twitter:description" content="155, 158 et 161 mm. Acétate italien Mazzucchelli. Mesurez votre visage en 20 secondes." />
+        <meta name="twitter:description" content="155, 158 et 161 mm. Acétate italien Mazzucchelli. Mesurez votre visage en 60 secondes." />
         <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
         <script type="application/ld+json">{JSON.stringify({
@@ -158,7 +151,7 @@ export default function FrHub() {
                 marginTop: 18,
               }}
             >
-              Acétate italien Mazzucchelli 1849. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 20 secondes.
+              Acétate italien Mazzucchelli 1849. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 60 secondes.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
@@ -176,7 +169,7 @@ export default function FrHub() {
                   textDecoration: "none",
                 }}
               >
-                Mesurer mon visage — 20 s
+                Mesurer mon visage — 60 s
               </Link>
               <Link
                 to="/fr/collection"

@@ -15,8 +15,7 @@ const SIZE_ROWS: Array<{
 }> = [
   { width: "145-154 mm", bridge: "20-22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
   { width: "155-161 mm", bridge: "21-22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front - the signature fit" },
-  { width: "162-172 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke", note: "Above the signature front" },
-  { width: "Above 172 mm", bridge: "-", path: "bespoke", pathLabel: "Not built", note: "Wider than we build" },
+  { width: "Above 161 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke (max 160 mm)", note: "Widest Woolet front is 160 mm (bespoke); measure first" },
 ];
 
 const FAQS = [
@@ -72,7 +71,7 @@ export default function FitBespoke() {
     <>
       <SEO
         title={`Bespoke Sizing ${BESPOKE_FRONT_WIDTH_RANGE} — Woolet Made-to-Measure`}
-        description={`Woolet Bespoke: ${BESPOKE_FRONT_WIDTH_RANGE} front, ${BESPOKE_BRIDGE_RANGE} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} with standard prescription lenses and free worldwide shipping. Hand made in Greece from Italian Mazzucchelli acetate.`}
+        description={`Woolet Bespoke: ${BESPOKE_FRONT_WIDTH_RANGE} front, ${BESPOKE_BRIDGE_RANGE} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} with standard prescription lenses and free worldwide shipping. Hand made in the EU from Italian Mazzucchelli acetate.`}
         lang="en"
         path="/fit/bespoke"
         jsonLd={JSON_LD}
@@ -109,7 +108,7 @@ export default function FitBespoke() {
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "1rem" }}>
               The reference for everyone deciding between the signature Woolet (158 mm) and a made-to-measure
               frame. Total frame width from <span className="text-foreground">{BESPOKE_FRONT_WIDTH_RANGE}</span>, bridge
-              {BESPOKE_FACTS.bridge} and {BESPOKE_FACTS.temples} temples, hand made in Greece (EU) from Italian Mazzucchelli 1849 cellulose acetate. <Link to="/en/bespoke" className="text-gold-light underline">Explore Woolet Bespoke</Link>.
+              {BESPOKE_FACTS.bridge} and {BESPOKE_FACTS.temples} temples, hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. <Link to="/en/bespoke" className="text-gold-light underline">Explore Woolet Bespoke</Link>.
             </p>
           </div>
         </section>
@@ -194,8 +193,8 @@ export default function FitBespoke() {
 
             <p className="text-cream-dim leading-relaxed mt-8 max-w-2xl" style={{ fontSize: "0.85rem" }}>
                "Face width" is the total horizontal width of the frame (lens + bridge + lens + hinge allowance),
-               not just lens width. Bespoke covers 145-172 mm, including widths below and above the signature
-               158 mm front. Wider than 172 mm we do not build.
+               not just lens width. Bespoke covers 145–160 mm, including widths below and above the signature
+               158 mm front. Wider than 160 mm we do not build — measure first.
             </p>
           </div>
         </section>
@@ -406,7 +405,7 @@ export default function FitBespoke() {
                 Start AI Fit Scan
               </Link>
               <Link
-                to="/en/blog/bespoke-eyewear-size-range-145-172mm-guide"
+                to="/en/blog/bespoke-eyewear-size-range-145–160 mm-guide"
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   border: "1px solid hsl(var(--gold) / 0.5)",

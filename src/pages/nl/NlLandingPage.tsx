@@ -1,3 +1,4 @@
+import { hreflangLinks } from "@/seo/hreflangLinks";
 import { commerceJson } from "@/lib/schema-offer";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -85,11 +86,7 @@ export default function NlLandingPage({ config }: { config: NlPageConfig }) {
         <meta name="keywords" content={`${config.primaryKeyword}, brede bril, grote bril heren, acetaat bril, Mazzucchelli, bril 155 mm, bril 158 mm, bril 161 mm, bril op maat`} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="nl" href={canonical} />
-        <link rel="alternate" hrefLang="nl-NL" href={canonical} />
-        <link rel="alternate" hrefLang="nl-BE" href={canonical} />
-        <link rel="alternate" hrefLang="en" href={englishAlt} />
-        <link rel="alternate" hrefLang="x-default" href={englishAlt} />
+        {hreflangLinks(`/nl/${config.slug}`)}
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Woolet" />

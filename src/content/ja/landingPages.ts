@@ -31,9 +31,9 @@ export const jaPages: Record<string, JaPageConfig> = {
     sub: "標準フレームの幅は135〜145mm。顔幅が155mm以上なら、市販のメガネは「Mサイズ」しか存在しません。Wooletは155・158・161mmの実寸で、イタリア製マッツケリ・アセテートをEUで手作業仕立てします。",
     metaTitle: "大きい顔 メガネ 155-161mm | Woolet 幅広イタリア製アセテート",
     metaDescription:
-      "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで、EUで手作り。FitLensスキャンで20秒、自分のサイズが分かります。",
+      "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで、EUで手作り。FitLensスキャンで60秒、自分のサイズが分かります。",
     primaryKeyword: "大きい顔 メガネ",
-    ctaPrimaryLabel: "顔幅を20秒で測る",
+    ctaPrimaryLabel: "顔幅を60秒で測る",
     ctaPrimaryHref: "/ja/fit",
     ctaSecondaryLabel: "コレクションを見る",
     ctaSecondaryHref: "/ja/collection",
@@ -51,11 +51,11 @@ export const jaPages: Record<string, JaPageConfig> = {
     ],
     closingH2: "自分のサイズが分かれば、選び方は一瞬",
     closingBody:
-      "FitLensはスマートフォンのカメラで顔幅をミリ単位で計測し、推奨サイズを返します。所要時間は20秒。Founding価格はキックスターター開始時にメールで通知します。",
+      "FitLensはスマートフォンのカメラで顔幅をミリ単位で計測し、推奨サイズを返します。所要時間は60秒。Founding価格はキックスターター開始時にメールで通知します。",
     faqs: [
       {
         q: "自分の顔幅はどう測るの？",
-        a: "FitLensを使ってください。スマートフォンのカメラで顔幅をミリ単位で測定し、155/158/161mmのどれが合うかを推奨します。所要時間は約20秒、ブラウザ内で完結します。",
+        a: "FitLensを使ってください。スマートフォンのカメラで顔幅をミリ単位で測定し、155/158/161mmのどれが合うかを推奨します。所要時間は約60秒、ブラウザ内で完結します。",
       },
       {
         q: "顔幅が何mmからWooletが向いている？",
@@ -80,10 +80,10 @@ export const jaPages: Record<string, JaPageConfig> = {
     slug: "bespoke",
     eyebrow: "Woolet · オーダーメイド メガネ",
     h1: "オーダーメイド メガネ - 顔に合わせて作る、本当の一本",
-    sub: "顔幅145〜172mmまでミリ単位で対応。ブリッジ幅、テンプル長、レンズ高さも個別調整。イタリア製マッツケリ・アセテートを使い、EUの職人が一本ずつ手作業で仕立てます。",
-    metaTitle: "オーダーメイド メガネ 145-172mm | Woolet イタリア製アセテート",
+    sub: "顔幅145〜160mmまでミリ単位で対応。ブリッジ幅、テンプル長、レンズ高さも個別調整。イタリア製マッツケリ・アセテートを使い、EUの職人が一本ずつ手作業で仕立てます。",
+    metaTitle: "オーダーメイド メガネ 145-160mm | Woolet イタリア製アセテート",
     metaDescription:
-      "オーダーメイド メガネを145〜172mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
+      "オーダーメイド メガネを145〜160mmまでミリ単位で。Wooletはイタリア製マッツケリ・アセテートを使い、フロント幅・ブリッジ・テンプル長を個別調整。FitLensで顔を測り、職人がEUで手作業仕上げ。",
     primaryKeyword: "オーダーメイド メガネ",
     ctaPrimaryLabel: "FitLensで顔を測る",
     ctaPrimaryHref: "/ja/fit",
@@ -96,7 +96,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     proofBody:
       "素材はマッツケリ1849のアセテート。70年以上の歴史を持つイタリア素材です。EUの工房で職人が削り、磨き、ヒンジを埋め込みます。納期は約4〜6週間。",
     proofBullets: [
-      { label: "対応サイズ", value: "145 – 172 mm" },
+      { label: "対応サイズ", value: "145 – 160 mm" },
       { label: "カスタマイズ", value: "幅 / ブリッジ / テンプル / 高さ" },
       { label: "素材", value: "Mazzucchelli 1849 アセテート" },
       { label: "納期", value: "4 – 6 週間 (EU手作業)" },
@@ -107,7 +107,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     faqs: [
       {
         q: "どこまでサイズを調整できますか？",
-        a: "フロント幅は145〜172mm、ブリッジは18〜24mm、テンプルは135〜155mmまで指定可能です。レンズ高さも調整できます。",
+        a: "フロント幅は145〜160mm、ブリッジは18〜24mm、テンプルは135〜155mmまで指定可能です。レンズ高さも調整できます。",
       },
       {
         q: "どうやって採寸しますか？",

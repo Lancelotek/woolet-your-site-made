@@ -27,9 +27,9 @@ const C = {
 };
 
 const BULLETS = [
-  "158 mm standard width - bespoke 145-172 mm",
+  "158 mm standard width - bespoke 145–160 mm",
   "Italian acetate, hand made in EU",
-  "10-year warranty",
+  "5-year warranty",
 ];
 
 type Touch = {

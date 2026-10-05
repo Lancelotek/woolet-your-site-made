@@ -365,7 +365,7 @@ const WideBridgeFitGuide = () => {
             className="font-display text-woolet-white mb-3 leading-tight"
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
           >
-            See your bridge width in 20 seconds
+            See your bridge width in 60 seconds
           </h2>
           <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.9rem" }}>
             The AI Fit Wizard measures bridge width, nose height and face width

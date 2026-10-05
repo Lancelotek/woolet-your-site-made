@@ -8,7 +8,7 @@
  *
  * Data-accuracy rules (do not violate):
  *   - Signature front width 158 mm, designed fit range 155–161 mm.
- *   - Bespoke 145–172 mm; 172 mm is the maximum width we build.
+ *   - Bespoke 145–160 mm; 160 mm is the maximum width we build.
  *   - Material: Mazzucchelli acetate from Milan. Manufacturing: hand made in EU.
  *   - Head-circumference figures are stated as approximate correlations, never
  *     as measured guarantees.
@@ -88,7 +88,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Why bespoke is the honest route here",
       body: [
-        "150 mm sits comfortably inside our 145–172 mm bespoke range, near the middle of the lower half. Both signature shapes scale cleanly to it: the 007 round keeps its keyhole bridge geometry, the 009 soft-square keeps its flatter top line. What changes is the front width, the distance between the hinges and the temple length that follows from it.",
+        "150 mm sits comfortably inside our 145–160 mm bespoke range, near the middle of the lower half. Both signature shapes scale cleanly to it: the 007 round keeps its keyhole bridge geometry, the 009 soft-square keeps its flatter top line. What changes is the front width, the distance between the hinges and the temple length that follows from it.",
         "If you have already tried three or four pairs of extended-fit frames and sent them all back, the arithmetic on bespoke is simpler than it looks. You are not paying for luxury, you are paying to stop guessing.",
       ],
     },
@@ -126,7 +126,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "The bespoke case at 152 mm",
       body: [
-        "152 mm is well inside the 145–172 mm bespoke range and is one of the widths we are asked for most. Because it sits only 6 mm below signature, the frame keeps the same visual proportions — the same lens depth, the same acetate thickness at the rim, the same 11° temple drop — while losing the overhang.",
+        "152 mm is well inside the 145–160 mm bespoke range and is one of the widths we are asked for most. Because it sits only 6 mm below signature, the frame keeps the same visual proportions — the same lens depth, the same acetate thickness at the rim, the same 11° temple drop — while losing the overhang.",
         "Same material throughout: Mazzucchelli acetate from Milan, hand made in the EU, hand polished. Bespoke changes the dimensions, not the build.",
       ],
     },
@@ -205,7 +205,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Do you need bespoke at 158 mm?",
       body: [
-        "No. 158 mm is the middle of the 155–161 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 172 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
+        "No. 158 mm is the middle of the 155–161 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 160 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
         "If your face is 158 mm and your bridge is 21 or 22 mm, order the signature 007 or 009 and skip the scan queue entirely.",
       ],
     },
@@ -255,230 +255,5 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     },
   ],
 
-  "162mm": [
-    {
-      h2: "Who a 162 mm face width actually is",
-      body: [
-        "162 mm is one millimetre above the top of the signature fit range and sits within our 145–172 mm bespoke range. A 162 mm face generally carries a head circumference of 61–62 cm and a bridge of 22–24 mm — dimensions where the bridge often becomes the binding constraint before the front width does.",
-        "If you measure 162 mm you are in the top fraction of a percent of adult face widths. There is no shortcut available to you in retail, and there is no point pretending otherwise.",
-      ],
-    },
-    {
-      h2: "Why the signature 158 mm falls short here",
-      body: [
-        "The signature front is 4 mm narrower than your face. That is the wrong direction of error: a frame that is too wide looks oversized, a frame that is too narrow hurts. At 162 mm the arms would grip the temporal ridge from the moment you put them on, and acetate under sustained outward load takes a set — within a few months the frame no longer returns to its original geometry.",
-        "So the answer at 162 mm is bespoke, not the standard frame worn optimistically.",
-      ],
-      table: {
-        head: ["At 162 mm", "Outcome"],
-        rows: [
-          ["Signature 158 mm", "4 mm too narrow — temple pressure"],
-          ["Bespoke 162 mm", "Correct. Within our bespoke range."],
-          ["Above 162 mm", "Bespoke remains available up to 172 mm"],
-        ],
-      },
-    },
-    {
-      h2: "What bespoke gives you at the top of the range",
-      body: [
-        "A 162 mm bespoke front is built with the hinge plates set further out and the rim carrying additional material at the barrel, so the frame holds its span without relying on tension. Bridge is specified separately, which matters here: at 162 mm a 24 mm bridge is common and pairing it with a standard 21 mm would undo the benefit of the wider front.",
-        "Four shapes, sixty colour and size combinations, Mazzucchelli acetate from Milan, hand made in the EU. Lead time is six to eight weeks behind the standard batch.",
-      ],
-    },
-    {
-      h2: "What to skip at 162 mm",
-      body: [
-        "Skip any brand that offers to widen a stock frame for you. Heat-forming an acetate front past its moulded width thins the material at the bridge and the frame fails there later. Skip sizing by lens width entirely at this measurement — only total front width and bridge matter now.",
-      ],
-    },
-  ],
 
-  "165mm": [
-    {
-      h2: "Measure before you assume you need 165 mm",
-      body: [
-        "Stand square to a mirror, look straight ahead, and hold the ruler flat and level at eye level across the widest point of the head — usually just above and in front of the ears, not at the cheeks. Read temple to temple. A credit card is 85.6 mm by ISO standard and makes a useful calibration reference if you would rather photograph than measure.",
-        "FitLens does the same arithmetic from a single phone photo in about twenty seconds, and it will route you honestly: 155 to 161 mm goes to the signature 158 mm at $190, anything wider goes to a bespoke build.",
-      ],
-      table: {
-        head: ["Re-measured result", "Next step"],
-        rows: [
-          ["155–161 mm", "Signature 158 mm, $190"],
-          ["162–172 mm", "Bespoke, $480 with lenses"],
-          ["Above 172 mm", "Beyond our maximum — full custom locally"],
-        ],
-      },
-    },
-    {
-      h2: "Signature or bespoke at 165 mm — the honest route",
-      body: [
-        "If the re-measure lands you at 155 to 161 mm, buy the signature 158 mm at $190 and stop there; it is the same Mazzucchelli acetate and it fits. If the number holds at 162 mm or wider, the route is bespoke, all the way to our 172 mm maximum.",
-        "Both routes are real products. Neither is a consolation prize: the signature is the size the brand is engineered around, and bespoke is a made-to-measure build in the same material.",
-      ],
-    },
-    {
-      h2: "The bespoke build at 165 mm",
-      body: [
-        "Bespoke is not a bigger version of the signature — it is a separate build. Four shapes, sixty colour and size combinations, your front width cut to the millimetre, a keyhole bridge between 20 and 24 mm matched to your nose, and temple length set to your head rather than to a catalogue average.",
-        "The acetate is Mazzucchelli, milled in Milan. The frames themselves are hand made in Greece. Lead time is 2 weeks from order to shipping, and the price is $480 with lenses included — there is no separate lens upcharge and no width surcharge inside the 145 to 172 mm range.",
-      ],
-      table: {
-        head: ["Bespoke spec", "Detail"],
-        rows: [
-          ["Width range", "145–172 mm, any millimetre"],
-          ["Shapes", "4 silhouettes, 60 colour and size combinations"],
-          ["Lead time", "2 weeks from order to shipping"],
-          ["Price", "$480, lenses included"],
-          ["Made", "Hand made in Greece, Italian Mazzucchelli acetate"],
-        ],
-      },
-    },
-    {
-      h2: "What to skip at this width",
-      body: [
-        "Skip anyone selling 165 mm acetate off the shelf without publishing hinge and rim specifications. Skip sizing up in lens width to compensate for a narrow front — a 60 mm lens on an 18 mm bridge still produces a narrow frame. And skip assuming a 158 mm frame will stretch; it will not.",
-      ],
-    },
-  ],
-  "168mm": [
-    {
-      h2: "Measure before you assume you need 168 mm",
-      body: [
-        "Stand square to a mirror, look straight ahead, and hold the ruler flat and level at eye level across the widest point of the head — usually just above and in front of the ears, not at the cheeks. Read temple to temple. A credit card is 85.6 mm by ISO standard and makes a useful calibration reference if you would rather photograph than measure.",
-        "FitLens does the same arithmetic from a single phone photo in about twenty seconds, and it will route you honestly: 155 to 161 mm goes to the signature 158 mm at $190, anything wider goes to a bespoke build.",
-      ],
-      table: {
-        head: ["Re-measured result", "Next step"],
-        rows: [
-          ["155–161 mm", "Signature 158 mm, $190"],
-          ["162–172 mm", "Bespoke, $480 with lenses"],
-          ["Above 172 mm", "Beyond our maximum — full custom locally"],
-        ],
-      },
-    },
-    {
-      h2: "Why the signature 158 mm cannot cover 168 mm",
-      body: [
-        "The signature 007 and 009 are milled at a 158 mm front for the 155 to 161 mm band, with roughly 3 mm of designed easing at the temples. At 168 mm you are 10 mm past that front width, which is not a tolerance — it is a different frame. Heating and bending acetate changes the temple angle, never the span of the front.",
-        "At 168 mm the shortfall shows as visible temple pressure within an hour and a frame front that stops short of the sides of your head. Bespoke removes the compromise entirely.",
-      ],
-    },
-    {
-      h2: "The bespoke build at 168 mm",
-      body: [
-        "Bespoke is not a bigger version of the signature — it is a separate build. Four shapes, sixty colour and size combinations, your front width cut to the millimetre, a keyhole bridge between 20 and 24 mm matched to your nose, and temple length set to your head rather than to a catalogue average.",
-        "The acetate is Mazzucchelli, milled in Milan. The frames themselves are hand made in Greece. Lead time is 2 weeks from order to shipping, and the price is $480 with lenses included — there is no separate lens upcharge and no width surcharge inside the 145 to 172 mm range.",
-      ],
-      table: {
-        head: ["Bespoke spec", "Detail"],
-        rows: [
-          ["Width range", "145–172 mm, any millimetre"],
-          ["Shapes", "4 silhouettes, 60 colour and size combinations"],
-          ["Lead time", "2 weeks from order to shipping"],
-          ["Price", "$480, lenses included"],
-          ["Made", "Hand made in Greece, Italian Mazzucchelli acetate"],
-        ],
-      },
-    },
-    {
-      h2: "What to skip at this width",
-      body: [
-        "Skip off-the-shelf frames marketed as XXL — almost all of them are built between 150 and 160 mm and will fail you. Skip metal frames sold as adjustable at this width: bending the arms changes the angle, not the front span. And skip buying by lens width alone; front width is the number that decides fit.",
-      ],
-    },
-  ],
-  "170mm": [
-    {
-      h2: "Measure before you assume you need 170 mm",
-      body: [
-        "Stand square to a mirror, look straight ahead, and hold the ruler flat and level at eye level across the widest point of the head — usually just above and in front of the ears, not at the cheeks. Read temple to temple. A credit card is 85.6 mm by ISO standard and makes a useful calibration reference if you would rather photograph than measure.",
-        "FitLens does the same arithmetic from a single phone photo in about twenty seconds, and it will route you honestly: 155 to 161 mm goes to the signature 158 mm at $190, anything wider goes to a bespoke build.",
-      ],
-      table: {
-        head: ["Re-measured result", "Next step"],
-        rows: [
-          ["155–161 mm", "Signature 158 mm, $190"],
-          ["162–172 mm", "Bespoke, $480 with lenses"],
-          ["Above 172 mm", "Beyond our maximum — full custom locally"],
-        ],
-      },
-    },
-    {
-      h2: "Why the signature 158 mm cannot cover 170 mm",
-      body: [
-        "The signature 007 and 009 are milled at a 158 mm front for the 155 to 161 mm band, with roughly 3 mm of designed easing at the temples. At 170 mm you are 12 mm past that front width, which is not a tolerance — it is a different frame. Heating and bending acetate changes the temple angle, never the span of the front.",
-        "At 170 mm the signature is not close enough to argue about. A bespoke front, cut to your measurement, is the only construction that holds alignment at this span.",
-      ],
-    },
-    {
-      h2: "The bespoke build at 170 mm",
-      body: [
-        "Bespoke is not a bigger version of the signature — it is a separate build. Four shapes, sixty colour and size combinations, your front width cut to the millimetre, a keyhole bridge between 20 and 24 mm matched to your nose, and temple length set to your head rather than to a catalogue average.",
-        "The acetate is Mazzucchelli, milled in Milan. The frames themselves are hand made in Greece. Lead time is 2 weeks from order to shipping, and the price is $480 with lenses included — there is no separate lens upcharge and no width surcharge inside the 145 to 172 mm range.",
-      ],
-      table: {
-        head: ["Bespoke spec", "Detail"],
-        rows: [
-          ["Width range", "145–172 mm, any millimetre"],
-          ["Shapes", "4 silhouettes, 60 colour and size combinations"],
-          ["Lead time", "2 weeks from order to shipping"],
-          ["Price", "$480, lenses included"],
-          ["Made", "Hand made in Greece, Italian Mazzucchelli acetate"],
-        ],
-      },
-    },
-    {
-      h2: "What to skip at this width",
-      body: [
-        "Skip off-the-shelf frames marketed as XXL — almost all of them are built between 150 and 160 mm and will fail you. Skip metal frames sold as adjustable at this width: bending the arms changes the angle, not the front span. And skip buying by lens width alone; front width is the number that decides fit.",
-      ],
-    },
-  ],
-  "172mm": [
-    {
-      h2: "Measure before you assume you need 172 mm",
-      body: [
-        "Stand square to a mirror, look straight ahead, and hold the ruler flat and level at eye level across the widest point of the head — usually just above and in front of the ears, not at the cheeks. Read temple to temple. A credit card is 85.6 mm by ISO standard and makes a useful calibration reference if you would rather photograph than measure.",
-        "FitLens does the same arithmetic from a single phone photo in about twenty seconds, and it will route you honestly: 155 to 161 mm goes to the signature 158 mm at $190, anything wider goes to a bespoke build.",
-      ],
-      table: {
-        head: ["Re-measured result", "Next step"],
-        rows: [
-          ["155–161 mm", "Signature 158 mm, $190"],
-          ["162–172 mm", "Bespoke, $480 with lenses"],
-          ["Above 172 mm", "Beyond our maximum — full custom locally"],
-        ],
-      },
-    },
-    {
-      h2: "Why the signature 158 mm cannot cover 172 mm",
-      body: [
-        "The signature 007 and 009 are milled at a 158 mm front for the 155 to 161 mm band, with roughly 3 mm of designed easing at the temples. At 172 mm you are 14 mm past that front width, which is not a tolerance — it is a different frame. Heating and bending acetate changes the temple angle, never the span of the front.",
-        "172 mm is the maximum front width we build. Above it we will tell you plainly that we cannot help, rather than sell a frame that will drift out of alignment.",
-      ],
-    },
-    {
-      h2: "The bespoke build at 172 mm",
-      body: [
-        "Bespoke is not a bigger version of the signature — it is a separate build. Four shapes, sixty colour and size combinations, your front width cut to the millimetre, a keyhole bridge between 20 and 24 mm matched to your nose, and temple length set to your head rather than to a catalogue average.",
-        "The acetate is Mazzucchelli, milled in Milan. The frames themselves are hand made in Greece. Lead time is 2 weeks from order to shipping, and the price is $480 with lenses included — there is no separate lens upcharge and no width surcharge inside the 145 to 172 mm range.",
-      ],
-      table: {
-        head: ["Bespoke spec", "Detail"],
-        rows: [
-          ["Width range", "145–172 mm, any millimetre"],
-          ["Shapes", "4 silhouettes, 60 colour and size combinations"],
-          ["Lead time", "2 weeks from order to shipping"],
-          ["Price", "$480, lenses included"],
-          ["Made", "Hand made in Greece, Italian Mazzucchelli acetate"],
-        ],
-      },
-    },
-    {
-      h2: "What to skip at this width",
-      body: [
-        "Skip off-the-shelf frames marketed as XXL — almost all of them are built between 150 and 160 mm and will fail you. Skip metal frames sold as adjustable at this width: bending the arms changes the angle, not the front span. And skip buying by lens width alone; front width is the number that decides fit.",
-      ],
-    },
-  ],
 };

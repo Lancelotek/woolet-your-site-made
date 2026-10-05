@@ -5,12 +5,12 @@ type Dict = Record<string, string>;
 const en: Dict = {
   // SEO
   "seo.title": "Frame Finder for Wide Faces — 155 mm+ | Woolet FitLens",
-  "seo.desc": "A frame finder built for wide faces. Scan with your phone camera and get your face width in millimetres plus the frame size that fits, in about 20 seconds.",
+  "seo.desc": "A frame finder built for wide faces. Scan with your phone camera and get your face width in millimetres plus the frame size that fits, in about 60 seconds.",
 
   // Welcome
   "welcome.eyebrow": "FITLENS · ~20-SECOND SCAN",
   "welcome.h1_pre": "Frame Finder for Wide Faces — Measure Your Face in",
-  "welcome.h1_em": "20 seconds",
+  "welcome.h1_em": "60 seconds",
   "welcome.subtitle": "Three steps. Photo never leaves your device until you capture.",
   "welcome.need_card_title": "You need a card for this scan",
   "welcome.need_card_why": "A standard payment card is an exact 85.60 mm ruler. We use its long edge to convert pixels in the photo into millimeters on your face — that's how a single selfie gives you a real frame width.",
@@ -40,12 +40,12 @@ const en: Dict = {
   // Desktop QR gate
   "desktop.eyebrow": "FITLENS · PHONE ONLY",
   "desktop.h1_pre": "Frame Finder for Wide Faces — Measure Your Face in",
-  "desktop.h1_em": "20 seconds",
-  "desktop.desc": "FitLens runs on your phone camera in about 20 seconds. Your photo stays in the browser — it isn't uploaded or saved. We ask for your email on the phone, after the measurement.",
+  "desktop.h1_em": "60 seconds",
+  "desktop.desc": "FitLens runs on your phone camera in about 60 seconds. Your photo stays in the browser — it isn't uploaded or saved. We ask for your email on the phone, after the measurement.",
   "desktop.step1": "Open the camera app on your phone and aim it at the QR code.",
   "desktop.step2": "Tap the link that appears — FitLens opens in your phone's browser.",
   "desktop.step3": "Hold a credit card flat on your forehead and follow the on-screen steps.",
-  "desktop.step4": "Your result appears on your phone in about 20 seconds.",
+  "desktop.step4": "Your result appears on your phone in about 60 seconds.",
   "desktop.fallback_summary": "Can't scan the QR code?",
   "desktop.fallback_text": "Open this link on your phone:",
 
@@ -218,11 +218,11 @@ const en: Dict = {
 
 const de: Dict = {
   ...en,
-  "seo.title": "Brillenfinder für breite Gesichter - Gesicht in 20 Sekunden messen",
-  "seo.desc": "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde in etwa 20 Sekunden die passende Woolet Fassung.",
+  "seo.title": "Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen",
+  "seo.desc": "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde in etwa 60 Sekunden die passende Woolet Fassung.",
   "welcome.eyebrow": "FITLENS · MESSUNG IN ETWA 20 SEKUNDEN",
   "welcome.h1_pre": "Brillenfinder für breite Gesichter - Gesicht in",
-  "welcome.h1_em": "20 Sekunden messen",
+  "welcome.h1_em": "60 Sekunden messen",
   "welcome.subtitle": "Drei Schritte. Dein Foto bleibt auf deinem Gerät, bis du auslöst.",
   "welcome.cta_fitlens": "Passform messen",
   "welcome.cta_unavailable": "Messung nicht verfügbar",

@@ -8,7 +8,7 @@ export const BLOG_FITLENS_HOOK_POSTS = new Set([
 ]);
 
 export const BLOG_FITLENS_HOOK = {
-  title: "Know your size in 20 seconds",
+  title: "Know your size in 60 seconds",
   body: "Your phone camera measures your face width and matches you to a frame. Free, no signup.",
   label: "Measure my face",
   href: "/en/fit",

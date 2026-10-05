@@ -1,3 +1,4 @@
+import { hreflangLinks } from "@/seo/hreflangLinks";
 import { commerceJson } from "@/lib/schema-offer";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -42,9 +43,7 @@ export default function DeKickstarter() {
         <title>Woolet Founders Edition - Für 1 € reservieren</title>
         <meta name="description" content="Reserviere für 1 € den Founding-Preis: 30 Fassungen für 109 €, danach 179 €. 158 mm breite Acetatfassungen für breite Gesichter, handgefertigt in der EU." />
         <link rel="canonical" href={`${SITE}/de/lp/kickstarter`} />
-        <link rel="alternate" hrefLang="de" href={`${SITE}/de/lp/kickstarter`} />
-        <link rel="alternate" hrefLang="en" href={`${SITE}/en/lp/kickstarter`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE}/en/lp/kickstarter`} />
+        {hreflangLinks("/de/lp/kickstarter")}
         <meta property="og:title" content="Woolet Founders Edition - Für 1 € reservieren" />
         <meta property="og:description" content="30 Fassungen für 109 €, danach 179 €. 1 € inkl. MwSt., vollständig anrechenbar und jederzeit erstattbar." />
         <meta property="og:type" content="website" />

@@ -398,11 +398,11 @@ function WelcomeStep({
   const steps = lang === "de" ? [
     { n: "01", title: "Passform messen antippen", body: "FitLens öffnet ein sicheres Fenster und fragt nach dem Kamerazugriff." },
     { n: "02", title: isMobile ? "Smartphone auf Armlänge halten" : "Auf Augenhöhe vor die Webcam setzen", body: "Gerade in die Kamera schauen, Haare zurücknehmen und Brille absetzen. Keine Karte, kein Lineal." },
-    { n: "03", title: "Maße erhalten", body: "Gesichtsbreite, Steg und PD in etwa 20 Sekunden - danach empfehlen wir 007, 009 oder Maßanfertigung." },
+    { n: "03", title: "Maße erhalten", body: "Gesichtsbreite, Steg und PD in etwa 60 Sekunden - danach empfehlen wir 007, 009 oder Maßanfertigung." },
   ] : [
     { n: "01", title: "Tap “Find my fit”", body: "FitLens opens in a secure window and asks for camera access." },
     { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your webcam at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
-    { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 20 seconds — then we route you to 007, 009 or bespoke." },
+    { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 60 seconds — then we route you to 007, 009 or bespoke." },
   ];
 
 
@@ -503,12 +503,12 @@ function WelcomeStep({
               {(lang === "de" ? [
                 "Genauigkeit bis ±1,5 mm - ein Maßband erreicht meist nur ±5 mm",
                 "Erfasst Gesichtsbreite, Steg und PD in einer Messung",
-                "Empfiehlt automatisch 007, 009 oder Maßanfertigung (145-172 mm)",
+                "Empfiehlt automatisch 007, 009 oder Maßanfertigung (145–160 mm)",
                 "Läuft im Browser. Es wird nichts hochgeladen.",
               ] : [
                 "Accurate to ±1.5 mm — a tape measure is ±5 mm at best",
                 "Captures face width, bridge and PD in one shot",
-                "Auto-routes to 007, 009 or bespoke (145–172 mm)",
+                "Auto-routes to 007, 009 or bespoke (145–160 mm)",
                 "Runs in your browser. Nothing uploaded.",
               ]).map((b) => (
                 <li
@@ -3610,7 +3610,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             </>
           ) : (
             <>
-              <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 172 mm</p>
+              <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 160 mm</p>
               <Link to="/de/bespoke" className="flex h-12 items-center justify-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-background no-underline">Maßanfertigung ansehen</Link>
             </>
           )
@@ -4143,7 +4143,7 @@ function ResultSentStep({
           </div>
         ) : (
           <div className="flex flex-col gap-3">
-            <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 172 mm</p>
+            <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 160 mm</p>
             <Link to="/de/bespoke" className="flex h-12 items-center justify-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-background no-underline">Maßanfertigung ansehen</Link>
           </div>
         )
@@ -5280,7 +5280,7 @@ export default function FitScan() {
                         </div>
                       ) : (
                         <div className="flex flex-col gap-3">
-                          <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 172 mm</p>
+                          <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 160 mm</p>
                           <Link to="/de/bespoke" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 font-body text-[11px] uppercase tracking-[0.2em] text-background">Maßanfertigung ansehen</Link>
                         </div>
                       )
@@ -5440,7 +5440,7 @@ export default function FitScan() {
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300, lineHeight: 1.1, margin: 0 }}
             >
               {lang === "de" ? "Gesicht messen in " : "Measure your face in "}
-              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>{lang === "de" ? "20 Sekunden" : "20 seconds"}</em>
+              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>{lang === "de" ? "60 Sekunden" : "60 seconds"}</em>
             </h2>
             <p
               style={{
@@ -5453,7 +5453,7 @@ export default function FitScan() {
                 color: MUTED,
               }}
             >
-              {lang === "de" ? "Gesichtsbreite, Steg und PD per Kamera - danach empfehlen wir 007, 009 oder Maßanfertigung (145-172 mm)." : "Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–172 mm)."}
+              {lang === "de" ? "Gesichtsbreite, Steg und PD per Kamera - danach empfehlen wir 007, 009 oder Maßanfertigung (145–160 mm)." : "Face width, bridge and PD from your camera — then we route you to 007, 009 or bespoke (145–160 mm)."}
             </p>
             <button
               type="button"

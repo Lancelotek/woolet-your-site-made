@@ -13,13 +13,13 @@ const WideFrameReadingGlasses = () => (
       "<strong>21 mm keyhole bridge spreads weight across a wider nose</strong> instead of pinching the bridge of the nose like narrow 16–18 mm pads. This matters for readers because they sit on the face for long uninterrupted sessions — books, screens, paperwork.",
       "<strong>Italian Mazzucchelli acetate</strong> instead of injection-moulded plastic. Acetate holds the adjustment your optician sets, doesn't creak, and ages with a depth that drugstore readers never reach.",
       "<strong>Reading powers +1.00 to +3.00 in 0.25 steps</strong>, fitted by our optical partner after the frame ships. Specify your power at checkout or send a recent prescription.",
-      "<strong>Bespoke 145–172 mm</strong> if 158 mm still isn't wide enough. Same acetate, same hand-finishing, scaled to your measurement. Confirm with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a>.",
+      "<strong>Bespoke 145–160 mm</strong> if 158 mm still isn't wide enough. Same acetate, same hand-finishing, scaled to your measurement. Confirm with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a>.",
     ]}
     faqs={[
       {
         question: "Do wide frame reading glasses exist for faces over 155 mm?",
         answer:
-          "They do, but they're rare. Most pharmacy and online readers cap at 142–145 mm front width. Woolet's wide frame readers are built on the same 158 mm fronts as our optical line, specifically for 155–161 mm faces (with bespoke from 145–172 mm).",
+          "They do, but they're rare. Most pharmacy and online readers cap at 142–145 mm front width. Woolet's wide frame readers are built on the same 158 mm fronts as our optical line, specifically for 155–161 mm faces (with bespoke from 145–160 mm).",
       },
       {
         question: "What reading powers are available?",

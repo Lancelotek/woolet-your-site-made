@@ -131,9 +131,9 @@ export default function HatGlassesCard(props: Props) {
         <div style={{ fontSize: 14, color: DIM, lineHeight: 1.6 }}>{r.verdict.body}</div>
       </div>
 
-      <a href={fitHref(medium)} onClick={onCta} style={btn}>Measure your exact width in 20 seconds</a>
+      <a href={fitHref(medium)} onClick={onCta} style={btn}>Measure your exact width in 60 seconds</a>
       <p style={{ fontSize: 12, color: DIM, margin: "10px 0 0", lineHeight: 1.6 }}>
-        Estimate from head size can be off by 4–5 mm. The 20-second face scan removes that.
+        Estimate from head size can be off by 4–5 mm. The 60-second face scan removes that.
       </p>
 
       <div style={{ borderTop: `1px solid ${LINE}`, marginTop: 20, paddingTop: 18 }}>

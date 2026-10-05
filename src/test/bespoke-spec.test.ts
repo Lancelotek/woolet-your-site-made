@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { BESPOKE_SPEC, BESPOKE_FRONT_WIDTH_RANGE } from "@/lib/bespoke-spec";
 
 /**
- * Guards the bespoke FRONT WIDTH range (145–172 mm) against drift.
+ * Guards the bespoke FRONT WIDTH range (145–160 mm) against drift.
  * Temple length (145–155 mm) and bridge (20–24 mm) are different
  * measurements and are intentionally not matched here.
  */
@@ -44,13 +44,13 @@ const BAD_RANGES = [
 ];
 
 describe("bespoke front width range", () => {
-  it("exposes 145–172 mm", () => {
+  it("exposes 145–160 mm", () => {
     expect(BESPOKE_SPEC.frontWidthMin).toBe(145);
-    expect(BESPOKE_SPEC.frontWidthMax).toBe(172);
-    expect(BESPOKE_FRONT_WIDTH_RANGE).toBe("145–172 mm");
+    expect(BESPOKE_SPEC.frontWidthMax).toBe(160);
+    expect(BESPOKE_FRONT_WIDTH_RANGE).toBe("145–160 mm");
   });
 
-  it("has no page string stating a bespoke front width other than 145–172 mm", () => {
+  it("has no page string stating a bespoke front width other than 145–160 mm", () => {
     const offenders: string[] = [];
     for (const root of ROOTS) {
       for (const file of walk(root)) {

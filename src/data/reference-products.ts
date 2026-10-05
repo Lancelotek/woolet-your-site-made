@@ -313,11 +313,11 @@ export const REF_PRODUCTS: RefProduct[] = [
       "Round - fully circular lenses, a keyhole bridge, no horizontal line anywhere. Because nothing runs straight across your brow, nothing marks the width.",
       "Rectangle - a heavy flat brow and tall squared lens openings. The least apologetic option: it does not soften the width, it frames it.",
       "Aviator - the double bridge draws a horizontal line across the top of your face, and a wide face reads that line as balance rather than width. Cut in acetate, not wire.",
-      `Every frame is cut by hand from ${BESPOKE_FACTS.material} in Greece. Production takes ${BESPOKE_FACTS.leadTime}. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect.`,
+      `Every frame is cut by hand from ${BESPOKE_FACTS.material} in the EU. Production takes ${BESPOKE_FACTS.leadTime}. Bespoke frames are cut to your individual measurements, so they are non-returnable except in the case of a manufacturing defect.`,
     ],
     specs: [
       ["Shapes", "Aviator, Rectangle, Crown Panto, Round"],
-      ["Width", "Any width 145-172 mm, built to measure"],
+      ["Width", "Any width 145–160 mm, built to measure"],
       ["Colours", "Full Mazzucchelli range - 60 colour and size combinations"],
       ["Lenses", "Standard prescription lenses included; specialty upgrades such as photochromic and progressive cost extra in the configurator"],
       ["Measurement", "AI-Fit scan from your phone camera"],

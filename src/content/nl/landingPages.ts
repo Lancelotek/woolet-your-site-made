@@ -29,11 +29,11 @@ export const nlPages: Record<string, NlPageConfig> = {
     eyebrow: "Woolet · Acetaat bril op maat",
     h1: "Acetaat bril op maat — gesneden op jouw gezicht, tot op de millimeter",
     sub: "Frontbreedte van 150 tot 165 mm, brug, veren en glashoogte individueel afgesteld. Italiaans Mazzucchelli 1849 acetaat, met de hand afgewerkt in de EU.",
-    metaTitle: "Acetaat bril op maat 145–172 mm | Woolet — Italiaans acetaat",
+    metaTitle: "Acetaat bril op maat 145–160 mm | Woolet — Italiaans acetaat",
     metaDescription:
-      "Acetaat bril op maat voor bredere gezichten: front 145–172 mm, brug 20–24 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in 20 s.",
+      "Acetaat bril op maat voor bredere gezichten: front 145–160 mm, brug 20–24 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in  60 s.",
     primaryKeyword: "acetaat bril op maat",
-    ctaPrimaryLabel: "Meet je gezicht (20 s)",
+    ctaPrimaryLabel: "Meet je gezicht (60 s)",
     ctaPrimaryHref: "/nl/fit",
     ctaSecondaryLabel: "Open configurator",
     ctaSecondaryHref: "/en/bespoke/configurator",
@@ -44,7 +44,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     proofBody:
       "We werken met Mazzucchelli 1849 acetaat, al ruim 70 jaar geproduceerd in Italië. Europese ateliers frezen, polijsten en zetten scharnieren per montuur afzonderlijk. Reken op circa 4–6 weken productie na bevestiging van de bestelling.",
     proofBullets: [
-      { label: "Frontbreedte", value: "145 – 172 mm" },
+      { label: "Frontbreedte", value: "145 – 160 mm" },
       { label: "Op maat", value: "front / brug / veren / hoogte" },
       { label: "Materiaal", value: "Mazzucchelli 1849, Italiaans acetaat" },
       { label: "Doorlooptijd", value: "4 – 6 weken, handmatig in EU" },
@@ -55,7 +55,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     faqs: [
       {
         q: "Hoe ver kunnen de afmetingen worden aangepast?",
-        a: "Front: 145–172 mm. Brug: 20–24 mm. Veren: 135–155 mm. Ook de glashoogte is instelbaar.",
+        a: "Front: 145–160 mm. Brug: 20–24 mm. Veren: 135–155 mm. Ook de glashoogte is instelbaar.",
       },
       {
         q: "Hoe verloopt de meting?",
@@ -85,7 +85,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     metaDescription:
       "Grote brillen voor heren met een breed gezicht: frontbreedte 155/158/161 mm, plus bespoke tot 165 mm. 21 mm keyhole-brug, Italiaans acetaat, handgemaakt in de EU.",
     primaryKeyword: "grote brillen heren",
-    ctaPrimaryLabel: "Meet je gezicht (20 s)",
+    ctaPrimaryLabel: "Meet je gezicht (60 s)",
     ctaPrimaryHref: "/nl/fit",
     ctaSecondaryLabel: "Bekijk de collectie",
     ctaSecondaryHref: "/nl/collection",
@@ -94,16 +94,16 @@ export const nlPages: Record<string, NlPageConfig> = {
       "Grote maten in de reguliere optiek stoppen meestal rond 148–150 mm. Voor gezichten van 155 mm en breder blijft er dan weinig over: monturen die knellen op de slapen, veren die te kort zijn en een brug die op je neus drukt. Woolet begint daar juist: alle standaardmaten zijn 155 mm of breder.",
     proofH2: "Twee vormen. Één eerlijk breedtebereik.",
     proofBody:
-      "De 007 (rond) en 009 (zacht vierkant) worden geleverd in drie precieze maten — 155, 158 en 161 mm — met een 21–22 mm keyhole-brug en veren van 148 mm. Wie erboven of eronder valt, gaat naar Bespoke: 145–172 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
+      "De 007 (rond) en 009 (zacht vierkant) worden geleverd in drie precieze maten — 155, 158 en 161 mm — met een 21–22 mm keyhole-brug en veren van 148 mm. Wie erboven of eronder valt, gaat naar Bespoke: 145–160 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
     proofBullets: [
       { label: "Standaardbreedte", value: "158 mm" },
-      { label: "Bespoke bereik", value: "145 – 172 mm" },
+      { label: "Bespoke bereik", value: "145 – 160 mm" },
       { label: "Brug", value: "21 – 22 mm keyhole" },
       { label: "Veren", value: "148 mm, hoek 11°" },
     ],
     closingH2: "Eindelijk een bril die past — zonder compromis op stijl",
     closingBody:
-      "Meet je gezicht in 20 seconden met FitLens en zie meteen welke maat past. Founding-leden krijgen circa 40% korting op de publieke lanceringsprijs.",
+      "Meet je gezicht in 60 seconden met FitLens en zie meteen welke maat past. Founding-leden krijgen circa 40% korting op de publieke lanceringsprijs.",
     faqs: [
       {
         q: "Vanaf welke gezichtsbreedte past een Woolet?",

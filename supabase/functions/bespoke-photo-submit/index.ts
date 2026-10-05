@@ -1,5 +1,5 @@
 // Records the post-purchase photo, its derived geometry and the consent that
-// permits it. Data controller: JAY23 LLC. The workshop in Greece reads this
+// permits it. Data controller: JAY23 LLC. The EU workshop reads this
 // only through the workshop package endpoint; the scan provider never sees it.
 
 import { createClient } from "npm:@supabase/supabase-js@2";

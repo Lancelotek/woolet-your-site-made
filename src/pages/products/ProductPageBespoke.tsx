@@ -1,3 +1,4 @@
+import { hreflangLinks } from "@/seo/hreflangLinks";
 import { commerceJson } from "@/lib/schema-offer";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -100,8 +101,7 @@ const ProductPageBespoke = () => {
         <title>{b.title}</title>
         <meta name="description" content={b.metaDescription} />
         <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en/bespoke`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/en/bespoke`} />
+        {hreflangLinks("/en/bespoke")}
         <meta property="og:type" content="product" />
         <meta property="og:title" content={b.ogTitle} />
         <meta property="og:description" content={b.ogDescription} />

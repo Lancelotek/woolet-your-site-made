@@ -198,9 +198,9 @@ export function FitBreadcrumbs({ current }: { current: "scan" | "manual" | "besp
 }
 
 const CLUSTER = [
-  { to: "/en/fit", label: "Virtual fit (camera scan)", note: "20 seconds, phone camera, ±1.5 mm." },
+  { to: "/en/fit", label: "Virtual fit (camera scan)", note: "60 seconds, phone camera, ±1.5 mm." },
   { to: "/en/fit/manual", label: "Manual measurement", note: "Tape measure, no camera needed." },
-  { to: "/en/fit/bespoke", label: "Bespoke fit", note: "Outside 155–161 mm? 145–172 mm built to measure." },
+  { to: "/en/fit/bespoke", label: "Bespoke fit", note: "Outside 155–161 mm? 145–160 mm built to measure." },
 ];
 
 export function FitClusterNav({ current }: { current: string }) {
@@ -326,7 +326,7 @@ export default function FitToolContent() {
                 "Render frames on your face — this is not a try-on mirror",
                 "Replace an eye test or produce a prescription",
                 "Judge whether a shape suits your taste",
-                "Guess. If you fall outside 145–172 mm it says so",
+                "Guess. If you fall outside 145–160 mm it says so",
               ].map((x) => (
                 <li key={x} className="text-cream-dim" style={{ fontFamily: "Barlow, sans-serif", fontSize: 14, lineHeight: 1.6, display: "flex", gap: 10 }}>
                   <span aria-hidden="true" style={{ width: 5, height: 5, borderRadius: "50%", background: "hsl(var(--muted-foreground))", marginTop: 8, flexShrink: 0 }} />
@@ -456,7 +456,7 @@ export default function FitToolContent() {
           <FitClusterNav current="/en/fit" />
         </div>
         <div style={{ marginTop: 32 }}>
-          <GoldScrollCta>Start the scan — 20 seconds</GoldScrollCta>
+          <GoldScrollCta>Start the scan — 60 seconds</GoldScrollCta>
         </div>
       </Section>
     </div>

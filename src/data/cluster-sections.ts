@@ -1,7 +1,7 @@
 /**
  * Long-form, per-length unique copy for the /en/temple/* landing cluster.
  * Signature temple length 150 mm; bespoke temple range 145–155 mm.
- * Front width context: signature 158 mm, bespoke 145–172 mm.
+ * Front width context: signature 158 mm, bespoke 145–160 mm.
  * Material: Mazzucchelli acetate from Milan. Hand made in EU.
  */
 
@@ -135,7 +135,7 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Ordering at 152 mm",
       body: [
-        "152 mm is a bespoke specification and can be paired with any front width from 145 to 172 mm, though it is most often ordered with 158 and 160 mm fronts. Lead time is six to eight weeks behind the standard batch.",
+        "152 mm is a bespoke specification and can be paired with any front width from 145 to 160 mm, though it is most often ordered with 158 and 160 mm fronts. Lead time is six to eight weeks behind the standard batch.",
       ],
     },
   ],
@@ -175,7 +175,7 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
 /**
  * Long-form, per-width unique copy for the /en/bridge/* landing cluster.
  * Signature bridges: 21 mm keyhole (007), 22 mm (009). Bespoke adjusts bridge
- * within the 145–172 mm front-width range.
+ * within the 145–160 mm front-width range.
  */
 export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
   "18mm": [
@@ -223,7 +223,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
       h2: "19 mm against the Woolet range",
       body: [
         "We start at 21 mm, so a 19 mm measurement sits 2 mm below our narrowest signature bridge. In practice a 2 mm gap is small enough that the 007 keyhole often still works: the keyhole shape carries its contact lower on the sides of the nose than a saddle bridge does, which tolerates a slightly narrower root than the nominal number suggests.",
-        "If you want it exact, bespoke can specify a 19 mm bridge on any front width from 145 to 172 mm.",
+        "If you want it exact, bespoke can specify a 19 mm bridge on any front width from 145 to 160 mm.",
       ],
       table: {
         head: ["Your bridge", "Best route"],
@@ -324,7 +324,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
           ["Bridge", "22 mm saddle"],
           ["Front width", "158 mm"],
           ["Lens", "54 × 50 mm"],
-          ["Alternative at 22 mm", "Bespoke, any front 145–172 mm"],
+          ["Alternative at 22 mm", "Bespoke, any front 145–160 mm"],
         ],
       },
     },

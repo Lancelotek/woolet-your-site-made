@@ -275,9 +275,9 @@ const BespokePage = () => {
   return (
     <>
       <SEO
-        title={lang === "de" ? "Maßanfertigung für breite Gesichter 145-172 mm | Woolet" : "Woolet Bespoke - Made-to-Measure Glasses"}
-        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
-        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145-172 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
+        title={lang === "de" ? "Maßanfertigung für breite Gesichter 145–160 mm | Woolet" : "Woolet Bespoke - Made-to-Measure Glasses"}
+        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145–160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU." : BESPOKE_META_DESCRIPTION}
+        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145–160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU." : BESPOKE_META_DESCRIPTION}
         lang={lang}
         path="/bespoke"
 
@@ -305,7 +305,7 @@ const BespokePage = () => {
                  {BESPOKE_FACTS.h1}
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
-                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in Greece (EU) for $480 USD including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra.
+                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for $480 USD including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra.
               </p>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
                 Photochromic lenses, often called transition lenses, darken outdoors and clear inside — see{" "}
@@ -524,7 +524,7 @@ const BespokePage = () => {
               Bespoke eyewear, <em className="italic text-gold-light">defined properly.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
-              Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145-172 mm, bridges from 20-24 mm and temples from 145-155 mm. The finished frame is made for one wearer.
+              Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-24 mm and temples from 145-155 mm. The finished frame is made for one wearer.
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
               The regular price is $480 USD with standard prescription lenses and free worldwide shipping. Specialty lens upgrades cost extra in the configurator. The $299 price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
@@ -548,7 +548,7 @@ const BespokePage = () => {
               The only bespoke glasses <em className="italic text-gold-light">built around wide faces.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145-172 mm, whether narrower, wider or inside the stock band.
+              Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145–160 mm, whether narrower, wider or inside the stock band.
             </p>
 
             <div
@@ -561,7 +561,7 @@ const BespokePage = () => {
                 { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "150 mm (007 and 009)" },
                 { label: "Measurement method", woolet: "Phone-camera scan and model approval", stock: "Fixed dimensions" },
                 { label: "Regular price", woolet: "$480 USD, standard prescription lenses and worldwide shipping included; specialty upgrades cost extra", stock: "See stock product pages" },
-                { label: "Made in", woolet: "Greece (EU), Italian acetate", stock: "EU" },
+                { label: "Made in", woolet: "EU, Italian acetate", stock: "EU" },
               ].map((row, i) => (
                 <div
                   key={row.label}
@@ -645,7 +645,7 @@ const BespokePage = () => {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {[
-                { n: "145-172 mm", t: "Front width", d: "A continuous made-to-measure range." },
+                { n: "145–160 mm", t: "Front width", d: "A continuous made-to-measure range." },
                 { n: "4", t: "Shapes", d: "Aviator, Rectangle, Crown Panto and Round." },
                 { n: "$0", t: "Consultation cost", d: "No studio visit, no travel, no measurement fee." },
               ].map((s) => (
@@ -673,11 +673,11 @@ const BespokePage = () => {
               Who bespoke is <em className="italic text-gold-light">actually for</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.95rem" }}>
-              Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145-172 mm, including narrower faces and customers seeking a one-of-one frame.
+              Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145–160 mm, including narrower faces and customers seeking a one-of-one frame.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
               {[
-                "Frame width 145-172 mm (outside the stock 158 mm front)",
+                "Frame width 145–160 mm (outside the stock 158 mm front)",
                 "Asymmetric ears or significant pantoscopic-tilt needs",
                 "Bridge width 20-24 mm, measured for the wearer's nose",
                 "Wearers who simply want a one-of-one frame, cut to their face",
@@ -731,10 +731,10 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in Greece (EU).
+              <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in the EU.
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-               The frame is hand made in Greece (EU) from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 10-year warranty.
+               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 5-year warranty.
             </p>
           </div>
         </section>

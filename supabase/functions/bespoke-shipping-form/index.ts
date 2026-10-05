@@ -11,7 +11,7 @@ const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE
 
 export const CONSENT_VERSION = "shipping-v1-2026-09";
 export const CONSENT_TEXT =
-  "I agree that Woolet (JAY23 LLC) uses this address and phone number to ship my order, and shares them with the courier and our workshop in Greece for the shipping label and customs documents.";
+  "I agree that Woolet (JAY23 LLC) uses this address and phone number to ship my order, and shares them with the courier and our workshop in the EU for the shipping label and customs documents.";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const REF_RE = /^WLT-BSP-\d{4}-\d{4,6}$/;

@@ -38,7 +38,7 @@ const BUCKETS: Record<BucketKey, Bucket> = {
     range: "145–154 mm",
     description:
       "Wider than average, narrower than our signature 158 mm front. Off-the-shelf wide frames rarely land here cleanly.",
-    recommendation: "Bespoke, built to your millimetre — 145 to 172 mm front width with a 20–24 mm bridge.",
+    recommendation: "Bespoke, built to your millimetre — 145 to 160 mm front width with a 20–24 mm bridge.",
     cta: { label: "See bespoke options →", href: "/en/bespoke" },
   },
   b155_160: {
@@ -55,8 +55,8 @@ const BUCKETS: Record<BucketKey, Bucket> = {
     label: "Above signature",
     range: "162 mm and above",
     description:
-      "Most brands stop at 150 mm. Our signature fits faces up to 161 mm and made-to-measure extends to 172 mm.",
-    recommendation: "From 162–172 mm, bespoke is your frame. Above 172 mm we do not build — there is no frame we can make honestly.",
+      "Most brands stop at 150 mm. Our signature fits faces up to 161 mm and made-to-measure extends to 160 mm.",
+    recommendation: "Above 161 mm, the widest Woolet front is 160 mm (bespoke); measure first. Above 160 mm we do not build — there is no frame we can make honestly.",
     cta: { label: "Join the VIP list →", href: "/en/lp/kickstarter" },
   },
 };
@@ -111,7 +111,7 @@ export default function FitManual() {
     <>
       <SEO
         title="Measure Your Face Width Manually — Woolet Fit Guide"
-        description="No camera needed. Measure your face width with a tape measure and get the matching Woolet size — signature 158 mm or bespoke 145–172 mm."
+        description="No camera needed. Measure your face width with a tape measure and get the matching Woolet size — signature 158 mm or bespoke 145–160 mm."
         lang="en"
         path="/fit/manual"
         jsonLd={{
@@ -128,7 +128,7 @@ export default function FitManual() {
             { "@type": "HowToStep", name: "Position the tape", text: "Hold a soft tape measure horizontally across your face, temple to temple, just in front of the ears and level with your eyebrows." },
             { "@type": "HowToStep", name: "Keep it flat", text: "Keep the tape straight and snug against the skin, not over the hair." },
             { "@type": "HowToStep", name: "Read the number", text: "Read the number where the tape meets — in centimeters or inches." },
-            { "@type": "HowToStep", name: "Match your size", text: "Enter it in the calculator to map your measurement to the signature (158 mm) or bespoke (145–172 mm) Woolet frame." },
+            { "@type": "HowToStep", name: "Match your size", text: "Enter it in the calculator to map your measurement to the signature (158 mm) or bespoke (145–160 mm) Woolet frame." },
           ],
         }}
       />
@@ -392,7 +392,7 @@ export default function FitManual() {
                 className="self-start"
                 style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.8rem", fontFamily: "Barlow, sans-serif", textDecoration: "underline", textUnderlineOffset: 4 }}
               >
-                ← Prefer the 20-second scan?
+                ← Prefer the 60-second scan?
               </Link>
             </div>
           </div>
