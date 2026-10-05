@@ -276,7 +276,7 @@ async function main() {
   const legacy = mod.LEGACY_REDIRECTS ?? {};
   let legacyCount = 0;
   for (const [from, to] of Object.entries(legacy)) {
-    if (from === "/index.html" || from === "/") continue; // SPA shell — router handles it
+    if (from === "/") continue;
     const target = `https://woolet.co${to}`;
     const page = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8" />
@@ -287,9 +287,19 @@ async function main() {
 <script>window.location.replace(${JSON.stringify(to)} + window.location.search + window.location.hash);</script>
 </head><body><p>This page has moved to <a href="${target}">${target}</a>.</p></body></html>
 `;
-    const variants = new Set([from, from.toLowerCase()]);
+    const variants = new Set([
+      from,
+      from.toLowerCase(),
+      encodeURI(from),
+      encodeURI(from).toLowerCase(),
+    ]);
     for (const v of variants) {
       if (routes.includes(v)) continue;
+      if (v === "/index.html") {
+        await writeFile(resolve(DIST, "index.html"), page, "utf8");
+        legacyCount += 1;
+        continue;
+      }
       const dir = resolve(DIST, "." + v);
       await mkdir(dir, { recursive: true });
       await writeFile(resolve(dir, "index.html"), page, "utf8");
@@ -316,6 +326,12 @@ async function main() {
   try {
     const fallbackPath = resolve(DIST, "index.html");
     let fallback = await readFile(fallbackPath, "utf8");
+    // /index.html is an explicit legacy URL. Its redirect stub was written
+    // above and must retain canonical + refresh with no robots noindex.
+    if (fallback.includes('name="woolet-legacy-redirect"')) {
+      console.log(`[prerender] kept dist/index.html as a legacy redirect to /en`);
+      return;
+    }
     // Strip any existing canonical/robots so we don't double up.
     fallback = fallback.replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, "");
     fallback = fallback.replace(/<meta\s+name=["']robots["'][^>]*>\s*/gi, "");

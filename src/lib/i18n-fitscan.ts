@@ -8,7 +8,7 @@ const en: Dict = {
   "seo.desc": "A frame finder built for wide faces. Scan with your phone camera and get your face width in millimetres plus the frame size that fits, in about 60 seconds.",
 
   // Welcome
-  "welcome.eyebrow": "FITLENS · ~20-SECOND SCAN",
+  "welcome.eyebrow": "FITLENS · ~60-SECOND SCAN",
   "welcome.h1_pre": "Frame Finder for Wide Faces — Measure Your Face in",
   "welcome.h1_em": "60 seconds",
   "welcome.subtitle": "Three steps. Photo never leaves your device until you capture.",
@@ -220,7 +220,7 @@ const de: Dict = {
   ...en,
   "seo.title": "Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen",
   "seo.desc": "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde in etwa 60 Sekunden die passende Woolet Fassung.",
-  "welcome.eyebrow": "FITLENS · MESSUNG IN ETWA 20 SEKUNDEN",
+  "welcome.eyebrow": "FITLENS · MESSUNG IN ETWA 60 SEKUNDEN",
   "welcome.h1_pre": "Brillenfinder für breite Gesichter - Gesicht in",
   "welcome.h1_em": "60 Sekunden messen",
   "welcome.subtitle": "Drei Schritte. Dein Foto bleibt auf deinem Gerät, bis du auslöst.",
