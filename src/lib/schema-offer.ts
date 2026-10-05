@@ -5,7 +5,7 @@
  * hasMerchantReturnPolicy and shippingDetails from commerce-schema.ts.
  * Existing absolute images and existing return policies are kept as-is.
  */
-import { RETURN_POLICY, SHIP_COUNTRIES, shippingDetails, PRICE_VALID_FROM } from "@/seo/commerce-schema";
+import { RETURN_POLICY, SHIP_COUNTRIES, shippingDetails, PRICE_VALID_FROM, priceValidUntil } from "@/seo/commerce-schema";
 
 const SITE = "https://woolet.co";
 export const PRODUCT_IMAGES = {
@@ -70,6 +70,7 @@ function fixReturnPolicy(p: unknown): Node {
 function fixOffer(o: Node, bespoke: boolean): Node {
   const out = { ...o };
   if (!out.validFrom) out.validFrom = PRICE_VALID_FROM;
+  if (!out.priceValidUntil) out.priceValidUntil = priceValidUntil();
   out.hasMerchantReturnPolicy = fixReturnPolicy(out.hasMerchantReturnPolicy);
   out.shippingDetails = out.shippingDetails ? fixShipping(out.shippingDetails, bespoke) : shippingDetails(bespoke);
   return out;

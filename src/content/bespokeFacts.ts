@@ -1,4 +1,4 @@
-import { SHIP_COUNTRIES, shippingDetails } from "@/seo/commerce-schema";
+import { SHIP_COUNTRIES, shippingDetails, priceValidUntil } from "@/seo/commerce-schema";
 
 export const BESPOKE_FACTS = {
   name: "Woolet Bespoke - made-to-measure eyeglasses",
@@ -103,6 +103,7 @@ export function bespokeProductJsonLd(url = "https://woolet.co/en/bespoke", image
     ],
     offers: {
       "@type": "Offer", price: "480.00", priceCurrency: "USD", availability: "https://schema.org/InStock", url,
+      priceValidUntil: priceValidUntil(),
       itemCondition: "https://schema.org/NewCondition", eligibleRegion: { "@type": "Place", name: "Worldwide" },
       // ISO 3166-1 alpha-2 codes + transitTime via the shared helper (GSC Merchant listings).
       shippingDetails: shippingDetails(true),
