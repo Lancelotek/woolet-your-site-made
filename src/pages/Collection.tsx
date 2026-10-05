@@ -180,7 +180,7 @@ const Collection = () => {
                     to={hrefFor("fit", lang)}
                     className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors"
                   >
-                    Not sure which? Scan your face in 20 seconds →
+                    Not sure which? Scan your face in 60 seconds →
                   </Link>
                 </p>
 

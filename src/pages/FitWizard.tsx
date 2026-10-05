@@ -2074,7 +2074,7 @@ export default function FitWizard() {
     <>
       <SEO
         title="FitLens Wizard — Measure Your Face | Woolet"
-        description="Step-by-step wizard for the Woolet FitLens measurement. Face width, bridge and PD in about 20 seconds."
+        description="Step-by-step wizard for the Woolet FitLens measurement. Face width, bridge and PD in about 60 seconds."
         noindex
         lang={lang}
         path="/fit"

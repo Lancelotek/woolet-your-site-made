@@ -392,7 +392,7 @@ export default function FitManual() {
                 className="self-start"
                 style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.8rem", fontFamily: "Barlow, sans-serif", textDecoration: "underline", textUnderlineOffset: 4 }}
               >
-                ← Prefer the 20-second scan?
+                ← Prefer the 60-second scan?
               </Link>
             </div>
           </div>

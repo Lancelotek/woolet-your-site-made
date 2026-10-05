@@ -135,7 +135,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
               fontWeight: 600,
             }}
           >
-            Scan your fit in 20 seconds →
+            Scan your fit in 60 seconds →
           </Link>
           <div style={{ fontSize: 11, color: "#888", marginTop: 14, letterSpacing: 0.3 }}>
             From $190. The shop is sold out until the Kickstarter campaign ends; order now with a $1 reservation that locks the $114 founding-member price.
@@ -384,7 +384,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
               Your face was never the problem.
             </h2>
             <p style={{ fontSize: 15, color: "#CCC", lineHeight: 1.7, margin: "0 0 22px" }}>
-              FitLens measures your face from your phone in 20 seconds and tells you exactly which Woolet frame fits — before you spend a cent.
+              FitLens measures your face from your phone in 60 seconds and tells you exactly which Woolet frame fits — before you spend a cent.
             </p>
             <Link
               to={ctaHref("-footer")}

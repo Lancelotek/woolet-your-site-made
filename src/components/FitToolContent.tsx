@@ -198,7 +198,7 @@ export function FitBreadcrumbs({ current }: { current: "scan" | "manual" | "besp
 }
 
 const CLUSTER = [
-  { to: "/en/fit", label: "Virtual fit (camera scan)", note: "20 seconds, phone camera, ±1.5 mm." },
+  { to: "/en/fit", label: "Virtual fit (camera scan)", note: "60 seconds, phone camera, ±1.5 mm." },
   { to: "/en/fit/manual", label: "Manual measurement", note: "Tape measure, no camera needed." },
   { to: "/en/fit/bespoke", label: "Bespoke fit", note: "Outside 155–161 mm? 145–160 mm built to measure." },
 ];
@@ -456,7 +456,7 @@ export default function FitToolContent() {
           <FitClusterNav current="/en/fit" />
         </div>
         <div style={{ marginTop: 32 }}>
-          <GoldScrollCta>Start the scan — 20 seconds</GoldScrollCta>
+          <GoldScrollCta>Start the scan — 60 seconds</GoldScrollCta>
         </div>
       </Section>
     </div>

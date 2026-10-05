@@ -42,7 +42,7 @@ export default function NlHub() {
         <title>Brillen voor brede gezichten & grote hoofden 155–161 mm | Woolet</title>
         <meta
           name="description"
-          content="Woolet — brede brillen voor grote hoofden in 155, 158 en 161 mm. Italiaans Mazzucchelli 1849 acetaat, handgemaakt in de EU. Meet je gezicht in 20 seconden."
+          content="Woolet — brede brillen voor grote hoofden in 155, 158 en 161 mm. Italiaans Mazzucchelli 1849 acetaat, handgemaakt in de EU. Meet je gezicht in 60 seconden."
         />
         <meta name="keywords" content="brillen voor brede gezichten, brede bril, bril grote hoofden, XXL bril heren, 161 mm bril, bril 160 mm, Mazzucchelli acetaat, bril brede neus" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -60,7 +60,7 @@ export default function NlHub() {
         <meta property="og:locale" content="nl_NL" />
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:title" content="Brillen voor brede gezichten & grote hoofden — Woolet 155–161 mm" />
-        <meta property="og:description" content="Italiaans Mazzucchelli-acetaat. Drie echte breedtes: 155, 158 en 161 mm. Gemeten, niet gegokt — met FitLens in 20 seconden." />
+        <meta property="og:description" content="Italiaans Mazzucchelli-acetaat. Drie echte breedtes: 155, 158 en 161 mm. Gemeten, niet gegokt — met FitLens in 60 seconden." />
         <meta property="og:url" content={`${SITE}/nl`} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
         <meta property="og:image:width" content="1200" />
@@ -69,7 +69,7 @@ export default function NlHub() {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Brillen voor brede gezichten & grote hoofden — Woolet" />
-        <meta name="twitter:description" content="155, 158 en 161 mm. Italiaans Mazzucchelli-acetaat. Meet je gezicht in 20 seconden." />
+        <meta name="twitter:description" content="155, 158 en 161 mm. Italiaans Mazzucchelli-acetaat. Meet je gezicht in 60 seconden." />
         <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
         <script type="application/ld+json">{JSON.stringify({
@@ -155,7 +155,7 @@ export default function NlHub() {
                 marginTop: 18,
               }}
             >
-              Italiaans Mazzucchelli 1849 acetaat. Drie echte breedtes: 155, 158 en 161 mm. Gemeten, niet gegokt — met FitLens in 20 seconden.
+              Italiaans Mazzucchelli 1849 acetaat. Drie echte breedtes: 155, 158 en 161 mm. Gemeten, niet gegokt — met FitLens in 60 seconden.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
@@ -173,7 +173,7 @@ export default function NlHub() {
                   textDecoration: "none",
                 }}
               >
-                Meet je gezicht — 20 seconden
+                Meet je gezicht — 60 seconden
               </Link>
               <Link
                 to="/nl/collection"

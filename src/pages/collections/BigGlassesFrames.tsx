@@ -20,7 +20,7 @@ const BigGlassesFrames = () => (
       "<strong>Arms that reach your ears.</strong> 150 mm temples clear the widest part of a larger head before they bend, so the bend sits behind the ear instead of pressing above it.",
       "<strong>A bridge for a wider nose.</strong> 21 mm on the 007 Round, 22 mm on the 009 Soft Square.",
       "<strong>Italian Mazzucchelli acetate, hand made in EU.</strong> Acetate holds the shape an optician sets, which matters more the wider the frame.",
-      "<strong>Eyeglasses $190. Sunglasses, blue light or readers $210.</strong> Outside 155-161 mm? <a href=\"/en/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers any width from 145 to 160 mm, hand made in the EU. Check your width with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a> in 20 seconds.",
+      "<strong>Eyeglasses $190. Sunglasses, blue light or readers $210.</strong> Outside 155-161 mm? <a href=\"/en/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers any width from 145 to 160 mm, hand made in the EU. Check your width with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a> in 60 seconds.",
     ]}
     extraSections={[
       {

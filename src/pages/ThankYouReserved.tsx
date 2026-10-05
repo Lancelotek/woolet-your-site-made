@@ -272,7 +272,7 @@ export default function ThankYouReserved() {
               {preparing ? "Preparing..." : "Download your summary"}
             </button>
             <Link to={FIT_URL} style={{ color: T.gold, fontSize: 14, textDecoration: "none" }}>
-              Not sure about your width? Measure it in 20 seconds →
+              Not sure about your width? Measure it in 60 seconds →
             </Link>
           </div>
 

@@ -42,7 +42,7 @@ export default function FrHub() {
         <title>Lunettes pour visages larges et grosses têtes 155–161 mm | Woolet</title>
         <meta
           name="description"
-          content="Woolet — lunettes larges pour grosses têtes en 155, 158 et 161 mm. Acétate italien Mazzucchelli 1849, fait main en UE. Mesurez votre visage en 20 secondes."
+          content="Woolet — lunettes larges pour grosses têtes en 155, 158 et 161 mm. Acétate italien Mazzucchelli 1849, fait main en UE. Mesurez votre visage en 60 secondes."
         />
         <meta name="keywords" content="lunettes pour visages larges, lunettes larges, lunettes grosses têtes, lunettes XXL homme, lunettes 161 mm, lunettes 160 mm, acétate Mazzucchelli, lunettes nez large" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -63,7 +63,7 @@ export default function FrHub() {
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:title" content="Lunettes pour visages larges et grosses têtes — Woolet 155–161 mm" />
-        <meta property="og:description" content="Acétate italien Mazzucchelli. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 20 secondes." />
+        <meta property="og:description" content="Acétate italien Mazzucchelli. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 60 secondes." />
         <meta property="og:url" content={`${SITE}/fr`} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
         <meta property="og:image:width" content="1200" />
@@ -72,7 +72,7 @@ export default function FrHub() {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Lunettes pour visages larges et grosses têtes — Woolet" />
-        <meta name="twitter:description" content="155, 158 et 161 mm. Acétate italien Mazzucchelli. Mesurez votre visage en 20 secondes." />
+        <meta name="twitter:description" content="155, 158 et 161 mm. Acétate italien Mazzucchelli. Mesurez votre visage en 60 secondes." />
         <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
         <script type="application/ld+json">{JSON.stringify({
@@ -158,7 +158,7 @@ export default function FrHub() {
                 marginTop: 18,
               }}
             >
-              Acétate italien Mazzucchelli 1849. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 20 secondes.
+              Acétate italien Mazzucchelli 1849. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 60 secondes.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
@@ -176,7 +176,7 @@ export default function FrHub() {
                   textDecoration: "none",
                 }}
               >
-                Mesurer mon visage — 20 s
+                Mesurer mon visage — 60 s
               </Link>
               <Link
                 to="/fr/collection"

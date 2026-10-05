@@ -87,7 +87,7 @@ export default function DeHub() {
 
       <section className="border-y border-border-sub bg-secondary px-5 py-16 sm:px-8 lg:px-16 lg:py-20">
         <div className="mx-auto grid max-w-[1100px] gap-8 md:grid-cols-2 md:items-center">
-          <div><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Nicht raten</p><h2 className="mt-3 font-display text-4xl font-light text-foreground">Gesicht in etwa 20 Sekunden messen.</h2><p className="mt-4 max-w-xl font-body leading-7 text-cream-dim">FitLens misst deine Gesichtsbreite und zeigt dir, ob Woolet 007, 009 oder eine Maßanfertigung zu dir passt.</p></div>
+          <div><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Nicht raten</p><h2 className="mt-3 font-display text-4xl font-light text-foreground">Gesicht in etwa 60 Sekunden messen.</h2><p className="mt-4 max-w-xl font-body leading-7 text-cream-dim">FitLens misst deine Gesichtsbreite und zeigt dir, ob Woolet 007, 009 oder eine Maßanfertigung zu dir passt.</p></div>
           <Link to="/de/fit" className="inline-flex min-h-12 items-center justify-center justify-self-start bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground no-underline">Passform messen</Link>
         </div>
       </section>

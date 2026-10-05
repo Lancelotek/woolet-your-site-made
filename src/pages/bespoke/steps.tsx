@@ -659,11 +659,11 @@ export function AiPreviewPanel({
         ) : loading ? (
           <div className="flex flex-col items-center gap-3 text-[color:var(--cfg-ink)]/70">
             <div className="h-8 w-8 border-2 border-[color:var(--cfg-ink)]/30 border-t-[color:var(--cfg-ink)] rounded-full animate-spin" />
-            <div role="status" className="text-[11px] uppercase tracking-[0.2em]">Generating your preview — about 20 seconds</div>
+            <div role="status" className="text-[11px] uppercase tracking-[0.2em]">Generating your preview — about 60 seconds</div>
           </div>
         ) : (
           <div className="text-[color:var(--cfg-ink)]/50 text-xs uppercase tracking-[0.2em]">
-            {budget.remaining > 0 ? "Tap to generate your preview · ~20 s" : "Preview limit reached for this session"}
+            {budget.remaining > 0 ? "Tap to generate your preview · ~60 s" : "Preview limit reached for this session"}
           </div>
         )}
         {!loading && (

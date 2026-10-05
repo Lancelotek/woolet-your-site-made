@@ -398,11 +398,11 @@ function WelcomeStep({
   const steps = lang === "de" ? [
     { n: "01", title: "Passform messen antippen", body: "FitLens öffnet ein sicheres Fenster und fragt nach dem Kamerazugriff." },
     { n: "02", title: isMobile ? "Smartphone auf Armlänge halten" : "Auf Augenhöhe vor die Webcam setzen", body: "Gerade in die Kamera schauen, Haare zurücknehmen und Brille absetzen. Keine Karte, kein Lineal." },
-    { n: "03", title: "Maße erhalten", body: "Gesichtsbreite, Steg und PD in etwa 20 Sekunden - danach empfehlen wir 007, 009 oder Maßanfertigung." },
+    { n: "03", title: "Maße erhalten", body: "Gesichtsbreite, Steg und PD in etwa 60 Sekunden - danach empfehlen wir 007, 009 oder Maßanfertigung." },
   ] : [
     { n: "01", title: "Tap “Find my fit”", body: "FitLens opens in a secure window and asks for camera access." },
     { n: "02", title: isMobile ? "Hold your phone at arm's length" : "Sit facing your webcam at eye level", body: "Face the camera straight on, push your hair back and take your glasses off. No card, no ruler." },
-    { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 20 seconds — then we route you to 007, 009 or bespoke." },
+    { n: "03", title: "Get your measurements", body: "Face width, bridge and PD in about 60 seconds — then we route you to 007, 009 or bespoke." },
   ];
 
 
@@ -5440,7 +5440,7 @@ export default function FitScan() {
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300, lineHeight: 1.1, margin: 0 }}
             >
               {lang === "de" ? "Gesicht messen in " : "Measure your face in "}
-              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>{lang === "de" ? "20 Sekunden" : "20 seconds"}</em>
+              <em className="italic" style={{ color: GOLD, fontStyle: "italic" }}>{lang === "de" ? "60 Sekunden" : "60 seconds"}</em>
             </h2>
             <p
               style={{
