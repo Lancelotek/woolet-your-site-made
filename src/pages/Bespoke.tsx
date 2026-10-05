@@ -734,7 +734,7 @@ const BespokePage = () => {
               <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in the EU.
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 10-year warranty.
+               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 5-year warranty.
             </p>
           </div>
         </section>

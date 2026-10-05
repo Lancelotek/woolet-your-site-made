@@ -40,7 +40,7 @@ const About = () => {
             Founding Member price, 40% off MSRP, while shop.woolet.co remains sold out through the
             Kickstarter campaign. Bespoke is $480, including standard prescription lenses and free
             worldwide shipping; the Kickstarter backer price is $299. Bespoke production takes two
-            weeks after approval of the 3D model, then shipping. Woolet frames carry a 10-year
+            weeks after approval of the 3D model, then shipping. Woolet frames carry a 5-year
             warranty.
           </p>
         </section>
