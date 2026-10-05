@@ -67,3 +67,4 @@
 - [x] Fix confirmed configurator taps, preview feedback, editing and payment navigation
 - [x] Fix Kickstarter image/text/FAQ taps and collection card links
 - [x] Resolve missing DE blog URL and test A1, A2, A4, D on mobile
+

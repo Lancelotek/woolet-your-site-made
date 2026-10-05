@@ -415,6 +415,7 @@ const App = () => (
           <Route path="/:lang/crm/gsc" element={<NotFound />} />
 
           {/* Legacy routes redirect */}
+          <Route path="/charging-mousepad" element={<RedirectKeepQuery to="/en" />} />
           <Route path="/privacy-policy" element={<Navigate to="/en/privacy-policy" replace />} />
           <Route path="/return-policy" element={<Navigate to="/en/return-policy" replace />} />
           <Route path="/privacy" element={<Navigate to="/en/privacy-policy" replace />} />
