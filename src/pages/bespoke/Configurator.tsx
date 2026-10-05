@@ -571,7 +571,7 @@ const ConfiguratorPage = () => {
               }
               handleMobileNext();
             }}
-            aria-disabled={step !== STEPS.length && !stepComplete}
+             data-incomplete={step !== STEPS.length && !stepComplete ? "true" : undefined}
             disabled={payPending}
             className="cfg-cta cfg-cta--mobile"
           >

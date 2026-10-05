@@ -2164,8 +2164,7 @@ export function StepNav({
       {!isLast && (
         <button
           onClick={onNext}
-          aria-disabled={!canNext}
-          className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium transition ${canNext ? "hover:bg-gold-light" : "opacity-40 cursor-not-allowed"}`}
+          className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium transition ${canNext ? "hover:bg-gold-light" : "opacity-60"}`}
         >
           Next <ChevronRight size={14} />
         </button>
