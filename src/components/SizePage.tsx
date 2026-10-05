@@ -415,7 +415,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
           </div>
         </section>
 
-        {/* Full width ladder 145 → 172 */}
+        {/* Full width ladder 145 → 160 */}
         <section aria-labelledby="related-sizes" style={{ ...wrap, padding: "32px 20px 8px" }}>
           <h2
             id="related-sizes"
@@ -431,7 +431,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
           </h2>
           <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6, margin: "0 0 14px" }}>
             Signature 158 mm fits 155–161 mm faces. Everything outside that band is a bespoke build,
-            up to our 172 mm maximum.
+            up to our 160 mm maximum.
           </p>
           <nav aria-label="Frame width ladder" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {SIZES.map((r) => {
