@@ -1036,7 +1036,7 @@ const KickstarterPrelaunch = () => {
   const [activeFormSuffix, setActiveFormSuffix] = useState("-final");
   const [reopenReserve, setReopenReserve] = useState(0);
   const focusSignupOrReserve = () => {
-    if (hasJoined && !hasResolved) {
+    if (hasJoined) {
       try {
         const saved = JSON.parse(sessionStorage.getItem("woolet_vip_confirm") ?? "null") as { email?: string } | null;
         if (saved?.email && EMAIL_RE.test(saved.email)) {
@@ -1504,7 +1504,7 @@ const KickstarterPrelaunch = () => {
             </p>
 
             <div id="vip-section-hero" style={{ marginTop: 28 }}>
-               <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} reopenReserve={activeFormSuffix === "-hero" ? reopenReserve : 0} />
+               <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} reopenReserve={reopenReserve} />
             </div>
 
             {/* Trust row */}
