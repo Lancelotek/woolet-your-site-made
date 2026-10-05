@@ -92,6 +92,8 @@ console.log(`[audit-head] scanning ${files.length} html file(s)…`);
 
 for (const file of files) {
   const html = await readFile(file, "utf8");
+  // Legacy redirect stubs (src/seo/legacyRedirects.ts) are not pages.
+  if (html.includes('name="woolet-legacy-redirect"')) continue;
   const route = routeFromPath(file);
 
   // Cross-file index -----------------------------------------------------
