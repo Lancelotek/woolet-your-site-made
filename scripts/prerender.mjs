@@ -75,7 +75,7 @@ const NOSCRIPT_OVERRIDES = {
   <p><strong>DEFINITION</strong><br>
   A wide face in eyewear terms means a face width above 145 mm measured temple-to-temple. Standard eyewear frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Woolet frames start at 158 mm — built for the faces that standard sizing cannot accommodate.</p>
 </div>
-<aside class="blog-fitlens-hook"><h2>Know your size in 20 seconds</h2><p>Your phone camera measures your face width and matches you to a frame. Free, no signup.</p><a href="/en/fit">Measure my face</a></aside>
+<aside class="blog-fitlens-hook"><h2>Know your size in 60 seconds</h2><p>Your phone camera measures your face width and matches you to a frame. Free, no signup.</p><a href="/en/fit">Measure my face</a></aside>
 <section>
   <h2>BY THE NUMBERS</h2>
   <ul>
@@ -91,7 +91,7 @@ const NOSCRIPT_OVERRIDES = {
       <tr><th>Brand</th><th>Frame width</th><th>Material</th><th>Bridge</th><th>Rx available</th><th>Starting price</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Woolet</strong></td><td><strong>158 mm (bespoke 145-172 mm)</strong></td><td><strong>Mazzucchelli acetate, Italy</strong></td><td><strong>21 mm keyhole</strong></td><td><strong>Yes</strong></td><td><strong>$114 pre-order</strong></td></tr>
+      <tr><td><strong>Woolet</strong></td><td><strong>158 mm (bespoke 145-160 mm)</strong></td><td><strong>Mazzucchelli acetate, Italy</strong></td><td><strong>21 mm keyhole</strong></td><td><strong>Yes</strong></td><td><strong>$114 pre-order</strong></td></tr>
       <tr><td>SizeGlasses</td><td>155–165 mm</td><td>TR90</td><td>up to 20 mm</td><td>Yes</td><td>$99</td></tr>
       <tr><td>BXL Eyewear</td><td>145–165 mm</td><td>TR90</td><td>up to 20 mm</td><td>Yes</td><td>$105</td></tr>
       <tr><td>Zenni Extended Fit</td><td>~138–148 mm</td><td>Various</td><td>up to 18 mm</td><td>Yes</td><td>$6.95</td></tr>
@@ -106,7 +106,7 @@ const NOSCRIPT_OVERRIDES = {
 <section id="faq">
   <h2>Frequently asked questions</h2>
   <h3>What face width do I need for Woolet glasses?</h3>
-  <p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 145 mm and 172 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
+  <p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 145 mm and 160 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
   <h3>Do Woolet frames work with progressive lenses?</h3>
   <p>Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require.</p>
   <h3>Why don't standard glasses fit wide faces?</h3>
