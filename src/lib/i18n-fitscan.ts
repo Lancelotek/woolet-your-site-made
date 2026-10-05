@@ -289,7 +289,7 @@ const pl: Dict = {
   "desktop.eyebrow": "SKAN DOPASOWANIA — TYLKO TELEFON",
   "desktop.h1_pre": "Skieruj aparat telefonu na",
   "desktop.h1_em": "kod QR",
-  "desktop.desc": "30-sekundowy skan wymaga aparatu w telefonie — o e-mail zapytamy w telefonie, po pomiarze.",
+  "desktop.desc": "60-sekundowy skan wymaga aparatu w telefonie — o e-mail zapytamy w telefonie, po pomiarze.",
   "desktop.step1": "Otwórz aparat w telefonie i wyceluj w kod QR.",
   "desktop.step2": "Dotknij linka, który się pojawi — skan otworzy się w przeglądarce telefonu.",
   "desktop.step3": "Przyłóż kartę kredytową płasko do czoła i postępuj zgodnie z instrukcjami.",
