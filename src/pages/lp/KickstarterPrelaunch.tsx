@@ -226,6 +226,7 @@ const VipForm = ({
   onJoined,
   onResolved,
   heroVariant = "default",
+  reopenReserve = 0,
 }: {
   utmSource: string;
   idSuffix?: string;
@@ -234,6 +235,7 @@ const VipForm = ({
   onJoined?: () => void;
   onResolved?: () => void;
   heroVariant?: string;
+  reopenReserve?: number;
 }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -248,6 +250,16 @@ const VipForm = ({
   const [step, setStep] = useState<1 | 2>(1);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const step2ViewedRef = useRef(false);
+
+  useEffect(() => {
+    if (!reopenReserve) return;
+    try {
+      const saved = JSON.parse(sessionStorage.getItem("woolet_vip_confirm") ?? "null") as { email?: string } | null;
+      if (!saved?.email || !EMAIL_RE.test(saved.email)) return;
+      setEmail(saved.email);
+      setStep(2);
+    } catch { /* email form remains available */ }
+  }, [reopenReserve]);
 
   const formLocation = idSuffix ? idSuffix.replace(/^-/, "") : "default";
 
@@ -1022,6 +1034,19 @@ const KickstarterPrelaunch = () => {
   // Which form the visitor joined through, so the sticky bar can scroll
   // back to that form's step-2 block.
   const [activeFormSuffix, setActiveFormSuffix] = useState("-final");
+  const [reopenReserve, setReopenReserve] = useState(0);
+  const focusSignupOrReserve = () => {
+    if (hasJoined && !hasResolved) {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem("woolet_vip_confirm") ?? "null") as { email?: string } | null;
+        if (saved?.email && EMAIL_RE.test(saved.email)) {
+          setReopenReserve((n) => n + 1);
+          return;
+        }
+      } catch { /* fall through to the email form */ }
+    }
+    scrollToEmailInput("vip-form-hero");
+  };
   useEffect(() => {
     try {
       setHasJoined(localStorage.getItem(VIP_JOINED_KEY) === "1");
@@ -1383,7 +1408,7 @@ const KickstarterPrelaunch = () => {
             </button>
             <Button type="button" aria-label="Previous image" onClick={() => moveGallery(-1)} className="absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 border border-border bg-background/90 text-foreground text-2xl rounded-none">‹</Button>
             <Button type="button" aria-label="Next image" onClick={() => moveGallery(1)} className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 border border-border bg-background/90 text-foreground text-2xl rounded-none">›</Button>
-            <span className="absolute bottom-3 right-3 bg-background/90 text-foreground text-xs px-3 py-2" aria-live="polite">{activeImg + 1} / {heroGallery.length}</span>
+            <span className="absolute bottom-3 right-3 bg-background/90 text-foreground text-xs px-3 py-2 pointer-events-none" aria-live="polite">{activeImg + 1} / {heroGallery.length}</span>
             </div>
             <div
               className="mt-4 flex gap-2 overflow-x-auto"
@@ -1479,7 +1504,7 @@ const KickstarterPrelaunch = () => {
             </p>
 
             <div id="vip-section-hero" style={{ marginTop: 28 }}>
-              <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} />
+               <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} reopenReserve={activeFormSuffix === "-hero" ? reopenReserve : 0} />
             </div>
 
             {/* Trust row */}
@@ -1697,7 +1722,11 @@ const KickstarterPrelaunch = () => {
                 </button>
 
                 <div style={{ padding: "28px 24px" }}>
-                  <div style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</div>
+                  <button type="button" onClick={(e) => openLightbox(CARD_LIGHTBOX_INDEX[m.name], "gallery", e.currentTarget)} className="block text-left cursor-zoom-in" aria-label={`View larger image of ${m.name}`}>
+                    <span style={{ ...eyebrowStyle, color: TAUPE }}>{m.shape}</span>
+                    <span className="block font-display text-foreground text-[1.75rem]">{m.name}</span>
+                    <span className="block text-muted-foreground text-xs">Mazzucchelli acetate, hand finished</span>
+                  </button>
                   <div className="flex items-start justify-between gap-4" style={{ marginTop: 4 }}>
                     <h3
                       style={{
@@ -1707,9 +1736,9 @@ const KickstarterPrelaunch = () => {
                         color: CREAM,
                       }}
                     >
-                      {m.name}
+                      <span className="sr-only">{m.name}</span>
                     </h3>
-                    <div style={{ textAlign: "right", flexShrink: 0 }}>
+                    <button type="button" onClick={focusSignupOrReserve} aria-label={`Join the VIP list for ${m.name}`} style={{ textAlign: "right", flexShrink: 0, cursor: "pointer" }}>
                       <div style={{ display: "flex", alignItems: "baseline", gap: 8, justifyContent: "flex-end" }}>
                         <span
                           style={{
@@ -1742,7 +1771,7 @@ const KickstarterPrelaunch = () => {
                       >
                         Kickstarter Early Bird
                       </span>
-                    </div>
+                    </button>
                   </div>
                   {/* TODO: do not change these millimetre figures without sign-off from production. */}
                   <div className="mt-5 flex items-start gap-5">
