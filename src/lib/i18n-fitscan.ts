@@ -263,7 +263,7 @@ const pl: Dict = {
 
   "welcome.eyebrow": "SKAN DOPASOWANIA W 60 SEKUND",
   "welcome.h1_pre": "Zmierz twarz w",
-  "welcome.h1_em": "30 sekund",
+  "welcome.h1_em": "60 sekund",
   "welcome.subtitle": "Trzy kroki. Zdjęcie nie opuszcza urządzenia, dopóki go nie wykonasz.",
   "welcome.need_card_title": "Do skanu potrzebujesz karty",
   "welcome.need_card_body_a": "Weź dowolną kartę kredytową, debetową lub dowód. Dłuższa krawędź musi mieć",
@@ -293,7 +293,7 @@ const pl: Dict = {
   "desktop.step1": "Otwórz aparat w telefonie i wyceluj w kod QR.",
   "desktop.step2": "Dotknij linka, który się pojawi — skan otworzy się w przeglądarce telefonu.",
   "desktop.step3": "Przyłóż kartę kredytową płasko do czoła i postępuj zgodnie z instrukcjami.",
-  "desktop.step4": "Wynik pojawi się na telefonie po około 30 sekundach.",
+  "desktop.step4": "Wynik pojawi się na telefonie po około 60 sekundach.",
   "desktop.fallback_summary": "Nie możesz zeskanować kodu QR?",
   "desktop.fallback_text": "Otwórz ten link w telefonie:",
 
@@ -455,7 +455,7 @@ const fr: Dict = {
 
   "welcome.eyebrow": "SCAN DE TAILLE EN 60 SECONDES",
   "welcome.h1_pre": "Mesurez votre visage en",
-  "welcome.h1_em": "30 secondes",
+  "welcome.h1_em": "60 secondes",
   "welcome.subtitle": "Trois étapes. La photo ne quitte pas votre appareil avant la capture.",
   "welcome.need_card_title": "Il vous faut une carte",
   "welcome.need_card_body_a": "Prenez n'importe quelle carte de crédit, débit ou ID. Le grand côté doit mesurer",
@@ -481,11 +481,11 @@ const fr: Dict = {
   "desktop.eyebrow": "SCAN DE TAILLE — MOBILE UNIQUEMENT",
   "desktop.h1_pre": "Pointez la caméra de votre téléphone vers le",
   "desktop.h1_em": "code QR",
-  "desktop.desc": "Le scan de 30 secondes nécessite une caméra de téléphone — nous demanderons votre email sur le téléphone, après la mesure.",
+  "desktop.desc": "Le scan de 60 secondes nécessite une caméra de téléphone — nous demanderons votre email sur le téléphone, après la mesure.",
   "desktop.step1": "Ouvrez l'appareil photo de votre téléphone et visez le code QR.",
   "desktop.step2": "Touchez le lien affiché — le scan s'ouvre dans le navigateur du téléphone.",
   "desktop.step3": "Tenez une carte bancaire à plat sur le front et suivez les étapes à l'écran.",
-  "desktop.step4": "Le résultat apparaît sur votre téléphone en ~30 secondes.",
+  "desktop.step4": "Le résultat apparaît sur votre téléphone en ~60 secondes.",
   "desktop.fallback_summary": "Impossible de scanner le code QR ?",
   "desktop.fallback_text": "Ouvrez ce lien sur votre téléphone :",
 
@@ -641,7 +641,7 @@ const es: Dict = {
 
   "welcome.eyebrow": "ESCANEO DE TALLA EN 60 SEGUNDOS",
   "welcome.h1_pre": "Mide tu cara en",
-  "welcome.h1_em": "30 segundos",
+  "welcome.h1_em": "60 segundos",
   "welcome.subtitle": "Tres pasos. La foto no sale de tu dispositivo hasta que la capturas.",
   "welcome.need_card_title": "Necesitas una tarjeta para este escaneo",
   "welcome.need_card_body_a": "Coge cualquier tarjeta de crédito, débito o de identidad. El lado largo debe medir",
@@ -667,11 +667,11 @@ const es: Dict = {
   "desktop.eyebrow": "ESCANEO — SOLO MÓVIL",
   "desktop.h1_pre": "Apunta la cámara del móvil al",
   "desktop.h1_em": "código QR",
-  "desktop.desc": "El escaneo de 30 segundos necesita una cámara de móvil — pediremos tu email en el móvil, tras la medición.",
+  "desktop.desc": "El escaneo de 60 segundos necesita una cámara de móvil — pediremos tu email en el móvil, tras la medición.",
   "desktop.step1": "Abre la cámara del móvil y apunta al código QR.",
   "desktop.step2": "Toca el enlace que aparece — el escaneo se abre en el navegador del móvil.",
   "desktop.step3": "Apoya una tarjeta de crédito plana en la frente y sigue los pasos en pantalla.",
-  "desktop.step4": "El resultado aparece en tu móvil en unos 30 segundos.",
+  "desktop.step4": "El resultado aparece en tu móvil en unos 60 segundos.",
   "desktop.fallback_summary": "¿No puedes escanear el código QR?",
   "desktop.fallback_text": "Abre este enlace en tu móvil:",
 
