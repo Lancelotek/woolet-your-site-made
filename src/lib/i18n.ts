@@ -528,7 +528,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "matrix.sku_bespoke": "صناعة خاصة",
     "matrix.custom_badge": "حسب الطلب",
     "matrix.face_any": "أي عرض من 145 إلى 160 ملم",
-    "matrix.width_bespoke": "145–172 ملم",
+    "matrix.width_bespoke": "145–160 ملم",
     "matrix.lens_custom": "حسب الطلب",
     "matrix.m_width": "العرض",
     "matrix.m_bridge": "الجسر",

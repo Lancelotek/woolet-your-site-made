@@ -10,7 +10,7 @@ const RECS = [
   },
   {
     minFaceWidthMm: 159,
-    maxFaceWidthMm: 172,
+    maxFaceWidthMm: 160,
     recommendation: "Woolet Bespoke — cut to your exact face width (145–160 mm).",
     url: "https://woolet.co/en/bespoke",
   },
@@ -50,7 +50,7 @@ export default defineTool({
           type: "text",
           text: match
             ? `${match.recommendation} (${match.url})`
-            : `Face width ${faceWidthMm} mm exceeds Woolet Bespoke's 172 mm max. Contact support@woolet.co.`,
+            : `Face width ${faceWidthMm} mm exceeds Woolet Bespoke's 160 mm max. Contact support@woolet.co.`,
         },
       ],
       structuredContent: { faceWidthMm, match: match ?? null },

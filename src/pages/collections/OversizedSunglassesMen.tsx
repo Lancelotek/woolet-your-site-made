@@ -12,7 +12,7 @@ const OversizedSunglassesMen = () => (
       "The two failure modes of oversized eyewear on men are equally common. Either the lens is large but the front is still narrow, so the frame pinches the temples and only looks oversized in photos. Or the front is wide but the lens is tiny, which produces the unflattering <em>too-small face</em> effect. Woolet scales both axes together at 158 mm — see the full range of <a href=\"/en/collections/big-glasses-frames\" style=\"color:#A07A2A;\">oversized glasses</a>.",
       "If you have ever bought sunglasses that fit your face but felt loose at the temples after an hour, the cause is almost always plastic rather than acetate. Cellulose acetate holds its set; cheap TR-90 and injection-moulded plastic loosen under heat. At 158 mm of front width, that effect is amplified.",
       "Pricing matches the rest of the line: $210 with UV400 sun lenses, $190 for the same frame as eyeglasses with demo lenses ready for your prescription. The <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> confirms 158 mm is right for you, or run the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a> if you prefer not to use the camera.",
-      "Bespoke is available for face widths from 145 to 160 mm, in four shapes. Same Italian Mazzucchelli acetate, hand made in Greece to your measurement, from $480 with lenses included.",
+      "Bespoke is available for face widths from 145 to 160 mm, in four shapes. Same Italian Mazzucchelli acetate, hand made in the EU to your measurement, from $480 with lenses included.",
     ]}
     faqs={[
       { question: "What counts as oversized sunglasses for men?", answer: "We use the front width as the honest measure. Oversized starts at 155 mm. Woolet's standard front is 158 mm, with bespoke covering 145 to 160 mm. Most mainstream men's sunglasses are 138–148 mm." },
@@ -20,7 +20,7 @@ const OversizedSunglassesMen = () => (
       { question: "What lenses do the sunglasses use?", answer: "UV400 sun lenses as standard — 100% UVA/UVB protection, category 3 tint in grey or brown. $210 for the complete pair. The same frame is $190 as eyeglasses with demo lenses ready for your prescription." },
       { question: "Will they fit over my prescription glasses?", answer: "No — these are designed as either standalone sunglasses or prescription sunglasses. Bring the frame to your optician for tinted Rx lenses." },
       { question: "How do they sit on a wide nose?", answer: "The 21 mm keyhole bridge on the 007 and the 22 mm bridge on the 009 are engineered specifically for wider noses — wider than the 18–20 mm bridges typical of mainstream oversized frames — so the frame distributes weight without riding up." },
-      { question: "What is the delivery timeline?", answer: "Signature 158 mm frames ship from stock. Bespoke frames are hand made in Greece and take two weeks from confirmed measurements to shipping." },
+      { question: "What is the delivery timeline?", answer: "Signature 158 mm frames ship from stock. Bespoke frames are hand made in the EU and take two weeks from confirmed measurements to shipping." },
     ]}
     extraSections={[
       {

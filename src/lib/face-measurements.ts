@@ -266,7 +266,7 @@ export type RecommendationType =
   | "standard_face_wide_bridge"   // 009 fallback
   | "standard_fit"                // 007 fallback
   | "bespoke_small_face"          // face narrower than 158mm stock
-  | "bespoke_extra_wide";         // face beyond 172mm
+  | "bespoke_extra_wide";         // face beyond 160mm
 
 export interface Recommendation {
   type: RecommendationType;
@@ -315,7 +315,7 @@ export function hasBridgeHint(a: BridgeQuizAnswers | null | undefined): boolean 
 // meaningfully below that (or well above), a bespoke cut is the honest answer.
 const STOCK_WIDTH_MM = 158;
 const BESPOKE_SMALL_THRESHOLD_MM = 152; // face narrower than this → stock 158 will overhang
-const BESPOKE_WIDE_THRESHOLD_MM = 172;  // beyond top of stock range → bespoke
+const BESPOKE_WIDE_THRESHOLD_MM = 160;  // beyond top of stock range → bespoke
 
 export function getRecommendation(
   faceWidthMm: number,

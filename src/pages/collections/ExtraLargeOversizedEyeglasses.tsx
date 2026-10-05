@@ -14,7 +14,7 @@ const ExtraLargeOversizedEyeglasses = () => (
       "<strong>Italian Mazzucchelli acetate, hand made in EU.</strong> The same cellulose acetate block material used by Persol and Tom Ford. At extra large widths, cheap injection-moulded plastic warps under heat — acetate holds the set an optician gives it.",
       "<strong>21–22 mm keyhole bridge</strong> — wider than the 18–20 mm typical of mainstream <em>extra large</em> frames — distributes weight evenly on a wider nose without leaving pressure marks. Temples run 150 mm on both shapes.",
       "<strong>Prescription-ready.</strong> Single-vision, progressive, blue-light filter, or UV400 sun lenses. Lens area is generous enough for progressives without edge distortion: 52 × 52 mm on 007 round, 54 × 50 mm on 009 soft square.",
-      "<strong>Bespoke 145–160 mm</strong> if you fall outside 155–161 mm. Same Italian acetate, hand made in Greece to your scan. Confirm your size with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> or the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a>.",
+      "<strong>Bespoke 145–160 mm</strong> if you fall outside 155–161 mm. Same Italian acetate, hand made in the EU to your scan. Confirm your size with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> or the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a>.",
       "<strong>Looking for the full oversized range?</strong> See all <a href=\"/en/collections/big-glasses-frames\" style=\"color:#A07A2A;\">oversized glasses</a>, including sunglasses and both shapes.",
     ]}
     faqs={[
@@ -41,7 +41,7 @@ const ExtraLargeOversizedEyeglasses = () => (
       {
         question: "Can I go larger than 158 mm?",
         answer:
-          "Yes. Bespoke covers 145 to 160 mm of front width in four shapes, with a 20–24 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in Greece to your measurement, from $480 with lenses included.",
+          "Yes. Bespoke covers 145 to 160 mm of front width in four shapes, with a 20–24 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in the EU to your measurement, from $480 with lenses included.",
       },
       {
         question: "How do I know if I need extra large?",

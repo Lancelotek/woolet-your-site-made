@@ -14,7 +14,7 @@ const OversizedBlackGlasses = () => (
       "<strong>Hand-polished bevels.</strong> Black is unforgiving — every machining mark shows. The 007 and 009 are hand-finished so the edge catches light cleanly instead of looking dusty.",
       "<strong>21–22 mm keyhole bridge</strong> distributes weight on a wider nose and keeps the bridge from rocking — critical for an oversized black frame where any tilt is visually obvious.",
       "<strong>Two shapes</strong>: the round 007 reads as classic, the soft-square 009 reads as structured. Same 158 mm front, same 150 mm temples, same Italian Mazzucchelli acetate, hand made in EU — pick by face shape and intent.",
-      "<strong>Bespoke 145–160 mm</strong> in the same deep black acetate if standard isn't wide enough, hand made in Greece from $480.",
+      "<strong>Bespoke 145–160 mm</strong> in the same deep black acetate if standard isn't wide enough, hand made in the EU from $480.",
     ]}
     faqs={[
       {

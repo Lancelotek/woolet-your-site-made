@@ -276,8 +276,8 @@ const BespokePage = () => {
     <>
       <SEO
         title={lang === "de" ? "Maßanfertigung für breite Gesichter 145–160 mm | Woolet" : "Woolet Bespoke - Made-to-Measure Glasses"}
-        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145–160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
-        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145–160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in Griechenland (EU)." : BESPOKE_META_DESCRIPTION}
+        description={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145–160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU." : BESPOKE_META_DESCRIPTION}
+        ogDescription={lang === "de" ? "Brillen nach Maß für breite Gesichter von 145–160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU." : BESPOKE_META_DESCRIPTION}
         lang={lang}
         path="/bespoke"
 
@@ -305,7 +305,7 @@ const BespokePage = () => {
                  {BESPOKE_FACTS.h1}
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
-                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in Greece (EU) for $480 USD including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra.
+                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for $480 USD including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra.
               </p>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
                 Photochromic lenses, often called transition lenses, darken outdoors and clear inside — see{" "}
@@ -561,7 +561,7 @@ const BespokePage = () => {
                 { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "150 mm (007 and 009)" },
                 { label: "Measurement method", woolet: "Phone-camera scan and model approval", stock: "Fixed dimensions" },
                 { label: "Regular price", woolet: "$480 USD, standard prescription lenses and worldwide shipping included; specialty upgrades cost extra", stock: "See stock product pages" },
-                { label: "Made in", woolet: "Greece (EU), Italian acetate", stock: "EU" },
+                { label: "Made in", woolet: "EU, Italian acetate", stock: "EU" },
               ].map((row, i) => (
                 <div
                   key={row.label}
@@ -731,10 +731,10 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in Greece (EU).
+              <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in the EU.
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-               The frame is hand made in Greece (EU) from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 10-year warranty.
+               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 10-year warranty.
             </p>
           </div>
         </section>

@@ -2258,18 +2258,11 @@ export function renderHeadHtml(meta: RouteMeta): string {
   tags.push(`<link rel="canonical" href="${meta.canonical}"${D} />`);
   if (meta.robots) tags.push(`<meta name="robots" content="${meta.robots}"${D} />`);
 
-  // hreflang — sourced from src/i18n/routeRegistry.ts (single source of
-  // truth). Only emit alternates when the canonical URL belongs to a
-  // multi-locale cluster where every URL renders 200 with a
-  // self-referencing canonical. Pages with no translation cluster get
-  // NO hreflang block (a lone self-reference is noise). Pages that
-  // define custom `meta.alternates` (e.g. many-to-one landing groups)
-  // bypass this and emit whatever they declared.
-  if (meta.alternates) {
-    for (const [hreflang, href] of Object.entries(meta.alternates)) {
-      tags.push(`<link rel="alternate" hreflang="${hreflang}" href="${href}"${D} />`);
-    }
-  } else {
+  // hreflang — sourced ONLY from src/i18n/routeRegistry.ts (single source
+  // of truth, shared with the sitemap's xhtml:link entries). The registry
+  // enforces reciprocity; pages without a true 1:1 twin emit NO hreflang
+  // block. Per-route `meta.alternates` is ignored on purpose.
+  {
     const path = meta.canonical.replace(SITE_URL, "");
     const alts = hreflangAlternates(path, SITE_URL);
     if (alts) {

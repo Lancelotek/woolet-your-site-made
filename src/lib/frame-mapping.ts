@@ -17,7 +17,7 @@ export const MAPPING_VERSION = "map-v2";
 
 /** Front width stays inside the bespoke build range whatever the scan says. */
 export const FRONT_WIDTH_MIN_MM = 145;
-export const FRONT_WIDTH_MAX_MM = 172;
+export const FRONT_WIDTH_MAX_MM = 160;
 
 /** Allowance added to temple-to-temple. Rule range +0..3 mm; we cut at +2. */
 export const FRONT_WIDTH_ALLOWANCE_MM = 2;

@@ -39,7 +39,7 @@ var list_products_default = defineTool({
         id: "bespoke",
         name: "Woolet Bespoke",
         shape: "Made-to-measure (Aviator / Rectangle / Crown Panto / Round)",
-        widthMm: "145\u2013172 (cut to face)",
+        widthMm: "145\u2013160 (cut to face)",
         bridgeMm: "custom",
         preOrderUsd: 480,
         regularUsd: 480,
@@ -65,7 +65,7 @@ var RECS = [
   },
   {
     minFaceWidthMm: 159,
-    maxFaceWidthMm: 172,
+    maxFaceWidthMm: 160,
     recommendation: "Woolet Bespoke \u2014 cut to your exact face width (145\u2013160 mm).",
     url: "https://woolet.co/en/bespoke"
   }
@@ -97,7 +97,7 @@ var recommend_fit_default = defineTool2({
       content: [
         {
           type: "text",
-          text: match ? `${match.recommendation} (${match.url})` : `Face width ${faceWidthMm} mm exceeds Woolet Bespoke's 172 mm max. Contact support@woolet.co.`
+          text: match ? `${match.recommendation} (${match.url})` : `Face width ${faceWidthMm} mm exceeds Woolet Bespoke's 160 mm max. Contact support@woolet.co.`
         }
       ],
       structuredContent: { faceWidthMm, match: match ?? null }

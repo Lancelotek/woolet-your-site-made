@@ -75,7 +75,7 @@ const blogPostsEN: BlogPost[] = [
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Any mainstream retailer. Nothing here applies to you.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Extended-fit lines, or Woolet bespoke from 145 mm. Signature 158 mm is too wide.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">The Woolet signature range. <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> or <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a>, both cut at 158 mm.</td></tr>
-<tr><td style="padding:10px 12px;">162–160 mm</td><td style="padding:10px 12px;">Made to measure</td><td style="padding:10px 12px;">Bespoke only, within the 145–160 mm range. Above 160 mm we do not build.</td></tr>
+<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">Widest Woolet front is 160 mm (bespoke); measure first</td><td style="padding:10px 12px;">Bespoke only, within the 145–160 mm range. Above 160 mm we do not build.</td></tr>
   </tbody>
 </table>
 
@@ -647,7 +647,7 @@ const blogPostsEN: BlogPost[] = [
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Standard</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Large / extended fit</td></tr>
     <tr style="background:#FBF7EE;"><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Wide — <a href="/en/size/158mm" style="color:#A07A2A;">Woolet signature</a></td></tr>
-<tr><td style="padding:10px 12px;">162–160 mm</td><td style="padding:10px 12px;">Made to measure</td><td style="padding:10px 12px;">Bespoke (145–160 mm)</td></tr>
+<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">Widest Woolet front is 160 mm (bespoke); measure first</td><td style="padding:10px 12px;">Bespoke (145–160 mm)</td></tr>
   </tbody>
 </table>
 
@@ -2028,12 +2028,12 @@ const blogPostsEN: BlogPost[] = [
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>158 mm</strong></td><td style="padding:14px 16px;">21–22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock Woolet 007 / 009 (158 mm)</td><td style="padding:14px 16px;color:#555;">Core size, covers most 155 mm+ buyers</td></tr>
 <tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>162–166 mm</strong></td><td style="padding:14px 16px;">22–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Above stock ceiling</td></tr>
-<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>167–160 mm</strong></td><td style="padding:14px 16px;">20–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155–160 mm</strong></td><td style="padding:14px 16px;">20–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>The pattern is clean: <strong>two stock shapes at one 158 mm front width</strong> (158 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 145–154 mm gap below and the 162–160 mm range above.</p>
+<p>The pattern is clean: <strong>two stock shapes at one 158 mm front width</strong> (158 mm) cover the mainstream wide-face range, and <strong>bespoke covers everything else</strong> — both the 145–154 mm gap below and the upper end of the range, up to 160 mm, above.</p>
 
 <h2>What "bespoke" actually controls (and what it doesn't)</h2>
 
@@ -2099,7 +2099,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Next steps</h2>
 
-<p>Start with the <a href="/en/fit">AI Fit Scan</a> - it helps determine whether you're in stock territory (155–161 mm) or bespoke (145–154 mm or 162–160 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">explore Woolet Bespoke</a>.</p>
+<p>Start with the <a href="/en/fit">AI Fit Scan</a> - it helps determine whether you're in stock territory (155–161 mm) or bespoke (145–154 mm, or above 161 mm up to the 160 mm bespoke maximum). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">explore Woolet Bespoke</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2155,7 +2155,7 @@ const blogPostsEN: BlogPost[] = [
 
 <ul>
 <li><strong>Face width 155–161 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cost $190.</li>
-<li><strong>Face width 145–154 mm or 162–160 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet Bespoke runs 145–160 mm.</li>
+<li><strong>Face width 145–154 mm, or above 161 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet Bespoke runs 145–160 mm — the widest Woolet front is 160 mm; measure first if you are above 161 mm.</li>
 <li><strong>Strongly asymmetric face or unusual bridge:</strong> made-to-measure is the only path. Even a "wide fit" stock frame assumes symmetry.</li>
 <li><strong>You just want a unique frame:</strong> a customised stock frame (engraved, custom colour) is usually a better value than full bespoke unless the geometry actually requires it.</li>
 </ul>
@@ -2649,7 +2649,7 @@ const blogPostsEN: BlogPost[] = [
 <li><strong>Face width 130–145 mm:</strong> most mainstream frames fit. Front width 130–145 mm.</li>
 <li><strong>Face width 145–155 mm:</strong> look for "wide fit" lines. Front width 145–155 mm.</li>
 <li><strong>Face width 155–161 mm:</strong> specialist wide-face brands only. Front width 155–161 mm. Woolet 007 and 009 are designed exactly here at 158 mm.</li>
-<li><strong>Face width 161+ mm:</strong> bespoke. Front width 162–160 mm. Woolet Bespoke covers this range at $480 with standard prescription lenses and free worldwide shipping.</li>
+<li><strong>Face width 161+ mm:</strong> bespoke. The widest Woolet front is 160 mm; above that, measure first — Woolet Bespoke covers up to 160 mm at $480 with standard prescription lenses and free worldwide shipping.</li>
 </ul>
 
 <p>The most precise way to measure is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds with your phone and a credit card, accurate to within 2 mm.</p>
@@ -2740,7 +2740,7 @@ const blogPostsEN: BlogPost[] = [
 <h3>Bracket 4 — Face width 162+ mm: "Bespoke territory"</h3>
 <p>Above 161 mm, stock production effectively stops. Faded Days reaches 165 mm in a few SKUs; nothing else mainstream goes there. Bespoke is the answer. Look for:</p>
 <ul>
-<li>Front width: 162–160 mm (or whatever your face requires + 0–3 mm)</li>
+<li>Front width: up to 160 mm (the widest Woolet front; measure first for anything above 161 mm face width)</li>
 <li>Bridge: 20–24 mm</li>
 <li>Temples: 150–158 mm</li>
 </ul>
@@ -2946,7 +2946,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>If you're between sizes</h2>
 
-<p>If your face is 145–154 mm or 162–160 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. Production takes 2 weeks from 3D model approval, then shipping.</p>
+<p>If your face is 145–154 mm, or above 161 mm, the standard 158 mm front sits at the edge of comfort. Bespoke is the right call, up to the 160 mm Woolet maximum. Same Italian Mazzucchelli acetate, hand made in EU, with front, bridge, and temple length set to your measurements. Production takes 2 weeks from 3D model approval, then shipping.</p>
 
 <h2>Quick FAQ</h2>
 

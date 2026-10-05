@@ -71,7 +71,7 @@ export default function FitBespoke() {
     <>
       <SEO
         title={`Bespoke Sizing ${BESPOKE_FRONT_WIDTH_RANGE} — Woolet Made-to-Measure`}
-        description={`Woolet Bespoke: ${BESPOKE_FRONT_WIDTH_RANGE} front, ${BESPOKE_BRIDGE_RANGE} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} with standard prescription lenses and free worldwide shipping. Hand made in Greece from Italian Mazzucchelli acetate.`}
+        description={`Woolet Bespoke: ${BESPOKE_FRONT_WIDTH_RANGE} front, ${BESPOKE_BRIDGE_RANGE} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} with standard prescription lenses and free worldwide shipping. Hand made in the EU from Italian Mazzucchelli acetate.`}
         lang="en"
         path="/fit/bespoke"
         jsonLd={JSON_LD}
@@ -108,7 +108,7 @@ export default function FitBespoke() {
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "1rem" }}>
               The reference for everyone deciding between the signature Woolet (158 mm) and a made-to-measure
               frame. Total frame width from <span className="text-foreground">{BESPOKE_FRONT_WIDTH_RANGE}</span>, bridge
-              {BESPOKE_FACTS.bridge} and {BESPOKE_FACTS.temples} temples, hand made in Greece (EU) from Italian Mazzucchelli 1849 cellulose acetate. <Link to="/en/bespoke" className="text-gold-light underline">Explore Woolet Bespoke</Link>.
+              {BESPOKE_FACTS.bridge} and {BESPOKE_FACTS.temples} temples, hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. <Link to="/en/bespoke" className="text-gold-light underline">Explore Woolet Bespoke</Link>.
             </p>
           </div>
         </section>

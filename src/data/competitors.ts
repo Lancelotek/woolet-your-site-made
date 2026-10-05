@@ -116,7 +116,7 @@ export const competitors: Competitor[] = [
     keyword: "EYESHELLS alternative",
     seoTitle: "EYESHELLS Alternative: Premium Wide-Face Glasses | Woolet",
     metaDescription:
-      "EYESHELLS alternative for wide faces: handmade in the EU from Italian acetate frames, bespoke sizing to 172mm, 60-second fit scan and 30-day guarantee.",
+      "EYESHELLS alternative for wide faces: handmade in the EU from Italian acetate frames, bespoke sizing to 160mm, 60-second fit scan and 30-day guarantee.",
     heroH1: "EYESHELLS Alternative for Wide Faces & Big Heads",
     heroSub:
       "EYESHELLS made extended-fit glasses cheap. Woolet makes them beautiful — handmade in the EU from Italian bio-acetate, bespoke sizing from 145 to 160 mm, and a fit scan that proves it fits before you order.",

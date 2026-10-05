@@ -10,7 +10,7 @@
  */
 export const BESPOKE_SPEC = {
   frontWidthMin: 145,
-  frontWidthMax: 172,
+  frontWidthMax: 160,
   bridgeMin: 20,
   bridgeMax: 24,
   templeMin: 145,

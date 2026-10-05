@@ -428,13 +428,7 @@ export function hreflangAlternates(
   const keys = keysForPath(pathname);
   if (keys.length === 0) return null;
 
-  // 1. Non-EN URL match wins.
-  const nonEnMatch = keys.find((k) => {
-    const entry = ROUTES[k] as Partial<Record<Lang, string>>;
-    return Object.entries(entry).some(([l, u]) => l !== "en" && u === pathname);
-  });
-
-  // 2. Otherwise treat as EN anchor and prefer the non-landing entry.
+  // Non-EN URL match wins; otherwise EN anchor → non-landing entry.
   const chosenKey = clusterKeyForPath(pathname)!;
 
   const entry = ROUTES[chosenKey] as Partial<Record<Lang, string>>;
