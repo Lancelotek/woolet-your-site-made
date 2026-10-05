@@ -55,7 +55,7 @@ export function pulseMobilePreview() {
 
 /* ───── Info sheet ───── */
 
-export type CfgInfoSection = "measure" | "price" | "fit" | "plano";
+export type CfgInfoSection = "measure" | "price" | "fit";
 
 const InfoCtx = createContext<(section: CfgInfoSection) => void>(() => {});
 export const useCfgInfo = () => useContext(InfoCtx);
@@ -99,16 +99,6 @@ const SECTIONS: { id: CfgInfoSection; title: string; body: ReactNode }[] = [
     body: (
       <p>
         158 mm is the reference drawing only. The build range is 145–172 mm, and your frame is cut to your scan.
-      </p>
-    ),
-  },
-  {
-    id: "plano",
-    title: "Plano (no correction) lens",
-    body: (
-      <p>
-        Plano means a lens with no optical correction — clear lenses cut and fitted to the frame. Choose plano if
-        you plan to take the frame to your own optician for prescription lenses.
       </p>
     ),
   },
