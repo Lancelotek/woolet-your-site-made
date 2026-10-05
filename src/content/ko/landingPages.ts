@@ -283,43 +283,6 @@ export const koPages: Record<string, KoPageConfig> = {
     englishEquivalent: "/en/size/160mm",
   },
 
-  "/ko/size/165mm": {
-    path: "/ko/size/165mm",
-    eyebrow: "Woolet · 비스포크",
-    h1: "165mm 안경테는 비스포크로 만듭니다",
-    sub: "165mm 전면부 총길이는 비스포크 범위(145-160mm) 안에 있습니다.",
-    metaTitle: "대두 안경테 165mm - 비스포크 맞춤 제작 | Woolet",
-    metaDescription:
-      "165mm 전면부 총길이는 비스포크 범위(145-160mm) 안에 있습니다. 4가지 모양, 60가지 조합, 주문 후 2주, 렌즈 포함 $480.",
-    sections: [
-      {
-        h2: "165mm는 기성품에 없습니다",
-        body:
-          "일반 브랜드의 전면부 총길이는 대개 135-145mm입니다. 165mm는 기성 라인에서 찾기 어려운 구간입니다. 그래서 맞춤으로 만듭니다.",
-        link: { label: "안경 사이즈 재는 법", href: "/ko/guide/frame-size" },
-      },
-      {
-        h2: "비스포크는 145mm부터 160mm까지",
-        body:
-          "원하는 폭을 그대로 지정합니다. 165mm도, 168mm도, 160mm도 같은 방식입니다. 160mm가 Woolet이 만드는 최대 폭입니다.",
-        list: BESPOKE_BULLETS,
-      },
-      {
-        h2: "165mm가 정말 맞는 숫자인지 먼저 확인하세요",
-        body:
-          "실측 155-161mm이라면 시그니처 158mm가 맞고, 가격은 $190입니다. 비스포크는 그 범위 밖일 때 필요합니다. FitLens로 먼저 재보세요.",
-        ctas: FIT_CTAS,
-      },
-    ],
-    faqs: [
-      {
-        q: "165mm보다 넓게 제작할 수 있나요?",
-        a: "160mm까지 제작합니다. 그 이상은 만들지 않습니다.",
-      },
-    ],
-    englishEquivalent: "/en/size/165mm",
-  },
-
   "/ko/sunglasses": {
     path: "/ko/sunglasses",
     eyebrow: "Woolet · 선글라스",
