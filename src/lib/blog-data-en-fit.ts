@@ -23,7 +23,7 @@ const BYLINE = (published: string, updated: string) => `
 const ANSWER = (html: string) => `
 <p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;">${html}</p>`;
 
-const FITLENS_CTA = (intro: string, anchor: string, href = "/en/fit", eyebrow = "FitLens · 20 seconds, phone camera") => `
+const FITLENS_CTA = (intro: string, anchor: string, href = "/en/fit", eyebrow = "FitLens · 60 seconds, phone camera") => `
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">${eyebrow}</div>
   <p style="margin:0 0 14px 0;font-size:15px;line-height:1.65;">${intro}</p>
@@ -311,7 +311,7 @@ ${ANSWER(
 
 ${FITLENS_CTA(
       "The chart is only useful once you know which row you are in. FitLens reads your face width and bridge width from a phone photo in about twenty seconds and tells you which band — including whether you are past the end of the standard chart.",
-      "Find your band in 20 seconds",
+      "Find your band in 60 seconds",
     )}
 
 <h2>Men's vs women's charts — why the women's chart is narrower</h2>
@@ -467,7 +467,7 @@ ${ANSWER(
 
 ${FITLENS_CTA(
       "Temple-to-temple is the number that decides whether a frame fits, and it is awkward to measure on yourself. FitLens reads it from your phone camera in about twenty seconds, together with your bridge width.",
-      "Get your number in 20 seconds",
+      "Get your number in 60 seconds",
     )}
 
 <h2>How to measure both, properly</h2>
@@ -976,7 +976,7 @@ ${ANSWER(
 
 <p>The giveaway is a second set of marks: red lines at the temples, in front of the ears, alongside the pain behind them. Sleeves and re-bends move the symptom around but never remove it, because the geometry is unchanged. The full diagnosis of that pattern is here: <a href="/en/blog/glasses-too-tight-on-side-of-head" style="color:#A07A2A;">glasses too tight on the side of your head</a>.</p>
 
-<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 52 x 52 mm lenses with a 21 mm bridge, the 009 Soft Square at 54 x 50 mm with a 22 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in Greece.</p>
+<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 52 x 52 mm lenses with a 21 mm bridge, the 009 Soft Square at 54 x 50 mm with a 22 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in the EU.</p>
 
 <h2>4. Your ears sit at different heights</h2>
 
@@ -1009,7 +1009,7 @@ ${ANSWER(
 
 ${FITLENS_CTA(
       "Before you buy another frame, get the number that decides all of this. FitLens measures face width and bridge width from your phone camera - no app, no appointment, and the image never leaves your device.",
-      "Measure my face with FitLens - 20 seconds, no app",
+      "Measure my face with FitLens - 60 seconds, no app",
     )}
 
 <h2>FAQ</h2>
@@ -1135,9 +1135,9 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 <p>Both Woolet stock frames ship with demo lenses, ready for your optician to glaze with prescription photochromic lenses. Bespoke goes the other way: you pick the photochromic option in the configurator, and the frame arrives with its lenses fitted. Every oversized option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> page.</p>
 
 <h2>How long does Bespoke take?</h2>
-<p>Production takes two weeks after you approve the 3D model of your frame. Each Bespoke frame is hand made in Greece from Italian Mazzucchelli acetate, cut to the measurements of one face - yours.</p>
+<p>Production takes two weeks after you approve the 3D model of your frame. Each Bespoke frame is hand made in the EU from Italian Mazzucchelli acetate, cut to the measurements of one face - yours.</p>
 
-${FITLENS_CTA("Your face width decides which of the two paths above is yours. Bespoke covers any front width from 145 to 160 mm, in four shapes, with photochromic as a lens option - and it starts from your measurements, not a size chart.", "Design your Bespoke frame - 145 to 160 mm", "/en/bespoke", "Bespoke · hand made in Greece")}
+${FITLENS_CTA("Your face width decides which of the two paths above is yours. Bespoke covers any front width from 145 to 160 mm, in four shapes, with photochromic as a lens option - and it starts from your measurements, not a size chart.", "Design your Bespoke frame - 145 to 160 mm", "/en/bespoke", "Bespoke · hand made in the EU")}
 
 <h2>FAQ</h2>
 <h3>Are glasses that turn into sunglasses worth it?</h3>

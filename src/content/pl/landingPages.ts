@@ -72,7 +72,7 @@ export const plPages: Record<string, PlPageConfig> = {
     metaDescription:
       "Okulary na zamówienie dla szerszych twarzy: front 145-160 mm, mostek 20-24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w 20 s.",
     primaryKeyword: "okulary na zamówienie",
-    ctaPrimaryLabel: "Zmierz twarz (20 s)",
+    ctaPrimaryLabel: "Zmierz twarz (60 s)",
     ctaPrimaryHref: "/pl/fit",
     ctaSecondaryLabel: "Otwórz konfigurator",
     ctaSecondaryHref: "/en/bespoke/configurator",
@@ -121,12 +121,12 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
   slug: "jak-dobrac-okulary-do-twarzy",
   eyebrow: "Woolet · Poradnik doboru",
   h1: "Jak dobrać okulary do twarzy - kształt, rozmiar i dopasowanie",
-  sub: "Dobór okularów to dwie rzeczy: kształt (estetyka) i rozmiar w milimetrach (komfort). Ten poradnik prowadzi przez obie — plus skan FitLens telefonem w około 20 sekund.",
+  sub: "Dobór okularów to dwie rzeczy: kształt (estetyka) i rozmiar w milimetrach (komfort). Ten poradnik prowadzi przez obie — plus skan FitLens telefonem w około 60 sekund.",
   metaTitle: "Jak dobrać okulary do twarzy: kształt, rozmiar w mm, dopasowanie (2026) | Woolet",
   metaDescription:
-    "Jak dobrać okulary do twarzy krok po kroku: kształt twarzy, rozmiar okularów w milimetrach, szerokość mostka i skan FitLens w 20 sekund. Poradnik 2026.",
+    "Jak dobrać okulary do twarzy krok po kroku: kształt twarzy, rozmiar okularów w milimetrach, szerokość mostka i skan FitLens w 60 sekund. Poradnik 2026.",
   primaryKeyword: "jak dobrać okulary do twarzy",
-  ctaPrimaryLabel: "Zmierz twarz (20 s)",
+  ctaPrimaryLabel: "Zmierz twarz (60 s)",
   ctaPrimaryHref: "/en/fit",
   ctaSecondaryLabel: "Zobacz oprawy Woolet",
   ctaSecondaryHref: "/en/collection",
@@ -144,7 +144,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
   ],
   closingH2: "Zmierz raz, zamawiaj bez ryzyka",
   closingBody:
-    "FitLens używa aparatu w telefonie i wyznacza szerokość twarzy, mostka i rozstaw źrenic z jednego zdjęcia — w około 20 sekund. Bez instalacji, bez wysyłania zdjęć. Zdjęcie zostaje w twojej przeglądarce.",
+    "FitLens używa aparatu w telefonie i wyznacza szerokość twarzy, mostka i rozstaw źrenic z jednego zdjęcia — w około 60 sekund. Bez instalacji, bez wysyłania zdjęć. Zdjęcie zostaje w twojej przeglądarce.",
   faqs: [
     {
       q: "Jak dobrać rozmiar okularów?",
@@ -223,8 +223,8 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
         },
       ],
       ctaCard: {
-        text: "Nie chcesz mierzyć linijką? FitLens mierzy szerokość twarzy, mostek i rozstaw źrenic z jednego zdjęcia telefonem — w około 20 sekund. Zdjęcie zostaje w twojej przeglądarce.",
-        ctaLabel: "Zmierz twarz w 20 sekund",
+        text: "Nie chcesz mierzyć linijką? FitLens mierzy szerokość twarzy, mostek i rozstaw źrenic z jednego zdjęcia telefonem — w około 60 sekund. Zdjęcie zostaje w twojej przeglądarce.",
+        ctaLabel: "Zmierz twarz w 60 sekund",
         ctaHref: "/en/fit",
       },
     },

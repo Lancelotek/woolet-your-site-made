@@ -167,7 +167,7 @@ export const XXL_PAGES: XxlEntry[] = [
     metaDescription:
       "Extra-wide 160–162 mm bespoke frames in Italian Mazzucchelli acetate. A focused slice of the full 145–160 mm bespoke range.",
     intro:
-      "This page focuses on the 160–162 mm slice of Woolet's 145–160 mm bespoke range. Below 160 mm the signature 158 mm front often fits, while wider bespoke fronts remain available up to 172 mm.",
+      "This page focuses on the top of Woolet's 145–160 mm bespoke range. Below 160 mm the signature 158 mm front often fits; 160 mm is the widest front Woolet currently builds.",
     spec: [
       { label: "Front width range", value: "160–162 mm" },
       { label: "Signature reference", value: "158 mm (2–4 mm below XXL)" },
@@ -177,7 +177,7 @@ export const XXL_PAGES: XxlEntry[] = [
       { label: "Best for face width", value: "160–162 mm measured" },
     ],
     faq: [
-      { q: "What's the widest glasses front you make?", a: "172 mm bespoke. The complete Woolet Bespoke front-width range is 145–160 mm." },
+      { q: "What's the widest glasses front you make?", a: "160 mm bespoke. The complete Woolet Bespoke front-width range is 145–160 mm." },
       { q: "Is 160 mm the same as extra-wide?", a: "In our terms, 160 mm is XXL. 'Extra-wide' collections typically span 155–160 mm; XXL is the 160–162 mm slice at the top." },
       { q: "Do I need XXL or is 158 mm signature enough?", a: "FitLens or manual measurement decides. If your face measures 158–160 mm, signature works. Only measured 160 mm+ needs XXL bespoke." },
     ],

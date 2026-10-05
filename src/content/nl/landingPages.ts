@@ -33,7 +33,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     metaDescription:
       "Acetaat bril op maat voor bredere gezichten: front 145–160 mm, brug 20–24 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in 20 s.",
     primaryKeyword: "acetaat bril op maat",
-    ctaPrimaryLabel: "Meet je gezicht (20 s)",
+    ctaPrimaryLabel: "Meet je gezicht (60 s)",
     ctaPrimaryHref: "/nl/fit",
     ctaSecondaryLabel: "Open configurator",
     ctaSecondaryHref: "/en/bespoke/configurator",
@@ -85,7 +85,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     metaDescription:
       "Grote brillen voor heren met een breed gezicht: frontbreedte 155/158/161 mm, plus bespoke tot 165 mm. 21 mm keyhole-brug, Italiaans acetaat, handgemaakt in de EU.",
     primaryKeyword: "grote brillen heren",
-    ctaPrimaryLabel: "Meet je gezicht (20 s)",
+    ctaPrimaryLabel: "Meet je gezicht (60 s)",
     ctaPrimaryHref: "/nl/fit",
     ctaSecondaryLabel: "Bekijk de collectie",
     ctaSecondaryHref: "/nl/collection",
@@ -103,7 +103,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     ],
     closingH2: "Eindelijk een bril die past — zonder compromis op stijl",
     closingBody:
-      "Meet je gezicht in 20 seconden met FitLens en zie meteen welke maat past. Founding-leden krijgen circa 40% korting op de publieke lanceringsprijs.",
+      "Meet je gezicht in 60 seconden met FitLens en zie meteen welke maat past. Founding-leden krijgen circa 40% korting op de publieke lanceringsprijs.",
     faqs: [
       {
         q: "Vanaf welke gezichtsbreedte past een Woolet?",

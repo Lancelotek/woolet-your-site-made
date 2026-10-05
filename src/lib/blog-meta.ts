@@ -23,7 +23,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaTitle: "Glasses That Fit a 155 mm+ Face: Complete Buying Guide",
     exactTitle: true,
     metaDescription:
-      "Face 155 mm or wider? See the size chart, why standard frames pinch and how 158 mm frames fit. Measure free with your phone in 20 seconds.",
+      "Face 155 mm or wider? See the size chart, why standard frames pinch and how 158 mm frames fit. Measure free with your phone in 60 seconds.",
   },
 
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
@@ -40,7 +40,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
     metaTitle: "How to Measure Face Width for Glasses (Free 20-Second Scan)",
     exactTitle: true,
     metaDescription:
-      "Skip the ruler. Your phone camera measures your face width in 20 seconds and gives you your frame size. Plus the manual method and a size chart.",
+      "Skip the ruler. Your phone camera measures your face width in 60 seconds and gives you your frame size. Plus the manual method and a size chart.",
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",

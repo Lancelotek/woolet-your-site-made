@@ -31,9 +31,9 @@ export const jaPages: Record<string, JaPageConfig> = {
     sub: "標準フレームの幅は135〜145mm。顔幅が155mm以上なら、市販のメガネは「Mサイズ」しか存在しません。Wooletは155・158・161mmの実寸で、イタリア製マッツケリ・アセテートをEUで手作業仕立てします。",
     metaTitle: "大きい顔 メガネ 155-161mm | Woolet 幅広イタリア製アセテート",
     metaDescription:
-      "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで、EUで手作り。FitLensスキャンで20秒、自分のサイズが分かります。",
+      "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで、EUで手作り。FitLensスキャンで60秒、自分のサイズが分かります。",
     primaryKeyword: "大きい顔 メガネ",
-    ctaPrimaryLabel: "顔幅を20秒で測る",
+    ctaPrimaryLabel: "顔幅を60秒で測る",
     ctaPrimaryHref: "/ja/fit",
     ctaSecondaryLabel: "コレクションを見る",
     ctaSecondaryHref: "/ja/collection",
@@ -51,11 +51,11 @@ export const jaPages: Record<string, JaPageConfig> = {
     ],
     closingH2: "自分のサイズが分かれば、選び方は一瞬",
     closingBody:
-      "FitLensはスマートフォンのカメラで顔幅をミリ単位で計測し、推奨サイズを返します。所要時間は20秒。Founding価格はキックスターター開始時にメールで通知します。",
+      "FitLensはスマートフォンのカメラで顔幅をミリ単位で計測し、推奨サイズを返します。所要時間は60秒。Founding価格はキックスターター開始時にメールで通知します。",
     faqs: [
       {
         q: "自分の顔幅はどう測るの？",
-        a: "FitLensを使ってください。スマートフォンのカメラで顔幅をミリ単位で測定し、155/158/161mmのどれが合うかを推奨します。所要時間は約20秒、ブラウザ内で完結します。",
+        a: "FitLensを使ってください。スマートフォンのカメラで顔幅をミリ単位で測定し、155/158/161mmのどれが合うかを推奨します。所要時間は約60秒、ブラウザ内で完結します。",
       },
       {
         q: "顔幅が何mmからWooletが向いている？",

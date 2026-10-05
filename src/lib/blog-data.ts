@@ -63,7 +63,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Two secondary signals confirm it without a ruler. First, the imprint test: take your current glasses off after four hours and look for a red line in front of each ear. That mark means the arms are gripping rather than resting, which happens when the front is too narrow. Second, the centring test: photograph yourself straight on wearing your glasses. If your pupils sit noticeably inboard of the lens centres, the frame is too wide; if the frame edges stop short of the sides of your face, it is too narrow.</p>
 
-<p>The full calibrated method — including the credit-card reference for photographing rather than measuring — is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width for glasses</a>. If you would rather not measure at all, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens takes about 20 seconds from your phone camera</strong></a>, no app and no appointment, and returns face width and bridge width together.</p>
+<p>The full calibrated method — including the credit-card reference for photographing rather than measuring — is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width for glasses</a>. If you would rather not measure at all, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens takes about 60 seconds from your phone camera</strong></a>, no app and no appointment, and returns face width and bridge width together.</p>
 
 <h2 id="size-chart">The number that matters: front width</h2>
 
@@ -657,7 +657,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>Measure with your phone instead</h2>
 
-<p>If you would rather not hold a ruler against your own face in a mirror, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens</strong></a> does the same job from your phone camera in about 20 seconds. There is no app to install and no appointment: you open the page in your phone browser, hold a standard credit card (85.6 mm by ISO standard) under your eyes as a calibration reference, and take one straight-on photo.</p>
+<p>If you would rather not hold a ruler against your own face in a mirror, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens</strong></a> does the same job from your phone camera in about 60 seconds. There is no app to install and no appointment: you open the page in your phone browser, hold a standard credit card (85.6 mm by ISO standard) under your eyes as a calibration reference, and take one straight-on photo.</p>
 
 <p>The scan uses the known card width to convert pixels to millimetres, then returns your face width and your nose bridge width together — the two numbers that decide frame size. It works in ordinary indoor light, nothing is uploaded to a third party, and it will tell you plainly whether you fall inside the 155–161 mm signature range, inside the 145–160 mm bespoke range, or outside both.</p>
 
@@ -1108,7 +1108,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p><em>Woolet 007 and Woolet 009 — Mazzucchelli acetate frames at a 158 mm front width, hand made in the EU, built for faces the industry left behind.</em></p>
 
-<p>Looking for what to actually buy rather than why the problem exists? <a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> compares every brand selling a 150 mm+ front width. Don't know your number yet? <a href="/en/fit">Measure my face with FitLens — 20 seconds, no app</a>.</p>
+<p>Looking for what to actually buy rather than why the problem exists? <a href="/en/blog/best-glasses-for-big-heads-2026">Best glasses for big heads (2026)</a> compares every brand selling a 150 mm+ front width. Don't know your number yet? <a href="/en/fit">Measure my face with FitLens — 60 seconds, no app</a>.</p>
 `,
   },
   {
@@ -1255,7 +1255,7 @@ const blogPostsEN: BlogPost[] = [
 
 <h2>When none of the four shapes fits: Bespoke</h2>
 
-<p>The 007 and 009 are standard 158 mm designs. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four distinct shapes to your own face width, anywhere from 145 to 160 mm, in the same Italian Mazzucchelli acetate. Hand made in Greece, with two weeks of production after 3D model approval followed by shipping. The regular $480 price includes standard prescription lenses and worldwide shipping; specialty upgrades cost extra.</p>
+<p>The 007 and 009 are standard 158 mm designs. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four distinct shapes to your own face width, anywhere from 145 to 160 mm, in the same Italian Mazzucchelli acetate. Hand made in the EU, with two weeks of production after 3D model approval followed by shipping. The regular $480 price includes standard prescription lenses and worldwide shipping; specialty upgrades cost extra.</p>
 
 <p><a class="blog-gold-button" href="/en/bespoke">Start a Bespoke frame</a></p>
 
@@ -1272,7 +1272,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm) — Italian acetate frames designed for 155mm+ faces. Join the waitlist at woolet.co.</em></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Shape is taste; width is arithmetic. Before you choose between round and soft-square, <a href="/en/fit" style="color:#A07A2A;"><strong>measure your face with FitLens</strong></a> — 20 seconds on your phone camera, and you will know whether 158 mm is your number.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Shape is taste; width is arithmetic. Before you choose between round and soft-square, <a href="/en/fit" style="color:#A07A2A;"><strong>measure your face with FitLens</strong></a> — 60 seconds on your phone camera, and you will know whether 158 mm is your number.</p>
 
 `,
   },
@@ -1397,7 +1397,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p><em>Woolet makes premium Italian acetate eyewear engineered for professionals with 155mm+ face widths. Two models: 007 (round, 158mm) and 009 (square, 158mm). Join the waitlist at woolet.co.</em></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Not sure where you land? <a href="/en/fit" style="color:#A07A2A;"><strong>Get your number in 20 seconds</strong></a> with FitLens — your phone camera, a credit card for scale, and a face width in millimetres.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Not sure where you land? <a href="/en/fit" style="color:#A07A2A;"><strong>Get your number in 60 seconds</strong></a> with FitLens — your phone camera, a credit card for scale, and a face width in millimetres.</p>
 
 `,
   },
@@ -1754,7 +1754,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p><a href="/en/collections/blue-light-glasses-for-wide-faces">oversized blue light glasses</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 20 seconds, no app.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 60 seconds, no app.</p>
 
 `,
   },
@@ -1851,7 +1851,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p><a href="/en/collections/sunglasses-for-big-heads">Sunglasses for big heads — full collection</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Before you buy any pair on this list, <a href="/en/fit" style="color:#A07A2A;"><strong>get your number in 20 seconds</strong></a>. FitLens measures your face width from your phone camera and tells you whether 158 mm fits.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Before you buy any pair on this list, <a href="/en/fit" style="color:#A07A2A;"><strong>get your number in 60 seconds</strong></a>. FitLens measures your face width from your phone camera and tells you whether 158 mm fits.</p>
 
 `,
   },
@@ -2074,7 +2074,7 @@ const blogPostsEN: BlogPost[] = [
 <h2>The six steps from scan to delivery</h2>
 
 <ol>
-<li>Take the phone-camera AI fit scan.</li><li>Configure Aviator, Rectangle, Crown Panto or Round and your lenses.</li><li>Preview the selected frame on your face.</li><li>Review and approve the made-to-measure 3D model.</li><li>Production takes 2 weeks after model approval, hand made in Greece (EU).</li><li>Receive your glasses with free worldwide shipping; transit follows production.</li>
+<li>Take the phone-camera AI fit scan.</li><li>Configure Aviator, Rectangle, Crown Panto or Round and your lenses.</li><li>Preview the selected frame on your face.</li><li>Review and approve the made-to-measure 3D model.</li><li>Production takes 2 weeks after model approval, hand made in the EU.</li><li>Receive your glasses with free worldwide shipping; transit follows production.</li>
 </ol>
 
 <h2>Pricing — bespoke vs the market</h2>
@@ -2171,7 +2171,7 @@ const blogPostsEN: BlogPost[] = [
 <p>Woolet Bespoke production takes 2 weeks from your approval of the 3D model, then shipping. The steps are:</p>
 <ul>
 <li><strong>Days 1–3:</strong> CAD design and your render approval.</li>
-<li><strong>After 3D model approval:</strong> 2 weeks of cutting, finishing and quality checks in Greece (EU).</li>
+<li><strong>After 3D model approval:</strong> 2 weeks of cutting, finishing and quality checks in the EU.</li>
 <li><strong>After production:</strong> free worldwide shipping; transit time depends on destination.</li>
 </ul>
 
@@ -2268,7 +2268,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>In practice the two travel together. A head circumference of 59–61 cm typically comes with a face width of 155–161 mm, which is exactly the band the 158 mm signature front is cut for, paired with 150 mm temples at an 11° drop. A 62 cm head on a 160 mm face is the case where the arm becomes the binding constraint and bespoke specifies 152–155 mm temples instead.</p>
 
-<p>The prescription side does not change with head size. The frame ships lens-less either way, your optician grinds to your PD — which on a big head commonly runs 66–74 mm — and progressives benefit from the taller lens a wide frame allows. What changes is only the frame geometry, and that is the part that no mainstream prescription chain tools for. If you are not sure which of the two measurements is failing you, <a href="/en/fit" style="color:#A07A2A;">FitLens returns face width and bridge in about 20 seconds</a> from your phone camera.</p>
+<p>The prescription side does not change with head size. The frame ships lens-less either way, your optician grinds to your PD — which on a big head commonly runs 66–74 mm — and progressives benefit from the taller lens a wide frame allows. What changes is only the frame geometry, and that is the part that no mainstream prescription chain tools for. If you are not sure which of the two measurements is failing you, <a href="/en/fit" style="color:#A07A2A;">FitLens returns face width and bridge in about 60 seconds</a> from your phone camera.</p>
 
 <h2>Where Woolet fits</h2>
 
@@ -2295,7 +2295,7 @@ const blogPostsEN: BlogPost[] = [
     readTime: 9,
     tags: ["Bespoke", "Pricing", "Buying Guide"],
     faq: [
-      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet Bespoke costs $480 with standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. It is hand made in Greece (EU)." },
+      { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet Bespoke costs $480 with standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. It is hand made in the EU." },
       { q: "How much do Tom Davies bespoke glasses cost?", a: "Tom Davies bespoke runs roughly £950–£2,500 (about $1,200–$3,200) depending on material and complexity. The price includes two in-person fitter consultations and the workshop labour, which is most of the cost." },
       { q: "Why are bespoke glasses so expensive?", a: "Most of the cost is human labour — fitter visits, CAD drafting, bench finishing — not material. The acetate block itself costs about $25–$60. Cutting it costs $40–$120 of CNC time. Everything else is people: typically 8–16 hours of skilled labour per frame at workshop rates." },
       { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 155–161 mm stock fit range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." },
@@ -2744,7 +2744,7 @@ const blogPostsEN: BlogPost[] = [
 <li>Bridge: 20–24 mm</li>
 <li>Temples: 150–158 mm</li>
 </ul>
-<p>Available at: Woolet Bespoke ($480 with standard prescription lenses, hand made in Greece), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
+<p>Available at: Woolet Bespoke ($480 with standard prescription lenses, hand made in the EU), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
 
 <h2>Why "the number on the temple" is misleading</h2>
 
@@ -2921,7 +2921,7 @@ const blogPostsEN: BlogPost[] = [
 
 <p>Two numbers matter. The first is <strong>front width</strong>: the distance hinge-to-hinge across the front of the frame. Mainstream sunglasses sit at 138–148 mm. Anything over 150 mm is wide. The second is <strong>bridge width</strong>: the gap between the two lenses, where the frame rests on your nose. Mainstream bridges are 17–20 mm. Wider noses usually need 21 mm or more, ideally with a keyhole shape that distributes weight onto bone rather than cartilage.</p>
 
-<p>If you don't know your face width yet, the <a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> takes about 20 seconds with your phone camera, or you can <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">measure manually with a ruler or credit card</a>.</p>
+<p>If you don't know your face width yet, the <a href="/en/fit" style="color:#A07A2A;">FitLens scanner</a> takes about 60 seconds with your phone camera, or you can <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">measure manually with a ruler or credit card</a>.</p>
 
 <h2>What to look for in 2026</h2>
 
@@ -3914,7 +3914,7 @@ Related guides:
 
 <h3 style="margin-top:28px;">If you're extra-wide (162 mm+)</h3>
 
-<p>Even our stock 158 mm will bow at the temples. This is <a href="/en/bespoke" style="color:#A07A2A;text-decoration:underline;">Woolet Bespoke</a> territory — every frame is cut to your exact face width within 145–160 mm and bridge (20–24 mm), using Italian Mazzucchelli acetate and hand made in Greece (EU).</p>
+<p>Even our stock 158 mm will bow at the temples. This is <a href="/en/bespoke" style="color:#A07A2A;text-decoration:underline;">Woolet Bespoke</a> territory — every frame is cut to your exact face width within 145–160 mm and bridge (20–24 mm), using Italian Mazzucchelli acetate and hand made in the EU.</p>
 
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">Not sure which band you're in?</div>

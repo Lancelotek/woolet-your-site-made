@@ -360,7 +360,7 @@ type BespokeCopy = {
 export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
   en: {
     title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
-    metaDescription: "Woolet Bespoke: 145–160 mm custom frames, hand made in Greece from Italian acetate. $480 with standard prescription lenses and free worldwide shipping.",
+    metaDescription: "Woolet Bespoke: 145–160 mm custom frames, hand made in the EU from Italian acetate. $480 with standard prescription lenses and free worldwide shipping.",
     ogTitle: "Woolet Bespoke — Custom Acetate Glasses",
     ogDescription: "Woolet Bespoke: 145–160 mm custom frames, $480 with standard prescription lenses and free worldwide shipping. Specialty upgrades cost extra.",
     heroAlt: "Woolet Bespoke — custom acetate frame silhouette",
@@ -368,7 +368,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     thumbAlt: (s) => `Woolet Bespoke ${s} silhouette`,
     tags: ["Rx / Progressive", "Blue Light", "Polarized Sun"],
     cutToFace: "· Cut to your face",
-    eyebrow: "Made to measure - hand made in Greece (EU)",
+    eyebrow: "Made to measure - hand made in the EU",
     subline: "Custom · 145–160 mm · Italian acetate",
     h2: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face — four silhouettes, front width 145–160 mm, bridge and temples cut to your measurements.",
     foundingPrice: "Founding Price",
@@ -407,7 +407,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
   },
   fr: {
     title: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage",
-    metaDescription: "Lunettes sur mesure Woolet Bespoke, largeur 145–160 mm. Fabriquées en Grèce en acétate italien. 480 $ avec verres correcteurs standard et livraison offerte.",
+    metaDescription: "Lunettes sur mesure Woolet Bespoke, largeur 145–160 mm. Fabriquées dans l’UE en acétate italien. 480 $ avec verres correcteurs standard et livraison offerte.",
     ogTitle: "Woolet Bespoke — lunettes en acétate sur mesure",
     ogDescription: "Woolet Bespoke - 145–160 mm, 480 $ avec verres correcteurs standard et livraison mondiale gratuite. Verres spéciaux en supplément.",
     heroAlt: "Woolet Bespoke - silhouette de monture en acétate sur mesure",
@@ -415,7 +415,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     thumbAlt: (s) => `Silhouette ${s} Woolet Bespoke`,
     tags: ["Rx / Progressifs", "Lumière bleue", "Solaire polarisé"],
     cutToFace: "· Taillée pour votre visage",
-    eyebrow: "Sur mesure - fabriqué à la main en Grèce (UE)",
+    eyebrow: "Sur mesure - fabriqué à la main dans l’UE",
     subline: "Sur mesure · 145–160 mm · Acétate italien",
     h2: "Lunettes bespoke en acétate italien Mazzucchelli, taillées précisément pour votre visage : quatre silhouettes, largeur de face 145–160 mm, pont et branches taillés selon vos mesures.",
     foundingPrice: "Prix fondateur",
@@ -454,7 +454,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
   },
   nl: {
     title: "Woolet Bespoke — acetaatbril op maat van je gezicht",
-    metaDescription: "Woolet Bespoke op maat, 145–160 mm. Handgemaakt in Griekenland van Italiaans acetaat. $480 inclusief standaard glazen op sterkte en wereldwijde verzending.",
+    metaDescription: "Woolet Bespoke op maat, 145–160 mm. Handgemaakt in de EU van Italiaans acetaat. $480 inclusief standaard glazen op sterkte en wereldwijde verzending.",
     ogTitle: "Woolet Bespoke — acetaatbril op maat",
     ogDescription: "Woolet Bespoke - 145–160 mm, $480 inclusief standaard glazen op sterkte en gratis wereldwijde verzending. Speciale glazen kosten extra.",
     heroAlt: "Woolet Bespoke - silhouet van een acetaatmontuur op maat",
@@ -462,7 +462,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     thumbAlt: (s) => `Woolet Bespoke ${s}-silhouet`,
     tags: ["Rx / Multifocaal", "Blauw licht", "Gepolariseerd zonneglas"],
     cutToFace: "· Op maat van je gezicht",
-    eyebrow: "Op maat - handgemaakt in Griekenland (EU)",
+    eyebrow: "Op maat - handgemaakt in de EU",
     subline: "Op maat · 145–160 mm · Italiaans acetaat",
     h2: "Bespoke bril van Italiaans Mazzucchelli-acetaat, precies op jouw gezicht gesneden: vier silhouetten, frontbreedte 145–160 mm, brug en veren op jouw maten.",
     foundingPrice: "Founding-prijs",

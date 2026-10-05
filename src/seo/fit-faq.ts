@@ -41,6 +41,6 @@ export const FIT_BANDS: { range: string; verdict: string; size: string }[] = [
   { range: "Under 145 mm", verdict: "Narrow to average — mainstream frames fit you", size: "Not a Woolet fit" },
   { range: "145–154 mm", verdict: "Wider than average, narrower than our signature", size: "Bespoke, built to your millimetre" },
   { range: "155–161 mm", verdict: "Signature range — the frame is designed for this", size: "158 mm — Woolet 007 or 009" },
-  { range: "162–172 mm", verdict: "Above the signature fit band", size: "Bespoke, built to your millimetre" },
-  { range: "Above 172 mm", verdict: "Wider than we build — we will say so", size: "No frame we can make honestly" },
+  { range: "Above 161 mm", verdict: "Above the signature fit band", size: "Widest Woolet front is 160 mm (bespoke); measure first" },
+  
 ];
