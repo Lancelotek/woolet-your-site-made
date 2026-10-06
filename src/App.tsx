@@ -344,7 +344,7 @@ const App = () => (
           {/* XXL / Wide-Face hub cluster (Part 4) */}
           <Route path="/en/xxl" element={<XxlHubPage />} />
           <Route path="/en/xxl/:slug" element={<XxlPage />} />
-          <Route path="/:lang/xxl" element={<Navigate to="/en/xxl" replace />} />
+          <Route path="/:lang/xxl" element={<Navigate to="/en/collection" replace />} />
           {/* Unknown /:lang/xxl/:slug: render NotFound rather than
               bouncing to the /en/xxl hub. Redirect-to-parent was a
               soft-404 for any invalid or non-EN slug. */}
