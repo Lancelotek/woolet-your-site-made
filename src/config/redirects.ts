@@ -21,7 +21,7 @@ export const EXACT: Record<string, string> = {
   "/en/blog/round-vs-square": "/en/blog/round-vs-square-glasses-wide-face",
   "/en/blog/why-glasses-dont-fit-155mm": "/en/blog/why-glasses-dont-fit-155mm-problem",
   "/en/blog/wide-frame-professionals": "/en/blog/wide-frame-glasses-professionals",
-  "/en/blog/best-glasses-for-wide-faces-for-women": "/en/blog/wide-face-glasses-for-women",
+
   "/en/blog/xxl-aviator-sunglasses-for-big-heads": "/en/blog/best-oversized-sunglasses-big-heads-2026",
   "/en/blog/glasses-bigger-than-150mm-where-to-find-them": "/en/blog/best-glasses-for-big-heads-2026",
   "/pl/blog/okulary-dla-szerokich-twarzy-przewodnik": "/pl/blog/okulary-na-szeroka-twarz-przewodnik",

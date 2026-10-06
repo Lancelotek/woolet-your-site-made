@@ -27,7 +27,7 @@ const ENGLISH_EQUIVALENT: Record<string, string> = {
   "breite-brille": "/en/collections/extra-wide-glasses",
   "brille-grosse-koepfe": "/en/collections/glasses-for-big-heads",
   "brillen-fuer-grosse-koepfe": "/en/collections/glasses-for-big-heads",
-  "xxl-brille-herren": "/en/collections/oversized-sunglasses-men",
+  "xxl-brille-herren": "/en/collections/extra-large-oversized-eyeglasses",
   "brille-breite-160-mm": "/en/collections/extra-wide-glasses",
   "brille-breite-150-mm": "/en/size/150mm",
   "brille-breite-155-mm": "/en/size/155mm",

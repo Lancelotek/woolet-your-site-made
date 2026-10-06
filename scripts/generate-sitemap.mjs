@@ -72,7 +72,6 @@ const EXCLUDED_PATH_PATTERNS = [
   /^\/(?:[a-z]{2}\/)?upvote(?:$|\/)/,
   /^\/(?:[a-z]{2}\/)?account(?:$|\/)/,
   /^\/(?:[a-z]{2}\/)?crm(?:$|\/)/,
-  /^\/en\/collections\/extra-large-oversized-eyeglasses\/?$/,
   /^\/de\/brille-grosse-koepfe\/?$/,
   /^\/(?:[a-z]{2}\/)?bespoke\/(?:configurator|checkout|scan|measurements|shipping)(?:$|\/)/,
 ];

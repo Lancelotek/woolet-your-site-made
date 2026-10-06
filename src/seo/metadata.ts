@@ -1167,9 +1167,6 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       { name: "Collections", url: `${SITE_URL}/en` },
       { name: c.h1, url: `${SITE_URL}${route}` },
     ])]);
-    if (path === "/collections/extra-large-oversized-eyeglasses") {
-      meta.canonical = `${SITE_URL}/en/collections/extra-wide-glasses`;
-    }
     return meta;
   }
 
@@ -2187,11 +2184,6 @@ const STATIC_ROUTES = [
   "/en/temple/150mm",
   "/en/temple/152mm",
   "/en/temple/155mm",
-  "/en/xxl",
-  "/en/xxl/glasses",
-  "/en/xxl/sunglasses",
-  "/en/xxl/for-big-heads",
-  "/en/xxl/extra-wide-frames",
   // Routes previously falling back to the SPA shell — now prerendered so
   // JS-less crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot, OAI-SearchBot)
   // receive real per-route head metadata instead of an empty index.html.
