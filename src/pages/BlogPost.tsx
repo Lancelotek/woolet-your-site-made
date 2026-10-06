@@ -230,7 +230,7 @@ const BlogPost = () => {
         image={blogMetaBySlug[post.slug]?.ogImage ?? post.image ?? `/og-${post.slug}.png`}
         article={{ readTime: post.readTime, tags: post.tags }}
         articleBody={enhancedContent.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim()}
-        availableLangs={alternateLangsFor(currentLang, post.slug)}
+        availableLangs={post.slug === "ray-ban-oakley-costa-maui-jim-sizes-for-big-heads" ? undefined : alternateLangsFor(currentLang, post.slug)}
         alternates={alternatesFor(currentLang, post.slug)}
         author={
           post.slug === "glasses-for-wide-faces-guide"
