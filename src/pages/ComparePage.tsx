@@ -119,6 +119,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
           </h1>
           <p style={{ fontSize: 16, lineHeight: 1.65, color: "#555", margin: "0 auto 26px", maxWidth: 620 }}>
             {c.heroSub}
+            {c.slug === "ray-ban-alternative" && <> See <Link className="text-primary underline" to="/en/blog/ray-ban-oakley-costa-maui-jim-sizes-for-big-heads">the widest Ray-Ban sizes in mm</Link>.</>}
           </p>
           <Link
             to={ctaHref()}
@@ -179,7 +180,6 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.7, color: "#555", margin: "0 0 18px", maxWidth: 720 }}>
               {c.measurements.intro}
-            {c.slug === "ray-ban-alternative" && <> See <Link className="text-primary underline" to="/en/blog/ray-ban-oakley-costa-maui-jim-sizes-for-big-heads">the widest Ray-Ban sizes in mm</Link>.</>}
             </p>
             <div style={{ overflowX: "auto", border: "1px solid #E0D5C5", borderRadius: 8, background: "#FFF" }}>
               <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 13 }}>
