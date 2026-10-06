@@ -119,6 +119,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
           </h1>
           <p style={{ fontSize: 16, lineHeight: 1.65, color: "#555", margin: "0 auto 26px", maxWidth: 620 }}>
             {c.heroSub}
+            {c.slug === "ray-ban-alternative" && <> See <Link className="text-primary underline" to="/en/blog/ray-ban-oakley-costa-maui-jim-sizes-for-big-heads">the widest Ray-Ban sizes in mm</Link>.</>}
           </p>
           <Link
             to={ctaHref()}

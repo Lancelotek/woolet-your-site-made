@@ -3,3 +3,4 @@
 - Kickstarter signup's paid decision view renders in a body portal so it can occupy the screen independently of any of the three signup locations; the existing checkout button owns the session and tracking to avoid duplicate events.
 - Legacy URL redirects live only in src/seo/legacyRedirects.ts, consumed by both the router (config/redirects.ts) and the prerender stub pages — one map so router and static HTML never drift.
 - hreflang comes only from src/i18n/routeRegistry.ts (prerender head, Helmet via seo/hreflangLinks, sitemap); the registry drops non-reciprocal clusters and generate-sitemap fails the build on any one-way pair — Google ignores non-reciprocal annotations.
+- Blog posts may opt into exactContent to suppress automatic waitlist insertions, and an author override feeds static Article schema; this preserves approved editorial copy and bylines across rendering paths.
