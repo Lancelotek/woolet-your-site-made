@@ -11,8 +11,8 @@ const BigGlassesFrames = () => (
   <CollectionPage
     slug="big-glasses-frames"
     breadcrumbName="Oversized Glasses"
-    h1="Oversized Glasses That Fit a 155 mm+ Face"
-    metaTitle="Oversized Glasses for Wide Faces: 158 mm Frames | Woolet"
+    h1="Big Glasses Frames, Built for 155 mm+ Faces"
+    metaTitle="Big Glasses Frames for Men & Women - 158 mm Acetate | Woolet"
     metaDescription="Oversized is a look. 158 mm is a size. Round and square frames 158 mm across with 150 mm temples, for faces 155 mm+. From $190. Measure in 20 s."
     intro="Most oversized glasses get their size from the lenses, while the front stays close to standard width, so the arms still press on a wide face. Woolet frames measure 158 mm across the front with 150 mm temples, in two shapes: 007 Round and 009 Soft Square. Italian Mazzucchelli acetate, hand made in EU, from $190."
     whyThisFits={[

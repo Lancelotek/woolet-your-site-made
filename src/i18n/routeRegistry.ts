@@ -156,7 +156,7 @@ export const ROUTES = {
   "landing.collection.de.breite-brille":            { en: "/en/collections/extra-wide-glasses", de: "/de/breite-brille" },
   "landing.collection.de.brille-fuer-breites-gesicht": { en: "/en/collections/wide-face-glasses", de: "/de/brille-fuer-breites-gesicht" },
   "landing.collection.de.brillen-fuer-grosse-koepfe": { en: "/en/collections/glasses-for-big-heads", de: "/de/brillen-fuer-grosse-koepfe" },
-  "landing.collection.de.xxl-brille-herren":        { en: "/en/xxl/glasses", de: "/de/xxl-brille-herren" },
+  "landing.collection.de.xxl-brille-herren":        { en: "/en/collections/extra-large-oversized-eyeglasses", de: "/de/xxl-brille-herren" },
   "landing.size.de.brille-breite-155-mm": { en: "/en/size/155mm", de: "/de/brille-breite-155-mm" },
   "landing.size.de.brille-breite-158-mm": { en: "/en/size/158mm", de: "/de/brille-breite-158-mm" },
 

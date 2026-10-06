@@ -13,6 +13,10 @@ const faqs = [
     a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm front width with a 21 mm bridge, and bespoke covers 145 to 160 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
   },
   {
+    q: "How wide are XXL sunglasses?",
+    a: "Most sunglasses sold as XXL measure about 145–150 mm across the front. A true XXL front is 155 mm or wider. Woolet's standard sunglasses are 158 mm across, and bespoke goes up to 160 mm.",
+  },
+  {
     q: "What head circumference is considered big?",
     a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm fits most XL heads (face width 155 to 161 mm). Outside that range, bespoke handles XS-wide and XXL faces from 145 to 160 mm.",
   },
@@ -102,7 +106,7 @@ const SunglassesForBigHeads = () => {
             Sunglasses for Big Heads - 158 mm + Bespoke
           </h1>
           <p style={{ fontSize: 15, lineHeight: 1.65, color: "#333", margin: "0 0 18px" }}>
-            Built from the ground up for wide faces (155 mm+) and head circumference 58 to 62 cm, not retrofitted from standard sizes. Hand made in the EU from Italian Mazzucchelli acetate, two shapes, one precise 158 mm front plus bespoke from 145 to 160 mm.
+            Built from the ground up for wide faces (155 mm+) and head circumference 58 to 62 cm, not retrofitted from standard sizes. Hand made in the EU from Italian Mazzucchelli acetate, two shapes, one precise 158 mm front plus bespoke from 145 to 160 mm. Read the guide: <Link to="/en/blog/best-oversized-sunglasses-big-heads-2026" style={{ color: "#A07A2A" }}>best sunglasses for big heads in 2026, ranked by width</Link>.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <a href="#size-finder" style={{ background: "#111", color: "#F8F6F1", padding: "11px 20px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2 }}>

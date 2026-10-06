@@ -3,11 +3,10 @@ import CollectionPage from "@/components/CollectionPage";
 const ExtraLargeOversizedEyeglasses = () => (
   <CollectionPage
     slug="extra-large-oversized-eyeglasses"
-    canonicalUrl="https://woolet.co/en/collections/extra-wide-glasses"
-    breadcrumbName="Extra Large Oversized Eyeglasses"
-    h1="Extra Large Oversized Eyeglasses for Prescription Lenses"
-    metaTitle="Extra Large Oversized Eyeglasses: 158 mm Rx Frames | Woolet"
-    metaDescription="Extra large oversized eyeglasses with a real 158 mm front, 150 mm temples and a 21–22 mm bridge. Ready for prescription lenses, $190. For faces 155 mm+."
+    breadcrumbName="Extra Large Eyeglass Frames"
+    h1="Extra Large Eyeglass Frames - XXL Fit, 158 mm Front"
+    metaTitle="Extra Large Eyeglass Frames (XXL, 158 mm) - Prescription Ready | Woolet"
+    metaDescription="Extra large eyeglass frames that are actually wide: 158 mm front, 21-22 mm keyhole bridge, Mazzucchelli acetate, prescription ready. XXL fit, bespoke 145-160 mm."
     intro="Extra large at most online opticians means a bigger lens on a standard front. These frames measure 158 mm across the front with 150 mm temples, so prescription lenses sit centred on a face 155 mm or wider. Two shapes, 007 Round and 009 Soft Square, $190 with demo lenses ready for your prescription."
     whyThisFits={[
       "<strong>158 mm front width is the honest measure.</strong> Mainstream <em>extra large</em> eyeglasses cap at 140–148 mm. The first number printed inside the temple is lens width, not total front width. Woolet scales both axes together so the frame fits faces of 155 mm and above.",
@@ -16,8 +15,14 @@ const ExtraLargeOversizedEyeglasses = () => (
       "<strong>Prescription-ready.</strong> Single-vision, progressive, blue-light filter, or UV400 sun lenses. Lens area is generous enough for progressives without edge distortion: 52 × 52 mm on 007 round, 54 × 50 mm on 009 soft square.",
       "<strong>Bespoke 145–160 mm</strong> if you fall outside 155–161 mm. Same Italian acetate, hand made in the EU to your scan. Confirm your size with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> or the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a>.",
       "<strong>Looking for the full oversized range?</strong> See all <a href=\"/en/collections/big-glasses-frames\" style=\"color:#A07A2A;\">oversized glasses</a>, including sunglasses and both shapes.",
+      "<strong>Read the guide:</strong> <a href=\"/en/blog/eyeglass-frame-size-chart\" style=\"color:#A07A2A;\">eyeglass frame size chart</a> — what every number on a frame means, in mm.",
     ]}
     faqs={[
+      {
+        question: "What size are XXL glasses frames?",
+        answer:
+          "Most frames sold as XXL measure 145–150 mm across the front. A true XXL front is 155 mm or wider. Woolet's standard front is 158 mm, and bespoke goes up to 160 mm.",
+      },
       {
         question: "What size is considered extra large for eyeglasses?",
         answer:

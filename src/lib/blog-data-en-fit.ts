@@ -239,7 +239,7 @@ ${ANSWER(
       `<strong>Eyeglass frames are sized in millimetres across six bands, XS to XXL, running from about 122 mm to 150 mm of total front width.</strong> Use the chart below to match your face width to a band. The important caveat: the standard industry chart ends at roughly 150 mm, which is exactly where wide faces begin.`,
     )}
 
-<p>Every retailer publishes a size chart and almost none of them publish the number you need. They give lens width, sometimes bridge, occasionally temple length — and then leave you to guess whether the frame will actually span your head. This chart gives front width as the primary column, because front width is the measurement that decides fit.</p>
+<p>Every retailer publishes a size chart and almost none of them publish the number you need. They give lens width, sometimes bridge, occasionally temple length — and then leave you to guess whether the frame will actually span your head. This chart gives front width as the primary column, because front width is the measurement that decides fit. If your numbers land above standard sizing, compare our <a href="/en/collections/extra-large-oversized-eyeglasses">extra large eyeglass frames</a>.</p>
 
 <h2>The chart</h2>
 
@@ -544,7 +544,7 @@ ${ANSWER(
 
 <h2>The marking, decoded</h2>
 
-<p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-145</strong>, sometimes written 54-21-145 or 54▫21▫145.</p>
+<p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-145</strong>, sometimes written 54-21-145 or 54▫21▫145. If your numbers land above standard sizing, compare our <a href="/en/collections/extra-large-oversized-eyeglasses">extra large eyeglass frames</a>.</p>
 
 <div style="background:#F8F6F1;color:#1F1B16;border:1px solid #E8E4DC;padding:22px 24px;margin:24px 0;border-radius:4px;font-family:'Barlow',sans-serif;">
   <div style="font-size:26px;letter-spacing:2px;color:#1a1a1a;margin-bottom:18px;"><strong>54</strong> <span style="color:#c9a84c;">□</span> <strong>21</strong> <span style="color:#999;">-</span> <strong>145</strong></div>
@@ -1081,7 +1081,7 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 <figure><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 Round in acetate, 158 mm front, ready for photochromic lenses fitted by an optician" loading="lazy" style="width:100%;border-radius:6px;margin:0.5rem 0 1rem" /><figcaption style="font-size:0.7rem;opacity:0.5;text-align:center">Woolet 007 Round - 158 mm front, Italian Mazzucchelli acetate</figcaption></figure>
 
 <h2>How photochromic lenses work</h2>
-<p>Photochromic lenses carry light-reactive molecules inside the lens material itself. When ultraviolet light hits the lens, those molecules change shape and absorb more visible light, so the lens darkens. Indoors there is almost no UV, the molecules relax, and the lens clears again.</p>
+<p>Photochromic lenses carry light-reactive molecules inside the lens material itself. When ultraviolet light hits the lens, those molecules change shape and absorb more visible light, so the lens darkens. Indoors there is almost no UV, the molecules relax, and the lens clears again. For frames actually built at that width, browse our <a href="/en/collections/sunglasses-for-big-heads">sunglasses for big heads</a>.</p>
 <p>The reaction is not symmetrical. The lenses darken faster than they clear, so stepping inside from bright sun you wait a moment for full clarity. Temperature plays a role too: cold weather makes them darker, heat makes them lighter. That is why the same pair can look slightly different on a hot July afternoon and a cold January morning.</p>
 <p>Because the darkening is driven by UV, not by brightness, the lens responds to daylight even when the sky is overcast - and it barely responds behind glass that blocks UV, which brings us to the honest limitations.</p>
 

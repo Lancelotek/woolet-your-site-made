@@ -990,7 +990,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   }
   if (path === "/collections/oversized-sunglasses-men") {
     return base(route, lang, {
-      title: "Oversized Sunglasses for Big Heads — 158 mm UV400 | Woolet",
+      title: "Oversized Sunglasses for Men - 158 mm, UV400 | Woolet",
       description:
         "UV400 sunglasses for big heads: 158 mm front, 21–22 mm bridge, 150 mm temples, Italian Mazzucchelli acetate. $210. Built for 155 mm+ faces.",
       noscriptHtml: `<h1>Oversized Sunglasses for Men</h1>
@@ -1114,9 +1114,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   // ----- Additional collections (per-route meta so crawlers don't fall back to homepage copy)
   const extraCollections: Record<string, { title: string; description: string; h1: string; intro: string }> = {
     "/collections/big-glasses-frames": {
-      title: "Oversized Glasses for Wide Faces: 158 mm Frames | Woolet",
+      title: "Big Glasses Frames for Men & Women - 158 mm Acetate | Woolet",
       description: "Oversized is a look. 158 mm is a size. Round and square frames 158 mm across with 150 mm temples, for faces 155 mm+. From $190. Measure in 60 s.",
-      h1: "Oversized Glasses That Fit a 155 mm+ Face",
+      h1: "Big Glasses Frames, Built for 155 mm+ Faces",
       intro: "Most oversized glasses get their size from the lenses, while the front stays close to standard width, so the arms still press on a wide face. Woolet frames measure 158 mm across the front with 150 mm temples, in two shapes: 007 Round and 009 Soft Square. Italian Mazzucchelli acetate, hand made in EU, from $190.",
     },
     "/collections/wide-frame-reading-glasses": {
@@ -1138,9 +1138,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       intro: "Round Italian-acetate glasses that read as round, not undersized. The Woolet 007 ships at a 158 mm front width with a 21 mm keyhole bridge — the front-and-bridge combination most round frames lack. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–160 mm available.",
     },
     "/collections/extra-large-oversized-eyeglasses": {
-      title: "Extra Large Oversized Eyeglasses: 158 mm Rx Frames | Woolet",
-      description: "Extra large oversized eyeglasses with a real 158 mm front, 150 mm temples and a 21–22 mm bridge. Ready for prescription lenses, $190. For faces 155 mm+.",
-      h1: "Extra Large Oversized Eyeglasses for Prescription Lenses",
+      title: "Extra Large Eyeglass Frames (XXL, 158 mm) - Prescription Ready | Woolet",
+      description: "Extra large eyeglass frames that are actually wide: 158 mm front, 21-22 mm keyhole bridge, Mazzucchelli acetate, prescription ready. XXL fit, bespoke 145-160 mm.",
+      h1: "Extra Large Eyeglass Frames - XXL Fit, 158 mm Front",
       intro: "Extra large at most online opticians means a bigger lens on a standard front. These frames measure 158 mm across the front with 150 mm temples, so prescription lenses sit centred on a face 155 mm or wider. Two shapes, 007 Round and 009 Soft Square, $190 with demo lenses ready for your prescription.",
     },
     "/collections/oversized-black-glasses": {
@@ -1167,9 +1167,6 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       { name: "Collections", url: `${SITE_URL}/en` },
       { name: c.h1, url: `${SITE_URL}${route}` },
     ])]);
-    if (path === "/collections/extra-large-oversized-eyeglasses") {
-      meta.canonical = `${SITE_URL}/en/collections/extra-wide-glasses`;
-    }
     return meta;
   }
 
@@ -2187,11 +2184,6 @@ const STATIC_ROUTES = [
   "/en/temple/150mm",
   "/en/temple/152mm",
   "/en/temple/155mm",
-  "/en/xxl",
-  "/en/xxl/glasses",
-  "/en/xxl/sunglasses",
-  "/en/xxl/for-big-heads",
-  "/en/xxl/extra-wide-frames",
   // Routes previously falling back to the SPA shell — now prerendered so
   // JS-less crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot, OAI-SearchBot)
   // receive real per-route head metadata instead of an empty index.html.
