@@ -21,6 +21,7 @@ const ExtraWideGlasses = () => (
       "Bridge width is the second variable most extra-wide listings ignore. A wider face usually has a wider nose; we use a 21 mm keyhole bridge (vs the 18–20 mm typical of mainstream wide frames) so the frame sits without riding up or leaving pressure marks.",
       "Both shapes — round 007 and soft-square 009 — are cut from Italian Mazzucchelli cellulose acetate. Hand made in EU, 5-barrel PVD Gunmetal hinges and 150 mm temples. Their generous 52 × 52 mm and 54 × 50 mm lens areas are ready for single-vision or progressive prescription lenses.",
       "The shop is sold out until the Kickstarter campaign ends. A $1 reservation now locks the $114 founding-member price against the $190 MSRP. Confirm 158 mm is right for you with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a>. Outside 155–161 mm, <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers 145 to 160 mm.",
+      "<strong>Read the guide:</strong> <a href=\"/en/blog/extra-wide-glasses-158mm\" style=\"color:#A07A2A;\">How wide is extra wide? The 158 mm answer</a>",
     ]}
     extraSections={[{
       heading: "Extra-wide frame widths",

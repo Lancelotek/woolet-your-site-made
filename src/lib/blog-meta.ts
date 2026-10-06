@@ -64,7 +64,8 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Office-ready eyewear for 155 mm+ faces. What to look for in wide frames that fit AND command respect — materials, silhouettes, and picks that survive Zoom.",
   },
   "best-glasses-for-big-heads-2026": {
-    metaTitle: "Glasses for Big & Large Heads 2026 — Extra Wide Frames",
+    metaTitle: "Best Glasses for Big Heads (2026): Frames Ranked by Real Width",
+    exactTitle: true,
     metaDescription:
       "Glasses for large heads compared: extra wide frames (150 mm+ front) by fit, material and price — plus the 158 mm pair built for wide faces.",
   },
@@ -79,7 +80,8 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "What independent studies say about blue-light lenses, when they help, when they don't, and why frame width matters more than the coating on a 155 mm+ face.",
   },
   "best-oversized-sunglasses-big-heads-2026": {
-    metaTitle: "Sunglasses for Big Heads — 2026 Guide (155 mm+)",
+    metaTitle: "Best Sunglasses for Big Heads (2026): Brands Ranked by Width",
+    exactTitle: true,
     metaDescription:
       "Big head sunglasses that fit: 155 mm+ fronts ranked by fit and material, XXL aviator-style options, polarized Cat 3 UV400, and which brands widen the front.",
   },
@@ -165,7 +167,8 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Most 'women's frames' cap at 138 mm. If your face is 150 mm+, here's what to look for, what to skip, and why width — not shape — is the deciding number.",
   },
   "extra-wide-glasses-158mm": {
-    metaTitle: "Extra Wide Glasses for Big Heads & Men (158 mm)",
+    metaTitle: "How Wide Is Extra Wide? 158 mm Glasses Explained | Woolet",
+    exactTitle: true,
     metaDescription:
       "Extra wide glasses for big heads and for men, measured. Which frames are genuinely built at a 158 mm front width, which only look large, and how to size up.",
   },

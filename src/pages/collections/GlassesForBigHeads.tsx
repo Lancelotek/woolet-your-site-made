@@ -13,6 +13,7 @@ const GlassesForBigHeads = () => (
       "<strong>Why acetate matters more at this size.</strong> Cellulose acetate holds the shape an optician sets; injection-moulded plastic loosens under heat — and a wider frame amplifies that drift. We use Italian Mazzucchelli, the same block material as Persol and Tom Ford, and hand-finish in the EU. Bigger frames also need stronger hinges: ours are 5-barrel PVD Gunmetal, rated for daily flex at 158 mm of front width.",
       "<strong>Prescription-ready, both shapes.</strong> Take to any optician for single-vision, progressive or blue-light lenses. Lens area is 52 × 52 mm on the round 007 and 54 × 50 mm on the soft-square 009 — generous enough for progressives without optical distortion at the edges. Temples are 148 mm at 11°.",
       "<strong>Pricing & how to find your size.</strong> $114 founding-member pre-order, $190 at full launch. The fastest path to the right size is the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> — 30 seconds with your phone camera, no app to install. Prefer not to use the camera? The <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a> works on any printer. If your head is above 62 cm or below 56 cm, <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">bespoke</a> covers 145 to 160 mm in either shape.",
+      "<strong>Read the guide:</strong> <a href=\"/en/blog/best-glasses-for-big-heads-2026\" style=\"color:#A07A2A;\">Best glasses for big heads in 2026, ranked by front width</a>",
     ]}
     extraSections={[
       {

@@ -1403,7 +1403,7 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "best-glasses-for-big-heads-2026",
-    title: "Best Glasses for Big Heads in 2026: Truly Wide Frames",
+    title: "Best Glasses for Big Heads in 2026, Ranked by Front Width",
     excerpt: "Big head glasses frames that actually fit. Every brand selling a 150 mm+ front width compared — real measurements, keyhole bridges, and a 158 mm option.",
     date: "2026-02-14",
     readTime: 13,
@@ -1760,7 +1760,7 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "best-oversized-sunglasses-big-heads-2026",
-    title: "Sunglasses for Big Heads: The 2026 Buyer's Guide (155 mm+)",
+    title: "Best Sunglasses for Big Heads in 2026, Ranked by Front Width",
     excerpt: "Big head sunglasses that actually fit: 155 mm+ fronts ranked by fit and material, XXL aviator-style options, polarized Cat 3 UV400, and which brands widen the front — not just the lens.",
     date: "2026-06-02",
     readTime: 11,
@@ -3111,7 +3111,7 @@ const blogPostsEN: BlogPost[] = [
   },
   {
     slug: "extra-wide-glasses-158mm",
-    title: "Extra Wide Glasses for Big Heads and Men: The 158 mm Truth",
+    title: "How Wide Is Extra Wide? The 158 mm Answer",
     excerpt: "Extra wide glasses for big heads and for men, measured. Which frames are genuinely built at a 158 mm front width, which only look large, and how to find your number.",
     date: "2026-04-14",
     readTime: 9,

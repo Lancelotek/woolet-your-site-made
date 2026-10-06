@@ -5,7 +5,7 @@ const OversizedSunglassesMen = () => (
     slug="oversized-sunglasses-men"
     h1="Oversized Sunglasses for Men — Wide-Face Fit, 158 mm"
     breadcrumbName="Oversized Sunglasses for Men"
-    metaTitle="Oversized Sunglasses for Big Heads — 158 mm UV400 | Woolet"
+    metaTitle="Oversized Sunglasses for Men - 158 mm, UV400 | Woolet"
     metaDescription="UV400 sunglasses for big heads: 158 mm front, 21–22 mm bridge, 150 mm temples, Italian Mazzucchelli acetate. $210. Built for 155 mm+ faces."
     intro="Oversized at most brands means a slightly larger lens on the same 140 mm front. Woolet's oversized sunglasses are properly oversized: the front itself is 158 mm wide, with a 21–22 mm keyhole bridge, 150 mm temples and lens area sized to match. Two shapes — round 007 and soft-square 009 — both in Italian Mazzucchelli acetate, hand made in EU, $210 with UV400 sun lenses."
     whyThisFits={[
