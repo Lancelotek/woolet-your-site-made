@@ -151,6 +151,11 @@ function normalizeCommerceJsonLd(obj) {
 const commerceJson = (obj) => JSON.stringify(normalizeCommerceJsonLd(obj));
 const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl", "ko"];
 const blogMetaBySlug = {
+  "ray-ban-oakley-costa-maui-jim-sizes-for-big-heads": {
+    metaTitle: "Ray-Ban, Oakley, Costa & Maui Jim Sizes for Big Heads (mm Table)",
+    metaDescription: "The widest Ray-Ban, Oakley, Costa and Maui Jim sunglasses in mm. None of their everyday frames reaches 150 mm. See which fits a big head.",
+    exactTitle: true
+  },
   // ── EN: wide-face core ───────────────────────────────────────────────
   "glasses-for-wide-faces-guide": {
     metaTitle: "Glasses for Wide Faces (155 mm+): Size Chart & Buying Guide",
@@ -837,6 +842,28 @@ function insertBridgeAfterBlogIntro(html) {
   if (start < 0) return html;
   const end = html.indexOf("</p>", start);
   return end < 0 ? html : `${html.slice(0, end + 4)}${bridgeFitPrerenderHtml()}${html.slice(end + 4)}`;
+}
+const BLOG_FITLENS_HOOK_POSTS = /* @__PURE__ */ new Set([
+  "round-vs-square-glasses-wide-face",
+  "glasses-for-wide-faces-guide",
+  "how-to-measure-face-width-for-glasses",
+  "how-to-tell-if-your-face-is-wide-or-narrow",
+  "what-size-sunglasses-for-wide-faces",
+  "eyeglass-frame-size-chart"
+]);
+const BLOG_FITLENS_HOOK = {
+  title: "Know your size in 60 seconds",
+  body: "Your phone camera measures your face width and matches you to a frame. Free, no signup.",
+  label: "Measure my face",
+  href: "/en/fit"
+};
+function blogFitLensHookHtml() {
+  return `<aside class="blog-fitlens-hook"><h2>${BLOG_FITLENS_HOOK.title}</h2><p>${BLOG_FITLENS_HOOK.body}</p><a href="${BLOG_FITLENS_HOOK.href}">${BLOG_FITLENS_HOOK.label}</a></aside>`;
+}
+function insertBlogFitLensHook(html) {
+  const firstH2 = html.search(/<h2\b/i);
+  if (firstH2 < 0) return `${html}${blogFitLensHookHtml()}`;
+  return `${html.slice(0, firstH2)}${blogFitLensHookHtml()}${html.slice(firstH2)}`;
 }
 const BYLINE = (published, updated) => `
 <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">
@@ -2713,6 +2740,123 @@ const blogPostsFR = [
 ];
 const blogPostsEN = [
   {
+    slug: "ray-ban-oakley-costa-maui-jim-sizes-for-big-heads",
+    title: "Ray-Ban, Oakley, Costa and Maui Jim: Which Sizes Fit a Big Head?",
+    excerpt: "The widest Ray-Ban, Oakley, Costa and Maui Jim sunglasses in mm. None of their everyday frames reaches 150 mm. See which fits a big head.",
+    date: "2026-10-06",
+    readTime: 8,
+    tags: ["Roundup", "Sunglasses", "Big Heads", "2026"],
+    image: "/og-ray-ban-oakley-costa-maui-jim-sizes-for-big-heads.jpg",
+    author: "Woolet Editorial Team",
+    exactContent: true,
+    faq: [
+      { q: "What is the widest Ray-Ban?", a: "The RB4165F Justin in size 58 at 146 mm across the front (SportRx measurement), followed by the RB3025 Aviator 62 and the RB2132F New Wayfarer 58 at 145 mm each." },
+      { q: "Are Oakley Holbrook XXL good for big heads?", a: "The Holbrook XXL is Oakley's widest frame at 145 mm (Oakley's own figure). It fits heads up to about 145 mm wide. Above that, the temples press." },
+      { q: "Which Costa sunglasses are best for big heads?", a: "The Spearo XL and Ferg XL, both 142 mm across according to Costa's size guide. Costa describes both as made for wide heads." },
+      { q: "Which Maui Jim fits a big head?", a: "The Big Wave (146 mm) and World Cup (142 mm) are the widest Maui Jim frames we found, per SportRx measurements. Maui Jim does not publish front widths." },
+      { q: "What size sunglasses do I need for a big head?", a: "A front width equal to your face width. For a face of 150 mm or more, that means a 150 mm+ front, which none of the everyday frames on this list reaches. Woolet's standard front is 158 mm, with bespoke from 145 to 160 mm." }
+    ],
+    content: `
+<p>Short answer: the widest everyday sunglasses from the four biggest brands stop at 145-146 mm across the front. Ray-Ban's RB4165F Justin 58 and Maui Jim's Big Wave (146 mm each) and Oakley's Holbrook XXL (145 mm) are the widest we found. A face that measures 150 mm or more temple to temple needs a wider front than any model on this list. Below are the numbers, model by model, so you can check before you buy.</p>
+
+<h2>The number that decides fit: front width</h2>
+<p>Every frame has three numbers printed inside the temple, like 62-14-140: lens width, bridge, temple length. None of them is the width of the frame. Front width, measured hinge to hinge, is the number that decides whether sunglasses pinch your temples. Brands rarely print it, which is why "XL" and "oversized" labels mislead so many people with big heads.</p>
+<p>The rule is simple: your front width should match your face width, temple to temple. Most adult faces measure 135-145 mm. A big head usually measures 150 mm or more.</p>
+
+<h2>Widest models by brand</h2>
+<p>Front widths below come from the brand where the brand publishes one (Costa, Oakley) and otherwise from SportRx, a large authorised retailer that publishes its own frame-width measurement for every model. We did not calculate any width from lens plus bridge. This list covers everyday and lifestyle frames; wraparound sport shields (for example Oakley's Kato or Jawbreaker) are measured differently and are not included.</p>
+
+<h3>Ray-Ban</h3>
+<table><thead><tr><th scope="col">Model</th><th scope="col">Size</th><th scope="col">Front width</th><th scope="col">Source</th></tr></thead><tbody>
+<tr><td>RB4165F Justin (Low Bridge Fit) 58</td><td>58</td><td>146 mm</td><td>SportRx</td></tr>
+<tr><td>RB3025 Aviator 62</td><td>62-14-140</td><td>145 mm</td><td>SportRx</td></tr>
+<tr><td>RB2132F New Wayfarer (Low Bridge Fit) 58</td><td>58-18-140</td><td>145 mm</td><td>SportRx</td></tr>
+<tr><td>RB3016 Clubmaster Classic 55</td><td>55-21-150</td><td>143 mm</td><td>SportRx</td></tr>
+<tr><td>RB2140 Original Wayfarer 54</td><td>54-18-150</td><td>142 mm</td><td>SportRx</td></tr>
+<tr><td>RB4175 Clubmaster Oversized 57</td><td>57-16-145</td><td>138 mm</td><td>SportRx</td></tr>
+</tbody></table>
+<p>Two surprises. The low-bridge "F" versions run wider than the standard ones (the standard RB2132 58 measures 142 mm), so they are worth trying even when your nose bridge is average. And the Clubmaster Oversized is narrower than the classic Clubmaster: a bigger lens does not mean a wider frame.</p>
+
+<h3>Oakley</h3>
+<table><thead><tr><th scope="col">Model</th><th scope="col">Size</th><th scope="col">Front width</th><th scope="col">Source</th></tr></thead><tbody>
+<tr><td>Holbrook XXL OO9487</td><td>61-18-143</td><td>145 mm</td><td>Oakley (SportRx: 144)</td></tr>
+<tr><td>Mainlink XL OO9264XL</td><td>61-17-138</td><td>141 mm</td><td>Oakley (SportRx: 142)</td></tr>
+<tr><td>Holbrook XL OO9417</td><td>59-17-137</td><td>140 mm</td><td>Oakley and SportRx</td></tr>
+<tr><td>Sylas XL OO9448</td><td>60-17-140</td><td>138 mm</td><td>Oakley (SportRx: 142)</td></tr>
+<tr><td>Gascan OO9014</td><td>60-15-127</td><td>138 mm</td><td>SportRx (Oakley: "one size")</td></tr>
+<tr><td>Flak 2.0 XL OO9188</td><td>59-16-125</td><td>126 mm</td><td>Oakley (SportRx: 135)</td></tr>
+</tbody></table>
+<p>Oakley prints a size letter with a millimetre figure on each product page, for example "XXL (145mm)". The Flak 2.0 XL shows why that matters: the "XL" describes the lens, and Oakley itself sizes the frame as S (126 mm), narrow fit.</p>
+
+<h3>Costa Del Mar</h3>
+<table><thead><tr><th scope="col">Model</th><th scope="col">Size</th><th scope="col">Front width</th><th scope="col">Source</th></tr></thead><tbody>
+<tr><td>Spearo XL 6S9013</td><td>59-17-140</td><td>142 mm</td><td>Costa (SportRx: 142)</td></tr>
+<tr><td>Ferg XL 6S9012</td><td>62-16-130</td><td>142 mm</td><td>Costa</td></tr>
+<tr><td>Paunch XL 6S9050</td><td>59-18-145</td><td>141 mm</td><td>Costa</td></tr>
+<tr><td>Diego XL 6S9034</td><td>62-14-113</td><td>140 mm</td><td>Costa</td></tr>
+<tr><td>Permit XL 6S9022</td><td>63-16-125</td><td>140 mm</td><td>Costa (SportRx: 141)</td></tr>
+<tr><td>Fisch 6S9054</td><td>64-17-140</td><td>138 mm</td><td>Costa (SportRx: 145)</td></tr>
+<tr><td>Fantail PRO 6S9079</td><td>60-15-120</td><td>133 mm</td><td>Costa (SportRx: 139)</td></tr>
+</tbody></table>
+<p>Costa is the most transparent of the four: its size guide lists a frame width for every model. By Costa's own figures its widest frames, Spearo XL and Ferg XL, sit at 142 mm and are described as made for wide heads. SportRx measures the Fisch wider, at 145 mm.</p>
+
+<h3>Maui Jim</h3>
+<table><thead><tr><th scope="col">Model</th><th scope="col">Size</th><th scope="col">Front width</th><th scope="col">Source</th></tr></thead><tbody>
+<tr><td>Big Wave</td><td>-</td><td>146 mm</td><td>SportRx</td></tr>
+<tr><td>World Cup MJ266</td><td>64-17-115</td><td>142 mm</td><td>SportRx</td></tr>
+<tr><td>Peahi MJ202</td><td>65-19-120</td><td>140 mm</td><td>SportRx</td></tr>
+<tr><td>Ho'okipa XLarge</td><td>68-14-145</td><td>139 mm</td><td>SportRx</td></tr>
+<tr><td>Banyans</td><td>70-13-140</td><td>138 mm</td><td>SportRx</td></tr>
+<tr><td>Byron Bay</td><td>62-18-125</td><td>137 mm</td><td>SportRx</td></tr>
+<tr><td>Pehu (labelled XL)</td><td>55-19-145</td><td>134 mm</td><td>SportRx</td></tr>
+</tbody></table>
+<p>Maui Jim publishes lens, bridge, temple and lens height, but no front width. The Banyans carries a 70 mm lens and still measures only 138 mm across, the clearest proof on this page that lens size tells you little about fit.</p>
+
+<h2>What the numbers say</h2>
+<ul>
+<li>None of the everyday frames on this list reaches 150 mm across the front.</li>
+<li>The widest per brand: Ray-Ban 146 mm, Maui Jim 146 mm, Oakley 145 mm, Costa 142 mm (Costa's figure; 145 mm per SportRx for the Fisch).</li>
+<li>"XL", "XXL" and "Large fit" labels range from 126 to 146 mm. Read the millimetres, not the label.</li>
+<li>Lens width predicts front width poorly. A 70 mm lens can sit on a 138 mm front.</li>
+</ul>
+
+<h2>Which one fits your head?</h2>
+<p>Measure your face first: temple to temple, in millimetres. Then:</p>
+<ul>
+<li><strong>Up to 140 mm:</strong> most "XL" models from all four brands fit. Pick by style.</li>
+<li><strong>141-146 mm:</strong> your shortlist is the Ray-Ban RB4165F Justin 58, RB3025 Aviator 62, RB2132F 58, Maui Jim Big Wave, Oakley Holbrook XXL and Costa Fisch, Spearo XL or Ferg XL. Expect a close fit, with the temples just touching.</li>
+<li><strong>147-154 mm:</strong> every model above runs narrower than your face. The arms will bow outward and press on your temples within an hour.</li>
+<li><strong>155 mm and above:</strong> you need a front built at your width. Woolet makes <a href="/en/collections/sunglasses-for-big-heads">sunglasses for big heads</a> with a 158 mm front, a 21-22 mm keyhole bridge and 150 mm temples, in Italian Mazzucchelli acetate. Faces between 145 and 160 mm get a <a href="/en/bespoke">bespoke</a> front cut to the millimetre, hand made in EU.</li>
+</ul>
+
+<h2>How to measure your face in 60 seconds</h2>
+<p><a href="/en/fit">FitLens</a> measures your face width and bridge width with your phone camera in about 60 seconds. No app, no account, and the photo stays on your phone. A ruler works too: stand in front of a mirror and measure straight across, from one temple to the other, just in front of your ears. The full method is in <a href="/en/blog/how-to-measure-face-width-for-glasses">how to measure face width for glasses</a>.</p>
+${blogFitLensHookHtml()}
+
+<h2>FAQ</h2>
+<h3>What is the widest Ray-Ban?</h3>
+<p>The RB4165F Justin in size 58 at 146 mm across the front (SportRx measurement), followed by the RB3025 Aviator 62 and the RB2132F New Wayfarer 58 at 145 mm each.</p>
+<h3>Are Oakley Holbrook XXL good for big heads?</h3>
+<p>The Holbrook XXL is Oakley's widest frame at 145 mm (Oakley's own figure). It fits heads up to about 145 mm wide. Above that, the temples press.</p>
+<h3>Which Costa sunglasses are best for big heads?</h3>
+<p>The Spearo XL and Ferg XL, both 142 mm across according to Costa's size guide. Costa describes both as made for wide heads.</p>
+<h3>Which Maui Jim fits a big head?</h3>
+<p>The Big Wave (146 mm) and World Cup (142 mm) are the widest Maui Jim frames we found, per SportRx measurements. Maui Jim does not publish front widths.</p>
+<h3>What size sunglasses do I need for a big head?</h3>
+<p>A front width equal to your face width. For a face of 150 mm or more, that means a 150 mm+ front, which none of the everyday frames on this list reaches. Woolet's standard front is 158 mm, with bespoke from 145 to 160 mm.</p>
+
+<h2>Sources</h2>
+<p>Measurements checked on 6 October 2026 on the brands' product pages (oakley.com, costadelmar.com, mauijim.com) and on sportrx.com product pages and size guides. Brands update frames; check the current product page before you buy.</p>
+
+<h2>Related</h2>
+<ul>
+<li><a href="/en/blog/best-oversized-sunglasses-big-heads-2026">Best sunglasses for big heads in 2026, ranked by front width</a></li>
+<li><a href="/en/blog/what-size-sunglasses-for-wide-faces">What size sunglasses for a wide face?</a></li>
+<li><a href="/en/compare/ray-ban-alternative">Ray-Ban alternative for wide faces</a></li>
+</ul>
+`
+  },
+  {
     slug: "glasses-for-wide-faces-guide",
     title: "Glasses for Wide Faces: The Complete Size & Buying Guide",
     excerpt: "Can't find glasses that fit a wide face? Learn how to measure, what frame width to look for (155 mm+), and which styles actually work. An honest 2026 guide.",
@@ -4489,6 +4633,7 @@ const blogPostsEN = [
 
 <h3>What about mainstream "oversized"?</h3>
 <p>Ray-Ban "Oversized", Warby Parker "Wide Fit", Quay "Oversized", Oakley XL — almost all of these cap at 140–148 mm of front width. For a face below 155 mm, they work. For a 155 mm+ face, they do not, regardless of how big the lens looks in the photo.</p>
+<p>Compare <a href="/en/blog/ray-ban-oakley-costa-maui-jim-sizes-for-big-heads">Ray-Ban, Oakley, Costa and Maui Jim sizes in mm</a> before you buy.</p>
 
 <h2>XXL aviator-style frames</h2>
 
@@ -9776,28 +9921,6 @@ const DE_PRICING = {
   founderLimit: 30,
   priceValidUntil: "2027-12-31"
 };
-const BLOG_FITLENS_HOOK_POSTS = /* @__PURE__ */ new Set([
-  "round-vs-square-glasses-wide-face",
-  "glasses-for-wide-faces-guide",
-  "how-to-measure-face-width-for-glasses",
-  "how-to-tell-if-your-face-is-wide-or-narrow",
-  "what-size-sunglasses-for-wide-faces",
-  "eyeglass-frame-size-chart"
-]);
-const BLOG_FITLENS_HOOK = {
-  title: "Know your size in 60 seconds",
-  body: "Your phone camera measures your face width and matches you to a frame. Free, no signup.",
-  label: "Measure my face",
-  href: "/en/fit"
-};
-function blogFitLensHookHtml() {
-  return `<aside class="blog-fitlens-hook"><h2>${BLOG_FITLENS_HOOK.title}</h2><p>${BLOG_FITLENS_HOOK.body}</p><a href="${BLOG_FITLENS_HOOK.href}">${BLOG_FITLENS_HOOK.label}</a></aside>`;
-}
-function insertBlogFitLensHook(html) {
-  const firstH2 = html.search(/<h2\b/i);
-  if (firstH2 < 0) return `${html}${blogFitLensHookHtml()}`;
-  return `${html.slice(0, firstH2)}${blogFitLensHookHtml()}${html.slice(firstH2)}`;
-}
 const BLOG_AIO_UPDATED = "2026-09-25";
 const tableStyle = "width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;";
 const thStyle = "text-align:left;padding:10px 12px;border-bottom:1px solid #C2A05A;";
@@ -10980,7 +11103,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
             url: `${SITE_URL}${route}`,
             datePublished: post.date,
             dateModified: modifiedDate,
-            author: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+            author: { "@type": "Organization", name: post.author ?? "Woolet", url: SITE_URL },
             publisher: {
               "@type": "Organization",
               name: "Woolet",
@@ -11107,6 +11230,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
           description: c.metaDescription,
           noscriptHtml: `<h1>${escapeHtml(c.heroH1)}</h1>
 <p>${escapeHtml(c.heroSub)}</p>
+${c.slug === "ray-ban-alternative" ? `<p>See <a href="/en/blog/ray-ban-oakley-costa-maui-jim-sizes-for-big-heads">the widest Ray-Ban sizes in mm</a>.</p>` : ""}
 <h2>Woolet vs ${escapeHtml(c.name)} — the specs</h2>
 <ul>${Object.entries(c.table).map(
             ([k, v]) => `<li><strong>${escapeHtml(k)}:</strong> Woolet — ${escapeHtml(wooletColumn[k] ?? "")}; ${escapeHtml(c.name)} — ${escapeHtml(v)}</li>`

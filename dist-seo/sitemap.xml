@@ -137,9 +137,9 @@
   </url>
   <url>
     <loc>https://woolet.co/de/xxl-brille-herren</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl/glasses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/extra-large-oversized-eyeglasses"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/xxl-brille-herren"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl/glasses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/extra-large-oversized-eyeglasses"/>
   </url>
   <url>
     <loc>https://woolet.co/en</loc>
@@ -384,6 +384,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/blue-light-glasses-for-wide-faces"/>
   </url>
   <url>
+    <loc>https://woolet.co/en/collections/extra-large-oversized-eyeglasses</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/extra-large-oversized-eyeglasses"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/xxl-brille-herren"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collections/extra-large-oversized-eyeglasses"/>
+  </url>
+  <url>
     <loc>https://woolet.co/en/collections/extra-wide-glasses</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/collections/extra-wide-glasses"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/breite-brille"/>
@@ -593,24 +599,6 @@
   </url>
   <url>
     <loc>https://woolet.co/en/temple/155mm</loc>
-  </url>
-  <url>
-    <loc>https://woolet.co/en/xxl</loc>
-  </url>
-  <url>
-    <loc>https://woolet.co/en/xxl/extra-wide-frames</loc>
-  </url>
-  <url>
-    <loc>https://woolet.co/en/xxl/for-big-heads</loc>
-  </url>
-  <url>
-    <loc>https://woolet.co/en/xxl/glasses</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/xxl/glasses"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/xxl-brille-herren"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/xxl/glasses"/>
-  </url>
-  <url>
-    <loc>https://woolet.co/en/xxl/sunglasses</loc>
   </url>
   <url>
     <loc>https://woolet.co/es</loc>
