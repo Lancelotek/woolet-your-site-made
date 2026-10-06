@@ -73,3 +73,8 @@
 - [x] Generate encoded and decoded legacy redirect files plus `/index.html`
 - [x] Regenerate sitemap and verify generated redirect output
 
+## English sunglasses brand sizing post - 2026-10-06
+- [ ] Add supplied article with the owner's ten exact fact corrections, metadata, tables, FAQ and FitLens CTA
+- [ ] Generate share image and add the two contextual links, listing and sitemap entry without hreflang
+- [ ] Verify automatic build, article output and configurator boot; do not publish
+
