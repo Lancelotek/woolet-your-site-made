@@ -43,7 +43,7 @@ function extractH2s(html: string): { id: string; text: string }[] {
 }
 
 /** Detect size-breakdown lists and add IDs to H2s, inject inline CTAs after every 3rd H2 */
-function processContent(html: string, lang: Lang): string {
+function processContent(html: string, lang: Lang, exactContent = false): string {
   // Add IDs to H2s
   let h2Count = 0;
   let processed = html.replace(/<h2([^>]*)>(.*?)<\/h2>/gi, (full, attrs, inner) => {
@@ -57,7 +57,7 @@ function processContent(html: string, lang: Lang): string {
     const ctaBtn = lang === "pl" ? "Dołącz" : "Join Waitlist";
 
     let cta = "";
-    if (h2Count > 1 && (h2Count - 1) % 3 === 0) {
+    if (!exactContent && h2Count > 1 && (h2Count - 1) % 3 === 0) {
       cta = `<div class="woolet-inline-cta"><p>${ctaText}</p><a href="/${lang}/lp/kickstarter">${ctaBtn}</a></div>`;
     }
 
@@ -170,7 +170,7 @@ const BlogPost = () => {
     [post],
   );
   const headings = useMemo(() => extractH2s(enhancedContent), [enhancedContent]);
-  const processedContent = useMemo(() => processContent(enhancedContent, currentLang), [enhancedContent, currentLang]);
+  const processedContent = useMemo(() => processContent(enhancedContent, currentLang, post?.exactContent), [enhancedContent, currentLang, post?.exactContent]);
   const showFitLensHook = currentLang === "en" && BLOG_FITLENS_HOOK_POSTS.has(slug);
   const showBridgeFit = currentLang === "en" && slug === "glasses-for-wide-nose-bridge-21-22mm-explained";
   const [introContent, remainingContent] = useMemo(

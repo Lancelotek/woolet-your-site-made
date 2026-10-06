@@ -1347,7 +1347,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
             url: `${SITE_URL}${route}`,
             datePublished: post.date,
             dateModified: modifiedDate,
-            author: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+            author: { "@type": "Organization", name: post.author ?? "Woolet", url: SITE_URL },
             publisher: {
               "@type": "Organization",
               name: "Woolet",
@@ -1486,6 +1486,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
           description: c.metaDescription,
           noscriptHtml: `<h1>${escapeHtml(c.heroH1)}</h1>
 <p>${escapeHtml(c.heroSub)}</p>
+${c.slug === "ray-ban-alternative" ? `<p>See <a href="/en/blog/ray-ban-oakley-costa-maui-jim-sizes-for-big-heads">the widest Ray-Ban sizes in mm</a>.</p>` : ""}
 <h2>Woolet vs ${escapeHtml(c.name)} — the specs</h2>
 <ul>${Object.entries(c.table)
             .map(

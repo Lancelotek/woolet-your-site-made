@@ -18,6 +18,11 @@ export interface PostMetaOverride {
 }
 
 export const blogMetaBySlug: Record<string, PostMetaOverride> = {
+  "ray-ban-oakley-costa-maui-jim-sizes-for-big-heads": {
+    metaTitle: "Ray-Ban, Oakley, Costa & Maui Jim Sizes for Big Heads (mm Table)",
+    metaDescription: "The widest Ray-Ban, Oakley, Costa and Maui Jim sunglasses in mm. None of their everyday frames reaches 150 mm. See which fits a big head.",
+    exactTitle: true,
+  },
   // ── EN: wide-face core ───────────────────────────────────────────────
   "glasses-for-wide-faces-guide": {
     metaTitle: "Glasses for Wide Faces (155 mm+): Size Chart & Buying Guide",
