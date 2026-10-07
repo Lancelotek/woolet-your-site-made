@@ -275,6 +275,11 @@ async function main() {
   // window.location.replace — and NO noindex, so link equity follows.
   const legacy = mod.ALL_REDIRECTS ?? mod.LEGACY_REDIRECTS ?? {};
   let legacyCount = 0;
+  const shadowed = Object.keys(legacy).filter((f) => routes.includes(f));
+  if (shadowed.length) {
+    console.error(`[prerender] FAILED — redirect sources that are real pages:\n  ${shadowed.join("\n  ")}`);
+    process.exit(1);
+  }
   for (const [from, to] of Object.entries(legacy)) {
     if (from === "/index.html" || from === "/") continue;
     const target = `https://woolet.co${to}`;

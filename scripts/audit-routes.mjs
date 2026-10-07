@@ -74,10 +74,6 @@ for (const p of [...concrete].sort()) {
   errors.push(p);
 }
 
-// Redirect sources must never shadow a real page.
-const manifest = resolve(ROOT, "public/route-manifest.json");
-const src = readFileSync(resolve(ROOT, "src/seo/routeRedirects.ts"), "utf8") + readFileSync(resolve(ROOT, "src/seo/legacyRedirects.ts"), "utf8");
-void manifest; void src;
 
 console.log(`[audit-routes] ${concrete.size} concrete App.tsx paths: ${pre} prerendered, ${stub} redirect stubs, ${allowed} allow-listed fallback`);
 if (errors.length) {
