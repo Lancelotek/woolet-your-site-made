@@ -18,7 +18,6 @@ import ksFit150 from "@/assets/ks-fit/woolet-150-bespoke-fit.jpg.asset.json";
 import ksFit158 from "@/assets/ks-fit/woolet-158-signature.jpg.asset.json";
 import ksFit162 from "@/assets/ks-fit/woolet-162-bespoke-extra-wide.jpg.asset.json";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
-const logo = logoAsset.url;
 import w007BlackFrontAsset from "@/assets/woolet-007-black-front.jpeg.asset.json";
 import w009BlackFrontAsset from "@/assets/woolet-009-black-front.png.asset.json";
 import w007CardAsset from "@/assets/products/woolet-007-round-black-card.webp.asset.json";
@@ -32,6 +31,7 @@ import gregSquare from "@/assets/testimonials/greg-woolet-tester-square.webp";
 import gregPortrait from "@/assets/testimonials/greg-woolet-tester.webp";
 import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, BESPOKE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
+import { imageVariant, imageSrcSet } from "@/lib/optimized-image";
 
 import wr29 from "@/assets/frames/wr-29.jpg.asset.json";
 import wr31 from "@/assets/frames/wr-31.jpg.asset.json";

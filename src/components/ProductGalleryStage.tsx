@@ -5,6 +5,7 @@ import { clarityEvent } from "@/lib/clarity";
 import { pushGtmEvent } from "@/lib/gtm";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { GALLERY_COPY, type PdpLang } from "@/i18n/productPageCopy";
+import { imageVariant, imageSrcSet } from "@/lib/optimized-image";
 
 const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 
@@ -39,20 +40,6 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
       setIdx(0);
     }
   }, [colourId]);
-
-  // preload the rest of the set once the page has settled
-  useEffect(() => {
-    const preload = () => {
-      items.forEach((m, i) => {
-        if (i === 0) return;
-        const img = new Image();
-        img.decoding = "async";
-        img.src = m.src;
-      });
-    };
-    const t = window.setTimeout(preload, 200);
-    return () => window.clearTimeout(t);
-  }, [items]);
 
   const go = (next: number, source: "arrow" | "thumb") => {
     const n = (next + items.length) % items.length;
@@ -118,7 +105,9 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
           <img
             className="pdp-hero-img"
             key={active.src}
-            src={active.src}
+            src={imageVariant(active.src)}
+            srcSet={imageSrcSet(active.src)}
+            sizes="(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw"
             alt={active.alt}
             width={active.width ?? 800}
             height={active.height ?? 600}
@@ -195,8 +184,10 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
               onClick={() => go(i, "thumb")}
             >
               <img
-                src={m.src}
+                src={imageVariant(m.src, 240)}
                 alt=""
+                width={m.width ?? 800}
+                height={m.height ?? 600}
                 loading="lazy"
                 decoding="async"
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: m.kind === "scale" ? "contain" : "cover" }}
