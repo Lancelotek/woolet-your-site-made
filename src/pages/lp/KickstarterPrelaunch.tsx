@@ -239,6 +239,7 @@ const VipForm = ({
 }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [skipVisible, setSkipVisible] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -486,7 +487,6 @@ const VipForm = ({
         <ReserveCheckoutButton
           id={`vip-reserve${idSuffix}`}
           label="Lock $114 - pay $1 now"
-          prefetchOnMount
           priceId={RESERVATION_PRICE_ID}
           customerEmail={email}
           returnUrl={returnUrl}
@@ -525,6 +525,9 @@ const VipForm = ({
               }
               onResolved?.();
             }}
+          tabIndex={skipVisible ? undefined : -1}
+          aria-hidden={skipVisible ? undefined : true}
+          style={{ opacity: skipVisible ? 1 : 0, pointerEvents: skipVisible ? "auto" : "none", transition: "opacity 0.6s ease", visibility: skipVisible ? "visible" : "hidden" }}
           className="mt-auto md:mt-4 self-center max-w-full text-center text-xs text-muted-foreground underline underline-offset-4 py-3"
         >
           Skip for now — stay on the free VIP list
@@ -948,7 +951,7 @@ const MarketWidthChart = () => {
                 >
                   {r.label}
                   <span aria-hidden="true" style={{ marginLeft: 6, color: TAUPE }}>
-                    {r.isWoolet ? "↓" : openRow === r.brand ? "−" : "+"}
+                    {r.isWoolet ? "↓" : openRow === r.brand ? "−" : r.label.endsWith("+") ? "›" : "+"}
                   </span>
                 </div>
 
@@ -1839,7 +1842,7 @@ const KickstarterPrelaunch = () => {
               },
               {
                 t: "Keyhole Bridge",
-                sub: "20–21 mm, rests on the sides of the nose",
+                sub: "21-22 mm, rests on the sides of the nose",
                 d: "The bridge sits on the sides of the nose rather than the top, so the frame sits level, doesn't slide, and leaves no red marks at the end of the day.",
               },
               {
