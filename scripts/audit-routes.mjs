@@ -36,6 +36,7 @@ const ALLOW = [
   /^\/[a-z]{2}\/bespoke\/(?:configurator|checkout|scan|measure|measurements|photo|shipping)$/,
   /^\/[a-z]{2}\/measure$/,
   /^\/[a-z]{2}\/fit\/wizard$/,
+  /^\/en\/fit\/quick$/, /^\/de\/fit\/(?:manual|quick)$/, // noindex helper tools
   // Localized fit tool: indexable only in en/de; other locales are noindex.
   /^\/(?:pl|fr|nl|ja|es|ar|ko)\/fit$/,
   /^\/(?:[a-z]{2}\/)?upvote$/,
