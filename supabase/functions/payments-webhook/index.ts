@@ -395,8 +395,10 @@ async function handleCheckoutExpired(session: any) {
   // engaged with the Stripe form. Pre-created sessions are ignored.
   const cd = session?.customer_details ?? {};
   const addr = cd?.address ?? {};
+  const cdEmail = String(cd?.email ?? "").trim().toLowerCase();
+  const prefilled = String(session?.customer_email ?? "").trim().toLowerCase();
   const engaged = Boolean(
-    cd?.email || cd?.name || cd?.phone ||
+    (cdEmail && cdEmail !== prefilled) || cd?.name || cd?.phone ||
     (addr && Object.values(addr).some((v) => typeof v === "string" && v.trim())),
   );
   const userInitiated = session?.metadata?.user_initiated === "1";

@@ -77,8 +77,12 @@ describe("Kickstarter VIP form — email-only submission", () => {
       expect(screen.getByRole("button", { name: /Lock \$114 - pay \$1 now/ })).toBeTruthy();
     });
     expect(screen.getByRole("dialog", { name: /\$1 today locks your/ }).querySelectorAll("img")).toHaveLength(1);
+    const invokeMock = supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>;
+    await new Promise((r) => setTimeout(r, 50));
+    expect(invokeMock.mock.calls.some(([name]) => name === "create-checkout")).toBe(false);
+    fireEvent.click(screen.getByRole("button", { name: /Lock \$114 - pay \$1 now/ }));
     await waitFor(() => {
-      expect((supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>).mock.calls.some(([name]) => name === "create-checkout")).toBe(true);
+      expect(invokeMock.mock.calls.some(([name]) => name === "create-checkout")).toBe(true);
     });
     const { pushGtmEvent } = await import("@/lib/gtm");
     expect((pushGtmEvent as ReturnType<typeof vi.fn>).mock.calls.filter(([name]) => name === "kickstarter_reserve_step_view")).toHaveLength(1);

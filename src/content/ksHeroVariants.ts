@@ -53,9 +53,30 @@ export const VARIANTS: Record<string, HeroVariant> = {
   "temples-bent": {
     eyebrow: "Every pair you've owned",
     h1: "Stop bending the temples. Get the width.",
-    sub: "A 158 mm front and a 21 mm keyhole bridge, built for heads from 155 to 161 mm. Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    sub: "A 158 mm front and a 21-22 mm keyhole bridge, built for heads from 155 to 161 mm. Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "Temples that sit where they should. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
+  },
+  "sized-up": {
+    eyebrow: "Sized up. Still too small.",
+    h1: "You went up a size. The frame still stopped short.",
+    sub: "Bigger lenses don't add width where your temples are. Woolet measures 158 mm across the front and fits heads from 155 to 161 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    reserveLead:
+      "The size that actually reaches your temples. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
+  },
+  "standard-vs-158": {
+    eyebrow: "Standard vs 158 mm",
+    h1: "Same face. Standard frame vs 158 mm.",
+    sub: "A standard frame stops around 140 mm. Woolet starts at 158 mm - two shapes built for heads from 155 to 161 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    reserveLead:
+      "You saw the difference. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
+  },
+  "large-never-wide": {
+    eyebrow: "Read the size label",
+    h1: "\"Large\" never meant wide. 158 mm does.",
+    sub: "Size labels change the lens, not the width. Woolet measures 158 mm across the front and fits heads from 155 to 161 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    reserveLead:
+      "Width you can measure. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },
 };
 
@@ -65,6 +86,9 @@ const SUFFIXES = ["-man", "-real", "-greybeard", "-lead"];
 export function heroVariantKeyFromUtm(utmContent: string | null | undefined): string {
   const v = String(utmContent || "").trim().toLowerCase();
   if (!v) return "default";
+  if (/^m7/.test(v)) return "sized-up";
+  if (/^ba[12]/.test(v)) return "standard-vs-158";
+  if (/^r5/.test(v)) return "large-never-wide";
   if (/^m2/.test(v) || v.includes("too-small") || v.includes("too_small")) return "too-small";
   if (/^m4/.test(v) || /^r2/.test(v) || v.includes("not-the-style")) return "not-the-style";
   if (/^m3/.test(v) || /^r4/.test(v) || v.includes("temples")) return "temples-bent";
@@ -77,6 +101,10 @@ export function resolveHeroVariant(
 ): { key: string; variant: HeroVariant } {
   let value = (utmContent || "").trim().toLowerCase();
   if (!value) return { key: "default", variant: DEFAULT_HERO_VARIANT };
+  if (/^(m7|ba[12]|r5)/.test(value)) {
+    const k = heroVariantKeyFromUtm(value);
+    return { key: k, variant: VARIANTS[k] };
+  }
 
   for (const p of PREFIXES) {
     if (value.startsWith(p)) {

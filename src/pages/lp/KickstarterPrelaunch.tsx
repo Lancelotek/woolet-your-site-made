@@ -249,6 +249,11 @@ const VipForm = ({
   const [errorNonce, setErrorNonce] = useState(0);
 
   const [step, setStep] = useState<1 | 2>(1);
+  useEffect(() => {
+    if (step !== 2) { setSkipVisible(false); return; }
+    const t = window.setTimeout(() => setSkipVisible(true), 8000);
+    return () => window.clearTimeout(t);
+  }, [step]);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const step2ViewedRef = useRef(false);
 
