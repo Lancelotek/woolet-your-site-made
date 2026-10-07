@@ -9,4 +9,6 @@
 - Image derivatives are indexed in src/data/optimized-images.json and selected through src/lib/optimized-image.ts; CDN pointers preserve originals for zoom while thumbnails and responsive galleries use smaller WebP files.
 - Stripe.js is dynamically imported by getStripe; reservation buttons mount only in the payment step and create sessions only on a visitor tap, preserving checkout attribution.
 - Route image preloads are emitted by scripts/prerender.mjs and matching Helmet tags; the shared SPA shell never preloads a route-specific hero.
-- Self-hosted public fonts are copied into src/assets/fonts and referenced relatively from CSS and index.html so Vite fingerprints them without host-header dependencies.
+- Self-hosted fonts used by the app live in src/assets/fonts and are referenced relatively from CSS and index.html so Vite fingerprints them without host-header dependencies; legacy public copies remain compatible.
+
+- FitScan initializes its mobile breakpoint before first paint and reserves panel height; other consumers of useIsMobile retain the existing initialization behavior.
