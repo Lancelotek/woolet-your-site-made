@@ -1,3 +1,4 @@
+import { imageVariant } from "@/lib/optimized-image";
 import { hreflangLinks } from "@/seo/hreflangLinks";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -6,7 +7,7 @@ import { frPageOrder, frPages } from "@/content/fr/landingPages";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 import Footer from "@/components/Footer";
 
-const wooletLogo = wooletLogoAsset.url;
+const wooletLogo = imageVariant(wooletLogoAsset.url, 64);
 const SITE = "https://woolet.co";
 
 const colors = {
@@ -24,7 +25,7 @@ const secondaryLinks: { to: string; label: string; sub: string }[] = [
   { to: "/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large", label: "Quelle taille de solaires pour un visage large ?", sub: "Guide rapide : largeur de face, pont, branches" },
   { to: "/fr/products/007", label: "Woolet 007 — rond, 158 mm", sub: "Pont keyhole, acétate italien Mazzucchelli" },
   { to: "/fr/products/009", label: "Woolet 009 — carré adouci, 158 mm", sub: "Pour visages larges en contexte professionnel" },
-  { to: "/fr/products/bespoke", label: "Bespoke — 145 à 160 mm sur mesure", sub: "Face, pont et branches au millimètre" },
+  { to: "/fr/lunettes-sur-mesure", label: "Bespoke — 145 à 160 mm sur mesure", sub: "Face, pont et branches au millimètre" },
 ];
 
 export default function FrHub() {

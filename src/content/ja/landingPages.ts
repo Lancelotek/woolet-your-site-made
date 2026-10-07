@@ -36,7 +36,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     ctaPrimaryLabel: "顔幅を60秒で測る",
     ctaPrimaryHref: "/ja/fit",
     ctaSecondaryLabel: "コレクションを見る",
-    ctaSecondaryHref: "/ja/collection",
+    ctaSecondaryHref: "/en/collection",
     problemH2: "市販のメガネが小さく見える理由",
     problemBody:
       "Ray-Ban、Persol、Warby Parker — 主要ブランドのフロント幅はほぼ135〜148mm。顔幅150mm以上の人にとっては「すべてがMサイズ」です。だから返品が増え、こめかみが痛み、写真が不自然になる。あなたの顔が大きいのではなく、業界が一つの平均値しか作っていないだけです。",

@@ -249,7 +249,15 @@ async function main() {
   for (const route of routes) {
     try {
       const meta = getMetadata(route);
-      const headHtml = renderHeadHtml(meta);
+      let headHtml = renderHeadHtml(meta);
+      if (/^\/(en|pl|es|ar|ja|ko)$/.test(route)) {
+        headHtml += `\n<link rel="preload" as="image" type="image/webp" href="/hero-greg-1000.webp" fetchpriority="high" imagesrcset="/hero-greg-648.webp 648w, /hero-greg-1000.webp 1000w" imagesizes="(min-width: 1024px) 48vw, 100vw" data-rh="true" />`;
+      }
+      if (route === "/en/lp/kickstarter") {
+        const images = JSON.parse(await readFile(resolve(ROOT, "src/data/optimized-images.json"), "utf8"));
+        const hero = Object.entries(images).find(([key]) => key.endsWith("/woolet-158-signature.jpg"))?.[1];
+        if (hero) headHtml += `\n<link rel="preload" as="image" type="image/webp" href="${hero.variants[1000]}" imagesrcset="${hero.variants[640]} 640w, ${hero.variants[1000]} 1000w" imagesizes="(min-width: 768px) 50vw, 100vw" fetchpriority="high" data-rh="true" />`;
+      }
       const html = injectHead(template, headHtml, meta.noscriptHtml, route);
       const outDir = resolve(DIST, "." + route);
       await mkdir(outDir, { recursive: true });

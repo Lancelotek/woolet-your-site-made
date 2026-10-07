@@ -802,7 +802,7 @@ ${ANSWER(
 
 <h2>Does the blue-light filter matter here?</h2>
 
-<p>Honestly: probably less than the marketing suggests. A 2023 Cochrane systematic review of randomised trials concluded that blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality compared with standard lenses — <a href="https://www.cochrane.org/CD013244/EYES_blue-light-filtering-spectacles-lenses-eye-health-and-sleep-quality" target="_blank" rel="noopener noreferrer" style="color:#A07A2A;">read the review</a>.</p>
+<p>Honestly: probably less than the marketing suggests. A 2023 Cochrane systematic review of randomised trials concluded that blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality compared with standard lenses — <a href="https://www.cochrane.org/evidence/CD013244_blue-light-filtering-spectacle-lenses-visual-performance-macular-back-part-eye-protection-and" target="_blank" rel="noopener noreferrer" style="color:#A07A2A;">read the review</a>.</p>
 
 <p>So we treat it as what it is: an optional coating, a preference, not a medical device. The claim we do make is the measurement. A frame that spans your face is the difference between wearing it for eight hours and taking it off at three.</p>
 

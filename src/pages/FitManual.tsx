@@ -1,3 +1,4 @@
+import { imageVariant, imageSrcSet } from "@/lib/optimized-image";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
@@ -162,9 +163,9 @@ export default function FitManual() {
                 }}
               >
                 <img
-                  src={manualFitImg.url}
+                  src={imageVariant(manualFitImg.url)} srcSet={imageSrcSet(manualFitImg.url)} sizes="(min-width: 768px) 50vw, 100vw" decoding="async"
                   alt="How to measure face width with a soft tape measure — across the temples, ear to ear in front of the head."
-                  className="w-full h-auto block"
+                  width={1920} height={1155} className="w-full h-auto block"
                   loading="lazy"
                 />
               </div>

@@ -1,3 +1,4 @@
+import { imageVariant } from "@/lib/optimized-image";
 import { hreflangLinks } from "@/seo/hreflangLinks";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -6,7 +7,7 @@ import { nlPageOrder, nlPages } from "@/content/nl/landingPages";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 import Footer from "@/components/Footer";
 
-const wooletLogo = wooletLogoAsset.url;
+const wooletLogo = imageVariant(wooletLogoAsset.url, 64);
 const SITE = "https://woolet.co";
 
 const colors = {
@@ -24,7 +25,7 @@ const secondaryLinks: { to: string; label: string; sub: string }[] = [
   { to: "/nl/blog/welke-maat-zonnebril-voor-breed-gezicht", label: "Welke maat zonnebril voor een breed gezicht?", sub: "Snelle maatgids: frontbreedte, brug, veren" },
   { to: "/nl/products/007", label: "Woolet 007 — rond, 158 mm", sub: "Sleutelgatbrug, Italiaans Mazzucchelli-acetaat" },
   { to: "/nl/products/009", label: "Woolet 009 — zacht vierkant, 158 mm", sub: "Voor bredere gezichten in professionele context" },
-  { to: "/nl/products/bespoke", label: "Bespoke — 145 tot 160 mm op maat", sub: "Front, brug en veren tot op de millimeter" },
+  { to: "/en/bespoke", label: "Bespoke — 145 tot 160 mm op maat", sub: "Front, brug en veren tot op de millimeter" },
 ];
 
 export default function NlHub() {
