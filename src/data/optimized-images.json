@@ -1,0 +1,288 @@
+{
+  "/__l5e/assets-v1/af2ac32c-4732-4b5b-9778-b0bab53e6249/woolet-009-havana-front.png": {
+    "width": 1080,
+    "height": 1080,
+    "variants": {
+      "240": "/__l5e/assets-v1/ea2a70b8-e7ec-4dff-8c31-9afa544faa4b/woolet-009-havana-front-240.webp",
+      "480": "/__l5e/assets-v1/355a57c9-9e0a-4ca3-acce-a149a8a5917f/woolet-009-havana-front-480.webp",
+      "800": "/__l5e/assets-v1/2f718cee-125c-45af-a29a-c493b61155e5/woolet-009-havana-front-800.webp",
+      "1200": "/__l5e/assets-v1/858aa54a-ca3b-431c-9733-a74eccf0ec0d/woolet-009-havana-front-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/2090a1ee-021e-4aed-8c2c-69ffdfffbe87/woolet-009-black.png": {
+    "width": 1080,
+    "height": 1080,
+    "variants": {
+      "240": "/__l5e/assets-v1/ec6e8dec-f1dc-4f47-9e44-c12bcb07bb8b/woolet-009-black-240.webp",
+      "480": "/__l5e/assets-v1/06958889-ac43-4735-9e20-b1b34735d5e9/woolet-009-black-480.webp",
+      "800": "/__l5e/assets-v1/e3f5a17e-b4bd-49df-b32b-0ae29156e331/woolet-009-black-800.webp",
+      "1200": "/__l5e/assets-v1/2a425631-1f2e-4f5b-ae8f-2cfd1af6024c/woolet-009-black-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/016fa571-4dbe-43e5-90ed-04b593344041/woolet-009-grey.png": {
+    "width": 1080,
+    "height": 1080,
+    "variants": {
+      "240": "/__l5e/assets-v1/2347efd1-4343-47f5-8186-dd8a49a5b9b0/woolet-009-grey-240.webp",
+      "480": "/__l5e/assets-v1/1a115ef8-f058-4003-b214-f21c585fc4a8/woolet-009-grey-480.webp",
+      "800": "/__l5e/assets-v1/0e6e55a4-2900-461f-a477-b57e02f649a5/woolet-009-grey-800.webp",
+      "1200": "/__l5e/assets-v1/24d6856f-490e-4ec0-850b-8a66a58ac96c/woolet-009-grey-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/23146226-e3ae-4430-93d3-468014fee7a6/woolet-009-taupe.png": {
+    "width": 1080,
+    "height": 1080,
+    "variants": {
+      "240": "/__l5e/assets-v1/69a0b55e-ae89-4e42-9b52-217b10dabfc5/woolet-009-taupe-240.webp",
+      "480": "/__l5e/assets-v1/a001b5d1-b017-47ac-bdb7-b8c57f15dda4/woolet-009-taupe-480.webp",
+      "800": "/__l5e/assets-v1/bccd2d7f-a388-42eb-83ee-ebc6497fce78/woolet-009-taupe-800.webp",
+      "1200": "/__l5e/assets-v1/90420af4-b305-450c-8da3-c0d7903739d5/woolet-009-taupe-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/064a22e5-d639-4ad8-aeeb-795d8984db6b/woolet-009-dimensions.png": {
+    "width": 659,
+    "height": 282,
+    "variants": {
+      "240": "/__l5e/assets-v1/9c6392d9-9790-4d00-b26b-10a7a32e55e0/woolet-009-dimensions-240.webp",
+      "480": "/__l5e/assets-v1/3c694ceb-ecf6-4149-9b7a-65f1ffe32654/woolet-009-dimensions-480.webp",
+      "800": "/__l5e/assets-v1/713680cb-037d-415f-9e21-7ee79bf06681/woolet-009-dimensions-800.webp",
+      "1200": "/__l5e/assets-v1/c69ca9c6-0b1e-4e11-96f2-0f0a57e4425b/woolet-009-dimensions-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/82f138ba-0455-4b40-8cbf-9e292463c6f3/woolet-007-dimensions.png": {
+    "width": 1026,
+    "height": 369,
+    "variants": {
+      "240": "/__l5e/assets-v1/3394b1dc-750d-4d5f-a26b-bedc975271c3/woolet-007-dimensions-240.webp",
+      "480": "/__l5e/assets-v1/2f40a1ed-dd6a-4cc4-b807-69ed28f08eb6/woolet-007-dimensions-480.webp",
+      "800": "/__l5e/assets-v1/90b2d1e4-55ff-4b23-a019-2544322dc595/woolet-007-dimensions-800.webp",
+      "1200": "/__l5e/assets-v1/f1ff6673-0f61-40ea-b9f5-3a2a5defa54d/woolet-007-dimensions-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/c6f84d53-20b1-4cae-a4ca-f3a44282134a/manual-fit-measure.png": {
+    "width": 1920,
+    "height": 1155,
+    "variants": {
+      "240": "/__l5e/assets-v1/8b34d85c-c2db-40f3-8ccc-3275fcd1751e/manual-fit-measure-240.webp",
+      "480": "/__l5e/assets-v1/60fd2ec7-8a40-4b11-b2ff-f9a5cad0816e/manual-fit-measure-480.webp",
+      "800": "/__l5e/assets-v1/28d55712-918b-4f4b-b460-9192f21cd7e0/manual-fit-measure-800.webp",
+      "1200": "/__l5e/assets-v1/b4cd0e5b-c679-4201-8cbe-725bd903473e/manual-fit-measure-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/8fec659e-19ab-4066-add6-2874199e78b3/rectangle.png": {
+    "width": 521,
+    "height": 312,
+    "variants": {
+      "240": "/__l5e/assets-v1/b18b1265-e39d-40ff-9430-e6ab2138d10c/configurator-frames-rectangle-240.webp",
+      "480": "/__l5e/assets-v1/bc3dfd73-0f77-4785-b213-891973cef668/configurator-frames-rectangle-480.webp",
+      "800": "/__l5e/assets-v1/2e87ddf0-2108-45d0-aca3-73bb798ff58d/configurator-frames-rectangle-800.webp",
+      "1200": "/__l5e/assets-v1/5b3ff9a8-7795-4ee9-aa83-10368eee2eaa/configurator-frames-rectangle-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/499d444a-5b87-4eab-9cf5-282385f68efa/round.png": {
+    "width": 521,
+    "height": 312,
+    "variants": {
+      "240": "/__l5e/assets-v1/c64f50ab-ad01-44fe-aee9-ba41750b1b01/configurator-frames-round-240.webp",
+      "480": "/__l5e/assets-v1/6edbad8d-71a6-49d9-a215-e37a33797863/configurator-frames-round-480.webp",
+      "800": "/__l5e/assets-v1/1f07f55a-26ca-4a8a-93df-0931dd8f9fd2/configurator-frames-round-800.webp",
+      "1200": "/__l5e/assets-v1/a19672c2-898f-4363-8b8c-d53a5e5179e5/configurator-frames-round-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/e25b4da4-6278-45f6-a6b4-0faf8ba19dd8/crown-panto.png": {
+    "width": 521,
+    "height": 312,
+    "variants": {
+      "240": "/__l5e/assets-v1/af157cc9-0291-45a6-b9f0-4a4ff6a93cb7/configurator-frames-crown-panto-240.webp",
+      "480": "/__l5e/assets-v1/3c8b8b64-2b50-43ad-b271-cc20f4fd3617/configurator-frames-crown-panto-480.webp",
+      "800": "/__l5e/assets-v1/ead4d7d0-84c5-4bd3-bab6-4db30418b236/configurator-frames-crown-panto-800.webp",
+      "1200": "/__l5e/assets-v1/f405eb72-120c-4f1f-b670-a969f8cb1c0e/configurator-frames-crown-panto-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/b052647e-9170-4dcd-a97a-33763236eb93/aviator.png": {
+    "width": 264,
+    "height": 154,
+    "variants": {
+      "240": "/__l5e/assets-v1/2cc9ff98-e25d-4c29-8fa5-9260c7f82ac3/configurator-frames-aviator-240.webp",
+      "480": "/__l5e/assets-v1/89b1808f-ced1-442b-9313-4778a8bff6e0/configurator-frames-aviator-480.webp",
+      "800": "/__l5e/assets-v1/ffa5c112-9adc-4903-b2af-2a656f735fdc/configurator-frames-aviator-800.webp",
+      "1200": "/__l5e/assets-v1/b2c701f9-ed68-4239-b10e-5a39ff1031ae/configurator-frames-aviator-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/e7f36689-7804-4358-ab79-a649127f35a1/woolet-158-signature.jpg": {
+    "width": 640,
+    "height": 787,
+    "variants": {
+      "240": "/__l5e/assets-v1/688358c8-b544-472b-a4f8-43dc2bdafa49/ks-fit-woolet-158-signature-240.webp",
+      "640": "/__l5e/assets-v1/6d4c7b96-127d-4555-81ff-ed9f545b6661/ks-fit-woolet-158-signature-640.webp",
+      "1000": "/__l5e/assets-v1/97f46107-68a2-4e85-957f-267377e28392/ks-fit-woolet-158-signature-1000.webp"
+    }
+  },
+  "/__l5e/assets-v1/45616e6b-d290-4155-ac79-604f7d642a5d/woolet-logo.png": {
+    "width": 561,
+    "height": 562,
+    "variants": {
+      "64": "/__l5e/assets-v1/8e5fad8a-2eb7-45f3-a57b-df3ddf8751c8/woolet-logo-64.webp"
+    }
+  },
+  "/__l5e/assets-v1/e6194d77-84a6-4d17-961e-be5256d0ce0f/greg-woolet-009.webp": {
+    "width": 1000,
+    "height": 1250,
+    "variants": {
+      "240": "/__l5e/assets-v1/04f75fc9-f513-4550-bd04-f9188eedc0a9/greg-woolet-009-240.webp",
+      "480": "/__l5e/assets-v1/cf88c8de-74e3-4bc4-8b59-68271fb19116/greg-woolet-009-480.webp",
+      "800": "/__l5e/assets-v1/6ba2077e-01a0-448f-b139-b0ba30f0a1b1/greg-woolet-009-800.webp",
+      "1200": "/__l5e/assets-v1/8eed4855-ec76-4a79-8fc0-cb507354fb10/greg-woolet-009-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/61020b8c-55d0-4203-92a8-f4f48eb96b6a/woolet-oval-havana-clean.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": {
+      "240": "/__l5e/assets-v1/d7bd60ca-d2dd-4064-8c81-cb92dad6d5de/frames-2026-oval-havana-240.webp",
+      "480": "/__l5e/assets-v1/94f39412-8fbd-472d-af16-c9dd60f3bcd5/frames-2026-oval-havana-480.webp",
+      "800": "/__l5e/assets-v1/c772645b-d662-4720-800b-407670263eee/frames-2026-oval-havana-800.webp",
+      "1200": "/__l5e/assets-v1/386deaab-d04e-484f-bf19-3cf86745898d/frames-2026-oval-havana-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/4ef1997a-4ceb-477d-8e26-cbde5715483c/woolet-oval-black-clean.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": {
+      "240": "/__l5e/assets-v1/b8e15c3e-fd84-4c50-9c52-4675672eac2f/frames-2026-oval-black-240.webp",
+      "480": "/__l5e/assets-v1/1134fbdf-3f92-4a74-9b28-79d713041061/frames-2026-oval-black-480.webp",
+      "800": "/__l5e/assets-v1/c696a1ff-0b44-41bf-8ac5-d4fa095aa22f/frames-2026-oval-black-800.webp",
+      "1200": "/__l5e/assets-v1/79f62f75-0254-421a-a940-a64107e6bc24/frames-2026-oval-black-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/7fe36ef7-aa15-4af9-bbf3-bd3a83089843/woolet-oval-crystal-clean.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": {
+      "240": "/__l5e/assets-v1/0e29fe50-6c9f-43f8-aaab-a9b31740bd90/frames-2026-oval-crystal-240.webp",
+      "480": "/__l5e/assets-v1/162fda13-bef7-4ffd-956d-4bf0e1bfa7b2/frames-2026-oval-crystal-480.webp",
+      "800": "/__l5e/assets-v1/6ba61295-2625-49ea-8368-d5a193c1b207/frames-2026-oval-crystal-800.webp",
+      "1200": "/__l5e/assets-v1/db0e51f8-0af0-44e8-817d-a0c338c8b92b/frames-2026-oval-crystal-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/102e068a-178b-433f-b715-798a6606a610/woolet-square-havana-clean.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": {
+      "240": "/__l5e/assets-v1/715f2ffd-252a-4f12-9062-33f6bea3080d/frames-2026-square-havana-240.webp",
+      "480": "/__l5e/assets-v1/c8520946-62c1-4dc5-9431-3ff75ef90c7d/frames-2026-square-havana-480.webp",
+      "800": "/__l5e/assets-v1/113fc459-a173-41c2-84f3-cc3aa3190dd6/frames-2026-square-havana-800.webp",
+      "1200": "/__l5e/assets-v1/4b89e646-fa17-4b3b-a4f0-59ece2c65dbc/frames-2026-square-havana-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/6b6ab37b-1c24-4d17-96f7-56a7b9a602a6/woolet-square-black-clean.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": {
+      "240": "/__l5e/assets-v1/0ea03e3b-d14f-4afe-a233-917fa7737fd0/frames-2026-square-black-240.webp",
+      "480": "/__l5e/assets-v1/22ea7722-3411-4c66-87d2-08c00ff63d08/frames-2026-square-black-480.webp",
+      "800": "/__l5e/assets-v1/23588625-475c-4412-9573-f0197942f692/frames-2026-square-black-800.webp",
+      "1200": "/__l5e/assets-v1/ce65ea8b-98a7-4c2e-9ec1-b5b24c632046/frames-2026-square-black-1200.webp"
+    }
+  },
+  "/__l5e/assets-v1/1e7813ea-fd78-4549-bd24-d48dff712c6e/woolet-square-crystal-clean.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": {
+      "240": "/__l5e/assets-v1/3249c186-6a29-42dc-849b-2b87a060646f/frames-2026-square-crystal-240.webp",
+      "480": "/__l5e/assets-v1/03ae6855-2a96-44e5-837b-3e97289876b6/frames-2026-square-crystal-480.webp",
+      "800": "/__l5e/assets-v1/56de2a1f-afb4-4423-b59b-029a7f2a4cea/frames-2026-square-crystal-800.webp",
+      "1200": "/__l5e/assets-v1/bac13437-1a7b-4c58-920d-0e8340e6d250/frames-2026-square-crystal-1200.webp"
+    }
+  },
+  "on-face/woolet-007-round-panto-black-on-face-01-3x4-1200x1600.webp": {
+    "width": 1200,
+    "height": 1600,
+    "variants": {
+      "240": "/__l5e/assets-v1/b347e229-796a-4ad0-9b8f-0e8b2f72d2d5/on-face-woolet-007-round-panto-black-on-face-01-3x4-1200x1600-240.webp",
+      "480": "/__l5e/assets-v1/9b7c58a0-65d1-4544-83d5-75bb33596c09/on-face-woolet-007-round-panto-black-on-face-01-3x4-1200x1600-480.webp",
+      "800": "/__l5e/assets-v1/a95c3450-c79b-4fb6-9963-2cf9aba25526/on-face-woolet-007-round-panto-black-on-face-01-3x4-1200x1600-800.webp",
+      "1200": "/__l5e/assets-v1/006e61f6-0b49-4e77-8405-78cedb96def7/on-face-woolet-007-round-panto-black-on-face-01-3x4-1200x1600-1200.webp"
+    }
+  },
+  "on-face/woolet-007-round-panto-havana-on-face-01-3x4-1200x1600.webp": {
+    "width": 1200,
+    "height": 1600,
+    "variants": {
+      "240": "/__l5e/assets-v1/26d6fb0e-f7dd-44b7-b6c8-185d8f6568af/on-face-woolet-007-round-panto-havana-on-face-01-3x4-1200x1600-240.webp",
+      "480": "/__l5e/assets-v1/75c6d1dc-5de6-46e1-ac2e-65bda0f012db/on-face-woolet-007-round-panto-havana-on-face-01-3x4-1200x1600-480.webp",
+      "800": "/__l5e/assets-v1/e227287a-d0b3-4f9e-a540-dc0bcff67a38/on-face-woolet-007-round-panto-havana-on-face-01-3x4-1200x1600-800.webp",
+      "1200": "/__l5e/assets-v1/d296f1d6-438d-423a-a247-9bd219ecd2b4/on-face-woolet-007-round-panto-havana-on-face-01-3x4-1200x1600-1200.webp"
+    }
+  },
+  "on-face/woolet-007-round-panto-silver-clear-on-face-01-3x4-1200x1600.webp": {
+    "width": 1200,
+    "height": 1600,
+    "variants": {
+      "240": "/__l5e/assets-v1/469f8a9c-48be-4069-8739-8f2ce4a52827/on-face-woolet-007-round-panto-silver-clear-on-face-01-3x4-1200x1600-240.webp",
+      "480": "/__l5e/assets-v1/59823d5d-3143-45ac-8157-ad8dbae137f4/on-face-woolet-007-round-panto-silver-clear-on-face-01-3x4-1200x1600-480.webp",
+      "800": "/__l5e/assets-v1/63b257ac-9ee9-4188-803b-555dc2200985/on-face-woolet-007-round-panto-silver-clear-on-face-01-3x4-1200x1600-800.webp",
+      "1200": "/__l5e/assets-v1/d2686b41-c0b7-4142-a932-c379c4f9d5bb/on-face-woolet-007-round-panto-silver-clear-on-face-01-3x4-1200x1600-1200.webp"
+    }
+  },
+  "on-face/woolet-009-soft-square-black-on-face-01-3x4-1200x1600.webp": {
+    "width": 1200,
+    "height": 1600,
+    "variants": {
+      "240": "/__l5e/assets-v1/d3d183cc-6514-4036-ad9d-fe8d6e0e2772/on-face-woolet-009-soft-square-black-on-face-01-3x4-1200x1600-240.webp",
+      "480": "/__l5e/assets-v1/5df0e7ec-abb0-4fb3-9364-7bb874ff0860/on-face-woolet-009-soft-square-black-on-face-01-3x4-1200x1600-480.webp",
+      "800": "/__l5e/assets-v1/29c08227-5e01-47ca-bb63-fbee74e24a91/on-face-woolet-009-soft-square-black-on-face-01-3x4-1200x1600-800.webp",
+      "1200": "/__l5e/assets-v1/d8cd0e4a-018b-494d-8129-a3a55f0a27bc/on-face-woolet-009-soft-square-black-on-face-01-3x4-1200x1600-1200.webp"
+    }
+  },
+  "on-face/woolet-009-soft-square-havana-on-face-01-3x4-1200x1600.webp": {
+    "width": 1200,
+    "height": 1600,
+    "variants": {
+      "240": "/__l5e/assets-v1/1bf92532-72ca-4caf-8ba5-34dfc499f766/on-face-woolet-009-soft-square-havana-on-face-01-3x4-1200x1600-240.webp",
+      "480": "/__l5e/assets-v1/77da5b2b-b3e3-4881-87f2-9d3df80e952f/on-face-woolet-009-soft-square-havana-on-face-01-3x4-1200x1600-480.webp",
+      "800": "/__l5e/assets-v1/66c16d40-4e71-4691-a064-ffef315c6284/on-face-woolet-009-soft-square-havana-on-face-01-3x4-1200x1600-800.webp",
+      "1200": "/__l5e/assets-v1/c017b507-0970-4c66-9f27-2364f78aac58/on-face-woolet-009-soft-square-havana-on-face-01-3x4-1200x1600-1200.webp"
+    }
+  },
+  "on-face/woolet-009-soft-square-silver-clear-on-face-04-3x4-1200x1600.webp": {
+    "width": 1200,
+    "height": 1600,
+    "variants": {
+      "240": "/__l5e/assets-v1/656faaa7-0e62-40a5-9d7b-e27dab8fc6a3/on-face-woolet-009-soft-square-silver-clear-on-face-04-3x4-1200x1600-240.webp",
+      "480": "/__l5e/assets-v1/0d50c4b6-780f-4621-b0c2-1666c858f2ea/on-face-woolet-009-soft-square-silver-clear-on-face-04-3x4-1200x1600-480.webp",
+      "800": "/__l5e/assets-v1/4132789a-dcf1-4905-a379-b5b71eebbbc8/on-face-woolet-009-soft-square-silver-clear-on-face-04-3x4-1200x1600-800.webp",
+      "1200": "/__l5e/assets-v1/187ac591-57e7-4806-b2e8-1513af24b878/on-face-woolet-009-soft-square-silver-clear-on-face-04-3x4-1200x1600-1200.webp"
+    }
+  },
+  "woolet-007-detail-hinge.jpg": {
+    "width": 1376,
+    "height": 768,
+    "variants": {
+      "240": "/__l5e/assets-v1/af987b32-020b-440e-98d0-05e63d439c87/woolet-007-detail-hinge-240.webp",
+      "480": "/__l5e/assets-v1/ae2828c3-0b9f-4dea-b2f1-e3e50392381b/woolet-007-detail-hinge-480.webp",
+      "800": "/__l5e/assets-v1/2da078d2-4dd0-4abd-8164-684978014239/woolet-007-detail-hinge-800.webp",
+      "1200": "/__l5e/assets-v1/c227783e-b0e4-4a8c-b41c-7f1b3cb69c0c/woolet-007-detail-hinge-1200.webp"
+    }
+  },
+  "testimonials/greg-woolet-tester.webp": {
+    "width": 900,
+    "height": 1125,
+    "variants": {
+      "240": "/__l5e/assets-v1/fbfafffd-3934-43b0-bdb6-9fb5bb2a1a16/testimonials-greg-woolet-tester-240.webp",
+      "480": "/__l5e/assets-v1/831cd288-e685-4afb-a7ae-dd7600caeab0/testimonials-greg-woolet-tester-480.webp",
+      "800": "/__l5e/assets-v1/6036fc45-87d4-4795-a224-deafc066c9fa/testimonials-greg-woolet-tester-800.webp",
+      "1200": "/__l5e/assets-v1/84ab6d0a-1149-4766-9925-6679102af20d/testimonials-greg-woolet-tester-1200.webp"
+    }
+  },
+  "testimonials/greg-woolet-tester-square.webp": {
+    "width": 800,
+    "height": 800,
+    "variants": {
+      "240": "/__l5e/assets-v1/3ce7f297-507a-44bc-af45-32d6a2cea8a4/testimonials-greg-woolet-tester-square-240.webp",
+      "480": "/__l5e/assets-v1/67b1ff06-adf4-4290-ac1a-84eb6c9cd35e/testimonials-greg-woolet-tester-square-480.webp",
+      "800": "/__l5e/assets-v1/643e4669-e88a-4302-9783-476266e3df90/testimonials-greg-woolet-tester-square-800.webp",
+      "1200": "/__l5e/assets-v1/502d8d63-d1ce-4fee-b339-aca54afa0203/testimonials-greg-woolet-tester-square-1200.webp"
+    }
+  }
+}
