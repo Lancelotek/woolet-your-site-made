@@ -460,7 +460,7 @@ const VipForm = ({
       style={{
         fontFamily: "Barlow, sans-serif",
         fontSize: 12,
-        color: TAUPE,
+        color: "hsl(var(--signup-helper))",
         lineHeight: 1.5,
         textAlign: compact ? "center" : "left",
         margin: 0,
@@ -469,7 +469,7 @@ const VipForm = ({
       By joining, you accept our{" "}
       <Link
         to="/en/privacy-policy"
-        style={{ color: TAUPE, textDecoration: "underline", textUnderlineOffset: 2 }}
+        style={{ color: "hsl(var(--signup-helper))", textDecoration: "underline", textUnderlineOffset: 2 }}
       >
         Privacy Policy
       </Link>{" "}
@@ -710,7 +710,7 @@ const VipForm = ({
         style={{
           fontFamily: "Barlow, sans-serif",
           fontSize: 11,
-          color: TAUPE,
+          color: "hsl(var(--signup-helper))",
           letterSpacing: "0.04em",
           textAlign: compact ? "center" : "left",
           marginTop: 2,
@@ -1207,7 +1207,7 @@ const KickstarterPrelaunch = () => {
           name="description"
           content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price."
         />
-        <link rel="preload" as="image" type="image/webp" href={imageVariant(ksFit158.url, 1000)} imageSrcSet={imageSrcSet(ksFit158.url, [640, 1000])} imageSizes="(min-width: 768px) 50vw, 100vw" fetchpriority="high" />
+        <link rel="preload" as="image" type="image/webp" href={imageVariant(ksFit158.url, 1000)} imageSrcSet={imageSrcSet(ksFit158.url, [640, 1000])} imageSizes="(min-width: 768px) 50vw, 100vw" fetchPriority="high" />
         <meta name="robots" content="index,follow" />
         <link rel="canonical" href="https://woolet.co/en/lp/kickstarter" />
         <link rel="alternate" hrefLang="en" href="https://woolet.co/en/lp/kickstarter" />

@@ -5,3 +5,8 @@
 - hreflang comes only from src/i18n/routeRegistry.ts (prerender head, Helmet via seo/hreflangLinks, sitemap); the registry drops non-reciprocal clusters and generate-sitemap fails the build on any one-way pair — Google ignores non-reciprocal annotations.
 - Blog posts may opt into exactContent to suppress automatic waitlist insertions, and an author override feeds static Article schema; this preserves approved editorial copy and bylines across rendering paths.
 - Prerendered head tags are removed only after Helmet writes equivalents (src/lib/strip-prerender-seo.ts MutationObserver) — avoids an empty head on lazy routes.
+
+- Image derivatives are indexed in src/data/optimized-images.json and selected through src/lib/optimized-image.ts; CDN pointers preserve originals for zoom while thumbnails and responsive galleries use smaller WebP files.
+- Stripe.js is dynamically imported by getStripe; reservation buttons mount only in the payment step and create sessions only on a visitor tap, preserving checkout attribution.
+- Route image preloads are emitted by scripts/prerender.mjs and matching Helmet tags; the shared SPA shell never preloads a route-specific hero.
+- Self-hosted public fonts are copied into src/assets/fonts and referenced relatively from CSS and index.html so Vite fingerprints them without host-header dependencies.
