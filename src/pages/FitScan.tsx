@@ -4323,7 +4323,7 @@ export default function FitScan() {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(typeof window !== "undefined" ? window.matchMedia("(max-width: 767px)").matches : false);
   const { user } = useAuth();
   const [searchParams] = useSearchParams();
   // `sid` = new "lead already captured on the other device" flag (random UUID).

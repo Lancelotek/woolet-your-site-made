@@ -119,9 +119,7 @@ export function StepFrame({ config, update }: StepProps) {
                 style={{ background: "#EFE9DF", aspectRatio: "16 / 9" }}
               >
                 <img
-                  src={imageVariant(f.url)}
-                  srcSet={imageSrcSet(f.url)}
-                  sizes="(min-width: 1024px) 260px, 50vw"
+                  src={imageVariant(f.url, 240)}
                   width={521}
                   height={312}
                   decoding="async"
