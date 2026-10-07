@@ -39,6 +39,7 @@ import wr34 from "@/assets/frames/wr-34.jpg.asset.json";
 import wr37 from "@/assets/frames/wr-37.jpg.asset.json";
 
 // ---------- Design tokens ----------
+const logo = imageVariant(logoAsset.url, 64);
 const INK = "#080807";
 const CREAM = "#EDE9DE";
 const TAUPE = "#BAAFA1";
@@ -460,7 +461,6 @@ const VipForm = ({
         fontFamily: "Barlow, sans-serif",
         fontSize: 12,
         color: TAUPE,
-        opacity: 0.6,
         lineHeight: 1.5,
         textAlign: compact ? "center" : "left",
         margin: 0,
@@ -1207,6 +1207,7 @@ const KickstarterPrelaunch = () => {
           name="description"
           content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price."
         />
+        <link rel="preload" as="image" type="image/webp" href={imageVariant(ksFit158.url, 1000)} imageSrcSet={imageSrcSet(ksFit158.url, [640, 1000])} imageSizes="(min-width: 768px) 50vw, 100vw" fetchpriority="high" />
         <meta name="robots" content="index,follow" />
         <link rel="canonical" href="https://woolet.co/en/lp/kickstarter" />
         <link rel="alternate" hrefLang="en" href="https://woolet.co/en/lp/kickstarter" />
@@ -1346,7 +1347,7 @@ const KickstarterPrelaunch = () => {
       <header style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 sm:py-5 flex items-center justify-between">
           <Link to="/en" className="flex items-center gap-2" aria-label="Woolet home">
-            <img src={logo} alt="Woolet" style={{ height: 32, width: "auto" }} />
+            <img src={logo} width={32} height={32} decoding="async" alt="Woolet" style={{ height: 32, width: "auto" }} />
           </Link>
           <div className="flex items-center gap-3">
             <span
@@ -1405,7 +1406,10 @@ const KickstarterPrelaunch = () => {
                 // next file is still decoding (the old <img> kept showing the
                 // previous photo, so ‹ › taps looked dead on slow phones).
                 key={activeImg}
-                src={heroGallery[activeImg].src}
+                src={activeImg === 0 ? imageVariant(ksFit158.url, 1000) : imageVariant(heroGallery[activeImg].src)}
+                srcSet={activeImg === 0 ? imageSrcSet(ksFit158.url, [640, 1000]) : imageSrcSet(heroGallery[activeImg].src)}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                fetchPriority={activeImg === 0 ? "high" : "auto"}
                 alt={heroGallery[activeImg].alt}
                 loading="eager"
                 decoding="async"
@@ -1452,9 +1456,9 @@ const KickstarterPrelaunch = () => {
                   }}
                 >
                   <img
-                    src={img.src}
+                    src={imageVariant(img.src, 240)}
                     alt={img.alt}
-                    loading={i === 0 ? "eager" : "lazy"}
+                    loading="lazy"
                     decoding="async"
                     width={72}
                     height={72}
