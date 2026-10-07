@@ -1,4 +1,4 @@
-import { imageVariant, imageSrcSet } from "@/lib/optimized-image";
+import { imageVariant } from "@/lib/optimized-image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Loader2, Lock, Maximize2, Sparkles, Unlock } from "lucide-react";

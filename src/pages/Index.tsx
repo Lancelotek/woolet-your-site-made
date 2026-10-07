@@ -647,12 +647,9 @@ const Index = () => {
         as="image"
         type="image/webp"
         href={HERO_SRC}
-        {...({
-          fetchpriority: "high",
-          imagesrcset: HERO_SRCSET,
-          imagesizes: HERO_SIZES,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any)}
+        fetchPriority="high"
+        imageSrcSet={HERO_SRCSET}
+        imageSizes={HERO_SIZES}
       /></Helmet>
 
 
