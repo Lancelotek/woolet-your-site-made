@@ -11,6 +11,8 @@
  * and keep the soft-404 noindex behaviour.
  */
 
+import { ROUTE_REDIRECTS } from "./routeRedirects";
+
 export const LEGACY_REDIRECTS: Record<string, string> = {
   "/Home/Blog": "/en/blog",
   "/Home/Fit": "/en/fit",
@@ -39,11 +41,39 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
   "/en/blog/bespoke-eyewear-size-range-150-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-160mm-guide",
   "/blog/bespoke-eyewear-size-range-145-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-160mm-guide",
   "/blog/bespoke-eyewear-size-range-150-172mm-guide": "/en/blog/bespoke-eyewear-size-range-145-160mm-guide",
+
+  // Smart-wallet era URLs still crawled (GSC 07.10.2026).
+  "/charging-mousepad": "/en",
+  "/about-us": "/en/about",
+  "/contact": "/en/about",
+  "/en/contact": "/en/about",
+  "/blog": "/en/blog",
+  "/blog/why-buy-smart-wallet-woolet": "/en/blog",
+  "/blog/what-does-a-smart-wallet-do": "/en/blog",
+  "/blog/best-smart-wallets-with-the-built-in-powerbank": "/en/blog",
+  "/blog/smart-wallets-what-to-know-about-your-new-favorite-gadget": "/en/blog",
+  "/blog/woolet-manual-woof-glow-juice-1-0-2-0-juice": "/en/blog",
+  "/category/wallets": "/en",
+  "/category/wallets.html": "/en",
+  "/category/shop-all": "/en",
+  "/Woolet-Glow-2-0-Antibacterial-Edition-p188259229": "/en",
+  "/Woolet-JUICE-Bifold-BUILT-IN-POWERBANK-p1903443": "/en",
+  "/products/wooden-iphone-apple-watch-combo-dock": "/en",
+  "/terms/privacy-policy": "/en/privacy-policy",
+  "/en/blog/how-to-measure-face-width": "/en/blog/how-to-measure-face-width-for-glasses",
 };
+
+/** Every static redirect (legacy + router data map) — one stub per entry. */
+export const ALL_REDIRECTS: Record<string, string> = { ...ROUTE_REDIRECTS, ...LEGACY_REDIRECTS };
 
 /** Wildcard rules, checked after the exact map. */
 const LEGACY_PREFIX_RULES: { prefix: string; to: string }[] = [
   { prefix: "/home/", to: "/en" }, // any other /Home/* → /en
+  { prefix: "/blog/", to: "/en/blog" }, // old smart-wallet posts
+  { prefix: "/category/", to: "/en" },
+];
+const LEGACY_REGEX_RULES: { re: RegExp; to: string }[] = [
+  { re: /^\/woolet-[^/]*-p\d+$/, to: "/en" }, // old shop product pages
 ];
 
 function normalize(path: string): string {
@@ -58,7 +88,7 @@ function normalize(path: string): string {
 }
 
 const NORMALIZED: Map<string, string> = new Map(
-  Object.entries(LEGACY_REDIRECTS).map(([from, to]) => [normalize(from), to]),
+  Object.entries(ALL_REDIRECTS).map(([from, to]) => [normalize(from), to]),
 );
 
 /** Target for a legacy path, or null when the path is not a known legacy URL. */
@@ -68,6 +98,9 @@ export function resolveLegacyRedirect(path: string): string | null {
   if (exact && normalize(exact) !== n) return exact;
   for (const rule of LEGACY_PREFIX_RULES) {
     if (n.startsWith(rule.prefix)) return rule.to;
+  }
+  for (const rule of LEGACY_REGEX_RULES) {
+    if (rule.re.test(n)) return rule.to;
   }
   return null;
 }

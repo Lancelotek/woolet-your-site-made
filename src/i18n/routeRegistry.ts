@@ -59,6 +59,8 @@ export const ROUTES = {
     en: "/en/blog",
     pl: "/pl/blog",
     de: "/de/blog",
+    fr: "/fr/blog",
+    nl: "/nl/blog",
   },
 
   // /bespoke landing — real in en + ja. Other locales use dedicated
@@ -79,7 +81,6 @@ export const ROUTES = {
   privacyPolicy: {
     en: "/en/privacy-policy",
     pl: "/pl/privacy-policy",
-    de: "/de/privacy-policy",
   },
   returnPolicy: {
     en: "/en/return-policy",

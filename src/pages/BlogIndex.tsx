@@ -23,6 +23,10 @@ const blogSeo: Record<string, { title: string; description: string }> = {
     title: "Blog — Woolet | Consejos gafas caras anchas",
     description: "Guías sobre gafas para caras anchas, acetato italiano y cómo encontrar el ajuste perfecto para 155mm+.",
   },
+  nl: {
+    title: "Blog — Woolet | Inzichten over bril voor brede gezichten",
+    description: "Expertgidsen over brillen voor brede gezichten, Italiaans acetaat, framematen en de perfecte pasvorm vanaf 155 mm.",
+  },
   de: {
     title: "Blog — Woolet | Brillen für breite Gesichter",
     description: "Ratgeber zu Brillen für breite Gesichter, italienisches Mazzucchelli-Acetat und die passende Fassung ab 155 mm.",

@@ -61,7 +61,7 @@ describe("SEO hreflang", () => {
     expect(readAlternates()).toHaveLength(0);
   });
 
-  it("shared route with availableLangs emits one link per locale + x-default", async () => {
+  it("bespoke uses the registry cluster and ignores availableLangs", async () => {
     renderSEO({
       title: "Bespoke",
       description: "d",
@@ -72,29 +72,9 @@ describe("SEO hreflang", () => {
     await waitFor(() => expect(readAlternates().length).toBeGreaterThan(0));
 
     const alts = readAlternates();
-    expect(alts).toHaveLength(4); // 3 langs + x-default
-    expect(alts.find((a) => a.hreflang === "pl")?.href).toBe(`${SITE}/pl/bespoke`);
+    expect(alts.find((a) => a.hreflang === "pl")).toBeUndefined();
     expect(alts.find((a) => a.hreflang === "de")?.href).toBe(`${SITE}/de/bespoke`);
-    expect(alts.find((a) => a.hreflang === "x-default")?.href).toBe(
-      `${SITE}/en/bespoke`
-    );
-  });
-
-  it("respects per-locale slug overrides via `alternates`", async () => {
-    renderSEO({
-      title: "Bespoke",
-      description: "d",
-      lang: "en",
-      path: "/bespoke",
-      availableLangs: ["en", "fr"],
-      alternates: { fr: "/lunettes-sur-mesure" },
-    });
-    await waitFor(() => expect(readAlternates().length).toBeGreaterThan(0));
-
-    const alts = readAlternates();
-    expect(alts.find((a) => a.hreflang === "fr")?.href).toBe(
-      `${SITE}/fr/lunettes-sur-mesure`
-    );
-    expect(alts.find((a) => a.hreflang === "en")?.href).toBe(`${SITE}/en/bespoke`);
+    expect(alts.find((a) => a.hreflang === "fr")?.href).toBe(`${SITE}/fr/lunettes-sur-mesure`);
+    expect(alts.find((a) => a.hreflang === "x-default")?.href).toBe(`${SITE}/en/bespoke`);
   });
 });

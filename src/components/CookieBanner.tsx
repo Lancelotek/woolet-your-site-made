@@ -554,7 +554,7 @@ const CookieBanner = () => {
           </p>
           <p style={{ margin: 0, marginBottom: isDesktop ? 22 : 14, color: MUTED, fontSize: isDesktop ? 14.5 : 13, lineHeight: isDesktop ? 1.55 : 1.45 }}>
             {t.body}{" "}
-            <a href={`/${locale}/privacy-policy`} style={linkStyle}>
+            <a href={`/${locale === "pl" ? "pl" : "en"}/privacy-policy`} style={linkStyle}>
               {t.policy}
             </a>
             .

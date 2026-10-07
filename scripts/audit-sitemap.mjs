@@ -124,6 +124,7 @@ for (const route of getAllRoutes()) {
   let meta;
   try { meta = getMetadata(route); } catch { continue; }
   if (emitsNoindex(meta)) continue;
+  if (meta?.canonical && meta.canonical !== `${BASE}${route}`) continue;
   const loc = `${BASE}${route}`;
   if (expected.has(loc)) continue; // getAllRoutes has intentional duplicates
   expected.set(loc, hreflangAlternates(route, BASE) ?? []);
@@ -151,6 +152,29 @@ for (const [loc, exp] of expected) {
     errors.push(
       `hreflang drift at ${loc}\n  sitemap:  ${JSON.stringify(got)}\n  expected: ${JSON.stringify(exp)}`,
     );
+  }
+}
+
+// 3d. Every sitemap URL must be indexable with a self canonical — both in
+//     the registry metadata and in the built HTML Google actually fetches.
+const metaByLoc = new Map();
+for (const route of getAllRoutes()) {
+  try { metaByLoc.set(`${BASE}${route}`, getMetadata(route)); } catch { /* ignore */ }
+}
+const DIST = resolve(ROOT, "dist");
+for (const loc of sitemap.keys()) {
+  const m = metaByLoc.get(loc);
+  if (m && emitsNoindex(m)) errors.push(`sitemap URL is noindex: ${loc}`);
+  if (m?.canonical && m.canonical !== loc) errors.push(`sitemap URL has non-self canonical (${m.canonical}): ${loc}`);
+  const p = loc.slice(BASE.length);
+  const file = [resolve(DIST, "." + p, "index.html"), resolve(DIST, "." + p + ".html")].find((f) => existsSync(f));
+  if (existsSync(DIST)) {
+    if (!file) { errors.push(`sitemap URL has no prerendered HTML (would serve noindex fallback): ${loc}`); continue; }
+    const html = readFileSync(file, "utf8");
+    const robots = html.match(/<meta\s+name="robots"\s+content="([^"]*)"/i)?.[1] ?? "";
+    const canon = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"/i)?.[1] ?? "";
+    if (/noindex/i.test(robots)) errors.push(`built HTML is noindex: ${loc}`);
+    if (canon !== loc) errors.push(`built HTML canonical ${canon || "(none)"} != ${loc}`);
   }
 }
 

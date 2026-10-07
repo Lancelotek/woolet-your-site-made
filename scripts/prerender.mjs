@@ -273,8 +273,13 @@ async function main() {
   // Legacy redirects (single source: src/seo/legacyRedirects.ts). Each
   // legacy path gets a tiny HTML page: canonical=TARGET, meta refresh,
   // window.location.replace — and NO noindex, so link equity follows.
-  const legacy = mod.LEGACY_REDIRECTS ?? {};
+  const legacy = mod.ALL_REDIRECTS ?? mod.LEGACY_REDIRECTS ?? {};
   let legacyCount = 0;
+  const shadowed = Object.keys(legacy).filter((f) => routes.includes(f));
+  if (shadowed.length) {
+    console.error(`[prerender] FAILED — redirect sources that are real pages:\n  ${shadowed.join("\n  ")}`);
+    process.exit(1);
+  }
   for (const [from, to] of Object.entries(legacy)) {
     if (from === "/index.html" || from === "/") continue;
     const target = `https://woolet.co${to}`;
@@ -295,6 +300,13 @@ async function main() {
     ]);
     for (const v of variants) {
       if (routes.includes(v)) continue;
+      if (v.endsWith(".html")) {
+        const file = resolve(DIST, "." + v);
+        await mkdir(dirname(file), { recursive: true });
+        await writeFile(file, page, "utf8");
+        legacyCount += 1;
+        continue;
+      }
       const dir = resolve(DIST, "." + v);
       await mkdir(dir, { recursive: true });
       await writeFile(resolve(dir, "index.html"), page, "utf8");
@@ -303,7 +315,7 @@ async function main() {
       legacyCount += 1;
     }
   }
-  console.log(`[prerender] wrote ${legacyCount} legacy redirect pages`);
+  console.log(`[prerender] wrote ${legacyCount} redirect stub pages (${Object.keys(legacy).length} redirect sources)`);
 
   console.log(`[prerender] done: ${ok} ok, ${fail} failed, ${routes.length} total`);
   console.log(`[prerender] wrote ${ok} route files to dist/`);

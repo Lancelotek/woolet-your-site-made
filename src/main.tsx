@@ -9,10 +9,8 @@ import { captureAttribution } from "./lib/attribution";
 import { captureJourney } from "./lib/journey";
 import { stripPrerenderedSeoHead } from "./lib/strip-prerender-seo";
 
-// Remove prerender-owned <head> tags before React (and Helmet) mount, so
-// Helmet becomes the sole owner of title / description / canonical /
-// hreflang / og:* / twitter:* / JSON-LD after hydration. Crawlers still
-// see the prerendered tags in the initial HTML because they don't run JS.
+// Remove prerender-owned <head> tags only once Helmet has written its own
+// equivalents for the current route (no empty-head window on lazy routes).
 stripPrerenderedSeoHead();
 
 initRedditPixel();

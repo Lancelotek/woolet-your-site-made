@@ -19,7 +19,7 @@ import { hreflangAlternates } from "@/i18n/routeRegistry";
 // Re-export so scripts/generate-sitemap.mjs can consume the SAME cluster
 // resolver as renderHeadHtml() from a single SSR bundle (no drift).
 export { hreflangAlternates } from "@/i18n/routeRegistry";
-export { LEGACY_REDIRECTS } from "./legacyRedirects";
+export { LEGACY_REDIRECTS, ALL_REDIRECTS } from "./legacyRedirects";
 import { getBlogPosts } from "@/lib/blog-data";
 import { competitors, wooletColumn } from "@/data/competitors";
 import { PRODUCT_FAQ, GUIDE_FAQS, faqPageJsonLd } from "./faq-data";
@@ -561,7 +561,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           },
         ],
        );
-       if (p.slug === "bespoke") meta.robots = "noindex, follow";
+       meta.robots = "noindex, follow"; // partner/creator reference pages duplicate product pages
        return meta;
     }
   }
@@ -763,7 +763,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         ]),
       ],
      );
-    if (lang === "en") meta.canonical = `${SITE_URL}/en/bespoke`;
+    // Every locale's component canonicalises to /en/bespoke at runtime.
+    meta.canonical = `${SITE_URL}/en/bespoke`;
     return meta;
   }
 
@@ -1241,7 +1242,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         description: "Polityka prywatności Woolet — jak zbieramy, wykorzystujemy i chronimy Twoje dane osobowe. JAY23 LLC.",
       },
     };
-    return base(route, lang, copy[lang] ?? copy.en!);
+    const m = base(route, lang, copy[lang] ?? copy.en!);
+    m.robots = "noindex, follow"; // matches the page's runtime robots
+    return m;
   }
   if (path === "/return-policy") {
     const copy: Partial<Record<Lang, Copy>> = {
@@ -1254,7 +1257,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         description: "Polityka zwrotów i wymiany Woolet — 30 dni na zwrot, gwarancja dopasowania i zwrot pieniędzy bez formalności. JAY23 LLC.",
       },
     };
-    return base(route, lang, copy[lang] ?? copy.en!);
+    const m = base(route, lang, copy[lang] ?? copy.en!);
+    m.robots = "noindex, follow";
+    return m;
   }
 
   // ----- Blog index
@@ -1732,6 +1737,30 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
     }
   }
 
+  // ----- /de/bespoke (German copy rendered by the Bespoke page)
+  if (path === "/bespoke" && lang === "de") {
+    const desc = "Brillen nach Maß für breite Gesichter von 145 - 160 mm. Italienisches Mazzucchelli-Acetat, handgefertigt in der EU.";
+    return base(route, lang, {
+      title: "Maßanfertigung für breite Gesichter 145 - 160 mm | Woolet",
+      description: desc,
+      noscriptHtml: `<h1>Maßanfertigung für breite Gesichter 145 - 160 mm</h1>
+<p>${desc}</p>
+<p><a href="/de/fit">Gesicht messen</a> · <a href="/de/kollektion">Kollektion</a> · <a href="/en/bespoke">English</a></p>`,
+    }, { image: DEFAULT_OG }, [bespokeProductJsonLd("de")]);
+  }
+
+  // ----- /en/the-box
+  if (path === "/the-box" && lang === "en") {
+    const desc = "The Woolet case: a rigid magnetic box, 180 × 80 × 55 mm, hand made in EU. Gold-foil mark, cream lining, and one number on the spine - 158 mm.";
+    return base(route, lang, {
+      title: "The Box - Woolet",
+      description: desc,
+      noscriptHtml: `<h1>Everything before the first look.</h1>
+<p>${desc}</p>
+<p><a href="/en/collection">See the frames</a> · <a href="/en/fit">Check your fit</a></p>`,
+    }, { image: `${SITE_URL}/box/woolet-box-3D-closed.png`, type: "article" });
+  }
+
   // ----- /en/bespoke (canonical bespoke landing)
   if (path === "/bespoke" && lang === "en") {
     return base(
@@ -2119,6 +2148,10 @@ const STATIC_ROUTES = [
   "/en/collections/oversized-round-glasses",
   "/en/collections/keyhole-bridge-glasses",
   "/en/bespoke",
+  "/de/bespoke",
+  "/en/the-box",
+  "/fr/blog",
+  "/nl/blog",
   "/de",
   "/de/kollektion",
   "/de/fit",
