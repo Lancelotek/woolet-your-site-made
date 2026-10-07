@@ -1,5 +1,12 @@
 # Roadmap
 
+## Performance and link fixes - 2026-10-07
+- [ ] Optimize thumbnails, LP hero and product galleries without changing composition
+- [ ] Defer Stripe until reservation step and scope image preloads by route
+- [ ] Optimize header logo, FitLens space reservation, route splitting and font caching
+- [ ] Correct listed links and signup-helper contrast
+- [ ] Verify focused tests, desktop/mobile rendering and unchanged payment initiation
+
 - [x] Add German pricing source and reservation tracking helper
 - [x] Update five German landing pages and German copy/schema
 - [x] Add German Impressum and Widerruf pages with footer links
