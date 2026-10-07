@@ -2320,6 +2320,9 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
       >
         <img
           src={fitScanTip}
+          width={96}
+          height={144}
+          decoding="async"
           alt="Example: credit card laid flat and horizontal on the forehead"
           loading="lazy"
           style={{ width: 96, height: 144, objectFit: "cover", borderRadius: 4, flexShrink: 0, background: "#000" }}
@@ -4320,7 +4323,7 @@ export default function FitScan() {
   const { lang: paramLang } = useParams<{ lang: string }>();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(typeof window !== "undefined" ? window.matchMedia("(max-width: 767px)").matches : false);
   const { user } = useAuth();
   const [searchParams] = useSearchParams();
   // `sid` = new "lead already captured on the other device" flag (random UUID).
@@ -5101,7 +5104,7 @@ export default function FitScan() {
           }
           .scan-mobile-secondary button:disabled { opacity: 0.4; cursor: not-allowed; }
         `}</style>
-         <div id="fit-scan-panel" className="px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
+         <div id="fit-scan-panel" className="min-h-[1200px] md:min-h-[1050px] px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
            <div className={`${step === "welcome" ? "max-w-4xl" : "max-w-xl"} mx-auto`}>
             {
               <>

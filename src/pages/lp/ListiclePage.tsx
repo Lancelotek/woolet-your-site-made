@@ -1,3 +1,4 @@
+import { imageVariant } from "@/lib/optimized-image";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -6,7 +7,7 @@ import { buildLeadAttribution } from "@/lib/meta-capi";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
-const wooletLogo = wooletLogoAsset.url;
+const wooletLogo = imageVariant(wooletLogoAsset.url, 64);
 import comparisonAsset from "@/assets/standard-vs-wide-comparison.png.asset.json";
 
 /* ---------- design tokens (scoped to this page only) ---------- */
@@ -778,7 +779,7 @@ const ListiclePage = () => {
               </p>
               <div style={{ display: "flex", gap: 18, marginTop: 22, fontSize: 11, letterSpacing: "0.22em", color: C.inkMute, textTransform: "uppercase" }}>
                 <a href="https://www.instagram.com/frames_for_wide_faces" target="_blank" rel="noopener" style={footLink}>Instagram</a>
-                <a href="https://www.facebook.com/WooletWideFit" target="_blank" rel="noopener" style={footLink}>Facebook</a>
+                <a href="https://www.facebook.com/WooletWideFit/" target="_blank" rel="noopener" style={footLink}>Facebook</a>
               </div>
             </div>
 

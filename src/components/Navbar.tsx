@@ -2,12 +2,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import wooletLogo from "@/assets/woolet-logo.svg";
 import { SUPPORTED_LANGS, langNames, t, isValidLang, type Lang } from "@/lib/i18n";
 import { hrefFor, keyForPath, hasLocalized, ROUTES } from "@/i18n/routeRegistry";
-import { useState, type MouseEvent } from "react";
+import { lazy, Suspense, useState, type MouseEvent } from "react";
 import { pushGtmEvent } from "@/lib/gtm";
 import { Menu, X, User } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import DeReservationCta from "@/components/de/DeReservationCta";
-import ResumeBuildBar from "@/components/bespoke/ResumeBuildBar";
+const ResumeBuildBar = lazy(() => import("@/components/bespoke/ResumeBuildBar"));
 
 const Navbar = () => {
   const { lang: paramLang } = useParams<{ lang: string }>();
@@ -202,7 +202,7 @@ const Navbar = () => {
           {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
         </button>
       </nav>
-      <ResumeBuildBar />
+      <Suspense fallback={null}><ResumeBuildBar /></Suspense>
 
       {/* Mobile menu overlay */}
       {menuOpen && (

@@ -58,7 +58,7 @@ function processContent(html: string, lang: Lang, exactContent = false): string 
 
     let cta = "";
     if (!exactContent && h2Count > 1 && (h2Count - 1) % 3 === 0) {
-      cta = `<div class="woolet-inline-cta"><p>${ctaText}</p><a href="/${lang}/lp/kickstarter">${ctaBtn}</a></div>`;
+      cta = `<div class="woolet-inline-cta"><p>${ctaText}</p><a href="/${lang === "de" ? "de" : "en"}/lp/kickstarter">${ctaBtn}</a></div>`;
     }
 
     return `${cta}<h2 id="${id}"${attrs}>${inner}</h2>`;

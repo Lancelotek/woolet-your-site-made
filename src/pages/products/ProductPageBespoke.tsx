@@ -9,6 +9,7 @@ import { trackMetaEventOnce } from "@/lib/meta-capi";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { BESPOKE_COPY, pdpLang, usd } from "@/i18n/productPageCopy";
+import { imageVariant } from "@/lib/optimized-image";
 import { BESPOKE_FACTS } from "@/content/bespokeFacts";
 import aviatorImg from "@/assets/configurator/frames/aviator.png.asset.json";
 import rectangleImg from "@/assets/configurator/frames/rectangle.png.asset.json";
@@ -193,7 +194,7 @@ const ProductPageBespoke = () => {
                         borderRadius: 3, cursor: "pointer",
                       }}
                     >
-                      <img src={src} alt={b.thumbAlt(shapeName)} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                      <img src={imageVariant(src, 240)} width={240} height={144} decoding="async" alt={b.thumbAlt(shapeName)} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                     </button>
                   );
                 })}

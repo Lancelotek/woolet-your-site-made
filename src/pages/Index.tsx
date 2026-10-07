@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
@@ -641,18 +642,15 @@ const Index = () => {
     <>
       <SEO title={seo.title} description={seo.description} ogDescription={seo.ogDescription} lang={lang} />
       {/* Preload the LCP hero portrait so it starts fetching before hydration */}
-      <link
+      <Helmet><link
         rel="preload"
         as="image"
         type="image/webp"
         href={HERO_SRC}
-        {...({
-          fetchpriority: "high",
-          imagesrcset: HERO_SRCSET,
-          imagesizes: HERO_SIZES,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any)}
-      />
+        fetchPriority="high"
+        imageSrcSet={HERO_SRCSET}
+        imageSizes={HERO_SIZES}
+      /></Helmet>
 
 
       <div className="min-h-screen flex flex-col bg-background text-foreground relative overflow-hidden">

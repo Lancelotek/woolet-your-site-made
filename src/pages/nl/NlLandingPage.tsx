@@ -1,3 +1,4 @@
+import { imageVariant } from "@/lib/optimized-image";
 import { hreflangLinks } from "@/seo/hreflangLinks";
 import { commerceJson } from "@/lib/schema-offer";
 import { useEffect } from "react";
@@ -8,7 +9,7 @@ import Footer from "@/components/Footer";
 import { nlPageOrder, nlPages, type NlPageConfig } from "@/content/nl/landingPages";
 import { RETURN_POLICY, shippingDetails, LIST_PRICE_SPEC, PRICE_VALID_UNTIL, SALE_PRICE, PRICE_CURRENCY } from "@/seo/commerce-schema";
 
-const wooletLogo = wooletLogoAsset.url;
+const wooletLogo = imageVariant(wooletLogoAsset.url, 64);
 const SITE = "https://woolet.co";
 
 const colors = {

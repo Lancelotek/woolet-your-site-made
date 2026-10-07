@@ -4353,7 +4353,7 @@ const blogPostsPL: BlogPost[] = [
 
 <p>007 i 009 to standardowe modele o szerokości frontu 158 mm. Gdy chcesz innej geometrii - belki aviatora, pełnego koła, prostego prostokąta - Bespoke wycina jeden z czterech odrębnych kształtów pod twoją szerokość twarzy, od 145 do 160 mm, z włoskiego acetatu Mazzucchelli. Ręcznie wykonane w Grecji; produkcja trwa dwa tygodnie od zatwierdzenia modelu 3D, a wysyłka następuje później. Regularna cena 480 USD obejmuje standardowe soczewki korekcyjne i darmową wysyłkę na cały świat; specjalne warianty soczewek są dodatkowo płatne.</p>
 
-<p><a class="blog-gold-button" href="/pl/bespoke">Zaprojektuj oprawkę Bespoke</a></p>
+<p><a class="blog-gold-button" href="/en/bespoke">Zaprojektuj oprawkę Bespoke</a></p>
 `,
   },
   {

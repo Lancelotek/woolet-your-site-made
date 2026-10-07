@@ -1,3 +1,4 @@
+import { imageVariant } from "@/lib/optimized-image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Loader2, Lock, Maximize2, Sparkles, Unlock } from "lucide-react";
@@ -118,7 +119,10 @@ export function StepFrame({ config, update }: StepProps) {
                 style={{ background: "#EFE9DF", aspectRatio: "16 / 9" }}
               >
                 <img
-                  src={f.url}
+                  src={imageVariant(f.url, 240)}
+                  width={521}
+                  height={312}
+                  decoding="async"
                   alt={`Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
                   loading="lazy"
                   className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03]"
