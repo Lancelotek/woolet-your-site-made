@@ -300,6 +300,13 @@ async function main() {
     ]);
     for (const v of variants) {
       if (routes.includes(v)) continue;
+      if (v.endsWith(".html")) {
+        const file = resolve(DIST, "." + v);
+        await mkdir(dirname(file), { recursive: true });
+        await writeFile(file, page, "utf8");
+        legacyCount += 1;
+        continue;
+      }
       const dir = resolve(DIST, "." + v);
       await mkdir(dir, { recursive: true });
       await writeFile(resolve(dir, "index.html"), page, "utf8");
