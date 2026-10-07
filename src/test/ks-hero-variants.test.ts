@@ -23,7 +23,10 @@ describe("resolveHeroVariant", () => {
     ["m2-too-small-story", "too-small"],
     ["r4-temples-bent-man", "temples-bent"],
     ["cloudwise", "default"],
-    ["r5-ugc-video", "default"],
+    ["r5-ugc-video", "large-never-wide"],
+    ["m7-sized-up-man", "sized-up"],
+    ["ba1-standard-vs-158", "standard-vs-158"],
+    ["ba2-split", "standard-vs-158"],
   ];
 
   for (const [input, expected] of cases) {

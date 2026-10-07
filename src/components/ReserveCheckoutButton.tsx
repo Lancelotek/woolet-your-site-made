@@ -31,15 +31,13 @@ type Props = {
   id?: string;
   onOpen?: () => void;
   onClosed?: () => void;
-  /** Begin creating a checkout session as soon as this post-signup action mounts. */
-  prefetchOnMount?: boolean;
 };
 
 /**
  * Gold reservation button with an instant loading state.
  *
- * Stripe.js and the checkout session are warmed up as soon as the button
- * renders, so the first tap opens the embedded modal without a dead click.
+ * Stripe.js and the modal code are preloaded on render; the checkout
+ * session is created only when the visitor taps.
  * Everything stays in the embedded modal (no window.open) so it works inside
  * the Facebook / Instagram in-app browsers.
  */
@@ -58,7 +56,6 @@ export function ReserveCheckoutButton({
   id,
   onOpen,
   onClosed,
-  prefetchOnMount = false,
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -99,8 +96,7 @@ export function ReserveCheckoutButton({
     return p;
   }, [createSession]);
 
-  // Preload code for all buttons; only the post-signup reservation opts in
-  // to creating its session before the visitor taps.
+  // Preload Stripe.js and modal code; the session is created only on tap.
   useEffect(() => {
     void import("@/components/StripeCheckoutModal");
     try {
@@ -109,13 +105,6 @@ export function ReserveCheckoutButton({
       /* surfaced by the modal */
     }
   }, []);
-
-  useEffect(() => {
-    if (prefetchOnMount) void warm();
-    // The initial mount is the moment step 1 has completed. Do not start
-    // another session on parent re-renders while this button is visible.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [prefetchOnMount]);
 
   const prefetchedClientSecret = useCallback(() => warm(), [warm]);
 
