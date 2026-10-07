@@ -405,7 +405,7 @@ export default function FitBespoke() {
                 Start AI Fit Scan
               </Link>
               <Link
-                to="/en/blog/bespoke-eyewear-size-range-145–160 mm-guide"
+                to="/en/blog/bespoke-eyewear-size-range-145-160mm-guide"
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   border: "1px solid hsl(var(--gold) / 0.5)",

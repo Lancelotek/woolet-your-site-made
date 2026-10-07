@@ -244,7 +244,7 @@ export default function SignIn() {
                 />
                 <span>
                   I agree to the{" "}
-                  <Link to={`/${lang}/privacy-policy`} style={{ color: GOLD }}>
+                  <Link to={`/${lang === "pl" ? "pl" : "en"}/privacy-policy`} style={{ color: GOLD }}>
                     privacy policy
                   </Link>
                   .

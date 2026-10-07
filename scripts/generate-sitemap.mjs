@@ -137,6 +137,10 @@ async function main() {
       dropped.push({ route, reason: `noindex in <head> (${meta.robots})` });
       continue;
     }
+    if (meta?.canonical && meta.canonical !== `${SITE_URL}${route}`) {
+      dropped.push({ route, reason: `non-self canonical (${meta.canonical})` });
+      continue;
+    }
     const alternates = hreflangAlternates(route, SITE_URL);
     kept.push({
       loc: `${SITE_URL}${route}`,

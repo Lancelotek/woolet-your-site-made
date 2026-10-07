@@ -323,7 +323,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
           {/* Inline consent notice */}
           <p className="text-cream-dim/70 text-center mt-1" style={{ fontSize: "11px" }}>
             By joining you agree to our{" "}
-            <Link to={`/${lang}/privacy-policy`} className="text-primary underline underline-offset-2 hover:text-gold-light transition-colors">
+            <Link to={`/${lang === "pl" ? "pl" : "en"}/privacy-policy`} className="text-primary underline underline-offset-2 hover:text-gold-light transition-colors">
               Privacy Policy
             </Link>.
           </p>

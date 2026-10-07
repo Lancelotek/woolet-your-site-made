@@ -273,7 +273,7 @@ async function main() {
   // Legacy redirects (single source: src/seo/legacyRedirects.ts). Each
   // legacy path gets a tiny HTML page: canonical=TARGET, meta refresh,
   // window.location.replace — and NO noindex, so link equity follows.
-  const legacy = mod.LEGACY_REDIRECTS ?? {};
+  const legacy = mod.ALL_REDIRECTS ?? mod.LEGACY_REDIRECTS ?? {};
   let legacyCount = 0;
   for (const [from, to] of Object.entries(legacy)) {
     if (from === "/index.html" || from === "/") continue;
@@ -303,7 +303,7 @@ async function main() {
       legacyCount += 1;
     }
   }
-  console.log(`[prerender] wrote ${legacyCount} legacy redirect pages`);
+  console.log(`[prerender] wrote ${legacyCount} redirect stub pages (${Object.keys(legacy).length} redirect sources)`);
 
   console.log(`[prerender] done: ${ok} ok, ${fail} failed, ${routes.length} total`);
   console.log(`[prerender] wrote ${ok} route files to dist/`);

@@ -166,7 +166,7 @@ const SEO = ({
     copyrightHolder: { "@type": "Organization", "@id": ORG_ID, name: "Woolet" },
     copyrightNotice: `© ${new Date().getFullYear()} Woolet`,
     license: `${SITE_URL}/terms`,
-    acquireLicensePage: `${SITE_URL}/contact`,
+    acquireLicensePage: `${SITE_URL}/en/about`,
   } : null;
 
   const articleJsonLd = type === "article" && publishedTime ? {
@@ -201,37 +201,17 @@ const SEO = ({
   // custom cluster shapes (blog posts, many-to-one landing groups).
   // Pages with no translation cluster emit NO hreflang block — a lone
   // self-reference is noise that Google discards.
+  // hreflang comes ONLY from the route registry (same source as the
+  // prerendered head and sitemap). `availableLangs` / `alternates` are
+  // ignored: they produced links to non-existent locale URLs.
+  void availableLangs; void alternates;
   const hreflangLinks: JSX.Element[] = [];
-  if (availableLangs && availableLangs.length > 0) {
-    availableLangs.forEach((l) => {
-      const overridePath = alternates?.[l];
-      const href = overridePath
-        ? `${SITE_URL}/${l}${overridePath.startsWith("/") ? overridePath : `/${overridePath}`}`
-        : `${SITE_URL}/${l}${path}`;
-      hreflangLinks.push(
-        <link key={`hl-${l}`} rel="alternate" hrefLang={l} href={href} />
-      );
+  const pagePath = canonicalUrl ? canonicalUrl.replace(SITE_URL, "") : `/${lang}${path}`;
+  const alts = canonicalUrl && canonicalUrl !== `${SITE_URL}/${lang}${path}` ? null : hreflangAlternates(pagePath, SITE_URL);
+  if (alts) {
+    alts.forEach(({ lang: l, href }) => {
+      hreflangLinks.push(<link key={`hl-${l}`} rel="alternate" hrefLang={l} href={href} />);
     });
-    const xdef = alternates?.en
-      ? `${SITE_URL}/en${alternates.en.startsWith("/") ? alternates.en : `/${alternates.en}`}`
-      : availableLangs.includes("en" as Lang)
-        ? `${SITE_URL}/en${path}`
-        : null;
-    if (xdef) {
-      hreflangLinks.push(
-        <link key="hl-xdef" rel="alternate" hrefLang="x-default" href={xdef} />
-      );
-    }
-  } else {
-    const alts = hreflangAlternates(`/${lang}${path}`, SITE_URL);
-    if (alts) {
-      alts.forEach(({ lang: l, href }) => {
-        hreflangLinks.push(
-          <link key={`hl-${l}`} rel="alternate" hrefLang={l} href={href} />
-        );
-      });
-    }
-    // No cluster => no hreflang block. Canonical still self-references.
   }
 
   return (

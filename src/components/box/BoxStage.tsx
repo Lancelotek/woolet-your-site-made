@@ -132,7 +132,7 @@ const BoxStage = () => {
       loadTextureOrFallback(loader, "/box/panel-front.png", CREAM),
       loadTextureOrFallback(loader, "/box/panel-back.png", INK),
       loadTextureOrFallback(loader, "/box/panel-spine.png", INK),
-      loadTextureOrFallback(loader, "/box/panel-flap.png", INK),
+      loadTextureOrFallback(loader, "/box/panel-back.png", INK),
       loadTextureOrFallback(loader, "/box/panel-inner-lid.png", CREAM),
     ]).then(([front, back, spine, flap, inner]) => {
       [front, back, spine, flap, inner].forEach((t) => t && texs.push(t));
