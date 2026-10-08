@@ -2150,6 +2150,7 @@ const STATIC_ROUTES = [
   "/en/bespoke",
   "/de/bespoke",
   "/en/the-box",
+  "/en/creatives/stretch-goals",
   "/fr/blog",
   "/nl/blog",
   "/de",

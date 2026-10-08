@@ -55,6 +55,7 @@ const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"))
 const ProductPageBespoke = lazy(() => import("./pages/products/ProductPageBespoke.tsx"));
 const RefIndex = lazy(() => import("./pages/ref/RefIndex.tsx"));
 const RefProductPage = lazy(() => import("./pages/ref/RefProductPage.tsx"));
+const StretchGoals = lazy(() => import("./pages/creatives/StretchGoals.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
 const TheBox = lazy(() => import("./pages/TheBox.tsx"));
