@@ -1824,7 +1824,7 @@ ${ANSWER(
 
 <h2>Does the blue-light filter matter here?</h2>
 
-<p>Honestly: probably less than the marketing suggests. A 2023 Cochrane systematic review of randomised trials concluded that blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality compared with standard lenses — <a href="https://www.cochrane.org/CD013244/EYES_blue-light-filtering-spectacles-lenses-eye-health-and-sleep-quality" target="_blank" rel="noopener noreferrer" style="color:#A07A2A;">read the review</a>.</p>
+<p>Honestly: probably less than the marketing suggests. A 2023 Cochrane systematic review of randomised trials concluded that blue-light filtering lenses probably make no measurable difference to eye strain, visual performance or sleep quality compared with standard lenses — <a href="https://www.cochrane.org/evidence/CD013244_blue-light-filtering-spectacle-lenses-visual-performance-macular-back-part-eye-protection-and" target="_blank" rel="noopener noreferrer" style="color:#A07A2A;">read the review</a>.</p>
 
 <p>So we treat it as what it is: an optional coating, a preference, not a medical device. The claim we do make is the measurement. A frame that spans your face is the difference between wearing it for eight hours and taking it off at three.</p>
 
@@ -7239,7 +7239,7 @@ const blogPostsPL = [
 
 <p>007 i 009 to standardowe modele o szerokości frontu 158 mm. Gdy chcesz innej geometrii - belki aviatora, pełnego koła, prostego prostokąta - Bespoke wycina jeden z czterech odrębnych kształtów pod twoją szerokość twarzy, od 145 do 160 mm, z włoskiego acetatu Mazzucchelli. Ręcznie wykonane w Grecji; produkcja trwa dwa tygodnie od zatwierdzenia modelu 3D, a wysyłka następuje później. Regularna cena 480 USD obejmuje standardowe soczewki korekcyjne i darmową wysyłkę na cały świat; specjalne warianty soczewek są dodatkowo płatne.</p>
 
-<p><a class="blog-gold-button" href="/pl/bespoke">Zaprojektuj oprawkę Bespoke</a></p>
+<p><a class="blog-gold-button" href="/en/bespoke">Zaprojektuj oprawkę Bespoke</a></p>
 `
   },
   {
@@ -10524,6 +10524,25 @@ function getMetadata(route) {
   var _a, _b, _c;
   const lang = langFromRoute(route);
   const path = route.replace(/^\/[a-z]{2}/, "") || "/";
+  if (path === "/creatives/stretch-goals") {
+    const shot = (file, alt) => `<img src="/creatives/stretch-goals/${file}" width="1122" height="1402" alt="${escapeHtml(alt)}" />`;
+    const meta = base(
+      "/en/creatives/stretch-goals",
+      "en",
+      {
+        title: "Woolet Aviator 161 mm - stretch goal renders",
+        description: "Three renders of the Woolet Aviator 161 mm stretch goal: light oak, grey wood and brushed silver metal with adjustable nose pads.",
+        noscriptHtml: `<h1>Woolet Aviator 161 mm</h1>
+<p>Three finishes rendered for the Kickstarter stretch goals.</p>
+${shot("woolet-aviator-161-wood-oak.jpg", "Woolet Aviator 161 mm in light oak wood finish - wider aviator eyeglass frame for wide faces, Kickstarter stretch goal")}
+${shot("woolet-aviator-161-wood-grey.jpg", "Woolet Aviator 161 mm in grey wood finish - wider aviator eyeglass frame for wide faces, Kickstarter stretch goal")}
+${shot("woolet-aviator-161-metal.jpg", "Woolet Aviator 161 mm in brushed silver metal with adjustable nose pads - wider aviator eyeglass frame for wide faces, Kickstarter stretch goal")}`
+      },
+      { image: "/creatives/stretch-goals/woolet-aviator-161-wood-oak.jpg" }
+    );
+    meta.robots = "noindex, follow";
+    return meta;
+  }
   if (path === "/ref" || path.startsWith("/ref/")) {
     if (path === "/ref") {
       const meta = base(
@@ -11994,6 +12013,7 @@ const STATIC_ROUTES = [
   "/en/bespoke",
   "/de/bespoke",
   "/en/the-box",
+  "/en/creatives/stretch-goals",
   "/fr/blog",
   "/nl/blog",
   "/de",
