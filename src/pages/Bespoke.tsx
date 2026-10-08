@@ -5,7 +5,6 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import bespokeHero from "@/assets/hero-man.jpg";
 import craft1 from "@/assets/bespoke-craft/woolet-bespoke-hand-filing-acetate-frame.jpg.asset.json";
 import craft2 from "@/assets/bespoke-craft/woolet-bespoke-acetate-template-frame-blank.jpg.asset.json";
 import craft3 from "@/assets/bespoke-craft/woolet-bespoke-milling-acetate-bridge.jpg.asset.json";
@@ -339,21 +338,19 @@ const BespokePage = () => {
               <div
                 className="relative overflow-hidden"
                 style={{
-                  aspectRatio: "4 / 5",
+                  aspectRatio: "9 / 16",
                   background: "hsl(var(--background))",
                   boxShadow: "0 30px 80px -30px hsl(0 0% 0% / 0.6)",
                 }}
               >
-                {/* Clarity: people tap the hero image — make it a way in. */}
-                  <Link to="/en/bespoke/configurator" aria-label="Build your bespoke frame" className="block w-full h-full">
-                  <img
-                    src={bespokeHero}
-                    alt="Woolet frame worn on a face, showing the fit across the front and temples"
-                    loading="eager"
-                    fetchPriority="high"
-                    className="w-full h-full object-cover"
-                  />
-                  </Link>
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/tSVsg9sj7y4?playsinline=1&rel=0"
+                  title="Woolet Bespoke video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="block w-full h-full border-0"
+                />
               </div>
             </div>
           </div>
