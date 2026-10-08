@@ -247,7 +247,7 @@ const ProductPage009 = () => {
           </section>
 
           <section style={{ marginTop: 40, borderTop: `1px solid ${T.hair}`, borderBottom: `1px solid ${T.hair}` }}>
-            <button onClick={() => setSpecsOpen((v) => !v)} style={{ width: "100%", background: "none", border: "none", padding: "18px 0", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: reserving ? "wait" : "pointer" }}>{reserving && <span aria-hidden="true" style={{ display: "inline-block", width: 12, height: 12, marginRight: 10, verticalAlign: "-1px", border: "2px solid rgba(31,27,22,0.3)", borderTopColor: "#1F1B16", borderRadius: "50%", animation: "wlBtnSpin 0.8s linear infinite" }} />}
+            <button onClick={() => setSpecsOpen((v) => !v)} style={{ width: "100%", background: "none", border: "none", padding: "18px 0", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}>
               <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.24em", textTransform: "uppercase", color: T.ink, fontWeight: 600 }}>
                 {c.specsTitle}
               </span>
