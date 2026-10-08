@@ -197,7 +197,7 @@ const ProductPage009 = () => {
                 </div>
               </div>
 
-              <button onClick={handleReserve} disabled={reserving} aria-busy={reserving} className="pdp-cta" style={{ opacity: reserving ? 0.8 : 1, width: "100%", minHeight: 60, background: T.gold, color: "#1F1B16", border: "none", padding: "18px 0", borderRadius: 2, fontFamily: SANS, fontWeight: 700, fontSize: 14, letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer" }}>
+              <button onClick={handleReserve} disabled={reserving} aria-busy={reserving} className="pdp-cta" style={{ opacity: reserving ? 0.8 : 1, width: "100%", minHeight: 60, background: T.gold, color: "#1F1B16", border: "none", padding: "18px 0", borderRadius: 2, fontFamily: SANS, fontWeight: 700, fontSize: 14, letterSpacing: "0.22em", textTransform: "uppercase", cursor: reserving ? "wait" : "pointer" }}>{reserving && <span aria-hidden="true" style={{ display: "inline-block", width: 12, height: 12, marginRight: 10, verticalAlign: "-1px", border: "2px solid rgba(31,27,22,0.3)", borderTopColor: "#1F1B16", borderRadius: "50%", animation: "wlBtnSpin 0.8s linear infinite" }} />}
                 {c.cta}
               </button>
 
@@ -247,7 +247,7 @@ const ProductPage009 = () => {
           </section>
 
           <section style={{ marginTop: 40, borderTop: `1px solid ${T.hair}`, borderBottom: `1px solid ${T.hair}` }}>
-            <button onClick={() => setSpecsOpen((v) => !v)} style={{ width: "100%", background: "none", border: "none", padding: "18px 0", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}>
+            <button onClick={() => setSpecsOpen((v) => !v)} style={{ width: "100%", background: "none", border: "none", padding: "18px 0", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: reserving ? "wait" : "pointer" }}>{reserving && <span aria-hidden="true" style={{ display: "inline-block", width: 12, height: 12, marginRight: 10, verticalAlign: "-1px", border: "2px solid rgba(31,27,22,0.3)", borderTopColor: "#1F1B16", borderRadius: "50%", animation: "wlBtnSpin 0.8s linear infinite" }} />}
               <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.24em", textTransform: "uppercase", color: T.ink, fontWeight: 600 }}>
                 {c.specsTitle}
               </span>
