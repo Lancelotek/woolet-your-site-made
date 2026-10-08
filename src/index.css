@@ -708,3 +708,4 @@ body.wl-lightbox-open .wl-sticky-cta { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   [data-wl-flash="on"] { animation: none; outline: 2px solid rgba(202, 164, 73, 0.85); outline-offset: 4px; }
 }
+@keyframes wlBtnSpin { to { transform: rotate(360deg); } }

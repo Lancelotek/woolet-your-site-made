@@ -175,6 +175,10 @@ export function ColourSwatches({
         .wl-swatch:focus-visible { outline: 2px solid ${T.gold}; outline-offset: 4px; border-radius: 6px; }
         .wl-swatch .wl-dot { transition: transform 120ms ease, box-shadow 120ms ease; }
         .wl-swatch:hover .wl-dot { transform: translateY(-2px); }
+        .wl-swatch:active .wl-dot { transform: scale(0.9); }
+        .wl-swatch.wl-pulse .wl-dot { animation: wlSwatchPulse 420ms ease-out; }
+        @keyframes wlSwatchPulse { 0% { transform: scale(1); } 35% { transform: scale(0.86); } 100% { transform: scale(1); } }
+        @media (prefers-reduced-motion: reduce) { .wl-swatch.wl-pulse .wl-dot { animation: none; } }
       `}</style>
       <div
         style={{
@@ -198,7 +202,14 @@ export function ColourSwatches({
               className="wl-swatch"
               aria-pressed={activeState}
               aria-label={showLabel(c.name)}
-              onClick={() => onSelect(i)}
+              onClick={(e) => {
+                const el = e.currentTarget;
+                el.classList.remove("wl-pulse");
+                void el.offsetWidth;
+                el.classList.add("wl-pulse");
+                onSelect(i);
+              }}
+              onAnimationEnd={(e) => e.currentTarget.classList.remove("wl-pulse")}
             >
               <span
                 aria-hidden
@@ -222,6 +233,12 @@ export function ColourSwatches({
                 }}
               >
                 {c.name}
+              </span>
+              <span
+                aria-hidden
+                style={{ fontFamily: SANS, fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: T.gold, height: 11, visibility: activeState ? "visible" : "hidden" }}
+              >
+                ✓
               </span>
             </button>
           );

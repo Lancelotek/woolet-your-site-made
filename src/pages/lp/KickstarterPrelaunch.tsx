@@ -1628,6 +1628,18 @@ const KickstarterPrelaunch = () => {
             ].map((s, i) => (
               <div
                 key={s.n}
+                {...(i === 2
+                  ? {
+                      role: "button",
+                      tabIndex: 0,
+                      "aria-label": `${s.n} - ${s.d}: view larger image`,
+                      className: "cursor-zoom-in transition-opacity active:opacity-70",
+                      onClick: (e: React.MouseEvent<HTMLDivElement>) => openLightbox(0, "gallery", e.currentTarget),
+                      onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => {
+                        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(0, "gallery", e.currentTarget); }
+                      },
+                    }
+                  : {})}
                 style={{
                   padding: "28px 8px",
                   borderRight: i < 2 ? `1px solid ${HAIRLINE}` : "none",
@@ -2022,8 +2034,24 @@ const KickstarterPrelaunch = () => {
               { n: "01", t: "Join the VIP list", d: "Email only — no payment, no commitment." },
               { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
               { n: "03", t: "Follow now, pledge at launch", d: "Kickstarter emails you from their own domain the minute we go live." },
-            ].map((s) => (
-              <div key={s.n} style={{ background: INK, padding: "32px 24px" }}>
+            ].map((s) => {
+              const tappable = s.n === "03";
+              return (
+              <div
+                key={s.n}
+                style={{ background: INK, padding: "32px 24px", cursor: tappable ? "pointer" : undefined }}
+                {...(tappable
+                  ? {
+                      role: "button",
+                      tabIndex: 0,
+                      className: "transition-opacity active:opacity-70",
+                      onClick: focusSignupOrReserve,
+                      onKeyDown: (e: React.KeyboardEvent) => {
+                        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); focusSignupOrReserve(); }
+                      },
+                    }
+                  : {})}
+              >
                 <div
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
@@ -2047,7 +2075,8 @@ const KickstarterPrelaunch = () => {
                 </h3>
                 <p style={{ color: TAUPE, fontSize: 14, lineHeight: 1.65, marginTop: 10 }}>{s.d}</p>
               </div>
-            ))}
+              );
+            })}
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             {hasJoined ? (

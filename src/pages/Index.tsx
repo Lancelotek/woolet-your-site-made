@@ -494,7 +494,7 @@ const makeMeters = (copy: HomeCopy): MeterCfg[] => [
   },
 ];
 
-const FrameWidthMeter = ({ copy }: { copy: HomeCopy }) => {
+const FrameWidthMeter = ({ copy, lang }: { copy: HomeCopy; lang: Lang }) => {
   const [active, setActive] = useState(0);
   const meters = makeMeters(copy);
 
@@ -513,13 +513,17 @@ const FrameWidthMeter = ({ copy }: { copy: HomeCopy }) => {
           style={{ transform: `translateX(-${active * 100}%)` }}
         >
           {meters.map((m) => (
-            <div key={m.key} className="w-full shrink-0 pr-px">
+            <Link
+              key={m.key}
+              to={hrefFor("fit", lang)}
+              className="block w-full shrink-0 pr-px no-underline text-inherit cursor-pointer transition-opacity hover:opacity-90 active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            >
               <MeterRow
                 cfg={m}
                 standardLabel={copy.meterStandard}
                 yourRangeLabel={copy.yourRange}
               />
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -724,9 +728,9 @@ const Index = () => {
 
               <div className="order-5 lg:order-none pt-1">
                 {lang === "en" ? (
-                  <HeroSymptoms meter={<FrameWidthMeter copy={copy} />} />
+                  <HeroSymptoms meter={<FrameWidthMeter copy={copy} lang={lang} />} />
                 ) : (
-                  <FrameWidthMeter copy={copy} />
+                  <FrameWidthMeter copy={copy} lang={lang} />
                 )}
               </div>
 

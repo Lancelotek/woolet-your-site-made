@@ -82,7 +82,16 @@ const ProductPage007 = () => {
     };
   }, []);
 
+  const [reserving, setReserving] = useState(false);
+  useEffect(() => {
+    // bfcache restore (Back from /en/payments) must re-enable the button
+    const onShow = (e: PageTransitionEvent) => { if (e.persisted) setReserving(false); };
+    window.addEventListener("pageshow", onShow);
+    return () => window.removeEventListener("pageshow", onShow);
+  }, []);
   const handleReserve = () => {
+    if (reserving) return;
+    setReserving(true);
     pushGtmEvent("click_reserve", {
       product_id: "007", item_name: "Woolet 007",
       value: 1, currency: "USD",
@@ -195,7 +204,7 @@ const ProductPage007 = () => {
               </div>
 
               {/* e) Primary CTA */}
-              <button onClick={handleReserve} className="pdp-cta" style={{ width: "100%", minHeight: 60, background: T.gold, color: "#1F1B16", border: "none", padding: "18px 0", borderRadius: 2, fontFamily: SANS, fontWeight: 700, fontSize: 14, letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer" }}>
+              <button onClick={handleReserve} disabled={reserving} aria-busy={reserving} className="pdp-cta" style={{ opacity: reserving ? 0.8 : 1, width: "100%", minHeight: 60, background: T.gold, color: "#1F1B16", border: "none", padding: "18px 0", borderRadius: 2, fontFamily: SANS, fontWeight: 700, fontSize: 14, letterSpacing: "0.22em", textTransform: "uppercase", cursor: reserving ? "wait" : "pointer" }}>{reserving && <span aria-hidden="true" style={{ display: "inline-block", width: 12, height: 12, marginRight: 10, verticalAlign: "-1px", border: "2px solid rgba(31,27,22,0.3)", borderTopColor: "#1F1B16", borderRadius: "50%", animation: "wlBtnSpin 0.8s linear infinite" }} />}
                 {c.cta}
               </button>
 
@@ -325,7 +334,7 @@ const ProductPage007 = () => {
             </div>
             <div style={{ fontFamily: SANS, fontSize: 11, color: "rgba(237,231,217,0.55)", marginTop: 2 }}>{c.stickyRefundable}</div>
           </div>
-          <button onClick={handleReserve} style={{ background: T.gold, color: "#1F1B16", border: "none", padding: "12px 20px", borderRadius: 2, cursor: "pointer", fontFamily: SANS, fontWeight: 700, fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+          <button onClick={handleReserve} disabled={reserving} aria-busy={reserving} style={{ opacity: reserving ? 0.8 : 1, background: T.gold, color: "#1F1B16", border: "none", padding: "12px 20px", borderRadius: 2, cursor: "pointer", fontFamily: SANS, fontWeight: 700, fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
             {c.stickyReserve}
           </button>
         </div>
