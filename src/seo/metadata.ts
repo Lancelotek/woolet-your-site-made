@@ -492,6 +492,32 @@ export function getMetadata(route: string): RouteMeta {
   const lang = langFromRoute(route);
   const path = route.replace(/^\/[a-z]{2}/, "") || "/";
 
+  // ----- Stretch-goal creative sheet: unlinked, noindex, English only.
+  // The three renders live as static JPGs under public/creatives/stretch-goals/;
+  // this page exists so their alt text is carried in the markup (both in the
+  // prerendered <noscript> block and in the rendered DOM).
+  if (path === "/creatives/stretch-goals") {
+    const shot = (file: string, alt: string) =>
+      `<img src="/creatives/stretch-goals/${file}" width="1122" height="1402" alt="${escapeHtml(alt)}" />`;
+    const meta = base(
+      "/en/creatives/stretch-goals",
+      "en",
+      {
+        title: "Woolet Aviator 161 mm - stretch goal renders",
+        description:
+          "Three renders of the Woolet Aviator 161 mm stretch goal: light oak, grey wood and brushed silver metal with adjustable nose pads.",
+        noscriptHtml: `<h1>Woolet Aviator 161 mm</h1>
+<p>Three finishes rendered for the Kickstarter stretch goals.</p>
+${shot("woolet-aviator-161-wood-oak.jpg", "Woolet Aviator 161 mm in light oak wood finish - wider aviator eyeglass frame for wide faces, Kickstarter stretch goal")}
+${shot("woolet-aviator-161-wood-grey.jpg", "Woolet Aviator 161 mm in grey wood finish - wider aviator eyeglass frame for wide faces, Kickstarter stretch goal")}
+${shot("woolet-aviator-161-metal.jpg", "Woolet Aviator 161 mm in brushed silver metal with adjustable nose pads - wider aviator eyeglass frame for wide faces, Kickstarter stretch goal")}`,
+      },
+      { image: "/creatives/stretch-goals/woolet-aviator-161-wood-oak.jpg" },
+    );
+    meta.robots = "noindex, follow"; // unlinked creative sheet, never indexed
+    return meta;
+  }
+
   // ----- Reference product pages (partners / creators), English only
   if (path === "/ref" || path.startsWith("/ref/")) {
     if (path === "/ref") {
