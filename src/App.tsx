@@ -55,6 +55,7 @@ const ProductPage009 = lazy(() => import("./pages/products/ProductPage009.tsx"))
 const ProductPageBespoke = lazy(() => import("./pages/products/ProductPageBespoke.tsx"));
 const RefIndex = lazy(() => import("./pages/ref/RefIndex.tsx"));
 const RefProductPage = lazy(() => import("./pages/ref/RefProductPage.tsx"));
+const StretchGoals = lazy(() => import("./pages/creatives/StretchGoals.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
 const TheBox = lazy(() => import("./pages/TheBox.tsx"));
@@ -273,6 +274,9 @@ const App = () => (
           <Route path="/en/ref/:slug" element={<RefProductPage />} />
           <Route path="/:lang/ref" element={<Navigate to="/en/ref" replace />} />
           <Route path="/:lang/ref/:slug" element={<RedirectRefToEn />} />
+
+          {/* Unlinked, noindex creative sheet for the Aviator 161 mm stretch goals. */}
+          <Route path="/en/creatives/stretch-goals" element={<StretchGoals />} />
           {/* NL: native product URLs (avoid 301 to /en to preserve NL SEO signals) */}
           <Route path="/nl/products/007" element={<ProductPage007 />} />
           <Route path="/nl/products/009" element={<ProductPage009 />} />

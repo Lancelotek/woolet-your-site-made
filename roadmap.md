@@ -1,5 +1,11 @@
 # Roadmap
 
+## Aviator stretch-goal creatives - 2026-10-08
+- [x] Host the three Aviator 161 mm renders as static JPGs under public/creatives/stretch-goals, byte-for-byte
+- [x] Add an unlinked noindex sheet at /en/creatives/stretch-goals carrying the three approved alt texts
+- [x] Verify prerendered head, sitemap exclusion, image delivery and desktop/mobile rendering; do not publish
+
+
 ## Performance and link fixes - 2026-10-07
 - [x] Optimize thumbnails, LP hero and product galleries without changing composition
 - [x] Defer Stripe until reservation step and scope image preloads by route

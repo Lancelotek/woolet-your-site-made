@@ -12,3 +12,4 @@
 - Self-hosted fonts used by the app live in src/assets/fonts and are referenced relatively from CSS and index.html so Vite fingerprints them without host-header dependencies; legacy public copies remain compatible.
 
 - FitScan initializes its mobile breakpoint before first paint and reserves panel height; other consumers of useIsMobile retain the existing initialization behavior.
+- A new page is registered in src/seo/metadata.ts (STATIC_ROUTES + a getMetadata case) so scripts/prerender.mjs, the sitemap generator and the route manifest all see it; a case that sets meta.robots to a noindex value is dropped from sitemap.xml automatically and its noscriptHtml carries the content crawlers should read.
