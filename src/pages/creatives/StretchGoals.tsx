@@ -152,9 +152,6 @@ const StretchGoals = () => (
         className="sgGrid"
         style={{
           marginTop: 48,
-          display: "grid",
-          gridTemplateColumns: "repeat(1, minmax(0,1fr))",
-          gap: 40,
         }}
       >
         {SHOTS.map((shot, i) => (
@@ -190,8 +187,9 @@ const StretchGoals = () => (
       </div>
 
       <style>{`
+        .sgGrid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 40px; }
         @media (min-width: 760px) {
-          .sgGrid { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; }
+          .sgGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
         }
       `}</style>
     </main>
