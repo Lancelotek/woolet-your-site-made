@@ -55,6 +55,11 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
   };
 
   const active = items[idx];
+  const openZoom = () => {
+    setZoomOpen(true);
+    clarityEvent("pdp_gallery_zoom");
+    pushGtmEvent("pdp_gallery_zoom", { product_id: model, media_id: active.id, index: idx });
+  };
 
   return (
     <div>
@@ -84,16 +89,18 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
           aspectRatio: "4 / 3",
           overflow: "hidden",
           padding: active.cover ? 0 : "48px 40px",
+          cursor: "zoom-in",
+        }}
+        onClick={(e) => {
+          // Taps on the padding around the photo used to be dead (Clarity).
+          if (e.target !== e.currentTarget) return;
+          openZoom();
         }}
       >
         <button
           type="button"
           aria-label={t ? t.showPhoto(idx + 1, items.length, active.caption) : `Open full-screen photo ${idx + 1} of ${items.length}`}
-          onClick={() => {
-            setZoomOpen(true);
-            clarityEvent("pdp_gallery_zoom");
-            pushGtmEvent("pdp_gallery_zoom", { product_id: model, media_id: active.id, index: idx });
-          }}
+          onClick={openZoom}
           style={{
             all: "unset",
             display: "block",
