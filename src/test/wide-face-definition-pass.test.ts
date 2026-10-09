@@ -7,12 +7,12 @@ import { BRIDGE_SECTIONS } from "@/data/cluster-sections";
 import { GUIDE_FAQS } from "@/seo/faq-data";
 import { getMetadata } from "@/seo/metadata";
 
-const scale = "A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond stock, bespoke only.";
+const scale = "A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm.";
 
 const cases = [
-  ["en", "how-to-tell-if-your-face-is-wide-or-narrow", "Narrow is under 138 mm, average 138-154 mm, wide 155-161 mm, and 162 mm and above is wide beyond our stock range — bespoke only."],
-  ["en", "how-to-tell-if-your-face-is-wide-or-narrow", '>Wide — bespoke only</td><td style="padding:14px;">162 mm and above'],
-  ["en", "what-size-sunglasses-for-wide-faces", "162 mm and above (bespoke only)"],
+  ["en", "how-to-tell-if-your-face-is-wide-or-narrow", "Narrow is under 138 mm, average 138-154 mm, wide 155-161 mm, and 162 mm and above is wide beyond the range we build — our widest bespoke front is 160 mm."],
+  ["en", "how-to-tell-if-your-face-is-wide-or-narrow", '>Wide — beyond our range</td><td style="padding:14px;">162 mm and above'],
+  ["en", "what-size-sunglasses-for-wide-faces", "162 mm and above (beyond our range)"],
   ["en", "wide-face-glasses-for-women", "A wide face in eyewear terms means a face width of 155 mm or more measured temple-to-temple."],
   ["en", "glasses-too-tight-on-side-of-head", "Under 140 mm is average. 140–149 mm is large-average. 150–154 mm is large-average at the upper end. 155 mm and up is a wide face — and where the mainstream market has nothing at all."],
   ["en", "glasses-too-tight-on-side-of-head", "A wide face measures 155 mm or more temple to temple."],
@@ -33,7 +33,7 @@ describe("owner-approved second definition pass", () => {
     expect(BLOG_AIO_ENHANCEMENTS["how-to-tell-if-your-face-is-wide-or-narrow"].quickAnswer).toContain(scale[0].toLowerCase() + scale.slice(1));
     expect(BLOG_AIO_ENHANCEMENTS["how-to-measure-face-width-for-glasses"].quickAnswer).toContain(scale);
     for (const slug of ["how-to-tell-if-your-face-is-wide-or-narrow", "how-to-measure-face-width-for-glasses"]) {
-      expect(getMetadata(`/en/blog/${slug}`).noscriptHtml).toContain("162 mm or more is a wide face beyond stock, bespoke only");
+      expect(getMetadata(`/en/blog/${slug}`).noscriptHtml).toContain("162 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm");
     }
   });
 
@@ -50,7 +50,7 @@ describe("owner-approved second definition pass", () => {
   });
 
   it("removes the overlapping FAQ band in both JSON-LD consumers", () => {
-    const text = "155–161 mm is wide — the Woolet stock range — and 162 mm and above is bespoke-only territory.";
+    const text = "155–161 mm is wide — the Woolet stock range — and 162 mm and above is beyond the range we build — our widest bespoke front is 160 mm.";
     const post = getBlogPost("en", "how-to-measure-face-width-for-glasses");
     expect(post?.faq?.[0].a).toContain(text);
     expect(post?.faq?.[0].a).not.toContain("161–162 mm");
