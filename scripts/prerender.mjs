@@ -221,7 +221,10 @@ async function main() {
     mod = await import(pathToFileURL(entryPath).href);
     globalThis.__wooletBlogMonthLabel = mod.blogModifiedMonthLabel;
   } catch (err) {
-    console.error("[prerender] /en/blog/glasses-for-wide-faces-guide: could not import metadata bundle; blogModifiedMonthLabel export unavailable.");
+    const dateRoutes = Object.entries(NOSCRIPT_OVERRIDES)
+      .filter(([, content]) => content.includes("{{BLOG_UPDATED_MONTH}}"))
+      .map(([route]) => route);
+    console.error(`[prerender] ${dateRoutes.join(", ")}: could not import metadata bundle; blogModifiedMonthLabel export unavailable.`);
     console.error("[prerender]", err.message);
     process.exit(1);
   }
