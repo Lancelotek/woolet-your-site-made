@@ -1,5 +1,10 @@
 # Roadmap
 
+## Over-range bespoke wording correction - 2026-10-09
+- [ ] Apply only the six listed visitor/shared-crawler wording corrections and correct project memory
+- [ ] Audit other over-160 bespoke implications read-only, including full-range claims and the tight-glasses article
+- [ ] Verify regression tests and current build; report exact changes and untouched audit findings without publishing
+
 ## Owner wide-face definition second pass - 2026-10-09
 - [x] Apply only Parts 1–5 in visitor and matching crawler sources; preserve protected copy
 - [x] Check bespoke product constants before correcting the guide table
