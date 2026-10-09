@@ -709,7 +709,7 @@ ${blogFitLensHookHtml()}
     faq: [
       {
         q: "What is considered a wide face for glasses?",
-        a: "Anything 155 mm or wider across the temples (hinge-to-hinge distance) is considered wide. Most mainstream brands top out at 145–148 mm front width, which is why standard frames pinch wide-faced buyers. 155–161 mm is wide — the Woolet stock range — and 162 mm and above is bespoke-only territory.",
+        a: "Anything 155 mm or wider across the temples (hinge-to-hinge distance) is considered wide. Most mainstream brands top out at 145–148 mm front width, which is why standard frames pinch wide-faced buyers. 155–161 mm is wide — the Woolet stock range — and 162 mm and above is beyond the range we build — our widest bespoke front is 160 mm.",
       },
       {
         q: "What size glasses do I need for a wide face?",
@@ -2051,7 +2051,7 @@ ${blogFitLensHookHtml()}
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 150 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135-148 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">17-19 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Any mainstream brand.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">150-154 mm (medium-wide)</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">148-152 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">19-20 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Mainstream "wide fit" lines, e.g. Ray-Ban Justin XL.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155-161 mm (wide)</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155-160 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">20-22 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Specialist wide-face brands. <a href="/en/products/007" style="color:#A07A2A;">Woolet 007</a> and <a href="/en/products/009" style="color:#A07A2A;">009</a> run a 158 mm front, 21-22 mm keyhole bridge, 150 mm temples.</td></tr>
-    <tr><td style="padding:10px 12px;">162 mm and above (bespoke only)</td><td style="padding:10px 12px;">162 mm+</td><td style="padding:10px 12px;">21-24 mm</td><td style="padding:10px 12px;">Made to measure only - see <a href="/en/bespoke" style="color:#A07A2A;">Woolet Bespoke</a>.</td></tr>
+    <tr><td style="padding:10px 12px;">162 mm and above (beyond our range)</td><td style="padding:10px 12px;">162 mm+</td><td style="padding:10px 12px;">21-24 mm</td><td style="padding:10px 12px;">Made to measure only - see <a href="/en/bespoke" style="color:#A07A2A;">Woolet Bespoke</a>.</td></tr>
   </tbody>
 </table>
 
@@ -3985,7 +3985,7 @@ Related guides:
       { q: "What if my face is above 162 mm?", a: "Off-the-shelf 158 mm will still pinch. Woolet Bespoke is cut to your exact face width and bridge (145–160 mm, 20–24 mm bridge)." },
     ],
     content: `
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>Your face is wide if it measures 155 mm or more temple to temple, across the widest point of the cheekbones.</strong> Narrow is under 138 mm, average 138-154 mm, wide 155-161 mm, and 162 mm and above is wide beyond our stock range — bespoke only. The average adult male face is about 142 mm (plus or minus 5 mm), so most frames are built for 135-150 mm. For the full picture, read our guide to <a href="/en/blog/glasses-for-wide-faces-guide">glasses for wide faces</a>.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>Your face is wide if it measures 155 mm or more temple to temple, across the widest point of the cheekbones.</strong> Narrow is under 138 mm, average 138-154 mm, wide 155-161 mm, and 162 mm and above is wide beyond the range we build — our widest bespoke front is 160 mm. The average adult male face is about 142 mm (plus or minus 5 mm), so most frames are built for 135-150 mm. For the full picture, read our guide to <a href="/en/blog/glasses-for-wide-faces-guide">glasses for wide faces</a>.</p>
 
 <p>Most fit advice online skips the one thing that actually decides whether a frame will pinch or float on your face: <strong>your face width in millimetres</strong>. Not your face <em>shape</em>. Not your head circumference. The temple-to-temple distance, measured across the widest part of your cheekbones.</p>
 
@@ -4017,7 +4017,7 @@ Related guides:
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px;font-weight:600;">Narrow</td><td style="padding:14px;">Under 138 mm</td><td style="padding:14px;">Petite / small frames (125–135 mm). Warby Parker Narrow, Zenni Petite, Eyebobs Small.</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="padding:14px;font-weight:600;">Average</td><td style="padding:14px;">138–154 mm</td><td style="padding:14px;">Standard mainstream frames (135–150 mm). Ray-Ban, Persol, Tom Ford, most Warby Parker.</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;background:#F5EFDD;"><td style="padding:14px;font-weight:600;">Wide</td><td style="padding:14px;">155–161 mm</td><td style="padding:14px;"><strong>Woolet 007 or 009 (158 mm stock).</strong> Almost nothing else at premium tier.</td></tr>
-    <tr style="background:#EFE5C2;"><td style="padding:14px;font-weight:600;">Wide — bespoke only</td><td style="padding:14px;">162 mm and above</td><td style="padding:14px;"><strong>Woolet Bespoke (145–160 mm).</strong> Off-the-shelf 158 mm will still pinch.</td></tr>
+    <tr style="background:#EFE5C2;"><td style="padding:14px;font-weight:600;">Wide — beyond our range</td><td style="padding:14px;">162 mm and above</td><td style="padding:14px;"><strong>Woolet Bespoke (145–160 mm).</strong> Off-the-shelf 158 mm will still pinch.</td></tr>
   </tbody>
 </table>
 </div>

@@ -25,7 +25,7 @@ export const blogPostsDE: BlogPost[] = [
 <li><strong>138–149 mm</strong> – Großes Durchschnittsmaß. Mainstream-Marken können passen, spezialisierte Marken helfen.</li>
 <li><strong>150–154 mm</strong> – Großes Durchschnittsmaß am oberen Ende. Extra-breite Spezialmarken helfen.</li>
 <li><strong>155–161 mm</strong> – Breites Gesicht. Woolets Standardbereich mit 158-mm-Front.</li>
-<li><strong>162 mm und darüber</strong> – Breites Gesicht außerhalb des Standardbereichs – nur Maßanfertigung.</li>
+<li><strong>162 mm und darüber</strong> – Breites Gesicht außerhalb unseres Fertigungsbereichs; unsere breiteste Maßanfertigung hat eine Frontbreite von 160 mm.</li>
 </ul>
 
 <p>Wenn Sie von Brillen regelmäßig Kopfschmerzen bekommen oder feststellen, dass sich „breite“ Optionen von Mainstream-Marken immer noch eng anfühlen, misst Ihr Gesicht wahrscheinlich 155 mm oder mehr. Dieser Ratgeber richtet sich hauptsächlich an Sie.</p>

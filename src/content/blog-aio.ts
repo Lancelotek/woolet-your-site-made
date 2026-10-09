@@ -27,9 +27,9 @@ const tdStyle = "padding:10px 12px;border-bottom:1px solid #2A251C;";
 
 export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
   "how-to-tell-if-your-face-is-wide-or-narrow": {
-    quickAnswer: "For eyewear sizing, a face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond stock, bespoke only. Measure temple to temple, then compare that number with total frame front width rather than lens width.",
+    quickAnswer: "For eyewear sizing, a face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm. Measure temple to temple, then compare that number with total frame front width rather than lens width.",
     question: "How wide is a wide face?",
-    directAnswer: "A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond stock, bespoke only.",
+    directAnswer: "A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm.",
     anchor: "extra wide glasses",
     linkSentence: "If your measurement is 155 mm or above, compare it with our guide to <a href=\"/en/collections/extra-wide-glasses\">extra wide glasses</a> before choosing a frame.",
   },
@@ -63,7 +63,7 @@ export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
     linkSentence: "For a complete published front measurement, compare those markings with our <a href=\"/en/collections/extra-wide-glasses\">158 mm extra wide frames</a>.",
   },
   "how-to-measure-face-width-for-glasses": {
-    quickAnswer: "Measure face width in millimetres from temple to temple across the widest point, keeping the ruler level and looking straight ahead. A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond stock, bespoke only.",
+    quickAnswer: "Measure face width in millimetres from temple to temple across the widest point, keeping the ruler level and looking straight ahead. A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm.",
     question: "How do you measure face width for glasses?",
     directAnswer: "Measure horizontally from temple to temple at the widest point and record the result in millimetres.",
     anchor: "glasses built for wider faces",
