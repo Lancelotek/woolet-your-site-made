@@ -69,7 +69,7 @@ describe("owner-approved second definition pass", () => {
       expect(html).toContain("138–149 mm</strong> – Großes Durchschnittsmaß.");
       expect(html).toContain("150–154 mm</strong> – Großes Durchschnittsmaß am oberen Ende.");
       expect(html).toContain("155–161 mm</strong> – Breites Gesicht.");
-      expect(html).toContain("162 mm und darüber</strong> – Breites Gesicht außerhalb des Standardbereichs – nur Maßanfertigung.");
+      expect(html).toContain("162 mm und darüber</strong> – Breites Gesicht außerhalb unseres Fertigungsbereichs; unsere breiteste Maßanfertigung hat eine Frontbreite von 160 mm.");
       expect(html).not.toContain("Unter 145 mm</strong> – Extra-breit.");
     }
   });
