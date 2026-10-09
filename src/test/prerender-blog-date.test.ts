@@ -48,7 +48,7 @@ describe("prerender blog month placeholders", () => {
       expect(html).toContain("If your face is between 145 mm and 160 mm, the bespoke tier covers that full range.");
       expect(html).toContain("Faces wider than 145 mm push the temples outward");
     }
-    expect(visitor).toContain("Under 140 mm is average. 140–149 mm is large-average. 150–154 mm is extra-wide — where specialist brands start. 155 mm and above is a wide face — and where the mainstream market has nothing for you at all.");
+    expect(visitor).toContain("Under 140 mm is average. 140–149 mm is large-average. 150–154 mm is still large-average at the upper end — where extra-wide specialist brands start. 155 mm and above is a wide face — and where the mainstream market has nothing for you at all.");
     expect(visitor).toContain("<strong>A wide face measures 155 mm or more temple-to-temple, and it needs glasses with a total front width of about 158 mm.</strong>");
   });
 

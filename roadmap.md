@@ -1,5 +1,10 @@
 # Roadmap
 
+## Owner wide-face definition second pass - 2026-10-09
+- [x] Apply only Parts 1–5 in visitor and matching crawler sources; preserve protected copy
+- [x] Check bespoke product constants before correcting the guide table
+- [x] Verify exact replacements, crawler output, focused tests, and unchanged metadata; report before/after without publishing
+
 ## Owner wide-face definition - 2026-10-09
 - [x] Apply the three exact guide corrections in visitor and crawler sources where present
 - [x] Verify the 158 mm specification and focused regression tests
