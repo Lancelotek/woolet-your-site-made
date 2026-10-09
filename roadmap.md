@@ -1,5 +1,10 @@
 # Roadmap
 
+## Wide-face guide follow-ups - 2026-10-09
+- [x] Fail prerender on unresolved route-specific blog date placeholders
+- [x] Replace only the named definitional clause and audit remaining definitions
+- [x] Verify focused regression tests and automatic build; do not publish
+
 ## Aviator stretch-goal creatives - 2026-10-08
 - [x] Host the three Aviator 161 mm renders as static JPGs under public/creatives/stretch-goals, byte-for-byte
 - [x] Add an unlinked noindex sheet at /en/creatives/stretch-goals carrying the three approved alt texts

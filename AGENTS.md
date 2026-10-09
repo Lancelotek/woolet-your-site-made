@@ -4,6 +4,7 @@
 - Redirects live only as data in src/seo/legacyRedirects.ts + src/seo/routeRedirects.ts (no new <Navigate> routes); router and prerender stubs both consume them, and scripts/audit-routes.mjs fails the build when an App.tsx path would serve the noindex fallback — Google never sees client-side redirects.
 - hreflang comes only from src/i18n/routeRegistry.ts (prerender head, Helmet via seo/hreflangLinks, sitemap); the registry drops non-reciprocal clusters and generate-sitemap fails the build on any one-way pair — Google ignores non-reciprocal annotations.
 - Blog posts may opt into exactContent to suppress automatic waitlist insertions, and an author override feeds static Article schema; this preserves approved editorial copy and bylines across rendering paths.
+- Prerendered blog month placeholders resolve from the rendered route's slug and are validated before route writes; unresolved blogModifiedMonthLabel values must exit non-zero to prevent incomplete crawler bylines.
 - Prerendered head tags are removed only after Helmet writes equivalents (src/lib/strip-prerender-seo.ts MutationObserver) — avoids an empty head on lazy routes.
 
 - Image derivatives are indexed in src/data/optimized-images.json and selected through src/lib/optimized-image.ts; CDN pointers preserve originals for zoom while thumbnails and responsive galleries use smaller WebP files.

@@ -68,7 +68,7 @@ const NOSCRIPT_OVERRIDES = {
   "/en/blog/glasses-for-wide-faces-guide": `
 <article>
 <header>
-  <p style="font-size:13px;color:#888;">By Marek Cieśla, Founder — Woolet Eyewear · Last updated: {{WIDE_GUIDE_UPDATED}}</p>
+  <p style="font-size:13px;color:#888;">By Marek Cieśla, Founder — Woolet Eyewear · Last updated: {{BLOG_UPDATED_MONTH}}</p>
   <h1>Glasses That Fit a 155 mm+ Face: Complete Buying Guide</h1>
 </header>
 <div>
@@ -128,11 +128,16 @@ const NOSCRIPT_OVERRIDES = {
 
 /** Resolve the final noscript HTML for a route, preferring overrides. */
 function getNoscriptContent(route, fallback) {
-  const o = NOSCRIPT_OVERRIDES[route];
-  if (!o) return fallback;
-  // Date comes from the same source as the Article JSON-LD dateModified.
-  const label = globalThis.__wooletBlogMonthLabel?.("glasses-for-wide-faces-guide") ?? "";
-  return o.replace("{{WIDE_GUIDE_UPDATED}}", label);
+  const content = NOSCRIPT_OVERRIDES[route] ?? fallback;
+  if (!content?.includes("{{BLOG_UPDATED_MONTH}}")) return content;
+  // Resolve this route's slug, using the same source as Article dateModified.
+  const slug = /^\/[a-z]{2}\/blog\/([^/]+)\/?$/.exec(route)?.[1];
+  const resolveLabel = globalThis.__wooletBlogMonthLabel;
+  const error = `[prerender] ${route}: missing or unresolved blogModifiedMonthLabel export for {{BLOG_UPDATED_MONTH}}`;
+  if (!slug || typeof resolveLabel !== "function") throw new Error(error);
+  const label = resolveLabel(slug);
+  if (typeof label !== "string" || !/^(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}$/.test(label)) throw new Error(error);
+  return content.replaceAll("{{BLOG_UPDATED_MONTH}}", label);
 }
 
 const RTL_LOCALES = new Set(["ar"]);
@@ -216,10 +221,12 @@ async function main() {
     mod = await import(pathToFileURL(entryPath).href);
     globalThis.__wooletBlogMonthLabel = mod.blogModifiedMonthLabel;
   } catch (err) {
-    console.warn("[prerender] could not import metadata bundle.");
-    console.warn("[prerender]", err.message);
-    if (isProd) console.error("[prerender] FAILED — no per-route files generated");
-    process.exit(failExit);
+    const dateRoutes = Object.entries(NOSCRIPT_OVERRIDES)
+      .filter(([, content]) => content.includes("{{BLOG_UPDATED_MONTH}}"))
+      .map(([route]) => route);
+    console.error(`[prerender] ${dateRoutes.join(", ")}: could not import metadata bundle; blogModifiedMonthLabel export unavailable.`);
+    console.error("[prerender]", err.message);
+    process.exit(1);
   }
 
   const { getAllRoutes, getMetadata, renderHeadHtml } = mod;
@@ -227,6 +234,17 @@ async function main() {
     console.warn("[prerender] metadata bundle missing expected exports.");
     if (isProd) console.error("[prerender] FAILED — no per-route files generated");
     process.exit(failExit);
+  }
+
+  // Validate date placeholders before any route files can be written. This is
+  // fatal in every environment, not just CI: never ship an incomplete byline.
+  try {
+    for (const route of getAllRoutes()) {
+      getNoscriptContent(route, getMetadata(route).noscriptHtml);
+    }
+  } catch (err) {
+    console.error("[prerender] FAILED —", err.message);
+    process.exit(1);
   }
 
   // Keep both public AI summaries and their built copies synchronized with the
