@@ -173,7 +173,7 @@ ${blogFitLensHookHtml()}
   </div>
 </div>
 
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face measures 150 mm or more temple-to-temple, and it needs glasses with a total front width of 155 mm or more.</strong> Most frames sold as "wide" or "oversized" stop at 138–148 mm, which is why they still pinch after an hour. Buy to front width, not to lens size or style: 150–154 mm faces fit a 152–156 mm front, 155–159 mm faces need 157–160 mm, and 160 mm+ faces need 161 mm or bespoke from 145–160 mm. To see frames that clear that bar, browse our <a href="/en/collections/extra-wide-glasses">extra wide glasses</a>.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face measures 155 mm or more temple-to-temple, and it needs glasses with a total front width of about 158 mm.</strong> Most frames sold as "wide" or "oversized" stop at 138–148 mm, which is why they still pinch after an hour. Buy to front width, not to lens size or style: 150–154 mm faces fit a 152–156 mm front, 155–159 mm faces need 157–160 mm, and 160 mm+ faces need 161 mm or bespoke from 145–160 mm. To see frames that clear that bar, browse our <a href="/en/collections/extra-wide-glasses">extra wide glasses</a>.</p>
 
 <p>The short version if you are here from a search for wide-face frames or <a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">glasses for big heads</a>: measure your temple-to-temple width with a ruler or your phone, add 2–5 mm, and shop only frames that publish a total front width in that range. Woolet 007 (round) and 009 (soft square) both run a 158 mm front with a 21–22 mm keyhole bridge — see the <a href="/en/collections/wide-face-glasses" style="color:#A07A2A;">wide-face collection</a> or jump to the <a href="#size-chart" style="color:#A07A2A;">size chart below</a>.</p>
 
@@ -182,7 +182,7 @@ ${blogFitLensHookHtml()}
 
 <h2>How to know if your face is wide</h2>
 
-<p>The 30-second check: stand square to a mirror, look straight ahead, and hold a ruler flat and level across the widest part of your head — just above and in front of the ears, not across the cheeks. Read the millimetres temple to temple. Under 140 mm is average. 140–149 mm is large-average. 150 mm and above is a wide face. 155 mm and above is where the mainstream market has nothing for you at all.</p>
+<p>The 30-second check: stand square to a mirror, look straight ahead, and hold a ruler flat and level across the widest part of your head — just above and in front of the ears, not across the cheeks. Read the millimetres temple to temple. Under 140 mm is average. 140–149 mm is large-average. 150–154 mm is extra-wide — where specialist brands start. 155 mm and above is a wide face — and where the mainstream market has nothing for you at all.</p>
 
 <p>Two secondary signals confirm it without a ruler. First, the imprint test: take your current glasses off after four hours and look for a red line in front of each ear. That mark means the arms are gripping rather than resting, which happens when the front is too narrow. Second, the centring test: photograph yourself straight on wearing your glasses. If your pupils sit noticeably inboard of the lens centres, the frame is too wide; if the frame edges stop short of the sides of your face, it is too narrow.</p>
 
@@ -251,7 +251,7 @@ ${blogFitLensHookHtml()}
 
 <div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Definition</div>
-  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A wide face in eyewear terms starts above 145 mm measured temple-to-temple — wider than standard eyewear is built for, because standard frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Above 155 mm you are past what the market offers at all, and that is where Woolet's standard 158 mm frames begin.</p>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A wide face in eyewear terms means 155 mm or more measured temple-to-temple. Standard eyewear frames top out at 140–145 mm, so anything past that is already wider than the market is built for: frames pinch at the temples, bow at the arms, and sit off-center on the face. At 155 mm the mainstream market offers nothing at all — and that is where Woolet's standard 158 mm frames begin.</p>
 </div>
 
 <p>Faces at <strong>155mm or more</strong> from temple to temple — the point where the market stops offering anything at all — represent a significant portion of the population. The problem isn't your face. The problem is that the eyewear industry was designed around a bell curve that cuts off precisely where you begin.</p>

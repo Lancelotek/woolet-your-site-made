@@ -1,5 +1,10 @@
 # Roadmap
 
+## Owner wide-face definition - 2026-10-09
+- [x] Apply the three exact guide corrections in visitor and crawler sources where present
+- [x] Verify the 158 mm specification and focused regression tests
+- [x] Audit other routes without edits and report exact definitions; do not publish
+
 ## Wide-face guide follow-ups - 2026-10-09
 - [x] Fail prerender on unresolved route-specific blog date placeholders
 - [x] Replace only the named definitional clause and audit remaining definitions
