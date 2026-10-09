@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { runInNewContext } from "node:vm";
 import { describe, expect, it } from "vitest";
+import { getBlogPost } from "@/lib/blog-data";
+import { blogModifiedMonthLabel, getMetadata } from "@/seo/metadata";
 
 const source = readFileSync("scripts/prerender.mjs", "utf8");
 const functionSource = source.match(/function getNoscriptContent\(route, fallback\) \{[\s\S]*?\n\}/)?.[0];
@@ -14,6 +16,19 @@ function resolver(label?: (slug: string) => unknown, overrides = {}) {
 }
 
 describe("prerender blog month placeholders", () => {
+  it("renders the real crawler byline with the shared date and the exact corrected paragraph for visitors", () => {
+    const route = "/en/blog/glasses-for-wide-faces-guide";
+    const override = source.match(/"\/en\/blog\/glasses-for-wide-faces-guide": `([\s\S]*?)`,/)?.[1];
+    expect(override).toBeDefined();
+    const html = resolver(blogModifiedMonthLabel, { [route]: override })(route, getMetadata(route).noscriptHtml);
+    expect(html).toContain(`Last updated: ${blogModifiedMonthLabel("glasses-for-wide-faces-guide")}`);
+    expect(html).not.toContain("{{");
+    const paragraph = "<p>Faces at <strong>155mm or more</strong> from temple to temple — the point where the market stops offering anything at all — represent a significant portion of the population. The problem isn't your face. The problem is that the eyewear industry was designed around a bell curve that cuts off precisely where you begin.</p>";
+    expect(getBlogPost("en", "glasses-for-wide-faces-guide")?.content).toContain(paragraph);
+    expect(getBlogPost("en", "glasses-for-wide-faces-guide")?.content).not.toContain("Wide faces — defined as faces measuring");
+    expect(override).not.toContain("Wide faces — defined as faces measuring");
+  });
+
   it("uses the rendered route's slug, including a second blog route", () => {
     const resolve = resolver((slug) => slug === "glasses-for-wide-faces-guide" ? "October 2026" : "September 2026");
     expect(resolve("/en/blog/glasses-for-wide-faces-guide", "Updated: {{BLOG_UPDATED_MONTH}}" )).toBe("Updated: October 2026");
