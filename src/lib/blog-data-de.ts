@@ -21,9 +21,11 @@ export const blogPostsDE: BlogPost[] = [
 <p>Bevor Sie eine Fassung bewerten, benötigen Sie Ihre Gesichtsbreite in Millimetern. Stellen Sie sich vor einen Spiegel und messen Sie vom äußersten Rand Ihrer linken Schläfe bis zum äußersten Rand Ihrer rechten Schläfe. Wie dieses Maß bei <a href="/de/brillen-fuer-grosse-koepfe">Brillen für große Köpfe</a> zur passenden Frontbreite führt, zeigt unser Größenratgeber.</p>
 
 <ul>
-<li><strong>Unter 145 mm</strong> – Extra-breit. Spezialisierte Marken helfen, aber auch Mainstream-Marken könnten passen.</li>
-<li><strong>145–154 mm</strong> – XL. Dedizierte Marken für breite Gesichter sind erforderlich.</li>
-<li><strong>155 mm+</strong> – Spezialbreite. Nur speziell für über 155 mm konstruierte Fassungen.</li>
+<li><strong>Unter 138 mm</strong> – Schmal. Mainstream-Marken können passen.</li>
+<li><strong>138–149 mm</strong> – Großes Durchschnittsmaß. Mainstream-Marken können passen, spezialisierte Marken helfen.</li>
+<li><strong>150–154 mm</strong> – Großes Durchschnittsmaß am oberen Ende. Extra-breite Spezialmarken helfen.</li>
+<li><strong>155–161 mm</strong> – Breites Gesicht. Woolets Standardbereich mit 158-mm-Front.</li>
+<li><strong>162 mm und darüber</strong> – Breites Gesicht außerhalb des Standardbereichs – nur Maßanfertigung.</li>
 </ul>
 
 <p>Wenn Sie von Brillen regelmäßig Kopfschmerzen bekommen oder feststellen, dass sich „breite“ Optionen von Mainstream-Marken immer noch eng anfühlen, misst Ihr Gesicht wahrscheinlich 155 mm oder mehr. Dieser Ratgeber richtet sich hauptsächlich an Sie.</p>

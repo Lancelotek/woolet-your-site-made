@@ -139,7 +139,7 @@ ${ANSWER(
 
 <p>Front width. That is the whole list, and it is the one that matters.</p>
 
-<p>Consider the arithmetic. A mainstream frame front measures 138–148 mm from outer edge to outer edge. A wide face measures 155–165 mm temple to temple. Put a 148 mm front on a 158 mm face and the arms must spread ten millimetres wider than they were designed to, working as leaf springs the entire time you wear them. That spring load lands on a strip of skin roughly 40 mm long over the temporal region — the same area where the superficial temporal artery runs just under the surface.</p>
+<p>Consider the arithmetic. A mainstream frame front measures 138–148 mm from outer edge to outer edge. A wide face measures 155 mm or more temple to temple. Put a 148 mm front on a 158 mm face and the arms must spread ten millimetres wider than they were designed to, working as leaf springs the entire time you wear them. That spring load lands on a strip of skin roughly 40 mm long over the temporal region — the same area where the superficial temporal artery runs just under the surface.</p>
 
 <p>Three things follow, in order. First, a dull compression ache that builds over two to four hours and disappears within minutes of taking the frame off. Second, visible indentations — two parallel lines that stay pink for twenty minutes afterwards. Third, over months, the hinge fatigues: the arm has been held at an angle it was never machined for, and acetate frames typically crack at the hinge slot rather than the arm.</p>
 
@@ -149,7 +149,7 @@ ${ANSWER(
 
 <p>You need two numbers and one of them is printed on your current frame.</p>
 
-<p><strong>Number one — your face.</strong> Stand square to a mirror, look straight ahead, and hold a ruler flat and level across the widest part of your head, just above and in front of the ears. Not across your cheeks. Read the millimetres. Under 140 mm is average. 140–149 mm is large-average. 150 mm and up is a wide face. 155 mm and up is where the mainstream market has nothing at all.</p>
+<p><strong>Number one — your face.</strong> Stand square to a mirror, look straight ahead, and hold a ruler flat and level across the widest part of your head, just above and in front of the ears. Not across your cheeks. Read the millimetres. Under 140 mm is average. 140–149 mm is large-average. 150–154 mm is large-average at the upper end. 155 mm and up is a wide face — and where the mainstream market has nothing at all.</p>
 
 <p><strong>Number two — your frame.</strong> Lay the glasses face-down and measure straight across the front, outer edge to outer edge. This is the front width, and it is <em>not</em> any of the three numbers printed inside the temple. A 54□21-140 marking describes lens width, bridge and arm length; the front is roughly lens × 2 + bridge + about 6 mm of rim, so around 135 mm in that example. We break the arithmetic down in <a href="/en/blog/numbers-on-glasses-frames-meaning" style="color:#A07A2A;">what the numbers on glasses frames mean</a>.</p>
 
@@ -236,7 +236,7 @@ ${FITLENS_CTA(
     ],
     content: `${BYLINE("29 July 2026", "29 July 2026")}
 ${ANSWER(
-      `<strong>Eyeglass frames are sized in millimetres across six bands, XS to XXL, running from about 122 mm to 150 mm of total front width.</strong> Use the chart below to match your face width to a band. The important caveat: the standard industry chart ends at roughly 150 mm, which is exactly where wide faces begin.`,
+      `<strong>Eyeglass frames are sized in millimetres across six bands, XS to XXL, running from about 122 mm to 150 mm of total front width.</strong> Use the chart below to match your face width to a band. The important caveat: the standard industry chart ends at roughly 150 mm — well short of where wide faces begin, at 155 mm.`,
     )}
 
 <p>Every retailer publishes a size chart and almost none of them publish the number you need. They give lens width, sometimes bridge, occasionally temple length — and then leave you to guess whether the frame will actually span your head. This chart gives front width as the primary column, because front width is the measurement that decides fit. If your numbers land above standard sizing, compare our <a href="/en/collections/extra-large-oversized-eyeglasses">extra large eyeglass frames</a>.</p>

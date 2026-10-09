@@ -206,7 +206,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "What to do if 18 mm is your measurement",
       body: [
-        "Buy mainstream, and buy on bridge rather than on lens size. If your face width is under 150 mm as well, nothing about the wide-face category applies to you. If your face is wide but your bridge is genuinely 18 mm, bespoke can pair a narrow bridge with a wide front — that combination is unusual but we can build it.",
+        "Buy mainstream, and buy on bridge rather than on lens size. If your face width is under 155 mm as well, nothing about the wide-face category applies to you. If your face is wide but your bridge is genuinely 18 mm, bespoke can pair a narrow bridge with a wide front — that combination is unusual but we can build it.",
       ],
     },
   ],

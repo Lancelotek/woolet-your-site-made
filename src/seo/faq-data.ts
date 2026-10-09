@@ -102,7 +102,7 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
     },
     {
       q: "What face width counts as wide for glasses?",
-      a: "Above 145 mm. Standard frames cap at 135–145 mm of total width. 155 mm and above is wide-face territory — the Woolet 158 mm standard range.",
+      a: "155 mm and above. Standard frames cap at 135–145 mm of total width, so a wide face — 155 mm or more — is outside what they are built for. The Woolet stock range is a 158 mm front.",
     },
     {
       q: "How accurate does the measurement need to be?",
