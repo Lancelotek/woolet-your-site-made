@@ -73,7 +73,7 @@ const NOSCRIPT_OVERRIDES = {
 </header>
 <div>
   <p><strong>DEFINITION</strong><br>
-  A wide face in eyewear terms means a face width above 145 mm measured temple-to-temple. Standard eyewear frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Woolet frames start at 158 mm — built for the faces that standard sizing cannot accommodate.</p>
+  A wide face in eyewear terms starts above 145 mm measured temple-to-temple — wider than standard eyewear is built for, because standard frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Above 155 mm you are past what the market offers at all, and that is where Woolet's standard 158 mm frames begin.</p>
 </div>
 <aside class="blog-fitlens-hook"><h2>Know your size in 60 seconds</h2><p>Your phone camera measures your face width and matches you to a frame. Free, no signup.</p><a href="/en/fit">Measure my face</a></aside>
 <section>

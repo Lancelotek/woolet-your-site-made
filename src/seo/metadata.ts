@@ -32,7 +32,7 @@ import { FIT_JSONLD } from "./fit-jsonld";
 import { getBridgeBySlug } from "@/data/bridges";
 import { BRIDGE_FIT_FAQ, bridgeFitPrerenderHtml, insertBridgeAfterBlogIntro } from "@/content/bridgeFit";
 import { WIDE_BRIDGE_GUIDE_FAQ } from "@/content/wideBridgeGuideFaq";
-import { getTempleBySlug } from "@/data/temples";
+import { getTempleBySlug, splitTempleHubLink, TEMPLE_HUB_PATH } from "@/data/temples";
 import { XXL_HUB, XXL_PAGES, getXxlBySlug } from "@/data/xxl";
 import { dePages, dePageOrder, dePageTitles, WIDTH_SLUGS } from "@/content/de/landingPages";
 import { nlPages } from "@/content/nl/landingPages";
@@ -1652,7 +1652,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
           noscriptHtml: `<h1>${t.h1}</h1>
 <p>${t.subhead}</p>
 <h2>Does Woolet fit a ${t.length} mm temple?</h2>
-<p>${t.fitVerdict}</p>
+<p>${(() => { const sp = splitTempleHubLink(t); return sp ? `${sp[0]}<a href="${TEMPLE_HUB_PATH}">${sp[1]}</a>${sp[2]}` : t.fitVerdict; })()}</p>
 <p>${t.intro}</p>
 <p>Signature temples: 150 mm on both 007 and 009. Bespoke 145–155 mm.</p>
 <p><a href="/en/products/007">Woolet 007</a> · <a href="/en/products/009">Woolet 009</a> · <a href="/en/bespoke">Bespoke temples</a> · <a href="/en/fit">FitLens</a></p>`,

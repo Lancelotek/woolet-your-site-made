@@ -294,7 +294,11 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
               Does Woolet fit a {t.length} mm temple?
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.65, color: "#222", margin: 0 }}>
-              {t.fitVerdict}
+              {(() => {
+                const sp = splitTempleHubLink(t);
+                if (!sp) return t.fitVerdict;
+                return (<>{sp[0]}<Link to={TEMPLE_HUB_PATH} title="150 mm signature temples" style={{ color: "#A07A2A", textDecoration: "underline" }}>{sp[1]}</Link>{sp[2]}</>);
+              })()}
             </p>
           </div>
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "#444", margin: "18px 0 0", maxWidth: 620 }}>
