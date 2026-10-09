@@ -20,7 +20,7 @@ const cases = [
   ["en", "how-wide-should-glasses-be", "For a wide face — 155 mm or more across the temples — that means a frame front around 158 mm."],
   ["pl", "okulary-na-szeroka-twarz-przewodnik", "Szeroka twarz to <strong>155 mm lub więcej</strong> mierzone w skroniach."],
   ["pl", "najlepsze-okulary-na-duza-glowe-2026", 'W terminologii okularowej "duża głowa" to szerokość twarzy <strong>155 mm lub więcej</strong>.'],
-];
+] as const;
 
 describe("owner-approved second definition pass", () => {
   it.each(cases)("keeps %s/%s visitor and crawler copy synced", (locale, slug, text) => {
