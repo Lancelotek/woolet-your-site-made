@@ -1,5 +1,17 @@
 export const BLOG_AIO_UPDATED = "2026-09-25";
 
+/** Per-post dateModified overrides — single source for JSON-LD and visible bylines. */
+export const BLOG_MODIFIED_OVERRIDES: Record<string, string> = {
+  "glasses-for-wide-faces-guide": "2026-10-09",
+};
+
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+/** "2026-10-09" -> "October 2026" */
+export function blogModifiedMonthLabel(slug: string, publishedDate = ""): string {
+  const [y, m] = blogModifiedDate(slug, publishedDate).split("-");
+  return `${MONTHS[Number(m) - 1]} ${y}`;
+}
+
 type BlogAioEnhancement = {
   quickAnswer: string;
   question: string;
@@ -98,5 +110,6 @@ export function enrichBlogContent(slug: string, content: string): string {
 }
 
 export function blogModifiedDate(slug: string, publishedDate: string): string {
+  if (BLOG_MODIFIED_OVERRIDES[slug]) return BLOG_MODIFIED_OVERRIDES[slug];
   return BLOG_AIO_ENHANCEMENTS[slug] ? BLOG_AIO_UPDATED : publishedDate;
 }

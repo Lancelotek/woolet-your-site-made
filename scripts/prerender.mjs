@@ -68,12 +68,12 @@ const NOSCRIPT_OVERRIDES = {
   "/en/blog/glasses-for-wide-faces-guide": `
 <article>
 <header>
-  <p style="font-size:13px;color:#888;">By Marek Cieśla, Founder — Woolet Eyewear · Last updated: June 2025</p>
+  <p style="font-size:13px;color:#888;">By Marek Cieśla, Founder — Woolet Eyewear · Last updated: {{WIDE_GUIDE_UPDATED}}</p>
   <h1>Glasses That Fit a 155 mm+ Face: Complete Buying Guide</h1>
 </header>
 <div>
   <p><strong>DEFINITION</strong><br>
-  A wide face in eyewear terms means a face width above 145 mm measured temple-to-temple. Standard eyewear frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Woolet frames start at 158 mm — built for the faces that standard sizing cannot accommodate.</p>
+  A wide face in eyewear terms starts above 145 mm measured temple-to-temple — wider than standard eyewear is built for, because standard frames top out at 140–145 mm. At that point, frames pinch at the temples, bow at the arms, and sit off-center on the face. Above 155 mm you are past what the market offers at all, and that is where Woolet's standard 158 mm frames begin.</p>
 </div>
 <aside class="blog-fitlens-hook"><h2>Know your size in 60 seconds</h2><p>Your phone camera measures your face width and matches you to a frame. Free, no signup.</p><a href="/en/fit">Measure my face</a></aside>
 <section>
@@ -128,7 +128,11 @@ const NOSCRIPT_OVERRIDES = {
 
 /** Resolve the final noscript HTML for a route, preferring overrides. */
 function getNoscriptContent(route, fallback) {
-  return NOSCRIPT_OVERRIDES[route] ?? fallback;
+  const o = NOSCRIPT_OVERRIDES[route];
+  if (!o) return fallback;
+  // Date comes from the same source as the Article JSON-LD dateModified.
+  const label = globalThis.__wooletBlogMonthLabel?.("glasses-for-wide-faces-guide") ?? "";
+  return o.replace("{{WIDE_GUIDE_UPDATED}}", label);
 }
 
 const RTL_LOCALES = new Set(["ar"]);
@@ -210,6 +214,7 @@ async function main() {
   let mod;
   try {
     mod = await import(pathToFileURL(entryPath).href);
+    globalThis.__wooletBlogMonthLabel = mod.blogModifiedMonthLabel;
   } catch (err) {
     console.warn("[prerender] could not import metadata bundle.");
     console.warn("[prerender]", err.message);
