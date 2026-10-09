@@ -42,7 +42,7 @@ describe("prerender blog month placeholders", () => {
     expect(resolver()("/en/collection")).toBeUndefined();
   });
 
-  it.each([undefined, () => "", () => "   ", () => undefined])("rejects missing or empty labels with route and export in the error", (label) => {
+  it.each([undefined, () => "", () => "   ", () => undefined, () => "undefined ", () => "undefined undefined"])("rejects missing or invalid labels with route and export in the error", (label) => {
     expect(() => resolver(label)("/en/blog/example", "Last updated: {{BLOG_UPDATED_MONTH}}"))
       .toThrow("/en/blog/example: missing or unresolved blogModifiedMonthLabel export");
   });

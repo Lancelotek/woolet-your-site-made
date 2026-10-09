@@ -136,7 +136,7 @@ function getNoscriptContent(route, fallback) {
   const error = `[prerender] ${route}: missing or unresolved blogModifiedMonthLabel export for {{BLOG_UPDATED_MONTH}}`;
   if (!slug || typeof resolveLabel !== "function") throw new Error(error);
   const label = resolveLabel(slug);
-  if (typeof label !== "string" || !label.trim()) throw new Error(error);
+  if (typeof label !== "string" || !/^(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}$/.test(label)) throw new Error(error);
   return content.replaceAll("{{BLOG_UPDATED_MONTH}}", label);
 }
 
