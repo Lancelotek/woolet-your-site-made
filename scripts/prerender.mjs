@@ -68,7 +68,7 @@ const NOSCRIPT_OVERRIDES = {
   "/en/blog/glasses-for-wide-faces-guide": `
 <article>
 <header>
-  <p style="font-size:13px;color:#888;">By Marek Cieśla, Founder — Woolet Eyewear · Last updated: June 2025</p>
+  <p style="font-size:13px;color:#888;">By Marek Cieśla, Founder — Woolet Eyewear · Last updated: {{WIDE_GUIDE_UPDATED}}</p>
   <h1>Glasses That Fit a 155 mm+ Face: Complete Buying Guide</h1>
 </header>
 <div>
@@ -128,7 +128,11 @@ const NOSCRIPT_OVERRIDES = {
 
 /** Resolve the final noscript HTML for a route, preferring overrides. */
 function getNoscriptContent(route, fallback) {
-  return NOSCRIPT_OVERRIDES[route] ?? fallback;
+  const o = NOSCRIPT_OVERRIDES[route];
+  if (!o) return fallback;
+  // Date comes from the same source as the Article JSON-LD dateModified.
+  const label = globalThis.__wooletBlogMonthLabel?.("glasses-for-wide-faces-guide") ?? "";
+  return o.replace("{{WIDE_GUIDE_UPDATED}}", label);
 }
 
 const RTL_LOCALES = new Set(["ar"]);
@@ -210,6 +214,7 @@ async function main() {
   let mod;
   try {
     mod = await import(pathToFileURL(entryPath).href);
+    globalThis.__wooletBlogMonthLabel = mod.blogModifiedMonthLabel;
   } catch (err) {
     console.warn("[prerender] could not import metadata bundle.");
     console.warn("[prerender]", err.message);

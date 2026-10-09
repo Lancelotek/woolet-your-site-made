@@ -45,6 +45,7 @@ import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import { DE_PRICING } from "@/content/de/pricing";
 import { BLOG_FITLENS_HOOK_POSTS, insertBlogFitLensHook } from "@/content/blog-fitlens-hook";
 import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
+export { blogModifiedMonthLabel } from "@/content/blog-aio";
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeProductJsonLd as canonicalBespokeProduct, bespokeFaqJsonLd } from "@/content/bespokeFacts";
 export { BESPOKE_FACTS, BESPOKE_FAQS } from "@/content/bespokeFacts";
 import {

@@ -1,6 +1,7 @@
 import type { Lang } from "./i18n";
 import { BRIDGE_FIT_FAQ } from "@/content/bridgeFit";
 import { blogFitLensHookHtml } from "@/content/blog-fitlens-hook";
+import { blogModifiedMonthLabel } from "@/content/blog-aio";
 
 export interface BlogPost {
   slug: string;
@@ -168,7 +169,7 @@ ${blogFitLensHookHtml()}
   <div style="flex:1;min-width:0;">
     <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
     <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
-    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Published: 9 March 2026 · Last updated: 24 August 2026</div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Published: 9 March 2026 · Last updated: ${blogModifiedMonthLabel("glasses-for-wide-faces-guide")}</div>
   </div>
 </div>
 

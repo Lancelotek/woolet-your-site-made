@@ -8,6 +8,8 @@ import {
   getRelatedTemples,
   type TempleEntry,
   type TempleVerdictKind,
+  splitTempleHubLink,
+  TEMPLE_HUB_PATH,
 } from "@/data/temples";
 import NotFound from "@/pages/NotFound";
 import ClusterSections from "@/components/ClusterSections";
