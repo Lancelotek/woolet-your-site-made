@@ -28,7 +28,7 @@ export const FIT_FAQ: FitFaqItem[] = [
   },
   {
     q: "What if the scan says I am outside the standard range?",
-    a: "It will say so plainly. Below 155 mm or above 161 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 160 mm. Above 160 mm we do not build a frame and we will tell you that instead of selling you one.",
+    a: "It will say so plainly. Below 153 mm or above 163 mm, the signature 158 mm frame is the wrong frame and we route you to bespoke, which covers 145 to 160 mm. Above 160 mm we do not build a frame and we will tell you that instead of selling you one.",
   },
   {
     q: "Can I measure without the camera?",
@@ -40,7 +40,7 @@ export const FIT_FAQ: FitFaqItem[] = [
 export const FIT_BANDS: { range: string; verdict: string; size: string }[] = [
   { range: "Under 145 mm", verdict: "Narrow to average — mainstream frames fit you", size: "Not a Woolet fit" },
   { range: "145–154 mm", verdict: "Wider than average, narrower than our signature", size: "Bespoke, built to your millimetre" },
-  { range: "155–161 mm", verdict: "Signature range — the frame is designed for this", size: "158 mm — Woolet 007 or 009" },
-  { range: "Above 161 mm", verdict: "Above the signature fit band", size: "Widest Woolet front is 160 mm (bespoke); measure first" },
+  { range: "153–163 mm", verdict: "Signature range — the frame is designed for this", size: "158 mm — Woolet 007 or 009" },
+  { range: "Above 163 mm", verdict: "Above the signature fit band", size: "Widest Woolet front is 160 mm (bespoke); measure first" },
   
 ];

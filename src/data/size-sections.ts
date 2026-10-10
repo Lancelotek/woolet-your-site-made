@@ -7,7 +7,7 @@
  * that face, when bespoke is the honest answer, and what to avoid.
  *
  * Data-accuracy rules (do not violate):
- *   - Signature front width 158 mm, designed fit range 155–161 mm.
+ *   - Signature front width 158 mm, designed fit range 153–163 mm.
  *   - Bespoke 145–160 mm; 160 mm is the maximum width we build.
  *   - Material: Mazzucchelli acetate from Milan. Manufacturing: hand made in EU.
  *   - Head-circumference figures are stated as approximate correlations, never
@@ -34,7 +34,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Does the 158 mm signature fit a 145 mm face?",
       body: [
-        "No, and we would rather say so than take the order. The signature 007 and 009 are cut at a 158 mm front for the 155–161 mm band. Put that on a 145 mm face and you carry 13 mm of surplus width: the frame front overhangs the sides of the head, the temple arms splay outward before they reach the ears, and the optical centres of the lenses sit outside your pupillary distance.",
+        "No, and we would rather say so than take the order. The signature 007 and 009 are cut at a 158 mm front for the 153–163 mm band. Put that on a 145 mm face and you carry 13 mm of surplus width: the frame front overhangs the sides of the head, the temple arms splay outward before they reach the ears, and the optical centres of the lenses sit outside your pupillary distance.",
         "That last point matters more than the aesthetics. Once the lens centres drift wide of your pupils, a prescription starts inducing prism — the reason a too-wide frame can give you eye strain that no adjustment fixes.",
       ],
       table: {
@@ -73,7 +73,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
       h2: "Does the 158 mm signature fit a 150 mm face?",
       body: [
         "Not properly. Eight millimetres of surplus front width is roughly a full size in optical terms. The frame will stay on your face, which is exactly why people convince themselves it works, but the temples will sit proud of your head and the lens centres will run wide of your pupillary distance.",
-        "Our designed tolerance is 3 mm of ease at the temples across the 155–161 mm band. At 150 mm you are outside that tolerance by more than the tolerance itself.",
+        "Our designed tolerance is 3 mm of ease at the temples across the 153–163 mm band. At 150 mm you are outside that tolerance by more than the tolerance itself.",
       ],
       table: {
         head: ["Measurement at 150 mm", "What it means"],
@@ -205,7 +205,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Do you need bespoke at 158 mm?",
       body: [
-        "No. 158 mm is the middle of the 155–161 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 160 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
+        "No. 158 mm is the middle of the 153–163 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 160 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
         "If your face is 158 mm and your bridge is 21 or 22 mm, order the signature 007 or 009 and skip the scan queue entirely.",
       ],
     },
@@ -228,7 +228,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Does the 158 mm signature fit a 160 mm face?",
       body: [
-        "Yes, and it is the fit we would recommend before bespoke. At 160 mm you are 2 mm inside the designed 155–161 mm range, sitting toward the upper end. In practice that means the frame reads as close-fitting rather than loose: the arms make light contact just ahead of the ear and stay there.",
+        "Yes, and it is the fit we would recommend before bespoke. At 160 mm you are 2 mm inside the designed 153–163 mm range, sitting toward the upper end. In practice that means the frame reads as close-fitting rather than loose: the arms make light contact just ahead of the ear and stay there.",
         "Some wearers at 160 mm prefer that contact and some prefer air. If you want the frame to sit off the temple entirely, bespoke at 160 mm gives you a millimetre-exact front and the ease moves into the temple angle instead.",
       ],
       table: {
@@ -243,7 +243,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "The temple question at 160 mm",
       body: [
-        "Front width is not usually what fails at this measurement — temple length is. The standard 148 mm arm at an 11° drop is correct for most 155–161 mm faces, but a 160 mm face on a deep skull can need 152 mm or more to hook the ear without the tip pressing behind it. That is the single most common reason we route a 160 mm order to bespoke.",
+        "Front width is not usually what fails at this measurement — temple length is. The standard 148 mm arm at an 11° drop is correct for most 153–163 mm faces, but a 160 mm face on a deep skull can need 152 mm or more to hook the ear without the tip pressing behind it. That is the single most common reason we route a 160 mm order to bespoke.",
         "FitLens reports both numbers from one phone photo, so you do not have to work out which of the two is the constraint.",
       ],
     },

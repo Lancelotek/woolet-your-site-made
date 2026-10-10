@@ -973,7 +973,7 @@ To understand why 155mm specifically matters, consider what happens at the borde
 
 - **155mm (specialist):** 1.5mm compression per side — most people tolerate this
 
-- **158mm (Woolet):** Perfect fit on most 155–161mm faces
+- **158mm (Woolet):** Perfect fit on most 153–163mm faces
 
 - **162mm+:** Slightly loose — frames may slide without adjustment
 
@@ -997,7 +997,7 @@ Solving the 155mm problem requires engineering for it from first principles — 
 
 This means:
 
-- **158mm total width** — matched to the core range of wide faces (155–161mm), where the frame rests on the face with zero lateral pressure.
+- **158mm total width** — matched to the core range of wide faces (153–163mm), where the frame rests on the face with zero lateral pressure.
 
 - **150mm temple length** — long enough to wrap properly around a larger skull without the hinge becoming a secondary pressure point.
 
