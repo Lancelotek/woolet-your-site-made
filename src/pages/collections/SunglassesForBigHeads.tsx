@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     q: "What head circumference is considered big?",
-    a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm fits most XL heads (face width 155 to 161 mm). Outside that range, bespoke handles XS-wide and XXL faces from 145 to 160 mm.",
+    a: "Around 58 to 60 cm is large, 60 to 62 cm is XL, and above 62 cm is XXL. Woolet's standard 158 mm fits most XL heads (face width 153 to 163 mm). Outside that range, bespoke handles XS-wide and XXL faces from 145 to 160 mm.",
   },
   {
     q: "Where do you buy sunglasses for big heads?",
@@ -39,7 +39,7 @@ const faqs = [
 ];
 
 const sizeRows = [
-  { hc: "Face width 155 to 161 mm (head 58 to 62 cm)", w: "Woolet 158 mm (standard)" },
+  { hc: "Face width 153 to 163 mm (head 58 to 62 cm)", w: "Woolet 158 mm (standard)" },
   { hc: "Face width 145 to 154 mm or above 161 mm", w: "Bespoke (made to measure, up to 160 mm)" },
 ];
 
@@ -175,7 +175,7 @@ const SunglassesForBigHeads = () => {
             </h2>
             <ol style={{ paddingLeft: 18, margin: "0 0 18px", color: "#DCD3C0", fontSize: 14, lineHeight: 1.7 }}>
               <li>Measure your face width temple to temple (or use the AI Fit scan).</li>
-              <li>If your face is 155–161 mm, the standard 158 mm fits. Outside that range, choose bespoke.</li>
+              <li>If your face is 153–163 mm, the standard 158 mm fits. Outside that range, choose bespoke.</li>
             </ol>
 
             <div style={{ overflowX: "auto", marginBottom: 16 }}>
@@ -217,7 +217,7 @@ const SunglassesForBigHeads = () => {
             {[
               { t: "Italian Mazzucchelli acetate", b: "Cellulose acetate sheet from the same Italian supplier used by major luxury houses. Holds its set under heat, unlike injection-moulded TR-90." },
               { t: "Sized for big heads from day one", b: "One precise front at 158 mm with a 21 mm bridge — engineered, not retrofitted. Temples 150 mm standard, up to 155 mm bespoke." },
-              { t: "Bespoke outside 155–161 mm", b: "Custom fronts from 145 to 160 mm in either shape. Same material, same finishing, made to your measurement." },
+              { t: "Bespoke outside 153–163 mm", b: "Custom fronts from 145 to 160 mm in either shape. Same material, same finishing, made to your measurement." },
             ].map((c) => (
               <div key={c.t} style={{ background: "#FFF", border: "1px solid #E0D5C5", padding: "16px 14px", borderRadius: 4 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, marginBottom: 8 }}>{c.t}</div>

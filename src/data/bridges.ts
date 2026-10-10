@@ -112,7 +112,7 @@ export const BRIDGES: BridgeEntry[] = [
     verdictKind: "signature-007",
     h1: "21 mm Keyhole Bridge Glasses — The Woolet 007 Signature",
     subhead:
-      "This is the signature bridge on the 007 Round. Keyhole geometry, 21 mm across, engineered for wider noses on 155–161 mm faces.",
+      "This is the signature bridge on the 007 Round. Keyhole geometry, 21 mm across, engineered for wider noses on 153–163 mm faces.",
     intro:
       "21 mm is the bridge on the 007 Round in signature 158 mm. Keyhole shape — an open notch rather than a saddle — distributes weight along the sides of the nose instead of the top, which matters on a wider face where the frame is heavier. Italian Mazzucchelli acetate, hand made in the EU.",
     fitVerdict:
@@ -121,7 +121,7 @@ export const BRIDGES: BridgeEntry[] = [
       "21 mm keyhole bridge glasses: the Woolet 007 signature. Italian Mazzucchelli acetate. Signature 158 mm front · Bespoke 145–160 mm.",
     bespokeNote:
       "Bespoke lets you keep the 21 mm bridge on any shape, at any front width from 145 to 160 mm.",
-    bestFor: "Wide noses on 155–161 mm faces — the canonical Woolet fit.",
+    bestFor: "Wide noses on 153–163 mm faces — the canonical Woolet fit.",
     faq: [
       { q: "What's a keyhole bridge?", a: "An open, notched bridge shape (vs a rounded saddle bridge) that rests on the sides of the nose rather than the top. Better for wider noses because it distributes weight without pinching." },
       { q: "Is 21 mm the same as 22 mm bridge?", a: "No. 21 mm on the 007 uses keyhole geometry; 22 mm on the 009 uses a standard bridge. The 1 mm and the shape both matter." },
@@ -145,7 +145,7 @@ export const BRIDGES: BridgeEntry[] = [
       "22 mm bridge glasses: the Woolet 009 signature. Soft-square Italian acetate. Signature 158 mm front · Bespoke 145–160 mm.",
     bespokeNote:
       "Bespoke lets you keep the 22 mm bridge on the 007 Round, or on any bespoke front from 145 to 160 mm.",
-    bestFor: "Wider noses on 155–161 mm faces who want the larger soft-square lens.",
+    bestFor: "Wider noses on 153–163 mm faces who want the larger soft-square lens.",
     faq: [
       { q: "Is 22 mm a very wide bridge?", a: "Yes. Standard bridges run 16–18 mm; wide bridges start at 20 mm. 22 mm is firmly in wide-bridge territory, sized for wider noses." },
       { q: "22 mm vs 21 mm keyhole — which fits better?", a: "Neither is objectively better. 22 mm (009) is a standard bridge on a larger soft-square lens; 21 mm keyhole (007) uses open geometry on a round lens. Nose shape and lens preference decide." },

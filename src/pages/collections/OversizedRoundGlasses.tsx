@@ -7,7 +7,7 @@ const OversizedRoundGlasses = () => (
     h1="Oversized Round Glasses — 158 mm Round 007"
     metaTitle="Oversized Round Glasses — 158 mm for Wide Faces | Woolet"
     metaDescription="Oversized round glasses for 155 mm+ faces. The 007 model: 158 mm front, true-round silhouette, Italian Mazzucchelli acetate, hand made in EU, 21 mm keyhole bridge."
-    intro="Round frames balance angular faces and add softness to strong jaw lines — but most 'oversized round' glasses are still built on 142–148 mm fronts that look child-sized on a wide face. The Woolet 007 is a true round in Italian Mazzucchelli acetate, 158 mm front, 52 mm lens, 150 mm temples, designed specifically for 155–161 mm faces. Optical $190; sunglass, blue-light and reading lenses $210."
+    intro="Round frames balance angular faces and add softness to strong jaw lines — but most 'oversized round' glasses are still built on 142–148 mm fronts that look child-sized on a wide face. The Woolet 007 is a true round in Italian Mazzucchelli acetate, 158 mm front, 52 mm lens, 150 mm temples, designed specifically for 153–163 mm faces. Optical $190; sunglass, blue-light and reading lenses $210."
     whyThisFits={[
       "<strong>A genuine round, not a 'panto rectangle'.</strong> Most 'round' frames in 2026 are actually soft rectangles labelled round. The 007 is a true circle — the silhouette that gives oversized round its iconic look, and one of two shapes in the full range of <a href=\"/en/collections/big-glasses-frames\" style=\"color:#A07A2A;\">oversized glasses</a>.",
       "<strong>158 mm front for proper oversized scale.</strong> A 145 mm round on a 160 mm face shrinks the wearer. The 007 sits at 158 mm — proportional to a wide face instead of dwarfed by it.",

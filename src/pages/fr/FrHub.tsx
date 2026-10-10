@@ -41,7 +41,7 @@ export default function FrHub() {
     <>
       <Helmet>
         <html lang="fr" dir="ltr" />
-        <title>Lunettes pour visages larges et grosses têtes 155–161 mm | Woolet</title>
+        <title>Lunettes pour visages larges et grosses têtes 153–163 mm | Woolet</title>
         <meta
           name="description"
           content="Woolet — lunettes larges pour grosses têtes en 155, 158 et 161 mm. Acétate italien Mazzucchelli 1849, fait main en UE. Mesurez votre visage en 60 secondes."
@@ -56,7 +56,7 @@ export default function FrHub() {
         <meta property="og:site_name" content="Woolet" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:locale:alternate" content="en_US" />
-        <meta property="og:title" content="Lunettes pour visages larges et grosses têtes — Woolet 155–161 mm" />
+        <meta property="og:title" content="Lunettes pour visages larges et grosses têtes — Woolet 153–163 mm" />
         <meta property="og:description" content="Acétate italien Mazzucchelli. Trois vraies largeurs : 155, 158 et 161 mm. Mesuré, pas deviné — avec FitLens en 60 secondes." />
         <meta property="og:url" content={`${SITE}/fr`} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
