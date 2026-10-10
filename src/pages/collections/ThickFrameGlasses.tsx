@@ -30,7 +30,7 @@ const ThickFrameGlasses = () => (
         heading: "Thick frames on a wide face vs a narrow face",
         paragraphs: [
           "A 7 mm thick frame on a 138 mm front (mainstream sizing) overwhelms a small face — the proportions look top-heavy and the temples sit at an angle. The same 7 mm thickness on a 158 mm front reads balanced: the rim is in proportion to the front, and the bridge has the surface area to carry the extra weight.",
-          "If you're between 150–155 mm of face width, our 158 mm standard works. Above 161 mm or below 153 mm, <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">bespoke</a> keeps the 7 mm thickness but scales the front to match.",
+          "If you're between 150–155 mm of face width, our 158 mm standard works. Above 163 mm or below 153 mm, <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">bespoke</a> keeps the 7 mm thickness but scales the front to match.",
         ],
       },
     ]}

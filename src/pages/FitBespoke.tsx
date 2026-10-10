@@ -15,13 +15,13 @@ const SIZE_ROWS: Array<{
 }> = [
   { width: "145-154 mm", bridge: "20-22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
   { width: "153-163 mm", bridge: "21-22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front - the signature fit" },
-  { width: "Above 161 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke (max 160 mm)", note: "Widest Woolet front is 160 mm (bespoke); measure first" },
+  { width: "Above 163 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke (max 160 mm)", note: "Widest Woolet front is 160 mm (bespoke); measure first" },
 ];
 
 const FAQS = [
   {
     q: "How do I know if I need bespoke instead of stock?",
-    a: "Run the AI Fit Scan. If it returns a face width between 155 and 161 mm with a 21-22 mm bridge, stock Woolet 007 or 009 may fit. Below 155 mm, above 161 mm, or with a bridge outside 21-22 mm, Bespoke may be a better fit within its available range.",
+    a: "Run the AI Fit Scan. If it returns a face width between 153 and 163 mm with a 21-22 mm bridge, stock Woolet 007 or 009 may fit. Below 153 mm, above 163 mm, or with a bridge outside 21-22 mm, Bespoke may be a better fit within its available range.",
   },
   {
     q: "What does bespoke actually control?",

@@ -40,7 +40,7 @@ const faqs = [
 
 const sizeRows = [
   { hc: "Face width 153 to 163 mm (head 58 to 62 cm)", w: "Woolet 158 mm (standard)" },
-  { hc: "Face width 145 to 154 mm or above 161 mm", w: "Bespoke (made to measure, up to 160 mm)" },
+  { hc: "Face width 145 to 154 mm or above 163 mm", w: "Bespoke (made to measure, up to 160 mm)" },
 ];
 
 const SunglassesForBigHeads = () => {

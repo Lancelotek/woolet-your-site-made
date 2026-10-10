@@ -31,7 +31,7 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
         rows: [
           ["140 mm", "Shallow head, 138–145 mm front"],
           ["145 mm", "Bespoke floor — average depth"],
-          ["150 mm", "Woolet signature, 155–161 mm faces"],
+          ["150 mm", "Woolet signature, 153–163 mm faces"],
           ["152–155 mm", "Bespoke long — deep skull"],
         ],
       },
@@ -62,7 +62,7 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
         head: ["Front width", "Temple length we specify"],
         rows: [
           ["145–152 mm bespoke", "145 mm"],
-          ["155–161 mm signature", "150 mm"],
+          ["153–163 mm signature", "150 mm"],
           ["158–162 mm, deep skull", "152–155 mm"],
         ],
       },
@@ -86,14 +86,14 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Do you need 150 mm arms?",
       body: [
-        "If your face measures 155–161 mm temple-to-temple and your head circumference is roughly 58–60 cm, yes — 150 mm is the fit and no bespoke specification will improve it. Below 155 mm face width, 150 mm arms usually overshoot. Above 61 cm head circumference, they usually come up short and 152–155 mm is the answer.",
+        "If your face measures 153–163 mm temple-to-temple and your head circumference is roughly 58–60 cm, yes — 150 mm is the fit and no bespoke specification will improve it. Below 153 mm face width, 150 mm arms usually overshoot. Above 61 cm head circumference, they usually come up short and 152–155 mm is the answer.",
         "The quickest way to know is to measure both numbers at once. FitLens returns face width and temple length from one phone photo in about twenty seconds.",
         "Pain on top of or behind the ear is the classic sign of a temple that is too short - see <a href=\"/en/blog/glasses-hurt-behind-ears\" style=\"color:#A07A2A;\">why glasses hurt behind your ears</a>.",
       ],
       table: {
         head: ["Your measurement", "Verdict on 150 mm arms"],
         rows: [
-          ["Face 155–161 mm", "Correct — signature fit"],
+          ["Face 153–163 mm", "Correct — signature fit"],
           ["Head circumference 58–60 cm", "Correct"],
           ["Head circumference 61 cm+", "Consider bespoke 152–155 mm"],
           ["Face under 152 mm", "Too long"],
@@ -229,7 +229,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
         head: ["Your bridge", "Best route"],
         rows: [
           ["19 mm, face under 152 mm", "Mainstream frames"],
-          ["19 mm, face 155–161 mm", "007 keyhole, or bespoke for exact"],
+          ["19 mm, face 153–163 mm", "007 keyhole, or bespoke for exact"],
           ["19 mm, high nasal root", "Keyhole strongly preferred"],
         ],
       },
@@ -278,7 +278,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
       h2: "Why 21 mm is the 007 keyhole",
       body: [
         "21 mm is the bridge the 007 round is built around, and the keyhole shape is inseparable from the number. A keyhole clears the crest of the nose and transfers load onto the flanks, which is the only way to carry a 158 mm acetate front without pads. At 21 mm the contact arc is long enough to spread the weight and short enough that the frame does not drift when you look down.",
-        "It suits a nasal root measuring 20–22 mm, which is the range that comes with most 155–161 mm faces.",
+        "It suits a nasal root measuring 20–22 mm, which is the range that comes with most 153–163 mm faces.",
       ],
     },
     {
@@ -331,7 +331,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "When to go bespoke instead",
       body: [
-        "If your bridge is 22 mm but your face measures outside 155–161 mm, the bridge is right and the front is not — that is a bespoke order. The same applies if you need a 22 mm bridge with a keyhole rather than a saddle profile, which we can cut but do not stock.",
+        "If your bridge is 22 mm but your face measures outside 153–163 mm, the bridge is right and the front is not — that is a bespoke order. The same applies if you need a 22 mm bridge with a keyhole rather than a saddle profile, which we can cut but do not stock.",
       ],
     },
   ],
@@ -340,7 +340,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Who a 24 mm bridge fits",
       body: [
-        "24 mm is the widest bridge we build and it is a bespoke specification only. It suits a very broad nasal root, usually paired with a face width above the 155–161 mm stock fit band, and it is the measurement where every stock frame on the market has already failed by a wide margin.",
+        "24 mm is the widest bridge we build and it is a bespoke specification only. It suits a very broad nasal root, usually paired with a face width above the 153–163 mm stock fit band, and it is the measurement where every stock frame on the market has already failed by a wide margin.",
         "At this width the bridge stops being a detail and becomes the primary fit constraint. Front width can be approximately right and the frame will still be unwearable if the bridge is four millimetres narrow.",
       ],
     },

@@ -430,7 +430,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
             Every width we cover — 145 to 160 mm
           </h2>
           <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6, margin: "0 0 14px" }}>
-            Signature 158 mm fits 155–161 mm faces. Everything outside that band is a bespoke build,
+            Signature 158 mm fits 153–163 mm faces. Everything outside that band is a bespoke build,
             up to our 160 mm maximum.
           </p>
           <nav aria-label="Frame width ladder" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>

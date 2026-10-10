@@ -57,7 +57,7 @@ const BUCKETS: Record<BucketKey, Bucket> = {
     range: "162 mm and above",
     description:
       "Most brands stop at 150 mm. Our signature fits faces up to 161 mm and made-to-measure extends to 160 mm.",
-    recommendation: "Above 161 mm, the widest Woolet front is 160 mm (bespoke); measure first. Above 160 mm we do not build — there is no frame we can make honestly.",
+    recommendation: "Above 163 mm, the widest Woolet front is 160 mm (bespoke); measure first. Above 160 mm we do not build — there is no frame we can make honestly.",
     cta: { label: "Join the VIP list →", href: "/en/lp/kickstarter" },
   },
 };

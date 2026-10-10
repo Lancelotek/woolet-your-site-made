@@ -276,7 +276,7 @@ export const competitors: Competitor[] = [
         },
         {
           label: "Face width served",
-          woolet: "155–161 mm signature · 145–160 mm bespoke",
+          woolet: "153–163 mm signature · 145–160 mm bespoke",
           competitor: "≈ 138–148 mm",
         },
         {

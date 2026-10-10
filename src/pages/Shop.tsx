@@ -183,7 +183,7 @@ const faqs = [
   },
   {
     q: "What's the difference between standard and bespoke?",
-    a: "Standard 007 and 009 are built in one precise size — 158 mm front with a 21 mm keyhole bridge — which fits faces 155–161 mm. Bespoke is cut to your exact measurements and covers 145–160 mm.",
+    a: "Standard 007 and 009 are built in one precise size — 158 mm front with a 21 mm keyhole bridge — which fits faces 153–163 mm. Bespoke is cut to your exact measurements and covers 145–160 mm.",
   },
   {
     q: "Can I get prescription lenses?",
@@ -455,7 +455,7 @@ const ProductTabs = () => {
             <li><span style={{ color: GOLD }}>—</span> Temple length: 148 mm</li>
             <li><span style={{ color: GOLD }}>—</span> Lens height: 45 mm (007) / 42 mm (009)</li>
             <li><span style={{ color: GOLD }}>—</span> Weight: ~28 g</li>
-            <li><span style={{ color: GOLD }}>—</span> Recommended face width: 155–161 mm (standard); 145–160 mm (bespoke)</li>
+            <li><span style={{ color: GOLD }}>—</span> Recommended face width: 153–163 mm (standard); 145–160 mm (bespoke)</li>
           </ul>
         )}
         {tab === "materials" && (
@@ -745,7 +745,7 @@ const Shop = () => {
             className="feature-row"
           >
             {[
-              { eb: "The Fit", h: "158 mm front + 21 mm keyhole bridge", p: "One precise size, built for 155–161 mm faces. Bespoke covers 145–160 mm." },
+              { eb: "The Fit", h: "158 mm front + 21 mm keyhole bridge", p: "One precise size, built for 153–163 mm faces. Bespoke covers 145–160 mm." },
               { eb: "The Material", h: "Mazzucchelli 1849 acetate", p: "Italian cellulose acetate, batch-cured for weeks. Denser and more stable than moulded plastic." },
               { eb: "The Craft", h: "Hand made in EU", p: "Milled, bevelled and polished by hand. Every front inspected before it leaves the workshop." },
             ].map((c) => (
@@ -773,7 +773,7 @@ const Shop = () => {
               eb: "Front width",
               h: "158 mm, so the temples sit past your face.",
               p: "Standard eyewear stops around 142–150 mm. On a wide face the temples land on your cheekbone and dig in. Woolet's 158 mm front pushes them past the widest point, so the hinge sits ahead of your temple, not against it.",
-              bullets: ["Front width: 158 mm", "Fits 155–161 mm faces", "One precise size, no guesswork"],
+              bullets: ["Front width: 158 mm", "Fits 153–163 mm faces", "One precise size, no guesswork"],
               img: "Feature — 158 mm dimensioned front, technical detail",
               reverse: false,
             },
@@ -797,7 +797,7 @@ const Shop = () => {
             {
               eb: "Bespoke tier",
               h: "145–160 mm. Cut to your face.",
-              p: "If you're outside the 155–161 mm standard range, we cut a bespoke front from the same Mazzucchelli sheet. Same craft, 2 weeks of production after you approve the 3D model. Yours only.",
+              p: "If you're outside the 153–163 mm standard range, we cut a bespoke front from the same Mazzucchelli sheet. Same craft, 2 weeks of production after you approve the 3D model. Yours only.",
               bullets: ["Range: 145–160 mm", "Cut from Mazzucchelli 1849 sheet", "2 weeks of production, made to order"],
               img: "Feature — bespoke acetate block being milled",
               reverse: true,
@@ -1130,7 +1130,7 @@ const Shop = () => {
                 <img src={wordmark} alt="Woolet" style={{ height: 18, width: "auto" }} />
               </div>
               <p style={{ ...sans, color: MUTED, fontSize: 13, lineHeight: 1.7, marginTop: 12, maxWidth: 320 }}>
-                Italian Mazzucchelli acetate eyewear for wide faces. 155–161 mm. Handmade in the EU.
+                Italian Mazzucchelli acetate eyewear for wide faces. 153–163 mm. Handmade in the EU.
               </p>
             </div>
             {[

@@ -41,7 +41,7 @@ export default function NlHub() {
     <>
       <Helmet>
         <html lang="nl" dir="ltr" />
-        <title>Brillen voor brede gezichten & grote hoofden 155–161 mm | Woolet</title>
+        <title>Brillen voor brede gezichten & grote hoofden 153–163 mm | Woolet</title>
         <meta
           name="description"
           content="Woolet — brede brillen voor grote hoofden in 155, 158 en 161 mm. Italiaans Mazzucchelli 1849 acetaat, handgemaakt in de EU. Meet je gezicht in 60 seconden."
@@ -56,7 +56,7 @@ export default function NlHub() {
         <meta property="og:site_name" content="Woolet" />
         <meta property="og:locale" content="nl_NL" />
         <meta property="og:locale:alternate" content="en_US" />
-        <meta property="og:title" content="Brillen voor brede gezichten & grote hoofden — Woolet 155–161 mm" />
+        <meta property="og:title" content="Brillen voor brede gezichten & grote hoofden — Woolet 153–163 mm" />
         <meta property="og:description" content="Italiaans Mazzucchelli-acetaat. Drie echte breedtes: 155, 158 en 161 mm. Gemeten, niet gegokt — met FitLens in 60 seconden." />
         <meta property="og:url" content={`${SITE}/nl`} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
