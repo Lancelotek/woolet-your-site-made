@@ -331,6 +331,9 @@ const BespokePage = () => {
                 <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
                   Not sure of your width? Take the fit scan
                 </Link>
+                <a href="https://shop.woolet.co/products/woolet-bespoke-custom-fit-eyewear" className="text-cream-dim underline underline-offset-4 text-sm">
+                  Bespoke in the shop →
+                </a>
               </div>
             </div>
 

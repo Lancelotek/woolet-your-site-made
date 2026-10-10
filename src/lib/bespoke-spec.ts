@@ -6,7 +6,7 @@
  *  - bridge        20–24 mm
  *  - temple length 145–155 mm
  *
- * Stock frames are a fixed 158 mm front, fitting faces 155–161 mm.
+ * Stock frames are a fixed 158 mm front, fitting faces 153–163 mm.
  */
 export const BESPOKE_SPEC = {
   frontWidthMin: 145,
@@ -16,8 +16,8 @@ export const BESPOKE_SPEC = {
   templeMin: 145,
   templeMax: 155,
   stockFrontWidth: 158,
-  stockFitMin: 155,
-  stockFitMax: 161,
+  stockFitMin: 153,
+  stockFitMax: 163,
 } as const;
 
 /** "145–160 mm" — en dash, the canonical way the front width is written in copy. */
@@ -26,5 +26,5 @@ export const BESPOKE_FRONT_WIDTH_RANGE = `${BESPOKE_SPEC.frontWidthMin}–${BESP
 export const BESPOKE_BRIDGE_RANGE = `${BESPOKE_SPEC.bridgeMin}–${BESPOKE_SPEC.bridgeMax} mm`;
 /** "145–155 mm" — temple length, NOT the front width range. */
 export const BESPOKE_TEMPLE_RANGE = `${BESPOKE_SPEC.templeMin}–${BESPOKE_SPEC.templeMax} mm`;
-/** "155–161 mm" — the stock fit band. */
+/** "153–163 mm" — the stock fit band. */
 export const STOCK_FIT_RANGE = `${BESPOKE_SPEC.stockFitMin}–${BESPOKE_SPEC.stockFitMax} mm`;

@@ -208,6 +208,13 @@ const ProductPage007 = () => {
                 {c.cta}
               </button>
 
+              {/* e2) Secondary shop link */}
+              <div style={{ marginTop: 12, textAlign: "center" }}>
+                <a href="https://shop.woolet.co/products/woolet-007-round-panto-black" style={{ fontFamily: SANS, fontSize: 13, color: T.inkDim, textDecoration: "underline", textUnderlineOffset: 3 }}>
+                  All colours and lenses in the shop →
+                </a>
+              </div>
+
               {/* f) Trust microcopy */}
               <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 13, color: T.inkDim, lineHeight: 1.5 }}>
                 {c.trust}
