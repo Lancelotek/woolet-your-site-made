@@ -82,7 +82,7 @@ const faqs = [
   },
   {
     q: "Gibt es Blaulichtfilter-Brillen in XXL für Herren?",
-    a: `Ja. Beide Herrenmodelle — 007 Rund und 009 Soft Square — haben ${S007.frameWidth} mm Frontbreite, was etwa 58–62 cm Kopfumfang abdeckt. Der Blaulichtfilter ist bei beiden eine Glasoption. Über 161 mm Gesichtsbreite geht es in die Maßanfertigung bis 160 mm.`,
+    a: `Ja. Beide Herrenmodelle — 007 Rund und 009 Soft Square — haben ${S007.frameWidth} mm Frontbreite, was etwa 58–62 cm Kopfumfang abdeckt. Der Blaulichtfilter ist bei beiden eine Glasoption. Die Maßanfertigung deckt 145 bis 160 mm ab — für schmalere Gesichter oder eine andere Form bzw. Farbe. Über 163 mm Gesichtsbreite: schreib an support@woolet.co.`,
   },
   {
     q: "Wie breit ist die Woolet-Fassung genau?",
