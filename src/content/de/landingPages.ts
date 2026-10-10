@@ -129,7 +129,7 @@ export const dePages: Record<string, DePageConfig> = {
     heroAlt: "Greg trägt eine Woolet 009 Brille für einen großen Kopf und ein breites Gesicht",
     kurzeAntwort: "Für einen großen Kopf zählt die Gesichtsbreite von Schläfe zu Schläfe: Ab 155 mm brauchst du eine Front von rund 158 mm - große Marken wie Persol, Ray-Ban und Warby Parker enden bei etwa 148-150 mm Frontbreite. Woolet fertigt 158 mm als Standard und 145-160 mm als Bespoke-Maßanfertigung.",
     problemTitle: "Welche Brillengröße eignet sich für einen großen Kopf?",
-    problemBody: "Bei einem großen Kopf ist die Frontbreite aussagekräftiger als ein unklarer XL-Aufdruck. Als Orientierung passen 155-158 mm häufig zu etwa 58-60 cm Kopfumfang. Bei etwa 60-62 cm sind 158-161 mm ein sinnvoller Startpunkt. FitLens misst direkt am Gesicht.",
+    problemBody: "Bei einem großen Kopf ist die Frontbreite aussagekräftiger als ein unklarer XL-Aufdruck. Als Orientierung passt die 158 mm Standardfront häufig zu etwa 58-62 cm Kopfumfang; sie deckt 153-163 mm Gesichtsbreite ab. FitLens misst direkt am Gesicht.",
     detailTitle: "Großer Kopf ist nicht dasselbe wie Oversized-Look",
     detailBody: "Eine passende Brille folgt der tatsächlichen Kopf- und Gesichtsbreite. Sie muss nicht überzeichnet wirken. Woolet 007 und 009 verbinden eine breite Konstruktion mit klaren, ausgewogenen Proportionen und 150 mm langen Bügeln.",
     related: ["xxl-brille-herren", "brille-fuer-breites-gesicht"],
@@ -138,7 +138,7 @@ export const dePages: Record<string, DePageConfig> = {
       "Brillen für große und breite Köpfe: 158 mm Front für 153-163 mm Gesichtsbreite, Bespoke 145-160 mm. Auch als Sonnenbrille. Mit Maßtabelle und FitLens.",
     primaryKeyword: "brillen für große köpfe",
     faqs: [
-      { q: "Welche Brillengröße passt bei einem großen Kopf?", a: "Als Orientierung sind 155-158 mm häufig bei etwa 58-60 cm Kopfumfang sinnvoll. Bei etwa 60-62 cm kommen 158-161 mm infrage. FitLens misst direkt am Gesicht." },
+      { q: "Welche Brillengröße passt bei einem großen Kopf?", a: "Als Orientierung passt die 158 mm Standardfront häufig bei etwa 58-62 cm Kopfumfang; sie deckt 153-163 mm Gesichtsbreite ab. FitLens misst direkt am Gesicht." },
       { q: "Ist eine Brille für große Köpfe automatisch oversized?", a: "Nein. Eine breite Fassung kann ausgewogene Proportionen haben. Woolet 007 und 009 sind breit konstruiert, ohne nur die Gläser optisch zu vergrößern." },
       { q: "Gibt es die Brille für große Köpfe auch als Sonnenbrille?", a: "Ja. Beide Fassungen können mit UV400-Sonnengläsern oder mit Korrektionsgläsern ausgestattet werden." },
       ...DEFAULT_FAQS.slice(2),
@@ -146,9 +146,9 @@ export const dePages: Record<string, DePageConfig> = {
   },
   "xxl-brille-herren": {
     slug: "xxl-brille-herren",
-    h1: "XXL Brille für Herren - breite Fassungen bis 161 mm",
+    h1: "XXL Brille für Herren - 158 mm echte Frontbreite",
     h1Pre: "XXL Brille für Herren - ",
-    h1Em: "bis 161 mm",
+    h1Em: "158 mm",
     h1Post: " echte Frontbreite.",
     sub: "Männliche Gesichter, echte Breite: Woolet-Fassungen mit 158 mm Front, Bespoke 145-160 mm. Italienisches Acetat, klare Formen.",
     heroAlt: "Greg trägt die XXL Herrenbrille Woolet 009 aus Havanna-Acetat",
@@ -158,7 +158,7 @@ export const dePages: Record<string, DePageConfig> = {
     detailBody: "Woolet 007 ist eine runde Panto-Form mit 52□21-150. Woolet 009 ist eine weiche eckige Form mit 54□22-150. Beide sind als Korrektionsbrille oder mit UV400-Sonnengläsern erhältlich.",
     contextualLink: { before: "Mehr zur Passform jenseits der Modellform findest du unter ", label: "Brillen für große Köpfe", after: "." },
     related: ["brillen-fuer-grosse-koepfe", "breite-brille"],
-    metaTitle: "XXL Brille Herren | Woolet - breite Herrenfassungen bis 161 mm",
+    metaTitle: "XXL Brille Herren | Woolet - breite Herrenfassungen mit 158 mm Front",
     metaDescription:
       "XXL Brillen für Herren mit breitem Gesicht oder großem Kopf. 153-163 mm, italienisches Acetat, in der EU handgefertigt. Größe per FitLens-Scan in 60 Sekunden bestimmen.",
     primaryKeyword: "xxl brille herren",
