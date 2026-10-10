@@ -146,7 +146,7 @@ export default function ThankYouReserved() {
       section(
         "THE NUMBERS",
         [
-          "Front width 158 mm · fit range 155-161 mm · Italian Mazzucchelli acetate · hand made in EU",
+          "Front width 158 mm · fit range 153-163 mm · Italian Mazzucchelli acetate · hand made in EU",
           "Not sure about your width? Twenty seconds with your phone camera: woolet.co/en/fit",
         ],
         true,
