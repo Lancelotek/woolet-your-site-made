@@ -152,7 +152,7 @@ export default function NlHub() {
                 marginTop: 18,
               }}
             >
-              Italiaans Mazzucchelli 1849 acetaat. Drie echte breedtes: 155, 158 en 161 mm. Gemeten, niet gegokt — met FitLens in 60 seconden.
+              Italiaans Mazzucchelli 1849 acetaat. Eén eerlijke breedte: 158 mm front voor gezichten van 153–163 mm. Gemeten, niet gegokt — met FitLens in 60 seconden.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
