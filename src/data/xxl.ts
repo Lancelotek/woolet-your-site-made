@@ -2,7 +2,7 @@
  * XXL / Wide-Face hub cluster (Phase 4).
  *
  * Positioning vs existing collections (anti-cannibalization):
- *  - /collections/wide-face-glasses    → general wide-face (155–161 mm).
+ *  - /collections/wide-face-glasses    → general wide-face (153–163 mm).
  *  - /collections/extra-wide-glasses   → extra-wide category page.
  *  - /collections/glasses-for-big-heads→ general big-head (58–62 cm).
  *  - /xxl (this cluster)               → XXL as a SIZE LABEL: the top

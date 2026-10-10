@@ -896,7 +896,7 @@ const AdvertorialPage = () => {
                 <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>standard market</div>
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>155–161mm</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 22, color: "#d8b86a" }}>153–163mm</div>
                 <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 300, fontSize: 12, color: "#8a8275", letterSpacing: "1px", textTransform: "uppercase" }}>wide face range</div>
               </div>
               <div style={{ flex: 1 }}>

@@ -35,12 +35,12 @@ export const HERO_VARIANTS: HeroVariant[] = [
       { text: "Ray-Ban, Persol", accent: true },
       { text: " or Warby Parker?" },
     ],
-    sub: "Woolet designs glasses that finally fit. Mazzucchelli acetate, hand made in the EU — one honest width range (155–161 mm) built for faces the big brands ignore.",
+    sub: "Woolet designs glasses that finally fit. Mazzucchelli acetate, hand made in the EU — one honest width range (153–163 mm) built for faces the big brands ignore.",
   },
   // Variant B — ad message match
   {
     id: "b",
-    eyebrow: "155–161 mm · Handmade in the EU",
+    eyebrow: "153–163 mm · Handmade in the EU",
     headlineParts: [
       { text: "Mazzucchelli acetate eyewear, " },
       { text: "engineered", accent: true },
@@ -66,7 +66,7 @@ export const HERO_VARIANTS: HeroVariant[] = [
   //     { text: "Finally, glasses that " },
   //     { text: "don't pinch.", accent: true },
   //   ],
-  //   sub: "Italian Mazzucchelli acetate, hand made in the EU, 155–161 mm — the range Ray-Ban, Persol and Warby Parker skip.",
+  //   sub: "Italian Mazzucchelli acetate, hand made in the EU, 153–163 mm — the range Ray-Ban, Persol and Warby Parker skip.",
   // },
 ];
 

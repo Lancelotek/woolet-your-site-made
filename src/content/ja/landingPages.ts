@@ -29,7 +29,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     eyebrow: "Woolet · 大きい顔のためのメガネ",
     h1: "大きい顔のメガネ - 締めつけない、本当に合うフレーム",
     sub: "標準フレームの幅は135〜145mm。顔幅が155mm以上なら、市販のメガネは「Mサイズ」しか存在しません。Wooletは155・158・161mmの実寸で、イタリア製マッツケリ・アセテートをEUで手作業仕立てします。",
-    metaTitle: "大きい顔 メガネ 155-161mm | Woolet 幅広イタリア製アセテート",
+    metaTitle: "大きい顔 メガネ 153-163mm | Woolet 幅広イタリア製アセテート",
     metaDescription:
       "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで、EUで手作り。FitLensスキャンで60秒、自分のサイズが分かります。",
     primaryKeyword: "大きい顔 メガネ",

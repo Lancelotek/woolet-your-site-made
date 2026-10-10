@@ -119,7 +119,7 @@ function productJsonLd(model: "007" | "009", shape: string, lensSize: string, la
     url,
     inLanguage: lang,
     name: `Woolet ${model} — ${shape} Italian Acetate Eyewear (158 mm)`,
-    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (155–161 mm). Bespoke tier covers 145–160 mm. Lens ${lensSize}, temples 150 mm, 5-barrel PVD Gunmetal hinges.`,
+    description: `Woolet ${model} (${shape}) in Italian Mazzucchelli acetate. One precise size — 158 mm front width with a ${bridge} keyhole bridge — engineered for wide faces (153–163 mm). Bespoke tier covers 145–160 mm. Lens ${lensSize}, temples 150 mm, 5-barrel PVD Gunmetal hinges.`,
     brand: { "@type": "Brand", name: "Woolet" },
     image: [`${SITE_URL}/og-${model}.png`, `${SITE_URL}/og-image.png`],
     sku: `WOOLET-${model}`,
@@ -969,7 +969,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       description:
         "If your face falls outside the standard Woolet sizes, bespoke covers 145–160 mm with a 20–24 mm bridge. Hand-crafted by a European atelier from your AI scan.",
       noscriptHtml: `<h1>Bespoke Fit — Woolet (145–160 mm)</h1>
-<p>Outside the 155–161 mm signature range? Bespoke builds your frame to the millimetre across 145–160 mm, with a 20–24 mm bridge, from your fit measurement.</p>
+<p>Outside the 153–163 mm signature range? Bespoke builds your frame to the millimetre across 145–160 mm, with a 20–24 mm bridge, from your fit measurement.</p>
 <p>Fit tools: <a href="/en/fit">virtual fit scan</a> · <a href="/en/fit/manual">manual measurement</a> · <a href="/en/fit/bespoke">bespoke fit (145–160 mm)</a>.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -1043,8 +1043,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <table>
   <thead><tr><th>Face / head measurement</th><th>Recommended frame</th></tr></thead>
   <tbody>
-    <tr><td>Face width 155–161 mm (head 58–62 cm)</td><td>Woolet 158 mm</td></tr>
-    <tr><td>Face width 145–154 mm (head 56–58 cm)</td><td>Bespoke</td></tr><tr><td>Above 161 mm</td><td>Widest Woolet front is 160 mm (bespoke); measure first</td></tr>
+    <tr><td>Face width 153–163 mm (head 58–62 cm)</td><td>Woolet 158 mm</td></tr>
+    <tr><td>Face width 145–154 mm (head 56–58 cm)</td><td>Bespoke</td></tr><tr><td>Above 163 mm</td><td>Widest Woolet front is 160 mm (bespoke); measure first</td></tr>
   </tbody>
 </table>
 <h2>Frequently asked</h2>
@@ -1087,8 +1087,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         "Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21–22 mm bridge, Italian Mazzucchelli acetate. Bespoke 145–160 mm.",
       noscriptHtml: `<h1>Extra Wide Glasses</h1>
 <h2>What counts as extra wide glasses?</h2>
-<p>In this sizing scale, Extra-wide means frames for faces measuring 145–154 mm. Faces measuring 155 mm or more are XL / specialty wide and need a purpose-built front; Woolet uses a 158 mm front for its 155–161 mm standard fit range.</p>
-<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–154 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>155–161 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>Above 161 mm</td><td>160 mm max</td><td>Widest Woolet front is 160 mm (bespoke); measure first</td></tr></tbody></table>
+<p>In this sizing scale, Extra-wide means frames for faces measuring 145–154 mm. Faces measuring 155 mm or more are XL / specialty wide and need a purpose-built front; Woolet uses a 158 mm front for its 153–163 mm standard fit range.</p>
+<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–154 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>153–163 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>Above 163 mm</td><td>160 mm max</td><td>Widest Woolet front is 160 mm (bespoke); measure first</td></tr></tbody></table>
 <p>Both shapes are prescription-ready, with 52 × 52 mm and 54 × 50 mm lens areas for single-vision or progressive lenses. Italian Mazzucchelli acetate, hand made in EU. The shop is sold out until the Kickstarter campaign ends; a $1 reservation locks the $114 founding-member price against the $190 MSRP.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -1209,7 +1209,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       noscriptHtml: `<h1>Why Glasses Never Fit Wide Faces</h1>
 <p>Most mainstream frames top out around 150 mm of front width. A face measuring 155 mm or more pushes the temples outward, so the arms bow, the frame pinches and the optical centres drift off your pupils.</p>
 <h2>The measurement that decides everything</h2>
-<p>Measure temple-to-temple at the widest point of your face — the credit-card method in our guide on <a href="/en/blog/how-to-measure-face-width-for-glasses">how to measure your face width for glasses</a> takes about a minute. Above 155 mm you are outside standard sizing. Woolet's signature front width is 158 mm (fit range 155–161 mm), with a bespoke tier covering 145–160 mm.</p>
+<p>Measure temple-to-temple at the widest point of your face — the credit-card method in our guide on <a href="/en/blog/how-to-measure-face-width-for-glasses">how to measure your face width for glasses</a> takes about a minute. Above 155 mm you are outside standard sizing. Woolet's signature front width is 158 mm (fit range 153–163 mm), with a bespoke tier covering 145–160 mm.</p>
 <h2>What a frame built for a wide face looks like</h2>
 <p>A 158 mm front, a 21–22 mm keyhole bridge and long temples, cut from Mazzucchelli acetate from Milan, Italy and hand made in EU — acetate holds tension at that width where thinner plastics relax over time. If your arms feel short before they reach your ears, the temple length matters as much as the front: see what <a href="/en/temple/150mm">150 mm temple arms</a> change day to day, and read the wider context in the <a href="/en/blog/glasses-for-wide-faces-guide">complete guide to glasses for wide faces</a>.</p>
 <h2>Find your size</h2>
@@ -1229,10 +1229,10 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <li><strong>Material:</strong> thin plastics lose tension when stretched; Mazzucchelli acetate from Milan, Italy holds its shape at 158 mm, which is why a budget <a href="/en/compare/zenni-alternative">Zenni alternative built for wide faces</a> reads differently on the face.</li>
 <li><strong>Hinges:</strong> constant outward pressure loosens standard hinges within months, and short arms make it worse — <a href="/en/temple/150mm">150 mm temple arms</a> keep the load off the joint.</li>
 <li><strong>Bridge:</strong> narrow 16–18 mm bridges pinch; the 21 mm keyhole bridge on <a href="/en/products/007">Woolet 007</a> and the 22 mm on <a href="/en/products/009">Woolet 009</a> distribute weight instead.</li>
-<li><strong>Market:</strong> wide sizing is treated as a filter, not a design brief; past 161 mm the <a href="/en/bespoke">bespoke programme</a> covers 145–160 mm.</li>
+<li><strong>Market:</strong> wide sizing is treated as a filter, not a design brief; past 163 mm the <a href="/en/bespoke">bespoke programme</a> covers 145–160 mm.</li>
 </ol>
 <h2>What Woolet does differently</h2>
-<p>Every Woolet frame is built at a 158 mm signature front width (fit range 155–161 mm), hand made in EU from Mazzucchelli acetate from Milan, Italy, with a bespoke tier covering 145–160 mm. <a href="/en/fit">Check your fit in 60 seconds</a>.</p>`,
+<p>Every Woolet frame is built at a 158 mm signature front width (fit range 153–163 mm), hand made in EU from Mazzucchelli acetate from Milan, Italy, with a bespoke tier covering 145–160 mm. <a href="/en/fit">Check your fit in 60 seconds</a>.</p>`,
     }, { type: "article" });
   }
   if (path === "/lp/wide-bridge-fit-guide") {
@@ -1248,7 +1248,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <h2>Why a keyhole bridge works on a wide nose</h2>
 <p>A keyhole bridge rides on the top ridge of the nose instead of pinching the sides, so the weight sits on bone rather than cartilage. That removes the two usual failure modes: sliding and red pressure marks.</p>
 <h2>Woolet's bridge specs</h2>
-<p>Woolet 007 ships with a 21 mm keyhole bridge, Woolet 009 with 22 mm, both on a 158 mm signature front width (fit range 155–161 mm). Bespoke covers fronts from 145 to 160 mm with bridges from 20 to 24 mm. Cut from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
+<p>Woolet 007 ships with a 21 mm keyhole bridge, Woolet 009 with 22 mm, both on a 158 mm signature front width (fit range 153–163 mm). Bespoke covers fronts from 145 to 160 mm with bridges from 20 to 24 mm. Cut from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
  <p><a href="/en/fit">Measure your bridge in 60 seconds</a> · <a href="/en/collections/wide-bridge-glasses">See wide bridge glasses</a></p>
  <h2>FAQ</h2><dl>${WIDE_BRIDGE_GUIDE_FAQ.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>`,
     }, { type: "article" }, [faqPageJsonLd(WIDE_BRIDGE_GUIDE_FAQ)]);
@@ -1411,7 +1411,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
     return base(
       route, "ja",
       {
-        title: "大きい顔 メガネ 155–161mm | Woolet 幅広イタリア製アセテート",
+        title: "大きい顔 メガネ 153–163mm | Woolet 幅広イタリア製アセテート",
         description:
           "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで手作り。FitLensスキャンで60秒、自分のサイズが分かります。",
         noscriptHtml: `<h1>大きい顔のメガネ — Woolet 158 mm</h1>
@@ -1489,7 +1489,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
         description:
           "Head-to-head comparisons between Woolet and other wide-face eyewear brands — Fatheadz, EYESHELLS, Zenni, Warby Parker, Ray-Ban and Persol.",
         noscriptHtml: `<h1>Woolet vs Other Wide-Fit Eyewear Brands</h1>
-<p>Side-by-side comparisons between Woolet and the brands wide-faced wearers usually consider first. Woolet frames have a 158 mm signature front width (fit range 155–161 mm), a bespoke tier covering 145–160 mm, and are made from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
+<p>Side-by-side comparisons between Woolet and the brands wide-faced wearers usually consider first. Woolet frames have a 158 mm signature front width (fit range 153–163 mm), a bespoke tier covering 145–160 mm, and are made from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
 <h2>All comparisons</h2>
 <ul>${competitors
           .map(
@@ -1535,7 +1535,7 @@ ${c.slug === "ray-ban-alternative" ? `<p>See <a href="/en/blog/ray-ban-oakley-co
 <h2>Frequently asked questions</h2>
 ${c.faqs.map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`).join("")}
 ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $190. The shop is sold out until the Kickstarter campaign ends; order now with a $1 reservation that locks the $114 founding-member price.</p>` : ""}
-<p>Woolet: 158 mm signature front width (fit range 155–161 mm), bespoke 145–160 mm, Mazzucchelli acetate from Milan, Italy, hand made in EU. <a href="/en/fit">Check your fit in 60 seconds</a> · <a href="/en/compare">All comparisons</a></p>`,
+<p>Woolet: 158 mm signature front width (fit range 153–163 mm), bespoke 145–160 mm, Mazzucchelli acetate from Milan, Italy, hand made in EU. <a href="/en/fit">Check your fit in 60 seconds</a> · <a href="/en/compare">All comparisons</a></p>`,
         },
         { image: `${SITE_URL}/og-compare-${c.slug}.png`, type: "website" },
         [compareFaqJsonLd(c), compareProductJsonLd(c), compareBreadcrumbJsonLd(c)],
@@ -1563,7 +1563,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
 <p>${s.intro}</p>
 <h2>Bespoke at ${s.width} mm</h2>
 <p>${s.bespokeNote}</p>
-<p>Bespoke: ${BESPOKE_FACTS.shapes.join(", ")}, ${BESPOKE_FACTS.frontWidth} front, ${BESPOKE_FACTS.bridge} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra. ${BESPOKE_FACTS.leadTime}. ${BESPOKE_FACTS.origin} from ${BESPOKE_FACTS.material}. Signature 158 mm frames fit 155-161 mm faces.</p>
+<p>Bespoke: ${BESPOKE_FACTS.shapes.join(", ")}, ${BESPOKE_FACTS.frontWidth} front, ${BESPOKE_FACTS.bridge} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra. ${BESPOKE_FACTS.leadTime}. ${BESPOKE_FACTS.origin} from ${BESPOKE_FACTS.material}. Signature 158 mm frames fit 153-163 mm faces.</p>
 <h2>Every width we cover — 145 to 160 mm</h2>
 <p>${SIZES.map((r) => `<a href="/en/size/${r.slug}">${r.width} mm${r.width === 158 ? " (signature)" : r.width >= 155 && r.width <= 161 ? " (signature fit)" : " (bespoke)"}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Measure my face with FitLens</a> · <a href="/en/products/007">Woolet 007 Round</a> · <a href="/en/products/009">Woolet 009 Soft Square</a> · <a href="/en/fit/bespoke">Bespoke 145–160 mm</a></p>`,
@@ -1798,10 +1798,10 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
         description: BESPOKE_META_DESCRIPTION,
         noscriptHtml: `<article><h1>${BESPOKE_FACTS.h1}</h1>
 <p>${BESPOKE_FACTS.name} spans ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.bridge} bridge and ${BESPOKE_FACTS.temples} temples. At ${BESPOKE_FACTS.regularPriceLabel}, standard prescription lenses and free worldwide shipping are included; specialty lens upgrades cost extra. ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, ${BESPOKE_FACTS.warranty} warranty. ${BESPOKE_FACTS.leadTime}.</p>
-<h2>Who is Woolet Bespoke for?</h2><p>If stock frames pinch at the temples, slide down the nose or sit crooked, a made-to-measure frame solves the dimensional mismatch. Bespoke is for narrow and wide faces within the measured range. Standard Woolet 007 and 009 signature frames have a 158 mm front and fit approximately 155-161 mm faces. They are different designs from the four Bespoke shapes. A phone-camera scan helps determine whether a standard frame fits before you choose a made-to-measure shape.</p>
+<h2>Who is Woolet Bespoke for?</h2><p>If stock frames pinch at the temples, slide down the nose or sit crooked, a made-to-measure frame solves the dimensional mismatch. Bespoke is for narrow and wide faces within the measured range. Standard Woolet 007 and 009 signature frames have a 158 mm front and fit approximately 153-163 mm faces. They are different designs from the four Bespoke shapes. A phone-camera scan helps determine whether a standard frame fits before you choose a made-to-measure shape.</p>
 <h2>Specifications</h2><table><thead><tr><th>Specification</th><th>Woolet Bespoke</th></tr></thead><tbody>${[["Front width",BESPOKE_FACTS.frontWidth],["Bridge",BESPOKE_FACTS.bridge],["Temples",BESPOKE_FACTS.temples],["Shapes",BESPOKE_FACTS.shapes.join(", ")],["Material",BESPOKE_FACTS.material],["Made in",BESPOKE_FACTS.origin],["Regular price",BESPOKE_FACTS.regularPriceLabel],["Lenses",BESPOKE_FACTS.lenses],["Shipping",BESPOKE_FACTS.shipping],["Warranty",BESPOKE_FACTS.warranty],["Production",BESPOKE_FACTS.leadTime]].map(([k,v])=>`<tr><th>${k}</th><td>${v}</td></tr>`).join("")}</tbody></table>
 <h2>Six steps from scan to delivery</h2><ol>${BESPOKE_FACTS.process.map(s=>`<li>${s}</li>`).join("")}</ol><p>The production clock starts only once you approve your made-to-measure 3D model. Production takes two weeks after approval, and shipping begins afterward. Worldwide shipping is free. Transit time varies by destination.</p>
-<h2>Bespoke compared with standard frames</h2><table><thead><tr><th>Feature</th><th>Bespoke</th><th>Standard 007 and 009</th></tr></thead><tbody><tr><th>Front width</th><td>145-160 mm to measure</td><td>158 mm</td></tr><tr><th>Bridge</th><td>20-24 mm</td><td>21 mm (007), 22 mm (009)</td></tr><tr><th>Shapes</th><td>Aviator, Rectangle, Crown Panto, Round</td><td>007 Round/Panto, 009 Soft Square</td></tr><tr><th>Fit</th><td>Dimensions set to you</td><td>Approximately 155-161 mm faces</td></tr></tbody></table>
+<h2>Bespoke compared with standard frames</h2><table><thead><tr><th>Feature</th><th>Bespoke</th><th>Standard 007 and 009</th></tr></thead><tbody><tr><th>Front width</th><td>145-160 mm to measure</td><td>158 mm</td></tr><tr><th>Bridge</th><td>20-24 mm</td><td>21 mm (007), 22 mm (009)</td></tr><tr><th>Shapes</th><td>Aviator, Rectangle, Crown Panto, Round</td><td>007 Round/Panto, 009 Soft Square</td></tr><tr><th>Fit</th><td>Dimensions set to you</td><td>Approximately 153-163 mm faces</td></tr></tbody></table>
 <h2>Crafted and shipped worldwide</h2><p>Italian Mazzucchelli 1849 cellulose acetate is shaped and finished by hand in the EU. The material originates in Italy; the frames are not made there. The first Bespoke pairs have already shipped to customers abroad, including Vietnam. The fit is checked against the approved model before dispatch, and a 5-year warranty backs the frame.</p>
 ${BESPOKE_GUIDE.map(({heading,text})=>`<section><h2>${heading}</h2><p>${text}</p></section>`).join("")}
 <h2>Questions about Woolet Bespoke</h2>${BESPOKE_FAQS.map(({q,a})=>`<section><h3>${q}</h3><p>${a}</p></section>`).join("")}
@@ -1837,7 +1837,7 @@ ${BESPOKE_GUIDE.map(({heading,text})=>`<section><h2>${heading}</h2><p>${text}</p
           { q: "Wie breit ist die Woolet-Fassung genau?", a: "158 mm Fassungsbreite, 21 mm Steg (007) bzw. 22 mm (009), Glasbreite 52 mm bzw. 54 mm, Bügellänge 148 mm. Mazzucchelli-Acetat, handgefertigt in der EU." },
           { q: "Blaulichtfilter mit Sehstärke — geht das?", a: "Ja. Der Filter ist eine Beschichtung und lässt sich mit Einstärken- oder Gleitsichtgläsern kombinieren. Ohne Sehstärke geht genauso: gleiche Fassung, planes Glas." },
           { q: "Sind Blaulichtfilter-Brillen sinnvoll?", a: "Eine Cochrane-Übersichtsarbeit von 2023 mit 17 randomisierten Studien fand keinen messbaren Unterschied bei Ermüdung am Bildschirm oder beim Schlaf. Wir bieten den Filter als Option an, versprechen aber nur die Passform." },
-          { q: "Woher weiß ich, ob 158 mm zu mir passen?", a: "158 mm passen typischerweise bei 155–161 mm Gesichtsbreite. Miss von Schläfe zu Schläfe oder nutze FitLens mit der Handykamera." },
+          { q: "Woher weiß ich, ob 158 mm zu mir passen?", a: "158 mm passen typischerweise bei 153–163 mm Gesichtsbreite. Miss von Schläfe zu Schläfe oder nutze FitLens mit der Handykamera." },
         ]),
       ],
     );
@@ -1954,7 +1954,7 @@ ${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escap
               "@type": "Product",
               name: "Woolet 007 — Round",
               description:
-                "Round Milanese acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+                "Round Milanese acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for wide faces 153–163 mm.",
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
               offers: {
@@ -1975,7 +1975,7 @@ ${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escap
               "@type": "Product",
               name: "Woolet 009 — Soft-Square",
               description:
-                "Soft-square Milanese acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+                "Soft-square Milanese acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for wide faces 153–163 mm.",
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
               offers: {

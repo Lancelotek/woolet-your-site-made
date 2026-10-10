@@ -201,6 +201,12 @@ const ProductPage009 = () => {
                 {c.cta}
               </button>
 
+              <div style={{ marginTop: 12, textAlign: "center" }}>
+                <a href="https://shop.woolet.co/products/woolet-009-soft-square-black" style={{ fontFamily: SANS, fontSize: 13, color: T.inkDim, textDecoration: "underline", textUnderlineOffset: 3 }}>
+                  All colours and lenses in the shop →
+                </a>
+              </div>
+
               <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 13, color: T.inkDim, lineHeight: 1.5 }}>
                 {c.trust}
               </div>

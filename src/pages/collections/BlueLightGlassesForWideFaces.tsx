@@ -95,7 +95,7 @@ const faqs = [
   },
   {
     q: "How do I know if 158 mm is right for me?",
-    a: "Measure across the widest point of your face, temple to temple. 155–161 mm is the signature range. Under 155 mm or over 161 mm, bespoke covers 145–160 mm. FitLens does the same measurement from your phone camera in about a minute if you would rather not use a ruler.",
+    a: "Measure across the widest point of your face, temple to temple. 153–163 mm is the signature range. Under 153 mm or over 163 mm, bespoke covers 145–160 mm. FitLens does the same measurement from your phone camera in about a minute if you would rather not use a ruler.",
   },
 ];
 
@@ -398,7 +398,7 @@ const BlueLightGlassesForWideFaces = () => {
             >
               <div style={{ fontFamily: SERIF, fontSize: 20, marginBottom: 6 }}>Build it bespoke — 145 to 160 mm</div>
               <div style={{ fontSize: 13, color: "rgba(237,231,217,0.7)", lineHeight: 1.55, marginBottom: 12 }}>
-                Outside the 155–161 mm signature range? Same Mazzucchelli acetate, your front width, hand made in EU.
+                Outside the 153–163 mm signature range? Same Mazzucchelli acetate, your front width, hand made in EU.
               </div>
               <span style={{ fontSize: 11, color: T.gold, letterSpacing: "1.5px", textTransform: "uppercase" }}>Explore bespoke →</span>
             </Link>

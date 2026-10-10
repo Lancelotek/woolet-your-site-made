@@ -31,7 +31,7 @@ const About = () => {
             Next Web) refers to the wallet. Today Woolet makes AI-fit Italian acetate eyewear for
             wide faces. Woolet 007 Round / Panto and Woolet 009 Soft Square share a 158 mm front
             width and 150 mm temples; 007 has a 21 mm keyhole bridge and 009 has a 22 mm keyhole
-            bridge. Both fit faces in the 155-161 mm range and come in Black, Havana, and Silver
+            bridge. Both fit faces in the 153-163 mm range and come in Black, Havana, and Silver
             Clear. Bespoke covers 145–160 mm front widths, 20-24 mm bridges, and 145-155 mm
             temples. Every frame uses Italian Mazzucchelli acetate and is hand made in EU.
           </p>
@@ -57,7 +57,7 @@ const About = () => {
             not a style problem. Standard frames are engineered around a mean face width of
             135–140mm. At 155mm+, standard temples apply lateral pressure at the skull, the bridge
             sits too narrow, and the frame appears visually undersized. The correct solution is a
-            frame with a total width of 155–161mm, a bridge width above 18mm, and temples of at
+            frame with a total width of 153–163mm, a bridge width above 18mm, and temples of at
             least 145mm. Material matters: acetate provides micro-adjustability that metal and TR90
             cannot — an optician can heat and reshape acetate temples for a custom fit without
             compromising structural integrity. Woolet 007 and 009 use Italian Mazzucchelli acetate
@@ -99,14 +99,14 @@ const About = () => {
           <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
             Face width is measured between the widest points of the cheekbones, not the jaw. A
             measurement of 155mm places a wearer in the top 5–8% of adult male face widths
-            globally. For this measurement, the correct frame width is 155–161mm total — measured
+            globally. For this measurement, the correct frame width is 153–163mm total — measured
             as the full frontal width from hinge to hinge including the bridge. Lens width (the
             individual lens measurement printed inside the temple) for a 155mm face should be
             54–58mm with a bridge of 17–20mm. Temple length should be 145–150mm minimum. A frame
             that is too narrow — even by 5mm — will flare outward at the temples, creating an
             inconsistent gap between temple and skull that worsens throughout the day. Woolet 007
             and 009 are engineered at 158mm total frame width with a 21–22mm bridge and 150mm temples,
-            positioned precisely for the 155–161mm face width range.
+            positioned precisely for the 153–163mm face width range.
           </p>
         </section>
 

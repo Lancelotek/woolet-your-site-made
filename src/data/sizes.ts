@@ -6,7 +6,7 @@
  *   - sitemap.xml
  *
  * Data-accuracy rules (do not violate):
- *   - Signature 158 mm, designed fit range 155–161 mm.
+ *   - Signature 158 mm, designed fit range 153–163 mm.
  *   - Bespoke range 145–160 mm (160 mm is the maximum we build).
  *   - Above 160 mm is out of range: 160 mm (bespoke) is the widest Woolet front.
  *   - "Hand made in EU" + material = "Mazzucchelli acetate from Milan, Italy".
@@ -137,7 +137,7 @@ export const SIZES: SizeEntry[] = [
     subhead:
       "Bottom of our signature range. The 158 mm frame is the right fit — no bespoke needed.",
     intro:
-      "155 mm is where signature starts to make sense. Our 158 mm frame is engineered for the 155–161 mm band; at 155 mm you are exactly on the lower edge of that range. Bespoke is available if you want a millimetre-exact match, but you don't need it.",
+      "155 mm is where signature starts to make sense. Our 158 mm frame is engineered for the 153–163 mm band; at 155 mm you are exactly on the lower edge of that range. Bespoke is available if you want a millimetre-exact match, but you don't need it.",
     fitVerdict:
       "Yes — 155 mm is the floor of our signature range. The 158 mm frame fits with 3 mm of easing at the temples, which is designed-in room, not slack.",
     metaDescription:
@@ -159,17 +159,17 @@ export const SIZES: SizeEntry[] = [
     subhead:
       "This is the width we build to. Not a bespoke variant. Not an upsell. Our two shapes are cut at 158 mm as the canonical fit.",
     intro:
-      "158 mm is the number the whole brand is engineered around. Both signature shapes — 007 Round and 009 Soft Square — are cut at 158 mm frame width, in Italian Mazzucchelli acetate, hand made in the EU. If your face measures between 155 and 161 mm, this is your frame. If you're outside that band, bespoke covers 145 to 160 mm.",
+      "158 mm is the number the whole brand is engineered around. Both signature shapes — 007 Round and 009 Soft Square — are cut at 158 mm frame width, in Italian Mazzucchelli acetate, hand made in the EU. If your face measures between 153 and 163 mm, this is your frame. If you're outside that band, bespoke covers 145 to 160 mm.",
     fitVerdict:
       "Yes — 158 mm is exactly the range the signature frame is built for. No bespoke, no upcharge, no waiting on a scan. The 007 and 009 in signature 158 mm are your fit.",
     metaDescription:
-      "158 mm wide glasses: the signature Woolet fit. Two shapes in Mazzucchelli acetate, hand made in EU. Built for 155–161 mm faces. Bespoke 145–160 mm.",
+      "158 mm wide glasses: the signature Woolet fit. Two shapes in Mazzucchelli acetate, hand made in EU. Built for 153–163 mm faces. Bespoke 145–160 mm.",
     bespokeNote:
       "Bespoke is available in either shape from 145 to 160 mm, but at 158 mm you don't need it — signature is the fit.",
     faq: [
-      { q: "Is 158 mm wide for glasses?", a: "Very wide by mainstream standards. Standard retail eyewear tops out around 145–148 mm. Woolet's 158 mm is a specialist size for faces in the 155–161 mm band." },
+      { q: "Is 158 mm wide for glasses?", a: "Very wide by mainstream standards. Standard retail eyewear tops out around 145–148 mm. Woolet's 158 mm is a specialist size for faces in the 153–163 mm band." },
       { q: "What bridge width comes with a 158 mm front?", a: "The 007 Round uses a 21 mm keyhole bridge; the 009 Soft Square uses a 22 mm bridge. Both are shaped for weight distribution across a wider nose." },
-      { q: "Are 158 mm glasses only for men?", a: "No. Frame width is face width, not gender. Women with a 155–161 mm face wear the same signature 158 mm frame." },
+      { q: "Are 158 mm glasses only for men?", a: "No. Frame width is face width, not gender. Women with a 153–163 mm face wear the same signature 158 mm frame." },
       { q: "What lens size comes with 158 mm frames?", a: "007 Round: 52 × 52 mm lens. 009 Soft Square: 54 × 50 mm lens. Both accept single-vision, progressive, blue-light and polarised sunglass lenses." },
       { q: "What temple length pairs with a 158 mm front?", a: "150 mm temples at an 11° drop, standard on both shapes. Bespoke can extend to 155 mm." },
     ],
@@ -183,16 +183,16 @@ export const SIZES: SizeEntry[] = [
     subhead:
       "Comfortably inside the signature band. The 158 mm frame is built for exactly this face width.",
     intro:
-      "160 mm sits in the middle of our signature range. Our 158 mm frame is engineered for the 155–161 mm band, and 160 mm is where fit is most forgiving. If you want a millimetre-exact match, bespoke covers 145–160 mm — but you don't need it at 160.",
+      "160 mm sits in the middle of our signature range. Our 158 mm frame is engineered for the 153–163 mm band, and 160 mm is where fit is most forgiving. If you want a millimetre-exact match, bespoke covers 145–160 mm — but you don't need it at 160.",
     fitVerdict:
-      "Yes — 160 mm is dead centre of our signature 155–161 mm fit range. The 158 mm frame is the fit.",
+      "Yes — 160 mm is dead centre of our signature 153–163 mm fit range. The 158 mm frame is the fit.",
     metaDescription:
       "160 mm wide glasses: our signature 158 mm fits perfectly. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–160 mm.",
     bespokeNote:
       "Optional at 160 mm. Bespoke 160 mm gives a millimetre-exact match; signature 158 mm gives a designed-in 2 mm of ease that most wearers prefer. 160 mm is also the widest front width Woolet currently builds, bespoke or signature.",
     faq: [
       { q: "Are 160 mm glasses considered wide?", a: "Yes, well above mainstream sizing. Standard retail stops at 145–148 mm; 160 mm is specialist territory." },
-      { q: "What temple length goes with a 160 mm frame?", a: "148 mm standard, at an 11° drop. That pairs correctly with 155–161 mm face widths." },
+      { q: "What temple length goes with a 160 mm frame?", a: "148 mm standard, at an 11° drop. That pairs correctly with 153–163 mm face widths." },
       { q: "Can I get 160 mm frames in Italian acetate?", a: "Yes — the signature 158 mm frame is Italian Mazzucchelli acetate, hand made in the EU. Bespoke 160 mm uses the same material." },
       { q: "How do I confirm I'm 160 mm and not 155?", a: "Use FitLens on your phone camera or a ruler across the widest part of your face at eye level. 5 mm is the difference between a signature fit and a slightly loose one." },
     ],
@@ -212,7 +212,7 @@ export function getRelatedSizes(slug: string): SizeEntry[] {
   return window.slice(0, 4);
 }
 
-/** Band label for the ladder: signature 158 mm, signature-range 155–161 mm, else bespoke. */
+/** Band label for the ladder: signature 158 mm, signature-range 153–163 mm, else bespoke. */
 export function ladderLabel(width: number): "signature" | "signature-range" | "bespoke" {
   if (width === 158) return "signature";
   if (width >= 155 && width <= 161) return "signature-range";

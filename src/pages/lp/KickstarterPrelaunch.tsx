@@ -1181,7 +1181,7 @@ const KickstarterPrelaunch = () => {
       },
       {
         q: "How is this different from a Ray-Ban or Persol XL?",
-        a: "XL models are scaled-up versions of frames designed for a ~137 mm face. Woolet is engineered wide from the first millimetre — 158 mm front, 20–21 mm keyhole bridge, proportions built for 155–161 mm faces.",
+        a: "XL models are scaled-up versions of frames designed for a ~137 mm face. Woolet is engineered wide from the first millimetre — 158 mm front, 20–21 mm keyhole bridge, proportions built for 153–163 mm faces.",
       },
       {
         q: "What exactly do VIPs get?",
@@ -1242,7 +1242,7 @@ const KickstarterPrelaunch = () => {
             {
               "@type": "Product",
               name: "Woolet 007 — Round",
-              description: "Round Milanese acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              description: "Round Milanese acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for wide faces 153–163 mm.",
               image: w007BlackFrontAsset.url,
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
@@ -1263,7 +1263,7 @@ const KickstarterPrelaunch = () => {
             {
               "@type": "Product",
               name: "Woolet 009 — Soft-Square",
-              description: "Soft-square Milanese acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              description: "Soft-square Milanese acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for wide faces 153–163 mm.",
               image: w009BlackFrontAsset.url,
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
@@ -1682,7 +1682,7 @@ const KickstarterPrelaunch = () => {
               maxWidth: 640,
             }}
           >
-            One precise size. <em style={{ color: GOLD, fontStyle: "italic" }}>158 mm.</em> Fits 155–161 mm faces.
+            One precise size. <em style={{ color: GOLD, fontStyle: "italic" }}>158 mm.</em> Fits 153–163 mm faces.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">

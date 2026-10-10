@@ -45,7 +45,7 @@ const BUCKETS: Record<BucketKey, Bucket> = {
   b155_160: {
     key: "b155_160",
     label: "Signature fit",
-    range: "155–161 mm",
+    range: "153–163 mm",
     description:
       "You're squarely in our signature range. The 158 mm front width is designed for exactly this face width.",
     recommendation: "158 mm — Woolet 007 (round) or 009 (soft square), both on the Kickstarter VIP list with 40% off.",
@@ -56,8 +56,8 @@ const BUCKETS: Record<BucketKey, Bucket> = {
     label: "Above signature",
     range: "162 mm and above",
     description:
-      "Most brands stop at 150 mm. Our signature fits faces up to 161 mm and made-to-measure extends to 160 mm.",
-    recommendation: "Above 161 mm, the widest Woolet front is 160 mm (bespoke); measure first. Above 160 mm we do not build — there is no frame we can make honestly.",
+      "Most brands stop at 150 mm. Our signature fits faces up to 163 mm and made-to-measure extends to 160 mm.",
+    recommendation: "Above 163 mm, the widest Woolet front is 160 mm (bespoke); measure first. Above 160 mm we do not build — there is no frame we can make honestly.",
     cta: { label: "Join the VIP list →", href: "/en/lp/kickstarter" },
   },
 };

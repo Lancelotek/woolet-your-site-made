@@ -25,56 +25,56 @@ export const VARIANTS: Record<string, HeroVariant> = {
   "not-the-style": {
     eyebrow: "Not a style problem",
     h1: "It was never the style. It was the width.",
-    sub: "158 mm across the front, built for heads from 155 to 161 mm — the width the industry stops measuring at 145. Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}} at the Kickstarter launch.",
+    sub: "158 mm across the front, built for heads from 153 to 163 mm — the width the industry stops measuring at 145. Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}} at the Kickstarter launch.",
     reserveLead:
       "You found the width. Now hold the price: a refundable {{$1}} reservation keeps your {{40OFF}} Founder pledge waiting when the campaign opens.",
   },
   "too-small": {
     eyebrow: "Sound familiar?",
     h1: "Your glasses look too small for your face. Because they are.",
-    sub: "Most frames stop at 145 mm. Woolet starts at 158 — two shapes built for heads from 155 to 161 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    sub: "Most frames stop at 145 mm. Woolet starts at 158 — two shapes built for heads from 153 to 163 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "Frames that finally reach your temples. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },
   "red-marks": {
     eyebrow: "The 3 pm test",
     h1: "Red marks behind your ears by 3 pm? The frame is too narrow.",
-    sub: "Woolet 007 and 009 measure 158 mm across the front and fit heads from 155 to 161 mm, so the temples sit without pressing. Join the VIP list for early access and up to {{40off}}.",
+    sub: "Woolet 007 and 009 measure 158 mm across the front and fit heads from 153 to 163 mm, so the temples sit without pressing. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "No more marks by 3 pm. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },
   "digging-in": {
     eyebrow: "It's not your face. It's the frame.",
     h1: "Twelve years of frames digging into your head. Ends here.",
-    sub: "Nobody made them wide enough — until 158 mm. Woolet fits heads from 155 to 161 mm, Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    sub: "Nobody made them wide enough — until 158 mm. Woolet fits heads from 153 to 163 mm, Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "The last pair that digs in. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },
   "temples-bent": {
     eyebrow: "Every pair you've owned",
     h1: "Stop bending the temples. Get the width.",
-    sub: "A 158 mm front and a 21-22 mm keyhole bridge, built for heads from 155 to 161 mm. Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    sub: "A 158 mm front and a 21-22 mm keyhole bridge, built for heads from 153 to 163 mm. Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "Temples that sit where they should. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },
   "sized-up": {
     eyebrow: "Sized up. Still too small.",
     h1: "You went up a size. The frame still stopped short.",
-    sub: "Bigger lenses don't add width where your temples are. Woolet measures 158 mm across the front and fits heads from 155 to 161 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    sub: "Bigger lenses don't add width where your temples are. Woolet measures 158 mm across the front and fits heads from 153 to 163 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "The size that actually reaches your temples. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },
   "standard-vs-158": {
     eyebrow: "Standard vs 158 mm",
     h1: "Same face. Standard frame vs 158 mm.",
-    sub: "A standard frame stops around 140 mm. Woolet starts at 158 mm - two shapes built for heads from 155 to 161 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    sub: "A standard frame stops around 140 mm. Woolet starts at 158 mm - two shapes built for heads from 153 to 163 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "You saw the difference. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },
   "large-never-wide": {
     eyebrow: "Read the size label",
     h1: "\"Large\" never meant wide. 158 mm does.",
-    sub: "Size labels change the lens, not the width. Woolet measures 158 mm across the front and fits heads from 155 to 161 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    sub: "Size labels change the lens, not the width. Woolet measures 158 mm across the front and fits heads from 153 to 163 mm, in Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "Width you can measure. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },

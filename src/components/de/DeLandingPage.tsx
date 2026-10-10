@@ -129,7 +129,7 @@ function WidthMeter() {
         <div className="absolute left-1/2 top-0 h-full w-[30%] bg-primary" />
       </div>
       <div className="flex justify-between text-[11px] text-cream-dim"><span>135</span><span>155</span><span>161</span><span>175</span></div>
-      <div className="flex justify-between text-xs"><span className="text-cream-dim">Standard 138-148</span><span className="font-semibold text-primary">Woolet 155-161</span></div>
+      <div className="flex justify-between text-xs"><span className="text-cream-dim">Standard 138-148</span><span className="font-semibold text-primary">Woolet 153-163</span></div>
     </div>
   );
 }
@@ -194,7 +194,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
           <div className="mx-auto grid max-w-[1320px] grid-cols-1 items-stretch gap-7 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
             <div className="contents lg:flex lg:flex-col lg:gap-7 lg:py-2">
               <div className="order-1 flex flex-col gap-5 lg:order-none lg:gap-7">
-                <div className="woolet-eyebrow"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">155-161 mm - handgefertigt in der EU</span></div>
+                <div className="woolet-eyebrow"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">153-163 mm - handgefertigt in der EU</span></div>
                 <h1 className="max-w-[650px] font-display text-woolet-white" style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)", fontWeight: 300, lineHeight: 1.02 }}>
                   {config.h1Pre}<em className="text-gold-light">{config.h1Em}</em>{config.h1Post}
                 </h1>

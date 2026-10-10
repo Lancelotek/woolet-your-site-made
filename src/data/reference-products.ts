@@ -34,7 +34,7 @@ const F = "https://woolet.co/frames/";
 
 const SPECS_007: [string, string][] = [
   ["Shape", "Round / Panto"],
-  ["Frame width", "158 mm - fits faces 155-161 mm"],
+  ["Frame width", "158 mm - fits faces 153-163 mm"],
   ["Bridge", "21 mm keyhole"],
   ["Lens", "52 x 52 mm"],
   ["Temple length", "150 mm"],
@@ -44,7 +44,7 @@ const SPECS_007: [string, string][] = [
 ];
 const SPECS_009: [string, string][] = [
   ["Shape", "Soft Square"],
-  ["Frame width", "158 mm - fits faces 155-161 mm"],
+  ["Frame width", "158 mm - fits faces 153-163 mm"],
   ["Bridge", "22 mm keyhole"],
   ["Lens", "54 x 50 mm"],
   ["Temple length", "150 mm"],
@@ -54,7 +54,7 @@ const SPECS_009: [string, string][] = [
 ];
 const SPECS_003: [string, string][] = [
   ["Shape", "Bold Round - full-circle lenses"],
-  ["Frame width", "158 mm - fits faces 155-161 mm"],
+  ["Frame width", "158 mm - fits faces 153-163 mm"],
   ["Bridge", "Keyhole"],
   ["Front", "Thick chunky acetate, flat wide temples"],
   ["Temple length", "150 mm"],
@@ -307,7 +307,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     colourDot: "#CAA449",
     priceUsd: BESPOKE_FACTS.regularPrice,
     tagline: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}. ${BESPOKE_FACTS.origin}. Standard prescription lenses and worldwide shipping included at ${BESPOKE_FACTS.regularPriceLabel}. Specialty upgrades cost extra.`,
-    intro: "The signature frames are 158 mm and fit faces from 155 to 161 mm. When you sit outside that - narrower, or wider than 161 - this is the one built to your numbers instead of to a size chart. An AI-Fit measurement reads your temple-to-temple width, bridge and temple length, and the frame is cut to those figures.",
+    intro: "The signature frames are 158 mm and fit faces from 153 to 163 mm. When you sit outside that - narrower, or wider than 163 - this is the one built to your numbers instead of to a size chart. An AI-Fit measurement reads your temple-to-temple width, bridge and temple length, and the frame is cut to those figures.",
     body: [
       "Crown Panto - a straight brow line gives you the structure of a rectangle across the top, then the lens curves away underneath. This is a separate Bespoke design from the standard Woolet 007.",
       "Round - fully circular lenses, a keyhole bridge, no horizontal line anywhere. Because nothing runs straight across your brow, nothing marks the width.",

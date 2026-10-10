@@ -5,7 +5,7 @@ Both models (007 round, 009 soft-square) share one price.
 ## Signature specification
 - Woolet 007 Round / Panto: 158 mm front, 21 mm keyhole bridge, 150 mm temples
 - Woolet 009 Soft Square: 158 mm front, 22 mm keyhole bridge, 150 mm temples
-- Face range: 155-161 mm
+- Face range: 153-163 mm
 - Colours: Black, Havana, Silver Clear
 - Material and production: Italian Mazzucchelli acetate, hand made in EU
 - Warranty: 5 years

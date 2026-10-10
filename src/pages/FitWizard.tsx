@@ -44,12 +44,12 @@ const TRUST_COPY: Record<CardType, string> = {
 };
 
 const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: number; bridgeMm: number; range: string }> = {
-  "007": { shape: "Round / Panto", widthMm: 158, bridgeMm: 21, range: "155–161 mm" },
-  "009": { shape: "Soft Square",   widthMm: 158, bridgeMm: 21, range: "155–161 mm" },
+  "007": { shape: "Round / Panto", widthMm: 158, bridgeMm: 21, range: "153–163 mm" },
+  "009": { shape: "Soft Square",   widthMm: 158, bridgeMm: 21, range: "153–163 mm" },
 };
 
 // Single-size catalog: one 158 mm width with a 21 mm bridge.
-// Faces outside the 155–161 mm sweet spot are routed to Bespoke (145–160 mm).
+// Faces outside the 153–163 mm sweet spot are routed to Bespoke (145–160 mm).
 const recommendSku = (faceWidthMm: number): Sku => {
   if (faceWidthMm < 155 || faceWidthMm > 161) return "bespoke";
   return "009";

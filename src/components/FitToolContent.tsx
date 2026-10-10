@@ -200,7 +200,7 @@ export function FitBreadcrumbs({ current }: { current: "scan" | "manual" | "besp
 const CLUSTER = [
   { to: "/en/fit", label: "Virtual fit (camera scan)", note: "60 seconds, phone camera, ±1.5 mm." },
   { to: "/en/fit/manual", label: "Manual measurement", note: "Tape measure, no camera needed." },
-  { to: "/en/fit/bespoke", label: "Bespoke fit", note: "Outside 155–161 mm? 145–160 mm built to measure." },
+  { to: "/en/fit/bespoke", label: "Bespoke fit", note: "Outside 153–163 mm? 145–160 mm built to measure." },
 ];
 
 export function FitClusterNav({ current }: { current: string }) {

@@ -12,7 +12,7 @@ const ItalianAcetateSunglasses = () => (
       "There is a real difference between <em>acetate-look</em> plastic and cellulose acetate from a named Italian mill. Mazzucchelli sheet is made in batches, cured for weeks, and produces a frame that holds its shape across hot car interiors and cold mornings without flexing into the temples.",
       "Both the 007 round and the 009 soft square are available with polarised or non-polarised tinted lenses. Frame geometry is identical to the optical versions — same precise 158 mm front, same 21 mm keyhole bridge — so if you already know your Woolet size from the optical line, your sunglasses size is the same.",
       "Hand-finishing matters at 158 mm. A wider front means more surface area to bevel, polish and inspect. Machine polishing leaves a flat plane; hand polishing leaves a slight crown that catches light along the brow. This is the cue that separates Italian craft from contract manufacturing.",
-      "Run the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> for sizing and use <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">bespoke</a> if your face width sits outside 155–161 mm.",
+      "Run the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> for sizing and use <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">bespoke</a> if your face width sits outside 153–163 mm.",
     ]}
     faqs={[
       { question: "What is Italian acetate?", answer: "Cellulose acetate is a plant-based plastic made from cotton fibres. Italian acetate specifically refers to sheet stock produced by Italian mills — Mazzucchelli near Milan is the largest and most established. The sheets are cut, milled and hand-polished into frames." },

@@ -16,11 +16,11 @@ const BigGlassesFrames = () => (
     metaDescription="Oversized is a look. 158 mm is a size. Round and square frames 158 mm across with 150 mm temples, for faces 155 mm+. From $190. Measure in 20 s."
     intro="Most oversized glasses get their size from the lenses, while the front stays close to standard width, so the arms still press on a wide face. Woolet frames measure 158 mm across the front with 150 mm temples, in two shapes: 007 Round and 009 Soft Square. Italian Mazzucchelli acetate, hand made in EU, from $190."
     whyThisFits={[
-      "<strong>Big lenses, same squeeze.</strong> Oversized is a style label, not a size. The number that decides fit is front width, hinge to hinge. Woolet's is 158 mm, built for faces 155-161 mm temple to temple.",
+      "<strong>Big lenses, same squeeze.</strong> Oversized is a style label, not a size. The number that decides fit is front width, hinge to hinge. Woolet's is 158 mm, built for faces 153-163 mm temple to temple.",
       "<strong>Arms that reach your ears.</strong> 150 mm temples clear the widest part of a larger head before they bend, so the bend sits behind the ear instead of pressing above it.",
       "<strong>A bridge for a wider nose.</strong> 21 mm on the 007 Round, 22 mm on the 009 Soft Square.",
       "<strong>Italian Mazzucchelli acetate, hand made in EU.</strong> Acetate holds the shape an optician sets, which matters more the wider the frame.",
-      "<strong>Eyeglasses $190. Sunglasses, blue light or readers $210.</strong> Outside 155-161 mm? <a href=\"/en/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers any width from 145 to 160 mm, hand made in the EU. Check your width with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a> in 60 seconds.",
+      "<strong>Eyeglasses $190. Sunglasses, blue light or readers $210.</strong> Outside 153-163 mm? <a href=\"/en/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers any width from 145 to 160 mm, hand made in the EU. Check your width with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a> in 60 seconds.",
     ]}
     extraSections={[
       {
