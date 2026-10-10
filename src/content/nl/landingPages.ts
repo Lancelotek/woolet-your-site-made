@@ -81,7 +81,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     eyebrow: "Woolet · Grote brillen heren",
     h1: "Grote brillen voor heren — ontworpen voor brede gezichten (155 mm+)",
     sub: "Frontbreedtes 155, 158 en 161 mm. Keyhole-brug van 21–22 mm voor bredere neusruggen. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. Twee vormen: rond (007) en zacht vierkant (009).",
-    metaTitle: "Grote brillen heren 155–161 mm | Woolet — Italiaans acetaat",
+    metaTitle: "Grote brillen heren 153–163 mm | Woolet — Italiaans acetaat",
     metaDescription:
       "Grote brillen voor heren met een breed gezicht: frontbreedte 155/158/161 mm, plus bespoke tot 165 mm. 21 mm keyhole-brug, Italiaans acetaat, handgemaakt in de EU.",
     primaryKeyword: "grote brillen heren",
