@@ -20,7 +20,7 @@ const colors = {
 };
 
 const secondaryLinks: { to: string; label: string; sub: string }[] = [
-  { to: "/nl/collection", label: "De collectie", sub: "Woolet 007 & 009 — 155, 158 en 161 mm" },
+  { to: "/nl/collection", label: "De collectie", sub: "Woolet 007 & 009 — 158 mm front voor 153–163 mm" },
   { to: "/nl/blog/beste-brillen-voor-brede-hoofden-2026", label: "Beste brillen voor grote hoofden 2026", sub: "Vergelijking van de breedste monturen die je echt kunt kopen" },
   { to: "/nl/blog/welke-maat-zonnebril-voor-breed-gezicht", label: "Welke maat zonnebril voor een breed gezicht?", sub: "Snelle maatgids: frontbreedte, brug, veren" },
   { to: "/nl/products/007", label: "Woolet 007 — rond, 158 mm", sub: "Sleutelgatbrug, Italiaans Mazzucchelli-acetaat" },
@@ -44,7 +44,7 @@ export default function NlHub() {
         <title>Brillen voor brede gezichten & grote hoofden 153–163 mm | Woolet</title>
         <meta
           name="description"
-          content="Woolet — brede brillen voor grote hoofden in 155, 158 en 161 mm. Italiaans Mazzucchelli 1849 acetaat, handgemaakt in de EU. Meet je gezicht in 60 seconden."
+          content="Woolet — brede brillen voor grote hoofden: 158 mm front voor gezichten van 153–163 mm. Italiaans Mazzucchelli 1849 acetaat, handgemaakt in de EU. Meet je gezicht in 60 seconden."
         />
         <meta name="keywords" content="brillen voor brede gezichten, brede bril, bril grote hoofden, XXL bril heren, 161 mm bril, bril 160 mm, Mazzucchelli acetaat, bril brede neus" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -57,7 +57,7 @@ export default function NlHub() {
         <meta property="og:locale" content="nl_NL" />
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:title" content="Brillen voor brede gezichten & grote hoofden — Woolet 153–163 mm" />
-        <meta property="og:description" content="Italiaans Mazzucchelli-acetaat. Drie echte breedtes: 155, 158 en 161 mm. Gemeten, niet gegokt — met FitLens in 60 seconden." />
+        <meta property="og:description" content="Italiaans Mazzucchelli-acetaat. Eén eerlijke breedte: 158 mm front voor 153–163 mm. Gemeten, niet gegokt — met FitLens in 60 seconden." />
         <meta property="og:url" content={`${SITE}/nl`} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
         <meta property="og:image:width" content="1200" />
@@ -66,7 +66,7 @@ export default function NlHub() {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Brillen voor brede gezichten & grote hoofden — Woolet" />
-        <meta name="twitter:description" content="155, 158 en 161 mm. Italiaans Mazzucchelli-acetaat. Meet je gezicht in 60 seconden." />
+        <meta name="twitter:description" content="158 mm front voor 153–163 mm. Italiaans Mazzucchelli-acetaat. Meet je gezicht in 60 seconden." />
         <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
         <script type="application/ld+json">{JSON.stringify({
