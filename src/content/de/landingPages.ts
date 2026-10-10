@@ -213,7 +213,7 @@ export const dePages: Record<string, DePageConfig> = {
         ["138-144 mm", "Wide", "breite Standardfassungen"],
         ["145-154 mm", "Extra-wide", "Woolet Bespoke 145-160 mm"],
         ["153-163 mm", "XL / specialty wide", "Woolet Standard 158 mm"],
-        ["über 161 mm", "XL / specialty wide", "Woolet Bespoke bis 160 mm"],
+        ["über 163 mm", "XL / specialty wide", "Woolet Bespoke bis 160 mm"],
       ],
     },
     related: ["brille-breite-155-mm", "brille-breite-158-mm", "brille-breite-160-mm", "brille-fuer-breites-gesicht"],

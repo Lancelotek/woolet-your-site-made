@@ -308,7 +308,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Who a 22 mm bridge fits",
       body: [
-        "22 mm is a genuinely wide nasal root and it is the bridge the 009 soft-square is built at. It suits a face in the upper half of the signature range, typically 158–161 mm, where the nose is broad at the root as well as at the nostrils and a narrower bridge would perch rather than seat.",
+        "22 mm is a genuinely wide nasal root and it is the bridge the 009 soft-square is built at. It suits a face in the upper half of the signature range, typically 158–163 mm, where the nose is broad at the root as well as at the nostrils and a narrower bridge would perch rather than seat.",
         "Almost nothing in mainstream retail is offered at 22 mm. When a stock frame does list it, the front width is usually still 145 mm or under, which puts you back in the same trap from the other direction.",
       ],
     },

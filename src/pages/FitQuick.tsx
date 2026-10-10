@@ -88,7 +88,7 @@ function recommend(state: QuizState): Recommendation {
     "XXL hat size suggests a face wider than 163 mm. Off-the-shelf maxes out here; bespoke goes up to 160 mm — measure first.");
   if (hat === "xl") return mk(w, bridge, "009", conf,
     "Start with Woolet 009 at 158 mm.",
-    "XL hat size usually maps to ~158–161 mm face. 009 fits this range; verify with a scan before ordering.");
+    "XL hat size usually maps to ~158–163 mm face. 009 fits this range; verify with a scan before ordering.");
   if (hat === "l") return mk(w, bridge, "007", conf,
     "Woolet 007 at 155 mm is likely your size.",
     "L hat size usually maps to ~152–156 mm face. 007 fits this range; 009 at 155 mm if you prefer square.");
