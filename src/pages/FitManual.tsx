@@ -45,7 +45,7 @@ const BUCKETS: Record<BucketKey, Bucket> = {
   b155_160: {
     key: "b155_160",
     label: "Signature fit",
-    range: "155–161 mm",
+    range: "153–163 mm",
     description:
       "You're squarely in our signature range. The 158 mm front width is designed for exactly this face width.",
     recommendation: "158 mm — Woolet 007 (round) or 009 (soft square), both on the Kickstarter VIP list with 40% off.",

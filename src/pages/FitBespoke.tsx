@@ -14,7 +14,7 @@ const SIZE_ROWS: Array<{
   note: string;
 }> = [
   { width: "145-154 mm", bridge: "20-22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
-  { width: "155-161 mm", bridge: "21-22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front - the signature fit" },
+  { width: "153-163 mm", bridge: "21-22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front - the signature fit" },
   { width: "Above 161 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke (max 160 mm)", note: "Widest Woolet front is 160 mm (bespoke); measure first" },
 ];
 
@@ -214,12 +214,12 @@ export default function FitBespoke() {
               {[
                 {
                   title: "Stock wins",
-                  body: "Face 155-161 mm with a 21-22 mm bridge. The standard 007 and 009 are separate 158 mm designs made from Mazzucchelli acetate.",
+                  body: "Face 153-163 mm with a 21-22 mm bridge. The standard 007 and 009 are separate 158 mm designs made from Mazzucchelli acetate.",
                   cta: { label: "See 007 / 009", to: "/en/products/009" },
                 },
                 {
                   title: "Bespoke wins",
-                  body: `Face outside 155-161 mm or bridge outside 21-22 mm. Asymmetric ears. Unusual pantoscopic tilt. Bespoke covers ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.bridge} bridge and ${BESPOKE_FACTS.temples} temples.`,
+                  body: `Face outside 153-163 mm or bridge outside 21-22 mm. Asymmetric ears. Unusual pantoscopic tilt. Bespoke covers ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.bridge} bridge and ${BESPOKE_FACTS.temples} temples.`,
                   cta: { label: "Build your bespoke frame", to: "/en/bespoke/configurator" },
                 },
                 {

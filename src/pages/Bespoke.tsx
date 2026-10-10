@@ -548,7 +548,7 @@ const BespokePage = () => {
               The only bespoke glasses <em className="italic text-gold-light">built around wide faces.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145–160 mm, whether narrower, wider or inside the stock band.
+              Stock 007 and 009 both use a 158 mm front for faces around 153-163 mm. Bespoke instead covers any front width from 145–160 mm, whether narrower, wider or inside the stock band.
             </p>
 
             <div
@@ -673,7 +673,7 @@ const BespokePage = () => {
               Who bespoke is <em className="italic text-gold-light">actually for</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.95rem" }}>
-              Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145–160 mm, including narrower faces and customers seeking a one-of-one frame.
+              Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 153-163 mm. Bespoke covers 145–160 mm, including narrower faces and customers seeking a one-of-one frame.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
               {[
