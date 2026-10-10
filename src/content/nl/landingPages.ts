@@ -28,7 +28,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     slug: "acetaat-bril-op-maat",
     eyebrow: "Woolet · Acetaat bril op maat",
     h1: "Acetaat bril op maat — gesneden op jouw gezicht, tot op de millimeter",
-    sub: "Frontbreedte van 150 tot 165 mm, brug, veren en glashoogte individueel afgesteld. Italiaans Mazzucchelli 1849 acetaat, met de hand afgewerkt in de EU.",
+    sub: "Frontbreedte van 145 tot 160 mm, brug, veren en glashoogte individueel afgesteld. Italiaans Mazzucchelli 1849 acetaat, met de hand afgewerkt in de EU.",
     metaTitle: "Acetaat bril op maat 145–160 mm | Woolet — Italiaans acetaat",
     metaDescription:
       "Acetaat bril op maat voor bredere gezichten: front 145–160 mm, brug 20–24 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in  60 s.",
@@ -107,7 +107,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     faqs: [
       {
         q: "Vanaf welke gezichtsbreedte past een Woolet?",
-        a: "Woolet is ontworpen voor gezichten van 155 mm en breder, tot 165 mm via Bespoke.",
+        a: "De standaard 158 mm front past gezichten van 153–163 mm. Bespoke dekt 145–160 mm, de breedste front die we maken.",
       },
       {
         q: "Wat is een keyhole-brug en waarom 21 mm?",
