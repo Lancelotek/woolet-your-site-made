@@ -93,7 +93,7 @@ const SECTIONS: { id: CfgInfoSection; title: string; body: ReactNode }[] = [
     body: (
       <ul>
         <li>Hand made in the EU from Italian Mazzucchelli acetate.</li>
-        <li>Lenses included — reading, sun, blue light or photochromic.</li>
+        <li>Plano lenses included. Reading, sun, blue light and photochromic lenses are optional extras, itemized in your build.</li>
         <li>Free worldwide shipping.</li>
         <li>2 weeks from order to dispatch.</li>
       </ul>

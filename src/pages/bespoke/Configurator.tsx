@@ -1208,6 +1208,7 @@ const ConfiguratorStyles = () => (
       padding: 12px 16px;
       display: flex; align-items: center; gap: 12px;
     }
+    @media (min-width: 1024px) { .cfg-mobilebar { display: none; } }
     .cfg-mobilebar__thumb {
       width: 44px; height: 44px;
       background: var(--cfg-cream);
@@ -1362,7 +1363,7 @@ const ConfiguratorStyles = () => (
         margin-bottom: calc(104px + env(safe-area-inset-bottom));
       }
       .cfg-scope > div > .cfg-mobilebar { order: 6; }
-      .cfg-scope main.cfg-container { padding-bottom: 8px; }
+      .cfg-scope main.cfg-container { width: 100%; min-width: 0; padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
       /* Tap targets on choices stay finger-sized */
       .cfg-scope main.cfg-container button { min-height: 44px; }
     }
