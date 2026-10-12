@@ -61,6 +61,8 @@ function processContent(html: string, lang: Lang, exactContent = false): string 
       cta = `<div class="woolet-inline-cta"><p>${ctaText}</p><a href="/${lang === "de" ? "de" : "en"}/lp/kickstarter">${ctaBtn}</a></div>`;
     }
 
+    // Keep an explicit id from the source so in-text anchors (e.g. #size-chart) resolve.
+    if (/\bid\s*=/.test(attrs)) return `${cta}<h2${attrs}>${inner}</h2>`;
     return `${cta}<h2 id="${id}"${attrs}>${inner}</h2>`;
   });
 

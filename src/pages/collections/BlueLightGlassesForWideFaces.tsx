@@ -162,7 +162,7 @@ const BlueLightGlassesForWideFaces = () => {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/en` },
-      { "@type": "ListItem", position: 2, name: "Collections", item: `${SITE}/en` },
+      { "@type": "ListItem", position: 2, name: "Collections", item: `${SITE}/en/collection` },
       { "@type": "ListItem", position: 3, name: "Blue Light Glasses for Wide Faces", item: CANONICAL },
     ],
   };
@@ -214,7 +214,7 @@ const BlueLightGlassesForWideFaces = () => {
           <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 18, fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(237,231,217,0.55)" }}>
             <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
             <span style={{ margin: "0 8px" }}>/</span>
-            <span>Collections</span>
+            <Link to="/en/collection" style={{ color: "inherit", textDecoration: "none" }}>Collections</Link>
             <span style={{ margin: "0 8px" }}>/</span>
             <span style={{ color: T.cream }}>Blue light — wide faces</span>
           </nav>

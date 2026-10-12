@@ -49,7 +49,7 @@ const SunglassesForBigHeads = () => {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/en` },
-      { "@type": "ListItem", position: 2, name: "Collections", item: `${SITE}/en` },
+      { "@type": "ListItem", position: 2, name: "Collections", item: `${SITE}/en/collection` },
       { "@type": "ListItem", position: 3, name: "Sunglasses for Big Heads", item: CANONICAL },
     ],
   };
@@ -92,7 +92,7 @@ const SunglassesForBigHeads = () => {
         <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 16, fontSize: 11, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
           <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 8px" }}>/</span>
-          <span>Collections</span>
+          <Link to="/en/collection" style={{ color: "#888", textDecoration: "none" }}>Collections</Link>
           <span style={{ margin: "0 8px" }}>/</span>
           <span style={{ color: "#111" }}>Sunglasses for Big Heads</span>
         </nav>

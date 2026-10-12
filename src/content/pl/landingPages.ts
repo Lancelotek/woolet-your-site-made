@@ -251,7 +251,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
         "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 21–22 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie w UE. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 145–160 mm co 1 mm.",
       ctas: [
         { label: "Zobacz modele 007 i 009", href: "/en/collection", primary: true },
-        { label: "Dołącz do listy VIP", href: "/en/vip-join" },
+        { label: "Dołącz do listy VIP", href: "/en/lp/kickstarter" },
       ],
     },
   },
